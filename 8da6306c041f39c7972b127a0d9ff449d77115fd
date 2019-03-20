@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6ad12fc2_dd355c5a",
+        "filename": "api/array_view.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-20T17:06:15Z",
+      "side": 1,
+      "message": "The restriction is to protect against misuse. it makes sense for data buffers etc. to reinterpret cast them, but for \u0027complex\u0027 objects, it doesn\u0027t really make sense.\nIf users want to do that, they can reinterpret cast the pointers themselves and be very explicit about it.\ni do not follow about alignment requirements, please elaborate more. i understand this class to be a wrapper for c-style buffers with pointer to data and length. i see no notion of alignment, only that of indexing and pointer arithmetic. ex: view[i] \u003d\u003d\u003d *(pointer + i).",
+      "parentUuid": "bbbb6ebb_e8abc072",
+      "revId": "8da6306c041f39c7972b127a0d9ff449d77115fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "30173be6_adb36604",
         "filename": "api/array_view.h",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2019-03-20T04:37:42Z",
       "side": 1,
       "message": "Adding a method that std::span doesn\u0027t have is going to make it more difficult to retire ArrayView in favor of std::span when the time comes. But I can see how this one could be handy---so can you make a free function instead?",
+      "revId": "8da6306c041f39c7972b127a0d9ff449d77115fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c335d07_bad64b80",
+        "filename": "api/array_view.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-20T17:06:15Z",
+      "side": 1,
+      "message": "i will try a free function. hopefully users don\u0027t need to specify all template parameters.\ni would like to get this usage \nauto buffer_of_char \u003d reinterpret\u003cchar\u003e(buffer_of_uchar)\nand not\nauto buffer_of_char \u003d reinterpret\u003cuchar, size, char\u003e(buffer_of_uchar)",
+      "parentUuid": "30173be6_adb36604",
       "revId": "8da6306c041f39c7972b127a0d9ff449d77115fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "83971e5a_efe2d302",
+        "filename": "sdk/android/native_unittests/stacktrace/stacktrace_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-20T14:40:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d64a27c_468c3584",
+      "range": {
+        "startLine": 262,
+        "startChar": 22,
+        "endLine": 262,
+        "endChar": 41
+      },
+      "revId": "1671beee09b426d4bf9637b37293b1a908c9a247",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01e4abf9_33a9a9a4",
         "filename": "sdk/android/native_unittests/stacktrace/stacktrace_unittest.cc",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-20T14:33:04Z",
       "side": 1,
       "message": "I\u0027m worried this will become flaky. The alternative would be to use a an rtc::Event in LookoutLogSink as well, and wait for that here, with a very high timeout.",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 29
+      },
+      "revId": "1671beee09b426d4bf9637b37293b1a908c9a247",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8eeaef9c_8344cfa0",
+        "filename": "sdk/android/native_unittests/stacktrace/stacktrace_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-20T14:40:23Z",
+      "side": 1,
+      "message": "Right---instead of Count(), trigger an event. And let the main thread wait for that event wit a timeout of, say, 10 seconds? Will do.",
+      "parentUuid": "01e4abf9_33a9a9a4",
       "range": {
         "startLine": 277,
         "startChar": 0,

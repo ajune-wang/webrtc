@@ -200,6 +200,29 @@ void TestStacktrace(std::unique_ptr<DeadlockInterface> deadlock_impl) {
   thread.Stop();
 }
 
+class LookoutLogSink final : public rtc::LogSink {
+ public:
+  explicit LookoutLogSink(std::string look_for)
+      : looking_for_(std::move(look_for)) {}
+  void OnLogMessage(const std::string& message) override {
+    std::string::size_type pos = 0;
+    while (true) {
+      pos = message.find(looking_for_, pos);
+      if (pos == std::string::npos) {
+        break;
+      } else {
+        ++count_;
+        pos += looking_for_.size();
+      }
+    }
+  }
+  int Count() const { return count_; }
+
+ private:
+  const std::string looking_for_;
+  int count_ = 0;
+};
+
 }  // namespace
 
 TEST(Stacktrace, TestCurrentThread) {
@@ -230,6 +253,19 @@ TEST(Stacktrace, TestRtcEvent) {
 TEST(Stacktrace, TestRtcCriticalSection) {
   TestStacktrace(absl::make_unique<RtcCriticalSectionDeadlock>());
 }
+
+TEST(Stacktrace, TestRtcEventDeadlockDetection) {
+  LookoutLogSink sink("Probable deadlock");
+  rtc::LogMessage::AddLogToStream(&sink, rtc::LS_WARNING);
+  TestStacktrace(absl::make_unique<RtcEventDeadlock>());
+  // The log message comes 3 s after the start of the deadlock, so wait that
+  // long plus an extra second so that we get some margin of error.
+  EXPECT_EQ(0, sink.Count());
+  SleepMs(4000);
+  EXPECT_EQ(1, sink.Count());
+  rtc::LogMessage::RemoveLogToStream(&sink);
+}
+
 #endif
 
 }  // namespace test

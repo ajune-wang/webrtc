@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c766e351_a228c5a4",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-20T08:25:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f72c1790_5f79e0eb",
+      "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "699be7bf_24ddab33",
         "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
         "patchSetId": 7
@@ -57,6 +75,30 @@
       "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8f79a12_4cde61b5",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-20T08:25:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "699be7bf_24ddab33",
+      "range": {
+        "startLine": 136,
+        "startChar": 56,
+        "endLine": 136,
+        "endChar": 64
+      },
+      "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -113,6 +155,24 @@
     },
     {
       "key": {
+        "uuid": "22db9828_fac3d3e1",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-20T08:25:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "951969fc_552ae5b0",
+      "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afaf2fb1_f399180f",
         "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h",
         "patchSetId": 7
@@ -165,6 +225,24 @@
     },
     {
       "key": {
+        "uuid": "f1a9e9b0_39c6c507",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-20T08:25:02Z",
+      "side": 1,
+      "message": "Yes, let me postpone this to this afternoon, if I can workaround crbug.com/943493 in another way, maybe this helper will go away.",
+      "parentUuid": "08f258da_cd6787d8",
+      "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2e01c6a3_6d411156",
         "filename": "test/pc/e2e/api/analyzer_helper.h",
         "patchSetId": 7
@@ -176,6 +254,24 @@
       "writtenOn": "2019-03-19T09:37:55Z",
       "side": 1,
       "message": "Please add a class comment documenting the purpose of this.",
+      "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3804b78f_7a397556",
+        "filename": "test/pc/e2e/api/analyzer_helper.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-20T08:25:02Z",
+      "side": 1,
+      "message": "Agreed, let me take another look at it in the context of crbug.com/943493.",
+      "parentUuid": "2e01c6a3_6d411156",
       "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

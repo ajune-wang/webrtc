@@ -12,12 +12,16 @@
 
 #include "rtc_base/numerics/safe_conversions.h"
 
-@implementation RTCEncodedImage (Private)
+@implementation RTCEncodedImage (Private) {
+  rtc::CopyOnWriteBuffer _encoded_data;
+}
 
 - (instancetype)initWithNativeEncodedImage:(const webrtc::EncodedImage &)encodedImage {
   if (self = [super init]) {
+    // Keeps a reference to the data.
+    _encoded_data = EncodedImage.buffer();
     // Wrap the buffer in NSData without copying, do not take ownership.
-    self.buffer = [NSData dataWithBytesNoCopy:encodedImage.mutable_data()
+    self.buffer = [NSData dataWithBytesNoCopy:const_cast<uint8_t *>(encoded_data.cdata())
                                        length:encodedImage.size()
                                  freeWhenDone:NO];
     self.encodedWidth = rtc::dchecked_cast<int32_t>(encodedImage._encodedWidth);
@@ -42,8 +46,10 @@
 
 - (webrtc::EncodedImage)nativeEncodedImage {
   // Return the pointer without copying.
-  webrtc::EncodedImage encodedImage(
-      (uint8_t *)self.buffer.bytes, (size_t)self.buffer.length, (size_t)self.buffer.length);
+  webrtc::EncodedImage encodedImage;
+  RTC_DCHECK_EQ(self.buffer.bytes, _encoded_data.cdata());
+  encodedImage.set_buffer(_encoded_data, 0, self.buffer.length);
+  encodedImage.set_size(self.buffer.length);
   encodedImage._encodedWidth = rtc::dchecked_cast<uint32_t>(self.encodedWidth);
   encodedImage._encodedHeight = rtc::dchecked_cast<uint32_t>(self.encodedHeight);
   encodedImage.SetTimestamp(self.timeStamp);

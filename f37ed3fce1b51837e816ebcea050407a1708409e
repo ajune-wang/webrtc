@@ -39,6 +39,30 @@
       "revId": "f37ed3fce1b51837e816ebcea050407a1708409e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df1b1e31_57812008",
+        "filename": "modules/audio_processing/gain_control_config_proxy_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-20T14:03:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dde2fad_3e26397d",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "f37ed3fce1b51837e816ebcea050407a1708409e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

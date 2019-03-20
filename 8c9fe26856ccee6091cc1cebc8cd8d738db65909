@@ -22,6 +22,30 @@
       "revId": "8c9fe26856ccee6091cc1cebc8cd8d738db65909",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83a782ef_f54162f4",
+        "filename": "DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-20T07:56:13Z",
+      "side": 1,
+      "message": "Hmm, I don\u0027t even know it that works in this DEPS file: https://cs.chromium.org/chromium/src/DEPS?l\u003d29-37\u0026rcl\u003da480abe07985e6d9ac8838d3f5f984e698e5e1eb.\n\nI am switching back to \"checkout_android\" (and I guess we should do the same for the android_sdk).",
+      "parentUuid": "70d7caf7_c064ddf9",
+      "range": {
+        "startLine": 431,
+        "startChar": 20,
+        "endLine": 431,
+        "endChar": 51
+      },
+      "revId": "8c9fe26856ccee6091cc1cebc8cd8d738db65909",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

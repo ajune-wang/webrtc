@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70d7caf7_c064ddf9",
+        "filename": "DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-03-20T06:59:59Z",
+      "side": 1,
+      "message": "Because this one has a more restrictive condition, it may cause some obscure regression (especially because files are cached on bots).\nEither keep one with \"checkout_android\" or uh... manually watch the rollout when it happens",
+      "range": {
+        "startLine": 431,
+        "startChar": 20,
+        "endLine": 431,
+        "endChar": 51
+      },
+      "revId": "8c9fe26856ccee6091cc1cebc8cd8d738db65909",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

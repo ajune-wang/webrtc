@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8dce7a6_83b8d9cf",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-20T08:52:29Z",
+      "side": 1,
+      "message": "Should one or the other of these two data() overloads be renamed? Having two overloads differing only in constness is fine, but these also differ in side effect. Now,\n\n  const uint8_t* p \u003d encoded_image.data();\n\nmay behave very differently depending on whether or not encoded_image is const; if it isn\u0027t, we may get an unwanted copy operation. One alternative is to delete the non-const version, and require modification via buffer().data().\n\nI see no obvious way to get this right without a lot of changes to EncodedImage usage. Advice appreciated.",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 67
+      },
+      "revId": "20c0f40c8fd332749980c900766c48871302e0aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

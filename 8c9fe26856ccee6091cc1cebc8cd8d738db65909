@@ -46,6 +46,30 @@
       "revId": "8c9fe26856ccee6091cc1cebc8cd8d738db65909",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a789a75c_9b90479e",
+        "filename": "DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-20T08:05:40Z",
+      "side": 1,
+      "message": "I confirm that \"checkout_android\" fixes the issues I saw on my mac laptop (see PS#2).",
+      "parentUuid": "83a782ef_f54162f4",
+      "range": {
+        "startLine": 431,
+        "startChar": 20,
+        "endLine": 431,
+        "endChar": 51
+      },
+      "revId": "8c9fe26856ccee6091cc1cebc8cd8d738db65909",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

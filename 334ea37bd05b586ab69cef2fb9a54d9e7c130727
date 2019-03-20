@@ -541,6 +541,30 @@
     },
     {
       "key": {
+        "uuid": "55c4e71b_332a91ae",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-20T11:46:11Z",
+      "side": 1,
+      "message": "As per offline discussion, let\u0027s leave as it is now and maybe think of follow-up CLs to only allow a RuntimeSetting for the compression gain.",
+      "parentUuid": "8a9c4450_4167d92a",
+      "range": {
+        "startLine": 322,
+        "startChar": 6,
+        "endLine": 323,
+        "endChar": 34
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a6d9e47_4fa7287d",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 9

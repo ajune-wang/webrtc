@@ -30,11 +30,14 @@ constexpr uint32_t kMaxIPv4Address = 0xC0A8FFFF;
 
 }  // namespace
 
-NetworkEmulationManagerImpl::NetworkEmulationManagerImpl()
+NetworkEmulationManagerImpl::NetworkEmulationManagerImpl(
+    TaskQueueFactory* task_queue_factory)
     : clock_(Clock::GetRealTimeClock()),
       next_node_id_(1),
       next_ip4_address_(kMinIPv4Address),
-      task_queue_("network_emulation_manager") {
+      task_queue_(task_queue_factory->CreateTaskQueue(
+          "network_emulation_manager",
+          TaskQueueFactory::Priority::NORMAL)) {
   process_task_handle_ = RepeatingTaskHandle::Start(task_queue_.Get(), [this] {
     ProcessNetworkPackets();
     return TimeDelta::ms(kPacketProcessingIntervalMs);

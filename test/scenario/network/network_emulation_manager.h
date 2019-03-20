@@ -15,6 +15,7 @@
 #include <utility>
 #include <vector>
 
+#include "api/task_queue/task_queue_factory.h"
 #include "api/test/network_emulation_manager.h"
 #include "api/test/simulated_network.h"
 #include "api/units/time_delta.h"
@@ -35,8 +36,8 @@ namespace test {
 
 class NetworkEmulationManagerImpl : public NetworkEmulationManager {
  public:
-  NetworkEmulationManagerImpl();
-  ~NetworkEmulationManagerImpl();
+  explicit NetworkEmulationManagerImpl(TaskQueueFactory* task_queue_factory);
+  ~NetworkEmulationManagerImpl() override;
 
   EmulatedNetworkNode* CreateEmulatedNode(
       std::unique_ptr<NetworkBehaviorInterface> network_behavior) override;

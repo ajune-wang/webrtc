@@ -14,6 +14,7 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "api/task_queue/default_task_queue_factory.h"
 #include "api/test/simulated_network.h"
 #include "call/simulated_network.h"
 #include "rtc_base/event.h"
@@ -63,7 +64,9 @@ class CountingBehavior : public NetworkBehaviorInterface {
 }  // namespace
 
 TEST(CrossTrafficTest, TriggerPacketBurst) {
-  NetworkEmulationManagerImpl network_manager;
+  std::unique_ptr<TaskQueueFactory> task_queue_factory =
+      CreateDefaultTaskQueueFactory();
+  NetworkEmulationManagerImpl network_manager(task_queue_factory.get());
 
   std::unique_ptr<CountingBehavior> behavior =
       absl::make_unique<CountingBehavior>();
@@ -86,7 +89,9 @@ TEST(CrossTrafficTest, TriggerPacketBurst) {
 }
 
 TEST(CrossTrafficTest, PulsedPeaksCrossTraffic) {
-  NetworkEmulationManagerImpl network_manager;
+  std::unique_ptr<TaskQueueFactory> task_queue_factory =
+      CreateDefaultTaskQueueFactory();
+  NetworkEmulationManagerImpl network_manager(task_queue_factory.get());
 
   std::unique_ptr<CountingBehavior> behavior =
       absl::make_unique<CountingBehavior>();
@@ -119,7 +124,9 @@ TEST(CrossTrafficTest, PulsedPeaksCrossTraffic) {
 }
 
 TEST(CrossTrafficTest, RandomWalkCrossTraffic) {
-  NetworkEmulationManagerImpl network_manager;
+  std::unique_ptr<TaskQueueFactory> task_queue_factory =
+      CreateDefaultTaskQueueFactory();
+  NetworkEmulationManagerImpl network_manager(task_queue_factory.get());
 
   std::unique_ptr<CountingBehavior> behavior =
       absl::make_unique<CountingBehavior>();

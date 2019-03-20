@@ -14,11 +14,13 @@
 
 #include <memory>
 
+#include "api/task_queue/task_queue_factory.h"
 #include "api/test/network_emulation_manager.h"
 
 namespace webrtc {
 
-std::unique_ptr<NetworkEmulationManager> CreateNetworkEmulationManager();
+std::unique_ptr<NetworkEmulationManager> CreateNetworkEmulationManager(
+    TaskQueueFactory* task_queue_factory);
 
 }  // namespace webrtc
 

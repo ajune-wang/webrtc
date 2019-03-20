@@ -11,6 +11,7 @@
 #include <memory>
 
 #include "absl/memory/memory.h"
+#include "api/task_queue/default_task_queue_factory.h"
 #include "api/test/simulated_network.h"
 #include "call/simulated_network.h"
 #include "rtc_base/event.h"
@@ -58,7 +59,9 @@ class SocketReader : public sigslot::has_slots<> {
 };
 
 TEST(NetworkEmulationManagerTest, GeneratedIpv4AddressDoesNotCollide) {
-  NetworkEmulationManagerImpl network_manager;
+  std::unique_ptr<TaskQueueFactory> task_queue_factory =
+      CreateDefaultTaskQueueFactory();
+  NetworkEmulationManagerImpl network_manager(task_queue_factory.get());
   std::set<rtc::IPAddress> ips;
   EmulatedEndpointConfig config;
   config.generated_ip_family = EmulatedEndpointConfig::IpAddressFamily::kIpv4;
@@ -71,7 +74,9 @@ TEST(NetworkEmulationManagerTest, GeneratedIpv4AddressDoesNotCollide) {
 }
 
 TEST(NetworkEmulationManagerTest, GeneratedIpv6AddressDoesNotCollide) {
-  NetworkEmulationManagerImpl network_manager;
+  std::unique_ptr<TaskQueueFactory> task_queue_factory =
+      CreateDefaultTaskQueueFactory();
+  NetworkEmulationManagerImpl network_manager(task_queue_factory.get());
   std::set<rtc::IPAddress> ips;
   EmulatedEndpointConfig config;
   config.generated_ip_family = EmulatedEndpointConfig::IpAddressFamily::kIpv6;
@@ -84,7 +89,9 @@ TEST(NetworkEmulationManagerTest, GeneratedIpv6AddressDoesNotCollide) {
 }
 
 TEST(NetworkEmulationManagerTest, Run) {
-  NetworkEmulationManagerImpl network_manager;
+  std::unique_ptr<TaskQueueFactory> task_queue_factory =
+      CreateDefaultTaskQueueFactory();
+  NetworkEmulationManagerImpl network_manager(task_queue_factory.get());
 
   EmulatedNetworkNode* alice_node = network_manager.CreateEmulatedNode(
       absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));

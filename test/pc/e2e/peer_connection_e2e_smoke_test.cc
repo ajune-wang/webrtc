@@ -12,6 +12,7 @@
 #include <memory>
 
 #include "absl/memory/memory.h"
+#include "api/task_queue/default_task_queue_factory.h"
 #include "api/test/create_network_emulation_manager.h"
 #include "api/test/network_emulation_manager.h"
 #include "call/simulated_network.h"
@@ -44,9 +45,11 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, RunWithEmulatedNetwork) {
   using VideoConfig = PeerConnectionE2EQualityTestFixture::VideoConfig;
   using AudioConfig = PeerConnectionE2EQualityTestFixture::AudioConfig;
 
+  std::unique_ptr<TaskQueueFactory> task_queue_factory =
+      CreateDefaultTaskQueueFactory();
   // Setup emulated network
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
-      CreateNetworkEmulationManager();
+      CreateNetworkEmulationManager(task_queue_factory.get());
 
   auto alice_network_behavior =
       absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig());

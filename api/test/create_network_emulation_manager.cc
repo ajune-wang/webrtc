@@ -16,8 +16,10 @@
 
 namespace webrtc {
 
-std::unique_ptr<NetworkEmulationManager> CreateNetworkEmulationManager() {
-  return absl::make_unique<test::NetworkEmulationManagerImpl>();
+std::unique_ptr<NetworkEmulationManager> CreateNetworkEmulationManager(
+    TaskQueueFactory* task_queue_factory) {
+  return absl::make_unique<test::NetworkEmulationManagerImpl>(
+      task_queue_factory);
 }
 
 }  // namespace webrtc

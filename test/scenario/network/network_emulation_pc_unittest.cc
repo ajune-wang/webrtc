@@ -17,6 +17,7 @@
 #include "api/call/call_factory_interface.h"
 #include "api/peer_connection_interface.h"
 #include "api/scoped_refptr.h"
+#include "api/task_queue/default_task_queue_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "call/simulated_network.h"
@@ -98,9 +99,11 @@ TEST(NetworkEmulationManagerPCTest, Run) {
   std::unique_ptr<rtc::Thread> signaling_thread = rtc::Thread::Create();
   signaling_thread->SetName(kSignalThreadName, nullptr);
   signaling_thread->Start();
+  std::unique_ptr<TaskQueueFactory> task_queue_factory =
+      CreateDefaultTaskQueueFactory();
 
   // Setup emulated network
-  NetworkEmulationManagerImpl emulation;
+  NetworkEmulationManagerImpl emulation(task_queue_factory.get());
 
   EmulatedNetworkNode* alice_node = emulation.CreateEmulatedNode(
       absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));

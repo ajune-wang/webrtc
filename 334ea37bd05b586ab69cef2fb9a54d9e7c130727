@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a9bef651_ed99447d",
+        "filename": "media/engine/webrtc_voice_engine_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-20T10:07:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "335bfb4c_815e4ecc",
+      "range": {
+        "startLine": 201,
+        "startChar": 4,
+        "endLine": 204,
+        "endChar": 61
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0936de2_c1f56013",
         "filename": "media/engine/webrtc_voice_engine_unittest.cc",
         "patchSetId": 9
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "877b33ba_b1d8a62a",
+        "filename": "media/engine/webrtc_voice_engine_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2312,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-20T10:07:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0936de2_c1f56013",
+      "range": {
+        "startLine": 2312,
+        "startChar": 13,
+        "endLine": 2312,
+        "endChar": 14
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a381cda_0324dd18",
         "filename": "media/engine/webrtc_voice_engine_unittest.cc",
         "patchSetId": 9
@@ -68,6 +116,30 @@
       "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2498d45_0c946a4d",
+        "filename": "media/engine/webrtc_voice_engine_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2320,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-20T10:07:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a381cda_0324dd18",
+      "range": {
+        "startLine": 2317,
+        "startChar": 0,
+        "endLine": 2320,
+        "endChar": 41
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "15ddc072_fa1d2de4",
+        "filename": "modules/audio_processing/aec_dump/aec_dump_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-20T10:07:19Z",
+      "side": 1,
+      "message": "sgtm. This CL is growing by the minute so I\u0027ll go for the TODO option.",
+      "parentUuid": "ccb5f173_f18069bc",
+      "range": {
+        "startLine": 192,
+        "startChar": 6,
+        "endLine": 192,
+        "endChar": 50
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd6c69f2_296558a3",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 9
@@ -137,6 +233,30 @@
       "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c0f55dd_44aadd82",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-20T10:07:19Z",
+      "side": 1,
+      "message": "ApplyConfig can be called more than once during setup, before processing. For example, if a client creates an APM, configures it, injects into WebRTC via the PCF constructor, and then sets any audio options, then a new ApplyConfig call is made.\n\nThat said - clients should keep the number of these calls to a minimum, and we should discourage updating virtually anything in this config except simple enable/disable toggles, during runtime.",
+      "parentUuid": "bd6c69f2_296558a3",
+      "range": {
+        "startLine": 705,
+        "startChar": 6,
+        "endLine": 706,
+        "endChar": 53
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "baf4b88d_fd4e3918",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-20T10:07:19Z",
+      "side": 1,
+      "message": "Good question. APM never calls any functions on the proxy, that is intentional. There\u0027s a flow of settings like so:\nproxy --\u003e APM --\u003e agc1()\n\nCalling GainControlConfigProxy::set_compression_gain_db() here would register a new RuntimeSetting, since the proxy calls APM, thus locking the while on line 967 in an infinite loop.\n\nWhen the proxy is deleted, we\u0027d have to implement this this way anyway.",
+      "parentUuid": "87e59e92_7e8e047f",
+      "range": {
+        "startLine": 984,
+        "startChar": 8,
+        "endLine": 985,
+        "endChar": 76
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "295114b3_ee761d8d",
         "filename": "modules/audio_processing/audio_processing_unittest.cc",
         "patchSetId": 9
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "e91b0937_8161df86",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-20T10:07:19Z",
+      "side": 1,
+      "message": "Yes: line 985 calls set_compression_gain_db() on the proxy, which sends a RuntimeSetting to APM, which must be consumed in the ProcessStream call for the gain control settings to be updated. Only then can apm-\u003egain_control()-\u003ecompression_gain_db() return the newly-set value.",
+      "parentUuid": "295114b3_ee761d8d",
+      "range": {
+        "startLine": 986,
+        "startChar": 4,
+        "endLine": 986,
+        "endChar": 39
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "917a86b0_83702bd7",
         "filename": "modules/audio_processing/audio_processing_unittest.cc",
         "patchSetId": 9
@@ -206,6 +374,30 @@
       "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79487000_927b6b51",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-20T10:07:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "917a86b0_83702bd7",
+      "range": {
+        "startLine": 1028,
+        "startChar": 33,
+        "endLine": 1028,
+        "endChar": 37
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +447,30 @@
     },
     {
       "key": {
+        "uuid": "4136a489_bb700a7b",
+        "filename": "modules/audio_processing/gain_control_config_proxy.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-20T10:07:19Z",
+      "side": 1,
+      "message": "Yes, it\u0027s easily testable. Done, ptal!",
+      "parentUuid": "1a881e17_f6ad6dce",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 28
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0bbb1be_707ae5d8",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 9
@@ -301,6 +517,30 @@
     },
     {
       "key": {
+        "uuid": "8a9c4450_4167d92a",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-20T10:07:19Z",
+      "side": 1,
+      "message": "Let\u0027s discuss offline. Some notes:\n\n1) I think there are merits to allowing ApplyConfig to set these values several times, too, because some applications unfortunately require several ApplyConfig calls.\n2) Forcing setup time config to use RuntimeSettings seems counter to the use case.\n3) Config::PreAmplifier::fixed_gain_factor is in a similar situation.",
+      "parentUuid": "a123abac_7b45abf2",
+      "range": {
+        "startLine": 322,
+        "startChar": 6,
+        "endLine": 323,
+        "endChar": 34
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a6d9e47_4fa7287d",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 9
@@ -321,6 +561,30 @@
       "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4361a09d_5009c749",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-20T10:07:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a6d9e47_4fa7287d",
+      "range": {
+        "startLine": 407,
+        "startChar": 4,
+        "endLine": 407,
+        "endChar": 74
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

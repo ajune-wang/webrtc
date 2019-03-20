@@ -100,7 +100,8 @@ void FakeVP8Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
   codec_specific->codecSpecific.VP8.keyIdx = kNoKeyIdx;
   codec_specific->codecSpecific.VP8.nonReference = false;
   temporal_layers_[stream_idx]->OnEncodeDone(
-      timestamp, size_bytes, frame_type == kVideoFrameKey, -1, codec_specific);
+      timestamp, size_bytes, frame_type == VideoFrameType::kVideoFrameKey, -1,
+      codec_specific);
 }
 
 std::unique_ptr<RTPFragmentationHeader> FakeVP8Encoder::EncodeHook(
@@ -117,7 +118,7 @@ std::unique_ptr<RTPFragmentationHeader> FakeVP8Encoder::EncodeHook(
   // does.
   WriteFakeVp8(encoded_image->data(), encoded_image->_encodedWidth,
                encoded_image->_encodedHeight,
-               encoded_image->_frameType == kVideoFrameKey);
+               encoded_image->_frameType == VideoFrameType::kVideoFrameKey);
   return nullptr;
 }
 

@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /* Interfaces for converting to/from internal C++ formats. */
 @interface RTCEncodedImage (Private)
-
+rtc::CopyOnWriteBuffer encoded_data;
 - (instancetype)initWithNativeEncodedImage:(const webrtc::EncodedImage &)encodedImage;
 - (webrtc::EncodedImage)nativeEncodedImage;
 

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c257de6_687eed41",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-20T15:47:51Z",
+      "side": 1,
+      "message": "Even if it may be against \"Be consistent with existing code\", what about adding an //api/test/BUILD.gn?\n\nI have the feeling that this will continue to move in this direction until we start to add //api/test/BUILD.gn.\n\nkwiberg, what do you think?",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 46
+      },
+      "revId": "461f1746843286bdb94c763f67acc2abe51c9697",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78fffa16_2d4ad624",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-20T15:47:51Z",
+      "side": 1,
+      "message": "This can be omitted (same above).",
+      "range": {
+        "startLine": 316,
+        "startChar": 43,
+        "endLine": 316,
+        "endChar": 50
+      },
+      "revId": "461f1746843286bdb94c763f67acc2abe51c9697",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63c43c31_a92b7c89",
+        "filename": "api/test/DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-20T15:47:51Z",
+      "side": 1,
+      "message": "kwiberg, what is your take on this? It is the first time an api/ header #includes function_view.h.",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "461f1746843286bdb94c763f67acc2abe51c9697",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

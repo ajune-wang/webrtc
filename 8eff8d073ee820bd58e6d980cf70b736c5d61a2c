@@ -16,6 +16,24 @@
       "revId": "8eff8d073ee820bd58e6d980cf70b736c5d61a2c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "012253c2_8e7a2d89",
+        "filename": "rtc_base/system/warn_current_thread_is_deadlocked.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-20T14:23:54Z",
+      "side": 1,
+      "message": "I\u0027d say that the #if condition on line 16 is both easy enough to spot and easy enough to read that such a comment would be redundant.",
+      "parentUuid": "3c4b3e9b_ead0f098",
+      "revId": "8eff8d073ee820bd58e6d980cf70b736c5d61a2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

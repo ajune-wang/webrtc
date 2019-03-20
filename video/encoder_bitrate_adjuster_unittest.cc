@@ -80,7 +80,7 @@ class EncoderBitrateAdjusterTest : public ::testing::Test {
   void InsertFrames(std::vector<std::vector<double>> utilization_factors,
                     int64_t duration_ms) {
     constexpr size_t kMaxFrameSize = 100000;
-    uint8_t buffer[kMaxFrameSize];
+    rtc::CopyOnWriteBuffer buffer(kMaxFrameSize);
 
     const int64_t start_us = rtc::TimeMicros();
     while (rtc::TimeMicros() <
@@ -116,7 +116,8 @@ class EncoderBitrateAdjusterTest : public ::testing::Test {
                                   (layer_bitrate_bps / 8.0) /
                                   layer_framerate_fps;
 
-        EncodedImage image(buffer, 0, kMaxFrameSize);
+        EncodedImage image;
+        image.set_buffer(buffer, 0, kMaxFrameSize);
         image.set_size(frame_size_bytes);
         image.SetSpatialIndex(si);
         adjuster_->OnEncodedFrame(image, ti);

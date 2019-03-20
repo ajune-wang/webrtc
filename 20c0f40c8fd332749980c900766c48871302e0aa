@@ -22,6 +22,30 @@
       "revId": "20c0f40c8fd332749980c900766c48871302e0aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6f60eb1_e1ece593",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-20T09:32:20Z",
+      "side": 1,
+      "message": "The change is only in whether the buffer is copied or not, right? Apart from performance, that should be ~invisible to users.\n\nThat said, you could have cdata (always const) and data (always non-const). I think that would prevent any confusion at the call sites.",
+      "parentUuid": "c8dce7a6_83b8d9cf",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 67
+      },
+      "revId": "20c0f40c8fd332749980c900766c48871302e0aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

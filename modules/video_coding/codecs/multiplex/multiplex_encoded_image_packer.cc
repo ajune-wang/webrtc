@@ -221,7 +221,6 @@ EncodedImage MultiplexEncodedImagePacker::PackAndRelease(
   for (size_t i = 0; i < images.size(); i++) {
     PackBitstream(combined_image.data() + frame_headers[i].bitstream_offset,
                   images[i]);
-    delete[] images[i].encoded_image.buffer();
   }
 
   return combined_image;
@@ -263,7 +262,7 @@ MultiplexImage MultiplexEncodedImagePacker::Unpack(
     encoded_image.SetTimestamp(combined_image.Timestamp());
     encoded_image._frameType = frame_headers[i].frame_type;
     encoded_image.set_buffer(
-        combined_image.mutable_data() + frame_headers[i].bitstream_offset,
+        combined_image.buffer(), frame_headers[i].bitstream_offset,
         static_cast<size_t>(frame_headers[i].bitstream_length));
 
     encoded_image.set_size(encoded_image.capacity());

@@ -25,6 +25,7 @@
 #include "system_wrappers/include/clock.h"
 #include "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.h"
 #include "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.h"
+#include "test/pc/e2e/api/analyzer_helper.h"
 #include "test/pc/e2e/api/audio_quality_analyzer_interface.h"
 #include "test/pc/e2e/api/peerconnection_quality_test_fixture.h"
 #include "test/pc/e2e/test_peer.h"
@@ -126,6 +127,7 @@ class PeerConnectionE2EQualityTest
   std::vector<std::unique_ptr<VideoFrameWriter>> video_writers_;
   std::vector<std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>>
       output_video_sinks_;
+  AnalyzerHelper analyzer_helper_;
 
   rtc::CriticalSection lock_;
   // Time when test call was started. Minus infinity means that call wasn't

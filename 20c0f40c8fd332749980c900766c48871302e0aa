@@ -46,6 +46,30 @@
       "revId": "20c0f40c8fd332749980c900766c48871302e0aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97004d13_b3bb7c48",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-20T10:13:50Z",
+      "side": 1,
+      "message": "I\u0027m thinking performance will be pretty important for most users.\n\nChanging the name of the const method to cdata will affect lots of users. But we could do it gradually by adding cdata (guaranteed to never copy) and also keep a const data() method for the time being.",
+      "parentUuid": "b6f60eb1_e1ece593",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 67
+      },
+      "revId": "20c0f40c8fd332749980c900766c48871302e0aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

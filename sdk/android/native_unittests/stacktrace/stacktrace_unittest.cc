@@ -200,6 +200,29 @@ void TestStacktrace(std::unique_ptr<DeadlockInterface> deadlock_impl) {
   thread.Stop();
 }
 
+class LookoutLogSink final : public rtc::LogSink {
+ public:
+  explicit LookoutLogSink(std::string look_for)
+      : looking_for_(std::move(look_for)) {}
+  void OnLogMessage(const std::string& message) override {
+    std::string::size_type pos = 0;
+    while (true) {
+      pos = message.find(looking_for_, pos);
+      if (pos == std::string::npos) {
+        break;
+      } else {
+        ++count_;
+        pos += looking_for_.size();
+      }
+    }
+  }
+  int Count() const { return count_; }
+
+ private:
+  const std::string looking_for_;
+  int count_ = 0;
+};
+
 }  // namespace
 
 TEST(Stacktrace, TestCurrentThread) {
@@ -223,6 +246,7 @@ TEST(Stacktrace, TestSleep) {
 // Stack traces originating from kernel space does not include user space stack
 // traces for ARM 32.
 #ifdef WEBRTC_ARCH_ARM64
+
 TEST(Stacktrace, TestRtcEvent) {
   TestStacktrace(absl::make_unique<RtcEventDeadlock>());
 }
@@ -230,7 +254,35 @@ TEST(Stacktrace, TestRtcEvent) {
 TEST(Stacktrace, TestRtcCriticalSection) {
   TestStacktrace(absl::make_unique<RtcCriticalSectionDeadlock>());
 }
+
 #endif
+
+TEST(Stacktrace, TestRtcEventDeadlockDetection) {
+  // Start looking for the expected log output.
+  LookoutLogSink sink("Probable deadlock");
+  rtc::LogMessage::AddLogToStream(&sink, rtc::LS_WARNING);
+
+  // Start a thread that waits for an event.
+  rtc::Event ev;
+  rtc::PlatformThread thread(
+      [](void* arg) {
+        auto* ev = static_cast<rtc::Event*>(arg);
+        ev->Wait(rtc::Event::kForever);
+      },
+      &ev, "TestRtcEventDeadlockDetection");
+  thread.Start();
+
+  // The message should appear after 3 sec. We'll accept anything between 2 and
+  // 4 sec here, so as not to be flaky.
+  SleepMs(2000);
+  EXPECT_EQ(0, sink.Count());
+  SleepMs(2000);
+  EXPECT_EQ(1, sink.Count());
+
+  ev.Set();
+  thread.Stop();
+  rtc::LogMessage::RemoveLogToStream(&sink);
+}
 
 }  // namespace test
 }  // namespace webrtc

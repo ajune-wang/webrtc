@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a5d33193_7743eec0",
+        "filename": "api/video_codecs/vp8_temporal_layers.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-03-20T09:38:15Z",
+      "side": 1,
+      "message": "That\u0027s a bit less commonly done in the code base, but sure, if you prefer that, and if the various compilers do not complain...",
+      "parentUuid": "940c82b9_cf969d39",
+      "range": {
+        "startLine": 20,
+        "startChar": 58,
+        "endLine": 20,
+        "endChar": 59
+      },
+      "revId": "015ef8fcec2b2f87bc5b9fec400d644b7e0e3639",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b8dd144_120c522d",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 3
@@ -92,6 +116,30 @@
       "revId": "015ef8fcec2b2f87bc5b9fec400d644b7e0e3639",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26b1c592_603385fa",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-03-20T09:38:15Z",
+      "side": 1,
+      "message": "Also discussed offline.",
+      "parentUuid": "7b8dd144_120c522d",
+      "range": {
+        "startLine": 283,
+        "startChar": 32,
+        "endLine": 283,
+        "endChar": 46
+      },
+      "revId": "015ef8fcec2b2f87bc5b9fec400d644b7e0e3639",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -127,6 +175,24 @@
       "revId": "015ef8fcec2b2f87bc5b9fec400d644b7e0e3639",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "716b4ec2_fd72ca76",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-03-20T09:38:15Z",
+      "side": 1,
+      "message": "I\u0027ve added a TODO.\n1. Some unrelated tests have timing issues causing OnPacketLossRateUpdate() to be called after Release(). There are too many such tests to reasonably piggy-back their fixes on this CL.\n2. It\u0027s likely that additional tests, which do not consistently fail, will become flaky, leading to the CL being reverted.\n3. Priority-wise, I think it would be best for me to handle this at a later time.",
+      "parentUuid": "f97e996b_7dd1e9e4",
+      "revId": "015ef8fcec2b2f87bc5b9fec400d644b7e0e3639",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

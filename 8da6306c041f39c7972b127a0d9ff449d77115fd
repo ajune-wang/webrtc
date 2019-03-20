@@ -69,6 +69,24 @@
       "revId": "8da6306c041f39c7972b127a0d9ff449d77115fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d932594_91cc0845",
+        "filename": "api/array_view.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-20T17:06:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c335d07_bad64b80",
+      "revId": "8da6306c041f39c7972b127a0d9ff449d77115fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

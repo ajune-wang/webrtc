@@ -14,6 +14,7 @@
 #include <stdint.h>
 
 #include "absl/types/optional.h"
+#include "common_video/bitstream_parser.h"
 #include "common_video/h264/pps_parser.h"
 #include "common_video/h264/sps_parser.h"
 
@@ -25,22 +26,13 @@ namespace webrtc {
 // TODO(pbos): If/when this gets used on the receiver side CHECKs must be
 // removed and gracefully abort as we have no control over receive-side
 // bitstreams.
-class H264BitstreamParser {
+class H264BitstreamParser : public BitstreamParser {
  public:
-  enum Result {
-    kOk,
-    kInvalidStream,
-    kUnsupportedStream,
-  };
-
   H264BitstreamParser();
-  virtual ~H264BitstreamParser();
+  ~H264BitstreamParser() override;
 
-  // Parse an additional chunk of H264 bitstream.
-  void ParseBitstream(const uint8_t* bitstream, size_t length);
-
-  // Get the last extracted QP value from the parsed bitstream.
-  bool GetLastSliceQp(int* qp) const;
+  void ParseBitstream(const uint8_t* bitstream, size_t length) override;
+  bool GetLastSliceQp(int* qp) const override;
 
  protected:
   void ParseSlice(const uint8_t* slice, size_t length);

@@ -36,7 +36,7 @@ namespace webrtc {
 H264BitstreamParser::H264BitstreamParser() {}
 H264BitstreamParser::~H264BitstreamParser() {}
 
-H264BitstreamParser::Result H264BitstreamParser::ParseNonParameterSetNalu(
+BitstreamParser::Result H264BitstreamParser::ParseNonParameterSetNalu(
     const uint8_t* source,
     size_t source_length,
     uint8_t nalu_type) {

@@ -13,6 +13,7 @@ rtc_static_library("common_video") {
 
   sources = [
     "bitrate_adjuster.cc",
+    "bitstream_parser.h",
     "h264/h264_bitstream_parser.cc",
     "h264/h264_bitstream_parser.h",
     "h264/h264_common.cc",

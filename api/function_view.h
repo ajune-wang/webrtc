@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_FUNCTION_VIEW_H_
-#define RTC_BASE_FUNCTION_VIEW_H_
+#ifndef API_FUNCTION_VIEW_H_
+#define API_FUNCTION_VIEW_H_
 
 #include <type_traits>
 #include <utility>
@@ -127,4 +127,4 @@ class FunctionView<RetT(ArgT...)> final {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_FUNCTION_VIEW_H_
+#endif  // API_FUNCTION_VIEW_H_

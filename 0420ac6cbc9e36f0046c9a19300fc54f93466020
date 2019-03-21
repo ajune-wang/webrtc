@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "949c70a9_d0889b86",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-21T12:43:54Z",
+      "side": 1,
+      "message": "Can you write the command you used in the description, we usually do that (which is easier to review).",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 6
+      },
+      "revId": "0420ac6cbc9e36f0046c9a19300fc54f93466020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

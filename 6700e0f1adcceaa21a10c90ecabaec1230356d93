@@ -16,6 +16,24 @@
       "revId": "6700e0f1adcceaa21a10c90ecabaec1230356d93",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88e00e14_9fb5e95b",
+        "filename": "sdk/android/api/org/webrtc/audio/JavaAudioDeviceModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2019-03-21T15:46:54Z",
+      "side": 1,
+      "message": "Normally you want to override sample rate for both input and output, so I think it makes sense to keep this as a convenience method.",
+      "parentUuid": "d43c97a3_15db53f5",
+      "revId": "6700e0f1adcceaa21a10c90ecabaec1230356d93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

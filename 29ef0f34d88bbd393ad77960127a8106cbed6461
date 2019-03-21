@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "762cd0d2_795d6b40",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-21T13:13:07Z",
+      "side": 1,
+      "message": "Tasks would be *moved* between lists, not added?\n\nSuggest UpdatePending (or UpdateReady) for this method.",
+      "range": {
+        "startLine": 44,
+        "startChar": 52,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7c9b907_32968c2c",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-21T13:13:07Z",
+      "side": 1,
+      "message": "Didn\u0027t know we had this method. Seems to be used in few places, DegradedCall, CallStats, PacedSender and VideoReceiver. Should be on the kill list, I think.",
+      "range": {
+        "startLine": 60,
+        "startChar": 7,
+        "endLine": 60,
+        "endChar": 13
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba509738_10e5880f",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-21T13:13:07Z",
+      "side": 1,
+      "message": "Prefer explicit type.",
+      "range": {
+        "startLine": 120,
+        "startChar": 2,
+        "endLine": 120,
+        "endChar": 26
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b5b1aed_709711d6",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-21T13:13:07Z",
+      "side": 1,
+      "message": "This needs a bit more explanation. Can there ever be more than one element in the |yielded_| set, and if so, what does that mean?\n\nIf not, does |yielded_| have to be a member? An alternative could be to pass on extra TaskQueue* argument to RunPendingRunners (passed on to GetPending()) with the meaning \"don\u0027t serve this task queue now\".\n\nAs a sanity check, it might make sense for RunPendingRunners to crash in all other cases where it is requested to serve a task queue from which it is called, since that would violate proper task sequence.",
+      "range": {
+        "startLine": 316,
+        "startChar": 1,
+        "endLine": 318,
+        "endChar": 62
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cb39c40_892207bd",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-21T13:13:07Z",
+      "side": 1,
+      "message": "Please rephrase for clarity. I don\u0027t understand what \"the time controller thread\" is. Guessing a bit as to what is meant, I\u0027d suggest \n\n\"Run pending tasks on all task queues, except that if this method is called from a task, the task queue running that task is skipped.\"\n\nAs to naming, \"Run\" seems more appropriate than Yield.",
+      "range": {
+        "startLine": 43,
+        "startChar": 43,
+        "endLine": 44,
+        "endChar": 42
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92713b04_3e2d8d01",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-21T13:13:07Z",
+      "side": 1,
+      "message": "Comment doesn\u0027t say what |limit| or the return value. Input is an absolute time, not an increment?\n\nIt might be clearer with one const method querying the time (or time interval) until the next event, and a separate method to change what time is \"current\".",
+      "range": {
+        "startLine": 52,
+        "startChar": 1,
+        "endLine": 54,
+        "endChar": 41
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bfb5d44_5efea959",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-21T13:13:07Z",
+      "side": 1,
+      "message": "\"Pending\" is a bit ambiguous (both here and elsewhere). Maybe \"Ready\" is a better term for tasks (or Process() calls) that are ready to run at the current time? Or do you intend \"pending\" to include work that is waiting for some later time?",
+      "range": {
+        "startLine": 59,
+        "startChar": 44,
+        "endLine": 59,
+        "endChar": 51
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2890418b_f1e58b5b",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-21T13:13:07Z",
+      "side": 1,
+      "message": "This member deserves a comment.",
+      "range": {
+        "startLine": 69,
+        "startChar": 37,
+        "endLine": 69,
+        "endChar": 45
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f2eacd4_ca7636e1",
+        "filename": "test/time_controller/time_controller.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-21T13:13:07Z",
+      "side": 1,
+      "message": "This is vague, it doesn\u0027t really say when using this interface method is appropriate or necessary. Does it have to be part the interface (it currently looks like it\u0027s unused, but it could be used internally simulated Sleep)?\n\nIf it\u0027s hard to describe its purpose as an abstract but useful feature, maybe it\u0027s better do adapt both name and docs describing the actual more specific use case. E.g., name it InvokeWithControlledYield.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 20
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

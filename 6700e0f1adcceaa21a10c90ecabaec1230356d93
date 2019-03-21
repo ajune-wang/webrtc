@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d43c97a3_15db53f5",
+        "filename": "sdk/android/api/org/webrtc/audio/JavaAudioDeviceModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-03-21T15:06:34Z",
+      "side": 1,
+      "message": "Used today?",
+      "revId": "6700e0f1adcceaa21a10c90ecabaec1230356d93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

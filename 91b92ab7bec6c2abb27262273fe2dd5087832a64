@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d02d21d0_4a41fa20",
+        "filename": "common_video/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T15:01:34Z",
+      "side": 1,
+      "message": "This is a publicly visible build target in a non-API directory. If you intend for this to be used by out-of-tree code, it might make sense to put the file in api/.",
+      "revId": "91b92ab7bec6c2abb27262273fe2dd5087832a64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "955df76f_86abaf8b",
+        "filename": "common_video/bitstream_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T15:01:34Z",
+      "side": 1,
+      "message": "enum class?",
+      "revId": "91b92ab7bec6c2abb27262273fe2dd5087832a64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee6c4f6b_538fb069",
+        "filename": "common_video/bitstream_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T15:01:34Z",
+      "side": 1,
+      "message": "Umm. You don\u0027t use this enum in the interface, only in a non-public method of the only implementation. Does it need to be here?",
+      "revId": "91b92ab7bec6c2abb27262273fe2dd5087832a64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dac97b4_504684f0",
+        "filename": "common_video/bitstream_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T15:01:34Z",
+      "side": 1,
+      "message": "ArrayView\u003cconst uint8_t\u003e ?",
+      "range": {
+        "startLine": 29,
+        "startChar": 30,
+        "endLine": 29,
+        "endChar": 69
+      },
+      "revId": "91b92ab7bec6c2abb27262273fe2dd5087832a64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0163a064_f4002ead",
+        "filename": "common_video/bitstream_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T15:01:34Z",
+      "side": 1,
+      "message": "I\u0027m guessing true means you get a value, and false means we haven\u0027t parsed one yet? In that case, return optional\u003cint\u003e?\n\nIn any case, document the failure case.",
+      "revId": "91b92ab7bec6c2abb27262273fe2dd5087832a64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

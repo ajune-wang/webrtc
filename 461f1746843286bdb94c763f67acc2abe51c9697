@@ -284,6 +284,30 @@
       "revId": "461f1746843286bdb94c763f67acc2abe51c9697",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48334a8f_8b8bed02",
+        "filename": "api/test/DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-21T16:21:23Z",
+      "side": 1,
+      "message": "CL rebased on top of moved rtc::FunctionView",
+      "parentUuid": "1fb77be2_5319fccd",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "461f1746843286bdb94c763f67acc2abe51c9697",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

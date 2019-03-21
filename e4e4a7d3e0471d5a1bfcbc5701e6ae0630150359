@@ -19,6 +19,75 @@
     },
     {
       "key": {
+        "uuid": "b823d350_7e7e53b2",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T09:54:01Z",
+      "side": 1,
+      "message": "Still use std::move here? It\u0027s not required for correctness, but if you give away your reference instead of requiring the caller to make their own you\u0027ll save one atomic increment+decrement pair, so it\u0027s a good habit to get into.",
+      "range": {
+        "startLine": 115,
+        "startChar": 64,
+        "endLine": 115,
+        "endChar": 78
+      },
+      "revId": "e4e4a7d3e0471d5a1bfcbc5701e6ae0630150359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa6b24f8_3d14d885",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T09:54:01Z",
+      "side": 1,
+      "message": "std::move?",
+      "range": {
+        "startLine": 144,
+        "startChar": 64,
+        "endLine": 144,
+        "endChar": 78
+      },
+      "revId": "e4e4a7d3e0471d5a1bfcbc5701e6ae0630150359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db612274_ebf1f360",
+        "filename": "sdk/android/src/jni/audio_device/opensles_player.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T09:54:01Z",
+      "side": 1,
+      "message": "std::move if you pass it by value above.",
+      "range": {
+        "startLine": 53,
+        "startChar": 22,
+        "endLine": 53,
+        "endChar": 36
+      },
+      "revId": "e4e4a7d3e0471d5a1bfcbc5701e6ae0630150359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "47311e65_49c7ed32",
         "filename": "sdk/android/src/jni/audio_device/opensles_player.h",
         "patchSetId": 1
@@ -30,6 +99,63 @@
       "writtenOn": "2019-03-21T06:30:03Z",
       "side": 1,
       "message": "This should probably #include also \"api/scoped_refptr.h\".",
+      "revId": "e4e4a7d3e0471d5a1bfcbc5701e6ae0630150359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c0efe85_398c0c42",
+        "filename": "sdk/android/src/jni/audio_device/opensles_player.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T09:54:01Z",
+      "side": 1,
+      "message": "Pass scoped_refptr by value. That way, the caller is free to std::move the argument and save an atomic instruction.",
+      "revId": "e4e4a7d3e0471d5a1bfcbc5701e6ae0630150359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab87d0b2_ff08c64a",
+        "filename": "sdk/android/src/jni/audio_device/opensles_player.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T09:54:01Z",
+      "side": 1,
+      "message": "Can this be const?",
+      "revId": "e4e4a7d3e0471d5a1bfcbc5701e6ae0630150359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c80b7100_cbbc8717",
+        "filename": "sdk/android/src/jni/audio_device/opensles_recorder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T09:54:01Z",
+      "side": 1,
+      "message": "std::move",
+      "range": {
+        "startLine": 53,
+        "startChar": 22,
+        "endLine": 53,
+        "endChar": 36
+      },
       "revId": "e4e4a7d3e0471d5a1bfcbc5701e6ae0630150359",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +179,40 @@
         "endLine": 19,
         "endChar": 0
       },
+      "revId": "e4e4a7d3e0471d5a1bfcbc5701e6ae0630150359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2aa931c_44dfd4f0",
+        "filename": "sdk/android/src/jni/audio_device/opensles_recorder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T09:54:01Z",
+      "side": 1,
+      "message": "pass by value",
+      "revId": "e4e4a7d3e0471d5a1bfcbc5701e6ae0630150359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63dabe8d_c661fcab",
+        "filename": "sdk/android/src/jni/audio_device/opensles_recorder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T09:54:01Z",
+      "side": 1,
+      "message": "const?",
       "revId": "e4e4a7d3e0471d5a1bfcbc5701e6ae0630150359",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

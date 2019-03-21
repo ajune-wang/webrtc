@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b6da32c_e93e3e96",
+        "filename": "rtc_base/experiments/keyframe_interval_settings.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T10:07:38Z",
+      "side": 1,
+      "message": "In definitions, OTOH, top-level const ensures that the function body can\u0027t modify the local variable. That can be useful.",
+      "range": {
+        "startLine": 24,
+        "startChar": 32,
+        "endLine": 24,
+        "endChar": 37
+      },
+      "revId": "5977dba89f8aeb7cac45447c71d8db74345844cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cc12c22_2a23e5ff",
+        "filename": "rtc_base/experiments/keyframe_interval_settings.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T10:07:38Z",
+      "side": 1,
+      "message": "This line is likely unnecessary.",
+      "revId": "5977dba89f8aeb7cac45447c71d8db74345844cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "246327f8_125728bb",
+        "filename": "rtc_base/experiments/keyframe_interval_settings.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T10:07:38Z",
+      "side": 1,
+      "message": "Top-level const is useless in declarations, so drop it.",
+      "range": {
+        "startLine": 41,
+        "startChar": 34,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "5977dba89f8aeb7cac45447c71d8db74345844cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

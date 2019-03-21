@@ -100,25 +100,11 @@ bool AudioAllocationSettings::IncludeAudioInAllocationOnReconfigure(
   return true;
 }
 
-int AudioAllocationSettings::MinBitrateBps() const {
-  return default_min_bitrate_->bps() + min_overhead_bps_;
+absl::optional<DataRate> AudioAllocationSettings::MinBitrate() const {
+  return default_min_bitrate_.GetOptional();
 }
-
-int AudioAllocationSettings::MaxBitrateBps(
-    absl::optional<int> rtp_parameter_max_bitrate_bps) const {
-  // We assume that the max is a hard limit on the payload bitrate, so we add
-  // min_overhead_bps to it to ensure that, when overhead is deducted, the
-  // payload rate never goes beyond the limit.  Note: this also means that if a
-  // higher overhead is forced, we cannot reach the limit.
-  // TODO(minyue): Reconsider this when the signaling to BWE is done
-  // through a dedicated API.
-
-  // This means that when RtpParameters is reset, we may change the
-  // encoder's bit rate immediately (through ReconfigureAudioSendStream()),
-  // meanwhile change the cap to the output of BWE.
-  if (rtp_parameter_max_bitrate_bps)
-    return *rtp_parameter_max_bitrate_bps + min_overhead_bps_;
-  return default_max_bitrate_->bps() + min_overhead_bps_;
+absl::optional<DataRate> AudioAllocationSettings::MaxBitrate() const {
+  return default_max_bitrate_.GetOptional();
 }
 DataRate AudioAllocationSettings::DefaultPriorityBitrate() const {
   DataRate max_overhead = DataRate::Zero();

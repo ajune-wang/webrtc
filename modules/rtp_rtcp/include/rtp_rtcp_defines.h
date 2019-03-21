@@ -45,6 +45,9 @@ enum ProtectionType { kUnprotectedPacket, kProtectedPacket };
 
 enum StorageType { kDontRetransmit, kAllowRetransmission };
 
+bool IsLegalMidName(absl::string_view name);
+bool IsLegalRsidName(absl::string_view name);
+
 // This enum must not have any gaps, i.e., all integers between
 // kRtpExtensionNone and kRtpExtensionNumberOfExtensions must be valid enum
 // entries.

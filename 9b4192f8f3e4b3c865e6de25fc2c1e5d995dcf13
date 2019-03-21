@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "4aeae6f8_832528af",
+        "filename": "test/scenario/network/emulated_network_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-21T09:33:43Z",
+      "side": 1,
+      "message": "We can\u0027t expose EmulatedNetworkManager as rtc::NetworkManager, but we can make it implement EmulatedNetworkController. My only concern here is that it will require to put network thread and socket server into manager too. From my point it is a bit of mixing things together, but if you think it is ok, we can go with such approach.",
+      "parentUuid": "4f7d90f6_1833ee5b",
+      "range": {
+        "startLine": 18,
+        "startChar": 31,
+        "endLine": 18,
+        "endChar": 60
+      },
+      "revId": "9b4192f8f3e4b3c865e6de25fc2c1e5d995dcf13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "33ed5ca5_1ecb0943",
         "filename": "test/scenario/network/emulated_network_controller.h",
         "patchSetId": 1
@@ -164,6 +188,30 @@
     },
     {
       "key": {
+        "uuid": "1186d84f_584309be",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-21T09:33:43Z",
+      "side": 1,
+      "message": "Methods of rtc::NetworkManager will be called from single thread, so we can do it.",
+      "parentUuid": "8bca72dd_0a6a50de",
+      "range": {
+        "startLine": 118,
+        "startChar": 2,
+        "endLine": 118,
+        "endChar": 17
+      },
+      "revId": "9b4192f8f3e4b3c865e6de25fc2c1e5d995dcf13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad79cc74_600f137c",
         "filename": "test/scenario/network/emulated_network_manager.h",
         "patchSetId": 1
@@ -184,6 +232,30 @@
       "revId": "9b4192f8f3e4b3c865e6de25fc2c1e5d995dcf13",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "057ff6b4_c524ddbd",
+        "filename": "test/scenario/network/emulated_network_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-21T09:33:43Z",
+      "side": 1,
+      "message": "These methods are declared by rtc::NetwrokManager.",
+      "parentUuid": "ad79cc74_600f137c",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 31
+      },
+      "revId": "9b4192f8f3e4b3c865e6de25fc2c1e5d995dcf13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

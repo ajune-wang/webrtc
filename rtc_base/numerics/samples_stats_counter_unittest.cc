@@ -12,6 +12,7 @@
 
 #include <math.h>
 #include <algorithm>
+#include <random>
 #include <vector>
 
 #include "test/gtest.h"
@@ -24,7 +25,9 @@ SamplesStatsCounter CreateStatsFilledWithIntsFrom1ToN(int n) {
   for (int i = 1; i <= n; i++) {
     data.push_back(i);
   }
-  std::random_shuffle(data.begin(), data.end());
+  std::random_device rd;
+  std::mt19937 g(rd());
+  std::shuffle(data.begin(), data.end(), g);
 
   SamplesStatsCounter stats;
   for (double v : data) {

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20e9b8f0_5360f2c4",
+        "filename": "api/function_view.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-21T11:25:08Z",
+      "side": 0,
+      "message": "It is usually good to keep a forward header in the old location for some time (in case someone is using it).",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 33
+      },
+      "revId": "d2a637858add9011ea94ffee3711d7dacbcf10f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

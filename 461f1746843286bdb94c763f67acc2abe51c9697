@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "5d58325e_8c507d49",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-21T11:12:40Z",
+      "side": 1,
+      "message": "It is not GN but a presubmit check (https://cs.chromium.org/chromium/src/third_party/webrtc/PRESUBMIT.py?l\u003d410-421\u0026rcl\u003d6b7bf6ab0ccbb79a3c08f72916986e6215daa40e). This check is super useful, but we can probably stretch the rules if we know what we are doing.",
+      "parentUuid": "22ed7723_3474cd59",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 46
+      },
+      "revId": "461f1746843286bdb94c763f67acc2abe51c9697",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "78fffa16_2d4ad624",
         "filename": "api/BUILD.gn",
         "patchSetId": 1

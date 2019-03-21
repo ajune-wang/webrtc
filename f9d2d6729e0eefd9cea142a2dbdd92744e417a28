@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f45b4d4a_7123a074",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoded_image_packer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-03-21T12:45:38Z",
+      "side": 1,
+      "message": "WDYT about copying the the relevant section of the buffer instead of polluting the EncodedImage class with an offset.\n\nAlternatively, maybe implement a CopyOnWriteBuffer ctor that takes a CopyOnWriteBuffer and an offset?\n\nI really don\u0027t like the offset in the EncodedImage class.",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 265,
+        "endChar": 67
+      },
+      "revId": "f9d2d6729e0eefd9cea142a2dbdd92744e417a28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d84c1562_913cde16",
+        "filename": "sdk/android/native_api/audio_device_module/audio_device_android.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-21T06:30:03Z",
+      "side": 1,
+      "message": "This should probably #include also \"api/scoped_refptr.h\".",
+      "revId": "e4e4a7d3e0471d5a1bfcbc5701e6ae0630150359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47311e65_49c7ed32",
+        "filename": "sdk/android/src/jni/audio_device/opensles_player.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-21T06:30:03Z",
+      "side": 1,
+      "message": "This should probably #include also \"api/scoped_refptr.h\".",
+      "revId": "e4e4a7d3e0471d5a1bfcbc5701e6ae0630150359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "274a4d68_39216762",
+        "filename": "sdk/android/src/jni/audio_device/opensles_recorder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-21T06:30:03Z",
+      "side": 1,
+      "message": "This should probably #include also \"api/scoped_refptr.h\".",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 0
+      },
+      "revId": "e4e4a7d3e0471d5a1bfcbc5701e6ae0630150359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

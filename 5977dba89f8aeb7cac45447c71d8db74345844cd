@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5143e178_1fe4b48c",
+        "filename": "rtc_base/experiments/keyframe_interval_settings.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-21T10:47:48Z",
+      "side": 1,
+      "message": "This is actually copied from https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/experiments/rate_control_settings.cc?l\u003d100\u0026rcl\u003df7f9845d9e5b24c73a70fceb278a20b43e9d9919 :)\n\nI hadn\u0027t noticed that the declaration in the .h contained the unnecessary const.",
+      "parentUuid": "5b6da32c_e93e3e96",
+      "range": {
+        "startLine": 24,
+        "startChar": 32,
+        "endLine": 24,
+        "endChar": 37
+      },
+      "revId": "5977dba89f8aeb7cac45447c71d8db74345844cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cc12c22_2a23e5ff",
         "filename": "rtc_base/experiments/keyframe_interval_settings.h",
         "patchSetId": 7
@@ -39,6 +63,24 @@
       "revId": "5977dba89f8aeb7cac45447c71d8db74345844cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9ec2ab5_6ad6b358",
+        "filename": "rtc_base/experiments/keyframe_interval_settings.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-21T10:47:48Z",
+      "side": 1,
+      "message": "Removed. Before I have received comments that it\u0027s good to add an empty dtor, but I\u0027m not really sure why? And I prefer the \"\u003d default\" dtor rather than the \"{}\" one, thus this line here.",
+      "parentUuid": "9cc12c22_2a23e5ff",
+      "revId": "5977dba89f8aeb7cac45447c71d8db74345844cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -62,6 +104,30 @@
       "revId": "5977dba89f8aeb7cac45447c71d8db74345844cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dee5d523_02e86355",
+        "filename": "rtc_base/experiments/keyframe_interval_settings.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-21T10:47:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "246327f8_125728bb",
+      "range": {
+        "startLine": 41,
+        "startChar": 34,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "5977dba89f8aeb7cac45447c71d8db74345844cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

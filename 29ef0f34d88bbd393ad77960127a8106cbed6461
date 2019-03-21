@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d6533308_0a75697b",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-21T14:19:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "762cd0d2_795d6b40",
+      "range": {
+        "startLine": 44,
+        "startChar": 52,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7c9b907_32968c2c",
         "filename": "test/time_controller/simulated_time_controller.cc",
         "patchSetId": 23
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-21T13:13:07Z",
       "side": 1,
       "message": "Didn\u0027t know we had this method. Seems to be used in few places, DegradedCall, CallStats, PacedSender and VideoReceiver. Should be on the kill list, I think.",
+      "range": {
+        "startLine": 60,
+        "startChar": 7,
+        "endLine": 60,
+        "endChar": 13
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea7b6daa_f0a8a767",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-21T14:19:33Z",
+      "side": 1,
+      "message": "We don\u0027t have any other alternative to this, the interface is clunky, but essentially it is required to allow moving execution of a repeated process earlier in time without creating redundant tasks. It\u0027s kind of doable with delayed tasks and a implementing some mechanism to cancel them.\n\nI agree that the current interface is ugly though, and it\u0027d be nice to have a cleaner way to achieve the same goal.",
+      "parentUuid": "c7c9b907_32968c2c",
       "range": {
         "startLine": 60,
         "startChar": 7,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "07389548_4c03b01d",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-21T14:19:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba509738_10e5880f",
+      "range": {
+        "startLine": 120,
+        "startChar": 2,
+        "endLine": 120,
+        "endChar": 26
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b5b1aed_709711d6",
         "filename": "test/time_controller/simulated_time_controller.cc",
         "patchSetId": 23
@@ -91,6 +163,30 @@
       "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adf1f81b_f7e7ea07",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-21T14:19:33Z",
+      "side": 1,
+      "message": "Expanded comment.\n\nHaving more than one member is perfectly fine, imagine TQ: a, b, c:\n\na.PostTask([\u0026]{\n  Event ev1;\n  b.PostTask([\u0026]{\n    Event ev2;\n    c.PostTask([\u0026]{ ev2.Set(); });\n    ev2.Wait();\n    ev1.Set();\n  });\n  ev1.Wait();\n});\n\nThis will be used in practice in the future where a is a TaskQueueForTest and b  is the queue used by *SendStream to do blocking calls.",
+      "parentUuid": "7b5b1aed_709711d6",
+      "range": {
+        "startLine": 316,
+        "startChar": 1,
+        "endLine": 318,
+        "endChar": 62
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "81670cb3_2747126e",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-21T14:19:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cb39c40_892207bd",
+      "range": {
+        "startLine": 43,
+        "startChar": 43,
+        "endLine": 44,
+        "endChar": 42
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92713b04_3e2d8d01",
         "filename": "test/time_controller/simulated_time_controller.h",
         "patchSetId": 23
@@ -137,6 +257,30 @@
       "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04bd7c1f_e35b3d0e",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-21T14:19:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92713b04_3e2d8d01",
+      "range": {
+        "startLine": 52,
+        "startChar": 1,
+        "endLine": 54,
+        "endChar": 41
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "b43cae60_b04943d5",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-21T14:19:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bfb5d44_5efea959",
+      "range": {
+        "startLine": 59,
+        "startChar": 44,
+        "endLine": 59,
+        "endChar": 51
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2890418b_f1e58b5b",
         "filename": "test/time_controller/simulated_time_controller.h",
         "patchSetId": 23
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "70c9e471_d8959537",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-21T14:19:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2890418b_f1e58b5b",
+      "range": {
+        "startLine": 69,
+        "startChar": 37,
+        "endLine": 69,
+        "endChar": 45
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f2eacd4_ca7636e1",
         "filename": "test/time_controller/time_controller.h",
         "patchSetId": 23
@@ -206,6 +398,30 @@
       "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80ce0020_bc45ec82",
+        "filename": "test/time_controller/time_controller.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-21T14:19:33Z",
+      "side": 1,
+      "message": "It\u0027s used in a followup CL, this CL only introduces the implementation.\n\nRenamed.",
+      "parentUuid": "8f2eacd4_ca7636e1",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 20
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

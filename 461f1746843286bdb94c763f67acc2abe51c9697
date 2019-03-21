@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "22ed7723_3474cd59",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T11:09:51Z",
+      "side": 1,
+      "message": "IIRC GN won\u0027t let targets in foo/BUILD.gn include files from foo/bar/ if foo/baf/BUILD.gn exists, so we\u0027d need some sort of build target aliases. GN can do that with public_deps, but we\u0027re trying to not use that.",
+      "parentUuid": "d2751326_1621c4b9",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 46
+      },
+      "revId": "461f1746843286bdb94c763f67acc2abe51c9697",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "78fffa16_2d4ad624",
         "filename": "api/BUILD.gn",
         "patchSetId": 1

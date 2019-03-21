@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7452dcdc_97423cfe",
+        "filename": "rtc_base/numerics/samples_stats_counter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T09:35:51Z",
+      "side": 1,
+      "message": "Alternatively, since you don\u0027t seem to care about the intermediate values enough to give them meaningful names,\n\n  std::shuffle(data.begin(), data.end(),\n               std::mt19937(std::random_device()()));",
+      "revId": "76b83aa284d82ca42baf9baa3ef2dbe1c513f861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

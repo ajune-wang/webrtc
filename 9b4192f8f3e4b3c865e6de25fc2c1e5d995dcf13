@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "4f7d90f6_1833ee5b",
+        "filename": "test/scenario/network/emulated_network_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-21T09:21:25Z",
+      "side": 1,
+      "message": "Yes, is it possible to let the user modify the network through the EmulatedNetworkManager?",
+      "parentUuid": "023d9520_6fc33523",
+      "range": {
+        "startLine": 18,
+        "startChar": 31,
+        "endLine": 18,
+        "endChar": 60
+      },
+      "revId": "9b4192f8f3e4b3c865e6de25fc2c1e5d995dcf13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "33ed5ca5_1ecb0943",
         "filename": "test/scenario/network/emulated_network_controller.h",
         "patchSetId": 1
@@ -110,6 +134,98 @@
         "startChar": 2,
         "endLine": 41,
         "endChar": 17
+      },
+      "revId": "9b4192f8f3e4b3c865e6de25fc2c1e5d995dcf13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bca72dd_0a6a50de",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-21T09:21:25Z",
+      "side": 1,
+      "message": "Is it ok to modify start_count_ without holding thread_lock_?",
+      "range": {
+        "startLine": 118,
+        "startChar": 2,
+        "endLine": 118,
+        "endChar": 17
+      },
+      "revId": "9b4192f8f3e4b3c865e6de25fc2c1e5d995dcf13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad79cc74_600f137c",
+        "filename": "test/scenario/network/emulated_network_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-21T09:21:25Z",
+      "side": 1,
+      "message": "Aren\u0027t these two methods just Start/Stop?\n\nI mean, updates can be sent also by AddEmulatedEndpoint and they will also update if the emulation is in start state.",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 31
+      },
+      "revId": "9b4192f8f3e4b3c865e6de25fc2c1e5d995dcf13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b403077e_ed20cb97",
+        "filename": "test/scenario/network/emulated_network_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-21T09:21:25Z",
+      "side": 1,
+      "message": "I think we can remove \"Maybe\" from here. If the emulation is not running it is a no-op but that is expected.",
+      "range": {
+        "startLine": 45,
+        "startChar": 7,
+        "endLine": 45,
+        "endChar": 12
+      },
+      "revId": "9b4192f8f3e4b3c865e6de25fc2c1e5d995dcf13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "516b7ac6_c3750443",
+        "filename": "test/scenario/network/emulated_network_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-21T09:21:25Z",
+      "side": 1,
+      "message": "Is there a better name for this method?",
+      "range": {
+        "startLine": 46,
+        "startChar": 7,
+        "endLine": 46,
+        "endChar": 25
       },
       "revId": "9b4192f8f3e4b3c865e6de25fc2c1e5d995dcf13",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

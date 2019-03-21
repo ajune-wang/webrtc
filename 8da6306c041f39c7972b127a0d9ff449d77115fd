@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "871f4873_a3ff67f9",
+        "filename": "api/array_view.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T10:45:24Z",
+      "side": 1,
+      "message": "Different types have different alignment. For example, alignof(char) is 1 and alignof(int) is usually 4. Structs are aligned as their most demanding member, so a struct with four chars is going to have alignment 1. For that reason, if you allow struct types, you need to somehow prevent the user from casting an ArrayView of such structs to an ArrayView of ints.\n\nIf the standard guarantees that fundamental types of the same size also have the same alignment, checking the alignment manually here is superfluous if you only allow fundamental types. But if you can\u0027t point to such a guarantee, or don\u0027t expect readers of this code to be able to find it, it\u0027s probably better to just static_assert that alignof(U) \u003c\u003d alignof(T). (The less-than check is sufficient; we don\u0027t have to also check divisibility, since alignment is always a power of two.)",
+      "parentUuid": "6ad12fc2_dd355c5a",
+      "revId": "8da6306c041f39c7972b127a0d9ff449d77115fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "30173be6_adb36604",
         "filename": "api/array_view.h",
         "patchSetId": 2

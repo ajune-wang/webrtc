@@ -378,6 +378,29 @@
     },
     {
       "key": {
+        "uuid": "04e79df8_d30753ed",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-21T14:26:03Z",
+      "side": 1,
+      "message": "This class no longer useful, or do you intend to add it later?",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 29
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8f2eacd4_ca7636e1",
         "filename": "test/time_controller/time_controller.h",
         "patchSetId": 23

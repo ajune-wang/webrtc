@@ -401,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "45a47e8e_4a68713a",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-21T15:29:34Z",
+      "side": 1,
+      "message": "I removed it here, currently I don\u0027t have any plans on adding it back. But it might be worth adding if we want to allow simulation of un-synchronized clients in the future.",
+      "parentUuid": "04e79df8_d30753ed",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 29
+      },
+      "revId": "29ef0f34d88bbd393ad77960127a8106cbed6461",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f2eacd4_ca7636e1",
         "filename": "test/time_controller/time_controller.h",
         "patchSetId": 23

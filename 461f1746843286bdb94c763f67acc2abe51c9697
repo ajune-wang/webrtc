@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba0572d9_eedf248c",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T10:27:55Z",
+      "side": 1,
+      "message": "I would definitely want //api/test/BUILD.gn. But do we have a reasonable way to add it? All the targets that would move from api/ to api/test/ would change names, and we don\u0027t have a good way to add compat aliases, do we?",
+      "parentUuid": "2c257de6_687eed41",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 46
+      },
+      "revId": "461f1746843286bdb94c763f67acc2abe51c9697",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "78fffa16_2d4ad624",
         "filename": "api/BUILD.gn",
         "patchSetId": 1
@@ -59,6 +83,30 @@
       "writtenOn": "2019-03-20T15:47:51Z",
       "side": 1,
       "message": "kwiberg, what is your take on this? It is the first time an api/ header #includes function_view.h.",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "461f1746843286bdb94c763f67acc2abe51c9697",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cccfc262_f3ecf03a",
+        "filename": "api/test/DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-21T10:27:55Z",
+      "side": 1,
+      "message": "In that case, please lead with a separate CL that moves function_view.h to api/. See it as just punishment for accepting my suggestion to use FunctionView. :-P",
+      "parentUuid": "63c43c31_a92b7c89",
       "range": {
         "startLine": 23,
         "startChar": 4,

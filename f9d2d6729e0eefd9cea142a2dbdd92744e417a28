@@ -70,6 +70,30 @@
       "revId": "f9d2d6729e0eefd9cea142a2dbdd92744e417a28",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d4b19c2_f2f4dff3",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoded_image_packer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-21T14:18:09Z",
+      "side": 1,
+      "message": "I\u0027ll make a separate cl to add the extra copy, eliminating use of set_buffer and mutable_data, and then we can review that change separately. See https://webrtc-review.googlesource.com/c/src/+/128762",
+      "parentUuid": "0a5bdca0_1f2eebf7",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 265,
+        "endChar": 67
+      },
+      "revId": "f9d2d6729e0eefd9cea142a2dbdd92744e417a28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

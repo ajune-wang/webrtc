@@ -179,8 +179,8 @@ bool AudioDeviceWindowsCore::CoreAudioIsSupported() {
   bool coreAudioIsSupported(false);
 
   HRESULT hr(S_OK);
-  TCHAR buf[MAXERRORLENGTH];
-  TCHAR errorText[MAXERRORLENGTH];
+  WCHAR buf[MAXERRORLENGTH];
+  WCHAR errorText[MAXERRORLENGTH];
 
   // 1) Check if Windows version is Vista SP1 or later.
   //
@@ -289,8 +289,8 @@ bool AudioDeviceWindowsCore::CoreAudioIsSupported() {
       errorText[messageLength - 1] = '\0';
     }
 
-    StringCchPrintf(buf, MAXERRORLENGTH, TEXT("Error details: "));
-    StringCchCat(buf, MAXERRORLENGTH, errorText);
+    StringCchPrintfW(buf, MAXERRORLENGTH, TEXT("Error details: "));
+    StringCchCatW(buf, MAXERRORLENGTH, errorText);
     RTC_LOG(LS_VERBOSE) << buf;
   } else {
     MMDeviceIsAvailable = true;
@@ -4160,8 +4160,8 @@ Exit:
 // ----------------------------------------------------------------------------
 
 void AudioDeviceWindowsCore::_TraceCOMError(HRESULT hr) const {
-  TCHAR buf[MAXERRORLENGTH];
-  TCHAR errorText[MAXERRORLENGTH];
+  WCHAR buf[MAXERRORLENGTH];
+  WCHAR errorText[MAXERRORLENGTH];
 
   const DWORD dwFlags =
       FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS;
@@ -4181,8 +4181,8 @@ void AudioDeviceWindowsCore::_TraceCOMError(HRESULT hr) const {
   }
 
   RTC_LOG(LS_ERROR) << "Core Audio method failed (hr=" << hr << ")";
-  StringCchPrintf(buf, MAXERRORLENGTH, TEXT("Error details: "));
-  StringCchCat(buf, MAXERRORLENGTH, errorText);
+  StringCchPrintfW(buf, MAXERRORLENGTH, TEXT("Error details: "));
+  StringCchCatW(buf, MAXERRORLENGTH, errorText);
   RTC_LOG(LS_ERROR) << WideToUTF8(buf);
 }
 

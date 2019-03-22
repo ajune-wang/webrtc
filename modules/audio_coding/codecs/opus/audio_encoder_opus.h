@@ -200,6 +200,7 @@ class AudioEncoderOpusImpl final : public AudioEncoder {
   int consecutive_dtx_frames_;
 
   friend struct AudioEncoderOpus;
+  friend struct AudioEncoderMultiChannelOpus;
   RTC_DISALLOW_COPY_AND_ASSIGN(AudioEncoderOpusImpl);
 };
 

@@ -26,6 +26,7 @@
 #include "rtc_base/thread.h"
 #include "system_wrappers/include/clock.h"
 #include "test/scenario/network/cross_traffic.h"
+#include "test/scenario/network/emulated_network_manager.h"
 #include "test/scenario/network/fake_network_socket_server.h"
 #include "test/scenario/network/network_emulation.h"
 #include "test/scenario/network/traffic_route.h"
@@ -57,9 +58,7 @@ class NetworkEmulationManagerImpl : public NetworkEmulationManager {
       TrafficRoute* traffic_route,
       PulsedPeaksConfig config);
 
-  rtc::Thread* CreateNetworkThread(
-      const std::vector<EmulatedEndpoint*>& endpoints) override;
-  rtc::NetworkManager* CreateNetworkManager(
+  NetworkDescriptor CreateNetworkDescriptor(
       const std::vector<EmulatedEndpoint*>& endpoints) override;
 
  private:
@@ -85,8 +84,8 @@ class NetworkEmulationManagerImpl : public NetworkEmulationManager {
   std::vector<std::unique_ptr<RandomWalkCrossTraffic>> random_cross_traffics_;
   std::vector<std::unique_ptr<PulsedPeaksCrossTraffic>> pulsed_cross_traffics_;
   std::vector<std::unique_ptr<FakeNetworkSocketServer>> socket_servers_;
-  std::vector<std::unique_ptr<rtc::Thread>> threads_;
-  std::vector<std::unique_ptr<rtc::NetworkManager>> managers_;
+  std::vector<std::unique_ptr<rtc::Thread>> network_threads_;
+  std::vector<std::unique_ptr<EmulatedNetworkManager>> network_managers_;
 
   // Must be the last field, so it will be deleted first, because tasks
   // in the TaskQueue can access other fields of the instance of this class.

@@ -227,7 +227,7 @@ NetworkControlUpdate GoogCcNetworkController::OnRemoteBitrateReport(
 
 NetworkControlUpdate GoogCcNetworkController::OnRoundTripTimeUpdate(
     RoundTripTimeUpdate msg) {
-  if (packet_feedback_only_ || msg.smoothed)
+  if (packet_feedback_only_ || msg.smoothed || msg.round_trip_time.IsZero())
     return NetworkControlUpdate();
   if (delay_based_bwe_)
     delay_based_bwe_->OnRttUpdate(msg.round_trip_time);

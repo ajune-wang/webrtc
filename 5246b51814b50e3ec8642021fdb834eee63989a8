@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "02faaa4b_7e9bc196",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-22T11:44:09Z",
+      "side": 1,
+      "message": "Nice---especially that this change propagated to a bunch of other targets that should also be testonly.",
+      "parentUuid": "aa4797a1_0c33b2e3",
+      "revId": "5246b51814b50e3ec8642021fdb834eee63989a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1bdec2fc_ada34b54",
         "filename": "api/test/DEPS",
         "patchSetId": 3

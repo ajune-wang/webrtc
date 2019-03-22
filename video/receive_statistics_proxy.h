@@ -57,7 +57,6 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   void OnRenderedFrame(const VideoFrame& frame);
   void OnIncomingPayloadType(int payload_type);
   void OnDecoderImplementationName(const char* implementation_name);
-  void OnIncomingRate(unsigned int framerate, unsigned int bitrate_bps);
 
   void OnPreDecode(VideoCodecType codec_type, int qp);
 
@@ -67,7 +66,6 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   void OnStreamInactive();
 
   // Overrides VCMReceiveStatisticsCallback.
-  void OnReceiveRatesUpdated(uint32_t bitRate, uint32_t frameRate) override;
   void OnFrameCountsUpdated(const FrameCounts& frame_counts) override;
   void OnDiscardedPacketsUpdated(int discarded_packets) override;
   void OnCompleteFrame(bool is_keyframe,

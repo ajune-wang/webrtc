@@ -70,6 +70,30 @@
       "revId": "fb04dd253e775e5e1562d89355e89c6270374952",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a235c39_83007354",
+        "filename": "video/video_stream_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-22T12:01:16Z",
+      "side": 0,
+      "message": "Move the QualitySample call to OnRenderedFrame, and updated test accordingly.",
+      "parentUuid": "aa3853fe_c19890b9",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 1
+      },
+      "revId": "fb04dd253e775e5e1562d89355e89c6270374952",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

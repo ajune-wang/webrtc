@@ -1201,6 +1201,7 @@ if (is_android) {
       ":audio_device_module_base",
       ":base_jni",
       "../../api:array_view",
+      "../../api:refcountedbase",
       "../../modules/audio_device",
       "../../modules/audio_device:audio_device_buffer",
       "../../rtc_base:checks",

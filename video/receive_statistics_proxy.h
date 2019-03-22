@@ -67,7 +67,6 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   void OnStreamInactive();
 
   // Overrides VCMReceiveStatisticsCallback.
-  void OnReceiveRatesUpdated(uint32_t bitRate, uint32_t frameRate) override;
   void OnFrameCountsUpdated(const FrameCounts& frame_counts) override;
   void OnDiscardedPacketsUpdated(int discarded_packets) override;
   void OnCompleteFrame(bool is_keyframe,

@@ -825,9 +825,6 @@ void ReceiveStatisticsProxy::OnSyncOffsetUpdated(int64_t sync_offset_ms,
   freq_offset_counter_.Add(offset_khz);
 }
 
-void ReceiveStatisticsProxy::OnReceiveRatesUpdated(uint32_t bitRate,
-                                                   uint32_t frameRate) {}
-
 void ReceiveStatisticsProxy::OnCompleteFrame(bool is_keyframe,
                                              size_t size_bytes,
                                              VideoContentType content_type) {

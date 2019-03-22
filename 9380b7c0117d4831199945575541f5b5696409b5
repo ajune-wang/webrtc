@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f92fe0d_8134f933",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-22T14:15:21Z",
+      "side": 1,
+      "message": "Could be clarified, maybe:\nUse fixed target rate as default audio bitrate allocation.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 75
+      },
+      "revId": "9380b7c0117d4831199945575541f5b5696409b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bc53be4_97c143bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-22T14:15:21Z",
+      "side": 1,
+      "message": "\u003c 73 chars",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 128
+      },
+      "revId": "9380b7c0117d4831199945575541f5b5696409b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f52ebed4_6b8002ca",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-22T14:15:21Z",
+      "side": 1,
+      "message": "I\u0027d prefer this to be moved to where it\u0027s used, since it shouldn\u0027t be used elsewhere and it would make that code easier to read. In particular since we hopefully will be removing it soon we really wouldn\u0027t want it to be used at more places.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 52
+      },
+      "revId": "9380b7c0117d4831199945575541f5b5696409b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "990bc683_19a70b3a",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-22T14:15:21Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 457,
+        "startChar": 41,
+        "endLine": 457,
+        "endChar": 46
+      },
+      "revId": "9380b7c0117d4831199945575541f5b5696409b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e525f9c0_7df74184",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-22T14:15:21Z",
+      "side": 1,
+      "message": "This and the above (assuming that we don\u0027t actually want to allow target bitrate \u003c min bitrate could be replaced with:\nupdate.traget_bitrate.Clamp(constraints.min, constraints.max);",
+      "range": {
+        "startLine": 460,
+        "startChar": 1,
+        "endLine": 462,
+        "endChar": 0
+      },
+      "revId": "9380b7c0117d4831199945575541f5b5696409b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d770c184_3d82039d",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-22T14:15:21Z",
+      "side": 1,
+      "message": "Is this guaranteed to be positive now?",
+      "range": {
+        "startLine": 828,
+        "startChar": 47,
+        "endLine": 828,
+        "endChar": 62
+      },
+      "revId": "9380b7c0117d4831199945575541f5b5696409b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3ace675_ddc120d8",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-22T14:15:21Z",
+      "side": 1,
+      "message": "Maybe?\nTargetAudioBitrateConstraints constraints{\n DataRate::bps(config_.min_bitrate_bps),\n DataRate::bps(config_.max_bitrate_bps)\n}",
+      "range": {
+        "startLine": 827,
+        "startChar": 2,
+        "endLine": 828,
+        "endChar": 63
+      },
+      "revId": "9380b7c0117d4831199945575541f5b5696409b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7ef71d1_e4eb2e03",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-22T14:15:21Z",
+      "side": 1,
+      "message": "min_bitrate \u003d *allocation_settings_.MinBitrate();\n(.value() includes a CHECK, but we don\u0027t need that here since we just tested it)",
+      "range": {
+        "startLine": 832,
+        "startChar": 4,
+        "endLine": 832,
+        "endChar": 60
+      },
+      "revId": "9380b7c0117d4831199945575541f5b5696409b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c255944f_8724ef14",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-22T14:15:21Z",
+      "side": 1,
+      "message": "We don\u0027t need the braces here.",
+      "range": {
+        "startLine": 833,
+        "startChar": 2,
+        "endLine": 833,
+        "endChar": 3
+      },
+      "revId": "9380b7c0117d4831199945575541f5b5696409b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f11f5148_415d8f25",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-22T14:15:21Z",
+      "side": 1,
+      "message": "Probably mixed this up?",
+      "range": {
+        "startLine": 838,
+        "startChar": 2,
+        "endLine": 838,
+        "endChar": 54
+      },
+      "revId": "9380b7c0117d4831199945575541f5b5696409b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "876d72b0_1a64d4e2",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-22T14:15:21Z",
+      "side": 1,
+      "message": "Zero()",
+      "range": {
+        "startLine": 841,
+        "startChar": 36,
+        "endLine": 841,
+        "endChar": 42
+      },
+      "revId": "9380b7c0117d4831199945575541f5b5696409b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

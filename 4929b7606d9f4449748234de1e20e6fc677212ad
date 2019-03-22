@@ -94,6 +94,30 @@
       "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2d1670e_292cfc69",
+        "filename": "api/create_peerconnection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-22T15:11:57Z",
+      "side": 1,
+      "message": "Then I\u0027m a bit confused about the value of this CL.\n\nAs I now see it the sole purpose of this CL is to make WebRTC flag if processing is not supplied externally when it is expected to. This makes sense, but it comes at a cost both in code complexity and in that an additional CHECK which is something that should be avoided.\n\nI don\u0027t see anything in this CL that ensures the saving of memory. That is rather achieved by passing an external pointer to an AudioProcessing object to the Factory. The same memory savings should as well be possible without this CL.",
+      "parentUuid": "963a7e28_aeab8ba9",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 48
+      },
+      "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

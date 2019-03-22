@@ -574,7 +574,6 @@ TEST_F(ReceiveStatisticsProxyTest, BadCallHistogramsAreUpdated) {
     // Since OnRenderedFrame is never called the fps in each sample will be 0,
     // i.e. bad
     fake_clock_.AdvanceTimeMilliseconds(1000);
-    statistics_proxy_->OnIncomingRate(0, 0);
   }
   // Histograms are updated when the statistics_proxy_ is deleted.
   statistics_proxy_.reset();

@@ -283,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "52952a3f_07fd0dd5",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-22T18:37:16Z",
+      "side": 1,
+      "message": "The important part is that we should be certain that it\u0027s always set by the channel, what happens if neither target bitrate not min/max is set?",
+      "parentUuid": "f4e72be2_828855f5",
+      "range": {
+        "startLine": 828,
+        "startChar": 47,
+        "endLine": 828,
+        "endChar": 62
+      },
+      "revId": "9380b7c0117d4831199945575541f5b5696409b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f7ef71d1_e4eb2e03",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 5

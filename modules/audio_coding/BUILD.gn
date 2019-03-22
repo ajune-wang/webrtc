@@ -1446,6 +1446,22 @@ if (rtc_include_tests) {
         "neteq/tools/neteq_rtpplay.cc",
       ]
     }
+
+    rtc_executable("event_log_ssrc_extractor") {
+      testonly = true
+      visibility += [ "*" ]
+      defines = []
+      deps = [
+        "../../logging:rtc_event_log_parser",
+        "../../logging:rtc_event_log_proto",
+        "../../rtc_base:checks",
+        "../../rtc_base:rtc_base_approved",
+        "//third_party/abseil-cpp/absl/strings",
+      ]
+      sources = [
+        "neteq/tools/event_log_ssrc_extractor.cc",
+      ]
+    }
   }
 
   audio_codec_speed_tests_resources = [

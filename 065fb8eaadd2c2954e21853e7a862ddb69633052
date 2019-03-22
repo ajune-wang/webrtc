@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b07d054b_b95415b1",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 1450,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-22T07:34:32Z",
+      "side": 1,
+      "message": "I think this should be an rtc_executable.",
+      "range": {
+        "startLine": 1450,
+        "startChar": 4,
+        "endLine": 1450,
+        "endChar": 12
+      },
+      "revId": "065fb8eaadd2c2954e21853e7a862ddb69633052",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -97,12 +97,16 @@ TEST(NetworkEmulationManagerTest, Run) {
   network_manager.CreateRoute(alice_endpoint, {alice_node}, bob_endpoint);
   network_manager.CreateRoute(bob_endpoint, {bob_node}, alice_endpoint);
 
-  auto* nt1 = network_manager.CreateNetworkThread({alice_endpoint});
-  auto* nt2 = network_manager.CreateNetworkThread({bob_endpoint});
+  NetworkDescriptor nt1 =
+      network_manager.CreateNetworkDescriptor({alice_endpoint});
+  NetworkDescriptor nt2 =
+      network_manager.CreateNetworkDescriptor({bob_endpoint});
 
   for (uint64_t j = 0; j < 2; j++) {
-    auto* s1 = nt1->socketserver()->CreateAsyncSocket(AF_INET, SOCK_DGRAM);
-    auto* s2 = nt2->socketserver()->CreateAsyncSocket(AF_INET, SOCK_DGRAM);
+    auto* s1 = nt1.network_thread->socketserver()->CreateAsyncSocket(
+        AF_INET, SOCK_DGRAM);
+    auto* s2 = nt2.network_thread->socketserver()->CreateAsyncSocket(
+        AF_INET, SOCK_DGRAM);
 
     SocketReader r1(s1);
     SocketReader r2(s2);

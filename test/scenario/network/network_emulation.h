@@ -120,7 +120,10 @@ class EmulatedNetworkNode : public EmulatedNetworkReceiverInterface {
 // from other EmulatedNetworkNodes.
 class EmulatedEndpoint : public EmulatedNetworkReceiverInterface {
  public:
-  EmulatedEndpoint(uint64_t id, rtc::IPAddress, Clock* clock);
+  EmulatedEndpoint(uint64_t id,
+                   rtc::IPAddress ip,
+                   bool is_active,
+                   Clock* clock);
   ~EmulatedEndpoint() override;
 
   uint64_t GetId() const;
@@ -155,6 +158,10 @@ class EmulatedEndpoint : public EmulatedNetworkReceiverInterface {
   // Will be called to deliver packet into endpoint from network node.
   void OnPacketReceived(EmulatedIpPacket packet) override;
 
+  void TurnOn();
+  void TurnOff();
+  bool is_active() const { return is_active_; }
+
  protected:
   friend class test::NetworkEmulationManagerImpl;
 
@@ -170,6 +177,8 @@ class EmulatedEndpoint : public EmulatedNetworkReceiverInterface {
   uint64_t id_;
   // Peer's local IP address for this endpoint network interface.
   const rtc::IPAddress peer_local_addr_;
+  // TODO(titovartem@) do we need to restrict some actions basing on the state?
+  bool is_active_;
   EmulatedNetworkNode* send_node_;
   Clock* const clock_;
 

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "81d77f8b_18dbd7d7",
+        "filename": "common_video/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-03-22T09:55:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d02d21d0_4a41fa20",
+      "revId": "91b92ab7bec6c2abb27262273fe2dd5087832a64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "955df76f_86abaf8b",
         "filename": "common_video/bitstream_parser.h",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "751e0114_95edf3d4",
+        "filename": "common_video/bitstream_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-03-22T09:55:19Z",
+      "side": 1,
+      "message": "I\u0027ll change this in a follow-up CL where I remove the old API. I want to modify the implementation as little as possible in this CL.",
+      "parentUuid": "955df76f_86abaf8b",
+      "revId": "91b92ab7bec6c2abb27262273fe2dd5087832a64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee6c4f6b_538fb069",
         "filename": "common_video/bitstream_parser.h",
         "patchSetId": 1
@@ -50,6 +86,24 @@
       "revId": "91b92ab7bec6c2abb27262273fe2dd5087832a64",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee68656c_b24cafc4",
+        "filename": "common_video/bitstream_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-03-22T09:55:19Z",
+      "side": 1,
+      "message": "No, this should probably not be part of the interface. Removed.",
+      "parentUuid": "ee6c4f6b_538fb069",
+      "revId": "91b92ab7bec6c2abb27262273fe2dd5087832a64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "b6a1f747_f0a60ec4",
+        "filename": "common_video/bitstream_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-03-22T09:55:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0dac97b4_504684f0",
+      "range": {
+        "startLine": 29,
+        "startChar": 30,
+        "endLine": 29,
+        "endChar": 69
+      },
+      "revId": "91b92ab7bec6c2abb27262273fe2dd5087832a64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0163a064_f4002ead",
         "filename": "common_video/bitstream_parser.h",
         "patchSetId": 1
@@ -90,6 +168,24 @@
       "revId": "91b92ab7bec6c2abb27262273fe2dd5087832a64",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e94ed0a4_6af69173",
+        "filename": "common_video/bitstream_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-03-22T09:55:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0163a064_f4002ead",
+      "revId": "91b92ab7bec6c2abb27262273fe2dd5087832a64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

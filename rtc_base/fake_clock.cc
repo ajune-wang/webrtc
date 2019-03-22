@@ -13,14 +13,18 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/message_queue.h"
 
+#include <iostream>
+
 namespace rtc {
 
 int64_t FakeClock::TimeNanos() const {
   CritScope cs(&lock_);
+  printf("Return fake time as %i ns\n", static_cast<int>(time_ / 1000));
   return time_;
 }
 
 void FakeClock::SetTimeNanos(int64_t nanos) {
+  printf("Setting fake time to %i us\n", static_cast<int>(nanos / 1000));
   {
     CritScope cs(&lock_);
     RTC_DCHECK(nanos >= time_);
@@ -32,6 +36,7 @@ void FakeClock::SetTimeNanos(int64_t nanos) {
 }
 
 void FakeClock::AdvanceTime(webrtc::TimeDelta delta) {
+  printf("Advancing fake time with %i us\n", delta.us<int>());
   {
     CritScope cs(&lock_);
     time_ += delta.ns();
@@ -40,11 +45,13 @@ void FakeClock::AdvanceTime(webrtc::TimeDelta delta) {
 }
 
 ScopedFakeClock::ScopedFakeClock() {
+  printf("Entering scoped fake clock. \n");
   prev_clock_ = SetClockForTesting(this);
 }
 
 ScopedFakeClock::~ScopedFakeClock() {
   SetClockForTesting(prev_clock_);
+  printf("Exiting scoped fake clock. \n");
 }
 
 }  // namespace rtc

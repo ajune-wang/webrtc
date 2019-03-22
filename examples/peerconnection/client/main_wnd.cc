@@ -34,7 +34,7 @@ void CalculateWindowSizeForText(HWND wnd,
                                 size_t* height) {
   HDC dc = ::GetDC(wnd);
   RECT text_rc = {0};
-  ::DrawText(dc, text, -1, &text_rc, DT_CALCRECT | DT_SINGLELINE);
+  ::DrawTextW(dc, text, -1, &text_rc, DT_CALCRECT | DT_SINGLELINE);
   ::ReleaseDC(wnd, dc);
   RECT client, window;
   ::GetClientRect(wnd, &client);
@@ -347,7 +347,7 @@ void MainWnd::OnDefaultAction() {
       }
     }
   } else {
-    MessageBoxA(wnd_, "OK!", "Yeah", MB_OK);
+    ::MessageBoxA(wnd_, "OK!", "Yeah", MB_OK);
   }
 }
 
@@ -464,9 +464,9 @@ void MainWnd::CreateChildWindow(HWND* wnd,
 
   // Child windows are invisible at first, and shown after being resized.
   DWORD style = WS_CHILD | control_style;
-  *wnd = ::CreateWindowEx(ex_style, class_name, L"", style, 100, 100, 100, 100,
-                          wnd_, reinterpret_cast<HMENU>(id),
-                          GetModuleHandle(NULL), NULL);
+  *wnd = ::CreateWindowExW(ex_style, class_name, L"", style, 100, 100, 100, 100,
+                           wnd_, reinterpret_cast<HMENU>(id),
+                           GetModuleHandle(NULL), NULL);
   RTC_DCHECK(::IsWindow(*wnd) != FALSE);
   ::SendMessage(*wnd, WM_SETFONT, reinterpret_cast<WPARAM>(GetDefaultFont()),
                 TRUE);
@@ -522,7 +522,7 @@ void MainWnd::LayoutConnectUI(bool show) {
                    static_cast<int>(windows[i].height), TRUE);
       x += kSeparator + windows[i].width;
       if (windows[i].text[0] != 'X')
-        ::SetWindowText(windows[i].wnd, windows[i].text);
+        ::SetWindowTextW(windows[i].wnd, windows[i].text);
       ::ShowWindow(windows[i].wnd, SW_SHOWNA);
     }
   } else {

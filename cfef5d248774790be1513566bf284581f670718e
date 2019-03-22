@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc93cc09_b9dc60ae",
+        "filename": "api/jsep_ice_candidate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-22T23:20:37Z",
+      "side": 1,
+      "message": "by ref?",
+      "range": {
+        "startLine": 75,
+        "startChar": 44,
+        "endLine": 75,
+        "endChar": 53
+      },
+      "revId": "cfef5d248774790be1513566bf284581f670718e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

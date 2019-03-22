@@ -37,10 +37,10 @@ DWORD GetTlsIndex() {
 
 // kMagnifierWindowClass has to be "Magnifier" according to the Magnification
 // API. The other strings can be anything.
-static LPCTSTR kMagnifierHostClass = L"ScreenCapturerWinMagnifierHost";
-static LPCTSTR kHostWindowName = L"MagnifierHost";
-static LPCTSTR kMagnifierWindowClass = L"Magnifier";
-static LPCTSTR kMagnifierWindowName = L"MagnifierWindow";
+static LPCWSTR kMagnifierHostClass = L"ScreenCapturerWinMagnifierHost";
+static LPCWSTR kHostWindowName = L"MagnifierHost";
+static LPCWSTR kMagnifierWindowClass = L"Magnifier";
+static LPCWSTR kMagnifierWindowName = L"MagnifierWindow";
 
 ScreenCapturerWinMagnifier::ScreenCapturerWinMagnifier() = default;
 ScreenCapturerWinMagnifier::~ScreenCapturerWinMagnifier() {
@@ -209,7 +209,7 @@ bool ScreenCapturerWinMagnifier::InitializeMagnifier() {
 
   desktop_dc_ = GetDC(nullptr);
 
-  mag_lib_handle_ = LoadLibrary(L"Magnification.dll");
+  mag_lib_handle_ = LoadLibraryW(L"Magnification.dll");
   if (!mag_lib_handle_)
     return false;
 

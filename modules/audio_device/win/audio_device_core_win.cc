@@ -180,7 +180,7 @@ bool AudioDeviceWindowsCore::CoreAudioIsSupported() {
 
   HRESULT hr(S_OK);
   TCHAR buf[MAXERRORLENGTH];
-  TCHAR errorText[MAXERRORLENGTH];
+  WCHAR errorText[MAXERRORLENGTH];
 
   // 1) Check if Windows version is Vista SP1 or later.
   //
@@ -4161,7 +4161,7 @@ Exit:
 
 void AudioDeviceWindowsCore::_TraceCOMError(HRESULT hr) const {
   TCHAR buf[MAXERRORLENGTH];
-  TCHAR errorText[MAXERRORLENGTH];
+  WCHAR errorText[MAXERRORLENGTH];
 
   const DWORD dwFlags =
       FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS;

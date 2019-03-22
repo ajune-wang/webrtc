@@ -22,6 +22,30 @@
       "revId": "fb04dd253e775e5e1562d89355e89c6270374952",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa7d8d44_5d7cea73",
+        "filename": "video/video_stream_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-03-22T10:02:04Z",
+      "side": 0,
+      "message": "The more we can remove, the better :)\n\nCan we do it in this CL or should it be done in a followup CL?",
+      "parentUuid": "28a8a1c8_3b192b50",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 1
+      },
+      "revId": "fb04dd253e775e5e1562d89355e89c6270374952",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

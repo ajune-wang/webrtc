@@ -31,9 +31,9 @@ bool GetScreenList(DesktopCapturer::SourceList* screens,
 
   BOOL enum_result = TRUE;
   for (int device_index = 0;; ++device_index) {
-    DISPLAY_DEVICE device;
+    DISPLAY_DEVICEW device;
     device.cb = sizeof(device);
-    enum_result = EnumDisplayDevices(NULL, device_index, &device, 0);
+    enum_result = EnumDisplayDevicesW(NULL, device_index, &device, 0);
 
     // |enum_result| is 0 if we have enumerated all devices.
     if (!enum_result)
@@ -57,9 +57,9 @@ bool IsScreenValid(DesktopCapturer::SourceId screen, std::wstring* device_key) {
     return true;
   }
 
-  DISPLAY_DEVICE device;
+  DISPLAY_DEVICEW device;
   device.cb = sizeof(device);
-  BOOL enum_result = EnumDisplayDevices(NULL, screen, &device, 0);
+  BOOL enum_result = EnumDisplayDevicesW(NULL, screen, &device, 0);
   if (enum_result)
     *device_key = device.DeviceKey;
 
@@ -79,9 +79,9 @@ DesktopRect GetScreenRect(DesktopCapturer::SourceId screen,
     return GetFullscreenRect();
   }
 
-  DISPLAY_DEVICE device;
+  DISPLAY_DEVICEW device;
   device.cb = sizeof(device);
-  BOOL result = EnumDisplayDevices(NULL, screen, &device, 0);
+  BOOL result = EnumDisplayDevicesW(NULL, screen, &device, 0);
   if (!result)
     return DesktopRect();
 

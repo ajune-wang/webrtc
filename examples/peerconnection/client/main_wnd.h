@@ -74,7 +74,7 @@ class MainWindow {
 
 class MainWnd : public MainWindow {
  public:
-  static const wchar_t kClassName[];
+  static const char kClassName[];
 
   enum WindowMessages {
     UI_THREAD_CALLBACK = WM_APP + 1,

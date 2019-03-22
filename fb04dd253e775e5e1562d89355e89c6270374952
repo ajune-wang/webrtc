@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28a8a1c8_3b192b50",
+        "filename": "video/video_stream_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-22T09:02:18Z",
+      "side": 0,
+      "message": "Oops, initially missed that we proxy to a method with a different name here. \n\nThen this change is a little more subtle, and question is if ReceiveStatisticsProxy::OnIncomingRate should be deleted too. Since cl https://webrtc-review.googlesource.com/c/src/+/127294, landed last week, this function never runs for a VideoReceiveStream.",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 1
+      },
+      "revId": "fb04dd253e775e5e1562d89355e89c6270374952",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

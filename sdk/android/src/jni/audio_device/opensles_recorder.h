@@ -17,6 +17,7 @@
 
 #include <memory>
 
+#include "api/scoped_refptr.h"
 #include "modules/audio_device/audio_device_buffer.h"
 #include "modules/audio_device/fine_audio_buffer.h"
 #include "modules/audio_device/include/audio_device_defines.h"
@@ -62,8 +63,9 @@ class OpenSLESRecorder : public AudioInput {
   // TODO(henrika): perhaps set this value dynamically based on OS version.
   static const int kNumOfOpenSLESBuffers = 2;
 
-  OpenSLESRecorder(const AudioParameters& audio_parameters,
-                   OpenSLEngineManager* engine_manager);
+  OpenSLESRecorder(
+      const AudioParameters& audio_parameters,
+      const rtc::scoped_refptr<OpenSLEngineManager>& engine_manager);
   ~OpenSLESRecorder() override;
 
   int Init() override;
@@ -148,7 +150,7 @@ class OpenSLESRecorder : public AudioInput {
   bool initialized_;
   bool recording_;
 
-  OpenSLEngineManager* const engine_manager_;
+  const rtc::scoped_refptr<OpenSLEngineManager> engine_manager_;
   // This interface exposes creation methods for all the OpenSL ES object types.
   // It is the OpenSL ES API entry point.
   SLEngineItf engine_;

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1ed05132_5697f274",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-22T12:50:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf377971_9579c931",
+      "range": {
+        "startLine": 57,
+        "startChar": 36,
+        "endLine": 57,
+        "endChar": 55
+      },
+      "revId": "5f7025db1b36d1f9d6fec4dfee1add09c318268b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f4e9ee3_325813d9",
         "filename": "modules/video_coding/codecs/test/videoprocessor_unittest.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "5f7025db1b36d1f9d6fec4dfee1add09c318268b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "736ff192_34480e41",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-22T12:50:59Z",
+      "side": 1,
+      "message": "Done. I prefer to always having to pass a map (albeit empty), than having the option of passing a nullptr and/or an empty map, for the case of \"no recorded video\".",
+      "parentUuid": "7f4e9ee3_325813d9",
+      "range": {
+        "startLine": 88,
+        "startChar": 35,
+        "endLine": 88,
+        "endChar": 56
+      },
+      "revId": "5f7025db1b36d1f9d6fec4dfee1add09c318268b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

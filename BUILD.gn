@@ -311,6 +311,12 @@ config("common_config") {
       # external headers warning suppression (or fix them upstream).
       cflags += [ "/wd4702" ]  # unreachable code
     }
+    if (is_win && is_clang) {
+      cflags += [
+        "-UUNICODE",
+        "-U_UNICODE",
+      ]
+    }
   }
 
   if (current_cpu == "arm64") {

@@ -70,6 +70,30 @@
       "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "963a7e28_aeab8ba9",
+        "filename": "api/create_peerconnection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 8760
+      },
+      "writtenOn": "2019-03-22T14:35:08Z",
+      "side": 1,
+      "message": "You are right, the code won\u0027t work if caller of CreatePeerConnectionFactory calls with audio_processing\u003dnullptr and the WebRTC is built with rtc_include_builtin_audio_processing\u003dfalse.\nThat is why I added \nRTC_CHECK(0) \u003c\u003c \"audio_processing should be supplied for peer connection\"; \nSo that its easy to catch these issues.\n\nThe expectation is that the application needs to provide its own implementation of audio_processing. \nFor IOS, since we use hardware AEC, we provide very light weight audio_processing which is pretty much no-op and small binary size. \nGetting rid of software AGC,AEC etc saves ~200KB which is huge for IOS.",
+      "parentUuid": "9d2eeb80_d863e946",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 48
+      },
+      "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

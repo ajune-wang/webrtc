@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "943a8a15_e5a848a7",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-22T12:58:17Z",
+      "side": 0,
+      "message": "Method is declared with RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_), so should be thread safe without this check.",
+      "range": {
+        "startLine": 491,
+        "startChar": 0,
+        "endLine": 491,
+        "endChar": 38
+      },
+      "revId": "fb04dd253e775e5e1562d89355e89c6270374952",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "28a8a1c8_3b192b50",
         "filename": "video/video_stream_decoder.cc",
         "patchSetId": 1

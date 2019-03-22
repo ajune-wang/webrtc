@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6de1fea_ba56426f",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-03-22T10:25:42Z",
+      "side": 1,
+      "message": "nit: Maybe this is work-related damage to my brain working with standards where MUST and SHOULD have specific meanings, but \"should\" sounds a bit soft. I\u0027d phrase it as \"Standardized stats have no group IDs.\"",
+      "revId": "45396e6e63892be3d687afe08413cda3c91f1b03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

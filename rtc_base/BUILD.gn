@@ -618,6 +618,7 @@ rtc_static_library("rtc_numerics") {
     ":checks",
     ":rtc_base_approved",
     ":safe_compare",
+    "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }
@@ -798,6 +799,7 @@ rtc_static_library("rtc_base") {
     "system:file_wrapper",
     "third_party/base64",
     "third_party/sigslot",
+    "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
@@ -1105,6 +1107,7 @@ rtc_source_set("rtc_base_tests_utils") {
     ":rtc_base",
     "../api/units:time_delta",
     "third_party/sigslot",
+    "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/memory",
   ]
 }
@@ -1338,6 +1341,7 @@ if (rtc_include_tests) {
       ":rtc_base_tests_main",
       ":rtc_numerics",
       "../test:test_support",
+      "//third_party/abseil-cpp/absl/algorithm:container",
     ]
   }
 
@@ -1412,6 +1416,7 @@ if (rtc_include_tests) {
       "../test:test_support",
       "synchronization:synchronization_unittests",
       "third_party/sigslot",
+      "//third_party/abseil-cpp/absl/algorithm:container",
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
     ]

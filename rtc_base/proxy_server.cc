@@ -11,8 +11,8 @@
 #include "rtc_base/proxy_server.h"
 
 #include <stddef.h>
-#include <algorithm>
 
+#include "absl/algorithm/container.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/socket_factory.h"
@@ -63,8 +63,7 @@ void ProxyServer::OnAcceptEvent(AsyncSocket* socket) {
 }
 
 void ProxyServer::OnBindingDestroyed(ProxyBinding* binding) {
-  BindingList::iterator it =
-      std::find(bindings_.begin(), bindings_.end(), binding);
+  BindingList::iterator it = absl::c_find(bindings_, binding);
   delete (*it);
   bindings_.erase(it);
 }

@@ -46,6 +46,30 @@
       "revId": "fb04dd253e775e5e1562d89355e89c6270374952",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa3853fe_c19890b9",
+        "filename": "video/video_stream_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-22T10:06:26Z",
+      "side": 0,
+      "message": "If not too difficult, it would be nice to delete OnIncomingRate in this cl, and wire up periodic QualitySample in some different way.",
+      "parentUuid": "fa7d8d44_5d7cea73",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 1
+      },
+      "revId": "fb04dd253e775e5e1562d89355e89c6270374952",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

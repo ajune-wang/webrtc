@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58132582_0d1eb015",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-22T11:10:47Z",
+      "side": 1,
+      "message": "Should these targets also be testonly?",
+      "revId": "5246b51814b50e3ec8642021fdb834eee63989a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bdec2fc_ada34b54",
+        "filename": "api/test/DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-22T11:10:47Z",
+      "side": 1,
+      "message": "Drop this one now?",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "5246b51814b50e3ec8642021fdb834eee63989a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1dde2eb_ff04ab69",
+        "filename": "test/pc/e2e/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-22T11:10:47Z",
+      "side": 1,
+      "message": "https://webrtc-review.googlesource.com/c/src/+/127899",
+      "range": {
+        "startLine": 59,
+        "startChar": 41,
+        "endLine": 59,
+        "endChar": 48
+      },
+      "revId": "5246b51814b50e3ec8642021fdb834eee63989a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': 'c03b7c57f81e79ae44742e7180300c2ea7c012aa',
+  'chromium_revision': '6a99e444ef5d17de11cd19d5173e586d854893ef',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -24,7 +24,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling catapult
   # and whatever else without interference from each other.
-  'catapult_revision': '2f1832aff38dc3475514b0364f5d27117f6cc8a5',
+  'catapult_revision': '4f85d519ed2265bb6ff6893e4da1f625a4d5b967',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling libFuzzer
   # and whatever else without interference from each other.
@@ -98,13 +98,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '6432293d5c35b35e83cd7290411948848ee3825c',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '5c98e390d0baf56a7163f4bb1f75439530d29df3',
     'condition': 'checkout_ios',
   },
   'src/testing':
     Var('chromium_git') + '/chromium/src/testing' + '@' + 'ea68a8f045138b854f28b274324a12409ff7d929',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + '1e8f23409c02f1865ea345fb4a292afc033e33ca',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + '7fbb95a2d4f3359313bfb6466f0b0bf9fbc45ef3',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -199,7 +199,7 @@ deps = {
   'src/third_party/colorama/src':
     Var('chromium_git') + '/external/colorama.git' + '@' + '799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + '5637e87bda2811565c3e4e58bd2274aeb3a4757e',
+    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + '793183d37d50f3545e897b270229dea8d247a4a6',
   'src/third_party/errorprone/lib': {
       'url': Var('chromium_git') + '/chromium/third_party/errorprone.git' + '@' + '980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',

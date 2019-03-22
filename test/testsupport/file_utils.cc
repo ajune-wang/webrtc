@@ -104,8 +104,8 @@ std::string WorkingDir() {
 std::string TempFilename(const std::string& dir, const std::string& prefix) {
 #ifdef WIN32
   wchar_t filename[MAX_PATH];
-  if (::GetTempFileName(rtc::ToUtf16(dir).c_str(), rtc::ToUtf16(prefix).c_str(),
-                        0, filename) != 0)
+  if (::GetTempFileNameW(rtc::ToUtf16(dir).c_str(),
+                         rtc::ToUtf16(prefix).c_str(), 0, filename) != 0)
     return rtc::ToUtf8(filename);
   assert(false);
   return "";
@@ -144,7 +144,7 @@ absl::optional<std::vector<std::string>> ReadDirectory(std::string path) {
 
   // Init.
   WIN32_FIND_DATA data;
-  HANDLE handle = ::FindFirstFile(rtc::ToUtf16(path + '*').c_str(), &data);
+  HANDLE handle = ::FindFirstFileW(rtc::ToUtf16(path + '*').c_str(), &data);
   if (handle == INVALID_HANDLE_VALUE)
     return absl::optional<std::vector<std::string>>();
 

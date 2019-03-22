@@ -46,6 +46,30 @@
       "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d2eeb80_d863e946",
+        "filename": "api/create_peerconnection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-22T11:47:22Z",
+      "side": 1,
+      "message": "I don\u0027t think that the rest of the code would work well with this approach.\nAFAICS, passing a nullptr to \ncricket::WebRtcMediaEngineFactory::Create(.)\nwill have the effect that it is passed to the constructor for\nWebRtcVoiceEngine::WebRtcVoiceEngine(.)\nwhich includes a DCHECK on audioprocessing not being nullptr.\n\nThat DCHECK is there because the code was not designed for audioprocessing being nullptr.\n\nI think that the code definitely could be made to work without an audio processing object being passed but that requires much more changes than this.",
+      "parentUuid": "15abaf88_9c6906f6",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 48
+      },
+      "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

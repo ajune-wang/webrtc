@@ -1380,6 +1380,7 @@ if (rtc_include_tests) {
              "../../api/audio_codecs/opus:audio_encoder_opus",
              "../../common_audio",
              "../../rtc_base/system:arch",
+             "../../rtc_base:fake_clock_unittest",
              "../../test:test_main",
              "//testing/gtest",
              "../../test:test_support",

@@ -24,6 +24,7 @@
 #include "rtc_base/socket_server.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 #include "system_wrappers/include/clock.h"
+#include "test/scenario/network/emulated_network_manager.h"
 #include "test/scenario/network/fake_network_socket.h"
 
 namespace webrtc {
@@ -35,7 +36,7 @@ class FakeNetworkSocketServer : public rtc::SocketServer,
                                 public SocketManager {
  public:
   FakeNetworkSocketServer(Clock* clock,
-                          std::vector<EmulatedEndpoint*> endpoints);
+                          EmulatedNetworkManager* network_manager);
   ~FakeNetworkSocketServer() override;
 
   EmulatedEndpoint* GetEndpointNode(const rtc::IPAddress& ip) override;
@@ -57,7 +58,7 @@ class FakeNetworkSocketServer : public rtc::SocketServer,
   Timestamp Now() const;
 
   Clock* const clock_;
-  const std::vector<EmulatedEndpoint*> endpoints_;
+  const EmulatedNetworkManager* network_manager_;
   rtc::Event wakeup_;
   rtc::MessageQueue* msg_queue_;
 

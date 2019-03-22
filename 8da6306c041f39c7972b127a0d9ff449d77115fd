@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "68358c9c_411b7e9b",
+        "filename": "api/array_view.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-22T10:27:02Z",
+      "side": 1,
+      "message": "\u003e thanks for clarifying.\n\u003e i found this relevant answer: https://stackoverflow.com/a/38916812\n\u003e it suggests that for fundamental types sizeof(T) \u003d\u003d alignof(T) in most implementations but it is not a guarantee of the standard.\n\nThanks for digging up that answer!\n\n\u003e I am still not convinced of the need to check alignment, as it\u0027s not normally checked in reinterpret cast, but I see nothing wrong with adding another static assert for this. better safe than sorry.\n\nMy point exactly. (Had you allowed struct types, checking would have been necessary, though, as discussed earlier.)\n\n\u003e regarding the required condition -\n\u003e the purpose of the static asserts in the reinterpret cast is to make sure that you are \u0027casting\u0027 to a memory chunk of the same size.\n\u003e i understand ArrayView::size() to be the number of elements because ArrayView::operator[](idx) DCHECKS(idx \u003c size()).\n\u003e If i were to look at the array view as a chunk of memory, then the size of the buffer (in bytes) is how many bytes would be incremented by: data() + size().\n\u003e i will enforce that the aligment is the same in both types.\n\nOK, requiring that alignof(U) \u003d\u003d alignof(T) isn\u0027t likely to be a stronger condition than alignof(U) \u003c\u003d alignof(T) in practice for fundamental types, so that\u0027s fine.",
+      "parentUuid": "bbf433d4_da254608",
+      "revId": "8da6306c041f39c7972b127a0d9ff449d77115fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30173be6_adb36604",
         "filename": "api/array_view.h",
         "patchSetId": 2

@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': '13ad83754c3ce3810fad79bc967f65789fb87db1',
+  'chromium_revision': 'd2b6b216eec33310411c81e3891cf496b7e6d3c1',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -24,7 +24,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling catapult
   # and whatever else without interference from each other.
-  'catapult_revision': '9bc89199cca691d409576092c9a2ec358febb683',
+  'catapult_revision': 'dc0da234fedd16150cbe7ffdb92a70a1ddb74fd6',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling libFuzzer
   # and whatever else without interference from each other.
@@ -86,7 +86,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    Var('chromium_git') + '/chromium/src/base' + '@' + '5ff53de083339727da478d02428857666110aeb1',
+    Var('chromium_git') + '/chromium/src/base' + '@' + '54e6bd615b362bcfb57018b697b64ef0488381b2',
   'src/build':
     Var('chromium_git') + '/chromium/src/build' + '@' + '80c51a33a830b9fd053c1debc41d89b465424ca3',
   'src/buildtools':
@@ -98,13 +98,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '74f7e8a4d410bc09e92ecb0502649ff04811b469',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '3d193052b7da8114c5a800e1816ece23510a8af1',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    Var('chromium_git') + '/chromium/src/testing' + '@' + '33263a5be701f0bed0b32fa58b808b47399677c3',
+    Var('chromium_git') + '/chromium/src/testing' + '@' + '6fb2972083c51c8cefb3831c02a976da590a7fd4',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + '9a402f7f8ffb77e8bc3b162c70cb09d99e0cb012',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + 'd7938621849494cc6a5608c239c1023458dbebb2',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -199,7 +199,7 @@ deps = {
   'src/third_party/colorama/src':
     Var('chromium_git') + '/external/colorama.git' + '@' + '799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + 'd0f7911725f31727fe9475c985ba3c9b611cc753',
+    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + 'e4e1dde6b3792ad03b8f3e98666ada6a438d3e15',
   'src/third_party/errorprone/lib': {
       'url': Var('chromium_git') + '/chromium/third_party/errorprone.git' + '@' + '980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',
@@ -250,7 +250,7 @@ deps = {
   'src/third_party/libsrtp':
     Var('chromium_git') + '/chromium/deps/libsrtp.git' + '@' + '650611720ecc23e0e6b32b0e3100f8b4df91696c',
   'src/third_party/libvpx/source/libvpx':
-    Var('chromium_git') + '/webm/libvpx.git' + '@' +  '3e2b4b3d4803f20814d6b6cb3109efbc95249b60',
+    Var('chromium_git') + '/webm/libvpx.git' + '@' +  'dc3b508f573de77abe8ec15d0644d9ad87898699',
   'src/third_party/libyuv':
     Var('chromium_git') + '/libyuv/libyuv.git' + '@' + 'b36c86fdfe746d7be904c3a565b047b24d58087e',
   'src/third_party/lss': {
@@ -312,7 +312,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     Var('chromium_git') + '/chromium/deps/yasm/patched-yasm.git' + '@' + '720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    Var('chromium_git') + '/chromium/src/tools' + '@' + '7e0915556bd37ee3ec46583bfa51d6ea747faaff',
+    Var('chromium_git') + '/chromium/src/tools' + '@' + '5b474a67694778827a5bed9d9c887a750a7a361b',
   'src/tools/swarming_client':
     Var('chromium_git') + '/infra/luci/client-py.git' + '@' +  Var('swarming_revision'),
 

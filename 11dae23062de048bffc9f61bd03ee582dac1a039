@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "814d87aa_e02f5901",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-22T17:19:08Z",
+      "side": 1,
+      "message": "The PortAllocator is allowed to be accessed from multiple threads: https://codesearch.chromium.org/chromium/src/third_party/webrtc/p2p/base/port_allocator.h?l\u003d332\u0026rcl\u003db42165eeab9c4277fec8f608af818a532763af52",
+      "range": {
+        "startLine": 1104,
+        "startChar": 6,
+        "endLine": 1104,
+        "endChar": 21
+      },
+      "revId": "11dae23062de048bffc9f61bd03ee582dac1a039",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

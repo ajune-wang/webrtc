@@ -22,6 +22,93 @@
       "revId": "cfef5d248774790be1513566bf284581f670718e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84806600_9dc8fd64",
+        "filename": "api/jsep_ice_candidate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-23T06:25:16Z",
+      "side": 1,
+      "message": "Yes, good catch---we\u0027re copying `candidate` here!\n\nIn fact, just say [\u0026] to capture everything---this lambda is being called synchronously, so capturing things by reference is safe.",
+      "parentUuid": "dc93cc09_b9dc60ae",
+      "range": {
+        "startLine": 75,
+        "startChar": 44,
+        "endLine": 75,
+        "endChar": 53
+      },
+      "revId": "cfef5d248774790be1513566bf284581f670718e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80358df9_00b0f00d",
+        "filename": "api/rtp_parameters.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-23T06:25:16Z",
+      "side": 1,
+      "message": "`const auto\u0026` here to prevent copying.",
+      "range": {
+        "startLine": 215,
+        "startChar": 7,
+        "endLine": 215,
+        "endChar": 11
+      },
+      "revId": "cfef5d248774790be1513566bf284581f670718e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aada875a_be336012",
+        "filename": "api/rtp_parameters.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-23T06:25:16Z",
+      "side": 1,
+      "message": "[\u0026] here to prevent copying.",
+      "range": {
+        "startLine": 225,
+        "startChar": 21,
+        "endLine": 225,
+        "endChar": 30
+      },
+      "revId": "cfef5d248774790be1513566bf284581f670718e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "540b13b6_e3a60fbb",
+        "filename": "api/test/fake_media_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-23T06:25:16Z",
+      "side": 1,
+      "message": "Do you use linear_search here because it returns true/false rather than an iterator?",
+      "revId": "cfef5d248774790be1513566bf284581f670718e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

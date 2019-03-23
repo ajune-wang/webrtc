@@ -152,10 +152,7 @@ AudioProcessingSimulator::~AudioProcessingSimulator() {
 }
 
 AudioProcessingSimulator::ScopedTimer::~ScopedTimer() {
-  int64_t interval = rtc::TimeNanos() - start_time_;
-  proc_time_->sum += interval;
-  proc_time_->max = std::max(proc_time_->max, interval);
-  proc_time_->min = std::min(proc_time_->min, interval);
+  api_call_statistics_->Add(rtc::TimeNanos() - start_time_, call_type_);
 }
 
 void AudioProcessingSimulator::ProcessStream(bool fixed_interface) {
@@ -189,12 +186,14 @@ void AudioProcessingSimulator::ProcessStream(bool fixed_interface) {
   // Process the current audio frame.
   if (fixed_interface) {
     {
-      const auto st = ScopedTimer(mutable_proc_time());
+      const auto st = ScopedTimer(&api_call_statistics_,
+                                  ApiCallStatistics::CallType::kCapture);
       RTC_CHECK_EQ(AudioProcessing::kNoError, ap_->ProcessStream(&fwd_frame_));
     }
     CopyFromAudioFrame(fwd_frame_, out_buf_.get());
   } else {
-    const auto st = ScopedTimer(mutable_proc_time());
+    const auto st = ScopedTimer(&api_call_statistics_,
+                                ApiCallStatistics::CallType::kCapture);
     RTC_CHECK_EQ(AudioProcessing::kNoError,
                  ap_->ProcessStream(in_buf_->channels(), in_config_,
                                     out_config_, out_buf_->channels()));
@@ -223,13 +222,16 @@ void AudioProcessingSimulator::ProcessStream(bool fixed_interface) {
 
 void AudioProcessingSimulator::ProcessReverseStream(bool fixed_interface) {
   if (fixed_interface) {
-    const auto st = ScopedTimer(mutable_proc_time());
-    RTC_CHECK_EQ(AudioProcessing::kNoError,
-                 ap_->ProcessReverseStream(&rev_frame_));
+    {
+      const auto st = ScopedTimer(&api_call_statistics_,
+                                  ApiCallStatistics::CallType::kRender);
+      RTC_CHECK_EQ(AudioProcessing::kNoError,
+                   ap_->ProcessReverseStream(&rev_frame_));
+    }
     CopyFromAudioFrame(rev_frame_, reverse_out_buf_.get());
-
   } else {
-    const auto st = ScopedTimer(mutable_proc_time());
+    const auto st = ScopedTimer(&api_call_statistics_,
+                                ApiCallStatistics::CallType::kRender);
     RTC_CHECK_EQ(AudioProcessing::kNoError,
                  ap_->ProcessReverseStream(
                      reverse_in_buf_->channels(), reverse_in_config_,

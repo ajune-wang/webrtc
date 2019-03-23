@@ -56,7 +56,7 @@ class AudioProcessingImpl : public AudioProcessing {
   int Initialize(const ProcessingConfig& processing_config) override;
   void ApplyConfig(const AudioProcessing::Config& config) override;
   void SetExtraOptions(const webrtc::Config& config) override;
-  void UpdateHistogramsOnCallEnd() override;
+  void UpdateHistogramsOnCallEnd() override {}
   void AttachAecDump(std::unique_ptr<AecDump> aec_dump) override;
   void DetachAecDump() override;
   void AttachPlayoutAudioGenerator(
@@ -81,8 +81,8 @@ class AudioProcessingImpl : public AudioProcessing {
                     float* const* dest) override;
   void set_output_will_be_muted(bool muted) override;
   int set_stream_delay_ms(int delay) override;
-  void set_delay_offset_ms(int offset) override;
-  int delay_offset_ms() const override;
+  void set_delay_offset_ms(int offset) override {}
+  int delay_offset_ms() const override { return 0; }
   void set_stream_key_pressed(bool key_pressed) override;
 
   // Render-side exclusive methods possibly running APM in a
@@ -267,7 +267,6 @@ class AudioProcessingImpl : public AudioProcessing {
   // Capture-side exclusive methods possibly running APM in a multi-threaded
   // manner that are called with the render lock already acquired.
   int ProcessCaptureStreamLocked() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
-  void MaybeUpdateHistograms() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
 
   // Render-side exclusive methods possibly running APM in a multi-threaded
   // manner that are called with the render lock already acquired.
@@ -375,12 +374,7 @@ class AudioProcessingImpl : public AudioProcessing {
   struct ApmCaptureState {
     ApmCaptureState(bool transient_suppressor_enabled);
     ~ApmCaptureState();
-    int aec_system_delay_jumps;
-    int delay_offset_ms;
     bool was_stream_delay_set;
-    int last_stream_delay_ms;
-    int last_aec_system_delay_ms;
-    int stream_delay_jumps;
     bool output_will_be_muted;
     bool key_pressed;
     bool transient_suppressor_enabled;

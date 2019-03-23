@@ -1210,8 +1210,6 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   RTC_DCHECK(!(private_submodules_->echo_cancellation->is_enabled() &&
                private_submodules_->echo_control_mobile->is_enabled()));
 
-  MaybeUpdateHistograms();
-
   AudioBuffer* capture_buffer = capture_.capture_audio.get();  // For brevity.
 
   if (private_submodules_->pre_amplifier) {
@@ -1578,7 +1576,6 @@ int AudioProcessingImpl::set_stream_delay_ms(int delay) {
   rtc::CritScope cs(&crit_capture_);
   Error retval = kNoError;
   capture_.was_stream_delay_set = true;
-  delay += capture_.delay_offset_ms;
 
   if (delay < 0) {
     delay = 0;
@@ -1610,16 +1607,6 @@ void AudioProcessingImpl::set_stream_key_pressed(bool key_pressed) {
   capture_.key_pressed = key_pressed;
 }
 
-void AudioProcessingImpl::set_delay_offset_ms(int offset) {
-  rtc::CritScope cs(&crit_capture_);
-  capture_.delay_offset_ms = offset;
-}
-
-int AudioProcessingImpl::delay_offset_ms() const {
-  rtc::CritScope cs(&crit_capture_);
-  return capture_.delay_offset_ms;
-}
-
 void AudioProcessingImpl::AttachAecDump(std::unique_ptr<AecDump> aec_dump) {
   RTC_DCHECK(aec_dump);
   rtc::CritScope cs_render(&crit_render_);
@@ -1637,11 +1624,9 @@ void AudioProcessingImpl::DetachAecDump() {
   // tasks are done. This construction avoids blocking while holding
   // the render and capture locks.
   std::unique_ptr<AecDump> aec_dump = nullptr;
-  {
-    rtc::CritScope cs_render(&crit_render_);
-    rtc::CritScope cs_capture(&crit_capture_);
-    aec_dump = std::move(aec_dump_);
-  }
+  rtc::CritScope cs_render(&crit_render_);
+  rtc::CritScope cs_capture(&crit_capture_);
+  aec_dump = std::move(aec_dump_);
 }
 
 void AudioProcessingImpl::AttachPlayoutAudioGenerator(
@@ -1669,20 +1654,6 @@ AudioProcessingStats AudioProcessingImpl::GetStatistics(
     stats.echo_return_loss_enhancement =
         ec_metrics.echo_return_loss_enhancement;
     stats.delay_ms = ec_metrics.delay_ms;
-  } else if (private_submodules_->echo_cancellation->GetMetrics(&metrics) ==
-             Error::kNoError) {
-    if (metrics.divergent_filter_fraction != -1.0f) {
-      stats.divergent_filter_fraction =
-          absl::optional<double>(metrics.divergent_filter_fraction);
-    }
-    if (metrics.echo_return_loss.instant != -100) {
-      stats.echo_return_loss =
-          absl::optional<double>(metrics.echo_return_loss.instant);
-    }
-    if (metrics.echo_return_loss_enhancement.instant != -100) {
-      stats.echo_return_loss_enhancement =
-          absl::optional<double>(metrics.echo_return_loss_enhancement.instant);
-    }
   }
   if (config_.residual_echo_detector.enabled) {
     RTC_DCHECK(private_submodules_->echo_detector);
@@ -1690,18 +1661,6 @@ AudioProcessingStats AudioProcessingImpl::GetStatistics(
     stats.residual_echo_likelihood = ed_metrics.echo_likelihood;
     stats.residual_echo_likelihood_recent_max =
         ed_metrics.echo_likelihood_recent_max;
-  }
-  int delay_median, delay_std;
-  float fraction_poor_delays;
-  if (private_submodules_->echo_cancellation->GetDelayMetrics(
-          &delay_median, &delay_std, &fraction_poor_delays) ==
-      Error::kNoError) {
-    if (delay_median >= 0) {
-      stats.delay_median_ms = absl::optional<int32_t>(delay_median);
-    }
-    if (delay_std >= 0) {
-      stats.delay_standard_deviation_ms = absl::optional<int32_t>(delay_std);
-    }
   }
   return stats;
 }
@@ -1848,79 +1807,6 @@ void AudioProcessingImpl::InitializePreProcessor() {
   }
 }
 
-void AudioProcessingImpl::MaybeUpdateHistograms() {
-  static const int kMinDiffDelayMs = 60;
-
-  if (private_submodules_->echo_cancellation->is_enabled()) {
-    // Activate delay_jumps_ counters if we know echo_cancellation is running.
-    // If a stream has echo we know that the echo_cancellation is in process.
-    if (capture_.stream_delay_jumps == -1 &&
-        private_submodules_->echo_cancellation->stream_has_echo()) {
-      capture_.stream_delay_jumps = 0;
-    }
-    if (capture_.aec_system_delay_jumps == -1 &&
-        private_submodules_->echo_cancellation->stream_has_echo()) {
-      capture_.aec_system_delay_jumps = 0;
-    }
-
-    // Detect a jump in platform reported system delay and log the difference.
-    const int diff_stream_delay_ms =
-        capture_nonlocked_.stream_delay_ms - capture_.last_stream_delay_ms;
-    if (diff_stream_delay_ms > kMinDiffDelayMs &&
-        capture_.last_stream_delay_ms != 0) {
-      RTC_HISTOGRAM_COUNTS("WebRTC.Audio.PlatformReportedStreamDelayJump",
-                           diff_stream_delay_ms, kMinDiffDelayMs, 1000, 100);
-      if (capture_.stream_delay_jumps == -1) {
-        capture_.stream_delay_jumps = 0;  // Activate counter if needed.
-      }
-      capture_.stream_delay_jumps++;
-    }
-    capture_.last_stream_delay_ms = capture_nonlocked_.stream_delay_ms;
-
-    // Detect a jump in AEC system delay and log the difference.
-    const int samples_per_ms =
-        rtc::CheckedDivExact(capture_nonlocked_.split_rate, 1000);
-    RTC_DCHECK_LT(0, samples_per_ms);
-    const int aec_system_delay_ms =
-        private_submodules_->echo_cancellation->GetSystemDelayInSamples() /
-        samples_per_ms;
-    const int diff_aec_system_delay_ms =
-        aec_system_delay_ms - capture_.last_aec_system_delay_ms;
-    if (diff_aec_system_delay_ms > kMinDiffDelayMs &&
-        capture_.last_aec_system_delay_ms != 0) {
-      RTC_HISTOGRAM_COUNTS("WebRTC.Audio.AecSystemDelayJump",
-                           diff_aec_system_delay_ms, kMinDiffDelayMs, 1000,
-                           100);
-      if (capture_.aec_system_delay_jumps == -1) {
-        capture_.aec_system_delay_jumps = 0;  // Activate counter if needed.
-      }
-      capture_.aec_system_delay_jumps++;
-    }
-    capture_.last_aec_system_delay_ms = aec_system_delay_ms;
-  }
-}
-
-void AudioProcessingImpl::UpdateHistogramsOnCallEnd() {
-  // Run in a single-threaded manner.
-  rtc::CritScope cs_render(&crit_render_);
-  rtc::CritScope cs_capture(&crit_capture_);
-
-  if (capture_.stream_delay_jumps > -1) {
-    RTC_HISTOGRAM_ENUMERATION(
-        "WebRTC.Audio.NumOfPlatformReportedStreamDelayJumps",
-        capture_.stream_delay_jumps, 51);
-  }
-  capture_.stream_delay_jumps = -1;
-  capture_.last_stream_delay_ms = 0;
-
-  if (capture_.aec_system_delay_jumps > -1) {
-    RTC_HISTOGRAM_ENUMERATION("WebRTC.Audio.NumOfAecSystemDelayJumps",
-                              capture_.aec_system_delay_jumps, 51);
-  }
-  capture_.aec_system_delay_jumps = -1;
-  capture_.last_aec_system_delay_ms = 0;
-}
-
 void AudioProcessingImpl::WriteAecDumpConfigMessage(bool forced) {
   if (!aec_dump_) {
     return;
@@ -2039,12 +1925,7 @@ void AudioProcessingImpl::RecordAudioProcessingState() {
 
 AudioProcessingImpl::ApmCaptureState::ApmCaptureState(
     bool transient_suppressor_enabled)
-    : aec_system_delay_jumps(-1),
-      delay_offset_ms(0),
-      was_stream_delay_set(false),
-      last_stream_delay_ms(0),
-      last_aec_system_delay_ms(0),
-      stream_delay_jumps(-1),
+    : was_stream_delay_set(false),
       output_will_be_muted(false),
       key_pressed(false),
       transient_suppressor_enabled(transient_suppressor_enabled),

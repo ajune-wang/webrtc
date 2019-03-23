@@ -22,6 +22,30 @@
       "revId": "11dae23062de048bffc9f61bd03ee582dac1a039",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "291dbf25_c92b6f0b",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-23T06:07:11Z",
+      "side": 1,
+      "message": "Ah. But the unique_ptr that holds it isn\u0027t protected, and that too is read and written from both threads. It looks like it may be safe in practice, since it\u0027s only written in Initialize and the destructor I think, but it\u0027s not good that we\u0027re unable to annotate it---bugs can slip through that way.\n\nI\u0027ll leave the comment.",
+      "parentUuid": "814d87aa_e02f5901",
+      "range": {
+        "startLine": 1104,
+        "startChar": 6,
+        "endLine": 1104,
+        "endChar": 21
+      },
+      "revId": "11dae23062de048bffc9f61bd03ee582dac1a039",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

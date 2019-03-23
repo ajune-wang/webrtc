@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "844a9659_86ba476e",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-23T06:37:00Z",
+      "side": 1,
+      "message": "Capture by reference?---either [\u0026ip] or [\u0026] (I prefer the latter).",
+      "range": {
+        "startLine": 462,
+        "startChar": 29,
+        "endLine": 462,
+        "endChar": 31
+      },
+      "revId": "31eb1564bc9b47badaad6443fab43acf0d8b1838",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

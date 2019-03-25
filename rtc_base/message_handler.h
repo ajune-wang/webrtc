@@ -17,6 +17,15 @@
 
 namespace rtc {
 
+// Derive from this for specialized data
+// App manages lifetime, except when messages are purged
+
+class MessageData {
+ public:
+  MessageData() {}
+  virtual ~MessageData() {}
+};
+
 struct Message;
 
 // Messages get dispatched to a MessageHandler

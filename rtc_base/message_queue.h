@@ -70,15 +70,6 @@ class MessageQueueManager {
   size_t processing_ RTC_GUARDED_BY(crit_);
 };
 
-// Derive from this for specialized data
-// App manages lifetime, except when messages are purged
-
-class MessageData {
- public:
-  MessageData() {}
-  virtual ~MessageData() {}
-};
-
 template <class T>
 class TypedMessageData : public MessageData {
  public:

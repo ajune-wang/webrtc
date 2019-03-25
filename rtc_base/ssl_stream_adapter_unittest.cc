@@ -15,6 +15,7 @@
 
 #include "rtc_base/buffer_queue.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/fifo_buffer.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/memory_stream.h"

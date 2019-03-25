@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb5915e9_c8819a24",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-25T12:52:59Z",
+      "side": 1,
+      "message": "Let\u0027s create a bug, just for tracking purposes.",
+      "revId": "001331933fa5e33aeb645c648e7912e42708c0b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -20,6 +20,7 @@ if (rtc_include_tests) {
     ]
 
     deps = [
+      "..:single_threaded_task_queue",
       "../../api/task_queue",
       "../../api/task_queue:global_task_queue_factory",
       "../../api/units:time_delta",

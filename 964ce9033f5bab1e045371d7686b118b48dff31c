@@ -285,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "de42d438_a439bbf4",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-25T15:27:54Z",
+      "side": 1,
+      "message": "Thought more about it. Maybe we can assume, that we don\u0027t want to move network manager on another thread in visible future.. In such case force assumption, that network manager must be called on network thread should be fine..",
+      "parentUuid": "bb7227e5_f5b64e83",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 34
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d88607ed_b47fabc9",
         "filename": "test/scenario/network/emulated_network_manager.cc",
         "patchSetId": 4

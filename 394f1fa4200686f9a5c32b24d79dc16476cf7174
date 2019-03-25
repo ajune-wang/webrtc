@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c005cb5_59669916",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-25T16:00:44Z",
+      "side": 1,
+      "message": "This incantation seems to fix the nacl problem. Doesn\u0027t seem right to have it here, though, since all the problematic includes belong in rtc_Base, which we have a dependency on.",
+      "range": {
+        "startLine": 1038,
+        "startChar": 0,
+        "endLine": 1040,
+        "endChar": 3
+      },
+      "revId": "394f1fa4200686f9a5c32b24d79dc16476cf7174",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

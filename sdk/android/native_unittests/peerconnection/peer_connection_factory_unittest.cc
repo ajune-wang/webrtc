@@ -12,6 +12,7 @@
 #include "absl/memory/memory.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
+#include "api/video/builtin_video_bitrate_allocator_factory.h"
 #include "logging/rtc_event_log/rtc_event_log_factory.h"
 #include "media/base/media_engine.h"
 #include "media/engine/internal_decoder_factory.h"
@@ -50,6 +51,7 @@ rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> CreateTestPCF(
           webrtc::CreateBuiltinAudioDecoderFactory(),
           absl::make_unique<webrtc::InternalEncoderFactory>(),
           absl::make_unique<webrtc::InternalDecoderFactory>(),
+          CreateBuiltinVideoBitrateAllocatorFactory(),
           nullptr /* audio_mixer */, webrtc::AudioProcessingBuilder().Create());
   RTC_LOG(LS_INFO) << "Media engine created: " << media_engine.get();
 

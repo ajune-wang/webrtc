@@ -499,6 +499,7 @@ if (rtc_include_tests) {
       "../api:scoped_refptr",
       "../api/audio:audio_mixer_api",
       "../api/units:time_delta",
+      "../api/video:builtin_video_bitrate_allocator_factory",
       "../logging:fake_rtc_event_log",
       "../media:rtc_media_config",
       "../modules/audio_device:audio_device_api",

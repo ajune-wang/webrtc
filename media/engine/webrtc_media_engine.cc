@@ -14,7 +14,7 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
-#include "api/video/builtin_video_bitrate_allocator_factory.h"
+#include "api/video/video_bitrate_allocator_factory.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "media/engine/webrtc_voice_engine.h"
@@ -27,21 +27,6 @@
 #endif
 
 namespace cricket {
-
-std::unique_ptr<MediaEngineInterface> WebRtcMediaEngineFactory::Create(
-    rtc::scoped_refptr<webrtc::AudioDeviceModule> adm,
-    rtc::scoped_refptr<webrtc::AudioEncoderFactory> audio_encoder_factory,
-    rtc::scoped_refptr<webrtc::AudioDecoderFactory> audio_decoder_factory,
-    std::unique_ptr<webrtc::VideoEncoderFactory> video_encoder_factory,
-    std::unique_ptr<webrtc::VideoDecoderFactory> video_decoder_factory,
-    rtc::scoped_refptr<webrtc::AudioMixer> audio_mixer,
-    rtc::scoped_refptr<webrtc::AudioProcessing> audio_processing) {
-  return WebRtcMediaEngineFactory::Create(
-      adm, audio_encoder_factory, audio_decoder_factory,
-      std::move(video_encoder_factory), std::move(video_decoder_factory),
-      webrtc::CreateBuiltinVideoBitrateAllocatorFactory(), audio_mixer,
-      audio_processing);
-}
 
 std::unique_ptr<MediaEngineInterface> WebRtcMediaEngineFactory::Create(
     rtc::scoped_refptr<webrtc::AudioDeviceModule> adm,

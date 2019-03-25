@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44b7b827_cee31362",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T15:37:04Z",
+      "side": 1,
+      "message": "start_as_enabled?",
+      "range": {
+        "startLine": 50,
+        "startChar": 7,
+        "endLine": 50,
+        "endChar": 17
+      },
+      "revId": "e8c61a4f3c4b03de1354f0324c68ae10dd300911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e6b705a_387ad253",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T15:37:04Z",
+      "side": 1,
+      "message": "If we move ownership of the thread here or inject the pointer in the construction, we could do this from the constructor without having to track the start_count_, right?",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 73
+      },
+      "revId": "e8c61a4f3c4b03de1354f0324c68ae10dd300911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d56666a6_9e186966",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T15:37:04Z",
+      "side": 1,
+      "message": "Mostly nitty: Consider inverting this condition, thereby avoiding the continue, in general it\u0027s easier to read code with less conditional flow.",
+      "range": {
+        "startLine": 124,
+        "startChar": 5,
+        "endLine": 126,
+        "endChar": 7
+      },
+      "revId": "e8c61a4f3c4b03de1354f0324c68ae10dd300911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8725c464_42e436b0",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T15:37:04Z",
+      "side": 1,
+      "message": "seems redundant to use the same value, maybe use the ID here? Maybe something like \"Endpoint \" +std::tostring(id)?",
+      "range": {
+        "startLine": 153,
+        "startChar": 21,
+        "endLine": 153,
+        "endChar": 34
+      },
+      "revId": "e8c61a4f3c4b03de1354f0324c68ae10dd300911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

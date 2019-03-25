@@ -309,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "0c44c06c_7d1e24cc",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T15:37:04Z",
+      "side": 1,
+      "message": "Ok, in that case: I\u0027d suggest to move the ownership of the thread here and just DCHECK that it\u0027s the one used. Optionally we could inject provide the Thread pointer in the constructor, but I think that just adds more complication than needed. If ownership of the thread is moved here (which makes sense due to this tight coupling that we expect this class to run on that thread), we no longer need the extra struct that\u0027s hard to name.",
+      "parentUuid": "bb7227e5_f5b64e83",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 34
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d88607ed_b47fabc9",
         "filename": "test/scenario/network/emulated_network_manager.cc",
         "patchSetId": 4

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1bbc328_4f6871da",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3631,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-25T18:08:25Z",
+      "side": 1,
+      "message": "Can this be changed to just refer to worker_thread() explicitly and not assign it to a local variable?",
+      "revId": "df516af417ea73f41454405d40d8c9ea395ee4ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18838033_eb24c7a6",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6241,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-25T18:08:25Z",
+      "side": 1,
+      "message": "Interestingly enough, the ChannelManager just immediately invokes onto the worker thread.",
+      "revId": "df516af417ea73f41454405d40d8c9ea395ee4ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

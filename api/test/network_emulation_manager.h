@@ -73,12 +73,14 @@ class NetworkEmulationManager {
   // Also assume, that there is a route constructed via A, B and C like this:
   // E1 -> A -> B -> C -> E2. In such case:
   //   * Caller mustn't use A, B and C in any route, that is leading to E2.
-  //   * If caller will then create a new route E1 -> D -> E3, then first
-  //     route will be corrupted, so if caller want to do this, first route
-  //     should be deleted by ClearRoute(...) and then a new one should be
-  //     created.
+  //   * Caller mustn't create another route from E1 to E2 before deleting
+  //     existing one with ClearRoute(...).
+  //   * Caller can create other routes from E1 to other endpoints.
+  //     Ex.: E1 -> D -> E3.
   //   * Caller can use A, B or C for any other routes.
+  //     Ex.: E3 -> A -> E2
   //   * Caller can create other routes leading to E2.
+  //     Ex.: E3 -> D -> E2
   virtual EmulatedRoute* CreateRoute(
       EmulatedEndpoint* from,
       const std::vector<EmulatedNetworkNode*>& via_nodes,

@@ -8,12 +8,14 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <atomic>
 #include <memory>
 
 #include "absl/memory/memory.h"
 #include "api/test/simulated_network.h"
 #include "call/simulated_network.h"
 #include "rtc_base/event.h"
+#include "rtc_base/gunit.h"
 #include "rtc_base/logging.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -22,6 +24,9 @@
 
 namespace webrtc {
 namespace test {
+namespace {
+
+constexpr int kNetworkPacketWaitTimeoutMs = 100;
 
 class SocketReader : public sigslot::has_slots<> {
  public:
@@ -56,6 +61,25 @@ class SocketReader : public sigslot::has_slots<> {
   rtc::CriticalSection lock_;
   int received_count_ RTC_GUARDED_BY(lock_) = 0;
 };
+
+class CountingReceiver : public EmulatedNetworkReceiverInterface {
+ public:
+  void OnPacketReceived(EmulatedIpPacket packet) override {
+    rtc::CritScope crit(&lock_);
+    packets_++;
+  }
+
+  int packets() {
+    rtc::CritScope crit(&lock_);
+    return packets_;
+  }
+
+ private:
+  rtc::CriticalSection lock_;
+  int packets_ RTC_GUARDED_BY(lock_) = 0;
+};
+
+}  // namespace
 
 TEST(NetworkEmulationManagerTest, GeneratedIpv4AddressDoesNotCollide) {
   NetworkEmulationManagerImpl network_manager;
@@ -113,8 +137,8 @@ TEST(NetworkEmulationManagerTest, Run) {
     s1->Bind(a1);
     s2->Bind(a2);
 
-    s1->Connect(s1->GetLocalAddress());
-    s2->Connect(s2->GetLocalAddress());
+    s1->Connect(s2->GetLocalAddress());
+    s2->Connect(s1->GetLocalAddress());
 
     rtc::CopyOnWriteBuffer data("Hello");
     for (uint64_t i = 0; i < 1000; i++) {
@@ -130,6 +154,84 @@ TEST(NetworkEmulationManagerTest, Run) {
     delete s1;
     delete s2;
   }
+}
+
+// Test connectivity of these routing scheme:
+// e{1..k} - endpoints
+// n{1..m} - network nodes
+//  _____     ____     ____
+// | e1  |-->| n1 |-->| e2 |
+// |     |    ˉˉˉˉ    |    |
+// |     |    ____    |    |
+// |     |<--| n2 |<--|    |
+//  ˉ|ˉ|ˉ     ˉˉˉˉ     ˉˉˉˉ
+//   | |      ____     ____
+//   | └---->| n3 |-->| e3 |
+//   |        ˉˉˉˉ    |    |
+//   |        ____    |    |
+//   └------>| n4 |<--|    |
+//            ˉˉˉˉ     ˉˉˉˉ
+TEST(NetworkEmulationManagerTest, ComplexRouting) {
+  NetworkEmulationManagerImpl emulation;
+
+  EmulatedNetworkNode* n1 = emulation.CreateEmulatedNode(
+      absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
+  EmulatedNetworkNode* n2 = emulation.CreateEmulatedNode(
+      absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
+  EmulatedNetworkNode* n3 = emulation.CreateEmulatedNode(
+      absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
+  EmulatedNetworkNode* n4 = emulation.CreateEmulatedNode(
+      absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
+
+  EmulatedEndpoint* e1 = emulation.CreateEndpoint(EmulatedEndpointConfig());
+  EmulatedEndpoint* e2 = emulation.CreateEndpoint(EmulatedEndpointConfig());
+  EmulatedEndpoint* e3 = emulation.CreateEndpoint(EmulatedEndpointConfig());
+
+  emulation.CreateRoute(e1, {n1}, e2);
+  emulation.CreateRoute(e2, {n2}, e1);
+
+  emulation.CreateRoute(e1, {n3}, e3);
+  emulation.CreateRoute(e3, {n4}, e1);
+
+  // Receivers: r_<source endpoint>_<destination endpoint>
+  CountingReceiver r_e1_e2;
+  CountingReceiver r_e2_e1;
+  CountingReceiver r_e1_e3;
+  CountingReceiver r_e3_e1;
+
+  uint16_t common_send_port = 80;
+  uint16_t r_e1_e2_port = e2->BindReceiver(0, &r_e1_e2).value();
+  uint16_t r_e2_e1_port = e1->BindReceiver(0, &r_e2_e1).value();
+  uint16_t r_e1_e3_port = e3->BindReceiver(0, &r_e1_e3).value();
+  uint16_t r_e3_e1_port = e1->BindReceiver(0, &r_e3_e1).value();
+
+  // Send packet from e1 to e2.
+  e1->SendPacket(
+      rtc::SocketAddress(e1->GetPeerLocalAddress(), common_send_port),
+      rtc::SocketAddress(e2->GetPeerLocalAddress(), r_e1_e2_port),
+      rtc::CopyOnWriteBuffer(10));
+  EXPECT_EQ_WAIT(r_e1_e2.packets(), 1, kNetworkPacketWaitTimeoutMs);
+
+  // Send packet from e2 to e1.
+  e2->SendPacket(
+      rtc::SocketAddress(e2->GetPeerLocalAddress(), common_send_port),
+      rtc::SocketAddress(e1->GetPeerLocalAddress(), r_e2_e1_port),
+      rtc::CopyOnWriteBuffer(10));
+  EXPECT_EQ_WAIT(r_e2_e1.packets(), 1, kNetworkPacketWaitTimeoutMs);
+
+  // Send packet from e1 to e3.
+  e1->SendPacket(
+      rtc::SocketAddress(e1->GetPeerLocalAddress(), common_send_port),
+      rtc::SocketAddress(e3->GetPeerLocalAddress(), r_e1_e3_port),
+      rtc::CopyOnWriteBuffer(10));
+  EXPECT_EQ_WAIT(r_e1_e3.packets(), 1, kNetworkPacketWaitTimeoutMs);
+
+  // Send packet from e3 to e1.
+  e3->SendPacket(
+      rtc::SocketAddress(e3->GetPeerLocalAddress(), common_send_port),
+      rtc::SocketAddress(e1->GetPeerLocalAddress(), r_e3_e1_port),
+      rtc::CopyOnWriteBuffer(10));
+  EXPECT_EQ_WAIT(r_e3_e1.packets(), 1, kNetworkPacketWaitTimeoutMs);
 }
 
 }  // namespace test

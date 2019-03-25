@@ -38,6 +38,7 @@
 #include "api/rtp_sender_interface.h"
 #include "api/rtp_transceiver_interface.h"
 #include "api/scoped_refptr.h"
+#include "api/video/builtin_video_bitrate_allocator_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "api/video_codecs/video_decoder_factory.h"
@@ -650,7 +651,8 @@ class PeerConnectionFactoryForTest : public webrtc::PeerConnectionFactory {
         cricket::WebRtcMediaEngineFactory::Create(
             FakeAudioCaptureModule::Create(), audio_encoder_factory,
             audio_decoder_factory, std::move(video_encoder_factory),
-            std::move(video_decoder_factory), nullptr,
+            std::move(video_decoder_factory),
+            CreateBuiltinVideoBitrateAllocatorFactory(), nullptr,
             webrtc::AudioProcessingBuilder().Create()));
 
     dependencies.call_factory = webrtc::CreateCallFactory();

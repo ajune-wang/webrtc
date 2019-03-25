@@ -21,6 +21,7 @@
 #include "api/peer_connection_interface.h"
 #include "api/scoped_refptr.h"
 #include "api/transport/network_control.h"
+#include "api/video/builtin_video_bitrate_allocator_factory.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "logging/rtc_event_log/rtc_event_log_factory.h"
@@ -51,7 +52,8 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
       cricket::WebRtcMediaEngineFactory::Create(
           default_adm, audio_encoder_factory, audio_decoder_factory,
           std::move(video_encoder_factory), std::move(video_decoder_factory),
-          audio_mixer, audio_processing);
+          CreateBuiltinVideoBitrateAllocatorFactory(), audio_mixer,
+          audio_processing);
 
   std::unique_ptr<CallFactoryInterface> call_factory = CreateCallFactory();
 

@@ -17,6 +17,7 @@
 #include "api/call/call_factory_interface.h"
 #include "api/peer_connection_interface.h"
 #include "api/scoped_refptr.h"
+#include "api/video/builtin_video_bitrate_allocator_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "call/simulated_network.h"
@@ -68,7 +69,8 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
       webrtc::CreateBuiltinAudioEncoderFactory(),
       webrtc::CreateBuiltinAudioDecoderFactory(),
       webrtc::CreateBuiltinVideoEncoderFactory(),
-      webrtc::CreateBuiltinVideoDecoderFactory(), /*audio_mixer=*/nullptr,
+      webrtc::CreateBuiltinVideoDecoderFactory(),
+      CreateBuiltinVideoBitrateAllocatorFactory(), /*audio_mixer=*/nullptr,
       webrtc::AudioProcessingBuilder().Create());
   return CreateModularPeerConnectionFactory(std::move(pcf_deps));
 }

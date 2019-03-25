@@ -16,6 +16,7 @@
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/scoped_refptr.h"
+#include "api/video/builtin_video_bitrate_allocator_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "logging/rtc_event_log/rtc_event_log_factory.h"
@@ -148,6 +149,7 @@ std::unique_ptr<cricket::MediaEngineInterface> CreateMediaEngine(
       adm, webrtc::CreateBuiltinAudioEncoderFactory(),
       webrtc::CreateBuiltinAudioDecoderFactory(),
       std::move(video_encoder_factory), std::move(video_decoder_factory),
+      CreateBuiltinVideoBitrateAllocatorFactory(),
       /*audio_mixer=*/nullptr, webrtc::AudioProcessingBuilder().Create());
 }
 

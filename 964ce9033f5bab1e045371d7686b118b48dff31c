@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "03e0dcc2_f1b75750",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-25T15:09:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfc1a7a7_48e5c9d6",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 48
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8ccc277_0b7dcd1c",
         "filename": "test/scenario/network/emulated_network_manager.cc",
         "patchSetId": 4
@@ -237,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "bb7227e5_f5b64e83",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-25T15:09:13Z",
+      "side": 1,
+      "message": "Right now as I see it uses network thread.",
+      "parentUuid": "ccd5b1b1_9669346c",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 34
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d88607ed_b47fabc9",
         "filename": "test/scenario/network/emulated_network_manager.cc",
         "patchSetId": 4
@@ -304,6 +352,30 @@
       "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d71f0655_0dd76c1a",
+        "filename": "test/scenario/network/emulated_network_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-25T15:09:13Z",
+      "side": 1,
+      "message": "Answered in comment in the .cc file",
+      "parentUuid": "d8a783b4_653fc208",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 52
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

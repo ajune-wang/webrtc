@@ -285,17 +285,8 @@ TEST(WebRtcMediaEngineTest, FilterRtpExtensions_RemoveRedundantBwe_3) {
   EXPECT_EQ(RtpExtension::kTimestampOffsetUri, filtered[0].uri);
 }
 
-TEST(WebRtcMediaEngineFactoryTest, CreateWithBuiltinDecoders) {
-  std::unique_ptr<MediaEngineInterface> engine(WebRtcMediaEngineFactory::Create(
-      nullptr /* adm */, webrtc::CreateBuiltinAudioEncoderFactory(),
-      webrtc::CreateBuiltinAudioDecoderFactory(),
-      webrtc::CreateBuiltinVideoEncoderFactory(),
-      webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
-      webrtc::AudioProcessingBuilder().Create()));
-  EXPECT_TRUE(engine);
-}
-
-TEST(WebRtcMediaEngineFactoryTest, CreateWithVideoBitrateFactory) {
+TEST(WebRtcMediaEngineFactoryTest,
+     CreateWithBuiltinDecodersAndVideoBitrateFactory) {
   std::unique_ptr<MediaEngineInterface> engine(WebRtcMediaEngineFactory::Create(
       nullptr /* adm */, webrtc::CreateBuiltinAudioEncoderFactory(),
       webrtc::CreateBuiltinAudioDecoderFactory(),

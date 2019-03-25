@@ -941,7 +941,6 @@ bool PeerConnection::Initialize(
     const PeerConnectionInterface::RTCConfiguration& configuration,
     PeerConnectionDependencies dependencies) {
   RTC_DCHECK_RUN_ON(signaling_thread());
-  RTC_DCHECK_RUNS_SERIALIZED(&use_media_transport_race_checker_);
   TRACE_EVENT0("webrtc", "PeerConnection::Initialize");
 
   RTCError config_error = ValidateConfiguration(configuration);
@@ -1088,7 +1087,6 @@ bool PeerConnection::Initialize(
   stats_collector_ = RTCStatsCollector::Create(this);
 
   configuration_ = configuration;
-  use_media_transport_ = configuration.use_media_transport;
 
   // Obtain a certificate from RTCConfiguration if any were provided (optional).
   rtc::scoped_refptr<rtc::RTCCertificate> certificate;
@@ -3331,7 +3329,6 @@ PeerConnectionInterface::RTCConfiguration PeerConnection::GetConfiguration() {
 bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
                                       RTCError* error) {
   RTC_DCHECK_RUN_ON(signaling_thread());
-  RTC_DCHECK_RUNS_SERIALIZED(&use_media_transport_race_checker_);
   TRACE_EVENT0("webrtc", "PeerConnection::SetConfiguration");
   if (IsClosed()) {
     RTC_LOG(LS_ERROR) << "SetConfiguration: PeerConnection is closed.";
@@ -3487,7 +3484,6 @@ bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
   }
 
   configuration_ = modified_config;
-  use_media_transport_ = configuration.use_media_transport;
   return SafeSetError(RTCErrorType::NONE, error);
 }
 
@@ -7064,7 +7060,6 @@ bool PeerConnection::OnTransportChanged(
     RtpTransportInternal* rtp_transport,
     rtc::scoped_refptr<DtlsTransport> dtls_transport,
     MediaTransportInterface* media_transport) {
-  RTC_DCHECK_RUNS_SERIALIZED(&use_media_transport_race_checker_);
   bool ret = true;
   auto base_channel = GetChannel(mid);
   if (base_channel) {
@@ -7074,10 +7069,10 @@ bool PeerConnection::OnTransportChanged(
     sctp_transport_->SetDtlsTransport(dtls_transport);
   }
 
-  if (use_media_transport_) {
+  if (configuration_.use_media_transport) {
     // Only pass media transport to call object if media transport is used
     // for media (and not data channel).
-    call_->MediaTransportChange(media_transport);
+    call_ptr_->MediaTransportChange(media_transport);
   }
 
   return ret;

@@ -30,7 +30,6 @@
 #include "pc/stats_collector.h"
 #include "pc/stream_collection.h"
 #include "pc/webrtc_session_description_factory.h"
-#include "rtc_base/race_checker.h"
 #include "rtc_base/unique_id_generator.h"
 
 namespace webrtc {
@@ -1031,7 +1030,7 @@ class PeerConnection : public PeerConnectionInternal,
                           RtpTransportInternal* rtp_transport,
                           rtc::scoped_refptr<DtlsTransport> dtls_transport,
                           MediaTransportInterface* media_transport) override
-      RTC_RUN_ON(worker_thread());
+      RTC_RUN_ON(signaling_thread());
 
   // Returns the observer. Will crash on CHECK if the observer is removed.
   PeerConnectionObserver* Observer() const RTC_RUN_ON(signaling_thread());
@@ -1097,14 +1096,6 @@ class PeerConnection : public PeerConnectionInternal,
   PeerConnectionInterface::RTCConfiguration configuration_
       RTC_GUARDED_BY(signaling_thread());
 
-  // Cache configuration_.use_media_transport so that we can access it from
-  // other threads.
-  // TODO(bugs.webrtc.org/9987): Caching just this bool and allowing the data
-  // it's derived from to change is not necessarily sound. Stop doing it.
-  rtc::RaceChecker use_media_transport_race_checker_;
-  bool use_media_transport_ RTC_GUARDED_BY(use_media_transport_race_checker_) =
-      configuration_.use_media_transport;
-
   // TODO(zstein): |async_resolver_factory_| can currently be nullptr if it
   // is not injected. It should be required once chromium supplies it.
   std::unique_ptr<AsyncResolverFactory> async_resolver_factory_
@@ -1151,11 +1142,13 @@ class PeerConnection : public PeerConnectionInternal,
 
   bool remote_peer_supports_msid_ RTC_GUARDED_BY(signaling_thread()) = false;
 
+  // The unique_ptr belongs to the worker thread, but the Call object manages
+  // its own thread safety.
   std::unique_ptr<Call> call_ RTC_GUARDED_BY(worker_thread());
 
   // Points to the same thing as `call_`. Since it's const, we may read the
-  // pointer (but not touch the object) from any thread.
-  Call* const call_ptr_ RTC_PT_GUARDED_BY(worker_thread());
+  // pointer from any thread.
+  Call* const call_ptr_;
 
   std::unique_ptr<StatsCollector> stats_
       RTC_GUARDED_BY(signaling_thread());  // A pointer is passed to senders_

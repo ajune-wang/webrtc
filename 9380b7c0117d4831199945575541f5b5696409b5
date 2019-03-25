@@ -307,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "769a226e_d881981b",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 8876
+      },
+      "writtenOn": "2019-03-25T16:10:42Z",
+      "side": 1,
+      "message": "Added an explicit default of 32000 min/max as a base case.",
+      "parentUuid": "52952a3f_07fd0dd5",
+      "range": {
+        "startLine": 828,
+        "startChar": 47,
+        "endLine": 828,
+        "endChar": 62
+      },
+      "revId": "9380b7c0117d4831199945575541f5b5696409b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7ef71d1_e4eb2e03",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 5

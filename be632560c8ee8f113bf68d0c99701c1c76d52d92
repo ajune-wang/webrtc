@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a25031d_be669e1a",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T14:00:23Z",
+      "side": 1,
+      "message": "If it\u0027s possible, replace all Post with PostTask",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 19
+      },
+      "revId": "be632560c8ee8f113bf68d0c99701c1c76d52d92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8f9546e_25ef758e",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T14:00:23Z",
+      "side": 1,
+      "message": "This is less code and IMO easier to read:\n\nfor(auto e: endpoints_)\n  if(e-\u003eGetId() \u003d\u003d endpoint-\u003eGetId())\n    return true;\nreturn false;",
+      "range": {
+        "startLine": 123,
+        "startChar": 1,
+        "endLine": 126,
+        "endChar": 32
+      },
+      "revId": "be632560c8ee8f113bf68d0c99701c1c76d52d92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2025b72_03a1ea6c",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T14:00:23Z",
+      "side": 1,
+      "message": "I\u0027d like to see the conversion to endpoint data to std::Network moved to the endpoint class. It can be a const member that\u0027s initialized on construction and exposed via something like\nconst rtc::Network\u0026 GetNetwork() const;\n\nand then used like:\n\nstd::vector\u003crtc::Network*\u003e networks;\nfor (auto\u0026 ep: endpoints_){\n if(endpoint-\u003eIsEnabled())\n   networks.push_back(new rtc::Network(ep.GetNetwork()));\n}",
+      "range": {
+        "startLine": 139,
+        "startChar": 29,
+        "endLine": 139,
+        "endChar": 47
+      },
+      "revId": "be632560c8ee8f113bf68d0c99701c1c76d52d92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b2ac963_dd7242dd",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T14:00:23Z",
+      "side": 1,
+      "message": "auto (since we are using make_unique, the type is obvious here.",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 33
+      },
+      "revId": "be632560c8ee8f113bf68d0c99701c1c76d52d92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e2966e4_f7085d02",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T14:00:23Z",
+      "side": 1,
+      "message": "IsEnabled() or just Enabled()?",
+      "range": {
+        "startLine": 163,
+        "startChar": 7,
+        "endLine": 163,
+        "endChar": 17
+      },
+      "revId": "be632560c8ee8f113bf68d0c99701c1c76d52d92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5438968b_a588e235",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T14:00:23Z",
+      "side": 1,
+      "message": "Is there any actual use case for this, or could we DCHECK instead and require the used to use the config field to control initial state?",
+      "range": {
+        "startLine": 93,
+        "startChar": 1,
+        "endLine": 96,
+        "endChar": 3
+      },
+      "revId": "be632560c8ee8f113bf68d0c99701c1c76d52d92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e1c9776_6e2e5772",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T14:00:23Z",
+      "side": 1,
+      "message": "The fact that it\u0027s a thread is generally implicit where this string is used, maybe \"network_t\" or \"net_thread\"? (It\u0027s generally handy if it\u0027s possible to search for the name in the source code, so just \"network\" might be impractical)",
+      "range": {
+        "startLine": 222,
+        "startChar": 27,
+        "endLine": 222,
+        "endChar": 35
+      },
+      "revId": "be632560c8ee8f113bf68d0c99701c1c76d52d92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

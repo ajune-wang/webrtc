@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf9731a7_7aa4e8d4",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-03-25T18:35:54Z",
+      "side": 1,
+      "message": "nit: RtpTransceiverInit",
+      "range": {
+        "startLine": 840,
+        "startChar": 71,
+        "endLine": 840,
+        "endChar": 86
+      },
+      "revId": "abeae67d8879e5ab2932afdae6e064bee401ea0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9732a69a_5082fd93",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-03-25T18:35:54Z",
+      "side": 1,
+      "message": "What do you think of adding a constructor for RtpParameters.Encoding that just takes in the fields that are currently supported, or even just takes RIDs?",
+      "range": {
+        "startLine": 849,
+        "startChar": 22,
+        "endLine": 849,
+        "endChar": 34
+      },
+      "revId": "abeae67d8879e5ab2932afdae6e064bee401ea0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

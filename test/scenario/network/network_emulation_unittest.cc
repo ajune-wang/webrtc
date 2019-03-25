@@ -113,8 +113,8 @@ TEST(NetworkEmulationManagerTest, Run) {
     s1->Bind(a1);
     s2->Bind(a2);
 
-    s1->Connect(s1->GetLocalAddress());
-    s2->Connect(s2->GetLocalAddress());
+    s1->Connect(s2->GetLocalAddress());
+    s2->Connect(s1->GetLocalAddress());
 
     rtc::CopyOnWriteBuffer data("Hello");
     for (uint64_t i = 0; i < 1000; i++) {

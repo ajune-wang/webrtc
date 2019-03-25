@@ -80,8 +80,11 @@ EmulatedEndpoint* NetworkEmulationManagerImpl::CreateEndpoint(
 
   bool res = used_ip_addresses_.insert(*ip).second;
   RTC_CHECK(res) << "IP=" << ip->ToString() << " already in use";
-  auto node = absl::make_unique<EmulatedEndpoint>(next_node_id_++, *ip, clock_);
+  auto node =
+      absl::make_unique<EmulatedEndpoint>(next_node_id_++, *ip, clock_, this);
   EmulatedEndpoint* out = node.get();
+
+  rtc::CritScope crit(&endpoints_lock_);
   endpoints_.push_back(std::move(node));
   return out;
 }
@@ -94,14 +97,13 @@ EmulatedRoute* NetworkEmulationManagerImpl::CreateRoute(
   // provided here.
   RTC_CHECK(!via_nodes.empty());
 
-  from->SetSendNode(via_nodes[0]);
+  from->SetSendNode(to->GetId(), via_nodes[0]);
   EmulatedNetworkNode* cur_node = via_nodes[0];
   for (size_t i = 1; i < via_nodes.size(); ++i) {
     cur_node->SetReceiver(to->GetId(), via_nodes[i]);
     cur_node = via_nodes[i];
   }
   cur_node->SetReceiver(to->GetId(), to);
-  from->SetConnectedEndpointId(to->GetId());
 
   std::unique_ptr<EmulatedRoute> route =
       absl::make_unique<EmulatedRoute>(from, std::move(via_nodes), to);
@@ -118,9 +120,10 @@ void NetworkEmulationManagerImpl::ClearRoute(EmulatedRoute* route) {
     node->RemoveReceiver(route->to->GetId());
   }
   // Detach endpoint from current send node.
-  if (route->from->GetSendNode()) {
-    route->from->GetSendNode()->RemoveReceiver(route->to->GetId());
-    route->from->SetSendNode(nullptr);
+  if (route->from->GetSendNode(route->to->GetId())) {
+    route->from->GetSendNode(route->to->GetId())
+        ->RemoveReceiver(route->to->GetId());
+    route->from->SetSendNode(route->to->GetId(), nullptr);
   }
 
   route->active = false;
@@ -214,6 +217,17 @@ FakeNetworkSocketServer* NetworkEmulationManagerImpl::CreateSocketServer(
   FakeNetworkSocketServer* out = socket_server.get();
   socket_servers_.push_back(std::move(socket_server));
   return out;
+}
+
+absl::optional<uint64_t> NetworkEmulationManagerImpl::GetEndpointId(
+    rtc::IPAddress ip) const {
+  rtc::CritScope crit(&endpoints_lock_);
+  for (auto& endpoint : endpoints_) {
+    if (endpoint->GetPeerLocalAddress() == ip) {
+      return endpoint->GetId();
+    }
+  }
+  return absl::nullopt;
 }
 
 absl::optional<rtc::IPAddress>

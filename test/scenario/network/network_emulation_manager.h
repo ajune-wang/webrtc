@@ -33,11 +33,13 @@
 namespace webrtc {
 namespace test {
 
-class NetworkEmulationManagerImpl : public NetworkEmulationManager {
+class NetworkEmulationManagerImpl : public NetworkEmulationManager,
+                                    public EmulatedEndpointsRegistry {
  public:
   NetworkEmulationManagerImpl();
   ~NetworkEmulationManagerImpl();
 
+  // NetworkEmulationManager API
   EmulatedNetworkNode* CreateEmulatedNode(
       std::unique_ptr<NetworkBehaviorInterface> network_behavior) override;
 
@@ -62,6 +64,9 @@ class NetworkEmulationManagerImpl : public NetworkEmulationManager {
   rtc::NetworkManager* CreateNetworkManager(
       const std::vector<EmulatedEndpoint*>& endpoints) override;
 
+  // EmulatedEndpointsRegistry API
+  absl::optional<uint64_t> GetEndpointId(rtc::IPAddress ip) const override;
+
  private:
   FakeNetworkSocketServer* CreateSocketServer(
       const std::vector<EmulatedEndpoint*>& endpoints);
@@ -77,8 +82,11 @@ class NetworkEmulationManagerImpl : public NetworkEmulationManager {
   uint32_t next_ip4_address_;
   std::set<rtc::IPAddress> used_ip_addresses_;
 
+  rtc::CriticalSection endpoints_lock_;
+
   // All objects can be added to the manager only when it is idle.
-  std::vector<std::unique_ptr<EmulatedEndpoint>> endpoints_;
+  std::vector<std::unique_ptr<EmulatedEndpoint>> endpoints_
+      RTC_GUARDED_BY(endpoints_lock_);
   std::vector<std::unique_ptr<EmulatedNetworkNode>> network_nodes_;
   std::vector<std::unique_ptr<EmulatedRoute>> routes_;
   std::vector<std::unique_ptr<TrafficRoute>> traffic_routes_;

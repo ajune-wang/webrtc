@@ -114,19 +114,34 @@ class EmulatedNetworkNode : public EmulatedNetworkReceiverInterface {
   uint64_t next_packet_id_ RTC_GUARDED_BY(lock_) = 1;
 };
 
+// Store mapping from all known IPs to endpoint ids.
+class EmulatedEndpointsRegistry {
+ public:
+  virtual ~EmulatedEndpointsRegistry() = default;
+
+  // Return endpoint id for specified IP address or absl::nullopt, if there is
+  // no any endpoint with such IP address.
+  virtual absl::optional<uint64_t> GetEndpointId(rtc::IPAddress ip) const = 0;
+};
+
 // Represents single network interface on the device.
 // It will be used as sender from socket side to send data to the network and
 // will act as packet receiver from emulated network side to receive packets
 // from other EmulatedNetworkNodes.
 class EmulatedEndpoint : public EmulatedNetworkReceiverInterface {
  public:
-  EmulatedEndpoint(uint64_t id, rtc::IPAddress, Clock* clock);
+  EmulatedEndpoint(uint64_t id,
+                   rtc::IPAddress,
+                   Clock* clock,
+                   EmulatedEndpointsRegistry* registry);
   ~EmulatedEndpoint() override;
 
   uint64_t GetId() const;
 
   // Set network node, that will be used to send packets to the network.
-  void SetSendNode(EmulatedNetworkNode* send_node);
+  // User can't set send_node, if it is already set.
+  void SetSendNode(uint64_t dest_endpoint_id, EmulatedNetworkNode* send_node);
+  void ClearSendNode(uint64_t dest_endpoint_id);
   // Send packet into network.
   // |from| will be used to set source address for the packet in destination
   // socket.
@@ -158,26 +173,27 @@ class EmulatedEndpoint : public EmulatedNetworkReceiverInterface {
  protected:
   friend class test::NetworkEmulationManagerImpl;
 
-  EmulatedNetworkNode* GetSendNode() const;
-  void SetConnectedEndpointId(uint64_t endpoint_id);
+  EmulatedNetworkNode* GetSendNode(uint64_t dest_endpoint_id);
 
  private:
   static constexpr uint16_t kFirstEphemeralPort = 49152;
   uint16_t NextPort() RTC_EXCLUSIVE_LOCKS_REQUIRED(receiver_lock_);
 
   rtc::CriticalSection receiver_lock_;
+  rtc::CriticalSection sender_lock_;
 
   uint64_t id_;
   // Peer's local IP address for this endpoint network interface.
   const rtc::IPAddress peer_local_addr_;
-  EmulatedNetworkNode* send_node_;
+  // Stores which network node to use for each destination endpoint.
+  std::map<uint64_t, EmulatedNetworkNode*> send_nodes_
+      RTC_GUARDED_BY(sender_lock_);
   Clock* const clock_;
+  EmulatedEndpointsRegistry* const registry_;
 
   uint16_t next_port_ RTC_GUARDED_BY(receiver_lock_);
   std::map<uint16_t, EmulatedNetworkReceiverInterface*> port_to_receiver_
       RTC_GUARDED_BY(receiver_lock_);
-
-  absl::optional<uint64_t> connected_endpoint_id_;
 };
 
 class EmulatedRoute {

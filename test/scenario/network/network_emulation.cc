@@ -128,9 +128,13 @@ void EmulatedNetworkNode::RemoveReceiver(uint64_t dest_endpoint_id) {
   routing_.erase(dest_endpoint_id);
 }
 
-EmulatedEndpoint::EmulatedEndpoint(uint64_t id, rtc::IPAddress ip, Clock* clock)
+EmulatedEndpoint::EmulatedEndpoint(uint64_t id,
+                                   rtc::IPAddress ip,
+                                   bool is_enabled,
+                                   Clock* clock)
     : id_(id),
       peer_local_addr_(ip),
+      is_enabled_(is_enabled),
       send_node_(nullptr),
       clock_(clock),
       next_port_(kFirstEphemeralPort),
@@ -224,6 +228,16 @@ void EmulatedEndpoint::OnPacketReceived(EmulatedIpPacket packet) {
   // lock during packet processing to ensure that receiver won't be deleted
   // before call to OnPacketReceived.
   it->second->OnPacketReceived(std::move(packet));
+}
+
+void EmulatedEndpoint::Enable() {
+  RTC_CHECK(!is_enabled_);
+  is_enabled_ = true;
+}
+
+void EmulatedEndpoint::Disable() {
+  RTC_CHECK(is_enabled_);
+  is_enabled_ = false;
 }
 
 EmulatedNetworkNode* EmulatedEndpoint::GetSendNode() const {

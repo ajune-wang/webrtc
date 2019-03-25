@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1be1e17a_f2ac1e8d",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-03-25T18:25:38Z",
+      "side": 1,
+      "message": "There are several \"send\" and \"update\" codepaths, which makes me wonder if this solves the problem or just one of the symptoms.\n\nFor example, SendDataMessages() can also happen as a result of calling Send().\nIs it safe to try to send?\n\nUpdateState() can also happen as a result of other methods, like SetSendSsrc or SetReceiveSsrc. Is that fine?\n\nThis does look like an improvement, but before LGTM\u0027ing I want to see if you\u0027ve considered this and whether or not it is a good idea to simply Close() the data channel if we are unable to obtain an ID?",
+      "revId": "87a3e038aedafec9a912f11743777ffe7149c400",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

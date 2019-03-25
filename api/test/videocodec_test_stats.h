@@ -29,7 +29,7 @@ class VideoCodecTestStats {
     FrameStatistics(size_t frame_number,
                     size_t rtp_timestamp,
                     size_t spatial_idx);
-    FrameStatistics(const FrameStatistics& rhs);
+    FrameStatistics(const FrameStatistics& rhs) = default;
 
     std::string ToString() const;
 
@@ -74,8 +74,8 @@ class VideoCodecTestStats {
   };
 
   struct VideoStatistics {
-    VideoStatistics();
-    VideoStatistics(const VideoStatistics&);
+    VideoStatistics() = default;
+    VideoStatistics(const VideoStatistics&) = default;
 
     std::string ToString(std::string prefix) const;
 
@@ -122,28 +122,11 @@ class VideoCodecTestStats {
 
   virtual ~VideoCodecTestStats() = default;
 
-  // Creates a FrameStatistics for the next frame to be processed.
-  virtual void AddFrame(const FrameStatistics& frame_stat) = 0;
-
-  // Returns the FrameStatistics corresponding to |frame_number| or |timestamp|.
-  virtual FrameStatistics* GetFrame(size_t frame_number,
-                                    size_t spatial_idx) = 0;
-  virtual FrameStatistics* GetFrameWithTimestamp(size_t timestamp,
-                                                 size_t spatial_idx) = 0;
+  virtual std::vector<FrameStatistics> GetFrameStatistics() = 0;
 
   virtual std::vector<VideoStatistics> SliceAndCalcLayerVideoStatistic(
       size_t first_frame_num,
       size_t last_frame_num) = 0;
-
-  virtual VideoStatistics SliceAndCalcAggregatedVideoStatistic(
-      size_t first_frame_num,
-      size_t last_frame_num) = 0;
-
-  virtual void PrintFrameStatistics() = 0;
-
-  virtual size_t Size(size_t spatial_idx) = 0;
-
-  virtual void Clear() = 0;
 };
 
 }  // namespace test

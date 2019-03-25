@@ -447,15 +447,11 @@ uint32_t AudioSendStream::OnBitrateUpdated(BitrateAllocationUpdate update) {
   // A send stream may be allocated a bitrate of zero if the allocator decides
   // to disable it. For now we ignore this decision and keep sending on min
   // bitrate.
-  if (update.target_bitrate.IsZero()) {
-    update.target_bitrate = DataRate::bps(config_.min_bitrate_bps);
-  }
-  RTC_DCHECK_GE(update.target_bitrate.bps<int>(), config_.min_bitrate_bps);
   // The bitrate allocator might allocate an higher than max configured bitrate
   // if there is room, to allow for, as example, extra FEC. Ignore that for now.
-  const DataRate max_bitrate = DataRate::bps(config_.max_bitrate_bps);
-  if (update.target_bitrate > max_bitrate)
-    update.target_bitrate = max_bitrate;
+  // Pick a target bitrate between the constraints.
+  auto constraints = GetMinMaxBitrateConstraints();
+  update.target_bitrate.Clamp(constraints.min, constraints.max);
 
   channel_send_->OnBitrateAllocation(update);
 
@@ -797,12 +793,14 @@ void AudioSendStream::ReconfigureBitrateObserver(
 void AudioSendStream::ConfigureBitrateObserver() {
   // This either updates the current observer or adds a new observer.
   // TODO(srte): Add overhead compensation here.
+  auto constraints = GetMinMaxBitrateConstraints();
+
   bitrate_allocator_->AddObserver(
-      this, MediaStreamAllocationConfig{
-                static_cast<uint32_t>(config_.min_bitrate_bps),
-                static_cast<uint32_t>(config_.max_bitrate_bps), 0,
-                allocation_settings_.DefaultPriorityBitrate().bps(), true,
-                config_.track_id, config_.bitrate_priority});
+      this,
+      MediaStreamAllocationConfig{
+          constraints.min.bps<uint32_t>(), constraints.max.bps<uint32_t>(), 0,
+          allocation_settings_.DefaultPriorityBitrate().bps(), true,
+          config_.track_id, config_.bitrate_priority});
 }
 
 void AudioSendStream::RemoveBitrateObserver() {
@@ -815,6 +813,35 @@ void AudioSendStream::RemoveBitrateObserver() {
     thread_sync_event.Set();
   });
   thread_sync_event.Wait(rtc::Event::kForever);
+}
+
+AudioSendStream::TargetAudioBitrateConstraints
+AudioSendStream::GetMinMaxBitrateConstraints() const {
+  TargetAudioBitrateConstraints constraints{
+      DataRate::bps(config_.min_bitrate_bps),
+      DataRate::bps(config_.max_bitrate_bps)};
+
+  // If bitrates were explicitly overrided via field trial, use those values.
+  if (allocation_settings_.MinBitrate())
+    constraints.min = *allocation_settings_.MinBitrate();
+  if (allocation_settings_.MaxBitrate())
+    constraints.max = *allocation_settings_.MaxBitrate();
+
+  RTC_DCHECK_GE(constraints.min.bps(), 0);
+  RTC_DCHECK_GE(constraints.max.bps(), 0);
+  RTC_DCHECK_GE(constraints.max.bps(), constraints.min.bps());
+
+  // TODO(srte,dklee): Replace these with proper overhead calculations.
+  if (webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")) {
+    DataRate min_overhead = DataRate::Zero();
+    // OverheadPerPacket = Ipv4(20B) + UDP(8B) + SRTP(10B) + RTP(12)
+    constexpr int kOverheadPerPacket = 20 + 8 + 10 + 12;
+    // 120ms is max frame size in Opus Spec
+    min_overhead = DataRate::bps(kOverheadPerPacket * 8 * 1000 / 120);
+    constraints.min += min_overhead;
+    constraints.max += min_overhead;
+  }
+  return constraints;
 }
 
 void AudioSendStream::RegisterCngPayloadType(int payload_type,

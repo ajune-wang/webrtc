@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d817f456_c2148a83",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T08:31:39Z",
+      "side": 1,
+      "message": "This is really vague. Do you have any options? std::pair\u003c...\u003e would be preferable to this IMO. I\u0027s suggest NetworkManagedAndThread, but that\u0027s not really better than std::pair\u003cNetworkManager, NetworkThread\u003e.\n\nDo you expect that the struct will have more fields in the future?\n\n(If the Manager would provide the thread, this naming would be simpler to name)",
+      "range": {
+        "startLine": 54,
+        "startChar": 7,
+        "endLine": 54,
+        "endChar": 24
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bace17f_676890e9",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T08:31:39Z",
+      "side": 1,
+      "message": "Should include the target, maybe: EnableEndpoint/DisableEndpoint?",
+      "range": {
+        "startLine": 76,
+        "startChar": 15,
+        "endLine": 76,
+        "endChar": 21
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfc1a7a7_48e5c9d6",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T08:31:39Z",
+      "side": 1,
+      "message": "Without context, there names are hard to understand, could they be defined where they are used? Otherwise I\u0027d suggest adding a comment explaining what they mean.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 48
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8ccc277_0b7dcd1c",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T08:31:39Z",
+      "side": 1,
+      "message": "Use an explicit loop instead, this isn\u0027t really more readable (The c++ algorithms-library is pretty bad in this regard, sadly it\u0027s rarely more readable that straightforward loops.)\n\nAdditionally, I think it\u0027d be better to move the check to a separate member function and do:\nRTC_DCHECK(HasEndpoint(endpoint))\u003c\u003c...\n\nThat way it\u0027s clear to the reader that this is only done for safety and can be ignored when debugging the happy path.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 24
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eec3996a_c87cfd2c",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T08:31:39Z",
+      "side": 1,
+      "message": "Is there no way to communicate this explicitely, it\u0027s hard to read this code and understand what thread this is?\n\nIf it\u0027s the network thread, maybe NetworkManager could own the thread itself?",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 34
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d88607ed_b47fabc9",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T08:31:39Z",
+      "side": 1,
+      "message": "Why not a TaskQueue?",
+      "range": {
+        "startLine": 108,
+        "startChar": 6,
+        "endLine": 108,
+        "endChar": 65
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8a783b4_653fc208",
+        "filename": "test/scenario/network/emulated_network_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T08:31:39Z",
+      "side": 1,
+      "message": "Is this the same as the network thread?",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 52
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4a81a81_18e10b41",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T08:31:39Z",
+      "side": 1,
+      "message": "default_enabled?",
+      "range": {
+        "startLine": 133,
+        "startChar": 40,
+        "endLine": 133,
+        "endChar": 49
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f321635_4ead0f3f",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T08:31:39Z",
+      "side": 1,
+      "message": "Enable/Disable, just to be more consistent with how we usually name things.",
+      "range": {
+        "startLine": 161,
+        "startChar": 7,
+        "endLine": 161,
+        "endChar": 13
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58cc210a_2c2a304a",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T08:31:39Z",
+      "side": 1,
+      "message": "thread names are usually truncated quite short, so I\u0027d recommend making this name shorter to ensure that the number remains (or look up the default truncation lengths to ensure it\u0027s already short enough.",
+      "range": {
+        "startLine": 223,
+        "startChar": 7,
+        "endLine": 223,
+        "endChar": 64
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

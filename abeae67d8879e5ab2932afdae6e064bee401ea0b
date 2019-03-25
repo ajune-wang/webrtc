@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a56fdd8b_9b97dbaf",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-25T19:54:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "163eaf86_9b2b3e36",
+      "revId": "abeae67d8879e5ab2932afdae6e064bee401ea0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf9731a7_7aa4e8d4",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "9e4eb0c8_401a945a",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-25T19:54:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf9731a7_7aa4e8d4",
+      "range": {
+        "startLine": 840,
+        "startChar": 71,
+        "endLine": 840,
+        "endChar": 86
+      },
+      "revId": "abeae67d8879e5ab2932afdae6e064bee401ea0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9732a69a_5082fd93",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
         "patchSetId": 1
@@ -62,6 +104,30 @@
       "revId": "abeae67d8879e5ab2932afdae6e064bee401ea0b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21cf1af7_50fcec7a",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-25T19:54:36Z",
+      "side": 1,
+      "message": "Added new constructor for accepting simulcast common parameters: RID, active, scaleResolution",
+      "parentUuid": "9732a69a_5082fd93",
+      "range": {
+        "startLine": 849,
+        "startChar": 22,
+        "endLine": 849,
+        "endChar": 34
+      },
+      "revId": "abeae67d8879e5ab2932afdae6e064bee401ea0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

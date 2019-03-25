@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e74f07fd_cec6c74d",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T14:36:15Z",
+      "side": 1,
+      "message": "This is starting to become really convoluted. At this point I\u0027d prefer to use the to address directly and rely on the routing nodes to keep routing tables, essentially we\u0027d see the ID as the MAC that\u0027s only communicated to the nearest routing node, and use the IP:port for the real routing.",
+      "range": {
+        "startLine": 162,
+        "startChar": 3,
+        "endLine": 163,
+        "endChar": 44
+      },
+      "revId": "4ab75fb2689763c822de19d089b6762e16fdcbf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d503b481_25d46f4d",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T14:36:15Z",
+      "side": 1,
+      "message": "I suggest having NetworkEmulationManagerImpl and EmulatedEndpoint defined in the same file and forward declare NetworkEmulationManagerImpl in that file instead (or forward declare EmulatedEndpoint)\n\n\nBy having them defined in the same file we avoid the risk of accidentally depending on a forward declared class without any definition.",
+      "range": {
+        "startLine": 118,
+        "startChar": 6,
+        "endLine": 118,
+        "endChar": 31
+      },
+      "revId": "4ab75fb2689763c822de19d089b6762e16fdcbf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14d4fab8_6942a347",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T14:36:15Z",
+      "side": 1,
+      "message": "Could this be replaced by a MOCK?\n...\nEXPECT_CALL(receiver_, OnPacketReceived(_)).Times(???);",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 66
+      },
+      "revId": "4ab75fb2689763c822de19d089b6762e16fdcbf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c06fef5_86fe24a4",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T14:36:15Z",
+      "side": 1,
+      "message": "Not very fond of ascii art in comments, could you write it as psuedo code instead? (or prefferably, clean the actual code up to the extent that psuedo code would be redundant, using more auto should help there)",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 28
+      },
+      "revId": "4ab75fb2689763c822de19d089b6762e16fdcbf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c26bc108_ed1da712",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T14:36:15Z",
+      "side": 1,
+      "message": "Seems awfully low level for being in a test, maybe it should be:\ne2-\u003eSendPacket(common_send_port, r_e2_e1_port, /*packet_size*/ 10) ?",
+      "range": {
+        "startLine": 217,
+        "startChar": 6,
+        "endLine": 217,
+        "endChar": 69
+      },
+      "revId": "4ab75fb2689763c822de19d089b6762e16fdcbf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

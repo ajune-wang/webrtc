@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8e5b49c_5e75b1bc",
+        "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-25T07:09:10Z",
+      "side": 1,
+      "message": "Please change this to\nconst size_t block_limit \u003d std::min(section_boundaries_blocks_[section + 1],\n                          filter_frequency_response.size());\nfor (size_t block \u003d section_boundaries_blocks_[section]; block \u003c block_limit; ++block) {\n\n\nto ensure that the loop exit criterion is not re-evaluated at each loop.",
+      "range": {
+        "startLine": 331,
+        "startChar": 4,
+        "endLine": 334,
+        "endChar": 19
+      },
+      "revId": "9ef010cd714db478621c0e14ab6ca9cc88a7d647",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8adfbc7a_f79d32cd",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-25T09:26:46Z",
+      "side": 1,
+      "message": "int\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/api/video/video_codec_constants.h?l\u003d18\u0026rcl\u003d85a4a93e77b163098e91f41d8e7415181f23d02c",
+      "range": {
+        "startLine": 205,
+        "startChar": 11,
+        "endLine": 205,
+        "endChar": 17
+      },
+      "revId": "4d84769fa20d39381f56c79ec78c593fe9500daa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30dd7bcc_2e298300",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-25T09:26:46Z",
+      "side": 1,
+      "message": "Is this needed, or is this here just to be safe? Right now, bitrate_observer_ is set when rtcp_target_bitrate_enabled_ is set: https://cs.chromium.org/chromium/src/third_party/webrtc/video/video_send_stream.cc?l\u003d119\u0026rcl\u003d85a4a93e77b163098e91f41d8e7415181f23d02c",
+      "range": {
+        "startLine": 1008,
+        "startChar": 8,
+        "endLine": 1008,
+        "endChar": 36
+      },
+      "revId": "4d84769fa20d39381f56c79ec78c593fe9500daa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7053703_1262d6c4",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-25T09:26:46Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 1009,
+        "startChar": 8,
+        "endLine": 1009,
+        "endChar": 47
+      },
+      "revId": "4d84769fa20d39381f56c79ec78c593fe9500daa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b96ab9a_6f5c819b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-25T09:26:46Z",
+      "side": 1,
+      "message": "const bool",
+      "range": {
+        "startLine": 1012,
+        "startChar": 6,
+        "endLine": 1012,
+        "endChar": 10
+      },
+      "revId": "4d84769fa20d39381f56c79ec78c593fe9500daa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

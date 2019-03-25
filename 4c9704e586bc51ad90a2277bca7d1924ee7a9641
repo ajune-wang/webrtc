@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81a43c72_917f18c6",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-25T15:16:43Z",
+      "side": 1,
+      "message": "It looks like this class doesn\u0027t need to be protected, can it be made private?\n\nTo go even further, maybe it can be put in an anonymous namespace in audio_processing_simulator.cc.",
+      "range": {
+        "startLine": 138,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 19
+      },
+      "revId": "4c9704e586bc51ad90a2277bca7d1924ee7a9641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f9ea7f6_cde2a653",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-25T15:16:43Z",
+      "side": 1,
+      "message": "\"a\"",
+      "range": {
+        "startLine": 195,
+        "startChar": 31,
+        "endLine": 195,
+        "endChar": 33
+      },
+      "revId": "4c9704e586bc51ad90a2277bca7d1924ee7a9641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

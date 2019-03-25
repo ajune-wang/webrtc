@@ -24,6 +24,7 @@
 #include "rtc_base/async_socket.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/critical_section.h"
+#include "rtc_base/network.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/thread.h"
 #include "system_wrappers/include/clock.h"
@@ -120,7 +121,10 @@ class EmulatedNetworkNode : public EmulatedNetworkReceiverInterface {
 // from other EmulatedNetworkNodes.
 class EmulatedEndpoint : public EmulatedNetworkReceiverInterface {
  public:
-  EmulatedEndpoint(uint64_t id, rtc::IPAddress, Clock* clock);
+  EmulatedEndpoint(uint64_t id,
+                   rtc::IPAddress ip,
+                   bool is_enabled,
+                   Clock* clock);
   ~EmulatedEndpoint() override;
 
   uint64_t GetId() const;
@@ -155,6 +159,12 @@ class EmulatedEndpoint : public EmulatedNetworkReceiverInterface {
   // Will be called to deliver packet into endpoint from network node.
   void OnPacketReceived(EmulatedIpPacket packet) override;
 
+  void Enable();
+  void Disable();
+  bool Enabled() const { return is_enabled_; }
+
+  const rtc::Network& network() const { return *network_.get(); }
+
  protected:
   friend class test::NetworkEmulationManagerImpl;
 
@@ -170,8 +180,11 @@ class EmulatedEndpoint : public EmulatedNetworkReceiverInterface {
   uint64_t id_;
   // Peer's local IP address for this endpoint network interface.
   const rtc::IPAddress peer_local_addr_;
+  // TODO(titovartem@) do we need to restrict some actions basing on the state?
+  bool is_enabled_;
   EmulatedNetworkNode* send_node_;
   Clock* const clock_;
+  std::unique_ptr<rtc::Network> network_;
 
   uint16_t next_port_ RTC_GUARDED_BY(receiver_lock_);
   std::map<uint16_t, EmulatedNetworkReceiverInterface*> port_to_receiver_

@@ -612,6 +612,24 @@ int GetDefaultSampleRate(JNIEnv* env, const JavaRef<jobject>& j_audio_manager) {
   return Java_WebRtcAudioManager_getSampleRate(env, j_audio_manager);
 }
 
+bool IsAAudioSupported(JNIEnv* env,
+                                 const JavaRef<jobject>& j_audio_manager) {
+  return Java_WebRtcAudioManager_isAAudioSupported(env,
+                                                             j_audio_manager);
+}
+
+bool IsLowLatencyOutputSupported(JNIEnv* env,
+                                 const JavaRef<jobject>& j_audio_manager) {
+  return Java_WebRtcAudioManager_isLowLatencyOutputSupported(env,
+                                                             j_audio_manager);
+}
+
+bool IsLowLatencyInputSupported(JNIEnv* env,
+                                const JavaRef<jobject>& j_audio_manager) {
+  return Java_WebRtcAudioManager_isLowLatencyInputSupported(env,
+                                                            j_audio_manager);
+}
+
 void GetAudioParameters(JNIEnv* env,
                         const JavaRef<jobject>& j_context,
                         const JavaRef<jobject>& j_audio_manager,

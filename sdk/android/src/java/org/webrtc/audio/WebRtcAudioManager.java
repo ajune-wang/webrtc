@@ -33,6 +33,8 @@ class WebRtcAudioManager {
   private static final int BITS_PER_SAMPLE = 16;
 
   private static final int DEFAULT_FRAME_PER_BUFFER = 256;
+  // TODO(bugs.webrtc.org/8914): currently disabled by default.
+  private static final boolean IS_AAUDIO_DISABLED = true;
 
   @CalledByNative
   static AudioManager getAudioManager(Context context) {
@@ -55,11 +57,24 @@ class WebRtcAudioManager {
         : getMinInputFrameSize(sampleRate, numberOfInputChannels);
   }
 
-  private static boolean isLowLatencyOutputSupported(Context context) {
+  // AAudio is supported on Androio Oreo MR1 (API 27) and higher.
+  // TODO(bugs.webrtc.org/8914): currently disabled by default.
+  @CalledByNative
+  static boolean isAAudioSupported(Context context) {
+    if (IS_AAUDIO_DISABLED) {
+      Logging.w(TAG, "AAudio support is currently disabled on all devices!");
+      return false;
+    }
+    return Build.VERSION.SDK_INT >= 27;
+  }
+
+  @CalledByNative
+  static boolean isLowLatencyOutputSupported(Context context) {
     return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_AUDIO_LOW_LATENCY);
   }
 
-  private static boolean isLowLatencyInputSupported(Context context) {
+  @CalledByNative
+  static boolean isLowLatencyInputSupported(Context context) {
     // TODO(henrika): investigate if some sort of device list is needed here
     // as well. The NDK doc states that: "As of API level 21, lower latency
     // audio input is supported on select devices. To take advantage of this

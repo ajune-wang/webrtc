@@ -21,6 +21,10 @@ namespace webrtc {
 rtc::scoped_refptr<AudioDeviceModule> CreateAAudioAudioDeviceModule(
     JNIEnv* env,
     jobject application_context);
+
+rtc::scoped_refptr<AudioDeviceModule>
+CreateJavaInputAndAAudioOutputAudioDeviceModule(JNIEnv* env,
+                                                jobject application_context);
 #endif
 
 rtc::scoped_refptr<AudioDeviceModule> CreateJavaAudioDeviceModule(
@@ -34,6 +38,9 @@ rtc::scoped_refptr<AudioDeviceModule> CreateOpenSLESAudioDeviceModule(
 rtc::scoped_refptr<AudioDeviceModule>
 CreateJavaInputAndOpenSLESOutputAudioDeviceModule(JNIEnv* env,
                                                   jobject application_context);
+
+rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceModuleAndContext(
+    AudioDeviceModule::AudioLayer audio_layer);
 
 }  // namespace webrtc
 

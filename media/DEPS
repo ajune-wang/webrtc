@@ -12,6 +12,7 @@ include_rules = [
   "+modules/video_coding/utility",
   "+p2p",
   "+pc",
+  "+sdk/android",
   "+sound",
   "+system_wrappers",
   "+usrsctplib",

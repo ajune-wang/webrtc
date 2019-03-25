@@ -45,6 +45,7 @@
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/third_party/base64/base64.h"
 #include "rtc_base/trace_event.h"
+#include "sdk/android/native_api/audio_device_module/audio_device_android.h"
 #include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
@@ -236,8 +237,13 @@ void WebRtcVoiceEngine::Init() {
 #if defined(WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE)
   // No ADM supplied? Create a default one.
   if (!adm_) {
+#if defined(WEBRTC_ANDROID)
+    adm_ = webrtc::CreateAudioDeviceModuleAndContext(
+        webrtc::AudioDeviceModule::kPlatformDefaultAudio);
+#else
     adm_ = webrtc::AudioDeviceModule::Create(
         webrtc::AudioDeviceModule::kPlatformDefaultAudio);
+#endif  // WEBRTC_ANDROID
   }
 #endif  // WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE
   RTC_CHECK(adm());

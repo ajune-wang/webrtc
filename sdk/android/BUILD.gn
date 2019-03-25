@@ -547,6 +547,8 @@ if (is_android) {
       "src/jni/android_histogram.cc",
       "src/jni/android_network_monitor.cc",
       "src/jni/android_network_monitor.h",
+      "src/jni/application_context_provider.cc",
+      "src/jni/application_context_provider.h",
       "src/jni/class_loader.h",
       "src/jni/class_reference_holder.h",
       "src/jni/jni_common.cc",
@@ -1246,6 +1248,7 @@ if (is_android) {
     sources = [
       "api/org/webrtc/NetworkMonitor.java",
       "api/org/webrtc/NetworkMonitorAutoDetect.java",
+      "src/java/org/webrtc/ApplicationContextProvider.java",
       "src/java/org/webrtc/Histogram.java",
       "src/java/org/webrtc/JniCommon.java",
     ]
@@ -1502,8 +1505,6 @@ if (is_android) {
     testonly = true
 
     sources = [
-      "native_unittests/application_context_provider.cc",
-      "native_unittests/application_context_provider.h",
       "native_unittests/audio_device/audio_device_unittest.cc",
       "native_unittests/codecs/wrapper_unittest.cc",
       "native_unittests/java_types_unittest.cc",
@@ -1562,7 +1563,6 @@ if (is_android) {
     testonly = true
 
     java_files = [
-      "native_unittests/org/webrtc/ApplicationContextProvider.java",
       "native_unittests/org/webrtc/BuildInfo.java",
       "native_unittests/org/webrtc/CodecsWrapperTestHelper.java",
       "native_unittests/org/webrtc/JavaTypesTestHelper.java",
@@ -1585,7 +1585,6 @@ if (is_android) {
     testonly = true
 
     sources = [
-      "native_unittests/org/webrtc/ApplicationContextProvider.java",
       "native_unittests/org/webrtc/BuildInfo.java",
       "native_unittests/org/webrtc/CodecsWrapperTestHelper.java",
       "native_unittests/org/webrtc/JavaTypesTestHelper.java",

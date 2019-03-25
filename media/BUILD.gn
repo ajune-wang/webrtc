@@ -272,6 +272,7 @@ rtc_static_library("rtc_audio_video") {
     "../rtc_base:checks",
     "../rtc_base/system:rtc_export",
     "../rtc_base/third_party/base64",
+    "../sdk/android:native_api_audio_device_module",
     "../system_wrappers:field_trial",
     "../system_wrappers:metrics",
   ]
@@ -339,6 +340,7 @@ rtc_static_library("rtc_audio_video") {
     "../rtc_base/experiments:audio_allocation_settings",
     "../rtc_base/experiments:field_trial_parser",
     "../rtc_base/experiments:normalize_simulcast_size_experiment",
+    "../sdk/android:native_api_audio_device_module",
     "../system_wrappers",
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/memory",

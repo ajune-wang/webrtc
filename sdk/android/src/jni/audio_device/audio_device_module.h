@@ -74,6 +74,16 @@ ScopedJavaLocalRef<jobject> GetAudioManager(JNIEnv* env,
 // Get default audio sample rate by querying an android.media.AudioManager.
 int GetDefaultSampleRate(JNIEnv* env, const JavaRef<jobject>& j_audio_manager);
 
+// Check for low latency output support by querying an
+// android.media.AudioManager.
+bool IsLowLatencyOutputSupported(JNIEnv* env,
+                                 const JavaRef<jobject>& j_audio_manager);
+
+// Check for low latency input support by querying an
+// android.media.AudioManager.
+bool IsLowLatencyInputSupported(JNIEnv* env,
+                                const JavaRef<jobject>& j_audio_manager);
+
 // Get audio input and output parameters based on a number of settings.
 void GetAudioParameters(JNIEnv* env,
                         const JavaRef<jobject>& j_context,

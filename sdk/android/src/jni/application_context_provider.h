@@ -7,18 +7,17 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#include "sdk/android/native_unittests/application_context_provider.h"
+#ifndef SDK_ANDROID_SRC_JNI_APPLICATION_CONTEXT_PROVIDER_H_
+#define SDK_ANDROID_SRC_JNI_APPLICATION_CONTEXT_PROVIDER_H_
 
-#include "sdk/android/generated_native_unittests_jni/jni/ApplicationContextProvider_jni.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace test {
 
-ScopedJavaLocalRef<jobject> GetAppContextForTest(JNIEnv* jni) {
-  return ScopedJavaLocalRef<jobject>(
-      jni::Java_ApplicationContextProvider_getApplicationContextForTest(jni));
-}
+ScopedJavaLocalRef<jobject> GetAppContextForTest(JNIEnv* jni);
 
 }  // namespace test
 }  // namespace webrtc
+
+#endif  // SDK_ANDROID_SRC_JNI_APPLICATION_CONTEXT_PROVIDER_H_

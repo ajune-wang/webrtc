@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "bd732db1_5c33bf96",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-25T13:30:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bace17f_676890e9",
+      "range": {
+        "startLine": 76,
+        "startChar": 15,
+        "endLine": 76,
+        "endChar": 21
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfc1a7a7_48e5c9d6",
         "filename": "test/scenario/network/emulated_network_manager.cc",
         "patchSetId": 4
@@ -118,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "9ea84868_4588a672",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-25T13:30:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e17143c_9751e98b",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 24
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eec3996a_c87cfd2c",
         "filename": "test/scenario/network/emulated_network_manager.cc",
         "patchSetId": 4
@@ -129,6 +177,30 @@
       "writtenOn": "2019-03-25T08:31:39Z",
       "side": 1,
       "message": "Is there no way to communicate this explicitely, it\u0027s hard to read this code and understand what thread this is?\n\nIf it\u0027s the network thread, maybe NetworkManager could own the thread itself?",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 34
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a0faab9_fd4ce36a",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-25T13:30:52Z",
+      "side": 1,
+      "message": "From contract of rtc::NetworkManager we know, that all methods of this class have to be called from the same thread, but it isn\u0027t told which thread will call them, so we can\u0027t assume, that it will be a network thread. Also this thread will be different from the one, on which manager was created. StartUpdating is the first entry point for that thread in manager object, it is why we are storing thread here.\n\nAlso regarding next question - not task queue, because we have to use the thread, that was used to call this object.",
+      "parentUuid": "eec3996a_c87cfd2c",
       "range": {
         "startLine": 101,
         "startChar": 12,
@@ -161,6 +233,30 @@
       "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1409c6bb_b270709e",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-25T13:30:52Z",
+      "side": 1,
+      "message": "Replied in prev comment",
+      "parentUuid": "d88607ed_b47fabc9",
+      "range": {
+        "startLine": 108,
+        "startChar": 6,
+        "endLine": 108,
+        "endChar": 65
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -210,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "11b8ce26_45fb9b87",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-25T13:30:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4a81a81_18e10b41",
+      "range": {
+        "startLine": 133,
+        "startChar": 40,
+        "endLine": 133,
+        "endChar": 49
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f321635_4ead0f3f",
         "filename": "test/scenario/network/network_emulation.h",
         "patchSetId": 4
@@ -233,6 +353,30 @@
     },
     {
       "key": {
+        "uuid": "dea4d57a_392364ce",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-25T13:30:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f321635_4ead0f3f",
+      "range": {
+        "startLine": 161,
+        "startChar": 7,
+        "endLine": 161,
+        "endChar": 13
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58cc210a_2c2a304a",
         "filename": "test/scenario/network/network_emulation_manager.cc",
         "patchSetId": 4
@@ -253,6 +397,30 @@
       "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6beded1_f2e6a307",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-25T13:30:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58cc210a_2c2a304a",
+      "range": {
+        "startLine": 223,
+        "startChar": 7,
+        "endLine": 223,
+        "endChar": 64
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -16,6 +16,24 @@
       "revId": "87a3e038aedafec9a912f11743777ffe7149c400",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9af4a08_b32d5091",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-03-25T22:27:16Z",
+      "side": 1,
+      "message": "In all other codepaths, the id will either have been assigned at startup (when transport is open) or is -1 (when transport is still closed). This is the only place where the ID transitions.\nSendQueuedControlMessages is called only from this point according to codesearch.\nSendControlMessage is called only from SendQueuedControlMessages and from UpdateState.\nUpdateState is called only from here, from Set*Ssrc (only relevant for RTP data channels), and from Close().\n\nAltogether, I think we\u0027re pretty safe. If not - tests should show it.",
+      "parentUuid": "1be1e17a_f2ac1e8d",
+      "revId": "87a3e038aedafec9a912f11743777ffe7149c400",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

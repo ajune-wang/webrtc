@@ -194,6 +194,15 @@ TEST_F(TestVideoReceiver, PaddingOnlyAndVideo) {
   }
 }
 
+// Initialization of WebRtcRTPHeader is a bit convoluted, with some fields
+// zero-initialized. Check that playout delay is properly initialized; we have
+// seen bugs related to missing initialization.
+TEST(WebRtcRTPHeader, DefaultPlayoutDelayIsUnspecified) {
+  WebRtcRTPHeader webrtc_rtp_header = {};
+  EXPECT_EQ(webrtc_rtp_header.video_header().playout_delay.min_ms, -1);
+  EXPECT_EQ(webrtc_rtp_header.video_header().playout_delay.max_ms, -1);
+}
+
 }  // namespace
 }  // namespace vcm
 }  // namespace webrtc

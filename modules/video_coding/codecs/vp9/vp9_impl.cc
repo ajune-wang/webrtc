@@ -321,11 +321,6 @@ int VP9EncoderImpl::SetRateAllocation(
   if (frame_rate < 1) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
-  // Update bit rate
-  if (codec_.maxBitrate > 0 &&
-      bitrate_allocation.get_sum_kbps() > codec_.maxBitrate) {
-    return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
-  }
 
   codec_.maxFramerate = frame_rate;
 
@@ -341,10 +336,6 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
   if (inst->maxFramerate < 1) {
-    return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
-  }
-  // Allow zero to represent an unspecified maxBitRate
-  if (inst->maxBitrate > 0 && inst->startBitrate > inst->maxBitrate) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
   if (inst->width < 1 || inst->height < 1) {

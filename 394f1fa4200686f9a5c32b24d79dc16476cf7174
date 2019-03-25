@@ -22,6 +22,30 @@
       "revId": "394f1fa4200686f9a5c32b24d79dc16476cf7174",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6ee4b4e_82579fe7",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-25T16:26:32Z",
+      "side": 1,
+      "message": "Ah, this is interesting! While looking at the component build, I have never thought about these weird deps we have here and there in the codebase.\n\nThanks, there are possibilities that you have just unblocked me on the component build as well. :)\n\nNeed to understand what is going on though, these deps should be somehow deterministic and not randomly break the build.",
+      "parentUuid": "3c005cb5_59669916",
+      "range": {
+        "startLine": 1038,
+        "startChar": 0,
+        "endLine": 1040,
+        "endChar": 3
+      },
+      "revId": "394f1fa4200686f9a5c32b24d79dc16476cf7174",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

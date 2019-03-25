@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0aea4a72_849844c6",
+        "filename": "modules/video_coding/video_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-25T14:58:15Z",
+      "side": 0,
+      "message": "This member became write-only in cl https://webrtc-review.googlesource.com/c/src/+/128768",
+      "range": {
+        "startLine": 202,
+        "startChar": 2,
+        "endLine": 202,
+        "endChar": 23
+      },
+      "revId": "141953965653262a5cd5761daf238070ae8bd530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

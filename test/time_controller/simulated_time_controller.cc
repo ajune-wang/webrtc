@@ -383,6 +383,11 @@ TaskQueueFactory* GlobalSimulatedTimeController::GetTaskQueueFactory() {
   return &impl_;
 }
 
+TaskQueueFactory*
+GlobalSimulatedTimeController::GetSingleThreadedTaskQueueFactory() {
+  return &impl_;
+}
+
 std::unique_ptr<ProcessThread>
 GlobalSimulatedTimeController::CreateProcessThread(const char* thread_name) {
   return impl_.CreateProcessThread(thread_name);

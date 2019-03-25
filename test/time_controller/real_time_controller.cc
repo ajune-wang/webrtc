@@ -13,8 +13,49 @@
 #include "rtc_base/event.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "system_wrappers/include/sleep.h"
+#include "test/single_threaded_task_queue.h"
 
 namespace webrtc {
+
+namespace webrtc_impl {
+namespace {
+class SingleThreadedTaskQueue : public TaskQueueBase {
+ public:
+  explicit SingleThreadedTaskQueue(absl::string_view name)
+      : impl_(std::string(name).c_str()) {}
+  ~SingleThreadedTaskQueue() override = default;
+  void Delete() override { delete this; }
+  void PostTask(std::unique_ptr<QueuedTask> task) override {
+    auto task_ptr = task.release();
+    impl_.PostTask([task_ptr] {
+      if (task_ptr->Run())
+        delete task_ptr;
+    });
+  }
+  void PostDelayedTask(std::unique_ptr<QueuedTask> task,
+                       uint32_t milliseconds) override {
+    auto task_ptr = task.release();
+    impl_.PostDelayedTask(
+        [task_ptr] {
+          if (task_ptr->Run())
+            delete task_ptr;
+        },
+        milliseconds);
+  }
+
+ private:
+  test::SingleThreadedTaskQueueForTesting impl_;
+};
+}  // namespace
+std::unique_ptr<TaskQueueBase, TaskQueueDeleter>
+SingleThreadedTaskQueueFactory::CreateTaskQueue(
+    absl::string_view name,
+    TaskQueueFactory::Priority priority) const {
+  return std::unique_ptr<TaskQueueBase, TaskQueueDeleter>(
+      new SingleThreadedTaskQueue(name));
+}
+
+}  // namespace webrtc_impl
 
 Clock* RealTimeController::GetClock() {
   return Clock::GetRealTimeClock();
@@ -22,6 +63,10 @@ Clock* RealTimeController::GetClock() {
 
 TaskQueueFactory* RealTimeController::GetTaskQueueFactory() {
   return &GlobalTaskQueueFactory();
+}
+
+TaskQueueFactory* RealTimeController::GetSingleThreadedTaskQueueFactory() {
+  return &single_threaded_task_queue_factory_;
 }
 
 std::unique_ptr<ProcessThread> RealTimeController::CreateProcessThread(

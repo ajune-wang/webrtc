@@ -32,6 +32,7 @@ class TimeController {
   // The returned factory will created task queues that runs in implementation
   // defined time domain.
   virtual TaskQueueFactory* GetTaskQueueFactory() = 0;
+  virtual TaskQueueFactory* GetSingleThreadedTaskQueueFactory() = 0;
   // Creates a process thread.
   virtual std::unique_ptr<ProcessThread> CreateProcessThread(
       const char* thread_name) = 0;

@@ -1022,6 +1022,21 @@ rtc_static_library("rtc_base") {
   }
 }
 
+rtc_source_set("fifo_buffer") {
+  visibility = [
+    "../p2p:rtc_p2p",
+    ":rtc_base_tests_utils",
+    ":rtc_base_unittests",
+  ]
+  sources = [
+    "fifo_buffer.cc",
+    "fifo_buffer.h",
+  ]
+  deps = [
+    ":rtc_base",
+  ]
+}
+
 rtc_source_set("gtest_prod") {
   visibility = [ "*" ]
   sources = [
@@ -1104,6 +1119,7 @@ rtc_source_set("rtc_base_tests_utils") {
   ]
   deps = [
     ":checks",
+    ":fifo_buffer",
     ":rtc_base",
     "../api/units:time_delta",
     "third_party/sigslot",
@@ -1403,6 +1419,7 @@ if (rtc_include_tests) {
     }
     deps = [
       ":checks",
+      ":fifo_buffer",
       ":gunit_helpers",
       ":rtc_base_tests_main",
       ":rtc_base_tests_utils",

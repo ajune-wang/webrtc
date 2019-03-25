@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d7a5f48_e97fa2bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T16:54:05Z",
+      "side": 1,
+      "message": "nit: \"always have\"?\n\n(sensible is a bit subjective)",
+      "range": {
+        "startLine": 7,
+        "startChar": 15,
+        "endLine": 7,
+        "endChar": 28
+      },
+      "revId": "cdd15eb2558ce724e7557c275e11189cdbc99977",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1f819d6_0a439803",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T16:54:05Z",
+      "side": 1,
+      "message": "They are optional right? Seems a bit redundant with this extra check.",
+      "range": {
+        "startLine": 825,
+        "startChar": 6,
+        "endLine": 825,
+        "endChar": 63
+      },
+      "revId": "cdd15eb2558ce724e7557c275e11189cdbc99977",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec719561_f2fc1b2d",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T16:54:05Z",
+      "side": 1,
+      "message": "Maybe these should be moved to allocation_settings_ so we keep the trials in one place, wither way, we shouldn\u0027t check it inline as the overhead of IsEnabled is unspecified. If you don\u0027t move it to allocation_settings_: check it on construction and use the value later.",
+      "range": {
+        "startLine": 837,
+        "startChar": 6,
+        "endLine": 837,
+        "endChar": 71
+      },
+      "revId": "cdd15eb2558ce724e7557c275e11189cdbc99977",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f0d4080_96bf36c2",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T16:54:05Z",
+      "side": 1,
+      "message": "nit: this might be more readable as:\nmin_overhead \u003d DataSize::bytes(kOverheadPerPacket)/TimeDelta::ms(120);\nor\n\nconst DataSize kOverheadPerPacket \u003d DataSize::bytes(20 + 8 + 10 + 12);\nconst TimeDelta kMaxFrameLength \u003d TimeDelta::ms(120); // Based on Opus spec\nmin_overhead \u003d kOverheadPerPacket/kMaxFrameLength;",
+      "range": {
+        "startLine": 842,
+        "startChar": 19,
+        "endLine": 842,
+        "endChar": 69
+      },
+      "revId": "cdd15eb2558ce724e7557c275e11189cdbc99977",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a8d994d_a7440bf6",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-25T16:54:05Z",
+      "side": 1,
+      "message": "nit: I don\u0027t mind, but other people probably prefer:\nconst int kDefaultBitrateBps \u003d 32000;\n...",
+      "range": {
+        "startLine": 989,
+        "startChar": 32,
+        "endLine": 989,
+        "endChar": 37
+      },
+      "revId": "cdd15eb2558ce724e7557c275e11189cdbc99977",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

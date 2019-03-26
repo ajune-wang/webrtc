@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad670398_7176f76c",
+        "filename": "modules/audio_coding/neteq/tools/packet.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-26T12:29:15Z",
+      "side": 0,
+      "message": "Since cl https://webrtc-review.googlesource.com/c/src/+/128609, this memcpy results in a double free. But for some reason, that hasn\u0027t triggered asan when running locally, or in the webrtc cq.",
+      "range": {
+        "startLine": 177,
+        "startChar": 2,
+        "endLine": 178,
+        "endChar": 36
+      },
+      "revId": "76ba7dbc4f952c44a9e26bbc293d58997857ce18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

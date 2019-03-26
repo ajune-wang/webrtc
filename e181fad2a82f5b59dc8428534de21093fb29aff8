@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e3b79bf_0a30be29",
+        "filename": "sdk/objc/api/peerconnection/RTCRtpEncodingParameters.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2019-03-26T08:07:42Z",
+      "side": 1,
+      "message": "Use #import here",
+      "range": {
+        "startLine": 13,
+        "startChar": 1,
+        "endLine": 13,
+        "endChar": 8
+      },
+      "revId": "e181fad2a82f5b59dc8428534de21093fb29aff8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

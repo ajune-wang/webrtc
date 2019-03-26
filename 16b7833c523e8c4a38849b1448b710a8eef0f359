@@ -2,6 +2,121 @@
   "comments": [
     {
       "key": {
+        "uuid": "c1566d57_c1a32083",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-26T22:17:32Z",
+      "side": 1,
+      "message": "I don\u0027t think this is a helpful log outside of development",
+      "range": {
+        "startLine": 388,
+        "startChar": 4,
+        "endLine": 388,
+        "endChar": 48
+      },
+      "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd07a2a2_79f9b90d",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-26T22:17:32Z",
+      "side": 1,
+      "message": "this special ssrc logic breaks encapsulation.\nhow about adding a default track id to this method.\nIt would be better if you would add the default track-id to the builder object (or stats_collector object).",
+      "range": {
+        "startLine": 391,
+        "startChar": 0,
+        "endLine": 393,
+        "endChar": 36
+      },
+      "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "822a8877_ab02fa2d",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-26T22:17:32Z",
+      "side": 1,
+      "message": "nothing is preventing you from setting the same track_id for multiple ssrcs. this is usually not a problem, but what if there are multiple ssrcs not in the map and you assign them the same track-id which is map[0].",
+      "range": {
+        "startLine": 402,
+        "startChar": 17,
+        "endLine": 402,
+        "endChar": 27
+      },
+      "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e57a09e1_8cff6c6d",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-26T22:17:32Z",
+      "side": 1,
+      "message": "if () {}\nif () {}\nelse {}\nis somewhat error prone (readers just assume that the second if is an else if). \ni believe you can refactor the code to either use \u0027continue\u0027 or to have else if {} else {} statements.\nex: GetTrackIdForSsrc(ssrc, map) is a worthwhile method to extract (and test independently).\nEven a TrackId resolver could be a class that you extract. The class can know about all the mappings and can assume things based on unsignaled ssrcs / unified plan / plan-b (the last two by having two different implementations ex: PlanBTrackIdResolver : TrackIdResolver",
+      "range": {
+        "startLine": 403,
+        "startChar": 4,
+        "endLine": 403,
+        "endChar": 12
+      },
+      "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75aee915_cae65511",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-26T22:17:32Z",
+      "side": 1,
+      "message": "it is beyond me why this code has to be duplicated (in all our codebase...).\nthis is the exact same code, the only difference is the cast, but you can just use the BaseChannel to achieve the same - they are defining the same methods.\nlikewise for the info struct, they should share a base type to allow us not to duplicate the code everywhere.",
+      "range": {
+        "startLine": 938,
+        "startChar": 0,
+        "endLine": 957,
+        "endChar": 7
+      },
+      "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "347f9b47_7629ed32",
         "filename": "pc/stats_collector.cc",
         "patchSetId": 2

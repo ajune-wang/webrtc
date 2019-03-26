@@ -87,7 +87,7 @@ void PffftValidateWrapper(size_t fft_size, bool complex_fft) {
   }
 
   // Forward transform.
-  pffft_transform(pffft_status, in, out, scratch, PFFFT_FORWARD);
+  pffft_transform_ordered(pffft_status, in, out, scratch, PFFFT_FORWARD);
   pffft_wrapper.ForwardTransform(*in_wrapper, out_wrapper.get());
   ExpectArrayViewsEquality(out_view, out_wrapper_view);
 
@@ -97,7 +97,7 @@ void PffftValidateWrapper(size_t fft_size, bool complex_fft) {
             in_wrapper_view.begin());
 
   // Backward transform.
-  pffft_transform(pffft_status, in, out, scratch, PFFFT_BACKWARD);
+  pffft_transform_ordered(pffft_status, in, out, scratch, PFFFT_BACKWARD);
   pffft_wrapper.BackwardTransform(*in_wrapper, out_wrapper.get());
   ExpectArrayViewsEquality(out_view, out_wrapper_view);
 

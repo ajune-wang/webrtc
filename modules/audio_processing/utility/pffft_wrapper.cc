@@ -95,16 +95,16 @@ void Pffft::ForwardTransform(const FloatBuffer& in, FloatBuffer* out) {
   RTC_DCHECK_EQ(in.size(), GetBufferSize(fft_size_, fft_type_));
   RTC_DCHECK_EQ(in.size(), out->size());
   RTC_DCHECK(scratch_buffer_);
-  pffft_transform(pffft_status_, in.const_data(), out->data(), scratch_buffer_,
-                  PFFFT_FORWARD);
+  pffft_transform_ordered(pffft_status_, in.const_data(), out->data(),
+                          scratch_buffer_, PFFFT_FORWARD);
 }
 
 void Pffft::BackwardTransform(const FloatBuffer& in, FloatBuffer* out) {
   RTC_DCHECK_EQ(in.size(), GetBufferSize(fft_size_, fft_type_));
   RTC_DCHECK_EQ(in.size(), out->size());
   RTC_DCHECK(scratch_buffer_);
-  pffft_transform(pffft_status_, in.const_data(), out->data(), scratch_buffer_,
-                  PFFFT_BACKWARD);
+  pffft_transform_ordered(pffft_status_, in.const_data(), out->data(),
+                          scratch_buffer_, PFFFT_BACKWARD);
 }
 
 }  // namespace webrtc

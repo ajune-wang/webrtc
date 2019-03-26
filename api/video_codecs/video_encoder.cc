@@ -125,6 +125,12 @@ int32_t VideoEncoder::SetRateAllocation(
   return SetRates(allocation.get_sum_kbps(), framerate);
 }
 
+void VideoEncoder::SetRateAllocation(const VideoBitrateAllocation& allocation,
+                                     DataRate link_headroom,
+                                     uint32_t framerate) {
+  SetRateAllocation(allocation, framerate);
+}
+
 void VideoEncoder::OnPacketLossRateUpdate(float packet_loss_rate) {}
 
 void VideoEncoder::OnRttUpdate(int64_t rtt_ms) {}

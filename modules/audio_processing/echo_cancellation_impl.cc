@@ -432,13 +432,12 @@ void EchoCancellationImpl::PackRenderAudioBuffer(
   }
 }
 
-void EchoCancellationImpl::SetExtraOptions(const webrtc::Config& config) {
-  {
-    extended_filter_enabled_ = config.Get<ExtendedFilter>().enabled;
-    delay_agnostic_enabled_ = config.Get<DelayAgnostic>().enabled;
-    refined_adaptive_filter_enabled_ =
-        config.Get<RefinedAdaptiveFilter>().enabled;
-  }
+void EchoCancellationImpl::SetExtraOptions(bool use_extended_filter,
+                                           bool use_delay_agnostic,
+                                           bool use_refined_adaptive_filter) {
+  extended_filter_enabled_ = use_extended_filter;
+  delay_agnostic_enabled_ = use_delay_agnostic;
+  refined_adaptive_filter_enabled_ = use_refined_adaptive_filter;
   Configure();
 }
 

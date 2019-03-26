@@ -1915,17 +1915,10 @@ TEST_F(ApmTest, Process) {
         const float echo_return_loss = stats.echo_return_loss.value_or(-1.0f);
         const float echo_return_loss_enhancement =
             stats.echo_return_loss_enhancement.value_or(-1.0f);
-        const float divergent_filter_fraction =
-            stats.divergent_filter_fraction.value_or(-1.0f);
         const float residual_echo_likelihood =
             stats.residual_echo_likelihood.value_or(-1.0f);
         const float residual_echo_likelihood_recent_max =
             stats.residual_echo_likelihood_recent_max.value_or(-1.0f);
-
-        // Delay metrics.
-        const int32_t delay_median_ms = stats.delay_median_ms.value_or(-1.0);
-        const int32_t delay_standard_deviation_ms =
-            stats.delay_standard_deviation_ms.value_or(-1.0);
 
         if (!write_ref_data) {
           const audioproc::Test::EchoMetrics& reference =
@@ -1934,18 +1927,11 @@ TEST_F(ApmTest, Process) {
           EXPECT_NEAR(echo_return_loss, reference.echo_return_loss(), kEpsilon);
           EXPECT_NEAR(echo_return_loss_enhancement,
                       reference.echo_return_loss_enhancement(), kEpsilon);
-          EXPECT_NEAR(divergent_filter_fraction,
-                      reference.divergent_filter_fraction(), kEpsilon);
           EXPECT_NEAR(residual_echo_likelihood,
                       reference.residual_echo_likelihood(), kEpsilon);
           EXPECT_NEAR(residual_echo_likelihood_recent_max,
                       reference.residual_echo_likelihood_recent_max(),
                       kEpsilon);
-
-          const audioproc::Test::DelayMetrics& reference_delay =
-              test->delay_metrics(stats_index);
-          EXPECT_EQ(reference_delay.median(), delay_median_ms);
-          EXPECT_EQ(reference_delay.std(), delay_standard_deviation_ms);
 
           ++stats_index;
         } else {
@@ -1953,15 +1939,9 @@ TEST_F(ApmTest, Process) {
           message_echo->set_echo_return_loss(echo_return_loss);
           message_echo->set_echo_return_loss_enhancement(
               echo_return_loss_enhancement);
-          message_echo->set_divergent_filter_fraction(
-              divergent_filter_fraction);
           message_echo->set_residual_echo_likelihood(residual_echo_likelihood);
           message_echo->set_residual_echo_likelihood_recent_max(
               residual_echo_likelihood_recent_max);
-          audioproc::Test::DelayMetrics* message_delay =
-              test->add_delay_metrics();
-          message_delay->set_median(delay_median_ms);
-          message_delay->set_std(delay_standard_deviation_ms);
         }
       }
 #endif  // defined(WEBRTC_AUDIOPROC_FLOAT_PROFILE).
@@ -2714,7 +2694,7 @@ TEST(MAYBE_ApmStatistics, AEC2EnabledTest) {
   AudioProcessing::Config apm_config;
   apm_config.echo_canceller.enabled = true;
   // TODO(peah): Update tests to instead use AEC3.
-  apm_config.echo_canceller.use_legacy_aec = true;
+  apm_config.echo_canceller.use_legacy_aec = false;
   apm->ApplyConfig(apm_config);
 
   // Set up an audioframe.
@@ -2748,10 +2728,6 @@ TEST(MAYBE_ApmStatistics, AEC2EnabledTest) {
   EXPECT_NE(*stats.echo_return_loss, -100.0);
   ASSERT_TRUE(stats.echo_return_loss_enhancement);
   EXPECT_NE(*stats.echo_return_loss_enhancement, -100.0);
-  ASSERT_TRUE(stats.divergent_filter_fraction);
-  EXPECT_NE(*stats.divergent_filter_fraction, -1.0);
-  ASSERT_TRUE(stats.delay_standard_deviation_ms);
-  EXPECT_GE(*stats.delay_standard_deviation_ms, 0);
   // We don't check stats.delay_median_ms since it takes too long to settle to a
   // value. At least 20 seconds of data need to be processed before it will get
   // a value, which would make this test take too much time.
@@ -2766,9 +2742,6 @@ TEST(MAYBE_ApmStatistics, AEC2EnabledTest) {
   EXPECT_FALSE(stats.residual_echo_likelihood_recent_max);
   EXPECT_FALSE(stats.echo_return_loss);
   EXPECT_FALSE(stats.echo_return_loss_enhancement);
-  EXPECT_FALSE(stats.divergent_filter_fraction);
-  EXPECT_FALSE(stats.delay_median_ms);
-  EXPECT_FALSE(stats.delay_standard_deviation_ms);
 }
 
 TEST(MAYBE_ApmStatistics, AECMEnabledTest) {

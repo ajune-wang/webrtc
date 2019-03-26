@@ -10,6 +10,8 @@
 
 #include "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h"
 
+#include <algorithm>
+
 #include "modules/audio_processing/agc2/rnn_vad/test_utils.h"
 // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
 // #include "test/fpe_observer.h"
@@ -25,6 +27,58 @@ constexpr size_t kFrameSize20ms48kHz = 2 * kSampleRate48kHz / 100;
 constexpr size_t kFftNumCoeffs20ms48kHz = kFrameSize20ms48kHz / 2 + 1;
 
 }  // namespace
+
+// Tests that, when the sample rate is large enough, the triangular filters for
+// exists for every band.
+TEST(RnnVadTest, AllTriangularFiltersExist) {
+  // The tested property holds for any frame size.
+  for (size_t frame_size : {240, 480, 512, 700, 960}) {
+    SCOPED_TRACE(frame_size);
+    TriangularFilters triangular_filters(kSampleRate48kHz, frame_size);
+    auto band_boundaries = triangular_filters.GetBandBoundaries();
+    for (size_t i = 0; i < band_boundaries.size() - 1; ++i) {
+      EXPECT_FALSE(triangular_filters.GetBandWeights(i).empty());
+    }
+  }
+}
+
+// Tests that, when the sample rate is such that the highest FFT coefficient
+// falls in a triangular filter T_i which is not the last possible filter, all
+// the triangular filters T_j with j > i do not exits.
+TEST(RnnVadTest, UndefinedHighFrequencyTriangularFilters) {
+  // The tested property holds for any frame size.
+  for (size_t frame_size : {60, 128, 240, 360, 512}) {
+    SCOPED_TRACE(frame_size);
+    TriangularFilters triangular_filters(12000, frame_size);
+    auto band_boundaries = triangular_filters.GetBandBoundaries();
+    bool undefined_filter_found = false;
+    for (size_t i = 0; i < band_boundaries.size() - 1; ++i) {
+      SCOPED_TRACE(i);
+      if (undefined_filter_found) {
+        EXPECT_TRUE(triangular_filters.GetBandWeights(i).empty());
+      } else {
+        undefined_filter_found = triangular_filters.GetBandWeights(i).empty();
+      }
+    }
+    // At least one undefined filter.
+    EXPECT_TRUE(undefined_filter_found);
+  }
+}
+
+// Tests that the triangular filters overlap correctly.
+TEST(RnnVadTest, TriangularFiltersOverlap) {
+  TriangularFilters triangular_filters(kSampleRate48kHz, kFrameSize20ms48kHz);
+  auto band_boundaries = triangular_filters.GetBandBoundaries();
+  for (size_t i = 0; i < band_boundaries.size() - 1; ++i) {
+    SCOPED_TRACE(i);
+    auto weights = triangular_filters.GetBandWeights(i);
+    if (weights.empty()) {
+      break;
+    }
+    // No gaps between adjacent bands.
+    EXPECT_EQ(band_boundaries[i] + weights.size(), band_boundaries[i + 1]);
+  }
+}
 
 // TODO(bugs.webrtc.org/9076): Remove this test before closing the issue.
 // Check that when using precomputed FFT coefficients for frames at 48 kHz, the
@@ -45,8 +99,7 @@ TEST(RnnVadTest, ComputeBandEnergies48kHzBitExactness) {
   ASSERT_EQ(num_frames, band_energies_reader.second);
   std::array<float, kNumBands> expected_band_energies;
   // Init band energies coefficients computation.
-  const auto band_boundary_indexes =
-      ComputeBandBoundaryIndexes(kSampleRate48kHz, kFrameSize20ms48kHz);
+  TriangularFilters triangular_filters(kSampleRate48kHz, kFrameSize20ms48kHz);
   std::array<float, kNumBands> computed_band_energies;
 
   // Check output for every frame.
@@ -64,7 +117,7 @@ TEST(RnnVadTest, ComputeBandEnergies48kHzBitExactness) {
       }
       band_energies_reader.first->ReadChunk(expected_band_energies);
       // Compute band energy coefficients and check output.
-      ComputeBandEnergies(fft_coeffs, band_boundary_indexes,
+      ComputeBandEnergies(fft_coeffs, triangular_filters,
                           computed_band_energies);
       ExpectEqualFloatArray(expected_band_energies, computed_band_energies);
     }

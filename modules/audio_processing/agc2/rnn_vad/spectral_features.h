@@ -20,6 +20,7 @@
 #include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "modules/audio_processing/agc2/rnn_vad/fft_util.h"
 #include "modules/audio_processing/agc2/rnn_vad/ring_buffer.h"
+#include "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h"
 #include "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h"
 
 namespace webrtc {
@@ -80,7 +81,7 @@ class SpectralFeaturesExtractor {
   std::vector<std::complex<float>> lagged_frame_fft_;
   std::array<float, kNumBands> reference_frame_energy_coeffs_{};
   std::array<float, kNumBands> lagged_frame_energy_coeffs_{};
-  const std::array<size_t, kNumBands> band_boundaries_;
+  TriangularFilters triangular_filters_;
   const std::array<float, kNumBands * kNumBands> dct_table_;
   RingBuffer<float, kNumBands, kSpectralCoeffsHistorySize>
       spectral_coeffs_ring_buf_;

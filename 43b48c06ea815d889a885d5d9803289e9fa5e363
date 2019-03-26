@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c699d15e_9df0f83f",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-26T13:56:37Z",
+      "side": 1,
+      "message": "Is it better to supply the margin, or the total? The difference is just a subtraction, and somehow it feel cleaner to me to have both |allocation| and the \"stable BWE\" be absolute numbers, instead of the current |link_headroom| that is a relative number.",
+      "range": {
+        "startLine": 268,
+        "startChar": 34,
+        "endLine": 268,
+        "endChar": 40
+      },
+      "revId": "43b48c06ea815d889a885d5d9803289e9fa5e363",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14a86ad2_c2aba3d3",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-26T13:56:37Z",
+      "side": 1,
+      "message": "In some ways it feels redundant, but I think I would prefer framerate_fps here :)",
+      "range": {
+        "startLine": 275,
+        "startChar": 42,
+        "endLine": 275,
+        "endChar": 51
+      },
+      "revId": "43b48c06ea815d889a885d5d9803289e9fa5e363",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

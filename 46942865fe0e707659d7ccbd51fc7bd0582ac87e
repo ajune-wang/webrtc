@@ -1,0 +1,175 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "234938c1_a1460ac1",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-26T18:15:24Z",
+      "side": 1,
+      "message": "Maybe add this logic as an custom Match method for RtpCodecParameters?",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2423c16c_fe09ba0c",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-26T18:15:24Z",
+      "side": 1,
+      "message": "It looks like this will include RTX for every codec if one of them is in the codec_preferences list.\n\nDoes that satisfy the spec\u0027s explanation?\n\n    This method allows applications to disable the negotiation of specific codecs (including RTX/RED/FEC).",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e50f7be1_c796f94e",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-26T18:15:24Z",
+      "side": 1,
+      "message": "nit: absl::c_any_of(capabilities, \u003clambda\u003e)",
+      "range": {
+        "startLine": 163,
+        "startChar": 6,
+        "endLine": 163,
+        "endChar": 17
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "165c59f6_3265cd5d",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-26T18:15:24Z",
+      "side": 1,
+      "message": "nit: absl::c_copy_if(codecs, \u003cback inserter\u003e)",
+      "range": {
+        "startLine": 172,
+        "startChar": 2,
+        "endLine": 172,
+        "endChar": 14
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7518132_fb128e82",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-26T18:15:24Z",
+      "side": 1,
+      "message": "nit: absl::c_equal(capabilities, codecs_no_rtx, \u003clambda\u003e)\n\nCan then also remove the size check since c_equal will do that",
+      "range": {
+        "startLine": 185,
+        "startChar": 9,
+        "endLine": 185,
+        "endChar": 19
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49cdddb0_d03e0441",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4401,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-26T18:15:24Z",
+      "side": 1,
+      "message": "The PeerConnection integration tests are intended to test everything end to end including media flow. It doesn\u0027t look like these tests need all that capabilities, so I think these would be better as unit tests.\n\nI recommend moving some of the tests that verify the SDP to media_session_unittest.cc and the ones that verify the behavior of SetCodecPreferences (e.g., error conditions) to peer_connection_media_unittests. Both of those also have infrastructure to change the MediaEngine\u0027s offered audio/video codecs.",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8139377a_6ba73ac7",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4421,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-26T18:15:24Z",
+      "side": 1,
+      "message": "I\u0027d like if each of these blocks was written as its own TEST_F case.",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd73cc38_97d9b2f7",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-26T18:15:24Z",
+      "side": 1,
+      "message": "DCHECK(unified_plan_)",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "235b159e_93373caf",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-26T18:15:24Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is the right approach. Given that the direction can change later, I would expect the preferences to be stored with respect to the union of the send and receive codecs. That\u0027s also how I interpret the spec algorithm:\n\n    The codecs sequence passed into setCodecPreferences can only contain codecs that are returned by RTCRtpSender.getCapabilities(kind) or RTCRtpReceiver.getCapabilities(kind), where kind is the kind of the RTCRtpTransceiver on which the method is called.",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -18,6 +18,7 @@
 
 #include "absl/container/inlined_vector.h"
 #include "absl/types/optional.h"
+#include "api/units/data_rate.h"
 #include "api/video/encoded_image.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "api/video/video_codec_constants.h"
@@ -249,19 +250,29 @@ class RTC_EXPORT VideoEncoder {
                          const CodecSpecificInfo* codec_specific_info,
                          const std::vector<VideoFrameType>* frame_types);
 
-  // Inform the encoder about the new target bit rate.
-  //
-  // Input:
-  //          - bitrate         : New target bit rate
-  //          - framerate       : The target frame rate
-  //
-  // Return value                : WEBRTC_VIDEO_CODEC_OK if OK, < 0 otherwise.
+  // DEPRECATED! Instead use the one below:
+  // void SetRateAllocation(const VideoBitrateAllocation&, DataRate, uint32)
+  // For now has a default implementation that call RTC_NOTREACHED().
   virtual int32_t SetRates(uint32_t bitrate, uint32_t framerate);
 
-  // Default fallback: Just use the sum of bitrates as the single target rate.
-  // TODO(sprang): Remove this default implementation when we remove SetRates().
+  // DEPRECATED! Instead use the one below:
+  // void SetRateAllocation(const VideoBitrateAllocation&, DataRate, uint32)
+  // For now has a default implementation that calls
+  // int32_t SetRates(uin32_t, uint32_t) with |allocation.get_sum_kbps()| and
+  // |framerate| as arguments. This will be removed.
   virtual int32_t SetRateAllocation(const VideoBitrateAllocation& allocation,
                                     uint32_t framerate);
+
+  // Sets the target rates for the encoder:
+  //   allocation:    The target bitrates per spatial/temporal layers.
+  //   link_headroom: The bitrate margin available on the network. This is
+  //                  intended to allow tuning agressiveness of the encoder
+  //                  rate controller. Is DataRate::Zero() if encoder is network
+  //                  constrained.
+  //   framerate:     The target frame rate, in fps.
+  virtual void SetRateAllocation(const VideoBitrateAllocation& allocation,
+                                 DataRate link_headroom,
+                                 uint32_t framerate);
 
   // Inform the encoder when the packet loss rate changes.
   //

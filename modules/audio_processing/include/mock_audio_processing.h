@@ -163,6 +163,8 @@ class MockAudioProcessing : public testing::NiceMock<AudioProcessing> {
   MOCK_METHOD1(set_stream_key_pressed, void(bool key_pressed));
   MOCK_METHOD1(set_delay_offset_ms, void(int offset));
   MOCK_CONST_METHOD0(delay_offset_ms, int());
+  MOCK_METHOD1(set_stream_analog_level, void(int));
+  MOCK_METHOD0(recommended_stream_analog_level, int());
 
   virtual void AttachAecDump(std::unique_ptr<AecDump> aec_dump) {}
   MOCK_METHOD0(DetachAecDump, void());

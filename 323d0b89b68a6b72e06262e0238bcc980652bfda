@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f4e464e_c51a3598",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-26T12:57:57Z",
+      "side": 1,
+      "message": "Needs a spellcheck, mis-spellings include \"legace\", \"os\", \"Alocation\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 28
+      },
+      "revId": "323d0b89b68a6b72e06262e0238bcc980652bfda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5719c730_c4e4cc2a",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-26T12:57:57Z",
+      "side": 1,
+      "message": "For the deprecated methods, it would be nice with a TODO itim linking relevant bug.\n\nIf all internal use (and chromium use) is eliminated, methods can also be annotated with RTC_DEPRECATED.",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 262,
+        "endChar": 52
+      },
+      "revId": "323d0b89b68a6b72e06262e0238bcc980652bfda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "301c50ca_c467654a",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-26T12:57:57Z",
+      "side": 1,
+      "message": "I\u0027m wondering if it would make things easier to pass a single struct to this method, to make it easier to add and remove values, and have defaults? If it\u0027s not appropriate to extend VideoBitRateAllocation, it could be a new struct with VideoBitrateAllocation as one of the members.",
+      "range": {
+        "startLine": 273,
+        "startChar": 2,
+        "endLine": 275,
+        "endChar": 53
+      },
+      "revId": "323d0b89b68a6b72e06262e0238bcc980652bfda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

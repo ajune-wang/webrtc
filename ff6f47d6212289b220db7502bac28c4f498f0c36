@@ -16,6 +16,24 @@
       "revId": "ff6f47d6212289b220db7502bac28c4f498f0c36",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd2caad7_e9d2314b",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-26T12:50:07Z",
+      "side": 1,
+      "message": "Oooohhh, you\u0027re right---I was avoiding RTC_RUN_ON for non-private methods, but it needs avoiding for virtual methods too.\n\nFortunately, this was the only case of a virtual method having this annotation---in PeerConnection; I only know how to check this manually...",
+      "parentUuid": "ab049c1c_dd2b76e2",
+      "revId": "ff6f47d6212289b220db7502bac28c4f498f0c36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

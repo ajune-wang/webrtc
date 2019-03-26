@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "4f5c3ca0_d0de91bb",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-03-26T19:20:53Z",
+      "side": 1,
+      "message": "Yes, that\u0027s the place that stops allocating IDs when it runs out of numbers. It then calls (indirectly) into this function.",
+      "parentUuid": "21187287_fe62b46c",
+      "revId": "87a3e038aedafec9a912f11743777ffe7149c400",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4dbd1854_55f21c20",
         "filename": "pc/data_channel_unittest.cc",
         "patchSetId": 1
@@ -90,6 +108,30 @@
       "side": 1,
       "message": "Okay, after reading your longer explanation I don\u0027t think you HAVE to write a PC test for this behavior, since the fake provider actually helps isolate and test it. From my understanding, since the offer/answer negotiation reserves/assigns a SID, you would have to create number of datachannels \u003e number of available SIDs to reserve in order to test the behavior.\n\nI\u0027ll leave it up to you :)",
       "parentUuid": "4dbd1854_55f21c20",
+      "range": {
+        "startLine": 618,
+        "startChar": 7,
+        "endLine": 618,
+        "endChar": 26
+      },
+      "revId": "87a3e038aedafec9a912f11743777ffe7149c400",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "befb4dd8_f172ab9d",
+        "filename": "pc/data_channel_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-03-26T19:20:53Z",
+      "side": 1,
+      "message": "I inspected the peer_connection_data_channel_unittestt.cc framework, and I don\u0027t think it\u0027s worth it writing a test there; since the test actually has to get a connection going in order to complete the SCTP handshake, it requires significant surgery on the tests there to make it work. I think this particular test is better placed here.\n(And yes, I did write the test first and verified that it crashed before fixing the crashing behavior.)",
+      "parentUuid": "417e850c_74771574",
       "range": {
         "startLine": 618,
         "startChar": 7,

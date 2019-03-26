@@ -25,9 +25,14 @@ RtpTransceiverInterface::fired_direction() const {
   return absl::nullopt;
 }
 
-void RtpTransceiverInterface::SetCodecPreferences(
+RTCError RtpTransceiverInterface::SetCodecPreferences(
     rtc::ArrayView<RtpCodecCapability>) {
   RTC_NOTREACHED() << "Not implemented";
+}
+
+std::vector<RtpCodecCapability> RtpTransceiverInterface::codec_preferences()
+    const {
+  return {};
 }
 
 }  // namespace webrtc

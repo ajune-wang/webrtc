@@ -13,7 +13,9 @@
 #include <string>
 
 #include "absl/algorithm/container.h"
+#include "pc/channel_manager.h"
 #include "pc/rtp_media_utils.h"
+#include "pc/rtp_parameters_conversion.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 
@@ -28,8 +30,11 @@ RtpTransceiver::RtpTransceiver(cricket::MediaType media_type)
 RtpTransceiver::RtpTransceiver(
     rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>> sender,
     rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
-        receiver)
-    : unified_plan_(true), media_type_(sender->media_type()) {
+        receiver,
+    cricket::ChannelManager* channel_manager)
+    : unified_plan_(true),
+      media_type_(sender->media_type()),
+      channel_manager_(channel_manager) {
   RTC_DCHECK(media_type_ == cricket::MEDIA_TYPE_AUDIO ||
              media_type_ == cricket::MEDIA_TYPE_VIDEO);
   RTC_DCHECK_EQ(sender->media_type(), receiver->media_type());
@@ -223,10 +228,123 @@ void RtpTransceiver::Stop() {
   current_direction_ = absl::nullopt;
 }
 
-void RtpTransceiver::SetCodecPreferences(
+RTCError RtpTransceiver::SetCodecPreferences(
     rtc::ArrayView<RtpCodecCapability> codecs) {
-  // TODO(steveanton): Implement this.
-  RTC_NOTREACHED() << "Not implemented";
+  // When the list is empty, we reset the preferences
+  if (codecs.empty()) {
+    codec_preferences_.clear();
+    return RTCError::OK();
+  }
+
+  // Remove duplicate codecs from the tail
+  std::vector<RtpCodecCapability> deduplicated_codecs;
+  absl::c_remove_copy_if(
+      codecs,
+      std::back_insert_iterator<std::vector<RtpCodecCapability>>(
+          deduplicated_codecs),
+      [&deduplicated_codecs](const RtpCodecCapability& codec) {
+        return absl::c_find(deduplicated_codecs, codec) !=
+               deduplicated_codecs.end();
+      });
+
+  codecs = deduplicated_codecs;
+
+  if (media_type_ == cricket::MEDIA_TYPE_AUDIO) {
+    std::vector<cricket::AudioCodec> audio_codecs;
+    switch (direction_) {
+      case webrtc::RtpTransceiverDirection::kRecvOnly:
+        channel_manager_->GetSupportedAudioReceiveCodecs(&audio_codecs);
+        break;
+      case webrtc::RtpTransceiverDirection::kSendOnly:
+        channel_manager_->GetSupportedAudioSendCodecs(&audio_codecs);
+        break;
+      case webrtc::RtpTransceiverDirection::kSendRecv: {
+        std::vector<cricket::AudioCodec> recv_codecs, send_codecs;
+        channel_manager_->GetSupportedAudioReceiveCodecs(&recv_codecs);
+        channel_manager_->GetSupportedAudioSendCodecs(&send_codecs);
+
+        // Compute the intersection of recv_codecs and send_codecs
+        for (const auto& recv_codec : recv_codecs) {
+          if (std::find(send_codecs.begin(), send_codecs.end(), recv_codec) !=
+              send_codecs.end()) {
+            audio_codecs.push_back(recv_codec);
+          }
+        }
+        break;
+      }
+      case webrtc::RtpTransceiverDirection::kInactive:
+        break;
+    }
+
+    // Validate codecs
+    for (auto& codec_preference : codecs) {
+      if (absl::c_find_if(audio_codecs, [&codec_preference](
+                                            const cricket::AudioCodec& codec) {
+            webrtc::RtpCodecParameters codec_parameters =
+                codec.ToCodecParameters();
+            return codec_parameters.name == codec_preference.name &&
+                   codec_parameters.kind == codec_preference.kind &&
+                   codec_parameters.num_channels ==
+                       codec_preference.num_channels &&
+                   codec_parameters.clock_rate == codec_preference.clock_rate &&
+                   codec_parameters.parameters == codec_preference.parameters;
+          }) == audio_codecs.end()) {
+        return RTCError(
+            RTCErrorType::INVALID_MODIFICATION,
+            std::string(
+                "Invalid codec preferences: invalid codec with name \"") +
+                codec_preference.name + "\".");
+      }
+    }
+  } else if (media_type_ == cricket::MEDIA_TYPE_VIDEO) {
+    std::vector<cricket::VideoCodec> supported_video_codecs;
+    // Video codecs are both for the receive and send side, so no need to check
+    // the transceiver direction
+    channel_manager_->GetSupportedVideoCodecs(&supported_video_codecs);
+
+    // Validate codecs
+    for (auto& codec_preference : codecs) {
+      if (absl::c_find_if(
+              supported_video_codecs,
+              [&codec_preference](const cricket::VideoCodec& codec) {
+                webrtc::RtpCodecParameters codec_parameters =
+                    codec.ToCodecParameters();
+
+                bool isRtx = codec_preference.name == "rtx";
+
+                return codec_parameters.name == codec_preference.name &&
+                       codec_parameters.kind == codec_preference.kind &&
+                       (isRtx || (codec_parameters.num_channels ==
+                                      codec_preference.num_channels &&
+                                  codec_parameters.clock_rate ==
+                                      codec_preference.clock_rate &&
+                                  codec_parameters.parameters ==
+                                      codec_preference.parameters));
+              }) == supported_video_codecs.end()) {
+        return RTCError(
+            RTCErrorType::INVALID_MODIFICATION,
+            std::string(
+                "Invalid codec preferences: invalid codec with name \"") +
+                codec_preference.name + "\".");
+      }
+    }
+  }
+
+  // Check we have a real codec (not just rtx, red or fec)
+  if (!absl::c_any_of(codecs, [](const RtpCodecCapability& codec) {
+        return !(codec.name == cricket::kRtxCodecName ||
+                 codec.name == cricket::kRedCodecName ||
+                 codec.name == cricket::kUlpfecCodecName);
+      })) {
+    return RTCError(RTCErrorType::INVALID_MODIFICATION,
+                    "Invalid codec preferences: codec list must have a non "
+                    "RTX, RED or FEC entry.");
+  }
+
+  codec_preferences_ =
+      std::vector<RtpCodecCapability>(codecs.begin(), codecs.end());
+
+  return RTCError::OK();
 }
 
 }  // namespace webrtc

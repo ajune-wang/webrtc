@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "13147a19_e0545064",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-26T09:38:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d817f456_c2148a83",
+      "range": {
+        "startLine": 54,
+        "startChar": 7,
+        "endLine": 54,
+        "endChar": 24
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0bace17f_676890e9",
         "filename": "api/test/network_emulation_manager.h",
         "patchSetId": 4
@@ -330,6 +354,30 @@
       "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c67f2de_ea2e7263",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-26T09:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c44c06c_7d1e24cc",
+      "range": {
+        "startLine": 101,
+        "startChar": 12,
+        "endLine": 101,
+        "endChar": 34
+      },
+      "revId": "964ce9033f5bab1e045371d7686b118b48dff31c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

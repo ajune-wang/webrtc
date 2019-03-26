@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "febac3b8_95d344de",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-26T09:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44b7b827_cee31362",
+      "range": {
+        "startLine": 50,
+        "startChar": 7,
+        "endLine": 50,
+        "endChar": 17
+      },
+      "revId": "e8c61a4f3c4b03de1354f0324c68ae10dd300911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e6b705a_387ad253",
         "filename": "test/scenario/network/emulated_network_manager.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "e8c61a4f3c4b03de1354f0324c68ae10dd300911",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f68f3fde_0bfa6c5c",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-26T09:38:25Z",
+      "side": 1,
+      "message": "Staff with start_count_ and posting here is done to properly fire network changed event, when network manager will be started. As I saw in basic implementation and from doc start can be called multiple times and stop also can be called multiple times. So we need to count starts to be able to stop only, when the same amount of stop will be called.",
+      "parentUuid": "9e6b705a_387ad253",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 73
+      },
+      "revId": "e8c61a4f3c4b03de1354f0324c68ae10dd300911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a45a646_14d2cb06",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-26T09:38:25Z",
+      "side": 1,
+      "message": "I did it to reduce nesting and quickly cut uninteresting cases.",
+      "parentUuid": "d56666a6_9e186966",
+      "range": {
+        "startLine": 124,
+        "startChar": 5,
+        "endLine": 126,
+        "endChar": 7
+      },
+      "revId": "e8c61a4f3c4b03de1354f0324c68ae10dd300911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8725c464_42e436b0",
         "filename": "test/scenario/network/network_emulation.cc",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "e8c61a4f3c4b03de1354f0324c68ae10dd300911",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "863317f6_b671e62e",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-26T09:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8725c464_42e436b0",
+      "range": {
+        "startLine": 153,
+        "startChar": 21,
+        "endLine": 153,
+        "endChar": 34
+      },
+      "revId": "e8c61a4f3c4b03de1354f0324c68ae10dd300911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

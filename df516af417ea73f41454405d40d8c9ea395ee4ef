@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "156f2fa3_9cb4517e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3631,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-26T09:33:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1bbc328_4f6871da",
+      "revId": "df516af417ea73f41454405d40d8c9ea395ee4ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18838033_eb24c7a6",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-03-25T18:08:25Z",
       "side": 1,
       "message": "Interestingly enough, the ChannelManager just immediately invokes onto the worker thread.",
+      "revId": "df516af417ea73f41454405d40d8c9ea395ee4ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b1efc71_90247b84",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6241,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-26T09:33:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "18838033_eb24c7a6",
       "revId": "df516af417ea73f41454405d40d8c9ea395ee4ef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

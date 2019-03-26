@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "347f9b47_7629ed32",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-03-26T22:10:39Z",
+      "side": 1,
+      "message": "This is going to produce unexpected results (duplicate ID) if the same track is connected to two senders.\n(This can happen if you use ReplaceTrack; AddTrack guards against this possibility)\nI\u0027m not sure what legacy stats should produce in this case; please add a test case for it.",
+      "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e46ecef_a2989815",
+        "filename": "modules/audio_processing/gain_control_for_experimental_agc.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-03-26T12:03:49Z",
+      "side": 0,
+      "message": "why remove?",
+      "revId": "e8efbbd61b34eee210b0d206cd67652a84362b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "506f684a_8fbabd5b",
+        "filename": "modules/audio_processing/gain_control_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-03-26T12:03:49Z",
+      "side": 0,
+      "message": "why remove?",
+      "revId": "e8efbbd61b34eee210b0d206cd67652a84362b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

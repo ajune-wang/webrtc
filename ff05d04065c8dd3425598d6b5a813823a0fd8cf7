@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3742da3_604f9fa2",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-03-26T12:03:49Z",
+      "side": 1,
+      "message": "DCHECKs are stripped from release builds. Can this really go wrong? What\u0027s the use for the error code?",
+      "revId": "ff05d04065c8dd3425598d6b5a813823a0fd8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be313011_77c55d9f",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1690,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-03-26T12:03:49Z",
+      "side": 1,
+      "message": "DCHECKs are not included in release builds. Suggest you\n\nint error \u003d agc1()-\u003eset_stream_analog_level(level);\nRTC_DCHECK(kNoError, error);\n\nor remove the error code.",
+      "revId": "ff05d04065c8dd3425598d6b5a813823a0fd8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "120ac1f8_2e044dc7",
+        "filename": "modules/audio_processing/gain_control_config_proxy.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-03-26T12:03:49Z",
+      "side": 1,
+      "message": "IIUC this is for compatibility? Do we need to expose all these methods or can we get away with only those actually used by clients?",
+      "revId": "ff05d04065c8dd3425598d6b5a813823a0fd8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

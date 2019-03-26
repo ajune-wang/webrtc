@@ -14,36 +14,46 @@
 #include <stddef.h>
 #include <array>
 #include <complex>
+#include <vector>
 
 #include "api/array_view.h"
-#include "api/function_view.h"
 #include "modules/audio_processing/agc2/rnn_vad/common.h"
 
 namespace webrtc {
 namespace rnn_vad {
 
-// Computes FFT boundary indexes corresponding to sub-bands.
-std::array<size_t, kNumBands> ComputeBandBoundaryIndexes(
-    size_t sample_rate_hz,
-    size_t frame_size_samples);
+// Overlapping triangular filters weights.
+class TriangularFilters {
+ public:
+  TriangularFilters(size_t sample_rate_hz, size_t frame_size);
+  TriangularFilters(const TriangularFilters&) = delete;
+  TriangularFilters& operator=(const TriangularFilters&) = delete;
+  ~TriangularFilters();
 
-// Iterates through frequency bands and computes coefficients via |functor| for
-// triangular bands with peak response at each band boundary. |functor| returns
-// a floating point value for the FFT coefficient having index equal to the
-// argument passed to |functor|; that argument is in the range {0, ...
-// |max_freq_bin_index| - 1}.
-void ComputeBandCoefficients(
-    rtc::FunctionView<float(size_t)> functor,
-    rtc::ArrayView<const size_t, kNumBands> band_boundaries,
-    const size_t max_freq_bin_index,
-    rtc::ArrayView<float, kNumBands> coefficients);
+  // Returns the indexes of the first FFT coefficient for each triangular
+  // filter.
+  rtc::ArrayView<const size_t, kNumBands> GetBandBoundaries() const;
+
+  // Returns the weights for the FFT coefficient of the given band.
+  // The band weights correspond to a triangular band with peak response at
+  // the band boundary.
+  // Since the triangular filters are symmetric around each band boundary, the
+  // weights for the last band are not defined - i.e., it must hold
+  // |band_index| < kNumBands - 1.
+  // When the returned view is empty, it means that there are no available FFT
+  // coefficients for that band (because the Nyquist frequency is too low).
+  rtc::ArrayView<const float> GetBandWeights(size_t band_index) const;
+
+ private:
+  const std::array<size_t, kNumBands> band_boundaries_;
+  const std::vector<std::vector<float>> weights_;
+};
 
 // Given an array of FFT coefficients and a vector of band boundary indexes,
 // computes band energy coefficients.
-void ComputeBandEnergies(
-    rtc::ArrayView<const std::complex<float>> fft_coeffs,
-    rtc::ArrayView<const size_t, kNumBands> band_boundaries,
-    rtc::ArrayView<float, kNumBands> band_energies);
+void ComputeBandEnergies(rtc::ArrayView<const std::complex<float>> fft_coeffs,
+                         const TriangularFilters& triangular_filters,
+                         rtc::ArrayView<float, kNumBands> band_energies);
 
 // Computes log band energy coefficients.
 void ComputeLogBandEnergiesCoefficients(

@@ -15,7 +15,6 @@
 #include <limits>
 #include <numeric>
 
-#include "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -70,8 +69,7 @@ SpectralFeaturesExtractor::SpectralFeaturesExtractor()
     : fft_(),
       reference_frame_fft_(kFrameSize20ms24kHz / 2 + 1),
       lagged_frame_fft_(kFrameSize20ms24kHz / 2 + 1),
-      band_boundaries_(
-          ComputeBandBoundaryIndexes(kSampleRate24kHz, kFrameSize20ms24kHz)),
+      triangular_filters_(kSampleRate24kHz, kFrameSize20ms24kHz),
       dct_table_(ComputeDctTable()) {}
 
 SpectralFeaturesExtractor::~SpectralFeaturesExtractor() = default;
@@ -87,7 +85,7 @@ bool SpectralFeaturesExtractor::CheckSilenceComputeFeatures(
     SpectralFeaturesView spectral_features) {
   // Analyze reference frame.
   fft_.ForwardFft(reference_frame, reference_frame_fft_);
-  ComputeBandEnergies(reference_frame_fft_, band_boundaries_,
+  ComputeBandEnergies(reference_frame_fft_, triangular_filters_,
                       reference_frame_energy_coeffs_);
   // Check if the reference frame has silence.
   const float tot_energy =
@@ -97,7 +95,7 @@ bool SpectralFeaturesExtractor::CheckSilenceComputeFeatures(
     return true;
   // Analyze lagged frame.
   fft_.ForwardFft(lagged_frame, lagged_frame_fft_);
-  ComputeBandEnergies(lagged_frame_fft_, band_boundaries_,
+  ComputeBandEnergies(lagged_frame_fft_, triangular_filters_,
                       lagged_frame_energy_coeffs_);
   // Log of the band energies for the reference frame.
   std::array<float, kNumBands> log_band_energy_coeffs;
@@ -155,14 +153,32 @@ void SpectralFeaturesExtractor::ComputeCrossCorrelation(
     rtc::ArrayView<float, kNumLowerBands> cross_correlations) {
   const auto& x = reference_frame_fft_;
   const auto& y = lagged_frame_fft_;
-  auto cross_corr = [x, y](const size_t freq_bin_index) -> float {
-    return (x[freq_bin_index].real() * y[freq_bin_index].real() +
-            x[freq_bin_index].imag() * y[freq_bin_index].imag());
-  };
   std::array<float, kNumBands> cross_corr_coeffs;
-  constexpr size_t kNumFftPoints = kFrameSize20ms24kHz / 2 + 1;
-  ComputeBandCoefficients(cross_corr, band_boundaries_, kNumFftPoints - 1,
-                          cross_corr_coeffs);
+  // Compute band coefficients.
+  auto band_boundaries = triangular_filters_.GetBandBoundaries();
+  static_assert(band_boundaries.size() == cross_corr_coeffs.size(), "");
+  std::fill(cross_corr_coeffs.begin(), cross_corr_coeffs.end(), 0.f);
+  for (size_t i = 0; i < kNumBands - 1; ++i) {
+    auto weights = triangular_filters_.GetBandWeights(i);
+    // Stop the iteration when coming across the first empty band.
+    if (weights.size() == 0) {
+      break;
+    }
+    // Compute the band cross-correlation coefficient using the current
+    // triangular filter.
+    RTC_DCHECK_EQ(0.f, cross_corr_coeffs[i + 1]);
+    for (size_t j = 0; j < weights.size(); ++j) {
+      size_t k = band_boundaries[i] + j;
+      RTC_DCHECK_LT(k, x.size());
+      RTC_DCHECK_LT(k, y.size());
+      float coefficient = x[k].real() * y[k].real() + x[k].imag() * y[k].imag();
+      cross_corr_coeffs[i] += (1.f - weights[j]) * coefficient;
+      cross_corr_coeffs[i + 1] += weights[j] * coefficient;
+    }
+  }
+  // The first and the last bands in the loop above only got half contribution.
+  cross_corr_coeffs[0] *= 2.f;
+  cross_corr_coeffs[cross_corr_coeffs.size() - 1] *= 2.f;
   // Normalize.
   for (size_t i = 0; i < cross_corr_coeffs.size(); ++i) {
     cross_corr_coeffs[i] =

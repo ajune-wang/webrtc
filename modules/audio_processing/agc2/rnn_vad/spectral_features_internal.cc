@@ -26,65 +26,90 @@ static_assert(
     "kNumBands changed! Please update the value of kDctScalingFactor");
 constexpr float kDctScalingFactor = 0.301511345f;  // sqrt(2 / kNumBands)
 
-}  // namespace
-
-std::array<size_t, kNumBands> ComputeBandBoundaryIndexes(
-    size_t sample_rate_hz,
-    size_t frame_size_samples) {
+std::array<size_t, kNumBands> ComputeBandBoundaries(size_t sample_rate_hz,
+                                                    size_t frame_size) {
   std::array<size_t, kNumBands> indexes;
   for (size_t i = 0; i < kNumBands; ++i) {
-    indexes[i] =
-        kBandFrequencyBoundaries[i] * frame_size_samples / sample_rate_hz;
+    indexes[i] = kBandFrequencyBoundaries[i] * frame_size / sample_rate_hz;
   }
   return indexes;
 }
 
-void ComputeBandCoefficients(
-    rtc::FunctionView<float(size_t)> functor,
-    rtc::ArrayView<const size_t, kNumBands> band_boundaries,
-    size_t max_freq_bin_index,
-    rtc::ArrayView<float, kNumBands> coefficients) {
-  std::fill(coefficients.begin(), coefficients.end(), 0.f);
-  for (size_t i = 0; i < coefficients.size() - 1; ++i) {
-    RTC_DCHECK_EQ(0.f, coefficients[i + 1]);
+std::vector<std::vector<float>> ComputeTriangularFiltersWeights(
+    const std::array<size_t, kNumBands>& band_boundaries,
+    size_t frame_size) {
+  // Since the triangular filters are symmetric, the weights for the last band
+  // are not stored.
+  std::vector<std::vector<float>> weights(kNumBands - 1);
+  const size_t fft_size = frame_size / 2 + 1;
+  // Define the weights for each triangular filter.
+  for (size_t i = 0; i < kNumBands - 1; ++i) {
+    // Compute the interval [j0:j1), which is the interval of FFT coefficient
+    // indexes for the current band.
+    const size_t j0 = band_boundaries[i];
     RTC_DCHECK_GT(band_boundaries[i + 1], band_boundaries[i]);
-    const size_t first_freq_bin = band_boundaries[i];
-    const size_t last_freq_bin =
-        std::min(max_freq_bin_index, first_freq_bin + band_boundaries[i + 1] -
-                                         band_boundaries[i] - 1);
-    // Depending on the sample rate, the highest bands can have no FFT
-    // coefficients. Stop the iteration when coming across the first empty band.
-    if (first_freq_bin >= last_freq_bin)
+    const size_t band_size = band_boundaries[i + 1] - band_boundaries[i];
+    const size_t j1 = std::min(fft_size, j0 + band_size);
+    // Depending on sample rate, the highest bands can have no FFT coefficients.
+    // The weight vector in this case is empty.
+    if (j0 >= j1) {
+      weights[i].resize(0);
+      continue;
+    }
+    // The band weights correspond to a triangular band with peak response at
+    // the band boundary.
+    weights[i].resize(j1 - j0);
+    for (size_t j = 0; j < weights[i].size(); ++j) {
+      weights[i][j] = static_cast<float>(j) / band_size;
+    }
+  }
+  return weights;
+}
+
+}  // namespace
+
+TriangularFilters::TriangularFilters(size_t sample_rate_hz, size_t frame_size)
+    : band_boundaries_(ComputeBandBoundaries(sample_rate_hz, frame_size)),
+      weights_(ComputeTriangularFiltersWeights(band_boundaries_, frame_size)) {}
+
+TriangularFilters::~TriangularFilters() = default;
+
+rtc::ArrayView<const size_t, kNumBands> TriangularFilters::GetBandBoundaries()
+    const {
+  return band_boundaries_;
+}
+
+rtc::ArrayView<const float> TriangularFilters::GetBandWeights(
+    size_t band_index) const {
+  RTC_DCHECK_LT(band_index, weights_.size());
+  return weights_[band_index];
+}
+
+void ComputeBandEnergies(rtc::ArrayView<const std::complex<float>> fft_coeffs,
+                         const TriangularFilters& triangular_filters,
+                         rtc::ArrayView<float, kNumBands> band_energies) {
+  auto band_boundaries = triangular_filters.GetBandBoundaries();
+  static_assert(band_boundaries.size() == band_energies.size(), "");
+  std::fill(band_energies.begin(), band_energies.end(), 0.f);
+  for (size_t i = 0; i < kNumBands - 1; ++i) {
+    auto weights = triangular_filters.GetBandWeights(i);
+    // Stop the iteration when coming across the first empty band.
+    if (weights.size() == 0) {
       break;
-    const size_t band_size = last_freq_bin - first_freq_bin + 1;
-    // Compute the band coefficient using a triangular band with peak response
-    // at the band boundary.
-    for (size_t j = first_freq_bin; j <= last_freq_bin; ++j) {
-      const float w = static_cast<float>(j - first_freq_bin) / band_size;
-      const float coefficient = functor(j);
-      coefficients[i] += (1.f - w) * coefficient;
-      coefficients[i + 1] += w * coefficient;
+    }
+    // Compute the band energies using the current triangular filter.
+    RTC_DCHECK_EQ(0.f, band_energies[i + 1]);
+    for (size_t j = 0; j < weights.size(); ++j) {
+      size_t k = band_boundaries[i] + j;
+      RTC_DCHECK_LT(k, fft_coeffs.size());
+      float coefficient = std::norm(fft_coeffs[k]);
+      band_energies[i] += (1.f - weights[j]) * coefficient;
+      band_energies[i + 1] += weights[j] * coefficient;
     }
   }
   // The first and the last bands in the loop above only got half contribution.
-  coefficients[0] *= 2.f;
-  coefficients[coefficients.size() - 1] *= 2.f;
-  // TODO(bugs.webrtc.org/9076): Replace the line above with
-  // "coefficients[i] *= 2.f" (*) since we now assume that the last band is
-  // always |kNumBands| - 1.
-  // (*): "size_t i" must be declared before the main loop.
-}
-
-void ComputeBandEnergies(
-    rtc::ArrayView<const std::complex<float>> fft_coeffs,
-    rtc::ArrayView<const size_t, kNumBands> band_boundaries,
-    rtc::ArrayView<float, kNumBands> band_energies) {
-  RTC_DCHECK_EQ(band_boundaries.size(), band_energies.size());
-  auto functor = [fft_coeffs](const size_t freq_bin_index) -> float {
-    return std::norm(fft_coeffs[freq_bin_index]);
-  };
-  ComputeBandCoefficients(functor, band_boundaries, fft_coeffs.size() - 1,
-                          band_energies);
+  band_energies[0] *= 2.f;
+  band_energies[band_energies.size() - 1] *= 2.f;
 }
 
 void ComputeLogBandEnergiesCoefficients(

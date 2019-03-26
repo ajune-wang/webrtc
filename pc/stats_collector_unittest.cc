@@ -27,6 +27,8 @@
 #include "pc/stats_collector.h"
 #include "pc/test/fake_peer_connection_for_stats.h"
 #include "pc/test/fake_video_track_source.h"
+#include "pc/test/mock_rtp_receiver_internal.h"
+#include "pc/test/mock_rtp_sender_internal.h"
 #include "pc/transport_stats.h"
 #include "pc/video_track.h"
 #include "rtc_base/fake_ssl_identity.h"
@@ -51,6 +53,7 @@ using cricket::VideoSenderInfo;
 using cricket::VoiceMediaInfo;
 using cricket::VoiceReceiverInfo;
 using cricket::VoiceSenderInfo;
+using ::testing::Return;
 
 namespace webrtc {
 
@@ -692,6 +695,36 @@ class StatsCollectorTest : public testing::Test {
   }
 };
 
+static rtc::scoped_refptr<MockRtpSenderInternal> CreateMockSender(
+    rtc::scoped_refptr<MediaStreamTrackInterface> track,
+    uint32_t ssrc) {
+  rtc::scoped_refptr<MockRtpSenderInternal> sender(
+      new rtc::RefCountedObject<MockRtpSenderInternal>());
+  EXPECT_CALL(*sender, track()).WillRepeatedly(Return(track));
+  EXPECT_CALL(*sender, ssrc()).WillRepeatedly(Return(ssrc));
+  EXPECT_CALL(*sender, media_type())
+      .WillRepeatedly(
+          Return(track->kind() == MediaStreamTrackInterface::kAudioKind
+                     ? cricket::MEDIA_TYPE_AUDIO
+                     : cricket::MEDIA_TYPE_VIDEO));
+  return sender;
+}
+
+static rtc::scoped_refptr<MockRtpReceiverInternal> CreateMockReceiver(
+    rtc::scoped_refptr<MediaStreamTrackInterface> track,
+    uint32_t ssrc) {
+  rtc::scoped_refptr<MockRtpReceiverInternal> receiver(
+      new rtc::RefCountedObject<MockRtpReceiverInternal>());
+  EXPECT_CALL(*receiver, track()).WillRepeatedly(Return(track));
+  EXPECT_CALL(*receiver, ssrc()).WillRepeatedly(Return(ssrc));
+  EXPECT_CALL(*receiver, media_type())
+      .WillRepeatedly(
+          Return(track->kind() == MediaStreamTrackInterface::kAudioKind
+                     ? cricket::MEDIA_TYPE_AUDIO
+                     : cricket::MEDIA_TYPE_VIDEO));
+  return receiver;
+}
+
 class StatsCollectorTrackTest : public StatsCollectorTest,
                                 public ::testing::WithParamInterface<bool> {
  public:
@@ -710,7 +743,7 @@ class StatsCollectorTrackTest : public StatsCollectorTest,
     } else {
       stats->AddTrack(track_);
     }
-    pc->AddLocalTrack(kSsrcOfTrack, kLocalTrackId);
+    pc->AddSender(CreateMockSender(track_, kSsrcOfTrack));
   }
 
   // Adds a incoming video track with a given SSRC into the stats.
@@ -725,15 +758,16 @@ class StatsCollectorTrackTest : public StatsCollectorTest,
     } else {
       stats->AddTrack(track_);
     }
-    pc->AddRemoteTrack(kSsrcOfTrack, kRemoteTrackId);
+    pc->AddReceiver(CreateMockReceiver(track_, kSsrcOfTrack));
   }
 
   // Adds a outgoing audio track with a given SSRC into the stats,
   // and register it into the stats object.
   // If GetParam() returns true, the track is also inserted into the local
   // stream, which is created if necessary.
-  void AddOutgoingAudioTrack(FakePeerConnectionForStats* pc,
-                             StatsCollectorForTest* stats) {
+  rtc::scoped_refptr<RtpSenderInterface> AddOutgoingAudioTrack(
+      FakePeerConnectionForStats* pc,
+      StatsCollectorForTest* stats) {
     audio_track_ = new rtc::RefCountedObject<FakeAudioTrack>(kLocalTrackId);
     if (GetParam()) {
       if (!stream_)
@@ -743,7 +777,7 @@ class StatsCollectorTrackTest : public StatsCollectorTest,
     } else {
       stats->AddTrack(audio_track_);
     }
-    pc->AddLocalTrack(kSsrcOfTrack, kLocalTrackId);
+    return pc->AddSender(CreateMockSender(audio_track_, kSsrcOfTrack));
   }
 
   // Adds a incoming audio track with a given SSRC into the stats.
@@ -758,7 +792,7 @@ class StatsCollectorTrackTest : public StatsCollectorTest,
     } else {
       stats->AddTrack(audio_track_);
     }
-    pc->AddRemoteTrack(kSsrcOfTrack, kRemoteTrackId);
+    pc->AddReceiver(CreateMockReceiver(audio_track_, kSsrcOfTrack));
   }
 
   rtc::scoped_refptr<MediaStream> stream_;
@@ -1406,7 +1440,7 @@ TEST_P(StatsCollectorTrackTest, FilterOutNegativeInitialValues) {
   rtc::scoped_refptr<FakeAudioTrackWithInitValue> local_track(
       new rtc::RefCountedObject<FakeAudioTrackWithInitValue>(kLocalTrackId));
   stream_->AddTrack(local_track);
-  pc->AddLocalTrack(kSsrcOfTrack, kLocalTrackId);
+  pc->AddSender(CreateMockSender(local_track, kSsrcOfTrack));
   if (GetParam()) {
     stats->AddStream(stream_);
   }
@@ -1418,7 +1452,7 @@ TEST_P(StatsCollectorTrackTest, FilterOutNegativeInitialValues) {
   rtc::scoped_refptr<FakeAudioTrackWithInitValue> remote_track(
       new rtc::RefCountedObject<FakeAudioTrackWithInitValue>(kRemoteTrackId));
   remote_stream->AddTrack(remote_track);
-  pc->AddRemoteTrack(kSsrcOfTrack, kRemoteTrackId);
+  pc->AddReceiver(CreateMockReceiver(remote_track, kSsrcOfTrack));
   if (GetParam()) {
     stats->AddStream(remote_stream);
   }
@@ -1587,7 +1621,7 @@ TEST_P(StatsCollectorTrackTest, LocalAndRemoteTracksWithSameSsrc) {
       MediaStream::Create("remotestreamid"));
   rtc::scoped_refptr<FakeAudioTrack> remote_track(
       new rtc::RefCountedObject<FakeAudioTrack>(kRemoteTrackId));
-  pc->AddRemoteTrack(kSsrcOfTrack, kRemoteTrackId);
+  pc->AddReceiver(CreateMockReceiver(remote_track, kSsrcOfTrack));
   remote_stream->AddTrack(remote_track);
   stats->AddStream(remote_stream);
 
@@ -1652,7 +1686,7 @@ TEST_P(StatsCollectorTrackTest, TwoLocalTracksWithSameSsrc) {
   auto stats = CreateStatsCollector(pc);
 
   // Create a local stream with a local audio track and adds it to the stats.
-  AddOutgoingAudioTrack(pc, stats.get());
+  auto sender = AddOutgoingAudioTrack(pc, stats.get());
   stats->AddLocalAudioTrack(audio_track_, kSsrcOfTrack);
 
   VoiceSenderInfo voice_sender_info;
@@ -1671,12 +1705,13 @@ TEST_P(StatsCollectorTrackTest, TwoLocalTracksWithSameSsrc) {
   // Remove the previous audio track from the stream.
   stream_->RemoveTrack(audio_track_.get());
   stats->RemoveLocalAudioTrack(audio_track_.get(), kSsrcOfTrack);
+  pc->RemoveSender(sender);
 
   // Create a new audio track and adds it to the stream and stats.
   static const std::string kNewTrackId = "new_track_id";
   rtc::scoped_refptr<FakeAudioTrack> new_audio_track(
       new rtc::RefCountedObject<FakeAudioTrack>(kNewTrackId));
-  pc->AddLocalTrack(kSsrcOfTrack, kNewTrackId);
+  pc->AddSender(CreateMockSender(new_audio_track, kSsrcOfTrack));
   stream_->AddTrack(new_audio_track);
 
   stats->AddLocalAudioTrack(new_audio_track, kSsrcOfTrack);

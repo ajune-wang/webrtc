@@ -75,6 +75,30 @@
       "revId": "87a3e038aedafec9a912f11743777ffe7149c400",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "417e850c_74771574",
+        "filename": "pc/data_channel_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-03-26T16:26:55Z",
+      "side": 1,
+      "message": "Okay, after reading your longer explanation I don\u0027t think you HAVE to write a PC test for this behavior, since the fake provider actually helps isolate and test it. From my understanding, since the offer/answer negotiation reserves/assigns a SID, you would have to create number of datachannels \u003e number of available SIDs to reserve in order to test the behavior.\n\nI\u0027ll leave it up to you :)",
+      "parentUuid": "4dbd1854_55f21c20",
+      "range": {
+        "startLine": 618,
+        "startChar": 7,
+        "endLine": 618,
+        "endChar": 26
+      },
+      "revId": "87a3e038aedafec9a912f11743777ffe7149c400",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

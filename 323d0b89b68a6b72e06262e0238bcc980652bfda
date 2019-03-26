@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "672a081a_1916f34e",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-26T13:26:53Z",
+      "side": 1,
+      "message": "Probably best to create a separate bug for this. Will add todo and link to that.\n\nNot all references in webrtc and chrome have been updated. I can try to do that and then add the deprecated macro.",
+      "parentUuid": "5719c730_c4e4cc2a",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 262,
+        "endChar": 52
+      },
+      "revId": "323d0b89b68a6b72e06262e0238bcc980652bfda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "301c50ca_c467654a",
         "filename": "api/video_codecs/video_encoder.h",
         "patchSetId": 1
@@ -59,6 +83,30 @@
       "writtenOn": "2019-03-26T12:57:57Z",
       "side": 1,
       "message": "I\u0027m wondering if it would make things easier to pass a single struct to this method, to make it easier to add and remove values, and have defaults? If it\u0027s not appropriate to extend VideoBitRateAllocation, it could be a new struct with VideoBitrateAllocation as one of the members.",
+      "range": {
+        "startLine": 273,
+        "startChar": 2,
+        "endLine": 275,
+        "endChar": 53
+      },
+      "revId": "323d0b89b68a6b72e06262e0238bcc980652bfda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93f9ad41_679a394e",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-26T13:26:53Z",
+      "side": 1,
+      "message": "In my initial implementation that\u0027s actually how I did it (adding it in VideoBitrateAllocation).\nI\u0027ve been debating with myself what\u0027s best here. It\u0027s not really part of the allocation which is what bothers me with putting it in there. We also have a separate method to signal this auxiliary metadata, similar to OnPacketLossRateUpdate or OnRttUpdate below, but the link headroom really needs to be in sync with the bitrate allocation so that feels fragile.\nNot sure I like the idea of adding a new struct that holds both better than adding a new field to VideoBitrateAllocation though.",
+      "parentUuid": "301c50ca_c467654a",
       "range": {
         "startLine": 273,
         "startChar": 2,

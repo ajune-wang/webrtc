@@ -163,6 +163,7 @@ VP9EncoderImpl::VP9EncoderImpl(const cricket::VideoCodec& codec)
       num_temporal_layers_(0),
       num_spatial_layers_(0),
       num_active_spatial_layers_(0),
+      num_cores_(0),
       layer_deactivation_requires_key_frame_(
           field_trial::IsEnabled("WebRTC-Vp9IssueKeyFrameOnLayerDeactivation")),
       is_svc_(false),
@@ -379,6 +380,7 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
   force_key_frame_ = true;
   pics_since_key_ = 0;
 
+  num_cores_ = number_of_cores;
   num_spatial_layers_ = inst->VP9().numberOfSpatialLayers;
   RTC_DCHECK_GT(num_spatial_layers_, 0);
   num_temporal_layers_ = inst->VP9().numberOfTemporalLayers;
@@ -824,6 +826,14 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
 
+  if (input_image.width() != codec_.width ||
+      input_image.height() != codec_.height) {
+    int ret = UpdateCodecFrameSize(input_image);
+    if (ret < 0) {
+      return ret;
+    }
+  }
+
   RTC_DCHECK_EQ(input_image.width(), raw_->d_w);
   RTC_DCHECK_EQ(input_image.height(), raw_->d_h);
 
@@ -927,6 +937,43 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
   }
 
   return WEBRTC_VIDEO_CODEC_OK;
+}
+
+int VP9EncoderImpl::UpdateCodecFrameSize(const VideoFrame& input_image) {
+  RTC_LOG(LS_INFO) << "Reconfiging VP from " << codec_.width << "x"
+                   << codec_.height << " to " << input_image.width() << "x"
+                   << input_image.height();
+  // Preserve latest bitrate/framerate setting
+  uint32_t old_bitrate_kbit = config_->rc_target_bitrate;
+  uint32_t old_framerate = codec_.maxFramerate;
+
+  codec_.width = input_image.width();
+  codec_.height = input_image.height();
+
+  vpx_img_free(raw_);
+  raw_ = vpx_img_wrap(NULL, VPX_IMG_FMT_I420, codec_.width, codec_.height, 1,
+                      NULL);
+  // Update encoder context for new frame size.
+  config_->g_w = codec_.width;
+  config_->g_h = codec_.height;
+
+  // Determine number of threads based on the image size and #cores.
+  config_->g_threads = NumberOfThreads(codec_.width, codec_.height, num_cores_);
+  // Update the cpu_speed setting for resolution change.
+  cpu_speed_ = GetCpuSpeed(codec_.width, codec_.height);
+
+  // NOTE: We would like to do this the same way vp8 does it
+  // (with vpx_codec_enc_config_set()), but that causes asserts
+  // in AQ 3 (cyclic); and in AQ 0 it works, but on a resize to smaller
+  // than 1/2 x 1/2 original it asserts in convolve().  Given these
+  // bugs in trying to do it the "right" way, we basically re-do
+  // the initialization.
+  vpx_codec_destroy(encoder_);  // clean up old state
+  int result = InitAndSetControlSettings(&codec_);
+  if (result == WEBRTC_VIDEO_CODEC_OK) {
+    return SetRates(old_bitrate_kbit, old_framerate);
+  }
+  return result;
 }
 
 void VP9EncoderImpl::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,

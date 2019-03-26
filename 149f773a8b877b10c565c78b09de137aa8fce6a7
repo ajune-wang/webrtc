@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68387909_d99e0a71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-26T07:49:09Z",
+      "side": 1,
+      "message": "I find this motivation a bit vague. Are you saying that there are thread checkers that need to be replaced with SequencedTaskChecker? Or is there some deeper reason why you need a single thread?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 57
+      },
+      "revId": "149f773a8b877b10c565c78b09de137aa8fce6a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9089f213_cdc0111a",
+        "filename": "test/time_controller/time_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-26T07:49:09Z",
+      "side": 1,
+      "message": "Are both methods really needed in the interface? Ignoring any implementation concerns, it seems more natural to have a single GetTaskQueueFactory method. Tests that for some reason need a single threaded task queue would then have to instantiate some TimeController subclass that provides that.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 68
+      },
+      "revId": "149f773a8b877b10c565c78b09de137aa8fce6a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

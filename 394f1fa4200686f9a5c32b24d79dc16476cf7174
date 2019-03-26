@@ -46,6 +46,30 @@
       "revId": "394f1fa4200686f9a5c32b24d79dc16476cf7174",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3122cc5f_fc6ccbe8",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-26T08:32:21Z",
+      "side": 1,
+      "message": "I\u0027ve looked a bit more into this, LGTM.\n\nIt looks like some headers were treated differently on nacl (I\u0027ve found this old, and probably unused .dsc file: https://cs.chromium.org/chromium/src/native_client_sdk/src/libraries/nacl_io/library.dsc?rcl\u003d1001cfaab4de5b1fdbc776908cc4113bc953a741\u0026l\u003d231-249), today the trick to find these headers use the -I compiler flag (https://cs.chromium.org/chromium/src/native_client_sdk/src/libraries/nacl_io/BUILD.gn?l\u003d16\u0026rcl\u003debb66ffb22611d7cc1a50711b0c3eb5a609a5a79), which is not global though (https://cs.chromium.org/chromium/src/native_client_sdk/src/libraries/nacl_io/BUILD.gn?rcl\u003debb66ffb22611d7cc1a50711b0c3eb5a609a5a79\u0026l\u003d206). Maybe on line 206 we should use \"all_dependent_configs\" instead of \"public_configs\"? I will investigate.",
+      "parentUuid": "b6ee4b4e_82579fe7",
+      "range": {
+        "startLine": 1038,
+        "startChar": 0,
+        "endLine": 1040,
+        "endChar": 3
+      },
+      "revId": "394f1fa4200686f9a5c32b24d79dc16476cf7174",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -13,6 +13,7 @@
 
 #include <string>
 
+#include "api/test/analyzer_helper.h"
 #include "api/test/stats_observer_interface.h"
 
 namespace webrtc {
@@ -26,7 +27,12 @@ class AudioQualityAnalyzerInterface : public StatsObserverInterface {
   // Will be called by framework before test.
   // |test_case_name| is name of test case, that should be used to report all
   // audio metrics.
-  virtual void Start(std::string test_case_name) = 0;
+  virtual void Start(std::string test_case_name,
+                     AnalyzerHelper* analyzer_helper) = 0;
+
+  // Will be called by the framework at the end of the test. The analyzer
+  // has to finalize all its stats and it should report them.
+  virtual void Stop() = 0;
 };
 
 }  // namespace webrtc_pc_e2e

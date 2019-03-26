@@ -70,6 +70,30 @@
       "revId": "394f1fa4200686f9a5c32b24d79dc16476cf7174",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2de77c66_07cceaf2",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-26T08:49:03Z",
+      "side": 1,
+      "message": "To get a sane build, I\u0027d recommend that -I and -D flags should usually be the same for *all* compilation units.\n\nOnly reasonable exception to this rule are if some -I or -D flag affects *only* a target\u0027s internal files, and *no* header files used directly or indirectly by depending targets. And that condition seems a bit hard to determine, and even harder to maintain.",
+      "parentUuid": "3122cc5f_fc6ccbe8",
+      "range": {
+        "startLine": 1038,
+        "startChar": 0,
+        "endLine": 1040,
+        "endChar": 3
+      },
+      "revId": "394f1fa4200686f9a5c32b24d79dc16476cf7174",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

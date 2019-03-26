@@ -34,6 +34,47 @@
       "revId": "87a3e038aedafec9a912f11743777ffe7149c400",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21187287_fe62b46c",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-03-26T01:43:05Z",
+      "side": 1,
+      "message": "It also looks like Send() only calls SendDataMessage() when the state_ \u003d\u003d kOpen, which is only updated after OnChannelReady()/UpdateState() is called.\n\nI saw that it looks like the ID can also be assigned when setting local/remote description, when the SCTP SSL role is known. See PeerConnection::AllocateSctpSids. I don\u0027t know this stuff well, but it seems like this is being used to assign a SID for the case when it isn\u0027t specified at DataChannel creation time.",
+      "parentUuid": "b9af4a08_b32d5091",
+      "revId": "87a3e038aedafec9a912f11743777ffe7149c400",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dbd1854_55f21c20",
+        "filename": "pc/data_channel_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-03-26T01:43:05Z",
+      "side": 1,
+      "message": "I noticed this comment at the top of this test class:\n// TODO(deadbeef): The fact that these tests use a fake provider makes them not\n// too valuable. Should rewrite using the\n// peerconnection_datachannel_unittest.cc infrastructure.\n\nCould you write a similar test using peer_connection_data_channel_unittest.cc? It would exercise a more real code path using the PeerConnection as the DataProvider. I think the equivalent of what your test is would be something along the lines of:\n-CreateDataChannel\n-SDP negotiation\n-Channel is still in connecting state w/ no id assigned",
+      "range": {
+        "startLine": 618,
+        "startChar": 7,
+        "endLine": 618,
+        "endChar": 26
+      },
+      "revId": "87a3e038aedafec9a912f11743777ffe7149c400",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

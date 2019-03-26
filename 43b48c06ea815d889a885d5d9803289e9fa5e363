@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "23c30d74_010f00d5",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-26T17:01:12Z",
+      "side": 1,
+      "message": "Maybe more intuitive to use the total. Though it makes it easier to pass invalid parameters (link_headroom.bps() \u003c allocation.get_sum_bps())\nAlso to be clear, the headroom is not the stable bwe - that\u0027s a separate topic that may or may not have a place in the rate control parameters of the encoder.",
+      "parentUuid": "c699d15e_9df0f83f",
+      "range": {
+        "startLine": 268,
+        "startChar": 34,
+        "endLine": 268,
+        "endChar": 40
+      },
+      "revId": "43b48c06ea815d889a885d5d9803289e9fa5e363",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14a86ad2_c2aba3d3",
         "filename": "api/video_codecs/video_encoder.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "43b48c06ea815d889a885d5d9803289e9fa5e363",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99ef4e4d_86edcf4d",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-26T17:01:12Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "14a86ad2_c2aba3d3",
+      "range": {
+        "startLine": 275,
+        "startChar": 42,
+        "endLine": 275,
+        "endChar": 51
+      },
+      "revId": "43b48c06ea815d889a885d5d9803289e9fa5e363",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

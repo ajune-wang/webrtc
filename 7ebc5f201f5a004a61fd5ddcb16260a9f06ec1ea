@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d119939c_a5decc36",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-26T14:43:36Z",
+      "side": 1,
+      "message": "I\u0027m not 100% sure it is safe to move creation of the TaskQueue from Init to constructor.\nBut I do not see why would it break and no test complain.",
+      "range": {
+        "startLine": 187,
+        "startChar": 6,
+        "endLine": 187,
+        "endChar": 32
+      },
+      "revId": "7ebc5f201f5a004a61fd5ddcb16260a9f06ec1ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

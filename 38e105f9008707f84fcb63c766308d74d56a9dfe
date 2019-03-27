@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54733d6a_973d91f1",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-27T17:08:22Z",
+      "side": 1,
+      "message": "This is a little iffy in the base class",
+      "range": {
+        "startLine": 921,
+        "startChar": 15,
+        "endLine": 921,
+        "endChar": 29
+      },
+      "revId": "38e105f9008707f84fcb63c766308d74d56a9dfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ee50650_56e25620",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-27T17:08:22Z",
+      "side": 1,
+      "message": "This is a factory method for the stats gatherer. you could put this in the anonymous namespace\nunique_ptr\u003cGatherer\u003e CreateGatherer(media_type, channel).\nyou can even skip the media_type and get it from the channel interface:\nchannel-\u003emedia_type() and then downcast it accordingly.\n\nThis would be more important if the gatherer classes were in a different file.",
+      "range": {
+        "startLine": 1008,
+        "startChar": 0,
+        "endLine": 1019,
+        "endChar": 7
+      },
+      "revId": "38e105f9008707f84fcb63c766308d74d56a9dfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fd3b7f8_5a056af4",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1025,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-27T17:08:22Z",
+      "side": 1,
+      "message": "out of curiosity, wouldn\u0027t we achieve the same result if we added [ssrc] -\u003e \"\" to the dictionary if there is no track?\nis it possible that it will even be more correct? what if there is an unsignaled receiver (there can only be one, ok...) and there is another signaled receiver that does not have a track.\nthe code could get confused and assign the unsignaled track id to both.\ni might be confusing here, and the cases are identical.",
+      "range": {
+        "startLine": 1025,
+        "startChar": 14,
+        "endLine": 1025,
+        "endChar": 66
+      },
+      "revId": "38e105f9008707f84fcb63c766308d74d56a9dfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

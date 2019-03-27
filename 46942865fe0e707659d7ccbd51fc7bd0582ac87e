@@ -36,6 +36,52 @@
     },
     {
       "key": {
+        "uuid": "48f9e245_1aa8185b",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-03-27T17:58:11Z",
+      "side": 1,
+      "message": "Should this be a const?",
+      "range": {
+        "startLine": 992,
+        "startChar": 38,
+        "endLine": 992,
+        "endChar": 41
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12228fba_9b465e83",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2063,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-03-27T17:58:11Z",
+      "side": 1,
+      "message": "Why are the audio_codecs being used, and not the filtered_codecs (after filtering below)? Wouldn\u0027t this change the codecs that you\u0027re filtering/preferring?",
+      "range": {
+        "startLine": 2063,
+        "startChar": 53,
+        "endLine": 2063,
+        "endChar": 65
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e50f7be1_c796f94e",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 1
@@ -167,6 +213,70 @@
       "writtenOn": "2019-03-26T18:15:24Z",
       "side": 1,
       "message": "I\u0027m not sure this is the right approach. Given that the direction can change later, I would expect the preferences to be stored with respect to the union of the send and receive codecs. That\u0027s also how I interpret the spec algorithm:\n\n    The codecs sequence passed into setCodecPreferences can only contain codecs that are returned by RTCRtpSender.getCapabilities(kind) or RTCRtpReceiver.getCapabilities(kind), where kind is the kind of the RTCRtpTransceiver on which the method is called.",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eea50f67_78d3755e",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-03-27T17:58:11Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "235b159e_93373caf",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c85bcb12_17486ea8",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-03-27T17:58:11Z",
+      "side": 1,
+      "message": "Would c_all_of without the double negative be easier to interpret?",
+      "range": {
+        "startLine": 334,
+        "startChar": 13,
+        "endLine": 334,
+        "endChar": 21
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "341a9341_cc6dd6b1",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-03-27T17:58:11Z",
+      "side": 1,
+      "message": "The spec mentions checking for an empty set of the intersection:\nIf the intersection between codecs and RTCRtpSender.getCapabilities(kind).codecs or the intersection between codecs and RTCRtpReceiver.getCapabilities(kind).codecs only contains RTX, RED or FEC codecs or is an empty set, throw InvalidModificationError.\n\nI was looking through your code trying to find this and then realized, it\u0027s a spec issue :).\n\nI think the \"empty set\" part here is invalid. It can only be an empty set in two cases:\n1) The given preferred codecs is empty (this is handled by step 3.)\n2) The preferred codec is not included in the codecCapabilities (this is handled in step 8.)\n\nI think you can file a spec issue to remove this if you\u0027d like.",
+      "range": {
+        "startLine": 344,
+        "startChar": 2,
+        "endLine": 344,
+        "endChar": 20
+      },
       "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

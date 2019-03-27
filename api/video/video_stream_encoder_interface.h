@@ -78,6 +78,11 @@ class VideoStreamEncoderInterface : public rtc::VideoSinkInterface<VideoFrame> {
   // Request a key frame. Used for signalling from the remote receiver.
   virtual void SendKeyFrame() = 0;
 
+  // TODO: !!!
+  virtual void OnLossNotification(uint32_t timestamp_of_last_received,
+                                  uint32_t timestamp_of_last_decoded,
+                                  bool decodability_flag) = 0;
+
   // Set the currently estimated network properties. A |bitrate_bps|
   // of zero pauses the encoder.
   virtual void OnBitrateUpdated(DataRate target_bitrate,

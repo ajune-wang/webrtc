@@ -58,6 +58,7 @@ RtpRtcp* RtpRtcp::CreateRtpRtcp(const RtpRtcp::Configuration& configuration) {
   }
 }
 
+// ELAD!!! Mapping should be held here.
 ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
     : rtcp_sender_(configuration.audio,
                    configuration.clock,
@@ -806,6 +807,16 @@ void ModuleRtpRtcpImpl::OnReceivedRtcpReportBlocks(
             report_block.extended_highest_sequence_number);
       }
     }
+  }
+}
+
+void ModuleRtpRtcpImpl::OnReceivedLossNotification(uint16_t last_decoded,
+                                                   uint16_t last_received,
+                                                   bool decodability_flag) {
+  // TODO: !!! Consider undoing the change in RTCPSender.
+  if (rtp_sender_) {
+    rtp_sender_->OnReceivedLossNotification(last_decoded, last_received,
+                                            decodability_flag);
   }
 }
 

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "57dc8844_ceee1c11",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-03-27T11:28:52Z",
+      "side": 1,
+      "message": "I\u0027m ok with leaving the DCHECK, but generally I think this style should be avoided (the DCHECK should be in set_compression_gain_db()). It is a programming error to exceed the parameter range and it is the responsibility of the calling code to make sure the parameter value is sound. Limiting the range would be done in a parser, if the parameter comes from file/network, or when received in an OS callback.",
+      "parentUuid": "da1cbee2_8a73613c",
+      "revId": "ff05d04065c8dd3425598d6b5a813823a0fd8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be313011_77c55d9f",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 12
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Yes, this class will be removed as soon as downstream clients are updated.\n\nWhat do you mean by exposing? Do you mean remove the functions from the GainControl class?\nThe setters are all used, but the getters are (as far as I can tell) unused and could probably be removed after/in this CL. If not, they\u0027ll disappear anyway together with this interface.\n\nI can buy into deprecating parts already in this CL, but I also think there is some value in making a CL-level separation between deprecation and putting no-op transition code in place, especially in case it needs to be rolled back because of some missed downstream dependency.",
       "parentUuid": "120ac1f8_2e044dc7",
+      "revId": "ff05d04065c8dd3425598d6b5a813823a0fd8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d087b1bd_9ae3be45",
+        "filename": "modules/audio_processing/gain_control_config_proxy.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-03-27T11:28:52Z",
+      "side": 1,
+      "message": "The timeframe for deprecation was\u0027t clear to me. If this is near term then go with current proposal.",
+      "parentUuid": "56861f76_356f38e9",
       "revId": "ff05d04065c8dd3425598d6b5a813823a0fd8cf7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

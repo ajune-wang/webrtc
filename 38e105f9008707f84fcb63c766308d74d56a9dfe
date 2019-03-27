@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e0451647_e4d2f649",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-27T17:26:40Z",
+      "side": 1,
+      "message": "I think it\u0027s the best option though.",
+      "parentUuid": "54733d6a_973d91f1",
+      "range": {
+        "startLine": 921,
+        "startChar": 15,
+        "endLine": 921,
+        "endChar": 29
+      },
+      "revId": "38e105f9008707f84fcb63c766308d74d56a9dfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ee50650_56e25620",
         "filename": "pc/stats_collector.cc",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "856f3bfe_4ab3dc98",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-27T17:26:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ee50650_56e25620",
+      "range": {
+        "startLine": 1008,
+        "startChar": 0,
+        "endLine": 1019,
+        "endChar": 7
+      },
+      "revId": "38e105f9008707f84fcb63c766308d74d56a9dfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fd3b7f8_5a056af4",
         "filename": "pc/stats_collector.cc",
         "patchSetId": 5
@@ -68,6 +116,30 @@
       "revId": "38e105f9008707f84fcb63c766308d74d56a9dfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97b49ee9_5fd73be6",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1025,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-27T17:26:40Z",
+      "side": 1,
+      "message": "Yeah, I think that does work better. If you have an existing RtpSender then call setTrack(nullptr) then we should match the SSRC stream to \"\" explicitly.",
+      "parentUuid": "5fd3b7f8_5a056af4",
+      "range": {
+        "startLine": 1025,
+        "startChar": 14,
+        "endLine": 1025,
+        "endChar": 66
+      },
+      "revId": "38e105f9008707f84fcb63c766308d74d56a9dfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

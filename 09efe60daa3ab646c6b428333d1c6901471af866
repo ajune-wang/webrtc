@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "319388d8_44b9aa17",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-27T13:56:34Z",
+      "side": 1,
+      "message": "Yes, it should, but I did not at the time see a way to get around GainControl::stream_analog_gain() being non-const. Updated the code by making it const.",
+      "parentUuid": "746e456e_b733a7b2",
+      "revId": "09efe60daa3ab646c6b428333d1c6901471af866",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac604d99_76187c00",
         "filename": "modules/audio_processing/audio_processing_impl.h",
         "patchSetId": 13
@@ -33,6 +51,24 @@
       "revId": "09efe60daa3ab646c6b428333d1c6901471af866",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9106619c_33527a61",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-27T13:56:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac604d99_76187c00",
+      "revId": "09efe60daa3ab646c6b428333d1c6901471af866",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

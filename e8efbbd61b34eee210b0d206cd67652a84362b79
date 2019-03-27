@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ab9d49ce_ea8e414a",
+        "filename": "modules/audio_processing/gain_control_for_experimental_agc.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-27T08:13:48Z",
+      "side": 0,
+      "message": "Unrelated cleanup, while we\u0027re in here.\nPer Alessio\u0027s comments:\nhttps://webrtc-review.googlesource.com/c/src/+/126485/2/modules/audio_processing/gain_control_config_proxy.h#57\nhttps://webrtc-review.googlesource.com/c/src/+/126485/2/modules/audio_processing/gain_control_for_experimental_agc.h#70",
+      "parentUuid": "9e46ecef_a2989815",
+      "revId": "e8efbbd61b34eee210b0d206cd67652a84362b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "506f684a_8fbabd5b",
         "filename": "modules/audio_processing/gain_control_impl.h",
         "patchSetId": 12
@@ -33,6 +51,24 @@
       "revId": "e8efbbd61b34eee210b0d206cd67652a84362b79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c15c58ef_5e4eb7e4",
+        "filename": "modules/audio_processing/gain_control_impl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-27T08:13:48Z",
+      "side": 0,
+      "message": "This CL removes the parameters of GainControlImpl::GainControlImpl(), causing the constructor to collide with the macro definition:\n\n#define RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(TypeName) \\\n  TypeName() \u003d delete;                               \\\n  RTC_DISALLOW_COPY_AND_ASSIGN(TypeName)\n\n...but I have now changed the CL to keep explicitly deleting the copy/assign parts.",
+      "parentUuid": "506f684a_8fbabd5b",
+      "revId": "e8efbbd61b34eee210b0d206cd67652a84362b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

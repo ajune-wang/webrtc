@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da1cbee2_8a73613c",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-27T08:13:48Z",
+      "side": 1,
+      "message": "Thank you for catching this. Updated to \"int error \u003d ...; DCHECK\" format.\n\nIt can \"maybe\" go wrong. It fails if the gain is out of bounds [1] (already checked in AudioProcessing::RuntimeSetting::CreateCompressionGain though), or if the Configure() call in [1] fails, which delegates to old C code [2] that looks like it probably won\u0027t fail. It seems safest to dcheck.\n\n[1] https://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/gain_control_impl.cc?l\u003d363\u0026rcl\u003d50686460caad4d13283c550df01690316e7cb934\n[2] https://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/agc/legacy/analog_agc.c?l\u003d1117\u0026rcl\u003d50686460caad4d13283c550df01690316e7cb934",
+      "parentUuid": "a3742da3_604f9fa2",
+      "revId": "ff05d04065c8dd3425598d6b5a813823a0fd8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be313011_77c55d9f",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 12
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "25fdb486_adaad179",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1690,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-27T08:13:48Z",
+      "side": 1,
+      "message": "Thank you. Updated to \"int error \u003d ...; DCHECK\" format.",
+      "parentUuid": "be313011_77c55d9f",
+      "revId": "ff05d04065c8dd3425598d6b5a813823a0fd8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "120ac1f8_2e044dc7",
         "filename": "modules/audio_processing/gain_control_config_proxy.h",
         "patchSetId": 12
@@ -47,6 +83,24 @@
       "writtenOn": "2019-03-26T12:03:49Z",
       "side": 1,
       "message": "IIUC this is for compatibility? Do we need to expose all these methods or can we get away with only those actually used by clients?",
+      "revId": "ff05d04065c8dd3425598d6b5a813823a0fd8cf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56861f76_356f38e9",
+        "filename": "modules/audio_processing/gain_control_config_proxy.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-27T08:13:48Z",
+      "side": 1,
+      "message": "Yes, this class will be removed as soon as downstream clients are updated.\n\nWhat do you mean by exposing? Do you mean remove the functions from the GainControl class?\nThe setters are all used, but the getters are (as far as I can tell) unused and could probably be removed after/in this CL. If not, they\u0027ll disappear anyway together with this interface.\n\nI can buy into deprecating parts already in this CL, but I also think there is some value in making a CL-level separation between deprecation and putting no-op transition code in place, especially in case it needs to be rolled back because of some missed downstream dependency.",
+      "parentUuid": "120ac1f8_2e044dc7",
       "revId": "ff05d04065c8dd3425598d6b5a813823a0fd8cf7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

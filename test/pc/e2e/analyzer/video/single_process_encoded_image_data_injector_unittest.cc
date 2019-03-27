@@ -20,8 +20,9 @@ namespace webrtc {
 namespace webrtc_pc_e2e {
 namespace {
 
-rtc::Buffer CreateBufferOfSizeNFilledWithValuesFromX(size_t n, uint8_t x) {
-  rtc::Buffer buffer(n);
+rtc::CopyOnWriteBuffer CreateBufferOfSizeNFilledWithValuesFromX(size_t n,
+                                                                uint8_t x) {
+  rtc::CopyOnWriteBuffer buffer(n);
   for (size_t i = 0; i < n; ++i) {
     buffer[i] = static_cast<uint8_t>(x + i);
   }
@@ -33,9 +34,12 @@ rtc::Buffer CreateBufferOfSizeNFilledWithValuesFromX(size_t n, uint8_t x) {
 TEST(SingleProcessEncodedImageDataInjector, InjectExtractDiscardFalse) {
   SingleProcessEncodedImageDataInjector injector;
 
-  rtc::Buffer buffer = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
+  rtc::CopyOnWriteBuffer buffer =
+      CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
 
-  EncodedImage source(buffer.data(), 10, 10);
+  EncodedImage source;
+  source.set_buffer(buffer, 0, 10);
+  source.set_size(10);
   source.SetTimestamp(123456789);
 
   EncodedImageExtractionResult out =
@@ -52,9 +56,12 @@ TEST(SingleProcessEncodedImageDataInjector, InjectExtractDiscardFalse) {
 TEST(SingleProcessEncodedImageDataInjector, InjectExtractDiscardTrue) {
   SingleProcessEncodedImageDataInjector injector;
 
-  rtc::Buffer buffer = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
+  rtc::CopyOnWriteBuffer buffer =
+      CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
 
-  EncodedImage source(buffer.data(), 10, 10);
+  EncodedImage source;
+  source.set_buffer(buffer, 0, 10);
+  source.set_size(10);
   source.SetTimestamp(123456789);
 
   EncodedImageExtractionResult out =
@@ -68,18 +75,27 @@ TEST(SingleProcessEncodedImageDataInjector, InjectExtractDiscardTrue) {
 TEST(SingleProcessEncodedImageDataInjector, Inject3Extract3) {
   SingleProcessEncodedImageDataInjector injector;
 
-  rtc::Buffer buffer1 = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
-  rtc::Buffer buffer2 = CreateBufferOfSizeNFilledWithValuesFromX(10, 11);
-  rtc::Buffer buffer3 = CreateBufferOfSizeNFilledWithValuesFromX(10, 21);
+  rtc::CopyOnWriteBuffer buffer1 =
+      CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
+  rtc::CopyOnWriteBuffer buffer2 =
+      CreateBufferOfSizeNFilledWithValuesFromX(10, 11);
+  rtc::CopyOnWriteBuffer buffer3 =
+      CreateBufferOfSizeNFilledWithValuesFromX(10, 21);
 
   // 1st frame
-  EncodedImage source1(buffer1.data(), 10, 10);
+  EncodedImage source1;
+  source1.set_buffer(buffer1, 0, 10);
+  source1.set_size(10);
   source1.SetTimestamp(123456710);
   // 2nd frame 1st spatial layer
-  EncodedImage source2(buffer2.data(), 10, 10);
+  EncodedImage source2;
+  source2.set_buffer(buffer2, 0, 10);
+  source2.set_size(10);
   source2.SetTimestamp(123456720);
   // 2nd frame 2nd spatial layer
-  EncodedImage source3(buffer3.data(), 10, 10);
+  EncodedImage source3;
+  source3.set_buffer(buffer3, 0, 10);
+  source3.set_size(10);
   source3.SetTimestamp(123456720);
 
   EncodedImage intermediate1 = injector.InjectData(510, false, source1, 1);
@@ -114,15 +130,24 @@ TEST(SingleProcessEncodedImageDataInjector, Inject3Extract3) {
 TEST(SingleProcessEncodedImageDataInjector, InjectExtractFromConcatenated) {
   SingleProcessEncodedImageDataInjector injector;
 
-  rtc::Buffer buffer1 = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
-  rtc::Buffer buffer2 = CreateBufferOfSizeNFilledWithValuesFromX(10, 11);
-  rtc::Buffer buffer3 = CreateBufferOfSizeNFilledWithValuesFromX(10, 21);
+  rtc::CopyOnWriteBuffer buffer1 =
+      CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
+  rtc::CopyOnWriteBuffer buffer2 =
+      CreateBufferOfSizeNFilledWithValuesFromX(10, 11);
+  rtc::CopyOnWriteBuffer buffer3 =
+      CreateBufferOfSizeNFilledWithValuesFromX(10, 21);
 
-  EncodedImage source1(buffer1.data(), 10, 10);
+  EncodedImage source1;
+  source1.set_buffer(buffer1, 0, 10);
+  source1.set_size(10);
   source1.SetTimestamp(123456710);
-  EncodedImage source2(buffer2.data(), 10, 10);
+  EncodedImage source2;
+  source2.set_buffer(buffer2, 0, 10);
+  source2.set_size(10);
   source2.SetTimestamp(123456710);
-  EncodedImage source3(buffer3.data(), 10, 10);
+  EncodedImage source3;
+  source3.set_buffer(buffer3, 0, 10);
+  source3.set_size(10);
   source3.SetTimestamp(123456710);
 
   // Inject id into 3 images with same frame id.
@@ -134,12 +159,13 @@ TEST(SingleProcessEncodedImageDataInjector, InjectExtractFromConcatenated) {
   // buffer.
   size_t concatenated_length =
       intermediate1.size() + intermediate2.size() + intermediate3.size();
-  rtc::Buffer concatenated_buffer;
+  rtc::CopyOnWriteBuffer concatenated_buffer;
   concatenated_buffer.AppendData(intermediate1.data(), intermediate1.size());
   concatenated_buffer.AppendData(intermediate2.data(), intermediate2.size());
   concatenated_buffer.AppendData(intermediate3.data(), intermediate3.size());
-  EncodedImage concatenated(concatenated_buffer.data(), concatenated_length,
-                            concatenated_length);
+  EncodedImage concatenated;
+  concatenated.set_buffer(concatenated_buffer, 0, concatenated_length);
+  concatenated.set_size(concatenated_length);
 
   // Extract frame id from concatenated image
   EncodedImageExtractionResult out = injector.ExtractData(concatenated, 2);
@@ -158,15 +184,24 @@ TEST(SingleProcessEncodedImageDataInjector,
      InjectExtractFromConcatenatedAllDiscarded) {
   SingleProcessEncodedImageDataInjector injector;
 
-  rtc::Buffer buffer1 = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
-  rtc::Buffer buffer2 = CreateBufferOfSizeNFilledWithValuesFromX(10, 11);
-  rtc::Buffer buffer3 = CreateBufferOfSizeNFilledWithValuesFromX(10, 21);
+  rtc::CopyOnWriteBuffer buffer1 =
+      CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
+  rtc::CopyOnWriteBuffer buffer2 =
+      CreateBufferOfSizeNFilledWithValuesFromX(10, 11);
+  rtc::CopyOnWriteBuffer buffer3 =
+      CreateBufferOfSizeNFilledWithValuesFromX(10, 21);
 
-  EncodedImage source1(buffer1.data(), 10, 10);
+  EncodedImage source1;
+  source1.set_buffer(buffer1, 0, 10);
+  source1.set_size(10);
   source1.SetTimestamp(123456710);
-  EncodedImage source2(buffer2.data(), 10, 10);
+  EncodedImage source2;
+  source2.set_buffer(buffer2, 0, 10);
+  source2.set_size(10);
   source2.SetTimestamp(123456710);
-  EncodedImage source3(buffer3.data(), 10, 10);
+  EncodedImage source3;
+  source3.set_buffer(buffer3, 0, 10);
+  source3.set_size(10);
   source3.SetTimestamp(123456710);
 
   // Inject id into 3 images with same frame id.
@@ -178,12 +213,13 @@ TEST(SingleProcessEncodedImageDataInjector,
   // buffer.
   size_t concatenated_length =
       intermediate1.size() + intermediate2.size() + intermediate3.size();
-  rtc::Buffer concatenated_buffer;
+  rtc::CopyOnWriteBuffer concatenated_buffer;
   concatenated_buffer.AppendData(intermediate1.data(), intermediate1.size());
   concatenated_buffer.AppendData(intermediate2.data(), intermediate2.size());
   concatenated_buffer.AppendData(intermediate3.data(), intermediate3.size());
-  EncodedImage concatenated(concatenated_buffer.data(), concatenated_length,
-                            concatenated_length);
+  EncodedImage concatenated;
+  concatenated.set_buffer(concatenated_buffer, 0, concatenated_length);
+  concatenated.set_size(concatenated_length);
 
   // Extract frame id from concatenated image
   EncodedImageExtractionResult out = injector.ExtractData(concatenated, 2);

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ad161981_36b23f65",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-03-27T13:20:17Z",
+      "side": 1,
+      "message": "I\u0027m of a similar opinion, I thought this was the preferred style.",
+      "parentUuid": "8e68c5d8_4bbfc077",
+      "range": {
+        "startLine": 33,
+        "startChar": 15,
+        "endLine": 33,
+        "endChar": 49
+      },
+      "revId": "a9db84a12c4deeff6100fe69c1ae97c060a2be17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "518dff46_cbe3a78f",
         "filename": "modules/pacing/bitrate_prober.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "a9db84a12c4deeff6100fe69c1ae97c060a2be17",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a3ec1e3_58c38ad7",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-03-27T13:20:17Z",
+      "side": 1,
+      "message": "Yeah, that sounds nicer.",
+      "parentUuid": "518dff46_cbe3a78f",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 35
+      },
+      "revId": "a9db84a12c4deeff6100fe69c1ae97c060a2be17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c70b7cf0_849f306c",
+        "filename": "modules/pacing/bitrate_prober.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-03-27T13:20:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ba262f2_ca2dc58c",
+      "range": {
+        "startLine": 32,
+        "startChar": 27,
+        "endLine": 32,
+        "endChar": 50
+      },
+      "revId": "a9db84a12c4deeff6100fe69c1ae97c060a2be17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89645151_843ca020",
         "filename": "modules/pacing/bitrate_prober_unittest.cc",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "a9db84a12c4deeff6100fe69c1ae97c060a2be17",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b917f094_0d6ac497",
+        "filename": "modules/pacing/bitrate_prober_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-03-27T13:20:17Z",
+      "side": 1,
+      "message": "When I wanted to test a scenario like that in probe_controller_unittest.cc (which uses a fixture) I simply reinitialized the probe controller, the same could easily be done here.\n\nThat said I don\u0027t really have a preference here, so I\u0027ll inline this fixture again.",
+      "parentUuid": "89645151_843ca020",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 2
+      },
+      "revId": "a9db84a12c4deeff6100fe69c1ae97c060a2be17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

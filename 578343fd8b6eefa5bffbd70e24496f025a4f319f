@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1915af05_e9840002",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-27T10:10:28Z",
+      "side": 1,
+      "message": "Maybe we should have comment about why it\u0027s needed and then add a TODO to DCHECK that it\u0027s not zero when the cause have been fixed? Seems to me like a 0 RTT must be an input error?",
+      "range": {
+        "startLine": 230,
+        "startChar": 44,
+        "endLine": 230,
+        "endChar": 75
+      },
+      "revId": "578343fd8b6eefa5bffbd70e24496f025a4f319f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25b3211e_b1c05753",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-27T15:28:44Z",
+      "side": 1,
+      "message": "treated",
+      "range": {
+        "startLine": 10,
+        "startChar": 52,
+        "endLine": 10,
+        "endChar": 59
+      },
+      "revId": "a3261afe988bd363c0c2ab6d968637e0fe3bc5b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4adcd5b2_8f2966f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-27T15:28:44Z",
+      "side": 1,
+      "message": "differentiate",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 21
+      },
+      "revId": "a3261afe988bd363c0c2ab6d968637e0fe3bc5b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be21b334_22063139",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-27T15:28:44Z",
+      "side": 1,
+      "message": "I had expected this to be true for svc.",
+      "range": {
+        "startLine": 454,
+        "startChar": 8,
+        "endLine": 454,
+        "endChar": 32
+      },
+      "revId": "a3261afe988bd363c0c2ab6d968637e0fe3bc5b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed42c1ec_c38b6fc2",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-27T15:28:44Z",
+      "side": 1,
+      "message": "This is a bit vague. I take it it\u0027s intended to distinguish between simulcast (multiple \"spatial layers\", each sent on a separate ssrc) and svc (multiple spatial layers, all sent on the same ssrc).\n\nI think that info belongs in RtpConfig member, above.\n\nBut isn\u0027t it enough to look at rtp.ssrcs.size()? That should be one for svc, and \u003e 1 for simulcast. Unless I\u0027m misunderstanding something.",
+      "range": {
+        "startLine": 154,
+        "startChar": 4,
+        "endLine": 154,
+        "endChar": 53
+      },
+      "revId": "a3261afe988bd363c0c2ab6d968637e0fe3bc5b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

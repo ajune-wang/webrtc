@@ -129,6 +129,7 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
         FieldTrialBasedConfig());
     rtp_streams.emplace_back(std::move(playout_delay_oracle),
                              std::move(rtp_rtcp), std::move(sender_video));
+    // VP9 doesn't use simulcast
   }
   return rtp_streams;
 }
@@ -212,6 +213,7 @@ RtpVideoSender::RtpVideoSender(
     const RtpConfig& rtp_config,
     int rtcp_report_interval_ms,
     Transport* send_transport,
+    int num_streams,
     const RtpSenderObservers& observers,
     RtpTransportControllerSendInterface* transport,
     RtcEventLog* event_log,
@@ -253,7 +255,8 @@ RtpVideoSender::RtpVideoSender(
       overhead_bytes_per_packet_(0),
       encoder_target_rate_bps_(0),
       frame_counts_(rtp_config.ssrcs.size()),
-      frame_count_observer_(observers.frame_count_observer) {
+      frame_count_observer_(observers.frame_count_observer),
+      num_streams_(num_streams) {
   RTC_DCHECK_EQ(rtp_config.ssrcs.size(), rtp_streams_.size());
   module_process_thread_checker_.DetachFromThread();
   // SSRCs are assumed to be sorted in the same order as |rtp_modules|.
@@ -448,7 +451,7 @@ void RtpVideoSender::OnBitrateAllocationUpdated(
     const VideoBitrateAllocation& bitrate) {
   rtc::CritScope lock(&crit_);
   if (IsActive()) {
-    if (rtp_streams_.size() == 1) {
+    if (rtp_streams_.size() == 1 || num_streams_ == 1) {
       // If spatial scalability is enabled, it is covered by a single stream.
       rtp_streams_[0].rtp_rtcp->SetVideoBitrateAllocation(bitrate);
     } else {

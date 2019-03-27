@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23552cbf_3d57312d",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-27T08:28:50Z",
+      "side": 1,
+      "message": "bitrate",
+      "range": {
+        "startLine": 198,
+        "startChar": 16,
+        "endLine": 198,
+        "endChar": 22
+      },
+      "revId": "f979e7083ea68507171b06bd09425ac168ea9042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

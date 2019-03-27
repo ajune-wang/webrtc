@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fdc66f7_0f6fbff1",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-27T19:56:56Z",
+      "side": 1,
+      "message": "s/Reconfiging/Reconfiguring",
+      "range": {
+        "startLine": 943,
+        "startChar": 23,
+        "endLine": 943,
+        "endChar": 34
+      },
+      "revId": "9bef2f1111e880f7eaa217f2005d580efdb08c6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

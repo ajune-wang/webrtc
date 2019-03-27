@@ -519,6 +519,15 @@ void RTPSender::OnReceivedNack(
   }
 }
 
+void RTPSender::OnReceivedLossNotification(uint16_t last_decoded,
+                                           uint16_t last_received,
+                                           bool decodability_flag) {
+  printf(
+      "(RTPSender) uint16_t last_decoded = %u uint16_t last_received = %u bool "
+      "decodability_flag = %d\n",
+      last_decoded, last_received, decodability_flag);
+}
+
 // Called from pacer when we can send the packet.
 bool RTPSender::TimeToSendPacket(uint32_t ssrc,
                                  uint16_t sequence_number,

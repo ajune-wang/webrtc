@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "199e897c_fb169793",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-27T00:57:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1566d57_c1a32083",
+      "range": {
+        "startLine": 388,
+        "startChar": 4,
+        "endLine": 388,
+        "endChar": 48
+      },
+      "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd07a2a2_79f9b90d",
         "filename": "pc/stats_collector.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ebe87f9_994c5e63",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-27T00:57:12Z",
+      "side": 1,
+      "message": "Ack. I think the ship has sailed for now, possibly an opportunity for future refactoring.",
+      "parentUuid": "dd07a2a2_79f9b90d",
+      "range": {
+        "startLine": 391,
+        "startChar": 0,
+        "endLine": 393,
+        "endChar": 36
+      },
+      "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "028e1414_a271d87e",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-27T00:57:12Z",
+      "side": 1,
+      "message": "Yes, but the media engine won\u0027t return multiple stats reports for the same SSRC.",
+      "parentUuid": "822a8877_ab02fa2d",
+      "range": {
+        "startLine": 402,
+        "startChar": 17,
+        "endLine": 402,
+        "endChar": 27
+      },
+      "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e57a09e1_8cff6c6d",
         "filename": "pc/stats_collector.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19797985_9c03d55f",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-27T00:57:12Z",
+      "side": 1,
+      "message": "Factored out the logic to a helper method which removed the confusing if/else chain.",
+      "parentUuid": "e57a09e1_8cff6c6d",
+      "range": {
+        "startLine": 403,
+        "startChar": 4,
+        "endLine": 403,
+        "endChar": 12
+      },
+      "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "99086206_7e50cf07",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-27T00:57:12Z",
+      "side": 1,
+      "message": "I introduced a MediaChannelStatsGatherer to reduce duplication by sharing common logic in a base class.",
+      "parentUuid": "75aee915_cae65511",
+      "range": {
+        "startLine": 938,
+        "startChar": 0,
+        "endLine": 957,
+        "endChar": 7
+      },
+      "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "347f9b47_7629ed32",
         "filename": "pc/stats_collector.cc",
         "patchSetId": 2
@@ -128,6 +248,24 @@
       "writtenOn": "2019-03-26T22:10:39Z",
       "side": 1,
       "message": "This is going to produce unexpected results (duplicate ID) if the same track is connected to two senders.\n(This can happen if you use ReplaceTrack; AddTrack guards against this possibility)\nI\u0027m not sure what legacy stats should produce in this case; please add a test case for it.",
+      "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52eec0d4_2ef6ac52",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-27T00:57:12Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s unexpected? If there are two senders with the same track then it would make sense that they have the same googTrackId field. I think that\u0027s also the behavior before this change. Added a test case.",
+      "parentUuid": "347f9b47_7629ed32",
       "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

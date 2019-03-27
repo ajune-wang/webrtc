@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce5a6f1f_2fa77dc2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-27T13:12:11Z",
+      "side": 1,
+      "message": "Rephrase, now that you pass a bandwidth allocation rather than a margin?",
+      "range": {
+        "startLine": 18,
+        "startChar": 50,
+        "endLine": 19,
+        "endChar": 6
+      },
+      "revId": "cc3e5e9b2097398d61c6f4f7acd4c57a83e0b018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94472619_87112312",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-27T13:12:11Z",
+      "side": 1,
+      "message": "Since it\u0027s an inner struct, you could consider using a shorter name.",
+      "range": {
+        "startLine": 196,
+        "startChar": 9,
+        "endLine": 196,
+        "endChar": 30
+      },
+      "revId": "cc3e5e9b2097398d61c6f4f7acd4c57a83e0b018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fca4909_2e8308b6",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-27T13:12:11Z",
+      "side": 1,
+      "message": "Did you create a bug for this? TODO(bug.webrtc.org/xxx) woudl be nice.",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 52
+      },
+      "revId": "cc3e5e9b2097398d61c6f4f7acd4c57a83e0b018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

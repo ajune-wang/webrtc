@@ -2301,6 +2301,7 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::RecreateWebRtcStream() {
                            "payload type the set codec. Ignoring RTX.";
     config.rtp.rtx.ssrcs.clear();
   }
+  config.num_streams = parameters_.encoder_config.number_of_streams;
   stream_ = call_->CreateVideoSendStream(std::move(config),
                                          parameters_.encoder_config.Copy());
 

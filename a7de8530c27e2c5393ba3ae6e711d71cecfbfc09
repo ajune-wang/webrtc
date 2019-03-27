@@ -1,0 +1,268 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46329e21_e53f294e",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-27T10:49:34Z",
+      "side": 1,
+      "message": "EmulatedNetworkManagerInterface?",
+      "revId": "a7de8530c27e2c5393ba3ae6e711d71cecfbfc09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ef7a34e_8d9c9058",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-27T10:49:34Z",
+      "side": 1,
+      "message": "RTC_DCHECK_RUN_ON(network_thread_.get())?",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 31
+      },
+      "revId": "a7de8530c27e2c5393ba3ae6e711d71cecfbfc09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5fe9673_5227a3a2",
+        "filename": "test/scenario/network/emulated_network_manager.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-27T10:49:34Z",
+      "side": 1,
+      "message": "Use ThreadChecker to protect these.",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 19
+      },
+      "revId": "a7de8530c27e2c5393ba3ae6e711d71cecfbfc09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13fde956_dd369eba",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-27T10:49:34Z",
+      "side": 1,
+      "message": "I think we should restrict access to this to thte network thread, then we can replace state_lock_ with a thread checker that ensures that we run on the network thread.",
+      "range": {
+        "startLine": 260,
+        "startChar": 23,
+        "endLine": 260,
+        "endChar": 30
+      },
+      "revId": "a7de8530c27e2c5393ba3ae6e711d71cecfbfc09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "627f14d5_bae7440d",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-27T10:49:34Z",
+      "side": 1,
+      "message": "const std::vector\u003cEmulatedEndpoint*\u003e\u0026 endpoints) :endpoints_(endpoints)\n\nSlightly less operations and more similar to existing code.",
+      "range": {
+        "startLine": 274,
+        "startChar": 4,
+        "endLine": 275,
+        "endChar": 38
+      },
+      "revId": "a7de8530c27e2c5393ba3ae6e711d71cecfbfc09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c49b223_d06a757e",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-27T10:49:34Z",
+      "side": 1,
+      "message": "RTC_NOTREACHED()? Or doesn\u0027t that work here?",
+      "revId": "a7de8530c27e2c5393ba3ae6e711d71cecfbfc09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c99ff39_6642b555",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-27T10:49:34Z",
+      "side": 1,
+      "message": "This shouldn\u0027t return a list of newly allocated raw pointers.\n\nReturn options:\nstd::vector\u003crtc::Network\u003e and accept that it will be an extra copy.\nstd::vector\u003cconst rtc::Network*\u003e where the pointer points to the existing member (this is safe since it\u0027s const.\nstd::vector\u003cstd::unique_ptr\u003crtc::Network\u003e\u003e and do the release where this is called.",
+      "range": {
+        "startLine": 297,
+        "startChar": 48,
+        "endLine": 297,
+        "endChar": 66
+      },
+      "revId": "a7de8530c27e2c5393ba3ae6e711d71cecfbfc09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84363348_ce3e9dc7",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-27T10:49:34Z",
+      "side": 1,
+      "message": "In this case it\u0027s just one case to drop, there are cases where continue makes sense, but I think it\u0027s something that has to be looked at per case rather than using some generic rule. The nesting is at the same level since we have the continue at 2 levels...",
+      "range": {
+        "startLine": 300,
+        "startChar": 3,
+        "endLine": 302,
+        "endChar": 5
+      },
+      "revId": "a7de8530c27e2c5393ba3ae6e711d71cecfbfc09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fe6bd8c_e1c07a93",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-27T10:49:34Z",
+      "side": 1,
+      "message": "I think this name implies more functionality than provided, maybe EndpointContainer?",
+      "range": {
+        "startLine": 210,
+        "startChar": 6,
+        "endLine": 210,
+        "endChar": 25
+      },
+      "revId": "a7de8530c27e2c5393ba3ae6e711d71cecfbfc09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb467822_58dce82b",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-27T10:49:34Z",
+      "side": 1,
+      "message": "This is ok, but maybe it could be something like LookupByLocalAddress or something more related to the domain?",
+      "range": {
+        "startLine": 214,
+        "startChar": 20,
+        "endLine": 214,
+        "endChar": 31
+      },
+      "revId": "a7de8530c27e2c5393ba3ae6e711d71cecfbfc09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ebd6e28_4f5ece7c",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-27T10:49:34Z",
+      "side": 1,
+      "message": "local_ip?",
+      "range": {
+        "startLine": 214,
+        "startChar": 54,
+        "endLine": 214,
+        "endChar": 56
+      },
+      "revId": "a7de8530c27e2c5393ba3ae6e711d71cecfbfc09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1706322a_c61c249a",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-27T10:49:34Z",
+      "side": 1,
+      "message": "move this to the constructor of EmulatedNetworkManager and make it a direct member of EmulatedNetworkManager rather than a unique_ptr.",
+      "range": {
+        "startLine": 206,
+        "startChar": 2,
+        "endLine": 206,
+        "endChar": 76
+      },
+      "revId": "a7de8530c27e2c5393ba3ae6e711d71cecfbfc09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

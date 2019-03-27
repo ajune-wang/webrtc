@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "dcf4aab4_4d73bfb4",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-27T10:49:34Z",
+      "side": 1,
+      "message": "Is this feature of starting and stopping the manager repeatedly used in practice?",
+      "parentUuid": "f68f3fde_0bfa6c5c",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 73
+      },
+      "revId": "e8c61a4f3c4b03de1354f0324c68ae10dd300911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d56666a6_9e186966",
         "filename": "test/scenario/network/emulated_network_manager.cc",
         "patchSetId": 6

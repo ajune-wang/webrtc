@@ -517,6 +517,19 @@ void AudioDeviceIOS::HandleInterruptionEnd() {
           "Updating audio unit state.",
          is_interrupted_);
   is_interrupted_ = false;
+  if (webrtc::field_trial::IsEnabled("WebRTC-Audio-iOS-Holding")) {
+    // Work around an issue where audio does not restart properly after an interruption
+    // by restarting the audio unit when the interruption ends.
+    if (audio_unit_->GetState() == VoiceProcessingAudioUnit::kStarted) {
+      audio_unit_->Stop();
+      PrepareForNewStart();
+    }
+    if (audio_unit_->GetState() == VoiceProcessingAudioUnit::kInitialized) {
+      audio_unit_->Uninitialize();
+    }
+    // Allocate new buffers given the new stream format.
+    SetupAudioBuffersForActiveAudioSession();
+  }
   UpdateAudioUnit([RTCAudioSession sharedInstance].canPlayOrRecord);
 }
 

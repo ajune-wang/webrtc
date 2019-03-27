@@ -188,6 +188,9 @@ VideoReceiveStream::VideoReceiveStream(
                      this,
                      "DecodingThread",
                      rtc::kHighestPriority),
+      decode_queue_(task_queue_factory_->CreateTaskQueue(
+          "DecodingQueue",
+          TaskQueueFactory::Priority::HIGH)),
       call_stats_(call_stats),
       stats_proxy_(&config_, clock_),
       rtp_receive_statistics_(
@@ -587,6 +590,15 @@ bool VideoReceiveStream::Decode() {
     return false;
   }
 
+  HandleDecodedFrame(std::move(frame), res);
+  return true;
+}
+
+void VideoReceiveStream::HandleDecodedFrame(
+    std::unique_ptr<video_coding::EncodedFrame> frame,
+    video_coding::FrameBuffer::ReturnReason res) {
+  if (res == video_coding::FrameBuffer::ReturnReason::kStopped)
+    return;
   if (frame) {
     int64_t now_ms = clock_->TimeInMilliseconds();
     RTC_DCHECK_EQ(res, video_coding::FrameBuffer::ReturnReason::kFrameFound);
@@ -641,12 +653,13 @@ bool VideoReceiveStream::Decode() {
     if (stream_is_active && !receiving_keyframe &&
         (!config_.crypto_options.sframe.require_frame_encryption ||
          rtp_video_stream_receiver_.IsDecryptable())) {
+      const int wait_ms = keyframe_required_ ? max_wait_for_keyframe_ms_
+                                             : max_wait_for_frame_ms_;
       RTC_LOG(LS_WARNING) << "No decodable frame in " << wait_ms
                           << " ms, requesting keyframe.";
       RequestKeyFrame();
     }
   }
-  return true;
 }
 
 void VideoReceiveStream::UpdatePlayoutDelays() const {

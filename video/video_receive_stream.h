@@ -23,6 +23,7 @@
 #include "modules/video_coding/frame_buffer2.h"
 #include "modules/video_coding/video_coding_impl.h"
 #include "rtc_base/sequenced_task_checker.h"
+#include "rtc_base/task_queue.h"
 #include "system_wrappers/include/clock.h"
 #include "video/receive_statistics_proxy.h"
 #include "video/rtp_streams_synchronizer.h"
@@ -131,6 +132,9 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
  private:
   static void DecodeThreadFunction(void* ptr);
   bool Decode();
+  void HandleDecodedFrame(std::unique_ptr<video_coding::EncodedFrame> frame,
+                          video_coding::FrameBuffer::ReturnReason res);
+
   void UpdatePlayoutDelays() const
       RTC_EXCLUSIVE_LOCKS_REQUIRED(playout_delay_lock_);
 
@@ -147,6 +151,7 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   Clock* const clock_;
 
   rtc::PlatformThread decode_thread_;
+  rtc::TaskQueue decode_queue_;
 
   CallStats* const call_stats_;
 

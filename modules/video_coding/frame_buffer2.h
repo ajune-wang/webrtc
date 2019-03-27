@@ -27,6 +27,8 @@
 #include "rtc_base/event.h"
 #include "rtc_base/experiments/rtt_mult_experiment.h"
 #include "rtc_base/numerics/sequence_number_util.h"
+#include "rtc_base/task_queue.h"
+#include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
@@ -45,7 +47,13 @@ class FrameBuffer {
   FrameBuffer(Clock* clock,
               VCMJitterEstimator* jitter_estimator,
               VCMTiming* timing,
-              VCMReceiveStatisticsCallback* stats_proxy);
+              VCMReceiveStatisticsCallback* stats_callback);
+
+  FrameBuffer(Clock* clock,
+              TaskQueueFactory* task_queue_factory,
+              VCMJitterEstimator* jitter_estimator,
+              VCMTiming* timing,
+              VCMReceiveStatisticsCallback* stats_callback);
 
   virtual ~FrameBuffer();
 
@@ -64,6 +72,10 @@ class FrameBuffer {
   ReturnReason NextFrame(int64_t max_wait_time_ms,
                          std::unique_ptr<EncodedFrame>* frame_out,
                          bool keyframe_required = false);
+
+  void StartFrameWait(int64_t max_wait_time_ms,
+                      bool keyframe_required,
+                      std::function<void(EncodedFrame*, ReturnReason)> handler);
 
   // Tells the FrameBuffer which protection mode that is in use. Affects
   // the frame timing.
@@ -154,13 +166,18 @@ class FrameBuffer {
   EncodedFrame* CombineAndDeleteFrames(
       const std::vector<EncodedFrame*>& frames) const;
 
+  void HandleNewContinousFrame() RTC_RUN_ON(decoder_queue_);
+
   // Stores only undecoded frames.
   FrameMap frames_ RTC_GUARDED_BY(crit_);
   DecodedFramesHistory decoded_frames_history_ RTC_GUARDED_BY(crit_);
 
   rtc::CriticalSection crit_;
   Clock* const clock_;
-  rtc::Event new_continuous_frame_event_;
+  RepeatingTaskHandle frame_wait_task_;
+  int64_t latest_return_time_ms_ RTC_GUARDED_BY(decoder_queue_);
+  bool pending_frame = false;
+
   VCMJitterEstimator* const jitter_estimator_ RTC_GUARDED_BY(crit_);
   VCMTiming* const timing_ RTC_GUARDED_BY(crit_);
   VCMInterFrameDelay inter_frame_delay_ RTC_GUARDED_BY(crit_);
@@ -173,7 +190,10 @@ class FrameBuffer {
   int64_t last_log_non_decoded_ms_ RTC_GUARDED_BY(crit_);
 
   const bool add_rtt_to_playout_delay_;
+  std::function<void(EncodedFrame*, ReturnReason)> frame_handler_;
 
+  rtc::TaskQueue task_queue_;
+  rtc::TaskQueue* decoder_queue_;
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(FrameBuffer);
 };
 

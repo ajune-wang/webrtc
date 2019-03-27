@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "405cc0d7_cac14bc6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-27T13:25:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce5a6f1f_2fa77dc2",
+      "range": {
+        "startLine": 18,
+        "startChar": 50,
+        "endLine": 19,
+        "endChar": 6
+      },
+      "revId": "cc3e5e9b2097398d61c6f4f7acd4c57a83e0b018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94472619_87112312",
         "filename": "api/video_codecs/video_encoder.h",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "95f65cfb_399bfeec",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-27T13:25:35Z",
+      "side": 1,
+      "message": "I shortened it from VideoRateControlParameters :)\nI think this name makes it very clear what the intent is, and fits better with what we are looking into add to it than we will result if remove one or two words from this.",
+      "parentUuid": "94472619_87112312",
+      "range": {
+        "startLine": 196,
+        "startChar": 9,
+        "endLine": 196,
+        "endChar": 30
+      },
+      "revId": "cc3e5e9b2097398d61c6f4f7acd4c57a83e0b018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4fca4909_2e8308b6",
         "filename": "api/video_codecs/video_encoder.h",
         "patchSetId": 6
@@ -68,6 +116,30 @@
       "revId": "cc3e5e9b2097398d61c6f4f7acd4c57a83e0b018",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1892da4_c6c1d46f",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-27T13:25:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fca4909_2e8308b6",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 52
+      },
+      "revId": "cc3e5e9b2097398d61c6f4f7acd4c57a83e0b018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

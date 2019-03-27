@@ -269,6 +269,24 @@
       "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69486778_7d7e980f",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-03-27T05:50:31Z",
+      "side": 1,
+      "message": "The test looks good, so my worry is laid to rest; the map collision is not used to decide what reports to produce. Thank you!",
+      "parentUuid": "52eec0d4_2ef6ac52",
+      "revId": "16b7833c523e8c4a38849b1448b710a8eef0f359",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

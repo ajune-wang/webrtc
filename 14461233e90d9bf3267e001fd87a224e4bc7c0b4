@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "74ae3266_147a582f",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-03-28T10:42:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "23c8008c_f23047dd",
+      "range": {
+        "startLine": 522,
+        "startChar": 4,
+        "endLine": 522,
+        "endChar": 5
+      },
+      "revId": "14461233e90d9bf3267e001fd87a224e4bc7c0b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c2c0880_81138d0f",
         "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
         "patchSetId": 2
@@ -119,6 +143,30 @@
       "side": 1,
       "message": "I amended the comment to clarify that the format has potentially changed.",
       "parentUuid": "3c2c0880_81138d0f",
+      "range": {
+        "startLine": 531,
+        "startChar": 38,
+        "endLine": 531,
+        "endChar": 41
+      },
+      "revId": "14461233e90d9bf3267e001fd87a224e4bc7c0b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "641ff68a_364fef8d",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-03-28T10:42:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "944db3eb_72cee271",
       "range": {
         "startLine": 531,
         "startChar": 38,

@@ -15,7 +15,6 @@
 #include <limits>
 #include <numeric>
 
-#include "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -53,13 +52,13 @@ SpectralFeaturesView::SpectralFeaturesView(
     rtc::ArrayView<float, kNumLowerBands> average,
     rtc::ArrayView<float, kNumLowerBands> first_derivative,
     rtc::ArrayView<float, kNumLowerBands> second_derivative,
-    rtc::ArrayView<float, kNumLowerBands> cross_correlations,
+    rtc::ArrayView<float, kNumLowerBands> bands_cross_corr,
     float* variability)
     : coeffs(coeffs),
       average(average),
       first_derivative(first_derivative),
       second_derivative(second_derivative),
-      cross_correlations(cross_correlations),
+      bands_cross_corr(bands_cross_corr),
       variability(variability) {}
 
 SpectralFeaturesView::SpectralFeaturesView(const SpectralFeaturesView&) =
@@ -68,10 +67,8 @@ SpectralFeaturesView::~SpectralFeaturesView() = default;
 
 SpectralFeaturesExtractor::SpectralFeaturesExtractor()
     : fft_(),
-      reference_frame_fft_(kFrameSize20ms24kHz / 2 + 1),
-      lagged_frame_fft_(kFrameSize20ms24kHz / 2 + 1),
-      band_boundaries_(
-          ComputeBandBoundaryIndexes(kSampleRate24kHz, kFrameSize20ms24kHz)),
+      reference_frame_fft_(kFftSize20ms24kHz),
+      lagged_frame_fft_(kFftSize20ms24kHz),
       dct_table_(ComputeDctTable()) {}
 
 SpectralFeaturesExtractor::~SpectralFeaturesExtractor() = default;
@@ -86,33 +83,34 @@ bool SpectralFeaturesExtractor::CheckSilenceComputeFeatures(
     rtc::ArrayView<const float, kFrameSize20ms24kHz> lagged_frame,
     SpectralFeaturesView spectral_features) {
   // Analyze reference frame.
-  fft_.ForwardFft(reference_frame, reference_frame_fft_);
-  ComputeBandEnergies(reference_frame_fft_, band_boundaries_,
-                      reference_frame_energy_coeffs_);
+  fft_.WindowedFft(reference_frame, reference_frame_fft_);
+  band_features_extractor_.ComputeSpectralCrossCorrelation(
+      reference_frame_fft_, reference_frame_fft_,
+      {reference_frame_bands_energy_.data(), kOpusBands24kHz});
   // Check if the reference frame has silence.
   const float tot_energy =
-      std::accumulate(reference_frame_energy_coeffs_.begin(),
-                      reference_frame_energy_coeffs_.end(), 0.f);
+      std::accumulate(reference_frame_bands_energy_.begin(),
+                      reference_frame_bands_energy_.end(), 0.f);
   if (tot_energy < kSilenceThreshold)
     return true;
   // Analyze lagged frame.
-  fft_.ForwardFft(lagged_frame, lagged_frame_fft_);
-  ComputeBandEnergies(lagged_frame_fft_, band_boundaries_,
-                      lagged_frame_energy_coeffs_);
+  fft_.WindowedFft(lagged_frame, lagged_frame_fft_);
+  band_features_extractor_.ComputeSpectralCrossCorrelation(
+      lagged_frame_fft_, lagged_frame_fft_,
+      {lagged_frame_bands_energy_.data(), kOpusBands24kHz});
   // Log of the band energies for the reference frame.
-  std::array<float, kNumBands> log_band_energy_coeffs;
-  ComputeLogBandEnergiesCoefficients(reference_frame_energy_coeffs_,
-                                     log_band_energy_coeffs);
+  std::array<float, kNumBands> log_bands_energy;
+  ComputeLogBandEnergiesCoefficients(reference_frame_bands_energy_,
+                                     log_bands_energy);
   // Decorrelate band-wise log energy coefficients via DCT.
-  std::array<float, kNumBands> log_band_energy_coeffs_decorrelated;
-  ComputeDct(log_band_energy_coeffs, dct_table_,
-             log_band_energy_coeffs_decorrelated);
+  std::array<float, kNumBands> log_bands_energy_decorrelated;
+  ComputeDct(log_bands_energy, dct_table_, log_bands_energy_decorrelated);
   // Normalize (based on training set stats).
-  log_band_energy_coeffs_decorrelated[0] -= 12;
-  log_band_energy_coeffs_decorrelated[1] -= 4;
+  log_bands_energy_decorrelated[0] -= 12;
+  log_bands_energy_decorrelated[1] -= 4;
   // Update the ring buffer and the spectral difference stats.
-  spectral_coeffs_ring_buf_.Push(log_band_energy_coeffs_decorrelated);
-  UpdateSpectralDifferenceStats(log_band_energy_coeffs_decorrelated,
+  spectral_coeffs_ring_buf_.Push(log_bands_energy_decorrelated);
+  UpdateSpectralDifferenceStats(log_bands_energy_decorrelated,
                                 spectral_coeffs_ring_buf_,
                                 &spectral_diffs_buf_);
   // Write the higher bands spectral coefficients.
@@ -125,7 +123,7 @@ bool SpectralFeaturesExtractor::CheckSilenceComputeFeatures(
   ComputeAvgAndDerivatives(spectral_features.average,
                            spectral_features.first_derivative,
                            spectral_features.second_derivative);
-  ComputeCrossCorrelation(spectral_features.cross_correlations);
+  ComputeCrossCorrelation(spectral_features.bands_cross_corr);
   RTC_DCHECK(spectral_features.variability);
   *(spectral_features.variability) = ComputeVariability();
   return false;
@@ -152,29 +150,22 @@ void SpectralFeaturesExtractor::ComputeAvgAndDerivatives(
 }
 
 void SpectralFeaturesExtractor::ComputeCrossCorrelation(
-    rtc::ArrayView<float, kNumLowerBands> cross_correlations) {
-  const auto& x = reference_frame_fft_;
-  const auto& y = lagged_frame_fft_;
-  auto cross_corr = [x, y](const size_t freq_bin_index) -> float {
-    return (x[freq_bin_index].real() * y[freq_bin_index].real() +
-            x[freq_bin_index].imag() * y[freq_bin_index].imag());
-  };
-  std::array<float, kNumBands> cross_corr_coeffs;
-  constexpr size_t kNumFftPoints = kFrameSize20ms24kHz / 2 + 1;
-  ComputeBandCoefficients(cross_corr, band_boundaries_, kNumFftPoints - 1,
-                          cross_corr_coeffs);
+    rtc::ArrayView<float, kNumLowerBands> bands_cross_corr) {
+  band_features_extractor_.ComputeSpectralCrossCorrelation(
+      reference_frame_fft_, lagged_frame_fft_,
+      {bands_cross_corr_.data(), kOpusBands24kHz});
   // Normalize.
-  for (size_t i = 0; i < cross_corr_coeffs.size(); ++i) {
-    cross_corr_coeffs[i] =
-        cross_corr_coeffs[i] /
-        std::sqrt(0.001f + reference_frame_energy_coeffs_[i] *
-                               lagged_frame_energy_coeffs_[i]);
+  for (size_t i = 0; i < kOpusBands24kHz; ++i) {
+    bands_cross_corr_[i] =
+        bands_cross_corr_[i] /
+        std::sqrt(0.001f + reference_frame_bands_energy_[i] *
+                               lagged_frame_bands_energy_[i]);
   }
   // Decorrelate.
-  ComputeDct(cross_corr_coeffs, dct_table_, cross_correlations);
+  ComputeDct(bands_cross_corr_, dct_table_, bands_cross_corr);
   // Normalize (based on training set stats).
-  cross_correlations[0] -= 1.3f;
-  cross_correlations[1] -= 0.9f;
+  bands_cross_corr[0] -= 1.3f;
+  bands_cross_corr[1] -= 0.9f;
 }
 
 float SpectralFeaturesExtractor::ComputeVariability() {

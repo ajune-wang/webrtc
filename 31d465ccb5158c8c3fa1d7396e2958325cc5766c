@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a8aef91f_84d329b9",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-28T10:12:30Z",
+      "side": 1,
+      "message": "Yes, suspended_ssrcs and states all have 3 elements in chrome for vp9 screenshare (and realtime video also). It all gets somehow populated from the amount of passed ssrcs, which is 3.\n\nMaybe correct way would be to fix everything, so there are exactly 1 RtpSender and 1 RtpPayloadState and 1 suspended_ssrc, but it\u0027s not trivial. As I need to merge this fix ASAP, I want to do it in a way which can\u0027t break anything. In the followup CL i\u0027ll try to fix it in a correct way.\n\nRenamed it as you suggested.",
+      "parentUuid": "d849e1e5_2d39e617",
+      "range": {
+        "startLine": 63,
+        "startChar": 10,
+        "endLine": 63,
+        "endChar": 21
+      },
+      "revId": "31d465ccb5158c8c3fa1d7396e2958325cc5766c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb33e658_c2c29d80",
         "filename": "call/rtp_video_sender.h",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a40c4a13_d455a884",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-28T10:12:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb33e658_c2c29d80",
+      "range": {
+        "startLine": 194,
+        "startChar": 2,
+        "endLine": 194,
+        "endChar": 5
+      },
+      "revId": "31d465ccb5158c8c3fa1d7396e2958325cc5766c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2feea742_39d88d66",
         "filename": "call/video_send_stream.h",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2019-03-27T15:43:02Z",
       "side": 1,
       "message": "Isn\u0027t this tied to the RTP transport? We\u0027ll need |num_streams| media SSRCs. I guess this has no meaning when media_transport is used?",
+      "range": {
+        "startLine": 154,
+        "startChar": 29,
+        "endLine": 154,
+        "endChar": 41
+      },
+      "revId": "31d465ccb5158c8c3fa1d7396e2958325cc5766c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29b3a35f_c1ca07eb",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-28T10:12:30Z",
+      "side": 1,
+      "message": "This is a copy of a field from encoder_config: so it isn\u0027t tied to rtp transport:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/api/video_codecs/video_encoder_config.h?l\u003d157",
+      "parentUuid": "2feea742_39d88d66",
       "range": {
         "startLine": 154,
         "startChar": 29,

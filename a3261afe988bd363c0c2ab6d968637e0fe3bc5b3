@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4c33413a_5140e84a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-28T10:12:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25b3211e_b1c05753",
+      "range": {
+        "startLine": 10,
+        "startChar": 52,
+        "endLine": 10,
+        "endChar": 59
+      },
+      "revId": "a3261afe988bd363c0c2ab6d968637e0fe3bc5b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4adcd5b2_8f2966f1",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "a3261afe988bd363c0c2ab6d968637e0fe3bc5b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc580854_6e2366a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-28T10:12:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4adcd5b2_8f2966f1",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 21
+      },
+      "revId": "a3261afe988bd363c0c2ab6d968637e0fe3bc5b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e2691924_3efa6c5e",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-28T10:12:30Z",
+      "side": 1,
+      "message": "It\u0027s not. That\u0027s the problem. rtp_streams_ are created here:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/call/rtp_video_sender.cc?l\u003d130\n\naccording to the number of passed SSRCs. And for SVC 3 ssrcs are always passed in sdp, that\u0027s the only solution we found to pass it.\n\nI tried to filter out ssrcs in WebrtcVideoEngine, but it didn\u0027t work out - there\u0027re multiple ways ssrcs are passed to different parts of webrtc and it\u0027s impossible to modify it at some places.",
+      "parentUuid": "be21b334_22063139",
+      "range": {
+        "startLine": 454,
+        "startChar": 8,
+        "endLine": 454,
+        "endChar": 32
+      },
+      "revId": "a3261afe988bd363c0c2ab6d968637e0fe3bc5b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed42c1ec_c38b6fc2",
         "filename": "call/video_send_stream.h",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2019-03-27T15:28:44Z",
       "side": 1,
       "message": "This is a bit vague. I take it it\u0027s intended to distinguish between simulcast (multiple \"spatial layers\", each sent on a separate ssrc) and svc (multiple spatial layers, all sent on the same ssrc).\n\nI think that info belongs in RtpConfig member, above.\n\nBut isn\u0027t it enough to look at rtp.ssrcs.size()? That should be one for svc, and \u003e 1 for simulcast. Unless I\u0027m misunderstanding something.",
+      "range": {
+        "startLine": 154,
+        "startChar": 4,
+        "endLine": 154,
+        "endChar": 53
+      },
+      "revId": "a3261afe988bd363c0c2ab6d968637e0fe3bc5b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df9e0f60_72e85666",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-28T10:12:30Z",
+      "side": 1,
+      "message": "This is to distinguish between svc/simulcast. I can rename it to bool is_svc_, would that be better?\n\nAs i stated already in other comment, no, rtp.ssrcs.size() is always 3 for svc.",
+      "parentUuid": "ed42c1ec_c38b6fc2",
       "range": {
         "startLine": 154,
         "startChar": 4,

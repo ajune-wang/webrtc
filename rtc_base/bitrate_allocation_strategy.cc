@@ -21,13 +21,17 @@
 
 namespace webrtc {
 AudioPriorityConfig::AudioPriorityConfig()
-    : min_rate("min"), max_rate("max"), target_rate("target") {
+    : min_rate("min"),
+      max_rate("max"),
+      target_rate("target"),
+      audio_priority("audio_priority", 1) {
   std::string trial_string;
 // TODO(bugs.webrtc.org/9889): Remove this when Chromium build has been fixed.
 #if !defined(WEBRTC_CHROMIUM_BUILD)
   trial_string = field_trial::FindFullName("WebRTC-Bwe-AudioPriority");
 #endif
-  ParseFieldTrial({&min_rate, &max_rate, &target_rate}, trial_string);
+  ParseFieldTrial({&min_rate, &max_rate, &target_rate, &audio_priority},
+                  trial_string);
 }
 AudioPriorityConfig::AudioPriorityConfig(const AudioPriorityConfig&) = default;
 AudioPriorityConfig::~AudioPriorityConfig() = default;
@@ -59,9 +63,11 @@ std::vector<uint32_t> BitrateAllocationStrategy::DistributeBitratesEvenly(
       SetAllBitratesToMinimum(track_configs);
   uint32_t sum_min_bitrates = 0;
   uint32_t sum_max_bitrates = 0;
+  double remaining_priority_mass = 0.0;
   for (const auto& track_config : track_configs) {
     sum_min_bitrates += track_config.min_bitrate_bps;
     sum_max_bitrates += track_config.max_bitrate_bps;
+    remaining_priority_mass += track_config.priority;
   }
   if (sum_min_bitrates >= available_bitrate) {
     return track_allocations;
@@ -78,23 +84,20 @@ std::vector<uint32_t> BitrateAllocationStrategy::DistributeBitratesEvenly(
     // remaining tracks.
     std::multimap<uint32_t, size_t> max_bitrate_sorted_configs;
     for (const auto& track_config : track_configs) {
-      max_bitrate_sorted_configs.insert(
-          std::make_pair(track_config.max_bitrate_bps,
-                         &track_config - &track_configs.front()));
+      max_bitrate_sorted_configs.insert(std::make_pair(
+          track_config.max_bitrate_bps - track_config.min_bitrate_bps,
+          &track_config - &track_configs.front()));
     }
     uint32_t total_available_increase = available_bitrate - sum_min_bitrates;
-    int processed_configs = 0;
     for (const auto& track_config_pair : max_bitrate_sorted_configs) {
-      uint32_t available_increase =
-          total_available_increase /
-          (static_cast<uint32_t>(track_configs.size() - processed_configs));
-      uint32_t consumed_increase =
-          std::min(track_configs[track_config_pair.second].max_bitrate_bps -
-                       track_configs[track_config_pair.second].min_bitrate_bps,
-                   available_increase);
+      const TrackConfig& config = track_configs[track_config_pair.second];
+      uint32_t available_increase = static_cast<uint32_t>(
+          config.priority * total_available_increase / remaining_priority_mass);
+      uint32_t consumed_increase = std::min(
+          config.max_bitrate_bps - config.min_bitrate_bps, available_increase);
       track_allocations[track_config_pair.second] += consumed_increase;
       total_available_increase -= consumed_increase;
-      ++processed_configs;
+      remaining_priority_mass -= config.priority;
     }
     return track_allocations;
   }
@@ -121,6 +124,7 @@ std::vector<uint32_t> AudioPriorityBitrateAllocationStrategy::AllocateBitrates(
     if (track_config.track_id == audio_track_id_) {
       audio_config_index = &track_config - &track_configs[0];
       audio_track_config = &track_config;
+      audio_track_config->priority = config_.audio_priority;
       if (config_.min_rate)
         audio_track_config->min_bitrate_bps = config_.min_rate->bps();
       if (config_.max_rate)

@@ -53,6 +53,8 @@ class BitrateAllocationStrategy {
     // True means track may not be paused by allocating 0 bitrate.
     bool enforce_min_bitrate;
 
+    double priority = 1.0;
+
     // MediaStreamTrack ID as defined by application. May be empty.
     std::string track_id;
   };
@@ -88,6 +90,7 @@ struct AudioPriorityConfig {
   FieldTrialOptional<DataRate> min_rate;
   FieldTrialOptional<DataRate> max_rate;
   FieldTrialOptional<DataRate> target_rate;
+  FieldTrialParameter<double> audio_priority;
   AudioPriorityConfig();
   AudioPriorityConfig(const AudioPriorityConfig&);
   AudioPriorityConfig& operator=(const AudioPriorityConfig&) = default;

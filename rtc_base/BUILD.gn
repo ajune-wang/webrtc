@@ -1264,6 +1264,7 @@ if (rtc_include_tests) {
       "../api:scoped_refptr",
       "../api/units:time_delta",
       "../system_wrappers",
+      "../test:field_trial",
       "../test:fileutils",
       "../test:test_support",
       "memory:unittests",

@@ -53,6 +53,7 @@ const int kMaxAllowedPidDIff = 30;
 // Only positive speeds, range for real-time coding currently is: 5 - 8.
 // Lower means slower/better quality, higher means fastest/lower quality.
 int GetCpuSpeed(int width, int height) {
+
 #if defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64) || defined(ANDROID)
   return 8;
 #else
@@ -679,13 +680,8 @@ int VP9EncoderImpl::InitAndSetControlSettings(const VideoCodec* inst) {
   // Turn on row-based multithreading.
   vpx_codec_control(encoder_, VP9E_SET_ROW_MT, 1);
 
-#if !defined(WEBRTC_ARCH_ARM) && !defined(WEBRTC_ARCH_ARM64) && \
-    !defined(ANDROID)
-  // Do not enable the denoiser on ARM since optimization is pending.
-  // Denoiser is on by default on other platforms.
   vpx_codec_control(encoder_, VP9E_SET_NOISE_SENSITIVITY,
                     inst->VP9().denoisingOn ? 1 : 0);
-#endif
 
   if (codec_.mode == VideoCodecMode::kScreensharing) {
     // Adjust internal parameters to screen content.

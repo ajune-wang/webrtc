@@ -598,17 +598,12 @@ if (rtc_include_tests) {
     ]
   }
 
-  video_coding_modules_tests_resources = []
-  if (is_android) {
-    video_coding_modules_tests_resources += [
-      "../../resources/foreman_128x96.yuv",
-      "../../resources/foreman_160x120.yuv",
-      "../../resources/foreman_176x144.yuv",
-      "../../resources/foreman_240x136.yuv",
-      "../../resources/foreman_320x240.yuv",
-      "../../resources/foreman_480x272.yuv",
-    ]
-  }
+  video_coding_modules_tests_resources = [
+    "../../resources/Room.320_240.yuv",
+    "../../resources/Bridge.320_240.yuv",
+    "../../resources/Street.320_240.yuv",
+  ]
+
   if (!is_android) {
     video_coding_modules_tests_resources += [
       "../../resources/FourPeople_1280x720_30.yuv",
@@ -685,6 +680,7 @@ if (rtc_include_tests) {
       "codecs/h264/test/h264_impl_unittest.cc",
       "codecs/multiplex/test/multiplex_adapter_unittest.cc",
       "codecs/test/video_encoder_decoder_instantiation_tests.cc",
+      "codecs/test/videocodec_test_armeval.cc",
       "codecs/test/videocodec_test_libvpx.cc",
       "codecs/vp8/test/mock_libvpx_interface.h",
       "codecs/vp8/test/vp8_impl_unittest.cc",

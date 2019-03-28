@@ -81,6 +81,10 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
   void SendKeyFrame() override;
 
+  void OnLossNotification(uint32_t timestamp_of_last_received,
+                          uint32_t timestamp_of_last_decoded,
+                          bool decodability_flag) override;
+
   void OnBitrateUpdated(DataRate target_bitrate,
                         DataRate target_headroom,
                         uint8_t fraction_lost,

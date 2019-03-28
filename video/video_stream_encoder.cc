@@ -1367,6 +1367,13 @@ void VideoStreamEncoder::SendKeyFrame() {
   }
 }
 
+void VideoStreamEncoder::OnLossNotification(uint32_t timestamp_of_last_received,
+                                            uint32_t timestamp_of_last_decoded,
+                                            bool decodability_flag) {
+  RTC_NOTREACHED() << "Not implemented.";
+  // TODO: !!! encoder_ ...
+}
+
 EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
     const EncodedImage& encoded_image,
     const CodecSpecificInfo* codec_specific_info,

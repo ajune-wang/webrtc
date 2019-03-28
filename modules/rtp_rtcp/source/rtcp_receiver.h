@@ -45,6 +45,9 @@ class RTCPReceiver {
         const std::vector<uint16_t>& nack_sequence_numbers) = 0;
     virtual void OnReceivedRtcpReportBlocks(
         const ReportBlockList& report_blocks) = 0;
+    virtual void OnReceivedLossNotification(uint16_t last_decoded,
+                                            uint16_t last_received,
+                                            bool decodability_flag) = 0;
 
    protected:
     virtual ~ModuleRtpRtcp() = default;

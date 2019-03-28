@@ -262,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "885ba9b2_c35606b4",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-28T13:53:26Z",
+      "side": 1,
+      "message": "Tweaking rtp config doesn\u0027t work from the box. There\u0027re some interconnections I can\u0027t find yet.\nRenamed to is_svc flag.",
+      "parentUuid": "3d390cb8_97a99b1f",
+      "range": {
+        "startLine": 154,
+        "startChar": 4,
+        "endLine": 154,
+        "endChar": 53
+      },
+      "revId": "a3261afe988bd363c0c2ab6d968637e0fe3bc5b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4773b97f_7649736b",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 3
@@ -273,6 +297,30 @@
       "writtenOn": "2019-03-28T10:54:42Z",
       "side": 1,
       "message": "Not sure this is a better way, but would it work if you instead do\n\nif (parameters_.encoder_config.number_of_streams \u003c config.rtp.ssrcs.size()) {\n  // Don\u0027t use more ssrcs than we have streams. Matters when switching between\n  // svc and simulcast mid-stream.\n  config.rtp.ssrcs.set_size(parameters_.encoder_config.number_of_streams);\n}\n\n?\n\nIf you don\u0027t like this way, then I think I\u0027d prefer an is_svc_ flag.",
+      "range": {
+        "startLine": 2304,
+        "startChar": 0,
+        "endLine": 2304,
+        "endChar": 68
+      },
+      "revId": "a3261afe988bd363c0c2ab6d968637e0fe3bc5b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "001760e1_446fb784",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2304,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-28T13:53:26Z",
+      "side": 1,
+      "message": "I tried that. But there are some more paths how original 3 ssrcs are propagated. This leads to inconsistency then rtpVideoSender would (correctly) create only one rtp_stream, but e.g. videostreamencoder would still ask to disable/enable 3 streams. This leads to RTC_CHECKS and crashes. I plan to do that in a follow up CL, but it will take much longer and i need this asap to merge this to m74.",
+      "parentUuid": "4773b97f_7649736b",
       "range": {
         "startLine": 2304,
         "startChar": 0,

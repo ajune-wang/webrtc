@@ -187,6 +187,30 @@
       "revId": "a3261afe988bd363c0c2ab6d968637e0fe3bc5b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f8b5c86_2e68b739",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-28T10:30:48Z",
+      "side": 1,
+      "message": "Using bool is_svc_ is ok for the immediate fix. Or keep num_streams_, but replace the ambiguous \"VideoStreams\" by something that clarifies what \"stream\" means in this context.\n\nIf I\u0027ve understood your other comment correctly, is_svc_ \u003d\u003d true or num_streams_ \u003d 1 means roughly \"if multiple ssrcs are configured (rtp.ssrcs.size() \u003e 1), ignore all but the first one\".\n\nI still think it would make sense to move this setting it to the Rtp config. As I see it, an encoder may produce different multiple layers with several different flavors of layering, and this setting configures how the RtpVideoSender maps those layers onto rtp streams. But I won\u0027t insist on this cl.\n\nDo you foresee any need to be able to switch between simulcast and svc mid-stream, e.g, switching from an encoder supporting svc to one that doesn\u0027t, or vice versa? Then one might want to do that without changing the RtpConfig.",
+      "parentUuid": "df9e0f60_72e85666",
+      "range": {
+        "startLine": 154,
+        "startChar": 4,
+        "endLine": 154,
+        "endChar": 53
+      },
+      "revId": "a3261afe988bd363c0c2ab6d968637e0fe3bc5b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

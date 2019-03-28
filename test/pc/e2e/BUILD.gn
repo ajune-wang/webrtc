@@ -235,6 +235,7 @@ if (rtc_include_tests) {
       ":stats_poller",
       ":test_peer",
       ":video_quality_analyzer_injection_helper",
+      "../../../api:analyzer_helper",
       "../../../api:audio_quality_analyzer_api",
       "../../../api:libjingle_peerconnection_api",
       "../../../api:peer_connection_quality_test_fixture_api",
@@ -346,10 +347,13 @@ rtc_source_set("default_audio_quality_analyzer") {
   ]
 
   deps = [
+    "../..:perf_test",
+    "../../../api:analyzer_helper",
     "../../../api:audio_quality_analyzer_api",
     "../../../api:libjingle_peerconnection_api",
     "../../../api:stats_observer_interface",
     "../../../rtc_base:logging",
+    "../../../rtc_base:rtc_numerics",
     "//third_party/abseil-cpp/absl/strings",
   ]
 }

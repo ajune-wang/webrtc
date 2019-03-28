@@ -70,6 +70,30 @@
       "revId": "20c0f40c8fd332749980c900766c48871302e0aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fc2b266_0b35b8d5",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-28T09:40:42Z",
+      "side": 1,
+      "message": "What about implicit conversion to ArrayView? ArrayView has implicit conversions from types with data() and size() methods. But it doesn\u0027t have implicit conversion using cdata() and size(), right?\n\nIf we don\u0027t want an implicit conversion to ArrayView to ever imply a copy, data() must by the const method, and we\u0027d need something different (mutable_data() ?) for the non-const version.",
+      "parentUuid": "97004d13_b3bb7c48",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 67
+      },
+      "revId": "20c0f40c8fd332749980c900766c48871302e0aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

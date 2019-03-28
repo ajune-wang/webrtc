@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3680850e_0d78e115",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-03-28T15:33:08Z",
+      "side": 1,
+      "message": "Do we intend to set |video_header.generic| even if we cannot send it, RTCP-wise? If so - great, the log is not necessary. If yes, perhaps removing the log was ill-advised? I am working under the assumption that avoiding all of the work associated with |video_header.generic| is preferable if it doesn\u0027t end up getting sent.",
+      "revId": "59c8569ed956b3cb6ef01137b8e9d72baf8833ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

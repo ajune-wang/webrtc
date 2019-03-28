@@ -220,6 +220,7 @@ void PeerConnectionE2EQualityTest::Run(
 
   SetDefaultValuesForMissingParams({alice_params.get(), bob_params.get()});
   ValidateParams({alice_params.get(), bob_params.get()});
+  RTC_CHECK_GT(run_params.encoder_bitrate_multiplier, 0.0);
 
   // Print test summary
   RTC_LOG(INFO)
@@ -258,7 +259,7 @@ void PeerConnectionE2EQualityTest::Run(
           },
           [this]() { StartVideo(alice_video_sources_); }),
       video_quality_analyzer_injection_helper_.get(), signaling_thread.get(),
-      alice_audio_output_dump_file_name);
+      alice_audio_output_dump_file_name, run_params.encoder_bitrate_multiplier);
   bob_ = TestPeer::CreateTestPeer(
       std::move(bob_components), std::move(bob_params),
       absl::make_unique<FixturePeerConnectionObserver>(
@@ -268,7 +269,7 @@ void PeerConnectionE2EQualityTest::Run(
           },
           [this]() { StartVideo(bob_video_sources_); }),
       video_quality_analyzer_injection_helper_.get(), signaling_thread.get(),
-      bob_audio_output_dump_file_name);
+      bob_audio_output_dump_file_name, run_params.encoder_bitrate_multiplier);
 
   int num_cores = CpuInfo::DetectNumberOfCores();
   RTC_DCHECK_GE(num_cores, 1);

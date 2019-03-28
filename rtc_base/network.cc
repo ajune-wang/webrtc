@@ -34,6 +34,7 @@
 #include <algorithm>
 #include <memory>
 
+#include "absl/memory/memory.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/network_monitor.h"
@@ -281,8 +282,8 @@ NetworkManagerBase::enumeration_permission() const {
 void NetworkManagerBase::GetAnyAddressNetworks(NetworkList* networks) {
   if (!ipv4_any_address_network_) {
     const rtc::IPAddress ipv4_any_address(INADDR_ANY);
-    ipv4_any_address_network_.reset(
-        new rtc::Network("any", "any", ipv4_any_address, 0, ADAPTER_TYPE_ANY));
+    ipv4_any_address_network_ = absl::make_unique<rtc::Network>(
+        "any", "any", ipv4_any_address, 0, ADAPTER_TYPE_ANY);
     ipv4_any_address_network_->set_default_local_address_provider(this);
     ipv4_any_address_network_->set_mdns_responder_provider(this);
     ipv4_any_address_network_->AddIP(ipv4_any_address);
@@ -291,8 +292,8 @@ void NetworkManagerBase::GetAnyAddressNetworks(NetworkList* networks) {
 
   if (!ipv6_any_address_network_) {
     const rtc::IPAddress ipv6_any_address(in6addr_any);
-    ipv6_any_address_network_.reset(
-        new rtc::Network("any", "any", ipv6_any_address, 0, ADAPTER_TYPE_ANY));
+    ipv6_any_address_network_ = absl::make_unique<rtc::Network>(
+        "any", "any", ipv6_any_address, 0, ADAPTER_TYPE_ANY);
     ipv6_any_address_network_->set_default_local_address_provider(this);
     ipv6_any_address_network_->set_mdns_responder_provider(this);
     ipv6_any_address_network_->AddIP(ipv6_any_address);
@@ -558,9 +559,9 @@ void BasicNetworkManager::ConvertIfAddrs(struct ifaddrs* interfaces,
     auto iter = current_networks.find(key);
     if (iter == current_networks.end()) {
       // TODO(phoglund): Need to recognize other types as well.
-      std::unique_ptr<Network> network(
-          new Network(cursor->ifa_name, cursor->ifa_name, prefix, prefix_length,
-                      adapter_type));
+      auto network =
+          absl::make_unique<Network>(cursor->ifa_name, cursor->ifa_name, prefix,
+                                     prefix_length, adapter_type);
       network->set_default_local_address_provider(this);
       network->set_scope_id(scope_id);
       network->AddIP(ip);
@@ -649,14 +650,14 @@ bool BasicNetworkManager::CreateNetworks(bool include_ignored,
   NetworkMap current_networks;
   // MSDN recommends a 15KB buffer for the first try at GetAdaptersAddresses.
   size_t buffer_size = 16384;
-  std::unique_ptr<char[]> adapter_info(new char[buffer_size]);
+  auto adapter_info = absl::make_unique<char[]>(buffer_size);
   PIP_ADAPTER_ADDRESSES adapter_addrs =
       reinterpret_cast<PIP_ADAPTER_ADDRESSES>(adapter_info.get());
   int adapter_flags = (GAA_FLAG_SKIP_DNS_SERVER | GAA_FLAG_SKIP_ANYCAST |
                        GAA_FLAG_SKIP_MULTICAST | GAA_FLAG_INCLUDE_PREFIX);
   int ret = 0;
   do {
-    adapter_info.reset(new char[buffer_size]);
+    adapter_info = absl::make_unique<char[]>(buffer_size);
     adapter_addrs = reinterpret_cast<PIP_ADAPTER_ADDRESSES>(adapter_info.get());
     ret = GetAdaptersAddresses(AF_UNSPEC, adapter_flags, 0, adapter_addrs,
                                reinterpret_cast<PULONG>(&buffer_size));
@@ -739,8 +740,8 @@ bool BasicNetworkManager::CreateNetworks(bool include_ignored,
               adapter_type = ADAPTER_TYPE_UNKNOWN;
               break;
           }
-          std::unique_ptr<Network> network(new Network(
-              name, description, prefix, prefix_length, adapter_type));
+          auto network = absl::make_unique<Network>(
+              name, description, prefix, prefix_length, adapter_type);
           network->set_default_local_address_provider(this);
           network->set_mdns_responder_provider(this);
           network->set_scope_id(scope_id);

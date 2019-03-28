@@ -135,9 +135,7 @@ class NetworkManager : public DefaultLocalAddressProvider,
   //
   // This method appends the "any address" networks to the list, such that this
   // can optionally be called after GetNetworks.
-  //
-  // TODO(guoweis): remove this body when chromium implements this.
-  virtual void GetAnyAddressNetworks(NetworkList* networks) {}
+  virtual void GetAnyAddressNetworks(NetworkList* networks) = 0;
 
   // Dumps the current list of networks in the network manager.
   virtual void DumpNetworks() {}

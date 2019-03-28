@@ -20,6 +20,7 @@
 #include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "modules/audio_processing/agc2/rnn_vad/fft_util.h"
 #include "modules/audio_processing/agc2/rnn_vad/ring_buffer.h"
+#include "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h"
 #include "modules/audio_processing/agc2/rnn_vad/symmetric_matrix_buffer.h"
 
 namespace webrtc {
@@ -32,7 +33,7 @@ class SpectralFeaturesView {
                        rtc::ArrayView<float, kNumLowerBands> average,
                        rtc::ArrayView<float, kNumLowerBands> first_derivative,
                        rtc::ArrayView<float, kNumLowerBands> second_derivative,
-                       rtc::ArrayView<float, kNumLowerBands> cross_correlations,
+                       rtc::ArrayView<float, kNumLowerBands> bands_cross_corr,
                        float* variability);
   SpectralFeaturesView(const SpectralFeaturesView&);
   ~SpectralFeaturesView();
@@ -43,7 +44,7 @@ class SpectralFeaturesView {
   const rtc::ArrayView<float, kNumLowerBands> first_derivative;
   const rtc::ArrayView<float, kNumLowerBands> second_derivative;
   // Spectral cross-correlation for the lower bands.
-  const rtc::ArrayView<float, kNumLowerBands> cross_correlations;
+  const rtc::ArrayView<float, kNumLowerBands> bands_cross_corr;
   // Spectral variability score.
   float* const variability;
 };
@@ -72,15 +73,16 @@ class SpectralFeaturesExtractor {
       rtc::ArrayView<float, kNumLowerBands> first_derivative,
       rtc::ArrayView<float, kNumLowerBands> second_derivative);
   void ComputeCrossCorrelation(
-      rtc::ArrayView<float, kNumLowerBands> cross_correlations);
+      rtc::ArrayView<float, kNumLowerBands> bands_cross_corr);
   float ComputeVariability();
 
-  BandAnalysisFft fft_;
+  FftUtil fft_;
   std::vector<std::complex<float>> reference_frame_fft_;
   std::vector<std::complex<float>> lagged_frame_fft_;
-  std::array<float, kNumBands> reference_frame_energy_coeffs_{};
-  std::array<float, kNumBands> lagged_frame_energy_coeffs_{};
-  const std::array<size_t, kNumBands> band_boundaries_;
+  BandFeaturesExtractor band_features_extractor_;
+  std::array<float, kNumBands> reference_frame_bands_energy_{};
+  std::array<float, kNumBands> lagged_frame_bands_energy_{};
+  std::array<float, kNumBands> bands_cross_corr_{};
   const std::array<float, kNumBands * kNumBands> dct_table_;
   RingBuffer<float, kNumBands, kSpectralCoeffsHistorySize>
       spectral_coeffs_ring_buf_;

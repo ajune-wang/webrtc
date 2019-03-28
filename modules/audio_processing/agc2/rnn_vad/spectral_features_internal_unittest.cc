@@ -10,6 +10,11 @@
 
 #include "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h"
 
+#include <algorithm>
+#include <array>
+#include <complex>
+
+#include "api/array_view.h"
 #include "modules/audio_processing/agc2/rnn_vad/test_utils.h"
 // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
 // #include "test/fpe_observer.h"
@@ -18,56 +23,21 @@
 namespace webrtc {
 namespace rnn_vad {
 namespace test {
-namespace {
 
-constexpr size_t kSampleRate48kHz = 48000;
-constexpr size_t kFrameSize20ms48kHz = 2 * kSampleRate48kHz / 100;
-constexpr size_t kFftNumCoeffs20ms48kHz = kFrameSize20ms48kHz / 2 + 1;
+TEST(RnnVadTest, BandFeaturesExtractorValidOutput) {
+  BandFeaturesExtractor e;
+  std::array<std::complex<float>, kFftSize20ms24kHz> in;
+  std::array<float, kOpusBands24kHz> out_energy{};
+  std::array<float, kOpusBands24kHz> out_x_corr{};
 
-}  // namespace
+  in.fill({1.f, 0.f});
+  e.ComputeBandEnergies(in, out_energy);
+  e.ComputeSpectralCrossCorrelation(in, in, out_x_corr);
 
-// TODO(bugs.webrtc.org/9076): Remove this test before closing the issue.
-// Check that when using precomputed FFT coefficients for frames at 48 kHz, the
-// output of ComputeBandEnergies() is bit exact.
-TEST(RnnVadTest, ComputeBandEnergies48kHzBitExactness) {
-  // Initialize input data reader and buffers.
-  auto fft_coeffs_reader = CreateFftCoeffsReader();
-  const size_t num_frames = fft_coeffs_reader.second;
-  ASSERT_EQ(
-      kFftNumCoeffs20ms48kHz,
-      rtc::CheckedDivExact(fft_coeffs_reader.first->data_length(), num_frames) /
-          2);
-  std::array<float, kFftNumCoeffs20ms48kHz> fft_coeffs_real;
-  std::array<float, kFftNumCoeffs20ms48kHz> fft_coeffs_imag;
-  std::array<std::complex<float>, kFftNumCoeffs20ms48kHz> fft_coeffs;
-  // Init expected output reader and buffer.
-  auto band_energies_reader = CreateBandEnergyCoeffsReader();
-  ASSERT_EQ(num_frames, band_energies_reader.second);
-  std::array<float, kNumBands> expected_band_energies;
-  // Init band energies coefficients computation.
-  const auto band_boundary_indexes =
-      ComputeBandBoundaryIndexes(kSampleRate48kHz, kFrameSize20ms48kHz);
-  std::array<float, kNumBands> computed_band_energies;
-
-  // Check output for every frame.
-  {
-    // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
-    // FloatingPointExceptionObserver fpe_observer;
-    for (size_t i = 0; i < num_frames; ++i) {
-      SCOPED_TRACE(i);
-      // Read input.
-      fft_coeffs_reader.first->ReadChunk(fft_coeffs_real);
-      fft_coeffs_reader.first->ReadChunk(fft_coeffs_imag);
-      for (size_t i = 0; i < kFftNumCoeffs20ms48kHz; ++i) {
-        fft_coeffs[i].real(fft_coeffs_real[i]);
-        fft_coeffs[i].imag(fft_coeffs_imag[i]);
-      }
-      band_energies_reader.first->ReadChunk(expected_band_energies);
-      // Compute band energy coefficients and check output.
-      ComputeBandEnergies(fft_coeffs, band_boundary_indexes,
-                          computed_band_energies);
-      ExpectEqualFloatArray(expected_band_energies, computed_band_energies);
-    }
+  for (size_t i = 0; i < kOpusBands24kHz; ++i) {
+    SCOPED_TRACE(i);
+    EXPECT_GT(out_energy[i], 0.f);
+    EXPECT_GT(out_x_corr[i], 0.f);
   }
 }
 

@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c88faaf9_4533b24f",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-28T12:09:03Z",
+      "side": 1,
+      "message": "Could this function be reverted to its former implementation, before the multistream changes?",
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "882ccb5a_289ed00c",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-28T12:09:03Z",
+      "side": 1,
+      "message": "Is there a strong reason to disallow it at this point? Would things break?",
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bcc0901_3ca80a66",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-28T12:09:03Z",
+      "side": 1,
+      "message": "I think this is right. What would an odd number of coupled streams mean? Is that just an error?",
+      "range": {
+        "startLine": 439,
+        "startChar": 29,
+        "endLine": 439,
+        "endChar": 44
+      },
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52f24e88_ee56c747",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-28T12:09:03Z",
+      "side": 1,
+      "message": "You don\u0027t really need to name the arguments in comments unless you just provide literals.",
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3725e07_bcc17250",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-28T12:09:03Z",
+      "side": 1,
+      "message": "uint8_t",
+      "range": {
+        "startLine": 78,
+        "startChar": 10,
+        "endLine": 78,
+        "endChar": 23
+      },
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d443fe2_31c46668",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-28T12:09:03Z",
+      "side": 1,
+      "message": "uint8_t",
+      "range": {
+        "startLine": 352,
+        "startChar": 10,
+        "endLine": 352,
+        "endChar": 23
+      },
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

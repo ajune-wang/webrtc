@@ -94,6 +94,30 @@
       "revId": "20c0f40c8fd332749980c900766c48871302e0aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "725f75ad_be03e9f5",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-28T10:37:14Z",
+      "side": 1,
+      "message": "You could define operator ArrayView... but I see your point. Either one takes the approach that COW should happen invisibly, in which case it\u0027s fine to do it in the non-const data overload; or one takes the approach that it\u0027s expensive and should only happen deliberately and explicitly.\n\nI wonder if a good way to do the latter might be to guarantee that all normal methods never mutate the data, except for one Mutate() method that returns a reference to the mutable stuff.\n\n  class MutableFoo;\n\n  class Foo {\n    const uint8_t* data() {...}\n    MutableFoo\u0026 Mutable() { return static_cast\u003cMutableFoo\u003e(*this); }\n  };\n\n  class MutableFoo : public Foo {\n    uint8_t* data() {...}\n  };\n  static_assert(sizeof(MutableFoo) \u003d\u003d sizeof(Foo));  // MutableFoo adds no new state.\n\nThen you could use foo of class Foo without risking a copy as long as you never called foo.Mutable(), but you could e.g. easily call foo.Mutable().data() or SomeMethodThatTakesArrayView(foo.Mutable()) when necessary.",
+      "parentUuid": "2fc2b266_0b35b8d5",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 67
+      },
+      "revId": "20c0f40c8fd332749980c900766c48871302e0aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -60,6 +60,7 @@ class RtpTransportControllerSend final
       const RtpConfig& rtp_config,
       int rtcp_report_interval_ms,
       Transport* send_transport,
+      int num_active_video_ssrcs,
       const RtpSenderObservers& observers,
       RtcEventLog* event_log,
       std::unique_ptr<FecController> fec_controller,

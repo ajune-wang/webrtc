@@ -151,6 +151,9 @@ class VideoSendStream {
     // Per PeerConnection cryptography options.
     CryptoOptions crypto_options;
 
+    // Max number of encoded VideoStreams to produce.
+    int num_streams;
+
    private:
     // Access to the copy constructor is private to force use of the Copy()
     // method for those exceptional cases where we do use it.

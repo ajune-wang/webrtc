@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1c484d0_75885cd6",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-03-28T08:50:58Z",
+      "side": 1,
+      "message": "These three comments blocks should be merged to one. \n\n// Pick a target bitrate between the constraints. This overrules the allocator if it 1) allocated a bitrate of zero to disable the stream or 2) allocated a higher than max to allow for e.g. extra FEC. For now we ignore these the exceptions.",
+      "range": {
+        "startLine": 447,
+        "startChar": 2,
+        "endLine": 452,
+        "endChar": 51
+      },
+      "revId": "bc1c835696b2e84f5df52ff7c909edfae4ee55bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d0d34ba_9bb7bda3",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-03-28T08:50:58Z",
+      "side": 1,
+      "message": "overridden",
+      "range": {
+        "startLine": 824,
+        "startChar": 33,
+        "endLine": 824,
+        "endChar": 43
+      },
+      "revId": "bc1c835696b2e84f5df52ff7c909edfae4ee55bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21b3924b_b5aabe6b",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-03-28T08:50:58Z",
+      "side": 1,
+      "message": "Add a TODO, this is obviously not right.",
+      "range": {
+        "startLine": 842,
+        "startChar": 4,
+        "endLine": 842,
+        "endChar": 36
+      },
+      "revId": "bc1c835696b2e84f5df52ff7c909edfae4ee55bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0d9b925_955d5ec3",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-03-28T08:50:58Z",
+      "side": 1,
+      "message": "\"Possibly\" is a bit confusing.\nMaybe \", including overhead if configured by field trial.\"",
+      "range": {
+        "startLine": 133,
+        "startChar": 33,
+        "endLine": 133,
+        "endChar": 41
+      },
+      "revId": "bc1c835696b2e84f5df52ff7c909edfae4ee55bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "000c2384_f9f63e13",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-03-28T08:50:58Z",
+      "side": 1,
+      "message": "or filed trial?",
+      "range": {
+        "startLine": 987,
+        "startChar": 38,
+        "endLine": 987,
+        "endChar": 69
+      },
+      "revId": "bc1c835696b2e84f5df52ff7c909edfae4ee55bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

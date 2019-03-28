@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99bc2a00_62d924b3",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-03-28T08:50:27Z",
+      "side": 1,
+      "message": "Not sure why, but based on try-bot results, it does not seem OK to use it here. Perhaps an updated dependency check is needed.",
+      "revId": "14461233e90d9bf3267e001fd87a224e4bc7c0b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c175c8d_b7b0df9c",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-03-28T08:50:27Z",
+      "side": 1,
+      "message": "Should it be emphasized that this can only happen in combination with CallKit or can it also happen in other situations?",
+      "range": {
+        "startLine": 522,
+        "startChar": 4,
+        "endLine": 522,
+        "endChar": 5
+      },
+      "revId": "14461233e90d9bf3267e001fd87a224e4bc7c0b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c2c0880_81138d0f",
+        "filename": "sdk/objc/native/src/audio/audio_device_ios.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-03-28T08:50:27Z",
+      "side": 1,
+      "message": "Do we know for sure that the format has changed here as is stated in the comment?",
+      "range": {
+        "startLine": 531,
+        "startChar": 38,
+        "endLine": 531,
+        "endChar": 41
+      },
+      "revId": "14461233e90d9bf3267e001fd87a224e4bc7c0b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

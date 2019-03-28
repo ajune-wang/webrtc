@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90a25057_9e953994",
+        "filename": "modules/video_coding/jitter_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-03-28T10:29:33Z",
+      "side": 0,
+      "message": "can this be removed?",
+      "range": {
+        "startLine": 285,
+        "startChar": 38,
+        "endLine": 285,
+        "endChar": 59
+      },
+      "revId": "b3ae979ecd92180109fcf2c6c6e200b97d25d62c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -248,13 +248,15 @@ void PeerConnectionE2EQualityTest::Run(
   // Copy Alice and Bob video configs to correctly pass them into lambdas.
   std::vector<VideoConfig> alice_video_configs = alice_params->video_configs;
   std::vector<VideoConfig> bob_video_configs = bob_params->video_configs;
+  absl::optional<AudioConfig> alice_audio_configs = alice_params->audio_config;
+  absl::optional<AudioConfig> bob_audio_configs = bob_params->audio_config;
 
   alice_ = TestPeer::CreateTestPeer(
       std::move(alice_components), std::move(alice_params),
       absl::make_unique<FixturePeerConnectionObserver>(
-          [this, bob_video_configs](
+          [this, bob_video_configs, bob_audio_configs](
               rtc::scoped_refptr<RtpTransceiverInterface> transceiver) {
-            SetupVideoSink(transceiver, bob_video_configs);
+            OnTrackCallback(transceiver, bob_video_configs, bob_audio_configs);
           },
           [this]() { StartVideo(alice_video_sources_); }),
       video_quality_analyzer_injection_helper_.get(), signaling_thread.get(),
@@ -262,9 +264,10 @@ void PeerConnectionE2EQualityTest::Run(
   bob_ = TestPeer::CreateTestPeer(
       std::move(bob_components), std::move(bob_params),
       absl::make_unique<FixturePeerConnectionObserver>(
-          [this, alice_video_configs](
+          [this, alice_video_configs, alice_audio_configs](
               rtc::scoped_refptr<RtpTransceiverInterface> transceiver) {
-            SetupVideoSink(transceiver, alice_video_configs);
+            OnTrackCallback(transceiver, alice_video_configs,
+                            alice_audio_configs);
           },
           [this]() { StartVideo(bob_video_sources_); }),
       video_quality_analyzer_injection_helper_.get(), signaling_thread.get(),
@@ -284,7 +287,7 @@ void PeerConnectionE2EQualityTest::Run(
 
   video_quality_analyzer_injection_helper_->Start(test_case_name_,
                                                   video_analyzer_threads);
-  audio_quality_analyzer_->Start(test_case_name_);
+  audio_quality_analyzer_->Start(test_case_name_, &analyzer_helper_);
 
   // Start RTCEventLog recording if requested.
   if (alice_->params()->rtc_event_log_path) {
@@ -353,6 +356,7 @@ void PeerConnectionE2EQualityTest::Run(
       rtc::Bind(&PeerConnectionE2EQualityTest::TearDownCallOnSignalingThread,
                 this));
 
+  audio_quality_analyzer_->Stop();
   video_quality_analyzer_injection_helper_->Stop();
 
   // Ensuring that TestPeers have been destroyed in order to correctly close
@@ -451,34 +455,37 @@ void PeerConnectionE2EQualityTest::ValidateParams(std::vector<Params*> params) {
   RTC_CHECK_GT(media_streams_count, 0) << "No media in the call.";
 }
 
-void PeerConnectionE2EQualityTest::SetupVideoSink(
+void PeerConnectionE2EQualityTest::OnTrackCallback(
     rtc::scoped_refptr<RtpTransceiverInterface> transceiver,
-    std::vector<VideoConfig> remote_video_configs) {
+    std::vector<VideoConfig> remote_video_configs,
+    absl::optional<AudioConfig> remote_audio_configs) {
   const rtc::scoped_refptr<MediaStreamTrackInterface>& track =
       transceiver->receiver()->track();
-  if (track->kind() != MediaStreamTrackInterface::kVideoKind) {
-    return;
-  }
-
-  RTC_CHECK_EQ(transceiver->receiver()->stream_ids().size(), 1);
-  std::string stream_label = transceiver->receiver()->stream_ids().front();
-  VideoConfig* video_config = nullptr;
-  for (auto& config : remote_video_configs) {
-    if (config.stream_label == stream_label) {
-      video_config = &config;
-      break;
+  if (track->kind() == MediaStreamTrackInterface::kAudioKind) {
+    RTC_CHECK_EQ(transceiver->receiver()->stream_ids().size(), 1);
+    analyzer_helper_.AddTrackToStreamMapping(
+        track->id(), transceiver->receiver()->stream_ids().front());
+  } else {
+    RTC_CHECK_EQ(transceiver->receiver()->stream_ids().size(), 1);
+    std::string stream_label = transceiver->receiver()->stream_ids().front();
+    VideoConfig* video_config = nullptr;
+    for (auto& config : remote_video_configs) {
+      if (config.stream_label == stream_label) {
+        video_config = &config;
+        break;
+      }
     }
+    RTC_CHECK(video_config);
+    test::VideoFrameWriter* writer = MaybeCreateVideoWriter(
+        video_config->output_dump_file_name, *video_config);
+    // It is safe to cast here, because it is checked above that
+    // track->kind() is kVideoKind.
+    auto* video_track = static_cast<VideoTrackInterface*>(track.get());
+    std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>> video_sink =
+        video_quality_analyzer_injection_helper_->CreateVideoSink(writer);
+    video_track->AddOrUpdateSink(video_sink.get(), rtc::VideoSinkWants());
+    output_video_sinks_.push_back(std::move(video_sink));
   }
-  RTC_CHECK(video_config);
-  test::VideoFrameWriter* writer = MaybeCreateVideoWriter(
-      video_config->output_dump_file_name, *video_config);
-  // It is safe to cast here, because it is checked above that
-  // track->kind() is kVideoKind.
-  auto* video_track = static_cast<VideoTrackInterface*>(track.get());
-  std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>> video_sink =
-      video_quality_analyzer_injection_helper_->CreateVideoSink(writer);
-  video_track->AddOrUpdateSink(video_sink.get(), rtc::VideoSinkWants());
-  output_video_sinks_.push_back(std::move(video_sink));
 }
 
 void PeerConnectionE2EQualityTest::SetupCallOnSignalingThread() {
@@ -547,7 +554,10 @@ PeerConnectionE2EQualityTest::MaybeAddVideo(TestPeer* peer) {
     rtc::scoped_refptr<VideoTrackInterface> track =
         peer->pc_factory()->CreateVideoTrack(video_config.stream_label.value(),
                                              source);
-    peer->AddTrack(track, {video_config.stream_label.value()});
+    rtc::scoped_refptr<RtpSenderInterface> result =
+        peer->AddTrack(track, {video_config.stream_label.value()});
+    analyzer_helper_.AddTrackToStreamMapping(result->id(),
+                                             video_config.stream_label.value());
   }
   return out;
 }
@@ -595,7 +605,8 @@ void PeerConnectionE2EQualityTest::MaybeAddAudio(TestPeer* peer) {
       peer->pc_factory()->CreateAudioSource(audio_config.audio_options);
   rtc::scoped_refptr<AudioTrackInterface> track =
       peer->pc_factory()->CreateAudioTrack(*audio_config.stream_label, source);
-  peer->AddTrack(track, {*audio_config.stream_label});
+  rtc::scoped_refptr<RtpSenderInterface> result =
+      peer->AddTrack(track, {*audio_config.stream_label});
 }
 
 void PeerConnectionE2EQualityTest::SetupCall() {

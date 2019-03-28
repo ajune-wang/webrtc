@@ -211,6 +211,30 @@
       "revId": "a3261afe988bd363c0c2ab6d968637e0fe3bc5b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c3e4e5a_37d8d361",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-28T10:35:21Z",
+      "side": 1,
+      "message": "Actually, if we switch between vp9 and vp8 mid-call, which could happen, we will need to switch between simulcast/svc.",
+      "parentUuid": "5f8b5c86_2e68b739",
+      "range": {
+        "startLine": 154,
+        "startChar": 4,
+        "endLine": 154,
+        "endChar": 53
+      },
+      "revId": "a3261afe988bd363c0c2ab6d968637e0fe3bc5b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -37,40 +37,6 @@ enum {
   kWebRtcOpusDefaultFrameSize = 960,
 };
 
-int16_t GetSurroundParameters(int channels,
-                              int *streams,
-                              int *coupled_streams,
-                              unsigned char *mapping) {
-  int opus_error;
-  int ret = 0;
-  // Use 'surround encoder create' to get values for 'coupled_streams',
-  // 'streams' and 'mapping'.
-  OpusMSEncoder* ms_encoder_ptr = opus_multistream_surround_encoder_create(
-      48000,
-      channels,
-      /* mapping family */ channels <= 2 ? 0 : 1,
-      streams,
-      coupled_streams,
-      mapping,
-      OPUS_APPLICATION_VOIP, // Application type shouldn't affect
-                             // streams/mapping values.
-      &opus_error);
-
-  // This shouldn't fail; if it fails,
-  // signal an error and return invalid values.
-  if (opus_error != OPUS_OK || ms_encoder_ptr == NULL) {
-    ret = -1;
-    *streams = -1;
-    *coupled_streams = -1;
-  }
-
-  // We don't need the encoder.
-  if (ms_encoder_ptr != NULL) {
-    opus_multistream_encoder_destroy(ms_encoder_ptr);
-  }
-  return ret;
-}
-
 int16_t WebRtcOpus_EncoderCreate(OpusEncInst** inst,
                                  size_t channels,
                                  int32_t application) {
@@ -93,27 +59,57 @@ int16_t WebRtcOpus_EncoderCreate(OpusEncInst** inst,
   RTC_DCHECK(state);
 
   int error;
-  if (channels <= 2) {
-    state->encoder.encoder = opus_encoder_create(48000, (int)channels, opus_app,
-                                         &error);
+  state->encoder.encoder = opus_encoder_create(48000, (int)channels, opus_app,
+                                       &error);
 
-  } else {
-    unsigned char mapping[255];
-    memset(mapping, 0, 255);
-    int streams = -1;
-    int coupled_streams = -1;
-
-    state->encoder.multistream_encoder =
-        opus_multistream_surround_encoder_create(
-        48000,
-        channels,
-        /* mapping family */ 1,
-        &streams,
-        &coupled_streams,
-        mapping,
-        opus_app,
-        &error);
+  if (error != OPUS_OK || (!state->encoder.encoder &&
+                           !state->encoder.multistream_encoder)) {
+    WebRtcOpus_EncoderFree(state);
+    return -1;
   }
+
+  state->in_dtx_mode = 0;
+  state->channels = channels;
+
+  *inst = state;
+  return 0;
+}
+
+int16_t WebRtcOpus_MultistreamEncoderCreate(
+    OpusEncInst** inst,
+    size_t channels,
+    int32_t application,
+    size_t coupled_streams,
+    const unsigned char *channel_mapping) {
+  int opus_app;
+  if (!inst)
+    return -1;
+
+  switch (application) {
+    case 0:
+      opus_app = OPUS_APPLICATION_VOIP;
+      break;
+    case 1:
+      opus_app = OPUS_APPLICATION_AUDIO;
+      break;
+    default:
+      return -1;
+  }
+
+  OpusEncInst* state = (OpusEncInst*)calloc(1, sizeof(OpusEncInst));
+  RTC_DCHECK(state);
+
+  int streams = channels - coupled_streams;
+  int error;
+  state->encoder.multistream_encoder =
+      opus_multistream_encoder_create(
+          48000,
+          channels,
+          streams,
+          coupled_streams,
+          channel_mapping,
+          opus_app,
+          &error);
 
   if (error != OPUS_OK || (!state->encoder.encoder &&
                            !state->encoder.multistream_encoder)) {
@@ -388,30 +384,12 @@ int16_t WebRtcOpus_DecoderCreate(OpusDecInst** inst, size_t channels) {
       return -1;
     }
 
-    if (channels <= 2) {
-      state->decoder.decoder = opus_decoder_create(48000,
-                                                   (int)channels, &error);
-    } else {
-      unsigned char mapping[255];
-      memset(mapping, 0, 255);
-      int streams = -1;
-      int coupled_streams = -1;
-      if (GetSurroundParameters(channels, &streams,
-                                &coupled_streams, mapping) != 0) {
-        free(state);
-        return -1;
-      }
-
-      // Create new memory, always at 48000 Hz.
-      state->decoder.multistream_decoder = opus_multistream_decoder_create(
-          48000, (int)channels,
-          /* streams = */ streams,
-          /* coupled streams = */ coupled_streams,
-          mapping,
-          &error);
+    if (channels > 2) {
+      return -1;
     }
-    if (error == OPUS_OK && (state->decoder.decoder ||
-                             state->decoder.multistream_decoder)) {
+    state->decoder.decoder = opus_decoder_create(48000,
+                                                 (int)channels, &error);
+    if (error == OPUS_OK && state->decoder.decoder) {
       // Creation of memory all ok.
       state->channels = channels;
       state->prev_decoded_samples = kWebRtcOpusDefaultFrameSize;
@@ -423,10 +401,51 @@ int16_t WebRtcOpus_DecoderCreate(OpusDecInst** inst, size_t channels) {
     // If memory allocation was unsuccessful, free the entire state.
     if (state->decoder.decoder) {
       opus_decoder_destroy(state->decoder.decoder);
-
-    } else if (state->decoder.multistream_decoder) {
-      opus_multistream_decoder_destroy(state->decoder.multistream_decoder);
     }
+    free(state);
+  }
+  return -1;
+}
+
+int16_t WebRtcOpus_MultistreamDecoderCreate(
+    OpusDecInst** inst, size_t channels,
+    size_t coupled_streams,
+    const unsigned char* channel_mapping) {
+  int error;
+  OpusDecInst* state;
+
+  if (inst != NULL) {
+    // Create Opus decoder state.
+    state = (OpusDecInst*) calloc(1, sizeof(OpusDecInst));
+    if (state == NULL) {
+      return -1;
+    }
+
+    if (channels <= 2) {
+      return -1;
+    }
+
+    int streams = channels - coupled_streams;
+
+    // Create new memory, always at 48000 Hz.
+    state->decoder.multistream_decoder = opus_multistream_decoder_create(
+        48000, (int)channels,
+        streams,
+        coupled_streams,
+        channel_mapping,
+        &error);
+
+    if (error == OPUS_OK && state->decoder.multistream_decoder) {
+      // Creation of memory all ok.
+      state->channels = channels;
+      state->prev_decoded_samples = kWebRtcOpusDefaultFrameSize;
+      state->in_dtx_mode = 0;
+      *inst = state;
+      return 0;
+    }
+
+    // If memory allocation was unsuccessful, free the entire state.
+    opus_multistream_decoder_destroy(state->decoder.multistream_decoder);
     free(state);
   }
   return -1;

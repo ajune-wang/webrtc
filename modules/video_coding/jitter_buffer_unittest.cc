@@ -1711,52 +1711,6 @@ TEST_F(TestRunningJitterBuffer, EmptyPackets) {
   EXPECT_FALSE(request_key_frame);
 }
 
-TEST_F(TestRunningJitterBuffer, StatisticsTest) {
-  FrameCounts frame_stats(jitter_buffer_->FrameStatistics());
-  EXPECT_EQ(0, frame_stats.delta_frames);
-  EXPECT_EQ(0, frame_stats.key_frames);
-
-  uint32_t framerate = 0;
-  uint32_t bitrate = 0;
-  jitter_buffer_->IncomingRateStatistics(&framerate, &bitrate);
-  EXPECT_EQ(0u, framerate);
-  EXPECT_EQ(0u, bitrate);
-
-  // Insert a couple of key and delta frames.
-  InsertFrame(VideoFrameType::kVideoFrameKey);
-  InsertFrame(VideoFrameType::kVideoFrameDelta);
-  InsertFrame(VideoFrameType::kVideoFrameDelta);
-  InsertFrame(VideoFrameType::kVideoFrameKey);
-  InsertFrame(VideoFrameType::kVideoFrameDelta);
-  // Decode some of them to make sure the statistics doesn't depend on frames
-  // being decoded.
-  EXPECT_TRUE(DecodeCompleteFrame());
-  EXPECT_TRUE(DecodeCompleteFrame());
-  frame_stats = jitter_buffer_->FrameStatistics();
-  EXPECT_EQ(3, frame_stats.delta_frames);
-  EXPECT_EQ(2, frame_stats.key_frames);
-
-  // Insert 20 more frames to get estimates of bitrate and framerate over
-  // 1 second.
-  for (int i = 0; i < 20; ++i) {
-    InsertFrame(VideoFrameType::kVideoFrameDelta);
-  }
-  jitter_buffer_->IncomingRateStatistics(&framerate, &bitrate);
-  // TODO(holmer): The current implementation returns the average of the last
-  // two framerate calculations, which is why it takes two calls to reach the
-  // actual framerate. This should be fixed.
-  EXPECT_EQ(kDefaultFrameRate / 2u, framerate);
-  EXPECT_EQ(kDefaultBitrateKbps, bitrate);
-  // Insert 25 more frames to get estimates of bitrate and framerate over
-  // 2 seconds.
-  for (int i = 0; i < 25; ++i) {
-    InsertFrame(VideoFrameType::kVideoFrameDelta);
-  }
-  jitter_buffer_->IncomingRateStatistics(&framerate, &bitrate);
-  EXPECT_EQ(kDefaultFrameRate, framerate);
-  EXPECT_EQ(kDefaultBitrateKbps, bitrate);
-}
-
 TEST_F(TestRunningJitterBuffer, SkipToKeyFrame) {
   // Insert delta frames.
   EXPECT_GE(InsertFrames(5, VideoFrameType::kVideoFrameDelta), kNoError);

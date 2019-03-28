@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "edfbbfa0_e9122e9d",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-28T11:11:21Z",
+      "side": 1,
+      "message": "I\u0027ll keep this, to have less confusion with rtc::NetworkManager.",
+      "parentUuid": "a431e36f_806e4cdb",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 37
+      },
+      "revId": "2a07554c80995b68ec88f830366ed74ba79e4107",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25b3970f_6a2a80d5",
         "filename": "test/scenario/network/fake_network_socket_server.h",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "2a07554c80995b68ec88f830366ed74ba79e4107",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8added5d_b1b39d15",
+        "filename": "test/scenario/network/fake_network_socket_server.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-28T11:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25b3970f_6a2a80d5",
+      "range": {
+        "startLine": 60,
+        "startChar": 38,
+        "endLine": 60,
+        "endChar": 49
+      },
+      "revId": "2a07554c80995b68ec88f830366ed74ba79e4107",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "169b22a7_40791dc2",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-28T11:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a457eb2e_56c198a6",
+      "range": {
+        "startLine": 305,
+        "startChar": 25,
+        "endLine": 305,
+        "endChar": 39
+      },
+      "revId": "2a07554c80995b68ec88f830366ed74ba79e4107",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9fe5ca97_529399e4",
         "filename": "test/scenario/network/network_emulation.h",
         "patchSetId": 9
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "5bfa3beb_73dba559",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-28T11:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fe5ca97_529399e4",
+      "range": {
+        "startLine": 180,
+        "startChar": 21,
+        "endLine": 180,
+        "endChar": 42
+      },
+      "revId": "2a07554c80995b68ec88f830366ed74ba79e4107",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6d96b92_c04c84c7",
         "filename": "test/scenario/network/network_emulation_manager.cc",
         "patchSetId": 9
@@ -114,6 +210,30 @@
       "revId": "2a07554c80995b68ec88f830366ed74ba79e4107",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "380beb98_b3b6de0e",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-28T11:11:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6d96b92_c04c84c7",
+      "range": {
+        "startLine": 210,
+        "startChar": 21,
+        "endLine": 210,
+        "endChar": 38
+      },
+      "revId": "2a07554c80995b68ec88f830366ed74ba79e4107",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

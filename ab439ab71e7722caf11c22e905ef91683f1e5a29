@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cebc8f10_6ff0ce4d",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-03-28T14:20:07Z",
+      "side": 1,
+      "message": "Almost, but not quite. You can check the diff if you want:\n\ngit diff 83ed89a^ -- modules/audio_coding/codecs/opus/opus_interface.c\n\n\nI\u0027ve changed the \"state\" struct.",
+      "parentUuid": "c88faaf9_4533b24f",
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "882ccb5a_289ed00c",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f914cc08_97a6f787",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-03-28T14:20:07Z",
+      "side": 1,
+      "message": "Nothing should break. I\u0027m removing the \u0027if\u0027 if you think that\u0027s better.",
+      "parentUuid": "882ccb5a_289ed00c",
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "7e0dc2f4_fd4fb9ec",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-03-28T14:20:07Z",
+      "side": 1,
+      "message": "The total number of channels is \"2 * coupled_streams + uncoupled_streams\". An odd number of coupled streams is nothing special. In 7.1, there are 3 coupled streams: \n\nfront left \u0026 front right,\nside left \u0026 side right,\nrear left \u0026 rear right",
+      "parentUuid": "7bcc0901_3ca80a66",
+      "range": {
+        "startLine": 439,
+        "startChar": 29,
+        "endLine": 439,
+        "endChar": 44
+      },
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52f24e88_ee56c747",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 4
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "96db2a66_37f4beca",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-03-28T14:20:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52f24e88_ee56c747",
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3725e07_bcc17250",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
         "patchSetId": 4
@@ -87,6 +165,30 @@
       "writtenOn": "2019-03-28T12:09:03Z",
       "side": 1,
       "message": "uint8_t",
+      "range": {
+        "startLine": 78,
+        "startChar": 10,
+        "endLine": 78,
+        "endChar": 23
+      },
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "037e7676_2817362d",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-03-28T14:20:07Z",
+      "side": 1,
+      "message": "I\u0027m passing the array on to the Opus C code. Which expects \"unsigned char\". Is that always the same thing as \"unsigned char\"?",
+      "parentUuid": "e3725e07_bcc17250",
       "range": {
         "startLine": 78,
         "startChar": 10,
@@ -119,6 +221,30 @@
       "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d135ec63_c416bb49",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-03-28T14:20:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4d443fe2_31c46668",
+      "range": {
+        "startLine": 352,
+        "startChar": 10,
+        "endLine": 352,
+        "endChar": 23
+      },
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

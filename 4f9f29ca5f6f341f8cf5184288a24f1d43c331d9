@@ -22,6 +22,30 @@
       "revId": "4f9f29ca5f6f341f8cf5184288a24f1d43c331d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d843501f_5517c055",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-29T09:34:06Z",
+      "side": 1,
+      "message": "Oops, thanks for catching!",
+      "parentUuid": "8a09953e_62039421",
+      "range": {
+        "startLine": 697,
+        "startChar": 11,
+        "endLine": 697,
+        "endChar": 72
+      },
+      "revId": "4f9f29ca5f6f341f8cf5184288a24f1d43c331d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

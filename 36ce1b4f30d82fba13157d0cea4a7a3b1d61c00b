@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38f2a81a_c63731d6",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-29T08:47:01Z",
+      "side": 1,
+      "message": "This is a subtle correction, and probably deserves a comment. It means that we consider the caller\u0027s task and task queue temporarily suspended, while doing other work. \n\nIf I get it right, it affects run time thread checkers, and forbids access to state protected by the task queue. Which is correct, since such access would happen in the middle of the incomplete calling task.\n\nDoes it affect anything other than thread checkers?",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 333,
+        "endChar": 73
+      },
+      "revId": "36ce1b4f30d82fba13157d0cea4a7a3b1d61c00b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

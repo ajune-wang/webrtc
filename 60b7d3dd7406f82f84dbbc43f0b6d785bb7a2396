@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "832b6cdb_09284489",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-29T08:47:01Z",
+      "side": 1,
+      "message": "I\u0027d find\n\nauto it \u003d std::find(vec.begin(), vec.end(), val);\nif (it \u003d\u003d vec.end()) {\n  return false;\n}\nvec.erase(it);\nreturn true;\n\nslightly more readable, and one line shorter. But I won\u0027t insist, if you prefer the for loop.",
+      "parentUuid": "bf153e6e_99dd212e",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 21
+      },
+      "revId": "60b7d3dd7406f82f84dbbc43f0b6d785bb7a2396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d85edc8_5027463a",
         "filename": "test/time_controller/simulated_time_controller.cc",
         "patchSetId": 1

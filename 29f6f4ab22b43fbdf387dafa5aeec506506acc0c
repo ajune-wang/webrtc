@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "f1fcfe0d_d987eb14",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-29T09:03:01Z",
+      "side": 1,
+      "message": "\u0026\u0026 codec.codecType !\u003d VideoCodecType::kVideoCodecVP9\n\nIt makes no sense to compare to simulcastStream[].maxBitrate in VP9 (and it will happen for spatial_idx\u003d\u003d0).",
+      "range": {
+        "startLine": 31,
+        "startChar": 50,
+        "endLine": 31,
+        "endChar": 51
+      },
+      "revId": "29f6f4ab22b43fbdf387dafa5aeec506506acc0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "84cf2889_3b8623d9",
         "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
         "patchSetId": 1

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "936e82a7_dee24ab2",
+        "filename": "api/test/analyzer_helper.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-03-29T13:04:17Z",
+      "side": 1,
+      "message": "Since this is designed to work on multiple threads, can you add a comment about thread safety? Either one for the entire class or for each method.\n\nWhy does it need a lock though? Wouldn\u0027t this always be used on the same thread? (Test thread and signaling thread being the same thread, I thought?)",
+      "revId": "0456ea1eec83a1c8ebf8c64cbe2a57eebaaaaa0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

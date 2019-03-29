@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84cf2889_3b8623d9",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-29T08:06:00Z",
+      "side": 1,
+      "message": "Can min_bitrate be greater than max_bitrate? In that case is it ok to return a pair with the same number {X, X}?",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 51
+      },
+      "revId": "29f6f4ab22b43fbdf387dafa5aeec506506acc0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee1a26a8_62930884",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-29T08:06:00Z",
+      "side": 1,
+      "message": "I would move this one to line 211. WDYT?",
+      "range": {
+        "startLine": 223,
+        "startChar": 2,
+        "endLine": 223,
+        "endChar": 59
+      },
+      "revId": "29f6f4ab22b43fbdf387dafa5aeec506506acc0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -21,7 +21,6 @@ struct PFFFT_Setup;
 namespace webrtc {
 
 // Pretty-Fast Fast Fourier Transform (PFFFT) wrapper class.
-// Not thread safe.
 class Pffft {
  public:
   enum class FftType { kReal, kComplex };
@@ -65,18 +64,22 @@ class Pffft {
   static bool IsSimdEnabled();
 
   // Creates a buffer of the right size.
+  // Thread safe.
   std::unique_ptr<FloatBuffer> CreateBuffer() const;
 
   // TODO(https://crbug.com/webrtc/9577): Overload with rtc::ArrayView args.
   // Computes the forward fast Fourier transform.
+  // Not thread safe.
   void ForwardTransform(const FloatBuffer& in, FloatBuffer* out, bool ordered);
   // Computes the backward fast Fourier transform.
+  // Not thread safe.
   void BackwardTransform(const FloatBuffer& in, FloatBuffer* out, bool ordered);
 
   // Multiplies the frequency components of |fft_x| and |fft_y| and accumulates
   // them into |out|. The arrays must have been obtained with
   // ForwardTransform(..., /*ordered=*/false) - i.e., |fft_x| and |fft_y| must
   // not be ordered.
+  // Thread-safe.
   void FrequencyDomainConvolve(const FloatBuffer& fft_x,
                                const FloatBuffer& fft_y,
                                FloatBuffer* out,

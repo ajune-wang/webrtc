@@ -15,6 +15,7 @@
 
 #include "absl/memory/memory.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
+#include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/strings/json.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/sleep.h"
@@ -140,7 +141,8 @@ void RtpReplayer::ReplayPackets(Call* call, test::RtpFileReader* rtp_reader) {
 
     int64_t deliver_in_ms = replay_start_ms + packet.time_ms - now_ms;
     if (deliver_in_ms > 0) {
-      SleepMs(deliver_in_ms);
+      // Set an upper limit on sleep to prevent timing out.
+      SleepMs(rtc::SafeClamp(deliver_in_ms, 0, 100));
     }
 
     ++num_packets;

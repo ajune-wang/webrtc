@@ -452,6 +452,16 @@ void RtpVideoStreamReceiver::OnDecryptionStatusChange(int status) {
   frames_decryptable_.store(status == 0);
 }
 
+void RtpVideoStreamReceiver::SetFrameDecryptor(
+    rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor) {
+  RTC_DCHECK_RUN_ON(&network_tc_);
+  if (buffered_frame_decryptor_ == nullptr) {
+    buffered_frame_decryptor_ =
+        absl::make_unique<BufferedFrameDecryptor>(this, this, frame_decryptor);
+  }
+  buffered_frame_decryptor_->SetFrameDecryptor(std::move(frame_decryptor));
+}
+
 void RtpVideoStreamReceiver::UpdateRtt(int64_t max_rtt_ms) {
   if (nack_module_)
     nack_module_->UpdateRtt(max_rtt_ms);

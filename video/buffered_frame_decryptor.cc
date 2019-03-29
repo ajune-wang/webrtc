@@ -30,6 +30,11 @@ BufferedFrameDecryptor::BufferedFrameDecryptor(
 
 BufferedFrameDecryptor::~BufferedFrameDecryptor() {}
 
+void BufferedFrameDecryptor::SetFrameDecryptor(
+    rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor) {
+  frame_decryptor_ = std::move(frame_decryptor);
+}
+
 void BufferedFrameDecryptor::ManageEncryptedFrame(
     std::unique_ptr<video_coding::RtpFrameObject> encrypted_frame) {
   switch (DecryptFrame(encrypted_frame.get())) {

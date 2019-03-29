@@ -2589,9 +2589,9 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetFrameDecryptor(
   config_.frame_decryptor = frame_decryptor;
   if (stream_) {
     RTC_LOG(LS_INFO)
-        << "RecreateWebRtcStream (recv) because of SetFrameDecryptor, "
+        << "Setting FrameDecryptor (recv) because of SetFrameDecryptor, "
         << "remote_ssrc=" << config_.rtp.remote_ssrc;
-    RecreateWebRtcVideoStream();
+    stream_->SetFrameDecryptor(frame_decryptor);
   }
 }
 

@@ -15,7 +15,10 @@
 #include <map>
 #include <set>
 #include <string>
+#include <vector>
+
 #include "absl/types/optional.h"
+#include "rtc_base/string_encode.h"
 
 // Field trial parser functionality. Provides funcitonality to parse field trial
 // argument strings in key:value format. Each parameter is described using
@@ -24,7 +27,8 @@
 // ignored. Parameters are declared with a given type for which an
 // implementation of ParseTypedParameter should be provided. The
 // ParseTypedParameter implementation is given whatever is between the : and the
-// ,. FieldTrialOptional will use nullopt if the key is provided without :.
+// ,. If the key is provided without : a FieldTrialOptional will use nullopt and
+// a FieldTrialList will use a empty vector.
 
 // Example string: "my_optional,my_int:3,my_string:hello"
 
@@ -217,6 +221,44 @@ class FieldTrialFlag : public FieldTrialParameterInterface {
 
  private:
   bool value_;
+};
+
+// This class represents a vector of type T. The elements are separated by a |
+// and parsed using ParseTypedParameter.
+template <typename T>
+class FieldTrialList : public FieldTrialParameterInterface {
+ public:
+  FieldTrialList(std::string key, std::initializer_list<T> default_value)
+      : FieldTrialParameterInterface(key), values_(default_value) {}
+  std::vector<T> Get() const { return values_; }
+  operator std::vector<T>() const { return Get(); }
+  const std::vector<T>* operator->() const { return &values_; }
+
+ protected:
+  bool Parse(absl::optional<std::string> str_value) override {
+    if (!str_value) {
+      values_.clear();
+      return true;
+    }
+
+    std::vector<T> new_values;
+    std::vector<std::string> tokens;
+    rtc::split(str_value.value(), '|', &tokens);
+
+    for (std::string token : tokens) {
+      absl::optional<T> value = ParseTypedParameter<T>(token);
+      if (!value) {
+        return false;
+      }
+      new_values.push_back(value.value());
+    }
+
+    values_ = std::move(new_values);
+    return true;
+  }
+
+ private:
+  std::vector<T> values_;
 };
 
 // Accepts true, false, else parsed with sscanf %i, true if != 0.

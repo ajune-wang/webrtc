@@ -11,6 +11,10 @@
 #include "rtc_base/gunit.h"
 #include "system_wrappers/include/field_trial.h"
 #include "test/field_trial.h"
+#include "test/gmock.h"
+
+using testing::ElementsAre;
+using testing::IsEmpty;
 
 namespace webrtc {
 namespace {
@@ -152,4 +156,29 @@ TEST(FieldTrialParserTest, ParsesCustomEnumParameter) {
   ParseFieldTrial({&my_enum}, "e:5");
   EXPECT_EQ(my_enum.Get(), CustomEnum::kBlue);
 }
+TEST(FieldTrialParserTest, ParsesListParameter) {
+  FieldTrialList<int> my_list("l", {5});
+  EXPECT_THAT(my_list.Get(), ElementsAre(5));
+  // If one element is invalid the list is unchanged.
+  ParseFieldTrial({&my_list}, "l:1|2|hat");
+  EXPECT_THAT(my_list.Get(), ElementsAre(5));
+  ParseFieldTrial({&my_list}, "l");
+  EXPECT_THAT(my_list.Get(), IsEmpty());
+  ParseFieldTrial({&my_list}, "l:1|2|3");
+  EXPECT_THAT(my_list.Get(), ElementsAre(1, 2, 3));
+  ParseFieldTrial({&my_list}, "l:-1");
+  EXPECT_THAT(my_list.Get(), ElementsAre(-1));
+
+  FieldTrialList<std::string> another_list("l", {"hat"});
+  EXPECT_THAT(another_list.Get(), ElementsAre("hat"));
+  ParseFieldTrial({&another_list}, "l");
+  EXPECT_THAT(another_list.Get(), IsEmpty());
+  ParseFieldTrial({&another_list}, "l:");
+  EXPECT_THAT(another_list.Get(), ElementsAre(""));
+  ParseFieldTrial({&another_list}, "l:scarf|hat|mittens");
+  EXPECT_THAT(another_list.Get(), ElementsAre("scarf", "hat", "mittens"));
+  ParseFieldTrial({&another_list}, "l:scarf");
+  EXPECT_THAT(another_list.Get(), ElementsAre("scarf"));
+}
+
 }  // namespace webrtc

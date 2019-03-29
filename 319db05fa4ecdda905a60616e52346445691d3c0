@@ -1,0 +1,675 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7375c8e0_2baf8b1a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Please hard-code the fft-size instead since this class only works on 20 ms and 24 kHz data. Initializing the fft like this is confusing as it gives the impression that the class can handle any type of data.",
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "846daa47_c544a9d3",
+        "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Is this really the fft size?",
+      "range": {
+        "startLine": 47,
+        "startChar": 28,
+        "endLine": 47,
+        "endChar": 45
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f117c1f_d58af64c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Put this in the loop statement instead\nfor (size_t i \u003d 0, j\u003dkFrameSize20ms24kHz - 1; i \u003c input_buf_.size() / 2; ++i,--j) {",
+      "range": {
+        "startLine": 52,
+        "startChar": 5,
+        "endLine": 52,
+        "endChar": 43
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "041e2ff7_070b1e69",
+        "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Please make this DCHECK enforce the relative sizes of the output and dst buffers since the fft size is hardcoded.",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 15
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7796eb7c_7614d902",
+        "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Is this only used for 20 ms and 24 Hz? In that case it would be good to name the class accordingly. The current name gives the impression it provides generic FFT functionality.",
+      "range": {
+        "startLine": 26,
+        "startChar": 71,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "391236c7_0881e405",
+        "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "I would skip the initialization as the code in the method anyway reinitializes the arrays. This initialization could actually hide errors that could be found using the sanitizers.",
+      "range": {
+        "startLine": 48,
+        "startChar": 65,
+        "endLine": 48,
+        "endChar": 67
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a7317dc_0dcec238",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "What kind of analysis? Please describe.",
+      "range": {
+        "startLine": 85,
+        "startChar": 13,
+        "endLine": 85,
+        "endChar": 22
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6216ba90_68b50d29",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "This is an autocorrelation.",
+      "range": {
+        "startLine": 87,
+        "startChar": 27,
+        "endLine": 87,
+        "endChar": 58
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd75c4c0_b011e60c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "This is an autocorrelation",
+      "range": {
+        "startLine": 98,
+        "startChar": 27,
+        "endLine": 98,
+        "endChar": 58
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54d450e3_554e415d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "This does not compute the cross-correlation. It computes the DCT of the cross-correlation. Please change the naming to reflect what is computed.",
+      "range": {
+        "startLine": 152,
+        "startChar": 32,
+        "endLine": 152,
+        "endChar": 55
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "295c7eac_c0521c62",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Please explain more in detail what decorrellation is done.",
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43dd09fc_a4d81d2e",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Please explain this further. For instance, it is not at all clear to me where the constants 1.3 and 0.9 comes from, and why the first 2 bands needs to be weighted with them.",
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ad276fc_6a07c884",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Can\u0027t this method be a const method?",
+      "range": {
+        "startLine": 171,
+        "startChar": 33,
+        "endLine": 171,
+        "endChar": 51
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b4154bc_396fedc6",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Please explain this further. It is not at all obvious where the constant -2.1 comes from.",
+      "range": {
+        "startLine": 184,
+        "startChar": 5,
+        "endLine": 184,
+        "endChar": 14
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "341418cb_41722a0f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Please make this comment more descriptive. As it is now, it is just a reformulation of the class name which means that it does not add anything to the understanding of the code.",
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8283b7b_3f19dffa",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "The coding styleguide states that class members names should have names ending with a _.\n\nHowever, I would suggest that this is made a struct instead.",
+      "range": {
+        "startLine": 41,
+        "startChar": 58,
+        "endLine": 41,
+        "endChar": 64
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e498ed7a_9c824988",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Why not pass all variables as ordinary ArrayView parameters? That would more clearly show the outputs and would avoid using a separate view class. The code would also be shorter with that approach.",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 68,
+        "endChar": 26
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5160b57_586b9ffa",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Are these initializations needed?",
+      "range": {
+        "startLine": 83,
+        "startChar": 60,
+        "endLine": 83,
+        "endChar": 62
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98746bd0_cf568607",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Why dual braces?",
+      "range": {
+        "startLine": 27,
+        "startChar": 67,
+        "endLine": 27,
+        "endChar": 69
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43b65502_6d3332da",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Please parametrize this into a hardcoded array rather than to compute it. That would \n1. have a lower computational complexity.\n2. produce less code.\n3. reduce the binary size.\n4. increase the understanding of the code as the reader would be able to see the weights.",
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e0f6b4e_761e7bd7",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "I don\u0027t think it is a good idea to have this test here.\nIt basically verifies that a hardcoded array A is rightly related to a hardcoded array B but does not add any security to the code. If it is needed, please make it a unittest, I think that it can be removed though.",
+      "range": {
+        "startLine": 72,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 69
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0c34426_34f24899",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Loop against kOpusBands24kHz - 1 instead, that is easier to match with the lengths of the vectors when reading the code.",
+      "range": {
+        "startLine": 91,
+        "startChar": 25,
+        "endLine": 91,
+        "endChar": 51
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d53f2e5_a416f668",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Change\ncross_corr[i] +\u003d (1.f - weights_[k]) * v;\ncross_corr[i + 1] +\u003d weights_[k] * v;\n\nto\nfloat tmp \u003d weights_[k] * v;\ncross_corr[i] +\u003d v - tmp\ncross_corr[i + 1] +\u003d tmp;",
+      "range": {
+        "startLine": 95,
+        "startChar": 6,
+        "endLine": 96,
+        "endChar": 43
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e97182b2_21ae1b96",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Move this into a separate loop as this is independent of the other code in the loop.",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 115,
+        "endChar": 53
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b2fd984_8286acbe",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "As I see it, this only computes one feature which is the spectral cross correlation, which makes the class name and the description misleading (it mentions that features are computes).\n\nWhat about?\nBandFeaturesExtractor -\u003e SpectralCrossCorrelator\nComputeSpectralCrossCorrelation -\u003e Compute.",
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cebc1d2c_b18fa217",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "I see 3 uses of this method, and in 2 of them x and y are the same. Please look into if creating a separate autocorrelation methoid would now be better.",
+      "range": {
+        "startLine": 46,
+        "startChar": 7,
+        "endLine": 46,
+        "endChar": 38
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a3c71be_18f04d11",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Why does this have a specified size, when x and y does not. Please fix the sizes of x and y as well as that is better than stating that in a comment.",
+      "range": {
+        "startLine": 49,
+        "startChar": 28,
+        "endLine": 49,
+        "endChar": 43
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b29431b9_b2f2bf4f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Please make this more descriptive. As it is now, the comment contains the exact words of the method name and does not add anything to the understanding of the code.",
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8954523_a6d71b74",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "This is one single method. I don\u0027t think it belongs to the BandFeaturesExtractor class",
+      "range": {
+        "startLine": 56,
+        "startChar": 5,
+        "endLine": 56,
+        "endChar": 39
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aca14e5_39a1ded0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "Why does this need to be in the header file? Can\u0027t it be in the anonymous namespace? If it only made public for testing, please state that in the comment.",
+      "range": {
+        "startLine": 61,
+        "startChar": 41,
+        "endLine": 61,
+        "endChar": 56
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54b0860c_9d25aa6a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-29T23:38:38Z",
+      "side": 1,
+      "message": "This seems fully separate from the bandextractor class. Please split this into a separate file to increase readability and modularity.",
+      "range": {
+        "startLine": 66,
+        "startChar": 5,
+        "endLine": 66,
+        "endChar": 15
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

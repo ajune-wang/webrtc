@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51239cee_6f8b0a4e",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-29T07:59:44Z",
+      "side": 1,
+      "message": "Use std::find instead of explicit loop?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 21
+      },
+      "revId": "60b7d3dd7406f82f84dbbc43f0b6d785bb7a2396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d85edc8_5027463a",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-29T07:59:44Z",
+      "side": 1,
+      "message": "This promotes the class from protected to public. Comment on why? \n\nMaybe this class should be always public? It doesn\u0027t make much sense to use protected for types or static functions, since any code can do\n\nclass HackVisibility : public TaskQueueBase {\n public:\n  using ICanHasPublic \u003d CurrentTaskQueueSetter;\n};",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 71
+      },
+      "revId": "60b7d3dd7406f82f84dbbc43f0b6d785bb7a2396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a8f8cb1_78e4aa3c",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-29T07:59:44Z",
+      "side": 1,
+      "message": "Delete this include?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 24
+      },
+      "revId": "60b7d3dd7406f82f84dbbc43f0b6d785bb7a2396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

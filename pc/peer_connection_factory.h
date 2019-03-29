@@ -106,6 +106,9 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
  private:
   std::unique_ptr<RtcEventLog> CreateRtcEventLog_w();
   std::unique_ptr<Call> CreateCall_w(RtcEventLog* event_log);
+  // TODO(bugs.webrtc.org/10284): Remove when it is always &*task_queue_factory_
+  // Returns non-null task queue factory.
+  TaskQueueFactory* GetTaskQueueFactory();
 
   bool wraps_current_thread_;
   rtc::Thread* network_thread_;
@@ -113,17 +116,18 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
   rtc::Thread* signaling_thread_;
   std::unique_ptr<rtc::Thread> owned_network_thread_;
   std::unique_ptr<rtc::Thread> owned_worker_thread_;
+  const std::unique_ptr<TaskQueueFactory> task_queue_factory_;
   Options options_;
   std::unique_ptr<cricket::ChannelManager> channel_manager_;
   std::unique_ptr<rtc::BasicNetworkManager> default_network_manager_;
   std::unique_ptr<rtc::BasicPacketSocketFactory> default_socket_factory_;
   std::unique_ptr<cricket::MediaEngineInterface> media_engine_;
-  std::unique_ptr<webrtc::CallFactoryInterface> call_factory_;
-  std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory_;
-  std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory_;
-  std::unique_ptr<NetworkControllerFactoryInterface>
+  const std::unique_ptr<webrtc::CallFactoryInterface> call_factory_;
+  const std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory_;
+  const std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory_;
+  const std::unique_ptr<NetworkControllerFactoryInterface>
       injected_network_controller_factory_;
-  std::unique_ptr<MediaTransportFactory> media_transport_factory_;
+  const std::unique_ptr<MediaTransportFactory> media_transport_factory_;
 };
 
 }  // namespace webrtc

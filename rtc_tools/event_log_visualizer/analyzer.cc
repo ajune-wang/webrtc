@@ -1901,6 +1901,7 @@ std::unique_ptr<test::NetEqStatsGetter> CreateNetEqTestAndRun(
   NetEq::Config config;
   config.max_packets_in_buffer = 200;
   config.enable_fast_accelerate = true;
+  config.min_delay_ms = 100;
 
   std::unique_ptr<test::VoidAudioSink> output(new test::VoidAudioSink());
 

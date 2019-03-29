@@ -497,6 +497,12 @@ int main(int argc, char* argv[]) {
           return stats.packet_loss_rate / 16384.f;
         },
         "Packet loss rate", collection->AppendNewPlot());
+    analyzer.CreateNetEqNetworkStatsGraph(
+        neteq_stats,
+        [](const webrtc::NetEqNetworkStatistics& stats) {
+          return stats.preemptive_rate / 16384.f;
+        },
+        "Preemptive expand rate", collection->AppendNewPlot());
     analyzer.CreateNetEqLifetimeStatsGraph(
         neteq_stats,
         [](const webrtc::NetEqLifetimeStatistics& stats) {

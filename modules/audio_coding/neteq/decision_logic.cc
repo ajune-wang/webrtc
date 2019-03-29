@@ -185,6 +185,9 @@ Operations DecisionLogic::GetDecision(const SyncBuffer& sync_buffer,
       static_cast<uint32_t>(5 * 8000 * fs_mult_);
   // Check if the required packet is available.
   if (target_timestamp == available_timestamp) {
+    if (next_packet->payload.size() < 2) {
+      return kNormal;
+    }
     return ExpectedPacketAvailable(prev_mode, play_dtmf);
   } else if (!PacketBuffer::IsObsoleteTimestamp(
                  available_timestamp, target_timestamp, five_seconds_samples)) {
@@ -343,6 +346,8 @@ Operations DecisionLogic::FuturePacketAvailable(
             ((delay_manager_->TargetLevel() * packet_length_samples_) >> 8) *
                 4) {
       // Time to play this new packet.
+      if (static_cast<uint32_t>(generated_noise_samples + target_timestamp) > available_timestamp)
+        RTC_LOG(LS_INFO) << "Generated extra noise " << static_cast<uint32_t>(generated_noise_samples + target_timestamp) - available_timestamp;
       return kNormal;
     } else {
       // Too early to play this new packet; keep on playing comfort noise.

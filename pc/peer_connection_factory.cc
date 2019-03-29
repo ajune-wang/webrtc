@@ -312,6 +312,22 @@ PeerConnectionFactory::CreatePeerConnection(
   rtc::scoped_refptr<PeerConnection> pc(
       new rtc::RefCountedObject<PeerConnection>(this, std::move(event_log),
                                                 std::move(call)));
+  if (dependencies.audio_encoder_factory) {
+    pc->set_audio_encoder_factory(
+        std::move(dependencies.audio_encoder_factory));
+  }
+  if (dependencies.audio_decoder_factory) {
+    pc->set_audio_decoder_factory(
+        std::move(dependencies.audio_decoder_factory));
+  }
+  if (dependencies.video_encoder_factory) {
+    pc->set_video_encoder_factory(
+        std::move(dependencies.video_encoder_factory));
+  }
+  if (dependencies.video_decoder_factory) {
+    pc->set_video_decoder_factory(
+        std::move(dependencies.video_decoder_factory));
+  }
   ActionsBeforeInitializeForTesting(pc);
   if (!pc->Initialize(configuration, std::move(dependencies))) {
     return nullptr;

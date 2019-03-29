@@ -204,6 +204,18 @@ class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
   // This method does nothing unless unknown_ssrc_packet_buffer_ is configured.
   void BackfillBufferedPackets(rtc::ArrayView<const uint32_t> ssrcs);
 
+  void set_encoder_factory(
+      webrtc::VideoEncoderFactory* encoder_factory) override {
+    RTC_DCHECK_RUN_ON(&thread_checker_);
+    encoder_factory_ = encoder_factory;
+  }
+
+  void set_decoder_factory(
+      webrtc::VideoDecoderFactory* decoder_factory) override {
+    RTC_DCHECK_RUN_ON(&thread_checker_);
+    decoder_factory_ = decoder_factory;
+  }
+
  private:
   class WebRtcVideoReceiveStream;
   struct VideoCodecSettings {
@@ -518,10 +530,8 @@ class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
   absl::optional<std::vector<webrtc::RtpExtension>> send_rtp_extensions_
       RTC_GUARDED_BY(thread_checker_);
 
-  webrtc::VideoEncoderFactory* const encoder_factory_
-      RTC_GUARDED_BY(thread_checker_);
-  webrtc::VideoDecoderFactory* const decoder_factory_
-      RTC_GUARDED_BY(thread_checker_);
+  webrtc::VideoEncoderFactory* encoder_factory_ RTC_GUARDED_BY(thread_checker_);
+  webrtc::VideoDecoderFactory* decoder_factory_ RTC_GUARDED_BY(thread_checker_);
   webrtc::VideoBitrateAllocatorFactory* const bitrate_allocator_factory_
       RTC_GUARDED_BY(thread_checker_);
   std::vector<VideoCodecSettings> recv_codecs_ RTC_GUARDED_BY(thread_checker_);

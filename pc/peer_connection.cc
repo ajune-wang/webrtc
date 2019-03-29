@@ -6235,6 +6235,18 @@ cricket::VoiceChannel* PeerConnection::CreateVoiceChannel(
   voice_channel->SignalSentPacket.connect(this,
                                           &PeerConnection::OnSentPacket_w);
   voice_channel->SetRtpTransport(rtp_transport);
+  if (audio_encoder_factory_override_) {
+    worker_thread()->Invoke<void>(RTC_FROM_HERE, [&]() {
+      voice_channel->media_channel()->set_encoder_factory(
+          audio_encoder_factory_override_);
+    });
+  }
+  if (audio_decoder_factory_override_) {
+    worker_thread()->Invoke<void>(RTC_FROM_HERE, [&]() {
+      voice_channel->media_channel()->set_decoder_factory(
+          audio_decoder_factory_override_);
+    });
+  }
 
   return voice_channel;
 }
@@ -6260,6 +6272,18 @@ cricket::VideoChannel* PeerConnection::CreateVideoChannel(
   video_channel->SignalSentPacket.connect(this,
                                           &PeerConnection::OnSentPacket_w);
   video_channel->SetRtpTransport(rtp_transport);
+  if (video_encoder_factory_override_) {
+    worker_thread()->Invoke<void>(RTC_FROM_HERE, [&]() {
+      video_channel->media_channel()->set_encoder_factory(
+          video_encoder_factory_override_.get());
+    });
+  }
+  if (video_decoder_factory_override_) {
+    worker_thread()->Invoke<void>(RTC_FROM_HERE, [&]() {
+      video_channel->media_channel()->set_decoder_factory(
+          video_decoder_factory_override_.get());
+    });
+  }
 
   return video_channel;
 }

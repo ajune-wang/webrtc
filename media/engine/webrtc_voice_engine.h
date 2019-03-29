@@ -243,6 +243,30 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
     return VoiceMediaChannel::SendRtcp(&packet, rtc_options);
   }
 
+  rtc::scoped_refptr<webrtc::AudioEncoderFactory> encoder_factory() const {
+    if (encoder_factory_override_) {
+      return encoder_factory_override_;
+    }
+    return engine()->encoder_factory_;
+  }
+
+  rtc::scoped_refptr<webrtc::AudioDecoderFactory> decoder_factory() const {
+    if (decoder_factory_override_) {
+      return decoder_factory_override_;
+    }
+    return engine()->decoder_factory_;
+  }
+
+  void set_encoder_factory(rtc::scoped_refptr<webrtc::AudioEncoderFactory>
+                               encoder_factory) override {
+    encoder_factory_override_ = std::move(encoder_factory);
+  }
+
+  void set_decoder_factory(rtc::scoped_refptr<webrtc::AudioDecoderFactory>
+                               decoder_factory) override {
+    decoder_factory_override_ = std::move(decoder_factory);
+  }
+
  private:
   bool SetOptions(const AudioOptions& options);
   bool SetRecvCodecs(const std::vector<AudioCodec>& codecs);
@@ -251,6 +275,7 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
   bool MuteStream(uint32_t ssrc, bool mute);
 
   WebRtcVoiceEngine* engine() { return engine_; }
+  const WebRtcVoiceEngine* engine() const { return engine_; }
   void ChangePlayout(bool playout);
   int CreateVoEChannel();
   bool DeleteVoEChannel(int channel);
@@ -327,6 +352,9 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
   // Unsignaled streams have an option to have a frame decryptor set on them.
   rtc::scoped_refptr<webrtc::FrameDecryptorInterface>
       unsignaled_frame_decryptor_;
+
+  rtc::scoped_refptr<webrtc::AudioEncoderFactory> encoder_factory_override_;
+  rtc::scoped_refptr<webrtc::AudioDecoderFactory> decoder_factory_override_;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(WebRtcVoiceMediaChannel);
 };

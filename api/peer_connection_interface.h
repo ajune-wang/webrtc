@@ -1217,6 +1217,12 @@ struct PeerConnectionDependencies final {
   std::unique_ptr<webrtc::AsyncResolverFactory> async_resolver_factory;
   std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_generator;
   std::unique_ptr<rtc::SSLCertificateVerifier> tls_cert_verifier;
+
+  // Any non-null factory will override the default in the MediaEngine.
+  rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory;
+  rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory;
+  std::unique_ptr<VideoEncoderFactory> video_encoder_factory;
+  std::unique_ptr<VideoDecoderFactory> video_decoder_factory;
 };
 
 // PeerConnectionFactoryDependencies holds all of the PeerConnectionFactory

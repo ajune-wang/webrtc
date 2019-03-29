@@ -1532,7 +1532,7 @@ bool WebRtcVoiceMediaChannel::SetRecvCodecs(
     }
     auto format = AudioCodecToSdpAudioFormat(codec);
     if (!IsCodec(codec, "cn") && !IsCodec(codec, "telephone-event") &&
-        !engine()->decoder_factory_->IsSupportedDecoder(format)) {
+        !decoder_factory()->IsSupportedDecoder(format)) {
       RTC_LOG(LS_ERROR) << "Unsupported codec: " << rtc::ToString(format);
       return false;
     }
@@ -1628,7 +1628,7 @@ bool WebRtcVoiceMediaChannel::SetSendCodecs(
       webrtc::SdpAudioFormat format(voice_codec.name, voice_codec.clockrate,
                                     voice_codec.channels, voice_codec.params);
 
-      voice_codec_info = engine()->encoder_factory_->QueryAudioEncoder(format);
+      voice_codec_info = encoder_factory()->QueryAudioEncoder(format);
       if (!voice_codec_info) {
         RTC_LOG(LS_WARNING) << "Unknown codec " << ToString(voice_codec);
         continue;
@@ -1797,8 +1797,8 @@ bool WebRtcVoiceMediaChannel::AddSendStream(const StreamParams& sp) {
       ssrc, mid_, sp.cname, sp.id, send_codec_spec_, ExtmapAllowMixed(),
       send_rtp_extensions_, max_send_bitrate_bps_,
       audio_config_.rtcp_report_interval_ms, audio_network_adaptor_config,
-      call_, this, media_transport(), engine()->encoder_factory_,
-      codec_pair_id_, nullptr, crypto_options_);
+      call_, this, media_transport(), encoder_factory(), codec_pair_id_,
+      nullptr, crypto_options_);
   send_streams_.insert(std::make_pair(ssrc, stream));
 
   // At this point the stream's local SSRC has been updated. If it is the first
@@ -1879,16 +1879,15 @@ bool WebRtcVoiceMediaChannel::AddRecvStream(const StreamParams& sp) {
 
   // Create a new channel for receiving audio data.
   recv_streams_.insert(std::make_pair(
-      ssrc,
-      new WebRtcAudioReceiveStream(
-          ssrc, receiver_reports_ssrc_, recv_transport_cc_enabled_,
-          recv_nack_enabled_, sp.stream_ids(), recv_rtp_extensions_, call_,
-          this, media_transport(), engine()->decoder_factory_, decoder_map_,
-          codec_pair_id_, engine()->audio_jitter_buffer_max_packets_,
-          engine()->audio_jitter_buffer_fast_accelerate_,
-          engine()->audio_jitter_buffer_min_delay_ms_,
-          engine()->audio_jitter_buffer_enable_rtx_handling_,
-          unsignaled_frame_decryptor_, crypto_options_)));
+      ssrc, new WebRtcAudioReceiveStream(
+                ssrc, receiver_reports_ssrc_, recv_transport_cc_enabled_,
+                recv_nack_enabled_, sp.stream_ids(), recv_rtp_extensions_,
+                call_, this, media_transport(), decoder_factory(), decoder_map_,
+                codec_pair_id_, engine()->audio_jitter_buffer_max_packets_,
+                engine()->audio_jitter_buffer_fast_accelerate_,
+                engine()->audio_jitter_buffer_min_delay_ms_,
+                engine()->audio_jitter_buffer_enable_rtx_handling_,
+                unsignaled_frame_decryptor_, crypto_options_)));
   recv_streams_[ssrc]->SetPlayout(playout_);
 
   return true;

@@ -16,6 +16,24 @@
       "revId": "481e83e80a2a19e376f4ff557d1b1da60049428f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b478be66_ccab1cf4",
+        "filename": "modules/rtp_rtcp/test/testFec/test_packet_masks_metrics.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-29T09:49:10Z",
+      "side": 1,
+      "message": "and then values below num_loss_configurations are used as bitmasks\nyes, simple shift makes more sense here.",
+      "parentUuid": "d3515849_dfcb430e",
+      "revId": "481e83e80a2a19e376f4ff557d1b1da60049428f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

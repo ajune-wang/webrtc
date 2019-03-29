@@ -15,9 +15,9 @@
 #include <array>
 
 #include "api/array_view.h"
-#include "common_audio/real_fourier.h"
 #include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "modules/audio_processing/agc2/rnn_vad/pitch_info.h"
+#include "modules/audio_processing/utility/pffft_wrapper.h"
 
 namespace webrtc {
 namespace rnn_vad {
@@ -61,24 +61,27 @@ void ComputeSlidingFrameSquareEnergies(
     rtc::ArrayView<const float, kBufSize24kHz> pitch_buf,
     rtc::ArrayView<float, kMaxPitch24kHz + 1> yy_values);
 
-// Computes the auto-correlation coefficients for a given pitch interval.
-// |auto_corr| indexes are inverted lags.
-//
-// The auto-correlations coefficients are computed as follows:
-// |.........|...........|  <- pitch buffer
-//           [ x (fixed) ]
-// [   y_0   ]
-//         [ y_{m-1} ]
-// x and y are sub-array of equal length; x is never moved, whereas y slides.
-// The cross-correlation between y_0 and x corresponds to the auto-correlation
-// for the maximum pitch period. Hence, the first value in |auto_corr| has an
-// inverted lag equal to 0 that corresponds to a lag equal to the maximum pitch
-// period.
-void ComputePitchAutoCorrelation(
-    rtc::ArrayView<const float, kBufSize12kHz> pitch_buf,
-    size_t max_pitch_period,
-    rtc::ArrayView<float, kNumInvertedLags12kHz> auto_corr,
-    webrtc::RealFourier* fft);
+// Class to compute the auto correlation on the pitch buffer for a target pitch
+// interval.
+class AutoCorrelationCalculator {
+ public:
+  AutoCorrelationCalculator();
+  AutoCorrelationCalculator(const AutoCorrelationCalculator&) = delete;
+  AutoCorrelationCalculator& operator=(const AutoCorrelationCalculator&) =
+      delete;
+  ~AutoCorrelationCalculator();
+
+  // Computes the auto-correlation coefficients for a target pitch interval.
+  // |auto_corr| indexes are inverted lags.
+  void Compute(rtc::ArrayView<const float, kBufSize12kHz> pitch_buf,
+               rtc::ArrayView<float, kNumInvertedLags12kHz> auto_corr);
+
+ private:
+  Pffft fft_;
+  std::unique_ptr<Pffft::FloatBuffer> tmp_;
+  std::unique_ptr<Pffft::FloatBuffer> X_;
+  std::unique_ptr<Pffft::FloatBuffer> H_;
+};
 
 // Given the auto-correlation coefficients stored according to
 // ComputePitchAutoCorrelation() (i.e., using inverted lags), returns the best

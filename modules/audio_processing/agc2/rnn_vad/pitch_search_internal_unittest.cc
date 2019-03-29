@@ -9,7 +9,6 @@
  */
 
 #include "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.h"
-#include "common_audio/real_fourier.h"
 
 #include <array>
 #include <tuple>
@@ -128,10 +127,8 @@ TEST(RnnVadTest, ComputePitchAutoCorrelationBitExactness) {
   {
     // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
     // FloatingPointExceptionObserver fpe_observer;
-    std::unique_ptr<RealFourier> fft =
-        RealFourier::Create(kAutoCorrelationFftOrder);
-    ComputePitchAutoCorrelation(pitch_buf_decimated, kMaxPitch12kHz,
-                                computed_output, fft.get());
+    AutoCorrelationCalculator auto_corr_calculator;
+    auto_corr_calculator.Compute(pitch_buf_decimated, computed_output);
   }
   auto auto_corr_view = test_data.GetPitchBufAutoCorrCoeffsView();
   ExpectNearAbsolute({auto_corr_view.data(), auto_corr_view.size()},
@@ -144,17 +141,13 @@ TEST(RnnVadTest, ComputePitchAutoCorrelationConstantBuffer) {
   // Create constant signal with no pitch.
   std::array<float, kBufSize12kHz> pitch_buf_decimated;
   std::fill(pitch_buf_decimated.begin(), pitch_buf_decimated.end(), 1.f);
-
   std::array<float, kNumPitchBufAutoCorrCoeffs> computed_output;
   {
     // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
     // FloatingPointExceptionObserver fpe_observer;
-    std::unique_ptr<RealFourier> fft =
-        RealFourier::Create(kAutoCorrelationFftOrder);
-    ComputePitchAutoCorrelation(pitch_buf_decimated, kMaxPitch12kHz,
-                                computed_output, fft.get());
+    AutoCorrelationCalculator auto_corr_calculator;
+    auto_corr_calculator.Compute(pitch_buf_decimated, computed_output);
   }
-
   // The expected output is constantly the length of the fixed 'x'
   // array in ComputePitchAutoCorrelation.
   std::array<float, kNumPitchBufAutoCorrCoeffs> expected_output;

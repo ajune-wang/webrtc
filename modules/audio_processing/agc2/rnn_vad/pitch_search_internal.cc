@@ -13,7 +13,6 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <cmath>
-#include <complex>
 #include <cstddef>
 #include <numeric>
 
@@ -213,61 +212,67 @@ void ComputeSlidingFrameSquareEnergies(
   }
 }
 
-void ComputePitchAutoCorrelation(
+AutoCorrelationCalculator::AutoCorrelationCalculator()
+    : fft_(1 << kAutoCorrelationFftOrder, Pffft::FftType::kReal),
+      tmp_(fft_.CreateBuffer()),
+      X_(fft_.CreateBuffer()),
+      H_(fft_.CreateBuffer()) {}
+
+AutoCorrelationCalculator::~AutoCorrelationCalculator() = default;
+
+// The auto-correlations coefficients are computed as follows:
+// |.........|...........|  <- pitch buffer
+//           [ x (fixed) ]
+// [   y_0   ]
+//         [ y_{m-1} ]
+// x and y are sub-array of equal length; x is never moved, whereas y slides.
+// The cross-correlation between y_0 and x corresponds to the auto-correlation
+// for the maximum pitch period. Hence, the first value in |auto_corr| has an
+// inverted lag equal to 0 that corresponds to a lag equal to the maximum
+// pitch period.
+void AutoCorrelationCalculator::Compute(
     rtc::ArrayView<const float, kBufSize12kHz> pitch_buf,
-    size_t max_pitch_period,
-    rtc::ArrayView<float, kNumInvertedLags12kHz> auto_corr,
-    webrtc::RealFourier* fft) {
-  RTC_DCHECK_GT(max_pitch_period, auto_corr.size());
-  RTC_DCHECK_LT(max_pitch_period, pitch_buf.size());
-  RTC_DCHECK(fft);
+    rtc::ArrayView<float, kNumInvertedLags12kHz> auto_corr) {
+  RTC_DCHECK_LT(auto_corr.size(), kMaxPitch12kHz);
+  RTC_DCHECK_GT(pitch_buf.size(), kMaxPitch12kHz);
+  constexpr size_t kFftFrameSize = 1 << kAutoCorrelationFftOrder;
+  constexpr size_t kConvolutionLength = kBufSize12kHz - kMaxPitch12kHz;
+  static_assert(kConvolutionLength == kFrameSize20ms12kHz,
+                "Mismatch between pitch buffer size, frame size and maximum "
+                "pitch period.");
+  static_assert(kFftFrameSize > kNumInvertedLags12kHz + kConvolutionLength,
+                "The FFT length is not sufficiently big to avoid cyclic "
+                "convolution errors.");
+  auto tmp = tmp_->GetView();
 
-  constexpr size_t time_domain_fft_length = 1 << kAutoCorrelationFftOrder;
-  constexpr size_t freq_domain_fft_length = time_domain_fft_length / 2 + 1;
+  // Compute the FFT for the reversed reference frame - i.e.,
+  // pitch_buf[-kConvolutionLength:].
+  std::reverse_copy(pitch_buf.end() - kConvolutionLength, pitch_buf.end(),
+                    tmp.begin());
+  std::fill(tmp.begin() + kConvolutionLength, tmp.end(), 0.f);
+  fft_.ForwardTransform(*tmp_, H_.get(), /*ordered=*/false);
 
-  RTC_DCHECK_EQ(RealFourier::FftLength(fft->order()), time_domain_fft_length);
-  RTC_DCHECK_EQ(RealFourier::ComplexLength(fft->order()),
-                freq_domain_fft_length);
-
-  // Cross-correlation of y_i=pitch_buf[i:i+convolution_length] and
-  // x=pitch_buf[-convolution_length:] is equivalent to convolution of
-  // y_i and reversed(x). New notation: h=reversed(x), x=y.
-  std::array<float, time_domain_fft_length> h{};
-  std::array<float, time_domain_fft_length> x{};
-
-  const size_t convolution_length = kBufSize12kHz - max_pitch_period;
-  // Check that the FFT-length is big enough to avoid cyclic
-  // convolution errors.
-  RTC_DCHECK_GT(time_domain_fft_length,
-                kNumInvertedLags12kHz + convolution_length);
-
-  // h[0:convolution_length] is reversed pitch_buf[-convolution_length:].
-  std::reverse_copy(pitch_buf.end() - convolution_length, pitch_buf.end(),
-                    h.begin());
-
-  // x is pitch_buf[:kNumInvertedLags12kHz + convolution_length].
+  // Compute the FFT for the sliding frames chunk. The sliding frames are
+  // defined as pitch_buf[i:i+kConvolutionLength] where i in
+  // [0, kNumInvertedLags12kHz). The chunk includes all of them, hence it is
+  // defined as pitch_buf[:kNumInvertedLags12kHz+kConvolutionLength].
   std::copy(pitch_buf.begin(),
-            pitch_buf.begin() + kNumInvertedLags12kHz + convolution_length,
-            x.begin());
+            pitch_buf.begin() + kConvolutionLength + kNumInvertedLags12kHz,
+            tmp.begin());
+  std::fill(tmp.begin() + kNumInvertedLags12kHz + kConvolutionLength, tmp.end(),
+            0.f);
+  fft_.ForwardTransform(*tmp_, X_.get(), /*ordered=*/false);
 
-  // Shift to frequency domain.
-  std::array<std::complex<float>, freq_domain_fft_length> X{};
-  std::array<std::complex<float>, freq_domain_fft_length> H{};
-  fft->Forward(&x[0], &X[0]);
-  fft->Forward(&h[0], &H[0]);
+  // Convolve in the frequency domain.
+  constexpr float kScalingFactor = 1.f / static_cast<float>(kFftFrameSize);
+  // TODO(alessiob): Consider avoiding zeroing |tmp| by adding another buffer.
+  std::fill(tmp.begin(), tmp.end(), 0.f);
+  fft_.FrequencyDomainConvolve(*X_, *H_, tmp_.get(), kScalingFactor);
+  fft_.BackwardTransform(*tmp_, tmp_.get(), /*ordered=*/false);
 
-  // Convolve in frequency domain.
-  for (size_t i = 0; i < X.size(); ++i) {
-    X[i] *= H[i];
-  }
-
-  // Shift back to time domain.
-  std::array<float, time_domain_fft_length> x_conv_h;
-  fft->Inverse(&X[0], &x_conv_h[0]);
-
-  // Collect the result.
-  std::copy(x_conv_h.begin() + convolution_length - 1,
-            x_conv_h.begin() + convolution_length + kNumInvertedLags12kHz - 1,
+  // Extract the auto-correlation coefficients.
+  std::copy(tmp.begin() + kConvolutionLength - 1,
+            tmp.begin() + kConvolutionLength + kNumInvertedLags12kHz - 1,
             auto_corr.begin());
 }
 

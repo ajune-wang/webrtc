@@ -1,3 +1,4 @@
+#if 0
 /*
  *  Copyright 2018 The WebRTC project authors. All Rights Reserved.
  *
@@ -719,3 +720,4 @@ TEST_F(VideoSendStreamImplTest, CallsVideoStreamEncoderOnBitrateUpdate) {
 
 }  // namespace internal
 }  // namespace webrtc
+#endif

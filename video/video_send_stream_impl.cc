@@ -143,10 +143,12 @@ RtpSenderFrameEncryptionConfig CreateFrameEncryptionConfig(
   return frame_encryption_config;
 }
 
-RtpSenderObservers CreateObservers(CallStats* call_stats,
-                                   EncoderKeyFrameCallback* encoder_feedback,
-                                   SendStatisticsProxy* stats_proxy,
-                                   SendDelayStats* send_delay_stats) {
+RtpSenderObservers CreateObservers(
+    CallStats* call_stats,
+    EncoderKeyFrameCallback* encoder_feedback,
+    SendStatisticsProxy* stats_proxy,
+    SendDelayStats* send_delay_stats,
+    RtcpLossNotificationObserver* loss_notification_observer) {
   RtpSenderObservers observers;
   observers.rtcp_rtt_stats = call_stats;
   observers.intra_frame_callback = encoder_feedback;
@@ -157,6 +159,7 @@ RtpSenderObservers CreateObservers(CallStats* call_stats,
   observers.rtcp_type_observer = stats_proxy;
   observers.send_delay_observer = stats_proxy;
   observers.send_packet_observer = send_delay_stats;
+  observers.loss_notification_observer = loss_notification_observer;
   return observers;
 }
 
@@ -240,7 +243,8 @@ VideoSendStreamImpl::VideoSendStreamImpl(
           CreateObservers(call_stats,
                           &encoder_feedback_,
                           stats_proxy_,
-                          send_delay_stats),
+                          send_delay_stats,
+                          /*&encoder_feedback_*/ nullptr),
           event_log,
           std::move(fec_controller),
           CreateFrameEncryptionConfig(config_))),

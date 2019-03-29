@@ -115,6 +115,10 @@ class RTPSender {
   void OnReceivedNack(const std::vector<uint16_t>& nack_sequence_numbers,
                       int64_t avg_rtt);
 
+  void OnReceivedLossNotification(uint16_t last_decoded,
+                                  uint16_t last_received,
+                                  bool decodability_flag);
+
   void SetStorePacketsStatus(bool enable, uint16_t number_to_store);
 
   bool StorePackets() const;

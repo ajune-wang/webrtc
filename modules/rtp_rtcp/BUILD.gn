@@ -143,6 +143,8 @@ rtc_static_library("rtp_rtcp") {
     "source/receive_statistics_impl.cc",
     "source/receive_statistics_impl.h",
     "source/remote_ntp_time_estimator.cc",
+    "source/rename_me.cc",  # TODO: !!!
+    "source/rename_me.h",  # TODO: !!!
     "source/rtcp_nack_stats.cc",
     "source/rtcp_nack_stats.h",
     "source/rtcp_receiver.cc",
@@ -376,6 +378,7 @@ if (rtc_include_tests) {
       "source/playout_delay_oracle_unittest.cc",
       "source/receive_statistics_unittest.cc",
       "source/remote_ntp_time_estimator_unittest.cc",
+      "source/rename_me_unittest.cc",
       "source/rtcp_nack_stats_unittest.cc",
       "source/rtcp_packet/app_unittest.cc",
       "source/rtcp_packet/bye_unittest.cc",

@@ -64,6 +64,7 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
     Transport* send_transport,
     RtcpIntraFrameObserver* intra_frame_callback,
     RtcpBandwidthObserver* bandwidth_callback,
+    RtcpLossNotificationObserver* loss_notification_observer,
     RtpTransportControllerSendInterface* transport,
     RtcpRttStats* rtt_stats,
     FlexfecSender* flexfec_sender,
@@ -86,6 +87,7 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
   configuration.outgoing_transport = send_transport;
   configuration.intra_frame_callback = intra_frame_callback;
   configuration.bandwidth_callback = bandwidth_callback;
+  configuration.loss_notification_observer = loss_notification_observer;
   configuration.transport_feedback_callback =
       transport->transport_feedback_observer();
   configuration.rtt_stats = rtt_stats;
@@ -236,6 +238,7 @@ RtpVideoSender::RtpVideoSender(
                                           send_transport,
                                           observers.intra_frame_callback,
                                           transport->GetBandwidthObserver(),
+                                          observers.loss_notification_observer,
                                           transport,
                                           observers.rtcp_rtt_stats,
                                           flexfec_sender_.get(),

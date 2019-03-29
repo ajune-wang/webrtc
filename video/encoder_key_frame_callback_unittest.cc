@@ -1,3 +1,4 @@
+#if 0
 /*
  *  Copyright (c) 2012 The WebRTC project authors. All Rights Reserved.
  *
@@ -61,3 +62,4 @@ TEST_F(VieKeyRequestTest, TriggerRequestFromMediaTransport) {
 }
 
 }  // namespace webrtc
+#endif

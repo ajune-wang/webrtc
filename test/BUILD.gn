@@ -388,7 +388,6 @@ if (rtc_include_tests) {
       "../modules/video_coding:simulcast_test_fixture_impl",
       "../rtc_base:rtc_base_approved",
       "../rtc_base/system:file_wrapper",
-      "../test:single_threaded_task_queue",
       "pc/e2e:e2e_unittests",
       "scenario:scenario_unittests",
       "time_controller:time_controller_unittests",
@@ -404,7 +403,6 @@ if (rtc_include_tests) {
       "frame_generator_unittest.cc",
       "rtp_file_reader_unittest.cc",
       "rtp_file_writer_unittest.cc",
-      "single_threaded_task_queue_unittest.cc",
       "testsupport/perf_test_unittest.cc",
       "testsupport/test_artifacts_unittest.cc",
       "testsupport/video_frame_writer_unittest.cc",
@@ -603,25 +601,13 @@ rtc_source_set("direct_transport") {
     "../modules/rtp_rtcp",
     "../rtc_base:rtc_base_approved",
     "../rtc_base:sequenced_task_checker",
+    "../rtc_base/task_utils:repeating_task",
     "../system_wrappers",
     "//third_party/abseil-cpp/absl/memory",
   ]
   public_deps = [  # no-presubmit-check TODO(webrtc:8603)
-    ":single_threaded_task_queue",
     "../call:fake_network",
-  ]
-}
-
-rtc_source_set("single_threaded_task_queue") {
-  testonly = true
-  sources = [
-    "single_threaded_task_queue.cc",
-    "single_threaded_task_queue.h",
-  ]
-  deps = [
-    "../rtc_base:checks",
-    "../rtc_base:rtc_base_approved",
-    "//third_party/abseil-cpp/absl/memory",
+    "../rtc_base:task_queue_for_test",
   ]
 }
 

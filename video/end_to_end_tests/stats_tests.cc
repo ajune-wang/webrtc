@@ -233,9 +233,8 @@ TEST_F(StatsEndToEndTest, GetStats) {
       return true;
     }
 
-    test::PacketTransport* CreateSendTransport(
-        test::SingleThreadedTaskQueueForTesting* task_queue,
-        Call* sender_call) override {
+    test::PacketTransport* CreateSendTransport(TaskQueueForTest* task_queue,
+                                               Call* sender_call) override {
       BuiltInNetworkBehaviorConfig network_config;
       network_config.loss_percent = 5;
       return new test::PacketTransport(

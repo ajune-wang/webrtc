@@ -17,8 +17,9 @@
 #include "call/call.h"
 #include "call/simulated_packet_receiver.h"
 #include "rtc_base/sequenced_task_checker.h"
+#include "rtc_base/task_queue_for_test.h"
+#include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/thread_annotations.h"
-#include "test/single_threaded_task_queue.h"
 
 namespace webrtc {
 
@@ -40,7 +41,7 @@ class Demuxer {
 // same task-queue - the one that's passed in via the constructor.
 class DirectTransport : public Transport {
  public:
-  DirectTransport(SingleThreadedTaskQueueForTesting* task_queue,
+  DirectTransport(TaskQueueForTest* task_queue,
                   std::unique_ptr<SimulatedPacketReceiverInterface> pipe,
                   Call* send_call,
                   const std::map<uint8_t, MediaType>& payload_type_map);
@@ -60,18 +61,16 @@ class DirectTransport : public Transport {
   int GetAverageDelayMs();
 
  private:
-  void ProcessPackets() RTC_EXCLUSIVE_LOCKS_REQUIRED(&process_lock_);
+  void ProcessPackets() RTC_RUN_ON(task_queue_);
   void SendPacket(const uint8_t* data, size_t length);
   void Start();
 
   Call* const send_call_;
   Clock* const clock_;
 
-  SingleThreadedTaskQueueForTesting* const task_queue_;
+  TaskQueueForTest* const task_queue_;
 
-  rtc::CriticalSection process_lock_;
-  absl::optional<SingleThreadedTaskQueueForTesting::TaskId> next_process_task_
-      RTC_GUARDED_BY(&process_lock_);
+  RepeatingTaskHandle process_task_ RTC_GUARDED_BY(task_queue_);
 
   const Demuxer demuxer_;
   const std::unique_ptr<SimulatedPacketReceiverInterface> fake_network_;

@@ -13,8 +13,8 @@
 #include "call/call.h"
 #include "call/fake_network_pipe.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
+#include "rtc_base/task_queue_for_test.h"
 #include "system_wrappers/include/clock.h"
-#include "test/single_threaded_task_queue.h"
 
 namespace webrtc {
 namespace test {
@@ -37,7 +37,7 @@ MediaType Demuxer::GetMediaType(const uint8_t* packet_data,
 }
 
 DirectTransport::DirectTransport(
-    SingleThreadedTaskQueueForTesting* task_queue,
+    TaskQueueForTest* task_queue,
     std::unique_ptr<SimulatedPacketReceiverInterface> pipe,
     Call* send_call,
     const std::map<uint8_t, MediaType>& payload_type_map)
@@ -50,18 +50,20 @@ DirectTransport::DirectTransport(
 }
 
 DirectTransport::~DirectTransport() {
-  if (next_process_task_)
-    task_queue_->CancelTask(*next_process_task_);
+  task_queue_->SendTask([this] {
+    RTC_DCHECK_RUN_ON(task_queue_);
+    process_task_.Stop();
+  });
 }
 
 void DirectTransport::StopSending() {
-  rtc::CritScope cs(&process_lock_);
-  if (next_process_task_)
-    task_queue_->CancelTask(*next_process_task_);
+  task_queue_->SendTask([this] {
+    RTC_DCHECK_RUN_ON(task_queue_);
+    process_task_.Stop();
+  });
 }
 
 void DirectTransport::SetReceiver(PacketReceiver* receiver) {
-  rtc::CritScope cs(&process_lock_);
   fake_network_->SetReceiver(receiver);
 }
 
@@ -91,9 +93,10 @@ void DirectTransport::SendPacket(const uint8_t* data, size_t length) {
   int64_t send_time = clock_->TimeInMicroseconds();
   fake_network_->DeliverPacket(media_type, rtc::CopyOnWriteBuffer(data, length),
                                send_time);
-  rtc::CritScope cs(&process_lock_);
-  if (!next_process_task_)
+  task_queue_->PostTask([this] {
+    RTC_DCHECK_RUN_ON(task_queue_);
     ProcessPackets();
+  });
 }
 
 int DirectTransport::GetAverageDelayMs() {
@@ -109,17 +112,23 @@ void DirectTransport::Start() {
 }
 
 void DirectTransport::ProcessPackets() {
-  next_process_task_.reset();
+  if (process_task_.Running())
+    return;
   auto delay_ms = fake_network_->TimeUntilNextProcess();
-  if (delay_ms) {
-    next_process_task_ = task_queue_->PostDelayedTask(
-        [this]() {
-          fake_network_->Process();
-          rtc::CritScope cs(&process_lock_);
-          ProcessPackets();
-        },
-        *delay_ms);
-  }
+  if (!delay_ms)
+    return;
+  process_task_ = RepeatingTaskHandle::DelayedStart(
+      task_queue_->Get(), TimeDelta::ms(*delay_ms), [this]() {
+        RTC_DCHECK_RUN_ON(task_queue_);
+        fake_network_->Process();
+        auto repeat_ms = fake_network_->TimeUntilNextProcess();
+        if (repeat_ms) {
+          return TimeDelta::ms(*repeat_ms);
+        } else {
+          process_task_.Stop();
+          return TimeDelta::Zero();  // Ignored.
+        }
+      });
 }
 }  // namespace test
 }  // namespace webrtc

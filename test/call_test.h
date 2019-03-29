@@ -22,13 +22,13 @@
 #include "call/call.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/audio_device/include/test_audio_device.h"
+#include "rtc_base/task_queue_for_test.h"
 #include "test/encoder_settings.h"
 #include "test/fake_decoder.h"
 #include "test/fake_videorenderer.h"
 #include "test/fake_vp8_encoder.h"
 #include "test/frame_generator_capturer.h"
 #include "test/rtp_rtcp_observer.h"
-#include "test/single_threaded_task_queue.h"
 
 namespace webrtc {
 namespace test {
@@ -213,7 +213,7 @@ class CallTest : public ::testing::Test {
   rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory_;
   test::FakeVideoRenderer fake_renderer_;
 
-  SingleThreadedTaskQueueForTesting task_queue_;
+  TaskQueueForTest task_queue_;
 
  private:
   absl::optional<RtpExtension> GetRtpExtensionByUri(
@@ -254,10 +254,10 @@ class BaseTest : public RtpRtcpObserver {
   virtual void OnCallsCreated(Call* sender_call, Call* receiver_call);
 
   virtual test::PacketTransport* CreateSendTransport(
-      SingleThreadedTaskQueueForTesting* task_queue,
+      TaskQueueForTest* task_queue,
       Call* sender_call);
   virtual test::PacketTransport* CreateReceiveTransport(
-      SingleThreadedTaskQueueForTesting* task_queue);
+      TaskQueueForTest* task_queue);
 
   virtual void ModifyVideoConfigs(
       VideoSendStream::Config* send_config,

@@ -54,8 +54,7 @@ class Call {
   static Call* Create(const Call::Config& config,
                       Clock* clock,
                       std::unique_ptr<ProcessThread> call_thread,
-                      std::unique_ptr<ProcessThread> pacer_thread,
-                      TaskQueueFactory* task_queue_factory);
+                      std::unique_ptr<ProcessThread> pacer_thread);
 
   virtual AudioSendStream* CreateAudioSendStream(
       const AudioSendStream::Config& config) = 0;

@@ -22,6 +22,30 @@
       "revId": "36ce1b4f30d82fba13157d0cea4a7a3b1d61c00b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "974859c7_d43324eb",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-29T09:47:01Z",
+      "side": 1,
+      "message": "Added comment, it affects TaskQueueBase::Current() as well, but that shouldn\u0027t be an issue in practise as we wouldn\u0027t be able to use it in prod code anyway. (Only use case on a non-task-queue would be in checks)",
+      "parentUuid": "38f2a81a_c63731d6",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 333,
+        "endChar": 73
+      },
+      "revId": "36ce1b4f30d82fba13157d0cea4a7a3b1d61c00b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e649afae_0a4080b4",
+        "filename": "video/buffered_frame_decryptor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-29T22:42:19Z",
+      "side": 1,
+      "message": "Done, I also removed the stashing code from call.",
+      "parentUuid": "4b0bb390_4e865d74",
+      "range": {
+        "startLine": 62,
+        "startChar": 26,
+        "endLine": 62,
+        "endChar": 31
+      },
+      "revId": "02a1c7ad810699469eb3c65d8d121593aec37f19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24e4f6c8_6ec98f04",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 1
@@ -69,6 +93,30 @@
       "revId": "02a1c7ad810699469eb3c65d8d121593aec37f19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "289e9c53_b0a8284d",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-29T22:42:19Z",
+      "side": 1,
+      "message": "Yep this is a cleaner design. Fixed.",
+      "parentUuid": "24e4f6c8_6ec98f04",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 3
+      },
+      "revId": "02a1c7ad810699469eb3c65d8d121593aec37f19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

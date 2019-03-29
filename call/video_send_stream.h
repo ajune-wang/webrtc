@@ -153,7 +153,7 @@ class VideoSendStream {
 
     // Forces spatial scalability to be implemented via spatial layers
     // instead of simulcast.
-    bool is_svc;
+    bool is_svc = false;
 
    private:
     // Access to the copy constructor is private to force use of the Copy()

@@ -234,6 +234,7 @@ class PeerConnection : public PeerConnectionInternal,
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
   GetTransceiversInternal() const override {
     RTC_DCHECK_RUN_ON(signaling_thread());
+    RTC_DCHECK_RUNS_SERIALIZED(&transceivers_race_checker_);
     return transceivers_;
   }
 
@@ -313,18 +314,23 @@ class PeerConnection : public PeerConnectionInternal,
       RTC_RUN_ON(signaling_thread());
 
   std::vector<rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>>
-  GetSendersInternal() const RTC_RUN_ON(signaling_thread());
+  GetSendersInternal() const RTC_RUN_ON(signaling_thread())
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
   std::vector<
       rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>>
-  GetReceiversInternal() const RTC_RUN_ON(signaling_thread());
+  GetReceiversInternal() const RTC_RUN_ON(signaling_thread())
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
 
   rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
-  GetAudioTransceiver() const RTC_RUN_ON(signaling_thread());
+  GetAudioTransceiver() const RTC_RUN_ON(signaling_thread())
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
   rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
-  GetVideoTransceiver() const RTC_RUN_ON(signaling_thread());
+  GetVideoTransceiver() const RTC_RUN_ON(signaling_thread())
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
 
   rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
-  GetFirstAudioTransceiver() const RTC_RUN_ON(signaling_thread());
+  GetFirstAudioTransceiver() const RTC_RUN_ON(signaling_thread())
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
 
   void CreateAudioReceiver(MediaStreamInterface* stream,
                            const RtpSenderInfo& remote_sender_info)
@@ -334,7 +340,8 @@ class PeerConnection : public PeerConnectionInternal,
                            const RtpSenderInfo& remote_sender_info)
       RTC_RUN_ON(signaling_thread());
   rtc::scoped_refptr<RtpReceiverInterface> RemoveAndStopReceiver(
-      const RtpSenderInfo& remote_sender_info) RTC_RUN_ON(signaling_thread());
+      const RtpSenderInfo& remote_sender_info) RTC_RUN_ON(signaling_thread())
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
 
   // May be called either by AddStream/RemoveStream, or when a track is
   // added/removed from a stream previously added via AddStream.
@@ -352,8 +359,8 @@ class PeerConnection : public PeerConnectionInternal,
   // AddTrack implementation when Unified Plan is specified.
   RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> AddTrackUnifiedPlan(
       rtc::scoped_refptr<MediaStreamTrackInterface> track,
-      const std::vector<std::string>& stream_ids)
-      RTC_RUN_ON(signaling_thread());
+      const std::vector<std::string>& stream_ids) RTC_RUN_ON(signaling_thread())
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
   // AddTrack implementation when Plan B is specified.
   RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> AddTrackPlanB(
       rtc::scoped_refptr<MediaStreamTrackInterface> track,
@@ -365,11 +372,13 @@ class PeerConnection : public PeerConnectionInternal,
   rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
   FindFirstTransceiverForAddedTrack(
       rtc::scoped_refptr<MediaStreamTrackInterface> track)
-      RTC_RUN_ON(signaling_thread());
+      RTC_RUN_ON(signaling_thread())
+          RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
 
   rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
   FindTransceiverBySender(rtc::scoped_refptr<RtpSenderInterface> sender)
-      RTC_RUN_ON(signaling_thread());
+      RTC_RUN_ON(signaling_thread())
+          RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
 
   // Internal implementation for AddTransceiver family of methods. If
   // |fire_callback| is set, fires OnRenegotiationNeeded callback if successful.
@@ -395,7 +404,8 @@ class PeerConnection : public PeerConnectionInternal,
   CreateAndAddTransceiver(
       rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>> sender,
       rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
-          receiver) RTC_RUN_ON(signaling_thread());
+          receiver) RTC_RUN_ON(signaling_thread())
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
 
   void SetIceConnectionState(IceConnectionState new_state)
       RTC_RUN_ON(signaling_thread());
@@ -487,19 +497,22 @@ class PeerConnection : public PeerConnectionInternal,
   // Returns the RtpTransceiver, if found, that is associated to the given MID.
   rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
   GetAssociatedTransceiver(const std::string& mid) const
-      RTC_RUN_ON(signaling_thread());
+      RTC_RUN_ON(signaling_thread())
+          RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
 
   // Returns the RtpTransceiver, if found, that was assigned to the given mline
   // index in CreateOffer.
   rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
   GetTransceiverByMLineIndex(size_t mline_index) const
-      RTC_RUN_ON(signaling_thread());
+      RTC_RUN_ON(signaling_thread())
+          RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
 
   // Returns an RtpTransciever, if available, that can be used to receive the
   // given media type according to JSEP rules.
   rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
   FindAvailableTransceiverToReceive(cricket::MediaType media_type) const
-      RTC_RUN_ON(signaling_thread());
+      RTC_RUN_ON(signaling_thread())
+          RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
 
   // Returns the media section in the given session description that is
   // associated with the RtpTransceiver. Returns null if none found or this
@@ -568,12 +581,15 @@ class PeerConnection : public PeerConnectionInternal,
   RTCError HandleLegacyOfferOptions(const RTCOfferAnswerOptions& options)
       RTC_RUN_ON(signaling_thread());
   void RemoveRecvDirectionFromReceivingTransceiversOfType(
-      cricket::MediaType media_type) RTC_RUN_ON(signaling_thread());
-  void AddUpToOneReceivingTransceiverOfType(cricket::MediaType media_type);
+      cricket::MediaType media_type) RTC_RUN_ON(signaling_thread())
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
+  void AddUpToOneReceivingTransceiverOfType(cricket::MediaType media_type)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
   std::vector<
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
   GetReceivingTransceiversOfType(cricket::MediaType media_type)
-      RTC_RUN_ON(signaling_thread());
+      RTC_RUN_ON(signaling_thread())
+          RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
 
   // Returns a MediaSessionOptions struct with options decided by
   // |constraints|, the local MediaStreams and DataChannels.
@@ -740,17 +756,20 @@ class PeerConnection : public PeerConnectionInternal,
   // Return the RtpSender with the given track attached.
   rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>
   FindSenderForTrack(MediaStreamTrackInterface* track) const
-      RTC_RUN_ON(signaling_thread());
+      RTC_RUN_ON(signaling_thread())
+          RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
 
   // Return the RtpSender with the given id, or null if none exists.
   rtc::scoped_refptr<RtpSenderProxyWithInternal<RtpSenderInternal>>
   FindSenderById(const std::string& sender_id) const
-      RTC_RUN_ON(signaling_thread());
+      RTC_RUN_ON(signaling_thread())
+          RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
 
   // Return the RtpReceiver with the given id, or null if none exists.
   rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>
   FindReceiverById(const std::string& receiver_id) const
-      RTC_RUN_ON(signaling_thread());
+      RTC_RUN_ON(signaling_thread())
+          RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
 
   std::vector<RtpSenderInfo>* GetRemoteSenderInfos(
       cricket::MediaType media_type);
@@ -813,7 +832,8 @@ class PeerConnection : public PeerConnectionInternal,
   }
   const std::string& session_error_desc() const { return session_error_desc_; }
 
-  cricket::ChannelInterface* GetChannel(const std::string& content_name);
+  cricket::ChannelInterface* GetChannel(const std::string& content_name)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(transceivers_race_checker_);
 
   // Get current SSL role used by SCTP's underlying transport.
   bool GetSctpSslRole(rtc::SSLRole* role);
@@ -1112,9 +1132,9 @@ class PeerConnection : public PeerConnectionInternal,
   // other threads.
   // TODO(bugs.webrtc.org/9987): Caching just this bool and allowing the data
   // it's derived from to change is not necessarily sound. Stop doing it.
-  rtc::RaceChecker use_media_transport_race_checker_;
   bool use_media_transport_ RTC_GUARDED_BY(use_media_transport_race_checker_) =
       configuration_.use_media_transport;
+  rtc::RaceChecker use_media_transport_race_checker_;
 
   // TODO(zstein): |async_resolver_factory_| can currently be nullptr if it
   // is not injected. It should be required once chromium supplies it.
@@ -1175,9 +1195,13 @@ class PeerConnection : public PeerConnectionInternal,
   rtc::scoped_refptr<RTCStatsCollector> stats_collector_
       RTC_GUARDED_BY(signaling_thread());
 
+  // TODO(bugs.webrtc.org/9987): This one is mostly accessed on the signaling
+  // thread, but not exclusively.
   std::vector<
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
-      transceivers_;
+      transceivers_ RTC_GUARDED_BY(transceivers_race_checker_);
+  rtc::RaceChecker transceivers_race_checker_;
+
   // In Unified Plan, if we encounter remote SDP that does not contain an a=msid
   // line we create and use a stream with a random ID for our receivers. This is
   // to support legacy endpoints that do not support the a=msid attribute (as

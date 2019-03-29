@@ -62,17 +62,22 @@ class RTC_SCOPED_LOCKABLE RaceCheckerScopeDoNothing {
 }  // namespace internal
 }  // namespace rtc
 
-#define RTC_CHECK_RUNS_SERIALIZED(x)               \
-  rtc::internal::RaceCheckerScope race_checker(x); \
-  RTC_CHECK(!race_checker.RaceDetected())
+#define WEBRTC_RACE_CHECKER_CONCAT_2(a, b) a##b
+#define WEBRTC_RACE_CHECKER_CONCAT(a, b) WEBRTC_RACE_CHECKER_CONCAT_2(a, b)
+#define WEBRTC_RACE_CHECKER_NAME \
+  WEBRTC_RACE_CHECKER_CONCAT(race_checker_, __LINE__)
+
+#define RTC_CHECK_RUNS_SERIALIZED(x)                           \
+  rtc::internal::RaceCheckerScope WEBRTC_RACE_CHECKER_NAME(x); \
+  RTC_CHECK(!WEBRTC_RACE_CHECKER_NAME.RaceDetected())
 
 #if RTC_DCHECK_IS_ON
-#define RTC_DCHECK_RUNS_SERIALIZED(x)              \
-  rtc::internal::RaceCheckerScope race_checker(x); \
-  RTC_DCHECK(!race_checker.RaceDetected())
+#define RTC_DCHECK_RUNS_SERIALIZED(x)                          \
+  rtc::internal::RaceCheckerScope WEBRTC_RACE_CHECKER_NAME(x); \
+  RTC_DCHECK(!WEBRTC_RACE_CHECKER_NAME.RaceDetected())
 #else
 #define RTC_DCHECK_RUNS_SERIALIZED(x) \
-  rtc::internal::RaceCheckerScopeDoNothing race_checker(x)
+  rtc::internal::RaceCheckerScopeDoNothing WEBRTC_RACE_CHECKER_NAME(x)
 #endif
 
 #endif  // RTC_BASE_RACE_CHECKER_H_

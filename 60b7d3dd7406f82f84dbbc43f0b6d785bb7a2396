@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bf153e6e_99dd212e",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-29T08:25:02Z",
+      "side": 1,
+      "message": "I tried that and found it less readable as there\u0027s some extra end comparisons, I\u0027d prefer this way unless there\u0027s some argument beyond readability.",
+      "parentUuid": "51239cee_6f8b0a4e",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 21
+      },
+      "revId": "60b7d3dd7406f82f84dbbc43f0b6d785bb7a2396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d85edc8_5027463a",
         "filename": "test/time_controller/simulated_time_controller.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "46677a9b_37f02163",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-29T08:25:02Z",
+      "side": 1,
+      "message": "I don\u0027t really know why it\u0027s protected now, but I\u0027d say that the purpose of documentation is still maintained even if it\u0027s possible to work around. Added a comment on why it\u0027s promoted.",
+      "parentUuid": "8d85edc8_5027463a",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 71
+      },
+      "revId": "60b7d3dd7406f82f84dbbc43f0b6d785bb7a2396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a8f8cb1_78e4aa3c",
         "filename": "test/time_controller/simulated_time_controller.h",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "60b7d3dd7406f82f84dbbc43f0b6d785bb7a2396",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9eb7604_5d3c4431",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-29T08:25:02Z",
+      "side": 1,
+      "message": "Still used for the yielded set since we never iterate trough it, only insertion, lookup and removal.",
+      "parentUuid": "2a8f8cb1_78e4aa3c",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 24
+      },
+      "revId": "60b7d3dd7406f82f84dbbc43f0b6d785bb7a2396",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

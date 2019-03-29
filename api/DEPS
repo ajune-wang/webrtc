@@ -52,6 +52,11 @@ specific_include_rules = {
     "+rtc_base/type_traits.h",
   ],
 
+  "analyzer_helper\.h": [
+    "+rtc_base/critical_section.h",
+    "+rtc_base/thread_annotations.h",
+  ],
+
   # Needed because AudioEncoderOpus is in the wrong place for
   # backwards compatibilty reasons. See
   # https://bugs.chromium.org/p/webrtc/issues/detail?id=7847

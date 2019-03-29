@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c814e01_350ba90f",
+        "filename": "video/buffered_frame_decryptor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-29T09:58:04Z",
+      "side": 1,
+      "message": "I think we need to stash the frames here? Otherwise we will lose the frames that come in between the stream is set up and when we get the FrameDecryptor, meaning that we need to issue a keyframe request.",
+      "range": {
+        "startLine": 62,
+        "startChar": 26,
+        "endLine": 62,
+        "endChar": 31
+      },
+      "revId": "02a1c7ad810699469eb3c65d8d121593aec37f19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

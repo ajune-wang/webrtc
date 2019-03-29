@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4b0bb390_4e865d74",
+        "filename": "video/buffered_frame_decryptor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-29T14:52:40Z",
+      "side": 1,
+      "message": "By starting to stash here, we should get rid of this hack at the same time:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/call/call.cc?l\u003d1415\u0026rcl\u003db118d428499844749df6dd28aa3dbc8d5e1484fe\nCan you do that in the same CL?\n\nBasically, the end result would be that we use the WebRtcVideoChannel buffer to handle the case of late signaling, and the buffer here to handle the case of late FrameDecryptor/late key. That seems like a good separation.",
+      "parentUuid": "8c814e01_350ba90f",
+      "range": {
+        "startLine": 62,
+        "startChar": 26,
+        "endLine": 62,
+        "endChar": 31
+      },
+      "revId": "02a1c7ad810699469eb3c65d8d121593aec37f19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "24e4f6c8_6ec98f04",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 1

@@ -22,6 +22,57 @@
       "revId": "53867bafbbf8e7f223b1c272a3b499d8b27e77f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58ed2013_b06c7015",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-03-29T13:13:40Z",
+      "side": 1,
+      "message": "Maybe we should create a .cc/.h pair for the autocorrelation calculator. This file is getting a bit long. WDYT? Up to you.",
+      "revId": "53867bafbbf8e7f223b1c272a3b499d8b27e77f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33e5a02c_2314156c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-03-29T13:13:40Z",
+      "side": 1,
+      "message": "The TODO should be removed, as decided in off-line discussion.",
+      "revId": "53867bafbbf8e7f223b1c272a3b499d8b27e77f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08b26c07_14aff3e7",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-03-29T13:13:40Z",
+      "side": 1,
+      "message": "We should probably rename this test as it is not really checking bit-exactness.",
+      "revId": "53867bafbbf8e7f223b1c272a3b499d8b27e77f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

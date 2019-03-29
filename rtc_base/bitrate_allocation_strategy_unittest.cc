@@ -12,6 +12,7 @@
 
 #include <cstdint>
 
+#include "test/field_trial.h"
 #include "test/gtest.h"
 
 namespace rtc {
@@ -232,6 +233,35 @@ TEST(AudioPriorityBitrateAllocationStrategyTest, VideoAllocateBitrate) {
   EXPECT_EQ(max_audio_bitrate, allocations[0]);
   EXPECT_EQ(video_bitrate, allocations[1]);
   EXPECT_EQ(max_other_bitrate, allocations[2]);
+}
+
+TEST(AudioPriorityBitrateAllocationStrategyTest, WeightedAllocations) {
+  webrtc::test::ScopedFieldTrials trials(
+      "WebRTC-Bwe-AudioPriority/audio_priority:0.5/");
+
+  constexpr uint32_t sufficient_audio_bitrate = 20000;
+  const std::string audio_track_id = "audio_track";
+  constexpr uint32_t min_audio_bitrate = 10000;
+  constexpr uint32_t max_audio_bitrate = 60000;
+  const std::string video_track_id = "video_track";
+  constexpr uint32_t min_video_bitrate = 30000;
+  constexpr uint32_t max_video_bitrate = 300000;
+  constexpr uint32_t min_other_bitrate = 10000;
+  constexpr uint32_t max_other_bitrate = 40000;
+  constexpr uint32_t available_bitrate =
+      sufficient_audio_bitrate + min_video_bitrate + min_other_bitrate + 50000;
+
+  // Since we have a audio priority of 0.5 we expect the audio channel to get
+  // half as much of the spare capacity as the other channels.
+  // That is, the audio bitrate is sufficient_audio_bitrate + 10000 while the
+  // others get min_(video|other)_bitrate + 20000.
+  std::vector<uint32_t> allocations = RunAudioPriorityAllocation(
+      sufficient_audio_bitrate, audio_track_id, min_audio_bitrate,
+      max_audio_bitrate, video_track_id, min_video_bitrate, max_video_bitrate,
+      min_other_bitrate, max_other_bitrate, available_bitrate);
+  EXPECT_EQ(sufficient_audio_bitrate + 10000, allocations[0]);
+  EXPECT_EQ(min_video_bitrate + 20000, allocations[1]);
+  EXPECT_EQ(min_other_bitrate + 20000, allocations[2]);
 }
 
 }  // namespace rtc

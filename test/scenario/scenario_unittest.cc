@@ -7,6 +7,7 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
+#include <atomic>
 
 #include "test/scenario/scenario.h"
 #include "test/gtest.h"
@@ -38,10 +39,10 @@ TEST(ScenarioTest, StartsAndStopsWithoutErrors) {
   CrossTrafficConfig cross_traffic_config;
   s.CreateCrossTraffic({alice_net}, cross_traffic_config);
 
-  bool packet_received = false;
+  std::atomic<bool> packet_received(false);
   s.NetworkDelayedAction({alice_net, bob_net}, 100,
                          [&packet_received] { packet_received = true; });
-  bool bitrate_changed = false;
+  std::atomic<bool> bitrate_changed(false);
   s.Every(TimeDelta::ms(10), [alice, bob, &bitrate_changed] {
     if (alice->GetStats().send_bandwidth_bps != 300000 &&
         bob->GetStats().send_bandwidth_bps != 300000)

@@ -22,6 +22,29 @@
       "revId": "02a1c7ad810699469eb3c65d8d121593aec37f19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24e4f6c8_6ec98f04",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-03-29T12:05:26Z",
+      "side": 1,
+      "message": "This should be something like:\n\n    if (config_.crypto_options.sframe.require_frame_encryption) {\n      buffered_frame_decryptor_ \u003d\n          absl::make_unique\u003cBufferedFrameDecryptor\u003e(this, this);\n\n      if (frame_decryptor)\n        buffered_frame_decryptor_-\u003eSetFrameDecryptor(std::move(frame_decryptor));\n    }\n\nright?",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 3
+      },
+      "revId": "02a1c7ad810699469eb3c65d8d121593aec37f19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

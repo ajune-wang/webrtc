@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8605f169_122c22bc",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-29T08:38:04Z",
+      "side": 1,
+      "message": "nit: than",
+      "range": {
+        "startLine": 184,
+        "startChar": 70,
+        "endLine": 184,
+        "endChar": 74
+      },
+      "revId": "29f6f4ab22b43fbdf387dafa5aeec506506acc0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "84cf2889_3b8623d9",
         "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
         "patchSetId": 1
@@ -13,6 +36,30 @@
       "writtenOn": "2019-03-29T08:06:00Z",
       "side": 1,
       "message": "Can min_bitrate be greater than max_bitrate? In that case is it ok to return a pair with the same number {X, X}?",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 51
+      },
+      "revId": "29f6f4ab22b43fbdf387dafa5aeec506506acc0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4897ea50_79bc8db3",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-29T08:38:04Z",
+      "side": 1,
+      "message": "Min bitrate should never be larger than max bitrate. Several encoders will hit dchecks if that happens I believe.",
+      "parentUuid": "84cf2889_3b8623d9",
       "range": {
         "startLine": 44,
         "startChar": 2,

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cb3da53b_73a5ea6f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-29T15:59:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14204629_36aa84ff",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "53867bafbbf8e7f223b1c272a3b499d8b27e77f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58ed2013_b06c7015",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "53867bafbbf8e7f223b1c272a3b499d8b27e77f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "248cbd41_484db448",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-29T15:59:36Z",
+      "side": 1,
+      "message": "Good suggestion. I should isolate the class since at some point we might even go back to time domain auto-correlation optimized with SIMD.",
+      "parentUuid": "58ed2013_b06c7015",
+      "revId": "53867bafbbf8e7f223b1c272a3b499d8b27e77f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "5bac8b0a_8b6fb6f9",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-29T15:59:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33e5a02c_2314156c",
+      "revId": "53867bafbbf8e7f223b1c272a3b499d8b27e77f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08b26c07_14aff3e7",
         "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal_unittest.cc",
         "patchSetId": 1
@@ -73,6 +133,24 @@
       "revId": "53867bafbbf8e7f223b1c272a3b499d8b27e77f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2e7d920_0db8ba0c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/pitch_search_internal_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-29T15:59:36Z",
+      "side": 1,
+      "message": "Right, ExpectNearAbsolute wraps EXPECT_NEAR with a given tolerance.",
+      "parentUuid": "08b26c07_14aff3e7",
+      "revId": "53867bafbbf8e7f223b1c272a3b499d8b27e77f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

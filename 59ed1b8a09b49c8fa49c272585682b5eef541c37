@@ -19,6 +19,91 @@
     },
     {
       "key": {
+        "uuid": "7761a7f7_76e320bb",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-01T15:38:08Z",
+      "side": 1,
+      "message": "Is this a problem?",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6ffe7fb_557df598",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-01T15:38:08Z",
+      "side": 1,
+      "message": "This is inconsistent with the docs for these three member variables, which states that no locks are needed.\n\nTo avoid inconsistency, I suggest placing this sort of docs with the member variables. The lock annotations will then make it impossible to forget to update accessors when restricting access to the variables.",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48f1baf0_825acdd3",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-01T15:38:08Z",
+      "side": 1,
+      "message": "This is unsafe; the returned pointer is accessible after `scope` has gone out of scope. (The corresponding construction with a thread instead of a lock *is* safe.)",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cf07484_62673791",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-01T15:38:08Z",
+      "side": 1,
+      "message": "Why are these accessors needed?",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd4ea220_55191e00",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-01T15:38:08Z",
+      "side": 1,
+      "message": "Again, it\u0027s probably best to place this text by the member variables themselves instead, wher they are less likely to be inconsistent.",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "19669997_1a8f1035",
         "filename": "pc/jsep_transport.h",
         "patchSetId": 14
@@ -36,6 +121,23 @@
     },
     {
       "key": {
+        "uuid": "d48215eb_422ac1b2",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-01T15:38:08Z",
+      "side": 1,
+      "message": "Can this be const? (The pointer, not the pointee.)",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e85db1eb_c636c6c4",
         "filename": "pc/jsep_transport.h",
         "patchSetId": 14
@@ -47,6 +149,29 @@
       "writtenOn": "2019-04-01T10:26:23Z",
       "side": 1,
       "message": "Should this comment reference the bug about making this single-threaded? \"If xyz is resolved this lock can be resolved.\"",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1b355c9_da8ef5d1",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-01T15:38:08Z",
+      "side": 1,
+      "message": "This is only true if the pointed-to objects are themselves thread safe. If they are, state this here.",
+      "range": {
+        "startLine": 318,
+        "startChar": 5,
+        "endLine": 318,
+        "endChar": 49
+      },
       "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

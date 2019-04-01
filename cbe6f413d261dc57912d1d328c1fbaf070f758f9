@@ -16,6 +16,24 @@
       "revId": "cbe6f413d261dc57912d1d328c1fbaf070f758f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69715e66_06fa9afd",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-01T16:59:41Z",
+      "side": 1,
+      "message": "The only access on the network thread is in DestroySctpTransprot_n which has only one call site DestroyDataChannel, which is called from the signaling thread. I think we can satisfy the compiler and remove the lock by moving the `sctp_ready_to_send_data_ \u003d false` to DestroyDataChannel.",
+      "parentUuid": "2b5730ab_7fd85fe3",
+      "revId": "cbe6f413d261dc57912d1d328c1fbaf070f758f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

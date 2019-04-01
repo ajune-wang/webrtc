@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a50d559e_116de56a",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-01T08:50:04Z",
+      "side": 1,
+      "message": "Thanks, removed.",
+      "parentUuid": "55f28fc7_5a1a6192",
+      "revId": "a9e23a8ca2d0811aa5162b72988ab58444bf4965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "976580f1_6741f91e",
         "filename": "pc/jsep_transport.cc",
         "patchSetId": 12
@@ -30,6 +48,24 @@
       "writtenOn": "2019-02-19T12:07:00Z",
       "side": 1,
       "message": "You\u0027re locking before calling SetLocalIceParameters(). Should SetLocalIceParameters() have a RTC_GUARDED_BY(accessor_lock_)?\n\nWhat about SetRemoteIceParameters()?",
+      "revId": "a9e23a8ca2d0811aa5162b72988ab58444bf4965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a82506b_9eba1e52",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-01T08:50:04Z",
+      "side": 1,
+      "message": "The reason it needs the lock is because it accesses the rt(c)p_dtls_transport pointer; the SetLocal and SetRemote access the object pointed to, not the pointer.\nBoth SetLocal and SetRemote are RTC_DCHECK_RUN_ON() guarded.",
+      "parentUuid": "976580f1_6741f91e",
       "revId": "a9e23a8ca2d0811aa5162b72988ab58444bf4965",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c80e3c5e_0ce76a16",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-01T08:50:04Z",
+      "side": 1,
+      "message": "Don\u0027t understand the question - we guard variables, not functions.",
+      "parentUuid": "fa942937_18421dd2",
+      "revId": "a9e23a8ca2d0811aa5162b72988ab58444bf4965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "69906861_0367c714",
         "filename": "pc/jsep_transport.cc",
         "patchSetId": 12
@@ -67,6 +121,24 @@
       "revId": "a9e23a8ca2d0811aa5162b72988ab58444bf4965",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f17769fb_832cee4c",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-01T08:50:04Z",
+      "side": 1,
+      "message": "Because it doesn\u0027t access any RTC_GUARDED_BY(accessor_lock_) variables.",
+      "parentUuid": "69906861_0367c714",
+      "revId": "a9e23a8ca2d0811aa5162b72988ab58444bf4965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "a3746977_30991e74",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-01T08:50:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59222ef1_c31bde3f",
+      "revId": "a9e23a8ca2d0811aa5162b72988ab58444bf4965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7617167_e626fed8",
         "filename": "pc/jsep_transport.h",
         "patchSetId": 12
@@ -101,6 +191,24 @@
       "revId": "a9e23a8ca2d0811aa5162b72988ab58444bf4965",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea06f30a_4dddef9b",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-01T08:50:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7617167_e626fed8",
+      "revId": "a9e23a8ca2d0811aa5162b72988ab58444bf4965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

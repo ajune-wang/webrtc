@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "645b067e_89d9bbc6",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-04-01T12:53:56Z",
+      "side": 1,
+      "message": "I.e., since BufferedFrameDecryptor keeps a reference to the FrameDecryptor, there\u0027s no need to keep a reference here as well.",
+      "parentUuid": "dc281d2f_4cf5a0f2",
+      "range": {
+        "startLine": 229,
+        "startChar": 4,
+        "endLine": 229,
+        "endChar": 72
+      },
+      "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8f5f656_e5661d43",
         "filename": "call/video_receive_stream.h",
         "patchSetId": 3
@@ -41,6 +65,29 @@
         "startChar": 25,
         "endLine": 266,
         "endChar": 33
+      },
+      "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "739e221e_eb669b5e",
+        "filename": "video/buffered_frame_decryptor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-04-01T12:53:56Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 33,
+        "startChar": 21,
+        "endLine": 33,
+        "endChar": 30
       },
       "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

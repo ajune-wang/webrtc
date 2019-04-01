@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab801fb2_3bbb0211",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-01T10:26:23Z",
+      "side": 1,
+      "message": "\"... and accessor lock\"",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19669997_1a8f1035",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-01T10:26:23Z",
+      "side": 1,
+      "message": "nit: Getters can be const.\n\nThough I see now that in some places you use the getters and in some places you use the member variables directly. Do the getters add any value?",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e85db1eb_c636c6c4",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-01T10:26:23Z",
+      "side": 1,
+      "message": "Should this comment reference the bug about making this single-threaded? \"If xyz is resolved this lock can be resolved.\"",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d2d8e703_c519c923",
+        "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "As explained in the .h file, this class is removed in the follow-up CL.\nSo, let\u0027s skip this even if it\u0027s a good suggestion.",
+      "parentUuid": "7375c8e0_2baf8b1a",
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "846daa47_c544a9d3",
         "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.cc",
         "patchSetId": 7
@@ -39,6 +57,30 @@
       "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a60803f4_6a5e697c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "846daa47_c544a9d3",
+      "range": {
+        "startLine": 47,
+        "startChar": 28,
+        "endLine": 47,
+        "endChar": 45
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "98310083_bb43ea88",
+        "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "same here (this class is removed in the follow-up CL)",
+      "parentUuid": "9f117c1f_d58af64c",
+      "range": {
+        "startLine": 52,
+        "startChar": 5,
+        "endLine": 52,
+        "endChar": 43
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "041e2ff7_070b1e69",
         "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.cc",
         "patchSetId": 7
@@ -85,6 +151,30 @@
       "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75037148_46c7fbed",
+        "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "same here (this class is removed in the follow-up CL)",
+      "parentUuid": "041e2ff7_070b1e69",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 15
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "25b6d7de_869e2aca",
+        "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "This class disappears in the follow-up CL https://webrtc-review.googlesource.com/c/src/+/130221 (see the TODO above at line 25). So, I wouldn\u0027t bother. I renamed here because I\u0027m adding a class named BandFeaturesExtractor and it was confusing to keep BandAnalysisFft in this file.",
+      "parentUuid": "7796eb7c_7614d902",
+      "range": {
+        "startLine": 26,
+        "startChar": 71,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "391236c7_0881e405",
         "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.h",
         "patchSetId": 7
@@ -131,6 +245,30 @@
       "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47f4c596_06eaf880",
+        "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "391236c7_0881e405",
+      "range": {
+        "startLine": 48,
+        "startChar": 65,
+        "endLine": 48,
+        "endChar": 67
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "5f86c028_562b0885",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a7317dc_0dcec238",
+      "range": {
+        "startLine": 85,
+        "startChar": 13,
+        "endLine": 85,
+        "endChar": 22
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6216ba90_68b50d29",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
         "patchSetId": 7
@@ -177,6 +339,30 @@
       "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02423b9e_a0d49532",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "When the x and y args in BandFeaturesExtractor::ComputeSpectralCrossCorrelation are the same, then it\u0027s an auto correlation. I added ComputeSpectralAutoCorrelation, which calls ComputeSpectralCrossCorrelation so it\u0027s easier to read.",
+      "parentUuid": "6216ba90_68b50d29",
+      "range": {
+        "startLine": 87,
+        "startChar": 27,
+        "endLine": 87,
+        "endChar": 58
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "21b56b09_a5839954",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd75c4c0_b011e60c",
+      "range": {
+        "startLine": 98,
+        "startChar": 27,
+        "endLine": 98,
+        "endChar": 58
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54d450e3_554e415d",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
         "patchSetId": 7
@@ -226,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "a7796b74_bb7316c4",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54d450e3_554e415d",
+      "range": {
+        "startLine": 152,
+        "startChar": 32,
+        "endLine": 152,
+        "endChar": 55
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "295c7eac_c0521c62",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
         "patchSetId": 7
@@ -243,6 +477,24 @@
     },
     {
       "key": {
+        "uuid": "9c439f91_7f15a38d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "295c7eac_c0521c62",
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43dd09fc_a4d81d2e",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
         "patchSetId": 7
@@ -254,6 +506,24 @@
       "writtenOn": "2019-03-29T23:38:38Z",
       "side": 1,
       "message": "Please explain this further. For instance, it is not at all clear to me where the constants 1.3 and 0.9 comes from, and why the first 2 bands needs to be weighted with them.",
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb443c3e_2f4e59a3",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "In the comment above I wrote \"(based on training set stats)\".\nThose constants have most likely been derived from a training set by extracting the unnormalized features and by applying a standard 0 mean unit variance normalization.\nI personally find the comment sufficient, but I can make it more descriptive if you prefer.",
+      "parentUuid": "43dd09fc_a4d81d2e",
       "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -283,6 +553,30 @@
     },
     {
       "key": {
+        "uuid": "50481d58_cc732496",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ad276fc_6a07c884",
+      "range": {
+        "startLine": 171,
+        "startChar": 33,
+        "endLine": 171,
+        "endChar": 51
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b4154bc_396fedc6",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
         "patchSetId": 7
@@ -294,6 +588,30 @@
       "writtenOn": "2019-03-29T23:38:38Z",
       "side": 1,
       "message": "Please explain this further. It is not at all obvious where the constant -2.1 comes from.",
+      "range": {
+        "startLine": 184,
+        "startChar": 5,
+        "endLine": 184,
+        "endChar": 14
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13b88b58_7285518f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "same as above\n\nBTW, I could define constexprs in common.h or in a new .h file; in there, I cab explain how to obtain the values. \n\nWDYT?",
+      "parentUuid": "9b4154bc_396fedc6",
       "range": {
         "startLine": 184,
         "startChar": 5,
@@ -323,6 +641,24 @@
     },
     {
       "key": {
+        "uuid": "c0ad3a97_03065d17",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "341418cb_41722a0f",
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8283b7b_3f19dffa",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
         "patchSetId": 7
@@ -343,6 +679,30 @@
       "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94d08130_e0473770",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8283b7b_3f19dffa",
+      "range": {
+        "startLine": 41,
+        "startChar": 58,
+        "endLine": 41,
+        "endChar": 64
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -369,6 +729,30 @@
     },
     {
       "key": {
+        "uuid": "b65b8ca2_3821548c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e498ed7a_9c824988",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 68,
+        "endChar": 26
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5160b57_586b9ffa",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
         "patchSetId": 7
@@ -392,6 +776,30 @@
     },
     {
       "key": {
+        "uuid": "1f2b0962_d62c8294",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Yes because BandFeaturesExtractor::ComputeSpectralCrossCorrelation writes kOpusBands24kHz values, that is less than kNumBands. That\u0027s because we work at 24k instead of 48k and therefore some Opus bands have no contribution (because above the Nyquist frequency).\nThe features have to be extracted anyways, so we init to 0.",
+      "parentUuid": "c5160b57_586b9ffa",
+      "range": {
+        "startLine": 83,
+        "startChar": 60,
+        "endLine": 83,
+        "endChar": 62
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98746bd0_cf568607",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 7
@@ -403,6 +811,30 @@
       "writtenOn": "2019-03-29T23:38:38Z",
       "side": 1,
       "message": "Why dual braces?",
+      "range": {
+        "startLine": 27,
+        "startChar": 67,
+        "endLine": 27,
+        "endChar": 69
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30573ddb_6de13e9d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "From https://en.cppreference.com/w/cpp/container/array:\n\n  \"Double-braces required in C++11 prior to the CWG 1270 revision\n   (not needed in C++11 after the revision and in C++14 and beyond)\"\n\nMaybe it has been fixed, but some time ago I couldn\u0027t submit because some trybots were failing with single braces.\n\n+kwiberg@webrtc.org",
+      "parentUuid": "98746bd0_cf568607",
       "range": {
         "startLine": 27,
         "startChar": 67,
@@ -432,6 +864,24 @@
     },
     {
       "key": {
+        "uuid": "6ac08465_bdcb9204",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43b65502_6d3332da",
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e0f6b4e_761e7bd7",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 7
@@ -452,6 +902,30 @@
       "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc5834bd_8bdd3d65",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done.\n\nHowever, I wonder how we should keep track of the code used to generate such hard-coded vectors.\nIt\u0027d be good to keep it somewhere, especially when it\u0027s easy to have off-by-1 errors. It also helps making sense of the values.\n\nSo, I\u0027ve done the following:\n- added GetOpusScaleNumBins24kHz20ms(), a constexpr function returning the array of opus scale bins; it\u0027s in the .h file since I need it in the unit tests\n- added RnnVadTest::TestOpusScaleBoundaries, which protects from any invalid change in the values returned by GetOpusScaleNumBins24kHz20ms()\n- added RnnVadTest::DISABLED_TestOpusScaleWeights, which calls the function with which the weights have been generated and also check their band-wise monotonicity",
+      "parentUuid": "0e0f6b4e_761e7bd7",
+      "range": {
+        "startLine": 72,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 69
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -478,6 +952,30 @@
     },
     {
       "key": {
+        "uuid": "5557e390_7601e2b2",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0c34426_34f24899",
+      "range": {
+        "startLine": 91,
+        "startChar": 25,
+        "endLine": 91,
+        "endChar": 51
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d53f2e5_a416f668",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 7
@@ -501,6 +999,30 @@
     },
     {
       "key": {
+        "uuid": "61d931bb_c22a40ce",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d53f2e5_a416f668",
+      "range": {
+        "startLine": 95,
+        "startChar": 6,
+        "endLine": 96,
+        "endChar": 43
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e97182b2_21ae1b96",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 7
@@ -512,6 +1034,30 @@
       "writtenOn": "2019-03-29T23:38:38Z",
       "side": 1,
       "message": "Move this into a separate loop as this is independent of the other code in the loop.",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 115,
+        "endChar": 53
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6191d940_24ad60d5",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t think that\u0027s possible.\nHow would you isolate that?",
+      "parentUuid": "e97182b2_21ae1b96",
       "range": {
         "startLine": 115,
         "startChar": 4,
@@ -541,6 +1087,24 @@
     },
     {
       "key": {
+        "uuid": "18236ef0_f527ed71",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b2fd984_8286acbe",
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cebc1d2c_b18fa217",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
         "patchSetId": 7
@@ -561,6 +1125,30 @@
       "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ab2d35d_31598953",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cebc1d2c_b18fa217",
+      "range": {
+        "startLine": 46,
+        "startChar": 7,
+        "endLine": 46,
+        "endChar": 38
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -587,6 +1175,30 @@
     },
     {
       "key": {
+        "uuid": "61109495_fdb69fd0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a3c71be_18f04d11",
+      "range": {
+        "startLine": 49,
+        "startChar": 28,
+        "endLine": 49,
+        "endChar": 43
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b29431b9_b2f2bf4f",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
         "patchSetId": 7
@@ -601,6 +1213,24 @@
       "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06f5f1d2_fc59e7da",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b29431b9_b2f2bf4f",
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -627,6 +1257,30 @@
     },
     {
       "key": {
+        "uuid": "f804acf5_4b96047b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "it\u0027s not part of the class and, as the next two functions, it\u0027s here because there are unit tests for it",
+      "parentUuid": "f8954523_a6d71b74",
+      "range": {
+        "startLine": 56,
+        "startChar": 5,
+        "endLine": 56,
+        "endChar": 39
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aca14e5_39a1ded0",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
         "patchSetId": 7
@@ -650,6 +1304,30 @@
     },
     {
       "key": {
+        "uuid": "67f21d11_3af62d20",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1aca14e5_39a1ded0",
+      "range": {
+        "startLine": 61,
+        "startChar": 41,
+        "endLine": 61,
+        "endChar": 56
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54b0860c_9d25aa6a",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
         "patchSetId": 7
@@ -670,6 +1348,30 @@
       "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af921198_edf23f8f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-01T15:27:52Z",
+      "side": 1,
+      "message": "This file is named spectral_features_internal.h and is used by spectral_features.h.\nThe DCT is only used for spectral features. Adding dct.h dct.cc is possible but IMO it\u0027s just boilerplate. But if you prefer, I won\u0027t oppose.",
+      "parentUuid": "54b0860c_9d25aa6a",
+      "range": {
+        "startLine": 66,
+        "startChar": 5,
+        "endLine": 66,
+        "endChar": 15
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

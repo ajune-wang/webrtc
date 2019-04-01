@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "720eec17_849a3a94",
+        "filename": "video/buffered_frame_decryptor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-01T11:05:12Z",
+      "side": 1,
+      "message": "I think an LS_WARNING would be good in this case.",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 36
+      },
+      "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e801f5f0_bff156ec",
+        "filename": "video/buffered_frame_decryptor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-01T11:05:12Z",
+      "side": 1,
+      "message": "This should probably be LS_INFO (LS_VERBOSE?).",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 53
+      },
+      "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6b89009_dbd8cc0c",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-01T11:05:12Z",
+      "side": 1,
+      "message": "Is switching from not using E2EE to suddenly start using E2EE something we support? If not I think this should be an\n\n  RTC_DCHECK(buffered_frame_decryptor_);\n\ninstead.",
+      "range": {
+        "startLine": 461,
+        "startChar": 0,
+        "endLine": 464,
+        "endChar": 3
+      },
+      "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

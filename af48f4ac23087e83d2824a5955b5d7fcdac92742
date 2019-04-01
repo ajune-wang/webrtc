@@ -16,6 +16,24 @@
       "revId": "af48f4ac23087e83d2824a5955b5d7fcdac92742",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d583dab_26dd797f",
+        "filename": "pc/data_channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-01T14:02:08Z",
+      "side": 1,
+      "message": "After trying to sort out the various assumptions here I\u0027m submitting this as-is and filing a new bug. It seems that the unit tests are written assuming that you can put the channel number in InternalDataChannelInit, while the overall code assumes that the channel number is changed between initialization and sending the first control packet.\n\nFiled https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d10497",
+      "parentUuid": "cf95a4a1_21ab7f52",
+      "revId": "af48f4ac23087e83d2824a5955b5d7fcdac92742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

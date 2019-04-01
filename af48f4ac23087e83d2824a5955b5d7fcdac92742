@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf95a4a1_21ab7f52",
+        "filename": "pc/data_channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-01T12:28:38Z",
+      "side": 1,
+      "message": "Conceptually, \"init\" is a blob with public members that can be set. The public version, DataChannelInit, still allows the ID to contradict \"negotiated\". Addressing this in InternalDataChannelInit\u0027s constructor fixes the problem under the assumption that nobody touches it afterwards, and would hide any contradictions between the public init and the internal init. By the looks of PeerConnection::InternalCreateDataChannel I think we\u0027re good, but given that the logic is not directly placed where the struct is used but where it is constructed...\n\nI\u0027d like to also see a DCHECK here:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/peer_connection.cc?type\u003dcs\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d5058\n\nAnd the DataChannel constructor:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/data_channel.cc?type\u003dcs\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d103\n\nSo that if in the future some assumption changes we get a crash.\n\nYou might even want to DCHECK or fail at the PeerConnection API level so that an app that passes an ID thinking it will be used will find out that they\u0027re doing something wrong instead of it being silently ignored. A change like that could possibly break third_party use though.",
+      "revId": "af48f4ac23087e83d2824a5955b5d7fcdac92742",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

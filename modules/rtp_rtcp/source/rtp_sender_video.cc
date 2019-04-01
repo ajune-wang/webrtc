@@ -667,6 +667,16 @@ bool RTPSenderVideo::SendVideo(VideoFrameType frame_type,
       return false;
     packetized_payload_size += packet->payload_size();
 
+    // TODO: !!! Something along these lines will be used:
+    // if (rtp_sequence_number_map_) {
+    //   const bool is_first = (i == 0);
+    //   const bool is_last = (i == num_packets - 1);
+    //   rtp_sequence_number_map_->Insert(
+    //       packet->SequenceNumber(),
+    //       {rtp_timestamp - rtp_sender_->TimestampOffset(),
+    //        is_first, is_last});
+    // }
+
     if (i == 0) {
       playout_delay_oracle_->OnSentPacket(packet->SequenceNumber(),
                                           playout_delay);

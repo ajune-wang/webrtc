@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b72f18ac_8db59b78",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-01T13:01:00Z",
+      "side": 1,
+      "message": "\u003e non-change\nunrelated?\n\n\u003e minor issues\nYou may say \"clang-tidy suggestions\", so the kind of fix is a bit more precise.",
+      "range": {
+        "startLine": 7,
+        "startChar": 34,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "fb4081b8125365eff9aeeb5029dea5a4e7bcf556",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

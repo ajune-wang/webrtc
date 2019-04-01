@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "75dfe914_2c191138",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-01T18:48:27Z",
+      "side": 1,
+      "message": "\u003e We would get a deadlock [...]\nOut of curiosity, why is that?\n`receiver` is another node, so the critical sections are distinct, aren\u0027t they?",
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a7e019f_1dd9df66",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-01T18:48:27Z",
+      "side": 1,
+      "message": "Is it save? You are moving a field, but the containing (stored) packet isn\u0027t necessarily removed if it is not packets_[0].",
+      "range": {
+        "startLine": 102,
+        "startChar": 33,
+        "endLine": 102,
+        "endChar": 58
+      },
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b92ef539_d1f618a1",
         "filename": "test/scenario/network/network_emulation.h",
         "patchSetId": 6

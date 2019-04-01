@@ -234,6 +234,30 @@
       "revId": "4ab75fb2689763c822de19d089b6762e16fdcbf1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05a60a38_f564787c",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-01T14:18:21Z",
+      "side": 1,
+      "message": "Ok, please add a comment explaining this, and explicitly warn users to not use it in other tests. People commonly just copy paste test code, so we should probably warn them when they shouldn\u0027t.",
+      "parentUuid": "a0e3f261_e64c47e7",
+      "range": {
+        "startLine": 217,
+        "startChar": 6,
+        "endLine": 217,
+        "endChar": 69
+      },
+      "revId": "4ab75fb2689763c822de19d089b6762e16fdcbf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

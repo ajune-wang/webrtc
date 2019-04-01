@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b92ef539_d1f618a1",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-01T14:18:21Z",
+      "side": 1,
+      "message": "Move this routing to the first end node instead. The endpoint itself shouldn\u0027t need a built in router. (just like a network interface doesn\u0027t include routing).",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 35
+      },
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41f1ed9e_d62e7476",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-01T14:18:21Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be needed?",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 28
+      },
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f93bc73_7e157929",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-01T14:18:21Z",
+      "side": 1,
+      "message": "Remove the ascii art and elaborate on what the expected out come is.\n\nSomething like:\n//  Testing that packets are delivered via all routes using a routing scheme as follows:\n//  * e1 -\u003e n1 -\u003e e2\n//  * e2 -\u003e n2 -\u003e e1\n//  * e1 -\u003e n3 -\u003e e3\n//  * e3 -\u003e n4 -\u003e e1",
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba032bc7_18fbc97f",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-01T14:18:21Z",
+      "side": 1,
+      "message": "This is very verbose and hard to read. Could you simplify this, I\u0027d suggest something like:\nauto network_config \u003d BuiltInNetworkBehaviorConfig();\nauto* node1 \u003d emulation.CreateEmulatedNode(network_config);\nauto* node2 \u003d emulation.CreateEmulatedNode(network_config);\nauto* node3 \u003d emulation.CreateEmulatedNode(network_config);\nauto* node4 \u003d emulation.CreateEmulatedNode(network_config);\n\nThen you don\u0027t really need the comment, it\u0027ll be obvious what the code does on a glance.",
+      "range": {
+        "startLine": 178,
+        "startChar": 1,
+        "endLine": 179,
+        "endChar": 75
+      },
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a5e3040_d701bcac",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-01T14:18:21Z",
+      "side": 1,
+      "message": "This is redundant, it just says what the line below says. Remove this and similar ones.",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 24
+      },
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

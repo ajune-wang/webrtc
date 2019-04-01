@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "de46c493_f4f0b0a7",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-01T14:22:19Z",
+      "side": 1,
+      "message": "Should we in such case provide first node during endpoint creation? Otherwise I was afraid of such call sequence:\nCreateRoute(e1, {n1}, e2);\nCreateRoute(e1, {n2}, e3);\n\nIf endpoint has single send node, we can\u0027t do second call correctly.",
+      "parentUuid": "b92ef539_d1f618a1",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 35
+      },
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41f1ed9e_d62e7476",
         "filename": "test/scenario/network/network_emulation_unittest.cc",
         "patchSetId": 6

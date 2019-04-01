@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d022847_8a603ef9",
+        "filename": "call/call_config.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-01T07:51:03Z",
+      "side": 1,
+      "message": "Where will this come from? Common case is that it\u0027s passed down from PeerConnection?",
+      "range": {
+        "startLine": 50,
+        "startChar": 20,
+        "endLine": 50,
+        "endChar": 38
+      },
+      "revId": "65375ea60392027dcf25d1c9daa2241777ca12f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

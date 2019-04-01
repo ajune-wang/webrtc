@@ -68,11 +68,17 @@ DesktopRect DesktopFrame::rect() const {
 }
 
 float DesktopFrame::scale_factor() const {
+#if defined(WEBRTC_MAC)
   float scale = 1.0f;
   if (!dpi().is_zero() && dpi().x() == dpi().y())
     scale = dpi().x() / kStandardDPI;
 
   return scale;
+#else
+  // At least on Windows the logicall and physical pixel are the same
+  // See http://crbug.com/948362.
+  return 1.0f;
+#endif
 }
 
 uint8_t* DesktopFrame::GetFrameDataAtPos(const DesktopVector& pos) const {

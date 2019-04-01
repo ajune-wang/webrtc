@@ -31,13 +31,6 @@
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
-namespace test {
-
-// Forward declare NetworkEmulationManagerImpl for friend access from
-// EmulatedEndpoint.
-class NetworkEmulationManagerImpl;
-
-}  // namespace test
 
 struct EmulatedIpPacket {
  public:
@@ -129,7 +122,9 @@ class EmulatedEndpoint : public EmulatedNetworkReceiverInterface {
   uint64_t GetId() const;
 
   // Set network node, that will be used to send packets to the network.
-  void SetSendNode(EmulatedNetworkNode* send_node);
+  // User can't set send_node, if it is already set.
+  void SetSendNode(rtc::IPAddress dest_ip, EmulatedNetworkNode* send_node);
+  void ClearSendNode(rtc::IPAddress dest_ip);
   // Send packet into network.
   // |from| will be used to set source address for the packet in destination
   // socket.
@@ -164,23 +159,21 @@ class EmulatedEndpoint : public EmulatedNetworkReceiverInterface {
 
   const rtc::Network& network() const { return *network_.get(); }
 
- protected:
-  friend class test::NetworkEmulationManagerImpl;
-
-  EmulatedNetworkNode* GetSendNode() const;
-
  private:
   static constexpr uint16_t kFirstEphemeralPort = 49152;
   uint16_t NextPort() RTC_EXCLUSIVE_LOCKS_REQUIRED(receiver_lock_);
 
   rtc::CriticalSection receiver_lock_;
+  rtc::CriticalSection sender_lock_;
   rtc::ThreadChecker enabled_state_checker_;
 
   uint64_t id_;
   // Peer's local IP address for this endpoint network interface.
   const rtc::IPAddress peer_local_addr_;
   bool is_enabled_ RTC_GUARDED_BY(enabled_state_checker_);
-  EmulatedNetworkNode* send_node_;
+  // Stores which network node to use for each destination IP.
+  std::map<rtc::IPAddress, EmulatedNetworkNode*> send_nodes_
+      RTC_GUARDED_BY(sender_lock_);
   Clock* const clock_;
   std::unique_ptr<rtc::Network> network_;
 

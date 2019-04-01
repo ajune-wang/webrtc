@@ -132,7 +132,6 @@ EmulatedEndpoint::EmulatedEndpoint(uint64_t id,
     : id_(id),
       peer_local_addr_(ip),
       is_enabled_(is_enabled),
-      send_node_(nullptr),
       clock_(clock),
       next_port_(kFirstEphemeralPort) {
   constexpr int kIPv4NetworkPrefixLength = 24;
@@ -158,16 +157,32 @@ uint64_t EmulatedEndpoint::GetId() const {
   return id_;
 }
 
-void EmulatedEndpoint::SetSendNode(EmulatedNetworkNode* send_node) {
-  send_node_ = send_node;
+void EmulatedEndpoint::SetSendNode(rtc::IPAddress dest_ip,
+                                   EmulatedNetworkNode* send_node) {
+  rtc::CritScope crit(&sender_lock_);
+  EmulatedNetworkReceiverInterface* cur_node = send_nodes_[dest_ip];
+  RTC_CHECK(cur_node == nullptr || cur_node == send_node)
+      << "Endpoint[peer_local_addr_=" << peer_local_addr_.ToString()
+      << "] already has send node for dest_ip=" << dest_ip.ToString();
+  send_nodes_[dest_ip] = send_node;
+}
+
+void EmulatedEndpoint::ClearSendNode(rtc::IPAddress dest_ip) {
+  rtc::CritScope crit(&sender_lock_);
+  send_nodes_.erase(dest_ip);
 }
 
 void EmulatedEndpoint::SendPacket(const rtc::SocketAddress& from,
                                   const rtc::SocketAddress& to,
                                   rtc::CopyOnWriteBuffer packet) {
   RTC_CHECK(from.ipaddr() == peer_local_addr_);
-  RTC_CHECK(send_node_);
-  send_node_->OnPacketReceived(
+  EmulatedNetworkNode* send_node = nullptr;
+  {
+    rtc::CritScope crit(&sender_lock_);
+    send_node = send_nodes_[to.ipaddr()];
+  }
+  RTC_CHECK(send_node);
+  send_node->OnPacketReceived(
       EmulatedIpPacket(from, to, std::move(packet),
                        Timestamp::us(clock_->TimeInMicroseconds())));
 }
@@ -258,10 +273,6 @@ void EmulatedEndpoint::Disable() {
 bool EmulatedEndpoint::Enabled() const {
   RTC_DCHECK_RUN_ON(&enabled_state_checker_);
   return is_enabled_;
-}
-
-EmulatedNetworkNode* EmulatedEndpoint::GetSendNode() const {
-  return send_node_;
 }
 
 EndpointsContainer::EndpointsContainer(

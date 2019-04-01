@@ -39,6 +39,7 @@ class NetworkEmulationManagerImpl : public NetworkEmulationManager {
   NetworkEmulationManagerImpl();
   ~NetworkEmulationManagerImpl();
 
+  // NetworkEmulationManager API
   EmulatedNetworkNode* CreateEmulatedNode(
       std::unique_ptr<NetworkBehaviorInterface> network_behavior) override;
 

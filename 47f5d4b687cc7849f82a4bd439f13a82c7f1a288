@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4fe7e418_a874ee69",
+        "filename": "modules/desktop_capture/desktop_frame.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6175
+      },
+      "writtenOn": "2019-04-01T23:17:10Z",
+      "side": 1,
+      "message": "nit: let\u0027s move \"#if defined(WEBRTC_MAC)\" down here and save the \"#else\" part. Also add the comments here too.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 2
+      },
+      "revId": "47f5d4b687cc7849f82a4bd439f13a82c7f1a288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e06b48a_ef93ffaf",
+        "filename": "tools_webrtc/libs/generate_licenses.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6175
+      },
+      "writtenOn": "2019-04-01T23:17:10Z",
+      "side": 1,
+      "message": "nit: it seems the fix to this file is in the trunk already? So confused about the change here (and in the commit message). Anyway, one cl for one purpose. :)",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 4
+      },
+      "revId": "47f5d4b687cc7849f82a4bd439f13a82c7f1a288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

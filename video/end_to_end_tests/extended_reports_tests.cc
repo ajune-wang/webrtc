@@ -32,6 +32,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/target_bitrate.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/event.h"
+#include "rtc_base/task_queue_for_test.h"
 #include "rtc_base/thread_annotations.h"
 #include "system_wrappers/include/clock.h"
 #include "test/call_test.h"
@@ -39,7 +40,6 @@
 #include "test/gtest.h"
 #include "test/rtcp_packet_parser.h"
 #include "test/rtp_rtcp_observer.h"
-#include "test/single_threaded_task_queue.h"
 
 namespace webrtc {
 namespace {
@@ -158,9 +158,8 @@ class RtcpXrObserver : public test::EndToEndTest {
     return enable_zero_target_bitrate_ ? 2 : 1;
   }
 
-  test::PacketTransport* CreateSendTransport(
-      test::SingleThreadedTaskQueueForTesting* task_queue,
-      Call* sender_call) {
+  test::PacketTransport* CreateSendTransport(TaskQueueForTest* task_queue,
+                                             Call* sender_call) {
     auto network =
         absl::make_unique<SimulatedNetwork>(forward_transport_config_);
     send_simulated_network_ = network.get();

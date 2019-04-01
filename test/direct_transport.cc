@@ -13,8 +13,8 @@
 #include "call/call.h"
 #include "call/fake_network_pipe.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
+#include "rtc_base/task_queue_for_test.h"
 #include "rtc_base/time_utils.h"
-#include "test/single_threaded_task_queue.h"
 
 namespace webrtc {
 namespace test {
@@ -37,7 +37,7 @@ MediaType Demuxer::GetMediaType(const uint8_t* packet_data,
 }
 
 DirectTransport::DirectTransport(
-    SingleThreadedTaskQueueForTesting* task_queue,
+    TaskQueueForTest* task_queue,
     std::unique_ptr<SimulatedPacketReceiverInterface> pipe,
     Call* send_call,
     const std::map<uint8_t, MediaType>& payload_type_map)
@@ -49,14 +49,15 @@ DirectTransport::DirectTransport(
 }
 
 DirectTransport::~DirectTransport() {
+  rtc::CritScope cs(&process_lock_);
   if (next_process_task_)
-    task_queue_->CancelTask(*next_process_task_);
+    next_process_task_ = {};
 }
 
 void DirectTransport::StopSending() {
   rtc::CritScope cs(&process_lock_);
   if (next_process_task_)
-    task_queue_->CancelTask(*next_process_task_);
+    next_process_task_ = {};
 }
 
 void DirectTransport::SetReceiver(PacketReceiver* receiver) {
@@ -107,13 +108,17 @@ void DirectTransport::Start() {
 }
 
 void DirectTransport::ProcessPackets() {
-  next_process_task_.reset();
+  next_process_task_ = {};
   auto delay_ms = fake_network_->TimeUntilNextProcess();
   if (delay_ms) {
-    next_process_task_ = task_queue_->PostDelayedTask(
-        [this]() {
-          fake_network_->Process();
+    next_process_task_ = new Token();
+    auto process_task = next_process_task_;
+    task_queue_->PostDelayedTask(
+        [this, process_task]() {
           rtc::CritScope cs(&process_lock_);
+          if (process_task->HasOneRef())
+            return;
+          fake_network_->Process();
           ProcessPackets();
         },
         *delay_ms);

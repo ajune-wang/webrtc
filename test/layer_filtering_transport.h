@@ -19,8 +19,8 @@
 #include "api/media_types.h"
 #include "call/call.h"
 #include "call/simulated_packet_receiver.h"
+#include "rtc_base/task_queue_for_test.h"
 #include "test/direct_transport.h"
-#include "test/single_threaded_task_queue.h"
 
 namespace webrtc {
 
@@ -29,7 +29,7 @@ namespace test {
 class LayerFilteringTransport : public test::DirectTransport {
  public:
   LayerFilteringTransport(
-      SingleThreadedTaskQueueForTesting* task_queue,
+      TaskQueueForTest* task_queue,
       std::unique_ptr<SimulatedPacketReceiverInterface> pipe,
       Call* send_call,
       uint8_t vp8_video_payload_type,
@@ -40,7 +40,7 @@ class LayerFilteringTransport : public test::DirectTransport {
       uint32_t ssrc_to_filter_min,
       uint32_t ssrc_to_filter_max);
   LayerFilteringTransport(
-      SingleThreadedTaskQueueForTesting* task_queue,
+      TaskQueueForTest* task_queue,
       std::unique_ptr<SimulatedPacketReceiverInterface> pipe,
       Call* send_call,
       uint8_t vp8_video_payload_type,

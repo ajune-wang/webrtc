@@ -62,7 +62,7 @@ void AudioEndToEndTest::OnFakeAudioDevicesCreated(
 }
 
 test::PacketTransport* AudioEndToEndTest::CreateSendTransport(
-    SingleThreadedTaskQueueForTesting* task_queue,
+    TaskQueueForTest* task_queue,
     Call* sender_call) {
   return new test::PacketTransport(
       task_queue, sender_call, this, test::PacketTransport::kSender,
@@ -73,7 +73,7 @@ test::PacketTransport* AudioEndToEndTest::CreateSendTransport(
 }
 
 test::PacketTransport* AudioEndToEndTest::CreateReceiveTransport(
-    SingleThreadedTaskQueueForTesting* task_queue) {
+    TaskQueueForTest* task_queue) {
   return new test::PacketTransport(
       task_queue, nullptr, this, test::PacketTransport::kReceiver,
       test::CallTest::payload_type_map_,

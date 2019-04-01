@@ -20,10 +20,10 @@
 #include "call/video_receive_stream.h"
 #include "call/video_send_stream.h"
 #include "rtc_base/event.h"
+#include "rtc_base/task_queue_for_test.h"
 #include "test/call_test.h"
 #include "test/frame_generator_capturer.h"
 #include "test/gtest.h"
-#include "test/single_threaded_task_queue.h"
 #include "video/end_to_end_tests/multi_stream_tester.h"
 
 namespace webrtc {
@@ -62,7 +62,7 @@ TEST_F(MultiStreamEndToEndTest, SendsAndReceivesMultipleStreams) {
 
   class Tester : public MultiStreamTester {
    public:
-    explicit Tester(test::SingleThreadedTaskQueueForTesting* task_queue)
+    explicit Tester(TaskQueueForTest* task_queue)
         : MultiStreamTester(task_queue) {}
     virtual ~Tester() {}
 

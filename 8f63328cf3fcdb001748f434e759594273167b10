@@ -112,6 +112,23 @@
     },
     {
       "key": {
+        "uuid": "06c60bf5_67a3697b",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-01T16:20:21Z",
+      "side": 1,
+      "message": "The nodes and endpoints aren\u0027t released. We should wrap them into unique_ptr.",
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5a5e3040_d701bcac",
         "filename": "test/scenario/network/network_emulation_unittest.cc",
         "patchSetId": 6
@@ -129,6 +146,23 @@
         "endLine": 187,
         "endChar": 24
       },
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbf9bcf7_793e6bc2",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-01T16:20:21Z",
+      "side": 1,
+      "message": "All the following part should be factorized to make it easy to make evident that the same tests are performed (only the network configuration differs).",
       "revId": "8f63328cf3fcdb001748f434e759594273167b10",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

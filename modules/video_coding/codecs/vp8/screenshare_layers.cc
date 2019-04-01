@@ -539,6 +539,8 @@ bool ScreenshareLayers::UpdateConfiguration(size_t stream_index,
     }
     // Regardless of qp, reset the boost state for the next frame.
     layers_[active_layer_].state = TemporalLayer::State::kNormal;
+  } else if (layers_[active_layer_].state == TemporalLayer::State::kKeyFrame) {
+    layers_[active_layer_].state = TemporalLayer::State::kNormal;
   }
 
   if (adjusted_max_qp == cfg->rc_max_quantizer)

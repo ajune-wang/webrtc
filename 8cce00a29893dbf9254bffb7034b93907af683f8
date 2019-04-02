@@ -16,6 +16,24 @@
       "revId": "8cce00a29893dbf9254bffb7034b93907af683f8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b7e421e_71afcc96",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6470,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-04-02T17:00:54Z",
+      "side": 1,
+      "message": "The integration for media transport is perhaps best described as \"hasty\".  I think we\u0027ve tried to stick to the same model as other transports as much as possible, but also made some simplifying assumptions.  There\u0027s a MID because that\u0027s how JsepTransportController organizes things, but JsepTransportController also requires max bundling for media transports (and I think has DCHECKs and other mechanisms to ensure that there\u0027s only ever one media transport).\n\nSo there\u0027s both a MID required and there\u0027s only ever one.",
+      "parentUuid": "e467e85b_3379f437",
+      "revId": "8cce00a29893dbf9254bffb7034b93907af683f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

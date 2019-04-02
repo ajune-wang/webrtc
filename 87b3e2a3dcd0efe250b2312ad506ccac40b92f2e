@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "437ef612_03a5546e",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-02T20:59:28Z",
+      "side": 1,
+      "message": "Revised. Makes the code more readable; good.",
+      "parentUuid": "21158545_f577282c",
+      "revId": "87b3e2a3dcd0efe250b2312ad506ccac40b92f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8c0a3a0e_6008926a",
         "filename": "pc/jsep_transport.cc",
         "patchSetId": 15
@@ -30,6 +48,24 @@
       "writtenOn": "2019-04-02T15:59:45Z",
       "side": 1,
       "message": "Is this still a problem now that you removed the accessors?",
+      "revId": "87b3e2a3dcd0efe250b2312ad506ccac40b92f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "396d066d_792aee5d",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-02T20:59:28Z",
+      "side": 1,
+      "message": "Yes. The calls are inside SetRtcpPacketTransport or SetDtlsTransports.",
+      "parentUuid": "8c0a3a0e_6008926a",
       "revId": "87b3e2a3dcd0efe250b2312ad506ccac40b92f2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "edc0d9d0_60a0bd0a",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-02T20:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "117816e2_1ad66c0f",
+      "revId": "87b3e2a3dcd0efe250b2312ad506ccac40b92f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d63c8c21_9d6a559f",
         "filename": "pc/jsep_transport.h",
         "patchSetId": 15
@@ -64,6 +118,30 @@
       "writtenOn": "2019-04-02T15:59:45Z",
       "side": 1,
       "message": "This is marked as a duplicate of 10300.",
+      "range": {
+        "startLine": 295,
+        "startChar": 10,
+        "endLine": 295,
+        "endChar": 39
+      },
+      "revId": "87b3e2a3dcd0efe250b2312ad506ccac40b92f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7d91ab6_a767b6cf",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-02T20:59:28Z",
+      "side": 1,
+      "message": "Yes, I marked it as duplicate after submitting this version. Updated.",
+      "parentUuid": "d63c8c21_9d6a559f",
       "range": {
         "startLine": 295,
         "startChar": 10,

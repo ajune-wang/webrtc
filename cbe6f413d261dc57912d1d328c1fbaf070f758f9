@@ -34,6 +34,24 @@
       "revId": "cbe6f413d261dc57912d1d328c1fbaf070f758f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49678f21_13b5c0f0",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-02T11:34:21Z",
+      "side": 1,
+      "message": "Aha---that appears to work beautifully. Thanks!",
+      "parentUuid": "69715e66_06fa9afd",
+      "revId": "cbe6f413d261dc57912d1d328c1fbaf070f758f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5ef431b_d8ed336d",
+        "filename": "api/test/track_id_stream_label_map.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-02T13:11:30Z",
+      "side": 1,
+      "message": "StatsObserverInterface::OnStatsReports?",
+      "range": {
+        "startLine": 26,
+        "startChar": 13,
+        "endLine": 26,
+        "endChar": 39
+      },
+      "revId": "8a59e7da6351b62716fd8ff4a6a2ec9700af894e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52cfd7bb_899fa597",
+        "filename": "test/pc/e2e/analyzer_helper.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-02T13:11:30Z",
+      "side": 1,
+      "message": "Move it to TrackIdStreamLabelMap with name changes",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 71
+      },
+      "revId": "8a59e7da6351b62716fd8ff4a6a2ec9700af894e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

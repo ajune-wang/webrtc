@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9f7beccc_0dd33728",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-02T11:51:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4694f378_0d9c41b6",
+      "range": {
+        "startLine": 99,
+        "startChar": 23,
+        "endLine": 99,
+        "endChar": 31
+      },
+      "revId": "7caf1448c3e6f89a4dbf1845e8f3edb98e95d480",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0981e359_f7bfc729",
         "filename": "modules/video_coding/frame_buffer2.cc",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "7caf1448c3e6f89a4dbf1845e8f3edb98e95d480",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "430680f2_91b82f60",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-02T11:51:40Z",
+      "side": 1,
+      "message": "It corresponds to the recursive call in the previous code, I added an comment about why this would happen adopted from the one in the old code path.",
+      "parentUuid": "0981e359_f7bfc729",
+      "range": {
+        "startLine": 131,
+        "startChar": 10,
+        "endLine": 135,
+        "endChar": 9
+      },
+      "revId": "7caf1448c3e6f89a4dbf1845e8f3edb98e95d480",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "a1b660cb_a6176ff5",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-02T16:32:33Z",
+      "side": 1,
+      "message": "The point is that your property holds for [0; 1\u003c\u003c15] (that\u0027s indeed 1\u003c\u003c15 + 1 elements),\nbut not for [1\u003c\u003c15; (uint16_t)1\u003c\u003c16] (that\u0027s also 1\u003c\u003c15 + 1 elements).\nSo, setting max_entries_ to 1\u003c\u003c15 eliminates the corner case by making this \u0027back() AheadOf front()\u0027 property translation-invariant.",
+      "parentUuid": "2cc96c01_61fad3e9",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 77
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "953f935e_a3999df9",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
         "patchSetId": 1

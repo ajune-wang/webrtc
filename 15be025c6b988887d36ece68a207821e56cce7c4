@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c5c7a12d_7af5cf02",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-02T16:31:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6aad0cae_05b42067",
+      "range": {
+        "startLine": 184,
+        "startChar": 68,
+        "endLine": 184,
+        "endChar": 70
+      },
+      "revId": "15be025c6b988887d36ece68a207821e56cce7c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4faace46_2871ed04",
         "filename": "api/test/peerconnection_quality_test_fixture.h",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f6de4585_e3487183",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-02T16:31:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4faace46_2871ed04",
+      "range": {
+        "startLine": 187,
+        "startChar": 11,
+        "endLine": 187,
+        "endChar": 37
+      },
+      "revId": "15be025c6b988887d36ece68a207821e56cce7c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b55362df_ba5d2b9d",
         "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
         "patchSetId": 3
@@ -62,6 +110,24 @@
       "revId": "15be025c6b988887d36ece68a207821e56cce7c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b915778b_4553ba0f",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-02T16:31:57Z",
+      "side": 1,
+      "message": "I think we needn\u0027t it here, cause it will be double conversion to/from DataRate",
+      "parentUuid": "b55362df_ba5d2b9d",
+      "revId": "15be025c6b988887d36ece68a207821e56cce7c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -85,6 +151,30 @@
       "revId": "15be025c6b988887d36ece68a207821e56cce7c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f2cbc21_fe59ba86",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-02T16:31:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b072768_42589897",
+      "range": {
+        "startLine": 156,
+        "startChar": 29,
+        "endLine": 156,
+        "endChar": 32
+      },
+      "revId": "15be025c6b988887d36ece68a207821e56cce7c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

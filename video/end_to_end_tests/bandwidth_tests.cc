@@ -15,6 +15,7 @@
 #include "call/fake_network_pipe.h"
 #include "call/simulated_network.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
+#include "rtc_base/platform_thread.h"
 #include "rtc_base/rate_limiter.h"
 #include "system_wrappers/include/sleep.h"
 #include "test/call_test.h"
@@ -162,7 +163,7 @@ TEST_F(BandwidthEndToEndTest, RembWithSendSideBwe) {
     ~BweObserver() {}
 
     test::PacketTransport* CreateReceiveTransport(
-        test::SingleThreadedTaskQueueForTesting* task_queue) override {
+        TaskQueueForTest* task_queue) override {
       receive_transport_ = new test::PacketTransport(
           task_queue, nullptr, this, test::PacketTransport::kReceiver,
           payload_type_map_,
@@ -280,8 +281,7 @@ TEST_F(BandwidthEndToEndTest, ReportsSetEncoderRates) {
   class EncoderRateStatsTest : public test::EndToEndTest,
                                public test::FakeEncoder {
    public:
-    explicit EncoderRateStatsTest(
-        test::SingleThreadedTaskQueueForTesting* task_queue)
+    explicit EncoderRateStatsTest(TaskQueueForTest* task_queue)
         : EndToEndTest(kDefaultTimeoutMs),
           FakeEncoder(Clock::GetRealTimeClock()),
           task_queue_(task_queue),
@@ -358,7 +358,7 @@ TEST_F(BandwidthEndToEndTest, ReportsSetEncoderRates) {
     }
 
    private:
-    test::SingleThreadedTaskQueueForTesting* const task_queue_;
+    TaskQueueForTest* const task_queue_;
     rtc::CriticalSection crit_;
     VideoSendStream* send_stream_;
     test::VideoEncoderProxyFactory encoder_factory_;

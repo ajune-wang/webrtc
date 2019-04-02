@@ -101,7 +101,7 @@ void RampUpTester::OnVideoStreamsCreated(
 }
 
 test::PacketTransport* RampUpTester::CreateSendTransport(
-    test::SingleThreadedTaskQueueForTesting* task_queue,
+    TaskQueueForTest* task_queue,
     Call* sender_call) {
   auto network = absl::make_unique<SimulatedNetwork>(forward_transport_config_);
   send_simulated_network_ = network.get();

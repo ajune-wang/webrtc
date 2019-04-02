@@ -741,7 +741,7 @@ void BaseTest::ModifyReceiverBitrateConfig(BitrateConstraints* bitrate_config) {
 void BaseTest::OnCallsCreated(Call* sender_call, Call* receiver_call) {}
 
 test::PacketTransport* BaseTest::CreateSendTransport(
-    SingleThreadedTaskQueueForTesting* task_queue,
+    TaskQueueForTest* task_queue,
     Call* sender_call) {
   return new PacketTransport(
       task_queue, sender_call, this, test::PacketTransport::kSender,
@@ -752,7 +752,7 @@ test::PacketTransport* BaseTest::CreateSendTransport(
 }
 
 test::PacketTransport* BaseTest::CreateReceiveTransport(
-    SingleThreadedTaskQueueForTesting* task_queue) {
+    TaskQueueForTest* task_queue) {
   return new PacketTransport(
       task_queue, nullptr, this, test::PacketTransport::kReceiver,
       CallTest::payload_type_map_,

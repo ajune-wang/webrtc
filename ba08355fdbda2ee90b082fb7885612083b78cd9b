@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "465bfc5c_359ee70c",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-02T12:36:53Z",
+      "side": 1,
+      "message": "Cleanup suggestion:\n\n  it \u003d packet_arrival_times_.erase(delete_it);",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 47
+      },
+      "revId": "ba08355fdbda2ee90b082fb7885612083b78cd9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb4403ca_24cb7acb",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-02T12:36:53Z",
+      "side": 1,
+      "message": "Is not having an equivalent check in the current implementation a bug?",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 11
+      },
+      "revId": "ba08355fdbda2ee90b082fb7885612083b78cd9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

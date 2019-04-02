@@ -11,6 +11,7 @@
 #define API_TASK_QUEUE_TASK_QUEUE_BASE_H_
 
 #include <memory>
+#include <string>
 
 #include "api/task_queue/queued_task.h"
 #include "rtc_base/thread_annotations.h"
@@ -50,6 +51,7 @@ class RTC_LOCKABLE TaskQueueBase {
   // been used up, can be off by as much as 15 millseconds.
   virtual void PostDelayedTask(std::unique_ptr<QueuedTask> task,
                                uint32_t milliseconds) = 0;
+  virtual std::string GetName() { return ""; }
 
   // Returns the task queue that is running the current thread.
   // Returns nullptr if this thread is not associated with any task queue.

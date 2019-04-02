@@ -20,6 +20,8 @@
 #include <list>
 #include <memory>
 #include <type_traits>
+#include <unordered_map>
+#include <unordered_set>
 #include <utility>
 
 #include "absl/memory/memory.h"
@@ -104,6 +106,43 @@ rtc::ThreadPriority TaskQueuePriorityToThreadPriority(Priority priority) {
   return rtc::kNormalPriority;
 }
 
+#if RTC_DCHECK_IS_ON
+class OrderingChecker {
+ public:
+  void Posting(TaskQueueBase* target) {
+    rtc::CritScope cs(&lock_);
+    TaskQueueBase* source = TaskQueueBase::Current();
+    called_by_[target].insert(source);
+  }
+  void Deleting(TaskQueueBase* target) {
+    rtc::CritScope cs(&lock_);
+    for (auto& callers : called_by_)
+      callers.second.erase(target);
+    //    if (!called_by_[target].empty()) {
+    //      for (auto& caller : called_by_[target]) {
+    //        RTC_LOG(LS_ERROR)
+    //            << "Task queue: '" << target->GetName() << "' was destryed
+    //            before '"
+    //            << caller->GetName()
+    //            << "'. The latter has previously posted tasks to the "
+    //               "former making this a likely source for use-after-free.";
+    //      }
+    //    }
+    //    RTC_DCHECK(called_by_[target].empty());
+  }
+
+ private:
+  rtc::CriticalSection lock_;
+  std::unordered_map<TaskQueueBase*, std::unordered_set<TaskQueueBase*>>
+      called_by_ RTC_GUARDED_BY(lock_);
+};
+
+OrderingChecker* GetGlobalChecker() {
+  static OrderingChecker* checker = new OrderingChecker();
+  return checker;
+}
+#endif
+
 class TaskQueueLibevent final : public TaskQueueBase {
  public:
   TaskQueueLibevent(absl::string_view queue_name, rtc::ThreadPriority priority);
@@ -112,6 +151,7 @@ class TaskQueueLibevent final : public TaskQueueBase {
   void PostTask(std::unique_ptr<QueuedTask> task) override;
   void PostDelayedTask(std::unique_ptr<QueuedTask> task,
                        uint32_t milliseconds) override;
+  std::string GetName() override { return name_; }
 
  private:
   class SetTimerTask;
@@ -123,6 +163,8 @@ class TaskQueueLibevent final : public TaskQueueBase {
   static void OnWakeup(int socket, short flags, void* context);  // NOLINT
   static void RunTask(int fd, short flags, void* context);       // NOLINT
   static void RunTimer(int fd, short flags, void* context);      // NOLINT
+
+  const std::string name_;
 
   bool is_active_ = true;
   int wakeup_pipe_in_ = -1;
@@ -171,7 +213,8 @@ class TaskQueueLibevent::SetTimerTask : public QueuedTask {
 
 TaskQueueLibevent::TaskQueueLibevent(absl::string_view queue_name,
                                      rtc::ThreadPriority priority)
-    : event_base_(event_base_new()),
+    : name_(queue_name),
+      event_base_(event_base_new()),
       thread_(&TaskQueueLibevent::ThreadMain, this, queue_name, priority) {
   int fds[2];
   RTC_CHECK(pipe(fds) == 0);
@@ -187,6 +230,9 @@ TaskQueueLibevent::TaskQueueLibevent(absl::string_view queue_name,
 }
 
 void TaskQueueLibevent::Delete() {
+#if RTC_DCHECK_IS_ON
+  GetGlobalChecker()->Deleting(this);
+#endif
   RTC_DCHECK(!IsCurrent());
   struct timespec ts;
   char message = kQuit;
@@ -214,6 +260,9 @@ void TaskQueueLibevent::Delete() {
 }
 
 void TaskQueueLibevent::PostTask(std::unique_ptr<QueuedTask> task) {
+#if RTC_DCHECK_IS_ON
+  GetGlobalChecker()->Posting(this);
+#endif
   RTC_DCHECK(task.get());
   // libevent isn't thread safe.  This means that we can't use methods such
   // as event_base_once to post tasks to the worker thread from a different
@@ -243,6 +292,9 @@ void TaskQueueLibevent::PostTask(std::unique_ptr<QueuedTask> task) {
 
 void TaskQueueLibevent::PostDelayedTask(std::unique_ptr<QueuedTask> task,
                                         uint32_t milliseconds) {
+#if RTC_DCHECK_IS_ON
+  GetGlobalChecker()->Posting(this);
+#endif
   if (IsCurrent()) {
     TimerEvent* timer = new TimerEvent(this, std::move(task));
     EventAssign(&timer->ev, event_base_, -1, 0, &TaskQueueLibevent::RunTimer,

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "59274413_364c34fb",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-04-02T01:11:42Z",
+      "side": 1,
+      "message": "Can the receiver ever be recreated below us. That is my only concern. Since this is passed in by construction as long as this parent call object is around we can re-attach the decryptor.",
+      "parentUuid": "645b067e_89d9bbc6",
+      "range": {
+        "startLine": 229,
+        "startChar": 4,
+        "endLine": 229,
+        "endChar": 72
+      },
+      "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8f5f656_e5661d43",
         "filename": "call/video_receive_stream.h",
         "patchSetId": 3
@@ -69,6 +93,30 @@
       "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e32a847_38036330",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-04-02T01:11:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8f5f656_e5661d43",
+      "range": {
+        "startLine": 266,
+        "startChar": 25,
+        "endLine": 266,
+        "endChar": 33
+      },
+      "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "91842f2c_b63f1348",
+        "filename": "video/buffered_frame_decryptor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-04-02T01:11:42Z",
+      "side": 1,
+      "message": "If we don\u0027t move it will increment the refcount by copy assignment then immediately deprecate it when frame_decryptor goes out of scope.",
+      "parentUuid": "739e221e_eb669b5e",
+      "range": {
+        "startLine": 33,
+        "startChar": 21,
+        "endLine": 33,
+        "endChar": 30
+      },
+      "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "720eec17_849a3a94",
         "filename": "video/buffered_frame_decryptor.cc",
         "patchSetId": 3
@@ -115,6 +187,30 @@
       "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a90cbaf_6d9d1ff9",
+        "filename": "video/buffered_frame_decryptor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-04-02T01:11:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "720eec17_849a3a94",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 36
+      },
+      "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -141,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "4fb30aac_d1e1636f",
+        "filename": "video/buffered_frame_decryptor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-04-02T01:11:42Z",
+      "side": 1,
+      "message": "Done moved to LS_INFO.",
+      "parentUuid": "e801f5f0_bff156ec",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 53
+      },
+      "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6b89009_dbd8cc0c",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 3
@@ -161,6 +281,30 @@
       "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ca1cadd_be45e9a5",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-04-02T01:11:42Z",
+      "side": 1,
+      "message": "Yep we support it. We specifically allow for this unless you specify the crypto option require_frame_encryption.",
+      "parentUuid": "f6b89009_dbd8cc0c",
+      "range": {
+        "startLine": 461,
+        "startChar": 0,
+        "endLine": 464,
+        "endChar": 3
+      },
+      "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -187,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "108c454e_09b2dd55",
+        "filename": "video/rtp_video_stream_receiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-04-02T01:11:42Z",
+      "side": 1,
+      "message": "Yes if you don\u0027t use frame encryption at all. In fact most of the time it will be null.",
+      "parentUuid": "8703fecc_e6d3d5a3",
+      "range": {
+        "startLine": 80,
+        "startChar": 6,
+        "endLine": 80,
+        "endChar": 65
+      },
+      "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bba518f_41287cf8",
         "filename": "video/video_receive_stream.h",
         "patchSetId": 3
@@ -207,6 +375,30 @@
       "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99564671_71edfa9c",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-04-02T01:11:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bba518f_41287cf8",
+      "range": {
+        "startLine": 97,
+        "startChar": 44,
+        "endLine": 97,
+        "endChar": 52
+      },
+      "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

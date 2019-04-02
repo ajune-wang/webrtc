@@ -16,6 +16,24 @@
       "revId": "cf7470621c38982af7aa7eeaf2af02c20148d837",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f375905_4da92470",
+        "filename": "test/direct_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-02T17:51:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "001861d3_35d84b3a",
+      "revId": "cf7470621c38982af7aa7eeaf2af02c20148d837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

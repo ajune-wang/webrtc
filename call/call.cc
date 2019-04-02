@@ -50,9 +50,9 @@
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_minmax.h"
-#include "rtc_base/sequenced_task_checker.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/synchronization/rw_lock_wrapper.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
@@ -285,7 +285,7 @@ class Call final : public webrtc::Call,
   const std::unique_ptr<CallStats> call_stats_;
   const std::unique_ptr<BitrateAllocator> bitrate_allocator_;
   Call::Config config_;
-  rtc::SequencedTaskChecker configuration_sequence_checker_;
+  SequenceChecker configuration_sequence_checker_;
 
   NetworkState audio_network_state_;
   NetworkState video_network_state_;
@@ -498,7 +498,7 @@ Call::Call(Clock* clock,
 }
 
 Call::~Call() {
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
 
   RTC_CHECK(audio_send_ssrcs_.empty());
   RTC_CHECK(video_send_ssrcs_.empty());
@@ -703,14 +703,14 @@ void Call::UpdateReceiveHistograms() {
 }
 
 PacketReceiver* Call::Receiver() {
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
   return this;
 }
 
 webrtc::AudioSendStream* Call::CreateAudioSendStream(
     const webrtc::AudioSendStream::Config& config) {
   TRACE_EVENT0("webrtc", "Call::CreateAudioSendStream");
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
 
   RTC_DCHECK(media_transport() == config.media_transport);
 
@@ -752,7 +752,7 @@ webrtc::AudioSendStream* Call::CreateAudioSendStream(
 
 void Call::DestroyAudioSendStream(webrtc::AudioSendStream* send_stream) {
   TRACE_EVENT0("webrtc", "Call::DestroyAudioSendStream");
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
   RTC_DCHECK(send_stream != nullptr);
 
   send_stream->Stop();
@@ -781,7 +781,7 @@ void Call::DestroyAudioSendStream(webrtc::AudioSendStream* send_stream) {
 webrtc::AudioReceiveStream* Call::CreateAudioReceiveStream(
     const webrtc::AudioReceiveStream::Config& config) {
   TRACE_EVENT0("webrtc", "Call::CreateAudioReceiveStream");
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
   RegisterRateObserver();
   event_log_->Log(absl::make_unique<RtcEventAudioReceiveStreamConfig>(
       CreateRtcLogStreamConfig(config)));
@@ -811,7 +811,7 @@ webrtc::AudioReceiveStream* Call::CreateAudioReceiveStream(
 void Call::DestroyAudioReceiveStream(
     webrtc::AudioReceiveStream* receive_stream) {
   TRACE_EVENT0("webrtc", "Call::DestroyAudioReceiveStream");
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
   RTC_DCHECK(receive_stream != nullptr);
   webrtc::internal::AudioReceiveStream* audio_receive_stream =
       static_cast<webrtc::internal::AudioReceiveStream*>(receive_stream);
@@ -841,7 +841,7 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
     VideoEncoderConfig encoder_config,
     std::unique_ptr<FecController> fec_controller) {
   TRACE_EVENT0("webrtc", "Call::CreateVideoSendStream");
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
 
   RTC_DCHECK(media_transport() == config.media_transport);
 
@@ -896,7 +896,7 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
 void Call::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {
   TRACE_EVENT0("webrtc", "Call::DestroyVideoSendStream");
   RTC_DCHECK(send_stream != nullptr);
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
 
   send_stream->Stop();
 
@@ -934,7 +934,7 @@ void Call::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {
 webrtc::VideoReceiveStream* Call::CreateVideoReceiveStream(
     webrtc::VideoReceiveStream::Config configuration) {
   TRACE_EVENT0("webrtc", "Call::CreateVideoReceiveStream");
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
 
   receive_side_cc_.SetSendFeedbackOnRequestOnly(
       SendFeedbackOnRequestOnly(configuration.rtp.extensions));
@@ -972,7 +972,7 @@ webrtc::VideoReceiveStream* Call::CreateVideoReceiveStream(
 void Call::DestroyVideoReceiveStream(
     webrtc::VideoReceiveStream* receive_stream) {
   TRACE_EVENT0("webrtc", "Call::DestroyVideoReceiveStream");
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
   RTC_DCHECK(receive_stream != nullptr);
   VideoReceiveStream* receive_stream_impl =
       static_cast<VideoReceiveStream*>(receive_stream);
@@ -999,7 +999,7 @@ void Call::DestroyVideoReceiveStream(
 FlexfecReceiveStream* Call::CreateFlexfecReceiveStream(
     const FlexfecReceiveStream::Config& config) {
   TRACE_EVENT0("webrtc", "Call::CreateFlexfecReceiveStream");
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
 
   RecoveredPacketReceiver* recovered_packet_receiver = this;
 
@@ -1031,7 +1031,7 @@ FlexfecReceiveStream* Call::CreateFlexfecReceiveStream(
 
 void Call::DestroyFlexfecReceiveStream(FlexfecReceiveStream* receive_stream) {
   TRACE_EVENT0("webrtc", "Call::DestroyFlexfecReceiveStream");
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
 
   RTC_DCHECK(receive_stream != nullptr);
   {
@@ -1057,7 +1057,7 @@ RtpTransportControllerSendInterface* Call::GetTransportControllerSend() {
 Call::Stats Call::GetStats() const {
   // TODO(solenberg): Some test cases in EndToEndTest use this from a different
   // thread. Re-enable once that is fixed.
-  // RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  // RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
   Stats stats;
   // Fetch available send/receive bitrates.
   std::vector<unsigned int> ssrcs;
@@ -1106,7 +1106,7 @@ void Call::SetBitrateAllocationStrategy(
 }
 
 void Call::SignalChannelNetworkState(MediaType media, NetworkState state) {
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
   switch (media) {
     case MediaType::AUDIO:
       audio_network_state_ = state;
@@ -1146,7 +1146,7 @@ void Call::OnAudioTransportOverheadChanged(int transport_overhead_per_packet) {
 }
 
 void Call::UpdateAggregateNetworkState() {
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
 
   bool have_audio = false;
   bool have_video = false;
@@ -1479,7 +1479,7 @@ PacketReceiver::DeliveryStatus Call::DeliverPacket(
     MediaType media_type,
     rtc::CopyOnWriteBuffer packet,
     int64_t packet_time_us) {
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
   if (RtpHeaderParser::IsRtcp(packet.cdata(), packet.size()))
     return DeliverRtcp(media_type, packet.cdata(), packet.size());
 

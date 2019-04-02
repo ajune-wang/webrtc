@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "96bcfd70_98eec772",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-02T13:35:32Z",
+      "side": 1,
+      "message": "Yes, because of https://crbug.com/webrtc/10318 (assigned to you).",
+      "parentUuid": "7761a7f7_76e320bb",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f6ffe7fb_557df598",
         "filename": "pc/jsep_transport.h",
         "patchSetId": 14
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "efabcd79_0f29a652",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-02T13:35:32Z",
+      "side": 1,
+      "message": "I\u0027ll delete the comment, since it\u0027s not relevant for const variables.",
+      "parentUuid": "f6ffe7fb_557df598",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48f1baf0_825acdd3",
         "filename": "pc/jsep_transport.h",
         "patchSetId": 14
@@ -64,6 +100,24 @@
       "writtenOn": "2019-04-01T15:38:08Z",
       "side": 1,
       "message": "This is unsafe; the returned pointer is accessible after `scope` has gone out of scope. (The corresponding construction with a thread instead of a lock *is* safe.)",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8d65af9_c97814ce",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-02T13:35:32Z",
+      "side": 1,
+      "message": "I think that\u0027s a problem with the access to the pointed-to object, not a problem with the access to the pointer-containing variable (which is what the lock guards).\n\nPassing raw pointers cross-thread is usually a bad idea; this just documents that the bad idea is in use.",
+      "parentUuid": "48f1baf0_825acdd3",
       "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -87,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "edc5a8ee_b34eb245",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-02T13:35:32Z",
+      "side": 1,
+      "message": "These can be deleted, since they neither take a lock nor make private things public.",
+      "parentUuid": "9cf07484_62673791",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd4ea220_55191e00",
         "filename": "pc/jsep_transport.h",
         "patchSetId": 14
@@ -101,6 +173,24 @@
       "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c1e664a_bf8d7c71",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-02T13:35:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd4ea220_55191e00",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +211,24 @@
     },
     {
       "key": {
+        "uuid": "21518211_8f14faff",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-02T13:35:32Z",
+      "side": 1,
+      "message": "I\u0027m deleting the private getters. They were part of the evolution, before I found the ability to const the pointers.",
+      "parentUuid": "19669997_1a8f1035",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d48215eb_422ac1b2",
         "filename": "pc/jsep_transport.h",
         "patchSetId": 14
@@ -138,6 +246,24 @@
     },
     {
       "key": {
+        "uuid": "e2f75584_abb9a002",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-02T13:35:32Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "d48215eb_422ac1b2",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e85db1eb_c636c6c4",
         "filename": "pc/jsep_transport.h",
         "patchSetId": 14
@@ -152,6 +278,24 @@
       "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57a94a39_0e642ed5",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-02T13:35:32Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "e85db1eb_c636c6c4",
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -175,6 +319,30 @@
       "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91a151db_0e556541",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-02T13:35:32Z",
+      "side": 1,
+      "message": "I\u0027ll reformulate as \"the variables don\u0027t need locks; accessing the objects may or may not be thread-safe\".",
+      "parentUuid": "d1b355c9_da8ef5d1",
+      "range": {
+        "startLine": 318,
+        "startChar": 5,
+        "endLine": 318,
+        "endChar": 49
+      },
+      "revId": "59ed1b8a09b49c8fa49c272585682b5eef541c37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

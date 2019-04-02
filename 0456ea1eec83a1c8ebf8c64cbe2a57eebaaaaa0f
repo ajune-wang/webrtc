@@ -16,6 +16,24 @@
       "revId": "0456ea1eec83a1c8ebf8c64cbe2a57eebaaaaa0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "980bcd77_06c2c146",
+        "filename": "api/test/analyzer_helper.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-02T12:41:13Z",
+      "side": 1,
+      "message": "Thanks Henrik, you are correct this is not accessed by multiple threads but only from the signaling thread. I have used a sequence checker and removed the lock.\n\nDiff: https://webrtc-review.googlesource.com/c/src/+/125980/17..19.",
+      "parentUuid": "936e82a7_dee24ab2",
+      "revId": "0456ea1eec83a1c8ebf8c64cbe2a57eebaaaaa0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

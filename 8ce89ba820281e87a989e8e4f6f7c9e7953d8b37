@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1bb3b44c_ffd45191",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-04-02T13:58:48Z",
+      "side": 0,
+      "message": "Looks like there was a case were we ignored the min bitrate. Was that a bug?",
+      "range": {
+        "startLine": 148,
+        "startChar": 6,
+        "endLine": 150,
+        "endChar": 60
+      },
+      "revId": "8ce89ba820281e87a989e8e4f6f7c9e7953d8b37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

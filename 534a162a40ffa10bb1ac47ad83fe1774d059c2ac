@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "2d78a934_1db4a864",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-02T09:54:25Z",
+      "side": 1,
+      "message": "The RtpVideoStreamReceiver should not be recreated under us.",
+      "parentUuid": "ac99e256_93c3c83a",
+      "range": {
+        "startLine": 229,
+        "startChar": 4,
+        "endLine": 229,
+        "endChar": 72
+      },
+      "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8f5f656_e5661d43",
         "filename": "call/video_receive_stream.h",
         "patchSetId": 3
@@ -320,6 +344,30 @@
       "side": 1,
       "message": "Yep we support it. We specifically allow for this unless you specify the crypto option require_frame_encryption.",
       "parentUuid": "f6b89009_dbd8cc0c",
+      "range": {
+        "startLine": 461,
+        "startChar": 0,
+        "endLine": 464,
+        "endChar": 3
+      },
+      "revId": "534a162a40ffa10bb1ac47ad83fe1774d059c2ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5b7b430_23e29f43",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-02T09:54:25Z",
+      "side": 1,
+      "message": "Do we really? I feel like there can be race conditions involved, like receiving an encrypted frame and trying to decode it before SetFrameDecryptor is called.",
+      "parentUuid": "5ca1cadd_be45e9a5",
       "range": {
         "startLine": 461,
         "startChar": 0,

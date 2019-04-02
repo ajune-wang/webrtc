@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e467e85b_3379f437",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6470,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-02T16:46:45Z",
+      "side": 1,
+      "message": "I think there\u0027s a bit of a mismatch here. The signal from JsepTransportController doesn\u0027t specify which MediaTransportState changed, but afaik there can only be one. So then GetMediaTransport probably shouldn\u0027t require a MID value. But if that\u0027s infeasible then maybe the signal should specify the MID.",
+      "revId": "8cce00a29893dbf9254bffb7034b93907af683f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

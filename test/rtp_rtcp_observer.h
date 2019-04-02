@@ -30,10 +30,10 @@ const int kShortTimeoutMs = 500;
 }
 
 namespace webrtc {
+class TaskQueueForTest;
 namespace test {
 
 class PacketTransport;
-class SingleThreadedTaskQueueForTesting;
 
 class RtpRtcpObserver {
  public:
@@ -84,7 +84,7 @@ class PacketTransport : public test::DirectTransport {
  public:
   enum TransportType { kReceiver, kSender };
 
-  PacketTransport(SingleThreadedTaskQueueForTesting* task_queue,
+  PacketTransport(TaskQueueForTest* task_queue,
                   Call* send_call,
                   RtpRtcpObserver* observer,
                   TransportType transport_type,

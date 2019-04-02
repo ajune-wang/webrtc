@@ -13,8 +13,8 @@
 #include "call/call.h"
 #include "call/fake_network_pipe.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
+#include "rtc_base/task_queue_for_test.h"
 #include "rtc_base/time_utils.h"
-#include "test/single_threaded_task_queue.h"
 
 namespace webrtc {
 namespace test {
@@ -37,7 +37,7 @@ MediaType Demuxer::GetMediaType(const uint8_t* packet_data,
 }
 
 DirectTransport::DirectTransport(
-    SingleThreadedTaskQueueForTesting* task_queue,
+    TaskQueueForTest* task_queue,
     std::unique_ptr<SimulatedPacketReceiverInterface> pipe,
     Call* send_call,
     const std::map<uint8_t, MediaType>& payload_type_map)
@@ -49,14 +49,15 @@ DirectTransport::DirectTransport(
 }
 
 DirectTransport::~DirectTransport() {
-  if (next_process_task_)
-    task_queue_->CancelTask(*next_process_task_);
+  rtc::CritScope cs(&process_lock_);
+  if (process_token_)
+    process_token_ = {};
 }
 
 void DirectTransport::StopSending() {
   rtc::CritScope cs(&process_lock_);
-  if (next_process_task_)
-    task_queue_->CancelTask(*next_process_task_);
+  if (process_token_)
+    process_token_ = {};
 }
 
 void DirectTransport::SetReceiver(PacketReceiver* receiver) {
@@ -90,7 +91,7 @@ void DirectTransport::SendPacket(const uint8_t* data, size_t length) {
   fake_network_->DeliverPacket(media_type, rtc::CopyOnWriteBuffer(data, length),
                                send_time_us);
   rtc::CritScope cs(&process_lock_);
-  if (!next_process_task_)
+  if (!process_token_)
     ProcessPackets();
 }
 
@@ -107,17 +108,22 @@ void DirectTransport::Start() {
 }
 
 void DirectTransport::ProcessPackets() {
-  next_process_task_.reset();
   auto delay_ms = fake_network_->TimeUntilNextProcess();
-  if (delay_ms) {
-    next_process_task_ = task_queue_->PostDelayedTask(
-        [this]() {
-          fake_network_->Process();
-          rtc::CritScope cs(&process_lock_);
-          ProcessPackets();
-        },
-        *delay_ms);
+  if (!delay_ms) {
+    process_token_ = {};
+    return;
   }
+  process_token_ = new Token();
+  auto process_token = process_token_;
+  task_queue_->PostDelayedTask(
+      [this, process_token]() {
+        rtc::CritScope cs(&process_lock_);
+        if (process_token->HasOneRef())
+          return;
+        fake_network_->Process();
+        ProcessPackets();
+      },
+      *delay_ms);
 }
 }  // namespace test
 }  // namespace webrtc

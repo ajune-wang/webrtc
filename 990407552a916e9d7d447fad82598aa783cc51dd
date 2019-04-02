@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "621b389c_1b6b065c",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-02T14:51:43Z",
+      "side": 1,
+      "message": "Most of this seems like it doesn\u0027t need to know about the type. Essentially, it should be enough to have a small class that implements an interface receiving the value strings that builds the typed list.",
+      "range": {
+        "startLine": 249,
+        "startChar": 7,
+        "endLine": 249,
+        "endChar": 12
+      },
+      "revId": "990407552a916e9d7d447fad82598aa783cc51dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "526930db_c2c510fd",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-02T14:51:43Z",
+      "side": 1,
+      "message": "If it\u0027s possible it\u0027d be nice to keep this interface lighter.",
+      "range": {
+        "startLine": 287,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 26
+      },
+      "revId": "990407552a916e9d7d447fad82598aa783cc51dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b51a2cd_92b430bc",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-02T14:51:43Z",
+      "side": 1,
+      "message": "naming of this and arguments should be cleaned up ...\n\nThis should also be split into a part that\u0027s in the .cc file and a templatized part (maybe using a base class approach?)",
+      "range": {
+        "startLine": 332,
+        "startChar": 5,
+        "endLine": 332,
+        "endChar": 17
+      },
+      "revId": "990407552a916e9d7d447fad82598aa783cc51dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8feee49_8cbcbadf",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-02T14:51:43Z",
+      "side": 1,
+      "message": "We should not need any return values here, use error logging if required.",
+      "range": {
+        "startLine": 363,
+        "startChar": 0,
+        "endLine": 363,
+        "endChar": 14
+      },
+      "revId": "990407552a916e9d7d447fad82598aa783cc51dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

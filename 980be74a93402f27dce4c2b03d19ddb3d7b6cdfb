@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7ec8f7e2_e3e5992a",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "I used to have more in the namespace. Removed.\nSince I\u0027m only using the alias in one place, I will remove it.",
+      "parentUuid": "f2096f80_2e38e0fd",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99deecc5_0c562de7",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2019-04-02T12:53:27Z",
       "side": 1,
       "message": "that look fine when you first_seq_num \u003d 0.\nhow those check would look like when first_seq_num \u003d (1 \u003c\u003c 15) ?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 77
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cc96c01_61fad3e9",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "How |first_seq_num| is relevant? Please note that these two DCHECKs would have been static_assert if not for technical limitations. They intend to show the reader that |max_entries_| can be at most set to ((1 \u003c\u003c 15) + 1). That is, (b - a) can be at most (1 \u003c\u003c 15) for any (a, b) in the container, so long as |b| was inserted later than |a|.",
+      "parentUuid": "99deecc5_0c562de7",
       "range": {
         "startLine": 28,
         "startChar": 0,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "b9b6285f_724d6661",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "AheadOrAt() would probably be the most readable. I\u0027ve change to that instead.",
+      "parentUuid": "953f935e_a3999df9",
+      "range": {
+        "startLine": 50,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 70
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e28fcc73_efdc3aaf",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
         "patchSetId": 1
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "6fd6c0ba_68237d8c",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "The documentation is from before a change; thanks for catching.",
+      "parentUuid": "e28fcc73_efdc3aaf",
+      "range": {
+        "startLine": 67,
+        "startChar": 28,
+        "endLine": 67,
+        "endChar": 49
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa75654a_0891fd9a",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
         "patchSetId": 1
@@ -99,6 +189,24 @@
       "writtenOn": "2019-04-02T12:53:27Z",
       "side": 1,
       "message": "is it same as?\nRTC_DCHECK(!AheadOf(associations_.front().sequence_number,\n                     associations_.back().sequence_number));",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3bb10f25_2b994882",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "No, it\u0027s not exactly the same. The RTC_DCHECK you propose would be more lenient - it would allow several elements to have the same key.",
+      "parentUuid": "aa75654a_0891fd9a",
       "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "95c0d52a_38b4350c",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe6b8f6a_4b69f70b",
+      "range": {
+        "startLine": 115,
+        "startChar": 20,
+        "endLine": 115,
+        "endChar": 80
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e5e7883_88c7f9e1",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
         "patchSetId": 1
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "2845bc94_ad3cb5eb",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "Right you are. Thanks.",
+      "parentUuid": "8e5e7883_88c7f9e1",
+      "range": {
+        "startLine": 116,
+        "startChar": 37,
+        "endLine": 116,
+        "endChar": 65
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc49015e_8da52e7a",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
         "patchSetId": 1
@@ -162,6 +318,30 @@
       "writtenOn": "2019-04-02T12:53:27Z",
       "side": 1,
       "message": "or\nabsl::make_optional(elem-\u003einfo)",
+      "range": {
+        "startLine": 119,
+        "startChar": 21,
+        "endLine": 119,
+        "endChar": 35
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b778b997_5cdc77eb",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "I prefer to avoid make_optional as a rule, since I suspect it could cause needless conversions between optional\u003cBase\u003e and optional\u003cDerived\u003e in some cases.",
+      "parentUuid": "dc49015e_8da52e7a",
       "range": {
         "startLine": 119,
         "startChar": 21,
@@ -197,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "39b755f2_01d0925c",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "For the moment, I am assuming that the timestamp is sufficient for the encoder. This holds for my use-case in VP8. If we end up needing more information in other codecs, such as an ID for the spatial layer in VP9, we can add that later. Or wdyt?",
+      "parentUuid": "00561fa2_c7c9721c",
+      "range": {
+        "startLine": 23,
+        "startChar": 43,
+        "endLine": 23,
+        "endChar": 48
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a84565fe_48256187",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
         "patchSetId": 1
@@ -208,6 +412,24 @@
       "writtenOn": "2019-04-02T12:53:27Z",
       "side": 1,
       "message": "why make this class thread-safe instead of thread-compatible (like majority of containers).\n\nIf it is thread-compatible user can easily protect it with a dedicated lock,\nmay protect with same lock as another structure (and create more complicated operation that act on both)\nor may choose to use other way of protecting, e.g. access from the same TaskQueue.",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0e1731c5_0e07d027",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "Good point.",
+      "parentUuid": "a84565fe_48256187",
       "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -231,6 +453,24 @@
     },
     {
       "key": {
+        "uuid": "ddedb76b_d3ec801e",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3a1c17c_30246065",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f9b1332_ce14713b",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
         "patchSetId": 1
@@ -242,6 +482,24 @@
       "writtenOn": "2019-04-02T12:53:27Z",
       "side": 1,
       "message": "it is probably slightly better to define operator\u003d\u003d not as member function:\ne.g.\nfriend bool operator\u003d\u003d(const Info\u0026 lhs, const Info\u0026 rhs) {\n  return std::tie(lhs.timestamp, lhs.is_first, lhs.is_last) \u003d\u003d\n         std::tie(rhs.timestamp, rhs.is_first, rhs.is_last);\n}\n\n(Main reason doesn\u0027t apply here since Info is final,\nbut imho it still nicer from symmetry point of view)",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "322e763c_9a64f9c5",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "Done. (But I skipped std::tie, as I don\u0027t see what benefits it has. Please let me know if you\u0027re aware of such benefits, other than idiomatic-ness.)",
+      "parentUuid": "4f9b1332_ce14713b",
       "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -265,6 +523,24 @@
     },
     {
       "key": {
+        "uuid": "9aa49782_b49d9b60",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc28bb8d_96fcc0a2",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "370a298c_1cd0bf08",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
         "patchSetId": 1
@@ -276,6 +552,30 @@
       "writtenOn": "2019-04-02T12:53:27Z",
       "side": 1,
       "message": "may be name it Packet (or PacketSomething, e.g. PacketInfo)\nto reflect each this struct perfectly match single rtp packet.",
+      "range": {
+        "startLine": 35,
+        "startChar": 7,
+        "endLine": 35,
+        "endChar": 18
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aeeb0587_02880343",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "VerifyPacketInfo, etc., would be confusing, IMHO. I\u0027d prefer to keep it as is.",
+      "parentUuid": "370a298c_1cd0bf08",
       "range": {
         "startLine": 35,
         "startChar": 7,
@@ -311,6 +611,30 @@
     },
     {
       "key": {
+        "uuid": "a73d12d1_c813dce0",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "When used within reason, I think it\u0027s an easy and cheap way to increase coverage, as well as a good way of showing a reader of a test which values are arbitrary.",
+      "parentUuid": "ffe42e0b_fcf5ee3f",
+      "range": {
+        "startLine": 110,
+        "startChar": 9,
+        "endLine": 110,
+        "endChar": 16
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27822024_77bd9665",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
         "patchSetId": 1
@@ -325,6 +649,24 @@
       "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f16d5fe0_5912b668",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27822024_77bd9665",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -345,6 +687,24 @@
     },
     {
       "key": {
+        "uuid": "e8b4052e_15b68489",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "I\u0027ve reduced the number of helpers.",
+      "parentUuid": "7ca6ffc2_be6d9db2",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9fa5469_38d3980f",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
         "patchSetId": 1
@@ -356,6 +716,30 @@
       "writtenOn": "2019-04-02T12:53:27Z",
       "side": 1,
       "message": "instead of 1/2 may be explain scenario, e.g.\nGetOldSequenceNumberReturnsNullopt\nGetOutofOrderSequenceNumberReturnsNullopt",
+      "range": {
+        "startLine": 154,
+        "startChar": 33,
+        "endLine": 154,
+        "endChar": 72
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fd344c96_cbfb334a",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "The difference between #1 and #2 is not so easily explained, IMHO, without a name that\u0027s so long that it would just be better to have Test1 and Test2 with a comment. It\u0027s not so easy to read CamelCase.",
+      "parentUuid": "c9fa5469_38d3980f",
       "range": {
         "startLine": 154,
         "startChar": 33,
@@ -391,6 +775,30 @@
     },
     {
       "key": {
+        "uuid": "9b80207d_dd028b49",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "Let\u0027s talk offline.",
+      "parentUuid": "1e9e1736_615a27d1",
+      "range": {
+        "startLine": 178,
+        "startChar": 7,
+        "endLine": 178,
+        "endChar": 48
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5a472ee_786cf81a",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
         "patchSetId": 1
@@ -414,6 +822,30 @@
     },
     {
       "key": {
+        "uuid": "d5ff401a_74e5afcb",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "I didn\u0027t know it worked for (optional\u003cx\u003e, x). Cool.",
+      "parentUuid": "f5a472ee_786cf81a",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 206,
+        "endChar": 39
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a832cfca_ca5c5d75",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
         "patchSetId": 1
@@ -425,6 +857,30 @@
       "writtenOn": "2019-04-02T12:53:27Z",
       "side": 1,
       "message": "what is 1st parameter, what is second?\nif you still want to create this with factories, may be annotate parameters:\nCreateAssociation(/*name1\u003d*/1000, /*name2\u003d*/500);",
+      "range": {
+        "startLine": 381,
+        "startChar": 60,
+        "endLine": 381,
+        "endChar": 64
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46f04ad8_18022498",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-02T14:16:08Z",
+      "side": 1,
+      "message": "1. CreateAssociation() is used in almost all tests.\n2. CreateAssociation() only receives two arguments.\n3. CreateAssociation() creates something equivalent to a map\u0027s pair - an association of a key and a value.\nFor those reasons, I think we can forgo the annotation here.",
+      "parentUuid": "a832cfca_ca5c5d75",
       "range": {
         "startLine": 381,
         "startChar": 60,

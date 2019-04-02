@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21158545_f577282c",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-02T15:59:45Z",
+      "side": 1,
+      "message": "The `.get()` is unnecessary here; unique_ptrs convert implicitly to bool just like normal pointers.",
+      "revId": "87b3e2a3dcd0efe250b2312ad506ccac40b92f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c0a3a0e_6008926a",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-02T15:59:45Z",
+      "side": 1,
+      "message": "Is this still a problem now that you removed the accessors?",
+      "revId": "87b3e2a3dcd0efe250b2312ad506ccac40b92f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "117816e2_1ad66c0f",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-02T15:59:45Z",
+      "side": 1,
+      "message": "Can you make the pointer const? (You changed it to a mutable pointer to a const Thread; my intention was for it to be a const pointer to a mutable Thread, i.e. `rtc::Thread* const network_thread_`. Of course, if you want to, you can have it be const both ways...)",
+      "revId": "87b3e2a3dcd0efe250b2312ad506ccac40b92f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d63c8c21_9d6a559f",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-02T15:59:45Z",
+      "side": 1,
+      "message": "This is marked as a duplicate of 10300.",
+      "range": {
+        "startLine": 295,
+        "startChar": 10,
+        "endLine": 295,
+        "endChar": 39
+      },
+      "revId": "87b3e2a3dcd0efe250b2312ad506ccac40b92f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "387b86a4_a179beda",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2530,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-04-02T16:38:05Z",
+      "side": 1,
+      "message": "i think this if-statement should be removed now\nwhen the stream is not recreated as part setframedescryptor.\nit was added specifically to \"counter\" that recreate.",
+      "range": {
+        "startLine": 2530,
+        "startChar": 8,
+        "endLine": 2530,
+        "endChar": 15
+      },
+      "revId": "28bb4909d3877ef66e0f5fb1dc13aeeb4c786d85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

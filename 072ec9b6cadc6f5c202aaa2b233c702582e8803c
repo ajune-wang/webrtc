@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4472c9a3_5eba4ad2",
+        "filename": "video/video_quality_observer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-04-02T14:50:39Z",
+      "side": 1,
+      "message": "Nit: Please add a comment here stating that sum squared is calculated differently than avg interframe delay below: the former include pauses and the latter doesn\u0027t.",
+      "range": {
+        "startLine": 153,
+        "startChar": 4,
+        "endLine": 153,
+        "endChar": 39
+      },
+      "revId": "072ec9b6cadc6f5c202aaa2b233c702582e8803c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

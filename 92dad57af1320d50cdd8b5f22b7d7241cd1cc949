@@ -45,6 +45,30 @@
       "revId": "92dad57af1320d50cdd8b5f22b7d7241cd1cc949",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b00038fa_b8c30acc",
+        "filename": "video/buffered_frame_decryptor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-02T13:30:48Z",
+      "side": 1,
+      "message": "In this case I think we are interested in logging in production since this is rather new functionality.\n\nNit: I think this should be an LS_INFO since it is not an exception of any kind.",
+      "parentUuid": "ccd57901_904333a1",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 112,
+        "endChar": 11
+      },
+      "revId": "92dad57af1320d50cdd8b5f22b7d7241cd1cc949",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

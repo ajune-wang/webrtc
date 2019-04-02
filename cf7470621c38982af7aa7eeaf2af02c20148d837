@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "001861d3_35d84b3a",
+        "filename": "test/direct_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-02T17:11:48Z",
+      "side": 1,
+      "message": "Could you add a comment explaining what the new member variable does? It looks like you\u0027re using it so that the posted task will be able to tell whether the DirectTransport object is still live or not?",
+      "revId": "cf7470621c38982af7aa7eeaf2af02c20148d837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

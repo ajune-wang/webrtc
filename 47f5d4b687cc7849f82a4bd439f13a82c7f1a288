@@ -45,6 +45,30 @@
       "revId": "47f5d4b687cc7849f82a4bd439f13a82c7f1a288",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32f6c181_529c4d44",
+        "filename": "tools_webrtc/libs/generate_licenses.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-02T05:51:27Z",
+      "side": 1,
+      "message": "Yes, if you rebase this CL it should go away (fixed in https://webrtc-review.googlesource.com/c/src/+/130461).",
+      "parentUuid": "3e06b48a_ef93ffaf",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 4
+      },
+      "revId": "47f5d4b687cc7849f82a4bd439f13a82c7f1a288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

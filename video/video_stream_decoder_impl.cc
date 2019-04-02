@@ -173,7 +173,7 @@ VideoStreamDecoderImpl::DecodeResult VideoStreamDecoderImpl::DecodeNextFrame(
     bool keyframe_required) {
   std::unique_ptr<video_coding::EncodedFrame> frame;
   video_coding::FrameBuffer::ReturnReason res =
-      frame_buffer_.NextFrame(max_wait_time_ms, &frame, keyframe_required);
+      frame_buffer_.NextFrameAsync(max_wait_time_ms, &frame, keyframe_required);
 
   if (res == video_coding::FrameBuffer::ReturnReason::kStopped)
     return kShutdown;

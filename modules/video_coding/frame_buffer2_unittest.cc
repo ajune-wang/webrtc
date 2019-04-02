@@ -174,7 +174,7 @@ class TestFrameBuffer2 : public ::testing::Test {
     if (max_wait_time == 0) {
       std::unique_ptr<EncodedFrame> frame;
       FrameBuffer::ReturnReason res =
-          buffer_->NextFrame(0, &frame, keyframe_required);
+          buffer_->NextFrameAsync(0, &frame, keyframe_required);
       if (res != FrameBuffer::ReturnReason::kStopped)
         frames_.emplace_back(std::move(frame));
       crit_.Leave();
@@ -220,7 +220,7 @@ class TestFrameBuffer2 : public ::testing::Test {
 
         std::unique_ptr<EncodedFrame> frame;
         FrameBuffer::ReturnReason res =
-            tfb->buffer_->NextFrame(tfb->max_wait_time_, &frame);
+            tfb->buffer_->NextFrameAsync(tfb->max_wait_time_, &frame);
         if (res != FrameBuffer::ReturnReason::kStopped)
           tfb->frames_.emplace_back(std::move(frame));
       }

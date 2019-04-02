@@ -13,9 +13,14 @@
 #include <stdint.h>
 #include <initializer_list>
 #include <map>
+#include <memory>
 #include <set>
 #include <string>
+#include <vector>
+
+#include "absl/memory/memory.h"
 #include "absl/types/optional.h"
+#include "rtc_base/string_encode.h"
 
 // Field trial parser functionality. Provides funcitonality to parse field trial
 // argument strings in key:value format. Each parameter is described using
@@ -24,7 +29,8 @@
 // ignored. Parameters are declared with a given type for which an
 // implementation of ParseTypedParameter should be provided. The
 // ParseTypedParameter implementation is given whatever is between the : and the
-// ,. FieldTrialOptional will use nullopt if the key is provided without :.
+// ,. If the key is provided without : a FieldTrialOptional will use nullopt and
+// a FieldTrialList will use a empty vector.
 
 // Example string: "my_optional,my_int:3,my_string:hello"
 
@@ -218,6 +224,144 @@ class FieldTrialFlag : public FieldTrialParameterInterface {
  private:
   bool value_;
 };
+
+template <typename T>
+struct TypedListWrapper;
+
+// This class represents a vector of type T. The elements are separated by a |
+// and parsed using ParseTypedParameter.
+template <typename T>
+class FieldTrialList : public FieldTrialParameterInterface {
+ public:
+  FieldTrialList(std::string key) : FieldTrialList(key, {}) {}
+  FieldTrialList(std::string key, std::initializer_list<T> default_value)
+      : FieldTrialParameterInterface(key),
+        failed_(false),
+        values_(default_value),
+        parse_got_called_(false) {}
+
+  std::vector<T> Get() const { return values_; }
+  operator std::vector<T>() const { return Get(); }
+  const T& operator[](size_t index) const { return values_[index]; }
+  const std::vector<T>* operator->() const { return &values_; }
+
+ protected:
+  bool Parse(absl::optional<std::string> str_value) override {
+    parse_got_called_ = true;
+    if (!str_value) {
+      values_.clear();
+      return true;
+    }
+
+    std::vector<T> new_values;
+    std::vector<std::string> tokens;
+    rtc::split(str_value.value(), '|', &tokens);
+
+    for (std::string token : tokens) {
+      absl::optional<T> value = ParseTypedParameter<T>(token);
+      if (!value) {
+        failed_ = true;
+        return false;
+      }
+      new_values.push_back(value.value());
+    }
+
+    values_ = std::move(new_values);
+    return true;
+  }
+  friend TypedListWrapper<T>;
+  bool Failed() const { return failed_; }
+  bool Used() const { return parse_got_called_; }
+
+ private:
+  bool failed_;
+  std::vector<T> values_;
+  bool parse_got_called_;
+};
+
+class ListWrapper {
+ public:
+  virtual ~ListWrapper() = default;
+  virtual void WriteElement(void* s, int ix) = 0;
+
+  virtual int Length() = 0;
+  virtual bool Failed() = 0;
+  virtual bool Used() = 0;
+};
+
+template <typename T>
+struct TypedListWrapper : ListWrapper {
+ public:
+  TypedListWrapper(FieldTrialList<T>& list, std::function<void(void*, T)> sink)
+      : list_(list), sink_(sink) {}
+
+  void WriteElement(void* s, int ix) override { sink_(s, list_[ix]); }
+
+  int Length() override { return list_->size(); }
+  bool Failed() override { return list_.Failed(); }
+  bool Used() override { return list_.Used(); }
+
+ private:
+  const FieldTrialList<T>& list_;
+  std::function<void(void*, T)> sink_;
+};
+
+// The Traits struct provides type information about lambdas in the template
+// expressions below.
+template <typename T>
+struct Traits : public Traits<decltype(&T::operator())> {};
+
+template <typename ClassType, typename RetType, typename SourceType>
+struct Traits<RetType* (ClassType::*)(SourceType*)const> {
+  using ret = RetType;
+  using src = SourceType;
+};
+
+template <typename F,
+          typename S = typename Traits<F>::src,
+          typename T = typename Traits<F>::ret>
+std::unique_ptr<ListWrapper> TLW(FieldTrialList<T>& l, F f) {
+  return absl::make_unique<TypedListWrapper<T>>(
+      l, [f](void* s, T t) { *f(static_cast<S*>(s)) = t; });
+}
+
+// Utility function that combines several FieldTrialLists into a vector of
+// structs. Each list needs to be wrapped in a ListWrapper which is created by
+// TLW(), see the unit test for examples of use.
+template <typename S>
+bool combineLists(std::initializer_list<std::unique_ptr<ListWrapper>> l,
+                  S defaults,
+                  std::vector<S>* out) {
+  // Check that all lists that were in the field trial string had the same
+  // number of elements. If not we signal an error. We also return an error if
+  // any list had parse errors.
+  int length = -1;
+  for (auto& li : l) {
+    if (li->Failed())
+      return false;
+    else if (!li->Used())
+      continue;
+    else if (length == -1)
+      length = li->Length();
+    else if (length != li->Length())
+      return false;
+  }
+
+  // No values were supplied for any of the lists so we leave the defaults
+  // unchanged.
+  if (length == -1) {
+    return true;
+  }
+
+  *out = std::vector<S>(length, defaults);
+
+  for (auto& li : l)
+    if (li->Used())
+      for (int i = 0; i < length; i++)
+        li->WriteElement(&(*out)[i], i);
+
+  return true;
+}
 
 // Accepts true, false, else parsed with sscanf %i, true if != 0.
 extern template class FieldTrialParameter<bool>;

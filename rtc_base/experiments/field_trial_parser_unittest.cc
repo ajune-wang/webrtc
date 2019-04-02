@@ -11,6 +11,10 @@
 #include "rtc_base/gunit.h"
 #include "system_wrappers/include/field_trial.h"
 #include "test/field_trial.h"
+#include "test/gmock.h"
+
+using testing::ElementsAre;
+using testing::IsEmpty;
 
 namespace webrtc {
 namespace {
@@ -152,4 +156,124 @@ TEST(FieldTrialParserTest, ParsesCustomEnumParameter) {
   ParseFieldTrial({&my_enum}, "e:5");
   EXPECT_EQ(my_enum.Get(), CustomEnum::kBlue);
 }
+TEST(FieldTrialParserTest, ParsesListParameter) {
+  FieldTrialList<int> my_list("l", {5});
+  EXPECT_THAT(my_list.Get(), ElementsAre(5));
+  // If one element is invalid the list is unchanged.
+  ParseFieldTrial({&my_list}, "l:1|2|hat");
+  EXPECT_THAT(my_list.Get(), ElementsAre(5));
+  ParseFieldTrial({&my_list}, "l");
+  EXPECT_THAT(my_list.Get(), IsEmpty());
+  ParseFieldTrial({&my_list}, "l:1|2|3");
+  EXPECT_THAT(my_list.Get(), ElementsAre(1, 2, 3));
+  ParseFieldTrial({&my_list}, "l:-1");
+  EXPECT_THAT(my_list.Get(), ElementsAre(-1));
+
+  FieldTrialList<std::string> another_list("l", {"hat"});
+  EXPECT_THAT(another_list.Get(), ElementsAre("hat"));
+  ParseFieldTrial({&another_list}, "l");
+  EXPECT_THAT(another_list.Get(), IsEmpty());
+  ParseFieldTrial({&another_list}, "l:");
+  EXPECT_THAT(another_list.Get(), ElementsAre(""));
+  ParseFieldTrial({&another_list}, "l:scarf|hat|mittens");
+  EXPECT_THAT(another_list.Get(), ElementsAre("scarf", "hat", "mittens"));
+  ParseFieldTrial({&another_list}, "l:scarf");
+  EXPECT_THAT(another_list.Get(), ElementsAre("scarf"));
+}
+
+TEST(FieldTrialParserTest, ParsesListOfTuples) {
+  struct Garment {
+    Garment(int p, std::string c, std::string g)
+        : price(p), color(c), garment(g) {}
+
+    int price = 1;
+    std::string color = "mauve";
+    std::string garment = "cravatte";
+
+    bool operator==(const Garment& other) const {
+      return price == other.price && color == other.color &&
+             garment == other.garment;
+    }
+  };
+
+  FieldTrialList<int> price("price");
+  FieldTrialList<std::string> color("color");
+  FieldTrialList<std::string> garment("garment");
+  FieldTrialList<std::string> wrong_length("other");
+
+  ParseFieldTrial({&price, &color, &garment, &wrong_length},
+                  "color:mauve|red|gold,"
+                  "garment:hat|hat|crown,"
+                  "price:10|20|30,"
+                  "other:asdf");
+
+  std::vector<Garment> out = {{1, "blue", "boot"}, {2, "red", "glove"}};
+
+  // Normal usage.
+  ASSERT_TRUE(
+      combineLists({TLW(color, [](Garment* g) { return &g->color; }),
+                    TLW(garment, [](Garment* g) { return &g->garment; }),
+                    TLW(price, [](Garment* g) { return &g->price; })},
+                   Garment{-1, "gray", "cravatte"}, &out));
+
+  ASSERT_THAT(
+      out, ElementsAre(Garment(10, "mauve", "hat"), Garment(20, "red", "hat"),
+                       Garment(30, "gold", "crown")));
+
+  // One FieldTrialList has the wrong length, so out remains unchanged.
+  out = {{1, "blue", "boot"}, {2, "red", "glove"}};
+  ASSERT_FALSE(
+      combineLists({TLW(color, [](Garment* g) { return &g->color; }),
+                    TLW(garment, [](Garment* g) { return &g->garment; }),
+                    TLW(wrong_length, [](Garment* g) { return &g->garment; })},
+                   Garment{-1, "gray", "cravatte"}, &out));
+
+  ASSERT_THAT(
+      out, ElementsAre(Garment(1, "blue", "boot"), Garment(2, "red", "glove")));
+
+  // One List is missing, so we use the default value from sample.
+  ASSERT_TRUE(
+      combineLists({TLW(price, [](Garment* g) { return &g->price; }),
+                    TLW(garment, [](Garment* g) { return &g->garment; })},
+                   Garment{-1, "gray", "cravatte"}, &out));
+
+  ASSERT_THAT(
+      out, ElementsAre(Garment(10, "gray", "hat"), Garment(20, "gray", "hat"),
+                       Garment(30, "gray", "crown")));
+
+  // User haven't provided values for all our lists, use defaults for the
+  // missing ones.
+  out = {};
+  FieldTrialList<int> price2("price");
+  FieldTrialList<std::string> color2("color");
+  FieldTrialList<std::string> garment2("garment");
+  ParseFieldTrial({&price2, &color2, &garment2},
+                  "color:mauve|red|gold,"
+                  "garment:hat|hat|crown");
+  ASSERT_TRUE(
+      combineLists({TLW(price2, [](Garment* g) { return &g->price; }),
+                    TLW(color2, [](Garment* g) { return &g->color; }),
+                    TLW(garment2, [](Garment* g) { return &g->garment; })},
+                   Garment{-1, "gray", "cravatte"}, &out));
+
+  ASSERT_THAT(
+      out, ElementsAre(Garment(-1, "mauve", "hat"), Garment(-1, "red", "hat"),
+                       Garment(-1, "gold", "crown")));
+
+  // User haven't provided values for any lists, so out is unchanged.
+  out = {{1, "blue", "boot"}, {2, "red", "glove"}};
+  FieldTrialList<int> price3("price");
+  FieldTrialList<std::string> color3("color");
+  FieldTrialList<std::string> garment3("garment");
+  ParseFieldTrial({&price3, &color3, &garment3}, "");
+  ASSERT_TRUE(
+      combineLists({TLW(price3, [](Garment* g) { return &g->price; }),
+                    TLW(color3, [](Garment* g) { return &g->color; }),
+                    TLW(garment3, [](Garment* g) { return &g->garment; })},
+                   Garment{-1, "gray", "cravatte"}, &out));
+
+  ASSERT_THAT(
+      out, ElementsAre(Garment(1, "blue", "boot"), Garment(2, "red", "glove")));
+}
+
 }  // namespace webrtc

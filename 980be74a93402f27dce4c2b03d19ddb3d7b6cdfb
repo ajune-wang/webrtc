@@ -131,6 +131,23 @@
     },
     {
       "key": {
+        "uuid": "1e3fff94_7c0aa0a2",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-02T14:34:41Z",
+      "side": 1,
+      "message": "[nit] auto is recommended for iterators.",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e28fcc73_efdc3aaf",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
         "patchSetId": 1
@@ -175,6 +192,23 @@
       "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "54410bb9_9653706c",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-02T14:34:41Z",
+      "side": 1,
+      "message": "Why not emplace_back here? With std::move or better yet by constructing in-place since new_association isn\u0027t needed --as per Danil\u0027s suggestion (comparing to unwrapped sequence_number).",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

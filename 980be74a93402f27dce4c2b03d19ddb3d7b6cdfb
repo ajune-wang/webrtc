@@ -1,0 +1,439 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2096f80_2e38e0fd",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "no need to add unnamed namespace just for an alias.\nhttps://abseil.io/tips/119\n\nbtw, do you even need the alias?",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99deecc5_0c562de7",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "that look fine when you first_seq_num \u003d 0.\nhow those check would look like when first_seq_num \u003d (1 \u003c\u003c 15) ?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 77
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "953f935e_a3999df9",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "is it 4 condition same as these 2?\nif (!AheadOf(.front().seq_num, sequence_number \u0026\u0026\n    !AheadOf(sequence_number, .back().seq_num))",
+      "range": {
+        "startLine": 50,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 70
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e28fcc73_efdc3aaf",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "documentation claims size decreases to max_entries_ / 2\ncan you please make sure documentation match implementation",
+      "range": {
+        "startLine": 67,
+        "startChar": 28,
+        "endLine": 67,
+        "endChar": 49
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa75654a_0891fd9a",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "is it same as?\nRTC_DCHECK(!AheadOf(associations_.front().sequence_number,\n                     associations_.back().sequence_number));",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe6b8f6a_4b69f70b",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "consider\nabsl::c_lower_bound(associations_, Association(...), cmp);\nfrom absl/algorithm/container.h\n\n(see https://webrtc-review.googlesource.com/c/src/+/129600)",
+      "range": {
+        "startLine": 115,
+        "startChar": 20,
+        "endLine": 115,
+        "endChar": 80
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e5e7883_88c7f9e1",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "with a custom comparator you do not need to wrap sequence_number into Association:\nauto cmp \u003d [offset](const Association\u0026 a, uint16_t b_sequence_number) {\n  return static_cast\u003cuint16_t\u003e(a.sequence_number + offset) \u003c\n         static_cast\u003cuint16_t\u003e(b_sequence_number + offset);\n}",
+      "range": {
+        "startLine": 116,
+        "startChar": 37,
+        "endLine": 116,
+        "endChar": 65
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc49015e_8da52e7a",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "or\nabsl::make_optional(elem-\u003einfo)",
+      "range": {
+        "startLine": 119,
+        "startChar": 21,
+        "endLine": 119,
+        "endChar": 35
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00561fa2_c7c9721c",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "what is meant by \u0027frame\u0027 here?\ne.g. in vp9 case is it layer frame or super frame (aka picture).\ni.e. when there is spatial layering, is it everything about point of time (and then using timestamp as an id make sense) or is it just one of the representations, one of the layers?",
+      "range": {
+        "startLine": 23,
+        "startChar": 43,
+        "endLine": 23,
+        "endChar": 48
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a84565fe_48256187",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "why make this class thread-safe instead of thread-compatible (like majority of containers).\n\nIf it is thread-compatible user can easily protect it with a dedicated lock,\nmay protect with same lock as another structure (and create more complicated operation that act on both)\nor may choose to use other way of protecting, e.g. access from the same TaskQueue.",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3a1c17c_30246065",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "prefer to put nestted struct before constructor/deustructor\nhttps://engdoc.corp.google.com/eng/doc/devguide/cpp/styleguide.md?cl\u003dhead#Declaration_Order",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f9b1332_ce14713b",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "it is probably slightly better to define operator\u003d\u003d not as member function:\ne.g.\nfriend bool operator\u003d\u003d(const Info\u0026 lhs, const Info\u0026 rhs) {\n  return std::tie(lhs.timestamp, lhs.is_first, lhs.is_last) \u003d\u003d\n         std::tie(rhs.timestamp, rhs.is_first, rhs.is_last);\n}\n\n(Main reason doesn\u0027t apply here since Info is final,\nbut imho it still nicer from symmetry point of view)",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc28bb8d_96fcc0a2",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "prefer to put alias into unnamed namespace when there is one",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "370a298c_1cd0bf08",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "may be name it Packet (or PacketSomething, e.g. PacketInfo)\nto reflect each this struct perfectly match single rtp packet.",
+      "range": {
+        "startLine": 35,
+        "startChar": 7,
+        "endLine": 35,
+        "endChar": 18
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffe42e0b_fcf5ee3f",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "for Random testing it might be better to write a fuzzer.\nI think for unittests randomness reduce clarity, but doesn\u0027t add much.",
+      "range": {
+        "startLine": 110,
+        "startChar": 9,
+        "endLine": 110,
+        "endChar": 16
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27822024_77bd9665",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "avoid hiding object under test into the fixture, specially since it is easy to create.",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ca6ffc2_be6d9db2",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "https://abseil.io/tips/122\n\nWhy use helpers? they doesn\u0027t seem to make code simpler,\nbut using code under test directly removes need to jump up and down to read what is tested and how object is used.\n(and without helpers and paramatrization fixture can be dropped completely)\n\n\nRtpSequenceNumberMap map(kMaxPossibleMaxEntries);\nconstexpr uint16_t kArbitrarySequenceNumber \u003d 321;\nEXPECT_FALSE(map.Get(kArbitrarySequenceNumber));\nor\nEXPECT_EQ(map.Get(kArbitrarySequenceNumber), absl::nullopt);",
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9fa5469_38d3980f",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "instead of 1/2 may be explain scenario, e.g.\nGetOldSequenceNumberReturnsNullopt\nGetOutofOrderSequenceNumberReturnsNullopt",
+      "range": {
+        "startLine": 154,
+        "startChar": 33,
+        "endLine": 154,
+        "endChar": 72
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e9e1736_615a27d1",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "After looking into this test for 5 minutes, I still do not understand how it is verifying what it promise to.",
+      "range": {
+        "startLine": 178,
+        "startChar": 7,
+        "endLine": 178,
+        "endChar": 48
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5a472ee_786cf81a",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "these two can be joined into single expectation:\nEXPECT_EQ(info, association.info)",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 206,
+        "endChar": 39
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a832cfca_ca5c5d75",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-02T12:53:27Z",
+      "side": 1,
+      "message": "what is 1st parameter, what is second?\nif you still want to create this with factories, may be annotate parameters:\nCreateAssociation(/*name1\u003d*/1000, /*name2\u003d*/500);",
+      "range": {
+        "startLine": 381,
+        "startChar": 60,
+        "endLine": 381,
+        "endChar": 64
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

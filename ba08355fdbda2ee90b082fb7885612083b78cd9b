@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "73f87267_76d27876",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-04-02T13:18:01Z",
+      "side": 1,
+      "message": "That\u0027s cleaner. Thanks!",
+      "parentUuid": "465bfc5c_359ee70c",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 47
+      },
+      "revId": "ba08355fdbda2ee90b082fb7885612083b78cd9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb4403ca_24cb7acb",
         "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "ba08355fdbda2ee90b082fb7885612083b78cd9b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc12394c_acf72835",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-04-02T13:18:01Z",
+      "side": 1,
+      "message": "No, window_start_seq was previously initialized to -1. This doesn\u0027t work anymore since negative unwrapped values are allowed.",
+      "parentUuid": "bb4403ca_24cb7acb",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 11
+      },
+      "revId": "ba08355fdbda2ee90b082fb7885612083b78cd9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

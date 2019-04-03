@@ -108,6 +108,30 @@
     },
     {
       "key": {
+        "uuid": "448ace63_d62f341b",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-03T09:25:56Z",
+      "side": 1,
+      "message": "I\u0027ve looked at the definition of AheadOf again. I realize my mistake now - I have forgotten that to break ties, that is when the distance is exactly (1 \u003c\u003c 15), the higher value is considered AheadOf. Thanks for bringing this to my attention. In that case, (1 \u003c\u003c 15) is indeed the maximum reasonable size. Changed.",
+      "parentUuid": "a1b660cb_a6176ff5",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 77
+      },
+      "revId": "980be74a93402f27dce4c2b03d19ddb3d7b6cdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "953f935e_a3999df9",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
         "patchSetId": 1

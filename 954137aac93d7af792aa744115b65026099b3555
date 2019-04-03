@@ -16,6 +16,24 @@
       "revId": "954137aac93d7af792aa744115b65026099b3555",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d7da16b_6f4f9b9e",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-03T11:49:14Z",
+      "side": 1,
+      "message": "Especially more readable if you alias Vp8FrameConfig::BufferFlags::kReference as kReference, etc. Then the entries in the list would look like\n  ...\n  {kReference, kReference, kUpdate},\n  {kNone,      kReference, kNone},\netc.",
+      "parentUuid": "c3302273_480f4083",
+      "revId": "954137aac93d7af792aa744115b65026099b3555",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

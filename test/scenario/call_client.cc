@@ -95,7 +95,7 @@ LoggingNetworkControllerFactory::LoggingNetworkControllerFactory(
                                                   std::move(goog_printer)));
       } else {
         owned_cc_factory_.reset(
-            new GoogCcNetworkControllerFactory(event_log_.get()));
+            new GoogCcNetworkControllerFactory(event_log_.get(), nullptr));
       }
       break;
     case TransportControllerConfig::CongestionController::kGoogCcFeedback:

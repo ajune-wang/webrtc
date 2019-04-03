@@ -15,7 +15,6 @@ import android.os.Process;
 import android.support.annotation.Nullable;
 import java.util.List;
 import org.webrtc.Logging.Severity;
-import org.webrtc.PeerConnection;
 import org.webrtc.audio.AudioDeviceModule;
 import org.webrtc.audio.JavaAudioDeviceModule;
 
@@ -173,6 +172,7 @@ public class PeerConnectionFactory {
     @Nullable private VideoDecoderFactory videoDecoderFactory;
     @Nullable private AudioProcessingFactory audioProcessingFactory;
     @Nullable private FecControllerFactoryFactoryInterface fecControllerFactoryFactory;
+    @Nullable private NetworkPredictorFactoryFactoryInterface networkPredictorFactoryFactory;
     @Nullable private MediaTransportFactoryFactory mediaTransportFactoryFactory;
 
     private Builder() {}
@@ -232,6 +232,12 @@ public class PeerConnectionFactory {
       return this;
     }
 
+    public Builder setNetworkPredictorFactoryFactoryInterface(
+        NetworkPredictorFactoryFactoryInterface networkPredictorFactoryFactory) {
+      this.networkPredictorFactoryFactory = networkPredictorFactoryFactory;
+      return this;
+    }
+
     /** Sets a MediaTransportFactoryFactory for a PeerConnectionFactory. */
     public Builder setMediaTransportFactoryFactory(
         MediaTransportFactoryFactory mediaTransportFactoryFactory) {
@@ -252,6 +258,8 @@ public class PeerConnectionFactory {
           videoDecoderFactory,
           audioProcessingFactory == null ? 0 : audioProcessingFactory.createNative(),
           fecControllerFactoryFactory == null ? 0 : fecControllerFactoryFactory.createNative(),
+          networkPredictorFactoryFactory == null ? 0
+                                                 : networkPredictorFactoryFactory.createNative(),
           mediaTransportFactoryFactory == null
               ? 0
               : mediaTransportFactoryFactory.createNativeMediaTransportFactory());
@@ -575,7 +583,8 @@ public class PeerConnectionFactory {
       Options options, long nativeAudioDeviceModule, long audioEncoderFactory,
       long audioDecoderFactory, VideoEncoderFactory encoderFactory,
       VideoDecoderFactory decoderFactory, long nativeAudioProcessor,
-      long nativeFecControllerFactory, long mediaTransportFactory);
+      long nativeFecControllerFactory, long nativeNetworkPredictorFactory,
+      long mediaTransportFactory);
 
   private static native long nativeCreatePeerConnection(long factory,
       PeerConnection.RTCConfiguration rtcConfig, MediaConstraints constraints, long nativeObserver,

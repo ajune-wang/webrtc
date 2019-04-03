@@ -29,6 +29,9 @@ class DelayIncreaseDetectorInterface {
                       int64_t arrival_time_ms) = 0;
 
   virtual BandwidthUsage State() const = 0;
+  virtual BandwidthUsage StatePredicted() const = 0;
+  virtual void SetState(BandwidthUsage bandwidth_usage) = 0;
+  virtual void SetStatePredicted(BandwidthUsage bandwidth_usage) = 0;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(DelayIncreaseDetectorInterface);
 };

@@ -17,14 +17,17 @@
 #include "call/call.h"
 #include "call/simulated_packet_receiver.h"
 #include "rtc_base/sequenced_task_checker.h"
+#include "rtc_base/task_queue_for_test.h"
 #include "rtc_base/thread_annotations.h"
-#include "test/single_threaded_task_queue.h"
 
 namespace webrtc {
 
 class PacketReceiver;
 
 namespace test {
+// TODO(srte): Remove this when downstram projects have been fixed.
+using SingleThreadedTaskQueueForTesting = TaskQueueForTest;
+
 class Demuxer {
  public:
   explicit Demuxer(const std::map<uint8_t, MediaType>& payload_type_map);
@@ -39,7 +42,7 @@ class Demuxer {
 // same task-queue - the one that's passed in via the constructor.
 class DirectTransport : public Transport {
  public:
-  DirectTransport(SingleThreadedTaskQueueForTesting* task_queue,
+  DirectTransport(TaskQueueForTest* task_queue,
                   std::unique_ptr<SimulatedPacketReceiverInterface> pipe,
                   Call* send_call,
                   const std::map<uint8_t, MediaType>& payload_type_map);
@@ -65,10 +68,10 @@ class DirectTransport : public Transport {
 
   Call* const send_call_;
 
-  SingleThreadedTaskQueueForTesting* const task_queue_;
+  TaskQueueForTest* const task_queue_;
 
   rtc::CriticalSection process_lock_;
-  absl::optional<SingleThreadedTaskQueueForTesting::TaskId> next_process_task_
+  absl::optional<TaskQueueForTest::TaskId> next_process_task_
       RTC_GUARDED_BY(&process_lock_);
 
   const Demuxer demuxer_;

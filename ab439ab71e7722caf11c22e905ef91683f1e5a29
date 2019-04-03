@@ -154,6 +154,40 @@
     },
     {
       "key": {
+        "uuid": "5c9f3eb6_c04c4c19",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-03T09:36:38Z",
+      "side": 1,
+      "message": "This is not longer correct if we allow the user to create a multistream decoder with \u003c 2 channels. You should probably decide based on which of decoder and multistream_decoder is set.",
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efa32414_00f0433b",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-03T09:36:38Z",
+      "side": 1,
+      "message": "Same as on line 484. I expect there are more instances of this.",
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3725e07_bcc17250",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
         "patchSetId": 4
@@ -198,6 +232,30 @@
       "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95e8128a_9bee6693",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-03T09:36:38Z",
+      "side": 1,
+      "message": "Right, well then it\u0027s probably best to keep the same type.",
+      "parentUuid": "037e7676_2817362d",
+      "range": {
+        "startLine": 78,
+        "startChar": 10,
+        "endLine": 78,
+        "endChar": 23
+      },
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

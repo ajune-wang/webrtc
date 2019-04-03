@@ -15,6 +15,7 @@
 
 #include <limits>
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -38,6 +39,7 @@ namespace webrtc {
 
 namespace {
 constexpr size_t kRedForFecHeaderLength = 1;
+constexpr size_t kRtpSequenceNumberMapMaxEntries = 1 << 13;
 constexpr int64_t kMaxUnretransmittableFrameIntervalMs = 33 * 4;
 
 void BuildRedPayload(const RtpPacketToSend& media_packet,
@@ -196,6 +198,14 @@ RTPSenderVideo::RTPSenderVideo(Clock* clock,
       last_rotation_(kVideoRotation_0),
       transmit_color_space_next_frame_(false),
       playout_delay_oracle_(playout_delay_oracle),
+      // TODO(eladalon): Choose whether to instantiate rtp_sequence_number_map_
+      // according to the negotiation of the RTCP message.
+      rtp_sequence_number_map_(
+          field_trials.Lookup("WebRTC-RtcpLossNotification").find("Enabled") !=
+                  std::string::npos
+              ? absl::make_unique<RtpSequenceNumberMap>(
+                    kRtpSequenceNumberMapMaxEntries)
+              : nullptr),
       red_payload_type_(-1),
       ulpfec_payload_type_(-1),
       flexfec_sender_(flexfec_sender),
@@ -667,6 +677,16 @@ bool RTPSenderVideo::SendVideo(VideoFrameType frame_type,
       return false;
     packetized_payload_size += packet->payload_size();
 
+    if (rtp_sequence_number_map_) {
+      const bool is_first = (i == 0);
+      const bool is_last = (i == num_packets - 1);
+      rtp_sequence_number_map_->Insert(
+          packet->SequenceNumber(),
+          RtpSequenceNumberMap::Info(
+              rtp_timestamp - rtp_sender_->TimestampOffset(), is_first,
+              is_last));
+    }
+
     if (i == 0) {
       playout_delay_oracle_->OnSentPacket(packet->SequenceNumber(),
                                           playout_delay);
@@ -734,6 +754,14 @@ uint32_t RTPSenderVideo::PacketizationOverheadBps() const {
   rtc::CritScope cs(&stats_crit_);
   return packetization_overhead_bitrate_.Rate(clock_->TimeInMilliseconds())
       .value_or(0);
+}
+
+absl::optional<RtpSequenceNumberMap::Info> RTPSenderVideo::GetSentRtpPacketInfo(
+    uint16_t sequence_number) const {
+  if (!rtp_sequence_number_map_) {
+    return absl::nullopt;
+  }
+  return rtp_sequence_number_map_->Get(sequence_number);
 }
 
 StorageType RTPSenderVideo::GetStorageType(

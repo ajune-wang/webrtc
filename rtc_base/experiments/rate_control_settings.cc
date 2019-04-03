@@ -16,6 +16,7 @@
 #include <string>
 
 #include "api/transport/field_trial_based_config.h"
+#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 
@@ -124,6 +125,8 @@ RateControlSettings::RateControlSettings(
       probe_max_allocation_("probe_max_allocation", true),
       bitrate_adjuster_("bitrate_adjuster", false),
       vp8_s0_boost_("vp8_s0_boost", true) {
+  ParseFieldTrial({&congestion_window_, &congestion_window_pushback_},
+                  key_value_config->Lookup("WebRTC-CongestionWindow"));
   ParseFieldTrial({&congestion_window_, &congestion_window_pushback_,
                    &pacing_factor_, &alr_probing_, &trust_vp8_, &trust_vp9_,
                    &video_hysteresis_, &screenshare_hysteresis_,

@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "9c73fa84_7a52cc04",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2526,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-04-03T11:48:03Z",
+      "side": 1,
+      "message": "Yes, exactly. Before this CL, the higher-level buffer was handling both cases. After this CL, we have separate buffering for the two different problems:\n\n* WebRTC-Video-BufferPacketsWithUnknownSsrc -\u003e buffering for \"early media\"/\"late signaling\"\n* BufferedFrameDecryptor -\u003e buffering for \"late encryption key\"",
+      "parentUuid": "5221255d_4a1a2f85",
+      "range": {
+        "startLine": 2525,
+        "startChar": 0,
+        "endLine": 2526,
+        "endChar": 57
+      },
+      "revId": "b8b47325d9f83ba77b65348fb2dbc6b4e8730145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "71b8f487_da733010",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 5

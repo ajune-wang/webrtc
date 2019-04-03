@@ -530,6 +530,24 @@
     },
     {
       "key": {
+        "uuid": "6ff6381b_b0ffec97",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-03T06:43:46Z",
+      "side": 1,
+      "message": "To me, it is not at all clear why only the bands 0 and 1 needs to be normalized and not the rest. I don\u0027t see how the unit variance normalization would explain that either.\n\nI think a comment some kind of explanation of these values is required: how whey were obtained and why that normalization is needed. Without that, this code will rapidly become legacy code with values that no one would know how to treat, and that are potentially fragile.",
+      "parentUuid": "cb443c3e_2f4e59a3",
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ad276fc_6a07c884",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
         "patchSetId": 7
@@ -612,6 +630,30 @@
       "side": 1,
       "message": "same as above\n\nBTW, I could define constexprs in common.h or in a new .h file; in there, I cab explain how to obtain the values. \n\nWDYT?",
       "parentUuid": "9b4154bc_396fedc6",
+      "range": {
+        "startLine": 184,
+        "startChar": 5,
+        "endLine": 184,
+        "endChar": 14
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "418f6ef8_8922151d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-03T06:43:46Z",
+      "side": 1,
+      "message": "I don\u0027t think these belong in common.h. They are only used here so there is no reason to expose them to other parts of the code. Furthermore, it is better for the reader of the code to have the explanation available where the code is.\n\nAlso, for the same arguments as above, I definitely think an explanation is needed for this constant.",
+      "parentUuid": "13b88b58_7285518f",
       "range": {
         "startLine": 184,
         "startChar": 5,
@@ -800,6 +842,30 @@
     },
     {
       "key": {
+        "uuid": "5c8b7bfd_ce3b030a",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-03T06:43:46Z",
+      "side": 1,
+      "message": "This does not sound right. If the code is changed to produce less than kNumBands features I think it would be better to change the code that relies to kNumBands features to be passed to reflect that.\n\nIn any case, I think an explicit zeroing of only the elements which must be zero would be preferred as that would clearly show this.\n\nAlso, are there comments about that some of the features must be set to zero for the code to work. If not, I definitely think that is needed for the readability of the code.",
+      "parentUuid": "1f2b0962_d62c8294",
+      "range": {
+        "startLine": 83,
+        "startChar": 60,
+        "endLine": 83,
+        "endChar": 62
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98746bd0_cf568607",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 7
@@ -917,6 +983,30 @@
       "side": 1,
       "message": "Done.\n\nHowever, I wonder how we should keep track of the code used to generate such hard-coded vectors.\nIt\u0027d be good to keep it somewhere, especially when it\u0027s easy to have off-by-1 errors. It also helps making sense of the values.\n\nSo, I\u0027ve done the following:\n- added GetOpusScaleNumBins24kHz20ms(), a constexpr function returning the array of opus scale bins; it\u0027s in the .h file since I need it in the unit tests\n- added RnnVadTest::TestOpusScaleBoundaries, which protects from any invalid change in the values returned by GetOpusScaleNumBins24kHz20ms()\n- added RnnVadTest::DISABLED_TestOpusScaleWeights, which calls the function with which the weights have been generated and also check their band-wise monotonicity",
       "parentUuid": "0e0f6b4e_761e7bd7",
+      "range": {
+        "startLine": 72,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 69
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d97d639_b8ddffea",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-03T06:43:46Z",
+      "side": 1,
+      "message": "Regarding keeping track of hard-coded vectors I think the way of verifying the correctness of the computation is in unit tests.",
+      "parentUuid": "fc5834bd_8bdd3d65",
       "range": {
         "startLine": 72,
         "startChar": 2,
@@ -1058,6 +1148,30 @@
       "side": 1,
       "message": "Sorry, I don\u0027t think that\u0027s possible.\nHow would you isolate that?",
       "parentUuid": "e97182b2_21ae1b96",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 115,
+        "endChar": 53
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "716cc543_e4e954bb",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-03T06:43:46Z",
+      "side": 1,
+      "message": "You are correct, that is not possible. I did not read this properly.",
+      "parentUuid": "6191d940_24ad60d5",
       "range": {
         "startLine": 115,
         "startChar": 4,
@@ -1363,6 +1477,30 @@
       "side": 1,
       "message": "This file is named spectral_features_internal.h and is used by spectral_features.h.\nThe DCT is only used for spectral features. Adding dct.h dct.cc is possible but IMO it\u0027s just boilerplate. But if you prefer, I won\u0027t oppose.",
       "parentUuid": "54b0860c_9d25aa6a",
+      "range": {
+        "startLine": 66,
+        "startChar": 5,
+        "endLine": 66,
+        "endChar": 15
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3b09d29_de9899f5",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-03T06:43:46Z",
+      "side": 1,
+      "message": "As it is now, this file contains \n1 ComputeDct\n2 ComputeDctTable\n3 ComputeLogBandEnergiesCoefficients\n4 BandFeaturesExtractor\n\n1+2+3 are independent of 4 and bundling them together enforces the non-descriptive naming of the file. I\u0027m fine with putting 1+2+3 in a spectral_features_internal file but BandFeaturesExtractor I definitely think should go into a separate file since\na) It would separate code that is fully independent.\nb) It would improve readability.\n\n\nFurthermore, looking at the code more closely, ComputeLogBandEnergiesCoefficients() is only used inside spectral_features.cc, and considering how short it is I think it would make sense to put it into spectral_features.cc instead.\n\nWhat is remaining is then the DCT code. That as well is actually very short so I\u0027d then suggest that that is put into spectral_features.cc as well.",
+      "parentUuid": "af921198_edf23f8f",
       "range": {
         "startLine": 66,
         "startChar": 5,

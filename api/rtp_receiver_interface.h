@@ -128,6 +128,13 @@ class RtpReceiverInterface : public rtc::RefCountInterface {
   // Must call SetObserver(nullptr) before the observer is destroyed.
   virtual void SetObserver(RtpReceiverObserverInterface* observer) = 0;
 
+  // Sets the jitter buffer minimum delay until media playout. Actual observered
+  // delay may differ depending on congestion control. |delay_seconds| is a
+  // positive value including 0.0 measured in seconds. |nullopt| means default
+  // valuel must be used.
+  virtual void SetJitterBufferMinimumDelay(
+      absl::optional<double> delay_seconds) = 0;
+
   // TODO(zhihuang): Remove the default implementation once the subclasses
   // implement this. Currently, the only relevant subclass is the
   // content::FakeRtpReceiver in Chromium.
@@ -163,6 +170,7 @@ PROXY_CONSTMETHOD0(std::string, id)
 PROXY_CONSTMETHOD0(RtpParameters, GetParameters)
 PROXY_METHOD1(bool, SetParameters, const RtpParameters&)
 PROXY_METHOD1(void, SetObserver, RtpReceiverObserverInterface*)
+PROXY_METHOD1(void, SetJitterBufferMinimumDelay, absl::optional<double>)
 PROXY_CONSTMETHOD0(std::vector<RtpSource>, GetSources)
 PROXY_METHOD1(void,
               SetFrameDecryptor,

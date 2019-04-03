@@ -15,6 +15,8 @@
 #include <algorithm>
 
 #include "absl/types/optional.h"
+#include "modules/congestion_controller/goog_cc/trendline_estimator.h"
+#include "modules/remote_bitrate_estimator/include/bwe_defines.h"
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/numerics/safe_minmax.h"
@@ -55,7 +57,8 @@ constexpr int kDeltaCounterMax = 1000;
 
 TrendlineEstimator::TrendlineEstimator(size_t window_size,
                                        double smoothing_coef,
-                                       double threshold_gain)
+                                       double threshold_gain,
+                                       bool enable_usage_prediction)
     : window_size_(window_size),
       smoothing_coef_(smoothing_coef),
       threshold_gain_(threshold_gain),
@@ -73,7 +76,8 @@ TrendlineEstimator::TrendlineEstimator(size_t window_size,
       prev_trend_(0.0),
       time_over_using_(-1),
       overuse_counter_(0),
-      hypothesis_(BandwidthUsage::kBwNormal) {}
+      hypothesis_(BandwidthUsage::kBwNormal),
+      hypothesis_predicted_(BandwidthUsage::kBwNormal) {}
 
 TrendlineEstimator::~TrendlineEstimator() {}
 
@@ -118,6 +122,18 @@ void TrendlineEstimator::Update(double recv_delta_ms,
 
 BandwidthUsage TrendlineEstimator::State() const {
   return hypothesis_;
+}
+
+BandwidthUsage TrendlineEstimator::StatePredicted() const {
+  return enable_usage_prediction_ ? hypothesis_predicted_ : hypothesis_;
+}
+
+void TrendlineEstimator::SetState(BandwidthUsage bandwidth_usage) {
+  hypothesis_ = bandwidth_usage;
+}
+
+void TrendlineEstimator::SetStatePredicted(BandwidthUsage bandwidth_usage) {
+  hypothesis_predicted_ = bandwidth_usage;
 }
 
 void TrendlineEstimator::Detect(double trend, double ts_delta, int64_t now_ms) {

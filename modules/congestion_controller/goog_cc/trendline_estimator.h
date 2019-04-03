@@ -31,7 +31,8 @@ class TrendlineEstimator : public DelayIncreaseDetectorInterface {
   // threshold instead of setting a gain.
   TrendlineEstimator(size_t window_size,
                      double smoothing_coef,
-                     double threshold_gain);
+                     double threshold_gain,
+                     bool enable_usage_prediction);
 
   ~TrendlineEstimator() override;
 
@@ -42,6 +43,9 @@ class TrendlineEstimator : public DelayIncreaseDetectorInterface {
               int64_t arrival_time_ms) override;
 
   BandwidthUsage State() const override;
+  BandwidthUsage StatePredicted() const override;
+  void SetState(BandwidthUsage bandwidth_usage) override;
+  void SetStatePredicted(BandwidthUsage bandwidth_usage) override;
 
  protected:
   // Used in unit tests.
@@ -78,6 +82,8 @@ class TrendlineEstimator : public DelayIncreaseDetectorInterface {
   double time_over_using_;
   int overuse_counter_;
   BandwidthUsage hypothesis_;
+  BandwidthUsage hypothesis_predicted_;
+  bool enable_usage_prediction_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(TrendlineEstimator);
 };

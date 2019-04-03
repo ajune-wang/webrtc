@@ -83,6 +83,7 @@
 #include "api/jsep.h"
 #include "api/media_stream_interface.h"
 #include "api/media_transport_interface.h"
+#include "api/network_predictor.h"
 #include "api/rtc_error.h"
 #include "api/rtc_event_log_output.h"
 #include "api/rtp_receiver_interface.h"
@@ -1248,6 +1249,7 @@ struct PeerConnectionFactoryDependencies final {
   std::unique_ptr<CallFactoryInterface> call_factory;
   std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory;
   std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory;
+  std::unique_ptr<NetworkPredictorFactoryInterface> network_predictor_factory;
   std::unique_ptr<NetworkControllerFactoryInterface> network_controller_factory;
   std::unique_ptr<MediaTransportFactory> media_transport_factory;
 };
@@ -1427,6 +1429,7 @@ CreateModularPeerConnectionFactory(
     std::unique_ptr<CallFactoryInterface> call_factory,
     std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory,
     std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory,
+    std::unique_ptr<NetworkPredictorFactoryInterface> network_predictor_factory,
     std::unique_ptr<NetworkControllerFactoryInterface>
         network_controller_factory = nullptr);
 

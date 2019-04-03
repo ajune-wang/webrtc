@@ -17,12 +17,18 @@
 
 namespace webrtc {
 GoogCcNetworkControllerFactory::GoogCcNetworkControllerFactory(
-    RtcEventLog* event_log)
-    : event_log_(event_log) {}
+    RtcEventLog* event_log,
+    NetworkPredictorFactoryInterface* network_predictor_factory)
+    : event_log_(event_log),
+      network_predictor_factory_(network_predictor_factory) {}
 
 std::unique_ptr<NetworkControllerInterface>
 GoogCcNetworkControllerFactory::Create(NetworkControllerConfig config) {
-  return absl::make_unique<GoogCcNetworkController>(event_log_, config, false);
+  return absl::make_unique<GoogCcNetworkController>(
+      event_log_, config, false,
+      network_predictor_factory_
+          ? network_predictor_factory_->CreateNetworkPredictor()
+          : nullptr);
 }
 
 TimeDelta GoogCcNetworkControllerFactory::GetProcessInterval() const {
@@ -36,7 +42,8 @@ GoogCcFeedbackNetworkControllerFactory::GoogCcFeedbackNetworkControllerFactory(
 
 std::unique_ptr<NetworkControllerInterface>
 GoogCcFeedbackNetworkControllerFactory::Create(NetworkControllerConfig config) {
-  return absl::make_unique<GoogCcNetworkController>(event_log_, config, true);
+  return absl::make_unique<GoogCcNetworkController>(event_log_, config, true,
+                                                    nullptr);
 }
 
 TimeDelta GoogCcFeedbackNetworkControllerFactory::GetProcessInterval() const {

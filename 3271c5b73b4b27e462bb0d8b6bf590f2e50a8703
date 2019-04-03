@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ca869c2_64dad3ce",
+        "filename": "api/audio_codecs/opus/audio_decoder_multi_channel_opus.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-03T10:16:51Z",
+      "side": 1,
+      "message": "4?",
+      "range": {
+        "startLine": 57,
+        "startChar": 64,
+        "endLine": 57,
+        "endChar": 65
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18e05d3f_7bd946af",
+        "filename": "api/audio_codecs/opus/audio_decoder_multi_channel_opus_config.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-03T10:16:51Z",
+      "side": 1,
+      "message": "Can we either require the channel mapping to contain exactly num_channels entries, or do away with num_channels altogether and just use channel_mapping.size() for that parameter? Or am I misunderstanding channel mapping, and it\u0027s the other way around?",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 41
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9546363b_533af155",
+        "filename": "modules/audio_coding/codecs/opus/audio_coder_opus_common.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-03T10:16:51Z",
+      "side": 1,
+      "message": "You mention there was a warning against using absl::StrSplit. Where was that? Is it a hard ban or can we use it at our discretion? If the former, I guess repeated calls to std::string::find would be a simple option.",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 20
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c0fe6ab_0c64d308",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-03T10:16:51Z",
+      "side": 1,
+      "message": "Not used here anymore.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 35
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd26d690_d09d125c",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-03T10:16:51Z",
+      "side": 1,
+      "message": "If the underlying API supports \u003c\u003d 2, this one should as well.",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b449aa69_cbb0ec93",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-03T10:16:51Z",
+      "side": 1,
+      "message": "Perhaps the values in the channel mapping should be vetted, so that they fit within the acceptable range?",
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccd64a93_7cbfb27c",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-03T10:16:51Z",
+      "side": 1,
+      "message": "If channel mapping somehow wasn\u0027t working, I\u0027d expect one of the failure modes be that it creates the mapping internally by just assigning channels in order. So I think using some other permutation would make for stronger test cases.",
+      "range": {
+        "startLine": 24,
+        "startChar": 27,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e3761f3_dd8bfd90",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-03T10:16:51Z",
+      "side": 1,
+      "message": "Aren\u0027t these essentially the same test twice? Can\u0027t you just combine them?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 1
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1f647d8_df3bd835",
+        "filename": "test/fuzzers/audio_decoder_multistream_opus_fuzzer.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-03T10:16:51Z",
+      "side": 1,
+      "message": "4?",
+      "range": {
+        "startLine": 32,
+        "startChar": 46,
+        "endLine": 32,
+        "endChar": 47
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c95bd7f4_7af1479e",
+        "filename": "test/fuzzers/audio_decoder_multistream_opus_fuzzer.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-03T10:16:51Z",
+      "side": 1,
+      "message": "huh?",
+      "range": {
+        "startLine": 35,
+        "startChar": 54,
+        "endLine": 35,
+        "endChar": 73
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e18bf50_9e4ca388",
+        "filename": "test/fuzzers/audio_decoder_multistream_opus_fuzzer.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-03T10:16:51Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this depend on the number of channels in the config?",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 7
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

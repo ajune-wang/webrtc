@@ -26,7 +26,7 @@ class TrendlineEstimatorForTest : public TrendlineEstimator {
   using TrendlineEstimator::modified_trend;
 };
 void TestEstimator(double slope, double jitter_stddev, double tolerance) {
-  TrendlineEstimatorForTest estimator(kWindowSize, kSmoothing, kGain);
+  TrendlineEstimatorForTest estimator(kWindowSize, kSmoothing, kGain, false);
   Random random(0x1234567);
   int64_t send_times[kPacketCount];
   int64_t recv_times[kPacketCount];

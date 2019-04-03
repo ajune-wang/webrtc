@@ -34,6 +34,24 @@
       "revId": "954137aac93d7af792aa744115b65026099b3555",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d3bd392_6a9745b8",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-03T12:05:50Z",
+      "side": 1,
+      "message": "I agree that it\u0027s cleaner, we could do that in a followup CL, \"maybe\".",
+      "parentUuid": "7d7da16b_6f4f9b9e",
+      "revId": "954137aac93d7af792aa744115b65026099b3555",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

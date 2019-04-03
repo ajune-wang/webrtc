@@ -22,6 +22,30 @@
       "revId": "6c2f811a4a6f91a14de0e1bf93ed6ef5ade2b564",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "052958e7_9ea647d8",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-03T13:13:04Z",
+      "side": 1,
+      "message": "I added a TODO for all the normalization step to separate it from the feature extraction one.",
+      "parentUuid": "a173faaf_c55800e1",
+      "range": {
+        "startLine": 97,
+        "startChar": 2,
+        "endLine": 97,
+        "endChar": 31
+      },
+      "revId": "6c2f811a4a6f91a14de0e1bf93ed6ef5ade2b564",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

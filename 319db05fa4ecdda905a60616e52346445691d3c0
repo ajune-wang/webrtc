@@ -548,6 +548,24 @@
     },
     {
       "key": {
+        "uuid": "aa73de0b_87466552",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-03T13:13:04Z",
+      "side": 1,
+      "message": "As agreed offline, I will move the normalization part outside of the feature extractor in a follow up CL.",
+      "parentUuid": "6ff6381b_b0ffec97",
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ad276fc_6a07c884",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
         "patchSetId": 7
@@ -663,6 +681,30 @@
       "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9cd9c34_18071325",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-03T13:13:04Z",
+      "side": 1,
+      "message": "same as above",
+      "parentUuid": "418f6ef8_8922151d",
+      "range": {
+        "startLine": 184,
+        "startChar": 5,
+        "endLine": 184,
+        "endChar": 14
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -866,6 +908,30 @@
     },
     {
       "key": {
+        "uuid": "f2c0b790_f98dad33",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-03T13:13:04Z",
+      "side": 1,
+      "message": "Good suggestion. I added a comment and I\u0027m only initializing the unused bands in the ctor of this class (look in the .cc file).",
+      "parentUuid": "5c8b7bfd_ce3b030a",
+      "range": {
+        "startLine": 83,
+        "startChar": 60,
+        "endLine": 83,
+        "endChar": 62
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98746bd0_cf568607",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 7
@@ -1007,6 +1073,30 @@
       "side": 1,
       "message": "Regarding keeping track of hard-coded vectors I think the way of verifying the correctness of the computation is in unit tests.",
       "parentUuid": "fc5834bd_8bdd3d65",
+      "range": {
+        "startLine": 72,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 69
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3d6d697_e7585c82",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-03T13:13:04Z",
+      "side": 1,
+      "message": "Ok then we should be fine with what I have already done when I replied to your first comment in this thread.",
+      "parentUuid": "9d97d639_b8ddffea",
       "range": {
         "startLine": 72,
         "startChar": 2,
@@ -1501,6 +1591,30 @@
       "side": 1,
       "message": "As it is now, this file contains \n1 ComputeDct\n2 ComputeDctTable\n3 ComputeLogBandEnergiesCoefficients\n4 BandFeaturesExtractor\n\n1+2+3 are independent of 4 and bundling them together enforces the non-descriptive naming of the file. I\u0027m fine with putting 1+2+3 in a spectral_features_internal file but BandFeaturesExtractor I definitely think should go into a separate file since\na) It would separate code that is fully independent.\nb) It would improve readability.\n\n\nFurthermore, looking at the code more closely, ComputeLogBandEnergiesCoefficients() is only used inside spectral_features.cc, and considering how short it is I think it would make sense to put it into spectral_features.cc instead.\n\nWhat is remaining is then the DCT code. That as well is actually very short so I\u0027d then suggest that that is put into spectral_features.cc as well.",
       "parentUuid": "af921198_edf23f8f",
+      "range": {
+        "startLine": 66,
+        "startChar": 5,
+        "endLine": 66,
+        "endChar": 15
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5095bac1_6c27e070",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-03T13:13:04Z",
+      "side": 1,
+      "message": "Ok, I added a TODO and I will address in a separate CL in which I will also clean-up the unit tests.",
+      "parentUuid": "c3b09d29_de9899f5",
       "range": {
         "startLine": 66,
         "startChar": 5,

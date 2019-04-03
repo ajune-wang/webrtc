@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c027bad_6ff1ae68",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-03T09:19:02Z",
+      "side": 1,
+      "message": "VideoReceiveStream",
+      "range": {
+        "startLine": 263,
+        "startChar": 49,
+        "endLine": 263,
+        "endChar": 68
+      },
+      "revId": "b8b47325d9f83ba77b65348fb2dbc6b4e8730145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e609877_f3a8b618",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-03T09:19:02Z",
+      "side": 1,
+      "message": "Could you comment on why this is a scoped_refptr? Can\u0027t we ensure that frame_decryptor outlives PeerConnection? I understand that this wasn\u0027t introduced in this cl, but ownership right now is very unclear to me, so maybe this is something we can look into improving in a follow-up at least?",
+      "range": {
+        "startLine": 266,
+        "startChar": 11,
+        "endLine": 266,
+        "endChar": 24
+      },
+      "revId": "b8b47325d9f83ba77b65348fb2dbc6b4e8730145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71b8f487_da733010",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2583,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-03T09:19:02Z",
+      "side": 1,
+      "message": "Unused?",
+      "range": {
+        "startLine": 2583,
+        "startChar": 10,
+        "endLine": 2583,
+        "endChar": 25
+      },
+      "revId": "b8b47325d9f83ba77b65348fb2dbc6b4e8730145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

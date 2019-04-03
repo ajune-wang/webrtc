@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3302273_480f4083",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-03T11:46:26Z",
+      "side": 1,
+      "message": "Unless this is too much of a distraction, perhaps you could consider replacing this with an array of tuples of type std::tuple\u003cVp8BufferReference, Vp8BufferReference, Vp8BufferReference\u003e\nwhere the members correspond to Last/Golden/Arf (or whichever order). IMHO, that would be a lot more readable than, say, kTemporalUpdateGoldenWithoutDependencyRefAltRef.",
+      "revId": "954137aac93d7af792aa744115b65026099b3555",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

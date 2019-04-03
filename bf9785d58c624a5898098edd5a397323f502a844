@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3c7eccc6_8f56c5ed",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-03T13:10:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8f22fc1_6e484f51",
+      "revId": "bf9785d58c624a5898098edd5a397323f502a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a765094a_1dbb4a96",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
         "patchSetId": 5
@@ -30,6 +48,30 @@
       "writtenOn": "2019-04-03T12:04:22Z",
       "side": 1,
       "message": "did you measure performance to backup this claim?\n(dequeue.erase performance is linear in number of removed elements)\n\nIf you worried about performance, it might be faster to use circular buffer approach.\nIf sequence_number is mostly sequential, then it would be also possible to have constant lookup.",
+      "range": {
+        "startLine": 61,
+        "startChar": 53,
+        "endLine": 61,
+        "endChar": 68
+      },
+      "revId": "bf9785d58c624a5898098edd5a397323f502a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff0e32f0_696a380e",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-03T13:10:28Z",
+      "side": 1,
+      "message": "* The word \"too\" is subjective, I admit. Perhaps I should have said \"less efficient\". Let me do that... Actually, maybe the comment itself was actually superfluous. I\u0027ll delete it instead.\n* Removal of elements at the edges is O(1). Incurring that cost once for N/4 deletions is more efficient than incurring O(1) N/4 times, which is O(N).",
+      "parentUuid": "a765094a_1dbb4a96",
       "range": {
         "startLine": 61,
         "startChar": 53,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "60c17190_edb18564",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-03T13:10:28Z",
+      "side": 1,
+      "message": "Fixed elsewhere; missed this one. Thanks for catching.\nCan you spot any additional places I might still have missed?",
+      "parentUuid": "4fc114e1_b17fc8b4",
+      "range": {
+        "startLine": 24,
+        "startChar": 29,
+        "endLine": 24,
+        "endChar": 46
+      },
+      "revId": "bf9785d58c624a5898098edd5a397323f502a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "535df237_958d65e7",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
         "patchSetId": 5
@@ -79,6 +145,24 @@
       "revId": "bf9785d58c624a5898098edd5a397323f502a844",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be96a3a4_21eef635",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-03T13:10:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "535df237_958d65e7",
+      "revId": "bf9785d58c624a5898098edd5a397323f502a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "5c7be503_18de1d11",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-03T13:10:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0cfaba7_65a53433",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 31
+      },
+      "revId": "bf9785d58c624a5898098edd5a397323f502a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "389ff871_84cccd99",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
         "patchSetId": 5
@@ -116,6 +224,24 @@
       "writtenOn": "2019-04-03T12:04:22Z",
       "side": 1,
       "message": "any reason for this constant to be member of the fixture?\n(technically, until c++17, such member declaration should be paired with the definition:\nuint64_t RtpSequenceNumberMapTest::kSeed; )",
+      "revId": "bf9785d58c624a5898098edd5a397323f502a844",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90eaaea9_73d2bd60",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-03T13:10:28Z",
+      "side": 1,
+      "message": "* Just because it\u0027s closer to the place where it\u0027s used like this, making it clearer.\n* Since the compilers aren\u0027t complaining, I think we can keep our code already C++17-style by not having a separate definition outside the class.",
+      "parentUuid": "389ff871_84cccd99",
       "revId": "bf9785d58c624a5898098edd5a397323f502a844",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

@@ -28,25 +28,25 @@ namespace rnn_vad {
 // are (i) making easy to switch to another FFT implementation, (ii) own the
 // input buffer for the FFT and (iii) apply a windowing function before
 // computing the FFT.
-class BandAnalysisFft {
+class FftUtil {
  public:
-  BandAnalysisFft();
-  BandAnalysisFft(const BandAnalysisFft&) = delete;
-  BandAnalysisFft& operator=(const BandAnalysisFft&) = delete;
-  ~BandAnalysisFft();
+  FftUtil();
+  FftUtil(const FftUtil&) = delete;
+  FftUtil& operator=(const FftUtil&) = delete;
+  ~FftUtil();
   // Applies a windowing function to |samples|, computes the real forward FFT
   // and writes the result in |dst|.
   // The size of |samples| must be 480 (20 ms at 24 kHz).
   // The size of |dst| must be 241 since the complex conjugate is not written.
-  void ForwardFft(rtc::ArrayView<const float> samples,
-                  rtc::ArrayView<std::complex<float>> dst);
+  void WindowedFft(rtc::ArrayView<const float> samples,
+                   rtc::ArrayView<std::complex<float>> dst);
 
  private:
   static_assert((kFrameSize20ms24kHz & 1) == 0,
                 "kFrameSize20ms24kHz must be even.");
   const std::array<float, kFrameSize20ms24kHz / 2> half_window_;
-  std::array<std::complex<float>, kFrameSize20ms24kHz> input_buf_{};
-  std::array<std::complex<float>, kFrameSize20ms24kHz> output_buf_{};
+  std::array<std::complex<float>, kFrameSize20ms24kHz> input_buf_;
+  std::array<std::complex<float>, kFrameSize20ms24kHz> output_buf_;
   rnnoise::KissFft fft_;
 };
 

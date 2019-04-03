@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1e480865_2ddddab7",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-04-03T17:44:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c027bad_6ff1ae68",
+      "range": {
+        "startLine": 263,
+        "startChar": 49,
+        "endLine": 263,
+        "endChar": 68
+      },
+      "revId": "b8b47325d9f83ba77b65348fb2dbc6b4e8730145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e609877_f3a8b618",
         "filename": "call/video_receive_stream.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "b8b47325d9f83ba77b65348fb2dbc6b4e8730145",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff12216d_2c6b657a",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-04-03T17:44:12Z",
+      "side": 1,
+      "message": "A FrameDecryptor may be attached to multiple VideoReceiveStreams at the same time. A FrameDecryptor can also be swapped at any point during a receiver stream. This combined with the complications of the lifetime of the stream_ member which can be recreated at anytime taking only the configuration complicates the lifetime management.\n\nIdeally some of these lower level layers could take a raw pointer as long as we can actually make strong guarantees about the lifetimes.",
+      "parentUuid": "3e609877_f3a8b618",
+      "range": {
+        "startLine": 266,
+        "startChar": 11,
+        "endLine": 266,
+        "endChar": 24
+      },
+      "revId": "b8b47325d9f83ba77b65348fb2dbc6b4e8730145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "bba83937_6368b886",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2526,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-04-03T17:44:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c73fa84_7a52cc04",
+      "range": {
+        "startLine": 2525,
+        "startChar": 0,
+        "endLine": 2526,
+        "endChar": 57
+      },
+      "revId": "b8b47325d9f83ba77b65348fb2dbc6b4e8730145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71b8f487_da733010",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 5
@@ -115,6 +187,30 @@
       "revId": "b8b47325d9f83ba77b65348fb2dbc6b4e8730145",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3161c469_c0f8d9a6",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2583,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-04-03T17:44:12Z",
+      "side": 1,
+      "message": "You may want to set the frame decryptor before the stream exists. Also if for another reason the stream is recreated by not setting it in the configuration we would lose the decryptor.",
+      "parentUuid": "71b8f487_da733010",
+      "range": {
+        "startLine": 2583,
+        "startChar": 10,
+        "endLine": 2583,
+        "endChar": 25
+      },
+      "revId": "b8b47325d9f83ba77b65348fb2dbc6b4e8730145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b9120b2_c9110c07",
+        "filename": "modules/audio_coding/codecs/opus/opus_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 894,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-03T13:15:07Z",
+      "side": 1,
+      "message": "I could make it \"Combine(Values(1, 2, 4), Values(0, 1), Bool()));\", but that would generate 216 test cases. They take 30 seconds to run on my workstation. I think these 6 param choices should cover all of what we want to cover.",
+      "range": {
+        "startLine": 887,
+        "startChar": 1,
+        "endLine": 894,
+        "endChar": 29
+      },
+      "revId": "e675ec986b81e0ffe1f9b850662d260a126db3a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

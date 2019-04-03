@@ -171,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "902deb6c_8ad3c4aa",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-03T13:15:07Z",
+      "side": 1,
+      "message": "Thanks, good catch, you are right! Will fix! I think I can catch most of these things by setting up 1-2-channels multistream coding in opus_unittest.cc. But then we might run into stack size issues again...\n\nEDIT: Made the fixes in this file and changed opus_unittest.cc to test this code path.",
+      "parentUuid": "5c9f3eb6_c04c4c19",
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efa32414_00f0433b",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 4
@@ -185,6 +203,24 @@
       "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c47fbd7c_b0304cfc",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-03T13:15:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "efa32414_00f0433b",
+      "revId": "ab439ab71e7722caf11c22e905ef91683f1e5a29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -211,6 +211,30 @@
       "revId": "b8b47325d9f83ba77b65348fb2dbc6b4e8730145",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9b482b58_647da03c",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2583,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-04T06:49:45Z",
+      "side": 1,
+      "message": "It looks like a write-only member in this file, but I guess it\u0027s used after it\u0027s passed to  \n\ncall_-\u003eCreateVideoReceiveStream\n\nin WebRtcVideoChannel::WebRtcVideoReceiveStream::RecreateWebRtcVideoStream, line 2517 above.\n\nIt would make the code simpler if there were only one way to set the frame decryptor: either on construction, or using the setter method. But I guess that\u0027s for some other cl.",
+      "parentUuid": "3161c469_c0f8d9a6",
+      "range": {
+        "startLine": 2583,
+        "startChar": 10,
+        "endLine": 2583,
+        "endChar": 25
+      },
+      "revId": "b8b47325d9f83ba77b65348fb2dbc6b4e8730145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

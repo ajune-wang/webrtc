@@ -156,6 +156,40 @@ int FindFirstMediaStatsIndexByKind(
   return -1;
 }
 
+template <typename C>
+bool CompareCodecs(const std::vector<webrtc::RtpCodecCapability>& capabilities,
+                   const std::vector<C>& codecs) {
+  bool capability_has_rtx =
+      absl::c_any_of(capabilities, [](const webrtc::RtpCodecCapability& codec) {
+        return codec.name == "rtx";
+      });
+  bool codecs_has_rtx = absl::c_any_of(
+      codecs, [](const C& codec) { return codec.name == "rtx"; });
+
+  std::vector<C> codecs_no_rtx;
+  absl::c_copy_if(codecs, std::back_inserter(codecs_no_rtx),
+                  [](const C& codec) { return codec.name != "rtx"; });
+
+  std::vector<webrtc::RtpCodecCapability> capabilities_no_rtx;
+  absl::c_copy_if(capabilities, std::back_inserter(capabilities_no_rtx),
+                  [](const webrtc::RtpCodecCapability& codec) {
+                    return codec.name != "rtx";
+                  });
+
+  return capability_has_rtx == codecs_has_rtx &&
+         absl::c_equal(
+             capabilities_no_rtx, codecs_no_rtx,
+             [](const webrtc::RtpCodecCapability& capability, const C& codec) {
+               auto codec_parameters = codec.ToCodecParameters();
+               return capability.name == codec_parameters.name &&
+                      capability.kind == codec_parameters.kind &&
+                      capability.num_channels ==
+                          codec_parameters.num_channels &&
+                      capability.clock_rate == codec_parameters.clock_rate &&
+                      capability.parameters == codec_parameters.parameters;
+             });
+}
+
 class SignalingMessageReceiver {
  public:
   virtual void ReceiveSdpMessage(SdpType type, const std::string& msg) = 0;
@@ -559,6 +593,22 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
     return event_log_factory_;
   }
 
+  // Returns null on failure.
+  std::unique_ptr<SessionDescriptionInterface> CreateOffer() {
+    rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+        new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+    pc()->CreateOffer(observer, offer_answer_options_);
+    return WaitForDescriptionFromObserver(observer);
+  }
+
+  // Returns null on failure.
+  std::unique_ptr<SessionDescriptionInterface> CreateAnswer() {
+    rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+        new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+    pc()->CreateAnswer(observer, offer_answer_options_);
+    return WaitForDescriptionFromObserver(observer);
+  }
+
  private:
   explicit PeerConnectionWrapper(const std::string& debug_name)
       : debug_name_(debug_name) {}
@@ -710,22 +760,6 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
     EXPECT_TRUE(SetRemoteDescription(std::move(desc)));
     // Set the RtpReceiverObserver after receivers are created.
     ResetRtpReceiverObservers();
-  }
-
-  // Returns null on failure.
-  std::unique_ptr<SessionDescriptionInterface> CreateOffer() {
-    rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
-        new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
-    pc()->CreateOffer(observer, offer_answer_options_);
-    return WaitForDescriptionFromObserver(observer);
-  }
-
-  // Returns null on failure.
-  std::unique_ptr<SessionDescriptionInterface> CreateAnswer() {
-    rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
-        new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
-    pc()->CreateAnswer(observer, offer_answer_options_);
-    return WaitForDescriptionFromObserver(observer);
   }
 
   std::unique_ptr<SessionDescriptionInterface> WaitForDescriptionFromObserver(
@@ -4356,6 +4390,277 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
+       SetCodecPreferencesAllVideoCodecs) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  auto sender_video_codecs =
+      caller()
+          ->pc_factory()
+          ->GetRtpSenderCapabilities(cricket::MEDIA_TYPE_VIDEO)
+          .codecs;
+
+  auto video_transceiver_result =
+      caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_VIDEO);
+  ASSERT_EQ(RTCErrorType::NONE, video_transceiver_result.error().type());
+  auto video_transceiver = video_transceiver_result.MoveValue();
+
+  // Normal case, setting preferences to normal capabilities
+  EXPECT_TRUE(video_transceiver->SetCodecPreferences(sender_video_codecs).ok());
+  auto offer = caller()->CreateOffer();
+  auto codecs = offer->description()
+                    ->contents()[0]
+                    .media_description()
+                    ->as_video()
+                    ->codecs();
+  EXPECT_TRUE(CompareCodecs(sender_video_codecs, codecs));
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
+       SetCodecPreferencesResetVideoCodecs) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  auto sender_video_codecs =
+      caller()
+          ->pc_factory()
+          ->GetRtpSenderCapabilities(cricket::MEDIA_TYPE_VIDEO)
+          .codecs;
+
+  std::vector<webrtc::RtpCodecCapability> empty_codecs = {};
+
+  auto video_transceiver_result =
+      caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_VIDEO);
+  ASSERT_EQ(RTCErrorType::NONE, video_transceiver_result.error().type());
+  auto video_transceiver = video_transceiver_result.MoveValue();
+
+  // Normal case, resetting preferences with empty list of codecs
+  EXPECT_TRUE(video_transceiver->SetCodecPreferences(empty_codecs).ok());
+  auto offer = caller()->CreateOffer();
+  auto codecs = offer->description()
+                    ->contents()[0]
+                    .media_description()
+                    ->as_video()
+                    ->codecs();
+  EXPECT_TRUE(CompareCodecs(sender_video_codecs, codecs));
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
+       SetCodecPreferencesVideoAcceptsSingleCodec) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  auto sender_video_codecs =
+      caller()
+          ->pc_factory()
+          ->GetRtpSenderCapabilities(cricket::MEDIA_TYPE_VIDEO)
+          .codecs;
+
+  auto video_transceiver_result =
+      caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_VIDEO);
+  ASSERT_EQ(RTCErrorType::NONE, video_transceiver_result.error().type());
+  auto video_transceiver = video_transceiver_result.MoveValue();
+
+  // Accepts a single regular codec
+  auto single_codec = sender_video_codecs;
+  single_codec.resize(1);
+  EXPECT_TRUE(video_transceiver->SetCodecPreferences(single_codec).ok());
+  auto offer = caller()->CreateOffer();
+  auto codecs = offer->description()
+                    ->contents()[0]
+                    .media_description()
+                    ->as_video()
+                    ->codecs();
+  EXPECT_TRUE(CompareCodecs(single_codec, codecs));
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
+       SetCodecPreferencesVideoCodecDuplicatesRemoved) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  auto sender_video_codecs =
+      caller()
+          ->pc_factory()
+          ->GetRtpSenderCapabilities(cricket::MEDIA_TYPE_VIDEO)
+          .codecs;
+
+  auto video_transceiver_result =
+      caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_VIDEO);
+  ASSERT_EQ(RTCErrorType::NONE, video_transceiver_result.error().type());
+  auto video_transceiver = video_transceiver_result.MoveValue();
+
+  // Check duplicates are removed
+  auto single_codec = sender_video_codecs;
+  single_codec.resize(1);
+  auto duplicate_codec = single_codec;
+  duplicate_codec.push_back(duplicate_codec.front());
+
+  EXPECT_TRUE(video_transceiver->SetCodecPreferences(duplicate_codec).ok());
+  auto offer = caller()->CreateOffer();
+  auto codecs = offer->description()
+                    ->contents()[0]
+                    .media_description()
+                    ->as_video()
+                    ->codecs();
+  EXPECT_TRUE(CompareCodecs(single_codec, codecs));
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
+       SetCodecPreferencesVideoWithRtx) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  auto sender_video_codecs =
+      caller()
+          ->pc_factory()
+          ->GetRtpSenderCapabilities(cricket::MEDIA_TYPE_VIDEO)
+          .codecs;
+
+  auto video_transceiver_result =
+      caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_VIDEO);
+  ASSERT_EQ(RTCErrorType::NONE, video_transceiver_result.error().type());
+  auto video_transceiver = video_transceiver_result.MoveValue();
+
+  // Check that RTX codec is properly added
+  auto video_codecs_vp8_rtx = sender_video_codecs;
+  auto it =
+      std::remove_if(video_codecs_vp8_rtx.begin(), video_codecs_vp8_rtx.end(),
+                     [](const webrtc::RtpCodecCapability& codec) {
+                       bool r = codec.name != cricket::kRtxCodecName &&
+                                codec.name != cricket::kVp8CodecName;
+                       return r;
+                     });
+  video_codecs_vp8_rtx.erase(it, video_codecs_vp8_rtx.end());
+  EXPECT_EQ(video_codecs_vp8_rtx.size(), 2u);
+  EXPECT_TRUE(
+      video_transceiver->SetCodecPreferences(video_codecs_vp8_rtx).ok());
+  auto offer = caller()->CreateOffer();
+  auto codecs = offer->description()
+                    ->contents()[0]
+                    .media_description()
+                    ->as_video()
+                    ->codecs();
+
+  EXPECT_TRUE(CompareCodecs(video_codecs_vp8_rtx, codecs));
+  EXPECT_EQ(codecs.size(), 2u);
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
+       SetCodecPreferencesVideoCodecsNoRtx) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  auto sender_video_codecs =
+      caller()
+          ->pc_factory()
+          ->GetRtpSenderCapabilities(cricket::MEDIA_TYPE_VIDEO)
+          .codecs;
+
+  auto video_transceiver_result =
+      caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_VIDEO);
+  ASSERT_EQ(RTCErrorType::NONE, video_transceiver_result.error().type());
+  auto video_transceiver = video_transceiver_result.MoveValue();
+
+  // Check we don't get RTX codecs without requesting them
+  auto video_codecs_no_rtx = sender_video_codecs;
+  auto it =
+      std::remove_if(video_codecs_no_rtx.begin(), video_codecs_no_rtx.end(),
+                     [](const webrtc::RtpCodecCapability& codec) {
+                       return codec.name == cricket::kRtxCodecName;
+                     });
+  video_codecs_no_rtx.erase(it, video_codecs_no_rtx.end());
+
+  EXPECT_TRUE(video_transceiver->SetCodecPreferences(video_codecs_no_rtx).ok());
+  auto offer = caller()->CreateOffer();
+  auto codecs = offer->description()
+                    ->contents()[0]
+                    .media_description()
+                    ->as_video()
+                    ->codecs();
+
+  bool has_rtx = absl::c_any_of(codecs, [](const cricket::VideoCodec& codec) {
+    return codec.name == cricket::kRtxCodecName;
+  });
+  EXPECT_FALSE(has_rtx);
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
+       SetCodecPreferencesAllAudioCodecs) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  auto sender_audio_codecs =
+      caller()
+          ->pc_factory()
+          ->GetRtpSenderCapabilities(cricket::MEDIA_TYPE_AUDIO)
+          .codecs;
+
+  auto audio_transceiver_result =
+      caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+  ASSERT_EQ(RTCErrorType::NONE, audio_transceiver_result.error().type());
+  auto audio_transceiver = audio_transceiver_result.MoveValue();
+
+  // Normal case, set all capabilities as preferences
+  EXPECT_TRUE(audio_transceiver->SetCodecPreferences(sender_audio_codecs).ok());
+  auto offer = caller()->CreateOffer();
+  auto codecs = offer->description()
+                    ->contents()[0]
+                    .media_description()
+                    ->as_audio()
+                    ->codecs();
+  EXPECT_TRUE(CompareCodecs(sender_audio_codecs, codecs));
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
+       SetCodecPreferencesResetAudioCodecs) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  auto sender_audio_codecs =
+      caller()
+          ->pc_factory()
+          ->GetRtpSenderCapabilities(cricket::MEDIA_TYPE_AUDIO)
+          .codecs;
+  std::vector<webrtc::RtpCodecCapability> empty_codecs = {};
+
+  auto audio_transceiver_result =
+      caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+  ASSERT_EQ(RTCErrorType::NONE, audio_transceiver_result.error().type());
+  auto audio_transceiver = audio_transceiver_result.MoveValue();
+
+  // Normal case, reset codec preferences
+  EXPECT_TRUE(audio_transceiver->SetCodecPreferences(empty_codecs).ok());
+  auto offer = caller()->CreateOffer();
+  auto codecs = offer->description()
+                    ->contents()[0]
+                    .media_description()
+                    ->as_audio()
+                    ->codecs();
+  EXPECT_TRUE(CompareCodecs(sender_audio_codecs, codecs));
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
+       SetCodecPreferencesSingleAudioCodec) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  auto sender_audio_codecs =
+      caller()
+          ->pc_factory()
+          ->GetRtpSenderCapabilities(cricket::MEDIA_TYPE_AUDIO)
+          .codecs;
+
+  auto audio_transceiver_result =
+      caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+  ASSERT_EQ(RTCErrorType::NONE, audio_transceiver_result.error().type());
+  auto audio_transceiver = audio_transceiver_result.MoveValue();
+
+  // Accepts a single audio codec in audio transceiver
+  auto single_codec = sender_audio_codecs;
+  single_codec.resize(1);
+  EXPECT_TRUE(audio_transceiver->SetCodecPreferences(single_codec).ok());
+  auto offer = caller()->CreateOffer();
+  auto codecs = offer->description()
+                    ->contents()[0]
+                    .media_description()
+                    ->as_audio()
+                    ->codecs();
+  EXPECT_TRUE(CompareCodecs(single_codec, codecs));
 }
 
 // This test verifies that a remote video track can be added via AddStream,

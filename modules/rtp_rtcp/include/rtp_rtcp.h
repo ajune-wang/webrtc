@@ -71,6 +71,8 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
     // stream.
     RtcpBandwidthObserver* bandwidth_callback = nullptr;
 
+    RtcpLossNotificationObserver* rtcp_loss_notification_observer = nullptr;
+
     TransportFeedbackObserver* transport_feedback_callback = nullptr;
     VideoBitrateAllocationObserver* bitrate_allocation_observer = nullptr;
     RtcpRttStats* rtt_stats = nullptr;

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06adec32_1f438866",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-04T12:59:03Z",
+      "side": 1,
+      "message": "Three",
+      "range": {
+        "startLine": 71,
+        "startChar": 29,
+        "endLine": 71,
+        "endChar": 30
+      },
+      "revId": "c22b98a1c0f1174cd2e110c4b73be51fbd91a902",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9986d21c_d80582ad",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-04T12:59:03Z",
+      "side": 1,
+      "message": "Names should describe what behavior is expected under what conditions.",
+      "range": {
+        "startLine": 238,
+        "startChar": 49,
+        "endLine": 238,
+        "endChar": 63
+      },
+      "revId": "c22b98a1c0f1174cd2e110c4b73be51fbd91a902",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

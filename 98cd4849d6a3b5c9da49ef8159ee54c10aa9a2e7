@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9da04fb_0ce2cef8",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-04T13:12:07Z",
+      "side": 1,
+      "message": "I\u0027m still confused, PacketsAreDeliveredWhenConnectedToTwoPeers and PacketsAreDeliveredWhenConnectedToTwoPeersOverSameLinks\n\n\nPossibly, it\u0027d help to make the test cases simpler, maybe it\u0027s enough to test the outgoing link and maybe the second test could use the same return link as well?",
+      "range": {
+        "startLine": 239,
+        "startChar": 7,
+        "endLine": 239,
+        "endChar": 60
+      },
+      "revId": "98cd4849d6a3b5c9da49ef8159ee54c10aa9a2e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

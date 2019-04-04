@@ -33,8 +33,7 @@ class RtpTransport : public RtpTransportInternal {
   RtpTransport(const RtpTransport&) = delete;
   RtpTransport& operator=(const RtpTransport&) = delete;
 
-  explicit RtpTransport(bool rtcp_mux_enabled)
-      : rtcp_mux_enabled_(rtcp_mux_enabled) {}
+  explicit RtpTransport(bool rtcp_mux_enabled);
 
   bool rtcp_mux_enabled() const override { return rtcp_mux_enabled_; }
   void SetRtcpMuxEnabled(bool enable) override;

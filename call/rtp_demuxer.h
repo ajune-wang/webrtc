@@ -88,7 +88,18 @@ class RtpDemuxer {
   // different SSRCs.
   static constexpr int kMaxSsrcBindings = 1000;
 
+  struct Config final {
+    // Configure whether to look at the MID header extension when demuxing
+    // incoming RTP packets.
+    bool use_mid = true;
+
+    // If true, the RtpDemuxer will output a log message if a packet passed to
+    // |OnRtpPacket| fails to get routed to a registered sink.
+    bool log_fail_to_demux = false;
+  };
+
   RtpDemuxer();
+  explicit RtpDemuxer(const Config&);
   ~RtpDemuxer();
 
   RtpDemuxer(const RtpDemuxer&) = delete;
@@ -137,10 +148,6 @@ class RtpDemuxer {
   // Deprecated: Use the above method.
   void DeregisterRsidResolutionObserver(const SsrcBindingObserver* observer);
 
-  // Configure whether to look at the MID header extension when demuxing
-  // incoming RTP packets. By default this is enabled.
-  void set_use_mid(bool use_mid) { use_mid_ = use_mid; }
-
  private:
   // Returns true if adding a sink with the given criteria would cause conflicts
   // with the existing criteria and should be rejected.
@@ -166,6 +173,8 @@ class RtpDemuxer {
   // Regenerate the known_mids_ set from information in the sink_by_mid_ and
   // sink_by_mid_and_rsid_ maps.
   void RefreshKnownMids();
+
+  Config config_;
 
   // Map each sink by its component attributes to facilitate quick lookups.
   // Payload Type mapping is a multimap because if two sinks register for the
@@ -201,8 +210,6 @@ class RtpDemuxer {
   // Observers which will be notified when an RSID association to an SSRC is
   // resolved by this object.
   std::vector<SsrcBindingObserver*> ssrc_binding_observers_;
-
-  bool use_mid_ = true;
 };
 
 }  // namespace webrtc

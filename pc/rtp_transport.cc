@@ -26,6 +26,16 @@
 
 namespace webrtc {
 
+static RtpDemuxer::Config CreateRtpDemuxerConfig() {
+  RtpDemuxer::Config config;
+  config.log_fail_to_demux = true;
+  return config;
+}
+
+RtpTransport::RtpTransport(bool rtcp_mux_enabled)
+    : rtcp_mux_enabled_(rtcp_mux_enabled),
+      rtp_demuxer_(CreateRtpDemuxerConfig()) {}
+
 void RtpTransport::SetRtcpMuxEnabled(bool enable) {
   rtcp_mux_enabled_ = enable;
   MaybeSignalReadyToSend();

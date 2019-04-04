@@ -11,6 +11,10 @@
 #include "rtc_base/gunit.h"
 #include "system_wrappers/include/field_trial.h"
 #include "test/field_trial.h"
+#include "test/gmock.h"
+
+using testing::ElementsAre;
+using testing::IsEmpty;
 
 namespace webrtc {
 namespace {
@@ -152,4 +156,143 @@ TEST(FieldTrialParserTest, ParsesCustomEnumParameter) {
   ParseFieldTrial({&my_enum}, "e:5");
   EXPECT_EQ(my_enum.Get(), CustomEnum::kBlue);
 }
+TEST(FieldTrialParserTest, ParsesListParameter) {
+  FieldTrialList<int> my_list("l", {5});
+  EXPECT_THAT(my_list.Get(), ElementsAre(5));
+  // If one element is invalid the list is unchanged.
+  ParseFieldTrial({&my_list}, "l:1|2|hat");
+  EXPECT_THAT(my_list.Get(), ElementsAre(5));
+  ParseFieldTrial({&my_list}, "l");
+  EXPECT_THAT(my_list.Get(), IsEmpty());
+  ParseFieldTrial({&my_list}, "l:1|2|3");
+  EXPECT_THAT(my_list.Get(), ElementsAre(1, 2, 3));
+  ParseFieldTrial({&my_list}, "l:-1");
+  EXPECT_THAT(my_list.Get(), ElementsAre(-1));
+
+  FieldTrialList<std::string> another_list("l", {"hat"});
+  EXPECT_THAT(another_list.Get(), ElementsAre("hat"));
+  ParseFieldTrial({&another_list}, "l");
+  EXPECT_THAT(another_list.Get(), IsEmpty());
+  ParseFieldTrial({&another_list}, "l:");
+  EXPECT_THAT(another_list.Get(), ElementsAre(""));
+  ParseFieldTrial({&another_list}, "l:scarf|hat|mittens");
+  EXPECT_THAT(another_list.Get(), ElementsAre("scarf", "hat", "mittens"));
+  ParseFieldTrial({&another_list}, "l:scarf");
+  EXPECT_THAT(another_list.Get(), ElementsAre("scarf"));
+}
+
+TEST(FieldTrialParserTest, ParsesListOfTuples) {
+  struct Garment {
+    Garment(int p, std::string c, std::string g)
+        : price(p), color(c), garment(g) {}
+
+    int price;
+    std::string color;
+    std::string garment;
+
+    // Only needed for testing.
+    bool operator==(const Garment& other) const {
+      return price == other.price && color == other.color &&
+             garment == other.garment;
+    }
+  };
+
+  // Normal usage.
+  {
+    FieldTrialStructList<Garment> my_list(
+        {TLW("color", [](Garment* g) { return &g->color; }),
+         TLW("garment", [](Garment* g) { return &g->garment; }),
+         TLW("price", [](Garment* g) { return &g->price; })},
+        Garment{-1, "_", "_"}, {{1, "blue", "boot"}, {2, "red", "glove"}});
+
+    ParseFieldTrial({&my_list},
+                    "color:mauve|red|gold,"
+                    "garment:hat|hat|crown,"
+                    "price:10|20|30,"
+                    "other_param:asdf");
+
+    ASSERT_THAT(my_list.Get(), ElementsAre(Garment(10, "mauve", "hat"),
+                                           Garment(20, "red", "hat"),
+                                           Garment(30, "gold", "crown")));
+  }
+
+  // One FieldTrialList has the wrong length, so we use the default list.
+  {
+    FieldTrialStructList<Garment> my_list(
+        {TLW("wrong_length", [](Garment* g) { return &g->color; }),
+         TLW("garment", [](Garment* g) { return &g->garment; }),
+         TLW("price", [](Garment* g) { return &g->price; })},
+        Garment{-1, "_", "_"}, {{1, "blue", "boot"}, {2, "red", "glove"}});
+
+    ParseFieldTrial({&my_list},
+                    "wrong_length:mauve|magenta|chartreuse|indigo,"
+                    "garment:hat|hat|crown,"
+                    "price:10|20|30");
+
+    ASSERT_THAT(my_list.Get(), ElementsAre(Garment(1, "blue", "boot"),
+                                           Garment(2, "red", "glove")));
+  }
+
+  // One list is missing, so we use the default value from the
+  // default struct.
+  {
+    FieldTrialStructList<Garment> my_list(
+        {TLW("color", [](Garment* g) { return &g->color; }),
+         TLW("garment", [](Garment* g) { return &g->garment; }),
+         TLW("price", [](Garment* g) { return &g->price; })},
+        Garment{-1, "_", "_"}, {{1, "blue", "boot"}, {2, "red", "glove"}});
+
+    ParseFieldTrial({&my_list},
+                    "garment:hat|hat|crown,"
+                    "price:10|20|30");
+
+    ASSERT_THAT(my_list.Get(),
+                ElementsAre(Garment(10, "_", "hat"), Garment(20, "_", "hat"),
+                            Garment(30, "_", "crown")));
+  }
+
+  // Two lists are missing, so we use the default values from the
+  // default struct.
+  {
+    FieldTrialStructList<Garment> my_list(
+        {TLW("color", [](Garment* g) { return &g->color; }),
+         TLW("garment", [](Garment* g) { return &g->garment; }),
+         TLW("price", [](Garment* g) { return &g->price; })},
+        Garment{-1, "_", "_"}, {{1, "blue", "boot"}, {2, "red", "glove"}});
+
+    ParseFieldTrial({&my_list}, "color:mauve|green|gold");
+
+    ASSERT_THAT(my_list.Get(), ElementsAre(Garment(-1, "mauve", "_"),
+                                           Garment(-1, "green", "_"),
+                                           Garment(-1, "gold", "_")));
+  }
+
+  // User haven't provided values for any lists, so we use the default list.
+  {
+    FieldTrialStructList<Garment> my_list(
+        {TLW("color", [](Garment* g) { return &g->color; }),
+         TLW("garment", [](Garment* g) { return &g->garment; }),
+         TLW("price", [](Garment* g) { return &g->price; })},
+        Garment{-1, "_", "_"}, {{1, "blue", "boot"}, {2, "red", "glove"}});
+
+    ParseFieldTrial({&my_list}, "");
+
+    ASSERT_THAT(my_list.Get(), ElementsAre(Garment(1, "blue", "boot"),
+                                           Garment(2, "red", "glove")));
+  }
+
+  // Some lists are provided and all are empty, so we return a empty list.
+  {
+    FieldTrialStructList<Garment> my_list(
+        {TLW("color", [](Garment* g) { return &g->color; }),
+         TLW("garment", [](Garment* g) { return &g->garment; }),
+         TLW("price", [](Garment* g) { return &g->price; })},
+        Garment{-1, "_", "_"}, {{1, "blue", "boot"}, {2, "red", "glove"}});
+
+    ParseFieldTrial({&my_list}, "color,price");
+
+    ASSERT_EQ(my_list.Get().size(), 0u);
+  }
+}
+
 }  // namespace webrtc

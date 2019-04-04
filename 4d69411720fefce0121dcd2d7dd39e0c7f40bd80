@@ -46,6 +46,30 @@
       "revId": "4d69411720fefce0121dcd2d7dd39e0c7f40bd80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0191dfe_916afa9e",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-04-04T09:01:05Z",
+      "side": 1,
+      "message": "I mean, maybe add \"preferred_buffer_size_ms\" in \"CreateAudioJitterBufferGraph\"? The problem with CreateNetEqNetworkStatsGraph is that it places all sources in one picture. But it is up to you.",
+      "parentUuid": "6580c802_b03353c2",
+      "range": {
+        "startLine": 515,
+        "startChar": 23,
+        "endLine": 515,
+        "endChar": 47
+      },
+      "revId": "4d69411720fefce0121dcd2d7dd39e0c7f40bd80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -213,8 +213,7 @@ TEST_F(GoogCcNetworkControllerTest, ReactsToChangedNetworkConditions) {
 // Test congestion window pushback on network delay happens.
 TEST_F(GoogCcNetworkControllerTest, CongestionWindowPushbackOnNetworkDelay) {
   ScopedFieldTrials trial(
-      "WebRTC-CongestionWindowPushback/Enabled/WebRTC-CwndExperiment/"
-      "Enabled-800/");
+      "WebRTC-CongestionWindow/cwnd:800,cwnd_pushback:30000");
   Scenario s("googcc_unit/cwnd_on_delay", false);
   auto send_net = s.CreateSimulationNode([=](NetworkNodeConfig* c) {
     c->simulation.bandwidth = DataRate::kbps(1000);
@@ -302,8 +301,7 @@ TEST_F(GoogCcNetworkControllerTest, UpdatesDelayBasedEstimate) {
 TEST_F(GoogCcNetworkControllerTest,
        PaddingRateLimitedByCongestionWindowInTrial) {
   ScopedFieldTrials trial(
-      "WebRTC-CongestionWindowPushback/Enabled/WebRTC-CwndExperiment/"
-      "Enabled-200/");
+      "WebRTC-CongestionWindow/cwnd:200,cwnd_pushback:30000");
 
   Scenario s("googcc_unit/padding_limited", false);
   NetworkNodeConfig net_conf;

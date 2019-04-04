@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dc96f235_25fff7f2",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-04T11:45:13Z",
+      "side": 1,
+      "message": "No more locks in this part of the code, so comment is obsolete.",
+      "parentUuid": "75dfe914_2c191138",
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a7e019f_1dd9df66",
         "filename": "test/scenario/network/network_emulation.cc",
         "patchSetId": 6
@@ -39,6 +57,30 @@
       "revId": "8f63328cf3fcdb001748f434e759594273167b10",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "796e188f_ce0776d3",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-04T11:45:13Z",
+      "side": 1,
+      "message": "Yep. Each packet is used only once and packet-\u003eremoved field surved as a guard here. If we will try to process packet second time it will crash on line 92.",
+      "parentUuid": "7a7e019f_1dd9df66",
+      "range": {
+        "startLine": 102,
+        "startChar": 33,
+        "endLine": 102,
+        "endChar": 58
+      },
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -89,6 +131,30 @@
     },
     {
       "key": {
+        "uuid": "3b809255_b374b854",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-04T11:45:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de46c493_f4f0b0a7",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 35
+      },
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41f1ed9e_d62e7476",
         "filename": "test/scenario/network/network_emulation_unittest.cc",
         "patchSetId": 6
@@ -112,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "b5cf054c_f777e71a",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-04T11:45:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41f1ed9e_d62e7476",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 28
+      },
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f93bc73_7e157929",
         "filename": "test/scenario/network/network_emulation_unittest.cc",
         "patchSetId": 6
@@ -126,6 +216,24 @@
       "revId": "8f63328cf3fcdb001748f434e759594273167b10",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67ae58dd_85bf5ea4",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-04T11:45:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f93bc73_7e157929",
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -152,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "7ae5a5e1_c0bbb13b",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-04T11:45:13Z",
+      "side": 1,
+      "message": "We have no such method in interface: CreateEmulatedNode. Should we add it? For now I created helper in the test.",
+      "parentUuid": "ba032bc7_18fbc97f",
+      "range": {
+        "startLine": 178,
+        "startChar": 1,
+        "endLine": 179,
+        "endChar": 75
+      },
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06c60bf5_67a3697b",
         "filename": "test/scenario/network/network_emulation_unittest.cc",
         "patchSetId": 6
@@ -166,6 +298,24 @@
       "revId": "8f63328cf3fcdb001748f434e759594273167b10",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "860ae17b_a25d8ccd",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-04T11:45:13Z",
+      "side": 1,
+      "message": "Ownership belongs to the emulation, which is specified in the documentation of NetworkEmulationManager.",
+      "parentUuid": "06c60bf5_67a3697b",
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -192,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "8790b697_14ada72d",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-04T11:45:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a5e3040_d701bcac",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 24
+      },
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fbf9bcf7_793e6bc2",
         "filename": "test/scenario/network/network_emulation_unittest.cc",
         "patchSetId": 6
@@ -206,6 +380,24 @@
       "revId": "8f63328cf3fcdb001748f434e759594273167b10",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c2f9587_92e4b542",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-04T11:45:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbf9bcf7_793e6bc2",
+      "revId": "8f63328cf3fcdb001748f434e759594273167b10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

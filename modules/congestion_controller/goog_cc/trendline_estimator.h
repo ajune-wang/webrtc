@@ -28,10 +28,12 @@ class TrendlineEstimator : public DelayIncreaseDetectorInterface {
   // the trend line. |threshold_gain| is used to scale the trendline slope for
   // comparison to the old threshold. Once the old estimator has been removed
   // (or the thresholds been merged into the estimators), we can just set the
-  // threshold instead of setting a gain.
+  // threshold instead of setting a gain.|predictor_enabled| is used to indicate
+  // whether a customized network_predictor is enabled.
   TrendlineEstimator(size_t window_size,
                      double smoothing_coef,
-                     double threshold_gain);
+                     double threshold_gain,
+                     bool predictor_enabled);
 
   ~TrendlineEstimator() override;
 
@@ -42,6 +44,9 @@ class TrendlineEstimator : public DelayIncreaseDetectorInterface {
               int64_t arrival_time_ms) override;
 
   BandwidthUsage State() const override;
+  BandwidthUsage StatePredicted() const override;
+  void SetState(BandwidthUsage bandwidth_usage) override;
+  void SetStatePredicted(BandwidthUsage bandwidth_usage) override;
 
  protected:
   // Used in unit tests.
@@ -78,6 +83,8 @@ class TrendlineEstimator : public DelayIncreaseDetectorInterface {
   double time_over_using_;
   int overuse_counter_;
   BandwidthUsage hypothesis_;
+  BandwidthUsage hypothesis_predicted_;
+  bool predictor_enabled_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(TrendlineEstimator);
 };

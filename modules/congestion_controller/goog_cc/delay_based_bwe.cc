@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <cstdio>
+#include <memory>
 #include <string>
 
 #include "absl/memory/memory.h"
@@ -83,7 +84,8 @@ DelayBasedBwe::Result::Result(bool probe, DataRate target_bitrate)
 DelayBasedBwe::Result::~Result() {}
 
 DelayBasedBwe::DelayBasedBwe(const WebRtcKeyValueConfig* key_value_config,
-                             RtcEventLog* event_log)
+                             RtcEventLog* event_log,
+                             NetworkPredictor* network_predictor)
     : event_log_(event_log),
       inter_arrival_(),
       delay_detector_(),
@@ -100,13 +102,14 @@ DelayBasedBwe::DelayBasedBwe(const WebRtcKeyValueConfig* key_value_config,
       prev_state_(BandwidthUsage::kBwNormal),
       alr_limited_backoff_enabled_(
           key_value_config->Lookup("WebRTC-Bwe-AlrLimitedBackoff")
-              .find("Enabled") == 0) {
+              .find("Enabled") == 0),
+      network_predictor_(network_predictor) {
   RTC_LOG(LS_INFO)
       << "Using Trendline filter for delay change estimation with window size "
       << trendline_window_size_;
-  delay_detector_.reset(new TrendlineEstimator(trendline_window_size_,
-                                               trendline_smoothing_coeff_,
-                                               trendline_threshold_gain_));
+  delay_detector_.reset(new TrendlineEstimator(
+      trendline_window_size_, trendline_smoothing_coeff_,
+      trendline_threshold_gain_, network_predictor_ != nullptr));
 }
 
 DelayBasedBwe::~DelayBasedBwe() {}
@@ -138,17 +141,17 @@ DelayBasedBwe::Result DelayBasedBwe::IncomingPacketFeedbackVector(
   }
   bool delayed_feedback = true;
   bool recovered_from_overuse = false;
-  BandwidthUsage prev_detector_state = delay_detector_->State();
+  BandwidthUsage prev_detector_state = delay_detector_->StatePredicted();
   for (const auto& packet_feedback : packet_feedback_vector) {
     if (packet_feedback.send_time_ms < 0)
       continue;
     delayed_feedback = false;
     IncomingPacketFeedback(packet_feedback, at_time);
     if (prev_detector_state == BandwidthUsage::kBwUnderusing &&
-        delay_detector_->State() == BandwidthUsage::kBwNormal) {
+        delay_detector_->StatePredicted() == BandwidthUsage::kBwNormal) {
       recovered_from_overuse = true;
     }
-    prev_detector_state = delay_detector_->State();
+    prev_detector_state = delay_detector_->StatePredicted();
   }
 
   if (delayed_feedback) {
@@ -169,9 +172,9 @@ void DelayBasedBwe::IncomingPacketFeedback(
     inter_arrival_.reset(
         new InterArrival((kTimestampGroupLengthMs << kInterArrivalShift) / 1000,
                          kTimestampToMs, true));
-    delay_detector_.reset(new TrendlineEstimator(trendline_window_size_,
-                                                 trendline_smoothing_coeff_,
-                                                 trendline_threshold_gain_));
+    delay_detector_.reset(new TrendlineEstimator(
+        trendline_window_size_, trendline_smoothing_coeff_,
+        trendline_threshold_gain_, network_predictor_ != nullptr));
   }
   last_seen_packet_ = at_time;
 
@@ -196,6 +199,15 @@ void DelayBasedBwe::IncomingPacketFeedback(
     delay_detector_->Update(t_delta, ts_delta_ms,
                             packet_feedback.arrival_time_ms);
   }
+
+  if (network_predictor_ != nullptr) {
+    int64_t state = network_predictor_->Update(
+        packet_feedback.send_time_ms, packet_feedback.arrival_time_ms,
+        static_cast<int64_t>(delay_detector_->State()));
+    delay_detector_->SetStatePredicted(static_cast<BandwidthUsage>(state));
+  }
+
+  return;
 }
 
 DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
@@ -207,7 +219,7 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
   Result result;
 
   // Currently overusing the bandwidth.
-  if (delay_detector_->State() == BandwidthUsage::kBwOverusing) {
+  if (delay_detector_->StatePredicted() == BandwidthUsage::kBwOverusing) {
     if (in_alr && alr_limited_backoff_enabled_ &&
         rate_control_.TimeToReduceFurther(at_time, prev_bitrate_)) {
       result.updated =
@@ -240,7 +252,7 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
       result.recovered_from_overuse = recovered_from_overuse;
     }
   }
-  BandwidthUsage detector_state = delay_detector_->State();
+  BandwidthUsage detector_state = delay_detector_->StatePredicted();
   if ((result.updated && prev_bitrate_ != result.target_bitrate) ||
       detector_state != prev_state_) {
     DataRate bitrate = result.updated ? result.target_bitrate : prev_bitrate_;
@@ -261,7 +273,8 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
 bool DelayBasedBwe::UpdateEstimate(Timestamp at_time,
                                    absl::optional<DataRate> acked_bitrate,
                                    DataRate* target_rate) {
-  const RateControlInput input(delay_detector_->State(), acked_bitrate);
+  const RateControlInput input(delay_detector_->StatePredicted(),
+                               acked_bitrate);
   *target_rate = rate_control_.Update(&input, at_time);
   return rate_control_.ValidEstimate();
 }

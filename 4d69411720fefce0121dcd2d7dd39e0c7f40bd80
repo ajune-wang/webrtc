@@ -22,6 +22,30 @@
       "revId": "4d69411720fefce0121dcd2d7dd39e0c7f40bd80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6580c802_b03353c2",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-04-04T08:35:35Z",
+      "side": 1,
+      "message": "We already have the target delay in that graph, but it is very hard to interpret since it is somehow relative to the incoming packets or playout delay. This graph more directly reflects the state of the delay manager.",
+      "parentUuid": "0be18b04_85d7ab25",
+      "range": {
+        "startLine": 515,
+        "startChar": 23,
+        "endLine": 515,
+        "endChar": 47
+      },
+      "revId": "4d69411720fefce0121dcd2d7dd39e0c7f40bd80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

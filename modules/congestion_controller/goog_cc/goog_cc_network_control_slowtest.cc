@@ -146,8 +146,8 @@ TEST(GoogCcNetworkControllerTest,
      TargetRateReducedOnPacingBufferBuildupInTrial) {
   // Configure strict pacing to ensure build-up.
   ScopedFieldTrials trial(
-      "WebRTC-CongestionWindowPushback/Enabled/WebRTC-CwndExperiment/"
-      "Enabled-100/WebRTC-Video-Pacing/factor:1.0/"
+      "WebRTC-CongestionWindow/cwnd:100,cwnd_pushback:30000/"
+      "WebRTC-Video-Pacing/factor:1.0/"
       "WebRTC-AddPacingToCongestionWindowPushback/Enabled/");
 
   const DataRate kLinkCapacity = DataRate::kbps(1000);

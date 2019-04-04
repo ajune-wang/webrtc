@@ -25,6 +25,7 @@ EncoderRtcpFeedback::EncoderRtcpFeedback(Clock* clock,
                                          VideoStreamEncoderInterface* encoder)
     : clock_(clock),
       ssrcs_(ssrcs),
+      rtp_video_sender_(nullptr),
       video_stream_encoder_(encoder),
       time_last_intra_request_ms_(-1),
       min_keyframe_send_interval_ms_(
@@ -32,6 +33,13 @@ EncoderRtcpFeedback::EncoderRtcpFeedback(Clock* clock,
               .MinKeyframeSendIntervalMs()
               .value_or(kMinKeyframeSendIntervalMs)) {
   RTC_DCHECK(!ssrcs.empty());
+}
+
+void EncoderRtcpFeedback::SetRtpVideoSender(
+    const RtpVideoSenderInterface* rtp_video_sender) {
+  RTC_DCHECK(rtp_video_sender);
+  RTC_DCHECK(!rtp_video_sender_);
+  rtp_video_sender_ = rtp_video_sender;
 }
 
 bool EncoderRtcpFeedback::HasSsrc(uint32_t ssrc) {
@@ -72,7 +80,9 @@ void EncoderRtcpFeedback::OnReceivedLossNotification(
     uint16_t seq_num_of_last_decodable,
     uint16_t seq_num_of_last_received,
     bool decodability_flag) {
-  // TODO(eladalon): Handle.
+  RTC_DCHECK(rtp_video_sender_) << "Object initialization incomplete.";
+  rtp_video_sender_GetSentRtpPacketInfo printf("rtp_video_sender_ = %p\n",
+                                               rtp_video_sender_);
 }
 
 }  // namespace webrtc

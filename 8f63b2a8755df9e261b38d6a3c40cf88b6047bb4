@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e105c93e_c8512424",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-04T09:11:41Z",
+      "side": 1,
+      "message": "may be remove.\nas I understand the map just resets itself when sequence numbers inserted out of order.\nBy \u0027reordering handling\u0027 I would expect support or reordering, i.e. inserting numbers \u0027A\u0027, \u0027B\u0027 produces about same result as inserting \u0027B\u0027, \u0027A\u0027.\n\n(as I understand use case for the map, reordering handling is not required: sequence numbers will be inserted in order)",
+      "revId": "8f63b2a8755df9e261b38d6a3c40cf88b6047bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79c07a95_2fcb51e6",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-04T09:11:41Z",
+      "side": 1,
+      "message": "#include \u003ccstdint\u003e // for uint32_t, uint16_t\n#include \u003ccstddef\u003e // for size_t",
+      "revId": "8f63b2a8755df9e261b38d6a3c40cf88b6047bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d663d639_cfa0c796",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-04T09:11:41Z",
+      "side": 1,
+      "message": "to make constant even closer to where it is used:\nrandom_(/*seed\u003d*/1983) {}",
+      "range": {
+        "startLine": 47,
+        "startChar": 39,
+        "endLine": 47,
+        "endChar": 44
+      },
+      "revId": "8f63b2a8755df9e261b38d6a3c40cf88b6047bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46546333_caedf753",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-04T09:11:41Z",
+      "side": 1,
+      "message": "you may use empty comment trick to force clang-format to keep one association per line:\nCreateAssociation(1, 10),  //\nCreateAssociation(2, 20),  //\nCreateAssociation(3, 30),  //\nCreateAssociation(4, 40),  //\nCreateAssociation(5, 50)",
+      "range": {
+        "startLine": 225,
+        "startChar": 20,
+        "endLine": 227,
+        "endChar": 44
+      },
+      "revId": "8f63b2a8755df9e261b38d6a3c40cf88b6047bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cad0d39b_c2f2bb76",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-04T09:11:41Z",
+      "side": 1,
+      "message": "may be instead of constants use comments:\nGetObsoleteSequenceNumberReturnsNullOptMultipleEntriesObsoleted(\n      /*with_wrap_around\u003d*/false, /*last_element_kept\u003d*/false);",
+      "range": {
+        "startLine": 284,
+        "startChar": 6,
+        "endLine": 284,
+        "endChar": 41
+      },
+      "revId": "8f63b2a8755df9e261b38d6a3c40cf88b6047bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9844f9e8_8d060243",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-04T09:11:41Z",
+      "side": 1,
+      "message": "prefer not to dereference optional\n(to avoid crash if Get returns nullopt)",
+      "range": {
+        "startLine": 331,
+        "startChar": 16,
+        "endLine": 331,
+        "endChar": 17
+      },
+      "revId": "8f63b2a8755df9e261b38d6a3c40cf88b6047bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38399862_489b4511",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-04T09:11:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 373,
+        "startChar": 12,
+        "endLine": 373,
+        "endChar": 13
+      },
+      "revId": "8f63b2a8755df9e261b38d6a3c40cf88b6047bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

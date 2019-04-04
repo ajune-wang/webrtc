@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "77045248_f3325016",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-04T09:11:41Z",
+      "side": 1,
+      "message": "aha! that what it mean.\nYep, I guess it is better to remove it then.\nIt describes one of the aspects of the rtp. The only part that relevant for this class is that for different sequence numbers values can be the same. Which is natural to expect from a class named \u0027Map\u0027",
+      "parentUuid": "1f4e2e42_2176a22a",
+      "revId": "c096a579991a7b3240ade89cac8fb75d783e8694",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f11d0091_aa3ffcf8",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
         "patchSetId": 6
@@ -72,6 +90,30 @@
       "side": 1,
       "message": "IMHO, it is simpler as is. Do you feel strongly about this, or may we keep it?",
       "parentUuid": "f11d0091_aa3ffcf8",
+      "range": {
+        "startLine": 55,
+        "startChar": 7,
+        "endLine": 55,
+        "endChar": 25
+      },
+      "revId": "c096a579991a7b3240ade89cac8fb75d783e8694",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3edfae34_0363adca",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-04T09:11:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "785160b6_b5d7c172",
       "range": {
         "startLine": 55,
         "startChar": 7,
@@ -448,6 +490,30 @@
       "side": 1,
       "message": "I think using DCHECKs like that communicates an important distinction:\n1. Expectations are about the unit-under-test; they\u0027re what we\u0027re testing in the current test.\n2. Assertions are used for expectations of the unit-under-test that have already been EXPECTed by a previous test, and which are baseline assumptions for the current test.\n3. DCHECKs communicate properties of the test itself. If they are wrong, it is not the unit-under-test that is faulty, but rather the test itself. The code in tests is still code, and may still use DCHECKs to prove its own correctness, like any code.",
       "parentUuid": "3d5ffd3b_4d78ce2f",
+      "range": {
+        "startLine": 200,
+        "startChar": 2,
+        "endLine": 200,
+        "endChar": 12
+      },
+      "revId": "c096a579991a7b3240ade89cac8fb75d783e8694",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23ba54f6_46785fa8",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-04T09:11:41Z",
+      "side": 1,
+      "message": "I doubled checked article on this topic (go/totw/113).\nThough it starts with \"The CHECK family is not for tests,\"\n\nIn the end it has this statement to backup your choice:\n\"Many people will routinely use a CHECK to assert an invariant of the test infrastructure (as opposed to the code being tested). This is acceptable.\"",
+      "parentUuid": "e73f43c7_13c2fef2",
       "range": {
         "startLine": 200,
         "startChar": 2,

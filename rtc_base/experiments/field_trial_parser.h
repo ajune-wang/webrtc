@@ -13,9 +13,14 @@
 #include <stdint.h>
 #include <initializer_list>
 #include <map>
+#include <memory>
 #include <set>
 #include <string>
+#include <vector>
+
 #include "absl/types/optional.h"
+#include "rtc_base/logging.h"
+#include "rtc_base/string_encode.h"
 
 // Field trial parser functionality. Provides funcitonality to parse field trial
 // argument strings in key:value format. Each parameter is described using
@@ -24,7 +29,8 @@
 // ignored. Parameters are declared with a given type for which an
 // implementation of ParseTypedParameter should be provided. The
 // ParseTypedParameter implementation is given whatever is between the : and the
-// ,. FieldTrialOptional will use nullopt if the key is provided without :.
+// ,. If the key is provided without : a FieldTrialOptional will use nullopt and
+// a FieldTrialList will use a empty vector.
 
 // Example string: "my_optional,my_int:3,my_string:hello"
 
@@ -47,10 +53,14 @@ class FieldTrialParameterInterface {
       std::string raw_string);
   void MarkAsUsed() { used_ = true; }
   virtual bool Parse(absl::optional<std::string> str_value) = 0;
-  std::string Key() const;
+
+  virtual void ParseDone() {}
+
+  std::vector<FieldTrialParameterInterface*> sub_parameters_;
+
+  std::string key_;
 
  private:
-  std::string key_;
   bool used_ = false;
 };
 
@@ -219,6 +229,178 @@ class FieldTrialFlag : public FieldTrialParameterInterface {
 
  private:
   bool value_;
+};
+
+class FieldTrialListBase : public FieldTrialParameterInterface {
+ protected:
+  friend class FieldTrialListWrapper;
+  FieldTrialListBase(std::string key);
+
+  bool Parse(absl::optional<std::string> str_value) override;
+
+  bool Failed() const;
+  bool Used() const;
+
+  // Takes a token, parses it and appends it to the list. If parsing fails the
+  // default values will be restored.
+  virtual bool AddToken(std::string value) = 0;
+  virtual void ClearValues() = 0;
+  virtual int Size() = 0;
+
+ private:
+  bool failed_;
+  bool parse_got_called_;
+};
+
+// This class represents a vector of type T. The elements are separated by a |
+// and parsed using ParseTypedParameter.
+template <typename T>
+class FieldTrialList : public FieldTrialListBase {
+ public:
+  FieldTrialList(std::string key) : FieldTrialList(key, {}) {}
+  FieldTrialList(std::string key, std::initializer_list<T> default_values)
+      : FieldTrialListBase(key),
+        default_values_(default_values),
+        values_(default_values) {}
+
+  std::vector<T> Get() const { return values_; }
+  operator std::vector<T>() const { return Get(); }
+  const T& operator[](size_t index) const { return values_[index]; }
+  const std::vector<T>* operator->() const { return &values_; }
+
+ protected:
+  bool AddToken(std::string token) override {
+    RTC_LOG(LS_ERROR) << "consuming token: [" << token << "]";
+    absl::optional<T> value = ParseTypedParameter<T>(token);
+    if (value) {
+      RTC_LOG(LS_ERROR) << "got value: [" << *value << "]";
+      values_.push_back(*value);
+    } else {
+      RTC_LOG(LS_ERROR) << "parse error";
+      values_.clear();
+      values_.insert(values_.begin(), default_values_.begin(),
+                     default_values_.end());
+      RTC_LOG(LS_ERROR) << "reset to " << values_[0];
+    }
+    return value.has_value();
+  }
+
+  void ClearValues() override { values_.clear(); }
+  int Size() override { return values_.size(); }
+
+ private:
+  std::initializer_list<T> default_values_;
+  std::vector<T> values_;
+};
+
+class FieldTrialListWrapper {
+ public:
+  virtual ~FieldTrialListWrapper() = default;
+  virtual void WriteElement(void* s, int ix) = 0;
+
+  virtual FieldTrialListBase* GetList() = 0;
+
+  int Length();
+  bool Failed();
+  bool Used();
+
+ protected:
+  FieldTrialListWrapper() = default;
+};
+
+namespace field_trial_parser_impl {
+// The Traits struct provides type information about lambdas in the template
+// expressions below.
+template <typename T>
+struct LambdaTypeTraits : public LambdaTypeTraits<decltype(&T::operator())> {};
+
+template <typename ClassType, typename RetType, typename SourceType>
+struct LambdaTypeTraits<RetType* (ClassType::*)(SourceType*)const> {
+  using ret = RetType;
+  using src = SourceType;
+};
+
+template <typename T>
+struct TypedFieldTrialListWrapper : FieldTrialListWrapper {
+ public:
+  TypedFieldTrialListWrapper(std::string key,
+                             std::function<void(void*, T)> sink)
+      : list_(key), sink_(sink) {}
+
+  void WriteElement(void* s, int ix) override { sink_(s, list_[ix]); }
+
+  FieldTrialListBase* GetList() { return &list_; }
+
+ private:
+  webrtc::FieldTrialList<T> list_;
+  std::function<void(void*, T)> sink_;
+};
+
+}  // namespace field_trial_parser_impl
+
+template <
+    typename F,
+    typename S = typename field_trial_parser_impl::LambdaTypeTraits<F>::src,
+    typename T = typename field_trial_parser_impl::LambdaTypeTraits<F>::ret>
+FieldTrialListWrapper* FieldTrialStructMember(std::string key, F f) {
+  return new field_trial_parser_impl::TypedFieldTrialListWrapper<T>(
+      key, [f](void* s, T t) { *f(static_cast<S*>(s)) = t; });
+}
+
+class FieldTrialStructListBase : public FieldTrialParameterInterface {
+ protected:
+  FieldTrialStructListBase(
+      std::initializer_list<FieldTrialListWrapper*> sub_lists)
+      : FieldTrialParameterInterface(""), sub_lists_() {
+    for (FieldTrialListWrapper* const* it = sub_lists.begin();
+         it != sub_lists.end(); it++) {
+      sub_parameters_.push_back((*it)->GetList());
+      sub_lists_.push_back(std::unique_ptr<FieldTrialListWrapper>(*it));
+    }
+  }
+
+  // Check that all lists that were in the field trial string had the same
+  // number of elements. If they do, we return that length.
+  // If they had different lengths, any list had parse failures or no lists had
+  // user-supplied values, we return -1;
+  int ValidateAndGetLength();
+
+  bool Parse(absl::optional<std::string> str_value) override;
+
+  std::vector<std::unique_ptr<FieldTrialListWrapper>> sub_lists_;
+};
+
+template <typename S>
+class FieldTrialStructList : public FieldTrialStructListBase {
+ public:
+  FieldTrialStructList(std::initializer_list<FieldTrialListWrapper*> l,
+                       std::initializer_list<S> default_list)
+      : FieldTrialStructListBase(l), values_(default_list) {}
+
+  std::vector<S> Get() const { return values_; }
+  operator std::vector<S>() const { return Get(); }
+  const S& operator[](size_t index) const { return values_[index]; }
+  const std::vector<S>* operator->() const { return &values_; }
+
+ protected:
+  void ParseDone() override {
+    int length = ValidateAndGetLength();
+
+    if (length == -1)
+      return;
+
+    std::vector<S> new_values(length, S());
+
+    for (std::unique_ptr<FieldTrialListWrapper>& li : sub_lists_)
+      if (li->Used())
+        for (int i = 0; i < length; i++)
+          li->WriteElement(&new_values[i], i);
+
+    values_.swap(new_values);
+  }
+
+ private:
+  std::vector<S> values_;
 };
 
 // Accepts true, false, else parsed with sscanf %i, true if != 0.

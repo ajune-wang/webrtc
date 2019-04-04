@@ -8,13 +8,16 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <atomic>
 #include <memory>
 
 #include "absl/memory/memory.h"
 #include "api/test/simulated_network.h"
 #include "call/simulated_network.h"
 #include "rtc_base/event.h"
+#include "rtc_base/gunit.h"
 #include "rtc_base/logging.h"
+#include "system_wrappers/include/sleep.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/scenario/network/network_emulation.h"
@@ -22,6 +25,9 @@
 
 namespace webrtc {
 namespace test {
+namespace {
+
+constexpr int kNetworkPacketWaitTimeoutMs = 100;
 
 class SocketReader : public sigslot::has_slots<> {
  public:
@@ -56,6 +62,17 @@ class SocketReader : public sigslot::has_slots<> {
   rtc::CriticalSection lock_;
   int received_count_ RTC_GUARDED_BY(lock_) = 0;
 };
+
+class MockReceiver : public EmulatedNetworkReceiverInterface {
+ public:
+  MockReceiver() = default;
+  ~MockReceiver() = default;
+  MOCK_METHOD1(OnPacketReceived, void(EmulatedIpPacket packet));
+};
+
+}  // namespace
+
+using testing::_;
 
 TEST(NetworkEmulationManagerTest, GeneratedIpv4AddressDoesNotCollide) {
   NetworkEmulationManagerImpl network_manager;
@@ -134,6 +151,180 @@ TEST(NetworkEmulationManagerTest, Run) {
     delete s1;
     delete s2;
   }
+}
+
+// Test connectivity of routing scheme with 3 endpoints e1, e2, e3 and
+// 4 network nodes n1, n2, n3 and n4, which are connected with there routes:
+//  * e1 -> n1 -> e2
+//  * e2 -> n2 -> e1
+//  * e1 -> n3 -> e3
+//  * e3 -> n4 -> e1
+//  _____     ____     ____
+// | e1  |-->| n1 |-->| e2 |
+// |     |    ˉˉˉˉ    |    |
+// |     |    ____    |    |
+// |     |<--| n2 |<--|    |
+//  ˉ|ˉ|ˉ     ˉˉˉˉ     ˉˉˉˉ
+//   | |      ____     ____
+//   | └---->| n3 |-->| e3 |
+//   |        ˉˉˉˉ    |    |
+//   |        ____    |    |
+//   └------>| n4 |<--|    |
+//            ˉˉˉˉ     ˉˉˉˉ
+TEST(NetworkEmulationManagerTest, ComplexRouting) {
+  NetworkEmulationManagerImpl emulation;
+
+  // Create 4 network nodes.
+  EmulatedNetworkNode* n1 = emulation.CreateEmulatedNode(
+      absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
+  EmulatedNetworkNode* n2 = emulation.CreateEmulatedNode(
+      absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
+  EmulatedNetworkNode* n3 = emulation.CreateEmulatedNode(
+      absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
+  EmulatedNetworkNode* n4 = emulation.CreateEmulatedNode(
+      absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
+
+  // Create 3 endpoints.
+  EmulatedEndpoint* e1 = emulation.CreateEndpoint(EmulatedEndpointConfig());
+  EmulatedEndpoint* e2 = emulation.CreateEndpoint(EmulatedEndpointConfig());
+  EmulatedEndpoint* e3 = emulation.CreateEndpoint(EmulatedEndpointConfig());
+
+  // Establish routing.
+  emulation.CreateRoute(e1, {n1}, e2);
+  emulation.CreateRoute(e2, {n2}, e1);
+
+  emulation.CreateRoute(e1, {n3}, e3);
+  emulation.CreateRoute(e3, {n4}, e1);
+
+  // Receivers: r_<source endpoint>_<destination endpoint>
+  MockReceiver r_e1_e2;
+  MockReceiver r_e2_e1;
+  MockReceiver r_e1_e3;
+  MockReceiver r_e3_e1;
+
+  EXPECT_CALL(r_e1_e2, OnPacketReceived(_)).Times(1);
+  EXPECT_CALL(r_e2_e1, OnPacketReceived(_)).Times(1);
+  EXPECT_CALL(r_e1_e3, OnPacketReceived(_)).Times(1);
+  EXPECT_CALL(r_e3_e1, OnPacketReceived(_)).Times(1);
+
+  uint16_t common_send_port = 80;
+  uint16_t r_e1_e2_port = e2->BindReceiver(0, &r_e1_e2).value();
+  uint16_t r_e2_e1_port = e1->BindReceiver(0, &r_e2_e1).value();
+  uint16_t r_e1_e3_port = e3->BindReceiver(0, &r_e1_e3).value();
+  uint16_t r_e3_e1_port = e1->BindReceiver(0, &r_e3_e1).value();
+
+  // Send packet from e1 to e2.
+  e1->SendPacket(
+      rtc::SocketAddress(e1->GetPeerLocalAddress(), common_send_port),
+      rtc::SocketAddress(e2->GetPeerLocalAddress(), r_e1_e2_port),
+      rtc::CopyOnWriteBuffer(10));
+
+  // Send packet from e2 to e1.
+  e2->SendPacket(
+      rtc::SocketAddress(e2->GetPeerLocalAddress(), common_send_port),
+      rtc::SocketAddress(e1->GetPeerLocalAddress(), r_e2_e1_port),
+      rtc::CopyOnWriteBuffer(10));
+
+  // Send packet from e1 to e3.
+  e1->SendPacket(
+      rtc::SocketAddress(e1->GetPeerLocalAddress(), common_send_port),
+      rtc::SocketAddress(e3->GetPeerLocalAddress(), r_e1_e3_port),
+      rtc::CopyOnWriteBuffer(10));
+
+  // Send packet from e3 to e1.
+  e3->SendPacket(
+      rtc::SocketAddress(e3->GetPeerLocalAddress(), common_send_port),
+      rtc::SocketAddress(e1->GetPeerLocalAddress(), r_e3_e1_port),
+      rtc::CopyOnWriteBuffer(10));
+
+  // Sleep at the end to wait for async packets delivery.
+  SleepMs(kNetworkPacketWaitTimeoutMs);
+}
+
+// Test connectivity of routing scheme with 3 endpoints e1, e2, e3 and
+// 3 network nodes n1, n2 and n3, which are connected with there routes:
+//  * e1 -> n1 -> e2
+//  * e1 -> n1 -> e3
+//  * e2 -> n2 -> e1
+//  * e3 -> n3 -> e1
+//  _____     ____     ____
+// | e1  |<--| n2 |<--| e2 |
+// |     |    ˉˉˉˉ    |    |
+// |     |    ____    |    |
+// |     |-->| n1 |-->|    |
+//  ˉ|ˉ|ˉ    |    |    ˉˉˉˉ
+//   | |     |    |    ____
+//   | └---->|    |-->| e3 |
+//   |        ˉˉˉˉ    |    |
+//   |        ____    |    |
+//   └------>| n3 |<--|    |
+//            ˉˉˉˉ     ˉˉˉˉ
+TEST(NetworkEmulationManagerTest, ComplexRoutingReuse) {
+  NetworkEmulationManagerImpl emulation;
+
+  // Create 3 network nodes.
+  EmulatedNetworkNode* n1 = emulation.CreateEmulatedNode(
+      absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
+  EmulatedNetworkNode* n2 = emulation.CreateEmulatedNode(
+      absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
+  EmulatedNetworkNode* n3 = emulation.CreateEmulatedNode(
+      absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
+
+  // Create 3 endpoints.
+  EmulatedEndpoint* e1 = emulation.CreateEndpoint(EmulatedEndpointConfig());
+  EmulatedEndpoint* e2 = emulation.CreateEndpoint(EmulatedEndpointConfig());
+  EmulatedEndpoint* e3 = emulation.CreateEndpoint(EmulatedEndpointConfig());
+
+  // Establish routing.
+  emulation.CreateRoute(e1, {n1}, e2);
+  emulation.CreateRoute(e2, {n2}, e1);
+
+  emulation.CreateRoute(e1, {n1}, e3);
+  emulation.CreateRoute(e3, {n3}, e1);
+
+  // Receivers: r_<source endpoint>_<destination endpoint>
+  MockReceiver r_e1_e2;
+  MockReceiver r_e2_e1;
+  MockReceiver r_e1_e3;
+  MockReceiver r_e3_e1;
+
+  EXPECT_CALL(r_e1_e2, OnPacketReceived(_)).Times(1);
+  EXPECT_CALL(r_e2_e1, OnPacketReceived(_)).Times(1);
+  EXPECT_CALL(r_e1_e3, OnPacketReceived(_)).Times(1);
+  EXPECT_CALL(r_e3_e1, OnPacketReceived(_)).Times(1);
+
+  uint16_t common_send_port = 80;
+  uint16_t r_e1_e2_port = e2->BindReceiver(0, &r_e1_e2).value();
+  uint16_t r_e2_e1_port = e1->BindReceiver(0, &r_e2_e1).value();
+  uint16_t r_e1_e3_port = e3->BindReceiver(0, &r_e1_e3).value();
+  uint16_t r_e3_e1_port = e1->BindReceiver(0, &r_e3_e1).value();
+
+  // Send packet from e1 to e2.
+  e1->SendPacket(
+      rtc::SocketAddress(e1->GetPeerLocalAddress(), common_send_port),
+      rtc::SocketAddress(e2->GetPeerLocalAddress(), r_e1_e2_port),
+      rtc::CopyOnWriteBuffer(10));
+
+  // Send packet from e2 to e1.
+  e2->SendPacket(
+      rtc::SocketAddress(e2->GetPeerLocalAddress(), common_send_port),
+      rtc::SocketAddress(e1->GetPeerLocalAddress(), r_e2_e1_port),
+      rtc::CopyOnWriteBuffer(10));
+
+  // Send packet from e1 to e3.
+  e1->SendPacket(
+      rtc::SocketAddress(e1->GetPeerLocalAddress(), common_send_port),
+      rtc::SocketAddress(e3->GetPeerLocalAddress(), r_e1_e3_port),
+      rtc::CopyOnWriteBuffer(10));
+
+  // Send packet from e3 to e1.
+  e3->SendPacket(
+      rtc::SocketAddress(e3->GetPeerLocalAddress(), common_send_port),
+      rtc::SocketAddress(e1->GetPeerLocalAddress(), r_e3_e1_port),
+      rtc::CopyOnWriteBuffer(10));
+
+  // Sleep at the end to wait for async packets delivery.
+  SleepMs(kNetworkPacketWaitTimeoutMs);
 }
 
 }  // namespace test

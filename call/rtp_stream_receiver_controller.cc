@@ -35,11 +35,16 @@ RtpStreamReceiverController::Receiver::~Receiver() {
   controller_->RemoveSink(sink_);
 }
 
-RtpStreamReceiverController::RtpStreamReceiverController() {
+static RtpDemuxer::Config CreateRtpDemuxerConfig() {
+  RtpDemuxer::Config config;
   // At this level the demuxer is only configured to demux by SSRC, so don't
   // worry about MIDs (MIDs are handled by upper layers).
-  demuxer_.set_use_mid(false);
+  config.use_mid = false;
+  return config;
 }
+
+RtpStreamReceiverController::RtpStreamReceiverController()
+    : demuxer_(CreateRtpDemuxerConfig()) {}
 
 RtpStreamReceiverController::~RtpStreamReceiverController() = default;
 

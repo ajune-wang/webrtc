@@ -17,13 +17,38 @@
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
+namespace {
+
+void LogFailToDemux(const RtpPacketReceived& packet) {
+  rtc::StringBuilder sb;
+  sb << "Failed to demux RTP packet with PT=" << packet.PayloadType()
+     << " SSRC=" << packet.Ssrc();
+  std::string mid;
+  if (packet.GetExtension<RtpMid>(&mid)) {
+    sb << " MID=" << mid;
+  }
+  std::string rsid;
+  if (packet.GetExtension<RtpStreamId>(&rsid)) {
+    sb << " RSID=" << rsid;
+  }
+  std::string rrsid;
+  if (packet.GetExtension<RepairedRtpStreamId>(&rrsid)) {
+    sb << " RRSID=" << rrsid;
+  }
+  RTC_LOG(LS_WARNING) << sb.Release();
+}
+
+}  // namespace
 
 RtpDemuxerCriteria::RtpDemuxerCriteria() = default;
 RtpDemuxerCriteria::~RtpDemuxerCriteria() = default;
 
-RtpDemuxer::RtpDemuxer() = default;
+RtpDemuxer::RtpDemuxer() : RtpDemuxer(Config()) {}
+
+RtpDemuxer::RtpDemuxer(const Config& config) : config_(config) {}
 
 RtpDemuxer::~RtpDemuxer() {
   RTC_DCHECK(sink_by_mid_.empty());
@@ -157,6 +182,9 @@ bool RtpDemuxer::OnRtpPacket(const RtpPacketReceived& packet) {
     sink->OnRtpPacket(packet);
     return true;
   }
+  if (config_.log_fail_to_demux) {
+    LogFailToDemux(packet);
+  }
   return false;
 }
 
@@ -168,7 +196,7 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSink(
   // RSID and RRID are routed to the same sinks. If an RSID is specified on a
   // repair packet, it should be ignored and the RRID should be used.
   std::string packet_mid, packet_rsid;
-  bool has_mid = use_mid_ && packet.GetExtension<RtpMid>(&packet_mid);
+  bool has_mid = config_.use_mid && packet.GetExtension<RtpMid>(&packet_mid);
   bool has_rsid = packet.GetExtension<RepairedRtpStreamId>(&packet_rsid);
   if (!has_rsid) {
     has_rsid = packet.GetExtension<RtpStreamId>(&packet_rsid);

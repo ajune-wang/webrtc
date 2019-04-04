@@ -87,6 +87,10 @@ class MockModuleRtpRtcp : public RTCPReceiver::ModuleRtpRtcp {
   MOCK_METHOD0(OnRequestSendReport, void());
   MOCK_METHOD1(OnReceivedNack, void(const std::vector<uint16_t>&));
   MOCK_METHOD1(OnReceivedRtcpReportBlocks, void(const ReportBlockList&));
+  MOCK_METHOD3(OnReceivedLossNotification,
+               void(uint16_t seq_num_of_last_decodable,
+                    uint16_t seq_num_of_last_received,
+                    bool decodability_flag));
 };
 
 class MockVideoBitrateAllocationObserver

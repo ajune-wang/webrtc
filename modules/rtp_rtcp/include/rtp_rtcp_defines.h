@@ -186,6 +186,16 @@ class RtcpIntraFrameObserver {
   virtual void OnReceivedIntraFrameRequest(uint32_t ssrc) = 0;
 };
 
+class RtcpLossNotificationObserver {
+ public:
+  virtual ~RtcpLossNotificationObserver() = default;
+
+  virtual void OnReceivedLossNotification(uint32_t ssrc,
+                                          uint16_t seq_num_of_last_decodable,
+                                          uint16_t seq_num_of_last_received,
+                                          bool decodability_flag) = 0;
+};
+
 class RtcpBandwidthObserver {
  public:
   // REMB or TMMBR

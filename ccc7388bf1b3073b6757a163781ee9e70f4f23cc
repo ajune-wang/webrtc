@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4c96403_3c2218c6",
+        "filename": "rtc_base/experiments/field_trial_parser.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-04T12:49:14Z",
+      "side": 1,
+      "message": "Non anonymous namespaces in header files, use ..._impl for local namespaces.",
+      "range": {
+        "startLine": 306,
+        "startChar": 10,
+        "endLine": 306,
+        "endChar": 11
+      },
+      "revId": "ccc7388bf1b3073b6757a163781ee9e70f4f23cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35d249ea_8ea35f4d",
+        "filename": "rtc_base/experiments/field_trial_parser_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-04T12:49:14Z",
+      "side": 1,
+      "message": "Split this into one test per test case and describing the intended action.",
+      "revId": "ccc7388bf1b3073b6757a163781ee9e70f4f23cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e1bbe1d_eb473e9d",
+        "filename": "rtc_base/experiments/field_trial_parser_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-04T12:49:14Z",
+      "side": 1,
+      "message": "You don\u0027t need to declare this explicitly right?",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 43
+      },
+      "revId": "ccc7388bf1b3073b6757a163781ee9e70f4f23cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56bf3ffd_f0fe90dd",
+        "filename": "rtc_base/experiments/field_trial_parser_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-04T12:49:14Z",
+      "side": 1,
+      "message": "Use two element only unless you need three to be able to test properly.",
+      "range": {
+        "startLine": 189,
+        "startChar": 3,
+        "endLine": 191,
+        "endChar": 24
+      },
+      "revId": "ccc7388bf1b3073b6757a163781ee9e70f4f23cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4607c4ae_afe38d7a",
+        "filename": "rtc_base/experiments/field_trial_parser_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-04T12:49:14Z",
+      "side": 1,
+      "message": "Odd values, I suggest: 0, \"\", \"\" so the reader doesn\u0027t wonder if there\u0027s any special meaning to them.",
+      "range": {
+        "startLine": 206,
+        "startChar": 16,
+        "endLine": 206,
+        "endChar": 28
+      },
+      "revId": "ccc7388bf1b3073b6757a163781ee9e70f4f23cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

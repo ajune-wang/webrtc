@@ -33,9 +33,6 @@ FieldTrialParameterInterface::~FieldTrialParameterInterface() {
   RTC_DCHECK(used_) << "Field trial parameter with key: '" << key_
                     << "' never used.";
 }
-std::string FieldTrialParameterInterface::Key() const {
-  return key_;
-}
 
 void ParseFieldTrial(
     std::initializer_list<FieldTrialParameterInterface*> fields,
@@ -44,13 +41,23 @@ void ParseFieldTrial(
   FieldTrialParameterInterface* keyless_field = nullptr;
   for (FieldTrialParameterInterface* field : fields) {
     field->MarkAsUsed();
-    if (field->Key().empty()) {
+    if (!field->sub_parameters_.empty()) {
+      for (FieldTrialParameterInterface* sub_field : field->sub_parameters_) {
+        RTC_DCHECK(!sub_field->key_.empty());
+        sub_field->MarkAsUsed();
+        field_map[sub_field->key_] = sub_field;
+      }
+      continue;
+    }
+
+    if (field->key_.empty()) {
       RTC_DCHECK(!keyless_field);
       keyless_field = field;
     } else {
-      field_map[field->Key()] = field;
+      field_map[field->key_] = field;
     }
   }
+
   size_t i = 0;
   while (i < trial_string.length()) {
     int val_end = FindOrEnd(trial_string, i, ',');
@@ -78,6 +85,53 @@ void ParseFieldTrial(
                        << "' (found in trial: \"" << trial_string << "\")";
     }
   }
+
+  for (FieldTrialParameterInterface* field : fields) {
+    field->ParseDone();
+  }
+}
+
+FieldTrialListBase::FieldTrialListBase(std::string key)
+    : FieldTrialParameterInterface(key),
+      failed_(false),
+      parse_got_called_(false) {}
+
+bool FieldTrialListBase::Failed() const {
+  return failed_;
+}
+bool FieldTrialListBase::Used() const {
+  return parse_got_called_;
+}
+
+int FieldTrialListWrapper::Length() {
+  return GetList()->Size();
+}
+bool FieldTrialListWrapper::Failed() {
+  return GetList()->Failed();
+}
+bool FieldTrialListWrapper::Used() {
+  return GetList()->Used();
+}
+
+bool FieldTrialStructListBase::Parse(absl::optional<std::string> str_value) {
+  RTC_NOTREACHED();
+  return true;
+}
+
+int FieldTrialStructListBase::ValidateAndGetLength() {
+  int length = -1;
+  for (auto& li : sub_lists_) {
+    if (li->Failed())
+      return -1;
+    else if (!li->Used())
+      continue;
+    else if (length == -1)
+      length = li->Length();
+    else if (length != li->Length())
+      return -1;
+  }
+
+  return length;
 }
 
 template <>

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2601e57a_2d6aae0f",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-04T18:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "234938c1_a1460ac1",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2423c16c_fe09ba0c",
         "filename": "pc/media_session.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4e53f57_6b8a12fb",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-04T18:53:26Z",
+      "side": 1,
+      "message": "Yes, it does.\nThe capabilities reported are just \"video/rtx\" with no specific codec. If it\u0027s present, then we should add a PT for each real codec entry.",
+      "parentUuid": "2423c16c_fe09ba0c",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "8fe58477_615c3489",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-04T18:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48f9e245_1aa8185b",
+      "range": {
+        "startLine": 992,
+        "startChar": 38,
+        "endLine": 992,
+        "endChar": 41
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12228fba_9b465e83",
         "filename": "pc/media_session.cc",
         "patchSetId": 1
@@ -79,6 +139,30 @@
       "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65cd72f6_927a27d6",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2063,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-04T18:53:26Z",
+      "side": 1,
+      "message": "It should actually be supported_audio_codecs.",
+      "parentUuid": "12228fba_9b465e83",
+      "range": {
+        "startLine": 2063,
+        "startChar": 53,
+        "endLine": 2063,
+        "endChar": 65
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "a29449c1_23955460",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-04T18:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e50f7be1_c796f94e",
+      "range": {
+        "startLine": 163,
+        "startChar": 6,
+        "endLine": 163,
+        "endChar": 17
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "165c59f6_3265cd5d",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 1
@@ -125,6 +233,30 @@
       "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4c10c53_b764ae3c",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-04T18:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "165c59f6_3265cd5d",
+      "range": {
+        "startLine": 172,
+        "startChar": 2,
+        "endLine": 172,
+        "endChar": 14
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "9f9fd714_3523b56d",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-04T18:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7518132_fb128e82",
+      "range": {
+        "startLine": 185,
+        "startChar": 9,
+        "endLine": 185,
+        "endChar": 19
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49cdddb0_d03e0441",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 1
@@ -165,6 +321,24 @@
       "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f61d65d_00cf4916",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4401,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-04T18:53:26Z",
+      "side": 1,
+      "message": "I moved the error cases to peer_connection_media_unittests as suggested, but I\u0027m not sure that writing the other tests for media_session_unittest would actually improve the coverage or be simpler and kept them there.\nAn integration test shouldn\u0027t necessarily have to check for media flowing, but for all the APIs working together too, and making sure we have \"real\" tests and not just testing the mocks.\nIs this acceptable? Note that there will be about the same tests in WPT for Chrome when the feature lands there.",
+      "parentUuid": "49cdddb0_d03e0441",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -185,6 +359,24 @@
     },
     {
       "key": {
+        "uuid": "91f526c1_0802dd62",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4421,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-04T18:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8139377a_6ba73ac7",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd73cc38_97d9b2f7",
         "filename": "pc/rtp_transceiver.cc",
         "patchSetId": 1
@@ -199,6 +391,24 @@
       "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6275eee8_a4ba0b78",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-04T18:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd73cc38_97d9b2f7",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -237,6 +447,24 @@
     },
     {
       "key": {
+        "uuid": "781775b3_09041087",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-04T18:53:26Z",
+      "side": 1,
+      "message": "I just store the preferences after removing duplicates and validating them (there should be at least 1 send and 1 recv codec) and proper directional filtering happening on SDP generation as we actually decided in Lyon.",
+      "parentUuid": "eea50f67_78d3755e",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c85bcb12_17486ea8",
         "filename": "pc/rtp_transceiver.cc",
         "patchSetId": 1
@@ -260,6 +488,30 @@
     },
     {
       "key": {
+        "uuid": "ddb3820f_f6e21cec",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-04T18:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c85bcb12_17486ea8",
+      "range": {
+        "startLine": 334,
+        "startChar": 13,
+        "endLine": 334,
+        "endChar": 21
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "341a9341_cc6dd6b1",
         "filename": "pc/rtp_transceiver.cc",
         "patchSetId": 1
@@ -280,6 +532,30 @@
       "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adab3153_1055385d",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-04T18:53:26Z",
+      "side": 1,
+      "message": "This just means there should be at least 1 real send and 1 real recv codec. This should be handled properly now.",
+      "parentUuid": "341a9341_cc6dd6b1",
+      "range": {
+        "startLine": 344,
+        "startChar": 2,
+        "endLine": 344,
+        "endChar": 20
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -34,6 +34,24 @@
       "revId": "ea75377a656687277597be2aca145abd6cefd64e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3d7540e_1e6de2e4",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-04T14:14:30Z",
+      "side": 1,
+      "message": "Fair enough!",
+      "parentUuid": "5a0b8943_74b05864",
+      "revId": "ea75377a656687277597be2aca145abd6cefd64e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

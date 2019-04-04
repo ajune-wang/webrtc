@@ -188,6 +188,8 @@ VideoReceiveStream::VideoReceiveStream(
       num_cpu_cores_(num_cpu_cores),
       process_thread_(process_thread),
       clock_(clock),
+      use_task_queue_(
+          !field_trial::IsDisabled("WebRTC-Video-DecodeOnTaskQueue")),
       decode_thread_(&DecodeThreadFunction,
                      this,
                      "DecodingThread",
@@ -216,7 +218,10 @@ VideoReceiveStream::VideoReceiveStream(
                                     .value_or(kMaxWaitForKeyFrameMs)),
       max_wait_for_frame_ms_(KeyframeIntervalSettings::ParseFromFieldTrials()
                                  .MaxWaitForFrameMs()
-                                 .value_or(kMaxWaitForFrameMs)) {
+                                 .value_or(kMaxWaitForFrameMs)),
+      decode_queue_(task_queue_factory_->CreateTaskQueue(
+          "DecodingQueue",
+          TaskQueueFactory::Priority::HIGH)) {
   RTC_LOG(LS_INFO) << "VideoReceiveStream: " << config_.ToString();
 
   RTC_DCHECK(config_.renderer);
@@ -312,7 +317,7 @@ void VideoReceiveStream::SetSync(Syncable* audio_syncable) {
 void VideoReceiveStream::Start() {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&worker_sequence_checker_);
 
-  if (decode_thread_.IsRunning()) {
+  if (decoder_running_) {
     return;
   }
 
@@ -391,7 +396,16 @@ void VideoReceiveStream::Start() {
   // Start the decode thread
   video_receiver_.DecoderThreadStarting();
   stats_proxy_.DecoderThreadStarting();
-  decode_thread_.Start();
+  if (!use_task_queue_) {
+    decode_thread_.Start();
+  } else {
+    decode_queue_.PostTask([this] {
+      RTC_DCHECK_RUN_ON(&decode_queue_);
+      decoder_stopped_ = false;
+      StartNextDecode();
+    });
+  }
+  decoder_running_ = true;
   rtp_video_stream_receiver_.StartReceive();
 }
 
@@ -402,16 +416,29 @@ void VideoReceiveStream::Stop() {
   stats_proxy_.OnUniqueFramesCounted(
       rtp_video_stream_receiver_.GetUniqueFramesSeen());
 
-  frame_buffer_->Stop();
+  if (!use_task_queue_) {
+    frame_buffer_->Stop();
+  } else {
+    decode_queue_.PostTask([this] { frame_buffer_->Stop(); });
+  }
+
   call_stats_->DeregisterStatsObserver(this);
 
-  if (decode_thread_.IsRunning()) {
+  if (decoder_running_) {
     // TriggerDecoderShutdown will release any waiting decoder thread and make
     // it stop immediately, instead of waiting for a timeout. Needs to be called
     // before joining the decoder thread.
     video_receiver_.TriggerDecoderShutdown();
 
-    decode_thread_.Stop();
+    if (!use_task_queue_) {
+      decode_thread_.Stop();
+    } else {
+      decode_queue_.PostTask([this] {
+        RTC_DCHECK_RUN_ON(&decode_queue_);
+        decoder_stopped_ = true;
+      });
+    }
+    decoder_running_ = false;
     video_receiver_.DecoderThreadStopped();
     stats_proxy_.DecoderThreadStopped();
     // Deregister external decoders so they are no longer running during
@@ -570,6 +597,48 @@ int64_t VideoReceiveStream::GetWaitMs() const {
   return keyframe_required_ ? max_wait_for_keyframe_ms_
                             : max_wait_for_frame_ms_;
 }
+
+void VideoReceiveStream::StartNextDecode() {
+  RTC_DCHECK(use_task_queue_);
+  TRACE_EVENT0("webrtc", "VideoReceiveStream::StartNextDecode");
+
+  struct DecodeTask {
+    void operator()() {
+      RTC_DCHECK_RUN_ON(&stream->decode_queue_);
+      if (stream->decoder_stopped_)
+        return;
+      if (frame) {
+        stream->HandleEncodedFrame(std::move(frame));
+      } else {
+        stream->HandleFrameBufferTimeout();
+      }
+    }
+    VideoReceiveStream* stream;
+    std::unique_ptr<EncodedFrame> frame;
+  };
+
+  // TODO(philipel): Call NextFrame with |keyframe_required| argument set when
+  //                 downstream project has been fixed.
+  frame_buffer_->NextFrame(
+      GetWaitMs(), /*keyframe_required*/ false, &decode_queue_,
+      [this](std::unique_ptr<EncodedFrame> frame, ReturnReason res) {
+        RTC_DCHECK_EQ(frame == nullptr, res == ReturnReason::kTimeout);
+        RTC_DCHECK_EQ(frame != nullptr, res == ReturnReason::kFrameFound);
+        decode_queue_.PostTask(DecodeTask{this, std::move(frame)});
+        // Start the next decode after a delay or when the previous decode is
+        // finished (as it will be blocked by the queue).
+        constexpr int kMinDecodeIntervalMs = 1;
+        decode_queue_.PostDelayedTask(
+            [this] {
+              RTC_DCHECK_RUN_ON(&decode_queue_);
+              if (decoder_stopped_)
+                return;
+              StartNextDecode();
+            },
+            kMinDecodeIntervalMs);
+      });
+}
+
 void VideoReceiveStream::DecodeThreadFunction(void* ptr) {
   ScopedRegisterThreadForDebugging thread_dbg(RTC_FROM_HERE);
   while (static_cast<VideoReceiveStream*>(ptr)->Decode()) {
@@ -577,6 +646,7 @@ void VideoReceiveStream::DecodeThreadFunction(void* ptr) {
 }
 
 bool VideoReceiveStream::Decode() {
+  RTC_DCHECK(!use_task_queue_);
   TRACE_EVENT0("webrtc", "VideoReceiveStream::Decode");
 
   std::unique_ptr<video_coding::EncodedFrame> frame;

@@ -194,6 +194,8 @@ void VideoSendStream::StopPermanentlyAndGetRtpStates(
     VideoSendStream::RtpStateMap* rtp_state_map,
     VideoSendStream::RtpPayloadStateMap* payload_state_map) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
+  // TODO(philipel): The frame id should also be saved.
+
   video_stream_encoder_->Stop();
   send_stream_->DeRegisterProcessThread();
   worker_queue_->PostTask([this, rtp_state_map, payload_state_map]() {

@@ -12,6 +12,8 @@
 #define API_VIDEO_ENCODED_IMAGE_H_
 
 #include <stdint.h>
+#include <utility>
+#include <vector>
 
 #include "absl/types/optional.h"
 #include "api/video/color_space.h"
@@ -105,6 +107,13 @@ class RTC_EXPORT EncodedImage {
   // already own the underlying data, make an owned copy.
   void Retain();
 
+  void SetFrameId(int64_t frame_id) { frame_id_ = frame_id; }
+  int64_t FrameId() const { return frame_id_; }
+
+  void SetDependencies(std::vector<int64_t> dependencies) {
+    dependencies_ = std::move(dependencies);
+  }
+
   uint32_t _encodedWidth = 0;
   uint32_t _encodedHeight = 0;
   // NTP time of the capture time in local timebase in milliseconds.
@@ -145,6 +154,9 @@ class RTC_EXPORT EncodedImage {
   uint32_t timestamp_rtp_ = 0;
   absl::optional<int> spatial_index_;
   absl::optional<webrtc::ColorSpace> color_space_;
+
+  int64_t frame_id_;
+  absl::optional<std::vector<int64_t>> dependencies_;
 };
 
 }  // namespace webrtc

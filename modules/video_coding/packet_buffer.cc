@@ -100,7 +100,8 @@ bool PacketBuffer::InsertPacket(VCMPacket* packet) {
       }
 
       // The packet buffer is full, try to expand the buffer.
-      while (ExpandBufferSize() && sequence_buffer_[seq_num % size_].used) {
+      while (ExpandBufferSize(index) &&
+             sequence_buffer_[seq_num % size_].used) {
       }
       index = seq_num % size_;
 
@@ -177,6 +178,31 @@ void PacketBuffer::ClearTo(uint16_t seq_num) {
   }
 }
 
+void PacketBuffer::ClearHalf(size_t first_index) {
+  // Clear half the buffer. Start at index and clear all packets with the same
+  // timestamp.Lock at index and see if there are other packets with the same
+  // timestamp
+  rtc::CritScope lock(&crit_);
+  uint64_t timestamp = data_buffer_[first_index].timestamp;
+  do {
+    first_index = first_index > 0 ? first_index - 1 : size_ - 1;
+  } while (data_buffer_[first_index].timestamp == timestamp);
+
+  uint16_t max_seq_num = sequence_buffer_[first_index].seq_num;
+  for (size_t i = 0; i < size_ / 2; ++i) {
+    size_t index = (first_index + i) % size_;
+    if (AheadOf<uint16_t>(sequence_buffer_[index].seq_num, max_seq_num)) {
+      max_seq_num = sequence_buffer_[index].seq_num;
+    }
+    delete[] data_buffer_[index].dataPtr;
+    data_buffer_[index].dataPtr = nullptr;
+    sequence_buffer_[index].used = false;
+  }
+
+  missing_packets_.erase(missing_packets_.begin(),
+                         missing_packets_.upper_bound(max_seq_num));
+}
+
 void PacketBuffer::Clear() {
   rtc::CritScope lock(&crit_);
   for (size_t i = 0; i < size_; ++i) {
@@ -220,11 +246,11 @@ int PacketBuffer::GetUniqueFramesSeen() const {
   return unique_frames_seen_;
 }
 
-bool PacketBuffer::ExpandBufferSize() {
+bool PacketBuffer::ExpandBufferSize(size_t index) {
   if (size_ == max_size_) {
     RTC_LOG(LS_WARNING) << "PacketBuffer is already at max size (" << max_size_
                         << "), failed to increase size. Clearing PacketBuffer.";
-    Clear();
+    ClearHalf(index);
     return false;
   }
 

@@ -54,6 +54,7 @@ class PacketBuffer {
   // |packet.dataPtr| when this function is called. Made virtual for testing.
   virtual bool InsertPacket(VCMPacket* packet);
   void ClearTo(uint16_t seq_num);
+  void ClearHalf(size_t first_index);
   void Clear();
   void PaddingReceived(uint16_t seq_num);
 
@@ -102,7 +103,7 @@ class PacketBuffer {
   Clock* const clock_;
 
   // Tries to expand the buffer.
-  bool ExpandBufferSize() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
+  bool ExpandBufferSize(size_t index) RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   // Test if all previous packets has arrived for the given sequence number.
   bool PotentialNewFrame(uint16_t seq_num) const

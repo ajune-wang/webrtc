@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "83b0c0b0_2c2fd846",
+        "filename": "api/audio_codecs/opus/audio_decoder_multi_channel_opus.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-04T12:46:57Z",
+      "side": 1,
+      "message": "Right! I made this list, which I think is correct, but then I copied from it in a wrong way:\n\nChannels: 8, streams: 5, coupled: 3\nChannel mapping: 0-\u003e0, 1-\u003e6, 2-\u003e1, 3-\u003e2, 4-\u003e3, 5-\u003e4, 6-\u003e5, 7-\u003e7, 8-\u003e0, 9-\u003e0\n\nWith the error, we have 4\u003di\u003dmapping[j]\u003dmapping[5]. Channel j\u003d5 will be the RIGHT (instead of LEFT) channel of stream i/2\u003d5/2\u003d2.\n\nI think that means we will duplicate REAR RIGHT and lose REAR LEFT.",
+      "parentUuid": "6ca869c2_64dad3ce",
+      "range": {
+        "startLine": 57,
+        "startChar": 64,
+        "endLine": 57,
+        "endChar": 65
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18e05d3f_7bd946af",
         "filename": "api/audio_codecs/opus/audio_decoder_multi_channel_opus_config.h",
         "patchSetId": 16
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-03T10:16:51Z",
       "side": 1,
       "message": "Can we either require the channel mapping to contain exactly num_channels entries, or do away with num_channels altogether and just use channel_mapping.size() for that parameter? Or am I misunderstanding channel mapping, and it\u0027s the other way around?",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 41
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d617f8a2_6a072528",
+        "filename": "api/audio_codecs/opus/audio_decoder_multi_channel_opus_config.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-04T12:46:57Z",
+      "side": 1,
+      "message": "Here is the validation function in Opus: https://github.com/xiph/opus/blob/master/src/opus_multistream.c#L41\n\n\u0027nb_channels\u0027 is our \u0027num_channels\u0027. Based on that, YES, we should be able to ditch \"num_channels\", but I can\u0027t cite an RFC section for that. I\u0027ll change the check in this function. It\u0027s going to check for \"\u003d\u003d num_channels\".",
+      "parentUuid": "18e05d3f_7bd946af",
       "range": {
         "startLine": 29,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7a39a191_5622cf06",
+        "filename": "modules/audio_coding/codecs/opus/audio_coder_opus_common.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-04T12:46:57Z",
+      "side": 1,
+      "message": "It\u0027s here, marked as \"disallowed\": https://webrtc.googlesource.com/src.git/+/HEAD/abseil-in-webrtc.md. Changing to own parsing.\n\nkwiberg@ confirmed that it\u0027s forbidden.",
+      "parentUuid": "9546363b_533af155",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 20
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4c0fe6ab_0c64d308",
         "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_impl.cc",
         "patchSetId": 16
@@ -91,6 +163,30 @@
       "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2af88784_1f2417a8",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-04T12:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c0fe6ab_0c64d308",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 35
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "16ead67d_1493063c",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-04T12:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd26d690_d09d125c",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b449aa69_cbb0ec93",
         "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_impl.cc",
         "patchSetId": 16
@@ -134,6 +254,24 @@
     },
     {
       "key": {
+        "uuid": "8423408d_f9ee55b0",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-04T12:46:57Z",
+      "side": 1,
+      "message": "True, passing in stuff \u003e 255 is wrong.",
+      "parentUuid": "b449aa69_cbb0ec93",
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ccd64a93_7cbfb27c",
         "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_unittest.cc",
         "patchSetId": 16
@@ -145,6 +283,30 @@
       "writtenOn": "2019-04-03T10:16:51Z",
       "side": 1,
       "message": "If channel mapping somehow wasn\u0027t working, I\u0027d expect one of the failure modes be that it creates the mapping internally by just assigning channels in order. So I think using some other permutation would make for stronger test cases.",
+      "range": {
+        "startLine": 24,
+        "startChar": 27,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5980b3bd_ad41db99",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-04T12:46:57Z",
+      "side": 1,
+      "message": "I found a problem:\n\nI wrote a test for invalid channel mappings. \n(1) If they are not obviously invalid, a ::Config is created, and we try to set up a decoder.\n(2) In the DecoderImpl c-tor, he Opus C methods fail, and we get an error code from WebRtcOpus_MultistreamDecoderCreate. \n(3) The c-tor is supposed to be error-free. It has a DCHECK for the Opus error code, which hits.\n(4) In Release-mode, the DCHECK doesn\u0027t hit, and we instead get a decoder wrapper without a real decoder. Currently it segfaults, but I think it might be fixed so that it returns error codes on Decode calls instead.\n\nI don\u0027t want a full validation in ::Config::IsOk(). Instead I\u0027ve done this:\n\nPass a fully constructed OpusDecInst into the DecoderImpl c-tor, and have a static Create method that does the error code checking and returns possibly empty unique_ptrs or absl::optionals.\n\nThis introduces a new dependency between the c-tor args: the OpusDecInst should be constructed with the Config.",
+      "parentUuid": "ccd64a93_7cbfb27c",
       "range": {
         "startLine": 24,
         "startChar": 27,
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "71d249c0_670029e9",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-04T12:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e3761f3_dd8bfd90",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 1
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1f647d8_df3bd835",
         "filename": "test/fuzzers/audio_decoder_multistream_opus_fuzzer.cc",
         "patchSetId": 16
@@ -200,6 +386,30 @@
       "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cd9aec4_078c0084",
+        "filename": "test/fuzzers/audio_decoder_multistream_opus_fuzzer.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-04T12:46:57Z",
+      "side": 1,
+      "message": "Yes, done",
+      "parentUuid": "c1f647d8_df3bd835",
+      "range": {
+        "startLine": 32,
+        "startChar": 46,
+        "endLine": 32,
+        "endChar": 47
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -226,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "910dba7c_95a61dde",
+        "filename": "test/fuzzers/audio_decoder_multistream_opus_fuzzer.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-04T12:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c95bd7f4_7af1479e",
+      "range": {
+        "startLine": 35,
+        "startChar": 54,
+        "endLine": 35,
+        "endChar": 73
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e18bf50_9e4ca388",
         "filename": "test/fuzzers/audio_decoder_multistream_opus_fuzzer.cc",
         "patchSetId": 16
@@ -237,6 +471,30 @@
       "writtenOn": "2019-04-03T10:16:51Z",
       "side": 1,
       "message": "Shouldn\u0027t this depend on the number of channels in the config?",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 7
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fea61f1_472f2b2a",
+        "filename": "test/fuzzers/audio_decoder_multistream_opus_fuzzer.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-04T12:46:57Z",
+      "side": 1,
+      "message": "Or it can be made large enough. It\u0027s 4 times larger than the array used in the mono/stereo decoder fuzzer (audio_decoder_opus_fuzzer.cc). I figured if that\u0027s enough for 2 channels, this one should be fine for 8.",
+      "parentUuid": "9e18bf50_9e4ca388",
       "range": {
         "startLine": 39,
         "startChar": 6,

@@ -69,11 +69,15 @@ void NetEqStatsPlotter::SimulationEnded(int64_t simulation_time_ms) {
   printf("  max_waiting_time_ms: %f ms\n", stats.max_waiting_time_ms);
   printf("  current_buffer_size_ms: %f ms\n", stats.current_buffer_size_ms);
   printf("  preferred_buffer_size_ms: %f ms\n", stats.preferred_buffer_size_ms);
-  if (show_concealment_events_) {
-    printf(" concealment_events_ms:\n");
-    for (auto concealment_event : stats_getter_->concealment_events())
-      printf("%s\n", concealment_event.ToString().c_str());
-    printf(" end of concealment_events_ms\n");
+
+  if (stats_getter_->lifetime_stats()->size() > 0) {
+    auto lifetime_stats = stats_getter_->lifetime_stats()->back().second;
+    printf("  concealed_samples: %" PRIu64 "\n",
+           lifetime_stats.concealed_samples);
+    printf("  concealment_events: %" PRIu64 "\n",
+           lifetime_stats.concealment_events);
+    printf("  delayed_packet_outage_samples: %" PRIu64 "\n",
+           lifetime_stats.delayed_packet_outage_samples);
   }
 }
 

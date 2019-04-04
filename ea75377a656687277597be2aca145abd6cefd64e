@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aaf23f29_c39798b7",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-04T13:43:05Z",
+      "side": 1,
+      "message": "That should be const. Possibly reference. From the style guide \"Input parameters are usually values or const references\".",
+      "revId": "ea75377a656687277597be2aca145abd6cefd64e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

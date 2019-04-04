@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0be18b04_85d7ab25",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-04-04T08:25:32Z",
+      "side": 1,
+      "message": "do you think it can be useful to place this into \"CreateAudioJitterBufferGraph\"?",
+      "range": {
+        "startLine": 515,
+        "startChar": 23,
+        "endLine": 515,
+        "endChar": 47
+      },
+      "revId": "4d69411720fefce0121dcd2d7dd39e0c7f40bd80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

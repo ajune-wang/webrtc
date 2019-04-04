@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "13e7cdfc_bbfc4b23",
+        "filename": "api/audio_codecs/opus/audio_decoder_multi_channel_opus_config.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-04T14:00:54Z",
+      "side": 1,
+      "message": "This struct does not have to match an RFC exactly. We can encode that value as the length of the channel_mapping vector. That said, checking for equality of the two values is fine as well.",
+      "parentUuid": "d617f8a2_6a072528",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 41
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9546363b_533af155",
         "filename": "modules/audio_coding/codecs/opus/audio_coder_opus_common.cc",
         "patchSetId": 16
@@ -319,6 +343,30 @@
     },
     {
       "key": {
+        "uuid": "12529605_31b2e30d",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-04T14:00:54Z",
+      "side": 1,
+      "message": "Is it not reasonable to do a full validation in IsOk? Is it possible that the values in the channel mapping may mean something completely different and that we can\u0027t rely on them always being \u003c number of channels?\n\nMy original point was perhaps a bit mistaken for this test - it makes more sense down in ValidSdpToConfigProducesCorrectConfig, to ensure that that code doesn\u0027t just generate the channel mapping internally by assigning channels in order.",
+      "parentUuid": "5980b3bd_ad41db99",
+      "range": {
+        "startLine": 24,
+        "startChar": 27,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e3761f3_dd8bfd90",
         "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_unittest.cc",
         "patchSetId": 16
@@ -495,6 +543,30 @@
       "side": 1,
       "message": "Or it can be made large enough. It\u0027s 4 times larger than the array used in the mono/stereo decoder fuzzer (audio_decoder_opus_fuzzer.cc). I figured if that\u0027s enough for 2 channels, this one should be fine for 8.",
       "parentUuid": "9e18bf50_9e4ca388",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 7
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "299f9c72_369b4814",
+        "filename": "test/fuzzers/audio_decoder_multistream_opus_fuzzer.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-04T14:00:54Z",
+      "side": 1,
+      "message": "Ooo..kay. Then at least write a comment explaining the choice. :)",
+      "parentUuid": "1fea61f1_472f2b2a",
       "range": {
         "startLine": 39,
         "startChar": 6,

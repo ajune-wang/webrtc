@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "093c937e_cd99ae79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-04T14:00:54Z",
+      "side": 1,
+      "message": "Perhaps rephrase this before landing? :)",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "0f91c7b9ce6b957b5ea85b41eb8f01ad06b7cfc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

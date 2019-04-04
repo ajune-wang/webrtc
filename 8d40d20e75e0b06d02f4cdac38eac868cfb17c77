@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7bddf648_0da49759",
+        "filename": "modules/audio_coding/codecs/opus/audio_coder_opus_common.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-04T14:00:54Z",
+      "side": 1,
+      "message": "You _could_ change this to map to use unsigned char instead. StringToNumber will validate that the integers are within the allowed range (0 - 255, at least)",
+      "range": {
+        "startLine": 26,
+        "startChar": 27,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "revId": "8d40d20e75e0b06d02f4cdac38eac868cfb17c77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78d6d839_1df22f17",
+        "filename": "modules/audio_coding/codecs/opus/audio_coder_opus_common.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-04T14:00:54Z",
+      "side": 1,
+      "message": "Damn my stringency! This should be easy enough to just parse from pos if StringToNumber were a bit more lenient. Oh, well! I think it\u0027s probably better than reinventing it here with slightly different semantics.",
+      "revId": "8d40d20e75e0b06d02f4cdac38eac868cfb17c77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

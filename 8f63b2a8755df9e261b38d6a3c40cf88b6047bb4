@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "288bf75c_19d3c7ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-04T10:18:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e105c93e_c8512424",
+      "revId": "8f63b2a8755df9e261b38d6a3c40cf88b6047bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79c07a95_2fcb51e6",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "3823815d_7ef979bc",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-04T10:18:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79c07a95_2fcb51e6",
+      "revId": "8f63b2a8755df9e261b38d6a3c40cf88b6047bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d663d639_cfa0c796",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
         "patchSetId": 7
@@ -47,6 +83,30 @@
       "writtenOn": "2019-04-04T09:11:41Z",
       "side": 1,
       "message": "to make constant even closer to where it is used:\nrandom_(/*seed\u003d*/1983) {}",
+      "range": {
+        "startLine": 47,
+        "startChar": 39,
+        "endLine": 47,
+        "endChar": 44
+      },
+      "revId": "8f63b2a8755df9e261b38d6a3c40cf88b6047bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6674df18_44d7f9da",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-04T10:18:20Z",
+      "side": 1,
+      "message": "I think a patently arbitrary number is good enough as an argument for the ctor of Random. Let\u0027s just do that without any documentation.",
+      "parentUuid": "d663d639_cfa0c796",
       "range": {
         "startLine": 47,
         "startChar": 39,
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "611f5a58_4c982b36",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-04T10:18:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46546333_caedf753",
+      "range": {
+        "startLine": 225,
+        "startChar": 20,
+        "endLine": 227,
+        "endChar": 44
+      },
+      "revId": "8f63b2a8755df9e261b38d6a3c40cf88b6047bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cad0d39b_c2f2bb76",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
         "patchSetId": 7
@@ -93,6 +177,30 @@
       "writtenOn": "2019-04-04T09:11:41Z",
       "side": 1,
       "message": "may be instead of constants use comments:\nGetObsoleteSequenceNumberReturnsNullOptMultipleEntriesObsoleted(\n      /*with_wrap_around\u003d*/false, /*last_element_kept\u003d*/false);",
+      "range": {
+        "startLine": 284,
+        "startChar": 6,
+        "endLine": 284,
+        "endChar": 41
+      },
+      "revId": "8f63b2a8755df9e261b38d6a3c40cf88b6047bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "927fcaca_2d7f2a97",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-04T10:18:20Z",
+      "side": 1,
+      "message": "I prefer the constants this time.",
+      "parentUuid": "cad0d39b_c2f2bb76",
       "range": {
         "startLine": 284,
         "startChar": 6,
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "e46551a8_a64e1169",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-04T10:18:20Z",
+      "side": 1,
+      "message": "This seems like a relic from before you had brought to my attention that it was possible to EQ(x, optional\u003cx\u003e). It seems like I removed the ASSERT on it having a value before (cf. PS1), but did not remove the dereferencing. Thanks for catching.",
+      "parentUuid": "9844f9e8_8d060243",
+      "range": {
+        "startLine": 331,
+        "startChar": 16,
+        "endLine": 331,
+        "endChar": 17
+      },
+      "revId": "8f63b2a8755df9e261b38d6a3c40cf88b6047bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38399862_489b4511",
         "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
         "patchSetId": 7
@@ -148,6 +280,30 @@
       "revId": "8f63b2a8755df9e261b38d6a3c40cf88b6047bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6062b61_7d3dbcb2",
+        "filename": "modules/rtp_rtcp/source/rtp_sequence_number_map_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-04T10:18:20Z",
+      "side": 1,
+      "message": "Same.",
+      "parentUuid": "38399862_489b4511",
+      "range": {
+        "startLine": 373,
+        "startChar": 12,
+        "endLine": 373,
+        "endChar": 13
+      },
+      "revId": "8f63b2a8755df9e261b38d6a3c40cf88b6047bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

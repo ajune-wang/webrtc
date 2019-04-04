@@ -386,10 +386,9 @@ class ForcedFallbackTest : public VideoEncoderSoftwareFallbackWrapperTest {
   }
 
   void SetRateAllocation(uint32_t bitrate_kbps) {
-    EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK, fallback_wrapper_->SetRateAllocation(
-                                         rate_allocator_->GetAllocation(
-                                             bitrate_kbps * 1000, kFramerate),
-                                         kFramerate));
+    fallback_wrapper_->SetRates(VideoEncoder::RateControlParameters(
+        rate_allocator_->GetAllocation(bitrate_kbps * 1000, kFramerate),
+        kFramerate));
   }
 
   void EncodeFrameAndVerifyLastName(const char* expected_name) {

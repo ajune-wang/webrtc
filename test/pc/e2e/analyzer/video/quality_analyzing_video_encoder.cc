@@ -119,15 +119,9 @@ int32_t QualityAnalyzingVideoEncoder::Encode(
   return result;
 }
 
-int32_t QualityAnalyzingVideoEncoder::SetRates(uint32_t bitrate,
-                                               uint32_t framerate) {
-  return delegate_->SetRates(bitrate, framerate);
-}
-
-int32_t QualityAnalyzingVideoEncoder::SetRateAllocation(
-    const VideoBitrateAllocation& allocation,
-    uint32_t framerate) {
-  return delegate_->SetRateAllocation(allocation, framerate);
+void QualityAnalyzingVideoEncoder::SetRates(
+    const RateControlParameters& parameters) {
+  delegate_->SetRates(parameters);
 }
 
 VideoEncoder::EncoderInfo QualityAnalyzingVideoEncoder::GetEncoderInfo() const {

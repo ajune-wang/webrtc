@@ -1503,7 +1503,6 @@ void VideoStreamEncoder::OnBitrateUpdated(DataRate target_bitrate,
                                           DataRate link_allocation,
                                           uint8_t fraction_lost,
                                           int64_t round_trip_time_ms) {
-  RTC_DCHECK(link_allocation >= target_bitrate);
   if (!encoder_queue_.IsCurrent()) {
     encoder_queue_.PostTask([this, target_bitrate, link_allocation,
                              fraction_lost, round_trip_time_ms] {
@@ -1514,6 +1513,7 @@ void VideoStreamEncoder::OnBitrateUpdated(DataRate target_bitrate,
   }
   RTC_DCHECK_RUN_ON(&encoder_queue_);
   RTC_DCHECK(sink_) << "sink_ must be set before the encoder is active.";
+  RTC_DCHECK(link_allocation >= target_bitrate);
 
   RTC_LOG(LS_VERBOSE) << "OnBitrateUpdated, bitrate " << target_bitrate.bps()
                       << " link allocation bitrate = " << link_allocation.bps()

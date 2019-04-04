@@ -118,12 +118,10 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
     bool operator==(const EncoderRateSettings& rhs) const;
     bool operator!=(const EncoderRateSettings& rhs) const;
 
-    // This is the scalar target bitrate before the VideoBitrateAllocator, i.e.
-    // the |target_bitrate| argument of the OnBitrateUpdated() method. This is
-    // needed because the bitrate allocator may truncate the total bitrate and a
-    // later call to the same allocator instance, e.g.
-    // |using last_encoder_rate_setings_->bitrate.get_sum_bps()|, may trick it
-    // into thinking the available bitrate has decreased since the last call.
+    // This is the scalar target bitrate before the VideoBitrateAllocator. This
+    // is needed the bitrate allocator may truncate the bitrate and a later
+    // call to the same allocator may trick it into thinking the bitrate has
+    // decreased since the last call.
     DataRate encoder_target;
   };
 

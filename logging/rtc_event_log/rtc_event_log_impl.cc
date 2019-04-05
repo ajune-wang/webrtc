@@ -371,10 +371,6 @@ void RtcEventLogImpl::WriteToOutput(const std::string& output_string) {
 #endif  // ENABLE_RTC_EVENT_LOG
 
 // RtcEventLog member functions.
-std::unique_ptr<RtcEventLog> RtcEventLog::Create(EncodingType encoding_type) {
-  return RtcEventLog::Create(encoding_type, &GlobalTaskQueueFactory());
-}
-
 std::unique_ptr<RtcEventLog> RtcEventLog::Create(
     RtcEventLog::EncodingType encoding_type,
     TaskQueueFactory* task_queue_factory) {

@@ -12,13 +12,14 @@
 
 #include <utility>
 
+#include "api/task_queue/global_task_queue_factory.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 
 namespace webrtc {
 
 std::unique_ptr<RtcEventLog> RtcEventLogFactory::CreateRtcEventLog(
     RtcEventLog::EncodingType encoding_type) {
-  return RtcEventLog::Create(encoding_type);
+  return RtcEventLog::Create(encoding_type, &GlobalTaskQueueFactory());
 }
 
 std::unique_ptr<RtcEventLogFactoryInterface> CreateRtcEventLogFactory() {

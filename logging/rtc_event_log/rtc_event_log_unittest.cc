@@ -18,6 +18,8 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "api/task_queue/default_task_queue_factory.h"
+#include "api/task_queue/task_queue_factory.h"
 #include "logging/rtc_event_log/events/rtc_event_audio_network_adaptation.h"
 #include "logging/rtc_event_log/events/rtc_event_audio_playout.h"
 #include "logging/rtc_event_log/events/rtc_event_audio_receive_stream_config.h"
@@ -305,8 +307,10 @@ void RtcEventLogSession::WriteLog(EventCounts count,
   // TODO(terelius): Allow test to run with either a real or a fake clock_.
   // Maybe always use the ScopedFakeClock, but conditionally SleepMs()?
 
+  auto task_queue_factory = CreateDefaultTaskQueueFactory();
   // The log file will be flushed to disk when the event_log goes out of scope.
-  std::unique_ptr<RtcEventLog> event_log(RtcEventLog::Create(encoding_type_));
+  std::unique_ptr<RtcEventLog> event_log(
+      RtcEventLog::Create(encoding_type_, task_queue_factory.get()));
 
   // We can't send or receive packets without configured streams.
   RTC_CHECK_GE(count.video_recv_streams, 1);
@@ -822,9 +826,11 @@ TEST_P(RtcEventLogCircularBufferTest, KeepsMostRecentEvents) {
       absl::make_unique<rtc::ScopedFakeClock>();
   fake_clock->SetTimeMicros(kStartTime);
 
+  auto task_queue_factory = CreateDefaultTaskQueueFactory();
   // When log_dumper goes out of scope, it causes the log file to be flushed
   // to disk.
-  std::unique_ptr<RtcEventLog> log_dumper(RtcEventLog::Create(encoding_type_));
+  std::unique_ptr<RtcEventLog> log_dumper(
+      RtcEventLog::Create(encoding_type_, task_queue_factory.get()));
 
   for (size_t i = 0; i < kNumEvents; i++) {
     // The purpose of the test is to verify that the log can handle

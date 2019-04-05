@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "a795b19d_57510f5f",
+        "filename": "call/rtp_demuxer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-05T08:49:52Z",
+      "side": 1,
+      "message": "OnRtpPacket returns false when it fails to demux.\nit might be better to make log decision in the class that uses RtpDemuxer.\n(RtpTransport in this case)\n\nand discuss logging concerns there.\n[e.g. if one packet failed to demux, it is likely there will be more with exactly same problem.\nto avoid spam it might be better to throttle this kind of logging]",
+      "revId": "414be4e050d83a64d1d15e013ea6e92c7e5c2631",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16ecb7d4_10837a76",
         "filename": "call/rtp_demuxer.h",
         "patchSetId": 3

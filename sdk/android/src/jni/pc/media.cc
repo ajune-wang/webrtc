@@ -12,6 +12,8 @@
 #include <utility>
 
 #include "api/call/call_factory_interface.h"
+#include "api/task_queue/global_task_queue_factory.h"
+#include "api/video/builtin_video_bitrate_allocator_factory.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "logging/rtc_event_log/rtc_event_log_factory.h"
@@ -38,11 +40,18 @@ cricket::MediaEngineInterface* CreateMediaEngine(
     std::unique_ptr<VideoDecoderFactory> video_decoder_factory,
     rtc::scoped_refptr<AudioMixer> audio_mixer,
     rtc::scoped_refptr<AudioProcessing> audio_processor) {
-  return cricket::WebRtcMediaEngineFactory::Create(
-             adm, audio_encoder_factory, audio_decoder_factory,
-             std::move(video_encoder_factory), std::move(video_decoder_factory),
-             audio_mixer, audio_processor)
-      .release();
+  cricket::MediaEngineDependencies media_deps;
+  media_deps.task_queue_factory = &GlobalTaskQueueFactory();
+  media_deps.adm = std::move(adm);
+  media_deps.audio_encoder_factory = std::move(audio_encoder_factory);
+  media_deps.audio_decoder_factory = std::move(audio_decoder_factory);
+  media_deps.audio_mixer = std::move(audio_mixer);
+  media_deps.audio_processing = std::move(audio_processor);
+  media_deps.video_encoder_factory = std::move(video_encoder_factory);
+  media_deps.video_decoder_factory = std::move(video_decoder_factory);
+  media_deps.video_bitrate_allocator_factory =
+      CreateBuiltinVideoBitrateAllocatorFactory();
+  return cricket::CreateMediaEngine(std::move(media_deps)).release();
 }
 
 }  // namespace jni

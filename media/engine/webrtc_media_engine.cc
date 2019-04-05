@@ -29,6 +29,26 @@
 
 namespace cricket {
 
+std::unique_ptr<MediaEngineInterface> CreateMediaEngine(
+    MediaEngineDependencies dependencies) {
+  auto audio_engine = absl::make_unique<WebRtcVoiceEngine>(
+      dependencies.task_queue_factory, std::move(dependencies.adm),
+      std::move(dependencies.audio_encoder_factory),
+      std::move(dependencies.audio_decoder_factory),
+      std::move(dependencies.audio_mixer),
+      std::move(dependencies.audio_processing));
+#ifdef HAVE_WEBRTC_VIDEO
+  auto video_engine = absl::make_unique<WebRtcVideoEngine>(
+      std::move(dependencies.video_encoder_factory),
+      std::move(dependencies.video_decoder_factory),
+      std::move(dependencies.video_bitrate_allocator_factory));
+#else
+  auto video_engine = absl::make_unique<NullWebRtcVideoEngine>();
+#endif
+  return absl::make_unique<CompositeMediaEngine>(std::move(audio_engine),
+                                                 std::move(video_engine));
+}
+
 std::unique_ptr<MediaEngineInterface> WebRtcMediaEngineFactory::Create(
     rtc::scoped_refptr<webrtc::AudioDeviceModule> adm,
     rtc::scoped_refptr<webrtc::AudioEncoderFactory> audio_encoder_factory,
@@ -54,18 +74,15 @@ std::unique_ptr<MediaEngineInterface> WebRtcMediaEngineFactory::Create(
         video_bitrate_allocator_factory,
     rtc::scoped_refptr<webrtc::AudioMixer> audio_mixer,
     rtc::scoped_refptr<webrtc::AudioProcessing> audio_processing) {
-#ifdef HAVE_WEBRTC_VIDEO
-  auto video_engine = absl::make_unique<WebRtcVideoEngine>(
-      std::move(video_encoder_factory), std::move(video_decoder_factory),
-      std::move(video_bitrate_allocator_factory));
-#else
-  auto video_engine = absl::make_unique<NullWebRtcVideoEngine>();
-#endif
-  return std::unique_ptr<MediaEngineInterface>(new CompositeMediaEngine(
-      absl::make_unique<WebRtcVoiceEngine>(
-          &webrtc::GlobalTaskQueueFactory(), adm, audio_encoder_factory,
-          audio_decoder_factory, audio_mixer, audio_processing),
-      std::move(video_engine)));
+  MediaEngineDependencies dependencies;
+  dependencies.task_queue_factory = &webrtc::GlobalTaskQueueFactory();
+  dependencies.adm = std::move(adm);
+  dependencies.audio_encoder_factory = std::move(audio_encoder_factory);
+  dependencies.video_encoder_factory = std::move(video_encoder_factory);
+  dependencies.video_decoder_factory = std::move(video_decoder_factory);
+  dependencies.video_bitrate_allocator_factory =
+      std::move(video_bitrate_allocator_factory);
+  return CreateMediaEngine(std::move(dependencies));
 }
 
 namespace {

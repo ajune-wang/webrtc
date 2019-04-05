@@ -29,6 +29,7 @@
 #include "api/peer_connection_interface.h"
 #include "api/peer_connection_proxy.h"
 #include "api/rtp_receiver_interface.h"
+#include "api/task_queue/default_task_queue_factory.h"
 #include "api/test/loopback_media_transport.h"
 #include "api/uma_metrics.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
@@ -40,6 +41,7 @@
 #include "logging/rtc_event_log/rtc_event_log_factory_interface.h"
 #include "media/engine/fake_webrtc_video_engine.h"
 #include "media/engine/webrtc_media_engine.h"
+#include "media/engine/webrtc_media_engine_defaults.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "p2p/base/mock_async_resolver.h"
 #include "p2p/base/p2p_constants.h"
@@ -592,15 +594,16 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
     pc_factory_dependencies.network_thread = network_thread;
     pc_factory_dependencies.worker_thread = worker_thread;
     pc_factory_dependencies.signaling_thread = signaling_thread;
+    pc_factory_dependencies.task_queue_factory =
+        webrtc::CreateDefaultTaskQueueFactory();
+    cricket::MediaEngineDependencies media_dependencies;
+    media_dependencies.task_queue_factory =
+        pc_factory_dependencies.task_queue_factory.get();
+    media_dependencies.adm = rtc::scoped_refptr<webrtc::AudioDeviceModule>(
+        fake_audio_capture_module_);
+    media_dependencies = SetMediaEngineDefaults(std::move(media_dependencies));
     pc_factory_dependencies.media_engine =
-        cricket::WebRtcMediaEngineFactory::Create(
-            rtc::scoped_refptr<webrtc::AudioDeviceModule>(
-                fake_audio_capture_module_),
-            webrtc::CreateBuiltinAudioEncoderFactory(),
-            webrtc::CreateBuiltinAudioDecoderFactory(),
-            webrtc::CreateBuiltinVideoEncoderFactory(),
-            webrtc::CreateBuiltinVideoDecoderFactory(), nullptr,
-            webrtc::AudioProcessingBuilder().Create());
+        cricket::CreateMediaEngine(std::move(media_dependencies));
     pc_factory_dependencies.call_factory = webrtc::CreateCallFactory();
     if (event_log_factory) {
       event_log_factory_ = event_log_factory.get();

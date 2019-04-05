@@ -15,22 +15,41 @@
 #include <string>
 #include <vector>
 
+#include "api/video_codecs/video_decoder_factory.h"
 #include "call/call.h"
 #include "media/base/media_engine.h"
 #include "modules/audio_device/include/audio_device.h"
+#include "rtc_base/deprecation.h"
 
 namespace webrtc {
 class AudioDecoderFactory;
 class AudioMixer;
 class AudioProcessing;
-class VideoDecoderFactory;
 class VideoEncoderFactory;
 class VideoBitrateAllocatorFactory;
 }  // namespace webrtc
 
 namespace cricket {
 
-class WebRtcMediaEngineFactory {
+struct MediaEngineDependencies {
+  webrtc::TaskQueueFactory* task_queue_factory = nullptr;
+
+  rtc::scoped_refptr<webrtc::AudioDeviceModule> adm;
+  rtc::scoped_refptr<webrtc::AudioEncoderFactory> audio_encoder_factory;
+  rtc::scoped_refptr<webrtc::AudioDecoderFactory> audio_decoder_factory;
+  rtc::scoped_refptr<webrtc::AudioMixer> audio_mixer;
+  rtc::scoped_refptr<webrtc::AudioProcessing> audio_processing;
+
+  std::unique_ptr<webrtc::VideoEncoderFactory> video_encoder_factory;
+  std::unique_ptr<webrtc::VideoDecoderFactory> video_decoder_factory;
+  std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>
+      video_bitrate_allocator_factory;
+};
+
+std::unique_ptr<MediaEngineInterface> CreateMediaEngine(
+    MediaEngineDependencies dependencies);
+
+class RTC_DEPRECATED WebRtcMediaEngineFactory {
  public:
   // These Create methods may be called on any thread, though the engine is
   // only expected to be used on one thread, internally called the "worker

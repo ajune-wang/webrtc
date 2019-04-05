@@ -38,6 +38,7 @@
 #include "api/rtp_sender_interface.h"
 #include "api/rtp_transceiver_interface.h"
 #include "api/scoped_refptr.h"
+#include "api/task_queue/default_task_queue_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "api/video_codecs/video_decoder_factory.h"
@@ -51,6 +52,7 @@
 #include "media/base/media_engine.h"
 #include "media/base/stream_params.h"
 #include "media/engine/webrtc_media_engine.h"
+#include "media/engine/webrtc_media_engine_defaults.h"
 #include "media/sctp/sctp_transport_internal.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing.h"
@@ -634,25 +636,18 @@ class PeerConnectionFactoryForTest : public webrtc::PeerConnectionFactory {
  public:
   static rtc::scoped_refptr<PeerConnectionFactoryForTest>
   CreatePeerConnectionFactoryForTest() {
-    auto audio_encoder_factory = webrtc::CreateBuiltinAudioEncoderFactory();
-    auto audio_decoder_factory = webrtc::CreateBuiltinAudioDecoderFactory();
-    auto video_encoder_factory = webrtc::CreateBuiltinVideoEncoderFactory();
-    auto video_decoder_factory = webrtc::CreateBuiltinVideoDecoderFactory();
-
     PeerConnectionFactoryDependencies dependencies;
     dependencies.worker_thread = rtc::Thread::Current();
     dependencies.network_thread = rtc::Thread::Current();
     dependencies.signaling_thread = rtc::Thread::Current();
-
+    dependencies.task_queue_factory = CreateDefaultTaskQueueFactory();
+    cricket::MediaEngineDependencies media_dependencies;
     // Use fake audio device module since we're only testing the interface
     // level, and using a real one could make tests flaky when run in parallel.
-    dependencies.media_engine = std::unique_ptr<cricket::MediaEngineInterface>(
-        cricket::WebRtcMediaEngineFactory::Create(
-            FakeAudioCaptureModule::Create(), audio_encoder_factory,
-            audio_decoder_factory, std::move(video_encoder_factory),
-            std::move(video_decoder_factory), nullptr,
-            webrtc::AudioProcessingBuilder().Create()));
-
+    media_dependencies.adm = FakeAudioCaptureModule::Create();
+    media_dependencies = SetMediaEngineDefaults(std::move(media_dependencies));
+    dependencies.media_engine =
+        cricket::CreateMediaEngine(std::move(media_dependencies));
     dependencies.call_factory = webrtc::CreateCallFactory();
     dependencies.event_log_factory = webrtc::CreateRtcEventLogFactory();
 

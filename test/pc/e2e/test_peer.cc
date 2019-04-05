@@ -13,13 +13,13 @@
 
 #include "absl/memory/memory.h"
 #include "absl/types/optional.h"
-#include "api/audio_codecs/builtin_audio_decoder_factory.h"
-#include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/scoped_refptr.h"
+#include "api/task_queue/default_task_queue_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "logging/rtc_event_log/rtc_event_log_factory.h"
 #include "media/engine/webrtc_media_engine.h"
+#include "media/engine/webrtc_media_engine_defaults.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "p2p/client/basic_port_allocator.h"
@@ -137,21 +137,18 @@ std::unique_ptr<cricket::MediaEngineInterface> CreateMediaEngine(
     std::map<std::string, absl::optional<int>> stream_required_spatial_index,
     VideoQualityAnalyzerInjectionHelper* video_analyzer_helper,
     absl::optional<std::string> audio_output_file_name) {
-  rtc::scoped_refptr<AudioDeviceModule> adm = CreateAudioDeviceModule(
-      std::move(audio_config), std::move(audio_output_file_name));
+  cricket::MediaEngineDependencies deps;
+  deps.task_queue_factory = pcf_dependencies->task_queue_factory.get();
+  deps.adm = CreateAudioDeviceModule(std::move(audio_config),
+                                     std::move(audio_output_file_name));
 
-  std::unique_ptr<VideoEncoderFactory> video_encoder_factory =
-      CreateVideoEncoderFactory(pcf_dependencies, video_analyzer_helper,
-                                bitrate_multiplier,
-                                std::move(stream_required_spatial_index));
-  std::unique_ptr<VideoDecoderFactory> video_decoder_factory =
+  deps.video_encoder_factory = CreateVideoEncoderFactory(
+      pcf_dependencies, video_analyzer_helper, bitrate_multiplier,
+      std::move(stream_required_spatial_index));
+  deps.video_decoder_factory =
       CreateVideoDecoderFactory(pcf_dependencies, video_analyzer_helper);
 
-  return cricket::WebRtcMediaEngineFactory::Create(
-      adm, webrtc::CreateBuiltinAudioEncoderFactory(),
-      webrtc::CreateBuiltinAudioDecoderFactory(),
-      std::move(video_encoder_factory), std::move(video_decoder_factory),
-      /*audio_mixer=*/nullptr, webrtc::AudioProcessingBuilder().Create());
+  return cricket::CreateMediaEngine(SetMediaEngineDefaults(std::move(deps)));
 }
 
 // Creates PeerConnectionFactoryDependencies objects, providing entities
@@ -170,6 +167,7 @@ PeerConnectionFactoryDependencies CreatePCFDependencies(
   PeerConnectionFactoryDependencies pcf_deps;
   pcf_deps.network_thread = network_thread;
   pcf_deps.signaling_thread = signaling_thread;
+  pcf_deps.task_queue_factory = CreateDefaultTaskQueueFactory();
   pcf_deps.media_engine = CreateMediaEngine(
       pcf_dependencies.get(), std::move(audio_config), bitrate_multiplier,
       std::move(stream_required_spatial_index), video_analyzer_helper,

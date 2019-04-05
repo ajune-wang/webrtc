@@ -69,7 +69,7 @@ class BufferedFrameDecryptorTest
     decrypted_frame_call_count_++;
   }
 
-  void OnDecryptionStatusChange(int status) {
+  void OnDecryptionStatusChange(int status, bool recoverable) {
     ++decryption_status_change_count_;
   }
 

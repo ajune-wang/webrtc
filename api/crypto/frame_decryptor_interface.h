@@ -52,6 +52,14 @@ class FrameDecryptorInterface : public rtc::RefCountInterface {
   // must never be smaller as it informs the size of the frame buffer.
   virtual size_t GetMaxPlaintextByteSize(cricket::MediaType media_type,
                                          size_t encrypted_frame_size) = 0;
+
+  // Returns true if the status returned from decrypt is recoverable. This is
+  // useful if you want to differentiate between recoverable and non-recoverable
+  // decryption failure states. A recoverable failure state may indidate a
+  // replay, where as a non-recoverable replay state may indicate a required key
+  // is missing. By default 0 is considered the only recoverable status returned
+  // from Decrypt() but this can be ovewritten by the implementation.
+  virtual bool IsStatusRecoverable(int status) const { return status == 0; }
 };
 
 }  // namespace webrtc

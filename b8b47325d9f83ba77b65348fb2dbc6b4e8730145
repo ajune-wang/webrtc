@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "1a7f87fe_33549e83",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-05T07:55:44Z",
+      "side": 1,
+      "message": "Yeah, I would have expected that the one creating the FrameDecryptor would own it until the PeerConnection is destroyed. Anyway, now something we should fix here and now.",
+      "parentUuid": "ff12216d_2c6b657a",
+      "range": {
+        "startLine": 266,
+        "startChar": 11,
+        "endLine": 266,
+        "endChar": 24
+      },
+      "revId": "b8b47325d9f83ba77b65348fb2dbc6b4e8730145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5221255d_4a1a2f85",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 5

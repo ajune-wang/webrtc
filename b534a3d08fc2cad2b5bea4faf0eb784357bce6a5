@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a8002db_2f133d94",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-05T09:17:20Z",
+      "side": 1,
+      "message": "I forgot to state that the source and sink must be different. Maybe\n\n  1. A route consists of a source endpoint, an ordered list of one or more network nodes, and a destination endpoint.\n\n  2. If (E1, ..., E2) is a route, then E1 !\u003d E2. In other words, the source and the destination may not be the same.\n\n  3. ....\n\n  4. ....",
+      "revId": "b534a3d08fc2cad2b5bea4faf0eb784357bce6a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

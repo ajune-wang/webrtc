@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "693eb225_fad57354",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-05T08:35:26Z",
+      "side": 1,
+      "message": "The example on line 100 contradicts the rule on line 94. And the examples on line 100 and 102 conflict with each other according to the rule on line 95.\n\nSo let me rephrase the rules, just to ensure that I understand correctly.\n\n  1. A route consists of a source endpoint, an ordered list of zero or more network nodes, and a destination endpoint.\n\n  2. Given two simultaneously existing routes (E1, ..., E2) and (E3, ..., E4), either E1 !\u003d E3 or E2 !\u003d E4. In other words, there may be at most one route from any given source endpoint to any given destination endpoint.\n\n  3. Given two simultaneously existing routes with at least one network node (E1, ..., N1, ..., E2) and (E3, ..., N2, ..., E4), either N1 !\u003d N2 or E2 !\u003d E4. In other words, a network node may not belong to two routes that lead to the same destination endpoint.\n\nIs that right? Rule 2 seems obvious given that you don\u0027t want to have to choose between multiple possible paths, but why is rule 3 necessary?",
+      "revId": "ea75377a656687277597be2aca145abd6cefd64e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aaf23f29_c39798b7",
         "filename": "test/scenario/network/network_emulation_manager.cc",
         "patchSetId": 14

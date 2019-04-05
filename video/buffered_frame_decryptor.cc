@@ -91,7 +91,9 @@ BufferedFrameDecryptor::FrameDecision BufferedFrameDecryptor::DecryptFrame(
   // Optionally call the callback if there was a change in status
   if (status != last_status_) {
     last_status_ = status;
-    decryption_status_change_callback_->OnDecryptionStatusChange(status);
+    const bool recoverable = frame_decryptor_->IsStatusRecoverable(status);
+    decryption_status_change_callback_->OnDecryptionStatusChange(status,
+                                                                 recoverable);
   }
 
   if (status != 0) {

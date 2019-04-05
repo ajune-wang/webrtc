@@ -1036,7 +1036,9 @@ void RTCPReceiver::TriggerCallbacksFromRtcpPacket(
                           << loss_notification->last_decoded() << ", "
                           << loss_notification->last_received() << ", "
                           << loss_notification->decodability_flag() << ").";
-      // TODO(eladalon): Notify observer.
+      rtp_rtcp_->OnReceivedLossNotification(
+          loss_notification->last_decoded(), loss_notification->last_received(),
+          loss_notification->decodability_flag());
     }
     if ((packet_information.packet_type_flags & kRtcpSr) ||
         (packet_information.packet_type_flags & kRtcpRr)) {

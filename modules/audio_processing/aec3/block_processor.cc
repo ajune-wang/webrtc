@@ -149,28 +149,36 @@ void BlockProcessorImpl::ProcessCapture(
                         &(*capture_block)[0][0],
                         LowestBandRate(sample_rate_hz_), 1);
 
-  // Compute and apply the render delay required to achieve proper signal
-  // alignment.
-  estimated_delay_ =
-      delay_controller_->GetDelay(render_buffer_->GetDownsampledRenderBuffer(),
-                                  render_buffer_->Delay(), (*capture_block)[0]);
+  bool remove_echo = true;
+  if (!config_.delay.use_external_delay_estimator) {
+    // Compute and apply the render delay required to achieve proper signal
+    // alignment.
+    estimated_delay_ = delay_controller_->GetDelay(
+        render_buffer_->GetDownsampledRenderBuffer(), render_buffer_->Delay(),
+        (*capture_block)[0]);
 
-  if (estimated_delay_) {
-    bool delay_change = render_buffer_->SetDelay(estimated_delay_->delay);
-    if (delay_change) {
-      RTC_LOG(LS_WARNING) << "Delay changed to " << estimated_delay_->delay
-                          << " at block " << capture_call_counter_;
-      echo_path_variability.delay_change =
-          EchoPathVariability::DelayAdjustment::kNewDetectedDelay;
+    if (estimated_delay_) {
+      bool delay_change = render_buffer_->SetDelay(estimated_delay_->delay);
+      if (delay_change) {
+        RTC_LOG(LS_WARNING) << "Delay changed to " << estimated_delay_->delay
+                            << " at block " << capture_call_counter_;
+        echo_path_variability.delay_change =
+            EchoPathVariability::DelayAdjustment::kNewDetectedDelay;
+      }
     }
+
+    echo_path_variability.clock_drift = delay_controller_->HasClockdrift();
+
+  } else {
+    remove_echo = render_buffer_->AlignFromExternalDelay();
   }
 
-  echo_path_variability.clock_drift = delay_controller_->HasClockdrift();
-
   // Remove the echo from the capture signal.
-  echo_remover_->ProcessCapture(
-      echo_path_variability, capture_signal_saturation, estimated_delay_,
-      render_buffer_->GetRenderBuffer(), capture_block);
+  if (remove_echo) {
+    echo_remover_->ProcessCapture(
+        echo_path_variability, capture_signal_saturation, estimated_delay_,
+        render_buffer_->GetRenderBuffer(), capture_block);
+  }
 
   // Update the metrics.
   metrics_.UpdateCapture(false);

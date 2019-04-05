@@ -57,6 +57,7 @@ class RenderDelayBufferImpl final : public RenderDelayBuffer {
 
   int BufferLatency() const;
   void SetAudioBufferDelay(size_t delay_ms) override;
+  bool AlignFromExternalDelay() override;
 
  private:
   static int instance_count_;
@@ -78,8 +79,8 @@ class RenderDelayBufferImpl final : public RenderDelayBuffer {
   bool last_call_was_render_ = false;
   int num_api_calls_in_a_row_ = 0;
   int max_observed_jitter_ = 1;
-  size_t capture_call_counter_ = 0;
-  size_t render_call_counter_ = 0;
+  int64_t capture_call_counter_ = 0;
+  int64_t render_call_counter_ = 0;
   bool render_activity_ = false;
   size_t render_activity_counter_ = 0;
   absl::optional<size_t> external_audio_buffer_delay_;
@@ -337,6 +338,14 @@ void RenderDelayBufferImpl::ApplyTotalDelay(int delay) {
   ffts_.read = ffts_.OffsetIndex(ffts_.write, delay);
 }
 
+bool RenderDelayBufferImpl::AlignFromExternalDelay() {
+  if (!external_audio_buffer_delay_)
+    return false;
+  int64_t delay = render_call_counter_ - capture_call_counter_ +
+                  *external_audio_buffer_delay_;
+  ApplyTotalDelay(delay);
+  return true;
+}
 // Inserts a block into the render buffers.
 void RenderDelayBufferImpl::InsertBlock(
     const std::vector<std::vector<float>>& block,

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "024b095a_1874059e",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-05T09:05:18Z",
+      "side": 1,
+      "message": "Thanks, good catch! These rules are almost right, the only thing that route must contains at least 1 endpoint. Added it into doc.\n\nRule 3 is required to eliminate choose between multiple possible paths in each network node.",
+      "parentUuid": "693eb225_fad57354",
+      "revId": "ea75377a656687277597be2aca145abd6cefd64e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aaf23f29_c39798b7",
         "filename": "test/scenario/network/network_emulation_manager.cc",
         "patchSetId": 14

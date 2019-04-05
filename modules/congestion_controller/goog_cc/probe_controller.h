@@ -52,6 +52,7 @@ struct ProbeControllerConfig {
   FieldTrialOptional<double> first_allocation_probe_scale;
   FieldTrialOptional<double> second_allocation_probe_scale;
   FieldTrialFlag allocation_allow_further_probing;
+  FieldTrialFlag allocation_probing_while_alr_only;
 };
 
 // This class controls initiation of probing to estimate initial channel

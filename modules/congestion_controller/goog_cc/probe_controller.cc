@@ -99,12 +99,14 @@ ProbeControllerConfig::ProbeControllerConfig(
       alr_probe_scale("alr_scale", 2),
       first_allocation_probe_scale("alloc_p1", 1),
       second_allocation_probe_scale("alloc_p2", 2),
-      allocation_allow_further_probing("alloc_probe_further", false) {
+      allocation_allow_further_probing("alloc_probe_further", false),
+      allocation_probing_while_alr_only("alloc_probe_alr_only", false) {
   ParseFieldTrial(
       {&first_exponential_probe_scale, &second_exponential_probe_scale,
        &further_exponential_probe_scale, &further_probe_threshold,
        &alr_probing_interval, &alr_probe_scale, &first_allocation_probe_scale,
-       &second_allocation_probe_scale, &allocation_allow_further_probing},
+       &second_allocation_probe_scale, &allocation_allow_further_probing,
+       &allocation_probing_while_alr_only},
       key_value_config->Lookup("WebRTC-Bwe-ProbingConfiguration"));
 }
 
@@ -181,11 +183,16 @@ std::vector<ProbeClusterConfig> ProbeController::SetBitrates(
 std::vector<ProbeClusterConfig> ProbeController::OnMaxTotalAllocatedBitrate(
     int64_t max_total_allocated_bitrate,
     int64_t at_time_ms) {
+  bool in_alr = alr_start_time_ms_.has_value();
+  bool skip_network_limited =
+      !in_alr && config_.allocation_probing_while_alr_only;
+
   if (state_ == State::kProbingComplete &&
       max_total_allocated_bitrate != max_total_allocated_bitrate_ &&
       estimated_bitrate_bps_ != 0 &&
       (max_bitrate_bps_ <= 0 || estimated_bitrate_bps_ < max_bitrate_bps_) &&
-      estimated_bitrate_bps_ < max_total_allocated_bitrate) {
+      estimated_bitrate_bps_ < max_total_allocated_bitrate &&
+      !skip_network_limited) {
     max_total_allocated_bitrate_ = max_total_allocated_bitrate;
 
     if (!config_.first_allocation_probe_scale)

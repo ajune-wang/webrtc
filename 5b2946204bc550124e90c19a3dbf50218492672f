@@ -117,6 +117,30 @@
     },
     {
       "key": {
+        "uuid": "09d1d96d_f4e01173",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T08:25:30Z",
+      "side": 1,
+      "message": "As pointed out offline, I\u0027m clearly wrong about my statement that this is not a ringbuffer. Therefore this comment is not relevant.",
+      "parentUuid": "4b94f48a_164c11fc",
+      "range": {
+        "startLine": 112,
+        "startChar": 16,
+        "endLine": 112,
+        "endChar": 20
+      },
+      "revId": "5b2946204bc550124e90c19a3dbf50218492672f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e844260b_bed24591",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
         "patchSetId": 9
@@ -197,6 +221,30 @@
       "writtenOn": "2019-04-04T14:18:03Z",
       "side": 1,
       "message": "I know that is a pending change, but since this is not a ring-buffer, please change the variable name to be more agnostic to the buffer type:\nspectral_coeffs_ring_buf_ - \u003e spectral_coeffs_buf_",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 31
+      },
+      "revId": "5b2946204bc550124e90c19a3dbf50218492672f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7ed1bd1_5b05f2fa",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T08:25:30Z",
+      "side": 1,
+      "message": "As pointed out offline, I\u0027m clearly wrong about my statement that this is not a ringbuffer. Therefore this comment is not relevant.",
+      "parentUuid": "bae60590_96689af7",
       "range": {
         "startLine": 70,
         "startChar": 6,

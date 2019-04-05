@@ -15,6 +15,8 @@
 #include <stdint.h>
 #include <string>
 
+#include "rtc_base/system/rtc_export.h"
+
 namespace rtc {
 
 // For testing, we can return predictable data.
@@ -26,7 +28,7 @@ bool InitRandom(const char* seed, size_t len);
 
 // Generates a (cryptographically) random string of the given length.
 // We generate base64 values so that they will be printable.
-std::string CreateRandomString(size_t length);
+RTC_EXPORT std::string CreateRandomString(size_t length);
 
 // Generates a (cryptographically) random string of the given length.
 // We generate base64 values so that they will be printable.
@@ -53,7 +55,7 @@ std::string CreateRandomUuid();
 uint32_t CreateRandomId();
 
 // Generates a 64 bit random id.
-uint64_t CreateRandomId64();
+RTC_EXPORT uint64_t CreateRandomId64();
 
 // Generates a random id > 0.
 uint32_t CreateRandomNonZeroId();

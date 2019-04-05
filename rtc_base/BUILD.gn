@@ -83,6 +83,7 @@ rtc_source_set("rtc_base_approved") {
     "../system_wrappers:field_trial",
     "experiments:field_trial_parser",
     "system:arch",
+    "system:rtc_export",
     "system:unused",
     "third_party/base64",
     "//third_party/abseil-cpp/absl/memory",
@@ -408,6 +409,7 @@ rtc_source_set("timeutils") {
     ":checks",
     ":safe_conversions",
     ":stringutils",
+    "system:rtc_export",
   ]
   libs = []
   if (is_win) {
@@ -785,6 +787,7 @@ rtc_static_library("rtc_base") {
     "../api:scoped_refptr",
     "network:sent_packet",
     "system:file_wrapper",
+    "system:rtc_export",
     "third_party/base64",
     "third_party/sigslot",
     "//third_party/abseil-cpp/absl/algorithm:container",

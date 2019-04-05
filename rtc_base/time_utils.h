@@ -17,6 +17,7 @@
 
 #include "rtc_base/checks.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/system/rtc_export.h"
 
 namespace rtc {
 
@@ -83,7 +84,7 @@ inline int64_t Time() {
 int64_t TimeMicros();
 
 // Returns the current time in nanoseconds.
-int64_t TimeNanos();
+RTC_EXPORT int64_t TimeNanos();
 
 // Returns a future timestamp, 'elapsed' milliseconds from now.
 int64_t TimeAfter(int64_t elapsed);

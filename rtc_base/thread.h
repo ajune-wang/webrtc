@@ -26,6 +26,7 @@
 #include "rtc_base/message_queue.h"
 #include "rtc_base/platform_thread_types.h"
 #include "rtc_base/socket_server.h"
+#include "rtc_base/system/rtc_export.h"
 #include "rtc_base/thread_annotations.h"
 
 #if defined(WEBRTC_WIN)
@@ -59,7 +60,7 @@ class SingleMessageHandlerWithFunctor final : public MessageHandler {
 
 }  // namespace rtc_thread_internal
 
-class ThreadManager {
+class RTC_EXPORT ThreadManager {
  public:
   static const int kForever = -1;
 

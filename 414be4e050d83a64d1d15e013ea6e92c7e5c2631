@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "e8d6dd49_6b6a0eaf",
+        "filename": "call/rtp_demuxer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-05T17:10:46Z",
+      "side": 1,
+      "message": "Ok, I\u0027ve reverted the config changes to RtpDemuxer. I put the code here originally so that the log message printing the RTP details relevant to a demux failure would stay in sync with the class that actually does the demuxing. Let me know if the hybrid approach I have now is ok.",
+      "parentUuid": "e71bd11f_6436c891",
+      "revId": "414be4e050d83a64d1d15e013ea6e92c7e5c2631",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16ecb7d4_10837a76",
         "filename": "call/rtp_demuxer.h",
         "patchSetId": 3
@@ -48,6 +66,30 @@
       "writtenOn": "2019-04-05T07:26:20Z",
       "side": 1,
       "message": "What\u0027s the usecase for setting this false? To ignore mid, it would seem more natural to arrange that incoming packets have no mid information. To ignore valid mids (i.e, assuming mids are negotiated, and appearing in packets on the wire, but you nevertheless want to ignore them), I think it should work fine to just delete the mid association in the RtpHeaderExtensionsMap that is used when parsing the packets.\n\nWe shouldn\u0027t add a configuration flag \"please don\u0027t do the right thing\" without a pretty good reason.",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 24
+      },
+      "revId": "414be4e050d83a64d1d15e013ea6e92c7e5c2631",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c09008e3_29165afb",
+        "filename": "call/rtp_demuxer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-05T17:10:46Z",
+      "side": 1,
+      "message": "Yeah, this is a bit of a hack. It was added since the RtpDemuxer in Call only demuxes by SSRC so would previously drop any packets that had the MID header extension on them.\n\nWe could remove the MID from the packets, but I think that\u0027s also confusing and wouldn\u0027t work if we eventually get to a point of only parsing each RTP packet once.",
+      "parentUuid": "16ecb7d4_10837a76",
       "range": {
         "startLine": 92,
         "startChar": 0,

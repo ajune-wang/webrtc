@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16ecb7d4_10837a76",
+        "filename": "call/rtp_demuxer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-05T07:26:20Z",
+      "side": 1,
+      "message": "What\u0027s the usecase for setting this false? To ignore mid, it would seem more natural to arrange that incoming packets have no mid information. To ignore valid mids (i.e, assuming mids are negotiated, and appearing in packets on the wire, but you nevertheless want to ignore them), I think it should work fine to just delete the mid association in the RtpHeaderExtensionsMap that is used when parsing the packets.\n\nWe shouldn\u0027t add a configuration flag \"please don\u0027t do the right thing\" without a pretty good reason.",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 24
+      },
+      "revId": "414be4e050d83a64d1d15e013ea6e92c7e5c2631",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b855c5d_c8131614",
+        "filename": "call/rtp_demuxer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-05T07:26:20Z",
+      "side": 1,
+      "message": "If logging this is useful, I agree with srte@ that it would be better to configure it using log level, and log with RTC_LOG(LS_VEROBSE) or RTC_DLOG(...), depending on usecase.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 35
+      },
+      "revId": "414be4e050d83a64d1d15e013ea6e92c7e5c2631",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

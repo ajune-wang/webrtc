@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f035dc9c_a4fa35a3",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 8385
+      },
+      "writtenOn": "2019-04-05T14:12:30Z",
+      "side": 1,
+      "message": "I\u0027d favor readability over \"length of config lines that are only copy/pasted anyway\". Plus, this is going with the style of the existing surrounding code. So would suggest to keep as-is.\n\nBut note taken for new code.",
+      "parentUuid": "859bbffd_d5a686e9",
+      "range": {
+        "startLine": 103,
+        "startChar": 41,
+        "endLine": 103,
+        "endChar": 61
+      },
+      "revId": "2dfcc9b2af77db8ecf0d49aad7551a9e6fee7809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b447f475_7f94773f",
         "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "2dfcc9b2af77db8ecf0d49aad7551a9e6fee7809",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1828a9c_6b4ebbf9",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 8385
+      },
+      "writtenOn": "2019-04-05T14:12:30Z",
+      "side": 1,
+      "message": "Agree, but would suggest to do this refactoring in a separate CL (to keep this CL easier to review).",
+      "parentUuid": "b447f475_7f94773f",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 30
+      },
+      "revId": "2dfcc9b2af77db8ecf0d49aad7551a9e6fee7809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

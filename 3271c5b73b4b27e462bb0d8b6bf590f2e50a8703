@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "cb1b258f_04d52c95",
+        "filename": "modules/audio_coding/codecs/opus/audio_coder_opus_common.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-05T13:57:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a39a191_5622cf06",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 20
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c0fe6ab_0c64d308",
         "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_impl.cc",
         "patchSetId": 16
@@ -355,6 +379,30 @@
       "side": 1,
       "message": "Is it not reasonable to do a full validation in IsOk? Is it possible that the values in the channel mapping may mean something completely different and that we can\u0027t rely on them always being \u003c number of channels?\n\nMy original point was perhaps a bit mistaken for this test - it makes more sense down in ValidSdpToConfigProducesCorrectConfig, to ensure that that code doesn\u0027t just generate the channel mapping internally by assigning channels in order.",
       "parentUuid": "5980b3bd_ad41db99",
+      "range": {
+        "startLine": 24,
+        "startChar": 27,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e429e8a_34046f91",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-05T13:57:03Z",
+      "side": 1,
+      "message": "Discussion offline.",
+      "parentUuid": "12529605_31b2e30d",
       "range": {
         "startLine": 24,
         "startChar": 27,
@@ -576,6 +624,30 @@
       "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "533376a3_df654299",
+        "filename": "test/fuzzers/audio_decoder_multistream_opus_fuzzer.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-04-05T13:57:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "299f9c72_369b4814",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 7
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50ca70ea_47af9a62",
+        "filename": "video/buffered_frame_decryptor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-05T09:41:52Z",
+      "side": 1,
+      "message": "Should we not return a pair of status and recoverable here instead so that we don\u0027t have to ask whether the status is recoverable separately?",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 18
+      },
+      "revId": "b2ed4c9397e3a5693f211a0bd48c6c553e618769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

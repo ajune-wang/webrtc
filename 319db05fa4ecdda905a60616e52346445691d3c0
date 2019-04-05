@@ -979,6 +979,30 @@
     },
     {
       "key": {
+        "uuid": "4877e827_8459cea0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-05T11:28:22Z",
+      "side": 1,
+      "message": "No update on this. I\u0027ll keep double braces to maximize compiler compatibility.",
+      "parentUuid": "30573ddb_6de13e9d",
+      "range": {
+        "startLine": 27,
+        "startChar": 67,
+        "endLine": 27,
+        "endChar": 69
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43b65502_6d3332da",
         "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
         "patchSetId": 7
@@ -1271,6 +1295,30 @@
       "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17ae6579_b0c098cf",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-05T11:28:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "716cc543_e4e954bb",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 115,
+        "endChar": 53
+      },
+      "revId": "319db05fa4ecdda905a60616e52346445691d3c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -948,6 +948,15 @@ void LibvpxVp8Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
   frame_buffer_controller_->OnEncodeDone(
       stream_idx, timestamp, encoded_images_[encoder_idx].size(),
       (pkt.data.frame.flags & VPX_FRAME_IS_KEY) != 0, qp, codec_specific);
+
+  if (codec_specific->encoder_buffers) {
+    // Rename encoder buffers so that different buffers from different
+    // encoder instances do not collide.
+    for (EncoderBuffer& buffer : *codec_specific->encoder_buffers) {
+      constexpr int kNumBuffersVp8 = 3;
+      buffer.id = buffer.id + kNumBuffersVp8 * stream_idx;
+    }
+  }
 }
 
 int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image) {

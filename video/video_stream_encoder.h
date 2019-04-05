@@ -326,6 +326,18 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // experiment group numbers incremented by 1.
   const std::array<uint8_t, 2> experiment_groups_;
 
+  // This array is used as a map from |buffer id| --> |frame id| where
+  // |frame id| is the id of the buffer and |frame id| is the last frame that
+  // updated that buffer. While no codec support 20 buffers we use that many to
+  // differantiate between actual encoder instances in the case of simulcast.
+  // For example VP8 support 3 buffers, which means that the lowest layers will
+  // use buffer id 0 to 2, the second will use 3 to 5 and so on.
+  std::array<int64_t, 20> buffer_id_to_frame_id_;
+
+  // TODO(philipel): Preserve |frame_id_| when RecreateWebRtcStream is called.
+  // The |frame_id_| start value is provided as a parameter in the ctor.
+  int64_t frame_id_ = 0;
+
   // All public methods are proxied to |encoder_queue_|. It must must be
   // destroyed first to make sure no tasks are run that use other members.
   rtc::TaskQueue encoder_queue_;

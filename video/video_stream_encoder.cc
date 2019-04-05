@@ -1401,6 +1401,27 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
   // running in parallel on different threads.
   encoder_stats_observer_->OnSendEncodedImage(image_copy, codec_specific_info);
 
+  if (codec_specific_info && codec_specific_info->encoder_buffers) {
+    std::vector<int64_t> dependencies;
+
+    for (const EncoderBuffer& buffer : *codec_specific_info->encoder_buffers) {
+      if (buffer_id_to_frame_id_.size() <= static_cast<size_t>(buffer.id)) {
+        RTC_LOG(LS_ERROR) << "EncoderBuffer ID to large (" << buffer.id << ")";
+        continue;
+      }
+
+      if (buffer.referenced)
+        dependencies.push_back(buffer_id_to_frame_id_[buffer.id]);
+      if (buffer.updated)
+        buffer_id_to_frame_id_[buffer.id] = frame_id_;
+    }
+
+    image_copy.SetDependencies(dependencies);
+  }
+
+  image_copy.SetFrameId(frame_id_);
+  frame_id_++;
+
   EncodedImageCallback::Result result =
       sink_->OnEncodedImage(image_copy, codec_specific_info, fragmentation);
 

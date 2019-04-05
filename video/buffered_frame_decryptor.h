@@ -42,7 +42,7 @@ class OnDecryptionStatusChangeCallback {
   // blocking so the caller must relinquish the callback quickly. This status
   // must match what is specified in the FrameDecryptorInterface file. Notably
   // 0 must indicate success and any positive integer is a failure.
-  virtual void OnDecryptionStatusChange(int status) = 0;
+  virtual void OnDecryptionStatusChange(int status, bool recoverable) = 0;
 };
 
 // The BufferedFrameDecryptor is responsible for deciding when to pass

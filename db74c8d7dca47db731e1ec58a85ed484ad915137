@@ -1,0 +1,227 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "098ed29a_beee7bc1",
+        "filename": "modules/audio_processing/agc2/rnn_vad/common.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T14:37:56Z",
+      "side": 1,
+      "message": "Suggestion\nSince this is the only FFT size here, an option is to skip the 20ms24khz in the naming of the constants.",
+      "revId": "db74c8d7dca47db731e1ec58a85ed484ad915137",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70c24839_62c1a899",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T14:37:56Z",
+      "side": 1,
+      "message": "cepstral",
+      "revId": "db74c8d7dca47db731e1ec58a85ed484ad915137",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75321890_dc591f73",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T14:37:56Z",
+      "side": 1,
+      "message": "The naming has deviated a bit. I guess that this should be called cepstral coeffs, right?",
+      "range": {
+        "startLine": 29,
+        "startChar": 43,
+        "endLine": 29,
+        "endChar": 62
+      },
+      "revId": "db74c8d7dca47db731e1ec58a85ed484ad915137",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6babfbd_1a8d7cf1",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T14:37:56Z",
+      "side": 1,
+      "message": "As above, this is cepstral coeffs, right?",
+      "revId": "db74c8d7dca47db731e1ec58a85ed484ad915137",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af7a4582_51aa5f14",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T14:37:56Z",
+      "side": 1,
+      "message": "cepstral?",
+      "range": {
+        "startLine": 44,
+        "startChar": 18,
+        "endLine": 44,
+        "endChar": 26
+      },
+      "revId": "db74c8d7dca47db731e1ec58a85ed484ad915137",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e696e10_1f97dd0f",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T14:37:56Z",
+      "side": 1,
+      "message": "This should be cepstral diffs_, right?",
+      "range": {
+        "startLine": 102,
+        "startChar": 33,
+        "endLine": 102,
+        "endChar": 52
+      },
+      "revId": "db74c8d7dca47db731e1ec58a85ed484ad915137",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69370cf2_202afe39",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T14:37:56Z",
+      "side": 1,
+      "message": "Are this spectral of cepstral coefficients?",
+      "revId": "db74c8d7dca47db731e1ec58a85ed484ad915137",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f456b379_9ced9b95",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T14:37:56Z",
+      "side": 1,
+      "message": "spectrum-\u003ecepstrum?",
+      "revId": "db74c8d7dca47db731e1ec58a85ed484ad915137",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4f14980_74f7242c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T14:37:56Z",
+      "side": 1,
+      "message": "Should this be renamed the higher_bands_cepstrum?",
+      "range": {
+        "startLine": 107,
+        "startChar": 12,
+        "endLine": 107,
+        "endChar": 33
+      },
+      "revId": "db74c8d7dca47db731e1ec58a85ed484ad915137",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0591ccfb_54e037db",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T14:37:56Z",
+      "side": 1,
+      "message": "Not fully sure about this, but should this also be called cepstral?",
+      "range": {
+        "startLine": 156,
+        "startChar": 13,
+        "endLine": 156,
+        "endChar": 21
+      },
+      "revId": "db74c8d7dca47db731e1ec58a85ed484ad915137",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "546976db_453a1c27",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T14:37:56Z",
+      "side": 1,
+      "message": "cepstral_variability?",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 166,
+        "endChar": 20
+      },
+      "revId": "db74c8d7dca47db731e1ec58a85ed484ad915137",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

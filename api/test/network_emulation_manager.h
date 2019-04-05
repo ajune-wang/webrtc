@@ -15,6 +15,7 @@
 #include <vector>
 
 #include "api/test/simulated_network.h"
+#include "api/units/timestamp.h"
 #include "rtc_base/network.h"
 #include "rtc_base/thread.h"
 
@@ -51,14 +52,35 @@ struct EmulatedEndpointConfig {
   bool start_as_enabled = true;
 };
 
+struct EmulatedNetworkStats {
+  uint64_t packets_sent = 0;
+  uint64_t bytes_sent = 0;
+  // Total amount of packets received with or without destination.
+  uint64_t packets_received = 0;
+  // Total amount of bytes in received packets.
+  uint64_t bytes_received = 0;
+  // Total amount of packets that were received, but no destination was found.
+  uint64_t packets_dropped = 0;
+  // Total amount of bytes in dropped packets.
+  uint64_t bytes_dropped = 0;
+  Timestamp first_packet_sent_time = Timestamp::PlusInfinity();
+  Timestamp last_packet_sent_time = Timestamp::PlusInfinity();
+  Timestamp first_packet_received_time = Timestamp::PlusInfinity();
+  Timestamp last_packet_received_time = Timestamp::PlusInfinity();
+};
+
 // Provide interface to obtain all required objects to inject network emulation
-// layer into PeerConnection.
+// layer into PeerConnection. Also contains information about network interfaces
+// accessible by PeerConnection.
 class EmulatedNetworkManagerInterface {
  public:
   virtual ~EmulatedNetworkManagerInterface() = default;
 
   virtual rtc::Thread* network_thread() = 0;
   virtual rtc::NetworkManager* network_manager() = 0;
+
+  // Returns summarized network stats for endpoints for this manager.
+  virtual EmulatedNetworkStats GetStats() const = 0;
 };
 
 // Provides an API for creating and configuring emulated network layer.

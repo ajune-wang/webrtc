@@ -195,6 +195,7 @@ TEST(NetworkEmulationManagerTest, Run) {
   EmulatedNetworkManagerInterface* nt2 =
       network_manager.CreateEmulatedNetworkManagerInterface({bob_endpoint});
 
+  rtc::CopyOnWriteBuffer data("Hello");
   for (uint64_t j = 0; j < 2; j++) {
     auto* s1 = nt1->network_thread()->socketserver()->CreateAsyncSocket(
         AF_INET, SOCK_DGRAM);
@@ -213,7 +214,6 @@ TEST(NetworkEmulationManagerTest, Run) {
     s1->Connect(s2->GetLocalAddress());
     s2->Connect(s1->GetLocalAddress());
 
-    rtc::CopyOnWriteBuffer data("Hello");
     for (uint64_t i = 0; i < 1000; i++) {
       s1->Send(data.data(), data.size());
       s2->Send(data.data(), data.size());
@@ -221,12 +221,27 @@ TEST(NetworkEmulationManagerTest, Run) {
 
     rtc::Event wait;
     wait.Wait(1000);
-    ASSERT_EQ(r1.ReceivedCount(), 1000);
-    ASSERT_EQ(r2.ReceivedCount(), 1000);
+    EXPECT_EQ(r1.ReceivedCount(), 1000);
+    EXPECT_EQ(r2.ReceivedCount(), 1000);
 
     delete s1;
     delete s2;
   }
+
+  EmulatedNetworkStats st1 = nt1->GetStats();
+  EXPECT_EQ(st1.packets_sent, 2000ul);
+  EXPECT_EQ(st1.bytes_sent, data.size() * 2000ul);
+  EXPECT_EQ(st1.packets_received, 2000ul);
+  EXPECT_EQ(st1.bytes_received, data.size() * 2000ul);
+  EXPECT_EQ(st1.packets_dropped, 0ul);
+  EXPECT_EQ(st1.bytes_dropped, 0ul);
+  EmulatedNetworkStats st2 = nt2->GetStats();
+  EXPECT_EQ(st2.packets_sent, 2000ul);
+  EXPECT_EQ(st2.bytes_sent, data.size() * 2000ul);
+  EXPECT_EQ(st2.packets_received, 2000ul);
+  EXPECT_EQ(st2.bytes_received, data.size() * 2000ul);
+  EXPECT_EQ(st2.packets_dropped, 0ul);
+  EXPECT_EQ(st2.bytes_dropped, 0ul);
 }
 
 // Testing that packets are delivered via all routes using a routing scheme as

@@ -16,6 +16,24 @@
       "revId": "80b33d59d0e89affe536c5b40a80d4fab4be9bdb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ff743ef_8f67bfb9",
+        "filename": "test/fuzzers/audio_processing_configs_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-05T12:50:50Z",
+      "side": 1,
+      "message": "yep, done.",
+      "parentUuid": "a1e837de_f2ac6ebe",
+      "revId": "80b33d59d0e89affe536c5b40a80d4fab4be9bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

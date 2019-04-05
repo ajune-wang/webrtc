@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b322259_715d152f",
+        "filename": "rtc_base/task_queue_for_test.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-05T13:01:39Z",
+      "side": 1,
+      "message": "This should be a class, since it has private members. But see alternative suggestion below.",
+      "revId": "51f78dd89323f74c1eb8f7ef1a919b05e05d26d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e49ae53_39fe4cff",
+        "filename": "rtc_base/task_queue_for_test.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-05T13:01:39Z",
+      "side": 1,
+      "message": "This is quite a beast to hide in an alias that users have to touch.\n\nI think this would be simpler to use if you made TaskId a class instead. With a rtc::scoped_refptr\u003cwebrtc_task_qeueue_for_test_impl::RefCancellation\u003e member, copyable, and with no public member functions, but private Stopped() and Stop() methods that its friends could call.",
+      "revId": "51f78dd89323f74c1eb8f7ef1a919b05e05d26d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5088ffb0_bf1f3cf0",
+        "filename": "rtc_base/task_queue_for_test.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-05T13:01:39Z",
+      "side": 1,
+      "message": "Not needed; this is a struct.",
+      "range": {
+        "startLine": 78,
+        "startChar": 5,
+        "endLine": 78,
+        "endChar": 11
+      },
+      "revId": "51f78dd89323f74c1eb8f7ef1a919b05e05d26d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c744aabc_be936f7e",
+        "filename": "rtc_base/task_queue_for_test.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-05T13:01:39Z",
+      "side": 1,
+      "message": "Less complicated:\n\n  if (!token-\u003estopped)\n    closure();",
+      "revId": "51f78dd89323f74c1eb8f7ef1a919b05e05d26d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a59a70ef_fd72b124",
+        "filename": "rtc_base/task_queue_for_test.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-05T13:01:39Z",
+      "side": 1,
+      "message": "You\u0027re not moving the captured variable into the closure, so just use a lambda?",
+      "revId": "51f78dd89323f74c1eb8f7ef1a919b05e05d26d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f155ca9e_1ae8cf07",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-05T13:01:39Z",
+      "side": 1,
+      "message": "You can remove these.",
+      "range": {
+        "startLine": 344,
+        "startChar": 14,
+        "endLine": 344,
+        "endChar": 16
+      },
+      "revId": "51f78dd89323f74c1eb8f7ef1a919b05e05d26d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87eb9912_3c721212",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-05T13:01:39Z",
+      "side": 1,
+      "message": "And these.",
+      "range": {
+        "startLine": 518,
+        "startChar": 12,
+        "endLine": 518,
+        "endChar": 14
+      },
+      "revId": "51f78dd89323f74c1eb8f7ef1a919b05e05d26d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

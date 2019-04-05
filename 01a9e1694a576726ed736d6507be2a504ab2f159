@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc0c5224_46f8b87c",
+        "filename": "test/pc/e2e/analyzer_helper.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-05T12:12:27Z",
+      "side": 1,
+      "message": "Top level const is allowed and sometimes useful for arguments in function definitions; they have the effect of making the resulting local variables const. But this is not what you want here, since that means you get copies below even though you use std::move. (I believe clang-tidy would have warned about this.)",
+      "range": {
+        "startLine": 23,
+        "startChar": 45,
+        "endLine": 23,
+        "endChar": 50
+      },
+      "revId": "01a9e1694a576726ed736d6507be2a504ab2f159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81ac26c6_842c473d",
+        "filename": "test/pc/e2e/analyzer_helper.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-05T12:12:27Z",
+      "side": 1,
+      "message": "No top-level const for arguments function declarations.",
+      "range": {
+        "startLine": 37,
+        "startChar": 31,
+        "endLine": 37,
+        "endChar": 36
+      },
+      "revId": "01a9e1694a576726ed736d6507be2a504ab2f159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

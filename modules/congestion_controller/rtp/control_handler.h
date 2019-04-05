@@ -43,7 +43,6 @@ class CongestionControlHandler {
   bool network_available_ = true;
   bool encoder_paused_in_last_report_ = false;
 
-  const bool pacer_pushback_experiment_;
   const bool disable_pacer_emergency_stop_;
   int64_t pacer_expected_queue_ms_ = 0;
   double encoding_rate_ratio_ = 1.0;

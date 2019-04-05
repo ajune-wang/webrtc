@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "859bbffd_d5a686e9",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-05T07:32:33Z",
+      "side": 1,
+      "message": "suggestion: short labels are generally easier to handle as the config line can become unwieldy with many long labels, they generally aren\u0027t self documenting either way, and the long name is just a code search away.",
+      "range": {
+        "startLine": 103,
+        "startChar": 41,
+        "endLine": 103,
+        "endChar": 61
+      },
+      "revId": "2dfcc9b2af77db8ecf0d49aad7551a9e6fee7809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b447f475_7f94773f",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-05T07:32:33Z",
+      "side": 1,
+      "message": "It\u0027s becomming a bit hard to read this, suggest trying rewriting with early returns:\n\nif(max_total_allocated_bitrate \u003d\u003d max_total_allocated_bitrate_) return {};\nmax_total_allocated_bitrate_ \u003d max_total_allocated_bitrate;\nif(...) return {};\nif(...) return {};\nif(...) return {};",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 30
+      },
+      "revId": "2dfcc9b2af77db8ecf0d49aad7551a9e6fee7809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

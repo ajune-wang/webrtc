@@ -25,7 +25,8 @@ class FakeRtcEventLogFactory : public RtcEventLogFactoryInterface {
   ~FakeRtcEventLogFactory() override {}
 
   std::unique_ptr<RtcEventLog> CreateRtcEventLog(
-      RtcEventLog::EncodingType encoding_type) override;
+      RtcEventLog::EncodingType encoding_type,
+      TaskQueueFactory* task_queue_factory) override;
 
   webrtc::RtcEventLog* last_log_created() { return last_log_created_; }
   rtc::Thread* thread() { return thread_; }

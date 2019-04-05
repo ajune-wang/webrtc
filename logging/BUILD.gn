@@ -34,6 +34,7 @@ rtc_source_set("rtc_event_log_api") {
     "rtc_event_log/events/rtc_event.h",
     "rtc_event_log/rtc_event_log.cc",
     "rtc_event_log/rtc_event_log.h",
+    "rtc_event_log/rtc_event_log_factory_interface.cc",
     "rtc_event_log/rtc_event_log_factory_interface.h",
   ]
 
@@ -41,6 +42,8 @@ rtc_source_set("rtc_event_log_api") {
     "../api:libjingle_logging_api",
     "../api:scoped_refptr",
     "../api/task_queue",
+    "../api/task_queue:global_task_queue_factory",
+    "../rtc_base:deprecation",
     "../rtc_base:rtc_base_approved",
     "//third_party/abseil-cpp/absl/memory",
   ]

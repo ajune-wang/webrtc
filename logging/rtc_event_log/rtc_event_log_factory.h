@@ -13,6 +13,7 @@
 
 #include <memory>
 
+#include "api/task_queue/task_queue_factory.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "logging/rtc_event_log/rtc_event_log_factory_interface.h"
 
@@ -23,7 +24,8 @@ class RtcEventLogFactory : public RtcEventLogFactoryInterface {
   ~RtcEventLogFactory() override {}
 
   std::unique_ptr<RtcEventLog> CreateRtcEventLog(
-      RtcEventLog::EncodingType encoding_type) override;
+      RtcEventLog::EncodingType encoding_type,
+      TaskQueueFactory* task_queue_factory) override;
 };
 
 std::unique_ptr<RtcEventLogFactoryInterface> CreateRtcEventLogFactory();

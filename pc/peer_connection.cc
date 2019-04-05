@@ -695,6 +695,29 @@ void ReportSimulcastApiVersion(const char* name,
   }
 }
 
+RtpTransceiverDirection Intersection(RtpTransceiverDirection lhs,
+                                     RtpTransceiverDirection rhs) {
+  if (lhs == RtpTransceiverDirection::kInactive ||
+      rhs == RtpTransceiverDirection::kInactive) {
+    return RtpTransceiverDirection::kInactive;
+  }
+  if (lhs == RtpTransceiverDirection::kSendRecv)
+    return rhs;
+  if (rhs == RtpTransceiverDirection::kSendRecv)
+    return lhs;
+
+  return lhs == rhs ? lhs : RtpTransceiverDirection::kInactive;
+}
+
+RtpTransceiverDirection ReflectedDirection(RtpTransceiverDirection direction) {
+  if (direction == RtpTransceiverDirection::kSendOnly)
+    return RtpTransceiverDirection::kRecvOnly;
+  if (direction == RtpTransceiverDirection::kRecvOnly)
+    return RtpTransceiverDirection::kSendOnly;
+
+  return direction;
+}
+
 }  // namespace
 
 // Upon completion, posts a task to execute the callback of the
@@ -1251,7 +1274,7 @@ bool PeerConnection::AddStream(MediaStreamInterface* local_stream) {
   }
 
   stats_->AddStream(local_stream);
-  Observer()->OnRenegotiationNeeded();
+  UpdateNegotiationNeeded();
   return true;
 }
 
@@ -1281,7 +1304,7 @@ void PeerConnection::RemoveStream(MediaStreamInterface* local_stream) {
   if (IsClosed()) {
     return;
   }
-  Observer()->OnRenegotiationNeeded();
+  UpdateNegotiationNeeded();
 }
 
 RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> PeerConnection::AddTrack(
@@ -1310,7 +1333,7 @@ RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> PeerConnection::AddTrack(
       (IsUnifiedPlan() ? AddTrackUnifiedPlan(track, stream_ids)
                        : AddTrackPlanB(track, stream_ids));
   if (sender_or_error.ok()) {
-    Observer()->OnRenegotiationNeeded();
+    UpdateNegotiationNeeded();
     stats_->AddTrack(track);
   }
   return sender_or_error;
@@ -1457,7 +1480,7 @@ RTCError PeerConnection::RemoveTrackNew(
           "Couldn't find sender " + sender->id() + " to remove.");
     }
   }
-  Observer()->OnRenegotiationNeeded();
+  UpdateNegotiationNeeded();
   return RTCError::OK();
 }
 
@@ -1606,7 +1629,7 @@ PeerConnection::AddTransceiver(
   transceiver->internal()->set_direction(init.direction);
 
   if (fire_callback) {
-    Observer()->OnRenegotiationNeeded();
+    UpdateNegotiationNeeded();
   }
 
   return rtc::scoped_refptr<RtpTransceiverInterface>(transceiver);
@@ -1684,7 +1707,7 @@ PeerConnection::CreateAndAddTransceiver(
 void PeerConnection::OnNegotiationNeeded() {
   RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_DCHECK(!IsClosed());
-  Observer()->OnRenegotiationNeeded();
+  UpdateNegotiationNeeded();
 }
 
 rtc::scoped_refptr<RtpSenderInterface> PeerConnection::CreateSender(
@@ -1932,7 +1955,7 @@ rtc::scoped_refptr<DataChannelInterface> PeerConnection::CreateDataChannel(
   // Trigger the onRenegotiationNeeded event for every new RTP DataChannel, or
   // the first SCTP DataChannel.
   if (data_channel_type() == cricket::DCT_RTP || first_datachannel) {
-    Observer()->OnRenegotiationNeeded();
+    UpdateNegotiationNeeded();
   }
   NoteUsageEvent(UsageEvent::DATA_ADDED);
   return DataChannelProxy::Create(signaling_thread(), channel.get());
@@ -2178,6 +2201,14 @@ void PeerConnection::SetLocalDescription(
     // Make UMA notes about what was agreed to.
     ReportNegotiatedSdpSemantics(*local_description());
   }
+
+  bool was_negotiation_needed = is_negotiation_needed_;
+  UpdateNegotiationNeeded();
+  if (signaling_state() == kStable && was_negotiation_needed &&
+      is_negotiation_needed_) {
+    Observer()->OnRenegotiationNeeded();
+  }
+
   NoteUsageEvent(UsageEvent::SET_LOCAL_DESCRIPTION_CALLED);
 }
 
@@ -2533,6 +2564,13 @@ void PeerConnection::SetRemoteDescription(
                                  port_allocator_.get()));
     // Make UMA notes about what was agreed to.
     ReportNegotiatedSdpSemantics(*remote_description());
+  }
+
+  bool was_negotiation_needed = is_negotiation_needed_;
+  UpdateNegotiationNeeded();
+  if (signaling_state() == kStable && was_negotiation_needed &&
+      is_negotiation_needed_) {
+    Observer()->OnRenegotiationNeeded();
   }
 
   observer->OnSetRemoteDescriptionComplete(RTCError::OK());
@@ -4147,7 +4185,7 @@ void PeerConnection::OnAudioTrackAdded(AudioTrackInterface* track,
     return;
   }
   AddAudioTrack(track, stream);
-  Observer()->OnRenegotiationNeeded();
+  UpdateNegotiationNeeded();
 }
 
 void PeerConnection::OnAudioTrackRemoved(AudioTrackInterface* track,
@@ -4156,7 +4194,7 @@ void PeerConnection::OnAudioTrackRemoved(AudioTrackInterface* track,
     return;
   }
   RemoveAudioTrack(track, stream);
-  Observer()->OnRenegotiationNeeded();
+  UpdateNegotiationNeeded();
 }
 
 void PeerConnection::OnVideoTrackAdded(VideoTrackInterface* track,
@@ -4165,7 +4203,7 @@ void PeerConnection::OnVideoTrackAdded(VideoTrackInterface* track,
     return;
   }
   AddVideoTrack(track, stream);
-  Observer()->OnRenegotiationNeeded();
+  UpdateNegotiationNeeded();
 }
 
 void PeerConnection::OnVideoTrackRemoved(VideoTrackInterface* track,
@@ -4174,7 +4212,7 @@ void PeerConnection::OnVideoTrackRemoved(VideoTrackInterface* track,
     return;
   }
   RemoveVideoTrack(track, stream);
-  Observer()->OnRenegotiationNeeded();
+  UpdateNegotiationNeeded();
 }
 
 void PeerConnection::PostSetSessionDescriptionSuccess(
@@ -7111,6 +7149,281 @@ void PeerConnection::ClearStatsCache() {
 void PeerConnection::RequestUsagePatternReportForTesting() {
   signaling_thread()->Post(RTC_FROM_HERE, this, MSG_REPORT_USAGE_PATTERN,
                            nullptr);
+}
+
+void PeerConnection::UpdateNegotiationNeeded() {
+  LOG(ERROR) << __PRETTY_FUNCTION__
+             << "  Initial is_negotiation_needed_ = " << is_negotiation_needed_;
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  // If connection's [[IsClosed]] slot is true, abort these steps.
+  if (IsClosed()) {
+    LOG(ERROR) << __PRETTY_FUNCTION__
+               << " Returning due to Closed(). Final is_negotiation_needed_ = "
+               << is_negotiation_needed_;
+    return;
+  }
+
+  // If connection's signaling state is not "stable", abort these steps.
+  if (signaling_state() != kStable) {
+    LOG(ERROR)
+        << __PRETTY_FUNCTION__
+        << " Returning due to NOT STABLE. Final is_negotiation_needed_ = "
+        << is_negotiation_needed_;
+    return;
+  }
+
+  // NOTE
+  // The negotiation-needed flag will be updated once the state transitions to
+  // "stable", as part of the steps for setting an RTCSessionDescription.
+
+  // If the result of checking if negotiation is needed is false, clear the
+  // negotiation-needed flag by setting connection's [[NegotiationNeeded]] slot
+  // to false, and abort these steps.
+  bool is_negotiation_needed = CheckIfNegotiationIsNeeded();
+  if (!is_negotiation_needed) {
+    is_negotiation_needed_ = false;
+    LOG(ERROR) << __PRETTY_FUNCTION__
+               << " Returning after Check. Final is_negotiation_needed_ = "
+               << is_negotiation_needed_;
+    return;
+  }
+
+  // If connection's [[NegotiationNeeded]] slot is already true, abort these
+  // steps.
+  if (is_negotiation_needed_) {
+    LOG(ERROR) << __PRETTY_FUNCTION__
+               << " Returning after already was needed. Final "
+                  "is_negotiation_needed_ = "
+               << is_negotiation_needed_;
+    return;
+  }
+
+  // Set connection's [[NegotiationNeeded]] slot to true.
+  is_negotiation_needed_ = true;
+
+  // Queue a task that runs the following steps:
+  // If connection's [[IsClosed]] slot is true, abort these steps.
+  // If connection's [[NegotiationNeeded]] slot is false, abort these steps.
+  // Fire an event named negotiationneeded at connection.
+  LOG(ERROR) << __PRETTY_FUNCTION__
+             << " FIRING!!!! FIRING!!!! FIRING!!!! FIRING!!!! FIRING!!!!. "
+                "Final is_negotiation_needed_ = "
+             << is_negotiation_needed_;
+  Observer()->OnRenegotiationNeeded();
+}
+
+bool PeerConnection::CheckIfNegotiationIsNeeded() {
+  LOG(ERROR) << __PRETTY_FUNCTION__ << " @" << this;
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  // 1. If any implementation-specific negotiation is required, as described at
+  // the start of this section, return true.
+
+  // 2. Let description be connection.[[CurrentLocalDescription]].
+  const SessionDescriptionInterface* description = current_local_description();
+  if (!description) {
+    LOG(ERROR) << __PRETTY_FUNCTION__
+               << " Returning TRUE due to no description";
+    return true;
+  }
+
+  std::string desc_str;
+  description->ToString(&desc_str);
+  LOG(ERROR) << __PRETTY_FUNCTION__ << "DESC = " << desc_str;
+
+  // 3. If connection has created any RTCDataChannels, and no m= section in
+  // description has been negotiated yet for data, return true.
+  const ContentInfos& contents = description->description()->contents();
+  LOG(ERROR) << __PRETTY_FUNCTION__
+             << " Num Data Channels = " << sctp_data_channels_.size();
+  if (!sctp_data_channels_.empty()) {
+    auto it = std::find_if(
+        contents.begin(), contents.end(), [](const ContentInfo& info) {
+          return info.media_description()->type() == cricket::MEDIA_TYPE_DATA;
+        });
+    if (it == contents.end()) {
+      LOG(ERROR) << __PRETTY_FUNCTION__
+                 << " Returning TRUE due to no DATA msection";
+      return true;
+    }
+  }
+
+  // 4. For each transceiver in connection's set of transceivers, perform the
+  // following checks:
+  for (const auto& transceiver : transceivers_) {
+    auto it_transceiver_msection =
+        std::find_if(contents.begin(), contents.end(),
+                     [&transceiver](const ContentInfo& info) {
+                       return info.mid() == transceiver->mid();
+                     });
+    const bool transceiver_has_msection =
+        it_transceiver_msection != contents.end();
+
+    const ContentInfos& crd_contents =
+        current_remote_description()->description()->contents();
+    auto it_crd_transceiver_msection =
+        std::find_if(crd_contents.begin(), crd_contents.end(),
+                     [&transceiver](const ContentInfo& info) {
+                       return info.mid() == transceiver->mid();
+                     });
+    const bool transceiver_has_crd_msection =
+        it_crd_transceiver_msection != crd_contents.end();
+
+    if (!transceiver->stopped()) {
+      // 4.1 If transceiver isn't stopped and isn't yet associated with an m=
+      // section in description, return true.
+      if (!transceiver_has_msection) {
+        LOG(ERROR) << __PRETTY_FUNCTION__
+                   << " Returning TRUE due to no msection for transceiver";
+        return true;
+      }
+
+      // 4.2 If transceiver isn't stopped and is associated with an m= section
+      // in description then perform the following checks:
+
+      // 4.2.1 If transceiver.[[Direction]] is "sendrecv" or "sendonly", and the
+      // associated m= section in description either doesn't contain a single
+      // "a=msid" line, or the number of MSIDs from the "a=msid" lines in this
+      // m= section, or the MSID values themselves, differ from what is in
+      // transceiver.sender.[[AssociatedMediaStreamIds]], return true.
+      if (transceiver->direction() == RtpTransceiverDirection::kSendRecv ||
+          transceiver->direction() == RtpTransceiverDirection::kSendOnly) {
+        LOG(ERROR) << __PRETTY_FUNCTION__ << " Checking 4.2.1";
+        if (it_transceiver_msection->media_description()->streams().size() ==
+            0) {
+          LOG(ERROR) << __PRETTY_FUNCTION__
+                     << " Returning TRUE due to no a=msid section";
+          return true;
+        }
+
+        std::vector<std::string> msection_msids;
+        for (const auto& stream :
+             it_transceiver_msection->media_description()->streams()) {
+          for (const std::string& msid : stream.stream_ids())
+            msection_msids.push_back(msid);
+        }
+
+        std::vector<std::string> transceiver_msids =
+            transceiver->sender()->stream_ids();
+        if (msection_msids.size() != transceiver_msids.size()) {
+          LOG(ERROR) << __PRETTY_FUNCTION__
+                     << " Returning TRUE due to number of msids different in "
+                        "transceiver and msection";
+          return true;
+        }
+
+        std::sort(transceiver_msids.begin(), transceiver_msids.end());
+        std::sort(msection_msids.begin(), msection_msids.end());
+        if (transceiver_msids != msection_msids) {
+          LOG(ERROR) << __PRETTY_FUNCTION__
+                     << " Returning TRUE due to discrepancies in msids in "
+                        "transceiver and msection (same size)";
+          return true;
+        }
+      }
+
+      // 4.2.2 If description is of type "offer", and the direction of the
+      // associated m= section in neither connection.[[CurrentLocalDescription]]
+      // nor connection.[[CurrentRemoteDescription]] matches
+      // transceiver.[[Direction]], return true.
+      if (description->GetType() == SdpType::kOffer) {
+        LOG(ERROR) << __PRETTY_FUNCTION__ << " Checking 4.2.2";
+        if (!current_remote_description()) {
+          LOG(ERROR) << __PRETTY_FUNCTION__ << " Returning TRUE due to no CRD";
+          return true;
+        }
+
+        if (!transceiver_has_crd_msection) {
+          LOG(ERROR) << __PRETTY_FUNCTION__
+                     << " Returning TRUE due to no msection in CRD";
+          return true;
+        }
+
+        RtpTransceiverDirection cld_direction =
+            it_transceiver_msection->media_description()->direction();
+        RtpTransceiverDirection crd_direction =
+            it_crd_transceiver_msection->media_description()->direction();
+        LOG(ERROR) << __PRETTY_FUNCTION__ << " Trasceiver direction = "
+                   << (int)transceiver->direction();
+        LOG(ERROR) << __PRETTY_FUNCTION__
+                   << " CLD direction = " << (int)cld_direction;
+        LOG(ERROR) << __PRETTY_FUNCTION__ << " Reflected CRD direction = "
+                   << (int)ReflectedDirection(crd_direction);
+        if (transceiver->direction() != cld_direction &&
+            transceiver->direction() != ReflectedDirection(crd_direction)) {
+          LOG(ERROR) << __PRETTY_FUNCTION__
+                     << " Returning TRUE due to mismatch in transceiver, CLD "
+                        "and CRD direction";
+          return true;
+        }
+      }
+
+      // 4.2.3 If description is of type "answer", and the direction of the
+      // associated m= section in the description does not match
+      // transceiver.[[Direction]] intersected with the offered direction (as
+      // described in [JSEP] (section 5.3.1.)), return true.
+      if (description->GetType() == SdpType::kAnswer) {
+        if (!remote_description()) {
+          LOG(ERROR) << __PRETTY_FUNCTION__
+                     << " Returning TRUE due to no remote description";
+          return true;
+        }
+
+        const ContentInfos& remote_contents =
+            remote_description()->description()->contents();
+        auto it_remote_transceiver_msection =
+            std::find_if(remote_contents.begin(), remote_contents.end(),
+                         [&transceiver](const ContentInfo& info) {
+                           return info.mid() == transceiver->mid();
+                         });
+        bool transceiver_has_rd_msection =
+            it_remote_transceiver_msection != remote_contents.end();
+
+        RtpTransceiverDirection offered_direction =
+            transceiver_has_rd_msection
+                ? it_remote_transceiver_msection->media_description()
+                      ->direction()
+                : RtpTransceiverDirection::kInactive;
+
+        LOG(ERROR)
+            << __PRETTY_FUNCTION__ << " CLD direction = "
+            << (int)it_transceiver_msection->media_description()->direction();
+        LOG(ERROR) << __PRETTY_FUNCTION__ << " Trasceiver direction = "
+                   << (int)transceiver->direction();
+        LOG(ERROR) << __PRETTY_FUNCTION__ << " Reflected CRD direction = "
+                   << (int)ReflectedDirection(offered_direction);
+        LOG(ERROR) << __PRETTY_FUNCTION__ << " Intersection(T, RefCRD) = "
+                   << (int)Intersection(transceiver->direction(),
+                                        ReflectedDirection(offered_direction));
+        if (it_transceiver_msection->media_description()->direction() !=
+            (Intersection(transceiver->direction(),
+                          ReflectedDirection(offered_direction)))) {
+          LOG(ERROR) << __PRETTY_FUNCTION__
+                     << " Returning TRUE due to mismatch between msection "
+                        "direction and Intersection(transceiver, RD).direction";
+          return true;
+        }
+      }
+    } else {
+      // 4.3 If transceiver is stopped and is associated with an m= section,
+      // but the associated m= section is not yet rejected in
+      // connection.[[CurrentLocalDescription]] or
+      // connection.[[CurrentRemoteDescription]], return true.
+      if (transceiver_has_msection && !it_transceiver_msection->rejected &&
+          ((transceiver_has_crd_msection &&
+            !it_crd_transceiver_msection->rejected) ||
+           !transceiver_has_crd_msection)) {
+        LOG(ERROR) << __PRETTY_FUNCTION__
+                   << " Returning TRUE due to stopped transceiver but no "
+                      "rejected msection or CRD msection";
+        return true;
+      }
+    }
+  }
+
+  // If all the preceding checks were performed and true was not returned,
+  // nothing remains to be negotiated; return false.
+  LOG(ERROR) << __PRETTY_FUNCTION__ << " Returning FALSE";
+  return false;
 }
 
 }  // namespace webrtc

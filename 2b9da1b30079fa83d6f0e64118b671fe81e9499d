@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3aecf035_e591bc43",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-05T15:20:14Z",
+      "side": 1,
+      "message": "This seems odd, considering that we have an early return above. Maybe delete always? Also, consider if the comment can be removed if variable naming is improved below.",
+      "range": {
+        "startLine": 151,
+        "startChar": 5,
+        "endLine": 151,
+        "endChar": 11
+      },
+      "revId": "2b9da1b30079fa83d6f0e64118b671fe81e9499d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "919b8b1c_2dff113f",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-05T15:20:14Z",
+      "side": 1,
+      "message": "last_old_packet_arrival? Or something in that spirit.",
+      "range": {
+        "startLine": 152,
+        "startChar": 7,
+        "endLine": 152,
+        "endChar": 18
+      },
+      "revId": "2b9da1b30079fa83d6f0e64118b671fe81e9499d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e26ed105_7b1a8e21",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-05T15:20:14Z",
+      "side": 1,
+      "message": "It\u0027s not obvious to me why this is done when not sending feedback on request but not otherwise.",
+      "revId": "2b9da1b30079fa83d6f0e64118b671fe81e9499d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07735ae8_cab168e3",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-05T15:20:14Z",
+      "side": 1,
+      "message": "If possible, it\u0027d be nice to elaborate on what \"Handles\" means, preferably in the name, but a comment might be better if it\u0027s hard to condense.",
+      "range": {
+        "startLine": 218,
+        "startChar": 33,
+        "endLine": 218,
+        "endChar": 40
+      },
+      "revId": "2b9da1b30079fa83d6f0e64118b671fe81e9499d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92cbe82e_6eaf86a4",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-05T15:20:14Z",
+      "side": 1,
+      "message": "Would be nice with a short explanation for the setup code, essentially: What it creates and why. In particular, what is malformed about them.\n\nGoes for the test below as well.",
+      "revId": "2b9da1b30079fa83d6f0e64118b671fe81e9499d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

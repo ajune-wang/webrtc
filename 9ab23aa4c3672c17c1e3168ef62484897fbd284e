@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "969bd6d8_672405e0",
+        "filename": "modules/audio_processing/aec3/block_processor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T10:56:46Z",
+      "side": 1,
+      "message": "This should not be created if config_.delay.use_external_delay_estimator is set.",
+      "range": {
+        "startLine": 89,
+        "startChar": 6,
+        "endLine": 89,
+        "endChar": 53
+      },
+      "revId": "9ab23aa4c3672c17c1e3168ef62484897fbd284e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2797612_23c1766c",
+        "filename": "modules/audio_processing/aec3/block_processor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T10:56:46Z",
+      "side": 1,
+      "message": "This should not be run if config_.delay.use_external_delay_estimator is set",
+      "range": {
+        "startLine": 117,
+        "startChar": 5,
+        "endLine": 117,
+        "endChar": 37
+      },
+      "revId": "9ab23aa4c3672c17c1e3168ef62484897fbd284e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "347d3303_8cd2caeb",
+        "filename": "modules/audio_processing/aec3/block_processor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T10:56:46Z",
+      "side": 1,
+      "message": "This should not be run if config_.delay.use_external_delay_estimator is set",
+      "range": {
+        "startLine": 132,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 35
+      },
+      "revId": "9ab23aa4c3672c17c1e3168ef62484897fbd284e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5389270_b718bc3a",
+        "filename": "modules/audio_processing/aec3/block_processor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T10:56:46Z",
+      "side": 1,
+      "message": "This should not be run if config_.delay.use_external_delay_estimator is set",
+      "revId": "9ab23aa4c3672c17c1e3168ef62484897fbd284e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f87c488e_11ca296a",
+        "filename": "modules/audio_processing/aec3/block_processor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T10:56:46Z",
+      "side": 1,
+      "message": "What I don\u0027t really like here is that it gives the impression that it is the render delay buffer that determines whether the echo should be removed (which is strange).\n\n\nAn alternative would be to instead store the external buffer delay in an optional external_delay_\n\nif (external_delay_) {\necho_remover_-\u003eProcessCapture(\n        echo_path_variability, capture_signal_saturation, estimated_delay_,\n        render_buffer_-\u003eGetRenderBuffer(), capture_block);\n}\n\nThat is, however, as well a bit strange since it is hard to motivate why at all the AEC3 code should be run if no external delay is specified. Is it not better then just to bypass the AEC code?",
+      "revId": "9ab23aa4c3672c17c1e3168ef62484897fbd284e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "789aa843_f2c199c6",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T10:56:46Z",
+      "side": 1,
+      "message": "Would it be possible to do this alignment at the time the SetAudioBufferDelay method is called?\n\nAnother aspect is also how SetDelay and AlignFromExternalDelay differs?\nSince SetDelay is called with a delay as input, it is a bit strange why it cannot be called with the external delay as input.\n(I know these delays are used differently internally, but cannot the RenderDelayBuffer take care of choosing the right handling? (it anyway knows that from the config during construction time)).",
+      "range": {
+        "startLine": 341,
+        "startChar": 28,
+        "endLine": 341,
+        "endChar": 50
+      },
+      "revId": "9ab23aa4c3672c17c1e3168ef62484897fbd284e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a292baf_704247ec",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T10:56:46Z",
+      "side": 1,
+      "message": "I think another approach should be taken rather to return of a bool as a success. The buffer will instead use a default alignment from an echo removal point of view it is not clear why that is not ok to use.",
+      "range": {
+        "startLine": 342,
+        "startChar": 1,
+        "endLine": 343,
+        "endChar": 17
+      },
+      "revId": "9ab23aa4c3672c17c1e3168ef62484897fbd284e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9abeb059_1092ce66",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-05T10:56:46Z",
+      "side": 1,
+      "message": "This needs a comment. In particular since it both has side-effects and returns a bool it is non-obvious what is done.",
+      "range": {
+        "startLine": 71,
+        "startChar": 15,
+        "endLine": 71,
+        "endChar": 37
+      },
+      "revId": "9ab23aa4c3672c17c1e3168ef62484897fbd284e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

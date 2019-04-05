@@ -41,6 +41,7 @@ rtc_source_set("rtc_event_log_api") {
     "../api:libjingle_logging_api",
     "../api:scoped_refptr",
     "../api/task_queue",
+    "../rtc_base:deprecation",
     "../rtc_base:rtc_base_approved",
     "//third_party/abseil-cpp/absl/memory",
   ]

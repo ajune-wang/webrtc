@@ -13,7 +13,9 @@
 
 #include <memory>
 
+#include "api/task_queue/task_queue_factory.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
+#include "rtc_base/deprecation.h"
 
 namespace webrtc {
 
@@ -24,8 +26,14 @@ class RtcEventLogFactoryInterface {
  public:
   virtual ~RtcEventLogFactoryInterface() {}
 
+  // TODO(bugs.webrtc.org/10284): Remove when unused.
+  RTC_DEPRECATED
+  std::unique_ptr<RtcEventLog> CreateRtcEventLog(
+      RtcEventLog::EncodingType encoding_type);
+
   virtual std::unique_ptr<RtcEventLog> CreateRtcEventLog(
-      RtcEventLog::EncodingType encoding_type) = 0;
+      RtcEventLog::EncodingType encoding_type,
+      TaskQueueFactory* task_queue_factory) = 0;
 };
 
 }  // namespace webrtc

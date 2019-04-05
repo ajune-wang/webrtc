@@ -16,7 +16,8 @@
 namespace webrtc {
 
 std::unique_ptr<RtcEventLog> FakeRtcEventLogFactory::CreateRtcEventLog(
-    RtcEventLog::EncodingType encoding_type) {
+    RtcEventLog::EncodingType encoding_type,
+    TaskQueueFactory* /*task_queue_factory*/) {
   std::unique_ptr<RtcEventLog> fake_event_log(new FakeRtcEventLog(thread()));
   last_log_created_ = fake_event_log.get();
   return fake_event_log;

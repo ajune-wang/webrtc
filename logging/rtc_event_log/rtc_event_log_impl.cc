@@ -379,6 +379,10 @@ std::unique_ptr<RtcEventLog> RtcEventLog::Create(
     RtcEventLog::EncodingType encoding_type,
     TaskQueueFactory* task_queue_factory) {
 #ifdef ENABLE_RTC_EVENT_LOG
+  // TODO(bugs.webrtc.org/10284): Replace with a RTC_DCHECK
+  if (task_queue_factory == nullptr) {
+    task_queue_factory = &GlobalTaskQueueFactory();
+  }
   return absl::make_unique<RtcEventLogImpl>(
       CreateEncoder(encoding_type),
       absl::make_unique<rtc::TaskQueue>(task_queue_factory->CreateTaskQueue(

@@ -126,12 +126,7 @@ void RemoteEstimatorProxy::OnPacketArrival(
 
   int64_t seq = unwrapper_.Unwrap(sequence_number);
 
-  if (send_feedback_on_request_only_) {
-    // Remove old packet arrival times.
-    auto clear_to_it =
-        packet_arrival_times_.lower_bound(seq - kMaxNumberOfPackets);
-    packet_arrival_times_.erase(packet_arrival_times_.begin(), clear_to_it);
-  } else {
+  if (!send_feedback_on_request_only_) {
     if (periodic_window_start_seq_ &&
         packet_arrival_times_.lower_bound(*periodic_window_start_seq_) ==
             packet_arrival_times_.end()) {
@@ -152,6 +147,19 @@ void RemoteEstimatorProxy::OnPacketArrival(
     return;
 
   packet_arrival_times_[seq] = arrival_time;
+
+  // Always remove packet arrival times for old sequence numbers.
+  auto clear_to_it = packet_arrival_times_.lower_bound(
+      packet_arrival_times_.rbegin()->first - kMaxNumberOfPackets);
+  if (clear_to_it != packet_arrival_times_.begin()) {
+    packet_arrival_times_.erase(packet_arrival_times_.begin(), clear_to_it);
+    if (!send_feedback_on_request_only_) {
+      // |packet_arrival_times_| cannot be empty since we just added one element
+      // and the last element is not deleted.
+      RTC_DCHECK(!packet_arrival_times_.empty());
+      periodic_window_start_seq_ = packet_arrival_times_.begin()->first;
+    }
+  }
 
   if (feedback_request) {
     // Send feedback packet immediately.

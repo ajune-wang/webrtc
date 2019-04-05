@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ac70d31_cca70957",
+        "filename": "api/data_channel_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-05T12:30:32Z",
+      "side": 1,
+      "message": "Document that this is \"maxPacketLifeTime\" in the standard?",
+      "revId": "da74ce6c6d75cde8e0fa07e948532565a515acce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9312e86_1babcd76",
+        "filename": "api/data_channel_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-05T12:30:32Z",
+      "side": 1,
+      "message": "Note: Because of the way unsigned integer arithmetic works in C++, the style guide recommends signed integers even for numbers whose conceptual range is entirely nonnegative. \"Good\" reasons for using unsigned types include wanting modular arithmetic, and wanting to save as much space as possible, neither of which applies here.\n\n(Signed integers have two advantages: overflow is UB, so the compiler will assume it doesn\u0027t happen and UBSan will check for it; and *both* edges of the representable range are far away from typical small values, meaning that bugs are less likely to cause unintended wraparound.)\n\nI won\u0027t insist, but I\u0027m guessing optional\u003cint\u003e would have been a better choice here.",
+      "range": {
+        "startLine": 47,
+        "startChar": 17,
+        "endLine": 47,
+        "endChar": 25
+      },
+      "revId": "da74ce6c6d75cde8e0fa07e948532565a515acce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

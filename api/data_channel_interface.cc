@@ -24,6 +24,16 @@ uint16_t DataChannelInterface::maxRetransmits() const {
   return 0;
 }
 
+/*
+absl::optional<uint16_t> DataChannelInterface::maxRetransmitsOpt() const {
+  return absl::nullopt;
+}
+
+absl::optional<uint16_t> DataChannelInterface::maxPacketLifeTime() const {
+  return absl::nullopt;
+}
+*/
+
 std::string DataChannelInterface::protocol() const {
   return std::string();
 }

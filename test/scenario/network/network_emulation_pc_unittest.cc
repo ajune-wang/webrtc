@@ -17,6 +17,7 @@
 #include "api/call/call_factory_interface.h"
 #include "api/peer_connection_interface.h"
 #include "api/scoped_refptr.h"
+#include "api/task_queue/default_task_queue_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "call/simulated_network.h"
@@ -56,8 +57,10 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     rtc::Thread* signaling_thread,
     rtc::Thread* network_thread) {
   PeerConnectionFactoryDependencies pcf_deps;
+  pcf_deps.task_queue_factory = CreateDefaultTaskQueueFactory();
   pcf_deps.call_factory = webrtc::CreateCallFactory();
-  pcf_deps.event_log_factory = webrtc::CreateRtcEventLogFactory();
+  pcf_deps.event_log_factory =
+      webrtc::CreateRtcEventLogFactory(pcf_deps.task_queue_factory.get());
   pcf_deps.network_thread = network_thread;
   pcf_deps.signaling_thread = signaling_thread;
   pcf_deps.media_engine = cricket::WebRtcMediaEngineFactory::Create(

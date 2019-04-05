@@ -38,6 +38,7 @@
 #include "api/rtp_sender_interface.h"
 #include "api/rtp_transceiver_interface.h"
 #include "api/scoped_refptr.h"
+#include "api/task_queue/default_task_queue_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "api/video_codecs/video_decoder_factory.h"
@@ -643,6 +644,7 @@ class PeerConnectionFactoryForTest : public webrtc::PeerConnectionFactory {
     dependencies.worker_thread = rtc::Thread::Current();
     dependencies.network_thread = rtc::Thread::Current();
     dependencies.signaling_thread = rtc::Thread::Current();
+    dependencies.task_queue_factory = CreateDefaultTaskQueueFactory();
 
     // Use fake audio device module since we're only testing the interface
     // level, and using a real one could make tests flaky when run in parallel.
@@ -654,7 +656,8 @@ class PeerConnectionFactoryForTest : public webrtc::PeerConnectionFactory {
             webrtc::AudioProcessingBuilder().Create()));
 
     dependencies.call_factory = webrtc::CreateCallFactory();
-    dependencies.event_log_factory = webrtc::CreateRtcEventLogFactory();
+    dependencies.event_log_factory =
+        webrtc::CreateRtcEventLogFactory(dependencies.task_queue_factory.get());
 
     return new rtc::RefCountedObject<PeerConnectionFactoryForTest>(
         std::move(dependencies));

@@ -12,6 +12,7 @@
 #include <utility>
 
 #include "api/call/call_factory_interface.h"
+#include "api/task_queue/global_task_queue_factory.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "logging/rtc_event_log/rtc_event_log_factory.h"
@@ -27,7 +28,7 @@ CallFactoryInterface* CreateCallFactory() {
 }
 
 RtcEventLogFactoryInterface* CreateRtcEventLogFactory() {
-  return webrtc::CreateRtcEventLogFactory().release();
+  return webrtc::CreateRtcEventLogFactory(&GlobalTaskQueueFactory()).release();
 }
 
 cricket::MediaEngineInterface* CreateMediaEngine(

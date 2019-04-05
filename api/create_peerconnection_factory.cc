@@ -20,6 +20,7 @@
 #include "api/fec_controller.h"
 #include "api/peer_connection_interface.h"
 #include "api/scoped_refptr.h"
+#include "api/task_queue/global_task_queue_factory.h"
 #include "api/transport/network_control.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
@@ -56,7 +57,7 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
   std::unique_ptr<CallFactoryInterface> call_factory = CreateCallFactory();
 
   std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory =
-      CreateRtcEventLogFactory();
+      CreateRtcEventLogFactory(&GlobalTaskQueueFactory());
   PeerConnectionFactoryDependencies dependencies;
   dependencies.network_thread = network_thread;
   dependencies.worker_thread = worker_thread;

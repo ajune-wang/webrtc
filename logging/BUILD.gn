@@ -261,6 +261,7 @@ rtc_static_library("rtc_event_log_impl_base") {
     "../api/task_queue",
     "../api/task_queue:global_task_queue_factory",
     "../rtc_base:checks",
+    "../rtc_base:deprecation",
     "../rtc_base:rtc_base_approved",
     "../rtc_base:rtc_task_queue",
     "../rtc_base:safe_minmax",

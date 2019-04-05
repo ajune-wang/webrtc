@@ -16,6 +16,7 @@
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/peer_connection_interface.h"
+#include "api/task_queue/global_task_queue_factory.h"
 #include "api/video/builtin_video_bitrate_allocator_factory.h"
 #include "examples/androidnativeapi/generated_jni/jni/CallClient_jni.h"
 #include "logging/rtc_event_log/rtc_event_log_factory.h"
@@ -169,7 +170,7 @@ void AndroidCallClient::CreatePeerConnectionFactory() {
   pcf_ = CreateModularPeerConnectionFactory(
       network_thread_.get(), worker_thread_.get(), signaling_thread_.get(),
       std::move(media_engine), webrtc::CreateCallFactory(),
-      webrtc::CreateRtcEventLogFactory());
+      webrtc::CreateRtcEventLogFactory(&webrtc::GlobalTaskQueueFactory()));
   RTC_LOG(LS_INFO) << "PeerConnectionFactory created: " << pcf_;
 }
 

@@ -29,6 +29,7 @@
 #include "api/peer_connection_interface.h"
 #include "api/peer_connection_proxy.h"
 #include "api/rtp_receiver_interface.h"
+#include "api/task_queue/default_task_queue_factory.h"
 #include "api/test/loopback_media_transport.h"
 #include "api/uma_metrics.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
@@ -592,6 +593,8 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
     pc_factory_dependencies.network_thread = network_thread;
     pc_factory_dependencies.worker_thread = worker_thread;
     pc_factory_dependencies.signaling_thread = signaling_thread;
+    pc_factory_dependencies.task_queue_factory =
+        CreateDefaultTaskQueueFactory();
     pc_factory_dependencies.media_engine =
         cricket::WebRtcMediaEngineFactory::Create(
             rtc::scoped_refptr<webrtc::AudioDeviceModule>(
@@ -607,7 +610,8 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
       pc_factory_dependencies.event_log_factory = std::move(event_log_factory);
     } else {
       pc_factory_dependencies.event_log_factory =
-          webrtc::CreateRtcEventLogFactory();
+          webrtc::CreateRtcEventLogFactory(
+              pc_factory_dependencies.task_queue_factory.get());
     }
     if (media_transport_factory) {
       pc_factory_dependencies.media_transport_factory =

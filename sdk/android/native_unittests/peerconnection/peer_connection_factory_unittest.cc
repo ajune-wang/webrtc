@@ -12,6 +12,7 @@
 #include "absl/memory/memory.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
+#include "api/task_queue/global_task_queue_factory.h"
 #include "logging/rtc_event_log/rtc_event_log_factory.h"
 #include "media/base/media_engine.h"
 #include "media/engine/internal_decoder_factory.h"
@@ -55,7 +56,8 @@ rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> CreateTestPCF(
 
   auto factory = CreateModularPeerConnectionFactory(
       network_thread, worker_thread, signaling_thread, std::move(media_engine),
-      webrtc::CreateCallFactory(), webrtc::CreateRtcEventLogFactory());
+      webrtc::CreateCallFactory(),
+      webrtc::CreateRtcEventLogFactory(&GlobalTaskQueueFactory()));
   RTC_LOG(LS_INFO) << "PeerConnectionFactory created: " << factory;
   RTC_CHECK(factory) << "Failed to create the peer connection factory; "
                      << "WebRTC/libjingle init likely failed on this device";

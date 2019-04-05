@@ -16,6 +16,7 @@
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/scoped_refptr.h"
+#include "api/task_queue/default_task_queue_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "logging/rtc_event_log/rtc_event_log_factory.h"
@@ -44,12 +45,17 @@ void SetMandatoryEntities(InjectableComponents* components) {
   RTC_DCHECK(components->pc_dependencies);
 
   // Setup required peer connection factory dependencies.
+  if (components->pcf_dependencies->task_queue_factory == nullptr) {
+    components->pcf_dependencies->task_queue_factory =
+        CreateDefaultTaskQueueFactory();
+  }
   if (components->pcf_dependencies->call_factory == nullptr) {
     components->pcf_dependencies->call_factory = webrtc::CreateCallFactory();
   }
   if (components->pcf_dependencies->event_log_factory == nullptr) {
     components->pcf_dependencies->event_log_factory =
-        webrtc::CreateRtcEventLogFactory();
+        webrtc::CreateRtcEventLogFactory(
+            components->pcf_dependencies->task_queue_factory.get());
   }
 }
 
@@ -170,6 +176,7 @@ PeerConnectionFactoryDependencies CreatePCFDependencies(
   PeerConnectionFactoryDependencies pcf_deps;
   pcf_deps.network_thread = network_thread;
   pcf_deps.signaling_thread = signaling_thread;
+  pcf_deps.task_queue_factory = std::move(pcf_dependencies->task_queue_factory);
   pcf_deps.media_engine = CreateMediaEngine(
       pcf_dependencies.get(), std::move(audio_config), bitrate_multiplier,
       std::move(stream_required_spatial_index), video_analyzer_helper,

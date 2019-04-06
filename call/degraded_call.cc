@@ -20,7 +20,9 @@ namespace {
 constexpr int64_t kDoNothingProcessIntervalMs = 5000;
 }  // namespace
 
-FakeNetworkPipeModule::~FakeNetworkPipeModule() = default;
+FakeNetworkPipeModule::~FakeNetworkPipeModule() {
+  RTC_DCHECK_RUN_ON(&main_thread_);
+}
 
 FakeNetworkPipeModule::FakeNetworkPipeModule(
     Clock* clock,
@@ -41,6 +43,7 @@ void FakeNetworkPipeModule::SendRtcp(const uint8_t* packet, size_t length) {
 }
 
 void FakeNetworkPipeModule::MaybeResumeProcess() {
+  RTC_DCHECK_RUN_ON(&process_thread_checker_);  // probably runs on a different.
   rtc::CritScope cs(&process_thread_lock_);
   if (!pending_process_ && pipe_.TimeUntilNextProcess() && process_thread_) {
     process_thread_->WakeUp(nullptr);
@@ -48,6 +51,7 @@ void FakeNetworkPipeModule::MaybeResumeProcess() {
 }
 
 int64_t FakeNetworkPipeModule::TimeUntilNextProcess() {
+  RTC_DCHECK_RUN_ON(&process_thread_checker_);
   auto delay = pipe_.TimeUntilNextProcess();
   rtc::CritScope cs(&process_thread_lock_);
   pending_process_ = delay.has_value();
@@ -56,11 +60,13 @@ int64_t FakeNetworkPipeModule::TimeUntilNextProcess() {
 
 void FakeNetworkPipeModule::ProcessThreadAttached(
     ProcessThread* process_thread) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   rtc::CritScope cs(&process_thread_lock_);
   process_thread_ = process_thread;
 }
 
 void FakeNetworkPipeModule::Process() {
+  RTC_DCHECK_RUN_ON(&process_thread_checker_);
   pipe_.Process();
 }
 
@@ -88,6 +94,7 @@ DegradedCall::DegradedCall(
 }
 
 DegradedCall::~DegradedCall() {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   if (send_pipe_) {
     send_process_thread_->DeRegisterModule(send_pipe_.get());
   }

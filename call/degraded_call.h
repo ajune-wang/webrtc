@@ -37,6 +37,7 @@
 #include "rtc_base/bitrate_allocation_strategy.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/network/sent_packet.h"
+#include "rtc_base/thread_checker.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
@@ -63,6 +64,8 @@ class FakeNetworkPipeModule : public Module {
   rtc::CriticalSection process_thread_lock_;
   ProcessThread* process_thread_ RTC_GUARDED_BY(process_thread_lock_) = nullptr;
   bool pending_process_ RTC_GUARDED_BY(process_thread_lock_) = false;
+  rtc::ThreadChecker main_thread_;
+  rtc::ThreadChecker process_thread_checker_;
 };
 
 class DegradedCall : public Call, private Transport, private PacketReceiver {
@@ -144,6 +147,7 @@ class DegradedCall : public Call, private Transport, private PacketReceiver {
   const absl::optional<BuiltInNetworkBehaviorConfig> receive_config_;
   SimulatedNetwork* receive_simulated_network_;
   std::unique_ptr<FakeNetworkPipe> receive_pipe_;
+  rtc::ThreadChecker main_thread_;
 };
 
 }  // namespace webrtc

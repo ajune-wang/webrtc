@@ -20,7 +20,9 @@ namespace {
 constexpr int64_t kDoNothingProcessIntervalMs = 5000;
 }  // namespace
 
-FakeNetworkPipeModule::~FakeNetworkPipeModule() = default;
+FakeNetworkPipeModule::~FakeNetworkPipeModule() {
+  RTC_DCHECK_RUN_ON(&main_thread_);
+}
 
 FakeNetworkPipeModule::FakeNetworkPipeModule(
     Clock* clock,
@@ -41,6 +43,7 @@ void FakeNetworkPipeModule::SendRtcp(const uint8_t* packet, size_t length) {
 }
 
 void FakeNetworkPipeModule::MaybeResumeProcess() {
+  RTC_DCHECK_RUN_ON(&process_thread_checker_);  // probably runs on a different.
   rtc::CritScope cs(&process_thread_lock_);
   if (!pending_process_ && pipe_.TimeUntilNextProcess() && process_thread_) {
     process_thread_->WakeUp(nullptr);
@@ -48,6 +51,7 @@ void FakeNetworkPipeModule::MaybeResumeProcess() {
 }
 
 int64_t FakeNetworkPipeModule::TimeUntilNextProcess() {
+  RTC_DCHECK_RUN_ON(&process_thread_checker_);
   auto delay = pipe_.TimeUntilNextProcess();
   rtc::CritScope cs(&process_thread_lock_);
   pending_process_ = delay.has_value();
@@ -56,11 +60,13 @@ int64_t FakeNetworkPipeModule::TimeUntilNextProcess() {
 
 void FakeNetworkPipeModule::ProcessThreadAttached(
     ProcessThread* process_thread) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   rtc::CritScope cs(&process_thread_lock_);
   process_thread_ = process_thread;
 }
 
 void FakeNetworkPipeModule::Process() {
+  RTC_DCHECK_RUN_ON(&process_thread_checker_);
   pipe_.Process();
 }
 
@@ -88,6 +94,7 @@ DegradedCall::DegradedCall(
 }
 
 DegradedCall::~DegradedCall() {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   if (send_pipe_) {
     send_process_thread_->DeRegisterModule(send_pipe_.get());
   }
@@ -98,26 +105,31 @@ DegradedCall::~DegradedCall() {
 
 AudioSendStream* DegradedCall::CreateAudioSendStream(
     const AudioSendStream::Config& config) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   return call_->CreateAudioSendStream(config);
 }
 
 void DegradedCall::DestroyAudioSendStream(AudioSendStream* send_stream) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   call_->DestroyAudioSendStream(send_stream);
 }
 
 AudioReceiveStream* DegradedCall::CreateAudioReceiveStream(
     const AudioReceiveStream::Config& config) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   return call_->CreateAudioReceiveStream(config);
 }
 
 void DegradedCall::DestroyAudioReceiveStream(
     AudioReceiveStream* receive_stream) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   call_->DestroyAudioReceiveStream(receive_stream);
 }
 
 VideoSendStream* DegradedCall::CreateVideoSendStream(
     VideoSendStream::Config config,
     VideoEncoderConfig encoder_config) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   if (send_config_ && !send_pipe_) {
     auto network = absl::make_unique<SimulatedNetwork>(*send_config_);
     send_simulated_network_ = network.get();
@@ -135,6 +147,7 @@ VideoSendStream* DegradedCall::CreateVideoSendStream(
     VideoSendStream::Config config,
     VideoEncoderConfig encoder_config,
     std::unique_ptr<FecController> fec_controller) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   if (send_config_ && !send_pipe_) {
     auto network = absl::make_unique<SimulatedNetwork>(*send_config_);
     send_simulated_network_ = network.get();
@@ -149,6 +162,7 @@ VideoSendStream* DegradedCall::CreateVideoSendStream(
 }
 
 void DegradedCall::DestroyVideoSendStream(VideoSendStream* send_stream) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   call_->DestroyVideoSendStream(send_stream);
   if (send_pipe_ && num_send_streams_ > 0) {
     --num_send_streams_;
@@ -161,25 +175,30 @@ void DegradedCall::DestroyVideoSendStream(VideoSendStream* send_stream) {
 
 VideoReceiveStream* DegradedCall::CreateVideoReceiveStream(
     VideoReceiveStream::Config configuration) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   return call_->CreateVideoReceiveStream(std::move(configuration));
 }
 
 void DegradedCall::DestroyVideoReceiveStream(
     VideoReceiveStream* receive_stream) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   call_->DestroyVideoReceiveStream(receive_stream);
 }
 
 FlexfecReceiveStream* DegradedCall::CreateFlexfecReceiveStream(
     const FlexfecReceiveStream::Config& config) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   return call_->CreateFlexfecReceiveStream(config);
 }
 
 void DegradedCall::DestroyFlexfecReceiveStream(
     FlexfecReceiveStream* receive_stream) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   call_->DestroyFlexfecReceiveStream(receive_stream);
 }
 
 PacketReceiver* DegradedCall::Receiver() {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   if (receive_config_) {
     return this;
   }
@@ -188,30 +207,36 @@ PacketReceiver* DegradedCall::Receiver() {
 
 RtpTransportControllerSendInterface*
 DegradedCall::GetTransportControllerSend() {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   return call_->GetTransportControllerSend();
 }
 
 Call::Stats DegradedCall::GetStats() const {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   return call_->GetStats();
 }
 
 void DegradedCall::SetBitrateAllocationStrategy(
     std::unique_ptr<rtc::BitrateAllocationStrategy>
         bitrate_allocation_strategy) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   call_->SetBitrateAllocationStrategy(std::move(bitrate_allocation_strategy));
 }
 
 void DegradedCall::SignalChannelNetworkState(MediaType media,
                                              NetworkState state) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   call_->SignalChannelNetworkState(media, state);
 }
 
 void DegradedCall::OnAudioTransportOverheadChanged(
     int transport_overhead_per_packet) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   call_->OnAudioTransportOverheadChanged(transport_overhead_per_packet);
 }
 
 void DegradedCall::OnSentPacket(const rtc::SentPacket& sent_packet) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   if (send_config_) {
     // If we have a degraded send-transport, we have already notified call
     // about the supposed network send time. Discard the actual network send
@@ -224,6 +249,7 @@ void DegradedCall::OnSentPacket(const rtc::SentPacket& sent_packet) {
 bool DegradedCall::SendRtp(const uint8_t* packet,
                            size_t length,
                            const PacketOptions& options) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   // A call here comes from the RTP stack (probably pacer). We intercept it and
   // put it in the fake network pipe instead, but report to Call that is has
   // been sent, so that the bandwidth estimator sees the delay we add.
@@ -242,6 +268,7 @@ bool DegradedCall::SendRtp(const uint8_t* packet,
 }
 
 bool DegradedCall::SendRtcp(const uint8_t* packet, size_t length) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   send_pipe_->SendRtcp(packet, length);
   return true;
 }
@@ -250,6 +277,7 @@ PacketReceiver::DeliveryStatus DegradedCall::DeliverPacket(
     MediaType media_type,
     rtc::CopyOnWriteBuffer packet,
     int64_t packet_time_us) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   PacketReceiver::DeliveryStatus status = receive_pipe_->DeliverPacket(
       media_type, std::move(packet), packet_time_us);
   // This is not optimal, but there are many places where there are thread
@@ -266,6 +294,7 @@ PacketReceiver::DeliveryStatus DegradedCall::DeliverPacket(
 
 void DegradedCall::MediaTransportChange(
     MediaTransportInterface* media_transport) {
+  RTC_DCHECK_RUN_ON(&main_thread_);
   // TODO(bugs.webrtc.org/9719) We should add support for media transport here
   // at some point.
 }

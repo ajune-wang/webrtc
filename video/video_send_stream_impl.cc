@@ -383,7 +383,7 @@ void VideoSendStreamImpl::Start() {
 
 void VideoSendStreamImpl::StartupVideoSendStream() {
   RTC_DCHECK_RUN_ON(worker_queue_);
-  bitrate_allocator_->AddObserver(this, GetAllocationConfig());
+  SignalEncoderActive();
   // Start monitoring encoder activity.
   {
     RTC_DCHECK(!check_encoder_activity_task_.Running());
@@ -400,7 +400,6 @@ void VideoSendStreamImpl::StartupVideoSendStream() {
             timed_out_ = true;
           } else if (timed_out_) {
             SignalEncoderActive();
-            timed_out_ = false;
           }
           activity_ = false;
           return kEncoderTimeOut;
@@ -491,6 +490,12 @@ void VideoSendStreamImpl::OnBitrateAllocationUpdated(
 void VideoSendStreamImpl::SignalEncoderActive() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_LOG(LS_INFO) << "SignalEncoderActive, Encoder is active.";
+  // Make sure we're marked as running. The encoder could be marked active due
+  // to a call to OnEncoderConfigurationChange, but it may not actually produce
+  // frames (calls to OnEncodedImage). In that case, we want to make sure the
+  // encoder timeout task will re-timeout and remove us as a bitrate allocator
+  // observer, which has the side-effect of stopping padding.
+  timed_out_ = false;
   bitrate_allocator_->AddObserver(this, GetAllocationConfig());
 }
 
@@ -569,7 +574,7 @@ void VideoSendStreamImpl::OnEncoderConfigurationChanged(
   if (rtp_video_sender_->IsActive()) {
     // The send stream is started already. Update the allocator with new bitrate
     // limits.
-    bitrate_allocator_->AddObserver(this, GetAllocationConfig());
+    SignalEncoderActive();
   }
 }
 

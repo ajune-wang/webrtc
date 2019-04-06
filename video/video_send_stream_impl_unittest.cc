@@ -328,18 +328,8 @@ TEST_F(VideoSendStreamImplTest,
     config_.rtp.ssrcs.emplace_back(1);
     config_.rtp.ssrcs.emplace_back(2);
 
-    EXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), _))
-        .WillOnce(Invoke([&](BitrateAllocatorObserver*,
-                             MediaStreamAllocationConfig config) {
-          EXPECT_EQ(config.min_bitrate_bps,
-                    static_cast<uint32_t>(low_stream.min_bitrate_bps));
-          EXPECT_EQ(config.max_bitrate_bps,
-                    static_cast<uint32_t>(low_stream.max_bitrate_bps +
-                                          high_stream.max_bitrate_bps));
-          EXPECT_EQ(config.pad_up_bitrate_bps,
-                    static_cast<uint32_t>(low_stream.target_bitrate_bps +
-                                          1.25 * high_stream.min_bitrate_bps));
-        }));
+    // Configuration change will cause the observer to be added.
+    EXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), _));
 
     static_cast<VideoStreamEncoderInterface::EncoderSink*>(vss_impl.get())
         ->OnEncoderConfigurationChanged(
@@ -348,6 +338,68 @@ TEST_F(VideoSendStreamImplTest,
             /*min_transmit_bitrate_bps=*/0);
     vss_impl->Stop();
   });
+}
+
+TEST_F(VideoSendStreamImplTest,
+       UpdatedObserverButReturnsToTimedOutOnConfigurationChange) {
+  // Hold vss_impl_ lifetime outside of the task below, so we can test timeout.
+  std::unique_ptr<VideoSendStreamImpl> vss_impl;
+  test_queue_.SendTask([this, &vss_impl] {
+    vss_impl = CreateVideoSendStreamImpl(
+        kDefaultInitialBitrateBps, kDefaultBitratePriority,
+        VideoEncoderConfig::ContentType::kRealtimeVideo);
+    vss_impl->Start();
+
+    // 2-layer video simulcast.
+    VideoStream low_stream;
+    low_stream.width = 320;
+    low_stream.height = 240;
+    low_stream.max_framerate = 30;
+    low_stream.min_bitrate_bps = 30000;
+    low_stream.target_bitrate_bps = 100000;
+    low_stream.max_bitrate_bps = 200000;
+    low_stream.max_qp = 56;
+    low_stream.bitrate_priority = 1;
+
+    VideoStream high_stream;
+    high_stream.width = 640;
+    high_stream.height = 480;
+    high_stream.max_framerate = 30;
+    high_stream.min_bitrate_bps = 150000;
+    high_stream.target_bitrate_bps = 500000;
+    high_stream.max_bitrate_bps = 750000;
+    high_stream.max_qp = 56;
+    high_stream.bitrate_priority = 1;
+
+    config_.rtp.ssrcs.emplace_back(1);
+    config_.rtp.ssrcs.emplace_back(2);
+
+    EXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), _));
+    static_cast<VideoStreamEncoderInterface::EncoderSink*>(vss_impl.get())
+        ->OnEncoderConfigurationChanged(
+            std::vector<VideoStream>{low_stream, high_stream},
+            VideoEncoderConfig::ContentType::kRealtimeVideo,
+            /*min_transmit_bitrate_bps=*/0);
+    // Don't stop the video send stream, we want it to time out.
+  });
+
+  // The start call (on the worker thread) should have pended a task to remove
+  // the observer if there isn't a call to OnEncodedImage within 2 seconds.
+  // Since we haven't done that, make sure remove is called.
+  EXPECT_CALL(bitrate_allocator_, RemoveObserver(_));
+  // Pend a task in 4s to make sure remove was called.
+  rtc::Event done;
+  test_queue_.PostDelayedTask(
+      [this, &vss_impl, &done] {
+        testing::Mock::VerifyAndClearExpectations(&bitrate_allocator_);
+        // Clean up, on the worker thread.
+        vss_impl->Stop();
+        vss_impl = nullptr;
+        done.Set();
+      },
+      3000);
+  // Pause the test suite up to 5s for it to finish.
+  ASSERT_TRUE(done.Wait(5000));
 }
 
 TEST_F(VideoSendStreamImplTest, SetsScreensharePacingFactorWithFeedback) {

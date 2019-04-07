@@ -26,16 +26,9 @@ SamplesStatsCounter& SamplesStatsCounter::operator=(SamplesStatsCounter&&) =
     default;
 
 void SamplesStatsCounter::AddSample(double value) {
+  RunningStatistics::AddSample(value);
   samples_.push_back(value);
   sorted_ = false;
-  if (value > max_) {
-    max_ = value;
-  }
-  if (value < min_) {
-    min_ = value;
-  }
-  sum_ += value;
-  sum_squared_ += value * value;
 }
 
 double SamplesStatsCounter::GetPercentile(double percentile) {

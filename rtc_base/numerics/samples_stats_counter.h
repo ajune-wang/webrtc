@@ -11,15 +11,16 @@
 #ifndef RTC_BASE_NUMERICS_SAMPLES_STATS_COUNTER_H_
 #define RTC_BASE_NUMERICS_SAMPLES_STATS_COUNTER_H_
 
-#include <math.h>
-#include <limits>
 #include <vector>
 
 #include "rtc_base/checks.h"
+#include "rtc_base/numerics/running_statistics.h"
 
 namespace webrtc {
 
-class SamplesStatsCounter {
+// This class extends RunningStatistics by providing GetPercentile() method,
+// while slightly adapting the interface.
+class SamplesStatsCounter : public RunningStatistics<double> {
  public:
   SamplesStatsCounter();
   ~SamplesStatsCounter();
@@ -38,31 +39,31 @@ class SamplesStatsCounter {
   // samples.
   double GetMin() const {
     RTC_DCHECK(!IsEmpty());
-    return min_;
+    return *RunningStatistics::GetMin();
   }
   // Returns max in O(1) time. This function may not be called if there are no
   // samples.
   double GetMax() const {
     RTC_DCHECK(!IsEmpty());
-    return max_;
+    return *RunningStatistics::GetMax();
   }
   // Returns average in O(1) time. This function may not be called if there are
   // no samples.
   double GetAverage() const {
     RTC_DCHECK(!IsEmpty());
-    return sum_ / samples_.size();
+    return *RunningStatistics::GetMean();
   }
   // Returns variance in O(1) time. This function may not be called if there are
   // no samples.
   double GetVariance() const {
     RTC_DCHECK(!IsEmpty());
-    return sum_squared_ / samples_.size() - GetAverage() * GetAverage();
+    return *RunningStatistics::GetVariance();
   }
   // Returns standard deviation in O(1) time. This function may not be called if
   // there are no samples.
   double GetStandardDeviation() const {
     RTC_DCHECK(!IsEmpty());
-    return sqrt(GetVariance());
+    return *RunningStatistics::GetStandardDeviation();
   }
   // Returns percentile in O(nlogn) on first call and in O(1) after, if no
   // additions were done. This function may not be called if there are no
@@ -74,10 +75,6 @@ class SamplesStatsCounter {
 
  private:
   std::vector<double> samples_;
-  double min_ = std::numeric_limits<double>::max();
-  double max_ = std::numeric_limits<double>::min();
-  double sum_ = 0;
-  double sum_squared_ = 0;
   bool sorted_ = false;
 };
 

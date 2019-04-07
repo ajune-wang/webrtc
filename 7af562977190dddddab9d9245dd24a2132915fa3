@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "469b5a41_54b8679a",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-07T23:02:40Z",
+      "side": 1,
+      "message": "Update comment?",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 19
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e295b286_8c8c4a97",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-07T23:02:40Z",
+      "side": 1,
+      "message": "Perhaps the name should be \"IsApplicable\" or \"ShouldFallBack\"? (Perhaps in a separate CL.)",
+      "range": {
+        "startLine": 105,
+        "startChar": 9,
+        "endLine": 105,
+        "endChar": 16
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db0973bb_1aac0e6f",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-07T23:02:40Z",
+      "side": 1,
+      "message": "Named \"kbps\" here, but I see you\u0027re passing it \"bps\" in line #107.",
+      "range": {
+        "startLine": 110,
+        "startChar": 35,
+        "endLine": 110,
+        "endChar": 47
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5378ff03_a223f2b4",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-07T23:02:40Z",
+      "side": 1,
+      "message": "I hope it would not be too nitpicky to suggest that we remove this variable, return-false/true where this variable was updated below, and return-active_ at the end of the function.",
+      "range": {
+        "startLine": 111,
+        "startChar": 11,
+        "endLine": 111,
+        "endChar": 29
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ca4fd00_231a7dea",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-07T23:02:40Z",
+      "side": 1,
+      "message": "Using else-if here would ensure that we don\u0027t read rtc::TimeMillis() a second time when its value is very unlikely to have already gone up 5000ms above the previous time it was called. ;-)\n(Same for other threshold.)",
+      "range": {
+        "startLine": 116,
+        "startChar": 8,
+        "endLine": 116,
+        "endChar": 10
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b357aba0_1ad14c3c",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-07T23:02:40Z",
+      "side": 1,
+      "message": "|below_threshold_start_| and |above_threshold_start_| refer to different thresholds, but at first glance it looks like the variables refer to being below/above the one threshold. Perhaps rename to |below_low_bitrate_threshold_start_time_| and |above_high_bitrate_threshold_start_time_|?",
+      "range": {
+        "startLine": 120,
+        "startChar": 13,
+        "endLine": 120,
+        "endChar": 35
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a94b62ed_6a6831ac",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-07T23:02:40Z",
+      "side": 1,
+      "message": "Are these values codec-agnostic? Were the default values set specifically for a given codec? Would it make sense to remove the default ctor, and make ForcedFallbackParams() accepts the values for min/max_pixels_ and the two thresholds?",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 48
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "919cb242_a2fc5219",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-07T23:02:40Z",
+      "side": 1,
+      "message": "nit: absl::nullopt? (Similarly elsewhere.)",
+      "range": {
+        "startLine": 240,
+        "startChar": 37,
+        "endLine": 240,
+        "endChar": 63
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d57bdbaf_dd4140b6",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-07T23:02:40Z",
+      "side": 1,
+      "message": "I think this should still compile if you drop the absl::make_optional. An implicit constructor of |optional| should be invoked, if I am not mistaken. Testing locally with similar code showed that it does, but I am not sure if all the compilers we\u0027re targeting allow that?\n(Similarly elsewhere.)",
+      "range": {
+        "startLine": 286,
+        "startChar": 10,
+        "endLine": 286,
+        "endChar": 29
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d59e268_3f2e1021",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-07T23:02:40Z",
+      "side": 1,
+      "message": "1.\nSuggest:\n  !PickEncoder(/*software\u003d*/true, /*must_initialize\u003d*/false)\n(Similarly elsewhere.)\n\n2.\nIt was initially surprising for me to see !fallback_encoder_initialized_, but must_initialize passed as false. The word \"must\" is there, but I did not at first think it was significant. Wdyt about renaming |must_initialize| to |reinit| or something similar? Currently, only InitEncode calls PickEncoder with must_initialize\u003dtrue, so it would be accurate.",
+      "range": {
+        "startLine": 288,
+        "startChar": 10,
+        "endLine": 288,
+        "endChar": 35
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8003a780_0cee8e19",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-07T23:02:40Z",
+      "side": 1,
+      "message": "Move into previous if-block? I mean:\n  if (software) {\n    TryForceSoftwareEncoder(must_initialize);\n    if (forced_fallback_.active_) {\n      return true;\n    }\n  }",
+      "range": {
+        "startLine": 373,
+        "startChar": 6,
+        "endLine": 373,
+        "endChar": 14
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

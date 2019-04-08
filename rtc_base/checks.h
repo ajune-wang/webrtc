@@ -125,6 +125,15 @@ struct Val {
   T val;
 };
 
+// Case for when we need to construct a temp string and then print that.
+// (We can't use Val<CheckArgType::kStdString, const std::string*>
+// because we need somewhere to store the temp string.)
+struct ToStringVal {
+  static constexpr CheckArgType Type() { return CheckArgType::kStdString; }
+  const std::string* GetVal() const { return &val; }
+  std::string val;
+};
+
 inline Val<CheckArgType::kInt, int> MakeVal(int x) {
   return {x};
 }
@@ -166,6 +175,16 @@ inline Val<CheckArgType::kStringView, const absl::string_view*> MakeVal(
 
 inline Val<CheckArgType::kVoidP, const void*> MakeVal(const void* x) {
   return {x};
+}
+
+template <typename T,
+          typename T1 = typename std::decay<T>::type,
+          typename T2 = decltype(ToLogString(std::declval<T>())),
+          typename std::enable_if<std::is_class<T1>::value &&
+                                  std::is_same<T2, std::string>::value>::type* =
+              nullptr>
+ToStringVal MakeVal(const T& x) {
+  ToLogString(x);
 }
 
 // The enum class types are not implicitly convertible to arithmetic types.

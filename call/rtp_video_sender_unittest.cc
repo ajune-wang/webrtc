@@ -15,6 +15,7 @@
 #include "api/task_queue/global_task_queue_factory.h"
 #include "call/rtp_transport_controller_send.h"
 #include "call/rtp_video_sender.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/video_coding/fec_controller_default.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/rate_limiter.h"

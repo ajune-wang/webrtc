@@ -41,8 +41,10 @@ class StreamStatistician {
   virtual ~StreamStatistician();
 
   virtual bool GetStatistics(RtcpStatistics* statistics, bool reset) = 0;
-  virtual void GetDataCounters(size_t* bytes_received,
-                               uint32_t* packets_received) const = 0;
+  virtual void GetDataCounters(
+      size_t* bytes_received,
+      uint32_t* packets_received,
+      absl::optional<int64_t>* last_packet_received_timestamp_ms) const = 0;
 
   // Gets received stream data counters (includes reset counter values).
   virtual void GetReceiveStreamDataCounters(

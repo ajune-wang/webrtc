@@ -102,14 +102,17 @@ TEST_F(ReceiveStatisticsTest, TwoIncomingSsrcs) {
   EXPECT_GT(statistician->BitrateReceived(), 0u);
   size_t bytes_received = 0;
   uint32_t packets_received = 0;
-  statistician->GetDataCounters(&bytes_received, &packets_received);
+  absl::optional<int64_t> last_packet_received_timestamp_ms;
+  statistician->GetDataCounters(&bytes_received, &packets_received,
+                                &last_packet_received_timestamp_ms);
   EXPECT_EQ(200u, bytes_received);
   EXPECT_EQ(2u, packets_received);
 
   statistician = receive_statistics_->GetStatistician(kSsrc2);
   ASSERT_TRUE(statistician != NULL);
   EXPECT_GT(statistician->BitrateReceived(), 0u);
-  statistician->GetDataCounters(&bytes_received, &packets_received);
+  statistician->GetDataCounters(&bytes_received, &packets_received,
+                                &last_packet_received_timestamp_ms);
   EXPECT_EQ(600u, bytes_received);
   EXPECT_EQ(2u, packets_received);
 
@@ -122,11 +125,11 @@ TEST_F(ReceiveStatisticsTest, TwoIncomingSsrcs) {
   IncrementSequenceNumber(&packet2_);
 
   receive_statistics_->GetStatistician(kSsrc1)->GetDataCounters(
-      &bytes_received, &packets_received);
+      &bytes_received, &packets_received, &last_packet_received_timestamp_ms);
   EXPECT_EQ(300u, bytes_received);
   EXPECT_EQ(3u, packets_received);
   receive_statistics_->GetStatistician(kSsrc2)->GetDataCounters(
-      &bytes_received, &packets_received);
+      &bytes_received, &packets_received, &last_packet_received_timestamp_ms);
   EXPECT_EQ(900u, bytes_received);
   EXPECT_EQ(3u, packets_received);
 }
@@ -199,7 +202,9 @@ TEST_F(ReceiveStatisticsTest, ActiveStatisticians) {
   ASSERT_TRUE(statistician != NULL);
   size_t bytes_received = 0;
   uint32_t packets_received = 0;
-  statistician->GetDataCounters(&bytes_received, &packets_received);
+  absl::optional<int64_t> last_packet_received_timestamp_ms;
+  statistician->GetDataCounters(&bytes_received, &packets_received,
+                                &last_packet_received_timestamp_ms);
   EXPECT_EQ(200u, bytes_received);
   EXPECT_EQ(2u, packets_received);
 }

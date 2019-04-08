@@ -500,6 +500,10 @@ struct VoiceReceiverInfo : public MediaReceiverInfo {
   int decoding_muted_output = 0;
   // Estimated capture start time in NTP time in ms.
   int64_t capture_start_ntp_time_ms = -1;
+  // The timestamp at which the last packet was received, i.e. the time of the
+  // local clock when it was received - not the RTP timestamp of that packet.
+  // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-lastpacketreceivedtimestamp
+  absl::optional<int64_t> last_packet_received_timestamp_ms;
   // Count of the number of buffer flushes.
   uint64_t jitter_buffer_flushes = 0;
   // Number of samples expanded due to delayed packets.
@@ -557,6 +561,10 @@ struct VideoReceiverInfo : public MediaReceiverInfo {
   uint32_t frames_decoded = 0;
   uint32_t frames_rendered = 0;
   absl::optional<uint64_t> qp_sum;
+  // The timestamp at which the last packet was received, i.e. the time of the
+  // local clock when it was received - not the RTP timestamp of that packet.
+  // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-lastpacketreceivedtimestamp
+  absl::optional<int64_t> last_packet_received_timestamp_ms;
   int64_t interframe_delay_max_ms = -1;
   uint32_t freeze_count = 0;
   uint32_t pause_count = 0;

@@ -762,13 +762,16 @@ CallReceiveStatistics ChannelReceive::GetRTCPStatistics() const {
 
   size_t bytesReceived(0);
   uint32_t packetsReceived(0);
+  absl::optional<int64_t> last_packet_received_timestamp_ms;
 
   if (statistician) {
-    statistician->GetDataCounters(&bytesReceived, &packetsReceived);
+    statistician->GetDataCounters(&bytesReceived, &packetsReceived,
+                                  &last_packet_received_timestamp_ms);
   }
 
   stats.bytesReceived = bytesReceived;
   stats.packetsReceived = packetsReceived;
+  stats.last_packet_received_timestamp_ms = last_packet_received_timestamp_ms;
 
   // --- Timestamps
   {

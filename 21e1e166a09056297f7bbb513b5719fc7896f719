@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5358d8a2_e7d7e7bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-08T13:12:15Z",
+      "side": 1,
+      "message": "Would be useful with a pointer to the corresponding new code. Is it sdk/objc/native/api/audio_device_module.{h,mm} ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 39
+      },
+      "revId": "21e1e166a09056297f7bbb513b5719fc7896f719",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

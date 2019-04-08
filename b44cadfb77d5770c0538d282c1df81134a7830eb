@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7865508f_2459dd29",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-08T09:28:36Z",
+      "side": 1,
+      "message": "numbers to send feedback for.",
+      "range": {
+        "startLine": 151,
+        "startChar": 33,
+        "endLine": 151,
+        "endChar": 39
+      },
+      "revId": "b44cadfb77d5770c0538d282c1df81134a7830eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b0bec66_868d3a93",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-08T09:28:36Z",
+      "side": 1,
+      "message": "How about something like: \"This test is like HandlesMalformedSequenceNumbers, but the large span is caused by a negative wraparound\" (or something to that extent, but correct)\n\nAs it stands now, the difference to the previous test is subtle. Optionally, you could introduce a helper that performs the actual test, and the difference between them will be obvious in the parameters. (HandlesMalformedSequenceNumbers(40000, 2000) vs HandlesMalformedSequenceNumbers(2000, 40000))",
+      "range": {
+        "startLine": 247,
+        "startChar": 2,
+        "endLine": 251,
+        "endChar": 41
+      },
+      "revId": "b44cadfb77d5770c0538d282c1df81134a7830eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -131,6 +131,24 @@
     },
     {
       "key": {
+        "uuid": "dede5491_a787a968",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-08T09:28:36Z",
+      "side": 1,
+      "message": "It would be nice with some hint about this. Actually, thinking of it, maybe better variable naming would be send_periodic_feedback_ \u003d\u003d !send_feedback_on_request_only_. But without that, maybe just a comment like \"We don\u0027t need to sett the periodic windows start if we only send feedback on request\" would make it a bit more obvious?",
+      "parentUuid": "ac4b5407_4868cfc1",
+      "revId": "2b9da1b30079fa83d6f0e64118b671fe81e9499d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07735ae8_cab168e3",
         "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy_unittest.cc",
         "patchSetId": 2

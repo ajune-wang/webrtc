@@ -59,6 +59,7 @@ void VideoFrameMatcher::OnCapturedFrame(const VideoFrame& frame,
 void VideoFrameMatcher::OnDecodedFrame(const VideoFrame& frame,
                                        Timestamp render_time,
                                        int layer_id) {
+  printf("OnDecodedFrame: Layer: %i, Res: %i\n", layer_id, frame.height());
   rtc::scoped_refptr<DecodedFrame> decoded(new DecodedFrame{});
   decoded->render_time = render_time;
   decoded->frame = frame.video_frame_buffer();

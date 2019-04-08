@@ -16,6 +16,24 @@
       "revId": "3c471300d3dfd182431abd01901edefc133dfa7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53f4294e_53a94a67",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-08T21:42:21Z",
+      "side": 1,
+      "message": "The rationale is that it makes it easier to convince oneself that the lifetime of the observers is as it should be, if they\u0027re not too far apart. But maybe it\u0027s not important enough here. Changed this to pass directly, as suggested.",
+      "parentUuid": "d5574e3b_04c1d1ed",
+      "revId": "3c471300d3dfd182431abd01901edefc133dfa7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

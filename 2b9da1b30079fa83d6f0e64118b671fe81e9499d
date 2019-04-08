@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2243cc1d_1ece6971",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-04-08T08:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3aecf035_e591bc43",
+      "range": {
+        "startLine": 151,
+        "startChar": 5,
+        "endLine": 151,
+        "endChar": 11
+      },
+      "revId": "2b9da1b30079fa83d6f0e64118b671fe81e9499d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "919b8b1c_2dff113f",
         "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f31935ac_aa9b3c64",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-04-08T08:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "919b8b1c_2dff113f",
+      "range": {
+        "startLine": 152,
+        "startChar": 7,
+        "endLine": 152,
+        "endChar": 18
+      },
+      "revId": "2b9da1b30079fa83d6f0e64118b671fe81e9499d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e26ed105_7b1a8e21",
         "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
         "patchSetId": 2
@@ -59,6 +107,24 @@
       "writtenOn": "2019-04-05T15:20:14Z",
       "side": 1,
       "message": "It\u0027s not obvious to me why this is done when not sending feedback on request but not otherwise.",
+      "revId": "2b9da1b30079fa83d6f0e64118b671fe81e9499d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac4b5407_4868cfc1",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-04-08T08:16:39Z",
+      "side": 1,
+      "message": "The variable |periodic_windows_start_seq_| is only used for periodic feedback. It wouldn\u0027t hurt to set it otherwise, but as it is now it will remain unset if mode is to send feedback on request only.",
+      "parentUuid": "e26ed105_7b1a8e21",
       "revId": "2b9da1b30079fa83d6f0e64118b671fe81e9499d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "71ebd7df_dc0446ec",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-04-08T08:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07735ae8_cab168e3",
+      "range": {
+        "startLine": 218,
+        "startChar": 33,
+        "endLine": 218,
+        "endChar": 40
+      },
+      "revId": "2b9da1b30079fa83d6f0e64118b671fe81e9499d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92cbe82e_6eaf86a4",
         "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy_unittest.cc",
         "patchSetId": 2
@@ -102,6 +192,24 @@
       "revId": "2b9da1b30079fa83d6f0e64118b671fe81e9499d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f7a94a3_3ca12e40",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-04-08T08:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92cbe82e_6eaf86a4",
+      "revId": "2b9da1b30079fa83d6f0e64118b671fe81e9499d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

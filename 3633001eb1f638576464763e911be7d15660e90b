@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "112765ac_bb323bff",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-08T11:36:50Z",
+      "side": 1,
+      "message": "You are perfectly right, we should document it.\nActually, the current restrictions are artificial. Ideally, we should be able to process some matrix of int for instance and return a matrix a double for the measures. But we don\u0027t need that for now.\nThat makes me think that min and max should return T instead of double.",
+      "parentUuid": "a243752f_740793ac",
+      "range": {
+        "startLine": 32,
+        "startChar": 19,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f487518b_4ded16d1",
         "filename": "rtc_base/numerics/running_statistics.h",
         "patchSetId": 1

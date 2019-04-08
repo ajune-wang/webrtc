@@ -415,6 +415,30 @@
     },
     {
       "key": {
+        "uuid": "416a0803_5d0e98a4",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-04-08T13:40:10Z",
+      "side": 1,
+      "message": "You never really addressed my concern about the ordering of the channels in the channel mapping in the tests. I\u0027m not going to insist that you change it, though. It\u0027s just a minor thing.",
+      "parentUuid": "4e429e8a_34046f91",
+      "range": {
+        "startLine": 24,
+        "startChar": 27,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "3271c5b73b4b27e462bb0d8b6bf590f2e50a8703",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e3761f3_dd8bfd90",
         "filename": "modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_unittest.cc",
         "patchSetId": 16

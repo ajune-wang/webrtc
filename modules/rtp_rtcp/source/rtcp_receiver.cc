@@ -131,6 +131,7 @@ RTCPReceiver::RTCPReceiver(
     RtcpPacketTypeCounterObserver* packet_type_counter_observer,
     RtcpBandwidthObserver* rtcp_bandwidth_observer,
     RtcpIntraFrameObserver* rtcp_intra_frame_observer,
+    RtcpLossNotificationObserver* rtcp_loss_notification_observer,
     TransportFeedbackObserver* transport_feedback_observer,
     VideoBitrateAllocationObserver* bitrate_allocation_observer,
     int report_interval_ms,
@@ -140,6 +141,7 @@ RTCPReceiver::RTCPReceiver(
       rtp_rtcp_(owner),
       rtcp_bandwidth_observer_(rtcp_bandwidth_observer),
       rtcp_intra_frame_observer_(rtcp_intra_frame_observer),
+      rtcp_loss_notification_observer_(rtcp_loss_notification_observer),
       transport_feedback_observer_(transport_feedback_observer),
       bitrate_allocation_observer_(bitrate_allocation_observer),
       report_interval_ms_(report_interval_ms),
@@ -1028,15 +1030,17 @@ void RTCPReceiver::TriggerCallbacksFromRtcpPacket(
       rtcp_bandwidth_observer_->OnReceivedEstimatedBitrate(
           packet_information.receiver_estimated_max_bitrate_bps);
     }
-    if (packet_information.packet_type_flags & kRtcpLossNotification) {
+    if (rtcp_loss_notification_observer_ &&
+        (packet_information.packet_type_flags & kRtcpLossNotification)) {
       rtcp::LossNotification* loss_notification =
           packet_information.loss_notification.get();
       RTC_DCHECK(loss_notification);
-      RTC_LOG(LS_VERBOSE) << "Incoming Loss Notification: ("
-                          << loss_notification->last_decoded() << ", "
-                          << loss_notification->last_received() << ", "
-                          << loss_notification->decodability_flag() << ").";
-      // TODO(eladalon): Notify observer.
+      if (loss_notification->media_ssrc() == local_ssrc) {
+        rtcp_loss_notification_observer_->OnReceivedLossNotification(
+            loss_notification->media_ssrc(), loss_notification->last_decoded(),
+            loss_notification->last_received(),
+            loss_notification->decodability_flag());
+      }
     }
     if ((packet_information.packet_type_flags & kRtcpSr) ||
         (packet_information.packet_type_flags & kRtcpRr)) {

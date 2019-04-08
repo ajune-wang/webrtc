@@ -5951,6 +5951,7 @@ cricket::DataChannelType PeerConnection::data_channel_type() const {
 }
 
 bool PeerConnection::IceRestartPending(const std::string& content_name) const {
+  RTC_DCHECK_RUN_ON(signaling_thread());
   return pending_ice_restarts_.find(content_name) !=
          pending_ice_restarts_.end();
 }

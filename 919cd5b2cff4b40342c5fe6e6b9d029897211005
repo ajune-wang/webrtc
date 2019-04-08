@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fdc7a0c0_95433bdf",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-08T14:23:06Z",
+      "side": 1,
+      "message": "Self-review: This should be moved to MediaReceiverInfo so that it doesn\u0027t have to be defined in two places.",
+      "revId": "919cd5b2cff4b40342c5fe6e6b9d029897211005",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

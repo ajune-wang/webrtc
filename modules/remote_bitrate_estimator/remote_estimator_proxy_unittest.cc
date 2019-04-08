@@ -215,6 +215,62 @@ TEST_F(RemoteEstimatorProxyTest, HandlesReorderingAndWrap) {
   Process();
 }
 
+TEST_F(RemoteEstimatorProxyTest, HandlesMalformedSequenceNumbers) {
+  // This test generates incoming packets with large jumps in sequence numbers.
+  // When unwrapped, the sequeunce numbers of these 30 incoming packets, will
+  // span a range of roughly 650k packets. Test that we only send feedback for
+  // the last packets. Test for regression found in chromium:949020.
+  const int64_t kDeltaMs = 1000;
+  for (int i = 0; i < 10; ++i) {
+    IncomingPacket(kBaseSeq + i, kBaseTimeMs + 3 * i * kDeltaMs);
+    IncomingPacket(kBaseSeq + 20000 + i, kBaseTimeMs + (3 * i + 1) * kDeltaMs);
+    IncomingPacket(kBaseSeq + 40000 + i, kBaseTimeMs + (3 * i + 2) * kDeltaMs);
+  }
+
+  // Only expect feedback for the last two packets.
+  EXPECT_CALL(router_, SendTransportFeedback(_))
+      .WillOnce(Invoke([&](rtcp::TransportFeedback* feedback_packet) {
+        EXPECT_EQ(kBaseSeq + 20000 + 9, feedback_packet->GetBaseSequence());
+        EXPECT_EQ(kMediaSsrc, feedback_packet->media_ssrc());
+        EXPECT_THAT(SequenceNumbers(*feedback_packet),
+                    ElementsAre(kBaseSeq + 20009, kBaseSeq + 40009));
+        EXPECT_THAT(TimestampsMs(*feedback_packet),
+                    ElementsAre(kBaseTimeMs + 28 * kDeltaMs,
+                                kBaseTimeMs + 29 * kDeltaMs));
+        return true;
+      }));
+
+  Process();
+}
+
+TEST_F(RemoteEstimatorProxyTest, HandlesBackwardsWrappingSequenceNumbers) {
+  // This test generates incoming packets with large negative jumps in sequence
+  // numbers. When unwrapped, the sequeunce numbers of these 30 incoming
+  // packets, will span a range of roughly 650k packets. Test that we only send
+  // feedback for the packets with highest sequence numbers.  Test for
+  // regression found in chromium:949020.
+  const int64_t kDeltaMs = 1000;
+  for (int i = 0; i < 10; ++i) {
+    IncomingPacket(kBaseSeq + i, kBaseTimeMs + 3 * i * kDeltaMs);
+    IncomingPacket(kBaseSeq + 40000 + i, kBaseTimeMs + (3 * i + 1) * kDeltaMs);
+    IncomingPacket(kBaseSeq + 20000 + i, kBaseTimeMs + (3 * i + 2) * kDeltaMs);
+  }
+
+  // Only expect feedback for the first two packets.
+  EXPECT_CALL(router_, SendTransportFeedback(_))
+      .WillOnce(Invoke([&](rtcp::TransportFeedback* feedback_packet) {
+        EXPECT_EQ(kBaseSeq + 40000, feedback_packet->GetBaseSequence());
+        EXPECT_EQ(kMediaSsrc, feedback_packet->media_ssrc());
+        EXPECT_THAT(SequenceNumbers(*feedback_packet),
+                    ElementsAre(kBaseSeq + 40000, kBaseSeq));
+        EXPECT_THAT(TimestampsMs(*feedback_packet),
+                    ElementsAre(kBaseTimeMs + kDeltaMs, kBaseTimeMs));
+        return true;
+      }));
+
+  Process();
+}
+
 TEST_F(RemoteEstimatorProxyTest, ResendsTimestampsOnReordering) {
   IncomingPacket(kBaseSeq, kBaseTimeMs);
   IncomingPacket(kBaseSeq + 2, kBaseTimeMs + 2);

@@ -25,6 +25,121 @@
     },
     {
       "key": {
+        "uuid": "a243752f_740793ac",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-08T08:47:24Z",
+      "side": 1,
+      "message": "Should we provide some restrictions on this type, to ensure, that it is convertable to double? At least document it..",
+      "range": {
+        "startLine": 32,
+        "startChar": 19,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f487518b_4ded16d1",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-08T08:47:24Z",
+      "side": 1,
+      "message": "Maybe remove optional here and RTC_CHECK on size, also document, that user mustn\u0027t to call this if size is 0. I think in such case it will be easier to use this API and you won\u0027t need to check each value separately.\n\nAlso in such case it will be the same with SamplesStatsCounter API, so you won\u0027t need to redefine methods.",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 24
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b3d7920_7f9c4d4f",
+        "filename": "rtc_base/numerics/running_statistics_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-08T08:47:24Z",
+      "side": 1,
+      "message": "Put this comment before method declaration",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 60
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35205911_035f52a7",
+        "filename": "rtc_base/numerics/running_statistics_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-08T08:47:24Z",
+      "side": 1,
+      "message": "inline this one?",
+      "range": {
+        "startLine": 44,
+        "startChar": 21,
+        "endLine": 44,
+        "endChar": 23
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f119a102_be9c42cf",
+        "filename": "rtc_base/numerics/running_statistics_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-08T08:47:24Z",
+      "side": 1,
+      "message": "Specify test names here",
+      "range": {
+        "startLine": 79,
+        "startChar": 32,
+        "endLine": 79,
+        "endChar": 41
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ac32d62_f330ace4",
         "filename": "rtc_base/numerics/running_statistics_unittest.cc",
         "patchSetId": 1
@@ -41,6 +156,29 @@
         "startChar": 20,
         "endLine": 86,
         "endChar": 32
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "710ce911_b4a605db",
+        "filename": "rtc_base/numerics/samples_stats_counter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-08T08:47:24Z",
+      "side": 1,
+      "message": "Apply comments from running_statistics_unittest here too",
+      "range": {
+        "startLine": 37,
+        "startChar": 20,
+        "endLine": 37,
+        "endChar": 54
       },
       "revId": "3633001eb1f638576464763e911be7d15660e90b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

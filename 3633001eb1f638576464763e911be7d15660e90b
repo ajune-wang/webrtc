@@ -586,6 +586,24 @@
     },
     {
       "key": {
+        "uuid": "b0b665bc_85aabb12",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-08T16:40:08Z",
+      "side": 1,
+      "message": "Yes---in general, expose the smallest (or rather, easiest to read+understand) API that will do the job. In this case, hiding the RunningStatistics object instead of exposing all its methods seems like a better choice unless we actually need those methods exposed.",
+      "parentUuid": "576c466d_9a16b9e6",
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "710ce911_b4a605db",
         "filename": "rtc_base/numerics/samples_stats_counter_unittest.cc",
         "patchSetId": 1

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "6f68efd0_4f1c5cfa",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-08T20:59:11Z",
+      "side": 1,
+      "message": "I think you forgot to use MatchesCapability() here after adding it.",
+      "parentUuid": "2601e57a_2d6aae0f",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2423c16c_fe09ba0c",
         "filename": "pc/media_session.cc",
         "patchSetId": 1
@@ -119,6 +137,30 @@
     },
     {
       "key": {
+        "uuid": "b784af6e_531014a9",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-08T20:59:11Z",
+      "side": 1,
+      "message": "I meant putting a \"apt\" const with a comment at the top of the file. This way a new reader, like me ;), wouldn\u0027t have to search the internet to understand the significance of \"apt\"",
+      "parentUuid": "8fe58477_615c3489",
+      "range": {
+        "startLine": 992,
+        "startChar": 38,
+        "endLine": 992,
+        "endChar": 41
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "12228fba_9b465e83",
         "filename": "pc/media_session.cc",
         "patchSetId": 1
@@ -163,6 +205,30 @@
       "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "31c1a052_c4590b56",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2063,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-08T20:59:11Z",
+      "side": 1,
+      "message": "Could you explain why? I want to be sure here and the available offered codecs is confusing to follow (explained below).\n\nIf you look below the filtered_codecs are created from two parts:\n1) Added from the current content (SDP) if they exist in audio_codecs\n2) Added from supported_codecs if they exist in audio_codecs\n\nIf you are just taking from supported_audio_codecs you won\u0027t be including the codecs that come from the current description. Are you doing this on purpose? Otherwise I would suggest instead of doing if/else you can just use the filtered_codecs instead of supported_codecs.",
+      "parentUuid": "65cd72f6_927a27d6",
+      "range": {
+        "startLine": 2063,
+        "startChar": 53,
+        "endLine": 2063,
+        "endChar": 65
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

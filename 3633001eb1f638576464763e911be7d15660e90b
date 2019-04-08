@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "eb32e8e2_6e654550",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-08T12:18:22Z",
+      "side": 1,
+      "message": "+1 for documenting what\u0027s expected of T.\n\nWhat *is* the point of letting the user pick T if you\u0027re going to do all calculations in double, by the way? You even store min and max in double...",
+      "parentUuid": "a243752f_740793ac",
+      "range": {
+        "startLine": 32,
+        "startChar": 19,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f487518b_4ded16d1",
         "filename": "rtc_base/numerics/running_statistics.h",
         "patchSetId": 1
@@ -113,6 +137,70 @@
         "endLine": 60,
         "endChar": 24
       },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5d24985_ff52cbd2",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-08T12:18:22Z",
+      "side": 1,
+      "message": "My vote is on using optional.",
+      "parentUuid": "fa768599_390b41a5",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 24
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f23f633_9ab97e89",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-08T12:18:22Z",
+      "side": 1,
+      "message": "There\u0027s no particular need for this to be an unsigned type, so make it signed. And there\u0027s no connection with the size of the address space, so pick either int or int64_t depending on the number of samples you expect---I\u0027m guessing int64_t is the right choice?",
+      "range": {
+        "startLine": 100,
+        "startChar": 2,
+        "endLine": 100,
+        "endChar": 8
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8297ef02_a363d675",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-08T12:18:22Z",
+      "side": 1,
+      "message": "Document the members? The first four are obvious, but the last one could use some explanation.",
       "revId": "3633001eb1f638576464763e911be7d15660e90b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -211,6 +299,23 @@
     },
     {
       "key": {
+        "uuid": "6f097810_d7621a01",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-08T12:18:22Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it make more sense to have it as a member instead of a base, if you want to expose a different API?",
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "710ce911_b4a605db",
         "filename": "rtc_base/numerics/samples_stats_counter_unittest.cc",
         "patchSetId": 1
@@ -227,6 +332,52 @@
         "startChar": 20,
         "endLine": 37,
         "endChar": 54
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c72361d8_a3a2527e",
+        "filename": "rtc_base/numerics/samples_stats_counter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-08T12:18:22Z",
+      "side": 1,
+      "message": "samples",
+      "range": {
+        "startLine": 106,
+        "startChar": 44,
+        "endLine": 106,
+        "endChar": 50
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eec2f211_a8407c00",
+        "filename": "rtc_base/numerics/samples_stats_counter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-08T12:18:22Z",
+      "side": 1,
+      "message": "lose",
+      "range": {
+        "startLine": 106,
+        "startChar": 20,
+        "endLine": 106,
+        "endChar": 25
       },
       "revId": "3633001eb1f638576464763e911be7d15660e90b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

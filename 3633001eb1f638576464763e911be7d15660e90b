@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "fa768599_390b41a5",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-08T10:57:24Z",
+      "side": 1,
+      "message": "As seen in the design doc:\n* Avoiding CHECKs ease inlining.  \n* There are some other places in which we don\u0027t want failure but rather a default value. Then we can use GetMean().OrValue(0).",
+      "parentUuid": "f487518b_4ded16d1",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 24
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7b3d7920_7f9c4d4f",
         "filename": "rtc_base/numerics/running_statistics_unittest.cc",
         "patchSetId": 1

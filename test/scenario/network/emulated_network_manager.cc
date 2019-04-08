@@ -20,8 +20,10 @@ namespace test {
 
 EmulatedNetworkManager::EmulatedNetworkManager(
     Clock* clock,
+    TaskQueueForTest* task_queue,
     EndpointsContainer* endpoints_container)
-    : endpoints_container_(endpoints_container),
+    : task_queue_(task_queue),
+      endpoints_container_(endpoints_container),
       socket_server_(clock, endpoints_container),
       network_thread_(&socket_server_),
       sent_first_update_(false),
@@ -75,6 +77,13 @@ void EmulatedNetworkManager::StopUpdating() {
   if (!start_count_) {
     sent_first_update_ = false;
   }
+}
+
+EmulatedNetworkStats EmulatedNetworkManager::GetStats() const {
+  EmulatedNetworkStats stats;
+  task_queue_->SendTask(
+      [&stats, this]() { stats = endpoints_container_->GetStats(); });
+  return stats;
 }
 
 void EmulatedNetworkManager::UpdateNetworksOnce() {

@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "ab1ee2b8_0a1d05d2",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-08T14:27:46Z",
+      "side": 1,
+      "message": "Some clients would feed ints, but expect the measures in double.\nAlready noticed for min and max :)",
+      "parentUuid": "eb32e8e2_6e654550",
+      "range": {
+        "startLine": 32,
+        "startChar": 19,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f487518b_4ded16d1",
         "filename": "rtc_base/numerics/running_statistics.h",
         "patchSetId": 1
@@ -310,6 +334,24 @@
       "writtenOn": "2019-04-08T12:18:22Z",
       "side": 1,
       "message": "Wouldn\u0027t it make more sense to have it as a member instead of a base, if you want to expose a different API?",
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b97496d_d401587a",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-08T14:27:46Z",
+      "side": 1,
+      "message": "Both works, since IS_A is a valid relationship here.\nOk for wrapping it, though, that would be a bit less confusing.",
+      "parentUuid": "6f097810_d7621a01",
       "revId": "3633001eb1f638576464763e911be7d15660e90b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

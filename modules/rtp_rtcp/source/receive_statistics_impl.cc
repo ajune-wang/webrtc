@@ -290,8 +290,10 @@ RtcpStatistics StreamStatisticianImpl::CalculateRtcpStatistics() {
   return stats;
 }
 
-void StreamStatisticianImpl::GetDataCounters(size_t* bytes_received,
-                                             uint32_t* packets_received) const {
+void StreamStatisticianImpl::GetDataCounters(
+    size_t* bytes_received,
+    uint32_t* packets_received,
+    absl::optional<int64_t>* last_packet_received_timestamp_ms) const {
   rtc::CritScope cs(&stream_lock_);
   if (bytes_received) {
     *bytes_received = receive_counters_.transmitted.payload_bytes +
@@ -300,6 +302,10 @@ void StreamStatisticianImpl::GetDataCounters(size_t* bytes_received,
   }
   if (packets_received) {
     *packets_received = receive_counters_.transmitted.packets;
+  }
+  if (last_packet_received_timestamp_ms) {
+    *last_packet_received_timestamp_ms =
+        receive_counters_.last_packet_received_timestamp_ms;
   }
 }
 

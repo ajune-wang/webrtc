@@ -23,6 +23,10 @@ class NullModuleRtpRtcp : public RTCPReceiver::ModuleRtpRtcp {
   void OnRequestSendReport() override {}
   void OnReceivedNack(const std::vector<uint16_t>&) override {}
   void OnReceivedRtcpReportBlocks(const ReportBlockList&) override {}
+  void OnReceivedLossNotification(uint32_t ssrc,
+                                  uint16_t seq_num_of_last_decodable,
+                                  uint16_t seq_num_of_last_received,
+                                  bool decodability_flag) override {}
 };
 
 }  // namespace

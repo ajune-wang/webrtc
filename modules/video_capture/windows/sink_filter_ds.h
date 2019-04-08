@@ -110,7 +110,7 @@ class CaptureInputPin : public IMemInputPin, public IPin {
 // Implement IBaseFilter (including IPersist and IMediaFilter).
 class CaptureSinkFilter : public IBaseFilter {
  public:
-  CaptureSinkFilter(VideoCaptureExternal* capture_observer);
+  CaptureSinkFilter(VideoCaptureImpl* capture_observer);
 
   HRESULT SetRequestedCapability(const VideoCaptureCapability& capability);
 
@@ -149,7 +149,7 @@ class CaptureSinkFilter : public IBaseFilter {
  private:
   rtc::ThreadChecker main_checker_;
   const rtc::scoped_refptr<ComRefCount<CaptureInputPin>> input_pin_;
-  VideoCaptureExternal* const capture_observer_;
+  VideoCaptureImpl* const capture_observer_;
   FILTER_INFO info_ RTC_GUARDED_BY(main_checker_) = {};
   // Set/cleared in JoinFilterGraph. The filter must be stopped (no capture)
   // at that time, so no lock is required. While the state is not stopped,

@@ -549,7 +549,9 @@ void ReceiveVideoStream::Stop() {
   });
 }
 
-VideoStreamPair::~VideoStreamPair() = default;
+VideoStreamPair::~VideoStreamPair() {
+  printf("~VideoStreamPair()\n");
+}
 
 VideoStreamPair::VideoStreamPair(CallClient* sender,
                                  CallClient* receiver,

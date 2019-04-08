@@ -28,7 +28,9 @@ VideoFrameMatcher::VideoFrameMatcher(
     : frame_pair_handlers_(frame_pair_handlers), task_queue_("VideoAnalyzer") {}
 
 VideoFrameMatcher::~VideoFrameMatcher() {
-  task_queue_.SendTask([] {});
+  printf("~VideoFrameMatcher() 1\n");
+  task_queue_.SendTask([this] { Finalize(); });
+  printf("~VideoFrameMatcher() 2\n");
 }
 
 void VideoFrameMatcher::RegisterLayer(int layer_id) {
@@ -59,6 +61,7 @@ void VideoFrameMatcher::OnCapturedFrame(const VideoFrame& frame,
 void VideoFrameMatcher::OnDecodedFrame(const VideoFrame& frame,
                                        Timestamp render_time,
                                        int layer_id) {
+  printf("OnDecodedFrame: Layer: %i, Res: %i\n", layer_id, frame.height());
   rtc::scoped_refptr<DecodedFrame> decoded(new DecodedFrame{});
   decoded->render_time = render_time;
   decoded->frame = frame.video_frame_buffer();
@@ -94,6 +97,7 @@ bool VideoFrameMatcher::Active() const {
 }
 
 void VideoFrameMatcher::Finalize() {
+  printf("VideoFrameMatcher::Finalize()\n");
   for (auto& layer : layers_) {
     while (!layer.second.captured_frames.empty()) {
       HandleMatch(layer.second.captured_frames.front(), layer.first);

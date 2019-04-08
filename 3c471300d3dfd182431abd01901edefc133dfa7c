@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5574e3b_04c1d1ed",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-08T17:56:24Z",
+      "side": 1,
+      "message": "why use extra layer in RtpRtcp?\nmay be pass this observer directly into rtcp_receiver.",
+      "revId": "3c471300d3dfd182431abd01901edefc133dfa7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

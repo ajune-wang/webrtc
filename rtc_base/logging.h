@@ -186,11 +186,10 @@ struct Val {
   T val;
 };
 
-// TODO(bugs.webrtc.org/9278): Get rid of this specialization when callers
-// don't need it anymore. No in-tree caller does, but some external callers
-// still do.
-template <>
-struct Val<LogArgType::kStdString, std::string> {
+// Case for when we need to construct a temp string and then print that.
+// (We can't use Val<CheckArgType::kStdString, const std::string*>
+// because we need somewhere to store the temp string.)
+struct ToStringVal {
   static constexpr LogArgType Type() { return LogArgType::kStdString; }
   const std::string* GetVal() const { return &val; }
   std::string val;
@@ -275,14 +274,27 @@ template <
     typename std::enable_if<
         std::is_class<T1>::value && !std::is_same<T1, std::string>::value &&
         !std::is_same<T1, LogMetadata>::value &&
+        !std::is_same<decltype(ToString(std::declval<T>())),
+                      std::string>::value &&
 #ifdef WEBRTC_ANDROID
         !std::is_same<T1, LogMetadataTag>::value &&
 #endif
         !std::is_same<T1, LogMetadataErr>::value>::type* = nullptr>
-Val<LogArgType::kStdString, std::string> MakeVal(const T& x) {
+ToStringVal MakeVal(const T& x) {
   std::ostringstream os;  // no-presubmit-check TODO(webrtc:8982)
   os << x;
   return {os.str()};
+}
+
+template <typename T,
+          typename T1 = typename std::remove_cv<
+              typename std::remove_reference<T>::type>::type,
+          typename T2 = decltype(ToString(std::declval<T>())),
+          typename std::enable_if<std::is_class<T1>::value &&
+                                  std::is_same<T2, std::string>::value>::type* =
+              nullptr>
+ToStringVal MakeVal(const T& x) {
+  return {ToString(x)};
 }
 
 void Log(const LogArgType* fmt, ...);

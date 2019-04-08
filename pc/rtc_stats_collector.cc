@@ -243,6 +243,12 @@ void SetInboundRTPStreamStatsFromVoiceReceiverInfo(
           rtc::kNumMillisecsPerSec;
   // |fir_count|, |pli_count| and |sli_count| are only valid for video and are
   // purposefully left undefined for audio.
+  if (voice_receiver_info.last_packet_received_timestamp_ms) {
+    inbound_audio->last_packet_received_timestamp =
+        static_cast<double>(
+            *voice_receiver_info.last_packet_received_timestamp_ms) /
+        rtc::kNumMillisecsPerSec;
+  }
 }
 
 void SetInboundRTPStreamStatsFromVideoReceiverInfo(
@@ -266,6 +272,12 @@ void SetInboundRTPStreamStatsFromVideoReceiverInfo(
   inbound_video->frames_decoded = video_receiver_info.frames_decoded;
   if (video_receiver_info.qp_sum)
     inbound_video->qp_sum = *video_receiver_info.qp_sum;
+  if (video_receiver_info.last_packet_received_timestamp_ms) {
+    inbound_video->last_packet_received_timestamp =
+        static_cast<double>(
+            *video_receiver_info.last_packet_received_timestamp_ms) /
+        rtc::kNumMillisecsPerSec;
+  }
 }
 
 // Provides the media independent counters (both audio and video).

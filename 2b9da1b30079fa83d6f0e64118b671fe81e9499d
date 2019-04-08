@@ -149,6 +149,24 @@
     },
     {
       "key": {
+        "uuid": "998e1abf_5fb3de05",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-04-08T10:58:09Z",
+      "side": 1,
+      "message": "I agree, that\u0027s better. I changed to send_periodic_feedback and also changed the names of the chain of setters for this variable.",
+      "parentUuid": "dede5491_a787a968",
+      "revId": "2b9da1b30079fa83d6f0e64118b671fe81e9499d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07735ae8_cab168e3",
         "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy_unittest.cc",
         "patchSetId": 2

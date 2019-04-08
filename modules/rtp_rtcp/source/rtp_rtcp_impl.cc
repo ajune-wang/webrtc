@@ -92,6 +92,8 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
       key_frame_req_method_(kKeyFrameReqPliRtcp),
       remote_bitrate_(configuration.remote_bitrate_estimator),
       ack_observer_(configuration.ack_observer),
+      rtcp_loss_notification_observer_(
+          configuration.rtcp_loss_notification_observer),
       rtt_stats_(configuration.rtt_stats),
       rtt_ms_(0) {
   FieldTrialBasedConfig default_trials;
@@ -806,6 +808,20 @@ void ModuleRtpRtcpImpl::OnReceivedRtcpReportBlocks(
             report_block.extended_highest_sequence_number);
       }
     }
+  }
+}
+
+void ModuleRtpRtcpImpl::OnReceivedLossNotification(
+    uint16_t seq_num_of_last_decodable,
+    uint16_t seq_num_of_last_received,
+    bool decodability_flag) {
+  if (rtcp_loss_notification_observer_) {
+    // TODO: !!! Before landing, discuss the safety of using SSRC() like
+    // this here with reviewers. I probably want the SSRC from the
+    // RTCP message?
+    rtcp_loss_notification_observer_->OnReceivedLossNotification(
+        SSRC(), seq_num_of_last_decodable, seq_num_of_last_received,
+        decodability_flag);
   }
 }
 

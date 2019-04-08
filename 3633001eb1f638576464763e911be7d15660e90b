@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2311dcf6_dfd37fbf",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 1260,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-08T06:57:47Z",
+      "side": 1,
+      "message": "Is this needed as part of this CL?",
+      "range": {
+        "startLine": 1260,
+        "startChar": 6,
+        "endLine": 1260,
+        "endChar": 58
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ac32d62_f330ace4",
+        "filename": "rtc_base/numerics/running_statistics_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-08T06:57:47Z",
+      "side": 1,
+      "message": "I suggest we mention the test name, we don\u0027t know if someone will insert a test between RunningStatistics.VarianceFromUniformDistribution and RunningStatistics.NumericStabilityForVariance.\n\n(same in rtc_base/numerics/samples_stats_counter_unittest.cc).",
+      "range": {
+        "startLine": 86,
+        "startChar": 20,
+        "endLine": 86,
+        "endChar": 32
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

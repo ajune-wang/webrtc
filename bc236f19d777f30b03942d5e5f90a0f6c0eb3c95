@@ -22,6 +22,30 @@
       "revId": "bc236f19d777f30b03942d5e5f90a0f6c0eb3c95",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f59b7270_2aa401e2",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-09T09:19:37Z",
+      "side": 1,
+      "message": "1. On the wire, I use a single bool for both |dependencies_of_last_received_decodable| and |last_received_decodable|. The RTP sender, upon receiving the RTCP message, can deduce what the RTCP sender (RTP receiver) had meant, most times (the message on the wire refers to sequence numbers rather than timestamps, so it\u0027s possible to see if the packet was first/last in frame, and understand what kind of information the originator of the RTCP message could have when it had sent the message).\n2. An unset optional here does mean that information is missing. Specifically, the RTP receiver knew if the dependencies were decodable and/or the frame assemblable, but using an extra byte to send that information to the RTP sender was not worth it, so the information will be missing on the RTP-sender side.\n3. Changing the wire format would not provide any better behavior (albeit things would be simpler), but would cost an extra byte; I would rather not do this. The change to an enum would therefore be a change to the local implementation only. Can we consider it in a separate CL, then? It would require some changes to an additional CL that I am just about to push for review. I would prefer to revisit this after.",
+      "parentUuid": "d4cfc899_6f8cf6ce",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 227,
+        "endChar": 24
+      },
+      "revId": "bc236f19d777f30b03942d5e5f90a0f6c0eb3c95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

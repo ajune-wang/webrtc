@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b94db032_7a930cd6",
+        "filename": "api/dtls_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-09T17:13:34Z",
+      "side": 1,
+      "message": "Also add the move operations? You could implement them with \u003ddefault, I believe.",
+      "revId": "b19f3550a3ae2afe65666aa0d5d25a3711179d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

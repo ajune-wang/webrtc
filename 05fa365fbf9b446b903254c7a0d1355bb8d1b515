@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f21817f_27235f1f",
+        "filename": "rtc_base/numerics/math_utils.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-09T06:44:00Z",
+      "side": 1,
+      "message": "Does it make sense to make these functions `constexpr`?",
+      "revId": "05fa365fbf9b446b903254c7a0d1355bb8d1b515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -13,9 +13,10 @@
 
 namespace webrtc {
 
-enum : int { kMaxSimulcastStreams = 4 };
-enum : int { kMaxSpatialLayers = 5 };
-enum : int { kMaxTemporalStreams = 4 };
+constexpr int kMaxEncoderBuffers = 8;
+constexpr int kMaxSimulcastStreams = 4;
+constexpr int kMaxSpatialLayers = 5;
+constexpr int kMaxTemporalStreams = 4;
 
 }  // namespace webrtc
 

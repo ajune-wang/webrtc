@@ -20,6 +20,15 @@
 
 namespace webrtc {
 
+struct EncoderBuffer {
+  EncoderBuffer(int id, bool referenced, bool updated)
+      : id(id), referenced(referenced), updated(updated) {}
+
+  int id = 0;
+  bool referenced = false;
+  bool updated = false;
+};
+
 struct GenericFrameInfo {
   enum class DecodeTargetIndication {
     kNotPresent,   // DecodeTargetInfo symbol '-'
@@ -37,10 +46,12 @@ struct GenericFrameInfo {
   GenericFrameInfo(const GenericFrameInfo&);
   ~GenericFrameInfo();
 
+  int64_t frame_id = 0;
   int temporal_id = 0;
   int spatial_id = 0;
   absl::InlinedVector<int, 10> frame_diffs;
   absl::InlinedVector<DecodeTargetIndication, 10> decode_target_indications;
+  absl::InlinedVector<EncoderBuffer, 10> encoder_buffers;
 };
 
 class GenericFrameInfo::Builder {

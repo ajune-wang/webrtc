@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "839f2a43_7fe23a26",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-04-09T10:34:50Z",
+      "side": 1,
+      "message": "I like the in_alr temp; as a compromise propose:\nbool allow_allocation_probe \u003d config_.allocation_probing_while_alr_only ? in_alr : true;\n\nthen no negation below ofc.",
+      "parentUuid": "7e580da0_9c00d33c",
+      "range": {
+        "startLine": 187,
+        "startChar": 7,
+        "endLine": 187,
+        "endChar": 27
+      },
+      "revId": "e8ef7aeb5a2997cb10a5138833b6e61e227b5572",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "73b83327_15192b77",
         "filename": "modules/congestion_controller/goog_cc/probe_controller_unittest.cc",
         "patchSetId": 3
@@ -53,6 +77,30 @@
       "writtenOn": "2019-04-05T14:47:26Z",
       "side": 1,
       "message": "DoesNotProbeOnMaxBitrateIncreaseWhenInAlr",
+      "range": {
+        "startLine": 98,
+        "startChar": 28,
+        "endLine": 98,
+        "endChar": 66
+      },
+      "revId": "e8ef7aeb5a2997cb10a5138833b6e61e227b5572",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1817dda_787cbd67",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-04-09T10:34:50Z",
+      "side": 1,
+      "message": "Think that suggestion is misleading. Point is to probe only when in ALR.",
+      "parentUuid": "73b83327_15192b77",
       "range": {
         "startLine": 98,
         "startChar": 28,

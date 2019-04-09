@@ -29,6 +29,43 @@ public class VideoSource extends MediaSource {
     }
   }
 
+  public static class FrameAdaptationParameters {
+    public final int cropX;
+    public final int cropY;
+    public final int cropWidth;
+    public final int cropHeight;
+    public final int scaleWidth;
+    public final int scaleHeight;
+    public final long timestampNs;
+    public final boolean drop;
+
+    public FrameAdaptationParameters(int cropX, int cropY, int cropWidth, int cropHeight,
+        int scaleWidth, int scaleHeight, long timestampNs, boolean drop) {
+      this.cropX = cropX;
+      this.cropY = cropY;
+      this.cropWidth = cropWidth;
+      this.cropHeight = cropHeight;
+      this.scaleWidth = scaleWidth;
+      this.scaleHeight = scaleHeight;
+      this.timestampNs = timestampNs;
+      this.drop = drop;
+    }
+
+    /**
+     * Applies the frame adaptation parameters to a frame. Returns null if the frame is meant to be
+     * dropped.
+     */
+    public @Nullable VideoFrame apply(VideoFrame frame) {
+      if (drop) {
+        return null;
+      }
+
+      final VideoFrame.Buffer adaptedBuffer = frame.getBuffer().cropAndScale(
+          cropX, cropY, cropWidth, cropHeight, scaleWidth, scaleHeight);
+      return new VideoFrame(adaptedBuffer, frame.getRotation(), timestampNs);
+    }
+  }
+
   private final NativeAndroidVideoTrackSource nativeAndroidVideoTrackSource;
   private final Object videoProcessorLock = new Object();
   @Nullable private VideoProcessor videoProcessor;
@@ -59,28 +96,19 @@ public class VideoSource extends MediaSource {
 
     @Override
     public void onFrameCaptured(VideoFrame frame) {
-      final NativeAndroidVideoTrackSource.FrameAdaptationParameters parameters =
-          nativeAndroidVideoTrackSource.adaptFrame(frame);
-      if (parameters == null) {
-        // Drop frame.
-        return;
-      }
-
-      final VideoFrame.Buffer adaptedBuffer =
-          frame.getBuffer().cropAndScale(parameters.cropX, parameters.cropY, parameters.cropWidth,
-              parameters.cropHeight, parameters.scaleWidth, parameters.scaleHeight);
-      final VideoFrame adaptedFrame =
-          new VideoFrame(adaptedBuffer, frame.getRotation(), parameters.timestampNs);
-
+      final FrameAdaptationParameters parameters = nativeAndroidVideoTrackSource.adaptFrame(frame);
       synchronized (videoProcessorLock) {
         if (videoProcessor != null) {
-          videoProcessor.onFrameCaptured(adaptedFrame);
-          adaptedBuffer.release();
+          videoProcessor.onFrameCaptured(frame, parameters);
           return;
         }
       }
-      nativeAndroidVideoTrackSource.onFrameCaptured(adaptedFrame);
-      adaptedBuffer.release();
+
+      VideoFrame adaptedFrame = parameters.apply(frame);
+      if (adaptedFrame != null) {
+        nativeAndroidVideoTrackSource.onFrameCaptured(adaptedFrame);
+        adaptedFrame.release();
+      }
     }
   };
 

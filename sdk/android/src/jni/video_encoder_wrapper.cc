@@ -146,15 +146,14 @@ int32_t VideoEncoderWrapper::Encode(
   return HandleReturnCode(jni, ret, "encode");
 }
 
-int32_t VideoEncoderWrapper::SetRateAllocation(
-    const VideoBitrateAllocation& allocation,
-    uint32_t framerate) {
+void VideoEncoderWrapper::SetRates(const RateControlParameters& parameters) {
   JNIEnv* jni = AttachCurrentThreadIfNeeded();
 
   ScopedJavaLocalRef<jobject> j_bitrate_allocation =
-      ToJavaBitrateAllocation(jni, allocation);
+      ToJavaBitrateAllocation(jni, parameters.bitrate);
   ScopedJavaLocalRef<jobject> ret = Java_VideoEncoder_setRateAllocation(
-      jni, encoder_, j_bitrate_allocation, (jint)framerate);
+      jni, encoder_, j_bitrate_allocation,
+      (jint)(parameters.framerate_fps + 0.5));
   return HandleReturnCode(jni, ret, "setRateAllocation");
 }
 

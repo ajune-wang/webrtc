@@ -197,7 +197,7 @@ class MediaCodecVideoEncoder : public VideoEncoder {
 
   // State that is constant for the lifetime of this object once the ctor
   // returns.
-  rtc::SequencedTaskChecker encoder_queue_checker_;
+  rtc::SequenceChecker encoder_queue_checker_;
   ScopedJavaGlobalRef<jobject> j_media_codec_video_encoder_;
 
   // State that is valid only between InitEncode() and the next Release().

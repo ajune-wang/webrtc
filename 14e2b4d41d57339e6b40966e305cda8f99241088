@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51e45ed9_1ec6eb35",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-09T15:02:50Z",
+      "side": 1,
+      "message": "Which logic in the code does this comment refer to? Could be rephrased for clarity.",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 53
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65fd753e_8b1e4388",
+        "filename": "video/encoder_rtcp_feedback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-09T15:02:50Z",
+      "side": 1,
+      "message": "I\u0027d find\n\n  const absl::optional\u003cRtpSequenceNumberMap::Info\u003e last_decodable \u003d \n    rtp_video_sender_-\u003eGetSentRtpPacketInfo(seq_num_of_last_decodable);\n\t\n  const absl::optional\u003cRtpSequenceNumberMap::Info\u003e last_received \u003d \n    rtp_video_sender_-\u003eGetSentRtpPacketInfo(seq_num_of_last_recieved);\n\n  if (!last_decodable || !last_received)\n    return;\n\nboth clearer and slightly shorter.",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 0
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55b74094_166981c4",
+        "filename": "video/encoder_rtcp_feedback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-09T15:02:50Z",
+      "side": 1,
+      "message": "This should be always true here. Maybe move it from the condition into a DCHECK?",
+      "range": {
+        "startLine": 123,
+        "startChar": 13,
+        "endLine": 123,
+        "endChar": 36
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "707d8239_724cbf3e",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-09T15:02:50Z",
+      "side": 1,
+      "message": "I\u0027m not sure I like passing the big RtpVideoSenderInterface like this. And the reason why a setter method is needed is that we set up a circular references between EncoderFeedback and RtpVideoSender. Circular references aren\u0027t totally unexpected since we\u0027re wiring up a feedback signal, but it\u0027s not clear this signal needs an additional circle; this isn\u0027t the first or only feedback signal.\n\nWould it work to instead have EncoderFeedback own a mapping ssrc -\u003e RtpSequenceNumberMap, and pass that to RtpVideoSender on construction (for wiring down to the RtpSenderVideo, which will update the mapping?\n\nLanding as is may be fine, but I\u0027d like to understand what\u0027s the right way is to wire the components together, and if there are any reasonable followup changes to fix it.",
+      "range": {
+        "startLine": 252,
+        "startChar": 2,
+        "endLine": 252,
+        "endChar": 57
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de0d3712_cb6fd9ea",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1417,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-09T15:02:50Z",
+      "side": 1,
+      "message": "This is a common pattern in this file. I wonder if there\u0027s any drawback in making it post unconditionally,\n\n  encoder_queue_.PostTask([this, loss_notification]{ \n      encoder_-\u003eOnLossNotification(loss_notification);\n  }\n\nIt would look a bit simpler.",
+      "range": {
+        "startLine": 1408,
+        "startChar": 0,
+        "endLine": 1417,
+        "endChar": 3
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

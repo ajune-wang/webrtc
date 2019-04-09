@@ -39,6 +39,30 @@
       "revId": "919cd5b2cff4b40342c5fe6e6b9d029897211005",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54436bb8_68014ae4",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-09T12:48:16Z",
+      "side": 1,
+      "message": "Yes, done. I updated the calling place to only use GetReceiveStreamDataCounters and stop using GetDataCounters. This means I had to duplicate the bytes_received and packets_received logic, but I saw a TODO to remove something very similar to GetDataCounters here:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/source/rtp_rtcp_impl.cc?type\u003dcs\u0026q\u003dDataCountersRTP+%22TODO(asapersson)%22\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d537\n\nIs the goal to remove StreamStatisticianImpl::GetDataCounters too? Should I add a TODO?",
+      "parentUuid": "dec811e1_b4e9b692",
+      "range": {
+        "startLine": 312,
+        "startChar": 29,
+        "endLine": 312,
+        "endChar": 57
+      },
+      "revId": "919cd5b2cff4b40342c5fe6e6b9d029897211005",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

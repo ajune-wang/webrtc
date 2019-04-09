@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "754b8645_eb27f136",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-09T08:46:25Z",
+      "side": 1,
+      "message": "nit: ReverseDirection maybe?",
+      "revId": "27ee8d6d0039753ee243aa5cdbcd72f97c499cdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63721911_e13e32e1",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1631,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-09T08:46:25Z",
+      "side": 1,
+      "message": "nit: Is \"update_negotiation_needed\" a more appropriate variable name now?",
+      "revId": "27ee8d6d0039753ee243aa5cdbcd72f97c499cdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81ed5279_7776285c",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7195,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-09T08:46:25Z",
+      "side": 1,
+      "message": "Maybe check the date and return true if it\u0027s a tuesday between 2-3 pm :)",
+      "revId": "27ee8d6d0039753ee243aa5cdbcd72f97c499cdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea292b74_3614a4fa",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7228,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-09T08:46:25Z",
+      "side": 1,
+      "message": "nit: Prefer to avoid abbreviations. current_remote_contents?",
+      "revId": "27ee8d6d0039753ee243aa5cdbcd72f97c499cdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ad25b22_f7b85587",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7234,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-09T08:46:25Z",
+      "side": 1,
+      "message": "Does this operation deserve a helper function?",
+      "revId": "27ee8d6d0039753ee243aa5cdbcd72f97c499cdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bd72e8e_1650a20a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7236,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-09T08:46:25Z",
+      "side": 1,
+      "message": "nit: transceiver_has_current_remote_msection?",
+      "revId": "27ee8d6d0039753ee243aa5cdbcd72f97c499cdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9efc1cf8_6aeca74d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7249,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-09T08:46:25Z",
+      "side": 1,
+      "message": "The \u0027doesn\u0027t contain a single \"a\u003dmsid\" line\u0027 check had me scratch my head. It might be for the following case: The transceiver is created to match what was offered by the remote endpoint, so we\u0027ve yet to negotiate a\u003dmsid for this transceiver. But why do this if our sender doesn\u0027t have any associated media streams? Steve do you know?\n\nThis may be an edge-case we want to have test coverage for.",
+      "revId": "27ee8d6d0039753ee243aa5cdbcd72f97c499cdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ccd8162_a9afa01f",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7288,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-09T08:46:25Z",
+      "side": 1,
+      "message": "nit: current_local_msection_direction?",
+      "revId": "27ee8d6d0039753ee243aa5cdbcd72f97c499cdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2fc8208_a3ddb350",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7313,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-09T08:46:25Z",
+      "side": 1,
+      "message": "nit: transceiver_has_offered_remote_msection?",
+      "revId": "27ee8d6d0039753ee243aa5cdbcd72f97c499cdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "005192b4_21122aec",
+        "filename": "pc/peer_connection_rtp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1802,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-09T08:46:25Z",
+      "side": 1,
+      "message": "This makes sure the codepath is exercised, but the fact that negotiation is needed doesn\u0027t verify that the codepath did the right thing, since adding a track will trigger negotiation anyway.\nIs it possible to exercise it without doing this? Maybe change the direction and then change the direction back again, such that \"negotiation needed\" would be cleared if it weren\u0027t for this codepath about streams being different making negotiation needed true?",
+      "revId": "27ee8d6d0039753ee243aa5cdbcd72f97c499cdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d3660cd_7b895705",
+        "filename": "pc/peer_connection_rtp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1806,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-09T08:46:25Z",
+      "side": 1,
+      "message": "MyTest is BestTest, but you probably want a more descriptive name.\nChangeAssociatedStreamsTriggersRenegotiation?",
+      "revId": "27ee8d6d0039753ee243aa5cdbcd72f97c499cdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

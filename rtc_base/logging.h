@@ -186,11 +186,10 @@ struct Val {
   T val;
 };
 
-// TODO(bugs.webrtc.org/9278): Get rid of this specialization when callers
-// don't need it anymore. No in-tree caller does, but some external callers
-// still do.
-template <>
-struct Val<LogArgType::kStdString, std::string> {
+// Case for when we need to construct a temp string and then print that.
+// (We can't use Val<CheckArgType::kStdString, const std::string*>
+// because we need somewhere to store the temp string.)
+struct ToStringVal {
   static constexpr LogArgType Type() { return LogArgType::kStdString; }
   const std::string* GetVal() const { return &val; }
   std::string val;
@@ -265,24 +264,46 @@ inline Val<LogArgType::kLogMetadataTag, LogMetadataTag> MakeVal(
 }
 #endif
 
+namespace webrtc_has_to_log_string_impl {
+struct any_t {
+  template <typename T>
+  any_t(const T&);  // NOLINT
+};
+void ToLogString(any_t const&);
+template <typename T, typename T1 = decltype(ToLogString(std::declval<T>()))>
+using has_overload = std::is_same<std::string, T1>;
+}  // namespace webrtc_has_to_log_string_impl
+
+template <typename T>
+using has_to_log_string = webrtc_has_to_log_string_impl::has_overload<T>;
+
 // Handle arbitrary types other than the above by falling back to stringstream.
 // TODO(bugs.webrtc.org/9278): Get rid of this overload when callers don't need
 // it anymore. No in-tree caller does, but some external callers still do.
 template <
     typename T,
-    typename T1 =
-        typename std::remove_cv<typename std::remove_reference<T>::type>::type,
+    typename T1 = typename std::decay<T>::type,
     typename std::enable_if<
         std::is_class<T1>::value && !std::is_same<T1, std::string>::value &&
         !std::is_same<T1, LogMetadata>::value &&
+        !has_to_log_string<T1>::value &&
 #ifdef WEBRTC_ANDROID
         !std::is_same<T1, LogMetadataTag>::value &&
 #endif
         !std::is_same<T1, LogMetadataErr>::value>::type* = nullptr>
-Val<LogArgType::kStdString, std::string> MakeVal(const T& x) {
+ToStringVal MakeVal(const T& x) {
   std::ostringstream os;  // no-presubmit-check TODO(webrtc:8982)
   os << x;
   return {os.str()};
+}
+
+template <
+    typename T,
+    typename T1 = typename std::decay<T>::type,
+    typename std::enable_if<std::is_class<T1>::value &&
+                            has_to_log_string<T1>::value>::type* = nullptr>
+ToStringVal MakeVal(const T& x) {
+  return {ToLogString(x)};
 }
 
 void Log(const LogArgType* fmt, ...);

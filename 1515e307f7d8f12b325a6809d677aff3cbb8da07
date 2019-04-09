@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b27256c0_926f540d",
+        "filename": "modules/video_capture/windows/sink_filter_ds.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-09T07:09:02Z",
+      "side": 1,
+      "message": "This class needs only the IncomingFrame method. So one alternative is to rename VideoCaptureExternal interface, to VidoeCaptureObserver, say, and make it internal, but I figured that\u0027s not worth the effort.",
+      "range": {
+        "startLine": 152,
+        "startChar": 2,
+        "endLine": 152,
+        "endChar": 18
+      },
+      "revId": "1515e307f7d8f12b325a6809d677aff3cbb8da07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

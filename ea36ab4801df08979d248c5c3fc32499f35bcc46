@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b0d3f63_34b335c0",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-09T13:40:46Z",
+      "side": 1,
+      "message": "Suggestion DataSize data_sent \u003d DataSize:.Zero();\n\nIt has the nice feature that you can then do:\n\nDataRate average_send_rate \u003d  data_sent/(last_packet_sent_time-first_packet_sent_time);",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 21
+      },
+      "revId": "ea36ab4801df08979d248c5c3fc32499f35bcc46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9b86956_55366503",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-09T13:40:46Z",
+      "side": 1,
+      "message": "Do we expect this behavior, or should we rather DCHECK for it?",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 78
+      },
+      "revId": "ea36ab4801df08979d248c5c3fc32499f35bcc46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "659e47f9_0c6929c4",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-09T13:40:46Z",
+      "side": 1,
+      "message": "Note that this won\u0027t be entirely accurate if used to compute an average receive throughput, as we don\u0027t include the transmission time for the first packet:\n\nthroughput \u003d total_data_received/(last_time-first_time)\nwill overestimate the average troughput of the link.\nInstead we want:\nthroughput \u003d (total_data_received-first_packet_size)/(last_time-first_time)\n\nSimilar reasoning can apply to send times, depending of what we want to measure.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 66
+      },
+      "revId": "ea36ab4801df08979d248c5c3fc32499f35bcc46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64969d2d_aa8aa9bc",
+        "filename": "test/scenario/network/emulated_network_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-09T13:40:46Z",
+      "side": 1,
+      "message": "Do we need this to be sync, or could we do:\n\nGetStats(std::function\u003cvoid(EmulatedNetworkStats)\u003e stats_callback);\n\nto make it less overhead?",
+      "range": {
+        "startLine": 82,
+        "startChar": 45,
+        "endLine": 82,
+        "endChar": 53
+      },
+      "revId": "ea36ab4801df08979d248c5c3fc32499f35bcc46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75abe1d3_4bf88062",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-09T13:40:46Z",
+      "side": 1,
+      "message": "nit: current_time, the abbreviation doesn\u0027t give much here afaict.",
+      "range": {
+        "startLine": 312,
+        "startChar": 12,
+        "endLine": 312,
+        "endChar": 20
+      },
+      "revId": "ea36ab4801df08979d248c5c3fc32499f35bcc46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "432e7559_6db03394",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-09T13:40:46Z",
+      "side": 1,
+      "message": "Optionally you can do:\nstats_.first_packet_sent_time \u003d std::min(stats_.first_packet_sent_time, cur_time);",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 315,
+        "endChar": 3
+      },
+      "revId": "ea36ab4801df08979d248c5c3fc32499f35bcc46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

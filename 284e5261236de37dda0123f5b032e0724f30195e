@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d570c40a_69c8a671",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-09T14:54:41Z",
+      "side": 1,
+      "message": "Maybe CodecBuffer? I can imagine this being useful on the decoding side too.",
+      "range": {
+        "startLine": 23,
+        "startChar": 7,
+        "endLine": 23,
+        "endChar": 20
+      },
+      "revId": "284e5261236de37dda0123f5b032e0724f30195e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b832092_fd9d4d6d",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-09T14:54:41Z",
+      "side": 1,
+      "message": "These values never have an effect, because the default ctor is implicitly deleted, and the only ctor explicitly defined explicitly assigns values to the members. Still, could be good to have them. Thoughts?",
+      "revId": "284e5261236de37dda0123f5b032e0724f30195e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

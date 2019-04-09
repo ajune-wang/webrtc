@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "9ad81945_6a7e81a1",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-09T10:07:24Z",
+      "side": 1,
+      "message": "For the record, I still think returning 0 for mean and variance in case of empty sequence (no optional, no assertion, no exception) would be the right thing to do:\n * As you said, expose the simplest API that does the job!\n * More specifically, don\u0027t complicate the general (use)case for the sake of explicit handling of the corner cases.\n * Thoughtful conventions (e.g. factorial(0)\u003d\u003d1) make general formulas work without having to deal with special cases.\n * Concerned client could check the Size() if they need to.",
+      "parentUuid": "b8a7503f_5012c4f5",
+      "range": {
+        "startLine": 32,
+        "startChar": 19,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f487518b_4ded16d1",
         "filename": "rtc_base/numerics/running_statistics.h",
         "patchSetId": 1

@@ -240,6 +240,30 @@
     },
     {
       "key": {
+        "uuid": "bb928b21_909cea9d",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-09T10:21:21Z",
+      "side": 1,
+      "message": "Yes of course, consistency, and the default values for min and max are even better.\nI don\u0027t plan to make the change, as I seem to be the only one wishing to take this path.",
+      "parentUuid": "d81dd43e_164fd9c4",
+      "range": {
+        "startLine": 32,
+        "startChar": 19,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "3633001eb1f638576464763e911be7d15660e90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f487518b_4ded16d1",
         "filename": "rtc_base/numerics/running_statistics.h",
         "patchSetId": 1

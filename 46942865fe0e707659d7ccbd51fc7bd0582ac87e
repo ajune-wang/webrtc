@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "fa80744b_d1d8a222",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-09T16:13:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a5cd271c_a52de58c",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2423c16c_fe09ba0c",
         "filename": "pc/media_session.cc",
         "patchSetId": 1
@@ -105,6 +123,24 @@
       "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c095767c_5509dcac",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-09T16:13:10Z",
+      "side": 1,
+      "message": "Is there a test for this case? I see one for vpx \u0026 rtx, but not rtx for multiple codecs.",
+      "parentUuid": "f4e53f57_6b8a12fb",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -286,6 +322,30 @@
       "side": 1,
       "message": "Yes, that is literally the point of setCodecPreferences, to chose what codecs you want to offer or receive. Those are filtered after the codec preferences.\n\nIt is only incompatible in a sense with SDP munging of local descriptions for codecs, but that\u0027s not supported by the standard. If you want to munge codecs, don\u0027t use setCodecPreferences as they will override anything that might have been there before.",
       "parentUuid": "31c1a052_c4590b56",
+      "range": {
+        "startLine": 2063,
+        "startChar": 53,
+        "endLine": 2063,
+        "endChar": 65
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aec3634f_b47e7025",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2063,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-09T16:13:10Z",
+      "side": 1,
+      "message": "Makes sense, thanks for the explanation. Could you add a comment about this in the code to clarify?",
+      "parentUuid": "eb4665e0_05e765a5",
       "range": {
         "startLine": 2063,
         "startChar": 53,

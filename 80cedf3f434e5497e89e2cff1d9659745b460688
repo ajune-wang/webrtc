@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46c40430_c5a70832",
+        "filename": "media/base/fake_media_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-09T16:13:10Z",
+      "side": 1,
+      "message": "Would initializing the test here with separate send/receive codecs help reduce code in the tests themselves?",
+      "range": {
+        "startLine": 498,
+        "startChar": 2,
+        "endLine": 498,
+        "endChar": 11
+      },
+      "revId": "80cedf3f434e5497e89e2cff1d9659745b460688",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b38adcb_0f182e01",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2150,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-09T16:13:10Z",
+      "side": 1,
+      "message": "Do you want to change this as you did for \"supported_audio_codecs\"? It looks like video_codecs comes from MediaSessionDescriptionFactory::GetCodecsForOffer (same as audio_codecs that you changed), which come from the description.\n\nIt looks like video_codecs_ is the equivalent here to supported_audio_codecs.",
+      "range": {
+        "startLine": 2150,
+        "startChar": 53,
+        "endLine": 2150,
+        "endChar": 65
+      },
+      "revId": "80cedf3f434e5497e89e2cff1d9659745b460688",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94f4dee8_975558ba",
+        "filename": "pc/peer_connection_media_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1387,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-09T16:13:10Z",
+      "side": 1,
+      "message": "Other test case I can think of is setting valid audio (\u0026 test video) codecs, except one preference doesn\u0027t exist in the capabilities, returns INVALID_MODIFICATION (Step 8). I don\u0027t know if you think this is covered properly by setting audio for video \u0026 video for audio as already tested.",
+      "range": {
+        "startLine": 1387,
+        "startChar": 0,
+        "endLine": 1387,
+        "endChar": 0
+      },
+      "revId": "80cedf3f434e5497e89e2cff1d9659745b460688",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

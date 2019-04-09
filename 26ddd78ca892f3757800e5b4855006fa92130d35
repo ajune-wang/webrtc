@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b06bea22_da541999",
+        "filename": "rtc_base/numerics/math_utils.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-09T09:01:57Z",
+      "side": 1,
+      "message": "Why not also for infinity_or_max?",
+      "range": {
+        "startLine": 58,
+        "startChar": 33,
+        "endLine": 58,
+        "endChar": 42
+      },
+      "revId": "26ddd78ca892f3757800e5b4855006fa92130d35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

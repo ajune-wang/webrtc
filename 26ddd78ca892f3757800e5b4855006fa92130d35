@@ -46,6 +46,30 @@
       "revId": "26ddd78ca892f3757800e5b4855006fa92130d35",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2477648b_dce21718",
+        "filename": "rtc_base/numerics/math_utils.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-09T09:21:04Z",
+      "side": 1,
+      "message": "Yes, can we opt-out and format manually?",
+      "parentUuid": "f04558ba_779a447b",
+      "range": {
+        "startLine": 58,
+        "startChar": 33,
+        "endLine": 58,
+        "endChar": 42
+      },
+      "revId": "26ddd78ca892f3757800e5b4855006fa92130d35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

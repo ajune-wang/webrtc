@@ -345,6 +345,17 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // experiment group numbers incremented by 1.
   const std::array<uint8_t, 2> experiment_groups_;
 
+  // This array is used as a map from simulcast id to frame count where for a
+  // given id holds the number of frames sent on that simulcast stream.
+  // TODO(philipel): Preserve frame_count_ when RecreateWebRtcStream is called.
+  std::array<int64_t, kMaxSimulcastStreams> frame_count_;
+
+  // This array is used as a map from simulcast id to the encoders buffer state.
+  // For every buffer of the encoder we keep track of the last frame that
+  // updated that buffer.
+  std::array<std::array<int64_t, kMaxEncoderBuffers>, kMaxSimulcastStreams>
+      encoder_buffer_state_;
+
   // All public methods are proxied to |encoder_queue_|. It must must be
   // destroyed first to make sure no tasks are run that use other members.
   rtc::TaskQueue encoder_queue_;

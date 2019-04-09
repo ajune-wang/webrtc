@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84d3d8f0_a24921cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-09T06:45:50Z",
+      "side": 1,
+      "message": "Spelling. Also \"constructore\" above.",
+      "range": {
+        "startLine": 10,
+        "startChar": 26,
+        "endLine": 10,
+        "endChar": 34
+      },
+      "revId": "e99aaf2a3ea4323e5e92e59cc06bd42797c50d11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

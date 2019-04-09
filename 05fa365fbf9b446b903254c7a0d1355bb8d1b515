@@ -16,6 +16,24 @@
       "revId": "05fa365fbf9b446b903254c7a0d1355bb8d1b515",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28275c57_a81327e6",
+        "filename": "rtc_base/numerics/math_utils.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-09T08:38:49Z",
+      "side": 1,
+      "message": "Absolutely! Thanks!",
+      "parentUuid": "1f21817f_27235f1f",
+      "revId": "05fa365fbf9b446b903254c7a0d1355bb8d1b515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

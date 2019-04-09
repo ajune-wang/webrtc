@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "83ed667d_372f0023",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-09T19:22:23Z",
+      "side": 1,
+      "message": "HandleLoss can be called from the else-block below, but not from the if-block. This explains why. Would moving this comment into the if-block help? Or perhaps you could suggest a different way to enhance clarity?",
+      "parentUuid": "51e45ed9_1ec6eb35",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 53
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65fd753e_8b1e4388",
         "filename": "video/encoder_rtcp_feedback.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d187e20b_989cff26",
+        "filename": "video/encoder_rtcp_feedback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-09T19:22:23Z",
+      "side": 1,
+      "message": "1. Clearer - agreed. But not as efficient.\n2. It\u0027s harder to convince oneself that there is no actual bug hiding behind fetching two values consecutively, rather than atomically. It\u0027s also more brittle in the face of future changes.",
+      "parentUuid": "65fd753e_8b1e4388",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 0
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "312fc9eb_9847377f",
         "filename": "video/encoder_rtcp_feedback.cc",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2019-04-09T16:41:11Z",
       "side": 1,
       "message": "probably more easily readable as \n\nif (!decodability_flag) {\n  loss_notification.last_received_decodable \u003d false;\n}",
+      "range": {
+        "startLine": 121,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 72
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a36429b1_3b27f7df",
+        "filename": "video/encoder_rtcp_feedback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-09T19:22:23Z",
+      "side": 1,
+      "message": "I have three aesthetic considerations here:\n1. I don\u0027t want to rely on the ctor setting to absl::nullopt upon construction; I want to explicitly assign a value.\n2. I want the value assignment to look as similar as possible in all cases.\n3. I want to keep nesting as low as I can, while keeping the structure simple. (So still a\u0026\u0026b, a\u0026\u0026!b, etc. - going over all permutations of is_first/is_last.)\n\nSo I would prefer to keep this line as-is. Or do you feel strongly about this?",
+      "parentUuid": "312fc9eb_9847377f",
       "range": {
         "startLine": 121,
         "startChar": 4,
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "e9206020_b65b6707",
+        "filename": "video/encoder_rtcp_feedback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-09T19:22:23Z",
+      "side": 1,
+      "message": "This is a case where I think clarity overrides efficiency. I also expect the compiler to be able to optimize the needless check away. (Able to, but I am not sure it would.) I prefer spelling out all four value permutations of is_first and is_last. What do you guys say?",
+      "parentUuid": "55b74094_166981c4",
+      "range": {
+        "startLine": 123,
+        "startChar": 13,
+        "endLine": 123,
+        "endChar": 36
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "707d8239_724cbf3e",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 1
@@ -141,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "56479fa1_9201c9f5",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-09T19:22:23Z",
+      "side": 1,
+      "message": "I agree that circular references are best avoided when possible. Let\u0027s discuss offline how we can do that in a way that would not introduce future problems for you in decoupling the RTP and video logic? You\u0027ve mentioned you\u0027d be amenable to doing so in a separate CL. I\u0027d like to take you up on that offer. :-)",
+      "parentUuid": "707d8239_724cbf3e",
+      "range": {
+        "startLine": 252,
+        "startChar": 2,
+        "endLine": 252,
+        "endChar": 57
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "de0d3712_cb6fd9ea",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 1
@@ -152,6 +272,30 @@
       "writtenOn": "2019-04-09T15:02:50Z",
       "side": 1,
       "message": "This is a common pattern in this file. I wonder if there\u0027s any drawback in making it post unconditionally,\n\n  encoder_queue_.PostTask([this, loss_notification]{ \n      encoder_-\u003eOnLossNotification(loss_notification);\n  }\n\nIt would look a bit simpler.",
+      "range": {
+        "startLine": 1408,
+        "startChar": 0,
+        "endLine": 1417,
+        "endChar": 3
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b50dc36c_1f511bcd",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1417,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-09T19:22:23Z",
+      "side": 1,
+      "message": "One drawback is that if the method is called already on encoder_queue_, posting the task will introduce a needless delay. We could have saved one check of IsCurrent(), by posting a task to OnLossNotificationInternal(), but that would deviate from the pattern in this file, so I don\u0027t think it\u0027s desirable.",
+      "parentUuid": "de0d3712_cb6fd9ea",
       "range": {
         "startLine": 1408,
         "startChar": 0,

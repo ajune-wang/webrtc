@@ -26,16 +26,16 @@ SamplesStatsCounter& SamplesStatsCounter::operator=(SamplesStatsCounter&&) =
     default;
 
 void SamplesStatsCounter::AddSample(double value) {
+  stats_.AddSample(value);
   samples_.push_back(value);
   sorted_ = false;
-  if (value > max_) {
-    max_ = value;
-  }
-  if (value < min_) {
-    min_ = value;
-  }
-  sum_ += value;
-  sum_squared_ += value * value;
+}
+
+void SamplesStatsCounter::AddSamples(const SamplesStatsCounter& other) {
+  stats_.AddSamples(other.stats_);
+  for (double sample : other.samples_)
+    samples_.push_back(sample);
+  sorted_ = false;
 }
 
 double SamplesStatsCounter::GetPercentile(double percentile) {

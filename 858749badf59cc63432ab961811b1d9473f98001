@@ -45,6 +45,30 @@
       "revId": "858749badf59cc63432ab961811b1d9473f98001",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99cd5afe_ccbba157",
+        "filename": "modules/audio_device/win/core_audio_utility_win.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5501
+      },
+      "writtenOn": "2019-04-09T16:05:54Z",
+      "side": 1,
+      "message": "Done. I\u0027m not actually sure where the KSAUDIO_ defines are coming from, then :( msdn is pretty spotty on a lot of this.",
+      "parentUuid": "90447f0e_61b66f8b",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 20
+      },
+      "revId": "858749badf59cc63432ab961811b1d9473f98001",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

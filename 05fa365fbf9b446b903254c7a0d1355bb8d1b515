@@ -34,6 +34,29 @@
       "revId": "05fa365fbf9b446b903254c7a0d1355bb8d1b515",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32047bc7_31884708",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-09T08:43:16Z",
+      "side": 1,
+      "message": "Will it make sense to document, that if size \u003e 0, then all optionals are guaranteed to be non empty? It will allow to get value from them without extra check in each place,",
+      "range": {
+        "startLine": 38,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 23
+      },
+      "revId": "05fa365fbf9b446b903254c7a0d1355bb8d1b515",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

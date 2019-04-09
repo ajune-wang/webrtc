@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "312fc9eb_9847377f",
+        "filename": "video/encoder_rtcp_feedback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-09T16:41:11Z",
+      "side": 1,
+      "message": "probably more easily readable as \n\nif (!decodability_flag) {\n  loss_notification.last_received_decodable \u003d false;\n}",
+      "range": {
+        "startLine": 121,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 72
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55b74094_166981c4",
         "filename": "video/encoder_rtcp_feedback.cc",
         "patchSetId": 1
@@ -59,6 +82,30 @@
       "writtenOn": "2019-04-09T15:02:50Z",
       "side": 1,
       "message": "This should be always true here. Maybe move it from the condition into a DCHECK?",
+      "range": {
+        "startLine": 123,
+        "startChar": 13,
+        "endLine": 123,
+        "endChar": 36
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "121f6bc7_43f63468",
+        "filename": "video/encoder_rtcp_feedback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-09T16:41:11Z",
+      "side": 1,
+      "message": "If so, could also do the check for !decodability_flag first and then split on last_received.is_last true or false.\n\nDon\u0027t feel too strongly about it though",
+      "parentUuid": "55b74094_166981c4",
       "range": {
         "startLine": 123,
         "startChar": 13,

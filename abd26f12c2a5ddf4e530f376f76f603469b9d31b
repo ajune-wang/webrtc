@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96d1b7c2_4e4913c8",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-09T17:31:25Z",
+      "side": 1,
+      "message": "Why do you need these? Isn\u0027t it enough that trying to call ToLogString on an unsupported type will be an error? That\u0027s how you do it in checks.h.",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 31
+      },
+      "revId": "abd26f12c2a5ddf4e530f376f76f603469b9d31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

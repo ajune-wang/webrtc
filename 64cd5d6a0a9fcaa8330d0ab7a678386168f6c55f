@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "321386f1_955e59a5",
+        "filename": "pc/peer_connection_media_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1260,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-09T15:26:35Z",
+      "side": 1,
+      "message": "The test is checking that en error is returned when you don\u0027t have any recv codec.\n\n\"If the intersection between codecs and RTCRtpSender.getCapabilities(kind).codecs or the intersection between codecs and RTCRtpReceiver.getCapabilities(kind).codecs only contains RTX, RED or FEC codecs or is an empty set, throw InvalidModificationError. This ensures that we always have something to offer, regardless of transceiver.direction.\"\n\nTo do that, the test is creating a codec that can only send, not receive and set the preferences to that. The intersection with sender capabilities won\u0027t be empty, but the one with receiver capabilities will and I check we get the expected error.",
+      "parentUuid": "343b4b21_347add62",
+      "range": {
+        "startLine": 1257,
+        "startChar": 0,
+        "endLine": 1260,
+        "endChar": 58
+      },
+      "revId": "64cd5d6a0a9fcaa8330d0ab7a678386168f6c55f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "324ba8ac_8e31044a",
         "filename": "pc/rtp_transceiver.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "64cd5d6a0a9fcaa8330d0ab7a678386168f6c55f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e18de82b_94d3b7ca",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-09T15:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "324ba8ac_8e31044a",
+      "range": {
+        "startLine": 305,
+        "startChar": 16,
+        "endLine": 305,
+        "endChar": 25
+      },
+      "revId": "64cd5d6a0a9fcaa8330d0ab7a678386168f6c55f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

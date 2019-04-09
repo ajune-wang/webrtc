@@ -505,18 +505,28 @@ void DefaultTemporalLayers::OnEncodeDone(size_t stream_index,
   RTC_DCHECK_EQ(vp8_info.referencedBuffersCount, 0u);
   RTC_DCHECK_EQ(vp8_info.updatedBuffersCount, 0u);
 
+  std::vector<EncoderBuffer>& buffers = info->encoder_buffers.emplace();
+
   for (int i = 0; i < static_cast<int>(Buffer::kCount); ++i) {
+    bool references = false;
+    bool updates = is_keyframe;
+
     if (!is_keyframe && frame_config.References(static_cast<Buffer>(i))) {
       RTC_DCHECK_LT(vp8_info.referencedBuffersCount,
                     arraysize(CodecSpecificInfoVP8::referencedBuffers));
+      references = true;
       vp8_info.referencedBuffers[vp8_info.referencedBuffersCount++] = i;
     }
 
     if (is_keyframe || frame_config.Updates(static_cast<Buffer>(i))) {
       RTC_DCHECK_LT(vp8_info.updatedBuffersCount,
                     arraysize(CodecSpecificInfoVP8::updatedBuffers));
+      updates = true;
       vp8_info.updatedBuffers[vp8_info.updatedBuffersCount++] = i;
     }
+
+    if (references || updates)
+      buffers.emplace_back(i, references, updates);
   }
 
   // The templates are always present on keyframes, and then refered to by
@@ -528,6 +538,7 @@ void DefaultTemporalLayers::OnEncodeDone(size_t stream_index,
   GenericFrameInfo& generic_frame_info = info->generic_frame_info.emplace();
   generic_frame_info.decode_target_indications =
       frame.dependency_info.decode_target_indications;
+  generic_frame_info.temporal_id = frame_config.packetizer_temporal_idx;
 
   if (!frame.expired) {
     for (Vp8BufferReference buffer : kAllBuffers) {

@@ -1373,6 +1373,7 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
     const RTPFragmentationHeader* fragmentation) {
   TRACE_EVENT_INSTANT1("webrtc", "VCMEncodedFrameCallback::Encoded",
                        "timestamp", encoded_image.Timestamp());
+
   const size_t spatial_idx = encoded_image.SpatialIndex().value_or(0);
   EncodedImage image_copy(encoded_image);
 
@@ -1400,6 +1401,51 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
   // on. In the case of hardware encoders, there might be several encoders
   // running in parallel on different threads.
   encoder_stats_observer_->OnSendEncodedImage(image_copy, codec_specific_info);
+
+  // The simulcast id is signaled in the SpatialIndex. This makes it impossible
+  // to do simulcast for codecs that actually support spatial layers since we
+  // can't distinguish between an anctual spatial layer and a simulcast stream.
+  // TODO(bugs.webrtc.org/10520): Signal the simulcast id explicitly.
+  int simulcast_id = 0;
+  if (codec_specific_info &&
+      (codec_specific_info->codecType == kVideoCodecVP8 ||
+       codec_specific_info->codecType == kVideoCodecH264 ||
+       codec_specific_info->codecType == kVideoCodecGeneric)) {
+    simulcast_id = encoded_image.SpatialIndex().value_or(0);
+  }
+
+  int64_t frame_id =
+      frame_count_[simulcast_id] * kMaxSimulcastStreams + simulcast_id;
+  image_copy.SetFrameId(frame_id);
+  frame_count_[simulcast_id]++;
+
+  if (codec_specific_info && codec_specific_info->encoder_buffers) {
+    std::vector<int64_t> dependencies;
+
+    for (const EncoderBuffer& buffer : *codec_specific_info->encoder_buffers) {
+      if (encoder_buffer_state_.size() <= static_cast<size_t>(simulcast_id)) {
+        RTC_LOG(LS_ERROR) << "At most " << encoder_buffer_state_.size()
+                          << " simulcast streams supported.";
+        break;
+      }
+
+      std::array<int64_t, kMaxEncoderBuffers>& state =
+          encoder_buffer_state_[simulcast_id];
+
+      if (state.size() <= static_cast<size_t>(buffer.id)) {
+        RTC_LOG(LS_ERROR) << "At most " << state.size()
+                          << " encoder buffers supported.";
+        break;
+      }
+
+      if (buffer.referenced)
+        dependencies.push_back(state[buffer.id]);
+      if (buffer.updated)
+        state[buffer.id] = frame_id;
+    }
+
+    image_copy.SetDependencies(std::move(dependencies));
+  }
 
   EncodedImageCallback::Result result =
       sink_->OnEncodedImage(image_copy, codec_specific_info, fragmentation);

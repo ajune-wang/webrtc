@@ -26,6 +26,17 @@ namespace webrtc {
 
 class RTPFragmentationHeader;  // forward declaration
 
+struct EncoderBuffer {
+  EncoderBuffer(int id, bool referenced, bool updated)
+      : id(id), referenced(referenced), updated(updated) {
+    RTC_DCHECK_LT(id, kMaxEncoderBuffers);
+  }
+
+  int id = 0;
+  bool referenced = false;
+  bool updated = false;
+};
+
 // Note: If any pointers are added to this struct, it must be fitted
 // with a copy-constructor. See below.
 // Hack alert - the code assumes that thisstruct is memset when constructed.
@@ -110,6 +121,7 @@ struct RTC_EXPORT CodecSpecificInfo {
   CodecSpecificInfoUnion codecSpecific;
   absl::optional<GenericFrameInfo> generic_frame_info;
   absl::optional<TemplateStructure> template_structure;
+  absl::optional<std::vector<EncoderBuffer>> encoder_buffers;
 };
 
 }  // namespace webrtc

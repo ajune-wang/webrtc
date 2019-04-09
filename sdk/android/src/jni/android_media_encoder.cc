@@ -32,7 +32,7 @@
 #include "rtc_base/bind.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/sequenced_task_checker.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/weak_ptr.h"
@@ -197,7 +197,7 @@ class MediaCodecVideoEncoder : public VideoEncoder {
 
   // State that is constant for the lifetime of this object once the ctor
   // returns.
-  rtc::SequencedTaskChecker encoder_queue_checker_;
+  SequenceChecker encoder_queue_checker_;
   ScopedJavaGlobalRef<jobject> j_media_codec_video_encoder_;
 
   // State that is valid only between InitEncode() and the next Release().

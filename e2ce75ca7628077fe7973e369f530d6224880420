@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77752c65_1cfe9c06",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-09T08:54:30Z",
+      "side": 1,
+      "message": "unrelated to this CL, but does this block needs to be inside\nif (rtcp_bandwidth_observer_) block?",
+      "revId": "e2ce75ca7628077fe7973e369f530d6224880420",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

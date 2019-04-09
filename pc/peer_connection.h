@@ -1085,6 +1085,9 @@ class PeerConnection : public PeerConnectionInternal,
     return media_transport;
   }
 
+  void UpdateNegotiationNeeded();
+  bool CheckIfNegotiationIsNeeded();
+
   sigslot::signal1<DataChannel*> SignalDataChannelCreated_
       RTC_GUARDED_BY(signaling_thread());
 
@@ -1321,6 +1324,8 @@ class PeerConnection : public PeerConnectionInternal,
   // The generator is not used directly, instead it is passed on to the
   // channel manager and the session description factory.
   rtc::UniqueRandomIdGenerator ssrc_generator_;
+
+  bool is_negotiation_needed_ = false;
 };
 
 }  // namespace webrtc

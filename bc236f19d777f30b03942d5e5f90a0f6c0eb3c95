@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4cfc899_6f8cf6ce",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-09T07:07:40Z",
+      "side": 1,
+      "message": "Would it make sense to change from optional bool to an enum with three values, kUnknown, kDecodable, kUndecodable? Preferably using the same enum type for both this value and below. \nMotivation is that it seems unset doesn\u0027t just mean information is missing, it has a more precisely defined meaning below, which I interpret as \"some packet missing, but believed to be in transit, not lost\".\n\n(How does the notification appear on the wire? One could consider using the same numerical values here, to avoid an extra conversion, but I\u0027m not sure that\u0027s a good idea).",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 227,
+        "endChar": 24
+      },
+      "revId": "bc236f19d777f30b03942d5e5f90a0f6c0eb3c95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

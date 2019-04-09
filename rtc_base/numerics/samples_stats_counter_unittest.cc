@@ -34,6 +34,20 @@ SamplesStatsCounter CreateStatsFilledWithIntsFrom1ToN(int n) {
   return stats;
 }
 
+// Add n samples drawn from uniform distribution in [a;b].
+SamplesStatsCounter CreateStatsFromUniformDistribution(int n,
+                                                       double a,
+                                                       double b) {
+  std::mt19937 gen{std::random_device()()};
+  std::uniform_real_distribution<> dis(a, b);
+
+  SamplesStatsCounter stats;
+  for (int i = 1; i <= n; i++) {
+    stats.AddSample(dis(gen));
+  }
+  return stats;
+}
+
 }  // namespace
 
 TEST(SamplesStatsCounter, FullSimpleTest) {
@@ -74,6 +88,27 @@ TEST(SamplesStatsCounter, TestBorderValues) {
   EXPECT_GE(stats.GetPercentile(0.01), 1);
   EXPECT_LT(stats.GetPercentile(0.01), 2);
   EXPECT_DOUBLE_EQ(stats.GetPercentile(1.0), 5);
+}
+
+TEST(SamplesStatsCounter, VarianceFromUniformDistribution) {
+  // Check variance converge to 1/12 for [0;1) uniform distribution.
+  // Acts as a sanity check for NumericStabilityForVariance test.
+  SamplesStatsCounter stats = CreateStatsFromUniformDistribution(1e6, 0, 1);
+
+  EXPECT_NEAR(stats.GetVariance(), 1. / 12, 1e-3);
+}
+
+TEST(SamplesStatsCounter, NumericStabilityForVariance) {
+  // Same test as VarianceFromUniformDistribution,
+  // except the range is shifted to [1e9;1e9+1).
+  // Variance should also converge to 1/12.
+  // NB: Although we lose precision for the samples themselves, the fractional
+  //     part still enjoys 22 bits of mantissa and errors should even out,
+  //     so that couldn't explain a mismatch.
+  SamplesStatsCounter stats =
+      CreateStatsFromUniformDistribution(1e6, 1e9, 1e9 + 1);
+
+  EXPECT_NEAR(stats.GetVariance(), 1. / 12, 1e-3);
 }
 
 }  // namespace webrtc

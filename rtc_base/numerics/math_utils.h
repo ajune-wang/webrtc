@@ -36,4 +36,42 @@ typename std::make_unsigned<T>::type unsigned_difference(T x, T y) {
   return static_cast<unsigned_type>(x) - static_cast<unsigned_type>(y);
 }
 
+// clang-format off
+// clang formatting does a terrible job here.
+
+// Provide neutral element with respect to min().
+// Typically used as an initial value for running minimum.
+template <typename T>
+typename std::enable_if<std::numeric_limits<T>::has_infinity, T>::type
+constexpr infinity_or_max() {
+  return std::numeric_limits<T>::infinity();
+}
+
+template <typename T>
+typename std::enable_if<!std::numeric_limits<T>::has_infinity, T>::type
+constexpr infinity_or_max() {
+  // Fallback to max().
+  return std::numeric_limits<T>::max();
+}
+
+// Provide neutral element with respect to max().
+// Typically used as an initial value for running maximum.
+template <typename T>
+typename std::enable_if<std::numeric_limits<T>::has_infinity, T>::type
+constexpr minus_infinity_or_min() {
+  static_assert(std::is_signed<T>::value,
+                "We wrongly assumed all type with infinity are signed. Please "
+                "open a bug.");
+  return -std::numeric_limits<T>::infinity();
+}
+
+template <typename T>
+typename std::enable_if<!std::numeric_limits<T>::has_infinity, T>::type
+constexpr minus_infinity_or_min() {
+  // Fallback to min().
+  return std::numeric_limits<T>::min();
+}
+
+// clang-format on
+
 #endif  // RTC_BASE_NUMERICS_MATH_UTILS_H_

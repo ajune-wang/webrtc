@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62fcecf1_001e2c6b",
+        "filename": "api/data_channel_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-09T08:09:34Z",
+      "side": 1,
+      "message": "These are \"unsigned short\" in the spec, can\u0027t we do absl::optional\u003cuint16_t\u003e?",
+      "revId": "f419d32c9d864f32c069803d9dc923dc126a71df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

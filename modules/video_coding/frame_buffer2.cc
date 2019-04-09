@@ -352,6 +352,8 @@ bool FrameBuffer::IsCompleteSuperFrame(const EncodedFrame& frame) {
     if (prev_frame == frames_.end())
       return false;
     while (prev_frame->second.frame->inter_layer_predicted) {
+      if (prev_frame == frames_.begin())
+        return false;
       --prev_frame;
       --id.spatial_layer;
       if (prev_frame == frames_.end() ||

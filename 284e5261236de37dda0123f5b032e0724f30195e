@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "a2fdc5ce_a27f8610",
+        "filename": "api/video/video_codec_constants.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-09T15:07:30Z",
+      "side": 1,
+      "message": "such use of constexpr in header file is not safe until c++17\nenum trick seems like better alternative for now.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 37
+      },
+      "revId": "284e5261236de37dda0123f5b032e0724f30195e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d570c40a_69c8a671",
         "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
         "patchSetId": 8
@@ -36,6 +59,98 @@
       "writtenOn": "2019-04-09T14:54:41Z",
       "side": 1,
       "message": "These values never have an effect, because the default ctor is implicitly deleted, and the only ctor explicitly defined explicitly assigns values to the members. Still, could be good to have them. Thoughts?",
+      "revId": "284e5261236de37dda0123f5b032e0724f30195e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cbf56ef_0b172a4c",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-09T15:07:30Z",
+      "side": 1,
+      "message": "kMaxEncoderBuffers?",
+      "range": {
+        "startLine": 54,
+        "startChar": 37,
+        "endLine": 54,
+        "endChar": 39
+      },
+      "revId": "284e5261236de37dda0123f5b032e0724f30195e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a70df8f_11712149",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-09T15:07:30Z",
+      "side": 1,
+      "message": "please prefer /*referenced\u003d*/ syntax for compatibility with clang-tidy check\n(https://clang.llvm.org/extra/clang-tidy/checks/bugprone-argument-comment.html)",
+      "range": {
+        "startLine": 309,
+        "startChar": 11,
+        "endLine": 309,
+        "endChar": 25
+      },
+      "revId": "284e5261236de37dda0123f5b032e0724f30195e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d65d971_cce4d983",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1457,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-09T15:07:30Z",
+      "side": 1,
+      "message": "this way frame_ids are unique, but can get out of sync. making order undefined.\n\nmay be something like\npicture_id \u003d max(frame_count_);\nif (frame_count_[simulcast_id] \u003d\u003d picture_id) {\n  ++picture_id;\n}\nframe_count_[simulcast_id] \u003d picture_id;\nframe_id \u003d picture_id * kMaxSimulcastStreams + simulcast_id;",
+      "range": {
+        "startLine": 1455,
+        "startChar": 0,
+        "endLine": 1457,
+        "endChar": 31
+      },
+      "revId": "284e5261236de37dda0123f5b032e0724f30195e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12685d95_c0b9ad40",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-09T15:07:30Z",
+      "side": 1,
+      "message": "how this mutable variables is RTC_GUARDED_BY ?",
+      "range": {
+        "startLine": 351,
+        "startChar": 44,
+        "endLine": 351,
+        "endChar": 56
+      },
       "revId": "284e5261236de37dda0123f5b032e0724f30195e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

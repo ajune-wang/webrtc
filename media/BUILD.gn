@@ -345,6 +345,30 @@ rtc_static_library("rtc_audio_video") {
   ]
 }
 
+# Heavy but optional helper for unittests and webrtc users who prefer to use
+# defaults factories or do not worry about extra dependencies and binary size.
+rtc_source_set("rtc_media_engine_defaults") {
+  visibility = [ "*" ]
+  allow_poison = [
+    "audio_codecs",
+    "software_video_codecs",
+  ]
+  sources = [
+    "engine/webrtc_media_engine_defaults.cc",
+    "engine/webrtc_media_engine_defaults.h",
+  ]
+  deps = [
+    ":rtc_audio_video",
+    "../api/audio_codecs:builtin_audio_decoder_factory",
+    "../api/audio_codecs:builtin_audio_encoder_factory",
+    "../api/video:builtin_video_bitrate_allocator_factory",
+    "../api/video_codecs:builtin_video_decoder_factory",
+    "../api/video_codecs:builtin_video_encoder_factory",
+    "../modules/audio_processing:api",
+    "../rtc_base:checks",
+  ]
+}
+
 rtc_static_library("rtc_data") {
   defines = []
   deps = []
@@ -487,28 +511,66 @@ if (rtc_include_tests) {
       ":rtc_audio_video",
       ":rtc_constants",
       ":rtc_data",
+      ":rtc_encoder_simulcast_proxy",
+      ":rtc_internal_video_codecs",
+      ":rtc_media",
+      ":rtc_media_base",
+      ":rtc_media_engine_defaults",
+      ":rtc_media_tests_utils",
+      ":rtc_simulcast_encoder_adapter",
+      ":rtc_vp9_profile",
       "../:webrtc_common",
+      "../api:create_simulcast_test_fixture_api",
       "../api:fake_media_transport",
+      "../api:libjingle_peerconnection_api",
+      "../api:mock_video_bitrate_allocator",
+      "../api:mock_video_bitrate_allocator_factory",
+      "../api:mock_video_codec_factory",
       "../api:scoped_refptr",
+      "../api:simulcast_test_fixture_api",
+      "../api/audio_codecs:builtin_audio_decoder_factory",
+      "../api/audio_codecs:builtin_audio_encoder_factory",
       "../api/task_queue",
       "../api/task_queue:default_task_queue_factory",
       "../api/test/video:function_video_factory",
       "../api/units:time_delta",
+      "../api/video:builtin_video_bitrate_allocator_factory",
+      "../api/video:video_bitrate_allocation",
+      "../api/video:video_frame",
       "../api/video:video_frame_i420",
+      "../api/video_codecs:builtin_video_decoder_factory",
+      "../api/video_codecs:builtin_video_encoder_factory",
+      "../api/video_codecs:video_codecs_api",
+      "../audio",
+      "../call:call_interfaces",
+      "../common_video",
+      "../logging:rtc_event_log_api",
+      "../logging:rtc_event_log_impl_base",
+      "../modules/audio_device:mock_audio_device",
+      "../modules/audio_processing",
       "../modules/audio_processing:api",
       "../modules/audio_processing:mocks",
       "../modules/rtp_rtcp",
+      "../modules/video_coding:simulcast_test_fixture_impl",
       "../modules/video_coding:video_codec_interface",
       "../modules/video_coding:webrtc_vp8",
+      "../p2p:p2p_test_utils",
       "../pc:rtc_pc",
       "../pc:rtc_pc_base",
+      "../rtc_base",
       "../rtc_base:checks",
       "../rtc_base:gunit_helpers",
+      "../rtc_base:rtc_base_approved",
+      "../rtc_base:rtc_base_tests_main",
       "../rtc_base:rtc_base_tests_utils",
       "../rtc_base:rtc_task_queue",
       "../rtc_base:stringutils",
       "../rtc_base/third_party/sigslot",
+      "../test:audio_codec_mocks",
       "../test:field_trial",
+      "../test:test_support",
+      "../test:video_test_common",
+      "//third_party/abseil-cpp/absl/algorithm:container",
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/strings",
     ]
@@ -560,45 +622,5 @@ if (rtc_include_tests) {
     if (is_ios) {
       deps += [ ":rtc_media_unittests_bundle_data" ]
     }
-
-    deps += [
-      ":rtc_encoder_simulcast_proxy",
-      ":rtc_internal_video_codecs",
-      ":rtc_media",
-      ":rtc_media_base",
-      ":rtc_media_tests_utils",
-      ":rtc_simulcast_encoder_adapter",
-      ":rtc_vp9_profile",
-      "../api:create_simulcast_test_fixture_api",
-      "../api:libjingle_peerconnection_api",
-      "../api:mock_video_bitrate_allocator",
-      "../api:mock_video_bitrate_allocator_factory",
-      "../api:mock_video_codec_factory",
-      "../api:simulcast_test_fixture_api",
-      "../api/audio_codecs:builtin_audio_decoder_factory",
-      "../api/audio_codecs:builtin_audio_encoder_factory",
-      "../api/video:builtin_video_bitrate_allocator_factory",
-      "../api/video:video_bitrate_allocation",
-      "../api/video:video_frame",
-      "../api/video_codecs:builtin_video_decoder_factory",
-      "../api/video_codecs:builtin_video_encoder_factory",
-      "../api/video_codecs:video_codecs_api",
-      "../audio",
-      "../call:call_interfaces",
-      "../common_video",
-      "../logging:rtc_event_log_api",
-      "../logging:rtc_event_log_impl_base",
-      "../modules/audio_device:mock_audio_device",
-      "../modules/audio_processing",
-      "../modules/video_coding:simulcast_test_fixture_impl",
-      "../p2p:p2p_test_utils",
-      "../rtc_base",
-      "../rtc_base:rtc_base_approved",
-      "../rtc_base:rtc_base_tests_main",
-      "../test:audio_codec_mocks",
-      "../test:test_support",
-      "../test:video_test_common",
-      "//third_party/abseil-cpp/absl/algorithm:container",
-    ]
   }
 }

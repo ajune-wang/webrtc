@@ -9,13 +9,16 @@
  */
 
 #include <memory>
+#include <utility>
 
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
+#include "api/task_queue/default_task_queue_factory.h"
 #include "api/video/builtin_video_bitrate_allocator_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "media/engine/webrtc_media_engine.h"
+#include "media/engine/webrtc_media_engine_defaults.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "test/field_trial.h"
 #include "test/gtest.h"
@@ -303,6 +306,18 @@ TEST(WebRtcMediaEngineFactoryTest, CreateWithVideoBitrateFactory) {
       webrtc::CreateBuiltinVideoDecoderFactory(),
       webrtc::CreateBuiltinVideoBitrateAllocatorFactory(),
       nullptr /* audio_mixer */, webrtc::AudioProcessingBuilder().Create()));
+  EXPECT_TRUE(engine);
+}
+
+TEST(WebRtcMediaEngineFactoryTest, Create) {
+  auto task_queue_factory = webrtc::CreateDefaultTaskQueueFactory();
+  MediaEngineDependencies deps;
+  deps.task_queue_factory = task_queue_factory.get();
+  webrtc::SetMediaEngineDefaults(&deps);
+
+  std::unique_ptr<MediaEngineInterface> engine =
+      CreateMediaEngine(std::move(deps));
+
   EXPECT_TRUE(engine);
 }
 

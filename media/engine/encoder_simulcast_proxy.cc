@@ -55,10 +55,8 @@ int EncoderSimulcastProxy::RegisterEncodeCompleteCallback(
   return encoder_->RegisterEncodeCompleteCallback(callback);
 }
 
-int EncoderSimulcastProxy::SetRateAllocation(
-    const VideoBitrateAllocation& bitrate,
-    uint32_t new_framerate) {
-  return encoder_->SetRateAllocation(bitrate, new_framerate);
+void EncoderSimulcastProxy::SetRates(const RateControlParameters& parameters) {
+  return encoder_->SetRates(parameters);
 }
 
 VideoEncoder::EncoderInfo EncoderSimulcastProxy::GetEncoderInfo() const {

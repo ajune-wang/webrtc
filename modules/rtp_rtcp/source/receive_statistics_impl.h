@@ -40,7 +40,9 @@ class StreamStatisticianImpl : public StreamStatistician,
   bool GetStatistics(RtcpStatistics* statistics, bool reset) override;
   bool GetActiveStatisticsAndReset(RtcpStatistics* statistics);
   void GetDataCounters(size_t* bytes_received,
-                       uint32_t* packets_received) const override;
+                       uint32_t* packets_received,
+                       absl::optional<int64_t>*
+                           last_packet_received_timestamp_ms) const override;
   void GetReceiveStreamDataCounters(
       StreamDataCounters* data_counters) const override;
   uint32_t BitrateReceived() const override;

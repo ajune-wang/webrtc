@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0683f8ca_c4e2be57",
+        "filename": "api/video/video_codec_constants.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-09T16:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2fdc5ce_a27f8610",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 37
+      },
+      "revId": "284e5261236de37dda0123f5b032e0724f30195e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d570c40a_69c8a671",
         "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "284e5261236de37dda0123f5b032e0724f30195e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8418d5a8_dd26eb3e",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-09T16:05:49Z",
+      "side": 1,
+      "message": "CodecBuffer is better, updated.",
+      "parentUuid": "d570c40a_69c8a671",
+      "range": {
+        "startLine": 23,
+        "startChar": 7,
+        "endLine": 23,
+        "endChar": 20
+      },
+      "revId": "284e5261236de37dda0123f5b032e0724f30195e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "80378e44_8baada79",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-09T16:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cbf56ef_0b172a4c",
+      "range": {
+        "startLine": 54,
+        "startChar": 37,
+        "endLine": 54,
+        "endChar": 39
+      },
+      "revId": "284e5261236de37dda0123f5b032e0724f30195e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a70df8f_11712149",
         "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
         "patchSetId": 8
@@ -111,6 +183,30 @@
     },
     {
       "key": {
+        "uuid": "1abfef6b_9a27ea0a",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-09T16:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a70df8f_11712149",
+      "range": {
+        "startLine": 309,
+        "startChar": 11,
+        "endLine": 309,
+        "endChar": 25
+      },
+      "revId": "284e5261236de37dda0123f5b032e0724f30195e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d65d971_cce4d983",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 8
@@ -122,6 +218,30 @@
       "writtenOn": "2019-04-09T15:07:30Z",
       "side": 1,
       "message": "this way frame_ids are unique, but can get out of sync. making order undefined.\n\nmay be something like\npicture_id \u003d max(frame_count_);\nif (frame_count_[simulcast_id] \u003d\u003d picture_id) {\n  ++picture_id;\n}\nframe_count_[simulcast_id] \u003d picture_id;\nframe_id \u003d picture_id * kMaxSimulcastStreams + simulcast_id;",
+      "range": {
+        "startLine": 1455,
+        "startChar": 0,
+        "endLine": 1457,
+        "endChar": 31
+      },
+      "revId": "284e5261236de37dda0123f5b032e0724f30195e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75185c10_f4a0d59f",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1457,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-09T16:05:49Z",
+      "side": 1,
+      "message": "Yes, frame ids between different simulcast streams could go out of sync, but keeping them in sync makes using templates much harder.",
+      "parentUuid": "9d65d971_cce4d983",
       "range": {
         "startLine": 1455,
         "startChar": 0,
@@ -154,6 +274,30 @@
       "revId": "284e5261236de37dda0123f5b032e0724f30195e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cbb39e1_dca66689",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-09T16:05:49Z",
+      "side": 1,
+      "message": "Good catch, added a lock for |frame_count_| and |encoder_buffer_state_|.",
+      "parentUuid": "12685d95_c0b9ad40",
+      "range": {
+        "startLine": 351,
+        "startChar": 44,
+        "endLine": 351,
+        "endChar": 56
+      },
+      "revId": "284e5261236de37dda0123f5b032e0724f30195e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

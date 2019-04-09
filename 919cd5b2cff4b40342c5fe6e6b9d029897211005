@@ -16,6 +16,29 @@
       "revId": "919cd5b2cff4b40342c5fe6e6b9d029897211005",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dec811e1_b4e9b692",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-04-09T11:16:08Z",
+      "side": 1,
+      "message": "Would it be possible to use GetReceiveStreamDataCounters?",
+      "range": {
+        "startLine": 312,
+        "startChar": 29,
+        "endLine": 312,
+        "endChar": 57
+      },
+      "revId": "919cd5b2cff4b40342c5fe6e6b9d029897211005",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

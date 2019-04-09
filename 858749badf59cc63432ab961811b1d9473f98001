@@ -69,6 +69,30 @@
       "revId": "858749badf59cc63432ab961811b1d9473f98001",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f424c8ec_00102914",
+        "filename": "modules/audio_device/win/core_audio_utility_win.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-09T16:46:35Z",
+      "side": 1,
+      "message": "Ah, that is why you\u0027ve added it. Yes, MSDN points to ksmedia.h but that header is not available. :/",
+      "parentUuid": "99cd5afe_ccbba157",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 20
+      },
+      "revId": "858749badf59cc63432ab961811b1d9473f98001",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

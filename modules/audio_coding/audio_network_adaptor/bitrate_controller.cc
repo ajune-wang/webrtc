@@ -61,10 +61,11 @@ void BitrateController::MakeDecision(AudioEncoderRuntimeConfig* config) {
     int offset = config->last_fl_change_increase
                      ? config_.fl_increase_overhead_offset
                      : config_.fl_decrease_overhead_offset;
-    // Check that
-    // -(*overhead_bytes_per_packet_) <= offset <= (*overhead_bytes_per_packet_)
+    // Ensure that the offset is not larger than the overhead.
     RTC_DCHECK_GE(*overhead_bytes_per_packet_, -offset);
     RTC_DCHECK_LE(offset, *overhead_bytes_per_packet_);
+    offset = std::max(offset, -static_cast<int>(*overhead_bytes_per_packet_));
+    offset = std::min(offset, static_cast<int>(*overhead_bytes_per_packet_));
     int overhead_rate_bps = static_cast<int>(
         (*overhead_bytes_per_packet_ + offset) * 8 * 1000 / frame_length_ms_);
     bitrate_bps_ = std::max(0, *target_audio_bitrate_bps_ - overhead_rate_bps);

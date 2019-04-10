@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "103f5db8_7bd328a4",
+        "filename": "p2p/base/regathering_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-04-10T23:01:42Z",
+      "side": 1,
+      "message": "Good catch. This is a bug. Fixed and also added a test for the no regathering case.",
+      "parentUuid": "a3d38af6_896eda27",
+      "revId": "77fadcf0f3499e3386dd8b6a0b74052754b9adb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24707d88_d702bb12",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "77fadcf0f3499e3386dd8b6a0b74052754b9adb7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da249530_e6f2f0f1",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5136,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-04-10T23:01:42Z",
+      "side": 1,
+      "message": "Sure. Appended changes and expectations in the two tests instead of making new ones, since we would need to repeat almost all setups above.",
+      "parentUuid": "24707d88_d702bb12",
+      "revId": "77fadcf0f3499e3386dd8b6a0b74052754b9adb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

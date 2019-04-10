@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "002f0a0f_f5e4fd72",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-10T14:19:17Z",
+      "side": 1,
+      "message": "Move into the else block may help. For phrasing, I think \"key frames do not issue a loss notification\" is unclear; a key frame is not an actor doing anything. It\u0027s also unobvious to me if this describes logic implemented in this function, or describes an expectation on how the remote end should act.\n\nIf I\u0027ve got the context right, this is logic on the send side, and hence should process received loss notifications, but not \"issue\" any such notifications?",
+      "parentUuid": "83ed667d_372f0023",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 53
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65fd753e_8b1e4388",
         "filename": "video/encoder_rtcp_feedback.cc",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "1. Clearer - agreed. But not as efficient.\n2. It\u0027s harder to convince oneself that there is no actual bug hiding behind fetching two values consecutively, rather than atomically. It\u0027s also more brittle in the face of future changes.",
       "parentUuid": "65fd753e_8b1e4388",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 0
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40fd45dc_53cd4c1a",
+        "filename": "video/encoder_rtcp_feedback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-10T14:19:17Z",
+      "side": 1,
+      "message": "This is a judgement call. I won\u0027t insist, even though I would have made a different trade off. \n\nAs for potential races, if we receive two sequence numbers from the network and look them up, we would always have to deal with the possibility that one of the numbers being within the window we keep track of, and the other one outside. Even if it \"can\u0027t happen\" under normal circumstances, it could happen due to a network anomaly or an evil peer.",
+      "parentUuid": "d187e20b_989cff26",
       "range": {
         "startLine": 87,
         "startChar": 0,

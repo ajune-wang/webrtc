@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96a88b47_ece7e0e2",
+        "filename": "sdk/android/api/org/webrtc/VideoProcessor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-04-10T07:24:54Z",
+      "side": 1,
+      "message": "I rather you move FrameAdaptationParameters to this class. And instead of a FrameAdaptationParameters.apply() function, I rather we have a static function in this class:\nVideoFrame apply(FrameAdaptationParameters, VideoFrame frame).",
+      "range": {
+        "startLine": 20,
+        "startChar": 17,
+        "endLine": 20,
+        "endChar": 31
+      },
+      "revId": "7010cdb92fdcc23f32f87a2a432c746bd69ea878",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

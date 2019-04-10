@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4de4532_006eee88",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-10T09:10:16Z",
+      "side": 0,
+      "message": "Are these deps just moved to the deps \u003d [...] above, or are there any additions or deletions? \n\nUnclear to me why we had deps +\u003d here in the first place. Maybe rearrange that in a separate cl?",
+      "range": {
+        "startLine": 564,
+        "startChar": 0,
+        "endLine": 603,
+        "endChar": 3
+      },
+      "revId": "8581877121f58435d683c2a39a73e72e5dcd558a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

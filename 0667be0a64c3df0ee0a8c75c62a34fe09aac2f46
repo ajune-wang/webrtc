@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9a0368d_75b5b0bc",
+        "filename": "media/engine/webrtc_media_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-10T09:10:16Z",
+      "side": 1,
+      "message": "Would it make sense to have a WebRtcVideoEngineFactory here? To make video engine optional without using HAVE_WEBRTC_VIDEO? Or maybe we should have some completely different way to avoid linking video code for apps that don\u0027t need it.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 59
+      },
+      "revId": "0667be0a64c3df0ee0a8c75c62a34fe09aac2f46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32acf1e8_50761c19",
+        "filename": "media/engine/webrtc_media_engine.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-10T09:10:16Z",
+      "side": 1,
+      "message": "Do you get move construction and assignment for MediaEngineDEpendencies by default?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 38
+      },
+      "revId": "0667be0a64c3df0ee0a8c75c62a34fe09aac2f46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93180252_6db3155d",
+        "filename": "media/engine/webrtc_media_engine_defaults.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-10T09:10:16Z",
+      "side": 1,
+      "message": "Can we have some default task queue factory (without going through the global pointer)?",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 39
+      },
+      "revId": "0667be0a64c3df0ee0a8c75c62a34fe09aac2f46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

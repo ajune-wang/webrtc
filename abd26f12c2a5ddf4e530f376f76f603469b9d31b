@@ -22,6 +22,30 @@
       "revId": "abd26f12c2a5ddf4e530f376f76f603469b9d31b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0687683_b32b90b4",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-10T11:01:47Z",
+      "side": 1,
+      "message": "In checks we don\u0027t use the ostream \u003c\u003c overload. Here we need to exclude the \u003c\u003c overload that is available in debug builds from types that have the ToLogString overload. This was the way I could find to do this.",
+      "parentUuid": "96d1b7c2_4e4913c8",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 31
+      },
+      "revId": "abd26f12c2a5ddf4e530f376f76f603469b9d31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

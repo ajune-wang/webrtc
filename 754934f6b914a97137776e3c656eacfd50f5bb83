@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8518b086_7b6be2b5",
+        "filename": "rtc_base/numerics/math_utils.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-10T14:07:56Z",
+      "side": 1,
+      "message": "It does worse than you, but not by enough that it\u0027s worth fighting over.\n\nAlternatively, clang-format does an OK job if you put enable_if in a template parameter instead:\n\n  template \u003ctypename T,\n            typename std::enable_if\u003c\n                !std::numeric_limits\u003cT\u003e::has_infinity\u003e::type* \u003d nullptr\u003e\n  constexpr T infinity_or_max() {\n    // Fallback to max().\n    return std::numeric_limits\u003cT\u003e::max();\n  }\n\nI would recommend this style for another readability reason as well: it\u0027s much easier to read the return value.",
+      "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b55bfca1_d5e80a7a",
+        "filename": "rtc_base/numerics/math_utils.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-10T14:07:56Z",
+      "side": 1,
+      "message": "CamelCase?",
+      "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "628cc139_f56aa636",
+        "filename": "rtc_base/numerics/math_utils.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-10T14:07:56Z",
+      "side": 1,
+      "message": "I\u0027d argue that this is implicit from the static_assert condition. \"\" is almost always sufficient as the second argument to static_assert (which is why the made it optional in C++17).",
+      "range": {
+        "startLine": 63,
+        "startChar": 16,
+        "endLine": 64,
+        "endChar": 29
+      },
+      "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "576ec2b5_d5d821b1",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-10T14:07:56Z",
+      "side": 1,
+      "message": "Use std::min/max here, just like on lines 63-64?",
+      "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6284cafb_af29d868",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-10T14:07:56Z",
+      "side": 1,
+      "message": "More efficient, and less indented:\n\n  if (other.size_ \u003d\u003d 0) {\n    return;\n  }\n  max_ \u003d std::max(max_, other.max_);\n  min_ \u003d std::min(min_, other.min_);\n  const int64_t new_size \u003d size_ + other.size_;\n  ...",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 21
+      },
+      "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7809f60a_4703d1e3",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-10T14:07:56Z",
+      "side": 1,
+      "message": "My math fu is too weak to verify that this calculation is correct...",
+      "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

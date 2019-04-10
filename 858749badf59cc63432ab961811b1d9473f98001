@@ -117,6 +117,30 @@
       "revId": "858749badf59cc63432ab961811b1d9473f98001",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4081397a_28459e2f",
+        "filename": "modules/audio_device/win/core_audio_utility_win.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-10T08:17:10Z",
+      "side": 1,
+      "message": "Yes, in theory \u003cksaudio.h\u003e should be included but this was causing a problem: https://logs.chromium.org/logs/webrtc/buildbucket/cr-buildbucket.appspot.com/8916700041436807600/+/steps/compile/0/stdout.",
+      "parentUuid": "880e1df5_68b1c830",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 20
+      },
+      "revId": "858749badf59cc63432ab961811b1d9473f98001",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

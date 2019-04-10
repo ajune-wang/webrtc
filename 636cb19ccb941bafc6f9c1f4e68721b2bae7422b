@@ -1,0 +1,186 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cce1bce0_b6cef13a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-10T14:42:12Z",
+      "side": 1,
+      "message": "Could be a useful method in rtp_media_utils.h\n\nAn alternate implementation:\n\nRtpTransceiverDirectionFromSendRecv(\n    RtpTransceiverDirectionHasSend(lhs) \u0026\u0026 RtpTransceiverDirectionHasSend(rhs),\n    RtpTransceiverDirectionHasRecv(lhs) \u0026\u0026 RtpTransceiverDirectionHasRecv(rhs));",
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "149d488b_c8a026c9",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-10T14:42:12Z",
+      "side": 1,
+      "message": "Check out rtp_media_utils.h\n\nThere\u0027s a method webrtc::RtpTransceiverDirectionReversed",
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13f62ec3_a18459dd",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-10T14:42:12Z",
+      "side": 1,
+      "message": "Can just be: session_description-\u003edescription()-\u003eGetContentByName(transceiver-\u003emid());",
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7777088_0fa44b97",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7215,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-10T14:42:12Z",
+      "side": 1,
+      "message": "debug?",
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e733b49b_0b11e759",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7220,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-10T14:42:12Z",
+      "side": 1,
+      "message": "cricket::GetFirstDataContent",
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ca3f49b_536513e6",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7239,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-10T14:42:12Z",
+      "side": 1,
+      "message": "Invert this condition and do an early continue. It\u0027s strictly out of order of the spec, but I think the step numbers will make it clear.\n\nCan also pull out current_local_msection-\u003emedia_description() as a local which would make some of the following code a bit more concise.",
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f9c9a83_a716143e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7254,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-10T14:42:12Z",
+      "side": 1,
+      "message": "Could do RtpTransceiverDirectionHasSend(transceiver-\u003edirection())",
+      "range": {
+        "startLine": 7253,
+        "startChar": 10,
+        "endLine": 7254,
+        "endChar": 72
+      },
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba3f9f4b_dc73541b",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7272,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-10T14:42:12Z",
+      "side": 1,
+      "message": "nit: absl::c_sort(transceiver_msids)",
+      "range": {
+        "startLine": 7272,
+        "startChar": 8,
+        "endLine": 7272,
+        "endChar": 17
+      },
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e535f55e_146559b2",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 1328,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-10T14:42:12Z",
+      "side": 1,
+      "message": "nit: add RTC_GUARDED_BY(signaling_thread())",
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7deb327_c9c4309f",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-10T14:42:12Z",
+      "side": 1,
+      "message": "Curious: what is causing these tests to fail?",
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

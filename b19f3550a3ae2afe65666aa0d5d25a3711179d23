@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "1e36675b_2e532c86",
+        "filename": "api/dtls_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-10T12:49:36Z",
+      "side": 1,
+      "message": "Can you remove the parameterless constructor? I don\u0027t think it should be needed.",
+      "revId": "b19f3550a3ae2afe65666aa0d5d25a3711179d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5bfdc6b_a46bd64f",
+        "filename": "api/dtls_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-10T12:49:36Z",
+      "side": 1,
+      "message": "Should we keep this one around? You can always explicitly pass nullptr if you don\u0027t have remote certificates.",
+      "revId": "b19f3550a3ae2afe65666aa0d5d25a3711179d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b94db032_7a930cd6",
         "filename": "api/dtls_transport_interface.h",
         "patchSetId": 1
@@ -13,6 +47,58 @@
       "writtenOn": "2019-04-09T17:13:34Z",
       "side": 1,
       "message": "Also add the move operations? You could implement them with \u003ddefault, I believe.",
+      "revId": "b19f3550a3ae2afe65666aa0d5d25a3711179d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2ece902_2553c712",
+        "filename": "api/dtls_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-10T12:49:36Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "b94db032_7a930cd6",
+      "revId": "b19f3550a3ae2afe65666aa0d5d25a3711179d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "963db133_64510d97",
+        "filename": "api/dtls_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-10T12:49:36Z",
+      "side": 1,
+      "message": "Would a move-getter be useful?\n\nstd::unique_ptr\u003crtc::SSLCertChain\u003e\u0026\u0026 move_remote_ssl_certificates() {\n  return std::move(remote_ssl_certificates_);\n}",
+      "revId": "b19f3550a3ae2afe65666aa0d5d25a3711179d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ceb2893_e934e0c3",
+        "filename": "pc/dtls_transport_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-10T12:49:36Z",
+      "side": 1,
+      "message": "Can you add a test that verifies remote_ssl_certificates() is null if we don\u0027t connect?",
       "revId": "b19f3550a3ae2afe65666aa0d5d25a3711179d23",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

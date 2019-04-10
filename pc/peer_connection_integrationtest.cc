@@ -5063,6 +5063,80 @@ TEST_P(PeerConnectionIntegrationTest,
   EXPECT_LT(0, callee_ice_event_count);
 }
 
+TEST_P(PeerConnectionIntegrationTest, RegatherAfterChangingIceTransportType) {
+  static const rtc::SocketAddress turn_server_internal_address{"88.88.88.0",
+                                                               3478};
+  static const rtc::SocketAddress turn_server_external_address{"88.88.88.1", 0};
+
+  CreateTurnServer(turn_server_internal_address, turn_server_external_address);
+
+  webrtc::PeerConnectionInterface::IceServer ice_server;
+  ice_server.urls.push_back("turn:88.88.88.0:3478");
+  ice_server.username = "test";
+  ice_server.password = "test";
+
+  PeerConnectionInterface::RTCConfiguration caller_config;
+  caller_config.servers.push_back(ice_server);
+  caller_config.type = webrtc::PeerConnectionInterface::kRelay;
+  caller_config.continual_gathering_policy = PeerConnection::GATHER_CONTINUALLY;
+
+  PeerConnectionInterface::RTCConfiguration callee_config;
+  callee_config.servers.push_back(ice_server);
+  callee_config.type = webrtc::PeerConnectionInterface::kRelay;
+  callee_config.continual_gathering_policy = PeerConnection::GATHER_CONTINUALLY;
+
+  ASSERT_TRUE(
+      CreatePeerConnectionWrappersWithConfig(caller_config, callee_config));
+
+  // Do normal offer/answer and wait for ICE to complete.
+  ConnectFakeSignaling();
+  caller()->AddAudioVideoTracks();
+  callee()->AddAudioVideoTracks();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  // Since we are doing continual gathering, the ICE transport does not reach
+  // kIceGatheringComplete (see
+  // P2PTransportChannel::OnCandidatesAllocationDone), and consequently not
+  // kIceConnectionComplete.
+  EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
+                 caller()->ice_connection_state(), kDefaultTimeout);
+  EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
+                 callee()->ice_connection_state(), kDefaultTimeout);
+  // Note that we cannot use the metric
+  // |WebRTC.PeerConnection.CandidatePairType_UDP| in this test since this
+  // metric is only populated when we reach kIceConnectionComplete in the
+  // current implementation. We query the stats instead to verify the selected
+  // candidate pair.
+  EXPECT_EQ_WAIT(cricket::RELAY_PORT_TYPE,
+                 caller()->OldGetStats()->LocalCandidateType(),
+                 kDefaultTimeout);
+  EXPECT_EQ_WAIT(cricket::RELAY_PORT_TYPE,
+                 caller()->OldGetStats()->LocalCandidateType(),
+                 kDefaultTimeout);
+
+  // Loosen the caller's candidate filter.
+  caller_config = caller()->pc()->GetConfiguration();
+  caller_config.type = webrtc::PeerConnectionInterface::kAll;
+  caller()->pc()->SetConfiguration(caller_config);
+  EXPECT_EQ_WAIT(cricket::LOCAL_PORT_TYPE,
+                 caller()->OldGetStats()->LocalCandidateType(),
+                 kDefaultTimeout);
+  EXPECT_EQ_WAIT(cricket::RELAY_PORT_TYPE,
+                 callee()->OldGetStats()->LocalCandidateType(),
+                 kDefaultTimeout);
+  // Loosen the callee's candidate filter.
+  callee_config = callee()->pc()->GetConfiguration();
+  callee_config.type = webrtc::PeerConnectionInterface::kAll;
+  callee()->pc()->SetConfiguration(callee_config);
+  // We have migrated to a host-host candidate pair.
+  EXPECT_EQ_WAIT(cricket::LOCAL_PORT_TYPE,
+                 caller()->OldGetStats()->LocalCandidateType(),
+                 kDefaultTimeout);
+  EXPECT_EQ_WAIT(cricket::LOCAL_PORT_TYPE,
+                 callee()->OldGetStats()->LocalCandidateType(),
+                 kDefaultTimeout);
+}
+
 INSTANTIATE_TEST_SUITE_P(PeerConnectionIntegrationTest,
                          PeerConnectionIntegrationTest,
                          Values(SdpSemantics::kPlanB,

@@ -1266,7 +1266,7 @@ TEST_F(BasicPortAllocatorTest, TestGetAllPortsNoAdapters) {
 TEST_F(BasicPortAllocatorTest,
        TestDisableAdapterEnumerationWithoutNatRelayTransportOnly) {
   ResetWithStunServerNoNat(kStunAddr);
-  allocator().set_candidate_filter(CF_RELAY);
+  allocator().SetCandidateFilter(CF_RELAY);
   // Expect to see no ports and no candidates.
   CheckDisableAdapterEnumeration(0U, rtc::IPAddress(), rtc::IPAddress(),
                                  rtc::IPAddress(), rtc::IPAddress());
@@ -1527,7 +1527,7 @@ TEST_F(BasicPortAllocatorTest, TestSessionUsesOwnCandidateFilter) {
   AddInterface(kClientAddr);
   ASSERT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
   // Set candidate filter *after* creating the session. Should have no effect.
-  allocator().set_candidate_filter(CF_RELAY);
+  allocator().SetCandidateFilter(CF_RELAY);
   session_->StartGettingPorts();
   // 7 candidates and 4 ports is what we would normally get (see the
   // TestGetAllPorts* tests).
@@ -1546,7 +1546,7 @@ TEST_F(BasicPortAllocatorTest, TestCandidateFilterWithRelayOnly) {
   AddInterface(kClientAddr);
   // GTURN is not configured here.
   ResetWithTurnServersNoNat(kTurnUdpIntAddr, rtc::SocketAddress());
-  allocator().set_candidate_filter(CF_RELAY);
+  allocator().SetCandidateFilter(CF_RELAY);
   ASSERT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
   session_->StartGettingPorts();
   EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_,
@@ -1565,7 +1565,7 @@ TEST_F(BasicPortAllocatorTest, TestCandidateFilterWithRelayOnly) {
 TEST_F(BasicPortAllocatorTest, TestCandidateFilterWithHostOnly) {
   AddInterface(kClientAddr);
   allocator().set_flags(PORTALLOCATOR_ENABLE_SHARED_SOCKET);
-  allocator().set_candidate_filter(CF_HOST);
+  allocator().SetCandidateFilter(CF_HOST);
   ASSERT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
   session_->StartGettingPorts();
   EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_,
@@ -1583,7 +1583,7 @@ TEST_F(BasicPortAllocatorTest, TestCandidateFilterWithReflexiveOnly) {
   ResetWithStunServerAndNat(kStunAddr);
 
   allocator().set_flags(PORTALLOCATOR_ENABLE_SHARED_SOCKET);
-  allocator().set_candidate_filter(CF_REFLEXIVE);
+  allocator().SetCandidateFilter(CF_REFLEXIVE);
   ASSERT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
   session_->StartGettingPorts();
   EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_,
@@ -1602,7 +1602,7 @@ TEST_F(BasicPortAllocatorTest, TestCandidateFilterWithReflexiveOnly) {
 TEST_F(BasicPortAllocatorTest, TestCandidateFilterWithReflexiveOnlyAndNoNAT) {
   AddInterface(kClientAddr);
   allocator().set_flags(PORTALLOCATOR_ENABLE_SHARED_SOCKET);
-  allocator().set_candidate_filter(CF_REFLEXIVE);
+  allocator().SetCandidateFilter(CF_REFLEXIVE);
   ASSERT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
   session_->StartGettingPorts();
   EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_,
@@ -2133,7 +2133,7 @@ TEST_F(BasicPortAllocatorTest, TestSetCandidateFilterAfterCandidatesGathered) {
                            kDefaultAllocationTimeout, fake_clock);
   size_t initial_candidates_size = peeked_session->ReadyCandidates().size();
   size_t initial_ports_size = peeked_session->ReadyPorts().size();
-  allocator_->set_candidate_filter(CF_RELAY);
+  allocator_->SetCandidateFilter(CF_RELAY);
   // Assume that when TakePooledSession is called, the candidate filter will be
   // applied to the pooled session. This is tested by PortAllocatorTest.
   session_ =

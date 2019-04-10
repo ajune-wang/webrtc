@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e03ed1e_6b0765ee",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-10T22:41:07Z",
+      "side": 1,
+      "message": "Maybe specify why it\u0027s invalid - it doesn\u0027t have the colon.",
+      "range": {
+        "startLine": 286,
+        "startChar": 3,
+        "endLine": 286,
+        "endChar": 25
+      },
+      "revId": "d68f8db62699ad0d4a9f23c4cc020f19aba080ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06ca1082_1d19f6bd",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2866,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-10T22:41:07Z",
+      "side": 1,
+      "message": "Could you add a comment above this helper?",
+      "range": {
+        "startLine": 2866,
+        "startChar": 5,
+        "endLine": 2866,
+        "endChar": 33
+      },
+      "revId": "d68f8db62699ad0d4a9f23c4cc020f19aba080ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

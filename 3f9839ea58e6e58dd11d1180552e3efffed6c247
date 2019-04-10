@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abbe1672_05cf2fdf",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-10T05:35:00Z",
+      "side": 1,
+      "message": "Is this a normalization or an ad-hoc correction?",
+      "range": {
+        "startLine": 166,
+        "startChar": 5,
+        "endLine": 166,
+        "endChar": 14
+      },
+      "revId": "3f9839ea58e6e58dd11d1180552e3efffed6c247",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11525733_368d6985",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_internal.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-10T05:35:00Z",
+      "side": 1,
+      "message": "Makes sense to keep that change for later, but the kDctScalingFactor should definitely go into the table.",
+      "revId": "3f9839ea58e6e58dd11d1180552e3efffed6c247",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4d22cc6_bf5448ad",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-10T05:35:00Z",
+      "side": 1,
+      "message": "-\u003ecepstral?",
+      "range": {
+        "startLine": 111,
+        "startChar": 46,
+        "endLine": 111,
+        "endChar": 54
+      },
+      "revId": "3f9839ea58e6e58dd11d1180552e3efffed6c247",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7986df9_c7052e91",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-10T05:35:00Z",
+      "side": 1,
+      "message": "-\u003ecepstral?",
+      "range": {
+        "startLine": 112,
+        "startChar": 59,
+        "endLine": 112,
+        "endChar": 67
+      },
+      "revId": "3f9839ea58e6e58dd11d1180552e3efffed6c247",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dd6a8f6_1202df64",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-10T05:35:00Z",
+      "side": 1,
+      "message": "-\u003ecepstral?",
+      "range": {
+        "startLine": 114,
+        "startChar": 17,
+        "endLine": 114,
+        "endChar": 25
+      },
+      "revId": "3f9839ea58e6e58dd11d1180552e3efffed6c247",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "685bc643_9cb2ac66",
+        "filename": "modules/audio_processing/agc2/rnn_vad/spectral_features_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-10T05:35:00Z",
+      "side": 1,
+      "message": "-\u003ecepstral?",
+      "range": {
+        "startLine": 122,
+        "startChar": 14,
+        "endLine": 122,
+        "endChar": 22
+      },
+      "revId": "3f9839ea58e6e58dd11d1180552e3efffed6c247",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

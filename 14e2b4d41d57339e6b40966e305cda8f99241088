@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "4d69d5cf_20ba3120",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T14:37:49Z",
+      "side": 1,
+      "message": "Actually, this is the receiver side. It issues the loss notifications.\nI have moved the comment and changed the phrasing slightly.",
+      "parentUuid": "002f0a0f_f5e4fd72",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 53
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "65fd753e_8b1e4388",
         "filename": "video/encoder_rtcp_feedback.cc",
         "patchSetId": 1
@@ -141,6 +165,30 @@
       "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ad02e5b_d9203b8f",
+        "filename": "video/encoder_rtcp_feedback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T14:37:49Z",
+      "side": 1,
+      "message": "\u003cquote\u003e\nEven if it \"can\u0027t happen\" under normal circumstances, it could happen due to a network anomaly or an evil peer.\n\u003c/quote\u003e\n\nBeing robust to unlikely scenarios, is exactly why I prefer to Get() on both sequence numbers in one atomic action. It\u0027s easier for me to convince myself that the code is robust to these cases this way, and that it would remain so.",
+      "parentUuid": "40fd45dc_53cd4c1a",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 0
+      },
+      "revId": "14e2b4d41d57339e6b40966e305cda8f99241088",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

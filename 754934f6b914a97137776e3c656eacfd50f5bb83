@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "f7093bef_5bb5a16b",
+        "filename": "rtc_base/numerics/math_utils.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-10T14:48:21Z",
+      "side": 1,
+      "message": "IDK, the other function in the file is snake_case.",
+      "parentUuid": "b55bfca1_d5e80a7a",
+      "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "628cc139_f56aa636",
         "filename": "rtc_base/numerics/math_utils.h",
         "patchSetId": 7
@@ -47,6 +65,30 @@
       "writtenOn": "2019-04-10T14:07:56Z",
       "side": 1,
       "message": "I\u0027d argue that this is implicit from the static_assert condition. \"\" is almost always sufficient as the second argument to static_assert (which is why the made it optional in C++17).",
+      "range": {
+        "startLine": 63,
+        "startChar": 16,
+        "endLine": 64,
+        "endChar": 29
+      },
+      "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e16d5799_580e7209",
+        "filename": "rtc_base/numerics/math_utils.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-10T14:48:21Z",
+      "side": 1,
+      "message": "Ok since it\u0027s not optional yet, I\u0027ll just leave the \"Open bug part\" to emphasize that is not a problem with user code.",
+      "parentUuid": "628cc139_f56aa636",
       "range": {
         "startLine": 63,
         "startChar": 16,
@@ -76,6 +118,24 @@
     },
     {
       "key": {
+        "uuid": "ad0fb1a3_32fc4746",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-10T14:48:21Z",
+      "side": 1,
+      "message": "That\u0027s an hotter spot here. But I guess it doesn\u0027t change anything (neighbor fields being updated anyway), so let\u0027s go for consistency.",
+      "parentUuid": "576ec2b5_d5d821b1",
+      "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6284cafb_af29d868",
         "filename": "rtc_base/numerics/running_statistics.h",
         "patchSetId": 7
@@ -99,6 +159,30 @@
     },
     {
       "key": {
+        "uuid": "9269de18_755be0cf",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-10T14:48:21Z",
+      "side": 1,
+      "message": "Sweet!",
+      "parentUuid": "6284cafb_af29d868",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 21
+      },
+      "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7809f60a_4703d1e3",
         "filename": "rtc_base/numerics/running_statistics.h",
         "patchSetId": 7
@@ -110,6 +194,24 @@
       "writtenOn": "2019-04-10T14:07:56Z",
       "side": 1,
       "message": "My math fu is too weak to verify that this calculation is correct...",
+      "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2891851a_24fa8736",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-10T14:48:21Z",
+      "side": 1,
+      "message": "Should I derive the calculation in the comment?",
+      "parentUuid": "7809f60a_4703d1e3",
       "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

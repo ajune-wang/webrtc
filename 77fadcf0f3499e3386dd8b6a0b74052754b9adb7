@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3d38af6_896eda27",
+        "filename": "p2p/base/regathering_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7524
+      },
+      "writtenOn": "2019-04-10T15:53:42Z",
+      "side": 1,
+      "message": "prev_filter \u0026 cur_filter !\u003d cur_filter would take care of some corner cases like (CF_REFLEXIVE | CF_RELAY) -\u003e CF_ALL",
+      "revId": "77fadcf0f3499e3386dd8b6a0b74052754b9adb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24707d88_d702bb12",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5136,
+      "author": {
+        "id": 7524
+      },
+      "writtenOn": "2019-04-10T15:53:42Z",
+      "side": 1,
+      "message": "And back to use RELAYs?",
+      "revId": "77fadcf0f3499e3386dd8b6a0b74052754b9adb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

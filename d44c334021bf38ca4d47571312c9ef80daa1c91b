@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b78c3dae_c759aeb9",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-10T07:56:52Z",
+      "side": 1,
+      "message": "No, no need for 1:1 mapping since we adapt the interface anyway.\nAlso you remark is valid for SamplesStatsCounter as well.\nWhat do you think of MergeStatistics()?",
+      "parentUuid": "0c4a01fd_dcac5ec8",
+      "range": {
+        "startLine": 62,
+        "startChar": 7,
+        "endLine": 62,
+        "endChar": 17
+      },
+      "revId": "d44c334021bf38ca4d47571312c9ef80daa1c91b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd3abcb2_a7da817b",
         "filename": "rtc_base/numerics/running_statistics.h",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-10T07:47:11Z",
       "side": 1,
       "message": "I think real type here and below will be almost same length of text, but more readable",
+      "range": {
+        "startLine": 65,
+        "startChar": 10,
+        "endLine": 65,
+        "endChar": 14
+      },
+      "revId": "d44c334021bf38ca4d47571312c9ef80daa1c91b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "166f46d1_95680a77",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-10T07:56:52Z",
+      "side": 1,
+      "message": "I think it\u0027s more robust that way. What if we change the size_\u0027s type (and forgot to update here)?",
+      "parentUuid": "cd3abcb2_a7da817b",
       "range": {
         "startLine": 65,
         "startChar": 10,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ad6442f9_73d886db",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-10T07:56:52Z",
+      "side": 1,
+      "message": "Ok for \"²\" (\u0027^\u0027 clashes with xor).",
+      "parentUuid": "6540d821_ae54b1eb",
+      "range": {
+        "startLine": 70,
+        "startChar": 36,
+        "endLine": 70,
+        "endChar": 39
+      },
+      "revId": "d44c334021bf38ca4d47571312c9ef80daa1c91b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9213bbbe_46708a90",
         "filename": "rtc_base/numerics/running_statistics_unittest.cc",
         "patchSetId": 6
@@ -82,6 +154,30 @@
       "writtenOn": "2019-04-10T07:47:11Z",
       "side": 1,
       "message": "Can we have them as group of parametrized tests? So they report results separately",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 35
+      },
+      "revId": "d44c334021bf38ca4d47571312c9ef80daa1c91b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa004210_7f864a1a",
+        "filename": "rtc_base/numerics/running_statistics_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-10T07:56:52Z",
+      "side": 1,
+      "message": "Good point!",
+      "parentUuid": "9213bbbe_46708a90",
       "range": {
         "startLine": 75,
         "startChar": 0,

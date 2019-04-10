@@ -1606,8 +1606,8 @@ TEST_F(P2PTransportChannelTest,
                      kDefaultPortAllocatorFlags);
   // Only gather relay candidates, so that when the prflx candidate arrives
   // it's prioritized above the current candidate pair.
-  GetEndpoint(0)->allocator_->set_candidate_filter(CF_RELAY);
-  GetEndpoint(1)->allocator_->set_candidate_filter(CF_RELAY);
+  GetEndpoint(0)->allocator_->SetCandidateFilter(CF_RELAY);
+  GetEndpoint(1)->allocator_->SetCandidateFilter(CF_RELAY);
   // Setting this allows us to control when SetRemoteIceParameters is called.
   set_remote_ice_parameter_source(FROM_CANDIDATE);
   CreateChannels();
@@ -4885,6 +4885,189 @@ TEST_F(P2PTransportChannelTest,
     }
   }
   DestroyChannels();
+}
+
+// Test that after changing the candidate filter from relay-only to allowing all
+// types of candidates when we do continual gathering, we can regather without
+// ICE restart the other types of candidates that are now enabled. Also, we
+// verify that the relay candidates gathered previously are not removed and are
+// still usable for necessary route switching.
+TEST_F(P2PTransportChannelTest, RegatherOnCandidateFilterChangeFromRelayToAll) {
+  rtc::ScopedFakeClock clock;
+
+  ConfigureEndpoints(
+      OPEN, OPEN,
+      kDefaultPortAllocatorFlags | PORTALLOCATOR_ENABLE_SHARED_SOCKET,
+      kDefaultPortAllocatorFlags | PORTALLOCATOR_ENABLE_SHARED_SOCKET);
+  auto* ep1 = GetEndpoint(0);
+  auto* ep2 = GetEndpoint(1);
+  ep1->allocator_->SetCandidateFilter(CF_RELAY);
+  ep2->allocator_->SetCandidateFilter(CF_RELAY);
+  IceConfig continual_gathering_config =
+      CreateIceConfig(1000, GATHER_CONTINUALLY);
+  CreateChannels(continual_gathering_config, continual_gathering_config);
+  ASSERT_TRUE_SIMULATED_WAIT(ep1_ch1()->selected_connection() != nullptr,
+                             kDefaultTimeout, clock);
+  ASSERT_TRUE_SIMULATED_WAIT(ep2_ch1()->selected_connection() != nullptr,
+                             kDefaultTimeout, clock);
+  EXPECT_EQ(RELAY_PORT_TYPE,
+            ep1_ch1()->selected_connection()->local_candidate().type());
+  EXPECT_EQ(RELAY_PORT_TYPE,
+            ep2_ch1()->selected_connection()->local_candidate().type());
+
+  // Loosen the candidate filter at ep1.
+  ep1->allocator_->SetCandidateFilter(CF_ALL);
+  EXPECT_EQ_SIMULATED_WAIT(1,
+                           ep1->GetIceRegatheringCountForReason(
+                               IceRegatheringReason::OCCASIONAL_REFRESH),
+                           kDefaultTimeout, clock);
+  EXPECT_TRUE_SIMULATED_WAIT(
+      ep1_ch1()->selected_connection() != nullptr &&
+          ep1_ch1()->selected_connection()->local_candidate().type() ==
+              LOCAL_PORT_TYPE,
+      kDefaultTimeout, clock);
+  EXPECT_EQ(RELAY_PORT_TYPE,
+            ep1_ch1()->selected_connection()->remote_candidate().type());
+
+  // Loosen the candidate filter at ep2.
+  ep2->allocator_->SetCandidateFilter(CF_ALL);
+  EXPECT_EQ_SIMULATED_WAIT(1,
+                           ep2->GetIceRegatheringCountForReason(
+                               IceRegatheringReason::OCCASIONAL_REFRESH),
+                           kDefaultTimeout, clock);
+  EXPECT_TRUE_SIMULATED_WAIT(
+      ep2_ch1()->selected_connection() != nullptr &&
+          ep2_ch1()->selected_connection()->local_candidate().type() ==
+              LOCAL_PORT_TYPE,
+      kDefaultTimeout, clock);
+  // We have migrated to a host-host candidate pair.
+  EXPECT_EQ(LOCAL_PORT_TYPE,
+            ep2_ch1()->selected_connection()->remote_candidate().type());
+
+  // Block the traffic over non-relay-to-relay routes and expect a route change.
+  fw()->AddRule(false, rtc::FP_ANY, kPublicAddrs[0], kPublicAddrs[1]);
+  fw()->AddRule(false, rtc::FP_ANY, kPublicAddrs[1], kPublicAddrs[0]);
+  fw()->AddRule(false, rtc::FP_ANY, kPublicAddrs[0], kTurnUdpExtAddr);
+  fw()->AddRule(false, rtc::FP_ANY, kPublicAddrs[1], kTurnUdpExtAddr);
+  // We should be able to reuse the previously gathered relay candidates.
+  EXPECT_EQ_SIMULATED_WAIT(
+      RELAY_PORT_TYPE,
+      ep1_ch1()->selected_connection()->local_candidate().type(),
+      kDefaultTimeout, clock);
+  EXPECT_EQ(RELAY_PORT_TYPE,
+            ep1_ch1()->selected_connection()->remote_candidate().type());
+}
+
+// A similar test as RegatherOnCandidateFilterChangeFromRelayToAll, and we
+// should regather server-reflexive candidates that are enabled after changing
+// the candidate filter.
+TEST_F(P2PTransportChannelTest,
+       RegatherOnCandidateFilterChangeFromRelayToNoHost) {
+  rtc::ScopedFakeClock clock;
+  // We need an actual NAT so that the host candidate is not equivalent to the
+  // srflx candidate; otherwise, the host candidate would still surface even
+  // though we disable it via the candidate filter below. This is a result of
+  // the following limitation in the current implementation:
+  //  1. We don't generate the srflx candidate when we have public IP.
+  //  2. We keep the host candidate in this case in CheckCandidateFilter even
+  //     though we intend to filter them.
+  ConfigureEndpoints(
+      NAT_FULL_CONE, NAT_FULL_CONE,
+      kDefaultPortAllocatorFlags | PORTALLOCATOR_ENABLE_SHARED_SOCKET,
+      kDefaultPortAllocatorFlags | PORTALLOCATOR_ENABLE_SHARED_SOCKET);
+  auto* ep1 = GetEndpoint(0);
+  auto* ep2 = GetEndpoint(1);
+  ep1->allocator_->SetCandidateFilter(CF_RELAY);
+  ep2->allocator_->SetCandidateFilter(CF_RELAY);
+  IceConfig continual_gathering_config =
+      CreateIceConfig(1000, GATHER_CONTINUALLY);
+  CreateChannels(continual_gathering_config, continual_gathering_config);
+  ASSERT_TRUE_SIMULATED_WAIT(ep1_ch1()->selected_connection() != nullptr,
+                             kDefaultTimeout, clock);
+  ASSERT_TRUE_SIMULATED_WAIT(ep2_ch1()->selected_connection() != nullptr,
+                             kDefaultTimeout, clock);
+  const uint32_t kCandidateFilterNoHost = CF_ALL & ~CF_HOST;
+  // Loosen the candidate filter at ep1.
+  ep1->allocator_->SetCandidateFilter(kCandidateFilterNoHost);
+  EXPECT_EQ_SIMULATED_WAIT(1,
+                           ep1->GetIceRegatheringCountForReason(
+                               IceRegatheringReason::OCCASIONAL_REFRESH),
+                           kDefaultTimeout, clock);
+  EXPECT_TRUE_SIMULATED_WAIT(
+      ep1_ch1()->selected_connection() != nullptr &&
+          ep1_ch1()->selected_connection()->local_candidate().type() ==
+              STUN_PORT_TYPE,
+      kDefaultTimeout, clock);
+  EXPECT_EQ(RELAY_PORT_TYPE,
+            ep1_ch1()->selected_connection()->remote_candidate().type());
+
+  // Loosen the candidate filter at ep2.
+  ep2->allocator_->SetCandidateFilter(kCandidateFilterNoHost);
+  EXPECT_EQ_SIMULATED_WAIT(1,
+                           ep2->GetIceRegatheringCountForReason(
+                               IceRegatheringReason::OCCASIONAL_REFRESH),
+                           kDefaultTimeout, clock);
+  EXPECT_TRUE_SIMULATED_WAIT(
+      ep2_ch1()->selected_connection() != nullptr &&
+          ep2_ch1()->selected_connection()->local_candidate().type() ==
+              STUN_PORT_TYPE,
+      kDefaultTimeout, clock);
+  // We have migrated to a srflx-srflx candidate pair.
+  EXPECT_EQ(STUN_PORT_TYPE,
+            ep2_ch1()->selected_connection()->remote_candidate().type());
+
+  // Block the traffic over non-relay-to-relay routes and expect a route change.
+  fw()->AddRule(false, rtc::FP_ANY, kPrivateAddrs[0], kPublicAddrs[1]);
+  fw()->AddRule(false, rtc::FP_ANY, kPrivateAddrs[1], kPublicAddrs[0]);
+  fw()->AddRule(false, rtc::FP_ANY, kPrivateAddrs[0], kTurnUdpExtAddr);
+  fw()->AddRule(false, rtc::FP_ANY, kPrivateAddrs[1], kTurnUdpExtAddr);
+  // We should be able to reuse the previously gathered relay candidates.
+  EXPECT_EQ_SIMULATED_WAIT(
+      RELAY_PORT_TYPE,
+      ep1_ch1()->selected_connection()->local_candidate().type(),
+      kDefaultTimeout, clock);
+  EXPECT_EQ(RELAY_PORT_TYPE,
+            ep1_ch1()->selected_connection()->remote_candidate().type());
+}
+
+// Test that no regathering is performed when the candidate filter is updated to
+// be more restrictive, i.e. we have already gathered the types of candidates
+// allowed by the new candidate filter.
+TEST_F(P2PTransportChannelTest,
+       NoRegatheringOnCandidateFilterChangeWithoutNewTypesAllowed) {
+  rtc::ScopedFakeClock clock;
+
+  ConfigureEndpoints(
+      OPEN, OPEN,
+      kDefaultPortAllocatorFlags | PORTALLOCATOR_ENABLE_SHARED_SOCKET,
+      kDefaultPortAllocatorFlags | PORTALLOCATOR_ENABLE_SHARED_SOCKET);
+  auto* ep1 = GetEndpoint(0);
+  auto* ep2 = GetEndpoint(1);
+  ep1->allocator_->SetCandidateFilter(CF_ALL);
+  ep2->allocator_->SetCandidateFilter(CF_ALL);
+  IceConfig continual_gathering_config =
+      CreateIceConfig(1000, GATHER_CONTINUALLY);
+  CreateChannels(continual_gathering_config, continual_gathering_config);
+  ASSERT_TRUE_SIMULATED_WAIT(ep1_ch1()->selected_connection() != nullptr,
+                             kDefaultTimeout, clock);
+  ASSERT_TRUE_SIMULATED_WAIT(ep2_ch1()->selected_connection() != nullptr,
+                             kDefaultTimeout, clock);
+  EXPECT_EQ(LOCAL_PORT_TYPE,
+            ep1_ch1()->selected_connection()->local_candidate().type());
+  EXPECT_EQ(LOCAL_PORT_TYPE,
+            ep2_ch1()->selected_connection()->local_candidate().type());
+
+  // Change the candidate filter at ep1 to be more restrictive and expect no
+  // regathering.
+  ep1->allocator_->SetCandidateFilter(CF_HOST | CF_REFLEXIVE);
+  SIMULATED_WAIT(false, kDefaultTimeout, clock);
+  EXPECT_EQ(0, ep1->GetIceRegatheringCountForReason(
+                   IceRegatheringReason::OCCASIONAL_REFRESH));
+
+  ep1->allocator_->SetCandidateFilter(CF_HOST);
+  SIMULATED_WAIT(false, kDefaultTimeout, clock);
+  EXPECT_EQ(0, ep1->GetIceRegatheringCountForReason(
+                   IceRegatheringReason::OCCASIONAL_REFRESH));
 }
 
 }  // namespace cricket

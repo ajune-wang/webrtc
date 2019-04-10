@@ -143,7 +143,7 @@ class FakePortAllocatorSession : public PortAllocatorSession {
   void ClearGettingPorts() override { is_cleared = true; }
   bool IsCleared() const override { return is_cleared; }
 
-  void RegatherOnAllNetworks() override {
+  void RegatherOnAllNetworks(bool disable_equivalent_phases) override {
     SignalIceRegathering(this, IceRegatheringReason::OCCASIONAL_REFRESH);
   }
 

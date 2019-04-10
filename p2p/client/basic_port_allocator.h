@@ -11,6 +11,7 @@
 #ifndef P2P_CLIENT_BASIC_PORT_ALLOCATOR_H_
 #define P2P_CLIENT_BASIC_PORT_ALLOCATOR_H_
 
+#include <functional>
 #include <memory>
 #include <string>
 #include <vector>
@@ -137,7 +138,7 @@ class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession,
   std::vector<Candidate> ReadyCandidates() const override;
   bool CandidatesAllocationDone() const override;
   void RegatherOnFailedNetworks() override;
-  void RegatherOnAllNetworks() override;
+  void RegatherOnAllNetworks(bool disable_equivalent_phases) override;
   void SetStunKeepaliveIntervalForReadyPorts(
       const absl::optional<int>& stun_keepalive_interval) override;
   void PruneAllPorts() override;
@@ -245,7 +246,12 @@ class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession,
   // to avoid leaking any information.
   Candidate SanitizeCandidate(const Candidate& c) const;
 
+  // Get the ports that satisfy the predicate.
+  std::vector<PortData*> GetPorts(
+      const std::function<bool(PortData*)> predicate);
   std::vector<PortData*> GetUnprunedPorts(
+      const std::vector<rtc::Network*>& networks);
+  std::vector<PortData*> GetUnprunedPortsWithNoPairableCandidates(
       const std::vector<rtc::Network*>& networks);
   // Prunes ports and signal the remote side to remove the candidates that
   // were previously signaled from these ports.

@@ -75,6 +75,12 @@ class BasicRegatheringController : public sigslot::has_slots<> {
   // seperately defined for the two config parameters.
   void SetConfig(const Config& config);
 
+  // Called when the candidate filter is changed via PortAllocator, which
+  // created |allocator_session_| taken by |ice_transport_|. We regather for a
+  // filter change that allows new types of candidates for the current session
+  // |allocator_session|.
+  void OnCandidateFilterChanged(uint32_t prev_filter, uint32_t cur_filter);
+
  private:
   // TODO(qingsi): Implement the following methods and use methods from the ICE
   // transport like GetStats to get additional information for the decision
@@ -87,7 +93,8 @@ class BasicRegatheringController : public sigslot::has_slots<> {
   // networks, where the delay in milliseconds is randomly sampled from the
   // range in the config. The delay of each repetition is independently sampled
   // from the same range. When scheduled, all previous schedules are canceled.
-  void ScheduleRecurringRegatheringOnAllNetworks();
+  void ScheduleRecurringRegatheringOnAllNetworks(
+      bool disable_equivalent_phases);
   // Schedules delayed and repeated regathering of local candidates on failed
   // networks, where the delay in milliseconds is given by the config. Each
   // repetition is separated by the same delay. When scheduled, all previous
@@ -102,7 +109,8 @@ class BasicRegatheringController : public sigslot::has_slots<> {
   rtc::Thread* thread() const { return thread_; }
   // The following two methods perform the actual regathering, if the recent
   // port allocator session has done the initial gathering.
-  void RegatherOnAllNetworksIfDoneGathering(bool repeated);
+  void RegatherOnAllNetworksIfDoneGathering(bool repeated,
+                                            bool disable_equivalent_phases);
   void RegatherOnFailedNetworksIfDoneGathering(bool repeated);
   // Samples a delay from the uniform distribution in the given range.
   int SampleRegatherAllNetworksInterval(const rtc::IntervalRange& range);

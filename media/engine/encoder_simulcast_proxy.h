@@ -48,8 +48,7 @@ class RTC_EXPORT EncoderSimulcastProxy : public VideoEncoder {
   int Encode(const VideoFrame& input_image,
              const std::vector<VideoFrameType>* frame_types) override;
   int RegisterEncodeCompleteCallback(EncodedImageCallback* callback) override;
-  int SetRateAllocation(const VideoBitrateAllocation& bitrate,
-                        uint32_t new_framerate) override;
+  void SetRates(const RateControlParameters& parameters) override;
   EncoderInfo GetEncoderInfo() const override;
 
  private:

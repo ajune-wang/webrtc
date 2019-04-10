@@ -261,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "6b77d507_12f8aee9",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-10T11:23:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2be5709_f40183ef",
+      "range": {
+        "startLine": 34,
+        "startChar": 26,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "d44c334021bf38ca4d47571312c9ef80daa1c91b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e0e39da_7eaaa569",
         "filename": "rtc_base/numerics/samples_stats_counter.cc",
         "patchSetId": 6
@@ -272,6 +296,30 @@
       "writtenOn": "2019-04-10T07:54:16Z",
       "side": 1,
       "message": "We should call samples_..reserve(other.samples_.size()) before loop to prevent multiple times vector size extension.",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 12
+      },
+      "revId": "d44c334021bf38ca4d47571312c9ef80daa1c91b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "930d7dca_5b71c0ec",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-10T11:23:37Z",
+      "side": 1,
+      "message": "Nice catch, thanks!",
+      "parentUuid": "0e0e39da_7eaaa569",
       "range": {
         "startLine": 37,
         "startChar": 4,

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "59c0a1e1_a23efdce",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-10T13:27:38Z",
+      "side": 1,
+      "message": "Done. Interesting that this does not cause a warning.",
+      "parentUuid": "7d1d3378_0009fd71",
+      "range": {
+        "startLine": 783,
+        "startChar": 6,
+        "endLine": 783,
+        "endChar": 12
+      },
+      "revId": "6599352b1af2a4ea29150bf69779122ef75010b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f17abc5_a5473460",
         "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-10T11:55:53Z",
       "side": 1,
       "message": "Maybe we should check \u003e 0.0 instead?",
+      "range": {
+        "startLine": 341,
+        "startChar": 6,
+        "endLine": 341,
+        "endChar": 36
+      },
+      "revId": "6599352b1af2a4ea29150bf69779122ef75010b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d8b07ae_0f311c7d",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-10T13:27:38Z",
+      "side": 1,
+      "message": "I would like to keep risk low at the moment but agree we should change this when we can actually measure at that precision.",
+      "parentUuid": "8f17abc5_a5473460",
       "range": {
         "startLine": 341,
         "startChar": 6,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4805e286_c699eb05",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-10T13:27:38Z",
+      "side": 1,
+      "message": "I honestly don\u0027t know. I\u0027m trying to do the dumbest possible refactoring. :)",
+      "parentUuid": "6473acdf_8714a8cb",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 24
+      },
+      "revId": "6599352b1af2a4ea29150bf69779122ef75010b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69f4ae6d_0afc656e",
         "filename": "modules/video_coding/codecs/test/videoprocessor_unittest.cc",
         "patchSetId": 7
@@ -91,6 +163,30 @@
       "revId": "6599352b1af2a4ea29150bf69779122ef75010b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a017e594_dfb14c20",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-10T13:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69f4ae6d_0afc656e",
+      "range": {
+        "startLine": 102,
+        "startChar": 2,
+        "endLine": 102,
+        "endChar": 18
+      },
+      "revId": "6599352b1af2a4ea29150bf69779122ef75010b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "10d529fd_82f3b442",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-10T13:27:38Z",
+      "side": 1,
+      "message": "I think in general encoders aim to make each frame bps/fps bits in size, which of course means lower bound for integer is 1.\nSee other comments on allowing \u003c1 fps, I think we should add code for measuring and testing before allowing that.",
+      "parentUuid": "a4c57efb_e66ae259",
+      "range": {
+        "startLine": 263,
+        "startChar": 28,
+        "endLine": 263,
+        "endChar": 39
+      },
+      "revId": "6599352b1af2a4ea29150bf69779122ef75010b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "943729d9_196fc4ec",
         "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
         "patchSetId": 7
@@ -151,6 +271,24 @@
       "writtenOn": "2019-04-10T11:55:53Z",
       "side": 1,
       "message": "This a nice improvement to the test :)",
+      "revId": "6599352b1af2a4ea29150bf69779122ef75010b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "47dd789d_fafebb47",
+        "filename": "modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-10T13:27:38Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "943729d9_196fc4ec",
       "revId": "6599352b1af2a4ea29150bf69779122ef75010b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

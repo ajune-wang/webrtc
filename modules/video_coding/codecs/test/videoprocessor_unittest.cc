@@ -25,6 +25,7 @@
 #include "test/testsupport/mock/mock_frame_reader.h"
 
 using ::testing::_;
+using ::testing::Invoke;
 using ::testing::Property;
 using ::testing::Return;
 
@@ -96,9 +97,13 @@ TEST_F(VideoProcessorTest, InitRelease) {
 TEST_F(VideoProcessorTest, ProcessFrames_FixedFramerate) {
   const int kBitrateKbps = 456;
   const int kFramerateFps = 31;
-  EXPECT_CALL(encoder_mock_, SetRateAllocation(_, kFramerateFps))
-      .Times(1)
-      .WillOnce(Return(0));
+  // kFramerateFps
+  EXPECT_CALL(encoder_mock_, SetRates(_))
+      .WillOnce(
+          Invoke([&](const VideoEncoder::RateControlParameters& parameters) {
+            EXPECT_EQ(static_cast<int>(parameters.framerate_fps),
+                      kFramerateFps);
+          }));
   q_.SendTask([=] { video_processor_->SetRates(kBitrateKbps, kFramerateFps); });
 
   EXPECT_CALL(frame_reader_mock_, ReadFrame())
@@ -122,9 +127,12 @@ TEST_F(VideoProcessorTest, ProcessFrames_VariableFramerate) {
   const int kBitrateKbps = 456;
   const int kStartFramerateFps = 27;
   const int kStartTimestamp = 90000 / kStartFramerateFps;
-  EXPECT_CALL(encoder_mock_, SetRateAllocation(_, kStartFramerateFps))
-      .Times(1)
-      .WillOnce(Return(0));
+  EXPECT_CALL(encoder_mock_, SetRates(_))
+      .WillOnce(
+          Invoke([&](const VideoEncoder::RateControlParameters& parameters) {
+            EXPECT_EQ(static_cast<int>(parameters.framerate_fps),
+                      kStartFramerateFps);
+          }));
   q_.SendTask(
       [=] { video_processor_->SetRates(kBitrateKbps, kStartFramerateFps); });
 
@@ -136,9 +144,12 @@ TEST_F(VideoProcessorTest, ProcessFrames_VariableFramerate) {
   q_.SendTask([this] { video_processor_->ProcessFrame(); });
 
   const int kNewFramerateFps = 13;
-  EXPECT_CALL(encoder_mock_, SetRateAllocation(_, kNewFramerateFps))
-      .Times(1)
-      .WillOnce(Return(0));
+  EXPECT_CALL(encoder_mock_, SetRates(_))
+      .WillOnce(
+          Invoke([&](const VideoEncoder::RateControlParameters& parameters) {
+            EXPECT_EQ(static_cast<int>(parameters.framerate_fps),
+                      kNewFramerateFps);
+          }));
   q_.SendTask(
       [=] { video_processor_->SetRates(kBitrateKbps, kNewFramerateFps); });
 
@@ -153,22 +164,26 @@ TEST_F(VideoProcessorTest, ProcessFrames_VariableFramerate) {
 }
 
 TEST_F(VideoProcessorTest, SetRates) {
-  const int kBitrateKbps = 123;
+  const uint32_t kBitrateKbps = 123;
   const int kFramerateFps = 17;
-  EXPECT_CALL(encoder_mock_,
-              SetRateAllocation(
-                  Property(&VideoBitrateAllocation::get_sum_kbps, kBitrateKbps),
-                  kFramerateFps))
-      .Times(1);
+  EXPECT_CALL(encoder_mock_, SetRates(_))
+      .WillOnce(
+          Invoke([&](const VideoEncoder::RateControlParameters& parameters) {
+            EXPECT_EQ(parameters.bitrate.get_sum_kbps(), kBitrateKbps);
+            EXPECT_EQ(static_cast<int>(parameters.framerate_fps),
+                      kFramerateFps);
+          }));
   q_.SendTask([=] { video_processor_->SetRates(kBitrateKbps, kFramerateFps); });
 
-  const int kNewBitrateKbps = 456;
+  const uint32_t kNewBitrateKbps = 456;
   const int kNewFramerateFps = 34;
-  EXPECT_CALL(encoder_mock_,
-              SetRateAllocation(Property(&VideoBitrateAllocation::get_sum_kbps,
-                                         kNewBitrateKbps),
-                                kNewFramerateFps))
-      .Times(1);
+  EXPECT_CALL(encoder_mock_, SetRates(_))
+      .WillOnce(
+          Invoke([&](const VideoEncoder::RateControlParameters& parameters) {
+            EXPECT_EQ(parameters.bitrate.get_sum_kbps(), kNewBitrateKbps);
+            EXPECT_EQ(static_cast<int>(parameters.framerate_fps),
+                      kNewFramerateFps);
+          }));
   q_.SendTask(
       [=] { video_processor_->SetRates(kNewBitrateKbps, kNewFramerateFps); });
 

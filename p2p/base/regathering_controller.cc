@@ -52,7 +52,8 @@ BasicRegatheringController::~BasicRegatheringController() = default;
 void BasicRegatheringController::Start() {
   ScheduleRecurringRegatheringOnFailedNetworks();
   if (config_.regather_on_all_networks_interval_range) {
-    ScheduleRecurringRegatheringOnAllNetworks();
+    ScheduleRecurringRegatheringOnAllNetworks(
+        false /* disable_equivalent_phases */);
   }
 }
 
@@ -74,7 +75,8 @@ void BasicRegatheringController::SetConfig(const Config& config) {
     CancelScheduledRecurringRegatheringOnAllNetworks();
   }
   if (need_reschedule_on_all_networks) {
-    ScheduleRecurringRegatheringOnAllNetworks();
+    ScheduleRecurringRegatheringOnAllNetworks(
+        false /* disable_equivalent_phases */);
   }
   if (need_cancel_and_reschedule_on_failed_networks) {
     CancelScheduledRecurringRegatheringOnFailedNetworks();
@@ -82,7 +84,26 @@ void BasicRegatheringController::SetConfig(const Config& config) {
   }
 }
 
-void BasicRegatheringController::ScheduleRecurringRegatheringOnAllNetworks() {
+void BasicRegatheringController::OnCandidateFilterChanged(uint32_t prev_filter,
+                                                          uint32_t cur_filter) {
+  if (prev_filter == cur_filter) {
+    return;
+  }
+  allocator_session_->SetCandidateFilter(cur_filter);
+  // If we are changing the candidate filter from CF_ALL to a less
+  // restrictive filter, we do not need a regathering. For the rest of
+  // transitions, we need at least a new type of candidates.
+  bool should_regather = (prev_filter != cricket::CF_ALL);
+  if (should_regather) {
+    // Setting |disable_equivalent_phases| to true to avoid the generation of
+    // candidates equivalent to what we already have.
+    RegatherOnAllNetworksIfDoneGathering(false /* repeated */,
+                                         true /* disable_equivalent_phases */);
+  }
+}
+
+void BasicRegatheringController::ScheduleRecurringRegatheringOnAllNetworks(
+    bool disable_equivalent_phases) {
   RTC_DCHECK(config_.regather_on_all_networks_interval_range &&
              config_.regather_on_all_networks_interval_range.value().min() >=
                  0);
@@ -94,20 +115,21 @@ void BasicRegatheringController::ScheduleRecurringRegatheringOnAllNetworks() {
       RTC_FROM_HERE, thread(),
       rtc::Bind(
           &BasicRegatheringController::RegatherOnAllNetworksIfDoneGathering,
-          this, true),
+          this, true, disable_equivalent_phases),
       delay_ms);
 }
 
 void BasicRegatheringController::RegatherOnAllNetworksIfDoneGathering(
-    bool repeated) {
+    bool repeated,
+    bool disable_equivalent_phases) {
   // Only regather when the current session is in the CLEARED state (i.e., not
   // running or stopped). It is only possible to enter this state when we gather
   // continually, so there is an implicit check on continual gathering here.
   if (allocator_session_ && allocator_session_->IsCleared()) {
-    allocator_session_->RegatherOnAllNetworks();
+    allocator_session_->RegatherOnAllNetworks(disable_equivalent_phases);
   }
   if (repeated) {
-    ScheduleRecurringRegatheringOnAllNetworks();
+    ScheduleRecurringRegatheringOnAllNetworks(disable_equivalent_phases);
   }
 }
 

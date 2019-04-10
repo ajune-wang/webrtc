@@ -379,6 +379,10 @@ class MockStatsObserver : public webrtc::StatsObserver {
                        &stats_.dtls_cipher);
         GetStringValue(r, StatsReport::kStatsValueNameSrtpCipher,
                        &stats_.srtp_cipher);
+      } else if (r->type() == StatsReport::kStatsReportTypeCandidatePair) {
+        stats_.timestamp = r->timestamp();
+        GetStringValue(r, StatsReport::kStatsValueNameLocalCandidateType,
+                       &stats_.local_candidate_type);
       }
     }
   }
@@ -432,6 +436,11 @@ class MockStatsObserver : public webrtc::StatsObserver {
     return stats_.track_ids;
   }
 
+  std::string LocalCandidateType() const {
+    RTC_CHECK(called_);
+    return stats_.local_candidate_type;
+  }
+
  private:
   bool GetIntValue(const StatsReport* report,
                    StatsReport::StatsValueName name,
@@ -478,6 +487,7 @@ class MockStatsObserver : public webrtc::StatsObserver {
       dtls_cipher.clear();
       srtp_cipher.clear();
       track_ids.clear();
+      local_candidate_type.clear();
     }
 
     size_t number_of_reports;
@@ -491,6 +501,7 @@ class MockStatsObserver : public webrtc::StatsObserver {
     std::string dtls_cipher;
     std::string srtp_cipher;
     std::vector<std::string> track_ids;
+    std::string local_candidate_type;
   } stats_;
 };
 

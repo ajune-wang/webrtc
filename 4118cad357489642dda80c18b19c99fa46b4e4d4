@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab94732c_24694486",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-10T13:44:57Z",
+      "side": 1,
+      "message": "Looks like 10s?",
+      "range": {
+        "startLine": 823,
+        "startChar": 32,
+        "endLine": 823,
+        "endChar": 34
+      },
+      "revId": "4118cad357489642dda80c18b19c99fa46b4e4d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

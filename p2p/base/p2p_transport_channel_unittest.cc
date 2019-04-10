@@ -1606,8 +1606,8 @@ TEST_F(P2PTransportChannelTest,
                      kDefaultPortAllocatorFlags);
   // Only gather relay candidates, so that when the prflx candidate arrives
   // it's prioritized above the current candidate pair.
-  GetEndpoint(0)->allocator_->set_candidate_filter(CF_RELAY);
-  GetEndpoint(1)->allocator_->set_candidate_filter(CF_RELAY);
+  GetEndpoint(0)->allocator_->SetCandidateFilter(CF_RELAY);
+  GetEndpoint(1)->allocator_->SetCandidateFilter(CF_RELAY);
   // Setting this allows us to control when SetRemoteIceParameters is called.
   set_remote_ice_parameter_source(FROM_CANDIDATE);
   CreateChannels();
@@ -4887,4 +4887,115 @@ TEST_F(P2PTransportChannelTest,
   DestroyChannels();
 }
 
+// Test that after changing the candidate filter from relay-only to allowing all
+// types of candidates when we do continual gathering, we can regather without
+// ICE restart the other types of candidates that are now enabled.
+TEST_F(P2PTransportChannelTest, RegatherOnCandidateFilterChangeFromRelayToAll) {
+  ConfigureEndpoints(
+      OPEN, OPEN,
+      kDefaultPortAllocatorFlags | PORTALLOCATOR_ENABLE_SHARED_SOCKET,
+      kDefaultPortAllocatorFlags | PORTALLOCATOR_ENABLE_SHARED_SOCKET);
+  auto* ep1 = GetEndpoint(0);
+  auto* ep2 = GetEndpoint(1);
+  ep1->allocator_->SetCandidateFilter(CF_RELAY);
+  ep2->allocator_->SetCandidateFilter(CF_RELAY);
+  IceConfig continual_gathering_config =
+      CreateIceConfig(1000, GATHER_CONTINUALLY);
+  CreateChannels(continual_gathering_config, continual_gathering_config);
+  ASSERT_TRUE_WAIT(ep1_ch1()->selected_connection() != nullptr,
+                   kDefaultTimeout);
+  ASSERT_TRUE_WAIT(ep2_ch1()->selected_connection() != nullptr,
+                   kDefaultTimeout);
+  EXPECT_EQ(RELAY_PORT_TYPE,
+            ep1_ch1()->selected_connection()->local_candidate().type());
+  EXPECT_EQ(RELAY_PORT_TYPE,
+            ep2_ch1()->selected_connection()->local_candidate().type());
+
+  // Loose the candidate filter at ep1.
+  ep1->allocator_->SetCandidateFilter(CF_ALL);
+  EXPECT_EQ_WAIT(1,
+                 ep1->GetIceRegatheringCountForReason(
+                     IceRegatheringReason::OCCASIONAL_REFRESH),
+                 kDefaultTimeout);
+  EXPECT_TRUE_WAIT(
+      ep1_ch1()->selected_connection() != nullptr &&
+          ep1_ch1()->selected_connection()->local_candidate().type() ==
+              LOCAL_PORT_TYPE,
+      kDefaultTimeout);
+  EXPECT_EQ(RELAY_PORT_TYPE,
+            ep1_ch1()->selected_connection()->remote_candidate().type());
+
+  // Loose the candidate filter at ep2.
+  ep2->allocator_->SetCandidateFilter(CF_ALL);
+  EXPECT_EQ_WAIT(1,
+                 ep2->GetIceRegatheringCountForReason(
+                     IceRegatheringReason::OCCASIONAL_REFRESH),
+                 kDefaultTimeout);
+  EXPECT_TRUE_WAIT(
+      ep2_ch1()->selected_connection() != nullptr &&
+          ep2_ch1()->selected_connection()->local_candidate().type() ==
+              LOCAL_PORT_TYPE,
+      kDefaultTimeout);
+  // We have migrated to a host-host candidate pair.
+  EXPECT_EQ(LOCAL_PORT_TYPE,
+            ep2_ch1()->selected_connection()->remote_candidate().type());
+}
+
+// A similar test as RegatherOnCandidateFilterChangeFromRelayToAll, and we
+// should regather server-reflexive candidates that are enabled after changing
+// the candidate filter.
+TEST_F(P2PTransportChannelTest,
+       RegatherOnCandidateFilterChangeFromRelayToNoHost) {
+  // We need an actual NAT so that the host candidate is not equivalent to the
+  // srflx candidate; otherwise, the host candidate would still surface even
+  // though we disable it via the candidate filter below. This is a result of
+  // the following limitation in the current implementation:
+  //  1. We don't generate the srflx candidate when we have public IP.
+  //  2. We keep the host candidate in this case in CheckCandidateFilter even
+  //     though we intend to filter them.
+  ConfigureEndpoints(
+      NAT_FULL_CONE, NAT_FULL_CONE,
+      kDefaultPortAllocatorFlags | PORTALLOCATOR_ENABLE_SHARED_SOCKET,
+      kDefaultPortAllocatorFlags | PORTALLOCATOR_ENABLE_SHARED_SOCKET);
+  auto* ep1 = GetEndpoint(0);
+  auto* ep2 = GetEndpoint(1);
+  ep1->allocator_->SetCandidateFilter(CF_RELAY);
+  ep2->allocator_->SetCandidateFilter(CF_RELAY);
+  IceConfig continual_gathering_config =
+      CreateIceConfig(1000, GATHER_CONTINUALLY);
+  CreateChannels(continual_gathering_config, continual_gathering_config);
+  ASSERT_TRUE_WAIT(ep1_ch1()->selected_connection() != nullptr,
+                   kDefaultTimeout);
+  ASSERT_TRUE_WAIT(ep2_ch1()->selected_connection() != nullptr,
+                   kDefaultTimeout);
+  const uint32_t kCandidateFilterNoHost = CF_ALL & ~CF_HOST;
+  // Loosen the candidate filter at ep1.
+  ep1->allocator_->SetCandidateFilter(kCandidateFilterNoHost);
+  EXPECT_EQ_WAIT(1,
+                 ep1->GetIceRegatheringCountForReason(
+                     IceRegatheringReason::OCCASIONAL_REFRESH),
+                 kDefaultTimeout);
+  EXPECT_TRUE_WAIT(
+      ep1_ch1()->selected_connection() != nullptr &&
+          ep1_ch1()->selected_connection()->local_candidate().type() ==
+              STUN_PORT_TYPE,
+      kDefaultTimeout);
+  EXPECT_EQ(RELAY_PORT_TYPE,
+            ep1_ch1()->selected_connection()->remote_candidate().type());
+
+  // Loosen the candidate filter at ep2.
+  ep2->allocator_->SetCandidateFilter(kCandidateFilterNoHost);
+  EXPECT_EQ_WAIT(1,
+                 ep2->GetIceRegatheringCountForReason(
+                     IceRegatheringReason::OCCASIONAL_REFRESH),
+                 kDefaultTimeout);
+  EXPECT_TRUE_WAIT(
+      ep2_ch1()->selected_connection() != nullptr &&
+          ep2_ch1()->selected_connection()->local_candidate().type() ==
+              STUN_PORT_TYPE,
+      kDefaultTimeout);
+  // We have migrated to a srflx-srflx candidate pair.
+  EXPECT_EQ(STUN_PORT_TYPE,
+            ep2_ch1()->selected_connection()->remote_candidate().type());
+}
 }  // namespace cricket

@@ -208,6 +208,11 @@ class RTC_EXPORT PortAllocatorSession : public sigslot::has_slots<> {
   // future, but candidates already gathered and ports already "ready",
   // which would be returned by ReadyCandidates() and ReadyPorts().
   //
+  // A change in the candidate filter also fires a signal
+  // |SignalCandidateFilterChanged|, so that objects subscribed to this signal
+  // can, for example, update the candidate filter for sessions created by this
+  // allocator and taken by the object.
+  //
   // Default filter should be CF_ALL.
   virtual void SetCandidateFilter(uint32_t filter) = 0;
 
@@ -240,7 +245,7 @@ class RTC_EXPORT PortAllocatorSession : public sigslot::has_slots<> {
   // implementation should start re-gathering on all networks of that interface.
   virtual void RegatherOnFailedNetworks() {}
   // Re-gathers candidates on all networks.
-  virtual void RegatherOnAllNetworks() {}
+  virtual void RegatherOnAllNetworks(bool disable_equivalent_phases) {}
   // Get candidate-level stats from all candidates on the ready ports and return
   // the stats to the given list.
   virtual void GetCandidateStatsFromReadyPorts(
@@ -528,10 +533,7 @@ class RTC_EXPORT PortAllocator : public sigslot::has_slots<> {
     return candidate_filter_;
   }
 
-  void set_candidate_filter(uint32_t filter) {
-    CheckRunOnValidThreadIfInitialized();
-    candidate_filter_ = filter;
-  }
+  void SetCandidateFilter(uint32_t filter);
 
   bool prune_turn_ports() const {
     CheckRunOnValidThreadIfInitialized();
@@ -564,6 +566,10 @@ class RTC_EXPORT PortAllocator : public sigslot::has_slots<> {
 
   // Return IceParameters of the pooled sessions.
   std::vector<IceParameters> GetPooledIceCredentials();
+
+  // Fired when |candidate_filter_| changes.
+  sigslot::signal2<uint32_t /* prev_filter */, uint32_t /* cur_filter */>
+      SignalCandidateFilterChanged;
 
  protected:
   virtual PortAllocatorSession* CreateSessionInternal(

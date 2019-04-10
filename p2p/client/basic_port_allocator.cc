@@ -307,8 +307,6 @@ void BasicPortAllocatorSession::SetCandidateFilter(uint32_t filter) {
   if (filter == candidate_filter_) {
     return;
   }
-  // We assume the filter will only change from "ALL" to something else.
-  RTC_DCHECK(candidate_filter_ == CF_ALL);
   candidate_filter_ = filter;
   for (PortData& port : ports_) {
     if (!port.has_pairable_candidate()) {
@@ -427,7 +425,8 @@ void BasicPortAllocatorSession::RegatherOnFailedNetworks() {
            IceRegatheringReason::NETWORK_FAILURE);
 }
 
-void BasicPortAllocatorSession::RegatherOnAllNetworks() {
+void BasicPortAllocatorSession::RegatherOnAllNetworks(
+    bool disable_equivalent_phases) {
   RTC_DCHECK_RUN_ON(network_thread_);
 
   std::vector<rtc::Network*> networks = GetNetworks();
@@ -439,7 +438,6 @@ void BasicPortAllocatorSession::RegatherOnAllNetworks() {
 
   // We expect to generate candidates that are equivalent to what we have now.
   // Force DoAllocate to generate them instead of skipping.
-  bool disable_equivalent_phases = false;
   Regather(networks, disable_equivalent_phases,
            IceRegatheringReason::OCCASIONAL_REFRESH);
 }
@@ -449,9 +447,16 @@ void BasicPortAllocatorSession::Regather(
     bool disable_equivalent_phases,
     IceRegatheringReason reason) {
   RTC_DCHECK_RUN_ON(network_thread_);
-  // Remove ports from being used locally and send signaling to remove
-  // the candidates on the remote side.
-  std::vector<PortData*> ports_to_prune = GetUnprunedPorts(networks);
+  std::vector<PortData*> ports_to_prune;
+  if (disable_equivalent_phases) {
+    // Disabling the equivalent phases would imply that we want to keep the
+    // ports with pairable candidates.
+    ports_to_prune = GetUnprunedPortsWithNoPairableCandidates(networks);
+  } else {
+    // Remove ports from being used locally and send signaling to remove
+    // the candidates on the remote side.
+    ports_to_prune = GetUnprunedPorts(networks);
+  }
   if (!ports_to_prune.empty()) {
     RTC_LOG(LS_INFO) << "Prune " << ports_to_prune.size() << " ports";
     PrunePortsAndRemoveCandidates(ports_to_prune);
@@ -597,6 +602,7 @@ void BasicPortAllocatorSession::UpdateIceParametersInternal() {
 
 void BasicPortAllocatorSession::GetPortConfigurations() {
   RTC_DCHECK_RUN_ON(network_thread_);
+
   PortConfiguration* config =
       new PortConfiguration(allocator_->stun_servers(), username(), password());
 
@@ -1150,17 +1156,37 @@ BasicPortAllocatorSession::PortData* BasicPortAllocatorSession::FindPort(
 }
 
 std::vector<BasicPortAllocatorSession::PortData*>
-BasicPortAllocatorSession::GetUnprunedPorts(
-    const std::vector<rtc::Network*>& networks) {
+BasicPortAllocatorSession::GetPorts(
+    const std::function<bool(PortData*)> predicate) {
   RTC_DCHECK_RUN_ON(network_thread_);
-  std::vector<PortData*> unpruned_ports;
+  std::vector<PortData*> ret;
   for (PortData& port : ports_) {
-    if (!port.pruned() &&
-        absl::c_linear_search(networks, port.sequence()->network())) {
-      unpruned_ports.push_back(&port);
+    if (predicate(&port)) {
+      ret.push_back(&port);
     }
   }
-  return unpruned_ports;
+  return ret;
+}
+
+std::vector<BasicPortAllocatorSession::PortData*>
+BasicPortAllocatorSession::GetUnprunedPorts(
+    const std::vector<rtc::Network*>& networks) {
+  auto unpruned = [&networks](PortData* port) {
+    return port != nullptr && !port->pruned() &&
+           absl::c_linear_search(networks, port->sequence()->network());
+  };
+  return GetPorts(unpruned);
+}
+
+std::vector<BasicPortAllocatorSession::PortData*>
+BasicPortAllocatorSession::GetUnprunedPortsWithNoPairableCandidates(
+    const std::vector<rtc::Network*>& networks) {
+  auto unpruned_with_no_pairable_candidates = [&networks](PortData* port) {
+    return port != nullptr && !port->pruned() &&
+           !port->has_pairable_candidate() &&
+           absl::c_linear_search(networks, port->sequence()->network());
+  };
+  return GetPorts(unpruned_with_no_pairable_candidates);
 }
 
 void BasicPortAllocatorSession::PrunePortsAndRemoveCandidates(
@@ -1259,25 +1285,39 @@ void AllocationSequence::DisableEquivalentPhases(rtc::Network* network,
   // This can happen if, say, there's a network change event right before an
   // application-triggered ICE restart. Hopefully this problem will just go
   // away if we get rid of the gathering "phases" though, which is planned.
+  //
+  //
+  // PORTALLOCATOR_DISABLE_UDP is used to disable a Port from gathering the host
+  // candidate (and srflx candidate if Port::SharedSocket()), and we do not want
+  // to disable the gathering of these candidates just becaue of an existing
+  // Port over PROTO_UDP, namely a TurnPort over UDP.
   if (absl::c_any_of(session_->ports_,
                      [this](const BasicPortAllocatorSession::PortData& p) {
-                       return p.port()->Network() == network_ &&
+                       return !p.pruned() && p.port()->Network() == network_ &&
                               p.port()->GetProtocol() == PROTO_UDP &&
-                              !p.error();
+                              p.port()->Type() == LOCAL_PORT_TYPE && !p.error();
                      })) {
     *flags |= PORTALLOCATOR_DISABLE_UDP;
   }
+  // Similarly we need to check both the protocol used by an existing Port and
+  // its type.
   if (absl::c_any_of(session_->ports_,
                      [this](const BasicPortAllocatorSession::PortData& p) {
-                       return p.port()->Network() == network_ &&
+                       return !p.pruned() && p.port()->Network() == network_ &&
                               p.port()->GetProtocol() == PROTO_TCP &&
-                              !p.error();
+                              p.port()->Type() == LOCAL_PORT_TYPE && !p.error();
                      })) {
     *flags |= PORTALLOCATOR_DISABLE_TCP;
   }
 
   if (config_ && config) {
-    if (config_->StunServers() == config->StunServers()) {
+    // We need to regather srflx candidates if either of the following
+    // conditions occurs:
+    //  1. The STUN servers are different from the previous gathering.
+    //  2. We will regather host candidates, hence possibly inducing new NAT
+    //     bindings.
+    if (config_->StunServers() == config->StunServers() &&
+        (*flags & PORTALLOCATOR_DISABLE_UDP)) {
       // Already got this STUN servers covered.
       *flags |= PORTALLOCATOR_DISABLE_STUN;
     }

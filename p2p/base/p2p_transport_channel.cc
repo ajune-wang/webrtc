@@ -15,6 +15,7 @@
 #include <utility>
 
 #include "absl/algorithm/container.h"
+#include "absl/memory/memory.h"
 #include "api/candidate.h"
 #include "logging/rtc_event_log/ice_logger.h"
 #include "p2p/base/candidate_pair_interface.h"
@@ -148,8 +149,16 @@ P2PTransportChannel::P2PTransportChannel(
   webrtc::BasicRegatheringController::Config regathering_config(
       config_.regather_all_networks_interval_range,
       config_.regather_on_failed_networks_interval_or_default());
-  regathering_controller_.reset(new webrtc::BasicRegatheringController(
-      regathering_config, this, network_thread_));
+  regathering_controller_ =
+      absl::make_unique<webrtc::BasicRegatheringController>(
+          regathering_config, this, network_thread_);
+  // We regather if the change in the candidate filter allows new types of
+  // candidates.
+  if (allocator_ != nullptr) {
+    allocator_->SignalCandidateFilterChanged.connect(
+        regathering_controller_.get(),
+        &webrtc::BasicRegatheringController::OnCandidateFilterChanged);
+  }
   ice_event_log_.set_event_log(event_log);
 }
 

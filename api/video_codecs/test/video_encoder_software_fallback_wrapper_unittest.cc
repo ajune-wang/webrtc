@@ -551,6 +551,38 @@ TEST_F(ForcedFallbackTestEnabled, ScalingDisabledIfResizeOff) {
   EXPECT_FALSE(settings.thresholds.has_value());
 }
 
+TEST_F(ForcedFallbackTestEnabled, FallbackBelowBitrateThreshold) {
+  // Resolution above max threshold, bitrate high enough.
+  InitEncode(kWidth + 1, kHeight + 1);
+  EXPECT_EQ(1, fake_encoder_->init_encode_count_);
+  EncodeFrameAndVerifyLastName("fake-encoder");
+
+  // Bitrate below threshold, but not long enough.
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            fallback_wrapper_->SetRateAllocation(
+                rate_allocator_->GetAllocation(39000, kFramerate), kFramerate));
+  EncodeFrameAndVerifyLastName("fake-encoder");
+
+  clock_.AdvanceTime(TimeDelta::ms(5001));
+
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            fallback_wrapper_->SetRateAllocation(
+                rate_allocator_->GetAllocation(39000, kFramerate), kFramerate));
+  EncodeFrameAndVerifyLastName("libvpx");
+
+  EXPECT_EQ(
+      WEBRTC_VIDEO_CODEC_OK,
+      fallback_wrapper_->SetRateAllocation(
+          rate_allocator_->GetAllocation(101000, kFramerate), kFramerate));
+  clock_.AdvanceTime(TimeDelta::ms(10001));
+
+  EXPECT_EQ(
+      WEBRTC_VIDEO_CODEC_OK,
+      fallback_wrapper_->SetRateAllocation(
+          rate_allocator_->GetAllocation(101000, kFramerate), kFramerate));
+  EncodeFrameAndVerifyLastName("fake-encoder");
+}
+
 TEST(SoftwareFallbackEncoderTest, BothRateControllersNotTrusted) {
   auto* sw_encoder = new ::testing::NiceMock<MockVideoEncoder>();
   auto* hw_encoder = new ::testing::NiceMock<MockVideoEncoder>();

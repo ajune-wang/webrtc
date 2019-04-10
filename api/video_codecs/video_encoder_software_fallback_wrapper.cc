@@ -24,6 +24,7 @@
 #include "modules/video_coding/include/video_error_codes.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/time_utils.h"
 #include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
@@ -97,21 +98,54 @@ class VideoEncoderSoftwareFallbackWrapper final : public VideoEncoder {
 
   // If |forced_fallback_possible_| is true:
   // The forced fallback is requested if the resolution is less than or equal to
-  // |max_pixels_|. The resolution is allowed to be scaled down to
-  // |min_pixels_|.
+  // |max_pixels_|, or the bitrate is below a threshold for a given time. The
+  // resolution is allowed to be scaled down to |min_pixels_|.
   class ForcedFallbackParams {
    public:
-    bool IsValid(const VideoCodec& codec) const {
-      return codec.width * codec.height <= max_pixels_;
+    bool ShouldFallBack(int width,
+                        int height,
+                        absl::optional<uint32_t> bitrate_kbps) {
+      return (width * height <= max_pixels_) ||
+             (bitrate_kbps && BitrateLowEnough(*bitrate_kbps));
+    }
+
+    bool BitrateLowEnough(uint32_t bitrate_kbps) {
+      if (bitrate_kbps < low_bitrate_threshold_kbps_) {
+        if (!below_low_bitrate_threshold_start_time_) {
+          below_low_bitrate_threshold_start_time_ =
+              absl::make_optional(rtc::TimeMillis());
+        } else if (rtc::TimeMillis() -
+                       *below_low_bitrate_threshold_start_time_ >
+                   5000) {
+          return true;
+        }
+      } else if (bitrate_kbps > high_bitrate_threshold_kbps_) {
+        if (!above_high_bitrate_threshold_start_time_) {
+          above_high_bitrate_threshold_start_time_ =
+              absl::make_optional(rtc::TimeMillis());
+        } else if (rtc::TimeMillis() -
+                       *above_high_bitrate_threshold_start_time_ >
+                   10000) {
+          return false;
+        }
+      }
+      return active_;
     }
 
     bool active_ = false;
     int min_pixels_ = 320 * 180;
     int max_pixels_ = 320 * 240;
+    uint32_t low_bitrate_threshold_kbps_ = 40;
+    uint32_t high_bitrate_threshold_kbps_ = 100;
+    absl::optional<int64_t> below_low_bitrate_threshold_start_time_;
+    absl::optional<int64_t> above_high_bitrate_threshold_start_time_;
   };
 
-  bool TryInitForcedFallbackEncoder();
-  bool TryReInitForcedFallbackEncoder();
+  bool TryReInitForcedFallbackEncoder(absl::optional<uint32_t> bitrate_kbps);
+  void TryForceSoftwareEncoder(bool reinitialize);
+  bool IsSoftwareEncoderPreferred(absl::optional<uint32_t> bitrate_kbps);
+  int SwitchToDefaultEncoder();
+  bool PickEncoder(bool software, bool reinitialize);
   void ValidateSettingsForForcedFallback();
   bool IsForcedFallbackActive() const;
   void MaybeModifyCodecForFallback();
@@ -132,7 +166,8 @@ class VideoEncoderSoftwareFallbackWrapper final : public VideoEncoder {
   uint32_t packet_loss_;
   int64_t rtt_;
 
-  bool use_fallback_encoder_;
+  bool default_encoder_initialized_;
+  bool fallback_encoder_initialized_;
   const std::unique_ptr<webrtc::VideoEncoder> encoder_;
 
   const std::unique_ptr<webrtc::VideoEncoder> fallback_encoder_;
@@ -152,7 +187,8 @@ VideoEncoderSoftwareFallbackWrapper::VideoEncoderSoftwareFallbackWrapper(
       channel_parameters_set_(false),
       packet_loss_(0),
       rtt_(0),
-      use_fallback_encoder_(false),
+      default_encoder_initialized_(false),
+      fallback_encoder_initialized_(false),
       encoder_(std::move(hw_encoder)),
       fallback_encoder_(std::move(sw_encoder)),
       callback_(nullptr),
@@ -172,8 +208,8 @@ bool VideoEncoderSoftwareFallbackWrapper::InitFallbackEncoder() {
 
   const int ret = fallback_encoder_->InitEncode(
       &codec_settings_, number_of_cores_, max_payload_size_);
-  use_fallback_encoder_ = (ret == WEBRTC_VIDEO_CODEC_OK);
-  if (!use_fallback_encoder_) {
+  fallback_encoder_initialized_ = (ret == WEBRTC_VIDEO_CODEC_OK);
+  if (!fallback_encoder_initialized_) {
     RTC_LOG(LS_ERROR) << "Failed to initialize software-encoder fallback.";
     fallback_encoder_->Release();
     return false;
@@ -188,6 +224,7 @@ bool VideoEncoderSoftwareFallbackWrapper::InitFallbackEncoder() {
   // may be re-initialized via InitEncode later, and it will continue to get
   // Set calls for rates and channel parameters in the meantime.
   encoder_->Release();
+  default_encoder_initialized_ = false;
   return true;
 }
 
@@ -205,54 +242,34 @@ int32_t VideoEncoderSoftwareFallbackWrapper::InitEncode(
   ValidateSettingsForForcedFallback();
 
   // Try to reinit forced software codec if it is in use.
-  if (TryReInitForcedFallbackEncoder()) {
+  if (TryReInitForcedFallbackEncoder(absl::nullopt)) {
     return WEBRTC_VIDEO_CODEC_OK;
   }
-  // Try to init forced software codec if it should be used.
-  if (TryInitForcedFallbackEncoder()) {
-    return WEBRTC_VIDEO_CODEC_OK;
+  if (!PickEncoder(IsSoftwareEncoderPreferred(absl::nullopt),
+                   /*reinitialize=*/true)) {
+    return WEBRTC_VIDEO_CODEC_ERROR;
   }
-  forced_fallback_.active_ = false;
-
-  int32_t ret =
-      encoder_->InitEncode(codec_settings, number_of_cores, max_payload_size);
-  if (ret == WEBRTC_VIDEO_CODEC_OK) {
-    if (use_fallback_encoder_) {
-      RTC_LOG(LS_WARNING)
-          << "InitEncode OK, no longer using the software fallback encoder.";
-      fallback_encoder_->Release();
-      use_fallback_encoder_ = false;
-    }
-    if (callback_)
-      encoder_->RegisterEncodeCompleteCallback(callback_);
-    return ret;
-  }
-  // Try to instantiate software codec.
-  if (InitFallbackEncoder()) {
-    return WEBRTC_VIDEO_CODEC_OK;
-  }
-  // Software encoder failed, use original return code.
-  return ret;
+  return WEBRTC_VIDEO_CODEC_OK;
 }
 
 int32_t VideoEncoderSoftwareFallbackWrapper::RegisterEncodeCompleteCallback(
     EncodedImageCallback* callback) {
   callback_ = callback;
   int32_t ret = encoder_->RegisterEncodeCompleteCallback(callback);
-  if (use_fallback_encoder_)
+  if (fallback_encoder_initialized_)
     return fallback_encoder_->RegisterEncodeCompleteCallback(callback);
   return ret;
 }
 
 int32_t VideoEncoderSoftwareFallbackWrapper::Release() {
-  return use_fallback_encoder_ ? fallback_encoder_->Release()
-                               : encoder_->Release();
+  return fallback_encoder_initialized_ ? fallback_encoder_->Release()
+                                       : encoder_->Release();
 }
 
 int32_t VideoEncoderSoftwareFallbackWrapper::Encode(
     const VideoFrame& frame,
     const std::vector<VideoFrameType>* frame_types) {
-  if (use_fallback_encoder_)
+  if (fallback_encoder_initialized_)
     return fallback_encoder_->Encode(frame, frame_types);
   int32_t ret = encoder_->Encode(frame, frame_types);
   // If requested, try a software fallback.
@@ -270,8 +287,20 @@ int32_t VideoEncoderSoftwareFallbackWrapper::SetRateAllocation(
   rates_set_ = true;
   bitrate_allocation_ = bitrate_allocation;
   framerate_ = framerate;
+  if (IsSoftwareEncoderPreferred(
+          absl::make_optional(bitrate_allocation_.get_sum_kbps()))) {
+    if (!fallback_encoder_initialized_) {
+      if (!PickEncoder(/*software=*/true, /*reinitialize=*/false)) {
+        RTC_LOG(LS_ERROR) << "Failed to switch software encoder!";
+      }
+    }
+  } else if (!default_encoder_initialized_) {
+    if (!PickEncoder(/*software=*/false, /*reinitialize=*/false)) {
+      RTC_LOG(LS_ERROR) << "Failed to switch to default encoder!";
+    }
+  }
   int32_t ret = encoder_->SetRateAllocation(bitrate_allocation_, framerate);
-  if (use_fallback_encoder_)
+  if (fallback_encoder_initialized_)
     return fallback_encoder_->SetRateAllocation(bitrate_allocation_, framerate);
   return ret;
 }
@@ -281,8 +310,8 @@ VideoEncoder::EncoderInfo VideoEncoderSoftwareFallbackWrapper::GetEncoderInfo()
   EncoderInfo fallback_encoder_info = fallback_encoder_->GetEncoderInfo();
   EncoderInfo default_encoder_info = encoder_->GetEncoderInfo();
 
-  EncoderInfo info =
-      use_fallback_encoder_ ? fallback_encoder_info : default_encoder_info;
+  EncoderInfo info = fallback_encoder_initialized_ ? fallback_encoder_info
+                                                   : default_encoder_info;
 
   if (forced_fallback_possible_) {
     const auto settings = forced_fallback_.active_
@@ -301,35 +330,74 @@ VideoEncoder::EncoderInfo VideoEncoderSoftwareFallbackWrapper::GetEncoderInfo()
   return info;
 }
 
+bool VideoEncoderSoftwareFallbackWrapper::IsSoftwareEncoderPreferred(
+    absl::optional<uint32_t> bitrate_kbps) {
+  return forced_fallback_possible_ &&
+         forced_fallback_.ShouldFallBack(codec_settings_.width,
+                                         codec_settings_.height, bitrate_kbps);
+}
+
+void VideoEncoderSoftwareFallbackWrapper::TryForceSoftwareEncoder(
+    bool reinitialize) {
+  if (fallback_encoder_initialized_ && !reinitialize) {
+    forced_fallback_.active_ = true;
+  } else {
+    forced_fallback_.active_ = InitFallbackEncoder();
+  }
+}
+
+int VideoEncoderSoftwareFallbackWrapper::SwitchToDefaultEncoder() {
+  forced_fallback_.active_ = false;
+
+  int ret = encoder_->InitEncode(&codec_settings_, number_of_cores_,
+                                 max_payload_size_);
+  if (ret == WEBRTC_VIDEO_CODEC_OK) {
+    default_encoder_initialized_ = true;
+    if (fallback_encoder_initialized_) {
+      RTC_LOG(LS_WARNING)
+          << "InitEncode OK, no longer using the software fallback encoder.";
+      fallback_encoder_->Release();
+      fallback_encoder_initialized_ = false;
+    }
+    if (callback_)
+      encoder_->RegisterEncodeCompleteCallback(callback_);
+  }
+  return ret;
+}
+
 bool VideoEncoderSoftwareFallbackWrapper::IsForcedFallbackActive() const {
-  return (forced_fallback_possible_ && use_fallback_encoder_ &&
+  return (forced_fallback_possible_ && fallback_encoder_initialized_ &&
           forced_fallback_.active_);
 }
 
-bool VideoEncoderSoftwareFallbackWrapper::TryInitForcedFallbackEncoder() {
-  if (!forced_fallback_possible_ || use_fallback_encoder_) {
-    return false;
+bool VideoEncoderSoftwareFallbackWrapper::PickEncoder(bool software,
+                                                      bool reinitialize) {
+  if (software) {
+    TryForceSoftwareEncoder(reinitialize);
+    if (forced_fallback_.active_) {
+      return true;
+    }
   }
-  // Fallback not active.
-  if (!forced_fallback_.IsValid(codec_settings_)) {
-    return false;
+  if (!default_encoder_initialized_ || reinitialize) {
+    if (SwitchToDefaultEncoder() == WEBRTC_VIDEO_CODEC_OK) {
+      return true;
+    }
+    // Try to instantiate software codec.
+    if (!InitFallbackEncoder()) {
+      return false;
+    }
   }
-  // Settings valid, try to instantiate software codec.
-  RTC_LOG(LS_INFO) << "Request forced SW encoder fallback: "
-                   << codec_settings_.width << "x" << codec_settings_.height;
-  if (!InitFallbackEncoder()) {
-    return false;
-  }
-  forced_fallback_.active_ = true;
   return true;
 }
 
-bool VideoEncoderSoftwareFallbackWrapper::TryReInitForcedFallbackEncoder() {
+bool VideoEncoderSoftwareFallbackWrapper::TryReInitForcedFallbackEncoder(
+    absl::optional<uint32_t> bitrate_kbps) {
   if (!IsForcedFallbackActive()) {
     return false;
   }
   // Forced fallback active.
-  if (!forced_fallback_.IsValid(codec_settings_)) {
+  if (!forced_fallback_.ShouldFallBack(codec_settings_.width,
+                                       codec_settings_.height, bitrate_kbps)) {
     RTC_LOG(LS_INFO) << "Stop forced SW encoder fallback, max pixels exceeded.";
     return false;
   }
@@ -350,7 +418,7 @@ void VideoEncoderSoftwareFallbackWrapper::ValidateSettingsForForcedFallback() {
   if (!IsForcedFallbackPossible(codec_settings_)) {
     if (IsForcedFallbackActive()) {
       fallback_encoder_->Release();
-      use_fallback_encoder_ = false;
+      fallback_encoder_initialized_ = false;
     }
     RTC_LOG(LS_INFO) << "Disable forced_fallback_possible_ due to settings.";
     forced_fallback_possible_ = false;

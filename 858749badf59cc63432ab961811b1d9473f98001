@@ -93,6 +93,30 @@
       "revId": "858749badf59cc63432ab961811b1d9473f98001",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "880e1df5_68b1c830",
+        "filename": "modules/audio_device/win/core_audio_utility_win.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-04-10T07:59:18Z",
+      "side": 1,
+      "message": "https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/content/ksmedia/ns-ksmedia-ksaudio_channel_config",
+      "parentUuid": "f424c8ec_00102914",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 20
+      },
+      "revId": "858749badf59cc63432ab961811b1d9473f98001",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "5c5d5bc27f2e9b07d8537d90280f28c3063bed88",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e7063c0_7238013c",
+        "filename": "sdk/android/api/org/webrtc/VideoSource.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-04-10T11:47:33Z",
+      "side": 1,
+      "message": "Don\u0027t really have strong opinions on this. IMO both options are equally valid. (Done.)",
+      "parentUuid": "5fcbf52d_0e800c78",
+      "range": {
+        "startLine": 14,
+        "startChar": 18,
+        "endLine": 14,
+        "endChar": 58
+      },
+      "revId": "5c5d5bc27f2e9b07d8537d90280f28c3063bed88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

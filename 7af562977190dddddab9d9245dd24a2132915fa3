@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5b94206b_06df1db4",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-10T12:22:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "469b5a41_54b8679a",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 19
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e295b286_8c8c4a97",
         "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edd5a2e3_5074bfee",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-10T12:22:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e295b286_8c8c4a97",
+      "range": {
+        "startLine": 105,
+        "startChar": 9,
+        "endLine": 105,
+        "endChar": 16
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "80180cfa_2c823975",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-10T12:22:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db0973bb_1aac0e6f",
+      "range": {
+        "startLine": 110,
+        "startChar": 35,
+        "endLine": 110,
+        "endChar": 47
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5378ff03_a223f2b4",
         "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-04-07T23:02:40Z",
       "side": 1,
       "message": "I hope it would not be too nitpicky to suggest that we remove this variable, return-false/true where this variable was updated below, and return-active_ at the end of the function.",
+      "range": {
+        "startLine": 111,
+        "startChar": 11,
+        "endLine": 111,
+        "endChar": 29
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e84efb1_aa813b97",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-10T12:22:34Z",
+      "side": 1,
+      "message": "No, this is a good suggestion!",
+      "parentUuid": "5378ff03_a223f2b4",
       "range": {
         "startLine": 111,
         "startChar": 11,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "7196e938_ae5bc64c",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-10T12:22:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ca4fd00_231a7dea",
+      "range": {
+        "startLine": 116,
+        "startChar": 8,
+        "endLine": 116,
+        "endChar": 10
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b357aba0_1ad14c3c",
         "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
         "patchSetId": 1
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "7d8cd1d2_24693c22",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-10T12:22:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b357aba0_1ad14c3c",
+      "range": {
+        "startLine": 120,
+        "startChar": 13,
+        "endLine": 120,
+        "endChar": 35
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a94b62ed_6a6831ac",
         "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
         "patchSetId": 1
@@ -151,6 +295,30 @@
       "writtenOn": "2019-04-07T23:02:40Z",
       "side": 1,
       "message": "Are these values codec-agnostic? Were the default values set specifically for a given codec? Would it make sense to remove the default ctor, and make ForcedFallbackParams() accepts the values for min/max_pixels_ and the two thresholds?",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 48
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83a6e684_c62fdeda",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-10T12:22:34Z",
+      "side": 1,
+      "message": "Yes, these should be set through a field trial. I intend to add that.",
+      "parentUuid": "a94b62ed_6a6831ac",
       "range": {
         "startLine": 133,
         "startChar": 0,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "ece05232_07cf89d8",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-10T12:22:34Z",
+      "side": 1,
+      "message": "yes, nice!",
+      "parentUuid": "919cb242_a2fc5219",
+      "range": {
+        "startLine": 240,
+        "startChar": 37,
+        "endLine": 240,
+        "endChar": 63
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d57bdbaf_dd4140b6",
         "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
         "patchSetId": 1
@@ -197,6 +389,30 @@
       "writtenOn": "2019-04-07T23:02:40Z",
       "side": 1,
       "message": "I think this should still compile if you drop the absl::make_optional. An implicit constructor of |optional| should be invoked, if I am not mistaken. Testing locally with similar code showed that it does, but I am not sure if all the compilers we\u0027re targeting allow that?\n(Similarly elsewhere.)",
+      "range": {
+        "startLine": 286,
+        "startChar": 10,
+        "endLine": 286,
+        "endChar": 29
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d023f48_11e766d2",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-10T12:22:34Z",
+      "side": 1,
+      "message": "Is that preferred though? Seems like it\u0027s possibly more clear to be explicit?",
+      "parentUuid": "d57bdbaf_dd4140b6",
       "range": {
         "startLine": 286,
         "startChar": 10,
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "cc16b6cd_474a3b17",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-10T12:22:34Z",
+      "side": 1,
+      "message": "Sounds good",
+      "parentUuid": "4d59e268_3f2e1021",
+      "range": {
+        "startLine": 288,
+        "startChar": 10,
+        "endLine": 288,
+        "endChar": 35
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8003a780_0cee8e19",
         "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
         "patchSetId": 1
@@ -252,6 +492,30 @@
       "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "523bb725_6ef1f749",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-10T12:22:34Z",
+      "side": 1,
+      "message": "Yes, that makes a lot of sense.",
+      "parentUuid": "8003a780_0cee8e19",
+      "range": {
+        "startLine": 373,
+        "startChar": 6,
+        "endLine": 373,
+        "endChar": 14
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

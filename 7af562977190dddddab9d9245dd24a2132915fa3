@@ -425,6 +425,30 @@
     },
     {
       "key": {
+        "uuid": "555710d5_2805898a",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T12:51:05Z",
+      "side": 1,
+      "message": "I could not find anything about this in the style guide. I asked Danil, and he couldn\u0027t either. So I guess it\u0027s up to our subjective preference.",
+      "parentUuid": "3d023f48_11e766d2",
+      "range": {
+        "startLine": 286,
+        "startChar": 10,
+        "endLine": 286,
+        "endChar": 29
+      },
+      "revId": "7af562977190dddddab9d9245dd24a2132915fa3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d59e268_3f2e1021",
         "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
         "patchSetId": 1

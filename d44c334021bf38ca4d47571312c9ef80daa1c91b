@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "9ac0ae28_726b6130",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-10T09:18:47Z",
+      "side": 1,
+      "message": "I also think int64_t is more readable here and it is possible that this type will never change.\nWe should achieve robustness by using -Wconversion or part of it (e.g. -Wsign-conversion) but see crbug.com/588506.",
+      "parentUuid": "166f46d1_95680a77",
+      "range": {
+        "startLine": 65,
+        "startChar": 10,
+        "endLine": 65,
+        "endChar": 14
+      },
+      "revId": "d44c334021bf38ca4d47571312c9ef80daa1c91b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6540d821_ae54b1eb",
         "filename": "rtc_base/numerics/running_statistics.h",
         "patchSetId": 6

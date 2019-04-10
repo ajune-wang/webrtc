@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "586fb52e_a7745cd0",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-10T12:27:57Z",
+      "side": 1,
+      "message": "referenced/updates - that seems not a property of the buffer but a property of the relationship between CodecBuffer and a Frame. may be CodecBuffer should be named differently because of that (or at least have a documentation comment describing what this struct represents)",
+      "range": {
+        "startLine": 24,
+        "startChar": 7,
+        "endLine": 24,
+        "endChar": 18
+      },
+      "revId": "bca3cbf812413f258658d3bc1734daa0ef4e0053",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8de8267_a6deeeaf",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-10T12:27:57Z",
+      "side": 1,
+      "message": "why did you choose sparse representation over dense one?\n(i.e. alternative is to not have the id in the CodecBuffer, store for all buffers, even when buffer is unused, use index)",
+      "revId": "bca3cbf812413f258658d3bc1734daa0ef4e0053",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0d4b32e_18bc8abb",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1486,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-10T12:27:57Z",
+      "side": 1,
+      "message": "may be prune duplicates after the loop over all buffers",
+      "revId": "bca3cbf812413f258658d3bc1734daa0ef4e0053",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

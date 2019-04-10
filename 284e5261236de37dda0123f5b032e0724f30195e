@@ -254,6 +254,30 @@
     },
     {
       "key": {
+        "uuid": "adae55f7_5a67d66b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1457,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-10T12:27:57Z",
+      "side": 1,
+      "message": "wrap-around%kMaxSimulcastStreams \u003d\u003d 0 avoids collisions.\nbut I\u0027m still worry about ordering. i.e. this kind of out of sync imply receiver should process FrameId 5 received after FrameId 10 is decoded. (i.e. when SFU switches simulcast stream)\nBut FrameId is explicetly defined \"increases strictly monotonically in decode order.\"",
+      "parentUuid": "75185c10_f4a0d59f",
+      "range": {
+        "startLine": 1455,
+        "startChar": 0,
+        "endLine": 1457,
+        "endChar": 31
+      },
+      "revId": "284e5261236de37dda0123f5b032e0724f30195e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "12685d95_c0b9ad40",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 8

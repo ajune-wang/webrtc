@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fcbf52d_0e800c78",
+        "filename": "sdk/android/api/org/webrtc/VideoSource.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-04-10T11:17:31Z",
+      "side": 1,
+      "message": "I prefer using VideoProcessor.FrameAdaptationParameters instead of an import. Any specific reason to import?",
+      "range": {
+        "startLine": 14,
+        "startChar": 18,
+        "endLine": 14,
+        "endChar": 58
+      },
+      "revId": "5c5d5bc27f2e9b07d8537d90280f28c3063bed88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

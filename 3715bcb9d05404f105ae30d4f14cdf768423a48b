@@ -1,0 +1,354 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aaf966d3_84abf9a3",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T22:09:35Z",
+      "side": 1,
+      "message": "nit: Perhaps this method could join the other methods that are declared further down? (Not in this CL.)",
+      "range": {
+        "startLine": 97,
+        "startChar": 2,
+        "endLine": 97,
+        "endChar": 29
+      },
+      "revId": "3715bcb9d05404f105ae30d4f14cdf768423a48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7249cd9_af3ef9e6",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T22:09:35Z",
+      "side": 1,
+      "message": "Do you think it would make sense to make |forced_fallback_possible_| a member of ForcedFallbackParams? Might need to rename ForcedFallbackParams to make it consistent, though. It strikes me that it\u0027s already a bit misnamed, since |active_| and the threshold-related members are not really parameters in the way I usually think of parameters. Maybe ForcedFallbackState?",
+      "range": {
+        "startLine": 99,
+        "startChar": 9,
+        "endLine": 99,
+        "endChar": 34
+      },
+      "revId": "3715bcb9d05404f105ae30d4f14cdf768423a48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89c1da1d_6f0233f8",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T22:09:35Z",
+      "side": 1,
+      "message": "If you\u0027re going to pull the values for |low_bitrate_threshold_kbps_| and |high_bitrate_threshold_kbps_| from a field trial, perhaps you could also pull the values for the time spent below/above thresholds from the same trial?",
+      "range": {
+        "startLine": 119,
+        "startChar": 19,
+        "endLine": 119,
+        "endChar": 23
+      },
+      "revId": "3715bcb9d05404f105ae30d4f14cdf768423a48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1b7cfcc_f6006755",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T22:09:35Z",
+      "side": 1,
+      "message": "const?\n(Maybe for min/max_pixels_ too?)",
+      "revId": "3715bcb9d05404f105ae30d4f14cdf768423a48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbfdbeba_bfb5736b",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T22:09:35Z",
+      "side": 1,
+      "message": "Maybe return a bool?",
+      "range": {
+        "startLine": 147,
+        "startChar": 2,
+        "endLine": 147,
+        "endChar": 5
+      },
+      "revId": "3715bcb9d05404f105ae30d4f14cdf768423a48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e59c53f8_9f8ce694",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T22:09:35Z",
+      "side": 1,
+      "message": "Super-nit: Maybe place it next to |fallback_encoder_|? Or keep both separate from |encoder_|?",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 37
+      },
+      "revId": "3715bcb9d05404f105ae30d4f14cdf768423a48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfeb9dd9_4bd7166a",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T22:09:35Z",
+      "side": 1,
+      "message": "Is this part still desirable?",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 3
+      },
+      "revId": "3715bcb9d05404f105ae30d4f14cdf768423a48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ba968b2_04dfcf1c",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T22:09:35Z",
+      "side": 1,
+      "message": "Perhaps this logic could be offloaded into a helper, like ConsiderSwitchingEncoders(), or MaybeSwitchEncoders(), or something similar?",
+      "revId": "3715bcb9d05404f105ae30d4f14cdf768423a48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5591b0b8_26cd612a",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T22:09:35Z",
+      "side": 1,
+      "message": "(This was not introduced by this CL, so these are musing about possible changes in a follow-up CL.)\n\n1. Do we really want to ignore potential errors reported by encoder_ whenever we\u0027re also using fallback_encoder_? Not even an RTC_LOG?\n2. Actually, do we expect SetRateAllocation() on an un-inited HW codec to do anything other than return an error?\n3. Does it make sense to repeatedly call SetRateAllocation() on encoder_ while fallback_encoder_ is the active one? f we eventually move back to using encoder_, would it perhaps be sufficient to just call SetRateAllocation() once with the last value?",
+      "range": {
+        "startLine": 302,
+        "startChar": 2,
+        "endLine": 302,
+        "endChar": 13
+      },
+      "revId": "3715bcb9d05404f105ae30d4f14cdf768423a48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03de0674_b5d8a519",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T22:09:35Z",
+      "side": 1,
+      "message": "(Not necessarily in the current CL.)\nIf I am not mistaken, it should sometimes be possible to avoid this call? Looking at LibvpxVp8Encoder::GetEncoderInfo(), it looks like it would be worth the trouble to avoid calling it when not necessary.",
+      "range": {
+        "startLine": 310,
+        "startChar": 38,
+        "endLine": 310,
+        "endChar": 73
+      },
+      "revId": "3715bcb9d05404f105ae30d4f14cdf768423a48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b2e11fa_ae5cfe82",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T22:09:35Z",
+      "side": 1,
+      "message": "Similarly?",
+      "range": {
+        "startLine": 311,
+        "startChar": 37,
+        "endLine": 311,
+        "endChar": 63
+      },
+      "revId": "3715bcb9d05404f105ae30d4f14cdf768423a48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9404a0c6_4526baae",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T22:09:35Z",
+      "side": 1,
+      "message": "Maybe:\n  const auto\u0026\n?",
+      "range": {
+        "startLine": 317,
+        "startChar": 10,
+        "endLine": 317,
+        "endChar": 14
+      },
+      "revId": "3715bcb9d05404f105ae30d4f14cdf768423a48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "279b74d0_20d86ce0",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T22:09:35Z",
+      "side": 1,
+      "message": "Can |forced_fallback_.active_| have a value different from |fallback_encoder_initialized_|?",
+      "range": {
+        "startLine": 317,
+        "startChar": 26,
+        "endLine": 317,
+        "endChar": 50
+      },
+      "revId": "3715bcb9d05404f105ae30d4f14cdf768423a48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dcc23cf_46f64443",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T22:09:35Z",
+      "side": 1,
+      "message": "Maybe DCHECK that it already was true?\nOr refactor so that only one of these two would exist at any given time?",
+      "range": {
+        "startLine": 343,
+        "startChar": 4,
+        "endLine": 343,
+        "endChar": 36
+      },
+      "revId": "3715bcb9d05404f105ae30d4f14cdf768423a48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1e114ab_ef20a507",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T22:09:35Z",
+      "side": 1,
+      "message": "Elsewhere I suggest to refactor so that |forced_fallback_.active_| and |fallback_encoder_initialized_| would be merged. It seems like this code here is a case where their values can unintentionally drift apart - if encoder_-\u003eInitEncode() fails, this code does not invoke fallback_encoder_-\u003eRelease(), so that we are left with |forced_fallback_.active_| set to false, and |fallback_encoder_initialized_| set to true. This looks to me unintended, but perhaps I misunderstood the code?",
+      "range": {
+        "startLine": 350,
+        "startChar": 0,
+        "endLine": 354,
+        "endChar": 37
+      },
+      "revId": "3715bcb9d05404f105ae30d4f14cdf768423a48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7050fbe1_c7da8d95",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-10T22:09:35Z",
+      "side": 1,
+      "message": "Is TryReInitForcedFallbackEncoder() ever called with anything other than absl::nullopt?",
+      "revId": "3715bcb9d05404f105ae30d4f14cdf768423a48b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

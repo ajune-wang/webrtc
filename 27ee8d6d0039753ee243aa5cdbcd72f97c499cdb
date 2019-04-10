@@ -334,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "b7c08102_32ddc328",
+        "filename": "pc/peer_connection_rtp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1802,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-10T13:33:39Z",
+      "side": 1,
+      "message": "I\u0027m OK with waiting for setStreams() if this is hard to test, and I don\u0027t think it\u0027s worth adding a \"ClearNegotiationNeededForTesting()\".\n\nBut is the following true?\n\n1. transceiver \u003d pc.addTrack(track, {\"stream\"});\n2. O/A exchange\n3. negotiation is no longer needed and transceiver.direction \u003d\u003d kSendRecv\n4. transceiver.direction \u003d kInactive;\n5. transceiver.direction \u003d kSendRecv;\n\nAt 4) negotiation is needed. But at 5) it is no longer needed because we reverted our change.\n\nIf this is true, then between 4) and 5) we could modify the current_local_description() such that when the negotiation needed check is performed due to 5) negotiation is still needed due to the stream not matching the local description, and we can assert that negotiation is still needed despite the direction matching.",
+      "parentUuid": "6f001ec9_770074d0",
+      "revId": "27ee8d6d0039753ee243aa5cdbcd72f97c499cdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d3660cd_7b895705",
         "filename": "pc/peer_connection_rtp_unittest.cc",
         "patchSetId": 4

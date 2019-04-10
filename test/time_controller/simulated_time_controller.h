@@ -60,9 +60,9 @@ class SimulatedTimeControllerImpl : public TaskQueueFactory,
   void Unregister(SimulatedSequenceRunner* runner);
 
  private:
-  // Returns runners in |runners_| that are ready for execution.
-  std::vector<SimulatedSequenceRunner*> GetNextReadyRunner(
-      Timestamp current_time) RTC_RUN_ON(thread_checker_);
+  // Returns the first runner in |runners_| that are ready for execution.
+  SimulatedSequenceRunner* GetNextReadyRunner(Timestamp current_time)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_);
 
   const rtc::PlatformThreadId thread_id_;
   rtc::ThreadChecker thread_checker_;

@@ -312,17 +312,17 @@ std::unique_ptr<ProcessThread> SimulatedTimeControllerImpl::CreateProcessThread(
   return process_thread;
 }
 
-std::vector<SimulatedSequenceRunner*>
-SimulatedTimeControllerImpl::GetNextReadyRunner(Timestamp current_time) {
-  rtc::CritScope lock(&lock_);
+SimulatedSequenceRunner* SimulatedTimeControllerImpl::GetNextReadyRunner(
+    Timestamp current_time) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
   std::vector<SimulatedSequenceRunner*> ready;
   for (auto* runner : runners_) {
     if (yielded_.find(runner) == yielded_.end() &&
         runner->GetNextRunTime() <= current_time) {
-      ready.push_back(runner);
+      return runner;
     }
   }
-  return ready;
+  return nullptr;
 }
 
 void SimulatedTimeControllerImpl::YieldExecution() {
@@ -352,13 +352,12 @@ void SimulatedTimeControllerImpl::RunReadyRunners() {
   // We repeat until we have no ready left to handle tasks posted by ready
   // runners.
   while (true) {
-    auto ready = GetNextReadyRunner(current_time);
-    if (ready.empty())
+    rtc::CritScope lock(&lock_);
+    SimulatedSequenceRunner* runner = GetNextReadyRunner(current_time);
+    if (!runner)
       break;
-    for (auto* runner : ready) {
-      runner->UpdateReady(current_time);
-      runner->Run(current_time);
-    }
+    runner->UpdateReady(current_time);
+    runner->Run(current_time);
   }
 }
 

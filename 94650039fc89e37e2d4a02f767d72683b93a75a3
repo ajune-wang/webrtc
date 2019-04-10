@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "bda752f0_7433886b",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-10T11:14:37Z",
+      "side": 1,
+      "message": "Evidently not, must have forgot to save the file or something.",
+      "parentUuid": "6976c61a_f58ea534",
+      "range": {
+        "startLine": 199,
+        "startChar": 26,
+        "endLine": 199,
+        "endChar": 35
+      },
+      "revId": "94650039fc89e37e2d4a02f767d72683b93a75a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "893c4abc_141caf34",
         "filename": "media/engine/simulcast_encoder_adapter.cc",
         "patchSetId": 5
@@ -212,6 +236,30 @@
       "revId": "94650039fc89e37e2d4a02f767d72683b93a75a3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f45a61e2_fa3a94a1",
+        "filename": "modules/video_coding/codecs/test/videoprocessor_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-10T11:14:37Z",
+      "side": 1,
+      "message": "Some of them are more readable. Problem is the VideoBitrateAllocation, as it\u0027s not a pure field or property that we\u0027re matching, but the property of a field. Used ResultOf() and lambda to fetch that, not sure if it\u0027s better - or if other better ways exist.",
+      "parentUuid": "b778a514_998a49c6",
+      "range": {
+        "startLine": 132,
+        "startChar": 1,
+        "endLine": 134,
+        "endChar": 42
+      },
+      "revId": "94650039fc89e37e2d4a02f767d72683b93a75a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

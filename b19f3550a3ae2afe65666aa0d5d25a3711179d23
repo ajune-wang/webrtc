@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "75a32ab7_99df55f2",
+        "filename": "api/dtls_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-10T15:22:42Z",
+      "side": 1,
+      "message": "When I used this in Chromium, I found that I was initializing this record type all the time with state \"kNew\" (which was meaningless in the contxt). Now that I\u0027m revisiting, I want construction of an empty value to look exactly like that: No parameters. So no, I don\u0027t want to remove it.\n(It\u0027s actually used in one place in the CL.)",
+      "parentUuid": "1e36675b_2e532c86",
+      "revId": "b19f3550a3ae2afe65666aa0d5d25a3711179d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d5bfdc6b_a46bd64f",
         "filename": "api/dtls_transport_interface.h",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-04-10T12:49:36Z",
       "side": 1,
       "message": "Should we keep this one around? You can always explicitly pass nullptr if you don\u0027t have remote certificates.",
+      "revId": "b19f3550a3ae2afe65666aa0d5d25a3711179d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c14e4ef_0cde4398",
+        "filename": "api/dtls_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-10T15:22:42Z",
+      "side": 1,
+      "message": "The constructor for the \"connected\" state info will grow even more parameters as time goes by. I prefer to keep using one that says \"no, we don\u0027t have the information, we\u0027re not in connected state\" rather than having to say \"not yet, not yet, not yet, not yet\" as parameters each time I initialize the record. So no.",
+      "parentUuid": "d5bfdc6b_a46bd64f",
       "revId": "b19f3550a3ae2afe65666aa0d5d25a3711179d23",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -71,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "432067f5_d32e6736",
+        "filename": "api/dtls_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-10T15:22:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2ece902_2553c712",
+      "revId": "b19f3550a3ae2afe65666aa0d5d25a3711179d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "963db133_64510d97",
         "filename": "api/dtls_transport_interface.h",
         "patchSetId": 1
@@ -82,6 +136,24 @@
       "writtenOn": "2019-04-10T12:49:36Z",
       "side": 1,
       "message": "Would a move-getter be useful?\n\nstd::unique_ptr\u003crtc::SSLCertChain\u003e\u0026\u0026 move_remote_ssl_certificates() {\n  return std::move(remote_ssl_certificates_);\n}",
+      "revId": "b19f3550a3ae2afe65666aa0d5d25a3711179d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a522cb2e_c3545d91",
+        "filename": "api/dtls_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-10T15:22:42Z",
+      "side": 1,
+      "message": "That would destroy the immutability of DtlsTransportInformation. I could imagine a destroy-and-return-certificates operation, but it just seems too special-purpose to bother with.",
+      "parentUuid": "963db133_64510d97",
       "revId": "b19f3550a3ae2afe65666aa0d5d25a3711179d23",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -102,6 +174,24 @@
       "revId": "b19f3550a3ae2afe65666aa0d5d25a3711179d23",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "103ce369_f617bc85",
+        "filename": "pc/dtls_transport_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-10T15:22:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ceb2893_e934e0c3",
+      "revId": "b19f3550a3ae2afe65666aa0d5d25a3711179d23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

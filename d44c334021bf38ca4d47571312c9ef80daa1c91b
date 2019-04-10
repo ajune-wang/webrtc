@@ -22,6 +22,75 @@
       "revId": "d44c334021bf38ca4d47571312c9ef80daa1c91b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd3abcb2_a7da817b",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-10T07:47:11Z",
+      "side": 1,
+      "message": "I think real type here and below will be almost same length of text, but more readable",
+      "range": {
+        "startLine": 65,
+        "startChar": 10,
+        "endLine": 65,
+        "endChar": 14
+      },
+      "revId": "d44c334021bf38ca4d47571312c9ef80daa1c91b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6540d821_ae54b1eb",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-10T07:47:11Z",
+      "side": 1,
+      "message": "Can we use \"^2\" here or maybe \"²\"? It will be a bit more clear",
+      "range": {
+        "startLine": 70,
+        "startChar": 36,
+        "endLine": 70,
+        "endChar": 39
+      },
+      "revId": "d44c334021bf38ca4d47571312c9ef80daa1c91b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9213bbbe_46708a90",
+        "filename": "rtc_base/numerics/running_statistics_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-10T07:47:11Z",
+      "side": 1,
+      "message": "Can we have them as group of parametrized tests? So they report results separately",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 35
+      },
+      "revId": "d44c334021bf38ca4d47571312c9ef80daa1c91b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

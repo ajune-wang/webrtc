@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c953df61_93a645fa",
+        "filename": "media/engine/webrtc_media_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-10T12:08:38Z",
+      "side": 1,
+      "message": "I agree using #define is not nice.\nI considered introducing two factory method instead, something like\nCreateMediaEngine/ CreateAudioOnlyMediaEngine, but that have extra complications (e.g. correct #include is guarded with same #define).\n\nSo I decided to leave it as it is now (i.e. same as in two functions below): it is out of scope of my current effort.",
+      "parentUuid": "c9a0368d_75b5b0bc",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 59
+      },
+      "revId": "0667be0a64c3df0ee0a8c75c62a34fe09aac2f46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32acf1e8_50761c19",
         "filename": "media/engine/webrtc_media_engine.h",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1a53f95b_bbec863d",
+        "filename": "media/engine/webrtc_media_engine.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-10T12:08:38Z",
+      "side": 1,
+      "message": "yes, default constructors/assignments operators/default non-trivial destructor are all implicitly there (with copy constructor deleted using same defaults)\n\nfor consistency with PeerConnectionFactoryDependencies I made them explicit.",
+      "parentUuid": "32acf1e8_50761c19",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 38
+      },
+      "revId": "0667be0a64c3df0ee0a8c75c62a34fe09aac2f46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93180252_6db3155d",
         "filename": "media/engine/webrtc_media_engine_defaults.cc",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "0667be0a64c3df0ee0a8c75c62a34fe09aac2f46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f22df65_d910e281",
+        "filename": "media/engine/webrtc_media_engine_defaults.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-10T12:08:38Z",
+      "side": 1,
+      "message": "not with the raw pointer. or.... hm.... actually yes, we can. Done.",
+      "parentUuid": "93180252_6db3155d",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 39
+      },
+      "revId": "0667be0a64c3df0ee0a8c75c62a34fe09aac2f46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "8581877121f58435d683c2a39a73e72e5dcd558a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef0e2f47_3e559ccd",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-10T12:08:38Z",
+      "side": 0,
+      "message": "good point, created dedicated CL to merge dep\u003d and deps+\u003d blocks.\nrebased and realized I haven\u0027t changed dependencies here... I mistakenly thought I did.",
+      "parentUuid": "a4de4532_006eee88",
+      "range": {
+        "startLine": 564,
+        "startChar": 0,
+        "endLine": 603,
+        "endChar": 3
+      },
+      "revId": "8581877121f58435d683c2a39a73e72e5dcd558a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

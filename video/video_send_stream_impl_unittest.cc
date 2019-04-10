@@ -726,5 +726,96 @@ TEST_F(VideoSendStreamImplTest, CallsVideoStreamEncoderOnBitrateUpdate) {
   });
 }
 
+TEST_F(VideoSendStreamImplTest, DisablesPaddingOnPausedEncoder) {
+  int padding_bitrate = 0;
+  std::unique_ptr<VideoSendStreamImpl> vss_impl;
+
+  test_queue_.SendTask([&] {
+    vss_impl = CreateVideoSendStreamImpl(
+        kDefaultInitialBitrateBps, kDefaultBitratePriority,
+        VideoEncoderConfig::ContentType::kRealtimeVideo);
+
+    // Capture padding bitrate for testing.
+    EXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), _))
+        .WillRepeatedly(Invoke(
+            [&](BitrateAllocatorObserver*, MediaStreamAllocationConfig config) {
+              padding_bitrate = config.pad_up_bitrate_bps;
+            }));
+    // If observer is removed, no padding will be sent.
+    EXPECT_CALL(bitrate_allocator_, RemoveObserver(vss_impl.get()))
+        .WillRepeatedly(
+            Invoke([&](BitrateAllocatorObserver*) { padding_bitrate = 0; }));
+
+    EXPECT_CALL(rtp_video_sender_, OnEncodedImage(_, _, _))
+        .WillRepeatedly(Return(
+            EncodedImageCallback::Result(EncodedImageCallback::Result::OK)));
+
+    config_.track_id = "test";
+    const bool kSuspend = false;
+    config_.suspend_below_min_bitrate = kSuspend;
+    config_.rtp.extensions.emplace_back(
+        RtpExtension::kTransportSequenceNumberUri, 1);
+    VideoStream qvga_stream;
+    qvga_stream.width = 320;
+    qvga_stream.height = 180;
+    qvga_stream.max_framerate = 30;
+    qvga_stream.min_bitrate_bps = 30000;
+    qvga_stream.target_bitrate_bps = 150000;
+    qvga_stream.max_bitrate_bps = 200000;
+    qvga_stream.max_qp = 56;
+    qvga_stream.bitrate_priority = 1;
+
+    int min_transmit_bitrate_bps = 30000;
+
+    config_.rtp.ssrcs.emplace_back(1);
+
+    vss_impl->Start();
+
+    // Starts without padding.
+    EXPECT_EQ(0, padding_bitrate);
+
+    // Reconfigure e.g. due to a fake frame.
+    static_cast<VideoStreamEncoderInterface::EncoderSink*>(vss_impl.get())
+        ->OnEncoderConfigurationChanged(
+            std::vector<VideoStream>{qvga_stream},
+            VideoEncoderConfig::ContentType::kRealtimeVideo,
+            min_transmit_bitrate_bps);
+    // Still no padding because no actual frames were passed, only
+    // reconfiguration happened.
+    EXPECT_EQ(0, padding_bitrate);
+
+    // Unpause encoder.
+    const uint32_t kBitrateBps = 100000;
+    EXPECT_CALL(rtp_video_sender_, GetPayloadBitrateBps())
+        .Times(1)
+        .WillOnce(Return(kBitrateBps));
+    static_cast<BitrateAllocatorObserver*>(vss_impl.get())
+        ->OnBitrateUpdated(CreateAllocation(kBitrateBps));
+
+    // A frame is encoded.
+    EncodedImage encoded_image;
+    CodecSpecificInfo codec_specific;
+    static_cast<EncodedImageCallback*>(vss_impl.get())
+        ->OnEncodedImage(encoded_image, &codec_specific, nullptr);
+    // Only after actual frame is encoded are we enabling the padding.
+    EXPECT_GT(padding_bitrate, 0);
+  });
+
+  rtc::Event done;
+  test_queue_.PostDelayedTask(
+      [&] {
+        // No padding supposed to be sent for paused observer
+        EXPECT_EQ(0, padding_bitrate);
+        testing::Mock::VerifyAndClearExpectations(&bitrate_allocator_);
+        vss_impl->Stop();
+        vss_impl.reset();
+        done.Set();
+      },
+      5000);
+
+  // Pause the test suite up to 5s for it to finish.
+  ASSERT_TRUE(done.Wait(10000));
+}
+
 }  // namespace internal
 }  // namespace webrtc

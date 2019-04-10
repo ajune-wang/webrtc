@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "998f2180_fd6f5c75",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-10T14:23:51Z",
+      "side": 1,
+      "message": "That\u0027s true, WDYT about CodecBufferUsage?",
+      "parentUuid": "586fb52e_a7745cd0",
+      "range": {
+        "startLine": 24,
+        "startChar": 7,
+        "endLine": 24,
+        "endChar": 18
+      },
+      "revId": "bca3cbf812413f258658d3bc1734daa0ef4e0053",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8de8267_a6deeeaf",
         "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
         "patchSetId": 11
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "daef86b4_1ad30998",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-10T14:23:51Z",
+      "side": 1,
+      "message": "My initial idea was to have separate buffer ids for every encoder instance used when simulcasting, that way the VideoStreamEncoder would not have to know about the different simulcast streams. But since we need to know about simulcast to assign frame IDs in a template friendly way I changed from a flat representation to have a state per encoder instance.\n\nIn the flat case buffer ids are better, and in this case I think it\u0027s either or.",
+      "parentUuid": "d8de8267_a6deeeaf",
+      "revId": "bca3cbf812413f258658d3bc1734daa0ef4e0053",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a0d4b32e_18bc8abb",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 11
@@ -53,6 +95,24 @@
       "writtenOn": "2019-04-10T12:27:57Z",
       "side": 1,
       "message": "may be prune duplicates after the loop over all buffers",
+      "revId": "bca3cbf812413f258658d3bc1734daa0ef4e0053",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e116127d_48700cbc",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1486,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-10T14:23:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0d4b32e_18bc8abb",
       "revId": "bca3cbf812413f258658d3bc1734daa0ef4e0053",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

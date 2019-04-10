@@ -278,6 +278,30 @@
     },
     {
       "key": {
+        "uuid": "63af90e6_7e84a898",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1457,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-10T14:23:51Z",
+      "side": 1,
+      "message": "The short answer is that to assign frame IDs in a template friendly way while adhering to that rule it would require some major refactoring on the sender side. I would still like to enforce that rule, but I think rewriting frame IDs in the SFU would be the better solution for now. I guess we should talk about this offline.",
+      "parentUuid": "adae55f7_5a67d66b",
+      "range": {
+        "startLine": 1455,
+        "startChar": 0,
+        "endLine": 1457,
+        "endChar": 31
+      },
+      "revId": "284e5261236de37dda0123f5b032e0724f30195e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "12685d95_c0b9ad40",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 8

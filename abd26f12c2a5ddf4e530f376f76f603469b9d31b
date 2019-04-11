@@ -70,6 +70,30 @@
       "revId": "abd26f12c2a5ddf4e530f376f76f603469b9d31b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86cc3863_dd7eabee",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-11T14:50:32Z",
+      "side": 1,
+      "message": "Kind of, for logging I need to ensure that the implementation for the ostream \u003c\u003c overload does not match, the matcher in checks.h would be sufficient for the other one, but I prefer to use the special matcher in both for consistency.\n\nThanks! That\u0027s much nicer!",
+      "parentUuid": "18447d3b_7ab5e7cf",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 31
+      },
+      "revId": "abd26f12c2a5ddf4e530f376f76f603469b9d31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

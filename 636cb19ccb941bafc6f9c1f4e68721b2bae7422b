@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9ec71500_6d6c6341",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2019-04-11T12:57:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cce1bce0_b6cef13a",
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "149d488b_c8a026c9",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a573ca7_c3e5d7c5",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2019-04-11T12:57:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "149d488b_c8a026c9",
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "d898326a_9ff7f659",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2019-04-11T12:57:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13f62ec3_a18459dd",
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7777088_0fa44b97",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 5
@@ -67,6 +121,24 @@
       "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68b90719_dd1c5204",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7215,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2019-04-11T12:57:04Z",
+      "side": 1,
+      "message": "oops :)\nRemoved.",
+      "parentUuid": "d7777088_0fa44b97",
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "1b98d9c7_6e6a2acf",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7220,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2019-04-11T12:57:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e733b49b_0b11e759",
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ca3f49b_536513e6",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 5
@@ -101,6 +191,24 @@
       "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b01f8a98_87e8f0dd",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7239,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2019-04-11T12:57:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ca3f49b_536513e6",
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -127,6 +235,30 @@
     },
     {
       "key": {
+        "uuid": "94cf2e18_5110c45a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7254,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2019-04-11T12:57:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f9c9a83_a716143e",
+      "range": {
+        "startLine": 7253,
+        "startChar": 10,
+        "endLine": 7254,
+        "endChar": 72
+      },
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba3f9f4b_dc73541b",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 5
@@ -150,6 +282,30 @@
     },
     {
       "key": {
+        "uuid": "6d32c507_3c9df3f9",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7272,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2019-04-11T12:57:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba3f9f4b_dc73541b",
+      "range": {
+        "startLine": 7272,
+        "startChar": 8,
+        "endLine": 7272,
+        "endChar": 17
+      },
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e535f55e_146559b2",
         "filename": "pc/peer_connection.h",
         "patchSetId": 5
@@ -167,6 +323,24 @@
     },
     {
       "key": {
+        "uuid": "46b9a586_aee3544a",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 1328,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2019-04-11T12:57:04Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "e535f55e_146559b2",
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7deb327_c9c4309f",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
         "patchSetId": 5
@@ -178,6 +352,24 @@
       "writtenOn": "2019-04-10T14:42:12Z",
       "side": 1,
       "message": "Curious: what is causing these tests to fail?",
+      "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d20987c4_2a22749d",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2019-04-11T12:57:04Z",
+      "side": 1,
+      "message": "I haven\u0027t analyzed them in detail, but I\u0027m pretty sure they expect the event to be fired more frequently than it should be, similar to C++ tests prior to this CL.\nI\u0027ll fix them once I\u0027m back in the office and can test on android devices.",
+      "parentUuid": "a7deb327_c9c4309f",
       "revId": "636cb19ccb941bafc6f9c1f4e68721b2bae7422b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

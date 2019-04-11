@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00a75e5d_36f426f4",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-11T16:07:51Z",
+      "side": 1,
+      "message": "Do we need to include padding here? We already have the padding level as a separate parameter, so it seems more useful to make this independent of padding.",
+      "range": {
+        "startLine": 45,
+        "startChar": 15,
+        "endLine": 45,
+        "endChar": 34
+      },
+      "revId": "48521054afd8a5a2cf69afe6ed74546d89ac7b50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac6859d1_035c7d97",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-11T16:07:51Z",
+      "side": 1,
+      "message": "We don\u0027t want to specify the behavior of the network controller here, different network controllers should be allowed to use this value as they see fit. It\u0027s ok to say something generic of how it it\u0027s intended to be used though.",
+      "range": {
+        "startLine": 45,
+        "startChar": 35,
+        "endLine": 46,
+        "endChar": 62
+      },
+      "revId": "48521054afd8a5a2cf69afe6ed74546d89ac7b50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5257344b_69101a62",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-11T16:07:51Z",
+      "side": 1,
+      "message": "Maybe this could be more desciptive, maybe: current_continuous_max_bitrate?",
+      "range": {
+        "startLine": 47,
+        "startChar": 27,
+        "endLine": 47,
+        "endChar": 46
+      },
+      "revId": "48521054afd8a5a2cf69afe6ed74546d89ac7b50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff202be1_71ac555a",
+        "filename": "modules/congestion_controller/goog_cc/alr_detector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-11T16:07:51Z",
+      "side": 1,
+      "message": "Seeing this, I\u0027m not sure it belongs here, it seems like it\u0027s a completely different code path that\u0027s independent of detecting alr.\n\nEither way I think it might make sense to give the variable a semantic meaning, for instance, could the same name as in StreamsConfig be used?",
+      "range": {
+        "startLine": 85,
+        "startChar": 6,
+        "endLine": 85,
+        "endChar": 28
+      },
+      "revId": "48521054afd8a5a2cf69afe6ed74546d89ac7b50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6a0b1fb_548b23c2",
+        "filename": "modules/congestion_controller/goog_cc/alr_detector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-11T16:07:51Z",
+      "side": 1,
+      "message": "accident?",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 3
+      },
+      "revId": "48521054afd8a5a2cf69afe6ed74546d89ac7b50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4eb457e_66c52426",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-11T16:07:51Z",
+      "side": 1,
+      "message": "Maybe: bitrate_limit_for_increase?\nincrease_limit could also be \"limit of any individual increase\"\n\nOr give it a semantic meaning and consider it the responsibility of AimdRateControl how to use it?",
+      "range": {
+        "startLine": 57,
+        "startChar": 6,
+        "endLine": 57,
+        "endChar": 21
+      },
+      "revId": "48521054afd8a5a2cf69afe6ed74546d89ac7b50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

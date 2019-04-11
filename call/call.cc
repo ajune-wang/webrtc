@@ -631,7 +631,7 @@ void Call::UpdateSendHistograms(int64_t first_sent_packet_ms) {
     return;
   int64_t elapsed_sec =
       (clock_->TimeInMilliseconds() - first_sent_packet_ms) / 1000;
-  if (elapsed_sec < metrics::kMinRunTimeInSeconds)
+  if (elapsed_sec < metrics_internal::kMinRunTimeInSeconds)
     return;
   const int kMinRequiredPeriodicSamples = 5;
   AggregatedStats send_bitrate_stats =

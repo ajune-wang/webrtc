@@ -25,7 +25,7 @@ const char kName[] = "Name";
 
 int NumSamples(
     const std::string& name,
-    const std::map<std::string, std::unique_ptr<metrics::SampleInfo>>&
+    const std::map<std::string, std::unique_ptr<metrics_internal::SampleInfo>>&
         histograms) {
   const auto it = histograms.find(name);
   if (it == histograms.end())
@@ -38,10 +38,11 @@ int NumSamples(
   return num_samples;
 }
 
-int NumEvents(const std::string& name,
-              int sample,
-              const std::map<std::string, std::unique_ptr<metrics::SampleInfo>>&
-                  histograms) {
+int NumEvents(
+    const std::string& name,
+    int sample,
+    const std::map<std::string, std::unique_ptr<metrics_internal::SampleInfo>>&
+        histograms) {
   const auto it = histograms.find(name);
   if (it == histograms.end())
     return 0;
@@ -59,78 +60,79 @@ class MetricsDefaultTest : public ::testing::Test {
   MetricsDefaultTest() {}
 
  protected:
-  void SetUp() override { metrics::Reset(); }
+  void SetUp() override { metrics_internal::Reset(); }
 };
 
 TEST_F(MetricsDefaultTest, Reset) {
   RTC_HISTOGRAM_PERCENTAGE(kName, kSample);
-  EXPECT_EQ(1, metrics::NumSamples(kName));
-  metrics::Reset();
-  EXPECT_EQ(0, metrics::NumSamples(kName));
+  EXPECT_EQ(1, metrics_internal::NumSamples(kName));
+  metrics_internal::Reset();
+  EXPECT_EQ(0, metrics_internal::NumSamples(kName));
 }
 
 TEST_F(MetricsDefaultTest, NumSamples) {
   RTC_HISTOGRAM_PERCENTAGE(kName, 5);
   RTC_HISTOGRAM_PERCENTAGE(kName, 5);
   RTC_HISTOGRAM_PERCENTAGE(kName, 10);
-  EXPECT_EQ(3, metrics::NumSamples(kName));
-  EXPECT_EQ(0, metrics::NumSamples("NonExisting"));
+  EXPECT_EQ(3, metrics_internal::NumSamples(kName));
+  EXPECT_EQ(0, metrics_internal::NumSamples("NonExisting"));
 }
 
 TEST_F(MetricsDefaultTest, NumEvents) {
   RTC_HISTOGRAM_PERCENTAGE(kName, 5);
   RTC_HISTOGRAM_PERCENTAGE(kName, 5);
   RTC_HISTOGRAM_PERCENTAGE(kName, 10);
-  EXPECT_EQ(2, metrics::NumEvents(kName, 5));
-  EXPECT_EQ(1, metrics::NumEvents(kName, 10));
-  EXPECT_EQ(0, metrics::NumEvents(kName, 11));
-  EXPECT_EQ(0, metrics::NumEvents("NonExisting", 5));
+  EXPECT_EQ(2, metrics_internal::NumEvents(kName, 5));
+  EXPECT_EQ(1, metrics_internal::NumEvents(kName, 10));
+  EXPECT_EQ(0, metrics_internal::NumEvents(kName, 11));
+  EXPECT_EQ(0, metrics_internal::NumEvents("NonExisting", 5));
 }
 
 TEST_F(MetricsDefaultTest, MinSample) {
   RTC_HISTOGRAM_PERCENTAGE(kName, kSample);
   RTC_HISTOGRAM_PERCENTAGE(kName, kSample + 1);
-  EXPECT_EQ(kSample, metrics::MinSample(kName));
-  EXPECT_EQ(-1, metrics::MinSample("NonExisting"));
+  EXPECT_EQ(kSample, metrics_internal::MinSample(kName));
+  EXPECT_EQ(-1, metrics_internal::MinSample("NonExisting"));
 }
 
 TEST_F(MetricsDefaultTest, Overflow) {
   const std::string kName = "Overflow";
   // Samples should end up in overflow bucket.
   RTC_HISTOGRAM_PERCENTAGE(kName, 101);
-  EXPECT_EQ(1, metrics::NumSamples(kName));
-  EXPECT_EQ(1, metrics::NumEvents(kName, 101));
+  EXPECT_EQ(1, metrics_internal::NumSamples(kName));
+  EXPECT_EQ(1, metrics_internal::NumEvents(kName, 101));
   RTC_HISTOGRAM_PERCENTAGE(kName, 102);
-  EXPECT_EQ(2, metrics::NumSamples(kName));
-  EXPECT_EQ(2, metrics::NumEvents(kName, 101));
+  EXPECT_EQ(2, metrics_internal::NumSamples(kName));
+  EXPECT_EQ(2, metrics_internal::NumEvents(kName, 101));
 }
 
 TEST_F(MetricsDefaultTest, Underflow) {
   const std::string kName = "Underflow";
   // Samples should end up in underflow bucket.
   RTC_HISTOGRAM_COUNTS_10000(kName, 0);
-  EXPECT_EQ(1, metrics::NumSamples(kName));
-  EXPECT_EQ(1, metrics::NumEvents(kName, 0));
+  EXPECT_EQ(1, metrics_internal::NumSamples(kName));
+  EXPECT_EQ(1, metrics_internal::NumEvents(kName, 0));
   RTC_HISTOGRAM_COUNTS_10000(kName, -1);
-  EXPECT_EQ(2, metrics::NumSamples(kName));
-  EXPECT_EQ(2, metrics::NumEvents(kName, 0));
+  EXPECT_EQ(2, metrics_internal::NumSamples(kName));
+  EXPECT_EQ(2, metrics_internal::NumEvents(kName, 0));
 }
 
 TEST_F(MetricsDefaultTest, GetAndReset) {
-  std::map<std::string, std::unique_ptr<metrics::SampleInfo>> histograms;
-  metrics::GetAndReset(&histograms);
+  std::map<std::string, std::unique_ptr<metrics_internal::SampleInfo>>
+      histograms;
+  metrics_internal::GetAndReset(&histograms);
   EXPECT_EQ(0u, histograms.size());
   RTC_HISTOGRAM_PERCENTAGE("Histogram1", 4);
   RTC_HISTOGRAM_PERCENTAGE("Histogram1", 5);
   RTC_HISTOGRAM_PERCENTAGE("Histogram1", 5);
   RTC_HISTOGRAM_PERCENTAGE("Histogram2", 10);
-  EXPECT_EQ(3, metrics::NumSamples("Histogram1"));
-  EXPECT_EQ(1, metrics::NumSamples("Histogram2"));
+  EXPECT_EQ(3, metrics_internal::NumSamples("Histogram1"));
+  EXPECT_EQ(1, metrics_internal::NumSamples("Histogram2"));
 
-  metrics::GetAndReset(&histograms);
+  metrics_internal::GetAndReset(&histograms);
   EXPECT_EQ(2u, histograms.size());
-  EXPECT_EQ(0, metrics::NumSamples("Histogram1"));
-  EXPECT_EQ(0, metrics::NumSamples("Histogram2"));
+  EXPECT_EQ(0, metrics_internal::NumSamples("Histogram1"));
+  EXPECT_EQ(0, metrics_internal::NumSamples("Histogram2"));
 
   EXPECT_EQ(3, NumSamples("Histogram1", histograms));
   EXPECT_EQ(1, NumSamples("Histogram2", histograms));
@@ -139,22 +141,23 @@ TEST_F(MetricsDefaultTest, GetAndReset) {
   EXPECT_EQ(1, NumEvents("Histogram2", 10, histograms));
 
   // Add samples after reset.
-  metrics::GetAndReset(&histograms);
+  metrics_internal::GetAndReset(&histograms);
   EXPECT_EQ(0u, histograms.size());
   RTC_HISTOGRAM_PERCENTAGE("Histogram1", 50);
   RTC_HISTOGRAM_PERCENTAGE("Histogram2", 8);
-  EXPECT_EQ(1, metrics::NumSamples("Histogram1"));
-  EXPECT_EQ(1, metrics::NumSamples("Histogram2"));
-  EXPECT_EQ(1, metrics::NumEvents("Histogram1", 50));
-  EXPECT_EQ(1, metrics::NumEvents("Histogram2", 8));
+  EXPECT_EQ(1, metrics_internal::NumSamples("Histogram1"));
+  EXPECT_EQ(1, metrics_internal::NumSamples("Histogram2"));
+  EXPECT_EQ(1, metrics_internal::NumEvents("Histogram1", 50));
+  EXPECT_EQ(1, metrics_internal::NumEvents("Histogram2", 8));
 }
 
 TEST_F(MetricsDefaultTest, TestMinMaxBucket) {
   const std::string kName = "MinMaxCounts100";
   RTC_HISTOGRAM_COUNTS_100(kName, 4);
 
-  std::map<std::string, std::unique_ptr<metrics::SampleInfo>> histograms;
-  metrics::GetAndReset(&histograms);
+  std::map<std::string, std::unique_ptr<metrics_internal::SampleInfo>>
+      histograms;
+  metrics_internal::GetAndReset(&histograms);
   EXPECT_EQ(1u, histograms.size());
   EXPECT_EQ(kName, histograms.begin()->second->name);
   EXPECT_EQ(1, histograms.begin()->second->min);

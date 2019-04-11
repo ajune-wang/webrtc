@@ -287,7 +287,7 @@ TEST_F(CallStatsTest, LastProcessedRtt) {
 }
 
 TEST_F(CallStatsTest, ProducesHistogramMetrics) {
-  metrics::Reset();
+  metrics_internal::Reset();
   rtc::Event event;
   static constexpr const int64_t kRtt = 123;
   RtcpRttStats* rtcp_rtt_stats = &call_stats_;
@@ -299,7 +299,7 @@ TEST_F(CallStatsTest, ProducesHistogramMetrics) {
       .WillRepeatedly(Return());
 
   rtcp_rtt_stats->OnRttUpdate(kRtt);
-  fake_clock_.AdvanceTimeMilliseconds(metrics::kMinRunTimeInSeconds *
+  fake_clock_.AdvanceTimeMilliseconds(metrics_internal::kMinRunTimeInSeconds *
                                       CallStats::kUpdateIntervalMs);
   rtcp_rtt_stats->OnRttUpdate(kRtt);
   EXPECT_TRUE(event.Wait(1000));
@@ -309,9 +309,9 @@ TEST_F(CallStatsTest, ProducesHistogramMetrics) {
   process_thread_->Stop();
   call_stats_.UpdateHistogramsForTest();
 
-  EXPECT_EQ(1, metrics::NumSamples(
+  EXPECT_EQ(1, metrics_internal::NumSamples(
                    "WebRTC.Video.AverageRoundTripTimeInMilliseconds"));
-  EXPECT_EQ(1, metrics::NumEvents(
+  EXPECT_EQ(1, metrics_internal::NumEvents(
                    "WebRTC.Video.AverageRoundTripTimeInMilliseconds", kRtt));
 }
 

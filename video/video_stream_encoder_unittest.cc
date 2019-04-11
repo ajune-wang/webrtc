@@ -298,7 +298,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
         sink_(&fake_encoder_) {}
 
   void SetUp() override {
-    metrics::Reset();
+    metrics_internal::Reset();
     video_send_config_ = VideoSendStream::Config(nullptr);
     video_send_config_.encoder_settings.encoder_factory = &encoder_factory_;
     video_send_config_.encoder_settings.bitrate_allocator_factory =
@@ -2278,10 +2278,10 @@ TEST_F(VideoStreamEncoderTest, CpuLimitedHistogramIsReported) {
   video_stream_encoder_.reset();
   stats_proxy_.reset();
 
-  EXPECT_EQ(1,
-            metrics::NumSamples("WebRTC.Video.CpuLimitedResolutionInPercent"));
-  EXPECT_EQ(
-      1, metrics::NumEvents("WebRTC.Video.CpuLimitedResolutionInPercent", 50));
+  EXPECT_EQ(1, metrics_internal::NumSamples(
+                   "WebRTC.Video.CpuLimitedResolutionInPercent"));
+  EXPECT_EQ(1, metrics_internal::NumEvents(
+                   "WebRTC.Video.CpuLimitedResolutionInPercent", 50));
 }
 
 TEST_F(VideoStreamEncoderTest,
@@ -2303,8 +2303,8 @@ TEST_F(VideoStreamEncoderTest,
   video_stream_encoder_.reset();
   stats_proxy_.reset();
 
-  EXPECT_EQ(0,
-            metrics::NumSamples("WebRTC.Video.CpuLimitedResolutionInPercent"));
+  EXPECT_EQ(0, metrics_internal::NumSamples(
+                   "WebRTC.Video.CpuLimitedResolutionInPercent"));
 }
 
 TEST_F(VideoStreamEncoderTest, CallsBitrateObserver) {

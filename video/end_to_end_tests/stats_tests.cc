@@ -519,7 +519,7 @@ TEST_F(StatsEndToEndTest, MAYBE_ContentTypeSwitches) {
     int num_frames_received_ RTC_GUARDED_BY(&crit_);
   } test;
 
-  metrics::Reset();
+  metrics_internal::Reset();
 
   Call::Config send_config(send_event_log_.get());
   test.ModifySenderBitrateConfig(&send_config.bitrate_config);
@@ -585,17 +585,20 @@ TEST_F(StatsEndToEndTest, MAYBE_ContentTypeSwitches) {
   });
 
   // Verify that stats have been updated for both screenshare and video.
-  EXPECT_EQ(1, metrics::NumSamples("WebRTC.Video.EndToEndDelayInMs"));
+  EXPECT_EQ(1, metrics_internal::NumSamples("WebRTC.Video.EndToEndDelayInMs"));
+  EXPECT_EQ(1, metrics_internal::NumSamples(
+                   "WebRTC.Video.Screenshare.EndToEndDelayInMs"));
   EXPECT_EQ(1,
-            metrics::NumSamples("WebRTC.Video.Screenshare.EndToEndDelayInMs"));
-  EXPECT_EQ(1, metrics::NumSamples("WebRTC.Video.EndToEndDelayMaxInMs"));
+            metrics_internal::NumSamples("WebRTC.Video.EndToEndDelayMaxInMs"));
+  EXPECT_EQ(1, metrics_internal::NumSamples(
+                   "WebRTC.Video.Screenshare.EndToEndDelayMaxInMs"));
+  EXPECT_EQ(1,
+            metrics_internal::NumSamples("WebRTC.Video.InterframeDelayInMs"));
+  EXPECT_EQ(1, metrics_internal::NumSamples(
+                   "WebRTC.Video.Screenshare.InterframeDelayInMs"));
   EXPECT_EQ(
-      1, metrics::NumSamples("WebRTC.Video.Screenshare.EndToEndDelayMaxInMs"));
-  EXPECT_EQ(1, metrics::NumSamples("WebRTC.Video.InterframeDelayInMs"));
-  EXPECT_EQ(
-      1, metrics::NumSamples("WebRTC.Video.Screenshare.InterframeDelayInMs"));
-  EXPECT_EQ(1, metrics::NumSamples("WebRTC.Video.InterframeDelayMaxInMs"));
-  EXPECT_EQ(1, metrics::NumSamples(
+      1, metrics_internal::NumSamples("WebRTC.Video.InterframeDelayMaxInMs"));
+  EXPECT_EQ(1, metrics_internal::NumSamples(
                    "WebRTC.Video.Screenshare.InterframeDelayMaxInMs"));
 }
 
@@ -668,7 +671,7 @@ TEST_F(StatsEndToEndTest, VerifyNackStats) {
         return false;
       }
       int64_t elapsed_sec = (now - start_runtime_ms_) / 1000;
-      return elapsed_sec > metrics::kMinRunTimeInSeconds;
+      return elapsed_sec > metrics_internal::kMinRunTimeInSeconds;
     }
 
     void ModifyVideoConfigs(
@@ -701,14 +704,15 @@ TEST_F(StatsEndToEndTest, VerifyNackStats) {
     int64_t start_runtime_ms_;
   } test;
 
-  metrics::Reset();
+  metrics_internal::Reset();
   RunBaseTest(&test);
 
-  EXPECT_EQ(
-      1, metrics::NumSamples("WebRTC.Video.UniqueNackRequestsSentInPercent"));
-  EXPECT_EQ(1, metrics::NumSamples(
+  EXPECT_EQ(1, metrics_internal::NumSamples(
+                   "WebRTC.Video.UniqueNackRequestsSentInPercent"));
+  EXPECT_EQ(1, metrics_internal::NumSamples(
                    "WebRTC.Video.UniqueNackRequestsReceivedInPercent"));
-  EXPECT_GT(metrics::MinSample("WebRTC.Video.NackPacketsSentPerMinute"), 0);
+  EXPECT_GT(
+      metrics_internal::MinSample("WebRTC.Video.NackPacketsSentPerMinute"), 0);
 }
 
 TEST_F(StatsEndToEndTest, CallReportsRttForSender) {

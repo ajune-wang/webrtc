@@ -27,7 +27,7 @@ static jlong JNI_Histogram_CreateCounts(JNIEnv* jni,
                                         jint buckets) {
   std::string name = JavaToStdString(jni, j_name);
   return jlongFromPointer(
-      metrics::HistogramFactoryGetCounts(name, min, max, buckets));
+      metrics_internal::HistogramFactoryGetCounts(name, min, max, buckets));
 }
 
 static jlong JNI_Histogram_CreateEnumeration(
@@ -35,14 +35,16 @@ static jlong JNI_Histogram_CreateEnumeration(
     const JavaParamRef<jstring>& j_name,
     jint max) {
   std::string name = JavaToStdString(jni, j_name);
-  return jlongFromPointer(metrics::HistogramFactoryGetEnumeration(name, max));
+  return jlongFromPointer(
+      metrics_internal::HistogramFactoryGetEnumeration(name, max));
 }
 
 static void JNI_Histogram_AddSample(JNIEnv* jni,
                                     jlong histogram,
                                     jint sample) {
   if (histogram) {
-    HistogramAdd(reinterpret_cast<metrics::Histogram*>(histogram), sample);
+    HistogramAdd(reinterpret_cast<metrics_internal::Histogram*>(histogram),
+                 sample);
   }
 }
 

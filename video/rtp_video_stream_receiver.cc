@@ -744,7 +744,7 @@ void RtpVideoStreamReceiver::UpdateHistograms() {
 
   int64_t elapsed_sec =
       (clock_->TimeInMilliseconds() - counter.first_packet_time_ms) / 1000;
-  if (elapsed_sec < metrics::kMinRunTimeInSeconds)
+  if (elapsed_sec < metrics_internal::kMinRunTimeInSeconds)
     return;
 
   if (counter.num_packets > 0) {

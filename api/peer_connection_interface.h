@@ -105,6 +105,7 @@
 #include "p2p/base/port_allocator.h"  // nogncheck
 // TODO(nisse): The interface for bitrate allocation strategy belongs in api/.
 #include "rtc_base/bitrate_allocation_strategy.h"
+#include "rtc_base/deprecation.h"
 #include "rtc_base/network.h"
 #include "rtc_base/platform_file.h"
 #include "rtc_base/rtc_certificate.h"
@@ -1380,17 +1381,14 @@ class PeerConnectionFactoryInterface : public rtc::RefCountInterface {
   ~PeerConnectionFactoryInterface() override = default;
 };
 
-// This is a lower-level version of the CreatePeerConnectionFactory functions
-// above. It's implemented in the "peerconnection" build target, whereas the
-// above methods are only implemented in the broader "libjingle_peerconnection"
-// build target, which pulls in the implementations of every module webrtc may
-// use.
+// CreateModularPeerConnectionFactory is implemented in the "peerconnection"
+// build target, which doesn't pull in the implementations of every module
+// webrtc may use.
 //
 // If an application knows it will only require certain modules, it can reduce
 // webrtc's impact on its binary size by depending only on the "peerconnection"
 // target and the modules the application requires, using
-// CreateModularPeerConnectionFactory instead of one of the
-// CreatePeerConnectionFactory methods above. For example, if an application
+// CreateModularPeerConnectionFactory. For example, if an application
 // only uses WebRTC for audio, it can pass in null pointers for the
 // video-specific interfaces, and omit the corresponding modules from its
 // build.
@@ -1399,19 +1397,7 @@ class PeerConnectionFactoryInterface : public rtc::RefCountInterface {
 // will create the necessary thread internally. If |signaling_thread| is null,
 // the PeerConnectionFactory will use the thread on which this method is called
 // as the signaling thread, wrapping it in an rtc::Thread object if needed.
-//
-// If non-null, a reference is added to |default_adm|, and ownership of
-// |video_encoder_factory| and |video_decoder_factory| is transferred to the
-// returned factory.
-//
-// If |audio_mixer| is null, an internal audio mixer will be created and used.
-//
-// TODO(deadbeef): Use rtc::scoped_refptr<> and std::unique_ptr<> to make this
-// ownership transfer and ref counting more obvious.
-//
-// TODO(deadbeef): Encapsulate these modules in a struct, so that when a new
-// module is inevitably exposed, we can just add a field to the struct instead
-// of adding a whole new CreateModularPeerConnectionFactory overload.
+RTC_DEPRECATED
 rtc::scoped_refptr<PeerConnectionFactoryInterface>
 CreateModularPeerConnectionFactory(
     rtc::Thread* network_thread,
@@ -1421,6 +1407,7 @@ CreateModularPeerConnectionFactory(
     std::unique_ptr<CallFactoryInterface> call_factory,
     std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory);
 
+RTC_DEPRECATED
 rtc::scoped_refptr<PeerConnectionFactoryInterface>
 CreateModularPeerConnectionFactory(
     rtc::Thread* network_thread,

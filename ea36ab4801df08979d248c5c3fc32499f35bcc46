@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "ac9eb626_0f2289c4",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-11T10:54:49Z",
+      "side": 1,
+      "message": "That would work in some situations, but not if the clocks are different (which we don\u0027t yet support, but probably will want to be the default, as it\u0027s generally the case IRL), additionally, it doesn\u0027t compensate for link delay such as propagation delay and cross traffic/delay spikes. Maybe we could have a first_packet_size field and a getter to get the average throughput?",
+      "parentUuid": "264ba564_c5f20c8b",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 66
+      },
+      "revId": "ea36ab4801df08979d248c5c3fc32499f35bcc46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "64969d2d_aa8aa9bc",
         "filename": "test/scenario/network/emulated_network_manager.cc",
         "patchSetId": 2

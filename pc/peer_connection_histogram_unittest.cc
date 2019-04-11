@@ -220,7 +220,7 @@ class PeerConnectionUsageHistogramTest : public ::testing::Test {
 
   PeerConnectionUsageHistogramTest()
       : vss_(new rtc::VirtualSocketServer()), main_(vss_.get()) {
-    webrtc::metrics::Reset();
+    webrtc::metrics_internal::Reset();
   }
 
   WrapperPtr CreatePeerConnection() {
@@ -281,7 +281,7 @@ class PeerConnectionUsageHistogramTest : public ::testing::Test {
     // This works correctly only if there is only one sample value
     // that has been counted.
     // Returns -1 for "not found".
-    return webrtc::metrics::MinSample(kUsagePatternMetric);
+    return webrtc::metrics_internal::MinSample(kUsagePatternMetric);
   }
 
   std::unique_ptr<rtc::FakeNetworkManager> fake_network_manager_;
@@ -293,10 +293,10 @@ TEST_F(PeerConnectionUsageHistogramTest, UsageFingerprintHistogramFromTimeout) {
   auto pc = CreatePeerConnectionWithImmediateReport();
 
   int expected_fingerprint = MakeUsageFingerprint({});
-  ASSERT_EQ_WAIT(1, webrtc::metrics::NumSamples(kUsagePatternMetric),
+  ASSERT_EQ_WAIT(1, webrtc::metrics_internal::NumSamples(kUsagePatternMetric),
                  kDefaultTimeout);
-  EXPECT_EQ(
-      1, webrtc::metrics::NumEvents(kUsagePatternMetric, expected_fingerprint));
+  EXPECT_EQ(1, webrtc::metrics_internal::NumEvents(kUsagePatternMetric,
+                                                   expected_fingerprint));
 }
 
 #ifndef WEBRTC_ANDROID
@@ -323,11 +323,11 @@ TEST_F(PeerConnectionUsageHistogramTest, FingerprintAudioVideo) {
        PeerConnection::UsageEvent::CLOSE_CALLED});
   // In this case, we may or may not have PRIVATE_CANDIDATE_COLLECTED,
   // depending on the machine configuration.
-  EXPECT_EQ(2, webrtc::metrics::NumSamples(kUsagePatternMetric));
+  EXPECT_EQ(2, webrtc::metrics_internal::NumSamples(kUsagePatternMetric));
   EXPECT_TRUE(
-      webrtc::metrics::NumEvents(kUsagePatternMetric, expected_fingerprint) ==
-          2 ||
-      webrtc::metrics::NumEvents(
+      webrtc::metrics_internal::NumEvents(kUsagePatternMetric,
+                                          expected_fingerprint) == 2 ||
+      webrtc::metrics_internal::NumEvents(
           kUsagePatternMetric,
           expected_fingerprint |
               static_cast<int>(
@@ -360,9 +360,9 @@ TEST_F(PeerConnectionUsageHistogramTest, FingerprintWithNoHostCandidates) {
        PeerConnection::UsageEvent::REMOTE_CANDIDATE_ADDED,
        PeerConnection::UsageEvent::ICE_STATE_CONNECTED,
        PeerConnection::UsageEvent::CLOSE_CALLED});
-  EXPECT_EQ(2, webrtc::metrics::NumSamples(kUsagePatternMetric));
-  EXPECT_EQ(
-      2, webrtc::metrics::NumEvents(kUsagePatternMetric, expected_fingerprint));
+  EXPECT_EQ(2, webrtc::metrics_internal::NumSamples(kUsagePatternMetric));
+  EXPECT_EQ(2, webrtc::metrics_internal::NumEvents(kUsagePatternMetric,
+                                                   expected_fingerprint));
 }
 
 #ifdef HAVE_SCTP
@@ -382,11 +382,11 @@ TEST_F(PeerConnectionUsageHistogramTest, FingerprintDataOnly) {
        PeerConnection::UsageEvent::REMOTE_CANDIDATE_ADDED,
        PeerConnection::UsageEvent::ICE_STATE_CONNECTED,
        PeerConnection::UsageEvent::CLOSE_CALLED});
-  EXPECT_EQ(2, webrtc::metrics::NumSamples(kUsagePatternMetric));
+  EXPECT_EQ(2, webrtc::metrics_internal::NumSamples(kUsagePatternMetric));
   EXPECT_TRUE(
-      webrtc::metrics::NumEvents(kUsagePatternMetric, expected_fingerprint) ==
-          2 ||
-      webrtc::metrics::NumEvents(
+      webrtc::metrics_internal::NumEvents(kUsagePatternMetric,
+                                          expected_fingerprint) == 2 ||
+      webrtc::metrics_internal::NumEvents(
           kUsagePatternMetric,
           expected_fingerprint |
               static_cast<int>(
@@ -412,9 +412,9 @@ TEST_F(PeerConnectionUsageHistogramTest, FingerprintStunTurn) {
       MakeUsageFingerprint({PeerConnection::UsageEvent::STUN_SERVER_ADDED,
                             PeerConnection::UsageEvent::TURN_SERVER_ADDED,
                             PeerConnection::UsageEvent::CLOSE_CALLED});
-  EXPECT_EQ(1, webrtc::metrics::NumSamples(kUsagePatternMetric));
-  EXPECT_EQ(
-      1, webrtc::metrics::NumEvents(kUsagePatternMetric, expected_fingerprint));
+  EXPECT_EQ(1, webrtc::metrics_internal::NumSamples(kUsagePatternMetric));
+  EXPECT_EQ(1, webrtc::metrics_internal::NumEvents(kUsagePatternMetric,
+                                                   expected_fingerprint));
 }
 
 TEST_F(PeerConnectionUsageHistogramTest, FingerprintStunTurnInReconfiguration) {
@@ -436,9 +436,9 @@ TEST_F(PeerConnectionUsageHistogramTest, FingerprintStunTurnInReconfiguration) {
       MakeUsageFingerprint({PeerConnection::UsageEvent::STUN_SERVER_ADDED,
                             PeerConnection::UsageEvent::TURN_SERVER_ADDED,
                             PeerConnection::UsageEvent::CLOSE_CALLED});
-  EXPECT_EQ(1, webrtc::metrics::NumSamples(kUsagePatternMetric));
-  EXPECT_EQ(
-      1, webrtc::metrics::NumEvents(kUsagePatternMetric, expected_fingerprint));
+  EXPECT_EQ(1, webrtc::metrics_internal::NumSamples(kUsagePatternMetric));
+  EXPECT_EQ(1, webrtc::metrics_internal::NumEvents(kUsagePatternMetric,
+                                                   expected_fingerprint));
 }
 
 TEST_F(PeerConnectionUsageHistogramTest, FingerprintWithPrivateIP) {
@@ -452,9 +452,9 @@ TEST_F(PeerConnectionUsageHistogramTest, FingerprintWithPrivateIP) {
        PeerConnection::UsageEvent::CANDIDATE_COLLECTED,
        PeerConnection::UsageEvent::CLOSE_CALLED,
        PeerConnection::UsageEvent::PRIVATE_CANDIDATE_COLLECTED});
-  EXPECT_EQ(1, webrtc::metrics::NumSamples(kUsagePatternMetric));
-  EXPECT_EQ(
-      1, webrtc::metrics::NumEvents(kUsagePatternMetric, expected_fingerprint));
+  EXPECT_EQ(1, webrtc::metrics_internal::NumSamples(kUsagePatternMetric));
+  EXPECT_EQ(1, webrtc::metrics_internal::NumEvents(kUsagePatternMetric,
+                                                   expected_fingerprint));
 }
 
 #ifndef WEBRTC_ANDROID
@@ -469,7 +469,7 @@ TEST_F(PeerConnectionUsageHistogramTest, NotableUsageNoted) {
        PeerConnection::UsageEvent::SET_LOCAL_DESCRIPTION_CALLED,
        PeerConnection::UsageEvent::CANDIDATE_COLLECTED,
        PeerConnection::UsageEvent::CLOSE_CALLED});
-  EXPECT_EQ(1, webrtc::metrics::NumSamples(kUsagePatternMetric));
+  EXPECT_EQ(1, webrtc::metrics_internal::NumSamples(kUsagePatternMetric));
   EXPECT_TRUE(expected_fingerprint == ObservedFingerprint() ||
               (expected_fingerprint |
                static_cast<int>(
@@ -487,9 +487,9 @@ TEST_F(PeerConnectionUsageHistogramTest, NotableUsageOnEventFiring) {
       {PeerConnection::UsageEvent::DATA_ADDED,
        PeerConnection::UsageEvent::SET_LOCAL_DESCRIPTION_CALLED,
        PeerConnection::UsageEvent::CANDIDATE_COLLECTED});
-  EXPECT_EQ(0, webrtc::metrics::NumSamples(kUsagePatternMetric));
+  EXPECT_EQ(0, webrtc::metrics_internal::NumSamples(kUsagePatternMetric));
   caller->GetInternalPeerConnection()->RequestUsagePatternReportForTesting();
-  EXPECT_EQ_WAIT(1, webrtc::metrics::NumSamples(kUsagePatternMetric),
+  EXPECT_EQ_WAIT(1, webrtc::metrics_internal::NumSamples(kUsagePatternMetric),
                  kDefaultTimeout);
   EXPECT_TRUE(expected_fingerprint == ObservedFingerprint() ||
               (expected_fingerprint |
@@ -510,12 +510,12 @@ TEST_F(PeerConnectionUsageHistogramTest,
        PeerConnection::UsageEvent::SET_LOCAL_DESCRIPTION_CALLED,
        PeerConnection::UsageEvent::CANDIDATE_COLLECTED,
        PeerConnection::UsageEvent::CLOSE_CALLED});
-  EXPECT_EQ(0, webrtc::metrics::NumSamples(kUsagePatternMetric));
+  EXPECT_EQ(0, webrtc::metrics_internal::NumSamples(kUsagePatternMetric));
   caller->pc()->Close();
-  EXPECT_EQ(1, webrtc::metrics::NumSamples(kUsagePatternMetric));
+  EXPECT_EQ(1, webrtc::metrics_internal::NumSamples(kUsagePatternMetric));
   caller->GetInternalPeerConnection()->RequestUsagePatternReportForTesting();
   caller->observer()->ClearInterestingUsageDetector();
-  EXPECT_EQ_WAIT(2, webrtc::metrics::NumSamples(kUsagePatternMetric),
+  EXPECT_EQ_WAIT(2, webrtc::metrics_internal::NumSamples(kUsagePatternMetric),
                  kDefaultTimeout);
   EXPECT_TRUE(expected_fingerprint == ObservedFingerprint() ||
               (expected_fingerprint |

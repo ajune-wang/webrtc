@@ -61,24 +61,25 @@ InterpolatedGainCurve::RegionLogger::RegionLogger(
     std::string limiter_histogram_name,
     std::string saturation_histogram_name)
     : identity_histogram(
-          metrics::HistogramFactoryGetCounts(identity_histogram_name,
-                                             1,
-                                             10000,
-                                             50)),
-      knee_histogram(metrics::HistogramFactoryGetCounts(knee_histogram_name,
-                                                        1,
-                                                        10000,
-                                                        50)),
+          metrics_internal::HistogramFactoryGetCounts(identity_histogram_name,
+                                                      1,
+                                                      10000,
+                                                      50)),
+      knee_histogram(
+          metrics_internal::HistogramFactoryGetCounts(knee_histogram_name,
+                                                      1,
+                                                      10000,
+                                                      50)),
       limiter_histogram(
-          metrics::HistogramFactoryGetCounts(limiter_histogram_name,
-                                             1,
-                                             10000,
-                                             50)),
+          metrics_internal::HistogramFactoryGetCounts(limiter_histogram_name,
+                                                      1,
+                                                      10000,
+                                                      50)),
       saturation_histogram(
-          metrics::HistogramFactoryGetCounts(saturation_histogram_name,
-                                             1,
-                                             10000,
-                                             50)) {}
+          metrics_internal::HistogramFactoryGetCounts(saturation_histogram_name,
+                                                      1,
+                                                      10000,
+                                                      50)) {}
 
 InterpolatedGainCurve::RegionLogger::~RegionLogger() = default;
 
@@ -91,25 +92,25 @@ void InterpolatedGainCurve::RegionLogger::LogRegionStats(
   switch (stats.region) {
     case Region::kIdentity: {
       if (identity_histogram) {
-        metrics::HistogramAdd(identity_histogram, duration_s);
+        metrics_internal::HistogramAdd(identity_histogram, duration_s);
       }
       break;
     }
     case Region::kKnee: {
       if (knee_histogram) {
-        metrics::HistogramAdd(knee_histogram, duration_s);
+        metrics_internal::HistogramAdd(knee_histogram, duration_s);
       }
       break;
     }
     case Region::kLimiter: {
       if (limiter_histogram) {
-        metrics::HistogramAdd(limiter_histogram, duration_s);
+        metrics_internal::HistogramAdd(limiter_histogram, duration_s);
       }
       break;
     }
     case Region::kSaturation: {
       if (saturation_histogram) {
-        metrics::HistogramAdd(saturation_histogram, duration_s);
+        metrics_internal::HistogramAdd(saturation_histogram, duration_s);
       }
       break;
     }

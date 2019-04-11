@@ -80,10 +80,10 @@ class InterpolatedGainCurve {
                            CheckApproximationParams);
 
   struct RegionLogger {
-    metrics::Histogram* identity_histogram;
-    metrics::Histogram* knee_histogram;
-    metrics::Histogram* limiter_histogram;
-    metrics::Histogram* saturation_histogram;
+    metrics_internal::Histogram* identity_histogram;
+    metrics_internal::Histogram* knee_histogram;
+    metrics_internal::Histogram* limiter_histogram;
+    metrics_internal::Histogram* saturation_histogram;
 
     RegionLogger(std::string identity_histogram_name,
                  std::string knee_histogram_name,

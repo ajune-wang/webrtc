@@ -106,7 +106,7 @@ TEST_F(SendDelayStatsTest, OldPacketsRemoved) {
 }
 
 TEST_F(SendDelayStatsTest, HistogramsAreUpdated) {
-  metrics::Reset();
+  metrics_internal::Reset();
   const int64_t kDelayMs1 = 5;
   const int64_t kDelayMs2 = 15;
   const int kNumSamples = kMinRequiredPeriodicSamples * kProcessIntervalMs /
@@ -123,9 +123,11 @@ TEST_F(SendDelayStatsTest, HistogramsAreUpdated) {
     EXPECT_TRUE(OnSentPacket(id));
   }
   stats_.reset();
-  EXPECT_EQ(2, metrics::NumSamples("WebRTC.Video.SendDelayInMs"));
-  EXPECT_EQ(1, metrics::NumEvents("WebRTC.Video.SendDelayInMs", kDelayMs1));
-  EXPECT_EQ(1, metrics::NumEvents("WebRTC.Video.SendDelayInMs", kDelayMs2));
+  EXPECT_EQ(2, metrics_internal::NumSamples("WebRTC.Video.SendDelayInMs"));
+  EXPECT_EQ(
+      1, metrics_internal::NumEvents("WebRTC.Video.SendDelayInMs", kDelayMs1));
+  EXPECT_EQ(
+      1, metrics_internal::NumEvents("WebRTC.Video.SendDelayInMs", kDelayMs2));
 }
 
 }  // namespace webrtc

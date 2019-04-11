@@ -96,7 +96,7 @@ macro for you.
 [field_trial_h]: https://webrtc.googlesource.com/src/+/master/system_wrappers/include/field_trial.h
 
 ## `WEBRTC_EXCLUDE_METRICS_DEFAULT`
-If you want to provide your own implementation of `webrtc::metrics` functions
+If you want to provide your own implementation of `webrtc::metrics_internal` functions
 (more info [here][metrics_h]) you will have to exclude WebRTC's default
 implementation.
 

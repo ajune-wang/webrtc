@@ -183,7 +183,7 @@ void CallPerfTest::TestAudioVideoSync(FecMode fec,
   std::unique_ptr<DriftingClock> drifting_clock;
 
   task_queue_.SendTask([&]() {
-    metrics::Reset();
+    metrics_internal::Reset();
     rtc::scoped_refptr<TestAudioDeviceModule> fake_audio_device =
         TestAudioDeviceModule::CreateTestAudioDeviceModule(
             TestAudioDeviceModule::CreatePulsedNoiseCapturer(256, 48000),
@@ -320,7 +320,7 @@ void CallPerfTest::TestAudioVideoSync(FecMode fec,
   if (!field_trial::IsEnabled("WebRTC-QuickPerfTest")) {
 // TODO(bugs.webrtc.org/10417): Reenable this for iOS
 #if !defined(WEBRTC_IOS)
-    EXPECT_EQ(1, metrics::NumSamples("WebRTC.Video.AVSyncOffsetInMs"));
+    EXPECT_EQ(1, metrics_internal::NumSamples("WebRTC.Video.AVSyncOffsetInMs"));
 #endif
   }
 }

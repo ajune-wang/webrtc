@@ -164,7 +164,7 @@ void ReceiveStatisticsProxy::UpdateHistograms() {
 
   if (first_report_block_time_ms_ != -1 &&
       ((clock_->TimeInMilliseconds() - first_report_block_time_ms_) / 1000) >=
-          metrics::kMinRunTimeInSeconds) {
+          metrics_internal::kMinRunTimeInSeconds) {
     int fraction_lost = report_block_stats_.FractionLostInPercent();
     if (fraction_lost != -1) {
       RTC_HISTOGRAM_PERCENTAGE("WebRTC.Video.ReceivedPacketsLostInPercent",
@@ -178,7 +178,7 @@ void ReceiveStatisticsProxy::UpdateHistograms() {
     const int64_t elapsed_ms =
         (clock_->TimeInMilliseconds() - *first_decoded_frame_time_ms_);
     if (elapsed_ms >=
-        metrics::kMinRunTimeInSeconds * rtc::kNumMillisecsPerSec) {
+        metrics_internal::kMinRunTimeInSeconds * rtc::kNumMillisecsPerSec) {
       RTC_HISTOGRAM_COUNTS_100(
           "WebRTC.Video.DecodedFramesPerSecond",
           static_cast<int>((stats_.frames_decoded * 1000.0f / elapsed_ms) +
@@ -378,7 +378,7 @@ void ReceiveStatisticsProxy::UpdateHistograms() {
       // Don't report these 3 metrics unsliced, as more precise variants
       // are reported separately in this method.
       float flow_duration_sec = stats.flow_duration_ms / 1000.0;
-      if (flow_duration_sec >= metrics::kMinRunTimeInSeconds) {
+      if (flow_duration_sec >= metrics_internal::kMinRunTimeInSeconds) {
         int media_bitrate_kbps = static_cast<int>(stats.total_media_bytes * 8 /
                                                   flow_duration_sec / 1000);
         RTC_HISTOGRAM_COUNTS_SPARSE_10000(
@@ -419,7 +419,7 @@ void ReceiveStatisticsProxy::UpdateHistograms() {
   rtp_rtx.Add(rtx);
   int64_t elapsed_sec =
       rtp_rtx.TimeSinceFirstPacketInMs(clock_->TimeInMilliseconds()) / 1000;
-  if (elapsed_sec >= metrics::kMinRunTimeInSeconds) {
+  if (elapsed_sec >= metrics_internal::kMinRunTimeInSeconds) {
     RTC_HISTOGRAM_COUNTS_10000(
         "WebRTC.Video.BitrateReceivedInKbps",
         static_cast<int>(rtp_rtx.transmitted.TotalBytes() * 8 / elapsed_sec /

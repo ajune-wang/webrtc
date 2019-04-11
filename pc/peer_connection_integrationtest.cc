@@ -1136,7 +1136,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
     worker_thread_->SetName("PCWorkerThread", this);
     RTC_CHECK(network_thread_->Start());
     RTC_CHECK(worker_thread_->Start());
-    webrtc::metrics::Reset();
+    webrtc::metrics_internal::Reset();
   }
 
   ~PeerConnectionIntegrationBaseTest() {
@@ -1576,7 +1576,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
     EXPECT_EQ_WAIT(rtc::SrtpCryptoSuiteToName(expected_cipher_suite),
                    caller()->OldGetStats()->SrtpCipher(), kDefaultTimeout);
     // TODO(bugs.webrtc.org/9456): Fix it.
-    EXPECT_EQ(1, webrtc::metrics::NumEvents(
+    EXPECT_EQ(1, webrtc::metrics_internal::NumEvents(
                      "WebRTC.PeerConnection.SrtpCryptoSuite.Audio",
                      expected_cipher_suite));
   }
@@ -1757,10 +1757,12 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithDtls) {
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
-  EXPECT_LE(2, webrtc::metrics::NumEvents("WebRTC.PeerConnection.KeyProtocol",
-                                          webrtc::kEnumCounterKeyProtocolDtls));
-  EXPECT_EQ(0, webrtc::metrics::NumEvents("WebRTC.PeerConnection.KeyProtocol",
-                                          webrtc::kEnumCounterKeyProtocolSdes));
+  EXPECT_LE(2, webrtc::metrics_internal::NumEvents(
+                   "WebRTC.PeerConnection.KeyProtocol",
+                   webrtc::kEnumCounterKeyProtocolDtls));
+  EXPECT_EQ(0, webrtc::metrics_internal::NumEvents(
+                   "WebRTC.PeerConnection.KeyProtocol",
+                   webrtc::kEnumCounterKeyProtocolSdes));
 }
 
 // Uses SDES instead of DTLS for key agreement.
@@ -1779,10 +1781,12 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithSdes) {
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
-  EXPECT_LE(2, webrtc::metrics::NumEvents("WebRTC.PeerConnection.KeyProtocol",
-                                          webrtc::kEnumCounterKeyProtocolSdes));
-  EXPECT_EQ(0, webrtc::metrics::NumEvents("WebRTC.PeerConnection.KeyProtocol",
-                                          webrtc::kEnumCounterKeyProtocolDtls));
+  EXPECT_LE(2, webrtc::metrics_internal::NumEvents(
+                   "WebRTC.PeerConnection.KeyProtocol",
+                   webrtc::kEnumCounterKeyProtocolSdes));
+  EXPECT_EQ(0, webrtc::metrics_internal::NumEvents(
+                   "WebRTC.PeerConnection.KeyProtocol",
+                   webrtc::kEnumCounterKeyProtocolDtls));
 }
 
 // Tests that the GetRemoteAudioSSLCertificate method returns the remote DTLS
@@ -2912,7 +2916,7 @@ TEST_P(PeerConnectionIntegrationTest, Dtls10CipherStatsAndUmaMetrics) {
   EXPECT_EQ_WAIT(rtc::SrtpCryptoSuiteToName(kDefaultSrtpCryptoSuite),
                  caller()->OldGetStats()->SrtpCipher(), kDefaultTimeout);
   // TODO(bugs.webrtc.org/9456): Fix it.
-  EXPECT_EQ(1, webrtc::metrics::NumEvents(
+  EXPECT_EQ(1, webrtc::metrics_internal::NumEvents(
                    "WebRTC.PeerConnection.SrtpCryptoSuite.Audio",
                    kDefaultSrtpCryptoSuite));
 }
@@ -2934,7 +2938,7 @@ TEST_P(PeerConnectionIntegrationTest, Dtls12CipherStatsAndUmaMetrics) {
   EXPECT_EQ_WAIT(rtc::SrtpCryptoSuiteToName(kDefaultSrtpCryptoSuite),
                  caller()->OldGetStats()->SrtpCipher(), kDefaultTimeout);
   // TODO(bugs.webrtc.org/9456): Fix it.
-  EXPECT_EQ(1, webrtc::metrics::NumEvents(
+  EXPECT_EQ(1, webrtc::metrics_internal::NumEvents(
                    "WebRTC.PeerConnection.SrtpCryptoSuite.Audio",
                    kDefaultSrtpCryptoSuite));
 }
@@ -3833,7 +3837,7 @@ TEST_P(PeerConnectionIntegrationTest,
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
                  callee()->ice_connection_state(), kDefaultTimeout);
 
-  EXPECT_EQ(1, webrtc::metrics::NumEvents(
+  EXPECT_EQ(1, webrtc::metrics_internal::NumEvents(
                    "WebRTC.PeerConnection.CandidatePairType_UDP",
                    webrtc::kIceCandidatePairHostNameHostName));
 }
@@ -4060,9 +4064,9 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyBestConnection) {
   ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
 
   // TODO(bugs.webrtc.org/9456): Fix it.
-  const int num_best_ipv4 = webrtc::metrics::NumEvents(
+  const int num_best_ipv4 = webrtc::metrics_internal::NumEvents(
       "WebRTC.PeerConnection.IPMetrics", webrtc::kBestConnections_IPv4);
-  const int num_best_ipv6 = webrtc::metrics::NumEvents(
+  const int num_best_ipv6 = webrtc::metrics_internal::NumEvents(
       "WebRTC.PeerConnection.IPMetrics", webrtc::kBestConnections_IPv6);
   if (TestIPv6()) {
     // When IPv6 is enabled, we should prefer an IPv6 connection over an IPv4
@@ -4074,10 +4078,10 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyBestConnection) {
     EXPECT_EQ(0, num_best_ipv6);
   }
 
-  EXPECT_EQ(0, webrtc::metrics::NumEvents(
+  EXPECT_EQ(0, webrtc::metrics_internal::NumEvents(
                    "WebRTC.PeerConnection.CandidatePairType_UDP",
                    webrtc::kIceCandidatePairHostHost));
-  EXPECT_EQ(1, webrtc::metrics::NumEvents(
+  EXPECT_EQ(1, webrtc::metrics_internal::NumEvents(
                    "WebRTC.PeerConnection.CandidatePairType_UDP",
                    webrtc::kIceCandidatePairHostPublicHostPublic));
 }

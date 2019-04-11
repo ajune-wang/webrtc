@@ -60,16 +60,14 @@ class SimulatedTimeControllerImpl : public TaskQueueFactory,
   void Unregister(SimulatedSequenceRunner* runner);
 
  private:
-  // Returns runners in |runners_| that are ready for execution.
-  std::vector<SimulatedSequenceRunner*> GetNextReadyRunner(
-      Timestamp current_time) RTC_RUN_ON(thread_checker_);
-
   const rtc::PlatformThreadId thread_id_;
   rtc::ThreadChecker thread_checker_;
   rtc::CriticalSection time_lock_;
   Timestamp current_time_ RTC_GUARDED_BY(time_lock_);
   rtc::CriticalSection lock_;
   std::vector<SimulatedSequenceRunner*> runners_ RTC_GUARDED_BY(lock_);
+  std::list<SimulatedSequenceRunner*> ready_runners_ RTC_GUARDED_BY(lock_);
+
   // Task queues on which YieldExecution has been called.
   std::unordered_set<TaskQueueBase*> yielded_ RTC_GUARDED_BY(thread_checker_);
 };

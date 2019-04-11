@@ -37,6 +37,10 @@ class AimdRateControl {
   bool ValidEstimate() const;
   void SetStartBitrate(DataRate start_bitrate);
   void SetMinBitrate(DataRate min_bitrate);
+  // Above |bitrate|, the estimate will not be allowed to increase even if no
+  // over-use is detected. However, a call to SetEstimate can still set a higher
+  // value.
+  void SetIncreaseLimit(DataRate bitrate);
   TimeDelta GetFeedbackInterval() const;
 
   // Returns true if the bitrate estimate hasn't been changed for more than
@@ -83,7 +87,7 @@ class AimdRateControl {
   void ChangeState(const RateControlInput& input, Timestamp at_time);
 
   DataRate min_configured_bitrate_;
-  DataRate max_configured_bitrate_;
+  DataRate increase_limit_;
   DataRate current_bitrate_;
   DataRate latest_estimated_throughput_;
   LinkCapacityEstimator link_capacity_;

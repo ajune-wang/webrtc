@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "639f8400_7889c1cb",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 6043
+      },
+      "writtenOn": "2019-04-11T20:40:50Z",
+      "side": 1,
+      "message": "(!settings.use_pre_amplifier || !(*settings.use_pre_amplifier)) \u0026\u0026\n          settings.pre_amplifier_gain_factor.has_value(),",
+      "revId": "b1f3357ff7251e7190d2aa717f38ebbf4816870a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

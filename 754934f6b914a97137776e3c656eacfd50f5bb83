@@ -196,6 +196,24 @@
     },
     {
       "key": {
+        "uuid": "61ae0b50_d426cf15",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-11T11:18:51Z",
+      "side": 1,
+      "message": "No noticeable difference in hand-made micro-benchmarks.\nThis would be another issue in there were only min/max in a loaded parallel context (in that case since update shouldn\u0027t be frequent, we would avoid unconditional store which invalidate cache).",
+      "parentUuid": "0008fb4c_7ead089e",
+      "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6284cafb_af29d868",
         "filename": "rtc_base/numerics/running_statistics.h",
         "patchSetId": 7

@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1d92fc8_a5564ea3",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-11T15:06:37Z",
+      "side": 1,
+      "message": "Unused?",
+      "range": {
+        "startLine": 344,
+        "startChar": 0,
+        "endLine": 344,
+        "endChar": 48
+      },
+      "revId": "919d5b6e5975e7bdfb6bc067a87bd0f1c41a65ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a16af6a_962f2d91",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-11T15:06:37Z",
+      "side": 1,
+      "message": "Add an RTC_DCHECK(ready_runners_.empty()) before this loop?",
+      "range": {
+        "startLine": 345,
+        "startChar": 0,
+        "endLine": 345,
+        "endChar": 35
+      },
+      "revId": "919d5b6e5975e7bdfb6bc067a87bd0f1c41a65ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fecc685_22abcfa8",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-11T15:06:37Z",
+      "side": 1,
+      "message": "Do really do runners one at a time, shouldn\u0027t you release the lock and do this loop like\n\n  while (true) {\n    rtc::CritScope lock(\u0026lock_);\n    if (ready_runners_.empty())\n      return;\n    auto* runner \u003d ready_runners_.front();\n    ...\n  }",
+      "range": {
+        "startLine": 351,
+        "startChar": 0,
+        "endLine": 358,
+        "endChar": 5
+      },
+      "revId": "919d5b6e5975e7bdfb6bc067a87bd0f1c41a65ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00429b96_8f61df30",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-11T15:06:37Z",
+      "side": 1,
+      "message": "I think you really need a recursive lock behavior, in one way or the other. In the case that the call chain leading here is RunReadyRunners --\u003e Run --\u003e taskqueue destroy --\u003e Unregister, the lock will already be locked. But we should nevertheless go ahead with removing the element from ready_runners_, and this is safe because RunReadyRunners doesn\u0027t depend on any pointers or iterators surviving over its call to Run (which deserves a comment at that call site).\n\nMaybe you should have separate locks for |runners_| and |ready_runners_|, but not obvious what\u0027s the right locking order is.",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 390,
+        "endChar": 40
+      },
+      "revId": "919d5b6e5975e7bdfb6bc067a87bd0f1c41a65ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58bf3b64_8e36ec56",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-11T15:06:37Z",
+      "side": 1,
+      "message": "Comment on the purpose of this member. As I understand it, it can be non-empty only during RunReadyRunners, and it\u0027s needed for synchronization with Unregister.",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 75
+      },
+      "revId": "919d5b6e5975e7bdfb6bc067a87bd0f1c41a65ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

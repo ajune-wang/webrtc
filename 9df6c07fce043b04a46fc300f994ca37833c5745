@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6c3a461_4f4720c1",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-11T15:00:58Z",
+      "side": 1,
+      "message": "I think you need something like:\n\n  config(\"event_log_visualizer_utils_cflags\") {\n    cflags \u003d [ \"-Wno-global-constructors\" ]\n  }\n\nAnd then, inside \"event_log_visualizer_utils\":\n\n  configs +\u003d [ \":event_log_visualizer_utils_cflags\" ]\n\n(https://gn.googlesource.com/gn/+/master/docs/reference.md#variables-you-set-in-targets-cflags_flags-passed-to-the-c-compiler-ordering-of-flags-and-values-1)",
+      "range": {
+        "startLine": 285,
+        "startChar": 6,
+        "endLine": 286,
+        "endChar": 45
+      },
+      "revId": "9df6c07fce043b04a46fc300f994ca37833c5745",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "966bb2a8_3d995466",
+        "filename": "rtc_tools/event_log_visualizer/plot_python.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-11T15:00:58Z",
+      "side": 1,
+      "message": "I suggest we avoid this global state but we pass a parameter to PythonPlotCollection::Draw.\n\nThis way you can keep the flag in the tool (and pass the value here: https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_tools/event_log_visualizer/main.cc?l\u003d534\u0026rcl\u003d21f6fd79ad058fc7f33f989eec67a60c77157fea). The library itself can be configured in multiple ways, the flag is a choice you are doing in the executable (I guess).",
+      "range": {
+        "startLine": 180,
+        "startChar": 8,
+        "endLine": 180,
+        "endChar": 24
+      },
+      "revId": "9df6c07fce043b04a46fc300f994ca37833c5745",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

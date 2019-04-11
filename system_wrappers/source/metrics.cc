@@ -18,7 +18,7 @@
 // want to provide their own implementation.
 
 namespace webrtc {
-namespace metrics {
+namespace metrics_internal {
 class Histogram;
 
 namespace {
@@ -323,5 +323,5 @@ std::map<int, int> Samples(const std::string& name) {
   return map ? map->Samples(name) : std::map<int, int>();
 }
 
-}  // namespace metrics
+}  // namespace metrics_internal
 }  // namespace webrtc

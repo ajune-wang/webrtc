@@ -41,12 +41,12 @@
 //    WEBRTC_EXCLUDE_METRICS_DEFAULT (if GN is used this can be achieved
 //    by setting the GN arg rtc_exclude_metrics_default to true).
 // 2. Provide implementations of:
-//    Histogram* webrtc::metrics::HistogramFactoryGetCounts(
+//    Histogram* webrtc::metrics_internal::HistogramFactoryGetCounts(
 //        const std::string& name, int sample, int min, int max,
 //        int bucket_count);
-//    Histogram* webrtc::metrics::HistogramFactoryGetEnumeration(
+//    Histogram* webrtc::metrics_internal::HistogramFactoryGetEnumeration(
 //        const std::string& name, int sample, int boundary);
-//    void webrtc::metrics::HistogramAdd(
+//    void webrtc::metrics_internal::HistogramAdd(
 //        Histogram* histogram_pointer, const std::string& name, int sample);
 //
 // Example usage:
@@ -85,15 +85,17 @@
 #define RTC_HISTOGRAM_COUNTS_100000(name, sample) \
   RTC_HISTOGRAM_COUNTS(name, sample, 1, 100000, 50)
 
-#define RTC_HISTOGRAM_COUNTS(name, sample, min, max, bucket_count)       \
-  RTC_HISTOGRAM_COMMON_BLOCK(name, sample,                               \
-                             webrtc::metrics::HistogramFactoryGetCounts( \
-                                 name, min, max, bucket_count))
+#define RTC_HISTOGRAM_COUNTS(name, sample, min, max, bucket_count)        \
+  RTC_HISTOGRAM_COMMON_BLOCK(                                             \
+      name, sample,                                                       \
+      webrtc::metrics_internal::HistogramFactoryGetCounts(name, min, max, \
+                                                          bucket_count))
 
-#define RTC_HISTOGRAM_COUNTS_LINEAR(name, sample, min, max, bucket_count)      \
-  RTC_HISTOGRAM_COMMON_BLOCK(name, sample,                                     \
-                             webrtc::metrics::HistogramFactoryGetCountsLinear( \
-                                 name, min, max, bucket_count))
+#define RTC_HISTOGRAM_COUNTS_LINEAR(name, sample, min, max, bucket_count) \
+  RTC_HISTOGRAM_COMMON_BLOCK(                                             \
+      name, sample,                                                       \
+      webrtc::metrics_internal::HistogramFactoryGetCountsLinear(          \
+          name, min, max, bucket_count))
 
 // Slow metrics: pointer to metric is acquired at each call and is not cached.
 //
@@ -115,10 +117,11 @@
 #define RTC_HISTOGRAM_COUNTS_SPARSE_100000(name, sample) \
   RTC_HISTOGRAM_COUNTS_SPARSE(name, sample, 1, 100000, 50)
 
-#define RTC_HISTOGRAM_COUNTS_SPARSE(name, sample, min, max, bucket_count)     \
-  RTC_HISTOGRAM_COMMON_BLOCK_SLOW(name, sample,                               \
-                                  webrtc::metrics::HistogramFactoryGetCounts( \
-                                      name, min, max, bucket_count))
+#define RTC_HISTOGRAM_COUNTS_SPARSE(name, sample, min, max, bucket_count) \
+  RTC_HISTOGRAM_COMMON_BLOCK_SLOW(                                        \
+      name, sample,                                                       \
+      webrtc::metrics_internal::HistogramFactoryGetCounts(name, min, max, \
+                                                          bucket_count))
 
 // Histogram for percentage (evenly spaced buckets).
 #define RTC_HISTOGRAM_PERCENTAGE_SPARSE(name, sample) \
@@ -133,10 +136,11 @@
 //
 // TODO(qingsi): Refactor the default implementation given by RtcHistogram,
 // which is already sparse, and remove the boundary argument from the macro.
-#define RTC_HISTOGRAM_ENUMERATION_SPARSE(name, sample, boundary) \
-  RTC_HISTOGRAM_COMMON_BLOCK_SLOW(                               \
-      name, sample,                                              \
-      webrtc::metrics::SparseHistogramFactoryGetEnumeration(name, boundary))
+#define RTC_HISTOGRAM_ENUMERATION_SPARSE(name, sample, boundary)      \
+  RTC_HISTOGRAM_COMMON_BLOCK_SLOW(                                    \
+      name, sample,                                                   \
+      webrtc::metrics_internal::SparseHistogramFactoryGetEnumeration( \
+          name, boundary))
 
 // Histogram for percentage (evenly spaced buckets).
 #define RTC_HISTOGRAM_PERCENTAGE(name, sample) \
@@ -148,31 +152,33 @@
 
 // Histogram for enumerators (evenly spaced buckets).
 // |boundary| should be above the max enumerator sample.
-#define RTC_HISTOGRAM_ENUMERATION(name, sample, boundary) \
-  RTC_HISTOGRAM_COMMON_BLOCK_SLOW(                        \
-      name, sample,                                       \
-      webrtc::metrics::HistogramFactoryGetEnumeration(name, boundary))
+#define RTC_HISTOGRAM_ENUMERATION(name, sample, boundary)            \
+  RTC_HISTOGRAM_COMMON_BLOCK_SLOW(                                   \
+      name, sample,                                                  \
+      webrtc::metrics_internal::HistogramFactoryGetEnumeration(name, \
+                                                               boundary))
 
 // The name of the histogram should not vary.
 // TODO(asapersson): Consider changing string to const char*.
 #define RTC_HISTOGRAM_COMMON_BLOCK(constant_name, sample,                  \
                                    factory_get_invocation)                 \
   do {                                                                     \
-    static webrtc::metrics::Histogram* atomic_histogram_pointer = nullptr; \
-    webrtc::metrics::Histogram* histogram_pointer =                        \
+    static webrtc::metrics_internal::Histogram* atomic_histogram_pointer = \
+        nullptr;                                                           \
+    webrtc::metrics_internal::Histogram* histogram_pointer =               \
         rtc::AtomicOps::AcquireLoadPtr(&atomic_histogram_pointer);         \
     if (!histogram_pointer) {                                              \
       histogram_pointer = factory_get_invocation;                          \
-      webrtc::metrics::Histogram* prev_pointer =                           \
+      webrtc::metrics_internal::Histogram* prev_pointer =                  \
           rtc::AtomicOps::CompareAndSwapPtr(                               \
               &atomic_histogram_pointer,                                   \
-              static_cast<webrtc::metrics::Histogram*>(nullptr),           \
+              static_cast<webrtc::metrics_internal::Histogram*>(nullptr),  \
               histogram_pointer);                                          \
       RTC_DCHECK(prev_pointer == nullptr ||                                \
                  prev_pointer == histogram_pointer);                       \
     }                                                                      \
     if (histogram_pointer) {                                               \
-      webrtc::metrics::HistogramAdd(histogram_pointer, sample);            \
+      webrtc::metrics_internal::HistogramAdd(histogram_pointer, sample);   \
     }                                                                      \
   } while (0)
 
@@ -180,9 +186,10 @@
 // May be used for histograms with infrequent updates.`
 #define RTC_HISTOGRAM_COMMON_BLOCK_SLOW(name, sample, factory_get_invocation) \
   do {                                                                        \
-    webrtc::metrics::Histogram* histogram_pointer = factory_get_invocation;   \
+    webrtc::metrics_internal::Histogram* histogram_pointer =                  \
+        factory_get_invocation;                                               \
     if (histogram_pointer) {                                                  \
-      webrtc::metrics::HistogramAdd(histogram_pointer, sample);               \
+      webrtc::metrics_internal::HistogramAdd(histogram_pointer, sample);      \
     }                                                                         \
   } while (0)
 
@@ -241,7 +248,7 @@
   } while (0)
 
 namespace webrtc {
-namespace metrics {
+namespace metrics_internal {
 
 // Time that should have elapsed for stats that are gathered once per call.
 enum { kMinRunTimeInSeconds = 10 };
@@ -313,7 +320,7 @@ int MinSample(const std::string& name);
 // number of events for that sample.
 std::map<int, int> Samples(const std::string& name);
 
-}  // namespace metrics
+}  // namespace metrics_internal
 }  // namespace webrtc
 
 #endif  // SYSTEM_WRAPPERS_INCLUDE_METRICS_H_

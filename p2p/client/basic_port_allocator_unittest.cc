@@ -178,7 +178,7 @@ class BasicPortAllocatorTestBase : public ::testing::Test,
                                             kRelaySslTcpIntAddr));
     allocator_->Initialize();
     allocator_->set_step_delay(kMinimumStepDelay);
-    webrtc::metrics::Reset();
+    webrtc::metrics_internal::Reset();
   }
 
   void AddInterface(const SocketAddress& addr) {
@@ -2239,7 +2239,7 @@ TEST_F(BasicPortAllocatorTest, IceRegatheringMetricsLoggedWhenNetworkChanges) {
   AddInterface(kClientAddr2, "test_net1");
   EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_,
                              kDefaultAllocationTimeout, fake_clock);
-  EXPECT_EQ(1, webrtc::metrics::NumEvents(
+  EXPECT_EQ(1, webrtc::metrics_internal::NumEvents(
                    "WebRTC.PeerConnection.IceRegatheringReason",
                    static_cast<int>(IceRegatheringReason::NETWORK_CHANGE)));
 }

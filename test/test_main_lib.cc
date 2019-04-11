@@ -114,7 +114,7 @@ class TestMainImpl : public TestMain {
     // InitFieldTrialsFromString stores the char*, so the char array must
     // outlive the application.
     webrtc::field_trial::InitFieldTrialsFromString(FLAG_force_fieldtrials);
-    webrtc::metrics::Enable();
+    webrtc::metrics_internal::Enable();
 
 #if defined(WEBRTC_WIN)
     winsock_init_ = absl::make_unique<rtc::WinsockInitializer>();

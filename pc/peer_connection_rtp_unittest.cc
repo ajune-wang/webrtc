@@ -102,7 +102,7 @@ class PeerConnectionRtpBaseTest : public ::testing::Test {
                                         CreateBuiltinVideoDecoderFactory(),
                                         nullptr /* audio_mixer */,
                                         nullptr /* audio_processing */)) {
-    webrtc::metrics::Reset();
+    webrtc::metrics_internal::Reset();
   }
 
   std::unique_ptr<PeerConnectionWrapper> CreatePeerConnection() {

@@ -198,7 +198,7 @@ class PeerConnectionSimulcastMetricsTests
     : public PeerConnectionSimulcastTests,
       public ::testing::WithParamInterface<int> {
  protected:
-  PeerConnectionSimulcastMetricsTests() { webrtc::metrics::Reset(); }
+  PeerConnectionSimulcastMetricsTests() { webrtc::metrics_internal::Reset(); }
 
   std::map<int, int> LocalDescriptionSamples() {
     return metrics::Samples(

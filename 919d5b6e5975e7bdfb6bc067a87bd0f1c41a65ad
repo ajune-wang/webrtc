@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ad326164_399a543b",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-11T15:48:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a1d92fc8_a5564ea3",
+      "range": {
+        "startLine": 344,
+        "startChar": 0,
+        "endLine": 344,
+        "endChar": 48
+      },
+      "revId": "919d5b6e5975e7bdfb6bc067a87bd0f1c41a65ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a16af6a_962f2d91",
         "filename": "test/time_controller/simulated_time_controller.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "919d5b6e5975e7bdfb6bc067a87bd0f1c41a65ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d27f9963_610da591",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-11T15:48:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a16af6a_962f2d91",
+      "range": {
+        "startLine": 345,
+        "startChar": 0,
+        "endLine": 345,
+        "endChar": 35
+      },
+      "revId": "919d5b6e5975e7bdfb6bc067a87bd0f1c41a65ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f26328e7_0292c386",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-11T15:48:04Z",
+      "side": 1,
+      "message": "The lock only stops other threads from interfering, so I think it\u0027s reasonable to require them to wait until all ready runners have run at least once.",
+      "parentUuid": "7fecc685_22abcfa8",
+      "range": {
+        "startLine": 351,
+        "startChar": 0,
+        "endLine": 358,
+        "endChar": 5
+      },
+      "revId": "919d5b6e5975e7bdfb6bc067a87bd0f1c41a65ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00429b96_8f61df30",
         "filename": "test/time_controller/simulated_time_controller.cc",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "73e8067c_7b15be09",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-11T15:48:04Z",
+      "side": 1,
+      "message": "Added comment at other call site, CriticalSection allows recursive locking, so we don\u0027t need to to anything special here.",
+      "parentUuid": "00429b96_8f61df30",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 390,
+        "endChar": 40
+      },
+      "revId": "919d5b6e5975e7bdfb6bc067a87bd0f1c41a65ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58bf3b64_8e36ec56",
         "filename": "test/time_controller/simulated_time_controller.h",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "919d5b6e5975e7bdfb6bc067a87bd0f1c41a65ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30ac5380_d3833a0c",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-11T15:48:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58bf3b64_8e36ec56",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 75
+      },
+      "revId": "919d5b6e5975e7bdfb6bc067a87bd0f1c41a65ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

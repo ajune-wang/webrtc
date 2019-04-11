@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "e856046f_db08b0de",
+        "filename": "rtc_base/numerics/math_utils.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-11T09:15:57Z",
+      "side": 1,
+      "message": "Style guide says to use CamelCase. But OK.",
+      "parentUuid": "f7093bef_5bb5a16b",
+      "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "628cc139_f56aa636",
         "filename": "rtc_base/numerics/math_utils.h",
         "patchSetId": 7
@@ -101,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "94fb1e2b_1ed8b852",
+        "filename": "rtc_base/numerics/math_utils.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-11T09:15:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e16d5799_580e7209",
+      "range": {
+        "startLine": 63,
+        "startChar": 16,
+        "endLine": 64,
+        "endChar": 29
+      },
+      "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "576ec2b5_d5d821b1",
         "filename": "rtc_base/numerics/running_statistics.h",
         "patchSetId": 7
@@ -130,6 +172,24 @@
       "side": 1,
       "message": "That\u0027s an hotter spot here. But I guess it doesn\u0027t change anything (neighbor fields being updated anyway), so let\u0027s go for consistency.",
       "parentUuid": "576ec2b5_d5d821b1",
+      "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0008fb4c_7ead089e",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-11T09:15:57Z",
+      "side": 1,
+      "message": "Huh, you\u0027re right. I just tried this on godbolt.org, and the explicit comparison gives a conditional branch past a store, while std::max gives a conditional move and an unconditional store. On both gcc and clang, and both x86_64 and arm64.\n\nBut we\u0027d need to benchmark it to know which one is faster, of course...",
+      "parentUuid": "ad0fb1a3_32fc4746",
       "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -212,6 +272,24 @@
       "side": 1,
       "message": "Should I derive the calculation in the comment?",
       "parentUuid": "7809f60a_4703d1e3",
+      "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "91781a0a_baed5091",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-11T09:15:57Z",
+      "side": 1,
+      "message": "Yes please---if it can be done in a way that\u0027s readable without being overly long.",
+      "parentUuid": "2891851a_24fa8736",
       "revId": "754934f6b914a97137776e3c656eacfd50f5bb83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

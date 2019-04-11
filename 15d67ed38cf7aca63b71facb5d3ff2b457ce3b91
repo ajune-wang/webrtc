@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2a816e9c_e68123b4",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5066,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-04-11T21:01:46Z",
+      "side": 1,
+      "message": "I have a couple of different tests in the p2p unit tests. PTAL and let me know if they look well.",
+      "parentUuid": "9eea2a0f_5873aeff",
+      "range": {
+        "startLine": 5066,
+        "startChar": 38,
+        "endLine": 5066,
+        "endChar": 75
+      },
+      "revId": "15d67ed38cf7aca63b71facb5d3ff2b457ce3b91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a00c6d6a_68d6cfd2",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-11T20:40:47Z",
       "side": 1,
       "message": "I think this is fine, but is it necessary to check that the candidate pair changed?\n\nAt the PeerConnection level don\u0027t we just want to check that we have gathered more candidates?",
+      "range": {
+        "startLine": 5131,
+        "startChar": 0,
+        "endLine": 5131,
+        "endChar": 52
+      },
+      "revId": "15d67ed38cf7aca63b71facb5d3ff2b457ce3b91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bb9c466_9d2360ad",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5131,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-04-11T21:01:46Z",
+      "side": 1,
+      "message": "Good point. If checking the candidate signal is sufficient, I could just add something to the observer instead of the mock stats. Let me give it a try.",
+      "parentUuid": "a00c6d6a_68d6cfd2",
       "range": {
         "startLine": 5131,
         "startChar": 0,

@@ -28,6 +28,7 @@ namespace test {
 namespace {
 
 constexpr int kNetworkPacketWaitTimeoutMs = 100;
+constexpr int kStatsWaitTimeoutMs = 100;
 
 class SocketReader : public sigslot::has_slots<> {
  public:
@@ -195,6 +196,7 @@ TEST(NetworkEmulationManagerTest, Run) {
   EmulatedNetworkManagerInterface* nt2 =
       network_manager.CreateEmulatedNetworkManagerInterface({bob_endpoint});
 
+  rtc::CopyOnWriteBuffer data("Hello");
   for (uint64_t j = 0; j < 2; j++) {
     auto* s1 = nt1->network_thread()->socketserver()->CreateAsyncSocket(
         AF_INET, SOCK_DGRAM);
@@ -213,7 +215,6 @@ TEST(NetworkEmulationManagerTest, Run) {
     s1->Connect(s2->GetLocalAddress());
     s2->Connect(s1->GetLocalAddress());
 
-    rtc::CopyOnWriteBuffer data("Hello");
     for (uint64_t i = 0; i < 1000; i++) {
       s1->Send(data.data(), data.size());
       s2->Send(data.data(), data.size());
@@ -221,12 +222,34 @@ TEST(NetworkEmulationManagerTest, Run) {
 
     rtc::Event wait;
     wait.Wait(1000);
-    ASSERT_EQ(r1.ReceivedCount(), 1000);
-    ASSERT_EQ(r2.ReceivedCount(), 1000);
+    EXPECT_EQ(r1.ReceivedCount(), 1000);
+    EXPECT_EQ(r2.ReceivedCount(), 1000);
 
     delete s1;
     delete s2;
   }
+
+  int64_t single_packet_size = data.size();
+  std::atomic<int> received_stats_count{0};
+  nt1->GetStats([&](EmulatedNetworkStats st) {
+    EXPECT_EQ(st.packets_sent, 2000l);
+    EXPECT_EQ(st.bytes_sent.bytes(), single_packet_size * 2000l);
+    EXPECT_EQ(st.packets_received, 2000l);
+    EXPECT_EQ(st.bytes_received.bytes(), single_packet_size * 2000l);
+    EXPECT_EQ(st.packets_dropped, 0l);
+    EXPECT_EQ(st.bytes_dropped.bytes(), 0l);
+    received_stats_count++;
+  });
+  nt2->GetStats([&](EmulatedNetworkStats st) {
+    EXPECT_EQ(st.packets_sent, 2000l);
+    EXPECT_EQ(st.bytes_sent.bytes(), single_packet_size * 2000l);
+    EXPECT_EQ(st.packets_received, 2000l);
+    EXPECT_EQ(st.bytes_received.bytes(), single_packet_size * 2000l);
+    EXPECT_EQ(st.packets_dropped, 0l);
+    EXPECT_EQ(st.bytes_dropped.bytes(), 0l);
+    received_stats_count++;
+  });
+  ASSERT_EQ_WAIT(received_stats_count.load(), 2, kStatsWaitTimeoutMs);
 }
 
 // Testing that packets are delivered via all routes using a routing scheme as

@@ -276,4 +276,26 @@ TEST(AimdRateControlTest, SendingRateBoundedWhenThroughputNotEstimated) {
             kInitialBitrateBps * 1.5 + 10000);
 }
 
+TEST(AimdRateControlTest, SendingRateIncreaseBoundedByLimit) {
+  auto states = CreateAimdRateControlStates();
+  constexpr int kInitialBitrateBps = 100000;
+  const DataRate kLimitedBitrate = DataRate::bps(2 * kInitialBitrateBps);
+  UpdateRateControl(states, BandwidthUsage::kBwNormal, kInitialBitrateBps,
+                    states.simulated_clock->TimeInMilliseconds());
+  constexpr int kInitializationTimeMs = 5000;
+  states.simulated_clock->AdvanceTimeMilliseconds(kInitializationTimeMs + 1);
+  UpdateRateControl(states, BandwidthUsage::kBwNormal, kInitialBitrateBps,
+                    states.simulated_clock->TimeInMilliseconds());
+  states.aimd_rate_control->SetIncreaseLimit(kLimitedBitrate);
+
+  for (int i = 0; i < 100; ++i) {
+    UpdateRateControl(states, BandwidthUsage::kBwNormal,
+                      states.aimd_rate_control->LatestEstimate().bps(),
+                      states.simulated_clock->TimeInMilliseconds());
+    states.simulated_clock->AdvanceTimeMilliseconds(100);
+  }
+  EXPECT_EQ(states.aimd_rate_control->LatestEstimate().kbps(),
+            kLimitedBitrate.kbps());
+}
+
 }  // namespace webrtc

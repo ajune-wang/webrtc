@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe8a0090_c195076b",
+        "filename": "rtc_base/numerics/math_utils.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-11T11:49:18Z",
+      "side": 0,
+      "message": "This was transitively used, but I see your point and I agree we should not define this.\n\nOn the other hand this is also brittle:\nhttps://cs.chromium.org/search/?q\u003d_USE_MATH_DEFINES+f:webrtc\u0026sq\u003dpackage:chromium\u0026type\u003dcs\n\nThe best thing would probably be to define at build system level: https://cs.chromium.org/chromium/src/third_party/pffft/BUILD.gn?l\u003d12\u0026rcl\u003d24408b586ababa6c7b548b1141281839461e02dc.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 6
+      },
+      "revId": "40f131ace0bba8bd5af45f20f1a2fdd71f344f80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -299,6 +299,10 @@ void DelayBasedBwe::SetMinBitrate(DataRate min_bitrate) {
   rate_control_.SetMinBitrate(min_bitrate);
 }
 
+void DelayBasedBwe::SetIncreaseLimit(DataRate bitrate) {
+  rate_control_.SetIncreaseLimit(bitrate);
+}
+
 TimeDelta DelayBasedBwe::GetExpectedBwePeriod() const {
   return rate_control_.GetExpectedBandwidthPeriod();
 }

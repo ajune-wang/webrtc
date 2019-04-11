@@ -305,7 +305,10 @@ NetworkControlUpdate GoogCcNetworkController::OnStreamsConfig(
     max_padding_rate_ = *msg.max_padding_rate;
     pacing_changed = true;
   }
-
+  if (msg.max_dynamic_bitrate) {
+    delay_based_bwe_->SetIncreaseLimit(msg.max_dynamic_bitrate.value());
+    alr_detector_->StartAlrAtEstimatedRate(msg.max_dynamic_bitrate.value());
+  }
   if (pacing_changed)
     update.pacer_config = GetPacingRates(msg.at_time);
   return update;

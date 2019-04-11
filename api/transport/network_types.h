@@ -41,6 +41,10 @@ struct StreamsConfig {
   };
   absl::optional<DataRate> max_padding_rate;
   absl::optional<DataRate> max_total_allocated_bitrate;
+  // Max bitrate streams can guarantee to produce if requested by the
+  // controller, including padding. Above this rate, the NetworkController will
+  // only rely on probing to be able to increase the estimate.
+  absl::optional<DataRate> max_dynamic_bitrate;
 };
 
 struct TargetRateConstraints {

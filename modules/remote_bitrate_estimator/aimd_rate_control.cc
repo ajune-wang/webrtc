@@ -54,8 +54,8 @@ double ReadBackoffFactor() {
 
 AimdRateControl::AimdRateControl()
     : min_configured_bitrate_(congestion_controller::GetMinBitrate()),
-      max_configured_bitrate_(DataRate::kbps(30000)),
-      current_bitrate_(max_configured_bitrate_),
+      increase_limit_(DataRate::Infinity()),
+      current_bitrate_(DataRate::kbps(30000)),
       latest_estimated_throughput_(current_bitrate_),
       link_capacity_(),
       rate_control_state_(kRcHold),
@@ -95,6 +95,10 @@ void AimdRateControl::SetStartBitrate(DataRate start_bitrate) {
 void AimdRateControl::SetMinBitrate(DataRate min_bitrate) {
   min_configured_bitrate_ = min_bitrate;
   current_bitrate_ = std::max(min_bitrate, current_bitrate_);
+}
+
+void AimdRateControl::SetIncreaseLimit(DataRate bitrate) {
+  increase_limit_ = bitrate;
 }
 
 bool AimdRateControl::ValidEstimate() const {
@@ -244,19 +248,22 @@ DataRate AimdRateControl::ChangeBitrate(DataRate new_bitrate,
       if (estimated_throughput > link_capacity_.UpperBound())
         link_capacity_.Reset();
 
-      if (link_capacity_.has_estimate()) {
-        // The link_capacity estimate is reset if the measured throughput
-        // is too far from the estimate. We can therefore assume that our target
-        // rate is reasonably close to link capacity and use additive increase.
-        DataRate additive_increase =
-            AdditiveRateIncrease(at_time, time_last_bitrate_change_);
-        new_bitrate += additive_increase;
-      } else {
-        // If we don't have an estimate of the link capacity, use faster ramp up
-        // to discover the capacity.
-        DataRate multiplicative_increase = MultiplicativeRateIncrease(
-            at_time, time_last_bitrate_change_, new_bitrate);
-        new_bitrate += multiplicative_increase;
+      if (new_bitrate < increase_limit_) {
+        if (link_capacity_.has_estimate()) {
+          // The link_capacity estimate is reset if the measured throughput
+          // is too far from the estimate. We can therefore assume that our
+          // target rate is reasonably close to link capacity and use additive
+          // increase.
+          DataRate additive_increase =
+              AdditiveRateIncrease(at_time, time_last_bitrate_change_);
+          new_bitrate += additive_increase;
+        } else {
+          // If we don't have an estimate of the link capacity, use faster ramp
+          // up to discover the capacity.
+          DataRate multiplicative_increase = MultiplicativeRateIncrease(
+              at_time, time_last_bitrate_change_, new_bitrate);
+          new_bitrate += multiplicative_increase;
+        }
       }
 
       time_last_bitrate_change_ = at_time;

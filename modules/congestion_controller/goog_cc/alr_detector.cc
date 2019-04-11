@@ -29,6 +29,8 @@ AlrDetector::AlrDetector(RtcEventLog* event_log)
     : bandwidth_usage_percent_(kDefaultAlrBandwidthUsagePercent),
       alr_start_budget_level_percent_(kDefaultAlrStartBudgetLevelPercent),
       alr_stop_budget_level_percent_(kDefaultAlrStopBudgetLevelPercent),
+      auto_start_alr_at_bwe_(DataRate::Infinity()),
+      bitrate_estimate_(DataRate::Zero()),
       alr_budget_(0, true),
       event_log_(event_log) {
   RTC_CHECK(AlrExperimentSettings::MaxOneFieldTrialEnabled());
@@ -62,6 +64,32 @@ void AlrDetector::OnBytesSent(size_t bytes_sent, int64_t send_time_ms) {
 
   alr_budget_.UseBudget(bytes_sent);
   alr_budget_.IncreaseBudget(delta_time_ms);
+  MaybeChangeState();
+}
+
+void AlrDetector::SetEstimatedBitrate(int bitrate_bps) {
+  RTC_DCHECK(bitrate_bps);
+  const auto target_rate_kbps = static_cast<int64_t>(bitrate_bps) *
+                                bandwidth_usage_percent_ / (1000 * 100);
+  alr_budget_.set_target_rate_kbps(rtc::dchecked_cast<int>(target_rate_kbps));
+  bitrate_estimate_ = DataRate::bps(bitrate_bps);
+  MaybeChangeState();
+}
+
+void AlrDetector::StartAlrAtEstimatedRate(DataRate rate) {
+  auto_start_alr_at_bwe_ = rate;
+  MaybeChangeState();
+}
+
+void AlrDetector::MaybeChangeState() {
+  if (auto_start_alr_at_bwe_ <= bitrate_estimate_) {
+    if (!alr_started_time_ms_) {
+      alr_started_time_ms_.emplace(rtc::TimeMillis());
+      event_log_->Log(absl::make_unique<RtcEventAlrState>(
+          alr_started_time_ms_.has_value()));
+    }
+    return;
+  }
   bool state_changed = false;
   if (alr_budget_.budget_level_percent() > alr_start_budget_level_percent_ &&
       !alr_started_time_ms_) {
@@ -77,13 +105,11 @@ void AlrDetector::OnBytesSent(size_t bytes_sent, int64_t send_time_ms) {
     event_log_->Log(
         absl::make_unique<RtcEventAlrState>(alr_started_time_ms_.has_value()));
   }
-}
 
-void AlrDetector::SetEstimatedBitrate(int bitrate_bps) {
-  RTC_DCHECK(bitrate_bps);
-  const auto target_rate_kbps = static_cast<int64_t>(bitrate_bps) *
-                                bandwidth_usage_percent_ / (1000 * 100);
-  alr_budget_.set_target_rate_kbps(rtc::dchecked_cast<int>(target_rate_kbps));
+  if (event_log_ && state_changed) {
+    event_log_->Log(
+        absl::make_unique<RtcEventAlrState>(alr_started_time_ms_.has_value()));
+  }
 }
 
 absl::optional<int64_t> AlrDetector::GetApplicationLimitedRegionStartTime()

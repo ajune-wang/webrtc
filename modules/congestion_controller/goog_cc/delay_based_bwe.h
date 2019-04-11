@@ -59,6 +59,7 @@ class DelayBasedBwe {
   bool LatestEstimate(std::vector<uint32_t>* ssrcs, DataRate* bitrate) const;
   void SetStartBitrate(DataRate start_bitrate);
   void SetMinBitrate(DataRate min_bitrate);
+  void SetIncreaseLimit(DataRate bitrate);
   TimeDelta GetExpectedBwePeriod() const;
   void SetAlrLimitedBackoffExperiment(bool enabled);
 

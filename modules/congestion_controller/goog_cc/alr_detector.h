@@ -15,6 +15,7 @@
 #include <stdint.h>
 
 #include "absl/types/optional.h"
+#include "api/units/data_rate.h"
 #include "modules/pacing/interval_budget.h"
 
 namespace webrtc {
@@ -39,6 +40,11 @@ class AlrDetector {
   // Set current estimated bandwidth.
   void SetEstimatedBitrate(int bitrate_bps);
 
+  // Enters ALR when the estimate reach |rate| or above. Used when it is known
+  // that an application can not generate arbitrary traffic rates at a higher
+  // rate than |rate|.
+  void StartAlrAtEstimatedRate(DataRate rate);
+
   // Returns time in milliseconds when the current application-limited region
   // started or empty result if the sender is currently not application-limited.
   absl::optional<int64_t> GetApplicationLimitedRegionStartTime() const;
@@ -56,10 +62,14 @@ class AlrDetector {
   void UpdateBudgetWithBytesSent(size_t bytes_sent);
 
  private:
+  void MaybeChangeState();
+
   friend class GoogCcStatePrinter;
   int bandwidth_usage_percent_;
   int alr_start_budget_level_percent_;
   int alr_stop_budget_level_percent_;
+  DataRate auto_start_alr_at_bwe_;
+  DataRate bitrate_estimate_;
 
   absl::optional<int64_t> last_send_time_ms_;
 

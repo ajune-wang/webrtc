@@ -18,23 +18,23 @@
 
 namespace rtc {
 
-namespace impl {
+namespace keep_ref_until_done_internal {
 template <class T>
 static inline void DoNothing(const scoped_refptr<T>& object) {}
-}  // namespace impl
+}  // namespace keep_ref_until_done_internal
 
 // KeepRefUntilDone keeps a reference to |object| until the returned
 // callback goes out of scope. If the returned callback is copied, the
 // reference will be released when the last callback goes out of scope.
 template <class ObjectT>
 static inline Callback0<void> KeepRefUntilDone(ObjectT* object) {
-  return rtc::Bind(&impl::DoNothing<ObjectT>, scoped_refptr<ObjectT>(object));
+  return rtc::Bind(&keep_ref_until_done_internal::DoNothing<ObjectT>, scoped_refptr<ObjectT>(object));
 }
 
 template <class ObjectT>
 static inline Callback0<void> KeepRefUntilDone(
     const scoped_refptr<ObjectT>& object) {
-  return rtc::Bind(&impl::DoNothing<ObjectT>, object);
+  return rtc::Bind(&keep_ref_until_done_internal::DoNothing<ObjectT>, object);
 }
 
 }  // namespace rtc

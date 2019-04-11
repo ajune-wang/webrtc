@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2fc90a3e_cb704129",
+        "filename": "call/rampup_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-04-11T12:48:44Z",
+      "side": 1,
+      "message": "The event log creation has unfortunately gone down two parallel paths; there is the static Create function on the abstract RtcEventLog, and there is the CreateRtcEventLog on the RtcEventLogFactoryInterface.\n\nLong term, the Create method should probably be removed in favor of calling CreateRtcEventLog on the DefaultRtcEventLogFactory.",
+      "range": {
+        "startLine": 585,
+        "startChar": 37,
+        "endLine": 585,
+        "endChar": 43
+      },
+      "revId": "b799f325364a71397e0052ef4deb5d80cec53560",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87c94f9a_e35a629e",
+        "filename": "logging/rtc_event_log/rtc_event_log_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-04-11T12:48:44Z",
+      "side": 1,
+      "message": "I\u0027m not sure what benefit these CreateRtcEventLogFactory functions give us.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "b799f325364a71397e0052ef4deb5d80cec53560",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

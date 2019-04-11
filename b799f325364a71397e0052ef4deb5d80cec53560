@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e2f5c6c1_0238326c",
+        "filename": "call/rampup_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-11T13:24:14Z",
+      "side": 1,
+      "message": "added the RtcEventLogFactory instead.",
+      "parentUuid": "2fc90a3e_cb704129",
+      "range": {
+        "startLine": 585,
+        "startChar": 37,
+        "endLine": 585,
+        "endChar": 43
+      },
+      "revId": "b799f325364a71397e0052ef4deb5d80cec53560",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87c94f9a_e35a629e",
         "filename": "logging/rtc_event_log/rtc_event_log_factory.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-11T12:48:44Z",
       "side": 1,
       "message": "I\u0027m not sure what benefit these CreateRtcEventLogFactory functions give us.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "b799f325364a71397e0052ef4deb5d80cec53560",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "430786b8_61629c79",
+        "filename": "logging/rtc_event_log/rtc_event_log_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-11T13:24:14Z",
+      "side": 1,
+      "message": "I\u0027m not sure either:\nit is better either to hide RtcEventLogFactory class or avoid adding this wrapper.\nAs discussed offline, removed (reverted introducing) this wrapper.",
+      "parentUuid": "87c94f9a_e35a629e",
       "range": {
         "startLine": 38,
         "startChar": 0,

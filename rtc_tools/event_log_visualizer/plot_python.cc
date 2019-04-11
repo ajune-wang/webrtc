@@ -16,6 +16,13 @@
 #include <vector>
 
 #include "rtc_base/checks.h"
+#include "rtc_base/flags.h"
+
+WEBRTC_DEFINE_bool(shared_axis,
+                   false,
+                   "Share x-axis between all plots so that zooming in one plot "
+                   "updates all the others too. A downside the that certain "
+                   "operations like panning become very slow.");
 
 namespace webrtc {
 
@@ -170,11 +177,13 @@ void PythonPlotCollection::Draw() {
   printf("import colorsys\n");
   for (size_t i = 0; i < plots_.size(); i++) {
     printf("plt.figure(%zu)\n", i);
-    // Link x-axes across all figures for synchronized zooming.
-    if (i == 0) {
-      printf("axis0 = plt.subplot(111)\n");
-    } else {
-      printf("plt.subplot(111, sharex=axis0)\n");
+    if (FLAG_shared_axis) {
+      // Link x-axes across all figures for synchronized zooming.
+      if (i == 0) {
+        printf("axis0 = plt.subplot(111)\n");
+      } else {
+        printf("plt.subplot(111, sharex=axis0)\n");
+      }
     }
     plots_[i]->Draw();
   }

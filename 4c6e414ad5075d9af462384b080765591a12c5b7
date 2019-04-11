@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c20924d_82921839",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-11T09:24:55Z",
+      "side": 1,
+      "message": "Maybe this could just be a PostTask?",
+      "range": {
+        "startLine": 637,
+        "startChar": 0,
+        "endLine": 638,
+        "endChar": 38
+      },
+      "revId": "4c6e414ad5075d9af462384b080765591a12c5b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

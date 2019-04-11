@@ -46,6 +46,30 @@
       "revId": "abd26f12c2a5ddf4e530f376f76f603469b9d31b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18447d3b_7ab5e7cf",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-11T11:52:35Z",
+      "side": 1,
+      "message": "Oh---so for logging.h you need to define a named trait, has_to_log_string, whereas for checks.h it\u0027s sufficient to use decltype(ToLogString(std::declval\u003cT\u003e())) in a template argument + make sure that it returned std::string?\n\nYou could do this:\n\n  template \u003ctypename T, typename \u003d void\u003e\n  struct has_to_log_string : std::false_type {};\n\n  template \u003ctypename T\u003e\n  struct has_to_log_string\u003cT, typename std::enable_if\u003cstd::is_same\u003c\n    std::string, decltype(ToLogString(std::declval\u003cT\u003e()))\u003e::value\u003e::type\u003e\n      : std::true_type {};\n\nThe specialization is active if and only if\n\n  std::is_same\u003cstd::string, decltype(ToLogString(std::declval\u003cT\u003e()))\u003e::value\n\nis legal and evaluates to true.",
+      "parentUuid": "f0687683_b32b90b4",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 31
+      },
+      "revId": "abd26f12c2a5ddf4e530f376f76f603469b9d31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "40f131ace0bba8bd5af45f20f1a2fdd71f344f80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a6b77e8_5092bc37",
+        "filename": "rtc_base/numerics/math_utils.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-11T12:13:29Z",
+      "side": 0,
+      "message": "As discussed offline, let\u0027s land it as is (at least it\u0027s consistent), and improve on that in a follow-up CL.",
+      "parentUuid": "fe8a0090_c195076b",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 6
+      },
+      "revId": "40f131ace0bba8bd5af45f20f1a2fdd71f344f80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

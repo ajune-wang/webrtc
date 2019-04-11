@@ -83,7 +83,7 @@ namespace rtc {
 // a pointer if fix-sized) and trivially copyable, so it's probably cheaper to
 // pass it by value than by const reference.
 
-namespace impl {
+namespace array_view_internal {
 
 // Magic constant for indicating that the size of an ArrayView is variable
 // instead of fixed.
@@ -124,7 +124,7 @@ class ArrayViewBase<T, 0> {
 
 // Specialized base class for ArrayViews of variable size.
 template <typename T>
-class ArrayViewBase<T, impl::kArrayViewVarSize> {
+class ArrayViewBase<T, array_view_internal::kArrayViewVarSize> {
  public:
   ArrayViewBase(T* data, size_t size)
       : data_(size == 0 ? nullptr : data), size_(size) {}
@@ -141,10 +141,11 @@ class ArrayViewBase<T, impl::kArrayViewVarSize> {
   size_t size_;
 };
 
-}  // namespace impl
+}  // namespace array_view_internal
 
-template <typename T, std::ptrdiff_t Size = impl::kArrayViewVarSize>
-class ArrayView final : public impl::ArrayViewBase<T, Size> {
+template <typename T,
+          std::ptrdiff_t Size = array_view_internal::kArrayViewVarSize>
+class ArrayView final : public array_view_internal::ArrayViewBase<T, Size> {
  public:
   using value_type = T;
   using const_iterator = const T*;
@@ -152,7 +153,7 @@ class ArrayView final : public impl::ArrayViewBase<T, Size> {
   // Construct an ArrayView from a pointer and a length.
   template <typename U>
   ArrayView(U* data, size_t size)
-      : impl::ArrayViewBase<T, Size>::ArrayViewBase(data, size) {
+      : array_view_internal::ArrayViewBase<T, Size>::ArrayViewBase(data, size) {
     RTC_DCHECK_EQ(size == 0 ? nullptr : data, this->data());
     RTC_DCHECK_EQ(size, this->size());
     RTC_DCHECK_EQ(!this->data(),
@@ -166,7 +167,8 @@ class ArrayView final : public impl::ArrayViewBase<T, Size> {
       : ArrayView() {}
   ArrayView(std::nullptr_t, size_t size)
       : ArrayView(static_cast<T*>(nullptr), size) {
-    static_assert(Size == 0 || Size == impl::kArrayViewVarSize, "");
+    static_assert(Size == 0 || Size == array_view_internal::kArrayViewVarSize,
+                  "");
     RTC_DCHECK_EQ(0, size);
   }
 
@@ -174,7 +176,7 @@ class ArrayView final : public impl::ArrayViewBase<T, Size> {
   template <typename U, size_t N>
   ArrayView(U (&array)[N])  // NOLINT
       : ArrayView(array, N) {
-    static_assert(Size == N || Size == impl::kArrayViewVarSize,
+    static_assert(Size == N || Size == array_view_internal::kArrayViewVarSize,
                   "Array size must match ArrayView size");
   }
 
@@ -207,7 +209,7 @@ class ArrayView final : public impl::ArrayViewBase<T, Size> {
   // N> when M != N.
   template <
       typename U,
-      typename std::enable_if<Size != impl::kArrayViewVarSize &&
+      typename std::enable_if<Size != array_view_internal::kArrayViewVarSize &&
                               HasDataAndSize<U, T>::value>::type* = nullptr>
   ArrayView(U& u)  // NOLINT
       : ArrayView(u.data(), u.size()) {
@@ -227,13 +229,13 @@ class ArrayView final : public impl::ArrayViewBase<T, Size> {
   // const rtc::Buffer to ArrayView<const uint8_t>.
   template <
       typename U,
-      typename std::enable_if<Size == impl::kArrayViewVarSize &&
+      typename std::enable_if<Size == array_view_internal::kArrayViewVarSize &&
                               HasDataAndSize<U, T>::value>::type* = nullptr>
   ArrayView(U& u)  // NOLINT
       : ArrayView(u.data(), u.size()) {}
   template <
       typename U,
-      typename std::enable_if<Size == impl::kArrayViewVarSize &&
+      typename std::enable_if<Size == array_view_internal::kArrayViewVarSize &&
                               HasDataAndSize<U, T>::value>::type* = nullptr>
   ArrayView(const U& u)  // NOLINT(runtime/explicit)
       : ArrayView(u.data(), u.size()) {}

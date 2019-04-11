@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "16a2aecd_20389726",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-04-11T16:38:18Z",
+      "side": 1,
+      "message": "Moved to main as discussed.",
+      "parentUuid": "e6c3a461_4f4720c1",
+      "range": {
+        "startLine": 285,
+        "startChar": 6,
+        "endLine": 286,
+        "endChar": 45
+      },
+      "revId": "9df6c07fce043b04a46fc300f994ca37833c5745",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "966bb2a8_3d995466",
         "filename": "rtc_tools/event_log_visualizer/plot_python.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "9df6c07fce043b04a46fc300f994ca37833c5745",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f4a6ad4_df31164c",
+        "filename": "rtc_tools/event_log_visualizer/plot_python.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-04-11T16:38:18Z",
+      "side": 1,
+      "message": "Done. It causes some asymmetry between the different plot collections, but probably not important for now.",
+      "parentUuid": "966bb2a8_3d995466",
+      "range": {
+        "startLine": 180,
+        "startChar": 8,
+        "endLine": 180,
+        "endChar": 24
+      },
+      "revId": "9df6c07fce043b04a46fc300f994ca37833c5745",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

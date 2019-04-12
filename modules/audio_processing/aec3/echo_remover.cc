@@ -288,7 +288,7 @@ void EchoRemoverImpl::ProcessCapture(
                                     &R2);
 
   // Estimate the comfort noise.
-  cng_.Compute(aec_state_, Y2, &comfort_noise, &high_band_comfort_noise);
+  cng_.Compute(aec_state_, E2, &comfort_noise, &high_band_comfort_noise);
 
   // Compute and apply the suppression gain.
   const auto& echo_spectrum =

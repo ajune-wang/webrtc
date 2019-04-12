@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "7edfc6e5_9df04152",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-12T08:26:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac9eb626_0f2289c4",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 66
+      },
+      "revId": "ea36ab4801df08979d248c5c3fc32499f35bcc46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64969d2d_aa8aa9bc",
         "filename": "test/scenario/network/emulated_network_manager.cc",
         "patchSetId": 2

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "874fc160_946fe3df",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-12T14:27:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5781213e_6878f27b",
+      "range": {
+        "startLine": 553,
+        "startChar": 0,
+        "endLine": 558,
+        "endChar": 3
+      },
+      "revId": "b1f3357ff7251e7190d2aa717f38ebbf4816870a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "639f8400_7889c1cb",
         "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
         "patchSetId": 3
@@ -60,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "e03316c7_8b59b638",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-12T14:27:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e938683_bc91b308",
+      "revId": "b1f3357ff7251e7190d2aa717f38ebbf4816870a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5edcf512_a29a0f9b",
         "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
         "patchSetId": 3
@@ -71,6 +113,30 @@
       "writtenOn": "2019-04-12T07:43:16Z",
       "side": 1,
       "message": "[nit] be consistent, for settings.use_pre_amplifier (line above) you didn\u0027t use has_value() (just pick one option)",
+      "range": {
+        "startLine": 546,
+        "startChar": 45,
+        "endLine": 546,
+        "endChar": 54
+      },
+      "revId": "b1f3357ff7251e7190d2aa717f38ebbf4816870a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d83d88a5_849f79df",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-12T14:27:55Z",
+      "side": 1,
+      "message": "This is following the pattern used above, e.g., as done on 535.\n\nI prefer the avoiding has_value when checking for a missing value as it is so convenient to use the automatic bool conversion when the ! operator is used. When checking for true, however, the approach of using !! is not that intuitive so I typically use has_value in those cases.\n\nIf ok with you, I would prefer keeping the current formulation.",
+      "parentUuid": "5edcf512_a29a0f9b",
       "range": {
         "startLine": 546,
         "startChar": 45,

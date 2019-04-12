@@ -370,6 +370,24 @@
     },
     {
       "key": {
+        "uuid": "4135e320_f0d4ef9f",
+        "filename": "pc/peer_connection_rtp_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1802,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2019-04-12T10:43:15Z",
+      "side": 1,
+      "message": "I thought I had replied to it, but apparently the reply was lost.\n\nA test composed of steps 1-5 will always fail/flake if made from the JavaScript due to the jumps between main and signaling thread.\nIt will currently fail in C++ because the notification will be fired after step 4.\nI think we can fix it in C++ to make sure the notification is sent on another task that checks if negotiation is still needed (which should be false after 5). However, it will still fail on JavaScript due to the continuous switching between threads.\nI can add a Javascript version of the test in a Chromium CL (which will fail) and try to land a workaround in WebRTC in a follow-up CL. WDYT?",
+      "parentUuid": "a7d62d38_622be893",
+      "revId": "27ee8d6d0039753ee243aa5cdbcd72f97c499cdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d3660cd_7b895705",
         "filename": "pc/peer_connection_rtp_unittest.cc",
         "patchSetId": 4

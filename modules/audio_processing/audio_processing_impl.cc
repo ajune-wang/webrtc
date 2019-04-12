@@ -1392,7 +1392,6 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
       public_submodules_->noise_suppression->is_enabled()) {
     capture_buffer->CopyLowPassToReference();
   }
-  public_submodules_->noise_suppression->ProcessCaptureAudio(capture_buffer);
 
   // Ensure that the stream delay was set before the call to the
   // AECM ProcessCaptureAudio function.
@@ -1427,6 +1426,8 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   RETURN_ON_ERR(public_submodules_->gain_control->ProcessCaptureAudio(
       capture_buffer,
       private_submodules_->echo_cancellation->stream_has_echo()));
+
+  public_submodules_->noise_suppression->ProcessCaptureAudio(capture_buffer);
 
   if (submodule_states_.CaptureMultiBandProcessingActive() &&
       SampleRateSupportsMultiBand(

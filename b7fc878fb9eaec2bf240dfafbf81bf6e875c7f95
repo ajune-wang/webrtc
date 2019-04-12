@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8bb7164_eeea6efc",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-12T09:05:03Z",
+      "side": 1,
+      "message": "nit: AverageSendRate(), or just SendRate(), send_rate() would be appropriate as well.",
+      "range": {
+        "startLine": 77,
+        "startChar": 11,
+        "endLine": 77,
+        "endChar": 22
+      },
+      "revId": "b7fc878fb9eaec2bf240dfafbf81bf6e875c7f95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

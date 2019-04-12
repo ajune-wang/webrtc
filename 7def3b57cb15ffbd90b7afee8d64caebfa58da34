@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91af4b61_a4b20b43",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-12T07:52:44Z",
+      "side": 1,
+      "message": "Maybe also add \"Hence, all pointers and iterators related to |ready_runners_| must be considered invalid when Run returns\".",
+      "range": {
+        "startLine": 357,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 31
+      },
+      "revId": "7def3b57cb15ffbd90b7afee8d64caebfa58da34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

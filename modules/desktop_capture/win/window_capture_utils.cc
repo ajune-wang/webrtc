@@ -141,11 +141,13 @@ WindowCaptureHelperWin::WindowCaptureHelperWin()
     : dwmapi_library_(nullptr),
       func_(nullptr),
       virtual_desktop_manager_(nullptr) {
-  // Try to load dwmapi.dll dynamically since it is not available on XP.
-  dwmapi_library_ = LoadLibraryW(L"dwmapi.dll");
-  if (dwmapi_library_) {
-    func_ = reinterpret_cast<DwmIsCompositionEnabledFunc>(
-        GetProcAddress(dwmapi_library_, "DwmIsCompositionEnabled"));
+  if (!rtc::IsWindows8OrLater()) {
+    // Try to load dwmapi.dll dynamically since it is not available on XP.
+    dwmapi_library_ = LoadLibraryW(L"dwmapi.dll");
+    if (dwmapi_library_) {
+      func_ = reinterpret_cast<DwmIsCompositionEnabledFunc>(
+          GetProcAddress(dwmapi_library_, "DwmIsCompositionEnabled"));
+    }
   }
 
   if (rtc::IsWindows10OrLater()) {
@@ -165,8 +167,12 @@ WindowCaptureHelperWin::~WindowCaptureHelperWin() {
 
 bool WindowCaptureHelperWin::IsAeroEnabled() {
   BOOL result = FALSE;
+  if (rtc::IsWindows8OrLater())
+    result = TRUE;
+
   if (func_) {
-    func_(&result);
+    if (!SUCCEEDED(func_(&result)))
+      result = FALSE;
   }
   return result != FALSE;
 }

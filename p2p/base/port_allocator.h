@@ -208,6 +208,11 @@ class RTC_EXPORT PortAllocatorSession : public sigslot::has_slots<> {
   // future, but candidates already gathered and ports already "ready",
   // which would be returned by ReadyCandidates() and ReadyPorts().
   //
+  // A change in the candidate filter also fires a signal
+  // |SignalCandidateFilterChanged|, so that objects subscribed to this signal
+  // can, for example, update the candidate filter for sessions created by this
+  // allocator and taken by the object.
+  //
   // Default filter should be CF_ALL.
   virtual void SetCandidateFilter(uint32_t filter) = 0;
 
@@ -528,10 +533,26 @@ class RTC_EXPORT PortAllocator : public sigslot::has_slots<> {
     return candidate_filter_;
   }
 
-  void set_candidate_filter(uint32_t filter) {
-    CheckRunOnValidThreadIfInitialized();
-    candidate_filter_ = filter;
-  }
+  // If the new filter allows new types of candidates compared to the previous
+  // filter, gathered candidates that were discarded because of not matching the
+  // previous filter will be signaled if they match the new one.
+  //
+  // We do not perform any regathering since the port allocator flags decide
+  // the type of candidates to gather and the candidate filter only controls the
+  // signaling of candidates. As a result, with the candidate filter changed
+  // alone, all newly allowed candidates for signaling should already be
+  // gathered by the respective cricket::Port.
+  //
+  // The new filter value will be populated to future allocation sessions,
+  // pooled sessions and also sessions that are taken by the ICE transport.
+  //
+  // Specifically for the session taken by the ICE transport, we currently do
+  // not support removing candidate pairs formed with local candidates from this
+  // session that are disabled by the new candidate filter.
+  void SetCandidateFilter(uint32_t filter);
+  // Deprecated.
+  // TODO(qingsi): Remove this after Chromium migrates to the new method.
+  void set_candidate_filter(uint32_t filter) { SetCandidateFilter(filter); }
 
   bool prune_turn_ports() const {
     CheckRunOnValidThreadIfInitialized();
@@ -564,6 +585,10 @@ class RTC_EXPORT PortAllocator : public sigslot::has_slots<> {
 
   // Return IceParameters of the pooled sessions.
   std::vector<IceParameters> GetPooledIceCredentials();
+
+  // Fired when |candidate_filter_| changes.
+  sigslot::signal2<uint32_t /* prev_filter */, uint32_t /* cur_filter */>
+      SignalCandidateFilterChanged;
 
  protected:
   virtual PortAllocatorSession* CreateSessionInternal(

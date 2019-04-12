@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5781213e_6878f27b",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-12T07:43:16Z",
+      "side": 1,
+      "message": "Maybe add a comment since this override may not not obvious.\n// Handle capture pre-gain runtime setting only if not overridden.",
+      "range": {
+        "startLine": 553,
+        "startChar": 0,
+        "endLine": 558,
+        "endChar": 3
+      },
+      "revId": "b1f3357ff7251e7190d2aa717f38ebbf4816870a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "639f8400_7889c1cb",
         "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
         "patchSetId": 3
@@ -13,6 +36,47 @@
       "writtenOn": "2019-04-11T20:40:50Z",
       "side": 1,
       "message": "(!settings.use_pre_amplifier || !(*settings.use_pre_amplifier)) \u0026\u0026\n          settings.pre_amplifier_gain_factor.has_value(),",
+      "revId": "b1f3357ff7251e7190d2aa717f38ebbf4816870a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e938683_bc91b308",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-12T07:43:16Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "639f8400_7889c1cb",
+      "revId": "b1f3357ff7251e7190d2aa717f38ebbf4816870a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5edcf512_a29a0f9b",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-12T07:43:16Z",
+      "side": 1,
+      "message": "[nit] be consistent, for settings.use_pre_amplifier (line above) you didn\u0027t use has_value() (just pick one option)",
+      "range": {
+        "startLine": 546,
+        "startChar": 45,
+        "endLine": 546,
+        "endChar": 54
+      },
       "revId": "b1f3357ff7251e7190d2aa717f38ebbf4816870a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

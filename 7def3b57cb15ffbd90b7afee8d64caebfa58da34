@@ -22,6 +22,30 @@
       "revId": "7def3b57cb15ffbd90b7afee8d64caebfa58da34",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cd8c23e_9884040c",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-12T09:27:59Z",
+      "side": 1,
+      "message": "I think that\u0027s subtle, because, |ready_runners_| itself will still only contain valid pointers, just pointers copied from there are invalid. So it\u0027s probably better to leave that conclusion to the reader to avoid confusion.",
+      "parentUuid": "91af4b61_a4b20b43",
+      "range": {
+        "startLine": 357,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 31
+      },
+      "revId": "7def3b57cb15ffbd90b7afee8d64caebfa58da34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

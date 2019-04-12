@@ -1,0 +1,77 @@
+# Copyright (c) 2019 The WebRTC project authors. All Rights Reserved.
+#
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file in the root of the source
+# tree. An additional intellectual property rights grant can be found
+# in the file PATENTS.  All contributing project authors may
+# be found in the AUTHORS file in the root of the source tree.
+
+import("//build/config/crypto.gni")
+import("//build/config/ui.gni")
+import("../webrtc.gni")
+
+group("crypto") {
+  deps = []
+  deps += [ ":crypto_base" ]
+}
+
+if (is_android) {
+  import("//build/config/android/config.gni")
+  import("//build/config/android/rules.gni")
+}
+
+if (!rtc_build_ssl) {
+  config("external_ssl_library") {
+    assert(rtc_ssl_root != "",
+           "You must specify rtc_ssl_root when rtc_build_ssl==0.")
+    include_dirs = [ rtc_ssl_root ]
+  }
+}
+
+# Includes all of the base cryptography used in WebRTC. This includes primitives
+# such as HKDF but not protocol level cryptography such as (D)TLS or SRTP.
+rtc_static_library("crypto_base") {
+  visibility = [ "*" ]
+  deps = [
+    ":hkdf",
+  ]
+}
+
+rtc_source_set("hkdf") {
+  visibility = [ "*" ]
+  sources = [
+    "hkdf.cc",
+    "hkdf.h",
+  ]
+  deps = [
+    "../api:array_view",
+    "../rtc_base:rtc_base",
+    "../rtc_base:rtc_base_approved",
+    "//third_party/abseil-cpp/absl/algorithm:container",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
+  if (build_with_chromium) {
+    include_dirs = [ "../../boringssl/src/include" ]
+  }
+  if (rtc_build_ssl) {
+    deps += [ "//third_party/boringssl" ]
+  } else {
+    configs += [ ":external_ssl_library" ]
+  }
+}
+
+if (rtc_include_tests) {
+  rtc_test("rtc_crypto_unittests") {
+    testonly = true
+    sources = [
+      "hkdf_unittest.cc",
+    ]
+    deps = [
+      ":crypto_base",
+      "../rtc_base:gunit_helpers",
+      "../rtc_base:rtc_base_tests_main",
+      "../test:test_support",
+      "//third_party/abseil-cpp/absl/types:optional",
+    ]
+  }
+}

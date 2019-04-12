@@ -46,6 +46,7 @@ if (!build_with_chromium) {
         ":webrtc_perf_tests",
         "common_audio:common_audio_unittests",
         "common_video:common_video_unittests",
+        "crypto:rtc_crypto_unittests",
         "examples:examples_unittests",
         "media:rtc_media_unittests",
         "modules:modules_tests",

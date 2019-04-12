@@ -8,11 +8,11 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "rtc_base/openssl_key_derivation_hkdf.h"
-
-#include <utility>
+#include "crypto/hkdf.h"
 
 #include <openssl/ossl_typ.h>
+
+#include <utility>
 #ifdef OPENSSL_IS_BORINGSSL
 #include <openssl/digest.h>
 #include <openssl/hkdf.h>
@@ -27,11 +27,14 @@
 #include "rtc_base/buffer.h"
 #include "rtc_base/openssl.h"
 
-namespace rtc {
+namespace webrtc {
+
+namespace {
+constexpr size_t kMinKeyByteSize = 16;
+constexpr size_t kMaxKeyByteSize = 255 * SHA256_DIGEST_LENGTH;
+constexpr size_t kMinSecretByteSize = 16;
 
 #ifndef OPENSSL_IS_BORINGSSL
-namespace {
-
 // HKDF is static within OpenSSL and hence not accessible to the caller.
 // This internal implementation allows for compatibility with BoringSSL.
 static int HKDF(uint8_t* out_key,
@@ -58,18 +61,10 @@ static int HKDF(uint8_t* out_key,
   return 1;
 }
 
-}  // namespace
 #endif
+}  // namespace
 
-OpenSSLKeyDerivationHKDF::OpenSSLKeyDerivationHKDF() = default;
-OpenSSLKeyDerivationHKDF::~OpenSSLKeyDerivationHKDF() = default;
-
-const size_t OpenSSLKeyDerivationHKDF::kMinKeyByteSize = 16;
-const size_t OpenSSLKeyDerivationHKDF::kMaxKeyByteSize =
-    255 * SHA256_DIGEST_LENGTH;
-const size_t OpenSSLKeyDerivationHKDF::kMinSecretByteSize = 16;
-
-absl::optional<ZeroOnFreeBuffer<uint8_t>> OpenSSLKeyDerivationHKDF::DeriveKey(
+absl::optional<rtc::ZeroOnFreeBuffer<uint8_t>> HkdfSha256(
     rtc::ArrayView<const uint8_t> secret,
     rtc::ArrayView<const uint8_t> salt,
     rtc::ArrayView<const uint8_t> label,
@@ -95,14 +90,14 @@ absl::optional<ZeroOnFreeBuffer<uint8_t>> OpenSSLKeyDerivationHKDF::DeriveKey(
     salt = salt_buffer;
   }
   // This buffer will erase itself on release.
-  ZeroOnFreeBuffer<uint8_t> derived_key_buffer(derived_key_byte_size, 0);
+  rtc::ZeroOnFreeBuffer<uint8_t> derived_key_buffer(derived_key_byte_size, 0);
   if (!HKDF(derived_key_buffer.data(), derived_key_buffer.size(), EVP_sha256(),
             secret.data(), secret.size(), salt.data(), salt.size(),
             label.data(), label.size())) {
     return absl::nullopt;
   }
-  return absl::optional<ZeroOnFreeBuffer<uint8_t>>(
+  return absl::optional<rtc::ZeroOnFreeBuffer<uint8_t>>(
       std::move(derived_key_buffer));
 }
 
-}  // namespace rtc
+}  // namespace webrtc

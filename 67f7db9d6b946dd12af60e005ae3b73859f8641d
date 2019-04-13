@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2092692e_f09144b5",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-13T00:39:24Z",
+      "side": 1,
+      "message": "Is there ever a case where this is a nullptr? Should this be DCHECKed in the constructor? I see that allocator_ is used in other places and if it were nullptr I think it would crash.",
+      "range": {
+        "startLine": 155,
+        "startChar": 6,
+        "endLine": 155,
+        "endChar": 16
+      },
+      "revId": "67f7db9d6b946dd12af60e005ae3b73859f8641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "284e8f06_fe89bd5a",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5017,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-13T00:39:24Z",
+      "side": 1,
+      "message": "Is it worth testing other scenarios?\n-CF_NONE --\u003e CF_RELAY\n-CF_RELAY --\u003e CF_REFLEXIVE\n-stun --\u003e all\n\nI\u0027m not sure what kind of coverage you\u0027re looking for here.",
+      "range": {
+        "startLine": 5017,
+        "startChar": 0,
+        "endLine": 5017,
+        "endChar": 0
+      },
+      "revId": "67f7db9d6b946dd12af60e005ae3b73859f8641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae7b2e21_eddf36cd",
+        "filename": "p2p/base/port_allocator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-13T00:39:24Z",
+      "side": 1,
+      "message": "I think you meant to put this documentation in PortAllocator::SetCandidateFilter? Here is PortAllocatorSession::SetCandidateFilter.",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 39
+      },
+      "revId": "67f7db9d6b946dd12af60e005ae3b73859f8641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25c47172_1387c8db",
+        "filename": "p2p/base/port_allocator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-13T00:39:24Z",
+      "side": 1,
+      "message": "Awesome documentation, thanks for adding this!\n\nDid you mean to put this inside PortAllocatorSession::SetCandidateFilter instead? It seems more appropriate there.",
+      "range": {
+        "startLine": 536,
+        "startChar": 0,
+        "endLine": 536,
+        "endChar": 78
+      },
+      "revId": "67f7db9d6b946dd12af60e005ae3b73859f8641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "496cdc01_8b77977f",
+        "filename": "p2p/base/port_allocator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-13T00:39:24Z",
+      "side": 1,
+      "message": "It looks like in P2PTransportChannel is grabs the *current* allocation session and updates its filter.",
+      "range": {
+        "startLine": 546,
+        "startChar": 47,
+        "endLine": 546,
+        "endChar": 53
+      },
+      "revId": "67f7db9d6b946dd12af60e005ae3b73859f8641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eca22594_c18e183c",
+        "filename": "p2p/base/port_allocator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-13T00:39:24Z",
+      "side": 1,
+      "message": "Is this tested?",
+      "range": {
+        "startLine": 549,
+        "startChar": 62,
+        "endLine": 549,
+        "endChar": 15
+      },
+      "revId": "67f7db9d6b946dd12af60e005ae3b73859f8641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

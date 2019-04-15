@@ -75,23 +75,28 @@ void TransportFeedbackAdapter::DeRegisterPacketFeedbackObserver(
   observers_.erase(it);
 }
 
-void TransportFeedbackAdapter::AddPacket(uint32_t ssrc,
-                                         uint16_t sequence_number,
-                                         size_t length,
-                                         const PacedPacketInfo& pacing_info,
+void TransportFeedbackAdapter::AddPacket(const SendPacketInfo& packet_info,
+                                         size_t overhead_bytes,
                                          Timestamp creation_time) {
   {
     rtc::CritScope cs(&lock_);
-    send_time_history_.AddAndRemoveOld(
-        PacketFeedback(creation_time.ms(), sequence_number, length,
-                       local_net_id_, remote_net_id_, pacing_info),
-        creation_time.ms());
+    PacketFeedback packet_feedback(
+        creation_time.ms(), packet_info.get_transport_wide_sequence_number(),
+        packet_info.get_length() + overhead_bytes, local_net_id_,
+        remote_net_id_, packet_info.get_pacing_info());
+    if (packet_info.has_rtp_sequence_number()) {
+      packet_feedback.ssrc = packet_info.get_ssrc();
+      packet_feedback.rtp_sequence_number =
+          packet_info.get_rtp_sequence_number();
+    }
+    send_time_history_.AddAndRemoveOld(packet_feedback, creation_time.ms());
   }
 
   {
     rtc::CritScope cs(&observers_lock_);
     for (auto* observer : observers_) {
-      observer->OnPacketAdded(ssrc, sequence_number);
+      observer->OnPacketAdded(packet_info.get_ssrc(),
+                              packet_info.get_transport_wide_sequence_number());
     }
   }
 }

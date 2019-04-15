@@ -1966,9 +1966,11 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
       sent_packet.info.packet_size_bytes = rtp.total_length;
       sent_packet.info.included_in_feedback = true;
       sent_packet.packet_id = rtp.header.extension.transportSequenceNumber;
-      feedback_adapter.AddPacket(rtp.header.ssrc, sent_packet.packet_id,
-                                 rtp.total_length, PacedPacketInfo(),
-                                 Timestamp::ms(rtp.log_time_ms()));
+      feedback_adapter.AddPacket(
+          SendPacketInfo(rtp.header.ssrc, sent_packet.packet_id,
+                         rtp.header.sequenceNumber, rtp.total_length,
+                         PacedPacketInfo()),
+          0u, Timestamp::ms(rtp.log_time_ms()));
       auto sent_packet_msg = feedback_adapter.ProcessSentPacket(sent_packet);
       RTC_CHECK(sent_packet_msg);
       indices[sent_packet_msg->sequence_number] = packets.size();

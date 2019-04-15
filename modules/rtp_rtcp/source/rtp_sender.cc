@@ -1204,8 +1204,8 @@ void RTPSender::AddPacketToTransportFeedback(
   }
 
   if (transport_feedback_observer_) {
-    transport_feedback_observer_->AddPacket(SSRC(), packet_id, packet_size,
-                                            pacing_info);
+    transport_feedback_observer_->AddPacket(SendPacketInfo(
+        SSRC(), packet_id, packet.SequenceNumber(), packet_size, pacing_info));
   }
 }
 
@@ -1232,5 +1232,10 @@ int64_t RTPSender::LastTimestampTimeMs() const {
 void RTPSender::SetRtt(int64_t rtt_ms) {
   packet_history_.SetRtt(rtt_ms);
   flexfec_packet_history_.SetRtt(rtt_ms);
+}
+
+void RTPSender::OnPacketsReceived(
+    const rtc::ArrayView<const uint16_t>& sequence_numbers) {
+  packet_history_.CullAcknowledgedPackets(sequence_numbers);
 }
 }  // namespace webrtc

@@ -80,9 +80,10 @@ void LogBasedNetworkControllerSimulation::OnPacketSent(
         pending_probes_.pop_front();
       }
     }
-    transport_feedback_.AddPacket(packet.ssrc, packet.transport_seq_no,
-                                  packet.size + packet.overhead, probe_info,
-                                  packet.log_packet_time);
+    transport_feedback_.AddPacket(
+        SendPacketInfo(packet.ssrc, packet.transport_seq_no,
+                       packet.stream_seq_no, packet.size, probe_info),
+        packet.overhead, packet.log_packet_time);
   }
   rtc::SentPacket sent_packet;
   sent_packet.send_time_ms = packet.log_packet_time.ms();

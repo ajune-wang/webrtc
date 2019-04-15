@@ -63,10 +63,10 @@ class TransportFeedbackAdapterTest : public ::testing::Test {
                                     int64_t now_ms) {}
 
   void OnSentPacket(const PacketFeedback& packet_feedback) {
-    adapter_->AddPacket(kSsrc, packet_feedback.sequence_number,
-                        packet_feedback.payload_size,
-                        packet_feedback.pacing_info,
-                        Timestamp::ms(clock_.TimeInMilliseconds()));
+    adapter_->AddPacket(SendPacketInfo(kSsrc, packet_feedback.sequence_number,
+                                       0u, packet_feedback.payload_size,
+                                       packet_feedback.pacing_info),
+                        0u, Timestamp::ms(clock_.TimeInMilliseconds()));
     adapter_->ProcessSentPacket(rtc::SentPacket(packet_feedback.sequence_number,
                                                 packet_feedback.send_time_ms,
                                                 rtc::PacketInfo()));

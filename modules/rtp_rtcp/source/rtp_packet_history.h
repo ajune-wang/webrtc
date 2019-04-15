@@ -89,6 +89,9 @@ class RtpPacketHistory {
   std::unique_ptr<RtpPacketToSend> GetBestFittingPacket(
       size_t packet_size) const;
 
+  void CullAcknowledgedPackets(
+      const rtc::ArrayView<const uint16_t>& sequence_numbers);
+
  private:
   struct StoredPacket {
     StoredPacket();

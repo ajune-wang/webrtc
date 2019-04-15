@@ -274,6 +274,10 @@ struct PacketFeedback {
   uint16_t remote_net_id;
   // Pacing information about this packet.
   PacedPacketInfo pacing_info;
+
+  // The SSRC and RTP sequence number of the packet this feedback refers to.
+  uint32_t ssrc;
+  uint16_t rtp_sequence_number;
 };
 
 class PacketFeedbackComparator {
@@ -287,18 +291,78 @@ class PacketFeedbackComparator {
   }
 };
 
+struct SendPacketInfo {
+ public:
+  SendPacketInfo();
+  SendPacketInfo(uint32_t ssrc,
+                 uint16_t transport_wide_sequence_number,
+                 size_t length,
+                 const PacedPacketInfo& pacing_info)
+      : ssrc(ssrc),
+        transport_wide_sequence_number(transport_wide_sequence_number),
+        rtp_sequence_number(absl::nullopt),
+        length(length),
+        pacing_info(pacing_info) {}
+  SendPacketInfo(uint32_t ssrc,
+                 uint16_t transport_wide_sequence_number,
+                 uint16_t rtp_sequence_number,
+                 size_t length,
+                 const PacedPacketInfo& pacing_info)
+      : ssrc(ssrc),
+        transport_wide_sequence_number(transport_wide_sequence_number),
+        rtp_sequence_number(rtp_sequence_number),
+        length(length),
+        pacing_info(pacing_info) {}
+
+  uint32_t get_ssrc() const { return ssrc; }
+  uint16_t get_transport_wide_sequence_number() const {
+    return transport_wide_sequence_number;
+  }
+  // TODO(sprang): Remove when all implementations set this value.
+  bool has_rtp_sequence_number() const {
+    return rtp_sequence_number.has_value();
+  }
+  uint16_t get_rtp_sequence_number() const {
+    return rtp_sequence_number.value_or(0);
+  }
+  size_t get_length() const { return length; }
+  const PacedPacketInfo& get_pacing_info() const { return pacing_info; }
+
+ private:
+  uint32_t ssrc = 0;
+  uint16_t transport_wide_sequence_number = 0;
+  absl::optional<uint16_t> rtp_sequence_number;
+  size_t length = 0;
+  PacedPacketInfo pacing_info;
+};
+
 class TransportFeedbackObserver {
  public:
   TransportFeedbackObserver() {}
   virtual ~TransportFeedbackObserver() {}
 
-  // Note: Transport-wide sequence number as sequence number.
+  // TODO(webrtc:8975): Remove when downstream projects have been updated.
   virtual void AddPacket(uint32_t ssrc,
-                         uint16_t sequence_number,
+                         uint16_t sequence_number,  // Transport-wide.
                          size_t length,
-                         const PacedPacketInfo& pacing_info) = 0;
+                         const PacedPacketInfo& pacing_info) {
+    AddPacket(SendPacketInfo(ssrc, sequence_number, length, pacing_info));
+  }
+
+  virtual void AddPacket(const SendPacketInfo& packet_info) = 0;
 
   virtual void OnTransportFeedback(const rtcp::TransportFeedback& feedback) = 0;
+};
+
+class PacketsReceviedObserver {
+ public:
+  PacketsReceviedObserver() {}
+  virtual ~PacketsReceviedObserver() {}
+
+  // Indicates RTP sequence numbers for packets that have been acknowledged as
+  // received by the remote end.
+  virtual void OnPacketsReceived(
+      const rtc::ArrayView<const uint16_t>& sequence_numbers) = 0;
 };
 
 // Interface for PacketRouter to send rtcp feedback on behalf of

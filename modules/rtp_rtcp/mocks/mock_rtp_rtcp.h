@@ -158,6 +158,7 @@ class MockRtpRtcp : public RtpRtcp {
                void(StreamDataCountersCallback*));
   MOCK_CONST_METHOD0(GetSendChannelRtpStatisticsCallback,
                      StreamDataCountersCallback*(void));
+  MOCK_CONST_METHOD0(GetPacketReceivedObserver, PacketsReceviedObserver*(void));
   MOCK_METHOD1(SetVideoBitrateAllocation, void(const VideoBitrateAllocation&));
   MOCK_METHOD0(RtpSender, RTPSender*());
   MOCK_CONST_METHOD0(RtpSender, const RTPSender*());

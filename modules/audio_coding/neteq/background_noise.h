@@ -38,6 +38,15 @@ class BackgroundNoise {
   // |sync_buffer|, and on the latest decision in |vad| if it is running.
   void Update(const AudioMultiVector& sync_buffer, const PostDecodeVad& vad);
 
+  // Generates background noise given a random vector and writes the output to
+  // |buffer|.
+  void GenerateBackgroundNoise(const int16_t* random_vector,
+                               size_t channel,
+                               int mute_slope,
+                               bool too_many_expands,
+                               size_t num_noise_samples,
+                               int16_t* buffer);
+
   // Returns |energy_| for |channel|.
   int32_t Energy(size_t channel) const;
 

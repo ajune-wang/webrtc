@@ -21,6 +21,11 @@
 #include "modules/audio_coding/neteq/post_decode_vad.h"
 
 namespace webrtc {
+namespace {
+
+constexpr size_t kMaxSampleRate = 48000;
+
+}  // namespace
 
 // static
 const size_t BackgroundNoise::kMaxLpcOrder;
@@ -117,6 +122,54 @@ void BackgroundNoise::Update(const AudioMultiVector& input,
     }
   }
   return;
+}
+
+void BackgroundNoise::GenerateBackgroundNoise(const int16_t* random_vector,
+                                              size_t channel,
+                                              int mute_slope,
+                                              bool too_many_expands,
+                                              size_t num_noise_samples,
+                                              int16_t* buffer) {
+  static const size_t kNoiseLpcOrder = BackgroundNoise::kMaxLpcOrder;
+  int16_t scaled_random_vector[kMaxSampleRate / 8000 * 125];
+  assert(num_noise_samples <= (kMaxSampleRate / 8000 * 125));
+  int16_t* noise_samples = &buffer[kNoiseLpcOrder];
+  if (initialized()) {
+    // Use background noise parameters.
+    memcpy(noise_samples - kNoiseLpcOrder, FilterState(channel),
+           sizeof(int16_t) * kNoiseLpcOrder);
+
+    int dc_offset = 0;
+    if (ScaleShift(channel) > 1) {
+      dc_offset = 1 << (ScaleShift(channel) - 1);
+    }
+
+    // Scale random vector to correct energy level.
+    WebRtcSpl_AffineTransformVector(scaled_random_vector, random_vector,
+                                    Scale(channel), dc_offset,
+                                    ScaleShift(channel), num_noise_samples);
+
+    WebRtcSpl_FilterARFastQ12(scaled_random_vector, noise_samples,
+                              Filter(channel), kNoiseLpcOrder + 1,
+                              num_noise_samples);
+
+    SetFilterState(channel,
+                   &(noise_samples[num_noise_samples - kNoiseLpcOrder]),
+                   kNoiseLpcOrder);
+
+    // Unmute the background noise.
+    int16_t bgn_mute_factor = MuteFactor(channel);
+    if (bgn_mute_factor < 16384) {
+      WebRtcSpl_AffineTransformVector(noise_samples, noise_samples,
+                                      bgn_mute_factor, 8192, 14,
+                                      num_noise_samples);
+    }
+    // Update mute_factor in BackgroundNoise class.
+    SetMuteFactor(channel, bgn_mute_factor);
+  } else {
+    // BGN parameters have not been initialized; use zero noise.
+    memset(noise_samples, 0, sizeof(int16_t) * num_noise_samples);
+  }
 }
 
 int32_t BackgroundNoise::Energy(size_t channel) const {

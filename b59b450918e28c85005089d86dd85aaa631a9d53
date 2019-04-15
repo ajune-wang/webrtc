@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a16df81d_fdf2a625",
+        "filename": "test/scenario/network_node.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-15T12:37:30Z",
+      "side": 1,
+      "message": "Removing this for now, we can add it back when the refactoring is finished to represent the end result.",
+      "parentUuid": "601f2eb1_04df9edb",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 0
+      },
+      "revId": "b59b450918e28c85005089d86dd85aaa631a9d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a95cde13_bf6d6bb9",
         "filename": "test/scenario/scenario.h",
         "patchSetId": 1
@@ -141,6 +165,30 @@
       "revId": "b59b450918e28c85005089d86dd85aaa631a9d53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d8d46db_ac536af6",
+        "filename": "test/scenario/scenario.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-15T12:37:30Z",
+      "side": 1,
+      "message": "Yes, that makes sense. The main point of this refactoring to me was to be avoid doing a parallel process of moving scenario test interfaces to API that are just the same work as we need to do for the emulation manager, but indeed we need to move it somehow.",
+      "parentUuid": "15f0d6c6_6557439f",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "b59b450918e28c85005089d86dd85aaa631a9d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

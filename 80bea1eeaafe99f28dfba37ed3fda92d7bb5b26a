@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e04663a_f9313a5a",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-15T09:32:25Z",
+      "side": 0,
+      "message": "Nice cleanup removing this constructor!\n(I think you forgot to remove it from the h-file?)",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 65
+      },
+      "revId": "80bea1eeaafe99f28dfba37ed3fda92d7bb5b26a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

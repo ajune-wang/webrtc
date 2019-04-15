@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "15f0d6c6_6557439f",
+        "filename": "test/scenario/scenario.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-15T11:58:03Z",
+      "side": 1,
+      "message": "I\u0027m ok with doing it later. One important point is that target test/scenario/network:emulated_network is visible only for api/test:create_network_emulation_manager and test/scenario:scenario, so other targets won\u0027t be able to include headers, that define types NetworkEmulationManagerImpl and cross traffic types. If we can work with it now, it\u0027s fine, but we need to add cross traffic into public API and replace implementation with interface here in follow-up CL.",
+      "parentUuid": "7ef7f8f6_b0bd2067",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "b59b450918e28c85005089d86dd85aaa631a9d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1b995998_6a5b9fae",
         "filename": "test/scenario/scenario.h",
         "patchSetId": 1

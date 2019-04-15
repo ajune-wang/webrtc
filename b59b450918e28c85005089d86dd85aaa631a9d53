@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2474197e_81bc4667",
+        "filename": "test/scenario/scenario.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-15T11:26:54Z",
+      "side": 1,
+      "message": "Maybe it will make sense actually add cross traffic into API",
+      "parentUuid": "6f0cea2d_8736cdfc",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "b59b450918e28c85005089d86dd85aaa631a9d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b995998_6a5b9fae",
         "filename": "test/scenario/scenario.h",
         "patchSetId": 1

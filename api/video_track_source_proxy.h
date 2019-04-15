@@ -27,11 +27,11 @@ PROXY_CONSTMETHOD0(bool, remote)
 PROXY_CONSTMETHOD0(bool, is_screencast)
 PROXY_CONSTMETHOD0(absl::optional<bool>, needs_denoising)
 PROXY_METHOD1(bool, GetStats, Stats*)
-PROXY_WORKER_METHOD2(void,
-                     AddOrUpdateSink,
-                     rtc::VideoSinkInterface<VideoFrame>*,
-                     const rtc::VideoSinkWants&)
-PROXY_WORKER_METHOD1(void, RemoveSink, rtc::VideoSinkInterface<VideoFrame>*)
+NOPROXY_METHOD2(void,
+                AddOrUpdateSink,
+                rtc::VideoSinkInterface<VideoFrame>*,
+                const rtc::VideoSinkWants&)
+NOPROXY_METHOD1(void, RemoveSink, rtc::VideoSinkInterface<VideoFrame>*)
 PROXY_WORKER_METHOD1(void, SetLatency, double)
 PROXY_WORKER_CONSTMETHOD0(double, GetLatency)
 PROXY_METHOD1(void, RegisterObserver, ObserverInterface*)

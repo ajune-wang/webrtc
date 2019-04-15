@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "02f1df49_8f3a9a40",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-04-15T08:02:15Z",
+      "side": 1,
+      "message": "Are we confident that frame will always exist? I remember some code checking this in other places.",
+      "range": {
+        "startLine": 1059,
+        "startChar": 24,
+        "endLine": 1059,
+        "endChar": 29
+      },
+      "revId": "cb846c9e424b074344278652557238b8b49e9c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "606bada0_ef3db518",
         "filename": "modules/audio_coding/neteq/neteq_impl.cc",
         "patchSetId": 1

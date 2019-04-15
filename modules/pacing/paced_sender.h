@@ -179,6 +179,8 @@ class PacedSender : public Pacer {
 
   Clock* const clock_;
   PacketSender* const packet_sender_;
+  const std::unique_ptr<FieldTrialBasedConfig> fallback_field_trials_;
+  const WebRtcKeyValueConfig* field_trials_;
   std::unique_ptr<AlrDetector> alr_detector_ RTC_PT_GUARDED_BY(critsect_);
 
   const bool drain_large_queues_;

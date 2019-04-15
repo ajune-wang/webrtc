@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "601f2eb1_04df9edb",
+        "filename": "test/scenario/network_node.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-15T09:11:54Z",
+      "side": 1,
+      "message": "Probably it will be better to rephrase it a bit",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 0
+      },
+      "revId": "b59b450918e28c85005089d86dd85aaa631a9d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a95cde13_bf6d6bb9",
+        "filename": "test/scenario/scenario.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-15T09:11:54Z",
+      "side": 1,
+      "message": "I think, if net() will return NetworkEmulationManager, here it will be better to include api/test/network_emulation_manager.h. In such case we won\u0027t expose network emulation layer internals to users of scenario API.",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "b59b450918e28c85005089d86dd85aaa631a9d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b995998_6a5b9fae",
+        "filename": "test/scenario/scenario.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-15T09:11:54Z",
+      "side": 1,
+      "message": "Do we need Impl here? Can we expose interface only?",
+      "range": {
+        "startLine": 52,
+        "startChar": 25,
+        "endLine": 52,
+        "endChar": 29
+      },
+      "revId": "b59b450918e28c85005089d86dd85aaa631a9d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20890b9a_837a0fe9",
+        "filename": "test/scenario/scenario.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-15T09:11:54Z",
+      "side": 1,
+      "message": "Can we use interface here and initialize it with concrete implementation in the constructor.",
+      "range": {
+        "startLine": 183,
+        "startChar": 2,
+        "endLine": 183,
+        "endChar": 29
+      },
+      "revId": "b59b450918e28c85005089d86dd85aaa631a9d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

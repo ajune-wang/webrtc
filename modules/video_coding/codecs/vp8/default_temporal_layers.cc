@@ -336,6 +336,7 @@ Vp8FrameConfig DefaultTemporalLayers::UpdateLayerConfig(size_t stream_index,
   RTC_DCHECK_GT(num_layers_, 0);
   RTC_DCHECK_GT(temporal_pattern_.size(), 0);
 
+  const bool first_frame = (pattern_idx_ == kUninitializedPatternIndex);
   pattern_idx_ = (pattern_idx_ + 1) % temporal_pattern_.size();
   DependencyInfo dependency_info = temporal_pattern_[pattern_idx_];
   Vp8FrameConfig& tl_config = dependency_info.frame_config;
@@ -385,6 +386,11 @@ Vp8FrameConfig DefaultTemporalLayers::UpdateLayerConfig(size_t stream_index,
   // TODO(sprang): Update checker to support dropping.
   RTC_DCHECK(checker_->CheckTemporalConfig(false, tl_config));
 #endif
+
+  if (first_frame) {
+    tl_config = Vp8FrameConfig(BufferFlags::kUpdate, BufferFlags::kUpdate,
+                               BufferFlags::kUpdate);
+  }
 
   return tl_config;
 }
@@ -649,7 +655,7 @@ DefaultTemporalLayersChecker::DefaultTemporalLayersChecker(
       num_layers_(std::max(1, num_temporal_layers)),
       temporal_ids_(GetTemporalIds(num_layers_)),
       temporal_dependencies_(GetTemporalDependencies(num_layers_)),
-      pattern_idx_(255) {
+      pattern_idx_(kUninitializedPatternIndex) {
   int i = 0;
   while (temporal_ids_.size() < temporal_dependencies_.size()) {
     temporal_ids_.push_back(temporal_ids_[i++]);

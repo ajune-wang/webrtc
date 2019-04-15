@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "7ef7f8f6_b0bd2067",
+        "filename": "test/scenario/scenario.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-15T11:48:44Z",
+      "side": 1,
+      "message": "Could make sense, but that can be done later, right? For now I think this is an improvement, changing to the interface instead of Impl later on will be a small change when the API change is complete. Or should I abandon this for now?",
+      "parentUuid": "2474197e_81bc4667",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "b59b450918e28c85005089d86dd85aaa631a9d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1b995998_6a5b9fae",
         "filename": "test/scenario/scenario.h",
         "patchSetId": 1
@@ -187,6 +211,30 @@
       "revId": "b59b450918e28c85005089d86dd85aaa631a9d53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1d16fb6_1c02e477",
+        "filename": "test/scenario/scenario.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-15T11:48:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "62c9aecb_7818a13d",
+      "range": {
+        "startLine": 183,
+        "startChar": 2,
+        "endLine": 183,
+        "endChar": 29
+      },
+      "revId": "b59b450918e28c85005089d86dd85aaa631a9d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

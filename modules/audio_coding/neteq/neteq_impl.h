@@ -165,6 +165,8 @@ class NetEqImpl : public webrtc::NetEq {
 
   NetEqLifetimeStatistics GetLifetimeStatistics() const override;
 
+  rtc::SampleCounter GetInterruptionCounter() const override;
+
   NetEqOperationsAndState GetOperationsAndState() const override;
 
   // Enables post-decode VAD. When enabled, GetAudio() will return

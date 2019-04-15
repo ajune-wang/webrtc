@@ -346,6 +346,11 @@ NetEqLifetimeStatistics NetEqImpl::GetLifetimeStatistics() const {
   return stats_->GetLifetimeStatistics();
 }
 
+rtc::SampleCounter NetEqImpl::GetInterruptionCounter() const {
+  rtc::CritScope lock(&crit_sect_);
+  return stats_->GetInterruptionCounter();
+}
+
 NetEqOperationsAndState NetEqImpl::GetOperationsAndState() const {
   rtc::CritScope lock(&crit_sect_);
   auto result = stats_->GetOperationsAndState();
@@ -816,6 +821,9 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame,
   switch (operation) {
     case kNormal: {
       DoNormal(decoded_buffer_.get(), length, speech_type, play_dtmf);
+      if (length > 0) {
+        stats_->DecodedOutputPlayed();
+      }
       break;
     }
     case kMerge: {

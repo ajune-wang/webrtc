@@ -17,6 +17,7 @@
 
 #include "modules/audio_coding/neteq/tools/neteq_delay_analyzer.h"
 #include "modules/audio_coding/neteq/tools/neteq_test.h"
+#include "rtc_base/numerics/sample_counter.h"
 
 namespace webrtc {
 namespace test {
@@ -42,6 +43,8 @@ class NetEqStatsGetter : public NetEqGetAudioCallback {
     double median_waiting_time_ms = 0.0;
     double min_waiting_time_ms = 0.0;
     double max_waiting_time_ms = 0.0;
+    int64_t num_interruptions = 0;
+    double average_interruption_length_ms = 0.0;
   };
 
   struct ConcealmentEvent {
@@ -98,6 +101,7 @@ class NetEqStatsGetter : public NetEqGetAudioCallback {
   uint64_t voice_concealed_samples_until_last_event_ = 0;
   std::vector<ConcealmentEvent> concealment_events_;
   int64_t last_event_end_time_ms_ = 0;
+  rtc::SampleCounter last_interruption_counter_;
 };
 
 }  // namespace test

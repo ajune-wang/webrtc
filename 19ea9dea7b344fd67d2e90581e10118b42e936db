@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "79e48ab9_ced1d0f3",
+        "filename": "pc/rtp_transport.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-15T23:56:32Z",
+      "side": 1,
+      "message": "Removed the variable.",
+      "parentUuid": "3f4f758c_f409a622",
+      "range": {
+        "startLine": 199,
+        "startChar": 7,
+        "endLine": 199,
+        "endChar": 16
+      },
+      "revId": "19ea9dea7b344fd67d2e90581e10118b42e936db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f88bc47a_18d3cd66",
+        "filename": "pc/rtp_transport.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-15T23:56:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d2314ca_f9ee4821",
+      "range": {
+        "startLine": 199,
+        "startChar": 7,
+        "endLine": 199,
+        "endChar": 16
+      },
+      "revId": "19ea9dea7b344fd67d2e90581e10118b42e936db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fab8497b_b0ecfe9b",
         "filename": "pc/rtp_transport.cc",
         "patchSetId": 5
@@ -68,6 +116,30 @@
       "revId": "19ea9dea7b344fd67d2e90581e10118b42e936db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d9f8166_919660ef",
+        "filename": "pc/rtp_transport.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-15T23:56:32Z",
+      "side": 1,
+      "message": "I hope this is fairly rare as dropping RTP packets is pretty severe. If it turns out this message spams even under normal circumstances, we can either lower the severity or add rate limiting.",
+      "parentUuid": "fab8497b_b0ecfe9b",
+      "range": {
+        "startLine": 201,
+        "startChar": 12,
+        "endLine": 201,
+        "endChar": 22
+      },
+      "revId": "19ea9dea7b344fd67d2e90581e10118b42e936db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

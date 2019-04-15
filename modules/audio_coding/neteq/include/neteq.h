@@ -25,6 +25,7 @@
 #include "api/scoped_refptr.h"
 #include "modules/audio_coding/neteq/defines.h"
 #include "rtc_base/constructor_magic.h"
+#include "rtc_base/numerics/sample_counter.h"
 
 namespace webrtc {
 
@@ -229,6 +230,8 @@ class NetEq {
   // Returns a copy of this class's lifetime statistics. These statistics are
   // never reset.
   virtual NetEqLifetimeStatistics GetLifetimeStatistics() const = 0;
+
+  virtual rtc::SampleCounter GetInterruptionCounter() const = 0;
 
   // Returns statistics about the performed operations and internal state. These
   // statistics are never reset.

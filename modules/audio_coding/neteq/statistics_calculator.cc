@@ -29,6 +29,8 @@ size_t AddIntToSizeTWithLowerCap(int a, size_t b) {
                 "int must not be wider than size_t for this to work");
   return (a < 0 && ret > b) ? 0 : ret;
 }
+
+constexpr int kInterruptionLenMs = 150;
 }  // namespace
 
 // Allocating the static const so that it can be passed by reference to
@@ -174,6 +176,23 @@ void StatisticsCalculator::ExpandedNoiseSamplesCorrection(int num_samples) {
   expanded_noise_samples_ =
       AddIntToSizeTWithLowerCap(num_samples, expanded_noise_samples_);
   ConcealedSamplesCorrection(num_samples, false);
+}
+
+void StatisticsCalculator::DecodedOutputPlayed() {
+  decoded_output_played_ = true;
+}
+
+void StatisticsCalculator::EndExpandEvent(int fs_hz) {
+  RTC_DCHECK_GE(lifetime_stats_.concealed_samples,
+                concealed_samples_at_event_end_);
+  const int event_duration_ms =
+      1000 *
+      (lifetime_stats_.concealed_samples - concealed_samples_at_event_end_) /
+      fs_hz;
+  if (event_duration_ms >= kInterruptionLenMs && decoded_output_played_) {
+    interruption_counter_.Add(event_duration_ms);
+  }
+  concealed_samples_at_event_end_ = lifetime_stats_.concealed_samples;
 }
 
 void StatisticsCalculator::ConcealedSamplesCorrection(int num_samples,
@@ -371,6 +390,10 @@ NetEqLifetimeStatistics StatisticsCalculator::GetLifetimeStatistics() const {
 
 NetEqOperationsAndState StatisticsCalculator::GetOperationsAndState() const {
   return operations_and_state_;
+}
+
+rtc::SampleCounter StatisticsCalculator::GetInterruptionCounter() const {
+  return interruption_counter_;
 }
 
 uint16_t StatisticsCalculator::CalculateQ14Ratio(size_t numerator,

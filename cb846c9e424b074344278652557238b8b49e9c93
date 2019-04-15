@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "606bada0_ef3db518",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-04-15T07:59:11Z",
+      "side": 1,
+      "message": "Are you sure you want to include Merge operations in this condition?",
+      "range": {
+        "startLine": 1060,
+        "startChar": 7,
+        "endLine": 1060,
+        "endChar": 27
+      },
+      "revId": "cb846c9e424b074344278652557238b8b49e9c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

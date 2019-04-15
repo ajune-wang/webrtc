@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a813fed0_6698dee1",
+        "filename": "modules/audio_coding/neteq/background_noise.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-04-15T07:57:06Z",
+      "side": 1,
+      "message": "I don\u0027t think you have to qualify with BackgroundNoise:: while in that very class.",
+      "range": {
+        "startLine": 133,
+        "startChar": 39,
+        "endLine": 133,
+        "endChar": 56
+      },
+      "revId": "dba24f827d66bf0727aa9aba86172eace4330ad5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69519eb4_03032f5d",
+        "filename": "modules/audio_coding/neteq/background_noise.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-04-15T07:57:06Z",
+      "side": 1,
+      "message": "This looks like it should be an ArrayView.",
+      "range": {
+        "startLine": 43,
+        "startChar": 31,
+        "endLine": 43,
+        "endChar": 59
+      },
+      "revId": "dba24f827d66bf0727aa9aba86172eace4330ad5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63f4c724_b8c11c53",
+        "filename": "modules/audio_coding/neteq/background_noise.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-04-15T07:57:06Z",
+      "side": 1,
+      "message": "Bonus points for making this an ArrayView too.",
+      "range": {
+        "startLine": 48,
+        "startChar": 31,
+        "endLine": 48,
+        "endChar": 47
+      },
+      "revId": "dba24f827d66bf0727aa9aba86172eace4330ad5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

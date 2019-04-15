@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f48070ea_73b0955b",
+        "filename": "modules/audio_coding/neteq/tools/fake_decode_from_file.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-04-15T13:06:30Z",
+      "side": 1,
+      "message": "I don\u0027t really understand this, could you explain?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 68
+      },
+      "revId": "0fcc4bf1a057101ac37c44759e4a9865103b1922",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -27,6 +27,8 @@ namespace webrtc {
 // This should be your go-to class if you ever need to compute
 // min, max, mean, variance and standard deviation.
 // If you need to get percentiles, please use webrtc::SamplesStatsCounter.
+// If you want a moving window over N last samples, please use
+// webrtc::RollingAccumulator.
 //
 // The measures return absl::nullopt if no samples were fed (Size() == 0),
 // otherwise the returned optional is guaranteed to contain a value.
@@ -54,6 +56,19 @@ class RunningStatistics {
     cumul_ += delta * delta2;
   }
 
+  // Remove a previously added value in O(1) time.
+  // Nb: This doesn't affect min or max.
+  // Calling RemoveSample when GetSize() is 0 is undefined.
+  void RemoveSample(T sample) {
+    // Since samples order doesn't matter, this is the
+    // exact reciprocal of Welford's incremental update.
+    --size_;
+    const double delta = sample - mean_;
+    mean_ -= delta / size_;
+    const double delta2 = sample - mean_;
+    cumul_ -= delta * delta2;
+  }
+
   // Merge other stats, as if samples were added one by one, but in O(1).
   void MergeStatistics(const RunningStatistics<T>& other) {
     if (other.size_ == 0) {
@@ -78,11 +93,12 @@ class RunningStatistics {
 
   // Get Measures ////////////////////////////////////////////
 
-  // Returns number of samples involved,
-  // that is number of times AddSample() was called.
+  // Returns number of samples involved via AddSample() or MergeStatistics(),
+  // minus number of times RemoveSample() was called.
   int64_t Size() const { return size_; }
 
-  // Returns min in O(1) time.
+  // Returns minimum among all seen samples, in O(1) time.
+  // This isn't affected by RemoveSample().
   absl::optional<T> GetMin() const {
     if (size_ == 0) {
       return absl::nullopt;
@@ -90,7 +106,8 @@ class RunningStatistics {
     return min_;
   }
 
-  // Returns max in O(1) time.
+  // Returns maximum among all seen samples, in O(1) time.
+  // This isn't affected by RemoveSample().
   absl::optional<T> GetMax() const {
     if (size_ == 0) {
       return absl::nullopt;

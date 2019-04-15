@@ -76,6 +76,48 @@ TEST(RunningStatistics, VarianceAndDeviation) {
   EXPECT_DOUBLE_EQ(*stats.GetStandardDeviation(), sqrt(4.5));
 }
 
+TEST(RunningStatistics, RemoveSample) {
+  // We check that adding then removing sample is no-op,
+  // or so (due to loss of precision).
+  RunningStatistics<int> stats;
+  stats.AddSample(2);
+  stats.AddSample(2);
+  stats.AddSample(-1);
+  stats.AddSample(5);
+
+  constexpr int iterations = 1e5;
+  for (int i = 0; i < iterations; ++i) {
+    stats.AddSample(i);
+    stats.RemoveSample(i);
+
+    EXPECT_NEAR(*stats.GetMean(), 2.0, 1e-8);
+    EXPECT_NEAR(*stats.GetVariance(), 4.5, 1e-3);
+    EXPECT_NEAR(*stats.GetStandardDeviation(), sqrt(4.5), 1e-4);
+  }
+}
+
+TEST(RunningStatistics, RemoveSamplesSequence) {
+  // We check that adding then removing a sequence of samples is no-op,
+  // or so (due to loss of precision).
+  RunningStatistics<int> stats;
+  stats.AddSample(2);
+  stats.AddSample(2);
+  stats.AddSample(-1);
+  stats.AddSample(5);
+
+  constexpr int iterations = 1e4;
+  for (int i = 0; i < iterations; ++i) {
+    stats.AddSample(i);
+  }
+  for (int i = 0; i < iterations; ++i) {
+    stats.RemoveSample(i);
+  }
+
+  EXPECT_NEAR(*stats.GetMean(), 2.0, 1e-7);
+  EXPECT_NEAR(*stats.GetVariance(), 4.5, 1e-3);
+  EXPECT_NEAR(*stats.GetStandardDeviation(), sqrt(4.5), 1e-4);
+}
+
 TEST(RunningStatisticsTest, VarianceFromUniformDistribution) {
   // Check variance converge to 1/12 for [0;1) uniform distribution.
   // Acts as a sanity check for NumericStabilityForVariance test.

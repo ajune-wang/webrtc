@@ -31,37 +31,30 @@ typedef std::numeric_limits<int16_t> limits_int16;
 // The ratio conversion functions use this naming convention:
 // Ratio: float (0, +inf)
 // Db: float (-inf, +inf)
-static inline int16_t FloatToS16(float v) {
-  if (v > 0)
-    return v >= 1 ? limits_int16::max()
-                  : static_cast<int16_t>(v * limits_int16::max() + 0.5f);
-  return v <= -1 ? limits_int16::min()
-                 : static_cast<int16_t>(-v * limits_int16::min() - 0.5f);
-}
-
 static inline float S16ToFloat(int16_t v) {
-  static const float kMaxInt16Inverse = 1.f / limits_int16::max();
-  static const float kMinInt16Inverse = 1.f / limits_int16::min();
-  return v * (v > 0 ? kMaxInt16Inverse : -kMinInt16Inverse);
+  constexpr float kMaxInt16Inverse = 1.f / 32768.f;
+  return v * kMaxInt16Inverse;
 }
 
 static inline int16_t FloatS16ToS16(float v) {
-  static const float kMaxRound = limits_int16::max() - 0.5f;
-  static const float kMinRound = limits_int16::min() + 0.5f;
-  if (v > 0)
-    return v >= kMaxRound ? limits_int16::max()
-                          : static_cast<int16_t>(v + 0.5f);
-  return v <= kMinRound ? limits_int16::min() : static_cast<int16_t>(v - 0.5f);
+  RTC_DCHECK_LE(32767.f, v);
+  RTC_DCHECK_GE(-32768.f, v);
+  if (v > 0) {
+    return static_cast<int16_t>(v + 0.5f);
+  }
+  return static_cast<int16_t>(v - 0.5f);
 }
 
 static inline float FloatToFloatS16(float v) {
-  return v * (v > 0 ? limits_int16::max() : -limits_int16::min());
+  return std::min(v * 32768.f, 32767.f);
 }
 
 static inline float FloatS16ToFloat(float v) {
-  static const float kMaxInt16Inverse = 1.f / limits_int16::max();
-  static const float kMinInt16Inverse = 1.f / limits_int16::min();
-  return v * (v > 0 ? kMaxInt16Inverse : -kMinInt16Inverse);
+  if (v < -32767.f)
+    return -1;
+
+  constexpr float kMaxInt16Inverse = 1.f / 32767.f;
+  return v * kMaxInt16Inverse;
 }
 
 void FloatToS16(const float* src, size_t size, int16_t* dest);

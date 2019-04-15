@@ -13,8 +13,15 @@
 namespace webrtc {
 
 void FloatToS16(const float* src, size_t size, int16_t* dest) {
-  for (size_t i = 0; i < size; ++i)
-    dest[i] = FloatToS16(src[i]);
+  for (size_t i = 0; i < size; ++i) {
+    RTC_DCHECK_LE(32767.f, src[i]);
+    RTC_DCHECK_GE(-32768.f, src[i]);
+    if (src[i] >= 1.f)
+      dest[i] = 32767;
+    if (src[i] <= -1.f)
+      dest[i] = -32768;
+    dest[i] = static_cast<int16_t>(src[i] * 32767.5f);
+  }
 }
 
 void S16ToFloat(const int16_t* src, size_t size, float* dest) {

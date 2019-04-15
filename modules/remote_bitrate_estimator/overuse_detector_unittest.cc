@@ -14,6 +14,7 @@
 #include <cstdlib>
 #include <memory>
 
+#include "api/transport/field_trial_based_config.h"
 #include "modules/remote_bitrate_estimator/inter_arrival.h"
 #include "modules/remote_bitrate_estimator/overuse_detector.h"
 #include "modules/remote_bitrate_estimator/overuse_estimator.h"
@@ -38,7 +39,9 @@ class OveruseDetectorTest : public ::testing::Test {
         random_(123456789) {}
 
  protected:
-  void SetUp() override { overuse_detector_.reset(new OveruseDetector()); }
+  void SetUp() override {
+    overuse_detector_.reset(new OveruseDetector(FieldTrialBasedConfig()));
+  }
 
   int Run100000Samples(int packets_per_frame,
                        size_t packet_size,
@@ -671,7 +674,9 @@ class OveruseDetectorExperimentTest : public OveruseDetectorTest {
             "WebRTC-AdaptiveBweThreshold/Enabled-0.01,0.00018/") {}
 
  protected:
-  void SetUp() override { overuse_detector_.reset(new OveruseDetector()); }
+  void SetUp() override {
+    overuse_detector_.reset(new OveruseDetector(FieldTrialBasedConfig()));
+  }
 
   test::ScopedFieldTrials override_field_trials_;
 };

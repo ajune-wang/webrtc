@@ -14,6 +14,7 @@
 #include <stdint.h>
 
 #include "absl/types/optional.h"
+#include "api/transport/webrtc_key_value_config.h"
 #include "api/units/data_rate.h"
 #include "api/units/timestamp.h"
 #include "modules/congestion_controller/goog_cc/link_capacity_estimator.h"
@@ -28,7 +29,7 @@ namespace webrtc {
 // multiplicatively.
 class AimdRateControl {
  public:
-  AimdRateControl();
+  explicit AimdRateControl(const WebRtcKeyValueConfig& key_value_config);
   ~AimdRateControl();
 
   // Returns true if the target bitrate has been initialized. This happens

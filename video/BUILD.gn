@@ -56,6 +56,7 @@ rtc_static_library("video") {
     "../api:scoped_refptr",
     "../api:transport_api",
     "../api/task_queue",
+    "../api/transport:field_trial_based_config",
     "../api/video:encoded_image",
     "../api/video:video_bitrate_allocation",
     "../api/video:video_bitrate_allocator",
@@ -180,6 +181,7 @@ rtc_source_set("video_stream_encoder_impl") {
   ]
 
   deps = [
+    "../api/transport:field_trial_based_config",
     "../api/units:data_rate",
     "../api/video:encoded_image",
     "../api/video:video_bitrate_allocation",

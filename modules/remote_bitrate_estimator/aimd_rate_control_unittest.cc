@@ -9,6 +9,7 @@
  */
 #include <memory>
 
+#include "api/transport/field_trial_based_config.h"
 #include "modules/remote_bitrate_estimator/aimd_rate_control.h"
 #include "system_wrappers/include/clock.h"
 #include "test/field_trial.h"
@@ -34,9 +35,10 @@ struct AimdRateControlStates {
   std::unique_ptr<SimulatedClock> simulated_clock;
 };
 
-AimdRateControlStates CreateAimdRateControlStates() {
+AimdRateControlStates CreateAimdRateControlStates(
+    const WebRtcKeyValueConfig& key_value_config) {
   AimdRateControlStates states;
-  states.aimd_rate_control.reset(new AimdRateControl());
+  states.aimd_rate_control.reset(new AimdRateControl(key_value_config));
   states.simulated_clock.reset(new SimulatedClock(kClockInitialTime));
   return states;
 }
@@ -65,7 +67,8 @@ void SetEstimate(const AimdRateControlStates& states, int bitrate_bps) {
 }  // namespace
 
 TEST(AimdRateControlTest, MinNearMaxIncreaseRateOnLowBandwith) {
-  auto states = CreateAimdRateControlStates();
+  FieldTrialBasedConfig field_trial;
+  auto states = CreateAimdRateControlStates(field_trial);
   constexpr int kBitrate = 30000;
   SetEstimate(states, kBitrate);
   EXPECT_EQ(4000,
@@ -73,7 +76,8 @@ TEST(AimdRateControlTest, MinNearMaxIncreaseRateOnLowBandwith) {
 }
 
 TEST(AimdRateControlTest, NearMaxIncreaseRateIs5kbpsOn90kbpsAnd200msRtt) {
-  auto states = CreateAimdRateControlStates();
+  FieldTrialBasedConfig field_trial;
+  auto states = CreateAimdRateControlStates(field_trial);
   constexpr int kBitrate = 90000;
   SetEstimate(states, kBitrate);
   EXPECT_EQ(5000,
@@ -81,7 +85,8 @@ TEST(AimdRateControlTest, NearMaxIncreaseRateIs5kbpsOn90kbpsAnd200msRtt) {
 }
 
 TEST(AimdRateControlTest, NearMaxIncreaseRateIs5kbpsOn60kbpsAnd100msRtt) {
-  auto states = CreateAimdRateControlStates();
+  FieldTrialBasedConfig field_trial;
+  auto states = CreateAimdRateControlStates(field_trial);
   constexpr int kBitrate = 60000;
   SetEstimate(states, kBitrate);
   states.aimd_rate_control->SetRtt(TimeDelta::ms(100));
@@ -91,7 +96,8 @@ TEST(AimdRateControlTest, NearMaxIncreaseRateIs5kbpsOn60kbpsAnd100msRtt) {
 
 TEST(AimdRateControlTest, GetIncreaseRateAndBandwidthPeriod) {
   // Smoothing experiment disabled
-  auto states = CreateAimdRateControlStates();
+  FieldTrialBasedConfig field_trial;
+  auto states = CreateAimdRateControlStates(field_trial);
   constexpr int kBitrate = 300000;
   SetEstimate(states, kBitrate);
   UpdateRateControl(states, BandwidthUsage::kBwOverusing, kBitrate,
@@ -106,7 +112,8 @@ TEST(AimdRateControlTest, GetIncreaseRateAndBandwidthPeriod) {
 TEST(AimdRateControlTest, GetIncreaseRateAndBandwidthPeriodSmoothingExp) {
   // Smoothing experiment enabled
   test::ScopedFieldTrials override_field_trials(kSmoothingExpFieldTrial);
-  auto states = CreateAimdRateControlStates();
+  FieldTrialBasedConfig field_trial;
+  auto states = CreateAimdRateControlStates(field_trial);
   constexpr int kBitrate = 300000;
   SetEstimate(states, kBitrate);
   UpdateRateControl(states, BandwidthUsage::kBwOverusing, kBitrate,
@@ -119,7 +126,8 @@ TEST(AimdRateControlTest, GetIncreaseRateAndBandwidthPeriodSmoothingExp) {
 }
 
 TEST(AimdRateControlTest, BweLimitedByAckedBitrate) {
-  auto states = CreateAimdRateControlStates();
+  FieldTrialBasedConfig field_trial;
+  auto states = CreateAimdRateControlStates(field_trial);
   constexpr int kAckedBitrate = 10000;
   SetEstimate(states, kAckedBitrate);
   while (states.simulated_clock->TimeInMilliseconds() - kClockInitialTime <
@@ -134,7 +142,8 @@ TEST(AimdRateControlTest, BweLimitedByAckedBitrate) {
 }
 
 TEST(AimdRateControlTest, BweNotLimitedByDecreasingAckedBitrate) {
-  auto states = CreateAimdRateControlStates();
+  FieldTrialBasedConfig field_trial;
+  auto states = CreateAimdRateControlStates(field_trial);
   constexpr int kAckedBitrate = 100000;
   SetEstimate(states, kAckedBitrate);
   while (states.simulated_clock->TimeInMilliseconds() - kClockInitialTime <
@@ -157,7 +166,8 @@ TEST(AimdRateControlTest, BweNotLimitedByDecreasingAckedBitrate) {
 
 TEST(AimdRateControlTest, DefaultPeriodUntilFirstOveruse) {
   // Smoothing experiment disabled
-  auto states = CreateAimdRateControlStates();
+  FieldTrialBasedConfig field_trial;
+  auto states = CreateAimdRateControlStates(field_trial);
   states.aimd_rate_control->SetStartBitrate(DataRate::kbps(300));
   EXPECT_EQ(kDefaultPeriodMsNoSmoothingExp,
             states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
@@ -171,7 +181,8 @@ TEST(AimdRateControlTest, DefaultPeriodUntilFirstOveruse) {
 TEST(AimdRateControlTest, MinPeriodUntilFirstOveruseSmoothingExp) {
   // Smoothing experiment enabled
   test::ScopedFieldTrials override_field_trials(kSmoothingExpFieldTrial);
-  auto states = CreateAimdRateControlStates();
+  FieldTrialBasedConfig field_trial;
+  auto states = CreateAimdRateControlStates(field_trial);
   states.aimd_rate_control->SetStartBitrate(DataRate::kbps(300));
   EXPECT_EQ(kMinBwePeriodMsSmoothingExp,
             states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
@@ -183,7 +194,8 @@ TEST(AimdRateControlTest, MinPeriodUntilFirstOveruseSmoothingExp) {
 }
 
 TEST(AimdRateControlTest, ExpectedPeriodAfter20kbpsDropAnd5kbpsIncrease) {
-  auto states = CreateAimdRateControlStates();
+  FieldTrialBasedConfig field_trial;
+  auto states = CreateAimdRateControlStates(field_trial);
   constexpr int kInitialBitrate = 110000;
   SetEstimate(states, kInitialBitrate);
   states.simulated_clock->AdvanceTimeMilliseconds(100);
@@ -201,7 +213,8 @@ TEST(AimdRateControlTest, ExpectedPeriodAfter20kbpsDropAnd5kbpsIncrease) {
 TEST(AimdRateControlTest, MinPeriodAfterLargeBitrateDecreaseSmoothingExp) {
   // Smoothing experiment enabled
   test::ScopedFieldTrials override_field_trials(kSmoothingExpFieldTrial);
-  auto states = CreateAimdRateControlStates();
+  FieldTrialBasedConfig field_trial;
+  auto states = CreateAimdRateControlStates(field_trial);
   constexpr int kInitialBitrate = 110000;
   SetEstimate(states, kInitialBitrate);
   states.simulated_clock->AdvanceTimeMilliseconds(100);
@@ -215,7 +228,8 @@ TEST(AimdRateControlTest, MinPeriodAfterLargeBitrateDecreaseSmoothingExp) {
 }
 
 TEST(AimdRateControlTest, BandwidthPeriodIsNotBelowMin) {
-  auto states = CreateAimdRateControlStates();
+  FieldTrialBasedConfig field_trial;
+  auto states = CreateAimdRateControlStates(field_trial);
   constexpr int kInitialBitrate = 10000;
   SetEstimate(states, kInitialBitrate);
   states.simulated_clock->AdvanceTimeMilliseconds(100);
@@ -229,7 +243,8 @@ TEST(AimdRateControlTest, BandwidthPeriodIsNotBelowMin) {
 TEST(AimdRateControlTest, BandwidthPeriodIsNotAboveMaxSmoothingExp) {
   // Smoothing experiment enabled
   test::ScopedFieldTrials override_field_trials(kSmoothingExpFieldTrial);
-  auto states = CreateAimdRateControlStates();
+  FieldTrialBasedConfig field_trial;
+  auto states = CreateAimdRateControlStates(field_trial);
   constexpr int kInitialBitrate = 50000000;
   SetEstimate(states, kInitialBitrate);
   states.simulated_clock->AdvanceTimeMilliseconds(100);
@@ -242,7 +257,8 @@ TEST(AimdRateControlTest, BandwidthPeriodIsNotAboveMaxSmoothingExp) {
 }
 
 TEST(AimdRateControlTest, BandwidthPeriodIsNotAboveMaxNoSmoothingExp) {
-  auto states = CreateAimdRateControlStates();
+  FieldTrialBasedConfig field_trial;
+  auto states = CreateAimdRateControlStates(field_trial);
   constexpr int kInitialBitrate = 10010000;
   SetEstimate(states, kInitialBitrate);
   states.simulated_clock->AdvanceTimeMilliseconds(100);
@@ -255,7 +271,8 @@ TEST(AimdRateControlTest, BandwidthPeriodIsNotAboveMaxNoSmoothingExp) {
 }
 
 TEST(AimdRateControlTest, SendingRateBoundedWhenThroughputNotEstimated) {
-  auto states = CreateAimdRateControlStates();
+  FieldTrialBasedConfig field_trial;
+  auto states = CreateAimdRateControlStates(field_trial);
   constexpr int kInitialBitrateBps = 123000;
   UpdateRateControl(states, BandwidthUsage::kBwNormal, kInitialBitrateBps,
                     states.simulated_clock->TimeInMilliseconds());

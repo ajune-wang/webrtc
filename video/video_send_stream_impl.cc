@@ -19,6 +19,7 @@
 #include "api/crypto/crypto_options.h"
 #include "api/rtp_parameters.h"
 #include "api/scoped_refptr.h"
+#include "api/transport/field_trial_based_config.h"
 #include "api/video_codecs/video_codec.h"
 #include "call/rtp_transport_controller_send_interface.h"
 #include "call/video_send_stream.h"
@@ -164,9 +165,11 @@ absl::optional<AlrExperimentSettings> GetAlrSettings(
     VideoEncoderConfig::ContentType content_type) {
   if (content_type == VideoEncoderConfig::ContentType::kScreen) {
     return AlrExperimentSettings::CreateFromFieldTrial(
+        FieldTrialBasedConfig(),
         AlrExperimentSettings::kScreenshareProbingBweExperimentName);
   }
   return AlrExperimentSettings::CreateFromFieldTrial(
+      FieldTrialBasedConfig(),
       AlrExperimentSettings::kStrictPacingAndProbingExperimentName);
 }
 
@@ -281,7 +284,8 @@ VideoSendStreamImpl::VideoSendStreamImpl(
     encoder_max_bitrate_bps_ = kFallbackMaxBitrateBps;
   }
 
-  RTC_CHECK(AlrExperimentSettings::MaxOneFieldTrialEnabled());
+  RTC_CHECK(
+      AlrExperimentSettings::MaxOneFieldTrialEnabled(FieldTrialBasedConfig()));
   // If send-side BWE is enabled, check if we should apply updated probing and
   // pacing settings.
   if (TransportSeqNumExtensionConfigured(*config_)) {

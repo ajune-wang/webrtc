@@ -15,6 +15,7 @@
 #include <utility>
 
 #include "absl/types/optional.h"
+#include "api/transport/field_trial_based_config.h"
 #include "modules/remote_bitrate_estimator/aimd_rate_control.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
 #include "modules/remote_bitrate_estimator/inter_arrival.h"
@@ -49,7 +50,7 @@ struct RemoteBitrateEstimatorSingleStream::Detector {
                       kTimestampToMs,
                       enable_burst_grouping),
         estimator(options),
-        detector() {}
+        detector(FieldTrialBasedConfig()) {}
   int64_t last_packet_time_ms;
   InterArrival inter_arrival;
   OveruseEstimator estimator;
@@ -62,7 +63,7 @@ RemoteBitrateEstimatorSingleStream::RemoteBitrateEstimatorSingleStream(
     : clock_(clock),
       incoming_bitrate_(kBitrateWindowMs, 8000),
       last_valid_incoming_bitrate_(0),
-      remote_rate_(new AimdRateControl()),
+      remote_rate_(new AimdRateControl(FieldTrialBasedConfig())),
       observer_(observer),
       last_process_time_(-1),
       process_interval_ms_(kProcessIntervalMs),
@@ -255,7 +256,7 @@ void RemoteBitrateEstimatorSingleStream::GetSsrcs(
 
 AimdRateControl* RemoteBitrateEstimatorSingleStream::GetRemoteRate() {
   if (!remote_rate_)
-    remote_rate_.reset(new AimdRateControl());
+    remote_rate_.reset(new AimdRateControl(FieldTrialBasedConfig()));
   return remote_rate_.get();
 }
 

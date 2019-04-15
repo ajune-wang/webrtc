@@ -17,6 +17,7 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
+#include "api/transport/field_trial_based_config.h"
 #include "api/video/encoded_image.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_bitrate_allocator_factory.h"
@@ -171,6 +172,7 @@ std::array<uint8_t, 2> GetExperimentGroups() {
   std::array<uint8_t, 2> experiment_groups;
   absl::optional<AlrExperimentSettings> experiment_settings =
       AlrExperimentSettings::CreateFromFieldTrial(
+          FieldTrialBasedConfig(),
           AlrExperimentSettings::kStrictPacingAndProbingExperimentName);
   if (experiment_settings) {
     experiment_groups[0] = experiment_settings->group_id + 1;
@@ -178,6 +180,7 @@ std::array<uint8_t, 2> GetExperimentGroups() {
     experiment_groups[0] = 0;
   }
   experiment_settings = AlrExperimentSettings::CreateFromFieldTrial(
+      FieldTrialBasedConfig(),
       AlrExperimentSettings::kScreenshareProbingBweExperimentName);
   if (experiment_settings) {
     experiment_groups[1] = experiment_settings->group_id + 1;

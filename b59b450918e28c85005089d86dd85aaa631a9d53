@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "6f0cea2d_8736cdfc",
+        "filename": "test/scenario/scenario.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-15T09:51:56Z",
+      "side": 1,
+      "message": "I need the cross traffic stuff that doesn\u0027t seem to be exposed in the interface yet?",
+      "parentUuid": "a95cde13_bf6d6bb9",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 59
+      },
+      "revId": "b59b450918e28c85005089d86dd85aaa631a9d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b995998_6a5b9fae",
         "filename": "test/scenario/scenario.h",
         "patchSetId": 1
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "d8ccb4e6_0d5bf4a0",
+        "filename": "test/scenario/scenario.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-15T09:51:56Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "1b995998_6a5b9fae",
+      "range": {
+        "startLine": 52,
+        "startChar": 25,
+        "endLine": 52,
+        "endChar": 29
+      },
+      "revId": "b59b450918e28c85005089d86dd85aaa631a9d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20890b9a_837a0fe9",
         "filename": "test/scenario/scenario.h",
         "patchSetId": 1
@@ -82,6 +130,30 @@
       "writtenOn": "2019-04-15T09:11:54Z",
       "side": 1,
       "message": "Can we use interface here and initialize it with concrete implementation in the constructor.",
+      "range": {
+        "startLine": 183,
+        "startChar": 2,
+        "endLine": 183,
+        "endChar": 29
+      },
+      "revId": "b59b450918e28c85005089d86dd85aaa631a9d53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62c9aecb_7818a13d",
+        "filename": "test/scenario/scenario.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-15T09:51:56Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "20890b9a_837a0fe9",
       "range": {
         "startLine": 183,
         "startChar": 2,

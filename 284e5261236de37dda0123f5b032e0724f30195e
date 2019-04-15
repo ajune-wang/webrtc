@@ -302,6 +302,30 @@
     },
     {
       "key": {
+        "uuid": "9f31e0dd_92ae2df2",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1457,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-15T13:29:05Z",
+      "side": 1,
+      "message": "Rasmus pointed out that we don\u0027t have templates yet, so for now it is better to not care about assigning frame IDs in a template friendly way. I will update this to always assign frame IDs to be strictly monotonic across all simulcast streams.",
+      "parentUuid": "63af90e6_7e84a898",
+      "range": {
+        "startLine": 1455,
+        "startChar": 0,
+        "endLine": 1457,
+        "endChar": 31
+      },
+      "revId": "284e5261236de37dda0123f5b032e0724f30195e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "12685d95_c0b9ad40",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 8

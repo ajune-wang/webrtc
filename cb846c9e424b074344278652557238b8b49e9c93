@@ -45,6 +45,30 @@
       "revId": "cb846c9e424b074344278652557238b8b49e9c93",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94415440_f6f95836",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-04-15T08:10:48Z",
+      "side": 1,
+      "message": "As merge is not determined by \"buffer level\", there should be nothing wrong with it. But to fix the bug, I would like to avoid everything that does special manipulation to sync_buffer, which will make the playout delay vary during DTX.\n\nThis CL is to fix the bug in an easy way. Looking forward, we may need to allow time stretching during DTX. It is a perfect time to adjust delay (for AV sync, etc). But that will be a bigger project.",
+      "parentUuid": "606bada0_ef3db518",
+      "range": {
+        "startLine": 1060,
+        "startChar": 7,
+        "endLine": 1060,
+        "endChar": 27
+      },
+      "revId": "cb846c9e424b074344278652557238b8b49e9c93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

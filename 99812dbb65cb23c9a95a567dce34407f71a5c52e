@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c6c9f8b9_63b5f030",
+        "filename": "common_audio/wav_file.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-16T14:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99e64691_6ff21851",
+      "range": {
+        "startLine": 77,
+        "startChar": 6,
+        "endLine": 77,
+        "endChar": 17
+      },
+      "revId": "99812dbb65cb23c9a95a567dce34407f71a5c52e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f76401f_824661a2",
         "filename": "modules/audio_device/include/test_audio_device.h",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "18009004_d8d178de",
+        "filename": "modules/audio_device/include/test_audio_device.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-16T14:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f76401f_824661a2",
+      "range": {
+        "startLine": 145,
+        "startChar": 16,
+        "endLine": 145,
+        "endChar": 80
+      },
+      "revId": "99812dbb65cb23c9a95a567dce34407f71a5c52e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fef9966e_bc482a76",
         "filename": "modules/audio_device/include/test_audio_device.h",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "99812dbb65cb23c9a95a567dce34407f71a5c52e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ace1b72b_242a41f7",
+        "filename": "modules/audio_device/include/test_audio_device.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-16T14:41:00Z",
+      "side": 1,
+      "message": "It\u0027s part of public API, so we can\u0027t just add a new argument here. To make it non optional we need to add extra overload to make it possible for downstream projects to migrate on it.",
+      "parentUuid": "fef9966e_bc482a76",
+      "range": {
+        "startLine": 147,
+        "startChar": 55,
+        "endLine": 147,
+        "endChar": 74
+      },
+      "revId": "99812dbb65cb23c9a95a567dce34407f71a5c52e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

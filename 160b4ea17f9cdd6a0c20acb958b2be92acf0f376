@@ -22,6 +22,30 @@
       "revId": "160b4ea17f9cdd6a0c20acb958b2be92acf0f376",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57b5b382_2690fe01",
+        "filename": "rtc_base/numerics/running_statistics_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-16T10:46:45Z",
+      "side": 1,
+      "message": "I don\u0027t think so, it would be over-specification.\nFor now the only client of RemoveSample is RollingAccumulator which handle min/max itself.",
+      "parentUuid": "f0a0f8a3_46834265",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 39
+      },
+      "revId": "160b4ea17f9cdd6a0c20acb958b2be92acf0f376",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

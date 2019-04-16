@@ -13,6 +13,7 @@
 
 #include <string.h>
 #include <cstdint>
+#include <memory>
 #include <vector>
 
 #include "common_video/h264/h264_common.h"
@@ -21,12 +22,27 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_minmax.h"
+#include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
+
+namespace {
 
 // The maximum expected growth from adding a VUI to the SPS. It's actually
 // closer to 24 or so, but better safe than sorry.
 const size_t kMaxVuiSpsIncrease = 64;
+
+const char* kSpsValidHistogramName = "WebRTC.Video.H264.SpsValid";
+enum SpsValidEvent {
+  kReceivedSpsVuiOk = 1,
+  kReceivedSpsRewritten = 2,
+  kReceivedSpsParseFailure = 3,
+  kSentSpsPocOk = 4,
+  kSentSpsVuiOk = 5,
+  kSentSpsRewritten = 6,
+  kSentSpsParseFailure = 7,
+  kSpsRewrittenMax = 8
+};
 
 #define RETURN_FALSE_ON_FAIL(x)                                      \
   if (!(x)) {                                                        \
@@ -55,9 +71,7 @@ const size_t kMaxVuiSpsIncrease = 64;
       RETURN_FALSE_ON_FAIL((dest)->WriteBits(tmp, bits)); \
   } while (0)
 
-typedef const SpsParser::SpsState& Sps;
-
-bool CopyAndRewriteVui(Sps sps,
+bool CopyAndRewriteVui(const SpsParser::SpsState& sps,
                        rtc::BitBuffer* source,
                        rtc::BitBufferWriter* destination,
                        SpsVuiRewriter::ParseResult* out_vui_rewritten);
@@ -67,6 +81,37 @@ bool AddBitstreamRestriction(rtc::BitBufferWriter* destination,
                              uint32_t max_num_ref_frames);
 bool CopyRemainingBits(rtc::BitBuffer* source,
                        rtc::BitBufferWriter* destination);
+
+}  // namespace
+
+void SpsVuiRewriter::UpdateStats(ParseResult result, Direction direction) {
+  switch (result) {
+    case SpsVuiRewriter::ParseResult::kVuiRewritten:
+      RTC_HISTOGRAM_ENUMERATION(
+          kSpsValidHistogramName,
+          direction == SpsVuiRewriter::Direction::kIncoming
+              ? SpsValidEvent::kReceivedSpsRewritten
+              : SpsValidEvent::kSentSpsRewritten,
+          SpsValidEvent::kSpsRewrittenMax);
+      break;
+    case SpsVuiRewriter::ParseResult::kVuiOk:
+      RTC_HISTOGRAM_ENUMERATION(
+          kSpsValidHistogramName,
+          direction == SpsVuiRewriter::Direction::kIncoming
+              ? SpsValidEvent::kReceivedSpsVuiOk
+              : SpsValidEvent::kSentSpsVuiOk,
+          SpsValidEvent::kSpsRewrittenMax);
+      break;
+    case SpsVuiRewriter::ParseResult::kFailure:
+      RTC_HISTOGRAM_ENUMERATION(
+          kSpsValidHistogramName,
+          direction == SpsVuiRewriter::Direction::kIncoming
+              ? SpsValidEvent::kReceivedSpsParseFailure
+              : SpsValidEvent::kSentSpsParseFailure,
+          SpsValidEvent::kSpsRewrittenMax);
+      break;
+  }
+}
 
 SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
     const uint8_t* buffer,
@@ -142,7 +187,85 @@ SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
   return ParseResult::kVuiRewritten;
 }
 
-bool CopyAndRewriteVui(Sps sps,
+SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
+    const uint8_t* buffer,
+    size_t length,
+    absl::optional<SpsParser::SpsState>* sps,
+    rtc::Buffer* destination,
+    Direction direction) {
+  ParseResult result = ParseAndRewriteSps(buffer, length, sps, destination);
+  UpdateStats(result, direction);
+  return result;
+}
+
+void SpsVuiRewriter::ParseOutgoingBitstreamAndRewriteSps(
+    rtc::ArrayView<const uint8_t> buffer,
+    size_t num_nalus,
+    const size_t* nalu_offsets,
+    const size_t* nalu_lengths,
+    rtc::Buffer* output_buffer,
+    size_t* output_nalu_offsets,
+    size_t* output_nalu_lengths) {
+  // Allocate some extra space for potentially adding a missing VUI.
+  output_buffer->EnsureCapacity(buffer.size() + num_nalus * kMaxVuiSpsIncrease);
+
+  const uint8_t* prev_nalu = buffer.data();
+  size_t prev_nalu_length = 0;
+
+  for (size_t i = 0; i < num_nalus; ++i) {
+    const uint8_t* nalu = buffer.data() + nalu_offsets[i];
+    const size_t nalu_length = nalu_lengths[i];
+
+    // Copy NAL unit start code.
+    output_buffer->AppendData(prev_nalu + prev_nalu_length,
+                              nalu - prev_nalu - prev_nalu_length);
+
+    bool updated_sps = false;
+
+    if (H264::ParseNaluType(nalu[0]) == H264::NaluType::kSps) {
+      // Check if stream uses picture order count type 0, and if so rewrite it
+      // to enable faster decoding. Streams in that format incur additional
+      // delay because it allows decode order to differ from render order.
+      // The mechanism used is to rewrite (edit or add) the SPS's VUI to contain
+      // restrictions on the maximum number of reordered pictures. This reduces
+      // latency significantly, though it still adds about a frame of latency to
+      // decoding.
+      // Note that we do this rewriting both here (send side, in order to
+      // protect legacy receive clients) in RtpDepacketizerH264::ParseSingleNalu
+      // (receive side, in orderer to protect us from unknown or legacy send
+      // clients).
+      absl::optional<SpsParser::SpsState> sps;
+      std::unique_ptr<rtc::Buffer> output_nalu(new rtc::Buffer());
+
+      // Add the type header to the output buffer first, so that the rewriter
+      // can append modified payload on top of that.
+      output_nalu->AppendData(nalu[0]);
+
+      ParseResult result = ParseAndRewriteSps(
+          nalu + H264::kNaluTypeSize, nalu_length - H264::kNaluTypeSize, &sps,
+          output_nalu.get(), Direction::kOutgoing);
+      if (result == ParseResult::kVuiRewritten) {
+        updated_sps = true;
+        output_nalu_offsets[i] = output_buffer->size();
+        output_nalu_lengths[i] = output_nalu->size();
+        output_buffer->AppendData(output_nalu->data(), output_nalu->size());
+      }
+    }
+
+    if (!updated_sps) {
+      output_nalu_offsets[i] = output_buffer->size();
+      output_nalu_lengths[i] = nalu_length;
+      output_buffer->AppendData(nalu, nalu_length);
+    }
+
+    prev_nalu = nalu;
+    prev_nalu_length = nalu_length;
+  }
+}
+
+namespace {
+
+bool CopyAndRewriteVui(const SpsParser::SpsState& sps,
                        rtc::BitBuffer* source,
                        rtc::BitBufferWriter* destination,
                        SpsVuiRewriter::ParseResult* out_vui_rewritten) {
@@ -353,5 +476,7 @@ bool CopyRemainingBits(rtc::BitBuffer* source,
   // strip.
   return true;
 }
+
+}  // namespace
 
 }  // namespace webrtc

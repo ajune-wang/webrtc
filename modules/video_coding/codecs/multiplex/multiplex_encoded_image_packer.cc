@@ -222,7 +222,6 @@ EncodedImage MultiplexEncodedImagePacker::PackAndRelease(
   for (size_t i = 0; i < images.size(); i++) {
     PackBitstream(combined_image.data() + frame_headers[i].bitstream_offset,
                   images[i]);
-    delete[] images[i].encoded_image.buffer();
   }
 
   return combined_image;

@@ -24,7 +24,7 @@ namespace webrtc {
 // TODO(sprang): Tune these!
 const int RemoteEstimatorProxy::kBackWindowMs = 500;
 const int RemoteEstimatorProxy::kMinSendIntervalMs = 50;
-const int RemoteEstimatorProxy::kMaxSendIntervalMs = 250;
+const int RemoteEstimatorProxy::kMaxSendIntervalMs = 500;
 const int RemoteEstimatorProxy::kDefaultSendIntervalMs = 100;
 // Impossible to request feedback older than what can be represented by 15 bits.
 const int RemoteEstimatorProxy::kMaxNumberOfPackets = (1 << 15);

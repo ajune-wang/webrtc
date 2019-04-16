@@ -997,9 +997,13 @@ void VideoQualityTest::DestroyThumbnailStreams() {
 void VideoQualityTest::SetupThumbnailCapturers(size_t num_thumbnail_streams) {
   VideoStream thumbnail = DefaultThumbnailStream();
   for (size_t i = 0; i < num_thumbnail_streams; ++i) {
-    thumbnail_capturers_.emplace_back(test::FrameGeneratorCapturer::Create(
+    auto frame_generator = test::FrameGenerator::CreateSquareGenerator(
         static_cast<int>(thumbnail.width), static_cast<int>(thumbnail.height),
-        absl::nullopt, absl::nullopt, thumbnail.max_framerate, clock_));
+        absl::nullopt, absl::nullopt);
+
+    thumbnail_capturers_.push_back(test::FrameGeneratorCapturer::Create(
+        std::move(frame_generator), thumbnail.max_framerate, clock_,
+        task_queue_factory_.get()));
     RTC_DCHECK(thumbnail_capturers_.back());
   }
 }
@@ -1057,29 +1061,36 @@ void VideoQualityTest::CreateCapturers() {
     if (params_.screenshare[video_idx].enabled) {
       std::unique_ptr<test::FrameGenerator> frame_generator =
           CreateFrameGenerator(video_idx);
-      test::FrameGeneratorCapturer* frame_generator_capturer =
-          new test::FrameGeneratorCapturer(clock_, std::move(frame_generator),
-                                           params_.video[video_idx].fps);
-      EXPECT_TRUE(frame_generator_capturer->Init());
-      video_sources_[video_idx].reset(frame_generator_capturer);
+      auto frame_generator_capturer = test::FrameGeneratorCapturer::Create(
+          std::move(frame_generator), params_.video[video_idx].fps, clock_,
+          task_queue_factory_.get());
+      EXPECT_TRUE(frame_generator_capturer);
+      video_sources_[video_idx] = std::move(frame_generator_capturer);
     } else {
       if (params_.video[video_idx].clip_path == "Generator") {
-        video_sources_[video_idx].reset(test::FrameGeneratorCapturer::Create(
+        auto frame_generator = test::FrameGenerator::CreateSquareGenerator(
             static_cast<int>(params_.video[video_idx].width),
             static_cast<int>(params_.video[video_idx].height), absl::nullopt,
-            absl::nullopt, params_.video[video_idx].fps, clock_));
+            absl::nullopt);
+        video_sources_[video_idx] = test::FrameGeneratorCapturer::Create(
+            std::move(frame_generator), params_.video[video_idx].fps, clock_,
+            task_queue_factory_.get());
       } else if (params_.video[video_idx].clip_path == "GeneratorI420A") {
-        video_sources_[video_idx].reset(test::FrameGeneratorCapturer::Create(
+        auto frame_generator = test::FrameGenerator::CreateSquareGenerator(
             static_cast<int>(params_.video[video_idx].width),
             static_cast<int>(params_.video[video_idx].height),
-            test::FrameGenerator::OutputType::I420A, absl::nullopt,
-            params_.video[video_idx].fps, clock_));
+            test::FrameGenerator::OutputType::I420A, absl::nullopt);
+        video_sources_[video_idx] = test::FrameGeneratorCapturer::Create(
+            std::move(frame_generator), params_.video[video_idx].fps, clock_,
+            task_queue_factory_.get());
       } else if (params_.video[video_idx].clip_path == "GeneratorI010") {
-        video_sources_[video_idx].reset(test::FrameGeneratorCapturer::Create(
+        auto frame_generator = test::FrameGenerator::CreateSquareGenerator(
             static_cast<int>(params_.video[video_idx].width),
             static_cast<int>(params_.video[video_idx].height),
-            test::FrameGenerator::OutputType::I010, absl::nullopt,
-            params_.video[video_idx].fps, clock_));
+            test::FrameGenerator::OutputType::I010, absl::nullopt);
+        video_sources_[video_idx] = test::FrameGeneratorCapturer::Create(
+            std::move(frame_generator), params_.video[video_idx].fps, clock_,
+            task_queue_factory_.get());
       } else if (params_.video[video_idx].clip_path.empty()) {
         video_sources_[video_idx] = test::CreateVideoCapturer(
             params_.video[video_idx].width, params_.video[video_idx].height,
@@ -1087,17 +1098,21 @@ void VideoQualityTest::CreateCapturers() {
             params_.video[video_idx].capture_device_index);
         if (!video_sources_[video_idx]) {
           // Failed to get actual camera, use chroma generator as backup.
-          video_sources_[video_idx].reset(test::FrameGeneratorCapturer::Create(
+          auto frame_generator = test::FrameGenerator::CreateSquareGenerator(
               static_cast<int>(params_.video[video_idx].width),
               static_cast<int>(params_.video[video_idx].height), absl::nullopt,
-              absl::nullopt, params_.video[video_idx].fps, clock_));
+              absl::nullopt);
+          video_sources_[video_idx] = test::FrameGeneratorCapturer::Create(
+              std::move(frame_generator), params_.video[video_idx].fps, clock_,
+              task_queue_factory_.get());
         }
       } else {
-        video_sources_[video_idx].reset(
-            test::FrameGeneratorCapturer::CreateFromYuvFile(
-                params_.video[video_idx].clip_path,
-                params_.video[video_idx].width, params_.video[video_idx].height,
-                params_.video[video_idx].fps, clock_));
+        auto frame_generator = test::FrameGenerator::CreateFromYuvFile(
+            {params_.video[video_idx].clip_path},
+            params_.video[video_idx].width, params_.video[video_idx].height, 1);
+        video_sources_[video_idx] = test::FrameGeneratorCapturer::Create(
+            std::move(frame_generator), params_.video[video_idx].fps, clock_,
+            task_queue_factory_.get());
         ASSERT_TRUE(video_sources_[video_idx])
             << "Could not create capturer for "
             << params_.video[video_idx].clip_path

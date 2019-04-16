@@ -15,6 +15,7 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "api/task_queue/default_task_queue_factory.h"
 #include "api/test/simulated_network.h"
 #include "api/test/video/function_video_encoder_factory.h"
 #include "api/video/builtin_video_bitrate_allocator_factory.h"
@@ -45,6 +46,7 @@ MultiStreamTester::~MultiStreamTester() {}
 
 void MultiStreamTester::RunTest() {
   webrtc::RtcEventLogNullImpl event_log;
+  auto task_queue_factory = CreateDefaultTaskQueueFactory();
   Call::Config config(&event_log);
   std::unique_ptr<Call> sender_call;
   std::unique_ptr<Call> receiver_call;
@@ -107,9 +109,13 @@ void MultiStreamTester::RunTest() {
           receiver_call->CreateVideoReceiveStream(std::move(receive_config));
       receive_streams[i]->Start();
 
-      frame_generators[i] = test::FrameGeneratorCapturer::Create(
-          width, height, absl::nullopt, absl::nullopt, 30,
-          Clock::GetRealTimeClock());
+      auto frame_generator = test::FrameGenerator::CreateSquareGenerator(
+          width, height, absl::nullopt, absl::nullopt);
+      frame_generators[i] =
+          test::FrameGeneratorCapturer::Create(
+              std::move(frame_generator), /*framerate=*/30,
+              Clock::GetRealTimeClock(), task_queue_factory.get())
+              .release();
       send_streams[i]->SetSource(frame_generators[i],
                                  DegradationPreference::MAINTAIN_FRAMERATE);
       frame_generators[i]->Start();

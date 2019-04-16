@@ -125,7 +125,6 @@ DelayBasedBwe::Result DelayBasedBwe::IncomingPacketFeedbackVector(
                             packet_feedback_vector.end(),
                             PacketFeedbackComparator()));
   RTC_DCHECK_RUNS_SERIALIZED(&network_race_);
-
   // TODO(holmer): An empty feedback vector here likely means that
   // all acks were too late and that the send time history had
   // timed out. We should reduce the rate when this occurs.
@@ -160,6 +159,7 @@ DelayBasedBwe::Result DelayBasedBwe::IncomingPacketFeedbackVector(
     // against building very large network queues.
     return Result();
   }
+  rate_control_.SetInAlr(in_alr);
   rate_control_.SetNetworkStateEstimate(network_estimate);
   return MaybeUpdateEstimate(acked_bitrate, probe_bitrate,
                              std::move(network_estimate),

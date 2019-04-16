@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88ddf6d5_7e496b23",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-16T16:46:41Z",
+      "side": 1,
+      "message": "MatchesCapability",
+      "range": {
+        "startLine": 185,
+        "startChar": 1,
+        "endLine": 190,
+        "endChar": 75
+      },
+      "revId": "4a48d9165f1ea0066f36fb09811cafeb48991613",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecbe8177_7b7b0680",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 4646,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-16T16:46:41Z",
+      "side": 1,
+      "message": "Should we check the caller\u0027s send codecs after the negotiation? Same below.",
+      "range": {
+        "startLine": 4646,
+        "startChar": 0,
+        "endLine": 4646,
+        "endChar": 44
+      },
+      "revId": "4a48d9165f1ea0066f36fb09811cafeb48991613",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

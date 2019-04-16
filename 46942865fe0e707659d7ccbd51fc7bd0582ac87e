@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "f19ca43e_ab302654",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-16T16:46:41Z",
+      "side": 1,
+      "message": "Wait - isn\u0027t MatchesCapability for matching a Codec to a RtpCodecCapability, which is what\u0027s happening here? If you don\u0027t convert it to a RtpCodecParameter you could just do:\n\nreturn codec.MatchesCapability(codec_preference);",
+      "parentUuid": "fa80744b_d1d8a222",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2423c16c_fe09ba0c",
         "filename": "pc/media_session.cc",
         "patchSetId": 1
@@ -156,6 +174,24 @@
       "side": 1,
       "message": "Updated that test to include VP8 and VP9 profiles to ensure we have RTX entries for each.",
       "parentUuid": "c095767c_5509dcac",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "196dfc00_45110dbd",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-04-16T16:46:41Z",
+      "side": 1,
+      "message": "Thanks for adding that!",
+      "parentUuid": "6b59e974_641701c5",
       "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

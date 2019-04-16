@@ -74,10 +74,19 @@ WavReader::WavReader(rtc::PlatformFile file) {
   num_samples_remaining_ = num_samples_;
   RTC_CHECK_EQ(kWavFormat, format);
   RTC_CHECK_EQ(kBytesPerSample, bytes_per_sample);
+  int get_pos_res = fgetpos(file_handle_, &data_start_pos_);
+  RTC_CHECK_EQ(get_pos_res, 0) << "Failed to get WAV data position from file";
 }
 
 WavReader::~WavReader() {
   Close();
+}
+
+void WavReader::Reset() {
+  int set_pos_res = fsetpos(file_handle_, &data_start_pos_);
+  RTC_CHECK_EQ(set_pos_res, 0)
+      << "Failed to set position in the file to WAV data start position";
+  num_samples_remaining_ = num_samples_;
 }
 
 int WavReader::sample_rate() const {

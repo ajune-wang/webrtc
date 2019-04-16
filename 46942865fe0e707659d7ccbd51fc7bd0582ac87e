@@ -648,6 +648,24 @@
     },
     {
       "key": {
+        "uuid": "244331a9_3450c15d",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4401,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-16T17:59:23Z",
+      "side": 1,
+      "message": "I would really like to move these to peer_connection_media_unittests. We\u0027re already sitting at 5000+ lines of tests in this file and these new tests don\u0027t need most of the (extensive) infrastructure that is provided. The purpose of the various peer_connection_*_unittests was to make it easier to find tests / figure out where to put tests and restrict the infrastructure to just what is needed for that class of test.\n\nRe testing the real code: The code being exercised by these tests is not mocked out in the peer_connection_media_unittests. The underlying media engine is, but I don\u0027t see any of these tests explicitly checking media engine state/behavior, so we won\u0027t lose any coverage by mocking them out. Imo it\u0027s not that convincing to exercise code without actually writing assertions against it: the only thing that will catch is DCHECK failures.",
+      "parentUuid": "5f61d65d_00cf4916",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8139377a_6ba73ac7",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 1

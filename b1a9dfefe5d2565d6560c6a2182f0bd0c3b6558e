@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c046138_a1db1fae",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-16T16:37:37Z",
+      "side": 1,
+      "message": "Move this inline, where it\u0027s used instead, makes it easier to follow (less steps when searching for how it\u0027s used).",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 46
+      },
+      "revId": "b1a9dfefe5d2565d6560c6a2182f0bd0c3b6558e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe4d489f_80dca68f",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-16T16:37:37Z",
+      "side": 1,
+      "message": "SetInApplicationLimitedRegion\n\nAvoid usage of abbreviations, applies for the other occurrences of alr as well.",
+      "range": {
+        "startLine": 56,
+        "startChar": 7,
+        "endLine": 56,
+        "endChar": 15
+      },
+      "revId": "b1a9dfefe5d2565d6560c6a2182f0bd0c3b6558e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d74f7ff9_ec6e4119",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-16T16:37:37Z",
+      "side": 1,
+      "message": "I\u0027m a bit confused by this, from this I\u0027d think that if we are not in alr experiment we will always increase bwe. Or if _experiment is just a suffix, that we will not increase bwe outside alr if this is false.\n\nMaybe:\nno_bitrate_increase_in_alr? (With corresponding changes to the string etc)",
+      "range": {
+        "startLine": 106,
+        "startChar": 13,
+        "endLine": 106,
+        "endChar": 54
+      },
+      "revId": "b1a9dfefe5d2565d6560c6a2182f0bd0c3b6558e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7afe0064_d9ad973d",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-16T16:37:37Z",
+      "side": 1,
+      "message": "Move inline.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 55
+      },
+      "revId": "b1a9dfefe5d2565d6560c6a2182f0bd0c3b6558e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

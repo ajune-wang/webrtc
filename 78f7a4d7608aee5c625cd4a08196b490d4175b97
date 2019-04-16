@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c5f312c_ac25bd2e",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-16T13:25:58Z",
+      "side": 1,
+      "message": "may be\n\nabsl::c_find(generic_info.frame_diffs, diff) \u003d\u003d generic_info.frame_diffs.end()\nor [if you prefer to avoid iterators]\n\nabsl::c_all_of(generic_info.frame_diffs), [diff](int64_t d} { return d !\u003d diff; })\n(there is also !absl::c_any_of, but personally I find negation inside reads a bit better: \"all not equal\" vs \"not any is equal\")",
+      "range": {
+        "startLine": 1487,
+        "startChar": 12,
+        "endLine": 1489,
+        "endChar": 65
+      },
+      "revId": "78f7a4d7608aee5c625cd4a08196b490d4175b97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

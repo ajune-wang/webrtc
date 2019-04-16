@@ -402,7 +402,8 @@ GlobalSimulatedTimeController::GlobalSimulatedTimeController(
     Timestamp start_time)
     : global_clock_(/* thread_processing */ false),
       sim_clock_(start_time.us()),
-      impl_(start_time) {
+      impl_(start_time),
+      thread_yield_policy_(&impl_) {
   global_clock_.SetTimeMicros(start_time.us());
 }
 

@@ -29,6 +29,7 @@ RandomWalkCrossTraffic::RandomWalkCrossTraffic(RandomWalkConfig config,
 RandomWalkCrossTraffic::~RandomWalkCrossTraffic() = default;
 
 void RandomWalkCrossTraffic::Process(Timestamp at_time) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
   if (last_process_time_.IsMinusInfinity()) {
     last_process_time_ = at_time;
   }
@@ -52,6 +53,7 @@ void RandomWalkCrossTraffic::Process(Timestamp at_time) {
 }
 
 DataRate RandomWalkCrossTraffic::TrafficRate() const {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
   return config_.peak_rate * intensity_;
 }
 
@@ -70,6 +72,7 @@ PulsedPeaksCrossTraffic::PulsedPeaksCrossTraffic(PulsedPeaksConfig config,
 PulsedPeaksCrossTraffic::~PulsedPeaksCrossTraffic() = default;
 
 void PulsedPeaksCrossTraffic::Process(Timestamp at_time) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
   TimeDelta time_since_toggle = at_time - last_update_time_;
   if (time_since_toggle.IsInfinite() ||
       (sending_ && time_since_toggle >= config_.send_duration)) {
@@ -94,6 +97,7 @@ void PulsedPeaksCrossTraffic::Process(Timestamp at_time) {
 }
 
 DataRate PulsedPeaksCrossTraffic::TrafficRate() const {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
   return sending_ ? config_.peak_rate : DataRate::Zero();
 }
 

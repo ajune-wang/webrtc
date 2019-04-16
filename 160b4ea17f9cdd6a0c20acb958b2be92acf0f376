@@ -46,6 +46,30 @@
       "revId": "160b4ea17f9cdd6a0c20acb958b2be92acf0f376",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "914c3f88_7f9cc8b6",
+        "filename": "rtc_base/numerics/running_statistics_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-16T12:21:24Z",
+      "side": 1,
+      "message": "I am not sure, checking that RemoveSample doesn\u0027t affect min/max is an invariant and if someone will change that in the future, having a test that breaks is a good thing to have (you can add an assertion in this test if creating a new one sounds too much).",
+      "parentUuid": "57b5b382_2690fe01",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 39
+      },
+      "revId": "160b4ea17f9cdd6a0c20acb958b2be92acf0f376",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

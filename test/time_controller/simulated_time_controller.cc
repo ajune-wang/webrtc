@@ -400,7 +400,9 @@ void SimulatedTimeControllerImpl::Unregister(SimulatedSequenceRunner* runner) {
 
 GlobalSimulatedTimeController::GlobalSimulatedTimeController(
     Timestamp start_time)
-    : sim_clock_(start_time.us()), impl_(start_time) {
+    : global_clock_(/* thread_processing */ false),
+      sim_clock_(start_time.us()),
+      impl_(start_time) {
   global_clock_.SetTimeMicros(start_time.us());
 }
 

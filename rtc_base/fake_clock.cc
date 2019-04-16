@@ -15,6 +15,9 @@
 
 namespace rtc {
 
+FakeClock::FakeClock(bool thread_processing)
+    : thread_processing_(thread_processing) {}
+
 int64_t FakeClock::TimeNanos() const {
   CritScope cs(&lock_);
   return time_;
@@ -26,9 +29,12 @@ void FakeClock::SetTimeNanos(int64_t nanos) {
     RTC_DCHECK(nanos >= time_);
     time_ = nanos;
   }
-  // If message queues are waiting in a socket select() with a timeout provided
-  // by the OS, they should wake up and dispatch all messages that are ready.
-  MessageQueueManager::ProcessAllMessageQueuesForTesting();
+  if (thread_processing_) {
+    // If message queues are waiting in a socket select() with a timeout
+    // provided by the OS, they should wake up and dispatch all messages that
+    // are ready.
+    MessageQueueManager::ProcessAllMessageQueuesForTesting();
+  }
 }
 
 void FakeClock::AdvanceTime(webrtc::TimeDelta delta) {
@@ -36,10 +42,16 @@ void FakeClock::AdvanceTime(webrtc::TimeDelta delta) {
     CritScope cs(&lock_);
     time_ += delta.ns();
   }
-  MessageQueueManager::ProcessAllMessageQueuesForTesting();
+  if (thread_processing_) {
+    MessageQueueManager::ProcessAllMessageQueuesForTesting();
+  }
 }
 
-ScopedFakeClock::ScopedFakeClock() {
+ScopedFakeClock::ScopedFakeClock()
+    : ScopedFakeClock(/*thread_processing*/ true) {}
+
+ScopedFakeClock::ScopedFakeClock(bool thread_processing)
+    : FakeClock(thread_processing) {
   prev_clock_ = SetClockForTesting(this);
 }
 

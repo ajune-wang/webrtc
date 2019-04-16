@@ -26,6 +26,7 @@ namespace rtc {
 // TODO(deadbeef): Unify with webrtc::SimulatedClock.
 class FakeClock : public ClockInterface {
  public:
+  explicit FakeClock(bool thread_processing = true);
   ~FakeClock() override {}
 
   // ClockInterface implementation.
@@ -45,6 +46,7 @@ class FakeClock : public ClockInterface {
   }
 
  private:
+  const bool thread_processing_;
   CriticalSection lock_;
   int64_t time_ RTC_GUARDED_BY(lock_) = 0;
 };
@@ -54,6 +56,7 @@ class FakeClock : public ClockInterface {
 class ScopedFakeClock : public FakeClock {
  public:
   ScopedFakeClock();
+  explicit ScopedFakeClock(bool thread_processing);
   ScopedFakeClock(const ScopedFakeClock&) = delete;
   ScopedFakeClock& operator=(const ScopedFakeClock&) = delete;
   ~ScopedFakeClock() override;

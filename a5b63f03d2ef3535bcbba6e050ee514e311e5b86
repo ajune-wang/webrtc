@@ -22,6 +22,30 @@
       "revId": "a5b63f03d2ef3535bcbba6e050ee514e311e5b86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "883f4ce2_bf7d08da",
+        "filename": "test/call_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-04-16T12:10:45Z",
+      "side": 1,
+      "message": "in that case it will just be a nullptr and the pointer will be checked here: https://chromium.googlesource.com/external/webrtc/+/HEAD/api/transport/goog_cc_factory.cc#45",
+      "parentUuid": "4481dfeb_3f4671da",
+      "range": {
+        "startLine": 220,
+        "startChar": 6,
+        "endLine": 220,
+        "endChar": 45
+      },
+      "revId": "a5b63f03d2ef3535bcbba6e050ee514e311e5b86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

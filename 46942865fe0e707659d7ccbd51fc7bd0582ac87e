@@ -144,6 +144,24 @@
     },
     {
       "key": {
+        "uuid": "6b59e974_641701c5",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-16T14:41:54Z",
+      "side": 1,
+      "message": "Updated that test to include VP8 and VP9 profiles to ensure we have RTX entries for each.",
+      "parentUuid": "c095767c_5509dcac",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48f9e245_1aa8185b",
         "filename": "pc/media_session.cc",
         "patchSetId": 1
@@ -346,6 +364,30 @@
       "side": 1,
       "message": "Makes sense, thanks for the explanation. Could you add a comment about this in the code to clarify?",
       "parentUuid": "eb4665e0_05e765a5",
+      "range": {
+        "startLine": 2063,
+        "startChar": 53,
+        "endLine": 2063,
+        "endChar": 65
+      },
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35a2ec5e_105cdf1d",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2063,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-16T14:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aec3634f_b47e7025",
       "range": {
         "startLine": 2063,
         "startChar": 53,

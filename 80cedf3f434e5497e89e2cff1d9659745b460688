@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "630be300_aff43a2b",
+        "filename": "media/base/fake_media_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-16T14:41:54Z",
+      "side": 1,
+      "message": "For my tests, the only thing that would matter is to have send only, recv only and rtx codecs. But I\u0027m pretty sure it will break some other tests that are expecting a single codec, so we should probably not change this.\n\nSo yes it would, but I don\u0027t think it\u0027s desirable as a global change. It\u0027s not a huge deal either.",
+      "parentUuid": "46c40430_c5a70832",
+      "range": {
+        "startLine": 498,
+        "startChar": 2,
+        "endLine": 498,
+        "endChar": 11
+      },
+      "revId": "80cedf3f434e5497e89e2cff1d9659745b460688",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b38adcb_0f182e01",
         "filename": "pc/media_session.cc",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a22fec7f_a50d5d6b",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2150,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-16T14:41:54Z",
+      "side": 1,
+      "message": "Ah correct! Subtle _ difference.",
+      "parentUuid": "0b38adcb_0f182e01",
+      "range": {
+        "startLine": 2150,
+        "startChar": 53,
+        "endLine": 2150,
+        "endChar": 65
+      },
+      "revId": "80cedf3f434e5497e89e2cff1d9659745b460688",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94f4dee8_975558ba",
         "filename": "pc/peer_connection_media_unittest.cc",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "80cedf3f434e5497e89e2cff1d9659745b460688",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ceb8539_f8c8d130",
+        "filename": "pc/peer_connection_media_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1387,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-16T14:41:54Z",
+      "side": 1,
+      "message": "I think it is covered already, but I changed the tests to have both audio and video codecs in the preferences too. It will error in the same way as it doesn\u0027t recognize either category.",
+      "parentUuid": "94f4dee8_975558ba",
+      "range": {
+        "startLine": 1387,
+        "startChar": 0,
+        "endLine": 1387,
+        "endChar": 0
+      },
+      "revId": "80cedf3f434e5497e89e2cff1d9659745b460688",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

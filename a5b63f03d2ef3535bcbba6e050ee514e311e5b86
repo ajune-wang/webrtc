@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4481dfeb_3f4671da",
+        "filename": "test/call_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-16T11:46:35Z",
+      "side": 1,
+      "message": "Will it be fine, if network_state_predictor_factory_ isn\u0027t set?",
+      "range": {
+        "startLine": 220,
+        "startChar": 6,
+        "endLine": 220,
+        "endChar": 45
+      },
+      "revId": "a5b63f03d2ef3535bcbba6e050ee514e311e5b86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

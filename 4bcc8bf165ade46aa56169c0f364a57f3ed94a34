@@ -65,6 +65,29 @@
     },
     {
       "key": {
+        "uuid": "f234fc53_ec55d45c",
+        "filename": "modules/audio_device/include/test_audio_device.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-16T11:59:48Z",
+      "side": 1,
+      "message": "Can we use absl::make_unique here and in other places?",
+      "range": {
+        "startLine": 515,
+        "startChar": 9,
+        "endLine": 515,
+        "endChar": 75
+      },
+      "revId": "4bcc8bf165ade46aa56169c0f364a57f3ed94a34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85196b44_348aa619",
         "filename": "modules/audio_device/include/test_audio_device.h",
         "patchSetId": 1

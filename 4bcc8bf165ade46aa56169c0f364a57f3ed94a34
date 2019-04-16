@@ -131,6 +131,30 @@
     },
     {
       "key": {
+        "uuid": "e855f9bd_af7b7cc3",
+        "filename": "modules/audio_device/include/test_audio_device.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-04-16T12:17:55Z",
+      "side": 1,
+      "message": "I would verify that just in case.",
+      "parentUuid": "4e77e24a_874670a0",
+      "range": {
+        "startLine": 298,
+        "startChar": 10,
+        "endLine": 298,
+        "endChar": 12
+      },
+      "revId": "4bcc8bf165ade46aa56169c0f364a57f3ed94a34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f234fc53_ec55d45c",
         "filename": "modules/audio_device/include/test_audio_device.cc",
         "patchSetId": 1
@@ -248,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "f5486bf8_5cab404f",
+        "filename": "modules/audio_device/include/test_audio_device.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-04-16T12:17:55Z",
+      "side": 1,
+      "message": "OK with me. Don\u0027t think we need overload for this one.",
+      "parentUuid": "a481d138_9b29c71f",
+      "range": {
+        "startLine": 118,
+        "startChar": 55,
+        "endLine": 118,
+        "endChar": 59
+      },
+      "revId": "4bcc8bf165ade46aa56169c0f364a57f3ed94a34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "35166fba_56167e95",
         "filename": "modules/audio_device/include/test_audio_device.h",
         "patchSetId": 1
@@ -330,6 +378,30 @@
       "side": 1,
       "message": "It is to use this functionality. Should I move it to separate CL?",
       "parentUuid": "8b7e27bc_f5e56c8e",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 21
+      },
+      "revId": "4bcc8bf165ade46aa56169c0f364a57f3ed94a34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2611539_4d13d1fb",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-04-16T12:17:55Z",
+      "side": 1,
+      "message": "It is OK as is.",
+      "parentUuid": "fb556568_48902f47",
       "range": {
         "startLine": 88,
         "startChar": 0,

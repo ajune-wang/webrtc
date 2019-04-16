@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "bae6e0ab_31290642",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-16T17:11:09Z",
+      "side": 1,
+      "message": "No, this is a different type, one is a webrtc::RtpCodecParameters, the function take a webrtc::RtpCodecCapability. They are similar, but different.\nIt could be possible to extract the common fields in another class and use that, but that\u0027d be out of scope for this.\n\nAlso, MatchCapacity will match RTX indiscriminately, which isn\u0027t wanted there.",
+      "parentUuid": "f19ca43e_ab302654",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2423c16c_fe09ba0c",
         "filename": "pc/media_session.cc",
         "patchSetId": 1

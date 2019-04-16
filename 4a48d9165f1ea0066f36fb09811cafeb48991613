@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fa25046d_641e5a16",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-16T17:11:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88ddf6d5_7e496b23",
+      "range": {
+        "startLine": 185,
+        "startChar": 1,
+        "endLine": 190,
+        "endChar": 75
+      },
+      "revId": "4a48d9165f1ea0066f36fb09811cafeb48991613",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ecbe8177_7b7b0680",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "4a48d9165f1ea0066f36fb09811cafeb48991613",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76de4e8e_a6437b1f",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 4646,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-16T17:11:09Z",
+      "side": 1,
+      "message": "I think that\u0027s out of scope for this test. There should already be tests that check the codec negotiation phase.\nWe just make sure to generate the proper offer and answers already, which is really what this feature is about.",
+      "parentUuid": "ecbe8177_7b7b0680",
+      "range": {
+        "startLine": 4646,
+        "startChar": 0,
+        "endLine": 4646,
+        "endChar": 44
+      },
+      "revId": "4a48d9165f1ea0066f36fb09811cafeb48991613",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

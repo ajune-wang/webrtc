@@ -26,6 +26,8 @@ constexpr int kDefaultPeriodMsNoSmoothingExp = 3000;
 constexpr int kMaxBwePeriodMs = 50000;
 constexpr char kSmoothingExpFieldTrial[] =
     "WebRTC-Audio-BandwidthSmoothing/Enabled/";
+constexpr char kIncreaseWhileNotAlrExperiment[] =
+    "WebRTC-IncreaseDelayBasedBweWhileNotAlr/Enabled/";
 
 // After an overuse, we back off to 85% to the received bitrate.
 constexpr double kFractionAfterOveruse = 0.85;
@@ -276,6 +278,49 @@ TEST(AimdRateControlTest, SendingRateBoundedWhenThroughputNotEstimated) {
   }
   EXPECT_LE(states.aimd_rate_control->LatestEstimate().bps(),
             kInitialBitrateBps * 1.5 + 10000);
+}
+
+TEST(AimdRateControlTest, EstimateDoesNotIncreaseInAlr) {
+  test::ScopedFieldTrials override_field_trials(kIncreaseWhileNotAlrExperiment);
+  auto states = CreateAimdRateControlStates();
+  constexpr int kInitialBitrateBps = 123000;
+  states.aimd_rate_control->SetInAlr(true);
+  UpdateRateControl(states, BandwidthUsage::kBwNormal, kInitialBitrateBps,
+                    states.simulated_clock->TimeInMilliseconds());
+  constexpr int kInitializationTimeMs = 5000;
+  states.simulated_clock->AdvanceTimeMilliseconds(kInitializationTimeMs + 1);
+  UpdateRateControl(states, BandwidthUsage::kBwNormal, kInitialBitrateBps,
+                    states.simulated_clock->TimeInMilliseconds());
+  EXPECT_EQ(states.aimd_rate_control->LatestEstimate().bps(),
+            kInitialBitrateBps);
+
+  for (int i = 0; i < 100; ++i) {
+    UpdateRateControl(states, BandwidthUsage::kBwNormal, absl::nullopt,
+                      states.simulated_clock->TimeInMilliseconds());
+    states.simulated_clock->AdvanceTimeMilliseconds(100);
+  }
+  EXPECT_EQ(states.aimd_rate_control->LatestEstimate().bps(),
+            kInitialBitrateBps);
+}
+
+TEST(AimdRateControlTest, EstimateIncreaseWhileNotInAlr) {
+  test::ScopedFieldTrials override_field_trials(kIncreaseWhileNotAlrExperiment);
+  auto states = CreateAimdRateControlStates();
+  constexpr int kInitialBitrateBps = 123000;
+  UpdateRateControl(states, BandwidthUsage::kBwNormal, kInitialBitrateBps,
+                    states.simulated_clock->TimeInMilliseconds());
+  constexpr int kInitializationTimeMs = 5000;
+  states.simulated_clock->AdvanceTimeMilliseconds(kInitializationTimeMs + 1);
+  UpdateRateControl(states, BandwidthUsage::kBwNormal, kInitialBitrateBps,
+                    states.simulated_clock->TimeInMilliseconds());
+  states.aimd_rate_control->SetInAlr(false);
+  for (int i = 0; i < 100; ++i) {
+    UpdateRateControl(states, BandwidthUsage::kBwNormal, absl::nullopt,
+                      states.simulated_clock->TimeInMilliseconds());
+    states.simulated_clock->AdvanceTimeMilliseconds(100);
+  }
+  EXPECT_GT(states.aimd_rate_control->LatestEstimate().bps(),
+            kInitialBitrateBps);
 }
 
 }  // namespace webrtc

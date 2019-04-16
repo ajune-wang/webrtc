@@ -19,9 +19,6 @@ namespace webrtc {
 
 VideoStreamDecoder::VideoStreamDecoder(
     vcm::VideoReceiver* video_receiver,
-    VCMPacketRequestCallback* vcm_packet_request_callback,
-    bool enable_nack,
-    bool /* enable_fec */,
     ReceiveStatisticsProxy* receive_statistics_proxy,
     rtc::VideoSinkInterface<VideoFrame>* incoming_video_stream)
     : video_receiver_(video_receiver),
@@ -33,10 +30,6 @@ VideoStreamDecoder::VideoStreamDecoder(
   static const int kMaxNackListSize = 250;
   video_receiver_->SetNackSettings(kMaxNackListSize, kMaxPacketAgeToNack, 0);
   video_receiver_->RegisterReceiveCallback(this);
-
-  VCMPacketRequestCallback* packet_request_callback =
-      enable_nack ? vcm_packet_request_callback : nullptr;
-  video_receiver_->RegisterPacketRequestCallback(packet_request_callback);
 }
 
 VideoStreamDecoder::~VideoStreamDecoder() {

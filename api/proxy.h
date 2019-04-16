@@ -591,6 +591,19 @@ class MethodCall5 : public rtc::Message, public rtc::MessageHandler {
     return call.Marshal(RTC_FROM_HERE, worker_thread_);                    \
   }
 
+// Define methods which should be invoked directly, with no thread jump and no
+// blocking wait.
+#define NOPROXY_METHOD0(r, method) \
+  r method() override { return c_->method(); }
+
+#define NOPROXY_METHOD1(r, method, t1) \
+  r method(t1 a1) override { return c_->method(std::move(a1)); }
+
+#define NOPROXY_METHOD2(r, method, t1, t2)           \
+  r method(t1 a1, t2 a2) override {                  \
+    return c_->method(std::move(a1), std::move(a2)); \
+  }
+
 }  // namespace webrtc
 
 #endif  //  API_PROXY_H_

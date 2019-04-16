@@ -16,7 +16,9 @@
 
 #include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
 #include "rtc_base/critical_section.h"
+#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/numerics/sequence_number_util.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
@@ -32,10 +34,6 @@ class TransportFeedback;
 
 class RemoteEstimatorProxy : public RemoteBitrateEstimator {
  public:
-  static const int kMinSendIntervalMs;
-  static const int kMaxSendIntervalMs;
-  static const int kDefaultSendIntervalMs;
-  static const int kBackWindowMs;
   RemoteEstimatorProxy(Clock* clock,
                        TransportFeedbackSenderInterface* feedback_sender);
   ~RemoteEstimatorProxy() override;
@@ -54,6 +52,23 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
   void SetSendPeriodicFeedback(bool send_periodic_feedback);
 
  private:
+  // TODO(sprang): Tune these!
+  struct TwccConfig {
+    FieldTrialParameter<TimeDelta> back_window{"back_window",
+                                               TimeDelta::ms(500)};
+    FieldTrialParameter<TimeDelta> min_interval{"min_interval",
+                                                TimeDelta::ms(50)};
+    FieldTrialParameter<TimeDelta> max_interval{"max_interval",
+                                                TimeDelta::ms(250)};
+    FieldTrialParameter<TimeDelta> default_interval{"default_interval",
+                                                    TimeDelta::ms(100)};
+    TwccConfig() {
+      ParseFieldTrial(
+          {&back_window, &min_interval, &max_interval, &default_interval},
+          field_trial::FindFullName("WebRTC-Twcc-Intervals"));
+    }
+  };
+
   static const int kMaxNumberOfPackets;
   void OnPacketArrival(uint16_t sequence_number,
                        int64_t arrival_time,
@@ -73,6 +88,7 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
           end_iterator,  // |end_iterator| is exclusive.
       rtcp::TransportFeedback* feedback_packet);
 
+  const TwccConfig send_config;
   Clock* const clock_;
   TransportFeedbackSenderInterface* const feedback_sender_;
   int64_t last_process_time_ms_;

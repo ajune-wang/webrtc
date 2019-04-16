@@ -16,6 +16,24 @@
       "revId": "5e26dce14dbf449734cef73c50451b22d1237f2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a395fc7_031029d9",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-04-16T22:26:38Z",
+      "side": 1,
+      "message": "Yes, we should gate it with the continual gathering. Revised. The state change is still needed for various reason as we discussed offline. Edited the comments to document the discussion here.",
+      "parentUuid": "c57286c8_523cd44f",
+      "revId": "5e26dce14dbf449734cef73c50451b22d1237f2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

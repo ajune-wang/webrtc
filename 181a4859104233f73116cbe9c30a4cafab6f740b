@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e5caab2_26fa1867",
+        "filename": "p2p/client/basic_port_allocator_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2278,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-04-16T22:26:38Z",
+      "side": 1,
+      "message": "Noticed this after uploading. Will change this to expect empty() before landing.",
+      "range": {
+        "startLine": 2278,
+        "startChar": 14,
+        "endLine": 2278,
+        "endChar": 36
+      },
+      "revId": "181a4859104233f73116cbe9c30a4cafab6f740b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

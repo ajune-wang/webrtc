@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99e64691_6ff21851",
+        "filename": "common_audio/wav_file.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-16T13:26:05Z",
+      "side": 1,
+      "message": "No local variable needed here (and below, in Reset()), just \n\nRTC_CHECK_EQ(0, fgetpos(...));\n\nshould be ok.",
+      "range": {
+        "startLine": 77,
+        "startChar": 6,
+        "endLine": 77,
+        "endChar": 17
+      },
+      "revId": "99812dbb65cb23c9a95a567dce34407f71a5c52e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f76401f_824661a2",
+        "filename": "modules/audio_device/include/test_audio_device.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-16T13:26:05Z",
+      "side": 1,
+      "message": "\"after it will end\" sounds strange. Suggestion: \"... will be replayed from the start when we reach the end of file\"",
+      "range": {
+        "startLine": 145,
+        "startChar": 16,
+        "endLine": 145,
+        "endChar": 80
+      },
+      "revId": "99812dbb65cb23c9a95a567dce34407f71a5c52e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fef9966e_bc482a76",
+        "filename": "modules/audio_device/include/test_audio_device.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-16T13:26:05Z",
+      "side": 1,
+      "message": "Does this argument have to be optional?",
+      "range": {
+        "startLine": 147,
+        "startChar": 55,
+        "endLine": 147,
+        "endChar": 74
+      },
+      "revId": "99812dbb65cb23c9a95a567dce34407f71a5c52e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

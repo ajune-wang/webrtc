@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4fb72ac2_dde83934",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1903,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-04-16T10:24:04Z",
+      "side": 1,
+      "message": "Remove :)",
+      "range": {
+        "startLine": 1903,
+        "startChar": 2,
+        "endLine": 1903,
+        "endChar": 28
+      },
+      "revId": "eae3879532174e738f7209901641707a838986d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

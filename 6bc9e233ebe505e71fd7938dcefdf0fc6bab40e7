@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d020ca97_f2d370c3",
+        "filename": "api/video_track_source_proxy.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-16T07:10:02Z",
+      "side": 1,
+      "message": "This is the change from the previous attempt. Now these methods are called on the underlying object directly, with no thread jumps and no blocking invokes.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 71
+      },
+      "revId": "6bc9e233ebe505e71fd7938dcefdf0fc6bab40e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

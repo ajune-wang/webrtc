@@ -48,7 +48,7 @@ class Vp9SsMapTest : public ::testing::Test {
     packet_.seqNum = 1234;
     packet_.timestamp = 1;
     packet_.markerBit = true;
-    packet_.frameType = VideoFrameType::kVideoFrameKey;
+    packet_.video_header.frame_type = VideoFrameType::kVideoFrameKey;
     packet_.video_header.codec = kVideoCodecVP9;
     packet_.video_header.codec = kVideoCodecVP9;
     vp9_header.flexible_mode = false;
@@ -235,8 +235,8 @@ class TestBasicJitterBuffer : public ::testing::Test {
     rtp_header.markerBit = true;
     video_header.codec = kVideoCodecGeneric;
     video_header.is_first_packet_in_frame = true;
+    video_header.frame_type = VideoFrameType::kVideoFrameDelta;
     packet_.reset(new VCMPacket(data_, size_, rtp_header, video_header,
-                                VideoFrameType::kVideoFrameDelta,
                                 /*ntp_time_ms=*/0));
   }
 
@@ -411,7 +411,7 @@ TEST_F(TestBasicJitterBuffer, StopRunning) {
 
 TEST_F(TestBasicJitterBuffer, SinglePacketFrame) {
   // Always start with a complete key frame when not allowing errors.
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = true;
   packet_->timestamp += 123 * 90;
@@ -427,7 +427,7 @@ TEST_F(TestBasicJitterBuffer, SinglePacketFrame) {
 }
 
 TEST_F(TestBasicJitterBuffer, DualPacketFrame) {
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = false;
 
@@ -454,7 +454,7 @@ TEST_F(TestBasicJitterBuffer, DualPacketFrame) {
 }
 
 TEST_F(TestBasicJitterBuffer, 100PacketKeyFrame) {
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = false;
 
@@ -498,7 +498,7 @@ TEST_F(TestBasicJitterBuffer, 100PacketKeyFrame) {
 
 TEST_F(TestBasicJitterBuffer, 100PacketDeltaFrame) {
   // Always start with a complete key frame.
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = true;
 
@@ -512,7 +512,7 @@ TEST_F(TestBasicJitterBuffer, 100PacketDeltaFrame) {
   ++seq_num_;
   packet_->seqNum = seq_num_;
   packet_->markerBit = false;
-  packet_->frameType = VideoFrameType::kVideoFrameDelta;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
   packet_->timestamp += 33 * 90;
 
   EXPECT_EQ(kIncomplete,
@@ -555,7 +555,7 @@ TEST_F(TestBasicJitterBuffer, 100PacketDeltaFrame) {
 TEST_F(TestBasicJitterBuffer, PacketReorderingReverseOrder) {
   // Insert the "first" packet last.
   seq_num_ += 100;
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = false;
   packet_->markerBit = true;
   packet_->seqNum = seq_num_;
@@ -600,7 +600,7 @@ TEST_F(TestBasicJitterBuffer, PacketReorderingReverseOrder) {
 }
 
 TEST_F(TestBasicJitterBuffer, FrameReordering2Frames2PacketsEach) {
-  packet_->frameType = VideoFrameType::kVideoFrameDelta;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = false;
 
@@ -626,7 +626,7 @@ TEST_F(TestBasicJitterBuffer, FrameReordering2Frames2PacketsEach) {
 
   seq_num_ -= 3;
   timestamp_ -= 33 * 90;
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = false;
   packet_->seqNum = seq_num_;
@@ -661,7 +661,7 @@ TEST_F(TestBasicJitterBuffer, FrameReordering2Frames2PacketsEach) {
 
 TEST_F(TestBasicJitterBuffer, TestReorderingWithPadding) {
   jitter_buffer_->SetNackSettings(kMaxNumberOfFrames, kMaxNumberOfFrames, 0);
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = true;
 
@@ -675,7 +675,7 @@ TEST_F(TestBasicJitterBuffer, TestReorderingWithPadding) {
 
   // Now send in a complete delta frame (Frame C), but with a sequence number
   // gap. No pic index either, so no temporal scalability cheating :)
-  packet_->frameType = VideoFrameType::kVideoFrameDelta;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
   // Leave a gap of 2 sequence numbers and two frames.
   packet_->seqNum = seq_num_ + 3;
   packet_->timestamp = timestamp_ + (66 * 90);
@@ -710,8 +710,9 @@ TEST_F(TestBasicJitterBuffer, TestReorderingWithPadding) {
   rtp_header.timestamp = timestamp_ + (33 * 90);
   rtp_header.markerBit = false;
   video_header.codec = kVideoCodecGeneric;
+  video_header.frame_type = VideoFrameType::kEmptyFrame;
   VCMPacket empty_packet(data_, 0, rtp_header, video_header,
-                         VideoFrameType::kEmptyFrame, /*ntp_time_ms=*/0);
+                         /*ntp_time_ms=*/0);
   EXPECT_EQ(kOldPacket,
             jitter_buffer_->InsertPacket(empty_packet, &retransmitted));
   empty_packet.seqNum += 1;
@@ -725,7 +726,7 @@ TEST_F(TestBasicJitterBuffer, TestReorderingWithPadding) {
 }
 
 TEST_F(TestBasicJitterBuffer, DuplicatePackets) {
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = false;
   packet_->seqNum = seq_num_;
@@ -768,7 +769,7 @@ TEST_F(TestBasicJitterBuffer, DuplicatePackets) {
 }
 
 TEST_F(TestBasicJitterBuffer, DuplicatePreviousDeltaFramePacket) {
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = true;
   packet_->seqNum = seq_num_;
@@ -791,7 +792,7 @@ TEST_F(TestBasicJitterBuffer, DuplicatePreviousDeltaFramePacket) {
   for (uint16_t i = 1; i <= 3; ++i) {
     packet_->seqNum = seq_num_ + i;
     packet_->timestamp = timestamp_ + (i * 33) * 90;
-    packet_->frameType = VideoFrameType::kVideoFrameDelta;
+    packet_->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
     EXPECT_EQ(kCompleteSession,
               jitter_buffer_->InsertPacket(*packet_, &retransmitted));
     EXPECT_EQ(i + 1, jitter_buffer_->num_packets());
@@ -844,7 +845,7 @@ TEST_F(TestBasicJitterBuffer, TestSkipForwardVp9) {
 
   packet_->seqNum = 65485;
   packet_->timestamp = 1000;
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   vp9_header.picture_id = 5;
   vp9_header.tl0_pic_idx = 200;
   vp9_header.temporal_idx = 0;
@@ -856,7 +857,7 @@ TEST_F(TestBasicJitterBuffer, TestSkipForwardVp9) {
   // Insert next temporal layer 0.
   packet_->seqNum = 65489;
   packet_->timestamp = 13000;
-  packet_->frameType = VideoFrameType::kVideoFrameDelta;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
   vp9_header.picture_id = 9;
   vp9_header.tl0_pic_idx = 201;
   vp9_header.temporal_idx = 0;
@@ -899,7 +900,7 @@ TEST_F(TestBasicJitterBuffer, ReorderedVp9SsData_3TlLayers) {
 
   packet_->seqNum = 65486;
   packet_->timestamp = 6000;
-  packet_->frameType = VideoFrameType::kVideoFrameDelta;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
   vp9_header.picture_id = 6;
   vp9_header.temporal_idx = 2;
   vp9_header.temporal_up_switch = true;
@@ -907,7 +908,7 @@ TEST_F(TestBasicJitterBuffer, ReorderedVp9SsData_3TlLayers) {
 
   packet_->seqNum = 65487;
   packet_->timestamp = 9000;
-  packet_->frameType = VideoFrameType::kVideoFrameDelta;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
   vp9_header.picture_id = 7;
   vp9_header.temporal_idx = 1;
   vp9_header.temporal_up_switch = true;
@@ -916,7 +917,7 @@ TEST_F(TestBasicJitterBuffer, ReorderedVp9SsData_3TlLayers) {
   // Insert first frame with SS data.
   packet_->seqNum = 65485;
   packet_->timestamp = 3000;
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.width = 352;
   packet_->video_header.height = 288;
   vp9_header.picture_id = 5;
@@ -976,7 +977,7 @@ TEST_F(TestBasicJitterBuffer, ReorderedVp9SsData_2Tl2SLayers) {
   packet_->markerBit = false;
   packet_->seqNum = 65486;
   packet_->timestamp = 6000;
-  packet_->frameType = VideoFrameType::kVideoFrameDelta;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
   vp9_header.spatial_idx = 0;
   vp9_header.picture_id = 6;
   vp9_header.temporal_idx = 1;
@@ -986,7 +987,7 @@ TEST_F(TestBasicJitterBuffer, ReorderedVp9SsData_2Tl2SLayers) {
   packet_->video_header.is_first_packet_in_frame = false;
   packet_->markerBit = true;
   packet_->seqNum = 65487;
-  packet_->frameType = VideoFrameType::kVideoFrameDelta;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
   vp9_header.spatial_idx = 1;
   vp9_header.picture_id = 6;
   vp9_header.temporal_idx = 1;
@@ -997,7 +998,7 @@ TEST_F(TestBasicJitterBuffer, ReorderedVp9SsData_2Tl2SLayers) {
   packet_->markerBit = true;
   packet_->seqNum = 65485;
   packet_->timestamp = 3000;
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   vp9_header.spatial_idx = 1;
   vp9_header.picture_id = 5;
   vp9_header.temporal_idx = 0;
@@ -1008,7 +1009,7 @@ TEST_F(TestBasicJitterBuffer, ReorderedVp9SsData_2Tl2SLayers) {
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = false;
   packet_->seqNum = 65484;
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.width = 352;
   packet_->video_header.height = 288;
   vp9_header.spatial_idx = 0;
@@ -1037,7 +1038,7 @@ TEST_F(TestBasicJitterBuffer, ReorderedVp9SsData_2Tl2SLayers) {
 }
 
 TEST_F(TestBasicJitterBuffer, H264InsertStartCode) {
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = false;
   packet_->seqNum = seq_num_;
@@ -1071,7 +1072,7 @@ TEST_F(TestBasicJitterBuffer, SpsAndPpsHandling) {
   auto& h264_header =
       packet_->video_header.video_type_header.emplace<RTPVideoHeaderH264>();
   packet_->timestamp = timestamp_;
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = true;
   packet_->video_header.codec = kVideoCodecH264;
@@ -1090,7 +1091,7 @@ TEST_F(TestBasicJitterBuffer, SpsAndPpsHandling) {
   packet_->timestamp = timestamp_;
   ++seq_num_;
   packet_->seqNum = seq_num_;
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = false;
   packet_->video_header.codec = kVideoCodecH264;
@@ -1108,7 +1109,7 @@ TEST_F(TestBasicJitterBuffer, SpsAndPpsHandling) {
 
   ++seq_num_;
   packet_->seqNum = seq_num_;
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = false;
   packet_->markerBit = true;
   packet_->video_header.codec = kVideoCodecH264;
@@ -1129,7 +1130,7 @@ TEST_F(TestBasicJitterBuffer, SpsAndPpsHandling) {
   packet_->timestamp = timestamp_;
   ++seq_num_;
   packet_->seqNum = seq_num_;
-  packet_->frameType = VideoFrameType::kVideoFrameDelta;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = true;
   packet_->video_header.codec = kVideoCodecH264;
@@ -1148,7 +1149,7 @@ TEST_F(TestBasicJitterBuffer, SpsAndPpsHandling) {
 
 TEST_F(TestBasicJitterBuffer, DeltaFrame100PacketsWithSeqNumWrap) {
   seq_num_ = 0xfff0;
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = false;
   packet_->seqNum = seq_num_;
@@ -1198,7 +1199,7 @@ TEST_F(TestBasicJitterBuffer, DeltaFrame100PacketsWithSeqNumWrap) {
 TEST_F(TestBasicJitterBuffer, PacketReorderingReverseWithNegSeqNumWrap) {
   // Insert "first" packet last seqnum.
   seq_num_ = 10;
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = false;
   packet_->markerBit = true;
   packet_->seqNum = seq_num_;
@@ -1251,7 +1252,7 @@ TEST_F(TestBasicJitterBuffer, TestInsertOldFrame) {
   //  t = 3000     t = 2000
   seq_num_ = 2;
   timestamp_ = 3000;
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = true;
   packet_->timestamp = timestamp_;
@@ -1269,7 +1270,7 @@ TEST_F(TestBasicJitterBuffer, TestInsertOldFrame) {
 
   seq_num_--;
   timestamp_ = 2000;
-  packet_->frameType = VideoFrameType::kVideoFrameDelta;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = true;
   packet_->seqNum = seq_num_;
@@ -1286,7 +1287,7 @@ TEST_F(TestBasicJitterBuffer, TestInsertOldFrameWithSeqNumWrap) {
 
   seq_num_ = 2;
   timestamp_ = 3000;
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = true;
   packet_->seqNum = seq_num_;
@@ -1307,7 +1308,7 @@ TEST_F(TestBasicJitterBuffer, TestInsertOldFrameWithSeqNumWrap) {
 
   seq_num_--;
   timestamp_ = 0xffffff00;
-  packet_->frameType = VideoFrameType::kVideoFrameDelta;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = true;
   packet_->seqNum = seq_num_;
@@ -1324,7 +1325,7 @@ TEST_F(TestBasicJitterBuffer, TimestampWrap) {
   //  t = 0xffffff00        t = 33*90
 
   timestamp_ = 0xffffff00;
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = false;
   packet_->seqNum = seq_num_;
@@ -1351,7 +1352,7 @@ TEST_F(TestBasicJitterBuffer, TimestampWrap) {
 
   seq_num_++;
   timestamp_ += 33 * 90;
-  packet_->frameType = VideoFrameType::kVideoFrameDelta;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = false;
   packet_->seqNum = seq_num_;
@@ -1384,7 +1385,7 @@ TEST_F(TestBasicJitterBuffer, 2FrameWithTimestampWrap) {
   // t = 0xffffff00    t = 2700
 
   timestamp_ = 0xffffff00;
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = true;
   packet_->timestamp = timestamp_;
@@ -1397,7 +1398,7 @@ TEST_F(TestBasicJitterBuffer, 2FrameWithTimestampWrap) {
   // Insert next frame.
   seq_num_++;
   timestamp_ = 2700;
-  packet_->frameType = VideoFrameType::kVideoFrameDelta;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = true;
   packet_->seqNum = seq_num_;
@@ -1427,7 +1428,7 @@ TEST_F(TestBasicJitterBuffer, Insert2FramesReOrderedWithTimestampWrap) {
 
   seq_num_ = 2;
   timestamp_ = 2700;
-  packet_->frameType = VideoFrameType::kVideoFrameDelta;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = true;
   packet_->seqNum = seq_num_;
@@ -1440,7 +1441,7 @@ TEST_F(TestBasicJitterBuffer, Insert2FramesReOrderedWithTimestampWrap) {
   // Insert second frame
   seq_num_--;
   timestamp_ = 0xffffff00;
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = true;
   packet_->seqNum = seq_num_;
@@ -1525,7 +1526,7 @@ TEST_F(TestBasicJitterBuffer, ExceedNumOfFrameWithSeqNumWrap) {
 
     if (loop == 50) {
       first_key_frame_timestamp = packet_->timestamp;
-      packet_->frameType = VideoFrameType::kVideoFrameKey;
+      packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
     }
 
     // Insert frame.
@@ -1569,7 +1570,7 @@ TEST_F(TestBasicJitterBuffer, EmptyLastFrame) {
     packet_->markerBit = false;
     packet_->seqNum = seq_num_;
     packet_->timestamp = timestamp_;
-    packet_->frameType = VideoFrameType::kEmptyFrame;
+    packet_->video_header.frame_type = VideoFrameType::kEmptyFrame;
 
     EXPECT_EQ(kNoError, jitter_buffer_->InsertPacket(*packet_, &retransmitted));
   }
@@ -1581,7 +1582,7 @@ TEST_F(TestBasicJitterBuffer, NextFrameWhenIncomplete) {
   // timestamp.
   // Start with a complete key frame - insert and decode.
   jitter_buffer_->SetNackSettings(kMaxNumberOfFrames, kMaxNumberOfFrames, 0);
-  packet_->frameType = VideoFrameType::kVideoFrameKey;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameKey;
   packet_->video_header.is_first_packet_in_frame = true;
   packet_->markerBit = true;
   bool retransmitted = false;
@@ -1594,7 +1595,7 @@ TEST_F(TestBasicJitterBuffer, NextFrameWhenIncomplete) {
 
   packet_->seqNum += 2;
   packet_->timestamp += 33 * 90;
-  packet_->frameType = VideoFrameType::kVideoFrameDelta;
+  packet_->video_header.frame_type = VideoFrameType::kVideoFrameDelta;
   packet_->video_header.is_first_packet_in_frame = false;
   packet_->markerBit = false;
 

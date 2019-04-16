@@ -485,7 +485,7 @@ bool RtpDepacketizerH264::ProcessStapAOrSingleNalu(
     nalu_start_offsets.push_back(0);
   }
   h264_header.nalu_type = nal_type;
-  parsed_payload->frame_type = VideoFrameType::kVideoFrameDelta;
+  parsed_payload->video_header().frame_type = VideoFrameType::kVideoFrameDelta;
 
   nalu_start_offsets.push_back(length_ + kLengthFieldSize);  // End offset.
   for (size_t i = 0; i < nalu_start_offsets.size() - 1; ++i) {
@@ -571,7 +571,8 @@ bool RtpDepacketizerH264::ProcessStapAOrSingleNalu(
         } else {
           RTC_LOG(LS_WARNING) << "Failed to parse SPS id from SPS slice.";
         }
-        parsed_payload->frame_type = VideoFrameType::kVideoFrameKey;
+        parsed_payload->video_header().frame_type =
+            VideoFrameType::kVideoFrameKey;
         break;
       }
       case H264::NaluType::kPps: {
@@ -589,7 +590,8 @@ bool RtpDepacketizerH264::ProcessStapAOrSingleNalu(
         break;
       }
       case H264::NaluType::kIdr:
-        parsed_payload->frame_type = VideoFrameType::kVideoFrameKey;
+        parsed_payload->video_header().frame_type =
+            VideoFrameType::kVideoFrameKey;
         RTC_FALLTHROUGH();
       case H264::NaluType::kSlice: {
         absl::optional<uint32_t> pps_id = PpsParser::ParsePpsIdFromSlice(
@@ -664,9 +666,10 @@ bool RtpDepacketizerH264::ParseFuaNalu(
   }
 
   if (original_nal_type == H264::NaluType::kIdr) {
-    parsed_payload->frame_type = VideoFrameType::kVideoFrameKey;
+    parsed_payload->video_header().frame_type = VideoFrameType::kVideoFrameKey;
   } else {
-    parsed_payload->frame_type = VideoFrameType::kVideoFrameDelta;
+    parsed_payload->video_header().frame_type =
+        VideoFrameType::kVideoFrameDelta;
   }
   parsed_payload->video_header().width = 0;
   parsed_payload->video_header().height = 0;

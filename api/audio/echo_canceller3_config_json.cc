@@ -220,7 +220,7 @@ void Aec3ConfigFromJsonString(absl::string_view json_string,
               &cfg.echo_audibility.audibility_threshold_hf);
     ReadParam(section, "use_stationary_properties",
               &cfg.echo_audibility.use_stationary_properties);
-    ReadParam(section, "use_stationarity_properties_at_init",
+    ReadParam(section, "use_stationary_properties_at_init",
               &cfg.echo_audibility.use_stationarity_properties_at_init);
   }
 

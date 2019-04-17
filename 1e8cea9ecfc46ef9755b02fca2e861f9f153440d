@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d6e4ddac_755babaf",
+        "filename": "test/call_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-17T17:35:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "98cac749_f9e46b84",
+      "range": {
+        "startLine": 461,
+        "startChar": 0,
+        "endLine": 466,
+        "endChar": 64
+      },
+      "revId": "1e8cea9ecfc46ef9755b02fca2e861f9f153440d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56d9b8fe_22585202",
         "filename": "test/call_test.cc",
         "patchSetId": 1
@@ -154,6 +178,30 @@
       "side": 1,
       "message": "you mean Init always returns true in practice and can be merged into constructor?\nYep, I guess I can incorporate that change.\n\nThough to avoid breaking existent code that explicitly calls Init after construction I would need to add new constructor.",
       "parentUuid": "f20d82fe_014091d0",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 23
+      },
+      "revId": "1e8cea9ecfc46ef9755b02fca2e861f9f153440d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab1ec5e5_31eeed35",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-17T17:35:55Z",
+      "side": 1,
+      "message": "Or you can explicitly add Init calls where needed. This would prepare for a fix that should be added in the future to not start the capturer until it has been connected to the corresponding video sink.\n\nIf you\u0027d rather have the extra constructor, do it by adding a bool start_initialized that defaults to false. (Now the difference is just the order of arguments, that\u0027s a bit subtle)",
+      "parentUuid": "83fb6316_468fa3b9",
       "range": {
         "startLine": 101,
         "startChar": 6,

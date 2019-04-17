@@ -14,6 +14,7 @@
 #include <memory>
 #include <utility>
 
+#include "api/task_queue/default_task_queue_factory.h"
 #include "pc/video_track_source.h"
 #include "test/frame_generator_capturer.h"
 
@@ -41,10 +42,14 @@ class FrameGeneratorCapturerVideoTrackSource : public VideoTrackSource {
       : FrameGeneratorCapturerVideoTrackSource(Config(), clock) {}
 
   FrameGeneratorCapturerVideoTrackSource(Config config, Clock* clock)
-      : VideoTrackSource(false /* remote */) {
-    video_capturer_.reset(test::FrameGeneratorCapturer::Create(
+      : VideoTrackSource(false /* remote */),
+        task_queue_factory_(CreateDefaultTaskQueueFactory()) {
+    auto frame_generator = test::FrameGenerator::CreateSquareGenerator(
         config.width, config.height, absl::nullopt,
-        config.num_squares_generated, config.frames_per_second, clock));
+        config.num_squares_generated);
+    video_capturer_ = test::FrameGeneratorCapturer::Create(
+        std::move(frame_generator), config.frames_per_second, clock,
+        task_queue_factory_.get());
   }
 
   explicit FrameGeneratorCapturerVideoTrackSource(
@@ -68,6 +73,7 @@ class FrameGeneratorCapturerVideoTrackSource : public VideoTrackSource {
   }
 
  private:
+  const std::unique_ptr<TaskQueueFactory> task_queue_factory_;
   std::unique_ptr<test::FrameGeneratorCapturer> video_capturer_;
 };
 

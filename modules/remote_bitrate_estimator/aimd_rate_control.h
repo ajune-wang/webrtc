@@ -53,6 +53,7 @@ class AimdRateControl {
   DataRate LatestEstimate() const;
   void SetRtt(TimeDelta rtt);
   DataRate Update(const RateControlInput* input, Timestamp at_time);
+  void SetInApplicationLimitedRegion(bool in_alr);
   void SetEstimate(DataRate bitrate, Timestamp at_time);
   void SetNetworkStateEstimate(
       const absl::optional<NetworkStateEstimate>& estimate);
@@ -98,8 +99,12 @@ class AimdRateControl {
   Timestamp time_first_throughput_estimate_;
   bool bitrate_is_initialized_;
   double beta_;
+  bool in_alr_;
   TimeDelta rtt_;
   const bool in_experiment_;
+  // Allow the delay based estimate to only increase as long as ALR is not
+  // detected.
+  const bool no_bitrate_increase_in_alr_;
   const bool smoothing_experiment_;
   absl::optional<DataRate> last_decrease_;
   FieldTrialOptional<TimeDelta> initial_backoff_interval_;

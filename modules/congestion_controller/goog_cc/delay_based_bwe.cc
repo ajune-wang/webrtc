@@ -160,6 +160,7 @@ DelayBasedBwe::Result DelayBasedBwe::IncomingPacketFeedbackVector(
     // against building very large network queues.
     return Result();
   }
+  rate_control_.SetInApplicationLimitedRegion(in_alr);
   rate_control_.SetNetworkStateEstimate(network_estimate);
   return MaybeUpdateEstimate(acked_bitrate, probe_bitrate,
                              std::move(network_estimate),

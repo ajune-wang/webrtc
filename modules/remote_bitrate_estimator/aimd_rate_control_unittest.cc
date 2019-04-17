@@ -278,4 +278,57 @@ TEST(AimdRateControlTest, SendingRateBoundedWhenThroughputNotEstimated) {
             kInitialBitrateBps * 1.5 + 10000);
 }
 
+TEST(AimdRateControlTest, EstimateDoesNotIncreaseInAlr) {
+  test::ScopedFieldTrials override_field_trials(
+      "WebRTC-DontIncreaseDelayBasedBweInAlr/Enabled/");
+  auto states = CreateAimdRateControlStates();
+  constexpr int kInitialBitrateBps = 123000;
+  SetEstimate(states, kInitialBitrateBps);
+  states.aimd_rate_control->SetInApplicationLimitedRegion(true);
+  UpdateRateControl(states, BandwidthUsage::kBwNormal, kInitialBitrateBps,
+                    states.simulated_clock->TimeInMilliseconds());
+  EXPECT_EQ(states.aimd_rate_control->LatestEstimate().bps(),
+            kInitialBitrateBps);
+
+  for (int i = 0; i < 100; ++i) {
+    UpdateRateControl(states, BandwidthUsage::kBwNormal, absl::nullopt,
+                      states.simulated_clock->TimeInMilliseconds());
+    states.simulated_clock->AdvanceTimeMilliseconds(100);
+  }
+  EXPECT_EQ(states.aimd_rate_control->LatestEstimate().bps(),
+            kInitialBitrateBps);
+}
+
+TEST(AimdRateControlTest, SetEstimateIncreaseBweInAlr) {
+  test::ScopedFieldTrials override_field_trials(
+      "WebRTC-DontIncreaseDelayBasedBweInAlr/Enabled/");
+  auto states = CreateAimdRateControlStates();
+  constexpr int kInitialBitrateBps = 123000;
+  SetEstimate(states, kInitialBitrateBps);
+  states.aimd_rate_control->SetInApplicationLimitedRegion(true);
+  EXPECT_EQ(states.aimd_rate_control->LatestEstimate().bps(),
+            kInitialBitrateBps);
+  SetEstimate(states, 2 * kInitialBitrateBps);
+  EXPECT_EQ(states.aimd_rate_control->LatestEstimate().bps(),
+            2 * kInitialBitrateBps);
+}
+
+TEST(AimdRateControlTest, EstimateIncreaseWhileNotInAlr) {
+  test::ScopedFieldTrials override_field_trials(
+      "WebRTC-DontIncreaseDelayBasedBweInAlr/Enabled/");
+  auto states = CreateAimdRateControlStates();
+  constexpr int kInitialBitrateBps = 123000;
+  SetEstimate(states, kInitialBitrateBps);
+  states.aimd_rate_control->SetInApplicationLimitedRegion(false);
+  UpdateRateControl(states, BandwidthUsage::kBwNormal, kInitialBitrateBps,
+                    states.simulated_clock->TimeInMilliseconds());
+  for (int i = 0; i < 100; ++i) {
+    UpdateRateControl(states, BandwidthUsage::kBwNormal, absl::nullopt,
+                      states.simulated_clock->TimeInMilliseconds());
+    states.simulated_clock->AdvanceTimeMilliseconds(100);
+  }
+  EXPECT_GT(states.aimd_rate_control->LatestEstimate().bps(),
+            kInitialBitrateBps);
+}
+
 }  // namespace webrtc

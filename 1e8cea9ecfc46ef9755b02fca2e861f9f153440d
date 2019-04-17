@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b423edbc_fd4fb9be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-17T16:28:43Z",
+      "side": 1,
+      "message": "Could you rephrase this, I can\u0027t really follow.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 73
+      },
+      "revId": "1e8cea9ecfc46ef9755b02fca2e861f9f153440d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9902a796_6768322d",
+        "filename": "test/call_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-17T16:28:43Z",
+      "side": 1,
+      "message": "This can be simplified somewhat:\nvideo_sources_.push_back(make_unique...)\nframe_generator_capturer_ \u003d video_sources_.back().get()",
+      "range": {
+        "startLine": 461,
+        "startChar": 0,
+        "endLine": 466,
+        "endChar": 64
+      },
+      "revId": "1e8cea9ecfc46ef9755b02fca2e861f9f153440d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56d9b8fe_22585202",
+        "filename": "test/call_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-17T16:28:43Z",
+      "side": 1,
+      "message": "As above.",
+      "range": {
+        "startLine": 478,
+        "startChar": 1,
+        "endLine": 479,
+        "endChar": 64
+      },
+      "revId": "1e8cea9ecfc46ef9755b02fca2e861f9f153440d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f20d82fe_014091d0",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-17T16:28:43Z",
+      "side": 1,
+      "message": "AFAICT this never happens, could we skip the ::Create function and do   absl::make_unique\u003cFrameGeneratorCapturer\u003e at the call site instead?",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 23
+      },
+      "revId": "1e8cea9ecfc46ef9755b02fca2e861f9f153440d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2b7d1cef_4037fafd",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-17T09:25:09Z",
+      "side": 1,
+      "message": "Do the constructors really access anything that needs such protection?\n\nIt\u0027s a common pattern to construct on object on one thread, and then use it exclusively on some other thread or task queue. If that\u0027s the case here too, all that\u0027s needed is adding a sequence_checker_.Detach() in the constructor.",
+      "parentUuid": "5dba56a2_b9b2fc7c",
+      "range": {
+        "startLine": 171,
+        "startChar": 8,
+        "endLine": 171,
+        "endChar": 74
+      },
+      "revId": "da90bf35375c72dcf375eb91e689654d6ede77c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7278aa5_08a0266f",
         "filename": "test/time_controller/simulated_time_controller.cc",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "It\u0027s needed for the SendTask usage. Without it SendTask will cause a deadlock unless an explicit yield policy is added, but I think that\u0027s confusing for the user, better to always add it. We already require that the controller is only used from a single thread, so it t makes sense with a thread local policy IMO.",
       "parentUuid": "e7278aa5_08a0266f",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 406,
+        "endChar": 34
+      },
+      "revId": "da90bf35375c72dcf375eb91e689654d6ede77c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb7206fe_3e37e601",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-17T09:25:09Z",
+      "side": 1,
+      "message": "I see. If SendTask is really needed (see above), I think I\u0027d prefer to do the yield policy locally in the methods calling SendTask.",
+      "parentUuid": "cd39b539_d8b83ff2",
       "range": {
         "startLine": 406,
         "startChar": 0,

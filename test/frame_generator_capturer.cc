@@ -91,6 +91,19 @@ FrameGeneratorCapturer* FrameGeneratorCapturer::Create(
   return capturer.release();
 }
 
+std::unique_ptr<FrameGeneratorCapturer> FrameGeneratorCapturer::Create(
+    std::unique_ptr<FrameGenerator> frame_generator,
+    int target_fps,
+    Clock* clock,
+    TaskQueueFactory* task_queue_factory) {
+  auto capturer = absl::make_unique<FrameGeneratorCapturer>(
+      clock, std::move(frame_generator), target_fps, *task_queue_factory);
+  if (!capturer->Init())
+    return nullptr;
+
+  return capturer;
+}
+
 FrameGeneratorCapturer::FrameGeneratorCapturer(
     Clock* clock,
     std::unique_ptr<FrameGenerator> frame_generator,

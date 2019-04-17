@@ -58,6 +58,7 @@ CroppedDesktopFrame::CroppedDesktopFrame(std::unique_ptr<DesktopFrame> frame,
   set_top_left(frame_->top_left().add(rect.top_left()));
   mutable_updated_region()->IntersectWith(rect);
   mutable_updated_region()->Translate(-rect.left(), -rect.top());
+  set_icc_profile(frame_->icc_profile());
 }
 
 }  // namespace webrtc

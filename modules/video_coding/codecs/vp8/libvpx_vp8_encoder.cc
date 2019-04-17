@@ -921,18 +921,19 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
 
   vpx_enc_frame_flags_t flags[kMaxSimulcastStreams];
   Vp8FrameConfig tl_configs[kMaxSimulcastStreams];
+  bool drop_frame = false;
   for (size_t i = 0; i < encoders_.size(); ++i) {
     tl_configs[i] =
         frame_buffer_controller_->NextFrameConfig(i, frame.timestamp());
-    if (tl_configs[i].drop_frame) {
-      if (send_key_frame) {
-        continue;
-      }
-      // Drop this frame.
-      return WEBRTC_VIDEO_CODEC_OK;
-    }
     flags[i] = EncodeFlags(tl_configs[i]);
+    send_key_frame |= tl_configs[i].KeyFrame();
+    drop_frame |= tl_configs[i].drop_frame;
   }
+
+  if (drop_frame && !send_key_frame) {
+    return WEBRTC_VIDEO_CODEC_OK;  // Drop this frame.
+  }
+
   if (send_key_frame) {
     // Adapt the size of the key frame when in screenshare with 1 temporal
     // layer.

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "52d0e03a_9a7ee637",
+        "filename": "media/base/codec.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-17T14:38:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5916e07e_253eaa7e",
+      "range": {
+        "startLine": 76,
+        "startChar": 59,
+        "endLine": 76,
+        "endChar": 71
+      },
+      "revId": "60ac9152ee673e867eef4b9f62a7b51ce3205745",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75949acd_5468491f",
         "filename": "pc/media_session.cc",
         "patchSetId": 7
@@ -39,6 +63,24 @@
       "revId": "60ac9152ee673e867eef4b9f62a7b51ce3205745",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b9d5a28_d7f03017",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-17T14:38:11Z",
+      "side": 1,
+      "message": "No, this is comparing a Codec and a webrtc::RtcCodecParameter, not a webrtc::RtcCodecCapability.",
+      "parentUuid": "75949acd_5468491f",
+      "revId": "60ac9152ee673e867eef4b9f62a7b51ce3205745",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "6c5e2cce_6e56e5ba",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-17T14:38:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e61f18a6_d5331e53",
+      "range": {
+        "startLine": 165,
+        "startChar": 29,
+        "endLine": 165,
+        "endChar": 34
+      },
+      "revId": "60ac9152ee673e867eef4b9f62a7b51ce3205745",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcdb70de_38316164",
         "filename": "pc/rtp_transceiver.cc",
         "patchSetId": 7
@@ -85,6 +151,30 @@
       "revId": "60ac9152ee673e867eef4b9f62a7b51ce3205745",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f4f70bf_1443dcba",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-17T14:38:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcdb70de_38316164",
+      "range": {
+        "startLine": 246,
+        "startChar": 6,
+        "endLine": 246,
+        "endChar": 64
+      },
+      "revId": "60ac9152ee673e867eef4b9f62a7b51ce3205745",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "8ec55131_169e1ffe",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-17T14:38:11Z",
+      "side": 1,
+      "message": "Didn\u0027t know about this one, thanks!",
+      "parentUuid": "a0199579_19a67d3b",
+      "range": {
+        "startLine": 248,
+        "startChar": 15,
+        "endLine": 248,
+        "endChar": 27
+      },
+      "revId": "60ac9152ee673e867eef4b9f62a7b51ce3205745",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff52367b_70300430",
         "filename": "pc/rtp_transceiver.cc",
         "patchSetId": 7
@@ -122,6 +236,30 @@
       "writtenOn": "2019-04-16T17:59:23Z",
       "side": 1,
       "message": "could also do absl::c_none_of",
+      "range": {
+        "startLine": 265,
+        "startChar": 8,
+        "endLine": 265,
+        "endChar": 23
+      },
+      "revId": "60ac9152ee673e867eef4b9f62a7b51ce3205745",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fd04a2f_72a93854",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-17T14:38:11Z",
+      "side": 1,
+      "message": "Boolean operations like that can be written in so many ways.",
+      "parentUuid": "ff52367b_70300430",
       "range": {
         "startLine": 265,
         "startChar": 8,
@@ -151,6 +289,24 @@
     },
     {
       "key": {
+        "uuid": "a4d26d4f_0d7c688e",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-17T14:38:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85339545_1a580657",
+      "revId": "60ac9152ee673e867eef4b9f62a7b51ce3205745",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95d8352e_8881f7d6",
         "filename": "pc/rtp_transceiver.cc",
         "patchSetId": 7
@@ -168,6 +324,24 @@
     },
     {
       "key": {
+        "uuid": "926affb6_6d8783f0",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-17T14:38:11Z",
+      "side": 1,
+      "message": "Updated it.",
+      "parentUuid": "95d8352e_8881f7d6",
+      "revId": "60ac9152ee673e867eef4b9f62a7b51ce3205745",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ea5e73d_af085843",
         "filename": "pc/rtp_transceiver.cc",
         "patchSetId": 7
@@ -182,6 +356,24 @@
       "revId": "60ac9152ee673e867eef4b9f62a7b51ce3205745",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67e93531_d52684c2",
+        "filename": "pc/rtp_transceiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-17T14:38:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ea5e73d_af085843",
+      "revId": "60ac9152ee673e867eef4b9f62a7b51ce3205745",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

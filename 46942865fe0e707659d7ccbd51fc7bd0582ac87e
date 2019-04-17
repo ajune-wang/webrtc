@@ -666,6 +666,24 @@
     },
     {
       "key": {
+        "uuid": "0e5a49c5_0d57989e",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4401,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-04-17T14:38:11Z",
+      "side": 1,
+      "message": "No, this doesn\u0027t work, I tried.\nThe MediaSessionDescriptionFactory constructor (which is called from the PC constructor) is caching the codec list in its video_codec_ member variable.\nChanging the FakeMediaEngine codec list requires having a PeerConnectionWrapper object, which means it doesn\u0027t work.\n\nWhen I moved some tests, some of them accidentally worked. I don\u0027t want a test to accidentally pass, I want to be sure they do, which is why I insist of having them in the ingrationtest suite instead. We\u0027re meant to test the code, not the mocks.",
+      "parentUuid": "244331a9_3450c15d",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8139377a_6ba73ac7",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 1

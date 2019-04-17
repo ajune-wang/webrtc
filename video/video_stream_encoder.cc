@@ -1355,8 +1355,7 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
   TRACE_EVENT1("webrtc", "VCMGenericEncoder::Encode", "timestamp",
                out_frame.timestamp());
 
-  frame_encoder_timer_.OnEncodeStarted(out_frame.timestamp(),
-                                       out_frame.render_time_ms());
+  frame_encoder_timer_.OnEncodeStarted(out_frame);
 
   const int32_t encode_status = encoder_->Encode(out_frame, &next_frame_types_);
 
@@ -1426,9 +1425,7 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
   const size_t spatial_idx = encoded_image.SpatialIndex().value_or(0);
   EncodedImage image_copy(encoded_image);
 
-  frame_encoder_timer_.FillTimingInfo(
-      spatial_idx, &image_copy,
-      rtc::TimeMicros() / rtc::kNumMicrosecsPerMillisec);
+  frame_encoder_timer_.FillTimingInfo(spatial_idx, &image_copy);
 
   // Piggyback ALR experiment group id and simulcast id into the content type.
   const uint8_t experiment_id =

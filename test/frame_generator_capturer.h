@@ -39,6 +39,14 @@ class FrameGeneratorCapturer : public TestVideoCapturer {
     virtual ~SinkWantsObserver() {}
   };
 
+  // Creates and Inits the FrameGenerator.
+  static std::unique_ptr<FrameGeneratorCapturer> Create(
+      std::unique_ptr<FrameGenerator> frame_generator,
+      int target_fps,
+      Clock* clock,
+      TaskQueueFactory* task_queue_factory);
+  // TODO(bugs.webrtc.org/10284): Stop using 4 factories below in favor of the
+  // factory above.
   // |type| has the default value OutputType::I420. |num_squares| has the
   // default value 10.
   static FrameGeneratorCapturer* Create(

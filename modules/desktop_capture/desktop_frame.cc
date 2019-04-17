@@ -89,7 +89,7 @@ void DesktopFrame::CopyFrameInfoFrom(const DesktopFrame& other) {
   set_capture_time_ms(other.capture_time_ms());
   set_capturer_id(other.capturer_id());
   *mutable_updated_region() = other.updated_region();
-  set_top_left(other.top_left());
+  set_icc_profile(other.icc_profile());
 }
 
 void DesktopFrame::MoveFrameInfoFrom(DesktopFrame* other) {
@@ -98,6 +98,7 @@ void DesktopFrame::MoveFrameInfoFrom(DesktopFrame* other) {
   set_capturer_id(other->capturer_id());
   mutable_updated_region()->Swap(other->mutable_updated_region());
   set_top_left(other->top_left());
+  set_icc_profile(other->icc_profile());
 }
 
 BasicDesktopFrame::BasicDesktopFrame(DesktopSize size)

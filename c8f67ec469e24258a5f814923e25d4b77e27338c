@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "21eadfa2_c7e8d26a",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-17T09:30:48Z",
+      "side": 1,
+      "message": "I think shorter is better. We might want to change the member names in the future and then they\u0027ll be out of sung anyway. In this case the member names are short, but commonly we want quite long member names (four-five words).\n\nWhat\u0027s useful in my experience is using tags that are easy to separate given deep understanding of the code, so min,max is better than a,b.",
+      "parentUuid": "08e48891_b70ee4a9",
+      "range": {
+        "startLine": 57,
+        "startChar": 48,
+        "endLine": 57,
+        "endChar": 59
+      },
+      "revId": "c8f67ec469e24258a5f814923e25d4b77e27338c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "385a2856_ee7c491c",
         "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
         "patchSetId": 1
@@ -201,6 +225,30 @@
       "writtenOn": "2019-04-17T08:22:33Z",
       "side": 1,
       "message": "Is this name ok, or should it be expanded to \"WebRTC-TransportWideFeedbackIntervals\" or so?",
+      "range": {
+        "startLine": 68,
+        "startChar": 37,
+        "endLine": 68,
+        "endChar": 58
+      },
+      "revId": "c8f67ec469e24258a5f814923e25d4b77e27338c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eec85b69_6e9d9c60",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-17T09:30:48Z",
+      "side": 1,
+      "message": "Expand, it makes it easier when looking at the gcl config to understand the context it belongs to. Optionally add -Bwe- in the middle as well, that way people who don\u0027t know about feedback get some hint about context.",
+      "parentUuid": "385a2856_ee7c491c",
       "range": {
         "startLine": 68,
         "startChar": 37,

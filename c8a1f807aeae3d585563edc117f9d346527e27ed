@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0017443a_1f2f5426",
+        "filename": "modules/congestion_controller/include/receive_side_congestion_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-17T12:17:15Z",
+      "side": 1,
+      "message": "Moved use of the global field trial config one level up, to here.",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 50
+      },
+      "revId": "c8a1f807aeae3d585563edc117f9d346527e27ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

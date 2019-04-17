@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bad6652e_ae4a3b08",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-17T08:01:07Z",
+      "side": 1,
+      "message": "Suggestion: !(no_bitrate_increase_in_alr_ \u0026\u0026 in_alr_)",
+      "range": {
+        "startLine": 276,
+        "startChar": 10,
+        "endLine": 276,
+        "endChar": 50
+      },
+      "revId": "7115f130d357916278409d2ce8e59a200ffe4223",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "828a38ed_a4deddd8",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-17T08:01:07Z",
+      "side": 1,
+      "message": "As discussed offline, add a comment above this line motivating why we don\u0027t want to clamp bitrate to max throughput if we don\u0027t increase bitrate in ALR.",
+      "range": {
+        "startLine": 366,
+        "startChar": 1,
+        "endLine": 366,
+        "endChar": 36
+      },
+      "revId": "7115f130d357916278409d2ce8e59a200ffe4223",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

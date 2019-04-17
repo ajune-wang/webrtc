@@ -16,6 +16,24 @@
       "revId": "494947bbcfdc5980835fbf523d2003ef246230c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4cae9efa_e0c45d83",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-04-17T06:54:13Z",
+      "side": 0,
+      "message": "reverted",
+      "parentUuid": "b5e67058_4fded245",
+      "revId": "494947bbcfdc5980835fbf523d2003ef246230c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

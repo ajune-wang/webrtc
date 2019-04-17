@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb9bcae3_ace42a00",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-17T08:06:21Z",
+      "side": 1,
+      "message": "Why is it necessary to move the allocation of this object into the task? (And similarly below).",
+      "range": {
+        "startLine": 171,
+        "startChar": 8,
+        "endLine": 171,
+        "endChar": 74
+      },
+      "revId": "da90bf35375c72dcf375eb91e689654d6ede77c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7278aa5_08a0266f",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-17T08:06:21Z",
+      "side": 1,
+      "message": "Not clear to me how this is related to the other changes. And why is it appropriate to install a yield policy for the thread that calls the GlobalSimulatedTimeController constructor?",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 406,
+        "endChar": 34
+      },
+      "revId": "da90bf35375c72dcf375eb91e689654d6ede77c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

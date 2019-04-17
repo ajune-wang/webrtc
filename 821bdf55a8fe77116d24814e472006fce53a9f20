@@ -22,6 +22,30 @@
       "revId": "821bdf55a8fe77116d24814e472006fce53a9f20",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db10332a_41f11dd6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-17T17:01:06Z",
+      "side": 1,
+      "message": "Thank you!\nthat is noticeably clearer than what I come up with.",
+      "parentUuid": "f3d87ea0_90ec66a9",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 77
+      },
+      "revId": "821bdf55a8fe77116d24814e472006fce53a9f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

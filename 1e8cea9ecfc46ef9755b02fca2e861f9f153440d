@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "98cac749_f9e46b84",
+        "filename": "test/call_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-17T17:01:06Z",
+      "side": 1,
+      "message": "video_sources_ is container of\nstd::unique_ptr\u003crtc::VideoSourceInterface\u003cVideoFrame\u003e\u003e\nand there one place where something other than test::FrameGeneratorCapturer is stored\n\nframe_generator_capturer_ is exactly \ntest::FrameGeneratorCapturer*\n\ni.e. it is not as simple as you suggested.\nSo I would prefer to leave this kind of improvement out of my change as not relevant for what I\u0027m trying to do.",
+      "parentUuid": "9902a796_6768322d",
+      "range": {
+        "startLine": 461,
+        "startChar": 0,
+        "endLine": 466,
+        "endChar": 64
+      },
+      "revId": "1e8cea9ecfc46ef9755b02fca2e861f9f153440d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56d9b8fe_22585202",
         "filename": "test/call_test.cc",
         "patchSetId": 1
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "b03ea0ca_9828c5df",
+        "filename": "test/call_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-17T17:01:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "56d9b8fe_22585202",
+      "range": {
+        "startLine": 478,
+        "startChar": 1,
+        "endLine": 479,
+        "endChar": 64
+      },
+      "revId": "1e8cea9ecfc46ef9755b02fca2e861f9f153440d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f20d82fe_014091d0",
         "filename": "test/frame_generator_capturer.cc",
         "patchSetId": 1
@@ -82,6 +130,30 @@
       "writtenOn": "2019-04-17T16:28:43Z",
       "side": 1,
       "message": "AFAICT this never happens, could we skip the ::Create function and do   absl::make_unique\u003cFrameGeneratorCapturer\u003e at the call site instead?",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 23
+      },
+      "revId": "1e8cea9ecfc46ef9755b02fca2e861f9f153440d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83fb6316_468fa3b9",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-17T17:01:06Z",
+      "side": 1,
+      "message": "you mean Init always returns true in practice and can be merged into constructor?\nYep, I guess I can incorporate that change.\n\nThough to avoid breaking existent code that explicitly calls Init after construction I would need to add new constructor.",
+      "parentUuid": "f20d82fe_014091d0",
       "range": {
         "startLine": 101,
         "startChar": 6,

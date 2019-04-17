@@ -92,6 +92,18 @@ FrameGeneratorCapturer* FrameGeneratorCapturer::Create(
 }
 
 FrameGeneratorCapturer::FrameGeneratorCapturer(
+    std::unique_ptr<FrameGenerator> frame_generator,
+    int target_fps,
+    Clock* clock,
+    TaskQueueFactory* task_queue_factory)
+    : FrameGeneratorCapturer(clock,
+                             std::move(frame_generator),
+                             target_fps,
+                             *task_queue_factory) {
+  Init();
+}
+
+FrameGeneratorCapturer::FrameGeneratorCapturer(
     Clock* clock,
     std::unique_ptr<FrameGenerator> frame_generator,
     int target_fps)

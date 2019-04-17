@@ -52,7 +52,6 @@ int32_t FakeDecoder::Decode(const EncodedImage& input,
           .set_timestamp_ms(render_time_ms)
           .build();
   frame.set_timestamp(input.Timestamp());
-  frame.set_ntp_time_ms(input.ntp_time_ms_);
 
   callback_->Decoded(frame);
 

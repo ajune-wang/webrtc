@@ -171,9 +171,11 @@ void WindowCapturerMac::CaptureFrame() {
       on_screen_window = full_screen_window;
   }
 
-  CGImageRef window_image = CGWindowListCreateImage(
-      CGRectNull, kCGWindowListOptionIncludingWindow,
-      on_screen_window, kCGWindowImageBoundsIgnoreFraming);
+  rtc::ScopedCFTypeRef<CGImageRef> window_image(
+      CGWindowListCreateImage(CGRectNull,
+                              kCGWindowListOptionIncludingWindow,
+                              on_screen_window,
+                              kCGWindowImageBoundsIgnoreFraming));
 
   if (!window_image) {
     RTC_LOG(LS_WARNING) << "Temporarily failed to capture window.";
@@ -181,30 +183,37 @@ void WindowCapturerMac::CaptureFrame() {
     return;
   }
 
-  int bits_per_pixel = CGImageGetBitsPerPixel(window_image);
+  int bits_per_pixel = CGImageGetBitsPerPixel(window_image.get());
   if (bits_per_pixel != 32) {
     RTC_LOG(LS_ERROR) << "Unsupported window image depth: " << bits_per_pixel;
-    CFRelease(window_image);
     callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
     return;
   }
 
-  int width = CGImageGetWidth(window_image);
-  int height = CGImageGetHeight(window_image);
-  CGDataProviderRef provider = CGImageGetDataProvider(window_image);
-  CFDataRef cf_data = CGDataProviderCopyData(provider);
+  int width = CGImageGetWidth(window_image.get());
+  int height = CGImageGetHeight(window_image.get());
+  CGDataProviderRef provider = CGImageGetDataProvider(window_image.get());
+  rtc::ScopedCFTypeRef<CFDataRef> cf_data(CGDataProviderCopyData(provider));
   std::unique_ptr<DesktopFrame> frame(
       new BasicDesktopFrame(DesktopSize(width, height)));
 
-  int src_stride = CGImageGetBytesPerRow(window_image);
-  const uint8_t* src_data = CFDataGetBytePtr(cf_data);
+  int src_stride = CGImageGetBytesPerRow(window_image.get());
+  const uint8_t* src_data = CFDataGetBytePtr(cf_data.get());
   for (int y = 0; y < height; ++y) {
     memcpy(frame->data() + frame->stride() * y, src_data + src_stride * y,
            DesktopFrame::kBytesPerPixel * width);
   }
 
-  CFRelease(cf_data);
-  CFRelease(window_image);
+  CGColorSpaceRef cg_color_space = CGImageGetColorSpace(window_image.get());
+  if (cg_color_space) {
+    rtc::ScopedCFTypeRef<CFDataRef> cf_icc_profile(CGColorSpaceCopyICCProfile(cg_color_space));
+    const char* data_as_byte =
+        reinterpret_cast<const char*>(CFDataGetBytePtr(cf_icc_profile.get()));
+    const size_t data_size = CFDataGetLength(cf_icc_profile.get());
+    if (data_as_byte && data_size > 0) {
+      frame->set_icc_profile(std::vector<char>(data_as_byte, data_as_byte + data_size));
+    }
+  }
 
   frame->mutable_updated_region()->SetRect(
       DesktopRect::MakeSize(frame->size()));

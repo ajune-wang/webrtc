@@ -27,6 +27,7 @@ class XAtomCache final {
   Atom WmState();
   Atom WindowType();
   Atom WindowTypeNormal();
+  Atom ICCProfile();
 
  private:
   // If |*atom| is None, this function uses XInternAtom() to retrieve an Atom.

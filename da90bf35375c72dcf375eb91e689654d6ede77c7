@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "4af1f05a_ee53c90a",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-17T10:04:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b7d1cef_4037fafd",
+      "range": {
+        "startLine": 171,
+        "startChar": 8,
+        "endLine": 171,
+        "endChar": 74
+      },
+      "revId": "da90bf35375c72dcf375eb91e689654d6ede77c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7278aa5_08a0266f",
         "filename": "test/time_controller/simulated_time_controller.cc",
         "patchSetId": 4
@@ -165,6 +189,30 @@
       "revId": "da90bf35375c72dcf375eb91e689654d6ede77c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44bdf0ec_127d2d9d",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-17T10:04:52Z",
+      "side": 1,
+      "message": "Yes, though, it isn\u0027t really SendTask that has this requirement, it\u0027s blocking events. It\u0027d be nice if we could get a pleasant error message for that as well.",
+      "parentUuid": "355f498e_77e8c347",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 406,
+        "endChar": 34
+      },
+      "revId": "da90bf35375c72dcf375eb91e689654d6ede77c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ce86e64_719652b2",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-17T20:09:56Z",
+      "side": 1,
+      "message": "Note to self - consult Ilya and Erik.",
+      "range": {
+        "startLine": 876,
+        "startChar": 0,
+        "endLine": 884,
+        "endChar": 3
+      },
+      "revId": "2b5bfef2082ee8f7507ff41b3ab384056d8a586d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf69dd02_f9cb72ee",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-17T20:09:56Z",
+      "side": 1,
+      "message": "Note to self - update comment.",
+      "range": {
+        "startLine": 947,
+        "startChar": 0,
+        "endLine": 948,
+        "endChar": 43
+      },
+      "revId": "2b5bfef2082ee8f7507ff41b3ab384056d8a586d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

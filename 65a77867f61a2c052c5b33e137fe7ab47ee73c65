@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54c561b4_7abccfc0",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-17T10:18:51Z",
+      "side": 1,
+      "message": "Can you also switch this on ResourceOwningTask in the follow up CL?",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 84,
+        "endChar": 55
+      },
+      "revId": "65a77867f61a2c052c5b33e137fe7ab47ee73c65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

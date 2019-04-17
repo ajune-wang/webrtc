@@ -69,6 +69,8 @@ class TransportFeedback : public Rtpfb {
   // Get the reference time in microseconds, including any precision loss.
   int64_t GetBaseTimeUs() const;
 
+  int64_t GetBaseDeltaUs(int64_t timestamp_us) const;
+
   // Does the feedback packet contain timestamp information?
   bool IncludeTimestamps() const { return include_timestamps_; }
 

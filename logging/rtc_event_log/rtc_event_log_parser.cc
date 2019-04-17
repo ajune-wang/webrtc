@@ -30,7 +30,7 @@
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "logging/rtc_event_log/rtc_event_processor.h"
 #include "modules/audio_coding/audio_network_adaptor/include/audio_network_adaptor.h"
-#include "modules/congestion_controller/rtp/transport_feedback_adapter.h"
+#include "modules/congestion_controller/rtp/send_time_history.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
 #include "modules/rtp_rtcp/include/rtp_cvo.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
@@ -39,6 +39,7 @@
 #include "modules/rtp_rtcp/source/rtp_utility.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/network/sent_packet.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/numerics/sequence_number_util.h"
 #include "rtc_base/protobuf_utils.h"
@@ -1918,7 +1919,8 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
     AddSendStreamInfos(&streams, video_send_configs(), LoggedMediaType::kVideo);
   }
 
-  TransportFeedbackAdapter feedback_adapter;
+  SendTimeHistory send_time_history(/*packet_age_limit_ms*/ 60000);
+
   std::vector<OverheadChangeEvent> overheads =
       GetOverheadChangingEvents(GetRouteChanges(), direction);
   auto overhead_iter = overheads.begin();
@@ -1961,57 +1963,66 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
     logged.overhead = current_overhead;
     if (rtp.header.extension.hasTransportSequenceNumber) {
       logged.log_feedback_time = Timestamp::PlusInfinity();
-      rtc::SentPacket sent_packet;
-      sent_packet.send_time_ms = rtp.log_time_ms();
-      sent_packet.info.packet_size_bytes = rtp.total_length;
-      sent_packet.info.included_in_feedback = true;
-      sent_packet.packet_id = rtp.header.extension.transportSequenceNumber;
-      feedback_adapter.AddPacket(rtp.header.ssrc, sent_packet.packet_id,
-                                 rtp.total_length, PacedPacketInfo(),
-                                 Timestamp::ms(rtp.log_time_ms()));
-      auto sent_packet_msg = feedback_adapter.ProcessSentPacket(sent_packet);
-      RTC_CHECK(sent_packet_msg);
-      indices[sent_packet_msg->sequence_number] = packets.size();
+      PacketFeedback sent_packet(
+          rtp.log_time_ms(), PacketFeedback::kNotReceived,
+          /*send_time_ms*/ rtp.log_time_ms(),
+          rtp.header.extension.transportSequenceNumber, rtp.total_length,
+          /*local_net_id*/ 0, /*remote_net_id*/ 0, PacedPacketInfo());
+      send_time_history.AddAndRemoveOld(sent_packet, rtp.log_time_ms());
+      indices[sent_packet.sequence_number] = packets.size();
     }
     packets.push_back(logged);
   };
 
+  Timestamp feedback_base_time = Timestamp::MinusInfinity();
+  Timestamp last_feedback_base_time = Timestamp::MinusInfinity();
+
   auto feedback_handler = [&](const LoggedRtcpPacketTransportFeedback& logged) {
-    advance_time(Timestamp::ms(logged.log_time_ms()));
-    auto msg = feedback_adapter.ProcessTransportFeedback(
-        logged.transport_feedback, Timestamp::ms(logged.log_time_ms()));
-    if (!msg.has_value() || msg->packet_feedbacks.empty())
-      return;
+    auto logged_time = Timestamp::ms(logged.log_time_ms());
+    advance_time(logged_time);
+    const auto& feedback = logged.transport_feedback;
+    // Add timestamp deltas to a local time base selected on first packet
+    // arrival. This won't be the true time base, but makes it easier to
+    // manually inspect time stamps.
+    if (last_feedback_base_time.IsInfinite()) {
+      feedback_base_time = logged_time;
+    } else {
+      feedback_base_time +=
+          TimeDelta::us(feedback.GetBaseDeltaUs(last_feedback_base_time.us()));
+    }
+    last_feedback_base_time = Timestamp::us(feedback.GetBaseTimeUs());
 
-    auto& last_fb = msg->packet_feedbacks.back();
-    Timestamp last_recv_time = last_fb.receive_time;
-    // This can happen if send time info is missing for the real last packet in
-    // the feedback, allowing the reported last packet to med indicated as lost.
-    if (last_recv_time.IsInfinite())
-      RTC_LOG(LS_WARNING) << "No receive time for last packet in feedback.";
+    std::vector<PacketFeedback> packet_feedbacks;
+    packet_feedbacks.reserve(feedback.GetReceivedPackets().size());
+    Timestamp receive_timestamp = feedback_base_time;
+    for (const auto& packet : feedback.GetReceivedPackets()) {
+      receive_timestamp += TimeDelta::us(packet.delta_us());
+      PacketFeedback packet_feedback(receive_timestamp.ms(),
+                                     packet.sequence_number());
+      // Returns false if we have already received feedback for this packet.
+      if (send_time_history.GetFeedback(&packet_feedback, true))
+        packet_feedbacks.push_back(std::move(packet_feedback));
+    }
 
-    for (auto& fb : msg->packet_feedbacks) {
-      if (indices.find(fb.sent_packet.sequence_number) == indices.end()) {
+    auto& last_fb = packet_feedbacks.back();
+    Timestamp last_recv_time = Timestamp::ms(last_fb.arrival_time_ms);
+    for (auto& fb : packet_feedbacks) {
+      if (indices.find(fb.sequence_number) == indices.end()) {
         RTC_LOG(LS_ERROR) << "Received feedback for unknown packet: "
-                          << fb.sent_packet.sequence_number;
+                          << fb.sequence_number;
         continue;
       }
-      LoggedPacketInfo* sent =
-          &packets[indices[fb.sent_packet.sequence_number]];
-      sent->reported_recv_time = fb.receive_time;
-      // If we have received feedback with a valid receive time for this packet
-      // before, we keep the previous values.
-      if (sent->log_feedback_time.IsFinite() &&
-          sent->reported_recv_time.IsFinite())
-        continue;
-      sent->log_feedback_time = msg->feedback_time;
-      if (last_recv_time.IsFinite()) {
-        if (direction == PacketDirection::kOutgoingPacket) {
-          sent->feedback_hold_duration = last_recv_time - fb.receive_time;
-        } else {
-          sent->feedback_hold_duration =
-              Timestamp::ms(logged.log_time_ms()) - sent->log_packet_time;
-        }
+      LoggedPacketInfo* sent = &packets[indices[fb.sequence_number]];
+      RTC_CHECK(sent->reported_recv_time.IsInfinite());
+      RTC_CHECK(sent->log_feedback_time.IsInfinite());
+      sent->reported_recv_time = Timestamp::ms(fb.arrival_time_ms);
+      sent->log_feedback_time = logged_time;
+      if (direction == PacketDirection::kOutgoingPacket) {
+        sent->feedback_hold_duration =
+            last_recv_time - sent->reported_recv_time;
+      } else {
+        sent->feedback_hold_duration =
+            Timestamp::ms(logged.log_time_ms()) - sent->log_packet_time;
       }
       sent->last_in_feedback = (&fb == &last_fb);
     }

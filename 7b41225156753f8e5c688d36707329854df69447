@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b4e2f81_ff52b93e",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-17T20:13:13Z",
+      "side": 1,
+      "message": "I am working on a CL that touches this variable further down the file, and I want to make sure I am not introducing regressions. Why is the frame rate controller currently avoiding dropping of key frames? Would it be a problem for you if I (conditionally) set |send_key_frame| to |true| lower in this file (see place indicated by next comment), without going through the frame-rate controller logic again? Or would you prefer it if the decision of the frame rate controller be deferred until we have the final value of |send_key_frame|?",
+      "range": {
+        "startLine": 764,
+        "startChar": 6,
+        "endLine": 764,
+        "endChar": 21
+      },
+      "revId": "7b41225156753f8e5c688d36707329854df69447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e09ac460_5e351292",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-17T20:13:13Z",
+      "side": 1,
+      "message": "This is the place indicated by the previous comment. Please see the still-very-much-WIP CL here:\nhttps://webrtc-review.googlesource.com/c/src/+/133561\nNote that s/UpdateLayerConfig/NextFrameConfig and s/temporal_layers_/frame_buffer_controller_ happened in between the current CL and that CL.",
+      "range": {
+        "startLine": 810,
+        "startChar": 0,
+        "endLine": 820,
+        "endChar": 3
+      },
+      "revId": "7b41225156753f8e5c688d36707329854df69447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

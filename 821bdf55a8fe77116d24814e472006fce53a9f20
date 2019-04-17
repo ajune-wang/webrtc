@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3d87ea0_90ec66a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-17T16:39:00Z",
+      "side": 1,
+      "message": "Use explicit TaskQueueFactory for FrameGeneratorCapturer in CallTest.\n\nThis replaces the implicit usage of GlobalTaskQueueFactory with an explicitly provided DefaultTaskQueueFactory instance.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 77
+      },
+      "revId": "821bdf55a8fe77116d24814e472006fce53a9f20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

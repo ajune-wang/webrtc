@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8f304ec6_f291e8da",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-17T08:22:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8455938f_95564eea",
+      "range": {
+        "startLine": 40,
+        "startChar": 53,
+        "endLine": 40,
+        "endChar": 59
+      },
+      "revId": "c8f67ec469e24258a5f814923e25d4b77e27338c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cef96fb_2b83ad6d",
         "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "c8f67ec469e24258a5f814923e25d4b77e27338c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2be0d252_66aac914",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-17T08:22:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cef96fb_2b83ad6d",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 30
+      },
+      "revId": "c8f67ec469e24258a5f814923e25d4b77e27338c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7864f748_ae9292f2",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-17T08:22:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e40223b9_335f7236",
+      "range": {
+        "startLine": 56,
+        "startChar": 9,
+        "endLine": 56,
+        "endChar": 13
+      },
+      "revId": "c8f67ec469e24258a5f814923e25d4b77e27338c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "259a6dcc_d3951bfa",
         "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
         "patchSetId": 1
@@ -87,6 +159,53 @@
         "startChar": 48,
         "endLine": 57,
         "endChar": 59
+      },
+      "revId": "c8f67ec469e24258a5f814923e25d4b77e27338c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08e48891_b70ee4a9",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-17T08:22:33Z",
+      "side": 1,
+      "message": "I thought it would help be helpful to reuse member names. But I can shorten, if you think that is better.",
+      "parentUuid": "259a6dcc_d3951bfa",
+      "range": {
+        "startLine": 57,
+        "startChar": 48,
+        "endLine": 57,
+        "endChar": 59
+      },
+      "revId": "c8f67ec469e24258a5f814923e25d4b77e27338c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "385a2856_ee7c491c",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-17T08:22:33Z",
+      "side": 1,
+      "message": "Is this name ok, or should it be expanded to \"WebRTC-TransportWideFeedbackIntervals\" or so?",
+      "range": {
+        "startLine": 68,
+        "startChar": 37,
+        "endLine": 68,
+        "endChar": 58
       },
       "revId": "c8f67ec469e24258a5f814923e25d4b77e27338c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -114,6 +233,30 @@
       "revId": "c8f67ec469e24258a5f814923e25d4b77e27338c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8d5ea3a_b2424e22",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-17T08:22:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6aa732f_ac1889d5",
+      "range": {
+        "startLine": 91,
+        "startChar": 19,
+        "endLine": 91,
+        "endChar": 30
+      },
+      "revId": "c8f67ec469e24258a5f814923e25d4b77e27338c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

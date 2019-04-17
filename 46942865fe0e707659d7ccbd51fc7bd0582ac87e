@@ -684,6 +684,24 @@
     },
     {
       "key": {
+        "uuid": "3374fc55_3d2359bb",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4401,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-04-17T21:18:18Z",
+      "side": 1,
+      "message": "A solution for the first issue is to add an overload to CreatePeerConnection() in peer_connection_media_unittest that takes a FakeMediaEngine. Then tests that need to specify a custom codec list can set the codecs on the FakeMediaEngine constructed in the test body before passing it to CreatePeerConnection.\n\nI think explicitly controlling the codec capabilities in the media engine will help avoid tests that accidentally pass by making it clear the codecs involved end to end. Even now the tests rely on the defaults in WebRTC staying relatively consistent. While I think that\u0027s going to be safe in practice, it would be even better if the tests were entirely self contained and didn\u0027t rely on the defaults.",
+      "parentUuid": "0e5a49c5_0d57989e",
+      "revId": "46942865fe0e707659d7ccbd51fc7bd0582ac87e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8139377a_6ba73ac7",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 1

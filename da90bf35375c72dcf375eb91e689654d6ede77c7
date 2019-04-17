@@ -141,6 +141,30 @@
       "revId": "da90bf35375c72dcf375eb91e689654d6ede77c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "355f498e_77e8c347",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-04-17T09:28:15Z",
+      "side": 1,
+      "message": "In such case it makes sense to add doc to the send task about such requirement (maybe in different CL)",
+      "parentUuid": "cb7206fe_3e37e601",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 406,
+        "endChar": 34
+      },
+      "revId": "da90bf35375c72dcf375eb91e689654d6ede77c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4658778_91a1fde1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-17T07:52:38Z",
+      "side": 1,
+      "message": "This refers to the plan for the next cl, right?\n\nPlease use a first line summarizing the current change. E.g., \"Make MessageQueue processing an optional feature of FakeClock\".",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 53
+      },
+      "revId": "873a255a401a9fed534ae085c1f3e71f15e901d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fa5e809_ca64abd2",
+        "filename": "rtc_base/fake_clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-17T07:52:38Z",
+      "side": 1,
+      "message": "I imagine thread_processing will be a constant at each call site? Consider using a base class not hooking into MessageQueue, and a subclass adding that feature. But if that gets too verbose, construction argument is ok.",
+      "range": {
+        "startLine": 29,
+        "startChar": 26,
+        "endLine": 29,
+        "endChar": 43
+      },
+      "revId": "873a255a401a9fed534ae085c1f3e71f15e901d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

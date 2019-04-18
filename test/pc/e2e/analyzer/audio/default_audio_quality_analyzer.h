@@ -12,19 +12,20 @@
 #define TEST_PC_E2E_ANALYZER_AUDIO_DEFAULT_AUDIO_QUALITY_ANALYZER_H_
 
 #include <map>
+#include <set>
 #include <string>
 
 #include "absl/strings/string_view.h"
 #include "api/stats_types.h"
 #include "api/test/audio_quality_analyzer_interface.h"
 #include "api/test/track_id_stream_label_map.h"
+#include "rtc_base/critical_section.h"
 #include "rtc_base/numerics/samples_stats_counter.h"
 
 namespace webrtc {
 namespace webrtc_pc_e2e {
 
 struct AudioStreamStats {
- public:
   SamplesStatsCounter expand_rate;
   SamplesStatsCounter accelerate_rate;
   SamplesStatsCounter preemptive_rate;
@@ -42,6 +43,9 @@ class DefaultAudioQualityAnalyzer : public AudioQualityAnalyzerInterface {
                       const StatsReports& stats_reports) override;
   void Stop() override;
 
+  // Returns audio quality stats per stream label.
+  std::map<std::string, AudioStreamStats> GetAudioStreamsStats() const;
+
  private:
   const std::string& GetStreamLabelFromStatsReport(
       const StatsReport* stats_report) const;
@@ -53,7 +57,9 @@ class DefaultAudioQualityAnalyzer : public AudioQualityAnalyzerInterface {
 
   std::string test_case_name_;
   TrackIdStreamLabelMap* analyzer_helper_;
-  std::map<std::string, AudioStreamStats> streams_stats_;
+
+  rtc::CriticalSection lock_;
+  std::map<std::string, AudioStreamStats> streams_stats_ RTC_GUARDED_BY(lock_);
 };
 
 }  // namespace webrtc_pc_e2e

@@ -49,6 +49,7 @@ class BitrateController final : public Controller {
   int frame_length_ms_;
   absl::optional<int> target_audio_bitrate_bps_;
   absl::optional<size_t> overhead_bytes_per_packet_;
+  bool bwe_with_overhead_enabled_;
   RTC_DISALLOW_COPY_AND_ASSIGN(BitrateController);
 };
 

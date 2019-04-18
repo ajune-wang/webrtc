@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dbaaba75_53da759e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-18T11:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b423edbc_fd4fb9be",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 73
+      },
+      "revId": "1e8cea9ecfc46ef9755b02fca2e861f9f153440d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9902a796_6768322d",
         "filename": "test/call_test.cc",
         "patchSetId": 1
@@ -226,6 +250,30 @@
       "side": 1,
       "message": "switch to calling Init where needed.\n(though I check all places where Init is used - it is always called right after construction)",
       "parentUuid": "ab1ec5e5_31eeed35",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 23
+      },
+      "revId": "1e8cea9ecfc46ef9755b02fca2e861f9f153440d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c2ec599_0ce600a9",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-18T11:47:57Z",
+      "side": 1,
+      "message": "Yes it is now, but there\u0027s actually a hidden potential race there. Init start a repeating task with an initial delay. There is test code that assumes that this repeated task will not run before later code is executed. In practice, this works fine as the delay is long enough, but theoretically it could trigger a race under rare circumstances, in particular, it means that we must keep that initial delay, while it would actually sometimes make sense to start producing frames immediately.\n\nSo by doing this explicitly in two steps it will be easier to fix this in the future if needed. :)",
+      "parentUuid": "dfc22e6e_1405bf36",
       "range": {
         "startLine": 101,
         "startChar": 6,

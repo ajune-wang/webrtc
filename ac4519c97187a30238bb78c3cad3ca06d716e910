@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9b0b663_b17fc15f",
+        "filename": "sdk/android/api/org/webrtc/NetworkControllerFactoryFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-04-18T11:37:41Z",
+      "side": 1,
+      "message": "nit: createNativeNetworkControllerFactory",
+      "range": {
+        "startLine": 19,
+        "startChar": 14,
+        "endLine": 19,
+        "endChar": 26
+      },
+      "revId": "ac4519c97187a30238bb78c3cad3ca06d716e910",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

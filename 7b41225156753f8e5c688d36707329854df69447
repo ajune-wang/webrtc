@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f939b7eb_a837fb72",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-04-18T07:55:16Z",
+      "side": 1,
+      "message": "The idea here is to limit framerate to save resources if we can do that safely. If the KF was requested by some receiver we don\u0027t want to drop this frame. This limit here is not the actual limit, but some kind of power saving mode.",
+      "parentUuid": "7b4e2f81_ff52b93e",
+      "range": {
+        "startLine": 764,
+        "startChar": 6,
+        "endLine": 764,
+        "endChar": 21
+      },
+      "revId": "7b41225156753f8e5c688d36707329854df69447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e09ac460_5e351292",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-17T20:13:13Z",
       "side": 1,
       "message": "This is the place indicated by the previous comment. Please see the still-very-much-WIP CL here:\nhttps://webrtc-review.googlesource.com/c/src/+/133561\nNote that s/UpdateLayerConfig/NextFrameConfig and s/temporal_layers_/frame_buffer_controller_ happened in between the current CL and that CL.",
+      "range": {
+        "startLine": 810,
+        "startChar": 0,
+        "endLine": 820,
+        "endChar": 3
+      },
+      "revId": "7b41225156753f8e5c688d36707329854df69447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75ed0989_969a17a0",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-04-18T07:55:16Z",
+      "side": 1,
+      "message": "That CL looks safe. It will force additional KF based on temporal pattern. It\u0027s not based on receiver\u0027s requests, so it\u0027s quite safe to limit framerate even if dropped frame would\u0027ve been made KF due to prediction structure.\n\nYou may remove some confusion if you rename |send_key_frame| above to e.g. |key_frame_requested|. Then here you would calculate if the kf should be sent based on if it was requested and if it is necessary due to frame buffer controller.",
+      "parentUuid": "e09ac460_5e351292",
       "range": {
         "startLine": 810,
         "startChar": 0,

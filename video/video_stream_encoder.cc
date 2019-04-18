@@ -27,6 +27,7 @@
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/experiments/alr_experiment.h"
+#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/experiments/quality_scaling_experiment.h"
 #include "rtc_base/experiments/rate_control_settings.h"
 #include "rtc_base/location.h"
@@ -50,6 +51,7 @@ const int64_t kPendingFrameTimeoutMs = 1000;
 
 const char kInitialFramedropFieldTrial[] = "WebRTC-InitialFramedrop";
 constexpr char kFrameDropperFieldTrial[] = "WebRTC-FrameDropper";
+constexpr char kNewCpuLoadEstimator[] = "WebRTC-NewCpuLoadEstimator";
 
 // The maximum number of frames to drop at beginning of stream
 // to try and achieve desired bitrate.
@@ -114,7 +116,14 @@ CpuOveruseOptions GetCpuOveruseOptions(
     options.low_encode_usage_threshold_percent = 150;
     options.high_encode_usage_threshold_percent = 200;
   }
-  if (settings.experiment_cpu_load_estimator) {
+  // Configuring using field trial overrides
+  // settings.experiment_cpu_load_estimator.
+  FieldTrialOptional<TimeDelta> time_constant{"tau"};
+  ParseFieldTrial({&time_constant},
+                  field_trial::FindFullName(kNewCpuLoadEstimator));
+  if (time_constant) {
+    options.filter_time_ms = time_constant->ms();
+  } else if (settings.experiment_cpu_load_estimator) {
     options.filter_time_ms = 5 * rtc::kNumMillisecsPerSec;
   }
 

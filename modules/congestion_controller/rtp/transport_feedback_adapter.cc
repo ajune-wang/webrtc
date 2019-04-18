@@ -19,6 +19,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 namespace {
@@ -47,7 +48,9 @@ const int64_t kBaseTimestampScaleFactor =
 const int64_t kBaseTimestampRangeSizeUs = kBaseTimestampScaleFactor * (1 << 24);
 
 TransportFeedbackAdapter::TransportFeedbackAdapter()
-    : send_time_history_(kSendTimeHistoryWindowMs),
+    : ignore_retransmits_(!field_trial::IsDisabled(
+          "WebRTC-TransportFeedbackAdapter-IgnoreRetransmits")),
+      send_time_history_(kSendTimeHistoryWindowMs),
       current_offset_ms_(kNoTimestamp),
       last_timestamp_us_(kNoTimestamp),
       local_net_id_(0),
@@ -100,19 +103,24 @@ absl::optional<SentPacket> TransportFeedbackAdapter::ProcessSentPacket(
   rtc::CritScope cs(&lock_);
   // TODO(srte): Only use one way to indicate that packet feedback is used.
   if (sent_packet.info.included_in_feedback || sent_packet.packet_id != -1) {
-    send_time_history_.OnSentPacket(sent_packet.packet_id,
-                                    sent_packet.send_time_ms);
-    absl::optional<PacketFeedback> packet =
-        send_time_history_.GetPacket(sent_packet.packet_id);
-    if (packet) {
-      SentPacket msg;
-      msg.size = DataSize::bytes(packet->payload_size);
-      msg.send_time = Timestamp::ms(packet->send_time_ms);
-      msg.sequence_number = packet->long_sequence_number;
-      msg.prior_unacked_data = DataSize::bytes(packet->unacknowledged_data);
-      msg.data_in_flight =
-          send_time_history_.GetOutstandingData(local_net_id_, remote_net_id_);
-      return msg;
+    SendTimeHistory::PacketSendState send_state =
+        send_time_history_.OnSentPacket(sent_packet.packet_id,
+                                        sent_packet.send_time_ms);
+    if (send_state == SendTimeHistory::PacketSendState::kSent ||
+        (send_state == SendTimeHistory::PacketSendState::kRetransmission &&
+         !ignore_retransmits_)) {
+      absl::optional<PacketFeedback> packet =
+          send_time_history_.GetPacket(sent_packet.packet_id);
+      if (packet) {
+        SentPacket msg;
+        msg.size = DataSize::bytes(packet->payload_size);
+        msg.send_time = Timestamp::ms(packet->send_time_ms);
+        msg.sequence_number = packet->long_sequence_number;
+        msg.prior_unacked_data = DataSize::bytes(packet->unacknowledged_data);
+        msg.data_in_flight = send_time_history_.GetOutstandingData(
+            local_net_id_, remote_net_id_);
+        return msg;
+      }
     }
   } else if (sent_packet.info.included_in_allocation) {
     send_time_history_.AddUntracked(sent_packet.info.packet_size_bytes,

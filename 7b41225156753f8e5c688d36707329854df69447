@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "e97672e3_ee463cae",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-18T10:25:42Z",
+      "side": 1,
+      "message": "Ah, this is specific to ScreenshareLayers? If so, perhaps we could indicate that in the code? Is there anything currently preventing this code from triggering while DefaultTemporalLayers is used?",
+      "parentUuid": "886c6797_5826f394",
+      "range": {
+        "startLine": 764,
+        "startChar": 6,
+        "endLine": 764,
+        "endChar": 21
+      },
+      "revId": "7b41225156753f8e5c688d36707329854df69447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e09ac460_5e351292",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 9

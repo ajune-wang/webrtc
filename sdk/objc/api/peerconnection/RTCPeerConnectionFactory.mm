@@ -139,13 +139,11 @@
 
 - (instancetype)initWithNoMedia {
   if (self = [self initNative]) {
-    _nativeFactory = webrtc::CreateModularPeerConnectionFactory(
-        _networkThread.get(),
-        _workerThread.get(),
-        _signalingThread.get(),
-        std::unique_ptr<cricket::MediaEngineInterface>(),
-        std::unique_ptr<webrtc::CallFactoryInterface>(),
-        std::unique_ptr<webrtc::RtcEventLogFactoryInterface>());
+    webrtc::PeerConnectionFactoryDependencies dependencies;
+    dependencies.network_thread = _networkThread.get();
+    dependencies.worker_thread = _workerThread.get();
+    dependencies.signaling_thread = _signalingThread.get();
+    _nativeFactory = webrtc::CreateModularPeerConnectionFactory(std::move(dependencies));
     NSAssert(_nativeFactory, @"Failed to initialize PeerConnectionFactory!");
   }
   return self;

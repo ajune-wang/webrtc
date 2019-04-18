@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "fd40ca22_36b033be",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-04-18T10:41:20Z",
+      "side": 1,
+      "message": "Could you add a comment in your upcoming CL then? This check passes only if the input picture is a pixel perfect copy of the previous frame (update_rect().IsEmpty()). Theoretically, this code could work even for camera, but due to noise it\u0027s impossible to get the pixel perfect input image.",
+      "parentUuid": "e97672e3_ee463cae",
+      "range": {
+        "startLine": 764,
+        "startChar": 6,
+        "endLine": 764,
+        "endChar": 21
+      },
+      "revId": "7b41225156753f8e5c688d36707329854df69447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e09ac460_5e351292",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 9

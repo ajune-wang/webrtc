@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c3ffa0dd_751d8286",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-18T08:55:42Z",
+      "side": 1,
+      "message": "Would it perhaps be equally efficient to also delay key frames? The other side is equally frozen whether it\u0027s a key frame or a normal frame, I am assuming. At least, the added freeze duration should be the same, mostly. Or?",
+      "parentUuid": "f939b7eb_a837fb72",
+      "range": {
+        "startLine": 764,
+        "startChar": 6,
+        "endLine": 764,
+        "endChar": 21
+      },
+      "revId": "7b41225156753f8e5c688d36707329854df69447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e09ac460_5e351292",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 9
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "That CL looks safe. It will force additional KF based on temporal pattern. It\u0027s not based on receiver\u0027s requests, so it\u0027s quite safe to limit framerate even if dropped frame would\u0027ve been made KF due to prediction structure.\n\nYou may remove some confusion if you rename |send_key_frame| above to e.g. |key_frame_requested|. Then here you would calculate if the kf should be sent based on if it was requested and if it is necessary due to frame buffer controller.",
       "parentUuid": "e09ac460_5e351292",
+      "range": {
+        "startLine": 810,
+        "startChar": 0,
+        "endLine": 820,
+        "endChar": 3
+      },
+      "revId": "7b41225156753f8e5c688d36707329854df69447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20e33202_a9e42332",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-18T08:55:42Z",
+      "side": 1,
+      "message": "Please note that this does not necessarily have to be a temporal-layers-based frame buffer controller. In fact, DefaultTemporalLayers does not currently ever initiated key frames. Even the very first Vp8FrameConfig returned by NextFrameConfig (previously called UpdateLayerConfig) is not a key frame, in the case of DefaultTemporalLayers.\n\nGood suggestion about the name. Thanks.",
+      "parentUuid": "75ed0989_969a17a0",
       "range": {
         "startLine": 810,
         "startChar": 0,

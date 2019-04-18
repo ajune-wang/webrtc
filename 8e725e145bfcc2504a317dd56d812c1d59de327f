@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "781b7e7e_7a08ed53",
+        "filename": "modules/congestion_controller/rtp/send_time_history.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-18T11:52:26Z",
+      "side": 1,
+      "message": "Looks like the return value was never used before. Could just repurpose it to indicate if this was the first send. This is maybe a bit more clear though.",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 17
+      },
+      "revId": "8e725e145bfcc2504a317dd56d812c1d59de327f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dee77c5f_83c87f09",
         "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
         "patchSetId": 2

@@ -75,6 +75,10 @@ class SamplesStatsCounter {
   // |percentile| has to be in [0; 1]. 0 percentile is the min in the array and
   // 1 percentile is the max in the array.
   double GetPercentile(double percentile);
+  // Returns vector with all samples added into counter. There are no any order
+  // guarantees, so samples can be in different order comparing to in which they
+  // were added into counter.
+  std::vector<double> GetSamples() const { return samples_; }
 
  private:
   RunningStatistics<double> stats_;

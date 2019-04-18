@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c2b2c5e_eddc8078",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-18T09:16:09Z",
+      "side": 1,
+      "message": "Do we really need a std::set in this case? std::map keys are sorted and unique, what about using a std::vector and pre-allocate the number of items?",
+      "range": {
+        "startLine": 127,
+        "startChar": 2,
+        "endLine": 130,
+        "endChar": 3
+      },
+      "revId": "5b265df807f4cf29b22ea651aae245c6c7ae3bad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6119510b_e9f75549",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-18T09:16:09Z",
+      "side": 1,
+      "message": "I am not sure about how this is used externally, but once the client has fetched a copy of the std::map, it should be easy to get the know audio streams (they are just the keys of the std::map).\n\nAnother thing to consider, if GetKnownAudioStreams and GetStats are called in two different moments, it is possible that they will disagree (e.g. GetKnownAudioStats will not have a stream that is present in GetStats).",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 53
+      },
+      "revId": "5b265df807f4cf29b22ea651aae245c6c7ae3bad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "511e68da_fba8154c",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-18T09:16:09Z",
+      "side": 1,
+      "message": "I think we should avoid to use GetStats as a name since it is well known and it usually refers to the PeerConnection GetStats. What about GetAudioStreamsStats?",
+      "range": {
+        "startLine": 51,
+        "startChar": 42,
+        "endLine": 51,
+        "endChar": 50
+      },
+      "revId": "5b265df807f4cf29b22ea651aae245c6c7ae3bad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

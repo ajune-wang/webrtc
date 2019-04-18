@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b50917f3_7cb838f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-18T13:37:15Z",
+      "side": 1,
+      "message": "BitrateEstimatorTest?",
+      "range": {
+        "startLine": 7,
+        "startChar": 60,
+        "endLine": 7,
+        "endChar": 70
+      },
+      "revId": "7a6b39f4228b7f154147811a8b0873a19139e253",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21ef82a9_9e4ca71f",
+        "filename": "call/bitrate_estimator_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-18T13:37:15Z",
+      "side": 1,
+      "message": "nit: test-\u003eclock_",
+      "range": {
+        "startLine": 183,
+        "startChar": 14,
+        "endLine": 183,
+        "endChar": 39
+      },
+      "revId": "7a6b39f4228b7f154147811a8b0873a19139e253",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

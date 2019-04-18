@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b717911_0517b5f9",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-18T11:38:47Z",
+      "side": 1,
+      "message": "\"New\"? Is there something else that differentiates it?",
+      "range": {
+        "startLine": 54,
+        "startChar": 48,
+        "endLine": 54,
+        "endChar": 51
+      },
+      "revId": "842be1ec3dae1f6149a1f62221df432f74bb0f4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7541892_989e7d56",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-18T11:38:47Z",
+      "side": 1,
+      "message": "It\u0027s hard to follow exactly how CpuOveruseOptions is set up and used, and this seems to increase the complexity. Would it be possible to refactor the code to make this more clear? Maybe it\u0027d make sense to have two structs, one with static config using field trial parameters and defaults, and one dynamic based on stream specific parameters?\n\nIs set_experiment_cpu_load_estimator used? Maybe we could replace that interface by setting the field trial?",
+      "revId": "842be1ec3dae1f6149a1f62221df432f74bb0f4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -362,6 +362,9 @@ bool ScreenCapturerMac::CgBlit(const DesktopFrame& frame, const DesktopRegion& r
       continue;
     }
 
+    // TODO(julien.isorce): http://crbug.com/945468. Set the icc profile on the
+    // frame, see WindowCapturerMac::CaptureFrame.
+
     const uint8_t* display_base_address = frame_source->data();
     int src_bytes_per_row = frame_source->stride();
     RTC_DCHECK(display_base_address);

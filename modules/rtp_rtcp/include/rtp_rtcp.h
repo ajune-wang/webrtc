@@ -377,13 +377,6 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
 
   // (NACK)
 
-  // Sends a Negative acknowledgement packet.
-  // Returns -1 on failure else 0.
-  // TODO(philipel): Deprecate this and start using SendNack instead, mostly
-  // because we want a function that actually send NACK for the specified
-  // packets.
-  virtual int32_t SendNACK(const uint16_t* nack_list, uint16_t size) = 0;
-
   // Sends NACK for the packets specified.
   // Note: This assumes the caller keeps track of timing and doesn't rely on
   // the RTP module to do this.

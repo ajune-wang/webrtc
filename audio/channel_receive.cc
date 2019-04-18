@@ -161,7 +161,6 @@ class ChannelReceive : public ChannelReceiveInterface,
   bool ReceivePacket(const uint8_t* packet,
                      size_t packet_length,
                      const RTPHeader& header);
-  int ResendPackets(const uint16_t* sequence_numbers, int length);
   void UpdatePlayoutTimestamp(bool rtcp);
 
   int GetRtpTimestampRateHz() const;
@@ -286,9 +285,7 @@ int32_t ChannelReceive::OnReceivedPayloadData(const uint8_t* payloadData,
 
   std::vector<uint16_t> nack_list = audio_coding_->GetNackList(round_trip_time);
   if (!nack_list.empty()) {
-    // Can't use nack_list.data() since it's not supported by all
-    // compilers.
-    ResendPackets(&(nack_list[0]), static_cast<int>(nack_list.size()));
+    _rtpRtcpModule->SendNack(nack_list);
   }
   return 0;
 }
@@ -793,12 +790,6 @@ void ChannelReceive::SetNACKStatus(bool enable, int max_packets) {
         kDefaultMaxReorderingThreshold);
     audio_coding_->DisableNack();
   }
-}
-
-// Called when we are missing one or more packets.
-int ChannelReceive::ResendPackets(const uint16_t* sequence_numbers,
-                                  int length) {
-  return _rtpRtcpModule->SendNACK(sequence_numbers, length);
 }
 
 void ChannelReceive::SetAssociatedSendChannel(

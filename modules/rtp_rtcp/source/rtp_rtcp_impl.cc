@@ -88,8 +88,6 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
       next_process_time_(clock_->TimeInMilliseconds() +
                          kRtpRtcpMaxIdleTimeProcessMs),
       packet_overhead_(28),  // IPV4 UDP.
-      nack_last_time_sent_full_ms_(0),
-      nack_last_seq_number_sent_(0),
       key_frame_req_method_(kKeyFrameReqPliRtcp),
       remote_bitrate_(configuration.remote_bitrate_estimator),
       ack_observer_(configuration.ack_observer),
@@ -647,65 +645,10 @@ void ModuleRtpRtcpImpl::SetTmmbn(std::vector<rtcp::TmmbItem> bounding_set) {
   rtcp_sender_.SetTmmbn(std::move(bounding_set));
 }
 
-// Send a Negative acknowledgment packet.
-int32_t ModuleRtpRtcpImpl::SendNACK(const uint16_t* nack_list,
-                                    const uint16_t size) {
-  for (int i = 0; i < size; ++i) {
-    receive_loss_stats_.AddLostPacket(nack_list[i]);
-  }
-  uint16_t nack_length = size;
-  uint16_t start_id = 0;
-  int64_t now_ms = clock_->TimeInMilliseconds();
-  if (TimeToSendFullNackList(now_ms)) {
-    nack_last_time_sent_full_ms_ = now_ms;
-  } else {
-    // Only send extended list.
-    if (nack_last_seq_number_sent_ == nack_list[size - 1]) {
-      // Last sequence number is the same, do not send list.
-      return 0;
-    }
-    // Send new sequence numbers.
-    for (int i = 0; i < size; ++i) {
-      if (nack_last_seq_number_sent_ == nack_list[i]) {
-        start_id = i + 1;
-        break;
-      }
-    }
-    nack_length = size - start_id;
-  }
-
-  // Our RTCP NACK implementation is limited to kRtcpMaxNackFields sequence
-  // numbers per RTCP packet.
-  if (nack_length > kRtcpMaxNackFields) {
-    nack_length = kRtcpMaxNackFields;
-  }
-  nack_last_seq_number_sent_ = nack_list[start_id + nack_length - 1];
-
-  return rtcp_sender_.SendRTCP(GetFeedbackState(), kRtcpNack, nack_length,
-                               &nack_list[start_id]);
-}
-
 void ModuleRtpRtcpImpl::SendNack(
     const std::vector<uint16_t>& sequence_numbers) {
   rtcp_sender_.SendRTCP(GetFeedbackState(), kRtcpNack, sequence_numbers.size(),
                         sequence_numbers.data());
-}
-
-bool ModuleRtpRtcpImpl::TimeToSendFullNackList(int64_t now) const {
-  // Use RTT from RtcpRttStats class if provided.
-  int64_t rtt = rtt_ms();
-  if (rtt == 0) {
-    rtcp_receiver_.RTT(rtcp_receiver_.RemoteSSRC(), NULL, &rtt, NULL, NULL);
-  }
-
-  const int64_t kStartUpRttMs = 100;
-  int64_t wait_time = 5 + ((rtt * 3) >> 1);  // 5 + RTT * 1.5.
-  if (rtt == 0) {
-    wait_time = kStartUpRttMs;
-  }
-
-  // Send a full NACK list once within every |wait_time|.
-  return now - nack_last_time_sent_full_ms_ > wait_time;
 }
 
 // Store the sent packets, needed to answer to Negative acknowledgment requests.

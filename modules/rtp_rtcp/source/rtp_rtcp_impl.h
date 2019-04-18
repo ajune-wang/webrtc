@@ -219,11 +219,6 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
   void SetMaxRtpPacketSize(size_t max_packet_size) override;
 
   // (NACK) Negative acknowledgment part.
-
-  // Send a Negative acknowledgment packet.
-  // TODO(philipel): Deprecate SendNACK and use SendNack instead.
-  int32_t SendNACK(const uint16_t* nack_list, uint16_t size) override;
-
   void SendNack(const std::vector<uint16_t>& sequence_numbers) override;
 
   // Store the sent packets, needed to answer to a negative acknowledgment
@@ -325,9 +320,6 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
   uint16_t packet_overhead_;
 
   // Send side
-  int64_t nack_last_time_sent_full_ms_;
-  uint16_t nack_last_seq_number_sent_;
-
   KeyFrameRequestMethod key_frame_req_method_;
 
   RemoteBitrateEstimator* const remote_bitrate_;
@@ -337,6 +329,7 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
   RtcpRttStats* const rtt_stats_;
 
   PacketLossStats send_loss_stats_;
+  // TODO(nisse): Delete, not updated.
   PacketLossStats receive_loss_stats_;
 
   // The processed RTT from RtcpRttStats.

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4a758bf_de5e57c5",
+        "filename": "modules/desktop_capture/linux/x_window_property.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2019-04-18T17:36:02Z",
+      "side": 1,
+      "message": "What\u0027s the point of this file? It doesn\u0027t seem to do anything. I think a comment explaining why it\u0027s needed would be useful.",
+      "revId": "faba9489dd1bd0992815660b286921e996e7f5a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

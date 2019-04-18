@@ -13,6 +13,7 @@
 
 #include <stdint.h>
 #include <memory>
+#include <string>
 
 #include "modules/desktop_capture/desktop_geometry.h"
 #include "modules/desktop_capture/desktop_region.h"
@@ -110,6 +111,11 @@ class RTC_EXPORT DesktopFrame {
   // DesktopFrameWithCursor.
   void MoveFrameInfoFrom(DesktopFrame* other);
 
+  const std::string& icc_profile() const { return icc_profile_; }
+  void set_icc_profile(const std::string& icc_profile) {
+    icc_profile_ = icc_profile;
+  }
+
  protected:
   DesktopFrame(DesktopSize size,
                int stride,
@@ -131,6 +137,7 @@ class RTC_EXPORT DesktopFrame {
   DesktopVector dpi_;
   int64_t capture_time_ms_;
   uint32_t capturer_id_;
+  std::string icc_profile_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(DesktopFrame);
 };

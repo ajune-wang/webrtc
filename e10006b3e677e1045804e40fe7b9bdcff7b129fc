@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08121b49_7fff4d76",
+        "filename": "pc/jitter_buffer_delay.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-04-18T15:50:07Z",
+      "side": 1,
+      "message": "This is wrong. Consider user in JS layer passes double values beyond int max or min values.",
+      "revId": "e10006b3e677e1045804e40fe7b9bdcff7b129fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd7dd874_004a3b15",
+        "filename": "modules/congestion_controller/rtp/send_time_history.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-18T08:47:30Z",
+      "side": 1,
+      "message": "Maybe something like:\nSendStatus {kNotAdded, kAlreadySent, kSuccess}",
+      "range": {
+        "startLine": 26,
+        "startChar": 13,
+        "endLine": 26,
+        "endChar": 64
+      },
+      "revId": "8e725e145bfcc2504a317dd56d812c1d59de327f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dee77c5f_83c87f09",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-18T08:47:30Z",
+      "side": 1,
+      "message": "Maybe we can just check for the retransmission case for now, to make the change smaller. Keep the behavior for missing packets the same.",
+      "range": {
+        "startLine": 109,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 30
+      },
+      "revId": "8e725e145bfcc2504a317dd56d812c1d59de327f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22724304_14cdf4eb",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-18T08:47:30Z",
+      "side": 1,
+      "message": "invert",
+      "range": {
+        "startLine": 66,
+        "startChar": 13,
+        "endLine": 66,
+        "endChar": 32
+      },
+      "revId": "8e725e145bfcc2504a317dd56d812c1d59de327f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ff79ba60_5d554912",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-04-18T22:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6912be1_7469994f",
+      "range": {
+        "startLine": 17,
+        "startChar": 50,
+        "endLine": 17,
+        "endChar": 53
+      },
+      "revId": "faba9489dd1bd0992815660b286921e996e7f5a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb4516b5_179b60ab",
         "filename": "modules/desktop_capture/desktop_frame.h",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-18T20:24:40Z",
       "side": 1,
       "message": "why is it a char vector instead of std::string?\nWhat\u0027s the format of the data stored in that value? Please add some comment that explain it.",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 3
+      },
+      "revId": "faba9489dd1bd0992815660b286921e996e7f5a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b32e0b5a_8cee0200",
+        "filename": "modules/desktop_capture/desktop_frame.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-04-18T22:25:58Z",
+      "side": 1,
+      "message": "No reason so I changed it to string.\nThough it is not a text, it contains raw data that need to be parsed (header,payload, see http://www.color.org/specification/ICC1v43_2010-12.pdf )\nMaybe I should change it to std::vector\u003cuint8_t\u003e ?",
+      "parentUuid": "eb4516b5_179b60ab",
       "range": {
         "startLine": 113,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e41a3f49_b5f4344a",
+        "filename": "modules/desktop_capture/linux/x_atom_cache.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-04-18T22:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04896408_f83c7438",
+      "range": {
+        "startLine": 30,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 17
+      },
+      "revId": "faba9489dd1bd0992815660b286921e996e7f5a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4a758bf_de5e57c5",
         "filename": "modules/desktop_capture/linux/x_window_property.cc",
         "patchSetId": 10
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "d3487d7d_97e6a8d5",
+        "filename": "modules/desktop_capture/linux/x_window_property.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-04-18T22:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4a758bf_de5e57c5",
+      "revId": "faba9489dd1bd0992815660b286921e996e7f5a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4dc9887b_f231ed74",
         "filename": "modules/desktop_capture/linux/x_window_property.h",
         "patchSetId": 10
@@ -99,6 +189,30 @@
       "writtenOn": "2019-04-18T20:24:40Z",
       "side": 1,
       "message": "Move all this code to XWindowPropertyBase class and then put it to the .cc file. It doesn\u0027t depend on the template parameters, so it doesn\u0027t need to be in the header.",
+      "range": {
+        "startLine": 26,
+        "startChar": 19,
+        "endLine": 47,
+        "endChar": 19
+      },
+      "revId": "faba9489dd1bd0992815660b286921e996e7f5a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc657b1b_3c48045b",
+        "filename": "modules/desktop_capture/linux/x_window_property.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-04-18T22:25:58Z",
+      "side": 1,
+      "message": "Done, thx",
+      "parentUuid": "4dc9887b_f231ed74",
       "range": {
         "startLine": 26,
         "startChar": 19,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4faf0f4_f5f85c49",
+        "filename": "modules/audio_coding/audio_network_adaptor/bitrate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-18T08:50:10Z",
+      "side": 1,
+      "message": "Does that mean that we will silently fail to do the right thing otherwise? Would it be possible to have higher level code ensuring that we don\u0027t use the bitrate controller unless the trial is enabled?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 35
+      },
+      "revId": "aa9fae77e415a0df96d4b4005297f25ca0f79dd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

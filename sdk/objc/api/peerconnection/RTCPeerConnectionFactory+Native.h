@@ -65,6 +65,23 @@ NS_ASSUME_NONNULL_BEGIN
                 mediaTransportFactory:
                     (std::unique_ptr<webrtc::MediaTransportFactory>)mediaTransportFactory;
 
+- (instancetype)
+    initWithNativeAudioEncoderFactory:
+        (rtc::scoped_refptr<webrtc::AudioEncoderFactory>)audioEncoderFactory
+            nativeAudioDecoderFactory:
+                (rtc::scoped_refptr<webrtc::AudioDecoderFactory>)audioDecoderFactory
+            nativeVideoEncoderFactory:
+                (std::unique_ptr<webrtc::VideoEncoderFactory>)videoEncoderFactory
+            nativeVideoDecoderFactory:
+                (std::unique_ptr<webrtc::VideoDecoderFactory>)videoDecoderFactory
+                    audioDeviceModule:(nullable webrtc::AudioDeviceModule *)audioDeviceModule
+                audioProcessingModule:
+                    (rtc::scoped_refptr<webrtc::AudioProcessing>)audioProcessingModule
+             networkControllerFactory:
+                 (std::unique_ptr<webrtc::NetworkControllerFactory>)networkControllerFactory
+                mediaTransportFactory:
+                    (std::unique_ptr<webrtc::MediaTransportFactory>)mediaTransportFactory;
+
 - (instancetype)initWithEncoderFactory:(nullable id<RTCVideoEncoderFactory>)encoderFactory
                         decoderFactory:(nullable id<RTCVideoDecoderFactory>)decoderFactory
                  mediaTransportFactory:

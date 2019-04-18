@@ -211,6 +211,30 @@
       "revId": "1e8cea9ecfc46ef9755b02fca2e861f9f153440d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfc22e6e_1405bf36",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-18T08:57:41Z",
+      "side": 1,
+      "message": "switch to calling Init where needed.\n(though I check all places where Init is used - it is always called right after construction)",
+      "parentUuid": "ab1ec5e5_31eeed35",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 23
+      },
+      "revId": "1e8cea9ecfc46ef9755b02fca2e861f9f153440d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

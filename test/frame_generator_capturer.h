@@ -39,6 +39,8 @@ class FrameGeneratorCapturer : public TestVideoCapturer {
     virtual ~SinkWantsObserver() {}
   };
 
+  // TODO(bugs.webrtc.org/10284): Stop using 4 factories below in favor of
+  // using constructor directly.
   // |type| has the default value OutputType::I420. |num_squares| has the
   // default value 10.
   static FrameGeneratorCapturer* Create(

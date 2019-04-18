@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "886c6797_5826f394",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-04-18T09:09:25Z",
+      "side": 1,
+      "message": "No, why would we delay the kf? It means someone doesn\u0027t have the picture to display, so we send the frame as soon as we can. But if there are no key-frame requests (and the input picture didn\u0027t change and the last sent frame was at a good quality), then all the receivers should already display the correct picture, so we don\u0027t need to send new frame as often.",
+      "parentUuid": "c3ffa0dd_751d8286",
+      "range": {
+        "startLine": 764,
+        "startChar": 6,
+        "endLine": 764,
+        "endChar": 21
+      },
+      "revId": "7b41225156753f8e5c688d36707329854df69447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e09ac460_5e351292",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 9

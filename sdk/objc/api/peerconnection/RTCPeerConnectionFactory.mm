@@ -186,6 +186,31 @@
                     (rtc::scoped_refptr<webrtc::AudioProcessing>)audioProcessingModule
                 mediaTransportFactory:
                     (std::unique_ptr<webrtc::MediaTransportFactory>)mediaTransportFactory {
+  return [self initWithNativeAudioEncoderFactory:audioEncoderFactory
+                       nativeAudioDecoderFactory:audioDecoderFactory
+                       nativeVideoEncoderFactory:std::move(videoEncoderFactory)
+                       nativeVideoDecoderFactory:std::move(videoDecoderFactory)
+                               audioDeviceModule:audioDeviceModule
+                           audioProcessingModule:audioProcessingModule
+                        networkControllerFactory:nullptr
+                           mediaTransportFactory:std::move(mediaTransportFactory)];
+}
+- (instancetype)
+    initWithNativeAudioEncoderFactory:
+        (rtc::scoped_refptr<webrtc::AudioEncoderFactory>)audioEncoderFactory
+            nativeAudioDecoderFactory:
+                (rtc::scoped_refptr<webrtc::AudioDecoderFactory>)audioDecoderFactory
+            nativeVideoEncoderFactory:
+                (std::unique_ptr<webrtc::VideoEncoderFactory>)videoEncoderFactory
+            nativeVideoDecoderFactory:
+                (std::unique_ptr<webrtc::VideoDecoderFactory>)videoDecoderFactory
+                    audioDeviceModule:(nullable webrtc::AudioDeviceModule *)audioDeviceModule
+                audioProcessingModule:
+                    (rtc::scoped_refptr<webrtc::AudioProcessing>)audioProcessingModule
+             networkControllerFactory:
+                 (std::unique_ptr<webrtc::NetworkControllerFactory>)networkControllerFactory
+                mediaTransportFactory:
+                    (std::unique_ptr<webrtc::MediaTransportFactory>)mediaTransportFactory {
 #ifdef HAVE_NO_MEDIA
   return [self initWithNoMedia];
 #else
@@ -212,6 +237,7 @@
     dependencies.media_engine = std::move(media_engine);
     dependencies.call_factory = std::move(call_factory);
     dependencies.event_log_factory = std::move(event_log_factory);
+    dependencies.network_controller_factory = std::move(networkControllerFactory);
     dependencies.media_transport_factory = std::move(mediaTransportFactory);
     _nativeFactory = webrtc::CreateModularPeerConnectionFactory(std::move(dependencies));
     NSAssert(_nativeFactory, @"Failed to initialize PeerConnectionFactory!");

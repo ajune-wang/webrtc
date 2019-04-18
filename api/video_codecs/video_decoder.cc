@@ -24,10 +24,6 @@ void DecodedImageCallback::Decoded(VideoFrame& decodedImage,
   Decoded(decodedImage, decode_time_ms.value_or(-1));
 }
 
-int32_t DecodedImageCallback::ReceivedDecodedFrame(const uint64_t pictureId) {
-  return -1;
-}
-
 int32_t VideoDecoder::Decode(const EncodedImage& input_image,
                              bool missing_frames,
                              int64_t render_time_ms) {

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b735f749_dbc25d5a",
+        "filename": "modules/desktop_capture/mac/desktop_frame_cgimage.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2019-04-19T00:41:59Z",
+      "side": 1,
+      "message": "s/give/given/",
+      "range": {
+        "startLine": 30,
+        "startChar": 49,
+        "endLine": 30,
+        "endChar": 53
+      },
+      "revId": "bb8edeaaedaa5e03d87dd55358d0d5f212929cc2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

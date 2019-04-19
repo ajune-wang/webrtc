@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "8db01156_cfcafd97",
+        "filename": "modules/desktop_capture/desktop_frame.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2019-04-19T00:32:55Z",
+      "side": 1,
+      "message": "It\u0027s not uncommon to use std::string for binary data (e.g. //crypto in chromium does it). But I don\u0027t mind using vector\u003cuint8_t\u003e if you prefer it.",
+      "parentUuid": "b32e0b5a_8cee0200",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 3
+      },
+      "revId": "faba9489dd1bd0992815660b286921e996e7f5a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "04896408_f83c7438",
         "filename": "modules/desktop_capture/linux/x_atom_cache.h",
         "patchSetId": 10

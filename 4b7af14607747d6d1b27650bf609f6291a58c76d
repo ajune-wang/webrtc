@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba5e9995_8e6d5163",
+        "filename": "modules/desktop_capture/cropped_desktop_frame_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2019-04-19T21:15:55Z",
+      "side": 1,
+      "message": "nit: I don\u0027t think you need a cast here.",
+      "range": {
+        "startLine": 85,
+        "startChar": 6,
+        "endLine": 85,
+        "endChar": 39
+      },
+      "revId": "4b7af14607747d6d1b27650bf609f6291a58c76d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89e10006_072f47d9",
+        "filename": "modules/desktop_capture/linux/x_window_property.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2019-04-19T21:15:55Z",
+      "side": 1,
+      "message": "I don\u0027t think we need const for any of these arguments",
+      "range": {
+        "startLine": 24,
+        "startChar": 22,
+        "endLine": 26,
+        "endChar": 44
+      },
+      "revId": "4b7af14607747d6d1b27650bf609f6291a58c76d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be48cf3d_f30a5189",
+        "filename": "modules/desktop_capture/linux/x_window_property.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2019-04-19T21:15:55Z",
+      "side": 1,
+      "message": "please put protected section above private, see https://google.github.io/styleguide/cppguide.html#Class_Format",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "4b7af14607747d6d1b27650bf609f6291a58c76d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "0fa5b82e_0da7c01d",
+        "filename": "modules/desktop_capture/desktop_frame.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-04-19T17:22:53Z",
+      "side": 1,
+      "message": "I changed it to vector\u003cuint8_t\u003e, thx.",
+      "parentUuid": "8db01156_cfcafd97",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 3
+      },
+      "revId": "faba9489dd1bd0992815660b286921e996e7f5a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04896408_f83c7438",
         "filename": "modules/desktop_capture/linux/x_atom_cache.h",
         "patchSetId": 10

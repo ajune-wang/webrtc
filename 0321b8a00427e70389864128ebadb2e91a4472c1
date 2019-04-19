@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8cdb4fee_7822a8ca",
+        "filename": "modules/desktop_capture/linux/x_window_property.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-04-19T17:22:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adf5aaee_055e151b",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 1
+      },
+      "revId": "0321b8a00427e70389864128ebadb2e91a4472c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19531377_a4e7d045",
         "filename": "modules/desktop_capture/linux/x_window_property.h",
         "patchSetId": 13
@@ -45,6 +69,30 @@
       "revId": "0321b8a00427e70389864128ebadb2e91a4472c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d35dba5b_49240f6f",
+        "filename": "modules/desktop_capture/linux/x_window_property.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-04-19T17:22:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19531377_a4e7d045",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 3
+      },
+      "revId": "0321b8a00427e70389864128ebadb2e91a4472c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

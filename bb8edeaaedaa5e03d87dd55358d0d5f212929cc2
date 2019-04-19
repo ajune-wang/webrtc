@@ -22,6 +22,30 @@
       "revId": "bb8edeaaedaa5e03d87dd55358d0d5f212929cc2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0faf8f2b_a7d9273d",
+        "filename": "modules/desktop_capture/mac/desktop_frame_cgimage.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-04-19T04:27:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b735f749_dbc25d5a",
+      "range": {
+        "startLine": 30,
+        "startChar": 49,
+        "endLine": 30,
+        "endChar": 53
+      },
+      "revId": "bb8edeaaedaa5e03d87dd55358d0d5f212929cc2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

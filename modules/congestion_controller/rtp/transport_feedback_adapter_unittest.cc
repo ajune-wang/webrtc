@@ -63,9 +63,14 @@ class TransportFeedbackAdapterTest : public ::testing::Test {
                                     int64_t now_ms) {}
 
   void OnSentPacket(const PacketFeedback& packet_feedback) {
-    adapter_->AddPacket(kSsrc, packet_feedback.sequence_number,
-                        packet_feedback.payload_size,
-                        packet_feedback.pacing_info,
+    RtpPacketSendInfo packet_info;
+    packet_info.ssrc = kSsrc;
+    packet_info.transport_sequence_number = packet_feedback.sequence_number;
+    packet_info.rtp_sequence_number = 0;
+    packet_info.has_rtp_sequence_number = true;
+    packet_info.length = packet_feedback.payload_size;
+    packet_info.pacing_info = packet_feedback.pacing_info;
+    adapter_->AddPacket(RtpPacketSendInfo(packet_info), 0u,
                         Timestamp::ms(clock_.TimeInMilliseconds()));
     adapter_->ProcessSentPacket(rtc::SentPacket(packet_feedback.sequence_number,
                                                 packet_feedback.send_time_ms,
@@ -393,6 +398,70 @@ TEST_F(TransportFeedbackAdapterTest, TimestampDeltas) {
                                  adapter_->GetTransportFeedbackVector());
   }
 }
+<<<<<<< HEAD   (852bff Roll chromium_revision adf8e94df9..14d9f48eb3 (651832:651940)
+=======
+
+TEST_F(TransportFeedbackAdapterTest, IgnoreDuplicatePacketSentCalls) {
+  const PacketFeedback packet(100, 200, 0, 1500, kPacingInfo0);
+  const int kPacketOverheadBytes = 0;
+
+  // Add a packet and then mark it as sent.
+  RtpPacketSendInfo info;
+  info.ssrc = kSsrc;
+  info.rtp_sequence_number = packet.rtp_sequence_number;
+  info.transport_sequence_number = packet.sequence_number;
+  info.length = packet.payload_size;
+  info.pacing_info = packet.pacing_info;
+  adapter_->AddPacket(info, kPacketOverheadBytes,
+                      Timestamp::ms(clock_.TimeInMilliseconds()));
+  absl::optional<SentPacket> sent_packet =
+      adapter_->ProcessSentPacket(rtc::SentPacket(
+          packet.sequence_number, packet.send_time_ms, rtc::PacketInfo()));
+  EXPECT_TRUE(sent_packet.has_value());
+
+  // Call ProcessSentPacket() again with the same sequence number. This packet
+  // has already been marked as sent and the call should be ignored.
+  absl::optional<SentPacket> duplicate_packet =
+      adapter_->ProcessSentPacket(rtc::SentPacket(
+          packet.sequence_number, packet.send_time_ms, rtc::PacketInfo()));
+  EXPECT_FALSE(duplicate_packet.has_value());
+}
+
+TEST_F(TransportFeedbackAdapterTest, AllowDuplicatePacketSentCallsWithTrial) {
+  // Allow duplicates if this field trial kill-switch is enabled.
+  webrtc::test::ScopedFieldTrials field_trial(
+      "WebRTC-TransportFeedbackAdapter-AllowDuplicates/Enabled/");
+  // Re-run setup so the flags goes into effect.
+  SetUp();
+
+  const PacketFeedback packet(100, 200, 0, 1500, kPacingInfo0);
+  const int kPacketOverheadBytes = 0;
+
+  // Add a packet and then mark it as sent.
+  RtpPacketSendInfo info;
+  info.ssrc = kSsrc;
+  info.rtp_sequence_number = packet.rtp_sequence_number;
+  info.transport_sequence_number = packet.sequence_number;
+  info.length = packet.payload_size;
+  info.pacing_info = packet.pacing_info;
+
+  // Add a packet and then mark it as sent.
+  adapter_->AddPacket(info, kPacketOverheadBytes,
+                      Timestamp::ms(clock_.TimeInMilliseconds()));
+  absl::optional<SentPacket> sent_packet =
+      adapter_->ProcessSentPacket(rtc::SentPacket(
+          packet.sequence_number, packet.send_time_ms, rtc::PacketInfo()));
+  EXPECT_TRUE(sent_packet.has_value());
+
+  // Call ProcessSentPacket() again with the same sequence number. This packet
+  // should still be allowed due to the field trial/
+  absl::optional<SentPacket> duplicate_packet =
+      adapter_->ProcessSentPacket(rtc::SentPacket(
+          packet.sequence_number, packet.send_time_ms, rtc::PacketInfo()));
+  EXPECT_TRUE(duplicate_packet.has_value());
+}
+
+>>>>>>> CHANGE (353efd Add RTP sequence number to TransportFeedbackObserver::AddPac)
 }  // namespace test
 }  // namespace webrtc_cc
 }  // namespace webrtc

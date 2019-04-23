@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a3c91383_d05336c5",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-23T12:47:52Z",
+      "side": 1,
+      "message": "Thanks. You could, btw, just point out that my search/replace overshot its target, and leave it up to me to hunt out the places. :-)",
+      "parentUuid": "73d5d1e4_fd875427",
+      "range": {
+        "startLine": 1033,
+        "startChar": 72,
+        "endLine": 1033,
+        "endChar": 73
+      },
+      "revId": "8bff3e8b7c1cc4593e9cfc0b42e614e821cd9a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a79b8121_3f25ca24",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "8bff3e8b7c1cc4593e9cfc0b42e614e821cd9a91",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a0ea55a_d2cec26b",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1067,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-23T12:47:52Z",
+      "side": 1,
+      "message": "Ditto",
+      "parentUuid": "a79b8121_3f25ca24",
+      "range": {
+        "startLine": 1067,
+        "startChar": 30,
+        "endLine": 1067,
+        "endChar": 42
+      },
+      "revId": "8bff3e8b7c1cc4593e9cfc0b42e614e821cd9a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f214955b_c7e6093f",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-23T12:47:52Z",
+      "side": 1,
+      "message": "Ditto",
+      "parentUuid": "9ed6fb9a_05f1a64f",
+      "range": {
+        "startLine": 1071,
+        "startChar": 3,
+        "endLine": 1080,
+        "endChar": 75
+      },
+      "revId": "8bff3e8b7c1cc4593e9cfc0b42e614e821cd9a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d594397_87e820fd",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "8bff3e8b7c1cc4593e9cfc0b42e614e821cd9a91",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57c8f2ab_9f30237e",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1110,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-23T12:47:52Z",
+      "side": 1,
+      "message": "Ditto",
+      "parentUuid": "4d594397_87e820fd",
+      "range": {
+        "startLine": 1110,
+        "startChar": 62,
+        "endLine": 1110,
+        "endChar": 63
+      },
+      "revId": "8bff3e8b7c1cc4593e9cfc0b42e614e821cd9a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -46,6 +46,30 @@
       "revId": "a5a38e86af006f0d54ab9a911b2bb19d015f0acd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56488fd6_b748c5eb",
+        "filename": "config.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-04-23T12:16:37Z",
+      "side": 1,
+      "message": "The way that this works is that any machine from \"pool:luci.webrtc.perf\" just drives the LUCI code and schedules tasks on \"pool:WebRTC-perf\", which does the actual testing work on a specific baremetal machine.\n\nThe OS version of \"luci-webrtc-perf-*\" / \"luci.webrtc.perf\" is inconsequential (the machines are all interchangeable), and it should switch seamlessly in just the same way as for \"-ci-*\".\n\nThe baremetal machine is the bot-specific the critical resource, and if both of them exist at the same time then the two bots can run at the same time.\n\nSo I don\u0027t think I\u0027m making a mistake or contradiction here.",
+      "parentUuid": "769d7f7b_df089a1d",
+      "range": {
+        "startLine": 448,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 96
+      },
+      "revId": "a5a38e86af006f0d54ab9a911b2bb19d015f0acd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

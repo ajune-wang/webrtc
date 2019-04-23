@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18baa53c_3b10adf1",
+        "filename": "config.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-04-23T11:37:17Z",
+      "side": 1,
+      "message": "I think, to get a clear overview of the transition, we should keep both bots at first.",
+      "range": {
+        "startLine": 448,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 96
+      },
+      "revId": "a5a38e86af006f0d54ab9a911b2bb19d015f0acd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

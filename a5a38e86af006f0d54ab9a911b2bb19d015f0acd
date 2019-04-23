@@ -70,6 +70,30 @@
       "revId": "a5a38e86af006f0d54ab9a911b2bb19d015f0acd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fffc0992_d2d4eceb",
+        "filename": "config.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5106
+      },
+      "writtenOn": "2019-04-23T12:51:34Z",
+      "side": 1,
+      "message": "Ah, I see.",
+      "parentUuid": "56488fd6_b748c5eb",
+      "range": {
+        "startLine": 448,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 96
+      },
+      "revId": "a5a38e86af006f0d54ab9a911b2bb19d015f0acd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01b5df78_18eca584",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 7796
+      },
+      "writtenOn": "2019-04-23T14:38:00Z",
+      "side": 1,
+      "message": "Maybe it is better to log \"comparisons_queue_size is empty\" in else-branch?",
+      "range": {
+        "startLine": 501,
+        "startChar": 0,
+        "endLine": 501,
+        "endChar": 3
+      },
+      "revId": "fcdd19b0144e5511414cc04482ab257b94c175cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

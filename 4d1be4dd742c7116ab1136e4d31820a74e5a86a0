@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9b4ca91_4f8e68a4",
+        "filename": "api/video_codecs/vp8_frame_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-23T09:38:53Z",
+      "side": 1,
+      "message": "Updating all buffers and referencing none is a requirement for a key-frame, but it might not be a key-frame despite doing so.\nAre you interested in it _actually_ representing a key-frame?\nIf not, maybe IsIntraFrame() would be more accurate?",
+      "range": {
+        "startLine": 50,
+        "startChar": 7,
+        "endLine": 50,
+        "endChar": 15
+      },
+      "revId": "4d1be4dd742c7116ab1136e4d31820a74e5a86a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

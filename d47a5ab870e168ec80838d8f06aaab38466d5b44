@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe1e504a_32a5e073",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-04-23T16:19:02Z",
+      "side": 1,
+      "message": "Side-discussion not affecting this CL:\n\nI noticed the spec puts some of these on the RTCAudioReceiverStats (called RTCMediaStreamTrackStats because it was implemented before some more recent changes, though this name is not observable in JS so we\u0027re spec-compliant) and some of them in RTCInboundRtpStreamStats.\n\nFYI I think when https://github.com/w3c/webrtc-stats/issues/402 is resolved everything will be put in RTCInboundRtpStreamStats for consistency, but that\u0027s not a blocker.",
+      "revId": "d47a5ab870e168ec80838d8f06aaab38466d5b44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

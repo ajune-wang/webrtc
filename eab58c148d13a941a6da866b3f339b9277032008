@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "534266dd_9988cd76",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-04-23T12:44:30Z",
+      "side": 1,
+      "message": "I think this should work.\nThe color space you get here is from the bitstream. If color space is set explicitly by the RTP header extension, it should be overridden by the value in the RTP header extension.",
+      "parentUuid": "9528b56d_dfbba450",
+      "range": {
+        "startLine": 288,
+        "startChar": 20,
+        "endLine": 288,
+        "endChar": 31
+      },
+      "revId": "eab58c148d13a941a6da866b3f339b9277032008",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82d8330d_a8fc0414",
         "filename": "video/frame_encode_timer.cc",
         "patchSetId": 5

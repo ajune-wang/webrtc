@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8681e91c_c8ec7c16",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-04-23T12:44:30Z",
+      "side": 1,
+      "message": "Should this be removed?",
+      "range": {
+        "startLine": 292,
+        "startChar": 10,
+        "endLine": 292,
+        "endChar": 56
+      },
+      "revId": "98fdab245ef7504a538dae9ad86f2590a19ab9bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bf41624_b6e6b187",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1695,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-04-23T12:44:30Z",
+      "side": 1,
+      "message": "Should this be removed?",
+      "range": {
+        "startLine": 1695,
+        "startChar": 21,
+        "endLine": 1695,
+        "endChar": 41
+      },
+      "revId": "98fdab245ef7504a538dae9ad86f2590a19ab9bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be4e380a_d6d6835a",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1697,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-04-23T12:44:30Z",
+      "side": 1,
+      "message": "and this?\n\nWe don\u0027t need to set default values since we have the Builder.",
+      "range": {
+        "startLine": 1697,
+        "startChar": 21,
+        "endLine": 1697,
+        "endChar": 60
+      },
+      "revId": "98fdab245ef7504a538dae9ad86f2590a19ab9bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

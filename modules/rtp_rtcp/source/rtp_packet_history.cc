@@ -232,6 +232,20 @@ std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetBestFittingPacket(
   return absl::make_unique<RtpPacketToSend>(*best_packet);
 }
 
+void RtpPacketHistory::CullAcknowledgedPackets(
+    const rtc::ArrayView<const uint16_t>& sequence_numbers) {
+  rtc::CritScope cs(&lock_);
+  size_t i = 0;
+  for (uint16_t sequence_number : sequence_numbers) {
+    auto stored_packet_it = packet_history_.find(sequence_number);
+    if (stored_packet_it != packet_history_.end()) {
+      RemovePacket(stored_packet_it);
+      ++i;
+    }
+  }
+  printf("Removed %lu packets from history\n", i);
+}
+
 void RtpPacketHistory::Reset() {
   packet_history_.clear();
   packet_size_.clear();
@@ -239,8 +253,11 @@ void RtpPacketHistory::Reset() {
 }
 
 void RtpPacketHistory::CullOldPackets(int64_t now_ms) {
-  int64_t packet_duration_ms =
-      std::max(kMinPacketDurationRtt * rtt_ms_, kMinPacketDurationMs);
+  int64_t packet_duration_ms = kMinPacketDurationMs;
+  if (rtt_ms_ > 0) {
+    packet_duration_ms =
+        std::max(kMinPacketDurationRtt * rtt_ms_, packet_duration_ms);
+  }
   while (!packet_history_.empty()) {
     auto stored_packet_it = packet_history_.find(*start_seqno_);
     RTC_DCHECK(stored_packet_it != packet_history_.end());

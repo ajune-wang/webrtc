@@ -275,6 +275,10 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
   virtual StreamDataCountersCallback* GetSendChannelRtpStatisticsCallback()
       const = 0;
 
+  // Returns a pointer to an observer that handles information about packets
+  // that have been received by the remote end, or nullptr in not applicable.
+  virtual PacketsReceviedObserver* GetPacketReceivedObserver() const = 0;
+
   // **************************************************************************
   // RTCP
   // **************************************************************************

@@ -15,8 +15,10 @@
 #include "api/task_queue/default_task_queue_factory.h"
 #include "call/rtp_transport_controller_send.h"
 #include "call/rtp_video_sender.h"
+#include "modules/rtp_rtcp/source/rtp_packet.h"
 #include "modules/video_coding/fec_controller_default.h"
 #include "modules/video_coding/include/video_codec_interface.h"
+#include "rtc_base/event.h"
 #include "rtc_base/rate_limiter.h"
 #include "test/field_trial.h"
 #include "test/gmock.h"
@@ -27,6 +29,7 @@
 #include "video/send_statistics_proxy.h"
 
 using ::testing::_;
+using ::testing::Invoke;
 using ::testing::NiceMock;
 using ::testing::SaveArg;
 using ::testing::Unused;
@@ -70,6 +73,22 @@ RtpSenderObservers CreateObservers(
   return observers;
 }
 
+BitrateConstraints GetBitrateConfig() {
+  BitrateConstraints bitrate_config;
+  bitrate_config.min_bitrate_bps = 30000;
+  bitrate_config.start_bitrate_bps = 300000;
+  bitrate_config.max_bitrate_bps = 3000000;
+  return bitrate_config;
+}
+
+VideoSendStream::Config CreateVideoSendStreamConfig(
+    Transport* transport,
+    const std::vector<uint32_t>& ssrcs) {
+  VideoSendStream::Config config(transport);
+  config.rtp.ssrcs = ssrcs;
+  return config;
+}
+
 class RtpVideoSenderTestFixture {
  public:
   RtpVideoSenderTestFixture(
@@ -78,8 +97,9 @@ class RtpVideoSenderTestFixture {
       const std::map<uint32_t, RtpPayloadState>& suspended_payload_states,
       FrameCountObserver* frame_count_observer)
       : clock_(1000000),
-        config_(&transport_),
+        config_(CreateVideoSendStreamConfig(&transport_, ssrcs)),
         send_delay_stats_(&clock_),
+        bitrate_config_(GetBitrateConfig()),
         task_queue_factory_(CreateDefaultTaskQueueFactory()),
         transport_controller_(&clock_,
                               &event_log_,
@@ -119,6 +139,8 @@ class RtpVideoSenderTestFixture {
                                   /*frame_count_observer=*/nullptr) {}
 
   RtpVideoSender* router() { return router_.get(); }
+  MockTransport& transport() { return transport_; }
+  SimulatedClock& clock() { return clock_; }
 
  private:
   NiceMock<MockTransport> transport_;
@@ -346,4 +368,45 @@ TEST(RtpVideoSenderTest, FrameCountCallbacks) {
   EXPECT_EQ(1, frame_counts.delta_frames);
 }
 
+TEST(RtpVideoSenderTest, PropagatesTransportFeedbackToRtpSender) {
+  const int64_t kTimeoutMs = 3000;
+
+  RtpVideoSenderTestFixture test({kSsrc1, kSsrc2}, kPayloadType, {});
+  test.router()->SetActive(true);
+
+  constexpr uint8_t kPayload = 'a';
+  EncodedImage encoded_image;
+  encoded_image.SetTimestamp(1);
+  encoded_image.capture_time_ms_ = 2;
+  encoded_image._frameType = VideoFrameType::kVideoFrameKey;
+  encoded_image.Allocate(1);
+  encoded_image.data()[0] = kPayload;
+  encoded_image.set_size(1);
+
+  encoded_image._frameType = VideoFrameType::kVideoFrameKey;
+
+  rtc::Event event;
+  uint16_t rtp_sequence_number = 0;
+  uint16_t transport_sequence_number = 0;
+  EXPECT_CALL(test.transport(), SendRtp(_, _, _))
+      .WillOnce(
+          Invoke([&event, &rtp_sequence_number, &transport_sequence_number](
+                     const uint8_t* packet, size_t length,
+                     const PacketOptions& options) {
+            RtpPacket rtp_packet;
+            EXPECT_TRUE(rtp_packet.Parse(packet, length));
+            rtp_sequence_number = rtp_packet.SequenceNumber();
+            transport_sequence_number = options.packet_id;
+            event.Set();
+            return true;
+          }));
+  EXPECT_EQ(
+      EncodedImageCallback::Result::OK,
+      test.router()->OnEncodedImage(encoded_image, nullptr, nullptr).error);
+  test.clock().AdvanceTimeMilliseconds(33);
+
+  ASSERT_TRUE(event.Wait(kTimeoutMs));
+
+  // TODO: Add retransmit test things.
+}
 }  // namespace webrtc

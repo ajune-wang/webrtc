@@ -70,6 +70,30 @@
       "revId": "832ff9d12ffafe03564007ff24d68deadebeb002",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7acd864f_a53bdadb",
+        "filename": "sdk/objc/native/src/objc_video_decoder_factory.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-04-23T11:05:16Z",
+      "side": 1,
+      "message": "Sure. Can you file a bug and assign to me to remove this from the interface?",
+      "parentUuid": "e543455b_dea49aa2",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 31
+      },
+      "revId": "832ff9d12ffafe03564007ff24d68deadebeb002",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9528b56d_dfbba450",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-04-23T11:58:23Z",
+      "side": 1,
+      "message": "This ColorSpace is always signaled by rtp headers. The value here can be populated from the bitstream, but is overwritten is some color space is set by the source explicitly.\n\nkron@, could you comment if my understanding is correct here?",
+      "parentUuid": "330f3fc3_31b6635c",
+      "range": {
+        "startLine": 288,
+        "startChar": 20,
+        "endLine": 288,
+        "endChar": 31
+      },
+      "revId": "eab58c148d13a941a6da866b3f339b9277032008",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82d8330d_a8fc0414",
         "filename": "video/frame_encode_timer.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "eab58c148d13a941a6da866b3f339b9277032008",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8da4f42c_68d0d59b",
+        "filename": "video/frame_encode_timer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-04-23T11:58:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82d8330d_a8fc0414",
+      "range": {
+        "startLine": 219,
+        "startChar": 10,
+        "endLine": 222,
+        "endChar": 0
+      },
+      "revId": "eab58c148d13a941a6da866b3f339b9277032008",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

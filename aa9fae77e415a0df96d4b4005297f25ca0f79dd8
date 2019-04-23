@@ -22,6 +22,30 @@
       "revId": "aa9fae77e415a0df96d4b4005297f25ca0f79dd8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2ae6fdf_21eb3ca2",
+        "filename": "modules/audio_coding/audio_network_adaptor/bitrate_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-04-23T07:44:31Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "e4faf0f4_f5f85c49",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 35
+      },
+      "revId": "aa9fae77e415a0df96d4b4005297f25ca0f79dd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "a5a38e86af006f0d54ab9a911b2bb19d015f0acd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "769d7f7b_df089a1d",
+        "filename": "config.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5106
+      },
+      "writtenOn": "2019-04-23T12:10:45Z",
+      "side": 1,
+      "message": "That will contradict your comment in\nhttps://chrome-internal-review.googlesource.com/c/infradata/config/+/1183202/6/configs/chromium-swarm/bots.cfg#9638\n?\n\nOr we will have missing resource in of perf linux builder.",
+      "parentUuid": "18baa53c_3b10adf1",
+      "range": {
+        "startLine": 448,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 96
+      },
+      "revId": "a5a38e86af006f0d54ab9a911b2bb19d015f0acd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

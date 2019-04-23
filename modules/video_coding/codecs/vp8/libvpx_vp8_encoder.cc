@@ -21,9 +21,7 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
-#include "api/scoped_refptr.h"
 #include "api/video/video_content_type.h"
-#include "api/video/video_frame_buffer.h"
 #include "api/video/video_timing.h"
 #include "api/video_codecs/vp8_temporal_layers.h"
 #include "api/video_codecs/vp8_temporal_layers_factory.h"
@@ -887,25 +885,24 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
     framerate_controller_.AddFrame(frame.timestamp() / kRtpTicksPerMs);
   }
 
-  rtc::scoped_refptr<I420BufferInterface> input_image =
-      frame.video_frame_buffer()->ToI420();
-  // Since we are extracting raw pointers from |input_image| to
+  input_image_ = frame.video_frame_buffer()->ToI420();
+  // Since we are extracting raw pointers from |input_image_| to
   // |raw_images_[0]|, the resolution of these frames must match.
-  RTC_DCHECK_EQ(input_image->width(), raw_images_[0].d_w);
-  RTC_DCHECK_EQ(input_image->height(), raw_images_[0].d_h);
+  RTC_DCHECK_EQ(input_image_->width(), raw_images_[0].d_w);
+  RTC_DCHECK_EQ(input_image_->height(), raw_images_[0].d_h);
 
   // Image in vpx_image_t format.
   // Input image is const. VP8's raw image is not defined as const.
   raw_images_[0].planes[VPX_PLANE_Y] =
-      const_cast<uint8_t*>(input_image->DataY());
+      const_cast<uint8_t*>(input_image_->DataY());
   raw_images_[0].planes[VPX_PLANE_U] =
-      const_cast<uint8_t*>(input_image->DataU());
+      const_cast<uint8_t*>(input_image_->DataU());
   raw_images_[0].planes[VPX_PLANE_V] =
-      const_cast<uint8_t*>(input_image->DataV());
+      const_cast<uint8_t*>(input_image_->DataV());
 
-  raw_images_[0].stride[VPX_PLANE_Y] = input_image->StrideY();
-  raw_images_[0].stride[VPX_PLANE_U] = input_image->StrideU();
-  raw_images_[0].stride[VPX_PLANE_V] = input_image->StrideV();
+  raw_images_[0].stride[VPX_PLANE_Y] = input_image_->StrideY();
+  raw_images_[0].stride[VPX_PLANE_U] = input_image_->StrideU();
+  raw_images_[0].stride[VPX_PLANE_V] = input_image_->StrideV();
 
   for (size_t i = 1; i < encoders_.size(); ++i) {
     // Scale the image down a number of times by downsampling factor
@@ -1033,7 +1030,7 @@ void LibvpxVp8Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
       (pkt.data.frame.flags & VPX_FRAME_IS_KEY) != 0, qp, codec_specific);
 }
 
-int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image) {
+int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image_) {
   int stream_idx = static_cast<int>(encoders_.size()) - 1;
   int result = WEBRTC_VIDEO_CODEC_OK;
   for (size_t encoder_idx = 0; encoder_idx < encoders_.size();
@@ -1067,20 +1064,20 @@ int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image) {
         }
         encoded_images_[encoder_idx].SetSpatialIndex(stream_idx);
         PopulateCodecSpecific(&codec_specific, *pkt, stream_idx, encoder_idx,
-                              input_image.timestamp());
+                              input_image_.timestamp());
         break;
       }
     }
-    encoded_images_[encoder_idx].SetTimestamp(input_image.timestamp());
+    encoded_images_[encoder_idx].SetTimestamp(input_image_.timestamp());
     encoded_images_[encoder_idx].capture_time_ms_ =
-        input_image.render_time_ms();
-    encoded_images_[encoder_idx].rotation_ = input_image.rotation();
+        input_image_.render_time_ms();
+    encoded_images_[encoder_idx].rotation_ = input_image_.rotation();
     encoded_images_[encoder_idx].content_type_ =
         (codec_.mode == VideoCodecMode::kScreensharing)
             ? VideoContentType::SCREENSHARE
             : VideoContentType::UNSPECIFIED;
     encoded_images_[encoder_idx].timing_.flags = VideoSendTiming::kInvalid;
-    encoded_images_[encoder_idx].SetColorSpace(input_image.color_space());
+    encoded_images_[encoder_idx].SetColorSpace(input_image_.color_space());
 
     if (send_stream_[stream_idx]) {
       if (encoded_images_[encoder_idx].size() > 0) {
@@ -1110,7 +1107,7 @@ int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image) {
         if (encoded_images_[encoder_idx].size() == 0) {
           // Dropped frame that will be re-encoded.
           frame_buffer_controller_->OnFrameDropped(stream_idx,
-                                                   input_image.timestamp());
+                                                   input_image_.timestamp());
         }
       }
     }

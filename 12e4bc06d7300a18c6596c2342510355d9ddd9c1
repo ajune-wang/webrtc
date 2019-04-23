@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b399bb63_0356a97e",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1963,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-04-23T15:17:33Z",
+      "side": 1,
+      "message": "Wow, that\u0027s a lot of removed lines of code. :)\n\nCould we simplify the line by breaking out the unwrapping, e.g:\n\nauto unwrapped_seq_num \u003d seq_num_unwrapper.Unwrap(logged.transport_seq_no);\nindices[unwrapped_seq_num] \u003d packets.size();",
+      "range": {
+        "startLine": 1963,
+        "startChar": 14,
+        "endLine": 1963,
+        "endChar": 63
+      },
+      "revId": "12e4bc06d7300a18c6596c2342510355d9ddd9c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bdbef66_f8771845",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1973,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-04-23T15:17:33Z",
+      "side": 1,
+      "message": "I meant s/logged_rtcp/rtcp\nI\u0027m not sure \"logged\" adds much information.",
+      "range": {
+        "startLine": 1973,
+        "startChar": 51,
+        "endLine": 1973,
+        "endChar": 62
+      },
+      "revId": "12e4bc06d7300a18c6596c2342510355d9ddd9c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62889d60_fe4d77c7",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1995,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-04-23T15:17:33Z",
+      "side": 1,
+      "message": "Afaik, SendTimeHistory would remove old packets. Consider adding a check on packet age to avoid incorrect unwraps.",
+      "range": {
+        "startLine": 1995,
+        "startChar": 10,
+        "endLine": 1995,
+        "endChar": 52
+      },
+      "revId": "12e4bc06d7300a18c6596c2342510355d9ddd9c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

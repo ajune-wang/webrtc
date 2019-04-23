@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "354edc8a_db962408",
+        "filename": "modules/audio_processing/agc2/vad_with_level.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-23T07:14:40Z",
+      "side": 1,
+      "message": "use sqrtf and remove cast",
+      "range": {
+        "startLine": 37,
+        "startChar": 14,
+        "endLine": 37,
+        "endChar": 18
+      },
+      "revId": "4ac6714e00393f295335834bde63fb06964e25ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c40870d4_83a47f20",
+        "filename": "modules/audio_processing/rms_level.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-23T07:14:40Z",
+      "side": 1,
+      "message": "log10f and remove cast",
+      "range": {
+        "startLine": 39,
+        "startChar": 32,
+        "endLine": 39,
+        "endChar": 37
+      },
+      "revId": "4ac6714e00393f295335834bde63fb06964e25ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eba332dd_0dda2e28",
+        "filename": "modules/audio_processing/transient/transient_detector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-23T07:14:40Z",
+      "side": 1,
+      "message": "cosf and remove cast",
+      "range": {
+        "startLine": 128,
+        "startChar": 19,
+        "endLine": 128,
+        "endChar": 22
+      },
+      "revId": "4ac6714e00393f295335834bde63fb06964e25ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ec89a9a_fb08eb02",
+        "filename": "modules/audio_processing/transient/transient_detector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-23T07:14:40Z",
+      "side": 1,
+      "message": "expf and remove cast",
+      "range": {
+        "startLine": 165,
+        "startChar": 35,
+        "endLine": 165,
+        "endChar": 38
+      },
+      "revId": "4ac6714e00393f295335834bde63fb06964e25ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d8f1e0e_11eb6d60",
+        "filename": "modules/audio_processing/transient/transient_suppressor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-23T07:14:40Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 144,
+        "startChar": 24,
+        "endLine": 144,
+        "endChar": 27
+      },
+      "revId": "4ac6714e00393f295335834bde63fb06964e25ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97105ed9_c3955666",
+        "filename": "modules/audio_processing/transient/transient_suppressor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-04-23T07:14:40Z",
+      "side": 1,
+      "message": "powf and remove cast",
+      "range": {
+        "startLine": 356,
+        "startChar": 17,
+        "endLine": 356,
+        "endChar": 20
+      },
+      "revId": "4ac6714e00393f295335834bde63fb06964e25ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

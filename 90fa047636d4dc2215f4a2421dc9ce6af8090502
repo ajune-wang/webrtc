@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a1624a7_c7cb31ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-23T12:35:39Z",
+      "side": 1,
+      "message": "Might ease review to take this change out to a separate cl.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 71
+      },
+      "revId": "90fa047636d4dc2215f4a2421dc9ce6af8090502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bde79ec6_0c7cc971",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-23T12:35:39Z",
+      "side": 1,
+      "message": "Add a comment on this struct, in particular, I think the id member needs an explanation.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 23
+      },
+      "revId": "90fa047636d4dc2215f4a2421dc9ce6af8090502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0edad946_84871fbe",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-23T12:35:39Z",
+      "side": 1,
+      "message": "Is this information that goes on the wire?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 76
+      },
+      "revId": "90fa047636d4dc2215f4a2421dc9ce6af8090502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dd10312_6660d944",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-23T12:35:39Z",
+      "side": 1,
+      "message": "Prefer to post work related to this member onto the encoder_queue_, and not have a new lock for it.",
+      "range": {
+        "startLine": 354,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 0
+      },
+      "revId": "90fa047636d4dc2215f4a2421dc9ce6af8090502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

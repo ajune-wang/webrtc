@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "679e629b_f99193d9",
+        "filename": "rtc_base/numerics/running_statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-23T10:05:35Z",
+      "side": 1,
+      "message": "Undefined behavior is bad behavior. Can we RTC_DCHECK on this?",
+      "revId": "160b4ea17f9cdd6a0c20acb958b2be92acf0f376",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0a0f8a3_46834265",
         "filename": "rtc_base/numerics/running_statistics_unittest.cc",
         "patchSetId": 1
@@ -61,6 +78,30 @@
       "side": 1,
       "message": "I am not sure, checking that RemoveSample doesn\u0027t affect min/max is an invariant and if someone will change that in the future, having a test that breaks is a good thing to have (you can add an assertion in this test if creating a new one sounds too much).",
       "parentUuid": "57b5b382_2690fe01",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 39
+      },
+      "revId": "160b4ea17f9cdd6a0c20acb958b2be92acf0f376",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa76b810_d8846b7b",
+        "filename": "rtc_base/numerics/running_statistics_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-04-23T10:05:35Z",
+      "side": 1,
+      "message": "If it\u0027s in the .h file (even as a comment), it\u0027s part of the class interface, and we should have a test for it.\nIf users don\u0027t need to know if min/max is affected, we don\u0027t need a test. But that seems wrong.\n(I\u0027d also be happy with something that RTC_DCHECK()s on max() and min() if RemoveSample has been called, and a class comment that max() and min() can only be called when RemoveSample hasn\u0027t been. In that case, we don\u0027t need a test (or could use a death test)).",
+      "parentUuid": "914c3f88_7f9cc8b6",
       "range": {
         "startLine": 79,
         "startChar": 0,

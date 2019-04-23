@@ -291,8 +291,8 @@ int LibvpxVp8Encoder::Release() {
 
   encoded_images_.clear();
 
-  if (inited_) {
-    for (auto it = encoders_.rbegin(); it != encoders_.rend(); ++it) {
+  for (auto it = encoders_.rbegin(); it != encoders_.rend(); ++it) {
+    if (inited_) {
       if (libvpx_->codec_destroy(&*it)) {
         ret_val = WEBRTC_VIDEO_CODEC_MEMORY;
       }
@@ -887,25 +887,24 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
     framerate_controller_.AddFrame(frame.timestamp() / kRtpTicksPerMs);
   }
 
-  rtc::scoped_refptr<I420BufferInterface> input_image =
-      frame.video_frame_buffer()->ToI420();
-  // Since we are extracting raw pointers from |input_image| to
+  input_image_ = frame.video_frame_buffer()->ToI420();
+  // Since we are extracting raw pointers from |input_image_| to
   // |raw_images_[0]|, the resolution of these frames must match.
-  RTC_DCHECK_EQ(input_image->width(), raw_images_[0].d_w);
-  RTC_DCHECK_EQ(input_image->height(), raw_images_[0].d_h);
+  RTC_DCHECK_EQ(input_image_->width(), raw_images_[0].d_w);
+  RTC_DCHECK_EQ(input_image_->height(), raw_images_[0].d_h);
 
   // Image in vpx_image_t format.
   // Input image is const. VP8's raw image is not defined as const.
   raw_images_[0].planes[VPX_PLANE_Y] =
-      const_cast<uint8_t*>(input_image->DataY());
+      const_cast<uint8_t*>(input_image_->DataY());
   raw_images_[0].planes[VPX_PLANE_U] =
-      const_cast<uint8_t*>(input_image->DataU());
+      const_cast<uint8_t*>(input_image_->DataU());
   raw_images_[0].planes[VPX_PLANE_V] =
-      const_cast<uint8_t*>(input_image->DataV());
+      const_cast<uint8_t*>(input_image_->DataV());
 
-  raw_images_[0].stride[VPX_PLANE_Y] = input_image->StrideY();
-  raw_images_[0].stride[VPX_PLANE_U] = input_image->StrideU();
-  raw_images_[0].stride[VPX_PLANE_V] = input_image->StrideV();
+  raw_images_[0].stride[VPX_PLANE_Y] = input_image_->StrideY();
+  raw_images_[0].stride[VPX_PLANE_U] = input_image_->StrideU();
+  raw_images_[0].stride[VPX_PLANE_V] = input_image_->StrideV();
 
   for (size_t i = 1; i < encoders_.size(); ++i) {
     // Scale the image down a number of times by downsampling factor

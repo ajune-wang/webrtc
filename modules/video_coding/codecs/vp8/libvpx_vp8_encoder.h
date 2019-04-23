@@ -15,8 +15,10 @@
 #include <string>
 #include <vector>
 
+#include "api/scoped_refptr.h"
 #include "api/video/encoded_image.h"
 #include "api/video/video_frame.h"
+#include "api/video/video_frame_buffer.h"
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/vp8_frame_buffer_controller.h"
 #include "api/video_codecs/vp8_frame_config.h"
@@ -113,6 +115,7 @@ class LibvpxVp8Encoder : public VideoEncoder {
   std::vector<bool> key_frame_request_;
   std::vector<bool> send_stream_;
   std::vector<int> cpu_speed_;
+  rtc::scoped_refptr<I420BufferInterface> input_image_;
   std::vector<vpx_image_t> raw_images_;
   std::vector<EncodedImage> encoded_images_;
   std::vector<vpx_codec_ctx_t> encoders_;

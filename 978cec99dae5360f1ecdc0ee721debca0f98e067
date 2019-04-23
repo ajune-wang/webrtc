@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6cbe1159_4bb71e69",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-04-23T13:05:25Z",
+      "side": 1,
+      "message": "\u003e I land this after getting machine of Xenial bot\nhttps://crbug.com/955341\n\nSo indeed, don\u0027t land this just yet",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 47
+      },
+      "revId": "978cec99dae5360f1ecdc0ee721debca0f98e067",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

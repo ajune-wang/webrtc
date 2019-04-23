@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "330f3fc3_31b6635c",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-23T11:32:30Z",
+      "side": 1,
+      "message": "Is this for metadata extracted from the bitstream rather than signaled via rtp headers?",
+      "range": {
+        "startLine": 288,
+        "startChar": 20,
+        "endLine": 288,
+        "endChar": 31
+      },
+      "revId": "eab58c148d13a941a6da866b3f339b9277032008",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82d8330d_a8fc0414",
+        "filename": "video/frame_encode_timer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-23T11:32:30Z",
+      "side": 1,
+      "message": "nit: Maybe do this they other way around, if screenshare then screenshare otherwise unspecified?",
+      "range": {
+        "startLine": 219,
+        "startChar": 10,
+        "endLine": 222,
+        "endChar": 0
+      },
+      "revId": "eab58c148d13a941a6da866b3f339b9277032008",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

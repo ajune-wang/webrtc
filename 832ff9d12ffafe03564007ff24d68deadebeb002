@@ -22,6 +22,30 @@
       "revId": "832ff9d12ffafe03564007ff24d68deadebeb002",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b3e5059_db866e5b",
+        "filename": "sdk/objc/native/src/objc_video_decoder_factory.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-04-23T08:26:34Z",
+      "side": 1,
+      "message": "The way to go about this I think requires five CLs:\n\n1: Add a new @optional method to the protocol that does not include codecSpecificInfo.\n2: Implement that method instead in all subclasses of the protocol\n3: Switch the new method to required and make the old one @optional\n4: Delete the implementation of the old method from everywhere.\n5: Remove the old method completely from the protocol.",
+      "parentUuid": "63545ed4_48ef74b2",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 31
+      },
+      "revId": "832ff9d12ffafe03564007ff24d68deadebeb002",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

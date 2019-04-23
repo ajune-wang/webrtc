@@ -68,21 +68,21 @@ class TestAnnotationsExtraction(unittest.TestCase):
       vad_type = self._VAD_TYPE_CLASS(vad_type_value)
       e = annotations.AudioAnnotationsExtractor(vad_type=vad_type_value)
       e.Extract(self._wav_file_path)
-      if vad_type.Contains(self._VAD_TYPE_CLASS.ENERGY_THRESHOLD):
+      if self._VAD_TYPE_CLASS.ENERGY_THRESHOLD in vad_type:
         # pylint: disable=unpacking-non-sequence
         vad_output = e.GetVadOutput(self._VAD_TYPE_CLASS.ENERGY_THRESHOLD)
         self.assertGreater(len(vad_output), 0)
         self.assertGreaterEqual(float(np.sum(vad_output)) / len(vad_output),
                                 0.95)
 
-      if vad_type.Contains(self._VAD_TYPE_CLASS.WEBRTC_COMMON_AUDIO):
+      if self._VAD_TYPE_CLASS.WEBRTC_COMMON_AUDIO in vad_type:
         # pylint: disable=unpacking-non-sequence
         vad_output = e.GetVadOutput(self._VAD_TYPE_CLASS.WEBRTC_COMMON_AUDIO)
         self.assertGreater(len(vad_output), 0)
         self.assertGreaterEqual(float(np.sum(vad_output)) / len(vad_output),
                                 0.95)
 
-      if vad_type.Contains(self._VAD_TYPE_CLASS.WEBRTC_APM):
+      if self._VAD_TYPE_CLASS.WEBRTC_APM in vad_type:
         # pylint: disable=unpacking-non-sequence
         (vad_probs, vad_rms) = e.GetVadOutput(self._VAD_TYPE_CLASS.WEBRTC_APM)
         self.assertGreater(len(vad_probs), 0)
@@ -134,7 +134,7 @@ class TestAnnotationsExtraction(unittest.TestCase):
 
   def testEmptyExternalShouldNotCrash(self):
     for vad_type_value in range(0, self._ALL_VAD_TYPES+1):
-      annotations.AudioAnnotationsExtractor(vad_type_value, {})
+      annotations.AudioAnnotationsExtractor(self._VAD_TYPE_CLASS(vad_type_value), {})
 
   def testFakeExternalSaveLoad(self):
     def FakeExternalFactory():
@@ -145,7 +145,7 @@ class TestAnnotationsExtraction(unittest.TestCase):
       )
     for vad_type_value in range(0, self._ALL_VAD_TYPES+1):
       e = annotations.AudioAnnotationsExtractor(
-          vad_type_value,
+          self._VAD_TYPE_CLASS(vad_type_value),
           {'fake': FakeExternalFactory()})
       e.Extract(self._wav_file_path)
       e.Save(self._tmp_path, annotation_name="fake-annotation")

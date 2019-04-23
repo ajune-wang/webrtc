@@ -10,6 +10,7 @@
 """
 
 from __future__ import division
+import enum
 import logging
 import os
 import shutil
@@ -33,30 +34,10 @@ class AudioAnnotationsExtractor(object):
   """Extracts annotations from audio files.
   """
 
-  # TODO(aleloi): change to enum.IntEnum when py 3.6 is available.
-  class VadType(object):
+  class VadType(enum.IntFlag):
     ENERGY_THRESHOLD = 1  # TODO(alessiob): Consider switching to P56 standard.
     WEBRTC_COMMON_AUDIO = 2  # common_audio/vad/include/vad.h
     WEBRTC_APM = 4  # modules/audio_processing/vad/vad.h
-
-    def __init__(self, value):
-      if (not isinstance(value, int)) or not 0 <= value <= 7:
-        raise exceptions.InitializationException(
-            'Invalid vad type: ' + value)
-      self._value = value
-
-    def Contains(self, vad_type):
-      return self._value | vad_type == self._value
-
-    def __str__(self):
-      vads = []
-      if self.Contains(self.ENERGY_THRESHOLD):
-        vads.append("energy")
-      if self.Contains(self.WEBRTC_COMMON_AUDIO):
-        vads.append("common_audio")
-      if self.Contains(self.WEBRTC_APM):
-        vads.append("apm")
-      return "VadType({})".format(", ".join(vads))
 
   _OUTPUT_FILENAME_TEMPLATE = '{}annotations.npz'
 
@@ -90,7 +71,10 @@ class AudioAnnotationsExtractor(object):
     self._c_attack = None
     self._c_decay = None
 
-    self._vad_type = self.VadType(vad_type)
+    if not isinstance(vad_type, self.VadType):
+      raise exceptions.InitializationException(
+          'Invalid vad type: ' + str(vad_type))
+    self._vad_type = vad_type
     logging.info('VADs used for annotations: ' + str(self._vad_type))
 
     if external_vads is None:
@@ -162,16 +146,16 @@ class AudioAnnotationsExtractor(object):
     self._LevelEstimation()
 
     # Ideal VAD output, it requires clean speech with high SNR as input.
-    if self._vad_type.Contains(self.VadType.ENERGY_THRESHOLD):
+    if self.VadType.ENERGY_THRESHOLD in self._vad_type:
       # Naive VAD based on level thresholding.
       vad_threshold = np.percentile(self._level, self._VAD_THRESHOLD)
       self._energy_vad = np.uint8(self._level > vad_threshold)
       self._vad_frame_size = self._level_frame_size
       self._vad_frame_size_ms = self._LEVEL_FRAME_SIZE_MS
-    if self._vad_type.Contains(self.VadType.WEBRTC_COMMON_AUDIO):
+    if self.VadType.WEBRTC_COMMON_AUDIO in self._vad_type:
       # WebRTC common_audio/ VAD.
       self._RunWebRtcCommonAudioVad(filepath, self._signal.frame_rate)
-    if self._vad_type.Contains(self.VadType.WEBRTC_APM):
+    if self.VadType.WEBRTC_APM in self._vad_type:
       # WebRTC modules/audio_processing/ VAD.
       self._RunWebRtcApmVad(filepath)
     for extvad_name in self._external_vads:
@@ -239,10 +223,10 @@ class AudioAnnotationsExtractor(object):
         raw_data = f.read()
 
       # Parse side information.
-      self._vad_frame_size_ms = struct.unpack('B', raw_data[0])[0]
+      self._vad_frame_size_ms = struct.unpack('B', raw_data[:1])[0]
       self._vad_frame_size = self._vad_frame_size_ms * sample_rate / 1000
       assert self._vad_frame_size_ms in [10, 20, 30]
-      extra_bits = struct.unpack('B', raw_data[-1])[0]
+      extra_bits = struct.unpack('B', raw_data[-1:])[0]
       assert 0 <= extra_bits <= 8
 
       # Init VAD vector.
@@ -252,7 +236,7 @@ class AudioAnnotationsExtractor(object):
 
       # Read VAD decisions.
       for i, byte in enumerate(raw_data[1:-1]):
-        byte = struct.unpack('B', byte)[0]
+        byte = struct.unpack('B', [byte])[0]
         for j in range(8 if i < num_bytes - 3 else (8 - extra_bits)):
           self._common_audio_vad[i * 8 + j] = int(byte & 1)
           byte = byte >> 1

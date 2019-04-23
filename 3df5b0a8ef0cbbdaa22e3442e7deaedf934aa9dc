@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f36c50b6_b562057a",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnectionFactory+Native.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-04-23T08:07:54Z",
+      "side": 1,
+      "message": "nullable annotation should be in header, not impl file.",
+      "range": {
+        "startLine": 81,
+        "startChar": 39,
+        "endLine": 81,
+        "endChar": 42
+      },
+      "revId": "3df5b0a8ef0cbbdaa22e3442e7deaedf934aa9dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b8ef6dc_22a5f172",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnectionFactory.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-04-23T08:07:54Z",
+      "side": 1,
+      "message": "not required here.",
+      "range": {
+        "startLine": 207,
+        "startChar": 39,
+        "endLine": 207,
+        "endChar": 47
+      },
+      "revId": "3df5b0a8ef0cbbdaa22e3442e7deaedf934aa9dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

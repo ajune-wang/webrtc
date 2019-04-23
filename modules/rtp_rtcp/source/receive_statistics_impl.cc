@@ -11,6 +11,8 @@
 #include "modules/rtp_rtcp/source/receive_statistics_impl.h"
 
 #include <math.h>
+
+#include <cmath>
 #include <cstdlib>
 #include <memory>
 #include <vector>
@@ -329,7 +331,8 @@ bool StreamStatisticianImpl::IsRetransmitOfOldPacket(
   int64_t max_delay_ms = 0;
 
   // Jitter standard deviation in samples.
-  float jitter_std = sqrt(static_cast<float>(jitter_q4_ >> 4));
+  float jitter_std =
+      std::sqrt(static_cast<double>(static_cast<float>(jitter_q4_ >> 4)));
 
   // 2 times the standard deviation => 95% confidence.
   // And transform to milliseconds by dividing by the frequency in kHz.

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "443a9b2f_9529f878",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-23T13:48:22Z",
+      "side": 1,
+      "message": "Without it this CL would be very small and I think it would be hard to get sufficient context.",
+      "parentUuid": "0a1624a7_c7cb31ce",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 71
+      },
+      "revId": "90fa047636d4dc2215f4a2421dc9ce6af8090502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bde79ec6_0c7cc971",
         "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
         "patchSetId": 16
@@ -45,6 +69,30 @@
       "revId": "90fa047636d4dc2215f4a2421dc9ce6af8090502",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54b3ff5b_f4542c74",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-23T13:48:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bde79ec6_0c7cc971",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 23
+      },
+      "revId": "90fa047636d4dc2215f4a2421dc9ce6af8090502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "89156f8b_a9682831",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-23T13:48:22Z",
+      "side": 1,
+      "message": "No, but it is used to calculate frame diffs which goes on the wire.",
+      "parentUuid": "0edad946_84871fbe",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 76
+      },
+      "revId": "90fa047636d4dc2215f4a2421dc9ce6af8090502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1dd10312_6660d944",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 16
@@ -82,6 +154,30 @@
       "writtenOn": "2019-04-23T12:35:39Z",
       "side": 1,
       "message": "Prefer to post work related to this member onto the encoder_queue_, and not have a new lock for it.",
+      "range": {
+        "startLine": 354,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 0
+      },
+      "revId": "90fa047636d4dc2215f4a2421dc9ce6af8090502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "534e9540_397ae272",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-23T13:48:22Z",
+      "side": 1,
+      "message": "I think that is something we could do in a followup CL. \n\nThere is already a lock inside |frame_encoder_timer_| that we could get rid of, and we could get also get rid of if-not-on-task-queue-post-task logic in RunPostEncode.\n\nI added a TODO.",
+      "parentUuid": "1dd10312_6660d944",
       "range": {
         "startLine": 354,
         "startChar": 0,

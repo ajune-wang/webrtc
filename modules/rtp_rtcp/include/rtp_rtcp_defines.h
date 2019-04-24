@@ -276,7 +276,7 @@ struct PacketFeedback {
   PacedPacketInfo pacing_info;
 
   // The SSRC and RTP sequence number of the packet this feedback refers to.
-  uint32_t ssrc;
+  absl::optional<uint32_t> ssrc;
   uint16_t rtp_sequence_number;
 };
 
@@ -329,6 +329,17 @@ class TransportFeedbackObserver {
   }
 
   virtual void OnTransportFeedback(const rtcp::TransportFeedback& feedback) = 0;
+};
+
+class AcknowledgedPacketsObserver {
+ public:
+  AcknowledgedPacketsObserver() = default;
+  virtual ~AcknowledgedPacketsObserver() = default;
+
+  // Indicates RTP sequence numbers for packets that have been acknowledged as
+  // received by the remote end.
+  virtual void OnPacketsAcknowledged(
+      const rtc::ArrayView<uint16_t> sequence_numbers) = 0;
 };
 
 // Interface for PacketRouter to send rtcp feedback on behalf of

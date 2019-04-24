@@ -75,6 +75,11 @@ void NetEqStatsPlotter::SimulationEnded(int64_t simulation_time_ms) {
       printf("%s\n", concealment_event.ToString().c_str());
     printf(" end of concealment_events_ms\n");
   }
+  printf("  num_interruptions: %" PRId64 "\n", stats.num_interruptions);
+  printf("  sum_interruption_length_ms: %" PRId64 " ms\n",
+         stats.sum_interruption_length_ms);
+  printf("  interruption ratio: %f%%\n",
+         100.0 * stats.sum_interruption_length_ms / simulation_time_ms);
 }
 
 }  // namespace test

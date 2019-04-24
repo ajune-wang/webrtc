@@ -86,6 +86,10 @@ void NetEqStatsGetter::AfterGetAudio(int64_t time_now_ms,
   if (delay_analyzer_) {
     delay_analyzer_->AfterGetAudio(time_now_ms, audio_frame, muted, neteq);
   }
+
+  last_interruption_count_ = lifetime_stat.interruption_count;
+  last_total_interruption_duration_ms_ =
+      lifetime_stat.total_interruption_duration_ms;
 }
 
 double NetEqStatsGetter::AverageSpeechExpandRate() const {
@@ -137,6 +141,9 @@ NetEqStatsGetter::Stats NetEqStatsGetter::AverageStats() const {
   sum_stats.added_zero_samples /= stats_.size();
   sum_stats.mean_waiting_time_ms /= stats_.size();
   sum_stats.median_waiting_time_ms /= stats_.size();
+
+  sum_stats.num_interruptions = last_interruption_count_;
+  sum_stats.sum_interruption_length_ms = last_total_interruption_duration_ms_;
 
   return sum_stats;
 }

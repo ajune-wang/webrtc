@@ -42,6 +42,8 @@ class NetEqStatsGetter : public NetEqGetAudioCallback {
     double median_waiting_time_ms = 0.0;
     double min_waiting_time_ms = 0.0;
     double max_waiting_time_ms = 0.0;
+    int64_t num_interruptions = 0;
+    int64_t sum_interruption_length_ms = 0;
   };
 
   struct ConcealmentEvent {
@@ -98,6 +100,8 @@ class NetEqStatsGetter : public NetEqGetAudioCallback {
   uint64_t voice_concealed_samples_until_last_event_ = 0;
   std::vector<ConcealmentEvent> concealment_events_;
   int64_t last_event_end_time_ms_ = 0;
+  uint64_t last_interruption_count_ = 0;
+  uint64_t last_total_interruption_duration_ms_ = 0;
 };
 
 }  // namespace test

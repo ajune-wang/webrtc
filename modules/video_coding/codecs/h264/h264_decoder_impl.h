@@ -93,6 +93,8 @@ class H264DecoderImpl : public H264Decoder {
   bool has_reported_error_;
 
   webrtc::H264BitstreamParser h264_bitstream_parser_;
+
+  bool enable_8bit_hdr_fix_;
 };
 
 }  // namespace webrtc

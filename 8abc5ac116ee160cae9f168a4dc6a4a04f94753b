@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "beab75c1_aae0ce03",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-04-24T11:31:49Z",
+      "side": 1,
+      "message": "nit: Move factory creation closer to where it is used, e.g. line 254.\nSame in other tests.",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 45
+      },
+      "revId": "8abc5ac116ee160cae9f168a4dc6a4a04f94753b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cdf1798_47fe2625",
+        "filename": "test/scenario/call_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-04-24T11:31:49Z",
+      "side": 1,
+      "message": "s/quuee/queue",
+      "range": {
+        "startLine": 73,
+        "startChar": 27,
+        "endLine": 73,
+        "endChar": 32
+      },
+      "revId": "8abc5ac116ee160cae9f168a4dc6a4a04f94753b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4222923_bc80c548",
+        "filename": "test/scenario/call_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-04-24T11:31:49Z",
+      "side": 1,
+      "message": "Immediate output negates the benefits of using the new format. Have you considered setting this to e.g. 5 seconds, or do we not care that much about file size?",
+      "range": {
+        "startLine": 81,
+        "startChar": 54,
+        "endLine": 81,
+        "endChar": 70
+      },
+      "revId": "8abc5ac116ee160cae9f168a4dc6a4a04f94753b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a850400_0c8c3395",
+        "filename": "test/scenario/simulated_time.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-04-24T11:31:49Z",
+      "side": 1,
+      "message": "s/quuee/queue",
+      "range": {
+        "startLine": 44,
+        "startChar": 44,
+        "endLine": 44,
+        "endChar": 49
+      },
+      "revId": "8abc5ac116ee160cae9f168a4dc6a4a04f94753b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8740b2e6_f8c26ea1",
+        "filename": "test/scenario/simulated_time.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-04-24T11:31:49Z",
+      "side": 1,
+      "message": "This negates the space benefits of using the new format.",
+      "range": {
+        "startLine": 46,
+        "startChar": 54,
+        "endLine": 46,
+        "endChar": 70
+      },
+      "revId": "8abc5ac116ee160cae9f168a4dc6a4a04f94753b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

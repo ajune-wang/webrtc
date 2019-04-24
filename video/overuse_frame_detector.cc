@@ -22,6 +22,7 @@
 #include "absl/memory/memory.h"
 #include "api/video/video_frame.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/exp_filter.h"
 #include "rtc_base/time_utils.h"
@@ -63,6 +64,8 @@ const float kMaxSampleDiffMarginFactor = 1.35f;
 // encode times from being accepted if the frame rate happens to be low.
 const int kMinFramerate = 7;
 const int kMaxFramerate = 30;
+
+constexpr char kCpuLoadEstimator[] = "WebRTC-CpuLoadEstimator";
 
 const auto kScaleReasonCpu = AdaptationObserverInterface::AdaptReason::kCpu;
 
@@ -683,6 +686,14 @@ void OveruseFrameDetector::CheckForOveruse(
 void OveruseFrameDetector::SetOptions(const CpuOveruseOptions& options) {
   RTC_DCHECK_RUN_ON(&task_checker_);
   options_ = options;
+
+  // Time constant config overridable by field trial.
+  FieldTrialOptional<TimeDelta> time_constant{"tau"};
+  ParseFieldTrial({&time_constant},
+                  field_trial::FindFullName(kCpuLoadEstimator));
+  if (time_constant) {
+    options_.filter_time_ms = time_constant->ms();
+  }
   // Force reset with next frame.
   num_pixels_ = 0;
   usage_ = CreateProcessingUsage(options);

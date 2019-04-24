@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "586400ba_a8011b71",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T17:27:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad5e68db_3eb2263c",
+      "range": {
+        "startLine": 826,
+        "startChar": 7,
+        "endLine": 826,
+        "endChar": 15
+      },
+      "revId": "e70c444f4b48a2be0b7be14b3c98533454f61ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db266cfe_2f2c3fce",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 7
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "370b8352_7800396c",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T17:27:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46d9f480_1fcefddc",
+      "range": {
+        "startLine": 828,
+        "startChar": 15,
+        "endLine": 828,
+        "endChar": 34
+      },
+      "revId": "e70c444f4b48a2be0b7be14b3c98533454f61ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff58e60b_51d3edd0",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
         "patchSetId": 7
@@ -91,6 +139,30 @@
       "revId": "e70c444f4b48a2be0b7be14b3c98533454f61ce7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "632f0ea6_86154e6a",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T17:27:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff58e60b_51d3edd0",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 32
+      },
+      "revId": "e70c444f4b48a2be0b7be14b3c98533454f61ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "cb481da7_af4be53f",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T17:27:13Z",
+      "side": 1,
+      "message": "Huh, seem I have misunderstood ArrayView constness this whole time. Done.",
+      "parentUuid": "411a5fb6_6ecaa0d6",
+      "range": {
+        "startLine": 342,
+        "startChar": 6,
+        "endLine": 342,
+        "endChar": 12
+      },
+      "revId": "e70c444f4b48a2be0b7be14b3c98533454f61ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58567a22_cf07af62",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
         "patchSetId": 7
@@ -137,6 +233,30 @@
       "revId": "e70c444f4b48a2be0b7be14b3c98533454f61ce7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cb29e40_6a0edef0",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T17:27:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58567a22_cf07af62",
+      "range": {
+        "startLine": 93,
+        "startChar": 31,
+        "endLine": 93,
+        "endChar": 61
+      },
+      "revId": "e70c444f4b48a2be0b7be14b3c98533454f61ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

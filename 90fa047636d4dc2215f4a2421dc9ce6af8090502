@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2affcc4a_6ca7d726",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-24T11:42:44Z",
+      "side": 1,
+      "message": "I was thinking that if you do the shared frame id space first (I\u0027m not sure exactly what that means, and it might warrant review separately), then a second cl introducing the CodecBufferUsage class would be a self-contained and easy to review change.\n\nBut I won\u0027t insist, if you really think it\u0027s better to have it all together.",
+      "parentUuid": "443a9b2f_9529f878",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 71
+      },
+      "revId": "90fa047636d4dc2215f4a2421dc9ce6af8090502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bde79ec6_0c7cc971",
         "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
         "patchSetId": 16
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "I think that is something we could do in a followup CL. \n\nThere is already a lock inside |frame_encoder_timer_| that we could get rid of, and we could get also get rid of if-not-on-task-queue-post-task logic in RunPostEncode.\n\nI added a TODO.",
       "parentUuid": "1dd10312_6660d944",
+      "range": {
+        "startLine": 354,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 0
+      },
+      "revId": "90fa047636d4dc2215f4a2421dc9ce6af8090502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9855f5d_cf3e7224",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-24T11:42:44Z",
+      "side": 1,
+      "message": "It could be a followup. But please first check if it\u0027s easy to move all access to the task queue, e.g., called from RunPostEncode, together with other bookkeeping. And if it\u0027s not easy, can you explain why?",
+      "parentUuid": "534e9540_397ae272",
       "range": {
         "startLine": 354,
         "startChar": 0,

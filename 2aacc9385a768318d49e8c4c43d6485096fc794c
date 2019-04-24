@@ -296,6 +296,24 @@
     },
     {
       "key": {
+        "uuid": "e637b359_b90cb3ae",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T16:58:39Z",
+      "side": 1,
+      "message": "I\u0027m ok with a comment.\nIt might be good to refactor the code to make it trully const, but that better be a separate change. Specially if it is not trivial.",
+      "parentUuid": "17003fb2_6ddea6fe",
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2c9710b_9c94c6ad",
         "filename": "call/rtp_video_sender_unittest.cc",
         "patchSetId": 6

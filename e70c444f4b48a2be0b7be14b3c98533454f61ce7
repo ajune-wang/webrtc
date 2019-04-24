@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad5e68db_3eb2263c",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T16:58:39Z",
+      "side": 1,
+      "message": "const auto\u0026",
+      "range": {
+        "startLine": 826,
+        "startChar": 7,
+        "endLine": 826,
+        "endChar": 15
+      },
+      "revId": "e70c444f4b48a2be0b7be14b3c98533454f61ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db266cfe_2f2c3fce",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T16:58:39Z",
+      "side": 1,
+      "message": "personally I found const for local variables with short livetime not helpful:\nI wonder if const T\u0026 was expected or if it is really const T.\n\nStyle guide is explicitly silent on this topic though: \"Using const on local variables is neither encouraged nor discouraged.\"\n\nand this function already use const in small scope (e.g. const bool lost).\nSo for local consistency... ignore this comment.",
+      "range": {
+        "startLine": 827,
+        "startChar": 4,
+        "endLine": 827,
+        "endChar": 10
+      },
+      "revId": "e70c444f4b48a2be0b7be14b3c98533454f61ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46d9f480_1fcefddc",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T16:58:39Z",
+      "side": 1,
+      "message": "ArrayView\u003cconst uint16_t\u003e",
+      "range": {
+        "startLine": 828,
+        "startChar": 15,
+        "endLine": 828,
+        "endChar": 34
+      },
+      "revId": "e70c444f4b48a2be0b7be14b3c98533454f61ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff58e60b_51d3edd0",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T16:58:39Z",
+      "side": 1,
+      "message": "#include \"absl/types/optional.h\"",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 32
+      },
+      "revId": "e70c444f4b48a2be0b7be14b3c98533454f61ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "411a5fb6_6ecaa0d6",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T16:58:39Z",
+      "side": 1,
+      "message": "remove this const: https://abseil.io/tips/109\n\nYou likely mean\nrtc::ArrayView\u003cconst uint16_t\u003e",
+      "range": {
+        "startLine": 342,
+        "startChar": 6,
+        "endLine": 342,
+        "endChar": 12
+      },
+      "revId": "e70c444f4b48a2be0b7be14b3c98533454f61ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58567a22_cf07af62",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T16:58:39Z",
+      "side": 1,
+      "message": "ditto:\nlooking at the implemention, it seems you mean\nrtc::ArrayView\u003cconst uint16_t\u003e",
+      "range": {
+        "startLine": 93,
+        "startChar": 31,
+        "endLine": 93,
+        "endChar": 61
+      },
+      "revId": "e70c444f4b48a2be0b7be14b3c98533454f61ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

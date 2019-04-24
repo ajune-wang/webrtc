@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2d4637b7_bfd1abfa",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-24T08:18:53Z",
+      "side": 1,
+      "message": "Maye SimpleCpuLoadEstimator?",
+      "parentUuid": "aa86fb70_0bd188bc",
+      "range": {
+        "startLine": 54,
+        "startChar": 48,
+        "endLine": 54,
+        "endChar": 51
+      },
+      "revId": "842be1ec3dae1f6149a1f62221df432f74bb0f4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7541892_989e7d56",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 1
@@ -78,6 +102,24 @@
       "side": 1,
       "message": "\u003e It\u0027s hard to follow exactly how CpuOveruseOptions is set up and used, and this seems to increase the complexity. Would it be possible to refactor the code to make this more clear? Maybe it\u0027d make sense to have two structs, one with static config using field trial parameters and defaults, and one dynamic based on stream specific parameters?\n\nIt is a bit messy, but I\u0027m not sure splitting things up makes it clearer. This helper method is used only once, and return value passed to overuse_detector_-\u003eStartCheckForOveruse.\n\n\u003e Is set_experiment_cpu_load_estimator used? Maybe we could replace that interface by setting the field trial?\n\nIt\u0027s used by the the ongoing chrome finch trial. Changing that to go via field trial instead is possibly, but wouldn\u0027t be well spent time, imo.\n\nThis has been going on for a long time, but I\u0027d hope to conclude experiments and delete the old estimator within a few months.",
       "parentUuid": "a7541892_989e7d56",
+      "revId": "842be1ec3dae1f6149a1f62221df432f74bb0f4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c52fc703_9d40130a",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-24T08:18:53Z",
+      "side": 1,
+      "message": "If it\u0027s only used once, could it be moved closer to, or even inlined into StartCheckForOveruse?  I think that\u0027s where I\u0027d look for details on how the detector is configured.",
+      "parentUuid": "12ab2cb0_60667ba6",
       "revId": "842be1ec3dae1f6149a1f62221df432f74bb0f4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

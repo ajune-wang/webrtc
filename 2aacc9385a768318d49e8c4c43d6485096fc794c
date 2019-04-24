@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "643b1b58_61716094",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-24T16:49:25Z",
+      "side": 1,
+      "message": "That sound like a better design.\n\nMaybe the loss vector code could be moved as well? So we\u0027d have a PacketLossPatternObserver and what you proposed.\n\nThe usage of the loss vector really should live in GoogCcNetworkController, but that\u0027s probably a bigger task.",
+      "parentUuid": "b4e6c987_5ddb2467",
+      "range": {
+        "startLine": 795,
+        "startChar": 5,
+        "endLine": 795,
+        "endChar": 19
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d272055_4ee1340c",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 6

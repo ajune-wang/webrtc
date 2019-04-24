@@ -22,6 +22,30 @@
       "revId": "97df052d47e7ce05700e7988810262de45163087",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "080bd11b_00d908e5",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 0,
+      "message": "There are a few tests with complicated threading models that fail tsan otherwise (lock order inversion). The only member the lock is actually guarding is loss_mask_vector_ so I thought it would be better to just explicitly lock when updating that.",
+      "parentUuid": "ab7c0322_6a283221",
+      "range": {
+        "startLine": 794,
+        "startChar": 1,
+        "endLine": 794,
+        "endChar": 30
+      },
+      "revId": "97df052d47e7ce05700e7988810262de45163087",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

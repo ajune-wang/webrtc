@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b4e6c987_5ddb2467",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 1,
+      "message": "We could potentially move this to RtpTransportControllerSend and update the RtpVideoSenderInterface with method that returns a list \u003cssrc, Observer\u003e pairs.\nThen again I\u0027m not sure how to best map this to the loss vector code which might also be called for a completely unused vector.\nPerhaps I can do that in a follow-up? I need something to do on an upcoming flight :)",
+      "parentUuid": "8cda53a7_1a7176d4",
+      "range": {
+        "startLine": 795,
+        "startChar": 5,
+        "endLine": 795,
+        "endChar": 19
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d272055_4ee1340c",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d05103e_b484710b",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 1,
+      "message": "The idea is that we find the list of acked rtp sequence numbers per ssrc and then make a single call to the observer. I\u0027m not sure a vector of pairs would help there?",
+      "parentUuid": "9d272055_4ee1340c",
+      "range": {
+        "startLine": 800,
+        "startChar": 2,
+        "endLine": 800,
+        "endChar": 43
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1bd5eb5a_e43a9fb1",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 1,
+      "message": "I was under the impression that ssrc \u003d 0 was illegal. According to the spec that is not the case, it\u0027s only the most of our code that does so. Changing this member to an optional is straight-forward, I\u0027ll do that instead.",
+      "parentUuid": "c3986ac9_efeae0e3",
+      "range": {
+        "startLine": 812,
+        "startChar": 23,
+        "endLine": 812,
+        "endChar": 24
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "877b0778_19c77438",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53236a60_bc19759c",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "877b0778_19c77438",
+      "range": {
+        "startLine": 825,
+        "startChar": 7,
+        "endLine": 825,
+        "endChar": 11
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6eb4636e_365d50bb",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22d3812b_a623a777",
+      "range": {
+        "startLine": 200,
+        "startChar": 11,
+        "endLine": 200,
+        "endChar": 19
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d48d465f_526b545a",
         "filename": "call/rtp_video_sender.h",
         "patchSetId": 6
@@ -128,6 +248,24 @@
       "writtenOn": "2019-04-24T14:44:28Z",
       "side": 1,
       "message": "how this member is GUARDED?",
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17003fb2_6ddea6fe",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 1,
+      "message": "It\u0027s const, in practice, in that it\u0027s populated in ConfigureSsrcs() at construction time and then never changed.\nBut it\u0027s not trivial to make it truly const. Do you have a better idea or should I just add a comment?",
+      "parentUuid": "d48d465f_526b545a",
       "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "1106c7ef_c1b62da4",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2c9710b_9c94c6ad",
+      "range": {
+        "startLine": 438,
+        "startChar": 32,
+        "endLine": 438,
+        "endChar": 48
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "458a680f_c3e64698",
         "filename": "call/rtp_video_sender_unittest.cc",
         "patchSetId": 6
@@ -177,6 +339,30 @@
       "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a721134a_0f8922a4",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "458a680f_c3e64698",
+      "range": {
+        "startLine": 439,
+        "startChar": 16,
+        "endLine": 439,
+        "endChar": 23
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "801d766a_27f5ea47",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e106e977_4c191e80",
+      "range": {
+        "startLine": 279,
+        "startChar": 59,
+        "endLine": 279,
+        "endChar": 61
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "914d484d_9b74ac36",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
         "patchSetId": 6
@@ -223,6 +433,30 @@
       "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59969a29_d90d95c9",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "914d484d_9b74ac36",
+      "range": {
+        "startLine": 337,
+        "startChar": 40,
+        "endLine": 337,
+        "endChar": 43
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -249,6 +483,30 @@
     },
     {
       "key": {
+        "uuid": "ce74b268_f9092ae5",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "099404b6_382a919b",
+      "range": {
+        "startLine": 342,
+        "startChar": 6,
+        "endLine": 342,
+        "endChar": 43
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47dbf084_4289a043",
         "filename": "modules/rtp_rtcp/mocks/mock_rtp_rtcp.h",
         "patchSetId": 6
@@ -272,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "2f2abac7_caac32e5",
+        "filename": "modules/rtp_rtcp/mocks/mock_rtp_rtcp.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47dbf084_4289a043",
+      "range": {
+        "startLine": 162,
+        "startChar": 50,
+        "endLine": 162,
+        "endChar": 54
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d0d702d_7771f81a",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
         "patchSetId": 6
@@ -286,6 +568,24 @@
       "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "142d2ee3_28bd3d0e",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 1,
+      "message": "Leftover debug code. Removed.",
+      "parentUuid": "1d0d702d_7771f81a",
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -335,6 +635,54 @@
     },
     {
       "key": {
+        "uuid": "b937e8c5_77575f54",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 1,
+      "message": "No, I don\u0027t even remember putting it there :)",
+      "parentUuid": "404b478c_6d635409",
+      "range": {
+        "startLine": 94,
+        "startChar": 27,
+        "endLine": 94,
+        "endChar": 32
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a43fa7b3_667f0d4a",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27e2f5f9_929f10f4",
+      "range": {
+        "startLine": 94,
+        "startChar": 6,
+        "endLine": 94,
+        "endChar": 43
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d4c1b7c_c293e10a",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
         "patchSetId": 6
@@ -355,6 +703,30 @@
       "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85c0ecb4_0d16393f",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-04-24T16:28:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d4c1b7c_c293e10a",
+      "range": {
+        "startLine": 872,
+        "startChar": 9,
+        "endLine": 872,
+        "endChar": 51
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

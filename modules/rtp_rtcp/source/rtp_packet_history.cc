@@ -232,6 +232,19 @@ std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetBestFittingPacket(
   return absl::make_unique<RtpPacketToSend>(*best_packet);
 }
 
+void RtpPacketHistory::CullAcknowledgedPackets(
+    const rtc::ArrayView<const uint16_t>& sequence_numbers) {
+  rtc::CritScope cs(&lock_);
+  size_t i = 0;
+  for (uint16_t sequence_number : sequence_numbers) {
+    auto stored_packet_it = packet_history_.find(sequence_number);
+    if (stored_packet_it != packet_history_.end()) {
+      RemovePacket(stored_packet_it);
+      ++i;
+    }
+  }
+}
+
 void RtpPacketHistory::Reset() {
   packet_history_.clear();
   packet_size_.clear();

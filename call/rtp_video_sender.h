@@ -197,6 +197,9 @@ class RtpVideoSender : public RtpVideoSenderInterface,
   std::vector<FrameCounts> frame_counts_ RTC_GUARDED_BY(crit_);
   FrameCountObserver* const frame_count_observer_;
 
+  std::map<uint32_t, AcknowledgedPacketsObserver*>
+      packets_acknowledged_observers_;
+
   RTC_DISALLOW_COPY_AND_ASSIGN(RtpVideoSender);
 };
 

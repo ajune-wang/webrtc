@@ -101,6 +101,10 @@ int PacketBuffer::InsertPacket(Packet&& packet, StatisticsCalculator* stats) {
     return_val = kFlushed;
   }
 
+  if (stats && packet.priority.codec_level > 0) {
+    stats->SecondaryPacketsReceived(1);
+  }
+
   // Get an iterator pointing to the place in the buffer where the new packet
   // should be inserted. The list is searched from the back, since the most
   // likely case is that the new packet should be near the end of the list.

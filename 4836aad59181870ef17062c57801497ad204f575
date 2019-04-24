@@ -22,6 +22,30 @@
       "revId": "4836aad59181870ef17062c57801497ad204f575",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44b98116_b3907bdd",
+        "filename": "modules/video_coding/jitter_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2019-04-24T13:05:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b88f40db_a9e167a3",
+      "range": {
+        "startLine": 399,
+        "startChar": 0,
+        "endLine": 399,
+        "endChar": 69
+      },
+      "revId": "4836aad59181870ef17062c57801497ad204f575",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

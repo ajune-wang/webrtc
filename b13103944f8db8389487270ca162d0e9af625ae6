@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c828ab13_d657dc60",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-04-24T11:22:03Z",
+      "side": 1,
+      "message": "I agree, renamed to KillSwitch instead.",
+      "parentUuid": "0dca6725_76d7fdae",
+      "range": {
+        "startLine": 151,
+        "startChar": 11,
+        "endLine": 151,
+        "endChar": 65
+      },
+      "revId": "b13103944f8db8389487270ca162d0e9af625ae6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49ed0cf1_361c0b23",
         "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
         "patchSetId": 2

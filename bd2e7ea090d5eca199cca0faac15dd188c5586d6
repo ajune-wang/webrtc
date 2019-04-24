@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab5060b3_ad396f63",
+        "filename": "video/overuse_frame_detector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-24T16:54:19Z",
+      "side": 1,
+      "message": "I think this can just as well be inlined, the constant doesn\u0027t provide much value.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 63
+      },
+      "revId": "bd2e7ea090d5eca199cca0faac15dd188c5586d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c7303a1_d705ea37",
+        "filename": "video/overuse_frame_detector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-24T16:54:19Z",
+      "side": 1,
+      "message": "I suggest making this a member of OveruseFrameDetector that\u0027s filled by the parser in the constructor. That would be more consistent with how we usually handle field trials.",
+      "range": {
+        "startLine": 691,
+        "startChar": 1,
+        "endLine": 691,
+        "endChar": 53
+      },
+      "revId": "bd2e7ea090d5eca199cca0faac15dd188c5586d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

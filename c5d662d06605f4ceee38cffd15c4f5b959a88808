@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fb58871e_43ee76f1",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1479,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-24T14:41:52Z",
+      "side": 1,
+      "message": "That\u0027s true, moved it out of the loop.\n\nEncoders can be injected, and we don\u0027t want to crash on bad input.",
+      "parentUuid": "8e991971_c69cbe93",
+      "range": {
+        "startLine": 1477,
+        "startChar": 8,
+        "endLine": 1479,
+        "endChar": 63
+      },
+      "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a1cb9e3c_8b22b3d5",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 17
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-24T12:30:08Z",
       "side": 1,
       "message": "Maybe an RTC_CHECK?",
+      "range": {
+        "startLine": 1487,
+        "startChar": 0,
+        "endLine": 1488,
+        "endChar": 77
+      },
+      "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcee4748_26968e5d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1488,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-24T14:41:52Z",
+      "side": 1,
+      "message": "Same here.",
+      "parentUuid": "a1cb9e3c_8b22b3d5",
       "range": {
         "startLine": 1487,
         "startChar": 0,
@@ -118,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "3007cf8c_baa173d6",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-24T14:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efcc417d_6ba62388",
+      "range": {
+        "startLine": 357,
+        "startChar": 58,
+        "endLine": 357,
+        "endChar": 66
+      },
+      "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ac53415_ab1ece18",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 17
@@ -141,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "3e2a553f_9d59aee4",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-24T14:41:52Z",
+      "side": 1,
+      "message": "uninitialized",
+      "parentUuid": "0ac53415_ab1ece18",
+      "range": {
+        "startLine": 358,
+        "startChar": 58,
+        "endLine": 359,
+        "endChar": 25
+      },
+      "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5c5b640e_e7888a29",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 17
@@ -152,6 +248,30 @@
       "writtenOn": "2019-04-24T12:30:08Z",
       "side": 1,
       "message": "Out of curiosity, any benefit of std::array over\n\nint64_t encoder_buffer_state_[kMaxEncoderBuffers][kMaxSimulcastStreams];\n\n?\n\nPlease mention explicitly that the int64_t values are frame ids.",
+      "range": {
+        "startLine": 360,
+        "startChar": 2,
+        "endLine": 360,
+        "endChar": 12
+      },
+      "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3dafb8f_92886aec",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-24T14:41:52Z",
+      "side": 1,
+      "message": "Updated comment to mention frame ids.\n\nThe benefits are that you can get the size of the container with size(), and that it can check bounds on debug builds.",
+      "parentUuid": "5c5b640e_e7888a29",
       "range": {
         "startLine": 360,
         "startChar": 2,

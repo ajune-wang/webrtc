@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "ad66d161_62c69b92",
+        "filename": "modules/audio_coding/neteq/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-04-24T11:00:50Z",
+      "side": 1,
+      "message": "I had a look at neteq_impl.cc, but I couldn\u0027t find a good place to add this code there. It is a little tricky because the packets are stored in a list, and we don\u0027t really iterate the list anywhere. Also, I noticed that other similar calls to the statistics are made below in this function (see line 118 and 127), so maybe it makes sense to keep this code here? WDYT?",
+      "parentUuid": "409e12d6_529905cd",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 3
+      },
+      "revId": "d47a5ab870e168ec80838d8f06aaab38466d5b44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9a8350f6_d4e142f3",
         "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
         "patchSetId": 1
@@ -62,6 +86,30 @@
       "revId": "d47a5ab870e168ec80838d8f06aaab38466d5b44",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a52d53df_55a52d25",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-04-24T11:00:50Z",
+      "side": 1,
+      "message": "I think that should be acceptable, the differences should even out eventually, when the correction drops to zero.",
+      "parentUuid": "9a8350f6_d4e142f3",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 80
+      },
+      "revId": "d47a5ab870e168ec80838d8f06aaab38466d5b44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "c9cfa630_06e95847",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-04-24T11:00:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1471457d_faaa0591",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 55
+      },
+      "revId": "d47a5ab870e168ec80838d8f06aaab38466d5b44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1904551e_8b7d7917",
         "filename": "modules/audio_coding/neteq/statistics_calculator.h",
         "patchSetId": 1
@@ -111,6 +183,30 @@
     },
     {
       "key": {
+        "uuid": "a6bc4807_05cb414a",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-04-24T11:00:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1904551e_8b7d7917",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 54
+      },
+      "revId": "d47a5ab870e168ec80838d8f06aaab38466d5b44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ad1b87f_8fe010bf",
         "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
         "patchSetId": 1
@@ -131,6 +227,30 @@
       "revId": "d47a5ab870e168ec80838d8f06aaab38466d5b44",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42d15a5f_a3cc2487",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-04-24T11:00:50Z",
+      "side": 1,
+      "message": "I agree that your version is a bit better, so I changed this.",
+      "parentUuid": "0ad1b87f_8fe010bf",
+      "range": {
+        "startLine": 227,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 0
+      },
+      "revId": "d47a5ab870e168ec80838d8f06aaab38466d5b44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

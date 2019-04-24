@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "746f3673_01562425",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-24T08:30:16Z",
+      "side": 1,
+      "message": "\u003e Maye SimpleCpuLoadEstimator?\n\nI\u0027m not sure that is an improvement, \"New\" at least hints that the intention with the experiment is to validate switch to the new implementation, and hopefully delete the old one. It\u0027s not really an A/B experiment, just a way to cautiously iron out any problems or regressions before the new estimator is launched unconditionally.",
+      "parentUuid": "2d4637b7_bfd1abfa",
+      "range": {
+        "startLine": 54,
+        "startChar": 48,
+        "endLine": 54,
+        "endChar": 51
+      },
+      "revId": "842be1ec3dae1f6149a1f62221df432f74bb0f4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7541892_989e7d56",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 1
@@ -120,6 +144,24 @@
       "side": 1,
       "message": "If it\u0027s only used once, could it be moved closer to, or even inlined into StartCheckForOveruse?  I think that\u0027s where I\u0027d look for details on how the detector is configured.",
       "parentUuid": "12ab2cb0_60667ba6",
+      "revId": "842be1ec3dae1f6149a1f62221df432f74bb0f4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1ff7f2a_e0f28cb2",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-24T08:30:16Z",
+      "side": 1,
+      "message": "\u003e If it\u0027s only used once, could it be moved closer to, or even inlined into StartCheckForOveruse?  I think that\u0027s where I\u0027d look for details on how the detector is configured.\n\nStartCheckForOveruse is the consumer of the options, and is a method in a different class. The call to that method is in VideoStreamEncoder::ReconfigureEncoder, a method which is already 200 lines.",
+      "parentUuid": "c52fc703_9d40130a",
       "revId": "842be1ec3dae1f6149a1f62221df432f74bb0f4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

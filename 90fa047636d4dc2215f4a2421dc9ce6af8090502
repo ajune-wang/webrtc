@@ -283,6 +283,30 @@
       "revId": "90fa047636d4dc2215f4a2421dc9ce6af8090502",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee4824e1_bd474cb7",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-24T12:30:08Z",
+      "side": 1,
+      "message": "I think we should have a pretty high bar before introducing new locks in code where we are trying to remove locks... \n\nAfter another look, it seems the problem is that to move access to the task queue, the call to sink_-\u003eOnEncodedImage (around line 1504) also would need to be moved to RunPostEncode. Which gets easier after https://webrtc-review.googlesource.com/c/src/+/128575 is landed.\n\nSo ok to leave it for a followup, then. It would be nice to add a little details on what needs doing either in a TODO item or some relevant bug.",
+      "parentUuid": "df5f6933_9be56920",
+      "range": {
+        "startLine": 354,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 0
+      },
+      "revId": "90fa047636d4dc2215f4a2421dc9ce6af8090502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

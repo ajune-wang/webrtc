@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "8e991971_c69cbe93",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1479,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-24T12:30:08Z",
+      "side": 1,
+      "message": "This check looks independent of the loop variable. Move out of the loop? And maybe it should be an RTC_CHECK (not DCHECK, if violation leads to out of bounds accesses).",
+      "range": {
+        "startLine": 1477,
+        "startChar": 8,
+        "endLine": 1479,
+        "endChar": 63
+      },
+      "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1cb9e3c_8b22b3d5",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1488,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-24T12:30:08Z",
+      "side": 1,
+      "message": "Maybe an RTC_CHECK?",
+      "range": {
+        "startLine": 1487,
+        "startChar": 0,
+        "endLine": 1488,
+        "endChar": 77
+      },
+      "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0f0a4d99_7054355d",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 17
@@ -46,6 +92,75 @@
       "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "efcc417d_6ba62388",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-24T12:30:08Z",
+      "side": 1,
+      "message": "\"encoders\u0027\" or \"encoder\u0027s\" depending on number. Or rephrase as \"buffer state of the encoders\"",
+      "range": {
+        "startLine": 357,
+        "startChar": 58,
+        "endLine": 357,
+        "endChar": 66
+      },
+      "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ac53415_ab1ece18",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-24T12:30:08Z",
+      "side": 1,
+      "message": "What value is used if no frame has updated the buffer?",
+      "range": {
+        "startLine": 358,
+        "startChar": 58,
+        "endLine": 359,
+        "endChar": 25
+      },
+      "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c5b640e_e7888a29",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-24T12:30:08Z",
+      "side": 1,
+      "message": "Out of curiosity, any benefit of std::array over\n\nint64_t encoder_buffer_state_[kMaxEncoderBuffers][kMaxSimulcastStreams];\n\n?\n\nPlease mention explicitly that the int64_t values are frame ids.",
+      "range": {
+        "startLine": 360,
+        "startChar": 2,
+        "endLine": 360,
+        "endChar": 12
+      },
+      "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

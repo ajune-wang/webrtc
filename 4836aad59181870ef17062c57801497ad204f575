@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b88f40db_a9e167a3",
+        "filename": "modules/video_coding/jitter_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-04-24T08:45:39Z",
+      "side": 1,
+      "message": "std::min(jitterMS, jitterEstCapMs)",
+      "range": {
+        "startLine": 399,
+        "startChar": 0,
+        "endLine": 399,
+        "endChar": 69
+      },
+      "revId": "4836aad59181870ef17062c57801497ad204f575",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

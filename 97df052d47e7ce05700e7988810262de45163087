@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab7c0322_6a283221",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-24T15:20:38Z",
+      "side": 0,
+      "message": "Why did you have to move this lock?",
+      "range": {
+        "startLine": 794,
+        "startChar": 1,
+        "endLine": 794,
+        "endChar": 30
+      },
+      "revId": "97df052d47e7ce05700e7988810262de45163087",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

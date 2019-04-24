@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "8cda53a7_1a7176d4",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-24T15:20:38Z",
+      "side": 1,
+      "message": "Should the sender be demuxing this? Seems appropriate that we should do that somewhere more common. Now we might end up calling this with a vector that\u0027s completely unused.",
+      "range": {
+        "startLine": 795,
+        "startChar": 5,
+        "endLine": 795,
+        "endChar": 19
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d272055_4ee1340c",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-24T15:20:38Z",
+      "side": 1,
+      "message": "Are you using the map-property of this? Maybe a std::vector\u003cstd::pair\u003c...\u003e\u003e would be equivalent?",
+      "range": {
+        "startLine": 800,
+        "startChar": 2,
+        "endLine": 800,
+        "endChar": 43
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3986ac9_efeae0e3",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-24T15:20:38Z",
+      "side": 1,
+      "message": "This looks like a very magic constant. Best option: find a place where it\u0027s already defined. second best, define it, something like kSsrcMissing?",
+      "range": {
+        "startLine": 812,
+        "startChar": 23,
+        "endLine": 812,
+        "endChar": 24
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "877b0778_19c77438",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 6
@@ -18,6 +87,29 @@
         "startChar": 7,
         "endLine": 825,
         "endChar": 11
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22d3812b_a623a777",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-24T15:20:38Z",
+      "side": 1,
+      "message": "Add the meaning of this to the name (something like ssrc_to_packet_ack_observer).",
+      "range": {
+        "startLine": 200,
+        "startChar": 11,
+        "endLine": 200,
+        "endChar": 19
       },
       "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -213,6 +305,29 @@
         "startChar": 6,
         "endLine": 94,
         "endChar": 43
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "404b478c_6d635409",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-04-24T15:20:38Z",
+      "side": 1,
+      "message": "is the inner const meaningful?",
+      "range": {
+        "startLine": 94,
+        "startChar": 27,
+        "endLine": 94,
+        "endChar": 32
       },
       "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

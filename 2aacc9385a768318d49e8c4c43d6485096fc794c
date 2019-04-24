@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "877b0778_19c77438",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T14:44:28Z",
+      "side": 1,
+      "message": "const auto\u0026\n\nmay be use another name for this variable since it is not an iterator.\ne.g. kv for key, value with explaining aliases:\nfor (const auto\u0026 kv : acked_packets) {\n  uint32_t ssrc \u003d kv.first;\n  const auto\u0026 (transport_?)sequence_numbers \u003d kv.second;\n}",
+      "range": {
+        "startLine": 825,
+        "startChar": 7,
+        "endLine": 825,
+        "endChar": 11
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d48d465f_526b545a",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T14:44:28Z",
+      "side": 1,
+      "message": "how this member is GUARDED?",
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2c9710b_9c94c6ad",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T14:44:28Z",
+      "side": 1,
+      "message": "when all matches are wildcards, you do not have to specify them now (go/totw/150)\nEXPECT_CALL(test.transport(), SendRtp).WillOnce(...);",
+      "range": {
+        "startLine": 438,
+        "startChar": 32,
+        "endLine": 438,
+        "endChar": 48
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "458a680f_c3e64698",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T14:44:28Z",
+      "side": 1,
+      "message": "afaik Invoke is no longer needed: you can pass lambda directly as WillOnce parameter.",
+      "range": {
+        "startLine": 439,
+        "startChar": 16,
+        "endLine": 439,
+        "endChar": 23
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e106e977_4c191e80",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T14:44:28Z",
+      "side": 1,
+      "message": "if",
+      "range": {
+        "startLine": 279,
+        "startChar": 59,
+        "endLine": 279,
+        "endChar": 61
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "914d484d_9b74ac36",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T14:44:28Z",
+      "side": 1,
+      "message": "prefer \u003d default;\nhttps://abseil.io/tips/131\n\n(also for constructor or do not mention constructor)",
+      "range": {
+        "startLine": 337,
+        "startChar": 40,
+        "endLine": 337,
+        "endChar": 43
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "099404b6_382a919b",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T14:44:28Z",
+      "side": 1,
+      "message": "pass ArrayView by value instead of by reference:\nArrayView is a reference type itself.\nhttps://abseil.io/tips/93 [tips is for absl::Span, but idea is exactly the same]",
+      "range": {
+        "startLine": 342,
+        "startChar": 6,
+        "endLine": 342,
+        "endChar": 43
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47dbf084_4289a043",
+        "filename": "modules/rtp_rtcp/mocks/mock_rtp_rtcp.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T14:44:28Z",
+      "side": 1,
+      "message": "majority functions in this mock use \"()\" instead of \"(void)\" for functions without parameters",
+      "range": {
+        "startLine": 162,
+        "startChar": 50,
+        "endLine": 162,
+        "endChar": 54
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d0d702d_7771f81a",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T14:44:28Z",
+      "side": 1,
+      "message": "what is \u0027i\u0027?",
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27e2f5f9_929f10f4",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T14:44:28Z",
+      "side": 1,
+      "message": "pass ArrayView by value",
+      "range": {
+        "startLine": 94,
+        "startChar": 6,
+        "endLine": 94,
+        "endChar": 43
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d4c1b7c_c293e10a",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-04-24T14:44:28Z",
+      "side": 1,
+      "message": "the check looks redundant:\nreturn rtp_sender_.get();",
+      "range": {
+        "startLine": 872,
+        "startChar": 9,
+        "endLine": 872,
+        "endChar": 51
+      },
+      "revId": "2aacc9385a768318d49e8c4c43d6485096fc794c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

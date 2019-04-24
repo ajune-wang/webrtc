@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "c5519707_4770a3bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-24T12:00:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2affcc4a_6ca7d726",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 71
+      },
+      "revId": "90fa047636d4dc2215f4a2421dc9ce6af8090502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bde79ec6_0c7cc971",
         "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
         "patchSetId": 16
@@ -226,6 +250,30 @@
       "side": 1,
       "message": "It could be a followup. But please first check if it\u0027s easy to move all access to the task queue, e.g., called from RunPostEncode, together with other bookkeeping. And if it\u0027s not easy, can you explain why?",
       "parentUuid": "534e9540_397ae272",
+      "range": {
+        "startLine": 354,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 0
+      },
+      "revId": "90fa047636d4dc2215f4a2421dc9ce6af8090502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df5f6933_9be56920",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-24T12:00:53Z",
+      "side": 1,
+      "message": "AFAICT it is not that hard, but if we don\u0027t refactor other parts of the code at the same time we would have an inconsistent (not broken though) way of synchronizing different members.\n\nAs I see it I\u0027m using the already used primitive (CritSect) to synchronize, and refactoring to use the task queue instead is orthogonal to this CL.",
+      "parentUuid": "e9855f5d_cf3e7224",
       "range": {
         "startLine": 354,
         "startChar": 0,

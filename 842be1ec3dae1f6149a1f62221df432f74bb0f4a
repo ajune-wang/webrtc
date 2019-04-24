@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "ef448237_d0db56c8",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-24T11:33:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c85f59d_1e9e2682",
+      "range": {
+        "startLine": 54,
+        "startChar": 48,
+        "endLine": 54,
+        "endChar": 51
+      },
+      "revId": "842be1ec3dae1f6149a1f62221df432f74bb0f4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7541892_989e7d56",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 1
@@ -204,6 +228,24 @@
       "side": 1,
       "message": "Yes, my point was that it would make sense to move the field trial config to the class that actually uses it rather than where VideoStreamEncoder is defined.",
       "parentUuid": "c1ff7f2a_e0f28cb2",
+      "revId": "842be1ec3dae1f6149a1f62221df432f74bb0f4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "986c2597_2ffbe32d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-24T11:33:43Z",
+      "side": 1,
+      "message": "\u003e Yes, my point was that it would make sense to move the field trial config to the class that actually uses it rather than where VideoStreamEncoder is defined.\n\nAh. Makes sense, with the small drawback that it\u0027s not so visible that the configuration set by VideoStreamEncoder may be overridden by field trial. I\u0027ll give it a try.",
+      "parentUuid": "28022402_340d376b",
       "revId": "842be1ec3dae1f6149a1f62221df432f74bb0f4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -45,6 +45,30 @@
       "revId": "bfb50b92cf4876b581153bfc79c8ed038f59e008",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90ceb333_975cfc40",
+        "filename": "config.star",
+        "patchSetId": 6
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 7796
+      },
+      "writtenOn": "2019-04-25T09:00:05Z",
+      "side": 1,
+      "message": "Oh, after additional reading I understood that here we are talking about WebRTC release branches.\nAnyway, that means that it is better to write description of all function parameters and name this parameter more closely to what it makes.",
+      "parentUuid": "43459416_dd18f666",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 25
+      },
+      "revId": "bfb50b92cf4876b581153bfc79c8ed038f59e008",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7f344fd_1bdd6285",
+        "filename": "modules/audio_coding/neteq/tools/neteq_stats_getter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-04-25T05:30:13Z",
+      "side": 1,
+      "message": "I don\u0027t think these are needed. NetEqStatsGetter has a lifetime_stats() method.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 43
+      },
+      "revId": "637e746984917bd9e2b00442f76e2704245bc23d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4c8d2bc1_64125ee1",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1834,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-25T12:05:29Z",
+      "side": 1,
+      "message": "It does not matter (the precense of the echo controller overrides AECM), but it would definitely make sense to do a similar thing for AECM. (I think that should be another CL though.",
+      "parentUuid": "5c3ab846_ead7c7e6",
+      "range": {
+        "startLine": 1832,
+        "startChar": 0,
+        "endLine": 1834,
+        "endChar": 37
+      },
+      "revId": "aa1b77d394e84d2726e068b788ea5891f6c1015f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c9263443_b9973e8f",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "875fcb39_e71daf92",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1835,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-25T12:05:29Z",
+      "side": 1,
+      "message": "Great point! I\u0027ve added a change. PTAL",
+      "parentUuid": "c9263443_b9973e8f",
+      "range": {
+        "startLine": 1835,
+        "startChar": 3,
+        "endLine": 1835,
+        "endChar": 10
+      },
+      "revId": "aa1b77d394e84d2726e068b788ea5891f6c1015f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "244b68b9_135532d0",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2019-04-25T11:15:41Z",
       "side": 1,
       "message": "nit: This is in the middle of the AEC2 logic, I suggest moving it to the end of this block.",
+      "range": {
+        "startLine": 1877,
+        "startChar": 0,
+        "endLine": 1878,
+        "endChar": 78
+      },
+      "revId": "aa1b77d394e84d2726e068b788ea5891f6c1015f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45016f07_ded54817",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1878,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-25T12:05:29Z",
+      "side": 1,
+      "message": "I agree. The code has now changed. PTAL",
+      "parentUuid": "244b68b9_135532d0",
       "range": {
         "startLine": 1877,
         "startChar": 0,
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "64fc78b0_af83d24a",
+        "filename": "modules/audio_processing/echo_cancellation_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-25T12:05:29Z",
+      "side": 1,
+      "message": "Yep, it worked :-)",
+      "parentUuid": "d2f59b22_9382df53",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 62
+      },
+      "revId": "aa1b77d394e84d2726e068b788ea5891f6c1015f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "36c0ecd5_18544be2",
         "filename": "modules/audio_processing/echo_cancellation_impl.h",
         "patchSetId": 4
@@ -128,6 +224,30 @@
       "writtenOn": "2019-04-25T11:15:41Z",
       "side": 1,
       "message": "Nit: Oops, these can be removed ever since we deleted AudioProcessing::echo_cancellation().",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 40
+      },
+      "revId": "aa1b77d394e84d2726e068b788ea5891f6c1015f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "632b917c_decb3ea6",
+        "filename": "modules/audio_processing/echo_cancellation_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-04-25T12:05:29Z",
+      "side": 1,
+      "message": "Good find! I\u0027ve removed them in the last patchset.",
+      "parentUuid": "36c0ecd5_18544be2",
       "range": {
         "startLine": 22,
         "startChar": 0,

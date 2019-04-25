@@ -22,6 +22,30 @@
       "revId": "d14148d08e0908247c0dd323376161a30f7630b6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e12a5077_738c69a1",
+        "filename": "modules/video_coding/frame_buffer2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-25T11:08:40Z",
+      "side": 1,
+      "message": "There are other ways of testing this (inserting 3 frames with NACKed packets, then observing an jump in the frame render time interval). I guess it\u0027s worth having since the jitter estimator will now be an implementation detail of the frame buffer.",
+      "parentUuid": "d82f3d2d_a581aa10",
+      "range": {
+        "startLine": 400,
+        "startChar": 0,
+        "endLine": 412,
+        "endChar": 1
+      },
+      "revId": "d14148d08e0908247c0dd323376161a30f7630b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -991,8 +991,10 @@ bool MediaCodecVideoEncoder::DeliverPendingOutputs(JNIEnv* jni) {
     EncodedImageCallback::Result callback_result(
         EncodedImageCallback::Result::OK);
     if (callback_) {
-      std::unique_ptr<EncodedImage> image(
-          new EncodedImage(payload, payload_size, payload_size));
+      auto image = absl::make_unique<EncodedImage>();
+      image->Allocate(payload_size);
+      image->set_size(payload_size);
+      memcpy(image->data(), payload, payload_size);
       image->_encodedWidth = width_;
       image->_encodedHeight = height_;
       image->SetTimestamp(output_timestamp_);

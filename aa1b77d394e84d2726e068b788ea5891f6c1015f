@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c3ab846_ead7c7e6",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1834,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-04-25T11:15:41Z",
+      "side": 1,
+      "message": "AECM is never explicitly disabled when using AEC3.\n\nTwo ApplyConfig calls that first enable and then disable AECM will leave AECM enabled. Does that matter, or is it everywhere overridden by the presence of private_submodules-\u003eecho_controller?",
+      "range": {
+        "startLine": 1832,
+        "startChar": 0,
+        "endLine": 1834,
+        "endChar": 37
+      },
+      "revId": "aa1b77d394e84d2726e068b788ea5891f6c1015f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9263443_b9973e8f",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1835,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-04-25T11:15:41Z",
+      "side": 1,
+      "message": "It looks like this will create AEC2 even when using AECM.\n\nHow about separating those two, like this:\n\nif (echo_control_factory_ ||\n      (config_.echo_canceller.enabled \u0026\u0026 !config_.echo_canceller.mobile_mode \u0026\u0026\n       !config_.echo_canceller.use_legacy_aec)) {\n  // create injected AEC or AEC3\n  // delete AEC2\n  // disable AECM\n} else if (config_.echo_canceller.enabled \u0026\u0026 config_.echo_canceller.use_legacy_aec) {\n  // create and enable aec2\n  // disable AECM\n  // delete AEC3/injected aec\n} else if (config_.echo_canceller.mobile_mode) {\n  // set AECM-\u003eenable(config_.echo_canceller.enabled);\n  // delete AEC2 and AEC3/injected aec\n}\n\nOr, if you think it makes it simpler to follow the logic, handle each AEC separately:\n\nbool use_aec2 \u003d !echo_control_factory_ \u0026\u0026 config_.echo_canceller.use_legacy_aec;\nbool use_aecm \u003d !echo_control_factory_ \u0026\u0026 !use_aec2 \u0026\u0026 config_.echo_canceller.mobile_mode;\nbool use_echo_control_interface \u003d echo_control_factory_ || !use_aec2 \u0026\u0026 !use_aecm;\nuse_aec2 \u0026\u003d config_.echo_canceller.enabled;\nuse_aecm \u0026\u003d config_.echo_canceller.enabled;\nuse_echo_control_interface \u0026\u003d config_.echo_canceller.enabled;\nif (use_echo_control_interface) {\n  // create private_submodules_-\u003eecho_controller\n} else {\n  // delete private_submodules_-\u003eecho_controller\n}\nif (use_aec2) {\n  // create and enable private_submodules_-\u003eecho_cancellation\n} else {\n  // delete private_submodules_-\u003eecho_cancellation\n}\nAECM-\u003eenable(use_aecm);\n\nSeparating AEC2 and AECM handling has two benefits:\n\nprivate_submodules_-\u003eecho_cancellation-\u003eis_enabled() is always true if private_submodules_-\u003eecho_cancellation exists, which reduces the is_enabled() checks on AEC2 to checks whether private_submodules_-\u003eecho_cancellation exists.\n\nAEC2 is not created on platforms using AECM.",
+      "range": {
+        "startLine": 1835,
+        "startChar": 3,
+        "endLine": 1835,
+        "endChar": 10
+      },
+      "revId": "aa1b77d394e84d2726e068b788ea5891f6c1015f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "244b68b9_135532d0",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1878,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-04-25T11:15:41Z",
+      "side": 1,
+      "message": "nit: This is in the middle of the AEC2 logic, I suggest moving it to the end of this block.",
+      "range": {
+        "startLine": 1877,
+        "startChar": 0,
+        "endLine": 1878,
+        "endChar": 78
+      },
+      "revId": "aa1b77d394e84d2726e068b788ea5891f6c1015f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2f59b22_9382df53",
+        "filename": "modules/audio_processing/echo_cancellation_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-04-25T11:15:41Z",
+      "side": 1,
+      "message": "It looks like we can remove this dependency, is that the case?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 62
+      },
+      "revId": "aa1b77d394e84d2726e068b788ea5891f6c1015f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36c0ecd5_18544be2",
+        "filename": "modules/audio_processing/echo_cancellation_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-04-25T11:15:41Z",
+      "side": 1,
+      "message": "Nit: Oops, these can be removed ever since we deleted AudioProcessing::echo_cancellation().",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 40
+      },
+      "revId": "aa1b77d394e84d2726e068b788ea5891f6c1015f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5d741f4_7d1f2ff9",
+        "filename": "modules/audio_processing/echo_cancellation_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-04-25T11:15:41Z",
+      "side": 1,
+      "message": "Nice!",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 57
+      },
+      "revId": "aa1b77d394e84d2726e068b788ea5891f6c1015f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c152f8a6_b21e381c",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-04-25T20:06:34Z",
+      "side": 1,
+      "message": "to me, neteq_impl_unittest should only care if stats_.DecodedOutputPlayed is called at right time.\n\nmaybe neteq_network_stats_unittest fit better.",
+      "range": {
+        "startLine": 692,
+        "startChar": 0,
+        "endLine": 693,
+        "endChar": 50
+      },
+      "revId": "9e0af65f3a6a9a84f092b410226afa20f3b0825b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ead78be_6ec64f38",
+        "filename": "modules/audio_coding/neteq/statistics_calculator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-04-25T20:06:34Z",
+      "side": 1,
+      "message": "nit: focus on the core of the test, I would stats.ExpandedVoiceSamples(151 * fs_khz, false)",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 61
+      },
+      "revId": "9e0af65f3a6a9a84f092b410226afa20f3b0825b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afc2c026_6c9df1e0",
+        "filename": "modules/audio_coding/neteq/statistics_calculator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-04-25T20:06:34Z",
+      "side": 1,
+      "message": "nit: focus on the core of the test, I would stats.ExpandedVoiceSamples(151 * fs_khz, false)",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 64
+      },
+      "revId": "9e0af65f3a6a9a84f092b410226afa20f3b0825b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54845228_08d5cacd",
+        "filename": "modules/video_coding/include/video_coding.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-25T08:21:14Z",
+      "side": 1,
+      "message": "Intend to migrate downstream code to use this method and not refer to WebRtcRTPHeader. When that is done WebRtcRTPHeader can finally be deleted.",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 73
+      },
+      "revId": "a9daec07a80dc26ce9c10d349c3acb6afe8d6304",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

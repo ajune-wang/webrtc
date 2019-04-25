@@ -119,6 +119,30 @@
       "revId": "bfb50b92cf4876b581153bfc79c8ed038f59e008",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8b0f999_78b101da",
+        "filename": "config.star",
+        "patchSetId": 6
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 7796
+      },
+      "writtenOn": "2019-04-25T13:45:18Z",
+      "side": 1,
+      "message": "LGTM.\nBut I would still prefer more descriptive variable names.\nAlso it is a bit confusing that two arguments with the same suffix (`try_cat` and `fyi_cat`) has different types.",
+      "parentUuid": "40bcb04b_e27855a9",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 25
+      },
+      "revId": "bfb50b92cf4876b581153bfc79c8ed038f59e008",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

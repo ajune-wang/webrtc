@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd1cb547_62bbb50b",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-25T09:04:42Z",
+      "side": 1,
+      "message": "This involves making a copy of all the samples. If you instead use rtc::ArrayView\u003cconst double\u003e as return type, the caller can choose to copy it to a vector or not according to what it needs. (In that case, you\u0027ll need to document that the return value is invalidated by the next call to a non-const method.)",
+      "revId": "4d6f430977fa669f31b3f783a459c9e00b2a0e73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

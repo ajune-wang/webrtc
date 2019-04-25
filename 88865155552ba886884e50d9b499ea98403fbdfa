@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1075ed6_21b2db79",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-04-25T10:20:23Z",
+      "side": 1,
+      "message": "grammar",
+      "range": {
+        "startLine": 79,
+        "startChar": 71,
+        "endLine": 79,
+        "endChar": 77
+      },
+      "revId": "88865155552ba886884e50d9b499ea98403fbdfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

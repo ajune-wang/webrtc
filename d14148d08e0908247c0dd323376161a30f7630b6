@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d82f3d2d_a581aa10",
+        "filename": "modules/video_coding/frame_buffer2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-25T08:56:24Z",
+      "side": 1,
+      "message": "This test seems to be the only reason why the VCMJitterEstimator is injectable when creating FrameBuffer. Is it worth that complexity?\n\nIt checks that protection_mode_ affects the \"rtt multiplier\" argument to GetJitterEstimate (a feature that I don\u0027t quite understand, present since the beginning of git history).",
+      "range": {
+        "startLine": 400,
+        "startChar": 0,
+        "endLine": 412,
+        "endChar": 1
+      },
+      "revId": "d14148d08e0908247c0dd323376161a30f7630b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

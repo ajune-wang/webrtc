@@ -111,6 +111,30 @@
       "revId": "160b4ea17f9cdd6a0c20acb958b2be92acf0f376",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "418f1596_4369e5ca",
+        "filename": "rtc_base/numerics/running_statistics_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-04-25T13:42:37Z",
+      "side": 1,
+      "message": "Another option would be to make RemoveSample private, and add RollingAccumulator as a friend.\nThe latter has the proper behavior regarding windowed min/max.",
+      "parentUuid": "aa76b810_d8846b7b",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 39
+      },
+      "revId": "160b4ea17f9cdd6a0c20acb958b2be92acf0f376",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

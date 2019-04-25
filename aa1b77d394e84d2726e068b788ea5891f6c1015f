@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "3fb47985_36491e90",
+        "filename": "modules/audio_processing/echo_cancellation_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-04-25T11:20:38Z",
+      "side": 1,
+      "message": "This can be removed now, right?",
+      "range": {
+        "startLine": 18,
+        "startChar": 50,
+        "endLine": 19,
+        "endChar": 52
+      },
+      "revId": "aa1b77d394e84d2726e068b788ea5891f6c1015f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d2f59b22_9382df53",
         "filename": "modules/audio_processing/echo_cancellation_impl.h",
         "patchSetId": 4

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ccb15254_abc94bc3",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1845,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-04-25T13:10:14Z",
+      "side": 1,
+      "message": "I think this block should call EchoControlMobile::Enable(false), to be explicit about it.\n\nOtherwise, we\u0027ll keep entering conditions like these:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/audio_processing_impl.cc?l\u003d1391\u0026rcl\u003d03e85d2b3bd38bfea02560661cf947e058f9d361\n\nAn alternative is call it precisely once, earlier in this function, with the ToT format:\nprivate_submodules_-\u003eecho_control_mobile-\u003eEnable(\n    config_.echo_canceller.enabled \u0026\u0026 config_.echo_canceller.mobile_mode);",
+      "range": {
+        "startLine": 1844,
+        "startChar": 0,
+        "endLine": 1845,
+        "endChar": 1
+      },
+      "revId": "7db097e1166ad2e2833109725125f41e9e6a6f39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6d02f94_88380aa1",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1858,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-04-25T13:10:14Z",
+      "side": 1,
+      "message": "Same here - a once-activated AECM cannot be disabled. This could for example trigger this DCHECK:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/audio_processing_impl.cc?rcl\u003d03e85d2b3bd38bfea02560661cf947e058f9d361\u0026l\u003d1286",
+      "range": {
+        "startLine": 1858,
+        "startChar": 0,
+        "endLine": 1858,
+        "endChar": 1
+      },
+      "revId": "7db097e1166ad2e2833109725125f41e9e6a6f39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

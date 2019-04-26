@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': '1922754937da7c6be8348a4b53768f1f3d37c0e1',
+  'chromium_revision': 'd3f5e03952fcc7c16917e1f06b6c64f3d936dceb',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -86,7 +86,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    Var('chromium_git') + '/chromium/src/base' + '@' + '3eed79aedab777b8cac1763e219c951fdf2f7023',
+    Var('chromium_git') + '/chromium/src/base' + '@' + '74eab6d9cbe57ec853acd672c0404203d07e7d7e',
   'src/build':
     Var('chromium_git') + '/chromium/src/build' + '@' + '6c977eaea4ac339788c1a81701ccba2a51af0048',
   'src/buildtools':
@@ -98,13 +98,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '5fec5aac5c512610103dbf058b606a8cae3badb2',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '770060d218c10f660c0db160fe40884f39da6be9',
     'condition': 'checkout_ios',
   },
   'src/testing':
     Var('chromium_git') + '/chromium/src/testing' + '@' + '1fa6051c03cf791268ffa5efec05650c7112a963',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + '904f37164fe2d306110f75145e984b5c1ed54083',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + '9d14908742eccb10734b71b47b968d770ca48f1b',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -312,7 +312,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     Var('chromium_git') + '/chromium/deps/yasm/patched-yasm.git' + '@' + '720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    Var('chromium_git') + '/chromium/src/tools' + '@' + 'e438fd4055af77703e63a387d0f7fc0a3dbad9ed',
+    Var('chromium_git') + '/chromium/src/tools' + '@' + '879a0cecbed42e13958a5991931810c385d7eb0d',
   'src/tools/swarming_client':
     Var('chromium_git') + '/infra/luci/client-py.git' + '@' +  Var('swarming_revision'),
 

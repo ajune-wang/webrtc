@@ -309,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "4f5df285_24a5b849",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-26T10:44:18Z",
+      "side": 1,
+      "message": "Logging a message in the case of an obvious error is a good idea.",
+      "parentUuid": "89c0d433_8084db90",
+      "range": {
+        "startLine": 358,
+        "startChar": 58,
+        "endLine": 359,
+        "endChar": 25
+      },
+      "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5c5b640e_e7888a29",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 17

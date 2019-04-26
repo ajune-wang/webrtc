@@ -22,6 +22,30 @@
       "revId": "dbf4e9d644934404db357f4834580f6369e358cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bec3e4e_9b1046ef",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 1457,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-04-26T10:44:18Z",
+      "side": 1,
+      "message": "That was one of my earlier ideas (https://webrtc-review.googlesource.com/c/src/+/131287/2/video/video_stream_encoder.h), unfortunately it does not work particularly well when GFD templates are used.",
+      "parentUuid": "6fd6cb78_40a02b7d",
+      "range": {
+        "startLine": 1454,
+        "startChar": 0,
+        "endLine": 1457,
+        "endChar": 69
+      },
+      "revId": "dbf4e9d644934404db357f4834580f6369e358cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

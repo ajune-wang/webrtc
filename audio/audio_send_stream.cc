@@ -626,7 +626,9 @@ bool AudioSendStream::SetupSendCodec(AudioSendStream* stream,
   // If overhead changes later, it will be updated in UpdateOverheadForEncoder.
   {
     rtc::CritScope cs(&stream->overhead_per_packet_lock_);
-    encoder->OnReceivedOverhead(stream->GetPerPacketOverheadBytes());
+    if (stream->GetPerPacketOverheadBytes() > 0) {
+      encoder->OnReceivedOverhead(stream->GetPerPacketOverheadBytes());
+    }
   }
 
   stream->StoreEncoderProperties(encoder->SampleRateHz(),
@@ -682,7 +684,9 @@ bool AudioSendStream::ReconfigureSendCodec(AudioSendStream* stream,
   // Set currently known overhead (used in ANA, opus only).
   {
     rtc::CritScope cs(&stream->overhead_per_packet_lock_);
-    stream->UpdateOverheadForEncoder();
+    if (stream->GetPerPacketOverheadBytes() > 0) {
+      stream->UpdateOverheadForEncoder();
+    }
   }
 
   return true;

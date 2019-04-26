@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c4062f5_bb9c5552",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-26T11:11:42Z",
+      "side": 1,
+      "message": "This will access uninitialized data.\n\nI would suggest moving diff inside an if (buffer.referenced) branch (it\u0027s unused for update), and in that branch, before computing the diff also adding a check\n\n  if (state[buffer.id] \u003c 0) { log warning and ignore this reference }\n\nAnd also initialize encoder_buffer_state_ to all -1 on construction.\n\nIt looks like the below (diff \u003c\u003d 0) check  can trigger randomly the first time we have buffer.updates true for each id.",
+      "range": {
+        "startLine": 1489,
+        "startChar": 49,
+        "endLine": 1489,
+        "endChar": 65
+      },
+      "revId": "0d792be4b732eea8164c5771ebf05eea39425f45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

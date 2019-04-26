@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "468610cf_c302b43b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 1495,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-26T11:44:05Z",
+      "side": 1,
+      "message": "A bit unusual to add a trailing period.",
+      "range": {
+        "startLine": 1495,
+        "startChar": 66,
+        "endLine": 1495,
+        "endChar": 72
+      },
+      "revId": "981e6c1dc3b932c29880e863f5d9caf42c7940ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

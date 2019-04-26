@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fd6cb78_40a02b7d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 1457,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-26T09:10:58Z",
+      "side": 1,
+      "message": "Do we really need to make a distinction between simulcast and spatial layers here? Does it affect frame id assignment in some way? The idea behind the current design was that simulcast is a kind of spatial layering, and that only the transport needs to configured to do one or the other.\n\nOne difference here is that for spatial layers, we have a single space of buffer ids, but for each simulcast layers we have a separate space (i.e., several layers can refer to \"buffer 3\" and mean different things). But that could be fixed by requiring the simulcast encoder to map into a shared space, with disjoint ranges for each simulcast layer.\n\nMaybe not for this cl, but a different way to resolve that TODO.",
+      "range": {
+        "startLine": 1454,
+        "startChar": 0,
+        "endLine": 1457,
+        "endChar": 69
+      },
+      "revId": "dbf4e9d644934404db357f4834580f6369e358cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

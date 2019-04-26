@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f2ade663_4beb3965",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1479,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-26T09:10:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fb58871e_43ee76f1",
+      "range": {
+        "startLine": 1477,
+        "startChar": 8,
+        "endLine": 1479,
+        "endChar": 63
+      },
+      "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1cb9e3c_8b22b3d5",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 17
@@ -93,6 +117,30 @@
       "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d6542ad_c9932785",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1488,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-26T09:10:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fcee4748_26968e5d",
+      "range": {
+        "startLine": 1487,
+        "startChar": 0,
+        "endLine": 1488,
+        "endChar": 77
+      },
+      "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -237,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "89c0d433_8084db90",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-26T09:10:58Z",
+      "side": 1,
+      "message": "So how do we avoid access to uninitialized entries? We rely on the encoder to never say it references a buffer, without previously having said that the buffer is updated?\n\nMaybe we should log an error if that happens, or at least initialize to some recognizable value, e.g, -1?",
+      "parentUuid": "3e2a553f_9d59aee4",
+      "range": {
+        "startLine": 358,
+        "startChar": 58,
+        "endLine": 359,
+        "endChar": 25
+      },
+      "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5c5b640e_e7888a29",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 17
@@ -281,6 +353,30 @@
       "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02a8d455_7383c842",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-26T09:10:58Z",
+      "side": 1,
+      "message": "Ok.",
+      "parentUuid": "f3dafb8f_92886aec",
+      "range": {
+        "startLine": 360,
+        "startChar": 2,
+        "endLine": 360,
+        "endChar": 12
+      },
+      "revId": "c5d662d06605f4ceee38cffd15c4f5b959a88808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

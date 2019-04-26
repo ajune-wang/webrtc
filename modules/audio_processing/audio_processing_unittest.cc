@@ -77,6 +77,18 @@ const int kProcessSampleRates[] = {8000, 16000, 32000, 48000};
 
 enum StreamDirection { kForward = 0, kReverse };
 
+void FloatToS16(const float* src, size_t size, int16_t* dest) {
+  for (size_t i = 0; i < size; ++i) {
+    RTC_DCHECK_LE(32767.f, src[i]);
+    RTC_DCHECK_GE(-32768.f, src[i]);
+    if (src[i] >= 1.f)
+      dest[i] = 32767;
+    if (src[i] <= -1.f)
+      dest[i] = -32768;
+    dest[i] = static_cast<int16_t>(src[i] * 32767.5f);
+  }
+}
+
 void ConvertToFloat(const int16_t* int_data, ChannelBuffer<float>* cb) {
   ChannelBuffer<int16_t> cb_int(cb->num_frames(),
                                 cb->num_channels());

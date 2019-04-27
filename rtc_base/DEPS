@@ -1,5 +1,6 @@
 include_rules = [
   "+base/third_party/libevent",
+  "+crypto",
   "+json",
   "+third_party/jsoncpp",
   "+system_wrappers",

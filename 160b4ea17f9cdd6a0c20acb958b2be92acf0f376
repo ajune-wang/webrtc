@@ -135,6 +135,30 @@
       "revId": "160b4ea17f9cdd6a0c20acb958b2be92acf0f376",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ef8611c_83e8f637",
+        "filename": "rtc_base/numerics/running_statistics_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-29T15:28:01Z",
+      "side": 1,
+      "message": "Making RemoveSample private seems a stretch that could be tricky to maintain in the future (e.g. maintainers of RollingAccumulator will have to read a comment about this friendship).\n\nI like Harald\u0027s idea of making it DCHECK if someone tries to rely on min/max after removing samples.",
+      "parentUuid": "418f1596_4369e5ca",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 39
+      },
+      "revId": "160b4ea17f9cdd6a0c20acb958b2be92acf0f376",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

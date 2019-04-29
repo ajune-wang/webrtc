@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15ee355a_72faf7f8",
+        "filename": "modules/desktop_capture/linux/mouse_cursor_monitor_x11.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2019-04-29T17:23:02Z",
+      "side": 1,
+      "message": "X11 returns the image data in a |long|, so this change will break the captured on 32-bit builds.",
+      "range": {
+        "startLine": 205,
+        "startChar": 2,
+        "endLine": 205,
+        "endChar": 59
+      },
+      "revId": "318da51f99f91e3de1192f29d7f1824958f9f13e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

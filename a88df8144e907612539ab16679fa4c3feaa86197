@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca84300e_83dd6f76",
+        "filename": "modules/video_coding/frame_buffer2_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-29T13:31:24Z",
+      "side": 1,
+      "message": "To be deleted in next cl.",
+      "range": {
+        "startLine": 269,
+        "startChar": 21,
+        "endLine": 269,
+        "endChar": 38
+      },
+      "revId": "a88df8144e907612539ab16679fa4c3feaa86197",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

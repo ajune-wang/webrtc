@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bad9329_bf530dcc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2019-04-29T18:17:55Z",
+      "side": 1,
+      "message": "Would be useful to add more details here",
+      "revId": "8635fea3bdbf85201fa67aaedbdb21a92c18c522",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

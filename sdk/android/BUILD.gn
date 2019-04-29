@@ -769,6 +769,7 @@ if (is_android) {
       "../../api/video_codecs:video_codecs_api",
       "../../logging:rtc_event_log_api",
       "../../logging:rtc_event_log_impl_base",
+      "../../logging:rtc_event_log_impl_output",
       "../../media:rtc_data",
       "../../media:rtc_media_base",
       "../../modules/audio_device",

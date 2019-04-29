@@ -14,7 +14,7 @@
 
 namespace webrtc {
 
-rtc::scoped_refptr<I420BufferInterface> VideoFrameBuffer::GetI420() {
+I420BufferInterface* VideoFrameBuffer::GetI420() {
   if (type() == Type::kI420 || type() == Type::kI420A) {
     return static_cast<I420BufferInterface*>(this);
   } else {
@@ -22,8 +22,7 @@ rtc::scoped_refptr<I420BufferInterface> VideoFrameBuffer::GetI420() {
   }
 }
 
-rtc::scoped_refptr<const I420BufferInterface> VideoFrameBuffer::GetI420()
-    const {
+const I420BufferInterface* VideoFrameBuffer::GetI420() const {
   if (type() == Type::kI420 || type() == Type::kI420A) {
     return static_cast<const I420BufferInterface*>(this);
   } else {

@@ -22,6 +22,30 @@
       "revId": "318da51f99f91e3de1192f29d7f1824958f9f13e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60b07ac9_63fe8198",
+        "filename": "modules/desktop_capture/linux/mouse_cursor_monitor_x11.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-04-29T18:00:52Z",
+      "side": 1,
+      "message": "Thanks Wez! I am partially reverting this CL here: https://webrtc-review.googlesource.com/c/src/+/134541.",
+      "parentUuid": "15ee355a_72faf7f8",
+      "range": {
+        "startLine": 205,
+        "startChar": 2,
+        "endLine": 205,
+        "endChar": 59
+      },
+      "revId": "318da51f99f91e3de1192f29d7f1824958f9f13e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

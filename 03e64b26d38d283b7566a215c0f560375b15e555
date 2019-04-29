@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b6dc09a_4fc750f2",
+        "filename": "api/video/video_frame_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-04-29T11:18:10Z",
+      "side": 1,
+      "message": "Do we really need the non-const methods (applies to the other Get* methods too)? All involved interfaces have only const methods, and they are intended for read-only access to the pixels.",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 41
+      },
+      "revId": "03e64b26d38d283b7566a215c0f560375b15e555",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

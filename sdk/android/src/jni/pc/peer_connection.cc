@@ -37,6 +37,7 @@
 #include "api/rtp_receiver_interface.h"
 #include "api/rtp_sender_interface.h"
 #include "api/rtp_transceiver_interface.h"
+#include "logging/rtc_event_log/output/rtc_event_log_output_file.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "sdk/android/generated_peerconnection_jni/jni/PeerConnection_jni.h"
@@ -54,6 +55,7 @@
 #include "sdk/android/src/jni/pc/session_description.h"
 #include "sdk/android/src/jni/pc/stats_observer.h"
 #include "sdk/android/src/jni/pc/turn_customizer.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 namespace jni {
@@ -733,8 +735,18 @@ static jboolean JNI_PeerConnection_StartRtcEventLog(
     const JavaParamRef<jobject>& j_pc,
     int file_descriptor,
     int max_size_bytes) {
-  return ExtractNativePC(jni, j_pc)->StartRtcEventLog(file_descriptor,
-                                                      max_size_bytes);
+  // TODO(eladalon): It would be better to not allow negative values into PC.
+  const size_t max_size = (max_size_bytes < 0)
+                              ? RtcEventLog::kUnlimitedOutput
+                              : rtc::saturated_cast<size_t>(max_size_bytes);
+  int64_t output_period_ms = webrtc::RtcEventLog::kImmediateOutput;
+  if (field_trial::IsEnabled("WebRTC-RtcEventLogNewFormat")) {
+    output_period_ms = 5000;
+  }
+
+  return ExtractNativePC(jni, j_pc)->StartRtcEventLog(
+      absl::make_unique<RtcEventLogOutputFile>(file_descriptor, max_size),
+      output_period_ms);
 }
 
 static void JNI_PeerConnection_StopRtcEventLog(

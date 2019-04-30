@@ -247,6 +247,7 @@ class WebRtcVideoEngineTest : public ::testing::Test {
 
   void ExpectRtpCapabilitySupport(const char* uri, bool supported) const;
 
+  rtc::AutoThread main_thread_;
   // Has to be the first one, so it is initialized before the call or there is a
   // race condition in the clock access.
   rtc::ScopedFakeClock fake_clock_;

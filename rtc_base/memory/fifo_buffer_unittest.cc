@@ -11,11 +11,13 @@
 #include <string.h>
 
 #include "rtc_base/memory/fifo_buffer.h"
+#include "rtc_base/thread.h"
 #include "test/gtest.h"
 
 namespace rtc {
 
 TEST(FifoBufferTest, TestAll) {
+  AutoThread main;
   const size_t kSize = 16;
   const char in[kSize * 2 + 1] = "0123456789ABCDEFGHIJKLMNOPQRSTUV";
   char out[kSize * 2];
@@ -231,6 +233,7 @@ TEST(FifoBufferTest, TestAll) {
 }
 
 TEST(FifoBufferTest, FullBufferCheck) {
+  AutoThread main;
   FifoBuffer buff(10);
   buff.ConsumeWriteBuffer(10);
 
@@ -240,6 +243,7 @@ TEST(FifoBufferTest, FullBufferCheck) {
 }
 
 TEST(FifoBufferTest, WriteOffsetAndReadOffset) {
+  AutoThread main;
   const size_t kSize = 16;
   const char in[kSize * 2 + 1] = "0123456789ABCDEFGHIJKLMNOPQRSTUV";
   char out[kSize * 2];

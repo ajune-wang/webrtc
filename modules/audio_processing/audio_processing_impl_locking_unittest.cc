@@ -397,21 +397,27 @@ class AudioProcessingImplLockTest
   void TearDown() override;
 
   // Thread callback for the render thread
-  static bool RenderProcessorThreadFunc(void* context) {
-    return reinterpret_cast<AudioProcessingImplLockTest*>(context)
-        ->render_thread_state_.Process();
+  static void RenderProcessorThreadFunc(void* context) {
+    AudioProcessingImplLockTest* impl =
+        reinterpret_cast<AudioProcessingImplLockTest*>(context);
+    while (impl->render_thread_state_.Process()) {
+    }
   }
 
   // Thread callback for the capture thread
-  static bool CaptureProcessorThreadFunc(void* context) {
-    return reinterpret_cast<AudioProcessingImplLockTest*>(context)
-        ->capture_thread_state_.Process();
+  static void CaptureProcessorThreadFunc(void* context) {
+    AudioProcessingImplLockTest* impl =
+        reinterpret_cast<AudioProcessingImplLockTest*>(context);
+    while (impl->capture_thread_state_.Process()) {
+    }
   }
 
   // Thread callback for the stats thread
-  static bool StatsProcessorThreadFunc(void* context) {
-    return reinterpret_cast<AudioProcessingImplLockTest*>(context)
-        ->stats_thread_state_.Process();
+  static void StatsProcessorThreadFunc(void* context) {
+    AudioProcessingImplLockTest* impl =
+        reinterpret_cast<AudioProcessingImplLockTest*>(context);
+    while (impl->stats_thread_state_.Process()) {
+    }
   }
 
   // Tests whether all the required render and capture side calls have been

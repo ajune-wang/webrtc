@@ -1456,12 +1456,16 @@ int32_t AudioDeviceLinuxALSA::ErrorRecovery(int32_t error,
 //                                  Thread Methods
 // ============================================================================
 
-bool AudioDeviceLinuxALSA::PlayThreadFunc(void* pThis) {
-  return (static_cast<AudioDeviceLinuxALSA*>(pThis)->PlayThreadProcess());
+void AudioDeviceLinuxALSA::PlayThreadFunc(void* pThis) {
+  AudioDeviceLinuxALSA* device = static_cast<AudioDeviceLinuxALSA*>(pThis);
+  while (device->PlayThreadProcess()) {
+  }
 }
 
-bool AudioDeviceLinuxALSA::RecThreadFunc(void* pThis) {
-  return (static_cast<AudioDeviceLinuxALSA*>(pThis)->RecThreadProcess());
+void AudioDeviceLinuxALSA::RecThreadFunc(void* pThis) {
+  AudioDeviceLinuxALSA* device = static_cast<AudioDeviceLinuxALSA*>(pThis);
+  while (device->RecThreadProcess()) {
+  }
 }
 
 bool AudioDeviceLinuxALSA::PlayThreadProcess() {

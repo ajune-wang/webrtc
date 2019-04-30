@@ -24,9 +24,6 @@
 namespace rtc {
 
 // Callback function that the spawned thread will enter once spawned.
-// A return value of false is interpreted as that the function has no
-// more work to do and that the thread can be released.
-typedef bool (*ThreadRunFunctionDeprecated)(void*);
 typedef void (*ThreadRunFunction)(void*);
 
 enum ThreadPriority {
@@ -50,9 +47,6 @@ enum ThreadPriority {
 // called from the same thread, including instantiation.
 class PlatformThread {
  public:
-  PlatformThread(ThreadRunFunctionDeprecated func,
-                 void* obj,
-                 absl::string_view thread_name);
   PlatformThread(ThreadRunFunction func,
                  void* obj,
                  absl::string_view thread_name,
@@ -87,7 +81,6 @@ class PlatformThread {
  private:
   void Run();
 
-  ThreadRunFunctionDeprecated const run_function_deprecated_ = nullptr;
   ThreadRunFunction const run_function_ = nullptr;
   const ThreadPriority priority_ = kNormalPriority;
   void* const obj_;

@@ -439,12 +439,16 @@ void FileAudioDevice::AttachAudioBuffer(AudioDeviceBuffer* audioBuffer) {
   _ptrAudioBuffer->SetPlayoutChannels(0);
 }
 
-bool FileAudioDevice::PlayThreadFunc(void* pThis) {
-  return (static_cast<FileAudioDevice*>(pThis)->PlayThreadProcess());
+void FileAudioDevice::PlayThreadFunc(void* pThis) {
+  FileAudioDevice* device = static_cast<FileAudioDevice*>(pThis);
+  while (device->PlayThreadProcess()) {
+  }
 }
 
-bool FileAudioDevice::RecThreadFunc(void* pThis) {
-  return (static_cast<FileAudioDevice*>(pThis)->RecThreadProcess());
+void FileAudioDevice::RecThreadFunc(void* pThis) {
+  FileAudioDevice* device = static_cast<FileAudioDevice*>(pThis);
+  while (device->RecThreadProcess()) {
+  }
 }
 
 bool FileAudioDevice::PlayThreadProcess() {

@@ -351,8 +351,10 @@ bool VideoCaptureModuleV4L2::CaptureStarted() {
   return _captureStarted;
 }
 
-bool VideoCaptureModuleV4L2::CaptureThread(void* obj) {
-  return static_cast<VideoCaptureModuleV4L2*>(obj)->CaptureProcess();
+void VideoCaptureModuleV4L2::CaptureThread(void* obj) {
+  VideoCaptureModuleV4L2* capture = static_cast<VideoCaptureModuleV4L2*>(obj);
+  while (capture->CaptureProcess()) {
+  }
 }
 bool VideoCaptureModuleV4L2::CaptureProcess() {
   int retVal = 0;

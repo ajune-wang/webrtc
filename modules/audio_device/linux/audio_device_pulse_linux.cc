@@ -1977,12 +1977,16 @@ int32_t AudioDeviceLinuxPulse::ProcessRecordedData(int8_t* bufferData,
   return 0;
 }
 
-bool AudioDeviceLinuxPulse::PlayThreadFunc(void* pThis) {
-  return (static_cast<AudioDeviceLinuxPulse*>(pThis)->PlayThreadProcess());
+void AudioDeviceLinuxPulse::PlayThreadFunc(void* pThis) {
+  AudioDeviceLinuxPulse* device = static_cast<AudioDeviceLinuxPulse*>(pThis);
+  while (device->PlayThreadProcess()) {
+  }
 }
 
-bool AudioDeviceLinuxPulse::RecThreadFunc(void* pThis) {
-  return (static_cast<AudioDeviceLinuxPulse*>(pThis)->RecThreadProcess());
+void AudioDeviceLinuxPulse::RecThreadFunc(void* pThis) {
+  AudioDeviceLinuxPulse* device = static_cast<AudioDeviceLinuxPulse*>(pThis);
+  while (device->RecThreadProcess()) {
+  }
 }
 
 bool AudioDeviceLinuxPulse::PlayThreadProcess() {

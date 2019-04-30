@@ -549,15 +549,17 @@ class CallSimulator : public ::testing::TestWithParam<SimulationConfig> {
   }
 
   // Thread callback for the render thread.
-  static bool RenderProcessorThreadFunc(void* context) {
-    return reinterpret_cast<CallSimulator*>(context)
-        ->render_thread_state_->Process();
+  static void RenderProcessorThreadFunc(void* context) {
+    CallSimulator* call_simulator = reinterpret_cast<CallSimulator*>(context);
+    while (call_simulator->render_thread_state_->Process()) {
+    }
   }
 
   // Thread callback for the capture thread.
-  static bool CaptureProcessorThreadFunc(void* context) {
-    return reinterpret_cast<CallSimulator*>(context)
-        ->capture_thread_state_->Process();
+  static void CaptureProcessorThreadFunc(void* context) {
+    CallSimulator* call_simulator = reinterpret_cast<CallSimulator*>(context);
+    while (call_simulator->capture_thread_state_->Process()) {
+    }
   }
 
   // Start the threads used in the test.

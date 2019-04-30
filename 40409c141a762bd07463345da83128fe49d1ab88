@@ -22,6 +22,30 @@
       "revId": "40409c141a762bd07463345da83128fe49d1ab88",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "193a87b8_1df5bcad",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3772,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-30T08:28:51Z",
+      "side": 0,
+      "message": "* Björn, is there a reason for us to keep passing immediate for the old format?\n* When do we intend to drop the old format, btw? If soon, perhaps we could drop discussions of refactoring the code to avoid the code duplication surrounding this field trial.",
+      "parentUuid": "fdbb6b27_c5c46c69",
+      "range": {
+        "startLine": 3770,
+        "startChar": 0,
+        "endLine": 3772,
+        "endChar": 3
+      },
+      "revId": "40409c141a762bd07463345da83128fe49d1ab88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

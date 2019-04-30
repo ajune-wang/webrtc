@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b7bf41e_ee1218b9",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-30T08:28:51Z",
+      "side": 1,
+      "message": "rm?",
+      "revId": "05bca512a571f5e63fd9f99fa5dc9f0893e8d949",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f5c43d2_0e019f97",
+        "filename": "sdk/android/src/jni/pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-30T08:28:51Z",
+      "side": 1,
+      "message": "Add \"rtc_base/numerics/safe_conversions.h\"?",
+      "revId": "05bca512a571f5e63fd9f99fa5dc9f0893e8d949",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

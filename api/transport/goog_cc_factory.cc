@@ -16,6 +16,8 @@
 #include "modules/congestion_controller/goog_cc/goog_cc_network_control.h"
 
 namespace webrtc {
+GoogCcNetworkControllerFactory::GoogCcNetworkControllerFactory() = default;
+
 GoogCcNetworkControllerFactory::GoogCcNetworkControllerFactory(
     RtcEventLog* event_log)
     : event_log_(event_log) {}

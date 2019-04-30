@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5212734_90c63ecd",
+        "filename": "api/video_codecs/vp8_frame_buffer_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-30T17:57:56Z",
+      "side": 1,
+      "message": "Is this comment outdated? Or was the code that disables clamping in libvpx itself? (Note to self - I need to either update this comment, or a DCHECK that touches this variable.)",
+      "range": {
+        "startLine": 87,
+        "startChar": 22,
+        "endLine": 87,
+        "endChar": 48
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "939e0cf2_8cfe90b0",
+        "filename": "api/video_codecs/vp8_frame_buffer_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-30T17:57:56Z",
+      "side": 1,
+      "message": "I introduced so that UpdateConfiguration would no longer need to look at an instance of Vp8EncoderConfig as input, and would be able to just return its own override set.",
+      "range": {
+        "startLine": 103,
+        "startChar": 15,
+        "endLine": 103,
+        "endChar": 26
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6dd41dd0_0823a752",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-30T17:57:56Z",
+      "side": 1,
+      "message": "Erik, do you happen to know if we ever expect to keep using |this| after a call to Release(), say after calling InitEncode() again? If so, I might need to propagate the Release() signal to the frame buffer controller.",
+      "range": {
+        "startLine": 310,
+        "startChar": 4,
+        "endLine": 310,
+        "endChar": 31
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faea67a4_80cb7e8d",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-30T17:57:56Z",
+      "side": 1,
+      "message": "Piggy-backed this change.",
+      "range": {
+        "startLine": 390,
+        "startChar": 4,
+        "endLine": 390,
+        "endChar": 55
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69ed1798_de169545",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-30T17:57:56Z",
+      "side": 1,
+      "message": "This now writes a cumulative set of overrides, so it\u0027s now a member.",
+      "range": {
+        "startLine": 880,
+        "startChar": 23,
+        "endLine": 880,
+        "endChar": 45
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eef2cac3_116295c5",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-30T17:57:56Z",
+      "side": 1,
+      "message": "Erik, wdyt about renaming this (in a separate CL) to something like vpx_configs_, so as to make the difference from Vp8EncoderConfig more apparent?",
+      "range": {
+        "startLine": 121,
+        "startChar": 35,
+        "endLine": 121,
+        "endChar": 50
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fddd0b56_48c92072",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-30T17:57:56Z",
+      "side": 1,
+      "message": "Would be a DCHECK if not for a certain test - please see the comment in the next file.",
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7198c745_d1e3013f",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-30T17:57:56Z",
+      "side": 1,
+      "message": "This monstrosity intends to keep the semantic meaning of |config_updated_| from before this CL.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 43
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "31824873_b47fa5f2",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-30T17:57:56Z",
+      "side": 1,
+      "message": "Is this a realistic scenario? Do we need to support this? If not, a soft-failure in the previous file can be turned into a DCHECK.",
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

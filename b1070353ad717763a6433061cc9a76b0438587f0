@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2009d5b8_63907fcc",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-30T17:57:56Z",
+      "side": 0,
+      "message": "Please note that |i| is inferred from |stream_idx| inside of UpdateVpxConfiguration().",
+      "range": {
+        "startLine": 387,
+        "startChar": 44,
+        "endLine": 387,
+        "endChar": 45
+      },
+      "revId": "b1070353ad717763a6433061cc9a76b0438587f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c6ea90b_b581f502",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-04-30T17:57:56Z",
+      "side": 0,
+      "message": "This is a piggy-backed change. The pre-CL code seems to me like a bug (albeit probably only a theoretical one; see below). If DefaultTemporalLayers has a value in |new_bitrates_bps_|, it will return |true|, then reset |new_bitrates_bps_|. This means only one call to Encode() will see the new value. In practice, this is not a problem, since |new_bitrates_bps_| will only be set by OnRatesUpdated(), and LibvpxVp8Encoder writes to the permanent configuration after calling that. But still, this seems dangerous to me. Is there a reason which I am missing for applying the configuration only temporarily?",
+      "range": {
+        "startLine": 978,
+        "startChar": 0,
+        "endLine": 981,
+        "endChar": 36
+      },
+      "revId": "b1070353ad717763a6433061cc9a76b0438587f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

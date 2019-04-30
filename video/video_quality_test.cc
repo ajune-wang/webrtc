@@ -361,8 +361,6 @@ VideoQualityTest::VideoQualityTest(
 
   fec_controller_factory_ =
       std::move(injection_components_->fec_controller_factory);
-  network_state_predictor_factory_ =
-      std::move(injection_components_->network_state_predictor_factory);
   network_controller_factory_ =
       std::move(injection_components_->network_controller_factory);
 }

@@ -29,8 +29,9 @@ struct GoogCcFactoryConfig {
 class GoogCcNetworkControllerFactory
     : public NetworkControllerFactoryInterface {
  public:
+  GoogCcNetworkControllerFactory() = default;
   explicit GoogCcNetworkControllerFactory(RtcEventLog* event_log);
-  explicit GoogCcNetworkControllerFactory(
+  explicit RTC_DEPRECATED GoogCcNetworkControllerFactory(
       NetworkStatePredictorFactoryInterface* network_state_predictor_factory);
 
   explicit GoogCcNetworkControllerFactory(GoogCcFactoryConfig config);

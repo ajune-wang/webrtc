@@ -174,7 +174,6 @@ public class PeerConnectionFactory {
     @Nullable private AudioProcessingFactory audioProcessingFactory;
     @Nullable private FecControllerFactoryFactoryInterface fecControllerFactoryFactory;
     @Nullable private NetworkControllerFactoryFactory networkControllerFactoryFactory;
-    @Nullable private NetworkStatePredictorFactoryFactory networkStatePredictorFactoryFactory;
     @Nullable private MediaTransportFactoryFactory mediaTransportFactoryFactory;
 
     private Builder() {}
@@ -240,12 +239,6 @@ public class PeerConnectionFactory {
       return this;
     }
 
-    public Builder setNetworkStatePredictorFactoryFactory(
-        NetworkStatePredictorFactoryFactory networkStatePredictorFactoryFactory) {
-      this.networkStatePredictorFactoryFactory = networkStatePredictorFactoryFactory;
-      return this;
-    }
-
     /** Sets a MediaTransportFactoryFactory for a PeerConnectionFactory. */
     public Builder setMediaTransportFactoryFactory(
         MediaTransportFactoryFactory mediaTransportFactoryFactory) {
@@ -269,9 +262,6 @@ public class PeerConnectionFactory {
           networkControllerFactoryFactory == null
               ? 0
               : networkControllerFactoryFactory.createNativeNetworkControllerFactory(),
-          networkStatePredictorFactoryFactory == null
-              ? 0
-              : networkStatePredictorFactoryFactory.createNativeNetworkStatePredictorFactory(),
           mediaTransportFactoryFactory == null
               ? 0
               : mediaTransportFactoryFactory.createNativeMediaTransportFactory());

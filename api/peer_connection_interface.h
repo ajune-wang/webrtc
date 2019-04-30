@@ -83,7 +83,6 @@
 #include "api/jsep.h"
 #include "api/media_stream_interface.h"
 #include "api/media_transport_interface.h"
-#include "api/network_state_predictor.h"
 #include "api/rtc_error.h"
 #include "api/rtc_event_log_output.h"
 #include "api/rtp_receiver_interface.h"
@@ -1251,8 +1250,6 @@ struct PeerConnectionFactoryDependencies final {
   std::unique_ptr<CallFactoryInterface> call_factory;
   std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory;
   std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory;
-  std::unique_ptr<NetworkStatePredictorFactoryInterface>
-      network_state_predictor_factory;
   std::unique_ptr<NetworkControllerFactoryInterface> network_controller_factory;
   std::unique_ptr<MediaTransportFactory> media_transport_factory;
 };
@@ -1422,20 +1419,6 @@ CreateModularPeerConnectionFactory(
     std::unique_ptr<cricket::MediaEngineInterface> media_engine,
     std::unique_ptr<CallFactoryInterface> call_factory,
     std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory);
-
-rtc::scoped_refptr<PeerConnectionFactoryInterface>
-CreateModularPeerConnectionFactory(
-    rtc::Thread* network_thread,
-    rtc::Thread* worker_thread,
-    rtc::Thread* signaling_thread,
-    std::unique_ptr<cricket::MediaEngineInterface> media_engine,
-    std::unique_ptr<CallFactoryInterface> call_factory,
-    std::unique_ptr<RtcEventLogFactoryInterface> event_log_factory,
-    std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory,
-    std::unique_ptr<NetworkStatePredictorFactoryInterface>
-        network_state_predictor_factory,
-    std::unique_ptr<NetworkControllerFactoryInterface>
-        network_controller_factory = nullptr);
 
 rtc::scoped_refptr<PeerConnectionFactoryInterface>
 CreateModularPeerConnectionFactory(

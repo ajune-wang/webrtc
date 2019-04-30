@@ -115,6 +115,7 @@ class SignalThreadTest : public ::testing::Test, public sigslot::has_slots<> {
     EXPECT_EQ_WAIT(deleted, thread_deleted_, timeout);
   }
 
+  AutoThread wrapped_thread;
   Thread* main_thread_;
   SlowSignalThread* thread_;
   bool called_release_;

@@ -108,6 +108,7 @@ class ChannelManagerTest : public ::testing::Test {
   }
 
   std::unique_ptr<DtlsTransportInternal> rtp_dtls_transport_;
+  rtc::AutoThread main_thread_;
   std::unique_ptr<rtc::Thread> network_;
   std::unique_ptr<rtc::Thread> worker_;
   std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>

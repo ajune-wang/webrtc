@@ -220,6 +220,7 @@ bool TestConnectivity(const SocketAddress& src, const IPAddress& dst) {
 }
 
 void TestPhysicalInternal(const SocketAddress& int_addr) {
+  AutoThread main;
   BasicNetworkManager network_manager;
   network_manager.StartUpdating();
   // Process pending messages so the network list is updated.
@@ -292,6 +293,7 @@ class TestVirtualSocketServer : public VirtualSocketServer {
 }  // namespace
 
 void TestVirtualInternal(int family) {
+  AutoThread main;
   std::unique_ptr<TestVirtualSocketServer> int_vss(
       new TestVirtualSocketServer());
   std::unique_ptr<TestVirtualSocketServer> ext_vss(

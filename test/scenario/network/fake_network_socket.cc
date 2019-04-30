@@ -56,6 +56,9 @@ bool FakeNetworkSocket::ProcessIo() {
     pending_read_events_count_--;
     RTC_DCHECK_GE(pending_read_events_count_, 0);
   }
+  if (!endpoint_->Enabled()) {
+    return true;
+  }
   SignalReadEvent(this);
   return true;
 }
@@ -111,6 +114,10 @@ int FakeNetworkSocket::SendTo(const void* pv,
                               const rtc::SocketAddress& addr) {
   RTC_CHECK(!local_addr_.IsNil())
       << "Socket have to be bind to some local address";
+  if (!endpoint_->Enabled()) {
+    error_ = ENETUNREACH;
+    return -1;
+  }
   rtc::CopyOnWriteBuffer packet(static_cast<const uint8_t*>(pv), cb);
   endpoint_->SendPacket(local_addr_, addr, packet);
   return cb;
@@ -176,7 +183,6 @@ int FakeNetworkSocket::Close() {
 }
 
 int FakeNetworkSocket::GetError() const {
-  RTC_CHECK(error_ == 0);
   return error_;
 }
 

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a1eda99_84d1bd0a",
+        "filename": "modules/video_capture/linux/video_capture_linux.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-02T14:01:33Z",
+      "side": 1,
+      "message": "It seemed bad to hold a mutex over a select call with a timeout of a second, so I moved the CritScope a bit down.",
+      "range": {
+        "startLine": 375,
+        "startChar": 0,
+        "endLine": 375,
+        "endChar": 62
+      },
+      "revId": "d8e5b5cba96b961f2b4f655b361e05aaf8911561",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

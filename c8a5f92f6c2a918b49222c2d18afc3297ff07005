@@ -22,6 +22,30 @@
       "revId": "c8a5f92f6c2a918b49222c2d18afc3297ff07005",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "790b065a_081f0efa",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-05-02T17:00:05Z",
+      "side": 1,
+      "message": "As I understand red and ulpfec should be enabled/disbaled together.",
+      "parentUuid": "8a2c6360_b5fc2217",
+      "range": {
+        "startLine": 73,
+        "startChar": 15,
+        "endLine": 73,
+        "endChar": 61
+      },
+      "revId": "c8a5f92f6c2a918b49222c2d18afc3297ff07005",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

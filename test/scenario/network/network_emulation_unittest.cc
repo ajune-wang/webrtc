@@ -32,7 +32,8 @@ constexpr int kStatsWaitTimeoutMs = 1000;
 
 class SocketReader : public sigslot::has_slots<> {
  public:
-  explicit SocketReader(rtc::AsyncSocket* socket) : socket_(socket) {
+  explicit SocketReader(rtc::AsyncSocket* socket, rtc::Thread* network_thread)
+      : socket_(socket), network_thread_(network_thread) {
     socket_->SignalReadEvent.connect(this, &SocketReader::OnReadEvent);
     size_ = 128 * 1024;
     buf_ = new char[size_];
@@ -41,12 +42,13 @@ class SocketReader : public sigslot::has_slots<> {
 
   void OnReadEvent(rtc::AsyncSocket* socket) {
     RTC_DCHECK(socket_ == socket);
-    int64_t timestamp;
-    len_ = socket_->Recv(buf_, size_, &timestamp);
-    {
+    network_thread_->PostTask(RTC_FROM_HERE, [this]() {
+      int64_t timestamp;
+      len_ = socket_->Recv(buf_, size_, &timestamp);
+
       rtc::CritScope crit(&lock_);
       received_count_++;
-    }
+    });
   }
 
   int ReceivedCount() {
@@ -55,7 +57,8 @@ class SocketReader : public sigslot::has_slots<> {
   }
 
  private:
-  rtc::AsyncSocket* socket_;
+  rtc::AsyncSocket* const socket_;
+  rtc::Thread* const network_thread_;
   char* buf_;
   size_t size_;
   int len_;
@@ -203,8 +206,8 @@ TEST(NetworkEmulationManagerTest, Run) {
     auto* s2 = nt2->network_thread()->socketserver()->CreateAsyncSocket(
         AF_INET, SOCK_DGRAM);
 
-    SocketReader r1(s1);
-    SocketReader r2(s2);
+    SocketReader r1(s1, nt1->network_thread());
+    SocketReader r2(s2, nt2->network_thread());
 
     rtc::SocketAddress a1(alice_endpoint->GetPeerLocalAddress(), 0);
     rtc::SocketAddress a2(bob_endpoint->GetPeerLocalAddress(), 0);
@@ -216,8 +219,10 @@ TEST(NetworkEmulationManagerTest, Run) {
     s2->Connect(s1->GetLocalAddress());
 
     for (uint64_t i = 0; i < 1000; i++) {
-      s1->Send(data.data(), data.size());
-      s2->Send(data.data(), data.size());
+      nt1->network_thread()->PostTask(
+          RTC_FROM_HERE, [&]() { s1->Send(data.data(), data.size()); });
+      nt2->network_thread()->PostTask(
+          RTC_FROM_HERE, [&]() { s2->Send(data.data(), data.size()); });
     }
 
     rtc::Event wait;
@@ -278,8 +283,8 @@ TEST(NetworkEmulationManagerTest, ThoughputStats) {
   auto* s2 = nt2->network_thread()->socketserver()->CreateAsyncSocket(
       AF_INET, SOCK_DGRAM);
 
-  SocketReader r1(s1);
-  SocketReader r2(s2);
+  SocketReader r1(s1, nt1->network_thread());
+  SocketReader r2(s2, nt2->network_thread());
 
   rtc::SocketAddress a1(alice_endpoint->GetPeerLocalAddress(), 0);
   rtc::SocketAddress a2(bob_endpoint->GetPeerLocalAddress(), 0);
@@ -293,8 +298,10 @@ TEST(NetworkEmulationManagerTest, ThoughputStats) {
   // Send 10 packets for 1
   rtc::Event wait;
   for (uint64_t i = 0; i < 11; i++) {
-    s1->Send(data.data(), data.size());
-    s2->Send(data.data(), data.size());
+    nt1->network_thread()->PostTask(
+        RTC_FROM_HERE, [&]() { s1->Send(data.data(), data.size()); });
+    nt2->network_thread()->PostTask(
+        RTC_FROM_HERE, [&]() { s2->Send(data.data(), data.size()); });
     wait.Wait(100);
   }
   EXPECT_EQ(r1.ReceivedCount(), 11);

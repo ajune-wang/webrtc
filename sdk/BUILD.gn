@@ -916,6 +916,7 @@ if (is_ios || is_mac) {
         "../api/video_codecs:video_codecs_api",
         "../common_video",
         "../logging:rtc_event_log_impl_base",
+        "../logging:rtc_event_log_impl_output",
         "../media:rtc_media_base",
         "../modules:module_api",
         "../modules/audio_device:audio_device_api",

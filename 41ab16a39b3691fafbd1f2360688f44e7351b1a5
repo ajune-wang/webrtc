@@ -238,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "66da0732_d995a462",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-02T21:28:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32ce3dcd_38b86176",
+      "range": {
+        "startLine": 310,
+        "startChar": 4,
+        "endLine": 310,
+        "endChar": 31
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "faea67a4_80cb7e8d",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 1
@@ -355,6 +379,30 @@
     },
     {
       "key": {
+        "uuid": "6611d8c3_3534d04c",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-02T21:28:29Z",
+      "side": 1,
+      "message": "Great. Done: https://webrtc-review.googlesource.com/c/src/+/135040",
+      "parentUuid": "b32297f2_f9064149",
+      "range": {
+        "startLine": 121,
+        "startChar": 35,
+        "endLine": 121,
+        "endChar": 50
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fddd0b56_48c92072",
         "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
         "patchSetId": 1
@@ -369,6 +417,24 @@
       "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67b74fbb_dfc6aae2",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-02T21:28:29Z",
+      "side": 1,
+      "message": "Resolved.",
+      "parentUuid": "fddd0b56_48c92072",
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -427,6 +493,24 @@
       "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f39ca7b_524cde3e",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-02T21:28:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06d65e66_6cab4c6c",
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "73806d67a6f15e32e606d637a4702441e254400c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2963635_212154f5",
+        "filename": "rtc_base/unittest_main.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-02T14:15:16Z",
+      "side": 1,
+      "message": "I would say that depends on how many tests would need to use AutoThread manually (both the absolute number and the percentage). From this CL the numbers look low enough that having it in specific tests looks promising, but if you need to add it in 100 more places in order to get rid of it centrally the scales have probably tipped.",
+      "parentUuid": "8ff3be7f_abdece4d",
+      "range": {
+        "startLine": 128,
+        "startChar": 2,
+        "endLine": 128,
+        "endChar": 30
+      },
+      "revId": "73806d67a6f15e32e606d637a4702441e254400c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

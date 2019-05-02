@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "32ce3dcd_38b86176",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-02T20:45:54Z",
+      "side": 1,
+      "message": "I think that comment is just outdated, we can remove \"Don\u0027t call Release() if\n  // |pending_encoder_creation_| as that means this is a new encoder\n  // that has not yet been initialized.\"\n\nAnd to clarify, the encoder won\u0027t be used after Release() unless a new call to InitEncode() is made first.",
+      "parentUuid": "3e5a83ad_9af842f8",
+      "range": {
+        "startLine": 310,
+        "startChar": 4,
+        "endLine": 310,
+        "endChar": 31
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "faea67a4_80cb7e8d",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 1
@@ -307,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "b32297f2_f9064149",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-02T20:45:54Z",
+      "side": 1,
+      "message": "sgtm",
+      "parentUuid": "7df75082_c0a8acba",
+      "range": {
+        "startLine": 121,
+        "startChar": 35,
+        "endLine": 121,
+        "endChar": 50
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fddd0b56_48c92072",
         "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
         "patchSetId": 1
@@ -358,6 +406,24 @@
       "writtenOn": "2019-04-30T17:57:56Z",
       "side": 1,
       "message": "Is this a realistic scenario? Do we need to support this? If not, a soft-failure in the previous file can be turned into a DCHECK.",
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06d65e66_6cab4c6c",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-02T20:45:54Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s a realistic scenario. Currently OnRatesUpdates() is always called first in InitEncode(). I would go for the dcheck.",
+      "parentUuid": "31824873_b47fa5f2",
       "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

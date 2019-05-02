@@ -45,6 +45,30 @@
       "revId": "b1070353ad717763a6433061cc9a76b0438587f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf8f36c0_5a1f503d",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-02T20:45:54Z",
+      "side": 0,
+      "message": "This was probably made for screenshare qp-boosting, where in some cases we want to change the maxQP settings for just one frame - so one call to Encode(). Frames after that should revert back to whatever maxQP was used before. That part seems unnecessary now since the default maxQP is remembered and reset within screenshare_layers.\n\nI think settings things permanently like you do is better.",
+      "parentUuid": "2c6ea90b_b581f502",
+      "range": {
+        "startLine": 978,
+        "startChar": 0,
+        "endLine": 981,
+        "endChar": 36
+      },
+      "revId": "b1070353ad717763a6433061cc9a76b0438587f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

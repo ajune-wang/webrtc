@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0a8e25c_c70dde88",
+        "filename": "rtc_base/platform_thread.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-02T14:11:04Z",
+      "side": 1,
+      "message": "Can the windows logic dealing with the |stop_| flag be deleted too?",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 74
+      },
+      "revId": "5109ccd8964e6539f346fbe5db5e4471b729c867",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

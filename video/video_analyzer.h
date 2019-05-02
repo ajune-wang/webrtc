@@ -180,7 +180,7 @@ class VideoAnalyzer : public PacketReceiver,
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   void PollStats();
-  static bool FrameComparisonThread(void* obj);
+  static void FrameComparisonThread(void* obj);
   bool CompareFrames();
   bool PopComparison(FrameComparison* comparison);
   // Increment counter for number of frames received for comparison.

@@ -46,6 +46,30 @@
       "revId": "40409c141a762bd07463345da83128fe49d1ab88",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eff68e3e_cd04ab15",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3772,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-02T09:07:29Z",
+      "side": 0,
+      "message": "The reason would be avoiding changes to existing applications without adding any benefit. Since we have now tested emitting events periodically more extensively (and will want to make this change eventually), it might be fine to change the default.\n\nOn the other hand, I don\u0027t think there is a lot of code duplication, so either approach is fine by me.",
+      "parentUuid": "193a87b8_1df5bcad",
+      "range": {
+        "startLine": 3770,
+        "startChar": 0,
+        "endLine": 3772,
+        "endChar": 3
+      },
+      "revId": "40409c141a762bd07463345da83128fe49d1ab88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

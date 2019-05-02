@@ -205,7 +205,7 @@ class PeerConnectionE2EQualityTest
   void OnTrackCallback(rtc::scoped_refptr<RtpTransceiverInterface> transceiver,
                        std::vector<VideoConfig> remote_video_configs);
   // Have to be run on the signaling thread.
-  void SetupCallOnSignalingThread();
+  void SetupCallOnSignalingThread(const RunParams& run_params);
   void TearDownCallOnSignalingThread();
   std::vector<rtc::scoped_refptr<FrameGeneratorCapturerVideoTrackSource>>
   MaybeAddMedia(TestPeer* peer);
@@ -214,7 +214,8 @@ class PeerConnectionE2EQualityTest
   std::unique_ptr<test::FrameGenerator> CreateFrameGenerator(
       const VideoConfig& video_config);
   void MaybeAddAudio(TestPeer* peer);
-  void SetupCall();
+  void SetupCall(const RunParams& run_params);
+  void ExchangeOfferAnswer(const RunParams& run_params);
   void StartVideo(
       const std::vector<
           rtc::scoped_refptr<FrameGeneratorCapturerVideoTrackSource>>& sources);

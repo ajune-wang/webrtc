@@ -519,8 +519,10 @@ void VideoAnalyzer::PollStats() {
       [this]() { PollStats(); }, kSendStatsPollingIntervalMs);
 }
 
-bool VideoAnalyzer::FrameComparisonThread(void* obj) {
-  return static_cast<VideoAnalyzer*>(obj)->CompareFrames();
+void VideoAnalyzer::FrameComparisonThread(void* obj) {
+  VideoAnalyzer* analyzer = static_cast<VideoAnalyzer*>(obj);
+  while (analyzer->CompareFrames()) {
+  }
 }
 
 bool VideoAnalyzer::CompareFrames() {

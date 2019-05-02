@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "f91f3b49_3e15e759",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-05-02T13:15:59Z",
+      "side": 1,
+      "message": "Shouldn\u0027t you use cricket::kUlpfecCodecName instead of redefining your own?",
+      "revId": "53318446068b6ffbc7d993fcdd57ed75fe1dc82b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "328963d8_f4ddfdcb",
         "filename": "test/pc/e2e/sdp/sdp_changer.cc",
         "patchSetId": 14
@@ -19,6 +36,23 @@
         "endLine": 54,
         "endChar": 24
       },
+      "revId": "53318446068b6ffbc7d993fcdd57ed75fe1dc82b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "195b3c28_05101ca7",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-05-02T13:15:59Z",
+      "side": 1,
+      "message": "Not sure how you intend to use this, but you could have an option for disabling RTX too.",
       "revId": "53318446068b6ffbc7d993fcdd57ed75fe1dc82b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5ee342d_ca945ad3",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-05-02T14:22:11Z",
+      "side": 1,
+      "message": "I am not that familiar with this code but should all_packets_ be updated also for delta_size zero (as above)?\n\nPerhaps add a test.",
+      "range": {
+        "startLine": 492,
+        "startChar": 10,
+        "endLine": 492,
+        "endChar": 22
+      },
+      "revId": "cc9ad74cfbf7c0430688f6197ff977e2fcbcd796",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

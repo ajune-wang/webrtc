@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4db2d9b5_48dfc569",
+        "filename": "api/video_codecs/vp8_frame_buffer_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-02T14:54:23Z",
+      "side": 1,
+      "message": "https://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/codecs/vp8/screenshare_layers.cc?l\u003d567\u0026rcl\u003db93c4e622f85350e7d00da73bad7c74f6b23412c\nIt might be possible to get rid of this, I don\u0027t know; I am not familiar with that quality-boost code. Maybe leave this for another day? This CL is already kind of cramped. :-)",
+      "parentUuid": "faf7e16b_9e52258c",
+      "range": {
+        "startLine": 87,
+        "startChar": 22,
+        "endLine": 87,
+        "endChar": 48
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "939e0cf2_8cfe90b0",
         "filename": "api/video_codecs/vp8_frame_buffer_controller.h",
         "patchSetId": 1
@@ -95,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fac42fdd_0c90564e",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-02T14:54:23Z",
+      "side": 1,
+      "message": "rc_min_quantizer was read by ScreenshareLayers, but never written by it. ScreenshareLayers now gets |rc_min_quantizer| and |rc_max_quantizer| via SetQpLimits(). It can still override |rc_max_quantizer| as before.",
+      "parentUuid": "d0c55f77_0984b996",
+      "range": {
+        "startLine": 182,
+        "startChar": 49,
+        "endLine": 182,
+        "endChar": 52
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6dd41dd0_0823a752",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 1
@@ -130,6 +178,30 @@
       "side": 1,
       "message": "Seems that could happen here: https://cs.chromium.org/chromium/src/third_party/webrtc/video/video_stream_encoder.cc?l\u003d748\u0026rcl\u003da0421d3d0cd7fac9e178900cbd59f5a2006615a2",
       "parentUuid": "6dd41dd0_0823a752",
+      "range": {
+        "startLine": 310,
+        "startChar": 4,
+        "endLine": 310,
+        "endChar": 31
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e5a83ad_9af842f8",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-02T14:54:23Z",
+      "side": 1,
+      "message": "Thanks.\n\nPlease note the confusing comment there:\n  // Reset (release existing encoder) if one exists and anything except\n  // start bitrate or max framerate has changed. Don\u0027t call Release() if\n  // |pending_encoder_creation_| as that means this is a new encoder\n  // that has not yet been initialized.\nIt seems like it is possible for ReleaseEncoder() to be called when |pending_encoder_creation_| is true. This is unrelated to this CL, though. Is that code perhaps your domain, or should I hunt for someone to pass this on to?\n\nWith regards to the current CL, I see I am already resetting |frame_buffer_controller_| below, so I guess we\u0027re good on that front.",
+      "parentUuid": "2cfe716f_6a9a22a2",
       "range": {
         "startLine": 310,
         "startChar": 4,

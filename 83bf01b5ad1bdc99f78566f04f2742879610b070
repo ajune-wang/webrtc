@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "52df006c_0b42494c",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-05-02T12:59:33Z",
+      "side": 1,
+      "message": "I did it here, because endpoint_-\u003eEnabled() have to invoked on network thread and socket is run on this thread. I can move it to endpoint (I agree, it makes sense), but it will require to replace simple thread checker with mutex lock, so it is why I put it here originally.\n\nWDYT?",
+      "parentUuid": "f42ebdf0_67b2d24a",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 3
+      },
+      "revId": "83bf01b5ad1bdc99f78566f04f2742879610b070",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8e6f7bf_743eda9a",
         "filename": "test/scenario/network/fake_network_socket.cc",
         "patchSetId": 3

@@ -235,6 +235,30 @@
       "revId": "65fb0bf5f558a06bed80d31c611628c7b72a30c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbbe43d6_e1639879",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-05-02T12:50:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9ee3ca8_90479468",
+      "range": {
+        "startLine": 126,
+        "startChar": 33,
+        "endLine": 126,
+        "endChar": 50
+      },
+      "revId": "65fb0bf5f558a06bed80d31c611628c7b72a30c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

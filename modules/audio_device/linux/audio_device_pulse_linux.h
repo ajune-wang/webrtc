@@ -254,8 +254,8 @@ class AudioDeviceLinuxPulse : public AudioDeviceGeneric {
   void PaLock();
   void PaUnLock();
 
-  static bool RecThreadFunc(void*);
-  static bool PlayThreadFunc(void*);
+  static void RecThreadFunc(void*);
+  static void PlayThreadFunc(void*);
   bool RecThreadProcess();
   bool PlayThreadProcess();
 

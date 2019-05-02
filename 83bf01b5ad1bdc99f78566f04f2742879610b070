@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "39e16060_de83302f",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-02T13:44:09Z",
+      "side": 1,
+      "message": "I\u0027d say, go the other way, make sure that the enabled state is always accessed on the network task queue. This seems achievable by making UpdateNetworksOnce run on the task queue and post a task with the resulting std::vector\u003crtc::Network*\u003e to the network thread to run MergeNetworkList and MaybeSignalNetworksChanged.",
+      "parentUuid": "52df006c_0b42494c",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 3
+      },
+      "revId": "83bf01b5ad1bdc99f78566f04f2742879610b070",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8e6f7bf_743eda9a",
         "filename": "test/scenario/network/fake_network_socket.cc",
         "patchSetId": 3

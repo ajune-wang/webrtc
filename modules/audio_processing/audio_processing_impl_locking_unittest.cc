@@ -397,21 +397,27 @@ class AudioProcessingImplLockTest
   void TearDown() override;
 
   // Thread callback for the render thread
-  static bool RenderProcessorThreadFunc(void* context) {
-    return reinterpret_cast<AudioProcessingImplLockTest*>(context)
-        ->render_thread_state_.Process();
+  static void RenderProcessorThreadFunc(void* context) {
+    AudioProcessingImplLockTest* impl =
+        reinterpret_cast<AudioProcessingImplLockTest*>(context);
+    while (impl->render_thread_state_.Process()) {
+    }
   }
 
   // Thread callback for the capture thread
-  static bool CaptureProcessorThreadFunc(void* context) {
-    return reinterpret_cast<AudioProcessingImplLockTest*>(context)
-        ->capture_thread_state_.Process();
+  static void CaptureProcessorThreadFunc(void* context) {
+    AudioProcessingImplLockTest* impl =
+        reinterpret_cast<AudioProcessingImplLockTest*>(context);
+    while (impl->capture_thread_state_.Process()) {
+    }
   }
 
   // Thread callback for the stats thread
-  static bool StatsProcessorThreadFunc(void* context) {
-    return reinterpret_cast<AudioProcessingImplLockTest*>(context)
-        ->stats_thread_state_.Process();
+  static void StatsProcessorThreadFunc(void* context) {
+    AudioProcessingImplLockTest* impl =
+        reinterpret_cast<AudioProcessingImplLockTest*>(context);
+    while (impl->stats_thread_state_.Process()) {
+    }
   }
 
   // Tests whether all the required render and capture side calls have been
@@ -424,11 +430,8 @@ class AudioProcessingImplLockTest
   // Start the threads used in the test.
   void StartThreads() {
     render_thread_.Start();
-    render_thread_.SetPriority(rtc::kRealtimePriority);
     capture_thread_.Start();
-    capture_thread_.SetPriority(rtc::kRealtimePriority);
     stats_thread_.Start();
-    stats_thread_.SetPriority(rtc::kNormalPriority);
   }
 
   // Event handlers for the test.
@@ -487,9 +490,18 @@ void PopulateAudioFrame(AudioFrame* frame,
 }
 
 AudioProcessingImplLockTest::AudioProcessingImplLockTest()
-    : render_thread_(RenderProcessorThreadFunc, this, "render"),
-      capture_thread_(CaptureProcessorThreadFunc, this, "capture"),
-      stats_thread_(StatsProcessorThreadFunc, this, "stats"),
+    : render_thread_(RenderProcessorThreadFunc,
+                     this,
+                     "render",
+                     rtc::kRealtimePriority),
+      capture_thread_(CaptureProcessorThreadFunc,
+                      this,
+                      "capture",
+                      rtc::kRealtimePriority),
+      stats_thread_(StatsProcessorThreadFunc,
+                    this,
+                    "stats",
+                    rtc::kNormalPriority),
       apm_(AudioProcessingBuilder().Create()),
       render_thread_state_(kMaxFrameSize,
                            &rand_gen_,

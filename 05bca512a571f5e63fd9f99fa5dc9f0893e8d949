@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1aac8d56_2ff2cb26",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-02T09:49:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b7bf41e_ee1218b9",
+      "revId": "05bca512a571f5e63fd9f99fa5dc9f0893e8d949",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f5c43d2_0e019f97",
         "filename": "sdk/android/src/jni/pc/peer_connection.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "05bca512a571f5e63fd9f99fa5dc9f0893e8d949",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27dacc2e_61db0bc9",
+        "filename": "sdk/android/src/jni/pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-02T09:49:56Z",
+      "side": 1,
+      "message": "Done. And similarly in thew objc glue.",
+      "parentUuid": "8f5c43d2_0e019f97",
+      "revId": "05bca512a571f5e63fd9f99fa5dc9f0893e8d949",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

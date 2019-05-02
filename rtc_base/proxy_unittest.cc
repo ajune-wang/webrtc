@@ -35,6 +35,7 @@ class ProxyTest : public ::testing::Test {
   rtc::SocketServer* ss() { return ss_.get(); }
 
  private:
+  rtc::AutoThread main;
   std::unique_ptr<rtc::SocketServer> ss_;
   rtc::AutoSocketServerThread thread_;
   std::unique_ptr<rtc::SocksProxyServer> socks_;

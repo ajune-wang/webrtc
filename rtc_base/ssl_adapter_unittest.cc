@@ -386,6 +386,7 @@ class SSLAdapterTestBase : public ::testing::Test, public sigslot::has_slots<> {
   }
 
  protected:
+  rtc::AutoThread main;
   const rtc::SSLMode ssl_mode_;
 
   std::unique_ptr<rtc::VirtualSocketServer> vss_;

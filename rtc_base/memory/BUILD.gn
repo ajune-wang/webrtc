@@ -59,6 +59,7 @@ rtc_source_set("unittests") {
     ":aligned_array",
     ":aligned_malloc",
     ":fifo_buffer",
+    "..:rtc_base",
     "../../test:test_support",
   ]
 }

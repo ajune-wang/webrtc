@@ -13,6 +13,10 @@
 
 #include "absl/memory/memory.h"
 #include "api/test/simulated_network.h"
+#include "api/units/data_rate.h"
+#include "api/units/data_size.h"
+#include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "call/simulated_network.h"
 #include "rtc_base/event.h"
 #include "rtc_base/gunit.h"
@@ -147,6 +151,10 @@ EmulatedNetworkNode* CreateEmulatedNodeWithDefaultBuiltInConfig(
       absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
 }
 
+Timestamp Now() {
+  return Timestamp::us(Clock::GetRealTimeClock()->TimeInMicroseconds());
+}
+
 }  // namespace
 
 using ::testing::_;
@@ -252,7 +260,7 @@ TEST(NetworkEmulationManagerTest, Run) {
   ASSERT_EQ_WAIT(received_stats_count.load(), 2, kStatsWaitTimeoutMs);
 }
 
-TEST(NetworkEmulationManagerTest, ThoughputStats) {
+TEST(NetworkEmulationManagerTest, ThroughputStats) {
   NetworkEmulationManagerImpl network_manager;
 
   EmulatedNetworkNode* alice_node = network_manager.CreateEmulatedNode(
@@ -292,6 +300,7 @@ TEST(NetworkEmulationManagerTest, ThoughputStats) {
 
   // Send 10 packets for 1
   rtc::Event wait;
+  Timestamp start = Now();
   for (uint64_t i = 0; i < 11; i++) {
     s1->Send(data.data(), data.size());
     s2->Send(data.data(), data.size());
@@ -305,10 +314,17 @@ TEST(NetworkEmulationManagerTest, ThoughputStats) {
 
   std::atomic<int> received_stats_count{0};
   nt1->GetStats([&](EmulatedNetworkStats st) {
+    // Because of starvation of network task queue it can happen, that
+    // (last packet time - first packet time) will be much longer, then 1 second
+    // as it expected to be from the send side. Because of it we will measure
+    // expected bitrate as data divided on time from start sending to stats
+    // received. Stats received is good approximation, because stats are
+    // populated on the same task queue.
+    TimeDelta duration = Now() - start;
+    DataRate expected_send_rate = DataSize::bytes(1000) / duration;
     EXPECT_EQ(st.packets_sent, 11l);
     EXPECT_EQ(st.bytes_sent.bytes(), single_packet_size * 11l);
-    EXPECT_NEAR(st.AverageSendRate().bps(), DataRate::bytes_per_sec(1000).bps(),
-                1000);
+    EXPECT_NEAR(st.AverageSendRate().bps(), expected_send_rate.bps(), 2000);
     received_stats_count++;
   });
   ASSERT_EQ_WAIT(received_stats_count.load(), 1, kStatsWaitTimeoutMs);

@@ -63,6 +63,10 @@ rtc_source_set("network_emulation_unittest") {
   deps = [
     ":emulated_network",
     "../../../api:simulated_network_api",
+    "../../../api/units:data_rate",
+    "../../../api/units:data_size",
+    "../../../api/units:time_delta",
+    "../../../api/units:timestamp",
     "../../../call:simulated_network",
     "../../../rtc_base:gunit_helpers",
     "../../../rtc_base:logging",

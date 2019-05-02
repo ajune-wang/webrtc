@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ff3be7f_abdece4d",
+        "filename": "rtc_base/unittest_main.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-02T12:04:55Z",
+      "side": 1,
+      "message": "Should we aim to have AutoThread here, and delete in specific tests, or the other way around?",
+      "range": {
+        "startLine": 128,
+        "startChar": 2,
+        "endLine": 128,
+        "endChar": 30
+      },
+      "revId": "73806d67a6f15e32e606d637a4702441e254400c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

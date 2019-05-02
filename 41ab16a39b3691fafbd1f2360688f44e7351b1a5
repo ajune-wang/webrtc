@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "faf7e16b_9e52258c",
+        "filename": "api/video_codecs/vp8_frame_buffer_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-05-02T13:06:59Z",
+      "side": 1,
+      "message": "I think we always set a qpMax, so the comment is probably outdated.\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/media/engine/webrtc_video_engine.cc?l\u003d2143\u0026rcl\u003dc80e4d756e61773cf56f83873eae60b163ce288f\n\nSince we no longer propagate rc_min_quantizer here, can we stop propagating rc_max_quantizer too?",
+      "parentUuid": "c5212734_90c63ecd",
+      "range": {
+        "startLine": 87,
+        "startChar": 22,
+        "endLine": 87,
+        "endChar": 48
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "939e0cf2_8cfe90b0",
         "filename": "api/video_codecs/vp8_frame_buffer_controller.h",
         "patchSetId": 1
@@ -48,6 +72,29 @@
     },
     {
       "key": {
+        "uuid": "d0c55f77_0984b996",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-05-02T13:06:59Z",
+      "side": 1,
+      "message": "Was rc_min_quantizer removed since it was always set to 2?",
+      "range": {
+        "startLine": 182,
+        "startChar": 49,
+        "endLine": 182,
+        "endChar": 52
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6dd41dd0_0823a752",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 1
@@ -59,6 +106,30 @@
       "writtenOn": "2019-04-30T17:57:56Z",
       "side": 1,
       "message": "Erik, do you happen to know if we ever expect to keep using |this| after a call to Release(), say after calling InitEncode() again? If so, I might need to propagate the Release() signal to the frame buffer controller.",
+      "range": {
+        "startLine": 310,
+        "startChar": 4,
+        "endLine": 310,
+        "endChar": 31
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cfe716f_6a9a22a2",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-05-02T13:06:59Z",
+      "side": 1,
+      "message": "Seems that could happen here: https://cs.chromium.org/chromium/src/third_party/webrtc/video/video_stream_encoder.cc?l\u003d748\u0026rcl\u003da0421d3d0cd7fac9e178900cbd59f5a2006615a2",
+      "parentUuid": "6dd41dd0_0823a752",
       "range": {
         "startLine": 310,
         "startChar": 4,
@@ -128,6 +199,30 @@
       "writtenOn": "2019-04-30T17:57:56Z",
       "side": 1,
       "message": "Erik, wdyt about renaming this (in a separate CL) to something like vpx_configs_, so as to make the difference from Vp8EncoderConfig more apparent?",
+      "range": {
+        "startLine": 121,
+        "startChar": 35,
+        "endLine": 121,
+        "endChar": 50
+      },
+      "revId": "41ab16a39b3691fafbd1f2360688f44e7351b1a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7df75082_c0a8acba",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-05-02T13:06:59Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "eef2cac3_116295c5",
       "range": {
         "startLine": 121,
         "startChar": 35,

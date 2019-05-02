@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f42ebdf0_67b2d24a",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-02T10:49:40Z",
+      "side": 1,
+      "message": "Instead of doing this, make it so that EmulatedEndpoint::OnPacketReceived drops the packet before even forwarding it to the socket.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 3
+      },
+      "revId": "83bf01b5ad1bdc99f78566f04f2742879610b070",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8e6f7bf_743eda9a",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-02T10:49:40Z",
+      "side": 1,
+      "message": "Why not ENETDOWN?",
+      "range": {
+        "startLine": 120,
+        "startChar": 13,
+        "endLine": 120,
+        "endChar": 24
+      },
+      "revId": "83bf01b5ad1bdc99f78566f04f2742879610b070",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

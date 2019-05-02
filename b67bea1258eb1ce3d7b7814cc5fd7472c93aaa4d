@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "146ea1d8_e8138178",
+        "filename": "rtc_base/platform_thread.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-05-02T14:26:57Z",
+      "side": 0,
+      "message": "thanks!!!",
+      "revId": "b67bea1258eb1ce3d7b7814cc5fd7472c93aaa4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93c033db_dc77bdbf",
+        "filename": "rtc_base/platform_thread.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-05-02T14:26:57Z",
+      "side": 0,
+      "message": "w00t!",
+      "range": {
+        "startLine": 29,
+        "startChar": 15,
+        "endLine": 29,
+        "endChar": 42
+      },
+      "revId": "b67bea1258eb1ce3d7b7814cc5fd7472c93aaa4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

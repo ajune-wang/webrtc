@@ -7,6 +7,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+// LEMUR WAS HERE
+
 #include "modules/video_coding/codecs/vp8/default_temporal_layers.h"
 
 #include <stdlib.h>

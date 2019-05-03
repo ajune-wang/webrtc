@@ -46,6 +46,30 @@
       "revId": "c8a5f92f6c2a918b49222c2d18afc3297ff07005",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56c1fca7_37f85d24",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-05-03T07:58:36Z",
+      "side": 1,
+      "message": "Ulpfec is an forward error correction algorithm+packet structure. Red is used to multiplex it into RTP stream. So, as Artem said, they need to be enabled together.",
+      "parentUuid": "790b065a_081f0efa",
+      "range": {
+        "startLine": 73,
+        "startChar": 15,
+        "endLine": 73,
+        "endChar": 61
+      },
+      "revId": "c8a5f92f6c2a918b49222c2d18afc3297ff07005",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

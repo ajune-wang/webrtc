@@ -22,6 +22,30 @@
       "revId": "ba4765c30221ec38ba89f7800bd2511312f089c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd8d8a3c_b9bef94d",
+        "filename": "api/video/video_frame_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-05-03T09:41:14Z",
+      "side": 1,
+      "message": "Just, the way it is, it looks very strange to return nullptr. I feel some emphasis on this being overriden is needed. Changed to your suggestion.",
+      "parentUuid": "36d11cd9_0a3fb34f",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 61
+      },
+      "revId": "ba4765c30221ec38ba89f7800bd2511312f089c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

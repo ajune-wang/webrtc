@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "78c8a9a6_c72be5ef",
+        "filename": "modules/video_capture/linux/video_capture_linux.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-03T07:53:01Z",
+      "side": 1,
+      "message": "I guess the intention is to yield to other threads before the next round through the loop. If and why that\u0027s necessary, I don\u0027t know.\n\nLine has been there since beginning of git history in 2011.",
+      "parentUuid": "d7744ba7_8ddff2cb",
+      "range": {
+        "startLine": 422,
+        "startChar": 8,
+        "endLine": 422,
+        "endChar": 9
+      },
+      "revId": "5109ccd8964e6539f346fbe5db5e4471b729c867",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b0a8e25c_c70dde88",
         "filename": "rtc_base/platform_thread.cc",
         "patchSetId": 9

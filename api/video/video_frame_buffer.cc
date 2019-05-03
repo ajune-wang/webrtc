@@ -14,16 +14,7 @@
 
 namespace webrtc {
 
-rtc::scoped_refptr<I420BufferInterface> VideoFrameBuffer::GetI420() {
-  if (type() == Type::kI420 || type() == Type::kI420A) {
-    return static_cast<I420BufferInterface*>(this);
-  } else {
-    return nullptr;
-  }
-}
-
-rtc::scoped_refptr<const I420BufferInterface> VideoFrameBuffer::GetI420()
-    const {
+const I420BufferInterface* VideoFrameBuffer::GetI420() const {
   if (type() == Type::kI420 || type() == Type::kI420A) {
     return static_cast<const I420BufferInterface*>(this);
   } else {
@@ -31,29 +22,14 @@ rtc::scoped_refptr<const I420BufferInterface> VideoFrameBuffer::GetI420()
   }
 }
 
-I420ABufferInterface* VideoFrameBuffer::GetI420A() {
-  RTC_CHECK(type() == Type::kI420A);
-  return static_cast<I420ABufferInterface*>(this);
-}
-
 const I420ABufferInterface* VideoFrameBuffer::GetI420A() const {
   RTC_CHECK(type() == Type::kI420A);
   return static_cast<const I420ABufferInterface*>(this);
 }
 
-I444BufferInterface* VideoFrameBuffer::GetI444() {
-  RTC_CHECK(type() == Type::kI444);
-  return static_cast<I444BufferInterface*>(this);
-}
-
 const I444BufferInterface* VideoFrameBuffer::GetI444() const {
   RTC_CHECK(type() == Type::kI444);
   return static_cast<const I444BufferInterface*>(this);
-}
-
-I010BufferInterface* VideoFrameBuffer::GetI010() {
-  RTC_CHECK(type() == Type::kI010);
-  return static_cast<I010BufferInterface*>(this);
 }
 
 const I010BufferInterface* VideoFrameBuffer::GetI010() const {

@@ -912,7 +912,7 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
 
   // Keep reference to buffer until encode completes.
   rtc::scoped_refptr<I420BufferInterface> i420_buffer;
-  rtc::scoped_refptr<I010BufferInterface> i010_buffer;
+  rtc::scoped_refptr<const I010BufferInterface> i010_buffer;
   switch (profile_) {
     case VP9Profile::kProfile0: {
       i420_buffer = input_image.video_frame_buffer()->ToI420();

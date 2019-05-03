@@ -10,6 +10,10 @@
 
 #include "modules/audio_mixer/audio_frame_manipulator.h"
 
+#if defined(__clang__) && (defined(__aarch64__) || defined(__ARMEL__))
+#include <arm_neon.h>
+#endif
+
 #include "audio/utility/audio_frame_operations.h"
 #include "rtc_base/checks.h"
 
@@ -22,12 +26,39 @@ uint32_t AudioMixerCalculateEnergy(const AudioFrame& audio_frame) {
 
   uint32_t energy = 0;
   const int16_t* frame_data = audio_frame.data();
+
+#if defined(__clang__) && (defined(__aarch64__) || defined(__ARMEL__))
+  const int16_t* p = frame_data;
+  const int16_t* end =
+      frame_data + audio_frame.samples_per_channel_ * audio_frame.num_channels_;
+  int32x4_t sumvec = vdupq_n_s32(0);
+  int16x4_t vec4;
+#pragma unroll 4
+  for (; p + 4 < end; p += 4) {
+    vec4 = vld1_s16(p);
+    sumvec = vmlal_s16(sumvec, vec4, vec4);
+  }
+
+  int32x2_t r = vadd_s32(vget_high_s32(sumvec), vget_low_s32(sumvec));
+
+  energy = (uint32_t)vget_lane_s32(vpadd_s32(r, r), 0);
+  while (p < end) {
+    energy += (int32_t)(*p) * (int32_t)(*p);
+    ++p;
+  }
+#else
+#ifdef __clang__
+#pragma unroll 4
+#elif defined(__GNUC__) && __GNUC__ > 8
+#pragma GCC unroll 8
+#endif
   for (size_t position = 0;
        position < audio_frame.samples_per_channel_ * audio_frame.num_channels_;
        position++) {
     // TODO(aleloi): This can overflow. Convert to floats.
-    energy += frame_data[position] * frame_data[position];
+    energy += (int32_t)frame_data[position] * (int32_t)frame_data[position];
   }
+#endif
   return energy;
 }
 

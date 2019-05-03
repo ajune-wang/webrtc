@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60ce954a_126504cb",
+        "filename": "api/video/video_frame_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-03T09:11:25Z",
+      "side": 1,
+      "message": "Re-reviewing this, since this is now a virtual method, I think it\u0027s better to have the default implementation unconditionally return nullptr, and override it in the I420BufferInterface subclass. Then you won\u0027t need any static_cast, and no explicit type tests.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 1
+      },
+      "revId": "7683dff57154013dad8d1c4121aff4fc6e4d61df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6881d7e7_b339aeab",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-03T09:11:25Z",
+      "side": 1,
+      "message": "This assigns a raw pointer to a scoped_refptr, which works, but isn\u0027t recommended. I guess the way to avoid it is to have\n\nconst I010BufferInterface i010_buffer;\nscoped_refptr\u003cI010BufferInterface\u003e i010_copy;\n\nand the two cases\n\n  i010_buffer \u003d input_image.video_frame_buffer()-\u003eGetI010();\n\nor\n  i010_copy \u003d I010Buffer::Copy(*input_image.video_frame_buffer()-\u003eToI420());\n  i010_buffer \u003d i010_copy.get();\n\nwhich is a bit awkward. We could also consider adding a ToI010() method, with default implementation in terms of ToI420(). \n\nFine with me to leave for some later cl, but you could add a comment on this improper assignment.",
+      "range": {
+        "startLine": 934,
+        "startChar": 10,
+        "endLine": 934,
+        "endChar": 68
+      },
+      "revId": "7683dff57154013dad8d1c4121aff4fc6e4d61df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

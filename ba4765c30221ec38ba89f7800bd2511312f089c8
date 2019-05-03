@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36d11cd9_0a3fb34f",
+        "filename": "api/video/video_frame_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-03T09:35:38Z",
+      "side": 1,
+      "message": "I don\u0027t think you need any comment here; if you really want one, I\u0027d suggest \"Overridden by subclasses that can return an I420 buffer without any conversion, in particular, I420BufferInterface.\"",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 61
+      },
+      "revId": "ba4765c30221ec38ba89f7800bd2511312f089c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

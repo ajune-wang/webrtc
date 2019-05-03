@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b91d53f7_1ddd08c0",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-03T08:27:34Z",
+      "side": 1,
+      "message": "I think \"Force\" is to strong a word; you\u0027re setting the codec preferences, but you\u0027ll only end up with the codec(s) if they\u0027re negotiated. SetPeerCodecPreferences()?\n\nIf you want to ensure Force then you should comment (or even DCHECK) at the calling place above that the codec will be forced because both alice and bob have the same preferences and capabilities.",
+      "revId": "a206d09cc9891dbe34743a2371603534bf24081b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cda3515b_499e4c7a",
+        "filename": "test/pc/e2e/sdp/sdp_changer.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-03T08:27:34Z",
+      "side": 1,
+      "message": "\"Force\" sounds like this function is doing something, but it\u0027s just a lookup from name etc to codec capabilities. I suggest renaming it to something like ObtainCodecCapabilities().\n\nSince this can return multiple codecs I would document that if multiple codecs match (for example different profiles of H.264) they will be returned in |supported_codecs| order. This is not an implementation detail; it will affect what is negotiated. Also comment that FEC and RTX is added to the end of the list, even though the order of that part doesn\u0027t matter AFAIK",
+      "revId": "a206d09cc9891dbe34743a2371603534bf24081b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

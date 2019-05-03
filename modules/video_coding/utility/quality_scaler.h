@@ -93,6 +93,11 @@ class QualityScaler {
   std::unique_ptr<QpSmoother> qp_smoother_high_ RTC_GUARDED_BY(&task_checker_);
   std::unique_ptr<QpSmoother> qp_smoother_low_ RTC_GUARDED_BY(&task_checker_);
   bool observed_enough_frames_ RTC_GUARDED_BY(&task_checker_);
+
+  const size_t min_frames_needed_;
+  const double scale_factor_;
+  const absl::optional<double> fast_scale_factor_;
+  bool last_adapted_;
 };
 }  // namespace webrtc
 

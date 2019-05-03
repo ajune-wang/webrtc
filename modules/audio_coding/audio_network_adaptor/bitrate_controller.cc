@@ -32,7 +32,9 @@ BitrateController::Config::~Config() = default;
 BitrateController::BitrateController(const Config& config)
     : config_(config),
       bitrate_bps_(config_.initial_bitrate_bps),
-      frame_length_ms_(config_.initial_frame_length_ms) {
+      frame_length_ms_(config_.initial_frame_length_ms),
+      bwe_with_overhead_enabled_(
+          webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")) {
   RTC_DCHECK_GT(bitrate_bps_, 0);
   RTC_DCHECK_GT(frame_length_ms_, 0);
 }
@@ -52,12 +54,10 @@ void BitrateController::UpdateNetworkMetrics(
 void BitrateController::MakeDecision(AudioEncoderRuntimeConfig* config) {
   // Decision on |bitrate_bps| should not have been made.
   RTC_DCHECK(!config->bitrate_bps);
-  if (target_audio_bitrate_bps_ && overhead_bytes_per_packet_) {
-    // Current implementation of BitrateController can only work when
-    // |metrics.target_audio_bitrate_bps| includes overhead is enabled. This is
-    // currently governed by the following field trial.
-    RTC_DCHECK(
-        webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead"));
+  // Current implementation of BitrateController can only work when
+  // |metrics.target_audio_bitrate_bps| includes overhead is enabled.
+  if (bwe_with_overhead_enabled_ && target_audio_bitrate_bps_ &&
+      overhead_bytes_per_packet_) {
     if (config->frame_length_ms)
       frame_length_ms_ = *config->frame_length_ms;
     int offset = config->last_fl_change_increase

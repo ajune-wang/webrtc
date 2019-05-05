@@ -276,8 +276,16 @@ float AudioEncoderOpusImpl::NewPacketLossRateOptimizer::OptimizePacketLossRate(
 
 void AudioEncoderOpusImpl::AppendSupportedEncoders(
     std::vector<AudioCodecSpec>* specs) {
-  const SdpAudioFormat fmt = {
-      "opus", 48000, 2, {{"minptime", "10"}, {"useinbandfec", "1"}}};
+  const SdpAudioFormat kOpusWithoutFec(
+      {"opus", 48000, 2, {{"minptime", "10"}}});
+  const SdpAudioFormat kOpusWithFec(
+      {"opus", 48000, 2, {{"minptime", "10"}, {"useinbandfec", "1"}}});
+
+  constexpr char kOpusFecOffFieldTrial[] = "WebRTC-Audio-OpusFecOffByDefault";
+  const SdpAudioFormat& fmt =
+      !webrtc::field_trial::IsEnabled(kOpusFecOffFieldTrial) ? kOpusWithoutFec
+                                                             : kOpusWithFec;
+
   const AudioCodecInfo info = QueryAudioEncoder(*SdpToConfig(fmt));
   specs->push_back({fmt, info});
 }

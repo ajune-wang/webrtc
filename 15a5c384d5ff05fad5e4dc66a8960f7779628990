@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1772b317_096a8d42",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-06T17:08:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "726f4186_0ad68a4e",
+      "range": {
+        "startLine": 567,
+        "startChar": 2,
+        "endLine": 567,
+        "endChar": 41
+      },
+      "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36191f79_4701f076",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f56a372_1f4d2b41",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-06T17:08:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36191f79_4701f076",
+      "range": {
+        "startLine": 580,
+        "startChar": 8,
+        "endLine": 580,
+        "endChar": 35
+      },
+      "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7611f846_f5fc7a00",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-06T17:08:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b64afc30_d63e921e",
+      "range": {
+        "startLine": 804,
+        "startChar": 3,
+        "endLine": 804,
+        "endChar": 24
+      },
+      "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6291c47f_5fc7f509",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "237f56ed_f1a811ef",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-06T17:08:56Z",
+      "side": 1,
+      "message": "No, it comes from SendTimeHistory and is set OnPacketAdded, so I think a DCHECK should suffice.",
+      "parentUuid": "6291c47f_5fc7f509",
+      "range": {
+        "startLine": 828,
+        "startChar": 60,
+        "endLine": 828,
+        "endChar": 64
+      },
+      "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95588e6b_60990e16",
         "filename": "call/rtp_video_sender_unittest.cc",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2019-05-06T13:07:54Z",
       "side": 1,
       "message": "Readding the inline comments it looks like the test tests more than this. Could this test be split into separate test focused on one aspect at a time with clearer test names and simplified code.\n\nIf not, maybe just see if the name can be made more generic and add a more descriptive comment.",
+      "range": {
+        "startLine": 390,
+        "startChar": 25,
+        "endLine": 390,
+        "endChar": 63
+      },
+      "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3941fcb_bc2fa0be",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-06T17:08:56Z",
+      "side": 1,
+      "message": "Yes, this is really an integration test that verifies interaction with the retransmission logic.\nIt\u0027s really difficult to write a unit test here since the rtp modules currently can\u0027t be mocked. I don\u0027t see clear ways to break this down into smaller parts without major work to make RtpSenderVideo more testable.\nAnyway, an integration test still felt useful, so that\u0027s what I did. \nI\u0027ve updated the name a comments somewhat.",
+      "parentUuid": "95588e6b_60990e16",
       "range": {
         "startLine": 390,
         "startChar": 25,
@@ -180,6 +300,30 @@
         "startChar": 6,
         "endLine": 325,
         "endChar": 36
+      },
+      "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e6111e10_42f40535",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-06T17:08:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db7c2d98_ff971e6f",
+      "range": {
+        "startLine": 325,
+        "startChar": 6,
+        "endLine": 325,
+        "endChar": 20
       },
       "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

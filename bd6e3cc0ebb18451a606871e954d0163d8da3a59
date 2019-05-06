@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e915b5e4_2aefd65e",
+        "filename": "api/rtc_event_log_output_file_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-06T09:25:41Z",
+      "side": 1,
+      "message": "Presubmit thinks this is bad, because it uses std streams onlines 46 and 47. I\u0027ve tried to just silence the warning with a // no-presubmit-check TODO(webrtc:8982), but haven\u0027t found a good place (the obvious places results in very long lines. Maybe we should add a ReadFile utility in test/testsupport/file_utils.cc? \n\nAccording to stack overflow, the current code seems to be the most reasonable and idiomatic way to do it in C++, although it\u0027s \"surprisingly inefficient\" and the extra parentheses are needed to avoid the \"most vexing parse\", see https://stackoverflow.com/questions/2602013/read-whole-ascii-file-into-c-stdstring. Lovely language, C++ ;-)",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 59
+      },
+      "revId": "bd6e3cc0ebb18451a606871e954d0163d8da3a59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

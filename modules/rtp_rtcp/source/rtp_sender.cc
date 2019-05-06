@@ -532,13 +532,15 @@ void RTPSender::OnReceivedNack(
 }
 
 // Called from pacer when we can send the packet.
-bool RTPSender::TimeToSendPacket(uint32_t ssrc,
-                                 uint16_t sequence_number,
-                                 int64_t capture_time_ms,
-                                 bool retransmission,
-                                 const PacedPacketInfo& pacing_info) {
-  if (!SendingMedia())
-    return true;
+absl::optional<bool> RTPSender::TimeToSendPacket(
+    uint32_t ssrc,
+    uint16_t sequence_number,
+    int64_t capture_time_ms,
+    bool retransmission,
+    const PacedPacketInfo& pacing_info) {
+  if (!SendingMedia()) {
+    return absl::nullopt;
+  }
 
   std::unique_ptr<RtpPacketToSend> packet;
   if (ssrc == SSRC()) {
@@ -548,8 +550,8 @@ bool RTPSender::TimeToSendPacket(uint32_t ssrc,
   }
 
   if (!packet) {
-    // Packet cannot be found or was resend too recently.
-    return true;
+    // Packet cannot be found or was resent too recently.
+    return absl::nullopt;
   }
 
   return PrepareAndSendPacket(

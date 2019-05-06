@@ -43,11 +43,11 @@ static const int kTargetBitrateBps = 800000;
 class MockPacedSenderCallback : public PacedSender::PacketSender {
  public:
   MOCK_METHOD5(TimeToSendPacket,
-               bool(uint32_t ssrc,
-                    uint16_t sequence_number,
-                    int64_t capture_time_ms,
-                    bool retransmission,
-                    const PacedPacketInfo& pacing_info));
+               absl::optional<bool>(uint32_t ssrc,
+                                    uint16_t sequence_number,
+                                    int64_t capture_time_ms,
+                                    bool retransmission,
+                                    const PacedPacketInfo& pacing_info));
   MOCK_METHOD2(TimeToSendPadding,
                size_t(size_t bytes, const PacedPacketInfo& pacing_info));
 };
@@ -56,11 +56,12 @@ class PacedSenderPadding : public PacedSender::PacketSender {
  public:
   PacedSenderPadding() : padding_sent_(0) {}
 
-  bool TimeToSendPacket(uint32_t ssrc,
-                        uint16_t sequence_number,
-                        int64_t capture_time_ms,
-                        bool retransmission,
-                        const PacedPacketInfo& pacing_info) override {
+  absl::optional<bool> TimeToSendPacket(
+      uint32_t ssrc,
+      uint16_t sequence_number,
+      int64_t capture_time_ms,
+      bool retransmission,
+      const PacedPacketInfo& pacing_info) override {
     return true;
   }
 
@@ -82,11 +83,12 @@ class PacedSenderProbing : public PacedSender::PacketSender {
  public:
   PacedSenderProbing() : packets_sent_(0), padding_sent_(0) {}
 
-  bool TimeToSendPacket(uint32_t ssrc,
-                        uint16_t sequence_number,
-                        int64_t capture_time_ms,
-                        bool retransmission,
-                        const PacedPacketInfo& pacing_info) override {
+  absl::optional<bool> TimeToSendPacket(
+      uint32_t ssrc,
+      uint16_t sequence_number,
+      int64_t capture_time_ms,
+      bool retransmission,
+      const PacedPacketInfo& pacing_info) override {
     packets_sent_++;
     return true;
   }

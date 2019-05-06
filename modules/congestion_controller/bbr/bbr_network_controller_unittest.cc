@@ -115,7 +115,7 @@ TEST_F(BbrNetworkControllerTest, SendsConfigurationOnNetworkRouteChanged) {
 
 // Bandwidth estimation is updated when feedbacks are received.
 // Feedbacks which show an increasing delay cause the estimation to be reduced.
-TEST_F(BbrNetworkControllerTest, UpdatesTargetSendRate) {
+TEST_F(BbrNetworkControllerTest, DISABLED_UpdatesTargetSendRate) {
   BbrNetworkControllerFactory factory;
   Scenario s("bbr_unit/updates_rate", false);
   CallClientConfig config;

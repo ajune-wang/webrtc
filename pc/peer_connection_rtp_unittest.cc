@@ -129,6 +129,7 @@ class PeerConnectionRtpBaseTest : public ::testing::Test {
   }
 
  protected:
+  rtc::AutoThread main_thread_;
   const SdpSemantics sdp_semantics_;
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_;
 

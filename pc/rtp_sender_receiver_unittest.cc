@@ -471,6 +471,7 @@ class RtpSenderReceiverTest
   }
 
  protected:
+  rtc::AutoThread main_thread_;
   rtc::Thread* const network_thread_;
   rtc::Thread* const worker_thread_;
   webrtc::RtcEventLogNullImpl event_log_;

@@ -24,13 +24,10 @@ namespace rtc {
 class RTCCertificateGeneratorFixture : public RTCCertificateGeneratorCallback {
  public:
   RTCCertificateGeneratorFixture()
-      : signaling_thread_(Thread::Current()),
-        worker_thread_(Thread::Create()),
-        generate_async_completed_(false) {
-    RTC_CHECK(signaling_thread_);
+      : worker_thread_(new Thread()), generate_async_completed_(false) {
     RTC_CHECK(worker_thread_->Start());
     generator_.reset(
-        new RTCCertificateGenerator(signaling_thread_, worker_thread_.get()));
+        new RTCCertificateGenerator(&signaling_thread_, worker_thread_.get()));
   }
   ~RTCCertificateGeneratorFixture() override {}
 
@@ -38,19 +35,19 @@ class RTCCertificateGeneratorFixture : public RTCCertificateGeneratorCallback {
   RTCCertificate* certificate() const { return certificate_.get(); }
 
   void OnSuccess(const scoped_refptr<RTCCertificate>& certificate) override {
-    RTC_CHECK(signaling_thread_->IsCurrent());
+    RTC_CHECK(signaling_thread_.IsCurrent());
     RTC_CHECK(certificate);
     certificate_ = certificate;
     generate_async_completed_ = true;
   }
   void OnFailure() override {
-    RTC_CHECK(signaling_thread_->IsCurrent());
+    RTC_CHECK(signaling_thread_.IsCurrent());
     certificate_ = nullptr;
     generate_async_completed_ = true;
   }
 
   bool GenerateAsyncCompleted() {
-    RTC_CHECK(signaling_thread_->IsCurrent());
+    RTC_CHECK(signaling_thread_.IsCurrent());
     if (generate_async_completed_) {
       // Reset flag so that future generation requests are not considered done.
       generate_async_completed_ = false;
@@ -60,7 +57,7 @@ class RTCCertificateGeneratorFixture : public RTCCertificateGeneratorCallback {
   }
 
  protected:
-  Thread* const signaling_thread_;
+  AutoThread signaling_thread_;
   std::unique_ptr<Thread> worker_thread_;
   std::unique_ptr<RTCCertificateGenerator> generator_;
   scoped_refptr<RTCCertificate> certificate_;

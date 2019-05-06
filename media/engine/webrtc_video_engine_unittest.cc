@@ -247,6 +247,7 @@ class WebRtcVideoEngineTest : public ::testing::Test {
 
   void ExpectRtpCapabilitySupport(const char* uri, bool supported) const;
 
+  rtc::AutoThread main_thread_;
   // Has to be the first one, so it is initialized before the call or there is a
   // race condition in the clock access.
   rtc::ScopedFakeClock fake_clock_;
@@ -1020,6 +1021,7 @@ TEST_F(WebRtcVideoEngineTest, GetSourcesWithNonExistingSsrc) {
 }
 
 TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, NullFactories) {
+  rtc::AutoThread main_thread;
   std::unique_ptr<webrtc::VideoEncoderFactory> encoder_factory;
   std::unique_ptr<webrtc::VideoDecoderFactory> decoder_factory;
   WebRtcVideoEngine engine(std::move(encoder_factory),
@@ -1028,6 +1030,7 @@ TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, NullFactories) {
 }
 
 TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, EmptyFactories) {
+  rtc::AutoThread main_thread;
   // |engine| take ownership of the factories.
   webrtc::MockVideoEncoderFactory* encoder_factory =
       new webrtc::MockVideoEncoderFactory();
@@ -1047,6 +1050,7 @@ TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, EmptyFactories) {
 // from the engine and that we will create a Vp8 encoder and decoder using the
 // new factories.
 TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, Vp8) {
+  rtc::AutoThread main_thread;
   // |engine| take ownership of the factories.
   webrtc::MockVideoEncoderFactory* encoder_factory =
       new webrtc::MockVideoEncoderFactory();
@@ -1166,6 +1170,7 @@ TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, Vp8) {
 
 // Test behavior when decoder factory fails to create a decoder (returns null).
 TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, NullDecoder) {
+  rtc::AutoThread main_thread;
   // |engine| take ownership of the factories.
   webrtc::MockVideoEncoderFactory* encoder_factory =
       new webrtc::MockVideoEncoderFactory();
@@ -1457,6 +1462,7 @@ class WebRtcVideoChannelBaseTest : public ::testing::Test {
     return cricket::StreamParams::CreateLegacy(kSsrc);
   }
 
+  rtc::AutoThread main_thread_;
   webrtc::RtcEventLogNullImpl event_log_;
   std::unique_ptr<webrtc::Call> call_;
   std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>

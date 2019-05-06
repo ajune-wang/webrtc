@@ -114,6 +114,7 @@ class FakeAdmTest : public ::testing::Test, public webrtc::AudioTransport {
     return min_buffer_size;
   }
 
+  rtc::AutoThread main_thread_;
   rtc::CriticalSection crit_;
 
   int push_iterations_;

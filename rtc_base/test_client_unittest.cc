@@ -39,6 +39,7 @@ namespace {
   }
 
 void TestUdpInternal(const SocketAddress& loopback) {
+  AutoThread wrapper_thread;
   Thread* main = Thread::Current();
   AsyncSocket* socket =
       main->socketserver()->CreateAsyncSocket(loopback.family(), SOCK_DGRAM);
@@ -53,6 +54,7 @@ void TestUdpInternal(const SocketAddress& loopback) {
 }
 
 void TestTcpInternal(const SocketAddress& loopback) {
+  AutoThread wrapper_thread;
   Thread* main = Thread::Current();
   TestEchoServer server(main, loopback);
 

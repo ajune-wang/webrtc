@@ -19,12 +19,16 @@
 #include "p2p/base/fake_ice_transport.h"
 #include "p2p/base/fake_port_allocator.h"
 #include "rtc_base/gunit.h"
+#include "rtc_base/thread.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 
-class IceTransportTest : public ::testing::Test {};
+class IceTransportTest : public ::testing::Test {
+ private:
+  rtc::AutoThread main_thread_;
+};
 
 TEST_F(IceTransportTest, CreateNonSelfDeletingTransport) {
   auto cricket_transport =

@@ -178,6 +178,7 @@ TEST(NetworkEmulationManagerTest, GeneratedIpv6AddressDoesNotCollide) {
 }
 
 TEST(NetworkEmulationManagerTest, Run) {
+  rtc::AutoThread main_thread;
   NetworkEmulationManagerImpl network_manager;
 
   EmulatedNetworkNode* alice_node = network_manager.CreateEmulatedNode(
@@ -253,6 +254,7 @@ TEST(NetworkEmulationManagerTest, Run) {
 }
 
 TEST(NetworkEmulationManagerTest, ThoughputStats) {
+  rtc::AutoThread main_thread;
   NetworkEmulationManagerImpl network_manager;
 
   EmulatedNetworkNode* alice_node = network_manager.CreateEmulatedNode(

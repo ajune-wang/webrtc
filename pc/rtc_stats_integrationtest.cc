@@ -191,6 +191,7 @@ class RTCStatsIntegrationTest : public ::testing::Test {
     return stats_obtainer->report();
   }
 
+  rtc::AutoThread main_thread_;
   // |network_thread_| uses |virtual_socket_server_| so they must be
   // constructed/destructed in the correct order.
   rtc::VirtualSocketServer virtual_socket_server_;

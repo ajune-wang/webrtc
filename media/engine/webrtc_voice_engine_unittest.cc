@@ -765,6 +765,7 @@ class WebRtcVoiceEngineTestFake : public ::testing::Test {
   }
 
  protected:
+  rtc::AutoThread main_thread_;
   std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory_;
   StrictMock<webrtc::test::MockAudioDeviceModule> adm_;
   rtc::scoped_refptr<StrictMock<webrtc::test::MockAudioProcessing>> apm_;

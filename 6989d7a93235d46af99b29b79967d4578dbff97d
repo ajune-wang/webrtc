@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70b3aae7_865549e8",
+        "filename": "sdk/objc/components/audio/RTCAudioSession+Configuration.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5752
+      },
+      "writtenOn": "2019-05-06T18:06:00Z",
+      "side": 1,
+      "message": "suggest looking at the new property method here instead together with whether or not the audio session was successfully activate",
+      "range": {
+        "startLine": 131,
+        "startChar": 9,
+        "endLine": 131,
+        "endChar": 14
+      },
+      "revId": "6989d7a93235d46af99b29b79967d4578dbff97d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83fb9e6e_7d355630",
+        "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5752
+      },
+      "writtenOn": "2019-05-06T18:06:00Z",
+      "side": 1,
+      "message": "This class primarily exists as a proxy class to AVAudioSession, imo we shouldn\u0027t be modifying behavior of forwarded methods",
+      "range": {
+        "startLine": 427,
+        "startChar": 2,
+        "endLine": 427,
+        "endChar": 9
+      },
+      "revId": "6989d7a93235d46af99b29b79967d4578dbff97d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

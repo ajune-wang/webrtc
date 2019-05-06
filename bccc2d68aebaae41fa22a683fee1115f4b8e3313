@@ -45,6 +45,29 @@
       "revId": "bccc2d68aebaae41fa22a683fee1115f4b8e3313",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e816572a_ea53ced9",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-05-06T18:05:10Z",
+      "side": 1,
+      "message": "would be good if we had compile time structs that generate maps.\n\nE.g. Vp8MapBuilder.set_profile(0).set_something_else(xxx).build();\n\nThis way you cannot make a mistake by making a typo in the map (e.g.: was it profile-id or profile_id).\n\nDo we validate the correctness of the map somehow in runtime? If I make a typo, will I get a nice error?",
+      "range": {
+        "startLine": 123,
+        "startChar": 43,
+        "endLine": 123,
+        "endChar": 65
+      },
+      "revId": "bccc2d68aebaae41fa22a683fee1115f4b8e3313",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

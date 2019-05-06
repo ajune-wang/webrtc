@@ -43,6 +43,8 @@ NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
 
 @synthesize session = _session;
 @synthesize delegates = _delegates;
+@synthesize ignoresPreferredAttributeConfigurationErrors =
+    _ignoresPreferredAttributeConfigurationErrors;
 
 + (instancetype)sharedInstance {
   static dispatch_once_t onceToken;
@@ -177,6 +179,23 @@ NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
 - (BOOL)isAudioEnabled {
   @synchronized(self) {
     return _isAudioEnabled;
+  }
+}
+
+- (void)setIgnoresPreferredAttributeConfigurationErrors:
+    (BOOL)ignoresPreferredAttributeConfigurationErrors {
+  @synchronized(self) {
+    if (_ignoresPreferredAttributeConfigurationErrors ==
+        ignoresPreferredAttributeConfigurationErrors) {
+      return;
+    }
+    _ignoresPreferredAttributeConfigurationErrors = ignoresPreferredAttributeConfigurationErrors;
+  }
+}
+
+- (BOOL)ignoresPreferredAttributeConfigurationErrors {
+  @synchronized(self) {
+    return _ignoresPreferredAttributeConfigurationErrors;
   }
 }
 
@@ -405,7 +424,20 @@ NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
   if (![self checkLock:outError]) {
     return NO;
   }
-  return [self.session setPreferredSampleRate:sampleRate error:outError];
+  NSError *error = nil;
+  BOOL success = [self.session setPreferredSampleRate:sampleRate error:&error];
+  if (success) {
+    RTCLog(@"Set preferred sample rate to: %.2f", sampleRate);
+  } else {
+    RTCLogError(@"Failed to set preferred sample rate: %@", error.localizedDescription);
+  }
+  if (self.ignoresPreferredAttributeConfigurationErrors) {
+    return YES;
+  }
+  if (outError) {
+    *outError = error;
+  }
+  return success;
 }
 
 - (BOOL)setPreferredIOBufferDuration:(NSTimeInterval)duration
@@ -413,7 +445,20 @@ NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
   if (![self checkLock:outError]) {
     return NO;
   }
-  return [self.session setPreferredIOBufferDuration:duration error:outError];
+  NSError *error = nil;
+  BOOL success = [self.session setPreferredIOBufferDuration:duration error:&error];
+  if (success) {
+    RTCLog(@"Set preferred IO buffer duration to: %f", duration);
+  } else {
+    RTCLogError(@"Failed to set preferred IO buffer duration: %@", error.localizedDescription);
+  }
+  if (self.ignoresPreferredAttributeConfigurationErrors) {
+    return YES;
+  }
+  if (outError) {
+    *outError = error;
+  }
+  return success;
 }
 
 - (BOOL)setPreferredInputNumberOfChannels:(NSInteger)count
@@ -421,14 +466,42 @@ NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
   if (![self checkLock:outError]) {
     return NO;
   }
-  return [self.session setPreferredInputNumberOfChannels:count error:outError];
+  NSError *error = nil;
+  BOOL success = [self.session setPreferredInputNumberOfChannels:count error:&error];
+  if (success) {
+    RTCLog(@"Set input number of channels to: %ld", (long)count);
+  } else {
+    RTCLogError(@"Failed to set preferred input number of channels: %@",
+                error.localizedDescription);
+  }
+  if (self.ignoresPreferredAttributeConfigurationErrors) {
+    return YES;
+  }
+  if (outError) {
+    *outError = error;
+  }
+  return success;
 }
 - (BOOL)setPreferredOutputNumberOfChannels:(NSInteger)count
                                      error:(NSError **)outError {
   if (![self checkLock:outError]) {
     return NO;
   }
-  return [self.session setPreferredOutputNumberOfChannels:count error:outError];
+  NSError *error = nil;
+  BOOL success = [self.session setPreferredOutputNumberOfChannels:count error:&error];
+  if (success) {
+    RTCLog(@"Set output number of channels to: %ld", (long)count);
+  } else {
+    RTCLogError(@"Failed to set preferred output number of channels: %@",
+                error.localizedDescription);
+  }
+  if (self.ignoresPreferredAttributeConfigurationErrors) {
+    return YES;
+  }
+  if (outError) {
+    *outError = error;
+  }
+  return success;
 }
 
 - (BOOL)overrideOutputAudioPort:(AVAudioSessionPortOverride)portOverride
@@ -444,7 +517,15 @@ NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
   if (![self checkLock:outError]) {
     return NO;
   }
-  return [self.session setPreferredInput:inPort error:outError];
+  NSError *error = nil;
+  BOOL success = [self.session setPreferredInput:inPort error:&error];
+  if (self.ignoresPreferredAttributeConfigurationErrors) {
+    return YES;
+  }
+  if (outError) {
+    *outError = error;
+  }
+  return success;
 }
 
 - (BOOL)setInputDataSource:(AVAudioSessionDataSourceDescription *)dataSource
@@ -739,14 +820,7 @@ NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
     RTCLogWarning(
         @"Current sample rate (%.2f) is not the preferred rate (%.2f)",
         sessionSampleRate, preferredSampleRate);
-    if (![self setPreferredSampleRate:sessionSampleRate
-                                error:&error]) {
-      RTCLogError(@"Failed to set preferred sample rate: %@",
-                  error.localizedDescription);
-      if (outError) {
-        *outError = error;
-      }
-    }
+    [self setPreferredSampleRate:sessionSampleRate error:outError];
   }
 
   return YES;

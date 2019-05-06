@@ -92,29 +92,11 @@
   }
 
   if (self.preferredSampleRate != configuration.sampleRate) {
-    NSError *sampleRateError = nil;
-    if (![self setPreferredSampleRate:configuration.sampleRate
-                                error:&sampleRateError]) {
-      RTCLogError(@"Failed to set preferred sample rate: %@",
-                  sampleRateError.localizedDescription);
-      error = sampleRateError;
-    } else {
-      RTCLog(@"Set preferred sample rate to: %.2f",
-             configuration.sampleRate);
-    }
+    [self setPreferredSampleRate:configuration.sampleRate error:&error];
   }
 
   if (self.preferredIOBufferDuration != configuration.ioBufferDuration) {
-    NSError *bufferDurationError = nil;
-    if (![self setPreferredIOBufferDuration:configuration.ioBufferDuration
-                                      error:&bufferDurationError]) {
-      RTCLogError(@"Failed to set preferred IO buffer duration: %@",
-                  bufferDurationError.localizedDescription);
-      error = bufferDurationError;
-    } else {
-      RTCLog(@"Set preferred IO buffer duration to: %f",
-             configuration.ioBufferDuration);
-    }
+    [self setPreferredIOBufferDuration:configuration.ioBufferDuration error:&error];
   }
 
   if (shouldSetActive) {
@@ -134,29 +116,11 @@
     // activating the session.
     NSInteger inputNumberOfChannels = configuration.inputNumberOfChannels;
     if (self.inputNumberOfChannels != inputNumberOfChannels) {
-      NSError *inputChannelsError = nil;
-      if (![self setPreferredInputNumberOfChannels:inputNumberOfChannels
-                                             error:&inputChannelsError]) {
-       RTCLogError(@"Failed to set preferred input number of channels: %@",
-                   inputChannelsError.localizedDescription);
-       error = inputChannelsError;
-      } else {
-        RTCLog(@"Set input number of channels to: %ld",
-               (long)inputNumberOfChannels);
-      }
+      [self setPreferredInputNumberOfChannels:inputNumberOfChannels error:&error];
     }
     NSInteger outputNumberOfChannels = configuration.outputNumberOfChannels;
     if (self.outputNumberOfChannels != outputNumberOfChannels) {
-      NSError *outputChannelsError = nil;
-      if (![self setPreferredOutputNumberOfChannels:outputNumberOfChannels
-                                              error:&outputChannelsError]) {
-        RTCLogError(@"Failed to set preferred output number of channels: %@",
-                    outputChannelsError.localizedDescription);
-        error = outputChannelsError;
-      } else {
-        RTCLog(@"Set output number of channels to: %ld",
-               (long)outputNumberOfChannels);
-      }
+      [self setPreferredOutputNumberOfChannels:outputNumberOfChannels error:&error];
     }
   }
 

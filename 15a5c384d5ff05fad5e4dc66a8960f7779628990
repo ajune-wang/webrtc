@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "89606fe0_8d4b8d73",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-06T17:47:03Z",
+      "side": 1,
+      "message": "Actually, this was already checked above on L813 before.\nWe can\u0027t just DCHECK here since the SSRC might belong to RTX/FEC which don\u0027t care about in this context. Uploaded fix for that.",
+      "parentUuid": "237f56ed_f1a811ef",
+      "range": {
+        "startLine": 828,
+        "startChar": 60,
+        "endLine": 828,
+        "endChar": 64
+      },
+      "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95588e6b_60990e16",
         "filename": "call/rtp_video_sender_unittest.cc",
         "patchSetId": 1

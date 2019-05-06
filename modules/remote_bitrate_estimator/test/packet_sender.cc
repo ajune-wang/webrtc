@@ -293,11 +293,12 @@ void PacedVideoSender::QueuePackets(Packets* batch,
   batch->merge(to_transfer, DereferencingComparator<Packet>);
 }
 
-bool PacedVideoSender::TimeToSendPacket(uint32_t ssrc,
-                                        uint16_t sequence_number,
-                                        int64_t capture_time_ms,
-                                        bool retransmission,
-                                        const PacedPacketInfo& pacing_info) {
+absl::optional<bool> PacedVideoSender::TimeToSendPacket(
+    uint32_t ssrc,
+    uint16_t sequence_number,
+    int64_t capture_time_ms,
+    bool retransmission,
+    const PacedPacketInfo& pacing_info) {
   for (Packets::iterator it = pacer_queue_.begin(); it != pacer_queue_.end();
        ++it) {
     MediaPacket* media_packet = static_cast<MediaPacket*>(*it);
@@ -306,7 +307,7 @@ bool PacedVideoSender::TimeToSendPacket(uint32_t ssrc,
 
       // Make sure a packet is never paced out earlier than when it was put into
       // the pacer.
-      assert(pace_out_time_ms >= media_packet->send_time_ms());
+      RTC_CHECK_GE(pace_out_time_ms, media_packet->send_time_ms());
       media_packet->SetAbsSendTimeMs(pace_out_time_ms);
       media_packet->set_send_time_us(1000 * pace_out_time_ms);
       media_packet->set_sender_timestamp_us(1000 * pace_out_time_ms);

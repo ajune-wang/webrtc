@@ -371,11 +371,14 @@ void PacedSender::Process() {
       break;
 
     critsect_.Leave();
-    bool success = packet_sender_->TimeToSendPacket(
+    absl::optional<bool> success = packet_sender_->TimeToSendPacket(
         packet->ssrc, packet->sequence_number, packet->capture_time_ms,
         packet->retransmission, pacing_info);
     critsect_.Enter();
-    if (success) {
+    if (!success.has_value()) {
+      // Invalid packet, remove it from queue but don't update media budget.
+      packets_.FinalizePop(*packet);
+    } else if (*success) {
       bytes_sent += packet->bytes;
       // Send succeeded, remove it from the queue.
       OnPacketSent(packet);

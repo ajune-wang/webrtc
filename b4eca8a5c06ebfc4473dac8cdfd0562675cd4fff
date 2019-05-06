@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bef0d7c5_c13115ae",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-06T13:14:47Z",
+      "side": 1,
+      "message": "I find this really hard to read/follow. However, given that you already check the bytes, if you add a check to see that the duration in st matches the measured duration, you wouldn\u0027t need the check on the average send rate right?",
+      "range": {
+        "startLine": 317,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 40
+      },
+      "revId": "b4eca8a5c06ebfc4473dac8cdfd0562675cd4fff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

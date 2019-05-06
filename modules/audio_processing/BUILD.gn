@@ -94,8 +94,6 @@ rtc_static_library("audio_processing") {
     "audio_processing_impl.cc",
     "audio_processing_impl.h",
     "common.h",
-    "echo_cancellation_impl.cc",
-    "echo_cancellation_impl.h",
     "echo_control_mobile_impl.cc",
     "echo_control_mobile_impl.h",
     "echo_detector/circular_buffer.cc",
@@ -156,6 +154,7 @@ rtc_static_library("audio_processing") {
     ":config",
     ":gain_control_config_proxy",
     ":gain_control_interface",
+    ":legacy_aec",
     ":noise_suppression_proxy",
     "../../api:array_view",
     "../../api:function_view",
@@ -185,6 +184,46 @@ rtc_static_library("audio_processing") {
     "agc2:fixed_digital",
     "agc2:gain_applier",
     "vad",
+    "//third_party/abseil-cpp/absl/memory",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
+
+  if (aec_untrusted_delay_for_testing) {
+    defines += [ "WEBRTC_UNTRUSTED_DELAY" ]
+  }
+
+  if (rtc_prefer_fixed_point) {
+    defines += [ "WEBRTC_NS_FIXED" ]
+  } else {
+    defines += [ "WEBRTC_NS_FLOAT" ]
+  }
+
+  deps += [
+    "../../common_audio",
+    "../../common_audio:fir_filter",
+    "../../common_audio:fir_filter_factory",
+    "../../rtc_base:rtc_base_approved",
+    "../../system_wrappers",
+  ]
+}
+
+rtc_static_library("legacy_aec") {
+  visibility = [ "*" ]
+  configs += [ ":apm_debug_dump" ]
+  sources = [
+    "echo_cancellation_impl.cc",
+    "echo_cancellation_impl.h",
+  ]
+
+  defines = []
+  deps = [
+    ":apm_logging",
+    ":audio_buffer",
+    "../../api:array_view",
+    "../../rtc_base:checks",
+    "../../system_wrappers:field_trial",
+    "aec",
+    "aec:aec_core",
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
@@ -452,6 +491,7 @@ if (rtc_include_tests) {
       ":config",
       ":file_audio_generator_unittests",
       ":gain_control_config_proxy",
+      ":legacy_aec",
       ":mocks",
       "../../api:array_view",
       "../../api:scoped_refptr",
@@ -626,6 +666,7 @@ if (rtc_include_tests) {
         ":audioproc_debug_proto",
         ":audioproc_protobuf_utils",
         ":audioproc_test_utils",
+        ":legacy_aec",
         ":runtime_settings_protobuf_utils",
         "../../api/audio:aec3_config_json",
         "../../api/audio:aec3_factory",

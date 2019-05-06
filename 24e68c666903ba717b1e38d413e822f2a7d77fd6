@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ca59d6a_3b561de8",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-05-06T10:59:18Z",
+      "side": 1,
+      "message": "nit: This is a \"Filter\", not a \"Builder\".",
+      "range": {
+        "startLine": 33,
+        "startChar": 32,
+        "endLine": 33,
+        "endChar": 54
+      },
+      "revId": "24e68c666903ba717b1e38d413e822f2a7d77fd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bcc3d54_bd6dbad2",
+        "filename": "test/pc/e2e/sdp/sdp_changer.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-05-06T10:59:18Z",
+      "side": 1,
+      "message": "There can\u0027t be multiple codecs with the same exact name and parameters.\nDo you mean that you filter on a subset of parameters and not an exact list?",
+      "revId": "24e68c666903ba717b1e38d413e822f2a7d77fd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

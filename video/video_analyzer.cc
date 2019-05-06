@@ -81,6 +81,12 @@ VideoAnalyzer::VideoAnalyzer(
       selected_stream_(selected_stream),
       selected_sl_(selected_sl),
       selected_tl_(selected_tl),
+      freeze_count_(0),
+      pause_count_(0),
+      total_freezes_duration_ms_(0),
+      total_pauses_duration_ms_(0),
+      total_frames_duration_ms_(0),
+      sum_squared_interframe_delays_secs_(0),
       last_fec_bytes_(0),
       frames_to_process_(duration_frames),
       frames_recorded_(0),
@@ -509,6 +515,13 @@ void VideoAnalyzer::PollStats() {
     if (receive_stats.width > 0 && receive_stats.height > 0) {
       pixels_.AddSample(receive_stats.width * receive_stats.height);
     }
+    freeze_count_ = receive_stats.freeze_count;
+    pause_count_ = receive_stats.pause_count;
+    total_freezes_duration_ms_ = receive_stats.total_freezes_duration_ms;
+    total_pauses_duration_ms_ = receive_stats.total_pauses_duration_ms;
+    total_frames_duration_ms_ = receive_stats.total_frames_duration_ms;
+    sum_squared_interframe_delays_secs_ =
+        receive_stats.sum_squared_frame_durations;
   }
 
   if (audio_receive_stream_ != nullptr) {
@@ -605,10 +618,6 @@ void VideoAnalyzer::PrintResults() {
     frames_left = frames_.size();
   }
   rtc::CritScope crit(&comparison_lock_);
-  // Record the time from the last freeze until the last rendered frame to
-  // ensure we cover the full timespan of the session. Otherwise the metric
-  // would penalize an early freeze followed by no freezes until the end.
-  time_between_freezes_.AddSample(last_render_time_ - last_unfreeze_time_ms_);
   PrintResult("psnr", psnr_, " dB");
   PrintResult("ssim", ssim_, " score");
   PrintResult("sender_time", sender_time_, " ms");
@@ -621,8 +630,27 @@ void VideoAnalyzer::PrintResults() {
   PrintResult("media_bitrate", media_bitrate_bps_, " bps");
   PrintResult("fec_bitrate", fec_bitrate_bps_, " bps");
   PrintResult("send_bandwidth", send_bandwidth_bps_, " bps");
-  PrintResult("time_between_freezes", time_between_freezes_, " ms");
   PrintResult("pixels_per_frame", pixels_, " px");
+
+  // Record the time from the last freeze until the last rendered frame to
+  // ensure we cover the full timespan of the session. Otherwise the metric
+  // would penalize an early freeze followed by no freezes until the end.
+  time_between_freezes_.AddSample(last_render_time_ - last_unfreeze_time_ms_);
+
+  // Freeze metrics.
+  PrintResult("time_between_freezes", time_between_freezes_, " ms");
+  test::PrintResult("freeze_count", "", test_label_.c_str(), freeze_count_,
+                    "freezes", false);
+  test::PrintResult("pause_count", "", test_label_.c_str(), pause_count_,
+                    "pauses", false);
+  test::PrintResult("total_freezes_duration", "", test_label_.c_str(),
+                    total_freezes_duration_ms_, "ms", false);
+  test::PrintResult("total_pauses_duration", "", test_label_.c_str(),
+                    total_pauses_duration_ms_, "ms", false);
+  test::PrintResult("total_frames_duration", "", test_label_.c_str(),
+                    total_frames_duration_ms_, "ms", false);
+  test::PrintResult("sum_squared_interframe_delays", "", test_label_.c_str(),
+                    sum_squared_interframe_delays_secs_, "sec^2", false);
 
   if (worst_frame_) {
     test::PrintResult("min_psnr", "", test_label_.c_str(), worst_frame_->psnr,

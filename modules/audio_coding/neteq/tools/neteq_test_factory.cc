@@ -257,7 +257,8 @@ std::unique_ptr<NetEqTest> NetEqTestFactory::InitializeTest(
             decoder = absl::make_unique<FakeDecodeFromFile>(
                 absl::make_unique<InputAudioFile>(
                     config.replacement_audio_file),
-                format.clockrate_hz, format.num_channels > 1);
+                format.clockrate_hz, format.num_channels > 1,
+                config.cng_duration_ms);
           }
           return decoder;
         });

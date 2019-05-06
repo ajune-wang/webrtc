@@ -17,6 +17,7 @@
 #include "api/array_view.h"
 #include "api/audio_codecs/audio_decoder.h"
 #include "modules/audio_coding/neteq/tools/input_audio_file.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 namespace test {
@@ -30,10 +31,15 @@ class FakeDecodeFromFile : public AudioDecoder {
  public:
   FakeDecodeFromFile(std::unique_ptr<InputAudioFile> input,
                      int sample_rate_hz,
-                     bool stereo)
+                     bool stereo,
+                     absl::optional<int> cng_duration_ms = absl::nullopt)
       : input_(std::move(input)),
         sample_rate_hz_(sample_rate_hz),
-        stereo_(stereo) {}
+        stereo_(stereo),
+        cng_duration_ms_(cng_duration_ms) {
+    RTC_CHECK(!cng_duration_ms_ || *cng_duration_ms_ % 10 == 0)
+        << "cng_duration_ms must multiple of 10.";
+  }
 
   ~FakeDecodeFromFile() = default;
 
@@ -68,6 +74,7 @@ class FakeDecodeFromFile : public AudioDecoder {
   absl::optional<uint32_t> next_timestamp_from_input_;
   const int sample_rate_hz_;
   const bool stereo_;
+  const absl::optional<int> cng_duration_ms_;
   size_t last_decoded_length_ = 0;
   bool cng_mode_ = false;
 };

@@ -138,7 +138,9 @@ int FakeDecodeFromFile::PacketDuration(const uint8_t* encoded,
       original_payload_size_bytes == 1 || samples_to_decode == 0 ||
       // Erroneous duration since it is not a multiple of 10ms
       samples_to_decode % rtc::CheckedDivExact(SampleRateHz(), 100) != 0) {
-    if (last_decoded_length_ > 0) {
+    if (cng_duration_ms_) {
+      return *cng_duration_ms_ * SampleRateHz() / 1000;
+    } else if (last_decoded_length_ > 0) {
       // Use length of last decoded packet.
       return rtc::dchecked_cast<int>(last_decoded_length_);
     } else {

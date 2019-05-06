@@ -22,6 +22,30 @@
       "revId": "1c6ddf7dcccdd4a6f11cddb8f0ccb9d2da21719b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a99c4b41_ce601308",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-05-06T20:57:59Z",
+      "side": 1,
+      "message": "this metric includes duration of all frames (delayed, not delayed). _delays_ makes it sounds like it is related to some specific delayed frames.",
+      "parentUuid": "6940dfdd_769e2330",
+      "range": {
+        "startLine": 523,
+        "startChar": 0,
+        "endLine": 524,
+        "endChar": 50
+      },
+      "revId": "1c6ddf7dcccdd4a6f11cddb8f0ccb9d2da21719b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

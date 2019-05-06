@@ -17,6 +17,7 @@
 #include "api/audio_codecs/isac/audio_encoder_isac_fix.h"
 #include "api/audio_codecs/isac/audio_encoder_isac_float.h"
 #include "api/audio_codecs/opus/audio_encoder_opus.h"
+#include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/mock_audio_encoder.h"
@@ -254,6 +255,28 @@ TEST(AudioEncoderFactoryTemplateTest, Opus) {
       info,
       factory->QueryAudioEncoder(
           {"opus", 48000, 2, {{"minptime", "10"}, {"useinbandfec", "1"}}}));
+  EXPECT_EQ(nullptr,
+            factory->MakeAudioEncoder(17, {"bar", 16000, 1}, absl::nullopt));
+  auto enc = factory->MakeAudioEncoder(17, {"opus", 48000, 2}, absl::nullopt);
+  ASSERT_NE(nullptr, enc);
+  EXPECT_EQ(48000, enc->SampleRateHz());
+}
+
+// This is basically a copy of test Opus, but with Opus FEC off, which is
+// conditioned on a fieldtrial. This may become the default and can replace test
+// Opus.
+TEST(AudioEncoderFactoryTemplateTest, OpusWithFecOff) {
+  ScopedFieldTrials fieldtrial("WebRTC-Audio-OpusFecOffByDefault/Enabled/");
+  auto factory = CreateAudioEncoderFactory<AudioEncoderOpus>();
+  AudioCodecInfo info = {48000, 1, 32000, 6000, 510000};
+  info.allow_comfort_noise = false;
+  info.supports_network_adaption = true;
+  EXPECT_THAT(factory->GetSupportedEncoders(),
+              ::testing::ElementsAre(AudioCodecSpec{
+                  {"opus", 48000, 2, {{"minptime", "10"}}}, info}));
+  EXPECT_EQ(absl::nullopt, factory->QueryAudioEncoder({"foo", 8000, 1}));
+  EXPECT_EQ(info, factory->QueryAudioEncoder(
+                      {"opus", 48000, 2, {{"minptime", "10"}}}));
   EXPECT_EQ(nullptr,
             factory->MakeAudioEncoder(17, {"bar", 16000, 1}, absl::nullopt));
   auto enc = factory->MakeAudioEncoder(17, {"opus", 48000, 2}, absl::nullopt);

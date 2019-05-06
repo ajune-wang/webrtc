@@ -632,6 +632,7 @@ class RTCStatsCollectorTest : public ::testing::Test {
   }
 
  protected:
+  rtc::AutoThread main_thread_;
   rtc::ScopedFakeClock fake_clock_;
   rtc::scoped_refptr<FakePeerConnectionForStats> pc_;
   std::unique_ptr<RTCStatsCollectorWrapper> stats_;
@@ -2339,6 +2340,7 @@ class FakeRTCStatsCollector : public RTCStatsCollector,
 };
 
 TEST(RTCStatsCollectorTestWithFakeCollector, ThreadUsageAndResultsMerging) {
+  rtc::AutoThread main_thread;
   rtc::scoped_refptr<FakePeerConnectionForStats> pc(
       new rtc::RefCountedObject<FakePeerConnectionForStats>());
   rtc::scoped_refptr<FakeRTCStatsCollector> stats_collector(

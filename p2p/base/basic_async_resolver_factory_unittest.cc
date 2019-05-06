@@ -13,6 +13,7 @@
 #include "rtc_base/gunit.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
+#include "rtc_base/thread.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -37,6 +38,7 @@ class BasicAsyncResolverFactoryTest : public ::testing::Test,
   }
 
  private:
+  rtc::AutoThread main_thread;
   bool address_resolved_ = false;
 };
 

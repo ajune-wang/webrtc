@@ -113,6 +113,7 @@ class RtpDataMediaChannelTest : public ::testing::Test {
   }
 
  private:
+  rtc::AutoThread main_thread_;
   std::unique_ptr<cricket::RtpDataEngine> dme_;
   rtc::ScopedFakeClock clock_;
   std::unique_ptr<cricket::FakeNetworkInterface> iface_;

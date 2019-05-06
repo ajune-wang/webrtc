@@ -192,6 +192,7 @@ class PeerConnectionEndToEndBaseTest : public sigslot::has_slots<>,
   }
 
  protected:
+  rtc::AutoThread main_thread_;
   std::unique_ptr<rtc::Thread> network_thread_;
   std::unique_ptr<rtc::Thread> worker_thread_;
   rtc::scoped_refptr<PeerConnectionTestWrapper> caller_;

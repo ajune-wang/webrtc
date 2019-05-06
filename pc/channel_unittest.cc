@@ -1512,6 +1512,8 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
     // Worker thread = current Thread process received messages.
     ProcessThreadQueue(rtc::Thread::Current());
   }
+
+  rtc::AutoThread main_thread_;
   // TODO(pbos): Remove playout from all media channels and let renderers mute
   // themselves.
   const bool verify_playout_;

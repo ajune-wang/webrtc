@@ -284,6 +284,7 @@ class DtlsTestClient : public sigslot::has_slots<> {
   }
 
  private:
+  rtc::AutoThread main_thread_;
   std::string name_;
   rtc::scoped_refptr<rtc::RTCCertificate> certificate_;
   std::unique_ptr<FakeIceTransport> fake_ice_transport_;

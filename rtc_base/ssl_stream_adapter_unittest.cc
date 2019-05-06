@@ -761,6 +761,7 @@ class SSLStreamAdapterTestTLS
   }
 
  private:
+  rtc::AutoThread main_thread_;
   rtc::FifoBuffer client_buffer_;
   rtc::FifoBuffer server_buffer_;
   rtc::MemoryStream send_stream_;
@@ -884,6 +885,7 @@ class SSLStreamAdapterTestDTLS
   }
 
  private:
+  rtc::AutoThread main_thread_;
   BufferQueueStream client_buffer_;
   BufferQueueStream server_buffer_;
   size_t packet_size_;
@@ -914,6 +916,9 @@ class SSLStreamAdapterTestDTLSFromPEMStrings : public SSLStreamAdapterTestDTLS {
  public:
   SSLStreamAdapterTestDTLSFromPEMStrings()
       : SSLStreamAdapterTestDTLS(kCERT_PEM, kRSA_PRIVATE_KEY_PEM) {}
+
+ private:
+  rtc::AutoThread main_thread_;
 };
 
 // Test fixture for certificate chaining. Server will push more than one
@@ -944,6 +949,9 @@ class SSLStreamAdapterTestDTLSCertChain : public SSLStreamAdapterTestDTLS {
 
     client_ssl_->SetIdentity(client_identity_);
   }
+
+ private:
+  rtc::AutoThread main_thread_;
 };
 
 // Basic tests: TLS

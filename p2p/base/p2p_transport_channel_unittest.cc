@@ -4576,6 +4576,7 @@ TEST_F(P2PTransportChannelMostLikelyToWorkFirstTest, TestTcpTurn) {
 // when the address is a hostname. The destruction should happen even
 // if the channel is not destroyed.
 TEST(P2PTransportChannelResolverTest, HostnameCandidateIsResolved) {
+  rtc::AutoThread main_thread;
   rtc::MockAsyncResolver mock_async_resolver;
   EXPECT_CALL(mock_async_resolver, GetError()).WillOnce(Return(0));
   EXPECT_CALL(mock_async_resolver, GetResolvedAddress(_, _))

@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "6291c47f_5fc7f509",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-06T13:34:13Z",
+      "side": 1,
+      "message": "where ssrc comes from? rtcp packet, i.e. from the wire?\nthen DCHECK might not be strong enough check.",
+      "range": {
+        "startLine": 828,
+        "startChar": 60,
+        "endLine": 828,
+        "endChar": 64
+      },
+      "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "95588e6b_60990e16",
         "filename": "call/rtp_video_sender_unittest.cc",
         "patchSetId": 1
@@ -105,6 +128,53 @@
       "writtenOn": "2019-05-06T13:07:54Z",
       "side": 1,
       "message": "Why not const ArrayView\u003cuint16_t\u003e\u0026?",
+      "range": {
+        "startLine": 325,
+        "startChar": 6,
+        "endLine": 325,
+        "endChar": 36
+      },
+      "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db7c2d98_ff971e6f",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-06T13:34:13Z",
+      "side": 1,
+      "message": "#include \"api/array_view.h\"",
+      "range": {
+        "startLine": 325,
+        "startChar": 6,
+        "endLine": 325,
+        "endChar": 20
+      },
+      "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15be247b_ffac3902",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-06T13:34:13Z",
+      "side": 1,
+      "message": "ArrayView is small class that is designed to be passed by value, not by reference.\n\nArrayView\u003cT\u003e (same as \"const AV\u003cT\u003e\u0026\") is a list of mutables Ts, i.e. it is legal for undernearth function to change values in the array.\n\nThis function expects list of non-mutable Ts.\nAV\u003cconst T\u003e is most appropriate type for that.\n\nhttps://abseil.io/tips/93  [it is about Span, but ArrayView is exactly same concept]",
+      "parentUuid": "7baa8314_9b95456c",
       "range": {
         "startLine": 325,
         "startChar": 6,

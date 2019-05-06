@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6940dfdd_769e2330",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-06T20:05:44Z",
+      "side": 1,
+      "message": "The discrepancy between \"sum_squared_interframe_delays_secs\" and \"sum_squared_frame_durations\" is explained by VideoQualityObserver::SumSquaredFrameDurationsSec() returning sum_squared_interframe_delays_secs_, which IMHO is a more correct name.",
+      "range": {
+        "startLine": 523,
+        "startChar": 0,
+        "endLine": 524,
+        "endChar": 50
+      },
+      "revId": "1c6ddf7dcccdd4a6f11cddb8f0ccb9d2da21719b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -183,6 +183,30 @@
       "revId": "160b4ea17f9cdd6a0c20acb958b2be92acf0f376",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83f0982a_159d3deb",
+        "filename": "rtc_base/numerics/running_statistics_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-05-06T14:09:09Z",
+      "side": 1,
+      "message": "Yes, it could be legit because these will be the min and max seen by the RunningStatistics object.\n\nOk, let\u0027s find common ground and add unit tests. On the other hand, since this could lead to subtle bugs, I suggest you mention this also in the class description at the top of the header.",
+      "parentUuid": "bec3a6ba_f92bf026",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 39
+      },
+      "revId": "160b4ea17f9cdd6a0c20acb958b2be92acf0f376",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "726f4186_0ad68a4e",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-06T13:07:54Z",
+      "side": 1,
+      "message": "CHECK(ssrc_to_acknowledged_packets_observers_.empty())?\n\nShould be safe if the comment in the header is true.",
+      "range": {
+        "startLine": 567,
+        "startChar": 2,
+        "endLine": 567,
+        "endChar": 41
+      },
+      "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36191f79_4701f076",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-06T13:07:54Z",
+      "side": 1,
+      "message": "A comment motivating why this sometimes is null?",
+      "range": {
+        "startLine": 580,
+        "startChar": 8,
+        "endLine": 580,
+        "endChar": 35
+      },
+      "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b64afc30_d63e921e",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-06T13:07:54Z",
+      "side": 1,
+      "message": "I\u0027d prefer to see this at top level, repeat the loop instead, the cost of iteration should be low, but that way the loss mask code stays together, making this easier to follow.",
+      "range": {
+        "startLine": 804,
+        "startChar": 3,
+        "endLine": 804,
+        "endChar": 24
+      },
+      "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95588e6b_60990e16",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-06T13:07:54Z",
+      "side": 1,
+      "message": "Readding the inline comments it looks like the test tests more than this. Could this test be split into separate test focused on one aspect at a time with clearer test names and simplified code.\n\nIf not, maybe just see if the name can be made more generic and add a more descriptive comment.",
+      "range": {
+        "startLine": 390,
+        "startChar": 25,
+        "endLine": 390,
+        "endChar": 63
+      },
+      "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7baa8314_9b95456c",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-06T13:07:54Z",
+      "side": 1,
+      "message": "Why not const ArrayView\u003cuint16_t\u003e\u0026?",
+      "range": {
+        "startLine": 325,
+        "startChar": 6,
+        "endLine": 325,
+        "endChar": 36
+      },
+      "revId": "15a5c384d5ff05fad5e4dc66a8960f7779628990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

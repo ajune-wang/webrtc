@@ -14,6 +14,7 @@
 
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "rtc_base/numerics/safe_conversions.h"
+#include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -143,4 +144,47 @@ TEST(BuiltinAudioEncoderFactoryTest, SupportsTheExpectedFormats) {
 
   ASSERT_THAT(supported_formats, ElementsAreArray(expected_formats));
 }
+
+// This is basically a copy of test SupportsTheExpectedFormats, but with Opus
+// FEC off, which is conditioned on a fieldtrial. This may become the default
+// and can replace test SupportsTheExpectedFormats.
+TEST(BuiltinAudioEncoderFactoryTest, SupportsTheExpectedFormatsWithOpusFecOff) {
+  test::ScopedFieldTrials fieldtrial(
+      "WebRTC-Audio-OpusFecOffByDefault/Enabled/");
+  using ::testing::ElementsAreArray;
+  // Check that we claim to support the formats we expect from build flags, and
+  // we've ordered them correctly.
+  auto factory = CreateBuiltinAudioEncoderFactory();
+  auto specs = factory->GetSupportedEncoders();
+
+  const std::vector<SdpAudioFormat> supported_formats = [&specs] {
+    std::vector<SdpAudioFormat> formats;
+    formats.reserve(specs.size());
+    for (const auto& spec : specs) {
+      formats.push_back(spec.format);
+    }
+    return formats;
+  }();
+
+  const std::vector<SdpAudioFormat> expected_formats = {
+#ifdef WEBRTC_CODEC_OPUS
+    {"opus", 48000, 2, {{"minptime", "10"}}},
+#endif
+#if defined(WEBRTC_CODEC_ISAC) || defined(WEBRTC_CODEC_ISACFX)
+    {"isac", 16000, 1},
+#endif
+#ifdef WEBRTC_CODEC_ISAC
+    {"isac", 32000, 1},
+#endif
+    {"G722", 8000, 1},
+#ifdef WEBRTC_CODEC_ILBC
+    {"ilbc", 8000, 1},
+#endif
+    {"pcmu", 8000, 1},
+    {"pcma", 8000, 1}
+  };
+
+  ASSERT_THAT(supported_formats, ElementsAreArray(expected_formats));
+}
+
 }  // namespace webrtc

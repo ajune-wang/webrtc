@@ -141,6 +141,11 @@ WEBRTC_DEFINE_int(max_nr_packets_in_buffer,
 WEBRTC_DEFINE_bool(enable_fast_accelerate,
                    false,
                    "Enables jitter buffer fast accelerate");
+WEBRTC_DEFINE_int(
+    cng_duration_ms,
+    -1,
+    "Duration of comfort noise generated internally by codec in milliseconds. "
+    "Must be multiple of 10. -1 means use length from previous packet");
 
 // Parses the input string for a valid SSRC (at the start of the string). If a
 // valid SSRC is found, it is written to the output variable |ssrc|, and true is
@@ -325,6 +330,7 @@ int main(int argc, char* argv[]) {
   RTC_CHECK(ValidateExtensionId(FLAG_transport_seq_no));
   RTC_CHECK(ValidateExtensionId(FLAG_video_content_type));
   RTC_CHECK(ValidateExtensionId(FLAG_video_timing));
+  RTC_CHECK(ValidateExtensionId(FLAG_cng_duration_ms));
 
   webrtc::test::ValidateFieldTrialsStringOrDie(FLAG_force_fieldtrials);
   webrtc::field_trial::InitFieldTrialsFromString(FLAG_force_fieldtrials);
@@ -369,6 +375,12 @@ int main(int argc, char* argv[]) {
   config.plot_scripts_basename = CreateOptionalOutputFileName(
       FLAG_matlabplot || FLAG_pythonplot, output_files_base_name,
       output_audio_filename, "");
+  if (FLAG_cng_duration_ms != -1) {
+    RTC_CHECK(*config.cng_duration_ms % 10 == 0)
+        << "Flag verification has failed"
+        << "--cng_duration_ms must multiple of 10.";
+    config.cng_duration_ms = FLAG_cng_duration_ms;
+  }
 
   // Check if an SSRC value was provided.
   if (strlen(FLAG_ssrc) > 0) {

@@ -131,6 +131,8 @@ class NetEqTestFactory {
     absl::optional<std::string> plot_scripts_basename;
     // Path to the output audio file.
     absl::optional<std::string> output_audio_filename;
+    // Duration of comfort noise generated internally by codec in milliseconds.
+    absl::optional<int> cng_duration_ms;
   };
 
   std::unique_ptr<NetEqTest> InitializeTestFromFile(

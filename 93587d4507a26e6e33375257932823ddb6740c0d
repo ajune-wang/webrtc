@@ -22,6 +22,30 @@
       "revId": "93587d4507a26e6e33375257932823ddb6740c0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "678a0de4_91ef1d84",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-07T19:22:56Z",
+      "side": 1,
+      "message": "I\u0027ve removed the intermediate with inaccurate name. \n(Please note that I have taken this code from VideoQualityObserver::UpdateHistograms, btw.)\nIs this OK now?",
+      "parentUuid": "ff722d75_b520c8c0",
+      "range": {
+        "startLine": 668,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 42
+      },
+      "revId": "93587d4507a26e6e33375257932823ddb6740c0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

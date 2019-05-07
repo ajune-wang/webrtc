@@ -22,6 +22,30 @@
       "revId": "afeccdfebb6a67a2ed58f537d90b7c0ed7333985",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a61f4d6_a1eb0886",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-05-07T15:49:45Z",
+      "side": 1,
+      "message": "To highlight that the function is private (there is already an occurrence of this in the file: https://cs.chromium.org/chromium/src/third_party/webrtc/PRESUBMIT.py?l\u003d348-353\u0026rcl\u003d6b7bf6ab0ccbb79a3c08f72916986e6215daa40e).",
+      "parentUuid": "d927cfc2_ad54a859",
+      "range": {
+        "startLine": 502,
+        "startChar": 6,
+        "endLine": 502,
+        "endChar": 7
+      },
+      "revId": "afeccdfebb6a67a2ed58f537d90b7c0ed7333985",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

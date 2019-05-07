@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fac311ee_232ef3cf",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-07T00:16:20Z",
+      "side": 1,
+      "message": "This test case passes if we let the pacer think it has sent retransmissions, even if they get rejected due to last sent packet being less than on RTT in the past.\nLooking at the test setup I don\u0027t see why it\u0027s doing retransmissions in the first place.\nsrte@ can you help me get to the bottom of this?",
+      "range": {
+        "startLine": 118,
+        "startChar": 33,
+        "endLine": 118,
+        "endChar": 63
+      },
+      "revId": "f56904cdce83359a9edf3f602d363037e2ea6e63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35a3b6a5_0eaacb95",
+        "filename": "modules/remote_bitrate_estimator/test/bbr_paced_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-07T00:16:20Z",
+      "side": 1,
+      "message": "Maybe this should say false, I tried changing this to get the failing bbr test case to pass but this does not seem to have been the root cause of that.",
+      "range": {
+        "startLine": 137,
+        "startChar": 16,
+        "endLine": 137,
+        "endChar": 20
+      },
+      "revId": "f56904cdce83359a9edf3f602d363037e2ea6e63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

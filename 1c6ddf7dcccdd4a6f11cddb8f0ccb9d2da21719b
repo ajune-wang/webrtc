@@ -46,6 +46,30 @@
       "revId": "1c6ddf7dcccdd4a6f11cddb8f0ccb9d2da21719b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3145a3da_ef2b2b61",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-07T08:35:54Z",
+      "side": 1,
+      "message": "1. Changed back here, then. PTAL.\n2. Shall we change sum_squared_interframe_delays_secs_ to sum_squared_frame_durations_ in other files as well, then? (Separate CL.)\n3. Wdyt about appending the units to this one, as for \"total_frames_duration\", etc.? And shall it be sec, then, or sec2? (Also separate CL, to keep things consistent.)",
+      "parentUuid": "a99c4b41_ce601308",
+      "range": {
+        "startLine": 523,
+        "startChar": 0,
+        "endLine": 524,
+        "endChar": 50
+      },
+      "revId": "1c6ddf7dcccdd4a6f11cddb8f0ccb9d2da21719b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

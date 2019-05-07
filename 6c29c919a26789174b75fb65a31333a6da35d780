@@ -22,6 +22,30 @@
       "revId": "6c29c919a26789174b75fb65a31333a6da35d780",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c5a2446_a220b13b",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-07T21:04:53Z",
+      "side": 1,
+      "message": "At least with unsigned-integers, it is indeed necessary; multiplying 0x80000000 by 1000 yields 0 (when working with uint32_t), and we don\u0027t want to divide by zero.\nI am not as familiar with doubles, but I\u0027d rather not risk it. :-)",
+      "parentUuid": "53572f12_1e227ca3",
+      "range": {
+        "startLine": 668,
+        "startChar": 6,
+        "endLine": 668,
+        "endChar": 13
+      },
+      "revId": "6c29c919a26789174b75fb65a31333a6da35d780",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

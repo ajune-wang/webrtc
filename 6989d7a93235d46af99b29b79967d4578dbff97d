@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a9732ba1_abb425f4",
+        "filename": "sdk/objc/components/audio/RTCAudioSession+Configuration.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 9261
+      },
+      "writtenOn": "2019-05-07T13:05:54Z",
+      "side": 1,
+      "message": "I initially considered this, but was concerned that it may be unexpected for the -setConfiguration:... methods to succeed while directly calling -setPreferred... would continue to fail. That said, this would be a simpler change, and perhaps documenting `ignoresPreferredAttributeConfigurationErrors` is enough to clarify this. Do you think the variable name `ignoresPreferredAttributeConfigurationErrors` plus documentation makes it clear enough that that the variable affects only configuration done through the -setConfiguration:... methods?",
+      "parentUuid": "70b3aae7_865549e8",
+      "range": {
+        "startLine": 131,
+        "startChar": 9,
+        "endLine": 131,
+        "endChar": 14
+      },
+      "revId": "6989d7a93235d46af99b29b79967d4578dbff97d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83fb9e6e_7d355630",
         "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
         "patchSetId": 1

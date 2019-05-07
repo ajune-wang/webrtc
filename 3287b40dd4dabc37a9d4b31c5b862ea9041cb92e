@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "361ae076_5ab2d272",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-05-07T13:13:06Z",
+      "side": 1,
+      "message": "Please specify here that it\u0027s ratio.",
+      "range": {
+        "startLine": 10,
+        "startChar": 3,
+        "endLine": 10,
+        "endChar": 25
+      },
+      "revId": "3287b40dd4dabc37a9d4b31c5b862ea9041cb92e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

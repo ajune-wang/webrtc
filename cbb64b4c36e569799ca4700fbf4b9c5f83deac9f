@@ -46,6 +46,30 @@
       "revId": "cbb64b4c36e569799ca4700fbf4b9c5f83deac9f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5840bc44_8530ceb6",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-05-07T10:54:17Z",
+      "side": 1,
+      "message": "I disagree. This is the perf test analyzer. There\u0027s usually no user for the values printed here, they just end up in the dashboard and trigger warnings. As test duration can change from run to run, all the metrics should include some averaging.\n\nIn case of some other tools, they can recover original values by multiplying them by count or test duration, if it\u0027s really needed.",
+      "parentUuid": "6497ed23_8a5c5f32",
+      "range": {
+        "startLine": 641,
+        "startChar": 2,
+        "endLine": 653,
+        "endChar": 0
+      },
+      "revId": "cbb64b4c36e569799ca4700fbf4b9c5f83deac9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

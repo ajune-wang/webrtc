@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62b5ecd4_74a7139f",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-07T11:59:41Z",
+      "side": 1,
+      "message": "Should be \u0027_unittests.cc\u0027, with one more \u0027t\u0027, right?",
+      "range": {
+        "startLine": 505,
+        "startChar": 51,
+        "endLine": 505,
+        "endChar": 60
+      },
+      "revId": "706cb93164e4d5ce8101f326dd944a13971eb134",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

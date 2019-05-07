@@ -16,16 +16,6 @@
 
 namespace webrtc {
 
-// Callback, used to notify an observer whenever new rates have been estimated.
-class BitrateStatisticsObserver {
- public:
-  virtual ~BitrateStatisticsObserver() {}
-
-  virtual void Notify(uint32_t total_bitrate_bps,
-                      uint32_t retransmit_bitrate_bps,
-                      uint32_t ssrc) = 0;
-};
-
 struct FrameCounts {
   FrameCounts() : key_frames(0), delta_frames(0) {}
   int key_frames;

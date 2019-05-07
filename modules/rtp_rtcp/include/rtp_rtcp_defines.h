@@ -503,5 +503,15 @@ class RtcpAckObserver {
   virtual ~RtcpAckObserver() = default;
 };
 
+// Callback, used to notify an observer whenever new rates have been estimated.
+class BitrateStatisticsObserver {
+ public:
+  virtual ~BitrateStatisticsObserver() {}
+
+  virtual void Notify(uint32_t total_bitrate_bps,
+                      uint32_t retransmit_bitrate_bps,
+                      uint32_t ssrc) = 0;
+};
+
 }  // namespace webrtc
 #endif  // MODULES_RTP_RTCP_INCLUDE_RTP_RTCP_DEFINES_H_

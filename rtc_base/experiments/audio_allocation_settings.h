@@ -72,6 +72,11 @@ class AudioAllocationSettings {
   // divide bitrate evently between audio and video above this bitrate.
   DataRate DefaultPriorityBitrate() const;
 
+  // The bitrate priority is used to determine how much of the available bitrate
+  // beyond the min or priority bitrate this stream should receive. A stream
+  // with twice the priority receives twice the share of the surplus bitrate.
+  absl::optional<double> BitratePriority() const;
+
  private:
   FieldTrialFlag audio_send_side_bwe_;
   FieldTrialFlag allocate_audio_without_feedback_;
@@ -83,6 +88,7 @@ class AudioAllocationSettings {
   FieldTrialOptional<DataRate> min_bitrate_;
   FieldTrialOptional<DataRate> max_bitrate_;
   FieldTrialParameter<DataRate> priority_bitrate_;
+  FieldTrialOptional<double> bitrate_priority_;
 };
 }  // namespace webrtc
 

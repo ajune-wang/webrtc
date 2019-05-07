@@ -22,6 +22,30 @@
       "revId": "cbb64b4c36e569799ca4700fbf4b9c5f83deac9f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6497ed23_8a5c5f32",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-07T10:28:30Z",
+      "side": 1,
+      "message": "I think it\u0027s better to leave the decision of averaging up to the user. If they want to divide one of these values by the call length, or divide these value by each other, it\u0027s possible.",
+      "parentUuid": "9db247ec_b72cc27a",
+      "range": {
+        "startLine": 641,
+        "startChar": 2,
+        "endLine": 653,
+        "endChar": 0
+      },
+      "revId": "cbb64b4c36e569799ca4700fbf4b9c5f83deac9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -46,6 +46,30 @@
       "revId": "93587d4507a26e6e33375257932823ddb6740c0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a70b5c8_e997700e",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-05-07T20:51:20Z",
+      "side": 1,
+      "message": "yep.",
+      "parentUuid": "678a0de4_91ef1d84",
+      "range": {
+        "startLine": 668,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 42
+      },
+      "revId": "93587d4507a26e6e33375257932823ddb6740c0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

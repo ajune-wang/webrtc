@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53572f12_1e227ca3",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-05-07T20:51:20Z",
+      "side": 1,
+      "message": "is this needed?",
+      "range": {
+        "startLine": 668,
+        "startChar": 6,
+        "endLine": 668,
+        "endChar": 13
+      },
+      "revId": "6c29c919a26789174b75fb65a31333a6da35d780",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

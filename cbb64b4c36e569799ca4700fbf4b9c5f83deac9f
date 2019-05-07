@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9db247ec_b72cc27a",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-05-07T09:31:24Z",
+      "side": 1,
+      "message": "All of these total_ metrics make more sense if they are averaged somehow. Note that the test may have arbitrary length, even during perf tests.\n\nHaving 10 freezes during 50 second test is not worse than 9 freezes during 45 second test.\n\ne.g. total_freezes_duration \u003d\u003e mean_freeze_duration or freezed_time_percentage. Divide them either by number of freezes/pauses/frames or by the call length.",
+      "range": {
+        "startLine": 641,
+        "startChar": 2,
+        "endLine": 653,
+        "endChar": 0
+      },
+      "revId": "cbb64b4c36e569799ca4700fbf4b9c5f83deac9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5036b8dc_1692ff5e",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-05-07T12:25:48Z",
+      "side": 1,
+      "message": "Actually, please make this string a bit more elaborated. It will be hard for someone to understand what it means when they see the log.",
+      "range": {
+        "startLine": 44,
+        "startChar": 23,
+        "endLine": 44,
+        "endChar": 26
+      },
+      "revId": "0b23ef2e52f7241d87330b6de0b54f1db97c6ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

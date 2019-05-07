@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c80d2cda_40f28e8a",
+        "filename": "sdk/objc/components/audio/RTCAudioSession+Configuration.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5752
+      },
+      "writtenOn": "2019-05-07T17:07:28Z",
+      "side": 1,
+      "message": "I think the property is temporary anyway - once we validate that it has no adverse side effects we can make it default. In which case, we would only change the setConfiguration methods.\n\nThe doco seems clear enough.",
+      "parentUuid": "a9732ba1_abb425f4",
+      "range": {
+        "startLine": 131,
+        "startChar": 9,
+        "endLine": 131,
+        "endChar": 14
+      },
+      "revId": "6989d7a93235d46af99b29b79967d4578dbff97d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83fb9e6e_7d355630",
         "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
         "patchSetId": 1

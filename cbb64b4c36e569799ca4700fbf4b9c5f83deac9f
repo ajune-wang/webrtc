@@ -70,6 +70,30 @@
       "revId": "cbb64b4c36e569799ca4700fbf4b9c5f83deac9f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b62d349b_26382d83",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-07T10:58:08Z",
+      "side": 1,
+      "message": "Let\u0027s go with different metrics, then.",
+      "parentUuid": "5840bc44_8530ceb6",
+      "range": {
+        "startLine": 641,
+        "startChar": 2,
+        "endLine": 653,
+        "endChar": 0
+      },
+      "revId": "cbb64b4c36e569799ca4700fbf4b9c5f83deac9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

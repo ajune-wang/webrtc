@@ -21,6 +21,7 @@
 
 #include "api/call/bitrate_allocation.h"
 #include "rtc_base/bitrate_allocation_strategy.h"
+#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/synchronization/sequence_checker.h"
 
 namespace webrtc {
@@ -71,6 +72,16 @@ class BitrateAllocatorInterface {
 
  protected:
   virtual ~BitrateAllocatorInterface() = default;
+};
+
+struct BitrateAllocatorConfig {
+  BitrateAllocatorConfig();
+  BitrateAllocatorConfig(const BitrateAllocatorConfig&) = default;
+  BitrateAllocatorConfig& operator=(const BitrateAllocatorConfig&) = default;
+  ~BitrateAllocatorConfig() = default;
+
+  // If true, any potential external allocation strategy won't be used.
+  FieldTrialFlag ignore_injected_strategy_;
 };
 
 // Usage: this class will register multiple RtcpBitrateObserver's one at each
@@ -246,6 +257,7 @@ class BitrateAllocator : public BitrateAllocatorInterface {
   std::unique_ptr<rtc::BitrateAllocationStrategy> bitrate_allocation_strategy_
       RTC_GUARDED_BY(&sequenced_checker_);
   const uint8_t transmission_max_bitrate_multiplier_;
+  BitrateAllocatorConfig config_;
 };
 
 }  // namespace webrtc

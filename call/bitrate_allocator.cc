@@ -51,6 +51,13 @@ double MediaRatio(uint32_t allocated_bitrate, uint32_t protection_bitrate) {
 
 }  // namespace
 
+BitrateAllocatorConfig::BitrateAllocatorConfig()
+    : ignore_injected_strategy_("no_inj") {
+  ParseFieldTrial(
+      {&ignore_injected_strategy_},
+      webrtc::field_trial::FindFullName("WebRTC-BitrateAllocatorConfig"));
+}
+
 BitrateAllocator::BitrateAllocator(Clock* clock, LimitObserver* limit_observer)
     : limit_observer_(limit_observer),
       last_target_bps_(0),
@@ -315,7 +322,8 @@ BitrateAllocator::ObserverAllocation BitrateAllocator::AllocateBitrates(
   if (bitrate_observer_configs_.empty())
     return ObserverAllocation();
 
-  if (bitrate_allocation_strategy_ != nullptr) {
+  if (!config_.ignore_injected_strategy_ &&
+      bitrate_allocation_strategy_ != nullptr) {
     // Note: This intentionally causes slicing, we only copy the fields in
     // ObserverConfig that are inherited from TrackConfig.
     std::vector<rtc::BitrateAllocationStrategy::TrackConfig> track_configs(

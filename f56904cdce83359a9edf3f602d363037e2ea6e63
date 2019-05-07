@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1288aafb_a84b36ff",
+        "filename": "modules/congestion_controller/bbr/bbr_network_controller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-07T16:14:51Z",
+      "side": 1,
+      "message": "No, padding is handled in another code path.\nThese are actual retransmissions. They did were not sent before either, but the pacer was told they were and consumed budget because of it. After the change the packets are still not sent, but missing packets are now removed from the pacer queue without consuming budget. It seems weird if we are relying on that old behavior.",
+      "parentUuid": "da649a44_bffb5b3a",
+      "range": {
+        "startLine": 118,
+        "startChar": 33,
+        "endLine": 118,
+        "endChar": 63
+      },
+      "revId": "f56904cdce83359a9edf3f602d363037e2ea6e63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4633fe4d_5b431b7b",
         "filename": "modules/pacing/paced_sender.cc",
         "patchSetId": 2

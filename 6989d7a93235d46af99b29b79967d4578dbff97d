@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "ef9e705e_4a23a3e5",
+        "filename": "sdk/objc/components/audio/RTCAudioSession+Configuration.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 9261
+      },
+      "writtenOn": "2019-05-07T20:44:19Z",
+      "side": 1,
+      "message": "Okay, I added checks for the `ignores...` flag to each of the blocks where a \"preferred\" property is set. That way, only errors in setting those properties are ignored, while errors in setting category/options/mode are not ignored.",
+      "parentUuid": "c80d2cda_40f28e8a",
+      "range": {
+        "startLine": 131,
+        "startChar": 9,
+        "endLine": 131,
+        "endChar": 14
+      },
+      "revId": "6989d7a93235d46af99b29b79967d4578dbff97d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83fb9e6e_7d355630",
         "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
         "patchSetId": 1
@@ -93,6 +117,30 @@
       "revId": "6989d7a93235d46af99b29b79967d4578dbff97d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b32b9c27_6573d09c",
+        "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 9261
+      },
+      "writtenOn": "2019-05-07T20:44:19Z",
+      "side": 1,
+      "message": "Makes sense, reverted.",
+      "parentUuid": "83fb9e6e_7d355630",
+      "range": {
+        "startLine": 427,
+        "startChar": 2,
+        "endLine": 427,
+        "endChar": 9
+      },
+      "revId": "6989d7a93235d46af99b29b79967d4578dbff97d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

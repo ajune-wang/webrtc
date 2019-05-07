@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff722d75_b520c8c0",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-05-07T13:39:28Z",
+      "side": 1,
+      "message": "notation is not totally correct (sec^2 * 1000 !\u003d ms). it would be better to convert total_frames_duration_ms_double to seconds",
+      "range": {
+        "startLine": 668,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 42
+      },
+      "revId": "93587d4507a26e6e33375257932823ddb6740c0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

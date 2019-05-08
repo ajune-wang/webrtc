@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "094a32f8_469a815a",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-08T12:49:08Z",
+      "side": 1,
+      "message": "Okay.",
+      "parentUuid": "314af92c_3f37b565",
+      "range": {
+        "startLine": 518,
+        "startChar": 4,
+        "endLine": 518,
+        "endChar": 21
+      },
+      "revId": "03059eba30c1f1b8de60f3d5d2bd20e71da9bc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "acb6096d_53226d83",
         "filename": "video/video_analyzer.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "03059eba30c1f1b8de60f3d5d2bd20e71da9bc00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4facf316_6b0145f6",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-08T12:49:08Z",
+      "side": 1,
+      "message": "Oops! I was intending to add my own functions that would work over the total decoded/rendered frame counts, but forgot (was modifying VideoQualityObserver). Currently, |decode_frame_rate| and |render_frame_rate| are uint32_t, and that loses quite a bit of accuracy. I think returning the total rendered/decoded, and multiplying by the call length, is better. I now see that I actually have the count of decoded/rendered in Stats already, so I don\u0027t even have to add anything.",
+      "parentUuid": "acb6096d_53226d83",
+      "range": {
+        "startLine": 518,
+        "startChar": 4,
+        "endLine": 519,
+        "endChar": 57
+      },
+      "revId": "03059eba30c1f1b8de60f3d5d2bd20e71da9bc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

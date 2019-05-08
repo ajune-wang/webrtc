@@ -750,23 +750,10 @@ bool WebRtcVideoChannel::SetSendParameters(const VideoSendParameters& params) {
     }
   }
 
-    for (auto& kv : send_streams_) {
-      kv.second->SetSendParameters(changed_params);
-    }
-    if (changed_params.codec || changed_params.rtcp_mode) {
-      // Update receive feedback parameters from new codec or RTCP mode.
-      RTC_LOG(LS_INFO)
-          << "SetFeedbackOptions on all the receive streams because the send "
-             "codec or RTCP mode has changed.";
-      for (auto& kv : receive_streams_) {
-        RTC_DCHECK(kv.second != nullptr);
-        kv.second->SetFeedbackParameters(
-            HasNack(send_codec_->codec), HasRemb(send_codec_->codec),
-            HasTransportCc(send_codec_->codec),
-            params.rtcp.reduced_size ? webrtc::RtcpMode::kReducedSize
-                                     : webrtc::RtcpMode::kCompound);
-      }
-    }
+  for (auto& kv : send_streams_) {
+    kv.second->SetSendParameters(changed_params);
+  }
+
   send_params_ = params;
   return true;
 }

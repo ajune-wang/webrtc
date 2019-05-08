@@ -85,6 +85,8 @@ VideoAnalyzer::VideoAnalyzer(
       total_freezes_duration_ms_(0),
       total_frames_duration_ms_(0),
       sum_squared_frame_durations_(0),
+      frame_rate_decode_(0),
+      frame_rate_render_(0),
       last_fec_bytes_(0),
       frames_to_process_(duration_frames),
       frames_recorded_(0),
@@ -489,7 +491,7 @@ void VideoAnalyzer::PollStats() {
   // It's not certain that we yet have estimates for any of these stats.
   // Check that they are positive before mixing them in.
   if (send_stats.encode_frame_rate > 0)
-    encode_frame_rate_.AddSample(send_stats.encode_frame_rate);
+    frame_rate_encode_.AddSample(send_stats.encode_frame_rate);
   if (send_stats.avg_encode_time_ms > 0)
     encode_time_ms_.AddSample(send_stats.avg_encode_time_ms);
   if (send_stats.encode_usage_percent > 0)
@@ -513,6 +515,8 @@ void VideoAnalyzer::PollStats() {
     if (receive_stats.width > 0 && receive_stats.height > 0) {
       pixels_.AddSample(receive_stats.width * receive_stats.height);
     }
+    frame_rate_decode_ = receive_stats.decode_frame_rate;
+    frame_rate_render_ = receive_stats.render_frame_rate;
     freeze_count_ = receive_stats.freeze_count;
     total_freezes_duration_ms_ = receive_stats.total_freezes_duration_ms;
     total_frames_duration_ms_ = receive_stats.total_frames_duration_ms;
@@ -620,12 +624,17 @@ void VideoAnalyzer::PrintResults() {
   PrintResult("network_time", network_time_, " ms");
   PrintResult("total_delay_incl_network", end_to_end_, " ms");
   PrintResult("time_between_rendered_frames", rendered_delta_, " ms");
-  PrintResult("encode_frame_rate", encode_frame_rate_, " fps");
+  PrintResult("frame_rate_encode", frame_rate_encode_, " fps");
   PrintResult("encode_time", encode_time_ms_, " ms");
   PrintResult("media_bitrate", media_bitrate_bps_, " bps");
   PrintResult("fec_bitrate", fec_bitrate_bps_, " bps");
   PrintResult("send_bandwidth", send_bandwidth_bps_, " bps");
   PrintResult("pixels_per_frame", pixels_, " px");
+
+  test::PrintResult("frame_rate_decode", "", test_label_.c_str(),
+                    frame_rate_decode_, "fps", false);
+  test::PrintResult("frame_rate_render", "", test_label_.c_str(),
+                    frame_rate_render_, "fps", false);
 
   // Record the time from the last freeze until the last rendered frame to
   // ensure we cover the full timespan of the session. Otherwise the metric

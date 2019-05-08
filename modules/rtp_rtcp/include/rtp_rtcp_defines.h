@@ -547,5 +547,12 @@ class SendPacketObserver {
                             uint32_t ssrc) = 0;
 };
 
+// Status returned from TimeToSendPacket() family of callbacks.
+enum class RtpPacketSendResult {
+  kSuccess,  // Packet sent OK.
+  kFailure,  // Sending failed, for instance network status down.
+  kInvalid   // Other failure: packet not found, invalid ssrc, etc.
+};
+
 }  // namespace webrtc
 #endif  // MODULES_RTP_RTCP_INCLUDE_RTP_RTCP_DEFINES_H_

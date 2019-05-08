@@ -540,6 +540,10 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
   if (inst->qpMax >= configurations_[0].rc_min_quantizer) {
     qp_max_ = inst->qpMax;
   }
+  if (rate_control_settings_.LibvpxVp8QpMax()) {
+    qp_max_ = std::max(rate_control_settings_.LibvpxVp8QpMax().value(),
+                       static_cast<int>(configurations_[0].rc_min_quantizer));
+  }
   configurations_[0].rc_max_quantizer = qp_max_;
   configurations_[0].rc_undershoot_pct = 100;
   configurations_[0].rc_overshoot_pct = 15;

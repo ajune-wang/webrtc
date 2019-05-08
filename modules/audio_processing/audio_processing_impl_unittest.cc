@@ -240,11 +240,15 @@ TEST(AudioProcessingImplTest,
   MockEchoControl* echo_control_mock = echo_control_factory_ptr->GetNext();
 
   EXPECT_CALL(*echo_control_mock, AnalyzeCapture(NotNull())).Times(1);
-  EXPECT_CALL(*echo_control_mock, ProcessCapture(NotNull(), false)).Times(1);
+  EXPECT_CALL(*echo_control_mock,
+              ProcessCapture(NotNull(), false /* echo_path_change */))
+      .Times(1);
   apm->ProcessStream(&frame);
 
   EXPECT_CALL(*echo_control_mock, AnalyzeCapture(NotNull())).Times(1);
-  EXPECT_CALL(*echo_control_mock, ProcessCapture(NotNull(), true)).Times(1);
+  EXPECT_CALL(*echo_control_mock,
+              ProcessCapture(NotNull(), true /* echo_path_change */))
+      .Times(1);
   apm->SetRuntimeSetting(
       AudioProcessing::RuntimeSetting::CreateCapturePreGain(2.f));
   apm->ProcessStream(&frame);

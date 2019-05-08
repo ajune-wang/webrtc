@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6eb3c917_00aef6f2",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-08T17:16:01Z",
+      "side": 1,
+      "message": "That\u0027s a mistake. Removed.",
+      "parentUuid": "3a78035d_8f4b24f0",
+      "revId": "419b038f846aafe30121e55a032336672cf5a3ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64a95d1b_1fcd4554",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "419b038f846aafe30121e55a032336672cf5a3ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51c21464_e538dfab",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-08T17:16:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64a95d1b_1fcd4554",
+      "range": {
+        "startLine": 649,
+        "startChar": 21,
+        "endLine": 649,
+        "endChar": 34
+      },
+      "revId": "419b038f846aafe30121e55a032336672cf5a3ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "4774ed65_bb56347e",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-08T17:16:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b8c87e3_41c8a98d",
+      "range": {
+        "startLine": 708,
+        "startChar": 18,
+        "endLine": 708,
+        "endChar": 21
+      },
+      "revId": "419b038f846aafe30121e55a032336672cf5a3ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b2fe00d_e4d6513d",
         "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
         "patchSetId": 2
@@ -85,6 +151,30 @@
       "revId": "419b038f846aafe30121e55a032336672cf5a3ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd0763aa_18b434f5",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-08T17:16:01Z",
+      "side": 1,
+      "message": "This test used an unrealistic scenario:\n1. SendToNetwork() -\u003e put in pacer\n2. (No TimeToSendPacket, indicating never taken out of pacer)\n3. ReSendPacket() -\u003e put retransmission in pacer\n4. TimeToSendPacket() -\u003e expect retransmission out\n\nWith this change, we don\u0027t allow retransmission before having sent the packet on the network,\nso I added the expected first TimeToSendPacket() from 2.\n\nAdding comment for TimeToSendPacket() call.",
+      "parentUuid": "5b2fe00d_e4d6513d",
+      "range": {
+        "startLine": 800,
+        "startChar": 0,
+        "endLine": 800,
+        "endChar": 71
+      },
+      "revId": "419b038f846aafe30121e55a032336672cf5a3ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

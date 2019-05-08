@@ -221,7 +221,7 @@ class VideoAnalyzer : public PacketReceiver,
   Statistics end_to_end_ RTC_GUARDED_BY(comparison_lock_);
   Statistics rendered_delta_ RTC_GUARDED_BY(comparison_lock_);
   Statistics encoded_frame_size_ RTC_GUARDED_BY(comparison_lock_);
-  Statistics encode_frame_rate_ RTC_GUARDED_BY(comparison_lock_);
+  Statistics frame_rate_encode_ RTC_GUARDED_BY(comparison_lock_);
   Statistics encode_time_ms_ RTC_GUARDED_BY(comparison_lock_);
   Statistics encode_usage_percent_ RTC_GUARDED_BY(comparison_lock_);
   Statistics decode_time_ms_ RTC_GUARDED_BY(comparison_lock_);
@@ -242,6 +242,9 @@ class VideoAnalyzer : public PacketReceiver,
   uint32_t total_freezes_duration_ms_ RTC_GUARDED_BY(comparison_lock_);
   uint32_t total_frames_duration_ms_ RTC_GUARDED_BY(comparison_lock_);
   double sum_squared_frame_durations_ RTC_GUARDED_BY(comparison_lock_);
+
+  double frame_rate_decode_ RTC_GUARDED_BY(comparison_lock_);
+  double frame_rate_render_ RTC_GUARDED_BY(comparison_lock_);
 
   size_t last_fec_bytes_;
 

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "acb6096d_53226d83",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-05-08T11:38:22Z",
+      "side": 1,
+      "message": "I think you should also use a Statistics class here and Add a sample here, as IIRC, this is a momentary stat, and in current way you will just get framerate for the last 1 second.\n\nThis is fine for total_* and count_* metrics below, as they are cumulative.",
+      "range": {
+        "startLine": 518,
+        "startChar": 4,
+        "endLine": 519,
+        "endChar": 57
+      },
+      "revId": "03059eba30c1f1b8de60f3d5d2bd20e71da9bc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3025a8b4_83fbb6d3",
         "filename": "video/video_analyzer.cc",
         "patchSetId": 2
@@ -13,6 +36,29 @@
       "writtenOn": "2019-05-08T11:00:48Z",
       "side": 1,
       "message": "This change is piggybacked because:\n1. I want all three related metrics to be close to each other when sorting alphabetically.\n2. I want the name of the variable in this class - although unfortunately not elsewhere - to match the name we print out.",
+      "revId": "03059eba30c1f1b8de60f3d5d2bd20e71da9bc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90b92e4b_bd3f0fba",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-05-08T11:38:22Z",
+      "side": 1,
+      "message": "Nit, move above closer to the \"frame_rate_encode\" reporting line. Once you\u0027ve changed it to Statistics instead of a double, it will be a similar PrintResult function call. It would look nicer to have it at the same place.",
+      "range": {
+        "startLine": 634,
+        "startChar": 2,
+        "endLine": 637,
+        "endChar": 54
+      },
       "revId": "03059eba30c1f1b8de60f3d5d2bd20e71da9bc00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

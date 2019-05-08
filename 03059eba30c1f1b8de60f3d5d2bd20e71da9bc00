@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "314af92c_3f37b565",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-05-08T12:40:44Z",
+      "side": 1,
+      "message": "why not decode/encode_frame_rate? such inconsistency with existing code is annoying.\n\npersonally I would prefer decoded/encoded/rendered_{metric}",
+      "range": {
+        "startLine": 518,
+        "startChar": 4,
+        "endLine": 518,
+        "endChar": 21
+      },
+      "revId": "03059eba30c1f1b8de60f3d5d2bd20e71da9bc00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "acb6096d_53226d83",
         "filename": "video/video_analyzer.cc",
         "patchSetId": 2

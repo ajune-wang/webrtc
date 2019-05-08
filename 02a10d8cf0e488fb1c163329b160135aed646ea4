@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00461789_92a52e64",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-05-08T09:46:18Z",
+      "side": 1,
+      "message": "const\u0026?\n\nsame for other arguments. Alternatively pass by movable only.",
+      "range": {
+        "startLine": 235,
+        "startChar": 33,
+        "endLine": 235,
+        "endChar": 39
+      },
+      "revId": "02a10d8cf0e488fb1c163329b160135aed646ea4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

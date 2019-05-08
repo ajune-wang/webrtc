@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "adf4b2a5_ba49deba",
+        "filename": "api/video_codecs/vp8_frame_buffer_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-08T06:56:41Z",
+      "side": 1,
+      "message": "Fix spelling here while at it?\n\nSome other areas for improvement of this comment:\n\nIt\u0027s not obvious if the intended condition is one of 1-3, or all of 1-3. \n\nWould be nice to reduce number of negations, first we have \"if false\", then \"must not unless\" which I think is the same as \"only if\" (unless my head is spinning too fast; difficult to keep the logic straight before morning coffee).",
+      "range": {
+        "startLine": 113,
+        "startChar": 13,
+        "endLine": 113,
+        "endChar": 20
+      },
+      "revId": "85db4ca09491d846780ab10f0c46ba1ca582c448",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

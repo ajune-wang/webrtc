@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bbfc8488_58cd8b22",
+        "filename": "call/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-08T09:01:56Z",
+      "side": 1,
+      "message": "Duplicated dependency?",
+      "range": {
+        "startLine": 425,
+        "startChar": 0,
+        "endLine": 425,
+        "endChar": 41
+      },
+      "revId": "99fba6a5a194adbe8d660ead7d53ef40f083e3cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a93bb328_ab8adfa4",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-05-09T15:07:16Z",
+      "side": 1,
+      "message": "I think you can remove this parameter in the constructor and call GetLowerLimitWindowMs when you initialize the variable.",
+      "range": {
+        "startLine": 136,
+        "startChar": 27,
+        "endLine": 136,
+        "endChar": 68
+      },
+      "revId": "fe052b8c08ca2c5fbb4bfe6837a786fa547d0b51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9d36ef57_9ff4e3dd",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-09T15:08:37Z",
+      "side": 1,
+      "message": "The problem is that then we need to add a bunch of new includes of modules/pacing/paced_sender.h from modules/congestion_controller and module/rtp_rtcp/\nI would rather try to avoid that so we don\u0027t end up with cyclic dependencies.",
+      "parentUuid": "edeb0400_4a732fae",
+      "range": {
+        "startLine": 551,
+        "startChar": 11,
+        "endLine": 551,
+        "endChar": 30
+      },
+      "revId": "70aed9d55a3eece150bc4c17794b6fa6a6467fa4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "505eccf6_79b0e149",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "87e21932_8c5b6ce6",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-09T15:08:37Z",
+      "side": 1,
+      "message": "That seem to be the main case but it could be other as well, such as pushback mechanism. But yes, maybe this isn\u0027t to be seen as an outright failure as the desired outcome is that we try again later.\nkTransportUnavailable maybe?",
+      "parentUuid": "505eccf6_79b0e149",
+      "range": {
+        "startLine": 553,
+        "startChar": 2,
+        "endLine": 553,
+        "endChar": 10
+      },
+      "revId": "70aed9d55a3eece150bc4c17794b6fa6a6467fa4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c2d11038_e5ee2f68",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2019-05-09T08:49:56Z",
       "side": 1,
       "message": "Could this be made more specific or should we split it into several cases, just for clarity?",
+      "range": {
+        "startLine": 554,
+        "startChar": 2,
+        "endLine": 554,
+        "endChar": 10
+      },
+      "revId": "70aed9d55a3eece150bc4c17794b6fa6a6467fa4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3a1ffdd_094bb4a8",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-09T15:08:37Z",
+      "side": 1,
+      "message": "I don\u0027t think we are really interested in what cause this state, but rather how we should act on it.\nIn the case of this error, we should forget about the packet and move on.\n\nWhat about renaming these:\nkSuccess // Send OK.\nkTransientError // Transport unavailable, try again later.\nkPermanentError // Invalid packet or other error, consider the packet lost and continue.",
+      "parentUuid": "c2d11038_e5ee2f68",
       "range": {
         "startLine": 554,
         "startChar": 2,

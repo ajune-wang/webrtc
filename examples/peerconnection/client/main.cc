@@ -30,7 +30,7 @@ int PASCAL wWinMain(HINSTANCE instance,
 
   rtc::WindowsCommandLineArguments win_args;
   int argc = win_args.argc();
-  char** argv = win_args.argv();
+  const char** argv = win_args.argv();
 
   rtc::FlagList::SetFlagsFromCommandLine(&argc, argv, true);
   if (FLAG_help) {

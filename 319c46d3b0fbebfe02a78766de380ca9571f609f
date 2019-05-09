@@ -22,6 +22,30 @@
       "revId": "319c46d3b0fbebfe02a78766de380ca9571f609f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcb477b3_6e6d0dcf",
+        "filename": "modules/audio_processing/rms_level.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-05-09T09:57:41Z",
+      "side": 1,
+      "message": "Removed \u0027f\u0027 everywhere.",
+      "parentUuid": "afc6bb47_72770201",
+      "range": {
+        "startLine": 39,
+        "startChar": 37,
+        "endLine": 39,
+        "endChar": 38
+      },
+      "revId": "319c46d3b0fbebfe02a78766de380ca9571f609f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

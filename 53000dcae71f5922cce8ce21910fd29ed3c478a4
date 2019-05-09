@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49025889_df99ecae",
+        "filename": "modules/remote_bitrate_estimator/overuse_estimator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-09T10:56:06Z",
+      "side": 1,
+      "message": "Can you write this with default member initializers instead?\n\nstruct OverUseDetectorOptions {\n  double initial_slope \u003d 8.0 / 512.0;\n  double initial_offset \u003d 0.0;\n  double initial_e[2][2] \u003d {{100.0, 0.0}, {0.0, 1e-1}};\n  double initial_process_noise[2] \u003d {1e-13, 1e-3};\n  double initial_avg_noise \u003d 0.0;\n  double initial_var_noise \u003d 50.0;\n};\n\nIt even looks like the compiler generates better code that way: https://godbolt.org/z/UJYBjR (Foo0 is 88 bytes, Foo is 66 bytes)",
+      "revId": "53000dcae71f5922cce8ce21910fd29ed3c478a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

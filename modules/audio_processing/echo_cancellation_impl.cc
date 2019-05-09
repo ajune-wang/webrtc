@@ -13,6 +13,7 @@
 #include <stdint.h>
 #include <string.h>
 
+#include "absl/memory/memory.h"
 #include "modules/audio_processing/aec/aec_core.h"
 #include "modules/audio_processing/aec/echo_cancellation.h"
 #include "modules/audio_processing/audio_buffer.h"
@@ -60,6 +61,10 @@ bool EnforceZeroStreamDelay() {
 }
 
 }  // namespace
+
+std::unique_ptr<EchoCancellationImpl> EchoCancellationImpl::Create() {
+  return absl::make_unique<EchoCancellationImpl>();
+}
 
 struct EchoCancellationImpl::StreamProperties {
   StreamProperties() = delete;

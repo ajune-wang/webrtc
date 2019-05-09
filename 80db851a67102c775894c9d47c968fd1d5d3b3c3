@@ -46,6 +46,30 @@
       "revId": "80db851a67102c775894c9d47c968fd1d5d3b3c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e0fae5d_309bbfbc",
+        "filename": "modules/remote_bitrate_estimator/overuse_estimator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-09T13:27:02Z",
+      "side": 1,
+      "message": "Delete, since this is exactly equivalent to not having the line there. (But it isn\u0027t that important, since the readability reduction is small and it makes no difference to the compiler.)",
+      "parentUuid": "78131052_3f2c3f9c",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 37
+      },
+      "revId": "80db851a67102c775894c9d47c968fd1d5d3b3c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

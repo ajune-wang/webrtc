@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fb6088c_33a1e8bc",
+        "filename": "examples/peerconnection/client/main.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-09T13:07:29Z",
+      "side": 1,
+      "message": "This is the only use, so maybe move class to this file?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 44
+      },
+      "revId": "cb3111ed9d76340f1a25b7e06d588c970a7a2b23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

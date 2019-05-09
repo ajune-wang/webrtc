@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f586bf20_fc3f1c61",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-05-09T07:49:03Z",
+      "side": 1,
+      "message": "A bit more descriptive helps:\n\n\"Adding comments to clarify argument meanings in APM impl test\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 11
+      },
+      "revId": "47869ea37c75e87377afbe51dada79768f9edfc5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "596043be_0ba352c7",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-05-09T07:49:03Z",
+      "side": 1,
+      "message": "/*echo_path_change\u003d*/false\n\nsee https://google.github.io/styleguide/cppguide.html#Function_Argument_Comments",
+      "range": {
+        "startLine": 244,
+        "startChar": 40,
+        "endLine": 244,
+        "endChar": 68
+      },
+      "revId": "47869ea37c75e87377afbe51dada79768f9edfc5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0d41ca7_9991c59b",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-05-09T07:49:03Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 250,
+        "startChar": 40,
+        "endLine": 250,
+        "endChar": 67
+      },
+      "revId": "47869ea37c75e87377afbe51dada79768f9edfc5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

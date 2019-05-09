@@ -392,6 +392,7 @@ class AudioProcessing : public rtc::RefCountInterface {
       kCapturePreGain,
       kCaptureCompressionGain,
       kCaptureFixedPostGain,
+      kPlayoutVolumeChange,
       kCustomRenderProcessingRuntimeSetting
     };
 
@@ -417,6 +418,10 @@ class AudioProcessing : public rtc::RefCountInterface {
       RTC_DCHECK_GE(gain_db, 0.f);
       RTC_DCHECK_LE(gain_db, 90.f);
       return {Type::kCaptureFixedPostGain, gain_db};
+    }
+
+    static RuntimeSetting CreatePlayoutVolumeChange(int volume) {
+      return {Type::kPlayoutVolumeChange, static_cast<float>(volume)};
     }
 
     static RuntimeSetting CreateCustomRenderSetting(float payload) {

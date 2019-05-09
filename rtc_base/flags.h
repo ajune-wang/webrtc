@@ -22,6 +22,9 @@
 #ifndef RTC_BASE_FLAGS_H_
 #define RTC_BASE_FLAGS_H_
 
+#include <string>
+#include <vector>
+
 #include "rtc_base/checks.h"
 
 #if defined(WEBRTC_WIN)
@@ -252,14 +255,16 @@ class FlagList {
 class WindowsCommandLineArguments {
  public:
   WindowsCommandLineArguments();
-  ~WindowsCommandLineArguments();
+  ~WindowsCommandLineArguments() = default;
 
-  int argc() { return argc_; }
-  char** argv() { return argv_; }
+  int argc() { return argv_.size(); }
+  char** argv() { return argv_.data(); }
 
  private:
-  int argc_;
-  char** argv_;
+  // Owned argument strings.
+  std::vector<std::string> args_;
+  // Pointers, to get layout compatible with char** argv.
+  std::vector<char*> argv_;
 
  private:
   RTC_DISALLOW_COPY_AND_ASSIGN(WindowsCommandLineArguments);

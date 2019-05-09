@@ -294,29 +294,16 @@ WindowsCommandLineArguments::WindowsCommandLineArguments() {
   // start by getting the command line.
   LPCWSTR command_line = ::GetCommandLineW();
   // now, convert it to a list of wide char strings.
-  LPWSTR* wide_argv = ::CommandLineToArgvW(command_line, &argc_);
-  // now allocate an array big enough to hold that many string pointers.
-  argv_ = new char*[argc_];
+  int argc;
+  LPWSTR* wide_argv = ::CommandLineToArgvW(command_line, &argc);
 
   // iterate over the returned wide strings;
-  for (int i = 0; i < argc_; ++i) {
-    std::string s = rtc::ToUtf8(wide_argv[i], wcslen(wide_argv[i]));
-    char* buffer = new char[s.length() + 1];
-    rtc::strcpyn(buffer, s.length() + 1, s.c_str());
-
-    // make sure the argv array has the right string at this point.
-    argv_[i] = buffer;
+  for (int i = 0; i < argc; ++i) {
+    args_.push_back(rtc::ToUtf8(wide_argv[i], wcslen(wide_argv[i])));
+    // make sure the argv array points to the string data.
+    argv_.push_back(args_.back().data());
   }
   LocalFree(wide_argv);
-}
-
-WindowsCommandLineArguments::~WindowsCommandLineArguments() {
-  // need to free each string in the array, and then the array.
-  for (int i = 0; i < argc_; i++) {
-    delete[] argv_[i];
-  }
-
-  delete[] argv_;
 }
 #endif  // WEBRTC_WIN
 

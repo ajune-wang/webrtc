@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af867b17_f531eb7a",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-09T08:25:00Z",
+      "side": 1,
+      "message": "this line should not create a lot of logs?",
+      "range": {
+        "startLine": 758,
+        "startChar": 0,
+        "endLine": 758,
+        "endChar": 70
+      },
+      "revId": "248396b31c1ea459ee188d64eabf0458de6e3f74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de90cffc_155f0e3c",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-09T08:25:00Z",
+      "side": 1,
+      "message": "Because overhead calculation etc, the bitrate becomes hard to track.\nI\u0027d like to have this at similar level as \"Current BWE \"\n\nSome attempt to reduce the log has been made. As you see, we only log (and set) bitrate if it is different from current value.",
+      "range": {
+        "startLine": 829,
+        "startChar": 0,
+        "endLine": 829,
+        "endChar": 72
+      },
+      "revId": "248396b31c1ea459ee188d64eabf0458de6e3f74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

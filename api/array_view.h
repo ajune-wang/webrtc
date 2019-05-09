@@ -13,6 +13,7 @@
 
 #include <algorithm>
 #include <array>
+#include <limits>
 #include <type_traits>
 
 #include "rtc_base/checks.h"
@@ -123,12 +124,35 @@ class ArrayViewBase<T, 0> {
 };
 
 // Specialized base class for ArrayViews of variable size.
+#ifdef WEBRTC_ARCH_ARM
+
+template <typename T>
+class ArrayViewBase<T, impl::kArrayViewVarSize> {
+ public:
+  ArrayViewBase(T* data, size_t size)
+      : data_and_size_(reinterpret_cast<uintptr_t>(size == 0 ? nullptr : data) |
+                       uint64_t{size} << 32) {}
+  size_t size() const { return data_and_size_ >> 32; }
+  bool empty() const { return size() == 0; }
+  T* data() const { return reinterpret_cast<T*>(data_and_size_ & 0xffffffff); }
+
+ protected:
+  static constexpr bool fixed_size() { return false; }
+
+ private:
+  // Data pointer in the low 32 bits, size in the high 32 bits.
+  static_assert(std::numeric_limits<uintptr_t>::max() < uint64_t{1} << 32, "");
+  static_assert(std::numeric_limits<size_t>::max() < uint64_t{1} << 32, "");
+  uint64_t data_and_size_;
+};
+
+#else
+
 template <typename T>
 class ArrayViewBase<T, impl::kArrayViewVarSize> {
  public:
   ArrayViewBase(T* data, size_t size)
       : data_(size == 0 ? nullptr : data), size_(size) {}
-
   size_t size() const { return size_; }
   bool empty() const { return size_ == 0; }
   T* data() const { return data_; }
@@ -140,6 +164,8 @@ class ArrayViewBase<T, impl::kArrayViewVarSize> {
   T* data_;
   size_t size_;
 };
+
+#endif
 
 }  // namespace impl
 

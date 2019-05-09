@@ -29,12 +29,13 @@ class AudioBuffer;
 // for PC and IP phone applications.
 class EchoCancellationImpl {
  public:
-  explicit EchoCancellationImpl();
+  static std::unique_ptr<EchoCancellationImpl> Create();
+
+  EchoCancellationImpl();
   ~EchoCancellationImpl();
 
   void ProcessRenderAudio(rtc::ArrayView<const float> packed_render_audio);
   int ProcessCaptureAudio(AudioBuffer* audio, int stream_delay_ms);
-
 
   // Differences in clock speed on the primary and reverse streams can impact
   // the AEC performance. On the client-side, this could be seen when different

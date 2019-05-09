@@ -1867,7 +1867,9 @@ void AudioProcessingImpl::InitializeEchoController() {
   aecm_render_signal_queue_.reset();
 
   // Create and activate AEC2.
-  private_submodules_->echo_cancellation.reset(new EchoCancellationImpl());
+  private_submodules_->echo_cancellation = EchoCancellationImpl::Create();
+  RTC_CHECK(private_submodules_->echo_cancellation)
+      << "The legacy AEC2 is not included in the build and cannot be used!";
   private_submodules_->echo_cancellation->SetExtraOptions(
       capture_nonlocked_.use_aec2_extended_filter,
       capture_nonlocked_.use_aec2_delay_agnostic,

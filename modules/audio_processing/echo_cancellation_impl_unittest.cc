@@ -12,65 +12,62 @@
 
 #include "modules/audio_processing/aec/aec_core.h"
 #include "modules/audio_processing/echo_cancellation_impl.h"
-#include "modules/audio_processing/include/audio_processing.h"
+#include "rtc_base/arraysize.h"
 #include "rtc_base/critical_section.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 TEST(EchoCancellationInternalTest, ExtendedFilter) {
   EchoCancellationImpl echo_canceller;
-  echo_canceller.Initialize(AudioProcessing::kSampleRate32kHz, 2, 2, 2);
+  echo_canceller.Initialize(32000, 2, 2, 2);
 
   AecCore* aec_core = echo_canceller.aec_core();
   ASSERT_TRUE(aec_core != NULL);
   // Disabled by default.
   EXPECT_EQ(0, WebRtcAec_extended_filter_enabled(aec_core));
 
-  Config config;
   echo_canceller.SetExtraOptions(true, false, false);
   EXPECT_EQ(1, WebRtcAec_extended_filter_enabled(aec_core));
 
   // Retains setting after initialization.
-  echo_canceller.Initialize(AudioProcessing::kSampleRate16kHz, 2, 2, 2);
+  echo_canceller.Initialize(16000, 2, 2, 2);
   EXPECT_EQ(1, WebRtcAec_extended_filter_enabled(aec_core));
 
   echo_canceller.SetExtraOptions(false, false, false);
   EXPECT_EQ(0, WebRtcAec_extended_filter_enabled(aec_core));
 
   // Retains setting after initialization.
-  echo_canceller.Initialize(AudioProcessing::kSampleRate16kHz, 1, 1, 1);
+  echo_canceller.Initialize(16000, 1, 1, 1);
   EXPECT_EQ(0, WebRtcAec_extended_filter_enabled(aec_core));
 }
 
 TEST(EchoCancellationInternalTest, DelayAgnostic) {
   EchoCancellationImpl echo_canceller;
-  echo_canceller.Initialize(AudioProcessing::kSampleRate32kHz, 1, 1, 1);
+  echo_canceller.Initialize(32000, 1, 1, 1);
 
   AecCore* aec_core = echo_canceller.aec_core();
   ASSERT_TRUE(aec_core != NULL);
   // Enabled by default.
   EXPECT_EQ(0, WebRtcAec_delay_agnostic_enabled(aec_core));
 
-  Config config;
   echo_canceller.SetExtraOptions(false, true, false);
   EXPECT_EQ(1, WebRtcAec_delay_agnostic_enabled(aec_core));
 
   // Retains setting after initialization.
-  echo_canceller.Initialize(AudioProcessing::kSampleRate32kHz, 2, 2, 2);
+  echo_canceller.Initialize(32000, 2, 2, 2);
   EXPECT_EQ(1, WebRtcAec_delay_agnostic_enabled(aec_core));
 
-  config.Set<DelayAgnostic>(new DelayAgnostic(false));
   echo_canceller.SetExtraOptions(false, false, false);
   EXPECT_EQ(0, WebRtcAec_delay_agnostic_enabled(aec_core));
 
   // Retains setting after initialization.
-  echo_canceller.Initialize(AudioProcessing::kSampleRate16kHz, 2, 2, 2);
+  echo_canceller.Initialize(16000, 2, 2, 2);
   EXPECT_EQ(0, WebRtcAec_delay_agnostic_enabled(aec_core));
 }
 
 TEST(EchoCancellationInternalTest, InterfaceConfiguration) {
   EchoCancellationImpl echo_canceller;
-  echo_canceller.Initialize(AudioProcessing::kSampleRate16kHz, 1, 1, 1);
+  echo_canceller.Initialize(16000, 1, 1, 1);
 
   EXPECT_EQ(0, echo_canceller.enable_drift_compensation(true));
   EXPECT_TRUE(echo_canceller.is_drift_compensation_enabled());
@@ -101,8 +98,8 @@ TEST(EchoCancellationInternalTest, InterfaceConfiguration) {
   int median = 0;
   int std = 0;
   float poor_fraction = 0;
-  EXPECT_EQ(AudioProcessing::kNotEnabledError,
-            echo_canceller.GetDelayMetrics(&median, &std, &poor_fraction));
+  EXPECT_FALSE(0 ==
+               echo_canceller.GetDelayMetrics(&median, &std, &poor_fraction));
 
   EXPECT_TRUE(echo_canceller.aec_core() != NULL);
 }

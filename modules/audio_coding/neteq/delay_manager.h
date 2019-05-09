@@ -42,7 +42,8 @@ class DelayManager {
                DelayPeakDetector* peak_detector,
                const TickTimer* tick_timer,
                StatisticsCalculator* statistics,
-               std::unique_ptr<Histogram> histogram);
+               std::unique_ptr<Histogram> histogram,
+               absl::optional<int> lower_limit_window_ms = absl::nullopt);
 
   // Create a DelayManager object. Notify the delay manager that the packet
   // buffer can hold no more than |max_packets_in_buffer| packets (i.e., this
@@ -207,6 +208,7 @@ class DelayManager {
   const bool enable_rtx_handling_;
   int num_reordered_packets_ = 0;  // Number of consecutive reordered packets.
   std::deque<int> delay_history_;
+  const absl::optional<int> lower_limit_window_ms_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(DelayManager);
 };

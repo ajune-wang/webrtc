@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "12680f45_9967f46a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 9263
+      },
+      "writtenOn": "2019-05-10T13:20:17Z",
+      "side": 1,
+      "message": "I think this is another instance of storing an int as a float, so I thought I was just tidying it up. As you can see in the link below, the factory takes an int and converts it to a float, and then it\u0027s converted back to an int here.\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/include/audio_processing.h?dr\u003dSs\u0026g\u003d0\u0026l\u003d411\n\nBut maybe it\u0027s better to not touch this in case downstream stuff is using GetFloat for CaptureCompressionGain?",
+      "parentUuid": "1e636056_1d84fcb5",
+      "range": {
+        "startLine": 984,
+        "startChar": 8,
+        "endLine": 987,
+        "endChar": 59
+      },
+      "revId": "9a8595034ee4ea3bf5c7b24cd2277f53150932e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d20517f_94d15a89",
         "filename": "modules/audio_processing/gain_control_config_proxy_unittest.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "9a8595034ee4ea3bf5c7b24cd2277f53150932e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65d6f7f1_be1aa65c",
+        "filename": "modules/audio_processing/gain_control_config_proxy_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 9263
+      },
+      "writtenOn": "2019-05-10T13:20:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9d20517f_94d15a89",
+      "range": {
+        "startLine": 90,
+        "startChar": 1,
+        "endLine": 92,
+        "endChar": 23
+      },
+      "revId": "9a8595034ee4ea3bf5c7b24cd2277f53150932e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6abc3b25_196f6836",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 9263
+      },
+      "writtenOn": "2019-05-10T13:20:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a8333aff_886e09f7",
+      "range": {
+        "startLine": 412,
+        "startChar": 6,
+        "endLine": 412,
+        "endChar": 54
+      },
+      "revId": "9a8595034ee4ea3bf5c7b24cd2277f53150932e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa1d053c_ef2729c2",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 6
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "454f5ce5_72a61aa8",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 9263
+      },
+      "writtenOn": "2019-05-10T13:20:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa1d053c_ef2729c2",
+      "range": {
+        "startLine": 449,
+        "startChar": 12,
+        "endLine": 449,
+        "endChar": 22
+      },
+      "revId": "9a8595034ee4ea3bf5c7b24cd2277f53150932e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "919f9e33_e6137b38",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 6
@@ -114,6 +210,30 @@
       "revId": "9a8595034ee4ea3bf5c7b24cd2277f53150932e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fbf5d4d_290a27ae",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 9263
+      },
+      "writtenOn": "2019-05-10T13:20:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "919f9e33_e6137b38",
+      "range": {
+        "startLine": 450,
+        "startChar": 10,
+        "endLine": 450,
+        "endChar": 18
+      },
+      "revId": "9a8595034ee4ea3bf5c7b24cd2277f53150932e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

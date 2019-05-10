@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a161b2f1_4c1b09ea",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-10T13:41:05Z",
+      "side": 1,
+      "message": "Yes, I saw that too.\nI don\u0027t fully remember the discussions around that but I think it was something like this\nCurrently the AGC1 gain is specified in dB while the preamplifier gain is specified in linear.\n\nIn order to allow this to be changed in the future, the setting was stored without a unit as a float value.\n\nThat would, for instance, allow the gain for AGC2 to be specified in the linear domain, which on resource-constrained systems would have the benefit of avoid the a conversion from the dB domain to the linear domain.\n\nRegardless though, since now the value is stored as a float in the aecdump recordings, I don\u0027t think it makes sense to change it to an it.\n\nThe factory method you linked to is implemented to match AGC1 so I think it is ok for now. Let\u0027s revisit this instead once AGC2 adds support for this.",
+      "parentUuid": "12680f45_9967f46a",
+      "range": {
+        "startLine": 984,
+        "startChar": 8,
+        "endLine": 987,
+        "endChar": 59
+      },
+      "revId": "9a8595034ee4ea3bf5c7b24cd2277f53150932e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d20517f_94d15a89",
         "filename": "modules/audio_processing/gain_control_config_proxy_unittest.cc",
         "patchSetId": 6

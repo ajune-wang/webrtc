@@ -392,6 +392,7 @@ class AudioProcessing : public rtc::RefCountInterface {
       kCapturePreGain,
       kCaptureCompressionGain,
       kCaptureFixedPostGain,
+      kPlayoutVolumeChange,
       kCustomRenderProcessingRuntimeSetting
     };
 
@@ -408,7 +409,7 @@ class AudioProcessing : public rtc::RefCountInterface {
     static RuntimeSetting CreateCompressionGainDb(int gain_db) {
       RTC_DCHECK_GE(gain_db, 0);
       RTC_DCHECK_LE(gain_db, 90);
-      return {Type::kCaptureCompressionGain, static_cast<float>(gain_db)};
+      return {Type::kCaptureCompressionGain, gain_db};
     }
 
     // Corresponds to Config::GainController2::fixed_digital::gain_db, but for
@@ -419,6 +420,10 @@ class AudioProcessing : public rtc::RefCountInterface {
       return {Type::kCaptureFixedPostGain, gain_db};
     }
 
+    static RuntimeSetting CreatePlayoutVolumeChange(int volume) {
+      return {Type::kPlayoutVolumeChange, volume};
+    }
+
     static RuntimeSetting CreateCustomRenderSetting(float payload) {
       return {Type::kCustomRenderProcessingRuntimeSetting, payload};
     }
@@ -426,13 +431,24 @@ class AudioProcessing : public rtc::RefCountInterface {
     Type type() const { return type_; }
     void GetFloat(float* value) const {
       RTC_DCHECK(value);
-      *value = value_;
+      *value = value_.float_value;
+    }
+    void GetInt(int* value) const {
+      RTC_DCHECK(value);
+      *value = value_.int_value;
     }
 
    private:
     RuntimeSetting(Type id, float value) : type_(id), value_(value) {}
+    RuntimeSetting(Type id, int value) : type_(id), value_(value) {}
     Type type_;
-    float value_;
+    union U {
+      U() {}
+      U(int value) : int_value(value) {}
+      U(float value) : float_value(value) {}
+      float float_value;
+      int int_value;
+    } value_;
   };
 
   ~AudioProcessing() override {}

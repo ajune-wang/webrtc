@@ -853,6 +853,7 @@ void AudioProcessingImpl::SetRuntimeSetting(RuntimeSetting setting) {
     case RuntimeSetting::Type::kCapturePreGain:
     case RuntimeSetting::Type::kCaptureCompressionGain:
     case RuntimeSetting::Type::kCaptureFixedPostGain:
+    case RuntimeSetting::Type::kPlayoutVolumeChange:
       capture_runtime_settings_enqueuer_.Enqueue(setting);
       return;
   }
@@ -980,11 +981,10 @@ void AudioProcessingImpl::HandleCaptureRuntimeSettings() {
         // TODO(bugs.chromium.org/9138): Log setting handling by Aec Dump.
         break;
       case RuntimeSetting::Type::kCaptureCompressionGain: {
-        float value;
-        setting.GetFloat(&value);
-        int int_value = static_cast<int>(value + .5f);
-        config_.gain_controller1.compression_gain_db = int_value;
-        int error = agc1()->set_compression_gain_db(int_value);
+        int value;
+        setting.GetInt(&value);
+        config_.gain_controller1.compression_gain_db = value;
+        int error = agc1()->set_compression_gain_db(value);
         RTC_DCHECK_EQ(kNoError, error);
         break;
       }
@@ -996,6 +996,12 @@ void AudioProcessingImpl::HandleCaptureRuntimeSettings() {
           private_submodules_->gain_controller2->ApplyConfig(
               config_.gain_controller2);
         }
+        break;
+      }
+      case RuntimeSetting::Type::kPlayoutVolumeChange: {
+        int value;
+        setting.GetInt(&value);
+        capture_.playout_volume = value;
         break;
       }
       case RuntimeSetting::Type::kCustomRenderProcessingRuntimeSetting:
@@ -1023,6 +1029,7 @@ void AudioProcessingImpl::HandleRenderRuntimeSettings() {
       case RuntimeSetting::Type::kCapturePreGain:          // fall-through
       case RuntimeSetting::Type::kCaptureCompressionGain:  // fall-through
       case RuntimeSetting::Type::kCaptureFixedPostGain:    // fall-through
+      case RuntimeSetting::Type::kPlayoutVolumeChange:     // fall-through
       case RuntimeSetting::Type::kNotSpecified:
         RTC_NOTREACHED();
         break;
@@ -1291,6 +1298,14 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
            capture_.prev_pre_amp_gain >= 0.f);
       capture_.prev_pre_amp_gain = pre_amp_gain;
     }
+
+    // Detect volume change.
+    capture_.echo_path_gain_change =
+        capture_.echo_path_gain_change ||
+        (capture_.prev_playout_volume != capture_.playout_volume &&
+         capture_.prev_playout_volume >= 0);
+    capture_.prev_playout_volume = capture_.playout_volume;
+
     private_submodules_->echo_controller->AnalyzeCapture(capture_buffer);
   }
 
@@ -2087,7 +2102,9 @@ AudioProcessingImpl::ApmCaptureState::ApmCaptureState(
       split_rate(kSampleRate16kHz),
       echo_path_gain_change(false),
       prev_analog_mic_level(-1),
-      prev_pre_amp_gain(-1.f) {}
+      prev_pre_amp_gain(-1.f),
+      playout_volume(-1),
+      prev_playout_volume(-1) {}
 
 AudioProcessingImpl::ApmCaptureState::~ApmCaptureState() = default;
 

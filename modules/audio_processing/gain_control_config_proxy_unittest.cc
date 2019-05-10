@@ -87,9 +87,9 @@ TEST_F(GainControlConfigProxyTest, SetCompressionGainDb) {
   proxy()->set_compression_gain_db(17);
   EXPECT_EQ(AudioProcessing::RuntimeSetting::Type::kCaptureCompressionGain,
             setting.type());
-  float value;
-  setting.GetFloat(&value);
-  EXPECT_EQ(17, static_cast<int>(value + .5f));
+  int value;
+  setting.GetInt(&value);
+  EXPECT_EQ(17, value);
 }
 
 TEST_F(GainControlConfigProxyTest, SetEnableLimiter) {

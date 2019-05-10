@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "585e2ae6_27415c02",
+        "filename": "modules/audio_processing/aec_dump/aec_dump_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-10T09:16:22Z",
+      "side": 1,
+      "message": "Please end the comment with a period (\".\")",
+      "range": {
+        "startLine": 202,
+        "startChar": 45,
+        "endLine": 202,
+        "endChar": 73
+      },
+      "revId": "3b86d84b676fa2b00ff9ecbffbed387a7d7097f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acb0300c_d7eaf30c",
+        "filename": "modules/audio_processing/aec_dump/aec_dump_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-10T09:16:22Z",
+      "side": 1,
+      "message": "I think this CL should add functionality in RuntimeSetting to store an int.\n\nIf we, for the time being, resort to send floats via Runtime settings, it will be trickier to change it afterwards as downstream applications will start relying on floats being changed and changing it to passing ints instead will be an API breaking change.",
+      "range": {
+        "startLine": 202,
+        "startChar": 6,
+        "endLine": 202,
+        "endChar": 73
+      },
+      "revId": "3b86d84b676fa2b00ff9ecbffbed387a7d7097f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36103b29_4b356f1e",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-10T09:16:22Z",
+      "side": 1,
+      "message": "Please end comment with a period (https://google.github.io/styleguide/cppguide.html#Punctuation,_Spelling_and_Grammar)",
+      "range": {
+        "startLine": 1003,
+        "startChar": 8,
+        "endLine": 1003,
+        "endChar": 75
+      },
+      "revId": "3b86d84b676fa2b00ff9ecbffbed387a7d7097f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "847b026d_c1f1d0f9",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-10T09:16:22Z",
+      "side": 1,
+      "message": "I did not find any rule stating anything regarding declaring several members in one statement, (but neither any example where that was done).\n\nHowever, I definitely think you should declare the two separate variables on two lines as the rest of the code follows that convention (and it also follows the spirit of the styleguide rule https://google.github.io/styleguide/cppguide.html#Existing_Non-conformant_Code)",
+      "range": {
+        "startLine": 401,
+        "startChar": 24,
+        "endLine": 401,
+        "endChar": 43
+      },
+      "revId": "3b86d84b676fa2b00ff9ecbffbed387a7d7097f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a09fd092_f90761db",
+        "filename": "modules/audio_processing/test/runtime_setting_util.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-10T09:16:22Z",
+      "side": 1,
+      "message": "Maybe remove the \"only\" now, as a significant number of runtime settings are being added.",
+      "range": {
+        "startLine": 21,
+        "startChar": 28,
+        "endLine": 21,
+        "endChar": 32
+      },
+      "revId": "3b86d84b676fa2b00ff9ecbffbed387a7d7097f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

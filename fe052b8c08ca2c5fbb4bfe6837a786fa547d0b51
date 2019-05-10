@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "0c2325b8_47660d0d",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-10T10:25:32Z",
+      "side": 1,
+      "message": "For the naming, I think we can call this\n\nWebRTC-Audio-TargetLevelOffsetForDeceleration",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 43
+      },
+      "revId": "fe052b8c08ca2c5fbb4bfe6837a786fa547d0b51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a93bb328_ab8adfa4",
         "filename": "modules/audio_coding/neteq/delay_manager.cc",
         "patchSetId": 2

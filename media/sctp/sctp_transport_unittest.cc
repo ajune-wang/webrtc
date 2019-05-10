@@ -216,6 +216,7 @@ class SctpTransportTest : public ::testing::Test, public sigslot::has_slots<> {
   }
 
  private:
+  rtc::AutoThread main_thread_;
   std::unique_ptr<FakeDtlsTransport> fake_dtls1_;
   std::unique_ptr<FakeDtlsTransport> fake_dtls2_;
   std::unique_ptr<SctpFakeDataReceiver> recv1_;

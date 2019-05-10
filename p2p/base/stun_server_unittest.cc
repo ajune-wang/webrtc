@@ -62,6 +62,7 @@ class StunServerTest : public ::testing::Test {
   }
 
  private:
+  rtc::AutoThread main_;
   std::unique_ptr<rtc::VirtualSocketServer> ss_;
   rtc::Thread network_;
   std::unique_ptr<StunServer> server_;

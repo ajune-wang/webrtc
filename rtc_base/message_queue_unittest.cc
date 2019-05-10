@@ -121,25 +121,12 @@ TEST_F(MessageQueueTest, DiposeHandlerWithPostedMessagePending) {
   EXPECT_TRUE(deleted);
 }
 
-struct UnwrapMainThreadScope {
-  UnwrapMainThreadScope() : rewrap_(Thread::Current() != nullptr) {
-    if (rewrap_)
-      ThreadManager::Instance()->UnwrapCurrentThread();
-  }
-  ~UnwrapMainThreadScope() {
-    if (rewrap_)
-      ThreadManager::Instance()->WrapCurrentThread();
-  }
-
- private:
-  bool rewrap_;
-};
-
 // Ensure that ProcessAllMessageQueues does its essential function; process
 // all messages (both delayed and non delayed) up until the current time, on
 // all registered message queues.
 TEST(MessageQueueManager, ProcessAllMessageQueues) {
   Event entered_process_all_message_queues(true, false);
+  AutoThread main;
   auto a = Thread::CreateWithSocketServer();
   auto b = Thread::CreateWithSocketServer();
   a->Start();
@@ -173,6 +160,7 @@ TEST(MessageQueueManager, ProcessAllMessageQueues) {
 
 // Test that ProcessAllMessageQueues doesn't hang if a thread is quitting.
 TEST(MessageQueueManager, ProcessAllMessageQueuesWithQuittingThread) {
+  AutoThread main;
   auto t = Thread::CreateWithSocketServer();
   t->Start();
   t->Quit();
@@ -183,6 +171,7 @@ TEST(MessageQueueManager, ProcessAllMessageQueuesWithQuittingThread) {
 // messages.
 TEST(MessageQueueManager, ProcessAllMessageQueuesWithClearedQueue) {
   Event entered_process_all_message_queues(true, false);
+  // AutoThread main;
   auto t = Thread::CreateWithSocketServer();
   t->Start();
 

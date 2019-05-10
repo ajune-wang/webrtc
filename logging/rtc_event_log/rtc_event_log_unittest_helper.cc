@@ -92,6 +92,11 @@ std::unique_ptr<RtcEventAlrState> EventGenerator::NewAlrState() {
   return absl::make_unique<RtcEventAlrState>(prng_.Rand<bool>());
 }
 
+std::unique_ptr<RtcEventRouteChange> EventGenerator::NewRouteChange() {
+  return absl::make_unique<RtcEventRouteChange>(prng_.Rand<bool>(),
+                                                prng_.Rand(0, 128));
+}
+
 std::unique_ptr<RtcEventAudioPlayout> EventGenerator::NewAudioPlayout(
     uint32_t ssrc) {
   return absl::make_unique<RtcEventAudioPlayout>(ssrc);
@@ -729,6 +734,14 @@ void EventVerifier::VerifyLoggedAlrStateEvent(
     const LoggedAlrStateEvent& logged_event) const {
   EXPECT_EQ(original_event.timestamp_ms(), logged_event.log_time_ms());
   EXPECT_EQ(original_event.in_alr(), logged_event.in_alr);
+}
+
+void EventVerifier::VerifyLoggedRouteChangeEvent(
+    const RtcEventRouteChange& original_event,
+    const LoggedRouteChangeEvent& logged_event) const {
+  EXPECT_EQ(original_event.timestamp_ms(), logged_event.log_time_ms());
+  EXPECT_EQ(original_event.connected(), logged_event.connected);
+  EXPECT_EQ(original_event.overhead(), logged_event.overhead);
 }
 
 void EventVerifier::VerifyLoggedAudioPlayoutEvent(

@@ -27,6 +27,7 @@ class EventStream;  // Auto-generated from protobuf.
 }  // namespace rtclog2
 
 class RtcEventAlrState;
+class RtcEventRouteChange;
 class RtcEventAudioNetworkAdaptation;
 class RtcEventAudioPlayout;
 class RtcEventAudioReceiveStreamConfig;
@@ -69,6 +70,8 @@ class RtcEventLogEncoderNewFormat final : public RtcEventLogEncoder {
   // Encoding entry-point for the various RtcEvent subclasses.
   void EncodeAlrState(rtc::ArrayView<const RtcEventAlrState*> batch,
                       rtclog2::EventStream* event_stream);
+  void EncodeRouteChange(rtc::ArrayView<const RtcEventRouteChange*> batch,
+                         rtclog2::EventStream* event_stream);
   void EncodeAudioNetworkAdaptation(
       rtc::ArrayView<const RtcEventAudioNetworkAdaptation*> batch,
       rtclog2::EventStream* event_stream);

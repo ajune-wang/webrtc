@@ -32,6 +32,7 @@
 #include "logging/rtc_event_log/events/rtc_event_probe_cluster_created.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_result_failure.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_result_success.h"
+#include "logging/rtc_event_log/events/rtc_event_route_change.h"
 #include "logging/rtc_event_log/events/rtc_event_rtcp_packet_incoming.h"
 #include "logging/rtc_event_log/events/rtc_event_rtcp_packet_outgoing.h"
 #include "logging/rtc_event_log/events/rtc_event_rtp_packet_incoming.h"
@@ -665,6 +666,7 @@ std::string RtcEventLogEncoderNewFormat::EncodeBatch(
 
   {
     std::vector<const RtcEventAlrState*> alr_state_events;
+    std::vector<const RtcEventRouteChange*> route_change_events;
     std::vector<const RtcEventAudioNetworkAdaptation*>
         audio_network_adaptation_events;
     std::vector<const RtcEventAudioPlayout*> audio_playout_events;
@@ -700,6 +702,12 @@ std::string RtcEventLogEncoderNewFormat::EncodeBatch(
           auto* rtc_event =
               static_cast<const RtcEventAlrState* const>(it->get());
           alr_state_events.push_back(rtc_event);
+          break;
+        }
+        case RtcEvent::Type::RouteChangeEvent: {
+          auto* rtc_event =
+              static_cast<const RtcEventRouteChange* const>(it->get());
+          route_change_events.push_back(rtc_event);
           break;
         }
         case RtcEvent::Type::AudioNetworkAdaptation: {
@@ -847,6 +855,7 @@ std::string RtcEventLogEncoderNewFormat::EncodeBatch(
     }
 
     EncodeAlrState(alr_state_events, &event_stream);
+    EncodeRouteChange(route_change_events, &event_stream);
     EncodeAudioNetworkAdaptation(audio_network_adaptation_events,
                                  &event_stream);
     EncodeAudioPlayout(audio_playout_events, &event_stream);
@@ -882,6 +891,18 @@ void RtcEventLogEncoderNewFormat::EncodeAlrState(
     rtclog2::AlrState* proto_batch = event_stream->add_alr_states();
     proto_batch->set_timestamp_ms(base_event->timestamp_ms());
     proto_batch->set_in_alr(base_event->in_alr());
+  }
+  // TODO(terelius): Should we delta-compress this event type?
+}
+
+void RtcEventLogEncoderNewFormat::EncodeRouteChange(
+    rtc::ArrayView<const RtcEventRouteChange*> batch,
+    rtclog2::EventStream* event_stream) {
+  for (const RtcEventRouteChange* base_event : batch) {
+    rtclog2::RouteChange* proto_batch = event_stream->add_route_changes();
+    proto_batch->set_timestamp_ms(base_event->timestamp_ms());
+    proto_batch->set_connected(base_event->connected());
+    proto_batch->set_overhead(base_event->overhead());
   }
   // TODO(terelius): Should we delta-compress this event type?
 }

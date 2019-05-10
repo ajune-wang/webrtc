@@ -28,6 +28,10 @@
 
 namespace cricket {
 
+// Constants that are important to API users
+// The size of the SCTP association send buffer. 256kB, the usrsctp default.
+constexpr int kSctpSendBufferSize = 256 * 1024;
+
 // The number of outgoing streams that we'll negotiate. Since stream IDs (SIDs)
 // are 0-based, the highest usable SID is 1023.
 //
@@ -73,7 +77,9 @@ class SctpTransportInternal {
   // TODO(deadbeef): Support calling Start with different local/remote ports
   // and create a new association? Not clear if this is something we need to
   // support though. See: https://github.com/w3c/webrtc-pc/issues/979
-  virtual bool Start(int local_sctp_port, int remote_sctp_port) = 0;
+  virtual bool Start(int local_sctp_port,
+                     int remote_sctp_port,
+                     int max_message_size) = 0;
 
   // NOTE: Initially there was a "Stop" method here, but it was never used, so
   // it was removed.
@@ -122,6 +128,7 @@ class SctpTransportInternal {
 
   // Helper for debugging.
   virtual void set_debug_name_for_testing(const char* debug_name) = 0;
+  virtual int max_message_size() const = 0;
 };
 
 // Factory class which can be used to allow fake SctpTransports to be injected

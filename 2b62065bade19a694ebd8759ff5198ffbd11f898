@@ -1,0 +1,389 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba9ac245_e5b2b1d3",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "Sort alphabetically.",
+      "range": {
+        "startLine": 669,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 64
+      },
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3737c8d1_c2d7b835",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "Sort alphabetically.",
+      "range": {
+        "startLine": 707,
+        "startChar": 29,
+        "endLine": 707,
+        "endChar": 45
+      },
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bd2b029_789b504f",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "Sort alphabetically.",
+      "range": {
+        "startLine": 858,
+        "startChar": 4,
+        "endLine": 858,
+        "endChar": 21
+      },
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "061b1656_8e20f9d4",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "Sort alphabetically.",
+      "range": {
+        "startLine": 898,
+        "startChar": 34,
+        "endLine": 898,
+        "endChar": 51
+      },
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "753d2882_67fa29cd",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "Just for the record, the answer is probably yes for both this and ALR. It\u0027s not high priority though.",
+      "range": {
+        "startLine": 907,
+        "startChar": 2,
+        "endLine": 907,
+        "endChar": 62
+      },
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6c95508_52b1ea81",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "These functions seem to be sorted alphabetically. I suggest moving this down below the probe events. Same elsewhere.\n\n(Some of the other places don\u0027t appear to be fully sorted. I\u0027ll leave it up to your judgement to decide whether it makes sense to move in those cases.)",
+      "range": {
+        "startLine": 73,
+        "startChar": 7,
+        "endLine": 73,
+        "endChar": 24
+      },
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f715342_75e8c956",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "Sort alphabetically.",
+      "range": {
+        "startLine": 57,
+        "startChar": 7,
+        "endLine": 57,
+        "endChar": 29
+      },
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c8816c4_1f915cce",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "Please document the meaning.",
+      "range": {
+        "startLine": 545,
+        "startChar": 16,
+        "endLine": 545,
+        "endChar": 25
+      },
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b8ddb67_a7192ef1",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "Please document the meaning.",
+      "range": {
+        "startLine": 547,
+        "startChar": 18,
+        "endLine": 547,
+        "endChar": 26
+      },
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "251a4896_88be9342",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "Sort alphabetically.",
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4cbc922_2d8fb698",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "Sort alphabetically.",
+      "range": {
+        "startLine": 607,
+        "startChar": 7,
+        "endLine": 607,
+        "endChar": 28
+      },
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16875690_c510c585",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "Sort alphabetically.",
+      "range": {
+        "startLine": 708,
+        "startChar": 14,
+        "endLine": 708,
+        "endChar": 36
+      },
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbacbaa1_2b6f1702",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "Sort alphabetically.",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 71
+      },
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74194169_098219ad",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "Sort alphabetically.",
+      "range": {
+        "startLine": 95,
+        "startChar": 53,
+        "endLine": 95,
+        "endChar": 67
+      },
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd812db2_71babd37",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "Sort alphabetically.",
+      "range": {
+        "startLine": 739,
+        "startChar": 20,
+        "endLine": 739,
+        "endChar": 48
+      },
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb29d9f8_fdbaa0f0",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "Sort alphabetically.",
+      "range": {
+        "startLine": 66,
+        "startChar": 39,
+        "endLine": 66,
+        "endChar": 53
+      },
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8209173b_b65f7f9f",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-10T17:16:34Z",
+      "side": 1,
+      "message": "Sort alphabetically.",
+      "range": {
+        "startLine": 154,
+        "startChar": 7,
+        "endLine": 154,
+        "endChar": 35
+      },
+      "revId": "2b62065bade19a694ebd8759ff5198ffbd11f898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -47,10 +47,10 @@ class JsepSessionDescription : public SessionDescriptionInterface {
   bool Initialize(std::unique_ptr<cricket::SessionDescription> description,
                   const std::string& session_id,
                   const std::string& session_version);
-  // Backwards compatible version. To be deprecated.
-  bool Initialize(cricket::SessionDescription* description,
-                  const std::string& session_id,
-                  const std::string& session_version);
+  // Backwards compatible version. Replace with version above.
+  RTC_DEPRECATED bool Initialize(cricket::SessionDescription* description,
+                                 const std::string& session_id,
+                                 const std::string& session_version);
 
   virtual cricket::SessionDescription* description() {
     return description_.get();

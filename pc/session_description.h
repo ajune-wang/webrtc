@@ -599,7 +599,8 @@ class SessionDescription {
 
   std::unique_ptr<SessionDescription> Clone() const;
   // Older API - to be deprecated. Still expects caller to take ownership.
-  SessionDescription* Copy() const;
+  // Replace with Clone().
+  RTC_DEPRECATED SessionDescription* Copy() const;
 
   struct MediaTransportSetting;
 

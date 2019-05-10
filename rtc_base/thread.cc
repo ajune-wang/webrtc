@@ -78,19 +78,11 @@ Thread* Thread::Current() {
   ThreadManager* manager = ThreadManager::Instance();
   Thread* thread = manager->CurrentThread();
 
-#ifndef NO_MAIN_THREAD_WRAPPING
-  // Only autowrap the thread which instantiated the ThreadManager.
-  if (!thread && manager->IsMainThread()) {
-    thread = new Thread(SocketServer::CreateDefault());
-    thread->WrapCurrentWithThreadManager(manager, true);
-  }
-#endif
-
   return thread;
 }
 
 #if defined(WEBRTC_POSIX)
-ThreadManager::ThreadManager() : main_thread_ref_(CurrentThreadRef()) {
+ThreadManager::ThreadManager() {
 #if defined(WEBRTC_MAC)
   InitCocoaMultiThreading();
 #endif
@@ -112,15 +104,18 @@ void ThreadManager::SetCurrentThread(Thread* thread) {
 #endif
 
 #if defined(WEBRTC_WIN)
-ThreadManager::ThreadManager()
-    : key_(TlsAlloc()), main_thread_ref_(CurrentThreadRef()) {}
+ThreadManager::ThreadManager() : key_(TlsAlloc()) {}
 
 Thread* ThreadManager::CurrentThread() {
   return static_cast<Thread*>(TlsGetValue(key_));
 }
 
 void ThreadManager::SetCurrentThread(Thread* thread) {
-  RTC_DCHECK(!CurrentThread() || !thread);
+#if RTC_DLOG_IS_ON
+  if (CurrentThread() && thread) {
+    RTC_DLOG(LS_ERROR) << "SetCurrentThread: Overwriting an existing value?";
+  }
+#endif  // RTC_DLOG_IS_ON
   TlsSetValue(key_, thread);
 }
 #endif
@@ -140,10 +135,6 @@ void ThreadManager::UnwrapCurrentThread() {
     t->UnwrapCurrent();
     delete t;
   }
-}
-
-bool ThreadManager::IsMainThread() {
-  return IsThreadRefEqual(CurrentThreadRef(), main_thread_ref_);
 }
 
 Thread::ScopedDisallowBlockingCalls::ScopedDisallowBlockingCalls()
@@ -577,8 +568,11 @@ bool Thread::IsRunning() {
 
 AutoThread::AutoThread()
     : Thread(SocketServer::CreateDefault(), /*do_init=*/false) {
-  DoInit();
   if (!ThreadManager::Instance()->CurrentThread()) {
+    // DoInit registers with MessageQueueManager. Do that only if we intend to
+    // be rtc::Thread::Current(), otherwise ProcessAllMessageQueuesInternal will
+    // post a message to a queue that no running thread is serving.
+    DoInit();
     ThreadManager::Instance()->SetCurrentThread(this);
   }
 }

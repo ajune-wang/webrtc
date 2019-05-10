@@ -32,6 +32,7 @@
 #include "logging/rtc_event_log/events/rtc_event_probe_cluster_created.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_result_failure.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_result_success.h"
+#include "logging/rtc_event_log/events/rtc_event_route_change.h"
 #include "logging/rtc_event_log/events/rtc_event_rtcp_packet_incoming.h"
 #include "logging/rtc_event_log/events/rtc_event_rtcp_packet_outgoing.h"
 #include "logging/rtc_event_log/events/rtc_event_rtp_packet_incoming.h"
@@ -62,6 +63,7 @@ class EventGenerator {
   explicit EventGenerator(uint64_t seed) : prng_(seed) {}
 
   std::unique_ptr<RtcEventAlrState> NewAlrState();
+  std::unique_ptr<RtcEventRouteChange> NewRouteChange();
   std::unique_ptr<RtcEventAudioPlayout> NewAudioPlayout(uint32_t ssrc);
   std::unique_ptr<RtcEventAudioNetworkAdaptation> NewAudioNetworkAdaptation();
   std::unique_ptr<RtcEventBweUpdateDelayBased> NewBweUpdateDelayBased();
@@ -148,6 +150,10 @@ class EventVerifier {
 
   void VerifyLoggedAlrStateEvent(const RtcEventAlrState& original_event,
                                  const LoggedAlrStateEvent& logged_event) const;
+
+  void VerifyLoggedRouteChangeEvent(
+      const RtcEventRouteChange& original_event,
+      const LoggedRouteChangeEvent& logged_event) const;
 
   void VerifyLoggedAudioPlayoutEvent(
       const RtcEventAudioPlayout& original_event,

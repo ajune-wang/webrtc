@@ -63,6 +63,7 @@ struct EventCounts {
   size_t video_send_streams = 0;
   size_t video_recv_streams = 0;
   size_t alr_states = 0;
+  size_t route_changes = 0;
   size_t audio_playouts = 0;
   size_t ana_configs = 0;
   size_t bwe_loss_events = 0;
@@ -83,13 +84,13 @@ struct EventCounts {
   size_t generic_acks_received = 0;
 
   size_t total_nonconfig_events() const {
-    return alr_states + audio_playouts + ana_configs + bwe_loss_events +
-           bwe_delay_events + dtls_transport_states + dtls_writable_states +
-           probe_creations + probe_successes + probe_failures + ice_configs +
-           ice_events + incoming_rtp_packets + outgoing_rtp_packets +
-           incoming_rtcp_packets + outgoing_rtcp_packets +
-           generic_packets_sent + generic_packets_received +
-           generic_acks_received;
+    return alr_states + route_changes + audio_playouts + ana_configs +
+           bwe_loss_events + bwe_delay_events + dtls_transport_states +
+           dtls_writable_states + probe_creations + probe_successes +
+           probe_failures + ice_configs + ice_events + incoming_rtp_packets +
+           outgoing_rtp_packets + incoming_rtcp_packets +
+           outgoing_rtcp_packets + generic_packets_sent +
+           generic_packets_received + generic_acks_received;
   }
 
   size_t total_config_events() const {
@@ -155,6 +156,7 @@ class RtcEventLogSession
 
   // Regular events.
   std::vector<std::unique_ptr<RtcEventAlrState>> alr_state_list_;
+  std::vector<std::unique_ptr<RtcEventRouteChange>> route_change_list_;
   std::map<uint32_t, std::vector<std::unique_ptr<RtcEventAudioPlayout>>>
       audio_playout_map_;  // Groups audio by SSRC.
   std::vector<std::unique_ptr<RtcEventAudioNetworkAdaptation>>
@@ -348,6 +350,15 @@ void RtcEventLogSession::WriteLog(EventCounts count,
       continue;
     }
     selection -= count.alr_states;
+
+    if (selection < count.route_changes) {
+      auto event = gen_.NewRouteChange();
+      event_log->Log(event->Copy());
+      route_change_list_.push_back(std::move(event));
+      count.route_changes--;
+      continue;
+    }
+    selection -= count.route_changes;
 
     if (selection < count.audio_playouts) {
       size_t stream = prng_.Rand(incoming_extensions_.size() - 1);
@@ -552,6 +563,12 @@ void RtcEventLogSession::ReadAndVerifyLog() {
     verifier_.VerifyLoggedAlrStateEvent(*alr_state_list_[i],
                                         parsed_alr_state_events[i]);
   }
+  auto& parsed_route_change_events = parsed_log.route_change_events();
+  ASSERT_EQ(parsed_route_change_events.size(), route_change_list_.size());
+  for (size_t i = 0; i < parsed_route_change_events.size(); i++) {
+    verifier_.VerifyLoggedRouteChangeEvent(*route_change_list_[i],
+                                           parsed_route_change_events[i]);
+  }
 
   const auto& parsed_audio_playout_map = parsed_log.audio_playout_events();
   ASSERT_EQ(parsed_audio_playout_map.size(), audio_playout_map_.size());
@@ -735,6 +752,7 @@ TEST_P(RtcEventLogSession, StartLoggingFromBeginning) {
   count.video_send_streams = 3;
   count.video_recv_streams = 4;
   count.alr_states = 4;
+  count.route_changes = 4;
   count.audio_playouts = 100;
   count.ana_configs = 3;
   count.bwe_loss_events = 20;
@@ -767,6 +785,7 @@ TEST_P(RtcEventLogSession, StartLoggingInTheMiddle) {
   count.video_send_streams = 5;
   count.video_recv_streams = 6;
   count.alr_states = 10;
+  count.route_changes = 10;
   count.audio_playouts = 500;
   count.ana_configs = 10;
   count.bwe_loss_events = 50;

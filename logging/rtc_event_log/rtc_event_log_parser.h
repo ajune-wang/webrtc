@@ -333,6 +333,10 @@ class ParsedRtcEventLog {
     return alr_state_events_;
   }
 
+  const std::vector<LoggedRouteChangeEvent>& route_change_events() const {
+    return route_change_events_;
+  }
+
   // Audio
   const std::map<uint32_t, std::vector<LoggedAudioPlayoutEvent>>&
   audio_playout_events() const {
@@ -600,6 +604,7 @@ class ParsedRtcEventLog {
   void StoreStartEvent(const rtclog2::BeginLogEvent& proto);
   void StoreStopEvent(const rtclog2::EndLogEvent& proto);
   void StoreAlrStateEvent(const rtclog2::AlrState& proto);
+  void StoreRouteChangeEvent(const rtclog2::RouteChange& proto);
   void StoreAudioNetworkAdaptationEvent(
       const rtclog2::AudioNetworkAdaptations& proto);
   void StoreAudioPlayoutEvent(const rtclog2::AudioPlayoutEvents& proto);
@@ -700,6 +705,7 @@ class ParsedRtcEventLog {
   std::vector<LoggedStopEvent> stop_log_events_;
 
   std::vector<LoggedAlrStateEvent> alr_state_events_;
+  std::vector<LoggedRouteChangeEvent> route_change_events_;
 
   std::map<uint32_t, std::vector<LoggedAudioPlayoutEvent>>
       audio_playout_events_;

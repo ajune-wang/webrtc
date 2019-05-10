@@ -1129,6 +1129,7 @@ bool ParsedRtcEventLog::ParseStream(
   first_timestamp_ = std::numeric_limits<int64_t>::max();
   last_timestamp_ = std::numeric_limits<int64_t>::min();
   StoreFirstAndLastTimestamp(alr_state_events());
+  StoreFirstAndLastTimestamp(route_change_events());
   for (const auto& audio_stream : audio_playout_events()) {
     // Audio playout events are grouped by SSRC.
     StoreFirstAndLastTimestamp(audio_stream.second);
@@ -2220,6 +2221,20 @@ void ParsedRtcEventLog::StoreAlrStateEvent(const rtclog2::AlrState& proto) {
   alr_event.in_alr = proto.in_alr();
 
   alr_state_events_.push_back(alr_event);
+  // TODO(terelius): Should we delta encode this event type?
+}
+
+void ParsedRtcEventLog::StoreRouteChangeEvent(
+    const rtclog2::RouteChange& proto) {
+  RTC_CHECK(proto.has_timestamp_ms());
+  RTC_CHECK(proto.has_connected());
+  RTC_CHECK(proto.has_overhead());
+  LoggedRouteChangeEvent route_event;
+  route_event.timestamp_ms = proto.timestamp_ms();
+  route_event.connected = proto.connected();
+  route_event.overhead = proto.overhead();
+
+  route_change_events_.push_back(route_event);
   // TODO(terelius): Should we delta encode this event type?
 }
 

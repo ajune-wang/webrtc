@@ -54,6 +54,21 @@ struct LoggedAlrStateEvent {
   bool in_alr;
 };
 
+struct LoggedRouteChangeEvent {
+  LoggedRouteChangeEvent() = default;
+  LoggedRouteChangeEvent(int64_t timestamp_ms,
+                         bool connected,
+                         uint32_t overhead)
+      : timestamp_ms(timestamp_ms), connected(connected), overhead(overhead) {}
+
+  int64_t log_time_us() const { return timestamp_ms * 1000; }
+  int64_t log_time_ms() const { return timestamp_ms; }
+
+  int64_t timestamp_ms;
+  bool connected;
+  uint32_t overhead;
+};
+
 struct LoggedAudioPlayoutEvent {
   LoggedAudioPlayoutEvent() = default;
   LoggedAudioPlayoutEvent(int64_t timestamp_us, uint32_t ssrc)
@@ -500,8 +515,6 @@ struct InferredRouteChangeEvent {
   uint16_t send_overhead;
   uint16_t return_overhead;
 };
-
-using LoggedRouteChangeEvent = InferredRouteChangeEvent;
 
 enum class LoggedMediaType : uint8_t { kUnknown, kAudio, kVideo };
 

@@ -104,6 +104,26 @@ absl::optional<DelayHistogramConfig> GetDelayHistogramConfig() {
   return absl::nullopt;
 }
 
+absl::optional<int> GetDecelerationTargetLevelOffsetMs() {
+  constexpr char kDecelerationTargetLevelOffsetFieldTrial[] =
+      "WebRTC-Audio-NetEqDecelerationTargetLevelOffset";
+  if (!webrtc::field_trial::IsEnabled(
+          kDecelerationTargetLevelOffsetFieldTrial)) {
+    return absl::nullopt;
+  }
+
+  const auto field_trial_string = webrtc::field_trial::FindFullName(
+      kDecelerationTargetLevelOffsetFieldTrial);
+  int deceleration_target_level_offset = -1;
+  sscanf(field_trial_string.c_str(), "Enabled-%d",
+         &deceleration_target_level_offset);
+  RTC_LOG(LS_INFO) << "NetEq deceleration_target_level_offset "
+                   << deceleration_target_level_offset;
+  return deceleration_target_level_offset >= 0
+             ? absl::make_optional(deceleration_target_level_offset)
+             : absl::nullopt;
+}
+
 }  // namespace
 
 namespace webrtc {
@@ -140,10 +160,13 @@ DelayManager::DelayManager(size_t max_packets_in_buffer,
       last_pack_cng_or_dtmf_(1),
       frame_length_change_experiment_(
           field_trial::IsEnabled("WebRTC-Audio-NetEqFramelengthExperiment")),
-      enable_rtx_handling_(enable_rtx_handling) {
+      enable_rtx_handling_(enable_rtx_handling),
+      deceleration_target_level_offset_(GetDecelerationTargetLevelOffsetMs()) {
   assert(peak_detector);  // Should never be NULL.
   RTC_CHECK(histogram_);
   RTC_DCHECK_GE(base_minimum_delay_ms_, 0);
+  RTC_DCHECK(!deceleration_target_level_offset_ ||
+             *deceleration_target_level_offset_ >= 0);
 
   Reset();
 }
@@ -460,16 +483,24 @@ void DelayManager::BufferLimits(int* lower_limit, int* higher_limit) const {
     return;
   }
 
-  int window_20ms = 0x7FFF;  // Default large value for legacy bit-exactness.
-  if (packet_len_ms_ > 0) {
-    window_20ms = (20 << 8) / packet_len_ms_;
-  }
-
   // |target_level_| is in Q8 already.
   *lower_limit = (target_level_ * 3) / 4;
+
+  if (deceleration_target_level_offset_ && packet_len_ms_ > 0) {
+    RTC_DCHECK_GE(*deceleration_target_level_offset_, 0);
+    const int deceleration_target_level_offset_q8 =
+        (*deceleration_target_level_offset_ << 8) / packet_len_ms_;
+    *lower_limit = std::max(
+        *lower_limit, target_level_ - deceleration_target_level_offset_q8);
+  }
+
+  int window_20ms_q8 = 0x7FFF;  // Default large value for legacy bit-exactness.
+  if (packet_len_ms_ > 0) {
+    window_20ms_q8 = (20 << 8) / packet_len_ms_;
+  }
   // |higher_limit| is equal to |target_level_|, but should at
   // least be 20 ms higher than |lower_limit_|.
-  *higher_limit = std::max(target_level_, *lower_limit + window_20ms);
+  *higher_limit = std::max(target_level_, *lower_limit + window_20ms_q8);
 }
 
 int DelayManager::TargetLevel() const {

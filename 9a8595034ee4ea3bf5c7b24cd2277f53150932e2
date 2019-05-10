@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e636056_1d84fcb5",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-10T12:56:56Z",
+      "side": 1,
+      "message": "This is not right I think. This CL should not change this, right?",
+      "range": {
+        "startLine": 984,
+        "startChar": 8,
+        "endLine": 987,
+        "endChar": 59
+      },
+      "revId": "9a8595034ee4ea3bf5c7b24cd2277f53150932e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d20517f_94d15a89",
+        "filename": "modules/audio_processing/gain_control_config_proxy_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-10T12:56:56Z",
+      "side": 1,
+      "message": "As elsewhere mentioned, This is not related to the volume change.",
+      "range": {
+        "startLine": 90,
+        "startChar": 1,
+        "endLine": 92,
+        "endChar": 23
+      },
+      "revId": "9a8595034ee4ea3bf5c7b24cd2277f53150932e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8333aff_886e09f7",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-10T12:56:56Z",
+      "side": 1,
+      "message": "This should not be changed by this CL",
+      "range": {
+        "startLine": 412,
+        "startChar": 6,
+        "endLine": 412,
+        "endChar": 54
+      },
+      "revId": "9a8595034ee4ea3bf5c7b24cd2277f53150932e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa1d053c_ef2729c2",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-10T12:56:56Z",
+      "side": 1,
+      "message": "Please use the style guide naming for the variables (https://google.github.io/styleguide/cppguide.html#Variable_Names)",
+      "range": {
+        "startLine": 449,
+        "startChar": 12,
+        "endLine": 449,
+        "endChar": 22
+      },
+      "revId": "9a8595034ee4ea3bf5c7b24cd2277f53150932e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "919f9e33_e6137b38",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-10T12:56:56Z",
+      "side": 1,
+      "message": "Here also",
+      "range": {
+        "startLine": 450,
+        "startChar": 10,
+        "endLine": 450,
+        "endChar": 18
+      },
+      "revId": "9a8595034ee4ea3bf5c7b24cd2277f53150932e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

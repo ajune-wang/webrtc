@@ -418,6 +418,12 @@ class PeerConnection : public PeerConnectionInternal,
   // New ICE candidate has been gathered.
   void OnIceCandidate(std::unique_ptr<IceCandidateInterface> candidate)
       RTC_RUN_ON(signaling_thread());
+  // Propage gathering failure reason of particular ICE candidate
+  void OnIceCandidateError(const std::string& host_candidate,
+                           const std::string& url,
+                           int error_code,
+                           const std::string& error_text)
+      RTC_RUN_ON(signaling_thread());
   // Some local ICE candidates have been removed.
   void OnIceCandidatesRemoved(const std::vector<cricket::Candidate>& candidates)
       RTC_RUN_ON(signaling_thread());
@@ -998,6 +1004,12 @@ class PeerConnection : public PeerConnectionInternal,
   void OnTransportControllerCandidatesGathered(
       const std::string& transport_name,
       const std::vector<cricket::Candidate>& candidates)
+      RTC_RUN_ON(signaling_thread());
+  void OnTransportControllerCandidateError(
+      const std::string& host_candidate,
+      const std::string& url,
+      int error_code,
+      const std::string& error_text)
       RTC_RUN_ON(signaling_thread());
   void OnTransportControllerCandidatesRemoved(
       const std::vector<cricket::Candidate>& candidates)

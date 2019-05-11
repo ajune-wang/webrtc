@@ -480,6 +480,8 @@ JsepTransportController::CreateDtlsTransport(
       this, &JsepTransportController::OnTransportGatheringState_n);
   dtls->ice_transport()->SignalCandidateGathered.connect(
       this, &JsepTransportController::OnTransportCandidateGathered_n);
+  dtls->ice_transport()->SignalCandidateError.connect(
+      this, &JsepTransportController::OnTransportCandidateError_n);
   dtls->ice_transport()->SignalCandidatesRemoved.connect(
       this, &JsepTransportController::OnTransportCandidatesRemoved_n);
   dtls->ice_transport()->SignalRoleConflict.connect(
@@ -1245,6 +1247,20 @@ void JsepTransportController::OnTransportCandidateGathered_n(
       });
 }
 
+void JsepTransportController::OnTransportCandidateError_n(
+    cricket::IceTransportInternal* transport,
+    const std::string& host_candidate,
+    const std::string& url,
+    int error_code,
+    const std::string& error_text) {
+  RTC_DCHECK(network_thread_->IsCurrent());
+
+  invoker_.AsyncInvoke<void>(
+      RTC_FROM_HERE, signaling_thread_,
+      [this, host_candidate, url, error_code, error_text] {
+        SignalIceCandidateError(host_candidate, url, error_code, error_text);
+      });
+}
 void JsepTransportController::OnTransportCandidatesRemoved_n(
     cricket::IceTransportInternal* transport,
     const cricket::Candidates& candidates) {

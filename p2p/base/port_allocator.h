@@ -271,6 +271,12 @@ class RTC_EXPORT PortAllocatorSession : public sigslot::has_slots<> {
       SignalPortsPruned;
   sigslot::signal2<PortAllocatorSession*, const std::vector<Candidate>&>
       SignalCandidatesReady;
+  sigslot::signal5<PortAllocatorSession*,
+                   const std::string&,
+                   const std::string&,
+                   int,
+                   const std::string&>
+      SignalCandidateError;
   // Candidates should be signaled to be removed when the port that generated
   // the candidates is removed.
   sigslot::signal2<PortAllocatorSession*, const std::vector<Candidate>&>

@@ -54,7 +54,16 @@ RtpPacketHistory::RtpPacketHistory(Clock* clock)
     : clock_(clock),
       number_to_store_(0),
       mode_(StorageMode::kDisabled),
-      rtt_ms_(-1) {}
+      rtt_ms_(-1),
+      retransmittable_packets_inserted_(0),
+      padding_priority_([](StoredPacket* lhs, StoredPacket* rhs) {
+        // Prefer to send packets we haven't already sent as padding.
+        if (lhs->times_retransmitted != rhs->times_retransmitted) {
+          return lhs->times_retransmitted < rhs->times_retransmitted;
+        }
+        // All else being equal, prefer newer packets.
+        return lhs->insert_order > rhs->insert_order;
+      }) {}
 
 RtpPacketHistory::~RtpPacketHistory() {}
 
@@ -129,6 +138,8 @@ void RtpPacketHistory::PutRtpPacket(std::unique_ptr<RtpPacketToSend> packet,
   // Store the sequence number of the last send packet with this size.
   if (type != StorageType::kDontRetransmit) {
     packet_size_[stored_packet.packet->size()] = rtp_seq_no;
+    stored_packet.insert_order = retransmittable_packets_inserted_++;
+    padding_priority_.insert(&stored_packet);
   }
 }
 
@@ -150,8 +161,13 @@ std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetPacketAndSetSendTime(
     return nullptr;
   }
 
-  if (packet.send_time_ms) {
+  if (packet.storage_type != StorageType::kDontRetransmit &&
+      packet.send_time_ms) {
+    // Remove and re-add packet in padding priority, since this packet will
+    // now have lowered priority.
+    RTC_CHECK_EQ(padding_priority_.erase(&packet), 1);
     ++packet.times_retransmitted;
+    padding_priority_.insert(&packet);
   }
 
   // Update send-time and mark as no long in pacer queue.
@@ -205,7 +221,6 @@ bool RtpPacketHistory::VerifyRtt(const RtpPacketHistory::StoredPacket& packet,
 
 std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetBestFittingPacket(
     size_t packet_length) const {
-  // TODO(sprang): Make this smarter, taking retransmit count etc into account.
   rtc::CritScope cs(&lock_);
   if (packet_length < kMinPacketRequestBytes || packet_size_.empty()) {
     return nullptr;
@@ -243,6 +258,35 @@ std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetBestFittingPacket(
   return absl::make_unique<RtpPacketToSend>(*best_packet);
 }
 
+std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetPayloadPaddingPacket() {
+  rtc::CritScope cs(&lock_);
+  RTC_DCHECK(mode_ != StorageMode::kDisabled);
+  if (padding_priority_.empty()) {
+    return std::unique_ptr<RtpPacketToSend>();
+  }
+
+  auto best_packet_it = padding_priority_.begin();
+  StoredPacket* best_packet = *best_packet_it;
+  if (best_packet->pending_transmission) {
+    // Because PacedSender releases it's lock when it calls
+    // TimeToSendPadding() there is the potential for a race where a new
+    // packet ends up here instead of the regular transmit path. In such a
+    // case, just return empty and it will be picked up on the next
+    // Process() call.
+    return std::unique_ptr<RtpPacketToSend>();
+  }
+
+  // Erase this packet from the padding priority queue and increase retransmit
+  // count, then put it back with updated priority.
+  padding_priority_.erase(best_packet_it);
+  best_packet->send_time_ms = clock_->TimeInMilliseconds();
+  ++best_packet->times_retransmitted;
+  padding_priority_.insert(best_packet);
+
+  // Return a copy of the packet.
+  return absl::make_unique<RtpPacketToSend>(*best_packet->packet);
+}
+
 void RtpPacketHistory::CullAcknowledgedPackets(
     rtc::ArrayView<const uint16_t> sequence_numbers) {
   rtc::CritScope cs(&lock_);
@@ -274,6 +318,7 @@ bool RtpPacketHistory::SetPendingTransmission(uint16_t sequence_number) {
 void RtpPacketHistory::Reset() {
   packet_history_.clear();
   packet_size_.clear();
+  padding_priority_.clear();
   start_seqno_.reset();
 }
 
@@ -326,6 +371,11 @@ std::unique_ptr<RtpPacketToSend> RtpPacketHistory::RemovePacket(
   // Check if this is the oldest packet in the history, as this must be updated
   // in order to cull old packets.
   const bool is_first_packet = packet_it->first == start_seqno_;
+
+  // Erase from padding priority set, if eligible.
+  if (packet_it->second.storage_type != StorageType::kDontRetransmit) {
+    RTC_CHECK_EQ(padding_priority_.erase(&packet_it->second), 1);
+  }
 
   // Erase the packet from the map, and capture iterator to the next one.
   StoredPacketIterator next_it = packet_history_.erase(packet_it);

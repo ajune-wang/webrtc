@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ac5bf46_bcd3a27e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3778,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-13T08:45:57Z",
+      "side": 1,
+      "message": "This method just added in cl https://webrtc-review.googlesource.com/c/src/+/135944",
+      "range": {
+        "startLine": 3778,
+        "startChar": 21,
+        "endLine": 3778,
+        "endChar": 37
+      },
+      "revId": "dc6966b45ff355f441caec92c7301f39b8446d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "513d60ba_cb02eb60",
+        "filename": "sdk/android/src/jni/pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-13T08:45:57Z",
+      "side": 1,
+      "message": "We now have the option of calling the new StartRtcEventLog method without |output_period_ms|, and move the field trial logic there. And similarly in the objc glue. What do you think?",
+      "range": {
+        "startLine": 748,
+        "startChar": 37,
+        "endLine": 748,
+        "endChar": 53
+      },
+      "revId": "dc6966b45ff355f441caec92c7301f39b8446d34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

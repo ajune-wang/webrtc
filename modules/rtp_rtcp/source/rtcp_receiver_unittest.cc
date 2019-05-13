@@ -35,6 +35,7 @@
 #include "modules/rtp_rtcp/source/time_util.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/random.h"
+#include "stats/data/report_block_data.h"
 #include "system_wrappers/include/ntp_time.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -80,6 +81,11 @@ class MockRtcpCallbackImpl : public RtcpStatisticsCallback {
  public:
   MOCK_METHOD2(StatisticsUpdated, void(const RtcpStatistics&, uint32_t));
   MOCK_METHOD2(CNameChanged, void(const char*, uint32_t));
+};
+
+class MockReportBlockDataObserverImpl : public ReportBlockDataObserver {
+ public:
+  MOCK_METHOD1(OnReportBlockDataUpdated, void(ReportBlockData));
 };
 
 class MockTransportFeedbackObserver : public TransportFeedbackObserver {

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b63d7074_1e0fd66b",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-05-13T11:39:16Z",
+      "side": 1,
+      "message": "You could make a static BufferLimits function (taking target level as parameter) which would make it easier to test.",
+      "range": {
+        "startLine": 754,
+        "startChar": 25,
+        "endLine": 754,
+        "endChar": 54
+      },
+      "revId": "6256087219ba466cf4dbb1a88283a70462cac02f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14efb2e6_3853bd7c",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-05-13T11:39:16Z",
+      "side": 1,
+      "message": "Maybe add separate tests for the field trial parsing, trying different values.",
+      "range": {
+        "startLine": 756,
+        "startChar": 55,
+        "endLine": 756,
+        "endChar": 66
+      },
+      "revId": "6256087219ba466cf4dbb1a88283a70462cac02f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

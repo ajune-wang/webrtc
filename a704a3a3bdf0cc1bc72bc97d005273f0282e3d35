@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5c574e4_234d4f09",
+        "filename": "test/fake_decoder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-13T12:04:50Z",
+      "side": 1,
+      "message": "I think you\u0027re supposed to just use \n\n  rtc::TaskQueue task_queue_;\n\nwhich internally is more or less a pointer to webrtc::TaskQueueBase. You may want to double check with Danil.",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 51
+      },
+      "revId": "a704a3a3bdf0cc1bc72bc97d005273f0282e3d35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

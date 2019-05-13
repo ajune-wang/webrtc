@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f72ce921_e1fb155e",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-13T11:04:35Z",
+      "side": 1,
+      "message": "why doesn\u0027t direct assign work?",
+      "range": {
+        "startLine": 209,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 3
+      },
+      "revId": "59c2879b9afff0493373a6b0835e9af43c257c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

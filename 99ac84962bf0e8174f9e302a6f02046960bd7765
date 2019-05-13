@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "467d6623_f42f7905",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-13T16:22:15Z",
+      "side": 1,
+      "message": "This can be `auto`, I think.",
+      "range": {
+        "startLine": 264,
+        "startChar": 11,
+        "endLine": 264,
+        "endChar": 54
+      },
+      "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8f631694_e7c577ea",
         "filename": "rtc_base/thread.h",
         "patchSetId": 3
@@ -16,6 +39,24 @@
       "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "650bfcb3_05c308e5",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-13T16:22:15Z",
+      "side": 1,
+      "message": "Ah, because it has a nontrivial destructor.",
+      "parentUuid": "8f631694_e7c577ea",
+      "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

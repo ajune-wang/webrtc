@@ -38,23 +38,40 @@ class Thread;
 
 namespace rtc_thread_internal {
 
-template <class FunctorT>
-class SingleMessageHandlerWithFunctor final : public MessageHandler {
+class MessageLikeTask : public MessageData {
  public:
-  explicit SingleMessageHandlerWithFunctor(FunctorT&& functor)
+  virtual void Run() = 0;
+};
+
+template <class FunctorT>
+class MessageWithFunctor final : public MessageLikeTask {
+ public:
+  explicit MessageWithFunctor(FunctorT&& functor)
       : functor_(std::forward<FunctorT>(functor)) {}
 
-  void OnMessage(Message* msg) override {
-    functor_();
-    delete this;
-  }
+  void Run() override { functor_(); }
 
  private:
-  ~SingleMessageHandlerWithFunctor() override {}
+  ~MessageWithFunctor() override {}
 
   typename std::remove_reference<FunctorT>::type functor_;
 
-  RTC_DISALLOW_COPY_AND_ASSIGN(SingleMessageHandlerWithFunctor);
+  RTC_DISALLOW_COPY_AND_ASSIGN(MessageWithFunctor);
+};
+
+class MessageHandlerWithTask final : public MessageHandler {
+ public:
+  MessageHandlerWithTask() = default;
+
+  void OnMessage(Message* msg) override {
+    static_cast<MessageLikeTask*>(msg->pdata)->Run();
+    delete msg->pdata;
+  }
+
+ private:
+  ~MessageHandlerWithTask() override {}
+
+  RTC_DISALLOW_COPY_AND_ASSIGN(MessageHandlerWithTask);
 };
 
 }  // namespace rtc_thread_internal
@@ -243,18 +260,12 @@ class RTC_LOCKABLE Thread : public MessageQueue {
   //                  [&x, &y] { x.TrackComputations(y.Compute()); });
   template <class FunctorT>
   void PostTask(const Location& posted_from, FunctorT&& functor) {
-    Post(posted_from,
-         new rtc_thread_internal::SingleMessageHandlerWithFunctor<FunctorT>(
+    // Allocate at first call, never deallocate.
+    static rtc_thread_internal::MessageHandlerWithTask* const handler =
+        new rtc_thread_internal::MessageHandlerWithTask;
+    Post(posted_from, handler, 0,
+         new rtc_thread_internal::MessageWithFunctor<FunctorT>(
              std::forward<FunctorT>(functor)));
-    // This DCHECK guarantees that the post was successful.
-    // Post() doesn't say whether it succeeded, but it will only fail if the
-    // thread is quitting. DCHECKing that the thread is not quitting *after*
-    // posting might yield some false positives (where the thread did in fact
-    // quit, but only after posting), but if we have false positives here then
-    // we have a race condition anyway.
-    // TODO(https://crbug.com/webrtc/10364): When Post() returns a bool we can
-    // DCHECK the result instead of inferring success from IsQuitting().
-    RTC_DCHECK(!IsQuitting());
   }
 
   // From MessageQueue

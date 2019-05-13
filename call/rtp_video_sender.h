@@ -191,16 +191,16 @@ class RtpVideoSender : public RtpVideoSenderInterface,
   uint32_t protection_bitrate_bps_;
   uint32_t encoder_target_rate_bps_;
 
-  std::vector<bool> loss_mask_vector_ RTC_GUARDED_BY(crit_);
+  rtc::CriticalSection loss_mask_lock_;
+  std::vector<bool> loss_mask_vector_ RTC_GUARDED_BY(loss_mask_lock_);
 
   std::vector<FrameCounts> frame_counts_ RTC_GUARDED_BY(crit_);
   FrameCountObserver* const frame_count_observer_;
 
-  // Effectively const map from ssrc to AcknowledgedPacketsObserver. This
-  // map is set at construction time and never changed, but it's
+  // Effectively const map from ssrc to RTPSender, for all media ssrcs.
+  // This map is set at construction time and never changed, but it's
   // non-trivial to make it properly const.
-  std::map<uint32_t, AcknowledgedPacketsObserver*>
-      ssrc_to_acknowledged_packets_observers_;
+  std::map<uint32_t, RTPSender*> ssrc_to_rtp_sender_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(RtpVideoSender);
 };

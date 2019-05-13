@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95b1ff71_1f9a3fc2",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-13T13:58:18Z",
+      "side": 1,
+      "message": "please use clock_\nit might be different from the global clock.\n\nwhat is that time, does it have to be UTC time? (sometimes that one is not monotonic)",
+      "range": {
+        "startLine": 492,
+        "startChar": 49,
+        "endLine": 492,
+        "endChar": 70
+      },
+      "revId": "3811bc5d5ccf027256c743bf9a3ab0263f47d27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c9d1c4c_8f16fda2",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-13T13:58:18Z",
+      "side": 1,
+      "message": "why move?\nlooking at the report_block_data it\u0027s move is not cheaper than the copy.",
+      "range": {
+        "startLine": 1103,
+        "startChar": 12,
+        "endLine": 1103,
+        "endChar": 21
+      },
+      "revId": "3811bc5d5ccf027256c743bf9a3ab0263f47d27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c9dc74a_9b2041a3",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-13T13:58:18Z",
+      "side": 1,
+      "message": "looking at the implementation that might not be true:\ninternally blocks identified by pair (sender ssrc, source ssrc)",
+      "range": {
+        "startLine": 99,
+        "startChar": 20,
+        "endLine": 100,
+        "endChar": 12
+      },
+      "revId": "3811bc5d5ccf027256c743bf9a3ab0263f47d27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8553409_d81002b4",
+        "filename": "stats/data/report_block_data.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-13T13:58:18Z",
+      "side": 1,
+      "message": "this struct is rtp specific.\nwhy move it out of the rtp_rtcp module ?\n\n(may be it is enough to have this kind of struct in rtp_rtcp_format BUILD target in rtp_rtcp - that BUILD target suppose to have only relatively cheap dependencies)",
+      "range": {
+        "startLine": 18,
+        "startChar": 7,
+        "endLine": 18,
+        "endChar": 22
+      },
+      "revId": "3811bc5d5ccf027256c743bf9a3ab0263f47d27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "010e7f61_b0288cf6",
+        "filename": "stats/data/report_block_data.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-13T13:58:18Z",
+      "side": 1,
+      "message": "this kind of way to store rtt is ok for internal struct, but not that reasonable for public struct.\n\nThis way of storing assumes some dependencies between struct members.\nWhen struct it hidden, owner class can ensure those invariants.\nWhen struct is public, it became harder to ensure those invariants hold.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 22
+      },
+      "revId": "3811bc5d5ccf027256c743bf9a3ab0263f47d27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

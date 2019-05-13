@@ -16,6 +16,24 @@
       "revId": "dd30eefb455a02ec9fbf6b2267b46473eead5d5c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "528a27a6_5beb6eb9",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2763,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-13T13:32:47Z",
+      "side": 1,
+      "message": "That was what caused the crash - the protocol was identified as SCTP by one part of the code, then as RTP by another part of the code, leading to the null pointer being followed.\nI tried to move set_protocol for RTP up above, but it turned out that it would have to be present in three different forks (audio, video and data), since the code forks on m\u003d\u003ctype\u003e before it forks on protocol.\n\nIt seemed better (and a smaller change) to do it this way.\n\n(I want to refactor the code so that RTP-related stuff is handled separately from media-related stuff, but Not In This CL).",
+      "parentUuid": "d0418127_ead7d87f",
+      "revId": "dd30eefb455a02ec9fbf6b2267b46473eead5d5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

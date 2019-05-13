@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "15a32fb0_982160c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-13T09:54:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d747f16_64637e98",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 63
+      },
+      "revId": "d31a8e3f1a7a14568dd85980c6a9e6cce0721958",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2e2d571_79dd5c7b",
         "filename": "modules/rtp_rtcp/source/rtp_sender.h",
         "patchSetId": 5
@@ -68,6 +92,54 @@
       "revId": "d31a8e3f1a7a14568dd85980c6a9e6cce0721958",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a43d25cd_aea43114",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-13T09:54:03Z",
+      "side": 1,
+      "message": "Update to reflect names i RtpPacketSendResult: success, network unavailable, packet not found. The latter could also indicate rtp module not found, or packet unavailable due to RTT limit in packet history.\nThe intent is that the latter will remove the packet from the pacer queue without consuming media budget, which will happen in a follow-up cl.",
+      "parentUuid": "66a93b18_3d70711d",
+      "range": {
+        "startLine": 106,
+        "startChar": 55,
+        "endLine": 106,
+        "endChar": 73
+      },
+      "revId": "d31a8e3f1a7a14568dd85980c6a9e6cce0721958",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01946167_a2b9852f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-13T09:54:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2e2d571_79dd5c7b",
+      "range": {
+        "startLine": 106,
+        "startChar": 47,
+        "endLine": 106,
+        "endChar": 53
+      },
+      "revId": "d31a8e3f1a7a14568dd85980c6a9e6cce0721958",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

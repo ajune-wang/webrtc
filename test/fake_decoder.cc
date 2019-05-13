@@ -12,7 +12,10 @@
 
 #include <string.h>
 
+#include "absl/memory/memory.h"
 #include "api/scoped_refptr.h"
+#include "api/task_queue/global_task_queue_factory.h"
+#include "api/task_queue/queued_task.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_frame_buffer.h"
@@ -27,10 +30,28 @@ namespace test {
 namespace {
 const int kDefaultWidth = 320;
 const int kDefaultHeight = 180;
+
+class CallbackTask : public QueuedTask {
+ public:
+  CallbackTask(VideoFrame& frame, DecodedImageCallback* callback)
+      : frame_(frame), callback_(callback) {}
+
+ private:
+  bool Run() override {
+    callback_->Decoded(frame_);
+    return true;
+  }
+  VideoFrame frame_;
+  DecodedImageCallback* callback_;
+};
 }  // namespace
 
 FakeDecoder::FakeDecoder()
-    : callback_(NULL), width_(kDefaultWidth), height_(kDefaultHeight) {}
+    : callback_(nullptr),
+      width_(kDefaultWidth),
+      height_(kDefaultHeight),
+      task_queue_(nullptr),
+      decode_delay_ms_(0) {}
 
 int32_t FakeDecoder::InitDecode(const VideoCodec* config,
                                 int32_t number_of_cores) {
@@ -45,18 +66,32 @@ int32_t FakeDecoder::Decode(const EncodedImage& input,
     height_ = input._encodedHeight;
   }
 
-  VideoFrame frame =
-      VideoFrame::Builder()
-          .set_video_frame_buffer(I420Buffer::Create(width_, height_))
-          .set_rotation(webrtc::kVideoRotation_0)
-          .set_timestamp_ms(render_time_ms)
-          .build();
+  rtc::scoped_refptr<I420Buffer> buffer = I420Buffer::Create(width_, height_);
+  I420Buffer::SetBlack(buffer);
+  VideoFrame frame = VideoFrame::Builder()
+                         .set_video_frame_buffer(buffer)
+                         .set_rotation(webrtc::kVideoRotation_0)
+                         .set_timestamp_ms(render_time_ms)
+                         .build();
   frame.set_timestamp(input.Timestamp());
   frame.set_ntp_time_ms(input.ntp_time_ms_);
 
-  callback_->Decoded(frame);
+  if (decode_delay_ms_ == 0) {
+    callback_->Decoded(frame);
+  } else {
+    task_queue_->PostDelayedTask(
+        absl::make_unique<CallbackTask>(frame, callback_), decode_delay_ms_);
+  }
 
   return WEBRTC_VIDEO_CODEC_OK;
+}
+
+void FakeDecoder::SetDelayedDecoding(int decode_delay_ms) {
+  if (!task_queue_) {
+    task_queue_ = GlobalTaskQueueFactory().CreateTaskQueue(
+        "fake_decoder_queue", TaskQueueFactory::Priority::NORMAL);
+  }
+  decode_delay_ms_ = decode_delay_ms;
 }
 
 int32_t FakeDecoder::RegisterDecodeCompleteCallback(

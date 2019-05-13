@@ -13,10 +13,12 @@
 
 #include <stdint.h>
 
+#include "api/task_queue/task_queue_factory.h"
 #include "api/video/encoded_image.h"
 #include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/video_decoder.h"
 #include "modules/video_coding/include/video_codec_interface.h"
+#include "rtc_base/task_queue.h"
 
 namespace webrtc {
 namespace test {
@@ -42,10 +44,14 @@ class FakeDecoder : public VideoDecoder {
 
   static const char* kImplementationName;
 
+  void SetDelayedDecoding(int decode_delay_ms);
+
  private:
   DecodedImageCallback* callback_;
   int width_;
   int height_;
+  std::unique_ptr<TaskQueueBase, TaskQueueDeleter> task_queue_;
+  int decode_delay_ms_;
 };
 
 class FakeH264Decoder : public FakeDecoder {

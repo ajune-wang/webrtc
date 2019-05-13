@@ -21,6 +21,7 @@
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/congestion_controller/goog_cc/goog_cc_network_control.h"
 #include "modules/congestion_controller/test/controller_printer.h"
+#include "test/logging/log_writer.h"
 
 namespace webrtc {
 
@@ -31,36 +32,40 @@ class FieldLogger {
   virtual void WriteValue(RtcEventLogOutput* out) = 0;
 };
 
-class GoogCcStatePrinter : public DebugStatePrinter {
+class GoogCcStatePrinter : public ControlStatePrinter {
  public:
-  GoogCcStatePrinter();
+  explicit GoogCcStatePrinter(std::unique_ptr<RtcEventLogOutput> output);
   GoogCcStatePrinter(const GoogCcStatePrinter&) = delete;
   GoogCcStatePrinter& operator=(const GoogCcStatePrinter&) = delete;
   ~GoogCcStatePrinter() override;
-  void Attach(GoogCcNetworkController*);
-  bool Attached() const override;
+  void Attach(GoogCcNetworkController* controller);
 
-  void PrintHeaders(RtcEventLogOutput* out) override;
-  void PrintValues(RtcEventLogOutput* out) override;
-
-  NetworkControlUpdate GetState(Timestamp at_time) const override;
+  void PrintHeaders();
+  void PrintState(Timestamp at_time) override;
 
  private:
-  const NetworkStateEstimate& GetEst();
   std::deque<FieldLogger*> CreateLoggers();
 
+  const std::unique_ptr<RtcEventLogOutput> output_;
   std::deque<std::unique_ptr<FieldLogger>> loggers_;
   GoogCcNetworkController* controller_ = nullptr;
+  TargetTransferRate target_;
+  PacerConfig pacing_;
+  DataSize congestion_window_ = DataSize::PlusInfinity();
+  NetworkStateEstimate est_;
 };
 
 class GoogCcDebugFactory : public GoogCcNetworkControllerFactory {
  public:
-  explicit GoogCcDebugFactory(GoogCcStatePrinter* printer);
+  explicit GoogCcDebugFactory(std::unique_ptr<RtcEventLogOutput> log_writer);
+  GoogCcDebugFactory(std::unique_ptr<RtcEventLogOutput> log_writer,
+                     GoogCcFactoryConfig config);
   std::unique_ptr<NetworkControllerInterface> Create(
       NetworkControllerConfig config) override;
+  ControlStatePrinter* printer();
 
  private:
-  GoogCcStatePrinter* printer_;
+  const std::unique_ptr<GoogCcStatePrinter> printer_;
   GoogCcNetworkController* controller_ = nullptr;
 };
 }  // namespace webrtc

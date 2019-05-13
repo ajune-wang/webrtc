@@ -96,13 +96,12 @@ LoggingNetworkControllerFactory::LoggingNetworkControllerFactory(
           << "Can't log controller state for injected network controllers";
   } else {
     if (log_writer_factory) {
-      auto goog_printer = absl::make_unique<GoogCcStatePrinter>();
-      owned_cc_factory_.reset(new GoogCcDebugFactory(goog_printer.get()));
+      auto* goog_factory =
+          new GoogCcDebugFactory(log_writer_factory->Create(".cc_state.txt"));
+      cc_printer_ = goog_factory->printer();
+      owned_cc_factory_.reset(goog_factory);
       cc_factory_ = owned_cc_factory_.get();
-      cc_printer_.reset(
-          new ControlStatePrinter(log_writer_factory->Create(".cc_state.txt"),
-                                  std::move(goog_printer)));
-      cc_printer_->PrintHeaders();
+
     } else {
       owned_cc_factory_.reset(
           new GoogCcNetworkControllerFactory(GoogCcFactoryConfig()));

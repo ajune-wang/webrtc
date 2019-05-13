@@ -49,7 +49,7 @@ class LoggingNetworkControllerFactory
  private:
   std::unique_ptr<NetworkControllerFactoryInterface> owned_cc_factory_;
   NetworkControllerFactoryInterface* cc_factory_ = nullptr;
-  std::unique_ptr<ControlStatePrinter> cc_printer_;
+  ControlStatePrinter* cc_printer_ = nullptr;
 };
 
 struct CallClientFakeAudio {

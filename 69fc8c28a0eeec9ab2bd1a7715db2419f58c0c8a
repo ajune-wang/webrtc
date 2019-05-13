@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "520365a3_21bc2536",
+        "filename": "api/datagram_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-13T23:16:57Z",
+      "side": 1,
+      "message": "Please remove this comment, since it\u0027s in open source now. :)",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 11
+      },
+      "revId": "69fc8c28a0eeec9ab2bd1a7715db2419f58c0c8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18ebd6bf_b8aa6827",
+        "filename": "api/datagram_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-13T23:16:57Z",
+      "side": 1,
+      "message": "Do we want to keep this note?",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 62
+      },
+      "revId": "69fc8c28a0eeec9ab2bd1a7715db2419f58c0c8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8ad66a4_8f0401e1",
+        "filename": "api/datagram_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-13T23:16:57Z",
+      "side": 1,
+      "message": "Probably shouldn\u0027t check b/ numbers into webrtc.",
+      "range": {
+        "startLine": 92,
+        "startChar": 5,
+        "endLine": 92,
+        "endChar": 22
+      },
+      "revId": "69fc8c28a0eeec9ab2bd1a7715db2419f58c0c8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

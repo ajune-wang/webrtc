@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98d66416_63824337",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-13T21:14:43Z",
+      "side": 1,
+      "message": "RTC_DCHECK_RUN_ON is the best way to do this.\nHowever file consistency is also important...\nYour choice to either improve the entire file, or ignore comment.",
+      "range": {
+        "startLine": 857,
+        "startChar": 2,
+        "endLine": 857,
+        "endChar": 12
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d6001ab_5c1c703b",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-13T21:14:43Z",
+      "side": 1,
+      "message": "nit: Comments *must* be proper sentences. In this case you are missing a period.",
+      "range": {
+        "startLine": 289,
+        "startChar": 57,
+        "endLine": 289,
+        "endChar": 63
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6fa186f_91795e2a",
+        "filename": "p2p/base/stun.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-13T21:14:43Z",
+      "side": 1,
+      "message": "I suggest that you choose a better name for this constant. i don\u0027t think it should be in an enum.\nperhaps CANDIDATE_CANNOT_REACH_SERVER or the one you defined inside the enum SERVER_NOT_REACHABLE_ERROR.\n\n\"If no host candidate can reach the server, errorCode will be set to the value 701 which is outside the STUN error code range\"",
+      "range": {
+        "startLine": 585,
+        "startChar": 5,
+        "endLine": 585,
+        "endChar": 29
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "618bfef1_a921a409",
+        "filename": "p2p/base/stun_port.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-13T21:14:43Z",
+      "side": 1,
+      "message": "nit: these probably need periods at the end as well.\nAlso, might as well declare them as consts at the top of file.",
+      "range": {
+        "startLine": 84,
+        "startChar": 58,
+        "endLine": 84,
+        "endChar": 59
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce860245_33954002",
+        "filename": "p2p/base/stun_port.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-13T21:14:43Z",
+      "side": 1,
+      "message": "We could have multiple candidates to the same stun server, however the code above will return early if we already alerted on the stun server.\nI would expect that we get notified on each failing candidate.",
+      "range": {
+        "startLine": 531,
+        "startChar": 2,
+        "endLine": 534,
+        "endChar": 16
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efdba0c4_18193283",
+        "filename": "p2p/base/turn_port.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-13T21:14:43Z",
+      "side": 1,
+      "message": "consider using default value \u003d false.",
+      "range": {
+        "startLine": 352,
+        "startChar": 42,
+        "endLine": 352,
+        "endChar": 54
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25c3bc5f_268ac6af",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-13T21:14:43Z",
+      "side": 1,
+      "message": "Looks like data is not used in this method.\nSo, you are either calling FindPort because you want to DCHECK that the port exists, or there is a bug.\nfor the first case, it would be better to DCHECK(FindPort(port)) because that would be clear to other developers that this operation should not have any side-effects and can be skipped in release builds.\nif FindPort() does have side-effects, you should document why the call is needed even though you don\u0027t use the result.",
+      "range": {
+        "startLine": 1035,
+        "startChar": 19,
+        "endLine": 1035,
+        "endChar": 27
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d32db52_4b01d082",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1036,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-13T21:14:43Z",
+      "side": 1,
+      "message": "RTC_DCHECK(data)",
+      "range": {
+        "startLine": 1036,
+        "startChar": 0,
+        "endLine": 1036,
+        "endChar": 27
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c03d53f_a3ec9586",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-13T21:14:43Z",
+      "side": 1,
+      "message": "RTC_DCHECK_RUN_ON is the best way to do this.\nHowever file consistency is also important...\nYour choice to either improve the entire file, or ignore comment.",
+      "range": {
+        "startLine": 1256,
+        "startChar": 2,
+        "endLine": 1256,
+        "endChar": 12
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

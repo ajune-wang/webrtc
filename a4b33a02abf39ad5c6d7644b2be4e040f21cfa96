@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "265f06be_37bb2b60",
+        "filename": "api/datagram_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-13T23:28:23Z",
+      "side": 1,
+      "message": "Not a huge fan of treating binary data as strings (though it is common). What do you think about rtc::ArrayView\u003cconst uint8_t\u003e ?",
+      "range": {
+        "startLine": 39,
+        "startChar": 34,
+        "endLine": 39,
+        "endChar": 51
+      },
+      "revId": "a4b33a02abf39ad5c6d7644b2be4e040f21cfa96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "965fd320_d97b0779",
+        "filename": "api/datagram_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-13T23:28:23Z",
+      "side": 1,
+      "message": "Could you add a brief class-level comment?",
+      "revId": "a4b33a02abf39ad5c6d7644b2be4e040f21cfa96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0848f2c0_dae534ca",
+        "filename": "api/datagram_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-13T23:28:23Z",
+      "side": 1,
+      "message": "nit: don\u0027t think this is needed.",
+      "revId": "a4b33a02abf39ad5c6d7644b2be4e040f21cfa96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21d4c315_0dfbc2c7",
+        "filename": "api/datagram_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-13T23:28:23Z",
+      "side": 1,
+      "message": "Would it work to have the DatagramTransportInterface assign datagram IDs rather than taking it in as a parameter? I imagine that interface would be harder to misuse.",
+      "range": {
+        "startLine": 78,
+        "startChar": 19,
+        "endLine": 78,
+        "endChar": 31
+      },
+      "revId": "a4b33a02abf39ad5c6d7644b2be4e040f21cfa96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d9b68a2_49ff55c8",
+        "filename": "api/datagram_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-13T23:28:23Z",
+      "side": 1,
+      "message": "Does the DatagramTransportInterface benefit from taking ownership of the data? Could it just take a view (like OnDatagramReceived?).",
+      "range": {
+        "startLine": 78,
+        "startChar": 32,
+        "endLine": 78,
+        "endChar": 43
+      },
+      "revId": "a4b33a02abf39ad5c6d7644b2be4e040f21cfa96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

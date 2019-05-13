@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "adf544ae_9f8a0e6c",
+        "filename": "api/datagram_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-13T23:58:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "265f06be_37bb2b60",
+      "range": {
+        "startLine": 39,
+        "startChar": 34,
+        "endLine": 39,
+        "endChar": 51
+      },
+      "revId": "a4b33a02abf39ad5c6d7644b2be4e040f21cfa96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "965fd320_d97b0779",
         "filename": "api/datagram_transport_interface.h",
         "patchSetId": 4
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "3a0c7ec2_4d134bce",
+        "filename": "api/datagram_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-13T23:58:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "965fd320_d97b0779",
+      "revId": "a4b33a02abf39ad5c6d7644b2be4e040f21cfa96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0848f2c0_dae534ca",
         "filename": "api/datagram_transport_interface.h",
         "patchSetId": 4
@@ -56,6 +98,24 @@
       "revId": "a4b33a02abf39ad5c6d7644b2be4e040f21cfa96",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "319c5537_59e2668a",
+        "filename": "api/datagram_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-13T23:58:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0848f2c0_dae534ca",
+      "revId": "a4b33a02abf39ad5c6d7644b2be4e040f21cfa96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -102,6 +162,54 @@
       "revId": "a4b33a02abf39ad5c6d7644b2be4e040f21cfa96",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ef732b2_95847f5e",
+        "filename": "api/datagram_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-13T23:58:17Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "9d9b68a2_49ff55c8",
+      "range": {
+        "startLine": 78,
+        "startChar": 32,
+        "endLine": 78,
+        "endChar": 43
+      },
+      "revId": "a4b33a02abf39ad5c6d7644b2be4e040f21cfa96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cece78e9_935b0ae9",
+        "filename": "api/datagram_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-13T23:58:17Z",
+      "side": 1,
+      "message": "In WebRTC, DltsTransportInternal::SentPacket should propagate notification with options.packet_id, so in my implementation I was planning simply to pass options.packet_id as datagram_id. I think it makes integration simpler without additional mapping. We can get back to it in the future if we decide to move forward with further adaptation of Datagram transport.",
+      "parentUuid": "21d4c315_0dfbc2c7",
+      "range": {
+        "startLine": 78,
+        "startChar": 19,
+        "endLine": 78,
+        "endChar": 31
+      },
+      "revId": "a4b33a02abf39ad5c6d7644b2be4e040f21cfa96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

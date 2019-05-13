@@ -39,6 +39,8 @@ class RtcEventLog {
       EncodingType encoding_type,
       TaskQueueFactory* task_queue_factory);
 
+  static std::unique_ptr<RtcEventLog> CreateThreadLess();
+
   // Create an RtcEventLog object that does nothing.
   static std::unique_ptr<RtcEventLog> CreateNull();
 

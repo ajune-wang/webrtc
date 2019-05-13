@@ -107,6 +107,7 @@ void DelayManagerTest::IncreaseTime(int inc_ms) {
     tick_timer_.Increment();
   }
 }
+
 void DelayManagerTest::TearDown() {
   EXPECT_CALL(detector_, Die());
 }
@@ -723,6 +724,45 @@ TEST_F(DelayManagerTest, RelativeArrivalDelayStatistic) {
   IncreaseTime(2 * kFrameSizeMs);
   EXPECT_CALL(stats_, RelativePacketArrivalDelay(20));
   InsertNextPacket();
+}
+
+TEST_F(DelayManagerTest, TargetLevelValidator) {
+  test::ScopedFieldTrials field_trial(
+      "WebRTC-Audio-NetEqDecelerationTargetLevelOffset/Enabled-105/");
+  {
+    // Test that for the low target level, default behaviour is intact.
+    const int target_level_ms = 300;
+    const int target_level = target_level_ms / kFrameSizeMs;
+    const int target_level_q8 = target_level << 8;
+    DelayManager::TargetLevelValidator target_level_validator(
+        kMaxNumberOfPackets, kMinDelayMs);
+    target_level_validator.set_packet_len_ms(kFrameSizeMs);
+
+    int lower, higher;  // In Q8.
+    target_level_validator.BufferLimits(target_level_q8, &lower, &higher);
+
+    // Default behaviour of taking 75% of target level.
+    EXPECT_EQ(target_level_q8 * 3 / 4, lower);
+    EXPECT_EQ(target_level_q8, higher);
+  }
+
+  {
+    // Test that for the high target level, |lower| is below target level by
+    // fixed constant (105 ms in this Field Trial setup).
+    const int target_level_ms = 500;
+    const int target_level = target_level_ms / kFrameSizeMs;
+    const int target_level_q8 = target_level << 8;
+    DelayManager::TargetLevelValidator target_level_validator(
+        kMaxNumberOfPackets, kMinDelayMs);
+    target_level_validator.set_packet_len_ms(kFrameSizeMs);
+
+    int lower, higher;  // In Q8.
+    target_level_validator.BufferLimits(target_level_q8, &lower, &higher);
+
+    // Default behaviour of taking 75% of target level.
+    EXPECT_EQ(target_level_q8 - ((105 << 8) / kFrameSizeMs), lower);
+    EXPECT_EQ(target_level_q8, higher);
+  }
 }
 
 }  // namespace webrtc

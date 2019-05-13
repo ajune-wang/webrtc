@@ -21,6 +21,7 @@
 #include "modules/audio_coding/neteq/statistics_calculator.h"
 #include "modules/audio_coding/neteq/tick_timer.h"
 #include "rtc_base/constructor_magic.h"
+#include "rtc_base/gtest_prod_util.h"
 
 namespace webrtc {
 
@@ -127,9 +128,7 @@ class DelayManager {
   virtual void set_last_pack_cng_or_dtmf(int value);
 
   // This accessor is only intended for testing purposes.
-  int effective_minimum_delay_ms_for_test() const {
-    return effective_minimum_delay_ms_;
-  }
+  int effective_minimum_delay_ms_for_test() const;
 
   // This accessor is only intended for testing purposes.
   HistogramMode histogram_mode() const { return histogram_mode_; }
@@ -137,12 +136,6 @@ class DelayManager {
   int histogram_forget_factor() const { return histogram_->forget_factor(); }
 
  private:
-  // Provides value which minimum delay can't exceed based on current buffer
-  // size and given |maximum_delay_ms_|. Lower bound is a constant 0.
-  int MinimumDelayUpperBound() const;
-
-  // Provides 75% of currently possible maximum buffer size in milliseconds.
-  int MaxBufferTimeQ75() const;
 
   // Updates |delay_history_|.
   void UpdateDelayHistory(int iat_delay);
@@ -159,17 +152,68 @@ class DelayManager {
   // and buffer size.
   void UpdateEffectiveMinimumDelay();
 
-  // Makes sure that |target_level_| is not too large, taking
-  // |max_packets_in_buffer_| and |extra_delay_ms_| into account. This method is
-  // called by Update().
-  void LimitTargetLevel();
+  class TargetLevelValidator {
+   public:
+    TargetLevelValidator(size_t max_packets_in_buffer,
+                         int base_minimum_delay_ms);
+    // Enforces upper and lower limits for |target_level_|. The upper limit is
+    // chosen to be minimum of i) 75% of |max_packets_in_buffer_|, to leave some
+    // headroom for natural fluctuations around the target, and ii) equivalent
+    // of |maximum_delay_ms_| in packets. Note that in practice, if no
+    // |maximum_delay_ms_| is specified, this does not have any impact, since
+    // the target level is far below the buffer capacity in all reasonable
+    // cases. The lower limit is equivalent of |effective_minimum_delay_ms_| in
+    // packets. We update |least_required_level_| while the above limits are
+    // applied.
+    // TODO(hlundin): Move this check to the buffer logistics class.
+    int LimitTargetLevel(int target_level_q8) const;
+    void BufferLimits(int target_level_q8,
+                      int* lower_limit,
+                      int* higher_limit) const;
 
-  // Makes sure that |delay_ms| is less than maximum delay, if any maximum
-  // is set. Also, if possible check |delay_ms| to be less than 75% of
-  // |max_packets_in_buffer_|.
-  bool IsValidMinimumDelay(int delay_ms) const;
+    // Accessors and mutators.
+    // Assuming |delay| is in valid range.
+    bool SetMinimumDelay(int delay_ms);
+    bool SetMaximumDelay(int delay_ms);
+    bool SetBaseMinimumDelay(int delay_ms);
+    int GetBaseMinimumDelay() const;
+    void set_packet_len_ms(int packet_len_ms) {
+      packet_len_ms_ = packet_len_ms;
+    }
+    int effective_minimum_delay_ms() const {
+      return effective_minimum_delay_ms_;
+    }
 
-  bool IsValidBaseMinimumDelay(int delay_ms) const;
+   private:
+    // Provides value which minimum delay can't exceed based on current buffer
+    // size and given |maximum_delay_ms_|. Lower bound is a constant 0.
+    int MinimumDelayUpperBound() const;
+
+    // Provides 75% of currently possible maximum buffer size in milliseconds.
+    int MaxBufferTimeQ75() const;
+
+    // Makes sure that |delay_ms| is less than maximum delay, if any maximum
+    // is set. Also, if possible check |delay_ms| to be less than 75% of
+    // |max_packets_in_buffer_|.
+    bool IsValidMinimumDelay(int delay_ms) const;
+
+    bool IsValidBaseMinimumDelay(int delay_ms) const;
+
+    void UpdateEffectiveMinimumDelay();
+
+    const size_t max_packets_in_buffer_;  // Capacity of the packet buffer.
+    const absl::optional<int> deceleration_target_level_offset_;
+
+    int base_minimum_delay_ms_;
+    // Provides delay which is used by LimitTargetLevel as lower bound on target
+    // delay.
+    int effective_minimum_delay_ms_;
+    int minimum_delay_ms_;  // Externally set minimum delay.
+    int maximum_delay_ms_;  // Externally set maximum allowed delay.
+    int packet_len_ms_;     // Length of audio in each incoming packet [ms].
+  };
+
+  FRIEND_TEST_ALL_PREFIXES(DelayManagerTest, TargetLevelValidator);
 
   bool first_packet_received_;
   const size_t max_packets_in_buffer_;  // Capacity of the packet buffer.
@@ -178,10 +222,6 @@ class DelayManager {
   const HistogramMode histogram_mode_;
   const TickTimer* tick_timer_;
   StatisticsCalculator* statistics_;
-  int base_minimum_delay_ms_;
-  // Provides delay which is used by LimitTargetLevel as lower bound on target
-  // delay.
-  int effective_minimum_delay_ms_;
 
   // Time elapsed since last packet.
   std::unique_ptr<TickTimer::Stopwatch> packet_iat_stopwatch_;
@@ -195,8 +235,6 @@ class DelayManager {
   bool streaming_mode_;
   uint16_t last_seq_no_;         // Sequence number for last received packet.
   uint32_t last_timestamp_;      // Timestamp for the last received packet.
-  int minimum_delay_ms_;         // Externally set minimum delay.
-  int maximum_delay_ms_;         // Externally set maximum allowed delay.
   int iat_cumulative_sum_;       // Cumulative sum of delta inter-arrival times.
   int max_iat_cumulative_sum_;   // Max of |iat_cumulative_sum_|.
   // Time elapsed since maximum was observed.
@@ -207,6 +245,7 @@ class DelayManager {
   const bool enable_rtx_handling_;
   int num_reordered_packets_ = 0;  // Number of consecutive reordered packets.
   std::deque<int> delay_history_;
+  TargetLevelValidator target_level_validator_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(DelayManager);
 };

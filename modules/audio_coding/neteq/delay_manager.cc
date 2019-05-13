@@ -104,6 +104,26 @@ absl::optional<DelayHistogramConfig> GetDelayHistogramConfig() {
   return absl::nullopt;
 }
 
+absl::optional<int> GetDecelerationTargetLevelOffsetMs() {
+  constexpr char kDecelerationTargetLevelOffsetFieldTrial[] =
+      "WebRTC-Audio-NetEqDecelerationTargetLevelOffset";
+  if (!webrtc::field_trial::IsEnabled(
+          kDecelerationTargetLevelOffsetFieldTrial)) {
+    return absl::nullopt;
+  }
+
+  const auto field_trial_string = webrtc::field_trial::FindFullName(
+      kDecelerationTargetLevelOffsetFieldTrial);
+  int deceleration_target_level_offset = -1;
+  sscanf(field_trial_string.c_str(), "Enabled-%d",
+         &deceleration_target_level_offset);
+  RTC_LOG(LS_INFO) << "NetEq deceleration_target_level_offset "
+                   << deceleration_target_level_offset;
+  return deceleration_target_level_offset >= 0
+             ? absl::make_optional(deceleration_target_level_offset)
+             : absl::nullopt;
+}
+
 }  // namespace
 
 namespace webrtc {
@@ -124,26 +144,22 @@ DelayManager::DelayManager(size_t max_packets_in_buffer,
       histogram_mode_(histogram_mode),
       tick_timer_(tick_timer),
       statistics_(statistics),
-      base_minimum_delay_ms_(base_minimum_delay_ms),
-      effective_minimum_delay_ms_(base_minimum_delay_ms),
       base_target_level_(4),                   // In Q0 domain.
       target_level_(base_target_level_ << 8),  // In Q8 domain.
       packet_len_ms_(0),
       streaming_mode_(false),
       last_seq_no_(0),
       last_timestamp_(0),
-      minimum_delay_ms_(0),
-      maximum_delay_ms_(0),
       iat_cumulative_sum_(0),
       max_iat_cumulative_sum_(0),
       peak_detector_(*peak_detector),
       last_pack_cng_or_dtmf_(1),
       frame_length_change_experiment_(
           field_trial::IsEnabled("WebRTC-Audio-NetEqFramelengthExperiment")),
-      enable_rtx_handling_(enable_rtx_handling) {
+      enable_rtx_handling_(enable_rtx_handling),
+      target_level_validator_(max_packets_in_buffer, base_minimum_delay_ms) {
   assert(peak_detector);  // Should never be NULL.
   RTC_CHECK(histogram_);
-  RTC_DCHECK_GE(base_minimum_delay_ms_, 0);
 
   Reset();
 }
@@ -269,7 +285,7 @@ int DelayManager::Update(uint16_t sequence_number,
       target_level_ = std::max(target_level_, max_iat_cumulative_sum_);
     }
 
-    LimitTargetLevel();
+    target_level_ = target_level_validator_.LimitTargetLevel(target_level_);
   }  // End if (packet_len_ms > 0).
 
   if (enable_rtx_handling_ && reordered &&
@@ -331,35 +347,6 @@ void DelayManager::UpdateCumulativeSums(int packet_len_ms,
   }
 }
 
-// Enforces upper and lower limits for |target_level_|. The upper limit is
-// chosen to be minimum of i) 75% of |max_packets_in_buffer_|, to leave some
-// headroom for natural fluctuations around the target, and ii) equivalent of
-// |maximum_delay_ms_| in packets. Note that in practice, if no
-// |maximum_delay_ms_| is specified, this does not have any impact, since the
-// target level is far below the buffer capacity in all reasonable cases.
-// The lower limit is equivalent of |effective_minimum_delay_ms_| in packets.
-// We update |least_required_level_| while the above limits are applied.
-// TODO(hlundin): Move this check to the buffer logistics class.
-void DelayManager::LimitTargetLevel() {
-  if (packet_len_ms_ > 0 && effective_minimum_delay_ms_ > 0) {
-    int minimum_delay_packet_q8 =
-        (effective_minimum_delay_ms_ << 8) / packet_len_ms_;
-    target_level_ = std::max(target_level_, minimum_delay_packet_q8);
-  }
-
-  if (maximum_delay_ms_ > 0 && packet_len_ms_ > 0) {
-    int maximum_delay_packet_q8 = (maximum_delay_ms_ << 8) / packet_len_ms_;
-    target_level_ = std::min(target_level_, maximum_delay_packet_q8);
-  }
-
-  // Shift to Q8, then 75%.;
-  int max_buffer_packets_q8 =
-      static_cast<int>((3 * (max_packets_in_buffer_ << 8)) / 4);
-  target_level_ = std::min(target_level_, max_buffer_packets_q8);
-
-  // Sanity check, at least 1 packet (in Q8).
-  target_level_ = std::max(target_level_, 1 << 8);
-}
 
 int DelayManager::CalculateTargetLevel(int iat_packets, bool reordered) {
   int limit_probability = histogram_quantile_;
@@ -408,6 +395,7 @@ int DelayManager::SetPacketAudioLength(int length_ms) {
 
   packet_len_ms_ = length_ms;
   peak_detector_.SetPacketAudioLength(packet_len_ms_);
+  target_level_validator_.set_packet_len_ms(packet_len_ms_);
   packet_iat_stopwatch_ = tick_timer_->GetNewStopwatch();
   last_pack_cng_or_dtmf_ = 1;  // TODO(hlundin): Legacy. Remove?
   return 0;
@@ -415,6 +403,7 @@ int DelayManager::SetPacketAudioLength(int length_ms) {
 
 void DelayManager::Reset() {
   packet_len_ms_ = 0;  // Packet size unknown.
+  target_level_validator_.set_packet_len_ms(packet_len_ms_);
   streaming_mode_ = false;
   peak_detector_.Reset();
   histogram_->Reset();
@@ -454,22 +443,8 @@ void DelayManager::ResetPacketIatCount() {
 // |minimum_delay_ms_| and |maximum_delay_ms_| defined by the client of this
 // class. They are computed from |target_level_| and used for decision making.
 void DelayManager::BufferLimits(int* lower_limit, int* higher_limit) const {
-  if (!lower_limit || !higher_limit) {
-    RTC_LOG_F(LS_ERROR) << "NULL pointers supplied as input";
-    assert(false);
-    return;
-  }
-
-  int window_20ms = 0x7FFF;  // Default large value for legacy bit-exactness.
-  if (packet_len_ms_ > 0) {
-    window_20ms = (20 << 8) / packet_len_ms_;
-  }
-
-  // |target_level_| is in Q8 already.
-  *lower_limit = (target_level_ * 3) / 4;
-  // |higher_limit| is equal to |target_level_|, but should at
-  // least be 20 ms higher than |lower_limit_|.
-  *higher_limit = std::max(target_level_, *lower_limit + window_20ms);
+  target_level_validator_.BufferLimits(target_level_, lower_limit,
+                                       higher_limit);
 }
 
 int DelayManager::TargetLevel() const {
@@ -488,51 +463,20 @@ void DelayManager::RegisterEmptyPacket() {
   ++last_seq_no_;
 }
 
-bool DelayManager::IsValidMinimumDelay(int delay_ms) const {
-  return 0 <= delay_ms && delay_ms <= MinimumDelayUpperBound();
-}
-
-bool DelayManager::IsValidBaseMinimumDelay(int delay_ms) const {
-  return kMinBaseMinimumDelayMs <= delay_ms &&
-         delay_ms <= kMaxBaseMinimumDelayMs;
-}
-
 bool DelayManager::SetMinimumDelay(int delay_ms) {
-  if (!IsValidMinimumDelay(delay_ms)) {
-    return false;
-  }
-
-  minimum_delay_ms_ = delay_ms;
-  UpdateEffectiveMinimumDelay();
-  return true;
+  return target_level_validator_.SetMinimumDelay(delay_ms);
 }
 
 bool DelayManager::SetMaximumDelay(int delay_ms) {
-  // If |delay_ms| is zero then it unsets the maximum delay and target level is
-  // unconstrained by maximum delay.
-  if (delay_ms != 0 &&
-      (delay_ms < minimum_delay_ms_ || delay_ms < packet_len_ms_)) {
-    // Maximum delay shouldn't be less than minimum delay or less than a packet.
-    return false;
-  }
-
-  maximum_delay_ms_ = delay_ms;
-  UpdateEffectiveMinimumDelay();
-  return true;
+  return target_level_validator_.SetMaximumDelay(delay_ms);
 }
 
 bool DelayManager::SetBaseMinimumDelay(int delay_ms) {
-  if (!IsValidBaseMinimumDelay(delay_ms)) {
-    return false;
-  }
-
-  base_minimum_delay_ms_ = delay_ms;
-  UpdateEffectiveMinimumDelay();
-  return true;
+  return target_level_validator_.SetBaseMinimumDelay(delay_ms);
 }
 
 int DelayManager::GetBaseMinimumDelay() const {
-  return base_minimum_delay_ms_;
+  return target_level_validator_.GetBaseMinimumDelay();
 }
 
 int DelayManager::base_target_level() const {
@@ -549,16 +493,114 @@ void DelayManager::set_last_pack_cng_or_dtmf(int value) {
   last_pack_cng_or_dtmf_ = value;
 }
 
-void DelayManager::UpdateEffectiveMinimumDelay() {
-  // Clamp |base_minimum_delay_ms_| into the range which can be effectively
-  // used.
-  const int base_minimum_delay_ms =
-      rtc::SafeClamp(base_minimum_delay_ms_, 0, MinimumDelayUpperBound());
-  effective_minimum_delay_ms_ =
-      std::max(minimum_delay_ms_, base_minimum_delay_ms);
+int DelayManager::effective_minimum_delay_ms_for_test() const {
+  return target_level_validator_.effective_minimum_delay_ms();
 }
 
-int DelayManager::MinimumDelayUpperBound() const {
+DelayManager::TargetLevelValidator::TargetLevelValidator(
+    size_t max_packets_in_buffer,
+    int base_minimum_delay_ms)
+    : max_packets_in_buffer_(max_packets_in_buffer),
+      deceleration_target_level_offset_(GetDecelerationTargetLevelOffsetMs()),
+      base_minimum_delay_ms_(base_minimum_delay_ms),
+      effective_minimum_delay_ms_(base_minimum_delay_ms),
+      minimum_delay_ms_(0),
+      maximum_delay_ms_(0),
+      packet_len_ms_(0) {
+  RTC_DCHECK_GE(base_minimum_delay_ms_, 0);
+  RTC_DCHECK(!deceleration_target_level_offset_ ||
+             *deceleration_target_level_offset_ >= 0);
+}
+
+int DelayManager::TargetLevelValidator::LimitTargetLevel(
+    int target_level_q8) const {
+  if (packet_len_ms_ > 0 && effective_minimum_delay_ms_ > 0) {
+    int minimum_delay_packet_q8 =
+        (effective_minimum_delay_ms_ << 8) / packet_len_ms_;
+    target_level_q8 = std::max(target_level_q8, minimum_delay_packet_q8);
+  }
+
+  if (maximum_delay_ms_ > 0 && packet_len_ms_ > 0) {
+    int maximum_delay_packet_q8 = (maximum_delay_ms_ << 8) / packet_len_ms_;
+    target_level_q8 = std::min(target_level_q8, maximum_delay_packet_q8);
+  }
+
+  // Shift to Q8, then 75%.;
+  int max_buffer_packets_q8 =
+      static_cast<int>((3 * (max_packets_in_buffer_ << 8)) / 4);
+  target_level_q8 = std::min(target_level_q8, max_buffer_packets_q8);
+
+  // Sanity check, at least 1 packet (in Q8).
+  return std::max(target_level_q8, 1 << 8);
+}
+
+void DelayManager::TargetLevelValidator::BufferLimits(int target_level_q8,
+                                                      int* lower_limit,
+                                                      int* higher_limit) const {
+  if (!lower_limit || !higher_limit) {
+    RTC_LOG_F(LS_ERROR) << "NULL pointers supplied as input";
+    assert(false);
+    return;
+  }
+
+  *lower_limit = (target_level_q8 * 3) / 4;
+
+  if (deceleration_target_level_offset_ && packet_len_ms_ > 0) {
+    RTC_DCHECK_GE(*deceleration_target_level_offset_, 0);
+    const int deceleration_target_level_offset_q8 =
+        (*deceleration_target_level_offset_ << 8) / packet_len_ms_;
+    *lower_limit = std::max(
+        *lower_limit, target_level_q8 - deceleration_target_level_offset_q8);
+  }
+
+  int window_20ms_q8 = 0x7FFF;  // Default large value for legacy bit-exactness.
+  if (packet_len_ms_ > 0) {
+    window_20ms_q8 = (20 << 8) / packet_len_ms_;
+  }
+  // |higher_limit| is equal to |target_level_q8|, but should at
+  // least be 20 ms higher than |lower_limit_|.
+  *higher_limit = std::max(target_level_q8, *lower_limit + window_20ms_q8);
+}
+
+bool DelayManager::TargetLevelValidator::SetMinimumDelay(int delay_ms) {
+  if (!IsValidMinimumDelay(delay_ms)) {
+    return false;
+  }
+
+  minimum_delay_ms_ = delay_ms;
+  UpdateEffectiveMinimumDelay();
+  return true;
+}
+
+bool DelayManager::TargetLevelValidator::SetMaximumDelay(int delay_ms) {
+  // If |delay_ms| is zero then it unsets the maximum delay and target level is
+  // unconstrained by maximum delay.
+  if (delay_ms != 0 &&
+      (delay_ms < minimum_delay_ms_ || delay_ms < packet_len_ms_)) {
+    // Maximum delay shouldn't be less than minimum delay or less than a packet.
+    return false;
+  }
+
+  maximum_delay_ms_ = delay_ms;
+  UpdateEffectiveMinimumDelay();
+  return true;
+}
+
+bool DelayManager::TargetLevelValidator::SetBaseMinimumDelay(int delay_ms) {
+  if (!IsValidBaseMinimumDelay(delay_ms)) {
+    return false;
+  }
+
+  base_minimum_delay_ms_ = delay_ms;
+  UpdateEffectiveMinimumDelay();
+  return true;
+}
+
+int DelayManager::TargetLevelValidator::GetBaseMinimumDelay() const {
+  return base_minimum_delay_ms_;
+}
+
+int DelayManager::TargetLevelValidator::MinimumDelayUpperBound() const {
   // Choose the lowest possible bound discarding 0 cases which mean the value
   // is not set and unconstrained.
   int q75 = MaxBufferTimeQ75();
@@ -568,8 +610,29 @@ int DelayManager::MinimumDelayUpperBound() const {
   return std::min(maximum_delay_ms, q75);
 }
 
-int DelayManager::MaxBufferTimeQ75() const {
+int DelayManager::TargetLevelValidator::MaxBufferTimeQ75() const {
   const int max_buffer_time = max_packets_in_buffer_ * packet_len_ms_;
   return rtc::dchecked_cast<int>(3 * max_buffer_time / 4);
 }
+
+bool DelayManager::TargetLevelValidator::IsValidMinimumDelay(
+    int delay_ms) const {
+  return 0 <= delay_ms && delay_ms <= MinimumDelayUpperBound();
+}
+
+bool DelayManager::TargetLevelValidator::IsValidBaseMinimumDelay(
+    int delay_ms) const {
+  return kMinBaseMinimumDelayMs <= delay_ms &&
+         delay_ms <= kMaxBaseMinimumDelayMs;
+}
+
+void DelayManager::TargetLevelValidator::UpdateEffectiveMinimumDelay() {
+  // Clamp |base_minimum_delay_ms_| into the range which can be effectively
+  // used.
+  const int base_minimum_delay_ms =
+      rtc::SafeClamp(base_minimum_delay_ms_, 0, MinimumDelayUpperBound());
+  effective_minimum_delay_ms_ =
+      std::max(minimum_delay_ms_, base_minimum_delay_ms);
+}
+
 }  // namespace webrtc

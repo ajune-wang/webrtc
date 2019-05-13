@@ -107,6 +107,7 @@ void DelayManagerTest::IncreaseTime(int inc_ms) {
     tick_timer_.Increment();
   }
 }
+
 void DelayManagerTest::TearDown() {
   EXPECT_CALL(detector_, Die());
 }
@@ -723,6 +724,74 @@ TEST_F(DelayManagerTest, RelativeArrivalDelayStatistic) {
   IncreaseTime(2 * kFrameSizeMs);
   EXPECT_CALL(stats_, RelativePacketArrivalDelay(20));
   InsertNextPacket();
+}
+
+TEST_F(DelayManagerTest, DecelerationTargetLevelOffsetFieldTrial) {
+  {
+    test::ScopedFieldTrials field_trial(
+        "WebRTC-Audio-NetEqDecelerationTargetLevelOffset/Enabled-105/");
+    RecreateDelayManager();
+    EXPECT_EQ(dm_->deceleration_target_level_offset_for_test().value(), 105);
+  }
+  {
+    test::ScopedFieldTrials field_trial(
+        "WebRTC-Audio-NetEqForceTargetDelayPercentile/Enabled-99.95/");
+    RecreateDelayManager();
+    EXPECT_FALSE(dm_->deceleration_target_level_offset_for_test().has_value());
+  }
+  {
+    test::ScopedFieldTrials field_trial(
+        "WebRTC-Audio-NetEqDecelerationTargetLevelOffset/Disabled/");
+    RecreateDelayManager();
+    EXPECT_FALSE(dm_->deceleration_target_level_offset_for_test().has_value());
+  }
+  {
+    test::ScopedFieldTrials field_trial(
+        "WebRTC-Audio-NetEqDecelerationTargetLevelOffset/Enabled-105.5/");
+    RecreateDelayManager();
+    EXPECT_EQ(dm_->deceleration_target_level_offset_for_test().value(), 105);
+  }
+  {
+    test::ScopedFieldTrials field_trial(
+        "WebRTC-Audio-NetEqDecelerationTargetLevelOffset/Enabled-20-40/");
+    RecreateDelayManager();
+    EXPECT_EQ(dm_->deceleration_target_level_offset_for_test().value(), 20);
+  }
+}
+
+TEST_F(DelayManagerTest, DecelerationTargetLevelOffset) {
+  test::ScopedFieldTrials field_trial(
+      "WebRTC-Audio-NetEqDecelerationTargetLevelOffset/Enabled-105/");
+  {
+    // Test that for the low target level, default behaviour is intact.
+    const int target_level_ms = 300;
+    const int target_level_q8 = (target_level_ms / kFrameSizeMs) << 8;
+    RecreateDelayManager();
+    SetPacketAudioLength(kFrameSizeMs);
+
+    int lower, higher;  // In Q8.
+    dm_->BufferLimits(target_level_q8, &lower, &higher);
+
+    // Default behaviour of taking 75% of target level.
+    EXPECT_EQ(target_level_q8 * 3 / 4, lower);
+    EXPECT_EQ(target_level_q8, higher);
+  }
+
+  {
+    // Test that for the high target level, |lower| is below target level by
+    // fixed constant (105 ms in this Field Trial setup).
+    const int target_level_ms = 500;
+    const int target_level_q8 = (target_level_ms / kFrameSizeMs) << 8;
+    RecreateDelayManager();
+    SetPacketAudioLength(kFrameSizeMs);
+
+    int lower, higher;  // In Q8.
+    dm_->BufferLimits(target_level_q8, &lower, &higher);
+
+    // Default behaviour of taking 75% of target level.
+    EXPECT_EQ(target_level_q8 - ((105 << 8) / kFrameSizeMs), lower);
+    EXPECT_EQ(target_level_q8, higher);
+  }
 }
 
 }  // namespace webrtc

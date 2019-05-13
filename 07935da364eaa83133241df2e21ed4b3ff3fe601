@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbf7f63b_9da15d36",
+        "filename": "modules/audio_processing/echo_cancellation_impl_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-05-13T10:28:23Z",
+      "side": 1,
+      "message": "Use EXPECT_EQ(0, \u003cfunction_call\u003e); instead",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 14
+      },
+      "revId": "07935da364eaa83133241df2e21ed4b3ff3fe601",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

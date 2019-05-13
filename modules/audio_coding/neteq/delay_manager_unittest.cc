@@ -51,6 +51,7 @@ class DelayManagerTest : public ::testing::Test {
   void SetPacketAudioLength(int lengt_ms);
   void InsertNextPacket();
   void IncreaseTime(int inc_ms);
+  void RecreateDelayManagerWithTargetLevel(int target_level);
 
   std::unique_ptr<DelayManager> dm_;
   TickTimer tick_timer_;
@@ -107,6 +108,31 @@ void DelayManagerTest::IncreaseTime(int inc_ms) {
     tick_timer_.Increment();
   }
 }
+
+void DelayManagerTest::RecreateDelayManagerWithTargetLevel(int target_level) {
+  // Currently relying on peak detector mock to set target_level.
+  ASSERT_EQ(histogram_mode_, DelayManager::HistogramMode::INTER_ARRIVAL_TIME);
+  ASSERT_GE(target_level, 1);
+  // 75% limit for target level.
+  ASSERT_LE(target_level << 8, (3 * (kMaxNumberOfPackets << 8)) / 4);
+
+  RecreateDelayManager();
+
+  SetPacketAudioLength(kFrameSizeMs);
+  // First packet arrival.
+  InsertNextPacket();
+  // Advance time by one frame size.
+  IncreaseTime(kFrameSizeMs);
+  // Second packet arrival.
+  // Expect detector update method to be called once with inter-arrival time
+  // equal to 1 packet, and (base) target level equal to 1 as well.
+  // Return true to indicate that peaks are found. Let the peak height be 5.
+  EXPECT_CALL(detector_, Update(1, false, 1)).WillOnce(Return(true));
+  EXPECT_CALL(detector_, MaxPeakHeight()).WillOnce(Return(target_level));
+  InsertNextPacket();
+  EXPECT_EQ(target_level << 8, dm_->TargetLevel());
+}
+
 void DelayManagerTest::TearDown() {
   EXPECT_CALL(detector_, Die());
 }
@@ -723,6 +749,39 @@ TEST_F(DelayManagerTest, RelativeArrivalDelayStatistic) {
   IncreaseTime(2 * kFrameSizeMs);
   EXPECT_CALL(stats_, RelativePacketArrivalDelay(20));
   InsertNextPacket();
+}
+
+TEST_F(DelayManagerTest, DecelerationTargetLevelOffset) {
+  test::ScopedFieldTrials field_trial(
+      "WebRTC-Audio-NetEqDecelerationTargetLevelOffset/Enabled-105/");
+  {
+    // Test that for the low target level, default behaviour is intact.
+    const int target_level_ms = 300;
+    const int target_level = target_level_ms / kFrameSizeMs;
+    RecreateDelayManagerWithTargetLevel(target_level);
+
+    int lower, higher;  // In Q8.
+    dm_->BufferLimits(&lower, &higher);
+
+    // Default behaviour of taking 75% of target level.
+    EXPECT_EQ((target_level << 8) * 3 / 4, lower);
+    EXPECT_EQ(target_level << 8, higher);
+  }
+
+  {
+    // Test that for the high target level, |lower| is below target level by
+    // fixed constant (105 ms in this Field Trial setup).
+    const int target_level_ms = 500;
+    const int target_level = target_level_ms / kFrameSizeMs;
+    RecreateDelayManagerWithTargetLevel(target_level);
+
+    int lower, higher;  // In Q8.
+    dm_->BufferLimits(&lower, &higher);
+
+    // Default behaviour of taking 75% of target level.
+    EXPECT_EQ((target_level << 8) - ((105 << 8) / kFrameSizeMs), lower);
+    EXPECT_EQ(target_level << 8, higher);
+  }
 }
 
 }  // namespace webrtc

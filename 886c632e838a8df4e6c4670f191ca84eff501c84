@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44d57db2_175d4954",
+        "filename": "modules/video_coding/generic_decoder_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-13T11:32:48Z",
+      "side": 1,
+      "message": "Optional, but you might want to take out the new tests to a separate cl and land them before the main change.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 1
+      },
+      "revId": "886c632e838a8df4e6c4670f191ca84eff501c84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75ba8e99_8ee78506",
+        "filename": "test/fake_decoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-13T11:32:48Z",
+      "side": 1,
+      "message": "\"new\" looks strange to me here. I would have expected assignment (actually move assignment) like\n\ntask_queue_ \u003d SomethingCreateSomething(...);",
+      "range": {
+        "startLine": 80,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 11
+      },
+      "revId": "886c632e838a8df4e6c4670f191ca84eff501c84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

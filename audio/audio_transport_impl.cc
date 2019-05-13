@@ -180,7 +180,7 @@ int32_t AudioTransportImpl::NeedMorePlayData(const size_t nSamples,
                                              int64_t* ntp_time_ms) {
   RTC_DCHECK_EQ(sizeof(int16_t) * nChannels, nBytesPerSample);
   RTC_DCHECK_GE(nChannels, 1);
-  RTC_DCHECK_LE(nChannels, 2);
+  // RTC_DCHECK_LE(nChannels, 2);
   RTC_DCHECK_GE(
       samplesPerSec,
       static_cast<uint32_t>(AudioProcessing::NativeRate::kSampleRate8kHz));

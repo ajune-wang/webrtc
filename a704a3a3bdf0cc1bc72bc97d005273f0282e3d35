@@ -46,6 +46,30 @@
       "revId": "a704a3a3bdf0cc1bc72bc97d005273f0282e3d35",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe04f15a_c0e78d4c",
+        "filename": "test/fake_decoder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-13T13:37:23Z",
+      "side": 1,
+      "message": "I think using this long pointer type is ok too.\nIt can avoid extra pointer indirection (unique_ptr\u003crtc::TaskQueue\u003e is de-facto pointer-to-pointer-to-task queue).\nBut price is lack of convenient function to post a lambda (need call Post[Delayed]Task(ToQueuedTask([this,blablabla] {...})); instead of just\nPost[Delayed]Task([this, blablabla] {...});",
+      "parentUuid": "80c28260_ccb50bc2",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 51
+      },
+      "revId": "a704a3a3bdf0cc1bc72bc97d005273f0282e3d35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

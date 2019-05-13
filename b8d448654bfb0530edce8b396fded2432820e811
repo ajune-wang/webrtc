@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17882106_f127a809",
+        "filename": "test/fake_decoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-13T13:37:23Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Lambda_expressions\n\n\"Prefer explicit captures when the lambda will escape the current scope.\"",
+      "range": {
+        "startLine": 70,
+        "startChar": 9,
+        "endLine": 70,
+        "endChar": 10
+      },
+      "revId": "b8d448654bfb0530edce8b396fded2432820e811",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27f71fd7_10dd827a",
+        "filename": "video/video_receive_stream_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-13T13:37:23Z",
+      "side": 1,
+      "message": "prefer \u003d absl::make_unique\nover reset and new\nhttps://abseil.io/tips/126\n\n(if constructor is private, fall back to absl::WrapUnique:\nhttps://abseil.io/tips/134 )",
+      "range": {
+        "startLine": 248,
+        "startChar": 25,
+        "endLine": 248,
+        "endChar": 35
+      },
+      "revId": "b8d448654bfb0530edce8b396fded2432820e811",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06735f1a_8eb97fad",
+        "filename": "video/video_receive_stream_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-13T13:37:23Z",
+      "side": 1,
+      "message": "ditto, https://abseil.io/tips/126\nauto test_frame \u003d absl::make_unique\u003cFrameObjectFake\u003e();",
+      "revId": "b8d448654bfb0530edce8b396fded2432820e811",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

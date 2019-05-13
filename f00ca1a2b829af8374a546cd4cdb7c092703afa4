@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6578235e_6dd030b7",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-13T08:08:24Z",
+      "side": 1,
+      "message": "s/thread/CPU?",
+      "range": {
+        "startLine": 1079,
+        "startChar": 48,
+        "endLine": 1079,
+        "endChar": 54
+      },
+      "revId": "f00ca1a2b829af8374a546cd4cdb7c092703afa4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

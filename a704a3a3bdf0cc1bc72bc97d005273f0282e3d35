@@ -70,6 +70,30 @@
       "revId": "a704a3a3bdf0cc1bc72bc97d005273f0282e3d35",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "324183cc_4a096421",
+        "filename": "test/fake_decoder.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-13T13:38:35Z",
+      "side": 1,
+      "message": "Nice.",
+      "parentUuid": "80c28260_ccb50bc2",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 51
+      },
+      "revId": "a704a3a3bdf0cc1bc72bc97d005273f0282e3d35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

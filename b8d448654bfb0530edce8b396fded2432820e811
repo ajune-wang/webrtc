@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "23d842ac_c23a7509",
+        "filename": "test/fake_decoder.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-13T13:38:35Z",
+      "side": 1,
+      "message": "nit: unique_ptr only to be able to test if it is set or not? Since it\u0027s a small object could perhaps be absl::optional instead. But doesn\u0027t matter much in a test class.",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 17
+      },
+      "revId": "b8d448654bfb0530edce8b396fded2432820e811",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "27f71fd7_10dd827a",
         "filename": "video/video_receive_stream_unittest.cc",
         "patchSetId": 10

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cce8a97e_9d47cb53",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-13T13:28:56Z",
+      "side": 1,
+      "message": "One could give this a std::unique_ptr\u003cwebrtc::QueuedTask\u003e member, and then one wouldn\u0027t need the templated MessageWithFunctor subclass.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 2
+      },
+      "revId": "56f2b994d50561ac3be4743ba883f119212cc926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b8960af_04b98758",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-13T13:28:56Z",
+      "side": 1,
+      "message": "One could let Run() return value control destruction, to mimic a real TaskQueue.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 22
+      },
+      "revId": "56f2b994d50561ac3be4743ba883f119212cc926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca07f532_f2c2db92",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-13T13:28:56Z",
+      "side": 1,
+      "message": "MessageHandlerWithTask should have trivial constructor and destructor. Anyway to get it allocated statically without any runtime construction/destruction?",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 265,
+        "endChar": 56
+      },
+      "revId": "56f2b994d50561ac3be4743ba883f119212cc926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb62c5a8_5486fd5a",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-13T13:28:56Z",
+      "side": 1,
+      "message": "The point of this change is that if MessageQueue::Post returns immediately, without queuing the message, it will delete the MessageData for us.",
+      "range": {
+        "startLine": 266,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 47
+      },
+      "revId": "56f2b994d50561ac3be4743ba883f119212cc926",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

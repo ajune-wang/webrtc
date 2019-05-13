@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e454904_e71f6674",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-13T08:37:24Z",
+      "side": 1,
+      "message": "Connected in what sense? How can the route not be connected when we\u0027re switching to it?",
+      "range": {
+        "startLine": 544,
+        "startChar": 37,
+        "endLine": 544,
+        "endChar": 46
+      },
+      "revId": "d32baad309d30559b4e5e8957168c9d4cf9be023",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

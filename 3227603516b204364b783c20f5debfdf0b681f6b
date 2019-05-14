@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11df33d3_60938848",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-05-14T10:08:54Z",
+      "side": 1,
+      "message": "Nit: I think you can remove this test :)",
+      "range": {
+        "startLine": 739,
+        "startChar": 9,
+        "endLine": 739,
+        "endChar": 51
+      },
+      "revId": "3227603516b204364b783c20f5debfdf0b681f6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

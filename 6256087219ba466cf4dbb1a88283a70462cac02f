@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "22b7dbfa_fb3f9bb2",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-05-14T08:16:15Z",
+      "side": 1,
+      "message": "Kinda make it static.",
+      "parentUuid": "b63d7074_1e0fd66b",
+      "range": {
+        "startLine": 754,
+        "startChar": 25,
+        "endLine": 754,
+        "endChar": 54
+      },
+      "revId": "6256087219ba466cf4dbb1a88283a70462cac02f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14efb2e6_3853bd7c",
         "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "6256087219ba466cf4dbb1a88283a70462cac02f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47306a88_16983ff7",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-05-14T08:16:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14efb2e6_3853bd7c",
+      "range": {
+        "startLine": 756,
+        "startChar": 55,
+        "endLine": 756,
+        "endChar": 66
+      },
+      "revId": "6256087219ba466cf4dbb1a88283a70462cac02f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

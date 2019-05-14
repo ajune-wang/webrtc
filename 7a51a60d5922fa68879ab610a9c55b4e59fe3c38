@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc700792_9167ed3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-14T00:14:15Z",
+      "side": 1,
+      "message": "remove this newline",
+      "revId": "7a51a60d5922fa68879ab610a9c55b4e59fe3c38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

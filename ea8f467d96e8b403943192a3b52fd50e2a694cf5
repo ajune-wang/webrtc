@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d74ae24f_9b876bb9",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-05-14T09:10:50Z",
+      "side": 1,
+      "message": "Why do we have NetEqForceTargetDelayPercentile in this test?",
+      "range": {
+        "startLine": 738,
+        "startChar": 22,
+        "endLine": 738,
+        "endChar": 53
+      },
+      "revId": "ea8f467d96e8b403943192a3b52fd50e2a694cf5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "781a385a_155492f8",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-05-14T09:10:50Z",
+      "side": 1,
+      "message": "The field trial declaration should not be here, right?",
+      "range": {
+        "startLine": 763,
+        "startChar": 0,
+        "endLine": 763,
+        "endChar": 38
+      },
+      "revId": "ea8f467d96e8b403943192a3b52fd50e2a694cf5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa5e005f_29ce664c",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-05-14T09:10:50Z",
+      "side": 1,
+      "message": "This comment seems incorrect.",
+      "range": {
+        "startLine": 791,
+        "startChar": 7,
+        "endLine": 791,
+        "endChar": 48
+      },
+      "revId": "ea8f467d96e8b403943192a3b52fd50e2a694cf5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

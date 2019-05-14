@@ -1,0 +1,256 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e61cfea_0475bff6",
+        "filename": "modules/rtp_rtcp/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-14T11:25:56Z",
+      "side": 1,
+      "message": "add .h and .cc into same directory\nhttps://chromium.googlesource.com/external/webrtc/+/refs/heads/master/style-guide.md#h-cc-pairs",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1efea5c_feeafcf2",
+        "filename": "modules/rtp_rtcp/DEPS",
+        "patchSetId": 9
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-14T11:25:56Z",
+      "side": 1,
+      "message": "no longer there",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 16
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d812e1c3_57571916",
+        "filename": "modules/rtp_rtcp/include/report_block_data.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-14T11:25:56Z",
+      "side": 1,
+      "message": "since you name these like cheap accessors, might be good to also inline them (good both for binary size and speed):\nint64_t last_rtt_ms() const { return last_rtt_ms_; }",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fa63006_d1b39401",
+        "filename": "modules/rtp_rtcp/include/report_block_data.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-14T11:25:56Z",
+      "side": 1,
+      "message": "may be there should be\navg_rtt_ms() (or AvgRttMs() )\n(may be also need \"bool has_rtt() const\" accessor)\nInstead of these two accessors.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 26
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "888dd110_5dcc7d41",
+        "filename": "modules/rtp_rtcp/include/report_block_data.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-14T11:25:56Z",
+      "side": 1,
+      "message": "https://abseil.io/tips/131#recommendations\n\n\"Prefer \u003ddefault over writing an equivalent implementation by hand, even if that implementation is just {}\"",
+      "range": {
+        "startLine": 47,
+        "startChar": 36,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ef4251b_0f31a372",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-14T11:25:56Z",
+      "side": 1,
+      "message": "are you planing to remove report_blocks in favor of report_block_datas?\nMay be add TODO for that too.",
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0ab615f_ff09aa20",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-14T11:25:56Z",
+      "side": 1,
+      "message": "why this extra indentation?",
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "846f8569_2f6d28c9",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-14T11:25:56Z",
+      "side": 1,
+      "message": "are there use case where obeserver need to be set long after construction?\nIf not, it might be better to pass it as construction parameter, and make the pointer const internally.",
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83fda4ff_cedd1488",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-14T11:25:56Z",
+      "side": 1,
+      "message": "const auto\u0026\n(note note you are not modifiying report_block_data)",
+      "range": {
+        "startLine": 1094,
+        "startChar": 11,
+        "endLine": 1094,
+        "endChar": 16
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "934fe72c_85278cee",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-14T11:25:56Z",
+      "side": 1,
+      "message": "when all parameter matchers are wildcard, they can be omited:\nEXPECT_CALL(observer, OnReportBlockDataUpdated)",
+      "range": {
+        "startLine": 1214,
+        "startChar": 48,
+        "endLine": 1214,
+        "endChar": 51
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14489751_a86b4483",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-14T11:25:56Z",
+      "side": 1,
+      "message": "you can now pass lambda directly, without wrapping it into Invoke:\n.WillOnce([\u0026](... ) {\n});",
+      "range": {
+        "startLine": 1215,
+        "startChar": 16,
+        "endLine": 1215,
+        "endChar": 23
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f42bc2e_93866699",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-14T11:25:56Z",
+      "side": 1,
+      "message": "Are these 3 different tests? Then make it 3 different test and use test name to explain the tested scenario.",
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

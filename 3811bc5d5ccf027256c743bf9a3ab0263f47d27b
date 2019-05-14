@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b5ac90ed_09968530",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-14T11:25:56Z",
+      "side": 1,
+      "message": "NtpTime absolute_time \u003d clock_-\u003eCurrentNtpTime()\nis practically the UTC time. though it uses different time units.\nyou probably can get away with\nabsolute_time.ToMs() * 1000;\nor add ToUs() function the NtpTime if you want higher precision (NtpTime itself has very high precision)",
+      "parentUuid": "d6d58b14_e4ddd4b9",
+      "range": {
+        "startLine": 492,
+        "startChar": 49,
+        "endLine": 492,
+        "endChar": 70
+      },
+      "revId": "3811bc5d5ccf027256c743bf9a3ab0263f47d27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c9d1c4c_8f16fda2",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
         "patchSetId": 7

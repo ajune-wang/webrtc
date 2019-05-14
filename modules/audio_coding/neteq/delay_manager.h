@@ -101,6 +101,9 @@ class DelayManager {
   // within to the corresponding pointers. The values are in (fractions of)
   // packets in Q8.
   virtual void BufferLimits(int* lower_limit, int* higher_limit) const;
+  virtual void BufferLimits(int target_level,
+                            int* lower_limit,
+                            int* higher_limit) const;
 
   // Gets the target buffer level, in (fractions of) packets in Q8. This value
   // includes any extra delay set through the set_extra_delay_ms() method.
@@ -132,6 +135,11 @@ class DelayManager {
   }
 
   // This accessor is only intended for testing purposes.
+  absl::optional<int> deceleration_target_level_offset_for_test() const {
+    return deceleration_target_level_offset_;
+  }
+
+  // These accessors are only intended for testing purposes.
   HistogramMode histogram_mode() const { return histogram_mode_; }
   int histogram_quantile() const { return histogram_quantile_; }
   int histogram_forget_factor() const { return histogram_->forget_factor(); }
@@ -207,6 +215,7 @@ class DelayManager {
   const bool enable_rtx_handling_;
   int num_reordered_packets_ = 0;  // Number of consecutive reordered packets.
   std::deque<int> delay_history_;
+  const absl::optional<int> deceleration_target_level_offset_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(DelayManager);
 };

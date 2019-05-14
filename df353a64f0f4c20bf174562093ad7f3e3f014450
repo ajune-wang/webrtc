@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "24cf2b79_92cde463",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-14T02:36:45Z",
+      "side": 1,
+      "message": "nit: similar to the other comment on comments about the complete sentence and period.",
+      "range": {
+        "startLine": 1148,
+        "startChar": 35,
+        "endLine": 1148,
+        "endChar": 41
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74cdd784_9be68768",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-14T02:36:45Z",
+      "side": 1,
+      "message": "On the API level, we consistently use the candidate object instead of its serialization.",
+      "range": {
+        "startLine": 1149,
+        "startChar": 54,
+        "endLine": 1149,
+        "endChar": 68
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d931c69_92527b01",
+        "filename": "p2p/base/ice_transport_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-14T02:36:45Z",
+      "side": 1,
+      "message": "nit: for a long list of arguments of a Signal, it could be helpful to comment what each argument is by /* argument_name */, when one wants to connect them to other listeners in the future.",
+      "range": {
+        "startLine": 265,
+        "startChar": 11,
+        "endLine": 265,
+        "endChar": 18
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "98d66416_63824337",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 1
@@ -18,6 +87,29 @@
         "startChar": 2,
         "endLine": 857,
         "endChar": 12
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0796b96_1626baf0",
+        "filename": "p2p/base/p2p_transport_channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-14T02:36:45Z",
+      "side": 1,
+      "message": "Related to my other comment on pass the candidate reference instead of a string.",
+      "range": {
+        "startLine": 287,
+        "startChar": 24,
+        "endLine": 287,
+        "endChar": 57
       },
       "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -48,6 +140,52 @@
     },
     {
       "key": {
+        "uuid": "384842c2_32f094cc",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-14T02:36:45Z",
+      "side": 1,
+      "message": "Is there any specific reason we signaling the candidate using its serialized representation instead of itself (const cricket::Candidate\u0026)? If not I would suggest use the reference since it would allow extensions in the future to extract info from the object without having to change its serialization. Also for consistency, if you look inside JsepTransportController, we have similar signals using candidates directly.\n\nPlease also see my comment on the API level for the observer.",
+      "range": {
+        "startLine": 291,
+        "startChar": 19,
+        "endLine": 291,
+        "endChar": 37
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfaab0be_f4ca922f",
+        "filename": "p2p/base/port_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-14T02:36:45Z",
+      "side": 1,
+      "message": "nit: maybe comment the arguments",
+      "range": {
+        "startLine": 275,
+        "startChar": 19,
+        "endLine": 275,
+        "endChar": 37
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b6fa186f_91795e2a",
         "filename": "p2p/base/stun.h",
         "patchSetId": 1
@@ -59,6 +197,30 @@
       "writtenOn": "2019-05-13T21:14:43Z",
       "side": 1,
       "message": "I suggest that you choose a better name for this constant. i don\u0027t think it should be in an enum.\nperhaps CANDIDATE_CANNOT_REACH_SERVER or the one you defined inside the enum SERVER_NOT_REACHABLE_ERROR.\n\n\"If no host candidate can reach the server, errorCode will be set to the value 701 which is outside the STUN error code range\"",
+      "range": {
+        "startLine": 585,
+        "startChar": 5,
+        "endLine": 585,
+        "endChar": 29
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18fd6e86_90edfbd7",
+        "filename": "p2p/base/stun.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-14T02:36:45Z",
+      "side": 1,
+      "message": "Is the 701 specifically introduced by this change?",
+      "parentUuid": "b6fa186f_91795e2a",
       "range": {
         "startLine": 585,
         "startChar": 5,
@@ -94,6 +256,29 @@
     },
     {
       "key": {
+        "uuid": "b44fea9f_2246fd1f",
+        "filename": "p2p/base/stun_port.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-14T02:36:45Z",
+      "side": 1,
+      "message": "SocketAddress::ToString() would do the same.",
+      "range": {
+        "startLine": 529,
+        "startChar": 20,
+        "endLine": 530,
+        "endChar": 32
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ce860245_33954002",
         "filename": "p2p/base/stun_port.cc",
         "patchSetId": 1
@@ -110,6 +295,29 @@
         "startChar": 2,
         "endLine": 534,
         "endChar": 16
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d8b8a2a_7081c287",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-14T02:36:45Z",
+      "side": 1,
+      "message": "Maybe \"Maximum retries reached for allocation mismatch\"?",
+      "range": {
+        "startLine": 506,
+        "startChar": 52,
+        "endLine": 506,
+        "endChar": 54
       },
       "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -140,6 +348,30 @@
     },
     {
       "key": {
+        "uuid": "e3367d19_0bb25207",
+        "filename": "p2p/base/turn_port.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-14T02:36:45Z",
+      "side": 1,
+      "message": "Or at the call site (only one so far), add a comment to the Boolean, i.e. false /* use_hostname */ to help the reader know its definition.",
+      "parentUuid": "efdba0c4_18193283",
+      "range": {
+        "startLine": 352,
+        "startChar": 42,
+        "endLine": 352,
+        "endChar": 54
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "25c3bc5f_268ac6af",
         "filename": "p2p/client/basic_port_allocator.cc",
         "patchSetId": 1
@@ -151,6 +383,30 @@
       "writtenOn": "2019-05-13T21:14:43Z",
       "side": 1,
       "message": "Looks like data is not used in this method.\nSo, you are either calling FindPort because you want to DCHECK that the port exists, or there is a bug.\nfor the first case, it would be better to DCHECK(FindPort(port)) because that would be clear to other developers that this operation should not have any side-effects and can be skipped in release builds.\nif FindPort() does have side-effects, you should document why the call is needed even though you don\u0027t use the result.",
+      "range": {
+        "startLine": 1035,
+        "startChar": 19,
+        "endLine": 1035,
+        "endChar": 27
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7b20ad3_87c8b973",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-14T02:36:45Z",
+      "side": 1,
+      "message": "+1 to DCHECK(FindPort(port))",
+      "parentUuid": "25c3bc5f_268ac6af",
       "range": {
         "startLine": 1035,
         "startChar": 19,
@@ -201,6 +457,29 @@
         "startLine": 1256,
         "startChar": 2,
         "endLine": 1256,
+        "endChar": 12
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13ae97d6_2f415019",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-14T02:36:45Z",
+      "side": 1,
+      "message": "nit: Propagate; you may also need articles.",
+      "range": {
+        "startLine": 421,
+        "startChar": 5,
+        "endLine": 421,
         "endChar": 12
       },
       "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",

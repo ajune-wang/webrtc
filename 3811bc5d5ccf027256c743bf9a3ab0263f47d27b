@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d6d58b14_e4ddd4b9",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-14T09:56:33Z",
+      "side": 1,
+      "message": "The timestamp is RTCStats::timestamp defined as a UTC timestamp (https://w3c.github.io/webrtc-pc/#dom-rtcstats-timestamp) and in the case of RTCRemoteInboundRtpStreamStats it is \"the time at which the corresponding RTCP RR was received\" (https://w3c.github.io/webrtc-stats/#remoteinboundrtpstats-dict*).\n\nI updated the name to \"report_block_timestamp_utc_us\".\n\nI would prefer to use clock_, but this is not UTC. In JavaScript you can do \"new Date(timestamp)\" and if its correct you get the current date and time from it. I initially tried using clock_-\u003eTimeInMicroseconds() but got unexpected dates and times not comparable to other RTCStats::timestamps until I changed to the same global clock that other RTCStats::timestamps use.\n\nIs there a way to get UTC time out of a clock_? Should I file a bug and add a TODO?",
+      "parentUuid": "95b1ff71_1f9a3fc2",
+      "range": {
+        "startLine": 492,
+        "startChar": 49,
+        "endLine": 492,
+        "endChar": 70
+      },
+      "revId": "3811bc5d5ccf027256c743bf9a3ab0263f47d27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c9d1c4c_8f16fda2",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "3811bc5d5ccf027256c743bf9a3ab0263f47d27b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36f7bd3e_ea5e22a1",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-14T09:56:33Z",
+      "side": 1,
+      "message": "I removed the std::move(), I don\u0027t have a strong opinion either way.\n\nI think the benefit of moving when that\u0027s conceptually what you want to do is you don\u0027t have to make assumptions about the implementation and if the implementation becomes heavier in the future you don\u0027t have to hunt down copies (not a real concern here). On the other hand std::move() is more error-prone, I\u0027ve been bitten by use-after-move bugs before.",
+      "parentUuid": "9c9d1c4c_8f16fda2",
+      "range": {
+        "startLine": 1103,
+        "startChar": 12,
+        "endLine": 1103,
+        "endChar": 21
+      },
+      "revId": "3811bc5d5ccf027256c743bf9a3ab0263f47d27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2f676920_d41f0609",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-14T09:56:33Z",
+      "side": 1,
+      "message": "Comment updated to say the SSRC pair is unique.",
+      "parentUuid": "0c9dc74a_9b2041a3",
+      "range": {
+        "startLine": 99,
+        "startChar": 20,
+        "endLine": 100,
+        "endChar": 12
+      },
+      "revId": "3811bc5d5ccf027256c743bf9a3ab0263f47d27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8553409_d81002b4",
         "filename": "stats/data/report_block_data.h",
         "patchSetId": 7
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "c0d65b30_19739547",
+        "filename": "stats/data/report_block_data.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-14T09:56:33Z",
+      "side": 1,
+      "message": "I had dependency problems but I don\u0027t remember the details anymore (vacation :)), maybe rtp_rtcp_format is OK. I moved it to rtp_rtcp_format as modules/rtp_rtcp/include/report_block_data.h.",
+      "parentUuid": "c8553409_d81002b4",
+      "range": {
+        "startLine": 18,
+        "startChar": 7,
+        "endLine": 18,
+        "endChar": 22
+      },
+      "revId": "3811bc5d5ccf027256c743bf9a3ab0263f47d27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "010e7f61_b0288cf6",
         "filename": "stats/data/report_block_data.h",
         "patchSetId": 7
@@ -114,6 +210,30 @@
       "revId": "3811bc5d5ccf027256c743bf9a3ab0263f47d27b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "057976cb_c6075338",
+        "filename": "stats/data/report_block_data.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-14T09:56:33Z",
+      "side": 1,
+      "message": "I turned it into a class with getters and two methods: SetReportBlock() and AddRoundTripTimeSample().",
+      "parentUuid": "010e7f61_b0288cf6",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 22
+      },
+      "revId": "3811bc5d5ccf027256c743bf9a3ab0263f47d27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9b2a5e9d_09e0efd9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-14T15:15:51Z",
+      "side": 1,
+      "message": "What does this mean? What happens to the queued task? Which thread deletes its resources?",
+      "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "467d6623_f42f7905",
         "filename": "rtc_base/thread.h",
         "patchSetId": 3

@@ -263,7 +263,6 @@ static const char kSdpString[] =
 static const char kSdpRtpDataChannelString[] =
     "m=application 9 RTP/SAVPF 101\r\n"
     "c=IN IP4 0.0.0.0\r\n"
-    "a=rtcp:9 IN IP4 0.0.0.0\r\n"
     "a=ice-ufrag:ufrag_data\r\n"
     "a=ice-pwd:pwd_data\r\n"
     "a=mid:data_content_name\r\n"
@@ -2888,6 +2887,34 @@ TEST_F(WebRtcSdpTest, DeserializeSdpWithSctpDataChannelsWithMaxMessageSize) {
   JsepSessionDescription jdesc_output(kDummyType);
 
   EXPECT_TRUE(SdpDeserialize(sdp_with_data, &jdesc_output));
+  EXPECT_TRUE(CompareSessionDescription(jdesc, jdesc_output));
+}
+
+TEST_F(WebRtcSdpTest, SerializeSdpWithSctpDataChannelWithMaxMessageSize) {
+  bool use_sctpmap = false;
+  AddSctpDataChannel(use_sctpmap);
+  JsepSessionDescription jdesc(kDummyType);
+  MutateJsepSctpMaxMessageSize(desc_, 12345, &jdesc);
+  std::string message = webrtc::SdpSerialize(jdesc);
+  EXPECT_NE(std::string::npos,
+            message.find("\r\na=max-message-size:12345\r\n"));
+  JsepSessionDescription jdesc_output(kDummyType);
+  EXPECT_TRUE(SdpDeserialize(message, &jdesc_output));
+  EXPECT_TRUE(CompareSessionDescription(jdesc, jdesc_output));
+}
+
+TEST_F(WebRtcSdpTest,
+       SerializeSdpWithSctpDataChannelWithDefaultMaxMessageSize) {
+  // https://tools.ietf.org/html/draft-ietf-mmusic-sctp-sdp-26#section-6
+  // The default max message size is 64K.
+  bool use_sctpmap = false;
+  AddSctpDataChannel(use_sctpmap);
+  JsepSessionDescription jdesc(kDummyType);
+  MutateJsepSctpMaxMessageSize(desc_, 65536, &jdesc);
+  std::string message = webrtc::SdpSerialize(jdesc);
+  EXPECT_EQ(std::string::npos, message.find("\r\na=max-message-size:"));
+  JsepSessionDescription jdesc_output(kDummyType);
+  EXPECT_TRUE(SdpDeserialize(message, &jdesc_output));
   EXPECT_TRUE(CompareSessionDescription(jdesc, jdesc_output));
 }
 

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b8f9a64a_40fa1f32",
+        "filename": "media/sctp/sctp_transport_internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-15T06:08:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6eb0578_062b0c05",
+      "revId": "ce09813a75aceb370a68b767c08dbd2f2ca34dbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "324e5f0c_c121e757",
         "filename": "media/sctp/sctp_transport_internal.h",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2019-05-15T00:20:59Z",
       "side": 1,
       "message": "Might be more ergonomic to default to kSctpSendBufferSize?",
+      "range": {
+        "startLine": 82,
+        "startChar": 21,
+        "endLine": 82,
+        "endChar": 41
+      },
+      "revId": "ce09813a75aceb370a68b767c08dbd2f2ca34dbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98c72430_eac49b6b",
+        "filename": "media/sctp/sctp_transport_internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-15T06:08:41Z",
+      "side": 1,
+      "message": "It\u0027s an internal API, I prefer to be explicit. If there were external callers, I\u0027d take the easy way out and default it. (The spec default is 64K)",
+      "parentUuid": "324e5f0c_c121e757",
       "range": {
         "startLine": 82,
         "startChar": 21,
@@ -62,6 +104,30 @@
       "revId": "ce09813a75aceb370a68b767c08dbd2f2ca34dbe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c17cd51c_565c1a01",
+        "filename": "media/sctp/sctp_transport_internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-15T06:08:41Z",
+      "side": 1,
+      "message": "Moved up. It\u0027s an important externally visible function.",
+      "parentUuid": "2ccf18d1_e389676b",
+      "range": {
+        "startLine": 131,
+        "startChar": 14,
+        "endLine": 131,
+        "endChar": 30
+      },
+      "revId": "ce09813a75aceb370a68b767c08dbd2f2ca34dbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

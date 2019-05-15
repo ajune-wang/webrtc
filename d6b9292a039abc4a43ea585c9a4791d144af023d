@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99acd904_af328262",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-15T11:54:15Z",
+      "side": 1,
+      "message": "lower_limit_ -\u003e lower_limit",
+      "range": {
+        "startLine": 509,
+        "startChar": 33,
+        "endLine": 509,
+        "endChar": 45
+      },
+      "revId": "d6b9292a039abc4a43ea585c9a4791d144af023d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f1fef9e_39cad212",
+        "filename": "modules/audio_coding/neteq/delay_manager.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-15T11:54:15Z",
+      "side": 1,
+      "message": "I\u0027d reword it a bit\n\nWhen current buffer level is more than |deceleration_target_level_offset_| below the target level, NetEq will impose deceleration to increase the buffer level. The value is in Q8, and measured in milliseconds.",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 50
+      },
+      "revId": "d6b9292a039abc4a43ea585c9a4791d144af023d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "511cfffe_60b01081",
+        "filename": "modules/audio_coding/neteq/delay_manager.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-15T11:54:15Z",
+      "side": 1,
+      "message": "better to add a suffix ms_",
+      "range": {
+        "startLine": 221,
+        "startChar": 28,
+        "endLine": 221,
+        "endChar": 61
+      },
+      "revId": "d6b9292a039abc4a43ea585c9a4791d144af023d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a49dec51_d2a3072b",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-15T11:54:15Z",
+      "side": 1,
+      "message": "Border value where 1/4 target buffer level meets WebRTC-Audio-NetEqDecelerationTargetLevelOffset.",
+      "range": {
+        "startLine": 767,
+        "startChar": 0,
+        "endLine": 767,
+        "endChar": 74
+      },
+      "revId": "d6b9292a039abc4a43ea585c9a4791d144af023d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "817dd3b8_0698f389",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-15T11:54:15Z",
+      "side": 1,
+      "message": "make it a constexpr and use kCamelCase for the name.\n\nAnd I think the name I suggested was confusing, since I was thinking it as an offset.\n\nWe can call this kBoarderTargetLevel and let it solve\n\ntarget_level * 3 / 4 \u003d\u003d target_level - NetEqDecelerationTargetLevelOffset,\n\ntherefore, 100 * 4, precisely that you wrote",
+      "range": {
+        "startLine": 768,
+        "startChar": 12,
+        "endLine": 768,
+        "endChar": 46
+      },
+      "revId": "d6b9292a039abc4a43ea585c9a4791d144af023d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b79cbd8_5a94372d",
+        "filename": "modules/audio_coding/neteq/delay_manager.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-15T12:24:11Z",
+      "side": 1,
+      "message": "finally, _ms to the getter function too.",
+      "range": {
+        "startLine": 138,
+        "startChar": 22,
+        "endLine": 138,
+        "endChar": 54
+      },
+      "revId": "bacf4d05d2cb8f2b6471823ffb83fd2c2b101cd7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

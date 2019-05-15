@@ -260,9 +260,24 @@ NetworkControlUpdate GoogCcNetworkController::OnSentPacket(
                                                 TimeDelta::Zero());
   }
   bandwidth_estimation_->OnSentPacket(sent_packet);
+  bool network_changed = false;
+  if (network_estimator_) {
+    overuse_predictor_.OnSentPacket(sent_packet);
+    if (overuse_predictor_.PredictOveruse(
+            network_estimator_->GetCurrentEstimate())) {
+      DataRate new_target = delay_based_bwe_->TriggerOveruse(
+          sent_packet.send_time, acknowledged_bitrate_estimator_->bitrate());
+      bandwidth_estimation_->UpdateDelayBasedEstimate(sent_packet.send_time,
+                                                      new_target);
+      network_changed = true;
+    }
+  }
   if (congestion_window_pushback_controller_) {
     congestion_window_pushback_controller_->UpdateOutstandingData(
         sent_packet.data_in_flight.bytes());
+    network_changed = true;
+  }
+  if (network_changed) {
     NetworkControlUpdate update;
     MaybeTriggerOnNetworkChanged(&update, sent_packet.send_time);
     return update;

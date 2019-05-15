@@ -19,12 +19,11 @@ namespace rtc {
 // CRC32 polynomial, in reversed form.
 // See RFC 1952, or http://en.wikipedia.org/wiki/Cyclic_redundancy_check
 static const uint32_t kCrc32Polynomial = 0xEDB88320;
-static uint32_t kCrc32Table[256] = {0};
 
-static void EnsureCrc32TableInited() {
-  if (kCrc32Table[arraysize(kCrc32Table) - 1])
-    return;  // already inited
-  for (uint32_t i = 0; i < arraysize(kCrc32Table); ++i) {
+static uint32_t* MakeCrc32Table() {
+  constexpr int kCrc32TableLength = 256;
+  uint32_t* table = new uint32_t[kCrc32TableLength];
+  for (uint32_t i = 0; i < kCrc32TableLength; ++i) {
     uint32_t c = i;
     for (size_t j = 0; j < 8; ++j) {
       if (c & 1) {
@@ -33,12 +32,13 @@ static void EnsureCrc32TableInited() {
         c >>= 1;
       }
     }
-    kCrc32Table[i] = c;
+    table[i] = c;
   }
+  return table;
 }
 
 uint32_t UpdateCrc32(uint32_t start, const void* buf, size_t len) {
-  EnsureCrc32TableInited();
+  static uint32_t* kCrc32Table = MakeCrc32Table();
 
   uint32_t c = start ^ 0xFFFFFFFF;
   const uint8_t* u = static_cast<const uint8_t*>(buf);

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e49bfe0a_63444e5f",
+        "filename": "rtc_base/crc32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-15T20:46:17Z",
+      "side": 1,
+      "message": "perhaps keep the method for CreateCrc32Table() and add comment\n// Generated using |CreateCrc32Table(0xED88320)|",
+      "range": {
+        "startLine": 19,
+        "startChar": 22,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "9d5df3a229a0469e70a84066568c08f5737ff5f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

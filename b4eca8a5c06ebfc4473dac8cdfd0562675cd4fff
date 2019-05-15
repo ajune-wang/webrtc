@@ -22,6 +22,30 @@
       "revId": "b4eca8a5c06ebfc4473dac8cdfd0562675cd4fff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96a514f4_08a83a64",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-05-15T10:27:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bef0d7c5_c13115ae",
+      "range": {
+        "startLine": 317,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 40
+      },
+      "revId": "b4eca8a5c06ebfc4473dac8cdfd0562675cd4fff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

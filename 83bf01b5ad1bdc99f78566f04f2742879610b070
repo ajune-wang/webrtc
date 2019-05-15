@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "57b9802a_424c7dbc",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-05-15T09:44:16Z",
+      "side": 1,
+      "message": "The problem there will be on the send side. When we send packet to the socket we need to check is network enabled or not. It is happening on the network thread and to return status to the socket (to produce correct return code) we will be required to make sync call to the task queue to check is endpoint enabled or not. It looks not good for me.\n\nWDYT?",
+      "parentUuid": "39e16060_de83302f",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 3
+      },
+      "revId": "83bf01b5ad1bdc99f78566f04f2742879610b070",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8e6f7bf_743eda9a",
         "filename": "test/scenario/network/fake_network_socket.cc",
         "patchSetId": 3

@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6eb0578_062b0c05",
+        "filename": "media/sctp/sctp_transport_internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-15T00:20:59Z",
+      "side": 1,
+      "message": "Can you add a comment describing the |max_message_size|?",
+      "revId": "ce09813a75aceb370a68b767c08dbd2f2ca34dbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "324e5f0c_c121e757",
+        "filename": "media/sctp/sctp_transport_internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-15T00:20:59Z",
+      "side": 1,
+      "message": "Might be more ergonomic to default to kSctpSendBufferSize?",
+      "range": {
+        "startLine": 82,
+        "startChar": 21,
+        "endLine": 82,
+        "endChar": 41
+      },
+      "revId": "ce09813a75aceb370a68b767c08dbd2f2ca34dbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ccf18d1_e389676b",
+        "filename": "media/sctp/sctp_transport_internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-15T00:20:59Z",
+      "side": 1,
+      "message": "max_message_size_for_testing?",
+      "range": {
+        "startLine": 131,
+        "startChar": 14,
+        "endLine": 131,
+        "endChar": 30
+      },
+      "revId": "ce09813a75aceb370a68b767c08dbd2f2ca34dbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "148f8784_4dbc6002",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2938,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-15T00:20:59Z",
+      "side": 1,
+      "message": "nit: EXPECT_THAT(message, HasSubstr(\"...\"));",
+      "revId": "ce09813a75aceb370a68b767c08dbd2f2ca34dbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

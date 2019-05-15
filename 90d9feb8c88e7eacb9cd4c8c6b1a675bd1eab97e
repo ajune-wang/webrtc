@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cac45dd2_2ecb32c4",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-15T00:20:59Z",
+      "side": 0,
+      "message": "I like this change",
+      "revId": "90d9feb8c88e7eacb9cd4c8c6b1a675bd1eab97e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

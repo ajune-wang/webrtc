@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a7e8e84_72b888a2",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-15T00:20:59Z",
+      "side": 0,
+      "message": "unnecessary diff?",
+      "revId": "fb8c856afa8f9cd0937a5b124e8cddad33b3d3ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

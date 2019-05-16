@@ -134,6 +134,24 @@
       "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a66990e_5313a8ee",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-16T08:49:32Z",
+      "side": 1,
+      "message": "Basically, a trivial destructor is one that is guaranteed to not to have to execute any instructions. But MessageHandlerWithTask has a virtual destructor, which means that the compiler needs to look up the actual destructor in the vtable and then execute that.\n\nIn theory, the compiler could realize that MessageHandlerWithTask is final and that its destructor (and that of its parent, MessageHandler) are both no-ops, but the standard doesn\u0027t work that way. Since destructor triviality is an observable property, there is a need to mandate exactly when it happens---otherwise, code that assumes triviality would work in one compiler and fail in another.",
+      "parentUuid": "264bb51b_8a5c0b12",
+      "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

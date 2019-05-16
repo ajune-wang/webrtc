@@ -136,7 +136,7 @@ struct ConfigHelper {
   ConfigHelper(bool audio_bwe_enabled, bool expect_set_encoder_call)
       : clock_(1000000),
         task_queue_factory_(CreateDefaultTaskQueueFactory()),
-        stream_config_(/*send_transport=*/nullptr, /*media_transport=*/nullptr),
+        stream_config_(/*send_transport=*/nullptr, MediaTransportConfig()),
         audio_processing_(new rtc::RefCountedObject<MockAudioProcessing>()),
         bitrate_allocator_(&clock_, &limit_observer_),
         worker_queue_(task_queue_factory_->CreateTaskQueue(
@@ -321,7 +321,7 @@ struct ConfigHelper {
 
 TEST(AudioSendStreamTest, ConfigToString) {
   AudioSendStream::Config config(/*send_transport=*/nullptr,
-                                 /*media_transport=*/nullptr);
+                                 MediaTransportConfig());
   config.rtp.ssrc = kSsrc;
   config.rtp.c_name = kCName;
   config.min_bitrate_bps = 12000;

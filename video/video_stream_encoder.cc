@@ -1177,6 +1177,9 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
       TraceFrameDropStart();
       accumulated_update_rect_.Union(video_frame.update_rect());
     }
+
+    RTC_LOG(LS_INFO) << "Dropping frame. Encoder paused.";
+
     return;
   }
 

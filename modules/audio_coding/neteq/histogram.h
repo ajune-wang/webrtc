@@ -15,6 +15,8 @@
 
 #include <vector>
 
+#include "absl/types/optional.h"
+
 namespace webrtc {
 
 class Histogram {
@@ -54,6 +56,8 @@ class Histogram {
   std::vector<int> buckets_;
   int forget_factor_;  // Q15
   const int base_forget_factor_;
+  int count_ = 0;
+  const absl::optional<double> converge_factor_;
 };
 
 }  // namespace webrtc

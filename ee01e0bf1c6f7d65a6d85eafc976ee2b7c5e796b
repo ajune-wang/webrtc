@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2e9dff1_1a7dea40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-05-16T15:08:15Z",
+      "side": 1,
+      "message": "I\u0027ve hung this on the general \"Locks in APM...\" bug. I think that makes sense.",
+      "revId": "ee01e0bf1c6f7d65a6d85eafc976ee2b7c5e796b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e215e7c0_e656b209",
+        "filename": "p2p/base/datagram_dtls_adaptor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-16T23:52:06Z",
+      "side": 1,
+      "message": "Nit: datagram is misspelled.",
+      "range": {
+        "startLine": 39,
+        "startChar": 30,
+        "endLine": 39,
+        "endChar": 39
+      },
+      "revId": "d596e74a443e1e517d7eba8e9c6afb936acfe141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7717f160_480cf9db",
+        "filename": "p2p/base/datagram_dtls_adaptor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-16T23:52:06Z",
+      "side": 1,
+      "message": "Why do we take crypto_options as a parameter and then record something else in crypto_options_?",
+      "revId": "d596e74a443e1e517d7eba8e9c6afb936acfe141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b3e008b_12e7e36e",
+        "filename": "p2p/base/datagram_dtls_adaptor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-16T23:52:06Z",
+      "side": 1,
+      "message": "Have we checked whether this does what we want?\n\nIt looks like media_session might turn off SDES in this case, which doesn\u0027t seem like what we want since we use SDES for PSK mode.",
+      "revId": "d596e74a443e1e517d7eba8e9c6afb936acfe141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b17508c_0ed1dc4d",
+        "filename": "p2p/base/datagram_dtls_adaptor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-16T23:52:06Z",
+      "side": 1,
+      "message": "Do we need to account for datagram transport state here?",
+      "revId": "d596e74a443e1e517d7eba8e9c6afb936acfe141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

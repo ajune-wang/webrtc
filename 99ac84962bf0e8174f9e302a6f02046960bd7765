@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "52b6b60e_cafb695e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-16T08:02:23Z",
+      "side": 1,
+      "message": "It\u0027s similar to TaskQueue::PostTask(...): The TaskQueue/MessageQueue takes ownership of the the thing posted. If the task gets to run, it is deleted on the TaskQueue thread. If it doesn\u0027t get to run, it is nevertheless deleted, but that may happen at some unspecified time on some unspecified thread. In the case that caused trouble, I think destruction happens on the main thread, from the AutoThread destructor, invoked just before main returns.",
+      "parentUuid": "9b2a5e9d_09e0efd9",
+      "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "467d6623_f42f7905",
         "filename": "rtc_base/thread.h",
         "patchSetId": 3
@@ -39,6 +57,30 @@
       "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73646b6b_70907782",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-16T08:02:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "467d6623_f42f7905",
+      "range": {
+        "startLine": 264,
+        "startChar": 11,
+        "endLine": 264,
+        "endChar": 54
+      },
+      "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +113,24 @@
       "side": 1,
       "message": "Ah, because it has a nontrivial destructor.",
       "parentUuid": "8f631694_e7c577ea",
+      "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "264bb51b_8a5c0b12",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-16T08:02:23Z",
+      "side": 1,
+      "message": "Exactly. Why it\u0027s \"non-trivial\" isn\u0027t clear to me, maybe because the vtable pointer is supposed to be updated during the destruction sequence? If there\u0027s any reasonable way we could arrange to make constructor and destructor trivial, I\u0027d prefer that.",
+      "parentUuid": "650bfcb3_05c308e5",
       "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

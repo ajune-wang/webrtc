@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "83c7d1ea_3930397a",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-05-16T14:52:14Z",
+      "side": 1,
+      "message": "If we want to run that staff on network_thread - we need to propagate network thread into endpoint and make switch from task queue to the network thread inside. Right now we use task queue for receiving data from network and then switch to network thread is done inside socket factory/socket. To make this switch inside endpoint we have to pass network thread into endpoint, but we decided not to do it during initial review.",
+      "parentUuid": "5f44ffbe_43d9b8d0",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 3
+      },
+      "revId": "83bf01b5ad1bdc99f78566f04f2742879610b070",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8e6f7bf_743eda9a",
         "filename": "test/scenario/network/fake_network_socket.cc",
         "patchSetId": 3
@@ -141,6 +165,30 @@
       "revId": "83bf01b5ad1bdc99f78566f04f2742879610b070",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b4f9395_d785749a",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-05-16T14:52:14Z",
+      "side": 1,
+      "message": "Yep, this one is better.",
+      "parentUuid": "b8e6f7bf_743eda9a",
+      "range": {
+        "startLine": 120,
+        "startChar": 13,
+        "endLine": 120,
+        "endChar": 24
+      },
+      "revId": "83bf01b5ad1bdc99f78566f04f2742879610b070",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

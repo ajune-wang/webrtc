@@ -223,6 +223,24 @@
       "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1be05e_c1b3970a",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-16T09:15:38Z",
+      "side": 1,
+      "message": "Subclass destructors need to call their parents\u0027 destructors. They can\u0027t do that if those are pure virtual. (I *think* that the virtualness of the destructor only comes into play at the top level, when you start destroying the object; the call to parents\u0027 destructors is probably direct and not virtual, otherwise all sorts of bad things would happen...)",
+      "parentUuid": "3cef2bc7_5605db15",
+      "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

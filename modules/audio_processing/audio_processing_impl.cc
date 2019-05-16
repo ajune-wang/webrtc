@@ -489,12 +489,6 @@ int AudioProcessingImpl::MaybeInitializeRender(
   return MaybeInitialize(processing_config, false);
 }
 
-int AudioProcessingImpl::MaybeInitializeCapture(
-    const ProcessingConfig& processing_config,
-    bool force_initialization) {
-  return MaybeInitialize(processing_config, force_initialization);
-}
-
 // Calls InitializeLocked() if any of the audio parameters have changed from
 // their current values (needs to be called while holding the crit_render_lock).
 int AudioProcessingImpl::MaybeInitialize(
@@ -938,15 +932,23 @@ int AudioProcessingImpl::ProcessStream(const float* const* src,
     reinitialization_required = UpdateActiveSubmoduleStates();
   }
 
-  processing_config.input_stream() = input_config;
-  processing_config.output_stream() = output_config;
-
-  {
-    // Do conditional reinitialization.
-    rtc::CritScope cs_render(&crit_render_);
-    RETURN_ON_ERR(
-        MaybeInitializeCapture(processing_config, reinitialization_required));
+  if (processing_config.input_stream() != input_config) {
+    processing_config.input_stream() = input_config;
+    reinitialization_required = true;
   }
+
+  if (processing_config.output_stream() != output_config) {
+    processing_config.output_stream() = output_config;
+    reinitialization_required = true;
+  }
+
+  if (reinitialization_required) {
+    // Reinitialize.
+    rtc::CritScope cs_render(&crit_render_);
+    rtc::CritScope cs_capture(&crit_capture_);
+    RETURN_ON_ERR(InitializeLocked(processing_config));
+  }
+
   rtc::CritScope cs_capture(&crit_capture_);
   RTC_DCHECK_EQ(processing_config.input_stream().num_frames(),
                 formats_.api_format.input_stream().num_frames());
@@ -1216,17 +1218,38 @@ int AudioProcessingImpl::ProcessStream(AudioFrame* frame) {
 
     reinitialization_required = UpdateActiveSubmoduleStates();
   }
-  processing_config.input_stream().set_sample_rate_hz(frame->sample_rate_hz_);
-  processing_config.input_stream().set_num_channels(frame->num_channels_);
-  processing_config.output_stream().set_sample_rate_hz(frame->sample_rate_hz_);
-  processing_config.output_stream().set_num_channels(frame->num_channels_);
 
-  {
-    // Do conditional reinitialization.
-    rtc::CritScope cs_render(&crit_render_);
-    RETURN_ON_ERR(
-        MaybeInitializeCapture(processing_config, reinitialization_required));
+  if (processing_config.input_stream().sample_rate_hz() !=
+      frame->sample_rate_hz_) {
+    processing_config.input_stream().set_sample_rate_hz(frame->sample_rate_hz_);
+    reinitialization_required = true;
   }
+
+  if (processing_config.input_stream().num_channels() != frame->num_channels_) {
+    processing_config.input_stream().set_num_channels(frame->num_channels_);
+    reinitialization_required = true;
+  }
+
+  if (processing_config.output_stream().sample_rate_hz() !=
+      frame->sample_rate_hz_) {
+    processing_config.output_stream().set_sample_rate_hz(
+        frame->sample_rate_hz_);
+    reinitialization_required = true;
+  }
+
+  if (processing_config.output_stream().num_channels() !=
+      frame->num_channels_) {
+    processing_config.output_stream().set_num_channels(frame->num_channels_);
+    reinitialization_required = true;
+  }
+
+  if (reinitialization_required) {
+    // Reinitialize.
+    rtc::CritScope cs_render(&crit_render_);
+    rtc::CritScope cs_capture(&crit_capture_);
+    RETURN_ON_ERR(InitializeLocked(processing_config));
+  }
+
   rtc::CritScope cs_capture(&crit_capture_);
   if (frame->samples_per_channel_ !=
       formats_.api_format.input_stream().num_frames()) {

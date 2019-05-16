@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bb1bdd3_be3fe2c1",
+        "filename": "api/media_transport_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-16T19:41:18Z",
+      "side": 1,
+      "message": "I don\u0027t understand this comment.  Do we intend to restrict visibility of transport interfaces?  What does it have to do with this class?",
+      "revId": "dd6d6bbfc7f20f0af13f539828d7502fe05cdfb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06566672_a1482f02",
+        "filename": "api/media_transport_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-16T19:41:18Z",
+      "side": 1,
+      "message": "If we\u0027re going to add datagram transport, and possibly RTP transport to this config, should we call it something more generic, such as TransportConfig?",
+      "revId": "dd6d6bbfc7f20f0af13f539828d7502fe05cdfb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76639f26_d4cce5af",
+        "filename": "modules/audio_coding/audio_network_adaptor/bitrate_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-16T19:41:18Z",
+      "side": 1,
+      "message": "I believe I fixed this bug.",
+      "revId": "dd6d6bbfc7f20f0af13f539828d7502fe05cdfb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

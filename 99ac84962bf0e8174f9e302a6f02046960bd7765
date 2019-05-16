@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "42fb9ea7_e8e395e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-16T09:37:26Z",
+      "side": 1,
+      "message": "\u003e This breaks the contract.\n\u003e \n\u003e // Posts a task to invoke the functor on |this| thread asynchronously, i.e.\n\u003e // without blocking the thread that invoked PostTask(). Ownership of |functor|\n\u003e // is passed and destroyed on |this| thread after it is invoked.\n\u003e ...\n\nOk, that documentation needs to be updated, if this cl is landed.\n\nI don\u0027t think Thread::PostTask should promise more than TaskQueue::PostTask. Its doc (rtc_base/task_queue.h) says:\n\n// A note on destruction:                                                                                                                                   \n//                                                                                                                                                          \n// When a TaskQueue is deleted, pending tasks will not be executed but they will                                                                            \n// be deleted.  The deletion of tasks may happen asynchronously after the                                                                                   \n// TaskQueue itself has been deleted or it may happen synchronously while the                                                                               \n// TaskQueue instance is being deleted.  This may vary from one OS to the next                                                                              \n// so assumptions about lifetimes of pending tasks should not be made.             \n\n\u003e One of the use cases I want PostTask to support is:\n\u003e \n\u003e // Delete |foo| on |thread_|.\n\u003e void DeleteFoo(std::unique_ptr\u003cFoo\u003e foo) {}\n\u003e thread_-\u003ePostTask(\n\u003e   FROM_HERE,\n\u003e   rtc::Bind(\u0026DeleteFoo, std::move(foo));\n\u003e \n\u003e This allows Foo to have destructors with DCHECKs that it is destroyed on the right thread, and allows the destructor to have dependency on things that live on the target thread, and so on.\n\nTaskQueues don\u0027t guarantee that destructor is called on the TaskQueue. But this pattern should nevertheless be safe in many cases. If some state lives on a particular thread, and the destructor runs after that thread is dead, then the destructor can assume exclusive access to the state. Not sure about the fine details, but I think thread exit and pthread_join include the needed memory barriers for that to work correctly.\n\nThat\u0027s why the compiler allows a destructor (or constructor) without annotations or thread checks, to access members annotated as RTC_GUARDED_BY.",
+      "parentUuid": "2dc7d093_dbf64829",
+      "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a083879a_ee3a1cf5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "Do we not do 2) already?\nWhat does https://webrtc-review.googlesource.com/c/src/+/39680 change with regards to tasks running?",
       "parentUuid": "a083879a_ee3a1cf5",
+      "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96996fbb_0ee496c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-16T09:37:26Z",
+      "side": 1,
+      "message": "\u003e Do we not do 2) already?\n\nI think we may do that on some platforms, and that\u0027s considered a bug. Changing the TaskQueue behavior has been under discussion, but I dont think we\u0027ve had any agreement to change it. I don\u0027t recall the pros and cons off the top of my head.\n\nIn this case, running the task from the main thread as part of AutoThread destruction seems like a risk for use-after-free.\n\n\u003e What does https://webrtc-review.googlesource.com/c/src/+/39680 change with regards to tasks running?\n\nBoth before and after that cl, we create an rtc::Thread object wrapping the main thread. By the time the test ends, that thread has a pending message. As far as I understand, before the cl, that Thread object is never destroyed, but considered unleaked by asan because it is pointed to by the thread local variable backing rtc::Current(). After the cl, the Thread object is destroyed. At destruction, it has a pending message with a MessageHandler allocated by Thread::PostTask, and asan reports that this object is leaked.",
+      "parentUuid": "580ee8a3_ae9bafc8",
       "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

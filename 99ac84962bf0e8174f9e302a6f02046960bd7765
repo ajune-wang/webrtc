@@ -37,6 +37,41 @@
     },
     {
       "key": {
+        "uuid": "2dc7d093_dbf64829",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T09:03:14Z",
+      "side": 1,
+      "message": "This breaks the contract.\n\n// Posts a task to invoke the functor on |this| thread asynchronously, i.e.\n// without blocking the thread that invoked PostTask(). Ownership of |functor|\n// is passed and destroyed on |this| thread after it is invoked.\n...\n\nWe can change the contract to not hold in the case of thread shutdown, but I\u0027m afraid we would hide real races.\n\nOne of the use cases I want PostTask to support is:\n\n// Delete |foo| on |thread_|.\nvoid DeleteFoo(std::unique_ptr\u003cFoo\u003e foo) {}\nthread_-\u003ePostTask(\n  FROM_HERE,\n  rtc::Bind(\u0026DeleteFoo, std::move(foo));\n\nThis allows Foo to have destructors with DCHECKs that it is destroyed on the right thread, and allows the destructor to have dependency on things that live on the target thread, and so on.\n\nIf the message is deleted (including its arguments) then we can no longer use PostTask to clean things up on the desired thread.",
+      "parentUuid": "52b6b60e_cafb695e",
+      "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a083879a_ee3a1cf5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T09:03:14Z",
+      "side": 1,
+      "message": "I think I know what the leak is, and that this is a real bug.\n\nRTCStatsCollector::ProducePartialResultsOnNetworkThread posts a task to perform MergeNetworkReport_s on the signaling thread. Normally, we rely on this task being run, and a test would not quit until all pending stats requests have completed.\n\nHowever, when PeerConnection::Close() is called, there is a special code path that triggers completing the task request, without waiting for the posted task to run. Close() calls RTCStatsCollector::WaitForPendingRequest(). This performs the work of MergeNetworkReport_s, and when/if the previously posted MergeNetworkReport_s runs after that it is a NO-OP.\n\nIf we want to be able to shut down the thread after PeerConnection::Close() there are a few options...\n1. Make posted tasks cancellable, and WaitForPendingRequest would cancel the posted task since it is no longer needed.\n2. When a thread is shutting down, make sure it runs all of the tasks in its queue before quitting.\n3. Change the contract of PostTask, and make the caller responsible for either making sure the task has time to run before thread is shut down or be prepared for the message to be deleted on the wrong thread without the task running.",
+      "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "467d6623_f42f7905",
         "filename": "rtc_base/thread.h",
         "patchSetId": 3

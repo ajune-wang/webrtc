@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83404e23_0d32ce14",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T09:41:52Z",
+      "side": 1,
+      "message": "Can we have an integration test to make sure that the desired max message size is respected, and that for example we fail if we try to send larger messages? Or that SRD() fails if the answer is different.",
+      "revId": "ff033bf017ec3142c844a750b3f22a6e27698d21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

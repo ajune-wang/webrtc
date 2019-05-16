@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "8ced8f3f_fc904924",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T10:01:19Z",
+      "side": 1,
+      "message": "Is this UTC time based on the system clock or a network clock? It needs to be comparable to other UTC timestamps based on the system clock, so if the two clocks are off by even fractions of a second they\u0027re no longer comparable.",
+      "parentUuid": "b5ac90ed_09968530",
+      "range": {
+        "startLine": 492,
+        "startChar": 49,
+        "endLine": 492,
+        "endChar": 70
+      },
+      "revId": "3811bc5d5ccf027256c743bf9a3ab0263f47d27b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c9d1c4c_8f16fda2",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
         "patchSetId": 7

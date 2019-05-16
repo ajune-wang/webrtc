@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a88e257d_e5ebf5c3",
+        "filename": "modules/rtp_rtcp/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T10:01:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e61cfea_0475bff6",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1efea5c_feeafcf2",
         "filename": "modules/rtp_rtcp/DEPS",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bc87160_dfeacde0",
+        "filename": "modules/rtp_rtcp/DEPS",
+        "patchSetId": 9
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T10:01:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1efea5c_feeafcf2",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 16
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "28a2a507_2a2e0710",
+        "filename": "modules/rtp_rtcp/include/report_block_data.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T10:01:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d812e1c3_57571916",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fa63006_d1b39401",
         "filename": "modules/rtp_rtcp/include/report_block_data.h",
         "patchSetId": 9
@@ -82,6 +154,30 @@
       "writtenOn": "2019-05-14T11:25:56Z",
       "side": 1,
       "message": "may be there should be\navg_rtt_ms() (or AvgRttMs() )\n(may be also need \"bool has_rtt() const\" accessor)\nInstead of these two accessors.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 26
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad5cc92_ce23c1d6",
+        "filename": "modules/rtp_rtcp/include/report_block_data.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T10:01:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fa63006_d1b39401",
       "range": {
         "startLine": 27,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "00afcbe5_f8895a8b",
+        "filename": "modules/rtp_rtcp/include/report_block_data.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T10:01:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "888dd110_5dcc7d41",
+      "range": {
+        "startLine": 47,
+        "startChar": 36,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ef4251b_0f31a372",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
         "patchSetId": 9
@@ -131,6 +251,24 @@
       "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dab1ea4a_40073a12",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T10:01:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ef4251b_0f31a372",
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -151,6 +289,24 @@
     },
     {
       "key": {
+        "uuid": "17d8467b_21a41a0f",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T10:01:19Z",
+      "side": 1,
+      "message": "Not needed, removed. C++ question though: Without the indentation, is the lock released before or after \"return result;\" code runs?",
+      "parentUuid": "f0ab615f_ff09aa20",
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "846f8569_2f6d28c9",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
         "patchSetId": 9
@@ -165,6 +321,24 @@
       "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42ae2578_1c895b0a",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T10:01:19Z",
+      "side": 1,
+      "message": "Current code registers all its observers here, which is where it would make the most sense to register this observer as well:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/call/rtp_video_sender.cc?type\u003dcs\u0026q\u003drtp_video_sender.cc:312\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d307\n\nI\u0027d prefer not to refactor the existing observer patterns for these classes if that\u0027s ok.",
+      "parentUuid": "846f8569_2f6d28c9",
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -191,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "0b8b81a3_7ad8474a",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T10:01:19Z",
+      "side": 1,
+      "message": "Done (remnant from my previous std::move)",
+      "parentUuid": "83fda4ff_cedd1488",
+      "range": {
+        "startLine": 1094,
+        "startChar": 11,
+        "endLine": 1094,
+        "endChar": 16
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "934fe72c_85278cee",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
         "patchSetId": 9
@@ -202,6 +400,30 @@
       "writtenOn": "2019-05-14T11:25:56Z",
       "side": 1,
       "message": "when all parameter matchers are wildcard, they can be omited:\nEXPECT_CALL(observer, OnReportBlockDataUpdated)",
+      "range": {
+        "startLine": 1214,
+        "startChar": 48,
+        "endLine": 1214,
+        "endChar": 51
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f92e8a87_7d4b5c2b",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T10:01:19Z",
+      "side": 1,
+      "message": "Cool I didn\u0027t know. I fixed the new code, but not the old code (that would touch every test in this file basically)",
+      "parentUuid": "934fe72c_85278cee",
       "range": {
         "startLine": 1214,
         "startChar": 48,
@@ -237,6 +459,30 @@
     },
     {
       "key": {
+        "uuid": "5ca0bb75_8d9c514b",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T10:01:19Z",
+      "side": 1,
+      "message": "Nice, done.",
+      "parentUuid": "14489751_a86b4483",
+      "range": {
+        "startLine": 1215,
+        "startChar": 16,
+        "endLine": 1215,
+        "endChar": 23
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f42bc2e_93866699",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
         "patchSetId": 9
@@ -251,6 +497,24 @@
       "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f0950de_c89c4f9f",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T10:01:19Z",
+      "side": 1,
+      "message": "They test what happens when multiple blocks are injected (not independent), but can be split up into individual behaviors. Done.",
+      "parentUuid": "8f42bc2e_93866699",
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

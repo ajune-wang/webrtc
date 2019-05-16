@@ -16,6 +16,24 @@
       "revId": "ff033bf017ec3142c844a750b3f22a6e27698d21",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e93d9f47_b4921546",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-16T09:56:55Z",
+      "side": 1,
+      "message": "There\u0027s a test in media/sctp/sctp_transport_unittest that checks the lower layer API.\nThere\u0027s a (currently failing) web platform test that tries to send over-large data.\n\nI\u0027d like to defer that integration test for now, since the enforcement code is not part of this CL.",
+      "parentUuid": "83404e23_0d32ce14",
+      "revId": "ff033bf017ec3142c844a750b3f22a6e27698d21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

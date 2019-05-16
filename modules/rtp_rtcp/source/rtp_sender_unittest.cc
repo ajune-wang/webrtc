@@ -154,7 +154,7 @@ class MockTransportSequenceNumberAllocator
 
 class MockSendSideDelayObserver : public SendSideDelayObserver {
  public:
-  MOCK_METHOD3(SendSideDelayUpdated, void(int, int, uint32_t));
+  MOCK_METHOD4(SendSideDelayUpdated, void(int, int, uint64_t, uint32_t));
 };
 
 class MockSendPacketObserver : public SendPacketObserver {
@@ -528,7 +528,7 @@ TEST_P(RtpSenderTestWithoutPacer, OnSendSideDelayUpdated) {
 
   // Send packet with 10 ms send-side delay. The average and max should be 10
   // ms.
-  EXPECT_CALL(send_side_delay_observer_, SendSideDelayUpdated(10, 10, kSsrc))
+  EXPECT_CALL(send_side_delay_observer_, SendSideDelayUpdated(10, 10, _, kSsrc))  // TODO!
       .Times(1);
   int64_t capture_time_ms = fake_clock_.TimeInMilliseconds();
   fake_clock_.AdvanceTimeMilliseconds(10);
@@ -540,7 +540,7 @@ TEST_P(RtpSenderTestWithoutPacer, OnSendSideDelayUpdated) {
 
   // Send another packet with 20 ms delay. The average
   // and max should be 15 and 20 ms respectively.
-  EXPECT_CALL(send_side_delay_observer_, SendSideDelayUpdated(15, 20, kSsrc))
+  EXPECT_CALL(send_side_delay_observer_, SendSideDelayUpdated(15, 20, _, kSsrc))  // TODO!
       .Times(1);
   fake_clock_.AdvanceTimeMilliseconds(10);
   EXPECT_TRUE(rtp_sender_video.SendVideo(
@@ -552,7 +552,7 @@ TEST_P(RtpSenderTestWithoutPacer, OnSendSideDelayUpdated) {
   // Send another packet at the same time, which replaces the last packet.
   // Since this packet has 0 ms delay, the average is now 5 ms and max is 10 ms.
   // TODO(terelius): Is is not clear that this is the right behavior.
-  EXPECT_CALL(send_side_delay_observer_, SendSideDelayUpdated(5, 10, kSsrc))
+  EXPECT_CALL(send_side_delay_observer_, SendSideDelayUpdated(5, 10, _, kSsrc))  // TODO!
       .Times(1);
   capture_time_ms = fake_clock_.TimeInMilliseconds();
   EXPECT_TRUE(rtp_sender_video.SendVideo(
@@ -566,7 +566,7 @@ TEST_P(RtpSenderTestWithoutPacer, OnSendSideDelayUpdated) {
   fake_clock_.AdvanceTimeMilliseconds(1000);
   capture_time_ms = fake_clock_.TimeInMilliseconds();
   fake_clock_.AdvanceTimeMilliseconds(1);
-  EXPECT_CALL(send_side_delay_observer_, SendSideDelayUpdated(1, 1, kSsrc))
+  EXPECT_CALL(send_side_delay_observer_, SendSideDelayUpdated(1, 1, _, kSsrc))  // TODO!
       .Times(1);
   EXPECT_TRUE(rtp_sender_video.SendVideo(
       VideoFrameType::kVideoFrameKey, kPayloadType,

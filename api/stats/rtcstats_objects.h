@@ -458,6 +458,7 @@ class RTC_EXPORT RTCOutboundRTPStreamStats final : public RTCRTPStreamStats {
   RTCStatsMember<double> target_bitrate;
   RTCStatsMember<uint32_t> frames_encoded;
   RTCStatsMember<double> total_encode_time;
+  RTCStatsMember<double> total_packet_send_delay;
   // https://henbos.github.io/webrtc-provisional-stats/#dom-rtcoutboundrtpstreamstats-contenttype
   RTCStatsMember<std::string> content_type;
 };

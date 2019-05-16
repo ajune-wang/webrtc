@@ -290,7 +290,7 @@ TEST_F(SendStatisticsProxyTest, SendSideDelay) {
     // stream.
     int avg_delay_ms = ssrc;
     int max_delay_ms = ssrc + 1;
-    observer->SendSideDelayUpdated(avg_delay_ms, max_delay_ms, ssrc);
+    observer->SendSideDelayUpdated(avg_delay_ms, max_delay_ms, 0, ssrc);  // TODO!
     expected_.substreams[ssrc].avg_delay_ms = avg_delay_ms;
     expected_.substreams[ssrc].max_delay_ms = max_delay_ms;
   }
@@ -299,7 +299,7 @@ TEST_F(SendStatisticsProxyTest, SendSideDelay) {
     // stream.
     int avg_delay_ms = ssrc;
     int max_delay_ms = ssrc + 1;
-    observer->SendSideDelayUpdated(avg_delay_ms, max_delay_ms, ssrc);
+    observer->SendSideDelayUpdated(avg_delay_ms, max_delay_ms, 0, ssrc);  // TODO!
     expected_.substreams[ssrc].avg_delay_ms = avg_delay_ms;
     expected_.substreams[ssrc].max_delay_ms = max_delay_ms;
   }

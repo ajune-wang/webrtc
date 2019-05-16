@@ -25,6 +25,8 @@ rtc_static_library("rtc_p2p") {
     "base/basic_packet_socket_factory.cc",
     "base/basic_packet_socket_factory.h",
     "base/candidate_pair_interface.h",
+    "base/datagram_dtls_adaptor.cc",
+    "base/datagram_dtls_adaptor.h",
     "base/dtls_transport.cc",
     "base/dtls_transport.h",
     "base/dtls_transport_internal.cc",
@@ -176,6 +178,7 @@ if (rtc_include_tests) {
     sources = [
       "base/async_stun_tcp_socket_unittest.cc",
       "base/basic_async_resolver_factory_unittest.cc",
+      "base/datagram_dtls_adaptor_unittest.cc",
       "base/dtls_transport_unittest.cc",
       "base/ice_credentials_iterator_unittest.cc",
       "base/mdns_message_unittest.cc",

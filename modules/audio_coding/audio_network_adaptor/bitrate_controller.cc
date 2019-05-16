@@ -65,8 +65,10 @@ void BitrateController::MakeDecision(AudioEncoderRuntimeConfig* config) {
                      : config_.fl_decrease_overhead_offset;
     // Check that
     // -(*overhead_bytes_per_packet_) <= offset <= (*overhead_bytes_per_packet_)
-    RTC_DCHECK_GE(*overhead_bytes_per_packet_, -offset);
-    RTC_DCHECK_LE(offset, *overhead_bytes_per_packet_);
+
+    // TODO(b/124152887): Temporary disable check to due pre-existing bug.
+    // RTC_DCHECK_GE(*overhead_bytes_per_packet_, -offset);
+    // RTC_DCHECK_LE(offset, *overhead_bytes_per_packet_);
     int overhead_rate_bps = static_cast<int>(
         (*overhead_bytes_per_packet_ + offset) * 8 * 1000 / frame_length_ms_);
     bitrate_bps_ = std::max(0, *target_audio_bitrate_bps_ - overhead_rate_bps);

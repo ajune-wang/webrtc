@@ -162,6 +162,24 @@
     },
     {
       "key": {
+        "uuid": "dc2464c3_d7a37a79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-16T13:46:22Z",
+      "side": 1,
+      "message": "\u003e When you destroy a TaskQueue, you only block until any currently running task is finished.\n\nDo you know the reasoning behind this?\n\n\u003e In this case, just deleting the task without running it seems more reasonable to me.\n\nDeleting a task without running it is sometimes reasonable, and sometimes not. Cases:\n\n1. We want to execute a task later, but it is not crucial, and it is OK to cancel any such pending task on shutdown, including deleting the rtc::Bind arguments on any(?) thread.\n\n2. We post a task to a thread because it must execute on that thread. If the task doesn\u0027t execute or doesn\u0027t delete the rtc::Bind arguments on that thread then we have an invalid assumption that we need to fix, else we might cause DCHECK crashes or resource leaks. For example, we probably shouldn\u0027t kill the network thread before we\u0027ve cleaned up network resources that are in use.\n\nHaving support for 1) could be handy (and RTCStatsCollector would work with a cancellable task, fixing the ASAN error you see). However this is more of a special case than the desired contract. If our solution is to always delete pending tasks on the wrong thread then we are not supporting use case 2), it might be better to get a DCHECK crash saying \"Attempting to delete a thread that still has pending tasks\" if this happens than to silently not do what you expect.\n\n\u003e We could perhaps change it, but that would be a big change. I\u0027d need something simpler to unblock https://webrtc-review.googlesource.com/c/src/+/39680.\n\nI\u0027m OK with only supporting 1) for now since PostTask is not used elsewhere and we can add a TODO. But I believe 2) is important, and I\u0027m not sure I understand why we couldn\u0027t just execute all pending tasks while disallowing (with DCHECK) tasks to post new tasks during shutdown.",
+      "parentUuid": "ef690500_6babef66",
+      "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "467d6623_f42f7905",
         "filename": "rtc_base/thread.h",
         "patchSetId": 3

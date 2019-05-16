@@ -307,6 +307,24 @@
     },
     {
       "key": {
+        "uuid": "70f9a47c_1acc0ffa",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-16T10:58:38Z",
+      "side": 1,
+      "message": "I guess answers \u0027before\u0027, \u0027after\u0027, \u0027during\u0027 are all correct depending what do you mean by \"return result; code runs\"\n\nMy understanding that result value is moved out before lock released and destroyed after it is released. In theory it might be even more complicated because of RVO.\n\nIn practice it doesn\u0027t matter.",
+      "parentUuid": "17d8467b_21a41a0f",
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "846f8569_2f6d28c9",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
         "patchSetId": 9
@@ -336,6 +354,24 @@
       "side": 1,
       "message": "Current code registers all its observers here, which is where it would make the most sense to register this observer as well:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/call/rtp_video_sender.cc?type\u003dcs\u0026q\u003drtp_video_sender.cc:312\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d307\n\nI\u0027d prefer not to refactor the existing observer patterns for these classes if that\u0027s ok.",
       "parentUuid": "846f8569_2f6d28c9",
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81aac9a9_5fa67565",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-16T10:58:38Z",
+      "side": 1,
+      "message": "yep, that looks too much refactoring to put it into same change.",
+      "parentUuid": "42ae2578_1c895b0a",
       "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -424,6 +460,30 @@
       "side": 1,
       "message": "Cool I didn\u0027t know. I fixed the new code, but not the old code (that would touch every test in this file basically)",
       "parentUuid": "934fe72c_85278cee",
+      "range": {
+        "startLine": 1214,
+        "startChar": 48,
+        "endLine": 1214,
+        "endChar": 51
+      },
+      "revId": "71ded12fe2a1275acf95dff97fcb3bd54d994df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07422d23_a1c6ed82",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-16T10:58:38Z",
+      "side": 1,
+      "message": "I also prefer when cleanups are in a separate change.",
+      "parentUuid": "f92e8a87_7d4b5c2b",
       "range": {
         "startLine": 1214,
         "startChar": 48,

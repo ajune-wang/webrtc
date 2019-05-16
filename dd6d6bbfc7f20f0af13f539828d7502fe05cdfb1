@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cba469e6_f7e245d4",
+        "filename": "api/media_transport_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-16T19:58:51Z",
+      "side": 1,
+      "message": "No, but I wanted to say that including MediaTransportConfig does not open MediaTransportInterface. Maybe I should just remove the comment, it\u0027s clear from forward declaration of MediaTransportInterface and includes.",
+      "parentUuid": "4bb1bdd3_be3fe2c1",
+      "revId": "dd6d6bbfc7f20f0af13f539828d7502fe05cdfb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06566672_a1482f02",
         "filename": "api/media_transport_config.h",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "c84e4032_cb88f915",
+        "filename": "api/media_transport_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-16T19:58:51Z",
+      "side": 1,
+      "message": "Adding RTP transport will require quite a bit of changes, so we can rename later at the same time.",
+      "parentUuid": "06566672_a1482f02",
+      "revId": "dd6d6bbfc7f20f0af13f539828d7502fe05cdfb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76639f26_d4cce5af",
         "filename": "modules/audio_coding/audio_network_adaptor/bitrate_controller.cc",
         "patchSetId": 4
@@ -50,6 +86,24 @@
       "revId": "dd6d6bbfc7f20f0af13f539828d7502fe05cdfb1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31f3042e_1f9a48f0",
+        "filename": "modules/audio_coding/audio_network_adaptor/bitrate_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-16T19:58:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76639f26_d4cce5af",
+      "revId": "dd6d6bbfc7f20f0af13f539828d7502fe05cdfb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

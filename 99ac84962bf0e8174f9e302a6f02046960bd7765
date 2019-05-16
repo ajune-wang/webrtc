@@ -144,6 +144,24 @@
     },
     {
       "key": {
+        "uuid": "ef690500_6babef66",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-16T11:43:53Z",
+      "side": 1,
+      "message": "\u003e Can we not execute all pending tasks as part of destroying the thread? I assumed this is how PostTask would operate. It seems premature to delete a thread that still has work to do.\n\nThat\u0027s not how TaskQueue works. When you destroy a TaskQueue, you only block until any currently running task is finished. Task that are still pending will not be run, but deleted (synchronously or asynchronously, depending on TQ implementation). In any case, by the time the TaskQueue destructor returns, it is safe to destroy any state referenced by tasks posted to that task queue.\n\nWe could perhaps change it, but that would be a big change. I\u0027d need something simpler to unblock https://webrtc-review.googlesource.com/c/src/+/39680.\n\nAnd in the problem case, would it be of any help? The task would be run when AutoThread is destructed, in the main function of the test executable, long after the peerconnections under test have been destroyed. In this case, just deleting the task without running it seems more reasonable to me.\n\nTo make things synchronous, the standard (but somewhat discouraged) trick is to post a task that sets an event, and then block waiting for that event (while making sure that the TaskQueue stays alive). Maybe PeerConnection::Close should do that? It seems dangerous to have related pending tasks on the signal thread, when PeerConnection is closed and later destroyed.\n\nAnd then if Close itself is called from the signal thread, that might make things more complicated; the event trick will immediately deadlock.",
+      "parentUuid": "ce2b3017_5ecdbde4",
+      "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "467d6623_f42f7905",
         "filename": "rtc_base/thread.h",
         "patchSetId": 3

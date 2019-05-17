@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "caf493a0_fb76e9ea",
+        "filename": "p2p/base/datagram_dtls_adaptor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-17T00:33:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e215e7c0_e656b209",
+      "range": {
+        "startLine": 39,
+        "startChar": 30,
+        "endLine": 39,
+        "endChar": 39
+      },
+      "revId": "d596e74a443e1e517d7eba8e9c6afb936acfe141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7717f160_480cf9db",
         "filename": "p2p/base/datagram_dtls_adaptor.cc",
         "patchSetId": 1
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "dd7a3fac_dc75b186",
+        "filename": "p2p/base/datagram_dtls_adaptor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-17T00:33:59Z",
+      "side": 1,
+      "message": "Good catch, bad copy paste. I guess it did not matter :).",
+      "parentUuid": "7717f160_480cf9db",
+      "revId": "d596e74a443e1e517d7eba8e9c6afb936acfe141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b3e008b_12e7e36e",
         "filename": "p2p/base/datagram_dtls_adaptor.cc",
         "patchSetId": 1
@@ -56,6 +98,24 @@
       "revId": "d596e74a443e1e517d7eba8e9c6afb936acfe141",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55787596_d1eabbc6",
+        "filename": "p2p/base/datagram_dtls_adaptor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-17T00:33:59Z",
+      "side": 1,
+      "message": "I remember that TRUE worked, but I agree FALSE makes more sense. Changing to FALSE, I will double check that it still works on the prototype before submitting.",
+      "parentUuid": "4b3e008b_12e7e36e",
+      "revId": "d596e74a443e1e517d7eba8e9c6afb936acfe141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

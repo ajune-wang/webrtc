@@ -12,23 +12,52 @@
 #include <cstdlib>
 #include <numeric>
 
+#include "absl/types/optional.h"
 #include "modules/audio_coding/neteq/histogram.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
+#include "system_wrappers/include/field_trial.h"
+
+namespace {
+
+constexpr double kDefaultConvergeFactor = 1.0;
+
+absl::optional<double> GetConvergeFactor() {
+  constexpr char kDelayHistogramFieldTrial[] =
+      "WebRTC-Audio-NetEqNewStartAdaptation";
+  if (!webrtc::field_trial::IsEnabled(kDelayHistogramFieldTrial)) {
+    return absl::nullopt;
+  }
+  const auto field_trial_string =
+      webrtc::field_trial::FindFullName(kDelayHistogramFieldTrial);
+  double converge_factor = -1.0;
+  if (sscanf(field_trial_string.c_str(), "Enabled-%lf", &converge_factor) ==
+          1 &&
+      converge_factor >= 1.0) {
+    RTC_LOG(LS_INFO) << "Histogram converge factor: " << converge_factor;
+    return converge_factor;
+  }
+  return kDefaultConvergeFactor;
+}
+
+}  // namespace
 
 namespace webrtc {
 
 Histogram::Histogram(size_t num_buckets, int forget_factor)
     : buckets_(num_buckets, 0),
       forget_factor_(0),
-      base_forget_factor_(forget_factor) {}
+      base_forget_factor_(forget_factor),
+      count_(0),
+      converge_factor_(GetConvergeFactor()) {}
 
 Histogram::~Histogram() {}
 
 // Each element in the vector is first multiplied by the forgetting factor
 // |forget_factor_|. Then the vector element indicated by |iat_packets| is then
 // increased (additive) by 1 - |forget_factor_|. This way, the probability of
-// |iat_packets| is slightly increased, while the sum of the histogram remains
+// |value| is slightly increased, while the sum of the histogram remains
 // constant (=1).
 // Due to inaccuracies in the fixed-point arithmetic, the histogram may no
 // longer sum up to 1 (in Q30) after the update. To correct this, a correction
@@ -37,7 +66,7 @@ Histogram::~Histogram() {}
 // The forgetting factor |forget_factor_| is also updated. When the DelayManager
 // is reset, the factor is set to 0 to facilitate rapid convergence in the
 // beginning. With each update of the histogram, the factor is increased towards
-// the steady-state value |kIatFactor_|.
+// the steady-state value |base_forget_factor_|.
 void Histogram::Add(int value) {
   RTC_DCHECK(value >= 0);
   RTC_DCHECK(value < static_cast<int>(buckets_.size()));
@@ -74,7 +103,16 @@ void Histogram::Add(int value) {
 
   // Update |forget_factor_| (changes only during the first seconds after a
   // reset). The factor converges to |base_forget_factor_|.
-  forget_factor_ += (base_forget_factor_ - forget_factor_ + 3) >> 2;
+  if (converge_factor_) {
+    if (forget_factor_ != base_forget_factor_) {
+      ++count_;
+      int forget_factor =
+          (1 << 15) * (1 - converge_factor_.value() / (count_ + 1));
+      forget_factor_ = std::min(base_forget_factor_, forget_factor);
+    }
+  } else {
+    forget_factor_ += (base_forget_factor_ - forget_factor_ + 3) >> 2;
+  }
 }
 
 int Histogram::Quantile(int probability) {
@@ -112,6 +150,7 @@ void Histogram::Reset() {
     bucket = temp_prob << 16;
   }
   forget_factor_ = 0;  // Adapt the histogram faster for the first few packets.
+  count_ = 0;
 }
 
 int Histogram::NumBuckets() const {

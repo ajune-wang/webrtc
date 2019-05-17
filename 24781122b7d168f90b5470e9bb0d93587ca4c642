@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bdf442ad_ab337e37",
+        "filename": "modules/audio_coding/neteq/histogram.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-05-17T11:19:55Z",
+      "side": 1,
+      "message": "Struggling to come up with a good name for this parameter. Any suggestions? :)",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 42
+      },
+      "revId": "24781122b7d168f90b5470e9bb0d93587ca4c642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

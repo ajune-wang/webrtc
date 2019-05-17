@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc447d9e_32c0afc9",
+        "filename": "modules/audio_mixer/audio_frame_manipulator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-17T06:35:06Z",
+      "side": 1,
+      "message": "Please use static_cast",
+      "range": {
+        "startLine": 44,
+        "startChar": 12,
+        "endLine": 44,
+        "endChar": 20
+      },
+      "revId": "f46ce3f2cd2cf9dab7f5223006a11e0312ec5ad4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7307e5ad_c5060bf5",
+        "filename": "modules/audio_mixer/audio_frame_manipulator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-17T06:35:06Z",
+      "side": 1,
+      "message": "Please use static_cast instead.",
+      "range": {
+        "startLine": 46,
+        "startChar": 15,
+        "endLine": 46,
+        "endChar": 22
+      },
+      "revId": "f46ce3f2cd2cf9dab7f5223006a11e0312ec5ad4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2226386c_10b43057",
+        "filename": "modules/audio_mixer/audio_frame_manipulator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-17T06:35:06Z",
+      "side": 1,
+      "message": "What is the reason for the cast to int32_t?",
+      "range": {
+        "startLine": 59,
+        "startChar": 14,
+        "endLine": 59,
+        "endChar": 23
+      },
+      "revId": "f46ce3f2cd2cf9dab7f5223006a11e0312ec5ad4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

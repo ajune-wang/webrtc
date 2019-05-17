@@ -11,6 +11,7 @@
 #include <cmath>
 
 #include "modules/audio_coding/neteq/histogram.h"
+#include "test/field_trial.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -166,6 +167,54 @@ TEST(HistogramTest, OverflowTest) {
                      2147483647, 2147483647, 1262581765};
   scaled_buckets = Histogram::ScaleBuckets(buckets, 20, 60);
   EXPECT_EQ(scaled_buckets, expected_result);
+}
+
+TEST(HistogramTest, NewStartAdaptationFieldTrial) {
+  static constexpr int kBuckets = 100;
+  static constexpr int kForgetFactor = (1 << 15) * 0.9993;
+  {
+    test::ScopedFieldTrials field_trial(
+        "WebRTC-Audio-NetEqNewStartAdaptation/Enabled/");
+    Histogram histogram(kBuckets, kForgetFactor);
+    EXPECT_EQ(histogram.start_forget_weight_for_testing().value(), 1.0);
+  }
+  {
+    test::ScopedFieldTrials field_trial(
+        "WebRTC-Audio-NetEqNewStartAdaptation/Enabled-1/");
+    Histogram histogram(kBuckets, kForgetFactor);
+    EXPECT_EQ(histogram.start_forget_weight_for_testing().value(), 1.0);
+  }
+  {
+    test::ScopedFieldTrials field_trial(
+        "WebRTC-Audio-NetEqNewStartAdaptation/Enabled-1.5/");
+    Histogram histogram(kBuckets, kForgetFactor);
+    EXPECT_EQ(histogram.start_forget_weight_for_testing().value(), 1.5);
+  }
+  {
+    test::ScopedFieldTrials field_trial(
+        "WebRTC-Audio-NetEqNewStartAdaptation/Enabled-0.5/");
+    Histogram histogram(kBuckets, kForgetFactor);
+    EXPECT_EQ(histogram.start_forget_weight_for_testing().value(), 1.0);
+  }
+  {
+    test::ScopedFieldTrials field_trial(
+        "WebRTC-Audio-NetEqNewStartAdaptation/Disabled/");
+    Histogram histogram(kBuckets, kForgetFactor);
+    EXPECT_FALSE(histogram.start_forget_weight_for_testing());
+  }
+}
+
+TEST(HistogramTest, ReachSteadyStateForgetFactor) {
+  test::ScopedFieldTrials field_trial(
+      "WebRTC-Audio-NetEqNewStartAdaptation/Enabled-1/");
+  static constexpr int kSteadyStateForgetFactor = (1 << 15) * 0.9993;
+  Histogram histogram(100, kSteadyStateForgetFactor);
+  histogram.Reset();
+  int n = (1 << 15) / ((1 << 15) - kSteadyStateForgetFactor);
+  for (int i = 0; i < n; ++i) {
+    histogram.Add(0);
+  }
+  EXPECT_EQ(histogram.forget_factor_for_testing(), kSteadyStateForgetFactor);
 }
 
 }  // namespace webrtc

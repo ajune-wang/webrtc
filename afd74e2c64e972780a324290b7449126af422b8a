@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e8c9591_32b933e1",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-17T08:52:57Z",
+      "side": 1,
+      "message": "payload.empty()",
+      "range": {
+        "startLine": 498,
+        "startChar": 6,
+        "endLine": 498,
+        "endChar": 51
+      },
+      "revId": "afd74e2c64e972780a324290b7449126af422b8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

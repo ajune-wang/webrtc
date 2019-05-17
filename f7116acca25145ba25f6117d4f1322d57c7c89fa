@@ -1,0 +1,214 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c55337e3_28b36ba6",
+        "filename": "api/media_transport_config.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-05-17T14:41:00Z",
+      "side": 1,
+      "message": "Should we consider making this a scoped_refptr to make the shared ownership explicit? Raw pointers are fragile.",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5303cb49_83332bb8",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-05-17T14:41:00Z",
+      "side": 1,
+      "message": "Use const MediaTransportConfig\u0026",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24e1a5bc_c7da61b8",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-05-17T14:41:00Z",
+      "side": 1,
+      "message": "media_transport(), here and below",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81d1c27f_2b773ed7",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-05-17T14:41:00Z",
+      "side": 1,
+      "message": "const MediaTransportConfig\u0026",
+      "range": {
+        "startLine": 129,
+        "startChar": 28,
+        "endLine": 129,
+        "endChar": 29
+      },
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae4f32ed_3a14d540",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-05-17T14:41:00Z",
+      "side": 1,
+      "message": "const webrtc::MediaTransportConfig\u0026",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71d51f11_af094e0c",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-05-17T14:41:00Z",
+      "side": 1,
+      "message": "Can you just keep the method below?",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "365de9b2_5fb30f59",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-05-17T14:41:00Z",
+      "side": 1,
+      "message": "const method returning a non-const pointer should be avoided.",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81007332_5466e12e",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-05-17T14:41:00Z",
+      "side": 1,
+      "message": "const webrtc::MediaTransportConfig\u0026",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d8d567a_747a17f3",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-05-17T14:41:00Z",
+      "side": 1,
+      "message": "const webrtc::MediaTransportConfig\u0026",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b99765d5_d752d2e9",
+        "filename": "pc/channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-05-17T14:41:00Z",
+      "side": 1,
+      "message": "const webrtc::MediaTransportConfig\u0026, here and below",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8a8bd1e_03770975",
+        "filename": "pc/channel_manager.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-05-17T14:41:00Z",
+      "side": 1,
+      "message": "...",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e8dfa16_a6efff36",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-05-17T14:41:00Z",
+      "side": 1,
+      "message": "DLOG?",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -44,6 +44,7 @@ public interface EglBase {
   // This is similar to how GlSurfaceView does:
   // http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/5.1.1_r1/android/opengl/GLSurfaceView.java#760
   public static final int EGL_OPENGL_ES2_BIT = 4;
+  public static final int EGL_OPENGL_ES3_BIT = 0x40;
   // Android-specific extension.
   public static final int EGL_RECORDABLE_ANDROID = 0x3142;
 
@@ -89,6 +90,23 @@ public interface EglBase {
     EGL10.EGL_NONE
   };
   // clang-format on
+
+  static int getOpenGlesVersionFromConfig(int[] configAttributes) {
+    for (int i = 0; i < configAttributes.length - 1; ++i) {
+      if (configAttributes[i] == EGL10.EGL_RENDERABLE_TYPE) {
+        switch (configAttributes[i + 1]) {
+          case EGL_OPENGL_ES2_BIT:
+            return 2;
+          case EGL_OPENGL_ES3_BIT:
+            return 3;
+          default:
+            return 1;
+        }
+      }
+    }
+    // Default to V1 if no renderable type is specified.
+    return 1;
+  }
 
   /**
    * Create a new context with the specified config attributes, sharing data with |sharedContext|.

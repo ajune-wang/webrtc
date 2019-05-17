@@ -22,6 +22,76 @@
       "revId": "24781122b7d168f90b5470e9bb0d93587ca4c642",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "854dc46c_0bf89b46",
+        "filename": "modules/audio_coding/neteq/histogram.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-05-17T11:37:52Z",
+      "side": 1,
+      "message": "It would be useful to have \"start\" or \"call start\" or similar as part of the name, to highlight that this factor is only relevant in the beginning of a call.",
+      "parentUuid": "bdf442ad_ab337e37",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 42
+      },
+      "revId": "24781122b7d168f90b5470e9bb0d93587ca4c642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65f8f628_5eba3fe9",
+        "filename": "modules/audio_coding/neteq/histogram.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-05-17T11:37:52Z",
+      "side": 1,
+      "message": "I would rename `count_` to `add_count_` and then make it happen on every `Add()` call regardless of if the experiment is active or not.",
+      "range": {
+        "startLine": 108,
+        "startChar": 6,
+        "endLine": 108,
+        "endChar": 15
+      },
+      "revId": "24781122b7d168f90b5470e9bb0d93587ca4c642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93712aa5_89889372",
+        "filename": "modules/audio_coding/neteq/histogram.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-05-17T11:37:52Z",
+      "side": 1,
+      "message": "It might be a good idea to make sure that `(1 - converge_factor_.value() / (count_ + 1))` is always in the [0, 1] range.\n\nIn other words: Gracefully handle configs such as `converge_factor_ \u003d\u003d 4` when `count_ \u003d\u003d 1`.",
+      "range": {
+        "startLine": 110,
+        "startChar": 22,
+        "endLine": 110,
+        "endChar": 67
+      },
+      "revId": "24781122b7d168f90b5470e9bb0d93587ca4c642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

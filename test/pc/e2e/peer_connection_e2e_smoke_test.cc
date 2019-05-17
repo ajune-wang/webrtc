@@ -99,7 +99,7 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, MAYBE_RunWithEmulatedNetwork) {
                      audio.mode = AudioConfig::Mode::kFile;
                      audio.input_file_name = test::ResourcePath(
                          "pc_quality_smoke_test_alice_source", "wav");
-                     alice->SetAudioConfig(std::move(audio));
+                     // alice->SetAudioConfig(std::move(audio));
                    });
 
   EmulatedNetworkManagerInterface* bob_network =
@@ -118,14 +118,14 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, MAYBE_RunWithEmulatedNetwork) {
             ScreenShareConfig(TimeDelta::seconds(2));
         screenshare.screen_share_config->scrolling_params = ScrollingParams(
             TimeDelta::ms(1800), kDefaultSlidesWidth, kDefaultSlidesHeight);
-        bob->AddVideoConfig(screenshare);
+        // bob->AddVideoConfig(screenshare);
 
         AudioConfig audio;
         audio.stream_label = "bob-audio";
         audio.mode = AudioConfig::Mode::kFile;
         audio.input_file_name =
             test::ResourcePath("pc_quality_smoke_test_bob_source", "wav");
-        bob->SetAudioConfig(std::move(audio));
+        // bob->SetAudioConfig(std::move(audio));
       });
 
   fixture->AddQualityMetricsReporter(
@@ -133,8 +133,7 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, MAYBE_RunWithEmulatedNetwork) {
                                                        bob_network));
 
   RunParams run_params(TimeDelta::seconds(7));
-  run_params.video_codec_name = cricket::kVp9CodecName;
-  run_params.video_codec_required_params = {{"profile-id", "0"}};
+  run_params.video_codec_name = cricket::kVp8CodecName;
   run_params.use_flex_fec = true;
   run_params.use_ulp_fec = true;
   run_params.video_encoder_bitrate_multiplier = 1.1;

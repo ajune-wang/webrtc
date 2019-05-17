@@ -561,8 +561,13 @@ void PeerConnectionE2EQualityTest::SetupCallOnSignalingThread(
                            receive_only_transceiver_init);
   }
   for (size_t i = 0; i < bob_->params()->video_configs.size(); ++i) {
+    RtpEncodingParameters params;
+    params.num_temporal_layers = 3;
+    RtpTransceiverInit transceiver_params;
+    transceiver_params.direction = RtpTransceiverDirection::kSendRecv;
+    transceiver_params.send_encodings.push_back(params);
     alice_->AddTransceiver(cricket::MediaType::MEDIA_TYPE_VIDEO,
-                           receive_only_transceiver_init);
+                           transceiver_params);
   }
   // Then add media for Alice and Bob
   alice_video_sources_ = MaybeAddMedia(alice_.get());
@@ -570,6 +575,18 @@ void PeerConnectionE2EQualityTest::SetupCallOnSignalingThread(
 
   SetPeerCodecPreferences(alice_.get(), run_params);
   SetPeerCodecPreferences(bob_.get(), run_params);
+
+  for (auto transceiver : alice_->pc()->GetTransceivers()) {
+    if (transceiver->media_type() == cricket::MediaType::MEDIA_TYPE_VIDEO) {
+      std::printf("Transceiver::init_send_encodings: [%lu]\n",
+                  transceiver->sender()->init_send_encodings().size());
+      if (transceiver->sender()->init_send_encodings().size() > 0) {
+        std::printf("num_temporal_layers=%d\n", *transceiver->sender()
+                                                     ->init_send_encodings()[0]
+                                                     .num_temporal_layers);
+      }
+    }
+  }
 
   SetupCall();
 }

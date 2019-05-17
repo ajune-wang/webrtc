@@ -203,6 +203,11 @@ bool PeerConnectionWrapper::ExchangeOfferAnswerWith(
   if (!offer) {
     return false;
   }
+  std::string out;
+  offer->ToString(&out);
+  std::printf("############################################################\n");
+  std::printf("Offer: %s\n", out.c_str());
+  std::printf("############################################################\n");
   bool set_local_offer =
       SetLocalDescription(CloneSessionDescription(offer.get()));
   EXPECT_TRUE(set_local_offer);

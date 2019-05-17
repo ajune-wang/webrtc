@@ -57,6 +57,11 @@ class AudioContentDescription;
 class DataContentDescription;
 class VideoContentDescription;
 
+struct MediaTransportSetting {
+  std::string transport_name;
+  std::string transport_setting;
+};
+
 // Describes a session description media section. There are subclasses for each
 // media type (audio, video, data) that will have additional information.
 class MediaContentDescription {
@@ -110,6 +115,27 @@ class MediaContentDescription {
   void AddCrypto(const CryptoParams& params) { cryptos_.push_back(params); }
   void set_cryptos(const std::vector<CryptoParams>& cryptos) {
     cryptos_ = cryptos;
+  }
+
+  // Adds the media transport setting.
+  // Media transport name uniquely identifies the type of media transport.
+  // The name cannot be empty, or repeated in the previously added transport
+  // settings.
+  void AddMediaTransportSetting(const std::string& media_transport_name,
+                                const std::string& media_transport_setting) {
+    RTC_DCHECK(!media_transport_name.empty());
+    for (const auto& setting : media_transport_settings_) {
+      RTC_DCHECK(media_transport_name != setting.transport_name)
+          << "MediaTransportSetting was already registered, transport_name="
+          << setting.transport_name;
+    }
+    media_transport_settings_.push_back(
+        {media_transport_name, media_transport_setting});
+  }
+
+  // Gets the media transport settings, in order of preference.
+  const std::vector<MediaTransportSetting>& MediaTransportSettings() const {
+    return media_transport_settings_;
   }
 
   const RtpHeaderExtensions& rtp_header_extensions() const {
@@ -237,6 +263,8 @@ class MediaContentDescription {
   ExtmapAllowMixed extmap_allow_mixed_enum_ = kNo;
 
   SimulcastDescription simulcast_;
+
+  std::vector<MediaTransportSetting> media_transport_settings_;
 };
 
 // TODO(bugs.webrtc.org/8620): Remove this alias once downstream projects have
@@ -423,8 +451,6 @@ class SessionDescription {
 
   SessionDescription* Copy() const;
 
-  struct MediaTransportSetting;
-
   // Content accessors.
   const ContentInfos& contents() const { return contents_; }
   ContentInfos& contents() { return contents_; }
@@ -530,13 +556,9 @@ class SessionDescription {
 
   // Gets the media transport settings, in order of preference.
   const std::vector<MediaTransportSetting>& MediaTransportSettings() const {
+    // RTC_NOTREACHED();
     return media_transport_settings_;
   }
-
-  struct MediaTransportSetting {
-    std::string transport_name;
-    std::string transport_setting;
-  };
 
  private:
   SessionDescription(const SessionDescription&);

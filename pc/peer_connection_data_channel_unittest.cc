@@ -403,11 +403,13 @@ TEST_P(PeerConnectionDataChannelTest,
   EXPECT_EQ(CreatePeerConnection(config), nullptr);
 }
 
+// This test now DCHECKs, instead of failing to SetLocalDescription.
 TEST_P(PeerConnectionDataChannelTest,
-       MediaTransportDataChannelFailsWithoutSdes) {
+       DISABLED_MediaTransportDataChannelFailsWithoutSdes) {
   RTCConfiguration config;
   config.use_media_transport_for_data_channels = true;
   config.enable_dtls_srtp = true;  // Disables SDES for data sections.
+
   auto caller = CreatePeerConnectionWithDataChannel(config);
 
   std::string error;

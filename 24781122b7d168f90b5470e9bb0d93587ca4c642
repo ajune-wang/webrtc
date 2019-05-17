@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3cb498c2_a17e15f0",
+        "filename": "modules/audio_coding/neteq/histogram.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-05-17T12:15:56Z",
+      "side": 1,
+      "message": "Maybe start_forget_weight? Since it\u0027s not an exponential forget factor in the beginning.",
+      "parentUuid": "854dc46c_0bf89b46",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 42
+      },
+      "revId": "24781122b7d168f90b5470e9bb0d93587ca4c642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "65f8f628_5eba3fe9",
         "filename": "modules/audio_coding/neteq/histogram.cc",
         "patchSetId": 5
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "8dcac9c4_79f51f7f",
+        "filename": "modules/audio_coding/neteq/histogram.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-05-17T12:15:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65f8f628_5eba3fe9",
+      "range": {
+        "startLine": 108,
+        "startChar": 6,
+        "endLine": 108,
+        "endChar": 15
+      },
+      "revId": "24781122b7d168f90b5470e9bb0d93587ca4c642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93712aa5_89889372",
         "filename": "modules/audio_coding/neteq/histogram.cc",
         "patchSetId": 5
@@ -92,6 +140,30 @@
       "revId": "24781122b7d168f90b5470e9bb0d93587ca4c642",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b07b54bf_d94453c8",
+        "filename": "modules/audio_coding/neteq/histogram.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-05-17T12:15:56Z",
+      "side": 1,
+      "message": "Done. For upper limit, made sure that base_forget_factor_ \u003c 1.",
+      "parentUuid": "93712aa5_89889372",
+      "range": {
+        "startLine": 110,
+        "startChar": 22,
+        "endLine": 110,
+        "endChar": 67
+      },
+      "revId": "24781122b7d168f90b5470e9bb0d93587ca4c642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

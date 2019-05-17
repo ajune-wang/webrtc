@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "288b6d91_65faa1d4",
+        "filename": "test/scenario/call_client.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-17T14:05:16Z",
+      "side": 1,
+      "message": "This is always pointing at the goog_cc_factory?",
+      "range": {
+        "startLine": 52,
+        "startChar": 22,
+        "endLine": 52,
+        "endChar": 33
+      },
+      "revId": "85ec035ab84801fad9818e27e34a9908e4c28637",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

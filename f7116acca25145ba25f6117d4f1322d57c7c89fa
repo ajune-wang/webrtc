@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4e25b05d_57cb1e39",
+        "filename": "api/media_transport_config.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-17T19:31:31Z",
+      "side": 1,
+      "message": "Media transport is not owned by MediaTransportConfig, just like rtp_transport and media_transport pointers today are passed to media layers, but they are owned by JSepTransportController.\n\nI added comment.",
+      "parentUuid": "c55337e3_28b36ba6",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5303cb49_83332bb8",
         "filename": "audio/channel_receive.h",
         "patchSetId": 10
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "4ee87e3f_d7533f37",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-17T19:31:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5303cb49_83332bb8",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24e1a5bc_c7da61b8",
         "filename": "audio/channel_send.cc",
         "patchSetId": 10
@@ -50,6 +86,24 @@
       "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b02dbf87_9f28cc4e",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-17T19:31:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24e1a5bc_c7da61b8",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "c22ae054_9aeef711",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-17T19:31:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81d1c27f_2b773ed7",
+      "range": {
+        "startLine": 129,
+        "startChar": 28,
+        "endLine": 129,
+        "endChar": 29
+      },
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae4f32ed_3a14d540",
         "filename": "media/base/media_channel.h",
         "patchSetId": 10
@@ -90,6 +168,24 @@
       "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4862602f_dc2a26ad",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-17T19:31:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae4f32ed_3a14d540",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "f57fc6ba_39a89901",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-17T19:31:31Z",
+      "side": 1,
+      "message": "Unfortunately, not. I can keep only the config getter, but media_transport() is used in more places than I wanted to replace with double indirection. I think it\u0027s OK for now to keep both.",
+      "parentUuid": "71d51f11_af094e0c",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "365de9b2_5fb30f59",
         "filename": "media/base/media_channel.h",
         "patchSetId": 10
@@ -124,6 +238,24 @@
       "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3b3b2e5_bfb1a977",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-17T19:31:31Z",
+      "side": 1,
+      "message": "Done, although unrelated to this CL.",
+      "parentUuid": "365de9b2_5fb30f59",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "ed0dcbf6_9b4a89b0",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-17T19:31:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81007332_5466e12e",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d8d567a_747a17f3",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 10
@@ -158,6 +308,24 @@
       "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a0974bd_7b75dac5",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-17T19:31:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d8d567a_747a17f3",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -178,6 +346,24 @@
     },
     {
       "key": {
+        "uuid": "eb571959_39cc09da",
+        "filename": "pc/channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-17T19:31:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b99765d5_d752d2e9",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8a8bd1e_03770975",
         "filename": "pc/channel_manager.h",
         "patchSetId": 10
@@ -195,6 +381,24 @@
     },
     {
       "key": {
+        "uuid": "1e324520_68e869d5",
+        "filename": "pc/channel_manager.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-17T19:31:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8a8bd1e_03770975",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e8dfa16_a6efff36",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 10
@@ -209,6 +413,24 @@
       "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d004d578_96161438",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-17T19:31:31Z",
+      "side": 1,
+      "message": "Removed, unrelated change,",
+      "parentUuid": "1e8dfa16_a6efff36",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

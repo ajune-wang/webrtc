@@ -84,6 +84,52 @@
     },
     {
       "key": {
+        "uuid": "73cfd557_c3e17ed9",
+        "filename": "p2p/base/datagram_dtls_adaptor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-17T00:50:25Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 83,
+        "startChar": 41,
+        "endLine": 83,
+        "endChar": 46
+      },
+      "revId": "d596e74a443e1e517d7eba8e9c6afb936acfe141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f2e9359_9e924d37",
+        "filename": "p2p/base/datagram_dtls_adaptor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-17T00:50:25Z",
+      "side": 1,
+      "message": "MakeArrayView",
+      "range": {
+        "startLine": 110,
+        "startChar": 11,
+        "endLine": 110,
+        "endChar": 35
+      },
+      "revId": "d596e74a443e1e517d7eba8e9c6afb936acfe141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4b3e008b_12e7e36e",
         "filename": "p2p/base/datagram_dtls_adaptor.cc",
         "patchSetId": 1
@@ -119,6 +165,52 @@
     },
     {
       "key": {
+        "uuid": "8e852703_8d06f76f",
+        "filename": "p2p/base/datagram_dtls_adaptor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-17T00:50:25Z",
+      "side": 1,
+      "message": "nit: return nullptr",
+      "range": {
+        "startLine": 208,
+        "startChar": 2,
+        "endLine": 208,
+        "endChar": 8
+      },
+      "revId": "d596e74a443e1e517d7eba8e9c6afb936acfe141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cef75298_8dafab79",
+        "filename": "p2p/base/datagram_dtls_adaptor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-17T00:50:25Z",
+      "side": 1,
+      "message": "nit: return nullptr",
+      "range": {
+        "startLine": 218,
+        "startChar": 2,
+        "endLine": 218,
+        "endChar": 8
+      },
+      "revId": "d596e74a443e1e517d7eba8e9c6afb936acfe141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9b17508c_0ed1dc4d",
         "filename": "p2p/base/datagram_dtls_adaptor.cc",
         "patchSetId": 1
@@ -130,6 +222,46 @@
       "writtenOn": "2019-05-16T23:52:06Z",
       "side": 1,
       "message": "Do we need to account for datagram transport state here?",
+      "revId": "d596e74a443e1e517d7eba8e9c6afb936acfe141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8de81e66_7ca9a25e",
+        "filename": "p2p/base/datagram_dtls_adaptor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-17T00:50:25Z",
+      "side": 1,
+      "message": "Maybe clarify that the adapter itself doesn\u0027t apply encryption but instead relies on the DatagramTransportInterface to do so.",
+      "revId": "d596e74a443e1e517d7eba8e9c6afb936acfe141",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d87ac61_f0c08d67",
+        "filename": "p2p/base/datagram_dtls_adaptor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-17T00:50:25Z",
+      "side": 1,
+      "message": "nit: Adapter seems to be the more common spelling in WebRTC",
+      "range": {
+        "startLine": 39,
+        "startChar": 23,
+        "endLine": 39,
+        "endChar": 24
+      },
       "revId": "d596e74a443e1e517d7eba8e9c6afb936acfe141",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

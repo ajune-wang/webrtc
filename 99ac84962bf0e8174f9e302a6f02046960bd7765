@@ -180,6 +180,24 @@
     },
     {
       "key": {
+        "uuid": "99fe2742_b9c172ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-17T07:17:26Z",
+      "side": 1,
+      "message": "\u003e 1. We want to execute a task later, but it is not crucial, and it is OK to cancel any such pending task on shutdown, including deleting the rtc::Bind arguments on any(?) thread.\n\nThat TQ abstraction currently has no builtin way to cancel a task; when needed, that has to implemented in the task itself (which may need additional synchronization).\n \n\u003e 2. We post a task to a thread because it must execute on that thread. If the task doesn\u0027t execute or doesn\u0027t delete the rtc::Bind arguments on that thread then we have an invalid assumption that we need to fix, else we might cause DCHECK crashes or resource leaks. For example, we probably shouldn\u0027t kill the network thread before we\u0027ve cleaned up network resources that are in use.\n\nMaybe you can write to the webrtc-core list, and we can discuss this on Monday? I still think that in many cases, destroying stuff on an arbitrary thread is ok, after the thread owning the stuff in question is stopped.\n\n\u003e I\u0027m OK with only supporting 1) for now since PostTask is not used elsewhere and we can add a TODO. \n\nThanks. I\u0027ll try to get this landed, with documentation updated, then.\n\n\u003e But I believe 2) is important, and I\u0027m not sure I understand why we couldn\u0027t just execute all pending tasks while disallowing (with DCHECK) tasks to post new tasks during shutdown.\n\nSilently discarding tasks posted to a TQ being shut down was important for PostTaskAndReply. But that feature has been deleted. So now, I think posting to a TQ being shutdown is more or less the same thing as use-after-free.",
+      "parentUuid": "dc2464c3_d7a37a79",
+      "revId": "99ac84962bf0e8174f9e302a6f02046960bd7765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "467d6623_f42f7905",
         "filename": "rtc_base/thread.h",
         "patchSetId": 3

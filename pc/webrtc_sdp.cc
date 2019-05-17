@@ -532,6 +532,17 @@ static void InitAttrLine(const std::string& attribute, rtc::StringBuilder* os) {
   InitLine(kLineTypeAttributes, attribute, os);
 }
 
+// Writes an x-mt SDP attribute line based on the media transport settings.
+static void AddMediaTransportLine(
+    const cricket::MediaTransportSetting& setting,
+    std::string* message) {
+  rtc::StringBuilder os;
+  InitAttrLine(kMediaTransportSettingLine, &os);
+  os << kSdpDelimiterColon << setting.transport_name << kSdpDelimiterColon
+     << rtc::Base64::Encode(setting.transport_setting);
+  AddLine(os.str(), message);
+}
+
 // Writes a SDP attribute line based on |attribute| and |value| to |message|.
 static void AddAttributeLine(const std::string& attribute,
                              int value,
@@ -931,6 +942,15 @@ std::string SdpSerialize(const JsepSessionDescription& jdesc) {
     BuildMediaDescription(&content, desc->GetTransportInfoByName(content.name),
                           content.media_description()->type(), candidates,
                           desc->msid_signaling(), &message);
+
+    // Media transport is currently only supported in bundled mode,
+    // but we still put it in every m-section. This way it looks like ICE,
+    // and in the future we can allow multiple media transport settings
+    // for different m-sections.
+    for (const cricket::MediaTransportSetting& settings :
+         desc->MediaTransportSettings()) {
+      AddMediaTransportLine(settings, &message);
+    }
   }
   return message;
 }
@@ -2236,24 +2256,6 @@ bool ParseSessionDescription(const std::string& message,
         return false;
       }
       session_extmaps->push_back(extmap);
-    } else if (HasAttribute(line, kMediaTransportSettingLine)) {
-      std::string transport_name;
-      std::string transport_setting;
-      if (!ParseMediaTransportLine(line, &transport_name, &transport_setting,
-                                   error)) {
-        return false;
-      }
-
-      for (const auto& setting : desc->MediaTransportSettings()) {
-        if (setting.transport_name == transport_name) {
-          // Ignore repeated transport names rather than failing to parse so
-          // that in the future the same transport could have multiple configs.
-          RTC_LOG(INFO) << "x-mt line with repeated transport, transport_name="
-                        << transport_name;
-          return true;
-        }
-      }
-      desc->AddMediaTransportSetting(transport_name, transport_setting);
     }
   }
 
@@ -3200,7 +3202,25 @@ bool ParseContent(const std::string& message,
         }
 
         simulcast = error_or_simulcast.value();
-      } else {
+      } else if (HasAttribute(line, kMediaTransportSettingLine)) {
+      std::string transport_name;
+      std::string transport_setting;
+      if (!ParseMediaTransportLine(line, &transport_name, &transport_setting,
+                                   error)) {
+        return false;
+      }
+
+      for (const auto& setting : media_desc->MediaTransportSettings()) {
+        if (setting.transport_name == transport_name) {
+          // Ignore repeated transport names rather than failing to parse so
+          // that in the future the same transport could have multiple configs.
+          RTC_LOG(INFO) << "x-mt line with repeated transport, transport_name="
+                        << transport_name;
+          return true;
+        }
+      }
+      media_desc->AddMediaTransportSetting(transport_name, transport_setting);
+    } else {
         // Unrecognized attribute in RTP protocol.
         RTC_LOG(LS_INFO) << "Ignored line: " << line;
         continue;

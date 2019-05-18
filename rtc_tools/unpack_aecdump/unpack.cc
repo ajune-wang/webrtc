@@ -17,6 +17,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <functional>
 #include <memory>
 #include <string>
 
@@ -103,6 +104,22 @@ bool WritingCallOrderFile() {
   return FLAG_full;
 }
 
+bool WritingRuntimeSettingFiles() {
+  return FLAG_full;
+}
+
+struct RuntimeSettingType {
+  FILE* file = nullptr;
+  int frame_offset = 0;
+  std::string setting_name;
+  std::function<bool(Event)> is_this_type;
+  std::function<std::string(Event)> get_label;
+  RuntimeSettingType(std::string name,
+                     std::function<bool(Event)> is_this_type,
+                     std::function<std::string(Event)> get_label)
+      : setting_name(name), is_this_type(is_this_type), get_label(get_label) {}
+};
+
 }  // namespace
 
 int do_main(int argc, char* argv[]) {
@@ -145,6 +162,45 @@ int do_main(int argc, char* argv[]) {
                                   ? OpenFile(callorder_raw_name.str(), "wb")
                                   : nullptr;
   FILE* settings_file = OpenFile(FLAG_settings_file, "wb");
+
+  // All RuntimeSettings that are identifiable from debug.proto.
+  RuntimeSettingType runtime_setting_types[] = {
+      RuntimeSettingType(
+          "CapturePreGain",
+          [](Event event) -> bool {
+            return event.runtime_setting().has_capture_pre_gain();
+          },
+          [](Event event) -> std::string {
+            return std::to_string(event.runtime_setting().capture_pre_gain());
+          }),
+      RuntimeSettingType(
+          "CustomRenderProcessingRuntimeSetting",
+          [](Event event) -> bool {
+            return event.runtime_setting()
+                .has_custom_render_processing_setting();
+          },
+          [](Event event) -> std::string {
+            return std::to_string(
+                event.runtime_setting().custom_render_processing_setting());
+          }),
+      RuntimeSettingType(
+          "CaptureFixedPostGain",
+          [](Event event) -> bool {
+            return event.runtime_setting().has_capture_fixed_post_gain();
+          },
+          [](Event event) -> std::string {
+            return std::to_string(
+                event.runtime_setting().capture_fixed_post_gain());
+          }),
+      RuntimeSettingType(
+          "PlayoutVolumeChange",
+          [](Event event) -> bool {
+            return event.runtime_setting().has_playout_volume_change();
+          },
+          [](Event event) -> std::string {
+            return std::to_string(
+                event.runtime_setting().playout_volume_change());
+          })};
 
   while (ReadMessageFromFile(debug_file, &event_msg)) {
     if (event_msg.type() == Event::REVERSE_STREAM) {
@@ -385,6 +441,31 @@ int do_main(int argc, char* argv[]) {
           rtc::StringBuilder callorder_name;
           callorder_name << FLAG_callorder_file << frame_count << ".char";
           callorder_char_file = OpenFile(callorder_name.str(), "wb");
+        }
+
+        if (WritingRuntimeSettingFiles()) {
+          for (RuntimeSettingType& type : runtime_setting_types) {
+            type.frame_offset = frame_count;
+            type.file = nullptr;
+          }
+        }
+      }
+    } else if (event_msg.type() == Event::RUNTIME_SETTING) {
+      if (WritingRuntimeSettingFiles()) {
+        for (RuntimeSettingType& type : runtime_setting_types) {
+          if (type.is_this_type(event_msg)) {
+            if (type.file == nullptr) {
+              rtc::StringBuilder file_name;
+              file_name << type.setting_name << type.frame_offset << ".txt";
+              type.file = OpenFile(file_name.str(), "wb");
+            }
+
+            // Time in the current WAV file, in seconds.
+            double time = (frame_count - type.frame_offset) / 100.0;
+            std::string label = type.get_label(event_msg);
+            fprintf(type.file, "%.6f\t%.6f\t%s \n", time, time, label.c_str());
+            break;
+          }
         }
       }
     }

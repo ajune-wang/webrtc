@@ -953,6 +953,8 @@ void BasicPortAllocatorSession::AddAllocatedPort(Port* port,
 
   port->SignalCandidateReady.connect(
       this, &BasicPortAllocatorSession::OnCandidateReady);
+  port->SignalCandidateError.connect(
+      this, &BasicPortAllocatorSession::OnCandidateError);
   port->SignalPortComplete.connect(this,
                                    &BasicPortAllocatorSession::OnPortComplete);
   port->SignalDestroyed.connect(this,
@@ -1022,6 +1024,18 @@ void BasicPortAllocatorSession::OnCandidateReady(Port* port,
   if (pruned) {
     MaybeSignalCandidatesAllocationDone();
   }
+}
+
+void BasicPortAllocatorSession::OnCandidateError(
+    Port* port,
+    const std::string& host_candidate,
+    const std::string& url,
+    int error_code,
+    const std::string& error_text) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_DCHECK(FindPort(port));
+
+  SignalCandidateError(this, host_candidate, url, error_code, error_text);
 }
 
 Port* BasicPortAllocatorSession::GetBestTurnPortForNetwork(

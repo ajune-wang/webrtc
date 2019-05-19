@@ -284,9 +284,15 @@ class Port : public PortInterface,
   // Fired when candidates are discovered by the port. When all candidates
   // are discovered that belong to port SignalAddressReady is fired.
   sigslot::signal2<Port*, const Candidate&> SignalCandidateReady;
-
   // Provides all of the above information in one handy object.
   const std::vector<Candidate>& Candidates() const override;
+  // Fired when candidate discovery failed using certain server.
+  sigslot::signal5<Port*,
+                   /*host_candidate*/ const std::string&,
+                   /*url*/ const std::string&,
+                   /*error_code*/ int,
+                   /*error_text*/ const std::string&>
+      SignalCandidateError;
 
   // SignalPortComplete is sent when port completes the task of candidates
   // allocation.

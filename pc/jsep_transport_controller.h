@@ -221,6 +221,10 @@ class JsepTransportController : public sigslot::has_slots<> {
   sigslot::signal2<const std::string&, const std::vector<cricket::Candidate>&>
       SignalIceCandidatesGathered;
 
+  sigslot::
+      signal4<const std::string&, const std::string&, int, const std::string&>
+          SignalIceCandidateError;
+
   sigslot::signal1<const std::vector<cricket::Candidate>&>
       SignalIceCandidatesRemoved;
 
@@ -349,6 +353,11 @@ class JsepTransportController : public sigslot::has_slots<> {
   void OnTransportGatheringState_n(cricket::IceTransportInternal* transport);
   void OnTransportCandidateGathered_n(cricket::IceTransportInternal* transport,
                                       const cricket::Candidate& candidate);
+  void OnTransportCandidateError_n(cricket::IceTransportInternal* transport,
+                                   const std::string& host_candidate,
+                                   const std::string& url,
+                                   int error_code,
+                                   const std::string& error_text);
   void OnTransportCandidatesRemoved_n(cricket::IceTransportInternal* transport,
                                       const cricket::Candidates& candidates);
   void OnTransportRoleConflict_n(cricket::IceTransportInternal* transport);

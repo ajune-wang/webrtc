@@ -1090,6 +1090,8 @@ bool PeerConnection::Initialize(
       this, &PeerConnection::OnTransportControllerGatheringState);
   transport_controller_->SignalIceCandidatesGathered.connect(
       this, &PeerConnection::OnTransportControllerCandidatesGathered);
+  transport_controller_->SignalIceCandidateError.connect(
+      this, &PeerConnection::OnTransportControllerCandidateError);
   transport_controller_->SignalIceCandidatesRemoved.connect(
       this, &PeerConnection::OnTransportControllerCandidatesRemoved);
   transport_controller_->SignalDtlsHandshakeError.connect(
@@ -4168,6 +4170,16 @@ void PeerConnection::OnIceCandidate(
   Observer()->OnIceCandidate(candidate.get());
 }
 
+void PeerConnection::OnIceCandidateError(const std::string& host_candidate,
+                                         const std::string& url,
+                                         int error_code,
+                                         const std::string& error_text) {
+  if (IsClosed()) {
+    return;
+  }
+  Observer()->OnIceCandidateError(host_candidate, url, error_code, error_text);
+}
+
 void PeerConnection::OnIceCandidatesRemoved(
     const std::vector<cricket::Candidate>& candidates) {
   if (IsClosed()) {
@@ -6098,6 +6110,14 @@ void PeerConnection::OnTransportControllerCandidatesGathered(
     }
     OnIceCandidate(std::move(candidate));
   }
+}
+
+void PeerConnection::OnTransportControllerCandidateError(
+    const std::string& host_candidate,
+    const std::string& url,
+    int error_code,
+    const std::string& error_text) {
+  OnIceCandidateError(host_candidate, url, error_code, error_text);
 }
 
 void PeerConnection::OnTransportControllerCandidatesRemoved(

@@ -179,6 +179,8 @@ void P2PTransportChannel::AddAllocatorSession(
   session->SignalPortsPruned.connect(this, &P2PTransportChannel::OnPortsPruned);
   session->SignalCandidatesReady.connect(
       this, &P2PTransportChannel::OnCandidatesReady);
+  session->SignalCandidateError.connect(this,
+                                        &P2PTransportChannel::OnCandidateError);
   session->SignalCandidatesRemoved.connect(
       this, &P2PTransportChannel::OnCandidatesRemoved);
   session->SignalCandidatesAllocationDone.connect(
@@ -846,7 +848,14 @@ void P2PTransportChannel::OnCandidatesReady(
     SignalCandidateGathered(this, candidates[i]);
   }
 }
-
+void P2PTransportChannel::OnCandidateError(PortAllocatorSession* session,
+                                           const std::string& host_candidate,
+                                           const std::string& url,
+                                           int error_code,
+                                           const std::string& error_text) {
+  RTC_DCHECK(network_thread_ == rtc::Thread::Current());
+  SignalCandidateError(this, host_candidate, url, error_code, error_text);
+}
 void P2PTransportChannel::OnCandidatesAllocationDone(
     PortAllocatorSession* session) {
   RTC_DCHECK(network_thread_ == rtc::Thread::Current());

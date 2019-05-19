@@ -231,6 +231,11 @@ class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession,
                         AllocationSequence* seq,
                         bool prepare_address);
   void OnCandidateReady(Port* port, const Candidate& c);
+  void OnCandidateError(Port* port,
+                        const std::string& host_candidate,
+                        const std::string& url,
+                        int error_code,
+                        const std::string& error_text);
   void OnPortComplete(Port* port);
   void OnPortError(Port* port);
   void OnProtocolEnabled(AllocationSequence* seq, ProtocolType proto);

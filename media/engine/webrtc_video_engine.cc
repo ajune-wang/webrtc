@@ -77,7 +77,7 @@ void AddDefaultFeedbackParams(VideoCodec* codec) {
 // codecs for recognized codecs (VP8, VP9, H264, and RED). It will also add
 // default feedback params to the codecs.
 std::vector<VideoCodec> AssignPayloadTypesAndDefaultCodecs(
-    std::vector<webrtc::SdpVideoFormat> input_formats) {
+    const std::vector<webrtc::SdpVideoFormat>& input_formats) {
   if (input_formats.empty())
     return std::vector<VideoCodec>();
   static const int kFirstDynamicPayloadType = 96;

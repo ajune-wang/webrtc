@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ffa0bdb2_26be56dd",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-05-20T08:43:29Z",
+      "side": 1,
+      "message": "No, otherwise it will be stopped before shut down, but the idea is to run it during whole test.",
+      "parentUuid": "36f5d2a6_6a5a753d",
+      "range": {
+        "startLine": 324,
+        "startChar": 2,
+        "endLine": 324,
+        "endChar": 3
+      },
+      "revId": "80f98c06b1062bc166d0f44362b181e989b22c4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91893424_b7c198a3",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "80f98c06b1062bc166d0f44362b181e989b22c4f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1ac3413_15567ca4",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-05-20T08:43:29Z",
+      "side": 1,
+      "message": "Logging is of in perf tests as I know, so RTC_LOG will print nothing. I ported it from video_quality_test infra. They are doing the same.",
+      "parentUuid": "91893424_b7c198a3",
+      "range": {
+        "startLine": 325,
+        "startChar": 4,
+        "endLine": 325,
+        "endChar": 15
+      },
+      "revId": "80f98c06b1062bc166d0f44362b181e989b22c4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

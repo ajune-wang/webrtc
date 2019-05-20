@@ -58,7 +58,7 @@ class PeerConnection : public PeerConnectionInternal,
                        public DataChannelProviderInterface,
                        public DataChannelSink,
                        public JsepTransportController::Observer,
-                       public RtpSenderBase::SetStreamIDsObserver,
+                       public RtpSenderBase::SetStreamsObserver,
                        public rtc::MessageHandler,
                        public sigslot::has_slots<> {
  public:
@@ -1057,8 +1057,8 @@ class PeerConnection : public PeerConnectionInternal,
                           rtc::scoped_refptr<DtlsTransport> dtls_transport,
                           MediaTransportInterface* media_transport) override;
 
-  // RtpSenderBase::SetStreamIDsObserver override.
-  void OnSetStreamIDs() override;
+  // RtpSenderBase::SetStreamsObserver override.
+  void OnSetStreams() override;
 
   // Returns the observer. Will crash on CHECK if the observer is removed.
   PeerConnectionObserver* Observer() const RTC_RUN_ON(signaling_thread());

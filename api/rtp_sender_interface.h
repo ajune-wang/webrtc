@@ -64,7 +64,7 @@ class RtpSenderInterface : public rtc::RefCountInterface {
   // Sets the IDs of the media streams associated with  this sender's track.
   // These are signalled in the SDP so that the remote side can associate
   // tracks.
-  virtual void SetStreamIDs(const std::vector<std::string>& stream_ids) {}
+  virtual void SetStreams(const std::vector<std::string>& stream_ids) {}
 
   // Returns the list of encoding parameters that will be applied when the SDP
   // local description is set. These initial encoding parameters can be set by
@@ -117,7 +117,7 @@ PROXY_METHOD1(void,
               rtc::scoped_refptr<FrameEncryptorInterface>)
 PROXY_CONSTMETHOD0(rtc::scoped_refptr<FrameEncryptorInterface>,
                    GetFrameEncryptor)
-PROXY_METHOD1(void, SetStreamIDs, const std::vector<std::string>&)
+PROXY_METHOD1(void, SetStreams, const std::vector<std::string>&)
 END_PROXY_MAP()
 
 }  // namespace webrtc

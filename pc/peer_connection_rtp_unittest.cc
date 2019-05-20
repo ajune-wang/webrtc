@@ -491,7 +491,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan, ChangeMsidWhileReceiving) {
   ASSERT_TRUE(callee->CreateAnswerAndSetAsLocal());
 
   // Change the stream ID in the offer.
-  caller->pc()->GetSenders()[0]->SetStreamIDs({"stream2"});
+  caller->pc()->GetSenders()[0]->SetStreams({"stream2"});
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
   ASSERT_EQ(1u, transceiver->receiver()->streams().size());
   EXPECT_EQ("stream2", transceiver->receiver()->streams()[0]->id());
@@ -1805,7 +1805,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
   caller->observer()->clear_negotiation_needed();
 
-  transceiver->sender()->SetStreamIDs({"stream3", "stream4", "stream5"});
+  transceiver->sender()->SetStreams({"stream3", "stream4", "stream5"});
   EXPECT_TRUE(caller->observer()->negotiation_needed());
 
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));

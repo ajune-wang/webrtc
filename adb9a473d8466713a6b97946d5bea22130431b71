@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18f992d8_45ec0faa",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-05-20T08:18:54Z",
+      "side": 1,
+      "message": "The members are public, but you use _ as suffix for their names.\nI see two options for this class:\n1. struct, everything public\n2. class with private members [I prefer this]",
+      "range": {
+        "startLine": 114,
+        "startChar": 6,
+        "endLine": 114,
+        "endChar": 24
+      },
+      "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "750a3e0c_d604e18d",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-05-20T08:18:54Z",
+      "side": 1,
+      "message": "I prefer if you use RAII for this class (see https://en.wikipedia.org/wiki/Resource_acquisition_is_initialization).\n\nEven if this class lives in the anon ns, it\u0027s better to avoid error-prone patterns.",
+      "range": {
+        "startLine": 116,
+        "startChar": 2,
+        "endLine": 116,
+        "endChar": 13
+      },
+      "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "689d0cbc_64cde312",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-05-20T08:18:54Z",
+      "side": 1,
+      "message": "[optional] Consider using rtc::FunctionView instead",
+      "range": {
+        "startLine": 119,
+        "startChar": 2,
+        "endLine": 119,
+        "endChar": 15
+      },
+      "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3e81baa_e79c4cfa",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-05-20T08:18:54Z",
+      "side": 1,
+      "message": "I prefer if you use RAII for this class (see https://en.wikipedia.org/wiki/Resource_acquisition_is_initialization) - i.e., open the file in the ctor.\n\nEven if this class lives in the anon ns and the unpack binary is a test target, it\u0027s better to avoid error-prone patterns.\n\nalso add the dtor to close the file\n\n---\n\nIf you want to only write a file if sth is written into it, then I see two better alternatives:\n1. Create the file in the ctor, have a flag that tells whether WriteEvent has been called, use that flag in the dtor to delete the file if WriteEvent has never been called\n2. Add timestamp and string into a vector and then let the dtor (i) open the output file, (ii) write everything, (iii) close the file",
+      "range": {
+        "startLine": 123,
+        "startChar": 4,
+        "endLine": 127,
+        "endChar": 5
+      },
+      "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c674b55_836a0f8e",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-05-20T08:18:54Z",
+      "side": 1,
+      "message": "these members never change once initialized in the ctor, so mark them as const",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 139,
+        "endChar": 47
+      },
+      "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38e6878c_60bb35f0",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-05-20T08:18:54Z",
+      "side": 1,
+      "message": "Add a Flush() method to RuntimeSettingType or re-init the object.\nWe must be sure that the dtor is called and that any alloc resource is dealloc properly.",
+      "range": {
+        "startLine": 472,
+        "startChar": 12,
+        "endLine": 472,
+        "endChar": 33
+      },
+      "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8067090_89e4f046",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-05-20T08:18:54Z",
+      "side": 1,
+      "message": "I think that it\u0027s cleaner if we exploit std::map using e.g. the enum value as key",
+      "range": {
+        "startLine": 478,
+        "startChar": 8,
+        "endLine": 482,
+        "endChar": 9
+      },
+      "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

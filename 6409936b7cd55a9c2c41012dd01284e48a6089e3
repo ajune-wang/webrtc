@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9d1ec31_12ef7aec",
+        "filename": "media/sctp/sctp_transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-20T17:48:30Z",
+      "side": 1,
+      "message": "How about absl::optional instead of -1?",
+      "revId": "6409936b7cd55a9c2c41012dd01284e48a6089e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81f9955b_c8c45ee8",
+        "filename": "media/sctp/sctp_transport_internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-20T17:48:30Z",
+      "side": 1,
+      "message": "Can you add documentation for these two new methods?",
+      "revId": "6409936b7cd55a9c2c41012dd01284e48a6089e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

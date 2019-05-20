@@ -56,25 +56,16 @@ std::unique_ptr<RtpRtcp> CreateRtpRtcpModule(
     ReceiveStatistics* receive_statistics,
     Transport* outgoing_transport,
     RtcpRttStats* rtt_stats,
-    RtcpPacketTypeCounterObserver* rtcp_packet_type_counter_observer,
-    TransportSequenceNumberAllocator* transport_sequence_number_allocator) {
+    RtcpPacketTypeCounterObserver* rtcp_packet_type_counter_observer) {
   RtpRtcp::Configuration configuration;
   configuration.clock = clock;
   configuration.audio = false;
   configuration.receiver_only = true;
   configuration.receive_statistics = receive_statistics;
   configuration.outgoing_transport = outgoing_transport;
-  configuration.intra_frame_callback = nullptr;
   configuration.rtt_stats = rtt_stats;
   configuration.rtcp_packet_type_counter_observer =
       rtcp_packet_type_counter_observer;
-  configuration.transport_sequence_number_allocator =
-      transport_sequence_number_allocator;
-  configuration.send_bitrate_observer = nullptr;
-  configuration.send_side_delay_observer = nullptr;
-  configuration.send_packet_observer = nullptr;
-  configuration.bandwidth_callback = nullptr;
-  configuration.transport_feedback_callback = nullptr;
 
   std::unique_ptr<RtpRtcp> rtp_rtcp = RtpRtcp::Create(configuration);
   rtp_rtcp->SetRTCPStatus(RtcpMode::kCompound);
@@ -111,8 +102,7 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
                                     rtp_receive_statistics_,
                                     transport,
                                     rtt_stats,
-                                    receive_stats_proxy,
-                                    packet_router)),
+                                    receive_stats_proxy)),
       complete_frame_callback_(complete_frame_callback),
       keyframe_request_sender_(keyframe_request_sender),
       has_received_frame_(false),

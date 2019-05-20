@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0383cd84_90d67626",
+        "filename": "sdk/android/api/org/webrtc/EglBase.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-05-20T10:55:19Z",
+      "side": 1,
+      "message": "nit: Does list.toArray(new int[list.size()]) work? Or maybe it does not work on primitive types?",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 17
+      },
+      "revId": "a7492cd2f70fae60d573574cb286ea19cc16e904",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -219,6 +219,7 @@ void TaskQueueLibevent::PostTask(std::unique_ptr<QueuedTask> task) {
   // as event_base_once to post tasks to the worker thread from a different
   // thread.  However, we can use it when posting from the worker thread itself.
   if (IsCurrent()) {
+    RTC_NOTREACHED();
     if (event_base_once(event_base_, -1, EV_TIMEOUT,
                         &TaskQueueLibevent::RunTask, task.get(),
                         nullptr) == 0) {

@@ -11,6 +11,12 @@
 #ifndef MODULES_VIDEO_CODING_CODECS_H264_H264_COLOR_SPACE_H_
 #define MODULES_VIDEO_CODING_CODECS_H264_H264_COLOR_SPACE_H_
 
+#ifdef WEBRTC_USE_H264
+
+#if defined(WEBRTC_WIN) && !defined(__clang__)
+#error "See: bugs.webrtc.org/9213#c13."
+#endif
+
 #include "api/video/color_space.h"
 
 extern "C" {
@@ -23,5 +29,7 @@ namespace webrtc {
 ColorSpace ExtractH264ColorSpace(AVCodecContext* codec);
 
 }  // namespace webrtc
+
+#endif  // WEBRTC_USE_H264
 
 #endif  // MODULES_VIDEO_CODING_CODECS_H264_H264_COLOR_SPACE_H_

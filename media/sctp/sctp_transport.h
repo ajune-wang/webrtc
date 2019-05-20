@@ -80,6 +80,8 @@ class SctpTransport : public SctpTransportInternal,
                 SendDataResult* result = nullptr) override;
   bool ReadyToSendData() override;
   int max_message_size() const override { return max_message_size_; }
+  int max_outbound_streams() const override { return max_outbound_streams_; }
+  int max_inbound_streams() const override { return max_inbound_streams_; }
   void set_debug_name_for_testing(const char* debug_name) override {
     debug_name_ = debug_name;
   }
@@ -208,6 +210,9 @@ class SctpTransport : public SctpTransportInternal,
   const char* debug_name_ = "SctpTransport";
   // Hides usrsctp interactions from this header file.
   class UsrSctpWrapper;
+  // Number of channels negotiated. -1 if not set.
+  int max_outbound_streams_ = -1;
+  int max_inbound_streams_ = -1;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(SctpTransport);
 };

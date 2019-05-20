@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d5ef1ac4_7ee7b0b4",
+        "filename": "api/media_transport_config.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-05-20T06:35:33Z",
+      "side": 1,
+      "message": "That sounds like a design which will easily break if relationships or thread affinity changes.",
+      "parentUuid": "4e25b05d_57cb1e39",
+      "revId": "f7116acca25145ba25f6117d4f1322d57c7c89fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5303cb49_83332bb8",
         "filename": "audio/channel_receive.h",
         "patchSetId": 10

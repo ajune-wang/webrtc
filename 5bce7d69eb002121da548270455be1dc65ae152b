@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fb07adcc_607f0aeb",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-20T15:24:56Z",
+      "side": 1,
+      "message": "They\u0027re only used for decoding, so not a problem for now. I\u0027ll have to deal with them in the (future) CL where I add support for 16 kHz decoding.",
+      "parentUuid": "48df7f0a_c72e62d6",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 36
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e5c89e6_ece31e2b",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "311ff1cb_ec2c5b03",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-20T15:24:56Z",
+      "side": 1,
+      "message": "Interesting---`git cl format` didn\u0027t fix this automatically. Done.",
+      "parentUuid": "6e5c89e6_ece31e2b",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 75
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a598b9d3_2becbf88",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-20T15:24:56Z",
+      "side": 1,
+      "message": "Out of scope for this CL---it only deals with encoding.",
+      "parentUuid": "b278fe2a_eab4063d",
+      "range": {
+        "startLine": 388,
+        "startChar": 41,
+        "endLine": 388,
+        "endChar": 46
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a03856c8_31552a23",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bb9ab98_a2b9583c",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-20T15:24:56Z",
+      "side": 1,
+      "message": "Out of scope for this CL---it only deals with encoding.",
+      "parentUuid": "a03856c8_31552a23",
+      "range": {
+        "startLine": 580,
+        "startChar": 59,
+        "endLine": 580,
+        "endChar": 64
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "b3a64971_9ed0c977",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-20T15:24:56Z",
+      "side": 1,
+      "message": "Out of scope for this CL---it only deals with encoding.",
+      "parentUuid": "c753a7d3_95b86b34",
+      "range": {
+        "startLine": 606,
+        "startChar": 64,
+        "endLine": 606,
+        "endChar": 69
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6b65f9a_494d0ade",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48d3f35c_7b892bc1",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-20T15:24:56Z",
+      "side": 1,
+      "message": "Out of scope for this CL---it only deals with encoding.",
+      "parentUuid": "d6b65f9a_494d0ade",
+      "range": {
+        "startLine": 630,
+        "startChar": 55,
+        "endLine": 630,
+        "endChar": 60
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "02466ca7_7226765e",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-20T15:24:56Z",
+      "side": 1,
+      "message": "Out of scope for this CL---it only deals with encoding.",
+      "parentUuid": "6eae4c30_5f97681d",
+      "range": {
+        "startLine": 652,
+        "startChar": 65,
+        "endLine": 652,
+        "endChar": 70
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02e86fde_22636437",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
         "patchSetId": 1
@@ -183,6 +351,30 @@
       "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "308d89fc_d123b160",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-20T15:24:56Z",
+      "side": 1,
+      "message": "I don\u0027t need it at the moment (and the combination of lots of channels and limited bandwidth isn\u0027t obviously something that we\u0027ll try any time soon), and adding the argument comes with the need to unit test it.",
+      "parentUuid": "02e86fde_22636437",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 43
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

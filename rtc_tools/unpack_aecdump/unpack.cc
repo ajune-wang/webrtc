@@ -17,8 +17,10 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <functional>
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "common_audio/wav_file.h"
 #include "modules/audio_processing/test/protobuf_utils.h"
@@ -103,6 +105,81 @@ bool WritingCallOrderFile() {
   return FLAG_full;
 }
 
+bool WritingRuntimeSettingFiles() {
+  return FLAG_full;
+}
+
+// Class that handles writing data for a type of RuntimeSetting when unpacking
+// RuntimeSettings to a file.
+class RuntimeSettingType {
+ public:
+  FILE* file_ = nullptr;
+  int frame_offset_ = 0;
+  std::string setting_name_;
+  std::function<bool(Event)> is_this_type_;
+  std::function<std::string(Event)> get_timeline_label_;
+
+  void WriteEvent(Event event, int frame_count) {
+    if (file_ == nullptr) {
+      rtc::StringBuilder file_name;
+      file_name << setting_name_ << frame_offset_ << ".txt";
+      file_ = OpenFile(file_name.str(), "wb");
+    }
+    // Time in the current WAV file, in seconds.
+    double time = (frame_count - frame_offset_) / 100.0;
+    std::string label = get_timeline_label_(event);
+    fprintf(file_, "%.6f\t%.6f\t%s \n", time, time, label.c_str());
+  }
+
+  RuntimeSettingType(std::string name,
+                     std::function<bool(Event)> is_this_type,
+                     std::function<std::string(Event)> get_timeline_label)
+      : setting_name_(name),
+        is_this_type_(is_this_type),
+        get_timeline_label_(get_timeline_label) {}
+};
+
+// All RuntimeSettings that are identifiable from debug.proto.
+std::vector<RuntimeSettingType> RuntimeSettingTypes() {
+  return {
+      RuntimeSettingType(
+          "CapturePreGain",
+          [](Event event) -> bool {
+            return event.runtime_setting().has_capture_pre_gain();
+          },
+          [](Event event) -> std::string {
+            return std::to_string(event.runtime_setting().capture_pre_gain());
+          }),
+      RuntimeSettingType(
+          "CustomRenderProcessingRuntimeSetting",
+          [](Event event) -> bool {
+            return event.runtime_setting()
+                .has_custom_render_processing_setting();
+          },
+          [](Event event) -> std::string {
+            return std::to_string(
+                event.runtime_setting().custom_render_processing_setting());
+          }),
+      RuntimeSettingType(
+          "CaptureFixedPostGain",
+          [](Event event) -> bool {
+            return event.runtime_setting().has_capture_fixed_post_gain();
+          },
+          [](Event event) -> std::string {
+            return std::to_string(
+                event.runtime_setting().capture_fixed_post_gain());
+          }),
+      RuntimeSettingType(
+          "PlayoutVolumeChange",
+          [](Event event) -> bool {
+            return event.runtime_setting().has_playout_volume_change();
+          },
+          [](Event event) -> std::string {
+            return std::to_string(
+                event.runtime_setting().playout_volume_change());
+          })};
+}
+
 }  // namespace
 
 int do_main(int argc, char* argv[]) {
@@ -145,6 +222,8 @@ int do_main(int argc, char* argv[]) {
                                   ? OpenFile(callorder_raw_name.str(), "wb")
                                   : nullptr;
   FILE* settings_file = OpenFile(FLAG_settings_file, "wb");
+
+  std::vector<RuntimeSettingType> runtime_setting_types = RuntimeSettingTypes();
 
   while (ReadMessageFromFile(debug_file, &event_msg)) {
     if (event_msg.type() == Event::REVERSE_STREAM) {
@@ -385,6 +464,21 @@ int do_main(int argc, char* argv[]) {
           rtc::StringBuilder callorder_name;
           callorder_name << FLAG_callorder_file << frame_count << ".char";
           callorder_char_file = OpenFile(callorder_name.str(), "wb");
+        }
+
+        if (WritingRuntimeSettingFiles()) {
+          for (RuntimeSettingType& type : runtime_setting_types) {
+            type.frame_offset_ = frame_count;
+            type.file_ = nullptr;
+          }
+        }
+      }
+    } else if (event_msg.type() == Event::RUNTIME_SETTING) {
+      if (WritingRuntimeSettingFiles()) {
+        for (RuntimeSettingType& type : runtime_setting_types) {
+          if (type.is_this_type_(event_msg)) {
+            type.WriteEvent(event_msg, frame_count);
+          }
         }
       }
     }

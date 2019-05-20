@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "def19dcc_bcd35aa7",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-05-20T08:45:33Z",
+      "side": 1,
+      "message": "Ah, I see. So we want to continue to log also in the \"analysis phase\". Makes sense.",
+      "parentUuid": "ffa0bdb2_26be56dd",
+      "range": {
+        "startLine": 324,
+        "startChar": 2,
+        "endLine": 324,
+        "endChar": 3
+      },
+      "revId": "80f98c06b1062bc166d0f44362b181e989b22c4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91893424_b7c198a3",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1

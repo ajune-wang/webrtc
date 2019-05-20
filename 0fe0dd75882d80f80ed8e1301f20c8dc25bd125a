@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9bcce931_cc2b04c8",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-20T08:37:44Z",
+      "side": 1,
+      "message": "Could make the packet router optional, by adding an if (packet_router_) here and for the corresponding remove call in the destructor.",
+      "range": {
+        "startLine": 111,
+        "startChar": 2,
+        "endLine": 111,
+        "endChar": 16
+      },
+      "revId": "0fe0dd75882d80f80ed8e1301f20c8dc25bd125a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

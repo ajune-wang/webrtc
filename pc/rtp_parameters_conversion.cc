@@ -39,6 +39,13 @@ RTCErrorOr<cricket::FeedbackParam> ToCricketFeedbackParam(
       }
       return cricket::FeedbackParam(cricket::kRtcpFbParamCcm,
                                     cricket::kRtcpFbCcmParamFir);
+    case RtcpFeedbackType::LNTF:
+      if (feedback.message_type) {
+        LOG_AND_RETURN_ERROR(
+            RTCErrorType::INVALID_PARAMETER,
+            "Didn't expect message type in LNTF RtcpFeedback.");
+      }
+      return cricket::FeedbackParam(cricket::kRtcpFbParamLossNotification);
     case RtcpFeedbackType::NACK:
       if (!feedback.message_type) {
         LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,

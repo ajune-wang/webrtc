@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5dfe90b5_0606e527",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 9263
+      },
+      "writtenOn": "2019-05-20T12:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18f992d8_45ec0faa",
+      "range": {
+        "startLine": 114,
+        "startChar": 6,
+        "endLine": 114,
+        "endChar": 24
+      },
+      "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "750a3e0c_d604e18d",
         "filename": "rtc_tools/unpack_aecdump/unpack.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "172b6861_7bc36e74",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 9263
+      },
+      "writtenOn": "2019-05-20T12:14:15Z",
+      "side": 1,
+      "message": "Done as discussed in person",
+      "parentUuid": "750a3e0c_d604e18d",
+      "range": {
+        "startLine": 116,
+        "startChar": 2,
+        "endLine": 116,
+        "endChar": 13
+      },
+      "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2e3ed627_65752943",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 9263
+      },
+      "writtenOn": "2019-05-20T12:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "689d0cbc_64cde312",
+      "range": {
+        "startLine": 119,
+        "startChar": 2,
+        "endLine": 119,
+        "endChar": 15
+      },
+      "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3e81baa_e79c4cfa",
         "filename": "rtc_tools/unpack_aecdump/unpack.cc",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e11edaa2_1b0670a3",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 9263
+      },
+      "writtenOn": "2019-05-20T12:14:15Z",
+      "side": 1,
+      "message": "Done as discussed in person",
+      "parentUuid": "d3e81baa_e79c4cfa",
+      "range": {
+        "startLine": 123,
+        "startChar": 4,
+        "endLine": 127,
+        "endChar": 5
+      },
+      "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "0c01c08f_abefe3b1",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 9263
+      },
+      "writtenOn": "2019-05-20T12:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c674b55_836a0f8e",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 139,
+        "endChar": 47
+      },
+      "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38e6878c_60bb35f0",
         "filename": "rtc_tools/unpack_aecdump/unpack.cc",
         "patchSetId": 3
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "06a911e7_b50044a9",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 9263
+      },
+      "writtenOn": "2019-05-20T12:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38e6878c_60bb35f0",
+      "range": {
+        "startLine": 472,
+        "startChar": 12,
+        "endLine": 472,
+        "endChar": 33
+      },
+      "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8067090_89e4f046",
         "filename": "rtc_tools/unpack_aecdump/unpack.cc",
         "patchSetId": 3
@@ -160,6 +304,30 @@
       "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec5bea65_1dc17846",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 9263
+      },
+      "writtenOn": "2019-05-20T12:14:15Z",
+      "side": 1,
+      "message": "There is no such enum, because the type of RuntimeSetting is not stored in debug.proto. Types are identified by which fields are present, so we have to loop through and test each.\nDone as discussed in person",
+      "parentUuid": "a8067090_89e4f046",
+      "range": {
+        "startLine": 478,
+        "startChar": 8,
+        "endLine": 482,
+        "endChar": 9
+      },
+      "revId": "adb9a473d8466713a6b97946d5bea22130431b71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

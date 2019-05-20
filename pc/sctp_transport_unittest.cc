@@ -45,8 +45,14 @@ class FakeCricketSctpTransport : public cricket::SctpTransportInternal {
   bool ReadyToSendData() override { return true; }
   void set_debug_name_for_testing(const char* debug_name) override {}
   int max_message_size() const override { return 0; }
+  int max_outbound_streams() const override { return -1; }
+  int max_inbound_streams() const override { return -1; }
   // Methods exposed for testing
   void SendSignalReadyToSendData() { SignalReadyToSendData(); }
+
+  void SendSignalAssociationChangeCommunicationUp() {
+    SignalAssociationChangeCommunicationUp();
+  }
 
   void SendSignalClosingProcedureStartedRemotely() {
     SignalClosingProcedureStartedRemotely(1);
@@ -102,6 +108,7 @@ class SctpTransportTest : public ::testing::Test {
 
   void CompleteSctpHandshake() {
     CricketSctpTransport()->SendSignalReadyToSendData();
+    CricketSctpTransport()->SendSignalAssociationChangeCommunicationUp();
   }
 
   FakeCricketSctpTransport* CricketSctpTransport() {

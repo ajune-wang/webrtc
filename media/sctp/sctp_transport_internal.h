@@ -114,8 +114,11 @@ class SctpTransportInternal {
   virtual bool ReadyToSendData() = 0;
   // Returns the current max message size, set with Start().
   virtual int max_message_size() const = 0;
+  virtual int max_outbound_streams() const = 0;
+  virtual int max_inbound_streams() const = 0;
 
   sigslot::signal0<> SignalReadyToSendData;
+  sigslot::signal0<> SignalAssociationChangeCommunicationUp;
   // ReceiveDataParams includes SID, seq num, timestamp, etc. CopyOnWriteBuffer
   // contains message payload.
   sigslot::signal2<const ReceiveDataParams&, const rtc::CopyOnWriteBuffer&>

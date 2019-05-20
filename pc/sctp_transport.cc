@@ -10,6 +10,7 @@
 
 #include "pc/sctp_transport.h"
 
+#include <algorithm>
 #include <utility>
 
 namespace webrtc {
@@ -22,6 +23,8 @@ SctpTransport::SctpTransport(
   RTC_DCHECK(internal_sctp_transport_.get());
   internal_sctp_transport_->SignalReadyToSendData.connect(
       this, &SctpTransport::OnInternalReadyToSendData);
+  internal_sctp_transport_->SignalAssociationChangeCommunicationUp.connect(
+      this, &SctpTransport::OnAssociationChangeCommunicationUp);
   // TODO(https://bugs.webrtc.org/10360): Add handlers for transport closing.
 
   if (dtls_transport_) {
@@ -144,6 +147,26 @@ void SctpTransport::UpdateInformation(SctpTransportState state) {
 }
 
 void SctpTransport::OnInternalReadyToSendData() {
+  RTC_LOG(LS_ERROR) << "DEBUG: OnInternalReadyToSendData called";
+  // This is followed by a call to OnAssociationChangeCommunicationUp,
+  // so we do not take any action here.
+}
+
+void SctpTransport::OnAssociationChangeCommunicationUp() {
+  RTC_LOG(LS_ERROR) << "DEBUG: OnAssociationChangeCommunicationUp called";
+  RTC_DCHECK_RUN_ON(owner_thread_);
+  {
+    rtc::CritScope scope(&lock_);
+    RTC_DCHECK(internal_sctp_transport_);
+    int max_channels =
+        std::min(internal_sctp_transport_->max_outbound_streams(),
+                 internal_sctp_transport_->max_inbound_streams());
+    if (max_channels > -1) {
+      // Record max channels.
+      info_ = SctpTransportInformation(info_.state(), info_.dtls_transport(),
+                                       info_.MaxMessageSize(), max_channels);
+    }
+  }
   UpdateInformation(SctpTransportState::kConnected);
 }
 

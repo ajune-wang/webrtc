@@ -1280,11 +1280,11 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
 
   AudioBuffer* capture_buffer = capture_.capture_audio.get();  // For brevity.
 
-  if (private_submodules_->pre_amplifier) {
-    private_submodules_->pre_amplifier->ApplyGain(AudioFrameView<float>(
-        capture_buffer->channels_f(), capture_buffer->num_channels(),
-        capture_buffer->num_frames()));
-  }
+  // if (private_submodules_->pre_amplifier) {
+  //   private_submodules_->pre_amplifier->ApplyGain(AudioFrameView<float>(
+  //       capture_buffer->channels_f(), capture_buffer->num_channels(),
+  //       capture_buffer->num_frames()));
+  // }
 
   capture_input_rms_.Analyze(rtc::ArrayView<const int16_t>(
       capture_buffer->channels_const()[0],

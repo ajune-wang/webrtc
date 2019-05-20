@@ -31,40 +31,34 @@ typedef std::numeric_limits<int16_t> limits_int16;
 // The ratio conversion functions use this naming convention:
 // Ratio: float (0, +inf)
 // Db: float (-inf, +inf)
-static inline int16_t FloatToS16(float v) {
-  if (v > 0)
-    return v >= 1 ? limits_int16::max()
-                  : static_cast<int16_t>(v * limits_int16::max() + 0.5f);
-  return v <= -1 ? limits_int16::min()
-                 : static_cast<int16_t>(-v * limits_int16::min() - 0.5f);
-}
-
 static inline float S16ToFloat(int16_t v) {
-  static const float kMaxInt16Inverse = 1.f / limits_int16::max();
-  static const float kMinInt16Inverse = 1.f / limits_int16::min();
-  return v * (v > 0 ? kMaxInt16Inverse : -kMinInt16Inverse);
+  constexpr float scaling = 1.f / 32768.f;
+  return v * scaling;
 }
 
 static inline int16_t FloatS16ToS16(float v) {
-  static const float kMaxRound = limits_int16::max() - 0.5f;
-  static const float kMinRound = limits_int16::min() + 0.5f;
-  if (v > 0)
-    return v >= kMaxRound ? limits_int16::max()
-                          : static_cast<int16_t>(v + 0.5f);
-  return v <= kMinRound ? limits_int16::min() : static_cast<int16_t>(v - 0.5f);
+  v = std::min(v, 32767.f);
+  v = std::max(v, -32768.f);
+  return static_cast<int16_t>(v + std::copysign(0.5f, v));
 }
 
 static inline float FloatToFloatS16(float v) {
-  return v * (v > 0 ? limits_int16::max() : -limits_int16::min());
+  float v_scaled = v * 32768.f;
+  v_scaled = std::min(v_scaled, 32767.f);
+  v_scaled = std::max(v_scaled, -32768.f);
+  return v_scaled;
 }
 
 static inline float FloatS16ToFloat(float v) {
-  static const float kMaxInt16Inverse = 1.f / limits_int16::max();
-  static const float kMinInt16Inverse = 1.f / limits_int16::min();
-  return v * (v > 0 ? kMaxInt16Inverse : -kMinInt16Inverse);
+  constexpr float scaling = 1.f / 32768.f;
+
+  float v_scaled = v * scaling;
+  v_scaled = std::min(v_scaled, 1.f);
+  v_scaled = std::max(v_scaled, -1.f);
+
+  return v_scaled;
 }
 
-void FloatToS16(const float* src, size_t size, int16_t* dest);
 void S16ToFloat(const int16_t* src, size_t size, float* dest);
 void FloatS16ToS16(const float* src, size_t size, int16_t* dest);
 void FloatToFloatS16(const float* src, size_t size, float* dest);

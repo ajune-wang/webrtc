@@ -305,11 +305,13 @@ int64_t RtpTransportControllerSend::GetFirstPacketTimeMs() const {
   return pacer_.FirstSentPacketTimeMs();
 }
 void RtpTransportControllerSend::EnablePeriodicAlrProbing(bool enable) {
-  task_queue_.PostTask([this, enable]() {
-    RTC_DCHECK_RUN_ON(&task_queue_);
-    streams_config_.requests_alr_probing = enable;
-    UpdateStreamsConfig();
-  });
+  if (!task_queue_.IsCurrent()) {
+    task_queue_.PostTask(
+        [this, enable]() { EnablePeriodicAlrProbing(enable); });
+  }
+  RTC_DCHECK_RUN_ON(&task_queue_);
+  streams_config_.requests_alr_probing = enable;
+  UpdateStreamsConfig();
 }
 void RtpTransportControllerSend::OnSentPacket(
     const rtc::SentPacket& sent_packet) {

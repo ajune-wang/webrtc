@@ -1373,7 +1373,7 @@ PeerConnection::AddTrackUnifiedPlan(
           RtpTransceiverDirection::kSendOnly);
     }
     transceiver->sender()->SetTrack(track);
-    transceiver->internal()->sender_internal()->SetStreamIDs(stream_ids);
+    transceiver->internal()->sender_internal()->set_stream_ids(stream_ids);
   } else {
     cricket::MediaType media_type =
         (track->kind() == MediaStreamTrackInterface::kAudioKind
@@ -1644,7 +1644,7 @@ PeerConnection::CreateSender(
   }
   bool set_track_succeeded = sender->SetTrack(track);
   RTC_DCHECK(set_track_succeeded);
-  sender->internal()->SetStreamIDs(stream_ids);
+  sender->internal()->set_stream_ids(stream_ids);
   sender->internal()->set_init_send_encodings(send_encodings);
   return sender;
 }
@@ -1738,7 +1738,7 @@ rtc::scoped_refptr<RtpSenderInterface> PeerConnection::CreateSender(
     RTC_LOG(LS_ERROR) << "CreateSender called with invalid kind: " << kind;
     return nullptr;
   }
-  new_sender->internal()->SetStreamIDs(stream_ids);
+  new_sender->internal()->set_stream_ids(stream_ids);
 
   return new_sender;
 }
@@ -2361,7 +2361,7 @@ RTCError PeerConnection::ApplyLocalDescription(
       } else {
         // Get the StreamParams from the channel which could generate SSRCs.
         const std::vector<StreamParams>& streams = channel->local_streams();
-        transceiver->internal()->sender_internal()->SetStreamIDs(
+        transceiver->internal()->sender_internal()->set_stream_ids(
             streams[0].stream_ids());
         transceiver->internal()->sender_internal()->SetSsrc(
             streams[0].first_ssrc());
@@ -4010,7 +4010,7 @@ void PeerConnection::AddAudioTrack(AudioTrackInterface* track,
   if (sender) {
     // We already have a sender for this track, so just change the stream_id
     // so that it's correct in the next call to CreateOffer.
-    sender->internal()->SetStreamIDs({stream->id()});
+    sender->internal()->set_stream_ids({stream->id()});
     return;
   }
 
@@ -4055,7 +4055,7 @@ void PeerConnection::AddVideoTrack(VideoTrackInterface* track,
   if (sender) {
     // We already have a sender for this track, so just change the stream_id
     // so that it's correct in the next call to CreateOffer.
-    sender->internal()->SetStreamIDs({stream->id()});
+    sender->internal()->set_stream_ids({stream->id()});
     return;
   }
 
@@ -4987,7 +4987,7 @@ void PeerConnection::OnLocalSenderAdded(const RtpSenderInfo& sender_info,
     return;
   }
 
-  sender->internal()->SetStreamIDs({sender_info.stream_id});
+  sender->internal()->set_stream_ids({sender_info.stream_id});
   sender->internal()->SetSsrc(sender_info.first_ssrc);
 }
 
@@ -7130,7 +7130,7 @@ bool PeerConnection::OnTransportChanged(
   return ret;
 }
 
-void PeerConnection::OnSetStreamIDs() {
+void PeerConnection::OnSetStreams() {
   RTC_DCHECK_RUN_ON(signaling_thread());
   if (IsUnifiedPlan())
     UpdateNegotiationNeeded();

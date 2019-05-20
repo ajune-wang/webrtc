@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48df7f0a_c72e62d6",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-20T13:31:32Z",
+      "side": 1,
+      "message": "these assumed 48 khz too",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 36
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e5c89e6_ece31e2b",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-20T13:31:32Z",
+      "side": 1,
+      "message": "allign?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 75
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b278fe2a_eab4063d",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-20T13:31:32Z",
+      "side": 1,
+      "message": "how about this?",
+      "range": {
+        "startLine": 388,
+        "startChar": 41,
+        "endLine": 388,
+        "endChar": 46
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a03856c8_31552a23",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-20T13:31:32Z",
+      "side": 1,
+      "message": "and this?",
+      "range": {
+        "startLine": 580,
+        "startChar": 59,
+        "endLine": 580,
+        "endChar": 64
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c753a7d3_95b86b34",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-20T13:31:32Z",
+      "side": 1,
+      "message": "and this?",
+      "range": {
+        "startLine": 606,
+        "startChar": 64,
+        "endLine": 606,
+        "endChar": 69
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6b65f9a_494d0ade",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-20T13:31:32Z",
+      "side": 1,
+      "message": "and this?",
+      "range": {
+        "startLine": 630,
+        "startChar": 55,
+        "endLine": 630,
+        "endChar": 60
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6eae4c30_5f97681d",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-20T13:31:32Z",
+      "side": 1,
+      "message": "and this?",
+      "range": {
+        "startLine": 652,
+        "startChar": 65,
+        "endLine": 652,
+        "endChar": 70
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02e86fde_22636437",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-20T13:31:32Z",
+      "side": 1,
+      "message": "how about this?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 43
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

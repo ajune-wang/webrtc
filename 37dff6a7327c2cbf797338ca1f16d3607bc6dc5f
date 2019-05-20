@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "410ceaab_f5d8b0c8",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-20T05:12:50Z",
+      "side": 1,
+      "message": "I think a comment regarding the purpose of the struct would be good.\n\nAlso,as mentioned below, I think part of the functionality below should be moved into this.",
+      "revId": "37dff6a7327c2cbf797338ca1f16d3607bc6dc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "105fe148_c66b0fb1",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-20T05:12:50Z",
+      "side": 1,
+      "message": "This name is quite non-intuitive to me in the sense that I have no idea what it means, even though I fairly well know the implementation of the RuntimeSetting scheme.\n\nWould it be possible to change the naming so that what is return becomes more clear from the name?",
+      "range": {
+        "startLine": 119,
+        "startChar": 55,
+        "endLine": 119,
+        "endChar": 64
+      },
+      "revId": "37dff6a7327c2cbf797338ca1f16d3607bc6dc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b45bb21_2db5903d",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-20T05:12:50Z",
+      "side": 1,
+      "message": "Could you separate this code into a separate method? This seems very standalone to the rest of the code and moving it to a separate method would more explicitly show that as well as simplify the reading of the code.",
+      "range": {
+        "startLine": 167,
+        "startChar": 2,
+        "endLine": 167,
+        "endChar": 20
+      },
+      "revId": "37dff6a7327c2cbf797338ca1f16d3607bc6dc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa0256db_06ecb9fa",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-20T05:12:50Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be better to put this logic into the struct (and make it a class)? The struct is already quite advanced and most of the information needed for the printout is anyway available in the struct.",
+      "range": {
+        "startLine": 456,
+        "startChar": 10,
+        "endLine": 468,
+        "endChar": 11
+      },
+      "revId": "37dff6a7327c2cbf797338ca1f16d3607bc6dc5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

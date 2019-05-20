@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': 'e7b2a8fc984d5771938971bb691b2408ce4363cd',
+  'chromium_revision': 'f6a3d44c27d925ef672a23422a18158891098d45',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -32,7 +32,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling freetype
   # and whatever else without interference from each other.
-  'freetype_revision': '31757f969fba60d75404f31e8f1168bef5011770',
+  'freetype_revision': '2f4b740ce435bc1ad5ef8570bb91ab7cd5682720',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling HarfBuzz
   # and whatever else without interference from each other.
@@ -88,7 +88,7 @@ deps = {
   'src/base':
     Var('chromium_git') + '/chromium/src/base' + '@' + '2264d66e4ee61cf972af21b1d97398c33d698804',
   'src/build':
-    Var('chromium_git') + '/chromium/src/build' + '@' + 'd29d3d06ced1cddffc49532e079223188af615b9',
+    Var('chromium_git') + '/chromium/src/build' + '@' + '214debc9e9b1ec1070a7c0d2250c5d6e95b51426',
   'src/buildtools':
     Var('chromium_git') + '/chromium/src/buildtools' + '@' + '9ea486bd0649b7459c041ff74c6d17b5c3f96eda',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -98,13 +98,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '4a1d64ef9817bab4c1258dab1c0dd18311ed1f6b',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '62828d8e2576175dbe586f18bdb1cb2b9405a7fc',
     'condition': 'checkout_ios',
   },
   'src/testing':
     Var('chromium_git') + '/chromium/src/testing' + '@' + '0041123f7454611a5c28dcf0e950dc2ead9bde3c',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + 'd60635378e4e305b6d959a930c676601319634a0',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + '66770532345bd118b34fcb78e0d9ab63552c8732',
 
   'src/buildtools/linux64': {
     'packages': [

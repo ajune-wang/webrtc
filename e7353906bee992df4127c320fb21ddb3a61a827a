@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89be840e_17b4dfdd",
+        "filename": "logging/rtc_event_log/rtc_event_log.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-21T12:21:35Z",
+      "side": 1,
+      "message": "nit: it",
+      "range": {
+        "startLine": 55,
+        "startChar": 15,
+        "endLine": 55,
+        "endChar": 17
+      },
+      "revId": "e7353906bee992df4127c320fb21ddb3a61a827a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

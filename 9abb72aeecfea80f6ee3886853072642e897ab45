@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56de1d13_ab3c7e5a",
+        "filename": "logging/rtc_event_log/rtc_event_log.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-21T12:11:53Z",
+      "side": 1,
+      "message": "Could we create this version of the log from a factory instead?\nCould we make the factory internal to the scenario tests?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 57
+      },
+      "revId": "9abb72aeecfea80f6ee3886853072642e897ab45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e0fb82c_27fa8cba",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-21T12:11:53Z",
+      "side": 1,
+      "message": "MaybeWriteOutputImmediately",
+      "range": {
+        "startLine": 152,
+        "startChar": 21,
+        "endLine": 152,
+        "endChar": 37
+      },
+      "revId": "9abb72aeecfea80f6ee3886853072642e897ab45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b328b9b3_8d92e4e7",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-21T12:11:53Z",
+      "side": 1,
+      "message": "Could we just move the \"if (event_output)\" into LogEventsFromMemoryToOutput(), and call that directly?",
+      "range": {
+        "startLine": 179,
+        "startChar": 21,
+        "endLine": 179,
+        "endChar": 36
+      },
+      "revId": "9abb72aeecfea80f6ee3886853072642e897ab45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45d475fb_8b60bde8",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-21T12:11:53Z",
+      "side": 1,
+      "message": "The naming doesn\u0027t make it clear how RtcEventLog, RtcEventLogger and RtcEventLogImpl are related. I think I\u0027d prefer\ns/RtcEventLogImpl/DefaultRtcEventLog/\ns/RtcEventLogger/RtcEventLogImpl/\ns/logger_/impl_/",
+      "range": {
+        "startLine": 287,
+        "startChar": 2,
+        "endLine": 287,
+        "endChar": 16
+      },
+      "revId": "9abb72aeecfea80f6ee3886853072642e897ab45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c87838b_95d06f43",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-21T12:11:53Z",
+      "side": 1,
+      "message": "bool written \u003d logger_.MaybeWriteOutputImmediately()\nif (written)\n  return;",
+      "range": {
+        "startLine": 380,
+        "startChar": 0,
+        "endLine": 380,
+        "endChar": 35
+      },
+      "revId": "9abb72aeecfea80f6ee3886853072642e897ab45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cda3be3_09729a62",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-21T12:11:53Z",
+      "side": 1,
+      "message": "Please add a comment that that explains what this class is for and why people generally shouldn\u0027t use it.",
+      "range": {
+        "startLine": 400,
+        "startChar": 6,
+        "endLine": 400,
+        "endChar": 27
+      },
+      "revId": "9abb72aeecfea80f6ee3886853072642e897ab45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

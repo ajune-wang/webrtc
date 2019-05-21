@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78379d3e_c22c14d2",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-21T07:44:20Z",
+      "side": 1,
+      "message": "I think this is a writer and I would suggest naming it accordingly\nRuntimeSettingWriter.\n\nI think it is more correct that it writes files rather than exporting files, and I think that is easier for the reader to understand.",
+      "range": {
+        "startLine": 114,
+        "startChar": 6,
+        "endLine": 114,
+        "endChar": 28
+      },
+      "revId": "ba5bbb46344ceeade8a1f289c3d11cc45a32f19d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb14059b_380d984b",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-21T07:44:20Z",
+      "side": 1,
+      "message": "This looks like a perfect candidate for a map-lookup rather than polling.\n \nThe ideal approach would be to use a map to achieve a construct such as\n\nruntime_messages_[event_msg].WriteEvent(...);\n\nThe second best I think would be to write the code to use a switch-statement to select the correct event.\n\nI don\u0027t like the current approach, where the code polls all the exporters in a for-loop. This is test code, so performance is not an issue but I still think the code becomes more complicated by this approach. One example is that the map and switch approaches will avoid a lot of the boilerplate code required to set up the std::vector\u003cRuntimeSettingExporter\u003e",
+      "range": {
+        "startLine": 503,
+        "startChar": 8,
+        "endLine": 507,
+        "endChar": 9
+      },
+      "revId": "ba5bbb46344ceeade8a1f289c3d11cc45a32f19d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

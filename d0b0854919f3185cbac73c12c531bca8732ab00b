@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "d732e1da_f5554712",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-21T08:58:03Z",
+      "side": 1,
+      "message": "Fix the CL description:\n\nTitle (no \"according to webrtc:3098\")\n\nDescription...\n...\n\nBug: webrtc:3098",
+      "revId": "d0b0854919f3185cbac73c12c531bca8732ab00b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "874a8f98_84a998eb",
         "filename": "api/peer_connection_interface.h",
         "patchSetId": 2

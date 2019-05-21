@@ -38,6 +38,8 @@ class FakeSctpTransport : public cricket::SctpTransportInternal {
   void set_debug_name_for_testing(const char* debug_name) override {}
 
   int max_message_size() const { return max_message_size_; }
+  int max_outbound_streams() const { return -1; }
+  int max_inbound_streams() const { return -1; }
   int local_port() const { return *local_port_; }
   int remote_port() const { return *remote_port_; }
 

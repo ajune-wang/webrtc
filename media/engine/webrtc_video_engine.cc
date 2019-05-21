@@ -130,6 +130,7 @@ std::vector<VideoCodec> AssignPayloadTypesAndDefaultCodecs(
 
 std::vector<VideoCodec> AssignPayloadTypesAndDefaultCodecs(
     const webrtc::VideoEncoderFactory* encoder_factory) {
+  // TODO: !!! When might we have an encoder factory?
   return encoder_factory ? AssignPayloadTypesAndDefaultCodecs(
                                encoder_factory->GetSupportedFormats())
                          : std::vector<VideoCodec>();
@@ -917,6 +918,7 @@ bool WebRtcVideoChannel::GetChangedRecvParameters(
     return false;
   }
 
+  // TODO: !!! This looks interesting.
   // Verify that every mapped codec is supported locally.
   const std::vector<VideoCodec> local_supported_codecs =
       AssignPayloadTypesAndDefaultCodecs(encoder_factory_);
@@ -1872,6 +1874,11 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::SetCodec(
       parameters_.config.rtp.rtx.payload_type = codec_settings.rtx_payload_type;
     }
   }
+
+  // TODO: !!! Make sure the receiver configures as well as sends back to the
+  // sender that LNTF is supported iff the field trial is enabled.
+  parameters_.config.rtp.lntf.enabled =
+      HasLossNotification(codec_settings.codec);
 
   parameters_.config.rtp.nack.rtp_history_ms =
       HasNack(codec_settings.codec) ? kNackHistoryMs : 0;

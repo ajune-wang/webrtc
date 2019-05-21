@@ -1648,6 +1648,7 @@ bool WebRtcVoiceMediaChannel::SetSendCodecs(
       }
       send_codec_spec->transport_cc_enabled = HasTransportCc(voice_codec);
       send_codec_spec->nack_enabled = HasNack(voice_codec);
+      // TODO: !!! Do I want to remember something here?
       bitrate_config = GetBitrateConfigForCodec(voice_codec);
       break;
     }

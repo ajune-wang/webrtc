@@ -121,23 +121,27 @@ void ObjCCallClient::CreatePeerConnectionFactory() {
   std::unique_ptr<webrtc::VideoBitrateAllocatorFactory> videoBitrateAllocatorFactory =
       webrtc::CreateBuiltinVideoBitrateAllocatorFactory();
 
-  std::unique_ptr<cricket::MediaEngineInterface> media_engine =
-      cricket::WebRtcMediaEngineFactory::Create(nullptr /* adm */,
-                                                webrtc::CreateBuiltinAudioEncoderFactory(),
-                                                webrtc::CreateBuiltinAudioDecoderFactory(),
-                                                std::move(videoEncoderFactory),
-                                                std::move(videoDecoderFactory),
-                                                std::move(videoBitrateAllocatorFactory),
-                                                nullptr /* audio_mixer */,
-                                                webrtc::AudioProcessingBuilder().Create());
+  cricket::MediaEngineDependencies media_dependencies;
+  media_dependencies.audio_encoder_factory = webrtc::CreateBuiltinAudioEncoderFactory();
+  media_dependencies.audio_decoder_factory = webrtc::CreateBuiltinAudioDecoderFactory();
+  media_dependencies.audio_processing = webrtc::AudioProcessingBuilder().Create();
+  media_dependencies.video_encoder_factory = std::move(videoEncoderFactory);
+  media_dependencies.video_decoder_factory = std::move(videoDecoderFactory);
+
+  auto media_engine = cricket::CreateMediaEngine(std::move(media_dependencies));
+
   RTC_LOG(LS_INFO) << "Media engine created: " << media_engine.get();
 
-  pcf_ = webrtc::CreateModularPeerConnectionFactory(network_thread_.get(),
-                                                    worker_thread_.get(),
-                                                    signaling_thread_.get(),
-                                                    std::move(media_engine),
-                                                    webrtc::CreateCallFactory(),
-                                                    webrtc::CreateRtcEventLogFactory());
+  webrtc::PeerConnectionFactoryDependencies dependencies;
+  dependencies.network_thread = network_thread_.get();
+  dependencies.worker_thread = worker_thread_.get();
+  dependencies.signaling_thread = signaling_thread_.get();
+  dependencies.media_engine = std::move(media_engine);
+  dependencies.call_factory = webrtc::CreateCallFactory();
+  dependencies.event_log_factory = webrtc::CreateRtcEventLogFactory();
+  dependencies.video_bitrate_allocator_factory = std::move(videoBitrateAllocatorFactory);
+  pcf_ = webrtc::CreateModularPeerConnectionFactory(std::move(dependencies));
+
   RTC_LOG(LS_INFO) << "PeerConnectionFactory created: " << pcf_;
 }
 

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69472991_2567b157",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-21T13:52:06Z",
+      "side": 1,
+      "message": "nit: logging_state_active_? logging_state_started_? output_started_?",
+      "range": {
+        "startLine": 288,
+        "startChar": 7,
+        "endLine": 288,
+        "endChar": 25
+      },
+      "revId": "27cd97128b97a2b9e2882159843b90a9a2db9e30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "631605ca_4b5bd567",
+        "filename": "test/scenario/scenario_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-05-21T13:52:06Z",
+      "side": 1,
+      "message": "nit: been created",
+      "range": {
+        "startLine": 144,
+        "startChar": 40,
+        "endLine": 144,
+        "endChar": 51
+      },
+      "revId": "27cd97128b97a2b9e2882159843b90a9a2db9e30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

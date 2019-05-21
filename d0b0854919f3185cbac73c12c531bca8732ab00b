@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "874a8f98_84a998eb",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-21T08:57:03Z",
+      "side": 1,
+      "message": "Add a link to appropriate spec section",
+      "revId": "d0b0854919f3185cbac73c12c531bca8732ab00b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70fe3a7d_8afbb6de",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-21T08:57:03Z",
+      "side": 1,
+      "message": "This is unsigned short in the spec: Consider using uint16_t instead of int\nhttps://w3c.github.io/webrtc-pc/#dom-rtcpeerconnectioniceerrorevent",
+      "revId": "d0b0854919f3185cbac73c12c531bca8732ab00b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f20b3290_e253e3a4",
+        "filename": "p2p/base/ice_transport_internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-21T08:57:03Z",
+      "side": 1,
+      "message": "Since it\u0027s not clear what this does without a bunch of comments I suggest introducing a new struct with named variables. This struct can be used in all places where arguments are listed in this CL.",
+      "revId": "d0b0854919f3185cbac73c12c531bca8732ab00b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b0d0ee4_834c33ec",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-21T08:57:03Z",
+      "side": 1,
+      "message": "nit: Empty line before and after function",
+      "revId": "d0b0854919f3185cbac73c12c531bca8732ab00b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

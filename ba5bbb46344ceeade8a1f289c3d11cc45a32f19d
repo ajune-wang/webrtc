@@ -45,6 +45,30 @@
       "revId": "ba5bbb46344ceeade8a1f289c3d11cc45a32f19d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a4e6b48_30677409",
+        "filename": "rtc_tools/unpack_aecdump/unpack.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 9263
+      },
+      "writtenOn": "2019-05-21T08:23:42Z",
+      "side": 1,
+      "message": "I talked about this offline with Alessio, and there is no way to get around looping/a linear number of else-if:s. This is because the runtime event type is not saved in the proto, instead the type is determined by checking what fields are set in the proto. (as seen here, for example https://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/test/aec_dump_based_simulator.cc?l\u003d568 ) This is what happens in IsExporterFor.\n\nAs I see it, there are two options:\n\n1) Keep it as it is now, where RuntimeSettingExporters (stored in a vector) are responsible for recognizing which type of events they\u0027re supposed to handle and looping through them.\n + you only have to add code in one place when handling a new type of runtime setting (this is why I chose the current approach to begin with, to me it feels less error prone?)\n + less code, we don\u0027t have to create a new enum and a new function\n - looping through exporters is less clear than a map lookup\n\n2) Add an enum for runtime setting type, and add a function that takes an event and returns the enum. The event-\u003eenum function will contain as many else-if:s as there are enum values. RuntimeSettingExporters are stored in a map indexed by the enum.\n + increased clarity, we can store RuntimeSettingExporters in a map\n - we have to add code in three places when handling a new type of event. Once to add another enum value, once to add another else-if in the event-\u003eenum function, and once to add a new RuntimeSettingExporter to the map.\n\nI don\u0027t think it\u0027s obvious that we\u0027d gain performance with the second approach?",
+      "parentUuid": "bb14059b_380d984b",
+      "range": {
+        "startLine": 503,
+        "startChar": 8,
+        "endLine": 507,
+        "endChar": 9
+      },
+      "revId": "ba5bbb46344ceeade8a1f289c3d11cc45a32f19d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

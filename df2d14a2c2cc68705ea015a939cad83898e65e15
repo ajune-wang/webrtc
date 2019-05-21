@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e74e7815_5cf41df1",
+        "filename": "modules/audio_coding/neteq/histogram.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-05-21T09:57:35Z",
+      "side": 1,
+      "message": "This actually doesn\u0027t need to be here, we can calculate the forget factor at the start of the function. We also don\u0027t need to keep the forget_factor_ in the state any more, which is nice. But keeping it here just so that we update in the same place while we have the old behavior.",
+      "range": {
+        "startLine": 111,
+        "startChar": 6,
+        "endLine": 111,
+        "endChar": 26
+      },
+      "revId": "df2d14a2c2cc68705ea015a939cad83898e65e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

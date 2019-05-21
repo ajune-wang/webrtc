@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e91b5ede_81d454bf",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-21T08:37:17Z",
+      "side": 1,
+      "message": "Remove this method and don\u0027t connect it?",
+      "revId": "71beda2ff3bb614438c4b14cfdb49a7e2cd58c67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35a6e682_68df50d6",
+        "filename": "pc/sctp_transport_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-21T08:37:17Z",
+      "side": 1,
+      "message": "Do we have any integration test in webrtc and/or in wpt that verifies that the negotiated channels are in fact what is surfaced?",
+      "revId": "71beda2ff3bb614438c4b14cfdb49a7e2cd58c67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

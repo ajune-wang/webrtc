@@ -51,6 +51,11 @@ class RtcEventLog {
   // which it would be permissible to read and/or modify it.
   virtual void StopLogging() = 0;
 
+  // Stops logging to file and calls |callback| when the file has been closed.
+  // Note that it is not safe to call any other members, including the
+  // destructor, until the callback has been called.
+  virtual void StopLogging(std::function<void()> callback) = 0;
+
   // Log an RTC event (the type of event is determined by the subclass).
   virtual void Log(std::unique_ptr<RtcEvent> event) = 0;
 };
@@ -62,6 +67,7 @@ class RtcEventLogNullImpl : public RtcEventLog {
                     int64_t output_period_ms) override;
   void StopLogging() override {}
   void Log(std::unique_ptr<RtcEvent> event) override {}
+  void StopLogging(std::function<void()> callback) override { callback(); }
 };
 
 }  // namespace webrtc

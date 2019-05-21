@@ -1525,27 +1525,26 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
 }
 
 void VideoStreamEncoder::OnDroppedFrame(DropReason reason) {
+  RTC_DCHECK_RUN_ON(&encoder_queue_);
+
   switch (reason) {
     case DropReason::kDroppedByMediaOptimizations:
       encoder_stats_observer_->OnFrameDropped(
           VideoStreamEncoderObserver::DropReason::kMediaOptimization);
-      encoder_queue_.PostTask([this] {
-        RTC_DCHECK_RUN_ON(&encoder_queue_);
-        if (quality_scaler_)
-          quality_scaler_->ReportDroppedFrameByMediaOpt();
-      });
+      if (quality_scaler_)
+        quality_scaler_->ReportDroppedFrameByMediaOpt();
       break;
     case DropReason::kDroppedByEncoder:
       encoder_stats_observer_->OnFrameDropped(
           VideoStreamEncoderObserver::DropReason::kEncoder);
-      encoder_queue_.PostTask([this] {
-        RTC_DCHECK_RUN_ON(&encoder_queue_);
-        if (quality_scaler_)
-          quality_scaler_->ReportDroppedFrameByEncoder();
-      });
+      if (quality_scaler_)
+        quality_scaler_->ReportDroppedFrameByEncoder();
       break;
   }
 }
+
+void webrtc::VideoStreamEncoder::HandleDroppedFrame(
+    webrtc::EncodedImageCallback::DropReason reason) {}
 
 void VideoStreamEncoder::OnBitrateUpdated(DataRate target_bitrate,
                                           DataRate link_allocation,

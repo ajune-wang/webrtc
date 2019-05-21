@@ -97,13 +97,15 @@ void FrameBuffer::StartWaitForNextFrameOnQueue() {
         rtc::CritScope lock(&crit_);
         if (!frames_to_decode_.empty()) {
           // We have frames, deliver!
-          frame_handler_(absl::WrapUnique(GetNextFrame()), kFrameFound);
+          auto handler = std::move(frame_handler_);
           CancelCallback();
+          handler(absl::WrapUnique(GetNextFrame()), kFrameFound);
           return TimeDelta::Zero();  // Ignored.
         } else if (clock_->TimeInMilliseconds() >= latest_return_time_ms_) {
           // We have timed out, signal this and stop repeating.
-          frame_handler_(nullptr, kTimeout);
+          auto handler = std::move(frame_handler_);
           CancelCallback();
+          handler(nullptr, kTimeout);
           return TimeDelta::Zero();  // Ignored.
         } else {
           // If there's no frames to decode and there is still time left, it

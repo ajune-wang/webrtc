@@ -159,6 +159,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
   void OnDroppedFrame(EncodedImageCallback::DropReason reason) override;
 
+  void HandleDroppedFrame(EncodedImageCallback::DropReason reason)
+      RTC_RUN_ON(&encoder_queue_);
+
   bool EncoderPaused() const;
   void TraceFrameDropStart();
   void TraceFrameDropEnd();

@@ -97,7 +97,12 @@ class RepeatingTaskHandle {
         webrtc_repeating_task_impl::RepeatingTaskImpl<Closure>>(
         task_queue, TimeDelta::Zero(), std::forward<Closure>(closure));
     auto* repeating_task_ptr = repeating_task.get();
-    task_queue->PostTask(std::move(repeating_task));
+    if (task_queue->IsCurrent()) {
+      RTC_CHECK(!repeating_task->Run());
+      repeating_task.release();
+    } else {
+      task_queue->PostTask(std::move(repeating_task));
+    }
     return RepeatingTaskHandle(repeating_task_ptr);
   }
 

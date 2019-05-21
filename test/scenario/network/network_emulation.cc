@@ -38,7 +38,7 @@ void LinkEmulation::OnPacketReceived(EmulatedIpPacket packet) {
     LinkEmulation* link;
     EmulatedIpPacket packet;
   };
-  task_queue_->PostTask(Closure{this, std::move(packet)});
+  task_queue_->PostDelayedTask(Closure{this, std::move(packet)}, 0);
 }
 
 void LinkEmulation::HandlePacketReceived(EmulatedIpPacket packet) {

@@ -602,28 +602,20 @@ void VideoReceiveStream::StartNextDecode() {
   RTC_DCHECK(use_task_queue_);
   TRACE_EVENT0("webrtc", "VideoReceiveStream::StartNextDecode");
 
-  struct DecodeTask {
-    void operator()() {
-      RTC_DCHECK_RUN_ON(&stream->decode_queue_);
-      if (stream->decoder_stopped_)
-        return;
-      if (frame) {
-        stream->HandleEncodedFrame(std::move(frame));
-      } else {
-        stream->HandleFrameBufferTimeout();
-      }
-      stream->StartNextDecode();
-    }
-    VideoReceiveStream* stream;
-    std::unique_ptr<EncodedFrame> frame;
-  };
-
   frame_buffer_->NextFrame(
       GetWaitMs(), keyframe_required_, &decode_queue_,
       [this](std::unique_ptr<EncodedFrame> frame, ReturnReason res) {
         RTC_DCHECK_EQ(frame == nullptr, res == ReturnReason::kTimeout);
         RTC_DCHECK_EQ(frame != nullptr, res == ReturnReason::kFrameFound);
-        decode_queue_.PostTask(DecodeTask{this, std::move(frame)});
+        RTC_DCHECK_RUN_ON(&decode_queue_);
+        if (decoder_stopped_)
+          return;
+        if (frame) {
+          HandleEncodedFrame(std::move(frame));
+        } else {
+          HandleFrameBufferTimeout();
+        }
+        StartNextDecode();
       });
 }
 

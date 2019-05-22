@@ -46,6 +46,30 @@
       "revId": "fa4df5f9ee1407f7871b5722ba6da50f27352aec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1987f56e_39ae9081",
+        "filename": "p2p/base/stun_port.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-22T21:35:50Z",
+      "side": 1,
+      "message": "Added comments to elaborate the handling of DCHECK per our offline discussion.",
+      "parentUuid": "4ace9a0f_0e91eb5a",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 3
+      },
+      "revId": "fa4df5f9ee1407f7871b5722ba6da50f27352aec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

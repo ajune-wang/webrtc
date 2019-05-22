@@ -17,6 +17,7 @@
 #include "api/task_queue/task_queue_factory.h"
 #include "api/transport/network_control.h"
 #include "call/audio_state.h"
+#include "rtc_base/experiments/field_trial_manager.h"
 
 namespace webrtc {
 
@@ -24,7 +25,8 @@ class AudioProcessing;
 class RtcEventLog;
 
 struct CallConfig {
-  explicit CallConfig(RtcEventLog* event_log);
+  explicit CallConfig(RtcEventLog* event_log,
+                      FieldTrialManager* field_trial_manager);
   CallConfig(const CallConfig&);
   ~CallConfig();
 
@@ -56,6 +58,9 @@ struct CallConfig {
 
   // Network controller factory to use for this call.
   NetworkControllerFactoryInterface* network_controller_factory = nullptr;
+
+  // Field trial manager for this call. Required.
+  FieldTrialManager* field_trial_manager = nullptr;
 };
 
 }  // namespace webrtc

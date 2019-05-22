@@ -14,8 +14,11 @@
 
 namespace webrtc {
 
-CallConfig::CallConfig(RtcEventLog* event_log) : event_log(event_log) {
+CallConfig::CallConfig(RtcEventLog* event_log,
+                       FieldTrialManager* field_trial_manager)
+    : event_log(event_log), field_trial_manager(field_trial_manager) {
   RTC_DCHECK(event_log);
+  RTC_DCHECK(field_trial_manager);
 }
 
 CallConfig::CallConfig(const CallConfig& config) = default;

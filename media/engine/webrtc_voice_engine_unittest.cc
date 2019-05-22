@@ -3447,6 +3447,7 @@ TEST_F(WebRtcVoiceEngineTestFake, GetSourcesWithNonExistingSsrc) {
 
 // Tests that the library initializes and shuts down properly.
 TEST(WebRtcVoiceEngineTest, StartupShutdown) {
+  webrtc::DefaultFieldTrialManager field_trial_manager;
   // If the VoiceEngine wants to gather available codecs early, that's fine but
   // we never want it to create a decoder at this stage.
   std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory =
@@ -3460,8 +3461,8 @@ TEST(WebRtcVoiceEngineTest, StartupShutdown) {
       webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm);
   engine.Init();
   webrtc::RtcEventLogNullImpl event_log;
-  std::unique_ptr<webrtc::Call> call(
-      webrtc::Call::Create(webrtc::Call::Config(&event_log)));
+  std::unique_ptr<webrtc::Call> call(webrtc::Call::Create(
+      webrtc::Call::Config(&event_log, &field_trial_manager)));
   cricket::VoiceMediaChannel* channel = engine.CreateMediaChannel(
       call.get(), cricket::MediaConfig(), cricket::AudioOptions(),
       webrtc::CryptoOptions());
@@ -3473,6 +3474,7 @@ TEST(WebRtcVoiceEngineTest, StartupShutdown) {
 TEST(WebRtcVoiceEngineTest, StartupShutdownWithExternalADM) {
   std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory =
       webrtc::CreateDefaultTaskQueueFactory();
+  webrtc::DefaultFieldTrialManager field_trial_manager;
   ::testing::NiceMock<webrtc::test::MockAudioDeviceModule> adm;
   EXPECT_CALL(adm, AddRef()).Times(3);
   EXPECT_CALL(adm, Release())
@@ -3487,8 +3489,8 @@ TEST(WebRtcVoiceEngineTest, StartupShutdownWithExternalADM) {
         webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm);
     engine.Init();
     webrtc::RtcEventLogNullImpl event_log;
-    std::unique_ptr<webrtc::Call> call(
-        webrtc::Call::Create(webrtc::Call::Config(&event_log)));
+    std::unique_ptr<webrtc::Call> call(webrtc::Call::Create(
+        webrtc::Call::Config(&event_log, &field_trial_manager)));
     cricket::VoiceMediaChannel* channel = engine.CreateMediaChannel(
         call.get(), cricket::MediaConfig(), cricket::AudioOptions(),
         webrtc::CryptoOptions());
@@ -3551,6 +3553,7 @@ TEST(WebRtcVoiceEngineTest, HasCorrectPayloadTypeMapping) {
 TEST(WebRtcVoiceEngineTest, Has32Channels) {
   std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory =
       webrtc::CreateDefaultTaskQueueFactory();
+  webrtc::DefaultFieldTrialManager field_trial_manager;
   ::testing::NiceMock<webrtc::test::MockAudioDeviceModule> adm;
   rtc::scoped_refptr<webrtc::AudioProcessing> apm =
       webrtc::AudioProcessingBuilder().Create();
@@ -3560,8 +3563,8 @@ TEST(WebRtcVoiceEngineTest, Has32Channels) {
       webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm);
   engine.Init();
   webrtc::RtcEventLogNullImpl event_log;
-  std::unique_ptr<webrtc::Call> call(
-      webrtc::Call::Create(webrtc::Call::Config(&event_log)));
+  std::unique_ptr<webrtc::Call> call(webrtc::Call::Create(
+      webrtc::Call::Config(&event_log, &field_trial_manager)));
 
   cricket::VoiceMediaChannel* channels[32];
   size_t num_channels = 0;
@@ -3586,6 +3589,7 @@ TEST(WebRtcVoiceEngineTest, Has32Channels) {
 TEST(WebRtcVoiceEngineTest, SetRecvCodecs) {
   std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory =
       webrtc::CreateDefaultTaskQueueFactory();
+  webrtc::DefaultFieldTrialManager field_trial_manager;
   // TODO(ossu): I'm not sure of the intent of this test. It's either:
   // - Check that our builtin codecs are usable by Channel.
   // - The codecs provided by the engine is usable by Channel.
@@ -3602,8 +3606,8 @@ TEST(WebRtcVoiceEngineTest, SetRecvCodecs) {
       webrtc::CreateBuiltinAudioDecoderFactory(), nullptr, apm);
   engine.Init();
   webrtc::RtcEventLogNullImpl event_log;
-  std::unique_ptr<webrtc::Call> call(
-      webrtc::Call::Create(webrtc::Call::Config(&event_log)));
+  std::unique_ptr<webrtc::Call> call(webrtc::Call::Create(
+      webrtc::Call::Config(&event_log, &field_trial_manager)));
   cricket::WebRtcVoiceMediaChannel channel(&engine, cricket::MediaConfig(),
                                            cricket::AudioOptions(),
                                            webrtc::CryptoOptions(), call.get());

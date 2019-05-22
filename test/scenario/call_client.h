@@ -98,6 +98,7 @@ class CallClient : public EmulatedNetworkReceiverInterface {
 
   TimeController* const time_controller_;
   Clock* clock_;
+  std::unique_ptr<FieldTrialManager> field_trial_manager_;
   const std::unique_ptr<LogWriterFactoryInterface> log_writer_factory_;
   std::unique_ptr<RtcEventLog> event_log_;
   LoggingNetworkControllerFactory network_controller_factory_;

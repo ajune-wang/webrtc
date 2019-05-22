@@ -393,7 +393,8 @@ FakeCall::FakeCall()
     : audio_network_state_(webrtc::kNetworkUp),
       video_network_state_(webrtc::kNetworkUp),
       num_created_send_streams_(0),
-      num_created_receive_streams_(0) {}
+      num_created_receive_streams_(0),
+      field_trial_manager_(webrtc::DefaultFieldTrialManager::Create()) {}
 
 FakeCall::~FakeCall() {
   EXPECT_EQ(0u, video_send_streams_.size());
@@ -653,5 +654,9 @@ void FakeCall::OnSentPacket(const rtc::SentPacket& sent_packet) {
 
 void FakeCall::MediaTransportChange(
     webrtc::MediaTransportInterface* media_transport_interface) {}
+
+webrtc::FieldTrialManager* FakeCall::GetFieldTrialManager() {
+  return field_trial_manager_.get();
+}
 
 }  // namespace cricket

@@ -246,6 +246,8 @@ class Call final : public webrtc::Call,
 
   void SetClientBitratePreferences(const BitrateSettings& preferences) override;
 
+  FieldTrialManager* GetFieldTrialManager() override;
+
  private:
   DeliveryStatus DeliverRtcp(MediaType media_type,
                              const uint8_t* packet,
@@ -618,6 +620,10 @@ void Call::SetClientBitratePreferences(const BitrateSettings& preferences) {
   if (media_transport_) {
     media_transport_->SetTargetBitrateLimits(constraints);
   }
+}
+
+FieldTrialManager* Call::GetFieldTrialManager() {
+  return config_.field_trial_manager;
 }
 
 void Call::UpdateHistograms() {

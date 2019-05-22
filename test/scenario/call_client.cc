@@ -54,10 +54,11 @@ CallClientFakeAudio InitAudio(TimeController* time_controller) {
 
 Call* CreateCall(TimeController* time_controller,
                  RtcEventLog* event_log,
+                 FieldTrialManager* field_trial_manager,
                  CallClientConfig config,
                  LoggingNetworkControllerFactory* network_controller_factory,
                  rtc::scoped_refptr<AudioState> audio_state) {
-  CallConfig call_config(event_log);
+  CallConfig call_config(event_log, field_trial_manager);
   call_config.bitrate_config.max_bitrate_bps =
       config.transport.rates.max_rate.bps_or(-1);
   call_config.bitrate_config.min_bitrate_bps =
@@ -129,6 +130,7 @@ CallClient::CallClient(
     CallClientConfig config)
     : time_controller_(time_controller),
       clock_(time_controller->GetClock()),
+      field_trial_manager_(webrtc::DefaultFieldTrialManager::Create()),
       log_writer_factory_(std::move(log_writer_factory)),
       network_controller_factory_(log_writer_factory_.get(), config.transport),
       header_parser_(RtpHeaderParser::Create()),
@@ -139,9 +141,9 @@ CallClient::CallClient(
     event_log_ = CreateEventLog(time_controller_->GetTaskQueueFactory(),
                                 log_writer_factory_.get());
     fake_audio_setup_ = InitAudio(time_controller_);
-    call_.reset(CreateCall(time_controller_, event_log_.get(), config,
-                           &network_controller_factory_,
-                           fake_audio_setup_.audio_state));
+    call_.reset(CreateCall(
+        time_controller_, event_log_.get(), field_trial_manager_.get(), config,
+        &network_controller_factory_, fake_audio_setup_.audio_state));
     transport_ = absl::make_unique<NetworkNodeTransport>(clock_, call_.get());
   });
 }

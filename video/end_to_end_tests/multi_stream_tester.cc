@@ -46,8 +46,9 @@ MultiStreamTester::~MultiStreamTester() {}
 
 void MultiStreamTester::RunTest() {
   webrtc::RtcEventLogNullImpl event_log;
+  webrtc::DefaultFieldTrialManager field_trial_manager_;
   auto task_queue_factory = CreateDefaultTaskQueueFactory();
-  Call::Config config(&event_log);
+  Call::Config config(&event_log, &field_trial_manager_);
   std::unique_ptr<Call> sender_call;
   std::unique_ptr<Call> receiver_call;
   std::unique_ptr<test::DirectTransport> sender_transport;

@@ -309,6 +309,8 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
   void SetClientBitratePreferences(
       const webrtc::BitrateSettings& preferences) override {}
 
+  webrtc::FieldTrialManager* GetFieldTrialManager() override;
+
  private:
   webrtc::AudioSendStream* CreateAudioSendStream(
       const webrtc::AudioSendStream::Config& config) override;
@@ -374,6 +376,8 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
 
   int num_created_send_streams_;
   int num_created_receive_streams_;
+
+  std::unique_ptr<webrtc::FieldTrialManager> field_trial_manager_;
 };
 
 }  // namespace cricket

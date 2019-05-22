@@ -42,7 +42,7 @@ struct CallHelper {
         new rtc::RefCountedObject<webrtc::test::MockAudioProcessing>();
     audio_state_config.audio_device_module =
         new rtc::RefCountedObject<webrtc::test::MockAudioDeviceModule>();
-    webrtc::Call::Config config(&event_log_);
+    webrtc::Call::Config config(&event_log_, &field_trial_manager_);
     config.audio_state = webrtc::AudioState::Create(audio_state_config);
     call_.reset(webrtc::Call::Create(config));
   }
@@ -50,6 +50,7 @@ struct CallHelper {
   webrtc::Call* operator->() { return call_.get(); }
 
  private:
+  webrtc::DefaultFieldTrialManager field_trial_manager_;
   webrtc::RtcEventLogNullImpl event_log_;
   std::unique_ptr<webrtc::Call> call_;
 };

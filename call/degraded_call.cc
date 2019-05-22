@@ -221,6 +221,10 @@ void DegradedCall::OnSentPacket(const rtc::SentPacket& sent_packet) {
   call_->OnSentPacket(sent_packet);
 }
 
+FieldTrialManager* DegradedCall::GetFieldTrialManager() {
+  return call_->GetFieldTrialManager();
+}
+
 bool DegradedCall::SendRtp(const uint8_t* packet,
                            size_t length,
                            const PacketOptions& options) {

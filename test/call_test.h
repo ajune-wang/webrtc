@@ -175,6 +175,8 @@ class CallTest : public ::testing::Test {
 
   Clock* const clock_;
 
+  std::unique_ptr<FieldTrialManager> field_trial_manager_;
+
   std::unique_ptr<TaskQueueFactory> task_queue_factory_;
   std::unique_ptr<webrtc::RtcEventLog> send_event_log_;
   std::unique_ptr<webrtc::RtcEventLog> recv_event_log_;

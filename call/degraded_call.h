@@ -115,6 +115,8 @@ class DegradedCall : public Call, private Transport, private PacketReceiver {
       int transport_overhead_per_packet) override;
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 
+  FieldTrialManager* GetFieldTrialManager() override;
+
  protected:
   // Implements Transport.
   bool SendRtp(const uint8_t* packet,

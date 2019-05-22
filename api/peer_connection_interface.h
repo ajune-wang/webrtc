@@ -105,6 +105,7 @@
 #include "p2p/base/port_allocator.h"  // nogncheck
 // TODO(nisse): The interface for bitrate allocation strategy belongs in api/.
 #include "rtc_base/bitrate_allocation_strategy.h"
+#include "rtc_base/experiments/field_trial_manager.h"
 #include "rtc_base/network.h"
 #include "rtc_base/platform_file.h"
 #include "rtc_base/rtc_certificate.h"
@@ -1275,6 +1276,7 @@ struct PeerConnectionFactoryDependencies final {
       network_state_predictor_factory;
   std::unique_ptr<NetworkControllerFactoryInterface> network_controller_factory;
   std::unique_ptr<MediaTransportFactory> media_transport_factory;
+  std::unique_ptr<FieldTrialManager> field_trial_manager;
 };
 
 // PeerConnectionFactoryInterface is the factory interface used for creating

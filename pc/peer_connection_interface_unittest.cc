@@ -644,6 +644,9 @@ class PeerConnectionFactoryForTest : public webrtc::PeerConnectionFactory {
     dependencies.network_thread = rtc::Thread::Current();
     dependencies.signaling_thread = rtc::Thread::Current();
 
+    dependencies.field_trial_manager =
+        webrtc::DefaultFieldTrialManager::Create();
+
     // Use fake audio device module since we're only testing the interface
     // level, and using a real one could make tests flaky when run in parallel.
     dependencies.media_engine = std::unique_ptr<cricket::MediaEngineInterface>(
@@ -690,7 +693,7 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
         webrtc::CreateBuiltinAudioDecoderFactory(),
         webrtc::CreateBuiltinVideoEncoderFactory(),
         webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
-        nullptr /* audio_processing */);
+        nullptr /* audio_processing */, nullptr /* field_trial_manager */);
     ASSERT_TRUE(pc_factory_);
     pc_factory_for_test_ =
         PeerConnectionFactoryForTest::CreatePeerConnectionFactoryForTest();
@@ -1378,7 +1381,7 @@ TEST_P(PeerConnectionInterfaceTest,
           webrtc::CreateBuiltinAudioDecoderFactory(),
           webrtc::CreateBuiltinVideoEncoderFactory(),
           webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
-          nullptr /* audio_processing */));
+          nullptr /* audio_processing */, nullptr /* field_trial_manager */));
   rtc::scoped_refptr<PeerConnectionInterface> pc(
       pc_factory->CreatePeerConnection(config, std::move(port_allocator),
                                        nullptr, &observer_));

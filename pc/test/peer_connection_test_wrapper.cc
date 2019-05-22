@@ -113,7 +113,7 @@ bool PeerConnectionTestWrapper::CreatePc(
       audio_encoder_factory, audio_decoder_factory,
       webrtc::CreateBuiltinVideoEncoderFactory(),
       webrtc::CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
-      nullptr /* audio_processing */);
+      nullptr /* audio_processing */, nullptr /* field_trial_manager */);
   if (!peer_connection_factory_) {
     return false;
   }

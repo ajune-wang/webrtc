@@ -60,6 +60,7 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
   pcf_deps.event_log_factory = webrtc::CreateRtcEventLogFactory();
   pcf_deps.network_thread = network_thread;
   pcf_deps.signaling_thread = signaling_thread;
+  pcf_deps.field_trial_manager = webrtc::DefaultFieldTrialManager::Create();
   pcf_deps.media_engine = cricket::WebRtcMediaEngineFactory::Create(
       TestAudioDeviceModule::CreateTestAudioDeviceModule(
           TestAudioDeviceModule::CreatePulsedNoiseCapturer(kMaxAptitude,

@@ -127,6 +127,7 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
   std::unique_ptr<NetworkControllerFactoryInterface>
       injected_network_controller_factory_;
   std::unique_ptr<MediaTransportFactory> media_transport_factory_;
+  std::unique_ptr<FieldTrialManager> field_trial_manager_;
 };
 
 }  // namespace webrtc

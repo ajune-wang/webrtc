@@ -121,6 +121,7 @@ specific_include_rules = {
     "+media/base/media_engine.h",
     "+p2p/base/port_allocator.h",
     "+rtc_base/bitrate_allocation_strategy.h",
+    "+rtc_base/experiments/field_trial_manager.h",
     "+rtc_base/network.h",
     "+rtc_base/platform_file.h",
     "+rtc_base/rtc_certificate.h",

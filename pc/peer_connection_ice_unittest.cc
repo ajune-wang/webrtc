@@ -105,7 +105,8 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
         rtc::scoped_refptr<AudioDeviceModule>(FakeAudioCaptureModule::Create()),
         CreateBuiltinAudioEncoderFactory(), CreateBuiltinAudioDecoderFactory(),
         CreateBuiltinVideoEncoderFactory(), CreateBuiltinVideoDecoderFactory(),
-        nullptr /* audio_mixer */, nullptr /* audio_processing */);
+        nullptr /* audio_mixer */, nullptr /* audio_processing */,
+        nullptr /* field_trial_manager */);
   }
 
   WrapperPtr CreatePeerConnection() {
@@ -983,7 +984,7 @@ class PeerConnectionIceConfigTest : public ::testing::Test {
         FakeAudioCaptureModule::Create(), CreateBuiltinAudioEncoderFactory(),
         CreateBuiltinAudioDecoderFactory(), CreateBuiltinVideoEncoderFactory(),
         CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
-        nullptr /* audio_processing */);
+        nullptr /* audio_processing */, nullptr /* field_trial_manager */);
   }
   void CreatePeerConnection(const RTCConfiguration& config) {
     std::unique_ptr<cricket::FakePortAllocator> port_allocator(

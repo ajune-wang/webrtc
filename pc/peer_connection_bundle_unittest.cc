@@ -187,7 +187,8 @@ class PeerConnectionBundleBaseTest : public ::testing::Test {
         rtc::scoped_refptr<AudioDeviceModule>(FakeAudioCaptureModule::Create()),
         CreateBuiltinAudioEncoderFactory(), CreateBuiltinAudioDecoderFactory(),
         CreateBuiltinVideoEncoderFactory(), CreateBuiltinVideoDecoderFactory(),
-        nullptr /* audio_mixer */, nullptr /* audio_processing */);
+        nullptr /* audio_mixer */, nullptr /* audio_processing */,
+        nullptr /* field_trial_manager */);
   }
 
   WrapperPtr CreatePeerConnection() {

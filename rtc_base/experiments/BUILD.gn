@@ -39,6 +39,18 @@ rtc_static_library("audio_allocation_settings") {
   ]
 }
 
+rtc_static_library("field_trial_manager") {
+  sources = [
+    "field_trial_manager.cc",
+    "field_trial_manager.h",
+  ]
+  deps = [
+    "../../system_wrappers:field_trial",
+    "//third_party/abseil-cpp/absl/memory:memory",
+    "//third_party/abseil-cpp/absl/strings:strings",
+  ]
+}
+
 rtc_static_library("field_trial_parser") {
   sources = [
     "field_trial_list.cc",
@@ -184,6 +196,7 @@ if (rtc_include_tests) {
       "balanced_degradation_settings_unittest.cc",
       "cpu_speed_experiment_unittest.cc",
       "field_trial_list_unittest.cc",
+      "field_trial_manager_unittest.cc",
       "field_trial_parser_unittest.cc",
       "field_trial_units_unittest.cc",
       "keyframe_interval_settings_unittest.cc",
@@ -196,6 +209,7 @@ if (rtc_include_tests) {
     deps = [
       ":balanced_degradation_settings",
       ":cpu_speed_experiment",
+      ":field_trial_manager",
       ":field_trial_parser",
       ":keyframe_interval_settings_experiment",
       ":normalize_simulcast_size_experiment",

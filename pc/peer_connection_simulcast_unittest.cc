@@ -102,6 +102,7 @@ class PeerConnectionSimulcastTests : public ::testing::Test {
                                         CreateBuiltinVideoEncoderFactory(),
                                         CreateBuiltinVideoDecoderFactory(),
                                         nullptr,
+                                        nullptr,
                                         nullptr)) {}
 
   rtc::scoped_refptr<PeerConnectionInterface> CreatePeerConnection(

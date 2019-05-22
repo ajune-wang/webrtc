@@ -33,6 +33,7 @@ namespace webrtc {
 
 class AudioDeviceModule;
 class AudioProcessing;
+class FieldTrialManager;
 
 // Create a new instance of PeerConnectionFactoryInterface with optional video
 // codec factories. These video factories represents all video codecs, i.e. no
@@ -48,7 +49,8 @@ CreatePeerConnectionFactory(
     std::unique_ptr<VideoEncoderFactory> video_encoder_factory,
     std::unique_ptr<VideoDecoderFactory> video_decoder_factory,
     rtc::scoped_refptr<AudioMixer> audio_mixer,
-    rtc::scoped_refptr<AudioProcessing> audio_processing);
+    rtc::scoped_refptr<AudioProcessing> audio_processing,
+    std::unique_ptr<FieldTrialManager> field_trial_manager);
 
 }  // namespace webrtc
 

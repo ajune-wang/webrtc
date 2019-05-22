@@ -71,6 +71,11 @@ void AddDefaultFeedbackParams(VideoCodec* codec) {
   codec->AddFeedbackParam(FeedbackParam(kRtcpFbParamCcm, kRtcpFbCcmParamFir));
   codec->AddFeedbackParam(FeedbackParam(kRtcpFbParamNack, kParamValueEmpty));
   codec->AddFeedbackParam(FeedbackParam(kRtcpFbParamNack, kRtcpFbNackParamPli));
+  if (codec->name == kVp8CodecName &&
+      webrtc::field_trial::IsEnabled("WebRTC-RtcpLossNotification")) {
+    codec->AddFeedbackParam(
+        FeedbackParam(kRtcpFbParamLossNotification, kParamValueEmpty));
+  }
 }
 
 // This function will assign dynamic payload types (in the range [96, 127]) to
@@ -1880,6 +1885,9 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::SetCodec(
       parameters_.config.rtp.rtx.payload_type = codec_settings.rtx_payload_type;
     }
   }
+
+  parameters_.config.rtp.lntf.enabled =
+      HasLossNotification(codec_settings.codec);
 
   parameters_.config.rtp.nack.rtp_history_ms =
       HasNack(codec_settings.codec) ? kNackHistoryMs : 0;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4011c6b_79c1d582",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-05-22T14:00:58Z",
+      "side": 1,
+      "message": "Not sure if it\u0027s more readable, but an alternative is to write it like this (without an if-statement):\nresult.is_simulation_finished \u003d (!input_-\u003eNextPacketTime() \u0026\u0026\n          !operations_state.next_packet_available) || input_-\u003eended();",
+      "range": {
+        "startLine": 255,
+        "startChar": 6,
+        "endLine": 261,
+        "endChar": 7
+      },
+      "revId": "64799d2925a800e6b97995dec82042eaac57df24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

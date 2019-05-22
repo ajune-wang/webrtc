@@ -22,6 +22,30 @@
       "revId": "64799d2925a800e6b97995dec82042eaac57df24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40d07da4_2e87a6e0",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-05-22T14:07:13Z",
+      "side": 1,
+      "message": "How about:\n      bool no_more_packets_to_decode \u003d\n          !input_-\u003eNextPacketTime() \u0026\u0026 !operations_state.next_packet_available;\n      result.is_simulation_finished \u003d\n          no_more_packets_to_decode || input_-\u003eended();",
+      "parentUuid": "d4011c6b_79c1d582",
+      "range": {
+        "startLine": 255,
+        "startChar": 6,
+        "endLine": 261,
+        "endChar": 7
+      },
+      "revId": "64799d2925a800e6b97995dec82042eaac57df24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

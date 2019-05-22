@@ -101,7 +101,8 @@ class PeerConnectionRtpBaseTest : public ::testing::Test {
                                         CreateBuiltinVideoEncoderFactory(),
                                         CreateBuiltinVideoDecoderFactory(),
                                         nullptr /* audio_mixer */,
-                                        nullptr /* audio_processing */)) {
+                                        nullptr /* audio_processing */,
+                                        nullptr /* field_trial_manager */)) {
     webrtc::metrics::Reset();
   }
 

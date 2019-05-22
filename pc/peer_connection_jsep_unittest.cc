@@ -51,6 +51,7 @@ class PeerConnectionFactoryForJsepTest : public PeerConnectionFactory {
           dependencies.worker_thread = rtc::Thread::Current();
           dependencies.network_thread = rtc::Thread::Current();
           dependencies.signaling_thread = rtc::Thread::Current();
+          dependencies.field_trial_manager = DefaultFieldTrialManager::Create();
           dependencies.media_engine = cricket::WebRtcMediaEngineFactory::Create(
               rtc::scoped_refptr<AudioDeviceModule>(
                   FakeAudioCaptureModule::Create()),

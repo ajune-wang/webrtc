@@ -223,6 +223,10 @@ struct TestPeerComponents {
       absl::optional<std::string> audio_output_file_name,
       rtc::TaskQueue* task_queue) {
     PeerConnectionFactoryDependencies pcf_deps;
+    if (pcf_dependencies->field_trial_manager != nullptr) {
+      pcf_deps.field_trial_manager =
+          std::move(pcf_dependencies->field_trial_manager);
+    }
     pcf_deps.network_thread = network_thread;
     pcf_deps.signaling_thread = signaling_thread;
     pcf_deps.media_engine = CreateMediaEngine(

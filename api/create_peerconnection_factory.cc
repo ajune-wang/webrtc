@@ -29,6 +29,7 @@
 #include "media/engine/webrtc_media_engine.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing.h"
+#include "rtc_base/experiments/field_trial_manager.h"
 #include "rtc_base/thread.h"
 
 namespace webrtc {
@@ -43,9 +44,14 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     std::unique_ptr<VideoEncoderFactory> video_encoder_factory,
     std::unique_ptr<VideoDecoderFactory> video_decoder_factory,
     rtc::scoped_refptr<AudioMixer> audio_mixer,
-    rtc::scoped_refptr<AudioProcessing> audio_processing) {
+    rtc::scoped_refptr<AudioProcessing> audio_processing,
+    std::unique_ptr<FieldTrialManager> field_trial_manager) {
   if (!audio_processing)
     audio_processing = AudioProcessingBuilder().Create();
+
+  if (!field_trial_manager) {
+    field_trial_manager = DefaultFieldTrialManager::Create();
+  }
 
   std::unique_ptr<cricket::MediaEngineInterface> media_engine =
       cricket::WebRtcMediaEngineFactory::Create(
@@ -64,6 +70,7 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
   dependencies.media_engine = std::move(media_engine);
   dependencies.call_factory = std::move(call_factory);
   dependencies.event_log_factory = std::move(event_log_factory);
+  dependencies.field_trial_manager = std::move(field_trial_manager);
   return CreateModularPeerConnectionFactory(std::move(dependencies));
 }
 

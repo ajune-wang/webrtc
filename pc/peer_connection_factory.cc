@@ -75,8 +75,11 @@ PeerConnectionFactory::PeerConnectionFactory(
           std::move(dependencies.network_state_predictor_factory)),
       injected_network_controller_factory_(
           std::move(dependencies.network_controller_factory)),
-      media_transport_factory_(
-          std::move(dependencies.media_transport_factory)) {
+      media_transport_factory_(std::move(dependencies.media_transport_factory)),
+      field_trial_manager_(std::move(dependencies.field_trial_manager)) {
+  if (!field_trial_manager_) {
+    field_trial_manager_ = DefaultFieldTrialManager::Create();
+  }
   if (!network_thread_) {
     owned_network_thread_ = rtc::Thread::CreateWithSocketServer();
     owned_network_thread_->SetName("pc_network_thread", nullptr);

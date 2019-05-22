@@ -90,7 +90,8 @@ cricket::VideoCodec RemoveFeedbackParams(cricket::VideoCodec&& codec) {
   return std::move(codec);
 }
 
-void VerifyCodecHasDefaultFeedbackParams(const cricket::VideoCodec& codec) {
+void VerifyCodecHasDefaultFeedbackParams(const cricket::VideoCodec& codec,
+                                         bool lntf_expected) {
   EXPECT_TRUE(codec.HasFeedbackParam(cricket::FeedbackParam(
       cricket::kRtcpFbParamNack, cricket::kParamValueEmpty)));
   EXPECT_TRUE(codec.HasFeedbackParam(cricket::FeedbackParam(
@@ -101,6 +102,9 @@ void VerifyCodecHasDefaultFeedbackParams(const cricket::VideoCodec& codec) {
       cricket::kRtcpFbParamTransportCc, cricket::kParamValueEmpty)));
   EXPECT_TRUE(codec.HasFeedbackParam(cricket::FeedbackParam(
       cricket::kRtcpFbParamCcm, cricket::kRtcpFbCcmParamFir)));
+  EXPECT_EQ(lntf_expected, codec.HasFeedbackParam(cricket::FeedbackParam(
+                               cricket::kRtcpFbParamLossNotification,
+                               cricket::kParamValueEmpty)));
 }
 
 // Return true if any codec in |codecs| is an RTX codec with associated payload
@@ -1097,7 +1101,7 @@ TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, Vp8) {
       cricket::kCodecParamAssociatedPayloadType, &associated_payload_type));
   EXPECT_EQ(engine_codecs.at(0).id, associated_payload_type);
   // Verify default parameters has been added to the VP8 codec.
-  VerifyCodecHasDefaultFeedbackParams(engine_codecs.at(0));
+  VerifyCodecHasDefaultFeedbackParams(engine_codecs.at(0), false);
 
   // Mock encoder creation. |engine| take ownership of the encoder.
   webrtc::VideoEncoderFactory::CodecInfo codec_info;
@@ -2255,6 +2259,28 @@ class WebRtcVideoChannelTest : public WebRtcVideoEngineTest {
     EXPECT_EQ(ext_uri, recv_stream->GetConfig().rtp.extensions[0].uri);
   }
 
+  void TestLossNotificationState(bool expect_lntf_enabled) {
+    AssignDefaultCodec();
+    VerifyCodecHasDefaultFeedbackParams(default_codec_, false);
+
+    cricket::VideoSendParameters parameters;
+    parameters.codecs = engine_.codecs();
+    EXPECT_TRUE(channel_->SetSendParameters(parameters));
+    EXPECT_TRUE(channel_->SetSend(true));
+
+    // Send side.
+    FakeVideoSendStream* send_stream =
+        AddSendStream(cricket::StreamParams::CreateLegacy(1));
+    EXPECT_EQ(send_stream->GetConfig().rtp.lntf.enabled, expect_lntf_enabled);
+
+    // TODO: !!!
+    // Receiver side.
+    // FakeVideoReceiveStream* recv_stream =
+    //     AddRecvStream(cricket::StreamParams::CreateLegacy(1));
+    // EXPECT_EQ(recv_stream->GetConfig().rtp.lntf.enabled,
+    // expect_lntf_enabled);
+  }
+
   void TestExtensionFilter(const std::vector<std::string>& extensions,
                            const std::string& expected_extension) {
     cricket::VideoSendParameters parameters = send_parameters_;
@@ -2727,9 +2753,19 @@ TEST_F(WebRtcVideoChannelTest, TransportCcCanBeEnabledAndDisabled) {
   EXPECT_TRUE(stream->GetConfig().rtp.transport_cc);
 }
 
+TEST_F(WebRtcVideoChannelTest, LossNotificationIsDisabledByDefault) {
+  TestLossNotificationState(false);
+}
+
+TEST_F(WebRtcVideoChannelTest, LossNotificationIsEnabledByFieldTrial) {
+  webrtc::test::ScopedFieldTrials override_field_trials_(
+      "WebRTC-RtcpLossNotification/Enabled/");
+  TestLossNotificationState(true);
+}
+
 TEST_F(WebRtcVideoChannelTest, NackIsEnabledByDefault) {
   AssignDefaultCodec();
-  VerifyCodecHasDefaultFeedbackParams(default_codec_);
+  VerifyCodecHasDefaultFeedbackParams(default_codec_, false);
 
   cricket::VideoSendParameters parameters;
   parameters.codecs = engine_.codecs();

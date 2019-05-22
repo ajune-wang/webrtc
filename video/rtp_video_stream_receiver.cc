@@ -147,6 +147,9 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
 
   process_thread_->RegisterModule(rtp_rtcp_.get(), RTC_FROM_HERE);
 
+  // TODO(bugs.webrtc.org/10662): Base |loss_notification_controller_|'s
+  // instantiation on the negotiation of the rtcp-fb message instead of
+  // directly depending on the field trial.
   if (webrtc::field_trial::IsEnabled("WebRTC-RtcpLossNotification")) {
     loss_notification_controller_ =
         absl::make_unique<LossNotificationController>(keyframe_request_sender_,

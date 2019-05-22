@@ -70,6 +70,11 @@ void AddDefaultFeedbackParams(VideoCodec* codec) {
   codec->AddFeedbackParam(FeedbackParam(kRtcpFbParamCcm, kRtcpFbCcmParamFir));
   codec->AddFeedbackParam(FeedbackParam(kRtcpFbParamNack, kParamValueEmpty));
   codec->AddFeedbackParam(FeedbackParam(kRtcpFbParamNack, kRtcpFbNackParamPli));
+  if (codec->name == kVp8CodecName &&
+      webrtc::field_trial::IsEnabled("WebRTC-RtcpLossNotification")) {
+    codec->AddFeedbackParam(
+        FeedbackParam(kRtcpFbParamLossNotification, kParamValueEmpty));
+  }
 }
 
 // This function will assign dynamic payload types (in the range [96, 127]) to
@@ -917,6 +922,7 @@ bool WebRtcVideoChannel::GetChangedRecvParameters(
     return false;
   }
 
+  // TODO: !!! This looks interesting.
   // Verify that every mapped codec is supported locally.
   const std::vector<VideoCodec> local_supported_codecs =
       AssignPayloadTypesAndDefaultCodecs(encoder_factory_);
@@ -1872,6 +1878,13 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::SetCodec(
       parameters_.config.rtp.rtx.payload_type = codec_settings.rtx_payload_type;
     }
   }
+
+  // TODO: !!! Make sure the receiver configures as well as sends back to the
+  // sender that LNTF is supported iff the field trial is enabled.
+  parameters_.config.rtp.lntf.enabled =
+      HasLossNotification(codec_settings.codec);
+  printf("parameters_.config.rtp.lntf.enabled = %d\n",
+         parameters_.config.rtp.lntf.enabled);
 
   parameters_.config.rtp.nack.rtp_history_ms =
       HasNack(codec_settings.codec) ? kNackHistoryMs : 0;

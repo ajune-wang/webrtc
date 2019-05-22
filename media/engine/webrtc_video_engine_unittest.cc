@@ -89,6 +89,7 @@ cricket::VideoCodec RemoveFeedbackParams(cricket::VideoCodec&& codec) {
   return std::move(codec);
 }
 
+// TODO: !!! Add tests.
 void VerifyCodecHasDefaultFeedbackParams(const cricket::VideoCodec& codec) {
   EXPECT_TRUE(codec.HasFeedbackParam(cricket::FeedbackParam(
       cricket::kRtcpFbParamNack, cricket::kParamValueEmpty)));

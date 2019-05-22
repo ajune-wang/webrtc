@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "015f3c33_d5939414",
+        "filename": "modules/audio_coding/neteq/histogram.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-22T13:28:48Z",
+      "side": 1,
+      "message": "No matter what formula we choose, I would like to add a DCHECK here.\n\nDCHECK_GE(1 - forget_factor_, (1 - old_forget_factor) * forget_factor);\n\nand we may comment it this way:\n\nThe histogram is updated recursively by forgetting the old histogram with |forget_factor_| and adding a new sample multiplied by |1 - forget_factor_|. We need to make sure that the effective weight on the new sample is no smaller than those on the old samples, i.e., to satisfy the following DCHECK.\n...",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 3
+      },
+      "revId": "13b58d745f89e013f44ec6e93f7c18fc568da473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

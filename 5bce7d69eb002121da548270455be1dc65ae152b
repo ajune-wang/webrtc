@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "670b5e22_e8003a15",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-22T15:20:14Z",
+      "side": 1,
+      "message": "but I think what we can do is to make it a DEFINE DECODER_SAMPLE_RATE_HZ",
+      "parentUuid": "a598b9d3_2becbf88",
+      "range": {
+        "startLine": 388,
+        "startChar": 41,
+        "endLine": 388,
+        "endChar": 46
+      },
+      "revId": "5bce7d69eb002121da548270455be1dc65ae152b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a03856c8_31552a23",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 1

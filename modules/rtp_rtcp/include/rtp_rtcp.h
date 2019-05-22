@@ -24,6 +24,7 @@
 #include "modules/include/module.h"
 #include "modules/rtp_rtcp/include/flexfec_sender.h"
 #include "modules/rtp_rtcp/include/receive_statistics.h"
+#include "modules/rtp_rtcp/include/report_block_data.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_sender.h"
 #include "rtc_base/constructor_magic.h"
@@ -357,6 +358,11 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
   // Returns -1 on failure else 0.
   virtual int32_t RemoteRTCPStat(
       std::vector<RTCPReportBlock>* receive_blocks) const = 0;
+  // A snapshot of the most recent Report Block with additional data of
+  // interest to statistics. Used to implement RTCRemoteInboundRtpStreamStats.
+  // Within this list, the ReportBlockData::RTCPReportBlock::source_ssrc(),
+  // which is the SSRC of the corresponding outbound RTP stream, is unique.
+  virtual std::vector<ReportBlockData> GetLatestReportBlockData() const = 0;
 
   // (APP) Sets application specific data.
   // Returns -1 on failure else 0.

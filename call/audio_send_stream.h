@@ -29,6 +29,7 @@
 #include "api/scoped_refptr.h"
 #include "call/rtp_config.h"
 #include "modules/audio_processing/include/audio_processing_statistics.h"
+#include "modules/rtp_rtcp/include/report_block_data.h"
 
 namespace webrtc {
 
@@ -66,6 +67,11 @@ class AudioSendStream {
     AudioProcessingStats apm_statistics;
 
     int64_t target_bitrate_bps = 0;
+    // A snapshot of the most recent Report Block with additional data of
+    // interest to statistics. Used to implement RTCRemoteInboundRtpStreamStats.
+    // Within this list, the ReportBlockData::RTCPReportBlock::source_ssrc(),
+    // which is the SSRC of the corresponding outbound RTP stream, is unique.
+    std::vector<ReportBlockData> report_block_datas;
   };
 
   struct Config {

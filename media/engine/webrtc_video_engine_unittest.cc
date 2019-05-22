@@ -3525,6 +3525,27 @@ TEST_F(WebRtcVideoChannelTest, SetDefaultSendCodecs) {
   // TODO(juberti): Check RTCP, PLI, TMMBR.
 }
 
+TEST_F(WebRtcVideoChannelTest, SetSendCodecsWithoutPacketization) {
+  cricket::VideoSendParameters parameters;
+  parameters.codecs.push_back(GetEngineCodec("VP8"));
+  EXPECT_TRUE(channel_->SetSendParameters(parameters));
+
+  FakeVideoSendStream* stream = AddSendStream();
+  const webrtc::VideoSendStream::Config config = stream->GetConfig().Copy();
+  EXPECT_FALSE(config.rtp.raw_payload);
+}
+
+TEST_F(WebRtcVideoChannelTest, SetSendCodecsWithPacketization) {
+  cricket::VideoSendParameters parameters;
+  parameters.codecs.push_back(GetEngineCodec("VP8"));
+  parameters.codecs.back().packetization = kPacketizationParamRaw;
+  EXPECT_TRUE(channel_->SetSendParameters(parameters));
+
+  FakeVideoSendStream* stream = AddSendStream();
+  const webrtc::VideoSendStream::Config config = stream->GetConfig().Copy();
+  EXPECT_TRUE(config.rtp.raw_payload);
+}
+
 // The following four tests ensures that FlexFEC is not activated by default
 // when the field trials are not enabled.
 // TODO(brandtr): Remove or update these tests when FlexFEC _is_ enabled by
@@ -4349,6 +4370,42 @@ TEST_F(WebRtcVideoChannelTest, SetRecvCodecsWithRtx) {
   EXPECT_FALSE(channel_->SetRecvParameters(parameters))
       << "RTX codec with another RTX as associated payload type should be "
          "rejected.";
+}
+
+TEST_F(WebRtcVideoChannelTest, SetRecvCodecsWithPacketization) {
+  cricket::VideoCodec vp8Codec = GetEngineCodec("VP8");
+  vp8Codec.packetization = kPacketizationParamRaw;
+
+  cricket::VideoRecvParameters parameters;
+  parameters.codecs = {vp8Codec, GetEngineCodec("VP9")};
+  EXPECT_TRUE(channel_->SetRecvParameters(parameters));
+
+  const cricket::StreamParams params =
+      cricket::StreamParams::CreateLegacy(kSsrcs1[0]);
+  AddRecvStream(params);
+  ASSERT_THAT(fake_call_->GetVideoReceiveStreams(), testing::SizeIs(1));
+
+  const webrtc::VideoReceiveStream::Config& config =
+      fake_call_->GetVideoReceiveStreams()[0]->GetConfig();
+  ASSERT_THAT(config.rtp.raw_payload_types, testing::SizeIs(1));
+  EXPECT_EQ(config.rtp.raw_payload_types[0], vp8Codec.id);
+}
+
+TEST_F(WebRtcVideoChannelTest, SetRecvCodecsWithPacketizationRecreatesStream) {
+  cricket::VideoRecvParameters parameters;
+  parameters.codecs = {GetEngineCodec("VP8"), GetEngineCodec("VP9")};
+  parameters.codecs.back().packetization = kPacketizationParamRaw;
+  EXPECT_TRUE(channel_->SetRecvParameters(parameters));
+
+  const cricket::StreamParams params =
+      cricket::StreamParams::CreateLegacy(kSsrcs1[0]);
+  AddRecvStream(params);
+  ASSERT_THAT(fake_call_->GetVideoReceiveStreams(), testing::SizeIs(1));
+  EXPECT_EQ(fake_call_->GetNumCreatedReceiveStreams(), 1);
+
+  parameters.codecs.back().packetization.reset();
+  EXPECT_TRUE(channel_->SetRecvParameters(parameters));
+  EXPECT_EQ(fake_call_->GetNumCreatedReceiveStreams(), 2);
 }
 
 TEST_F(WebRtcVideoChannelTest, SetRecvCodecsWithChangedRtxPayloadType) {

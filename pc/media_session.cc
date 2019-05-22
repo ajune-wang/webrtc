@@ -797,6 +797,7 @@ static void NegotiateCodecs(const std::vector<C>& local_codecs,
     // local codecs, in case the remote offer contains duplicate codecs.
     if (FindMatchingCodec(local_codecs, offered_codecs, ours, &theirs)) {
       C negotiated = ours;
+      negotiated.IntersectPacketization(theirs);
       negotiated.IntersectFeedbackParams(theirs);
       if (IsRtxCodec(negotiated)) {
         const auto apt_it =
@@ -2187,6 +2188,14 @@ bool MediaSessionDescriptionFactory::AddVideoContentForOffer(
     }
   }
 
+  if (session_options.raw_packetization_for_video_enabled) {
+    for (VideoCodec& codec : filtered_codecs) {
+      if (codec.GetCodecType() == VideoCodec::CODEC_VIDEO) {
+        codec.packetization = kPacketizationParamRaw;
+      }
+    }
+  }
+
   if (!CreateMediaContentOffer(media_description_options, session_options,
                                filtered_codecs, sdes_policy,
                                GetCryptos(current_content), crypto_suites,
@@ -2500,6 +2509,14 @@ bool MediaSessionDescriptionFactory::AddVideoContentForAnswer(
         // We should use the local codec with local parameters and the codec id
         // would be correctly mapped in |NegotiateCodecs|.
         filtered_codecs.push_back(codec);
+      }
+    }
+  }
+
+  if (session_options.raw_packetization_for_video_enabled) {
+    for (VideoCodec& codec : filtered_codecs) {
+      if (codec.GetCodecType() == VideoCodec::CODEC_VIDEO) {
+        codec.packetization = kPacketizationParamRaw;
       }
     }
   }

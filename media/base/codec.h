@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/types/optional.h"
 #include "api/rtp_parameters.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "media/base/media_constants.h"
@@ -68,6 +69,7 @@ struct RTC_EXPORT Codec {
   int clockrate;
   CodecParameterMap params;
   FeedbackParams feedback_params;
+  absl::optional<std::string> packetization;
 
   virtual ~Codec();
 
@@ -92,6 +94,9 @@ struct RTC_EXPORT Codec {
   // Filter |this| feedbacks params such that only those shared by both |this|
   // and |other| are kept.
   void IntersectFeedbackParams(const Codec& other);
+
+  // Set packetization on |this| such that |other| supports it.
+  void IntersectPacketization(const Codec& other);
 
   virtual webrtc::RtpCodecParameters ToCodecParameters() const;
 

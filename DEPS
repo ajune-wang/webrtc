@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': '15b783dc7ce6059a1c925700405794b77cec46da',
+  'chromium_revision': '723079214da82d84671504c23c96f5f0652a1440',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -88,7 +88,7 @@ deps = {
   'src/base':
     Var('chromium_git') + '/chromium/src/base' + '@' + '39c41ceaa91cb243a0c622e0f271f9b479c9e67d',
   'src/build':
-    Var('chromium_git') + '/chromium/src/build' + '@' + '19cf69413398dee18132420ed1307fe060e7189e',
+    Var('chromium_git') + '/chromium/src/build' + '@' + '0742a1452e2fc5a71422a0cd62dd1f8876cd1c7a',
   'src/buildtools':
     Var('chromium_git') + '/chromium/src/buildtools' + '@' + '9ea486bd0649b7459c041ff74c6d17b5c3f96eda',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -104,7 +104,7 @@ deps = {
   'src/testing':
     Var('chromium_git') + '/chromium/src/testing' + '@' + '1bf0d81894879394d7b48670a286593762e54367',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + '46d9f87561718987abc07b0c9bf1dac7ca2a6b41',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + '5729522b8c4faa7b0f6e33d4cb13ae877d80a7a0',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -312,7 +312,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     Var('chromium_git') + '/chromium/deps/yasm/patched-yasm.git' + '@' + '720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    Var('chromium_git') + '/chromium/src/tools' + '@' + 'fce3fb070095cb4d694ac81842589accf8f2c90b',
+    Var('chromium_git') + '/chromium/src/tools' + '@' + '83be221767c07d4d289f7906e6217fb2a0200712',
   'src/tools/swarming_client':
     Var('chromium_git') + '/infra/luci/client-py.git' + '@' +  Var('swarming_revision'),
 

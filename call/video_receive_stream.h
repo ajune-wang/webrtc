@@ -178,6 +178,10 @@ class VideoReceiveStream {
       // See draft-holmer-rmcat-transport-wide-cc-extensions for details.
       bool transport_cc = false;
 
+      // See LossNotificationConfig for description.
+      // TODO: !!! Always correctly written?
+      LossNotificationConfig lntf;
+
       // See NackConfig for description.
       NackConfig nack;
 

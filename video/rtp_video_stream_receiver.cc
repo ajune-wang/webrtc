@@ -42,6 +42,8 @@
 #include "system_wrappers/include/metrics.h"
 #include "video/receive_statistics_proxy.h"
 
+// TODO: !!! I should also look at all of the tests and fuzzers.
+
 namespace webrtc {
 
 namespace {
@@ -138,7 +140,9 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
 
   process_thread_->RegisterModule(rtp_rtcp_.get(), RTC_FROM_HERE);
 
-  if (webrtc::field_trial::IsEnabled("WebRTC-RtcpLossNotification")) {
+  // TODO(bugs.webrtc.org/10662): NACK and LossNotification should not be
+  // mutually exclusive.
+  if (config_.rtp.lntf.enabled) {
     loss_notification_controller_ =
         absl::make_unique<LossNotificationController>(keyframe_request_sender_,
                                                       this);
@@ -372,6 +376,7 @@ void RtpVideoStreamReceiver::SendLossNotification(
     uint16_t last_decoded_seq_num,
     uint16_t last_received_seq_num,
     bool decodability_flag) {
+  RTC_DCHECK(config_.rtp.lntf.enabled);
   rtp_rtcp_->SendLossNotification(last_decoded_seq_num, last_received_seq_num,
                                   decodability_flag);
 }

@@ -316,6 +316,7 @@ if (rtc_include_tests) {
       ":default_audio_quality_analyzer",
       ":default_video_quality_analyzer",
       ":network_quality_metrics_reporter",
+      "../..:field_trial",
       "../../../api:callfactory_api",
       "../../../api:create_network_emulation_manager",
       "../../../api:create_peerconnection_quality_test_fixture",
@@ -465,7 +466,12 @@ rtc_source_set("sdp_changer") {
   deps = [
     "../../../api:libjingle_peerconnection_api",
     "../../../media:rtc_media_base",
+    "../../../p2p:rtc_p2p",
+    "../../../pc:peerconnection",
+    "../../../pc:rtc_pc_base",
     "../../../rtc_base:stringutils",
+    "//third_party/abseil-cpp/absl/memory:memory",
     "//third_party/abseil-cpp/absl/strings:strings",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
 }

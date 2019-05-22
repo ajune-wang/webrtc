@@ -17,6 +17,7 @@
 #include "api/test/network_emulation_manager.h"
 #include "api/test/peerconnection_quality_test_fixture.h"
 #include "call/simulated_network.h"
+#include "test/field_trial.h"
 #include "test/gtest.h"
 #include "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h"
@@ -79,7 +80,7 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, MAYBE_RunWithEmulatedNetwork) {
   fixture->ExecuteAt(TimeDelta::seconds(2),
                      [alice_network_behavior_ptr](TimeDelta) {
                        BuiltInNetworkBehaviorConfig config;
-                       config.loss_percent = 5;
+                       // config.loss_percent = 5;
                        alice_network_behavior_ptr->SetConfig(config);
                      });
 
@@ -90,8 +91,9 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, MAYBE_RunWithEmulatedNetwork) {
           {alice_endpoint});
   fixture->AddPeer(alice_network->network_thread(),
                    alice_network->network_manager(), [](PeerConfigurer* alice) {
-                     VideoConfig video(640, 360, 30);
+                     VideoConfig video(1280, 720, 30);
                      video.stream_label = "alice-video";
+                     video.target_spatial_index = 1;
                      alice->AddVideoConfig(std::move(video));
 
                      AudioConfig audio;
@@ -99,7 +101,7 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, MAYBE_RunWithEmulatedNetwork) {
                      audio.mode = AudioConfig::Mode::kFile;
                      audio.input_file_name = test::ResourcePath(
                          "pc_quality_smoke_test_alice_source", "wav");
-                     alice->SetAudioConfig(std::move(audio));
+                     // alice->SetAudioConfig(std::move(audio));
                    });
 
   EmulatedNetworkManagerInterface* bob_network =
@@ -118,26 +120,25 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, MAYBE_RunWithEmulatedNetwork) {
             ScreenShareConfig(TimeDelta::seconds(2));
         screenshare.screen_share_config->scrolling_params = ScrollingParams(
             TimeDelta::ms(1800), kDefaultSlidesWidth, kDefaultSlidesHeight);
-        bob->AddVideoConfig(screenshare);
+        // bob->AddVideoConfig(screenshare);
 
         AudioConfig audio;
         audio.stream_label = "bob-audio";
         audio.mode = AudioConfig::Mode::kFile;
         audio.input_file_name =
             test::ResourcePath("pc_quality_smoke_test_bob_source", "wav");
-        bob->SetAudioConfig(std::move(audio));
+        // bob->SetAudioConfig(std::move(audio));
       });
 
   fixture->AddQualityMetricsReporter(
       absl::make_unique<NetworkQualityMetricsReporter>(alice_network,
                                                        bob_network));
 
-  RunParams run_params(TimeDelta::seconds(7));
-  run_params.video_codec_name = cricket::kVp9CodecName;
-  run_params.video_codec_required_params = {{"profile-id", "0"}};
+  RunParams run_params(TimeDelta::seconds(10));
+  run_params.video_codec_name = cricket::kVp8CodecName;
   run_params.use_flex_fec = true;
   run_params.use_ulp_fec = true;
-  run_params.video_encoder_bitrate_multiplier = 1.1;
+  // run_params.video_encoder_bitrate_multiplier = 1.1;
   fixture->Run(run_params);
 
   EXPECT_GE(fixture->GetRealTestDuration(), run_params.run_duration);

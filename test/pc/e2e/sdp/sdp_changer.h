@@ -16,7 +16,12 @@
 #include <vector>
 
 #include "absl/strings/string_view.h"
+#include "absl/types/optional.h"
+#include "api/jsep.h"
 #include "api/rtp_parameters.h"
+#include "media/base/rid_description.h"
+#include "pc/session_description.h"
+#include "pc/simulcast_description.h"
 
 namespace webrtc {
 namespace webrtc_pc_e2e {
@@ -39,6 +44,63 @@ std::vector<RtpCodecCapability> FilterCodecCapabilities(
     bool ulpfec,
     bool flexfec,
     std::vector<RtpCodecCapability> supported_codecs);
+
+// Contains information about simulcast section, that is required to perform
+// modified offer/answer and ice candidates exchange.
+struct SimulcastSectionInfo {
+  SimulcastSectionInfo(const std::string& mid,
+                       cricket::MediaProtocolType media_protocol_type,
+                       const std::vector<cricket::RidDescription>& rids_desc)
+      : mid(mid), media_protocol_type(media_protocol_type) {
+    for (auto& rid : rids_desc) {
+      rids.push_back(mid + "_" + rid.rid);
+      // rids.push_back(rid.rid);
+    }
+  }
+
+  const std::string mid;
+  const cricket::MediaProtocolType media_protocol_type;
+  std::vector<std::string> rids;
+  cricket::SimulcastDescription simulcast_description;
+  webrtc::RtpExtension mid_extension;
+  webrtc::RtpExtension rid_extension;
+  cricket::TransportDescription transport_description;
+};
+
+struct OfferAnswerExchangeContext {
+  void AddSimulcastInfo(const SimulcastSectionInfo& info) {
+    simulcast_infos.push_back(info);
+    RTC_CHECK(simulcast_infos_by_mid.insert({info.mid, simulcast_infos.back()})
+                  .second);
+    for (auto& rid : info.rids) {
+      RTC_CHECK(
+          simulcast_infos_by_rid.insert({rid, simulcast_infos.back()}).second);
+    }
+  }
+
+  bool empty() const { return simulcast_infos.empty(); }
+
+  std::vector<SimulcastSectionInfo> simulcast_infos;
+  std::map<std::string, SimulcastSectionInfo> simulcast_infos_by_mid;
+  std::map<std::string, SimulcastSectionInfo> simulcast_infos_by_rid;
+};
+
+struct PatchedOffer {
+  explicit PatchedOffer(std::unique_ptr<SessionDescriptionInterface> offer)
+      : offer(std::move(offer)) {}
+  PatchedOffer(std::unique_ptr<SessionDescriptionInterface> offer,
+               OfferAnswerExchangeContext context)
+      : offer(std::move(offer)), context(std::move(context)) {}
+
+  std::unique_ptr<SessionDescriptionInterface> offer;
+  OfferAnswerExchangeContext context;
+};
+
+PatchedOffer PatchOffer(SessionDescriptionInterface* offer);
+
+std::unique_ptr<SessionDescriptionInterface> PatchAnswer(
+    std::unique_ptr<SessionDescriptionInterface> answer,
+    const OfferAnswerExchangeContext& context);
 
 }  // namespace webrtc_pc_e2e
 }  // namespace webrtc

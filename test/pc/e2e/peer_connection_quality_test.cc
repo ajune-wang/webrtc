@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "absl/memory/memory.h"
+#include "api/jsep.h"
 #include "api/media_stream_interface.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtc_event_log_output_file.h"
@@ -30,7 +31,6 @@
 #include "system_wrappers/include/cpu_info.h"
 #include "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h"
-#include "test/pc/e2e/sdp/sdp_changer.h"
 #include "test/pc/e2e/stats_poller.h"
 #include "test/testsupport/file_utils.h"
 
@@ -522,6 +522,7 @@ void PeerConnectionE2EQualityTest::OnTrackCallback(
       transceiver->receiver()->track();
   RTC_CHECK_EQ(transceiver->receiver()->stream_ids().size(), 1);
   std::string stream_label = transceiver->receiver()->stream_ids().front();
+  std::printf("Stream label: %s\n", stream_label.c_str());
   analyzer_helper_.AddTrackToStreamMapping(track->id(), stream_label);
   if (track->kind() != MediaStreamTrackInterface::kVideoKind) {
     return;
@@ -560,9 +561,32 @@ void PeerConnectionE2EQualityTest::SetupCallOnSignalingThread(
     alice_->AddTransceiver(cricket::MediaType::MEDIA_TYPE_AUDIO,
                            receive_only_transceiver_init);
   }
-  for (size_t i = 0; i < bob_->params()->video_configs.size(); ++i) {
+
+  int simulcast_streams_count = 3;
+
+  size_t video_transceivers_to_add_count = bob_->params()->video_configs.size();
+  bool alice_has_simulcast = false;
+  for (auto& video_config : alice_->params()->video_configs) {
+    if (video_config.target_spatial_index) {
+      alice_has_simulcast = true;
+      break;
+    }
+  }
+  if (alice_has_simulcast) {
+    if (video_transceivers_to_add_count == 0) {
+      video_transceivers_to_add_count++;
+    }
+  }
+
+  for (size_t i = 0; i < video_transceivers_to_add_count; ++i) {
+    RtpEncodingParameters params;
+    RtpTransceiverInit transceiver_params;
+    transceiver_params.direction = RtpTransceiverDirection::kSendRecv;
+    for (int i = 0; i < simulcast_streams_count; ++i) {
+      transceiver_params.send_encodings.push_back(params);
+    }
     alice_->AddTransceiver(cricket::MediaType::MEDIA_TYPE_VIDEO,
-                           receive_only_transceiver_init);
+                           transceiver_params);
   }
   // Then add media for Alice and Bob
   alice_video_sources_ = MaybeAddMedia(alice_.get());
@@ -728,7 +752,7 @@ void PeerConnectionE2EQualityTest::SetPeerCodecPreferences(
 
 void PeerConnectionE2EQualityTest::SetupCall() {
   // Connect peers.
-  ASSERT_TRUE(alice_->ExchangeOfferAnswerWith(bob_.get()));
+  OfferAnswerExchangeContext context = ExchangeOfferAnswer();
   // Do the SDP negotiation, and also exchange ice candidates.
   ASSERT_EQ_WAIT(alice_->signaling_state(), PeerConnectionInterface::kStable,
                  kDefaultTimeoutMs);
@@ -736,11 +760,89 @@ void PeerConnectionE2EQualityTest::SetupCall() {
   ASSERT_TRUE_WAIT(bob_->IsIceGatheringDone(), kDefaultTimeoutMs);
 
   // Connect an ICE candidate pairs.
-  ASSERT_TRUE(bob_->AddIceCandidates(alice_->observer()->GetAllCandidates()));
-  ASSERT_TRUE(alice_->AddIceCandidates(bob_->observer()->GetAllCandidates()));
+  // TODO(titovartem) check for candidates memory leak. (it exists!)
+  std::vector<const IceCandidateInterface*> alice_candidates;
+  for (auto* candidate : alice_->observer()->GetAllCandidates()) {
+    auto simulcast_info_it =
+        context.simulcast_infos_by_mid.find(candidate->sdp_mid());
+    if (simulcast_info_it != context.simulcast_infos_by_mid.end()) {
+      // This is candidate for simulcast section, so it should be transformed
+      // into candidates for replicated sections
+      alice_candidates.push_back(
+          CreateIceCandidate(simulcast_info_it->second.rids[0], 0,
+                             candidate->candidate())
+              .release());
+    } else {
+      alice_candidates.push_back(candidate);
+    }
+  }
+  ASSERT_TRUE(bob_->AddIceCandidates(alice_candidates));
+  std::vector<const IceCandidateInterface*> bob_candidates;
+  for (auto* candidate : bob_->observer()->GetAllCandidates()) {
+    auto simulcast_info_it =
+        context.simulcast_infos_by_rid.find(candidate->sdp_mid());
+    if (simulcast_info_it != context.simulcast_infos_by_rid.end()) {
+      // This is candidate for replicated section, created from single simulcast
+      // section, so it should be transformed into candidates for simulcast
+      // section.
+      bob_candidates.push_back(CreateIceCandidate(simulcast_info_it->second.mid,
+                                                  0, candidate->candidate())
+                                   .release());
+    } else {
+      bob_candidates.push_back(candidate);
+    }
+  }
+  ASSERT_TRUE(alice_->AddIceCandidates(bob_candidates));
   // This means that ICE and DTLS are connected.
   ASSERT_TRUE_WAIT(bob_->IsIceConnected(), kDefaultTimeoutMs);
   ASSERT_TRUE_WAIT(alice_->IsIceConnected(), kDefaultTimeoutMs);
+}
+
+OfferAnswerExchangeContext PeerConnectionE2EQualityTest::ExchangeOfferAnswer() {
+  std::string out;
+
+  auto offer = alice_->CreateOffer();
+  RTC_CHECK(offer);
+  offer->ToString(&out);
+  std::printf("############################################################\n");
+  std::printf("Offer: %s\n", out.c_str());
+  std::printf("############################################################\n");
+  PatchedOffer patched_offer = PatchOffer(offer.get());
+  offer->ToString(&out);
+  std::printf("############################################################\n");
+  std::printf("Offer origin after patch: %s\n", out.c_str());
+  std::printf("############################################################\n");
+  patched_offer.offer->ToString(&out);
+  std::printf("############################################################\n");
+  std::printf("Patched offer: %s\n", out.c_str());
+  std::printf("############################################################\n");
+
+  bool set_local_offer = alice_->SetLocalDescription(std::move(offer));
+  RTC_CHECK(set_local_offer);
+  bool set_remote_offer =
+      bob_->SetRemoteDescription(std::move(patched_offer.offer));
+  RTC_CHECK(set_remote_offer);
+
+  auto answer = bob_->CreateAnswer();
+  RTC_CHECK(answer);
+  answer->ToString(&out);
+  std::printf("############################################################\n");
+  std::printf("Answer: %s\n", out.c_str());
+  std::printf("############################################################\n");
+  auto patched_answer =
+      PatchAnswer(CloneSessionDescription(answer.get()), patched_offer.context);
+  patched_answer->ToString(&out);
+  std::printf("############################################################\n");
+  std::printf("Patched answer: %s\n", out.c_str());
+  std::printf("############################################################\n");
+
+  bool set_local_answer = bob_->SetLocalDescription(std::move(answer));
+  RTC_CHECK(set_local_answer);
+  bool set_remote_answer =
+      alice_->SetRemoteDescription(std::move(patched_answer));
+  RTC_CHECK(set_remote_answer);
+
+  return patched_offer.context;
 }
 
 void PeerConnectionE2EQualityTest::StartVideo(
@@ -775,6 +877,8 @@ void PeerConnectionE2EQualityTest::TearDownCall() {
   bob_.reset();
 }
 
+int file_counter = 0;
+
 test::VideoFrameWriter* PeerConnectionE2EQualityTest::MaybeCreateVideoWriter(
     absl::optional<std::string> file_name,
     const VideoConfig& config) {
@@ -782,7 +886,9 @@ test::VideoFrameWriter* PeerConnectionE2EQualityTest::MaybeCreateVideoWriter(
     return nullptr;
   }
   auto video_writer = absl::make_unique<test::VideoFrameWriter>(
-      file_name.value(), config.width, config.height, config.fps);
+      file_name.value() + "_" + std::to_string(file_counter) + ".yuv",
+      config.width, config.height, config.fps);
+  file_counter++;
   test::VideoFrameWriter* out = video_writer.get();
   video_writers_.push_back(std::move(video_writer));
   return out;

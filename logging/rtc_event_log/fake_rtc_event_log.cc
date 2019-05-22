@@ -31,6 +31,11 @@ void FakeRtcEventLog::StopLogging() {
   invoker_.Flush(thread_);
 }
 
+void FakeRtcEventLog::StopLogging(std::function<void()> callback) {
+  StopLogging();
+  callback();
+}
+
 void FakeRtcEventLog::Log(std::unique_ptr<RtcEvent> event) {
   RtcEvent::Type rtc_event_type = event->GetType();
   invoker_.AsyncInvoke<void>(

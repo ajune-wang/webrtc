@@ -104,6 +104,12 @@ std::vector<const std::string*> GetStatsReferencedIds(const RTCStats& stats) {
     AddIdIfDefined(rtp.track_id, &neighbor_ids);
     AddIdIfDefined(rtp.transport_id, &neighbor_ids);
     AddIdIfDefined(rtp.codec_id, &neighbor_ids);
+  } else if (type == RTCRemoteInboundRtpStreamStats::kType) {
+    const auto& remote_inbound_rtp =
+        static_cast<const RTCRemoteInboundRtpStreamStats&>(stats);
+    AddIdIfDefined(remote_inbound_rtp.transport_id, &neighbor_ids);
+    AddIdIfDefined(remote_inbound_rtp.codec_id, &neighbor_ids);
+    AddIdIfDefined(remote_inbound_rtp.local_id, &neighbor_ids);
   } else if (type == RTCTransportStats::kType) {
     // RTCTransportStats does not have any neighbor references.
     const auto& transport = static_cast<const RTCTransportStats&>(stats);

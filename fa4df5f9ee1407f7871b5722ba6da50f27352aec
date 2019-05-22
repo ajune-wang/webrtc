@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21d19d6c_1bc5d436",
+        "filename": "p2p/base/stun_port.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-22T16:32:13Z",
+      "side": 1,
+      "message": "Do you need to return nullptr here? the if + NOTREACHED is equivalent to:\nRTC_DCHECK(!SharedSocket() || Candidates()[0].type() \u003d\u003d LOCAL_PORT_TYPE || mdns_name_registration_status() !\u003d MdnsNameRegistrationStatus::kNotStarted);\n\nso the question is should you write code to handle DCHECK failures and return a value, or are you ok to assume that the program is broken.",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 3
+      },
+      "revId": "fa4df5f9ee1407f7871b5722ba6da50f27352aec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

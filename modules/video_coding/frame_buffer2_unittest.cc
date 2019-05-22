@@ -83,8 +83,7 @@ class VCMJitterEstimatorMock : public VCMJitterEstimator {
                void(int64_t frameDelayMs,
                     uint32_t frameSizeBytes,
                     bool incompleteFrame));
-  MOCK_METHOD2(GetJitterEstimate,
-               int(double rttMultiplier, double jitterEstCapMs));
+  MOCK_METHOD1(GetJitterEstimate, int(double rttMultiplier));
 };
 
 class FrameObjectFake : public EncodedFrame {
@@ -404,12 +403,12 @@ TEST_F(TestFrameBuffer2, ProtectionMode) {
   uint16_t pid = Rand();
   uint32_t ts = Rand();
 
-  EXPECT_CALL(jitter_estimator_, GetJitterEstimate(1.0, 300.0));
+  EXPECT_CALL(jitter_estimator_, GetJitterEstimate(1.0));
   InsertFrame(pid, 0, ts, false, true);
   ExtractFrame();
 
   buffer_->SetProtectionMode(kProtectionNackFEC);
-  EXPECT_CALL(jitter_estimator_, GetJitterEstimate(0.0, 300.0));
+  EXPECT_CALL(jitter_estimator_, GetJitterEstimate(0.0));
   InsertFrame(pid + 1, 0, ts, false, true);
   ExtractFrame();
 }

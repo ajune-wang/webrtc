@@ -671,6 +671,10 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
     // confused with RTCP mux (multiplexing RTP and RTCP together).
     bool use_rtp_mux = true;
 
+    // If true, "a=packetization:<payload_type> raw" attribute will be offered
+    // in the SDP for all video payload.
+    bool raw_packetization_for_video_enabled = false;
+
     // This will apply to all video tracks with a Plan B SDP offer/answer.
     int num_simulcast_layers = 1;
 

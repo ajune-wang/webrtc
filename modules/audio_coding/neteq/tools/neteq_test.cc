@@ -252,7 +252,13 @@ NetEqTest::SimulationStepResult NetEqTest::RunToNextGetAudio() {
         }
       }
       prev_lifetime_stats_ = lifetime_stats;
-      result.is_simulation_finished = input_->ended();
+      if (!input_->NextPacketTime() &&
+          !operations_state.next_packet_available) {
+        // End simulation if there are no more packets to decode.
+        result.is_simulation_finished = true;
+      } else {
+        result.is_simulation_finished = input_->ended();
+      }
       prev_ops_state_ = operations_state;
       return result;
     }

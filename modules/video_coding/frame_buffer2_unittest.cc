@@ -90,6 +90,18 @@ class VCMTimingFake : public VCMTiming {
   mutable int64_t last_ms_ = -1;
 };
 
+class VCMJitterEstimatorMock : public VCMJitterEstimator {
+ public:
+  explicit VCMJitterEstimatorMock(Clock* clock) : VCMJitterEstimator(clock) {}
+
+  MOCK_METHOD1(UpdateRtt, void(int64_t rttMs));
+  MOCK_METHOD3(UpdateEstimate,
+               void(int64_t frameDelayMs,
+                    uint32_t frameSizeBytes,
+                    bool incompleteFrame));
+  MOCK_METHOD1(GetJitterEstimate, int(double rttMultiplier));
+};
+
 class FrameObjectFake : public EncodedFrame {
  public:
   int64_t ReceivedTime() const override { return 0; }
@@ -436,15 +448,8 @@ TEST_F(TestFrameBuffer2, ProtectionModeNackFEC) {
   constexpr int64_t kRttMs = 200;
   buffer_->UpdateRtt(kRttMs);
 
-  // Jitter estimate unaffected by RTT in this protection mode.
-  buffer_->SetProtectionMode(kProtectionNackFEC);
-  InsertNackedFrame(pid, ts);
-  InsertNackedFrame(pid + 1, ts + 100);
-  InsertNackedFrame(pid + 2, ts + 200);
-  InsertFrame(pid + 3, 0, ts + 300, false, true);
-  ExtractFrame();
-  ExtractFrame();
-  ExtractFrame();
+  EXPECT_CALL(jitter_estimator_, GetJitterEstimate(1.0));
+  InsertFrame(pid, 0, ts, false, true);
   ExtractFrame();
   ASSERT_EQ(4u, frames_.size());
   EXPECT_LT(timing_.GetCurrentJitter(), kRttMs);

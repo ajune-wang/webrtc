@@ -1840,8 +1840,8 @@ WebRtcVideoChannel::WebRtcVideoSendStream::GetDegradationPreference() const {
     degradation_preference = webrtc::DegradationPreference::DISABLED;
   } else if (parameters_.options.is_screencast.value_or(false)) {
     degradation_preference = webrtc::DegradationPreference::MAINTAIN_RESOLUTION;
-  } else if (webrtc::field_trial::IsEnabled(
-                 "WebRTC-Video-BalancedDegradation")) {
+  } else if (call_->GetFieldTrialManager()->IsEnabled(
+                 "Video-BalancedDegradation")) {
     degradation_preference = webrtc::DegradationPreference::BALANCED;
   } else {
     // TODO(orphis): The default should be BALANCED as the standard mandates.

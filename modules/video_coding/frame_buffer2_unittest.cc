@@ -445,6 +445,7 @@ TEST_F(TestFrameBuffer2, ProtectionModeNackFEC) {
   ExtractFrame();
   ExtractFrame();
   ExtractFrame();
+  InsertFrame(pid, 0, ts, false, true);
   ExtractFrame();
   ASSERT_EQ(4u, frames_.size());
   EXPECT_LT(timing_.GetCurrentJitter(), kRttMs);

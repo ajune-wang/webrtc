@@ -99,6 +99,8 @@ struct RtpConfig {
   // images to the right payload type.
   std::string payload_name;
   int payload_type = -1;
+  // Payload should be packetized using raw packetizer.
+  bool raw_payload = false;
 
   // See NackConfig for description.
   NackConfig nack;

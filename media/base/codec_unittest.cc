@@ -172,6 +172,16 @@ TEST(CodecTest, TestVideoCodecOperators) {
   EXPECT_TRUE(c13 == c10);
 }
 
+TEST(CodecTest, TestVideoCodecEqualsWithDifferentPacketization) {
+  VideoCodec c0(100, cricket::kVp8CodecName);
+  VideoCodec c1(100, cricket::kVp8CodecName);
+  VideoCodec c2(100, cricket::kVp8CodecName);
+  c2.packetization = "raw";
+
+  EXPECT_TRUE(c0 == c1);
+  EXPECT_FALSE(c0 == c2);
+}
+
 TEST(CodecTest, TestVideoCodecMatches) {
   // Test a codec with a static payload type.
   VideoCodec c0(95, "V");
@@ -186,6 +196,14 @@ TEST(CodecTest, TestVideoCodecMatches) {
   EXPECT_TRUE(c1.Matches(VideoCodec(97, "v")));
   EXPECT_FALSE(c1.Matches(VideoCodec(96, "")));
   EXPECT_FALSE(c1.Matches(VideoCodec(95, "V")));
+}
+
+TEST(CodecTest, TestVideoCodecMatchesWithDifferentPacketization) {
+  VideoCodec c0(100, cricket::kVp8CodecName);
+  VideoCodec c1(101, cricket::kVp8CodecName);
+  c1.packetization = "raw";
+
+  EXPECT_TRUE(c0.Matches(c1));
 }
 
 // VP9 codecs compare profile information.
@@ -292,6 +310,20 @@ TEST(CodecTest, TestSetParamGetParamAndRemoveParam) {
   EXPECT_FALSE(codec.GetParam("c", &str_value));
   EXPECT_TRUE(codec.RemoveParam("a"));
   EXPECT_FALSE(codec.RemoveParam("c"));
+}
+
+TEST(CodecTest, TestIntersectPacketization) {
+  TestCodec c1;
+  c1.packetization = "raw";
+  TestCodec c2;
+  c2.packetization = "raw";
+  TestCodec c3;
+
+  c1.IntersectPacketization(c2);
+  EXPECT_EQ(c1.packetization, "raw");
+
+  c2.IntersectPacketization(c3);
+  EXPECT_EQ(c2.packetization, absl::nullopt);
 }
 
 TEST(CodecTest, TestIntersectFeedbackParams) {

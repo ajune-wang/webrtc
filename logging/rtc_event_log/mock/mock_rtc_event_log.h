@@ -31,6 +31,8 @@ class MockRtcEventLog : public RtcEventLog {
 
   MOCK_METHOD0(StopLogging, void());
 
+  MOCK_METHOD1(StopLogging, void(std::function<void()>));
+
   virtual void Log(std::unique_ptr<RtcEvent> event) {
     return LogProxy(event.get());
   }

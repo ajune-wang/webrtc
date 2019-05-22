@@ -18,6 +18,11 @@ std::unique_ptr<RtcEventLog> RtcEventLog::CreateNull() {
   return absl::make_unique<RtcEventLogNullImpl>();
 }
 
+void RtcEventLog::StopLogging(std::function<void()> callback) {
+  StopLogging();
+  callback();
+}
+
 bool RtcEventLogNullImpl::StartLogging(
     std::unique_ptr<RtcEventLogOutput> output,
     int64_t output_period_ms) {

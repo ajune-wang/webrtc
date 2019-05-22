@@ -28,6 +28,7 @@ class FakeRtcEventLog : public RtcEventLog {
   bool StartLogging(std::unique_ptr<RtcEventLogOutput> output,
                     int64_t output_period_ms) override;
   void StopLogging() override;
+  void StopLogging(std::function<void()> callback) override;
   void Log(std::unique_ptr<RtcEvent> event) override;
   int GetEventCount(RtcEvent::Type event_type) { return count_[event_type]; }
 

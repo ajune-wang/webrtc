@@ -22,6 +22,30 @@
       "revId": "fa4df5f9ee1407f7871b5722ba6da50f27352aec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ace9a0f_0e91eb5a",
+        "filename": "p2p/base/stun_port.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-22T20:52:13Z",
+      "side": 1,
+      "message": "The DCHECK failure indeed signals program broken from the design perspective, but after some thoughts, I think the old behavior of returning nullptr can be too brittle for the release build even when there are latent bugs that violate the assumption. The nullptr would completely void all connections for this Port and we could have a connectivity issue, whereas the downside of keeping going is resulting in redundant connections, which is more acceptable imho.\n\nI have made changes accordingly and please let me know what you think.\n\nAlso I don\u0027t think the DCHECK on empty() is enough (the legacy code does not even have that)... edited accordingly.",
+      "parentUuid": "21d19d6c_1bc5d436",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 3
+      },
+      "revId": "fa4df5f9ee1407f7871b5722ba6da50f27352aec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

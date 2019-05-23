@@ -97,6 +97,7 @@ VideoSendStream::Config CreateVideoSendStreamConfig(
   config.rtp.rtx.ssrcs = rtx_ssrcs;
   config.rtp.payload_type = payload_type;
   config.rtp.rtx.payload_type = payload_type + 1;
+  config.rtp.lntf.enabled = true;
   config.rtp.nack.rtp_history_ms = 1000;
   return config;
 }

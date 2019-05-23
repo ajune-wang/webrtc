@@ -117,6 +117,29 @@
     },
     {
       "key": {
+        "uuid": "e35c961e_4dcf1262",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-05-23T15:26:28Z",
+      "side": 1,
+      "message": "Maybe it is better to also print this:\n\n  RTC_CHECK_EQ(i, 0) \u003c\u003c \"...\";",
+      "range": {
+        "startLine": 499,
+        "startChar": 11,
+        "endLine": 499,
+        "endChar": 54
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c84c5fc9_dcc4367d",
         "filename": "test/pc/e2e/sdp/sdp_changer.h",
         "patchSetId": 6

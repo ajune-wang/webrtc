@@ -87,6 +87,7 @@ Codec& Codec::operator=(Codec&& c) = default;
 bool Codec::operator==(const Codec& c) const {
   return this->id == c.id &&  // id is reserved in objective-c
          name == c.name && clockrate == c.clockrate && params == c.params &&
+         packetization == c.packetization &&
          feedback_params == c.feedback_params;
 }
 
@@ -136,6 +137,12 @@ void Codec::SetParam(const std::string& name, int value) {
 
 bool Codec::RemoveParam(const std::string& name) {
   return params.erase(name) == 1;
+}
+
+void Codec::IntersectPacketization(const Codec& other) {
+  if (packetization != other.packetization) {
+    packetization.reset();
+  }
 }
 
 void Codec::AddFeedbackParam(const FeedbackParam& param) {

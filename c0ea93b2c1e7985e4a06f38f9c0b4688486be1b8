@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f61493b6_8a274d53",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-05-23T11:15:43Z",
+      "side": 1,
+      "message": "and accepted in the answer, if offered?",
+      "range": {
+        "startLine": 674,
+        "startChar": 71,
+        "endLine": 674,
+        "endChar": 78
+      },
+      "revId": "c0ea93b2c1e7985e4a06f38f9c0b4688486be1b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4aa3df58_25d040a5",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4376,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-05-23T11:15:43Z",
+      "side": 1,
+      "message": "Nit: vp8_codec.",
+      "range": {
+        "startLine": 4376,
+        "startChar": 22,
+        "endLine": 4376,
+        "endChar": 30
+      },
+      "revId": "c0ea93b2c1e7985e4a06f38f9c0b4688486be1b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8559422a_4935348e",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2131,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-05-23T11:15:43Z",
+      "side": 1,
+      "message": "And here",
+      "range": {
+        "startLine": 2131,
+        "startChar": 22,
+        "endLine": 2131,
+        "endChar": 30
+      },
+      "revId": "c0ea93b2c1e7985e4a06f38f9c0b4688486be1b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

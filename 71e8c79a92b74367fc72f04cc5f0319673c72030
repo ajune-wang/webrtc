@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "e96f5396_70b887b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-23T13:39:01Z",
+      "side": 1,
+      "message": "Spelling\n\nAnd I find first line hard to understand, filled with scary acronyms. Suggest:\n\n  Negotiate use of RTCP loss notification feedback (LNTF)",
+      "range": {
+        "startLine": 7,
+        "startChar": 41,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "71e8c79a92b74367fc72f04cc5f0319673c72030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cd67eb3_5d13736a",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-23T13:39:01Z",
+      "side": 1,
+      "message": "Do you expect to have more complex config here? I think I\u0027d prefer to keep it simple with\n\nbool enable_loss_notification \u003d false;\n\nIf you extend to a struct later, you could likely implement implicit conversion to and from bool to get a reasonably easy transition.",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 18
+      },
+      "revId": "71e8c79a92b74367fc72f04cc5f0319673c72030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "877762e1_186735e3",
         "filename": "call/rtp_video_sender_unittest.cc",
         "patchSetId": 1

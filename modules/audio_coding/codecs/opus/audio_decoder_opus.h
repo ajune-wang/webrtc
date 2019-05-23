@@ -24,7 +24,7 @@ namespace webrtc {
 
 class AudioDecoderOpusImpl final : public AudioDecoder {
  public:
-  explicit AudioDecoderOpusImpl(size_t num_channels);
+  AudioDecoderOpusImpl(size_t num_channels);
   ~AudioDecoderOpusImpl() override;
 
   std::vector<ParseResult> ParsePayload(rtc::Buffer&& payload,

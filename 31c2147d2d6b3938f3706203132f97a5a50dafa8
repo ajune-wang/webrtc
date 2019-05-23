@@ -22,6 +22,30 @@
       "revId": "31c2147d2d6b3938f3706203132f97a5a50dafa8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06aca7ae_3f24e7c3",
+        "filename": "media/base/codec.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-05-23T13:22:54Z",
+      "side": 1,
+      "message": "Yes it is a video only property. I have moved it under VideoCodec.",
+      "parentUuid": "4e6f3243_377c1c64",
+      "range": {
+        "startLine": 72,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 44
+      },
+      "revId": "31c2147d2d6b3938f3706203132f97a5a50dafa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

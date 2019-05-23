@@ -256,7 +256,7 @@ void VideoCodec::SetDefaultParameters() {
 }
 
 bool VideoCodec::operator==(const VideoCodec& c) const {
-  return Codec::operator==(c);
+  return Codec::operator==(c) && packetization == c.packetization;
 }
 
 static bool IsSameH264PacketizationMode(const CodecParameterMap& ours,
@@ -285,6 +285,15 @@ bool VideoCodec::Matches(const VideoCodec& other) const {
   if (absl::EqualsIgnoreCase(name, kVp9CodecName))
     return webrtc::IsSameVP9Profile(params, other.params);
   return true;
+}
+
+absl::optional<std::string> VideoCodec::IntersectPacketization(
+    const VideoCodec& local_codec,
+    const VideoCodec& remote_codec) {
+  if (local_codec.packetization == remote_codec.packetization) {
+    return local_codec.packetization;
+  }
+  return absl::nullopt;
 }
 
 VideoCodec VideoCodec::CreateRtxCodec(int rtx_payload_type,

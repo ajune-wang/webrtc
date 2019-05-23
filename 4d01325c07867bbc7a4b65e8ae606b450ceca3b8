@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32478974_5d694e10",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-23T17:02:21Z",
+      "side": 1,
+      "message": "Add link to https://w3c.github.io/webrtc-stats/#remoteinboundrtpstats-dict*",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b31e3339_036c3c2a",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1067,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-23T17:02:21Z",
+      "side": 1,
+      "message": "Add this comment to rtc_stats_collector.h too.",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "19106700_789e992a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-05-23T12:32:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17e9014c_82f7d994",
+      "range": {
+        "startLine": 487,
+        "startChar": 25,
+        "endLine": 487,
+        "endChar": 46
+      },
+      "revId": "ee01e0bf1c6f7d65a6d85eafc976ee2b7c5e796b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efe13585_3b2f05cd",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 6
@@ -53,6 +77,24 @@
       "writtenOn": "2019-05-23T08:47:15Z",
       "side": 1,
       "message": "With this CL, reinitialization is no longer done when processing_config !\u003d formats_.api_format.\n\nIs this intentional? In that case, what are the consequences of that, and why is it safe to do it?",
+      "revId": "ee01e0bf1c6f7d65a6d85eafc976ee2b7c5e796b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89c373ff_63595a48",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-05-23T12:32:12Z",
+      "side": 1,
+      "message": "But processing_config _is_ formats_.api_format (line 931). Only if one of the two blocks above detect a difference and update processing_config will they differ - in which case InitializeLocked gets called.",
+      "parentUuid": "efe13585_3b2f05cd",
       "revId": "ee01e0bf1c6f7d65a6d85eafc976ee2b7c5e796b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -73,6 +115,24 @@
       "revId": "ee01e0bf1c6f7d65a6d85eafc976ee2b7c5e796b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e3a3fe5_96aae3a0",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-05-23T12:32:12Z",
+      "side": 1,
+      "message": "Agreed.",
+      "parentUuid": "857ee86f_345ba076",
+      "revId": "ee01e0bf1c6f7d65a6d85eafc976ee2b7c5e796b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

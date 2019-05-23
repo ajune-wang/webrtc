@@ -40,6 +40,8 @@ class FakeDtlsTransport : public DtlsTransportInternal {
         this, &FakeDtlsTransport::OnIceTransportReadPacket);
     ice_transport_->SignalNetworkRouteChanged.connect(
         this, &FakeDtlsTransport::OnNetworkRouteChanged);
+    ice_transport_->SignalWritableState.connect(
+        this, &FakeDtlsTransport::OnIceWritableStatus);
   }
 
   explicit FakeDtlsTransport(std::unique_ptr<FakeIceTransport> ice)
@@ -52,6 +54,8 @@ class FakeDtlsTransport : public DtlsTransportInternal {
         this, &FakeDtlsTransport::OnIceTransportReadPacket);
     ice_transport_->SignalNetworkRouteChanged.connect(
         this, &FakeDtlsTransport::OnNetworkRouteChanged);
+    ice_transport_->SignalWritableState.connect(
+        this, &FakeDtlsTransport::OnIceWritableStatus);
   }
 
   // If this constructor is called, a new fake ICE transport will be created,
@@ -274,6 +278,11 @@ class FakeDtlsTransport : public DtlsTransportInternal {
 
   void OnNetworkRouteChanged(absl::optional<rtc::NetworkRoute> network_route) {
     SignalNetworkRouteChanged(network_route);
+  }
+
+  void OnIceWritableStatus(PacketTransportInternal* ice_transport) {
+    RTC_DCHECK(ice_transport == owned_ice_transport_.get());
+    SignalIceWritableStatus(owned_ice_transport_.get());
   }
 
   FakeIceTransport* ice_transport_;

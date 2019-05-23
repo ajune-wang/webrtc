@@ -296,6 +296,10 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
     return peer_connection_state_history_;
   }
 
+  const std::vector<bool>& ice_writable_status_history() const {
+    return ice_writable_status_history_;
+  }
+
   // Every ICE gathering state in order that has been seen by the observer.
   std::vector<PeerConnectionInterface::IceGatheringState>
   ice_gathering_state_history() const {
@@ -915,6 +919,9 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
       webrtc::PeerConnectionInterface::PeerConnectionState new_state) override {
     peer_connection_state_history_.push_back(new_state);
   }
+  void OnIceConnectionWritableChange(bool writable) override {
+    ice_writable_status_history_.push_back(writable);
+  }
 
   void OnIceGatheringChange(
       webrtc::PeerConnectionInterface::IceGatheringState new_state) override {
@@ -1006,6 +1013,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
       peer_connection_state_history_;
   std::vector<PeerConnectionInterface::IceGatheringState>
       ice_gathering_state_history_;
+  std::vector<bool> ice_writable_status_history_;
 
   webrtc::FakeRtcEventLogFactory* event_log_factory_;
 
@@ -1768,6 +1776,8 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithDtls) {
                                           webrtc::kEnumCounterKeyProtocolDtls));
   EXPECT_EQ(0, webrtc::metrics::NumEvents("WebRTC.PeerConnection.KeyProtocol",
                                           webrtc::kEnumCounterKeyProtocolSdes));
+  EXPECT_THAT(caller()->ice_writable_status_history(), ElementsAre(true));
+  EXPECT_THAT(callee()->ice_writable_status_history(), ElementsAre(true));
 }
 
 // Uses SDES instead of DTLS for key agreement.
@@ -1790,6 +1800,8 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithSdes) {
                                           webrtc::kEnumCounterKeyProtocolSdes));
   EXPECT_EQ(0, webrtc::metrics::NumEvents("WebRTC.PeerConnection.KeyProtocol",
                                           webrtc::kEnumCounterKeyProtocolDtls));
+  EXPECT_THAT(caller()->ice_writable_status_history(), ElementsAre(true));
+  EXPECT_THAT(callee()->ice_writable_status_history(), ElementsAre(true));
 }
 
 // Tests that the GetRemoteAudioSSLCertificate method returns the remote DTLS
@@ -3964,6 +3976,7 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyIceStates) {
               ElementsAre(PeerConnectionInterface::kIceConnectionChecking,
                           PeerConnectionInterface::kIceConnectionConnected,
                           PeerConnectionInterface::kIceConnectionCompleted));
+  EXPECT_THAT(caller()->ice_writable_status_history(), ElementsAre(true));
   EXPECT_THAT(
       caller()->peer_connection_state_history(),
       ElementsAre(PeerConnectionInterface::PeerConnectionState::kConnecting,
@@ -3984,6 +3997,8 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyIceStates) {
   ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionDisconnected,
                            caller()->standardized_ice_connection_state(),
                            kDefaultTimeout, fake_clock);
+  EXPECT_THAT(caller()->ice_writable_status_history(),
+              ElementsAre(true, false));
 
   // Let ICE re-establish by removing the firewall rules.
   firewall()->ClearRules();
@@ -3994,6 +4009,8 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyIceStates) {
   ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionCompleted,
                            caller()->standardized_ice_connection_state(),
                            kDefaultTimeout, fake_clock);
+  EXPECT_THAT(caller()->ice_writable_status_history(),
+              ElementsAre(true, false, true));
 
   // According to RFC7675, if there is no response within 30 seconds then the
   // peer should consider the other side to have rejected the connection. This
@@ -4009,6 +4026,8 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyIceStates) {
   ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionFailed,
                            caller()->standardized_ice_connection_state(),
                            kConsentTimeout, fake_clock);
+  EXPECT_THAT(caller()->ice_writable_status_history(),
+              ElementsAre(true, false, true, false));
 
   // We need to manually close the peerconnections before the fake clock goes
   // out of scope, or we trigger a DCHECK in rtp_sender.cc when we briefly

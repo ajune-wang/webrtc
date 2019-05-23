@@ -53,6 +53,7 @@ class PeerConnectionObserverJni : public PeerConnectionObserver {
       PeerConnectionInterface::IceConnectionState new_state) override;
   void OnConnectionChange(
       PeerConnectionInterface::PeerConnectionState new_state) override;
+  void OnIceConnectionWritableChange(bool writable) override;
   void OnIceConnectionReceivingChange(bool receiving) override;
   void OnIceGatheringChange(
       PeerConnectionInterface::IceGatheringState new_state) override;

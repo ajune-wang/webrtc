@@ -306,6 +306,12 @@ void PeerConnectionObserverJni::OnConnectionChange(
                                        env, static_cast<int>(new_state)));
 }
 
+void PeerConnectionObserverJni::OnIceConnectionWritableChange(bool writable) {
+  JNIEnv* env = AttachCurrentThreadIfNeeded();
+  Java_Observer_onIceConnectionWritableChange(env, j_observer_global_,
+                                              writable);
+}
+
 void PeerConnectionObserverJni::OnIceConnectionReceivingChange(bool receiving) {
   JNIEnv* env = AttachCurrentThreadIfNeeded();
   Java_Observer_onIceConnectionReceivingChange(env, j_observer_global_,

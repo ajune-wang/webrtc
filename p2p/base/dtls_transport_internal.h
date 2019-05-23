@@ -105,6 +105,8 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
   // Expose the underneath IceTransport.
   virtual IceTransportInternal* ice_transport() = 0;
 
+  sigslot::signal1<IceTransportInternal*> SignalIceWritableStatus;
+
   sigslot::signal2<DtlsTransportInternal*, DtlsTransportState> SignalDtlsState;
 
   // Emitted whenever the Dtls handshake failed on some transport channel.

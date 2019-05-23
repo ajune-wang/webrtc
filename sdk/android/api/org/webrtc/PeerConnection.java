@@ -102,6 +102,9 @@ public class PeerConnection {
     @CalledByNative("Observer")
     default void onConnectionChange(PeerConnectionState newState) {}
 
+    /** Triggered when the ICE connection writable status changes. */
+    @CalledByNative("Observer") default void onIceConnectionWritableChange(boolean writable){};
+
     /** Triggered when the ICE connection receiving status changes. */
     @CalledByNative("Observer") void onIceConnectionReceivingChange(boolean receiving);
 

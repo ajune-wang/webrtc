@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5585cd19_c0f4bedb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-23T14:32:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e96f5396_70b887b5",
+      "range": {
+        "startLine": 7,
+        "startChar": 41,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "71e8c79a92b74367fc72f04cc5f0319673c72030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cd67eb3_5d13736a",
         "filename": "call/rtp_config.h",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-23T13:39:01Z",
       "side": 1,
       "message": "Do you expect to have more complex config here? I think I\u0027d prefer to keep it simple with\n\nbool enable_loss_notification \u003d false;\n\nIf you extend to a struct later, you could likely implement implicit conversion to and from bool to get a reasonably easy transition.",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 18
+      },
+      "revId": "71e8c79a92b74367fc72f04cc5f0319673c72030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75c5228b_3d07a1e1",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-23T14:32:15Z",
+      "side": 1,
+      "message": "1. Please note that NackConfig is a single-member struct. I am following in its footsteps.\n2. In that vein, I think it pays to keep standard and have all rtcp-fb messages here in their own Config, rather than some going by way of a bool, some by a struct, and some a third way.\n3. I prefer avoiding a 30-files CL if I end up adding some configuration. I think using a struct here is reasonable.",
+      "parentUuid": "2cd67eb3_5d13736a",
       "range": {
         "startLine": 113,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "53e78426_721c6801",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-23T14:32:15Z",
+      "side": 1,
+      "message": "I think testing with support for it is enough.",
+      "parentUuid": "877762e1_186735e3",
+      "range": {
+        "startLine": 100,
+        "startChar": 2,
+        "endLine": 100,
+        "endChar": 33
+      },
+      "revId": "71e8c79a92b74367fc72f04cc5f0319673c72030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "caeafc46_4da39853",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "71e8c79a92b74367fc72f04cc5f0319673c72030",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd8cbe17_fc8166b2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-23T14:32:15Z",
+      "side": 1,
+      "message": "The code below depends on \"WebRTC-RtcpLossNotification\", so the TODO and that piece of information leave little for the imagination. If I had another revision to upload, I would modify the comment as per your suggestion, but since this would be the only change, I think that is enough. Please let me know if you think otherwise.",
+      "parentUuid": "caeafc46_4da39853",
+      "range": {
+        "startLine": 202,
+        "startChar": 9,
+        "endLine": 202,
+        "endChar": 16
+      },
+      "revId": "71e8c79a92b74367fc72f04cc5f0319673c72030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

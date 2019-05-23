@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "28e947ef_a7bf05db",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-05-23T10:13:48Z",
+      "side": 1,
+      "message": "Because ALR probing may be requested be video as well. ALR probing will be running if any stream requests it. Why the method has an argument at all is a good question. Adding a comment.",
+      "parentUuid": "9e8d939c_0676f1f8",
+      "range": {
+        "startLine": 287,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 9
+      },
+      "revId": "0666e470196daa0e5081ee9d79f5eb2cb171e390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4d84df9c_fafb567c",
         "filename": "rtc_base/experiments/audio_allocation_settings.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-23T09:40:40Z",
       "side": 1,
       "message": "This is also a bit odd. Disable being Disabled, that is. Why does this need to be a double negative?",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 44
+      },
+      "revId": "0666e470196daa0e5081ee9d79f5eb2cb171e390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e96aad7_9e6424d8",
+        "filename": "rtc_base/experiments/audio_allocation_settings.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-05-23T10:13:48Z",
+      "side": 1,
+      "message": "Yeah, this went back and forth a few times. It is really about syntax. The \"Disabled\" as string here is the key that the parser will look for to turn enable the flag. I.e. the field trial string should be \nWebRTC-Audio-AlrProbing/Disabled/\nwhich is very clear. \n\nThe alternative is making a string like \nWebRTC-Audio-DisableAlrProbing/Enabled/ \nwhich is quite confusing.\n\nI cannot just make it \naudio_alr_request_(\"Enabled\")\nand\nWebRTC-Audio-AlrProbing/Enabled/\n\nbecause ALR probing must be on by default.\n\nAdded /*Flag key*/ argument comments to make it clear that \"Disabled\"/\"Enabled\" has no semantic meaning.",
+      "parentUuid": "4d84df9c_fafb567c",
       "range": {
         "startLine": 23,
         "startChar": 6,

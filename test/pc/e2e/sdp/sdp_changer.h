@@ -16,7 +16,12 @@
 #include <vector>
 
 #include "absl/strings/string_view.h"
+#include "absl/types/optional.h"
+#include "api/jsep.h"
 #include "api/rtp_parameters.h"
+#include "media/base/rid_description.h"
+#include "pc/session_description.h"
+#include "pc/simulcast_description.h"
 
 namespace webrtc {
 namespace webrtc_pc_e2e {
@@ -39,6 +44,72 @@ std::vector<RtpCodecCapability> FilterCodecCapabilities(
     bool ulpfec,
     bool flexfec,
     std::vector<RtpCodecCapability> supported_codecs);
+
+// Contains information about simulcast section, that is required to perform
+// modified offer/answer and ice candidates exchange.
+struct SimulcastSectionInfo {
+  SimulcastSectionInfo(const std::string& mid,
+                       cricket::MediaProtocolType media_protocol_type,
+                       const std::vector<cricket::RidDescription>& rids_desc)
+      : mid(mid), media_protocol_type(media_protocol_type) {
+    for (auto& rid : rids_desc) {
+      rids.push_back(mid + "_" + rid.rid);
+    }
+  }
+
+  const std::string mid;
+  const cricket::MediaProtocolType media_protocol_type;
+  std::vector<std::string> rids;
+  cricket::SimulcastDescription simulcast_description;
+  webrtc::RtpExtension mid_extension;
+  webrtc::RtpExtension rid_extension;
+  cricket::TransportDescription transport_description;
+};
+
+struct OfferAnswerExchangeSimulcastContext {
+  void AddSimulcastInfo(const SimulcastSectionInfo& info) {
+    simulcast_infos.push_back(info);
+    RTC_CHECK(simulcast_infos_by_mid.insert({info.mid, simulcast_infos.back()})
+                  .second);
+    for (auto& rid : info.rids) {
+      RTC_CHECK(
+          simulcast_infos_by_rid.insert({rid, simulcast_infos.back()}).second);
+    }
+  }
+
+  bool empty() const { return simulcast_infos.empty(); }
+
+  // TODO(titovartem) optimize storage here.
+  std::vector<SimulcastSectionInfo> simulcast_infos;
+  std::map<std::string, SimulcastSectionInfo> simulcast_infos_by_mid;
+  std::map<std::string, SimulcastSectionInfo> simulcast_infos_by_rid;
+
+  std::vector<std::string> mids_order;
+};
+
+struct LocalAndRemoteOfferWithContext {
+  LocalAndRemoteOfferWithContext(
+      std::unique_ptr<SessionDescriptionInterface> offer_for_local,
+      std::unique_ptr<SessionDescriptionInterface> offer_for_remote,
+      OfferAnswerExchangeSimulcastContext context)
+      : offer_for_local(std::move(offer_for_local)),
+        offer_for_remote(std::move(offer_for_remote)),
+        context(std::move(context)) {}
+
+  // Offer to set as local description on local peer.
+  std::unique_ptr<SessionDescriptionInterface> offer_for_local;
+  // Offer to set as remote description on remote peer.
+  std::unique_ptr<SessionDescriptionInterface> offer_for_remote;
+  // Context required to correctly restore answer.
+  OfferAnswerExchangeSimulcastContext context;
+};
+
+LocalAndRemoteOfferWithContext PatchOffer(
+    std::unique_ptr<SessionDescriptionInterface> offer);
+
+std::unique_ptr<SessionDescriptionInterface> PatchAnswer(
+    const SessionDescriptionInterface& answer,
+    const OfferAnswerExchangeSimulcastContext& context);
 
 }  // namespace webrtc_pc_e2e
 }  // namespace webrtc

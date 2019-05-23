@@ -17,6 +17,7 @@
 #include "api/test/network_emulation_manager.h"
 #include "api/test/peerconnection_quality_test_fixture.h"
 #include "call/simulated_network.h"
+#include "test/field_trial.h"
 #include "test/gtest.h"
 #include "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h"
@@ -40,6 +41,8 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, MAYBE_RunWithEmulatedNetwork) {
   using ScreenShareConfig =
       PeerConnectionE2EQualityTestFixture::ScreenShareConfig;
   using ScrollingParams = PeerConnectionE2EQualityTestFixture::ScrollingParams;
+  using VideoSimulcastConfig =
+      PeerConnectionE2EQualityTestFixture::VideoSimulcastConfig;
 
   // Setup emulated network
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
@@ -90,6 +93,11 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, MAYBE_RunWithEmulatedNetwork) {
           {alice_endpoint});
   fixture->AddPeer(alice_network->network_thread(),
                    alice_network->network_manager(), [](PeerConfigurer* alice) {
+                     VideoConfig simlucast(1280, 720, 30);
+                     simlucast.stream_label = "alice-simulcast";
+                     simlucast.simulcast_config = VideoSimulcastConfig(3, 0);
+                     alice->AddVideoConfig(std::move(simlucast));
+
                      VideoConfig video(640, 360, 30);
                      video.stream_label = "alice-video";
                      alice->AddVideoConfig(std::move(video));
@@ -133,8 +141,7 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, MAYBE_RunWithEmulatedNetwork) {
                                                        bob_network));
 
   RunParams run_params(TimeDelta::seconds(7));
-  run_params.video_codec_name = cricket::kVp9CodecName;
-  run_params.video_codec_required_params = {{"profile-id", "0"}};
+  run_params.video_codec_name = cricket::kVp8CodecName;
   run_params.use_flex_fec = true;
   run_params.use_ulp_fec = true;
   run_params.video_encoder_bitrate_multiplier = 1.1;

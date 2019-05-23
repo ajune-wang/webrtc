@@ -39,6 +39,23 @@
       "revId": "e795f839e08930e1c8b30d4ebb897732e89b6e72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d903e6c_c093de9f",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 6848,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-23T17:24:31Z",
+      "side": 1,
+      "message": "Should we add a link to the spec somewhere to clarify what this function means by ready?",
+      "revId": "e795f839e08930e1c8b30d4ebb897732e89b6e72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

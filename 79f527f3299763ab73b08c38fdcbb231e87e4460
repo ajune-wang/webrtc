@@ -22,6 +22,30 @@
       "revId": "79f527f3299763ab73b08c38fdcbb231e87e4460",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48e14109_e7911461",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-23T14:45:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32d933fb_eb22476f",
+      "range": {
+        "startLine": 692,
+        "startChar": 17,
+        "endLine": 692,
+        "endChar": 24
+      },
+      "revId": "79f527f3299763ab73b08c38fdcbb231e87e4460",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

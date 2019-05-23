@@ -115,7 +115,7 @@ def BuildWebRTC(output_dir, target_arch, flavor, gn_target_name,
 
   gn_args.append('enable_ios_bitcode=' +
                  ('true' if use_bitcode else 'false'))
-  gn_args.append('use_goma=' + ('true' if use_goma else 'false'))
+  gn_args.append('use_goma=false')
 
   args_string = ' '.join(gn_args + extra_gn_args)
   logging.info('Building WebRTC with args: %s', args_string)

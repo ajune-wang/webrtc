@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "877762e1_186735e3",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-05-23T13:36:56Z",
+      "side": 1,
+      "message": "Should it be enabled for all tests? Consider making separate tests for it.",
+      "range": {
+        "startLine": 100,
+        "startChar": 2,
+        "endLine": 100,
+        "endChar": 33
+      },
+      "revId": "71e8c79a92b74367fc72f04cc5f0319673c72030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

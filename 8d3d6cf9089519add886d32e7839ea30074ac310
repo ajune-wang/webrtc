@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b660940_cc1032ec",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-23T08:47:15Z",
+      "side": 0,
+      "message": "Please remove the corresponding method declaration in the header file.",
+      "range": {
+        "startLine": 492,
+        "startChar": 25,
+        "endLine": 492,
+        "endChar": 47
+      },
+      "revId": "8d3d6cf9089519add886d32e7839ea30074ac310",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

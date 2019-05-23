@@ -16,6 +16,63 @@
       "revId": "ee01e0bf1c6f7d65a6d85eafc976ee2b7c5e796b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17e9014c_82f7d994",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-23T08:47:15Z",
+      "side": 1,
+      "message": "Removing MaybeInitializeCapture is great!\n\nHowever, when doing that we should also correct the remaining code accordingly. In particular, MaybeInitializeRender is now the sole caller of MaybeInitialize, which means that the MaybeInitialize functionality should be folded into MaybeInitializeRender.",
+      "range": {
+        "startLine": 487,
+        "startChar": 25,
+        "endLine": 487,
+        "endChar": 46
+      },
+      "revId": "ee01e0bf1c6f7d65a6d85eafc976ee2b7c5e796b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efe13585_3b2f05cd",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-23T08:47:15Z",
+      "side": 1,
+      "message": "With this CL, reinitialization is no longer done when processing_config !\u003d formats_.api_format.\n\nIs this intentional? In that case, what are the consequences of that, and why is it safe to do it?",
+      "revId": "ee01e0bf1c6f7d65a6d85eafc976ee2b7c5e796b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "857ee86f_345ba076",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-05-23T08:47:15Z",
+      "side": 1,
+      "message": "There is a fair of extra code for this now.\nWhat about using the below construct instead? I believe that should also be slightly faster.\n\nreinitialization_required \u003d reinitialization_required || \nprocessing_config.input_stream().sample_rate_hz() !\u003dframe-\u003esample_rate_hz_ ||\nprocessing_config.input_stream().num_channels() !\u003d frame-\u003enum_channels_ ||\nprocessing_config.output_stream().sample_rate_hz() !\u003d frame-\u003esample_rate_hz_\nprocessing_config.output_stream().num_channels() !\u003d frame-\u003enum_channels_;\n\nif (reinitialization_required) {\n    // Reinitialize.\n    processing_config.input_stream().set_sample_rate_hz(frame-\u003esample_rate_hz_);\n    processing_config.input_stream().set_num_channels(frame-\u003enum_channels_);\n    processing_config.output_stream().set_sample_rate_hz(frame-\u003esample_rate_hz_);  \n    processing_config.output_stream().set_num_channels(frame-\u003enum_channels_);\n\n    rtc::CritScope cs_render(\u0026crit_render_);\n    rtc::CritScope cs_capture(\u0026crit_capture_);\n    RETURN_ON_ERR(InitializeLocked(processing_config));\n}",
+      "revId": "ee01e0bf1c6f7d65a6d85eafc976ee2b7c5e796b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

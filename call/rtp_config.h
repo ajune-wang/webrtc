@@ -26,6 +26,16 @@ struct RtpPayloadState {
   uint8_t tl0_pic_idx = 0;
   int64_t shared_frame_id = 0;
 };
+
+// Settings for LNTF (LossNotification). Still highly experimental.
+struct LntfConfig {
+  LntfConfig() : enabled(false) {}
+
+  std::string ToString() const;
+
+  bool enabled;  // TODO(bugs.webrtc.org/10662): Consume this flag.
+};
+
 // Settings for NACK, see RFC 4585 for details.
 struct NackConfig {
   NackConfig() : rtp_history_ms(0) {}
@@ -99,6 +109,9 @@ struct RtpConfig {
   // images to the right payload type.
   std::string payload_name;
   int payload_type = -1;
+
+  // See LntfConfig for description.
+  LntfConfig lntf;
 
   // See NackConfig for description.
   NackConfig nack;

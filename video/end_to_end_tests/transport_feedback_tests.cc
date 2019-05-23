@@ -196,6 +196,7 @@ TEST_F(TransportFeedbackEndToEndTest, AssignsTransportSequenceNumbers) {
           encoder_config->max_bitrate_bps + kPaddingBitrateBps;
 
       // Configure RTX for redundant payload padding.
+      send_config->rtp.lntf.enabled = false;
       send_config->rtp.nack.rtp_history_ms = kNackRtpHistoryMs;
       send_config->rtp.rtx.ssrcs.push_back(kSendRtxSsrcs[stream_index]);
       send_config->rtp.rtx.payload_type = kSendRtxPayloadType;
@@ -209,6 +210,7 @@ TEST_F(TransportFeedbackEndToEndTest, AssignsTransportSequenceNumbers) {
     void UpdateReceiveConfig(
         size_t stream_index,
         VideoReceiveStream::Config* receive_config) override {
+      receive_config->rtp.lntf.enabled = false;
       receive_config->rtp.nack.rtp_history_ms = kNackRtpHistoryMs;
       receive_config->rtp.extensions.clear();
       receive_config->rtp.extensions.push_back(

@@ -282,10 +282,12 @@ class FlexfecRenderObserver : public test::EndToEndTest,
     (*receive_configs)[0].renderer = this;
 
     if (enable_nack_) {
+      send_config->rtp.lntf.enabled = false;
       send_config->rtp.nack.rtp_history_ms = test::CallTest::kNackRtpHistoryMs;
       send_config->rtp.rtx.ssrcs.push_back(test::CallTest::kSendRtxSsrcs[0]);
       send_config->rtp.rtx.payload_type = test::CallTest::kSendRtxPayloadType;
 
+      (*receive_configs)[0].rtp.lntf.enabled = false;
       (*receive_configs)[0].rtp.nack.rtp_history_ms =
           test::CallTest::kNackRtpHistoryMs;
       (*receive_configs)[0].rtp.rtx_ssrc = test::CallTest::kSendRtxSsrcs[0];
@@ -459,6 +461,7 @@ TEST_F(FecEndToEndTest, ReceivedUlpfecPacketsNotNacked) {
         std::vector<VideoReceiveStream::Config>* receive_configs,
         VideoEncoderConfig* encoder_config) override {
       // Configure hybrid NACK/FEC.
+      send_config->rtp.lntf.enabled = false;
       send_config->rtp.nack.rtp_history_ms = kNackRtpHistoryMs;
       send_config->rtp.ulpfec.red_payload_type = kRedPayloadType;
       send_config->rtp.ulpfec.ulpfec_payload_type = kUlpfecPayloadType;
@@ -468,6 +471,7 @@ TEST_F(FecEndToEndTest, ReceivedUlpfecPacketsNotNacked) {
       send_config->rtp.payload_type = kFakeVideoSendPayloadType;
       encoder_config->codec_type = kVideoCodecVP8;
 
+      (*receive_configs)[0].rtp.lntf.enabled = false;
       (*receive_configs)[0].rtp.nack.rtp_history_ms = kNackRtpHistoryMs;
       (*receive_configs)[0].rtp.red_payload_type = kRedPayloadType;
       (*receive_configs)[0].rtp.ulpfec_payload_type = kUlpfecPayloadType;

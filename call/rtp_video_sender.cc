@@ -536,6 +536,7 @@ bool RtpVideoSender::FecEnabled() const {
   return flexfec_enabled || ulpfec_enabled;
 }
 
+// TODO: !!! What about this?
 bool RtpVideoSender::NackEnabled() const {
   const bool nack_enabled = rtp_config_.nack.rtp_history_ms > 0;
   return nack_enabled;

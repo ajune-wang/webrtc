@@ -30,6 +30,7 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
   vp8_config.rtp.rtx_ssrc = 100;
   vp8_config.rtp.transport_cc = true;
   vp8_config.rtp.remb = true;
+  // TODO(eladalon): Add fuzzing for LNTF.
   vp8_config.rtp.nack.rtp_history_ms = 1000;
 
   std::vector<VideoReceiveStream::Config> replay_configs;

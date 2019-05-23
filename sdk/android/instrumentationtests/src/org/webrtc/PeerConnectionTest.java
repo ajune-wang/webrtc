@@ -222,6 +222,13 @@ public class PeerConnectionTest {
     @Override
     // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
     @SuppressWarnings("NoSynchronizedMethodCheck")
+    public synchronized void onIceConnectionWritableChange(boolean writable) {
+      System.out.println(name + " got an ICE connection writable change " + writable);
+    }
+
+    @Override
+    // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
+    @SuppressWarnings("NoSynchronizedMethodCheck")
     public synchronized void onIceConnectionReceivingChange(boolean receiving) {
       System.out.println(name + " got an ICE connection receiving change " + receiving);
     }

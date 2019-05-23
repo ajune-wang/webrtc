@@ -510,6 +510,7 @@ void DtlsTransport::OnWritableState(rtc::PacketTransportInternal* transport) {
       // Should not happen. Do nothing.
       break;
   }
+  SignalIceWritableStatus(ice_transport_.get());
 }
 
 void DtlsTransport::OnReceivingState(rtc::PacketTransportInternal* transport) {

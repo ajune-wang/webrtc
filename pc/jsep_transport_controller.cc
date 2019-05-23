@@ -476,6 +476,8 @@ JsepTransportController::CreateDtlsTransport(
       this, &JsepTransportController::OnTransportReceivingState_n);
   dtls->SignalDtlsHandshakeError.connect(
       this, &JsepTransportController::OnDtlsHandshakeError);
+  dtls->SignalIceWritableStatus.connect(
+      this, &JsepTransportController::OnTransportStateChanged_n);
   dtls->ice_transport()->SignalGatheringState.connect(
       this, &JsepTransportController::OnTransportGatheringState_n);
   dtls->ice_transport()->SignalCandidateGathered.connect(
@@ -1304,6 +1306,7 @@ void JsepTransportController::UpdateAggregateStates_n() {
   bool all_completed = !dtls_transports.empty();
   bool any_gathering = false;
   bool all_done_gathering = !dtls_transports.empty();
+  bool all_ice_writable = !dtls_transports.empty();
 
   std::map<IceTransportState, int> ice_state_counts;
   std::map<cricket::DtlsTransportState, int> dtls_state_counts;
@@ -1324,6 +1327,7 @@ void JsepTransportController::UpdateAggregateStates_n() {
     all_done_gathering =
         all_done_gathering && dtls->ice_transport()->gathering_state() ==
                                   cricket::kIceGatheringComplete;
+    all_ice_writable = all_ice_writable && dtls->ice_transport()->writable();
 
     dtls_state_counts[dtls->dtls_state()]++;
     ice_state_counts[dtls->ice_transport()->GetIceTransportState()]++;
@@ -1365,6 +1369,14 @@ void JsepTransportController::UpdateAggregateStates_n() {
     invoker_.AsyncInvoke<void>(RTC_FROM_HERE, signaling_thread_,
                                [this, new_connection_state] {
                                  SignalIceConnectionState(new_connection_state);
+                               });
+  }
+
+  if (ice_writable_ != all_ice_writable) {
+    ice_writable_ = all_ice_writable;
+    invoker_.AsyncInvoke<void>(RTC_FROM_HERE, signaling_thread_,
+                               [this, all_ice_writable] {
+                                 SignalIceWritableStatus(all_ice_writable);
                                });
   }
 

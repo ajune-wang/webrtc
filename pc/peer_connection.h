@@ -993,6 +993,8 @@ class PeerConnection : public PeerConnectionInternal,
   // JsepTransportController signal handlers.
   void OnTransportControllerConnectionState(cricket::IceConnectionState state)
       RTC_RUN_ON(signaling_thread());
+  void OnTransportControllerIceWritableStatus(bool state)
+      RTC_RUN_ON(signaling_thread());
   void OnTransportControllerGatheringState(cricket::IceGatheringState state)
       RTC_RUN_ON(signaling_thread());
   void OnTransportControllerCandidatesGathered(

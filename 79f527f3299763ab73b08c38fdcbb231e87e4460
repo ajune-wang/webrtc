@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32d933fb_eb22476f",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-23T13:29:23Z",
+      "side": 1,
+      "message": "payload_bitrate_bps is a uint32_t? If it\u0027s underflow to negative you want to fix maybe use saturated_cast?",
+      "range": {
+        "startLine": 692,
+        "startChar": 17,
+        "endLine": 692,
+        "endChar": 24
+      },
+      "revId": "79f527f3299763ab73b08c38fdcbb231e87e4460",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

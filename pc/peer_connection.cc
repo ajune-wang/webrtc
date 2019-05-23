@@ -1061,6 +1061,8 @@ bool PeerConnection::Initialize(
       this, &PeerConnection::OnTransportControllerConnectionState);
   transport_controller_->SignalStandardizedIceConnectionState.connect(
       this, &PeerConnection::SetStandardizedIceConnectionState);
+  transport_controller_->SignalIceWritableStatus.connect(
+      this, &PeerConnection::OnTransportControllerIceWritableStatus);
   transport_controller_->SignalConnectionState.connect(
       this, &PeerConnection::SetConnectionState);
   transport_controller_->SignalIceGatheringState.connect(
@@ -6059,6 +6061,10 @@ void PeerConnection::OnTransportControllerConnectionState(
     default:
       RTC_NOTREACHED();
   }
+}
+
+void PeerConnection::OnTransportControllerIceWritableStatus(bool writable) {
+  Observer()->OnIceConnectionWritableChange(writable);
 }
 
 void PeerConnection::OnTransportControllerCandidatesGathered(

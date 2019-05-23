@@ -106,6 +106,8 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
         this, &JsepTransportControllerTest::OnStandardizedIceConnectionState);
     transport_controller_->SignalConnectionState.connect(
         this, &JsepTransportControllerTest::OnCombinedConnectionState);
+    transport_controller_->SignalIceWritableStatus.connect(
+        this, &JsepTransportControllerTest::OnIceWritableStatus);
     transport_controller_->SignalIceGatheringState.connect(
         this, &JsepTransportControllerTest::OnGatheringState);
     transport_controller_->SignalIceCandidatesGathered.connect(
@@ -286,6 +288,12 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
     ++combined_connection_state_signal_count_;
   }
 
+  void OnIceWritableStatus(bool writable) {
+    RTC_LOG(LS_INFO) << "OnIceWritableStatus: " << writable;
+    ice_writable_ = writable;
+    ++ice_writable_status_signal_count_;
+  }
+
   void OnGatheringState(cricket::IceGatheringState state) {
     if (!signaling_thread_->IsCurrent()) {
       signaled_on_non_signaling_thread_ = true;
@@ -326,6 +334,7 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
       PeerConnectionInterface::kIceConnectionNew;
   PeerConnectionInterface::PeerConnectionState combined_connection_state_ =
       PeerConnectionInterface::PeerConnectionState::kNew;
+  bool ice_writable_ = false;
   bool receiving_ = false;
   cricket::IceGatheringState gathering_state_ = cricket::kIceGatheringNew;
   // transport_name => candidates
@@ -334,6 +343,7 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
   int connection_state_signal_count_ = 0;
   int ice_connection_state_signal_count_ = 0;
   int combined_connection_state_signal_count_ = 0;
+  int ice_writable_status_signal_count_ = 0;
   int receiving_signal_count_ = 0;
   int gathering_state_signal_count_ = 0;
   int candidates_signal_count_ = 0;
@@ -1291,6 +1301,59 @@ TEST_F(JsepTransportControllerTest, SignalConnectionStateComplete) {
   EXPECT_EQ_WAIT(PeerConnectionInterface::PeerConnectionState::kConnected,
                  combined_connection_state_, kTimeout);
   EXPECT_EQ(3, combined_connection_state_signal_count_);
+}
+
+// Test that the JsepTransportController signals the aggregate change of the
+// writable status of all ICE transports, which does not depend on the ICE
+// connection state (DTLS transport writable status).
+TEST_F(JsepTransportControllerTest, SignalIceWritableStatus) {
+  CreateJsepTransportController(JsepTransportController::Config());
+  auto description = CreateSessionDescriptionWithoutBundle();
+  EXPECT_TRUE(transport_controller_
+                  ->SetLocalDescription(SdpType::kOffer, description.get())
+                  .ok());
+
+  transport_controller_->MaybeStartGathering();
+  auto fake_audio_dtls = static_cast<FakeDtlsTransport*>(
+      transport_controller_->GetDtlsTransport(kAudioMid1));
+  auto fake_video_dtls = static_cast<FakeDtlsTransport*>(
+      transport_controller_->GetDtlsTransport(kVideoMid1));
+  auto fake_audio_ice =
+      static_cast<cricket::FakeIceTransport*>(fake_audio_dtls->ice_transport());
+  auto fake_video_ice =
+      static_cast<cricket::FakeIceTransport*>(fake_video_dtls->ice_transport());
+
+  fake_audio_ice->SetWritable(true);
+  fake_video_ice->SetWritable(true);
+  EXPECT_TRUE_WAIT(ice_writable_, kTimeout);
+  EXPECT_EQ(1, ice_writable_status_signal_count_);
+  // The DTLS transports are not writable yet.
+  EXPECT_FALSE(fake_audio_dtls->writable());
+  EXPECT_FALSE(fake_video_dtls->writable());
+
+  // The ICE writable status of the JSEP transport is an aggregate state and we
+  // are ICE writable only when all ICE transports are writable. As a result,
+  // we should have the following toggles in |ice_writable_|.
+  //
+  // Change the writable status of the audio transport and toggle to false.
+  fake_audio_ice->SetWritable(false);
+  EXPECT_TRUE_WAIT(!ice_writable_, kTimeout);
+  EXPECT_EQ(2, ice_writable_status_signal_count_);
+
+  // Restore the writability and toggle to true.
+  fake_audio_ice->SetWritable(true);
+  EXPECT_TRUE_WAIT(ice_writable_, kTimeout);
+  EXPECT_EQ(3, ice_writable_status_signal_count_);
+
+  // Change the writable status of the video transport and toggle to false.
+  fake_video_ice->SetWritable(false);
+  EXPECT_TRUE_WAIT(!ice_writable_, kTimeout);
+  EXPECT_EQ(4, ice_writable_status_signal_count_);
+
+  // Restore the writability and toggle to true.
+  fake_video_ice->SetWritable(true);
+  EXPECT_TRUE_WAIT(ice_writable_, kTimeout);
+  EXPECT_EQ(5, ice_writable_status_signal_count_);
 }
 
 TEST_F(JsepTransportControllerTest, SignalIceGatheringStateGathering) {

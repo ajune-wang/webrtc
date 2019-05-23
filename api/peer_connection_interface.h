@@ -1171,6 +1171,9 @@ class PeerConnectionObserver {
   virtual void OnIceCandidatesRemoved(
       const std::vector<cricket::Candidate>& candidates) {}
 
+  // Called when the ICE connection writable status changes.
+  virtual void OnIceConnectionWritableChange(bool writable) {}
+
   // Called when the ICE connection receiving status changes.
   virtual void OnIceConnectionReceivingChange(bool receiving) {}
 

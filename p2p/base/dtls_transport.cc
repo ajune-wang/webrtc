@@ -486,6 +486,7 @@ void DtlsTransport::OnWritableState(rtc::PacketTransportInternal* transport) {
   RTC_LOG(LS_VERBOSE) << ToString()
                       << ": ice_transport writable state changed to "
                       << ice_transport_->writable();
+  SignalIceWritableStatus(ice_transport_.get());
 
   if (!dtls_active_) {
     // Not doing DTLS.

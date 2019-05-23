@@ -1210,6 +1210,11 @@ public class PeerConnectionClient {
     }
 
     @Override
+    public void onIceConnectionWritableChange(boolean writable) {
+      Log.d(TAG, "IceConnectionWritable changed to " + writable);
+    }
+
+    @Override
     public void onIceConnectionReceivingChange(boolean receiving) {
       Log.d(TAG, "IceConnectionReceiving changed to " + receiving);
     }

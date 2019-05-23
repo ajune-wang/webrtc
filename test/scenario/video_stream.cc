@@ -313,6 +313,7 @@ VideoReceiveStream::Config CreateVideoReceiveStreamConfig(
   recv.rtp.extensions = GetVideoRtpExtensions(config);
   RTC_DCHECK(!config.stream.use_rtx ||
              config.stream.nack_history_time > TimeDelta::Zero());
+  // TODO: !!! What about this here? Note that this is a test scenario.
   recv.rtp.nack.rtp_history_ms = config.stream.nack_history_time.ms();
   recv.rtp.protected_by_flexfec = config.stream.use_flexfec;
   recv.rtp.remote_ssrc = ssrc;

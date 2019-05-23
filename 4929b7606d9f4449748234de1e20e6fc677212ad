@@ -118,6 +118,30 @@
       "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53b3a9be_4e38caa7",
+        "filename": "api/create_peerconnection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 8773
+      },
+      "writtenOn": "2019-05-23T06:22:24Z",
+      "side": 1,
+      "message": "I independently reimplemented the same idea in https://webrtc-review.googlesource.com/c/src/+/138101\n\nCurrently because there is no facility to do this from api/, we had to depend on the internal APIs in media/engine/webrtc_media_engine.h, which is fragile. \n\nPer, I did not understand what you meant about saving of memory. We are not trying to save runtime memory with this CL, but rather reduce code size. With this CL, the linker (using link time optimization) can eliminate the audio processing stack as dead code. \n\nRequiring a non-null audio_processing argument would be a breaking change to the API. That seems like a good goal, but this CL seems like a good transitionary state until we can get there.",
+      "parentUuid": "f2d1670e_292cfc69",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 48
+      },
+      "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

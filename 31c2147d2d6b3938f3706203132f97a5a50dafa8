@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e6f3243_377c1c64",
+        "filename": "media/base/codec.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-05-23T12:30:45Z",
+      "side": 1,
+      "message": "Is this a video only property? In that case, could it be put under VideoCodec?",
+      "range": {
+        "startLine": 72,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 44
+      },
+      "revId": "31c2147d2d6b3938f3706203132f97a5a50dafa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

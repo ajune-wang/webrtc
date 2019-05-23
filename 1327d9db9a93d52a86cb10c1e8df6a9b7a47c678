@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c964923f_c4756cc3",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-23T20:56:20Z",
+      "side": 1,
+      "message": "Can\u0027t the JsepTransportController just hook into the IceTransport\u0027s signal directly? It already has the reference above.",
+      "revId": "1327d9db9a93d52a86cb10c1e8df6a9b7a47c678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6484ef91_908767b7",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-23T20:56:20Z",
+      "side": 1,
+      "message": "add for iOS too?",
+      "revId": "1327d9db9a93d52a86cb10c1e8df6a9b7a47c678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

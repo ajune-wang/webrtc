@@ -355,6 +355,7 @@ class RtpReplayer final {
     receive_config.rtp.ulpfec_payload_type = flags::UlpfecPayloadType();
     receive_config.rtp.red_payload_type = flags::RedPayloadType();
     receive_config.rtp.nack.rtp_history_ms = 1000;
+    // TODO(eladalon): Consider receive_config.rtp.lntf.enabled.
     if (flags::TransmissionOffsetId() != -1) {
       receive_config.rtp.extensions.push_back(RtpExtension(
           RtpExtension::kTimestampOffsetUri, flags::TransmissionOffsetId()));

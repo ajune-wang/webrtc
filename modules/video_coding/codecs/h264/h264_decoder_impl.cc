@@ -8,6 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  *
  */
+#ifdef WEBRTC_USE_H264
 
 #include "modules/video_coding/codecs/h264/h264_decoder_impl.h"
 
@@ -380,3 +381,5 @@ void H264DecoderImpl::ReportError() {
 }
 
 }  // namespace webrtc
+
+#endif  // WEBRTC_USE_H264

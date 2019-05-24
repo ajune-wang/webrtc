@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "56bc7001_63bfa47b",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-24T23:41:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8595e2b4_7f4e09be",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 14
+      },
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46385c38_2db7d895",
         "filename": "pc/composite_rtp_transport.cc",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "649d8d8d_55579be6",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-24T23:41:14Z",
+      "side": 1,
+      "message": "We don\u0027t have a network thread, and the only reason we\u0027d need one is to DCHECK.",
+      "parentUuid": "46385c38_2db7d895",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "f1509215_091dfbba",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-24T23:41:14Z",
+      "side": 1,
+      "message": "I don\u0027t see any reason why we couldn\u0027t get multiple PrAnswers, and end up calling it more than once.",
+      "parentUuid": "d9ce3466_8e89d66f",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cde7adc6_20cf63c5",
         "filename": "pc/composite_rtp_transport.cc",
         "patchSetId": 1
@@ -73,6 +133,24 @@
       "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe90c871_b4c70d37",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-24T23:41:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cde7adc6_20cf63c5",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "1424d43c_ae310478",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-24T23:41:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a229c8c6_2b353d88",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54145c1a_7bb6d3fa",
         "filename": "pc/composite_rtp_transport.cc",
         "patchSetId": 1
@@ -107,6 +203,24 @@
       "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc435cda_7c946ddf",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-24T23:41:14Z",
+      "side": 1,
+      "message": "We already do, see below.",
+      "parentUuid": "54145c1a_7bb6d3fa",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -133,6 +247,30 @@
     },
     {
       "key": {
+        "uuid": "654aac33_1d19c22a",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-24T23:41:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3822631c_59db01d6",
+      "range": {
+        "startLine": 82,
+        "startChar": 50,
+        "endLine": 82,
+        "endChar": 54
+      },
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "602ddb1b_77e18ab8",
         "filename": "pc/composite_rtp_transport.cc",
         "patchSetId": 1
@@ -147,6 +285,24 @@
       "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22bb51fc_d80ab2a1",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-24T23:41:14Z",
+      "side": 1,
+      "message": "We need this to handle PrAnswer.  Once we get a final answer, we\u0027ll delete the whole composite and replace it with whatever\u0027s chosen.  But if the answerer sends us a PrAnswer, we need to keep them all in case it changes its mind.",
+      "parentUuid": "602ddb1b_77e18ab8",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -167,6 +323,24 @@
     },
     {
       "key": {
+        "uuid": "91b54813_e0bf932d",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-24T23:41:14Z",
+      "side": 1,
+      "message": "They are all the same, and we do DCHECK in ctor.",
+      "parentUuid": "c6a15189_43da18f4",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f44001c6_aa42f9f4",
         "filename": "pc/composite_rtp_transport.cc",
         "patchSetId": 1
@@ -184,6 +358,24 @@
     },
     {
       "key": {
+        "uuid": "d2165dd9_a0fa314c",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-24T23:41:14Z",
+      "side": 1,
+      "message": "Yes, if it\u0027s muxed wth RTP.",
+      "parentUuid": "f44001c6_aa42f9f4",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c965e574_fae7f582",
         "filename": "pc/composite_rtp_transport.cc",
         "patchSetId": 1
@@ -198,6 +390,24 @@
       "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74163202_2eea7fd2",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-24T23:41:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c965e574_fae7f582",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -241,6 +451,30 @@
     },
     {
       "key": {
+        "uuid": "623d1ef1_219b4951",
+        "filename": "pc/composite_rtp_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-24T23:41:14Z",
+      "side": 1,
+      "message": "Comment is out of date.  Updated.\n\nJsepTransportController deletes everything it doesn\u0027t need and pushes the chosen transport to the media stack.",
+      "parentUuid": "39c8e1d5_156d750c",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 29
+      },
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f12f031b_1488f25e",
         "filename": "pc/composite_rtp_transport.h",
         "patchSetId": 1
@@ -275,6 +509,42 @@
     },
     {
       "key": {
+        "uuid": "52309807_9f3bd6f1",
+        "filename": "pc/composite_rtp_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-24T23:41:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f12f031b_1488f25e",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0630c4a2_bf5bdecc",
+        "filename": "pc/composite_rtp_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-24T23:41:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e0fd477_d74d4155",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "378306ca_51d04310",
         "filename": "pc/composite_rtp_transport.h",
         "patchSetId": 1
@@ -289,6 +559,24 @@
       "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e31f8c03_e486082f",
+        "filename": "pc/composite_rtp_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-05-24T23:41:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "378306ca_51d04310",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

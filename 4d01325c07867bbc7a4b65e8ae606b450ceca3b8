@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "32be55db_9bdf6054",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-24T13:50:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d2cfe4d_bce4de6c",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32478974_5d694e10",
         "filename": "api/stats/rtcstats_objects.h",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96dd0350_ea97c358",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-24T13:50:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32478974_5d694e10",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "1dec09b9_6252dad3",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-24T13:50:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1d7083a_78bab482",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e2356c5_5e5c007c",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 5
@@ -67,6 +121,24 @@
       "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16e8c37e_05dbcf76",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-24T13:50:16Z",
+      "side": 1,
+      "message": "It\u0027s set by the constructor of the RTCRemoteInboundRtpStreamStats, where report_block_data.report_block_timestamp_utc_us() is passed in. This is how all timestamps are set, but this is the only time a different timestamp is used than the rest of the report (collection time). I added a /*timestamp\u003d*/ comment to the passing.",
+      "parentUuid": "2e2356c5_5e5c007c",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "c363a196_a4069531",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1067,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-24T13:50:16Z",
+      "side": 1,
+      "message": "Ack, done.",
+      "parentUuid": "136972f0_0d6e20b1",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7f38fcc_c530273a",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 5
@@ -119,6 +209,24 @@
       "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a091444e_ec1130a2",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1593,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-24T13:50:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e7f38fcc_c530273a",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +247,24 @@
     },
     {
       "key": {
+        "uuid": "331b949f_9baa9605",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2359,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-24T13:50:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f37f5f5f_803ebee9",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c14d1b2_b8972f4c",
         "filename": "pc/rtc_stats_collector_unittest.cc",
         "patchSetId": 5
@@ -153,6 +279,24 @@
       "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90d313c0_b9f1f4f1",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2363,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-24T13:50:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c14d1b2_b8972f4c",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -173,6 +317,24 @@
     },
     {
       "key": {
+        "uuid": "9c7a4a77_137626bb",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2423,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-24T13:50:16Z",
+      "side": 1,
+      "message": "The timestamp is tested along with every other member when expected_remote_inbound_rtp (which is constructed with kReportBlockTimestampUtcUs) is compared to to the stats object obtained from report-\u003eGet().\n\nBut I think this deserves its own test that explicitly checks the timestamp and nothing else. I moved it to its own test.",
+      "parentUuid": "484185b4_c6441660",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d25b00c2_643bb618",
         "filename": "pc/rtc_stats_integrationtest.cc",
         "patchSetId": 5
@@ -187,6 +349,24 @@
       "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2275dbb_02f2240d",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-24T13:50:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d25b00c2_643bb618",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

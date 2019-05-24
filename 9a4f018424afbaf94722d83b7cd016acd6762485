@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39389961_2b53a0a8",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-05-24T06:42:31Z",
+      "side": 1,
+      "message": "I am ok with this even if maybe this is not enough to actually debug a CQ failure since this only logs LS_INFO (no LS_VERBOSE).\n\n+oprypin for a second opinion.",
+      "range": {
+        "startLine": 69,
+        "startChar": 25,
+        "endLine": 69,
+        "endChar": 29
+      },
+      "revId": "9a4f018424afbaf94722d83b7cd016acd6762485",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

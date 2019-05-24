@@ -12,6 +12,8 @@
 
 #include <algorithm>
 
+#include "absl/memory/memory.h"
+#include "common_video/h264/sps_vui_rewriter.h"
 #include "modules/include/module_common_types_public.h"
 #include "modules/video_coding/include/video_coding_defines.h"
 #include "rtc_base/logging.h"
@@ -181,6 +183,31 @@ void FrameEncodeMetadataWriter::FillTimingInfo(size_t simulcast_svc_idx,
   } else {
     encoded_image->timing_.flags = VideoSendTiming::kInvalid;
   }
+}
+
+std::unique_ptr<FrameEncodeMetadataWriter::BitstreamData>
+FrameEncodeMetadataWriter::GetUpdatedBitstream(
+    const EncodedImage& encoded_image,
+    const CodecSpecificInfo* codec_specific_info,
+    const RTPFragmentationHeader* fragmentation) {
+  if (!codec_specific_info ||
+      codec_specific_info->codecType != kVideoCodecH264 || !fragmentation) {
+    return nullptr;
+  }
+
+  std::unique_ptr<BitstreamData> bitstream_data =
+      absl::make_unique<BitstreamData>();
+  bitstream_data->fragmentation.CopyFrom(*fragmentation);
+
+  SpsVuiRewriter::ParseOutgoingBitstreamAndRewriteSps(
+      rtc::MakeArrayView(encoded_image.data(), encoded_image.size()),
+      fragmentation->fragmentationVectorSize,
+      fragmentation->fragmentationOffset, fragmentation->fragmentationLength,
+      &bitstream_data->buffer,
+      bitstream_data->fragmentation.fragmentationOffset,
+      bitstream_data->fragmentation.fragmentationLength);
+
+  return bitstream_data;
 }
 
 void FrameEncodeMetadataWriter::Reset() {

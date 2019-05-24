@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "9e578ac4_0fa669d6",
+        "filename": "test/pc/e2e/analyzer/video/simulcast_dummy_buffer_helper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-24T00:33:23Z",
+      "side": 1,
+      "message": "If the buffers are immutable after created, then you might be better off having a scoped_refptr to a const frame buffer initialized once, return it in CreateDummy and check pointer equality in IsDummy. should simplify a lot of this logic that is mostly for semantic equality.",
+      "range": {
+        "startLine": 19,
+        "startChar": 55,
+        "endLine": 19,
+        "endChar": 60
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd75069a_ce2ed669",
         "filename": "test/pc/e2e/analyzer/video/simulcast_dummy_buffer_helper.cc",
         "patchSetId": 6
@@ -64,6 +87,29 @@
         "startChar": 43,
         "endLine": 32,
         "endChar": 78
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c28f80ae_58667ea0",
+        "filename": "test/pc/e2e/analyzer/video/simulcast_dummy_buffer_helper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-24T00:33:23Z",
+      "side": 1,
+      "message": "is there an operator\u003d\u003d on frame buffers that compares contents (taking into account stride etc)?\nit makes sense for there to be one, and then it would be simpler to return buffer \u003d\u003d CreateDummy()",
+      "range": {
+        "startLine": 45,
+        "startChar": 5,
+        "endLine": 45,
+        "endChar": 23
       },
       "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -94,6 +140,52 @@
     },
     {
       "key": {
+        "uuid": "027c97be_6030e48f",
+        "filename": "test/pc/e2e/analyzer/video/simulcast_dummy_buffer_helper.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-24T00:33:23Z",
+      "side": 1,
+      "message": "Somewhat revealing implementation details to have CreateDummy return a VideoFrameBuffer and IsDummy to accept an I420Buffer.",
+      "range": {
+        "startLine": 22,
+        "startChar": 51,
+        "endLine": 22,
+        "endChar": 70
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f1180fe_3d4c6f9a",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-24T00:33:23Z",
+      "side": 1,
+      "message": "another alternative way to accomplish this is to get the reference to a singleton dummy frame in the ctor, and then check ref equals instead of IsDummyFrameBuffer.",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 26
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "64ca851e_504dda47",
         "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
         "patchSetId": 6
@@ -114,6 +206,29 @@
       "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ecb4221b_441e3c1c",
+        "filename": "test/pc/e2e/network_quality_metrics_reporter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-24T00:33:23Z",
+      "side": 1,
+      "message": "i am wondering why you require \u003e 1 for getting Average. i could see this check required for \u003e 0 so that there is no div_by_0 errors.",
+      "range": {
+        "startLine": 67,
+        "startChar": 6,
+        "endLine": 67,
+        "endChar": 30
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -140,6 +255,98 @@
     },
     {
       "key": {
+        "uuid": "636838ee_1d757935",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-24T00:33:23Z",
+      "side": 1,
+      "message": "This is where you can explicitly set the rid values (and also other parameters such as scale_resolution_down_by",
+      "range": {
+        "startLine": 577,
+        "startChar": 52,
+        "endLine": 577,
+        "endChar": 73
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bc66794_4d9d6f62",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-24T00:33:23Z",
+      "side": 1,
+      "message": "break; after this?",
+      "range": {
+        "startLine": 136,
+        "startChar": 10,
+        "endLine": 136,
+        "endChar": 37
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd4ed9fd_e22f0a2b",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-24T00:33:23Z",
+      "side": 1,
+      "message": "unique ptr?",
+      "range": {
+        "startLine": 172,
+        "startChar": 38,
+        "endLine": 172,
+        "endChar": 58
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd2749e9_21a9376a",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-24T00:33:23Z",
+      "side": 1,
+      "message": "also need to restore the RIDs in the StreamParams.\nthe a\u003dsimulcast attribute references the a\u003drid lines",
+      "range": {
+        "startLine": 316,
+        "startChar": 7,
+        "endLine": 316,
+        "endChar": 35
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c84c5fc9_dcc4367d",
         "filename": "test/pc/e2e/sdp/sdp_changer.h",
         "patchSetId": 6
@@ -151,6 +358,98 @@
       "writtenOn": "2019-05-23T14:49:56Z",
       "side": 1,
       "message": "Please consider moving most of this code to the *.cc file.",
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b38bd259_7bf839ba",
+        "filename": "test/pc/e2e/sdp/sdp_changer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-24T00:33:23Z",
+      "side": 1,
+      "message": "when calling AddTransceiver, you can specify the rid values explicitly as \u003cmid\u003e_\u003crid\u003e. which will save you from having to manipulate the local offer. like this.",
+      "range": {
+        "startLine": 56,
+        "startChar": 21,
+        "endLine": 56,
+        "endChar": 40
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71ef53be_5ba517ae",
+        "filename": "test/pc/e2e/sdp/sdp_changer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-24T00:33:23Z",
+      "side": 1,
+      "message": "i think RTC_CHECKing is less readable when there is a side-effect. i personally prefer:\nvar iter \u003d simulcast_infos_by_mid.insert({...});\nRTC_CHECK(iter.second);\ni realize that this is not a DCHECK and it will always happen.",
+      "range": {
+        "startLine": 72,
+        "startChar": 14,
+        "endLine": 73,
+        "endChar": 25
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a59ea8e5_d2666168",
+        "filename": "test/pc/e2e/sdp/sdp_changer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-24T00:33:23Z",
+      "side": 1,
+      "message": "same comment on RTC_CHECK with side-effect",
+      "range": {
+        "startLine": 75,
+        "startChar": 6,
+        "endLine": 75,
+        "endChar": 15
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc0a4a7d_82ee84d2",
+        "filename": "test/pc/e2e/sdp/sdp_changer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-24T00:33:23Z",
+      "side": 1,
+      "message": "this might be better modeled as an object:\nclass SimulcastWithoutSfuSdpAdapter {\n    SDI PatchOffer(offer);\n    SDI PatchAnswer(answer);\n}\nthe adapter keeps the context and client only needs to worry about calling PatchOffer() before PatchAnswer()",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 0
+      },
       "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

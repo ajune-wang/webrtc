@@ -1,0 +1,180 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46385c38_2db7d895",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2019-05-24T20:25:03Z",
+      "side": 1,
+      "message": "DCHECKs that we are on network thread (here and everywhere)?",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9ce3466_8e89d66f",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2019-05-24T20:25:03Z",
+      "side": 1,
+      "message": "This should not be called more than once, right? DCHECK(send_transport_ \u003d\u003d nullptr)?",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a229c8c6_2b353d88",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2019-05-24T20:25:03Z",
+      "side": 1,
+      "message": "DCHECK? this should not really happen",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54145c1a_7bb6d3fa",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2019-05-24T20:25:03Z",
+      "side": 1,
+      "message": "Do you need to propagate writable if it\u0027s already writable (or we will get always notification right after send_transport_-\u003eSignalWritableState.connect)?\n\nSame quesiton about OnReadyToSend.",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "602ddb1b_77e18ab8",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2019-05-24T20:25:03Z",
+      "side": 1,
+      "message": "Why not to delete other transports after Send? Or the owner does it? But if the owner deletes transports and we access pointer here, i.e. in rtcp_mux_enabled we\u0027ll crash.",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6a15189_43da18f4",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2019-05-24T20:25:03Z",
+      "side": 1,
+      "message": "Why front? If all transports must have the same rtcp_mux_enabled, DCHECK in constructor?",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f44001c6_aa42f9f4",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2019-05-24T20:25:03Z",
+      "side": 1,
+      "message": "Is it a valid case that we do not have rtcp transport?",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39c8e1d5_156d750c",
+        "filename": "pc/composite_rtp_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2019-05-24T20:25:03Z",
+      "side": 1,
+      "message": "How replacing is done? The owner of composite transport, i.e. JsepTransport will replace it with a single transport? Or maybe we can add notification to Composite transport which of two transports to use for sending?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 29
+      },
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f12f031b_1488f25e",
+        "filename": "pc/composite_rtp_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2019-05-24T20:25:03Z",
+      "side": 1,
+      "message": "Vector may not be empty?",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "378306ca_51d04310",
+        "filename": "pc/composite_rtp_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2019-05-24T20:25:03Z",
+      "side": 1,
+      "message": "I think it answers my question above. Maybe refrase the comment to mention that once chosen, SetSendTransport should be called. How writable state is handled after Set?",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

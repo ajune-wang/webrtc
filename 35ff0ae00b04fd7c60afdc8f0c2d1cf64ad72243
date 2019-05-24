@@ -16,6 +16,24 @@
       "revId": "35ff0ae00b04fd7c60afdc8f0c2d1cf64ad72243",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43b877c7_cc436c06",
+        "filename": "call/rtp_config.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-24T11:40:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38cef1cb_8c71910d",
+      "revId": "35ff0ae00b04fd7c60afdc8f0c2d1cf64ad72243",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

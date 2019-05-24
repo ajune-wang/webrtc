@@ -1410,6 +1410,17 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
   const size_t spatial_idx = encoded_image.SpatialIndex().value_or(0);
   EncodedImage image_copy(encoded_image);
 
+  std::unique_ptr<FrameEncodeMetadataWriter::BitstreamData> bitstream_data =
+      frame_encode_metadata_writer_.GetUpdatedBitstream(
+          image_copy, codec_specific_info, fragmentation);
+  if (bitstream_data) {
+    image_copy.set_buffer(bitstream_data->buffer.data(),
+                          bitstream_data->buffer.size());
+    image_copy.set_size(bitstream_data->buffer.size());
+  }
+  const RTPFragmentationHeader* fragmentation_copy =
+      bitstream_data ? &bitstream_data->fragmentation : fragmentation;
+
   frame_encode_metadata_writer_.FillTimingInfo(spatial_idx, &image_copy);
 
   // Piggyback ALR experiment group id and simulcast id into the content type.
@@ -1487,7 +1498,7 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
 
   EncodedImageCallback::Result result = sink_->OnEncodedImage(
       image_copy, codec_info_copy ? codec_info_copy.get() : codec_specific_info,
-      fragmentation);
+      fragmentation_copy);
 
   // We are only interested in propagating the meta-data about the image, not
   // encoded data itself, to the post encode function. Since we cannot be sure

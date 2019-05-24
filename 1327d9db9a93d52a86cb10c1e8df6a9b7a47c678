@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a86aaaa_238efbd8",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2019-05-24T00:35:55Z",
+      "side": 1,
+      "message": "I wonder if you could just use the api onStandardizedIceConnectionChange api where iceConnected means Only the connection is writable.",
+      "range": {
+        "startLine": 1175,
+        "startChar": 15,
+        "endLine": 1175,
+        "endChar": 44
+      },
+      "revId": "1327d9db9a93d52a86cb10c1e8df6a9b7a47c678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c964923f_c4756cc3",
         "filename": "pc/jsep_transport_controller.cc",
         "patchSetId": 3

@@ -110,7 +110,7 @@ void OpusFecTest::SetUp() {
 
   // Create encoder memory.
   EXPECT_EQ(0, WebRtcOpus_EncoderCreate(&opus_encoder_, channels_, app, 48000));
-  EXPECT_EQ(0, WebRtcOpus_DecoderCreate(&opus_decoder_, channels_));
+  EXPECT_EQ(0, WebRtcOpus_DecoderCreate(&opus_decoder_, channels_, 48000));
   // Set bitrate.
   EXPECT_EQ(0, WebRtcOpus_SetBitRate(opus_encoder_, bit_rate_));
 }
@@ -148,7 +148,8 @@ void OpusFecTest::DecodeABlock(bool lost_previous, bool lost_current) {
   if (lost_previous) {
     // Decode previous frame.
     if (!lost_current &&
-        WebRtcOpus_PacketHasFec(&bit_stream_[0], encoded_bytes_) == 1) {
+        WebRtcOpus_PacketHasFec(&bit_stream_[0], encoded_bytes_,
+                                1000 * sampling_khz_) == 1) {
       value_1 =
           WebRtcOpus_DecodeFec(opus_decoder_, &bit_stream_[0], encoded_bytes_,
                                &out_data_[0], &audio_type);
@@ -195,7 +196,8 @@ TEST_P(OpusFecTest, RandomPacketLossTest) {
       EncodeABlock();
 
       // Check if payload has FEC.
-      int fec = WebRtcOpus_PacketHasFec(&bit_stream_[0], encoded_bytes_);
+      int fec = WebRtcOpus_PacketHasFec(&bit_stream_[0], encoded_bytes_,
+                                        1000 * sampling_khz_);
 
       // If FEC is disabled or the target packet loss rate is set to 0, there
       // should be no FEC in the bit stream.

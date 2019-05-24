@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "7d2cfe4d_bce4de6c",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-24T10:23:41Z",
+      "side": 1,
+      "message": "you filed a bug for this - reference this in the TODO?",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32478974_5d694e10",
         "filename": "api/stats/rtcstats_objects.h",
         "patchSetId": 5
@@ -19,6 +36,40 @@
     },
     {
       "key": {
+        "uuid": "b1d7083a_78bab482",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-24T10:23:41Z",
+      "side": 1,
+      "message": "Can you add a comment saying that in the spec, this stats dictionary inherits from the two others? It\u0027s a bit hard to see what\u0027s going on unless you know.",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e2356c5_5e5c007c",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-24T10:23:41Z",
+      "side": 1,
+      "message": "Where do you set the remote_inbound timestamp?\nUnlike everything else, this is supposed to be the arrival time of the packet, not the production time of the stats.\nI was thinking about it because the arrival time is in microseconds and the usual unit is seconds, and I couldn\u0027t find the conversion.",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b31e3339_036c3c2a",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 5
@@ -30,6 +81,109 @@
       "writtenOn": "2019-05-23T17:02:21Z",
       "side": 1,
       "message": "Add this comment to rtc_stats_collector.h too.",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "136972f0_0d6e20b1",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1067,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-24T10:23:41Z",
+      "side": 1,
+      "message": "Only need to say it once, I think. .h file should be fine.",
+      "parentUuid": "b31e3339_036c3c2a",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7f38fcc_c530273a",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1593,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-24T10:23:41Z",
+      "side": 1,
+      "message": "If this had been 3 lines longer, I\u0027d have asked for a parameterized abstraction for the duplicated code. As it stands, I\u0027ll not ask for that (and it\u0027s sad that we\u0027d have to use templates to achieve it.)",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f37f5f5f_803ebee9",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2359,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-24T10:23:41Z",
+      "side": 1,
+      "message": "Embedding the theory of only 2 media types, again. I\u0027d prefer a case.",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c14d1b2_b8972f4c",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2363,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-24T10:23:41Z",
+      "side": 1,
+      "message": "Why not return tolower(MediaTypeUpperCase());",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "484185b4_c6441660",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2423,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-24T10:23:41Z",
+      "side": 1,
+      "message": "Here you set the time. But where do you test the timestamp?",
+      "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d25b00c2_643bb618",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-24T10:23:41Z",
+      "side": 1,
+      "message": "Do you want to repeat the comment about |codec_id| and |jitter| here?",
       "revId": "4d01325c07867bbc7a4b65e8ae606b450ceca3b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

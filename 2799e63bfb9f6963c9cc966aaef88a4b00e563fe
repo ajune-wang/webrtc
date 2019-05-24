@@ -22,6 +22,30 @@
       "revId": "2799e63bfb9f6963c9cc966aaef88a4b00e563fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21b4462d_0b542d7f",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-24T10:07:46Z",
+      "side": 0,
+      "message": "Yes, here: https://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_coding/codecs/opus/audio_encoder_opus.cc?rcl\u003d316f3ac13b51a540e72db4d165d34006ce9edcf2\u0026l\u003d341",
+      "parentUuid": "5f9e78e8_2acc64c0",
+      "range": {
+        "startLine": 127,
+        "startChar": 4,
+        "endLine": 127,
+        "endChar": 20
+      },
+      "revId": "2799e63bfb9f6963c9cc966aaef88a4b00e563fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c8a72e5_985d6516",
+        "filename": "pc/rtp_transport_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-05-24T23:04:47Z",
+      "side": 1,
+      "message": "Please add comments what APIs are for.",
+      "revId": "44390ba93b068275af5b2e7c8e9797f16013b6a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

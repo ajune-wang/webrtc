@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "dc820d29_76351db2",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-24T01:02:53Z",
+      "side": 1,
+      "message": "Q: is it guaranteed that writable status actually changed here?\ni would not expect to events to fire saying that we are writable (without a false in between)",
+      "range": {
+        "startLine": 489,
+        "startChar": 26,
+        "endLine": 489,
+        "endChar": 46
+      },
+      "revId": "1327d9db9a93d52a86cb10c1e8df6a9b7a47c678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c964923f_c4756cc3",
         "filename": "pc/jsep_transport_controller.cc",
         "patchSetId": 3

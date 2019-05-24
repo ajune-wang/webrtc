@@ -604,6 +604,10 @@ ProduceMediaStreamTrackStatsFromVideoReceiverInfo(
       rtc::kNumMillisecsPerSec;
   video_track_stats->sum_squared_frame_durations =
       video_receiver_info.sum_squared_frame_durations;
+  video_track_stats->jitter_buffer_delay =
+      video_receiver_info.jitter_buffer_delay_seconds;
+  video_track_stats->jitter_buffer_emitted_count =
+      video_receiver_info.jitter_buffer_emitted_count;
 
   return video_track_stats;
 }

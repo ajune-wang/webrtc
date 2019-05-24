@@ -405,6 +405,8 @@ const char* StatsReport::Value::display_name() const {
       return "framesEncoded";
     case kStatsValueNameJitterBufferDelay:
       return "jitterBufferDelay";
+    case kStatsValueNameJitterBufferEmittedCount:
+      return "jitterBufferEmittedCount";
     case kStatsValueNameCodecImplementationName:
       return "codecImplementationName";
     case kStatsValueNameMediaType:

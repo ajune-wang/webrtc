@@ -559,9 +559,16 @@ class RTCStatsReportVerifier {
           !*media_stream_track.remote_source) {
         verifier.TestMemberIsIDReference(media_stream_track.media_source_id,
                                          RTCVideoSourceStats::kType);
+        // Local tracks have no jitter buffer.
+        verifier.TestMemberIsUndefined(media_stream_track.jitter_buffer_delay);
+        verifier.TestMemberIsUndefined(
+            media_stream_track.jitter_buffer_emitted_count);
       } else {
-        // Remote tracks don't have media source stats.
         verifier.TestMemberIsUndefined(media_stream_track.media_source_id);
+        verifier.TestMemberIsNonNegative<double>(
+            media_stream_track.jitter_buffer_delay);
+        verifier.TestMemberIsNonNegative<uint64_t>(
+            media_stream_track.jitter_buffer_emitted_count);
       }
       // Video-only members
       verifier.TestMemberIsNonNegative<uint32_t>(
@@ -695,9 +702,12 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsNonNegative<double>(
           media_stream_track.total_interruption_duration);
     } else {
-      verifier.TestMemberIsUndefined(media_stream_track.jitter_buffer_delay);
-      verifier.TestMemberIsUndefined(
-          media_stream_track.jitter_buffer_emitted_count);
+      if (*media_stream_track.kind == RTCMediaStreamTrackKind::kAudio) {
+        // Local audio tracks have no jitter buffer.
+        verifier.TestMemberIsUndefined(media_stream_track.jitter_buffer_delay);
+        verifier.TestMemberIsUndefined(
+            media_stream_track.jitter_buffer_emitted_count);
+      }
       verifier.TestMemberIsUndefined(media_stream_track.total_samples_received);
       verifier.TestMemberIsUndefined(media_stream_track.concealed_samples);
       verifier.TestMemberIsUndefined(media_stream_track.concealment_events);

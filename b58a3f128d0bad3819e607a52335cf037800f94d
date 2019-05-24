@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8595e2b4_7f4e09be",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-24T20:37:16Z",
+      "side": 1,
+      "message": "nit: RTC_DCHECK_EQ",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 14
+      },
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "46385c38_2db7d895",
         "filename": "pc/composite_rtp_transport.cc",
         "patchSetId": 1
@@ -36,6 +59,23 @@
     },
     {
       "key": {
+        "uuid": "cde7adc6_20cf63c5",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-24T20:37:16Z",
+      "side": 1,
+      "message": "absl::c_linear_search",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a229c8c6_2b353d88",
         "filename": "pc/composite_rtp_transport.cc",
         "patchSetId": 1
@@ -64,6 +104,29 @@
       "writtenOn": "2019-05-24T20:25:03Z",
       "side": 1,
       "message": "Do you need to propagate writable if it\u0027s already writable (or we will get always notification right after send_transport_-\u003eSignalWritableState.connect)?\n\nSame quesiton about OnReadyToSend.",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3822631c_59db01d6",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-24T20:37:16Z",
+      "side": 1,
+      "message": "/*rtcp\u003d*/",
+      "range": {
+        "startLine": 82,
+        "startChar": 50,
+        "endLine": 82,
+        "endChar": 54
+      },
       "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -121,6 +184,40 @@
     },
     {
       "key": {
+        "uuid": "c965e574_fae7f582",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-24T20:37:16Z",
+      "side": 1,
+      "message": "DCHECK no send transport?",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9a57a6d_e74162c3",
+        "filename": "pc/composite_rtp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-24T20:37:16Z",
+      "side": 1,
+      "message": "can use absl::c_all_of if you\u0027d like",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39c8e1d5_156d750c",
         "filename": "pc/composite_rtp_transport.h",
         "patchSetId": 1
@@ -155,6 +252,23 @@
       "writtenOn": "2019-05-24T20:25:03Z",
       "side": 1,
       "message": "Vector may not be empty?",
+      "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e0fd477_d74d4155",
+        "filename": "pc/composite_rtp_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-24T20:37:16Z",
+      "side": 1,
+      "message": "Please document lifetime requirements for receive and send transports.",
       "revId": "b58a3f128d0bad3819e607a52335cf037800f94d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

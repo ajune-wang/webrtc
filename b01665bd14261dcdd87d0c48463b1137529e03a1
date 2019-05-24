@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "993c9942_3e1be62a",
+        "filename": "api/audio_codecs/opus/audio_encoder_opus_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-24T13:55:25Z",
+      "side": 1,
+      "message": "we may add support for them when needed.",
+      "range": {
+        "startLine": 61,
+        "startChar": 13,
+        "endLine": 61,
+        "endChar": 58
+      },
+      "revId": "b01665bd14261dcdd87d0c48463b1137529e03a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2f284dc_1e291604",
+        "filename": "api/audio_codecs/opus/audio_encoder_opus_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-24T13:55:25Z",
+      "side": 1,
+      "message": "\"sample_rate_hz\" may be clear enough, since it cannot be \"output\". otherwise, we may add input_ to num_channels, frame_size_ms, or other stuff as well.",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 26
+      },
+      "revId": "b01665bd14261dcdd87d0c48463b1137529e03a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

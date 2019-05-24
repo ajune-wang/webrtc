@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb59c18d_638ceba2",
+        "filename": "p2p/base/composite_packet_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-24T20:30:09Z",
+      "side": 1,
+      "message": "nit: RTC_DCHECK_EQ",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 14
+      },
+      "revId": "978c06064e76321a915405715b805f25035e40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "500d4428_29b12104",
+        "filename": "p2p/base/composite_packet_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-24T20:30:09Z",
+      "side": 1,
+      "message": "if (!absl::c_linear_search(transports_, send_transport)) {\n  return false\n}",
+      "revId": "978c06064e76321a915405715b805f25035e40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "201717a1_2dba4b53",
+        "filename": "p2p/base/composite_packet_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-24T20:30:09Z",
+      "side": 1,
+      "message": "Could also do:\n\nreturn absl::c_any_of(transports_, [](PacketTransportInternal* transport) { return transport-\u003ereceiving(); });",
+      "revId": "978c06064e76321a915405715b805f25035e40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

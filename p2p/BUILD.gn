@@ -85,7 +85,6 @@ rtc_static_library("rtc_p2p") {
 
   deps = [
     "../api:libjingle_peerconnection_api",
-    "../api:ortc_api",
     "../api:scoped_refptr",
     "../api/transport:enums",
     "../logging:ice_log",
@@ -157,7 +156,6 @@ if (rtc_include_tests) {
       ":p2p_server_utils",
       ":rtc_p2p",
       "../api:libjingle_peerconnection_api",
-      "../api:ortc_api",
       "../rtc_base",
       "../rtc_base:gunit_helpers",
       "../rtc_base:rtc_base_approved",
@@ -203,7 +201,6 @@ if (rtc_include_tests) {
       ":p2p_test_utils",
       ":rtc_p2p",
       "../api:libjingle_peerconnection_api",
-      "../api:ortc_api",
       "../api:scoped_refptr",
       "../api/units:time_delta",
       "../rtc_base",

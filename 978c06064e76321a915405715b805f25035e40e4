@@ -56,6 +56,23 @@
       "revId": "978c06064e76321a915405715b805f25035e40e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25c6beae_3e7262d8",
+        "filename": "p2p/base/composite_packet_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-24T20:30:58Z",
+      "side": 1,
+      "message": "Oh, can you also document the lifetime requirements of these PacketTransportInternals (receive and send)",
+      "revId": "978c06064e76321a915405715b805f25035e40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

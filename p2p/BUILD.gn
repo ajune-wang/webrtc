@@ -25,6 +25,8 @@ rtc_static_library("rtc_p2p") {
     "base/basic_packet_socket_factory.cc",
     "base/basic_packet_socket_factory.h",
     "base/candidate_pair_interface.h",
+    "base/composite_packet_transport.cc",
+    "base/composite_packet_transport.h",
     "base/dtls_transport.cc",
     "base/dtls_transport.h",
     "base/dtls_transport_internal.cc",
@@ -85,7 +87,6 @@ rtc_static_library("rtc_p2p") {
 
   deps = [
     "../api:libjingle_peerconnection_api",
-    "../api:ortc_api",
     "../api:scoped_refptr",
     "../api/transport:enums",
     "../logging:ice_log",
@@ -157,7 +158,6 @@ if (rtc_include_tests) {
       ":p2p_server_utils",
       ":rtc_p2p",
       "../api:libjingle_peerconnection_api",
-      "../api:ortc_api",
       "../rtc_base",
       "../rtc_base:gunit_helpers",
       "../rtc_base:rtc_base_approved",
@@ -176,6 +176,7 @@ if (rtc_include_tests) {
     sources = [
       "base/async_stun_tcp_socket_unittest.cc",
       "base/basic_async_resolver_factory_unittest.cc",
+      "base/composite_packet_transport_test.cc",
       "base/dtls_transport_unittest.cc",
       "base/ice_credentials_iterator_unittest.cc",
       "base/mdns_message_unittest.cc",
@@ -203,7 +204,6 @@ if (rtc_include_tests) {
       ":p2p_test_utils",
       ":rtc_p2p",
       "../api:libjingle_peerconnection_api",
-      "../api:ortc_api",
       "../api:scoped_refptr",
       "../api/units:time_delta",
       "../rtc_base",

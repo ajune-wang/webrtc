@@ -561,7 +561,7 @@ void RtpVideoSender::DeliverRtcp(const uint8_t* packet, size_t length) {
 
 void RtpVideoSender::ConfigureSsrcs() {
   // Configure regular SSRCs.
-  RTC_CHECK(ssrc_to_acknowledged_packets_observers_.empty());
+  RTC_CHECK(ssrc_to_rtp_sender_.empty());
   for (size_t i = 0; i < rtp_config_.ssrcs.size(); ++i) {
     uint32_t ssrc = rtp_config_.ssrcs[i];
     RtpRtcp* const rtp_rtcp = rtp_streams_[i].rtp_rtcp.get();
@@ -572,10 +572,9 @@ void RtpVideoSender::ConfigureSsrcs() {
     if (it != suspended_ssrcs_.end())
       rtp_rtcp->SetRtpState(it->second);
 
-    AcknowledgedPacketsObserver* receive_observer =
-        rtp_rtcp->GetAcknowledgedPacketsObserver();
-    RTC_DCHECK(receive_observer != nullptr);
-    ssrc_to_acknowledged_packets_observers_[ssrc] = receive_observer;
+    RTPSender* rtp_sender = rtp_rtcp->RtpSender();
+    RTC_DCHECK(rtp_sender != nullptr);
+    ssrc_to_rtp_sender_[ssrc] = rtp_sender;
   }
 
   // Set up RTX if available.
@@ -779,7 +778,11 @@ int RtpVideoSender::ProtectionRequest(const FecProtectionParams* delta_params,
 
 void RtpVideoSender::OnPacketFeedbackVector(
     const std::vector<PacketFeedback>& packet_feedback_vector) {
-  if (fec_controller_->UseLossVectorMask()) {
+  // Map from SSRC to vector of RTP sequence numbers the is indicated as lost
+  // by feedback without be trailed by any received packets.
+  std::map<uint32_t, std::vector<uint16_t>> early_loss_detected_per_ssrc;
+  const bool use_loss_vector_mask = fec_controller_->UseLossVectorMask();
+  {
     rtc::CritScope cs(&crit_);
     for (const PacketFeedback& packet : packet_feedback_vector) {
       if (packet.send_time_ms == PacketFeedback::kNoSendTime || !packet.ssrc ||
@@ -791,8 +794,28 @@ void RtpVideoSender::OnPacketFeedbackVector(
         // not interested in it.
         continue;
       }
-      loss_mask_vector_.push_back(packet.arrival_time_ms ==
-                                  PacketFeedback::kNotReceived);
+      const bool packet_lost =
+          packet.arrival_time_ms == PacketFeedback::kNotReceived;
+      if (packet_lost) {
+        // Last known lost packet, might not be detectable as lost by remote
+        // jitter buffer.
+        early_loss_detected_per_ssrc[*packet.ssrc].push_back(
+            packet.rtp_sequence_number);
+      } else {
+        // Packet received, so any loss prior to this is already detectable.
+        early_loss_detected_per_ssrc.erase(*packet.ssrc);
+      }
+      if (use_loss_vector_mask) {
+        loss_mask_vector_.push_back(packet_lost);
+      }
+    }
+  }
+
+  for (const auto& kv : early_loss_detected_per_ssrc) {
+    const uint32_t ssrc = kv.first;
+    RTC_DCHECK(ssrc_to_rtp_sender_.find(ssrc) != ssrc_to_rtp_sender_.end());
+    for (uint16_t sequence_number : kv.second) {
+      ssrc_to_rtp_sender_[ssrc]->ReSendPacket(sequence_number);
     }
   }
 
@@ -807,15 +830,13 @@ void RtpVideoSender::OnPacketFeedbackVector(
 
   for (const auto& kv : acked_packets_per_ssrc) {
     const uint32_t ssrc = kv.first;
-    if (ssrc_to_acknowledged_packets_observers_.find(ssrc) ==
-        ssrc_to_acknowledged_packets_observers_.end()) {
+    if (ssrc_to_rtp_sender_.find(ssrc) == ssrc_to_rtp_sender_.end()) {
       // Packets not for a media SSRC, so likely RTX or FEC. If so, ignore
       // since there's no RTP history to clean up anyway.
       continue;
     }
     rtc::ArrayView<const uint16_t> rtp_sequence_numbers(kv.second);
-    ssrc_to_acknowledged_packets_observers_[ssrc]->OnPacketsAcknowledged(
-        rtp_sequence_numbers);
+    ssrc_to_rtp_sender_[ssrc]->OnPacketsAcknowledged(rtp_sequence_numbers);
   }
 }
 

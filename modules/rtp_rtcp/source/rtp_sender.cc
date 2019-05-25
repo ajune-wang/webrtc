@@ -477,7 +477,6 @@ int32_t RTPSender::ReSendPacket(uint16_t packet_id) {
         RtpPacketSender::kNormalPriority, stored_packet->ssrc,
         stored_packet->rtp_sequence_number, stored_packet->capture_time_ms,
         stored_packet->packet_size, true);
-
     return packet_size;
   }
 
@@ -952,16 +951,23 @@ bool RTPSender::UpdateTransportSequenceNumber(RtpPacketToSend* packet,
                                               int* packet_id) {
   RTC_DCHECK(packet);
   RTC_DCHECK(packet_id);
-  if (!rtp_header_extension_map_.IsRegistered(TransportSequenceNumber::kId))
+  if (!rtp_header_extension_map_.IsRegistered(TransportSequenceNumber::kId)) {
+    printf("@Nope 1\n");
     return false;
+  }
 
-  if (!transport_sequence_number_allocator_)
+  if (!transport_sequence_number_allocator_) {
+    printf("@No allocator!\n");
     return false;
+  }
 
   *packet_id = transport_sequence_number_allocator_->AllocateSequenceNumber();
+  printf("@Got id: %d\n", *packet_id);
 
-  if (!packet->SetExtension<TransportSequenceNumber>(*packet_id))
+  if (!packet->SetExtension<TransportSequenceNumber>(*packet_id)) {
+    printf("@Nope 2\n");
     return false;
+  }
 
   return true;
 }

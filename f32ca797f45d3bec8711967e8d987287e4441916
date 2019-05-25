@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef9dc862_4fa63132",
+        "filename": "video/frame_encode_metadata_writer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-25T17:43:49Z",
+      "side": 1,
+      "message": "Would it be possible to change this to a CopyOnWriteBuffer instead?\nI guess there will be changes needed to the SpsVui rewriter in that case, but this will allow us to avoid one copy when we move the data back into EncodedImage.\n\nMight in that case even change  GetUpdatedBitstream() to return an optional instead.",
+      "range": {
+        "startLine": 30,
+        "startChar": 9,
+        "endLine": 30,
+        "endChar": 15
+      },
+      "revId": "f32ca797f45d3bec8711967e8d987287e4441916",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

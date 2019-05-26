@@ -22,6 +22,30 @@
       "revId": "f32ca797f45d3bec8711967e8d987287e4441916",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "996ea3ec_c7380ca7",
+        "filename": "video/frame_encode_metadata_writer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-26T11:26:07Z",
+      "side": 1,
+      "message": "Just realized I was wrong in my thinking that this cl does a copy to encoded image, but it might still be nice if EncodedImage could own that memory to make the life cycle a bit simpler?",
+      "parentUuid": "ef9dc862_4fa63132",
+      "range": {
+        "startLine": 30,
+        "startChar": 9,
+        "endLine": 30,
+        "endChar": 15
+      },
+      "revId": "f32ca797f45d3bec8711967e8d987287e4441916",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "305beaf1_f1ecdfbb",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-05-27T13:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d53f246_d8069400",
+      "range": {
+        "startLine": 104,
+        "startChar": 7,
+        "endLine": 104,
+        "endChar": 17
+      },
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2282c36d_a1ffa4c4",
         "filename": "api/transport/network_types.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46249df5_b29c520d",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-05-27T13:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2282c36d_a1ffa4c4",
+      "range": {
+        "startLine": 105,
+        "startChar": 12,
+        "endLine": 105,
+        "endChar": 20
+      },
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "cdd15c50_4e546e59",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-05-27T13:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1755b3c0_c349d083",
+      "range": {
+        "startLine": 110,
+        "startChar": 10,
+        "endLine": 110,
+        "endChar": 25
+      },
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfe2f921_2d65bc88",
         "filename": "call/rtp_transport_controller_send.cc",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3913ace_01a4346d",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-05-27T13:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfe2f921_2d65bc88",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 333,
+        "endChar": 19
+      },
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1d1ac60f_dedaec8a",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-05-27T13:26:31Z",
+      "side": 1,
+      "message": "right, initially I planed to deduct this from data in flight and added this.",
+      "parentUuid": "622e2163_f7e22799",
+      "range": {
+        "startLine": 340,
+        "startChar": 0,
+        "endLine": 341,
+        "endChar": 64
+      },
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c1a169d_91bcdb0c",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c426b704_6a36d458",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-05-27T13:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c1a169d_91bcdb0c",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 40
+      },
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "12572fb5_7a3bc617",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-05-27T13:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d1e4c01_a1d8f575",
+      "range": {
+        "startLine": 551,
+        "startChar": 0,
+        "endLine": 552,
+        "endChar": 49
+      },
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a64671e5_3611ec97",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 1
@@ -177,6 +345,24 @@
       "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9dd417e_4cf1504e",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-05-27T13:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a64671e5_3611ec97",
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -200,6 +386,30 @@
       "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19da1d8b_d129c178",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-05-27T13:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a116588_8910079f",
+      "range": {
+        "startLine": 123,
+        "startChar": 2,
+        "endLine": 123,
+        "endChar": 9
+      },
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

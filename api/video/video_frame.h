@@ -74,15 +74,6 @@ class RTC_EXPORT VideoFrame {
     absl::optional<UpdateRect> update_rect_;
   };
 
-  // To be deprecated. Migrate all use to Builder.
-  VideoFrame(const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
-             webrtc::VideoRotation rotation,
-             int64_t timestamp_us);
-  VideoFrame(const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
-             uint32_t timestamp_rtp,
-             int64_t render_time_ms,
-             VideoRotation rotation);
-
   ~VideoFrame();
 
   // Support move and copy.

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e06a74f4_f23330e7",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-27T08:22:13Z",
+      "side": 1,
+      "message": "\u003e danilchap@ explained to me that these Report Blocks can come in either Sender Reports or Receiver Reports depending on how the call is set up, so adding \"sender\" or \"receiver\" may or may not be misleading.\n\nSo we couldn\u0027t call it \"ReceiverReport\", but we could perhaps call it ReceiverReportBlock (preferably following the terminology in the RTP/RTCP specs, whatever that is).\n\n\u003e Would you prefer the name \"remote_inbound_report_block_datas\"? Or \"receiver_report_block_datas\"?\n\nIf these are the only kind of report blocks that are relevant for send-stream stats, then I think |report_block_datas| is ok. If a more specific name is needed, it makes sense to use name consistent with the js apis, even though I find \"remote_inbound_...\" a bit unwieldy.\n\nIf the same type ReportBlockData is suitable for receive-stream stats based on received sender report blocks (I\u0027m under the impression that values reported in that case are quite different, but I may be wrong), then ReportBlockData is an ok name.",
+      "parentUuid": "628495f4_a9dab5c8",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 50
+      },
+      "revId": "52ba7d55a70f79971089e3a6facb70def6305b94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75badea0_cc3b04bb",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
         "patchSetId": 6

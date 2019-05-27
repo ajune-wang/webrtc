@@ -22,6 +22,30 @@
       "revId": "ccdd3090309d740dcbc0cf4b1f1bc0fc75ed1532",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5431d09_46e0f575",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-27T07:34:19Z",
+      "side": 1,
+      "message": "I don\u0027t know why audio and video stacks are structured differently and I agree that it would be helpful to do the same thing in both cases, but I feel like this is a bigger discussion and bigger refactoring effort than this CL.\n\nIn this CL, I\u0027m just adding another metric and following the same pattern that already exists. In the video stack, everything are callbacks[1]. The send_statistics_proxy.cc updates its stats based on the callbacks, and when SendStatisticsProxy::GetStats()[2] is called it just returns the current state of the stats (except for a couple of rates which are calculated then).\n\nIf we want to say no to new callbacks, I can...\na) Put the ReportBlockData info in the existing RtcpStatisticsCallback (StatisticsUpdated, RtcpStatistics), though I would prefer putting a TODO to remove the RtcpStatisticsCallback in favor of the ReportBlockData callback, since ReportBlockData is \"same but more\".\nb) Perform a \"poll\" at SendStatisticsProxy::GetStats(), i.e. call _rtpRtcpModule-\u003eGetLatestReportBlockData(), but this goes against the existing design pattern of the video part in regards to all stats except for calculating current rates. And then I need to pass in a reference to the _rtpRtcpModule somewhere.\n\nI\u0027m up for suggestions, but considering this is blocking the launch of important metrics targeted for M76, can we discuss redesigning the video stack separate from this CL landing, since really this is just doing more of what the code is already doing?\n\n[1] https://webrtc-review.googlesource.com/c/src/+/138065/7/video/video_send_stream_impl.cc\n[2] https://cs.chromium.org/chromium/src/third_party/webrtc/video/send_statistics_proxy.cc?type\u003dcs\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d721",
+      "parentUuid": "4db79052_90745551",
+      "range": {
+        "startLine": 1139,
+        "startChar": 0,
+        "endLine": 1148,
+        "endChar": 0
+      },
+      "revId": "ccdd3090309d740dcbc0cf4b1f1bc0fc75ed1532",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

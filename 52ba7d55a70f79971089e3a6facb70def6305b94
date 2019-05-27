@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "3a48b110_880c2b85",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-27T08:38:31Z",
+      "side": 1,
+      "message": "ReportBlockData should probably be used for both remote inbound and remote outbound RTP. But even if we are only talking about remote inbound RTP (this CL), then they could come from either a Sender Report or a Receiver Report, in both cases these end up at the RTCPReceiver.\n\n\"receiver_report_blocks\" might makes sense in that \"they come from an RTCPReceiver\". But that might be true of remote outbound RTP as well - I don\u0027t know how that will be wired yet.\n\nI think we\u0027ll have a better idea once we wire up remote outbound RTP stats as well. Right now, the ReportBlockData name is not direction-specific on purpose because I think it will be used for both. I could be wrong but that is my current understanding.\n\nIf it ends up only being used in one direction I am happy to rename it but I don\u0027t want to rename the type of a class that right now is meant to be direction-agnostic.\n\nDo you still see the need for me to rename something, if so what?",
+      "parentUuid": "e06a74f4_f23330e7",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 50
+      },
+      "revId": "52ba7d55a70f79971089e3a6facb70def6305b94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75badea0_cc3b04bb",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
         "patchSetId": 6

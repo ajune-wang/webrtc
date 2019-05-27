@@ -22,6 +22,30 @@
       "revId": "31c53b8e327380613fe2f6bfad1ceed5b4d0d508",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b8657e1_89c5bcd7",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-27T09:44:33Z",
+      "side": 1,
+      "message": "The RTCRemoteInboundRtpStreamStats object does actually expose both SSRCs (the remote-inbound-rtp object\u0027s ssrc is the |sender_ssrc| and the localId referencing the outbound-rtp object uses the |source_ssrc|).\n\nYou are right in that once the |sender_ssrc| changes, the old Report Block should no longer be very interesting. I think the spec should say that we delete these remote-inbound-rtp stats objects that are no longer of interest, but the spec explicitly says \"RTP monitored objects are not deleted\":\nhttps://w3c.github.io/webrtc-stats/#the-rtp-statistics-hierarchy\n\nAs-is, the comment correctly describes the behavior and it leads to a spec-compliant implementation. However, I think there is room for interpretation of the spec and perhaps we want to do something different or update the spec. I filed https://crbug.com/webrtc/10681 for follow-up discussions.",
+      "parentUuid": "178a7197_2bc4138a",
+      "range": {
+        "startLine": 46,
+        "startChar": 27,
+        "endLine": 46,
+        "endChar": 45
+      },
+      "revId": "31c53b8e327380613fe2f6bfad1ceed5b4d0d508",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -611,6 +611,9 @@ void RtpVideoSender::ConfigureSsrcs(const RtpConfig& rtp_config) {
 }
 
 void RtpVideoSender::ConfigureRids(const RtpConfig& rtp_config) {
+  std::printf("rtp_config.rids.size()=%lu\n", rtp_config.rids.size());
+  std::printf("rtp_config.ssrcs.size()=%lu\n", rtp_config.ssrcs.size());
+  std::printf("rtp_streams_.size()=%lu\n", rtp_streams_.size());
   RTC_DCHECK(rtp_config.rids.empty() ||
              rtp_config.rids.size() == rtp_config.ssrcs.size());
   RTC_DCHECK(rtp_config.rids.empty() ||

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b8afe67_5719fc8f",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-27T06:48:48Z",
+      "side": 1,
+      "message": "Do I get this right, that each entry in this vector corresponds to the most recently seen receiver report block(s?) for one outgoing stream?\n\nMaybe rephrase to make it clearer that it corresponds to receiver report blocks.\n\nIs there anything similar for sent and/or received sender report blocks? Do they use the same types? If not, maybe ReportBlockData is a too general name.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 50
+      },
+      "revId": "52ba7d55a70f79971089e3a6facb70def6305b94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

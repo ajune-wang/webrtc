@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b448e3f_94c556f9",
+        "filename": "pc/test/frame_generator_capturer_video_track_source.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-05-27T12:01:21Z",
+      "side": 1,
+      "message": "This constructor doesn\u0027t initialize is_screencast_.",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 53
+      },
+      "revId": "2d232f049a0e9f81f088ced78e3ede672fb622d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

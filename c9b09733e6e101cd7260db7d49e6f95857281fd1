@@ -1,0 +1,242 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c94b1bf_ec920ff6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-27T11:23:00Z",
+      "side": 1,
+      "message": "Please give design doc reference for what \"raw RTP packetization\" is.",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e2506a9_77c149f7",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-27T11:23:00Z",
+      "side": 1,
+      "message": "Using _enabled as part of the name looks unnatural in this context. Call it offer_raw_packetization_for_video, or even just raw_packetization_for_video.",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b1f4275_34e46f99",
+        "filename": "media/base/codec_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-27T11:23:00Z",
+      "side": 1,
+      "message": "Add test that EXPECT_NE(c2, c0) and EXPECT_EQ(c2, c2).",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18a59f10_c854610d",
+        "filename": "media/base/codec_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-27T11:23:00Z",
+      "side": 1,
+      "message": "Add test for c1.Matches(c0).",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd2d3dd5_b6cc0579",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-27T11:23:00Z",
+      "side": 1,
+      "message": "Why is this code in SetLocalContent (which presumably is called for a locally-generated answer)?",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e1c0a2e_fcd8b5d6",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-27T11:23:00Z",
+      "side": 1,
+      "message": "You don\u0027t need the parameters_applied boolean here. Just say \"if ... SetSendParameters()\".",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9244177e_55bde314",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-27T11:23:00Z",
+      "side": 1,
+      "message": "If offer has packetization \"\" and answer has packetization \"raw\", this will change packetization to \"raw\". This is probably not what you intend.\n\n(It is not a reasonable thing to do, but the remote SDP comes from code not under our control, so from a security perspective, it is Controlled By The Enemy).",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "380747ed_0560abbe",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2207,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-27T11:23:00Z",
+      "side": 1,
+      "message": "This sets raw packetization for *all* video codecs, while the tests only test with VP8.\nIs *all* video codecs the intended behavior?",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9789ba7_643d8094",
+        "filename": "pc/media_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-27T11:23:00Z",
+      "side": 1,
+      "message": "Same naming comment as above.",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "457d03d4_2a3c1cfd",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2945,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-27T11:23:00Z",
+      "side": 1,
+      "message": "This code allows \"raw\", but also allows \"supercalifragimaxiexpialidosis\". Is this intentional?",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dab45b32_95ac1b0b",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3732,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-27T11:23:00Z",
+      "side": 1,
+      "message": "This means that you tolerate \"a\u003dpacketization:\" in any non-video type. Is that intentional?",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a4c6dcb_c5e72401",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3742,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-27T11:23:00Z",
+      "side": 1,
+      "message": "You\u0027re not filling out the error information here. Is that acceptable?",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "504d3d7f_f8c985e1",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3517,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-27T11:23:00Z",
+      "side": 1,
+      "message": "Add a test for m\u003daudio / a\u003dpacketization.\nAdd a test for m\u003dvideo / a\u003dpacketization:120 supercalifragialisticexpialidosis.\n\nFigure out what errors you want in those cases, and that you get them.",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29cf2f74_622d92e4",
+        "filename": "sdk/media_constraints.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-27T11:23:00Z",
+      "side": 1,
+      "message": "This constraint won\u0027t be available to Chrome (and won\u0027t be accepted in Chrome either).\nWhat interface is this intended to service? Do you really want to continue to use that interface?",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

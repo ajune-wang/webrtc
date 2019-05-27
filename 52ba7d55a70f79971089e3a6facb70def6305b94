@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "628495f4_a9dab5c8",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-27T08:07:43Z",
+      "side": 1,
+      "message": "\u003e Do I get this right, that each entry in this vector corresponds to the most recently seen receiver report block(s?) for one outgoing stream?\n\nYes.\n\ndanilchap@ explained to me that these Report Blocks can come in either Sender Reports or Receiver Reports depending on how the call is set up, so adding \"sender\" or \"receiver\" may or may not be misleading. I would ask him, though he already approved the CL that decided on the name ReportBlockData.\n\n\u003e Is there anything similar for sent and/or received sender report blocks? Do they use the same types? If not, maybe ReportBlockData is a too general name.\n\nYes. In the future we will add remote-outbound-rtp stats, but these are also based on Report Blocks. ReportBlockData is a ReportBlock with additional data (such as receive timestamp and RTT measurement). I believe the same type will be used.\n\n---\n\nSo what are |report_block_datas| here in this CL?\n- They are report blocks received about remote inbound RTP, meaning they are feedback information from the other endpoint about streams that we are sending (local outbound RTP).\n\nWould you prefer the name \"remote_inbound_report_block_datas\"? Or \"receiver_report_block_datas\"?",
+      "parentUuid": "3b8afe67_5719fc8f",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 50
+      },
+      "revId": "52ba7d55a70f79971089e3a6facb70def6305b94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75badea0_cc3b04bb",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-27T07:47:38Z",
       "side": 1,
       "message": "Intended to replace RemoteRTCPStat above?",
+      "range": {
+        "startLine": 365,
+        "startChar": 39,
+        "endLine": 365,
+        "endChar": 63
+      },
+      "revId": "52ba7d55a70f79971089e3a6facb70def6305b94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df680703_a472026c",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-27T08:07:43Z",
+      "side": 1,
+      "message": "Filed an issue and added a TODO (https://crbug.com/webrtc/10678). I\u0027m happy to do this in a follow-up, but I didn\u0027t want to touch existing callbacks and getters in this CL in case I break downstream projects.",
+      "parentUuid": "75badea0_cc3b04bb",
       "range": {
         "startLine": 365,
         "startChar": 39,

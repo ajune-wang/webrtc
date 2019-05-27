@@ -16,6 +16,7 @@
 
 #include "api/transport/network_types.h"
 #include "modules/congestion_controller/rtp/send_time_history.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/network/sent_packet.h"
 #include "rtc_base/thread_annotations.h"
@@ -43,7 +44,6 @@ class TransportFeedbackAdapter {
                  Timestamp creation_time);
   absl::optional<SentPacket> ProcessSentPacket(
       const rtc::SentPacket& sent_packet);
-
   absl::optional<TransportPacketsFeedback> ProcessTransportFeedback(
       const rtcp::TransportFeedback& feedback,
       Timestamp feedback_time);

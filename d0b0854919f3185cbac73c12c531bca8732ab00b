@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "21c01dce_161c62ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-05-27T11:09:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d732e1da_f5554712",
+      "revId": "d0b0854919f3185cbac73c12c531bca8732ab00b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "874a8f98_84a998eb",
         "filename": "api/peer_connection_interface.h",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "2a58ca7f_020cf7bc",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-05-27T11:09:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "874a8f98_84a998eb",
+      "revId": "d0b0854919f3185cbac73c12c531bca8732ab00b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70fe3a7d_8afbb6de",
         "filename": "api/peer_connection_interface.h",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2019-05-21T08:57:03Z",
       "side": 1,
       "message": "This is unsigned short in the spec: Consider using uint16_t instead of int\nhttps://w3c.github.io/webrtc-pc/#dom-rtcpeerconnectioniceerrorevent",
+      "revId": "d0b0854919f3185cbac73c12c531bca8732ab00b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "730a4d1a_d97c04d2",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-05-27T11:09:48Z",
+      "side": 1,
+      "message": "Looked around a bit in the API and for example in IceCandidateInterface the sdp_mline_index() also returns int compared to https://w3c.github.io/webrtc-pc/#dom-rtcicecandidate-sdpmlineindex. Haven\u0027t checked what coding standards recommend, but personally I always prefer int as much as possible as on some platforms it might even give performance gain to use native CPU word size",
+      "parentUuid": "70fe3a7d_8afbb6de",
       "revId": "d0b0854919f3185cbac73c12c531bca8732ab00b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -84,6 +138,24 @@
       "revId": "d0b0854919f3185cbac73c12c531bca8732ab00b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a0c189b_0629cd92",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-05-27T11:09:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b0d0ee4_834c33ec",
+      "revId": "d0b0854919f3185cbac73c12c531bca8732ab00b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

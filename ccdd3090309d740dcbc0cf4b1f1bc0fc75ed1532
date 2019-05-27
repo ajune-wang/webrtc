@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4db79052_90745551",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-27T06:59:17Z",
+      "side": 1,
+      "message": "This model is quite different from the audio code. In the audio cl, there\u0027s a call to _rtpRtcpModule-\u003eGetLatestReportBlockData() from ChannelSend::GetRTCPStatistics, to get the latest \"snapshot\".\n\nIn this cl, we have an observer, which looks like a very different model. It seems the observer is called for each RTCP message, and then it has to be aggregated by the observer?\n\nIt would be preferable to have a single model for both audio and video.",
+      "range": {
+        "startLine": 1139,
+        "startChar": 0,
+        "endLine": 1148,
+        "endChar": 0
+      },
+      "revId": "ccdd3090309d740dcbc0cf4b1f1bc0fc75ed1532",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2da5a65_1f95cc3c",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-27T11:50:13Z",
+      "side": 0,
+      "message": "may be put this cleanup into own change,\nsince it has different and independent kind of risks with 2nd half of the change: replying to transport feedbacks with resent packets.",
+      "range": {
+        "startLine": 318,
+        "startChar": 35,
+        "endLine": 318,
+        "endChar": 0
+      },
+      "revId": "15baf5e609b58c6f89e91ffe9a1e64ec3f1eace2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

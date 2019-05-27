@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8daee56b_306b9b7b",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-27T11:50:13Z",
+      "side": 1,
+      "message": "what was meant here?\ncan you please review the full sentence.",
+      "range": {
+        "startLine": 781,
+        "startChar": 52,
+        "endLine": 781,
+        "endChar": 60
+      },
+      "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8a48aa7_cc39fd20",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-27T11:50:13Z",
+      "side": 1,
+      "message": "is it possible to make the new feature optional (or at least have a kill switch)?\n\n(what if remote end doesn\u0027t want old packets to be resent for some own reasons.\nsending Nack does mean resent request.\nsending TransportFeedback doesn\u0027t imply other end want packets to be resent.)\n\nOne of scenarios I can think about: lost packets just before a key frame.",
+      "range": {
+        "startLine": 818,
+        "startChar": 6,
+        "endLine": 818,
+        "endChar": 63
+      },
+      "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d07528f_54af326c",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-27T11:50:13Z",
+      "side": 1,
+      "message": "it seems filling new array would be more appropriate in this loop.\ne.g. to avoid grabing crit_ lock since it is only needed for lass_mask_vector_\n\n(side offtopic note: and even that part can be slightly optimized)",
+      "range": {
+        "startLine": 824,
+        "startChar": 0,
+        "endLine": 824,
+        "endChar": 63
+      },
+      "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64ead518_482ae114",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-27T11:50:13Z",
+      "side": 1,
+      "message": "#include \"modules/rtp_rtcp/source/rtp_sender.h\"",
+      "range": {
+        "startLine": 202,
+        "startChar": 21,
+        "endLine": 202,
+        "endChar": 30
+      },
+      "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aa7866f_6a06f89c",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-27T11:50:13Z",
+      "side": 1,
+      "message": "vector.push_back(T(a, b, c));\ncan be replaced with\nvector.emplace_back(a, b, c);",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 52
+      },
+      "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97e2e2df_c255ca42",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-27T11:50:13Z",
+      "side": 1,
+      "message": "afaik rtc::Event doesn\u0027t work nice with SimulatedClock.\ni.e. either event is already set (and then timeout can be 0, and then event can be replaced with simple bool or with Mock::VerifyAndClearExpectation(test.transport()) call)\nor not set, then waiting kTimeoutMs real time is just a waste.",
+      "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4f2c328_6fe0c838",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-27T11:50:13Z",
+      "side": 1,
+      "message": "reusing same event? was it reset to \u0027non set state\u0027?\nI guess this another reason to avoid rtc::Event",
+      "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b970e50b_feba4867",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-27T11:50:13Z",
+      "side": 1,
+      "message": "inside expectation you used EXPECT_EQ(value_under_test, kConstant);\nhere it is reverse: EXPECT_EQ(OK, value_under_test);\n\nplease be consistent.\n(generally latest guidance on that is to prefer natural language order: EXPECT_EQ(value_under_test, kConstant) )",
+      "range": {
+        "startLine": 583,
+        "startChar": 2,
+        "endLine": 583,
+        "endChar": 11
+      },
+      "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -101,6 +101,15 @@ struct SentPacket {
   DataSize data_in_flight = DataSize::Zero();
 };
 
+struct RcvdPacket {
+  Timestamp received_time = Timestamp::PlusInfinity();
+  DataSize size = DataSize::Zero();
+  // Transport independent sequence number, any tracked packet should have a
+  // sequence number that is unique over the whole call and increasing by 1 for
+  // each packet.
+  int64_t sequence_number;
+};
+
 // Transport level feedback
 
 struct RemoteBitrateReport {

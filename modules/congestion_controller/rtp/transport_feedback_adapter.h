@@ -20,6 +20,7 @@
 #include "rtc_base/network/sent_packet.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/thread_checker.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 
 namespace webrtc {
 
@@ -43,6 +44,8 @@ class TransportFeedbackAdapter {
                  Timestamp creation_time);
   absl::optional<SentPacket> ProcessSentPacket(
       const rtc::SentPacket& sent_packet);
+  absl::optional<RcvdPacket> ProcessReceivedPacket(
+    const RtpPacketReceived& received_packet);
 
   absl::optional<TransportPacketsFeedback> ProcessTransportFeedback(
       const rtcp::TransportFeedback& feedback,

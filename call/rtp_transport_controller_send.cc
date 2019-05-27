@@ -326,6 +326,21 @@ void RtpTransportControllerSend::OnSentPacket(
       transport_feedback_adapter_.GetOutstandingData().bytes());
 }
 
+void RtpTransportControllerSend::OnReceivedPacket(
+  const RtpPacketReceived& received_packet) {
+  absl::optional<RcvdPacket> packet_msg =
+      transport_feedback_adapter_.ProcessReceivedPacket(received_packet);
+  if (packet_msg) {
+    task_queue_.PostTask([this, packet_msg]() {
+      RTC_DCHECK_RUN_ON(&task_queue_);
+      if (controller_)
+        PostUpdates(controller_->OnReceivedPacket(*packet_msg));
+    });
+  }
+  pacer_.UpdateOutstandingData(
+      transport_feedback_adapter_.GetOutstandingData().bytes());
+}
+
 void RtpTransportControllerSend::SetSdpBitrateParameters(
     const BitrateConstraints& constraints) {
   absl::optional<BitrateConstraints> updated =

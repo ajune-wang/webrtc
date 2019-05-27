@@ -30,6 +30,7 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "api/transport/network_types.h"
 
 namespace webrtc {
 namespace {
@@ -287,6 +288,12 @@ NetworkControlUpdate GoogCcNetworkController::OnSentPacket(
   }
 }
 
+NetworkControlUpdate GoogCcNetworkController::OnReceivedPacket(
+    RcvdPacket received_packet) {
+  last_packet_received_time_ms_ = received_packet.received_time.ms();
+  return NetworkControlUpdate();
+}
+
 NetworkControlUpdate GoogCcNetworkController::OnStreamsConfig(
     StreamsConfig msg) {
   NetworkControlUpdate update;
@@ -541,9 +548,14 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
         *std::min_element(feedback_max_rtts_.begin(), feedback_max_rtts_.end());
 
     const DataSize kMinCwnd = DataSize::bytes(2 * 1500);
+    webrtc::Clock* clock = webrtc::Clock::GetRealTimeClock();
+    int64_t now_ms = clock->TimeInMilliseconds();
+    int64_t time_since_last_received_packet_ms = last_packet_received_time_ms_
+        ? now_ms - last_packet_received_time_ms_ : 0;
     TimeDelta time_window = TimeDelta::ms(
         min_feedback_max_rtt_ms +
-        rate_control_settings_.GetCongestionWindowAdditionalTimeMs());
+        rate_control_settings_.GetCongestionWindowAdditionalTimeMs() +
+        time_since_last_received_packet_ms);
     DataSize data_window = last_raw_target_rate_ * time_window;
     if (current_data_window_) {
       data_window =

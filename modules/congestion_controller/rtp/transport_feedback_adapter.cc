@@ -131,6 +131,16 @@ absl::optional<SentPacket> TransportFeedbackAdapter::ProcessSentPacket(
   return absl::nullopt;
 }
 
+absl::optional<RcvdPacket> TransportFeedbackAdapter::ProcessReceivedPacket(
+    const RtpPacketReceived& received_packet) {
+  rtc::CritScope cs(&lock_);
+  RcvdPacket msg;
+  msg.size = DataSize::bytes(received_packet.payload_size());
+  msg.received_time = Timestamp::ms(received_packet.arrival_time_ms());
+  msg.sequence_number = received_packet.SequenceNumber();
+  return msg;
+}
+
 absl::optional<TransportPacketsFeedback>
 TransportFeedbackAdapter::ProcessTransportFeedback(
     const rtcp::TransportFeedback& feedback,

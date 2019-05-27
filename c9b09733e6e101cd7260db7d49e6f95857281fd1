@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9929e8ff_6d050aba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-05-27T16:30:50Z",
+      "side": 1,
+      "message": "Added more information in the commit message.",
+      "parentUuid": "3c94b1bf_ec920ff6",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e2506a9_77c149f7",
         "filename": "api/peer_connection_interface.h",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68cc0687_57708528",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-05-27T16:30:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e2506a9_77c149f7",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "dd6b296f_19b23de2",
+        "filename": "media/base/codec_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-05-27T16:30:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b1f4275_34e46f99",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18a59f10_c854610d",
         "filename": "media/base/codec_unittest.cc",
         "patchSetId": 6
@@ -67,6 +121,24 @@
       "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cee59afe_dc37b9e7",
+        "filename": "media/base/codec_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-05-27T16:30:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18a59f10_c854610d",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "ed072ffa_33ec5052",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-05-27T16:30:50Z",
+      "side": 1,
+      "message": "We need to update the packetization on sent streams that was set with SetRemoteContent with negotiated packetization in the answer (it is possible that the remote offered raw packetization but we do not support negotiating it so neither side should use it).",
+      "parentUuid": "cd2d3dd5_b6cc0579",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e1c0a2e_fcd8b5d6",
         "filename": "pc/channel.cc",
         "patchSetId": 6
@@ -101,6 +191,24 @@
       "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f473a2d0_720b5244",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-05-27T16:30:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e1c0a2e_fcd8b5d6",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "c5fb06be_1ab537e5",
+        "filename": "pc/channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-05-27T16:30:50Z",
+      "side": 1,
+      "message": "Right. The intention was to clear the packetization if it was not negotiated in the answer. Updated the code to accept only the default or the same packetization that was in the offer and added tests.",
+      "parentUuid": "9244177e_55bde314",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "380747ed_0560abbe",
         "filename": "pc/media_session.cc",
         "patchSetId": 6
@@ -135,6 +261,24 @@
       "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a5e95f6_7ca6cc86",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2207,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-05-27T16:30:50Z",
+      "side": 1,
+      "message": "Yes, the intention is to offer raw packetization for all video codecs with this particular option/constraint. The negotiation is done per codec.",
+      "parentUuid": "380747ed_0560abbe",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "6ee8bca4_d5ef7d50",
+        "filename": "pc/media_session.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-05-27T16:30:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9789ba7_643d8094",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "457d03d4_2a3c1cfd",
         "filename": "pc/webrtc_sdp.cc",
         "patchSetId": 6
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "48d7dd28_e73e0526",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2945,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-05-27T16:30:50Z",
+      "side": 1,
+      "message": "Added a check to ignore unknown packetization in case a value other than \"raw\" will be supported in the future.",
+      "parentUuid": "457d03d4_2a3c1cfd",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dab45b32_95ac1b0b",
         "filename": "pc/webrtc_sdp.cc",
         "patchSetId": 6
@@ -183,6 +363,24 @@
       "writtenOn": "2019-05-27T11:23:00Z",
       "side": 1,
       "message": "This means that you tolerate \"a\u003dpacketization:\" in any non-video type. Is that intentional?",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c19b17b_274f1eb3",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3732,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-05-27T16:30:50Z",
+      "side": 1,
+      "message": "Yes. Perhaps the attribute name could be used in the future for non-video types. Isn\u0027t the convention to ignore unknown attributes? Or should we return an error here?",
+      "parentUuid": "dab45b32_95ac1b0b",
       "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -206,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "7709a750_33d9111e",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3742,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-05-27T16:30:50Z",
+      "side": 1,
+      "message": "GetValue will fill out the error information (and GetPayloadTypeFromString below as well).",
+      "parentUuid": "7a4c6dcb_c5e72401",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "504d3d7f_f8c985e1",
         "filename": "pc/webrtc_sdp_unittest.cc",
         "patchSetId": 6
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "8bd561fb_0535c2a0",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3517,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-05-27T16:30:50Z",
+      "side": 1,
+      "message": "Extended DeserializeVideoPacketizationAttribute. For now, I ignore the attribute if it is set on a non-video payload or if the value is not \"raw\".",
+      "parentUuid": "504d3d7f_f8c985e1",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29cf2f74_622d92e4",
         "filename": "sdk/media_constraints.cc",
         "patchSetId": 6
@@ -237,6 +471,24 @@
       "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eda3ff04_f0983d8a",
+        "filename": "sdk/media_constraints.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-05-27T16:30:50Z",
+      "side": 1,
+      "message": "This will be used through Java and Objective-C PeerConnection API to begin with and not in Chrome for now.",
+      "parentUuid": "29cf2f74_622d92e4",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

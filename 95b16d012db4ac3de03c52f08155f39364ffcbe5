@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "538691c7_b4f419a5",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-27T16:59:53Z",
+      "side": 1,
+      "message": "Agree that this makes it a bit fragile.\n\nAdding an accessor that forces update to the map sounds reasonable to me.\n\nA potentially less efficient but clearly safer approach would be to have a vector of StoredPacket* and simply sort them in GetPayloadPaddingPacket().\n\nWhile this may seem crude, it might actually save resources if padding is not utilized, and would likely still be reasonably fast since the array would probably be \"mostly sorted\" (and internet seems to think it\u0027s \"common\" that mostly sorted collections are faster to sort, quick-sort based etc?). The history should also be pretty short thanks to the time-based packet timeout and ack-based culling.\n\nwdyt?",
+      "parentUuid": "59c749f3_1c776df2",
+      "range": {
+        "startLine": 61,
+        "startChar": 45,
+        "endLine": 61,
+        "endChar": 64
+      },
+      "revId": "95b16d012db4ac3de03c52f08155f39364ffcbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7581d8e_daa0e5d6",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-27T14:14:55Z",
       "side": 1,
       "message": "nit.\nmay be\nreturn nullptr;\n\ncurrent kind of spelling looks a bit too similar to\nreturn std::make_unique\u003cRtpPacketToSend\u003e();\nthat means something else.\n(side note: though for now we are still using absl::make_unique, it won\u0027t be that long until we switch to c++14 and thus to std::make_unique)",
+      "range": {
+        "startLine": 265,
+        "startChar": 11,
+        "endLine": 265,
+        "endChar": 45
+      },
+      "revId": "95b16d012db4ac3de03c52f08155f39364ffcbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46c5a3e7_7c2aed45",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-27T16:59:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7581d8e_daa0e5d6",
       "range": {
         "startLine": 265,
         "startChar": 11,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "82e6ca63_fc95af23",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-27T16:59:53Z",
+      "side": 1,
+      "message": "Somewhat :)\nBut number of retransmissions has priority over age, and packets can be removed out of order, so an actual priority queue won\u0027t work :/",
+      "parentUuid": "0ceaaa7b_ce39c246",
+      "range": {
+        "startLine": 279,
+        "startChar": 49,
+        "endLine": 279,
+        "endChar": 54
+      },
+      "revId": "95b16d012db4ac3de03c52f08155f39364ffcbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59b94922_e6b49b30",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "07803e70_cac39064",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-27T16:59:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59b94922_e6b49b30",
+      "range": {
+        "startLine": 166,
+        "startChar": 26,
+        "endLine": 166,
+        "endChar": 75
+      },
+      "revId": "95b16d012db4ac3de03c52f08155f39364ffcbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f355748_3ce0a8b7",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
         "patchSetId": 5
@@ -108,6 +204,24 @@
       "revId": "95b16d012db4ac3de03c52f08155f39364ffcbe5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "568fb7c9_47d73754",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-27T16:59:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f355748_3ce0a8b7",
+      "revId": "95b16d012db4ac3de03c52f08155f39364ffcbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -27,6 +27,7 @@
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/rtp_rtcp/include/rtcp_statistics.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 
 namespace rtc {
 struct SentPacket;
@@ -147,6 +148,7 @@ class RtpTransportControllerSendInterface {
   virtual int64_t GetFirstPacketTimeMs() const = 0;
   virtual void EnablePeriodicAlrProbing(bool enable) = 0;
   virtual void OnSentPacket(const rtc::SentPacket& sent_packet) = 0;
+  virtual void OnReceivedPacket(const RtpPacketReceived& received_packet) = 0;
 
   virtual void SetSdpBitrateParameters(
       const BitrateConstraints& constraints) = 0;

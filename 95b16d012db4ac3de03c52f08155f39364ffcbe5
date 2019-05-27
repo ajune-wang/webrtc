@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59c749f3_1c776df2",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-27T14:14:55Z",
+      "side": 1,
+      "message": "I\u0027m worried that sort relies on mutable state of the StoredPacket*\nit seems too easy to update times_retransmitted and forget that padding_priority_ should be updated because of that.\n\nI\u0027m not sure though how to make it safer though.\nmay be using std::map\u003cstruct {times_retransmitted, insert_order}, StoredPacket*\u003e\nwould make it safer, but that makes erasing packet less safe.\nanother option is to use\nstd::map\u003cstruct {times_retransmit, insert_order}, uint16_t sequence_number\u003e\nfor a price of an extra lookup in the main map.\nor may be make StoredPacket a class and allow to update times_retransmitted only through accessor that would also updates the padding_priority index.\nOne more option to feel safer is to make some fuzzer that would insert/lookup/update packets in random order.",
+      "range": {
+        "startLine": 61,
+        "startChar": 45,
+        "endLine": 61,
+        "endChar": 64
+      },
+      "revId": "95b16d012db4ac3de03c52f08155f39364ffcbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7581d8e_daa0e5d6",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-27T14:14:55Z",
+      "side": 1,
+      "message": "nit.\nmay be\nreturn nullptr;\n\ncurrent kind of spelling looks a bit too similar to\nreturn std::make_unique\u003cRtpPacketToSend\u003e();\nthat means something else.\n(side note: though for now we are still using absl::make_unique, it won\u0027t be that long until we switch to c++14 and thus to std::make_unique)",
+      "range": {
+        "startLine": 265,
+        "startChar": 11,
+        "endLine": 265,
+        "endChar": 45
+      },
+      "revId": "95b16d012db4ac3de03c52f08155f39364ffcbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ceaaa7b_ce39c246",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-27T14:14:55Z",
+      "side": 1,
+      "message": "since newest packets are preferred, I guess it is \"priority stack\" :)",
+      "range": {
+        "startLine": 279,
+        "startChar": 49,
+        "endLine": 279,
+        "endChar": 54
+      },
+      "revId": "95b16d012db4ac3de03c52f08155f39364ffcbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59b94922_e6b49b30",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-27T14:14:55Z",
+      "side": 1,
+      "message": "it might be better to avoid std::function abstraction and pass proper functor directly.\n\nprivate:\n struct StoredPacket {...}\n struct MoreUseful {\n   bool operator()(StoredPacket* lhs, StoredPacket* rhs) const;\n };\n\n ...\n std::set\u003cSoredPacket*, MoreUseful\u003e padding_priority_",
+      "range": {
+        "startLine": 166,
+        "startChar": 26,
+        "endLine": 166,
+        "endChar": 75
+      },
+      "revId": "95b16d012db4ac3de03c52f08155f39364ffcbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f355748_3ce0a8b7",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-27T14:14:55Z",
+      "side": 1,
+      "message": "may be keep EXPECT_EQ(value_under_test, kConstant);\norder, like in the expectations above.",
+      "revId": "95b16d012db4ac3de03c52f08155f39364ffcbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

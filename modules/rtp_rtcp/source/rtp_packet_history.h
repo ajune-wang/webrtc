@@ -13,6 +13,7 @@
 
 #include <map>
 #include <memory>
+#include <set>
 #include <vector>
 
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
@@ -90,6 +91,12 @@ class RtpPacketHistory {
   std::unique_ptr<RtpPacketToSend> GetBestFittingPacket(
       size_t packet_size) const;
 
+  // Get the packet (if any) from the history, that is deemed most likely to
+  // the remote side. This is calculated from heuristics such as packet age
+  // and times retransmitted. Updated the send time of the packet, so is not
+  // a const method.
+  std::unique_ptr<RtpPacketToSend> GetPayloadPaddingPacket();
+
   // Cull packets that have been acknowledged as received by the remote end.
   void CullAcknowledgedPackets(rtc::ArrayView<const uint16_t> sequence_numbers);
 
@@ -120,6 +127,13 @@ class RtpPacketHistory {
 
     // True if the packet is currently in the pacer queue pending transmission.
     bool pending_transmission = false;
+
+    // Unique number per StoredPacket, incremented by one for each added
+    // packet. Used to sort on insert order.
+    uint64_t insert_order = 0;
+  };
+  struct MoreUseful {
+    bool operator()(StoredPacket* lhs, StoredPacket* rhs) const;
   };
 
   using StoredPacketIterator = std::map<uint16_t, StoredPacket>::iterator;
@@ -147,6 +161,12 @@ class RtpPacketHistory {
   std::map<uint16_t, StoredPacket> packet_history_ RTC_GUARDED_BY(lock_);
   // Map from packet size to sequence number.
   std::map<size_t, uint16_t> packet_size_ RTC_GUARDED_BY(lock_);
+
+  // Total number of packets with StorageType::kAllowsRetransmission inserted.
+  uint64_t retransmittable_packets_inserted_ RTC_GUARDED_BY(lock_);
+  // Retransmittable objects from |packet_history_| ordered by
+  // "most likely to be useful", used in GetPayloadPaddingPacket().
+  std::set<StoredPacket*, MoreUseful> padding_priority_ RTC_GUARDED_BY(lock_);
 
   // The earliest packet in the history. This might not be the lowest sequence
   // number, in case there is a wraparound.

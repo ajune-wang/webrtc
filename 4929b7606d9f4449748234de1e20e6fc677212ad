@@ -249,6 +249,30 @@
       "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dec2b540_3c3be391",
+        "filename": "api/create_peerconnection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-27T11:47:50Z",
+      "side": 1,
+      "message": "Actually, when I discussed this with Per just now we realized that this CL is missing one thing: making the build dependencies required for `AudioProcessingBuilder().Create()` conditional on `rtc_include_builtin_audio_processing` being true. That way, we won\u0027t depend on the linker being smart in order to get the 210k size reduction.",
+      "parentUuid": "6e6200f2_faf7ff4a",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 48
+      },
+      "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

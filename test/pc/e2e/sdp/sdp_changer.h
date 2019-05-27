@@ -16,7 +16,12 @@
 #include <vector>
 
 #include "absl/strings/string_view.h"
+#include "absl/types/optional.h"
+#include "api/jsep.h"
 #include "api/rtp_parameters.h"
+#include "media/base/rid_description.h"
+#include "pc/session_description.h"
+#include "pc/simulcast_description.h"
 
 namespace webrtc {
 namespace webrtc_pc_e2e {
@@ -39,6 +44,66 @@ std::vector<RtpCodecCapability> FilterCodecCapabilities(
     bool ulpfec,
     bool flexfec,
     std::vector<RtpCodecCapability> supported_codecs);
+
+struct LocalAndRemoteSdp {
+  LocalAndRemoteSdp(std::unique_ptr<SessionDescriptionInterface> local_sdp,
+                    std::unique_ptr<SessionDescriptionInterface> remote_sdp)
+      : local_sdp(std::move(local_sdp)), remote_sdp(std::move(remote_sdp)) {}
+
+  // Sdp, that should be as local description on the peer, that created it.
+  std::unique_ptr<SessionDescriptionInterface> local_sdp;
+  // Sdp, that should be set as remote description on the peer opposite to the
+  // one, who created it.
+  std::unique_ptr<SessionDescriptionInterface> remote_sdp;
+};
+
+class SignalingInterceptor {
+ public:
+  LocalAndRemoteSdp PatchOffer(
+      std::unique_ptr<SessionDescriptionInterface> offer);
+  LocalAndRemoteSdp PatchAnswer(
+      std::unique_ptr<SessionDescriptionInterface> offer);
+
+  // TODO(titovartem) use ArrayView here.
+  std::vector<std::unique_ptr<IceCandidateInterface>> PatchAliceIceCandidates(
+      std::vector<const IceCandidateInterface*> candidates);
+  std::vector<std::unique_ptr<IceCandidateInterface>> PatchBobIceCandidates(
+      std::vector<const IceCandidateInterface*> candidates);
+
+ private:
+  // Contains information about simulcast section, that is required to perform
+  // modified offer/answer and ice candidates exchange.
+  struct SimulcastSectionInfo {
+    SimulcastSectionInfo(const std::string& mid,
+                         cricket::MediaProtocolType media_protocol_type,
+                         const std::vector<cricket::RidDescription>& rids_desc);
+
+    const std::string mid;
+    const cricket::MediaProtocolType media_protocol_type;
+    std::vector<std::string> rids;
+    cricket::SimulcastDescription simulcast_description;
+    webrtc::RtpExtension mid_extension;
+    webrtc::RtpExtension rid_extension;
+    cricket::TransportDescription transport_description;
+  };
+
+  struct SignalingContext {
+    void AddSimulcastInfo(const SimulcastSectionInfo& info);
+    bool HasSimulcast() const { return !simulcast_infos.empty(); }
+
+    std::vector<SimulcastSectionInfo> simulcast_infos;
+    std::map<std::string, SimulcastSectionInfo*> simulcast_infos_by_mid;
+    std::map<std::string, SimulcastSectionInfo*> simulcast_infos_by_rid;
+
+    std::vector<std::string> mids_order;
+  };
+
+  void FillContext(SessionDescriptionInterface* offer);
+  std::unique_ptr<cricket::SessionDescription> RestoreMediaSectionsOrder(
+      std::unique_ptr<cricket::SessionDescription> source);
+
+  SignalingContext context_;
+};
 
 }  // namespace webrtc_pc_e2e
 }  // namespace webrtc

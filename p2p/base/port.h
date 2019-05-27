@@ -187,6 +187,24 @@ struct ProtocolAddress {
   bool operator!=(const ProtocolAddress& o) const { return !(*this == o); }
 };
 
+struct IceCandidateErrorEvent {
+  std::string host_candidate;
+  std::string url;
+  int error_code;
+  std::string error_text;
+
+  IceCandidateErrorEvent() : error_code(0) {}
+
+  IceCandidateErrorEvent(const std::string& host_candidate,
+                         const std::string& url,
+                         int error_code,
+                         const std::string& error_text)
+      : host_candidate(host_candidate),
+        url(url),
+        error_code(error_code),
+        error_text(error_text) {}
+};
+
 typedef std::set<rtc::SocketAddress> ServerAddresses;
 
 // Represents a local communication mechanism that can be used to create
@@ -284,9 +302,10 @@ class Port : public PortInterface,
   // Fired when candidates are discovered by the port. When all candidates
   // are discovered that belong to port SignalAddressReady is fired.
   sigslot::signal2<Port*, const Candidate&> SignalCandidateReady;
-
   // Provides all of the above information in one handy object.
   const std::vector<Candidate>& Candidates() const override;
+  // Fired when candidate discovery failed using certain server.
+  sigslot::signal2<Port*, const IceCandidateErrorEvent&> SignalCandidateError;
 
   // SignalPortComplete is sent when port completes the task of candidates
   // allocation.

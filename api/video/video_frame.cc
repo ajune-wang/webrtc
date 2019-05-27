@@ -127,29 +127,6 @@ VideoFrame::Builder& VideoFrame::Builder::set_update_rect(
   return *this;
 }
 
-VideoFrame::VideoFrame(const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
-                       webrtc::VideoRotation rotation,
-                       int64_t timestamp_us)
-    : video_frame_buffer_(buffer),
-      timestamp_rtp_(0),
-      ntp_time_ms_(0),
-      timestamp_us_(timestamp_us),
-      rotation_(rotation),
-      update_rect_{0, 0, buffer->width(), buffer->height()} {}
-
-VideoFrame::VideoFrame(const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
-                       uint32_t timestamp_rtp,
-                       int64_t render_time_ms,
-                       VideoRotation rotation)
-    : video_frame_buffer_(buffer),
-      timestamp_rtp_(timestamp_rtp),
-      ntp_time_ms_(0),
-      timestamp_us_(render_time_ms * rtc::kNumMicrosecsPerMillisec),
-      rotation_(rotation),
-      update_rect_{0, 0, buffer->width(), buffer->height()} {
-  RTC_DCHECK(buffer);
-}
-
 VideoFrame::VideoFrame(uint16_t id,
                        const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
                        int64_t timestamp_us,

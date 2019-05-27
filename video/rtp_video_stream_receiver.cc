@@ -158,11 +158,12 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
 
   process_thread_->RegisterModule(rtp_rtcp_.get(), RTC_FROM_HERE);
 
-  // TODO(bugs.webrtc.org/10662): NACK and LNTF shouldn't be mutually exclusive.
   if (config_.rtp.lntf.enabled) {
     loss_notification_controller_ =
         absl::make_unique<LossNotificationController>(this, this);
-  } else if (config_.rtp.nack.rtp_history_ms != 0) {
+  }
+
+  if (config_.rtp.nack.rtp_history_ms != 0) {
     nack_module_ = absl::make_unique<NackModule>(clock_, nack_sender, this);
     process_thread_->RegisterModule(nack_module_.get(), RTC_FROM_HERE);
   }
@@ -253,6 +254,16 @@ int32_t RtpVideoStreamReceiver::OnReceivedPayloadData(
                    ntp_estimator_.Estimate(rtp_header.timestamp));
   packet.generic_descriptor = generic_descriptor;
 
+  if (loss_notification_controller_) {
+    if (is_recovered) {
+      // TODO(bugs.webrtc.org/10336): Implement support for reordering.
+      RTC_LOG(LS_WARNING)
+          << "LossNotificationController does not support reordering.";
+    } else {
+      loss_notification_controller_->OnReceivedPacket(packet);
+    }
+  }
+
   if (nack_module_) {
     const bool is_keyframe =
         video_header.is_first_packet_in_frame &&
@@ -265,16 +276,6 @@ int32_t RtpVideoStreamReceiver::OnReceivedPayloadData(
     packet.timesNacked = -1;
   }
   packet.receive_time_ms = clock_->TimeInMilliseconds();
-
-  if (loss_notification_controller_) {
-    if (is_recovered) {
-      // TODO(bugs.webrtc.org/10336): Implement support for reordering.
-      RTC_LOG(LS_WARNING)
-          << "LossNotificationController does not support reordering.";
-    } else {
-      loss_notification_controller_->OnReceivedPacket(packet);
-    }
-  }
 
   if (packet.sizeBytes == 0) {
     NotifyReceiverOfEmptyPacket(packet.seqNum);
@@ -431,14 +432,16 @@ void RtpVideoStreamReceiver::OnAssembledFrame(
         frame->first_seq_num(), descriptor->FrameId(),
         descriptor->Discardable().value_or(false),
         descriptor->FrameDependenciesDiffs());
-  } else if (!has_received_frame_) {
-    // Request a key frame as soon as possible.
-    if (frame->FrameType() != VideoFrameType::kVideoFrameKey) {
-      RequestKeyFrame();
-    }
-  }
 
-  has_received_frame_ = true;
+    // Request a key frame as soon as possible.
+    // TODO(bugs.webrtc.org/10336): Allow the sender to ignore these messages
+    // if it is relying on LNTF alone.
+    if (!has_received_frame_) {
+      has_received_frame_ = true;
+      if (frame->FrameType() != VideoFrameType::kVideoFrameKey) {
+        RequestKeyFrame();
+      }
+    }
 
   if (buffered_frame_decryptor_ == nullptr) {
     reference_finder_->ManageFrame(std::move(frame));

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f08e90ae_58c77072",
+        "filename": "video/frame_encode_metadata_writer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-05-27T08:09:37Z",
+      "side": 1,
+      "message": "It makes sense to add encoded_image._frameType !\u003d kVideoFrameKey as well. SPS is supposed to be present only on key frames.",
+      "range": {
+        "startLine": 193,
+        "startChar": 6,
+        "endLine": 194,
+        "endChar": 73
+      },
+      "revId": "f32ca797f45d3bec8711967e8d987287e4441916",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef9dc862_4fa63132",
         "filename": "video/frame_encode_metadata_writer.h",
         "patchSetId": 3
@@ -46,6 +69,29 @@
       "revId": "f32ca797f45d3bec8711967e8d987287e4441916",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb1ea2d4_4ed1ba9c",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1414,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-05-27T08:09:37Z",
+      "side": 1,
+      "message": "FYI, I will change order of GetUpdatedBitstream() and FillTimingInfo() calls in CL that will implement b/132924677.",
+      "range": {
+        "startLine": 1414,
+        "startChar": 36,
+        "endLine": 1414,
+        "endChar": 55
+      },
+      "revId": "f32ca797f45d3bec8711967e8d987287e4441916",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

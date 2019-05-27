@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99f9e3c6_a5aab3ca",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-05-27T11:30:11Z",
+      "side": 1,
+      "message": "Can we change this to optional\u003cfloat\u003e and only set it if in the experiment?",
+      "range": {
+        "startLine": 302,
+        "startChar": 0,
+        "endLine": 302,
+        "endChar": 37
+      },
+      "revId": "f9dd65971c71c4fc00e70e5b6beb24d1aa67c19b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af66748c_a8fb33e7",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-05-27T11:30:11Z",
+      "side": 1,
+      "message": "What would it take to make this configurable now already? Seems like that would be a good idea as we don\u0027t really know what the value should be.",
+      "range": {
+        "startLine": 305,
+        "startChar": 0,
+        "endLine": 306,
+        "endChar": 32
+      },
+      "revId": "f9dd65971c71c4fc00e70e5b6beb24d1aa67c19b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

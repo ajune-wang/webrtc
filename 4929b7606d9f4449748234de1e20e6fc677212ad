@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "77839ee4_7d8f5bca",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-05-27T11:43:29Z",
+      "side": 1,
+      "message": "Yes, and the macro definition should also be moved here: https://cs.chromium.org/chromium/src/third_party/webrtc/BUILD.gn?l\u003d215\u0026rcl\u003d04a3cc1ad9571111fa301071455fc2280ac0687c.",
+      "parentUuid": "11dfa1dd_1cd2a096",
+      "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1e9ca4f_575d989c",
         "filename": "api/create_peerconnection_factory.cc",
         "patchSetId": 4
@@ -198,6 +216,30 @@
       "side": 1,
       "message": "I think mandatory dependency injection is a better choice---especially considering that we\u0027re very close to the API surface here. But I guess the proper way to do this mandatory dependency injection is to start with precisely this CL, and then follow up with a second CL that removes the flag and leaves only the mandatory injection behavior.\n\nPer and Mirko, does this sound like a good plan to you?",
       "parentUuid": "cb5d29f2_3deadc71",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 48
+      },
+      "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4ebe3af_4cb52a9e",
+        "filename": "api/create_peerconnection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-05-27T11:43:29Z",
+      "side": 1,
+      "message": "\u003e Per and Mirko, does this sound like a good plan to you?\n\nI am fine with this but:\n\n1. Someone should open a bug an sign up to do the work. WebRTC relies too much on the preprocessor and I would like to avoid this where possible.\n\n2. I would prefer to define a WEBRTC_USE_CUSTOM_AUDIO_PROCESSING when the client wants to inject its own implementation instead of defining another macro in the default build configuration. Something like:\n\n  if (!audio_processing) {\n  #if defined(WEBRTC_USE_CUSTOM_AUDIO_PROCESSING)\n    RTC_CHECK(0) \u003c\u003c \"audio_processing should be supplied for peer connection\";\n  #else\n    audio_processing \u003d AudioProcessingBuilder().Create;\n  #endif\n  // ...\n  }",
+      "parentUuid": "6e6200f2_faf7ff4a",
       "range": {
         "startLine": 48,
         "startChar": 0,

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "31deb0a1_bf7a5aee",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-27T07:47:05Z",
+      "side": 1,
+      "message": "Could you add appropriate TODO comments here? I see three issues that it would be nice to address:\n\n1. You want to delete RegisterRtcpStatisticsCallback, replacing it with SetReportBlockDataObserver.\n\n2. We should decide on callbacks (these methods) vs polling (GetLatestReportBlockData in the other cl).\n\n3. I don\u0027t think we should have setter methods like these at all, any callbacks should be set construction time in RtpRtcp::Configuration.",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 411,
+        "endChar": 45
+      },
+      "revId": "ccdd3090309d740dcbc0cf4b1f1bc0fc75ed1532",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4db79052_90745551",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 7
@@ -46,6 +69,30 @@
       "revId": "ccdd3090309d740dcbc0cf4b1f1bc0fc75ed1532",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d6f0287_28974dda",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1148,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-27T07:47:05Z",
+      "side": 1,
+      "message": "Fair enough.",
+      "parentUuid": "f5431d09_46e0f575",
+      "range": {
+        "startLine": 1139,
+        "startChar": 0,
+        "endLine": 1148,
+        "endChar": 0
+      },
+      "revId": "ccdd3090309d740dcbc0cf4b1f1bc0fc75ed1532",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

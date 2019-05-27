@@ -22,7 +22,6 @@ namespace webrtc {
 namespace {
 
 using Packet = ForwardErrorCorrection::Packet;
-using ReceivedPacket = ForwardErrorCorrection::ReceivedPacket;
 
 // Minimum header size (in bytes) of a well-formed non-singular FlexFEC packet.
 constexpr size_t kMinFlexfecHeaderSize = 20;
@@ -71,7 +70,8 @@ void FlexfecReceiver::OnRtpPacket(const RtpPacketReceived& packet) {
   if (packet.recovered())
     return;
 
-  std::unique_ptr<ReceivedPacket> received_packet = AddReceivedPacket(packet);
+  std::unique_ptr<ForwardErrorCorrection::ReceivedPacket> received_packet =
+      AddReceivedPacket(packet);
   if (!received_packet)
     return;
 
@@ -85,8 +85,8 @@ FecPacketCounter FlexfecReceiver::GetPacketCounter() const {
 
 // TODO(eladalon): Consider using packet.recovered() to avoid processing
 // recovered packets here.
-std::unique_ptr<ReceivedPacket> FlexfecReceiver::AddReceivedPacket(
-    const RtpPacketReceived& packet) {
+std::unique_ptr<ForwardErrorCorrection::ReceivedPacket>
+FlexfecReceiver::AddReceivedPacket(const RtpPacketReceived& packet) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
 
   // RTP packets with a full base header (12 bytes), but without payload,
@@ -95,7 +95,8 @@ std::unique_ptr<ReceivedPacket> FlexfecReceiver::AddReceivedPacket(
   RTC_DCHECK_GE(packet.size(), kRtpHeaderSize);
 
   // Demultiplex based on SSRC, and insert into erasure code decoder.
-  std::unique_ptr<ReceivedPacket> received_packet(new ReceivedPacket());
+  std::unique_ptr<ForwardErrorCorrection::ReceivedPacket> received_packet(
+      new ForwardErrorCorrection::ReceivedPacket());
   received_packet->seq_num = packet.SequenceNumber();
   received_packet->ssrc = packet.Ssrc();
   if (received_packet->ssrc == ssrc_) {
@@ -144,7 +145,7 @@ std::unique_ptr<ReceivedPacket> FlexfecReceiver::AddReceivedPacket(
 // FlexFEC decoder, and we therefore do not interfere with the reception
 // of non-recovered media packets.
 void FlexfecReceiver::ProcessReceivedPacket(
-    const ReceivedPacket& received_packet) {
+    const ForwardErrorCorrection::ReceivedPacket& received_packet) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
 
   // Decode.

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4212cc72_53496e85",
+        "filename": "api/transport/network_control.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-27T14:06:41Z",
+      "side": 1,
+      "message": "from the remote client.",
+      "range": {
+        "startLine": 75,
+        "startChar": 38,
+        "endLine": 75,
+        "endChar": 52
+      },
+      "revId": "46c8431f0439b6a878dfe33653629069017893e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

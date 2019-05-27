@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "11dfa1dd_1cd2a096",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-27T10:40:43Z",
+      "side": 1,
+      "message": "If we end up deciding to go the preprocessor route, please follow the advice here: https://webrtc.googlesource.com/src/+/master/style-guide.md#conditional-compilation-with-the-c-preprocessor",
+      "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1e9ca4f_575d989c",
         "filename": "api/create_peerconnection_factory.cc",
         "patchSetId": 4
@@ -157,6 +174,30 @@
       "side": 1,
       "message": "I see the point about link time optimization. I missed that benefit.",
       "parentUuid": "53b3a9be_4e38caa7",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 48
+      },
+      "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e6200f2_faf7ff4a",
+        "filename": "api/create_peerconnection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-27T10:40:43Z",
+      "side": 1,
+      "message": "I think mandatory dependency injection is a better choice---especially considering that we\u0027re very close to the API surface here. But I guess the proper way to do this mandatory dependency injection is to start with precisely this CL, and then follow up with a second CL that removes the flag and leaves only the mandatory injection behavior.\n\nPer and Mirko, does this sound like a good plan to you?",
+      "parentUuid": "cb5d29f2_3deadc71",
       "range": {
         "startLine": 48,
         "startChar": 0,

@@ -1067,6 +1067,140 @@ TEST_F(SendStatisticsProxyTest, AdaptChangesReportedAfterContentSwitch) {
                    "WebRTC.Video.Screenshare.AdaptChangesPerMinute.Quality"));
 }
 
+TEST_F(SendStatisticsProxyTest,
+       QualityLimitationReasonIsCpuWhenCpuIsResolutionLimited) {
+  SendStatisticsProxy::AdaptationSteps cpu_counts;
+  SendStatisticsProxy::AdaptationSteps quality_counts;
+
+  cpu_counts.num_resolution_reductions = 1;
+
+  statistics_proxy_->OnAdaptationChanged(
+      VideoStreamEncoderObserver::AdaptationReason::kCpu, cpu_counts,
+      quality_counts);
+
+  EXPECT_EQ(QualityLimitationReason::kCpu,
+            statistics_proxy_->GetStats().quality_limitation_reason);
+}
+
+TEST_F(SendStatisticsProxyTest,
+       QualityLimitationReasonIsCpuWhenCpuIsFramerateLimited) {
+  SendStatisticsProxy::AdaptationSteps cpu_counts;
+  SendStatisticsProxy::AdaptationSteps quality_counts;
+
+  cpu_counts.num_framerate_reductions = 1;
+
+  statistics_proxy_->OnAdaptationChanged(
+      VideoStreamEncoderObserver::AdaptationReason::kCpu, cpu_counts,
+      quality_counts);
+
+  EXPECT_EQ(QualityLimitationReason::kCpu,
+            statistics_proxy_->GetStats().quality_limitation_reason);
+}
+
+TEST_F(SendStatisticsProxyTest,
+       QualityLimitationReasonIsBandwidthWhenQualityIsResolutionLimited) {
+  SendStatisticsProxy::AdaptationSteps cpu_counts;
+  SendStatisticsProxy::AdaptationSteps quality_counts;
+
+  quality_counts.num_resolution_reductions = 1;
+
+  statistics_proxy_->OnAdaptationChanged(
+      VideoStreamEncoderObserver::AdaptationReason::kQuality, cpu_counts,
+      quality_counts);
+
+  EXPECT_EQ(QualityLimitationReason::kBandwidth,
+            statistics_proxy_->GetStats().quality_limitation_reason);
+}
+
+TEST_F(SendStatisticsProxyTest,
+       QualityLimitationReasonIsBandwidthWhenQualityIsFramerateLimited) {
+  SendStatisticsProxy::AdaptationSteps cpu_counts;
+  SendStatisticsProxy::AdaptationSteps quality_counts;
+
+  quality_counts.num_framerate_reductions = 1;
+
+  statistics_proxy_->OnAdaptationChanged(
+      VideoStreamEncoderObserver::AdaptationReason::kQuality, cpu_counts,
+      quality_counts);
+
+  EXPECT_EQ(QualityLimitationReason::kBandwidth,
+            statistics_proxy_->GetStats().quality_limitation_reason);
+}
+
+TEST_F(SendStatisticsProxyTest,
+       QualityLimitationReasonIsBandwidthWhenBothCpuAndQualityIsLimited) {
+  SendStatisticsProxy::AdaptationSteps cpu_counts;
+  SendStatisticsProxy::AdaptationSteps quality_counts;
+
+  cpu_counts.num_resolution_reductions = 1;
+  quality_counts.num_resolution_reductions = 1;
+
+  // Even if the last adaptation reason is kCpu, if the counters indicate being
+  // both CPU and quality (=bandwidth) limited, kBandwidth takes precedence.
+  statistics_proxy_->OnAdaptationChanged(
+      VideoStreamEncoderObserver::AdaptationReason::kCpu, cpu_counts,
+      quality_counts);
+
+  EXPECT_EQ(QualityLimitationReason::kBandwidth,
+            statistics_proxy_->GetStats().quality_limitation_reason);
+}
+
+TEST_F(SendStatisticsProxyTest, QualityLimitationReasonIsNoneWhenNotLimited) {
+  SendStatisticsProxy::AdaptationSteps cpu_counts;
+  SendStatisticsProxy::AdaptationSteps quality_counts;
+
+  // Become limited to change from the default.
+  cpu_counts.num_resolution_reductions = 1;
+  statistics_proxy_->OnAdaptationChanged(
+      VideoStreamEncoderObserver::AdaptationReason::kCpu, cpu_counts,
+      quality_counts);
+  // Go back to not being limited
+  cpu_counts.num_resolution_reductions = 0;
+  statistics_proxy_->OnAdaptationChanged(
+      VideoStreamEncoderObserver::AdaptationReason::kNone, cpu_counts,
+      quality_counts);
+
+  EXPECT_EQ(QualityLimitationReason::kNone,
+            statistics_proxy_->GetStats().quality_limitation_reason);
+}
+
+TEST_F(SendStatisticsProxyTest, QualityLimitationDurationIncreasesWithTime) {
+  SendStatisticsProxy::AdaptationSteps cpu_counts;
+  SendStatisticsProxy::AdaptationSteps quality_counts;
+
+  // Not limited for 3000 ms
+  fake_clock_.AdvanceTimeMilliseconds(3000);
+  // CPU limited for 2000 ms
+  cpu_counts.num_resolution_reductions = 1;
+  statistics_proxy_->OnAdaptationChanged(
+      VideoStreamEncoderObserver::AdaptationReason::kCpu, cpu_counts,
+      quality_counts);
+  fake_clock_.AdvanceTimeMilliseconds(2000);
+  // Bandwidth limited for 1000 ms
+  cpu_counts.num_resolution_reductions = 0;
+  quality_counts.num_resolution_reductions = 1;
+  statistics_proxy_->OnAdaptationChanged(
+      VideoStreamEncoderObserver::AdaptationReason::kQuality, cpu_counts,
+      quality_counts);
+  fake_clock_.AdvanceTimeMilliseconds(1000);
+  // CPU limited for another 2000 ms
+  cpu_counts.num_resolution_reductions = 1;
+  quality_counts.num_resolution_reductions = 0;
+  statistics_proxy_->OnAdaptationChanged(
+      VideoStreamEncoderObserver::AdaptationReason::kCpu, cpu_counts,
+      quality_counts);
+  fake_clock_.AdvanceTimeMilliseconds(2000);
+
+  auto quality_limitation_durations =
+      statistics_proxy_->GetStats().quality_limitation_durations;
+
+  EXPECT_EQ(3000, quality_limitation_durations[QualityLimitationReason::kNone]);
+  EXPECT_EQ(2000, quality_limitation_durations[QualityLimitationReason::kCpu]);
+  EXPECT_EQ(1000,
+            quality_limitation_durations[QualityLimitationReason::kBandwidth]);
+  EXPECT_EQ(0, quality_limitation_durations[QualityLimitationReason::kOther]);
+}
+
 TEST_F(SendStatisticsProxyTest, SwitchContentTypeUpdatesHistograms) {
   for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i)
     statistics_proxy_->OnIncomingFrame(kWidth, kHeight);

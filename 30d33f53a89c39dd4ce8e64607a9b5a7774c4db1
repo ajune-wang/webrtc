@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "491f4977_326937fe",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-05-27T10:55:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6a94577_1125f331",
+      "range": {
+        "startLine": 118,
+        "startChar": 22,
+        "endLine": 118,
+        "endChar": 56
+      },
+      "revId": "30d33f53a89c39dd4ce8e64607a9b5a7774c4db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1711a8b6_d5c3fb10",
         "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "30d33f53a89c39dd4ce8e64607a9b5a7774c4db1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaa819f7_c3717954",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-05-27T10:55:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1711a8b6_d5c3fb10",
+      "range": {
+        "startLine": 121,
+        "startChar": 34,
+        "endLine": 121,
+        "endChar": 72
+      },
+      "revId": "30d33f53a89c39dd4ce8e64607a9b5a7774c4db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d5ea5cd9_0b982096",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-05-27T10:55:19Z",
+      "side": 1,
+      "message": "You\u0027re right, it makes sense as a separate key.",
+      "parentUuid": "f92a3e6d_9244a351",
+      "range": {
+        "startLine": 123,
+        "startChar": 49,
+        "endLine": 123,
+        "endChar": 77
+      },
+      "revId": "30d33f53a89c39dd4ce8e64607a9b5a7774c4db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b552980e_0aaf0f11",
         "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "265686a8_b659590a",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-05-27T10:55:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b552980e_0aaf0f11",
+      "range": {
+        "startLine": 125,
+        "startChar": 43,
+        "endLine": 125,
+        "endChar": 74
+      },
+      "revId": "30d33f53a89c39dd4ce8e64607a9b5a7774c4db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa8e237e_f897b111",
         "filename": "modules/pacing/bitrate_prober.cc",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2019-05-27T09:46:27Z",
       "side": 1,
       "message": "If it\u0027s just to be able to overlap the existing trial during transision, maybe \"ProbingConfig\"?",
+      "range": {
+        "startLine": 47,
+        "startChar": 34,
+        "endLine": 47,
+        "endChar": 69
+      },
+      "revId": "30d33f53a89c39dd4ce8e64607a9b5a7774c4db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccf6da07_cf13c29b",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-05-27T10:55:19Z",
+      "side": 1,
+      "message": "Isn\u0027t that a bit too similar to the existing key? How about ProbingInternals?",
+      "parentUuid": "fa8e237e_f897b111",
       "range": {
         "startLine": 47,
         "startChar": 34,

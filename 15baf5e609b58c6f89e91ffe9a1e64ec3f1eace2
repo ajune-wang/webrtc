@@ -22,6 +22,30 @@
       "revId": "15baf5e609b58c6f89e91ffe9a1e64ec3f1eace2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa07d24f_c79e5589",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-27T15:02:16Z",
+      "side": 0,
+      "message": "I\u0027m doing this partly because of the need to access RtpSender::ReSendPacket()\n\nThe alternative is to rename this interface and add ReSendPacket() to it. Do you think that\u0027s better.",
+      "parentUuid": "c2da5a65_1f95cc3c",
+      "range": {
+        "startLine": 318,
+        "startChar": 35,
+        "endLine": 318,
+        "endChar": 0
+      },
+      "revId": "15baf5e609b58c6f89e91ffe9a1e64ec3f1eace2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

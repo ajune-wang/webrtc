@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "be8c19df_3e594e02",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-27T15:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8daee56b_306b9b7b",
+      "range": {
+        "startLine": 781,
+        "startChar": 52,
+        "endLine": 781,
+        "endChar": 60
+      },
+      "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8a48aa7_cc39fd20",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72e5a449_56b9d7cc",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-27T15:02:16Z",
+      "side": 1,
+      "message": "Added a kill-switch.\n\nNot wanting retransmission should be really rare. Even lost packets before a key-frame are often useful as you probably don\u0027t want to drop the previous frame just because you can. The webrtc video jitter buffer will afair still send nacks even for frames prior to a keyframe.",
+      "parentUuid": "f8a48aa7_cc39fd20",
+      "range": {
+        "startLine": 818,
+        "startChar": 6,
+        "endLine": 818,
+        "endChar": 63
+      },
+      "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b2dc3ff4_f9ea52db",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-27T15:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d07528f_54af326c",
+      "range": {
+        "startLine": 824,
+        "startChar": 0,
+        "endLine": 824,
+        "endChar": 63
+      },
+      "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64ead518_482ae114",
         "filename": "call/rtp_video_sender.h",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "de4cdd3c_19424efd",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-27T15:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64ead518_482ae114",
+      "range": {
+        "startLine": 202,
+        "startChar": 21,
+        "endLine": 202,
+        "endChar": 30
+      },
+      "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6aa7866f_6a06f89c",
         "filename": "call/rtp_video_sender_unittest.cc",
         "patchSetId": 5
@@ -105,6 +201,30 @@
       "writtenOn": "2019-05-27T11:50:13Z",
       "side": 1,
       "message": "vector.push_back(T(a, b, c));\ncan be replaced with\nvector.emplace_back(a, b, c);",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 52
+      },
+      "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "282d3be9_9770f17e",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-27T15:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6aa7866f_6a06f89c",
       "range": {
         "startLine": 102,
         "startChar": 0,
@@ -134,6 +254,24 @@
     },
     {
       "key": {
+        "uuid": "9cd72758_7e30941d",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-27T15:02:16Z",
+      "side": 1,
+      "message": "The problem here is that we need to wait for the thread running the paced sender to wake up and complete processing the packet. It\u0027s currently an actual ProcessThread driving it, even if it is on a simulated clock. \nSo I don\u0027t see an easy way around the wait at the moment.",
+      "parentUuid": "97e2e2df_c255ca42",
+      "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e4f2c328_6fe0c838",
         "filename": "call/rtp_video_sender_unittest.cc",
         "patchSetId": 5
@@ -148,6 +286,24 @@
       "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37f6350a_5399e393",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-27T15:02:16Z",
+      "side": 1,
+      "message": "ASSERT_TRUE(event.Wait(kTimeoutMs));\n will reset it, since by default Event is not using manual reset.",
+      "parentUuid": "e4f2c328_6fe0c838",
+      "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -171,6 +327,30 @@
       "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba0e2b9f_75083d8a",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-27T15:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b970e50b_feba4867",
+      "range": {
+        "startLine": 583,
+        "startChar": 2,
+        "endLine": 583,
+        "endChar": 11
+      },
+      "revId": "9105581b54f752ead6c0b1f3fa80e61a5c9a1c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

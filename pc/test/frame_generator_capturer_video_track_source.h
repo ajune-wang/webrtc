@@ -45,7 +45,8 @@ class FrameGeneratorCapturerVideoTrackSource : public VideoTrackSource {
 
   FrameGeneratorCapturerVideoTrackSource(Config config, Clock* clock)
       : VideoTrackSource(false /* remote */),
-        task_queue_factory_(CreateDefaultTaskQueueFactory()) {
+        task_queue_factory_(CreateDefaultTaskQueueFactory()),
+        is_screencast_(false) {
     video_capturer_ = absl::make_unique<test::FrameGeneratorCapturer>(
         clock,
         test::FrameGenerator::CreateSquareGenerator(
@@ -70,6 +71,9 @@ class FrameGeneratorCapturerVideoTrackSource : public VideoTrackSource {
     SetState(kMuted);
   }
 
+  bool is_screencast() const override { return is_screencast_; }
+  void set_screencast(bool is_screencast) { is_screencast_ = is_screencast; }
+
  protected:
   rtc::VideoSourceInterface<VideoFrame>* source() override {
     return video_capturer_.get();
@@ -78,6 +82,7 @@ class FrameGeneratorCapturerVideoTrackSource : public VideoTrackSource {
  private:
   const std::unique_ptr<TaskQueueFactory> task_queue_factory_;
   std::unique_ptr<test::FrameGeneratorCapturer> video_capturer_;
+  bool is_screencast_;
 };
 
 }  // namespace webrtc

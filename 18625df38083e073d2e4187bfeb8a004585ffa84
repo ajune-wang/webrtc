@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e21fb7c7_d2e5753f",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-27T20:47:51Z",
+      "side": 1,
+      "message": "This block was moved up above the nack_module_-related block because I intend to make loss_notification_controller_ set its LNTF message, then wait for nack_module_ to trigger the actual RTCP message. (In the case that LNTF is produced by NACK/key-frame-request isn\u0027t, I\u0027ll trigger a separate message for LNTF nevertheless, below the nack_module_ block.) Please see the TODO to this effect in the else-block.",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 3
+      },
+      "revId": "18625df38083e073d2e4187bfeb8a004585ffa84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

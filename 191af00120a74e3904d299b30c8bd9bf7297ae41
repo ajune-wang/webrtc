@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5779a77e_50d793a8",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-27T11:35:50Z",
+      "side": 1,
+      "message": "Here and elsewhere you can add links to the spec to make it clear on every layer what it the metric is\n// https://w3c.github.io/webrtc-stats/#dom-rtcvideoreceiverstats-jitterbufferdelay\n// https://w3c.github.io/webrtc-stats/#dom-rtcvideoreceiverstats-jitterbufferemittedcount",
+      "revId": "191af00120a74e3904d299b30c8bd9bf7297ae41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36622923_30695ab4",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-27T11:35:50Z",
+      "side": 1,
+      "message": "nit: Here and in rtc_stats_collector_unittest.cc Can you place these before framesReceived to maintain a similar order to the order of the spec?",
+      "revId": "191af00120a74e3904d299b30c8bd9bf7297ae41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e034cd99_73e4aec8",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-27T11:35:50Z",
+      "side": 1,
+      "message": "This if-else is for \"not a remote audio track\". This if is \"if not a remote audio track and is an audio track\". In other words, \"if this is a local audio track\". It\u0027s a bit hard to follow.\n\nI think you should remove this and remove lines 678-681 and put this logic at line 632 instead. That way the code path looks the same for audio and video:\n\nif video\n  if remote\n    has jitter\n  else\n    jitter undefined\nelse  // audio\n  if remote\n    has jitter\n  else\n    jitter undefined",
+      "revId": "191af00120a74e3904d299b30c8bd9bf7297ae41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e27159b2_c461a60d",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-27T11:35:50Z",
+      "side": 1,
+      "message": "nit: Instead of 1000.0, can you do\n  static_cast\u003cdouble\u003e(ms) / rtc::kNumMillisecsPerSec\ninstead?",
+      "revId": "191af00120a74e3904d299b30c8bd9bf7297ae41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

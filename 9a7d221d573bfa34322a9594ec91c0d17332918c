@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49daf4e5_15119162",
+        "filename": "common_video/include/quality_limitation_reason.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-27T14:33:51Z",
+      "side": 1,
+      "message": "I wanted to be able to access this enum from call/video_send_stream.h, media/base/media_channel.h and video/ without hitting circular dependencies. Is this an OK place to put a file like this? I prefer not defining the same enum in multiple places because of layers.",
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c25aac28_cfc0dd58",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-27T14:33:51Z",
+      "side": 1,
+      "message": "Do we think this is a decent heuristic? I\u0027m not sure how to tell which is the more limiting factor. Does the magnitude of the \"num reductions\" tell us anything?\n\nIf we want the spec to be able to express \"cpu-and-bandwidth\" we could file a spec issue, but I would hope to land something that is good enough for M76.",
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

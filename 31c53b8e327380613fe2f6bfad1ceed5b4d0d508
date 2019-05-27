@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "178a7197_2bc4138a",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-27T08:41:52Z",
+      "side": 1,
+      "message": "Is the pair relevant? Say we are interested in our outgoing send stream with ssrc \u003d\u003d 1. If we get an RTCP message with sender_ssrc \u003d\u003d 2 and a report block with source_ssrcs \u003d\u003d 1, then that\u0027s relevant to us and the most recent report block for our ssrc.\n\nIf we next get an RTCP message with sender_ssrc \u003d\u003d 3 and a report block also with source_ssrc \u003d\u003d 1, that\u0027s and update for our stream. The previous report, which happened to use a different sender_ssrc, should now be obsolete and no longer interesting. \n\nAs far as I understand, the sender_ssrc of an RTCP message is mostly irrelevant for a PeerConnection.",
+      "range": {
+        "startLine": 46,
+        "startChar": 27,
+        "endLine": 46,
+        "endChar": 45
+      },
+      "revId": "31c53b8e327380613fe2f6bfad1ceed5b4d0d508",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

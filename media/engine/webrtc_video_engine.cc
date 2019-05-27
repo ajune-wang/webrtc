@@ -72,8 +72,8 @@ void AddDefaultFeedbackParams(VideoCodec* codec) {
   codec->AddFeedbackParam(FeedbackParam(kRtcpFbParamCcm, kRtcpFbCcmParamFir));
   codec->AddFeedbackParam(FeedbackParam(kRtcpFbParamNack, kParamValueEmpty));
   codec->AddFeedbackParam(FeedbackParam(kRtcpFbParamNack, kRtcpFbNackParamPli));
-  if (codec->name == kVp8CodecName &&
-      webrtc::field_trial::IsEnabled("WebRTC-RtcpLossNotification")) {
+  if (codec->name == kVp8CodecName/* &&  // TODO: !!!
+      webrtc::field_trial::IsEnabled("WebRTC-RtcpLossNotification")*/) {
     codec->AddFeedbackParam(FeedbackParam(kRtcpFbParamLntf, kParamValueEmpty));
   }
 }
@@ -519,12 +519,13 @@ RtpCapabilities WebRtcVideoEngine::GetCapabilities() const {
       webrtc::RtpExtension(webrtc::RtpExtension::kFrameMarkingUri, id++));
   capabilities.header_extensions.push_back(
       webrtc::RtpExtension(webrtc::RtpExtension::kColorSpaceUri, id++));
-  if (webrtc::field_trial::IsEnabled("WebRTC-GenericDescriptorAdvertised")) {
-    capabilities.header_extensions.push_back(webrtc::RtpExtension(
-        webrtc::RtpExtension::kGenericFrameDescriptorUri00, id++));
-    capabilities.header_extensions.push_back(webrtc::RtpExtension(
-        webrtc::RtpExtension::kGenericFrameDescriptorUri01, id++));
-  }
+  //  if (webrtc::field_trial::IsEnabled("WebRTC-GenericDescriptorAdvertised"))
+  //  {
+  capabilities.header_extensions.push_back(webrtc::RtpExtension(
+      webrtc::RtpExtension::kGenericFrameDescriptorUri00, id++));
+  capabilities.header_extensions.push_back(webrtc::RtpExtension(
+      webrtc::RtpExtension::kGenericFrameDescriptorUri01, id++));
+  //  }
 
   return capabilities;
 }

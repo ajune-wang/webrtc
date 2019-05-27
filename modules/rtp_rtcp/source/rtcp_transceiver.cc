@@ -111,7 +111,7 @@ void RtcpTransceiver::SetRemb(int64_t bitrate_bps,
     std::vector<uint32_t> ssrcs;
   };
   task_queue_->PostTask(
-      SetRembClosure{rtcp_transceiver_.get(), bitrate_bps, std::move(ssrcs)});
+      SetRembClosure{rtcp_tra1nsceiver_.get(), bitrate_bps, std::move(ssrcs)});
 }
 
 void RtcpTransceiver::UnsetRemb() {

@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d53f246_d8069400",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-27T11:12:30Z",
+      "side": 1,
+      "message": "ReceivedPacket",
+      "range": {
+        "startLine": 104,
+        "startChar": 7,
+        "endLine": 104,
+        "endChar": 17
+      },
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2282c36d_a1ffa4c4",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-27T11:12:30Z",
+      "side": 1,
+      "message": "receive_time",
+      "range": {
+        "startLine": 105,
+        "startChar": 12,
+        "endLine": 105,
+        "endChar": 20
+      },
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1755b3c0_c349d083",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-27T11:12:30Z",
+      "side": 1,
+      "message": "Do we need this? Otherwise I\u0027d prefer to avoid it for now, and add it later if we really have to.",
+      "range": {
+        "startLine": 110,
+        "startChar": 10,
+        "endLine": 110,
+        "endChar": 25
+      },
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfe2f921_2d65bc88",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-27T11:12:30Z",
+      "side": 1,
+      "message": "Skip this part, do the translation inline instead.",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 333,
+        "endChar": 19
+      },
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "622e2163_f7e22799",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-27T11:12:30Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be needed/have any effect.",
+      "range": {
+        "startLine": 340,
+        "startChar": 0,
+        "endLine": 341,
+        "endChar": 64
+      },
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c1a169d_91bcdb0c",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-27T11:12:30Z",
+      "side": 1,
+      "message": "This is already included via the .h file.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 40
+      },
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d1e4c01_a1d8f575",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-27T11:12:30Z",
+      "side": 1,
+      "message": "Clock should never be used in GoogCC directly, you can use report.feedback_time to get the most recent timestamp.",
+      "range": {
+        "startLine": 551,
+        "startChar": 0,
+        "endLine": 552,
+        "endChar": 49
+      },
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a116588_8910079f",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-27T11:12:30Z",
+      "side": 1,
+      "message": "Timestamp (the values above should be updated as well at some point)",
+      "range": {
+        "startLine": 123,
+        "startChar": 2,
+        "endLine": 123,
+        "endChar": 9
+      },
+      "revId": "0a9aee578c309ce042481af08700bfa0908430b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

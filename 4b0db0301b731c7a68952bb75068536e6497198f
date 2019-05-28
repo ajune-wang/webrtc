@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "eddd56bf_3497eaf4",
+        "filename": "video/quality_limitation_reason_tracker.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T15:43:22Z",
+      "side": 1,
+      "message": "For some reason clock_-\u003eTimeInMilliseconds() is not const, but I made the ptr const (Clock* const).",
+      "parentUuid": "91e71364_b35728ec",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 16
+      },
+      "revId": "4b0db0301b731c7a68952bb75068536e6497198f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f79251c_1b3de1c3",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "4b0db0301b731c7a68952bb75068536e6497198f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "459fb38f_55c2653e",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1086,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T15:43:22Z",
+      "side": 1,
+      "message": "This was discussed https://webrtc-review.googlesource.com/c/src/+/138825/1/video/send_statistics_proxy.cc#1076 and the current approach is explained in the comment above. Also, I filed https://github.com/w3c/webrtc-stats/issues/440 on the spec to clarify that \"bandwidth\" should be preferred over \"cpu\" like this.",
+      "parentUuid": "2f79251c_1b3de1c3",
+      "range": {
+        "startLine": 1073,
+        "startChar": 1,
+        "endLine": 1086,
+        "endChar": 3
+      },
+      "revId": "4b0db0301b731c7a68952bb75068536e6497198f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

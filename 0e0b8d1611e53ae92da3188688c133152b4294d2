@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba5bd28f_c876fb22",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1502,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-28T14:00:34Z",
+      "side": 1,
+      "message": "I don\u0027t think this is necessary; only the pointer is copied (with refcount updates), not the underlying data.",
+      "range": {
+        "startLine": 1502,
+        "startChar": 0,
+        "endLine": 1502,
+        "endChar": 32
+      },
+      "revId": "0e0b8d1611e53ae92da3188688c133152b4294d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

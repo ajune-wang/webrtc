@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "193ce220_d8271ce9",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-28T08:28:20Z",
+      "side": 1,
+      "message": "not sure why you would need a vector and why would you need to sort it then:\nyou already have packet_history_\nall you would need to do in that case is search for a \u0027minimum\u0027 element in it. That is linear. sort can\u0027t be faster.\n(btw, I haven\u0027t found any promises that std::sort or std::stable_sort would work linearly fast on mostly sorted vector)\n\nI would probably leave it as is for now or go for accessor (just to feel safer).\nAnd search for run-time optimized solution in a separate, dedicated change.",
+      "parentUuid": "538691c7_b4f419a5",
+      "range": {
+        "startLine": 61,
+        "startChar": 45,
+        "endLine": 61,
+        "endChar": 64
+      },
+      "revId": "95b16d012db4ac3de03c52f08155f39364ffcbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7581d8e_daa0e5d6",
         "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
         "patchSetId": 5
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "Somewhat :)\nBut number of retransmissions has priority over age, and packets can be removed out of order, so an actual priority queue won\u0027t work :/",
       "parentUuid": "0ceaaa7b_ce39c246",
+      "range": {
+        "startLine": 279,
+        "startChar": 49,
+        "endLine": 279,
+        "endChar": 54
+      },
+      "revId": "95b16d012db4ac3de03c52f08155f39364ffcbe5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36c943c6_7289b980",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-28T08:28:20Z",
+      "side": 1,
+      "message": "when I read \"priority queue\" my first action was to recommend to use std::priority_queue.\nBut, for the reason you mention, it doesn\u0027t fit well here.\nSo may be avoid using this well-known term to avoid confusion (or rearrange words so that \u0027priority\u0027 and \u0027queue\u0027 wouldn\u0027t stand next to each other).",
+      "parentUuid": "82e6ca63_fc95af23",
       "range": {
         "startLine": 279,
         "startChar": 49,

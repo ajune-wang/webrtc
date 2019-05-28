@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91e71364_b35728ec",
+        "filename": "video/quality_limitation_reason_tracker.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-05-28T15:27:06Z",
+      "side": 1,
+      "message": "const ptr",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 16
+      },
+      "revId": "4b0db0301b731c7a68952bb75068536e6497198f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f79251c_1b3de1c3",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1086,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-05-28T15:27:06Z",
+      "side": 1,
+      "message": "What if we\u0027re both bandwidth and cpu limited?",
+      "range": {
+        "startLine": 1073,
+        "startChar": 1,
+        "endLine": 1086,
+        "endChar": 3
+      },
+      "revId": "4b0db0301b731c7a68952bb75068536e6497198f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

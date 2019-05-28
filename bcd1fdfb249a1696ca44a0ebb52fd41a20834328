@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7fb76f7b_c8d4133f",
+        "filename": "call/call.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-28T09:24:51Z",
+      "side": 1,
+      "message": "Yes, I think we should strive to avoid this. Since it\u0027s provided bu pointer, there must be some higher level instance that owns the manager, it should be able to use it directly rather than via the Call instance.",
+      "parentUuid": "1fe5b302_41a2357e",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 56
+      },
+      "revId": "bcd1fdfb249a1696ca44a0ebb52fd41a20834328",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "06987e7d_fc10299d",
         "filename": "call/call_config.h",
         "patchSetId": 2
@@ -41,6 +65,29 @@
         "startChar": 2,
         "endLine": 28,
         "endChar": 10
+      },
+      "revId": "bcd1fdfb249a1696ca44a0ebb52fd41a20834328",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a76e6d38_5c86adb0",
+        "filename": "call/call_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-28T09:24:51Z",
+      "side": 1,
+      "message": "I wonder if we should automatically fall back to the default (or a null implementation) so we don\u0027t need to modify all places where this is called?",
+      "range": {
+        "startLine": 29,
+        "startChar": 22,
+        "endLine": 29,
+        "endChar": 60
       },
       "revId": "bcd1fdfb249a1696ca44a0ebb52fd41a20834328",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

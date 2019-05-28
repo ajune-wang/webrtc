@@ -302,10 +302,6 @@ rtc_source_set("logging") {
     ]
     deps += [ "system:inline" ]
 
-    if (is_mac) {
-      deps += [ ":logging_mac" ]
-    }
-
     # logging.h needs the deprecation header while downstream projects are
     # removing code that depends on logging implementation details.
     deps += [ ":deprecation" ]
@@ -461,17 +457,6 @@ rtc_source_set("deprecation") {
   sources = [
     "deprecation.h",
   ]
-}
-
-if (is_mac && !build_with_chromium) {
-  rtc_source_set("logging_mac") {
-    visibility = [ ":logging" ]
-    libs = [ "Foundation.framework" ]
-    sources = [
-      "logging_mac.h",
-      "logging_mac.mm",
-    ]
-  }
 }
 
 rtc_source_set("rtc_task_queue") {

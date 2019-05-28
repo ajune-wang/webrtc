@@ -93,6 +93,30 @@
       "revId": "b80801047dd51e887b2ef1068578bcd9034178af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bc4b61d_39c17ec5",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-28T09:08:58Z",
+      "side": 1,
+      "message": "Yes, it is normalized and should not matter to this function. PacketHasFec, as its name suggests, should not need Fs.",
+      "parentUuid": "317e7255_9a1b704c",
+      "range": {
+        "startLine": 658,
+        "startChar": 4,
+        "endLine": 658,
+        "endChar": 27
+      },
+      "revId": "b80801047dd51e887b2ef1068578bcd9034178af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

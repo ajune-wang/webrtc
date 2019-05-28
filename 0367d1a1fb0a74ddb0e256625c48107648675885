@@ -16,6 +16,24 @@
       "revId": "0367d1a1fb0a74ddb0e256625c48107648675885",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "078e5ce6_da87b143",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-05-28T11:30:40Z",
+      "side": 1,
+      "message": "The motivation of limit this to 20 ms is mostly because this adds extra network delay in case a packet is lost. This 20 ms is set to allow waiting for the \"missing packet\" if the packet was just out of order, in such scenario, we expect it just late for a couple of milliseconds.  \nThis field trial is not used at this moment. Feel free to experiment with this.",
+      "parentUuid": "1ec50ff6_f1dec435",
+      "revId": "0367d1a1fb0a74ddb0e256625c48107648675885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

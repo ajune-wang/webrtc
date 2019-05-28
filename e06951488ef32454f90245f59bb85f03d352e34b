@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1af016b_d7b5b9e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-28T10:52:07Z",
+      "side": 1,
+      "message": "\\",
+      "range": {
+        "startLine": 10,
+        "startChar": 25,
+        "endLine": 10,
+        "endChar": 26
+      },
+      "revId": "e06951488ef32454f90245f59bb85f03d352e34b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "842ef137_c7068ba0",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-28T10:52:07Z",
+      "side": 1,
+      "message": "1. Please consider expanding the comment in a way that would make it clear that the substitution of \u0027;\u0027 for \u0027/\u0027 is only  relevant for the current trial, and is not something general for all field trials. Just in case someone gets confused in the future, e.g. if this piece of code is among the first field trials they encounter.\n2. Maybe also comment that although \u0027;\u0027 is a normal, legal character in a path in, for instance, ext4, we do not support passing paths that contain it, and that this is OK because this is only intend for debugging.",
+      "revId": "e06951488ef32454f90245f59bb85f03d352e34b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

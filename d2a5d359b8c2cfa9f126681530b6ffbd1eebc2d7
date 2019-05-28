@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b678966_75e59e7b",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-28T19:18:10Z",
+      "side": 1,
+      "message": "i think this is not necessary. the unique_ptr goes out of scope here and will automatically call delete.\nreset() is the same as the destructor, except that the object can be re-used afterwards (but it goes out of scope anyway).",
+      "range": {
+        "startLine": 207,
+        "startChar": 25,
+        "endLine": 207,
+        "endChar": 30
+      },
+      "revId": "d2a5d359b8c2cfa9f126681530b6ffbd1eebc2d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d3bd0c9_5de2a82d",
+        "filename": "test/pc/e2e/sdp/sdp_changer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-28T19:18:10Z",
+      "side": 1,
+      "message": "Alice \u0026 Bob referenced in this class are not documented, so it will not be clear that Alice is sending simulcast and Bob is receiving.",
+      "range": {
+        "startLine": 68,
+        "startChar": 59,
+        "endLine": 68,
+        "endChar": 64
+      },
+      "revId": "d2a5d359b8c2cfa9f126681530b6ffbd1eebc2d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -36,9 +36,9 @@
 #ifdef BYPASS_DATAGRAM_DTLS_TEST_ONLY
 // Send unencrypted packets directly to ICE, bypassing datagtram
 // transport. Use in tests only.
-constexpr bool kBypassDatagramDtlsTestOnly = true;
-#else
 constexpr bool kBypassDatagramDtlsTestOnly = false;
+#else
+constexpr bool kBypassDatagramDtlsTestOnly = true;
 #endif
 
 namespace cricket {

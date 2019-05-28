@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "946fb53c_291e4fe7",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T09:06:30Z",
+      "side": 1,
+      "message": "Style-guide: Always have constructors at the top and member variables at the bottom",
+      "revId": "5e3aa2e423bf1bd66bf6e5c8c6830f1014e6295e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e37a004_d21aadae",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T09:06:30Z",
+      "side": 1,
+      "message": "Passing strings by value and doing std::move() results in the same number of copies when you do IceCandidateErrorEvent(some_string_variable) but results in one less copy when you do IceCandidateErrorEvent(\"foo\"). I\u0027m not sure what the style-guide says here though, feel free to ignore this comment",
+      "revId": "5e3aa2e423bf1bd66bf6e5c8c6830f1014e6295e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "becd76e5_3030413b",
+        "filename": "p2p/base/stun.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T09:06:30Z",
+      "side": 1,
+      "message": "nit: Should this be extern const int?",
+      "revId": "5e3aa2e423bf1bd66bf6e5c8c6830f1014e6295e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

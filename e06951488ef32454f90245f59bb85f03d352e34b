@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "84c4f682_0c4dde72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-28T10:54:09Z",
+      "side": 1,
+      "message": "To be clear, you probably want two examples here:\n1. That we can pass \u0027/\u0027 in Linux, e.g. encode /path/to/dump as ;path;to;dump.\n2. That this does not clash with Windows paths, since C:\\path\\to\\dump would no longer be replaced by C/\\path\\to\\dump, but would rather remain C:\\path\\to\\dump.",
+      "parentUuid": "c1af016b_d7b5b9e3",
+      "range": {
+        "startLine": 10,
+        "startChar": 25,
+        "endLine": 10,
+        "endChar": 26
+      },
+      "revId": "e06951488ef32454f90245f59bb85f03d352e34b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "842ef137_c7068ba0",
         "filename": "video/video_receive_stream.cc",
         "patchSetId": 1

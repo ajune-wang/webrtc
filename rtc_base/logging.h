@@ -97,12 +97,10 @@ enum LogErrorContext {
   ERRCTX_NONE,
   ERRCTX_ERRNO,     // System-local errno
   ERRCTX_HRESULT,   // Windows HRESULT
-  ERRCTX_OSSTATUS,  // MacOS OSStatus
 
   // Abbreviations for LOG_E macro
   ERRCTX_EN = ERRCTX_ERRNO,     // LOG_E(sev, EN, x)
   ERRCTX_HR = ERRCTX_HRESULT,   // LOG_E(sev, HR, x)
-  ERRCTX_OS = ERRCTX_OSSTATUS,  // LOG_E(sev, OS, x)
 };
 
 // Virtual sink interface that can receive log messages.

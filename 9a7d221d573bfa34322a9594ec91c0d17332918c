@@ -19,6 +19,57 @@
     },
     {
       "key": {
+        "uuid": "8874be01_7360a8e1",
+        "filename": "video/quality_limitation_reason_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-28T11:08:24Z",
+      "side": 1,
+      "message": "I *think* this can be written as duration_ms_({std::make_pair(), ....}) - C++ often manages to make sense out of constructs like that. I like empty constuctor bodies :-)",
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32b82d50_642cf12f",
+        "filename": "video/quality_limitation_reason_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-28T11:08:24Z",
+      "side": 1,
+      "message": "Will the compiler do the right thing with copy elisions here?\nIt kind of feels wrong to return a big struct by value, but compilers have become clever.",
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e74791cc_72a0e755",
+        "filename": "video/quality_limitation_reason_tracker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-28T11:08:24Z",
+      "side": 1,
+      "message": "The second sentence of this comment belongs with the next line.",
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c25aac28_cfc0dd58",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 1
@@ -30,6 +81,41 @@
       "writtenOn": "2019-05-27T14:33:51Z",
       "side": 1,
       "message": "Do we think this is a decent heuristic? I\u0027m not sure how to tell which is the more limiting factor. Does the magnitude of the \"num reductions\" tell us anything?\n\nIf we want the spec to be able to express \"cpu-and-bandwidth\" we could file a spec issue, but I would hope to land something that is good enough for M76.",
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b99d2d5_2d1f95be",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-28T11:08:24Z",
+      "side": 1,
+      "message": "We discussed \"cpu-and-bandwidth\" when we added the stat, but a) it leads to combinatorial explosion if we add more limitation reasons, and b) if you reduce quality because of bandwidth limitations, CPU usage is also likely to drop, but you can\u0027t tell that the dropped CPU usage is because of the bandwidth limitation or because you\u0027d also like to do CPU throttling. So I think prioritizing bandwidth is right, and the spec should say so.",
+      "parentUuid": "c25aac28_cfc0dd58",
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33db46e9_801766f6",
+        "filename": "video/send_statistics_proxy_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-05-28T11:08:24Z",
+      "side": 1,
+      "message": "I can\u0027t parse this comment sentence. What adaptation are you testing here?\n\"// Observe a limitation due to CPU\" might be what it should say.",
       "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

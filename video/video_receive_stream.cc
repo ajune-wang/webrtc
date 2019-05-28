@@ -348,9 +348,9 @@ void VideoReceiveStream::Start() {
 
     std::string decoded_output_file =
         field_trial::FindFullName("WebRTC-DecoderDataDumpDirectory");
-    // Because '/' can't be used inside a field trial parameter, we use ':'
+    // Because '/' can't be used inside a field trial parameter, we use ';'
     // instead.
-    absl::c_replace(decoded_output_file, ':', '/');
+    absl::c_replace(decoded_output_file, ';', '/');
     if (!decoded_output_file.empty()) {
       char filename_buffer[256];
       rtc::SimpleStringBuilder ssb(filename_buffer);

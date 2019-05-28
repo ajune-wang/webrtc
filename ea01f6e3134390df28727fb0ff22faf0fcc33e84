@@ -22,6 +22,30 @@
       "revId": "ea01f6e3134390df28727fb0ff22faf0fcc33e84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99d920a1_0aa434b5",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2019-05-28T15:45:59Z",
+      "side": 1,
+      "message": "Changed to |current_delay_counter_| after consulting with holmer@",
+      "parentUuid": "f8ba38d9_baf66172",
+      "range": {
+        "startLine": 600,
+        "startChar": 26,
+        "endLine": 600,
+        "endChar": 54
+      },
+      "revId": "ea01f6e3134390df28727fb0ff22faf0fcc33e84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

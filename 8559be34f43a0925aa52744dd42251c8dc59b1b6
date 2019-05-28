@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba2c6626_02d7f4e9",
+        "filename": "video/quality_limitation_reason_tracker_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-05-28T14:29:11Z",
+      "side": 1,
+      "message": "0",
+      "range": {
+        "startLine": 33,
+        "startChar": 12,
+        "endLine": 33,
+        "endChar": 14
+      },
+      "revId": "8559be34f43a0925aa52744dd42251c8dc59b1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35d5b8aa_40c52e24",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-05-28T14:29:11Z",
+      "side": 1,
+      "message": "perhaps remove",
+      "range": {
+        "startLine": 1103,
+        "startChar": 2,
+        "endLine": 1104,
+        "endChar": 55
+      },
+      "revId": "8559be34f43a0925aa52744dd42251c8dc59b1b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

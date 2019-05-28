@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "34fad7b3_ff86e38a",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-28T09:01:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "973f37aa_ca724965",
+      "range": {
+        "startLine": 623,
+        "startChar": 16,
+        "endLine": 623,
+        "endChar": 19
+      },
+      "revId": "b80801047dd51e887b2ef1068578bcd9034178af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc6d2c9e_c6f4f7f7",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-28T08:23:20Z",
       "side": 1,
       "message": "I think this function ought to be refactored. But that will be out of the scope of this CL.\n\nI think it is better not to touch it for now.",
+      "range": {
+        "startLine": 658,
+        "startChar": 4,
+        "endLine": 658,
+        "endChar": 27
+      },
+      "revId": "b80801047dd51e887b2ef1068578bcd9034178af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "317e7255_9a1b704c",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-28T09:01:57Z",
+      "side": 1,
+      "message": "But `opus_packet_get_samples_per_frame` needs to be given the sample rate. Are you suggesting that I lie and keep giving it 48000?",
+      "parentUuid": "cc6d2c9e_c6f4f7f7",
       "range": {
         "startLine": 658,
         "startChar": 4,

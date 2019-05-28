@@ -50,6 +50,24 @@
       "revId": "5e3aa2e423bf1bd66bf6e5c8c6830f1014e6295e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38692fed_1f765cef",
+        "filename": "p2p/base/stun.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-28T22:36:15Z",
+      "side": 1,
+      "message": "I think we do need an extern declaration and define it in the cc file, or there is the latent problem of a linker error.",
+      "parentUuid": "becd76e5_3030413b",
+      "revId": "5e3aa2e423bf1bd66bf6e5c8c6830f1014e6295e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

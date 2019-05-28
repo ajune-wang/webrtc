@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "99253b63_415f19d8",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-28T22:36:15Z",
+      "side": 1,
+      "message": "Can we keep the API consistent and use the pointer to the object here instead of its serialized string?",
+      "parentUuid": "2b872a83_5eae9d92",
+      "range": {
+        "startLine": 1149,
+        "startChar": 54,
+        "endLine": 1149,
+        "endChar": 68
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d931c69_92527b01",
         "filename": "p2p/base/ice_transport_internal.h",
         "patchSetId": 1

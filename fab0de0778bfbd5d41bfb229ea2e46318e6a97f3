@@ -258,6 +258,30 @@
       "revId": "fab0de0778bfbd5d41bfb229ea2e46318e6a97f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ee6c771_882c3ca0",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1417,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-05-28T14:38:12Z",
+      "side": 1,
+      "message": "I think we should investigate a bit more before changing the current behavior. I have at least one Android device where the encoder sometimes does not write VUI in the SPS. I am not very familiar with why we are currently rewriting VUI for all H.264 streams and I do not feel comfortable changing that until we have a better understanding of when we should and should not do it.",
+      "parentUuid": "573572bc_ffa2bbae",
+      "range": {
+        "startLine": 1415,
+        "startChar": 0,
+        "endLine": 1417,
+        "endChar": 80
+      },
+      "revId": "fab0de0778bfbd5d41bfb229ea2e46318e6a97f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

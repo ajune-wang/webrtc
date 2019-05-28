@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "c7a63fe0_e609a9f3",
+        "filename": "video/quality_limitation_reason_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T11:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8874be01_7360a8e1",
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32b82d50_642cf12f",
         "filename": "video/quality_limitation_reason_tracker.cc",
         "patchSetId": 1
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "0741a05e_e2b9aa8b",
+        "filename": "video/quality_limitation_reason_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T11:24:38Z",
+      "side": 1,
+      "message": "Yes. In fact, if you std::move() you get \"error: moving a local object in a return statement prevents copy elision [-Werror,-Wpessimizing-move]\" ;)",
+      "parentUuid": "32b82d50_642cf12f",
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e74791cc_72a0e755",
         "filename": "video/quality_limitation_reason_tracker.h",
         "patchSetId": 1
@@ -67,6 +103,24 @@
       "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "574a1118_03ac7915",
+        "filename": "video/quality_limitation_reason_tracker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T11:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e74791cc_72a0e755",
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "41838b13_881d5000",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T11:24:38Z",
+      "side": 1,
+      "message": "Ack. I filed https://github.com/w3c/webrtc-stats/issues/440 for clarifying this.",
+      "parentUuid": "1b99d2d5_2d1f95be",
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33db46e9_801766f6",
         "filename": "video/send_statistics_proxy_unittest.cc",
         "patchSetId": 1
@@ -119,6 +191,24 @@
       "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8346975f_7a79a248",
+        "filename": "video/send_statistics_proxy_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T11:24:38Z",
+      "side": 1,
+      "message": "Clarified.",
+      "parentUuid": "33db46e9_801766f6",
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

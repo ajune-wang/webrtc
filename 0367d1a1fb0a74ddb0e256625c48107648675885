@@ -52,6 +52,24 @@
       "revId": "0367d1a1fb0a74ddb0e256625c48107648675885",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b192c438_6501ed90",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-05-28T12:34:36Z",
+      "side": 1,
+      "message": "It\u0027s a trade off between whether wait and avoid re-transmission with the cost of extra delay or get a new packet asap with the cost of more bandwidth usage. During my experiment, the out-of-order packets would arrive within about 1-2 ms, so I think the probability that packet are late for anything more than 10 ms is very unlikely. It feels to me a delay more than a few ms would add more delay without much benefits. You could try out and see if in your scenario the packet out of order can be delayed for longer period and if a longer delay in sending nack would improve overall experience.",
+      "parentUuid": "fd1d316c_590c7ced",
+      "revId": "0367d1a1fb0a74ddb0e256625c48107648675885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -234,6 +234,30 @@
       "revId": "fab0de0778bfbd5d41bfb229ea2e46318e6a97f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "573572bc_ffa2bbae",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1417,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-28T13:57:26Z",
+      "side": 1,
+      "message": "I imagine that some encoders might actually do reordering of frames (when streaming something that\u0027s not as delay critical as our typical apps) and correctly set max_num_reordered_frames \u003e 0, in which case rewriting will break the stream? Isn\u0027t the value present in the bitstream for a reason? From this perspective, it seems better to rewrite it only when encoders are known to be buggy: An encoder configured with \"real-time\" settings should neither (i) reorder frames nor (ii) claim it\u0027s going to do that, and as far as I understand this rewriting helps in the case that the encoder does (ii) but not (i).\n\nBut I have a somewhat fuzzy understanding of the issue.",
+      "parentUuid": "0e300b4d_9ae23bf9",
+      "range": {
+        "startLine": 1415,
+        "startChar": 0,
+        "endLine": 1417,
+        "endChar": 80
+      },
+      "revId": "fab0de0778bfbd5d41bfb229ea2e46318e6a97f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

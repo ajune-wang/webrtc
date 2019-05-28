@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f0f526a6_16224140",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2019-05-28T10:24:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5779a77e_50d793a8",
+      "revId": "191af00120a74e3904d299b30c8bd9bf7297ae41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36622923_30695ab4",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "191af00120a74e3904d299b30c8bd9bf7297ae41",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4314ebef_9a0d3cd0",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2019-05-28T10:24:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36622923_30695ab4",
+      "revId": "191af00120a74e3904d299b30c8bd9bf7297ae41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7ba2af28_1e636b79",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2019-05-28T10:24:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e034cd99_73e4aec8",
+      "revId": "191af00120a74e3904d299b30c8bd9bf7297ae41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e27159b2_c461a60d",
         "filename": "video/receive_statistics_proxy.cc",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "191af00120a74e3904d299b30c8bd9bf7297ae41",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7a5cb4e_19a83eda",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2019-05-28T10:24:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e27159b2_c461a60d",
+      "revId": "191af00120a74e3904d299b30c8bd9bf7297ae41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

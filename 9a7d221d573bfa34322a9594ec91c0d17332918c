@@ -77,6 +77,30 @@
     },
     {
       "key": {
+        "uuid": "3e82375b_1e3870c1",
+        "filename": "video/quality_limitation_reason_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T13:24:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5118a5eb_2a11ab5b",
+      "range": {
+        "startLine": 24,
+        "startChar": 70,
+        "endLine": 24,
+        "endChar": 72
+      },
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32b82d50_642cf12f",
         "filename": "video/quality_limitation_reason_tracker.cc",
         "patchSetId": 1
@@ -170,6 +194,30 @@
     },
     {
       "key": {
+        "uuid": "f51bc818_9760d63d",
+        "filename": "video/quality_limitation_reason_tracker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T13:24:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f3d52fe_954bbe7e",
+      "range": {
+        "startLine": 44,
+        "startChar": 51,
+        "endLine": 44,
+        "endChar": 64
+      },
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a733e251_91bf003f",
         "filename": "video/quality_limitation_reason_tracker_unittest.cc",
         "patchSetId": 1
@@ -193,6 +241,30 @@
     },
     {
       "key": {
+        "uuid": "2d97ae77_296ac7f4",
+        "filename": "video/quality_limitation_reason_tracker_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T13:24:45Z",
+      "side": 1,
+      "message": "Nope, removed.",
+      "parentUuid": "a733e251_91bf003f",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 28
+      },
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6aaf7d70_36200201",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 1
@@ -213,6 +285,30 @@
       "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f4c9feb_97f61bbb",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1075,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T13:24:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6aaf7d70_36200201",
+      "range": {
+        "startLine": 1075,
+        "startChar": 66,
+        "endLine": 1075,
+        "endChar": 73
+      },
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -292,6 +388,30 @@
     },
     {
       "key": {
+        "uuid": "3b1c73c1_4c1e7a1e",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T13:24:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fcd77b0_7679b026",
+      "range": {
+        "startLine": 1101,
+        "startChar": 9,
+        "endLine": 1101,
+        "endChar": 37
+      },
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f3b42ef_e37d625a",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 1
@@ -303,6 +423,30 @@
       "writtenOn": "2019-05-28T12:31:59Z",
       "side": 1,
       "message": "Do we want to exclude the time if video is paused (see stats_.suspended)?",
+      "range": {
+        "startLine": 1102,
+        "startChar": 41,
+        "endLine": 1102,
+        "endChar": 52
+      },
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed1f475f_85e15151",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1102,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T13:24:45Z",
+      "side": 1,
+      "message": "We shouldn\u0027t exclude time based on the current definition. If we think this is a good idea we would need to update the spec, but I don\u0027t feel strongly about this.\n\nHowever, if we are not sending anything I don\u0027t see how qualityLimitationReason could be anything other than \"none\". If OnAdaptationChanged() is not invoked as a side-effect of video pausing I would consider it a bug that being limited is still reported.\n\nIf this is a case it would be an existing bug with the goog-stats already, and if so I think it should be handled in a separate CL and issue. The behavior of this CL is closely tied to the existing goog-behavior.",
+      "parentUuid": "8f3b42ef_e37d625a",
       "range": {
         "startLine": 1102,
         "startChar": 41,
@@ -370,6 +514,30 @@
       "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a3937cc_179574e9",
+        "filename": "video/send_statistics_proxy_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1198,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-05-28T13:24:45Z",
+      "side": 1,
+      "message": "Omg nice catch. Done. This was a real bug: I needed to update the value at GetStats() because time has passes since the reason changed and we are looking at it.",
+      "parentUuid": "57cd18b1_daa9a25d",
+      "range": {
+        "startLine": 1198,
+        "startChar": 12,
+        "endLine": 1198,
+        "endChar": 16
+      },
+      "revId": "9a7d221d573bfa34322a9594ec91c0d17332918c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

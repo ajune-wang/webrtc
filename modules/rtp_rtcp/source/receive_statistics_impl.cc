@@ -33,14 +33,13 @@ StreamStatistician::~StreamStatistician() {}
 StreamStatisticianImpl::StreamStatisticianImpl(
     uint32_t ssrc,
     Clock* clock,
-    int max_reordering_threshold,
     RtcpStatisticsCallback* rtcp_callback,
     StreamDataCountersCallback* rtp_callback)
     : ssrc_(ssrc),
       clock_(clock),
       incoming_bitrate_(kStatisticsProcessIntervalMs,
                         RateStatistics::kBpsScale),
-      max_reordering_threshold_(max_reordering_threshold),
+      max_reordering_threshold_(kDefaultMaxReorderingThreshold),
       enable_retransmit_detection_(false),
       jitter_q4_(0),
       cumulative_loss_(0),
@@ -355,7 +354,6 @@ ReceiveStatisticsImpl::ReceiveStatisticsImpl(
     StreamDataCountersCallback* rtp_callback)
     : clock_(clock),
       last_returned_ssrc_(0),
-      max_reordering_threshold_(kDefaultMaxReorderingThreshold),
       rtcp_stats_callback_(rtcp_callback),
       rtp_stats_callback_(rtp_callback) {}
 
@@ -396,24 +394,10 @@ StreamStatisticianImpl* ReceiveStatisticsImpl::GetOrCreateStatistician(
   rtc::CritScope cs(&receive_statistics_lock_);
   StreamStatisticianImpl*& impl = statisticians_[ssrc];
   if (impl == nullptr) {  // new element
-    impl =
-        new StreamStatisticianImpl(ssrc, clock_, max_reordering_threshold_,
-                                   rtcp_stats_callback_, rtp_stats_callback_);
+    impl = new StreamStatisticianImpl(ssrc, clock_, rtcp_stats_callback_,
+                                      rtp_stats_callback_);
   }
   return impl;
-}
-
-void ReceiveStatisticsImpl::SetMaxReorderingThreshold(
-    int max_reordering_threshold) {
-  std::map<uint32_t, StreamStatisticianImpl*> statisticians;
-  {
-    rtc::CritScope cs(&receive_statistics_lock_);
-    max_reordering_threshold_ = max_reordering_threshold;
-    statisticians = statisticians_;
-  }
-  for (auto& statistician : statisticians) {
-    statistician.second->SetMaxReorderingThreshold(max_reordering_threshold);
-  }
 }
 
 void ReceiveStatisticsImpl::SetMaxReorderingThreshold(

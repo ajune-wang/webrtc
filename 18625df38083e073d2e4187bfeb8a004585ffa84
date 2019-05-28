@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "432425c7_a9651f8a",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-05-28T06:04:39Z",
+      "side": 1,
+      "message": "Why were they made mutually exclusive in the first place? Was there some underlying problem?\nWas it addressed?",
+      "revId": "18625df38083e073d2e4187bfeb8a004585ffa84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e21fb7c7_d2e5753f",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 1

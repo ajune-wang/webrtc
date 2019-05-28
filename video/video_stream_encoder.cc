@@ -26,6 +26,7 @@
 #include "modules/video_coding/utility/default_video_bitrate_allocator.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/experiments/alr_experiment.h"
 #include "rtc_base/experiments/quality_scaling_experiment.h"
 #include "rtc_base/experiments/rate_control_settings.h"
@@ -1412,6 +1413,10 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
 
   frame_encode_metadata_writer_.FillTimingInfo(spatial_idx, &image_copy);
 
+  std::unique_ptr<RTPFragmentationHeader> fragmentation_copy =
+      frame_encode_metadata_writer_.UpdateBitstream(codec_specific_info,
+                                                    fragmentation, &image_copy);
+
   // Piggyback ALR experiment group id and simulcast id into the content type.
   const uint8_t experiment_id =
       experiment_groups_[videocontenttypehelpers::IsScreenshare(
@@ -1487,12 +1492,14 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
 
   EncodedImageCallback::Result result = sink_->OnEncodedImage(
       image_copy, codec_info_copy ? codec_info_copy.get() : codec_specific_info,
-      fragmentation);
+      fragmentation_copy ? fragmentation_copy.get() : fragmentation);
 
   // We are only interested in propagating the meta-data about the image, not
   // encoded data itself, to the post encode function. Since we cannot be sure
   // the pointer will still be valid when run on the task queue, set it to null.
+  // Also make sure to release possibly owned data to avoid making a copy.
   image_copy.set_buffer(nullptr, 0);
+  image_copy.ClearEncodedData();
 
   int temporal_index = 0;
   if (codec_specific_info) {

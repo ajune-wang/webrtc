@@ -34,6 +34,24 @@
       "revId": "0367d1a1fb0a74ddb0e256625c48107648675885",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fd1d316c_590c7ced",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-28T11:44:20Z",
+      "side": 1,
+      "message": "I understand the motivation for the experiment and think it makes sense. I am just wondering if it makes sense to prevent someone interested in experimenting with delay\u003d50 from doing so, by hard-coding a limit of 20 to the experiment. I understand that some hard-coded maximum value is good practice, but I wonder if 20 might not be a bit too low. Would it not make sense to set that hard-coded value to e.g. 500ms? If values above, say, 40ms are unreasonable, it\u0027s the responsibility of the experiment controller to keep values below that.",
+      "parentUuid": "078e5ce6_da87b143",
+      "revId": "0367d1a1fb0a74ddb0e256625c48107648675885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

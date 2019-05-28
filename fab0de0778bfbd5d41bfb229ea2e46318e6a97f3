@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2badee9a_8fc49213",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-28T10:30:57Z",
+      "side": 1,
+      "message": "I\u0027m considering replacing CopyOnWriteBuffer with a narrower interface, but I think this pattern, of first creating and filling out the buffer, and then assigning it to the EncodedImage, is the right way to do it.\n\nDoes this mean that you avoid using the non-const data() method in the rest of the cl?",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 3
+      },
+      "revId": "fab0de0778bfbd5d41bfb229ea2e46318e6a97f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cadf7e1_27a39d2c",
+        "filename": "modules/rtp_rtcp/source/rtp_format_h264.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-28T10:30:57Z",
+      "side": 1,
+      "message": "Please delete no-longer needed includes, and trim dependencies in BUILD.gn.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 47
+      },
+      "revId": "fab0de0778bfbd5d41bfb229ea2e46318e6a97f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1762cb5e_1186c273",
+        "filename": "video/frame_encode_metadata_writer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-28T10:30:57Z",
+      "side": 1,
+      "message": "Is this the right place for this method? It seems it doesn\u0027t depend on any of this object\u0027s state. Maybe better to adjust the interface of SpsVuiRewriter::ParseOutgoingBitstreamAndRewriteSps to make it more convenient to use?",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 42
+      },
+      "revId": "fab0de0778bfbd5d41bfb229ea2e46318e6a97f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f07c33b_d4718244",
+        "filename": "video/frame_encode_metadata_writer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-28T10:30:57Z",
+      "side": 1,
+      "message": "I think you should use encoded_image-\u003ecdata(), to avoid a copy (a problem with the current use of CopyOnWriteBuffer). And if it weren\u0027t for that, you could just write *encoded_image and let it convert implicitly to an ArrayView.",
+      "range": {
+        "startLine": 206,
+        "startChar": 6,
+        "endLine": 206,
+        "endChar": 70
+      },
+      "revId": "fab0de0778bfbd5d41bfb229ea2e46318e6a97f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc0ba864_9eaf445a",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1417,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-05-28T10:30:57Z",
+      "side": 1,
+      "message": "Have you considered moving the rewriting further, to the encoder wrappers that need it? As far as I\u0027m aware, this was mainly a workaround for ios encoders. +Kári, I think we\u0027ve discussed how to move this earlier?",
+      "range": {
+        "startLine": 1415,
+        "startChar": 0,
+        "endLine": 1417,
+        "endChar": 80
+      },
+      "revId": "fab0de0778bfbd5d41bfb229ea2e46318e6a97f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

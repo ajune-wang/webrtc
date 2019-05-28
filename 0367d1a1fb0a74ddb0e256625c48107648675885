@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ec50ff6_f1dec435",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-28T11:21:34Z",
+      "side": 1,
+      "message": "Why do we ignore values greater than 20? Do we suspect the client that pushes this value might be buggy? IMHO, a value of 50 might be ill-advised, but it\u0027s up to experimentation to show it, right? I could imagine an ultra-low-bandwidth scenario where someone might really intend it. Or am I missing something?",
+      "revId": "0367d1a1fb0a74ddb0e256625c48107648675885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

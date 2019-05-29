@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92929a20_e5ef8fc8",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-29T01:13:43Z",
+      "side": 1,
+      "message": "this warning is shown regardless of the value of surface_ice_candidates_on_ice_transport_type_changed.\nis that correct?",
+      "range": {
+        "startLine": 561,
+        "startChar": 6,
+        "endLine": 561,
+        "endChar": 62
+      },
+      "revId": "8af8a03581b8072709bc5999b95f97137d39ceea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41e51347_31e702c3",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-29T01:13:43Z",
+      "side": 1,
+      "message": "is there an objective-c version that needs to be updated as well?",
+      "range": {
+        "startLine": 449,
+        "startChar": 19,
+        "endLine": 449,
+        "endChar": 64
+      },
+      "revId": "8af8a03581b8072709bc5999b95f97137d39ceea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "026f513c_288a4b41",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-29T01:13:43Z",
+      "side": 1,
+      "message": "was this used to debug? probably remove or use standard logging to achieve the same.",
+      "range": {
+        "startLine": 128,
+        "startChar": 17,
+        "endLine": 128,
+        "endChar": 24
+      },
+      "revId": "8af8a03581b8072709bc5999b95f97137d39ceea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

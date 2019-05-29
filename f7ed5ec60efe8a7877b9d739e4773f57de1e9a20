@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0431466_1938ab81",
+        "filename": "api/audio_codecs/opus/audio_decoder_opus.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-29T08:58:33Z",
+      "side": 1,
+      "message": "don\u0027t we need to wireup clockrate_hz here?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 40
+      },
+      "revId": "f7ed5ec60efe8a7877b9d739e4773f57de1e9a20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfed1c06_2c668d43",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-05-29T08:58:33Z",
+      "side": 1,
+      "message": "can we use dec_state_.sample_rate_hz?",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 27
+      },
+      "revId": "f7ed5ec60efe8a7877b9d739e4773f57de1e9a20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

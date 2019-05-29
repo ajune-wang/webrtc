@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c94b1654_5f3b4327",
+        "filename": "api/audio_codecs/opus/audio_decoder_opus.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-29T11:28:18Z",
+      "side": 1,
+      "message": "We can\u0027t get it from the SDP---the information is simply not there. The best we can do is to pick some default (and we do---48 kHz, set in Config\u0027s default constructor). The caller can modify the returned Config before asking for it to be instantiated with MakeAudioEncoder().\n\nI guess in principle we could look at e.g. sprop-maxcapturerate and take the value from there, but it\u0027s not clear that we want to just use that value without consulting some other logic---the receiver might have other reasons to choose a particular decode sample rate. In any case, I would definitely say it\u0027s complex enough to be out of scope for this CL.",
+      "parentUuid": "b0431466_1938ab81",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 40
+      },
+      "revId": "f7ed5ec60efe8a7877b9d739e4773f57de1e9a20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cfed1c06_2c668d43",
         "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "f7ed5ec60efe8a7877b9d739e4773f57de1e9a20",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aaad823_64dddbb3",
+        "filename": "modules/audio_coding/codecs/opus/audio_decoder_opus.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-05-29T11:28:18Z",
+      "side": 1,
+      "message": "It doesn\u0027t have such a member. It does have dec_state_-\u003edecoder-\u003eFs, but OpusDecoder is an opaque struct that\u0027s only defined in an internal Opus .c file, so we can\u0027t/shouldn\u0027t access it directly.\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_coding/codecs/opus/opus_interface.h?rcl\u003d673784153395ec210c33041aba74018efd8993dd\u0026l\u003d25:\n  typedef struct WebRtcOpusDecInst OpusDecInst;\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_coding/codecs/opus/opus_inst.h?rcl\u003d673784153395ec210c33041aba74018efd8993dd\u0026l\u003d30:\n  struct WebRtcOpusDecInst {\n    OpusDecoder* decoder;\n    OpusMSDecoder* multistream_decoder;\n    int prev_decoded_samples;\n    size_t channels;\n    int in_dtx_mode;\n  };\n\nhttps://cs.chromium.org/chromium/src/third_party/opus/src/src/opus_decoder.c?rcl\u003d687b4fbd47765ba15aa3e68f5116cfb4bdfc9c4c\u0026l\u003d55:\n  struct OpusDecoder {\n     int          celt_dec_offset;\n     int          silk_dec_offset;\n     int          channels;\n     opus_int32   Fs;          /** Sampling rate (at the API level) */\n     silk_DecControlStruct DecControl;\n     int          decode_gain;\n     int          arch;\n     [...]\n  };",
+      "parentUuid": "cfed1c06_2c668d43",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 27
+      },
+      "revId": "f7ed5ec60efe8a7877b9d739e4773f57de1e9a20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

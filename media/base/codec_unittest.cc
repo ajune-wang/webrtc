@@ -10,6 +10,8 @@
 
 #include "media/base/codec.h"
 
+#include <tuple>
+
 #include "media/base/vp9_profile.h"
 #include "rtc_base/gunit.h"
 
@@ -403,3 +405,78 @@ TEST(CodecTest, TestToCodecParameters) {
   EXPECT_EQ("p1", codec_params_2.parameters.begin()->first);
   EXPECT_EQ("a1", codec_params_2.parameters.begin()->second);
 }
+
+// Tests that the helper IsSameCodec returns the correct value for codecs that
+// must also be matched on particular parameter values.
+class IsSameCodecParamsTest
+    : public ::testing::TestWithParam<
+          std::tuple<std::string,
+                     std::tuple<cricket::CodecParameterMap,
+                                cricket::CodecParameterMap,
+                                bool>>> {
+ protected:
+  IsSameCodecParamsTest() {
+    name_ = std::get<0>(GetParam());
+    const auto& test_case = std::get<1>(GetParam());
+    params_left_ = std::get<0>(test_case);
+    params_right_ = std::get<1>(test_case);
+    expected_ = std::get<2>(test_case);
+  }
+
+  std::string name_;
+  cricket::CodecParameterMap params_left_;
+  cricket::CodecParameterMap params_right_;
+  bool expected_;
+};
+
+TEST_P(IsSameCodecParamsTest, Expected) {
+  EXPECT_EQ(expected_,
+            cricket::IsSameCodec(name_, params_left_, name_, params_right_));
+}
+
+TEST_P(IsSameCodecParamsTest, Commutative) {
+  EXPECT_EQ(expected_,
+            cricket::IsSameCodec(name_, params_right_, name_, params_left_));
+}
+
+const std::vector<
+    std::tuple<cricket::CodecParameterMap, cricket::CodecParameterMap, bool>>
+    kH264ParamsTestCases{
+        // Same since both have the same defaults.
+        {{}, {}, true},
+        // Same since packetization-mode: 0 is the default.
+        {{{cricket::kH264FmtpPacketizationMode, "0"}}, {}, true},
+        // Not the same since packetization-mode does not match.
+        {{{cricket::kH264FmtpPacketizationMode, "1"}}, {}, false},
+        // Same since packetization-mode matches.
+        {{{cricket::kH264FmtpPacketizationMode, "1"}},
+         {{cricket::kH264FmtpPacketizationMode, "1"}},
+         true},
+    };
+
+INSTANTIATE_TEST_SUITE_P(
+    H264,
+    IsSameCodecParamsTest,
+    ::testing::Combine(::testing::Values("H264"),
+                       ::testing::ValuesIn(kH264ParamsTestCases)));
+
+const std::vector<
+    std::tuple<cricket::CodecParameterMap, cricket::CodecParameterMap, bool>>
+    kVP9ParamsTestCases{
+        // Same since both have the same defaults.
+        {{}, {}, true},
+        // Same since profile-id: 0 is the default.
+        {{{webrtc::kVP9FmtpProfileId, "0"}}, {}, true},
+        // Not the same since profile-id does not match.
+        {{{webrtc::kVP9FmtpProfileId, "2"}}, {}, false},
+        // Same since profile-id matches.
+        {{{webrtc::kVP9FmtpProfileId, "2"}},
+         {{webrtc::kVP9FmtpProfileId, "2"}},
+         true},
+    };
+
+INSTANTIATE_TEST_SUITE_P(
+    VP9,
+    IsSameCodecParamsTest,
+    ::testing::Combine(::testing::Values("VP9"),
+                       ::testing::ValuesIn(kVP9ParamsTestCases)));

@@ -98,7 +98,7 @@ class DtlsTransport : public DtlsTransportInternal {
   //
   // |event_log| is an optional RtcEventLog for logging state changes. It should
   // outlive the DtlsTransport.
-  explicit DtlsTransport(std::unique_ptr<IceTransportInternal> ice_transport,
+  explicit DtlsTransport(IceTransportInternal* ice_transport,
                          const webrtc::CryptoOptions& crypto_options,
                          webrtc::RtcEventLog* event_log);
 
@@ -222,8 +222,8 @@ class DtlsTransport : public DtlsTransportInternal {
   std::string transport_name_;
   int component_;
   DtlsTransportState dtls_state_ = DTLS_TRANSPORT_NEW;
-  // Underlying ice_transport, owned by this class.
-  std::unique_ptr<IceTransportInternal> ice_transport_;
+  // Underlying ice_transport, not owned by this class.
+  IceTransportInternal* ice_transport_;
   std::unique_ptr<rtc::SSLStreamAdapter> dtls_;  // The DTLS stream
   StreamInterfaceChannel*
       downward_;  // Wrapper for ice_transport_, owned by dtls_.

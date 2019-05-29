@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "d0705c85_865903a8",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-29T21:23:57Z",
+      "side": 1,
+      "message": "I was referring to IceCandidateInterface as in OnIceCandidate above. This is going to be used by native apps as well potentially, which is the same reason I asked for the test coverage for the plumbing.",
+      "parentUuid": "3c3e3c1a_cdd0d0bd",
+      "range": {
+        "startLine": 1149,
+        "startChar": 54,
+        "endLine": 1149,
+        "endChar": 68
+      },
+      "revId": "df353a64f0f4c20bf174562093ad7f3e3f014450",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8d931c69_92527b01",
         "filename": "p2p/base/ice_transport_internal.h",
         "patchSetId": 1

@@ -31,6 +31,11 @@ namespace webrtc {
 
 typedef int64_t DatagramId;
 
+// TODO(mellem): Add receive timestamp.
+struct DatagramAck {
+  DatagramId datagram_id;
+}
+
 // All sink methods are called on network thread.
 class DatagramSinkInterface {
  public:
@@ -43,6 +48,11 @@ class DatagramSinkInterface {
   // to congestion control or fusing). |datagram_id| is same as passed in
   // QuicTransportInterface::SendDatagram.
   virtual void OnDatagramSent(DatagramId datagram_id) = 0;
+
+  // Called when datagram is ACKed. |datagram_id| is same as passed in
+  // QuicTransportInterface::SendDatagram.
+  // TODO(sukhanov): Make pure virtual.
+  virtual void OnDatagramAcked(const DatagramAck& datagram_ack) {}
 };
 
 // Datagram transport allows to send and receive unreliable packets (datagrams)

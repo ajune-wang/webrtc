@@ -375,17 +375,51 @@ TEST_F(RtcpSenderTest, SendNack) {
   EXPECT_THAT(parser()->nack()->packet_ids(), ElementsAre(0, 1, 16));
 }
 
-TEST_F(RtcpSenderTest, SendLossNotification) {
+TEST_F(RtcpSenderTest, SendLossNotificationBufferingNotAllowed) {
   rtcp_sender_->SetRTCPStatus(RtcpMode::kReducedSize);
   constexpr uint16_t kLastDecoded = 0x1234;
   constexpr uint16_t kLastReceived = 0x4321;
   constexpr bool kDecodabilityFlag = true;
+  constexpr bool kBufferingAllowed = false;
   const int32_t result = rtcp_sender_->SendLossNotification(
-      feedback_state(), kLastDecoded, kLastReceived, kDecodabilityFlag);
+      feedback_state(), kLastDecoded, kLastReceived, kDecodabilityFlag,
+      kBufferingAllowed);
   EXPECT_EQ(result, 0);
-  EXPECT_EQ(1, parser()->loss_notification()->num_packets());
+  EXPECT_EQ(parser()->processed_rtcp_packets(), 1u);
+  EXPECT_EQ(parser()->loss_notification()->num_packets(), 1);
   EXPECT_EQ(kSenderSsrc, parser()->loss_notification()->sender_ssrc());
   EXPECT_EQ(kRemoteSsrc, parser()->loss_notification()->media_ssrc());
+}
+
+TEST_F(RtcpSenderTest, SendLossNotificationBufferingAllowed) {
+  rtcp_sender_->SetRTCPStatus(RtcpMode::kReducedSize);
+  constexpr uint16_t kLastDecoded = 0x1234;
+  constexpr uint16_t kLastReceived = 0x4321;
+  constexpr bool kDecodabilityFlag = true;
+  constexpr bool kBufferingAllowed = true;
+  const int32_t result = rtcp_sender_->SendLossNotification(
+      feedback_state(), kLastDecoded, kLastReceived, kDecodabilityFlag,
+      kBufferingAllowed);
+  EXPECT_EQ(result, 0);
+
+  // No RTCP messages sent yet.
+  ASSERT_EQ(parser()->processed_rtcp_packets(), 0u);
+
+  // Sending another messages triggers sending the LNTF messages as well.
+  const uint16_t kList[] = {0, 1, 16};
+  const int32_t kListLength = sizeof(kList) / sizeof(kList[0]);
+  EXPECT_EQ(0, rtcp_sender_->SendRTCP(feedback_state(), kRtcpNack, kListLength,
+                                      kList));
+
+  // Exactly one packet was produced, and it contained both the buffered LNTF
+  // as well as the message that had triggered the packet.
+  EXPECT_EQ(parser()->processed_rtcp_packets(), 1u);
+  EXPECT_EQ(parser()->loss_notification()->num_packets(), 1);
+  EXPECT_EQ(parser()->loss_notification()->sender_ssrc(), kSenderSsrc);
+  EXPECT_EQ(parser()->loss_notification()->media_ssrc(), kRemoteSsrc);
+  EXPECT_EQ(parser()->nack()->num_packets(), 1);
+  EXPECT_EQ(parser()->nack()->sender_ssrc(), kSenderSsrc);
+  EXPECT_EQ(parser()->nack()->media_ssrc(), kRemoteSsrc);
 }
 
 TEST_F(RtcpSenderTest, RembNotIncludedBeforeSet) {

@@ -43,6 +43,11 @@ class DatagramSinkInterface {
   // to congestion control or fusing). |datagram_id| is same as passed in
   // QuicTransportInterface::SendDatagram.
   virtual void OnDatagramSent(DatagramId datagram_id) = 0;
+
+  // Called when datagram is ACKed. |datagram_id| is same as passed in
+  // QuicTransportInterface::SendDatagram.
+  // TODO(sukhanov): Make pure virtual.
+  virtual void OnDatagramAcked(DatagramId datagram_id) {}
 };
 
 // Datagram transport allows to send and receive unreliable packets (datagrams)

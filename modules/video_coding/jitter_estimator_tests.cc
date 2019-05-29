@@ -67,7 +67,7 @@ TEST_F(TestVCMJitterEstimator, TestLowRate) {
     estimator_->UpdateEstimate(gen.Delay(), gen.FrameSize());
     AdvanceClock(time_delta_us);
     if (i > 2)
-      EXPECT_EQ(estimator_->GetJitterEstimate(0), 0);
+      EXPECT_EQ(estimator_->GetJitterEstimate(0, absl::nullopt), 0);
     gen.Advance();
   }
 }
@@ -97,8 +97,8 @@ TEST_F(TestVCMJitterEstimator, TestUpperBound) {
     for (int i = 0; i < 100; ++i) {
       estimator_->UpdateEstimate(gen.Delay(), gen.FrameSize());
       AdvanceClock(time_delta_us);
-      context.percentiles.Add(
-          static_cast<uint32_t>(estimator_->GetJitterEstimate(0)));
+      context.percentiles.Add(static_cast<uint32_t>(
+          estimator_->GetJitterEstimate(0, absl::nullopt)));
       gen.Advance();
     }
   }

@@ -16,6 +16,24 @@
       "revId": "d5de90c1820cc2d4da8d400421e54dbb5aa26353",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d8ae789_b304e735",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-05-29T11:01:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea712418_8ccbe2ce",
+      "revId": "d5de90c1820cc2d4da8d400421e54dbb5aa26353",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

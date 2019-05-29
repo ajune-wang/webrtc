@@ -143,6 +143,12 @@ luci.cq_tryjob_verifier(
     cq_group = "cq_infra",
 )
 
+luci.cq_tryjob_verifier(
+    builder = "webrtc-internal:g3.webrtc-internal.try/internal_compile_lite",
+    owner_whitelist = ["project-webrtc-internal-tryjob-access"],
+    cq_group = "cq",
+)
+
 # Notifier definitions:
 
 luci.notifier(

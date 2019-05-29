@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b9a56228_02707246",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-29T19:37:56Z",
+      "side": 1,
+      "message": "Good point. I think \"connected\" in the standardized ICE connection state is equivalent to the aggregate writable state this CL was originally signaling. Updated the CL. PTAL.",
+      "parentUuid": "1a86aaaa_238efbd8",
+      "range": {
+        "startLine": 1175,
+        "startChar": 15,
+        "endLine": 1175,
+        "endChar": 44
+      },
+      "revId": "1327d9db9a93d52a86cb10c1e8df6a9b7a47c678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc820d29_76351db2",
         "filename": "p2p/base/dtls_transport.cc",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1d4a9998_0d39b137",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-29T19:37:56Z",
+      "side": 1,
+      "message": "Whether the writable state (including other various states) is actually changed is checked in JsepTransportController, and the underlying transports conventionally fire signals in the setter. JsepTransportController further relays the signals only for real changes.",
+      "parentUuid": "dc820d29_76351db2",
+      "range": {
+        "startLine": 489,
+        "startChar": 26,
+        "endLine": 489,
+        "endChar": 46
+      },
+      "revId": "1327d9db9a93d52a86cb10c1e8df6a9b7a47c678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c964923f_c4756cc3",
         "filename": "pc/jsep_transport_controller.cc",
         "patchSetId": 3
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "25ddc124_aea14273",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-29T19:37:56Z",
+      "side": 1,
+      "message": "Yeah, it could. I was deciding between whether having multiple slots for the same signal or using a single slot for a signal but traversing one more layer. The patchset is updated to use the existing standardized ICE connection state though.",
+      "parentUuid": "c964923f_c4756cc3",
+      "revId": "1327d9db9a93d52a86cb10c1e8df6a9b7a47c678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6484ef91_908767b7",
         "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
         "patchSetId": 3
@@ -79,6 +145,24 @@
       "revId": "1327d9db9a93d52a86cb10c1e8df6a9b7a47c678",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f277c1c5_c6d64e93",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-29T19:37:56Z",
+      "side": 1,
+      "message": "Done for the standardized ICE connection state in the new patch.",
+      "parentUuid": "6484ef91_908767b7",
+      "revId": "1327d9db9a93d52a86cb10c1e8df6a9b7a47c678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

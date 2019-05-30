@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7631301_1accd8ce",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-30T17:53:45Z",
+      "side": 1,
+      "message": "nit: ours/theirs seems unrelated. codec1 and coded2 or anything acceptable in an operator\u003d\u003d works for me.",
+      "range": {
+        "startLine": 25,
+        "startChar": 58,
+        "endLine": 25,
+        "endChar": 62
+      },
+      "revId": "f6dd6dc01ce6de79a36aa45a29e0cd9862b1ceb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "397451da_98282689",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-30T17:53:45Z",
+      "side": 1,
+      "message": "if we have a utils file for std algorithms then this would be a good candidate for a useful method:\ntemplate \u003ctypename Key, typename Value\u003e\nValue\u0026 GetValueOrDefault(const map\u003cKey, Value\u003e\u0026 map, const Key\u0026 key, const Value\u0026 default);\ncan also have an overload that uses the type\u0027s default value.\n\nlower cost alternative, is have a more specific method in this class:\nstring GetPacketizationModeOrDefault()",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 3
+      },
+      "revId": "f6dd6dc01ce6de79a36aa45a29e0cd9862b1ceb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "696be4d2_a92af65b",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-30T17:53:45Z",
+      "side": 1,
+      "message": "related to other comment, i wonder if this codepath could be simplified to check these parameters regardless of the codec name:\nreturn GetH264ProfileOrDefault(params1, \"0\") \u003d\u003d GetH264ProfileOrDefault(params2, \"0\")\n   \u0026\u0026 GetVP9ProfileOrDefault() \u003d\u003d GetVp9Pro...",
+      "range": {
+        "startLine": 54,
+        "startChar": 25,
+        "endLine": 54,
+        "endChar": 42
+      },
+      "revId": "f6dd6dc01ce6de79a36aa45a29e0cd9862b1ceb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b59a4cc3_d975be1c",
+        "filename": "media/base/codec_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-30T17:53:45Z",
+      "side": 1,
+      "message": "recently read tott #572 about parameterized testing and over-abuse.\ni would suggest:\n1. split success and fail tests\n2. remove the name from the parameters\n\n#1 would make it easier to understand your test cases, you don\u0027t have to document \u0027same\u0027 \u0027not same\u0027, etc.\n#2 is practically done already because you are already declaring the codecs parameters list separately.\n\nyou can still have them all bubble up to the same test method, if you are concerned about code duplication.",
+      "range": {
+        "startLine": 412,
+        "startChar": 24,
+        "endLine": 412,
+        "endChar": 37
+      },
+      "revId": "f6dd6dc01ce6de79a36aa45a29e0cd9862b1ceb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06b4576e_42c2d041",
+        "filename": "media/base/codec_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-05-30T17:53:45Z",
+      "side": 1,
+      "message": "bonus points for this :)",
+      "range": {
+        "startLine": 437,
+        "startChar": 30,
+        "endLine": 437,
+        "endChar": 41
+      },
+      "revId": "f6dd6dc01ce6de79a36aa45a29e0cd9862b1ceb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

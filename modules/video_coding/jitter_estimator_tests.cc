@@ -67,7 +67,7 @@ TEST_F(TestVCMJitterEstimator, TestLowRate) {
     estimator_->UpdateEstimate(gen.Delay(), gen.FrameSize());
     AdvanceClock(time_delta_us);
     if (i > 2)
-      EXPECT_EQ(estimator_->GetJitterEstimate(0), 0);
+      EXPECT_EQ(estimator_->GetJitterEstimate(0, absl::nullopt), 0);
     gen.Advance();
   }
 }
@@ -83,35 +83,40 @@ TEST_F(TestVCMJitterEstimator, TestUpperBound) {
   test_cases[0].upper_bound = 100.0;  // First use essentially no cap.
   test_cases[1].upper_bound = 3.5;    // Second, reasonably small cap.
 
-  for (TestContext& context : test_cases) {
-    // Set up field trial and reset jitter estimator.
-    char string_buf[64];
-    rtc::SimpleStringBuilder ssb(string_buf);
-    ssb << JitterUpperBoundExperiment::kJitterUpperBoundExperimentName
-        << "/Enabled-" << context.upper_bound << "/";
-    test::ScopedFieldTrials field_trials(ssb.str());
-    SetUp();
+  // Test jitter buffer size cap nullopt and non-nullopt code paths
+  absl::optional<double> jitter_est_cap_ms = absl::nullopt;
+  for (int j = 0; j < 2; ++j) {
+    for (TestContext& context : test_cases) {
+      // Set up field trial and reset jitter estimator.
+      char string_buf[64];
+      rtc::SimpleStringBuilder ssb(string_buf);
+      ssb << JitterUpperBoundExperiment::kJitterUpperBoundExperimentName
+          << "/Enabled-" << context.upper_bound << "/";
+      test::ScopedFieldTrials field_trials(ssb.str());
+      SetUp();
 
-    ValueGenerator gen(50);
-    uint64_t time_delta_us = rtc::kNumMicrosecsPerSec / 30;
-    for (int i = 0; i < 100; ++i) {
-      estimator_->UpdateEstimate(gen.Delay(), gen.FrameSize());
-      AdvanceClock(time_delta_us);
-      context.percentiles.Add(
-          static_cast<uint32_t>(estimator_->GetJitterEstimate(0)));
-      gen.Advance();
+      ValueGenerator gen(50);
+      uint64_t time_delta_us = rtc::kNumMicrosecsPerSec / 30;
+      for (int i = 0; i < 100; ++i) {
+        estimator_->UpdateEstimate(gen.Delay(), gen.FrameSize());
+        AdvanceClock(time_delta_us);
+        context.percentiles.Add(static_cast<uint32_t>(
+            estimator_->GetJitterEstimate(0, jitter_est_cap_ms)));
+        gen.Advance();
+      }
     }
+
+    // Median should be similar after three seconds. Allow 5% error margin.
+    uint32_t median_unbound = *test_cases[0].percentiles.GetPercentile(0.5);
+    uint32_t median_bounded = *test_cases[1].percentiles.GetPercentile(0.5);
+    EXPECT_NEAR(median_unbound, median_bounded, (median_unbound * 5) / 100);
+
+    // Max should be lower for the bounded case.
+    uint32_t max_unbound = *test_cases[0].percentiles.GetPercentile(1.0);
+    uint32_t max_bounded = *test_cases[1].percentiles.GetPercentile(1.0);
+    EXPECT_GT(max_unbound, static_cast<uint32_t>(max_bounded * 1.25));
   }
-
-  // Median should be similar after three seconds. Allow 5% error margin.
-  uint32_t median_unbound = *test_cases[0].percentiles.GetPercentile(0.5);
-  uint32_t median_bounded = *test_cases[1].percentiles.GetPercentile(0.5);
-  EXPECT_NEAR(median_unbound, median_bounded, (median_unbound * 5) / 100);
-
-  // Max should be lower for the bounded case.
-  uint32_t max_unbound = *test_cases[0].percentiles.GetPercentile(1.0);
-  uint32_t max_bounded = *test_cases[1].percentiles.GetPercentile(1.0);
-  EXPECT_GT(max_unbound, static_cast<uint32_t>(max_bounded * 1.25));
+  jitter_est_cap_ms = 200.0;
 }
 
 }  // namespace webrtc

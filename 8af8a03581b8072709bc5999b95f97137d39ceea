@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0ebf3612_9a57b95d",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-30T00:22:27Z",
+      "side": 1,
+      "message": "No, it should not generate false alarms. Thanks for catching this. Fixed.",
+      "parentUuid": "92929a20_e5ef8fc8",
+      "range": {
+        "startLine": 561,
+        "startChar": 6,
+        "endLine": 561,
+        "endChar": 62
+      },
+      "revId": "8af8a03581b8072709bc5999b95f97137d39ceea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41e51347_31e702c3",
         "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "74a6535d_0c371b5f",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-30T00:22:27Z",
+      "side": 1,
+      "message": "Was originally planed for the Android only, but yes it makes sense to support both in one change to stop the discrepancy between the two version in configs. Done.",
+      "parentUuid": "41e51347_31e702c3",
+      "range": {
+        "startLine": 449,
+        "startChar": 19,
+        "endLine": 449,
+        "endChar": 64
+      },
+      "revId": "8af8a03581b8072709bc5999b95f97137d39ceea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "026f513c_288a4b41",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "8af8a03581b8072709bc5999b95f97137d39ceea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ccf8161_127055ea",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-05-30T00:22:27Z",
+      "side": 1,
+      "message": "Yes, adding some info here. I was a bit confused by the intention of using the system print in the rest of this file and used this to be consistent. I\u0027ve refactored this file to use org.webrtc.Logging, which has much better support for logging levels.",
+      "parentUuid": "026f513c_288a4b41",
+      "range": {
+        "startLine": 128,
+        "startChar": 17,
+        "endLine": 128,
+        "endChar": 24
+      },
+      "revId": "8af8a03581b8072709bc5999b95f97137d39ceea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a55a4687_cce11b1e",
+        "filename": "p2p/base/dtls_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-30T00:02:59Z",
+      "side": 1,
+      "message": "comment on lifetime requirements",
+      "revId": "2fbb406206871534474ad1aca07043a0dfc3d6a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f93c91e5_ffa986fa",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-05-30T00:02:59Z",
+      "side": 1,
+      "message": "nit: RTC_DCHECK_EQ",
+      "range": {
+        "startLine": 126,
+        "startChar": 2,
+        "endLine": 126,
+        "endChar": 12
+      },
+      "revId": "2fbb406206871534474ad1aca07043a0dfc3d6a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

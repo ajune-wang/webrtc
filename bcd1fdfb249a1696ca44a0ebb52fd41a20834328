@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "ae0e44b3_7473ec69",
+        "filename": "call/call.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 8773
+      },
+      "writtenOn": "2019-05-30T21:47:05Z",
+      "side": 1,
+      "message": "It is used in the next CL https://webrtc-review.googlesource.com/c/src/+/138160/1\n\nThe alternative, of course, is to inject it into the constructor of WebRtcVideoChannel directly. The inspiration behind using CallConfig was that it seems to be used as essentially an \"RtcContext\" - it has an event_log, etc. \n\nIs RtcContext something that has been discussed in the past, or just a hypothetical concept you are mentioning? :)",
+      "parentUuid": "7fb76f7b_c8d4133f",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 56
+      },
+      "revId": "bcd1fdfb249a1696ca44a0ebb52fd41a20834328",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "06987e7d_fc10299d",
         "filename": "call/call_config.h",
         "patchSetId": 2

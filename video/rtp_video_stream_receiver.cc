@@ -114,14 +114,14 @@ void RtpVideoStreamReceiver::RtcpFeedbackBuffer::SendNack(
 void RtpVideoStreamReceiver::RtcpFeedbackBuffer::SendLossNotification(
     uint16_t last_decoded_seq_num,
     uint16_t last_received_seq_num,
-    bool decodability_flag) {
+    bool decodability_flag,
+    bool buffering_allowed) {
+  RTC_DCHECK(buffering_allowed);
   rtc::CritScope lock(&cs_);
   lntf_state_ = absl::make_optional<LossNotificationState>(
       last_decoded_seq_num, last_received_seq_num, decodability_flag);
 }
 
-// TODO(bugs.webrtc.org/10336): Make SendBufferedRtcpFeedback() actually
-// set everything, then send it all together.
 void RtpVideoStreamReceiver::RtcpFeedbackBuffer::SendBufferedRtcpFeedback() {
   bool request_key_frame = false;
   std::vector<uint16_t> nack_sequence_numbers;
@@ -134,16 +134,23 @@ void RtpVideoStreamReceiver::RtcpFeedbackBuffer::SendBufferedRtcpFeedback() {
     std::swap(lntf_state, lntf_state_);
   }
 
+  if (lntf_state) {
+    // If either a NACK or a key frame request is sent, we should buffer
+    // the LNTF and wait for them (NACK or key frame request) to tirgger
+    // the  compound feedback message.
+    // Otherwise, the LNTF should be sent out immediately.
+    const bool buffering_allowed =
+        request_key_frame || !nack_sequence_numbers.empty();
+
+    loss_notification_sender_->SendLossNotification(
+        lntf_state->last_decoded_seq_num, lntf_state->last_received_seq_num,
+        lntf_state->decodability_flag, buffering_allowed);
+  }
+
   if (request_key_frame) {
     key_frame_request_sender_->RequestKeyFrame();
   } else if (!nack_sequence_numbers.empty()) {
     nack_sender_->SendNack(nack_sequence_numbers, true);
-  }
-
-  if (lntf_state) {
-    loss_notification_sender_->SendLossNotification(
-        lntf_state->last_decoded_seq_num, lntf_state->last_received_seq_num,
-        lntf_state->decodability_flag);
   }
 }
 
@@ -473,10 +480,11 @@ void RtpVideoStreamReceiver::RequestKeyFrame() {
 void RtpVideoStreamReceiver::SendLossNotification(
     uint16_t last_decoded_seq_num,
     uint16_t last_received_seq_num,
-    bool decodability_flag) {
+    bool decodability_flag,
+    bool buffering_allowed) {
   RTC_DCHECK(config_.rtp.lntf.enabled);
   rtp_rtcp_->SendLossNotification(last_decoded_seq_num, last_received_seq_num,
-                                  decodability_flag);
+                                  decodability_flag, buffering_allowed);
 }
 
 bool RtpVideoStreamReceiver::IsUlpfecEnabled() const {

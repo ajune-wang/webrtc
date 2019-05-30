@@ -215,7 +215,8 @@ int32_t RTCPSender::SetSendingStatus(const FeedbackState& feedback_state,
 int32_t RTCPSender::SendLossNotification(const FeedbackState& feedback_state,
                                          uint16_t last_decoded_seq_num,
                                          uint16_t last_received_seq_num,
-                                         bool decodability_flag) {
+                                         bool decodability_flag,
+                                         bool buffering_allowed) {
   rtc::CritScope lock(&critical_section_rtcp_sender_);
 
   loss_notification_state_.last_decoded_seq_num = last_decoded_seq_num;
@@ -224,9 +225,12 @@ int32_t RTCPSender::SendLossNotification(const FeedbackState& feedback_state,
 
   SetFlag(kRtcpLossNotification, /*is_volatile=*/true);
 
-  // Send immediately.
-  return SendCompoundRTCP(feedback_state,
-                          {RTCPPacketType::kRtcpLossNotification});
+  if (!buffering_allowed) {
+    return SendCompoundRTCP(feedback_state,
+                            {RTCPPacketType::kRtcpLossNotification});
+  } else {
+    return 0;
+  }
 }
 
 void RTCPSender::SetRemb(int64_t bitrate_bps, std::vector<uint32_t> ssrcs) {

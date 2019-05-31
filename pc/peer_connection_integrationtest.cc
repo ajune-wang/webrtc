@@ -1022,7 +1022,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
 
   rtc::AsyncInvoker invoker_;
 
-  friend class PeerConnectionIntegrationBaseTest;
+  friend class PeerConnectionIntegrationTestFixture;
 };
 
 class MockRtcEventLogOutput : public webrtc::RtcEventLogOutput {
@@ -1141,9 +1141,9 @@ class MediaExpectations {
 // virtual network, fake A/V capture and fake encoder/decoders. The
 // PeerConnections share the threads/socket servers, but use separate versions
 // of everything else (including "PeerConnectionFactory"s).
-class PeerConnectionIntegrationBaseTest : public ::testing::Test {
+class PeerConnectionIntegrationTestFixture {
  public:
-  explicit PeerConnectionIntegrationBaseTest(SdpSemantics sdp_semantics)
+  explicit PeerConnectionIntegrationTestFixture(SdpSemantics sdp_semantics)
       : sdp_semantics_(sdp_semantics),
         ss_(new rtc::VirtualSocketServer()),
         fss_(new rtc::FirewallSocketServer(ss_.get())),
@@ -1157,7 +1157,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
     webrtc::metrics::Reset();
   }
 
-  ~PeerConnectionIntegrationBaseTest() {
+  ~PeerConnectionIntegrationTestFixture() {
     // The PeerConnections should deleted before the TurnCustomizers.
     // A TurnPort is created with a raw pointer to a TurnCustomizer. The
     // TurnPort has the same lifetime as the PeerConnection, so it's expected
@@ -1617,7 +1617,6 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
                               expected_cipher_suite);
   }
 
- protected:
   SdpSemantics sdp_semantics_;
 
  private:
@@ -1640,25 +1639,20 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
 };
 
 class PeerConnectionIntegrationTest
-    : public PeerConnectionIntegrationBaseTest,
+    : public ::testing::Test,
       public ::testing::WithParamInterface<SdpSemantics> {
  protected:
-  PeerConnectionIntegrationTest()
-      : PeerConnectionIntegrationBaseTest(GetParam()) {}
+  SdpSemantics GetSdpSemantics() const { return GetParam(); }
 };
 
-class PeerConnectionIntegrationTestPlanB
-    : public PeerConnectionIntegrationBaseTest {
+class PeerConnectionIntegrationTestPlanB : public ::testing::Test {
  protected:
-  PeerConnectionIntegrationTestPlanB()
-      : PeerConnectionIntegrationBaseTest(SdpSemantics::kPlanB) {}
+  SdpSemantics GetSdpSemantics() const { return SdpSemantics::kPlanB; }
 };
 
-class PeerConnectionIntegrationTestUnifiedPlan
-    : public PeerConnectionIntegrationBaseTest {
+class PeerConnectionIntegrationTestUnifiedPlan : public ::testing::Test {
  protected:
-  PeerConnectionIntegrationTestUnifiedPlan()
-      : PeerConnectionIntegrationBaseTest(SdpSemantics::kUnifiedPlan) {}
+  SdpSemantics GetSdpSemantics() const { return SdpSemantics::kUnifiedPlan; }
 };
 
 // Test the OnFirstPacketReceived callback from audio/video RtpReceivers.  This
@@ -1666,42 +1660,43 @@ class PeerConnectionIntegrationTestUnifiedPlan
 // after the first packet has already been received.
 TEST_P(PeerConnectionIntegrationTest,
        RtpReceiverObserverOnFirstPacketReceived) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
   // Start offer/answer exchange and wait for it to complete.
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Should be one receiver each for audio/video.
-  EXPECT_EQ(2U, caller()->rtp_receiver_observers().size());
-  EXPECT_EQ(2U, callee()->rtp_receiver_observers().size());
+  EXPECT_EQ(2U, fixture.caller()->rtp_receiver_observers().size());
+  EXPECT_EQ(2U, fixture.callee()->rtp_receiver_observers().size());
   // Wait for all "first packet received" callbacks to be fired.
   EXPECT_TRUE_WAIT(
-      absl::c_all_of(caller()->rtp_receiver_observers(),
+      absl::c_all_of(fixture.caller()->rtp_receiver_observers(),
                      [](const std::unique_ptr<MockRtpReceiverObserver>& o) {
                        return o->first_packet_received();
                      }),
       kMaxWaitForFramesMs);
   EXPECT_TRUE_WAIT(
-      absl::c_all_of(callee()->rtp_receiver_observers(),
+      absl::c_all_of(fixture.callee()->rtp_receiver_observers(),
                      [](const std::unique_ptr<MockRtpReceiverObserver>& o) {
                        return o->first_packet_received();
                      }),
       kMaxWaitForFramesMs);
   // If new observers are set after the first packet was already received, the
   // callback should still be invoked.
-  caller()->ResetRtpReceiverObservers();
-  callee()->ResetRtpReceiverObservers();
-  EXPECT_EQ(2U, caller()->rtp_receiver_observers().size());
-  EXPECT_EQ(2U, callee()->rtp_receiver_observers().size());
+  fixture.caller()->ResetRtpReceiverObservers();
+  fixture.callee()->ResetRtpReceiverObservers();
+  EXPECT_EQ(2U, fixture.caller()->rtp_receiver_observers().size());
+  EXPECT_EQ(2U, fixture.callee()->rtp_receiver_observers().size());
   EXPECT_TRUE(
-      absl::c_all_of(caller()->rtp_receiver_observers(),
+      absl::c_all_of(fixture.caller()->rtp_receiver_observers(),
                      [](const std::unique_ptr<MockRtpReceiverObserver>& o) {
                        return o->first_packet_received();
                      }));
   EXPECT_TRUE(
-      absl::c_all_of(callee()->rtp_receiver_observers(),
+      absl::c_all_of(fixture.callee()->rtp_receiver_observers(),
                      [](const std::unique_ptr<MockRtpReceiverObserver>& o) {
                        return o->first_packet_received();
                      }));
@@ -1752,34 +1747,36 @@ void TestDtmfFromSenderToReceiver(PeerConnectionWrapper* sender,
 // Verifies the DtmfSenderObserver callbacks for a DtmfSender (one in each
 // direction).
 TEST_P(PeerConnectionIntegrationTest, DtmfSenderObserver) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   // Only need audio for DTMF.
-  caller()->AddAudioTrack();
-  callee()->AddAudioTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioTrack();
+  fixture.callee()->AddAudioTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // DTLS must finish before the DTMF sender can be used reliably.
-  ASSERT_TRUE_WAIT(DtlsConnected(), kDefaultTimeout);
-  TestDtmfFromSenderToReceiver(caller(), callee());
-  TestDtmfFromSenderToReceiver(callee(), caller());
+  ASSERT_TRUE_WAIT(fixture.DtlsConnected(), kDefaultTimeout);
+  TestDtmfFromSenderToReceiver(fixture.caller(), fixture.callee());
+  TestDtmfFromSenderToReceiver(fixture.callee(), fixture.caller());
 }
 
 // Basic end-to-end test, verifying media can be encoded/transmitted/decoded
 // between two connections, using DTLS-SRTP.
 TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithDtls) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
 
   // Do normal offer/answer and wait for some frames to be received in each
   // direction.
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
   EXPECT_LE(2, webrtc::metrics::NumEvents("WebRTC.PeerConnection.KeyProtocol",
                                           webrtc::kEnumCounterKeyProtocolDtls));
   EXPECT_EQ(0, webrtc::metrics::NumEvents("WebRTC.PeerConnection.KeyProtocol",
@@ -1790,18 +1787,20 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithDtls) {
 TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithSdes) {
   PeerConnectionInterface::RTCConfiguration sdes_config;
   sdes_config.enable_dtls_srtp.emplace(false);
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(sdes_config, sdes_config));
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(
+      fixture.CreatePeerConnectionWrappersWithConfig(sdes_config, sdes_config));
+  fixture.ConnectFakeSignaling();
 
   // Do normal offer/answer and wait for some frames to be received in each
   // direction.
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
   EXPECT_LE(2, webrtc::metrics::NumEvents("WebRTC.PeerConnection.KeyProtocol",
                                           webrtc::kEnumCounterKeyProtocolSdes));
   EXPECT_EQ(0, webrtc::metrics::NumEvents("WebRTC.PeerConnection.KeyProtocol",
@@ -1812,6 +1811,8 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithSdes) {
 // certificate once the DTLS handshake has finished.
 TEST_P(PeerConnectionIntegrationTest,
        GetRemoteAudioSSLCertificateReturnsExchangedCertificate) {
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+
   auto GetRemoteAudioSSLCertificate = [](PeerConnectionWrapper* wrapper) {
     auto pci = reinterpret_cast<PeerConnectionProxy*>(wrapper->pc());
     auto pc = reinterpret_cast<PeerConnection*>(pci->internal());
@@ -1833,44 +1834,44 @@ TEST_P(PeerConnectionIntegrationTest,
   PeerConnectionInterface::RTCConfiguration callee_config;
   callee_config.enable_dtls_srtp.emplace(true);
   callee_config.certificates.push_back(callee_cert);
-  ASSERT_TRUE(
-      CreatePeerConnectionWrappersWithConfig(caller_config, callee_config));
-  ConnectFakeSignaling();
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithConfig(caller_config,
+                                                             callee_config));
+  fixture.ConnectFakeSignaling();
 
   // When first initialized, there should not be a remote SSL certificate (and
   // calling this method should not crash).
-  EXPECT_EQ(nullptr, GetRemoteAudioSSLCertificate(caller()));
-  EXPECT_EQ(nullptr, GetRemoteAudioSSLCertificate(callee()));
-  EXPECT_EQ(nullptr, GetRemoteAudioSSLCertChain(caller()));
-  EXPECT_EQ(nullptr, GetRemoteAudioSSLCertChain(callee()));
+  EXPECT_EQ(nullptr, GetRemoteAudioSSLCertificate(fixture.caller()));
+  EXPECT_EQ(nullptr, GetRemoteAudioSSLCertificate(fixture.callee()));
+  EXPECT_EQ(nullptr, GetRemoteAudioSSLCertChain(fixture.caller()));
+  EXPECT_EQ(nullptr, GetRemoteAudioSSLCertChain(fixture.callee()));
 
-  caller()->AddAudioTrack();
-  callee()->AddAudioTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
-  ASSERT_TRUE_WAIT(DtlsConnected(), kDefaultTimeout);
+  fixture.caller()->AddAudioTrack();
+  fixture.callee()->AddAudioTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.DtlsConnected(), kDefaultTimeout);
 
   // Once DTLS has been connected, each side should return the other's SSL
   // certificate when calling GetRemoteAudioSSLCertificate.
 
-  auto caller_remote_cert = GetRemoteAudioSSLCertificate(caller());
+  auto caller_remote_cert = GetRemoteAudioSSLCertificate(fixture.caller());
   ASSERT_TRUE(caller_remote_cert);
   EXPECT_EQ(callee_cert->GetSSLCertificate().ToPEMString(),
             caller_remote_cert->ToPEMString());
 
-  auto callee_remote_cert = GetRemoteAudioSSLCertificate(callee());
+  auto callee_remote_cert = GetRemoteAudioSSLCertificate(fixture.callee());
   ASSERT_TRUE(callee_remote_cert);
   EXPECT_EQ(caller_cert->GetSSLCertificate().ToPEMString(),
             callee_remote_cert->ToPEMString());
 
-  auto caller_remote_cert_chain = GetRemoteAudioSSLCertChain(caller());
+  auto caller_remote_cert_chain = GetRemoteAudioSSLCertChain(fixture.caller());
   ASSERT_TRUE(caller_remote_cert_chain);
   ASSERT_EQ(1U, caller_remote_cert_chain->GetSize());
   auto remote_cert = &caller_remote_cert_chain->Get(0);
   EXPECT_EQ(callee_cert->GetSSLCertificate().ToPEMString(),
             remote_cert->ToPEMString());
 
-  auto callee_remote_cert_chain = GetRemoteAudioSSLCertChain(callee());
+  auto callee_remote_cert_chain = GetRemoteAudioSSLCertChain(fixture.callee());
   ASSERT_TRUE(callee_remote_cert_chain);
   ASSERT_EQ(1U, callee_remote_cert_chain->GetSize());
   remote_cert = &callee_remote_cert_chain->Get(0);
@@ -1882,221 +1883,234 @@ TEST_P(PeerConnectionIntegrationTest,
 // 1280x720 and verifies that a 16:9 aspect ratio is received.
 TEST_P(PeerConnectionIntegrationTest,
        Send1280By720ResolutionAndReceive16To9AspectRatio) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
 
   // Add video tracks with 16:9 aspect ratio, size 1280 x 720.
   webrtc::FakePeriodicVideoSource::Config config;
   config.width = 1280;
   config.height = 720;
   config.timestamp_offset_ms = rtc::TimeMillis();
-  caller()->AddTrack(caller()->CreateLocalVideoTrackWithConfig(config));
-  callee()->AddTrack(callee()->CreateLocalVideoTrackWithConfig(config));
+  fixture.caller()->AddTrack(
+      fixture.caller()->CreateLocalVideoTrackWithConfig(config));
+  fixture.callee()->AddTrack(
+      fixture.callee()->CreateLocalVideoTrackWithConfig(config));
 
   // Do normal offer/answer and wait for at least one frame to be received in
   // each direction.
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(caller()->min_video_frames_received_per_track() > 0 &&
-                       callee()->min_video_frames_received_per_track() > 0,
-                   kMaxWaitForFramesMs);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(
+      fixture.caller()->min_video_frames_received_per_track() > 0 &&
+          fixture.callee()->min_video_frames_received_per_track() > 0,
+      kMaxWaitForFramesMs);
 
   // Check rendered aspect ratio.
-  EXPECT_EQ(16.0 / 9, caller()->local_rendered_aspect_ratio());
-  EXPECT_EQ(16.0 / 9, caller()->rendered_aspect_ratio());
-  EXPECT_EQ(16.0 / 9, callee()->local_rendered_aspect_ratio());
-  EXPECT_EQ(16.0 / 9, callee()->rendered_aspect_ratio());
+  EXPECT_EQ(16.0 / 9, fixture.caller()->local_rendered_aspect_ratio());
+  EXPECT_EQ(16.0 / 9, fixture.caller()->rendered_aspect_ratio());
+  EXPECT_EQ(16.0 / 9, fixture.callee()->local_rendered_aspect_ratio());
+  EXPECT_EQ(16.0 / 9, fixture.callee()->rendered_aspect_ratio());
 }
 
 // This test sets up an one-way call, with media only from caller to
 // callee.
 TEST_P(PeerConnectionIntegrationTest, OneWayMediaCall) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
   MediaExpectations media_expectations;
   media_expectations.CalleeExpectsSomeAudioAndVideo();
   media_expectations.CallerExpectsNoAudio();
   media_expectations.CallerExpectsNoVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // This test sets up a audio call initially, with the callee rejecting video
 // initially. Then later the callee decides to upgrade to audio/video, and
 // initiates a new offer/answer exchange.
 TEST_P(PeerConnectionIntegrationTest, AudioToVideoUpgrade) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   // Initially, offer an audio/video stream from the caller, but refuse to
   // send/receive video on the callee side.
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioTrack();
-  if (sdp_semantics_ == SdpSemantics::kPlanB) {
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioTrack();
+  if (fixture.sdp_semantics_ == SdpSemantics::kPlanB) {
     PeerConnectionInterface::RTCOfferAnswerOptions options;
     options.offer_to_receive_video = 0;
-    callee()->SetOfferAnswerOptions(options);
+    fixture.callee()->SetOfferAnswerOptions(options);
   } else {
-    callee()->SetRemoteOfferHandler([this] {
-      callee()->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)->Stop();
+    fixture.callee()->SetRemoteOfferHandler([&] {
+      fixture.callee()
+          ->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)
+          ->Stop();
     });
   }
   // Do offer/answer and make sure audio is still received end-to-end.
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   {
     MediaExpectations media_expectations;
     media_expectations.ExpectBidirectionalAudio();
     media_expectations.ExpectNoVideo();
-    ASSERT_TRUE(ExpectNewFrames(media_expectations));
+    ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
   }
   // Sanity check that the callee's description has a rejected video section.
-  ASSERT_NE(nullptr, callee()->pc()->local_description());
-  const ContentInfo* callee_video_content =
-      GetFirstVideoContent(callee()->pc()->local_description()->description());
+  ASSERT_NE(nullptr, fixture.callee()->pc()->local_description());
+  const ContentInfo* callee_video_content = GetFirstVideoContent(
+      fixture.callee()->pc()->local_description()->description());
   ASSERT_NE(nullptr, callee_video_content);
   EXPECT_TRUE(callee_video_content->rejected);
 
   // Now negotiate with video and ensure negotiation succeeds, with video
   // frames and additional audio frames being received.
-  callee()->AddVideoTrack();
-  if (sdp_semantics_ == SdpSemantics::kPlanB) {
+  fixture.callee()->AddVideoTrack();
+  if (fixture.sdp_semantics_ == SdpSemantics::kPlanB) {
     PeerConnectionInterface::RTCOfferAnswerOptions options;
     options.offer_to_receive_video = 1;
-    callee()->SetOfferAnswerOptions(options);
+    fixture.callee()->SetOfferAnswerOptions(options);
   } else {
-    callee()->SetRemoteOfferHandler(nullptr);
-    caller()->SetRemoteOfferHandler([this] {
+    fixture.callee()->SetRemoteOfferHandler(nullptr);
+    fixture.caller()->SetRemoteOfferHandler([&] {
       // The caller creates a new transceiver to receive video on when receiving
       // the offer, but by default it is send only.
-      auto transceivers = caller()->pc()->GetTransceivers();
+      auto transceivers = fixture.caller()->pc()->GetTransceivers();
       ASSERT_EQ(3U, transceivers.size());
       ASSERT_EQ(cricket::MEDIA_TYPE_VIDEO,
                 transceivers[2]->receiver()->media_type());
-      transceivers[2]->sender()->SetTrack(caller()->CreateLocalVideoTrack());
+      transceivers[2]->sender()->SetTrack(
+          fixture.caller()->CreateLocalVideoTrack());
       transceivers[2]->SetDirection(RtpTransceiverDirection::kSendRecv);
     });
   }
-  callee()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.callee()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   {
     // Expect additional audio frames to be received after the upgrade.
     MediaExpectations media_expectations;
     media_expectations.ExpectBidirectionalAudioAndVideo();
-    ASSERT_TRUE(ExpectNewFrames(media_expectations));
+    ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
   }
 }
 
 // Simpler than the above test; just add an audio track to an established
 // video-only connection.
 TEST_P(PeerConnectionIntegrationTest, AddAudioToVideoOnlyCall) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   // Do initial offer/answer with just a video track.
-  caller()->AddVideoTrack();
-  callee()->AddVideoTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddVideoTrack();
+  fixture.callee()->AddVideoTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Now add an audio track and do another offer/answer.
-  caller()->AddAudioTrack();
-  callee()->AddAudioTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioTrack();
+  fixture.callee()->AddAudioTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Ensure both audio and video frames are received end-to-end.
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // This test sets up a call that's transferred to a new caller with a different
 // DTLS fingerprint.
 TEST_P(PeerConnectionIntegrationTest, CallTransferredForCallee) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Keep the original peer around which will still send packets to the
   // receiving client. These SRTP packets will be dropped.
   std::unique_ptr<PeerConnectionWrapper> original_peer(
-      SetCallerPcWrapperAndReturnCurrent(
-          CreatePeerConnectionWrapperWithAlternateKey().release()));
+      fixture.SetCallerPcWrapperAndReturnCurrent(
+          fixture.CreatePeerConnectionWrapperWithAlternateKey().release()));
   // TODO(deadbeef): Why do we call Close here? That goes against the comment
   // directly above.
   original_peer->pc()->Close();
 
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Wait for some additional frames to be transmitted end-to-end.
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // This test sets up a call that's transferred to a new callee with a different
 // DTLS fingerprint.
 TEST_P(PeerConnectionIntegrationTest, CallTransferredForCaller) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Keep the original peer around which will still send packets to the
   // receiving client. These SRTP packets will be dropped.
   std::unique_ptr<PeerConnectionWrapper> original_peer(
-      SetCalleePcWrapperAndReturnCurrent(
-          CreatePeerConnectionWrapperWithAlternateKey().release()));
+      fixture.SetCalleePcWrapperAndReturnCurrent(
+          fixture.CreatePeerConnectionWrapperWithAlternateKey().release()));
   // TODO(deadbeef): Why do we call Close here? That goes against the comment
   // directly above.
   original_peer->pc()->Close();
 
-  ConnectFakeSignaling();
-  callee()->AddAudioVideoTracks();
-  caller()->SetOfferAnswerOptions(IceRestartOfferAnswerOptions());
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.ConnectFakeSignaling();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->SetOfferAnswerOptions(IceRestartOfferAnswerOptions());
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Wait for some additional frames to be transmitted end-to-end.
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // This test sets up a non-bundled call and negotiates bundling at the same
 // time as starting an ICE restart. When bundling is in effect in the restart,
 // the DTLS-SRTP context should be successfully reset.
 TEST_P(PeerConnectionIntegrationTest, BundlingEnabledWhileIceRestartOccurs) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
 
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
   // Remove the bundle group from the SDP received by the callee.
-  callee()->SetReceivedSdpMunger([](cricket::SessionDescription* desc) {
+  fixture.callee()->SetReceivedSdpMunger([](cricket::SessionDescription* desc) {
     desc->RemoveGroupByName("BUNDLE");
   });
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   {
     MediaExpectations media_expectations;
     media_expectations.ExpectBidirectionalAudioAndVideo();
-    ASSERT_TRUE(ExpectNewFrames(media_expectations));
+    ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
   }
   // Now stop removing the BUNDLE group, and trigger an ICE restart.
-  callee()->SetReceivedSdpMunger(nullptr);
-  caller()->SetOfferAnswerOptions(IceRestartOfferAnswerOptions());
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.callee()->SetReceivedSdpMunger(nullptr);
+  fixture.caller()->SetOfferAnswerOptions(IceRestartOfferAnswerOptions());
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Expect additional frames to be received after the ICE restart.
   {
     MediaExpectations media_expectations;
     media_expectations.ExpectBidirectionalAudioAndVideo();
-    ASSERT_TRUE(ExpectNewFrames(media_expectations));
+    ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
   }
 }
 
@@ -2105,107 +2119,118 @@ TEST_P(PeerConnectionIntegrationTest, BundlingEnabledWhileIceRestartOccurs) {
 // don't need to be encoded in different resolutions, since the rotation is
 // communicated through the RTP header extension.
 TEST_P(PeerConnectionIntegrationTest, RotatedVideoWithCVOExtension) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   // Add rotated video tracks.
-  caller()->AddTrack(
-      caller()->CreateLocalVideoTrackWithRotation(webrtc::kVideoRotation_90));
-  callee()->AddTrack(
-      callee()->CreateLocalVideoTrackWithRotation(webrtc::kVideoRotation_270));
+  fixture.caller()->AddTrack(
+      fixture.caller()->CreateLocalVideoTrackWithRotation(
+          webrtc::kVideoRotation_90));
+  fixture.callee()->AddTrack(
+      fixture.callee()->CreateLocalVideoTrackWithRotation(
+          webrtc::kVideoRotation_270));
 
   // Wait for video frames to be received by both sides.
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
-  ASSERT_TRUE_WAIT(caller()->min_video_frames_received_per_track() > 0 &&
-                       callee()->min_video_frames_received_per_track() > 0,
-                   kMaxWaitForFramesMs);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
+  ASSERT_TRUE_WAIT(
+      fixture.caller()->min_video_frames_received_per_track() > 0 &&
+          fixture.callee()->min_video_frames_received_per_track() > 0,
+      kMaxWaitForFramesMs);
 
   // Ensure that the aspect ratio is unmodified.
   // TODO(deadbeef): Where does 4:3 come from? Should be explicit in the test,
   // not just assumed.
-  EXPECT_EQ(4.0 / 3, caller()->local_rendered_aspect_ratio());
-  EXPECT_EQ(4.0 / 3, caller()->rendered_aspect_ratio());
-  EXPECT_EQ(4.0 / 3, callee()->local_rendered_aspect_ratio());
-  EXPECT_EQ(4.0 / 3, callee()->rendered_aspect_ratio());
+  EXPECT_EQ(4.0 / 3, fixture.caller()->local_rendered_aspect_ratio());
+  EXPECT_EQ(4.0 / 3, fixture.caller()->rendered_aspect_ratio());
+  EXPECT_EQ(4.0 / 3, fixture.callee()->local_rendered_aspect_ratio());
+  EXPECT_EQ(4.0 / 3, fixture.callee()->rendered_aspect_ratio());
   // Ensure that the CVO bits were surfaced to the renderer.
-  EXPECT_EQ(webrtc::kVideoRotation_270, caller()->rendered_rotation());
-  EXPECT_EQ(webrtc::kVideoRotation_90, callee()->rendered_rotation());
+  EXPECT_EQ(webrtc::kVideoRotation_270, fixture.caller()->rendered_rotation());
+  EXPECT_EQ(webrtc::kVideoRotation_90, fixture.callee()->rendered_rotation());
 }
 
 // Test that when the CVO extension isn't supported, video is rotated the
 // old-fashioned way, by encoding rotated frames.
 TEST_P(PeerConnectionIntegrationTest, RotatedVideoWithoutCVOExtension) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   // Add rotated video tracks.
-  caller()->AddTrack(
-      caller()->CreateLocalVideoTrackWithRotation(webrtc::kVideoRotation_90));
-  callee()->AddTrack(
-      callee()->CreateLocalVideoTrackWithRotation(webrtc::kVideoRotation_270));
+  fixture.caller()->AddTrack(
+      fixture.caller()->CreateLocalVideoTrackWithRotation(
+          webrtc::kVideoRotation_90));
+  fixture.callee()->AddTrack(
+      fixture.callee()->CreateLocalVideoTrackWithRotation(
+          webrtc::kVideoRotation_270));
 
   // Remove the CVO extension from the offered SDP.
-  callee()->SetReceivedSdpMunger([](cricket::SessionDescription* desc) {
+  fixture.callee()->SetReceivedSdpMunger([](cricket::SessionDescription* desc) {
     cricket::VideoContentDescription* video =
         GetFirstVideoContentDescription(desc);
     video->ClearRtpHeaderExtensions();
   });
   // Wait for video frames to be received by both sides.
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
-  ASSERT_TRUE_WAIT(caller()->min_video_frames_received_per_track() > 0 &&
-                       callee()->min_video_frames_received_per_track() > 0,
-                   kMaxWaitForFramesMs);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
+  ASSERT_TRUE_WAIT(
+      fixture.caller()->min_video_frames_received_per_track() > 0 &&
+          fixture.callee()->min_video_frames_received_per_track() > 0,
+      kMaxWaitForFramesMs);
 
   // Expect that the aspect ratio is inversed to account for the 90/270 degree
   // rotation.
   // TODO(deadbeef): Where does 4:3 come from? Should be explicit in the test,
   // not just assumed.
-  EXPECT_EQ(3.0 / 4, caller()->local_rendered_aspect_ratio());
-  EXPECT_EQ(3.0 / 4, caller()->rendered_aspect_ratio());
-  EXPECT_EQ(3.0 / 4, callee()->local_rendered_aspect_ratio());
-  EXPECT_EQ(3.0 / 4, callee()->rendered_aspect_ratio());
+  EXPECT_EQ(3.0 / 4, fixture.caller()->local_rendered_aspect_ratio());
+  EXPECT_EQ(3.0 / 4, fixture.caller()->rendered_aspect_ratio());
+  EXPECT_EQ(3.0 / 4, fixture.callee()->local_rendered_aspect_ratio());
+  EXPECT_EQ(3.0 / 4, fixture.callee()->rendered_aspect_ratio());
   // Expect that each endpoint is unaware of the rotation of the other endpoint.
-  EXPECT_EQ(webrtc::kVideoRotation_0, caller()->rendered_rotation());
-  EXPECT_EQ(webrtc::kVideoRotation_0, callee()->rendered_rotation());
+  EXPECT_EQ(webrtc::kVideoRotation_0, fixture.caller()->rendered_rotation());
+  EXPECT_EQ(webrtc::kVideoRotation_0, fixture.callee()->rendered_rotation());
 }
 
 // Test that if the answerer rejects the audio m= section, no audio is sent or
 // received, but video still can be.
 TEST_P(PeerConnectionIntegrationTest, AnswererRejectsAudioSection) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  if (sdp_semantics_ == SdpSemantics::kPlanB) {
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  if (fixture.sdp_semantics_ == SdpSemantics::kPlanB) {
     // Only add video track for callee, and set offer_to_receive_audio to 0, so
     // it will reject the audio m= section completely.
     PeerConnectionInterface::RTCOfferAnswerOptions options;
     options.offer_to_receive_audio = 0;
-    callee()->SetOfferAnswerOptions(options);
+    fixture.callee()->SetOfferAnswerOptions(options);
   } else {
     // Stopping the audio RtpTransceiver will cause the media section to be
     // rejected in the answer.
-    callee()->SetRemoteOfferHandler([this] {
-      callee()->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_AUDIO)->Stop();
+    fixture.callee()->SetRemoteOfferHandler([&] {
+      fixture.callee()
+          ->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_AUDIO)
+          ->Stop();
     });
   }
-  callee()->AddTrack(callee()->CreateLocalVideoTrack());
+  fixture.callee()->AddTrack(fixture.callee()->CreateLocalVideoTrack());
   // Do offer/answer and wait for successful end-to-end video frames.
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalVideo();
   media_expectations.ExpectNoAudio();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 
   // Sanity check that the callee's description has a rejected audio section.
-  ASSERT_NE(nullptr, callee()->pc()->local_description());
-  const ContentInfo* callee_audio_content =
-      GetFirstAudioContent(callee()->pc()->local_description()->description());
+  ASSERT_NE(nullptr, fixture.callee()->pc()->local_description());
+  const ContentInfo* callee_audio_content = GetFirstAudioContent(
+      fixture.callee()->pc()->local_description()->description());
   ASSERT_NE(nullptr, callee_audio_content);
   EXPECT_TRUE(callee_audio_content->rejected);
-  if (sdp_semantics_ == SdpSemantics::kUnifiedPlan) {
+  if (fixture.sdp_semantics_ == SdpSemantics::kUnifiedPlan) {
     // The caller's transceiver should have stopped after receiving the answer.
-    EXPECT_TRUE(caller()
+    EXPECT_TRUE(fixture.caller()
                     ->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_AUDIO)
                     ->stopped());
   }
@@ -2214,40 +2239,43 @@ TEST_P(PeerConnectionIntegrationTest, AnswererRejectsAudioSection) {
 // Test that if the answerer rejects the video m= section, no video is sent or
 // received, but audio still can be.
 TEST_P(PeerConnectionIntegrationTest, AnswererRejectsVideoSection) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  if (sdp_semantics_ == SdpSemantics::kPlanB) {
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  if (fixture.sdp_semantics_ == SdpSemantics::kPlanB) {
     // Only add audio track for callee, and set offer_to_receive_video to 0, so
     // it will reject the video m= section completely.
     PeerConnectionInterface::RTCOfferAnswerOptions options;
     options.offer_to_receive_video = 0;
-    callee()->SetOfferAnswerOptions(options);
+    fixture.callee()->SetOfferAnswerOptions(options);
   } else {
     // Stopping the video RtpTransceiver will cause the media section to be
     // rejected in the answer.
-    callee()->SetRemoteOfferHandler([this] {
-      callee()->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)->Stop();
+    fixture.callee()->SetRemoteOfferHandler([&] {
+      fixture.callee()
+          ->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)
+          ->Stop();
     });
   }
-  callee()->AddTrack(callee()->CreateLocalAudioTrack());
+  fixture.callee()->AddTrack(fixture.callee()->CreateLocalAudioTrack());
   // Do offer/answer and wait for successful end-to-end audio frames.
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudio();
   media_expectations.ExpectNoVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 
   // Sanity check that the callee's description has a rejected video section.
-  ASSERT_NE(nullptr, callee()->pc()->local_description());
-  const ContentInfo* callee_video_content =
-      GetFirstVideoContent(callee()->pc()->local_description()->description());
+  ASSERT_NE(nullptr, fixture.callee()->pc()->local_description());
+  const ContentInfo* callee_video_content = GetFirstVideoContent(
+      fixture.callee()->pc()->local_description()->description());
   ASSERT_NE(nullptr, callee_video_content);
   EXPECT_TRUE(callee_video_content->rejected);
-  if (sdp_semantics_ == SdpSemantics::kUnifiedPlan) {
+  if (fixture.sdp_semantics_ == SdpSemantics::kUnifiedPlan) {
     // The caller's transceiver should have stopped after receiving the answer.
-    EXPECT_TRUE(caller()
+    EXPECT_TRUE(fixture.caller()
                     ->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)
                     ->stopped());
   }
@@ -2259,36 +2287,38 @@ TEST_P(PeerConnectionIntegrationTest, AnswererRejectsVideoSection) {
 // test anything but the fact that negotiation succeeds, which doesn't mean
 // much.
 TEST_P(PeerConnectionIntegrationTest, AnswererRejectsAudioAndVideoSections) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  if (sdp_semantics_ == SdpSemantics::kPlanB) {
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  if (fixture.sdp_semantics_ == SdpSemantics::kPlanB) {
     // Don't give the callee any tracks, and set offer_to_receive_X to 0, so it
     // will reject both audio and video m= sections.
     PeerConnectionInterface::RTCOfferAnswerOptions options;
     options.offer_to_receive_audio = 0;
     options.offer_to_receive_video = 0;
-    callee()->SetOfferAnswerOptions(options);
+    fixture.callee()->SetOfferAnswerOptions(options);
   } else {
-    callee()->SetRemoteOfferHandler([this] {
+    fixture.callee()->SetRemoteOfferHandler([&] {
       // Stopping all transceivers will cause all media sections to be rejected.
-      for (const auto& transceiver : callee()->pc()->GetTransceivers()) {
+      for (const auto& transceiver :
+           fixture.callee()->pc()->GetTransceivers()) {
         transceiver->Stop();
       }
     });
   }
   // Do offer/answer and wait for stable signaling state.
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Sanity check that the callee's description has rejected m= sections.
-  ASSERT_NE(nullptr, callee()->pc()->local_description());
-  const ContentInfo* callee_audio_content =
-      GetFirstAudioContent(callee()->pc()->local_description()->description());
+  ASSERT_NE(nullptr, fixture.callee()->pc()->local_description());
+  const ContentInfo* callee_audio_content = GetFirstAudioContent(
+      fixture.callee()->pc()->local_description()->description());
   ASSERT_NE(nullptr, callee_audio_content);
   EXPECT_TRUE(callee_audio_content->rejected);
-  const ContentInfo* callee_video_content =
-      GetFirstVideoContent(callee()->pc()->local_description()->description());
+  const ContentInfo* callee_video_content = GetFirstVideoContent(
+      fixture.callee()->pc()->local_description()->description());
   ASSERT_NE(nullptr, callee_video_content);
   EXPECT_TRUE(callee_video_content->rejected);
 }
@@ -2298,20 +2328,21 @@ TEST_P(PeerConnectionIntegrationTest, AnswererRejectsAudioAndVideoSections) {
 // rejected. Once the re-negotiation is done, the video flow should stop and
 // the audio flow should continue.
 TEST_P(PeerConnectionIntegrationTest, VideoRejectedInSubsequentOffer) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   {
     MediaExpectations media_expectations;
     media_expectations.ExpectBidirectionalAudioAndVideo();
-    ASSERT_TRUE(ExpectNewFrames(media_expectations));
+    ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
   }
   // Renegotiate, rejecting the video m= section.
-  if (sdp_semantics_ == SdpSemantics::kPlanB) {
-    caller()->SetGeneratedSdpMunger(
+  if (fixture.sdp_semantics_ == SdpSemantics::kPlanB) {
+    fixture.caller()->SetGeneratedSdpMunger(
         [](cricket::SessionDescription* description) {
           for (cricket::ContentInfo& content : description->contents()) {
             if (cricket::IsVideoContent(&content)) {
@@ -2320,15 +2351,17 @@ TEST_P(PeerConnectionIntegrationTest, VideoRejectedInSubsequentOffer) {
           }
         });
   } else {
-    caller()->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)->Stop();
+    fixture.caller()
+        ->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)
+        ->Stop();
   }
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kMaxWaitForActivationMs);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kMaxWaitForActivationMs);
 
   // Sanity check that the caller's description has a rejected video section.
-  ASSERT_NE(nullptr, caller()->pc()->local_description());
-  const ContentInfo* caller_video_content =
-      GetFirstVideoContent(caller()->pc()->local_description()->description());
+  ASSERT_NE(nullptr, fixture.caller()->pc()->local_description());
+  const ContentInfo* caller_video_content = GetFirstVideoContent(
+      fixture.caller()->pc()->local_description()->description());
   ASSERT_NE(nullptr, caller_video_content);
   EXPECT_TRUE(caller_video_content->rejected);
   // Wait for some additional audio frames to be received.
@@ -2336,7 +2369,7 @@ TEST_P(PeerConnectionIntegrationTest, VideoRejectedInSubsequentOffer) {
     MediaExpectations media_expectations;
     media_expectations.ExpectBidirectionalAudio();
     media_expectations.ExpectNoVideo();
-    ASSERT_TRUE(ExpectNewFrames(media_expectations));
+    ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
   }
 }
 
@@ -2344,37 +2377,38 @@ TEST_P(PeerConnectionIntegrationTest, VideoRejectedInSubsequentOffer) {
 // section), and another that re-enables it. Regression test for:
 // bugs.webrtc.org/6023
 TEST_F(PeerConnectionIntegrationTestPlanB, EnableAudioAfterRejecting) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
 
   // Add audio track, do normal offer/answer.
   rtc::scoped_refptr<webrtc::AudioTrackInterface> track =
-      caller()->CreateLocalAudioTrack();
+      fixture.caller()->CreateLocalAudioTrack();
   rtc::scoped_refptr<webrtc::RtpSenderInterface> sender =
-      caller()->pc()->AddTrack(track, {"stream"}).MoveValue();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+      fixture.caller()->pc()->AddTrack(track, {"stream"}).MoveValue();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Remove audio track, and set offer_to_receive_audio to false to cause the
   // m= section to be completely disabled, not just "recvonly".
-  caller()->pc()->RemoveTrack(sender);
+  fixture.caller()->pc()->RemoveTrack(sender);
   PeerConnectionInterface::RTCOfferAnswerOptions options;
   options.offer_to_receive_audio = 0;
-  caller()->SetOfferAnswerOptions(options);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->SetOfferAnswerOptions(options);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Add the audio track again, expecting negotiation to succeed and frames to
   // flow.
-  sender = caller()->pc()->AddTrack(track, {"stream"}).MoveValue();
+  sender = fixture.caller()->pc()->AddTrack(track, {"stream"}).MoveValue();
   options.offer_to_receive_audio = 1;
-  caller()->SetOfferAnswerOptions(options);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->SetOfferAnswerOptions(options);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   MediaExpectations media_expectations;
   media_expectations.CalleeExpectsSomeAudio();
-  EXPECT_TRUE(ExpectNewFrames(media_expectations));
+  EXPECT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // Basic end-to-end test, but without SSRC/MSID signaling. This functionality
@@ -2383,18 +2417,19 @@ TEST_F(PeerConnectionIntegrationTestPlanB, EnableAudioAfterRejecting) {
 // add a test for an end-to-end test without MID signaling either (basically,
 // the minimum acceptable SDP).
 TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithoutSsrcOrMsidSignaling) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   // Add audio and video, testing that packets can be demuxed on payload type.
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
   // Remove SSRCs and MSIDs from the received offer SDP.
-  callee()->SetReceivedSdpMunger(RemoveSsrcsAndMsids);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.callee()->SetReceivedSdpMunger(RemoveSsrcsAndMsids);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // Basic end-to-end test, without SSRC signaling. This means that the track
@@ -2403,19 +2438,21 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithoutSsrcOrMsidSignaling) {
 TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
        EndToEndCallWithoutSsrcSignaling) {
   const char kStreamId[] = "streamId";
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   // Add just audio tracks.
-  caller()->AddTrack(caller()->CreateLocalAudioTrack(), {kStreamId});
-  callee()->AddAudioTrack();
+  fixture.caller()->AddTrack(fixture.caller()->CreateLocalAudioTrack(),
+                             {kStreamId});
+  fixture.callee()->AddAudioTrack();
 
   // Remove SSRCs from the received offer SDP.
-  callee()->SetReceivedSdpMunger(RemoveSsrcsAndKeepMsids);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.callee()->SetReceivedSdpMunger(RemoveSsrcsAndKeepMsids);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudio();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // Tests that video flows between multiple video tracks when SSRCs are not
@@ -2423,48 +2460,51 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
 // demux the incoming video tracks.
 TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
        EndToEndCallWithTwoVideoTracksAndNoSignaledSsrc) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddVideoTrack();
-  caller()->AddVideoTrack();
-  callee()->AddVideoTrack();
-  callee()->AddVideoTrack();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddVideoTrack();
+  fixture.caller()->AddVideoTrack();
+  fixture.callee()->AddVideoTrack();
+  fixture.callee()->AddVideoTrack();
 
-  caller()->SetReceivedSdpMunger(&RemoveSsrcsAndKeepMsids);
-  callee()->SetReceivedSdpMunger(&RemoveSsrcsAndKeepMsids);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
-  ASSERT_EQ(2u, caller()->pc()->GetReceivers().size());
-  ASSERT_EQ(2u, callee()->pc()->GetReceivers().size());
+  fixture.caller()->SetReceivedSdpMunger(&RemoveSsrcsAndKeepMsids);
+  fixture.callee()->SetReceivedSdpMunger(&RemoveSsrcsAndKeepMsids);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
+  ASSERT_EQ(2u, fixture.caller()->pc()->GetReceivers().size());
+  ASSERT_EQ(2u, fixture.callee()->pc()->GetReceivers().size());
 
   // Expect video to be received in both directions on both tracks.
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalVideo();
-  EXPECT_TRUE(ExpectNewFrames(media_expectations));
+  EXPECT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 TEST_F(PeerConnectionIntegrationTestUnifiedPlan, NoStreamsMsidLinePresent) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioTrack();
-  caller()->AddVideoTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
-  auto callee_receivers = callee()->pc()->GetReceivers();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioTrack();
+  fixture.caller()->AddVideoTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
+  auto callee_receivers = fixture.callee()->pc()->GetReceivers();
   ASSERT_EQ(2u, callee_receivers.size());
   EXPECT_TRUE(callee_receivers[0]->stream_ids().empty());
   EXPECT_TRUE(callee_receivers[1]->stream_ids().empty());
 }
 
 TEST_F(PeerConnectionIntegrationTestUnifiedPlan, NoStreamsMsidLineMissing) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioTrack();
-  caller()->AddVideoTrack();
-  callee()->SetReceivedSdpMunger(RemoveSsrcsAndMsids);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
-  auto callee_receivers = callee()->pc()->GetReceivers();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioTrack();
+  fixture.caller()->AddVideoTrack();
+  fixture.callee()->SetReceivedSdpMunger(RemoveSsrcsAndMsids);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
+  auto callee_receivers = fixture.callee()->pc()->GetReceivers();
   ASSERT_EQ(2u, callee_receivers.size());
   ASSERT_EQ(1u, callee_receivers[0]->stream_ids().size());
   ASSERT_EQ(1u, callee_receivers[1]->stream_ids().size());
@@ -2477,18 +2517,19 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan, NoStreamsMsidLineMissing) {
 // Test that if two video tracks are sent (from caller to callee, in this test),
 // they're transmitted correctly end-to-end.
 TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithTwoVideoTracks) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   // Add one audio/video stream, and one video-only stream.
-  caller()->AddAudioVideoTracks();
-  caller()->AddVideoTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
-  ASSERT_EQ(3u, callee()->pc()->GetReceivers().size());
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.caller()->AddVideoTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
+  ASSERT_EQ(3u, fixture.callee()->pc()->GetReceivers().size());
 
   MediaExpectations media_expectations;
   media_expectations.CalleeExpectsSomeAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 static void MakeSpecCompliantMaxBundleOffer(cricket::SessionDescription* desc) {
@@ -2522,35 +2563,37 @@ static void MakeSpecCompliantMaxBundleOffer(cricket::SessionDescription* desc) {
 // standards-compliant SDP.
 TEST_P(PeerConnectionIntegrationTest,
        EndToEndCallWithSpecCompliantMaxBundleOffer) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
   // Do the equivalent of setting the port to 0, adding a=bundle-only, and
   // removing a=ice-ufrag, a=ice-pwd, a=fingerprint and a=setup from all
   // but the first m= section.
-  callee()->SetReceivedSdpMunger(MakeSpecCompliantMaxBundleOffer);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.callee()->SetReceivedSdpMunger(MakeSpecCompliantMaxBundleOffer);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // Test that we can receive the audio output level from a remote audio track.
 // TODO(deadbeef): Use a fake audio source and verify that the output level is
 // exactly what the source on the other side was configured with.
 TEST_P(PeerConnectionIntegrationTest, GetAudioOutputLevelStatsWithOldStatsApi) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   // Just add an audio track.
-  caller()->AddAudioTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Get the audio output level stats. Note that the level is not available
   // until an RTCP packet has been received.
-  EXPECT_TRUE_WAIT(callee()->OldGetStats()->AudioOutputLevel() > 0,
+  EXPECT_TRUE_WAIT(fixture.callee()->OldGetStats()->AudioOutputLevel() > 0,
                    kMaxWaitForFramesMs);
 }
 
@@ -2558,87 +2601,93 @@ TEST_P(PeerConnectionIntegrationTest, GetAudioOutputLevelStatsWithOldStatsApi) {
 // TODO(deadbeef): Use a fake audio source and verify that the input level is
 // exactly what the source was configured with.
 TEST_P(PeerConnectionIntegrationTest, GetAudioInputLevelStatsWithOldStatsApi) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   // Just add an audio track.
-  caller()->AddAudioTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Get the audio input level stats. The level should be available very
   // soon after the test starts.
-  EXPECT_TRUE_WAIT(caller()->OldGetStats()->AudioInputLevel() > 0,
+  EXPECT_TRUE_WAIT(fixture.caller()->OldGetStats()->AudioInputLevel() > 0,
                    kMaxWaitForStatsMs);
 }
 
 // Test that we can get incoming byte counts from both audio and video tracks.
 TEST_P(PeerConnectionIntegrationTest, GetBytesReceivedStatsWithOldStatsApi) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
   // Do offer/answer, wait for the callee to receive some frames.
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   MediaExpectations media_expectations;
   media_expectations.CalleeExpectsSomeAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 
   // Get a handle to the remote tracks created, so they can be used as GetStats
   // filters.
-  for (const auto& receiver : callee()->pc()->GetReceivers()) {
+  for (const auto& receiver : fixture.callee()->pc()->GetReceivers()) {
     // We received frames, so we definitely should have nonzero "received bytes"
     // stats at this point.
-    EXPECT_GT(callee()->OldGetStatsForTrack(receiver->track())->BytesReceived(),
+    EXPECT_GT(fixture.callee()
+                  ->OldGetStatsForTrack(receiver->track())
+                  ->BytesReceived(),
               0);
   }
 }
 
 // Test that we can get outgoing byte counts from both audio and video tracks.
 TEST_P(PeerConnectionIntegrationTest, GetBytesSentStatsWithOldStatsApi) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  auto audio_track = caller()->CreateLocalAudioTrack();
-  auto video_track = caller()->CreateLocalVideoTrack();
-  caller()->AddTrack(audio_track);
-  caller()->AddTrack(video_track);
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  auto audio_track = fixture.caller()->CreateLocalAudioTrack();
+  auto video_track = fixture.caller()->CreateLocalVideoTrack();
+  fixture.caller()->AddTrack(audio_track);
+  fixture.caller()->AddTrack(video_track);
   // Do offer/answer, wait for the callee to receive some frames.
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   MediaExpectations media_expectations;
   media_expectations.CalleeExpectsSomeAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 
   // The callee received frames, so we definitely should have nonzero "sent
   // bytes" stats at this point.
-  EXPECT_GT(caller()->OldGetStatsForTrack(audio_track)->BytesSent(), 0);
-  EXPECT_GT(caller()->OldGetStatsForTrack(video_track)->BytesSent(), 0);
+  EXPECT_GT(fixture.caller()->OldGetStatsForTrack(audio_track)->BytesSent(), 0);
+  EXPECT_GT(fixture.caller()->OldGetStatsForTrack(video_track)->BytesSent(), 0);
 }
 
 // Test that we can get capture start ntp time.
 TEST_P(PeerConnectionIntegrationTest, GetCaptureStartNtpTimeWithOldStatsApi) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioTrack();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioTrack();
 
-  callee()->AddAudioTrack();
+  fixture.callee()->AddAudioTrack();
 
   // Do offer/answer, wait for the callee to receive some frames.
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Get the remote audio track created on the receiver, so they can be used as
   // GetStats filters.
-  auto receivers = callee()->pc()->GetReceivers();
+  auto receivers = fixture.callee()->pc()->GetReceivers();
   ASSERT_EQ(1u, receivers.size());
   auto remote_audio_track = receivers[0]->track();
 
   // Get the audio output level stats. Note that the level is not available
   // until an RTCP packet has been received.
-  EXPECT_TRUE_WAIT(
-      callee()->OldGetStatsForTrack(remote_audio_track)->CaptureStartNtpTime() >
-          0,
-      2 * kMaxWaitForFramesMs);
+  EXPECT_TRUE_WAIT(fixture.callee()
+                           ->OldGetStatsForTrack(remote_audio_track)
+                           ->CaptureStartNtpTime() > 0,
+                   2 * kMaxWaitForFramesMs);
 }
 
 // Test that the track ID is associated with all local and remote SSRC stats
@@ -2646,26 +2695,28 @@ TEST_P(PeerConnectionIntegrationTest, GetCaptureStartNtpTimeWithOldStatsApi) {
 // This is a regression test for crbug.com/906988
 TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
        OldGetStatsAssociatesTrackIdForManyMediaSections) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  auto audio_sender_1 = caller()->AddAudioTrack();
-  auto video_sender_1 = caller()->AddVideoTrack();
-  auto audio_sender_2 = caller()->AddAudioTrack();
-  auto video_sender_2 = caller()->AddVideoTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  auto audio_sender_1 = fixture.caller()->AddAudioTrack();
+  auto video_sender_1 = fixture.caller()->AddVideoTrack();
+  auto audio_sender_2 = fixture.caller()->AddAudioTrack();
+  auto video_sender_2 = fixture.caller()->AddVideoTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   MediaExpectations media_expectations;
   media_expectations.CalleeExpectsSomeAudioAndVideo();
-  ASSERT_TRUE_WAIT(ExpectNewFrames(media_expectations), kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.ExpectNewFrames(media_expectations),
+                   kDefaultTimeout);
 
   std::vector<std::string> track_ids = {
       audio_sender_1->track()->id(), video_sender_1->track()->id(),
       audio_sender_2->track()->id(), video_sender_2->track()->id()};
 
-  auto caller_stats = caller()->OldGetStats();
+  auto caller_stats = fixture.caller()->OldGetStats();
   EXPECT_THAT(caller_stats->TrackIds(), UnorderedElementsAreArray(track_ids));
-  auto callee_stats = callee()->OldGetStats();
+  auto callee_stats = fixture.callee()->OldGetStats();
   EXPECT_THAT(callee_stats->TrackIds(), UnorderedElementsAreArray(track_ids));
 }
 
@@ -2673,25 +2724,27 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
 // with the correct track IDs if there are more than one audio and more than one
 // video senders/receivers.
 TEST_P(PeerConnectionIntegrationTest, NewGetStatsManyAudioAndManyVideoStreams) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  auto audio_sender_1 = caller()->AddAudioTrack();
-  auto video_sender_1 = caller()->AddVideoTrack();
-  auto audio_sender_2 = caller()->AddAudioTrack();
-  auto video_sender_2 = caller()->AddVideoTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  auto audio_sender_1 = fixture.caller()->AddAudioTrack();
+  auto video_sender_1 = fixture.caller()->AddVideoTrack();
+  auto audio_sender_2 = fixture.caller()->AddAudioTrack();
+  auto video_sender_2 = fixture.caller()->AddVideoTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   MediaExpectations media_expectations;
   media_expectations.CalleeExpectsSomeAudioAndVideo();
-  ASSERT_TRUE_WAIT(ExpectNewFrames(media_expectations), kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.ExpectNewFrames(media_expectations),
+                   kDefaultTimeout);
 
   std::vector<std::string> track_ids = {
       audio_sender_1->track()->id(), video_sender_1->track()->id(),
       audio_sender_2->track()->id(), video_sender_2->track()->id()};
 
   rtc::scoped_refptr<const webrtc::RTCStatsReport> caller_report =
-      caller()->NewGetStats();
+      fixture.caller()->NewGetStats();
   ASSERT_TRUE(caller_report);
   auto outbound_stream_stats =
       caller_report->GetStatsOfType<webrtc::RTCOutboundRTPStreamStats>();
@@ -2709,7 +2762,7 @@ TEST_P(PeerConnectionIntegrationTest, NewGetStatsManyAudioAndManyVideoStreams) {
   EXPECT_THAT(outbound_track_ids, UnorderedElementsAreArray(track_ids));
 
   rtc::scoped_refptr<const webrtc::RTCStatsReport> callee_report =
-      callee()->NewGetStats();
+      fixture.callee()->NewGetStats();
   ASSERT_TRUE(callee_report);
   auto inbound_stream_stats =
       callee_report->GetStatsOfType<webrtc::RTCInboundRTPStreamStats>();
@@ -2732,21 +2785,22 @@ TEST_P(PeerConnectionIntegrationTest, NewGetStatsManyAudioAndManyVideoStreams) {
 // SDP.
 TEST_P(PeerConnectionIntegrationTest,
        GetStatsForUnsignaledStreamWithNewStatsApi) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioTrack();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioTrack();
   // Remove SSRCs and MSIDs from the received offer SDP.
-  callee()->SetReceivedSdpMunger(RemoveSsrcsAndMsids);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.callee()->SetReceivedSdpMunger(RemoveSsrcsAndMsids);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   MediaExpectations media_expectations;
   media_expectations.CalleeExpectsSomeAudio(1);
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 
   // We received a frame, so we should have nonzero "bytes received" stats for
   // the unsignaled stream, if stats are working for it.
   rtc::scoped_refptr<const webrtc::RTCStatsReport> report =
-      callee()->NewGetStats();
+      fixture.callee()->NewGetStats();
   ASSERT_NE(nullptr, report);
   auto inbound_stream_stats =
       report->GetStatsOfType<webrtc::RTCInboundRTPStreamStats>();
@@ -2759,13 +2813,14 @@ TEST_P(PeerConnectionIntegrationTest,
 // Same as above but for the legacy stats implementation.
 TEST_P(PeerConnectionIntegrationTest,
        GetStatsForUnsignaledStreamWithOldStatsApi) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioTrack();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioTrack();
   // Remove SSRCs and MSIDs from the received offer SDP.
-  callee()->SetReceivedSdpMunger(RemoveSsrcsAndMsids);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.callee()->SetReceivedSdpMunger(RemoveSsrcsAndMsids);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Note that, since the old stats implementation associates SSRCs with tracks
   // using SDP, when SSRCs aren't signaled in SDP these stats won't have an
@@ -2773,7 +2828,7 @@ TEST_P(PeerConnectionIntegrationTest,
   //
   // Also, we use "EXPECT_TRUE_WAIT" because the stats collector may decide to
   // return cached stats if not enough time has passed since the last update.
-  EXPECT_TRUE_WAIT(callee()->OldGetStats()->BytesReceived() > 0,
+  EXPECT_TRUE_WAIT(fixture.callee()->OldGetStats()->BytesReceived() > 0,
                    kDefaultTimeout);
 }
 
@@ -2781,20 +2836,21 @@ TEST_P(PeerConnectionIntegrationTest,
 // etc.) for the unsignaled stream.
 TEST_P(PeerConnectionIntegrationTest,
        GetMediaStatsForUnsignaledStreamWithNewStatsApi) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
   // Remove SSRCs and MSIDs from the received offer SDP.
-  callee()->SetReceivedSdpMunger(RemoveSsrcsAndMsids);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.callee()->SetReceivedSdpMunger(RemoveSsrcsAndMsids);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   MediaExpectations media_expectations;
   media_expectations.CalleeExpectsSomeAudio(1);
   media_expectations.CalleeExpectsSomeVideo(1);
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 
   rtc::scoped_refptr<const webrtc::RTCStatsReport> report =
-      callee()->NewGetStats();
+      fixture.callee()->NewGetStats();
   ASSERT_NE(nullptr, report);
 
   auto media_stats = report->GetStatsOfType<webrtc::RTCMediaStreamTrackStats>();
@@ -2832,24 +2888,25 @@ void ModifySsrcs(cricket::SessionDescription* desc) {
 // the inactive stream).
 TEST_P(PeerConnectionIntegrationTest,
        TrackStatsUpdatedCorrectlyWhenUnsignaledSsrcChanges) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioTrack();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioTrack();
   // Remove SSRCs and MSIDs from the received offer SDP, simulating an endpoint
   // that doesn't signal SSRCs (from the callee's perspective).
-  callee()->SetReceivedSdpMunger(RemoveSsrcsAndMsids);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.callee()->SetReceivedSdpMunger(RemoveSsrcsAndMsids);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Wait for 50 audio frames (500ms of audio) to be received by the callee.
   {
     MediaExpectations media_expectations;
     media_expectations.CalleeExpectsSomeAudio(50);
-    ASSERT_TRUE(ExpectNewFrames(media_expectations));
+    ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
   }
   // Some audio frames were received, so we should have nonzero "samples
   // received" for the track.
   rtc::scoped_refptr<const webrtc::RTCStatsReport> report =
-      callee()->NewGetStats();
+      fixture.callee()->NewGetStats();
   ASSERT_NE(nullptr, report);
   auto track_stats = report->GetStatsOfType<webrtc::RTCMediaStreamTrackStats>();
   ASSERT_EQ(1U, track_stats.size());
@@ -2858,18 +2915,18 @@ TEST_P(PeerConnectionIntegrationTest,
   // uint64_t prev_samples_received = *track_stats[0]->total_samples_received;
 
   // Create a new offer and munge it to cause the caller to use a new SSRC.
-  caller()->SetGeneratedSdpMunger(ModifySsrcs);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->SetGeneratedSdpMunger(ModifySsrcs);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Wait for 25 more audio frames (250ms of audio) to be received, from the new
   // SSRC.
   {
     MediaExpectations media_expectations;
     media_expectations.CalleeExpectsSomeAudio(25);
-    ASSERT_TRUE(ExpectNewFrames(media_expectations));
+    ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
   }
 
-  report = callee()->NewGetStats();
+  report = fixture.callee()->NewGetStats();
   ASSERT_NE(nullptr, report);
   track_stats = report->GetStatsOfType<webrtc::RTCMediaStreamTrackStats>();
   ASSERT_EQ(1U, track_stats.size());
@@ -2904,36 +2961,42 @@ TEST_P(PeerConnectionIntegrationTest,
 TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithDtls10) {
   PeerConnectionFactory::Options dtls_10_options;
   dtls_10_options.ssl_max_version = rtc::SSL_PROTOCOL_DTLS_10;
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithOptions(dtls_10_options,
-                                                      dtls_10_options));
-  ConnectFakeSignaling();
+
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithOptions(dtls_10_options,
+                                                              dtls_10_options));
+  fixture.ConnectFakeSignaling();
   // Do normal offer/answer and wait for some frames to be received in each
   // direction.
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // Test getting cipher stats and UMA metrics when DTLS 1.0 is negotiated.
 TEST_P(PeerConnectionIntegrationTest, Dtls10CipherStatsAndUmaMetrics) {
   PeerConnectionFactory::Options dtls_10_options;
   dtls_10_options.ssl_max_version = rtc::SSL_PROTOCOL_DTLS_10;
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithOptions(dtls_10_options,
-                                                      dtls_10_options));
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(DtlsConnected(), kDefaultTimeout);
-  EXPECT_TRUE_WAIT(rtc::SSLStreamAdapter::IsAcceptableCipher(
-                       caller()->OldGetStats()->DtlsCipher(), rtc::KT_DEFAULT),
-                   kDefaultTimeout);
+
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithOptions(dtls_10_options,
+                                                              dtls_10_options));
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.DtlsConnected(), kDefaultTimeout);
+  EXPECT_TRUE_WAIT(
+      rtc::SSLStreamAdapter::IsAcceptableCipher(
+          fixture.caller()->OldGetStats()->DtlsCipher(), rtc::KT_DEFAULT),
+      kDefaultTimeout);
   EXPECT_EQ_WAIT(rtc::SrtpCryptoSuiteToName(kDefaultSrtpCryptoSuite),
-                 caller()->OldGetStats()->SrtpCipher(), kDefaultTimeout);
+                 fixture.caller()->OldGetStats()->SrtpCipher(),
+                 kDefaultTimeout);
   // TODO(bugs.webrtc.org/9456): Fix it.
   EXPECT_EQ(1, webrtc::metrics::NumEvents(
                    "WebRTC.PeerConnection.SrtpCryptoSuite.Audio",
@@ -2944,18 +3007,22 @@ TEST_P(PeerConnectionIntegrationTest, Dtls10CipherStatsAndUmaMetrics) {
 TEST_P(PeerConnectionIntegrationTest, Dtls12CipherStatsAndUmaMetrics) {
   PeerConnectionFactory::Options dtls_12_options;
   dtls_12_options.ssl_max_version = rtc::SSL_PROTOCOL_DTLS_12;
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithOptions(dtls_12_options,
-                                                      dtls_12_options));
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(DtlsConnected(), kDefaultTimeout);
-  EXPECT_TRUE_WAIT(rtc::SSLStreamAdapter::IsAcceptableCipher(
-                       caller()->OldGetStats()->DtlsCipher(), rtc::KT_DEFAULT),
-                   kDefaultTimeout);
+
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithOptions(dtls_12_options,
+                                                              dtls_12_options));
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.DtlsConnected(), kDefaultTimeout);
+  EXPECT_TRUE_WAIT(
+      rtc::SSLStreamAdapter::IsAcceptableCipher(
+          fixture.caller()->OldGetStats()->DtlsCipher(), rtc::KT_DEFAULT),
+      kDefaultTimeout);
   EXPECT_EQ_WAIT(rtc::SrtpCryptoSuiteToName(kDefaultSrtpCryptoSuite),
-                 caller()->OldGetStats()->SrtpCipher(), kDefaultTimeout);
+                 fixture.caller()->OldGetStats()->SrtpCipher(),
+                 kDefaultTimeout);
   // TODO(bugs.webrtc.org/9456): Fix it.
   EXPECT_EQ(1, webrtc::metrics::NumEvents(
                    "WebRTC.PeerConnection.SrtpCryptoSuite.Audio",
@@ -2969,18 +3036,19 @@ TEST_P(PeerConnectionIntegrationTest, CallerDtls12ToCalleeDtls10) {
   caller_options.ssl_max_version = rtc::SSL_PROTOCOL_DTLS_12;
   PeerConnectionFactory::Options callee_options;
   callee_options.ssl_max_version = rtc::SSL_PROTOCOL_DTLS_10;
-  ASSERT_TRUE(
-      CreatePeerConnectionWrappersWithOptions(caller_options, callee_options));
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithOptions(caller_options,
+                                                              callee_options));
+  fixture.ConnectFakeSignaling();
   // Do normal offer/answer and wait for some frames to be received in each
   // direction.
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // Test that DTLS 1.0 can be used if the caller only supports DTLS 1.0 and the
@@ -2990,92 +3058,100 @@ TEST_P(PeerConnectionIntegrationTest, CallerDtls10ToCalleeDtls12) {
   caller_options.ssl_max_version = rtc::SSL_PROTOCOL_DTLS_10;
   PeerConnectionFactory::Options callee_options;
   callee_options.ssl_max_version = rtc::SSL_PROTOCOL_DTLS_12;
-  ASSERT_TRUE(
-      CreatePeerConnectionWrappersWithOptions(caller_options, callee_options));
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithOptions(caller_options,
+                                                              callee_options));
+  fixture.ConnectFakeSignaling();
   // Do normal offer/answer and wait for some frames to be received in each
   // direction.
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // The three tests below verify that "enable_aes128_sha1_32_crypto_cipher"
 // works as expected; the cipher should only be used if enabled by both sides.
 TEST_P(PeerConnectionIntegrationTest,
        Aes128Sha1_32_CipherNotUsedWhenOnlyCallerSupported) {
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
   PeerConnectionFactory::Options caller_options;
   caller_options.crypto_options.srtp.enable_aes128_sha1_32_crypto_cipher = true;
   PeerConnectionFactory::Options callee_options;
   callee_options.crypto_options.srtp.enable_aes128_sha1_32_crypto_cipher =
       false;
   int expected_cipher_suite = rtc::SRTP_AES128_CM_SHA1_80;
-  TestNegotiatedCipherSuite(caller_options, callee_options,
-                            expected_cipher_suite);
+  fixture.TestNegotiatedCipherSuite(caller_options, callee_options,
+                                    expected_cipher_suite);
 }
 
 TEST_P(PeerConnectionIntegrationTest,
        Aes128Sha1_32_CipherNotUsedWhenOnlyCalleeSupported) {
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
   PeerConnectionFactory::Options caller_options;
   caller_options.crypto_options.srtp.enable_aes128_sha1_32_crypto_cipher =
       false;
   PeerConnectionFactory::Options callee_options;
   callee_options.crypto_options.srtp.enable_aes128_sha1_32_crypto_cipher = true;
   int expected_cipher_suite = rtc::SRTP_AES128_CM_SHA1_80;
-  TestNegotiatedCipherSuite(caller_options, callee_options,
-                            expected_cipher_suite);
+  fixture.TestNegotiatedCipherSuite(caller_options, callee_options,
+                                    expected_cipher_suite);
 }
 
 TEST_P(PeerConnectionIntegrationTest, Aes128Sha1_32_CipherUsedWhenSupported) {
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
   PeerConnectionFactory::Options caller_options;
   caller_options.crypto_options.srtp.enable_aes128_sha1_32_crypto_cipher = true;
   PeerConnectionFactory::Options callee_options;
   callee_options.crypto_options.srtp.enable_aes128_sha1_32_crypto_cipher = true;
   int expected_cipher_suite = rtc::SRTP_AES128_CM_SHA1_32;
-  TestNegotiatedCipherSuite(caller_options, callee_options,
-                            expected_cipher_suite);
+  fixture.TestNegotiatedCipherSuite(caller_options, callee_options,
+                                    expected_cipher_suite);
 }
 
 // Test that a non-GCM cipher is used if both sides only support non-GCM.
 TEST_P(PeerConnectionIntegrationTest, NonGcmCipherUsedWhenGcmNotSupported) {
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
   bool local_gcm_enabled = false;
   bool remote_gcm_enabled = false;
   int expected_cipher_suite = kDefaultSrtpCryptoSuite;
-  TestGcmNegotiationUsesCipherSuite(local_gcm_enabled, remote_gcm_enabled,
-                                    expected_cipher_suite);
+  fixture.TestGcmNegotiationUsesCipherSuite(
+      local_gcm_enabled, remote_gcm_enabled, expected_cipher_suite);
 }
 
 // Test that a GCM cipher is used if both ends support it.
 TEST_P(PeerConnectionIntegrationTest, GcmCipherUsedWhenGcmSupported) {
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
   bool local_gcm_enabled = true;
   bool remote_gcm_enabled = true;
   int expected_cipher_suite = kDefaultSrtpCryptoSuiteGcm;
-  TestGcmNegotiationUsesCipherSuite(local_gcm_enabled, remote_gcm_enabled,
-                                    expected_cipher_suite);
+  fixture.TestGcmNegotiationUsesCipherSuite(
+      local_gcm_enabled, remote_gcm_enabled, expected_cipher_suite);
 }
 
 // Test that GCM isn't used if only the offerer supports it.
 TEST_P(PeerConnectionIntegrationTest,
        NonGcmCipherUsedWhenOnlyCallerSupportsGcm) {
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
   bool local_gcm_enabled = true;
   bool remote_gcm_enabled = false;
   int expected_cipher_suite = kDefaultSrtpCryptoSuite;
-  TestGcmNegotiationUsesCipherSuite(local_gcm_enabled, remote_gcm_enabled,
-                                    expected_cipher_suite);
+  fixture.TestGcmNegotiationUsesCipherSuite(
+      local_gcm_enabled, remote_gcm_enabled, expected_cipher_suite);
 }
 
 // Test that GCM isn't used if only the answerer supports it.
 TEST_P(PeerConnectionIntegrationTest,
        NonGcmCipherUsedWhenOnlyCalleeSupportsGcm) {
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
   bool local_gcm_enabled = false;
   bool remote_gcm_enabled = true;
   int expected_cipher_suite = kDefaultSrtpCryptoSuite;
-  TestGcmNegotiationUsesCipherSuite(local_gcm_enabled, remote_gcm_enabled,
-                                    expected_cipher_suite);
+  fixture.TestGcmNegotiationUsesCipherSuite(
+      local_gcm_enabled, remote_gcm_enabled, expected_cipher_suite);
 }
 
 // Verify that media can be transmitted end-to-end when GCM crypto suites are
@@ -3085,18 +3161,20 @@ TEST_P(PeerConnectionIntegrationTest,
 TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithGcmCipher) {
   PeerConnectionFactory::Options gcm_options;
   gcm_options.crypto_options.srtp.enable_gcm_crypto_suites = true;
-  ASSERT_TRUE(
-      CreatePeerConnectionWrappersWithOptions(gcm_options, gcm_options));
-  ConnectFakeSignaling();
+
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithOptions(gcm_options,
+                                                              gcm_options));
+  fixture.ConnectFakeSignaling();
   // Do normal offer/answer and wait for some frames to be received in each
   // direction.
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // This test sets up a call between two parties with audio, video and an RTP
@@ -3105,31 +3183,35 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithRtpDataChannel) {
   PeerConnectionInterface::RTCConfiguration rtc_config;
   rtc_config.enable_rtp_data_channel = true;
   rtc_config.enable_dtls_srtp = false;
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(rtc_config, rtc_config));
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(
+      fixture.CreatePeerConnectionWrappersWithConfig(rtc_config, rtc_config));
+  fixture.ConnectFakeSignaling();
   // Expect that data channel created on caller side will show up for callee as
   // well.
-  caller()->CreateDataChannel();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateDataChannel();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Ensure the existence of the RTP data channel didn't impede audio/video.
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
-  ASSERT_NE(nullptr, caller()->data_channel());
-  ASSERT_NE(nullptr, callee()->data_channel());
-  EXPECT_TRUE_WAIT(caller()->data_observer()->IsOpen(), kDefaultTimeout);
-  EXPECT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
+  ASSERT_NE(nullptr, fixture.caller()->data_channel());
+  ASSERT_NE(nullptr, fixture.callee()->data_channel());
+  EXPECT_TRUE_WAIT(fixture.caller()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
+  EXPECT_TRUE_WAIT(fixture.callee()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
 
   // Ensure data can be sent in both directions.
   std::string data = "hello world";
-  SendRtpDataWithRetries(caller()->data_channel(), data, 5);
-  EXPECT_EQ_WAIT(data, callee()->data_observer()->last_message(),
+  fixture.SendRtpDataWithRetries(fixture.caller()->data_channel(), data, 5);
+  EXPECT_EQ_WAIT(data, fixture.callee()->data_observer()->last_message(),
                  kDefaultTimeout);
-  SendRtpDataWithRetries(callee()->data_channel(), data, 5);
-  EXPECT_EQ_WAIT(data, caller()->data_observer()->last_message(),
+  fixture.SendRtpDataWithRetries(fixture.callee()->data_channel(), data, 5);
+  EXPECT_EQ_WAIT(data, fixture.caller()->data_observer()->last_message(),
                  kDefaultTimeout);
 }
 
@@ -3141,24 +3223,28 @@ TEST_P(PeerConnectionIntegrationTest,
   PeerConnectionInterface::RTCConfiguration rtc_config;
   rtc_config.enable_rtp_data_channel = true;
   rtc_config.enable_dtls_srtp = false;
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(rtc_config, rtc_config));
-  ConnectFakeSignaling();
-  caller()->CreateDataChannel();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
-  ASSERT_NE(nullptr, caller()->data_channel());
-  ASSERT_NE(nullptr, callee()->data_channel());
-  ASSERT_TRUE_WAIT(caller()->data_observer()->IsOpen(), kDefaultTimeout);
-  ASSERT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(
+      fixture.CreatePeerConnectionWrappersWithConfig(rtc_config, rtc_config));
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->CreateDataChannel();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
+  ASSERT_NE(nullptr, fixture.caller()->data_channel());
+  ASSERT_NE(nullptr, fixture.callee()->data_channel());
+  ASSERT_TRUE_WAIT(fixture.caller()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.callee()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
 
   // Close the data channel on the callee, and do an updated offer/answer.
-  callee()->data_channel()->Close();
-  callee()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
-  EXPECT_FALSE(caller()->data_observer()->IsOpen());
-  EXPECT_FALSE(callee()->data_observer()->IsOpen());
+  fixture.callee()->data_channel()->Close();
+  fixture.callee()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
+  EXPECT_FALSE(fixture.caller()->data_observer()->IsOpen());
+  EXPECT_FALSE(fixture.callee()->data_observer()->IsOpen());
 }
 
 // Tests that data is buffered in an RTP data channel until an observer is
@@ -3177,42 +3263,45 @@ TEST_P(PeerConnectionIntegrationTest,
   // the fake clock at a nonzero time.
   // TODO(deadbeef): Fix this.
   fake_clock.AdvanceTime(webrtc::TimeDelta::seconds(1));
-  virtual_socket_server()->set_delay_mean(5);  // 5 ms per hop.
-  virtual_socket_server()->UpdateDelayDistribution();
+
+  // The fixture is created after clock to ensure that PeerConnections are
+  // destroyed before ScopedFakeClock. If this is not done a DCHECK can be hit
+  // in ports.cc, because a large negative number is calculated for the rtt due
+  // to the global clock changing.
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  fixture.virtual_socket_server()->set_delay_mean(5);  // 5 ms per hop.
+  fixture.virtual_socket_server()->UpdateDelayDistribution();
 
   PeerConnectionInterface::RTCConfiguration rtc_config;
   rtc_config.enable_rtp_data_channel = true;
   rtc_config.enable_dtls_srtp = false;
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(rtc_config, rtc_config));
-  ConnectFakeSignaling();
-  caller()->CreateDataChannel();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE(caller()->data_channel() != nullptr);
-  ASSERT_TRUE_SIMULATED_WAIT(callee()->data_channel() != nullptr,
+  ASSERT_TRUE(
+      fixture.CreatePeerConnectionWrappersWithConfig(rtc_config, rtc_config));
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->CreateDataChannel();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE(fixture.caller()->data_channel() != nullptr);
+  ASSERT_TRUE_SIMULATED_WAIT(fixture.callee()->data_channel() != nullptr,
                              kDefaultTimeout, fake_clock);
-  ASSERT_TRUE_SIMULATED_WAIT(caller()->data_observer()->IsOpen(),
+  ASSERT_TRUE_SIMULATED_WAIT(fixture.caller()->data_observer()->IsOpen(),
                              kDefaultTimeout, fake_clock);
   ASSERT_EQ_SIMULATED_WAIT(DataChannelInterface::kOpen,
-                           callee()->data_channel()->state(), kDefaultTimeout,
-                           fake_clock);
+                           fixture.callee()->data_channel()->state(),
+                           kDefaultTimeout, fake_clock);
 
   // Unregister the observer which is normally automatically registered.
-  callee()->data_channel()->UnregisterObserver();
+  fixture.callee()->data_channel()->UnregisterObserver();
   // Send data and advance fake clock until it should have been received.
   std::string data = "hello world";
-  caller()->data_channel()->Send(DataBuffer(data));
+  fixture.caller()->data_channel()->Send(DataBuffer(data));
   SIMULATED_WAIT(false, 50, fake_clock);
 
   // Attach data channel and expect data to be received immediately. Note that
   // EXPECT_EQ_WAIT is used, such that the simulated clock is not advanced any
   // further, but data can be received even if the callback is asynchronous.
-  MockDataChannelObserver new_observer(callee()->data_channel());
+  MockDataChannelObserver new_observer(fixture.callee()->data_channel());
   EXPECT_EQ_SIMULATED_WAIT(data, new_observer.last_message(), kDefaultTimeout,
                            fake_clock);
-  // Closing the PeerConnections destroys the ports before the ScopedFakeClock.
-  // If this is not done a DCHECK can be hit in ports.cc, because a large
-  // negative number is calculated for the rtt due to the global clock changing.
-  ClosePeerConnections();
 }
 
 // This test sets up a call between two parties with audio, video and but only
@@ -3225,20 +3314,21 @@ TEST_P(PeerConnectionIntegrationTest, RtpDataChannelsRejectedByCallee) {
   PeerConnectionInterface::RTCConfiguration rtc_config_2;
   rtc_config_2.enable_dtls_srtp = false;
   rtc_config_2.enable_dtls_srtp = false;
-  ASSERT_TRUE(
-      CreatePeerConnectionWrappersWithConfig(rtc_config_1, rtc_config_2));
-  ConnectFakeSignaling();
-  caller()->CreateDataChannel();
-  ASSERT_TRUE(caller()->data_channel() != nullptr);
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithConfig(rtc_config_1,
+                                                             rtc_config_2));
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->CreateDataChannel();
+  ASSERT_TRUE(fixture.caller()->data_channel() != nullptr);
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // The caller should still have a data channel, but it should be closed, and
   // one should ever have been created for the callee.
-  EXPECT_TRUE(caller()->data_channel() != nullptr);
-  EXPECT_FALSE(caller()->data_observer()->IsOpen());
-  EXPECT_EQ(nullptr, callee()->data_channel());
+  EXPECT_TRUE(fixture.caller()->data_channel() != nullptr);
+  EXPECT_FALSE(fixture.caller()->data_observer()->IsOpen());
+  EXPECT_EQ(nullptr, fixture.callee()->data_channel());
 }
 
 // This test sets up a call between two parties with audio, and video. When
@@ -3247,28 +3337,32 @@ TEST_P(PeerConnectionIntegrationTest, AddRtpDataChannelInSubsequentOffer) {
   PeerConnectionInterface::RTCConfiguration rtc_config;
   rtc_config.enable_rtp_data_channel = true;
   rtc_config.enable_dtls_srtp = false;
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(rtc_config, rtc_config));
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(
+      fixture.CreatePeerConnectionWrappersWithConfig(rtc_config, rtc_config));
+  fixture.ConnectFakeSignaling();
   // Do initial offer/answer with audio/video.
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Create data channel and do new offer and answer.
-  caller()->CreateDataChannel();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
-  ASSERT_NE(nullptr, caller()->data_channel());
-  ASSERT_NE(nullptr, callee()->data_channel());
-  EXPECT_TRUE_WAIT(caller()->data_observer()->IsOpen(), kDefaultTimeout);
-  EXPECT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  fixture.caller()->CreateDataChannel();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
+  ASSERT_NE(nullptr, fixture.caller()->data_channel());
+  ASSERT_NE(nullptr, fixture.callee()->data_channel());
+  EXPECT_TRUE_WAIT(fixture.caller()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
+  EXPECT_TRUE_WAIT(fixture.callee()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
   // Ensure data can be sent in both directions.
   std::string data = "hello world";
-  SendRtpDataWithRetries(caller()->data_channel(), data, 5);
-  EXPECT_EQ_WAIT(data, callee()->data_observer()->last_message(),
+  fixture.SendRtpDataWithRetries(fixture.caller()->data_channel(), data, 5);
+  EXPECT_EQ_WAIT(data, fixture.callee()->data_observer()->last_message(),
                  kDefaultTimeout);
-  SendRtpDataWithRetries(callee()->data_channel(), data, 5);
-  EXPECT_EQ_WAIT(data, caller()->data_observer()->last_message(),
+  fixture.SendRtpDataWithRetries(fixture.callee()->data_channel(), data, 5);
+  EXPECT_EQ_WAIT(data, fixture.caller()->data_observer()->last_message(),
                  kDefaultTimeout);
 }
 
@@ -3277,33 +3371,37 @@ TEST_P(PeerConnectionIntegrationTest, AddRtpDataChannelInSubsequentOffer) {
 // This test sets up a call between two parties with audio, video and an SCTP
 // data channel.
 TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithSctpDataChannel) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   // Expect that data channel created on caller side will show up for callee as
   // well.
-  caller()->CreateDataChannel();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateDataChannel();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Ensure the existence of the SCTP data channel didn't impede audio/video.
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
   // Caller data channel should already exist (it created one). Callee data
   // channel may not exist yet, since negotiation happens in-band, not in SDP.
-  ASSERT_NE(nullptr, caller()->data_channel());
-  ASSERT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
-  EXPECT_TRUE_WAIT(caller()->data_observer()->IsOpen(), kDefaultTimeout);
-  EXPECT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  ASSERT_NE(nullptr, fixture.caller()->data_channel());
+  ASSERT_TRUE_WAIT(fixture.callee()->data_channel() != nullptr,
+                   kDefaultTimeout);
+  EXPECT_TRUE_WAIT(fixture.caller()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
+  EXPECT_TRUE_WAIT(fixture.callee()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
 
   // Ensure data can be sent in both directions.
   std::string data = "hello world";
-  caller()->data_channel()->Send(DataBuffer(data));
-  EXPECT_EQ_WAIT(data, callee()->data_observer()->last_message(),
+  fixture.caller()->data_channel()->Send(DataBuffer(data));
+  EXPECT_EQ_WAIT(data, fixture.callee()->data_observer()->last_message(),
                  kDefaultTimeout);
-  callee()->data_channel()->Send(DataBuffer(data));
-  EXPECT_EQ_WAIT(data, caller()->data_observer()->last_message(),
+  fixture.callee()->data_channel()->Send(DataBuffer(data));
+  EXPECT_EQ_WAIT(data, fixture.caller()->data_observer()->last_message(),
                  kDefaultTimeout);
 }
 
@@ -3311,66 +3409,80 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithSctpDataChannel) {
 // procedure results in the data channel being closed for the caller as well.
 TEST_P(PeerConnectionIntegrationTest, CalleeClosesSctpDataChannel) {
   // Same procedure as above test.
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->CreateDataChannel();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
-  ASSERT_NE(nullptr, caller()->data_channel());
-  ASSERT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
-  ASSERT_TRUE_WAIT(caller()->data_observer()->IsOpen(), kDefaultTimeout);
-  ASSERT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->CreateDataChannel();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
+  ASSERT_NE(nullptr, fixture.caller()->data_channel());
+  ASSERT_TRUE_WAIT(fixture.callee()->data_channel() != nullptr,
+                   kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.caller()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.callee()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
 
   // Close the data channel on the callee side, and wait for it to reach the
   // "closed" state on both sides.
-  callee()->data_channel()->Close();
-  EXPECT_TRUE_WAIT(!caller()->data_observer()->IsOpen(), kDefaultTimeout);
-  EXPECT_TRUE_WAIT(!callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  fixture.callee()->data_channel()->Close();
+  EXPECT_TRUE_WAIT(!fixture.caller()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
+  EXPECT_TRUE_WAIT(!fixture.callee()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
 }
 
 TEST_P(PeerConnectionIntegrationTest, SctpDataChannelConfigSentToOtherSide) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   webrtc::DataChannelInit init;
   init.id = 53;
   init.maxRetransmits = 52;
-  caller()->CreateDataChannel("data-channel", &init);
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
-  ASSERT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
-  ASSERT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  fixture.caller()->CreateDataChannel("data-channel", &init);
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.callee()->data_channel() != nullptr,
+                   kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.callee()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
   // Since "negotiated" is false, the "id" parameter should be ignored.
-  EXPECT_NE(init.id, callee()->data_channel()->id());
-  EXPECT_EQ("data-channel", callee()->data_channel()->label());
-  EXPECT_EQ(init.maxRetransmits, callee()->data_channel()->maxRetransmits());
-  EXPECT_FALSE(callee()->data_channel()->negotiated());
+  EXPECT_NE(init.id, fixture.callee()->data_channel()->id());
+  EXPECT_EQ("data-channel", fixture.callee()->data_channel()->label());
+  EXPECT_EQ(init.maxRetransmits,
+            fixture.callee()->data_channel()->maxRetransmits());
+  EXPECT_FALSE(fixture.callee()->data_channel()->negotiated());
 }
 
 // Test usrsctp's ability to process unordered data stream, where data actually
 // arrives out of order using simulated delays. Previously there have been some
 // bugs in this area.
 TEST_P(PeerConnectionIntegrationTest, StressTestUnorderedSctpDataChannel) {
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
   // Introduce random network delays.
   // Otherwise it's not a true "unordered" test.
-  virtual_socket_server()->set_delay_mean(20);
-  virtual_socket_server()->set_delay_stddev(5);
-  virtual_socket_server()->UpdateDelayDistribution();
+  fixture.virtual_socket_server()->set_delay_mean(20);
+  fixture.virtual_socket_server()->set_delay_stddev(5);
+  fixture.virtual_socket_server()->UpdateDelayDistribution();
   // Normal procedure, but with unordered data channel config.
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   webrtc::DataChannelInit init;
   init.ordered = false;
-  caller()->CreateDataChannel(&init);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
-  ASSERT_NE(nullptr, caller()->data_channel());
-  ASSERT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
-  ASSERT_TRUE_WAIT(caller()->data_observer()->IsOpen(), kDefaultTimeout);
-  ASSERT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  fixture.caller()->CreateDataChannel(&init);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
+  ASSERT_NE(nullptr, fixture.caller()->data_channel());
+  ASSERT_TRUE_WAIT(fixture.callee()->data_channel() != nullptr,
+                   kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.caller()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.callee()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
 
   static constexpr int kNumMessages = 100;
   // Deliberately chosen to be larger than the MTU so messages get fragmented.
@@ -3382,24 +3494,24 @@ TEST_P(PeerConnectionIntegrationTest, StressTestUnorderedSctpDataChannel) {
         (rand() % kMaxMessageSize) + 1;  // NOLINT (rand_r instead of rand)
     std::string message;
     ASSERT_TRUE(rtc::CreateRandomString(length, &message));
-    caller()->data_channel()->Send(DataBuffer(message));
-    callee()->data_channel()->Send(DataBuffer(message));
+    fixture.caller()->data_channel()->Send(DataBuffer(message));
+    fixture.callee()->data_channel()->Send(DataBuffer(message));
     sent_messages.push_back(message);
   }
 
   // Wait for all messages to be received.
   EXPECT_EQ_WAIT(rtc::checked_cast<size_t>(kNumMessages),
-                 caller()->data_observer()->received_message_count(),
+                 fixture.caller()->data_observer()->received_message_count(),
                  kDefaultTimeout);
   EXPECT_EQ_WAIT(rtc::checked_cast<size_t>(kNumMessages),
-                 callee()->data_observer()->received_message_count(),
+                 fixture.callee()->data_observer()->received_message_count(),
                  kDefaultTimeout);
 
   // Sort and compare to make sure none of the messages were corrupted.
   std::vector<std::string> caller_received_messages =
-      caller()->data_observer()->messages();
+      fixture.caller()->data_observer()->messages();
   std::vector<std::string> callee_received_messages =
-      callee()->data_observer()->messages();
+      fixture.callee()->data_observer()->messages();
   absl::c_sort(sent_messages);
   absl::c_sort(caller_received_messages);
   absl::c_sort(callee_received_messages);
@@ -3410,30 +3522,34 @@ TEST_P(PeerConnectionIntegrationTest, StressTestUnorderedSctpDataChannel) {
 // This test sets up a call between two parties with audio, and video. When
 // audio and video are setup and flowing, an SCTP data channel is negotiated.
 TEST_P(PeerConnectionIntegrationTest, AddSctpDataChannelInSubsequentOffer) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   // Do initial offer/answer with audio/video.
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Create data channel and do new offer and answer.
-  caller()->CreateDataChannel();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateDataChannel();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Caller data channel should already exist (it created one). Callee data
   // channel may not exist yet, since negotiation happens in-band, not in SDP.
-  ASSERT_NE(nullptr, caller()->data_channel());
-  ASSERT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
-  EXPECT_TRUE_WAIT(caller()->data_observer()->IsOpen(), kDefaultTimeout);
-  EXPECT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  ASSERT_NE(nullptr, fixture.caller()->data_channel());
+  ASSERT_TRUE_WAIT(fixture.callee()->data_channel() != nullptr,
+                   kDefaultTimeout);
+  EXPECT_TRUE_WAIT(fixture.caller()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
+  EXPECT_TRUE_WAIT(fixture.callee()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
   // Ensure data can be sent in both directions.
   std::string data = "hello world";
-  caller()->data_channel()->Send(DataBuffer(data));
-  EXPECT_EQ_WAIT(data, callee()->data_observer()->last_message(),
+  fixture.caller()->data_channel()->Send(DataBuffer(data));
+  EXPECT_EQ_WAIT(data, fixture.callee()->data_observer()->last_message(),
                  kDefaultTimeout);
-  callee()->data_channel()->Send(DataBuffer(data));
-  EXPECT_EQ_WAIT(data, caller()->data_observer()->last_message(),
+  fixture.callee()->data_channel()->Send(DataBuffer(data));
+  EXPECT_EQ_WAIT(data, fixture.caller()->data_observer()->last_message(),
                  kDefaultTimeout);
 }
 
@@ -3442,26 +3558,30 @@ TEST_P(PeerConnectionIntegrationTest, AddSctpDataChannelInSubsequentOffer) {
 // inverse of the test above.
 // This was broken in M57; see https://crbug.com/711243
 TEST_P(PeerConnectionIntegrationTest, SctpDataChannelToAudioVideoUpgrade) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   // Do initial offer/answer with just data channel.
-  caller()->CreateDataChannel();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateDataChannel();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Wait until data can be sent over the data channel.
-  ASSERT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
-  ASSERT_TRUE_WAIT(caller()->data_observer()->IsOpen(), kDefaultTimeout);
-  ASSERT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.callee()->data_channel() != nullptr,
+                   kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.caller()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.callee()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
 
   // Do subsequent offer/answer with two-way audio and video. Audio and video
   // should end up bundled on the DTLS/ICE transport already used for data.
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 static void MakeSpecCompliantSctpOffer(cricket::SessionDescription* desc) {
@@ -3477,23 +3597,27 @@ static void MakeSpecCompliantSctpOffer(cricket::SessionDescription* desc) {
 // "UDP/DTLS/SCTP" as the protocol).
 TEST_P(PeerConnectionIntegrationTest,
        DataChannelWorksWhenSpecCompliantSctpOfferReceived) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->CreateDataChannel();
-  caller()->SetGeneratedSdpMunger(MakeSpecCompliantSctpOffer);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
-  ASSERT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
-  EXPECT_TRUE_WAIT(caller()->data_observer()->IsOpen(), kDefaultTimeout);
-  EXPECT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->CreateDataChannel();
+  fixture.caller()->SetGeneratedSdpMunger(MakeSpecCompliantSctpOffer);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.callee()->data_channel() != nullptr,
+                   kDefaultTimeout);
+  EXPECT_TRUE_WAIT(fixture.caller()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
+  EXPECT_TRUE_WAIT(fixture.callee()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
 
   // Ensure data can be sent in both directions.
   std::string data = "hello world";
-  caller()->data_channel()->Send(DataBuffer(data));
-  EXPECT_EQ_WAIT(data, callee()->data_observer()->last_message(),
+  fixture.caller()->data_channel()->Send(DataBuffer(data));
+  EXPECT_EQ_WAIT(data, fixture.callee()->data_observer()->last_message(),
                  kDefaultTimeout);
-  callee()->data_channel()->Send(DataBuffer(data));
-  EXPECT_EQ_WAIT(data, caller()->data_observer()->last_message(),
+  fixture.callee()->data_channel()->Send(DataBuffer(data));
+  EXPECT_EQ_WAIT(data, fixture.caller()->data_observer()->last_message(),
                  kDefaultTimeout);
 }
 
@@ -3507,35 +3631,42 @@ TEST_P(PeerConnectionIntegrationTest, MediaTransportDataChannelEndToEnd) {
   rtc_config.bundle_policy = PeerConnectionInterface::kBundlePolicyMaxBundle;
   rtc_config.use_media_transport_for_data_channels = true;
   rtc_config.enable_dtls_srtp = false;  // SDES is required for media transport.
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
-      rtc_config, rtc_config, loopback_media_transports()->first_factory(),
-      loopback_media_transports()->second_factory()));
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(
+      fixture.CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
+          rtc_config, rtc_config,
+          fixture.loopback_media_transports()->first_factory(),
+          fixture.loopback_media_transports()->second_factory()));
+  fixture.ConnectFakeSignaling();
 
   // Expect that data channel created on caller side will show up for callee as
   // well.
-  caller()->CreateDataChannel();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateDataChannel();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Ensure that the media transport is ready.
-  loopback_media_transports()->SetState(webrtc::MediaTransportState::kWritable);
-  loopback_media_transports()->FlushAsyncInvokes();
+  fixture.loopback_media_transports()->SetState(
+      webrtc::MediaTransportState::kWritable);
+  fixture.loopback_media_transports()->FlushAsyncInvokes();
 
   // Caller data channel should already exist (it created one). Callee data
   // channel may not exist yet, since negotiation happens in-band, not in SDP.
-  ASSERT_NE(nullptr, caller()->data_channel());
-  ASSERT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
-  EXPECT_TRUE_WAIT(caller()->data_observer()->IsOpen(), kDefaultTimeout);
-  EXPECT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  ASSERT_NE(nullptr, fixture.caller()->data_channel());
+  ASSERT_TRUE_WAIT(fixture.callee()->data_channel() != nullptr,
+                   kDefaultTimeout);
+  EXPECT_TRUE_WAIT(fixture.caller()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
+  EXPECT_TRUE_WAIT(fixture.callee()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
 
   // Ensure data can be sent in both directions.
   std::string data = "hello world";
-  caller()->data_channel()->Send(DataBuffer(data));
-  EXPECT_EQ_WAIT(data, callee()->data_observer()->last_message(),
+  fixture.caller()->data_channel()->Send(DataBuffer(data));
+  EXPECT_EQ_WAIT(data, fixture.callee()->data_observer()->last_message(),
                  kDefaultTimeout);
-  callee()->data_channel()->Send(DataBuffer(data));
-  EXPECT_EQ_WAIT(data, caller()->data_observer()->last_message(),
+  fixture.callee()->data_channel()->Send(DataBuffer(data));
+  EXPECT_EQ_WAIT(data, fixture.caller()->data_observer()->last_message(),
                  kDefaultTimeout);
 }
 
@@ -3546,31 +3677,40 @@ TEST_P(PeerConnectionIntegrationTest, MediaTransportDataChannelCalleeCloses) {
   PeerConnectionInterface::RTCConfiguration rtc_config;
   rtc_config.use_media_transport_for_data_channels = true;
   rtc_config.enable_dtls_srtp = false;  // SDES is required for media transport.
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
-      rtc_config, rtc_config, loopback_media_transports()->first_factory(),
-      loopback_media_transports()->second_factory()));
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(
+      fixture.CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
+          rtc_config, rtc_config,
+          fixture.loopback_media_transports()->first_factory(),
+          fixture.loopback_media_transports()->second_factory()));
+  fixture.ConnectFakeSignaling();
 
   // Create a data channel on the caller and signal it to the callee.
-  caller()->CreateDataChannel();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateDataChannel();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Ensure that the media transport is ready.
-  loopback_media_transports()->SetState(webrtc::MediaTransportState::kWritable);
-  loopback_media_transports()->FlushAsyncInvokes();
+  fixture.loopback_media_transports()->SetState(
+      webrtc::MediaTransportState::kWritable);
+  fixture.loopback_media_transports()->FlushAsyncInvokes();
 
   // Data channels exist and open on both ends of the connection.
-  ASSERT_NE(nullptr, caller()->data_channel());
-  ASSERT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
-  ASSERT_TRUE_WAIT(caller()->data_observer()->IsOpen(), kDefaultTimeout);
-  ASSERT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  ASSERT_NE(nullptr, fixture.caller()->data_channel());
+  ASSERT_TRUE_WAIT(fixture.callee()->data_channel() != nullptr,
+                   kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.caller()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.callee()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
 
   // Close the data channel on the callee side, and wait for it to reach the
   // "closed" state on both sides.
-  callee()->data_channel()->Close();
-  EXPECT_TRUE_WAIT(!caller()->data_observer()->IsOpen(), kDefaultTimeout);
-  EXPECT_TRUE_WAIT(!callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  fixture.callee()->data_channel()->Close();
+  EXPECT_TRUE_WAIT(!fixture.caller()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
+  EXPECT_TRUE_WAIT(!fixture.callee()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
 }
 
 TEST_P(PeerConnectionIntegrationTest,
@@ -3578,33 +3718,40 @@ TEST_P(PeerConnectionIntegrationTest,
   PeerConnectionInterface::RTCConfiguration rtc_config;
   rtc_config.use_media_transport_for_data_channels = true;
   rtc_config.enable_dtls_srtp = false;  // SDES is required for media transport.
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
-      rtc_config, rtc_config, loopback_media_transports()->first_factory(),
-      loopback_media_transports()->second_factory()));
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(
+      fixture.CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
+          rtc_config, rtc_config,
+          fixture.loopback_media_transports()->first_factory(),
+          fixture.loopback_media_transports()->second_factory()));
+  fixture.ConnectFakeSignaling();
 
   // Create a data channel with a non-default configuration and signal it to the
   // callee.
   webrtc::DataChannelInit init;
   init.id = 53;
   init.maxRetransmits = 52;
-  caller()->CreateDataChannel("data-channel", &init);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateDataChannel("data-channel", &init);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Ensure that the media transport is ready.
-  loopback_media_transports()->SetState(webrtc::MediaTransportState::kWritable);
-  loopback_media_transports()->FlushAsyncInvokes();
+  fixture.loopback_media_transports()->SetState(
+      webrtc::MediaTransportState::kWritable);
+  fixture.loopback_media_transports()->FlushAsyncInvokes();
 
   // Ensure that the data channel exists on the callee with the correct
   // configuration.
-  ASSERT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
-  ASSERT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.callee()->data_channel() != nullptr,
+                   kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.callee()->data_observer()->IsOpen(),
+                   kDefaultTimeout);
   // Since "negotiate" is false, the "id" parameter is ignored.
-  EXPECT_NE(init.id, callee()->data_channel()->id());
-  EXPECT_EQ("data-channel", callee()->data_channel()->label());
-  EXPECT_EQ(init.maxRetransmits, callee()->data_channel()->maxRetransmits());
-  EXPECT_FALSE(callee()->data_channel()->negotiated());
+  EXPECT_NE(init.id, fixture.callee()->data_channel()->id());
+  EXPECT_EQ("data-channel", fixture.callee()->data_channel()->label());
+  EXPECT_EQ(init.maxRetransmits,
+            fixture.callee()->data_channel()->maxRetransmits());
+  EXPECT_FALSE(fixture.callee()->data_channel()->negotiated());
 }
 
 TEST_P(PeerConnectionIntegrationTest, MediaTransportOfferUpgrade) {
@@ -3613,36 +3760,42 @@ TEST_P(PeerConnectionIntegrationTest, MediaTransportOfferUpgrade) {
   rtc_config.bundle_policy = PeerConnectionInterface::kBundlePolicyMaxBundle;
   rtc_config.use_media_transport = true;
   rtc_config.enable_dtls_srtp = false;  // SDES is required for media transport.
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
-      rtc_config, rtc_config, loopback_media_transports()->first_factory(),
-      loopback_media_transports()->second_factory()));
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(
+      fixture.CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
+          rtc_config, rtc_config,
+          fixture.loopback_media_transports()->first_factory(),
+          fixture.loopback_media_transports()->second_factory()));
+  fixture.ConnectFakeSignaling();
 
   // Do initial offer/answer with just a video track.
-  caller()->AddVideoTrack();
-  callee()->AddVideoTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddVideoTrack();
+  fixture.callee()->AddVideoTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Ensure that the media transport is ready.
-  loopback_media_transports()->SetState(webrtc::MediaTransportState::kWritable);
-  loopback_media_transports()->FlushAsyncInvokes();
+  fixture.loopback_media_transports()->SetState(
+      webrtc::MediaTransportState::kWritable);
+  fixture.loopback_media_transports()->FlushAsyncInvokes();
 
   // Now add an audio track and do another offer/answer.
-  caller()->AddAudioTrack();
-  callee()->AddAudioTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioTrack();
+  fixture.callee()->AddAudioTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Ensure both audio and video frames are received end-to-end.
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 
   // The second offer should not have generated another media transport.
   // Media transport was kept alive, and was not recreated.
-  EXPECT_EQ(1, loopback_media_transports()->first_factory_transport_count());
-  EXPECT_EQ(1, loopback_media_transports()->second_factory_transport_count());
+  EXPECT_EQ(
+      1, fixture.loopback_media_transports()->first_factory_transport_count());
+  EXPECT_EQ(
+      1, fixture.loopback_media_transports()->second_factory_transport_count());
 }
 
 TEST_P(PeerConnectionIntegrationTest, MediaTransportOfferUpgradeOnTheCallee) {
@@ -3651,36 +3804,42 @@ TEST_P(PeerConnectionIntegrationTest, MediaTransportOfferUpgradeOnTheCallee) {
   rtc_config.bundle_policy = PeerConnectionInterface::kBundlePolicyMaxBundle;
   rtc_config.use_media_transport = true;
   rtc_config.enable_dtls_srtp = false;  // SDES is required for media transport.
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
-      rtc_config, rtc_config, loopback_media_transports()->first_factory(),
-      loopback_media_transports()->second_factory()));
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(
+      fixture.CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
+          rtc_config, rtc_config,
+          fixture.loopback_media_transports()->first_factory(),
+          fixture.loopback_media_transports()->second_factory()));
+  fixture.ConnectFakeSignaling();
 
   // Do initial offer/answer with just a video track.
-  caller()->AddVideoTrack();
-  callee()->AddVideoTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddVideoTrack();
+  fixture.callee()->AddVideoTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Ensure that the media transport is ready.
-  loopback_media_transports()->SetState(webrtc::MediaTransportState::kWritable);
-  loopback_media_transports()->FlushAsyncInvokes();
+  fixture.loopback_media_transports()->SetState(
+      webrtc::MediaTransportState::kWritable);
+  fixture.loopback_media_transports()->FlushAsyncInvokes();
 
   // Now add an audio track and do another offer/answer.
-  caller()->AddAudioTrack();
-  callee()->AddAudioTrack();
-  callee()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioTrack();
+  fixture.callee()->AddAudioTrack();
+  fixture.callee()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Ensure both audio and video frames are received end-to-end.
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 
   // The second offer should not have generated another media transport.
   // Media transport was kept alive, and was not recreated.
-  EXPECT_EQ(1, loopback_media_transports()->first_factory_transport_count());
-  EXPECT_EQ(1, loopback_media_transports()->second_factory_transport_count());
+  EXPECT_EQ(
+      1, fixture.loopback_media_transports()->first_factory_transport_count());
+  EXPECT_EQ(
+      1, fixture.loopback_media_transports()->second_factory_transport_count());
 }
 
 TEST_P(PeerConnectionIntegrationTest, MediaTransportBidirectionalAudio) {
@@ -3689,29 +3848,33 @@ TEST_P(PeerConnectionIntegrationTest, MediaTransportBidirectionalAudio) {
   rtc_config.bundle_policy = PeerConnectionInterface::kBundlePolicyMaxBundle;
   rtc_config.use_media_transport = true;
   rtc_config.enable_dtls_srtp = false;  // SDES is required for media transport.
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
-      rtc_config, rtc_config, loopback_media_transports()->first_factory(),
-      loopback_media_transports()->second_factory()));
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(
+      fixture.CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
+          rtc_config, rtc_config,
+          fixture.loopback_media_transports()->first_factory(),
+          fixture.loopback_media_transports()->second_factory()));
+  fixture.ConnectFakeSignaling();
 
-  caller()->AddAudioTrack();
-  callee()->AddAudioTrack();
+  fixture.caller()->AddAudioTrack();
+  fixture.callee()->AddAudioTrack();
   // Start offer/answer exchange and wait for it to complete.
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Ensure that the media transport is ready.
-  loopback_media_transports()->SetState(webrtc::MediaTransportState::kWritable);
-  loopback_media_transports()->FlushAsyncInvokes();
+  fixture.loopback_media_transports()->SetState(
+      webrtc::MediaTransportState::kWritable);
+  fixture.loopback_media_transports()->FlushAsyncInvokes();
 
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudio();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 
   webrtc::MediaTransportPair::Stats first_stats =
-      loopback_media_transports()->FirstStats();
+      fixture.loopback_media_transports()->FirstStats();
   webrtc::MediaTransportPair::Stats second_stats =
-      loopback_media_transports()->SecondStats();
+      fixture.loopback_media_transports()->SecondStats();
 
   EXPECT_GT(first_stats.received_audio_frames, 0);
   EXPECT_GE(second_stats.sent_audio_frames, first_stats.received_audio_frames);
@@ -3724,29 +3887,33 @@ TEST_P(PeerConnectionIntegrationTest, MediaTransportBidirectionalVideo) {
   PeerConnectionInterface::RTCConfiguration rtc_config;
   rtc_config.use_media_transport = true;
   rtc_config.enable_dtls_srtp = false;  // SDES is required for media transport.
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
-      rtc_config, rtc_config, loopback_media_transports()->first_factory(),
-      loopback_media_transports()->second_factory()));
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(
+      fixture.CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
+          rtc_config, rtc_config,
+          fixture.loopback_media_transports()->first_factory(),
+          fixture.loopback_media_transports()->second_factory()));
+  fixture.ConnectFakeSignaling();
 
-  caller()->AddVideoTrack();
-  callee()->AddVideoTrack();
+  fixture.caller()->AddVideoTrack();
+  fixture.callee()->AddVideoTrack();
   // Start offer/answer exchange and wait for it to complete.
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Ensure that the media transport is ready.
-  loopback_media_transports()->SetState(webrtc::MediaTransportState::kWritable);
-  loopback_media_transports()->FlushAsyncInvokes();
+  fixture.loopback_media_transports()->SetState(
+      webrtc::MediaTransportState::kWritable);
+  fixture.loopback_media_transports()->FlushAsyncInvokes();
 
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 
   webrtc::MediaTransportPair::Stats first_stats =
-      loopback_media_transports()->FirstStats();
+      fixture.loopback_media_transports()->FirstStats();
   webrtc::MediaTransportPair::Stats second_stats =
-      loopback_media_transports()->SecondStats();
+      fixture.loopback_media_transports()->SecondStats();
 
   EXPECT_GT(first_stats.received_video_frames, 0);
   EXPECT_GE(second_stats.sent_video_frames, first_stats.received_video_frames);
@@ -3761,45 +3928,49 @@ TEST_P(PeerConnectionIntegrationTest,
   rtc_config.use_media_transport = false;
   rtc_config.use_media_transport_for_data_channels = true;
   rtc_config.enable_dtls_srtp = false;  // SDES is required for media transport.
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
-      rtc_config, rtc_config, loopback_media_transports()->first_factory(),
-      loopback_media_transports()->second_factory()));
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(
+      fixture.CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
+          rtc_config, rtc_config,
+          fixture.loopback_media_transports()->first_factory(),
+          fixture.loopback_media_transports()->second_factory()));
+  fixture.ConnectFakeSignaling();
 
-  caller()->AddVideoTrack();
-  callee()->AddVideoTrack();
+  fixture.caller()->AddVideoTrack();
+  fixture.callee()->AddVideoTrack();
   // Start offer/answer exchange and wait for it to complete.
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // Test that the ICE connection and gathering states eventually reach
 // "complete".
 TEST_P(PeerConnectionIntegrationTest, IceStatesReachCompletion) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   // Do normal offer/answer.
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceGatheringComplete,
-                 caller()->ice_gathering_state(), kMaxWaitForFramesMs);
+                 fixture.caller()->ice_gathering_state(), kMaxWaitForFramesMs);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceGatheringComplete,
-                 callee()->ice_gathering_state(), kMaxWaitForFramesMs);
+                 fixture.callee()->ice_gathering_state(), kMaxWaitForFramesMs);
   // After the best candidate pair is selected and all candidates are signaled,
   // the ICE connection state should reach "complete".
   // TODO(deadbeef): Currently, the ICE "controlled" agent (the
   // answerer/"callee" by default) only reaches "connected". When this is
   // fixed, this test should be updated.
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionCompleted,
-                 caller()->ice_connection_state(), kDefaultTimeout);
+                 fixture.caller()->ice_connection_state(), kDefaultTimeout);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
-                 callee()->ice_connection_state(), kDefaultTimeout);
+                 fixture.callee()->ice_connection_state(), kDefaultTimeout);
 }
 
 constexpr int kOnlyLocalPorts = cricket::PORTALLOCATOR_DISABLE_STUN |
@@ -3833,45 +4004,43 @@ TEST_P(PeerConnectionIntegrationTest,
   config.bundle_policy = PeerConnectionInterface::kBundlePolicyMaxBundle;
   config.rtcp_mux_policy = PeerConnectionInterface::kRtcpMuxPolicyRequire;
 
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfigAndDeps(
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithConfigAndDeps(
       config, std::move(caller_deps), config, std::move(callee_deps)));
 
-  caller()->SetRemoteAsyncResolver(&callee_async_resolver);
-  callee()->SetRemoteAsyncResolver(&caller_async_resolver);
+  fixture.caller()->SetRemoteAsyncResolver(&callee_async_resolver);
+  fixture.callee()->SetRemoteAsyncResolver(&caller_async_resolver);
 
   // Enable hostname candidates with mDNS names.
-  caller()->SetMdnsResponder(
-      absl::make_unique<webrtc::FakeMdnsResponder>(network_thread()));
-  callee()->SetMdnsResponder(
-      absl::make_unique<webrtc::FakeMdnsResponder>(network_thread()));
+  fixture.caller()->SetMdnsResponder(
+      absl::make_unique<webrtc::FakeMdnsResponder>(fixture.network_thread()));
+  fixture.callee()->SetMdnsResponder(
+      absl::make_unique<webrtc::FakeMdnsResponder>(fixture.network_thread()));
 
-  SetPortAllocatorFlags(kOnlyLocalPorts, kOnlyLocalPorts);
+  fixture.SetPortAllocatorFlags(kOnlyLocalPorts, kOnlyLocalPorts);
 
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionCompleted,
-                 caller()->ice_connection_state(), kDefaultTimeout);
+                 fixture.caller()->ice_connection_state(), kDefaultTimeout);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
-                 callee()->ice_connection_state(), kDefaultTimeout);
+                 fixture.callee()->ice_connection_state(), kDefaultTimeout);
 
   EXPECT_EQ(1, webrtc::metrics::NumEvents(
                    "WebRTC.PeerConnection.CandidatePairType_UDP",
                    webrtc::kIceCandidatePairHostNameHostName));
 }
 
-// Test that firewalling the ICE connection causes the clients to identify the
-// disconnected state and then removing the firewall causes them to reconnect.
-class PeerConnectionIntegrationIceStatesTest
-    : public PeerConnectionIntegrationBaseTest,
-      public ::testing::WithParamInterface<
-          std::tuple<SdpSemantics, std::tuple<std::string, uint32_t>>> {
- protected:
-  PeerConnectionIntegrationIceStatesTest()
-      : PeerConnectionIntegrationBaseTest(std::get<0>(GetParam())) {
-    port_allocator_flags_ = std::get<1>(std::get<1>(GetParam()));
+class PeerConnectionIntegrationIceStatesTestFixture
+    : public PeerConnectionIntegrationTestFixture {
+ public:
+  PeerConnectionIntegrationIceStatesTestFixture(SdpSemantics sdp_semantics,
+                                                uint32_t port_allocator_flags)
+      : PeerConnectionIntegrationTestFixture(sdp_semantics) {
+    port_allocator_flags_ = port_allocator_flags;
   }
 
   void StartStunServer(const SocketAddress& server_address) {
@@ -3884,7 +4053,7 @@ class PeerConnectionIntegrationIceStatesTest
   }
 
   void SetPortAllocatorFlags() {
-    PeerConnectionIntegrationBaseTest::SetPortAllocatorFlags(
+    PeerConnectionIntegrationTestFixture::SetPortAllocatorFlags(
         port_allocator_flags_, port_allocator_flags_);
   }
 
@@ -3924,20 +4093,36 @@ class PeerConnectionIntegrationIceStatesTest
   uint32_t port_allocator_flags_;
   std::unique_ptr<cricket::TestStunServer> stun_server_;
 };
+// Test that firewalling the ICE connection causes the clients to
+// identify the disconnected state and then removing the firewall causes
+// them to reconnect.
+class PeerConnectionIntegrationIceStatesTest
+    : public ::testing::Test,
+      public ::testing::WithParamInterface<
+          std::tuple<SdpSemantics, std::tuple<std::string, uint32_t>>> {
+ protected:
+  SdpSemantics GetSdpSemantics() const { return std::get<0>(GetParam()); }
+
+  uint32_t GetPortAllocatorFlags() const {
+    return std::get<1>(std::get<1>(GetParam()));
+  }
+};
 
 // Tests that the PeerConnection goes through all the ICE gathering/connection
 // states over the duration of the call. This includes Disconnected and Failed
-// states, induced by putting a firewall between the peers and waiting for them
-// to time out.
+// states, induced by putting a fixture.firewall between the peers and waiting
+// for them to time out.
 TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyIceStates) {
   rtc::ScopedFakeClock fake_clock;
   // Some things use a time of "0" as a special value, so we need to start out
   // the fake clock at a nonzero time.
   fake_clock.AdvanceTime(TimeDelta::seconds(1));
+  PeerConnectionIntegrationIceStatesTestFixture fixture(
+      GetSdpSemantics(), GetPortAllocatorFlags());
 
   const SocketAddress kStunServerAddress =
       SocketAddress("99.99.99.1", cricket::STUN_SERVER_PORT);
-  StartStunServer(kStunServerAddress);
+  fixture.StartStunServer(kStunServerAddress);
 
   PeerConnectionInterface::RTCConfiguration config;
   PeerConnectionInterface::IceServer ice_stun_server;
@@ -3946,92 +4131,97 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyIceStates) {
       kStunServerAddress.PortAsString());
   config.servers.push_back(ice_stun_server);
 
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(config, config));
-  ConnectFakeSignaling();
-  SetPortAllocatorFlags();
-  SetUpNetworkInterfaces();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithConfig(config, config));
+  fixture.ConnectFakeSignaling();
+  fixture.SetPortAllocatorFlags();
+  fixture.SetUpNetworkInterfaces();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
 
   // Initial state before anything happens.
   ASSERT_EQ(PeerConnectionInterface::kIceGatheringNew,
-            caller()->ice_gathering_state());
+            fixture.caller()->ice_gathering_state());
   ASSERT_EQ(PeerConnectionInterface::kIceConnectionNew,
-            caller()->ice_connection_state());
+            fixture.caller()->ice_connection_state());
   ASSERT_EQ(PeerConnectionInterface::kIceConnectionNew,
-            caller()->standardized_ice_connection_state());
+            fixture.caller()->standardized_ice_connection_state());
 
   // Start the call by creating the offer, setting it as the local description,
   // then sending it to the peer who will respond with an answer. This happens
   // asynchronously so that we can watch the states as it runs in the
   // background.
-  caller()->CreateAndSetAndSignalOffer();
+  fixture.caller()->CreateAndSetAndSignalOffer();
 
   ASSERT_EQ(PeerConnectionInterface::kIceConnectionCompleted,
-            caller()->ice_connection_state());
+            fixture.caller()->ice_connection_state());
   ASSERT_EQ(PeerConnectionInterface::kIceConnectionCompleted,
-            caller()->standardized_ice_connection_state());
+            fixture.caller()->standardized_ice_connection_state());
 
   // Verify that the observer was notified of the intermediate transitions.
-  EXPECT_THAT(caller()->ice_connection_state_history(),
+  EXPECT_THAT(fixture.caller()->ice_connection_state_history(),
               ElementsAre(PeerConnectionInterface::kIceConnectionChecking,
                           PeerConnectionInterface::kIceConnectionConnected,
                           PeerConnectionInterface::kIceConnectionCompleted));
-  EXPECT_THAT(caller()->standardized_ice_connection_state_history(),
+  EXPECT_THAT(fixture.caller()->standardized_ice_connection_state_history(),
               ElementsAre(PeerConnectionInterface::kIceConnectionChecking,
                           PeerConnectionInterface::kIceConnectionConnected,
                           PeerConnectionInterface::kIceConnectionCompleted));
   EXPECT_THAT(
-      caller()->peer_connection_state_history(),
+      fixture.caller()->peer_connection_state_history(),
       ElementsAre(PeerConnectionInterface::PeerConnectionState::kConnecting,
                   PeerConnectionInterface::PeerConnectionState::kConnected));
-  EXPECT_THAT(caller()->ice_gathering_state_history(),
+  EXPECT_THAT(fixture.caller()->ice_gathering_state_history(),
               ElementsAre(PeerConnectionInterface::kIceGatheringGathering,
                           PeerConnectionInterface::kIceGatheringComplete));
 
   // Block connections to/from the caller and wait for ICE to become
   // disconnected.
-  for (const auto& caller_address : CallerAddresses()) {
-    firewall()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY, caller_address);
+  for (const auto& caller_address : fixture.CallerAddresses()) {
+    fixture.firewall()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY,
+                                caller_address);
   }
   RTC_LOG(LS_INFO) << "Firewall rules applied";
   ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionDisconnected,
-                           caller()->ice_connection_state(), kDefaultTimeout,
-                           fake_clock);
-  ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionDisconnected,
-                           caller()->standardized_ice_connection_state(),
+                           fixture.caller()->ice_connection_state(),
                            kDefaultTimeout, fake_clock);
+  ASSERT_EQ_SIMULATED_WAIT(
+      PeerConnectionInterface::kIceConnectionDisconnected,
+      fixture.caller()->standardized_ice_connection_state(), kDefaultTimeout,
+      fake_clock);
 
-  // Let ICE re-establish by removing the firewall rules.
-  firewall()->ClearRules();
+  // Let ICE re-establish by removing the fixture.firewall rules.
+  fixture.firewall()->ClearRules();
   RTC_LOG(LS_INFO) << "Firewall rules cleared";
   ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionCompleted,
-                           caller()->ice_connection_state(), kDefaultTimeout,
-                           fake_clock);
-  ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionCompleted,
-                           caller()->standardized_ice_connection_state(),
+                           fixture.caller()->ice_connection_state(),
                            kDefaultTimeout, fake_clock);
+  ASSERT_EQ_SIMULATED_WAIT(
+      PeerConnectionInterface::kIceConnectionCompleted,
+      fixture.caller()->standardized_ice_connection_state(), kDefaultTimeout,
+      fake_clock);
 
   // According to RFC7675, if there is no response within 30 seconds then the
   // peer should consider the other side to have rejected the connection. This
   // is signaled by the state transitioning to "failed".
   constexpr int kConsentTimeout = 30000;
-  for (const auto& caller_address : CallerAddresses()) {
-    firewall()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY, caller_address);
+  for (const auto& caller_address : fixture.CallerAddresses()) {
+    fixture.firewall()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY,
+                                caller_address);
   }
   RTC_LOG(LS_INFO) << "Firewall rules applied again";
   ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionFailed,
-                           caller()->ice_connection_state(), kConsentTimeout,
-                           fake_clock);
-  ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionFailed,
-                           caller()->standardized_ice_connection_state(),
+                           fixture.caller()->ice_connection_state(),
                            kConsentTimeout, fake_clock);
+  ASSERT_EQ_SIMULATED_WAIT(
+      PeerConnectionInterface::kIceConnectionFailed,
+      fixture.caller()->standardized_ice_connection_state(), kConsentTimeout,
+      fake_clock);
 
   // We need to manually close the peerconnections before the fake clock goes
   // out of scope, or we trigger a DCHECK in rtp_sender.cc when we briefly
   // return to using non-faked time.
-  delete SetCallerPcWrapperAndReturnCurrent(nullptr);
-  delete SetCalleePcWrapperAndReturnCurrent(nullptr);
+  delete fixture.SetCallerPcWrapperAndReturnCurrent(nullptr);
+  delete fixture.SetCalleePcWrapperAndReturnCurrent(nullptr);
 }
 
 // Tests that if the connection doesn't get set up properly we eventually reach
@@ -4042,53 +4232,59 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, IceStateSetupFailure) {
   // the fake clock at a nonzero time.
   fake_clock.AdvanceTime(TimeDelta::seconds(1));
 
+  PeerConnectionIntegrationIceStatesTestFixture fixture(
+      GetSdpSemantics(), GetPortAllocatorFlags());
   // Block connections to/from the caller and wait for ICE to become
   // disconnected.
-  for (const auto& caller_address : CallerAddresses()) {
-    firewall()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY, caller_address);
+  for (const auto& caller_address : fixture.CallerAddresses()) {
+    fixture.firewall()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY,
+                                caller_address);
   }
 
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  SetPortAllocatorFlags();
-  SetUpNetworkInterfaces();
-  caller()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.SetPortAllocatorFlags();
+  fixture.SetUpNetworkInterfaces();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
 
   // According to RFC7675, if there is no response within 30 seconds then the
   // peer should consider the other side to have rejected the connection. This
   // is signaled by the state transitioning to "failed".
   constexpr int kConsentTimeout = 30000;
-  ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionFailed,
-                           caller()->standardized_ice_connection_state(),
-                           kConsentTimeout, fake_clock);
+  ASSERT_EQ_SIMULATED_WAIT(
+      PeerConnectionInterface::kIceConnectionFailed,
+      fixture.caller()->standardized_ice_connection_state(), kConsentTimeout,
+      fake_clock);
 
   // We need to manually close the peerconnections before the fake clock goes
   // out of scope, or we trigger a DCHECK in rtp_sender.cc when we briefly
   // return to using non-faked time.
-  delete SetCallerPcWrapperAndReturnCurrent(nullptr);
-  delete SetCalleePcWrapperAndReturnCurrent(nullptr);
+  delete fixture.SetCallerPcWrapperAndReturnCurrent(nullptr);
+  delete fixture.SetCalleePcWrapperAndReturnCurrent(nullptr);
 }
 
 // Tests that the best connection is set to the appropriate IPv4/IPv6 connection
 // and that the statistics in the metric observers are updated correctly.
 TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyBestConnection) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  SetPortAllocatorFlags();
-  SetUpNetworkInterfaces();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
+  PeerConnectionIntegrationIceStatesTestFixture fixture(
+      GetSdpSemantics(), GetPortAllocatorFlags());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.SetPortAllocatorFlags();
+  fixture.SetUpNetworkInterfaces();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
 
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // TODO(bugs.webrtc.org/9456): Fix it.
   const int num_best_ipv4 = webrtc::metrics::NumEvents(
       "WebRTC.PeerConnection.IPMetrics", webrtc::kBestConnections_IPv4);
   const int num_best_ipv6 = webrtc::metrics::NumEvents(
       "WebRTC.PeerConnection.IPMetrics", webrtc::kBestConnections_IPv6);
-  if (TestIPv6()) {
+  if (fixture.TestIPv6()) {
     // When IPv6 is enabled, we should prefer an IPv6 connection over an IPv4
     // connection.
     EXPECT_EQ(0, num_best_ipv4);
@@ -4128,25 +4324,26 @@ INSTANTIATE_TEST_SUITE_P(
 // new ICE candidates are generated and audio and video still can flow, and the
 // ICE state reaches completed again.
 TEST_P(PeerConnectionIntegrationTest, MediaContinuesFlowingAfterIceRestart) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   // Do normal offer/answer and wait for ICE to complete.
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionCompleted,
-                 caller()->ice_connection_state(), kMaxWaitForFramesMs);
+                 fixture.caller()->ice_connection_state(), kMaxWaitForFramesMs);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
-                 callee()->ice_connection_state(), kMaxWaitForFramesMs);
+                 fixture.callee()->ice_connection_state(), kMaxWaitForFramesMs);
 
   // To verify that the ICE restart actually occurs, get
   // ufrag/password/candidates before and after restart.
   // Create an SDP string of the first audio candidate for both clients.
   const webrtc::IceCandidateCollection* audio_candidates_caller =
-      caller()->pc()->local_description()->candidates(0);
+      fixture.caller()->pc()->local_description()->candidates(0);
   const webrtc::IceCandidateCollection* audio_candidates_callee =
-      callee()->pc()->local_description()->candidates(0);
+      fixture.callee()->pc()->local_description()->candidates(0);
   ASSERT_GT(audio_candidates_caller->count(), 0u);
   ASSERT_GT(audio_candidates_callee->count(), 0u);
   std::string caller_candidate_pre_restart;
@@ -4156,25 +4353,27 @@ TEST_P(PeerConnectionIntegrationTest, MediaContinuesFlowingAfterIceRestart) {
   ASSERT_TRUE(
       audio_candidates_callee->at(0)->ToString(&callee_candidate_pre_restart));
   const cricket::SessionDescription* desc =
-      caller()->pc()->local_description()->description();
+      fixture.caller()->pc()->local_description()->description();
   std::string caller_ufrag_pre_restart =
       desc->transport_infos()[0].description.ice_ufrag;
-  desc = callee()->pc()->local_description()->description();
+  desc = fixture.callee()->pc()->local_description()->description();
   std::string callee_ufrag_pre_restart =
       desc->transport_infos()[0].description.ice_ufrag;
 
   // Have the caller initiate an ICE restart.
-  caller()->SetOfferAnswerOptions(IceRestartOfferAnswerOptions());
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->SetOfferAnswerOptions(IceRestartOfferAnswerOptions());
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionCompleted,
-                 caller()->ice_connection_state(), kMaxWaitForFramesMs);
+                 fixture.caller()->ice_connection_state(), kMaxWaitForFramesMs);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
-                 callee()->ice_connection_state(), kMaxWaitForFramesMs);
+                 fixture.callee()->ice_connection_state(), kMaxWaitForFramesMs);
 
   // Grab the ufrags/candidates again.
-  audio_candidates_caller = caller()->pc()->local_description()->candidates(0);
-  audio_candidates_callee = callee()->pc()->local_description()->candidates(0);
+  audio_candidates_caller =
+      fixture.caller()->pc()->local_description()->candidates(0);
+  audio_candidates_callee =
+      fixture.callee()->pc()->local_description()->candidates(0);
   ASSERT_GT(audio_candidates_caller->count(), 0u);
   ASSERT_GT(audio_candidates_callee->count(), 0u);
   std::string caller_candidate_post_restart;
@@ -4183,10 +4382,10 @@ TEST_P(PeerConnectionIntegrationTest, MediaContinuesFlowingAfterIceRestart) {
   std::string callee_candidate_post_restart;
   ASSERT_TRUE(
       audio_candidates_callee->at(0)->ToString(&callee_candidate_post_restart));
-  desc = caller()->pc()->local_description()->description();
+  desc = fixture.caller()->pc()->local_description()->description();
   std::string caller_ufrag_post_restart =
       desc->transport_infos()[0].description.ice_ufrag;
-  desc = callee()->pc()->local_description()->description();
+  desc = fixture.callee()->pc()->local_description()->description();
   std::string callee_ufrag_post_restart =
       desc->transport_infos()[0].description.ice_ufrag;
   // Sanity check that an ICE restart was actually negotiated in SDP.
@@ -4198,7 +4397,7 @@ TEST_P(PeerConnectionIntegrationTest, MediaContinuesFlowingAfterIceRestart) {
   // Ensure that additional frames are received after the ICE restart.
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // Verify that audio/video can be received end-to-end when ICE renomination is
@@ -4206,27 +4405,28 @@ TEST_P(PeerConnectionIntegrationTest, MediaContinuesFlowingAfterIceRestart) {
 TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithIceRenomination) {
   PeerConnectionInterface::RTCConfiguration config;
   config.enable_ice_renomination = true;
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(config, config));
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithConfig(config, config));
+  fixture.ConnectFakeSignaling();
   // Do normal offer/answer and wait for some frames to be received in each
   // direction.
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Sanity check that ICE renomination was actually negotiated.
   const cricket::SessionDescription* desc =
-      caller()->pc()->local_description()->description();
+      fixture.caller()->pc()->local_description()->description();
   for (const cricket::TransportInfo& info : desc->transport_infos()) {
     ASSERT_THAT(info.description.transport_options, Contains("renomination"));
   }
-  desc = callee()->pc()->local_description()->description();
+  desc = fixture.callee()->pc()->local_description()->description();
   for (const cricket::TransportInfo& info : desc->transport_infos()) {
     ASSERT_THAT(info.description.transport_options, Contains("renomination"));
   }
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // With a max bundle policy and RTCP muxing, adding a new media description to
@@ -4237,23 +4437,24 @@ TEST_P(PeerConnectionIntegrationTest,
   PeerConnectionInterface::RTCConfiguration config;
   config.bundle_policy = PeerConnectionInterface::kBundlePolicyMaxBundle;
   config.rtcp_mux_policy = PeerConnectionInterface::kRtcpMuxPolicyRequire;
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithConfig(
       config, PeerConnectionInterface::RTCConfiguration()));
-  ConnectFakeSignaling();
+  fixture.ConnectFakeSignaling();
 
-  caller()->AddAudioTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   ASSERT_EQ_WAIT(PeerConnectionInterface::kIceConnectionCompleted,
-                 caller()->ice_connection_state(), kDefaultTimeout);
+                 fixture.caller()->ice_connection_state(), kDefaultTimeout);
 
-  caller()->clear_ice_connection_state_history();
+  fixture.caller()->clear_ice_connection_state_history();
 
-  caller()->AddVideoTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddVideoTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
-  EXPECT_EQ(0u, caller()->ice_connection_state_history().size());
+  EXPECT_EQ(0u, fixture.caller()->ice_connection_state_history().size());
 }
 
 // This test sets up a call between two parties with audio and video. It then
@@ -4261,58 +4462,61 @@ TEST_P(PeerConnectionIntegrationTest,
 // again, enabling video.
 TEST_P(PeerConnectionIntegrationTest,
        VideoFlowsAfterMediaSectionIsRejectedAndRecycled) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
 
   // Do initial negotiation, only sending media from the caller. Will result in
   // video and audio recvonly "m=" sections.
-  caller()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Negotiate again, disabling the video "m=" section (the callee will set the
   // port to 0 due to offer_to_receive_video = 0).
-  if (sdp_semantics_ == SdpSemantics::kPlanB) {
+  if (fixture.sdp_semantics_ == SdpSemantics::kPlanB) {
     PeerConnectionInterface::RTCOfferAnswerOptions options;
     options.offer_to_receive_video = 0;
-    callee()->SetOfferAnswerOptions(options);
+    fixture.callee()->SetOfferAnswerOptions(options);
   } else {
-    callee()->SetRemoteOfferHandler([this] {
-      callee()->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)->Stop();
+    fixture.callee()->SetRemoteOfferHandler([&] {
+      fixture.callee()
+          ->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)
+          ->Stop();
     });
   }
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Sanity check that video "m=" section was actually rejected.
   const ContentInfo* answer_video_content = cricket::GetFirstVideoContent(
-      callee()->pc()->local_description()->description());
+      fixture.callee()->pc()->local_description()->description());
   ASSERT_NE(nullptr, answer_video_content);
   ASSERT_TRUE(answer_video_content->rejected);
 
   // Enable video and do negotiation again, making sure video is received
   // end-to-end, also adding media stream to callee.
-  if (sdp_semantics_ == SdpSemantics::kPlanB) {
+  if (fixture.sdp_semantics_ == SdpSemantics::kPlanB) {
     PeerConnectionInterface::RTCOfferAnswerOptions options;
     options.offer_to_receive_video = 1;
-    callee()->SetOfferAnswerOptions(options);
+    fixture.callee()->SetOfferAnswerOptions(options);
   } else {
     // The caller's transceiver is stopped, so we need to add another track.
     auto caller_transceiver =
-        caller()->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO);
+        fixture.caller()->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO);
     EXPECT_TRUE(caller_transceiver->stopped());
-    caller()->AddVideoTrack();
+    fixture.caller()->AddVideoTrack();
   }
-  callee()->AddVideoTrack();
-  callee()->SetRemoteOfferHandler(nullptr);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.callee()->AddVideoTrack();
+  fixture.callee()->SetRemoteOfferHandler(nullptr);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Verify the caller receives frames from the newly added stream, and the
   // callee receives additional frames from the re-enabled video m= section.
   MediaExpectations media_expectations;
   media_expectations.CalleeExpectsSomeAudio();
   media_expectations.ExpectBidirectionalVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // This tests that if we negotiate after calling CreateSender but before we
@@ -4320,31 +4524,36 @@ TEST_P(PeerConnectionIntegrationTest,
 // received end-to-end.
 TEST_F(PeerConnectionIntegrationTestPlanB,
        MediaFlowsAfterEarlyWarmupWithCreateSender) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   auto caller_audio_sender =
-      caller()->pc()->CreateSender("audio", "caller_stream");
+      fixture.caller()->pc()->CreateSender("audio", "caller_stream");
   auto caller_video_sender =
-      caller()->pc()->CreateSender("video", "caller_stream");
+      fixture.caller()->pc()->CreateSender("video", "caller_stream");
   auto callee_audio_sender =
-      callee()->pc()->CreateSender("audio", "callee_stream");
+      fixture.callee()->pc()->CreateSender("audio", "callee_stream");
   auto callee_video_sender =
-      callee()->pc()->CreateSender("video", "callee_stream");
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kMaxWaitForActivationMs);
+      fixture.callee()->pc()->CreateSender("video", "callee_stream");
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kMaxWaitForActivationMs);
   // Wait for ICE to complete, without any tracks being set.
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionCompleted,
-                 caller()->ice_connection_state(), kMaxWaitForFramesMs);
+                 fixture.caller()->ice_connection_state(), kMaxWaitForFramesMs);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
-                 callee()->ice_connection_state(), kMaxWaitForFramesMs);
+                 fixture.callee()->ice_connection_state(), kMaxWaitForFramesMs);
   // Now set the tracks, and expect frames to immediately start flowing.
-  EXPECT_TRUE(caller_audio_sender->SetTrack(caller()->CreateLocalAudioTrack()));
-  EXPECT_TRUE(caller_video_sender->SetTrack(caller()->CreateLocalVideoTrack()));
-  EXPECT_TRUE(callee_audio_sender->SetTrack(callee()->CreateLocalAudioTrack()));
-  EXPECT_TRUE(callee_video_sender->SetTrack(callee()->CreateLocalVideoTrack()));
+  EXPECT_TRUE(
+      caller_audio_sender->SetTrack(fixture.caller()->CreateLocalAudioTrack()));
+  EXPECT_TRUE(
+      caller_video_sender->SetTrack(fixture.caller()->CreateLocalVideoTrack()));
+  EXPECT_TRUE(
+      callee_audio_sender->SetTrack(fixture.callee()->CreateLocalAudioTrack()));
+  EXPECT_TRUE(
+      callee_video_sender->SetTrack(fixture.callee()->CreateLocalVideoTrack()));
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // This tests that if we negotiate after calling AddTransceiver but before we
@@ -4352,38 +4561,45 @@ TEST_F(PeerConnectionIntegrationTestPlanB,
 // received end-to-end.
 TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
        MediaFlowsAfterEarlyWarmupWithAddTransceiver) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  auto audio_result = caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  auto audio_result =
+      fixture.caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
   ASSERT_EQ(RTCErrorType::NONE, audio_result.error().type());
   auto caller_audio_sender = audio_result.MoveValue()->sender();
-  auto video_result = caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_VIDEO);
+  auto video_result =
+      fixture.caller()->pc()->AddTransceiver(cricket::MEDIA_TYPE_VIDEO);
   ASSERT_EQ(RTCErrorType::NONE, video_result.error().type());
   auto caller_video_sender = video_result.MoveValue()->sender();
-  callee()->SetRemoteOfferHandler([this] {
-    ASSERT_EQ(2u, callee()->pc()->GetTransceivers().size());
-    callee()->pc()->GetTransceivers()[0]->SetDirection(
+  fixture.callee()->SetRemoteOfferHandler([&] {
+    ASSERT_EQ(2u, fixture.callee()->pc()->GetTransceivers().size());
+    fixture.callee()->pc()->GetTransceivers()[0]->SetDirection(
         RtpTransceiverDirection::kSendRecv);
-    callee()->pc()->GetTransceivers()[1]->SetDirection(
+    fixture.callee()->pc()->GetTransceivers()[1]->SetDirection(
         RtpTransceiverDirection::kSendRecv);
   });
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kMaxWaitForActivationMs);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kMaxWaitForActivationMs);
   // Wait for ICE to complete, without any tracks being set.
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionCompleted,
-                 caller()->ice_connection_state(), kMaxWaitForFramesMs);
+                 fixture.caller()->ice_connection_state(), kMaxWaitForFramesMs);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
-                 callee()->ice_connection_state(), kMaxWaitForFramesMs);
+                 fixture.callee()->ice_connection_state(), kMaxWaitForFramesMs);
   // Now set the tracks, and expect frames to immediately start flowing.
-  auto callee_audio_sender = callee()->pc()->GetSenders()[0];
-  auto callee_video_sender = callee()->pc()->GetSenders()[1];
-  ASSERT_TRUE(caller_audio_sender->SetTrack(caller()->CreateLocalAudioTrack()));
-  ASSERT_TRUE(caller_video_sender->SetTrack(caller()->CreateLocalVideoTrack()));
-  ASSERT_TRUE(callee_audio_sender->SetTrack(callee()->CreateLocalAudioTrack()));
-  ASSERT_TRUE(callee_video_sender->SetTrack(callee()->CreateLocalVideoTrack()));
+  auto callee_audio_sender = fixture.callee()->pc()->GetSenders()[0];
+  auto callee_video_sender = fixture.callee()->pc()->GetSenders()[1];
+  ASSERT_TRUE(
+      caller_audio_sender->SetTrack(fixture.caller()->CreateLocalAudioTrack()));
+  ASSERT_TRUE(
+      caller_video_sender->SetTrack(fixture.caller()->CreateLocalVideoTrack()));
+  ASSERT_TRUE(
+      callee_audio_sender->SetTrack(fixture.callee()->CreateLocalAudioTrack()));
+  ASSERT_TRUE(
+      callee_video_sender->SetTrack(fixture.callee()->CreateLocalVideoTrack()));
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // This test verifies that a remote video track can be added via AddStream,
@@ -4391,23 +4607,24 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
 // from the caller to the callee, rather than being forwarded to a third
 // PeerConnection.
 TEST_F(PeerConnectionIntegrationTestPlanB, CanSendRemoteVideoTrack) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
   // Just send a video track from the caller.
-  caller()->AddVideoTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kMaxWaitForActivationMs);
-  ASSERT_EQ(1U, callee()->remote_streams()->count());
+  fixture.caller()->AddVideoTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kMaxWaitForActivationMs);
+  ASSERT_EQ(1U, fixture.callee()->remote_streams()->count());
 
   // Echo the stream back, and do a new offer/anwer (initiated by callee this
   // time).
-  callee()->pc()->AddStream(callee()->remote_streams()->at(0));
-  callee()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kMaxWaitForActivationMs);
+  fixture.callee()->pc()->AddStream(fixture.callee()->remote_streams()->at(0));
+  fixture.callee()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kMaxWaitForActivationMs);
 
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // Test that we achieve the expected end-to-end connection time, using a
@@ -4430,6 +4647,12 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndConnectionTimeWithTurnTurnPair) {
   // TODO(deadbeef): Fix this.
   fake_clock.AdvanceTime(webrtc::TimeDelta::seconds(1));
 
+  // The fixture is created after clock to ensure that PeerConnections are
+  // destroyed before ScopedFakeClock. If this is not done a DCHECK can be hit
+  // in ports.cc, because a large negative number is calculated for the rtt due
+  // to the global clock changing.
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+
   static constexpr int media_hop_delay_ms = 50;
   static constexpr int signaling_trip_delay_ms = 500;
   // For explanation of these values, see comment above.
@@ -4450,17 +4673,17 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndConnectionTimeWithTurnTurnPair) {
                                                                  3478};
   static const rtc::SocketAddress turn_server_2_external_address{"99.99.99.1",
                                                                  0};
-  cricket::TestTurnServer* turn_server_1 = CreateTurnServer(
+  cricket::TestTurnServer* turn_server_1 = fixture.CreateTurnServer(
       turn_server_1_internal_address, turn_server_1_external_address);
 
-  cricket::TestTurnServer* turn_server_2 = CreateTurnServer(
+  cricket::TestTurnServer* turn_server_2 = fixture.CreateTurnServer(
       turn_server_2_internal_address, turn_server_2_external_address);
   // Bypass permission check on received packets so media can be sent before
   // the candidate is signaled.
-  network_thread()->Invoke<void>(RTC_FROM_HERE, [turn_server_1] {
+  fixture.network_thread()->Invoke<void>(RTC_FROM_HERE, [turn_server_1] {
     turn_server_1->set_enable_permission_checks(false);
   });
-  network_thread()->Invoke<void>(RTC_FROM_HERE, [turn_server_2] {
+  fixture.network_thread()->Invoke<void>(RTC_FROM_HERE, [turn_server_2] {
     turn_server_2->set_enable_permission_checks(false);
   });
 
@@ -4481,34 +4704,31 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndConnectionTimeWithTurnTurnPair) {
   client_2_config.servers.push_back(ice_server_2);
   client_2_config.type = webrtc::PeerConnectionInterface::kRelay;
   client_2_config.presume_writable_when_fully_relayed = true;
-
-  ASSERT_TRUE(
-      CreatePeerConnectionWrappersWithConfig(client_1_config, client_2_config));
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithConfig(client_1_config,
+                                                             client_2_config));
   // Set up the simulated delays.
-  SetSignalingDelayMs(signaling_trip_delay_ms);
-  ConnectFakeSignaling();
-  virtual_socket_server()->set_delay_mean(media_hop_delay_ms);
-  virtual_socket_server()->UpdateDelayDistribution();
+  fixture.SetSignalingDelayMs(signaling_trip_delay_ms);
+  fixture.ConnectFakeSignaling();
+  fixture.virtual_socket_server()->set_delay_mean(media_hop_delay_ms);
+  fixture.virtual_socket_server()->UpdateDelayDistribution();
 
   // Set "offer to receive audio/video" without adding any tracks, so we just
   // set up ICE/DTLS with no media.
   PeerConnectionInterface::RTCOfferAnswerOptions options;
   options.offer_to_receive_audio = 1;
   options.offer_to_receive_video = 1;
-  caller()->SetOfferAnswerOptions(options);
-  caller()->CreateAndSetAndSignalOffer();
-  EXPECT_TRUE_SIMULATED_WAIT(DtlsConnected(), total_connection_time_ms,
+  fixture.caller()->SetOfferAnswerOptions(options);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  EXPECT_TRUE_SIMULATED_WAIT(fixture.DtlsConnected(), total_connection_time_ms,
                              fake_clock);
-  // Closing the PeerConnections destroys the ports before the ScopedFakeClock.
-  // If this is not done a DCHECK can be hit in ports.cc, because a large
-  // negative number is calculated for the rtt due to the global clock changing.
-  ClosePeerConnections();
 }
 
 // Verify that a TurnCustomizer passed in through RTCConfiguration
 // is actually used by the underlying TURN candidate pair.
 // Note that turnport_unittest.cc contains more detailed, lower-level tests.
 TEST_P(PeerConnectionIntegrationTest, TurnCustomizerUsedForTurnConnections) {
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+
   static const rtc::SocketAddress turn_server_1_internal_address{"88.88.88.0",
                                                                  3478};
   static const rtc::SocketAddress turn_server_1_external_address{"88.88.88.1",
@@ -4517,10 +4737,10 @@ TEST_P(PeerConnectionIntegrationTest, TurnCustomizerUsedForTurnConnections) {
                                                                  3478};
   static const rtc::SocketAddress turn_server_2_external_address{"99.99.99.1",
                                                                  0};
-  CreateTurnServer(turn_server_1_internal_address,
-                   turn_server_1_external_address);
-  CreateTurnServer(turn_server_2_internal_address,
-                   turn_server_2_external_address);
+  fixture.CreateTurnServer(turn_server_1_internal_address,
+                           turn_server_1_external_address);
+  fixture.CreateTurnServer(turn_server_2_internal_address,
+                           turn_server_2_external_address);
 
   PeerConnectionInterface::RTCConfiguration client_1_config;
   webrtc::PeerConnectionInterface::IceServer ice_server_1;
@@ -4529,7 +4749,7 @@ TEST_P(PeerConnectionIntegrationTest, TurnCustomizerUsedForTurnConnections) {
   ice_server_1.password = "test";
   client_1_config.servers.push_back(ice_server_1);
   client_1_config.type = webrtc::PeerConnectionInterface::kRelay;
-  auto* customizer1 = CreateTurnCustomizer();
+  auto* customizer1 = fixture.CreateTurnCustomizer();
   client_1_config.turn_customizer = customizer1;
 
   PeerConnectionInterface::RTCConfiguration client_2_config;
@@ -4539,36 +4759,38 @@ TEST_P(PeerConnectionIntegrationTest, TurnCustomizerUsedForTurnConnections) {
   ice_server_2.password = "test";
   client_2_config.servers.push_back(ice_server_2);
   client_2_config.type = webrtc::PeerConnectionInterface::kRelay;
-  auto* customizer2 = CreateTurnCustomizer();
+  auto* customizer2 = fixture.CreateTurnCustomizer();
   client_2_config.turn_customizer = customizer2;
 
-  ASSERT_TRUE(
-      CreatePeerConnectionWrappersWithConfig(client_1_config, client_2_config));
-  ConnectFakeSignaling();
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithConfig(client_1_config,
+                                                             client_2_config));
+  fixture.ConnectFakeSignaling();
 
   // Set "offer to receive audio/video" without adding any tracks, so we just
   // set up ICE/DTLS with no media.
   PeerConnectionInterface::RTCOfferAnswerOptions options;
   options.offer_to_receive_audio = 1;
   options.offer_to_receive_video = 1;
-  caller()->SetOfferAnswerOptions(options);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(DtlsConnected(), kDefaultTimeout);
+  fixture.caller()->SetOfferAnswerOptions(options);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.DtlsConnected(), kDefaultTimeout);
 
-  ExpectTurnCustomizerCountersIncremented(customizer1);
-  ExpectTurnCustomizerCountersIncremented(customizer2);
+  fixture.ExpectTurnCustomizerCountersIncremented(customizer1);
+  fixture.ExpectTurnCustomizerCountersIncremented(customizer2);
 }
 
 // Verifies that you can use TCP instead of UDP to connect to a TURN server and
 // send media between the caller and the callee.
 TEST_P(PeerConnectionIntegrationTest, TCPUsedForTurnConnections) {
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+
   static const rtc::SocketAddress turn_server_internal_address{"88.88.88.0",
                                                                3478};
   static const rtc::SocketAddress turn_server_external_address{"88.88.88.1", 0};
 
   // Enable TCP for the fake turn server.
-  CreateTurnServer(turn_server_internal_address, turn_server_external_address,
-                   cricket::PROTO_TCP);
+  fixture.CreateTurnServer(turn_server_internal_address,
+                           turn_server_external_address, cricket::PROTO_TCP);
 
   webrtc::PeerConnectionInterface::IceServer ice_server;
   ice_server.urls.push_back("turn:88.88.88.0:3478?transport=tcp");
@@ -4583,21 +4805,21 @@ TEST_P(PeerConnectionIntegrationTest, TCPUsedForTurnConnections) {
   client_2_config.servers.push_back(ice_server);
   client_2_config.type = webrtc::PeerConnectionInterface::kRelay;
 
-  ASSERT_TRUE(
-      CreatePeerConnectionWrappersWithConfig(client_1_config, client_2_config));
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithConfig(client_1_config,
+                                                             client_2_config));
 
   // Do normal offer/answer and wait for ICE to complete.
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
-                 callee()->ice_connection_state(), kMaxWaitForFramesMs);
+                 fixture.callee()->ice_connection_state(), kMaxWaitForFramesMs);
 
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  EXPECT_TRUE(ExpectNewFrames(media_expectations));
+  EXPECT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // Verify that a SSLCertificateVerifier passed in through
@@ -4607,14 +4829,16 @@ TEST_P(PeerConnectionIntegrationTest, TCPUsedForTurnConnections) {
 // contains more detailed, lower-level tests.
 TEST_P(PeerConnectionIntegrationTest,
        SSLCertificateVerifierUsedForTurnConnections) {
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
   static const rtc::SocketAddress turn_server_internal_address{"88.88.88.0",
                                                                3478};
   static const rtc::SocketAddress turn_server_external_address{"88.88.88.1", 0};
 
   // Enable TCP-TLS for the fake turn server. We need to pass in 88.88.88.0 so
   // that host name verification passes on the fake certificate.
-  CreateTurnServer(turn_server_internal_address, turn_server_external_address,
-                   cricket::PROTO_TLS, "88.88.88.0");
+  fixture.CreateTurnServer(turn_server_internal_address,
+                           turn_server_external_address, cricket::PROTO_TLS,
+                           "88.88.88.0");
 
   webrtc::PeerConnectionInterface::IceServer ice_server;
   ice_server.urls.push_back("turns:88.88.88.0:3478?transport=tcp");
@@ -4646,20 +4870,19 @@ TEST_P(PeerConnectionIntegrationTest,
   webrtc::PeerConnectionDependencies client_2_deps(nullptr);
   client_2_deps.tls_cert_verifier =
       std::unique_ptr<rtc::TestCertificateVerifier>(client_2_cert_verifier);
-
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfigAndDeps(
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithConfigAndDeps(
       client_1_config, std::move(client_1_deps), client_2_config,
       std::move(client_2_deps)));
-  ConnectFakeSignaling();
+  fixture.ConnectFakeSignaling();
 
   // Set "offer to receive audio/video" without adding any tracks, so we just
   // set up ICE/DTLS with no media.
   PeerConnectionInterface::RTCOfferAnswerOptions options;
   options.offer_to_receive_audio = 1;
   options.offer_to_receive_video = 1;
-  caller()->SetOfferAnswerOptions(options);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(DtlsConnected(), kDefaultTimeout);
+  fixture.caller()->SetOfferAnswerOptions(options);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.DtlsConnected(), kDefaultTimeout);
 
   EXPECT_GT(client_1_cert_verifier->call_count_, 0u);
   EXPECT_GT(client_2_cert_verifier->call_count_, 0u);
@@ -4667,14 +4890,16 @@ TEST_P(PeerConnectionIntegrationTest,
 
 TEST_P(PeerConnectionIntegrationTest,
        SSLCertificateVerifierFailureUsedForTurnConnectionsFailsConnection) {
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
   static const rtc::SocketAddress turn_server_internal_address{"88.88.88.0",
                                                                3478};
   static const rtc::SocketAddress turn_server_external_address{"88.88.88.1", 0};
 
   // Enable TCP-TLS for the fake turn server. We need to pass in 88.88.88.0 so
   // that host name verification passes on the fake certificate.
-  CreateTurnServer(turn_server_internal_address, turn_server_external_address,
-                   cricket::PROTO_TLS, "88.88.88.0");
+  fixture.CreateTurnServer(turn_server_internal_address,
+                           turn_server_external_address, cricket::PROTO_TLS,
+                           "88.88.88.0");
 
   webrtc::PeerConnectionInterface::IceServer ice_server;
   ice_server.urls.push_back("turns:88.88.88.0:3478?transport=tcp");
@@ -4706,24 +4931,23 @@ TEST_P(PeerConnectionIntegrationTest,
   webrtc::PeerConnectionDependencies client_2_deps(nullptr);
   client_2_deps.tls_cert_verifier =
       std::unique_ptr<rtc::TestCertificateVerifier>(client_2_cert_verifier);
-
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfigAndDeps(
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithConfigAndDeps(
       client_1_config, std::move(client_1_deps), client_2_config,
       std::move(client_2_deps)));
-  ConnectFakeSignaling();
+  fixture.ConnectFakeSignaling();
 
   // Set "offer to receive audio/video" without adding any tracks, so we just
   // set up ICE/DTLS with no media.
   PeerConnectionInterface::RTCOfferAnswerOptions options;
   options.offer_to_receive_audio = 1;
   options.offer_to_receive_video = 1;
-  caller()->SetOfferAnswerOptions(options);
-  caller()->CreateAndSetAndSignalOffer();
+  fixture.caller()->SetOfferAnswerOptions(options);
+  fixture.caller()->CreateAndSetAndSignalOffer();
   bool wait_res = true;
   // TODO(bugs.webrtc.org/9219): When IceConnectionState is implemented
   // properly, should be able to just wait for a state of "failed" instead of
   // waiting a fixed 10 seconds.
-  WAIT_(DtlsConnected(), kDefaultTimeout, wait_res);
+  WAIT_(fixture.DtlsConnected(), kDefaultTimeout, wait_res);
   ASSERT_FALSE(wait_res);
 
   EXPECT_GT(client_1_cert_verifier->call_count_, 0u);
@@ -4739,14 +4963,16 @@ TEST_P(PeerConnectionIntegrationTest,
 // fact that code at some layers was doing case-insensitive comparisons and
 // code at other layers was not.
 TEST_P(PeerConnectionIntegrationTest, CodecNamesAreCaseInsensitive) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
 
   // Remove all but one audio/video codec (opus and VP8), and change the
   // casing of the caller's generated offer.
-  caller()->SetGeneratedSdpMunger([](cricket::SessionDescription* description) {
+  fixture.caller()->SetGeneratedSdpMunger([](cricket::SessionDescription*
+                                                 description) {
     cricket::AudioContentDescription* audio =
         GetFirstAudioContentDescription(description);
     ASSERT_NE(nullptr, audio);
@@ -4774,27 +5000,28 @@ TEST_P(PeerConnectionIntegrationTest, CodecNamesAreCaseInsensitive) {
     video->set_codecs(video_codecs);
   });
 
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Verify frames are still received end-to-end.
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 TEST_P(PeerConnectionIntegrationTest, GetSourcesAudio) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Wait for one audio frame to be received by the callee.
   MediaExpectations media_expectations;
   media_expectations.CalleeExpectsSomeAudio(1);
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
-  ASSERT_EQ(callee()->pc()->GetReceivers().size(), 1u);
-  auto receiver = callee()->pc()->GetReceivers()[0];
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
+  ASSERT_EQ(fixture.callee()->pc()->GetReceivers().size(), 1u);
+  auto receiver = fixture.callee()->pc()->GetReceivers()[0];
   ASSERT_EQ(receiver->media_type(), cricket::MEDIA_TYPE_AUDIO);
   auto sources = receiver->GetSources();
   ASSERT_GT(receiver->GetParameters().encodings.size(), 0u);
@@ -4804,17 +5031,18 @@ TEST_P(PeerConnectionIntegrationTest, GetSourcesAudio) {
 }
 
 TEST_P(PeerConnectionIntegrationTest, GetSourcesVideo) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddVideoTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddVideoTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Wait for one video frame to be received by the callee.
   MediaExpectations media_expectations;
   media_expectations.CalleeExpectsSomeVideo(1);
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
-  ASSERT_EQ(callee()->pc()->GetReceivers().size(), 1u);
-  auto receiver = callee()->pc()->GetReceivers()[0];
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
+  ASSERT_EQ(fixture.callee()->pc()->GetReceivers().size(), 1u);
+  auto receiver = fixture.callee()->pc()->GetReceivers()[0];
   ASSERT_EQ(receiver->media_type(), cricket::MEDIA_TYPE_VIDEO);
   auto sources = receiver->GetSources();
   ASSERT_GT(receiver->GetParameters().encodings.size(), 0u);
@@ -4831,79 +5059,82 @@ TEST_P(PeerConnectionIntegrationTest, GetSourcesVideo) {
 // a new transceiver it tries to create an offer with two senders of the same
 // track ids and it fails.
 TEST_F(PeerConnectionIntegrationTestPlanB, RemoveAndAddTrackWithNewStreamId) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
 
   // Add track using stream 1, do offer/answer.
   rtc::scoped_refptr<webrtc::AudioTrackInterface> track =
-      caller()->CreateLocalAudioTrack();
+      fixture.caller()->CreateLocalAudioTrack();
   rtc::scoped_refptr<webrtc::RtpSenderInterface> sender =
-      caller()->AddTrack(track, {"stream_1"});
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+      fixture.caller()->AddTrack(track, {"stream_1"});
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   {
     MediaExpectations media_expectations;
     media_expectations.CalleeExpectsSomeAudio(1);
-    ASSERT_TRUE(ExpectNewFrames(media_expectations));
+    ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
   }
   // Remove the sender, and create a new one with the new stream.
-  caller()->pc()->RemoveTrack(sender);
-  sender = caller()->AddTrack(track, {"stream_2"});
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->pc()->RemoveTrack(sender);
+  sender = fixture.caller()->AddTrack(track, {"stream_2"});
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Wait for additional audio frames to be received by the callee.
   {
     MediaExpectations media_expectations;
     media_expectations.CalleeExpectsSomeAudio();
-    ASSERT_TRUE(ExpectNewFrames(media_expectations));
+    ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
   }
 }
 
 TEST_P(PeerConnectionIntegrationTest, RtcEventLogOutputWriteCalled) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
 
   auto output = absl::make_unique<testing::NiceMock<MockRtcEventLogOutput>>();
   ON_CALL(*output, IsActive()).WillByDefault(::testing::Return(true));
   ON_CALL(*output, Write(::testing::_)).WillByDefault(::testing::Return(true));
   EXPECT_CALL(*output, Write(::testing::_)).Times(::testing::AtLeast(1));
-  EXPECT_TRUE(caller()->pc()->StartRtcEventLog(
+  EXPECT_TRUE(fixture.caller()->pc()->StartRtcEventLog(
       std::move(output), webrtc::RtcEventLog::kImmediateOutput));
 
-  caller()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 }
 
 // Test that if candidates are only signaled by applying full session
 // descriptions (instead of using AddIceCandidate), the peers can connect to
 // each other and exchange media.
 TEST_P(PeerConnectionIntegrationTest, MediaFlowsWhenCandidatesSetOnlyInSdp) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
   // Each side will signal the session descriptions but not candidates.
-  ConnectFakeSignalingForSdpOnly();
+  fixture.ConnectFakeSignalingForSdpOnly();
 
   // Add audio video track and exchange the initial offer/answer with media
   // information only. This will start ICE gathering on each side.
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
 
   // Wait for all candidates to be gathered on both the caller and callee.
   ASSERT_EQ_WAIT(PeerConnectionInterface::kIceGatheringComplete,
-                 caller()->ice_gathering_state(), kDefaultTimeout);
+                 fixture.caller()->ice_gathering_state(), kDefaultTimeout);
   ASSERT_EQ_WAIT(PeerConnectionInterface::kIceGatheringComplete,
-                 callee()->ice_gathering_state(), kDefaultTimeout);
+                 fixture.callee()->ice_gathering_state(), kDefaultTimeout);
 
   // The candidates will now be included in the session description, so
   // signaling them will start the ICE connection.
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Ensure that media flows in both directions.
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // Test that SetAudioPlayout can be used to disable audio playout from the
@@ -4911,30 +5142,31 @@ TEST_P(PeerConnectionIntegrationTest, MediaFlowsWhenCandidatesSetOnlyInSdp) {
 // needs to play a local ringtone until some event occurs, after which it
 // switches to playing the received audio.
 TEST_P(PeerConnectionIntegrationTest, DisableAndEnableAudioPlayout) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
 
   // Set up audio-only call where audio playout is disabled on caller's side.
-  caller()->pc()->SetAudioPlayout(false);
-  caller()->AddAudioTrack();
-  callee()->AddAudioTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->pc()->SetAudioPlayout(false);
+  fixture.caller()->AddAudioTrack();
+  fixture.callee()->AddAudioTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Pump messages for a second.
   WAIT(false, 1000);
   // Since audio playout is disabled, the caller shouldn't have received
   // anything (at the playout level, at least).
-  EXPECT_EQ(0, caller()->audio_frames_received());
+  EXPECT_EQ(0, fixture.caller()->audio_frames_received());
   // As a sanity check, make sure the callee (for which playout isn't disabled)
   // did still see frames on its audio level.
-  ASSERT_GT(callee()->audio_frames_received(), 0);
+  ASSERT_GT(fixture.callee()->audio_frames_received(), 0);
 
   // Enable playout again, and ensure audio starts flowing.
-  caller()->pc()->SetAudioPlayout(true);
+  fixture.caller()->pc()->SetAudioPlayout(true);
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudio();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 double GetAudioEnergyStat(PeerConnectionWrapper* pc) {
@@ -4960,20 +5192,22 @@ double GetAudioEnergyStat(PeerConnectionWrapper* pc) {
 // incoming audio is still processed and statistics are generated.
 TEST_P(PeerConnectionIntegrationTest,
        DisableAudioPlayoutStillGeneratesAudioStats) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
 
   // Set up audio-only call where playout is disabled but audio-processing is
   // still active.
-  caller()->AddAudioTrack();
-  callee()->AddAudioTrack();
-  caller()->pc()->SetAudioPlayout(false);
+  fixture.caller()->AddAudioTrack();
+  fixture.callee()->AddAudioTrack();
+  fixture.caller()->pc()->SetAudioPlayout(false);
 
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Wait for the callee to receive audio stats.
-  EXPECT_TRUE_WAIT(GetAudioEnergyStat(caller()) > 0, kMaxWaitForFramesMs);
+  EXPECT_TRUE_WAIT(GetAudioEnergyStat(fixture.caller()) > 0,
+                   kMaxWaitForFramesMs);
 }
 
 // Test that SetAudioRecording can be used to disable audio recording from the
@@ -4981,53 +5215,55 @@ TEST_P(PeerConnectionIntegrationTest,
 // wants to ensure that no audio resources are active before a certain state
 // is reached.
 TEST_P(PeerConnectionIntegrationTest, DisableAndEnableAudioRecording) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
 
   // Set up audio-only call where audio recording is disabled on caller's side.
-  caller()->pc()->SetAudioRecording(false);
-  caller()->AddAudioTrack();
-  callee()->AddAudioTrack();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->pc()->SetAudioRecording(false);
+  fixture.caller()->AddAudioTrack();
+  fixture.callee()->AddAudioTrack();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Pump messages for a second.
   WAIT(false, 1000);
   // Since caller has disabled audio recording, the callee shouldn't have
   // received anything.
-  EXPECT_EQ(0, callee()->audio_frames_received());
+  EXPECT_EQ(0, fixture.callee()->audio_frames_received());
   // As a sanity check, make sure the caller did still see frames on its
   // audio level since audio recording is enabled on the calle side.
-  ASSERT_GT(caller()->audio_frames_received(), 0);
+  ASSERT_GT(fixture.caller()->audio_frames_received(), 0);
 
   // Enable audio recording again, and ensure audio starts flowing.
-  caller()->pc()->SetAudioRecording(true);
+  fixture.caller()->pc()->SetAudioRecording(true);
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudio();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // Test that after closing PeerConnections, they stop sending any packets (ICE,
 // DTLS, RTP...).
 TEST_P(PeerConnectionIntegrationTest, ClosingConnectionStopsPacketFlow) {
   // Set up audio/video/data, wait for some frames to be received.
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
 #ifdef HAVE_SCTP
-  caller()->CreateDataChannel();
+  fixture.caller()->CreateDataChannel();
 #endif
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   MediaExpectations media_expectations;
   media_expectations.CalleeExpectsSomeAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
   // Close PeerConnections.
-  ClosePeerConnections();
+  fixture.ClosePeerConnections();
   // Pump messages for a second, and ensure no new packets end up sent.
-  uint32_t sent_packets_a = virtual_socket_server()->sent_packets();
+  uint32_t sent_packets_a = fixture.virtual_socket_server()->sent_packets();
   WAIT(false, 1000);
-  uint32_t sent_packets_b = virtual_socket_server()->sent_packets();
+  uint32_t sent_packets_b = fixture.virtual_socket_server()->sent_packets();
   EXPECT_EQ(sent_packets_a, sent_packets_b);
 }
 
@@ -5037,38 +5273,40 @@ TEST_P(PeerConnectionIntegrationTest, ClosingConnectionStopsPacketFlow) {
 #ifdef HAVE_SCTP
 TEST_P(PeerConnectionIntegrationTest,
        TransportStatsReportedForDataChannelOnlyConnection) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->CreateDataChannel();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->CreateDataChannel();
 
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
-  ASSERT_TRUE_WAIT(callee()->data_channel(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
+  ASSERT_TRUE_WAIT(fixture.callee()->data_channel(), kDefaultTimeout);
 
-  auto caller_report = caller()->NewGetStats();
+  auto caller_report = fixture.caller()->NewGetStats();
   EXPECT_EQ(1u, caller_report->GetStatsOfType<RTCTransportStats>().size());
-  auto callee_report = callee()->NewGetStats();
+  auto callee_report = fixture.callee()->NewGetStats();
   EXPECT_EQ(1u, callee_report->GetStatsOfType<RTCTransportStats>().size());
 }
 #endif  // HAVE_SCTP
 
 TEST_P(PeerConnectionIntegrationTest,
        IceEventsGeneratedAndLoggedInRtcEventLog) {
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithFakeRtcEventLog());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithFakeRtcEventLog());
+  fixture.ConnectFakeSignaling();
   PeerConnectionInterface::RTCOfferAnswerOptions options;
   options.offer_to_receive_audio = 1;
-  caller()->SetOfferAnswerOptions(options);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(DtlsConnected(), kDefaultTimeout);
-  ASSERT_NE(nullptr, caller()->event_log_factory());
-  ASSERT_NE(nullptr, callee()->event_log_factory());
+  fixture.caller()->SetOfferAnswerOptions(options);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.DtlsConnected(), kDefaultTimeout);
+  ASSERT_NE(nullptr, fixture.caller()->event_log_factory());
+  ASSERT_NE(nullptr, fixture.callee()->event_log_factory());
   webrtc::FakeRtcEventLog* caller_event_log =
       static_cast<webrtc::FakeRtcEventLog*>(
-          caller()->event_log_factory()->last_log_created());
+          fixture.caller()->event_log_factory()->last_log_created());
   webrtc::FakeRtcEventLog* callee_event_log =
       static_cast<webrtc::FakeRtcEventLog*>(
-          callee()->event_log_factory()->last_log_created());
+          fixture.callee()->event_log_factory()->last_log_created());
   ASSERT_NE(nullptr, caller_event_log);
   ASSERT_NE(nullptr, callee_event_log);
   int caller_ice_config_count = caller_event_log->GetEventCount(
@@ -5088,11 +5326,14 @@ TEST_P(PeerConnectionIntegrationTest,
 TEST_P(PeerConnectionIntegrationTest, RegatherAfterChangingIceTransportType) {
   webrtc::test::ScopedFieldTrials field_trials(
       "WebRTC-GatherOnCandidateFilterChanged/Enabled/");
+  // PeerConnections must be destroyed before ScopedFieldTrials.
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
   static const rtc::SocketAddress turn_server_internal_address{"88.88.88.0",
                                                                3478};
   static const rtc::SocketAddress turn_server_external_address{"88.88.88.1", 0};
 
-  CreateTurnServer(turn_server_internal_address, turn_server_external_address);
+  fixture.CreateTurnServer(turn_server_internal_address,
+                           turn_server_external_address);
 
   webrtc::PeerConnectionInterface::IceServer ice_server;
   ice_server.urls.push_back("turn:88.88.88.0:3478");
@@ -5109,49 +5350,48 @@ TEST_P(PeerConnectionIntegrationTest, RegatherAfterChangingIceTransportType) {
   callee_config.type = webrtc::PeerConnectionInterface::kRelay;
   callee_config.continual_gathering_policy = PeerConnection::GATHER_CONTINUALLY;
 
-  ASSERT_TRUE(
-      CreatePeerConnectionWrappersWithConfig(caller_config, callee_config));
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithConfig(caller_config,
+                                                             callee_config));
 
   // Do normal offer/answer and wait for ICE to complete.
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Since we are doing continual gathering, the ICE transport does not reach
   // kIceGatheringComplete (see
   // P2PTransportChannel::OnCandidatesAllocationDone), and consequently not
   // kIceConnectionComplete.
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
-                 caller()->ice_connection_state(), kDefaultTimeout);
+                 fixture.caller()->ice_connection_state(), kDefaultTimeout);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
-                 callee()->ice_connection_state(), kDefaultTimeout);
+                 fixture.callee()->ice_connection_state(), kDefaultTimeout);
   // Note that we cannot use the metric
   // |WebRTC.PeerConnection.CandidatePairType_UDP| in this test since this
   // metric is only populated when we reach kIceConnectionComplete in the
   // current implementation.
   EXPECT_EQ(cricket::RELAY_PORT_TYPE,
-            caller()->last_candidate_gathered().type());
+            fixture.caller()->last_candidate_gathered().type());
   EXPECT_EQ(cricket::RELAY_PORT_TYPE,
-            callee()->last_candidate_gathered().type());
+            fixture.callee()->last_candidate_gathered().type());
 
   // Loosen the caller's candidate filter.
-  caller_config = caller()->pc()->GetConfiguration();
+  caller_config = fixture.caller()->pc()->GetConfiguration();
   caller_config.type = webrtc::PeerConnectionInterface::kAll;
-  caller()->pc()->SetConfiguration(caller_config);
+  fixture.caller()->pc()->SetConfiguration(caller_config);
   // We should have gathered a new host candidate.
   EXPECT_EQ_WAIT(cricket::LOCAL_PORT_TYPE,
-                 caller()->last_candidate_gathered().type(), kDefaultTimeout);
+                 fixture.caller()->last_candidate_gathered().type(),
+                 kDefaultTimeout);
 
   // Loosen the callee's candidate filter.
-  callee_config = callee()->pc()->GetConfiguration();
+  callee_config = fixture.callee()->pc()->GetConfiguration();
   callee_config.type = webrtc::PeerConnectionInterface::kAll;
-  callee()->pc()->SetConfiguration(callee_config);
+  fixture.callee()->pc()->SetConfiguration(callee_config);
   EXPECT_EQ_WAIT(cricket::LOCAL_PORT_TYPE,
-                 callee()->last_candidate_gathered().type(), kDefaultTimeout);
-
-  // PeerConnections must be closed before ScopedFieldTrials goes out of scope.
-  ClosePeerConnections();
+                 fixture.callee()->last_candidate_gathered().type(),
+                 kDefaultTimeout);
 }
 
 INSTANTIATE_TEST_SUITE_P(PeerConnectionIntegrationTest,
@@ -5159,120 +5399,139 @@ INSTANTIATE_TEST_SUITE_P(PeerConnectionIntegrationTest,
                          Values(SdpSemantics::kPlanB,
                                 SdpSemantics::kUnifiedPlan));
 
-// Tests that verify interoperability between Plan B and Unified Plan
-// PeerConnections.
-class PeerConnectionIntegrationInteropTest
-    : public PeerConnectionIntegrationBaseTest,
-      public ::testing::WithParamInterface<
-          std::tuple<SdpSemantics, SdpSemantics>> {
- protected:
+class PeerConnectionIntegrationInteropTestFixture
+    : public PeerConnectionIntegrationTestFixture {
+ public:
   // Setting the SdpSemantics for the base test to kDefault does not matter
   // because we specify not to use the test semantics when creating
   // PeerConnectionWrappers.
-  PeerConnectionIntegrationInteropTest()
-      : PeerConnectionIntegrationBaseTest(SdpSemantics::kPlanB),
-        caller_semantics_(std::get<0>(GetParam())),
-        callee_semantics_(std::get<1>(GetParam())) {}
+  PeerConnectionIntegrationInteropTestFixture()
+      : PeerConnectionIntegrationTestFixture(SdpSemantics::kPlanB) {}
 
-  bool CreatePeerConnectionWrappersWithSemantics() {
-    return CreatePeerConnectionWrappersWithSdpSemantics(caller_semantics_,
-                                                        callee_semantics_);
+  bool CreatePeerConnectionWrappersWithSemantics(
+      SdpSemantics caller_semantics,
+      SdpSemantics callee_semantics) {
+    return CreatePeerConnectionWrappersWithSdpSemantics(caller_semantics,
+                                                        callee_semantics);
   }
 
-  const SdpSemantics caller_semantics_;
-  const SdpSemantics callee_semantics_;
+ private:
+  std::unique_ptr<cricket::TestStunServer> stun_server_;
+};
+
+// Tests that verify interoperability between Plan B and Unified Plan
+// PeerConnections.
+class PeerConnectionIntegrationInteropTest
+    : public ::testing::Test,
+      public ::testing::WithParamInterface<
+          std::tuple<SdpSemantics, SdpSemantics>> {
+ protected:
+  SdpSemantics GetCallerSemantics() const { return std::get<0>(GetParam()); }
+  SdpSemantics GetCalleeSemantics() const { return std::get<1>(GetParam()); }
 };
 
 TEST_P(PeerConnectionIntegrationInteropTest, NoMediaLocalToNoMediaRemote) {
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithSemantics());
-  ConnectFakeSignaling();
+  PeerConnectionIntegrationInteropTestFixture fixture;
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithSemantics(
+      GetCallerSemantics(), GetCalleeSemantics()));
+  fixture.ConnectFakeSignaling();
 
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 }
 
 TEST_P(PeerConnectionIntegrationInteropTest, OneAudioLocalToNoMediaRemote) {
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithSemantics());
-  ConnectFakeSignaling();
-  auto audio_sender = caller()->AddAudioTrack();
+  PeerConnectionIntegrationInteropTestFixture fixture;
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithSemantics(
+      GetCallerSemantics(), GetCalleeSemantics()));
+  fixture.ConnectFakeSignaling();
+  auto audio_sender = fixture.caller()->AddAudioTrack();
 
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Verify that one audio receiver has been created on the remote and that it
   // has the same track ID as the sending track.
-  auto receivers = callee()->pc()->GetReceivers();
+  auto receivers = fixture.callee()->pc()->GetReceivers();
   ASSERT_EQ(1u, receivers.size());
   EXPECT_EQ(cricket::MEDIA_TYPE_AUDIO, receivers[0]->media_type());
   EXPECT_EQ(receivers[0]->track()->id(), audio_sender->track()->id());
 
   MediaExpectations media_expectations;
   media_expectations.CalleeExpectsSomeAudio();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 TEST_P(PeerConnectionIntegrationInteropTest, OneAudioOneVideoToNoMediaRemote) {
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithSemantics());
-  ConnectFakeSignaling();
-  auto video_sender = caller()->AddVideoTrack();
-  auto audio_sender = caller()->AddAudioTrack();
+  PeerConnectionIntegrationInteropTestFixture fixture;
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithSemantics(
+      GetCallerSemantics(), GetCalleeSemantics()));
+  fixture.ConnectFakeSignaling();
+  auto video_sender = fixture.caller()->AddVideoTrack();
+  auto audio_sender = fixture.caller()->AddAudioTrack();
 
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Verify that one audio and one video receiver have been created on the
   // remote and that they have the same track IDs as the sending tracks.
   auto audio_receivers =
-      callee()->GetReceiversOfType(cricket::MEDIA_TYPE_AUDIO);
+      fixture.callee()->GetReceiversOfType(cricket::MEDIA_TYPE_AUDIO);
   ASSERT_EQ(1u, audio_receivers.size());
   EXPECT_EQ(audio_receivers[0]->track()->id(), audio_sender->track()->id());
   auto video_receivers =
-      callee()->GetReceiversOfType(cricket::MEDIA_TYPE_VIDEO);
+      fixture.callee()->GetReceiversOfType(cricket::MEDIA_TYPE_VIDEO);
   ASSERT_EQ(1u, video_receivers.size());
   EXPECT_EQ(video_receivers[0]->track()->id(), video_sender->track()->id());
 
   MediaExpectations media_expectations;
   media_expectations.CalleeExpectsSomeAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 TEST_P(PeerConnectionIntegrationInteropTest,
        OneAudioOneVideoLocalToOneAudioOneVideoRemote) {
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithSemantics());
-  ConnectFakeSignaling();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
+  PeerConnectionIntegrationInteropTestFixture fixture;
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithSemantics(
+      GetCallerSemantics(), GetCalleeSemantics()));
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
 
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   MediaExpectations media_expectations;
   media_expectations.ExpectBidirectionalAudioAndVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 TEST_P(PeerConnectionIntegrationInteropTest,
        ReverseRolesOneAudioLocalToOneVideoRemote) {
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithSemantics());
-  ConnectFakeSignaling();
-  caller()->AddAudioTrack();
-  callee()->AddVideoTrack();
+  PeerConnectionIntegrationInteropTestFixture fixture;
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithSemantics(
+      GetCallerSemantics(), GetCalleeSemantics()));
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->AddAudioTrack();
+  fixture.callee()->AddVideoTrack();
 
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Verify that only the audio track has been negotiated.
-  EXPECT_EQ(0u, caller()->GetReceiversOfType(cricket::MEDIA_TYPE_VIDEO).size());
+  EXPECT_EQ(
+      0u,
+      fixture.caller()->GetReceiversOfType(cricket::MEDIA_TYPE_VIDEO).size());
   // Might also check that the callee's NegotiationNeeded flag is set.
 
   // Reverse roles.
-  callee()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.callee()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   MediaExpectations media_expectations;
   media_expectations.CallerExpectsSomeVideo();
   media_expectations.CalleeExpectsSomeAudio();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 INSTANTIATE_TEST_SUITE_P(
@@ -5284,25 +5543,26 @@ INSTANTIATE_TEST_SUITE_P(
 // Test that if the Unified Plan side offers two video tracks then the Plan B
 // side will only see the first one and ignore the second.
 TEST_F(PeerConnectionIntegrationTestPlanB, TwoVideoUnifiedPlanToNoMediaPlanB) {
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithSdpSemantics(
+  PeerConnectionIntegrationInteropTestFixture fixture;
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithSdpSemantics(
       SdpSemantics::kUnifiedPlan, SdpSemantics::kPlanB));
-  ConnectFakeSignaling();
-  auto first_sender = caller()->AddVideoTrack();
-  caller()->AddVideoTrack();
+  fixture.ConnectFakeSignaling();
+  auto first_sender = fixture.caller()->AddVideoTrack();
+  fixture.caller()->AddVideoTrack();
 
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
 
   // Verify that there is only one receiver and it corresponds to the first
   // added track.
-  auto receivers = callee()->pc()->GetReceivers();
+  auto receivers = fixture.callee()->pc()->GetReceivers();
   ASSERT_EQ(1u, receivers.size());
   EXPECT_TRUE(receivers[0]->track()->enabled());
   EXPECT_EQ(first_sender->track()->id(), receivers[0]->track()->id());
 
   MediaExpectations media_expectations;
   media_expectations.CalleeExpectsSomeVideo();
-  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+  ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
 }
 
 // Test that if the initial offer tagged BUNDLE section is rejected due to its
@@ -5314,30 +5574,32 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
        ReOfferWithStoppedBundleTaggedTransceiver) {
   RTCConfiguration config;
   config.bundle_policy = PeerConnectionInterface::kBundlePolicyMaxBundle;
-  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(config, config));
-  ConnectFakeSignaling();
-  auto audio_transceiver_or_error =
-      caller()->pc()->AddTransceiver(caller()->CreateLocalAudioTrack());
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappersWithConfig(config, config));
+  fixture.ConnectFakeSignaling();
+  auto audio_transceiver_or_error = fixture.caller()->pc()->AddTransceiver(
+      fixture.caller()->CreateLocalAudioTrack());
   ASSERT_TRUE(audio_transceiver_or_error.ok());
   auto audio_transceiver = audio_transceiver_or_error.MoveValue();
 
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   {
     MediaExpectations media_expectations;
     media_expectations.CalleeExpectsSomeAudio();
-    ASSERT_TRUE(ExpectNewFrames(media_expectations));
+    ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
   }
 
   audio_transceiver->Stop();
-  caller()->pc()->AddTransceiver(caller()->CreateLocalVideoTrack());
+  fixture.caller()->pc()->AddTransceiver(
+      fixture.caller()->CreateLocalVideoTrack());
 
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   {
     MediaExpectations media_expectations;
     media_expectations.CalleeExpectsSomeVideo();
-    ASSERT_TRUE(ExpectNewFrames(media_expectations));
+    ASSERT_TRUE(fixture.ExpectNewFrames(media_expectations));
   }
 }
 
@@ -5345,20 +5607,21 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
 
 TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
        EndToEndCallWithBundledSctpDataChannel) {
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  caller()->CreateDataChannel();
-  caller()->AddAudioVideoTracks();
-  callee()->AddAudioVideoTracks();
-  caller()->SetGeneratedSdpMunger(MakeSpecCompliantSctpOffer);
-  caller()->CreateAndSetAndSignalOffer();
-  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  PeerConnectionIntegrationTestFixture fixture(GetSdpSemantics());
+  ASSERT_TRUE(fixture.CreatePeerConnectionWrappers());
+  fixture.ConnectFakeSignaling();
+  fixture.caller()->CreateDataChannel();
+  fixture.caller()->AddAudioVideoTracks();
+  fixture.callee()->AddAudioVideoTracks();
+  fixture.caller()->SetGeneratedSdpMunger(MakeSpecCompliantSctpOffer);
+  fixture.caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(fixture.SignalingStateStable(), kDefaultTimeout);
   // Ensure that media and data are multiplexed on the same DTLS transport.
   // This only works on Unified Plan, because transports are not exposed in plan
   // B.
-  auto sctp_info = caller()->pc()->GetSctpTransport()->Information();
+  auto sctp_info = fixture.caller()->pc()->GetSctpTransport()->Information();
   EXPECT_EQ(sctp_info.dtls_transport(),
-            caller()->pc()->GetSenders()[0]->dtls_transport());
+            fixture.caller()->pc()->GetSenders()[0]->dtls_transport());
 }
 
 #endif  // HAVE_SCTP

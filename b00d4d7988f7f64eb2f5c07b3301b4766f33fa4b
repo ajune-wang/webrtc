@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "eae1f3a7_952eddfe",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-31T11:52:02Z",
+      "side": 1,
+      "message": "Minimized negation.\n\nI have considered |send_now| (I wanted to call it \"send_immediately\"), but it seemed confusing to me - if not now, then when? I therefore opted for a name that explains (although partially) why one might wish to delay.",
+      "parentUuid": "f57a11c0_b5ab3040",
+      "range": {
+        "startLine": 228,
+        "startChar": 6,
+        "endLine": 228,
+        "endChar": 7
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9901c7c3_501da800",
         "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-31T09:28:28Z",
       "side": 1,
       "message": "there used to be a chromium rule \u0027no else after return\u0027\nThat rule is no longer there, but for local consistency (e.g. see previous function) might be good to still follow it.",
+      "range": {
+        "startLine": 231,
+        "startChar": 2,
+        "endLine": 231,
+        "endChar": 10
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70056f46_877070a3",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-31T11:52:02Z",
+      "side": 1,
+      "message": "I\u0027m usually not a fan of this rule, but I agree that it makes sense here, once the order of the else-block and if-block are reversed, which they were. Done.",
+      "parentUuid": "9901c7c3_501da800",
       "range": {
         "startLine": 231,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "defb983c_9691b321",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-31T11:52:02Z",
+      "side": 1,
+      "message": "I\u0027d like to stay consistent with the existing code (please see kLastDecoded, etc., in this test, and kBitrate in the REMB test far below) without having to modify it. Will (mostly) follow this style when introducing new code (but SendLossNotificationBufferingAllowed is derivative of SendLossNotificationBufferingNotAllowed, which is why I use the current style there).",
+      "parentUuid": "a129b7fd_fcf2d312",
+      "range": {
+        "startLine": 386,
+        "startChar": 6,
+        "endLine": 386,
+        "endChar": 23
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53b6531b_aa7e2209",
         "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "2adc55df_f4494417",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-31T11:52:02Z",
+      "side": 1,
+      "message": "Done (but I think it\u0027s less readable this way).",
+      "parentUuid": "53b6531b_aa7e2209",
+      "range": {
+        "startLine": 400,
+        "startChar": 16,
+        "endLine": 400,
+        "endChar": 22
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca0c0e37_aa0fd2d0",
         "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
         "patchSetId": 3
@@ -105,6 +201,30 @@
       "writtenOn": "2019-05-31T09:28:28Z",
       "side": 1,
       "message": "may be use macro arraysize from rtc_base/arraysize.h\n(or ABSL_ARRAYSIZE from absl/base/macros.h)",
+      "range": {
+        "startLine": 410,
+        "startChar": 30,
+        "endLine": 410,
+        "endChar": 63
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3860dd5c_761251ae",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-31T11:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca0c0e37_aa0fd2d0",
       "range": {
         "startLine": 410,
         "startChar": 30,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "a627047a_c4d60908",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-31T11:52:02Z",
+      "side": 1,
+      "message": "Yes; bad copy/paste from RtcpSenderTest.SendNack. Did reverse it for EXPECT_EQ(parser()-\u003enack(), ...), you\u0027ll notice.\nDone.",
+      "parentUuid": "17667efe_530e3ff5",
+      "range": {
+        "startLine": 411,
+        "startChar": 12,
+        "endLine": 411,
+        "endChar": 15
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34212329_3e4a5e96",
         "filename": "modules/video_coding/loss_notification_controller.cc",
         "patchSetId": 3
@@ -160,6 +304,30 @@
       "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f01af4b_d150a962",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-31T11:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34212329_3e4a5e96",
+      "range": {
+        "startLine": 184,
+        "startChar": 27,
+        "endLine": 184,
+        "endChar": 31
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "36ce83f9_4e91b3c3",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-31T11:52:02Z",
+      "side": 1,
+      "message": "This is less relevant because this is a unit test, but in general, I prefer not to allow misleading usage of a function. If in the context, one value of |buffering_allowed| makes some sense, and another doesn\u0027t, then I prefer to fail on the meaningless value, than to simply ignore it.",
+      "parentUuid": "35bcf682_6fcaa494",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 64
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f9fff94_79ecb00b",
         "filename": "test/rtcp_packet_parser.cc",
         "patchSetId": 3
@@ -197,6 +389,30 @@
       "writtenOn": "2019-05-31T09:28:28Z",
       "side": 1,
       "message": "https://google.github.io/styleguide/cppguide.html#Vertical_Whitespace\n\"Minimize use of vertical whitespace.\"",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1701a93a_314f9eea",
+        "filename": "test/rtcp_packet_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-31T11:52:02Z",
+      "side": 1,
+      "message": "85 consecutive lines without a single break line is too much, IMHO.\nAlso, if one reads the examples given by the guideline, it seems like the guideline is intended to discourage a different practice than mine.",
+      "parentUuid": "6f9fff94_79ecb00b",
       "range": {
         "startLine": 29,
         "startChar": 0,
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "4e77cfc8_79dd9f7d",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-31T11:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a8841a2_1f911526",
+      "range": {
+        "startLine": 139,
+        "startChar": 65,
+        "endLine": 139,
+        "endChar": 72
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ab646d7_a5dba7da",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 3
@@ -252,6 +492,30 @@
       "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b20c73d_793f94e5",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-05-31T11:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ab646d7_a5dba7da",
+      "range": {
+        "startLine": 140,
+        "startChar": 10,
+        "endLine": 140,
+        "endChar": 12
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

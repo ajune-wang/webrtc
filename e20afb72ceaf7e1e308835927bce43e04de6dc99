@@ -22,6 +22,30 @@
       "revId": "e20afb72ceaf7e1e308835927bce43e04de6dc99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "643dbf83_1ae9307d",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1843,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-31T08:32:19Z",
+      "side": 1,
+      "message": "Other options that might be reasonable would be to move the degradation preference choice to VideoSendStream or providing the \"Video-BalancedDegradation\" choice as a bool parameter on construction (like enable_cpu_overuse_detection_) and read the field trial at a higher level.",
+      "parentUuid": "0bbf61bb_ff7f0d55",
+      "range": {
+        "startLine": 1843,
+        "startChar": 13,
+        "endLine": 1843,
+        "endChar": 42
+      },
+      "revId": "e20afb72ceaf7e1e308835927bce43e04de6dc99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

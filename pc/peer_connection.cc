@@ -1090,6 +1090,8 @@ bool PeerConnection::Initialize(
       this, &PeerConnection::OnTransportControllerGatheringState);
   transport_controller_->SignalIceCandidatesGathered.connect(
       this, &PeerConnection::OnTransportControllerCandidatesGathered);
+  transport_controller_->SignalIceCandidateError.connect(
+      this, &PeerConnection::OnTransportControllerCandidateError);
   transport_controller_->SignalIceCandidatesRemoved.connect(
       this, &PeerConnection::OnTransportControllerCandidatesRemoved);
   transport_controller_->SignalDtlsHandshakeError.connect(
@@ -4168,6 +4170,16 @@ void PeerConnection::OnIceCandidate(
   Observer()->OnIceCandidate(candidate.get());
 }
 
+void PeerConnection::OnIceCandidateError(
+    std::unique_ptr<IceCandidateInterface> candidate,
+    int error_code,
+    const std::string& error_text) {
+  if (IsClosed()) {
+    return;
+  }
+  Observer()->OnIceCandidateError(candidate.get(), error_code, error_text);
+}
+
 void PeerConnection::OnIceCandidatesRemoved(
     const std::vector<cricket::Candidate>& candidates) {
   if (IsClosed()) {
@@ -6098,6 +6110,18 @@ void PeerConnection::OnTransportControllerCandidatesGathered(
     }
     OnIceCandidate(std::move(candidate));
   }
+}
+
+void PeerConnection::OnTransportControllerCandidateError(
+    const cricket::IceCandidateErrorEvent& event) {
+  cricket::Candidate c;
+  rtc::SocketAddress address;
+  address.FromString(event.host_candidate);
+  c.set_address(address);
+  c.set_url(event.url);
+  std::unique_ptr<JsepIceCandidate> candidate(
+      new JsepIceCandidate(/* sdp_mid */ "", /* sdp_mline_index */ 0, c));
+  OnIceCandidateError(std::move(candidate), event.error_code, event.error_text);
 }
 
 void PeerConnection::OnTransportControllerCandidatesRemoved(

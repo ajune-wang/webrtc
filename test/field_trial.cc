@@ -73,6 +73,8 @@ void ValidateFieldTrialsStringOrDie(const std::string& trials_string) {
   InnerValidateFieldTrialsStringOrDie(trials_string);
 }
 
+ScopedFieldTrials::ScopedFieldTrials() = default;
+
 ScopedFieldTrials::ScopedFieldTrials(const std::string& config)
     : previous_field_trials_(webrtc::field_trial::GetFieldTrialString()) {
   current_field_trials_ = config;
@@ -80,8 +82,20 @@ ScopedFieldTrials::ScopedFieldTrials(const std::string& config)
   webrtc::field_trial::InitFieldTrialsFromString(current_field_trials_.c_str());
 }
 
+ScopedFieldTrials::ScopedFieldTrials(ScopedFieldTrials&& other)
+    : current_field_trials_(std::move(other.current_field_trials_)),
+      previous_field_trials_(std::move(other.previous_field_trials_)) {}
+
+ScopedFieldTrials& ScopedFieldTrials::operator=(ScopedFieldTrials&& other) {
+  current_field_trials_ = std::move(other.current_field_trials_);
+  other.previous_field_trials_ = absl::nullopt;
+  return *this;
+}
+
 ScopedFieldTrials::~ScopedFieldTrials() {
-  webrtc::field_trial::InitFieldTrialsFromString(previous_field_trials_);
+  if (previous_field_trials_) {
+    webrtc::field_trial::InitFieldTrialsFromString(*previous_field_trials_);
+  }
 }
 
 }  // namespace test

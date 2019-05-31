@@ -14,6 +14,8 @@
 #include <map>
 #include <string>
 
+#include "absl/types/optional.h"
+
 namespace webrtc {
 namespace test {
 
@@ -34,16 +36,29 @@ void ValidateFieldTrialsStringOrDie(const std::string& config);
 
 // This class is used to override field-trial configs within specific tests.
 // After this class goes out of scope previous field trials will be restored.
+//
+// Sometimes in tests it's useful to extend the lifetime of the
+// ScopedFieldTrials beyond the test body, e.g. if shutdown logic is handled in
+// the test fixture. The lifetime of the ScopedFieldTrials can be transfered to
+// a longer-lifetime ScopedFieldTrials instance using the move operators.
 class ScopedFieldTrials {
  public:
+  // The default constructor configures the object to be a nullopt. This is
+  // useful for marking a longer lifetime so that shorter lifetime instances can
+  // be move assigned.
+  ScopedFieldTrials();
   explicit ScopedFieldTrials(const std::string& config);
   ScopedFieldTrials(const ScopedFieldTrials&) = delete;
   ScopedFieldTrials& operator=(const ScopedFieldTrials&) = delete;
+  ScopedFieldTrials(ScopedFieldTrials&&);
+  ScopedFieldTrials& operator=(ScopedFieldTrials&&);
   ~ScopedFieldTrials();
 
  private:
+  // Keep the string memory alive since the global doesn't take ownership.
   std::string current_field_trials_;
-  const char* previous_field_trials_;
+  // Restored in the destructor if present.
+  absl::optional<const char*> previous_field_trials_;
 };
 
 }  // namespace test

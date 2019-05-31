@@ -1180,6 +1180,10 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
     });
   }
 
+  void SetFieldTrials(const std::string& config) {
+    field_trials_ = webrtc::test::ScopedFieldTrials(config);
+  }
+
   bool SignalingStateStable() {
     return caller_->SignalingStateStable() && callee_->SignalingStateStable();
   }
@@ -1621,6 +1625,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
   SdpSemantics sdp_semantics_;
 
  private:
+  webrtc::test::ScopedFieldTrials field_trials_;
   // |ss_| is used by |network_thread_| so it must be destroyed later.
   std::unique_ptr<rtc::VirtualSocketServer> ss_;
   std::unique_ptr<rtc::FirewallSocketServer> fss_;
@@ -5086,8 +5091,7 @@ TEST_P(PeerConnectionIntegrationTest,
 }
 
 TEST_P(PeerConnectionIntegrationTest, RegatherAfterChangingIceTransportType) {
-  webrtc::test::ScopedFieldTrials field_trials(
-      "WebRTC-GatherOnCandidateFilterChanged/Enabled/");
+  SetFieldTrials("WebRTC-GatherOnCandidateFilterChanged/Enabled/");
   static const rtc::SocketAddress turn_server_internal_address{"88.88.88.0",
                                                                3478};
   static const rtc::SocketAddress turn_server_external_address{"88.88.88.1", 0};

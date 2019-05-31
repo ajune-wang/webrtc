@@ -257,6 +257,7 @@ rtc_static_library("rtc_audio_video") {
     "../api:libjingle_peerconnection_api",
     "../api:scoped_refptr",
     "../api:transport_api",
+    "../api/audio:audio_mixer_api",
     "../api/audio_codecs:audio_codecs_api",
     "../api/task_queue",
     "../api/task_queue:global_task_queue_factory",

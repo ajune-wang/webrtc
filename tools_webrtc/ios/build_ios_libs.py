@@ -32,7 +32,8 @@ import find_depot_tools
 SDK_OUTPUT_DIR = os.path.join(SRC_DIR, 'out_ios_libs')
 SDK_FRAMEWORK_NAME = 'WebRTC.framework'
 
-DEFAULT_ARCHS = ENABLED_ARCHS = ['arm64', 'arm', 'x64', 'x86']
+# DEFAULT_ARCHS = ENABLED_ARCHS = ['arm64', 'arm', 'x64', 'x86']
+DEFAULT_ARCHS = ENABLED_ARCHS = ['arm64']
 IOS_DEPLOYMENT_TARGET = '10.0'
 LIBVPX_BUILD_VP9 = False
 
@@ -115,7 +116,7 @@ def BuildWebRTC(output_dir, target_arch, flavor, gn_target_name,
 
   gn_args.append('enable_ios_bitcode=' +
                  ('true' if use_bitcode else 'false'))
-  gn_args.append('use_goma=' + ('true' if use_goma else 'false'))
+  gn_args.append('use_goma=false')
 
   args_string = ' '.join(gn_args + extra_gn_args)
   logging.info('Building WebRTC with args: %s', args_string)

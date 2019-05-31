@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2dfc3e02_675f8f27",
+        "filename": "modules/rtp_rtcp/DEPS",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-31T12:20:10Z",
+      "side": 1,
+      "message": "move it to root DEPS\n(this rule is not specific to rtp_rtcp module)\nand update abseil-in-webrtc.md\n\n(sorry, I didn\u0027t remember it wasn\u0027t in the allowed list yet.\nDoubled checked what this header introduces. lgtm)",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 24
+      },
+      "revId": "b5ea312d71054cb70bcee20a2a2de41e5508435c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

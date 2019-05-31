@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "596998ec_b78cbd9f",
+        "filename": "call/call.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-05-31T08:28:15Z",
+      "side": 1,
+      "message": "At this point it can be considered hypothetical. I don\u0027t think CallConfig can be considered an equivalent concept, as its more specific to the requirements of Call. I think providing the manager directly to the channel is to be preferred, to avoid coupling it too closely to the Call class.",
+      "parentUuid": "ae0e44b3_7473ec69",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 56
+      },
+      "revId": "bcd1fdfb249a1696ca44a0ebb52fd41a20834328",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "06987e7d_fc10299d",
         "filename": "call/call_config.h",
         "patchSetId": 2

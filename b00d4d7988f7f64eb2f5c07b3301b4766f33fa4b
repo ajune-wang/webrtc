@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f57a11c0_b5ab3040",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-31T09:28:28Z",
+      "side": 1,
+      "message": "prefer to have less negation.\ne.g. \nif (buffering_allowed) {\n  // May be comment why return early.\n  return 0;\n} else {\n  return SendCompoundRTCP....\n}\n\nor change flag meaning to the opposite:\nbool send_immediately/send_asap/send_now\n\nPersonally I think 2nd option is better since that kind of name better describes the intent of the flag.\n\n[long-term though it might be better for rtcp module to handle that automatically.\nI have few ideas how, but that is out of scope of this change]",
+      "range": {
+        "startLine": 228,
+        "startChar": 6,
+        "endLine": 228,
+        "endChar": 7
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9901c7c3_501da800",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-31T09:28:28Z",
+      "side": 1,
+      "message": "there used to be a chromium rule \u0027no else after return\u0027\nThat rule is no longer there, but for local consistency (e.g. see previous function) might be good to still follow it.",
+      "range": {
+        "startLine": 231,
+        "startChar": 2,
+        "endLine": 231,
+        "endChar": 10
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a129b7fd_fcf2d312",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-31T09:28:28Z",
+      "side": 1,
+      "message": "instead of the constant (specially bool constant with value false)\n[i.e. it take a bit of time to understand does kBufferingAllowed constant means that buffering is allowed or does it contains value that tells if buffering is allowed]\n\nit might be clearer to document this values with a comment\n,/*buffering_allowed\u003d*/false);",
+      "range": {
+        "startLine": 386,
+        "startChar": 6,
+        "endLine": 386,
+        "endChar": 23
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53b6531b_aa7e2209",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-31T09:28:28Z",
+      "side": 1,
+      "message": "do not introduce result variable\nhttp://go/totw/161#inline-expressions-under-test-into-expect-that",
+      "range": {
+        "startLine": 400,
+        "startChar": 16,
+        "endLine": 400,
+        "endChar": 22
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca0c0e37_aa0fd2d0",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-31T09:28:28Z",
+      "side": 1,
+      "message": "may be use macro arraysize from rtc_base/arraysize.h\n(or ABSL_ARRAYSIZE from absl/base/macros.h)",
+      "range": {
+        "startLine": 410,
+        "startChar": 30,
+        "endLine": 410,
+        "endChar": 63
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17667efe_530e3ff5",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-31T09:28:28Z",
+      "side": 1,
+      "message": "swap constant and value under test:\nother EXPECTs in this test use opposite order EXPECT_EQ(value_under_test, constant)\n\n(note: since 2016 that is recommended order)",
+      "range": {
+        "startLine": 411,
+        "startChar": 12,
+        "endLine": 411,
+        "endChar": 15
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34212329_3e4a5e96",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-31T09:28:28Z",
+      "side": 1,
+      "message": "prefer to describe meaning of literal constants since it is not obvious from the function name/context:\n/*buffering_allowed\u003d*/true)",
+      "range": {
+        "startLine": 184,
+        "startChar": 27,
+        "endLine": 184,
+        "endChar": 31
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35bcf682_6fcaa494",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-31T09:28:28Z",
+      "side": 1,
+      "message": "if this flag is irrelevant for these test, why put expectations on it?\ni.e. may be remove this line and comment out the parameter to stress flag is unused/irrelevant here:\nbool /*buffering_allowed*/) override {",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 64
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f9fff94_79ecb00b",
+        "filename": "test/rtcp_packet_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-31T09:28:28Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Vertical_Whitespace\n\"Minimize use of vertical whitespace.\"",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a8841a2_1f911526",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-31T09:28:28Z",
+      "side": 1,
+      "message": "trigger",
+      "range": {
+        "startLine": 139,
+        "startChar": 65,
+        "endLine": 139,
+        "endChar": 72
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ab646d7_a5dba7da",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-05-31T09:28:28Z",
+      "side": 1,
+      "message": "remove one space",
+      "range": {
+        "startLine": 140,
+        "startChar": 10,
+        "endLine": 140,
+        "endChar": 12
+      },
+      "revId": "b00d4d7988f7f64eb2f5c07b3301b4766f33fa4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

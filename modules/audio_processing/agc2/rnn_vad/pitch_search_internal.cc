@@ -342,12 +342,12 @@ PitchInfo CheckLowerPitchPeriodsAndComputePitchGain(
     RTC_DCHECK_GT(k, 0);
     return (2 * n * period + k) / (2 * k);  // Same as round(n*period/k).
   };
-  for (int k = 2; k < static_cast<int>(kSubHarmonicMultipliers.size() + 2);
-       ++k) {
+  // |max_k| such that alternative_period(initial_pitch_period, max_k, 1) equals
+  // kMinPitch24kHz.
+  const int max_k = (2 * initial_pitch_period) / (2 * kMinPitch24kHz - 1);
+  for (int k = 2; k <= max_k; ++k) {
     int candidate_pitch_period = alternative_period(initial_pitch_period, k, 1);
-    if (static_cast<size_t>(candidate_pitch_period) < kMinPitch24kHz) {
-      break;
-    }
+    RTC_DCHECK_GE(candidate_pitch_period, static_cast<int>(kMinPitch24kHz));
     // When looking at |candidate_pitch_period|, we also look at one of its
     // sub-harmonics. |kSubHarmonicMultipliers| is used to know where to look.
     // |k| == 2 is a special case since |candidate_pitch_secondary_period| might

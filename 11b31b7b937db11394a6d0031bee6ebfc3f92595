@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b874c859_e09c1179",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-06-01T01:13:59Z",
+      "side": 1,
+      "message": "nit: int error_code \u003d 0 and  \u003d default this ctor. New code uses this pattern.",
+      "range": {
+        "startLine": 191,
+        "startChar": 29,
+        "endLine": 191,
+        "endChar": 39
+      },
+      "revId": "11b31b7b937db11394a6d0031bee6ebfc3f92595",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

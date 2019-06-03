@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e897a74_528fb0ad",
+        "filename": "pc/channel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-06-03T11:43:08Z",
+      "side": 1,
+      "message": "Why isn\u0027t this logic inside FindMatchingCodec?",
+      "revId": "638f8def8a97e7adf56be8edfbb596b455cd272f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f624464_db83193d",
+        "filename": "pc/channel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-06-03T11:43:08Z",
+      "side": 1,
+      "message": "Same comment here: Why isn\u0027t it part of FindMatchingCodec?",
+      "revId": "638f8def8a97e7adf56be8edfbb596b455cd272f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8f5f69c_b519337d",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2940,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-06-03T11:43:08Z",
+      "side": 1,
+      "message": "Naming:Can we rename this function to UpdateVideoCodecPacketization?\nUpdateVideoCodec is an extremely generic name, and this function isn\u0027t generic.",
+      "revId": "638f8def8a97e7adf56be8edfbb596b455cd272f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afb70452_6243df10",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 3404,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-06-03T11:43:08Z",
+      "side": 1,
+      "message": "This test should be called \"DeserializePacketizationAttributeWithIllegalValue\".",
+      "revId": "638f8def8a97e7adf56be8edfbb596b455cd272f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

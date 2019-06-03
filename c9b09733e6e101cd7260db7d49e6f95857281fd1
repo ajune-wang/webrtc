@@ -282,6 +282,24 @@
     },
     {
       "key": {
+        "uuid": "7e3af1b0_8269b061",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2207,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-06-03T11:43:08Z",
+      "side": 1,
+      "message": "If so, add a test that negotiation of (some subset of) VP9, H.264 and H.265 does the Right Thing with packetization (either doesn\u0027t offer it, or negotates it successfully).",
+      "parentUuid": "9a5e95f6_7ca6cc86",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9789ba7_643d8094",
         "filename": "pc/media_session.h",
         "patchSetId": 6
@@ -387,6 +405,24 @@
     },
     {
       "key": {
+        "uuid": "544fe3f3_4898242c",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3732,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-06-03T11:43:08Z",
+      "side": 1,
+      "message": "Yes, it\u0027s the convention (often not adhered to) to ignore it. I wanted to make sure you intended to do so only - I think it\u0027s the right thing.",
+      "parentUuid": "3c19b17b_274f1eb3",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7a4c6dcb_c5e72401",
         "filename": "pc/webrtc_sdp.cc",
         "patchSetId": 6
@@ -416,6 +452,24 @@
       "side": 1,
       "message": "GetValue will fill out the error information (and GetPayloadTypeFromString below as well).",
       "parentUuid": "7a4c6dcb_c5e72401",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2dcc3398_3ed289c7",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3742,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-06-03T11:43:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7709a750_33d9111e",
       "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -486,6 +540,24 @@
       "side": 1,
       "message": "This will be used through Java and Objective-C PeerConnection API to begin with and not in Chrome for now.",
       "parentUuid": "29cf2f74_622d92e4",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8dd5a5e_9867cc3f",
+        "filename": "sdk/media_constraints.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-06-03T11:43:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "eda3ff04_f0983d8a",
       "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

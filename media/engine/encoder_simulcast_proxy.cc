@@ -55,6 +55,11 @@ int EncoderSimulcastProxy::RegisterEncodeCompleteCallback(
   return encoder_->RegisterEncodeCompleteCallback(callback);
 }
 
+void EncoderSimulcastProxy::SetRetransmissionController(
+    RetransmissionControllerInterface* retransmission_controller) {
+  encoder_->SetRetransmissionController(retransmission_controller);
+}
+
 void EncoderSimulcastProxy::SetRates(const RateControlParameters& parameters) {
   encoder_->SetRates(parameters);
 }

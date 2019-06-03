@@ -244,6 +244,7 @@ VideoSendStreamImpl::VideoSendStreamImpl(
                           send_delay_stats),
           event_log,
           std::move(fec_controller),
+          video_stream_encoder,
           CreateFrameEncryptionConfig(config_))),
       weak_ptr_factory_(this),
       media_transport_(media_transport) {

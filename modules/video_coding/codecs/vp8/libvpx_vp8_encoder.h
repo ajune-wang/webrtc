@@ -54,6 +54,9 @@ class LibvpxVp8Encoder : public VideoEncoder {
 
   int RegisterEncodeCompleteCallback(EncodedImageCallback* callback) override;
 
+  void SetRetransmissionController(
+      RetransmissionControllerInterface* retransmission_controller) override;
+
   void SetRates(const RateControlParameters& parameters) override;
 
   void OnPacketLossRateUpdate(float packet_loss_rate) override;

@@ -17,6 +17,7 @@
 #include <memory>
 #include <vector>
 
+#include "api/retransmission_controller_interface.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "api/video/video_frame.h"
 #include "api/video_codecs/sdp_video_format.h"
@@ -48,6 +49,8 @@ class RTC_EXPORT EncoderSimulcastProxy : public VideoEncoder {
   int Encode(const VideoFrame& input_image,
              const std::vector<VideoFrameType>* frame_types) override;
   int RegisterEncodeCompleteCallback(EncodedImageCallback* callback) override;
+  void SetRetransmissionController(
+      RetransmissionControllerInterface* retransmission_controller) override;
   void SetRates(const RateControlParameters& parameters) override;
   void OnPacketLossRateUpdate(float packet_loss_rate) override;
   void OnRttUpdate(int64_t rtt_ms) override;

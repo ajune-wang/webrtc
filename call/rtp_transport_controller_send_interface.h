@@ -52,6 +52,7 @@ class RtpPacketSender;
 class SendDelayStats;
 class SendStatisticsProxy;
 class TransportFeedbackObserver;
+class VideoStreamEncoderInterface;
 
 struct RtpSenderObservers {
   RtcpRttStats* rtcp_rtt_stats;
@@ -111,6 +112,7 @@ class RtpTransportControllerSendInterface {
       const RtpSenderObservers& observers,
       RtcEventLog* event_log,
       std::unique_ptr<FecController> fec_controller,
+      VideoStreamEncoderInterface* video_stream_encoder,
       const RtpSenderFrameEncryptionConfig& frame_encryption_config) = 0;
   virtual void DestroyRtpVideoSender(
       RtpVideoSenderInterface* rtp_video_sender) = 0;

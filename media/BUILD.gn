@@ -186,6 +186,7 @@ rtc_static_library("rtc_encoder_simulcast_proxy") {
   ]
   deps = [
     ":rtc_simulcast_encoder_adapter",
+    "../api:libjingle_peerconnection_api",
     "../api/video:video_bitrate_allocation",
     "../api/video:video_frame",
     "../api/video_codecs:video_codecs_api",
@@ -206,6 +207,7 @@ rtc_static_library("rtc_internal_video_codecs") {
     ":rtc_media_base",
     ":rtc_simulcast_encoder_adapter",
     "../:webrtc_common",
+    "../api:libjingle_peerconnection_api",
     "../api/video:encoded_image",
     "../api/video:video_bitrate_allocation",
     "../api/video:video_frame",

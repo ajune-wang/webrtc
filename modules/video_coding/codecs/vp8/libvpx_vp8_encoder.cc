@@ -1221,10 +1221,17 @@ VideoEncoder::EncoderInfo LibvpxVp8Encoder::GetEncoderInfo() const {
   return info;
 }
 
+// TODO(eladalon): The methods' order should correspond in the .cc and .h files.
 int LibvpxVp8Encoder::RegisterEncodeCompleteCallback(
     EncodedImageCallback* callback) {
   encoded_complete_callback_ = callback;
   return WEBRTC_VIDEO_CODEC_OK;
+}
+
+void LibvpxVp8Encoder::SetRetransmissionController(
+    RetransmissionControllerInterface* retransmission_controller) {
+  RTC_DCHECK(retransmission_controller);
+  // TODO(bugs.webrtc.org/10702): Use retransmission controller.
 }
 
 // static

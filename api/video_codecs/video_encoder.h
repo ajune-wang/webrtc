@@ -18,6 +18,7 @@
 
 #include "absl/container/inlined_vector.h"
 #include "absl/types/optional.h"
+#include "api/retransmission_controller_interface.h"
 #include "api/units/data_rate.h"
 #include "api/video/encoded_image.h"
 #include "api/video/video_bitrate_allocation.h"
@@ -269,6 +270,10 @@ class RTC_EXPORT VideoEncoder {
   // Return value                : WEBRTC_VIDEO_CODEC_OK if OK, < 0 otherwise.
   virtual int32_t RegisterEncodeCompleteCallback(
       EncodedImageCallback* callback) = 0;
+
+  // Set an interface through which retransmissions may be stopped/resumed.
+  virtual void SetRetransmissionController(
+      RetransmissionControllerInterface* retransmission_controller);
 
   // Free encoder memory.
   // Return value                : WEBRTC_VIDEO_CODEC_OK if OK, < 0 otherwise.

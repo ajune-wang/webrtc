@@ -136,6 +136,7 @@ rtc_source_set("rtp_sender") {
     "../api/units:time_delta",
     "../api/units:timestamp",
     "../api/video:video_frame",
+    "../api/video:video_stream_encoder",
     "../api/video_codecs:video_codecs_api",
     "../logging:rtc_event_bwe",
     "../logging:rtc_event_log_api",
@@ -471,6 +472,7 @@ if (rtc_include_tests) {
     deps = [
       ":rtp_interfaces",
       "../api:libjingle_peerconnection_api",
+      "../api/video:video_stream_encoder",
       "../modules/congestion_controller",
       "../modules/pacing",
       "../rtc_base",

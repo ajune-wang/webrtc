@@ -67,22 +67,34 @@ TEST_F(TestVCMJitterEstimator, TestLowRate) {
     estimator_->UpdateEstimate(gen.Delay(), gen.FrameSize());
     AdvanceClock(time_delta_us);
     if (i > 2)
-      EXPECT_EQ(estimator_->GetJitterEstimate(0), 0);
+      EXPECT_EQ(estimator_->GetJitterEstimate(0, absl::nullopt), 0);
     gen.Advance();
   }
 }
 
 TEST_F(TestVCMJitterEstimator, TestUpperBound) {
   struct TestContext {
-    TestContext() : upper_bound(0.0), percentiles(1000) {}
+    TestContext()
+        : upper_bound(0.0),
+          jitter_est_cap_ms(absl::nullopt),
+          percentiles(1000) {}
     double upper_bound;
+    absl::optional<double> jitter_est_cap_ms;
     rtc::HistogramPercentileCounter percentiles;
   };
   std::vector<TestContext> test_cases(2);
 
-  test_cases[0].upper_bound = 100.0;  // First use essentially no cap.
-  test_cases[1].upper_bound = 3.5;    // Second, reasonably small cap.
+  test_cases[0].upper_bound =
+      100.0;  // First use essentially no cap and nullopt codepath.
+  test_cases[0].jitter_est_cap_ms = absl::nullopt;
+  test_cases[1].upper_bound =
+      3.5;  // Second, reasonably small cap and nullopt codepath.
+  test_cases[1].jitter_est_cap_ms = absl::nullopt;
+  test_cases[2].upper_bound =
+      100;  // Third, essentially no cap and non-nullopt codepath.
+  test_cases[2].jitter_est_cap_ms = 50;
 
+  // Test jitter buffer size cap nullopt and non-nullopt code paths
   for (TestContext& context : test_cases) {
     // Set up field trial and reset jitter estimator.
     char string_buf[64];
@@ -97,8 +109,8 @@ TEST_F(TestVCMJitterEstimator, TestUpperBound) {
     for (int i = 0; i < 100; ++i) {
       estimator_->UpdateEstimate(gen.Delay(), gen.FrameSize());
       AdvanceClock(time_delta_us);
-      context.percentiles.Add(
-          static_cast<uint32_t>(estimator_->GetJitterEstimate(0)));
+      context.percentiles.Add(static_cast<uint32_t>(
+          estimator_->GetJitterEstimate(0, context.jitter_est_cap_ms)));
       gen.Advance();
     }
   }

@@ -14,6 +14,7 @@
 #include <memory>
 #include <vector>
 
+#include "api/transport/retransmission_controller_interface.h"
 #include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/vp8_frame_buffer_controller.h"
 #include "api/video_codecs/vp8_frame_config.h"
@@ -36,6 +37,9 @@ class Vp8TemporalLayers final : public Vp8FrameBufferController {
   ~Vp8TemporalLayers() override = default;
 
   void SetQpLimits(size_t stream_index, int min_qp, int max_qp) override;
+
+  void SetRetransmissionController(
+      RetransmissionControllerInterface* retransmission_controller) override;
 
   size_t StreamCount() const override;
 

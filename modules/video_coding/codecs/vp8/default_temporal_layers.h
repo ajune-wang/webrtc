@@ -36,6 +36,9 @@ class DefaultTemporalLayers final : public Vp8FrameBufferController {
 
   void SetQpLimits(size_t stream_index, int min_qp, int max_qp) override;
 
+  void SetRetransmissionController(
+      RetransmissionControllerInterface* retransmission_controller) override;
+
   size_t StreamCount() const override;
 
   bool SupportsEncoderFrameDropping(size_t stream_index) const override;

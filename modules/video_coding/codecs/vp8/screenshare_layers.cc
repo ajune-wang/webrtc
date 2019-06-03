@@ -87,6 +87,12 @@ void ScreenshareLayers::SetQpLimits(size_t stream_index,
   }
 }
 
+void ScreenshareLayers::SetRetransmissionController(
+    RetransmissionControllerInterface* retransmission_controller) {
+  RTC_DCHECK(retransmission_controller);
+  // Not used.
+}
+
 size_t ScreenshareLayers::StreamCount() const {
   return 1;
 }

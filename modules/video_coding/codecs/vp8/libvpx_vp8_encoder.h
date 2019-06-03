@@ -115,6 +115,7 @@ class LibvpxVp8Encoder : public VideoEncoder {
   const std::unique_ptr<Vp8FrameBufferControllerFactory>
       frame_buffer_controller_factory_;
   std::unique_ptr<Vp8FrameBufferController> frame_buffer_controller_;
+  RetransmissionControllerInterface* retransmission_controller_;
   std::vector<bool> key_frame_request_;
   std::vector<bool> send_stream_;
   std::vector<int> cpu_speed_;

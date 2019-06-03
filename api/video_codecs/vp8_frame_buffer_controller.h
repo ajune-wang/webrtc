@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "api/transport/retransmission_controller_interface.h"
 #include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/vp8_frame_config.h"
@@ -101,6 +102,12 @@ class Vp8FrameBufferController {
   // Set limits on QP.
   // The limits are suggestion-only; the controller is allowed to exceed them.
   virtual void SetQpLimits(size_t stream_index, int min_qp, int max_qp) = 0;
+
+  // Through |retransmission_controller|, retransmissions may be turned
+  // off and on.
+  // TODO(bugs.webrtc.org/10702): Make pure virtual after updating downstream.
+  virtual void SetRetransmissionController(
+      RetransmissionControllerInterface* retransmission_controller) {}
 
   // Number of streamed controlled by |this|.
   virtual size_t StreamCount() const = 0;

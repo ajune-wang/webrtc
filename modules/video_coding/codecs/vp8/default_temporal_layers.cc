@@ -257,6 +257,12 @@ void DefaultTemporalLayers::SetQpLimits(size_t stream_index,
   // Ignore.
 }
 
+void DefaultTemporalLayers::SetRetransmissionController(
+    RetransmissionControllerInterface* retransmission_controller) {
+  RTC_DCHECK(retransmission_controller);
+  // Not used.
+}
+
 size_t DefaultTemporalLayers::StreamCount() const {
   return 1;
 }

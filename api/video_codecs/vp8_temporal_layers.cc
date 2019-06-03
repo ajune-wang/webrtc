@@ -35,6 +35,12 @@ void Vp8TemporalLayers::SetQpLimits(size_t stream_index,
   return controllers_[stream_index]->SetQpLimits(0, min_qp, max_qp);
 }
 
+void Vp8TemporalLayers::SetRetransmissionController(
+    RetransmissionControllerInterface* retransmission_controller) {
+  RTC_DCHECK(retransmission_controller);
+  // Not used.
+}
+
 size_t Vp8TemporalLayers::StreamCount() const {
   return controllers_.size();
 }

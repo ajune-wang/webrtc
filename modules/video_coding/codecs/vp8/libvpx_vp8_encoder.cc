@@ -286,6 +286,7 @@ LibvpxVp8Encoder::LibvpxVp8Encoder(
       rc_max_intra_target_(0),
       frame_buffer_controller_factory_(
           std::move(frame_buffer_controller_factory)),
+      retransmission_controller_(nullptr),
       key_frame_request_(kMaxSimulcastStreams, false),
       variable_framerate_experiment_(ParseVariableFramerateConfig(
           "WebRTC-VP8VariableFramerateScreenshare")),
@@ -491,6 +492,10 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
     frame_buffer_controller_ = factory.Create(*inst);
   }
   RTC_DCHECK(frame_buffer_controller_);
+  if (retransmission_controller_) {
+    frame_buffer_controller_->SetRetransmissionController(
+        retransmission_controller_);
+  }
 
   number_of_cores_ = number_of_cores;
   timestamp_ = 0;
@@ -1231,7 +1236,12 @@ int LibvpxVp8Encoder::RegisterEncodeCompleteCallback(
 void LibvpxVp8Encoder::SetRetransmissionController(
     RetransmissionControllerInterface* retransmission_controller) {
   RTC_DCHECK(retransmission_controller);
-  // TODO(bugs.webrtc.org/10702): Use retransmission controller.
+  RTC_DCHECK(!retransmission_controller_);
+  retransmission_controller_ = retransmission_controller;
+  if (frame_buffer_controller_) {
+    frame_buffer_controller_->SetRetransmissionController(
+        retransmission_controller);
+  }
 }
 
 // static

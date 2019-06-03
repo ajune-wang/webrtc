@@ -22,6 +22,30 @@
       "revId": "7dd8f07779c75229ac0e195906de81d7e55024fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac42aac7_1620364d",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-03T13:11:20Z",
+      "side": 1,
+      "message": "Note that |rtp_streams_| is a const vector, and assigned only at construction time. And the object it points to have their own locks, I think.",
+      "parentUuid": "207db752_ed0bf44a",
+      "range": {
+        "startLine": 683,
+        "startChar": 23,
+        "endLine": 683,
+        "endChar": 28
+      },
+      "revId": "7dd8f07779c75229ac0e195906de81d7e55024fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

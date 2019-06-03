@@ -73,7 +73,7 @@ rtc_source_set("rtp_headers") {
   deps = [
     ":array_view",
     "..:webrtc_common",
-    "video:video_frame",
+    "video:video_rtp_headers",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }

@@ -13,8 +13,6 @@
 #include "audio/utility/audio_frame_operations.h"
 #include "rtc_base/checks.h"
 
-namespace webrtc {
-
 uint32_t AudioMixerCalculateEnergy(const AudioFrame& audio_frame) {
   if (audio_frame.muted()) {
     return 0;
@@ -22,11 +20,18 @@ uint32_t AudioMixerCalculateEnergy(const AudioFrame& audio_frame) {
 
   uint32_t energy = 0;
   const int16_t* frame_data = audio_frame.data();
+
+#ifdef __clang__
+#pragma unroll 16
+#elif defined(__GNUC__) && __GNUC__ > 8
+#pragma GCC unroll 16
+#endif
   for (size_t position = 0;
        position < audio_frame.samples_per_channel_ * audio_frame.num_channels_;
        position++) {
     // TODO(aleloi): This can overflow. Convert to floats.
-    energy += frame_data[position] * frame_data[position];
+    energy += static_cast<int32_t>(frame_data[position]) *
+              static_cast<int32_t>(frame_data[position]);
   }
   return energy;
 }

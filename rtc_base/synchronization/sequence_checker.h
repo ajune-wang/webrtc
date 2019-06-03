@@ -161,8 +161,12 @@ class RTC_SCOPED_LOCKABLE SequenceCheckerScope {
 #define RTC_RUN_ON(x) \
   RTC_THREAD_ANNOTATION_ATTRIBUTE__(exclusive_locks_required(x))
 
+#ifdef RTC_DCHECK_IS_ON
 #define RTC_DCHECK_RUN_ON(x)                                              \
   webrtc::webrtc_seq_check_impl::SequenceCheckerScope seq_check_scope(x); \
   RTC_DCHECK((x)->IsCurrent())
+#else
+#define RTC_DCHECK_RUN_ON(x)
+#endif
 
 #endif  // RTC_BASE_SYNCHRONIZATION_SEQUENCE_CHECKER_H_

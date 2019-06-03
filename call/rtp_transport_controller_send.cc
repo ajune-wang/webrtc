@@ -17,6 +17,7 @@
 #include "api/units/data_rate.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
+#include "api/video/video_stream_encoder_interface.h"
 #include "call/rtp_transport_controller_send.h"
 #include "call/rtp_video_sender.h"
 #include "logging/rtc_event_log/events/rtc_event_route_change.h"
@@ -112,15 +113,18 @@ RtpVideoSenderInterface* RtpTransportControllerSend::CreateRtpVideoSender(
     const RtpSenderObservers& observers,
     RtcEventLog* event_log,
     std::unique_ptr<FecController> fec_controller,
+    VideoStreamEncoderInterface* video_stream_encoder,
     const RtpSenderFrameEncryptionConfig& frame_encryption_config) {
-  video_rtp_senders_.push_back(absl::make_unique<RtpVideoSender>(
+  auto video_rtp_sender = absl::make_unique<RtpVideoSender>(
       clock_, suspended_ssrcs, states, rtp_config, rtcp_report_interval_ms,
       send_transport, observers,
       // TODO(holmer): Remove this circular dependency by injecting
       // the parts of RtpTransportControllerSendInterface that are really used.
       this, event_log, &retransmission_rate_limiter_, std::move(fec_controller),
       frame_encryption_config.frame_encryptor,
-      frame_encryption_config.crypto_options));
+      frame_encryption_config.crypto_options);
+  video_stream_encoder->SetRetransmissionController(video_rtp_sender.get());
+  video_rtp_senders_.push_back(std::move(video_rtp_sender));
   return video_rtp_senders_.back().get();
 }
 

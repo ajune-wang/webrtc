@@ -684,6 +684,18 @@ void RtpVideoSender::OnOverheadChanged(size_t overhead_bytes_per_packet) {
   overhead_bytes_per_packet_ = overhead_bytes_per_packet;
 }
 
+void RtpVideoSender::DisableRetransmission() {
+  for (const RtpStreamSender& stream : rtp_streams_) {
+    stream.rtp_rtcp->RtpSender()->DisableRetransmission();
+  }
+}
+
+void RtpVideoSender::EnableRetransmission() {
+  for (const RtpStreamSender& stream : rtp_streams_) {
+    stream.rtp_rtcp->RtpSender()->EnableRetransmission();
+  }
+}
+
 void RtpVideoSender::OnBitrateUpdated(uint32_t bitrate_bps,
                                       uint8_t fraction_loss,
                                       int64_t rtt,

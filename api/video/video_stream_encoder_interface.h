@@ -13,6 +13,7 @@
 
 #include <vector>
 
+#include "api/retransmission_controller_interface.h"
 #include "api/rtp_parameters.h"  // For DegradationPreference.
 #include "api/units/data_rate.h"
 #include "api/video/video_bitrate_allocator.h"
@@ -96,6 +97,11 @@ class VideoStreamEncoderInterface : public rtc::VideoSinkInterface<VideoFrame> {
   // and spatial layers.
   virtual void SetBitrateAllocationObserver(
       VideoBitrateAllocationObserver* bitrate_observer) = 0;
+
+  // Set a RetransmissionController, through which packet retransmission (e.g in
+  // response to NACK messages) may be enabled/disabled.
+  virtual void SetRetransmissionController(
+      RetransmissionControllerInterface* retransmission_controller) = 0;
 
   // Creates and configures an encoder with the given |config|. The
   // |max_data_payload_length| is used to support single NAL unit

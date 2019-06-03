@@ -118,6 +118,9 @@ VideoEncoder::RateControlParameters::RateControlParameters(
 
 VideoEncoder::RateControlParameters::~RateControlParameters() = default;
 
+void VideoEncoder::SetRetransmissionController(
+    RetransmissionControllerInterface* retransmission_controller) {}
+
 void VideoEncoder::OnPacketLossRateUpdate(float packet_loss_rate) {}
 
 void VideoEncoder::OnRttUpdate(int64_t rtt_ms) {}

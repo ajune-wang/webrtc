@@ -486,6 +486,7 @@ VideoStreamEncoder::VideoStreamEncoder(
       pending_frame_post_time_us_(0),
       accumulated_update_rect_{0, 0, 0, 0},
       bitrate_observer_(nullptr),
+      retransmission_controller_(nullptr),
       force_disable_frame_dropper_(false),
       input_framerate_(kFrameRateAvergingWindowSizeMs, 1000),
       pending_frame_drops_(0),
@@ -533,6 +534,18 @@ void VideoStreamEncoder::SetBitrateAllocationObserver(
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     RTC_DCHECK(!bitrate_observer_);
     bitrate_observer_ = bitrate_observer;
+  });
+}
+
+void VideoStreamEncoder::SetRetransmissionController(
+    RetransmissionControllerInterface* retransmission_controller) {
+  encoder_queue_.PostTask([this, retransmission_controller] {
+    RTC_DCHECK_RUN_ON(&encoder_queue_);
+    RTC_DCHECK(!retransmission_controller_);
+    retransmission_controller_ = retransmission_controller;
+    if (encoder_) {
+      encoder_->SetRetransmissionController(retransmission_controller_);
+    }
   });
 }
 
@@ -728,6 +741,9 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       // TODO(nisse): What to do if creating the encoder fails? Crash,
       // or just discard incoming frames?
       RTC_CHECK(encoder_);
+
+      encoder_->SetRetransmissionController(retransmission_controller_);
+
       codec_info_ = settings_.encoder_factory->QueryVideoEncoder(
           encoder_config_.video_format);
     }

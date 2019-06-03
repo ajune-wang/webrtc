@@ -21,6 +21,7 @@
 #include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "api/call/transport.h"
+#include "api/retransmission_controller_interface.h"
 #include "api/transport/webrtc_key_value_config.h"
 #include "modules/rtp_rtcp/include/flexfec_sender.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
@@ -42,7 +43,7 @@ class RateLimiter;
 class RtcEventLog;
 class RtpPacketToSend;
 
-class RTPSender {
+class RTPSender : public RetransmissionControllerInterface {
  public:
   RTPSender(bool audio,
             Clock* clock,
@@ -176,6 +177,10 @@ class RTPSender {
   void SetRtt(int64_t rtt_ms);
 
   void OnPacketsAcknowledged(rtc::ArrayView<const uint16_t> sequence_numbers);
+
+  // Implement RetransmissionControllerInterface.
+  void DisableRetransmission() override;
+  void EnableRetransmission() override;
 
  private:
   // Maps capture time in milliseconds to send-side delay in milliseconds.

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "207db752_ed0bf44a",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-03T13:01:50Z",
+      "side": 1,
+      "message": "Is any of the reviewers familiar with |crit_| enough to say that the fact that |rtp_streams_| is not GUARDED_BY it is intended, and not an oversight?",
+      "range": {
+        "startLine": 683,
+        "startChar": 23,
+        "endLine": 683,
+        "endChar": 28
+      },
+      "revId": "7dd8f07779c75229ac0e195906de81d7e55024fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

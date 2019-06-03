@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa272a35_0e3f25fd",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-03T13:01:50Z",
+      "side": 1,
+      "message": "Question for reviewers:\nAre the other files in this target here because it was previously a dumping ground that is now slowly migrated into sub-dependencies? If so, would retransmission_controller_interface.h fit best in api/transport/?",
+      "revId": "02e049eb79e5a42a6377e9a3340c21dd12c91ebd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

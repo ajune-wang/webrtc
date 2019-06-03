@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "6659b739_9c779b12",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-06-03T07:48:56Z",
+      "side": 1,
+      "message": "For example: if increment(x) is being called from another thread, it may be incremented before the first call, between the two calls, or after the second call. You can\u0027t assume that a precondition is true before making the call.",
+      "parentUuid": "af306f0e_205df57a",
+      "revId": "193c9f90719668c03a70906ce4383e2c101b7d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ecd18993_d0bb8be9",
         "filename": "api/DESIGN.md",
         "patchSetId": 5
@@ -47,6 +65,24 @@
       "writtenOn": "2019-01-14T15:11:29Z",
       "side": 1,
       "message": "Should this be at the top (before we talk about the API being designed to be called from a single thread)?",
+      "revId": "193c9f90719668c03a70906ce4383e2c101b7d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9de88b23_2a7042b8",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-06-03T07:48:56Z",
+      "side": 1,
+      "message": "I can make a terminology section after the first sentence, and move it there.",
+      "parentUuid": "ecd18993_d0bb8be9",
       "revId": "193c9f90719668c03a70906ce4383e2c101b7d05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -81,6 +117,24 @@
       "writtenOn": "2019-01-14T15:37:08Z",
       "side": 1,
       "message": "The callbacks are invoked on the signaling thread, why don\u0027t we say that? Which thread the callback is invoked on is relevant because it allows us to read the state of webrtc objects synchronously (without implict threadjumps due to proxy), something we have to do to surface state information correctly in chromium.",
+      "parentUuid": "fe78a3a8_2a1fd3d3",
+      "revId": "193c9f90719668c03a70906ce4383e2c101b7d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac90d001_1f9311aa",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-06-03T07:48:56Z",
+      "side": 1,
+      "message": "At the moment, I can\u0027t think of a case where you don\u0027t have to do it, but I haven\u0027t checked them all...",
       "parentUuid": "fe78a3a8_2a1fd3d3",
       "revId": "193c9f90719668c03a70906ce4383e2c101b7d05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

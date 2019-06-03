@@ -345,6 +345,24 @@
       "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88d924e2_00f104f5",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-06-03T07:48:56Z",
+      "side": 1,
+      "message": "You\u0027re still talking about what happens when people access the internal APIs. pc/peerconnection.h is an internal API. I\u0027ll make the point even more explicit in the intro that this document is **** NOT **** talking about interfaces in any directiory but api/.",
+      "parentUuid": "6a6a7a04_dcb66c32",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

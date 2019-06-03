@@ -107,7 +107,7 @@ class Vp8FrameBufferController {
   // off and on.
   // TODO(bugs.webrtc.org/10702): Make pure virtual after updating downstream.
   virtual void SetRetransmissionController(
-      RetransmissionControllerInterface* retransmission_controller) {}
+      RetransmissionControllerInterface* retransmission_controller) = 0;
 
   // Number of streamed controlled by |this|.
   virtual size_t StreamCount() const = 0;

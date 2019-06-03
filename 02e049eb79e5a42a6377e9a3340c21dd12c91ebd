@@ -34,6 +34,24 @@
       "revId": "02e049eb79e5a42a6377e9a3340c21dd12c91ebd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cdcb6bd_ca7f236e",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-03T16:05:14Z",
+      "side": 1,
+      "message": "Great, I\u0027ll move it to api/transport.",
+      "parentUuid": "68bfbaa4_b3e69578",
+      "revId": "02e049eb79e5a42a6377e9a3340c21dd12c91ebd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

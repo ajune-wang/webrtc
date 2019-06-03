@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1f7f1921_e894c9a4",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-03T16:05:14Z",
+      "side": 1,
+      "message": "ModuleRtpRtcpImpl, which is the member of RtpStreamSender which I\u0027m wondering about, only has one odd critical section, used only for RTT.",
+      "parentUuid": "ac42aac7_1620364d",
+      "range": {
+        "startLine": 683,
+        "startChar": 23,
+        "endLine": 683,
+        "endChar": 28
+      },
+      "revId": "7dd8f07779c75229ac0e195906de81d7e55024fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "815e96c8_816b3e98",
         "filename": "modules/rtp_rtcp/source/rtp_sender.h",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "481a581b_5fe5c93a",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-03T16:05:14Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "815e96c8_816b3e98",
+      "range": {
+        "startLine": 67,
+        "startChar": 14,
+        "endLine": 67,
+        "endChar": 15
+      },
+      "revId": "7dd8f07779c75229ac0e195906de81d7e55024fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b4627d3_0d928fd7",
         "filename": "video/video_send_stream_impl_unittest.cc",
         "patchSetId": 2
@@ -83,6 +131,30 @@
       "writtenOn": "2019-06-03T13:50:35Z",
       "side": 1,
       "message": "you can remove all the parameters instead ( http://go/totw/150 )",
+      "range": {
+        "startLine": 105,
+        "startChar": 36,
+        "endLine": 105,
+        "endChar": 66
+      },
+      "revId": "7dd8f07779c75229ac0e195906de81d7e55024fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "212fa64a_0f314b36",
+        "filename": "video/video_send_stream_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-03T16:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b4627d3_0d928fd7",
       "range": {
         "startLine": 105,
         "startChar": 36,

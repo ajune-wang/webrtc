@@ -1017,6 +1017,7 @@ rtc_static_library("neteq") {
     "..:module_api_public",
     "../../api:array_view",
     "../../api:rtp_headers",
+    "../../api:rtp_packet_info",
     "../../api:scoped_refptr",
     "../../api/audio:audio_frame_api",
     "../../api/audio_codecs:audio_codecs_api",

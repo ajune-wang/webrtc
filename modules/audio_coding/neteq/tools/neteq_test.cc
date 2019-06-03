@@ -104,7 +104,8 @@ NetEqTest::SimulationStepResult NetEqTest::RunToNextGetAudio() {
             packet_data->header,
             rtc::ArrayView<const uint8_t>(packet_data->payload),
             static_cast<uint32_t>(packet_data->time_ms * sample_rate_hz_ /
-                                  1000));
+                                  1000),
+            packet_data->time_ms);
         if (error != NetEq::kOK && callbacks_.error_callback) {
           callbacks_.error_callback->OnInsertPacketError(*packet_data);
         }

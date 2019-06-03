@@ -158,18 +158,21 @@ class NetEqStereoTest : public ::testing::TestWithParam<TestParameters> {
     for (int k = 0; k < num_loops; ++k) {
       while (time_now >= next_arrival_time) {
         // Insert packet in mono instance.
-        ASSERT_EQ(NetEq::kOK,
-                  neteq_mono_->InsertPacket(rtp_header_mono_,
-                                            rtc::ArrayView<const uint8_t>(
-                                                encoded_, payload_size_bytes_),
-                                            next_arrival_time));
+        ASSERT_EQ(
+            NetEq::kOK,
+            neteq_mono_->InsertPacket(
+                rtp_header_mono_,
+                rtc::ArrayView<const uint8_t>(encoded_, payload_size_bytes_),
+                next_arrival_time,  // Should be RTP timestamp.
+                time_now));
         // Insert packet in multi-channel instance.
         ASSERT_EQ(NetEq::kOK,
                   neteq_->InsertPacket(
                       rtp_header_,
                       rtc::ArrayView<const uint8_t>(encoded_multi_channel_,
                                                     multi_payload_size_bytes_),
-                      next_arrival_time));
+                      next_arrival_time,  // Should be RTP timestamp.
+                      time_now));
         // Get next input packets (mono and multi-channel).
         do {
           next_send_time = GetNewPackets();

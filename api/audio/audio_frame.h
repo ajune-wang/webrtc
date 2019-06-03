@@ -14,6 +14,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "api/rtp_packet_infos.h"
 #include "rtc_base/constructor_magic.h"
 
 namespace webrtc {
@@ -114,6 +115,11 @@ class AudioFrame {
   // by design. Also, absl::optional is not used since it will cause a "complex
   // class/struct needs an explicit out-of-line destructor" build error.
   int64_t profile_timestamp_ms_ = 0;
+  // Information about packets used to assemble this audio frame. Might not be
+  // fully accurate since we currently don't have a proper way to track this
+  // information across the sync buffer. Might also not be available for every
+  // frame for other reasons (e.g. during periods of comfort noise).
+  RtpPacketInfos packet_infos_;
 
  private:
   // A permamently zeroed out buffer to represent muted frames. This is a

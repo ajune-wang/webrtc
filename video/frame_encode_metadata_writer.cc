@@ -71,6 +71,10 @@ void FrameEncodeMetadataWriter::OnEncodeStarted(const VideoFrame& frame) {
     return;
   }
 
+  RTC_LOG(LS_ERROR) << "Encoding frame " << frame.width() << "x"
+                    << frame.height()
+                    << " rot: " << static_cast<int>(frame.rotation());
+
   const size_t num_spatial_layers = NumSpatialLayers();
   timing_frames_info_.resize(num_spatial_layers);
   FrameMetadata metadata;

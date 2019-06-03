@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2d914290_8bb438b3",
+        "filename": "pc/channel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-06-03T14:44:39Z",
+      "side": 1,
+      "message": "FindMatchingCodec is used in other places (WebRtcVideoChannel::SelectSendVideoCodec and WebRtcVideoChannel::GetChangedRecvParameters) where this check and modification does not make sense.",
+      "parentUuid": "1e897a74_528fb0ad",
+      "revId": "638f8def8a97e7adf56be8edfbb596b455cd272f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f624464_db83193d",
         "filename": "pc/channel.cc",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "638f8def8a97e7adf56be8edfbb596b455cd272f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab396bbf_f9a7df85",
+        "filename": "pc/channel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-06-03T14:44:39Z",
+      "side": 1,
+      "message": "See reply above.",
+      "parentUuid": "9f624464_db83193d",
+      "revId": "638f8def8a97e7adf56be8edfbb596b455cd272f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "da04eb6b_32c3da18",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2940,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-06-03T14:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8f5f69c_b519337d",
+      "revId": "638f8def8a97e7adf56be8edfbb596b455cd272f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afb70452_6243df10",
         "filename": "pc/webrtc_sdp_unittest.cc",
         "patchSetId": 8
@@ -67,6 +121,24 @@
       "revId": "638f8def8a97e7adf56be8edfbb596b455cd272f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcae283a_f16e20f6",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 3404,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-06-03T14:44:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afb70452_6243df10",
+      "revId": "638f8def8a97e7adf56be8edfbb596b455cd272f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

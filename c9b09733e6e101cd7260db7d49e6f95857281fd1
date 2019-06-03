@@ -300,6 +300,24 @@
     },
     {
       "key": {
+        "uuid": "73b44037_31710420",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2207,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-06-03T14:44:39Z",
+      "side": 1,
+      "message": "Extended added tests in PeerConnectionMediaTest.",
+      "parentUuid": "7e3af1b0_8269b061",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9789ba7_643d8094",
         "filename": "pc/media_session.h",
         "patchSetId": 6
@@ -420,6 +438,24 @@
       "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e37a26fd_2b11fcd5",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3732,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-06-03T14:44:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "544fe3f3_4898242c",
+      "revId": "c9b09733e6e101cd7260db7d49e6f95857281fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

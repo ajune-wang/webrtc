@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23709531_4882a117",
+        "filename": "api/video_codecs/vp8_frame_buffer_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-03T17:27:21Z",
+      "side": 1,
+      "message": "Done here:\nhttps://webrtc-review.googlesource.com/c/src/+/139893\nWill be landed when it becomes possible.",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 78
+      },
+      "revId": "006ff991f2b88a0bc3844a8046827bbc01ea75dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

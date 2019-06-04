@@ -146,6 +146,11 @@ void VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage,
 
   decodedImage.set_timestamp_us(frameInfo->renderTimeMs *
                                 rtc::kNumMicrosecsPerMillisec);
+
+  RTC_LOG(LS_ERROR) << "Decoded frame " << decodedImage.width() << "x"
+                    << decodedImage.height()
+                    << " rot: " << static_cast<int>(decodedImage.rotation());
+
   _receiveCallback->FrameToRender(decodedImage, qp, frameInfo->content_type);
 }
 

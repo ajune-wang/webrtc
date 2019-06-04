@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': 'abb1a367321240a7568efbc2e2ee5c9e87b76d89',
+  'chromium_revision': 'f98488bf8487cc74c189c8853f13c241fcdc57e5',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -86,9 +86,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    Var('chromium_git') + '/chromium/src/base' + '@' + '62e46ac81b6e30a154d8d15484cd7a40ae68ef1b',
+    Var('chromium_git') + '/chromium/src/base' + '@' + '366903ed7b76cfb98e1535baf086238c3a845c01',
   'src/build':
-    Var('chromium_git') + '/chromium/src/build' + '@' + '25c64109ba84ec0e29a6b4e4343b2548b443c688',
+    Var('chromium_git') + '/chromium/src/build' + '@' + '9aab8b42ca6a40b289650d578c55384fe1238c9a',
   'src/buildtools':
     Var('chromium_git') + '/chromium/src/buildtools' + '@' + '0218c0f9ac9fdba00e5c27b5aca94d3a64c74f34',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -102,7 +102,7 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    Var('chromium_git') + '/chromium/src/testing' + '@' + 'a57d9f85f16db728d69ee259ef84403a0a5bf585',
+    Var('chromium_git') + '/chromium/src/testing' + '@' + '0f225b5c8384d0f510600acc077ac3e549b74078',
   'src/third_party':
     Var('chromium_git') + '/chromium/src/third_party' + '@' + 'd70f798c109fcbad5ed5a7baa039dde5c56bd303',
 
@@ -199,7 +199,7 @@ deps = {
   'src/third_party/colorama/src':
     Var('chromium_git') + '/external/colorama.git' + '@' + '799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + '0f476788122d4b40b0293226e193e534ec66cad6',
+    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + '2c48f24c7f88f2f09821db492e8cc9a4361ded58',
   'src/third_party/errorprone/lib': {
       'url': Var('chromium_git') + '/chromium/third_party/errorprone.git' + '@' + '980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',

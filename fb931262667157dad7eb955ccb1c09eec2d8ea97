@@ -22,6 +22,30 @@
       "revId": "fb931262667157dad7eb955ccb1c09eec2d8ea97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9de777c7_ea80e424",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-04T12:06:10Z",
+      "side": 1,
+      "message": "That\u0027s a slightly larger change, but I agree it makes sense. A single method with enum argument and switch is not that useful, in particular each call site passes a constant argument. \n\nI\u0027ll give it a try.",
+      "parentUuid": "273ce977_dddeeec5",
+      "range": {
+        "startLine": 430,
+        "startChar": 2,
+        "endLine": 430,
+        "endChar": 68
+      },
+      "revId": "fb931262667157dad7eb955ccb1c09eec2d8ea97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -911,6 +911,8 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
   if (encoded_complete_callback_ == NULL)
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
 
+  RTC_LOG(LS_ERROR) << "VP8 encoding ts: " << frame.timestamp();
+
   bool key_frame_requested = false;
   for (size_t i = 0; i < key_frame_request_.size() && i < send_stream_.size();
        ++i) {
@@ -1130,15 +1132,6 @@ int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image) {
       }
     }
     encoded_images_[encoder_idx].SetTimestamp(input_image.timestamp());
-    encoded_images_[encoder_idx].capture_time_ms_ =
-        input_image.render_time_ms();
-    encoded_images_[encoder_idx].rotation_ = input_image.rotation();
-    encoded_images_[encoder_idx].content_type_ =
-        (codec_.mode == VideoCodecMode::kScreensharing)
-            ? VideoContentType::SCREENSHARE
-            : VideoContentType::UNSPECIFIED;
-    encoded_images_[encoder_idx].timing_.flags = VideoSendTiming::kInvalid;
-    encoded_images_[encoder_idx].SetColorSpace(input_image.color_space());
 
     if (send_stream_[stream_idx]) {
       if (encoded_images_[encoder_idx].size() > 0) {

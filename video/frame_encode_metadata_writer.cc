@@ -71,6 +71,11 @@ void FrameEncodeMetadataWriter::OnEncodeStarted(const VideoFrame& frame) {
     return;
   }
 
+  RTC_LOG(LS_ERROR) << "Encoding frame " << frame.width() << "x"
+                    << frame.height()
+                    << " rot: " << static_cast<int>(frame.rotation())
+                    << " ts: " << frame.timestamp();
+
   const size_t num_spatial_layers = NumSpatialLayers();
   timing_frames_info_.resize(num_spatial_layers);
   FrameMetadata metadata;
@@ -227,6 +232,9 @@ absl::optional<int64_t>
 FrameEncodeMetadataWriter::ExtractEncodeStartTimeAndFillMetadata(
     size_t simulcast_svc_idx,
     EncodedImage* encoded_image) {
+
+  RTC_LOG(LS_ERROR) << "Got back encoded image for ts: "
+      << encoded_image->Timestamp();
   absl::optional<int64_t> result;
   size_t num_simulcast_svc_streams = timing_frames_info_.size();
   if (simulcast_svc_idx < num_simulcast_svc_streams) {

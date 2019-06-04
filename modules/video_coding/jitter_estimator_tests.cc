@@ -67,22 +67,43 @@ TEST_F(TestVCMJitterEstimator, TestLowRate) {
     estimator_->UpdateEstimate(gen.Delay(), gen.FrameSize());
     AdvanceClock(time_delta_us);
     if (i > 2)
-      EXPECT_EQ(estimator_->GetJitterEstimate(0), 0);
+      EXPECT_EQ(estimator_->GetJitterEstimate(0, absl::nullopt), 0);
     gen.Advance();
   }
 }
 
 TEST_F(TestVCMJitterEstimator, TestUpperBound) {
   struct TestContext {
-    TestContext() : upper_bound(0.0), percentiles(1000) {}
+    TestContext()
+        : upper_bound(0.0),
+          rtt_mult(0),
+          jitter_est_cap_ms(absl::nullopt),
+          percentiles(1000) {}
     double upper_bound;
+    double rtt_mult;
+    absl::optional<double> jitter_est_cap_ms;
     rtc::HistogramPercentileCounter percentiles;
   };
-  std::vector<TestContext> test_cases(2);
+  std::vector<TestContext> test_cases(3);
 
-  test_cases[0].upper_bound = 100.0;  // First use essentially no cap.
-  test_cases[1].upper_bound = 3.5;    // Second, reasonably small cap.
+  // Large upper bound value, rtt_mult = 0, and nullopt for rtt_mult cap.
+  test_cases[0].upper_bound = 100.0;
+  test_cases[0].rtt_mult = 0;
+  test_cases[0].jitter_est_cap_ms = absl::nullopt;
+  // Small upper bound value, rtt_mult = 0, and nullopt for rtt_mult cap.
+  test_cases[1].rtt_mult = 0;
+  test_cases[1].upper_bound = 3.5;
+  test_cases[1].jitter_est_cap_ms = absl::nullopt;
+  // Large upper bound value, rtt_mult = 1, and large rtt_mult cap value.
+  test_cases[2].upper_bound = 100;
+  test_cases[2].rtt_mult = 1;
+  test_cases[2].jitter_est_cap_ms = 100;
+  // Large upper bound, rtt_mult = 1, and small rtt_mult cap value.
+  test_cases[3].upper_bound = 100;
+  test_cases[3].rtt_mult = 1;
+  test_cases[3].jitter_est_cap_ms = 10;
 
+  // Test jitter buffer size cap nullopt and non-nullopt code paths
   for (TestContext& context : test_cases) {
     // Set up field trial and reset jitter estimator.
     char string_buf[64];
@@ -98,7 +119,8 @@ TEST_F(TestVCMJitterEstimator, TestUpperBound) {
       estimator_->UpdateEstimate(gen.Delay(), gen.FrameSize());
       AdvanceClock(time_delta_us);
       context.percentiles.Add(
-          static_cast<uint32_t>(estimator_->GetJitterEstimate(0)));
+          static_cast<uint32_t>(estimator_->GetJitterEstimate(
+              context.rtt_mult, context.jitter_est_cap_ms)));
       gen.Advance();
     }
   }
@@ -111,6 +133,11 @@ TEST_F(TestVCMJitterEstimator, TestUpperBound) {
   // Max should be lower for the bounded case.
   uint32_t max_unbound = *test_cases[0].percentiles.GetPercentile(1.0);
   uint32_t max_bounded = *test_cases[1].percentiles.GetPercentile(1.0);
+  EXPECT_GT(max_unbound, static_cast<uint32_t>(max_bounded * 1.25));
+
+  // With rtt_mult = 1, max should be lower with small rtt_mult cap value.
+  max_unbound = *test_cases[2].percentiles.GetPercentile(1.0);
+  max_bounded = *test_cases[3].percentiles.GetPercentile(1.0);
   EXPECT_GT(max_unbound, static_cast<uint32_t>(max_bounded * 1.25));
 }
 

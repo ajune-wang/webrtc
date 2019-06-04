@@ -254,6 +254,7 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
 
   // Send a request for a keyframe.
   int32_t RequestKeyFrame() override;
+  int32_t RequestKeyFrame(KeyFrameRequestMethod method) override;
 
   int32_t SendLossNotification(uint16_t last_decoded_seq_num,
                                uint16_t last_received_seq_num,

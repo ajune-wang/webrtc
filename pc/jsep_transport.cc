@@ -311,12 +311,18 @@ webrtc::RTCError JsepTransport::SetRemoteJsepTransportDescription(
 webrtc::RTCError JsepTransport::AddRemoteCandidates(
     const Candidates& candidates) {
   RTC_DCHECK_RUN_ON(network_thread_);
-  if (!local_description_ || !remote_description_) {
+  // Need a remote description for the remote ICE credentials; can't send
+  // connectivity checks without them.
+  //
+  // Assuming the application's signaling mechanism maintains ordering, it
+  // shouldn't be possible to hit this error; session descriptions are
+  // generated before candidates, so they should be received before candidates
+  // as well.
+  if (!remote_description_) {
     return webrtc::RTCError(webrtc::RTCErrorType::INVALID_STATE,
                             mid() +
                                 " is not ready to use the remote candidate "
-                                "because the local or remote description is "
-                                "not set.");
+                                "because the remote description is not set.");
   }
 
   for (const cricket::Candidate& candidate : candidates) {

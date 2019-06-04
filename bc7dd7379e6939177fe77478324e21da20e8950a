@@ -22,6 +22,30 @@
       "revId": "bc7dd7379e6939177fe77478324e21da20e8950a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6682f617_365b2ffb",
+        "filename": "modules/rtp_rtcp/source/packet_loss_stats.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-04T10:17:46Z",
+      "side": 1,
+      "message": "Ah, I had the impression that it was still in use together with PacketLossStats, but it appears unused downstream. I\u0027ll try deleting it right away.",
+      "parentUuid": "8c89ef55_01925a78",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 25
+      },
+      "revId": "bc7dd7379e6939177fe77478324e21da20e8950a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

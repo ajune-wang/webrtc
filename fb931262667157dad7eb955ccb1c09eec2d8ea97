@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "273ce977_dddeeec5",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-04T12:00:25Z",
+      "side": 1,
+      "message": "my idea was (i.e. see RtcpTransceiver) is to replace it with two functions:\n// Requests new key frame.\n// using PLI, https://tools.ietf.org/html/rfc4585#section-6.3.1.1\nvoid SendPictureLossIndication(uint32_t ssrc);\n// using FIR, https://tools.ietf.org/html/rfc5104#section-4.3.1.2\nvoid SendFullIntraRequest(std::vector\u003cuint32_t\u003e ssrcs);\n\n\nHere that can even be non-virtual and inlined:\n\nvoid SentPictureLossIndication() { SendRTCP(kRtcpPli); }\nvoid SendFullIntraRequest() { SendRTCP(kRtcpFir); }",
+      "range": {
+        "startLine": 430,
+        "startChar": 2,
+        "endLine": 430,
+        "endChar": 68
+      },
+      "revId": "fb931262667157dad7eb955ccb1c09eec2d8ea97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

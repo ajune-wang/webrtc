@@ -417,12 +417,18 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
   // Video
   // **************************************************************************
 
+  void SendPictureLossIndication() { SendRTCP(kRtcpPli); }
+  void SendFullIntraRequest() { SendRTCP(kRtcpFir); }
+
   // Set method for requestion a new key frame.
   // Returns -1 on failure else 0.
+  RTC_DEPRECATED
   virtual int32_t SetKeyFrameRequestMethod(KeyFrameRequestMethod method) = 0;
 
   // Sends a request for a keyframe.
   // Returns -1 on failure else 0.
+  // Prefer the below version with method argument.
+  RTC_DEPRECATED
   virtual int32_t RequestKeyFrame() = 0;
 
   // Sends a LossNotification RTCP message.

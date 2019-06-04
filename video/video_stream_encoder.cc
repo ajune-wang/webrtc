@@ -637,6 +637,8 @@ void VideoStreamEncoder::ConfigureEncoderOnTaskQueue(
 // "soft" reconfiguration.
 void VideoStreamEncoder::ReconfigureEncoder() {
   RTC_DCHECK(pending_encoder_reconfiguration_);
+
+  RTC_LOG(LS_ERROR) << "!!! ReconfigureEncoder called";
   std::vector<VideoStream> streams =
       encoder_config_.video_stream_factory->CreateEncoderStreams(
           last_frame_info_->width, last_frame_info_->height, encoder_config_);
@@ -1050,6 +1052,10 @@ uint32_t VideoStreamEncoder::GetInputFramerateFps() {
 
 void VideoStreamEncoder::SetEncoderRates(
     const EncoderRateSettings& rate_settings) {
+  RTC_LOG(LS_ERROR) << "!!! SetEncoderRates called: "
+                    << rate_settings.bitrate.ToString() << " "
+                    << rate_settings.framerate_fps;
+
   RTC_DCHECK_GT(rate_settings.framerate_fps, 0.0);
   const bool settings_changes = !last_encoder_rate_settings_ ||
                                 rate_settings != *last_encoder_rate_settings_;
@@ -1074,6 +1080,9 @@ void VideoStreamEncoder::SetEncoderRates(
   }
 
   if (settings_changes) {
+    RTC_LOG(LS_ERROR) << "!!! Passing bitrate to metadata writer: "
+                      << rate_settings.bitrate.ToString();
+
     encoder_->SetRates(rate_settings);
     frame_encode_metadata_writer_.OnSetRates(
         rate_settings.bitrate,
@@ -1084,6 +1093,8 @@ void VideoStreamEncoder::SetEncoderRates(
 void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
                                                int64_t time_when_posted_us) {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
+
+  RTC_LOG(LS_ERROR) << "!!! MaybeEncodeVideoFrame called";
 
   if (!last_frame_info_ || video_frame.width() != last_frame_info_->width ||
       video_frame.height() != last_frame_info_->height ||
@@ -1164,6 +1175,7 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
   initial_framedrop_ = kMaxInitialFramedrop;
 
   if (EncoderPaused()) {
+    RTC_LOG(LS_ERROR) << "!!! Encoder is paused!";
     // Storing references to a native buffer risks blocking frame capture.
     if (video_frame.video_frame_buffer()->type() !=
         VideoFrameBuffer::Type::kNative) {
@@ -1179,6 +1191,7 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
     }
     return;
   }
+  RTC_LOG(LS_ERROR) << "!!! Encoder is not paused.";
 
   pending_frame_.reset();
 
@@ -1210,6 +1223,8 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
                                           int64_t time_when_posted_us) {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
   TraceFrameDropEnd();
+
+  RTC_LOG(LS_ERROR) << "!!! EncodeVideoFrame called";
 
   VideoFrame out_frame(video_frame);
   // Crop frame if needed.
@@ -1246,7 +1261,9 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
                     .set_timestamp_ms(video_frame.render_time_ms())
                     .set_rotation(video_frame.rotation())
                     .set_id(video_frame.id())
+                    .set_color_space(video_frame.color_space())
                     .set_update_rect(update_rect)
+                    .set_ntp_time_ms(video_frame.ntp_time_ms())
                     .build();
     out_frame.set_ntp_time_ms(video_frame.ntp_time_ms());
     // Since accumulated_update_rect_ is constructed before cropping,
@@ -1327,7 +1344,9 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
                     .set_timestamp_rtp(out_frame.timestamp())
                     .set_timestamp_ms(out_frame.render_time_ms())
                     .set_rotation(out_frame.rotation())
+                    .set_color_space(out_frame.color_space())
                     .set_id(out_frame.id())
+                    .set_ntp_time_ms(out_frame.ntp_time_ms())
                     .set_update_rect(update_rect)
                     .build();
   }

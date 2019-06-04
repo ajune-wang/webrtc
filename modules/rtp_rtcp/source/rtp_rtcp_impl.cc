@@ -22,6 +22,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/dlrr.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_config.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/deprecation.h"
 #include "rtc_base/logging.h"
 
 #ifdef _WIN32
@@ -715,7 +716,11 @@ int32_t ModuleRtpRtcpImpl::SetKeyFrameRequestMethod(
 }
 
 int32_t ModuleRtpRtcpImpl::RequestKeyFrame() {
-  switch (key_frame_req_method_) {
+  return RequestKeyFrame(key_frame_req_method_);
+}
+
+int32_t ModuleRtpRtcpImpl::RequestKeyFrame(KeyFrameRequestMethod method) {
+  switch (method) {
     case kKeyFrameReqPliRtcp:
       return SendRTCP(kRtcpPli);
     case kKeyFrameReqFirRtcp:

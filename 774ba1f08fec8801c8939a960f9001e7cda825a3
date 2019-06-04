@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2ee5ad3_506da50a",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-04T11:49:50Z",
+      "side": 1,
+      "message": "No lock or thread checker associated with this member. I think deleting it makes things simpler. Another alternative is to make it a construction time const.",
+      "range": {
+        "startLine": 331,
+        "startChar": 2,
+        "endLine": 331,
+        "endChar": 46
+      },
+      "revId": "774ba1f08fec8801c8939a960f9001e7cda825a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

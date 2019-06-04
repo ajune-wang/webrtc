@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "adf1a6a5_d701e093",
+        "filename": "pc/channel.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-06-04T09:24:45Z",
+      "side": 1,
+      "message": "Then we should (ideally) encapsulate this in a function called FindMatchingCodecAndSetPacketization. but I\u0027m willing to live with this.",
+      "parentUuid": "2d914290_8bb438b3",
+      "revId": "638f8def8a97e7adf56be8edfbb596b455cd272f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f624464_db83193d",
         "filename": "pc/channel.cc",
         "patchSetId": 8

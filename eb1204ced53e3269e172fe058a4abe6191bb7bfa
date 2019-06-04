@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad7fba72_ba021c24",
+        "filename": "modules/video_coding/jitter_estimator_tests.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-06-04T13:46:52Z",
+      "side": 1,
+      "message": "Rename this rtt_component_cap_ms",
+      "range": {
+        "startLine": 80,
+        "startChar": 10,
+        "endLine": 80,
+        "endChar": 27
+      },
+      "revId": "eb1204ced53e3269e172fe058a4abe6191bb7bfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

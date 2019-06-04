@@ -48,6 +48,14 @@ void FrameEncodeMetadataWriter::OnEncoderInit(const VideoCodec& codec,
   rtc::CritScope cs(&lock_);
   codec_settings_ = codec;
   internal_source_ = internal_source;
+  /*const size_t num_spatial_layers = NumSpatialLayers();
+  timing_frames_info_.resize(num_spatial_layers);
+  // Even before OnSetRates is called at least once, encoder can produce
+  // some frames. Because metadata is not stored for disabled streams,
+  // we need to treat all streams as enabled at the beginning.
+  for (size_t i = 0; i < num_spatial_layers; ++i) {
+    timing_frames_info_[i].target_bitrate_bytes_per_sec = codec.startBitrate;
+  }*/
 }
 
 void FrameEncodeMetadataWriter::OnSetRates(
@@ -71,6 +79,11 @@ void FrameEncodeMetadataWriter::OnEncodeStarted(const VideoFrame& frame) {
     return;
   }
 
+  RTC_LOG(LS_ERROR) << "!!! Encoding frame " << frame.width() << "x"
+                    << frame.height()
+                    << " rot: " << static_cast<int>(frame.rotation())
+                    << " ts: " << frame.timestamp();
+
   const size_t num_spatial_layers = NumSpatialLayers();
   timing_frames_info_.resize(num_spatial_layers);
   FrameMetadata metadata;
@@ -88,6 +101,8 @@ void FrameEncodeMetadataWriter::OnEncodeStarted(const VideoFrame& frame) {
                    0);
     // If stream is disabled due to low bandwidth OnEncodeStarted still will be
     // called and have to be ignored.
+    RTC_LOG(LS_ERROR) << "!!! Stream " << si << " has bitrate: "
+                      << timing_frames_info_[si].target_bitrate_bytes_per_sec;
     if (timing_frames_info_[si].target_bitrate_bytes_per_sec == 0)
       return;
     if (timing_frames_info_[si].frames.size() == kMaxEncodeStartTimeListSize) {
@@ -106,6 +121,10 @@ void FrameEncodeMetadataWriter::OnEncodeStarted(const VideoFrame& frame) {
           EncodedImageCallback::DropReason::kDroppedByEncoder);
       timing_frames_info_[si].frames.pop_front();
     }
+
+    RTC_LOG(LS_ERROR) << "Storing metadata for ts " << metadata.rtp_timestamp
+                      << " at stream " << si;
+
     timing_frames_info_[si].frames.emplace_back(metadata);
   }
 }
@@ -227,6 +246,9 @@ absl::optional<int64_t>
 FrameEncodeMetadataWriter::ExtractEncodeStartTimeAndFillMetadata(
     size_t simulcast_svc_idx,
     EncodedImage* encoded_image) {
+  RTC_LOG(LS_ERROR) << "!!! Got back encoded image for ts: "
+                    << encoded_image->Timestamp() << " at stream "
+                    << simulcast_svc_idx;
   absl::optional<int64_t> result;
   size_t num_simulcast_svc_streams = timing_frames_info_.size();
   if (simulcast_svc_idx < num_simulcast_svc_streams) {
@@ -235,12 +257,24 @@ FrameEncodeMetadataWriter::ExtractEncodeStartTimeAndFillMetadata(
     // call. These are dropped by encoder internally.
     // Because some hardware encoders don't preserve capture timestamp we
     // use RTP timestamps here.
+
+    RTC_LOG(LS_ERROR) << "!!! Looking for metadata. have "
+                      << metadata_list->size() << " entries.";
     while (!metadata_list->empty() &&
            IsNewerTimestamp(encoded_image->Timestamp(),
                             metadata_list->front().rtp_timestamp)) {
+      RTC_LOG(LS_ERROR) << "!!! Top had ts="
+                        << metadata_list->front().rtp_timestamp
+                        << " dropping it";
       frame_drop_callback_->OnDroppedFrame(
           EncodedImageCallback::DropReason::kDroppedByEncoder);
       metadata_list->pop_front();
+    }
+
+    RTC_LOG(LS_ERROR) << "!!! Remaining entires: " << metadata_list->size();
+    if (!metadata_list->empty()) {
+      RTC_LOG(LS_ERROR) << "!!! Top entiry ts="
+                        << metadata_list->front().rtp_timestamp;
     }
     if (!metadata_list->empty() &&
         metadata_list->front().rtp_timestamp == encoded_image->Timestamp()) {

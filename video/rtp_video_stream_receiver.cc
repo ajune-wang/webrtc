@@ -233,7 +233,7 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
 
   process_thread_->RegisterModule(rtp_rtcp_.get(), RTC_FROM_HERE);
 
-  if (config_.rtp.lntf.enabled) {
+  if (config_.rtp.lntf.enabledd) {
     loss_notification_controller_ =
         absl::make_unique<LossNotificationController>(&rtcp_feedback_buffer_,
                                                       &rtcp_feedback_buffer_);
@@ -484,7 +484,7 @@ void RtpVideoStreamReceiver::SendLossNotification(
     uint16_t last_received_seq_num,
     bool decodability_flag,
     bool buffering_allowed) {
-  RTC_DCHECK(config_.rtp.lntf.enabled);
+  RTC_DCHECK(config_.rtp.lntf.enabledd);
   rtp_rtcp_->SendLossNotification(last_decoded_seq_num, last_received_seq_num,
                                   decodability_flag, buffering_allowed);
 }

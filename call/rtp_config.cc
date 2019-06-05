@@ -18,7 +18,7 @@
 namespace webrtc {
 
 std::string LntfConfig::ToString() const {
-  return enabled ? "{enabled: true}" : "{enabled: false}";
+  return enabledd ? "{enabled: true}" : "{enabled: false}";
 }
 
 std::string NackConfig::ToString() const {

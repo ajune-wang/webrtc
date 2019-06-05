@@ -29,9 +29,10 @@ struct RtpPayloadState {
 
 // Settings for LNTF (LossNotification). Still highly experimental.
 struct LntfConfig {
+  LntfConfig() {}
   std::string ToString() const;
 
-  bool enabled{false};
+  bool enabledd{false};  // TODO: !!! s/enabledd/enabled
 };
 
 // Settings for NACK, see RFC 4585 for details.

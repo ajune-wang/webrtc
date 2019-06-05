@@ -1893,7 +1893,8 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::SetCodec(
     }
   }
 
-  parameters_.config.rtp.lntf.enabled = HasLntf(codec_settings.codec);
+  parameters_.config.rtp.lntf.enabledd = HasLntf(codec_settings.codec);
+  // TODO: !!!
 
   parameters_.config.rtp.nack.rtp_history_ms =
       HasNack(codec_settings.codec) ? kNackHistoryMs : 0;
@@ -2482,7 +2483,8 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::ConfigureCodecs(
   config_.rtp.ulpfec_payload_type = codec.ulpfec.ulpfec_payload_type;
   config_.rtp.red_payload_type = codec.ulpfec.red_payload_type;
 
-  config_.rtp.lntf.enabled = HasLntf(codec.codec);
+  config_.rtp.lntf.enabledd = HasLntf(codec.codec);
+  // TODO: !!!
   config_.rtp.nack.rtp_history_ms = HasNack(codec.codec) ? kNackHistoryMs : 0;
   config_.rtp.rtcp_xr.receiver_reference_time_report = HasRrtr(codec.codec);
   if (codec.ulpfec.red_rtx_payload_type != -1) {
@@ -2526,7 +2528,7 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetFeedbackParameters(
     bool transport_cc_enabled,
     webrtc::RtcpMode rtcp_mode) {
   int nack_history_ms = nack_enabled ? kNackHistoryMs : 0;
-  if (config_.rtp.lntf.enabled == lntf_enabled &&
+  if (config_.rtp.lntf.enabledd == lntf_enabled &&
       config_.rtp.nack.rtp_history_ms == nack_history_ms &&
       config_.rtp.remb == remb_enabled &&
       config_.rtp.transport_cc == transport_cc_enabled &&
@@ -2540,7 +2542,8 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetFeedbackParameters(
     return;
   }
   config_.rtp.remb = remb_enabled;
-  config_.rtp.lntf.enabled = lntf_enabled;
+  // TODO: !!!
+  config_.rtp.lntf.enabledd = lntf_enabled;
   config_.rtp.nack.rtp_history_ms = nack_history_ms;
   config_.rtp.transport_cc = transport_cc_enabled;
   config_.rtp.rtcp_mode = rtcp_mode;

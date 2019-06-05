@@ -126,7 +126,7 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
         configuration.clock, rtp_rtcp->RtpSender(),
         configuration.flexfec_sender, playout_delay_oracle.get(),
         frame_encryptor, crypto_options.sframe.require_frame_encryption,
-        rtp_config.lntf.enabled, FieldTrialBasedConfig());
+        rtp_config.lntf.enabledd, FieldTrialBasedConfig());
     rtp_streams.emplace_back(std::move(playout_delay_oracle),
                              std::move(rtp_rtcp), std::move(sender_video));
   }

@@ -48,6 +48,7 @@ struct VideoStream {
   bool active;
 };
 
+// TODO: !!! Consider.
 class VideoEncoderConfig {
  public:
   // These are reference counted to permit copying VideoEncoderConfig and be

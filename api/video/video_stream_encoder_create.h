@@ -20,10 +20,13 @@
 #include "api/video/video_stream_encoder_interface.h"
 #include "api/video/video_stream_encoder_observer.h"
 #include "api/video/video_stream_encoder_settings.h"
+#include "api/video_codecs/video_encoder.h"
 
 namespace webrtc {
 // TODO(srte): Find a way to avoid this forward declaration.
 class Clock;
+
+// TODO: !!! Need to keep old version.
 
 std::unique_ptr<VideoStreamEncoderInterface> CreateVideoStreamEncoder(
     Clock* clock,

@@ -87,7 +87,9 @@ VideoSendStream::VideoSendStream(
   RTC_DCHECK(config_.encoder_settings.encoder_factory);
   RTC_DCHECK(config_.encoder_settings.bitrate_allocator_factory);
 
-  video_stream_encoder_ =
+  const VideoEncoder::Capabilities capabilities(config_.rtp.lntf.enabled);
+  video_stream_encoder_ =  // TODO: !!! Make sure config_.encoder_settings has
+                           // right value.
       CreateVideoStreamEncoder(clock, task_queue_factory, num_cpu_cores,
                                &stats_proxy_, config_.encoder_settings);
   // TODO(srte): Initialization should not be done posted on a task queue.

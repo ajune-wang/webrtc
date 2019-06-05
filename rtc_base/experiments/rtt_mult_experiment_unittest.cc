@@ -20,33 +20,42 @@ TEST(RttMultExperimentTest, RttMultDisabledByDefault) {
 }
 
 TEST(RttMultExperimentTest, RttMultEnabledByFieldTrial) {
-  webrtc::test::ScopedFieldTrials field_trials("WebRTC-RttMult/Enabled-0.25/");
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-RttMult/Enabled-0.60,100.0/");
   EXPECT_TRUE(RttMultExperiment::RttMultEnabled());
 }
 
 TEST(RttMultExperimentTest, RttMultTestValue) {
-  webrtc::test::ScopedFieldTrials field_trials("WebRTC-RttMult/Enabled-0.25/");
-  EXPECT_EQ(0.25, RttMultExperiment::GetRttMultValue());
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-RttMult/Enabled-0.60,100.0/");
+  EXPECT_EQ(0.6f, RttMultExperiment::GetRttMultValue()->rtt_mult_setting);
+  EXPECT_EQ(100f, RttMultExperiment::GetRttMultValue()->rtt_mult_add_cap_ms);
 }
 
 TEST(RttMultExperimentTest, RttMultTestMalformedEnabled) {
-  webrtc::test::ScopedFieldTrials field_trials("WebRTC-RttMult/Enable-0.25/");
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-RttMult/Enable-0.60,100.0/");
   EXPECT_FALSE(RttMultExperiment::RttMultEnabled());
 }
 
 TEST(RttMultExperimentTest, RttMultTestValueOutOfBoundsPositive) {
-  webrtc::test::ScopedFieldTrials field_trials("WebRTC-RttMult/Enabled-1.5/");
-  EXPECT_EQ(1.0, RttMultExperiment::GetRttMultValue());
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-RttMult/Enabled-1.5,2100.0/");
+  EXPECT_EQ(1f, RttMultExperiment::GetRttMultValue()->rtt_mult_setting);
+  EXPECT_EQ(2000f, RttMultExperiment::GetRttMultValue()->rtt_mult_add_cap_ms);
 }
 
 TEST(RttMultExperimentTest, RttMultTestValueOutOfBoundsNegative) {
-  webrtc::test::ScopedFieldTrials field_trials("WebRTC-RttMult/Enabled--0.5/");
-  EXPECT_EQ(0.0, RttMultExperiment::GetRttMultValue());
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-RttMult/Enabled--0.5,-100.0/");
+  EXPECT_EQ(0f, RttMultExperiment::GetRttMultValue()->rtt_mult_setting);
+  EXPECT_EQ(0f, RttMultExperiment::GetRttMultValue()->rtt_mult_add_cap_ms);
 }
 
 TEST(RttMultExperimentTest, RttMultTestMalformedValue) {
-  webrtc::test::ScopedFieldTrials field_trials("WebRTC-RttMult/Enabled-0.2a5/");
-  EXPECT_NE(0.25, RttMultExperiment::GetRttMultValue());
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-RttMult/Enabled-0.2a5,100.0/");
+  EXPECT_NE(0.25f, RttMultExperiment::GetRttMultValue()->rtt_mult_setting);
 }
 
 }  // namespace webrtc

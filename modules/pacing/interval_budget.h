@@ -29,7 +29,7 @@ class IntervalBudget {
   void UseBudget(size_t bytes);
 
   size_t bytes_remaining() const;
-  int budget_level_percent() const;
+  double budget_level_rate() const;
   int target_rate_kbps() const;
 
  private:

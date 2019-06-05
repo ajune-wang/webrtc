@@ -216,15 +216,11 @@ std::unique_ptr<WriteToFileTask> AecDumpImpl::CreateWriteToFileTask() {
                                             &num_bytes_left_for_log_);
 }
 
-std::unique_ptr<AecDump> AecDumpFactory::Create(rtc::PlatformFile file,
+std::unique_ptr<AecDump> AecDumpFactory::Create(webrtc::FileWrapper&& file,
                                                 int64_t max_log_size_bytes,
                                                 rtc::TaskQueue* worker_queue) {
   RTC_DCHECK(worker_queue);
-  FILE* handle = rtc::FdopenPlatformFileForWriting(file);
-  if (!handle) {
-    return nullptr;
-  }
-  return absl::make_unique<AecDumpImpl>(FileWrapper(handle), max_log_size_bytes,
+  return absl::make_unique<AecDumpImpl>(std::move(file), max_log_size_bytes,
                                         worker_queue);
 }
 
@@ -238,14 +234,5 @@ std::unique_ptr<AecDump> AecDumpFactory::Create(std::string file_name,
   }
   return absl::make_unique<AecDumpImpl>(std::move(debug_file),
                                         max_log_size_bytes, worker_queue);
-}
-
-std::unique_ptr<AecDump> AecDumpFactory::Create(FILE* handle,
-                                                int64_t max_log_size_bytes,
-                                                rtc::TaskQueue* worker_queue) {
-  RTC_DCHECK(worker_queue);
-  RTC_DCHECK(handle);
-  return absl::make_unique<AecDumpImpl>(FileWrapper(handle), max_log_size_bytes,
-                                        worker_queue);
 }
 }  // namespace webrtc

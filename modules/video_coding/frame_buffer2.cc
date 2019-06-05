@@ -299,11 +299,20 @@ EncodedFrame* FrameBuffer::GetNextFrame() {
     }
 
     float rtt_mult = protection_mode_ == kProtectionNackFEC ? 0.0 : 1.0;
-    absl::optional<double> rtt_mult_add_cap_ms = absl::nullopt;
+    absl::optional<float> rtt_mult_add_cap_ms = absl::nullopt;
     if (RttMultExperiment::RttMultEnabled()) {
-      rtt_mult = RttMultExperiment::GetRttMultValue();
-      // TODO(mhoro): add RttMultExperiment::GetJitterEstCapValue();
-      rtt_mult_add_cap_ms = 200.0;
+      const absl::optional<RttMultExperiment::Settings> s;
+      if (s.has_value()) {
+        rtt_mult = s->rtt_mult_setting;
+        rtt_mult_add_cap_ms = s->rtt_mult_add_cap_ms;
+      } else {
+        RTC_LOG(LS_WARNING)
+            << "rtt_mult_setting and rtt_mult_add_cap_ms have "
+               " not been set for RttMultExperiment.  Setting"
+               " rtt_mult = 0.0 and rtt_mult_add_cap_value = 0.0";
+        rtt_mult = 0.0;
+        rtt_mult_add_cap_ms = 0.0;
+      }
     }
     timing_->SetJitterDelay(
         jitter_estimator_.GetJitterEstimate(rtt_mult, rtt_mult_add_cap_ms));

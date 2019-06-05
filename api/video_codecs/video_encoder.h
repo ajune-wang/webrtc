@@ -86,6 +86,7 @@ class RTC_EXPORT VideoEncoder {
     int low;
     int high;
   };
+
   // Quality scaling is enabled if thresholds are provided.
   struct ScalingSettings {
    private:
@@ -235,6 +236,12 @@ class RTC_EXPORT VideoEncoder {
     // |nullopt| if no packet belonging to the last frame was missed, but the
     // last packet in the frame was not yet received.
     absl::optional<bool> last_received_decodable;
+  };
+
+  struct Capabilities {
+    explicit Capabilities(bool loss_notification)  // TODO: !!!
+        : loss_notification(loss_notification) {}
+    bool loss_notification = false;
   };
 
   static VideoCodecVP8 GetDefaultVp8Settings();

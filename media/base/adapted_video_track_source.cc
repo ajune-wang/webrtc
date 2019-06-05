@@ -58,6 +58,7 @@ void AdaptedVideoTrackSource::OnFrame(const webrtc::VideoFrame& frame) {
             .set_rotation(webrtc::kVideoRotation_0)
             .set_timestamp_us(frame.timestamp_us())
             .set_id(frame.id())
+            .set_packet_infos(frame.packet_infos())
             .build();
     broadcaster_.OnFrame(rotated_frame);
   } else {

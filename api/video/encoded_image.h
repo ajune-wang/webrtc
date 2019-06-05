@@ -13,8 +13,10 @@
 
 #include <stdint.h>
 #include <map>
+#include <utility>
 
 #include "absl/types/optional.h"
+#include "api/rtp_packet_infos.h"
 #include "api/video/color_space.h"
 #include "api/video/video_codec_constants.h"
 #include "api/video/video_codec_type.h"
@@ -74,6 +76,11 @@ class RTC_EXPORT EncodedImage {
   }
   void SetColorSpace(const absl::optional<webrtc::ColorSpace>& color_space) {
     color_space_ = color_space;
+  }
+
+  const RtpPacketInfos& PacketInfos() const { return packet_infos_; }
+  void SetPacketInfos(RtpPacketInfos packet_infos) {
+    packet_infos_ = std::move(packet_infos);
   }
 
   size_t size() const { return size_; }
@@ -158,6 +165,7 @@ class RTC_EXPORT EncodedImage {
   absl::optional<int> spatial_index_;
   std::map<int, size_t> spatial_layer_frame_size_bytes_;
   absl::optional<webrtc::ColorSpace> color_space_;
+  RtpPacketInfos packet_infos_;
 };
 
 }  // namespace webrtc

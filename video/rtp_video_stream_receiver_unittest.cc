@@ -36,6 +36,7 @@
 
 using ::testing::_;
 using ::testing::Invoke;
+using ::testing::SizeIs;
 using ::testing::Values;
 
 namespace webrtc {
@@ -713,7 +714,7 @@ TEST_P(RtpVideoStreamReceiverGenericDescriptorTest,
 
   rtp_packet.SetMarker(true);
   rtp_packet.SetPayloadType(kPayloadType);
-  rtp_packet.SetSequenceNumber(1);
+  rtp_packet.SetSequenceNumber(17);
 
   EXPECT_CALL(mock_on_complete_frame_callback_, DoOnCompleteFrame)
       .WillOnce(Invoke([kSpatialIndex](video_coding::EncodedFrame* frame) {
@@ -721,6 +722,10 @@ TEST_P(RtpVideoStreamReceiverGenericDescriptorTest,
         EXPECT_EQ(frame->references[0], frame->id.picture_id - 90);
         EXPECT_EQ(frame->references[1], frame->id.picture_id - 80);
         EXPECT_EQ(frame->id.spatial_layer, kSpatialIndex);
+
+        const auto& packet_infos = frame->PacketInfos();
+        ASSERT_THAT(packet_infos, SizeIs(1));
+        EXPECT_EQ(packet_infos[0].sequence_number(), 17);
       }));
 
   rtp_video_stream_receiver_->OnRtpPacket(rtp_packet);
@@ -759,7 +764,7 @@ TEST_P(RtpVideoStreamReceiverGenericDescriptorTest,
                                                            data.size() - 1);
 
   first_packet.SetPayloadType(kPayloadType);
-  first_packet.SetSequenceNumber(1);
+  first_packet.SetSequenceNumber(17);
   rtp_video_stream_receiver_->OnRtpPacket(first_packet);
 
   RtpPacketReceived second_packet(&extension_map);
@@ -771,7 +776,7 @@ TEST_P(RtpVideoStreamReceiverGenericDescriptorTest,
 
   second_packet.SetMarker(true);
   second_packet.SetPayloadType(kPayloadType);
-  second_packet.SetSequenceNumber(2);
+  second_packet.SetSequenceNumber(18);
 
   uint8_t* second_packet_payload = second_packet.SetPayloadSize(data.size());
   memcpy(second_packet_payload, data.data(), data.size());
@@ -785,6 +790,11 @@ TEST_P(RtpVideoStreamReceiverGenericDescriptorTest,
         EXPECT_EQ(frame->id.spatial_layer, kSpatialIndex);
         EXPECT_EQ(frame->EncodedImage()._encodedWidth, 480u);
         EXPECT_EQ(frame->EncodedImage()._encodedHeight, 360u);
+
+        const auto& packet_infos = frame->PacketInfos();
+        ASSERT_THAT(packet_infos, SizeIs(2));
+        EXPECT_EQ(packet_infos[0].sequence_number(), 17);
+        EXPECT_EQ(packet_infos[1].sequence_number(), 18);
       }));
 
   rtp_video_stream_receiver_->OnRtpPacket(second_packet);

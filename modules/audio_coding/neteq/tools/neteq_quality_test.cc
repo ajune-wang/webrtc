@@ -380,7 +380,7 @@ int NetEqQualityTest::Transmit() {
       int ret = neteq_->InsertPacket(
           rtp_header_,
           rtc::ArrayView<const uint8_t>(payload_.data(), payload_size_bytes_),
-          packet_input_time_ms * in_sampling_khz_);
+          packet_input_time_ms * in_sampling_khz_, packet_input_time_ms);
       if (ret != NetEq::kOK)
         return -1;
       Log() << "was sent.";

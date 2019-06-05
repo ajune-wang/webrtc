@@ -155,11 +155,14 @@ class NetEq {
 
   // Inserts a new packet into NetEq. The |receive_timestamp| is an indication
   // of the time when the packet was received, and should be measured with
-  // the same tick rate as the RTP timestamp of the current payload.
+  // the same tick rate as the RTP timestamp of the current payload. The
+  // |receive_time_ms| is similar, but should use |rtc::TimeMillis()| or
+  // equivalent as its clock source.
   // Returns 0 on success, -1 on failure.
   virtual int InsertPacket(const RTPHeader& rtp_header,
                            rtc::ArrayView<const uint8_t> payload,
-                           uint32_t receive_timestamp) = 0;
+                           uint32_t receive_timestamp,
+                           int64_t receive_time_ms) = 0;
 
   // Lets NetEq know that a packet arrived with an empty payload. This typically
   // happens when empty packets are used for probing the network channel, and

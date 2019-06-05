@@ -15,6 +15,7 @@
 #include <cstdint>
 #include <cstring>
 #include <list>
+#include <map>
 #include <utility>
 #include <vector>
 
@@ -147,11 +148,13 @@ NetEqImpl::~NetEqImpl() = default;
 
 int NetEqImpl::InsertPacket(const RTPHeader& rtp_header,
                             rtc::ArrayView<const uint8_t> payload,
-                            uint32_t receive_timestamp) {
+                            uint32_t receive_timestamp,
+                            int64_t receive_time_ms) {
   rtc::MsanCheckInitialized(payload);
   TRACE_EVENT0("webrtc", "NetEqImpl::InsertPacket");
   rtc::CritScope lock(&crit_sect_);
-  if (InsertPacketInternal(rtp_header, payload, receive_timestamp) != 0) {
+  if (InsertPacketInternal(rtp_header, payload, receive_timestamp,
+                           receive_time_ms) != 0) {
     return kFail;
   }
   return kOK;
@@ -470,7 +473,8 @@ Operations NetEqImpl::last_operation_for_test() const {
 
 int NetEqImpl::InsertPacketInternal(const RTPHeader& rtp_header,
                                     rtc::ArrayView<const uint8_t> payload,
-                                    uint32_t receive_timestamp) {
+                                    uint32_t receive_timestamp,
+                                    int64_t receive_time_ms) {
   if (payload.empty()) {
     RTC_LOG_F(LS_ERROR) << "payload is empty";
     return kInvalidPointer;
@@ -479,13 +483,14 @@ int NetEqImpl::InsertPacketInternal(const RTPHeader& rtp_header,
 
   PacketList packet_list;
   // Insert packet in a packet list.
-  packet_list.push_back([&rtp_header, &payload] {
+  packet_list.push_back([&rtp_header, &payload, &receive_time_ms] {
     // Convert to Packet.
     Packet packet;
     packet.payload_type = rtp_header.payloadType;
     packet.sequence_number = rtp_header.sequenceNumber;
     packet.timestamp = rtp_header.timestamp;
     packet.payload.SetData(payload.data(), payload.size());
+    packet.packet_info = RtpPacketInfo(rtp_header, receive_time_ms);
     // Waiting time will be set upon inserting the packet in the buffer.
     RTC_DCHECK(!packet.waiting_time);
     return packet;
@@ -618,6 +623,7 @@ int NetEqImpl::InsertPacketInternal(const RTPHeader& rtp_header,
       const auto sequence_number = packet.sequence_number;
       const auto payload_type = packet.payload_type;
       const Packet::Priority original_priority = packet.priority;
+      const auto& packet_info = packet.packet_info;
       auto packet_from_result = [&](AudioDecoder::ParseResult& result) {
         Packet new_packet;
         new_packet.sequence_number = sequence_number;
@@ -625,6 +631,7 @@ int NetEqImpl::InsertPacketInternal(const RTPHeader& rtp_header,
         new_packet.timestamp = result.timestamp;
         new_packet.priority.codec_level = result.priority;
         new_packet.priority.red_level = original_priority.red_level;
+        new_packet.packet_info = packet_info;
         new_packet.frame = std::move(result.frame);
         return new_packet;
       };
@@ -799,8 +806,9 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame,
   AudioDecoder::SpeechType speech_type;
   int length = 0;
   const size_t start_num_packets = packet_list.size();
-  int decode_return_value =
-      Decode(&packet_list, &operation, &length, &speech_type);
+  PacketList decoded_packet_list;
+  int decode_return_value = Decode(&packet_list, &decoded_packet_list,
+                                   &operation, &length, &speech_type);
 
   assert(vad_.get());
   bool sid_frame_available = (operation == kRfc3389Cng && !packet_list.empty());
@@ -904,6 +912,18 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame,
   sync_buffer_->GetNextAudioInterleaved(num_output_samples_per_channel,
                                         audio_frame);
   audio_frame->sample_rate_hz_ = fs_hz_;
+  // We don't have the ability to properly track individual packets once their
+  // audio samples have entered |sync_buffer_|. So for now, treat it as if all
+  // packets in |decoded_packet_list| were consumed assembling the current audio
+  // frame.
+  {
+    RtpPacketInfos::vector_type packet_infos;
+    packet_infos.reserve(decoded_packet_list.size());
+    for (const auto& packet : decoded_packet_list) {
+      packet_infos.push_back(packet.packet_info);
+    }
+    audio_frame->packet_infos_ = RtpPacketInfos(std::move(packet_infos));
+  }
   if (sync_buffer_->FutureLength() < expand_->overlap_length()) {
     // The sync buffer should always contain |overlap_length| samples, but now
     // too many samples have been extracted. Reinstall the |overlap_length|
@@ -1255,6 +1275,7 @@ int NetEqImpl::GetDecision(Operations* operation,
 }
 
 int NetEqImpl::Decode(PacketList* packet_list,
+                      PacketList* decoded_packet_list,
                       Operations* operation,
                       int* decoded_length,
                       AudioDecoder::SpeechType* speech_type) {
@@ -1327,8 +1348,8 @@ int NetEqImpl::Decode(PacketList* packet_list,
     RTC_DCHECK(packet_list->empty());
     return_value = DecodeCng(decoder, decoded_length, speech_type);
   } else {
-    return_value = DecodeLoop(packet_list, *operation, decoder, decoded_length,
-                              speech_type);
+    return_value = DecodeLoop(packet_list, decoded_packet_list, *operation,
+                              decoder, decoded_length, speech_type);
   }
 
   if (*decoded_length < 0) {
@@ -1394,10 +1415,12 @@ int NetEqImpl::DecodeCng(AudioDecoder* decoder,
 }
 
 int NetEqImpl::DecodeLoop(PacketList* packet_list,
+                          PacketList* decoded_packet_list,
                           const Operations& operation,
                           AudioDecoder* decoder,
                           int* decoded_length,
                           AudioDecoder::SpeechType* speech_type) {
+  RTC_DCHECK(decoded_packet_list->empty());
   RTC_DCHECK(last_decoded_timestamps_.empty());
 
   // Do decoding.
@@ -1416,7 +1439,8 @@ int NetEqImpl::DecodeLoop(PacketList* packet_list,
         rtc::ArrayView<int16_t>(&decoded_buffer_[*decoded_length],
                                 decoded_buffer_length_ - *decoded_length));
     last_decoded_timestamps_.push_back(packet_list->front().timestamp);
-    packet_list->pop_front();
+    decoded_packet_list->splice(decoded_packet_list->end(), *packet_list,
+                                packet_list->begin());
     if (opt_result) {
       const auto& result = *opt_result;
       *speech_type = result.speech_type;
@@ -1431,6 +1455,7 @@ int NetEqImpl::DecodeLoop(PacketList* packet_list,
       // TODO(ossu): What to put here?
       RTC_LOG(LS_WARNING) << "Decode error";
       *decoded_length = -1;
+      decoded_packet_list->clear();
       packet_list->clear();
       break;
     }

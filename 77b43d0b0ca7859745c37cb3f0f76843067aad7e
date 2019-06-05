@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "928b90be_3faa8353",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-06-05T12:06:51Z",
+      "side": 1,
+      "message": "I think you want to call GetRttMultValue() here? Given that this field trial never changes during a call, I suggest you move this to the constructor of the class and call GetRttMultValue() only once.",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 304,
+        "endChar": 58
+      },
+      "revId": "77b43d0b0ca7859745c37cb3f0f76843067aad7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63272b18_1b270f57",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-06-05T12:06:51Z",
+      "side": 1,
+      "message": "This should never happen, right? Just so that we don\u0027t spam a lot of logs",
+      "range": {
+        "startLine": 309,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 66
+      },
+      "revId": "77b43d0b0ca7859745c37cb3f0f76843067aad7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df8ef511_2f151e92",
+        "filename": "rtc_base/experiments/rtt_mult_experiment.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-06-05T12:06:51Z",
+      "side": 1,
+      "message": "If we call this method only once I think it would be good to log the parameters actually parsed so we can easily verify them in a log.",
+      "revId": "77b43d0b0ca7859745c37cb3f0f76843067aad7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

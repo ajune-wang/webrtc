@@ -22,6 +22,30 @@
       "revId": "b72333cf361cc228f3071a790356935b91d9d628",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1636027f_3842cf12",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-05T13:10:32Z",
+      "side": 1,
+      "message": "oops, I mean \"by then\"\ndoes that expression exists?",
+      "parentUuid": "8a9f126d_7599edd4",
+      "range": {
+        "startLine": 13,
+        "startChar": 40,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "b72333cf361cc228f3071a790356935b91d9d628",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

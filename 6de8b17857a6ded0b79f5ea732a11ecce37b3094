@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07dade82_040251d6",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 5170,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-06-05T18:16:22Z",
+      "side": 0,
+      "message": "Ah, that was a bad merge from the recent new API impl. Thanks for catching this.",
+      "range": {
+        "startLine": 5170,
+        "startChar": 14,
+        "endLine": 5170,
+        "endChar": 44
+      },
+      "revId": "6de8b17857a6ded0b79f5ea732a11ecce37b3094",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -54,6 +54,20 @@ class AudioFrameOperations {
   // |num_channels_| is 4 channels.
   static int QuadToStereo(AudioFrame* frame);
 
+  // TODO(henrika)
+
+  static void FivePointOneToStereo(const int16_t* src_audio,
+                                   size_t samples_per_channel,
+                                   int16_t* dst_audio);
+
+  static int FivePointOneToStereo(AudioFrame* frame);
+
+  static void SevenPointOneToStereo(const int16_t* src_audio,
+                                    size_t samples_per_channel,
+                                    int16_t* dst_audio);
+
+  static int SevenPointOneToStereo(AudioFrame* frame);
+
   // Downmixes |src_channels| |src_audio| to |dst_channels| |dst_audio|.
   // This is an in-place operation, meaning |src_audio| and |dst_audio|
   // may point to the same buffer. Supported channel combinations are

@@ -116,6 +116,77 @@ int AudioFrameOperations::QuadToStereo(AudioFrame* frame) {
   return 0;
 }
 
+void AudioFrameOperations::FivePointOneToStereo(const int16_t* src_audio,
+                                                size_t samples_per_channel,
+                                                int16_t* dst_audio) {
+  // FFmpeg 5.1 => stereo (excludes LFE).
+  // TODO(henrika): factor should 1/sqrt(2)
+  for (size_t i = 0; i < samples_per_channel; i++) {
+    // FL + (1/2)*(BL + FC)
+    dst_audio[i * 2] = (static_cast<int32_t>(
+        src_audio[6 * i] +
+        ((src_audio[6 * i + 4] + src_audio[6 * i + 2]) >> 1)));
+    // FR + (1/2)*(BR + FC()
+    dst_audio[i * 2 + 1] = (static_cast<int32_t>(
+        src_audio[6 * i + 1] +
+        ((src_audio[6 * i + 5] + src_audio[6 * i + 2]) >> 1)));
+  }
+}
+
+int AudioFrameOperations::FivePointOneToStereo(AudioFrame* frame) {
+  if (frame->num_channels_ != 6) {
+    return -1;
+  }
+
+  RTC_DCHECK_LE(frame->samples_per_channel_ * 6,
+                AudioFrame::kMaxDataSizeSamples);
+
+  if (!frame->muted()) {
+    FivePointOneToStereo(frame->data(), frame->samples_per_channel_,
+                         frame->mutable_data());
+  }
+  frame->num_channels_ = 2;
+
+  return 0;
+}
+
+void AudioFrameOperations::SevenPointOneToStereo(const int16_t* src_audio,
+                                                 size_t samples_per_channel,
+                                                 int16_t* dst_audio) {
+  // Assumes: 7.1 FL(0), FR(1), FC(2), LFE(3), BL(4), BR(5), SL(6), SR(7)
+  // TODO(henrika): might not match hardware channel layout exactly and also
+  // use proper scaling (1/sqrt(2)) taking clamping into account.
+  for (size_t i = 0; i < samples_per_channel; i++) {
+    // L = FL + 1/sqrt(2)*(FC + BL + SL)
+    dst_audio[i * 2] = (static_cast<int32_t>(
+        src_audio[8 * i] +
+        ((src_audio[8 * i + 2] + src_audio[8 * i + 4] + src_audio[8 * i + 6]) >>
+         1)));
+    // R = FR + 1/sqrt(2)*(FC + BR + SR)
+    dst_audio[i * 2 + 1] = (static_cast<int32_t>(
+        src_audio[8 * i + 1] +
+        ((src_audio[8 * i + 2] + src_audio[8 * i + 5] + src_audio[8 * i + 7]) >>
+         1)));
+  }
+}
+
+int AudioFrameOperations::SevenPointOneToStereo(AudioFrame* frame) {
+  if (frame->num_channels_ != 8) {
+    return -1;
+  }
+
+  RTC_DCHECK_LE(frame->samples_per_channel_ * 8,
+                AudioFrame::kMaxDataSizeSamples);
+
+  if (!frame->muted()) {
+    SevenPointOneToStereo(frame->data(), frame->samples_per_channel_,
+                          frame->mutable_data());
+  }
+  frame->num_channels_ = 2;
+
+  return 0;
+}
+
 void AudioFrameOperations::DownmixChannels(const int16_t* src_audio,
                                            size_t src_channels,
                                            size_t samples_per_channel,
@@ -146,6 +217,12 @@ void AudioFrameOperations::DownmixChannels(size_t dst_channels,
     frame->num_channels_ = 1;
   } else if (frame->num_channels_ == 4 && dst_channels == 2) {
     int err = QuadToStereo(frame);
+    RTC_DCHECK_EQ(err, 0);
+  } else if (frame->num_channels_ == 6 && dst_channels == 2) {
+    int err = FivePointOneToStereo(frame);
+    RTC_DCHECK_EQ(err, 0);
+  } else if (frame->num_channels_ == 8 && dst_channels == 2) {
+    int err = SevenPointOneToStereo(frame);
     RTC_DCHECK_EQ(err, 0);
   } else {
     RTC_NOTREACHED() << "src_channels: " << frame->num_channels_

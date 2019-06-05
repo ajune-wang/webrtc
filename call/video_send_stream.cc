@@ -77,7 +77,9 @@ VideoSendStream::Config::Config(const Config&) = default;
 VideoSendStream::Config::Config(Config&&) = default;
 VideoSendStream::Config::Config(Transport* send_transport,
                                 MediaTransportInterface* media_transport)
-    : send_transport(send_transport), media_transport(media_transport) {}
+    : encoder_settings(VideoEncoder::Capabilities(/*TODO: !!!*/ false)),
+      send_transport(send_transport),
+      media_transport(media_transport) {}
 VideoSendStream::Config::Config(Transport* send_transport)
     : Config(send_transport, nullptr) {}
 

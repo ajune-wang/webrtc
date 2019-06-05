@@ -732,7 +732,8 @@ void VideoStreamEncoder::ReconfigureEncoder() {
           encoder_config_.video_format);
     }
 
-    if (encoder_->InitEncode(&send_codec_, number_of_cores_,
+    if (encoder_->InitEncode(&send_codec_, settings_.video_encoder_capabilities,
+                             number_of_cores_,
                              max_data_payload_length_ > 0
                                  ? max_data_payload_length_
                                  : kDefaultPayloadSize) != 0) {

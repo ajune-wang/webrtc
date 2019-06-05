@@ -86,6 +86,7 @@ class RTC_EXPORT VideoEncoder {
     int low;
     int high;
   };
+
   // Quality scaling is enabled if thresholds are provided.
   struct ScalingSettings {
    private:
@@ -237,6 +238,14 @@ class RTC_EXPORT VideoEncoder {
     absl::optional<bool> last_received_decodable;
   };
 
+  // Negotiated capabilities which the VideoEncoder may expect the other
+  // side to use.
+  struct Capabilities {
+    explicit Capabilities(bool loss_notification)
+        : loss_notification(loss_notification) {}
+    bool loss_notification;
+  };
+
   static VideoCodecVP8 GetDefaultVp8Settings();
   static VideoCodecVP9 GetDefaultVp9Settings();
   static VideoCodecH264 GetDefaultH264Settings();
@@ -247,6 +256,7 @@ class RTC_EXPORT VideoEncoder {
   //
   // Input:
   //          - codec_settings    : Codec settings
+  //          - capabilities      : Negotiated capabilities (e.g. LNTF, NACK).
   //          - number_of_cores   : Number of cores available for the encoder
   //          - max_payload_size  : The maximum size each payload is allowed
   //                                to have. Usually MTU - overhead.
@@ -260,6 +270,13 @@ class RTC_EXPORT VideoEncoder {
   virtual int32_t InitEncode(const VideoCodec* codec_settings,
                              int32_t number_of_cores,
                              size_t max_payload_size) = 0;
+  // TODO(bugs.webrtc.org/10720): After updating downstream projects,
+  // remove the version that does not receive capabilities, and make the
+  // remaining version pure virtual.
+  virtual int InitEncode(const VideoCodec* codec_settings,
+                         const VideoEncoder::Capabilities& capabilities,
+                         int number_of_cores,
+                         size_t max_payload_size);
 
   // Register an encode complete callback object.
   //

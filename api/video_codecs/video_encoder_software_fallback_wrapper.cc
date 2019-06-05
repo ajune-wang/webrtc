@@ -21,6 +21,7 @@
 #include "api/video/video_bitrate_allocation.h"
 #include "api/video/video_frame.h"
 #include "api/video_codecs/video_codec.h"
+#include "api/video_codecs/video_encoder.h"
 #include "modules/video_coding/include/video_error_codes.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -81,6 +82,10 @@ class VideoEncoderSoftwareFallbackWrapper final : public VideoEncoder {
   int32_t InitEncode(const VideoCodec* codec_settings,
                      int32_t number_of_cores,
                      size_t max_payload_size) override;
+  int32_t InitEncode(const VideoCodec* codec_settings,
+                     const VideoEncoder::Capabilities& capabilities,
+                     int32_t number_of_cores,
+                     size_t max_payload_size) override;
 
   int32_t RegisterEncodeCompleteCallback(
       EncodedImageCallback* callback) override;
@@ -118,6 +123,7 @@ class VideoEncoderSoftwareFallbackWrapper final : public VideoEncoder {
   // Settings used in the last InitEncode call and used if a dynamic fallback to
   // software is required.
   VideoCodec codec_settings_;
+  absl::optional<VideoEncoder::Capabilities> capabilities_;
   int32_t number_of_cores_;
   size_t max_payload_size_;
 
@@ -165,8 +171,10 @@ VideoEncoderSoftwareFallbackWrapper::~VideoEncoderSoftwareFallbackWrapper() =
 bool VideoEncoderSoftwareFallbackWrapper::InitFallbackEncoder() {
   RTC_LOG(LS_WARNING) << "Encoder falling back to software encoding.";
 
-  const int ret = fallback_encoder_->InitEncode(
-      &codec_settings_, number_of_cores_, max_payload_size_);
+  RTC_DCHECK(capabilities_.has_value());
+  const int ret =
+      fallback_encoder_->InitEncode(&codec_settings_, capabilities_.value(),
+                                    number_of_cores_, max_payload_size_);
   use_fallback_encoder_ = (ret == WEBRTC_VIDEO_CODEC_OK);
   if (!use_fallback_encoder_) {
     RTC_LOG(LS_ERROR) << "Failed to initialize software-encoder fallback.";
@@ -190,9 +198,19 @@ int32_t VideoEncoderSoftwareFallbackWrapper::InitEncode(
     const VideoCodec* codec_settings,
     int32_t number_of_cores,
     size_t max_payload_size) {
+  RTC_NOTREACHED();
+  return WEBRTC_VIDEO_CODEC_ERROR;
+}
+
+int32_t VideoEncoderSoftwareFallbackWrapper::InitEncode(
+    const VideoCodec* codec_settings,
+    const VideoEncoder::Capabilities& capabilities,
+    int32_t number_of_cores,
+    size_t max_payload_size) {
   // Store settings, in case we need to dynamically switch to the fallback
   // encoder after a failed Encode call.
   codec_settings_ = *codec_settings;
+  capabilities_ = capabilities;
   number_of_cores_ = number_of_cores;
   max_payload_size_ = max_payload_size;
   // Clear stored rate/channel parameters.
@@ -209,8 +227,8 @@ int32_t VideoEncoderSoftwareFallbackWrapper::InitEncode(
   }
   forced_fallback_.active_ = false;
 
-  int32_t ret =
-      encoder_->InitEncode(codec_settings, number_of_cores, max_payload_size);
+  int32_t ret = encoder_->InitEncode(codec_settings, capabilities,
+                                     number_of_cores, max_payload_size);
   if (ret == WEBRTC_VIDEO_CODEC_OK) {
     if (use_fallback_encoder_) {
       RTC_LOG(LS_WARNING)
@@ -319,14 +337,17 @@ bool VideoEncoderSoftwareFallbackWrapper::TryReInitForcedFallbackEncoder() {
   if (!IsForcedFallbackActive()) {
     return false;
   }
+
   // Forced fallback active.
   if (!forced_fallback_.IsValid(codec_settings_)) {
     RTC_LOG(LS_INFO) << "Stop forced SW encoder fallback, max pixels exceeded.";
     return false;
   }
+
   // Settings valid, reinitialize the forced fallback encoder.
-  if (fallback_encoder_->InitEncode(&codec_settings_, number_of_cores_,
-                                    max_payload_size_) !=
+  RTC_DCHECK(capabilities_.has_value());
+  if (fallback_encoder_->InitEncode(&codec_settings_, capabilities_.value(),
+                                    number_of_cores_, max_payload_size_) !=
       WEBRTC_VIDEO_CODEC_OK) {
     RTC_LOG(LS_ERROR) << "Failed to init forced SW encoder fallback.";
     return false;

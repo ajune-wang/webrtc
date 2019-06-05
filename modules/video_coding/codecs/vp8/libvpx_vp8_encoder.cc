@@ -450,9 +450,22 @@ void LibvpxVp8Encoder::SetStreamState(bool send_stream, int stream_idx) {
   send_stream_[stream_idx] = send_stream;
 }
 
-int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
+int LibvpxVp8Encoder::InitEncode(const VideoCodec* codec_settings,
                                  int number_of_cores,
-                                 size_t /*maxPayloadSize */) {
+                                 size_t max_payload_size) {
+  RTC_NOTREACHED();
+  return WEBRTC_VIDEO_CODEC_ERROR;
+}
+
+// TODO(eladalon): s/inst/codec_settings.
+// TODO(bugs.webrtc.org/10720): Pass |capabilities| to frame buffer controller.
+int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
+                                 const VideoEncoder::Capabilities& capabilities,
+                                 int number_of_cores,
+                                 size_t /*max_payload_size*/) {
+  // TODO: !!!
+  printf("ELAD capabilities.loss_notification = %d\n",
+         capabilities.loss_notification);
   if (inst == NULL) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }

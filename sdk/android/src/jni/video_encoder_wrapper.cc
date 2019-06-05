@@ -12,6 +12,7 @@
 
 #include <utility>
 
+#include "api/video_codecs/video_encoder.h"
 #include "common_video/h264/h264_common.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/include/video_error_codes.h"
@@ -41,8 +42,18 @@ VideoEncoderWrapper::~VideoEncoderWrapper() = default;
 int32_t VideoEncoderWrapper::InitEncode(const VideoCodec* codec_settings,
                                         int32_t number_of_cores,
                                         size_t max_payload_size) {
+  RTC_NOTREACHED();
+  return WEBRTC_VIDEO_CODEC_ERROR;
+}
+
+int VideoEncoderWrapper::InitEncode(
+    const VideoCodec* codec_settings,
+    const VideoEncoder::Capabilities& capabilities,
+    int number_of_cores,
+    size_t max_payload_size) {
   JNIEnv* jni = AttachCurrentThreadIfNeeded();
 
+  capabilities_ = capabilities;
   number_of_cores_ = number_of_cores;
   codec_settings_ = *codec_settings;
   num_resets_ = 0;
@@ -51,7 +62,7 @@ int32_t VideoEncoderWrapper::InitEncode(const VideoCodec* codec_settings,
     encoder_queue_ = TaskQueueBase::Current();
   }
 
-  return InitEncodeInternal(jni);
+  return InitEncodeInternal(jni);  // TODO: !!!
 }
 
 int32_t VideoEncoderWrapper::InitEncodeInternal(JNIEnv* jni) {
@@ -80,6 +91,7 @@ int32_t VideoEncoderWrapper::InitEncodeInternal(JNIEnv* jni) {
       Java_VideoEncoderWrapper_createEncoderCallback(jni,
                                                      jlongFromPointer(this));
 
+  // TODO: !!!
   int32_t status = JavaToNativeVideoCodecStatus(
       jni, Java_VideoEncoder_initEncode(jni, encoder_, settings, callback));
   RTC_LOG(LS_INFO) << "initEncode: " << status;

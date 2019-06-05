@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d83cc6ba_182cbdde",
+        "filename": "modules/congestion_controller/goog_cc/alr_detector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-05T14:49:47Z",
+      "side": 1,
+      "message": "Optionally you could use budget_level/budget_ratio.",
+      "range": {
+        "startLine": 95,
+        "startChar": 18,
+        "endLine": 95,
+        "endChar": 36
+      },
+      "revId": "cb7a500df78855f469fa2bb935416b1db9ab9071",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

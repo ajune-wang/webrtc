@@ -82,7 +82,6 @@ if (rtc_include_tests) {
     deps = [
       ":transport_feedback",
       "../:congestion_controller",
-      "../:mock_congestion_controller",
       "../../../api/transport:network_control",
       "../../../logging:mocks",
       "../../../rtc_base",

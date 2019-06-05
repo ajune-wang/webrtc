@@ -20,16 +20,11 @@ rtc_static_library("congestion_controller") {
   visibility = [ "*" ]
   configs += [ ":bwe_test_logging" ]
   sources = [
-    "include/network_changed_observer.h",
     "include/receive_side_congestion_controller.h",
-    "include/send_side_congestion_controller.h",
-    "include/send_side_congestion_controller_interface.h",
     "receive_side_congestion_controller.cc",
-    "send_side_congestion_controller.cc",
   ]
 
   deps = [
-    ":transport_feedback",
     "..:module_api",
     "../../api:scoped_refptr",
     "../../api/transport:field_trial_based_config",
@@ -61,38 +56,15 @@ rtc_static_library("congestion_controller") {
   }
 }
 
-rtc_static_library("transport_feedback") {
-  visibility = [ "*" ]
-  sources = [
-    "transport_feedback_adapter.cc",
-    "transport_feedback_adapter.h",
-  ]
-
-  deps = [
-    "../../api/transport:network_control",
-    "../../api/units:data_size",
-    "../../modules:module_api",
-    "../../rtc_base:checks",
-    "../../rtc_base:rtc_base_approved",
-    "../../system_wrappers",
-    "../rtp_rtcp:rtp_rtcp_format",
-    "rtp:transport_feedback",
-  ]
-}
-
 if (rtc_include_tests) {
   rtc_source_set("congestion_controller_unittests") {
     testonly = true
 
     sources = [
       "receive_side_congestion_controller_unittest.cc",
-      "send_side_congestion_controller_unittest.cc",
-      "transport_feedback_adapter_unittest.cc",
     ]
     deps = [
       ":congestion_controller",
-      ":mock_congestion_controller",
-      ":transport_feedback",
       "../../logging:mocks",
       "../../rtc_base",
       "../../rtc_base:checks",
@@ -111,17 +83,6 @@ if (rtc_include_tests) {
       "goog_cc:goog_cc_unittests",
       "pcc:pcc_unittests",
       "rtp:congestion_controller_unittests",
-    ]
-  }
-
-  rtc_source_set("mock_congestion_controller") {
-    testonly = true
-    sources = [
-      "include/mock/mock_congestion_observer.h",
-    ]
-    deps = [
-      ":congestion_controller",
-      "../../test:test_support",
     ]
   }
 }

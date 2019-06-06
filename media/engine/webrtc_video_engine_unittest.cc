@@ -1,3 +1,4 @@
+#if 0
 /*
  *  Copyright (c) 2004 The WebRTC project authors. All Rights Reserved.
  *
@@ -7670,3 +7671,4 @@ TEST_F(WebRtcVideoChannelTest, SetsRidsOnSendStream) {
 }
 
 }  // namespace cricket
+#endif

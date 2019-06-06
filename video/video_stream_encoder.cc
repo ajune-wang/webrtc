@@ -732,10 +732,10 @@ void VideoStreamEncoder::ReconfigureEncoder() {
           encoder_config_.video_format);
     }
 
-    if (encoder_->InitEncode(&send_codec_, number_of_cores_,
-                             max_data_payload_length_ > 0
-                                 ? max_data_payload_length_
-                                 : kDefaultPayloadSize) != 0) {
+    if (encoder_->InitEncode(
+            &send_codec_, settings_.capabilities, number_of_cores_,
+            max_data_payload_length_ > 0 ? max_data_payload_length_
+                                         : kDefaultPayloadSize) != 0) {
       RTC_LOG(LS_ERROR) << "Failed to initialize the encoder associated with "
                            "codec type: "
                         << CodecTypeToPayloadString(send_codec_.codecType)

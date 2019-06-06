@@ -1,3 +1,4 @@
+#if 0
 /*
  *  Copyright (c) 2019 The WebRTC project authors. All Rights Reserved.
  *
@@ -68,3 +69,4 @@ TEST(CallConfigUtils, MarshalUnmarshalProcessSameObject) {
 
 }  // namespace test
 }  // namespace webrtc
+#endif

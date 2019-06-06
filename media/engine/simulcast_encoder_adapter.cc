@@ -170,6 +170,16 @@ int SimulcastEncoderAdapter::Release() {
 int SimulcastEncoderAdapter::InitEncode(const VideoCodec* inst,
                                         int number_of_cores,
                                         size_t max_payload_size) {
+  RTC_NOTREACHED();
+  return WEBRTC_VIDEO_CODEC_ERROR;
+}
+
+// TODO(eladalon): s/inst/codec_settings.
+int SimulcastEncoderAdapter::InitEncode(
+    const VideoCodec* inst,
+    const VideoEncoder::Capabilities& capabilities,
+    int number_of_cores,
+    size_t max_payload_size) {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
 
   if (number_of_cores < 1) {
@@ -256,7 +266,8 @@ int SimulcastEncoderAdapter::InitEncode(const VideoCodec* inst,
           codec_.codecType == webrtc::kVideoCodecVP8 ? "VP8" : "H264"));
     }
 
-    ret = encoder->InitEncode(&stream_codec, number_of_cores, max_payload_size);
+    ret = encoder->InitEncode(&stream_codec, capabilities, number_of_cores,
+                              max_payload_size);
     if (ret < 0) {
       // Explicitly destroy the current encoder; because we haven't registered a
       // StreamInfo for it yet, Release won't do anything about it.

@@ -50,6 +50,8 @@ const int kDefaultMinPixelsPerFrame = 320 * 180;
 const int kLowThreshold = 10;
 const int kHighThreshold = 20;
 
+const VideoEncoder::Capabilities kCapabilities(false);
+
 VideoEncoder::EncoderInfo GetEncoderInfoWithTrustedRateController(
     bool trusted_rate_controller) {
   VideoEncoder::EncoderInfo info;
@@ -87,6 +89,13 @@ class VideoEncoderSoftwareFallbackWrapperTest : public ::testing::Test {
   class CountingFakeEncoder : public VideoEncoder {
    public:
     int32_t InitEncode(const VideoCodec* codec_settings,
+                       int32_t number_of_cores,
+                       size_t max_payload_size) override {
+      RTC_NOTREACHED();
+      return WEBRTC_VIDEO_CODEC_ERROR;
+    }
+    int32_t InitEncode(const VideoCodec* codec_settings,
+                       const Capabilities& capabilities,
                        int32_t number_of_cores,
                        size_t max_payload_size) override {
       ++init_encode_count_;
@@ -202,7 +211,8 @@ void VideoEncoderSoftwareFallbackWrapperTest::UtilizeFallbackEncoder() {
 
   fake_encoder_->init_encode_return_code_ = WEBRTC_VIDEO_CODEC_ERROR;
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
-            fallback_wrapper_->InitEncode(&codec_, kNumCores, kMaxPayloadSize));
+            fallback_wrapper_->InitEncode(&codec_, kCapabilities, kNumCores,
+                                          kMaxPayloadSize));
   fallback_wrapper_->SetRates(VideoEncoder::RateControlParameters(
       rate_allocator_->GetAllocation(300000, kFramerate), kFramerate));
 
@@ -221,7 +231,7 @@ void VideoEncoderSoftwareFallbackWrapperTest::FallbackFromEncodeRequest() {
   codec_.height = kHeight;
   codec_.VP8()->numberOfTemporalLayers = 1;
   rate_allocator_.reset(new SimulcastRateAllocator(codec_));
-  fallback_wrapper_->InitEncode(&codec_, 2, kMaxPayloadSize);
+  fallback_wrapper_->InitEncode(&codec_, kCapabilities, 2, kMaxPayloadSize);
   fallback_wrapper_->SetRates(VideoEncoder::RateControlParameters(
       rate_allocator_->GetAllocation(300000, kFramerate), kFramerate));
   EXPECT_EQ(1, fake_encoder_->init_encode_count_);
@@ -238,7 +248,7 @@ void VideoEncoderSoftwareFallbackWrapperTest::FallbackFromEncodeRequest() {
 
 TEST_F(VideoEncoderSoftwareFallbackWrapperTest, InitializesEncoder) {
   VideoCodec codec = {};
-  fallback_wrapper_->InitEncode(&codec, 2, kMaxPayloadSize);
+  fallback_wrapper_->InitEncode(&codec, kCapabilities, 2, kMaxPayloadSize);
   EXPECT_EQ(1, fake_encoder_->init_encode_count_);
 }
 
@@ -324,7 +334,8 @@ TEST_F(VideoEncoderSoftwareFallbackWrapperTest, ReportsImplementationName) {
   codec_.width = kWidth;
   codec_.height = kHeight;
   fallback_wrapper_->RegisterEncodeCompleteCallback(&callback_);
-  fallback_wrapper_->InitEncode(&codec_, kNumCores, kMaxPayloadSize);
+  fallback_wrapper_->InitEncode(&codec_, kCapabilities, kNumCores,
+                                kMaxPayloadSize);
   EncodeFrame();
   CheckLastEncoderName("fake-encoder");
 }
@@ -375,8 +386,9 @@ class ForcedFallbackTest : public VideoEncoderSoftwareFallbackWrapperTest {
   void InitEncode(int width, int height) {
     codec_.width = width;
     codec_.height = height;
-    EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK, fallback_wrapper_->InitEncode(
-                                         &codec_, kNumCores, kMaxPayloadSize));
+    EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+              fallback_wrapper_->InitEncode(&codec_, kCapabilities, kNumCores,
+                                            kMaxPayloadSize));
     SetRateAllocation(kBitrateKbps);
   }
 

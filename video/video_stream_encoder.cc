@@ -20,6 +20,7 @@
 #include "api/video/encoded_image.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_bitrate_allocator_factory.h"
+#include "api/video_codecs/video_encoder.h"
 #include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
 #include "modules/video_coding/include/video_codec_initializer.h"
 #include "modules/video_coding/include/video_coding.h"
@@ -63,6 +64,9 @@ const float kFramedropThreshold = 0.3;
 const int64_t kFrameRateAvergingWindowSizeMs = (1000 / 30) * 90;
 
 const size_t kDefaultPayloadSize = 1440;
+
+// TODO: !!!
+// const VideoEncoder::Capabilities kCapabilities(false);
 
 uint32_t abs_diff(uint32_t a, uint32_t b) {
   return (a < b) ? b - a : a - b;
@@ -732,10 +736,10 @@ void VideoStreamEncoder::ReconfigureEncoder() {
           encoder_config_.video_format);
     }
 
-    if (encoder_->InitEncode(&send_codec_, number_of_cores_,
-                             max_data_payload_length_ > 0
-                                 ? max_data_payload_length_
-                                 : kDefaultPayloadSize) != 0) {
+    if (encoder_->InitEncode(
+            &send_codec_, settings_.capabilities, number_of_cores_,
+            max_data_payload_length_ > 0 ? max_data_payload_length_
+                                         : kDefaultPayloadSize) != 0) {
       RTC_LOG(LS_ERROR) << "Failed to initialize the encoder associated with "
                            "codec type: "
                         << CodecTypeToPayloadString(send_codec_.codecType)

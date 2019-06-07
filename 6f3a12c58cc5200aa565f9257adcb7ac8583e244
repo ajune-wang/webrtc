@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5b0e78d_17a06265",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-07T08:39:03Z",
+      "side": 1,
+      "message": "\"microbits\"?",
+      "range": {
+        "startLine": 91,
+        "startChar": 47,
+        "endLine": 91,
+        "endChar": 57
+      },
+      "revId": "6f3a12c58cc5200aa565f9257adcb7ac8583e244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e05b1f0_cd675416",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-07T08:39:03Z",
+      "side": 1,
+      "message": "fine grammar nit: \"were\" (see https://en.wikipedia.org/wiki/English_subjunctive)",
+      "range": {
+        "startLine": 121,
+        "startChar": 50,
+        "endLine": 121,
+        "endChar": 53
+      },
+      "revId": "6f3a12c58cc5200aa565f9257adcb7ac8583e244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c3da42e_3cee82a9",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-07T08:39:03Z",
+      "side": 1,
+      "message": "This extra precision + rounding makes me think that maybe it would be better to just use double to back all types of values.",
+      "range": {
+        "startLine": 134,
+        "startChar": 9,
+        "endLine": 134,
+        "endChar": 60
+      },
+      "revId": "6f3a12c58cc5200aa565f9257adcb7ac8583e244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "a08f063d0db09575cf2e461e0c6035984379e126",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "136af9bb_872c5dff",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-07T07:20:11Z",
+      "side": 1,
+      "message": "It\u0027s useful for calculations relating to packet/frame rates and is used in the followup:\nIt\u0027s used in: https://webrtc-review.googlesource.com/c/src/+/138219\n\n\nYeah, it looks strange, but is correct as it\u0027s there due to rounding. \n\nDataRate is always positive.",
+      "parentUuid": "ae25b78e_81c29c5e",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 1
+      },
+      "revId": "a08f063d0db09575cf2e461e0c6035984379e126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

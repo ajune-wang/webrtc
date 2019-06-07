@@ -205,6 +205,29 @@ std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetPacketAndSetSendTime(
   return absl::make_unique<RtpPacketToSend>(*packet.packet_);
 }
 
+void RtpPacketHistory::SetSendTime(uint16_t sequence_number) {
+  rtc::CritScope cs(&lock_);
+  if (mode_ == StorageMode::kDisabled) {
+    return;
+  }
+
+  int64_t now_ms = clock_->TimeInMilliseconds();
+  StoredPacketIterator rtp_it = packet_history_.find(sequence_number);
+  if (rtp_it == packet_history_.end()) {
+    return;
+  }
+
+  StoredPacket& packet = rtp_it->second;
+  RTC_CHECK(packet.storage_type() != StorageType::kDontRetransmit);
+  if (packet.send_time_ms_) {
+    packet.IncrementTimesRetransmitted(&padding_priority_);
+  }
+
+  // Update send-time and mark as no long in pacer queue.
+  packet.send_time_ms_ = now_ms;
+  packet.pending_transmission_ = false;
+}
+
 absl::optional<RtpPacketHistory::PacketState> RtpPacketHistory::GetPacketState(
     uint16_t sequence_number) const {
   rtc::CritScope cs(&lock_);

@@ -193,6 +193,14 @@ H264EncoderImpl::~H264EncoderImpl() {
 int32_t H264EncoderImpl::InitEncode(const VideoCodec* inst,
                                     int32_t number_of_cores,
                                     size_t max_payload_size) {
+  RTC_NOTREACHED();
+  return WEBRTC_VIDEO_CODEC_ERROR;
+}
+
+int32_t H264EncoderImpl::InitEncode(const VideoCodec* inst,
+                                    const Capabilities& capabilities,
+                                    int32_t number_of_cores,
+                                    size_t max_payload_size) {
   ReportInit();
   if (!inst || inst->codecType != kVideoCodecH264) {
     ReportError();

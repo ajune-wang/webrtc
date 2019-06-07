@@ -174,8 +174,15 @@ class Vp8FrameBufferControllerFactory {
  public:
   virtual ~Vp8FrameBufferControllerFactory() = default;
 
+  // TODO(bugs.webrtc.org/10720): Update downstream and remove.
   virtual std::unique_ptr<Vp8FrameBufferController> Create(
-      const VideoCodec& codec) = 0;
+      const VideoCodec& codec) {
+    return nullptr;
+  }
+
+  virtual std::unique_ptr<Vp8FrameBufferController> Create(
+      const VideoCodec& codec,
+      const VideoEncoder::Settings& settings) = 0;
 };
 
 }  // namespace webrtc

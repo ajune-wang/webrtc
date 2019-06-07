@@ -40,6 +40,15 @@ int32_t ConfigurableFrameSizeEncoder::InitEncode(
     const VideoCodec* codec_settings,
     int32_t number_of_cores,
     size_t max_payload_size) {
+  RTC_NOTREACHED();
+  return WEBRTC_VIDEO_CODEC_ERROR;
+}
+
+int32_t ConfigurableFrameSizeEncoder::InitEncode(
+    const VideoCodec* codec_settings,
+    const Capabilities& capabilities,
+    int32_t number_of_cores,
+    size_t max_payload_size) {
   return WEBRTC_VIDEO_CODEC_OK;
 }
 

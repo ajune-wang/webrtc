@@ -13,6 +13,7 @@
 #include <cstring>
 
 #include "api/video/encoded_image.h"
+#include "api/video_codecs/video_encoder.h"
 #include "common_video/include/video_frame_buffer.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "modules/include/module_common_types.h"
@@ -63,6 +64,14 @@ MultiplexEncoderAdapter::~MultiplexEncoderAdapter() {
 int MultiplexEncoderAdapter::InitEncode(const VideoCodec* inst,
                                         int number_of_cores,
                                         size_t max_payload_size) {
+  RTC_NOTREACHED();
+  return WEBRTC_VIDEO_CODEC_ERROR;
+}
+
+int MultiplexEncoderAdapter::InitEncode(const VideoCodec* inst,
+                                        const Capabilities& capabilities,
+                                        int number_of_cores,
+                                        size_t max_payload_size) {
   const size_t buffer_size =
       CalcBufferSize(VideoType::kI420, inst->width, inst->height);
   multiplex_dummy_planes_.resize(buffer_size);
@@ -101,8 +110,8 @@ int MultiplexEncoderAdapter::InitEncode(const VideoCodec* inst,
   for (size_t i = 0; i < kAlphaCodecStreams; ++i) {
     std::unique_ptr<VideoEncoder> encoder =
         factory_->CreateVideoEncoder(associated_format_);
-    const int rv =
-        encoder->InitEncode(&settings, number_of_cores, max_payload_size);
+    const int rv = encoder->InitEncode(&settings, capabilities, number_of_cores,
+                                       max_payload_size);
     if (rv) {
       RTC_LOG(LS_ERROR) << "Failed to create multiplex codec index " << i;
       return rv;

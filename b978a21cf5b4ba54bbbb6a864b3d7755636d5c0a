@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43250374_e4476a8f",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-06-07T09:38:25Z",
+      "side": 1,
+      "message": "Doesn\u0027t this seem too strict? Fairness should mean that we get roughly 500 kbps. It also misses the requirement that we should get some bandwidth. How about checking that we get at least 250 and at most 750 kbps, to allow for BWE variations and some imbalance?",
+      "range": {
+        "startLine": 706,
+        "startChar": 0,
+        "endLine": 706,
+        "endChar": 50
+      },
+      "revId": "b978a21cf5b4ba54bbbb6a864b3d7755636d5c0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6446eaae_943293d9",
+        "filename": "test/scenario/network/cross_traffic.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-06-07T09:38:25Z",
+      "side": 1,
+      "message": "I think it would be cleaner to do \nit \u003d in_flight_.erase(it);",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 29
+      },
+      "revId": "b978a21cf5b4ba54bbbb6a864b3d7755636d5c0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

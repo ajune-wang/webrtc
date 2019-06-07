@@ -108,6 +108,10 @@ declare_args() {
   # Set this to false to skip building code that requires X11.
   rtc_use_x11 = use_x11
 
+  # Set this to false to skip building code that requires X11 extensions
+  # such as Xdamage, Xfixes.
+  rtc_use_x11_extensions = rtc_use_x11
+
   # Set this to use PipeWire on the Wayland display server.
   # By default it's only enabled on desktop Linux (excludes ChromeOS) and
   # only when using the sysroot as PipeWire is not available in older and
@@ -250,8 +254,9 @@ rtc_libvpx_dir = "//third_party/libvpx"
 rtc_opus_dir = "//third_party/opus"
 
 # Desktop capturer is supported only on Windows, OSX and Linux.
-rtc_desktop_capture_supported = (is_win && current_os != "winuwp") || is_mac ||
-                                (is_linux && (rtc_use_x11 || rtc_use_pipewire))
+rtc_desktop_capture_supported =
+    (is_win && current_os != "winuwp") || is_mac ||
+    (is_linux && (rtc_use_x11_extensions || rtc_use_pipewire))
 
 ###############################################################################
 # Templates

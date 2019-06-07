@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a215b27_3ddecb25",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-07T15:46:19Z",
+      "side": 1,
+      "message": "description mention this function is for\n\"where the packet isn\u0027t stored in the history during pacing\"\nwhat would it update then?\nwould it make sense to instead call PutRtpPacket function with send_time argument set?",
+      "range": {
+        "startLine": 216,
+        "startChar": 6,
+        "endLine": 216,
+        "endChar": 37
+      },
+      "revId": "50024e21a59e3bcc1519f127b6195bc04fe9c1aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71ecaeb6_9a6f315a",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-07T15:46:19Z",
+      "side": 1,
+      "message": "would it still be possible to retransmit packet before it was transmitted?",
+      "revId": "50024e21a59e3bcc1519f127b6195bc04fe9c1aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e249d95_e108ea11",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-07T15:46:19Z",
+      "side": 1,
+      "message": "longer",
+      "range": {
+        "startLine": 226,
+        "startChar": 37,
+        "endLine": 226,
+        "endChar": 41
+      },
+      "revId": "50024e21a59e3bcc1519f127b6195bc04fe9c1aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3568e66_fcfa819a",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-07T15:46:19Z",
+      "side": 1,
+      "message": "may be add a function comment.\nFunction look like like simple setter, but parameter doesn\u0027t match what it actually set, so it might look confusion.\nSomething like:\nSets current time as send time to packet with |sequence_number| and counts it as retransmitted.",
+      "range": {
+        "startLine": 85,
+        "startChar": 7,
+        "endLine": 85,
+        "endChar": 18
+      },
+      "revId": "50024e21a59e3bcc1519f127b6195bc04fe9c1aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a8410f1_94f20325",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-07T15:46:19Z",
+      "side": 1,
+      "message": "would it mean that on sending there always be two copies:\none passed to pacer queue, another - to store in the history?\n\n[I guess it is already the case: first packet is stored, then a copy is made to send it]",
+      "range": {
+        "startLine": 688,
+        "startChar": 2,
+        "endLine": 688,
+        "endChar": 69
+      },
+      "revId": "50024e21a59e3bcc1519f127b6195bc04fe9c1aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3db4031_cc70b3cf",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-07T15:46:19Z",
+      "side": 1,
+      "message": "may be \u0027for next retransmission\u0027\n(otherwise I was wondering why packet was sent while it is too early for retransmission)\nor put an empty line above and remove empty line#710",
+      "range": {
+        "startLine": 713,
+        "startChar": 15,
+        "endLine": 713,
+        "endChar": 21
+      },
+      "revId": "50024e21a59e3bcc1519f127b6195bc04fe9c1aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

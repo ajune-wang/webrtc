@@ -10,7 +10,12 @@
 #include "system_wrappers/include/field_trial.h"
 
 #include <stddef.h>
+
+#include <algorithm>
 #include <string>
+
+#include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 // Simple field trial implementation, which allows client to
 // specify desired flags in InitFieldTrialsFromString.
@@ -18,6 +23,7 @@ namespace webrtc {
 namespace field_trial {
 
 static const char* trials_init_string = NULL;
+constexpr char kPersistentStringSeparator = '/';
 
 #ifndef WEBRTC_EXCLUDE_FIELD_TRIAL_DEFAULT
 std::string FindFullName(const std::string& name) {
@@ -28,7 +34,6 @@ std::string FindFullName(const std::string& name) {
   if (trials_string.empty())
     return std::string();
 
-  static const char kPersistentStringSeparator = '/';
   size_t next_item = 0;
   while (next_item < trials_string.length()) {
     // Find next name/value pair in field trial configuration string.
@@ -56,6 +61,15 @@ std::string FindFullName(const std::string& name) {
 
 // Optionally initialize field trial from a string.
 void InitFieldTrialsFromString(const char* trials_string) {
+  std::string trials(trials_string);
+  int delimeters =
+      std::count(trials.begin(), trials.end(), kPersistentStringSeparator);
+  RTC_CHECK_EQ(delimeters % 2, 0);
+  if (!trials.empty()) {
+    RTC_CHECK_NE(*trials_string, kPersistentStringSeparator);
+    RTC_CHECK_EQ(trials.back(), kPersistentStringSeparator);
+  }
+  RTC_LOG(LS_INFO) << "Setting field trial string:" << trials_init_string;
   trials_init_string = trials_string;
 }
 

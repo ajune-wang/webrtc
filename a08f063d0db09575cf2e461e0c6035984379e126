@@ -46,6 +46,30 @@
       "revId": "a08f063d0db09575cf2e461e0c6035984379e126",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c756897_670903a6",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-07T07:42:37Z",
+      "side": 1,
+      "message": "Perhaps we can just delete the rounding; if it ever makes a difference whether or not half a byte is added here, it may well be better to increase precision of DataSize from bytes to bits, and round later when data is converted to a byte count.",
+      "parentUuid": "136af9bb_872c5dff",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 1
+      },
+      "revId": "a08f063d0db09575cf2e461e0c6035984379e126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

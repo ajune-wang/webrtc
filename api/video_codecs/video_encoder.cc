@@ -118,6 +118,14 @@ VideoEncoder::RateControlParameters::RateControlParameters(
 
 VideoEncoder::RateControlParameters::~RateControlParameters() = default;
 
+int VideoEncoder::InitEncode(const VideoCodec* codec_settings,
+                             int number_of_cores,
+                             size_t max_payload_size) {
+  const VideoEncoder::Capabilities kCapabilities(false);
+  return InitEncode(codec_settings, kCapabilities, number_of_cores,
+                    max_payload_size);
+}
+
 void VideoEncoder::OnPacketLossRateUpdate(float packet_loss_rate) {}
 
 void VideoEncoder::OnRttUpdate(int64_t rtt_ms) {}

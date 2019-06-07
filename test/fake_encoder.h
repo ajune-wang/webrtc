@@ -43,6 +43,10 @@ class FakeEncoder : public VideoEncoder {
   int32_t InitEncode(const VideoCodec* config,
                      int32_t number_of_cores,
                      size_t max_payload_size) override;
+  int32_t InitEncode(const VideoCodec* config,
+                     const Capabilities& capabilities,
+                     int32_t number_of_cores,
+                     size_t max_payload_size) override;
   int32_t Encode(const VideoFrame& input_image,
                  const std::vector<VideoFrameType>* frame_types) override;
   int32_t RegisterEncodeCompleteCallback(
@@ -139,6 +143,10 @@ class MultithreadedFakeH264Encoder : public test::FakeH264Encoder {
   virtual ~MultithreadedFakeH264Encoder() = default;
 
   int32_t InitEncode(const VideoCodec* config,
+                     int32_t number_of_cores,
+                     size_t max_payload_size) override;
+  int32_t InitEncode(const VideoCodec* config,
+                     const Capabilities& capabilities,
                      int32_t number_of_cores,
                      size_t max_payload_size) override;
 

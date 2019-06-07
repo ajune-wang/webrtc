@@ -40,6 +40,11 @@ class FakeVP8Encoder : public FakeEncoder {
                      int32_t number_of_cores,
                      size_t max_payload_size) override;
 
+  int32_t InitEncode(const VideoCodec* config,
+                     const Capabilities& capabilities,
+                     int32_t number_of_cores,
+                     size_t max_payload_size) override;
+
   int32_t Release() override;
 
   EncoderInfo GetEncoderInfo() const override;

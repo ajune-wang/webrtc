@@ -401,7 +401,16 @@ void VP9EncoderImpl::SetRates(const RateControlParameters& parameters) {
   return;
 }
 
+int VP9EncoderImpl::InitEncode(const VideoCodec* codec_settings,
+                               int number_of_cores,
+                               size_t max_payload_size) {
+  RTC_NOTREACHED();
+  return WEBRTC_VIDEO_CODEC_ERROR;
+}
+
+// TODO(eladalon): s/inst/codec_settings.
 int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
+                               const Capabilities& capabilities,
                                int number_of_cores,
                                size_t /*max_payload_size*/) {
   if (inst == nullptr) {

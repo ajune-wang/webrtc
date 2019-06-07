@@ -69,6 +69,30 @@
       "revId": "b978a21cf5b4ba54bbbb6a864b3d7755636d5c0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c485a2bf_53697351",
+        "filename": "test/scenario/network/cross_traffic.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-07T09:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6446eaae_943293d9",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 29
+      },
+      "revId": "b978a21cf5b4ba54bbbb6a864b3d7755636d5c0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

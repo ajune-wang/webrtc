@@ -22,6 +22,30 @@
       "revId": "b13ccc52888adee8ed37bc4a96025237a4d0cf66",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e040d47_f4b97e29",
+        "filename": "api/video/video_stream_encoder_settings.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-07T17:09:48Z",
+      "side": 0,
+      "message": "I think that whenever it\u0027s possible to have values at construction time, it\u0027s useful to require them; it makes things less error-prone.\nI am not sure what motivated the original authors to not require values at construction time, but it\u0027s beyond the scope of this CL.",
+      "parentUuid": "58076f4d_ed2f1bb6",
+      "range": {
+        "startLine": 20,
+        "startChar": 30,
+        "endLine": 20,
+        "endChar": 41
+      },
+      "revId": "b13ccc52888adee8ed37bc4a96025237a4d0cf66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

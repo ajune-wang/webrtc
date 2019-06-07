@@ -63,6 +63,9 @@ int16_t WebRtcOpus_EncoderCreate(OpusEncInst** inst,
     case 1:
       opus_app = OPUS_APPLICATION_AUDIO;
       break;
+    case 2:
+      opus_app = OPUS_APPLICATION_RESTRICTED_LOWDELAY;
+      break;
     default:
       return -1;
   }

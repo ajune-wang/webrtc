@@ -173,8 +173,8 @@ NetEqQualityTest::NetEqQualityTest(
             FLAG_input_sample_rate == 32000 || FLAG_input_sample_rate == 48000)
       << "Invalid sample rate should be 8000, 16000, 32000 or 48000 Hz.";
 
-  RTC_CHECK_EQ(FLAG_channels, 1)
-      << "Invalid number of channels, current support only 1.";
+  RTC_CHECK_LE(FLAG_channels, 2)
+      << "Invalid number of channels, current support only 1 and 2.";
 
   RTC_CHECK(ValidateFilename(FLAG_out_filename, true))
       << "Invalid output filename.";
@@ -403,6 +403,14 @@ int NetEqQualityTest::DecodeBlock() {
     RTC_DCHECK_EQ(out_frame_.num_channels_, channels_);
     RTC_DCHECK_EQ(out_frame_.samples_per_channel_,
                   static_cast<size_t>(kOutputSizeMs * out_sampling_khz_));
+    if (out_frame_.speech_type_ == AudioFrame::SpeechType::kPLC) {
+      // Zero out the right channel
+      for (size_t i = 1;
+           i < out_frame_.samples_per_channel_ * out_frame_.num_channels_;
+           i += 2) {
+        out_frame_.mutable_data()[i] = 0;
+      }
+    }
     RTC_CHECK(output_->WriteArray(
         out_frame_.data(),
         out_frame_.samples_per_channel_ * out_frame_.num_channels_));

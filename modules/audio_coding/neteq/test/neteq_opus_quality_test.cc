@@ -31,7 +31,9 @@ WEBRTC_DEFINE_int(complexity,
 
 WEBRTC_DEFINE_int(maxplaybackrate, 48000, "Maximum playback rate (Hz).");
 
-WEBRTC_DEFINE_int(application, 0, "Application mode: 0 -- VOIP, 1 -- Audio.");
+WEBRTC_DEFINE_int(application,
+                  0,
+                  "Application mode: 0 -- VOIP, 1 -- Audio, 2 -- Low-delay.");
 
 WEBRTC_DEFINE_int(reported_loss_rate,
                   10,
@@ -92,8 +94,9 @@ NetEqOpusQualityTest::NetEqOpusQualityTest()
   RTC_CHECK(FLAG_complexity >= -1 && FLAG_complexity <= 10)
       << "Invalid complexity setting, should be between 0 and 10.";
 
-  RTC_CHECK(FLAG_application == 0 || FLAG_application == 1)
-      << "Invalid application mode, should be 0 or 1.";
+  RTC_CHECK(FLAG_application == 0 || FLAG_application == 1 ||
+            FLAG_application == 2)
+      << "Invalid application mode, should be 0, 1, or 2.";
 
   RTC_CHECK(FLAG_reported_loss_rate >= 0 && FLAG_reported_loss_rate <= 100)
       << "Invalid packet loss percentile, should be between 0 and 100.";

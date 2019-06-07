@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da753668_01e105ce",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-07T13:10:47Z",
+      "side": 1,
+      "message": "Considering the operations done on this below. I\u0027d say this should be split into a vector of strings. (look at absl::StrSplit for a convenient way to do so)\n\nNow we\u0027ll do the replacements even if they\u0027re inside a longer string (\"sdfasdfdefaultsdfas\" would be matched to \"default\" above), that could give quite confusing errors.",
+      "range": {
+        "startLine": 177,
+        "startChar": 2,
+        "endLine": 177,
+        "endChar": 25
+      },
+      "revId": "27ecd200d4c0ab958d8c1ce42cef8183a181c067",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f37f8c2b_c80681ba",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-07T13:10:47Z",
+      "side": 1,
+      "message": "Maybe using webrtc::Plot would make sense in this file? Or moving the registrations to a separate helper funktion within webrtc namespace?",
+      "range": {
+        "startLine": 253,
+        "startChar": 47,
+        "endLine": 253,
+        "endChar": 59
+      },
+      "revId": "27ecd200d4c0ab958d8c1ce42cef8183a181c067",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30b0e97d_64c94ade",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-07T13:10:47Z",
+      "side": 1,
+      "message": "It\u0027d be nice with a short explanation of why and in particular whether this is something we\u0027ll want to change.",
+      "range": {
+        "startLine": 537,
+        "startChar": 1,
+        "endLine": 537,
+        "endChar": 54
+      },
+      "revId": "27ecd200d4c0ab958d8c1ce42cef8183a181c067",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

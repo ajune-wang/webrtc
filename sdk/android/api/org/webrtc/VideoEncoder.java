@@ -28,10 +28,19 @@ public interface VideoEncoder {
     public final int maxFramerate;
     public final int numberOfSimulcastStreams;
     public final boolean automaticResizeOn;
+    public final Capabilities capabilities;
+
+    // TODO(bugs.webrtc.org/10720): Remove.
+    @Deprecated
+    public Settings(int numberOfCores, int width, int height, int startBitrate, int maxFramerate,
+        int numberOfSimulcastStreams, boolean automaticResizeOn) {
+      this(numberOfCores, width, height, startBitrate, maxFramerate, numberOfSimulcastStreams,
+          automaticResizeOn, new VideoEncoder.Capabilities(false));
+    }
 
     @CalledByNative("Settings")
     public Settings(int numberOfCores, int width, int height, int startBitrate, int maxFramerate,
-        int numberOfSimulcastStreams, boolean automaticResizeOn) {
+        int numberOfSimulcastStreams, boolean automaticResizeOn, Capabilities capabilities) {
       this.numberOfCores = numberOfCores;
       this.width = width;
       this.height = height;
@@ -39,6 +48,17 @@ public interface VideoEncoder {
       this.maxFramerate = maxFramerate;
       this.numberOfSimulcastStreams = numberOfSimulcastStreams;
       this.automaticResizeOn = automaticResizeOn;
+      this.capabilities = capabilities;
+    }
+  }
+
+  /** Capabilities (LNTF, etc.) passed to the encoder by WebRTC. */
+  public class Capabilities {
+    public final boolean loss_notification;
+
+    @CalledByNative("Capabilities")
+    public Capabilities(boolean loss_notification) {
+      this.loss_notification = loss_notification;
     }
   }
 

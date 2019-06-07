@@ -22,6 +22,30 @@
       "revId": "9a74315a20599b0686758726f9635e8641e8c46d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0feacaf9_b9262a8b",
+        "filename": "api/test/mock_peerconnectioninterface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-07T10:58:29Z",
+      "side": 1,
+      "message": "And another option is to mark the class as final; that should produce helpful error messages if there are any methods without implementation. Is it reasonable to make a mock class final? Or is there any reasonable use for inheriting a mock class?",
+      "parentUuid": "11ad19cf_5d5bda06",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 73
+      },
+      "revId": "9a74315a20599b0686758726f9635e8641e8c46d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

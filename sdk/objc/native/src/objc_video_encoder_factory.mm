@@ -44,6 +44,14 @@ class ObjCVideoEncoder : public VideoEncoder {
   int32_t InitEncode(const VideoCodec *codec_settings,
                      int32_t number_of_cores,
                      size_t max_payload_size) override {
+    RTC_NOTREACHED();
+    return WEBRTC_VIDEO_CODEC_ERROR;
+  }
+
+  int32_t InitEncode(const VideoCodec *codec_settings,
+                     const Capabilities &capabilities,
+                     int32_t number_of_cores,
+                     size_t max_payload_size) override {
     RTCVideoEncoderSettings *settings =
         [[RTCVideoEncoderSettings alloc] initWithNativeVideoCodec:codec_settings];
     return [encoder_ startEncodeWithSettings:settings numberOfCores:number_of_cores];

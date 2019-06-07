@@ -99,6 +99,10 @@ class MediaCodecVideoEncoder : public VideoEncoder {
   int32_t InitEncode(const VideoCodec* codec_settings,
                      int32_t /* number_of_cores */,
                      size_t /* max_payload_size */) override;
+  int32_t InitEncode(const VideoCodec* codec_settings,
+                     const Capabilities& /* capabilities */,
+                     int32_t /* number_of_cores */,
+                     size_t /* max_payload_size */) override;
   int32_t Encode(const VideoFrame& input_image,
                  const std::vector<VideoFrameType>* frame_types) override;
   int32_t RegisterEncodeCompleteCallback(
@@ -306,6 +310,15 @@ MediaCodecVideoEncoder::MediaCodecVideoEncoder(JNIEnv* jni,
 int32_t MediaCodecVideoEncoder::InitEncode(const VideoCodec* codec_settings,
                                            int32_t /* number_of_cores */,
                                            size_t /* max_payload_size */) {
+  RTC_NOTREACHED();
+  return WEBRTC_VIDEO_CODEC_ERROR;
+}
+
+int32_t MediaCodecVideoEncoder::InitEncode(
+    const VideoCodec* codec_settings,
+    const Capabilities& /* capabilities */,
+    int32_t /* number_of_cores */,
+    size_t /* max_payload_size */) {
   RTC_DCHECK_RUN_ON(&encoder_queue_checker_);
   if (codec_settings == NULL) {
     ALOGE << "NULL VideoCodec instance";

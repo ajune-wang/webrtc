@@ -401,7 +401,12 @@ rtc_static_library("desktop_capture_generic") {
       "linux/x_window_property.cc",
       "linux/x_window_property.h",
     ]
-    configs += [ "//build/config/linux:x11" ]
+    libs = [
+      "X11",
+      "Xext",
+      "Xcomposite",
+      "Xrender",
+    ]
 
     if (build_with_mozilla) {
       sources += [

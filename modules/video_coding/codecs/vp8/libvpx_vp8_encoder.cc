@@ -457,29 +457,30 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* codec_settings,
   return WEBRTC_VIDEO_CODEC_ERROR;
 }
 
-// TODO(eladalon): s/inst/codec_settings.
 // TODO(bugs.webrtc.org/10720): Pass |capabilities| to frame buffer controller.
-int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
+int LibvpxVp8Encoder::InitEncode(const VideoCodec* codec_settings,
                                  const VideoEncoder::Capabilities& capabilities,
                                  int number_of_cores,
                                  size_t /*max_payload_size*/) {
-  if (inst == NULL) {
+  if (codec_settings == NULL) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
-  if (inst->maxFramerate < 1) {
+  if (codec_settings->maxFramerate < 1) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
   // allow zero to represent an unspecified maxBitRate
-  if (inst->maxBitrate > 0 && inst->startBitrate > inst->maxBitrate) {
+  if (codec_settings->maxBitrate > 0 &&
+      codec_settings->startBitrate > codec_settings->maxBitrate) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
-  if (inst->width < 1 || inst->height < 1) {
+  if (codec_settings->width < 1 || codec_settings->height < 1) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
   if (number_of_cores < 1) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
-  if (inst->VP8().automaticResizeOn && inst->numberOfSimulcastStreams > 1) {
+  if (codec_settings->VP8().automaticResizeOn &&
+      codec_settings->numberOfSimulcastStreams > 1) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
   int retVal = Release();
@@ -487,24 +488,26 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
     return retVal;
   }
 
-  int number_of_streams = SimulcastUtility::NumberOfSimulcastStreams(*inst);
-  if (number_of_streams > 1 &&
-      !SimulcastUtility::ValidSimulcastParameters(*inst, number_of_streams)) {
+  int number_of_streams =
+      SimulcastUtility::NumberOfSimulcastStreams(*codec_settings);
+  if (number_of_streams > 1 && !SimulcastUtility::ValidSimulcastParameters(
+                                   *codec_settings, number_of_streams)) {
     return WEBRTC_VIDEO_CODEC_ERR_SIMULCAST_PARAMETERS_NOT_SUPPORTED;
   }
 
   RTC_DCHECK(!frame_buffer_controller_);
   if (frame_buffer_controller_factory_) {
-    frame_buffer_controller_ = frame_buffer_controller_factory_->Create(*inst);
+    frame_buffer_controller_ =
+        frame_buffer_controller_factory_->Create(*codec_settings);
   } else {
     Vp8TemporalLayersFactory factory;
-    frame_buffer_controller_ = factory.Create(*inst);
+    frame_buffer_controller_ = factory.Create(*codec_settings);
   }
   RTC_DCHECK(frame_buffer_controller_);
 
   number_of_cores_ = number_of_cores;
   timestamp_ = 0;
-  codec_ = *inst;
+  codec_ = *codec_settings;
 
   // Code expects simulcastStream resolutions to be correct, make sure they are
   // filled even when there are no simulcast layers.
@@ -526,10 +529,12 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
 
   int idx = number_of_streams - 1;
   for (int i = 0; i < (number_of_streams - 1); ++i, --idx) {
-    int gcd = GCD(inst->simulcastStream[idx].width,
-                  inst->simulcastStream[idx - 1].width);
-    downsampling_factors_[i].num = inst->simulcastStream[idx].width / gcd;
-    downsampling_factors_[i].den = inst->simulcastStream[idx - 1].width / gcd;
+    int gcd = GCD(codec_settings->simulcastStream[idx].width,
+                  codec_settings->simulcastStream[idx - 1].width);
+    downsampling_factors_[i].num =
+        codec_settings->simulcastStream[idx].width / gcd;
+    downsampling_factors_[i].den =
+        codec_settings->simulcastStream[idx - 1].width / gcd;
     send_stream_[i] = false;
   }
   if (number_of_streams > 1) {
@@ -556,7 +561,7 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
 
   // Set the error resilience mode for temporal layers (but not simulcast).
   vpx_configs_[0].g_error_resilient =
-      (SimulcastUtility::NumberOfTemporalLayers(*inst, 0) > 1)
+      (SimulcastUtility::NumberOfTemporalLayers(*codec_settings, 0) > 1)
           ? VPX_ERROR_RESILIENT_DEFAULT
           : 0;
 
@@ -568,8 +573,8 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
   vpx_configs_[0].rc_resize_allowed = 0;
   vpx_configs_[0].rc_min_quantizer =
       codec_.mode == VideoCodecMode::kScreensharing ? 12 : 2;
-  if (inst->qpMax >= vpx_configs_[0].rc_min_quantizer) {
-    qp_max_ = inst->qpMax;
+  if (codec_settings->qpMax >= vpx_configs_[0].rc_min_quantizer) {
+    qp_max_ = codec_settings->qpMax;
   }
   if (rate_control_settings_.LibvpxVp8QpMax()) {
     qp_max_ = std::max(rate_control_settings_.LibvpxVp8QpMax().value(),
@@ -585,15 +590,15 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
   // Set the maximum target size of any key-frame.
   rc_max_intra_target_ = MaxIntraTarget(vpx_configs_[0].rc_buf_optimal_sz);
 
-  if (inst->VP8().keyFrameInterval > 0) {
+  if (codec_settings->VP8().keyFrameInterval > 0) {
     vpx_configs_[0].kf_mode = VPX_KF_AUTO;
-    vpx_configs_[0].kf_max_dist = inst->VP8().keyFrameInterval;
+    vpx_configs_[0].kf_max_dist = codec_settings->VP8().keyFrameInterval;
   } else {
     vpx_configs_[0].kf_mode = VPX_KF_DISABLED;
   }
 
   // Allow the user to set the complexity for the base stream.
-  switch (inst->VP8().complexity) {
+  switch (codec_settings->VP8().complexity) {
     case VideoCodecComplexity::kComplexityHigh:
       cpu_speed_[0] = -5;
       break;
@@ -609,14 +614,14 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
   }
   cpu_speed_default_ = cpu_speed_[0];
   // Set encoding complexity (cpu_speed) based on resolution and/or platform.
-  cpu_speed_[0] = GetCpuSpeed(inst->width, inst->height);
+  cpu_speed_[0] = GetCpuSpeed(codec_settings->width, codec_settings->height);
   for (int i = 1; i < number_of_streams; ++i) {
-    cpu_speed_[i] =
-        GetCpuSpeed(inst->simulcastStream[number_of_streams - 1 - i].width,
-                    inst->simulcastStream[number_of_streams - 1 - i].height);
+    cpu_speed_[i] = GetCpuSpeed(
+        codec_settings->simulcastStream[number_of_streams - 1 - i].width,
+        codec_settings->simulcastStream[number_of_streams - 1 - i].height);
   }
-  vpx_configs_[0].g_w = inst->width;
-  vpx_configs_[0].g_h = inst->height;
+  vpx_configs_[0].g_w = codec_settings->width;
+  vpx_configs_[0].g_h = codec_settings->height;
 
   // Determine number of threads based on the image size and #cores.
   // TODO(fbarchard): Consider number of Simulcast layers.
@@ -626,17 +631,17 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
   // Creating a wrapper to the image - setting image data to NULL.
   // Actual pointer will be set in encode. Setting align to 1, as it
   // is meaningless (no memory allocation is done here).
-  libvpx_->img_wrap(&raw_images_[0], VPX_IMG_FMT_I420, inst->width,
-                    inst->height, 1, NULL);
+  libvpx_->img_wrap(&raw_images_[0], VPX_IMG_FMT_I420, codec_settings->width,
+                    codec_settings->height, 1, NULL);
 
   // Note the order we use is different from webm, we have lowest resolution
   // at position 0 and they have highest resolution at position 0.
   const size_t stream_idx_cfg_0 = encoders_.size() - 1;
   SimulcastRateAllocator init_allocator(codec_);
   VideoBitrateAllocation allocation = init_allocator.GetAllocation(
-      inst->startBitrate * 1000, inst->maxFramerate);
+      codec_settings->startBitrate * 1000, codec_settings->maxFramerate);
   std::vector<uint32_t> stream_bitrates;
-  for (int i = 0; i == 0 || i < inst->numberOfSimulcastStreams; ++i) {
+  for (int i = 0; i == 0 || i < codec_settings->numberOfSimulcastStreams; ++i) {
     uint32_t bitrate = allocation.GetSpatialLayerSum(i) / 1000;
     stream_bitrates.push_back(bitrate);
   }
@@ -646,7 +651,7 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
     frame_buffer_controller_->OnRatesUpdated(
         stream_idx_cfg_0,
         allocation.GetTemporalLayerAllocation(stream_idx_cfg_0),
-        inst->maxFramerate);
+        codec_settings->maxFramerate);
   }
   frame_buffer_controller_->SetQpLimits(stream_idx_cfg_0,
                                         vpx_configs_[0].rc_min_quantizer,
@@ -658,8 +663,8 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
     const size_t stream_idx = encoders_.size() - 1 - i;
     memcpy(&vpx_configs_[i], &vpx_configs_[0], sizeof(vpx_configs_[0]));
 
-    vpx_configs_[i].g_w = inst->simulcastStream[stream_idx].width;
-    vpx_configs_[i].g_h = inst->simulcastStream[stream_idx].height;
+    vpx_configs_[i].g_w = codec_settings->simulcastStream[stream_idx].width;
+    vpx_configs_[i].g_h = codec_settings->simulcastStream[stream_idx].height;
 
     // Use 1 thread for lower resolutions.
     vpx_configs_[i].g_threads = 1;
@@ -670,15 +675,15 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
     // planes (32 for Y, 16 for U,V). Libvpx sets the requested stride for
     // the y plane, but only half of it to the u and v planes.
     libvpx_->img_alloc(&raw_images_[i], VPX_IMG_FMT_I420,
-                       inst->simulcastStream[stream_idx].width,
-                       inst->simulcastStream[stream_idx].height,
+                       codec_settings->simulcastStream[stream_idx].width,
+                       codec_settings->simulcastStream[stream_idx].height,
                        kVp832ByteAlign);
     SetStreamState(stream_bitrates[stream_idx] > 0, stream_idx);
     vpx_configs_[i].rc_target_bitrate = stream_bitrates[stream_idx];
     if (stream_bitrates[stream_idx] > 0) {
       frame_buffer_controller_->OnRatesUpdated(
           stream_idx, allocation.GetTemporalLayerAllocation(stream_idx),
-          inst->maxFramerate);
+          codec_settings->maxFramerate);
     }
     frame_buffer_controller_->SetQpLimits(stream_idx,
                                           vpx_configs_[i].rc_min_quantizer,

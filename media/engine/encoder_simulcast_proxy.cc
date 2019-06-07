@@ -31,27 +31,26 @@ int EncoderSimulcastProxy::Release() {
   return encoder_->Release();
 }
 
-int EncoderSimulcastProxy::InitEncode(const VideoCodec* inst,
+int EncoderSimulcastProxy::InitEncode(const VideoCodec* codec_settings,
                                       int number_of_cores,
                                       size_t max_payload_size) {
   RTC_NOTREACHED();
   return WEBRTC_VIDEO_CODEC_ERROR;
 }
 
-// TODO(eladalon): s/inst/codec_settings.
 int EncoderSimulcastProxy::InitEncode(
-    const VideoCodec* inst,
+    const VideoCodec* codec_settings,
     const VideoEncoder::Capabilities& capabilities,
     int number_of_cores,
     size_t max_payload_size) {
-  int ret = encoder_->InitEncode(inst, capabilities, number_of_cores,
+  int ret = encoder_->InitEncode(codec_settings, capabilities, number_of_cores,
                                  max_payload_size);
   if (ret == WEBRTC_VIDEO_CODEC_ERR_SIMULCAST_PARAMETERS_NOT_SUPPORTED) {
     encoder_.reset(new SimulcastEncoderAdapter(factory_, video_format_));
     if (callback_) {
       encoder_->RegisterEncodeCompleteCallback(callback_);
     }
-    ret = encoder_->InitEncode(inst, capabilities, number_of_cores,
+    ret = encoder_->InitEncode(codec_settings, capabilities, number_of_cores,
                                max_payload_size);
   }
   return ret;

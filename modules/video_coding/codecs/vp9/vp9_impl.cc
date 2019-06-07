@@ -408,32 +408,32 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* codec_settings,
   return WEBRTC_VIDEO_CODEC_ERROR;
 }
 
-// TODO(eladalon): s/inst/codec_settings.
-int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
+int VP9EncoderImpl::InitEncode(const VideoCodec* codec_settings,
                                const Capabilities& capabilities,
                                int number_of_cores,
                                size_t /*max_payload_size*/) {
-  if (inst == nullptr) {
+  if (codec_settings == nullptr) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
-  if (inst->maxFramerate < 1) {
+  if (codec_settings->maxFramerate < 1) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
   // Allow zero to represent an unspecified maxBitRate
-  if (inst->maxBitrate > 0 && inst->startBitrate > inst->maxBitrate) {
+  if (codec_settings->maxBitrate > 0 &&
+      codec_settings->startBitrate > codec_settings->maxBitrate) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
-  if (inst->width < 1 || inst->height < 1) {
+  if (codec_settings->width < 1 || codec_settings->height < 1) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
   if (number_of_cores < 1) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
-  if (inst->VP9().numberOfTemporalLayers > 3) {
+  if (codec_settings->VP9().numberOfTemporalLayers > 3) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
   // libvpx probably does not support more than 3 spatial layers.
-  if (inst->VP9().numberOfSpatialLayers > 3) {
+  if (codec_settings->VP9().numberOfSpatialLayers > 3) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
 
@@ -448,16 +448,16 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
     config_ = new vpx_codec_enc_cfg_t;
   }
   timestamp_ = 0;
-  if (&codec_ != inst) {
-    codec_ = *inst;
+  if (&codec_ != codec_settings) {
+    codec_ = *codec_settings;
   }
 
   force_key_frame_ = true;
   pics_since_key_ = 0;
 
-  num_spatial_layers_ = inst->VP9().numberOfSpatialLayers;
+  num_spatial_layers_ = codec_settings->VP9().numberOfSpatialLayers;
   RTC_DCHECK_GT(num_spatial_layers_, 0);
-  num_temporal_layers_ = inst->VP9().numberOfTemporalLayers;
+  num_temporal_layers_ = codec_settings->VP9().numberOfTemporalLayers;
   if (num_temporal_layers_ == 0) {
     num_temporal_layers_ = 1;
   }
@@ -505,7 +505,7 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
 
   config_->g_w = codec_.width;
   config_->g_h = codec_.height;
-  config_->rc_target_bitrate = inst->startBitrate;  // in kbit/s
+  config_->rc_target_bitrate = codec_settings->startBitrate;  // in kbit/s
   config_->g_error_resilient = is_svc_ ? VPX_ERROR_RESILIENT_DEFAULT : 0;
   // Setting the time base of the codec.
   config_->g_timebase.num = 1;
@@ -513,7 +513,7 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
   config_->g_lag_in_frames = 0;  // 0- no frame lagging
   config_->g_threads = 1;
   // Rate control settings.
-  config_->rc_dropframe_thresh = inst->VP9().frameDroppingOn ? 30 : 0;
+  config_->rc_dropframe_thresh = codec_settings->VP9().frameDroppingOn ? 30 : 0;
   config_->rc_end_usage = VPX_CBR;
   config_->g_pass = VPX_RC_ONE_PASS;
   config_->rc_min_quantizer =
@@ -530,18 +530,18 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
   config_->kf_mode = VPX_KF_DISABLED;
   // TODO(webm:1592): work-around for libvpx issue, as it can still
   // put some key-frames at will even in VPX_KF_DISABLED kf_mode.
-  config_->kf_max_dist = inst->VP9().keyFrameInterval;
+  config_->kf_max_dist = codec_settings->VP9().keyFrameInterval;
   config_->kf_min_dist = config_->kf_max_dist;
-  config_->rc_resize_allowed = inst->VP9().automaticResizeOn ? 1 : 0;
+  config_->rc_resize_allowed = codec_settings->VP9().automaticResizeOn ? 1 : 0;
   // Determine number of threads based on the image size and #cores.
   config_->g_threads =
       NumberOfThreads(config_->g_w, config_->g_h, number_of_cores);
 
   cpu_speed_ = GetCpuSpeed(config_->g_w, config_->g_h);
 
-  is_flexible_mode_ = inst->VP9().flexibleMode;
+  is_flexible_mode_ = codec_settings->VP9().flexibleMode;
 
-  inter_layer_pred_ = inst->VP9().interLayerPred;
+  inter_layer_pred_ = codec_settings->VP9().interLayerPred;
 
   if (num_spatial_layers_ > 1 &&
       codec_.mode == VideoCodecMode::kScreensharing && !is_flexible_mode_) {
@@ -600,7 +600,7 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
   }
   ref_buf_.clear();
 
-  return InitAndSetControlSettings(inst);
+  return InitAndSetControlSettings(codec_settings);
 }
 
 int VP9EncoderImpl::NumberOfThreads(int width,

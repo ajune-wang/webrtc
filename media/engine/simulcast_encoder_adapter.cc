@@ -168,16 +168,15 @@ int SimulcastEncoderAdapter::Release() {
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
-int SimulcastEncoderAdapter::InitEncode(const VideoCodec* inst,
+int SimulcastEncoderAdapter::InitEncode(const VideoCodec* codec_settings,
                                         int number_of_cores,
                                         size_t max_payload_size) {
   RTC_NOTREACHED();
   return WEBRTC_VIDEO_CODEC_ERROR;
 }
 
-// TODO(eladalon): s/inst/codec_settings.
 int SimulcastEncoderAdapter::InitEncode(
-    const VideoCodec* inst,
+    const VideoCodec* codec_settings,
     const VideoEncoder::Capabilities& capabilities,
     int number_of_cores,
     size_t max_payload_size) {
@@ -187,7 +186,7 @@ int SimulcastEncoderAdapter::InitEncode(
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
 
-  int ret = VerifyCodec(inst);
+  int ret = VerifyCodec(codec_settings);
   if (ret < 0) {
     return ret;
   }
@@ -197,11 +196,11 @@ int SimulcastEncoderAdapter::InitEncode(
     return ret;
   }
 
-  int number_of_streams = NumberOfStreams(*inst);
+  int number_of_streams = NumberOfStreams(*codec_settings);
   RTC_DCHECK_LE(number_of_streams, kMaxSimulcastStreams);
   const bool doing_simulcast = (number_of_streams > 1);
 
-  codec_ = *inst;
+  codec_ = *codec_settings;
   SimulcastRateAllocator rate_allocator(codec_);
   VideoBitrateAllocation allocation = rate_allocator.GetAllocation(
       codec_.startBitrate * 1000, codec_.maxFramerate);

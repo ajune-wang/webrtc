@@ -13,6 +13,7 @@
 
 #include <stddef.h>
 #include <list>
+#include <memory>
 #include <vector>
 
 #include "absl/strings/string_view.h"
@@ -30,6 +31,7 @@
 
 namespace webrtc {
 class RtpPacket;
+class RtpPacketToSend;
 namespace rtcp {
 class TransportFeedback;
 }
@@ -344,21 +346,21 @@ class RtcpRttStats {
   virtual ~RtcpRttStats() {}
 };
 
+// This class will be deprecated and replaced with RtpPacketPacer.
 class RtpPacketSender {
  public:
   RtpPacketSender() {}
   virtual ~RtpPacketSender() {}
 
+  // These are part of the legacy PacedSender interface and will be removed.
   enum Priority {
     kHighPriority = 0,    // Pass through; will be sent immediately.
     kNormalPriority = 2,  // Put in back of the line.
     kLowPriority = 3,     // Put in back of the low priority line.
   };
-  // Low priority packets are mixed with the normal priority packets
-  // while we are paused.
 
-  // Returns true if we send the packet now, else it will add the packet
-  // information to the queue and call TimeToSendPacket when it's time to send.
+  // Adds the packet information to the queue and call TimeToSendPacket when
+  // it's time to send.
   virtual void InsertPacket(Priority priority,
                             uint32_t ssrc,
                             uint16_t sequence_number,
@@ -371,8 +373,29 @@ class RtpPacketSender {
   // the pacer budget calculation. The audio traffic still will be injected
   // at high priority.
   // TODO(alexnarest): Make it pure virtual after rtp_sender_unittest will be
-  // updated to support it
+  // updated to support it.
   virtual void SetAccountForAudioPackets(bool account_for_audio) {}
+};
+
+// Inherit from RtpPacketSender during a transition period.
+class RtpPacketPacer : public RtpPacketSender {
+ public:
+  RtpPacketPacer() {}
+  ~RtpPacketPacer() override {}
+
+  enum class PacketType {
+    kAudio,                   // Audio media packets.
+    kVideo,                   // Video media packets.
+    kRetransmission,          // RTX (usually) packets send as response to NACK.
+    kForwardErrorCorrection,  // FEC packets.
+    kPadding                  // RTX or plain padding sent to maintain BWE.
+  };
+
+  // Insert packet into queue, for eventual transmission. Based on the type of
+  // the packet, it will prioritized and scheduled relative to other packets and
+  // the current target send rate.
+  virtual void EnqueuePacket(std::unique_ptr<RtpPacketToSend> packet,
+                             PacketType type) = 0;
 };
 
 class TransportSequenceNumberAllocator {

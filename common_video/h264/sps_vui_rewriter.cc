@@ -15,6 +15,7 @@
 #include <cstdint>
 #include <vector>
 
+#include "api/video/color_space.h"
 #include "common_video/h264/h264_common.h"
 #include "common_video/h264/sps_parser.h"
 #include "rtc_base/bit_buffer.h"
@@ -73,14 +74,22 @@ enum SpsValidEvent {
 bool CopyAndRewriteVui(const SpsParser::SpsState& sps,
                        rtc::BitBuffer* source,
                        rtc::BitBufferWriter* destination,
+                       const webrtc::ColorSpace* color_space,
                        SpsVuiRewriter::ParseResult* out_vui_rewritten);
 bool CopyHrdParameters(rtc::BitBuffer* source,
                        rtc::BitBufferWriter* destination);
 bool AddBitstreamRestriction(rtc::BitBufferWriter* destination,
                              uint32_t max_num_ref_frames);
+bool IsDefaultColorSpace(const ColorSpace& color_space);
+bool AddVideoSignalTypeInfo(rtc::BitBufferWriter* destination,
+                            const ColorSpace& color_space);
+bool CopyOrRewriteVideoSignalTypeInfo(
+    rtc::BitBuffer* source,
+    rtc::BitBufferWriter* destination,
+    const ColorSpace& color_space,
+    SpsVuiRewriter::ParseResult* out_vui_rewritten);
 bool CopyRemainingBits(rtc::BitBuffer* source,
                        rtc::BitBufferWriter* destination);
-
 }  // namespace
 
 void SpsVuiRewriter::UpdateStats(ParseResult result, Direction direction) {
@@ -116,6 +125,7 @@ SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
     const uint8_t* buffer,
     size_t length,
     absl::optional<SpsParser::SpsState>* sps,
+    const webrtc::ColorSpace* color_space,
     rtc::Buffer* destination) {
   // Create temporary RBSP decoded buffer of the payload (exlcuding the
   // leading nalu type header byte (the SpsParser uses only the payload).
@@ -151,7 +161,7 @@ SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
   sps_writer.Seek(byte_offset, bit_offset);
 
   ParseResult vui_updated;
-  if (!CopyAndRewriteVui(*sps_state, &source_buffer, &sps_writer,
+  if (!CopyAndRewriteVui(*sps_state, &source_buffer, &sps_writer, color_space,
                          &vui_updated)) {
     RTC_LOG(LS_ERROR) << "Failed to parse/copy SPS VUI.";
     return ParseResult::kFailure;
@@ -190,9 +200,11 @@ SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
     const uint8_t* buffer,
     size_t length,
     absl::optional<SpsParser::SpsState>* sps,
+    const webrtc::ColorSpace* color_space,
     rtc::Buffer* destination,
     Direction direction) {
-  ParseResult result = ParseAndRewriteSps(buffer, length, sps, destination);
+  ParseResult result =
+      ParseAndRewriteSps(buffer, length, sps, color_space, destination);
   UpdateStats(result, direction);
   return result;
 }
@@ -204,7 +216,8 @@ void SpsVuiRewriter::ParseOutgoingBitstreamAndRewriteSps(
     const size_t* nalu_lengths,
     rtc::CopyOnWriteBuffer* output_buffer,
     size_t* output_nalu_offsets,
-    size_t* output_nalu_lengths) {
+    size_t* output_nalu_lengths,
+    const webrtc::ColorSpace* color_space) {
   // Allocate some extra space for potentially adding a missing VUI.
   output_buffer->EnsureCapacity(buffer.size() + num_nalus * kMaxVuiSpsIncrease);
 
@@ -244,7 +257,7 @@ void SpsVuiRewriter::ParseOutgoingBitstreamAndRewriteSps(
 
       ParseResult result = ParseAndRewriteSps(
           nalu_ptr + H264::kNaluTypeSize, nalu_length - H264::kNaluTypeSize,
-          &sps, &output_nalu, Direction::kOutgoing);
+          &sps, color_space, &output_nalu, Direction::kOutgoing);
       if (result == ParseResult::kVuiRewritten) {
         updated_sps = true;
         output_nalu_offsets[i] = output_buffer->size();
@@ -265,13 +278,15 @@ void SpsVuiRewriter::ParseOutgoingBitstreamAndRewriteSps(
 }
 
 namespace {
-
 bool CopyAndRewriteVui(const SpsParser::SpsState& sps,
                        rtc::BitBuffer* source,
                        rtc::BitBufferWriter* destination,
+                       const webrtc::ColorSpace* color_space,
                        SpsVuiRewriter::ParseResult* out_vui_rewritten) {
   uint32_t golomb_tmp;
   uint32_t bits_tmp;
+
+  *out_vui_rewritten = SpsVuiRewriter::ParseResult::kVuiOk;
 
   //
   // vui_parameters_present_flag: u(1)
@@ -282,13 +297,26 @@ bool CopyAndRewriteVui(const SpsParser::SpsState& sps,
   // Now we're at the VUI, so we want to (1) add it if it isn't present, and
   // (2) rewrite frame reordering values so no reordering is allowed.
   if (!sps.vui_params_present) {
-    // Write a simple VUI with the parameters we want and 0 for all other flags.
-    // There are 8 flags to be off before the bitstream restriction flag.
-    RETURN_FALSE_ON_FAIL(destination->WriteBits(0, 8));
+    // aspect_ratio_info_present_flag, overscan_info_present_flag. Both u(1).
+    RETURN_FALSE_ON_FAIL(destination->WriteBits(0, 2));
+
+    uint32_t video_signal_type_present_flag =
+        (color_space && !IsDefaultColorSpace(*color_space)) ? 1 : 0;
+    RETURN_FALSE_ON_FAIL(
+        destination->WriteBits(video_signal_type_present_flag, 1));
+    if (video_signal_type_present_flag) {
+      RETURN_FALSE_ON_FAIL(AddVideoSignalTypeInfo(destination, *color_space));
+    }
+    // chroma_loc_info_present_flag, timing_info_present_flag,
+    // nal_hrd_parameters_present_flag, vcl_hrd_parameters_present_flag,
+    // pic_struct_present_flag, All u(1)
+    RETURN_FALSE_ON_FAIL(destination->WriteBits(0, 5));
     // bitstream_restriction_flag: u(1)
     RETURN_FALSE_ON_FAIL(destination->WriteBits(1, 1));
     RETURN_FALSE_ON_FAIL(
         AddBitstreamRestriction(destination, sps.max_num_ref_frames));
+
+    *out_vui_rewritten = SpsVuiRewriter::ParseResult::kVuiRewritten;
   } else {
     // Parse out the full VUI.
     // aspect_ratio_info_present_flag: u(1)
@@ -307,17 +335,38 @@ bool CopyAndRewriteVui(const SpsParser::SpsState& sps,
       // overscan_appropriate_flag: u(1)
       COPY_BITS(source, destination, bits_tmp, 1);
     }
-    // video_signal_type_present_flag: u(1)
-    COPY_BITS(source, destination, bits_tmp, 1);
-    if (bits_tmp == 1) {
-      // video_format + video_full_range_flag: u(3) + u(1)
-      COPY_BITS(source, destination, bits_tmp, 4);
-      // colour_description_present_flag: u(1)
-      COPY_BITS(source, destination, bits_tmp, 1);
-      if (bits_tmp == 1) {
-        // colour_primaries, transfer_characteristics, matrix_coefficients:
-        // u(8) each.
-        COPY_BITS(source, destination, bits_tmp, 24);
+
+    uint32_t video_signal_type_present_flag;
+    RETURN_FALSE_ON_FAIL(source->ReadBits(&video_signal_type_present_flag, 1));
+    if (color_space) {
+      if (IsDefaultColorSpace(*color_space)) {
+        // Color space parameters matche the H264 default - don't write video
+        // signal type info.
+        RETURN_FALSE_ON_FAIL(destination->WriteBits(0, 1));
+      } else {
+        RETURN_FALSE_ON_FAIL(destination->WriteBits(1, 1));
+        if (video_signal_type_present_flag) {
+          RETURN_FALSE_ON_FAIL(CopyOrRewriteVideoSignalTypeInfo(
+              source, destination, *color_space, out_vui_rewritten));
+        } else {
+          RETURN_FALSE_ON_FAIL(
+              AddVideoSignalTypeInfo(destination, *color_space));
+          *out_vui_rewritten = SpsVuiRewriter::ParseResult::kVuiRewritten;
+        }
+      }
+    } else {
+      RETURN_FALSE_ON_FAIL(
+          destination->WriteBits(video_signal_type_present_flag, 1));
+      if (video_signal_type_present_flag == 1) {
+        // video_format + video_full_range_flag: u(3) + u(1)
+        COPY_BITS(source, destination, bits_tmp, 4);
+        // colour_description_present_flag: u(1)
+        COPY_BITS(source, destination, bits_tmp, 1);
+        if (bits_tmp == 1) {
+          // colour_primaries, transfer_characteristics, matrix_coefficients:
+          // u(8) each.
+          COPY_BITS(source, destination, bits_tmp, 24);
+        }
       }
     }
     // chroma_loc_info_present_flag: u(1)
@@ -364,6 +413,7 @@ bool CopyAndRewriteVui(const SpsParser::SpsState& sps,
       // We're adding one from scratch.
       RETURN_FALSE_ON_FAIL(
           AddBitstreamRestriction(destination, sps.max_num_ref_frames));
+      *out_vui_rewritten = SpsVuiRewriter::ParseResult::kVuiRewritten;
     } else {
       // We're replacing.
       // motion_vectors_over_pic_boundaries_flag: u(1)
@@ -387,18 +437,15 @@ bool CopyAndRewriteVui(const SpsParser::SpsState& sps,
           source->ReadExponentialGolomb(&max_num_reorder_frames));
       RETURN_FALSE_ON_FAIL(
           source->ReadExponentialGolomb(&max_dec_frame_buffering));
-      if (max_num_reorder_frames == 0 &&
-          max_dec_frame_buffering <= sps.max_num_ref_frames) {
-        RTC_LOG(LS_INFO) << "VUI bitstream already contains an optimal VUI.";
-        *out_vui_rewritten = SpsVuiRewriter::ParseResult::kVuiOk;
-        return true;
-      }
       RETURN_FALSE_ON_FAIL(destination->WriteExponentialGolomb(0));
       RETURN_FALSE_ON_FAIL(
           destination->WriteExponentialGolomb(sps.max_num_ref_frames));
+      if (max_num_reorder_frames != 0 ||
+          max_dec_frame_buffering > sps.max_num_ref_frames) {
+        *out_vui_rewritten = SpsVuiRewriter::ParseResult::kVuiRewritten;
+      }
     }
   }
-  *out_vui_rewritten = SpsVuiRewriter::ParseResult::kVuiRewritten;
   return true;
 }
 
@@ -458,6 +505,100 @@ bool AddBitstreamRestriction(rtc::BitBufferWriter* destination,
   RETURN_FALSE_ON_FAIL(destination->WriteExponentialGolomb(0));
   // max_dec_frame_buffering: ue(v)
   RETURN_FALSE_ON_FAIL(destination->WriteExponentialGolomb(max_num_ref_frames));
+  return true;
+}
+
+bool IsDefaultColorSpace(const ColorSpace& color_space) {
+  return color_space.range() != ColorSpace::RangeID::kFull &&
+         color_space.primaries() == ColorSpace::PrimaryID::kUnspecified &&
+         color_space.transfer() == ColorSpace::TransferID::kUnspecified &&
+         color_space.matrix() == ColorSpace::MatrixID::kUnspecified;
+}
+
+bool AddVideoSignalTypeInfo(rtc::BitBufferWriter* destination,
+                            const ColorSpace& color_space) {
+  // video_format: u(3).
+  RETURN_FALSE_ON_FAIL(destination->WriteBits(5, 3));  // 5 = Unspecified
+  // video_full_range_flag: u(1)
+  RETURN_FALSE_ON_FAIL(destination->WriteBits(
+      color_space.range() == ColorSpace::RangeID::kFull ? 1 : 0, 1));
+  // colour_description_present_flag: u(1)
+  RETURN_FALSE_ON_FAIL(destination->WriteBits(1, 1));
+  // colour_primaries: u(8)
+  RETURN_FALSE_ON_FAIL(destination->WriteBits(
+      static_cast<uint32_t>(color_space.primaries()), 8));
+  // transfer_characteristics: u(8)
+  RETURN_FALSE_ON_FAIL(
+      destination->WriteBits(static_cast<uint32_t>(color_space.transfer()), 8));
+  // matrix_coefficients: u(8)
+  RETURN_FALSE_ON_FAIL(
+      destination->WriteBits(static_cast<uint32_t>(color_space.matrix()), 8));
+  return true;
+}
+
+bool CopyOrRewriteVideoSignalTypeInfo(
+    rtc::BitBuffer* source,
+    rtc::BitBufferWriter* destination,
+    const ColorSpace& color_space,
+    SpsVuiRewriter::ParseResult* out_vui_rewritten) {
+  // video_format: u(3).
+  // There is no analogue of video_format in ColorSpace. Copy it.
+  uint32_t video_format;
+  COPY_BITS(source, destination, video_format, 3);
+
+  uint32_t video_full_range_flag;
+  RETURN_FALSE_ON_FAIL(source->ReadBits(&video_full_range_flag, 1));
+  uint32_t video_full_range_flag_override =
+      color_space.range() == ColorSpace::RangeID::kLimited
+          ? 0
+          : (color_space.range() == ColorSpace::RangeID::kFull
+                 ? 1
+                 : video_full_range_flag);
+  RETURN_FALSE_ON_FAIL(
+      destination->WriteBits(video_full_range_flag_override, 1));
+
+  uint32_t colour_description_present_flag;
+  uint32_t colour_primaries = 3;          // Unspecified
+  uint32_t transfer_characteristics = 3;  // Unspecified
+  uint32_t matrix_coefficients = 3;       // Unspecified
+  RETURN_FALSE_ON_FAIL(source->ReadBits(&colour_description_present_flag, 1));
+  if (colour_description_present_flag) {
+    RETURN_FALSE_ON_FAIL(source->ReadBits(&colour_primaries, 8));
+    RETURN_FALSE_ON_FAIL(source->ReadBits(&transfer_characteristics, 8));
+    RETURN_FALSE_ON_FAIL(source->ReadBits(&matrix_coefficients, 8));
+  }
+
+  uint32_t colour_description_present_flag_override =
+      color_space.primaries() != ColorSpace::PrimaryID::kUnspecified ||
+      color_space.transfer() != ColorSpace::TransferID::kUnspecified ||
+      color_space.matrix() != ColorSpace::MatrixID::kUnspecified;
+  uint32_t colour_primaries_override =
+      static_cast<uint32_t>(color_space.primaries());
+  uint32_t transfer_characteristics_override =
+      static_cast<uint32_t>(color_space.transfer());
+  uint32_t matrix_coefficients_override =
+      static_cast<uint32_t>(color_space.matrix());
+  RETURN_FALSE_ON_FAIL(
+      destination->WriteBits(colour_description_present_flag_override, 1));
+  if (colour_description_present_flag_override) {
+    RETURN_FALSE_ON_FAIL(destination->WriteBits(colour_primaries_override, 8));
+    RETURN_FALSE_ON_FAIL(
+        destination->WriteBits(transfer_characteristics_override, 8));
+    RETURN_FALSE_ON_FAIL(
+        destination->WriteBits(matrix_coefficients_override, 8));
+  }
+
+  if (video_full_range_flag_override != video_full_range_flag ||
+      colour_description_present_flag_override !=
+          colour_description_present_flag ||
+      colour_primaries_override != colour_primaries ||
+      transfer_characteristics_override != transfer_characteristics ||
+      matrix_coefficients_override != matrix_coefficients) {
+    *out_vui_rewritten = SpsVuiRewriter::ParseResult::kVuiRewritten;
+  } else {
+    *out_vui_rewritten = SpsVuiRewriter::ParseResult::kVuiOk;
+  }
+
   return true;
 }
 

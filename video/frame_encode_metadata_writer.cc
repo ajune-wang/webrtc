@@ -208,7 +208,7 @@ FrameEncodeMetadataWriter::UpdateBitstream(
       buffer, fragmentation->fragmentationVectorSize,
       fragmentation->fragmentationOffset, fragmentation->fragmentationLength,
       &modified_buffer, modified_fragmentation->fragmentationOffset,
-      modified_fragmentation->fragmentationLength);
+      modified_fragmentation->fragmentationLength, encoded_image->ColorSpace());
 
   encoded_image->SetEncodedData(modified_buffer);
 

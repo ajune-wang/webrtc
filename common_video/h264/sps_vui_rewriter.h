@@ -16,6 +16,7 @@
 #include <stdint.h>
 
 #include "absl/types/optional.h"
+#include "api/video/color_space.h"
 #include "common_video/h264/sps_parser.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/copy_on_write_buffer.h"
@@ -48,6 +49,7 @@ class SpsVuiRewriter : private SpsParser {
       const uint8_t* buffer,
       size_t length,
       absl::optional<SpsParser::SpsState>* sps,
+      const ColorSpace* color_space,
       rtc::Buffer* destination,
       Direction Direction);
 
@@ -63,13 +65,15 @@ class SpsVuiRewriter : private SpsParser {
       const size_t* nalu_lengths,
       rtc::CopyOnWriteBuffer* output_buffer,
       size_t* output_nalu_offsets,
-      size_t* output_nalu_lengths);
+      size_t* output_nalu_lengths,
+      const ColorSpace* color_space);
 
  private:
   static ParseResult ParseAndRewriteSps(
       const uint8_t* buffer,
       size_t length,
       absl::optional<SpsParser::SpsState>* sps,
+      const ColorSpace* color_space,
       rtc::Buffer* destination);
 
   static void UpdateStats(ParseResult result, Direction direction);

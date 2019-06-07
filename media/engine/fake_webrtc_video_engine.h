@@ -86,6 +86,10 @@ class FakeWebRtcVideoEncoder : public webrtc::VideoEncoder {
   int32_t InitEncode(const webrtc::VideoCodec* codecSettings,
                      int32_t numberOfCores,
                      size_t maxPayloadSize) override;
+  int32_t InitEncode(const webrtc::VideoCodec* codecSettings,
+                     const Capabilities& capabilities,
+                     int32_t numberOfCores,
+                     size_t maxPayloadSize) override;
   int32_t Encode(
       const webrtc::VideoFrame& inputImage,
       const std::vector<webrtc::VideoFrameType>* frame_types) override;

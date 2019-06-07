@@ -118,6 +118,15 @@ VideoEncoder::RateControlParameters::RateControlParameters(
 
 VideoEncoder::RateControlParameters::~RateControlParameters() = default;
 
+int VideoEncoder::InitEncode(const VideoCodec* codec_settings,
+                             const VideoEncoder::Capabilities& capabilities,
+                             int number_of_cores,
+                             size_t max_payload_size) {
+  // TODO(bugs.webrtc.org/10720): After updating downstream projects and posting
+  // an announcement to discuss-webrtc, remove this.
+  return InitEncode(codec_settings, number_of_cores, max_payload_size);
+}
+
 void VideoEncoder::OnPacketLossRateUpdate(float packet_loss_rate) {}
 
 void VideoEncoder::OnRttUpdate(int64_t rtt_ms) {}

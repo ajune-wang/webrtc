@@ -141,6 +141,15 @@ int32_t FakeWebRtcVideoEncoder::InitEncode(
     const webrtc::VideoCodec* codecSettings,
     int32_t numberOfCores,
     size_t maxPayloadSize) {
+  RTC_NOTREACHED();
+  return WEBRTC_VIDEO_CODEC_ERROR;
+}
+
+int32_t FakeWebRtcVideoEncoder::InitEncode(
+    const webrtc::VideoCodec* codecSettings,
+    const Capabilities& capabilities,
+    int32_t numberOfCores,
+    size_t maxPayloadSize) {
   rtc::CritScope lock(&crit_);
   codec_settings_ = *codecSettings;
   init_encode_event_.Set();

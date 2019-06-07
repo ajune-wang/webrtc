@@ -10,7 +10,12 @@
 #include "system_wrappers/include/field_trial.h"
 
 #include <stddef.h>
+
+#include <map>
 #include <string>
+
+#include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 // Simple field trial implementation, which allows client to
 // specify desired flags in InitFieldTrialsFromString.
@@ -20,6 +25,58 @@ namespace field_trial {
 static const char* trials_init_string = NULL;
 
 #ifndef WEBRTC_EXCLUDE_FIELD_TRIAL_DEFAULT
+constexpr char kPersistentStringSeparator = '/';
+
+// Validates the given field trial string.
+//  E.g.:
+//    "WebRTC-experimentFoo/Enabled/WebRTC-experimentBar/Enabled100kbps/"
+//    Assigns the process to group "Enabled" on WebRTCExperimentFoo trial
+//    and to group "Enabled100kbps" on WebRTCExperimentBar.
+//
+//  E.g. invalid config:
+//    "WebRTC-experiment1/Enabled"  (note missing / separator at the end).
+//
+// Note: This method crashes with an error message if an invalid config is
+// passed to it. That can be used to find out if a binary is parsing the flags.
+void ValidateFieldTrialsStringOrDie(const std::string& trials_string) {
+  if (trials_string.empty())
+    return;
+
+  RTC_CHECK(trials_init_string == NULL)
+      << "Field trials string set more than once";
+
+  size_t next_item = 0;
+  std::map<std::string, std::string> field_trials;
+  while (next_item < trials_string.length()) {
+    size_t name_end = trials_string.find(kPersistentStringSeparator, next_item);
+    if (name_end == trials_string.npos || next_item == name_end)
+      break;
+    size_t group_name_end =
+        trials_string.find(kPersistentStringSeparator, name_end + 1);
+    if (group_name_end == trials_string.npos || name_end + 1 == group_name_end)
+      break;
+    std::string name(trials_string, next_item, name_end - next_item);
+    std::string group_name(trials_string, name_end + 1,
+                           group_name_end - name_end - 1);
+    next_item = group_name_end + 1;
+
+    // Fail if duplicate with different group name.
+    if (field_trials.find(name) != field_trials.end() &&
+        field_trials.find(name)->second != group_name) {
+      break;
+    }
+
+    field_trials[name] = group_name;
+
+    // Successfully parsed all field trials from the string.
+    if (next_item == trials_string.length()) {
+      return;
+    }
+  }
+
+  FATAL() << "Invalid field trials string:" << trials_string;
+}
+
 std::string FindFullName(const std::string& name) {
   if (trials_init_string == NULL)
     return std::string();
@@ -28,7 +85,6 @@ std::string FindFullName(const std::string& name) {
   if (trials_string.empty())
     return std::string();
 
-  static const char kPersistentStringSeparator = '/';
   size_t next_item = 0;
   while (next_item < trials_string.length()) {
     // Find next name/value pair in field trial configuration string.
@@ -56,6 +112,10 @@ std::string FindFullName(const std::string& name) {
 
 // Optionally initialize field trial from a string.
 void InitFieldTrialsFromString(const char* trials_string) {
+  RTC_LOG(LS_INFO) << "Setting field trial string:" << trials_init_string;
+#ifndef WEBRTC_EXCLUDE_FIELD_TRIAL_DEFAULT
+  ValidateFieldTrialsStringOrDie(trials_string);
+#endif  // WEBRTC_EXCLUDE_FIELD_TRIAL_DEFAULT
   trials_init_string = trials_string;
 }
 

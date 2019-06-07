@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae25b78e_81c29c5e",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-07T07:00:59Z",
+      "side": 1,
+      "message": "Where do you need these operations?\n\nAnd rounding using\n\n  data_rate_impl::MillibytePerSec(rate) + millihertz / 2\n\nlooks a bit strange, adding two expressions with explicit but incompatible units.\n\nIs negative DataRate allowed? If so, rounding is incorrect, since the / operator truncates towards zero, not towards -infinity as a matematician would prefer.",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 1
+      },
+      "revId": "a08f063d0db09575cf2e461e0c6035984379e126",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b0e19_5fac960b",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-07T20:42:43Z",
+      "side": 1,
+      "message": "Sami, is the transition from Settings-ctor-with-7-params to Settings-ctor-with-8-params something that requires an announcement to discuss-webrtc and allowing people time to react? If so, I\u0027d have to go through an elaborate chain of:\n\n1. Add a static method for constructing the object. Use that static method from video_encoder_wrapper.cc. Transition downstream Google projects to use that the static method.\n2. Announce to discuss-webrtc that we\u0027re transitioning to the method-constructor. Wait.\n3. Remove the old ctor, add a new one, and start using it from video_encoder_wrapper.cc and from downstream Google projects.\n4. Announce again to discuss-webrtc, this time that we\u0027re going back to the normal ctor, but with 8 parameters this time. Wait\n5. Remove the static method.\n\nThis seems a bit excessive to me. Wdyt?",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 15
+      },
+      "revId": "a33b4b152a3c731387a5d08e3ca64f24b06c0e8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

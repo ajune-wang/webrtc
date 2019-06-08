@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "01ac24ff_906dbea8",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-08T11:29:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b112f975_a37f1277",
+      "revId": "7b14d1d0060862d8bc5d84b9c46111db0e43232b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a00625f2_8c4509d0",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
         "patchSetId": 3
@@ -65,6 +83,30 @@
     },
     {
       "key": {
+        "uuid": "8a41ba12_84f98eb6",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-08T11:29:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a00625f2_8c4509d0",
+      "range": {
+        "startLine": 383,
+        "startChar": 19,
+        "endLine": 383,
+        "endChar": 21
+      },
+      "revId": "7b14d1d0060862d8bc5d84b9c46111db0e43232b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6035981f_4f306f69",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
         "patchSetId": 3
@@ -85,6 +127,30 @@
       "revId": "7b14d1d0060862d8bc5d84b9c46111db0e43232b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "400d95ae_87de7372",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-08T11:29:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6035981f_4f306f69",
+      "range": {
+        "startLine": 384,
+        "startChar": 29,
+        "endLine": 384,
+        "endChar": 31
+      },
+      "revId": "7b14d1d0060862d8bc5d84b9c46111db0e43232b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +200,54 @@
     },
     {
       "key": {
+        "uuid": "d9370465_302ebaf5",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-08T11:29:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f9221cf_2b4b8dde",
+      "range": {
+        "startLine": 386,
+        "startChar": 2,
+        "endLine": 386,
+        "endChar": 6
+      },
+      "revId": "7b14d1d0060862d8bc5d84b9c46111db0e43232b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bdb7aa49_a0d6963c",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-08T11:29:45Z",
+      "side": 1,
+      "message": "There are a few reasons for this change.\nOn of them is that there are multiple code paths for inserting packets into the pacer, so the logic for settings priority (which is relative to the other code paths) is distributed across several files.\nInside the pacer, things are in practice intended to sort based on packet type. In fact priority is so tightly bound to type that there is logic within the paced sender that says \"bool audio_packet \u003d packet-\u003epriority \u003d\u003d kHighPriority;\"\nAdding new packet types for the updated pacer logic means I have to invent a name for a priority in between \"normal\" and \"high\". If we just prioritize based on the type, we can concentrate the relative prioritization to on place. Initially I intend this to be in the pacer, but it can be easily broken out to eg aid testing.",
+      "parentUuid": "73db68fa_cc51fc79",
+      "range": {
+        "startLine": 386,
+        "startChar": 13,
+        "endLine": 386,
+        "endChar": 23
+      },
+      "revId": "7b14d1d0060862d8bc5d84b9c46111db0e43232b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aac1a5c6_5a899efe",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
         "patchSetId": 3
@@ -154,6 +268,30 @@
       "revId": "7b14d1d0060862d8bc5d84b9c46111db0e43232b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d9abb89_ac2b9eec",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-08T11:29:45Z",
+      "side": 1,
+      "message": "This isn\u0027t as generic as the Transport interface. It will replace the PacedSender::PacketSender. I\u0027m moving it out from withing that class as I want plan to move to an interface for the PacedSender. Potentially I can put that in the header instead, but I\u0027m not quite sure where to put it.\nBoth these interfaces define interaction between modules/pacing and modules/rtp_rtcp. Should these go in module_common_types.h instead?",
+      "parentUuid": "aac1a5c6_5a899efe",
+      "range": {
+        "startLine": 401,
+        "startChar": 0,
+        "endLine": 401,
+        "endChar": 64
+      },
+      "revId": "7b14d1d0060862d8bc5d84b9c46111db0e43232b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

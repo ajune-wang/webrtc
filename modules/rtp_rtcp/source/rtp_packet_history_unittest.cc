@@ -678,6 +678,33 @@ TEST_F(RtpPacketHistoryTest, SetsPendingTransmissionState) {
   EXPECT_FALSE(packet_state->pending_transmission);
 }
 
+TEST_F(RtpPacketHistoryTest, GetPacketAndSetSendTime) {
+  const int64_t kRttMs = RtpPacketHistory::kMinPacketDurationMs * 2;
+  hist_.SetRtt(kRttMs);
+
+  // Set size to remove old packets as soon as possible.
+  hist_.SetStorePacketsStatus(StorageMode::kStoreAndCull, 1);
+
+  // Add a sent packet the history.
+  hist_.PutRtpPacket(CreateRtpPacket(kStartSeqNum), kAllowRetransmission,
+                     fake_clock_.TimeInMicroseconds());
+
+  // Retransmission request, first retransmission is allowed immediately.
+  EXPECT_TRUE(hist_.GetPacket(kStartSeqNum));
+
+  // Packet not yet sent, new retransmission not allowed.
+  fake_clock_.AdvanceTimeMilliseconds(kRttMs);
+  EXPECT_FALSE(hist_.GetPacket(kStartSeqNum));
+
+  // Mark as sent, but too early for retransmission.
+  hist_.SetSendTime(kStartSeqNum);
+  EXPECT_FALSE(hist_.GetPacket(kStartSeqNum));
+
+  // Enough time has passed, retransmission is allowed again.
+  fake_clock_.AdvanceTimeMilliseconds(kRttMs);
+  EXPECT_TRUE(hist_.GetPacket(kStartSeqNum));
+}
+
 TEST_F(RtpPacketHistoryTest, DontRemovePendingTransmissions) {
   const int64_t kRttMs = RtpPacketHistory::kMinPacketDurationMs * 2;
   const int64_t kPacketTimeoutMs =

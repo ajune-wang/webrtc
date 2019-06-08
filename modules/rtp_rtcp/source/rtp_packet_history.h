@@ -82,6 +82,16 @@ class RtpPacketHistory {
   std::unique_ptr<RtpPacketToSend> GetPacketAndSetSendTime(
       uint16_t sequence_number);
 
+  // Gets stored RTP packet corresponding to the input |sequence number|.
+  // Returns nullptr if packet is not found or was (re)sent too recently.
+  // If a packet is returned, it will be marked as pending transmission but does
+  // not update send time, that must be done by SetSendTime().
+  std::unique_ptr<RtpPacketToSend> GetPacket(uint16_t sequence_number);
+
+  // Updates the send time for the given packet and increments the transmission
+  // counter. Marks the packet as no longer being in the pacer queue.
+  void SetSendTime(uint16_t sequence_number);
+
   // Similar to GetPacketAndSetSendTime(), but only returns a snapshot of the
   // current state for packet, and never updates internal state.
   absl::optional<PacketState> GetPacketState(uint16_t sequence_number) const;

@@ -678,6 +678,38 @@ TEST_F(RtpPacketHistoryTest, SetsPendingTransmissionState) {
   EXPECT_FALSE(packet_state->pending_transmission);
 }
 
+TEST_F(RtpPacketHistoryTest, GetPacketAndSetSendTime) {
+  const int64_t kRttMs = RtpPacketHistory::kMinPacketDurationMs * 2;
+  hist_.SetRtt(kRttMs);
+
+  // Set size to remove old packets as soon as possible.
+  hist_.SetStorePacketsStatus(StorageMode::kStoreAndCull, 1);
+
+  // Add a sent packet the history.
+  hist_.PutRtpPacket(CreateRtpPacket(kStartSeqNum), kAllowRetransmission,
+                     fake_clock_.TimeInMicroseconds());
+
+  // Packet is not pending transmission.
+  fake_clock_.AdvanceTimeMilliseconds(kRttMs);
+  absl::optional<RtpPacketHistory::PacketState> packet_state =
+      hist_.GetPacketState(kStartSeqNum);
+  ASSERT_TRUE(packet_state.has_value());
+  EXPECT_FALSE(packet_state->pending_transmission);
+
+  // Time for a retransmission.
+  EXPECT_TRUE(hist_.GetPacket(kStartSeqNum));
+
+  // Packet not yet sent.
+  ASSERT_FALSE(hist_.GetPacketState(kStartSeqNum).has_value());
+
+  // Packet has left the pacer, retransmission is allowed again.
+  hist_.SetSendTime(kStartSeqNum);
+  fake_clock_.AdvanceTimeMilliseconds(kRttMs);
+  packet_state = hist_.GetPacketState(kStartSeqNum);
+  ASSERT_TRUE(packet_state.has_value());
+  EXPECT_FALSE(packet_state->pending_transmission);  // Not in the pacer.
+}
+
 TEST_F(RtpPacketHistoryTest, DontRemovePendingTransmissions) {
   const int64_t kRttMs = RtpPacketHistory::kMinPacketDurationMs * 2;
   const int64_t kPacketTimeoutMs =

@@ -22,6 +22,30 @@
       "revId": "3d0db1dd41e6e52074644d7b681257d1158739f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a201ac17_facdcfec",
+        "filename": "test/pc/e2e/test_peer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T11:22:47Z",
+      "side": 1,
+      "message": "propagated to the api.",
+      "parentUuid": "8391c0b6_6f9dbe50",
+      "range": {
+        "startLine": 47,
+        "startChar": 6,
+        "endLine": 47,
+        "endChar": 65
+      },
+      "revId": "3d0db1dd41e6e52074644d7b681257d1158739f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

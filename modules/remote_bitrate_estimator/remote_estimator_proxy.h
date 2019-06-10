@@ -58,6 +58,7 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
     FieldTrialParameter<TimeDelta> min_interval{"min", TimeDelta::ms(50)};
     FieldTrialParameter<TimeDelta> max_interval{"max", TimeDelta::ms(250)};
     FieldTrialParameter<TimeDelta> default_interval{"def", TimeDelta::ms(100)};
+    FieldTrialParameter<double> bandwidth_fraction{"frac", 0.05};
     explicit TransportWideFeedbackConfig(
         const WebRtcKeyValueConfig* key_value_config) {
       ParseFieldTrial(

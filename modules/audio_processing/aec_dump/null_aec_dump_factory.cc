@@ -19,12 +19,6 @@ std::unique_ptr<AecDump> AecDumpFactory::Create(webrtc::FileWrapper&& file,
   return nullptr;
 }
 
-std::unique_ptr<AecDump> AecDumpFactory::Create(rtc::PlatformFile file,
-                                                int64_t max_log_size_bytes,
-                                                rtc::TaskQueue* worker_queue) {
-  return nullptr;
-}
-
 std::unique_ptr<AecDump> AecDumpFactory::Create(std::string file_name,
                                                 int64_t max_log_size_bytes,
                                                 rtc::TaskQueue* worker_queue) {

@@ -227,13 +227,6 @@ std::unique_ptr<AecDump> AecDumpFactory::Create(webrtc::FileWrapper&& file,
                                         worker_queue);
 }
 
-std::unique_ptr<AecDump> AecDumpFactory::Create(rtc::PlatformFile file,
-                                                int64_t max_log_size_bytes,
-                                                rtc::TaskQueue* worker_queue) {
-  return Create(FileWrapper(rtc::FdopenPlatformFileForWriting(file)),
-                max_log_size_bytes, worker_queue);
-}
-
 std::unique_ptr<AecDump> AecDumpFactory::Create(std::string file_name,
                                                 int64_t max_log_size_bytes,
                                                 rtc::TaskQueue* worker_queue) {
@@ -246,4 +239,5 @@ std::unique_ptr<AecDump> AecDumpFactory::Create(FILE* handle,
                                                 rtc::TaskQueue* worker_queue) {
   return Create(FileWrapper(handle), max_log_size_bytes, worker_queue);
 }
+
 }  // namespace webrtc

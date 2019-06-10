@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b55f9b3a_c11981b0",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-10T09:10:24Z",
+      "side": 1,
+      "message": "It seems undesirable yo have this extra code block, which matters only for below DCHECK.",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 3
+      },
+      "revId": "387361fc252fba5fe484a73c17726549fbc657a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "977e6bc6_98e6dd5c",
+        "filename": "api/units/data_rate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-10T09:10:24Z",
+      "side": 1,
+      "message": "One way is to move all the logic inside the DCHECK, either\n\nRTC_DCHECK(frequency.IsZero || \n           size.bytes \u003c\u003d std::numeric_limits\u003cint64_t\u003e::max() / 8 / frequency.millihertz\u003cint64_t\u003e());\n\nor \n\nRTC_DCHECK_LE(size.bytes(), frequency.IsZero() ? std::numeric_limits\u003cint64_t\u003e::max() \n   : std::numeric_limits\u003cint64_t\u003e::max() / 8 / frequency.millihertz\u003cint64_t\u003e());\n\nMaybe a bit unwieldy, but I think it\u0027s nice to have all the DCHECK-related logic inside the DCHECK macro, to make it clear that it\u0027s outside of the production code path.\n\nOr wrap the checking logic inside an rtc::CheckedMul or so?",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 52
+      },
+      "revId": "387361fc252fba5fe484a73c17726549fbc657a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,376 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15b0a16c_ff423938",
+        "filename": "modules/rtp_rtcp/source/source_tracker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "needed?",
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2101af34_3575352f",
+        "filename": "modules/rtp_rtcp/source/source_tracker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "prefer\nSourceKey key(..., ...);\nto show SourceKey is a type, not a function",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 24
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b61832f8_315d9f0f",
+        "filename": "modules/rtp_rtcp/source/source_tracker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "mentioning type explicitly makes code easier to navigate:\nSourceEntry\u0026 entry \u003d ...",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 8
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b93012a3_4feb62c2",
+        "filename": "modules/rtp_rtcp/source/source_tracker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "here you have a double lookup, it is better to avoid those.\ne.g.\nauto inserted \u003d map_.emplace(key, SourceEntry());\nauto map_it \u003d inserted.first;\nif (inserted.second) {\n   // Inserted a new entry.\n   auto list_it \u003d list_.emplace_front(...);\n   map_it-\u003esecond \u003d list_it;\n   return list_it-\u003esecond;\n}\n...",
+      "range": {
+        "startLine": 76,
+        "startChar": 16,
+        "endLine": 76,
+        "endChar": 25
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44f8fe61_3ad874fb",
+        "filename": "modules/rtp_rtcp/source/source_tracker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "why is it safe/portable?\nstd::list documentation always mention 2nd list as \u0027another\u0027",
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "999b1631_715ba801",
+        "filename": "modules/rtp_rtcp/source/source_tracker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "needed?",
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8c710b7_a145ddcd",
+        "filename": "modules/rtp_rtcp/source/source_tracker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "may be add small comment ; // 10 seconds.",
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f135cf8_5cc0c3a3",
+        "filename": "modules/rtp_rtcp/source/source_tracker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "If you wish, you do not need to be explicit about deleteing move constructor/assignment.\nDeleting copy is enough.\n\nhttps://google.github.io/styleguide/cppguide.html#Copy_Constructors\n\"Explicitly declaring or deleting all four copy/move operations is permitted, but not required.\"",
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d5ef944_369ecee0",
+        "filename": "modules/rtp_rtcp/source/source_tracker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "did you intent to pass by value (then drop const: https://abseil.io/tips/109)\nor by reference? (then add reference)",
+      "range": {
+        "startLine": 49,
+        "startChar": 24,
+        "endLine": 49,
+        "endChar": 44
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0323886_01bf6988",
+        "filename": "modules/rtp_rtcp/source/source_tracker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "if you want to keep unordered map, may be clearer to have two separate helpers:\nstruct SourceKeyHash { operator() {} };\nstruct SourceKeyComparator // or just add simple operator\u003d\u003d directly to SourceKey:\nstruct SourceKey {\n  ...\n  friend bool operator\u003d\u003d(const SourceKey\u0026 lhs, const SourceKey\u0026 rhs) {...};\n  ...\n}",
+      "range": {
+        "startLine": 68,
+        "startChar": 9,
+        "endLine": 68,
+        "endChar": 24
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8bb2fb38_92580679",
+        "filename": "modules/rtp_rtcp/source/source_tracker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "may be note that it is the most recent time with the name, e.g. last_update_ms;",
+      "range": {
+        "startLine": 83,
+        "startChar": 12,
+        "endLine": 83,
+        "endChar": 24
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f81ef57d_5cc88be9",
+        "filename": "modules/rtp_rtcp/source/source_tracker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "#include \"absl/types/optional.h\"",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 18
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e00203fc_677d8271",
+        "filename": "modules/rtp_rtcp/source/source_tracker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "It might be a good opportunity to try\nabsl::flat_hash_map instead, see\nhttps://abseil.io/docs/cpp/guides/container\nhttps://abseil.io/tips/152\n\nhttps://chromium.googlesource.com/external/webrtc/+/refs/heads/master/abseil-in-webrtc.md#using-abseil-in-webrtc\n\"if you find yourself in need of something that isn’t in either subset, please add it to the allowed subset in this doc in the same CL that adds the first use.\"",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 56
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ae1361a3_96f00fd7",
+        "filename": "modules/rtp_rtcp/source/source_tracker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "what are the reasons to declare GetSources() as const?\n(if you do not plan to use it as const, it might be better not to declare it as const and remove these mutables.)",
+      "range": {
+        "startLine": 117,
+        "startChar": 2,
+        "endLine": 117,
+        "endChar": 9
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adb344de_3fe1c461",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "prefer to write explicit types instead of auto\nhttps://google.github.io/styleguide/cppguide.html#auto\n\ne.g. here \"uint16_t\" looks more reasonable than \"const uint16_t\u0026\" or \"const auto\u0026\"",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 19
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0557447_21983ffa",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "if you want to test random input it might be better to write a fuzzer",
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e47e0f83_b615aa5a",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "What behavior does this test validates?\n\nhttps://testing.googleblog.com/2014/10/testing-on-toilet-writing-descriptive.html\nhttps://testing.googleblog.com/2013/08/testing-on-toilet-test-behavior-not.html",
+      "range": {
+        "startLine": 180,
+        "startChar": 26,
+        "endLine": 180,
+        "endChar": 45
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "381192e0_cc9d9c00",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T17:59:36Z",
+      "side": 1,
+      "message": "It look like you want to use \nhttps://github.com/google/googletest/blob/master/googletest/docs/advanced.md#value-parameterized-tests",
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

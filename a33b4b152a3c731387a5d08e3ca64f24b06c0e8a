@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "f65fa4e9_f66e8eb4",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-10T16:15:29Z",
+      "side": 1,
+      "message": "If you don\u0027t think we need to announce to discuss-webrtc first, then no, there is no need to annotate the deprecated ctor with CalledByNative. (As evidenced by this CL.) The static-method approach would only be necessary if that were a constraint.",
+      "parentUuid": "e5293a81_ac81c293",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 15
+      },
+      "revId": "a33b4b152a3c731387a5d08e3ca64f24b06c0e8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63ea61c5_be799b3c",
         "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
         "patchSetId": 3

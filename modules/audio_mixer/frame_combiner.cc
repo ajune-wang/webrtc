@@ -26,6 +26,7 @@
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
@@ -145,6 +146,9 @@ void FrameCombiner::Combine(const std::vector<AudioFrame*>& mix_list,
                             size_t number_of_streams,
                             AudioFrame* audio_frame_for_mixing) {
   RTC_DCHECK(audio_frame_for_mixing);
+  // RTC_DLOG(LS_WARNING) << "Combine: " << mix_list.size() << ", "
+  //                      << number_of_channels << ", " << sample_rate << ", "
+  //                      << number_of_streams;
 
   LogMixingStats(mix_list, sample_rate, number_of_streams);
 

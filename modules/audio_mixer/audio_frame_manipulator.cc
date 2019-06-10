@@ -12,6 +12,7 @@
 
 #include "audio/utility/audio_frame_operations.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -57,11 +58,14 @@ void Ramp(float start_gain, float target_gain, AudioFrame* audio_frame) {
 void RemixFrame(size_t target_number_of_channels, AudioFrame* frame) {
   RTC_DCHECK_GE(target_number_of_channels, 1);
   if (frame->num_channels_ == target_number_of_channels) {
+    // RTC_DLOG(LS_WARNING) << "No remixing of channels";
     return;
   }
   if (frame->num_channels_ > target_number_of_channels) {
+    // RTC_DLOG(LS_WARNING) << "DownmixChannels";
     AudioFrameOperations::DownmixChannels(target_number_of_channels, frame);
   } else if (frame->num_channels_ < target_number_of_channels) {
+    // RTC_DLOG(LS_WARNING) << "UpmixChannels";
     AudioFrameOperations::UpmixChannels(target_number_of_channels, frame);
   }
   RTC_DCHECK_EQ(frame->num_channels_, target_number_of_channels)

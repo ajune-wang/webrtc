@@ -17,6 +17,7 @@
 
 #include "common_audio/include/audio_util.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 
 namespace webrtc {
@@ -116,6 +117,226 @@ int AudioFrameOperations::QuadToStereo(AudioFrame* frame) {
   return 0;
 }
 
+void AudioFrameOperations::FivePointOneToStereo(const int16_t* src_audio,
+                                                size_t samples_per_channel,
+                                                int16_t* dst_audio) {
+  // FFmpeg 5.1 => stereo (excludes LFE).
+  // TODO(henrika): factor should 1/sqrt(2)
+  for (size_t i = 0; i < samples_per_channel; i++) {
+    // FL + (1/2)*(BL + FC)
+    dst_audio[i * 2] = (static_cast<int32_t>(
+        src_audio[6 * i] +
+        ((src_audio[6 * i + 4] + src_audio[6 * i + 2]) >> 1)));
+    // FR + (1/2)*(BR + FC()
+    dst_audio[i * 2 + 1] = (static_cast<int32_t>(
+        src_audio[6 * i + 1] +
+        ((src_audio[6 * i + 5] + src_audio[6 * i + 2]) >> 1)));
+  }
+}
+
+int AudioFrameOperations::FivePointOneToStereo(AudioFrame* frame) {
+  if (frame->num_channels_ != 6) {
+    return -1;
+  }
+
+  RTC_DCHECK_LE(frame->samples_per_channel_ * 6,
+                AudioFrame::kMaxDataSizeSamples);
+
+  if (!frame->muted()) {
+    FivePointOneToStereo(frame->data(), frame->samples_per_channel_,
+                         frame->mutable_data());
+  }
+  frame->num_channels_ = 2;
+
+  return 0;
+}
+
+void AudioFrameOperations::StereoToFivePointOne(const int16_t* src_audio,
+                                                size_t samples_per_channel,
+                                                int16_t* dst_audio) {
+  // TODO(henrika): improve/modify?
+  for (int i = samples_per_channel - 1; i >= 0; i--) {
+    // FL = L
+    dst_audio[6 * i] = src_audio[2 * i];
+    // FR = R
+    dst_audio[6 * i + 1] = src_audio[2 * i + 1];
+    dst_audio[6 * i + 2] = 0;
+    dst_audio[6 * i + 3] = 0;
+    dst_audio[6 * i + 4] = 0;
+    dst_audio[6 * i + 5] = 0;
+  }
+}
+
+int AudioFrameOperations::StereoToFivePointOne(AudioFrame* frame) {
+  if (frame->num_channels_ != 2) {
+    return -1;
+  }
+
+  RTC_DCHECK_LE(frame->samples_per_channel_ * 6,
+                AudioFrame::kMaxDataSizeSamples);
+
+  if (!frame->muted()) {
+    StereoToFivePointOne(frame->data(), frame->samples_per_channel_,
+                         frame->mutable_data());
+  }
+  frame->num_channels_ = 6;
+
+  return 0;
+}
+
+void AudioFrameOperations::StereoToSevenPointOne(const int16_t* src_audio,
+                                                 size_t samples_per_channel,
+                                                 int16_t* dst_audio) {
+  // TODO(henrika): improve/modify?
+  for (int i = samples_per_channel - 1; i >= 0; i--) {
+    // FL = L
+    dst_audio[8 * i] = src_audio[2 * i];
+    // FR = R
+    dst_audio[8 * i + 1] = src_audio[2 * i + 1];
+    dst_audio[8 * i + 2] = 0;
+    dst_audio[8 * i + 3] = 0;
+    dst_audio[8 * i + 4] = 0;
+    dst_audio[8 * i + 5] = 0;
+    dst_audio[8 * i + 6] = 0;
+    dst_audio[8 * i + 7] = 0;
+  }
+}
+
+int AudioFrameOperations::StereoToSevenPointOne(AudioFrame* frame) {
+  if (frame->num_channels_ != 2) {
+    return -1;
+  }
+
+  RTC_DCHECK_LE(frame->samples_per_channel_ * 8,
+                AudioFrame::kMaxDataSizeSamples);
+
+  if (!frame->muted()) {
+    StereoToSevenPointOne(frame->data(), frame->samples_per_channel_,
+                          frame->mutable_data());
+  }
+  frame->num_channels_ = 8;
+
+  return 0;
+}
+
+void AudioFrameOperations::FivePointOneToSevenPointOne(
+    const int16_t* src_audio,
+    size_t samples_per_channel,
+    int16_t* dst_audio) {
+  // TODO(henrika): improve/modify?
+  for (int i = samples_per_channel - 1; i >= 0; i--) {
+    // FL = L
+    dst_audio[8 * i] = src_audio[6 * i] >> 3;
+    // FR = R
+    dst_audio[8 * i + 1] = src_audio[6 * i + 1] >> 3;
+    // FC = FC
+    dst_audio[8 * i + 2] = src_audio[6 * i + 2] >> 3;
+    // LFE = LFE
+    dst_audio[8 * i + 3] = src_audio[6 * i + 3] >> 3;
+    // BL = BL
+    dst_audio[8 * i + 4] = src_audio[6 * i + 4] >> 3;
+    // BR = BR
+    dst_audio[8 * i + 5] = src_audio[6 * i + 5] >> 3;
+    dst_audio[8 * i + 6] = 0;
+    dst_audio[8 * i + 7] = 0;
+  }
+}
+
+int AudioFrameOperations::FivePointOneToSevenPointOne(AudioFrame* frame) {
+  if (frame->num_channels_ != 6) {
+    return -1;
+  }
+
+  RTC_DCHECK_LE(frame->samples_per_channel_ * 8,
+                AudioFrame::kMaxDataSizeSamples);
+
+  if (!frame->muted()) {
+    FivePointOneToSevenPointOne(frame->data(), frame->samples_per_channel_,
+                                frame->mutable_data());
+  }
+  frame->num_channels_ = 8;
+
+  return 0;
+}
+
+void AudioFrameOperations::SevenPointOneToStereo(const int16_t* src_audio,
+                                                 size_t samples_per_channel,
+                                                 int16_t* dst_audio) {
+  // Assumes: 7.1 FL(0), FR(1), FC(2), LFE(3), BL(4), BR(5), SL(6), SR(7)
+  // TODO(henrika): might not match hardware channel layout exactly and also
+  // use proper scaling (1/sqrt(2)) taking clamping into account.
+  for (size_t i = 0; i < samples_per_channel; i++) {
+    // L = FL + 1/sqrt(2)*(FC + BL + SL)
+    dst_audio[i * 2] = (static_cast<int32_t>(
+        src_audio[8 * i] +
+        ((src_audio[8 * i + 2] + src_audio[8 * i + 4] + src_audio[8 * i + 6]) >>
+         1)));
+    // R = FR + 1/sqrt(2)*(FC + BR + SR)
+    dst_audio[i * 2 + 1] = (static_cast<int32_t>(
+        src_audio[8 * i + 1] +
+        ((src_audio[8 * i + 2] + src_audio[8 * i + 5] + src_audio[8 * i + 7]) >>
+         1)));
+  }
+}
+
+int AudioFrameOperations::SevenPointOneToStereo(AudioFrame* frame) {
+  if (frame->num_channels_ != 8) {
+    return -1;
+  }
+
+  RTC_DCHECK_LE(frame->samples_per_channel_ * 8,
+                AudioFrame::kMaxDataSizeSamples);
+
+  if (!frame->muted()) {
+    SevenPointOneToStereo(frame->data(), frame->samples_per_channel_,
+                          frame->mutable_data());
+  }
+  frame->num_channels_ = 2;
+
+  return 0;
+}
+
+void AudioFrameOperations::SevenPointOneToFivePointOne(
+    const int16_t* src_audio,
+    size_t samples_per_channel,
+    int16_t* dst_audio) {
+  // Assumes: 7.1 FL(0), FR(1), FC(2), LFE(3), BL(4), BR(5), SL(6), SR(7)
+  // Assumes: 5.1 FL(0), FR(1), FC(2), LFE(3), BL(4), BR(5)
+  for (size_t i = 0; i < samples_per_channel; i++) {
+    // FL = FL
+    dst_audio[i * 6] = src_audio[i * 8];
+    // FR = FR
+    dst_audio[i * 6 + 1] = src_audio[i * 8 + 1];
+    // FC = FC
+    dst_audio[i * 6 + 2] = src_audio[i * 8 + 2];
+    // LFE = LFE
+    dst_audio[i * 6 + 3] = src_audio[i * 8 + 3];
+    // BL = 1/sqrt(2)(BL + SL)
+    dst_audio[i * 6 + 4] =
+        static_cast<int32_t>((src_audio[i * 8 + 4] + src_audio[i * 8 + 6]));
+    // BR = 1/sqrt(2)(BR + SR)
+    dst_audio[i * 6 + 5] =
+        static_cast<int32_t>((src_audio[i * 8 + 5] + src_audio[i * 8 + 7]));
+  }
+}
+
+int AudioFrameOperations::SevenPointOneToFivePointOne(AudioFrame* frame) {
+  if (frame->num_channels_ != 8) {
+    return -1;
+  }
+
+  RTC_DCHECK_LE(frame->samples_per_channel_ * 8,
+                AudioFrame::kMaxDataSizeSamples);
+
+  if (!frame->muted()) {
+    SevenPointOneToFivePointOne(frame->data(), frame->samples_per_channel_,
+                                frame->mutable_data());
+  }
+  frame->num_channels_ = 6;
+
+  return 0;
+}
+
 void AudioFrameOperations::DownmixChannels(const int16_t* src_audio,
                                            size_t src_channels,
                                            size_t samples_per_channel,
@@ -147,6 +368,15 @@ void AudioFrameOperations::DownmixChannels(size_t dst_channels,
   } else if (frame->num_channels_ == 4 && dst_channels == 2) {
     int err = QuadToStereo(frame);
     RTC_DCHECK_EQ(err, 0);
+  } else if (frame->num_channels_ == 6 && dst_channels == 2) {
+    int err = FivePointOneToStereo(frame);
+    RTC_DCHECK_EQ(err, 0);
+  } else if (frame->num_channels_ == 8 && dst_channels == 2) {
+    int err = SevenPointOneToStereo(frame);
+    RTC_DCHECK_EQ(err, 0);
+  } else if (frame->num_channels_ == 8 && dst_channels == 6) {
+    int err = SevenPointOneToFivePointOne(frame);
+    RTC_DCHECK_EQ(err, 0);
   } else {
     RTC_NOTREACHED() << "src_channels: " << frame->num_channels_
                      << ", dst_channels: " << dst_channels;
@@ -155,26 +385,40 @@ void AudioFrameOperations::DownmixChannels(size_t dst_channels,
 
 void AudioFrameOperations::UpmixChannels(size_t target_number_of_channels,
                                          AudioFrame* frame) {
-  RTC_DCHECK_EQ(frame->num_channels_, 1);
+  // RTC_DCHECK_EQ(frame->num_channels_, 1);
   RTC_DCHECK_LE(frame->samples_per_channel_ * target_number_of_channels,
                 AudioFrame::kMaxDataSizeSamples);
 
-  if (frame->num_channels_ != 1 ||
-      frame->samples_per_channel_ * target_number_of_channels >
-          AudioFrame::kMaxDataSizeSamples) {
+  if (frame->samples_per_channel_ * target_number_of_channels >
+      AudioFrame::kMaxDataSizeSamples) {
     return;
   }
 
-  if (!frame->muted()) {
-    // Up-mixing done in place. Going backwards through the frame ensure nothing
-    // is irrevocably overwritten.
-    for (int i = frame->samples_per_channel_ - 1; i >= 0; i--) {
-      for (size_t j = 0; j < target_number_of_channels; ++j) {
-        frame->mutable_data()[target_number_of_channels * i + j] =
-            frame->data()[i];
+  if (frame->num_channels_ == 1 && target_number_of_channels > 1) {
+    if (!frame->muted()) {
+      // Up-mixing done in place. Going backwards through the frame ensure
+      // nothing is irrevocably overwritten.
+      for (int i = frame->samples_per_channel_ - 1; i >= 0; i--) {
+        for (size_t j = 0; j < target_number_of_channels; ++j) {
+          frame->mutable_data()[target_number_of_channels * i + j] =
+              frame->data()[i];
+        }
       }
     }
+  } else if (frame->num_channels_ == 2 && target_number_of_channels == 6) {
+    int err = StereoToFivePointOne(frame);
+    RTC_DCHECK_EQ(err, 0);
+  } else if (frame->num_channels_ == 2 && target_number_of_channels == 8) {
+    int err = StereoToSevenPointOne(frame);
+    RTC_DCHECK_EQ(err, 0);
+  } else if (frame->num_channels_ == 6 && target_number_of_channels == 8) {
+    int err = FivePointOneToSevenPointOne(frame);
+    RTC_DCHECK_EQ(err, 0);
+  } else {
+    RTC_NOTREACHED() << "src_channels: " << frame->num_channels_
+                     << ", dst_channels: " << target_number_of_channels;
   }
+
   frame->num_channels_ = target_number_of_channels;
 }
 

@@ -2,6 +2,121 @@
   "comments": [
     {
       "key": {
+        "uuid": "d51d83fe_83fb5c82",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-10T16:34:53Z",
+      "side": 1,
+      "message": "Would it make sense to have a default constructor in this struct so code that does not care about capabilities doesn\u0027t have to worry about initializing it? Then the transition to using the new Settings struct would be easier in a few places.",
+      "range": {
+        "startLine": 243,
+        "startChar": 9,
+        "endLine": 243,
+        "endChar": 21
+      },
+      "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a01c948_fed9d33f",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-10T16:34:53Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 250,
+        "startChar": 4,
+        "endLine": 250,
+        "endChar": 12
+      },
+      "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6fd6df4_c5fffd0f",
+        "filename": "media/engine/encoder_simulcast_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-10T16:34:53Z",
+      "side": 1,
+      "message": "or should it be video_settings? ;)",
+      "range": {
+        "startLine": 41,
+        "startChar": 26,
+        "endLine": 41,
+        "endChar": 40
+      },
+      "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73aebef8_64d489fb",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-10T16:34:53Z",
+      "side": 1,
+      "message": "This bug is closed as fixed. Can we add proper override back?",
+      "range": {
+        "startLine": 193,
+        "startChar": 5,
+        "endLine": 193,
+        "endChar": 28
+      },
+      "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4acbc66_183d5a8f",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-10T16:34:53Z",
+      "side": 1,
+      "message": "Maybe store a Settings instance instead?",
+      "range": {
+        "startLine": 503,
+        "startChar": 2,
+        "endLine": 503,
+        "endChar": 18
+      },
+      "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c5fc2008_c4cd361a",
         "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
         "patchSetId": 4
@@ -234,6 +349,29 @@
       "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86b8d7c2_4a468e3d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-10T16:34:53Z",
+      "side": 1,
+      "message": "maybe add a unit test to check that capabilities actually makes it to encoder?",
+      "range": {
+        "startLine": 741,
+        "startChar": 45,
+        "endLine": 741,
+        "endChar": 57
+      },
+      "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

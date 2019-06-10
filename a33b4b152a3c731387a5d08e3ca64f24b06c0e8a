@@ -22,6 +22,53 @@
       "revId": "a33b4b152a3c731387a5d08e3ca64f24b06c0e8a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a138c65_f6df869c",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-10T14:48:44Z",
+      "side": 1,
+      "message": "I don\u0027t think we need that many steps. It is unclear to me why we would need a static method in between? I think it is enough to:\n1. Introduce the new constructor marking the old one deprecated. (Consider sending FYI to the mailing list at this point.)\n2. Migrate any downstream projects in our presubmits.\n3. Delete old constructor.\n\nGiven that the change is trivial in nature, I don\u0027t think a \"migration period\" is necessary.",
+      "parentUuid": "7a6b0e19_5fac960b",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 15
+      },
+      "revId": "a33b4b152a3c731387a5d08e3ca64f24b06c0e8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63ea61c5_be799b3c",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-10T14:48:44Z",
+      "side": 1,
+      "message": "nit: literal comments",
+      "range": {
+        "startLine": 38,
+        "startChar": 59,
+        "endLine": 38,
+        "endChar": 64
+      },
+      "revId": "a33b4b152a3c731387a5d08e3ca64f24b06c0e8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

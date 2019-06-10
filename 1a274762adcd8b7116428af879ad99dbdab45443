@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5fc2008_c4cd361a",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-10T14:48:44Z",
+      "side": 1,
+      "message": "nit: Please avoid abbreviations.",
+      "range": {
+        "startLine": 55,
+        "startChar": 20,
+        "endLine": 55,
+        "endChar": 24
+      },
+      "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c691dc45_af700bbc",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-10T14:48:44Z",
+      "side": 1,
+      "message": "Camel case and please add documentation what this does.",
+      "range": {
+        "startLine": 57,
+        "startChar": 25,
+        "endLine": 57,
+        "endChar": 42
+      },
+      "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86fad8c4_08399ee8",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/AndroidVideoDecoderInstrumentationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-10T14:48:44Z",
+      "side": 1,
+      "message": "nit: literal comments",
+      "range": {
+        "startLine": 80,
+        "startChar": 60,
+        "endLine": 80,
+        "endChar": 65
+      },
+      "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73e32160_f33bf9eb",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/HardwareVideoEncoderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-10T14:48:44Z",
+      "side": 1,
+      "message": "nit: literal comments",
+      "range": {
+        "startLine": 74,
+        "startChar": 60,
+        "endLine": 74,
+        "endChar": 65
+      },
+      "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85e63c6e_1ed3ebbe",
+        "filename": "sdk/android/tests/src/org/webrtc/HardwareVideoEncoderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-10T14:48:44Z",
+      "side": 1,
+      "message": "nit: literal comments",
+      "range": {
+        "startLine": 62,
+        "startChar": 56,
+        "endLine": 62,
+        "endChar": 61
+      },
+      "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

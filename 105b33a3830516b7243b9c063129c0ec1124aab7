@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f72159d6_e07ed913",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-10T16:03:39Z",
+      "side": 1,
+      "message": "A bit awkward to define this here really, seems like it should go somewhere common, on the other hand, that would probably require it to be \"production ready\" so I guess it can stay here for now.",
+      "range": {
+        "startLine": 89,
+        "startChar": 25,
+        "endLine": 89,
+        "endChar": 33
+      },
+      "revId": "105b33a3830516b7243b9c063129c0ec1124aab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63168b69_d54f7d5f",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-10T16:03:39Z",
+      "side": 1,
+      "message": "I don\u0027t think this carries it\u0027s weight... You can use absl::c_find to save some typing when inlining it.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 1
+      },
+      "revId": "105b33a3830516b7243b9c063129c0ec1124aab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "271bc96f_4a129554",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-10T16:03:39Z",
+      "side": 1,
+      "message": "Wrapper is quite generic, if possible it\u0027d be nice with something mode specific.\n\nMaybe just somthing along the lines of: PlotDeclaration, PlotDefinition, LabeledPlotFunction, PlotRegistration etc?",
+      "range": {
+        "startLine": 105,
+        "startChar": 7,
+        "endLine": 105,
+        "endChar": 18
+      },
+      "revId": "105b33a3830516b7243b9c063129c0ec1124aab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40f9509d_d7b77277",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-10T16:03:39Z",
+      "side": 1,
+      "message": "If doc isn\u0027t yet used, remove it for now, you can add it back when it\u0027s used. You can keep a todo on adding docs until then.",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 77
+      },
+      "revId": "105b33a3830516b7243b9c063129c0ec1124aab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b71e4f3d_d137a75f",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-10T16:03:39Z",
+      "side": 1,
+      "message": "nit: label and f and doc should be const if they can be.",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 31
+      },
+      "revId": "105b33a3830516b7243b9c063129c0ec1124aab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "653153b3_5ed21900",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-10T16:03:39Z",
+      "side": 1,
+      "message": "Why not RTC_LOG?",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 13
+      },
+      "revId": "105b33a3830516b7243b9c063129c0ec1124aab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "964d3f5a_4999d908",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-10T16:03:39Z",
+      "side": 1,
+      "message": "map\u003cstring,vector\u003cstring\u003e\u003e?",
+      "range": {
+        "startLine": 183,
+        "startChar": 2,
+        "endLine": 183,
+        "endChar": 36
+      },
+      "revId": "105b33a3830516b7243b9c063129c0ec1124aab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

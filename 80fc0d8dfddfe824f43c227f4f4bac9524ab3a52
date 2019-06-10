@@ -70,6 +70,30 @@
       "revId": "80fc0d8dfddfe824f43c227f4f4bac9524ab3a52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "969db66c_744085dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-10T10:35:33Z",
+      "side": 1,
+      "message": "The TaskQueue could be allowed to destroy tasks late, but still be required to destroy them sequentially.",
+      "parentUuid": "4dffb054_dfc486ff",
+      "range": {
+        "startLine": 12,
+        "startChar": 3,
+        "endLine": 12,
+        "endChar": 60
+      },
+      "revId": "80fc0d8dfddfe824f43c227f4f4bac9524ab3a52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "da772f43_7f9e8ccd",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-10T16:08:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5be5be8_99b1f033",
+      "range": {
+        "startLine": 33,
+        "startChar": 24,
+        "endLine": 33,
+        "endChar": 26
+      },
+      "revId": "83395d7293b2b8c2f1ba140608a2d66b1ad101f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8fd6af93_43c661ba",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-10T16:08:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87cf385a_a3fd87b9",
+      "range": {
+        "startLine": 33,
+        "startChar": 54,
+        "endLine": 33,
+        "endChar": 60
+      },
+      "revId": "83395d7293b2b8c2f1ba140608a2d66b1ad101f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ce2c337_0236d7c4",
         "filename": "system_wrappers/include/clock.h",
         "patchSetId": 1
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "74561749_89c2b8aa",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-10T16:08:29Z",
+      "side": 1,
+      "message": "Sound like a good idea.",
+      "parentUuid": "0ce2c337_0236d7c4",
+      "range": {
+        "startLine": 40,
+        "startChar": 18,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "83395d7293b2b8c2f1ba140608a2d66b1ad101f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9631714e_0ece1a76",
         "filename": "test/drifting_clock.h",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-06-10T11:16:53Z",
       "side": 1,
       "message": "I was confused by the name. It seems this is accumulated drift? Otherwise, I\u0027d think of \"drift\" as something dimensionless, often expressed in a unit like microseconds per second (aka ppm).",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 11
+      },
+      "revId": "83395d7293b2b8c2f1ba140608a2d66b1ad101f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "60c8758c_917261c0",
+        "filename": "test/drifting_clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-10T16:08:29Z",
+      "side": 1,
+      "message": "Yes, Agreed, I was confused at first as well, at least not it\u0027s more clear that it returns a time delta.",
+      "parentUuid": "9631714e_0ece1a76",
       "range": {
         "startLine": 38,
         "startChar": 2,

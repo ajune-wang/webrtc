@@ -22,6 +22,30 @@
       "revId": "80fc0d8dfddfe824f43c227f4f4bac9524ab3a52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d077907f_618c4fd5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-10T09:23:52Z",
+      "side": 1,
+      "message": "Yes, it feels like it should.",
+      "parentUuid": "b10018b5_3a2768fc",
+      "range": {
+        "startLine": 12,
+        "startChar": 3,
+        "endLine": 12,
+        "endChar": 60
+      },
+      "revId": "80fc0d8dfddfe824f43c227f4f4bac9524ab3a52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

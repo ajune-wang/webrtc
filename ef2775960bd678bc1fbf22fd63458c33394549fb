@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41e4fc8e_f2c67ffa",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-10T08:07:11Z",
+      "side": 1,
+      "message": "You need to add it to a parse statement as well. (Failing to do so will cause a crash in testing, but it\u0027ll compile as I couldn\u0027t figure out a way to check it compile time)",
+      "range": {
+        "startLine": 65,
+        "startChar": 71,
+        "endLine": 65,
+        "endChar": 74
+      },
+      "revId": "ef2775960bd678bc1fbf22fd63458c33394549fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

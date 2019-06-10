@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8391c0b6_6f9dbe50",
+        "filename": "test/pc/e2e/test_peer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-06-10T10:19:28Z",
+      "side": 1,
+      "message": "It will be always true. To make it possible for user to pass task queue factory we also need to add it into PeerConnectionE2EQualityTestFixture::PeerConfigurer and its implementation.",
+      "range": {
+        "startLine": 47,
+        "startChar": 6,
+        "endLine": 47,
+        "endChar": 65
+      },
+      "revId": "3d0db1dd41e6e52074644d7b681257d1158739f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

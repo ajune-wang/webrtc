@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "e5293a81_ac81c293",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-10T15:56:20Z",
+      "side": 1,
+      "message": "I don\u0027t think it should be necessary to annotate the old constructor with CalledByNative.",
+      "parentUuid": "bd21a362_33b2ac3b",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 15
+      },
+      "revId": "a33b4b152a3c731387a5d08e3ca64f24b06c0e8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "63ea61c5_be799b3c",
         "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
         "patchSetId": 3

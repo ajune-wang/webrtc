@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12f55e51_e6104e26",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T10:18:48Z",
+      "side": 1,
+      "message": "either \u003d default\nor remove to make it implicit",
+      "range": {
+        "startLine": 402,
+        "startChar": 26,
+        "endLine": 402,
+        "endChar": 28
+      },
+      "revId": "70326b962d8e57ded6af121192488a213e389599",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7266f2c_4655244f",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T10:18:48Z",
+      "side": 1,
+      "message": "prefer \u003d default",
+      "range": {
+        "startLine": 403,
+        "startChar": 35,
+        "endLine": 403,
+        "endChar": 37
+      },
+      "revId": "70326b962d8e57ded6af121192488a213e389599",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

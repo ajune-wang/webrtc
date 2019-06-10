@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "521cfe39_c93b9686",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T10:18:48Z",
+      "side": 1,
+      "message": "ping",
+      "parentUuid": "1e6f7424_e00ab465",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "7b14d1d0060862d8bc5d84b9c46111db0e43232b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b112f975_a37f1277",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
         "patchSetId": 3
@@ -248,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "f477378d_3f5f58e6",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T10:18:48Z",
+      "side": 1,
+      "message": "ok, let this enum match how it is actually used in codebase. May be it would be more logical to change it to priority, but let it be a different refactoring effort.\n\nThough, if it is called \u0027PacketType\u0027, it might be reasonable to move it as property of the RtpPacketToSend class. If that makes code cleaner.\n(as replacement of the is_fec property)",
+      "parentUuid": "bdb7aa49_a0d6963c",
+      "range": {
+        "startLine": 386,
+        "startChar": 13,
+        "endLine": 386,
+        "endChar": 23
+      },
+      "revId": "7b14d1d0060862d8bc5d84b9c46111db0e43232b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aac1a5c6_5a899efe",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
         "patchSetId": 3
@@ -283,6 +331,30 @@
       "side": 1,
       "message": "This isn\u0027t as generic as the Transport interface. It will replace the PacedSender::PacketSender. I\u0027m moving it out from withing that class as I want plan to move to an interface for the PacedSender. Potentially I can put that in the header instead, but I\u0027m not quite sure where to put it.\nBoth these interfaces define interaction between modules/pacing and modules/rtp_rtcp. Should these go in module_common_types.h instead?",
       "parentUuid": "aac1a5c6_5a899efe",
+      "range": {
+        "startLine": 401,
+        "startChar": 0,
+        "endLine": 401,
+        "endChar": 64
+      },
+      "revId": "7b14d1d0060862d8bc5d84b9c46111db0e43232b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d45d049e_825c8c6e",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-10T10:18:48Z",
+      "side": 1,
+      "message": "I guess it would be better here than in module_common_types.h\n(Since this interface is about rtp, not about modules in general)\n\nI guess the most confusing part for me is the the description comment since webrtc::Transport is also an interface to sent packets to the network (though in practice it is to send to srtp encryption module and only then to the network).\n\nMay be it is good to stress it is just about \u0027rtp\u0027 [not rtcp] packets\nAlso may be it would be clearer to describe other endpoint of the interface, something like \u0027Interface for rtp packets to be sent out of pacer/rtp_sender| out of rtp module\u0027",
+      "parentUuid": "6d9abb89_ac2b9eec",
       "range": {
         "startLine": 401,
         "startChar": 0,

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a1c2c2e_9dc94047",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-06-10T15:14:54Z",
+      "side": 1,
+      "message": "I guess it depends on whether you interpret it as a verb or a noun.\n\nI prefer to think of --plot\u003dsendside_bwe,incoming_packet_sizes as the command\n\"plot sendside bwe and incoming packet sizes\", and in that case it should be the verb \"plot\" This also matches the other command line flags like \"show_detector_state\" and \"normalize_time\".",
+      "parentUuid": "ed4e78ad_dc5cf8de",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 8
+      },
+      "revId": "27ecd200d4c0ab958d8c1ce42cef8183a181c067",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da753668_01e105ce",
         "filename": "rtc_tools/event_log_visualizer/main.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "27ecd200d4c0ab958d8c1ce42cef8183a181c067",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "035a60ba_62aa2312",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-06-10T15:14:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da753668_01e105ce",
+      "range": {
+        "startLine": 177,
+        "startChar": 2,
+        "endLine": 177,
+        "endChar": 25
+      },
+      "revId": "27ecd200d4c0ab958d8c1ce42cef8183a181c067",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a722c6bc_b7578334",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-06-10T15:14:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f37f8c2b_c80681ba",
+      "range": {
+        "startLine": 253,
+        "startChar": 47,
+        "endLine": 253,
+        "endChar": 59
+      },
+      "revId": "27ecd200d4c0ab958d8c1ce42cef8183a181c067",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30b0e97d_64c94ade",
         "filename": "rtc_tools/event_log_visualizer/main.cc",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "27ecd200d4c0ab958d8c1ce42cef8183a181c067",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b9c2b31_e965f315",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-06-10T15:14:54Z",
+      "side": 1,
+      "message": "Done. Added a comment.\n\nWe might want to change the model in the future, but it is not clear how. Supporting \"fringe\" uses will add a bunch of boilerplate to the normal plots. If we find any more plots that don\u0027t fit the model, then I agree we should revisit the model.",
+      "parentUuid": "30b0e97d_64c94ade",
+      "range": {
+        "startLine": 537,
+        "startChar": 1,
+        "endLine": 537,
+        "endChar": 54
+      },
+      "revId": "27ecd200d4c0ab958d8c1ce42cef8183a181c067",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

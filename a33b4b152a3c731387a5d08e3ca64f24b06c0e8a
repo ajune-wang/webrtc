@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "6a2f8b61_8d194c88",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-10T16:25:08Z",
+      "side": 1,
+      "message": "Ah, I did not know that @CalledByNative was not part of the API.",
+      "parentUuid": "4ebf682b_a750e9ef",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 15
+      },
+      "revId": "a33b4b152a3c731387a5d08e3ca64f24b06c0e8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63ea61c5_be799b3c",
         "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
         "patchSetId": 3

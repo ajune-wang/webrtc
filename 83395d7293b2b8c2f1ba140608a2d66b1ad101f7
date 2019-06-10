@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87cf385a_a3fd87b9",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-10T11:16:53Z",
+      "side": 1,
+      "message": "Not changed in this cl, but I don\u0027t think \"source\" is the right word here.",
+      "range": {
+        "startLine": 33,
+        "startChar": 54,
+        "endLine": 33,
+        "endChar": 60
+      },
+      "revId": "83395d7293b2b8c2f1ba140608a2d66b1ad101f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5be5be8_99b1f033",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-10T11:16:53Z",
+      "side": 1,
+      "message": "Strike \"in\".",
+      "range": {
+        "startLine": 33,
+        "startChar": 24,
+        "endLine": 33,
+        "endChar": 26
+      },
+      "revId": "83395d7293b2b8c2f1ba140608a2d66b1ad101f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ce2c337_0236d7c4",
+        "filename": "system_wrappers/include/clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-10T11:16:53Z",
+      "side": 1,
+      "message": "I wonder if this could be taken out to its own class, representing wall clock time?",
+      "range": {
+        "startLine": 40,
+        "startChar": 18,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "83395d7293b2b8c2f1ba140608a2d66b1ad101f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9631714e_0ece1a76",
+        "filename": "test/drifting_clock.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-10T11:16:53Z",
+      "side": 1,
+      "message": "I was confused by the name. It seems this is accumulated drift? Otherwise, I\u0027d think of \"drift\" as something dimensionless, often expressed in a unit like microseconds per second (aka ppm).",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 11
+      },
+      "revId": "83395d7293b2b8c2f1ba140608a2d66b1ad101f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

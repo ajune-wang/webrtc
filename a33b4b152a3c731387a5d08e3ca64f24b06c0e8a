@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "4ebf682b_a750e9ef",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-10T16:18:26Z",
+      "side": 1,
+      "message": "I don\u0027t see how this changes this but yeah looks good as-is.\n\nCalledByNative annotation is only relevant for usage inside WebRTC.",
+      "parentUuid": "f65fa4e9_f66e8eb4",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 15
+      },
+      "revId": "a33b4b152a3c731387a5d08e3ca64f24b06c0e8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63ea61c5_be799b3c",
         "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
         "patchSetId": 3

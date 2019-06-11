@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd664894_f5478d51",
+        "filename": "system_wrappers/source/field_trial.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-11T12:25:00Z",
+      "side": 1,
+      "message": "This is a long name. Just call it \"trials\"?",
+      "range": {
+        "startLine": 39,
+        "startChar": 54,
+        "endLine": 39,
+        "endChar": 72
+      },
+      "revId": "fe881aa86d26fbd0611647fb12fd71c31c98ef5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1be48059_36f5489d",
+        "filename": "system_wrappers/source/field_trial_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-11T12:25:00Z",
+      "side": 1,
+      "message": "unsame",
+      "range": {
+        "startLine": 44,
+        "startChar": 31,
+        "endLine": 44,
+        "endChar": 35
+      },
+      "revId": "fe881aa86d26fbd0611647fb12fd71c31c98ef5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

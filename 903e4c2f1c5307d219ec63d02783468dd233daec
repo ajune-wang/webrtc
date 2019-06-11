@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "dd277c19_e6d27c4b",
+        "filename": "test/pc/e2e/analyzer/video/simulcast_dummy_buffer_helper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-06-11T11:35:16Z",
+      "side": 1,
+      "message": "Buffer can be cast to mutable version, so theoretically it can be modified somewhere, so it will be dangerous to have singleton buffer and assume it won\u0027t be changed.",
+      "parentUuid": "9e578ac4_0fa669d6",
+      "range": {
+        "startLine": 19,
+        "startChar": 55,
+        "endLine": 19,
+        "endChar": 60
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd75069a_ce2ed669",
         "filename": "test/pc/e2e/analyzer/video/simulcast_dummy_buffer_helper.cc",
         "patchSetId": 6
@@ -186,6 +210,30 @@
       "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47c42885_3dc01fb9",
+        "filename": "test/pc/e2e/analyzer/video/simulcast_dummy_buffer_helper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-06-11T11:35:16Z",
+      "side": 1,
+      "message": "There is no such one. Also we can\u0027t assume, that all custom implementations of VideoFrameBuffer have a generic \u003d\u003d operator.",
+      "parentUuid": "c28f80ae_58667ea0",
+      "range": {
+        "startLine": 45,
+        "startChar": 5,
+        "endLine": 45,
+        "endChar": 23
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -259,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "2ab1d2ca_99111111",
+        "filename": "test/pc/e2e/analyzer/video/simulcast_dummy_buffer_helper.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-06-11T11:35:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "027c97be_6030e48f",
+      "range": {
+        "startLine": 22,
+        "startChar": 51,
+        "endLine": 22,
+        "endChar": 70
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f1180fe_3d4c6f9a",
         "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
         "patchSetId": 6
@@ -279,6 +351,30 @@
       "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68a16e6e_f3fcd149",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-06-11T11:35:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9f1180fe_3d4c6f9a",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 26
+      },
+      "revId": "903e4c2f1c5307d219ec63d02783468dd233daec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

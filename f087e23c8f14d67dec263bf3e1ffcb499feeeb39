@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c951997_0e6ba8d8",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-06-11T13:42:45Z",
+      "side": 1,
+      "message": "This can live in the if(frame_rate_based_overhead_) scope",
+      "range": {
+        "startLine": 688,
+        "startChar": 2,
+        "endLine": 688,
+        "endChar": 52
+      },
+      "revId": "f087e23c8f14d67dec263bf3e1ffcb499feeeb39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b9d95a0_fd96a13d",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-06-11T13:42:45Z",
+      "side": 1,
+      "message": "std::ceil?",
+      "range": {
+        "startLine": 698,
+        "startChar": 29,
+        "endLine": 698,
+        "endChar": 33
+      },
+      "revId": "f087e23c8f14d67dec263bf3e1ffcb499feeeb39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

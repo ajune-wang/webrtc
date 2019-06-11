@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "cd055109_76008752",
+        "filename": "media/engine/encoder_simulcast_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-11T08:46:01Z",
+      "side": 1,
+      "message": "Right, my comment was about changing that header. But not in this CL anyhow.",
+      "parentUuid": "c5b89f24_0e7bd6be",
+      "range": {
+        "startLine": 41,
+        "startChar": 26,
+        "endLine": 41,
+        "endChar": 40
+      },
+      "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "73aebef8_64d489fb",
         "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
         "patchSetId": 4
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "Thought about it, but that would make adding things to VideoEncoder::Settings incur an additional cost. See for example how |max_payload_size| would already be unused. I don\u0027t think the increase in simplicity is significant enough here.",
       "parentUuid": "b4acbc66_183d5a8f",
+      "range": {
+        "startLine": 503,
+        "startChar": 2,
+        "endLine": 503,
+        "endChar": 18
+      },
+      "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb63d3da_ff737bef",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-11T08:46:01Z",
+      "side": 1,
+      "message": "Fair enough.",
+      "parentUuid": "6c7792ac_3ea7bf3b",
       "range": {
         "startLine": 503,
         "startChar": 2,
@@ -507,6 +555,30 @@
       "side": 1,
       "message": "Do you feel strongly about this? I think it might be more trouble than it\u0027s worth. I don\u0027t see a similar unit test here, for instance:\nhttps://webrtc-review.googlesource.com/c/src/+/78260/19/video/video_stream_encoder_unittest.cc\n(This CL added VideoStreamEncoderSettings.)",
       "parentUuid": "86b8d7c2_4a468e3d",
+      "range": {
+        "startLine": 741,
+        "startChar": 45,
+        "endLine": 741,
+        "endChar": 57
+      },
+      "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7462a4b4_22e99b1c",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-11T08:46:01Z",
+      "side": 1,
+      "message": "Huh, so I allowed a bad precedence? :)\n\nIt really should be quite trivial to do. There\u0027s also precedence in TestEncoder in video_stream_enocoder_unitttests in that we store a copy of the VideoCodec struct and use a getter method to check the value that was set, eg in FrameResolutionChangeReconfigureEncoder",
+      "parentUuid": "01c3ed76_e2ba017f",
       "range": {
         "startLine": 741,
         "startChar": 45,

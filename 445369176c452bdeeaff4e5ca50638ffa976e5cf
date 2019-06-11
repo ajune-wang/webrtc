@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "575f761a_8fd43cca",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-11T15:48:51Z",
+      "side": 1,
+      "message": "nit(optional): plot_func",
+      "range": {
+        "startLine": 103,
+        "startChar": 71,
+        "endLine": 103,
+        "endChar": 72
+      },
+      "revId": "445369176c452bdeeaff4e5ca50638ffa976e5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

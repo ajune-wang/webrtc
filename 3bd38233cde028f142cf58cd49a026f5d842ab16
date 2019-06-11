@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70846aaa_9d1fc03b",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-11T15:20:07Z",
+      "side": 1,
+      "message": "both GetPacket and MarkPacketAsSent increase TimesRetransmitted.\nis it intended?",
+      "range": {
+        "startLine": 268,
+        "startChar": 9,
+        "endLine": 268,
+        "endChar": 36
+      },
+      "revId": "3bd38233cde028f142cf58cd49a026f5d842ab16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bb3db87_fedf75d8",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-11T15:20:07Z",
+      "side": 1,
+      "message": "since it is a plain callback (no storing of the functor, no thread hops, etc.)\nit might be slightly faster to pass rtc::FunctionView (see api/function_view.h)",
+      "range": {
+        "startLine": 97,
+        "startChar": 6,
+        "endLine": 97,
+        "endChar": 19
+      },
+      "revId": "3bd38233cde028f142cf58cd49a026f5d842ab16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36460a9d_5b789565",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-11T15:20:07Z",
+      "side": 1,
+      "message": "result of absl::make_unique usually captured with auto to avoid typing type twice.\n(make_unique\u003cT\u003e always return std::unique_ptr\u003cT\u003e)",
+      "range": {
+        "startLine": 728,
+        "startChar": 12,
+        "endLine": 728,
+        "endChar": 44
+      },
+      "revId": "3bd38233cde028f142cf58cd49a026f5d842ab16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

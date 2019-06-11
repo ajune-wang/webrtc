@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "0518d4e2_63ca5bf8",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-11T15:04:36Z",
+      "side": 1,
+      "message": "One of reasons for that rule is to quicker spot cyclic dependencies that need to be resolved sooner or later.\nMight be better to do it sooner: e.g. add the new interface into a different (new) file.",
+      "parentUuid": "bb4f6f7f_d3e6b318",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "7b14d1d0060862d8bc5d84b9c46111db0e43232b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b112f975_a37f1277",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
         "patchSetId": 3

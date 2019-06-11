@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "f50c4932_c9c93c85",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-06-11T15:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63168b69_d54f7d5f",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 1
+      },
+      "revId": "105b33a3830516b7243b9c063129c0ec1124aab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "271bc96f_4a129554",
         "filename": "rtc_tools/event_log_visualizer/main.cc",
         "patchSetId": 8
@@ -68,6 +92,30 @@
       "revId": "105b33a3830516b7243b9c063129c0ec1124aab7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26e36cab_854f4c1a",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-06-11T15:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "271bc96f_4a129554",
+      "range": {
+        "startLine": 105,
+        "startChar": 7,
+        "endLine": 105,
+        "endChar": 18
+      },
+      "revId": "105b33a3830516b7243b9c063129c0ec1124aab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "0a1d22d3_4bb2dca3",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-06-11T15:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40f9509d_d7b77277",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 77
+      },
+      "revId": "105b33a3830516b7243b9c063129c0ec1124aab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b71e4f3d_d137a75f",
         "filename": "rtc_tools/event_log_visualizer/main.cc",
         "patchSetId": 8
@@ -114,6 +186,30 @@
       "revId": "105b33a3830516b7243b9c063129c0ec1124aab7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "102d7e24_525a93dc",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-06-11T15:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b71e4f3d_d137a75f",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 31
+      },
+      "revId": "105b33a3830516b7243b9c063129c0ec1124aab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "d2351e0d_cd22948e",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-06-11T15:40:00Z",
+      "side": 1,
+      "message": "It adds line numbers and some other formatting that we don\u0027t use elsewhere in the main function.  For example, we wouldn\u0027t want to print the help text using RTC_LOG. It\u0027s not clear exactly where the boundary between cerr and RTC_LOG should be.",
+      "parentUuid": "653153b3_5ed21900",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 13
+      },
+      "revId": "105b33a3830516b7243b9c063129c0ec1124aab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "964d3f5a_4999d908",
         "filename": "rtc_tools/event_log_visualizer/main.cc",
         "patchSetId": 8
@@ -160,6 +280,30 @@
       "revId": "105b33a3830516b7243b9c063129c0ec1124aab7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a56b332_5d2086ec",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-06-11T15:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "964d3f5a_4999d908",
+      "range": {
+        "startLine": 183,
+        "startChar": 2,
+        "endLine": 183,
+        "endChar": 36
+      },
+      "revId": "105b33a3830516b7243b9c063129c0ec1124aab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

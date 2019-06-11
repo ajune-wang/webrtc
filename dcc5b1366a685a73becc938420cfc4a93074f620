@@ -178,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "628f09d1_a73f2bdf",
+        "filename": "modules/rtp_rtcp/source/source_tracker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-11T17:22:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1b642577_1cd1ec7d",
+      "range": {
+        "startLine": 76,
+        "startChar": 16,
+        "endLine": 76,
+        "endChar": 25
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44f8fe61_3ad874fb",
         "filename": "modules/rtp_rtcp/source/source_tracker.cc",
         "patchSetId": 2
@@ -207,6 +231,24 @@
       "side": 1,
       "message": "See §26.3.10.5 on page 801 at http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/n4713.pdf:\n\n  void splice(const_iterator position, list\u0026 x, const_iterator i);\n  void splice(const_iterator position, list\u0026\u0026 x, const_iterator i);\n\n  7) Requires: i is a valid dereferenceable iterator of x\n\n  8) Effects: Inserts an element pointed to by i from list x before position and removes the element from x. The result is unchanged if position \u003d\u003d i or position \u003d\u003d ++i. Pointers and references to *i continue to refer to this same element but as a member of *this. Iterators to *i (including i itself) continue to refer to the same element, but now behave as iterators into *this, not into x.\n\nThere\u0027s no `\u0026x !\u003d this` requirement for this particular overload. In fact, \"result is unchanged if position \u003d\u003d i\" implies that it\u0027s allowed.",
       "parentUuid": "44f8fe61_3ad874fb",
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d1d2967_0bfb0891",
+        "filename": "modules/rtp_rtcp/source/source_tracker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-11T17:22:06Z",
+      "side": 1,
+      "message": "Read std::list::splice documentation a bit more, found  yet another confirmation it is safe:\nComplexity: Constant if other refers to the same object as *this",
+      "parentUuid": "85ef737d_61b9ee26",
       "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -277,6 +319,24 @@
       "side": 1,
       "message": "The code here is dangerously close to the 80-character line limit. There\u0027s only room for:\n\n static constexpr int64_t kTimeoutMs \u003d 10 * rtc::kNumMillisecsPerSec;  // 10s\n\nBut I don\u0027t think that it would make the code any more readable. One alternative is:\n\n static constexpr int64_t kTimeoutMs \u003d 10000;  // 10 seconds\n\nThe original intention behind using `rtc::kNumMillisecsPerSec` was so to make the code obvious enough to not need a comment.",
       "parentUuid": "c8c710b7_a145ddcd",
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bb446ed_60ebaacb",
+        "filename": "modules/rtp_rtcp/source/source_tracker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-11T17:22:06Z",
+      "side": 1,
+      "message": "as a reader I was confused :(\nNow it is clear.",
+      "parentUuid": "9fa386e3_29116c24",
       "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -459,6 +519,30 @@
     },
     {
       "key": {
+        "uuid": "a23b27ab_47f3aa32",
+        "filename": "modules/rtp_rtcp/source/source_tracker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-11T17:22:06Z",
+      "side": 1,
+      "message": "Good point!",
+      "parentUuid": "20aed0de_e9d9ac78",
+      "range": {
+        "startLine": 83,
+        "startChar": 12,
+        "endLine": 83,
+        "endChar": 24
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f81ef57d_5cc88be9",
         "filename": "modules/rtp_rtcp/source/source_tracker.h",
         "patchSetId": 2
@@ -624,6 +708,30 @@
     },
     {
       "key": {
+        "uuid": "cc275d42_769b01f2",
+        "filename": "modules/rtp_rtcp/source/source_tracker.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-11T17:22:06Z",
+      "side": 1,
+      "message": "Aha, I see, there is plan to rely on this function being logically const.",
+      "parentUuid": "1b21dc97_93834ccc",
+      "range": {
+        "startLine": 117,
+        "startChar": 2,
+        "endLine": 117,
+        "endChar": 9
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "adb344de_3fe1c461",
         "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
         "patchSetId": 2
@@ -706,6 +814,24 @@
     },
     {
       "key": {
+        "uuid": "e5fa7c7c_b326d8fc",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-11T17:22:06Z",
+      "side": 1,
+      "message": "then make it fuzz-test in the less-traditional sense: use buffer generated by fuzzer as your random input instead queering generator_.\n\ne.g. something like.\nconst uint8_t* buffer;\nconst uint8_t* const end \u003d buffer + size;\n\nuint8_t roll \u003d *buffer;\nbuffer++;\nif (roll \u003c 5) {\n  return 0;\n}\nif (roll \u003c 19 \u0026\u0026 (end - buffer) \u003e\u003d 4) {\n  int64_t time \u003d static_cast\u003cint64_t\u003e(ByteReader\u003cuint32_t\u003e(buffer));\n  buffer +\u003d 4;\n  return time;\n}\n\nFuzzers are smart: they can make it much more likely that most config are covered.",
+      "parentUuid": "433070ee_7b849733",
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e47e0f83_b615aa5a",
         "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
         "patchSetId": 2
@@ -753,6 +879,30 @@
     },
     {
       "key": {
+        "uuid": "ddffdd22_59364408",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-11T17:22:06Z",
+      "side": 1,
+      "message": "What I miss is \u0027tests as documentation\u0027:\nbunch of simple cases that describes (both with names and simple expectations) what this classes suppose to do normally.\ni.e. tests like\nDistinguishSsrcAndCsrcs\nTimeoutsSourceAfter10Seconds // but do not worry about corner case what happens exactly after 10s since that is probably not important.\nReturnsSourcesOrdedByLastReceivedPacket\netc.\n\"Ideally, a developer should be able to understand everything a class does by reading the names of each test in the suite\"\n\n(and then it is ok to leave corner unusual cases to fuzzer)",
+      "parentUuid": "28465668_3047518e",
+      "range": {
+        "startLine": 180,
+        "startChar": 26,
+        "endLine": 180,
+        "endChar": 45
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "381192e0_cc9d9c00",
         "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
         "patchSetId": 2
@@ -782,6 +932,24 @@
       "side": 1,
       "message": "I think that parameterized tests with tuples are harder to read than this approach, but I\u0027m happy to switch.",
       "parentUuid": "381192e0_cc9d9c00",
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1204f833_a4bbc8eb",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-11T17:22:06Z",
+      "side": 1,
+      "message": "Now it is clearer to me how tests are structured.",
+      "parentUuid": "0a4bcb62_a3180492",
       "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

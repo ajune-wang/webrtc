@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59daa88d_1796e1d3",
+        "filename": "rtc_base/task_queue_for_test.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-11T11:22:35Z",
+      "side": 1,
+      "message": "Remove?",
+      "revId": "4d4185699490edd00e4cde639d969c017b64235c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

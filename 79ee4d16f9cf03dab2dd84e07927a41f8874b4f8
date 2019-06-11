@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "c5522656_2820bef0",
+        "filename": "media/base/fake_media_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-11T12:53:56Z",
+      "side": 1,
+      "message": "In general, unique_ptr can\u0027t optimize this very well either: https://godbolt.org/z/tkFZL-\nThe problem is that you can\u0027t know statically whether calling the destructor will be a no-op. So running the destructor might be cheap because it has nothing to do, but the code has to be emitted, and the processor has to check that it doesn\u0027t have to do anything.",
+      "parentUuid": "5dea9de2_5ef022de",
+      "range": {
+        "startLine": 529,
+        "startChar": 39,
+        "endLine": 529,
+        "endChar": 41
+      },
+      "revId": "79ee4d16f9cf03dab2dd84e07927a41f8874b4f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "541a6d13_3730e615",
         "filename": "modules/audio_processing/aec_dump/aec_dump_factory.h",
         "patchSetId": 3

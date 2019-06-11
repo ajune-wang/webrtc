@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "bb4f6f7f_d3e6b318",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-11T09:22:23Z",
+      "side": 1,
+      "message": "Unfortunately including that header leads to a cyclic include that breaks the build.",
+      "parentUuid": "521cfe39_c93b9686",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "7b14d1d0060862d8bc5d84b9c46111db0e43232b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b112f975_a37f1277",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
         "patchSetId": 3
@@ -296,6 +320,30 @@
     },
     {
       "key": {
+        "uuid": "ef068861_60e14873",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-11T09:22:23Z",
+      "side": 1,
+      "message": "That\u0027s actually a great idea, as I was already planning to add is_retransmission() to RtpPacket.",
+      "parentUuid": "f477378d_3f5f58e6",
+      "range": {
+        "startLine": 386,
+        "startChar": 13,
+        "endLine": 386,
+        "endChar": 23
+      },
+      "revId": "7b14d1d0060862d8bc5d84b9c46111db0e43232b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aac1a5c6_5a899efe",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
         "patchSetId": 3
@@ -364,6 +412,30 @@
       "revId": "7b14d1d0060862d8bc5d84b9c46111db0e43232b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f478cca1_aaf948ec",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-11T09:22:23Z",
+      "side": 1,
+      "message": "Actually, srte@ has done some cleanup that makes this interface superfluous, so I\u0027ll just remove this part of the CL.",
+      "parentUuid": "d45d049e_825c8c6e",
+      "range": {
+        "startLine": 401,
+        "startChar": 0,
+        "endLine": 401,
+        "endChar": 64
+      },
+      "revId": "7b14d1d0060862d8bc5d84b9c46111db0e43232b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

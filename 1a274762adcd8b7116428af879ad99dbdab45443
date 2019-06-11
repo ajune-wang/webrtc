@@ -588,6 +588,30 @@
       "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9b417ff_5f19fdfc",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-11T11:25:19Z",
+      "side": 1,
+      "message": "Discussed offline.",
+      "parentUuid": "7462a4b4_22e99b1c",
+      "range": {
+        "startLine": 741,
+        "startChar": 45,
+        "endLine": 741,
+        "endChar": 57
+      },
+      "revId": "1a274762adcd8b7116428af879ad99dbdab45443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

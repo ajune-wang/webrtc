@@ -205,6 +205,69 @@ std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetPacketAndSetSendTime(
   return absl::make_unique<RtpPacketToSend>(*packet.packet_);
 }
 
+std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetPacketAndMarkAsPending(
+    uint16_t sequence_number) {
+  return GetPacketAndMarkAsPending(
+      sequence_number, [](const RtpPacketToSend& packet) {
+        return absl::make_unique<RtpPacketToSend>(packet);
+      });
+}
+
+std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetPacketAndMarkAsPending(
+    uint16_t sequence_number,
+    std::function<std::unique_ptr<RtpPacketToSend>(const RtpPacketToSend&)>
+        encapsulate) {
+  rtc::CritScope cs(&lock_);
+  if (mode_ == StorageMode::kDisabled) {
+    return nullptr;
+  }
+
+  int64_t now_ms = clock_->TimeInMilliseconds();
+  StoredPacketIterator rtp_it = packet_history_.find(sequence_number);
+  if (rtp_it == packet_history_.end()) {
+    return nullptr;
+  }
+
+  StoredPacket& packet = rtp_it->second;
+  if (!VerifyRtt(rtp_it->second, now_ms)) {
+    return nullptr;
+  }
+
+  if (packet.storage_type() != StorageType::kDontRetransmit &&
+      packet.send_time_ms_) {
+    packet.IncrementTimesRetransmitted(&padding_priority_);
+  }
+
+  packet.pending_transmission_ = true;
+  RTC_DCHECK(packet.storage_type() != StorageType::kDontRetransmit);
+
+  // Copy and/or encapsulate packet.
+  return encapsulate(*packet.packet_);
+}
+
+void RtpPacketHistory::MarkPacketAsSent(uint16_t sequence_number) {
+  rtc::CritScope cs(&lock_);
+  if (mode_ == StorageMode::kDisabled) {
+    return;
+  }
+
+  int64_t now_ms = clock_->TimeInMilliseconds();
+  StoredPacketIterator rtp_it = packet_history_.find(sequence_number);
+  if (rtp_it == packet_history_.end()) {
+    return;
+  }
+
+  StoredPacket& packet = rtp_it->second;
+  RTC_CHECK(packet.storage_type() != StorageType::kDontRetransmit);
+  RTC_DCHECK(packet.send_time_ms_);
+
+  // Update send-time, mark as no longer in pacer queue, and increment
+  // transmission count.
+  packet.send_time_ms_ = now_ms;
+  packet.pending_transmission_ = false;
+  packet.IncrementTimesRetransmitted(&padding_priority_);
+}
+
 absl::optional<RtpPacketHistory::PacketState> RtpPacketHistory::GetPacketState(
     uint16_t sequence_number) const {
   rtc::CritScope cs(&lock_);

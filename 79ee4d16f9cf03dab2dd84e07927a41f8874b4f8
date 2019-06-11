@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "ed185ca6_448c23a8",
+        "filename": "media/base/fake_media_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-11T11:58:36Z",
+      "side": 1,
+      "message": "OK---that\u0027s the default thing to do. Rvalue reference might reduce binary size and have better performance since you avoid a bunch of constructor and destructor calls, though---or not, if the overhead of the memory indirection and the need to store things in memory instead of registers dominates.",
+      "parentUuid": "1129abc4_c8521f5b",
+      "range": {
+        "startLine": 529,
+        "startChar": 39,
+        "endLine": 529,
+        "endChar": 41
+      },
+      "revId": "79ee4d16f9cf03dab2dd84e07927a41f8874b4f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "541a6d13_3730e615",
         "filename": "modules/audio_processing/aec_dump/aec_dump_factory.h",
         "patchSetId": 3
@@ -60,6 +84,30 @@
       "writtenOn": "2019-06-11T11:49:21Z",
       "side": 1,
       "message": "And this similarly should be just FileWrapper, not FileWrapper\u0026\u0026 ?",
+      "range": {
+        "startLine": 35,
+        "startChar": 41,
+        "endLine": 35,
+        "endChar": 62
+      },
+      "revId": "79ee4d16f9cf03dab2dd84e07927a41f8874b4f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f81c738a_c63e573d",
+        "filename": "modules/audio_processing/aec_dump/aec_dump_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-11T11:58:36Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "541a6d13_3730e615",
       "range": {
         "startLine": 35,
         "startChar": 41,

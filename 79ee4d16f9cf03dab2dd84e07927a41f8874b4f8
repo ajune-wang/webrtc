@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "5dea9de2_5ef022de",
+        "filename": "media/base/fake_media_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-11T12:29:24Z",
+      "side": 1,
+      "message": "I doubt we pass around FileWrappers as much that they matter for performance. \n\nMaybe it would make sense to inline the move constructor and destructor; move copies a pointer and sets the moved-from pointer to null. And destructor is a nop when that pointer is null. So if done right, passing a FileWrapper with move should compile to exactly the same instructions as passing a FILE*.\n\nOr we could perhaps reuse whatever similar optimizations are done to std::unique_ptr, by using unique_ptr\u003cFILE, call_fclose\u003e as a member (or even private base class) of FileWrapper?",
+      "parentUuid": "5036889a_2d5d0773",
+      "range": {
+        "startLine": 529,
+        "startChar": 39,
+        "endLine": 529,
+        "endChar": 41
+      },
+      "revId": "79ee4d16f9cf03dab2dd84e07927a41f8874b4f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "541a6d13_3730e615",
         "filename": "modules/audio_processing/aec_dump/aec_dump_factory.h",
         "patchSetId": 3

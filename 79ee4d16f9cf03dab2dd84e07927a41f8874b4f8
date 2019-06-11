@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "5036889a_2d5d0773",
+        "filename": "media/base/fake_media_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-11T12:16:51Z",
+      "side": 1,
+      "message": "Two things happen that affect performance when you switch from by-value to by-reference:\n\n  * The actual value is stored once in memory, and you just pass around an address. This is a win for big values, and a loss for small values that would have fit in one or two registers anyway.\n\n  * The temporary address values that are created in various places are trivial to move construct (just an integer copy) and trivial to destroy (no instructions); whereas with by-value you get temporaries of the original type, and need to call its move constructor and destructor.\n\nI expect that the latter effect might make rvalue references a good choice for FileWrapper, but it\u0027s hard to be sure without actually measuring the effect on binary size and performance.",
+      "parentUuid": "7c024147_cb446e2b",
+      "range": {
+        "startLine": 529,
+        "startChar": 39,
+        "endLine": 529,
+        "endChar": 41
+      },
+      "revId": "79ee4d16f9cf03dab2dd84e07927a41f8874b4f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "541a6d13_3730e615",
         "filename": "modules/audio_processing/aec_dump/aec_dump_factory.h",
         "patchSetId": 3

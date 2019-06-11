@@ -49,23 +49,22 @@ bool IsFlexfec(int payload_type) {
 }
 }  // namespace
 
-VideoAnalyzer::VideoAnalyzer(
-    test::LayerFilteringTransport* transport,
-    const std::string& test_label,
-    double avg_psnr_threshold,
-    double avg_ssim_threshold,
-    int duration_frames,
-    FILE* graph_data_output_file,
-    const std::string& graph_title,
-    uint32_t ssrc_to_analyze,
-    uint32_t rtx_ssrc_to_analyze,
-    size_t selected_stream,
-    int selected_sl,
-    int selected_tl,
-    bool is_quick_test_enabled,
-    Clock* clock,
-    std::string rtp_dump_name,
-    test::SingleThreadedTaskQueueForTesting* task_queue)
+VideoAnalyzer::VideoAnalyzer(test::LayerFilteringTransport* transport,
+                             const std::string& test_label,
+                             double avg_psnr_threshold,
+                             double avg_ssim_threshold,
+                             int duration_frames,
+                             FILE* graph_data_output_file,
+                             const std::string& graph_title,
+                             uint32_t ssrc_to_analyze,
+                             uint32_t rtx_ssrc_to_analyze,
+                             size_t selected_stream,
+                             int selected_sl,
+                             int selected_tl,
+                             bool is_quick_test_enabled,
+                             Clock* clock,
+                             std::string rtp_dump_name,
+                             TaskQueueForTest* task_queue)
     : transport_(transport),
       receiver_(nullptr),
       call_(nullptr),
@@ -352,8 +351,8 @@ void VideoAnalyzer::Wait() {
   {
     rtc::CritScope lock(&comparison_lock_);
     stop_stats_poller_ = false;
-    stats_polling_task_id_ = task_queue_->PostDelayedTask(
-        [this]() { PollStats(); }, kSendStatsPollingIntervalMs);
+    stats_polling_task_id_ = task_queue_->PostDelayedCancelableTask(
+        [this] { PollStats(); }, kSendStatsPollingIntervalMs);
   }
 
   int last_frames_processed = -1;
@@ -544,8 +543,8 @@ void VideoAnalyzer::PollStats() {
 
   memory_usage_.AddSample(rtc::GetProcessResidentSizeBytes());
 
-  stats_polling_task_id_ = task_queue_->PostDelayedTask(
-      [this]() { PollStats(); }, kSendStatsPollingIntervalMs);
+  stats_polling_task_id_ = task_queue_->PostDelayedCancelableTask(
+      [this] { PollStats(); }, kSendStatsPollingIntervalMs);
 }
 
 void VideoAnalyzer::FrameComparisonThread(void* obj) {

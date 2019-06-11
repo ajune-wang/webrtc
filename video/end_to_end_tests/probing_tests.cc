@@ -115,9 +115,7 @@ TEST_F(ProbingEndToEndTest, TriggerMidCallProbing) {
 
   class TriggerMidCallProbingTest : public ProbingTest {
    public:
-    TriggerMidCallProbingTest(
-        test::SingleThreadedTaskQueueForTesting* task_queue,
-        bool* success)
+    TriggerMidCallProbingTest(TaskQueueForTest* task_queue, bool* success)
         : ProbingTest(300000), success_(success), task_queue_(task_queue) {}
 
     void PerformTest() override {
@@ -168,7 +166,7 @@ TEST_F(ProbingEndToEndTest, TriggerMidCallProbing) {
    private:
     const int kTimeoutMs = 5000;
     bool* const success_;
-    test::SingleThreadedTaskQueueForTesting* const task_queue_;
+    TaskQueueForTest* const task_queue_;
   };
 
   bool success = false;
@@ -193,8 +191,7 @@ TEST_F(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
 
   class ReconfigureTest : public ProbingTest {
    public:
-    ReconfigureTest(test::SingleThreadedTaskQueueForTesting* task_queue,
-                    bool* success)
+    ReconfigureTest(TaskQueueForTest* task_queue, bool* success)
         : ProbingTest(50000), task_queue_(task_queue), success_(success) {}
 
     void ModifyVideoConfigs(
@@ -210,9 +207,8 @@ TEST_F(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
       send_stream_ = send_stream;
     }
 
-    test::PacketTransport* CreateSendTransport(
-        test::SingleThreadedTaskQueueForTesting* task_queue,
-        Call* sender_call) override {
+    test::PacketTransport* CreateSendTransport(TaskQueueForTest* task_queue,
+                                               Call* sender_call) override {
       auto network =
           absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig());
       send_simulated_network_ = network.get();
@@ -280,7 +276,7 @@ TEST_F(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
 
    private:
     const int kTimeoutMs = 3000;
-    test::SingleThreadedTaskQueueForTesting* const task_queue_;
+    TaskQueueForTest* const task_queue_;
     bool* const success_;
     SimulatedNetwork* send_simulated_network_;
     VideoSendStream* send_stream_;

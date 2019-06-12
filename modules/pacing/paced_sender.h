@@ -32,30 +32,11 @@
 
 namespace webrtc {
 class Clock;
+class PacketRouter;
 class RtcEventLog;
 
 class PacedSender : public Module, public RtpPacketSender {
  public:
-  class PacketSender {
-   public:
-    // Note: packets sent as a result of a callback should not pass by this
-    // module again.
-    // Called when it's time to send a queued packet.
-    // Returns false if packet cannot be sent.
-    virtual RtpPacketSendResult TimeToSendPacket(
-        uint32_t ssrc,
-        uint16_t sequence_number,
-        int64_t capture_time_ms,
-        bool retransmission,
-        const PacedPacketInfo& cluster_info) = 0;
-    // Called when it's a good time to send a padding data.
-    // Returns the number of bytes sent.
-    virtual size_t TimeToSendPadding(size_t bytes,
-                                     const PacedPacketInfo& cluster_info) = 0;
-
-   protected:
-    virtual ~PacketSender() {}
-  };
   static constexpr int64_t kNoCongestionWindow = -1;
 
   // Expected max pacer delay in ms. If ExpectedQueueTimeMs() is higher than
@@ -71,7 +52,7 @@ class PacedSender : public Module, public RtpPacketSender {
   static const float kDefaultPaceMultiplier;
 
   PacedSender(Clock* clock,
-              PacketSender* packet_sender,
+              PacketRouter* packet_router,
               RtcEventLog* event_log,
               const WebRtcKeyValueConfig* field_trials = nullptr);
 
@@ -160,7 +141,7 @@ class PacedSender : public Module, public RtpPacketSender {
   int64_t TimeMilliseconds() const RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
 
   Clock* const clock_;
-  PacketSender* const packet_sender_;
+  PacketRouter* const packet_router_;
   const std::unique_ptr<FieldTrialBasedConfig> fallback_field_trials_;
   const WebRtcKeyValueConfig* field_trials_;
 

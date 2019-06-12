@@ -593,12 +593,16 @@ void PeerConnectionE2EQualityTest::SetupCallOnSignalingThread(
     // Setup receive audio transceiver if Bob has audio to send. If we'll need
     // multiple audio streams, then we need transceiver for each Bob's audio
     // stream.
-    alice_->AddTransceiver(cricket::MediaType::MEDIA_TYPE_AUDIO,
-                           receive_only_transceiver_init);
+    RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>> result =
+        alice_->AddTransceiver(cricket::MediaType::MEDIA_TYPE_AUDIO,
+                               receive_only_transceiver_init);
+    RTC_CHECK(result.ok());
   }
   for (size_t i = 0; i < bob_->params()->video_configs.size(); ++i) {
-    alice_->AddTransceiver(cricket::MediaType::MEDIA_TYPE_VIDEO,
-                           receive_only_transceiver_init);
+    RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>> result =
+        alice_->AddTransceiver(cricket::MediaType::MEDIA_TYPE_VIDEO,
+                               receive_only_transceiver_init);
+    RTC_CHECK(result.ok());
   }
   // Then add media for Alice and Bob
   alice_video_sources_ = MaybeAddMedia(alice_.get());
@@ -751,17 +755,18 @@ void PeerConnectionE2EQualityTest::MaybeAddAudio(TestPeer* peer) {
 void PeerConnectionE2EQualityTest::SetPeerCodecPreferences(
     TestPeer* peer,
     const RunParams& run_params) {
-  std::vector<RtpCodecCapability> video_capabilities = FilterCodecCapabilities(
-      run_params.video_codec_name, run_params.video_codec_required_params,
-      run_params.use_ulp_fec, run_params.use_flex_fec,
-      peer->pc_factory()
-          ->GetRtpSenderCapabilities(cricket::MediaType::MEDIA_TYPE_VIDEO)
-          .codecs);
+  std::vector<RtpCodecCapability> video_capabilities =
+      FilterVideoCodecCapabilities(
+          run_params.video_codec_name, run_params.video_codec_required_params,
+          run_params.use_ulp_fec, run_params.use_flex_fec,
+          peer->pc_factory()
+              ->GetRtpSenderCapabilities(cricket::MediaType::MEDIA_TYPE_VIDEO)
+              .codecs);
 
   // Set codecs for transceivers
   for (auto transceiver : peer->pc()->GetTransceivers()) {
     if (transceiver->media_type() == cricket::MediaType::MEDIA_TYPE_VIDEO) {
-      transceiver->SetCodecPreferences(video_capabilities);
+      RTC_CHECK(transceiver->SetCodecPreferences(video_capabilities).ok());
     }
   }
 }

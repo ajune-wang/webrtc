@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8b1ef7b_3ea8ee36",
+        "filename": "modules/rtp_rtcp/include/rtp_packet_pacer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-12T11:13:40Z",
+      "side": 1,
+      "message": "add an empty line between c++ header and library header\nhttps://google.github.io/styleguide/cppguide.html#Names_and_Order_of_Includes",
+      "revId": "3ddc32f076740ee1967599f3f637c95665283ba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd87ac98_4683b66b",
+        "filename": "modules/rtp_rtcp/include/rtp_packet_pacer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-12T11:13:40Z",
+      "side": 1,
+      "message": "no longer inheriting from RtpPacketSender?\n\n[I\u0027m not sure if you need it or not. But if you need it, I do not see any blocking reasons not to]",
+      "range": {
+        "startLine": 24,
+        "startChar": 20,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "3ddc32f076740ee1967599f3f637c95665283ba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75ced19a_7e0c539f",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-12T11:13:40Z",
+      "side": 1,
+      "message": "getters normally do not use get_ prefix (see other properties in this class or example in\nhttps://google.github.io/styleguide/cppguide.html#Function_Names )\n\nif name \u0027type\u0027 can\u0027t be used for some reason, may be rename it to packet_type()/set_packet_type()",
+      "range": {
+        "startLine": 51,
+        "startChar": 23,
+        "endLine": 51,
+        "endChar": 27
+      },
+      "revId": "3ddc32f076740ee1967599f3f637c95665283ba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

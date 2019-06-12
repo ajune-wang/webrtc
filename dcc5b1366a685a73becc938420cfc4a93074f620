@@ -779,6 +779,46 @@
     },
     {
       "key": {
+        "uuid": "121ea0c1_1287fa47",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-12T09:15:03Z",
+      "side": 1,
+      "message": "what this function suppose to do?\ni.e. it returns single ssrcs, but for some reasons takes ssrcs_count as an argument",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 79
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "950f4d77_6dff1c42",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-12T09:15:03Z",
+      "side": 1,
+      "message": "what this function suppose to do?\nlooking at the argument I would assume it produce vector of size csrcs_count of random numbers.\nlooking at the implementation it seems like doing something else.",
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0557447_21983ffa",
         "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
         "patchSetId": 2
@@ -844,6 +884,24 @@
       "side": 1,
       "message": "I\u0027ve looked into `webrtc/test/fuzzers` for doing fuzzing. Considering that `SourceTracker` is a class under 100 lines of code, it doesn\u0027t seem to make sense to go that route. Extracting configs from a fuzzed byte string would also make the test more confusing.",
       "parentUuid": "e5fa7c7c_b326d8fc",
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff39edd8_7d19979a",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-12T09:15:03Z",
+      "side": 1,
+      "message": "I agree that fuzzer might be overkill for this class.\nBut then I would argue that random test is overkill too.\nMoreover I afraid it would be more a problem than help in the future:\nIt is overstrict (mandate order between sources for the last received packet, which is undefined) and thus would block valid refactoring of the tracker.\n\nif fails it would produce expected and actual output, but since scenario is not human readable, I guess it would be unclear why expected output is correct.\n\n(and looking that it randomize sequence number I would imagine it would feed unrealistic scenarios too. e.g. it would feed packets out of sequence number order. It might be valid or even required to discard late [in sequence number order] packets)",
+      "parentUuid": "b2e7e91b_0397c3fe",
       "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

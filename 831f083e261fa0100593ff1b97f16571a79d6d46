@@ -140,6 +140,30 @@
       "revId": "831f083e261fa0100593ff1b97f16571a79d6d46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf164759_0c31d607",
+        "filename": "modules/rtp_rtcp/source/source_tracker.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-12T09:15:03Z",
+      "side": 1,
+      "message": "Ack.\nin my experience each extra name slows down reading since it adds an extra jump.\n(aha, there is a map. what is the key and the value? oh, first I need to find the actual type and only then I can jump to key and value declarations)\n\nI see motivation for SourceList alias (but even that alias may be ok not to introduce - I found no reference to SourceList in .cc so a bit of duplication and noisy map type might be ok compared to extra alias)",
+      "parentUuid": "e286a06c_60023572",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 17
+      },
+      "revId": "831f083e261fa0100593ff1b97f16571a79d6d46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

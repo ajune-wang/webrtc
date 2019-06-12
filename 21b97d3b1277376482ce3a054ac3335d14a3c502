@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9dc8c7ff_f768899e",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-12T10:45:44Z",
+      "side": 1,
+      "message": "You should just remove this \u0027if\u0027 statement and its contents. \n\nBelow you always add last continuous interval as a sample. So in case of no freezes this will add the whole call.",
+      "range": {
+        "startLine": 312,
+        "startChar": 6,
+        "endLine": 312,
+        "endChar": 49
+      },
+      "revId": "21b97d3b1277376482ce3a054ac3335d14a3c502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

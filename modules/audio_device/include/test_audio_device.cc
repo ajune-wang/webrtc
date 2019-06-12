@@ -339,10 +339,10 @@ class WavFileWriter final : public TestAudioDeviceModule::Renderer {
                       sampling_frequency_in_hz,
                       num_channels) {}
 
-  WavFileWriter(rtc::PlatformFile file,
+  WavFileWriter(FileWrapper file,
                 int sampling_frequency_in_hz,
                 int num_channels)
-      : WavFileWriter(absl::make_unique<WavWriter>(file,
+      : WavFileWriter(absl::make_unique<WavWriter>(std::move(file),
                                                    sampling_frequency_in_hz,
                                                    num_channels),
                       sampling_frequency_in_hz,
@@ -385,11 +385,11 @@ class BoundedWavFileWriter : public TestAudioDeviceModule::Renderer {
         started_writing_(false),
         trailing_zeros_(0) {}
 
-  BoundedWavFileWriter(rtc::PlatformFile file,
+  BoundedWavFileWriter(FileWrapper file,
                        int sampling_frequency_in_hz,
                        int num_channels)
       : sampling_frequency_in_hz_(sampling_frequency_in_hz),
-        wav_writer_(file, sampling_frequency_in_hz, num_channels),
+        wav_writer_(std::move(file), sampling_frequency_in_hz, num_channels),
         num_channels_(num_channels),
         silent_audio_(
             TestAudioDeviceModule::SamplesPerFrame(sampling_frequency_in_hz) *
@@ -559,19 +559,19 @@ TestAudioDeviceModule::CreateWavFileReader(rtc::PlatformFile file,
 }
 
 std::unique_ptr<TestAudioDeviceModule::Renderer>
-TestAudioDeviceModule::CreateWavFileWriter(rtc::PlatformFile file,
+TestAudioDeviceModule::CreateWavFileWriter(FileWrapper file,
                                            int sampling_frequency_in_hz,
                                            int num_channels) {
-  return absl::make_unique<WavFileWriter>(file, sampling_frequency_in_hz,
-                                          num_channels);
+  return absl::make_unique<WavFileWriter>(
+      std::move(file), sampling_frequency_in_hz, num_channels);
 }
 
 std::unique_ptr<TestAudioDeviceModule::Renderer>
-TestAudioDeviceModule::CreateBoundedWavFileWriter(rtc::PlatformFile file,
+TestAudioDeviceModule::CreateBoundedWavFileWriter(FileWrapper file,
                                                   int sampling_frequency_in_hz,
                                                   int num_channels) {
-  return absl::make_unique<BoundedWavFileWriter>(file, sampling_frequency_in_hz,
-                                                 num_channels);
+  return absl::make_unique<BoundedWavFileWriter>(
+      std::move(file), sampling_frequency_in_hz, num_channels);
 }
 
 }  // namespace webrtc

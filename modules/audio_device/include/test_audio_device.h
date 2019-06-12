@@ -23,6 +23,7 @@
 #include "rtc_base/buffer.h"
 #include "rtc_base/event.h"
 #include "rtc_base/platform_file.h"
+#include "rtc_base/system/file_wrapper.h"
 
 namespace webrtc {
 
@@ -132,7 +133,8 @@ class TestAudioDeviceModule : public AudioDeviceModule {
       int sampling_frequency_in_hz,
       int num_channels = 1);
 
-  // WavReader and WavWriter creation based on rtc::PlatformFile.
+  // WavReader and WavWriter creation based on rtc::PlatformFile and
+  // FileWrapper, respectively.
 
   // Returns a Capturer instance that gets its data from a file. The sample rate
   // and channels will be checked against the Wav file.
@@ -150,7 +152,7 @@ class TestAudioDeviceModule : public AudioDeviceModule {
 
   // Returns a Renderer instance that writes its data to a file.
   static std::unique_ptr<Renderer> CreateWavFileWriter(
-      rtc::PlatformFile file,
+      FileWrapper file,
       int sampling_frequency_in_hz,
       int num_channels = 1);
 
@@ -158,7 +160,7 @@ class TestAudioDeviceModule : public AudioDeviceModule {
   // off silence at the beginning (not necessarily perfect silence, see
   // kAmplitudeThreshold) and at the end (only actual 0 samples in this case).
   static std::unique_ptr<Renderer> CreateBoundedWavFileWriter(
-      rtc::PlatformFile file,
+      FileWrapper file,
       int sampling_frequency_in_hz,
       int num_channels = 1);
 

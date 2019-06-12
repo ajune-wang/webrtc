@@ -42,9 +42,9 @@ void RunTestViaRtcPlatformFileAPI(
 
   // Test through rtc::PlatformFile API.
   {
-    auto file = rtc::CreatePlatformFile(output_filename);
     std::unique_ptr<TestAudioDeviceModule::Renderer> writer =
-        TestAudioDeviceModule::CreateBoundedWavFileWriter(file, 800);
+        TestAudioDeviceModule::CreateBoundedWavFileWriter(
+            FileWrapper::OpenWriteOnly(output_filename), 800);
 
     for (size_t i = 0; i < input_samples.size(); i += kSamplesPerFrame) {
       EXPECT_TRUE(writer->Render(rtc::ArrayView<const int16_t>(

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7533592_a9d8dd26",
+        "filename": "common_video/h264/sps_vui_rewriter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-12T11:50:18Z",
+      "side": 1,
+      "message": "Why not WriteUInt8()?\nhere and below",
+      "range": {
+        "startLine": 500,
+        "startChar": 36,
+        "endLine": 500,
+        "endChar": 45
+      },
+      "revId": "c79a0a3bcf074747d6debe06a736bfcb3eefa283",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcb24ffa_ba6bd9c4",
+        "filename": "common_video/h264/sps_vui_rewriter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-12T11:50:18Z",
+      "side": 1,
+      "message": "nit: Don\u0027t let the Americans and British mix, here and everywhere.",
+      "range": {
+        "startLine": 541,
+        "startChar": 11,
+        "endLine": 541,
+        "endChar": 17
+      },
+      "revId": "c79a0a3bcf074747d6debe06a736bfcb3eefa283",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "720c0e81_d3d9f506",
+        "filename": "common_video/h264/sps_vui_rewriter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-12T11:50:18Z",
+      "side": 1,
+      "message": "aren\u0027t these uin8_t ?",
+      "range": {
+        "startLine": 543,
+        "startChar": 2,
+        "endLine": 543,
+        "endChar": 10
+      },
+      "revId": "c79a0a3bcf074747d6debe06a736bfcb3eefa283",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fae18429_6e80873d",
+        "filename": "common_video/h264/sps_vui_rewriter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-12T11:50:18Z",
+      "side": 1,
+      "message": "would prefer explicit nested if/else rather than nested conditionals",
+      "range": {
+        "startLine": 552,
+        "startChar": 0,
+        "endLine": 557,
+        "endChar": 46
+      },
+      "revId": "c79a0a3bcf074747d6debe06a736bfcb3eefa283",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

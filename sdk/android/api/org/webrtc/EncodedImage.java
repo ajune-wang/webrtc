@@ -44,8 +44,16 @@ public class EncodedImage {
       throw new IllegalArgumentException("Unknown native frame type: " + nativeIndex);
     }
   }
+  public interface ReleaseCallback {
+    /**
+     * Called when the contents of the byte buffer is no longer needed.
+     * Used to tell hardware encoders that a buffer can be reused.
+     */
+    void release();
+  }
 
   public final ByteBuffer buffer;
+  public final ReleaseCallback releaseCallback;
   public final int encodedWidth;
   public final int encodedHeight;
   public final long captureTimeMs; // Deprecated
@@ -56,9 +64,11 @@ public class EncodedImage {
   public final Integer qp;
 
   @CalledByNative
-  private EncodedImage(ByteBuffer buffer, int encodedWidth, int encodedHeight, long captureTimeNs,
-      FrameType frameType, int rotation, boolean completeFrame, Integer qp) {
+  private EncodedImage(ByteBuffer buffer, ReleaseCallback releaseCallback, int encodedWidth,
+      int encodedHeight, long captureTimeNs, FrameType frameType, int rotation,
+      boolean completeFrame, Integer qp) {
     this.buffer = buffer;
+    this.releaseCallback = releaseCallback;
     this.encodedWidth = encodedWidth;
     this.encodedHeight = encodedHeight;
     this.captureTimeMs = TimeUnit.NANOSECONDS.toMillis(captureTimeNs);
@@ -75,6 +85,7 @@ public class EncodedImage {
 
   public static class Builder {
     private ByteBuffer buffer;
+    private ReleaseCallback releaseCallback;
     private int encodedWidth;
     private int encodedHeight;
     private long captureTimeNs;
@@ -86,7 +97,13 @@ public class EncodedImage {
     private Builder() {}
 
     public Builder setBuffer(ByteBuffer buffer) {
+      setBuffer(buffer, () -> { return; });
+      return this;
+    }
+
+    public Builder setBuffer(ByteBuffer buffer, ReleaseCallback releaseCallback) {
       this.buffer = buffer;
+      this.releaseCallback = releaseCallback;
       return this;
     }
 
@@ -132,8 +149,8 @@ public class EncodedImage {
     }
 
     public EncodedImage createEncodedImage() {
-      return new EncodedImage(buffer, encodedWidth, encodedHeight, captureTimeNs, frameType,
-          rotation, completeFrame, qp);
+      return new EncodedImage(buffer, releaseCallback, encodedWidth, encodedHeight, captureTimeNs,
+          frameType, rotation, completeFrame, qp);
     }
   }
 }

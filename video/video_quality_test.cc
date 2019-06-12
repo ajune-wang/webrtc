@@ -271,7 +271,13 @@ std::unique_ptr<VideoDecoder> VideoQualityTest::CreateVideoDecoder(
   } else if (format.name == "FakeCodec") {
     decoder = webrtc::FakeVideoDecoderFactory::CreateVideoDecoder();
   } else {
-    decoder = internal_decoder_factory_.CreateVideoDecoder(format);
+    if (injection_components_->video_decoder_factory != nullptr) {
+      decoder =
+          injection_components_->video_decoder_factory->CreateVideoDecoder(
+              format);
+    } else {
+      decoder = internal_decoder_factory_.CreateVideoDecoder(format);
+    }
   }
   if (!params_.logging.encoded_frame_base_path.empty()) {
     rtc::StringBuilder str;
@@ -297,7 +303,13 @@ std::unique_ptr<VideoEncoder> VideoQualityTest::CreateVideoEncoder(
   } else if (format.name == "FakeCodec") {
     encoder = webrtc::FakeVideoEncoderFactory::CreateVideoEncoder();
   } else {
-    encoder = internal_encoder_factory_.CreateVideoEncoder(format);
+    if (injection_components_->video_encoder_factory != nullptr) {
+      encoder =
+          injection_components_->video_encoder_factory->CreateVideoEncoder(
+              format);
+    } else {
+      encoder = internal_encoder_factory_.CreateVideoEncoder(format);
+    }
   }
 
   std::vector<FileWrapper> encoded_frame_dump_files;

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7c12db05_62ba363c",
+        "filename": "modules/rtp_rtcp/include/rtp_packet_pacer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-12T12:35:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8b1ef7b_3ea8ee36",
+      "revId": "3ddc32f076740ee1967599f3f637c95665283ba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd87ac98_4683b66b",
         "filename": "modules/rtp_rtcp/include/rtp_packet_pacer.h",
         "patchSetId": 7
@@ -30,6 +48,30 @@
       "writtenOn": "2019-06-12T11:13:40Z",
       "side": 1,
       "message": "no longer inheriting from RtpPacketSender?\n\n[I\u0027m not sure if you need it or not. But if you need it, I do not see any blocking reasons not to]",
+      "range": {
+        "startLine": 24,
+        "startChar": 20,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "3ddc32f076740ee1967599f3f637c95665283ba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e455961_cfb61a5d",
+        "filename": "modules/rtp_rtcp/include/rtp_packet_pacer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-12T12:35:46Z",
+      "side": 1,
+      "message": "I currently don\u0027t think I\u0027ll need it. But I\u0027m not entirely sure. Probably easier to add it back for now.",
+      "parentUuid": "bd87ac98_4683b66b",
       "range": {
         "startLine": 24,
         "startChar": 20,
@@ -62,6 +104,30 @@
       "revId": "3ddc32f076740ee1967599f3f637c95665283ba0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "557be525_b0084b6d",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-12T12:35:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75ced19a_7e0c539f",
+      "range": {
+        "startLine": 51,
+        "startChar": 23,
+        "endLine": 51,
+        "endChar": 27
+      },
+      "revId": "3ddc32f076740ee1967599f3f637c95665283ba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

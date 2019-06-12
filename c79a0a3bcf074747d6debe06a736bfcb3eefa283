@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "881ee0d8_8ce80460",
+        "filename": "common_video/h264/sps_vui_rewriter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-12T12:30:13Z",
+      "side": 1,
+      "message": "Change to Write/ReadUInt8 for colour_primaries, transfer_characteristics, matrix_coefficients.",
+      "parentUuid": "a7533592_a9d8dd26",
+      "range": {
+        "startLine": 500,
+        "startChar": 36,
+        "endLine": 500,
+        "endChar": 45
+      },
+      "revId": "c79a0a3bcf074747d6debe06a736bfcb3eefa283",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dcb24ffa_ba6bd9c4",
         "filename": "common_video/h264/sps_vui_rewriter.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "c79a0a3bcf074747d6debe06a736bfcb3eefa283",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4af642aa_8cf5eb23",
+        "filename": "common_video/h264/sps_vui_rewriter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-12T12:30:13Z",
+      "side": 1,
+      "message": "colour_description_present_flag is h264 original name. I would prefer to use it. Otherwise it won\u0027t be easy to find this parameter in the spec if one would need to do that.",
+      "parentUuid": "dcb24ffa_ba6bd9c4",
+      "range": {
+        "startLine": 541,
+        "startChar": 11,
+        "endLine": 541,
+        "endChar": 17
+      },
+      "revId": "c79a0a3bcf074747d6debe06a736bfcb3eefa283",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "18a9ebc1_157785ba",
+        "filename": "common_video/h264/sps_vui_rewriter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-12T12:30:13Z",
+      "side": 1,
+      "message": "Changed to uint8_t.",
+      "parentUuid": "720c0e81_d3d9f506",
+      "range": {
+        "startLine": 543,
+        "startChar": 2,
+        "endLine": 543,
+        "endChar": 10
+      },
+      "revId": "c79a0a3bcf074747d6debe06a736bfcb3eefa283",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fae18429_6e80873d",
         "filename": "common_video/h264/sps_vui_rewriter.cc",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "c79a0a3bcf074747d6debe06a736bfcb3eefa283",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b23882d9_d07fdd1d",
+        "filename": "common_video/h264/sps_vui_rewriter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-12T12:30:13Z",
+      "side": 1,
+      "message": "Changed to:\nif (color_space-\u003erange() \u003d\u003d ColorSpace::RangeID::kFull) {\n  video_full_range_flag_override \u003d 1;\n} else {\n  // ColorSpace::RangeID::kInvalid and kDerived are treated as limited.\n  video_full_range_flag_override \u003d 0;\n}",
+      "parentUuid": "fae18429_6e80873d",
+      "range": {
+        "startLine": 552,
+        "startChar": 0,
+        "endLine": 557,
+        "endChar": 46
+      },
+      "revId": "c79a0a3bcf074747d6debe06a736bfcb3eefa283",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3bc3206e_a863058e",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-12T10:14:14Z",
+      "side": 1,
+      "message": "Makes sense. It\u0027s curious that most of the other unit tests use `::testing::get()`, or that it\u0027s available at all.",
+      "parentUuid": "64b7fe3f_bc28b777",
+      "range": {
+        "startLine": 100,
+        "startChar": 21,
+        "endLine": 100,
+        "endChar": 35
+      },
+      "revId": "16e407f73987ae05aafb667c123c003b14d31f06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb295dac_d1dab6fa",
         "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7261827a_d7432703",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-12T10:14:14Z",
+      "side": 1,
+      "message": "You could indeed implement another standards-compliant `SourceTracker` with a more relaxed behavior. But we do want this particular implementation to return the entries in precisely this order since it\u0027s \"better\" than the alternatives.",
+      "parentUuid": "eb295dac_d1dab6fa",
+      "range": {
+        "startLine": 244,
+        "startChar": 6,
+        "endLine": 244,
+        "endChar": 17
+      },
+      "revId": "16e407f73987ae05aafb667c123c003b14d31f06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df0d24f9_96cd0b53",
         "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
         "patchSetId": 6
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "531b378d_d962ef20",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-12T10:14:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df0d24f9_96cd0b53",
+      "revId": "16e407f73987ae05aafb667c123c003b14d31f06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95ae1cc3_62c3bdd8",
         "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
         "patchSetId": 6
@@ -76,6 +142,30 @@
       "writtenOn": "2019-06-12T09:15:03Z",
       "side": 1,
       "message": "fyi: alternative (compare to single use constant) way to document parameters:\n,/*sequence_number\u003d*/30, ...\n\nThe potential advantage of that approach is that clang-tidy can spot when parameter name is misspelled and warn about it.\nhttp://clang.llvm.org/extra/clang-tidy/checks/bugprone-argument-comment.html\n\nIn webrtc (presubmit) it is not automatically checked though.",
+      "range": {
+        "startLine": 269,
+        "startChar": 54,
+        "endLine": 269,
+        "endChar": 70
+      },
+      "revId": "16e407f73987ae05aafb667c123c003b14d31f06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ed00a42_1f4886f9",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-12T10:14:14Z",
+      "side": 1,
+      "message": "I considered putting the construction of both `RtpPacketInfo`s in the setup section of the test. But it only made the `EXPECT_THAT(tracker.GetSources(), ...);` part messier, so it didn\u0027t seem worth doing.",
+      "parentUuid": "95ae1cc3_62c3bdd8",
       "range": {
         "startLine": 269,
         "startChar": 54,
@@ -108,6 +198,30 @@
       "revId": "16e407f73987ae05aafb667c123c003b14d31f06",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "213ed06b_5be188f9",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-12T10:14:14Z",
+      "side": 1,
+      "message": "See above. The ordering is intentional. This is especially true for this test where a spec-compliant implementation must put the entries for the second `RtpPacketInfos` before the leftover entries from the first `RtpPacketInfos`.",
+      "parentUuid": "6b8d0e55_83bfaa1c",
+      "range": {
+        "startLine": 284,
+        "startChar": 6,
+        "endLine": 284,
+        "endChar": 17
+      },
+      "revId": "16e407f73987ae05aafb667c123c003b14d31f06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

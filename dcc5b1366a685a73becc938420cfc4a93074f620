@@ -802,6 +802,30 @@
     },
     {
       "key": {
+        "uuid": "d68181f2_40edd0e6",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-12T10:14:14Z",
+      "side": 1,
+      "message": "Ack. The comment is on an outdated patchset.",
+      "parentUuid": "121ea0c1_1287fa47",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 79
+      },
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "950f4d77_6dff1c42",
         "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
         "patchSetId": 2
@@ -816,6 +840,24 @@
       "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "466e1a02_5b02a119",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-12T10:14:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "950f4d77_6dff1c42",
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -902,6 +944,24 @@
       "side": 1,
       "message": "I agree that fuzzer might be overkill for this class.\nBut then I would argue that random test is overkill too.\nMoreover I afraid it would be more a problem than help in the future:\nIt is overstrict (mandate order between sources for the last received packet, which is undefined) and thus would block valid refactoring of the tracker.\n\nif fails it would produce expected and actual output, but since scenario is not human readable, I guess it would be unclear why expected output is correct.\n\n(and looking that it randomize sequence number I would imagine it would feed unrealistic scenarios too. e.g. it would feed packets out of sequence number order. It might be valid or even required to discard late [in sequence number order] packets)",
       "parentUuid": "b2e7e91b_0397c3fe",
+      "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27be6e85_029130a5",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-12T10:14:14Z",
+      "side": 1,
+      "message": "\u003e It is overstrict (mandate order between sources for the last received packet, which is undefined) and thus would block valid refactoring of the tracker.\n\nThe stricter-than-necessary ordering is intentional. Putting the SSRC before the CSRCs of the same frame gives us a better behavior when we later merge stats from multiple video packets into a single SSRC entry. Putting the CSRCs, within a packet, in a stable order is also desirable. It avoids having the entries returned by `RTCRtpReceiver.getContributingSources()` and `RTCRtpReceiver.getSynchronizationSources()` jumping around in a random fashion.\n\n\u003e (and looking that it randomize sequence number I would imagine it would feed unrealistic scenarios too. e.g. it would feed packets out of sequence number order. It might be valid or even required to discard late [in sequence number order] packets)\n\nSequence numbers and timestamps may wrap around. They are, from `SourceTracker`\u0027s point-of-view, always considered to be in the right order. The correct ordering must be ensured by the caller that assembles the `RtpPacketInfos` that we pass in. I\u0027ll think about adding some comments to that class later.",
+      "parentUuid": "ff39edd8_7d19979a",
       "revId": "dcc5b1366a685a73becc938420cfc4a93074f620",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

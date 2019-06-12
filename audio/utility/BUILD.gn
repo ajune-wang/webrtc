@@ -18,6 +18,11 @@ rtc_static_library("audio_frame_operations") {
   sources = [
     "audio_frame_operations.cc",
     "audio_frame_operations.h",
+    "channel_layout.cc",
+    "channel_layout.h",
+    "channel_mixer.h",
+    "channel_mixing_matrix.cc",
+    "channel_mixing_matrix.h",
   ]
 
   deps = [

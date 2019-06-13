@@ -33,6 +33,24 @@
       "revId": "d48c692fbd006d730056ede444ae25e7dc86e5c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f14905e5_225140b7",
+        "filename": "common_audio/wav_file.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-13T11:55:03Z",
+      "side": 1,
+      "message": "It looks like this code was written under the assumption that it would be used only by tests.",
+      "parentUuid": "66bf6cee_ace674e6",
+      "revId": "d48c692fbd006d730056ede444ae25e7dc86e5c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

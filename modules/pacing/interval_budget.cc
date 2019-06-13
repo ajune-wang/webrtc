@@ -16,7 +16,7 @@
 
 namespace webrtc {
 namespace {
-constexpr int kWindowMs = 500;
+constexpr int64_t kWindowMs = 500;
 }
 
 IntervalBudget::IntervalBudget(int initial_target_rate_kbps)
@@ -30,7 +30,8 @@ IntervalBudget::IntervalBudget(int initial_target_rate_kbps,
 
 void IntervalBudget::set_target_rate_kbps(int target_rate_kbps) {
   target_rate_kbps_ = target_rate_kbps;
-  max_bytes_in_budget_ = (kWindowMs * target_rate_kbps_) / 8;
+  max_bytes_in_budget_ =
+      rtc::saturated_cast<int>((kWindowMs * target_rate_kbps_) / 8);
   bytes_remaining_ = std::min(std::max(-max_bytes_in_budget_, bytes_remaining_),
                               max_bytes_in_budget_);
 }

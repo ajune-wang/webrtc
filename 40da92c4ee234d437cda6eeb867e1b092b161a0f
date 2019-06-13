@@ -22,6 +22,30 @@
       "revId": "40da92c4ee234d437cda6eeb867e1b092b161a0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9398aa82_1e26710b",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-06-13T14:29:18Z",
+      "side": 1,
+      "message": "Should be. Changed.",
+      "parentUuid": "47734f87_2f9e0e2f",
+      "range": {
+        "startLine": 712,
+        "startChar": 32,
+        "endLine": 712,
+        "endChar": 37
+      },
+      "revId": "40da92c4ee234d437cda6eeb867e1b092b161a0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

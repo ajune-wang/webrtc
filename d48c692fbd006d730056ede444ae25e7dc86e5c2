@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "a6c653f6_866565a7",
+        "filename": "common_audio/wav_file.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-13T12:09:44Z",
+      "side": 1,
+      "message": "This was obviously broken, we should *write* to the file.",
+      "range": {
+        "startLine": 143,
+        "startChar": 29,
+        "endLine": 143,
+        "endChar": 41
+      },
+      "revId": "d48c692fbd006d730056ede444ae25e7dc86e5c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d85f61fb_d24d9bf3",
         "filename": "common_audio/wav_file.cc",
         "patchSetId": 2

@@ -59,6 +59,7 @@ class CallTest : public ::testing::Test {
     kPayloadTypeH264 = 122,
     kPayloadTypeVP8 = 123,
     kPayloadTypeVP9 = 124,
+    kPayloadTypeGeneric = 126,
     kFakeVideoSendPayloadType = 125,
   };
   static const uint32_t kSendRtxSsrcs[kNumSsrcs];

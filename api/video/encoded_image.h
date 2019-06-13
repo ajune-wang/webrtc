@@ -14,7 +14,6 @@
 #include <stdint.h>
 #include <map>
 
-#include "absl/types/optional.h"
 #include "api/video/color_space.h"
 #include "api/video/video_codec_constants.h"
 #include "api/video/video_codec_type.h"

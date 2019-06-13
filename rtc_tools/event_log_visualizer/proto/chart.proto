@@ -1,6 +1,6 @@
 syntax = "proto3";
 // Describes a chart generated from WebRTC event log data.
-option optimize_for = LITE_RUNTIME;
+// option optimize_for = LITE_RUNTIME;
 package webrtc.analytics;
 
 import "chart_enums.proto";

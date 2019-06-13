@@ -37,7 +37,7 @@ const TestDependencyFactory& TestDependencyFactory::GetInstance() {
 }
 
 void TestDependencyFactory::SetInstance(
-    std::unique_ptr<TestDependencyFactory> instance) {
+    std::unique_ptr<TestDependencyFactory>&& instance) {
   RTC_DCHECK(GetThreadChecker()->IsCurrent());
   RTC_CHECK(instance_ == nullptr);
   instance_ = std::move(instance);

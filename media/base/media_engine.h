@@ -128,7 +128,7 @@ class MediaEngineInterface {
 // voice and video engine classes.
 class CompositeMediaEngine : public MediaEngineInterface {
  public:
-  CompositeMediaEngine(std::unique_ptr<VoiceEngineInterface> audio_engine,
+  CompositeMediaEngine(std::unique_ptr<VoiceEngineInterface>&& audio_engine,
                        std::unique_ptr<VideoEngineInterface> video_engine);
   ~CompositeMediaEngine() override;
   bool Init() override;

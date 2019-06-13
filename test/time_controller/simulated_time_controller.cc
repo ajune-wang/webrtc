@@ -53,8 +53,8 @@ class SimulatedSequenceRunner : public ProcessThread, public TaskQueueBase {
   // TaskQueueBase interface
   void Delete() override;
   // Note: PostTask is also in ProcessThread interface.
-  void PostTask(std::unique_ptr<QueuedTask> task) override;
-  void PostDelayedTask(std::unique_ptr<QueuedTask> task,
+  void PostTask(std::unique_ptr<QueuedTask>&& task) override;
+  void PostDelayedTask(std::unique_ptr<QueuedTask>&& task,
                        uint32_t milliseconds) override;
 
   // ProcessThread interface
@@ -173,14 +173,15 @@ void SimulatedSequenceRunner::UpdateNextRunTime() {
   }
 }
 
-void SimulatedSequenceRunner::PostTask(std::unique_ptr<QueuedTask> task) {
+void SimulatedSequenceRunner::PostTask(std::unique_ptr<QueuedTask>&& task) {
   rtc::CritScope lock(&lock_);
   ready_tasks_.emplace_back(std::move(task));
   next_run_time_ = Timestamp::MinusInfinity();
 }
 
-void SimulatedSequenceRunner::PostDelayedTask(std::unique_ptr<QueuedTask> task,
-                                              uint32_t milliseconds) {
+void SimulatedSequenceRunner::PostDelayedTask(
+    std::unique_ptr<QueuedTask>&& task,
+    uint32_t milliseconds) {
   rtc::CritScope lock(&lock_);
   Timestamp target_time = GetCurrentTime() + TimeDelta::ms(milliseconds);
   delayed_tasks_[target_time].push_back(std::move(task));

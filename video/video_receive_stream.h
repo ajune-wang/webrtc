@@ -108,7 +108,7 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
 
   // Implements video_coding::OnCompleteFrameCallback.
   void OnCompleteFrame(
-      std::unique_ptr<video_coding::EncodedFrame> frame) override;
+      std::unique_ptr<video_coding::EncodedFrame>&& frame) override;
 
   // Implements MediaTransportVideoSinkInterface, converts the received frame to
   // OnCompleteFrameCallback

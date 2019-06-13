@@ -40,15 +40,15 @@ class RtcEventLogImpl final : public RtcEventLog {
 
   // TODO(eladalon): We should change these name to reflect that what we're
   // actually starting/stopping is the output of the log, not the log itself.
-  bool StartLogging(std::unique_ptr<RtcEventLogOutput> output,
+  bool StartLogging(std::unique_ptr<RtcEventLogOutput>&& output,
                     int64_t output_period_ms) override;
   void StopLogging() override;
   void StopLogging(std::function<void()> callback) override;
 
-  void Log(std::unique_ptr<RtcEvent> event) override;
+  void Log(std::unique_ptr<RtcEvent>&& event) override;
 
  private:
-  void LogToMemory(std::unique_ptr<RtcEvent> event) RTC_RUN_ON(task_queue_);
+  void LogToMemory(std::unique_ptr<RtcEvent>&& event) RTC_RUN_ON(task_queue_);
   void LogEventsFromMemoryToOutput() RTC_RUN_ON(task_queue_);
 
   void StopOutput() RTC_RUN_ON(task_queue_);

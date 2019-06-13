@@ -63,7 +63,7 @@ class GoogCcDebugFactory : public GoogCcNetworkControllerFactory {
 
   void PrintState(const Timestamp at_time);
 
-  void AttachWriter(std::unique_ptr<RtcEventLogOutput> log_writer);
+  void AttachWriter(std::unique_ptr<RtcEventLogOutput>&& log_writer);
 
  private:
   GoogCcStatePrinter printer_;

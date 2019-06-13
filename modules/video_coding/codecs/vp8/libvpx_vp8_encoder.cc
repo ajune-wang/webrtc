@@ -267,7 +267,7 @@ LibvpxVp8Encoder::LibvpxVp8Encoder(
     : LibvpxVp8Encoder(std::move(frame_buffer_controller_factory),
                        LibvpxInterface::CreateEncoder()) {}
 
-LibvpxVp8Encoder::LibvpxVp8Encoder(std::unique_ptr<LibvpxInterface> interface)
+LibvpxVp8Encoder::LibvpxVp8Encoder(std::unique_ptr<LibvpxInterface>&& interface)
     : LibvpxVp8Encoder(nullptr, std::move(interface)) {}
 
 LibvpxVp8Encoder::LibvpxVp8Encoder(

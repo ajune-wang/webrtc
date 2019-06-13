@@ -13,7 +13,7 @@
 namespace webrtc {
 
 bool RtcEventLogNull::StartLogging(
-    std::unique_ptr<RtcEventLogOutput> /*output*/,
+    std::unique_ptr<RtcEventLogOutput>&& /*output*/,
     int64_t /*output_period_ms*/) {
   return false;
 }

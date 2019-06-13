@@ -63,7 +63,7 @@ class RTC_EXPORT SimulcastEncoderAdapter : public VideoEncoder {
 
  private:
   struct StreamInfo {
-    StreamInfo(std::unique_ptr<VideoEncoder> encoder,
+    StreamInfo(std::unique_ptr<VideoEncoder>&& encoder,
                std::unique_ptr<EncodedImageCallback> callback,
                uint16_t width,
                uint16_t height,

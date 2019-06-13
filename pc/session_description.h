@@ -549,7 +549,7 @@ class ContentInfo {
   MediaContentDescription* media_description();
   const MediaContentDescription* media_description() const;
 
-  void set_media_description(std::unique_ptr<MediaContentDescription> desc) {
+  void set_media_description(std::unique_ptr<MediaContentDescription>&& desc) {
     description_ = std::move(desc);
     // For backwards compatibility only.
     description = description_.get();

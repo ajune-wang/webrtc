@@ -162,7 +162,8 @@ class ChannelSend : public ChannelSendInterface,
   // OS-specific, audio capture thread as soon as possible to ensure that it
   // can go back to sleep and be prepared to deliver an new captured audio
   // packet.
-  void ProcessAndEncodeAudio(std::unique_ptr<AudioFrame> audio_frame) override;
+  void ProcessAndEncodeAudio(
+      std::unique_ptr<AudioFrame>&& audio_frame) override;
 
   // The existence of this function alongside OnUplinkPacketLossRate is
   // a compromise. We want the encoder to be agnostic of the PLR source, but
@@ -1089,7 +1090,7 @@ CallSendStatistics ChannelSend::GetRTCPStatistics() const {
 }
 
 void ChannelSend::ProcessAndEncodeAudio(
-    std::unique_ptr<AudioFrame> audio_frame) {
+    std::unique_ptr<AudioFrame>&& audio_frame) {
   RTC_DCHECK_RUNS_SERIALIZED(&audio_thread_race_checker_);
   struct ProcessAndEncodeAudio {
     void operator()() {

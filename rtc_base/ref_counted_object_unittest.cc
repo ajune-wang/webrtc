@@ -39,7 +39,7 @@ class RefClass : public RefCountInterface {
 
 class RefClassWithRvalue : public RefCountInterface {
  public:
-  explicit RefClassWithRvalue(std::unique_ptr<A> a) : a_(std::move(a)) {}
+  explicit RefClassWithRvalue(std::unique_ptr<A>&& a) : a_(std::move(a)) {}
 
  protected:
   ~RefClassWithRvalue() override {}
@@ -50,7 +50,7 @@ class RefClassWithRvalue : public RefCountInterface {
 
 class RefClassWithMixedValues : public RefCountInterface {
  public:
-  RefClassWithMixedValues(std::unique_ptr<A> a, int b, const std::string& c)
+  RefClassWithMixedValues(std::unique_ptr<A>&& a, int b, const std::string& c)
       : a_(std::move(a)), b_(b), c_(c) {}
 
  protected:

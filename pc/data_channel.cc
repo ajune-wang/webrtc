@@ -101,12 +101,12 @@ std::unique_ptr<DataBuffer> DataChannel::PacketQueue::PopFront() {
   return packet;
 }
 
-void DataChannel::PacketQueue::PushFront(std::unique_ptr<DataBuffer> packet) {
+void DataChannel::PacketQueue::PushFront(std::unique_ptr<DataBuffer>&& packet) {
   byte_count_ += packet->size();
   packets_.push_front(std::move(packet));
 }
 
-void DataChannel::PacketQueue::PushBack(std::unique_ptr<DataBuffer> packet) {
+void DataChannel::PacketQueue::PushBack(std::unique_ptr<DataBuffer>&& packet) {
   byte_count_ += packet->size();
   packets_.push_back(std::move(packet));
 }

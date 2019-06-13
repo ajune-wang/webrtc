@@ -172,13 +172,13 @@ PeerConnectionInterface::peer_connection_state() {
 }
 
 bool PeerConnectionInterface::StartRtcEventLog(
-    std::unique_ptr<RtcEventLogOutput> output,
+    std::unique_ptr<RtcEventLogOutput>&& output,
     int64_t output_period_ms) {
   return false;
 }
 
 bool PeerConnectionInterface::StartRtcEventLog(
-    std::unique_ptr<RtcEventLogOutput> output) {
+    std::unique_ptr<RtcEventLogOutput>&& output) {
   return false;
 }
 

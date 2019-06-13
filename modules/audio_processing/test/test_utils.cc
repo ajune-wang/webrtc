@@ -34,7 +34,8 @@ void RawFile::WriteSamples(const float* samples, size_t num_samples) {
   fwrite(samples, sizeof(*samples), num_samples, file_handle_);
 }
 
-ChannelBufferWavReader::ChannelBufferWavReader(std::unique_ptr<WavReader> file)
+ChannelBufferWavReader::ChannelBufferWavReader(
+    std::unique_ptr<WavReader>&& file)
     : file_(std::move(file)) {}
 
 ChannelBufferWavReader::~ChannelBufferWavReader() = default;
@@ -53,7 +54,8 @@ bool ChannelBufferWavReader::Read(ChannelBuffer<float>* buffer) {
   return true;
 }
 
-ChannelBufferWavWriter::ChannelBufferWavWriter(std::unique_ptr<WavWriter> file)
+ChannelBufferWavWriter::ChannelBufferWavWriter(
+    std::unique_ptr<WavWriter>&& file)
     : file_(std::move(file)) {}
 
 ChannelBufferWavWriter::~ChannelBufferWavWriter() = default;

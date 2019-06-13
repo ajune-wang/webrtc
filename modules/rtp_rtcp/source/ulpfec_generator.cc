@@ -108,7 +108,7 @@ size_t RedPacket::length() const {
 UlpfecGenerator::UlpfecGenerator()
     : UlpfecGenerator(ForwardErrorCorrection::CreateUlpfec(kUnknownSsrc)) {}
 
-UlpfecGenerator::UlpfecGenerator(std::unique_ptr<ForwardErrorCorrection> fec)
+UlpfecGenerator::UlpfecGenerator(std::unique_ptr<ForwardErrorCorrection>&& fec)
     : fec_(std::move(fec)),
       last_media_packet_rtp_header_length_(0),
       num_protected_frames_(0),

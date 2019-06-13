@@ -92,7 +92,7 @@ class SSLCertificate {
 // SSLCertificate pointers.
 class SSLCertChain final {
  public:
-  explicit SSLCertChain(std::unique_ptr<SSLCertificate> single_cert);
+  explicit SSLCertChain(std::unique_ptr<SSLCertificate>&& single_cert);
   explicit SSLCertChain(std::vector<std::unique_ptr<SSLCertificate>> certs);
   // Allow move semantics for the object.
   SSLCertChain(SSLCertChain&&);

@@ -13,7 +13,7 @@
 namespace webrtc {
 
 FileAudioGenerator::FileAudioGenerator(
-    std::unique_ptr<WavReader> input_audio_file) {
+    std::unique_ptr<WavReader>&& input_audio_file) {
   // TODO(bugs.webrtc.org/8882) Stub.
   // Read audio from file into internal buffer.
 }

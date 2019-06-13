@@ -94,7 +94,7 @@ class TypedMessageData : public MessageData {
 template <class T>
 class ScopedMessageData : public MessageData {
  public:
-  explicit ScopedMessageData(std::unique_ptr<T> data)
+  explicit ScopedMessageData(std::unique_ptr<T>&& data)
       : data_(std::move(data)) {}
   // Deprecated.
   // TODO(deadbeef): Remove this once downstream applications stop using it.
@@ -198,7 +198,7 @@ class MessageQueue {
   // with the MessageQueueManager using the object while the vtable is still
   // being created.
   MessageQueue(SocketServer* ss, bool init_queue);
-  MessageQueue(std::unique_ptr<SocketServer> ss, bool init_queue);
+  MessageQueue(std::unique_ptr<SocketServer>&& ss, bool init_queue);
 
   // NOTE: SUBCLASSES OF MessageQueue THAT OVERRIDE Clear MUST CALL
   // DoDestroy() IN THEIR DESTRUCTORS! This is required to avoid a data race

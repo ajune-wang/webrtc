@@ -784,7 +784,8 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
     return true;
   }
 
-  bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc) {
+  bool SetRemoteDescription(
+      std::unique_ptr<SessionDescriptionInterface>&& desc) {
     rtc::scoped_refptr<MockSetSessionDescriptionObserver> observer(
         new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
     RTC_LOG(LS_INFO) << debug_name_ << ": SetRemoteDescription";

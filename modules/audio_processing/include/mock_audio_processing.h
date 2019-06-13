@@ -166,7 +166,7 @@ class MockAudioProcessing : public ::testing::NiceMock<AudioProcessing> {
   MOCK_METHOD1(set_stream_analog_level, void(int));
   MOCK_CONST_METHOD0(recommended_stream_analog_level, int());
 
-  virtual void AttachAecDump(std::unique_ptr<AecDump> aec_dump) {}
+  virtual void AttachAecDump(std::unique_ptr<AecDump>&& aec_dump) {}
   MOCK_METHOD0(DetachAecDump, void());
 
   virtual void AttachPlayoutAudioGenerator(

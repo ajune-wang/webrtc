@@ -64,7 +64,7 @@ void AlphaBlend(uint8_t* dest,
 class DesktopFrameWithCursor : public DesktopFrame {
  public:
   // Takes ownership of |frame|.
-  DesktopFrameWithCursor(std::unique_ptr<DesktopFrame> frame,
+  DesktopFrameWithCursor(std::unique_ptr<DesktopFrame>&& frame,
                          const MouseCursor& cursor,
                          const DesktopVector& position);
   ~DesktopFrameWithCursor() override;
@@ -79,7 +79,7 @@ class DesktopFrameWithCursor : public DesktopFrame {
 };
 
 DesktopFrameWithCursor::DesktopFrameWithCursor(
-    std::unique_ptr<DesktopFrame> frame,
+    std::unique_ptr<DesktopFrame>&& frame,
     const MouseCursor& cursor,
     const DesktopVector& position)
     : DesktopFrame(frame->size(),
@@ -129,7 +129,7 @@ DesktopFrameWithCursor::~DesktopFrameWithCursor() {
 }  // namespace
 
 DesktopAndCursorComposer::DesktopAndCursorComposer(
-    std::unique_ptr<DesktopCapturer> desktop_capturer,
+    std::unique_ptr<DesktopCapturer>&& desktop_capturer,
     const DesktopCaptureOptions& options)
     : DesktopAndCursorComposer(desktop_capturer.release(),
                                MouseCursorMonitor::Create(options).release()) {}

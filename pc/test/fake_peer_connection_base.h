@@ -209,7 +209,7 @@ class FakePeerConnectionBase : public PeerConnectionInternal {
     return IceGatheringState::kIceGatheringNew;
   }
 
-  bool StartRtcEventLog(std::unique_ptr<RtcEventLogOutput> output,
+  bool StartRtcEventLog(std::unique_ptr<RtcEventLogOutput>&& output,
                         int64_t output_period_ms) override {
     return false;
   }

@@ -74,7 +74,7 @@ class RtpPacketHistory {
 
   // If |send_time| is set, packet was sent without using pacer, so state will
   // be set accordingly.
-  void PutRtpPacket(std::unique_ptr<RtpPacketToSend> packet,
+  void PutRtpPacket(std::unique_ptr<RtpPacketToSend>&& packet,
                     StorageType type,
                     absl::optional<int64_t> send_time_ms);
 
@@ -132,7 +132,7 @@ class RtpPacketHistory {
 
   class StoredPacket {
    public:
-    StoredPacket(std::unique_ptr<RtpPacketToSend> packet,
+    StoredPacket(std::unique_ptr<RtpPacketToSend>&& packet,
                  StorageType storage_type,
                  absl::optional<int64_t> send_time_ms,
                  uint64_t insert_order);

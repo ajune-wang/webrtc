@@ -167,7 +167,7 @@ class StunMessage {
   const StunUInt16ListAttribute* GetUnknownAttributes() const;
 
   // Takes ownership of the specified attribute and adds it to the message.
-  void AddAttribute(std::unique_ptr<StunAttribute> attr);
+  void AddAttribute(std::unique_ptr<StunAttribute>&& attr);
 
   // Remove the last occurrence of an attribute.
   std::unique_ptr<StunAttribute> RemoveAttribute(int type);

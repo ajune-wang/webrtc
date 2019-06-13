@@ -167,7 +167,7 @@ MessageQueue::MessageQueue(SocketServer* ss, bool init_queue)
   }
 }
 
-MessageQueue::MessageQueue(std::unique_ptr<SocketServer> ss, bool init_queue)
+MessageQueue::MessageQueue(std::unique_ptr<SocketServer>&& ss, bool init_queue)
     : MessageQueue(ss.get(), init_queue) {
   own_ss_ = std::move(ss);
 }

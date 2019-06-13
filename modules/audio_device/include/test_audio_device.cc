@@ -310,7 +310,7 @@ class WavFileReader final : public TestAudioDeviceModule::Capturer {
   }
 
  private:
-  WavFileReader(std::unique_ptr<WavReader> wav_reader,
+  WavFileReader(std::unique_ptr<WavReader>&& wav_reader,
                 int sampling_frequency_in_hz,
                 int num_channels,
                 bool repeat)
@@ -358,7 +358,7 @@ class WavFileWriter final : public TestAudioDeviceModule::Renderer {
   }
 
  private:
-  WavFileWriter(std::unique_ptr<WavWriter> wav_writer,
+  WavFileWriter(std::unique_ptr<WavWriter>&& wav_writer,
                 int sampling_frequency_in_hz,
                 int num_channels)
       : sampling_frequency_in_hz_(sampling_frequency_in_hz),

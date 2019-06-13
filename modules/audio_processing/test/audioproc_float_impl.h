@@ -19,7 +19,7 @@ namespace webrtc {
 namespace test {
 
 // This function implements the audio processing simulation utility.
-int AudioprocFloatImpl(std::unique_ptr<AudioProcessingBuilder> ap_builder,
+int AudioprocFloatImpl(std::unique_ptr<AudioProcessingBuilder>&& ap_builder,
                        int argc,
                        char* argv[]);
 

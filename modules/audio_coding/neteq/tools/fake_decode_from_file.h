@@ -28,7 +28,7 @@ namespace test {
 // file reading will skip forward to match the loss.
 class FakeDecodeFromFile : public AudioDecoder {
  public:
-  FakeDecodeFromFile(std::unique_ptr<InputAudioFile> input,
+  FakeDecodeFromFile(std::unique_ptr<InputAudioFile>&& input,
                      int sample_rate_hz,
                      bool stereo)
       : input_(std::move(input)),

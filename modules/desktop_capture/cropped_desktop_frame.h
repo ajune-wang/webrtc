@@ -25,7 +25,7 @@ namespace webrtc {
 // |frame|->top_left() does not impact the area of |rect|.
 // Returns nullptr frame if |rect| is not contained by the bounds of |frame|.
 std::unique_ptr<DesktopFrame> RTC_EXPORT
-CreateCroppedDesktopFrame(std::unique_ptr<DesktopFrame> frame,
+CreateCroppedDesktopFrame(std::unique_ptr<DesktopFrame>&& frame,
                           const DesktopRect& rect);
 
 }  // namespace webrtc

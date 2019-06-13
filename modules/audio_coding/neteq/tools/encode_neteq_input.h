@@ -32,7 +32,7 @@ class EncodeNetEqInput : public NetEqInput {
   };
 
   // The source will end after the given input duration.
-  EncodeNetEqInput(std::unique_ptr<Generator> generator,
+  EncodeNetEqInput(std::unique_ptr<Generator>&& generator,
                    std::unique_ptr<AudioEncoder> encoder,
                    int64_t input_duration_ms);
   ~EncodeNetEqInput() override;

@@ -636,7 +636,7 @@ class FixedLengthDeltaDecoder final {
   // Therefore, it was deemed acceptable that |reader| does not own the buffer
   // it reads, meaning the lifetime of |this| must not exceed the lifetime
   // of |reader|'s underlying buffer.
-  FixedLengthDeltaDecoder(std::unique_ptr<rtc::BitBuffer> reader,
+  FixedLengthDeltaDecoder(std::unique_ptr<rtc::BitBuffer>&& reader,
                           const FixedLengthEncodingParameters& params,
                           absl::optional<uint64_t> base,
                           size_t num_of_deltas);
@@ -795,7 +795,7 @@ std::unique_ptr<FixedLengthDeltaDecoder> FixedLengthDeltaDecoder::Create(
 }
 
 FixedLengthDeltaDecoder::FixedLengthDeltaDecoder(
-    std::unique_ptr<rtc::BitBuffer> reader,
+    std::unique_ptr<rtc::BitBuffer>&& reader,
     const FixedLengthEncodingParameters& params,
     absl::optional<uint64_t> base,
     size_t num_of_deltas)

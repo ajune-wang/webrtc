@@ -333,10 +333,11 @@ class SendProcessingUsage2 : public OveruseFrameDetector::ProcessingUsage {
 // Class used for manual testing of overuse, enabled via field trial flag.
 class OverdoseInjector : public OveruseFrameDetector::ProcessingUsage {
  public:
-  OverdoseInjector(std::unique_ptr<OveruseFrameDetector::ProcessingUsage> usage,
-                   int64_t normal_period_ms,
-                   int64_t overuse_period_ms,
-                   int64_t underuse_period_ms)
+  OverdoseInjector(
+      std::unique_ptr<OveruseFrameDetector::ProcessingUsage>&& usage,
+      int64_t normal_period_ms,
+      int64_t overuse_period_ms,
+      int64_t underuse_period_ms)
       : usage_(std::move(usage)),
         normal_period_ms_(normal_period_ms),
         overuse_period_ms_(overuse_period_ms),

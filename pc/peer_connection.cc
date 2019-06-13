@@ -3763,8 +3763,9 @@ PeerConnection::GetFirstAudioTransceiver() const {
   return nullptr;
 }
 
-bool PeerConnection::StartRtcEventLog(std::unique_ptr<RtcEventLogOutput> output,
-                                      int64_t output_period_ms) {
+bool PeerConnection::StartRtcEventLog(
+    std::unique_ptr<RtcEventLogOutput>&& output,
+    int64_t output_period_ms) {
   // TODO(eladalon): In C++14, this can be done with a lambda.
   struct Functor {
     bool operator()() {
@@ -3779,7 +3780,7 @@ bool PeerConnection::StartRtcEventLog(std::unique_ptr<RtcEventLogOutput> output,
 }
 
 bool PeerConnection::StartRtcEventLog(
-    std::unique_ptr<RtcEventLogOutput> output) {
+    std::unique_ptr<RtcEventLogOutput>&& output) {
   int64_t output_period_ms = webrtc::RtcEventLog::kImmediateOutput;
   if (field_trial::IsEnabled("WebRTC-RtcEventLogNewFormat")) {
     output_period_ms = 5000;
@@ -4155,7 +4156,7 @@ void PeerConnection::OnIceGatheringChange(
 }
 
 void PeerConnection::OnIceCandidate(
-    std::unique_ptr<IceCandidateInterface> candidate) {
+    std::unique_ptr<IceCandidateInterface>&& candidate) {
   if (IsClosed()) {
     return;
   }
@@ -5524,7 +5525,7 @@ cricket::ChannelManager* PeerConnection::channel_manager() const {
 }
 
 bool PeerConnection::StartRtcEventLog_w(
-    std::unique_ptr<RtcEventLogOutput> output,
+    std::unique_ptr<RtcEventLogOutput>&& output,
     int64_t output_period_ms) {
   RTC_DCHECK_RUN_ON(worker_thread());
   if (!event_log_) {

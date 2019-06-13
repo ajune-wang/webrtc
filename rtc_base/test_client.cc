@@ -24,10 +24,10 @@ namespace rtc {
 //         Callers can retrieve received packets from any thread by calling
 //         NextPacket.
 
-TestClient::TestClient(std::unique_ptr<AsyncPacketSocket> socket)
+TestClient::TestClient(std::unique_ptr<AsyncPacketSocket>&& socket)
     : TestClient(std::move(socket), nullptr) {}
 
-TestClient::TestClient(std::unique_ptr<AsyncPacketSocket> socket,
+TestClient::TestClient(std::unique_ptr<AsyncPacketSocket>&& socket,
                        ThreadProcessingFakeClock* fake_clock)
     : fake_clock_(fake_clock),
       socket_(std::move(socket)),

@@ -21,7 +21,7 @@ namespace webrtc {
 // A DesktopFrame that is a sub-rect of another DesktopFrame.
 class CroppedDesktopFrame : public DesktopFrame {
  public:
-  CroppedDesktopFrame(std::unique_ptr<DesktopFrame> frame,
+  CroppedDesktopFrame(std::unique_ptr<DesktopFrame>&& frame,
                       const DesktopRect& rect);
 
  private:
@@ -31,7 +31,7 @@ class CroppedDesktopFrame : public DesktopFrame {
 };
 
 std::unique_ptr<DesktopFrame> CreateCroppedDesktopFrame(
-    std::unique_ptr<DesktopFrame> frame,
+    std::unique_ptr<DesktopFrame>&& frame,
     const DesktopRect& rect) {
   RTC_DCHECK(frame);
 
@@ -40,14 +40,14 @@ std::unique_ptr<DesktopFrame> CreateCroppedDesktopFrame(
   }
 
   if (frame->size().equals(rect.size())) {
-    return frame;
+    return std::move(frame);
   }
 
   return std::unique_ptr<DesktopFrame>(
       new CroppedDesktopFrame(std::move(frame), rect));
 }
 
-CroppedDesktopFrame::CroppedDesktopFrame(std::unique_ptr<DesktopFrame> frame,
+CroppedDesktopFrame::CroppedDesktopFrame(std::unique_ptr<DesktopFrame>&& frame,
                                          const DesktopRect& rect)
     : DesktopFrame(rect.size(),
                    frame->stride(),

@@ -29,7 +29,7 @@ class OnDecryptedFrameCallback {
   virtual ~OnDecryptedFrameCallback() = default;
   // Called each time a decrypted frame is returned.
   virtual void OnDecryptedFrame(
-      std::unique_ptr<video_coding::RtpFrameObject> frame) = 0;
+      std::unique_ptr<video_coding::RtpFrameObject>&& frame) = 0;
 };
 
 // This callback is called each time there is a status change in the decryption

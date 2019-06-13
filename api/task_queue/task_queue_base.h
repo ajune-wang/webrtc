@@ -42,13 +42,13 @@ class RTC_LOCKABLE TaskQueueBase {
   // TaskQueue or it may happen asynchronously after TaskQueue is deleted.
   // This may vary from one implementation to the next so assumptions about
   // lifetimes of pending tasks should not be made.
-  virtual void PostTask(std::unique_ptr<QueuedTask> task) = 0;
+  virtual void PostTask(std::unique_ptr<QueuedTask>&& task) = 0;
 
   // Schedules a task to execute a specified number of milliseconds from when
   // the call is made. The precision should be considered as "best effort"
   // and in some cases, such as on Windows when all high precision timers have
   // been used up, can be off by as much as 15 millseconds.
-  virtual void PostDelayedTask(std::unique_ptr<QueuedTask> task,
+  virtual void PostDelayedTask(std::unique_ptr<QueuedTask>&& task,
                                uint32_t milliseconds) = 0;
 
   // Returns the task queue that is running the current thread.

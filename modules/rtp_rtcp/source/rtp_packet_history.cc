@@ -45,7 +45,7 @@ RtpPacketHistory::PacketState::PacketState(const PacketState&) = default;
 RtpPacketHistory::PacketState::~PacketState() = default;
 
 RtpPacketHistory::StoredPacket::StoredPacket(
-    std::unique_ptr<RtpPacketToSend> packet,
+    std::unique_ptr<RtpPacketToSend>&& packet,
     StorageType storage_type,
     absl::optional<int64_t> send_time_ms,
     uint64_t insert_order)
@@ -122,7 +122,7 @@ void RtpPacketHistory::SetRtt(int64_t rtt_ms) {
   CullOldPackets(clock_->TimeInMilliseconds());
 }
 
-void RtpPacketHistory::PutRtpPacket(std::unique_ptr<RtpPacketToSend> packet,
+void RtpPacketHistory::PutRtpPacket(std::unique_ptr<RtpPacketToSend>&& packet,
                                     StorageType type,
                                     absl::optional<int64_t> send_time_ms) {
   RTC_DCHECK(packet);

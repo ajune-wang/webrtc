@@ -57,7 +57,7 @@ class AudioProcessingImpl : public AudioProcessing {
   void ApplyConfig(const AudioProcessing::Config& config) override;
   void SetExtraOptions(const webrtc::Config& config) override;
   void UpdateHistogramsOnCallEnd() override;
-  void AttachAecDump(std::unique_ptr<AecDump> aec_dump) override;
+  void AttachAecDump(std::unique_ptr<AecDump>&& aec_dump) override;
   void DetachAecDump() override;
   void AttachPlayoutAudioGenerator(
       std::unique_ptr<AudioGenerator> audio_generator) override;

@@ -182,7 +182,7 @@ class AudioSendStream {
 
   // Encode and send audio.
   virtual void SendAudioData(
-      std::unique_ptr<webrtc::AudioFrame> audio_frame) = 0;
+      std::unique_ptr<webrtc::AudioFrame>&& audio_frame) = 0;
 
   // TODO(solenberg): Make payload_type a config property instead.
   virtual bool SendTelephoneEvent(int payload_type,

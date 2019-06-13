@@ -172,7 +172,7 @@ P2PTransportChannel::~P2PTransportChannel() {
 // Add the allocator session to our list so that we know which sessions
 // are still active.
 void P2PTransportChannel::AddAllocatorSession(
-    std::unique_ptr<PortAllocatorSession> session) {
+    std::unique_ptr<PortAllocatorSession>&& session) {
   RTC_DCHECK_RUN_ON(network_thread_);
 
   session->set_generation(static_cast<uint32_t>(allocator_sessions_.size()));

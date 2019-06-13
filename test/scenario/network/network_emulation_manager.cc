@@ -76,7 +76,7 @@ EmulatedNetworkNode* NetworkEmulationManagerImpl::CreateEmulatedNode(
       clock_, &task_queue_, std::move(network_behavior));
   EmulatedNetworkNode* out = node.get();
   task_queue_.PostTask(CreateResourceOwningTask(
-      std::move(node), [this](std::unique_ptr<EmulatedNetworkNode> node) {
+      std::move(node), [this](std::unique_ptr<EmulatedNetworkNode>&& node) {
         network_nodes_.push_back(std::move(node));
       }));
   return out;
@@ -197,7 +197,7 @@ NetworkEmulationManagerImpl::CreateRandomWalkCrossTraffic(
 
   task_queue_.PostTask(CreateResourceOwningTask(
       std::move(traffic),
-      [this, config](std::unique_ptr<RandomWalkCrossTraffic> traffic) {
+      [this, config](std::unique_ptr<RandomWalkCrossTraffic>&& traffic) {
         auto* traffic_ptr = traffic.get();
         random_cross_traffics_.push_back(std::move(traffic));
         RepeatingTaskHandle::Start(task_queue_.Get(),
@@ -218,7 +218,7 @@ NetworkEmulationManagerImpl::CreatePulsedPeaksCrossTraffic(
   PulsedPeaksCrossTraffic* out = traffic.get();
   task_queue_.PostTask(CreateResourceOwningTask(
       std::move(traffic),
-      [this, config](std::unique_ptr<PulsedPeaksCrossTraffic> traffic) {
+      [this, config](std::unique_ptr<PulsedPeaksCrossTraffic>&& traffic) {
         auto* traffic_ptr = traffic.get();
         pulsed_cross_traffics_.push_back(std::move(traffic));
         RepeatingTaskHandle::Start(task_queue_.Get(),

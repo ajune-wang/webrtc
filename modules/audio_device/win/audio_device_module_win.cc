@@ -59,7 +59,7 @@ class WindowsAudioDeviceModule : public AudioDeviceModuleForTest {
     NUM_STATUSES = 4
   };
 
-  WindowsAudioDeviceModule(std::unique_ptr<AudioInput> audio_input,
+  WindowsAudioDeviceModule(std::unique_ptr<AudioInput>&& audio_input,
                            std::unique_ptr<AudioOutput> audio_output,
                            TaskQueueFactory* task_queue_factory)
       : input_(std::move(audio_input)),

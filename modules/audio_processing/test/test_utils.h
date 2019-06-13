@@ -47,7 +47,7 @@ class RawFile final {
 // Reads ChannelBuffers from a provided WavReader.
 class ChannelBufferWavReader final {
  public:
-  explicit ChannelBufferWavReader(std::unique_ptr<WavReader> file);
+  explicit ChannelBufferWavReader(std::unique_ptr<WavReader>&& file);
   ~ChannelBufferWavReader();
 
   // Reads data from the file according to the |buffer| format. Returns false if
@@ -64,7 +64,7 @@ class ChannelBufferWavReader final {
 // Writes ChannelBuffers to a provided WavWriter.
 class ChannelBufferWavWriter final {
  public:
-  explicit ChannelBufferWavWriter(std::unique_ptr<WavWriter> file);
+  explicit ChannelBufferWavWriter(std::unique_ptr<WavWriter>&& file);
   ~ChannelBufferWavWriter();
 
   void Write(const ChannelBuffer<float>& buffer);

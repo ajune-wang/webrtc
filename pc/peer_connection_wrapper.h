@@ -91,14 +91,14 @@ class PeerConnectionWrapper {
   // Calls the underlying PeerConnection's SetLocalDescription method with the
   // given session description and waits for the success/failure response.
   // Returns true if the description was successfully set.
-  bool SetLocalDescription(std::unique_ptr<SessionDescriptionInterface> desc,
+  bool SetLocalDescription(std::unique_ptr<SessionDescriptionInterface>&& desc,
                            std::string* error_out = nullptr);
   // Calls the underlying PeerConnection's SetRemoteDescription method with the
   // given session description and waits for the success/failure response.
   // Returns true if the description was successfully set.
-  bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc,
+  bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface>&& desc,
                             std::string* error_out = nullptr);
-  bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc,
+  bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface>&& desc,
                             RTCError* error_out);
 
   // Does a round of offer/answer with the local PeerConnectionWrapper

@@ -45,7 +45,7 @@ class Scenario {
   Scenario();
   explicit Scenario(std::string file_name);
   Scenario(std::string file_name, bool real_time);
-  Scenario(std::unique_ptr<LogWriterFactoryInterface> log_writer_manager,
+  Scenario(std::unique_ptr<LogWriterFactoryInterface>&& log_writer_manager,
            bool real_time);
   RTC_DISALLOW_COPY_AND_ASSIGN(Scenario);
   ~Scenario();

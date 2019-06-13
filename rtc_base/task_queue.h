@@ -91,14 +91,14 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   // TODO(tommi): For better debuggability, implement RTC_FROM_HERE.
 
   // Ownership of the task is passed to PostTask.
-  void PostTask(std::unique_ptr<webrtc::QueuedTask> task);
+  void PostTask(std::unique_ptr<webrtc::QueuedTask>&& task);
 
   // Schedules a task to execute a specified number of milliseconds from when
   // the call is made. The precision should be considered as "best effort"
   // and in some cases, such as on Windows when all high precision timers have
   // been used up, can be off by as much as 15 millseconds (although 8 would be
   // more likely). This can be mitigated by limiting the use of delayed tasks.
-  void PostDelayedTask(std::unique_ptr<webrtc::QueuedTask> task,
+  void PostDelayedTask(std::unique_ptr<webrtc::QueuedTask>&& task,
                        uint32_t milliseconds);
 
   // std::enable_if is used here to make sure that calls to PostTask() with

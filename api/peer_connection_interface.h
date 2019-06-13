@@ -1102,9 +1102,9 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
   // with potential drawbacks being more bursty thread usage, and more events
   // lost in case the application crashes. If the |output_period_ms| argument is
   // omitted, webrtc selects a default deemed to be workable in most cases.
-  virtual bool StartRtcEventLog(std::unique_ptr<RtcEventLogOutput> output,
+  virtual bool StartRtcEventLog(std::unique_ptr<RtcEventLogOutput>&& output,
                                 int64_t output_period_ms);
-  virtual bool StartRtcEventLog(std::unique_ptr<RtcEventLogOutput> output);
+  virtual bool StartRtcEventLog(std::unique_ptr<RtcEventLogOutput>&& output);
 
   // Stops logging the RtcEventLog.
   // TODO(ivoc): Make this pure virtual when Chrome is updated.

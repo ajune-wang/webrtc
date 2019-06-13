@@ -51,7 +51,7 @@ class ProcessThread {
   // construction thread of the ProcessThread instance, if the task did not
   // get a chance to run (e.g. posting the task while shutting down or when
   // the thread never runs).
-  virtual void PostTask(std::unique_ptr<QueuedTask> task) = 0;
+  virtual void PostTask(std::unique_ptr<QueuedTask>&& task) = 0;
 
   // Adds a module that will start to receive callbacks on the worker thread.
   // Can be called from any thread.

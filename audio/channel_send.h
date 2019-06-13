@@ -103,7 +103,7 @@ class ChannelSendInterface {
   virtual void SetInputMute(bool muted) = 0;
 
   virtual void ProcessAndEncodeAudio(
-      std::unique_ptr<AudioFrame> audio_frame) = 0;
+      std::unique_ptr<AudioFrame>&& audio_frame) = 0;
   virtual RtpRtcp* GetRtpRtcp() const = 0;
 
   virtual void OnTwccBasedUplinkPacketLossRate(float packet_loss_rate) = 0;

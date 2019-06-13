@@ -125,7 +125,7 @@ class MockPeerConnectionInterface
   MOCK_METHOD0(ice_connection_state, IceConnectionState());
   MOCK_METHOD0(ice_gathering_state, IceGatheringState());
   MOCK_METHOD2(StartRtcEventLog,
-               bool(std::unique_ptr<RtcEventLogOutput>, int64_t));
+               bool(std::unique_ptr<RtcEventLogOutput>&&, int64_t));
   MOCK_METHOD0(StopRtcEventLog, void());
   MOCK_METHOD0(Close, void());
 };

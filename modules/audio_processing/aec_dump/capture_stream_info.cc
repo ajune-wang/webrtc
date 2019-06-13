@@ -11,7 +11,7 @@
 #include "modules/audio_processing/aec_dump/capture_stream_info.h"
 
 namespace webrtc {
-CaptureStreamInfo::CaptureStreamInfo(std::unique_ptr<WriteToFileTask> task)
+CaptureStreamInfo::CaptureStreamInfo(std::unique_ptr<WriteToFileTask>&& task)
     : task_(std::move(task)) {
   RTC_DCHECK(task_);
   task_->GetEvent()->set_type(audioproc::Event::STREAM);

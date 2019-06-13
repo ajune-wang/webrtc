@@ -86,7 +86,7 @@ class AudioCodingModule {
       rtc::FunctionView<void(std::unique_ptr<AudioEncoder>*)> modifier) = 0;
 
   // Utility method for simply replacing the existing encoder with a new one.
-  void SetEncoder(std::unique_ptr<AudioEncoder> new_encoder) {
+  void SetEncoder(std::unique_ptr<AudioEncoder>&& new_encoder) {
     ModifyEncoder([&](std::unique_ptr<AudioEncoder>* encoder) {
       *encoder = std::move(new_encoder);
     });

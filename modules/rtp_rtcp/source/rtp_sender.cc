@@ -571,7 +571,7 @@ RtpPacketSendResult RTPSender::TimeToSendPacket(
              : RtpPacketSendResult::kTransportUnavailable;
 }
 
-bool RTPSender::PrepareAndSendPacket(std::unique_ptr<RtpPacketToSend> packet,
+bool RTPSender::PrepareAndSendPacket(std::unique_ptr<RtpPacketToSend>&& packet,
                                      bool send_over_rtx,
                                      bool is_retransmit,
                                      const PacedPacketInfo& pacing_info) {
@@ -684,7 +684,7 @@ size_t RTPSender::TimeToSendPadding(size_t bytes,
   return bytes_sent;
 }
 
-bool RTPSender::SendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
+bool RTPSender::SendToNetwork(std::unique_ptr<RtpPacketToSend>&& packet,
                               StorageType storage,
                               RtpPacketSender::Priority priority) {
   RTC_DCHECK(packet);

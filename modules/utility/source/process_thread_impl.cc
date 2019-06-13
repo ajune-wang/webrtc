@@ -104,7 +104,7 @@ void ProcessThreadImpl::WakeUp(Module* module) {
   wake_up_.Set();
 }
 
-void ProcessThreadImpl::PostTask(std::unique_ptr<QueuedTask> task) {
+void ProcessThreadImpl::PostTask(std::unique_ptr<QueuedTask>&& task) {
   // Allowed to be called on any thread.
   {
     rtc::CritScope lock(&lock_);

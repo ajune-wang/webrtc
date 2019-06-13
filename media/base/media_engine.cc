@@ -144,7 +144,7 @@ webrtc::RTCError CheckRtpParametersInvalidModificationAndValues(
 }
 
 CompositeMediaEngine::CompositeMediaEngine(
-    std::unique_ptr<VoiceEngineInterface> voice_engine,
+    std::unique_ptr<VoiceEngineInterface>&& voice_engine,
     std::unique_ptr<VideoEngineInterface> video_engine)
     : voice_engine_(std::move(voice_engine)),
       video_engine_(std::move(video_engine)) {}

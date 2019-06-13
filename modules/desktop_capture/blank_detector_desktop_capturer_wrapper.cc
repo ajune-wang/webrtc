@@ -21,7 +21,7 @@
 namespace webrtc {
 
 BlankDetectorDesktopCapturerWrapper::BlankDetectorDesktopCapturerWrapper(
-    std::unique_ptr<DesktopCapturer> capturer,
+    std::unique_ptr<DesktopCapturer>&& capturer,
     RgbaColor blank_pixel)
     : capturer_(std::move(capturer)), blank_pixel_(blank_pixel) {
   RTC_DCHECK(capturer_);

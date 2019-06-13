@@ -447,7 +447,7 @@ bool FrameBuffer::IsCompleteSuperFrame(const EncodedFrame& frame) {
   return true;
 }
 
-int64_t FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
+int64_t FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame>&& frame) {
   TRACE_EVENT0("webrtc", "FrameBuffer::InsertFrame");
   RTC_DCHECK(frame);
 

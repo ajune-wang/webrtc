@@ -104,7 +104,8 @@ class MockChannelSend : public voe::ChannelSendInterface {
   MOCK_METHOD1(SetInputMute, void(bool muted));
   MOCK_METHOD2(ReceivedRTCPPacket, void(const uint8_t* packet, size_t length));
   // GMock doesn't like move-only types, like std::unique_ptr.
-  virtual void ProcessAndEncodeAudio(std::unique_ptr<AudioFrame> audio_frame) {
+  virtual void ProcessAndEncodeAudio(
+      std::unique_ptr<AudioFrame>&& audio_frame) {
     ProcessAndEncodeAudioForMock(&audio_frame);
   }
   MOCK_METHOD1(ProcessAndEncodeAudioForMock,

@@ -156,7 +156,7 @@ class RTPSender {
   absl::optional<uint32_t> FlexfecSsrc() const;
 
   // Sends packet to |transport_| or to the pacer, depending on configuration.
-  bool SendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
+  bool SendToNetwork(std::unique_ptr<RtpPacketToSend>&& packet,
                      StorageType storage,
                      RtpPacketSender::Priority priority);
 
@@ -185,7 +185,7 @@ class RTPSender {
 
   size_t SendPadData(size_t bytes, const PacedPacketInfo& pacing_info);
 
-  bool PrepareAndSendPacket(std::unique_ptr<RtpPacketToSend> packet,
+  bool PrepareAndSendPacket(std::unique_ptr<RtpPacketToSend>&& packet,
                             bool send_over_rtx,
                             bool is_retransmit,
                             const PacedPacketInfo& pacing_info);

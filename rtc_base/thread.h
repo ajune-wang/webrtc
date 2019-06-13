@@ -134,12 +134,12 @@ struct _SendMessage {
 class RTC_LOCKABLE Thread : public MessageQueue {
  public:
   explicit Thread(SocketServer* ss);
-  explicit Thread(std::unique_ptr<SocketServer> ss);
+  explicit Thread(std::unique_ptr<SocketServer>&& ss);
   // Constructors meant for subclasses; they should call DoInit themselves and
   // pass false for |do_init|, so that DoInit is called only on the fully
   // instantiated class, which avoids a vptr data race.
   Thread(SocketServer* ss, bool do_init);
-  Thread(std::unique_ptr<SocketServer> ss, bool do_init);
+  Thread(std::unique_ptr<SocketServer>&& ss, bool do_init);
 
   // NOTE: ALL SUBCLASSES OF Thread MUST CALL Stop() IN THEIR DESTRUCTORS (or
   // guarantee Stop() is explicitly called before the subclass is destroyed).

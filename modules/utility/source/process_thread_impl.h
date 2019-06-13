@@ -36,7 +36,7 @@ class ProcessThreadImpl : public ProcessThread {
   void Stop() override;
 
   void WakeUp(Module* module) override;
-  void PostTask(std::unique_ptr<QueuedTask> task) override;
+  void PostTask(std::unique_ptr<QueuedTask>&& task) override;
 
   void RegisterModule(Module* module, const rtc::Location& from) override;
   void DeRegisterModule(Module* module) override;

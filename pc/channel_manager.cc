@@ -25,7 +25,7 @@
 namespace cricket {
 
 ChannelManager::ChannelManager(
-    std::unique_ptr<MediaEngineInterface> media_engine,
+    std::unique_ptr<MediaEngineInterface>&& media_engine,
     std::unique_ptr<DataEngineInterface> data_engine,
     rtc::Thread* worker_thread,
     rtc::Thread* network_thread)

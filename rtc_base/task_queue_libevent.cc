@@ -109,8 +109,8 @@ class TaskQueueLibevent final : public TaskQueueBase {
   TaskQueueLibevent(absl::string_view queue_name, rtc::ThreadPriority priority);
 
   void Delete() override;
-  void PostTask(std::unique_ptr<QueuedTask> task) override;
-  void PostDelayedTask(std::unique_ptr<QueuedTask> task,
+  void PostTask(std::unique_ptr<QueuedTask>&& task) override;
+  void PostDelayedTask(std::unique_ptr<QueuedTask>&& task,
                        uint32_t milliseconds) override;
 
  private:
@@ -147,7 +147,7 @@ struct TaskQueueLibevent::TimerEvent {
 
 class TaskQueueLibevent::SetTimerTask : public QueuedTask {
  public:
-  SetTimerTask(std::unique_ptr<QueuedTask> task, uint32_t milliseconds)
+  SetTimerTask(std::unique_ptr<QueuedTask>&& task, uint32_t milliseconds)
       : task_(std::move(task)),
         milliseconds_(milliseconds),
         posted_(rtc::Time32()) {}
@@ -212,7 +212,7 @@ void TaskQueueLibevent::Delete() {
   delete this;
 }
 
-void TaskQueueLibevent::PostTask(std::unique_ptr<QueuedTask> task) {
+void TaskQueueLibevent::PostTask(std::unique_ptr<QueuedTask>&& task) {
   QueuedTask* task_id = task.get();  // Only used for comparison.
   {
     rtc::CritScope lock(&pending_lock_);
@@ -228,7 +228,7 @@ void TaskQueueLibevent::PostTask(std::unique_ptr<QueuedTask> task) {
   }
 }
 
-void TaskQueueLibevent::PostDelayedTask(std::unique_ptr<QueuedTask> task,
+void TaskQueueLibevent::PostDelayedTask(std::unique_ptr<QueuedTask>&& task,
                                         uint32_t milliseconds) {
   if (IsCurrent()) {
     TimerEvent* timer = new TimerEvent(this, std::move(task));

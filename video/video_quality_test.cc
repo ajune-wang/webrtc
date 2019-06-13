@@ -120,7 +120,7 @@ class VideoStreamFactory
 class QualityTestVideoEncoder : public VideoEncoder,
                                 private EncodedImageCallback {
  public:
-  QualityTestVideoEncoder(std::unique_ptr<VideoEncoder> encoder,
+  QualityTestVideoEncoder(std::unique_ptr<VideoEncoder>&& encoder,
                           VideoAnalyzer* analyzer,
                           std::vector<FileWrapper> files,
                           double overshoot_factor)

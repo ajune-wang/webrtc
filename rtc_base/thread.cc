@@ -157,7 +157,7 @@ Thread::ScopedDisallowBlockingCalls::~ScopedDisallowBlockingCalls() {
 
 Thread::Thread(SocketServer* ss) : Thread(ss, /*do_init=*/true) {}
 
-Thread::Thread(std::unique_ptr<SocketServer> ss)
+Thread::Thread(std::unique_ptr<SocketServer>&& ss)
     : Thread(std::move(ss), /*do_init=*/true) {}
 
 Thread::Thread(SocketServer* ss, bool do_init)
@@ -168,7 +168,7 @@ Thread::Thread(SocketServer* ss, bool do_init)
   }
 }
 
-Thread::Thread(std::unique_ptr<SocketServer> ss, bool do_init)
+Thread::Thread(std::unique_ptr<SocketServer>&& ss, bool do_init)
     : MessageQueue(std::move(ss), false) {
   SetName("Thread", this);  // default name
   if (do_init) {

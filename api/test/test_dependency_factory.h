@@ -30,7 +30,7 @@ class TestDependencyFactory {
   // The singleton MUST be stateless since tests execute in any order. It must
   // be set before tests start executing.
   static const TestDependencyFactory& GetInstance();
-  static void SetInstance(std::unique_ptr<TestDependencyFactory> instance);
+  static void SetInstance(std::unique_ptr<TestDependencyFactory>&& instance);
 
   // Returns the component a test should use. Returning nullptr means that the
   // test is free to use whatever defaults it wants. The injection components

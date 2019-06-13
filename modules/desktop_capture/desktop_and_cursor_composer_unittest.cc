@@ -89,7 +89,7 @@ class FakeScreenCapturer : public DesktopCapturer {
         std::move(next_frame_));
   }
 
-  void SetNextFrame(std::unique_ptr<DesktopFrame> next_frame) {
+  void SetNextFrame(std::unique_ptr<DesktopFrame>&& next_frame) {
     next_frame_ = std::move(next_frame);
   }
 

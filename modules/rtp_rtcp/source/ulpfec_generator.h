@@ -76,7 +76,7 @@ class UlpfecGenerator {
       uint16_t first_seq_num);
 
  private:
-  explicit UlpfecGenerator(std::unique_ptr<ForwardErrorCorrection> fec);
+  explicit UlpfecGenerator(std::unique_ptr<ForwardErrorCorrection>&& fec);
 
   // Overhead is defined as relative to the number of media packets, and not
   // relative to total number of packets. This definition is inherited from the

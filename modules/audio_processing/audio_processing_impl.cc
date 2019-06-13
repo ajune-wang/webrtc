@@ -281,10 +281,11 @@ struct AudioProcessingImpl::ApmPublicSubmodules {
 };
 
 struct AudioProcessingImpl::ApmPrivateSubmodules {
-  ApmPrivateSubmodules(std::unique_ptr<CustomProcessing> capture_post_processor,
-                       std::unique_ptr<CustomProcessing> render_pre_processor,
-                       rtc::scoped_refptr<EchoDetector> echo_detector,
-                       std::unique_ptr<CustomAudioAnalyzer> capture_analyzer)
+  ApmPrivateSubmodules(
+      std::unique_ptr<CustomProcessing>&& capture_post_processor,
+      std::unique_ptr<CustomProcessing> render_pre_processor,
+      rtc::scoped_refptr<EchoDetector> echo_detector,
+      std::unique_ptr<CustomAudioAnalyzer> capture_analyzer)
       : echo_detector(std::move(echo_detector)),
         capture_post_processor(std::move(capture_post_processor)),
         render_pre_processor(std::move(render_pre_processor)),
@@ -1694,7 +1695,7 @@ int AudioProcessingImpl::recommended_stream_analog_level() const {
   return agc1()->stream_analog_level();
 }
 
-void AudioProcessingImpl::AttachAecDump(std::unique_ptr<AecDump> aec_dump) {
+void AudioProcessingImpl::AttachAecDump(std::unique_ptr<AecDump>&& aec_dump) {
   RTC_DCHECK(aec_dump);
   rtc::CritScope cs_render(&crit_render_);
   rtc::CritScope cs_capture(&crit_capture_);

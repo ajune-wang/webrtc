@@ -74,7 +74,7 @@ std::unique_ptr<SSLCertificateStats> SSLCertificate::GetStats() const {
 // SSLCertChain
 //////////////////////////////////////////////////////////////////////
 
-SSLCertChain::SSLCertChain(std::unique_ptr<SSLCertificate> single_cert) {
+SSLCertChain::SSLCertChain(std::unique_ptr<SSLCertificate>&& single_cert) {
   certs_.push_back(std::move(single_cert));
 }
 

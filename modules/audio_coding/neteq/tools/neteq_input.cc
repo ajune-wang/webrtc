@@ -31,8 +31,9 @@ std::string NetEqInput::PacketData::ToString() const {
   return ss.Release();
 }
 
-TimeLimitedNetEqInput::TimeLimitedNetEqInput(std::unique_ptr<NetEqInput> input,
-                                             int64_t duration_ms)
+TimeLimitedNetEqInput::TimeLimitedNetEqInput(
+    std::unique_ptr<NetEqInput>&& input,
+    int64_t duration_ms)
     : input_(std::move(input)),
       start_time_ms_(input_->NextEventTime()),
       duration_ms_(duration_ms) {}

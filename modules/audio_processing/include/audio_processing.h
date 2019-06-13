@@ -627,7 +627,7 @@ class AudioProcessing : public rtc::RefCountInterface {
   // with a new one. This causes the d-tor of the earlier AecDump to
   // be called. The d-tor call may block until all pending logging
   // tasks are completed.
-  virtual void AttachAecDump(std::unique_ptr<AecDump> aec_dump) = 0;
+  virtual void AttachAecDump(std::unique_ptr<AecDump>&& aec_dump) = 0;
 
   // If no AecDump is attached, this has no effect. If an AecDump is
   // attached, it's destructor is called. The d-tor may block until

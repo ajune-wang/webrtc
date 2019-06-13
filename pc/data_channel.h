@@ -231,8 +231,8 @@ class DataChannel : public DataChannelInterface, public sigslot::has_slots<> {
 
     std::unique_ptr<DataBuffer> PopFront();
 
-    void PushFront(std::unique_ptr<DataBuffer> packet);
-    void PushBack(std::unique_ptr<DataBuffer> packet);
+    void PushFront(std::unique_ptr<DataBuffer>&& packet);
+    void PushBack(std::unique_ptr<DataBuffer>&& packet);
 
     void Clear();
 

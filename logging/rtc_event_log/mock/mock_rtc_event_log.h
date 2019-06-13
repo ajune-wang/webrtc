@@ -23,7 +23,7 @@ class MockRtcEventLog : public RtcEventLog {
   MockRtcEventLog();
   ~MockRtcEventLog();
 
-  virtual bool StartLogging(std::unique_ptr<RtcEventLogOutput> output,
+  virtual bool StartLogging(std::unique_ptr<RtcEventLogOutput>&& output,
                             int64_t output_period_ms) {
     return StartLoggingProxy(output.get(), output_period_ms);
   }
@@ -31,7 +31,7 @@ class MockRtcEventLog : public RtcEventLog {
 
   MOCK_METHOD0(StopLogging, void());
 
-  virtual void Log(std::unique_ptr<RtcEvent> event) {
+  virtual void Log(std::unique_ptr<RtcEvent>&& event) {
     return LogProxy(event.get());
   }
   MOCK_METHOD1(LogProxy, void(RtcEvent*));

@@ -62,7 +62,7 @@ class TestRtpFrameReferenceFinder : public ::testing::Test,
 
   uint16_t Rand() { return rand_.Rand<uint16_t>(); }
 
-  void OnCompleteFrame(std::unique_ptr<EncodedFrame> frame) override {
+  void OnCompleteFrame(std::unique_ptr<EncodedFrame>&& frame) override {
     int64_t pid = frame->id.picture_id;
     uint16_t sidx = frame->id.spatial_layer;
     auto frame_it = frames_from_callback_.find(std::make_pair(pid, sidx));

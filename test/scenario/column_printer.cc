@@ -34,7 +34,7 @@ ColumnPrinter ColumnPrinter::Lambda(
   return ColumnPrinter(headers, printer, max_length);
 }
 
-StatesPrinter::StatesPrinter(std::unique_ptr<RtcEventLogOutput> writer,
+StatesPrinter::StatesPrinter(std::unique_ptr<RtcEventLogOutput>&& writer,
                              std::vector<ColumnPrinter> printers)
     : writer_(std::move(writer)), printers_(printers) {
   RTC_CHECK(!printers_.empty());

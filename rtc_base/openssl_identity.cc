@@ -191,7 +191,7 @@ bool OpenSSLKeyPair::operator!=(const OpenSSLKeyPair& other) const {
 }
 
 OpenSSLIdentity::OpenSSLIdentity(
-    std::unique_ptr<OpenSSLKeyPair> key_pair,
+    std::unique_ptr<OpenSSLKeyPair>&& key_pair,
     std::unique_ptr<OpenSSLCertificate> certificate)
     : key_pair_(std::move(key_pair)) {
   RTC_DCHECK(key_pair_ != nullptr);
@@ -201,7 +201,7 @@ OpenSSLIdentity::OpenSSLIdentity(
   cert_chain_.reset(new SSLCertChain(std::move(certs)));
 }
 
-OpenSSLIdentity::OpenSSLIdentity(std::unique_ptr<OpenSSLKeyPair> key_pair,
+OpenSSLIdentity::OpenSSLIdentity(std::unique_ptr<OpenSSLKeyPair>&& key_pair,
                                  std::unique_ptr<SSLCertChain> cert_chain)
     : key_pair_(std::move(key_pair)), cert_chain_(std::move(cert_chain)) {
   RTC_DCHECK(key_pair_ != nullptr);

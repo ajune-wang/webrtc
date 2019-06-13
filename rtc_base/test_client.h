@@ -44,11 +44,11 @@ class TestClient : public sigslot::has_slots<> {
 
   // Creates a client that will send and receive with the given socket and
   // will post itself messages with the given thread.
-  explicit TestClient(std::unique_ptr<AsyncPacketSocket> socket);
+  explicit TestClient(std::unique_ptr<AsyncPacketSocket>&& socket);
   // Create a test client that will use a fake clock. NextPacket needs to wait
   // for a packet to be received, and thus it needs to advance the fake clock
   // if the test is using one, rather than just sleeping.
-  TestClient(std::unique_ptr<AsyncPacketSocket> socket,
+  TestClient(std::unique_ptr<AsyncPacketSocket>&& socket,
              ThreadProcessingFakeClock* fake_clock);
   ~TestClient() override;
 

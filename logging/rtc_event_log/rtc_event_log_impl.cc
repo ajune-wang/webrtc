@@ -42,7 +42,7 @@ constexpr size_t kMaxEventsInConfigHistory = 1000;
 template <typename T>
 class ResourceOwningTask final : public QueuedTask {
  public:
-  ResourceOwningTask(std::unique_ptr<T> resource,
+  ResourceOwningTask(std::unique_ptr<T>&& resource,
                      std::function<void(std::unique_ptr<T>)> handler)
       : resource_(std::move(resource)), handler_(handler) {}
 
@@ -100,7 +100,7 @@ RtcEventLogImpl::~RtcEventLogImpl() {
   task_queue_.release();
 }
 
-bool RtcEventLogImpl::StartLogging(std::unique_ptr<RtcEventLogOutput> output,
+bool RtcEventLogImpl::StartLogging(std::unique_ptr<RtcEventLogOutput>&& output,
                                    int64_t output_period_ms) {
   RTC_DCHECK(output_period_ms == kImmediateOutput || output_period_ms > 0);
 
@@ -117,7 +117,7 @@ bool RtcEventLogImpl::StartLogging(std::unique_ptr<RtcEventLogOutput> output,
 
   // Binding to |this| is safe because |this| outlives the |task_queue_|.
   auto start = [this, output_period_ms, timestamp_us,
-                utc_time_us](std::unique_ptr<RtcEventLogOutput> output) {
+                utc_time_us](std::unique_ptr<RtcEventLogOutput>&& output) {
     RTC_DCHECK_RUN_ON(task_queue_.get());
     RTC_DCHECK(output->IsActive());
     output_period_ms_ = output_period_ms;
@@ -167,11 +167,11 @@ void RtcEventLogImpl::StopLogging(std::function<void()> callback) {
   });
 }
 
-void RtcEventLogImpl::Log(std::unique_ptr<RtcEvent> event) {
+void RtcEventLogImpl::Log(std::unique_ptr<RtcEvent>&& event) {
   RTC_CHECK(event);
 
   // Binding to |this| is safe because |this| outlives the |task_queue_|.
-  auto event_handler = [this](std::unique_ptr<RtcEvent> unencoded_event) {
+  auto event_handler = [this](std::unique_ptr<RtcEvent>&& unencoded_event) {
     RTC_DCHECK_RUN_ON(task_queue_.get());
     LogToMemory(std::move(unencoded_event));
     if (event_output_)
@@ -218,7 +218,7 @@ void RtcEventLogImpl::ScheduleOutput() {
   }
 }
 
-void RtcEventLogImpl::LogToMemory(std::unique_ptr<RtcEvent> event) {
+void RtcEventLogImpl::LogToMemory(std::unique_ptr<RtcEvent>&& event) {
   std::deque<std::unique_ptr<RtcEvent>>& container =
       event->IsConfigEvent() ? config_history_ : history_;
   const size_t container_max_size =

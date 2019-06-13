@@ -83,9 +83,9 @@ class OpenSSLIdentity final : public SSLIdentity {
   bool operator!=(const OpenSSLIdentity& other) const;
 
  private:
-  OpenSSLIdentity(std::unique_ptr<OpenSSLKeyPair> key_pair,
+  OpenSSLIdentity(std::unique_ptr<OpenSSLKeyPair>&& key_pair,
                   std::unique_ptr<OpenSSLCertificate> certificate);
-  OpenSSLIdentity(std::unique_ptr<OpenSSLKeyPair> key_pair,
+  OpenSSLIdentity(std::unique_ptr<OpenSSLKeyPair>&& key_pair,
                   std::unique_ptr<SSLCertChain> cert_chain);
 
   static OpenSSLIdentity* GenerateInternal(const SSLIdentityParams& params);

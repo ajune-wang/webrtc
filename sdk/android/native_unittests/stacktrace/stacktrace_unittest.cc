@@ -166,7 +166,7 @@ void ThreadFunction(void* void_params) {
   params->deadlock_done_event.Set();
 }
 
-void TestStacktrace(std::unique_ptr<DeadlockInterface> deadlock_impl) {
+void TestStacktrace(std::unique_ptr<DeadlockInterface>&& deadlock_impl) {
   // Set params that will be sent to other thread.
   ThreadParams params;
   params.deadlock_impl = deadlock_impl.get();

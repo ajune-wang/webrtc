@@ -75,7 +75,7 @@ class BufferedFrameDecryptorTest
  public:
   // Implements the OnDecryptedFrameCallbackInterface
   void OnDecryptedFrame(
-      std::unique_ptr<video_coding::RtpFrameObject> frame) override {
+      std::unique_ptr<video_coding::RtpFrameObject>&& frame) override {
     decrypted_frame_call_count_++;
   }
 
@@ -85,7 +85,7 @@ class BufferedFrameDecryptorTest
 
   // Implements the OnAssembledFrameCallback interface.
   void OnAssembledFrame(
-      std::unique_ptr<video_coding::RtpFrameObject> frame) override {}
+      std::unique_ptr<video_coding::RtpFrameObject>&& frame) override {}
 
   // Returns a new fake RtpFrameObject it abstracts the difficult construction
   // of the RtpFrameObject to simplify testing.

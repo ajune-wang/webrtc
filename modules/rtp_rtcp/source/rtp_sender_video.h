@@ -128,7 +128,7 @@ class RTPSenderVideo {
 
   size_t CalculateFecPacketOverhead() const RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
-  void SendVideoPacket(std::unique_ptr<RtpPacketToSend> packet,
+  void SendVideoPacket(std::unique_ptr<RtpPacketToSend>&& packet,
                        StorageType storage);
 
   void SendVideoPacketAsRedMaybeWithUlpfec(
@@ -138,11 +138,12 @@ class RTPSenderVideo {
 
   // TODO(brandtr): Remove the FlexFEC functions when FlexfecSender has been
   // moved to PacedSender.
-  void SendVideoPacketWithFlexfec(std::unique_ptr<RtpPacketToSend> media_packet,
-                                  StorageType media_packet_storage,
-                                  bool protect_media_packet);
+  void SendVideoPacketWithFlexfec(
+      std::unique_ptr<RtpPacketToSend>&& media_packet,
+      StorageType media_packet_storage,
+      bool protect_media_packet);
 
-  bool LogAndSendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
+  bool LogAndSendToNetwork(std::unique_ptr<RtpPacketToSend>&& packet,
                            StorageType storage,
                            RtpPacketSender::Priority priority);
 

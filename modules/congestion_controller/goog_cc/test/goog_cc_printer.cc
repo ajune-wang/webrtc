@@ -186,7 +186,7 @@ void GoogCcDebugFactory::PrintState(const Timestamp at_time) {
 }
 
 void GoogCcDebugFactory::AttachWriter(
-    std::unique_ptr<RtcEventLogOutput> log_writer) {
+    std::unique_ptr<RtcEventLogOutput>&& log_writer) {
   if (log_writer) {
     log_writer_ = std::move(log_writer);
     printer_.PrintHeaders(log_writer_.get());

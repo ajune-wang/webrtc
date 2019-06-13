@@ -32,7 +32,7 @@ namespace test {
 // line arguments into this function.
 // To see a list of all supported command line flags, run the executable with
 // the '--help' flag.
-int AudioprocFloat(std::unique_ptr<AudioProcessingBuilder> ap_builder,
+int AudioprocFloat(std::unique_ptr<AudioProcessingBuilder>&& ap_builder,
                    int argc,
                    char* argv[]);
 

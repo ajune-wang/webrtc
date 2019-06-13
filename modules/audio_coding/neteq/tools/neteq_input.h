@@ -84,7 +84,8 @@ class NetEqInput {
 // input taken from a file can be cut shorter by wrapping it in this class.
 class TimeLimitedNetEqInput : public NetEqInput {
  public:
-  TimeLimitedNetEqInput(std::unique_ptr<NetEqInput> input, int64_t duration_ms);
+  TimeLimitedNetEqInput(std::unique_ptr<NetEqInput>&& input,
+                        int64_t duration_ms);
   ~TimeLimitedNetEqInput() override;
   absl::optional<int64_t> NextPacketTime() const override;
   absl::optional<int64_t> NextOutputEventTime() const override;

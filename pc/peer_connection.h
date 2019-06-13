@@ -209,9 +209,9 @@ class PeerConnection : public PeerConnectionInternal,
 
   rtc::scoped_refptr<SctpTransportInterface> GetSctpTransport() const override;
 
-  bool StartRtcEventLog(std::unique_ptr<RtcEventLogOutput> output,
+  bool StartRtcEventLog(std::unique_ptr<RtcEventLogOutput>&& output,
                         int64_t output_period_ms) override;
-  bool StartRtcEventLog(std::unique_ptr<RtcEventLogOutput> output) override;
+  bool StartRtcEventLog(std::unique_ptr<RtcEventLogOutput>&& output) override;
   void StopRtcEventLog() override;
 
   void Close() override;
@@ -417,7 +417,7 @@ class PeerConnection : public PeerConnectionInternal,
   void OnIceGatheringChange(IceGatheringState new_state)
       RTC_RUN_ON(signaling_thread());
   // New ICE candidate has been gathered.
-  void OnIceCandidate(std::unique_ptr<IceCandidateInterface> candidate)
+  void OnIceCandidate(std::unique_ptr<IceCandidateInterface>&& candidate)
       RTC_RUN_ON(signaling_thread());
   // Gathering of an ICE candidate failed.
   void OnIceCandidateError(const std::string& host_candidate,
@@ -800,7 +800,7 @@ class PeerConnection : public PeerConnectionInternal,
 
   // Starts output of an RTC event log to the given output object.
   // This function should only be called from the worker thread.
-  bool StartRtcEventLog_w(std::unique_ptr<RtcEventLogOutput> output,
+  bool StartRtcEventLog_w(std::unique_ptr<RtcEventLogOutput>&& output,
                           int64_t output_period_ms);
 
   // Stops recording an RTC event log.

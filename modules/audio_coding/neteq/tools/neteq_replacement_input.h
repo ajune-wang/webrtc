@@ -23,7 +23,7 @@ namespace test {
 // decoded by a FakeDecodeFromFile decoder.
 class NetEqReplacementInput : public NetEqInput {
  public:
-  NetEqReplacementInput(std::unique_ptr<NetEqInput> source,
+  NetEqReplacementInput(std::unique_ptr<NetEqInput>&& source,
                         uint8_t replacement_payload_type,
                         const std::set<uint8_t>& comfort_noise_types,
                         const std::set<uint8_t>& forbidden_types);

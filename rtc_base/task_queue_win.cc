@@ -156,8 +156,8 @@ class TaskQueueWin : public TaskQueueBase {
   ~TaskQueueWin() override = default;
 
   void Delete() override;
-  void PostTask(std::unique_ptr<QueuedTask> task) override;
-  void PostDelayedTask(std::unique_ptr<QueuedTask> task,
+  void PostTask(std::unique_ptr<QueuedTask>&& task) override;
+  void PostDelayedTask(std::unique_ptr<QueuedTask>&& task,
                        uint32_t milliseconds) override;
 
   void RunPendingTasks();
@@ -230,13 +230,13 @@ void TaskQueueWin::Delete() {
   delete this;
 }
 
-void TaskQueueWin::PostTask(std::unique_ptr<QueuedTask> task) {
+void TaskQueueWin::PostTask(std::unique_ptr<QueuedTask>&& task) {
   rtc::CritScope lock(&pending_lock_);
   pending_.push(std::move(task));
   ::SetEvent(in_queue_);
 }
 
-void TaskQueueWin::PostDelayedTask(std::unique_ptr<QueuedTask> task,
+void TaskQueueWin::PostDelayedTask(std::unique_ptr<QueuedTask>&& task,
                                    uint32_t milliseconds) {
   if (!milliseconds) {
     PostTask(std::move(task));

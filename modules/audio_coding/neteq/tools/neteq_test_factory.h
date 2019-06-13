@@ -141,7 +141,7 @@ class NetEqTestFactory {
       const Config& config);
 
  private:
-  std::unique_ptr<NetEqTest> InitializeTest(std::unique_ptr<NetEqInput> input,
+  std::unique_ptr<NetEqTest> InitializeTest(std::unique_ptr<NetEqInput>&& input,
                                             const Config& config);
   std::unique_ptr<SsrcSwitchDetector> ssrc_switch_detector_;
   std::unique_ptr<NetEqStatsPlotter> stats_plotter_;

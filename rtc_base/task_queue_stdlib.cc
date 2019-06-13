@@ -52,8 +52,8 @@ class TaskQueueStdlib final : public TaskQueueBase {
   ~TaskQueueStdlib() override = default;
 
   void Delete() override;
-  void PostTask(std::unique_ptr<QueuedTask> task) override;
-  void PostDelayedTask(std::unique_ptr<QueuedTask> task,
+  void PostTask(std::unique_ptr<QueuedTask>&& task) override;
+  void PostDelayedTask(std::unique_ptr<QueuedTask>&& task,
                        uint32_t milliseconds) override;
 
  private:
@@ -145,7 +145,7 @@ void TaskQueueStdlib::Delete() {
   delete this;
 }
 
-void TaskQueueStdlib::PostTask(std::unique_ptr<QueuedTask> task) {
+void TaskQueueStdlib::PostTask(std::unique_ptr<QueuedTask>&& task) {
   {
     rtc::CritScope lock(&pending_lock_);
     OrderId order = thread_posting_order_++;
@@ -157,7 +157,7 @@ void TaskQueueStdlib::PostTask(std::unique_ptr<QueuedTask> task) {
   NotifyWake();
 }
 
-void TaskQueueStdlib::PostDelayedTask(std::unique_ptr<QueuedTask> task,
+void TaskQueueStdlib::PostDelayedTask(std::unique_ptr<QueuedTask>&& task,
                                       uint32_t milliseconds) {
   auto fire_at = rtc::TimeMillis() + milliseconds;
 

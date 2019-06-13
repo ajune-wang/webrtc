@@ -18,7 +18,7 @@
 namespace webrtc {
 namespace test {
 
-EncodeNetEqInput::EncodeNetEqInput(std::unique_ptr<Generator> generator,
+EncodeNetEqInput::EncodeNetEqInput(std::unique_ptr<Generator>&& generator,
                                    std::unique_ptr<AudioEncoder> encoder,
                                    int64_t input_duration_ms)
     : generator_(std::move(generator)),

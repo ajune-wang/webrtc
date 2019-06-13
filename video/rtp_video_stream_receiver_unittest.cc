@@ -78,7 +78,7 @@ class MockOnCompleteFrameCallback
                void(video_coding::EncodedFrame* frame));
   MOCK_METHOD1(DoOnCompleteFrameFailBitstream,
                void(video_coding::EncodedFrame* frame));
-  void OnCompleteFrame(std::unique_ptr<video_coding::EncodedFrame> frame) {
+  void OnCompleteFrame(std::unique_ptr<video_coding::EncodedFrame>&& frame) {
     if (!frame) {
       DoOnCompleteFrameFailNullptr(nullptr);
       return;

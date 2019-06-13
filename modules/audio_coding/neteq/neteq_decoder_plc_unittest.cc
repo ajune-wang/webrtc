@@ -37,7 +37,7 @@ namespace {
 // and present as output, both for regular decoding and for PLC.
 class AudioDecoderPlc : public AudioDecoder {
  public:
-  AudioDecoderPlc(std::unique_ptr<InputAudioFile> input, int sample_rate_hz)
+  AudioDecoderPlc(std::unique_ptr<InputAudioFile>&& input, int sample_rate_hz)
       : input_(std::move(input)), sample_rate_hz_(sample_rate_hz) {}
 
   void Reset() override {}

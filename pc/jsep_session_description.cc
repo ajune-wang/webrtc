@@ -185,7 +185,7 @@ JsepSessionDescription::JsepSessionDescription(
 JsepSessionDescription::~JsepSessionDescription() {}
 
 bool JsepSessionDescription::Initialize(
-    std::unique_ptr<cricket::SessionDescription> description,
+    std::unique_ptr<cricket::SessionDescription>&& description,
     const std::string& session_id,
     const std::string& session_version) {
   if (!description)

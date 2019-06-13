@@ -150,7 +150,7 @@ std::unique_ptr<NetEqTest> NetEqTestFactory::InitializeTestFromFile(
 }
 
 std::unique_ptr<NetEqTest> NetEqTestFactory::InitializeTest(
-    std::unique_ptr<NetEqInput> input,
+    std::unique_ptr<NetEqInput>&& input,
     const Config& config) {
   if (input->ended()) {
     std::cerr << "Error: Input is empty" << std::endl;

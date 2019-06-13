@@ -37,7 +37,7 @@ namespace webrtc {
 namespace webrtc_internal_rtp_video_sender {
 
 RtpStreamSender::RtpStreamSender(
-    std::unique_ptr<PlayoutDelayOracle> playout_delay_oracle,
+    std::unique_ptr<PlayoutDelayOracle>&& playout_delay_oracle,
     std::unique_ptr<RtpRtcp> rtp_rtcp,
     std::unique_ptr<RTPSenderVideo> sender_video)
     : playout_delay_oracle(std::move(playout_delay_oracle)),

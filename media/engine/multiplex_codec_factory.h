@@ -45,7 +45,7 @@ class RTC_EXPORT MultiplexEncoderFactory : public VideoEncoderFactory {
   // |supports_augmenting_data| defines if the encoder would support augmenting
   // data. If set, the encoder expects to receive video frame buffers of type
   // AugmentedVideoFrameBuffer.
-  MultiplexEncoderFactory(std::unique_ptr<VideoEncoderFactory> factory,
+  MultiplexEncoderFactory(std::unique_ptr<VideoEncoderFactory>&& factory,
                           bool supports_augmenting_data = false);
 
   std::vector<SdpVideoFormat> GetSupportedFormats() const override;
@@ -63,7 +63,7 @@ class RTC_EXPORT MultiplexDecoderFactory : public VideoDecoderFactory {
   // |supports_augmenting_data| defines if the decoder would support augmenting
   // data. If set, the decoder is expected to output video frame buffers of type
   // AugmentedVideoFrameBuffer.
-  MultiplexDecoderFactory(std::unique_ptr<VideoDecoderFactory> factory,
+  MultiplexDecoderFactory(std::unique_ptr<VideoDecoderFactory>&& factory,
                           bool supports_augmenting_data = false);
 
   std::vector<SdpVideoFormat> GetSupportedFormats() const override;

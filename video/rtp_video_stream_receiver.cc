@@ -506,7 +506,7 @@ bool RtpVideoStreamReceiver::IsDecryptable() const {
 }
 
 void RtpVideoStreamReceiver::OnAssembledFrame(
-    std::unique_ptr<video_coding::RtpFrameObject> frame) {
+    std::unique_ptr<video_coding::RtpFrameObject>&& frame) {
   RTC_DCHECK_RUN_ON(&network_tc_);
   RTC_DCHECK(frame);
 
@@ -542,7 +542,7 @@ void RtpVideoStreamReceiver::OnAssembledFrame(
 }
 
 void RtpVideoStreamReceiver::OnCompleteFrame(
-    std::unique_ptr<video_coding::EncodedFrame> frame) {
+    std::unique_ptr<video_coding::EncodedFrame>&& frame) {
   {
     rtc::CritScope lock(&last_seq_num_cs_);
     video_coding::RtpFrameObject* rtp_frame =
@@ -554,7 +554,7 @@ void RtpVideoStreamReceiver::OnCompleteFrame(
 }
 
 void RtpVideoStreamReceiver::OnDecryptedFrame(
-    std::unique_ptr<video_coding::RtpFrameObject> frame) {
+    std::unique_ptr<video_coding::RtpFrameObject>&& frame) {
   reference_finder_->ManageFrame(std::move(frame));
 }
 

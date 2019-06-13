@@ -25,7 +25,7 @@ namespace webrtc {
 class FileAudioGenerator : public AudioGenerator {
  public:
   // Reads the playout audio from a given WAV file.
-  explicit FileAudioGenerator(std::unique_ptr<WavReader> input_audio_file);
+  explicit FileAudioGenerator(std::unique_ptr<WavReader>&& input_audio_file);
 
   ~FileAudioGenerator() override;
 

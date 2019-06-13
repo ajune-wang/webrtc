@@ -35,7 +35,7 @@ namespace webrtc {
 
 class CaptureStreamInfo {
  public:
-  explicit CaptureStreamInfo(std::unique_ptr<WriteToFileTask> task);
+  explicit CaptureStreamInfo(std::unique_ptr<WriteToFileTask>&& task);
   ~CaptureStreamInfo();
   void AddInput(const AudioFrameView<const float>& src);
   void AddOutput(const AudioFrameView<const float>& src);
@@ -50,7 +50,7 @@ class CaptureStreamInfo {
     return std::move(task_);
   }
 
-  void SetTask(std::unique_ptr<WriteToFileTask> task) {
+  void SetTask(std::unique_ptr<WriteToFileTask>&& task) {
     RTC_DCHECK(!task_);
     RTC_DCHECK(task);
     task_ = std::move(task);

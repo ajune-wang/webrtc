@@ -23,7 +23,7 @@ namespace {
 using ::testing::InSequence;
 using ::testing::MockFunction;
 
-void RunTask(std::unique_ptr<QueuedTask> task) {
+void RunTask(std::unique_ptr<QueuedTask>&& task) {
   // Simulate how task queue suppose to run tasks.
   QueuedTask* raw = task.release();
   if (raw->Run())

@@ -36,7 +36,7 @@ class RtpFrameObject;
 class OnAssembledFrameCallback {
  public:
   virtual ~OnAssembledFrameCallback() {}
-  virtual void OnAssembledFrame(std::unique_ptr<RtpFrameObject> frame) = 0;
+  virtual void OnAssembledFrame(std::unique_ptr<RtpFrameObject>&& frame) = 0;
 };
 
 class PacketBuffer {

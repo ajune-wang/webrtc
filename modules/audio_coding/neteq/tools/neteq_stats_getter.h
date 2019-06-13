@@ -54,7 +54,8 @@ class NetEqStatsGetter : public NetEqGetAudioCallback {
   // Takes a pointer to another callback object, which will be invoked after
   // this object finishes. This does not transfer ownership, and null is a
   // valid value.
-  explicit NetEqStatsGetter(std::unique_ptr<NetEqDelayAnalyzer> delay_analyzer);
+  explicit NetEqStatsGetter(
+      std::unique_ptr<NetEqDelayAnalyzer>&& delay_analyzer);
 
   void set_stats_query_interval_ms(int64_t stats_query_interval_ms) {
     stats_query_interval_ms_ = stats_query_interval_ms;

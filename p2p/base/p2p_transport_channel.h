@@ -299,7 +299,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   int CalculateActiveWritablePingInterval(const Connection* conn,
                                           int64_t now) const;
   void PingConnection(Connection* conn);
-  void AddAllocatorSession(std::unique_ptr<PortAllocatorSession> session);
+  void AddAllocatorSession(std::unique_ptr<PortAllocatorSession>&& session);
   void AddConnection(Connection* connection);
 
   void OnPortReady(PortAllocatorSession* session, PortInterface* port);

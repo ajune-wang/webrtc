@@ -138,7 +138,7 @@ std::unique_ptr<SessionDescriptionInterface> PeerConnectionWrapper::CreateSdp(
 }
 
 bool PeerConnectionWrapper::SetLocalDescription(
-    std::unique_ptr<SessionDescriptionInterface> desc,
+    std::unique_ptr<SessionDescriptionInterface>&& desc,
     std::string* error_out) {
   return SetSdp(
       [this, &desc](SetSessionDescriptionObserver* observer) {
@@ -148,7 +148,7 @@ bool PeerConnectionWrapper::SetLocalDescription(
 }
 
 bool PeerConnectionWrapper::SetRemoteDescription(
-    std::unique_ptr<SessionDescriptionInterface> desc,
+    std::unique_ptr<SessionDescriptionInterface>&& desc,
     std::string* error_out) {
   return SetSdp(
       [this, &desc](SetSessionDescriptionObserver* observer) {
@@ -158,7 +158,7 @@ bool PeerConnectionWrapper::SetRemoteDescription(
 }
 
 bool PeerConnectionWrapper::SetRemoteDescription(
-    std::unique_ptr<SessionDescriptionInterface> desc,
+    std::unique_ptr<SessionDescriptionInterface>&& desc,
     RTCError* error_out) {
   rtc::scoped_refptr<MockSetRemoteDescriptionObserver> observer =
       new MockSetRemoteDescriptionObserver();

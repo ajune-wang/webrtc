@@ -70,7 +70,7 @@ class AudioMixerImpl : public AudioMixer {
   bool GetAudioSourceMixabilityStatusForTest(Source* audio_source) const;
 
  protected:
-  AudioMixerImpl(std::unique_ptr<OutputRateCalculator> output_rate_calculator,
+  AudioMixerImpl(std::unique_ptr<OutputRateCalculator>&& output_rate_calculator,
                  bool use_limiter);
 
  private:

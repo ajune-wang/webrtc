@@ -33,8 +33,9 @@ class BlankDetectorDesktopCapturerWrapper final
   // Creates BlankDetectorDesktopCapturerWrapper. BlankDesktopCapturerWrapper
   // takes ownership of |capturer|. The |blank_pixel| is the unmodified color
   // returned by the |capturer|.
-  BlankDetectorDesktopCapturerWrapper(std::unique_ptr<DesktopCapturer> capturer,
-                                      RgbaColor blank_pixel);
+  BlankDetectorDesktopCapturerWrapper(
+      std::unique_ptr<DesktopCapturer>&& capturer,
+      RgbaColor blank_pixel);
   ~BlankDetectorDesktopCapturerWrapper() override;
 
   // DesktopCapturer interface.

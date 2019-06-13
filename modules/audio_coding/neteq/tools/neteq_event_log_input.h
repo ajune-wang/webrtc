@@ -41,7 +41,7 @@ class NetEqEventLogInput final : public NetEqPacketSourceInput {
   PacketSource* source() override;
 
  private:
-  NetEqEventLogInput(std::unique_ptr<RtcEventLogSource> source);
+  NetEqEventLogInput(std::unique_ptr<RtcEventLogSource>&& source);
   std::unique_ptr<RtcEventLogSource> source_;
 };
 

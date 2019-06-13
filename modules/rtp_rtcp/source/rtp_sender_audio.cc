@@ -348,7 +348,7 @@ bool RTPSenderAudio::SendTelephoneEventPacket(bool ended,
 }
 
 bool RTPSenderAudio::LogAndSendToNetwork(
-    std::unique_ptr<RtpPacketToSend> packet,
+    std::unique_ptr<RtpPacketToSend>&& packet,
     StorageType storage,
     RtpPacketSender::Priority priority) {
 #if BWE_TEST_LOGGING_COMPILE_TIME_ENABLE

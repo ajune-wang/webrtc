@@ -44,7 +44,7 @@ class ColumnPrinter {
 
 class StatesPrinter {
  public:
-  StatesPrinter(std::unique_ptr<RtcEventLogOutput> writer,
+  StatesPrinter(std::unique_ptr<RtcEventLogOutput>&& writer,
                 std::vector<ColumnPrinter> printers);
   RTC_DISALLOW_COPY_AND_ASSIGN(StatesPrinter);
   ~StatesPrinter();

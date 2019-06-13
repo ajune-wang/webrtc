@@ -16,8 +16,9 @@
 
 namespace webrtc {
 
-FrameDumpingDecoder::FrameDumpingDecoder(std::unique_ptr<VideoDecoder> decoder,
-                                         FileWrapper file)
+FrameDumpingDecoder::FrameDumpingDecoder(
+    std::unique_ptr<VideoDecoder>&& decoder,
+    FileWrapper file)
     : decoder_(std::move(decoder)),
       writer_(IvfFileWriter::Wrap(std::move(file),
                                   /* byte_limit= */ 100000000)) {}

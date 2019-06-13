@@ -44,7 +44,7 @@ namespace cricket {
 class ChannelManager final {
  public:
   // Construct a ChannelManager with the specified media engine and data engine.
-  ChannelManager(std::unique_ptr<MediaEngineInterface> media_engine,
+  ChannelManager(std::unique_ptr<MediaEngineInterface>&& media_engine,
                  std::unique_ptr<DataEngineInterface> data_engine,
                  rtc::Thread* worker_thread,
                  rtc::Thread* network_thread);

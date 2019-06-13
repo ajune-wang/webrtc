@@ -65,7 +65,7 @@ struct TestPeerComponents {
   rtc::scoped_refptr<PeerConnectionInterface> peer_connection;
   rtc::scoped_refptr<AudioProcessing> audio_processing;
 
-  TestPeerComponents(std::unique_ptr<InjectableComponents> components,
+  TestPeerComponents(std::unique_ptr<InjectableComponents>&& components,
                      const Params& params,
                      MockPeerConnectionObserver* observer,
                      VideoQualityAnalyzerInjectionHelper* video_analyzer_helper,

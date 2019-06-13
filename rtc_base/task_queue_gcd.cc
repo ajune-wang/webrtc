@@ -44,8 +44,8 @@ class TaskQueueGcd : public TaskQueueBase {
   TaskQueueGcd(absl::string_view queue_name, int gcd_priority);
 
   void Delete() override;
-  void PostTask(std::unique_ptr<QueuedTask> task) override;
-  void PostDelayedTask(std::unique_ptr<QueuedTask> task,
+  void PostTask(std::unique_ptr<QueuedTask>&& task) override;
+  void PostDelayedTask(std::unique_ptr<QueuedTask>&& task,
                        uint32_t milliseconds) override;
 
  private:
@@ -96,12 +96,12 @@ void TaskQueueGcd::Delete() {
   dispatch_release(queue_);
 }
 
-void TaskQueueGcd::PostTask(std::unique_ptr<QueuedTask> task) {
+void TaskQueueGcd::PostTask(std::unique_ptr<QueuedTask>&& task) {
   auto* context = new TaskContext(this, std::move(task));
   dispatch_async_f(queue_, context, &RunTask);
 }
 
-void TaskQueueGcd::PostDelayedTask(std::unique_ptr<QueuedTask> task,
+void TaskQueueGcd::PostDelayedTask(std::unique_ptr<QueuedTask>&& task,
                                    uint32_t milliseconds) {
   auto* context = new TaskContext(this, std::move(task));
   dispatch_after_f(

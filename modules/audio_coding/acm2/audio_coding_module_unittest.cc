@@ -1649,7 +1649,7 @@ class AcmSetBitRateTest : public ::testing::Test {
 
   void RunInner(int min_expected_total_bits, int max_expected_total_bits) {
     int nr_bytes = 0;
-    while (std::unique_ptr<test::Packet> next_packet =
+    while (std::unique_ptr<test::Packet>&& next_packet =
                send_test_->NextPacket()) {
       nr_bytes += rtc::checked_cast<int>(next_packet->payload_length_bytes());
     }
@@ -1791,7 +1791,7 @@ class AcmChangeBitRateOldApi : public AcmSetBitRateOldApi {
         sampling_freq_hz_ * kTestDurationMs / (frame_size_samples_ * 1000);
     int nr_bytes_before = 0, nr_bytes_after = 0;
     int packet_counter = 0;
-    while (std::unique_ptr<test::Packet> next_packet =
+    while (std::unique_ptr<test::Packet>&& next_packet =
                send_test_->NextPacket()) {
       if (packet_counter == nr_packets / 2)
         send_test_->acm()->SetBitRate(target_bitrate_bps);

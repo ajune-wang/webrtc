@@ -31,7 +31,7 @@ std::string NetEqStatsGetter::ConcealmentEvent::ToString() const {
 }
 
 NetEqStatsGetter::NetEqStatsGetter(
-    std::unique_ptr<NetEqDelayAnalyzer> delay_analyzer)
+    std::unique_ptr<NetEqDelayAnalyzer>&& delay_analyzer)
     : delay_analyzer_(std::move(delay_analyzer)) {}
 
 void NetEqStatsGetter::BeforeGetAudio(NetEq* neteq) {

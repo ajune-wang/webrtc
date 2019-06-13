@@ -33,7 +33,7 @@ RtpFrameReferenceFinder::RtpFrameReferenceFinder(
 RtpFrameReferenceFinder::~RtpFrameReferenceFinder() = default;
 
 void RtpFrameReferenceFinder::ManageFrame(
-    std::unique_ptr<RtpFrameObject> frame) {
+    std::unique_ptr<RtpFrameObject>&& frame) {
   rtc::CritScope lock(&crit_);
 
   // If we have cleared past this frame, drop it.

@@ -93,7 +93,7 @@ AudioMixerImpl::SourceStatusList::const_iterator FindSourceInList(
 }  // namespace
 
 AudioMixerImpl::AudioMixerImpl(
-    std::unique_ptr<OutputRateCalculator> output_rate_calculator,
+    std::unique_ptr<OutputRateCalculator>&& output_rate_calculator,
     bool use_limiter)
     : output_rate_calculator_(std::move(output_rate_calculator)),
       output_frequency_(0),

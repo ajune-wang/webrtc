@@ -552,7 +552,7 @@ void PerformBasicParameterSanityChecks(const SimulationSettings& settings) {
 
 }  // namespace
 
-int AudioprocFloatImpl(std::unique_ptr<AudioProcessingBuilder> ap_builder,
+int AudioprocFloatImpl(std::unique_ptr<AudioProcessingBuilder>&& ap_builder,
                        int argc,
                        char* argv[]) {
   if (rtc::FlagList::SetFlagsFromCommandLine(&argc, argv, true) || FLAG_help ||

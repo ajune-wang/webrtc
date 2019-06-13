@@ -25,10 +25,10 @@ class FakeRtcEventLog : public RtcEventLog {
  public:
   explicit FakeRtcEventLog(rtc::Thread* thread);
   ~FakeRtcEventLog() override;
-  bool StartLogging(std::unique_ptr<RtcEventLogOutput> output,
+  bool StartLogging(std::unique_ptr<RtcEventLogOutput>&& output,
                     int64_t output_period_ms) override;
   void StopLogging() override;
-  void Log(std::unique_ptr<RtcEvent> event) override;
+  void Log(std::unique_ptr<RtcEvent>&& event) override;
   int GetEventCount(RtcEvent::Type event_type) { return count_[event_type]; }
 
  private:

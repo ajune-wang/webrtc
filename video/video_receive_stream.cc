@@ -532,7 +532,7 @@ void VideoReceiveStream::RequestKeyFrame() {
 }
 
 void VideoReceiveStream::OnCompleteFrame(
-    std::unique_ptr<video_coding::EncodedFrame> frame) {
+    std::unique_ptr<video_coding::EncodedFrame>&& frame) {
   RTC_DCHECK_RUN_ON(&network_sequence_checker_);
   // TODO(https://bugs.webrtc.org/9974): Consider removing this workaround.
   int64_t time_now_ms = rtc::TimeMillis();
@@ -632,7 +632,7 @@ void VideoReceiveStream::StartNextDecode() {
 
   frame_buffer_->NextFrame(
       GetWaitMs(), keyframe_required_, &decode_queue_,
-      [this](std::unique_ptr<EncodedFrame> frame, ReturnReason res) {
+      [this](std::unique_ptr<EncodedFrame>&& frame, ReturnReason res) {
         RTC_DCHECK_EQ(frame == nullptr, res == ReturnReason::kTimeout);
         RTC_DCHECK_EQ(frame != nullptr, res == ReturnReason::kFrameFound);
         decode_queue_.PostTask(DecodeTask{this, std::move(frame)});

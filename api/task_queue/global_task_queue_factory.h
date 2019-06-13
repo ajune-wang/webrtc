@@ -17,7 +17,7 @@
 namespace webrtc {
 
 // May be called at most once, and before any TaskQueue is created.
-void SetGlobalTaskQueueFactory(std::unique_ptr<TaskQueueFactory> factory);
+void SetGlobalTaskQueueFactory(std::unique_ptr<TaskQueueFactory>&& factory);
 
 // Returns TaskQueue factory. Always returns the same factory.
 TaskQueueFactory& GlobalTaskQueueFactory();

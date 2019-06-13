@@ -246,7 +246,7 @@ void RTPSenderVideo::RegisterPayloadType(int8_t payload_type,
   }
 }
 
-void RTPSenderVideo::SendVideoPacket(std::unique_ptr<RtpPacketToSend> packet,
+void RTPSenderVideo::SendVideoPacket(std::unique_ptr<RtpPacketToSend>&& packet,
                                      StorageType storage) {
   // Remember some values about the packet before sending it away.
   size_t packet_size = packet->size();
@@ -321,7 +321,7 @@ void RTPSenderVideo::SendVideoPacketAsRedMaybeWithUlpfec(
 }
 
 void RTPSenderVideo::SendVideoPacketWithFlexfec(
-    std::unique_ptr<RtpPacketToSend> media_packet,
+    std::unique_ptr<RtpPacketToSend>&& media_packet,
     StorageType media_packet_storage,
     bool protect_media_packet) {
   RTC_DCHECK(flexfec_sender_);
@@ -349,7 +349,7 @@ void RTPSenderVideo::SendVideoPacketWithFlexfec(
 }
 
 bool RTPSenderVideo::LogAndSendToNetwork(
-    std::unique_ptr<RtpPacketToSend> packet,
+    std::unique_ptr<RtpPacketToSend>&& packet,
     StorageType storage,
     RtpPacketSender::Priority priority) {
 #if BWE_TEST_LOGGING_COMPILE_TIME_ENABLE

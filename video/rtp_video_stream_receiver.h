@@ -143,15 +143,15 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
 
   // Implements OnAssembledFrameCallback.
   void OnAssembledFrame(
-      std::unique_ptr<video_coding::RtpFrameObject> frame) override;
+      std::unique_ptr<video_coding::RtpFrameObject>&& frame) override;
 
   // Implements OnCompleteFrameCallback.
   void OnCompleteFrame(
-      std::unique_ptr<video_coding::EncodedFrame> frame) override;
+      std::unique_ptr<video_coding::EncodedFrame>&& frame) override;
 
   // Implements OnDecryptedFrameCallback.
   void OnDecryptedFrame(
-      std::unique_ptr<video_coding::RtpFrameObject> frame) override;
+      std::unique_ptr<video_coding::RtpFrameObject>&& frame) override;
 
   // Implements OnDecryptionStatusChangeCallback.
   void OnDecryptionStatusChange(

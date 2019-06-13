@@ -22,7 +22,7 @@ FakeRtcEventLog::FakeRtcEventLog(rtc::Thread* thread) : thread_(thread) {
 }
 FakeRtcEventLog::~FakeRtcEventLog() = default;
 
-bool FakeRtcEventLog::StartLogging(std::unique_ptr<RtcEventLogOutput> output,
+bool FakeRtcEventLog::StartLogging(std::unique_ptr<RtcEventLogOutput>&& output,
                                    int64_t output_period_ms) {
   return true;
 }
@@ -31,7 +31,7 @@ void FakeRtcEventLog::StopLogging() {
   invoker_.Flush(thread_);
 }
 
-void FakeRtcEventLog::Log(std::unique_ptr<RtcEvent> event) {
+void FakeRtcEventLog::Log(std::unique_ptr<RtcEvent>&& event) {
   RtcEvent::Type rtc_event_type = event->GetType();
   invoker_.AsyncInvoke<void>(
       RTC_FROM_HERE, thread_,

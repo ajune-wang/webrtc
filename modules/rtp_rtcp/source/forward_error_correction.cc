@@ -72,7 +72,7 @@ ForwardErrorCorrection::ReceivedFecPacket::ReceivedFecPacket() = default;
 ForwardErrorCorrection::ReceivedFecPacket::~ReceivedFecPacket() = default;
 
 ForwardErrorCorrection::ForwardErrorCorrection(
-    std::unique_ptr<FecHeaderReader> fec_header_reader,
+    std::unique_ptr<FecHeaderReader>&& fec_header_reader,
     std::unique_ptr<FecHeaderWriter> fec_header_writer,
     uint32_t ssrc,
     uint32_t protected_media_ssrc)

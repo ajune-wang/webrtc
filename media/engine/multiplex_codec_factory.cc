@@ -36,7 +36,7 @@ namespace webrtc {
 constexpr const char* kMultiplexAssociatedCodecName = cricket::kVp9CodecName;
 
 MultiplexEncoderFactory::MultiplexEncoderFactory(
-    std::unique_ptr<VideoEncoderFactory> factory,
+    std::unique_ptr<VideoEncoderFactory>&& factory,
     bool supports_augmenting_data)
     : factory_(std::move(factory)),
       supports_augmenting_data_(supports_augmenting_data) {}
@@ -82,7 +82,7 @@ std::unique_ptr<VideoEncoder> MultiplexEncoderFactory::CreateVideoEncoder(
 }
 
 MultiplexDecoderFactory::MultiplexDecoderFactory(
-    std::unique_ptr<VideoDecoderFactory> factory,
+    std::unique_ptr<VideoDecoderFactory>&& factory,
     bool supports_augmenting_data)
     : factory_(std::move(factory)),
       supports_augmenting_data_(supports_augmenting_data) {}

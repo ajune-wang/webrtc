@@ -96,7 +96,7 @@ static bool DesignatedExpertRange(int attr_type) {
          (attr_type >= 0xC000 && attr_type <= 0xFFFF);
 }
 
-void StunMessage::AddAttribute(std::unique_ptr<StunAttribute> attr) {
+void StunMessage::AddAttribute(std::unique_ptr<StunAttribute>&& attr) {
   // Fail any attributes that aren't valid for this type of message,
   // but allow any type for the range that in the RFC is reserved for
   // the "designated experts".

@@ -63,7 +63,7 @@ class RTPSenderAudio {
   bool MarkerBit(AudioFrameType frame_type, int8_t payload_type);
 
  private:
-  bool LogAndSendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
+  bool LogAndSendToNetwork(std::unique_ptr<RtpPacketToSend>&& packet,
                            StorageType storage,
                            RtpPacketSender::Priority priority);
 

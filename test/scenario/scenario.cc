@@ -66,7 +66,7 @@ Scenario::Scenario(std::string file_name, bool real_time)
     : Scenario(GetScenarioLogManager(file_name), real_time) {}
 
 Scenario::Scenario(
-    std::unique_ptr<LogWriterFactoryInterface> log_writer_factory,
+    std::unique_ptr<LogWriterFactoryInterface>&& log_writer_factory,
     bool real_time)
     : log_writer_factory_(std::move(log_writer_factory)),
       time_controller_(CreateTimeController(real_time)),

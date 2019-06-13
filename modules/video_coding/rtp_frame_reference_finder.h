@@ -35,7 +35,7 @@ class RtpFrameObject;
 class OnCompleteFrameCallback {
  public:
   virtual ~OnCompleteFrameCallback() {}
-  virtual void OnCompleteFrame(std::unique_ptr<EncodedFrame> frame) = 0;
+  virtual void OnCompleteFrame(std::unique_ptr<EncodedFrame>&& frame) = 0;
 };
 
 class RtpFrameReferenceFinder {
@@ -49,7 +49,7 @@ class RtpFrameReferenceFinder {
   //  - We have too many stashed frames (determined by |kMaxStashedFrames|)
   //    so we drop this frame, or
   //  - It gets cleared by ClearTo, which also means we drop it.
-  void ManageFrame(std::unique_ptr<RtpFrameObject> frame);
+  void ManageFrame(std::unique_ptr<RtpFrameObject>&& frame);
 
   // Notifies that padding has been received, which the reference finder
   // might need to calculate the references of a frame.

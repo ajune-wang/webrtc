@@ -57,7 +57,7 @@ PacketSource* NetEqEventLogInput::source() {
 }
 
 NetEqEventLogInput::NetEqEventLogInput(
-    std::unique_ptr<RtcEventLogSource> source)
+    std::unique_ptr<RtcEventLogSource>&& source)
     : source_(std::move(source)) {
   LoadNextPacket();
   AdvanceOutputEvent();

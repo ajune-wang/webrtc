@@ -22,6 +22,30 @@
       "revId": "05bd6781f099a924766af41ced88765be828d45d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9f2c214_00f3cdb5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-13T14:36:37Z",
+      "side": 1,
+      "message": "thank you for digging out exact change where it was deprecated.",
+      "parentUuid": "898194ec_41d1d11e",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "05bd6781f099a924766af41ced88765be828d45d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

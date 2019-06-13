@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1eaa751e_1f1d7e6b",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-13T12:21:15Z",
+      "side": 1,
+      "message": "Yes and the constructor argument as well if you wish to change them in this CL.",
+      "parentUuid": "3d546229_a52f05f1",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 26
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a529ba86_21cc3724",
         "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
         "patchSetId": 1
@@ -166,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "c0d20f8f_9c3b7c20",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-13T12:21:15Z",
+      "side": 1,
+      "message": "As I understood from the bug, almost of all of the copying could be skipped but I agree it is a bit unclear. Ilya, can you comment which field can be removed? Is the idea to remove them from C++ EncodedImage as well?\n\nIf this is looking risky, let\u0027s do it separately.",
+      "parentUuid": "cdf056b9_287d4b45",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 17
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c6e52f50_0afea323",
         "filename": "sdk/android/src/jni/encoded_image.cc",
         "patchSetId": 1
@@ -248,6 +296,30 @@
       "side": 1,
       "message": "I guess this deserves a comment. The C++ EncodedImage doesn\u0027t have any timestamp with ns resolution. But it looks like C++ VideoEncoderWrapper wants ns timestamps, for the matching with FrameExtraInfo.\n\nI would like both java and C++ to use microsecond timestamps, but for the time being, it seems this ns timestamp has to be handled separately.\n\nAlso I noticed that the generated accessor method Java_EncodedImage_getRotation is declared static in this file, so it can\u0027t be called directly from VideoEncoderWrapper. That\u0027s why I added it to this method, even if it looks a bit ugly.",
       "parentUuid": "ce6298c1_83c0063b",
+      "range": {
+        "startLine": 81,
+        "startChar": 21,
+        "endLine": 81,
+        "endChar": 55
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34f7c507_7c52ccde",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-13T12:21:15Z",
+      "side": 1,
+      "message": "The capture_time_ns is just acting as a glorified unique identifier. As long as we round it to milliseconds it should work fine.\n\nBut I think exposing Java_EncodedImage_getCaptureTimeNs might be nice option. Similar to this:\nhttps://cs.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/sdk/android/src/jni/video_frame.h?dr\u003dC\u0026g\u003d0\u0026l\u003d81",
+      "parentUuid": "364d6a8c_69f4bcad",
       "range": {
         "startLine": 81,
         "startChar": 21,

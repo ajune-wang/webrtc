@@ -69,6 +69,46 @@ public class EncodedImage {
     this.qp = qp;
   }
 
+  @CalledByNative
+  public ByteBuffer getBuffer() {
+    return buffer;
+  }
+
+  @CalledByNative
+  public int getEncodedWidth() {
+    return encodedWidth;
+  }
+
+  @CalledByNative
+  public int getEncodedHeight() {
+    return encodedHeight;
+  }
+
+  @CalledByNative
+  public long getCaptureTimeNs() {
+    return captureTimeNs;
+  }
+
+  @CalledByNative
+  public int getFrameType() {
+    return frameType.getNative();
+  }
+
+  @CalledByNative
+  public int getRotation() {
+    return rotation;
+  }
+
+  @CalledByNative
+  public boolean getCompleteFrame() {
+    return completeFrame;
+  }
+
+  @CalledByNative
+  public Integer getQp() {
+    return qp;
+  }
+
   public static Builder builder() {
     return new Builder();
   }

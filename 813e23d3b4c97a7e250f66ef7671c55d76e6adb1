@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4269cc71_fdff5045",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-13T13:31:46Z",
+      "side": 1,
+      "message": "Done, and the Builder too.",
+      "parentUuid": "1eaa751e_1f1d7e6b",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 26
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a529ba86_21cc3724",
         "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
         "patchSetId": 1
@@ -214,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "1e58c436_058b29e0",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-13T13:31:46Z",
+      "side": 1,
+      "message": "I\u0027d prefer to do that as a separate change.\n\nAs far as I understand, the field will stay in C++ EncodedImage, but could perhaps be removed from java EncodedImage.",
+      "parentUuid": "c0d20f8f_9c3b7c20",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 17
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c6e52f50_0afea323",
         "filename": "sdk/android/src/jni/encoded_image.cc",
         "patchSetId": 1
@@ -329,6 +377,30 @@
       "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f331632e_9539b26d",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-13T13:31:46Z",
+      "side": 1,
+      "message": "Added a separate getter function.",
+      "parentUuid": "34f7c507_7c52ccde",
+      "range": {
+        "startLine": 81,
+        "startChar": 21,
+        "endLine": 81,
+        "endChar": 55
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

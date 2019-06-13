@@ -93,6 +93,7 @@ class GatedRecurrentLayer {
  private:
   // No SIMD optimizations.
   void ComputeOutput_NONE(rtc::ArrayView<const float> input);
+  void ComputeOutput_SSE2(rtc::ArrayView<const float> input);
 
   const size_t input_size_;
   const size_t output_size_;

@@ -559,6 +559,7 @@ if (is_android) {
   }
 
   rtc_static_library("audio_jni") {
+    visibility = [ "*" ]
     sources = [
       "src/jni/pc/audio.cc",
     ]
@@ -575,6 +576,7 @@ if (is_android) {
   }
 
   rtc_static_library("builtin_audio_codecs_jni") {
+    visibility = [ "*" ]
     sources = [
       "src/jni/builtin_audio_decoder_factory_factory.cc",
       "src/jni/builtin_audio_encoder_factory_factory.cc",
@@ -626,6 +628,7 @@ if (is_android) {
   }
 
   rtc_static_library("video_jni") {
+    visibility = [ "*" ]
     sources = [
       "src/jni/android_video_track_source.cc",
       "src/jni/android_video_track_source.h",
@@ -828,6 +831,7 @@ if (is_android) {
   }
 
   rtc_static_library("swcodecs_jni") {
+    visibility = [ "*" ]
     deps = [
       ":libvpx_vp8_jni",
       ":libvpx_vp9_jni",

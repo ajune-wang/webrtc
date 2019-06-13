@@ -22,6 +22,30 @@
       "revId": "39aa861986f95324775de26cdd4c8057150ac2a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa1ce030_fa78ebaf",
+        "filename": "api/video/video_frame.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-13T11:20:43Z",
+      "side": 1,
+      "message": "I agree that leaking RTP information isn\u0027t ideal.\n\nhttps://w3c.github.io/webrtc-pc/#dom-rtcrtpcontributingsource is specced in a packet-centric fashion and applies to both audio and video streams. So I believe that plumbing a per-packet info, and doing the final assembling of the values very late (i.e. in `SourceTracker` when the output audio or video frame is on its way out from WebRTC), is our safest and most flexible option.",
+      "parentUuid": "71b2c539_11dc6934",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 34
+      },
+      "revId": "39aa861986f95324775de26cdd4c8057150ac2a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

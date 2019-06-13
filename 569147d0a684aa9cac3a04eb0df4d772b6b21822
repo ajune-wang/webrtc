@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8b3ba01_6868a858",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-06-13T13:44:43Z",
+      "side": 1,
+      "message": "I prefer ComputeOutput.",
+      "revId": "569147d0a684aa9cac3a04eb0df4d772b6b21822",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "976d78ec_db13b571",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-06-13T13:44:43Z",
+      "side": 1,
+      "message": "The index of weights_ now advances by output_size_ for each iteration, probably resulting in cache-misses in every iteration.\nUsing the transposed weights here as well would most likely result in huge speed-up.",
+      "revId": "569147d0a684aa9cac3a04eb0df4d772b6b21822",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

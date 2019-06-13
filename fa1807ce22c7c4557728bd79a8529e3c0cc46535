@@ -16,6 +16,24 @@
       "revId": "fa1807ce22c7c4557728bd79a8529e3c0cc46535",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e225c2c7_62fc71f7",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-06-13T14:37:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71ffdec6_e147f1b8",
+      "revId": "fa1807ce22c7c4557728bd79a8529e3c0cc46535",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -10,6 +10,7 @@
 
 package org.webrtc;
 
+import android.support.annotation.Nullable;
 import java.nio.ByteBuffer;
 import java.util.concurrent.TimeUnit;
 
@@ -67,6 +68,46 @@ public class EncodedImage {
     this.rotation = rotation;
     this.completeFrame = completeFrame;
     this.qp = qp;
+  }
+
+  @CalledByNative
+  private ByteBuffer getBuffer() {
+    return buffer;
+  }
+
+  @CalledByNative
+  private int getEncodedWidth() {
+    return encodedWidth;
+  }
+
+  @CalledByNative
+  private int getEncodedHeight() {
+    return encodedHeight;
+  }
+
+  @CalledByNative
+  private long getCaptureTimeNs() {
+    return captureTimeNs;
+  }
+
+  @CalledByNative
+  private int getFrameType() {
+    return frameType.getNative();
+  }
+
+  @CalledByNative
+  private int getRotation() {
+    return rotation;
+  }
+
+  @CalledByNative
+  private boolean getCompleteFrame() {
+    return completeFrame;
+  }
+
+  @CalledByNative
+  private @Nullable Integer getQp() {
+    return qp;
   }
 
   public static Builder builder() {

@@ -32,6 +32,10 @@ ScopedJavaLocalRef<jobjectArray> NativeToJavaFrameTypeArray(
     JNIEnv* env,
     const std::vector<VideoFrameType>& frame_types);
 
+EncodedImage JavaToNativeEncodedImage(JNIEnv* env,
+                                      const JavaRef<jobject>& j_encoded_image,
+                                      int64_t* capture_time_ns);
+
 }  // namespace jni
 }  // namespace webrtc
 

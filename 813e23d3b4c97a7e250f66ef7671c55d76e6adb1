@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3d546229_a52f05f1",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-13T12:10:24Z",
+      "side": 1,
+      "message": "Should this be @Nullable too, for consistency?",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 26
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a529ba86_21cc3724",
         "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
         "patchSetId": 1
@@ -22,6 +45,30 @@
       "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bf30655_c134f675",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-13T12:10:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a529ba86_21cc3724",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 8
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -48,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "e96e73d4_77481b72",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-13T12:10:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09b5fa98_1088afb6",
+      "range": {
+        "startLine": 108,
+        "startChar": 9,
+        "endLine": 108,
+        "endChar": 16
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5471dbc_e28d8416",
         "filename": "sdk/android/src/jni/encoded_image.cc",
         "patchSetId": 1
@@ -59,6 +130,30 @@
       "writtenOn": "2019-06-13T10:57:21Z",
       "side": 1,
       "message": "Based on bug webrtc:10732 at least some of these are now unnecessary to be copied? Can you remove any that are unneeded?",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 17
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdf056b9_287d4b45",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-13T12:10:24Z",
+      "side": 1,
+      "message": "If I understand that issue correctly, it\u0027s only rotation that can be omitted. Do you want me to do that in this cl, or would it be better to do that separately? Do we have any tests for proper handling of rotation?",
+      "parentUuid": "e5471dbc_e28d8416",
       "range": {
         "startLine": 68,
         "startChar": 8,
@@ -94,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "5111222c_a4c345e4",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-13T12:10:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6e52f50_0afea323",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 3
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce6298c1_83c0063b",
         "filename": "sdk/android/src/jni/encoded_image.cc",
         "patchSetId": 1
@@ -105,6 +224,30 @@
       "writtenOn": "2019-06-13T10:57:21Z",
       "side": 1,
       "message": "Shouldn\u0027t this be filled to the frame as well? I am not sure we even need the extra output parameters for the nanosecond accuracy.",
+      "range": {
+        "startLine": 81,
+        "startChar": 21,
+        "endLine": 81,
+        "endChar": 55
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "364d6a8c_69f4bcad",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-13T12:10:24Z",
+      "side": 1,
+      "message": "I guess this deserves a comment. The C++ EncodedImage doesn\u0027t have any timestamp with ns resolution. But it looks like C++ VideoEncoderWrapper wants ns timestamps, for the matching with FrameExtraInfo.\n\nI would like both java and C++ to use microsecond timestamps, but for the time being, it seems this ns timestamp has to be handled separately.\n\nAlso I noticed that the generated accessor method Java_EncodedImage_getRotation is declared static in this file, so it can\u0027t be called directly from VideoEncoderWrapper. That\u0027s why I added it to this method, even if it looks a bit ugly.",
+      "parentUuid": "ce6298c1_83c0063b",
       "range": {
         "startLine": 81,
         "startChar": 21,

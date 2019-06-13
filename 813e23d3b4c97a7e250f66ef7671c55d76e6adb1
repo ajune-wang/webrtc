@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a529ba86_21cc3724",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-13T10:57:21Z",
+      "side": 1,
+      "message": "Please do not make these public. No need to have two APIs for the same thing.",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 73,
+        "endChar": 8
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09b5fa98_1088afb6",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-13T10:57:21Z",
+      "side": 1,
+      "message": "nit: Should be annotated with @Nullable?",
+      "range": {
+        "startLine": 108,
+        "startChar": 9,
+        "endLine": 108,
+        "endChar": 16
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5471dbc_e28d8416",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-13T10:57:21Z",
+      "side": 1,
+      "message": "Based on bug webrtc:10732 at least some of these are now unnecessary to be copied? Can you remove any that are unneeded?",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 17
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6e52f50_0afea323",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-13T10:57:21Z",
+      "side": 1,
+      "message": "Not needed?",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 3
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce6298c1_83c0063b",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-13T10:57:21Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be filled to the frame as well? I am not sure we even need the extra output parameters for the nanosecond accuracy.",
+      "range": {
+        "startLine": 81,
+        "startChar": 21,
+        "endLine": 81,
+        "endChar": 55
+      },
+      "revId": "813e23d3b4c97a7e250f66ef7671c55d76e6adb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

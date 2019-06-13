@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47734f87_2f9e0e2f",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-13T14:01:04Z",
+      "side": 1,
+      "message": "Isn\u0027t default initialization sufficient?",
+      "range": {
+        "startLine": 712,
+        "startChar": 32,
+        "endLine": 712,
+        "endChar": 37
+      },
+      "revId": "40da92c4ee234d437cda6eeb867e1b092b161a0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

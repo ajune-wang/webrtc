@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d85f61fb_d24d9bf3",
+        "filename": "common_audio/wav_file.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5241
+      },
+      "writtenOn": "2019-06-13T11:33:04Z",
+      "side": 1,
+      "message": "I see we crashed in this case already before, but isn\u0027t that pretty aggressive? It could fail for reasons outside of our control. It\u0027d require moving out to e.g. an Initialize() function to fix that so no need to do in this CL though.",
+      "revId": "d48c692fbd006d730056ede444ae25e7dc86e5c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66bf6cee_ace674e6",
+        "filename": "common_audio/wav_file.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5241
+      },
+      "writtenOn": "2019-06-13T11:33:04Z",
+      "side": 1,
+      "message": "OK, we have these checks all over the place. Oh, well.",
+      "revId": "d48c692fbd006d730056ede444ae25e7dc86e5c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

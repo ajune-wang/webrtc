@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "123b860a_ea4a0356",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-13T14:18:40Z",
+      "side": 1,
+      "message": "two spaces intentional?",
+      "range": {
+        "startLine": 528,
+        "startChar": 20,
+        "endLine": 528,
+        "endChar": 22
+      },
+      "revId": "22345b189e4b184e375d5659f20d28ef049e151d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

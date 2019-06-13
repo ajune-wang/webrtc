@@ -1,5 +1,5 @@
 syntax = "proto2";
-option optimize_for = LITE_RUNTIME;
+// option optimize_for = LITE_RUNTIME;
 package webrtc.audio_network_adaptor.debug_dump;
 
 import "config.proto";

@@ -2,7 +2,7 @@
 // WITHOUT PRIOR WARNING. THIS FILE SHOULD NOT BE USED IN PRODUCTION CODE.
 
 syntax = "proto2";
-option optimize_for = LITE_RUNTIME;
+// option optimize_for = LITE_RUNTIME;
 package webrtc.rtclog2;
 
 // At the top level, a WebRTC event log is just an EventStream object. Note that

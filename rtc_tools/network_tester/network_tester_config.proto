@@ -1,5 +1,5 @@
 syntax = "proto2";
-option optimize_for = LITE_RUNTIME;
+// option optimize_for = LITE_RUNTIME;
 package webrtc.network_tester.config;
 
 message NetworkTesterConfig {

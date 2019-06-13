@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8d79d785_acb6316d",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-06-13T15:07:43Z",
+      "side": 1,
+      "message": "Nit: we tend not to mark pod input parameters with const.",
+      "range": {
+        "startLine": 78,
+        "startChar": 42,
+        "endLine": 78,
+        "endChar": 48
+      },
+      "revId": "569147d0a684aa9cac3a04eb0df4d772b6b21822",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8b3ba01_6868a858",
         "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
         "patchSetId": 2

@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6650c34c_1ac38085",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-06-13T15:00:12Z",
+      "side": 1,
+      "message": "I think we are sticking to C99 code, which allows you to declare variables anywhere. So, you can skip this line and simply do\n \n int samples \u003d opus_packet_get_nb_samples(...\n\nat line 641.",
+      "range": {
+        "startLine": 633,
+        "startChar": 2,
+        "endLine": 633,
+        "endChar": 14
+      },
+      "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "209f6f0b_a23e6b2a",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-06-13T15:00:12Z",
+      "side": 1,
+      "message": "Optional: consider making this a one-liner.\n\n return (samples \u003d\u003d OPUS_INVALID_PACKET) ? 0 : samples;",
+      "range": {
+        "startLine": 644,
+        "startChar": 2,
+        "endLine": 647,
+        "endChar": 17
+      },
+      "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da0cff41_7f31978f",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-06-13T15:00:12Z",
+      "side": 1,
+      "message": "int frames \u003d ...",
+      "range": {
+        "startLine": 761,
+        "startChar": 2,
+        "endLine": 761,
+        "endChar": 9
+      },
+      "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1eae1f29_0fc8ad9b",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-06-13T15:00:12Z",
+      "side": 1,
+      "message": "Merge these two if-statements.",
+      "range": {
+        "startLine": 763,
+        "startChar": 2,
+        "endLine": 769,
+        "endChar": 3
+      },
+      "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfdf6f01_dc564038",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-06-13T15:00:12Z",
+      "side": 1,
+      "message": "int channels \u003d ...",
+      "range": {
+        "startLine": 771,
+        "startChar": 2,
+        "endLine": 771,
+        "endChar": 13
+      },
+      "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8d51e3b_24bc8332",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-06-13T15:00:12Z",
+      "side": 1,
+      "message": "Android try bots are not happy about this line for some reason.",
+      "range": {
+        "startLine": 786,
+        "startChar": 2,
+        "endLine": 786,
+        "endChar": 79
+      },
+      "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

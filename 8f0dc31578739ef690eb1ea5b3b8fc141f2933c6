@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9641d30e_00be544c",
+        "filename": "commit-queue.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5533
+      },
+      "writtenOn": "2019-06-14T18:45:43Z",
+      "side": 0,
+      "message": "can this be switched to g3.webrtc-internal/try/internal_compile_lite?",
+      "range": {
+        "startLine": 154,
+        "startChar": 17,
+        "endLine": 154,
+        "endChar": 41
+      },
+      "revId": "8f0dc31578739ef690eb1ea5b3b8fc141f2933c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -18,7 +18,7 @@
 
 namespace cricket {
 
-struct PacketOptions;
+struct packetoptions;
 
 // Finds data location within a TURN Channel Message or TURN Send Indication
 // message.

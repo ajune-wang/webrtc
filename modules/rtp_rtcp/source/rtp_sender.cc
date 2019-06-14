@@ -410,7 +410,6 @@ size_t RTPSender::SendPadData(size_t bytes,
         AbsoluteSendTime::MsTo24Bits(now_ms));
     PacketOptions options;
     // Padding packets are never retransmissions.
-    options.is_retransmit = false;
     bool has_transport_seq_num;
     {
       rtc::CritScope lock(&send_critsect_);
@@ -614,7 +613,6 @@ bool RTPSender::PrepareAndSendPacket(std::unique_ptr<RtpPacketToSend> packet,
   // If we are sending over RTX, it also means this is a retransmission.
   // E.g. RTPSender::TrySendRedundantPayloads calls PrepareAndSendPacket with
   // send_over_rtx = true but is_retransmit = false.
-  options.is_retransmit = is_retransmit || send_over_rtx;
   bool has_transport_seq_num;
   {
     rtc::CritScope lock(&send_critsect_);
@@ -712,7 +710,6 @@ bool RTPSender::SendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
   }
 
   PacketOptions options;
-  options.is_retransmit = false;
 
   // |capture_time_ms| <= 0 is considered invalid.
   // TODO(holmer): This should be changed all over Video Engine so that negative

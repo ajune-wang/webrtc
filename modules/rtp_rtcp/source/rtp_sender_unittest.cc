@@ -450,20 +450,6 @@ TEST_P(RtpSenderTestWithoutPacer, SendsPacketsWithTransportSequenceNumber) {
   EXPECT_TRUE(transport_.last_options_.included_in_allocation);
 }
 
-TEST_P(RtpSenderTestWithoutPacer, PacketOptionsNoRetransmission) {
-  rtp_sender_.reset(
-      new RTPSender(false, &fake_clock_, &transport_, nullptr, absl::nullopt,
-                    &seq_num_allocator_, &feedback_observer_, nullptr, nullptr,
-                    &mock_rtc_event_log_, &send_packet_observer_,
-                    &retransmission_rate_limiter_, nullptr, false, nullptr,
-                    false, false, FieldTrialBasedConfig()));
-  rtp_sender_->SetSSRC(kSsrc);
-
-  SendGenericPacket();
-
-  EXPECT_FALSE(transport_.last_options_.is_retransmit);
-}
-
 TEST_P(RtpSenderTestWithoutPacer,
        SetsIncludedInFeedbackWhenTransportSequenceNumberExtensionIsRegistered) {
   SetUpRtpSender(false, false);
@@ -986,7 +972,6 @@ TEST_P(RtpSenderTest, OnSendPacketNotUpdatedForRetransmits) {
                                 fake_clock_.TimeInMilliseconds(), kIsRetransmit,
                                 PacedPacketInfo());
   EXPECT_EQ(1, transport_.packets_sent());
-  EXPECT_TRUE(transport_.last_options_.is_retransmit);
 }
 
 TEST_P(RtpSenderTest, OnSendPacketNotUpdatedWithoutSeqNumAllocator) {
@@ -1076,7 +1061,6 @@ TEST_P(RtpSenderTest, SendRedundantPayloads) {
                                  ::testing::Return(true)));
   EXPECT_EQ(kPayloadSizes[0],
             rtp_sender_->TimeToSendPadding(500, PacedPacketInfo()));
-  EXPECT_TRUE(options.is_retransmit);
 
   EXPECT_CALL(transport, SendRtp(_,
                                  kPayloadSizes[kNumPayloadSizes - 1] +
@@ -1084,13 +1068,11 @@ TEST_P(RtpSenderTest, SendRedundantPayloads) {
                                  _))
       .WillOnce(::testing::Return(true));
 
-  options.is_retransmit = false;
   EXPECT_CALL(transport, SendRtp(_, kMaxPaddingSize + rtp_header_len, _))
       .WillOnce(::testing::DoAll(::testing::SaveArg<2>(&options),
                                  ::testing::Return(true)));
   EXPECT_EQ(kPayloadSizes[kNumPayloadSizes - 1] + kMaxPaddingSize,
             rtp_sender_->TimeToSendPadding(999, PacedPacketInfo()));
-  EXPECT_FALSE(options.is_retransmit);
 }
 
 TEST_P(RtpSenderTestWithoutPacer, SendGenericVideo) {

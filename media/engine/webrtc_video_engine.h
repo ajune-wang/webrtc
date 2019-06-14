@@ -349,7 +349,6 @@ class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
         RTC_EXCLUSIVE_LOCKS_REQUIRED(&thread_checker_);
 
     rtc::ThreadChecker thread_checker_;
-    rtc::AsyncInvoker invoker_;
     rtc::Thread* worker_thread_;
     const std::vector<uint32_t> ssrcs_ RTC_GUARDED_BY(&thread_checker_);
     const std::vector<SsrcGroup> ssrc_groups_ RTC_GUARDED_BY(&thread_checker_);
@@ -373,6 +372,8 @@ class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
     webrtc::RtpParameters rtp_parameters_ RTC_GUARDED_BY(&thread_checker_);
 
     bool sending_ RTC_GUARDED_BY(&thread_checker_);
+
+    rtc::AsyncInvoker invoker_;
   };
 
   // Wrapper for the receiver part, contains configs etc. that are needed to

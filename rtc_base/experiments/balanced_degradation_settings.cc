@@ -23,7 +23,9 @@ constexpr int kMinFps = 1;
 constexpr int kMaxFps = 100;
 
 std::vector<BalancedDegradationSettings::Config> DefaultConfigs() {
-  return {{320 * 240, 7}, {480 * 270, 10}, {640 * 480, 15}};
+  return {{320 * 240, 7, 0, 0, 0},
+          {480 * 270, 10, 0, 0, 0},
+          {640 * 480, 15, 0, 0, 0}};
 }
 
 bool IsValid(const std::vector<BalancedDegradationSettings::Config>& configs) {
@@ -40,7 +42,14 @@ bool IsValid(const std::vector<BalancedDegradationSettings::Config>& configs) {
   for (size_t i = 1; i < configs.size(); ++i) {
     if (configs[i].pixels < configs[i - 1].pixels ||
         configs[i].fps < configs[i - 1].fps) {
-      RTC_LOG(LS_WARNING) << "Invalid parameter value provided.";
+      RTC_LOG(LS_WARNING) << "Invalid fps/pixel value provided.";
+      return false;
+    }
+    if (((configs[i].vp8_qp_high > 0) != (configs[i - 1].vp8_qp_high > 0)) ||
+        ((configs[i].h264_qp_high > 0) != (configs[i - 1].h264_qp_high > 0)) ||
+        ((configs[i].generic_qp_high > 0) !=
+         (configs[i - 1].generic_qp_high > 0))) {
+      RTC_LOG(LS_WARNING) << "Invalid threshold value provided.";
       return false;
     }
   }
@@ -58,13 +67,27 @@ std::vector<BalancedDegradationSettings::Config> GetValidOrDefault(
 
 BalancedDegradationSettings::Config::Config() = default;
 
-BalancedDegradationSettings::Config::Config(int pixels, int fps)
-    : pixels(pixels), fps(fps) {}
+BalancedDegradationSettings::Config::Config(int pixels,
+                                            int fps,
+                                            int vp8_qp_high,
+                                            int h264_qp_high,
+                                            int generic_qp_high)
+    : pixels(pixels),
+      fps(fps),
+      vp8_qp_high(vp8_qp_high),
+      h264_qp_high(h264_qp_high),
+      generic_qp_high(generic_qp_high) {}
 
 BalancedDegradationSettings::BalancedDegradationSettings() {
   FieldTrialStructList<Config> configs(
       {FieldTrialStructMember("pixels", [](Config* c) { return &c->pixels; }),
-       FieldTrialStructMember("fps", [](Config* c) { return &c->fps; })},
+       FieldTrialStructMember("fps", [](Config* c) { return &c->fps; }),
+       FieldTrialStructMember("vp8_qp_high",
+                              [](Config* c) { return &c->vp8_qp_high; }),
+       FieldTrialStructMember("h264_qp_high",
+                              [](Config* c) { return &c->h264_qp_high; }),
+       FieldTrialStructMember("generic_qp_high",
+                              [](Config* c) { return &c->generic_qp_high; })},
       {});
 
   ParseFieldTrial({&configs}, field_trial::FindFullName(kFieldTrial));
@@ -94,6 +117,57 @@ int BalancedDegradationSettings::MaxFps(int pixels) const {
       return configs_[i + 1].fps;
   }
   return std::numeric_limits<int>::max();
+}
+
+absl::optional<int> BalancedDegradationSettings::QpHighThreshold(
+    VideoCodecType type,
+    int pixels) const {
+  switch (type) {
+    case kVideoCodecVP8:
+      return Vp8QpHigh(pixels);
+    case kVideoCodecH264:
+      return H264QpHigh(pixels);
+    case kVideoCodecGeneric:
+      return GenericQpHigh(pixels);
+    default:
+      return absl::nullopt;
+  }
+}
+
+absl::optional<int> BalancedDegradationSettings::Vp8QpHigh(int pixels) const {
+  for (const auto& config : configs_) {
+    if (pixels <= config.pixels) {
+      return (config.vp8_qp_high > 0) ? absl::optional<int>(config.vp8_qp_high)
+                                      : absl::nullopt;
+    }
+  }
+  int qp = configs_.back().vp8_qp_high;  // Use last above highest pixels.
+  return (qp > 0) ? absl::optional<int>(qp) : absl::nullopt;
+}
+
+absl::optional<int> BalancedDegradationSettings::H264QpHigh(int pixels) const {
+  for (const auto& config : configs_) {
+    if (pixels <= config.pixels) {
+      return (config.h264_qp_high > 0)
+                 ? absl::optional<int>(config.h264_qp_high)
+                 : absl::nullopt;
+    }
+  }
+  int qp = configs_.back().h264_qp_high;  // Use last above highest pixels.
+  return (qp > 0) ? absl::optional<int>(qp) : absl::nullopt;
+}
+
+absl::optional<int> BalancedDegradationSettings::GenericQpHigh(
+    int pixels) const {
+  for (const auto& config : configs_) {
+    if (pixels <= config.pixels) {
+      return (config.generic_qp_high > 0)
+                 ? absl::optional<int>(config.generic_qp_high)
+                 : absl::nullopt;
+    }
+  }
+  int qp = configs_.back().generic_qp_high;  // Use last above highest pixels.
+  return (qp > 0) ? absl::optional<int>(qp) : absl::nullopt;
 }
 
 }  // namespace webrtc

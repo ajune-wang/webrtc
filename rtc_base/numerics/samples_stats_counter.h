@@ -82,6 +82,13 @@ class SamplesStatsCounter {
   // after call to any non const method.
   rtc::ArrayView<const double> GetSamples() const { return samples_; }
 
+  // Multiply all sample values on |value| and return new SamplesStatsCounter
+  // with resulted samples. Doesn't change origin SamplesStatsCounter.
+  SamplesStatsCounter operator*(double value) const;
+  // Divide all sample values on |value| and return new SamplesStatsCounter with
+  // resulted samples. Doesn't change origin SamplesStatsCounter.
+  SamplesStatsCounter operator/(double value) const;
+
  private:
   RunningStatistics<double> stats_;
   std::vector<double> samples_;

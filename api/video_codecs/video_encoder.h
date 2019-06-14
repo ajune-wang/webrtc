@@ -122,6 +122,27 @@ class RTC_EXPORT VideoEncoder {
     ScalingSettings();
   };
 
+  // Bitrate thresholds for resolution.
+  struct ResolutionBitrateThresholds {
+    ResolutionBitrateThresholds(uint32_t max_frame_size_pixels,
+                                uint32_t min_start_bitrate_bps,
+                                uint32_t min_bitrate_bps,
+                                uint32_t max_bitrate_bps)
+        : max_frame_size_pixels(max_frame_size_pixels),
+          min_start_bitrate_bps(min_start_bitrate_bps),
+          min_bitrate_bps(min_bitrate_bps),
+          max_bitrate_bps(max_bitrate_bps) {}
+    // Maximum size of video frame, in pixels, the bitrate thresholds are
+    // intended for.
+    uint32_t max_frame_size_pixels = 0;
+    // Recommended minimum bitrate to start encoding.
+    uint32_t min_start_bitrate_bps = 0;
+    // Recommended minimum bitrate.
+    uint32_t min_bitrate_bps = 0;
+    // Recommended maximum bitrate.
+    uint32_t max_bitrate_bps = 0;
+  };
+
   // Struct containing metadata about the encoder implementing this interface.
   struct EncoderInfo {
     static constexpr uint8_t kMaxFramerateFraction =
@@ -192,6 +213,9 @@ class RTC_EXPORT VideoEncoder {
     // with a 100% frame rate fraction.
     absl::InlinedVector<uint8_t, kMaxTemporalStreams>
         fps_allocation[kMaxSpatialLayers];
+
+    // Recommended bitrate thresholds for different resolutions.
+    std::vector<ResolutionBitrateThresholds> resolution_bitrate_thresholds;
   };
 
   struct RateControlParameters {

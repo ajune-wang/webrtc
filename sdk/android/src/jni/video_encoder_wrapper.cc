@@ -35,6 +35,12 @@ VideoEncoderWrapper::VideoEncoderWrapper(JNIEnv* jni,
     : encoder_(jni, j_encoder), int_array_class_(GetClass(jni, "[I")) {
   initialized_ = false;
   num_resets_ = 0;
+
+  // Get bitrate thresholds in the constructor. This is a static property of an
+  // implementation and is expected to be available before the encoder is
+  // initialized.
+  encoder_info_.resolution_bitrate_thresholds =
+      GetResolutionBitrateThresholds(jni);
 }
 VideoEncoderWrapper::~VideoEncoderWrapper() = default;
 
@@ -212,6 +218,48 @@ VideoEncoderWrapper::GetScalingSettingsInternal(JNIEnv* jni) const {
     default:
       return ScalingSettings::kOff;
   }
+}
+
+std::vector<VideoEncoder::ResolutionBitrateThresholds>
+VideoEncoderWrapper::GetResolutionBitrateThresholds(JNIEnv* jni) const {
+  std::vector<VideoEncoder::ResolutionBitrateThresholds>
+      resolution_bitrate_thresholds;
+
+  ScopedJavaLocalRef<jobject> j_resolution_bitrate_threholds =
+      Java_VideoEncoder_getResolutionBitrateThresholds(jni, encoder_);
+
+  const absl::optional<int> thresholds_count = JavaToNativeOptionalInt(
+      jni, Java_VideoEncoderWrapper_getResolutionBitrateThresholdsCount(
+               jni, j_resolution_bitrate_threholds));
+
+  for (int i = 0; i < thresholds_count.value_or(0); ++i) {
+    const absl::optional<int> max_frame_size_pixels = JavaToNativeOptionalInt(
+        jni,
+        Java_VideoEncoderWrapper_getResolutionBitrateThresholdsMaxFrameSizePixels(
+            jni, j_resolution_bitrate_threholds, i));
+    const absl::optional<int> min_start_bitrate_bps = JavaToNativeOptionalInt(
+        jni,
+        Java_VideoEncoderWrapper_getResolutionBitrateThresholdsMinStartBitrateBps(
+            jni, j_resolution_bitrate_threholds, i));
+    const absl::optional<int> min_bitrate_bps = JavaToNativeOptionalInt(
+        jni,
+        Java_VideoEncoderWrapper_getResolutionBitrateThresholdsMinBitrateBps(
+            jni, j_resolution_bitrate_threholds, i));
+    const absl::optional<int> max_bitrate_bps = JavaToNativeOptionalInt(
+        jni,
+        Java_VideoEncoderWrapper_getResolutionBitrateThresholdsMaxBitrateBps(
+            jni, j_resolution_bitrate_threholds, i));
+
+    RTC_DCHECK(max_frame_size_pixels && min_start_bitrate_bps &&
+               min_bitrate_bps && max_bitrate_bps);
+
+    resolution_bitrate_thresholds.push_back(
+        VideoEncoder::ResolutionBitrateThresholds(
+            *max_frame_size_pixels, *min_start_bitrate_bps, *min_bitrate_bps,
+            *max_bitrate_bps));
+  }
+
+  return resolution_bitrate_thresholds;
 }
 
 void VideoEncoderWrapper::OnEncodedFrame(

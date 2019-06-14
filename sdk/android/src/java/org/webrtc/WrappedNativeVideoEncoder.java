@@ -10,6 +10,8 @@
 
 package org.webrtc;
 
+import java.util.List;
+
 /**
  * Wraps a native webrtc::VideoEncoder.
  */
@@ -39,6 +41,11 @@ abstract class WrappedNativeVideoEncoder implements VideoEncoder {
 
   @Override
   public ScalingSettings getScalingSettings() {
+    throw new UnsupportedOperationException("Not implemented.");
+  }
+
+  @Override
+  public List<ResolutionBitrateThresholds> getResolutionBitrateThresholds() {
     throw new UnsupportedOperationException("Not implemented.");
   }
 

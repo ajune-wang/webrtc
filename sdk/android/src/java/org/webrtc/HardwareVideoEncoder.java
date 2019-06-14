@@ -21,7 +21,10 @@ import android.support.annotation.Nullable;
 import android.view.Surface;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Deque;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -428,6 +431,11 @@ class HardwareVideoEncoder implements VideoEncoder {
       }
     }
     return ScalingSettings.OFF;
+  }
+
+  @Override
+  public List<ResolutionBitrateThresholds> getResolutionBitrateThresholds() {
+    return Collections.emptyList();
   }
 
   @Override

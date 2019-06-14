@@ -13,6 +13,7 @@ package org.webrtc;
 // Explicit imports necessary for JNI generation.
 import android.support.annotation.Nullable;
 import java.nio.ByteBuffer;
+import java.util.List;
 import org.webrtc.VideoEncoder;
 
 /**
@@ -34,6 +35,50 @@ class VideoEncoderWrapper {
   @CalledByNative
   static Integer getScalingSettingsHigh(VideoEncoder.ScalingSettings scalingSettings) {
     return scalingSettings.high;
+  }
+
+  @Nullable
+  @CalledByNative
+  static Integer getResolutionBitrateThresholdsCount(
+      List<VideoEncoder.ResolutionBitrateThresholds> resolutionBitrateThresholds) {
+    return resolutionBitrateThresholds.size();
+  }
+
+  @Nullable
+  @CalledByNative
+  static Integer getResolutionBitrateThresholdsMaxFrameSizePixels(
+      List<VideoEncoder.ResolutionBitrateThresholds> resolutionBitrateThresholds, int index) {
+    if (index < 0 || index > resolutionBitrateThresholds.size()) {
+      return null;
+    }
+    return resolutionBitrateThresholds.get(index).maxFrameSizePixels;
+  }
+  @Nullable
+  @CalledByNative
+  static Integer getResolutionBitrateThresholdsMinStartBitrateBps(
+      List<VideoEncoder.ResolutionBitrateThresholds> resolutionBitrateThresholds, int index) {
+    if (index < 0 || index > resolutionBitrateThresholds.size()) {
+      return null;
+    }
+    return resolutionBitrateThresholds.get(index).minStartBitrateBps;
+  }
+  @Nullable
+  @CalledByNative
+  static Integer getResolutionBitrateThresholdsMinBitrateBps(
+      List<VideoEncoder.ResolutionBitrateThresholds> resolutionBitrateThresholds, int index) {
+    if (index < 0 || index > resolutionBitrateThresholds.size()) {
+      return null;
+    }
+    return resolutionBitrateThresholds.get(index).minBitrateBps;
+  }
+  @Nullable
+  @CalledByNative
+  static Integer getResolutionBitrateThresholdsMaxBitrateBps(
+      List<VideoEncoder.ResolutionBitrateThresholds> resolutionBitrateThresholds, int index) {
+    if (index < 0 || index > resolutionBitrateThresholds.size()) {
+      return null;
+    }
+    return resolutionBitrateThresholds.get(index).maxBitrateBps;
   }
 
   @CalledByNative

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dfa52c6a_6267b7f3",
+        "filename": "api/rtp_headers.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-06-14T08:24:39Z",
+      "side": 1,
+      "message": "hasAbsoluteSendTime ? return 0 if not set?",
+      "range": {
+        "startLine": 50,
+        "startChar": 11,
+        "endLine": 50,
+        "endChar": 20
+      },
+      "revId": "9975bff178dfda8435619cf6f347dc9ea45b45ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

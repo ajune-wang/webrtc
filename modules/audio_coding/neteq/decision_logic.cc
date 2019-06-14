@@ -215,19 +215,13 @@ void DecisionLogic::FilterBufferLevel(size_t buffer_size_samples) {
   buffer_level_filter_->SetTargetBufferLevel(
       delay_manager_->base_target_level());
 
-  size_t buffer_size_packets = 0;
-  if (packet_length_samples_ > 0) {
-    // Calculate size in packets.
-    buffer_size_packets = buffer_size_samples / packet_length_samples_;
-  }
   int sample_memory_local = 0;
   if (prev_time_scale_) {
     sample_memory_local = sample_memory_;
     timescale_countdown_ = tick_timer_->GetNewCountdown(kMinTimescaleInterval);
   }
 
-  buffer_level_filter_->Update(buffer_size_packets, sample_memory_local,
-                               packet_length_samples_);
+  buffer_level_filter_->Update(buffer_size_samples, sample_memory_local);
   prev_time_scale_ = false;
 }
 
@@ -283,15 +277,19 @@ Operations DecisionLogic::NoPacket(bool play_dtmf) {
 Operations DecisionLogic::ExpectedPacketAvailable(Modes prev_mode,
                                                   bool play_dtmf) {
   if (!disallow_time_stretching_ && prev_mode != kModeExpand && !play_dtmf) {
-    // Check criterion for time-stretching.
+    // Check criterion for time-stretching. The values are in number of packets
+    // in Q8.
     int low_limit, high_limit;
     delay_manager_->BufferLimits(&low_limit, &high_limit);
-    if (buffer_level_filter_->filtered_current_level() >= high_limit << 2)
+    int buffer_level_packets = (1 << 8) *
+                               buffer_level_filter_->filtered_current_level() /
+                               packet_length_samples_;
+    if (buffer_level_packets >= high_limit << 2)
       return kFastAccelerate;
     if (TimescaleAllowed()) {
-      if (buffer_level_filter_->filtered_current_level() >= high_limit)
+      if (buffer_level_packets >= high_limit)
         return kAccelerate;
-      if (buffer_level_filter_->filtered_current_level() < low_limit)
+      if (buffer_level_packets < low_limit)
         return kPreemptiveExpand;
     }
   }
@@ -365,8 +363,10 @@ Operations DecisionLogic::FuturePacketAvailable(
 }
 
 bool DecisionLogic::UnderTargetLevel() const {
-  return buffer_level_filter_->filtered_current_level() <=
-         delay_manager_->TargetLevel();
+  int buffer_level_packets = (1 << 8) *
+                             buffer_level_filter_->filtered_current_level() /
+                             packet_length_samples_;
+  return buffer_level_packets <= delay_manager_->TargetLevel();
 }
 
 bool DecisionLogic::ReinitAfterExpands(uint32_t timestamp_leap) const {

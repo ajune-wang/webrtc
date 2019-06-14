@@ -26,6 +26,7 @@
 #include "modules/rtp_rtcp/include/receive_statistics.h"
 #include "modules/rtp_rtcp/include/report_block_data.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "modules/rtp_rtcp/source/rtp_sender.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/deprecation.h"
@@ -267,6 +268,15 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
       int64_t capture_time_ms,
       bool retransmission,
       const PacedPacketInfo& pacing_info) = 0;
+
+  // Try to send the provided packet. Returns true iff packet matches any of
+  // the SSRCs for this module (media/rtx/fec etc) and was forwarded to the
+  // transport.
+  virtual bool TrySendPacket(std::unique_ptr<RtpPacketToSend>* packet,
+                             const PacedPacketInfo& pacing_info) {
+    // Implemented in https://webrtc-review.googlesource.com/c/src/+/142165
+    return (*packet)->Ssrc() == SSRC();
+  }
 
   virtual size_t TimeToSendPadding(size_t bytes,
                                    const PacedPacketInfo& pacing_info) = 0;

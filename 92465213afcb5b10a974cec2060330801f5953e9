@@ -46,6 +46,30 @@
       "revId": "92465213afcb5b10a974cec2060330801f5953e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "748dadc6_7bec3fb2",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-14T07:31:04Z",
+      "side": 1,
+      "message": "The thing is, the developer who works with the EncodedImage or VideoFrame classes and sees the RtpPacketInfos member will ask herself \"Why on earth does this class need to know stuff about RTP packetization?\". The answer to that question is that it is needed to implement getContributingSources properly, and I think there should be comments somewhere nearby in the code to make that answer easily discoverable.\n\nI think it would make some sense to mention both the name of the method in webrtc w3c spec, and the class name |SourceTracker|, which is a piece of the current implementation thereof.\n\nAs for getStats, I would really hope that can be supported without attaching data to every frame passing through the pipeline. We\u0027ll find out later.",
+      "parentUuid": "e6fe3ba3_fbaba767",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 48
+      },
+      "revId": "92465213afcb5b10a974cec2060330801f5953e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

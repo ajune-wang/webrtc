@@ -563,8 +563,7 @@ int main(int argc, char* argv[]) {
   // simulated_neteq_jitter_buffer_delay plot doesn't fit this model since it
   // creates multiple plots, and would need some state kept between the lambda
   // calls.
-  if (absl::c_find(plot_flags, "simulated_neteq_jitter_buffer_delay") !=
-      plot_flags.end()) {
+  if (absl::c_find(plot_flags, "simulated_neteq_stats") != plot_flags.end()) {
     if (!neteq_stats) {
       neteq_stats = analyzer.SimulateNetEq(wav_path, 48000);
     }
@@ -585,4 +584,3 @@ int main(int argc, char* argv[]) {
 
   return 0;
 }
-

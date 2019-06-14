@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "e4955413_75be7ed3",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-14T12:13:12Z",
+      "side": 1,
+      "message": "Hmm. I was expecting that we could get ByteBuffer with index 0, pass it to C++ which may hold on to it for some time (eventually calling releaseOutputBuffer(0), and in the mean time get another frame in the buffer with index 1, and start processing it. If that\u0027s not how it works, I\u0027d need to get back to the basics to understand how to do this.",
+      "parentUuid": "b4390d10_7b75b786",
+      "range": {
+        "startLine": 494,
+        "startChar": 43,
+        "endLine": 494,
+        "endChar": 59
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f36d067d_cbc3e0e7",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 1
@@ -106,6 +130,30 @@
       "writtenOn": "2019-06-14T11:19:11Z",
       "side": 1,
       "message": "I think we need to wait for all output buffers to be released here.",
+      "range": {
+        "startLine": 547,
+        "startChar": 12,
+        "endLine": 547,
+        "endChar": 16
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c340e197_45268424",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-14T12:13:12Z",
+      "side": 1,
+      "message": "Why? I would expect the codec to lose interest in the buffers, while the gc will ensure that they are kept alive as long as there are other references to it (C++ object holds a reference to java EncodedImage which holds a reference to the buffer). But I don\u0027t really understand the HW encoder apis.\n\nWe\u0027d have to ensure that the eventual call to releaseOutputBuffer is a no-op, so that we don\u0027t crash trying to call releaseOutputBuffer on a stale codec. Does the spec for android.media.MediaCodec say what happens if one calls releaseOutputBuffer after stop() and release() ? If not, we might need some logic of our own to handle that safely.",
+      "parentUuid": "f36d067d_cbc3e0e7",
       "range": {
         "startLine": 547,
         "startChar": 12,
@@ -141,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "2b84c55c_9593d5f1",
+        "filename": "sdk/android/src/java/org/webrtc/VideoEncoderWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-14T12:13:12Z",
+      "side": 1,
+      "message": "Hmm. Are you suggesting that the java object will have it\u0027s own explicit reference count managed with retain() and release() methods, and call releaseCallback when it goes down to zero?",
+      "parentUuid": "4770fceb_9ff95272",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 22
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "370507bf_e805be57",
         "filename": "sdk/android/src/jni/encoded_image.cc",
         "patchSetId": 1
@@ -152,6 +224,30 @@
       "writtenOn": "2019-06-14T11:19:11Z",
       "side": 1,
       "message": "Literal comment and maybe add a comment about optimizing this to remove the unnecessary copy? (We can reference the C++ buffer and release it from Java.)",
+      "range": {
+        "startLine": 38,
+        "startChar": 19,
+        "endLine": 38,
+        "endChar": 56
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe83934c_6e572a76",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-14T12:13:12Z",
+      "side": 1,
+      "message": "Agree it would be nice to share without copy here too. How would that work? One would create a DirectByteBuffer pointing directly into a refcounted C++ EncodedImageBufferInterface, and let the java code manage a reference to it?",
+      "parentUuid": "370507bf_e805be57",
       "range": {
         "startLine": 38,
         "startChar": 19,

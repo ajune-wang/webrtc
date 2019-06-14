@@ -94,6 +94,30 @@
       "revId": "92465213afcb5b10a974cec2060330801f5953e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e9c198a_48b989d1",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-14T07:43:44Z",
+      "side": 1,
+      "message": "\u003e Would it perhaps make sense to put that comment in `EncodedImage` and `VideoFrame` instead? \n\nFine with me. (And in the appropriate audio class too).",
+      "parentUuid": "641c6d88_d81c99cd",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 48
+      },
+      "revId": "92465213afcb5b10a974cec2060330801f5953e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

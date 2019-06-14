@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "72f879d5_721eaa83",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-14T12:24:00Z",
+      "side": 1,
+      "message": "We should cache the array returned by getOutputBuffers. Additionally we must check for INFO_OUTPUT_BUFFERS_CHANGED events. In this case, we must wait that all output buffers have been released and then call getOutputBuffers again.",
+      "parentUuid": "e4955413_75be7ed3",
+      "range": {
+        "startLine": 494,
+        "startChar": 43,
+        "endLine": 494,
+        "endChar": 59
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f36d067d_cbc3e0e7",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 1
@@ -154,6 +178,30 @@
       "side": 1,
       "message": "Why? I would expect the codec to lose interest in the buffers, while the gc will ensure that they are kept alive as long as there are other references to it (C++ object holds a reference to java EncodedImage which holds a reference to the buffer). But I don\u0027t really understand the HW encoder apis.\n\nWe\u0027d have to ensure that the eventual call to releaseOutputBuffer is a no-op, so that we don\u0027t crash trying to call releaseOutputBuffer on a stale codec. Does the spec for android.media.MediaCodec say what happens if one calls releaseOutputBuffer after stop() and release() ? If not, we might need some logic of our own to handle that safely.",
       "parentUuid": "f36d067d_cbc3e0e7",
+      "range": {
+        "startLine": 547,
+        "startChar": 12,
+        "endLine": 547,
+        "endChar": 16
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed8a88c0_460e898c",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-14T12:24:00Z",
+      "side": 1,
+      "message": "Since output buffers can only be returned after start() has been called. There is no explicit mention what happens when stop() is called but I would not trust various implementations out there all handle this is in a way that the references are still valid.\n\nByteBuffers are special and may be backed by memory that is not handled through GC.",
+      "parentUuid": "c340e197_45268424",
       "range": {
         "startLine": 547,
         "startChar": 12,
@@ -213,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "913380b0_a898657f",
+        "filename": "sdk/android/src/java/org/webrtc/VideoEncoderWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-14T12:24:00Z",
+      "side": 1,
+      "message": "Yes, this matches how we handle video buffers.",
+      "parentUuid": "2b84c55c_9593d5f1",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 22
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "370507bf_e805be57",
         "filename": "sdk/android/src/jni/encoded_image.cc",
         "patchSetId": 1
@@ -248,6 +320,30 @@
       "side": 1,
       "message": "Agree it would be nice to share without copy here too. How would that work? One would create a DirectByteBuffer pointing directly into a refcounted C++ EncodedImageBufferInterface, and let the java code manage a reference to it?",
       "parentUuid": "370507bf_e805be57",
+      "range": {
+        "startLine": 38,
+        "startChar": 19,
+        "endLine": 38,
+        "endChar": 56
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e683f90_a65cc46b",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-14T12:24:00Z",
+      "side": 1,
+      "message": "Yeah, we would inject a custom callback here that frees the C++ memory.",
+      "parentUuid": "fe83934c_6e572a76",
       "range": {
         "startLine": 38,
         "startChar": 19,

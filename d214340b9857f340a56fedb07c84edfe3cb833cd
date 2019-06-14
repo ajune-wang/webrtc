@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "d391eed9_899ea80e",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-14T14:14:12Z",
+      "side": 1,
+      "message": "I don\u0027t think it is necessary at least. Maybe there is some nicer way to achieve the same result with advanced concurrency utils but I would just use an object combined with an integer counter.",
+      "parentUuid": "28805664_525d14fa",
+      "range": {
+        "startLine": 494,
+        "startChar": 43,
+        "endLine": 494,
+        "endChar": 59
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f36d067d_cbc3e0e7",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 1

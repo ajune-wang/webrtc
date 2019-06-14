@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5e32f0c5_f27d410c",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-06-14T09:24:39Z",
+      "side": 1,
+      "message": "Thanks for your comment.\n\nThe compiler strips const in the declaration, not in the definition.\nSo \"foo(const int bar)\" and \"foo(int bar)\" are functions with the same signature, but const is not removed when the function is defined.\n\nThat\u0027s why for the FullyConnectedLayer ctor you only see const in rnn.cc and not in rnn.h.\n\nIn this case, we are in the .cc file and we\u0027re defining a function in the anon ns, so it\u0027s fine to have const.",
+      "parentUuid": "8d79d785_acb6316d",
+      "range": {
+        "startLine": 78,
+        "startChar": 42,
+        "endLine": 78,
+        "endChar": 48
+      },
+      "revId": "569147d0a684aa9cac3a04eb0df4d772b6b21822",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8b3ba01_6868a858",
         "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2019-06-13T13:44:43Z",
       "side": 1,
       "message": "I prefer ComputeOutput.",
+      "revId": "569147d0a684aa9cac3a04eb0df4d772b6b21822",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5f8724b_2fd303bb",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-06-14T09:24:39Z",
+      "side": 1,
+      "message": "Me as well, but then we have a conflict with the public method (same signature).\nAny suggestion?",
+      "parentUuid": "d8b3ba01_6868a858",
       "revId": "569147d0a684aa9cac3a04eb0df4d772b6b21822",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -56,6 +98,24 @@
       "revId": "569147d0a684aa9cac3a04eb0df4d772b6b21822",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6640b88_29758b17",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-06-14T09:24:39Z",
+      "side": 1,
+      "message": "Done. I will add the hard-coded transposed weights in a separate chromium CL so that the ctor will only need to call GetScaledParams().",
+      "parentUuid": "976d78ec_db13b571",
+      "revId": "569147d0a684aa9cac3a04eb0df4d772b6b21822",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

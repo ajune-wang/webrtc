@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "cebbac40_0bff819f",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-14T11:19:11Z",
+      "side": 1,
+      "message": "I would prefer to have ref counting here that gets called from C++ code. You can use RefCountDelegate",
+      "range": {
+        "startLine": 61,
+        "startChar": 14,
+        "endLine": 61,
+        "endChar": 21
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "62e8410b_965e34ce",
         "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
         "patchSetId": 1
@@ -18,6 +41,122 @@
         "startChar": 0,
         "endLine": 149,
         "endChar": 5
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4f2c836_709bde85",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-14T11:19:11Z",
+      "side": 1,
+      "message": "Optional arguments are not a feature in Java. I was expecting setReleaseCallback to be separate but I guess this makes sense also. I would like to have documentation clarifying that if there is no release callback the buffer is expected to be valid indefinitely.",
+      "parentUuid": "62e8410b_965e34ce",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 5
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4390d10_7b75b786",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-14T11:19:11Z",
+      "side": 1,
+      "message": "This invalidates previous buffers:\nAfter calling this method, any ByteBuffers previously returned by an earlier call to this method MUST no longer be used.",
+      "range": {
+        "startLine": 494,
+        "startChar": 43,
+        "endLine": 494,
+        "endChar": 59
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f36d067d_cbc3e0e7",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-14T11:19:11Z",
+      "side": 1,
+      "message": "I think we need to wait for all output buffers to be released here.",
+      "range": {
+        "startLine": 547,
+        "startChar": 12,
+        "endLine": 547,
+        "endChar": 16
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4770fceb_9ff95272",
+        "filename": "sdk/android/src/java/org/webrtc/VideoEncoderWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-14T11:19:11Z",
+      "side": 1,
+      "message": "I would prefer logic where this is retained if needed and there is no need to release otherwise. Encoder should release the buffer after passing it to the callback.",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 22
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "370507bf_e805be57",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-14T11:19:11Z",
+      "side": 1,
+      "message": "Literal comment and maybe add a comment about optimizing this to remove the unnecessary copy? (We can reference the C++ buffer and release it from Java.)",
+      "range": {
+        "startLine": 38,
+        "startChar": 19,
+        "endLine": 38,
+        "endChar": 56
       },
       "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

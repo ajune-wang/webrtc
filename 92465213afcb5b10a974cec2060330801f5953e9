@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15f8e809_e589b1d5",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-14T06:29:38Z",
+      "side": 1,
+      "message": "This may be a good place to also say explicitly that it\u0027s for implementing GetContributingSources. Probably obvious to you, who know the SourceTracker, but not to a casual reader.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 48
+      },
+      "revId": "92465213afcb5b10a974cec2060330801f5953e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

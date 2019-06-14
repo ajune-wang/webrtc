@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "28805664_525d14fa",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-14T13:01:08Z",
+      "side": 1,
+      "message": "https://cs.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/sdk/android/api/org/webrtc/MediaCodecVideoEncoder.java?g\u003d0\u0026l\u003d1013\n\u003e \n\u003e I don\u0027t we\u0027ve ever had a situation where we hold the buffer from indeterminate amount of time so there isn\u0027t code for waiting for them to be released.\n\nHmm, does that mean that this code needs to be fixed to handle that case, before https://webrtc-review.googlesource.com/c/src/+/138820 can be landed? (Or to not have to do that, drop the change to AndroidMediaEncoder, and keep the copying).\n\n\u003e For mutex you can use any plain old Object. It has the necessary method for the implementation (wait, notifyAll).\n\nSo I don\u0027t need the Condition object, https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/Condition.html?",
+      "parentUuid": "df01e57e_36296cf1",
+      "range": {
+        "startLine": 494,
+        "startChar": 43,
+        "endLine": 494,
+        "endChar": 59
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f36d067d_cbc3e0e7",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 1

@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "8011bb76_5d152604",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-14T12:34:31Z",
+      "side": 1,
+      "message": "Is there some code for the old AndroidMediaEncoder that I could look at for caching and refreshing the buffer list? \n\nFor waiting, we\u0027d need a count for buffers in flight and condition variable (with some associated mutex) to block on. Any example on how to do that in java?",
+      "parentUuid": "72f879d5_721eaa83",
+      "range": {
+        "startLine": 494,
+        "startChar": 43,
+        "endLine": 494,
+        "endChar": 59
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f36d067d_cbc3e0e7",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 1

@@ -48,6 +48,7 @@ class FullyConnectedLayer {
   ~FullyConnectedLayer();
   size_t input_size() const { return input_size_; }
   size_t output_size() const { return output_size_; }
+  Optimization optimization() const { return optimization_; }
   rtc::ArrayView<const float> GetOutput() const;
   // Computes the fully-connected layer output.
   void ComputeOutput(rtc::ArrayView<const float> input);
@@ -55,16 +56,17 @@ class FullyConnectedLayer {
  private:
   // No SIMD optimizations.
   void ComputeOutput_NONE(rtc::ArrayView<const float> input);
+  void ComputeOutput_SSE2(rtc::ArrayView<const float> input);
 
   const size_t input_size_;
   const size_t output_size_;
   const std::vector<float> bias_;
   const std::vector<float> weights_;
   float (*const activation_function_)(float);
-  const Optimization optimization_;
   // The output vector of a recurrent layer has length equal to |output_size_|.
   // However, for efficiency, over-allocation is used.
   std::array<float, kFullyConnectedLayersMaxUnits> output_;
+  const Optimization optimization_;
 };
 
 // Recurrent layer with gated recurrent units (GRUs) with sigmoid and ReLU as
@@ -82,6 +84,7 @@ class GatedRecurrentLayer {
   ~GatedRecurrentLayer();
   size_t input_size() const { return input_size_; }
   size_t output_size() const { return output_size_; }
+  Optimization optimization() const { return optimization_; }
   rtc::ArrayView<const float> GetOutput() const;
   void Reset();
   // Computes the recurrent layer output and updates the status.

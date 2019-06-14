@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "df01e57e_36296cf1",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-14T12:47:25Z",
+      "side": 1,
+      "message": "It is handled here:\nhttps://cs.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/sdk/android/api/org/webrtc/MediaCodecVideoEncoder.java?g\u003d0\u0026l\u003d1013\n\nI don\u0027t we\u0027ve ever had a situation where we hold the buffer from indeterminate amount of time so there isn\u0027t code for waiting for them to be released.\n\nFor mutex you can use any plain old Object. It has the necessary method for the implementation (wait, notifyAll).",
+      "parentUuid": "8011bb76_5d152604",
+      "range": {
+        "startLine": 494,
+        "startChar": 43,
+        "endLine": 494,
+        "endChar": 59
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f36d067d_cbc3e0e7",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 1

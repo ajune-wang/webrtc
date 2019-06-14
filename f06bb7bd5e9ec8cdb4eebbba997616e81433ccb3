@@ -46,6 +46,30 @@
       "revId": "f06bb7bd5e9ec8cdb4eebbba997616e81433ccb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d44b7824_fb75dbf6",
+        "filename": "video/report_block_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-14T11:19:28Z",
+      "side": 1,
+      "message": "To clarify, this method is *not* deleted in this cl, it\u0027s only deleting the AggregateAndStore method which appears completely unused.",
+      "parentUuid": "4d366967_b2e1e517",
+      "range": {
+        "startLine": 38,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 27
+      },
+      "revId": "f06bb7bd5e9ec8cdb4eebbba997616e81433ccb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

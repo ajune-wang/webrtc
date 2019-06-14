@@ -22,6 +22,30 @@
       "revId": "92465213afcb5b10a974cec2060330801f5953e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6fe3ba3_fbaba767",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-14T07:09:26Z",
+      "side": 1,
+      "message": "That seems to be too much knowledge for the casual reader in this part of the code, who most likely doesn\u0027t know what `getContributingSources()` or `getSynchronizationSources()` are either (especially because the naming of those methods aren\u0027t that great - nothing hints at them returning dictionaries).\n\nFor example: What if the same information is also used to power some of the stats in `getStats()`? There\u0027s a high likelihood of that happening for `receive_time_ms` and other similar timing-related fields. It would be unrealistic to expect that the person making those changes would remember to also update the comments here.\n\nI believe that it\u0027s important to uphold the principle of separation of concerns. `RtpPacketInfo`\u0027s purpose is to carry per-packet information. It shouldn\u0027t have too much knowledge of what the carried information is used for in other parts of the code. The updated comment should give a curious reader enough of a suggestion that they should look at `SourceTracker` next. That class has urls in its comments that link directly to the specs that explain things further.",
+      "parentUuid": "15f8e809_e589b1d5",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 48
+      },
+      "revId": "92465213afcb5b10a974cec2060330801f5953e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

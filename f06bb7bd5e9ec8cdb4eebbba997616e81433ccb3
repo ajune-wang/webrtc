@@ -22,6 +22,30 @@
       "revId": "f06bb7bd5e9ec8cdb4eebbba997616e81433ccb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d366967_b2e1e517",
+        "filename": "video/report_block_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-14T10:43:53Z",
+      "side": 1,
+      "message": "As discussed offline, I think we still want those metrics, but if they can be generated in another way that should be fine.",
+      "parentUuid": "221b2a0c_29577ad3",
+      "range": {
+        "startLine": 38,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 27
+      },
+      "revId": "f06bb7bd5e9ec8cdb4eebbba997616e81433ccb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

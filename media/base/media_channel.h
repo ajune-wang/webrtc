@@ -562,6 +562,7 @@ struct VideoSenderInfo : public MediaSenderInfo {
   int avg_encode_ms = 0;
   int encode_usage_percent = 0;
   uint32_t frames_encoded = 0;
+  uint32_t key_frames_sent = 0;
   // https://w3c.github.io/webrtc-stats/#dom-rtcoutboundrtpstreamstats-totalencodetime
   uint64_t total_encode_time_ms = 0;
   // https://w3c.github.io/webrtc-stats/#dom-rtcoutboundrtpstreamstats-totalencodedbytestarget
@@ -594,6 +595,7 @@ struct VideoReceiverInfo : public MediaReceiverInfo {
   // Framerate that the renderer reports.
   int framerate_render_output = 0;
   uint32_t frames_received = 0;
+  uint32_t key_frames_received = 0;
   uint32_t frames_decoded = 0;
   uint32_t frames_rendered = 0;
   absl::optional<uint64_t> qp_sum;

@@ -649,6 +649,7 @@ ProduceMediaStreamTrackStatsFromVideoSenderInfo(
   // when available. https://crbug.com/659137
   video_track_stats->frames_sent = video_sender_info.frames_encoded;
   video_track_stats->huge_frames_sent = video_sender_info.huge_frames_sent;
+  video_track_stats->key_frames_sent = video_sender_info.key_frames_sent;
   return video_track_stats;
 }
 
@@ -680,6 +681,8 @@ ProduceMediaStreamTrackStatsFromVideoReceiverInfo(
   video_track_stats->jitter_buffer_emitted_count =
       video_receiver_info.jitter_buffer_emitted_count;
   video_track_stats->frames_received = video_receiver_info.frames_received;
+  video_track_stats->key_frames_received =
+      video_receiver_info.key_frames_received;
   // TODO(hbos): When we support receiving simulcast, this should be the total
   // number of frames correctly decoded, independent of which SSRC it was
   // received from. Since we don't support that, this is correct and is the same

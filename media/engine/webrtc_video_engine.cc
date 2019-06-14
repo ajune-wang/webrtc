@@ -2289,6 +2289,11 @@ VideoSenderInfo WebRtcVideoChannel::WebRtcVideoSendStream::GetVideoSenderInfo(
   info.content_type = stats.content_type;
   info.huge_frames_sent = stats.huge_frames_sent;
 
+  info.key_frames_sent = 0;
+  for (const auto& kv : stats.substreams) {
+    info.key_frames_sent += kv.second.frame_counts.key_frames;
+  }
+
   info.send_frame_width = 0;
   info.send_frame_height = 0;
   info.total_packet_send_delay_ms = 0;
@@ -2748,6 +2753,7 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetVideoReceiverInfo(
   info.render_delay_ms = stats.render_delay_ms;
   info.frames_received =
       stats.frame_counts.key_frames + stats.frame_counts.delta_frames;
+  info.key_frames_received = stats.frame_counts.key_frames;
   info.frames_decoded = stats.frames_decoded;
   info.frames_rendered = stats.frames_rendered;
   info.qp_sum = stats.qp_sum;

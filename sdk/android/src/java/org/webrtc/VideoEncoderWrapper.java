@@ -38,8 +38,12 @@ class VideoEncoderWrapper {
 
   @CalledByNative
   static VideoEncoder.Callback createEncoderCallback(final long nativeEncoder) {
-    return (EncodedImage frame,
-               VideoEncoder.CodecSpecificInfo info) -> nativeOnEncodedFrame(nativeEncoder, frame);
+    return (EncodedImage frame, VideoEncoder.CodecSpecificInfo info) -> {
+      nativeOnEncodedFrame(nativeEncoder, frame);
+      // TODO(bugs.webrtc.org/9378): Move responsibility for frame release to nativeOnEncodedFrame,
+      // and allow it to be delayed.
+      frame.release();
+    };
   }
 
   private static native void nativeOnEncodedFrame(

@@ -70,6 +70,30 @@
       "revId": "92465213afcb5b10a974cec2060330801f5953e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "641c6d88_d81c99cd",
+        "filename": "api/rtp_packet_info.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-14T07:39:40Z",
+      "side": 1,
+      "message": "Would it perhaps make sense to put that comment in `EncodedImage` and `VideoFrame` instead? `RtpPacketInfo` itself isn\u0027t all that strange. The surprise is, as you say, that there\u0027s a `RtpPacketInfos` member in the classes that deal with output frames. I can update the other audio and video CLs that are in review.",
+      "parentUuid": "748dadc6_7bec3fb2",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 48
+      },
+      "revId": "92465213afcb5b10a974cec2060330801f5953e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

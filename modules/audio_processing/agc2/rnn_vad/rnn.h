@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "api/array_view.h"
+#include "api/function_view.h"
 #include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "rtc_base/system/arch.h"
 
@@ -42,7 +43,7 @@ class FullyConnectedLayer {
                       size_t output_size,
                       rtc::ArrayView<const int8_t> bias,
                       rtc::ArrayView<const int8_t> weights,
-                      float (*const activation_function)(float),
+                      rtc::FunctionView<float(float)> activation_function,
                       Optimization optimization);
   FullyConnectedLayer(const FullyConnectedLayer&) = delete;
   FullyConnectedLayer& operator=(const FullyConnectedLayer&) = delete;
@@ -65,7 +66,7 @@ class FullyConnectedLayer {
   const size_t output_size_;
   const std::vector<float> bias_;
   const std::vector<float> weights_;
-  float (*const activation_function_)(float);
+  rtc::FunctionView<float(float)> activation_function_;
   // The output vector of a recurrent layer has length equal to |output_size_|.
   // However, for efficiency, over-allocation is used.
   std::array<float, kFullyConnectedLayersMaxUnits> output_;

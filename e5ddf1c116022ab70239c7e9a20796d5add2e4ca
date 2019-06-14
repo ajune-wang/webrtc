@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cc9ae49_8f65eab8",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-14T09:23:05Z",
+      "side": 1,
+      "message": "Please add a comment explaining that/why destruction order matters.",
+      "range": {
+        "startLine": 376,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 31
+      },
+      "revId": "e5ddf1c116022ab70239c7e9a20796d5add2e4ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

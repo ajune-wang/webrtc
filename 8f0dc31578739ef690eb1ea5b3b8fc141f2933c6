@@ -46,6 +46,30 @@
       "revId": "8f0dc31578739ef690eb1ea5b3b8fc141f2933c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f56550a8_032c8cda",
+        "filename": "commit-queue.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5533
+      },
+      "writtenOn": "2019-06-15T01:09:48Z",
+      "side": 0,
+      "message": "I think it should be\n\nwebrtc-internal/g3.webrtc-internal.try/g3.webrtc-internal.try\n\nsuch that CQ would trigger this via v1 bb API as:\n\nbucket\u003dluci.webrtc-internal.g3.webrtc-internal.try\n\nand eventually v2 as \nproject\u003dwebrtc-internal\nbucket\u003dg3.webrtc-internal.try\n\nNodir, makes sense?",
+      "parentUuid": "5b73c69e_8ee1626f",
+      "range": {
+        "startLine": 154,
+        "startChar": 17,
+        "endLine": 154,
+        "endChar": 41
+      },
+      "revId": "8f0dc31578739ef690eb1ea5b3b8fc141f2933c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

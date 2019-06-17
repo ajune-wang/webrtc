@@ -319,37 +319,39 @@ bool AudioDeviceWindowsCore::CoreAudioIsSupported() {
 
     if (p->Init() != InitStatus::OK) {
       ok |= -1;
-    }
+    } else {
+      int16_t numDevsRec = p->RecordingDevices();
+      for (uint16_t i = 0; i < numDevsRec; i++) {
+        ok = 0;
+        ok |= p->SetRecordingDevice(i);
+        temp_ok = p->RecordingIsAvailable(available);
+        ok |= temp_ok;
+        ok |= (available == false);
+        if (available) {
+          ok |= p->InitMicrophone();
+        }
+        if (ok) {
+          RTC_LOG(LS_WARNING)
+              << "AudioDeviceWindowsCore::CoreAudioIsSupported()"
+              << " Failed to use Core Audio Recording for device id=" << i;
+        }
+      }
 
-    int16_t numDevsRec = p->RecordingDevices();
-    for (uint16_t i = 0; i < numDevsRec; i++) {
-      ok |= p->SetRecordingDevice(i);
-      temp_ok = p->RecordingIsAvailable(available);
-      ok |= temp_ok;
-      ok |= (available == false);
-      if (available) {
-        ok |= p->InitMicrophone();
-      }
-      if (ok) {
-        RTC_LOG(LS_WARNING)
-            << "AudioDeviceWindowsCore::CoreAudioIsSupported()"
-            << " Failed to use Core Audio Recording for device id=" << i;
-      }
-    }
-
-    int16_t numDevsPlay = p->PlayoutDevices();
-    for (uint16_t i = 0; i < numDevsPlay; i++) {
-      ok |= p->SetPlayoutDevice(i);
-      temp_ok = p->PlayoutIsAvailable(available);
-      ok |= temp_ok;
-      ok |= (available == false);
-      if (available) {
-        ok |= p->InitSpeaker();
-      }
-      if (ok) {
-        RTC_LOG(LS_WARNING)
-            << "AudioDeviceWindowsCore::CoreAudioIsSupported()"
-            << " Failed to use Core Audio Playout for device id=" << i;
+      int16_t numDevsPlay = p->PlayoutDevices();
+      for (uint16_t i = 0; i < numDevsPlay; i++) {
+        ok = 0;
+        ok |= p->SetPlayoutDevice(i);
+        temp_ok = p->PlayoutIsAvailable(available);
+        ok |= temp_ok;
+        ok |= (available == false);
+        if (available) {
+          ok |= p->InitSpeaker();
+        }
+        if (ok) {
+          RTC_LOG(LS_WARNING)
+              << "AudioDeviceWindowsCore::CoreAudioIsSupported()"
+              << " Failed to use Core Audio Playout for device id=" << i;
+        }
       }
     }
 

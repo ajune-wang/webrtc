@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e6f83f00_5491f3ad",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-17T08:58:59Z",
+      "side": 1,
+      "message": "I think this parameter type is as good as it can be with current semantic:\n\nthis function uses an odd one: \u0027may be move\u0027: sometimes it takes ownership, sometimes - ownership must be kept by the caller (so it can TrySend with a different RTPSender)\nthe most appropriate type for that is probably \u0027unique_ptr\u003c\u003e\u0026\u0026\u0027,\nbut that is uncommon by itself and thus likely confusing (and for these reasons almost banned).\nnext best (from c++ point of view) - pointer/reference to the unique_ptr\u003c\u003e\nnon-const reference is banned leaving with pointer to the unique_ptr",
+      "parentUuid": "c15c164d_a902e936",
+      "range": {
+        "startLine": 575,
+        "startChar": 30,
+        "endLine": 575,
+        "endChar": 64
+      },
+      "revId": "feb99a3fd590863dcb289946da9c89c2b38b48e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aee5a4da_2f75a5c3",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "feb99a3fd590863dcb289946da9c89c2b38b48e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "720905a1_e670038e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-17T08:58:59Z",
+      "side": 1,
+      "message": "this flag doesn\u0027t have clear description when it should be set.\nin practice for pure padding the value of this flag is irrelevant.\n\nif this change make reasoning about this flag simpler - good!",
+      "parentUuid": "aee5a4da_2f75a5c3",
+      "range": {
+        "startLine": 645,
+        "startChar": 10,
+        "endLine": 645,
+        "endChar": 23
+      },
+      "revId": "feb99a3fd590863dcb289946da9c89c2b38b48e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

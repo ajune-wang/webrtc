@@ -239,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "4ddfb7ef_f68cde11",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-17T08:15:24Z",
+      "side": 1,
+      "message": "Done. PTAL.",
+      "parentUuid": "d391eed9_899ea80e",
+      "range": {
+        "startLine": 494,
+        "startChar": 43,
+        "endLine": 494,
+        "endChar": 59
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f36d067d_cbc3e0e7",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 1
@@ -440,6 +464,30 @@
       "side": 1,
       "message": "Yeah, we would inject a custom callback here that frees the C++ memory.",
       "parentUuid": "fe83934c_6e572a76",
+      "range": {
+        "startLine": 38,
+        "startChar": 19,
+        "endLine": 38,
+        "endChar": 56
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c049e3af_7b950b6d",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-17T08:15:24Z",
+      "side": 1,
+      "message": "Hmm, but NewDirectByteBuffer doesn\u0027t copy the data, right? So when using this helper, we rely on the C++ EncodedImage outliving the java EncodedImage?",
+      "parentUuid": "3e683f90_a65cc46b",
       "range": {
         "startLine": 38,
         "startChar": 19,

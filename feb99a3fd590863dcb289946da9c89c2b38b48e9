@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "a4f0055f_e6b0e346",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-17T11:53:27Z",
+      "side": 1,
+      "message": "Before this patch set I moved this instance to the history, which is partly why I did this.\nThis has now changes since there were complications with that.\n\nLonger term I think it would be good if we could move the packet even further towards the send calls, but that might be out of scope right now.\n\nSo for now you might be right, it\u0027s better to just pass a raw pointer on and destroy the instance when PacketRouter returns.",
+      "parentUuid": "713caa52_7f55ce6b",
+      "range": {
+        "startLine": 575,
+        "startChar": 30,
+        "endLine": 575,
+        "endChar": 64
+      },
+      "revId": "feb99a3fd590863dcb289946da9c89c2b38b48e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aee5a4da_2f75a5c3",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 2
@@ -144,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "e3ac14f5_8405cb07",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-17T11:53:27Z",
+      "side": 1,
+      "message": "I\u0027m thinking about adding the packet type to PacketOptions instead, since downstream code actually is interested only in distinguishing between media and everything else, and that could be made a lot more clear. \n\nOtherwise we should rename this flag.\nFor now, setting it to !is_media",
+      "parentUuid": "720905a1_e670038e",
+      "range": {
+        "startLine": 645,
+        "startChar": 10,
+        "endLine": 645,
+        "endChar": 23
+      },
+      "revId": "feb99a3fd590863dcb289946da9c89c2b38b48e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfa295fe_f926b2a4",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 2
@@ -164,6 +212,30 @@
       "revId": "feb99a3fd590863dcb289946da9c89c2b38b48e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d10d423e_8855e995",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-17T11:53:27Z",
+      "side": 1,
+      "message": "That one changed...",
+      "parentUuid": "bfa295fe_f926b2a4",
+      "range": {
+        "startLine": 680,
+        "startChar": 19,
+        "endLine": 680,
+        "endChar": 72
+      },
+      "revId": "feb99a3fd590863dcb289946da9c89c2b38b48e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

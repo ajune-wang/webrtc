@@ -497,6 +497,30 @@
       "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70161482_9688bc33",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:38:36Z",
+      "side": 1,
+      "message": "We would have to manually get a reference to the data here and release the reference through the Java callback.",
+      "parentUuid": "c049e3af_7b950b6d",
+      "range": {
+        "startLine": 38,
+        "startChar": 19,
+        "endLine": 38,
+        "endChar": 56
+      },
+      "revId": "d214340b9857f340a56fedb07c84edfe3cb833cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

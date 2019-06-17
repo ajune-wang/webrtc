@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed4b3184_832ffe59",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:38:36Z",
+      "side": 1,
+      "message": "nit: This should be JavaDoc",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 50
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d94c373_7523e7bb",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:38:36Z",
+      "side": 1,
+      "message": "static class",
+      "range": {
+        "startLine": 62,
+        "startChar": 10,
+        "endLine": 62,
+        "endChar": 15
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0016980f_213d777c",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:38:36Z",
+      "side": 1,
+      "message": "nit: lower case",
+      "range": {
+        "startLine": 70,
+        "startChar": 29,
+        "endLine": 70,
+        "endChar": 38
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fe565d3_5f010046",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:38:36Z",
+      "side": 1,
+      "message": "nit: lower case",
+      "range": {
+        "startLine": 75,
+        "startChar": 29,
+        "endLine": 75,
+        "endChar": 38
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34eaad61_387fa072",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:38:36Z",
+      "side": 1,
+      "message": "nit: notifyAll in case there are multiple threads waiting?",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 14
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "543e7733_f291d53c",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:38:36Z",
+      "side": 1,
+      "message": "nit: lower case",
+      "range": {
+        "startLine": 80,
+        "startChar": 29,
+        "endLine": 80,
+        "endChar": 40
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3e4c502_d048d1a4",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:38:36Z",
+      "side": 1,
+      "message": "Yeah it is a bit of problem but I think the approach of blocking the interrupt here is correct. However, we should reset the interrupt after we are done here (after we are out of the loop):\nThread.currentThread().interrupt()",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 34
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f559b7a0_7e38dde9",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:38:36Z",
+      "side": 1,
+      "message": "Please log the exception.",
+      "range": {
+        "startLine": 88,
+        "startChar": 41,
+        "endLine": 88,
+        "endChar": 42
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beaaa235_175d560d",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:38:36Z",
+      "side": 1,
+      "message": "nit: Name something more meaningful e.g. outputBuffersBusyCount or something similar",
+      "range": {
+        "startLine": 126,
+        "startChar": 30,
+        "endLine": 126,
+        "endChar": 39
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03249a03_bef171bc",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:38:36Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be the same to reuse the same object? Then it would also be trivially thread safe.",
+      "range": {
+        "startLine": 262,
+        "startChar": 6,
+        "endLine": 262,
+        "endChar": 34
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ae22ad3_c40322a9",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:38:36Z",
+      "side": 1,
+      "message": "I think this is too late. We need to do this before we call codec.stop that happens when running is set to false.\n\n(Maybe this can be moved to releaseCodecOnOutputThread?)",
+      "range": {
+        "startLine": 311,
+        "startChar": 4,
+        "endLine": 312,
+        "endChar": 21
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8a9cfd0_dc36b993",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:38:36Z",
+      "side": 1,
+      "message": "I would prefer to release the buffer after passing it here instead of implicitly passing ownership.",
+      "range": {
+        "startLine": 588,
+        "startChar": 32,
+        "endLine": 588,
+        "endChar": 60
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b39c0d7_2498f8f4",
+        "filename": "sdk/android/src/java/org/webrtc/VideoEncoderWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:38:36Z",
+      "side": 1,
+      "message": "I think it is actually correct for this responsibility to be on the encoder. If the native code needs to keep a reference around, it can call retain.",
+      "range": {
+        "startLine": 43,
+        "startChar": 14,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

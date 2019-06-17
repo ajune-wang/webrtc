@@ -29,6 +29,8 @@ import android.media.MediaCodecInfo.CodecCapabilities;
 import android.media.MediaFormat;
 import android.os.Handler;
 import java.nio.ByteBuffer;
+import java.util.Collections;
+import java.util.List;
 import org.chromium.testing.local.LocalRobolectricTestRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -162,6 +164,24 @@ public class AndroidVideoDecoderTest {
     }
   }
 
+  private class FakeDecoderCallback implements VideoDecoder.Callback {
+    public List<VideoFrame> decodedFrames;
+
+    public FakeDecoderCallback() {
+      decodedFrames = Collections.emptyList();
+    }
+
+    @Override
+    public void onDecodedFrame(VideoFrame frame, Integer decodeTimeMs, Integer qp) {
+      frame.retain();
+      decodedFrames.add(frame);
+    }
+    public void release() {
+      for (VideoFrame frame : decodedFrames) frame.release();
+      decodedFrames.clear();
+    }
+  }
+
   private EncodedImage createTestEncodedImage() {
     return EncodedImage.builder()
         .setBuffer(ByteBuffer.wrap(ENCODED_TEST_DATA))
@@ -267,8 +287,9 @@ public class AndroidVideoDecoderTest {
         TEST_DECODER_SETTINGS.width, TEST_DECODER_SETTINGS.height, testOutputData);
 
     // Set-up.
+    FakeDecoderCallback fakeDecoderCallback = new FakeDecoderCallback();
     TestDecoder decoder = new TestDecoderBuilder().setUseSurface(/* useSurface = */ false).build();
-    decoder.initDecode(TEST_DECODER_SETTINGS, mockDecoderCallback);
+    decoder.initDecode(TEST_DECODER_SETTINGS, fakeDecoderCallback);
     decoder.decode(createTestEncodedImage(),
         new DecodeInfo(/* isMissingFrames= */ false, /* renderTimeMs= */ 0));
     fakeMediaCodecWrapper.addOutputData(
@@ -278,13 +299,8 @@ public class AndroidVideoDecoderTest {
     decoder.waitDeliverDecodedFrame();
 
     // Verify.
-    ArgumentCaptor<VideoFrame> videoFrameCaptor = ArgumentCaptor.forClass(VideoFrame.class);
-    verify(mockDecoderCallback)
-        .onDecodedFrame(videoFrameCaptor.capture(),
-            /* decodeTimeMs= */ any(Integer.class),
-            /* qp= */ any());
-
-    VideoFrame videoFrame = videoFrameCaptor.getValue();
+    assertThat(fakeDecoderCallback.decodedFrames.size()).isEqualTo(1);
+    VideoFrame videoFrame = fakeDecoderCallback.decodedFrames.get(0);
     assertThat(videoFrame).isNotNull();
     assertThat(videoFrame.getRotatedWidth()).isEqualTo(TEST_DECODER_SETTINGS.width);
     assertThat(videoFrame.getRotatedHeight()).isEqualTo(TEST_DECODER_SETTINGS.height);
@@ -293,6 +309,7 @@ public class AndroidVideoDecoderTest {
     assertThat(deliveredBuffer.getDataY()).isEqualTo(expectedDeliveredBuffer.getDataY());
     assertThat(deliveredBuffer.getDataU()).isEqualTo(expectedDeliveredBuffer.getDataU());
     assertThat(deliveredBuffer.getDataV()).isEqualTo(expectedDeliveredBuffer.getDataV());
+    fakeDecoderCallback.release();
   }
 
   @Test
@@ -345,8 +362,9 @@ public class AndroidVideoDecoderTest {
   @Test
   public void testDeliversRenderedBuffers() throws InterruptedException {
     // Set-up.
+    FakeDecoderCallback fakeDecoderCallback = new FakeDecoderCallback();
     TestDecoder decoder = new TestDecoderBuilder().build();
-    decoder.initDecode(TEST_DECODER_SETTINGS, mockDecoderCallback);
+    decoder.initDecode(TEST_DECODER_SETTINGS, fakeDecoderCallback);
     decoder.decode(createTestEncodedImage(),
         new DecodeInfo(/* isMissingFrames= */ false, /* renderTimeMs= */ 0));
     fakeMediaCodecWrapper.addOutputTexture(/* presentationTimestampUs= */ 0, /* flags= */ 0);
@@ -370,17 +388,13 @@ public class AndroidVideoDecoderTest {
     outputVideoFrame.release();
 
     // Verify.
-    ArgumentCaptor<VideoFrame> videoFrameCaptor = ArgumentCaptor.forClass(VideoFrame.class);
-    verify(mockDecoderCallback)
-        .onDecodedFrame(videoFrameCaptor.capture(),
-            /* decodeTimeMs= */ any(Integer.class),
-            /* qp= */ any());
-
-    VideoFrame videoFrame = videoFrameCaptor.getValue();
+    assertThat(fakeDecoderCallback.decodedFrames.size()).isEqualTo(1);
+    VideoFrame videoFrame = fakeDecoderCallback.decodedFrames.get(0);
     assertThat(videoFrame).isNotNull();
     assertThat(videoFrame.getBuffer()).isEqualTo(outputTextureBuffer);
 
     verify(releaseCallback).run();
+    fakeDecoderCallback.release();
   }
 
   @Test

@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "964b34d2_26149cdb",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-17T11:15:03Z",
+      "side": 1,
+      "message": "oh, sorry, you right.\nyep, now packet can be passed as raw pointer\n(It did std::move() before, but that was causing potential race)",
+      "parentUuid": "713caa52_7f55ce6b",
+      "range": {
+        "startLine": 575,
+        "startChar": 30,
+        "endLine": 575,
+        "endChar": 64
+      },
+      "revId": "feb99a3fd590863dcb289946da9c89c2b38b48e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aee5a4da_2f75a5c3",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 2

@@ -143,6 +143,7 @@ bool EchoCanceller3Config::Validate(EchoCanceller3Config* config) {
   res = res & Limit(&c->erle.num_sections, 1, c->filter.main.length_blocks);
 
   res = res & Limit(&c->ep_strength.default_gain, 0.f, 1000000.f);
+  res = res & Limit(&c->ep_strength.default_reverb_gain, 0.f, 1000000.f);
   res = res & Limit(&c->ep_strength.default_len, -1.f, 1.f);
 
   res =

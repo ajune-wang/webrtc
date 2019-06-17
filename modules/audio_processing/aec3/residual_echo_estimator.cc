@@ -11,6 +11,7 @@
 #include "modules/audio_processing/aec3/residual_echo_estimator.h"
 
 #include <stddef.h>
+
 #include <algorithm>
 #include <vector>
 
@@ -123,9 +124,12 @@ void ResidualEchoEstimator::Estimate(
 
     if (!(aec_state.TransparentMode())) {
       if (echo_reverb_) {
+        float reverb_path_gain = aec_state.TransparentMode()
+                                     ? 0.01f
+                                     : config_.ep_strength.default_reverb_gain;
         echo_reverb_->AddReverbNoFreqShaping(
             render_buffer.Spectrum(aec_state.FilterDelayBlocks() + 1),
-            echo_path_gain * echo_path_gain, aec_state.ReverbDecay(), *R2);
+            reverb_path_gain * reverb_path_gain, aec_state.ReverbDecay(), *R2);
       } else {
         RTC_DCHECK(echo_reverb_fallback);
         echo_reverb_fallback->AddEchoReverb(*R2,

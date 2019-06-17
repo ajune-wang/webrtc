@@ -89,6 +89,7 @@ struct RTC_EXPORT EchoCanceller3Config {
 
   struct EpStrength {
     float default_gain = 1.f;
+    float default_reverb_gain = 1.f;
     float default_len = 0.83f;
     bool reverb_based_on_render = true;
     bool echo_can_saturate = true;

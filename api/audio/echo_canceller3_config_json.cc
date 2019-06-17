@@ -10,6 +10,7 @@
 #include "api/audio/echo_canceller3_config_json.h"
 
 #include <stddef.h>
+
 #include <string>
 #include <vector>
 
@@ -198,6 +199,8 @@ void Aec3ConfigFromJsonString(absl::string_view json_string,
 
   if (rtc::GetValueFromJsonObject(aec3_root, "ep_strength", &section)) {
     ReadParam(section, "default_gain", &cfg.ep_strength.default_gain);
+    ReadParam(section, "default_reverb_gain",
+              &cfg.ep_strength.default_reverb_gain);
     ReadParam(section, "default_len", &cfg.ep_strength.default_len);
     ReadParam(section, "reverb_based_on_render",
               &cfg.ep_strength.reverb_based_on_render);
@@ -408,6 +411,8 @@ std::string Aec3ConfigToJsonString(const EchoCanceller3Config& config) {
 
   ost << "\"ep_strength\": {";
   ost << "\"default_gain\": " << config.ep_strength.default_gain << ",";
+  ost << "\"default_reverb_gain\": " << config.ep_strength.default_reverb_gain
+      << ",";
   ost << "\"default_len\": " << config.ep_strength.default_len << ",";
   ost << "\"reverb_based_on_render\": "
       << (config.ep_strength.reverb_based_on_render ? "true" : "false") << ",";

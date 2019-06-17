@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2017 The WebRTC project authors. All Rights Reserved.
+ *  Copyright 2017 The WebRTC project authors. All Rights Reserved.
  *
  *  Use of this source code is governed by a BSD-style license
  *  that can be found in the LICENSE file in the root of the source
@@ -10,47 +10,55 @@
 
 package org.webrtc;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
- * Wraps a native webrtc::VideoEncoder.
+ * An implementation of VideoEncoder that is used for testing of functionalities of
+ * VideoEncoderWrapper.
  */
-abstract class WrappedNativeVideoEncoder implements VideoEncoder {
-  @Override public abstract long createNativeVideoEncoder();
-  @Override public abstract boolean isHardwareEncoder();
-
+class FakeVideoEncoder implements VideoEncoder {
   @Override
   public VideoCodecStatus initEncode(Settings settings, Callback encodeCallback) {
-    throw new UnsupportedOperationException("Not implemented.");
+    return VideoCodecStatus.OK;
   }
 
   @Override
   public VideoCodecStatus release() {
-    throw new UnsupportedOperationException("Not implemented.");
+    return VideoCodecStatus.OK;
   }
 
   @Override
   public VideoCodecStatus encode(VideoFrame frame, EncodeInfo info) {
-    throw new UnsupportedOperationException("Not implemented.");
+    return VideoCodecStatus.OK;
   }
 
   @Override
   public VideoCodecStatus setRateAllocation(BitrateAllocation allocation, int framerate) {
-    throw new UnsupportedOperationException("Not implemented.");
+    return VideoCodecStatus.OK;
   }
 
   @Override
   public ScalingSettings getScalingSettings() {
-    throw new UnsupportedOperationException("Not implemented.");
+    return ScalingSettings.OFF;
   }
 
   @Override
   public List<ResolutionBitrateThresholds> getResolutionBitrateThresholds() {
-    throw new UnsupportedOperationException("Not implemented.");
+    List<ResolutionBitrateThresholds> bitrate_thresholds =
+        new ArrayList<ResolutionBitrateThresholds>();
+
+    bitrate_thresholds.add(new ResolutionBitrateThresholds(/* frame_size_pixels = */ 640 * 360,
+        /* min_start_bitrate_bps = */ 300000,
+        /* min_bitrate_bps = */ 200000,
+        /* max_bitrate_bps = */ 1000000));
+
+    return bitrate_thresholds;
   }
 
   @Override
   public String getImplementationName() {
-    throw new UnsupportedOperationException("Not implemented.");
+    return "FakeVideoEncoder";
   }
 }

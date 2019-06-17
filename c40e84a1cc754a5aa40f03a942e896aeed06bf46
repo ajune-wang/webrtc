@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "a3ad336b_f82defdf",
+        "filename": "modules/audio_coding/neteq/buffer_level_filter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-06-17T14:04:01Z",
+      "side": 1,
+      "message": "Ok. and anyways, it looks that a fraction of a sample does not mean much to a millisecond or a packet, for which we eventually transform to.\n\nBut please consider round(), can be done by static_cast\u003cint\u003e(filtered_current_level_ + 0.5);",
+      "parentUuid": "906be499_3a5b3b06",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 57
+      },
+      "revId": "c40e84a1cc754a5aa40f03a942e896aeed06bf46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f0f5fe6_14204dc9",
         "filename": "modules/audio_coding/neteq/buffer_level_filter_unittest.cc",
         "patchSetId": 3
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "We can do that as a follow up change, either after the delay histogram, which already measures the delay as a duration, is launched or now, converting the result of target level in packets to samples. WDYT?",
       "parentUuid": "599342c2_10d0df75",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 58
+      },
+      "revId": "c40e84a1cc754a5aa40f03a942e896aeed06bf46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0310b3b4_934852ae",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-06-17T14:04:01Z",
+      "side": 1,
+      "message": "Yes, absolutely. I just wanted to know the roadmap you have in your mind.",
+      "parentUuid": "e2aa23ee_96491188",
       "range": {
         "startLine": 283,
         "startChar": 0,

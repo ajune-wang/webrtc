@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9c319e10_b928e78f",
+        "filename": "modules/audio_coding/neteq/buffer_level_filter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-06-17T13:41:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a82c01d7_305f2c67",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 61
+      },
+      "revId": "c40e84a1cc754a5aa40f03a942e896aeed06bf46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0352133_7437f1fe",
         "filename": "modules/audio_coding/neteq/buffer_level_filter.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "c40e84a1cc754a5aa40f03a942e896aeed06bf46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "906be499_3a5b3b06",
+        "filename": "modules/audio_coding/neteq/buffer_level_filter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-06-17T13:41:39Z",
+      "side": 1,
+      "message": "I think it makes sense to have samples as integer unit. The reason for having the internal representation in double is to avoid rounding errors over time, but the external interface does not need this. WDYT?",
+      "parentUuid": "b0352133_7437f1fe",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 57
+      },
+      "revId": "c40e84a1cc754a5aa40f03a942e896aeed06bf46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "475558f7_4c440236",
+        "filename": "modules/audio_coding/neteq/buffer_level_filter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-06-17T13:41:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f0f5fe6_14204dc9",
+      "range": {
+        "startLine": 41,
+        "startChar": 13,
+        "endLine": 41,
+        "endChar": 23
+      },
+      "revId": "c40e84a1cc754a5aa40f03a942e896aeed06bf46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "599342c2_10d0df75",
         "filename": "modules/audio_coding/neteq/decision_logic.cc",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "c40e84a1cc754a5aa40f03a942e896aeed06bf46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2aa23ee_96491188",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-06-17T13:41:39Z",
+      "side": 1,
+      "message": "We can do that as a follow up change, either after the delay histogram, which already measures the delay as a duration, is launched or now, converting the result of target level in packets to samples. WDYT?",
+      "parentUuid": "599342c2_10d0df75",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 58
+      },
+      "revId": "c40e84a1cc754a5aa40f03a942e896aeed06bf46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

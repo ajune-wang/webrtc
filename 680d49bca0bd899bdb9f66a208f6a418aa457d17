@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e51a8e69_caaf494a",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnectionFactory.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-06-17T13:49:18Z",
+      "side": 1,
+      "message": "nit: do we want to `strerror` this?",
+      "range": {
+        "startLine": 315,
+        "startChar": 64,
+        "endLine": 315,
+        "endChar": 69
+      },
+      "revId": "680d49bca0bd899bdb9f66a208f6a418aa457d17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

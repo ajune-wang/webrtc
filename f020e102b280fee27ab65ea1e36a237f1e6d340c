@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de84e896_482507eb",
+        "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:43:58Z",
+      "side": 1,
+      "message": "static class",
+      "range": {
+        "startLine": 167,
+        "startChar": 10,
+        "endLine": 167,
+        "endChar": 15
+      },
+      "revId": "f020e102b280fee27ab65ea1e36a237f1e6d340c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "202bac74_1440f753",
+        "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:43:58Z",
+      "side": 1,
+      "message": "nit: final",
+      "range": {
+        "startLine": 168,
+        "startChar": 11,
+        "endLine": 168,
+        "endChar": 15
+      },
+      "revId": "f020e102b280fee27ab65ea1e36a237f1e6d340c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf9f7a6c_5e7efd32",
+        "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:43:58Z",
+      "side": 1,
+      "message": "Hmm, this should be immutable? I am not sure adding items to it works.",
+      "range": {
+        "startLine": 171,
+        "startChar": 34,
+        "endLine": 171,
+        "endChar": 43
+      },
+      "revId": "f020e102b280fee27ab65ea1e36a237f1e6d340c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "240c6c26_e8f90306",
+        "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:43:58Z",
+      "side": 1,
+      "message": "nit: empty line between methods",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 179,
+        "endChar": 10
+      },
+      "revId": "f020e102b280fee27ab65ea1e36a237f1e6d340c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9df8fc0d_693ef067",
+        "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-17T13:43:58Z",
+      "side": 1,
+      "message": "Can you create the fake here and release in @After public void cleanUp() method",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 73
+      },
+      "revId": "f020e102b280fee27ab65ea1e36a237f1e6d340c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

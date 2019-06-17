@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "784f7242_cc81eeff",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-06-17T07:22:42Z",
+      "side": 1,
+      "message": "True.\nWhat do you think about moving the ComputeOutput_* to an anonymous namespace, only expose ComputeOutput in the header, and let that function call ComputeOutput_{NONE,SSE2}?",
+      "parentUuid": "c5f8724b_2fd303bb",
+      "revId": "569147d0a684aa9cac3a04eb0df4d772b6b21822",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "976d78ec_db13b571",
         "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
         "patchSetId": 2

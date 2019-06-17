@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "ed5ea1fd_f027cec9",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-17T12:01:49Z",
+      "side": 1,
+      "message": "Maybe we need a new bug to track the issue.\n\nThe problem is that we change some extensions after the FEC packets are generated (e.g. AbsoluteSendTime). Then these modified raw packets are used for recovery together with FEC packets at the receive side, it corrupts the bytes at the offset of changed bytes.\n\nIt usually works. But if the packets have different sets of extensions or extensions of varied sizes, the corruption may be fatal.\n\nI\u0027ll create a new bug and update these comments.",
+      "parentUuid": "deace5f3_7da54b6b",
+      "range": {
+        "startLine": 618,
+        "startChar": 9,
+        "endLine": 618,
+        "endChar": 20
+      },
+      "revId": "dedfa0ab55a5d9faa3a53ac06fc9b5e662209c0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7c05df8_1378b63a",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 1

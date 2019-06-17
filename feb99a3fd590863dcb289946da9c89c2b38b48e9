@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "713caa52_7f55ce6b",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-17T11:08:33Z",
+      "side": 1,
+      "message": "Yes, I though so at first too. But this function doesn\u0027t take ownership. It dereferences the pointer at the beginning (packet_to_send) and never uses |packet| argument again.\n\nErik, do you plan to update this later, so the unique_pointer is freed here, inside this function?",
+      "parentUuid": "e6f83f00_5491f3ad",
+      "range": {
+        "startLine": 575,
+        "startChar": 30,
+        "endLine": 575,
+        "endChar": 64
+      },
+      "revId": "feb99a3fd590863dcb289946da9c89c2b38b48e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aee5a4da_2f75a5c3",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 2

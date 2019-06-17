@@ -536,11 +536,11 @@ class HardwareVideoEncoder implements VideoEncoder {
             : EncodedImage.FrameType.VideoFrameDelta;
 
         EncodedImage.Builder builder = outputBuilders.poll();
-        builder.setBuffer(frameBuffer).setFrameType(frameType);
+        builder.setBuffer(frameBuffer, () -> codec.releaseOutputBuffer(index, false))
+            .setFrameType(frameType);
         // TODO(mellem):  Set codec-specific info.
         callback.onEncodedFrame(builder.createEncodedImage(), new CodecSpecificInfo());
       }
-      codec.releaseOutputBuffer(index, false);
     } catch (IllegalStateException e) {
       Logging.e(TAG, "deliverOutput failed", e);
     }

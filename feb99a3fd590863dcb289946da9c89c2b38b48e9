@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c15c164d_a902e936",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-17T08:25:30Z",
+      "side": 1,
+      "message": "Maybe pass here a raw pointer instead and call it with .get() on the unique_pointer?",
+      "range": {
+        "startLine": 575,
+        "startChar": 30,
+        "endLine": 575,
+        "endChar": 64
+      },
+      "revId": "feb99a3fd590863dcb289946da9c89c2b38b48e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aee5a4da_2f75a5c3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-17T08:25:30Z",
+      "side": 1,
+      "message": "This differs from the old behavior: now padding over RTX ssrc won\u0027t have is_retransmit. The old behavior would set it:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/source/rtp_sender.cc?sq\u003dpackage:chromium\u0026dr\u0026g\u003d0\u0026l\u003d617\n\nAre you sure?",
+      "range": {
+        "startLine": 645,
+        "startChar": 10,
+        "endLine": 645,
+        "endChar": 23
+      },
+      "revId": "feb99a3fd590863dcb289946da9c89c2b38b48e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfa295fe_f926b2a4",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-17T08:25:30Z",
+      "side": 1,
+      "message": "Why not options.is_retransmit?\n\nBetter have a single place for the logic and use it everywhere.",
+      "range": {
+        "startLine": 680,
+        "startChar": 19,
+        "endLine": 680,
+        "endChar": 72
+      },
+      "revId": "feb99a3fd590863dcb289946da9c89c2b38b48e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

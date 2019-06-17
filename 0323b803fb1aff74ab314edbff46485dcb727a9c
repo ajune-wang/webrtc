@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1700e0fd_617b9a47",
+        "filename": "modules/pacing/round_robin_packet_queue.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-17T12:42:06Z",
+      "side": 1,
+      "message": "It\u0027s not in the PacketInfo class, it\u0027s in the pacer queue class which is the only one interested in the relative priority.\nIt mostly felt weird to pass along both the type and the priority (which is inferred from the type) in the same constructor call.\nBut I also agree it\u0027s more natural to have it in PacedSender, moved.",
+      "parentUuid": "5e6d2b43_e652c064",
+      "range": {
+        "startLine": 21,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 22
+      },
+      "revId": "0323b803fb1aff74ab314edbff46485dcb727a9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1e93b79_7f66fbc7",
         "filename": "modules/pacing/round_robin_packet_queue.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "0323b803fb1aff74ab314edbff46485dcb727a9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7654cbbf_10168c35",
+        "filename": "modules/pacing/round_robin_packet_queue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-17T12:42:06Z",
+      "side": 1,
+      "message": "Sure, changed to QueuedPacket.",
+      "parentUuid": "b1e93b79_7f66fbc7",
+      "range": {
+        "startLine": 34,
+        "startChar": 9,
+        "endLine": 34,
+        "endChar": 19
+      },
+      "revId": "0323b803fb1aff74ab314edbff46485dcb727a9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

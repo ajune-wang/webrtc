@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7573b154_2f2f9633",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2019-06-18T19:17:31Z",
+      "side": 1,
+      "message": "It doesn\u0027t seem to need this?",
+      "range": {
+        "startLine": 687,
+        "startChar": 2,
+        "endLine": 687,
+        "endChar": 20
+      },
+      "revId": "aed904cff07c6302305bfdf89140e775c067b729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85aa3d3e_92ed88ed",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2019-06-18T19:17:31Z",
+      "side": 1,
+      "message": "A little concerned that we are doing the loop iteration twice. \nOne possibility is the pass in an invalid rtt here and ReceivedPingResponse attempts to find the rtt if the input rtt is not valid. \nAnother choice is to pass in an iterator so that ReceivedPingResponse does not need to do another search. \nSlightly prefer to the first choice.",
+      "range": {
+        "startLine": 713,
+        "startChar": 6,
+        "endLine": 713,
+        "endChar": 26
+      },
+      "revId": "aed904cff07c6302305bfdf89140e775c067b729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

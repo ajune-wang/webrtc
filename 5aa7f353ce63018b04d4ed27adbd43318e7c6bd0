@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "17b9ab8e_ed3981d6",
+        "filename": "sdk/android/native_unittests/org/webrtc/FakeVideoEncoder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-18T12:57:28Z",
+      "side": 1,
+      "message": "To make this class a bit more useful, maybe add setter methods so you can specify these tests thresholds manually. Otherwise you can probably just instantiate a class like this where it\u0027s used?",
+      "range": {
+        "startLine": 52,
+        "startChar": 58,
+        "endLine": 55,
+        "endChar": 39
+      },
+      "revId": "5aa7f353ce63018b04d4ed27adbd43318e7c6bd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "120d2605_10b77f8e",
         "filename": "sdk/android/src/java/org/webrtc/VideoEncoderWrapper.java",
         "patchSetId": 6

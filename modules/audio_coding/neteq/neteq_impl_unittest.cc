@@ -1618,7 +1618,7 @@ TEST_F(NetEqImplTest120ms, Accelerate) {
   // Delay manager report buffer limit which should cause a Accelerate.
   EXPECT_CALL(*mock_delay_manager_, BufferLimits(_, _))
       .Times(1)
-      .WillOnce(DoAll(SetArgPointee<0>(1), SetArgPointee<1>(2)));
+      .WillOnce(DoAll(SetArgPointee<0>(10), SetArgPointee<1>(20)));
 
   bool muted;
   EXPECT_EQ(NetEq::kOK, neteq_->GetAudio(&output_, &muted));

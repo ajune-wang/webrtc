@@ -22,6 +22,30 @@
       "revId": "9d0dd3e045258f146f1255d236b14c03c9d2d151",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6499194f_996f8f1f",
+        "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-18T14:32:59Z",
+      "side": 1,
+      "message": "I guess we can add an extra call to release here.",
+      "parentUuid": "d4c27c0c_db76cb56",
+      "range": {
+        "startLine": 402,
+        "startChar": 4,
+        "endLine": 402,
+        "endChar": 34
+      },
+      "revId": "9d0dd3e045258f146f1255d236b14c03c9d2d151",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

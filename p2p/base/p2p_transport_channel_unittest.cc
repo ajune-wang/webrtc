@@ -2256,6 +2256,58 @@ TEST_F(P2PTransportChannelTest,
   DestroyChannels();
 }
 
+// Test that the writability can be established with the piggyback
+// acknowledgement in the connectivity check from the remote peer. This is a
+// similar test as CanBecomeWritableAfterReceivingPiggybackCheckAcknowledgement
+// below, but emulates a p2p connection at a higher level setup with the traffic
+// control using the firewall.
+TEST_F(P2PTransportChannelTest,
+       CanConnectWithPiggybackCheckAcknowledgementWhenCheckResponseBlocked) {
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-PiggybackCheckAcknowledgement/Enabled/");
+  rtc::ScopedFakeClock clock;
+  ConfigureEndpoints(OPEN, OPEN, kOnlyLocalPorts, kOnlyLocalPorts);
+  IceConfig ep1_config;
+  IceConfig ep2_config = CreateIceConfig(1000, GATHER_CONTINUALLY);
+  // Let ep2 be tolerable of loss of connectivity checks, so that it keeps
+  // sending pings even after ep1 becomes unwritable as we configure the
+  // firewall below.
+  ep2_config.receiving_timeout = 30 * 1000;
+  ep2_config.ice_unwritable_timeout = 30 * 1000;
+  ep2_config.ice_unwritable_min_checks = 30;
+  ep2_config.ice_inactive_timeout = 60 * 1000;
+
+  CreateChannels(ep1_config, ep2_config);
+
+  // Wait until both sides become writable for the first time.
+  EXPECT_TRUE_SIMULATED_WAIT(
+      ep1_ch1() != nullptr && ep2_ch1() != nullptr && ep1_ch1()->receiving() &&
+          ep1_ch1()->writable() && ep2_ch1()->receiving() &&
+          ep2_ch1()->writable(),
+      kDefaultTimeout, clock);
+  // Block the ingress traffic to ep1 so that there is no check response from
+  // ep2.
+  ASSERT_NE(nullptr, LocalCandidate(ep1_ch1()));
+  fw()->AddRule(false, rtc::FP_ANY, rtc::FD_IN,
+                LocalCandidate(ep1_ch1())->address());
+  // Wait until ep1 becomes unwritable. At the same time ep2 should be still
+  // fine so that it will keep sending pings.
+  EXPECT_TRUE_SIMULATED_WAIT(ep1_ch1() != nullptr && !ep1_ch1()->writable(),
+                             kDefaultTimeout, clock);
+  EXPECT_TRUE(ep2_ch1() != nullptr && ep2_ch1()->writable());
+  // Now let the pings from ep2 to flow but block any pings from the ep1, so
+  // that ep1 can only become writable again after receiving an incoming ping
+  // from ep2 with piggyback acknowledgement to its previously sent pings. Note
+  // though that ep1 should have stopped sending pings after becoming unwritable
+  // in the current design.
+  fw()->ClearRules();
+  fw()->AddRule(false, rtc::FP_ANY, rtc::FD_OUT,
+                LocalCandidate(ep1_ch1())->address());
+  EXPECT_TRUE_SIMULATED_WAIT(ep1_ch1() != nullptr && ep1_ch1()->writable(),
+                             kDefaultTimeout, clock);
+  DestroyChannels();
+}
+
 // Test what happens when we have 2 users behind the same NAT. This can lead
 // to interesting behavior because the STUN server will only give out the
 // address of the outermost NAT.
@@ -3187,10 +3239,12 @@ class P2PTransportChannelPingTest : public ::testing::Test,
     ++selected_candidate_pair_switches_;
   }
 
-  void ReceivePingOnConnection(Connection* conn,
-                               const std::string& remote_ufrag,
-                               int priority,
-                               uint32_t nomination = 0) {
+  void ReceivePingOnConnection(
+      Connection* conn,
+      const std::string& remote_ufrag,
+      int priority,
+      uint32_t nomination,
+      const absl::optional<std::string>& piggyback_ping_id) {
     IceMessage msg;
     msg.SetType(STUN_BINDING_REQUEST);
     msg.AddAttribute(absl::make_unique<StunByteStringAttribute>(
@@ -3202,12 +3256,24 @@ class P2PTransportChannelPingTest : public ::testing::Test,
       msg.AddAttribute(absl::make_unique<StunUInt32Attribute>(
           STUN_ATTR_NOMINATION, nomination));
     }
+    if (piggyback_ping_id) {
+      msg.AddAttribute(absl::make_unique<StunByteStringAttribute>(
+          STUN_ATTR_LAST_ICE_CHECK_RECEIVED, piggyback_ping_id.value()));
+    }
     msg.SetTransactionID(rtc::CreateRandomString(kStunTransactionIdLength));
     msg.AddMessageIntegrity(conn->local_candidate().password());
     msg.AddFingerprint();
     rtc::ByteBufferWriter buf;
     msg.Write(&buf);
     conn->OnReadPacket(buf.Data(), buf.Length(), rtc::TimeMicros());
+  }
+
+  void ReceivePingOnConnection(Connection* conn,
+                               const std::string& remote_ufrag,
+                               int priority,
+                               uint32_t nomination = 0) {
+    ReceivePingOnConnection(conn, remote_ufrag, priority, nomination,
+                            absl::nullopt);
   }
 
   void OnReadyToSend(rtc::PacketTransportInternal* transport) {
@@ -4367,6 +4433,31 @@ TEST_F(P2PTransportChannelPingTest, TestPortDestroyedAfterTimeoutAndPruned) {
   ch.allocator_session()->PruneAllPorts();
   EXPECT_EQ_SIMULATED_WAIT(nullptr, GetPort(&ch), 1, fake_clock);
   EXPECT_EQ_SIMULATED_WAIT(nullptr, GetPrunedPort(&ch), 1, fake_clock);
+}
+
+// Test that a connection can become writable if it receives a connectivity
+// check that has a piggyback acknowledgement to an outstanding check that it
+// has sent.
+TEST_F(P2PTransportChannelPingTest,
+       CanBecomeWritableAfterReceivingPiggybackCheckAcknowledgement) {
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-PiggybackCheckAcknowledgement/Enabled/");
+  rtc::ScopedFakeClock clock;
+  FakePortAllocator pa(rtc::Thread::Current(), nullptr);
+  P2PTransportChannel ch("test channel", ICE_CANDIDATE_COMPONENT_DEFAULT, &pa);
+  PrepareChannel(&ch);
+  ch.MaybeStartGathering();
+  ch.AddRemoteCandidate(CreateUdpCandidate(LOCAL_PORT_TYPE, "1.1.1.1", 1, 1));
+  Connection* conn = WaitForConnectionTo(&ch, "1.1.1.1", 1, &clock);
+  ASSERT_TRUE(conn != nullptr);
+
+  // Let |conn| ping once so that it has an outstanding check, and then let it
+  // receive an incoming check with the piggyback acknowledgement to that
+  // outstanding check.
+  conn->Ping(rtc::TimeMillis());
+  ReceivePingOnConnection(conn, kIceUfrag[1], 1, 1U, conn->last_ping_id_sent());
+
+  EXPECT_TRUE_SIMULATED_WAIT(ch.writable(), kShortTimeout, clock);
 }
 
 class P2PTransportChannelMostLikelyToWorkFirstTest

@@ -22,6 +22,30 @@
       "revId": "6c52632ff42ae32711d9ab03ced799125cfd4e5a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef6186c1_c1a629b0",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-18T08:54:26Z",
+      "side": 1,
+      "message": "Not having it set is really an application error. Probably best to add a check to make sure it is always set.",
+      "parentUuid": "053016a5_5e77060f",
+      "range": {
+        "startLine": 238,
+        "startChar": 35,
+        "endLine": 239,
+        "endChar": 50
+      },
+      "revId": "6c52632ff42ae32711d9ab03ced799125cfd4e5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

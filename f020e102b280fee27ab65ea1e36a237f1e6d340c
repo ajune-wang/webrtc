@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "256cfb6d_201f95c1",
+        "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-18T12:50:25Z",
+      "side": 1,
+      "message": "Yes, the reference cannot be modified. It doesn\u0027t say anything about the contents that are referenced.\n\nThe recommended pattern is to make most classes immutable (all state immutable recursively) if possible so then final also guarantees the contents won\u0027t change.\n\nAlso since the data pointed here is mutable, the recommended way would be to add a getter that makes a copy. However, since this is a private class in a test, it isn\u0027t that critical...",
+      "parentUuid": "2222767b_8ec143d6",
+      "range": {
+        "startLine": 168,
+        "startChar": 11,
+        "endLine": 168,
+        "endChar": 15
+      },
+      "revId": "f020e102b280fee27ab65ea1e36a237f1e6d340c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf9f7a6c_5e7efd32",
         "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
         "patchSetId": 3
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "What\u0027s the right way to create a fresh and empty List\u003cVideoFrame\u003e ? My first attempts made the compiler unhappy, and then I found Collections.emptyList() somewhere else and cargo-culted it...",
       "parentUuid": "bf9f7a6c_5e7efd32",
+      "range": {
+        "startLine": 171,
+        "startChar": 34,
+        "endLine": 171,
+        "endChar": 43
+      },
+      "revId": "f020e102b280fee27ab65ea1e36a237f1e6d340c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8bf8b85_385cf56e",
+        "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-18T12:50:25Z",
+      "side": 1,
+      "message": "new ArrayList\u003c\u003e() should work here.",
+      "parentUuid": "30996764_40225c39",
       "range": {
         "startLine": 171,
         "startChar": 34,

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c693f84_c3afe151",
+        "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-18T12:50:25Z",
+      "side": 1,
+      "message": "nit: Empty line before method definitions",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 9
+      },
+      "revId": "500510204c8bf9fb0e88500e03117fef08394531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbdbaad7_741425b2",
+        "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-18T12:50:25Z",
+      "side": 1,
+      "message": "Replace: .size()).isEqualTo(1);\nWith: ).hasSize(1);\n\nSame for other places",
+      "range": {
+        "startLine": 309,
+        "startChar": 48,
+        "endLine": 309,
+        "endChar": 66
+      },
+      "revId": "500510204c8bf9fb0e88500e03117fef08394531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

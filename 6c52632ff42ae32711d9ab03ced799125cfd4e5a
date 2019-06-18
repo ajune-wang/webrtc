@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "053016a5_5e77060f",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-18T06:52:00Z",
+      "side": 1,
+      "message": "Seems like an error to have no packet type? Maybe you could have an explicit check and print a warning? i.e.\nint priority;\nif(packet-\u003epacket_type())\n  priority \u003d packet-\u003epacket_type()\nelse {\n  LOG(WARNING);\n  priority \u003d GetPriorityForType(RtpPacketToSend::Type::kVideo);\n}\n\nEven without the logging it has the benefit of making the behavior more obvious.",
+      "range": {
+        "startLine": 238,
+        "startChar": 35,
+        "endLine": 239,
+        "endChar": 50
+      },
+      "revId": "6c52632ff42ae32711d9ab03ced799125cfd4e5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

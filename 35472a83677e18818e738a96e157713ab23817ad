@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e6c010f_5093c42e",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-18T13:22:41Z",
+      "side": 1,
+      "message": "I actually noticed, this class is still missing the retain method, can you add using RefCountDelegate?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 3
+      },
+      "revId": "35472a83677e18818e738a96e157713ab23817ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

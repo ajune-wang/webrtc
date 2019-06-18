@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8678d1da_714c98d3",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-06-18T21:28:57Z",
+      "side": 1,
+      "message": "It\u0027s used in a test CanBecomeWritableAfterReceivingPiggybackCheckAcknowledgement, but admittedly  it\u0027s not ideal to introduce an accessor only for test. CanBecomeWritableAfterReceivingPiggybackCheckAcknowledgement manually feeds the transaction ID to the ping and we could just remove this test since the other one that covers the codepath of filling the piggyback acknowledgement. Removed in the new patchset, and let me know what you think.",
+      "parentUuid": "7573b154_2f2f9633",
+      "range": {
+        "startLine": 687,
+        "startChar": 2,
+        "endLine": 687,
+        "endChar": 20
+      },
+      "revId": "aed904cff07c6302305bfdf89140e775c067b729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85aa3d3e_92ed88ed",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-18T19:17:31Z",
       "side": 1,
       "message": "A little concerned that we are doing the loop iteration twice. \nOne possibility is the pass in an invalid rtt here and ReceivedPingResponse attempts to find the rtt if the input rtt is not valid. \nAnother choice is to pass in an iterator so that ReceivedPingResponse does not need to do another search. \nSlightly prefer to the first choice.",
+      "range": {
+        "startLine": 713,
+        "startChar": 6,
+        "endLine": 713,
+        "endChar": 26
+      },
+      "revId": "aed904cff07c6302305bfdf89140e775c067b729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "873cee17_a97e2c62",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-06-18T21:28:57Z",
+      "side": 1,
+      "message": "Good point. To accommodate other call sites, I factored out the looping and the nomination. Let me know how it looks.",
+      "parentUuid": "85aa3d3e_92ed88ed",
       "range": {
         "startLine": 713,
         "startChar": 6,

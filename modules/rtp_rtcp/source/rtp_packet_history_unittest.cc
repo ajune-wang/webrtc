@@ -734,6 +734,31 @@ TEST_F(RtpPacketHistoryTest, GetPacketWithEncapsulation) {
   EXPECT_EQ(retransmit_packet->Ssrc(), kSsrc + 1);
 }
 
+TEST_F(RtpPacketHistoryTest, GetPacketWithEncapsulationAbortOnNullptr) {
+  const uint32_t kSsrc = 92384762;
+  const int64_t kRttMs = RtpPacketHistory::kMinPacketDurationMs * 2;
+  hist_.SetRtt(kRttMs);
+
+  // Set size to remove old packets as soon as possible.
+  hist_.SetStorePacketsStatus(StorageMode::kStoreAndCull, 1);
+
+  // Add a sent packet to the history, with a set SSRC.
+  std::unique_ptr<RtpPacketToSend> packet = CreateRtpPacket(kStartSeqNum);
+  packet->SetSsrc(kSsrc);
+  hist_.PutRtpPacket(std::move(packet), kAllowRetransmission,
+                     fake_clock_.TimeInMicroseconds());
+
+  // Retransmission request, but the encapsulator determines that this packet is
+  // not suitable for retransmission (bandwidth exhausted?) so the retransmit is
+  // aborted and the packet is not marked as pending.
+  EXPECT_FALSE(hist_.GetPacketAndMarkAsPending(
+      kStartSeqNum, [](const RtpPacketToSend& packet) { return nullptr; }));
+
+  // New try, this time getting the packet should work, and it should not be
+  // blocked due to any pending status.
+  ASSERT_TRUE(hist_.GetPacketAndMarkAsPending(kStartSeqNum));
+}
+
 TEST_F(RtpPacketHistoryTest, DontRemovePendingTransmissions) {
   const int64_t kRttMs = RtpPacketHistory::kMinPacketDurationMs * 2;
   const int64_t kPacketTimeoutMs =

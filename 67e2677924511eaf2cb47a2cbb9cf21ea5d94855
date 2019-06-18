@@ -46,6 +46,30 @@
       "revId": "67e2677924511eaf2cb47a2cbb9cf21ea5d94855",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5027ef45_07533f44",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-06-18T14:35:02Z",
+      "side": 1,
+      "message": "Oh right, SendTask is the one that blocks. Makes sense.",
+      "parentUuid": "8b33e7a0_48791989",
+      "range": {
+        "startLine": 544,
+        "startChar": 33,
+        "endLine": 544,
+        "endChar": 41
+      },
+      "revId": "67e2677924511eaf2cb47a2cbb9cf21ea5d94855",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

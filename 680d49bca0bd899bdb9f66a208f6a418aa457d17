@@ -46,6 +46,30 @@
       "revId": "680d49bca0bd899bdb9f66a208f6a418aa457d17",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0d59bce_9e01636d",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnectionFactory.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 6077
+      },
+      "writtenOn": "2019-06-18T11:09:32Z",
+      "side": 1,
+      "message": "I think calling strerror directly is the way to go, we don\u0027t have anything clever like RTC_LOG_ERRNO in RTCLogging.",
+      "parentUuid": "cdceaa08_96420bf4",
+      "range": {
+        "startLine": 315,
+        "startChar": 64,
+        "endLine": 315,
+        "endChar": 69
+      },
+      "revId": "680d49bca0bd899bdb9f66a208f6a418aa457d17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d0f5633_5394bc26",
+        "filename": "sdk/android/native_unittests/codecs/wrapper_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-18T12:40:33Z",
+      "side": 1,
+      "message": "I would prefer to use JavaToNativeVideoEncoderFactory if possible.",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 70
+      },
+      "revId": "5aa7f353ce63018b04d4ed27adbd43318e7c6bd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bed2c09_2230cd33",
+        "filename": "sdk/android/native_unittests/codecs/wrapper_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-18T12:40:33Z",
+      "side": 1,
+      "message": "Maybe add a comment that these come from the Java file for clarity.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 52
+      },
+      "revId": "5aa7f353ce63018b04d4ed27adbd43318e7c6bd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "120d2605_10b77f8e",
+        "filename": "sdk/android/src/java/org/webrtc/VideoEncoderWrapper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-18T12:40:33Z",
+      "side": 1,
+      "message": "I would prefer to have these getters in the class and do the list iteration in JNI. See JavaListToNativeVector",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 3
+      },
+      "revId": "5aa7f353ce63018b04d4ed27adbd43318e7c6bd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0a3b2df_e15a805d",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-18T12:40:33Z",
+      "side": 1,
+      "message": "Do this call with other similar calls in InitEncodeInternal for consistency?",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 42
+      },
+      "revId": "5aa7f353ce63018b04d4ed27adbd43318e7c6bd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

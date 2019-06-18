@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8c5a8da6_f2e25f03",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:07:50Z",
+      "side": 1,
+      "message": "Changing to /** ... */ comment marks. Are there any javadoc keywords I should use?",
+      "parentUuid": "ed4b3184_832ffe59",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 50
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3d94c373_7523e7bb",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abcb78a7_26828bf4",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:07:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d94c373_7523e7bb",
+      "range": {
+        "startLine": 62,
+        "startChar": 10,
+        "endLine": 62,
+        "endChar": 15
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3ffe0a51_d10409e9",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:07:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0016980f_213d777c",
+      "range": {
+        "startLine": 70,
+        "startChar": 29,
+        "endLine": 70,
+        "endChar": 38
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fe565d3_5f010046",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c05a6f8_502ba8a6",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:07:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fe565d3_5f010046",
+      "range": {
+        "startLine": 75,
+        "startChar": 29,
+        "endLine": 75,
+        "endChar": 38
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "e99cf90d_a40cf837",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:07:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34eaad61_387fa072",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 14
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "543e7733_f291d53c",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 4
@@ -137,6 +257,30 @@
       "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55db4fbe_f8eda1d5",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:07:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "543e7733_f291d53c",
+      "range": {
+        "startLine": 80,
+        "startChar": 29,
+        "endLine": 80,
+        "endChar": 40
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "1a9f9005_c5e7f1e6",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:07:50Z",
+      "side": 1,
+      "message": "Ok. I\u0027m copying logic to do that from executeUninterruptibly in rtc_base/java/.../ThreadUtils.java). Is that code used anywhere?",
+      "parentUuid": "a3e4c502_d048d1a4",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 34
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f559b7a0_7e38dde9",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 4
@@ -183,6 +351,30 @@
       "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2be18a45_f08c0e26",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:07:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f559b7a0_7e38dde9",
+      "range": {
+        "startLine": 88,
+        "startChar": 41,
+        "endLine": 88,
+        "endChar": 42
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "985f9d0b_d7d25f09",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:07:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "beaaa235_175d560d",
+      "range": {
+        "startLine": 126,
+        "startChar": 30,
+        "endLine": 126,
+        "endChar": 39
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03249a03_bef171bc",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 4
@@ -229,6 +445,30 @@
       "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b1da6fc_6c919f97",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:07:50Z",
+      "side": 1,
+      "message": "Initially, I intended increment() to have a bool return value. If isWaiting is true, it would then return false, leave counter unchanged, and caller would have release and discard the incoming frame. Then setting isWaiting back to false would be a race. \n\nBut since it is now used for an exception-throwing state check only, I guess resetting isWaiting and keeping the same object should be fine. In particular since increment and waitForZero are called on the same thread.",
+      "parentUuid": "03249a03_bef171bc",
+      "range": {
+        "startLine": 262,
+        "startChar": 6,
+        "endLine": 262,
+        "endChar": 34
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "9c5f1958_f3e48a63",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:07:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ae22ad3_c40322a9",
+      "range": {
+        "startLine": 311,
+        "startChar": 4,
+        "endLine": 312,
+        "endChar": 21
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8a9cfd0_dc36b993",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 4
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "95f8d08a_710cefd1",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:07:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8a9cfd0_dc36b993",
+      "range": {
+        "startLine": 588,
+        "startChar": 32,
+        "endLine": 588,
+        "endChar": 60
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b39c0d7_2498f8f4",
         "filename": "sdk/android/src/java/org/webrtc/VideoEncoderWrapper.java",
         "patchSetId": 4
@@ -298,6 +586,30 @@
       "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d479ff5_bf222301",
+        "filename": "sdk/android/src/java/org/webrtc/VideoEncoderWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:07:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b39c0d7_2498f8f4",
+      "range": {
+        "startLine": 43,
+        "startChar": 14,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

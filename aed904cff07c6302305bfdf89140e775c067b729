@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "b430d2bd_319f4e3e",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-06-18T22:15:21Z",
+      "side": 1,
+      "message": "|pings_since_last_response_| is private and we still need to add an accessor for the test only.",
+      "parentUuid": "1260de97_bd539a0b",
+      "range": {
+        "startLine": 687,
+        "startChar": 2,
+        "endLine": 687,
+        "endChar": 20
+      },
+      "revId": "aed904cff07c6302305bfdf89140e775c067b729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85aa3d3e_92ed88ed",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 3

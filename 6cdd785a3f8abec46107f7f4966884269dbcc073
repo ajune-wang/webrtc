@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b39a94da_0abf1c9c",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-18T13:03:47Z",
+      "side": 1,
+      "message": "You could reference methods like {@link MediaCodec#getOutputBuffers()} to make them links if you want.",
+      "parentUuid": "8c5a8da6_f2e25f03",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 50
+      },
+      "revId": "6cdd785a3f8abec46107f7f4966884269dbcc073",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3d94c373_7523e7bb",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 4

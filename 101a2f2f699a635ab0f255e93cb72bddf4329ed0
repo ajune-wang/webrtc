@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea1a991c_0f5ba59e",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-18T13:03:47Z",
+      "side": 1,
+      "message": "nit: Remove this comment?",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 34
+      },
+      "revId": "101a2f2f699a635ab0f255e93cb72bddf4329ed0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25c7b812_615a0efc",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-06-18T13:03:47Z",
+      "side": 1,
+      "message": "I would prefer this to be a final if possible (similar to thread checkers)",
+      "range": {
+        "startLine": 139,
+        "startChar": 20,
+        "endLine": 139,
+        "endChar": 29
+      },
+      "revId": "101a2f2f699a635ab0f255e93cb72bddf4329ed0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

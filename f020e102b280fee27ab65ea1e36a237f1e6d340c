@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dabab083_e38a4c8c",
+        "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de84e896_482507eb",
+      "range": {
+        "startLine": 167,
+        "startChar": 10,
+        "endLine": 167,
+        "endChar": 15
+      },
+      "revId": "f020e102b280fee27ab65ea1e36a237f1e6d340c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "202bac74_1440f753",
         "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-17T13:43:58Z",
       "side": 1,
       "message": "nit: final",
+      "range": {
+        "startLine": 168,
+        "startChar": 11,
+        "endLine": 168,
+        "endChar": 15
+      },
+      "revId": "f020e102b280fee27ab65ea1e36a237f1e6d340c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2222767b_8ec143d6",
+        "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:05:14Z",
+      "side": 1,
+      "message": "Done. What precisely does that mean? The pointer assigned only at construction time?",
+      "parentUuid": "202bac74_1440f753",
       "range": {
         "startLine": 168,
         "startChar": 11,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "30996764_40225c39",
+        "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:05:14Z",
+      "side": 1,
+      "message": "What\u0027s the right way to create a fresh and empty List\u003cVideoFrame\u003e ? My first attempts made the compiler unhappy, and then I found Collections.emptyList() somewhere else and cargo-culted it...",
+      "parentUuid": "bf9f7a6c_5e7efd32",
+      "range": {
+        "startLine": 171,
+        "startChar": 34,
+        "endLine": 171,
+        "endChar": 43
+      },
+      "revId": "f020e102b280fee27ab65ea1e36a237f1e6d340c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "240c6c26_e8f90306",
         "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "3199e48b_e46622ea",
+        "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "240c6c26_e8f90306",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 179,
+        "endChar": 10
+      },
+      "revId": "f020e102b280fee27ab65ea1e36a237f1e6d340c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9df8fc0d_693ef067",
         "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
         "patchSetId": 3
@@ -114,6 +210,30 @@
       "revId": "f020e102b280fee27ab65ea1e36a237f1e6d340c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4b7d668_e8e0d9c3",
+        "filename": "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-18T12:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9df8fc0d_693ef067",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 73
+      },
+      "revId": "f020e102b280fee27ab65ea1e36a237f1e6d340c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

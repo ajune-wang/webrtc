@@ -27,6 +27,7 @@ class RtcpStatisticsCallback {
  public:
   virtual ~RtcpStatisticsCallback() {}
 
+  // TODO(nisse): Used for send streams only???
   virtual void StatisticsUpdated(const RtcpStatistics& statistics,
                                  uint32_t ssrc) = 0;
   virtual void CNameChanged(const char* cname, uint32_t ssrc) = 0;

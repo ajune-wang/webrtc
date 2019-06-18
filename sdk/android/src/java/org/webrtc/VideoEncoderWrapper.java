@@ -38,8 +38,9 @@ class VideoEncoderWrapper {
 
   @CalledByNative
   static VideoEncoder.Callback createEncoderCallback(final long nativeEncoder) {
-    return (EncodedImage frame,
-               VideoEncoder.CodecSpecificInfo info) -> nativeOnEncodedFrame(nativeEncoder, frame);
+    return (EncodedImage frame, VideoEncoder.CodecSpecificInfo info) -> {
+      nativeOnEncodedFrame(nativeEncoder, frame);
+    };
   }
 
   private static native void nativeOnEncodedFrame(

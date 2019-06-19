@@ -22,6 +22,30 @@
       "revId": "50223b5ac4fccbbfe330e43bde9fb8c5ae6de579",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "094b5100_5e3e0fea",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-06-19T15:17:52Z",
+      "side": 1,
+      "message": "Good point, not sure actually. If we think of delay as time from we inserted the packet until we start to play out a packet, then this is correct. If we think of it as total duration of audio in the buffer then we should add it.",
+      "parentUuid": "13891a74_b7a27ce1",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 57
+      },
+      "revId": "50223b5ac4fccbbfe330e43bde9fb8c5ae6de579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

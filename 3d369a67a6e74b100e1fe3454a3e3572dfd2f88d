@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c435c674_5f57d948",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-19T12:47:56Z",
+      "side": 1,
+      "message": "Maybe simpler to return by value than by reference, i.e., return type just RtpPacketInfos. Since this type is a small ref counted pointer.",
+      "range": {
+        "startLine": 119,
+        "startChar": 2,
+        "endLine": 119,
+        "endChar": 23
+      },
+      "revId": "3d369a67a6e74b100e1fe3454a3e3572dfd2f88d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c6f1d90_183bd7b0",
+        "filename": "modules/video_coding/packet.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-19T12:47:56Z",
+      "side": 1,
+      "message": "Can this member be deleted?",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 21
+      },
+      "revId": "3d369a67a6e74b100e1fe3454a3e3572dfd2f88d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

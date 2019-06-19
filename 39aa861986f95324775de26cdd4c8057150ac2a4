@@ -118,6 +118,30 @@
       "revId": "39aa861986f95324775de26cdd4c8057150ac2a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bc2909f_58ec9b02",
+        "filename": "api/video/video_frame.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-06-19T12:31:52Z",
+      "side": 1,
+      "message": "Yes, RTP timestamp is already there but not CSRCs.\n\nAccording to the spec, the information that is obtained from getContributingSources() should be from the point where \"the frame... was delivered to the RTCRtpReceiver\u0027s MediaStreamTrack.\"\n\nCurrently, there\u0027s no way of retrieving CSRCs at that point. RtpPacketInfo will be used to propagate all information that is needed by getContributingSources().\n\nSo instead of adding another RTP specific field to VideoFrame, everything is contained in RtpPacketInfo.",
+      "parentUuid": "3fb4d913_138bcbc4",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 34
+      },
+      "revId": "39aa861986f95324775de26cdd4c8057150ac2a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

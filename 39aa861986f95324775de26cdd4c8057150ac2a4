@@ -94,6 +94,30 @@
       "revId": "39aa861986f95324775de26cdd4c8057150ac2a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fb4d913_138bcbc4",
+        "filename": "api/video/video_frame.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-19T12:10:47Z",
+      "side": 1,
+      "message": "The RTP timestamp is already there (even if I\u0027m not sure exactly which parts of the send and receive pipelines populate it).",
+      "parentUuid": "f3a4afb2_8bd555c9",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 34
+      },
+      "revId": "39aa861986f95324775de26cdd4c8057150ac2a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

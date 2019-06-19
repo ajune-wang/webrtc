@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c15ebc97_7336911a",
+        "filename": "sdk/android/native_unittests/codecs/wrapper_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-19T12:57:57Z",
+      "side": 1,
+      "message": "replaced with JavaToNativeVideoEncoder().",
+      "parentUuid": "1d0f5633_5394bc26",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 70
+      },
+      "revId": "5aa7f353ce63018b04d4ed27adbd43318e7c6bd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6bed2c09_2230cd33",
         "filename": "sdk/android/native_unittests/codecs/wrapper_unittest.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "5aa7f353ce63018b04d4ed27adbd43318e7c6bd0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74aa01cb_f17e7ecc",
+        "filename": "sdk/android/native_unittests/codecs/wrapper_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-19T12:57:57Z",
+      "side": 1,
+      "message": "added\n// Check that the resolution bitrate thresholds are correctly passed from Java to native.",
+      "parentUuid": "6bed2c09_2230cd33",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 52
+      },
+      "revId": "5aa7f353ce63018b04d4ed27adbd43318e7c6bd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ddf59b79_bb6db82e",
+        "filename": "sdk/android/native_unittests/org/webrtc/FakeVideoEncoder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-19T12:57:57Z",
+      "side": 1,
+      "message": "The purpose of having this class is to test passing of data from Java to native in VideoEcoderWrapper.",
+      "parentUuid": "17b9ab8e_ed3981d6",
+      "range": {
+        "startLine": 52,
+        "startChar": 58,
+        "endLine": 55,
+        "endChar": 39
+      },
+      "revId": "5aa7f353ce63018b04d4ed27adbd43318e7c6bd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "120d2605_10b77f8e",
         "filename": "sdk/android/src/java/org/webrtc/VideoEncoderWrapper.java",
         "patchSetId": 6
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "f8bf72b6_48926260",
+        "filename": "sdk/android/src/java/org/webrtc/VideoEncoderWrapper.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-19T12:57:57Z",
+      "side": 1,
+      "message": "Changed java getters to return arrays.",
+      "parentUuid": "120d2605_10b77f8e",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 3
+      },
+      "revId": "5aa7f353ce63018b04d4ed27adbd43318e7c6bd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0a3b2df_e15a805d",
         "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
         "patchSetId": 6
@@ -114,6 +210,30 @@
       "revId": "5aa7f353ce63018b04d4ed27adbd43318e7c6bd0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e99308c7_fa6840c6",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-19T12:57:57Z",
+      "side": 1,
+      "message": "We want to avoid calling init() multiple times if resolution is too high for given bit rate in the beginning of call (see b/131839367#comment5). For that we need to know these thresholds before init() is called.",
+      "parentUuid": "f0a3b2df_e15a805d",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 42
+      },
+      "revId": "5aa7f353ce63018b04d4ed27adbd43318e7c6bd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

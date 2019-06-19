@@ -70,6 +70,30 @@
       "revId": "39aa861986f95324775de26cdd4c8057150ac2a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3a4afb2_8bd555c9",
+        "filename": "api/video/video_frame.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-06-19T11:14:10Z",
+      "side": 1,
+      "message": "There are several use cases for this. One use case that I care about is to use the RTP timestamp to identify which frame that was last sent to \"Chrome\". Even though it\u0027s not optimal to expose RTP information, to me it seems better to reuse an existing and widely spread identifier than to add a new duplicate identifier.",
+      "parentUuid": "665af454_0f7c1a6f",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 34
+      },
+      "revId": "39aa861986f95324775de26cdd4c8057150ac2a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

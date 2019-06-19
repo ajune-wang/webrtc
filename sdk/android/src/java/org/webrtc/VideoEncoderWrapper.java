@@ -13,6 +13,8 @@ package org.webrtc;
 // Explicit imports necessary for JNI generation.
 import android.support.annotation.Nullable;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 import org.webrtc.VideoEncoder;
 
 /**
@@ -34,6 +36,46 @@ class VideoEncoderWrapper {
   @CalledByNative
   static Integer getScalingSettingsHigh(VideoEncoder.ScalingSettings scalingSettings) {
     return scalingSettings.high;
+  }
+
+  @CalledByNative
+  static int[] getResolutionBitrateThresholdsFrameSizePixels(
+      List<VideoEncoder.ResolutionBitrateThresholds> resolutionBitrateThresholds) {
+    int frameSizePixels[] = new int[resolutionBitrateThresholds.size()];
+    for (int i = 0; i < resolutionBitrateThresholds.size(); ++i) {
+      frameSizePixels[i] = resolutionBitrateThresholds.get(i).frameSizePixels;
+    }
+    return frameSizePixels;
+  }
+
+  @CalledByNative
+  static int[] getResolutionBitrateThresholdsMinStartBitrateBps(
+      List<VideoEncoder.ResolutionBitrateThresholds> resolutionBitrateThresholds) {
+    int minStartBitrateBps[] = new int[resolutionBitrateThresholds.size()];
+    for (int i = 0; i < resolutionBitrateThresholds.size(); ++i) {
+      minStartBitrateBps[i] = resolutionBitrateThresholds.get(i).minStartBitrateBps;
+    }
+    return minStartBitrateBps;
+  }
+
+  @CalledByNative
+  static int[] getResolutionBitrateThresholdsMinBitrateBps(
+      List<VideoEncoder.ResolutionBitrateThresholds> resolutionBitrateThresholds) {
+    int minBitrateBps[] = new int[resolutionBitrateThresholds.size()];
+    for (int i = 0; i < resolutionBitrateThresholds.size(); ++i) {
+      minBitrateBps[i] = resolutionBitrateThresholds.get(i).minBitrateBps;
+    }
+    return minBitrateBps;
+  }
+
+  @CalledByNative
+  static int[] getResolutionBitrateThresholdsMaxBitrateBps(
+      List<VideoEncoder.ResolutionBitrateThresholds> resolutionBitrateThresholds) {
+    int maxBitrateBps[] = new int[resolutionBitrateThresholds.size()];
+    for (int i = 0; i < resolutionBitrateThresholds.size(); ++i) {
+      maxBitrateBps[i] = resolutionBitrateThresholds.get(i).maxBitrateBps;
+    }
+    return maxBitrateBps;
   }
 
   @CalledByNative

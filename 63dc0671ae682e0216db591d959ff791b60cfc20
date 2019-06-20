@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3051f3ab_d209b739",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-06-20T13:49:59Z",
+      "side": 1,
+      "message": "Fails if low higher or equal. Added a test.",
+      "parentUuid": "34432a88_0d469719",
+      "range": {
+        "startLine": 38,
+        "startChar": 33,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "63dc0671ae682e0216db591d959ff791b60cfc20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d25acba_9ab442a3",
         "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "63dc0671ae682e0216db591d959ff791b60cfc20",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ff001bd_134b6b26",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-06-20T13:49:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d25acba_9ab442a3",
+      "range": {
+        "startLine": 91,
+        "startChar": 20,
+        "endLine": 91,
+        "endChar": 35
+      },
+      "revId": "63dc0671ae682e0216db591d959ff791b60cfc20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -55,6 +55,15 @@ CreatePcmSamplesReader(const size_t frame_length) {
   return {std::move(ptr), ptr->data_length() / frame_length};
 }
 
+ReaderPairType CreateDownsampledPcmSamplesReader(const size_t frame_length) {
+  auto ptr = absl::make_unique<BinaryFileReader<float>>(
+      test::ResourcePath("audio_processing/agc2/rnn_vad/samples_f32_24k",
+                         "pcm"),
+      frame_length);
+  // The last incomplete frame is ignored.
+  return {std::move(ptr), ptr->data_length() / frame_length};
+}
+
 ReaderPairType CreatePitchBuffer24kHzReader() {
   constexpr size_t cols = 864;
   auto ptr = absl::make_unique<BinaryFileReader<float>>(

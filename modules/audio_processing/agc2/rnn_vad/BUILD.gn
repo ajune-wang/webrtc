@@ -106,6 +106,7 @@ if (rtc_include_tests) {
       "../../../../rtc_base:logging",
       "../../../../test:test_support",
       "../../utility:pffft_wrapper",
+      "//third_party/abseil-cpp/absl/memory",
       "//third_party/rnnoise:rnn_vad",
     ]
     data = unittest_resources

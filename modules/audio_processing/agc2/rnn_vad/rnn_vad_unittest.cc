@@ -9,9 +9,11 @@
  */
 
 #include <array>
+#include <memory>
 #include <string>
 #include <vector>
 
+#include "absl/memory/memory.h"
 #include "common_audio/resampler/push_sinc_resampler.h"
 #include "modules/audio_processing/agc2/rnn_vad/features_extraction.h"
 #include "modules/audio_processing/agc2/rnn_vad/rnn.h"
@@ -55,6 +57,40 @@ constexpr bool kWriteComputedOutputToFile = false;
 TEST(RnnVadTest, CheckWriteComputedOutputIsFalse) {
   ASSERT_FALSE(kWriteComputedOutputToFile)
       << "Cannot land if kWriteComputedOutput is true.";
+}
+
+// Check that the resampler output is bit exact.
+TEST(RnnVadTest, RnnVadResampledInputBitExact) {
+  PushSincResampler decimator(kFrameSize10ms48kHz, kFrameSize10ms24kHz);
+  auto samples_reader = CreatePcmSamplesReader(kFrameSize10ms48kHz);
+  auto downsampled_samples_reader =
+      CreateDownsampledPcmSamplesReader(kFrameSize10ms24kHz);
+  const size_t num_frames = samples_reader.second;
+  ASSERT_GE(downsampled_samples_reader.second, num_frames);
+  std::vector<float> samples_48k(kFrameSize10ms48kHz);
+  std::vector<float> samples_24k_computed(kFrameSize10ms24kHz);
+  std::vector<float> samples_24k_expected(kFrameSize10ms24kHz);
+
+  // Expected output writer (if enabled).
+  std::unique_ptr<BinaryFileWriter<float>> downsampled_signal_writer;
+  if (kWriteComputedOutputToFile) {
+    downsampled_signal_writer =
+        absl::make_unique<BinaryFileWriter<float>>("samples_f32_24k.pcm");
+  }
+
+  for (size_t i = 0; i < num_frames; ++i) {
+    SCOPED_TRACE(i);
+    samples_reader.first->ReadChunk(samples_48k);
+    decimator.Resample(samples_48k.data(), samples_48k.size(),
+                       samples_24k_computed.data(),
+                       samples_24k_computed.size());
+    downsampled_samples_reader.first->ReadChunk(samples_24k_expected);
+    EXPECT_EQ(samples_24k_expected, samples_24k_computed);
+
+    if (downsampled_signal_writer) {
+      downsampled_signal_writer->WriteChunk(samples_24k_computed);
+    }
+  }
 }
 
 // Checks that the computed VAD probability for a test input sequence sampled at

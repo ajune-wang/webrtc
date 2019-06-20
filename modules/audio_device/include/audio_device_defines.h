@@ -101,6 +101,7 @@ class AudioParameters {
   void reset(int sample_rate, size_t channels) {
     reset(sample_rate, channels, static_cast<size_t>(0));
   }
+  void SetSampleRate(int sample_rate) { sample_rate_ = sample_rate; }
   int sample_rate() const { return sample_rate_; }
   size_t channels() const { return channels_; }
   size_t frames_per_buffer() const { return frames_per_buffer_; }

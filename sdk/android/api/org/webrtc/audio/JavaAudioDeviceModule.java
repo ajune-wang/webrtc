@@ -10,8 +10,9 @@
 
 package org.webrtc.audio;
 
-import android.media.AudioManager;
 import android.content.Context;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
 import org.webrtc.JniCommon;
 import org.webrtc.Logging;
 
@@ -40,6 +41,7 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
     private boolean useHardwareNoiseSuppressor = isBuiltInNoiseSuppressorSupported();
     private boolean useStereoInput;
     private boolean useStereoOutput;
+    private int usageAttribute;
 
     private Builder(Context context) {
       this.context = context;
@@ -166,6 +168,15 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
     }
 
     /**
+     * Set the usage attribute. By default, this is set to USAGE_UNKNOWN, which will make WebRTC
+     * select a default usage.
+     */
+    public Builder setUsageAttribute(int usageAttribute) {
+      this.usageAttribute = usageAttribute;
+      return this;
+    }
+
+    /**
      * Construct an AudioDeviceModule based on the supplied arguments. The caller takes ownership
      * and is responsible for calling release().
      */
@@ -193,7 +204,7 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
       final WebRtcAudioTrack audioOutput =
           new WebRtcAudioTrack(context, audioManager, audioTrackErrorCallback);
       return new JavaAudioDeviceModule(context, audioManager, audioInput, audioOutput,
-          inputSampleRate, outputSampleRate, useStereoInput, useStereoOutput);
+          inputSampleRate, outputSampleRate, useStereoInput, useStereoOutput, usageAttribute);
     }
   }
 
@@ -289,13 +300,14 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
   private final int outputSampleRate;
   private final boolean useStereoInput;
   private final boolean useStereoOutput;
+  private final int usageAttribute;
 
   private final Object nativeLock = new Object();
   private long nativeAudioDeviceModule;
 
   private JavaAudioDeviceModule(Context context, AudioManager audioManager,
       WebRtcAudioRecord audioInput, WebRtcAudioTrack audioOutput, int inputSampleRate,
-      int outputSampleRate, boolean useStereoInput, boolean useStereoOutput) {
+      int outputSampleRate, boolean useStereoInput, boolean useStereoOutput, int usageAttribute) {
     this.context = context;
     this.audioManager = audioManager;
     this.audioInput = audioInput;
@@ -304,14 +316,16 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
     this.outputSampleRate = outputSampleRate;
     this.useStereoInput = useStereoInput;
     this.useStereoOutput = useStereoOutput;
+    this.usageAttribute = usageAttribute;
   }
 
   @Override
   public long getNativeAudioDeviceModulePointer() {
     synchronized (nativeLock) {
       if (nativeAudioDeviceModule == 0) {
-        nativeAudioDeviceModule = nativeCreateAudioDeviceModule(context, audioManager, audioInput,
-            audioOutput, inputSampleRate, outputSampleRate, useStereoInput, useStereoOutput);
+        nativeAudioDeviceModule =
+            nativeCreateAudioDeviceModule(context, audioManager, audioInput, audioOutput,
+                inputSampleRate, outputSampleRate, useStereoInput, useStereoOutput, usageAttribute);
       }
       return nativeAudioDeviceModule;
     }
@@ -341,5 +355,6 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
 
   private static native long nativeCreateAudioDeviceModule(Context context,
       AudioManager audioManager, WebRtcAudioRecord audioInput, WebRtcAudioTrack audioOutput,
-      int inputSampleRate, int outputSampleRate, boolean useStereoInput, boolean useStereoOutput);
+      int inputSampleRate, int outputSampleRate, boolean useStereoInput, boolean useStereoOutput,
+      int usageAttribute);
 }

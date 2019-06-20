@@ -33,7 +33,8 @@ ScopedJavaLocalRef<jobject> AudioTrackJni::CreateJavaWebRtcAudioTrack(
 
 AudioTrackJni::AudioTrackJni(JNIEnv* env,
                              const AudioParameters& audio_parameters,
-                             const JavaRef<jobject>& j_webrtc_audio_track)
+                             const JavaRef<jobject>& j_webrtc_audio_track,
+                             int usage_attribute)
     : j_audio_track_(env, j_webrtc_audio_track),
       audio_parameters_(audio_parameters),
       direct_buffer_address_(nullptr),
@@ -41,6 +42,7 @@ AudioTrackJni::AudioTrackJni(JNIEnv* env,
       frames_per_buffer_(0),
       initialized_(false),
       playing_(false),
+      usage_attribute_(usage_attribute),
       audio_device_buffer_(nullptr) {
   RTC_LOG(INFO) << "ctor";
   RTC_DCHECK(audio_parameters_.is_valid());
@@ -83,7 +85,7 @@ int32_t AudioTrackJni::InitPlayout() {
   RTC_DCHECK(!playing_);
   if (!Java_WebRtcAudioTrack_initPlayout(
           env_, j_audio_track_, audio_parameters_.sample_rate(),
-          static_cast<int>(audio_parameters_.channels()))) {
+          static_cast<int>(audio_parameters_.channels()), usage_attribute_)) {
     RTC_LOG(LS_ERROR) << "InitPlayout failed";
     return -1;
   }

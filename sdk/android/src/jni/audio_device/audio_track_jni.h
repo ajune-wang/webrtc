@@ -47,7 +47,8 @@ class AudioTrackJni : public AudioOutput {
 
   AudioTrackJni(JNIEnv* env,
                 const AudioParameters& audio_parameters,
-                const JavaRef<jobject>& j_webrtc_audio_track);
+                const JavaRef<jobject>& j_webrtc_audio_track,
+                int usage_attribute);
   ~AudioTrackJni() override;
 
   int32_t Init() override;
@@ -115,6 +116,8 @@ class AudioTrackJni : public AudioOutput {
   bool initialized_;
 
   bool playing_;
+
+  int usage_attribute_;
 
   // Raw pointer handle provided to us in AttachAudioBuffer(). Owned by the
   // AudioDeviceModuleImpl class and called by AudioDeviceModule::Create().

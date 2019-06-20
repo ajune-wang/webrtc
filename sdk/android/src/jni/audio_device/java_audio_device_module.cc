@@ -26,7 +26,8 @@ static jlong JNI_JavaAudioDeviceModule_CreateAudioDeviceModule(
     int input_sample_rate,
     int output_sample_rate,
     jboolean j_use_stereo_input,
-    jboolean j_use_stereo_output) {
+    jboolean j_use_stereo_output,
+    int usage_attribute) {
   AudioParameters input_parameters;
   AudioParameters output_parameters;
   GetAudioParameters(env, j_context, j_audio_manager, input_sample_rate,
@@ -36,8 +37,8 @@ static jlong JNI_JavaAudioDeviceModule_CreateAudioDeviceModule(
   auto audio_input = absl::make_unique<AudioRecordJni>(
       env, input_parameters, kHighLatencyModeDelayEstimateInMilliseconds,
       j_webrtc_audio_record);
-  auto audio_output = absl::make_unique<AudioTrackJni>(env, output_parameters,
-                                                       j_webrtc_audio_track);
+  auto audio_output = absl::make_unique<AudioTrackJni>(
+      env, output_parameters, j_webrtc_audio_track, usage_attribute);
   return jlongFromPointer(CreateAudioDeviceModuleFromInputAndOutput(
                               AudioDeviceModule::kAndroidJavaAudio,
                               j_use_stereo_input, j_use_stereo_output,

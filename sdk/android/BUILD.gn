@@ -909,6 +909,7 @@ if (is_android) {
     deps = [
       ":base_jni",
       ":java_audio_device_module",
+      ":native_api_jni",
       ":opensles_audio_device_module",
       "../../api:scoped_refptr",
       "../../modules/audio_device",

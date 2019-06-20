@@ -182,7 +182,7 @@ class WebRtcAudioTrack {
   }
 
   @CalledByNative
-  private boolean initPlayout(int sampleRate, int channels) {
+  private boolean initPlayout(int sampleRate, int channels, int usageAttribute) {
     threadChecker.checkIsOnValidThread();
     Logging.d(TAG, "initPlayout(sampleRate=" + sampleRate + ", channels=" + channels + ")");
     final int bytesPerFrame = channels * (BITS_PER_SAMPLE / 8);
@@ -228,8 +228,8 @@ class WebRtcAudioTrack {
         // supersede the notion of stream types for defining the behavior of audio playback,
         // and to allow certain platforms or routing policies to use this information for more
         // refined volume or routing decisions.
-        audioTrack =
-            createAudioTrackOnLollipopOrHigher(sampleRate, channelConfig, minBufferSizeInBytes);
+        audioTrack = createAudioTrackOnLollipopOrHigher(
+            sampleRate, channelConfig, minBufferSizeInBytes, usageAttribute);
       } else {
         // Use default constructor for API levels below 21.
         audioTrack =
@@ -358,7 +358,7 @@ class WebRtcAudioTrack {
   // refined volume or routing decisions.
   @TargetApi(21)
   private static AudioTrack createAudioTrackOnLollipopOrHigher(
-      int sampleRateInHz, int channelConfig, int bufferSizeInBytes) {
+      int sampleRateInHz, int channelConfig, int bufferSizeInBytes, int usageAttribute) {
     Logging.d(TAG, "createAudioTrackOnLollipopOrHigher");
     // TODO(henrika): use setPerformanceMode(int) with PERFORMANCE_MODE_LOW_LATENCY to control
     // performance when Android O is supported. Add some logging in the mean time.
@@ -368,9 +368,13 @@ class WebRtcAudioTrack {
     if (sampleRateInHz != nativeOutputSampleRate) {
       Logging.w(TAG, "Unable to use fast mode since requested sample rate is not native");
     }
+    if (usageAttribute == AudioAttributes.USAGE_UNKNOWN) {
+      // We can get USAGE_UNKNOWN passed from native, in that case use the default instead.
+      usageAttribute = DEFAULT_USAGE;
+    }
     // Create an audio track where the audio usage is for VoIP and the content type is speech.
     return new AudioTrack(new AudioAttributes.Builder()
-                              .setUsage(DEFAULT_USAGE)
+                              .setUsage(usageAttribute)
                               .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
                               .build(),
         new AudioFormat.Builder()

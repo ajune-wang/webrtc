@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "34432a88_0d469719",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-20T13:22:24Z",
+      "side": 1,
+      "message": "I think they should not be equal. Or how we will handle this case?",
+      "range": {
+        "startLine": 38,
+        "startChar": 33,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "63dc0671ae682e0216db591d959ff791b60cfc20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d25acba_9ab442a3",
         "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
         "patchSetId": 9

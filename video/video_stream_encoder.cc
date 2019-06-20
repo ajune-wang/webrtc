@@ -869,6 +869,18 @@ void VideoStreamEncoder::ConfigureQualityScaler(
     initial_framedrop_ = kMaxInitialFramedrop;
   }
 
+  if (degradation_preference_ == DegradationPreference::BALANCED &&
+      quality_scaler_ && last_frame_info_) {
+    absl::optional<int> high_qp = balanced_settings_.QpHighThreshold(
+        encoder_config_.codec_type, last_frame_info_->pixel_count());
+    if (high_qp)
+      quality_scaler_->SetHighQpThreshold(*high_qp);
+    absl::optional<int> low_qp = balanced_settings_.QpLowThreshold(
+        encoder_config_.codec_type, last_frame_info_->pixel_count());
+    if (low_qp)
+      quality_scaler_->SetLowQpThreshold(*low_qp);
+  }
+
   encoder_stats_observer_->OnAdaptationChanged(
       VideoStreamEncoderObserver::AdaptationReason::kNone,
       GetActiveCounts(kCpu), GetActiveCounts(kQuality));

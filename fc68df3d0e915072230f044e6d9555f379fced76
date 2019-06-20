@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "1783c84f_3dd3675b",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-20T09:13:03Z",
+      "side": 1,
+      "message": "shall we check that high \u003e low as well?",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 46
+      },
+      "revId": "fc68df3d0e915072230f044e6d9555f379fced76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4aa71e9e_93088c0d",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-20T09:13:03Z",
+      "side": 1,
+      "message": "Why is this a requirement? Should we just check value of thresholds is in valid range?",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 5
+      },
+      "revId": "fc68df3d0e915072230f044e6d9555f379fced76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56529606_40d9b808",
         "filename": "rtc_base/experiments/balanced_degradation_settings.h",
         "patchSetId": 8

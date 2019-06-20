@@ -11,11 +11,15 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_NETEQ_IMPL_H_
 #define MODULES_AUDIO_CODING_NETEQ_NETEQ_IMPL_H_
 
+#include <map>
 #include <memory>
 #include <string>
+#include <utility>
+#include <vector>
 
 #include "absl/types/optional.h"
 #include "api/audio/audio_frame.h"
+#include "api/rtp_packet_info.h"
 #include "modules/audio_coding/neteq/audio_multi_vector.h"
 #include "modules/audio_coding/neteq/defines.h"  // Modes, Operations
 #include "modules/audio_coding/neteq/expand_uma_logger.h"
@@ -127,7 +131,8 @@ class NetEqImpl : public webrtc::NetEq {
   // Returns 0 on success, -1 on failure.
   int InsertPacket(const RTPHeader& rtp_header,
                    rtc::ArrayView<const uint8_t> payload,
-                   uint32_t receive_timestamp) override;
+                   uint32_t receive_timestamp,
+                   int64_t receive_time_ms) override;
 
   void InsertEmptyPacket(const RTPHeader& rtp_header) override;
 
@@ -211,7 +216,8 @@ class NetEqImpl : public webrtc::NetEq {
   // TODO(hlundin): Merge this with InsertPacket above?
   int InsertPacketInternal(const RTPHeader& rtp_header,
                            rtc::ArrayView<const uint8_t> payload,
-                           uint32_t receive_timestamp)
+                           uint32_t receive_timestamp,
+                           int64_t receive_time_ms)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_sect_);
 
   // Delivers 10 ms of audio data. The data is written to |audio_frame|.
@@ -403,6 +409,8 @@ class NetEqImpl : public webrtc::NetEq {
   std::unique_ptr<TickTimer::Stopwatch> generated_noise_stopwatch_
       RTC_GUARDED_BY(crit_sect_);
   std::vector<uint32_t> last_decoded_timestamps_ RTC_GUARDED_BY(crit_sect_);
+  std::vector<RtpPacketInfo> last_decoded_packet_infos_
+      RTC_GUARDED_BY(crit_sect_);
   ExpandUmaLogger expand_uma_logger_ RTC_GUARDED_BY(crit_sect_);
   ExpandUmaLogger speech_expand_uma_logger_ RTC_GUARDED_BY(crit_sect_);
   bool no_time_stretching_ RTC_GUARDED_BY(crit_sect_);  // Only used for test.

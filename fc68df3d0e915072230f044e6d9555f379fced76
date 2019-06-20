@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "a0c64c7a_d816e54d",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-20T13:10:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5a293dd2_d5795737",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 5
+      },
+      "revId": "fc68df3d0e915072230f044e6d9555f379fced76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56529606_40d9b808",
         "filename": "rtc_base/experiments/balanced_degradation_settings.h",
         "patchSetId": 8
@@ -140,6 +164,30 @@
       "revId": "fc68df3d0e915072230f044e6d9555f379fced76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "403b13f0_414a9640",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-20T13:10:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "544ea224_38d0f7f7",
+      "range": {
+        "startLine": 44,
+        "startChar": 11,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "fc68df3d0e915072230f044e6d9555f379fced76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

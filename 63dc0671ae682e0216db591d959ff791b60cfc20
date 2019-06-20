@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d25acba_9ab442a3",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-20T13:10:39Z",
+      "side": 1,
+      "message": "Maybe merge GetLowThreshold and GetHighThreshold functions into one?",
+      "range": {
+        "startLine": 91,
+        "startChar": 20,
+        "endLine": 91,
+        "endChar": 35
+      },
+      "revId": "63dc0671ae682e0216db591d959ff791b60cfc20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

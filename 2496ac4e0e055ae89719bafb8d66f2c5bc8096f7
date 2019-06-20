@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2bb910de_d9ba8a74",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-20T08:20:29Z",
+      "side": 1,
+      "message": "may be. Can be removed. From human point of view probably better to remove (since that interface is not mentioned explicitly in this file)\nbut iwyu later might find reason to re-add it. (e.g. because it need to call destructor via that interface)",
+      "parentUuid": "aa29e1f6_1f601bc3",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 62
+      },
+      "revId": "2496ac4e0e055ae89719bafb8d66f2c5bc8096f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec75f875_d40ae744",
         "filename": "pc/peer_connection_interface_unittest.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "2496ac4e0e055ae89719bafb8d66f2c5bc8096f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49708039_c9adf7eb",
+        "filename": "pc/peer_connection_interface_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-20T08:20:29Z",
+      "side": 1,
+      "message": "yes, there is a mention of webrtc::RtcEventLog::kImmediateOutput constant in this file.",
+      "parentUuid": "ec75f875_d40ae744",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 44
+      },
+      "revId": "2496ac4e0e055ae89719bafb8d66f2c5bc8096f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

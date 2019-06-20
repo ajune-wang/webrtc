@@ -119,6 +119,10 @@ class BinaryFileWriter {
 // chunks with length |frame_length|.
 std::pair<std::unique_ptr<BinaryFileReader<int16_t, float>>, const size_t>
 CreatePcmSamplesReader(const size_t frame_length);
+// Creates a reader for the downsampled PCM samples and reads chunks with length
+// |frame_length|.
+std::pair<std::unique_ptr<BinaryFileReader<float>>, const size_t>
+CreateDownsampledPcmSamplesReader(const size_t frame_length);
 // Creates a reader for the pitch buffer content at 24 kHz.
 std::pair<std::unique_ptr<BinaryFileReader<float>>, const size_t>
 CreatePitchBuffer24kHzReader();

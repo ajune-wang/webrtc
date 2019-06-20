@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d7df7a8e_fdfaf8c4",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-20T08:17:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fd4a28f_433331e6",
+      "revId": "4e7091b5fc2b45a265943f035728a954366e89c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1229c73d_b3e14818",
         "filename": "api/audio/audio_frame.h",
         "patchSetId": 8
@@ -39,6 +57,30 @@
       "revId": "4e7091b5fc2b45a265943f035728a954366e89c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43e68fec_23ea863a",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-20T08:17:10Z",
+      "side": 1,
+      "message": "What about \"audio sync buffer\" + extra explanation in the text?\n\nThe information does survive across the \"packet-holding jitter buffer that\u0027s before the decoder\" and the \"decoder itself\". What it currently doesn\u0027t survive is the \"sample-holding sync buffer\".",
+      "parentUuid": "1229c73d_b3e14818",
+      "range": {
+        "startLine": 124,
+        "startChar": 66,
+        "endLine": 124,
+        "endChar": 78
+      },
+      "revId": "4e7091b5fc2b45a265943f035728a954366e89c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "42cf26e7_0a38d639",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-20T08:17:10Z",
+      "side": 1,
+      "message": "`RtpPacketInfos` is empty for the frames during DTX. This is the intended behavior since a DTX frame is generated locally on the client and is not \"a frame from an RTP packet\". `SourceTracker` remembers the info from the last non-empty `RtpPacketInfos` for each SSRC/CSRC so `getContributingSources()` returns what you would expect it to do.",
+      "parentUuid": "a9256254_b34373fd",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 31
+      },
+      "revId": "4e7091b5fc2b45a265943f035728a954366e89c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "adcd64f8_e8a6ffde",
         "filename": "modules/audio_coding/acm2/acm_receiver.cc",
         "patchSetId": 8
@@ -76,6 +142,30 @@
       "writtenOn": "2019-06-19T14:18:01Z",
       "side": 1,
       "message": "I think receive_timestamp and receive_time_ms are kind of redundant.\n\nI think we may let NetEq own a Clock* and query time inside.",
+      "range": {
+        "startLine": 118,
+        "startChar": 14,
+        "endLine": 118,
+        "endChar": 26
+      },
+      "revId": "4e7091b5fc2b45a265943f035728a954366e89c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c3b8183_4a7ea235",
+        "filename": "modules/audio_coding/acm2/acm_receiver.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-20T08:17:10Z",
+      "side": 1,
+      "message": "I think that it\u0027s a good idea but...\n\n1. I\u0027m too afraid of making that change. :-)\n\nNetEq would have to do the `GetDecoderFormat(payload_type)-\u003eclockrate_hz` lookup internally and handle RED packets properly. `receive_timestamp` is only used at:\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_coding/neteq/neteq_impl.cc?l\u003d597\u0026rcl\u003db7a3e3f5c42ae926f5962c69e87bbfa6375a45ba\n\nI think that that we could replace it with:\n\ndecoder_database_-\u003eGetDecoderInfo(main_payload_type)-\u003eSampleRateHz()\n\nBut the code is different enough that I\u0027m not sure if I may have missed some corner case and which may cause things to crash horribly.\n\n2. Quite a lot of unit test changes.\n\nIs this maybe something consider in a separate CL?",
+      "parentUuid": "adcd64f8_e8a6ffde",
       "range": {
         "startLine": 118,
         "startChar": 14,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "15572c4c_b4e814a9",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-20T08:17:10Z",
+      "side": 1,
+      "message": "Linter warning from existing code.",
+      "parentUuid": "9f198748_5856cf70",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "4e7091b5fc2b45a265943f035728a954366e89c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcc16325_ba73ef48",
         "filename": "modules/audio_coding/neteq/neteq_impl.cc",
         "patchSetId": 8
@@ -122,6 +236,30 @@
       "writtenOn": "2019-06-19T14:18:01Z",
       "side": 1,
       "message": "I would like to make this \n\nEstimateAudioFrameProperties() where we set a few things, including PacketInfo, that are all \"estimate\"",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 64
+      },
+      "revId": "4e7091b5fc2b45a265943f035728a954366e89c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34018313_20750433",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-20T08:17:10Z",
+      "side": 1,
+      "message": "I think that I would rather fill it inside `GetAudioInternal()` since the intended behavior is for `PacketInfos` to be frame-accurrate. I\u0027ll reshuffle the code a bit and then update the comments to make it clear that we ideally want `PacketInfos` to be passed into `sync_buffer_-\u003ePushBack(*algorithm_buffer_);`.",
+      "parentUuid": "fcc16325_ba73ef48",
       "range": {
         "startLine": 226,
         "startChar": 0,
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "62088a9b_7e7ce9f1",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-20T08:17:10Z",
+      "side": 1,
+      "message": "This is mainly just to silence a linter warning. The headers are used by the existing code.",
+      "parentUuid": "596f1927_7338f134",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 17
+      },
+      "revId": "4e7091b5fc2b45a265943f035728a954366e89c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a19ed0c8_17256783",
         "filename": "modules/audio_coding/neteq/neteq_impl.h",
         "patchSetId": 8
@@ -168,6 +330,30 @@
       "writtenOn": "2019-06-19T14:18:01Z",
       "side": 1,
       "message": "I think we can make last_decoded_packet_infos a private var, like we do with last_decoded_timestamps_. Then we can put the setting of AudioFrame.packet_infos in GetAudio, rather than the lengthy GetAudioInternal, next to the setting of other properties in AudioFrame.\n\nIt gives a clarity that AudioFrame.packet_infos does not necessary match the content.",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 45
+      },
+      "revId": "4e7091b5fc2b45a265943f035728a954366e89c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83125e85_da0b603e",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-20T08:17:10Z",
+      "side": 1,
+      "message": "I think that it\u0027s an anti-pattern to have individual member functions store their inputs/outputs in member variable due to the sheer size of this class. Take this line as an example:\n\n```\n  // Copy from |algorithm_buffer| to |sync_buffer_|.\n  sync_buffer_-\u003ePushBack(*algorithm_buffer_);\n```\n\nIt\u0027s not obvious that `DoNormal()`, `DoMerge()`, etc. are the ones responsible for filling it. Especially because those function calls do take `decoded_buffer_.get()` as their input buffer. I think that the member variable approach would make more sense to do so if the whole hierarchy of calls beginning with `GetAudio()` was refactored into its own helper class.\n\nWith that said... Since we already use that pattern, then I have no qualms of changing the code to do the same.",
+      "parentUuid": "a19ed0c8_17256783",
       "range": {
         "startLine": 249,
         "startChar": 0,

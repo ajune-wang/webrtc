@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e3180e78_adbb1a2a",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-20T13:55:12Z",
+      "side": 1,
+      "message": "ah, we don\u0027t allow them to be equal. i misinterpreted this check. sorry.",
+      "parentUuid": "3051f3ab_d209b739",
+      "range": {
+        "startLine": 38,
+        "startChar": 33,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "63dc0671ae682e0216db591d959ff791b60cfc20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d25acba_9ab442a3",
         "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
         "patchSetId": 9

@@ -13,6 +13,9 @@
 
 #include <vector>
 
+#include "absl/types/optional.h"
+#include "api/video_codecs/video_encoder.h"
+
 namespace webrtc {
 
 class BalancedDegradationSettings {
@@ -20,17 +23,38 @@ class BalancedDegradationSettings {
   BalancedDegradationSettings();
   ~BalancedDegradationSettings();
 
-  struct Config {
-    Config();
-    Config(int pixels, int fps);
+  struct QpThreshold {
+    QpThreshold() {}
+    QpThreshold(int low, int high) : low(low), high(high) {}
 
-    bool operator==(const Config& o) const {
-      return pixels == o.pixels && fps == o.fps;
+    bool operator==(const QpThreshold& o) const {
+      return low == o.low && high == o.high;
     }
 
-    int pixels = 0;  // The video frame size.
-    int fps = 0;     // The framerate to be used if the frame size is less than
-                     // or equal to |pixels|.
+    absl::optional<int> GetLow() const;
+    absl::optional<int> GetHigh() const;
+    int low = 0;
+    int high = 0;
+  };
+
+  struct Config {
+    Config();
+    Config(int pixels,
+           int fps,
+           QpThreshold vp8,
+           QpThreshold h264,
+           QpThreshold generic);
+
+    bool operator==(const Config& o) const {
+      return pixels == o.pixels && fps == o.fps && vp8 == o.vp8 &&
+             h264 == o.h264 && generic == o.generic;
+    }
+
+    int pixels = 0;   // The video frame size.
+    int fps = 0;      // The framerate and thresholds to be used if the frame
+    QpThreshold vp8;  // size is less than or equal to |pixels|.
+    QpThreshold h264;
+    QpThreshold generic;
   };
 
   // Returns configurations from field trial on success (default on failure).
@@ -40,7 +64,17 @@ class BalancedDegradationSettings {
   int MinFps(int pixels) const;
   int MaxFps(int pixels) const;
 
+  // Gets the low/high QP threshold based on codec |type| and |pixels|.
+  absl::optional<int> QpLowThreshold(VideoCodecType type, int pixels) const;
+  absl::optional<int> QpHighThreshold(VideoCodecType type, int pixels) const;
+
  private:
+  Config GetConfig(int pixels) const;
+  absl::optional<int> GetLowThreshold(VideoCodecType type,
+                                      const Config& config) const;
+  absl::optional<int> GetHighThreshold(VideoCodecType type,
+                                       const Config& config) const;
+
   std::vector<Config> configs_;
 };
 

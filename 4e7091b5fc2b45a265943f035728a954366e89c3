@@ -272,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "878e1692_a1510d03",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-20T09:17:01Z",
+      "side": 1,
+      "message": "Changed the code.",
+      "parentUuid": "34018313_20750433",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 64
+      },
+      "revId": "4e7091b5fc2b45a265943f035728a954366e89c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "596f1927_7338f134",
         "filename": "modules/audio_coding/neteq/neteq_impl.h",
         "patchSetId": 8
@@ -363,6 +387,30 @@
       "revId": "4e7091b5fc2b45a265943f035728a954366e89c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6ab751b_458a998b",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-20T09:17:01Z",
+      "side": 1,
+      "message": "Changed the code.",
+      "parentUuid": "83125e85_da0b603e",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 45
+      },
+      "revId": "4e7091b5fc2b45a265943f035728a954366e89c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

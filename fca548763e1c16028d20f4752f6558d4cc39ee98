@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbc7d4d5_02364915",
+        "filename": "api/audio/echo_canceller3_config_json.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-06-20T15:48:35Z",
+      "side": 1,
+      "message": "Please re-insert the empty line as it is there according to the guidelines",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "fca548763e1c16028d20f4752f6558d4cc39ee98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aae0749_25a1e412",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-06-20T15:48:35Z",
+      "side": 1,
+      "message": "Please reinsert the empty line",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "fca548763e1c16028d20f4752f6558d4cc39ee98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48102040_bf848889",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-06-20T15:48:35Z",
+      "side": 1,
+      "message": "What is the motivation to that the echo_path_gain here, and the one applied on the reverb are different?",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 115,
+        "endChar": 18
+      },
+      "revId": "fca548763e1c16028d20f4752f6558d4cc39ee98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1238f64d_45453819",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-06-20T15:48:35Z",
+      "side": 1,
+      "message": "reverb_path_gain -\u003e echo_path_gain\n\nThis is still an echo path gain. reverb_path_gain sounds like it is only the gain of the reverb, which it is not.",
+      "range": {
+        "startLine": 127,
+        "startChar": 14,
+        "endLine": 127,
+        "endChar": 30
+      },
+      "revId": "fca548763e1c16028d20f4752f6558d4cc39ee98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d401abaf_bc607056",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-06-20T15:48:35Z",
+      "side": 1,
+      "message": "Seeing how it is used I think the naming could be even better and more self-describing.\nWhat about\ndefault_reverb_gain -\u003e nonlinear_echo_path_gain\n?",
+      "range": {
+        "startLine": 129,
+        "startChar": 59,
+        "endLine": 129,
+        "endChar": 78
+      },
+      "revId": "fca548763e1c16028d20f4752f6558d4cc39ee98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': 'a8f7a25b6e4c9924ad446b99be9817c37ca49cd1',
+  'chromium_revision': 'd975f27ac2c8764b5874ddf6ca18457d57222292',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -86,9 +86,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    Var('chromium_git') + '/chromium/src/base' + '@' + '46247c0e009a31a5214590125aa76e701d861b01',
+    Var('chromium_git') + '/chromium/src/base' + '@' + 'ba92ef2b240ce8e8adefce4f5ea197928acb7418',
   'src/build':
-    Var('chromium_git') + '/chromium/src/build' + '@' + '2c91ba25839947073049e35b86af4eced8e26c16',
+    Var('chromium_git') + '/chromium/src/build' + '@' + 'ce73d151977ad8ce82cc11e19ad909153cc48cce',
   'src/buildtools':
     Var('chromium_git') + '/chromium/src/buildtools' + '@' + '6f3775ad6eb9c0736d0aeb51faa6cff456d41601',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -98,13 +98,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + 'f9b57d386b9305dfcba41d4aa31b36fa3189ed79',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '75f83933ae0122954c4d4a93273ffbc2e364f91c',
     'condition': 'checkout_ios',
   },
   'src/testing':
     Var('chromium_git') + '/chromium/src/testing' + '@' + '59e2678c71502afc7fe03642725b8e07ebd71297',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + '7c36fb92ea57a8f05fe369e3ef7f8da211a81295',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + '5a471d217b7e367b3fe582d200b9c764ed9be507',
 
   'src/buildtools/linux64': {
     'packages': [

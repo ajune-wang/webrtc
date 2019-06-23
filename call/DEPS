@@ -24,4 +24,7 @@ specific_include_rules = {
     "+common_video/include",
     "+media/base",
   ],
+  "rampup_tests\.cc": [
+    "+absl/flags",
+  ],
 }

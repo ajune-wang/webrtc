@@ -16,3 +16,9 @@ include_rules = [
   "+modules/video_processing",
   "+system_wrappers",
 ]
+
+specific_include_rules = {
+  "video_loopback\.cc": [
+    "+absl/flags",
+  ],
+}

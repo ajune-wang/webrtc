@@ -380,7 +380,13 @@ if (rtc_include_tests) {
       "../test:test_renderer",
       "../test:test_support",
       "//testing/gtest",
+      "//third_party/abseil-cpp/absl/flags:flag",
+      "//third_party/abseil-cpp/absl/flags:parse",
       "//third_party/abseil-cpp/absl/memory",
+    ]
+    visibility = [
+      ":video_loopback",
+      ":video_loopback_executable",
     ]
   }
 

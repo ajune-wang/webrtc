@@ -25,6 +25,7 @@
 #include "modules/rtp_rtcp/include/flexfec_sender.h"
 #include "modules/rtp_rtcp/include/receive_statistics.h"
 #include "modules/rtp_rtcp/include/report_block_data.h"
+#include "modules/rtp_rtcp/include/rtp_packet_pacer.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "modules/rtp_rtcp/source/rtp_sender.h"
@@ -86,7 +87,7 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
     RemoteBitrateEstimator* remote_bitrate_estimator = nullptr;
 
     // Spread any bursts of packets into smaller bursts to minimize packet loss.
-    RtpPacketSender* paced_sender = nullptr;
+    RtpPacketPacer* paced_sender = nullptr;
 
     // Generate FlexFEC packets.
     // TODO(brandtr): Remove when FlexfecSender is wired up to PacedSender.
@@ -277,6 +278,8 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
 
   virtual size_t TimeToSendPadding(size_t bytes,
                                    const PacedPacketInfo& pacing_info) = 0;
+
+  virtual void GeneratePadding(size_t target_size_bytes) = 0;
 
   // Called on generation of new statistics after an RTP send.
   virtual void RegisterSendChannelRtpStatisticsCallback(

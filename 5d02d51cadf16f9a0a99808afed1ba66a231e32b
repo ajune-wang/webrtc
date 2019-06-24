@@ -16,6 +16,24 @@
       "revId": "5d02d51cadf16f9a0a99808afed1ba66a231e32b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4072700_4e959713",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-24T14:45:59Z",
+      "side": 1,
+      "message": "Maybe. Seems slightly safer to me to do it in this order. But I can prepare downstream changes in parallel, and we\u0027ll see what gets ready first.",
+      "parentUuid": "63b3627c_55575ac0",
+      "revId": "5d02d51cadf16f9a0a99808afed1ba66a231e32b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

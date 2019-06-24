@@ -5433,8 +5433,7 @@ PeerConnection::InitializePortAllocator_n(
   // To handle both internal and externally created port allocator, we will
   // enable BUNDLE here.
   int port_allocator_flags = port_allocator_->flags();
-  port_allocator_flags |= cricket::PORTALLOCATOR_ENABLE_SHARED_SOCKET |
-                          cricket::PORTALLOCATOR_ENABLE_IPV6 |
+  port_allocator_flags |= cricket::PORTALLOCATOR_ENABLE_IPV6 |
                           cricket::PORTALLOCATOR_ENABLE_IPV6_ON_WIFI;
   // If the disable-IPv6 flag was specified, we'll not override it
   // by experiment.
@@ -5464,6 +5463,11 @@ PeerConnection::InitializePortAllocator_n(
   if (configuration.disable_link_local_networks) {
     port_allocator_flags |= cricket::PORTALLOCATOR_DISABLE_LINK_LOCAL_NETWORKS;
     RTC_LOG(LS_INFO) << "Disable candidates on link-local network interfaces.";
+  }
+
+  if (configuration.enable_shared_socket) {
+    port_allocator_flags |= cricket::PORTALLOCATOR_ENABLE_SHARED_SOCKET;
+    RTC_LOG(LS_INFO) << "Enable shared socket.";
   }
 
   port_allocator_->set_flags(port_allocator_flags);

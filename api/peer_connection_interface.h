@@ -411,6 +411,12 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
     // them.
     bool enable_rtp_data_channel = false;
 
+    // If set to true, PeerConnection will try to reuse the same socket for port
+    // allocation.
+    // TODO(bugs.webrtc.org/10587): There is a bug such that TurnPort will be
+    // able to bypass port range restriction if shared socket is enabled.
+    bool enable_shared_socket = true;
+
     // Minimum bitrate at which screencast video tracks will be encoded at.
     // This means adding padding bits up to this bitrate, which can help
     // when switching from a static scene to one with motion.

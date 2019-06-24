@@ -407,8 +407,8 @@ void VideoCodecTestFixtureImpl::RunTest(
   TaskQueueForTest task_queue("VidProc TQ");
 
   SetUpAndInitObjects(&task_queue,
-                      static_cast<const int>(rate_profiles[0].target_kbps),
-                      static_cast<const int>(rate_profiles[0].input_fps));
+                      static_cast<const int>(rate_profiles[0].bitrate_kbps),
+                      rate_profiles[0].framerate_fps);
   PrintSettings(&task_queue);
   ProcessAllFrames(&task_queue, rate_profiles);
   ReleaseAndCloseObjects(&task_queue);
@@ -423,7 +423,8 @@ void VideoCodecTestFixtureImpl::ProcessAllFrames(
   // Set initial rates.
   auto rate_profile = rate_profiles.begin();
   task_queue->PostTask([this, rate_profile] {
-    processor_->SetRates(rate_profile->target_kbps, rate_profile->input_fps);
+    processor_->SetRates(rate_profile->bitrate_kbps,
+                         rate_profile->framerate_fps);
   });
 
   cpu_process_time_->Start();
@@ -434,8 +435,8 @@ void VideoCodecTestFixtureImpl::ProcessAllFrames(
         frame_num == next_rate_profile->frame_num) {
       rate_profile = next_rate_profile;
       task_queue->PostTask([this, rate_profile] {
-        processor_->SetRates(rate_profile->target_kbps,
-                             rate_profile->input_fps);
+        processor_->SetRates(rate_profile->bitrate_kbps,
+                             rate_profile->framerate_fps);
       });
     }
 
@@ -443,9 +444,9 @@ void VideoCodecTestFixtureImpl::ProcessAllFrames(
 
     if (RunEncodeInRealTime(config_)) {
       // Roughly pace the frames.
-      const size_t frame_duration_ms =
-          rtc::kNumMillisecsPerSec / rate_profile->input_fps;
-      SleepMs(static_cast<int>(frame_duration_ms));
+      const int frame_duration_ms =
+          std::ceil(rtc::kNumMillisecsPerSec / rate_profile->framerate_fps);
+      SleepMs(frame_duration_ms);
     }
   }
 
@@ -530,8 +531,8 @@ void VideoCodecTestFixtureImpl::AnalyzeAllFrames(
 
     VerifyVideoStatistic(send_stat, rc_threshold, quality_threshold,
                          bs_thresholds,
-                         rate_profiles[rate_profile_idx].target_kbps,
-                         rate_profiles[rate_profile_idx].input_fps);
+                         rate_profiles[rate_profile_idx].bitrate_kbps,
+                         rate_profiles[rate_profile_idx].framerate_fps);
   }
 
   if (config_.print_frame_level_stats) {
@@ -553,7 +554,7 @@ void VideoCodecTestFixtureImpl::VerifyVideoStatistic(
     const QualityThresholds* quality_thresholds,
     const BitstreamThresholds* bs_thresholds,
     size_t target_bitrate_kbps,
-    float input_framerate_fps) {
+    double input_framerate_fps) {
   if (rc_thresholds) {
     const float bitrate_mismatch_percent =
         100 * std::fabs(1.0f * video_stat.bitrate_kbps - target_bitrate_kbps) /
@@ -640,10 +641,10 @@ VideoCodecTestStats& VideoCodecTestFixtureImpl::GetStats() {
 void VideoCodecTestFixtureImpl::SetUpAndInitObjects(
     TaskQueueForTest* task_queue,
     int initial_bitrate_kbps,
-    int initial_framerate_fps) {
+    double initial_framerate_fps) {
   config_.codec_settings.minBitrate = 0;
   config_.codec_settings.startBitrate = initial_bitrate_kbps;
-  config_.codec_settings.maxFramerate = initial_framerate_fps;
+  config_.codec_settings.maxFramerate = std::ceil(initial_framerate_fps);
 
   // Create file objects for quality analysis.
   source_frame_reader_.reset(
@@ -680,7 +681,7 @@ void VideoCodecTestFixtureImpl::SetUpAndInitObjects(
     if (config_.visualization_params.save_decoded_y4m) {
       FrameWriter* decoded_frame_writer = new Y4mFrameWriterImpl(
           output_filename_base + ".y4m", config_.codec_settings.width,
-          config_.codec_settings.height, initial_framerate_fps);
+          config_.codec_settings.height, config_.codec_settings.maxFramerate);
       EXPECT_TRUE(decoded_frame_writer->Init());
       decoded_frame_writers_.push_back(
           std::unique_ptr<FrameWriter>(decoded_frame_writer));

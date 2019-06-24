@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a38aea73_188623a2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-24T09:09:35Z",
+      "side": 1,
+      "message": "oh, miss that it was done for both call-sites in the LogAndSendToNetwork.\n\nbut actually yes, I think per call-site is clearer.",
+      "parentUuid": "6fc931c2_77a23a26",
+      "range": {
+        "startLine": 259,
+        "startChar": 36,
+        "endLine": 259,
+        "endChar": 42
+      },
+      "revId": "2bed6808ffc37508ec1b906af8f789e2b5718b44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e62fe35d_3e43cdf7",
         "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
         "patchSetId": 1

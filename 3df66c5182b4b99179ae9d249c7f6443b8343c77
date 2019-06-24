@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0368e18b_bcc8ae2d",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5882
+      },
+      "writtenOn": "2019-06-24T14:56:38Z",
+      "side": 1,
+      "message": "Other implementation may just get array of ResolutionBitrateThreshold objects using List.toArray() \n\nGetMethodID(cList, \"toArray\", \"()[Ljava/lang/Object;\");\n\nand then querying min/max bitrate for each element in this array. \nThis way it may be possible to avoid adding helpers to VideoEncoderWrapper.java\nBut may result in bigger jni code",
+      "revId": "3df66c5182b4b99179ae9d249c7f6443b8343c77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5be8854_60357146",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-24T14:37:55Z",
+      "side": 1,
+      "message": "I would still consider using a separate mapping indexed by video_frame.timestamp(), but let\u0027s keep it this way for now.",
+      "range": {
+        "startLine": 507,
+        "startChar": 0,
+        "endLine": 507,
+        "endChar": 63
+      },
+      "revId": "7d0ffbf936df5faaf706f19fca2c75d42570242d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a129e0b3_e08fa52f",
+        "filename": "video/video_receive_stream_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-24T14:37:55Z",
+      "side": 1,
+      "message": "Please either split into smaller tests with self-descriptive names, or add comments explaining the test scenario.\n\nDo you still have test coverage for the 10s history?",
+      "range": {
+        "startLine": 332,
+        "startChar": 0,
+        "endLine": 332,
+        "endChar": 63
+      },
+      "revId": "7d0ffbf936df5faaf706f19fca2c75d42570242d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

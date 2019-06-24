@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a70c34c_96055b41",
+        "filename": "pc/stats_collector_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-24T09:27:35Z",
+      "side": 0,
+      "message": "Overwritten below.",
+      "range": {
+        "startLine": 565,
+        "startChar": 2,
+        "endLine": 565,
+        "endChar": 42
+      },
+      "revId": "746dd0dbe60526ec7ce2d3dc8a43d6a66a0187d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

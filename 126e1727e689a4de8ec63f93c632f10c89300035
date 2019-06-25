@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "20bbe391_dad872ec",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-25T10:40:21Z",
+      "side": 1,
+      "message": "Just use checks.h (already included above).",
+      "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aa2523c_2854f4ee",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-25T10:40:21Z",
+      "side": 1,
+      "message": "Make this function static, since it\u0027s not used or declared ouside this .c file. (Same goes for the other three _Legacy and _New functions.)",
+      "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6650c34c_1ac38085",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 4
@@ -13,6 +47,30 @@
       "writtenOn": "2019-06-13T15:00:12Z",
       "side": 1,
       "message": "I think we are sticking to C99 code, which allows you to declare variables anywhere. So, you can skip this line and simply do\n \n int samples \u003d opus_packet_get_nb_samples(...\n\nat line 641.",
+      "range": {
+        "startLine": 633,
+        "startChar": 2,
+        "endLine": 633,
+        "endChar": 14
+      },
+      "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1601ab02_31f6cd32",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-25T10:40:21Z",
+      "side": 1,
+      "message": "Yes. And that means you\u0027re free to use const, too!",
+      "parentUuid": "6650c34c_1ac38085",
       "range": {
         "startLine": 633,
         "startChar": 2,
@@ -42,6 +100,81 @@
         "endLine": 647,
         "endChar": 17
       },
+      "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f6cba34_3b489d69",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-25T10:40:21Z",
+      "side": 1,
+      "message": "Yes please.",
+      "parentUuid": "209f6f0b_a23e6b2a",
+      "range": {
+        "startLine": 644,
+        "startChar": 2,
+        "endLine": 647,
+        "endChar": 17
+      },
+      "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cac55a7f_2e249e3a",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-25T10:40:21Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d2b2446_a598e7ec",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-25T10:40:21Z",
+      "side": 1,
+      "message": "Declare variables at the point of first use.",
+      "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "698ff513_adeec646",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-25T10:40:21Z",
+      "side": 1,
+      "message": "Can we [D]CHECK this instead?",
       "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -94,6 +227,30 @@
     },
     {
       "key": {
+        "uuid": "39883fbb_7b8f27f2",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-25T10:40:21Z",
+      "side": 1,
+      "message": "Also, consider if this could really happen except if there\u0027s a bug, and use [D]CHECK if the answer is no.",
+      "parentUuid": "1eae1f29_0fc8ad9b",
+      "range": {
+        "startLine": 763,
+        "startChar": 2,
+        "endLine": 769,
+        "endChar": 3
+      },
+      "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cfdf6f01_dc564038",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 4
@@ -111,6 +268,23 @@
         "endLine": 771,
         "endChar": 13
       },
+      "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71a19998_2310b202",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-25T10:40:21Z",
+      "side": 1,
+      "message": "Use [D]CHECK. (Yes, it\u0027s available in C too!)",
       "revId": "126e1727e689a4de8ec63f93c632f10c89300035",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

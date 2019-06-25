@@ -928,6 +928,8 @@ class CustomProcessing {
   virtual void Process(AudioBuffer* audio) = 0;
   // Returns a string representation of the module state.
   virtual std::string ToString() const = 0;
+  // Returns the name of the submodule.
+  virtual std::string GetName();
   // Handles RuntimeSettings. TODO(webrtc:9262): make pure virtual
   // after updating dependencies.
   virtual void SetRuntimeSetting(AudioProcessing::RuntimeSetting setting);

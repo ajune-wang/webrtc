@@ -55,7 +55,11 @@ class Timing;
 }
 
 namespace webrtc {
+class AudioDecoderFactory;
+class AudioEncoderFactory;
 class AudioSinkInterface;
+class VideoDecoderFactory;
+class VideoEncoderFactory;
 class VideoFrame;
 }  // namespace webrtc
 
@@ -819,6 +823,11 @@ class VoiceMediaChannel : public MediaChannel, public Delayable {
       std::unique_ptr<webrtc::AudioSinkInterface> sink) = 0;
 
   virtual std::vector<webrtc::RtpSource> GetSources(uint32_t ssrc) const = 0;
+
+  virtual void set_encoder_factory(
+      rtc::scoped_refptr<webrtc::AudioEncoderFactory>) {}
+  virtual void set_decoder_factory(
+      rtc::scoped_refptr<webrtc::AudioDecoderFactory>) {}
 };
 
 // TODO(deadbeef): Rename to VideoSenderParameters, since they're intended to
@@ -889,6 +898,9 @@ class VideoMediaChannel : public MediaChannel, public Delayable {
   virtual bool GetStats(VideoMediaInfo* info) = 0;
 
   virtual std::vector<webrtc::RtpSource> GetSources(uint32_t ssrc) const = 0;
+
+  virtual void set_encoder_factory(webrtc::VideoEncoderFactory*) {}
+  virtual void set_decoder_factory(webrtc::VideoDecoderFactory*) {}
 };
 
 enum DataMessageType {

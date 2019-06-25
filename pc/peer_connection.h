@@ -15,11 +15,14 @@
 #include <memory>
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "api/media_transport_interface.h"
 #include "api/peer_connection_interface.h"
 #include "api/turn_customizer.h"
+#include "api/video_codecs/video_decoder_factory.h"
+#include "api/video_codecs/video_encoder_factory.h"
 #include "pc/ice_server_parsing.h"
 #include "pc/jsep_transport_controller.h"
 #include "pc/peer_connection_factory.h"
@@ -283,6 +286,26 @@ class PeerConnection : public PeerConnectionInternal,
     return_histogram_very_quickly_ = true;
   }
   void RequestUsagePatternReportForTesting();
+
+  void set_audio_encoder_factory(
+      rtc::scoped_refptr<AudioEncoderFactory> encoder_factory) {
+    audio_encoder_factory_override_ = std::move(encoder_factory);
+  }
+
+  void set_audio_decoder_factory(
+      rtc::scoped_refptr<AudioDecoderFactory> decoder_factory) {
+    audio_decoder_factory_override_ = std::move(decoder_factory);
+  }
+
+  void set_video_encoder_factory(
+      std::unique_ptr<VideoEncoderFactory> encoder_factory) {
+    video_encoder_factory_override_ = std::move(encoder_factory);
+  }
+
+  void set_video_decoder_factory(
+      std::unique_ptr<VideoDecoderFactory> decoder_factory) {
+    video_decoder_factory_override_ = std::move(decoder_factory);
+  }
 
  protected:
   ~PeerConnection() override;
@@ -1342,6 +1365,11 @@ class PeerConnection : public PeerConnectionInternal,
       video_bitrate_allocator_factory_;
 
   bool is_negotiation_needed_ RTC_GUARDED_BY(signaling_thread()) = false;
+
+  rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory_override_;
+  rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory_override_;
+  std::unique_ptr<VideoEncoderFactory> video_encoder_factory_override_;
+  std::unique_ptr<VideoDecoderFactory> video_decoder_factory_override_;
 };
 
 }  // namespace webrtc

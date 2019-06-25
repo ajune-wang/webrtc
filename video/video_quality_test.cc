@@ -1247,8 +1247,10 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
   }
 
   task_queue_.SendTask([this, &params, &send_transport, &recv_transport]() {
-    Call::Config send_call_config(send_event_log_.get());
-    Call::Config recv_call_config(recv_event_log_.get());
+    Call::Config send_call_config(send_event_log_.get(),
+                                  task_queue_factory_.get());
+    Call::Config recv_call_config(recv_event_log_.get(),
+                                  task_queue_factory_.get());
     send_call_config.bitrate_config = params.call.call_bitrate_config;
     recv_call_config.bitrate_config = params.call.call_bitrate_config;
     if (params_.audio.enabled)
@@ -1474,9 +1476,11 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
 
     // TODO(ivica): Remove bitrate_config and use the default Call::Config(), to
     // match the full stack tests.
-    Call::Config send_call_config(send_event_log_.get());
+    Call::Config send_call_config(send_event_log_.get(),
+                                  task_queue_factory_.get());
     send_call_config.bitrate_config = params_.call.call_bitrate_config;
-    Call::Config recv_call_config(recv_event_log_.get());
+    Call::Config recv_call_config(recv_event_log_.get(),
+                                  task_queue_factory_.get());
 
     if (params_.audio.enabled)
       InitializeAudioDevice(&send_call_config, &recv_call_config,

@@ -240,6 +240,7 @@ if (!build_with_chromium) {
 
   rtc_executable("rgba_to_i420_converter") {
     visibility = [ "*" ]
+    testonly = true
     sources = [
       "converter/converter.cc",
       "converter/converter.h",
@@ -247,8 +248,9 @@ if (!build_with_chromium) {
     ]
 
     deps = [
-      ":command_line_parser",
       "../common_video",
+      "//third_party/abseil-cpp/absl/flags:flag",
+      "//third_party/abseil-cpp/absl/flags:parse",
       "//third_party/libyuv",
     ]
   }

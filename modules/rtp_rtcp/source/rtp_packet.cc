@@ -156,6 +156,24 @@ void RtpPacket::SetSsrc(uint32_t ssrc) {
   ByteWriter<uint32_t>::WriteBigEndian(WriteAt(8), ssrc);
 }
 
+void RtpPacket::CopyAndZeroMutableExtensions(uint8_t* buffer) const {
+  memcpy(buffer, buffer_.cdata(), buffer_.size());
+  for (const ExtensionInfo& extension : extension_entries_) {
+    RTPExtensionType type = extensions_.GetType(extension.id);
+    RTC_CHECK_NE(type, RtpHeaderExtensionMap::kInvalidType)
+        << "CopyAndZeroMutableExtensions must be called after extensions are "
+           "identified.";
+    if (type == RTPExtensionType::kRtpExtensionVideoTiming) {
+      // Nullify 3 last entries: packetization delay and 2 network timestamps.
+      memset(buffer + extension.offset + 7, 0, 6);
+    } else if (type == RTPExtensionType::kRtpExtensionTransmissionTimeOffset ||
+               type == RTPExtensionType::kRtpExtensionAbsoluteSendTime) {
+      // Nullify whole extension, as it's filled in the pacer.
+      memset(buffer + extension.offset, 0, extension.length);
+    }
+  }
+}
+
 void RtpPacket::SetCsrcs(rtc::ArrayView<const uint32_t> csrcs) {
   RTC_DCHECK_EQ(extensions_size_, 0);
   RTC_DCHECK_EQ(payload_size_, 0);
@@ -202,8 +220,8 @@ rtc::ArrayView<uint8_t> RtpPacket::AllocateRawExtension(int id, size_t length) {
 
   const size_t num_csrc = data()[0] & 0x0F;
   const size_t extensions_offset = kFixedHeaderSize + (num_csrc * 4) + 4;
-  // Determine if two-byte header is required for the extension based on id and
-  // length. Please note that a length of 0 also requires two-byte header
+  // Determine if two-byte header is required for the extension based on id
+  // and length. Please note that a length of 0 also requires two-byte header
   // extension. See RFC8285 Section 4.2-4.3.
   const bool two_byte_header_required =
       id > RtpExtension::kOneByteHeaderExtensionMaxId ||
@@ -337,8 +355,8 @@ uint16_t RtpPacket::SetExtensionLengthMaybeAddZeroPadding(
 }
 
 uint8_t* RtpPacket::AllocatePayload(size_t size_bytes) {
-  // Reset payload size to 0. If CopyOnWrite buffer_ was shared, this will cause
-  // reallocation and memcpy. Keeping just header reduces memcpy size.
+  // Reset payload size to 0. If CopyOnWrite buffer_ was shared, this will
+  // cause reallocation and memcpy. Keeping just header reduces memcpy size.
   SetPayloadSize(0);
   return SetPayloadSize(size_bytes);
 }

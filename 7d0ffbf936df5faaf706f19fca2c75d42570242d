@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "be1beb4c_660ba6b6",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-25T08:16:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b5be8854_60357146",
+      "range": {
+        "startLine": 507,
+        "startChar": 0,
+        "endLine": 507,
+        "endChar": 63
+      },
+      "revId": "7d0ffbf936df5faaf706f19fca2c75d42570242d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a129e0b3_e08fa52f",
         "filename": "video/video_receive_stream_unittest.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "7d0ffbf936df5faaf706f19fca2c75d42570242d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5b6af87_7808af0d",
+        "filename": "video/video_receive_stream_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-25T08:16:38Z",
+      "side": 1,
+      "message": "\u003e Please either split into smaller tests with self-descriptive names, or add comments explaining the test scenario.\n\nI\u0027ve added comments to make it easier to spot the different setup-execute-validate phases.\n\n\u003e Do you still have test coverage for the 10s history?\n\nIt\u0027s still covered by the `TimedOutSourcesAreRemoved` test case for `SourceTracker`.\n\nWe would ideally want to keep the 10s scenario in `webrtc_video_engine_unittest.cc` but I haven\u0027t managed to figure out how to make the fake renderer work properly with the fake clock. E.g. simple tests like `TEST_F(WebRtcVideoChannelBaseTest, SetSink)` breaks if we change the fixture to `WebRtcVideoChannelTestWithClock`.",
+      "parentUuid": "a129e0b3_e08fa52f",
+      "range": {
+        "startLine": 332,
+        "startChar": 0,
+        "endLine": 332,
+        "endChar": 63
+      },
+      "revId": "7d0ffbf936df5faaf706f19fca2c75d42570242d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

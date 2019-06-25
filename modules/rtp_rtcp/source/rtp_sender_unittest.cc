@@ -78,8 +78,11 @@ using ::testing::DoAll;
 using ::testing::ElementsAre;
 using ::testing::ElementsAreArray;
 using ::testing::Field;
+using ::testing::Gt;
 using ::testing::Invoke;
 using ::testing::NiceMock;
+using ::testing::Pointee;
+using ::testing::Property;
 using ::testing::Return;
 using ::testing::SaveArg;
 using ::testing::SizeIs;
@@ -2191,6 +2194,71 @@ TEST_P(RtpSenderTest, TrySendPacketUpdatesStats) {
   EXPECT_EQ(rtp_stats.transmitted.packets, 2u);
   EXPECT_EQ(rtp_stats.fec.packets, 1u);
   EXPECT_EQ(rtx_stats.retransmitted.packets, 1u);
+}
+
+TEST_P(RtpSenderTest, GeneratePaddingWithRtx) {
+  rtp_sender_->SetRtxStatus(kRtxRetransmitted | kRtxRedundantPayloads);
+  rtp_sender_->SetRtxPayloadType(kRtxPayload, kPayload);
+  rtp_sender_->SetStorePacketsStatus(true, 1);
+
+  size_t kPayloadPacketSize = 1234;
+  std::unique_ptr<RtpPacketToSend> packet =
+      BuildRtpPacket(kPayload, true, 0, fake_clock_.TimeInMilliseconds());
+  packet->set_allow_retransmission(true);
+  packet->SetPayloadSize(kPayloadPacketSize);
+  packet->set_packet_type(RtpPacketToSend::Type::kVideo);
+
+  // Send a dummy video packet so it ends up in the packet history.
+  EXPECT_TRUE(rtp_sender_->TrySendPacket(packet.get(), PacedPacketInfo()));
+
+  // Generated padding has large enough budget that the video packet should be
+  // retransmitted as padding.
+  EXPECT_CALL(mock_paced_sender_,
+              EnqueuePacket(AllOf(
+                  Pointee(Property(&RtpPacketToSend::packet_type,
+                                   RtpPacketToSend::Type::kPadding)),
+                  Pointee(Property(&RtpPacketToSend::Ssrc, kRtxSsrc)),
+                  Pointee(Property(&RtpPacketToSend::payload_size,
+                                   kPayloadPacketSize + kRtxHeaderSize)))))
+      .Times(1);
+  rtp_sender_->GeneratePadding(kPayloadPacketSize);
+
+  // Not enough budged for payload padding, use plain padding instead.
+  EXPECT_CALL(mock_paced_sender_,
+              EnqueuePacket(AllOf(
+                  Pointee(Property(&RtpPacketToSend::packet_type,
+                                   RtpPacketToSend::Type::kPadding)),
+                  Pointee(Property(&RtpPacketToSend::Ssrc, kRtxSsrc)),
+                  Pointee(Property(&RtpPacketToSend::payload_size, 0)),
+                  Pointee(Property(&RtpPacketToSend::padding_size, Gt(0u))))))
+      .Times((kPayloadPacketSize + kMaxPaddingSize - 1) / kMaxPaddingSize);
+  rtp_sender_->GeneratePadding(kPayloadPacketSize - 1);
+}
+
+TEST_P(RtpSenderTest, GeneratePaddingNoRtx) {
+  rtp_sender_->SetStorePacketsStatus(true, 1);
+
+  size_t kPayloadPacketSize = 1234;
+  std::unique_ptr<RtpPacketToSend> packet =
+      BuildRtpPacket(kPayload, true, 0, fake_clock_.TimeInMilliseconds());
+  packet->set_allow_retransmission(true);
+  packet->SetPayloadSize(kPayloadPacketSize);
+  packet->set_packet_type(RtpPacketToSend::Type::kVideo);
+
+  // Send a dummy video packet so it ends up in the packet history.
+  EXPECT_TRUE(rtp_sender_->TrySendPacket(packet.get(), PacedPacketInfo()));
+
+  // Payload padding not available without RTX, only generate plain padding on
+  // the media SSRC>
+  EXPECT_CALL(mock_paced_sender_,
+              EnqueuePacket(AllOf(
+                  Pointee(Property(&RtpPacketToSend::packet_type,
+                                   RtpPacketToSend::Type::kPadding)),
+                  Pointee(Property(&RtpPacketToSend::Ssrc, kSsrc)),
+                  Pointee(Property(&RtpPacketToSend::payload_size, 0)),
+                  Pointee(Property(&RtpPacketToSend::padding_size, Gt(0u))))))
+      .Times((kPayloadPacketSize + kMaxPaddingSize - 1) / kMaxPaddingSize);
+  rtp_sender_->GeneratePadding(kPayloadPacketSize);
 }
 
 INSTANTIATE_TEST_SUITE_P(WithAndWithoutOverhead,

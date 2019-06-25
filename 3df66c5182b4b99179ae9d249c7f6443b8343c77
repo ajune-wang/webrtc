@@ -16,6 +16,24 @@
       "revId": "3df66c5182b4b99179ae9d249c7f6443b8343c77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8873b19_6a642cc3",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-25T08:41:37Z",
+      "side": 1,
+      "message": "Changed.\n\n- Return array instead of list from \nJava::VideoEncoder::getResolutionBitrateThresholds to avoid list -\u003e array conversion in JNI VideoEncoderWrapper.\n- Moved getters to VideoEncoder::ResolutionBitrateThresholds class.",
+      "parentUuid": "0368e18b_bcc8ae2d",
+      "revId": "3df66c5182b4b99179ae9d249c7f6443b8343c77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

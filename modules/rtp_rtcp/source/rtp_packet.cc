@@ -156,6 +156,50 @@ void RtpPacket::SetSsrc(uint32_t ssrc) {
   ByteWriter<uint32_t>::WriteBigEndian(WriteAt(8), ssrc);
 }
 
+void RtpPacket::CopyAndZeroMutableExtensions(
+    rtc::ArrayView<uint8_t> buffer) const {
+  RTC_CHECK_GE(buffer.size(), buffer_.size());
+  memcpy(buffer.data(), buffer_.cdata(), buffer_.size());
+  for (const ExtensionInfo& extension : extension_entries_) {
+    RTPExtensionType type = extensions_.GetType(extension.id);
+    if (type == RtpHeaderExtensionMap::kInvalidType) {
+      RTC_LOG(LS_WARNING) << "Unidentified extension in the packet.";
+      continue;
+    }
+    switch (type) {
+      case RTPExtensionType::kRtpExtensionVideoTiming: {
+        // Nullify 3 last entries: packetization delay and 2 network timestamps.
+        memset(buffer.data() + extension.offset + 7, 0, 6);
+        break;
+      }
+      case RTPExtensionType::kRtpExtensionTransportSequenceNumber:
+      case RTPExtensionType::kRtpExtensionTransportSequenceNumber02:
+      case RTPExtensionType::kRtpExtensionTransmissionTimeOffset:
+      case RTPExtensionType::kRtpExtensionAbsoluteSendTime: {
+        // Nullify whole extension, as it's filled in the pacer.
+        memset(buffer.data() + extension.offset, 0, extension.length);
+        break;
+      }
+      case RTPExtensionType::kRtpExtensionAudioLevel:
+      case RTPExtensionType::kRtpExtensionColorSpace:
+      case RTPExtensionType::kRtpExtensionFrameMarking:
+      case RTPExtensionType::kRtpExtensionGenericFrameDescriptor00:
+      case RTPExtensionType::kRtpExtensionGenericFrameDescriptor01:
+      case RTPExtensionType::kRtpExtensionMid:
+      case RTPExtensionType::kRtpExtensionNone:
+      case RTPExtensionType::kRtpExtensionNumberOfExtensions:
+      case RTPExtensionType::kRtpExtensionPlayoutDelay:
+      case RTPExtensionType::kRtpExtensionRepairedRtpStreamId:
+      case RTPExtensionType::kRtpExtensionRtpStreamId:
+      case RTPExtensionType::kRtpExtensionVideoContentType:
+      case RTPExtensionType::kRtpExtensionVideoRotation: {
+        // Non-mutable extension. Don't change it.
+        break;
+      }
+    }
+  }
+}
+
 void RtpPacket::SetCsrcs(rtc::ArrayView<const uint32_t> csrcs) {
   RTC_DCHECK_EQ(extensions_size_, 0);
   RTC_DCHECK_EQ(payload_size_, 0);
@@ -203,8 +247,8 @@ rtc::ArrayView<uint8_t> RtpPacket::AllocateRawExtension(int id, size_t length) {
   const size_t num_csrc = data()[0] & 0x0F;
   const size_t extensions_offset = kFixedHeaderSize + (num_csrc * 4) + 4;
   // Determine if two-byte header is required for the extension based on id and
-  // length. Please note that a length of 0 also requires two-byte header
-  // extension. See RFC8285 Section 4.2-4.3.
+  // length. Please note that a length of 0 also requires two-byte
+  // header extension. See RFC8285 Section 4.2-4.3.
   const bool two_byte_header_required =
       id > RtpExtension::kOneByteHeaderExtensionMaxId ||
       length > RtpExtension::kOneByteHeaderExtensionMaxValueSize || length == 0;
@@ -217,7 +261,8 @@ rtc::ArrayView<uint8_t> RtpPacket::AllocateRawExtension(int id, size_t length) {
     if (profile_id == kOneByteExtensionProfileId && two_byte_header_required) {
       // Is buffer size big enough to fit promotion and new data field?
       // The header extension will grow with one byte per already allocated
-      // extension + the size of the extension that is about to be allocated.
+      // extension + the size of the extension that is about to be
+      // allocated.
       size_t expected_new_extensions_size =
           extensions_size_ + extension_entries_.size() +
           kTwoByteExtensionHeaderLength + length;
@@ -245,8 +290,8 @@ rtc::ArrayView<uint8_t> RtpPacket::AllocateRawExtension(int id, size_t length) {
   size_t new_extensions_size =
       extensions_size_ + extension_header_size + length;
   if (extensions_offset + new_extensions_size > capacity()) {
-    RTC_LOG(LS_ERROR)
-        << "Extension cannot be registered: Not enough space left in buffer.";
+    RTC_LOG(LS_ERROR) << "Extension cannot be registered: Not enough space "
+                         "left in buffer.";
     return nullptr;
   }
 
@@ -295,8 +340,9 @@ void RtpPacket::PromoteToTwoByteHeaderExtension() {
   RTC_CHECK_EQ(kOneByteExtensionProfileId, ByteReader<uint16_t>::ReadBigEndian(
                                                data() + extensions_offset - 4));
   // Rewrite data.
-  // Each extension adds one to the offset. The write-read delta for the last
-  // extension is therefore the same as the number of extension entries.
+  // Each extension adds one to the offset. The write-read delta for the
+  // last extension is therefore the same as the number of extension
+  // entries.
   size_t write_read_delta = extension_entries_.size();
   for (auto extension_entry = extension_entries_.rbegin();
        extension_entry != extension_entries_.rend(); ++extension_entry) {

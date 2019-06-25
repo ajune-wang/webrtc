@@ -349,7 +349,7 @@ std::unique_ptr<Call> PeerConnectionFactory::CreateCall_w(
   const int kStartBandwidthBps = 300000;
   const int kMaxBandwidthBps = 2000000;
 
-  webrtc::Call::Config call_config(event_log);
+  webrtc::Call::Config call_config(event_log, task_queue_factory_.get());
   if (!channel_manager_->media_engine() || !call_factory_) {
     return nullptr;
   }
@@ -360,7 +360,6 @@ std::unique_ptr<Call> PeerConnectionFactory::CreateCall_w(
   call_config.bitrate_config.max_bitrate_bps = kMaxBandwidthBps;
 
   call_config.fec_controller_factory = fec_controller_factory_.get();
-  call_config.task_queue_factory = task_queue_factory_.get();
   call_config.network_state_predictor_factory =
       network_state_predictor_factory_.get();
 

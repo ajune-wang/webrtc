@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb4127ac_cb2776b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-06-25T14:57:45Z",
+      "side": 1,
+      "message": "APM: add GetName() to the CustomProcessing interface\n\nThis CL adds CustomProcessing::GetName() with a default implementation which returns absl::nullopt.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 40
+      },
+      "revId": "f378ed470103bea8f62e0708c69e3e61eae8a432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7bf8ff2_a2298f64",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-06-25T14:57:45Z",
+      "side": 1,
+      "message": "I think I prefer the following:\n\n// Returns the name of the submodule if specified.\nvirtual absl::optional\u003cstd::string\u003e GetName();",
+      "range": {
+        "startLine": 931,
+        "startChar": 0,
+        "endLine": 932,
+        "endChar": 32
+      },
+      "revId": "f378ed470103bea8f62e0708c69e3e61eae8a432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

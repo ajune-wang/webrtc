@@ -167,6 +167,7 @@ int UlpfecGenerator::AddRtpPacketAndGenerateFec(const uint8_t* data_buffer,
     // We are not using Unequal Protection feature of the parity erasure code.
     constexpr int kNumImportantPackets = 0;
     constexpr bool kUseUnequalProtection = false;
+    params_.fec_rate = 230;
     int ret = fec_->EncodeFec(media_packets_, params_.fec_rate,
                               kNumImportantPackets, kUseUnequalProtection,
                               params_.fec_mask_type, &generated_fec_packets_);

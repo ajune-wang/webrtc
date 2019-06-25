@@ -692,13 +692,6 @@ bool RTPSenderVideo::SendVideo(
     // Put packetization finish timestamp into extension.
     if (packet->HasExtension<VideoTimingExtension>()) {
       packet->set_packetization_finish_time_ms(clock_->TimeInMilliseconds());
-      // TODO(ilnik): Due to webrtc:7859, packets with timing extensions are not
-      // protected by FEC. It reduces FEC efficiency a bit. When FEC is moved
-      // below the pacer, it can be re-enabled for these packets.
-      // NOTE: Any RTP stream processor in the network, modifying 'network'
-      // timestamps in the timing frames extension have to be an end-point for
-      // FEC, otherwise recovered by FEC packets will be corrupted.
-      protect_packet = false;
     }
 
     if (flexfec_enabled()) {

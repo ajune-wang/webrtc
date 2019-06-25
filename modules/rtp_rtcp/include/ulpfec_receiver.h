@@ -11,6 +11,10 @@
 #ifndef MODULES_RTP_RTCP_INCLUDE_ULPFEC_RECEIVER_H_
 #define MODULES_RTP_RTCP_INCLUDE_ULPFEC_RECEIVER_H_
 
+#include <memory>
+#include <vector>
+
+#include "api/rtp_parameters.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 
 namespace webrtc {
@@ -30,8 +34,10 @@ struct FecPacketCounter {
 
 class UlpfecReceiver {
  public:
-  static UlpfecReceiver* Create(uint32_t ssrc,
-                                RecoveredPacketReceiver* callback);
+  static std::unique_ptr<UlpfecReceiver> Create(
+      uint32_t ssrc,
+      RecoveredPacketReceiver* callback,
+      const rtc::ArrayView<const RtpExtension> extensions);
 
   virtual ~UlpfecReceiver() {}
 

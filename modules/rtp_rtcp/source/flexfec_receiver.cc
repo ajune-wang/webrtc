@@ -123,10 +123,11 @@ FlexfecReceiver::AddReceivedPacket(const RtpPacketReceived& packet) {
     received_packet->is_fec = false;
 
     // Insert entire packet into erasure code.
-    // TODO(brandtr): Remove this memcpy too.
     received_packet->pkt = rtc::scoped_refptr<ForwardErrorCorrection::Packet>(
         new ForwardErrorCorrection::Packet());
-    memcpy(received_packet->pkt->data, packet.data(), packet.size());
+    // Create a copy and fill with zeros all mutable extensions.
+    packet.CopyAndZeroMutableExtensions(
+        rtc::ArrayView<uint8_t>(received_packet->pkt->data, IP_PACKET_SIZE));
     received_packet->pkt->length = packet.size();
   }
 

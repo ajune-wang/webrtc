@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': 'c049034cc7d50f3358f29e74e9d25631979d89c1',
+  'chromium_revision': '226226af42d15c26820a6842c5d4b4c869a5373f',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -98,13 +98,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '11fdd4a29d101253a15b932c02325e8298c2143d',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '1764dff71063b1ba25d57f95562f533e8bae55f0',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    Var('chromium_git') + '/chromium/src/testing' + '@' + 'c0b90eb408b2ab8bcd40579a525c61fe1918d242',
+    Var('chromium_git') + '/chromium/src/testing' + '@' + 'd63b26ac43555745473fef641ceebbaa9d4ad2d3',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + 'caeb94df803f08e7d5b470beb3459df1f6542b58',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + 'b919bd55bb9de055907f6a02bb0d1fbcb3fc5594',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -199,7 +199,7 @@ deps = {
   'src/third_party/colorama/src':
     Var('chromium_git') + '/external/colorama.git' + '@' + '799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + 'dd2737e2b5727d836f2442d9a6d960ad978fed66',
+    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + '73c4a7c3567a7a813398c34b925a6559679c3ebb',
   'src/third_party/errorprone/lib': {
       'url': Var('chromium_git') + '/chromium/third_party/errorprone.git' + '@' + '980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',
@@ -265,7 +265,7 @@ deps = {
   # Used by boringssl.
   'src/third_party/nasm': {
       'url': Var('chromium_git') + '/chromium/deps/nasm.git' + '@' +
-      'c8b248039ec1f75a7c5733bbe76d7fa416ce097a'
+      'f564874f49556d930882645a348fcd6ddc6847b0'
   },
 
   'src/third_party/openh264/src':
@@ -312,7 +312,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     Var('chromium_git') + '/chromium/deps/yasm/patched-yasm.git' + '@' + '720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    Var('chromium_git') + '/chromium/src/tools' + '@' + '87ce84be27f403f5fd3407812fc0dcd70a57f6a4',
+    Var('chromium_git') + '/chromium/src/tools' + '@' + '40c282ec0a7f3b1b9fe4a9c4347325fd083355a2',
   'src/tools/swarming_client':
     Var('chromium_git') + '/infra/luci/client-py.git' + '@' +  Var('swarming_revision'),
 

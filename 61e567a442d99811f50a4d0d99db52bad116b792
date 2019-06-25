@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd723697_7fb0fc2a",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-06-25T10:48:08Z",
+      "side": 1,
+      "message": "For symmetry, also support the case with double on the left-hand side. (This will make it obvious that your operator overloads should be free functions, not members.)",
+      "revId": "61e567a442d99811f50a4d0d99db52bad116b792",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

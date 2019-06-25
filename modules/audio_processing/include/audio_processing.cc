@@ -15,4 +15,8 @@ namespace webrtc {
 void CustomProcessing::SetRuntimeSetting(
     AudioProcessing::RuntimeSetting setting) {}
 
+std::string CustomProcessing::GetName() {
+  return "NAME_NOT_SET";
+}
+
 }  // namespace webrtc

@@ -51,10 +51,6 @@ def _ParseArgs():
                     help=('DEPRECATED'))
   parser.add_option('--zxing_path', type='string',
                     help=('DEPRECATED'))
-  parser.add_option('--stats_file_ref', type='string', default='stats_ref.txt',
-                    help=('DEPRECATED'))
-  parser.add_option('--stats_file_test', type='string',
-                    help=('DEPRECATED'))
   parser.add_option('--stats_file', type='string',
                     help=('DEPRECATED'))
   parser.add_option('--yuv_frame_width', type='int', default=640,
@@ -101,8 +97,6 @@ def _RunFrameAnalyzer(options, yuv_directory=None):
     '--label=%s' % options.label,
     '--reference_file=%s' % options.ref_video,
     '--test_file=%s' % options.test_video,
-    '--stats_file_ref=%s' % options.stats_file_ref,
-    '--stats_file_test=%s' % options.stats_file_test,
     '--width=%d' % options.yuv_frame_width,
     '--height=%d' % options.yuv_frame_height,
   ]

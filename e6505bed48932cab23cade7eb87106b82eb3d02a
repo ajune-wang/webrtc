@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba7bbdaa_4b98f2a4",
+        "filename": "modules/rtp_rtcp/include/ulpfec_receiver.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T17:27:08Z",
+      "side": 1,
+      "message": "instead\n#include \"api/array_view\"",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 15,
+        "endChar": 17
+      },
+      "revId": "e6505bed48932cab23cade7eb87106b82eb3d02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdec3df6_8b0bc4f3",
+        "filename": "modules/rtp_rtcp/source/flexfec_receiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T17:27:08Z",
+      "side": 1,
+      "message": "2nd parameter can be omited:\nbecause pkt-\u003edata is an array of bytes, ArrayView can extract it\u0027s size itself.\n[also, since that constructor is implict you may omit mentioning rtc::ArrayView at all:\npacket.CopyAndZeroMutableExtensions(received_packet-\u003epkt-\u003edata);\nthough since buffer is mutated, it still might be good to mention it.]",
+      "range": {
+        "startLine": 130,
+        "startChar": 58,
+        "endLine": 130,
+        "endChar": 74
+      },
+      "revId": "e6505bed48932cab23cade7eb87106b82eb3d02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c32443a9_d7afa8e4",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T17:27:08Z",
+      "side": 1,
+      "message": "or\nrtc::MakeArrayView(packet-\u003edata, packet-\u003elength);",
+      "range": {
+        "startLine": 259,
+        "startChar": 10,
+        "endLine": 259,
+        "endChar": 33
+      },
+      "revId": "e6505bed48932cab23cade7eb87106b82eb3d02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0732997c_d0fa1fd9",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T17:27:08Z",
+      "side": 1,
+      "message": "do not add this first const\nhttps://abseil.io/tips/109",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 33,
+        "endChar": 12
+      },
+      "revId": "e6505bed48932cab23cade7eb87106b82eb3d02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11d0f743_892dac4d",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T17:27:08Z",
+      "side": 1,
+      "message": "personally prefer to put const members together, at the top of the section (i.e. next to ssrc_)\nBut not aware of any strong reason to do that.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 42
+      },
+      "revId": "e6505bed48932cab23cade7eb87106b82eb3d02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

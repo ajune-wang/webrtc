@@ -46,6 +46,29 @@
       "revId": "6bafc8b278cc0daffc120d126ad5989a973f0b56",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f664ff37_aeabb4c6",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T17:27:08Z",
+      "side": 0,
+      "message": "what about supporting old clients?\n\nThis change fixes receiver but enable it on the sender same time.\nIt might be better to postpone enabling it on the sender until code is propagated to receivers.\nTo support old receiving client it likely even better to wire up decision if it can be enabled to the application.",
+      "range": {
+        "startLine": 701,
+        "startChar": 29,
+        "endLine": 701,
+        "endChar": 0
+      },
+      "revId": "6bafc8b278cc0daffc120d126ad5989a973f0b56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

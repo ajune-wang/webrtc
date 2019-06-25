@@ -2,6 +2,184 @@
   "comments": [
     {
       "key": {
+        "uuid": "691a6b9f_ec5eb594",
+        "filename": "modules/rtp_rtcp/include/ulpfec_receiver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T13:43:56Z",
+      "side": 1,
+      "message": "since you are changing singature of this function and thus will need to update all call sites,\nmay be also update return type to std::unique_ptr\u003cUlpfecReceiver\u003e",
+      "range": {
+        "startLine": 36,
+        "startChar": 9,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "a09e01b03e41e7d7394e9330c366da23a9bfbe91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "909ded13_271be6e8",
+        "filename": "modules/rtp_rtcp/include/ulpfec_receiver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T13:43:56Z",
+      "side": 1,
+      "message": "rtc::ArrayView\u003cconst T\u003e\nnormally better parameter type than\nconst std::vector\u003cT\u003e\u0026\n(https://abseil.io/tips/93)",
+      "range": {
+        "startLine": 38,
+        "startChar": 32,
+        "endLine": 38,
+        "endChar": 64
+      },
+      "revId": "a09e01b03e41e7d7394e9330c366da23a9bfbe91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4126d09d_8d2b3d35",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T13:43:56Z",
+      "side": 1,
+      "message": "it is safer not to pass buffer without it\u0027s size.\nconsider passing rtc::ArrayView\u003cuint8_t\u003e instead\nand at least DCHECK you do not write beyound the size.",
+      "range": {
+        "startLine": 159,
+        "startChar": 45,
+        "endLine": 159,
+        "endChar": 54
+      },
+      "revId": "a09e01b03e41e7d7394e9330c366da23a9bfbe91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1985d74_98678198",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T13:43:56Z",
+      "side": 1,
+      "message": "will that crash receiver when an rtp packet with non-negotiated id is received?",
+      "revId": "a09e01b03e41e7d7394e9330c366da23a9bfbe91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31e29e01_c6981bc8",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T13:43:56Z",
+      "side": 1,
+      "message": "how can you guaranteed list of extension that need special nullifying is kept in sync if a new one is added?",
+      "range": {
+        "startLine": 166,
+        "startChar": 34,
+        "endLine": 166,
+        "endChar": 58
+      },
+      "revId": "a09e01b03e41e7d7394e9330c366da23a9bfbe91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21e7e98e_5ad6e46c",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T13:43:56Z",
+      "side": 1,
+      "message": "do you also need to nullify TransportSequenceNumber?\nor is it set before FEC?",
+      "range": {
+        "startLine": 170,
+        "startChar": 41,
+        "endLine": 170,
+        "endChar": 70
+      },
+      "revId": "a09e01b03e41e7d7394e9330c366da23a9bfbe91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65048f7a_bf80766c",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T13:43:56Z",
+      "side": 1,
+      "message": "what is the reason of this change?",
+      "range": {
+        "startLine": 224,
+        "startChar": 5,
+        "endLine": 224,
+        "endChar": 9
+      },
+      "revId": "a09e01b03e41e7d7394e9330c366da23a9bfbe91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbfbf02a_1ee7ff59",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T13:43:56Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 359,
+        "startChar": 2,
+        "endLine": 359,
+        "endChar": 4
+      },
+      "revId": "a09e01b03e41e7d7394e9330c366da23a9bfbe91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c11039f7_a05dd572",
         "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.cc",
         "patchSetId": 4
@@ -13,6 +191,70 @@
       "writtenOn": "2019-06-25T12:39:37Z",
       "side": 1,
       "message": "Piggybacking cleanup here: in our UlpFec implementation only 1 block in RED packets is always used.",
+      "revId": "a09e01b03e41e7d7394e9330c366da23a9bfbe91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b5d7404_1caa9377",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T13:43:56Z",
+      "side": 1,
+      "message": "but out Ulpfec implementation still should be able to receive RED packets produced by other implementations.\nmay it is ok to drop multi-block RED support, but it has different risks than the main change so better be done separately.",
+      "parentUuid": "c11039f7_a05dd572",
+      "revId": "a09e01b03e41e7d7394e9330c366da23a9bfbe91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9887ab22_f6493cd7",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T13:43:56Z",
+      "side": 1,
+      "message": "I do not think that nullifying belongs to the RtpPacket in the first place:\nright now RtpPacket is not aware of any individual extension.\n\nCopyAndZeroMutableExtensions makes it aware.\n\nIt seems more reasonable to have that function somewhere in RtpSender/RtpVideoSender - these are the classes that are aware what extensions can be used and which of them can be modified after pacer.\n(it can be static functions in the RtpSender/RtpVideoSender)",
+      "range": {
+        "startLine": 187,
+        "startChar": 27,
+        "endLine": 187,
+        "endChar": 64
+      },
+      "revId": "a09e01b03e41e7d7394e9330c366da23a9bfbe91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e1ce0fd_d07f6e22",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-25T13:43:56Z",
+      "side": 1,
+      "message": "is it same as\n(*receive_configs)[0].rtp.extensions \u003d send_config-\u003ertp.extensions;\n\n(then it can be done outside if/else branches)",
+      "range": {
+        "startLine": 790,
+        "startChar": 6,
+        "endLine": 791,
+        "endChar": 80
+      },
       "revId": "a09e01b03e41e7d7394e9330c366da23a9bfbe91",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

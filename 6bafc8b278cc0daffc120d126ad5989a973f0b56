@@ -22,6 +22,30 @@
       "revId": "6bafc8b278cc0daffc120d126ad5989a973f0b56",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f90b80b_bbe4ac18",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1329,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-25T15:18:27Z",
+      "side": 0,
+      "message": "It\u0027s covered by other existing tests. Absence of corruptions I\u0027ve tested locally. Without the nullifying corruptions were produced within first 5 seconds of the video. With them, no corruptions were observed after 10 minute tests.",
+      "parentUuid": "029def8c_54973171",
+      "range": {
+        "startLine": 1329,
+        "startChar": 22,
+        "endLine": 1329,
+        "endChar": 46
+      },
+      "revId": "6bafc8b278cc0daffc120d126ad5989a973f0b56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

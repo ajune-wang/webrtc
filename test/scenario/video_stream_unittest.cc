@@ -114,6 +114,22 @@ TEST(VideoStreamTest, RecievesVp8SimulcastFrames) {
   EXPECT_GE(frame_counts[2], kExpectedCount);
 }
 
+TEST(VideoStreamTest, SendsNacksOnLoss) {
+  Scenario s;
+  auto route =
+      s.CreateRoutes(s.CreateClient("caller", CallClientConfig()),
+                     {s.CreateSimulationNode([](NetworkSimulationConfig* c) {
+                       c->loss_rate = 0.2;
+                     })},
+                     s.CreateClient("callee", CallClientConfig()),
+                     {s.CreateSimulationNode(NetworkSimulationConfig())});
+  // NACK retransmissions are enabled by default.
+  auto video = s.CreateVideoStream(route->forward(), VideoStreamConfig());
+  s.RunFor(TimeDelta::seconds(1));
+  auto stream_stats = video->send()->GetStats().substreams.begin()->second;
+  EXPECT_GT(stream_stats.rtp_stats.retransmitted.packets, 0u);
+}
+
 TEST(VideoStreamTest, SendsFecWithUlpFec) {
   Scenario s;
   auto route =

@@ -124,6 +124,8 @@ VideoSendStream::Config CreateVideoSendStreamConfig(VideoStreamConfig config,
   VideoSendStream::Config send_config(send_transport);
   send_config.rtp.payload_name = CodecTypeToPayloadString(config.encoder.codec);
   send_config.rtp.payload_type = CodecTypeToPayloadType(config.encoder.codec);
+  send_config.rtp.nack.rtp_history_ms =
+      config.stream.nack_history_time.ms<int>();
 
   send_config.rtp.ssrcs = ssrcs;
   send_config.rtp.extensions = GetVideoRtpExtensions(config);

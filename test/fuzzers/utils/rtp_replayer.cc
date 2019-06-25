@@ -56,8 +56,7 @@ void RtpReplayer::Replay(
   // chromium stops hijacking it.
   std::unique_ptr<TaskQueueFactory> task_queue_factory =
       CreateTaskQueueStdlibFactory();
-  Call::Config call_config(&event_log);
-  call_config.task_queue_factory = task_queue_factory.get();
+  Call::Config call_config(&event_log, task_queue_factory.get());
   std::unique_ptr<Call> call(Call::Create(call_config));
   SetupVideoStreams(&receive_stream_configs, stream_state.get(), call.get());
 

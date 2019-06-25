@@ -18,6 +18,13 @@ CallConfig::CallConfig(RtcEventLog* event_log) : event_log(event_log) {
   RTC_DCHECK(event_log);
 }
 
+CallConfig::CallConfig(RtcEventLog* event_log,
+                       TaskQueueFactory* task_queue_factory)
+    : event_log(event_log), task_queue_factory(task_queue_factory) {
+  RTC_DCHECK(event_log);
+  RTC_DCHECK(task_queue_factory);
+}
+
 CallConfig::CallConfig(const CallConfig& config) = default;
 
 CallConfig::~CallConfig() = default;

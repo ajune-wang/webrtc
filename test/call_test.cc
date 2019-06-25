@@ -93,7 +93,7 @@ void CallTest::RunBaseTest(BaseTest* test) {
     num_audio_streams_ = test->GetNumAudioStreams();
     num_flexfec_streams_ = test->GetNumFlexfecStreams();
     RTC_DCHECK(num_video_streams_ > 0 || num_audio_streams_ > 0);
-    Call::Config send_config(send_event_log_.get());
+    Call::Config send_config(send_event_log_.get(), task_queue_factory_.get());
     test->ModifySenderBitrateConfig(&send_config.bitrate_config);
     if (num_audio_streams_ > 0) {
       CreateFakeAudioDevices(test->CreateCapturer(), test->CreateRenderer());
@@ -113,7 +113,8 @@ void CallTest::RunBaseTest(BaseTest* test) {
     }
     CreateSenderCall(send_config);
     if (test->ShouldCreateReceivers()) {
-      Call::Config recv_config(recv_event_log_.get());
+      Call::Config recv_config(recv_event_log_.get(),
+                               task_queue_factory_.get());
       test->ModifyReceiverBitrateConfig(&recv_config.bitrate_config);
       if (num_audio_streams_ > 0) {
         AudioState::Config audio_state_config;
@@ -201,8 +202,8 @@ void CallTest::RunBaseTest(BaseTest* test) {
 }
 
 void CallTest::CreateCalls() {
-  CreateCalls(Call::Config(send_event_log_.get()),
-              Call::Config(recv_event_log_.get()));
+  CreateCalls(Call::Config(send_event_log_.get(), task_queue_factory_.get()),
+              Call::Config(recv_event_log_.get(), task_queue_factory_.get()));
 }
 
 void CallTest::CreateCalls(const Call::Config& sender_config,
@@ -212,7 +213,8 @@ void CallTest::CreateCalls(const Call::Config& sender_config,
 }
 
 void CallTest::CreateSenderCall() {
-  CreateSenderCall(Call::Config(send_event_log_.get()));
+  CreateSenderCall(
+      Call::Config(send_event_log_.get(), task_queue_factory_.get()));
 }
 
 void CallTest::CreateSenderCall(const Call::Config& config) {

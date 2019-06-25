@@ -57,14 +57,13 @@ Call* CreateCall(TimeController* time_controller,
                  CallClientConfig config,
                  LoggingNetworkControllerFactory* network_controller_factory,
                  rtc::scoped_refptr<AudioState> audio_state) {
-  CallConfig call_config(event_log);
+  CallConfig call_config(event_log, time_controller->GetTaskQueueFactory());
   call_config.bitrate_config.max_bitrate_bps =
       config.transport.rates.max_rate.bps_or(-1);
   call_config.bitrate_config.min_bitrate_bps =
       config.transport.rates.min_rate.bps();
   call_config.bitrate_config.start_bitrate_bps =
       config.transport.rates.start_rate.bps();
-  call_config.task_queue_factory = time_controller->GetTaskQueueFactory();
   call_config.network_controller_factory = network_controller_factory;
   call_config.audio_state = audio_state;
   return Call::Create(call_config, time_controller->GetClock(),

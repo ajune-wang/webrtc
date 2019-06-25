@@ -17,6 +17,7 @@
 #include "api/task_queue/task_queue_factory.h"
 #include "api/transport/network_control.h"
 #include "call/audio_state.h"
+#include "rtc_base/deprecation.h"
 
 namespace webrtc {
 
@@ -24,7 +25,9 @@ class AudioProcessing;
 class RtcEventLog;
 
 struct CallConfig {
+  RTC_DEPRECATED
   explicit CallConfig(RtcEventLog* event_log);
+  CallConfig(RtcEventLog* event_log, TaskQueueFactory* task_queue_factory);
   CallConfig(const CallConfig&);
   ~CallConfig();
 
@@ -47,7 +50,7 @@ struct CallConfig {
   // FecController to use for this call.
   FecControllerFactoryInterface* fec_controller_factory = nullptr;
 
-  // Task Queue Factory to be used in this call.
+  // Task Queue Factory to be used in this call. Required.
   TaskQueueFactory* task_queue_factory = nullptr;
 
   // NetworkStatePredictor to use for this call.

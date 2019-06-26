@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9624b9f1_06c960d3",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T11:56:18Z",
+      "side": 1,
+      "message": "may be put that inside the switch\n(then you can eliminate type variable completely)",
+      "range": {
+        "startLine": 165,
+        "startChar": 3,
+        "endLine": 168,
+        "endChar": 5
+      },
+      "revId": "9b86c5cc415769efe7dc4e331b2d564707a57a11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb464a96_4b257e02",
         "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
         "patchSetId": 9
@@ -41,6 +64,52 @@
         "startChar": 58,
         "endLine": 699,
         "endChar": 59
+      },
+      "revId": "9b86c5cc415769efe7dc4e331b2d564707a57a11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a828d972_16e827e1",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T11:56:18Z",
+      "side": 1,
+      "message": "drop this const here too.",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 9
+      },
+      "revId": "9b86c5cc415769efe7dc4e331b2d564707a57a11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c0e0598_308dedb8",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T11:56:18Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 10
       },
       "revId": "9b86c5cc415769efe7dc4e331b2d564707a57a11",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

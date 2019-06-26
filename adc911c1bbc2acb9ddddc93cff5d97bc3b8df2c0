@@ -117,6 +117,30 @@
       "revId": "adc911c1bbc2acb9ddddc93cff5d97bc3b8df2c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c208484_b9a36f6a",
+        "filename": "call/call_config.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T14:49:38Z",
+      "side": 1,
+      "message": "did some tests: construction alone works with minimum parameters,\nbut trying to use the result Call might crash (e.g. CreateAudioSendStream crashes when audio_state is null).\n\nso, other fields are not really optional.... changed to relying just on the check in Call::Create for the task queue factory.\n\nalso, check in CallConfig constructor is not safe anyway, one still might clear the task_queue_factory property after CallConfig is created.",
+      "parentUuid": "088f46ba_c038c974",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 75
+      },
+      "revId": "adc911c1bbc2acb9ddddc93cff5d97bc3b8df2c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

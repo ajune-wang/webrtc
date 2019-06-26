@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "451eed95_d0c9c9f2",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-26T13:56:45Z",
+      "side": 1,
+      "message": "`Clock` can\u0027t be `const` or we won\u0027t be able to read from it:\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/system_wrappers/include/clock.h?l\u003d37\u0026rcl\u003df97f342fd352633ef1b2ced5cf1b340f994be515",
+      "parentUuid": "8d326ecc_2bd17b96",
+      "range": {
+        "startLine": 153,
+        "startChar": 6,
+        "endLine": 153,
+        "endChar": 11
+      },
+      "revId": "8665f18c4a20a144ab373b860af688d6b0a85ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3397a596_40fe8bd0",
         "filename": "modules/audio_coding/neteq/neteq.cc",
         "patchSetId": 13
@@ -45,6 +69,30 @@
       "revId": "8665f18c4a20a144ab373b860af688d6b0a85ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "541ac4f6_d53bd2bd",
+        "filename": "modules/audio_coding/neteq/neteq.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-26T13:56:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3397a596_40fe8bd0",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 9
+      },
+      "revId": "8665f18c4a20a144ab373b860af688d6b0a85ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e53f46fa_d9b05fbd",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-26T13:56:45Z",
+      "side": 1,
+      "message": "Note that `packet_infos` and `last_decoded_packet_infos_` have different types. `packet_infos` is an immutable/internally-ref-counted `RtpPacketInfos` while `last_decoded_packet_infos_` is a `std::vector\u003cRtpPacketInfo\u003e`.",
+      "parentUuid": "358a3ef2_900fab78",
+      "range": {
+        "startLine": 898,
+        "startChar": 17,
+        "endLine": 898,
+        "endChar": 29
+      },
+      "revId": "8665f18c4a20a144ab373b860af688d6b0a85ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "105e0cec_30a29714",
         "filename": "modules/audio_coding/neteq/neteq_impl.h",
         "patchSetId": 13
@@ -91,6 +163,30 @@
       "revId": "8665f18c4a20a144ab373b860af688d6b0a85ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd3437b4_fb4e3ead",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-26T13:56:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "105e0cec_30a29714",
+      "range": {
+        "startLine": 103,
+        "startChar": 8,
+        "endLine": 103,
+        "endChar": 13
+      },
+      "revId": "8665f18c4a20a144ab373b860af688d6b0a85ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "d0834cbb_4c216622",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-26T13:56:45Z",
+      "side": 1,
+      "message": "Each dependency in this structure is meant to be replaceable by the caller (see the comment for the struct).",
+      "parentUuid": "ace88b43_945031f0",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 9
+      },
+      "revId": "8665f18c4a20a144ab373b860af688d6b0a85ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bd6736d_86120c4b",
         "filename": "modules/audio_coding/neteq/neteq_impl.h",
         "patchSetId": 13
@@ -137,6 +257,30 @@
       "revId": "8665f18c4a20a144ab373b860af688d6b0a85ecf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0153c824_01fa9008",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-26T13:56:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8bd6736d_86120c4b",
+      "range": {
+        "startLine": 349,
+        "startChar": 2,
+        "endLine": 349,
+        "endChar": 7
+      },
+      "revId": "8665f18c4a20a144ab373b860af688d6b0a85ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

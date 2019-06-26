@@ -12,6 +12,7 @@
 
 #include <string>
 
+#include "absl/flags/flag.h"
 #include "absl/memory/memory.h"
 #include "modules/audio_coding/neteq/tools/neteq_test_factory.h"
 #include "rtc_base/checks.h"
@@ -19,13 +20,15 @@
 
 namespace {
 
-WEBRTC_DEFINE_string(replacement_audio_file,
-                     "",
-                     "A PCM file that will be used to populate dummy"
-                     " RTP packets");
-WEBRTC_DEFINE_int(max_nr_packets_in_buffer,
-                  50,
-                  "Maximum allowed number of packets in the buffer");
+ABSL_FLAG(std::string,
+          replacement_audio_file,
+          "",
+          "A PCM file that will be used to populate dummy"
+          " RTP packets");
+ABSL_FLAG(int,
+          max_nr_packets_in_buffer,
+          50,
+          "Maximum allowed number of packets in the buffer");
 
 }  // namespace
 
@@ -47,8 +50,9 @@ std::unique_ptr<NetEqSimulator> NetEqSimulatorFactory::CreateSimulator(
   // TODO(ivoc) Stop (ab)using command-line flags in this function.
   const std::string output_audio_filename(argv[2]);
   NetEqTestFactory::Config config;
-  config.replacement_audio_file = FLAG_replacement_audio_file;
-  config.max_nr_packets_in_buffer = FLAG_max_nr_packets_in_buffer;
+  config.replacement_audio_file = absl::GetFlag(FLAGS_replacement_audio_file);
+  config.max_nr_packets_in_buffer =
+      absl::GetFlag(FLAGS_max_nr_packets_in_buffer);
   config.output_audio_filename = output_audio_filename;
   return factory_->InitializeTestFromFile(argv[1], config);
 }

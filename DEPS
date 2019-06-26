@@ -1643,4 +1643,7 @@ include_rules = [
   "+absl/strings/string_view.h",
   "+absl/types/optional.h",
   "+absl/types/variant.h",
+
+  # Abseil flags are allowed in tests and tools.
+  "+absl/flags",
 ]

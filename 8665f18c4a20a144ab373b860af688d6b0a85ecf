@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "b68ceeb1_184197fd",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-26T20:29:49Z",
+      "side": 1,
+      "message": "I think that the temp variable increases clarity after we reshuffled the lines. The final implementation should look like:\n\n  // We treat it as if all packets referenced to by |last_decoded_packet_infos_|\n  // were mashed together when creating the samples in |algorithm_buffer_|.\n  RtpPacketInfos packet_infos(std::move(last_decoded_packet_infos_));\n  last_decoded_packet_infos_.clear();\n\n  // Copy samples from |algorithm_buffer_| to |sync_buffer_|.\n  sync_buffer_-\u003ePushBack(*algorithm_buffer_, std::move(packet_infos));\n  packet_infos \u003d {};\n\n  ...\n\n  // Extract data from |sync_buffer_| to |output|.\n  sync_buffer_-\u003eGetNextAudioInterleaved(num_output_samples_per_channel,\n                                        audio_frame,\n                                        \u0026packet_infos);\n  audio_frame-\u003esample_rate_hz_ \u003d fs_hz_;\n  audio_frame-\u003epacket_infos_ \u003d std::move(packet_infos);",
+      "parentUuid": "bc04388f_5220bda5",
+      "range": {
+        "startLine": 898,
+        "startChar": 17,
+        "endLine": 898,
+        "endChar": 29
+      },
+      "revId": "8665f18c4a20a144ab373b860af688d6b0a85ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "105e0cec_30a29714",
         "filename": "modules/audio_coding/neteq/neteq_impl.h",
         "patchSetId": 13
@@ -273,6 +297,30 @@
       "side": 1,
       "message": "Sure, but const Clock* should still be fine, right? if I don\u0027t miss anything.",
       "parentUuid": "d0834cbb_4c216622",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 9
+      },
+      "revId": "8665f18c4a20a144ab373b860af688d6b0a85ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77ffcb76_8272946b",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-06-26T20:29:49Z",
+      "side": 1,
+      "message": "We can\u0027t do `const Clock*` since `Clock::TimeInMilliseconds()` is non-const.",
+      "parentUuid": "e8994a10_15e25e75",
       "range": {
         "startLine": 107,
         "startChar": 4,

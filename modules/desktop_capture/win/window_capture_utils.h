@@ -60,6 +60,10 @@ bool GetDcSize(HDC hdc, DesktopSize* size);
 bool IsWindowMaximized(HWND window, bool* result);
 
 typedef HRESULT(WINAPI* DwmIsCompositionEnabledFunc)(BOOL* enabled);
+typedef HRESULT(WINAPI* DwmGetWindowAttributeFunc)(HWND hwnd,
+                                                   DWORD dwAttribute,
+                                                   PVOID pvAttribute,
+                                                   DWORD cbAttribute);
 class WindowCaptureHelperWin {
  public:
   WindowCaptureHelperWin();
@@ -73,10 +77,12 @@ class WindowCaptureHelperWin {
       const DesktopRect& selected_window_rect);
   bool IsWindowOnCurrentDesktop(HWND hwnd);
   bool IsWindowVisibleOnCurrentDesktop(HWND hwnd);
+  bool IsWindowCloaked(HWND hwnd);
 
  private:
   HMODULE dwmapi_library_;
   DwmIsCompositionEnabledFunc func_;
+  DwmGetWindowAttributeFunc dwm_get_window_attribute_func_;
 
   // Only used on Win10+.
   Microsoft::WRL::ComPtr<IVirtualDesktopManager> virtual_desktop_manager_;

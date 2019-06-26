@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20f75d8b_fbc895be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-26T08:48:36Z",
+      "side": 1,
+      "message": "One of these should be ENcoded.",
+      "range": {
+        "startLine": 7,
+        "startChar": 17,
+        "endLine": 7,
+        "endChar": 52
+      },
+      "revId": "0dc338ca10e3ac4bc9414615058cbe2579a5d713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0219ec3_c82280f0",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-26T08:48:36Z",
+      "side": 1,
+      "message": "Any good reason for this choice of type? Is it just for consistency with frames_encoded above?",
+      "range": {
+        "startLine": 565,
+        "startChar": 2,
+        "endLine": 565,
+        "endChar": 10
+      },
+      "revId": "0dc338ca10e3ac4bc9414615058cbe2579a5d713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

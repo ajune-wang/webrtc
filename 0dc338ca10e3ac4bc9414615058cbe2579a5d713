@@ -93,6 +93,30 @@
       "revId": "0dc338ca10e3ac4bc9414615058cbe2579a5d713",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04e56922_09e88dcb",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-26T09:21:54Z",
+      "side": 1,
+      "message": "I think using plain int is more in line with the coding style. But perhaps best done in a separate cl changing all nearby uint32_t\u0027s.",
+      "parentUuid": "f285f9e6_426c0472",
+      "range": {
+        "startLine": 565,
+        "startChar": 2,
+        "endLine": 565,
+        "endChar": 10
+      },
+      "revId": "0dc338ca10e3ac4bc9414615058cbe2579a5d713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

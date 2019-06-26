@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a626faf2_05f5cdb6",
+        "filename": "tools_webrtc/gtest-parallel-wrapper.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-06-26T10:00:41Z",
+      "side": 1,
+      "message": "I do not agree with this implementation. I don\u0027t see why you wouldn\u0027t define these args properly, not as \"unrecognized\".",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 30
+      },
+      "revId": "5f2dfb5a0328ff5a495c2a9db70e940778aa0405",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

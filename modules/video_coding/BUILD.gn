@@ -371,6 +371,7 @@ rtc_static_library("webrtc_vp8") {
     ":webrtc_vp8_temporal_layers",
     "..:module_api",
     "../..:webrtc_common",
+    "../../api:fec_controller_api",
     "../../api:scoped_refptr",
     "../../api/video:encoded_image",
     "../../api/video:video_frame",

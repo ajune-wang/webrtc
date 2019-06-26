@@ -112,15 +112,18 @@ RtpVideoSenderInterface* RtpTransportControllerSend::CreateRtpVideoSender(
     const RtpSenderObservers& observers,
     RtcEventLog* event_log,
     std::unique_ptr<FecController> fec_controller,
-    const RtpSenderFrameEncryptionConfig& frame_encryption_config) {
-  video_rtp_senders_.push_back(absl::make_unique<RtpVideoSender>(
+    const RtpSenderFrameEncryptionConfig& frame_encryption_config,
+    VideoStreamEncoderInterface* video_stream_encoder) {
+  auto rtp_video_sender = absl::make_unique<RtpVideoSender>(
       clock_, suspended_ssrcs, states, rtp_config, rtcp_report_interval_ms,
       send_transport, observers,
       // TODO(holmer): Remove this circular dependency by injecting
       // the parts of RtpTransportControllerSendInterface that are really used.
       this, event_log, &retransmission_rate_limiter_, std::move(fec_controller),
       frame_encryption_config.frame_encryptor,
-      frame_encryption_config.crypto_options));
+      frame_encryption_config.crypto_options);
+  video_stream_encoder->SetFecControllerOverride(rtp_video_sender.get());
+  video_rtp_senders_.push_back(std::move(rtp_video_sender));
   return video_rtp_senders_.back().get();
 }
 

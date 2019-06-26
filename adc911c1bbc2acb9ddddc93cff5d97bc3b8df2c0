@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e133ebff_2c960ed0",
+        "filename": "call/call_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T08:01:31Z",
+      "side": 1,
+      "message": "Tests say they do (and I run both chromium and other downstream tests to check that - see bots).",
+      "parentUuid": "82915f06_f6c236f7",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 1
+      },
+      "revId": "adc911c1bbc2acb9ddddc93cff5d97bc3b8df2c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e833706f_4ccb07a6",
         "filename": "call/call_config.h",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-26T07:53:54Z",
       "side": 1,
       "message": "Is the idea that required config attributes are passed to the constructor, and all other are optional? May be worth a comment.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 75
+      },
+      "revId": "adc911c1bbc2acb9ddddc93cff5d97bc3b8df2c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "947c9b30_cdffdd0f",
+        "filename": "call/call_config.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T08:01:31Z",
+      "side": 1,
+      "message": "main idea that nullptr is no longer supported.\nis construction parameter good way to express that? (I followed pattern for check event_log is not null)\n\nalternatively I can leave this struct as is (except comment) and just have the check in the Call::Create\n\nwhich way is preferred?",
+      "parentUuid": "e833706f_4ccb07a6",
       "range": {
         "startLine": 30,
         "startChar": 0,

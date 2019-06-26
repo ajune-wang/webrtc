@@ -156,6 +156,50 @@ void RtpPacket::SetSsrc(uint32_t ssrc) {
   ByteWriter<uint32_t>::WriteBigEndian(WriteAt(8), ssrc);
 }
 
+void RtpPacket::CopyAndZeroMutableExtensions(
+    rtc::ArrayView<uint8_t> buffer) const {
+  RTC_CHECK_GE(buffer.size(), buffer_.size());
+  memcpy(buffer.data(), buffer_.cdata(), buffer_.size());
+  for (const ExtensionInfo& extension : extension_entries_) {
+    RTPExtensionType type = extensions_.GetType(extension.id);
+    if (type == RtpHeaderExtensionMap::kInvalidType) {
+      RTC_LOG(LS_WARNING) << "Unidentified extension in the packet.";
+      continue;
+    }
+    switch (type) {
+      case RTPExtensionType::kRtpExtensionVideoTiming: {
+        // Nullify 3 last entries: packetization delay and 2 network timestamps.
+        memset(buffer.data() + extension.offset + 7, 0, 6);
+        break;
+      }
+      case RTPExtensionType::kRtpExtensionTransportSequenceNumber:
+      case RTPExtensionType::kRtpExtensionTransportSequenceNumber02:
+      case RTPExtensionType::kRtpExtensionTransmissionTimeOffset:
+      case RTPExtensionType::kRtpExtensionAbsoluteSendTime: {
+        // Nullify whole extension, as it's filled in the pacer.
+        memset(buffer.data() + extension.offset, 0, extension.length);
+        break;
+      }
+      case RTPExtensionType::kRtpExtensionAudioLevel:
+      case RTPExtensionType::kRtpExtensionColorSpace:
+      case RTPExtensionType::kRtpExtensionFrameMarking:
+      case RTPExtensionType::kRtpExtensionGenericFrameDescriptor00:
+      case RTPExtensionType::kRtpExtensionGenericFrameDescriptor01:
+      case RTPExtensionType::kRtpExtensionMid:
+      case RTPExtensionType::kRtpExtensionNone:
+      case RTPExtensionType::kRtpExtensionNumberOfExtensions:
+      case RTPExtensionType::kRtpExtensionPlayoutDelay:
+      case RTPExtensionType::kRtpExtensionRepairedRtpStreamId:
+      case RTPExtensionType::kRtpExtensionRtpStreamId:
+      case RTPExtensionType::kRtpExtensionVideoContentType:
+      case RTPExtensionType::kRtpExtensionVideoRotation: {
+        // Non-mutable extension. Don't change it.
+        break;
+      }
+    }
+  }
+}
+
 void RtpPacket::SetCsrcs(rtc::ArrayView<const uint32_t> csrcs) {
   RTC_DCHECK_EQ(extensions_size_, 0);
   RTC_DCHECK_EQ(payload_size_, 0);

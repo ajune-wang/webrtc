@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "0dcd93bb_12c9344f",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-06-26T20:43:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b68ceeb1_184197fd",
+      "range": {
+        "startLine": 898,
+        "startChar": 17,
+        "endLine": 898,
+        "endChar": 29
+      },
+      "revId": "8665f18c4a20a144ab373b860af688d6b0a85ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "105e0cec_30a29714",
         "filename": "modules/audio_coding/neteq/neteq_impl.h",
         "patchSetId": 13
@@ -321,6 +345,30 @@
       "side": 1,
       "message": "We can\u0027t do `const Clock*` since `Clock::TimeInMilliseconds()` is non-const.",
       "parentUuid": "e8994a10_15e25e75",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 9
+      },
+      "revId": "8665f18c4a20a144ab373b860af688d6b0a85ecf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1623a29_8371ed3a",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-06-26T20:43:26Z",
+      "side": 1,
+      "message": "Oh, right, I apologize for my earlier comments on that. I just intuitively thought the Clock methods were const.",
+      "parentUuid": "77ffcb76_8272946b",
       "range": {
         "startLine": 107,
         "startChar": 4,

@@ -475,6 +475,7 @@ VideoStreamEncoder::VideoStreamEncoder(
       encoder_start_bitrate_bps_(0),
       max_data_payload_length_(0),
       encoder_paused_and_dropped_frame_(false),
+      encoder_failed_(false),
       clock_(clock),
       degradation_preference_(DegradationPreference::DISABLED),
       posted_frames_waiting_for_encode_(0),
@@ -1213,6 +1214,13 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
 void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
                                           int64_t time_when_posted_us) {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
+
+  // If the encoder fail we can't continue to encode frames. When this happens
+  // the WebrtcVideoSender is notified and the whole VideoSendStream is
+  // recreated.
+  if (encoder_failed_)
+    return;
+
   TraceFrameDropEnd();
 
   VideoFrame out_frame(video_frame);
@@ -1334,11 +1342,24 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
 
   frame_encode_metadata_writer_.OnEncodeStarted(out_frame);
 
-  const int32_t encode_status = encoder_->Encode(out_frame, &next_frame_types_);
+  int32_t encode_status = encoder_->Encode(out_frame, &next_frame_types_);
 
   if (encode_status < 0) {
-    RTC_LOG(LS_ERROR) << "Failed to encode frame. Error code: "
-                      << encode_status;
+    if (encode_status == WEBRTC_VIDEO_CODEC_ENCODER_FAILURE) {
+      RTC_LOG(LS_ERROR) << "Encoder failed, failing encoder format: "
+                        << encoder_config_.video_format.ToString();
+      if (settings_.encoder_fallback_callback) {
+        encoder_failed_ = true;
+        settings_.encoder_fallback_callback->TriggerEncoderFallback();
+      } else {
+        RTC_LOG(LS_ERROR)
+            << "Encoder failed but no encoder fallback callback is registered";
+      }
+    } else {
+      RTC_LOG(LS_ERROR) << "Failed to encode frame. Error code: "
+                        << encode_status;
+    }
+
     return;
   }
 

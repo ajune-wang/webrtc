@@ -271,6 +271,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   absl::optional<EncoderRateSettings> last_encoder_rate_settings_
       RTC_GUARDED_BY(&encoder_queue_);
   bool encoder_paused_and_dropped_frame_ RTC_GUARDED_BY(&encoder_queue_);
+  bool encoder_failed_ RTC_GUARDED_BY(&encoder_queue_);
   Clock* const clock_;
   // Counters used for deciding if the video resolution or framerate is
   // currently restricted, and if so, why, on a per degradation preference

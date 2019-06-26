@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c3357696_eedc6ce4",
+        "filename": "api/video/video_stream_encoder_settings.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-06-26T11:51:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2624d212_e1d527a8",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 14
+      },
+      "revId": "6a1c7545158f4c84c3cbb86fc3179ecdfb67d910",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85f691b9_23e50df1",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "6a1c7545158f4c84c3cbb86fc3179ecdfb67d910",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d45847df_2e87345f",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-06-26T11:51:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85f691b9_23e50df1",
+      "range": {
+        "startLine": 580,
+        "startChar": 29,
+        "endLine": 580,
+        "endChar": 30
+      },
+      "revId": "6a1c7545158f4c84c3cbb86fc3179ecdfb67d910",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "dca87cf9_cd4dc3c8",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-06-26T11:51:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34fac4ac_8498c5ac",
+      "range": {
+        "startLine": 662,
+        "startChar": 6,
+        "endLine": 662,
+        "endChar": 61
+      },
+      "revId": "6a1c7545158f4c84c3cbb86fc3179ecdfb67d910",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06e4cbdb_47e4170d",
         "filename": "media/engine/webrtc_video_engine_unittest.cc",
         "patchSetId": 8
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "6373461b_abc82e17",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2102,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-06-26T11:51:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06e4cbdb_47e4170d",
+      "range": {
+        "startLine": 2102,
+        "startChar": 0,
+        "endLine": 2102,
+        "endChar": 0
+      },
+      "revId": "6a1c7545158f4c84c3cbb86fc3179ecdfb67d910",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9075311_3ccab4d6",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 8
@@ -105,6 +201,30 @@
       "writtenOn": "2019-06-20T12:42:00Z",
       "side": 1,
       "message": "What happens if there is no fallback and the encoder fails?\nShould we try just call ReconfigureEncoder()?\nIf the intent is that the encoder fallback callback should always be there then maybe we can dcheck that in the constructor?",
+      "range": {
+        "startLine": 1353,
+        "startChar": 0,
+        "endLine": 1353,
+        "endChar": 46
+      },
+      "revId": "6a1c7545158f4c84c3cbb86fc3179ecdfb67d910",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58f1b621_66c7518b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1353,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-06-26T11:51:45Z",
+      "side": 1,
+      "message": "Injecting an encoder that can fail while not having an encoder fallback callback registered does not make sense, so I just added a log message if this happens.\n\nSince the callback is only implemented at an WebRtcVideoChannel level it will only be set when we use the WebRtcVideoEngine API or above.",
+      "parentUuid": "d9075311_3ccab4d6",
       "range": {
         "startLine": 1353,
         "startChar": 0,

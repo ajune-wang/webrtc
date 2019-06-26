@@ -93,6 +93,30 @@
       "revId": "adc911c1bbc2acb9ddddc93cff5d97bc3b8df2c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "088f46ba_c038c974",
+        "filename": "call/call_config.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-26T08:12:30Z",
+      "side": 1,
+      "message": "\u003e main idea that nullptr is no longer supported.\n\u003e is construction parameter good way to express that? (I followed pattern for check event_log is not null)\n\nThat seems reasonable to me. Don\u0027t know if we use that pattern elsewhere. May still be worth a comment (if it\u0027s right that other fields are optional, i.e., it\u0027s fine to use a default-constructed bitrate_config and a null audio_state, audio_processing, etc).",
+      "parentUuid": "947c9b30_cdffdd0f",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 75
+      },
+      "revId": "adc911c1bbc2acb9ddddc93cff5d97bc3b8df2c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

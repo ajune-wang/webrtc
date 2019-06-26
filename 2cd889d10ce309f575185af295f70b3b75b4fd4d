@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddb31369_37b1b6f7",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-06-26T14:55:55Z",
+      "side": 1,
+      "message": "In order to land this, you need to make a chromium CL to update the whitelist in https://cs.chromium.org/chromium/src/chrome/test/data/webrtc/peerconnection_getstats.js. Otherwise it will fail the roll and this CL would get reverted.",
+      "revId": "2cd889d10ce309f575185af295f70b3b75b4fd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de210834_9f862c1d",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2286,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-06-26T14:55:55Z",
+      "side": 1,
+      "message": "We are iterating because of simulcast, correct? Or can there be multiple streams in non-simulcast cases too (retransmissions? SVC? etc?)\n\nWe are not handling simulcast correctly. We should have one \"sender\" (or \"track\") stats object with multiple \"outbound-rtp\", one for each simulcast stream, but we currently put everything in the one and only \"outbound-rtp\". This is an existing problem.\n\nI don\u0027t think adding key frame counters should be blocked on that, but please add a TODO comment documenting that this will be incorrect in the simulcast case. You could reference https://crbug.com/webrtc/9547",
+      "revId": "2cd889d10ce309f575185af295f70b3b75b4fd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c91beee_dfb82ff9",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 4949,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-06-26T14:55:55Z",
+      "side": 1,
+      "message": "TODO here as well",
+      "revId": "2cd889d10ce309f575185af295f70b3b75b4fd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

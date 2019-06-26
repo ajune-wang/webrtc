@@ -18,6 +18,7 @@ rtc_source_set("rtp_rtcp_format") {
     "include/rtp_packet_pacer.h",
     "include/rtp_rtcp_defines.h",
     "source/byte_io.h",
+    "source/non_symmetric_bit_helper.h",
     "source/rtcp_packet.h",
     "source/rtcp_packet/app.h",
     "source/rtcp_packet/bye.h",
@@ -54,6 +55,7 @@ rtc_source_set("rtp_rtcp_format") {
   sources = [
     "include/report_block_data.cc",
     "include/rtp_rtcp_defines.cc",
+    "source/non_symmetric_bit_helper.cc",
     "source/rtcp_packet.cc",
     "source/rtcp_packet/app.cc",
     "source/rtcp_packet/bye.cc",
@@ -387,6 +389,7 @@ if (rtc_include_tests) {
       "source/flexfec_receiver_unittest.cc",
       "source/flexfec_sender_unittest.cc",
       "source/nack_rtx_unittest.cc",
+      "source/non_symmetric_bit_helper_unittest.cc",
       "source/packet_loss_stats_unittest.cc",
       "source/playout_delay_oracle_unittest.cc",
       "source/receive_statistics_unittest.cc",

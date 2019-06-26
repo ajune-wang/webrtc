@@ -45,6 +45,9 @@ class LibvpxVp8Encoder : public VideoEncoder {
 
   int Release() override;
 
+  void SetFecControllerOverride(
+      FecControllerOverride* fec_controller_override) override;
+
   int InitEncode(const VideoCodec* codec_settings,
                  const VideoEncoder::Settings& settings) override;
 

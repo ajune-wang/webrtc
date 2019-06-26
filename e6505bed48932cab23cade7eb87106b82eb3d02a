@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "47a10028_612a69f4",
+        "filename": "modules/rtp_rtcp/include/ulpfec_receiver.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-26T10:12:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba7bbdaa_4b98f2a4",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 15,
+        "endChar": 17
+      },
+      "revId": "e6505bed48932cab23cade7eb87106b82eb3d02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b25d728_a569bb09",
         "filename": "modules/rtp_rtcp/source/flexfec_receiver.cc",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-26T07:11:33Z",
       "side": 1,
       "message": "This is making our receiver non-standards compliant, as AFAIK there is no concept of nullification in https://tools.ietf.org/html/draft-ietf-payload-flexible-fec-scheme-20. But since most (all?) of the extensions that are mutable are not standardized anyway, I think this is fine as it improves on the distortion situation.",
+      "range": {
+        "startLine": 128,
+        "startChar": 25,
+        "endLine": 128,
+        "endChar": 40
+      },
+      "revId": "e6505bed48932cab23cade7eb87106b82eb3d02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10f8cceb_7812de77",
+        "filename": "modules/rtp_rtcp/source/flexfec_receiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-26T10:12:21Z",
+      "side": 1,
+      "message": "Strictly speaking, it\u0027s not spec complaint already. The spec assumes that the resulting in-network packets are XOR-ed, however, we pass them to FEC before the pacer, which changes some extension fields.",
+      "parentUuid": "8b25d728_a569bb09",
       "range": {
         "startLine": 128,
         "startChar": 25,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7c708543_65cc869d",
+        "filename": "modules/rtp_rtcp/source/flexfec_receiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-26T10:12:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdec3df6_8b0bc4f3",
+      "range": {
+        "startLine": 130,
+        "startChar": 58,
+        "endLine": 130,
+        "endChar": 74
+      },
+      "revId": "e6505bed48932cab23cade7eb87106b82eb3d02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca859207_fd1fda14",
         "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
         "patchSetId": 7
@@ -82,6 +154,30 @@
       "writtenOn": "2019-06-26T07:11:33Z",
       "side": 1,
       "message": "I guess these have always been distorted then? Our receiver has never used recovered TWSN, so that\u0027s probably why it hasn\u0027t been a problem.",
+      "range": {
+        "startLine": 175,
+        "startChar": 29,
+        "endLine": 175,
+        "endChar": 65
+      },
+      "revId": "e6505bed48932cab23cade7eb87106b82eb3d02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a21afc48_464ba25e",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-26T10:12:21Z",
+      "side": 1,
+      "message": "It was distorted. But it was never used, because, IIRC, recovered packets are inserted after the BWE is done.",
+      "parentUuid": "ca859207_fd1fda14",
       "range": {
         "startLine": 175,
         "startChar": 29,
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "291c12fb_afcfac82",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-26T10:12:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c32443a9_d7afa8e4",
+      "range": {
+        "startLine": 259,
+        "startChar": 10,
+        "endLine": 259,
+        "endChar": 33
+      },
+      "revId": "e6505bed48932cab23cade7eb87106b82eb3d02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0732997c_d0fa1fd9",
         "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.h",
         "patchSetId": 7
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "890e8d10_a07145d3",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-26T10:12:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0732997c_d0fa1fd9",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 33,
+        "endChar": 12
+      },
+      "revId": "e6505bed48932cab23cade7eb87106b82eb3d02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11d0f743_892dac4d",
         "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.h",
         "patchSetId": 7
@@ -174,6 +318,30 @@
       "writtenOn": "2019-06-25T17:27:08Z",
       "side": 1,
       "message": "personally prefer to put const members together, at the top of the section (i.e. next to ssrc_)\nBut not aware of any strong reason to do that.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 42
+      },
+      "revId": "e6505bed48932cab23cade7eb87106b82eb3d02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7f42b68_e2f93e8b",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-26T10:12:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11d0f743_892dac4d",
       "range": {
         "startLine": 60,
         "startChar": 0,

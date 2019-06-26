@@ -23,6 +23,7 @@
 #include "api/crypto/crypto_options.h"
 #include "api/fec_controller.h"
 #include "api/transport/bitrate_settings.h"
+#include "api/video/video_stream_encoder_interface.h"
 #include "call/rtp_config.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/rtp_rtcp/include/report_block_data.h"
@@ -112,7 +113,8 @@ class RtpTransportControllerSendInterface {
       const RtpSenderObservers& observers,
       RtcEventLog* event_log,
       std::unique_ptr<FecController> fec_controller,
-      const RtpSenderFrameEncryptionConfig& frame_encryption_config) = 0;
+      const RtpSenderFrameEncryptionConfig& frame_encryption_config,
+      VideoStreamEncoderInterface* video_stream_encoder) = 0;
   virtual void DestroyRtpVideoSender(
       RtpVideoSenderInterface* rtp_video_sender) = 0;
 

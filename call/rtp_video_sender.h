@@ -20,6 +20,7 @@
 #include "api/array_view.h"
 #include "api/call/transport.h"
 #include "api/fec_controller.h"
+#include "api/fec_controller_override.h"
 #include "api/video_codecs/video_encoder.h"
 #include "call/rtp_config.h"
 #include "call/rtp_payload_params.h"
@@ -70,6 +71,7 @@ struct RtpStreamSender {
 class RtpVideoSender : public RtpVideoSenderInterface,
                        public OverheadObserver,
                        public VCMProtectionCallback,
+                       public FecControllerOverride,
                        public PacketFeedbackObserver {
  public:
   // Rtp modules are assumed to be sorted in simulcast index order.
@@ -117,6 +119,9 @@ class RtpVideoSender : public RtpVideoSenderInterface,
                         uint32_t* sent_video_rate_bps,
                         uint32_t* sent_nack_rate_bps,
                         uint32_t* sent_fec_rate_bps) override;
+
+  // Implements FecControllerOverride.
+  void SetFecOverride(bool fec_on) override;
 
   // Implements EncodedImageCallback.
   // Returns 0 if the packet was routed / sent, -1 otherwise.

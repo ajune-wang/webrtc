@@ -19,6 +19,7 @@
 
 #include "api/network_state_predictor.h"
 #include "api/transport/network_control.h"
+#include "api/video/video_stream_encoder_interface.h"
 #include "call/rtp_bitrate_configurator.h"
 #include "call/rtp_transport_controller_send_interface.h"
 #include "call/rtp_video_sender.h"
@@ -65,7 +66,8 @@ class RtpTransportControllerSend final
       const RtpSenderObservers& observers,
       RtcEventLog* event_log,
       std::unique_ptr<FecController> fec_controller,
-      const RtpSenderFrameEncryptionConfig& frame_encryption_config) override;
+      const RtpSenderFrameEncryptionConfig& frame_encryption_config,
+      VideoStreamEncoderInterface* video_stream_encoder) override;
   void DestroyRtpVideoSender(
       RtpVideoSenderInterface* rtp_video_sender) override;
 

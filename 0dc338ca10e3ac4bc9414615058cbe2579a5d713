@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "480deea0_22ef9806",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-06-26T08:56:03Z",
+      "side": 1,
+      "message": "Yes, that would be better :)",
+      "parentUuid": "20f75d8b_fbc895be",
+      "range": {
+        "startLine": 7,
+        "startChar": 17,
+        "endLine": 7,
+        "endChar": 52
+      },
+      "revId": "0dc338ca10e3ac4bc9414615058cbe2579a5d713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0219ec3_c82280f0",
         "filename": "media/base/media_channel.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-26T08:48:36Z",
       "side": 1,
       "message": "Any good reason for this choice of type? Is it just for consistency with frames_encoded above?",
+      "range": {
+        "startLine": 565,
+        "startChar": 2,
+        "endLine": 565,
+        "endChar": 10
+      },
+      "revId": "0dc338ca10e3ac4bc9414615058cbe2579a5d713",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f285f9e6_426c0472",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-06-26T08:56:03Z",
+      "side": 1,
+      "message": "Not really, I just picked it for consistency. At 30 fps, 2^32 - 1 frames would take 4.5 years to send in realtime and since key_frames_encoded \u003c\u003d frames_encoded we should be fine. Would you prefer ints?",
+      "parentUuid": "d0219ec3_c82280f0",
       "range": {
         "startLine": 565,
         "startChar": 2,

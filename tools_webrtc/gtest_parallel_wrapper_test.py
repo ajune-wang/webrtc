@@ -110,12 +110,6 @@ class GtestParallelWrapperTest(unittest.TestCase):
     self.assertEqual(result.output_dir, '/tmp/foo')
     self.assertEqual(result.test_artifacts_dir, None)
 
-  def testJsonTestResults(self):
-    result = gtest_parallel_wrapper.ParseArgs(
-        ['--isolated-script-test-output', '/tmp/foo', 'exec'])
-    expected = self._Expected(['--dump_json_test_results=/tmp/foo', 'exec'])
-    self.assertEqual(result.gtest_parallel_args, expected)
-
   def testShortArg(self):
     result = gtest_parallel_wrapper.ParseArgs(['-d', '/tmp/foo', 'exec'])
     expected = self._Expected(['--output_dir=/tmp/foo', 'exec'])
@@ -145,10 +139,11 @@ class GtestParallelWrapperTest(unittest.TestCase):
       ])
       expected_artifacts_dir = os.path.join(output_dir, 'test_artifacts')
       expected = self._Expected([
-          '--output_dir=' + output_dir, '--dump_json_test_results=SOME_DIR',
+          '--output_dir=' + output_dir,
           'some_test', '--', '--test_artifacts_dir=' + expected_artifacts_dir,
           '--some_flag=some_value', '--another_flag',
-          '--isolated-script-test-perf-output=SOME_OTHER_DIR', '--foo=bar',
+          '--isolated_script_test_output=SOME_DIR',
+          '--isolated_script_test_perf_output=SOME_OTHER_DIR', '--foo=bar',
           '--baz'
       ])
       self.assertEqual(result.gtest_parallel_args, expected)

@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "8b25d728_a569bb09",
+        "filename": "modules/rtp_rtcp/source/flexfec_receiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-06-26T07:11:33Z",
+      "side": 1,
+      "message": "This is making our receiver non-standards compliant, as AFAIK there is no concept of nullification in https://tools.ietf.org/html/draft-ietf-payload-flexible-fec-scheme-20. But since most (all?) of the extensions that are mutable are not standardized anyway, I think this is fine as it improves on the distortion situation.",
+      "range": {
+        "startLine": 128,
+        "startChar": 25,
+        "endLine": 128,
+        "endChar": 40
+      },
+      "revId": "e6505bed48932cab23cade7eb87106b82eb3d02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdec3df6_8b0bc4f3",
         "filename": "modules/rtp_rtcp/source/flexfec_receiver.cc",
         "patchSetId": 7
@@ -45,6 +68,52 @@
       "revId": "e6505bed48932cab23cade7eb87106b82eb3d02a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca859207_fd1fda14",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-06-26T07:11:33Z",
+      "side": 1,
+      "message": "I guess these have always been distorted then? Our receiver has never used recovered TWSN, so that\u0027s probably why it hasn\u0027t been a problem.",
+      "range": {
+        "startLine": 175,
+        "startChar": 29,
+        "endLine": 175,
+        "endChar": 65
+      },
+      "revId": "e6505bed48932cab23cade7eb87106b82eb3d02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3bc907d_0dfdafb9",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-06-26T07:11:33Z",
+      "side": 1,
+      "message": "Another refactoring I think would be nice is to have the FEC code work on RtpPacket\u0027s.",
+      "range": {
+        "startLine": 254,
+        "startChar": 22,
+        "endLine": 254,
+        "endChar": 64
+      },
+      "revId": "e6505bed48932cab23cade7eb87106b82eb3d02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

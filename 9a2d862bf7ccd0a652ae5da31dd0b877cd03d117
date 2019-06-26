@@ -46,6 +46,30 @@
       "revId": "9a2d862bf7ccd0a652ae5da31dd0b877cd03d117",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67e6219a_09ee6e9b",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T10:28:05Z",
+      "side": 1,
+      "message": "yep, it is plain lookup here (with plain removal in some cases).\n\nit[erator] is not used after .erase",
+      "parentUuid": "204c7fcf_90d6a32f",
+      "range": {
+        "startLine": 129,
+        "startChar": 12,
+        "endLine": 129,
+        "endChar": 33
+      },
+      "revId": "9a2d862bf7ccd0a652ae5da31dd0b877cd03d117",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2a46126_674e024a",
+        "filename": "pc/peer_connection_interface_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2477,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-06-26T17:16:34Z",
+      "side": 1,
+      "message": "nit: EXPECT_FALSE(config.surface_ice_candidates_...) for completeness.",
+      "range": {
+        "startLine": 2477,
+        "startChar": 2,
+        "endLine": 2477,
+        "endChar": 8
+      },
+      "revId": "ddc38a37003efcc286955d958dec3a46fb4dd95c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

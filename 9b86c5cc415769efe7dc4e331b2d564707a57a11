@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb464a96_4b257e02",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-06-26T11:22:50Z",
+      "side": 1,
+      "message": "WDYT of defining these constants in https://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/source/rtp_header_extensions.h?l\u003d173\u0026rcl\u003df97f342fd352633ef1b2ced5cf1b340f994be515 instead?",
+      "range": {
+        "startLine": 172,
+        "startChar": 50,
+        "endLine": 172,
+        "endChar": 57
+      },
+      "revId": "9b86c5cc415769efe7dc4e331b2d564707a57a11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d1ced4a_5745f3e9",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-06-26T11:22:50Z",
+      "side": 1,
+      "message": "until",
+      "range": {
+        "startLine": 699,
+        "startChar": 58,
+        "endLine": 699,
+        "endChar": 59
+      },
+      "revId": "9b86c5cc415769efe7dc4e331b2d564707a57a11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

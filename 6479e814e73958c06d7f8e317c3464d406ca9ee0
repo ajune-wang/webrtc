@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "97c081e0_3aef3538",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-06-26T19:26:50Z",
+      "side": 1,
+      "message": "Just click on \"EDIT\" on the main page of the CL, right under the current message on the Gerrit UI.",
+      "parentUuid": "bea3de7a_fa22a7dc",
+      "range": {
+        "startLine": 7,
+        "startChar": 60,
+        "endLine": 7,
+        "endChar": 72
+      },
+      "revId": "6479e814e73958c06d7f8e317c3464d406ca9ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "128bf6bc_bcd1d00d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1

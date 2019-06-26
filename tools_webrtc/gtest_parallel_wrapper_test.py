@@ -138,18 +138,17 @@ class GtestParallelWrapperTest(unittest.TestCase):
       output_dir = os.path.join(tmp_dir, 'foo')
       result = gtest_parallel_wrapper.ParseArgs([
           'some_test', '--some_flag=some_value', '--another_flag',
+          '--isolated-script-test-perf-output=SOME_OTHER_DIR',
           '--output_dir=' + output_dir, '--store-test-artifacts',
-          '--isolated-script-test-output=SOME_DIR',
-          '--isolated-script-test-perf-output=SOME_OTHER_DIR', '--foo=bar',
-          '--baz'
+          '--isolated-script-test-output=SOME_DIR', '--foo=bar', '--baz'
       ])
       expected_artifacts_dir = os.path.join(output_dir, 'test_artifacts')
       expected = self._Expected([
           '--output_dir=' + output_dir, '--dump_json_test_results=SOME_DIR',
           'some_test', '--', '--test_artifacts_dir=' + expected_artifacts_dir,
           '--some_flag=some_value', '--another_flag',
-          '--isolated-script-test-perf-output=SOME_OTHER_DIR', '--foo=bar',
-          '--baz'
+          '--isolated-script-test-perf-output=SOME_OTHER_DIR',
+          '--foo=bar', '--baz'
       ])
       self.assertEqual(result.gtest_parallel_args, expected)
 

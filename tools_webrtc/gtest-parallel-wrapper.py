@@ -143,6 +143,9 @@ def ParseArgs(argv=None):
   gtest_group.AddArgument('--isolated-script-test-output',
                           dest='dump_json_test_results')
 
+  # Need to translate it to not use hyphens.
+  parser.add_argument('--isolated_script_test_perf_output')
+
   # Needed when the test wants to store test artifacts, because it doesn't know
   # what will be the swarming output dir.
   parser.add_argument('--store-test-artifacts', action='store_true')
@@ -158,6 +161,10 @@ def ParseArgs(argv=None):
   options, unrecognized_args = parser.parse_known_args(argv)
 
   executable_args = options.executable_args + unrecognized_args
+
+  if options.isolated_script_test_perf_output:
+    executable_args.insert(0, '--isolated-script-test-perf-output=%s' %
+                           options.isolated_script_test_perf_output)
 
   if options.store_test_artifacts:
     assert options.output_dir, (

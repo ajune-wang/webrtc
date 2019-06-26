@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82915f06_f6c236f7",
+        "filename": "call/call_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-26T07:53:54Z",
+      "side": 1,
+      "message": "Using this leaves task_queue_factory null. Do existing callers of this deprecated method set task_queue_factory explicitly? Otherwise, this method may need to use the global task queue factory.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 1
+      },
+      "revId": "adc911c1bbc2acb9ddddc93cff5d97bc3b8df2c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e833706f_4ccb07a6",
+        "filename": "call/call_config.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-26T07:53:54Z",
+      "side": 1,
+      "message": "Is the idea that required config attributes are passed to the constructor, and all other are optional? May be worth a comment.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 75
+      },
+      "revId": "adc911c1bbc2acb9ddddc93cff5d97bc3b8df2c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

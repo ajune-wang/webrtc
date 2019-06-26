@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91073f89_f20081de",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2003,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-26T12:05:45Z",
+      "side": 1,
+      "message": "Are renames essential for this cl? Or could they be taken out to a separate cl, to make this one more focused?",
+      "range": {
+        "startLine": 2002,
+        "startChar": 0,
+        "endLine": 2003,
+        "endChar": 33
+      },
+      "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f54eefa_863e631e",
+        "filename": "modules/video_coding/include/video_error_codes.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-26T12:05:45Z",
+      "side": 1,
+      "message": "Can this be merged with WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE? If both have the meaning \"this encoder failed, please, higher layers, do something about it\".",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bc63ec5_38cb37ea",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1360,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-26T12:05:45Z",
+      "side": 1,
+      "message": "So other errors are assumed transient; we\u0027ll just try again with the next frame?",
+      "range": {
+        "startLine": 1359,
+        "startChar": 0,
+        "endLine": 1360,
+        "endChar": 41
+      },
+      "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

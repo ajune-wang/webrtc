@@ -15,4 +15,7 @@ include_rules = [
   "+modules/video_coding",
   "+modules/video_processing",
   "+system_wrappers",
+
+  # Abseil flags are allowed in tests and tools.
+  "+absl/flags",
 ]

@@ -20,6 +20,9 @@ include_rules = [
   "+sdk",
   "+system_wrappers",
   "+third_party/libyuv",
+
+  # Abseil flags are allowed in tests and tools.
+  "+absl/flags",
 ]
 
 specific_include_rules = {

@@ -1,0 +1,268 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d906f0d_cd613946",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T10:53:59Z",
+      "side": 1,
+      "message": "module planned to be reserved word in c++\ncan you please choose another name (e.g. rtp_sender or rtp_rtcp)",
+      "range": {
+        "startLine": 204,
+        "startChar": 16,
+        "endLine": 204,
+        "endChar": 22
+      },
+      "revId": "89ff96a26f78f8a98fbe8a5f538e6cd375912390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba381c5a_195ed924",
+        "filename": "modules/pacing/packet_router_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T10:53:59Z",
+      "side": 1,
+      "message": "reading the test name I\u0027m not sure why packet router suppose to choose 2nd module.\n\n(and I guess this test validates picking module for sending padding, not actual generating padding. Might be good to reflect that in the test name too)\n\nhttps://testing.googleblog.com/2014/10/testing-on-toilet-writing-descriptive.html\nhttp://go/unit-test-practices#naming",
+      "range": {
+        "startLine": 275,
+        "startChar": 23,
+        "endLine": 275,
+        "endChar": 38
+      },
+      "revId": "89ff96a26f78f8a98fbe8a5f538e6cd375912390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7639678a_bf461547",
+        "filename": "modules/pacing/packet_router_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T10:53:59Z",
+      "side": 1,
+      "message": "did you mean\nON_CALL(rtp_1, SSRC).WillByDefault(Return(kSsrc1));\n\nit would be easier to read test if you distinguish expectations from stubbing, default actions.\n\nhttps://github.com/google/googlemock/blob/master/googlemock/docs/CookBook.md#knowing-when-to-expect\n\n\"ON_CALL is likely the single most under-utilized construct in Google Mock.\"",
+      "revId": "89ff96a26f78f8a98fbe8a5f538e6cd375912390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30cc2186_81e8a4e0",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T10:53:59Z",
+      "side": 1,
+      "message": "may be have an empty capture",
+      "range": {
+        "startLine": 852,
+        "startChar": 17,
+        "endLine": 852,
+        "endChar": 18
+      },
+      "revId": "89ff96a26f78f8a98fbe8a5f538e6cd375912390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbdbf407_74263cd6",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T10:53:59Z",
+      "side": 1,
+      "message": "???\ncast size_t to int to assign it to size_t? why?",
+      "revId": "89ff96a26f78f8a98fbe8a5f538e6cd375912390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aab698dc_ecbdd90e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T10:53:59Z",
+      "side": 1,
+      "message": "may be return nullptr\n(otherwise it looks similar to std::make_unique\u003cRtpPacketToSend\u003e() that does something very different)",
+      "range": {
+        "startLine": 857,
+        "startChar": 25,
+        "endLine": 857,
+        "endChar": 59
+      },
+      "revId": "89ff96a26f78f8a98fbe8a5f538e6cd375912390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "292dd6b4_48df33c2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T10:53:59Z",
+      "side": 1,
+      "message": "same SafeMin few lines above doesn\u0027t specify template parameter.\nso may do not specify it here either.",
+      "range": {
+        "startLine": 884,
+        "startChar": 20,
+        "endLine": 884,
+        "endChar": 28
+      },
+      "revId": "89ff96a26f78f8a98fbe8a5f538e6cd375912390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c08b8d8c_bb1edbb0",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2199,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T10:53:59Z",
+      "side": 1,
+      "message": "may be\nGeneratePaddingResendsOldPacketsWithRtx",
+      "range": {
+        "startLine": 2199,
+        "startChar": 22,
+        "endLine": 2199,
+        "endChar": 44
+      },
+      "revId": "89ff96a26f78f8a98fbe8a5f538e6cd375912390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cfae083_d1abdc0c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2224,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T10:53:59Z",
+      "side": 1,
+      "message": "may be request\nkPayloadPacketSize + kRtxHeaderSize\n(since it looks a bit strange that more padding bytes is generated than requested.\nFuture change might decide to address it. This test shouldn\u0027t prevent that)",
+      "range": {
+        "startLine": 2224,
+        "startChar": 31,
+        "endLine": 2224,
+        "endChar": 49
+      },
+      "revId": "89ff96a26f78f8a98fbe8a5f538e6cd375912390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7569151a_1f90fda0",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2238,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T10:53:59Z",
+      "side": 1,
+      "message": "may be something like\nGeneratePaddingCreatesPurePaddingWithoutRtx",
+      "range": {
+        "startLine": 2238,
+        "startChar": 22,
+        "endLine": 2238,
+        "endChar": 42
+      },
+      "revId": "89ff96a26f78f8a98fbe8a5f538e6cd375912390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b50485e2_d3edb8fd",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2252,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T10:53:59Z",
+      "side": 1,
+      "message": "should it be dot?",
+      "range": {
+        "startLine": 2252,
+        "startChar": 19,
+        "endLine": 2252,
+        "endChar": 20
+      },
+      "revId": "89ff96a26f78f8a98fbe8a5f538e6cd375912390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50978448_9494c3c9",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2260,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-26T10:53:59Z",
+      "side": 1,
+      "message": "that expectation is not easy to read.\nmay be instead do something like this:\n\nsize_t padding_sent \u003d 0;\nEXPECT_CALL(mock_paced_sender_, EnquePacket).WillRepeatedly([\u0026](std::unique_ptr\u003cRtpPacketToSender\u003e packet) {\n  EXPECT_EQ(packet-\u003epacket_type(), kPadding);\n  EXPECT_EQ(packet-\u003eSsrc(), kSsrc);\n  EXPECT_GT(packet-\u003epadding_size(), 0);\n  padding_sent +\u003d packet-\u003epadding_size();\n});\nrtp_sender_-\u003eGeneratePadding(kPaddingBytesRequested);\nEXPECT_???(padding_sent, kPaddingBytesRequested);",
+      "range": {
+        "startLine": 2260,
+        "startChar": 13,
+        "endLine": 2260,
+        "endChar": 73
+      },
+      "revId": "89ff96a26f78f8a98fbe8a5f538e6cd375912390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

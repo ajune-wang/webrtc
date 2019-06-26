@@ -90,7 +90,7 @@ class NetEqStatsGetter : public NetEqGetAudioCallback {
 
  private:
   std::unique_ptr<NetEqDelayAnalyzer> delay_analyzer_;
-  int64_t stats_query_interval_ms_ = 1000;
+  int64_t stats_query_interval_ms_ = 10;
   int64_t last_stats_query_time_ms_ = 0;
   std::vector<std::pair<int64_t, NetEqNetworkStatistics>> stats_;
   std::vector<std::pair<int64_t, NetEqLifetimeStatistics>> lifetime_stats_;

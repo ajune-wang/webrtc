@@ -59,6 +59,8 @@ struct NetEqNetworkStatistics {
   int median_waiting_time_ms;
   int min_waiting_time_ms;
   int max_waiting_time_ms;
+  int filtered_buffer_size_ms;
+  size_t current_delay_estimate;
 };
 
 // NetEq statistics that persist over the lifetime of the class.

@@ -35,8 +35,7 @@ TEST(BufferLevelFilter, ConvergenceTest) {
       ss << "times = " << times << ", value = " << value;
       SCOPED_TRACE(ss.str());  // Print out the parameter values on failure.
       for (int i = 0; i < times; ++i) {
-        filter.Update(value, 0 /* time_stretched_samples */,
-                      160 /* packet_len_samples */);
+        filter.Update(value, 0 /* time_stretched_samples */);
       }
       // Expect the filtered value to be (theoretically)
       // (1 - (251/256) ^ |times|) * |value|.
@@ -60,8 +59,7 @@ TEST(BufferLevelFilter, FilterFactor) {
 
   filter.SetTargetBufferLevel(3);  // Makes filter coefficient 252/256.
   for (int i = 0; i < kTimes; ++i) {
-    filter.Update(kValue, 0 /* time_stretched_samples */,
-                  160 /* packet_len_samples */);
+    filter.Update(kValue, 0 /* time_stretched_samples */);
   }
   // Expect the filtered value to be
   // (1 - (252/256) ^ |kTimes|) * |kValue|.
@@ -72,8 +70,7 @@ TEST(BufferLevelFilter, FilterFactor) {
   filter.Reset();
   filter.SetTargetBufferLevel(7);  // Makes filter coefficient 253/256.
   for (int i = 0; i < kTimes; ++i) {
-    filter.Update(kValue, 0 /* time_stretched_samples */,
-                  160 /* packet_len_samples */);
+    filter.Update(kValue, 0 /* time_stretched_samples */);
   }
   // Expect the filtered value to be
   // (1 - (253/256) ^ |kTimes|) * |kValue|.
@@ -84,8 +81,7 @@ TEST(BufferLevelFilter, FilterFactor) {
   filter.Reset();
   filter.SetTargetBufferLevel(8);  // Makes filter coefficient 254/256.
   for (int i = 0; i < kTimes; ++i) {
-    filter.Update(kValue, 0 /* time_stretched_samples */,
-                  160 /* packet_len_samples */);
+    filter.Update(kValue, 0 /* time_stretched_samples */);
   }
   // Expect the filtered value to be
   // (1 - (254/256) ^ |kTimes|) * |kValue|.
@@ -106,7 +102,7 @@ TEST(BufferLevelFilter, TimeStretchedSamples) {
   for (int i = 0; i < kTimes; ++i) {
     // Packet size set to 0. Do not expect the parameter
     // |kTimeStretchedSamples| to have any effect.
-    filter.Update(kValue, kTimeStretchedSamples, 0 /* packet_len_samples */);
+    filter.Update(kValue, kTimeStretchedSamples);
   }
   // Expect the filtered value to be
   // (1 - (251/256) ^ |kTimes|) * |kValue|.
@@ -117,13 +113,11 @@ TEST(BufferLevelFilter, TimeStretchedSamples) {
   // Update filter again, now with non-zero value for packet length.
   // Set the current filtered value to be the input, in order to isolate the
   // impact of |kTimeStretchedSamples|.
-  filter.Update(filter.filtered_current_level() >> 8, kTimeStretchedSamples,
-                kPacketSizeSamples);
+  filter.Update(filter.filtered_current_level() >> 8, kTimeStretchedSamples);
   EXPECT_EQ(kExpectedValue - kNumPacketsStretched,
             filter.filtered_current_level() >> 8);
   // Try negative value and verify that we come back to the previous result.
-  filter.Update(filter.filtered_current_level() >> 8, -kTimeStretchedSamples,
-                kPacketSizeSamples);
+  filter.Update(filter.filtered_current_level() >> 8, -kTimeStretchedSamples);
   EXPECT_EQ(kExpectedValue, filter.filtered_current_level() >> 8);
 }
 
@@ -138,7 +132,7 @@ TEST(BufferLevelFilter, TimeStretchedSamplesNegativeUnevenFrames) {
   for (int i = 0; i < kTimes; ++i) {
     // Packet size set to 0. Do not expect the parameter
     // |kTimeStretchedSamples| to have any effect.
-    filter.Update(kValue, kTimeStretchedSamples, 0 /* packet_len_samples */);
+    filter.Update(kValue, kTimeStretchedSamples);
   }
   // Expect the filtered value to be
   // (1 - (251/256) ^ |kTimes|) * |kValue|.
@@ -149,12 +143,10 @@ TEST(BufferLevelFilter, TimeStretchedSamplesNegativeUnevenFrames) {
   // Update filter again, now with non-zero value for packet length.
   // Set the current filtered value to be the input, in order to isolate the
   // impact of |kTimeStretchedSamples|.
-  filter.Update(filter.filtered_current_level() >> 8, kTimeStretchedSamples,
-                kPacketSizeSamples);
+  filter.Update(filter.filtered_current_level() >> 8, kTimeStretchedSamples);
   EXPECT_EQ(21, filter.filtered_current_level() >> 8);
   // Try negative value and verify that we come back to the previous result.
-  filter.Update(filter.filtered_current_level() >> 8, -kTimeStretchedSamples,
-                kPacketSizeSamples);
+  filter.Update(filter.filtered_current_level() >> 8, -kTimeStretchedSamples);
   EXPECT_EQ(kExpectedValue, filter.filtered_current_level() >> 8);
 }
 

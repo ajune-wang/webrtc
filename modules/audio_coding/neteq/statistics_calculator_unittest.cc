@@ -77,7 +77,7 @@ TEST(StatisticsCalculator, ExpandedSamplesCorrection) {
   stats.IncreaseCounter(k10MsSamples, kSampleRateHz);
 
   stats.GetNetworkStatistics(kSampleRateHz, kNumSamplesInBuffer,
-                             kSamplesPerPacket, &stats_output);
+                             kSamplesPerPacket, 0, 0, &stats_output);
 
   EXPECT_EQ(0u, stats_output.expand_rate);
   EXPECT_EQ(0u, stats_output.speech_expand_rate);
@@ -87,7 +87,7 @@ TEST(StatisticsCalculator, ExpandedSamplesCorrection) {
   stats.ExpandedNoiseSamplesCorrection(-100);
   stats.IncreaseCounter(k10MsSamples, kSampleRateHz);
   stats.GetNetworkStatistics(kSampleRateHz, kNumSamplesInBuffer,
-                             kSamplesPerPacket, &stats_output);
+                             kSamplesPerPacket, 0, 0, &stats_output);
   // Expect no change, since negative values are disallowed.
   EXPECT_EQ(0u, stats_output.expand_rate);
   EXPECT_EQ(0u, stats_output.speech_expand_rate);
@@ -97,7 +97,7 @@ TEST(StatisticsCalculator, ExpandedSamplesCorrection) {
   stats.ExpandedNoiseSamplesCorrection(200);
   stats.IncreaseCounter(k10MsSamples, kSampleRateHz);
   stats.GetNetworkStatistics(kSampleRateHz, kNumSamplesInBuffer,
-                             kSamplesPerPacket, &stats_output);
+                             kSamplesPerPacket, 0, 0, &stats_output);
   // Calculate expected rates in Q14. Expand rate is noise + voice, while
   // speech expand rate is only voice.
   EXPECT_EQ(((50u + 200u) << 14) / k10MsSamples, stats_output.expand_rate);

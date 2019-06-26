@@ -76,6 +76,12 @@ int64_t NetEqTest::Run() {
   do {
     step_result = RunToNextGetAudio();
     simulation_time += step_result.simulation_step_ms;
+    if (simulation_time > 50000) {
+      neteq_->SetBaseMinimumDelayMs(500);
+    }
+    if (simulation_time > 350000) {
+      neteq_->SetBaseMinimumDelayMs(0);
+    }
   } while (!step_result.is_simulation_finished);
   if (callbacks_.simulation_ended_callback) {
     callbacks_.simulation_ended_callback->SimulationEnded(simulation_time);

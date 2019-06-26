@@ -28,9 +28,7 @@ class BufferLevelFilter {
   // corresponding number of packets, and is subtracted from the filtered
   // value (thus bypassing the filter operation). |packet_len_samples| is the
   // number of audio samples carried in each incoming packet.
-  virtual void Update(size_t buffer_size_packets,
-                      int time_stretched_samples,
-                      size_t packet_len_samples);
+  virtual void Update(int buffer_size_samples, int time_stretched_samples);
 
   // Set the current target buffer level (obtained from
   // DelayManager::base_target_level()). Used to select the appropriate
@@ -40,8 +38,8 @@ class BufferLevelFilter {
   virtual int filtered_current_level() const;
 
  private:
-  int level_factor_;  // Filter factor for the buffer level filter in Q8.
-  int filtered_current_level_;  // Filtered current buffer level in Q8.
+  double level_factor_;  // Filter factor for the buffer level filter in Q8.
+  double filtered_current_level_;  // Filtered current buffer level in Q8.
 
   RTC_DISALLOW_COPY_AND_ASSIGN(BufferLevelFilter);
 };

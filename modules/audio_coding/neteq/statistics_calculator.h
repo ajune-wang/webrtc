@@ -114,6 +114,8 @@ class StatisticsCalculator {
   void GetNetworkStatistics(int fs_hz,
                             size_t num_samples_in_buffers,
                             size_t samples_per_packet,
+                            int filtered_buffer_size_ms,
+                            size_t current_delay_estimate,
                             NetEqNetworkStatistics* stats);
 
   // Populates |preferred_buffer_size_ms|, |jitter_peaks_found| and

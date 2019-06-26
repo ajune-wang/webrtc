@@ -16,13 +16,16 @@
 
 #include "modules/audio_coding/neteq/buffer_level_filter.h"
 #include "modules/audio_coding/neteq/decoder_database.h"
+#include "modules/audio_coding/neteq/defines.h"
 #include "modules/audio_coding/neteq/delay_manager.h"
 #include "modules/audio_coding/neteq/expand.h"
 #include "modules/audio_coding/neteq/packet_buffer.h"
 #include "modules/audio_coding/neteq/sync_buffer.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace {
 
@@ -65,8 +68,16 @@ DecisionLogic::DecisionLogic(int fs_hz,
       disallow_time_stretching_(disallow_time_stretching),
       timescale_countdown_(
           tick_timer_->GetNewCountdown(kMinTimescaleInterval + 1)),
-      num_consecutive_expands_(0) {
+      num_consecutive_expands_(0),
+      use_buffer_span_("estimate_delay", false),
+      allow_cng_time_stretching_("cng_time_stretch", false),
+      cng_timestretch_threshold_("cng_time_stretch_threshold", 100) {
   SetSampleRate(fs_hz, output_size_samples);
+  const std::string field_trial_name =
+      field_trial::FindFullName("WebRTC-Audio-NetEqDecisionLogic");
+  ParseFieldTrial({&use_buffer_span_, &allow_cng_time_stretching_,
+                   &cng_timestretch_threshold_},
+                  field_trial_name);
 }
 
 DecisionLogic::~DecisionLogic() = default;
@@ -93,6 +104,7 @@ void DecisionLogic::SetSampleRate(int fs_hz, size_t output_size_samples) {
   // TODO(hlundin): Change to an enumerator and skip assert.
   assert(fs_hz == 8000 || fs_hz == 16000 || fs_hz == 32000 || fs_hz == 48000);
   fs_mult_ = fs_hz / 8000;
+  sample_rate_ = fs_hz;
   output_size_samples_ = output_size_samples;
 }
 
@@ -113,11 +125,13 @@ Operations DecisionLogic::GetDecision(const SyncBuffer& sync_buffer,
     cng_state_ = kCngInternalOn;
   }
 
-  const size_t samples_left =
-      sync_buffer.FutureLength() - expand.overlap_length();
-  // TODO(jakobi): Use buffer span instead of num samples.
-  const size_t cur_size_samples =
+  size_t samples_left = sync_buffer.FutureLength() - expand.overlap_length();
+  size_t cur_size_samples =
       samples_left + packet_buffer_.NumSamplesInBuffer(decoder_frame_length);
+  if (use_buffer_span_) {
+    cur_size_samples = packet_buffer_.GetSpanSamples(
+        decoder_frame_length, sample_rate_, use_buffer_span_);
+  }
 
   prev_time_scale_ =
       prev_time_scale_ && (prev_mode == kModeAccelerateSuccess ||
@@ -127,10 +141,9 @@ Operations DecisionLogic::GetDecision(const SyncBuffer& sync_buffer,
 
   // Do not update buffer history if currently playing CNG since it will bias
   // the filtered buffer level.
-  if ((prev_mode != kModeRfc3389Cng) && (prev_mode != kModeCodecInternalCng) &&
-      !(next_packet && next_packet->frame &&
-        next_packet->frame->IsDtxPacket())) {
+  if ((prev_mode != kModeRfc3389Cng) && (prev_mode != kModeCodecInternalCng)) {
     FilterBufferLevel(cur_size_samples);
+    current_delay_estimate_ = cur_size_samples;
   }
 
   // Guard for errors, to avoid getting stuck in error mode.
@@ -176,7 +189,8 @@ Operations DecisionLogic::GetDecision(const SyncBuffer& sync_buffer,
   // to not be noticable).
   // Note that the MuteFactor is in Q14, so a value of 16384 corresponds to 1.
   size_t current_span =
-      samples_left + packet_buffer_.GetSpanSamples(decoder_frame_length);
+      samples_left + packet_buffer_.GetSpanSamples(
+                         decoder_frame_length, sample_rate_, use_buffer_span_);
   if ((prev_mode == kModeExpand || prev_mode == kModeCodecPlc) &&
       expand.MuteFactor(0) < 16384 / 2 &&
       current_span < static_cast<size_t>(delay_manager_->TargetLevel() *
@@ -215,19 +229,18 @@ void DecisionLogic::FilterBufferLevel(size_t buffer_size_samples) {
   buffer_level_filter_->SetTargetBufferLevel(
       delay_manager_->base_target_level());
 
-  size_t buffer_size_packets = 0;
-  if (packet_length_samples_ > 0) {
-    // Calculate size in packets.
-    buffer_size_packets = buffer_size_samples / packet_length_samples_;
-  }
-  int sample_memory_local = 0;
+  int time_stretched_samples = 0;
   if (prev_time_scale_) {
-    sample_memory_local = sample_memory_;
+    time_stretched_samples = sample_memory_;
     timescale_countdown_ = tick_timer_->GetNewCountdown(kMinTimescaleInterval);
+  } else if (time_stretched_samples_ != 0) {
+    time_stretched_samples = -time_stretched_samples_;
+    time_stretched_samples_ = 0;
+    RTC_LOG(LS_WARNING) << "Timestretched CNG, " << time_stretched_samples
+                        << " samples.";
   }
 
-  buffer_level_filter_->Update(buffer_size_packets, sample_memory_local,
-                               packet_length_samples_);
+  buffer_level_filter_->Update(buffer_size_samples, time_stretched_samples);
   prev_time_scale_ = false;
 }
 
@@ -286,12 +299,14 @@ Operations DecisionLogic::ExpectedPacketAvailable(Modes prev_mode,
     // Check criterion for time-stretching.
     int low_limit, high_limit;
     delay_manager_->BufferLimits(&low_limit, &high_limit);
-    if (buffer_level_filter_->filtered_current_level() >= high_limit << 2)
+    int current_level = (buffer_level_filter_->filtered_current_level() << 8) /
+                        packet_length_samples_;
+    if (current_level >= high_limit << 2)
       return kFastAccelerate;
     if (TimescaleAllowed()) {
-      if (buffer_level_filter_->filtered_current_level() >= high_limit)
+      if (current_level >= high_limit)
         return kAccelerate;
-      if (buffer_level_filter_->filtered_current_level() < low_limit)
+      if (current_level < low_limit)
         return kPreemptiveExpand;
     }
   }
@@ -327,21 +342,39 @@ Operations DecisionLogic::FuturePacketAvailable(
     return kNormal;
   }
 
-  const size_t samples_left =
-      sync_buffer.FutureLength() - expand.overlap_length();
-  const size_t cur_size_samples =
-      samples_left + packet_buffer_.NumPacketsInBuffer() * decoder_frame_length;
-
   // If previous was comfort noise, then no merge is needed.
   if (prev_mode == kModeRfc3389Cng || prev_mode == kModeCodecInternalCng) {
-    // Keep the same delay as before the CNG, but make sure that the number of
-    // samples in buffer is no higher than 4 times the optimal level. (Note that
-    // TargetLevel() is in Q8.)
-    if (static_cast<uint32_t>(generated_noise_samples + target_timestamp) >=
-            available_timestamp ||
-        cur_size_samples >
-            ((delay_manager_->TargetLevel() * packet_length_samples_) >> 8) *
-                4) {
+    size_t cng_delay = timestamp_leap > generated_noise_samples
+                           ? timestamp_leap - generated_noise_samples
+                           : 0;
+    /* size_t samples_left = sync_buffer.FutureLength() - expand.overlap_length(); */
+    const size_t estimated_delay =
+        /* samples_left + */
+        packet_buffer_.GetSpanSamples(decoder_frame_length, sample_rate_,
+                                      use_buffer_span_) +
+        cng_delay;
+    current_delay_estimate_ = estimated_delay;
+
+    const size_t target_limit =
+        cng_timestretch_threshold_ / 2 * sample_rate_ / 1000;
+    const size_t target_level_samples =
+        (delay_manager_->TargetLevel() * packet_length_samples_) >> 8;
+
+    const bool above_target_window =
+        allow_cng_time_stretching_ &&
+        estimated_delay - cng_delay > target_level_samples + target_limit;
+    const bool below_target_window =
+        allow_cng_time_stretching_ && target_level_samples > target_limit &&
+        estimated_delay < target_level_samples - target_limit;
+
+    if ((static_cast<uint32_t>(generated_noise_samples + target_timestamp) >=
+             available_timestamp ||
+         above_target_window) &&
+        !below_target_window) {
+      time_stretched_samples_ = generated_noise_samples - timestamp_leap;
+      if (time_stretched_samples_ != 0) {
+        RTC_LOG(LS_WARNING) << "Adjusted CNG: " << time_stretched_samples_;
+      }
       // Time to play this new packet.
       return kNormal;
     } else {
@@ -353,6 +386,7 @@ Operations DecisionLogic::FuturePacketAvailable(
       }
     }
   }
+
   // Do not merge unless we have done an expand before.
   if (prev_mode == kModeExpand) {
     return kMerge;
@@ -365,8 +399,9 @@ Operations DecisionLogic::FuturePacketAvailable(
 }
 
 bool DecisionLogic::UnderTargetLevel() const {
-  return buffer_level_filter_->filtered_current_level() <=
-         delay_manager_->TargetLevel();
+  return static_cast<int>(
+             (buffer_level_filter_->filtered_current_level() << 8) /
+             packet_length_samples_) <= delay_manager_->TargetLevel();
 }
 
 bool DecisionLogic::ReinitAfterExpands(uint32_t timestamp_leap) const {

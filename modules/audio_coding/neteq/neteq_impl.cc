@@ -310,18 +310,8 @@ int NetEqImpl::TargetDelayMs() const {
 
 int NetEqImpl::FilteredCurrentDelayMs() const {
   rtc::CritScope lock(&crit_sect_);
-  // Calculate the filtered packet buffer level in samples. The value from
-  // |buffer_level_filter_| is in number of packets, represented in Q8.
-  const size_t packet_buffer_samples =
-      (buffer_level_filter_->filtered_current_level() *
-       decoder_frame_length_) >>
-      8;
-  // Sum up the filtered packet buffer level with the future length of the sync
-  // buffer, and divide the sum by the sample rate.
-  const size_t delay_samples =
-      packet_buffer_samples + sync_buffer_->FutureLength();
-  // The division below will truncate. The return value is in ms.
-  return static_cast<int>(delay_samples) / rtc::CheckedDivExact(fs_hz_, 1000);
+  return buffer_level_filter_->filtered_current_level() /
+         rtc::CheckedDivExact(fs_hz_, 1000);
 }
 
 int NetEqImpl::NetworkStatistics(NetEqNetworkStatistics* stats) {
@@ -337,7 +327,9 @@ int NetEqImpl::NetworkStatistics(NetEqNetworkStatistics* stats) {
   stats_->PopulateDelayManagerStats(ms_per_packet, *delay_manager_.get(),
                                     stats);
   stats_->GetNetworkStatistics(fs_hz_, total_samples_in_buffers,
-                               decoder_frame_length_, stats);
+                               decoder_frame_length_, FilteredCurrentDelayMs(),
+                               decision_logic_->current_delay_estimate(),
+                               stats);
   return 0;
 }
 
@@ -791,6 +783,7 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame,
   }
   int return_value = GetDecision(&operation, &packet_list, &dtmf_event,
                                  &play_dtmf, action_override);
+
   if (return_value != 0) {
     last_mode_ = kModeError;
     return return_value;

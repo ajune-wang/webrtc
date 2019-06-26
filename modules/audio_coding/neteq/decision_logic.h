@@ -11,9 +11,11 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_DECISION_LOGIC_H_
 #define MODULES_AUDIO_CODING_NETEQ_DECISION_LOGIC_H_
 
+#include <cstddef>
 #include "modules/audio_coding/neteq/defines.h"
 #include "modules/audio_coding/neteq/tick_timer.h"
 #include "rtc_base/constructor_magic.h"
+#include "rtc_base/experiments/field_trial_parser.h"
 
 namespace webrtc {
 
@@ -108,6 +110,8 @@ class DecisionLogic final {
   }
   void set_prev_time_scale(bool value) { prev_time_scale_ = value; }
 
+  size_t current_delay_estimate() const { return current_delay_estimate_; }
+
  private:
   // The value 5 sets maximum time-stretch rate to about 100 ms/s.
   static const int kMinTimescaleInterval = 5;
@@ -170,6 +174,7 @@ class DecisionLogic final {
   BufferLevelFilter* buffer_level_filter_;
   const TickTimer* tick_timer_;
   int fs_mult_;
+  int sample_rate_;
   size_t output_size_samples_;
   CngState cng_state_;  // Remember if comfort noise is interrupted by other
                         // event (e.g., DTMF).
@@ -180,6 +185,15 @@ class DecisionLogic final {
   bool disallow_time_stretching_;
   std::unique_ptr<TickTimer::Countdown> timescale_countdown_;
   int num_consecutive_expands_;
+
+  FieldTrialParameter<bool> use_buffer_span_;
+  FieldTrialParameter<bool> allow_cng_time_stretching_;
+  FieldTrialParameter<int> cng_timestretch_threshold_;
+
+  // Number of comfort noise samples skipped or extended since last time we
+  // updated the buffer level filter.
+  int time_stretched_samples_ = 0;
+  size_t current_delay_estimate_ = 0;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(DecisionLogic);
 };

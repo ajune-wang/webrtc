@@ -13,6 +13,7 @@
 #include <assert.h>
 #include <string.h>  // memset
 #include <algorithm>
+#include <cstddef>
 
 #include "modules/audio_coding/neteq/delay_manager.h"
 #include "rtc_base/checks.h"
@@ -318,6 +319,8 @@ void StatisticsCalculator::StoreWaitingTime(int waiting_time_ms) {
 void StatisticsCalculator::GetNetworkStatistics(int fs_hz,
                                                 size_t num_samples_in_buffers,
                                                 size_t samples_per_packet,
+                                                int filtered_buffer_size_ms,
+                                                size_t current_delay_estimate,
                                                 NetEqNetworkStatistics* stats) {
   RTC_DCHECK_GT(fs_hz, 0);
   RTC_DCHECK(stats);
@@ -325,6 +328,9 @@ void StatisticsCalculator::GetNetworkStatistics(int fs_hz,
   stats->added_zero_samples = added_zero_samples_;
   stats->current_buffer_size_ms =
       static_cast<uint16_t>(num_samples_in_buffers * 1000 / fs_hz);
+
+  stats->filtered_buffer_size_ms = filtered_buffer_size_ms;
+  stats->current_delay_estimate = current_delay_estimate * 1000 / fs_hz;
 
   stats->packet_loss_rate =
       CalculateQ14Ratio(lost_timestamps_, timestamps_since_last_report_);

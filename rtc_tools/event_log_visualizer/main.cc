@@ -521,6 +521,24 @@ int main(int argc, char* argv[]) {
           return stats.preferred_buffer_size_ms;
         },
         "Preferred buffer size (ms)", collection->AppendNewPlot());
+    analyzer.CreateNetEqNetworkStatsGraph(
+        neteq_stats,
+        [](const webrtc::NetEqNetworkStatistics& stats) {
+          return stats.mean_waiting_time_ms;
+        },
+        "Mean waiting time (ms)", collection->AppendNewPlot());
+    analyzer.CreateNetEqNetworkStatsGraph(
+        neteq_stats,
+        [](const webrtc::NetEqNetworkStatistics& stats) {
+          return stats.filtered_buffer_size_ms;
+        },
+        "Filtered current delay (ms)", collection->AppendNewPlot());
+    analyzer.CreateNetEqNetworkStatsGraph(
+        neteq_stats,
+        [](const webrtc::NetEqNetworkStatistics& stats) {
+          return stats.current_delay_estimate;
+        },
+        "Current delay estimate (ms)", collection->AppendNewPlot());
   }
 
   if (FLAG_plot_ice_candidate_pair_config) {

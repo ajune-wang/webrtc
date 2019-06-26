@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bea3de7a_fa22a7dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 9507
+      },
+      "writtenOn": "2019-06-26T18:18:47Z",
+      "side": 1,
+      "message": "Thanks.  how can I rewrite this msg?\nShould I squash two commits into one, then rewrite the commit msg?",
+      "parentUuid": "a5f7931a_194eecb6",
+      "range": {
+        "startLine": 7,
+        "startChar": 60,
+        "endLine": 7,
+        "endChar": 72
+      },
+      "revId": "6479e814e73958c06d7f8e317c3464d406ca9ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "128bf6bc_bcd1d00d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-26T15:02:02Z",
       "side": 1,
       "message": "This should be \"compatible\".",
+      "range": {
+        "startLine": 8,
+        "startChar": 40,
+        "endLine": 8,
+        "endChar": 50
+      },
+      "revId": "6479e814e73958c06d7f8e317c3464d406ca9ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67dc55aa_d7eef47b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 9507
+      },
+      "writtenOn": "2019-06-26T18:18:47Z",
+      "side": 1,
+      "message": "the same how can I rewrite this msg?",
+      "parentUuid": "128bf6bc_bcd1d00d",
       "range": {
         "startLine": 8,
         "startChar": 40,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "f9d9c7c2_dd161bef",
+        "filename": "p2p/base/stun_server_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 9507
+      },
+      "writtenOn": "2019-06-26T18:18:47Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "402c7193_265ffa3f",
+      "revId": "6479e814e73958c06d7f8e317c3464d406ca9ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da9f82f8_a047b9ac",
         "filename": "p2p/base/stun_server_unittest.cc",
         "patchSetId": 1
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "87d4bd66_d954e657",
+        "filename": "p2p/base/stun_server_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 9507
+      },
+      "writtenOn": "2019-06-26T18:18:47Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "da9f82f8_a047b9ac",
+      "revId": "6479e814e73958c06d7f8e317c3464d406ca9ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "62efb817_0f3e3e83",
         "filename": "p2p/base/stun_server_unittest.cc",
         "patchSetId": 1
@@ -93,6 +177,24 @@
       "writtenOn": "2019-06-26T15:35:14Z",
       "side": 1,
       "message": "Same comment as above - just decide if it\u0027s right or wrong, and test for that.",
+      "revId": "6479e814e73958c06d7f8e317c3464d406ca9ee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a58ca87e_7497b244",
+        "filename": "p2p/base/stun_server_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 9507
+      },
+      "writtenOn": "2019-06-26T18:18:47Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "62efb817_0f3e3e83",
       "revId": "6479e814e73958c06d7f8e317c3464d406ca9ee0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

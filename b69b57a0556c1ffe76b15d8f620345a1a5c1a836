@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "16f895aa_f08bc949",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2003,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-06-26T12:55:39Z",
+      "side": 1,
+      "message": "Not really essential, but I still think it bring clarity to what I\u0027m trying to do in this CL",
+      "parentUuid": "91073f89_f20081de",
+      "range": {
+        "startLine": 2002,
+        "startChar": 0,
+        "endLine": 2003,
+        "endChar": 33
+      },
+      "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f54eefa_863e631e",
         "filename": "modules/video_coding/include/video_error_codes.h",
         "patchSetId": 9
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "23fd26df_65662496",
+        "filename": "modules/video_coding/include/video_error_codes.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-06-26T12:55:39Z",
+      "side": 1,
+      "message": "WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE does not have that exact meaning, so for now we can\u0027t merge the two.",
+      "parentUuid": "1f54eefa_863e631e",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6bc63ec5_38cb37ea",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 9
@@ -59,6 +107,30 @@
       "writtenOn": "2019-06-26T12:05:45Z",
       "side": 1,
       "message": "So other errors are assumed transient; we\u0027ll just try again with the next frame?",
+      "range": {
+        "startLine": 1359,
+        "startChar": 0,
+        "endLine": 1360,
+        "endChar": 41
+      },
+      "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b10464da_075f63f5",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1360,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-06-26T12:55:39Z",
+      "side": 1,
+      "message": "Yes, other error codes are transient and trying with the next frame is the current behavior of the VideoStreamEncoder.",
+      "parentUuid": "6bc63ec5_38cb37ea",
       "range": {
         "startLine": 1359,
         "startChar": 0,

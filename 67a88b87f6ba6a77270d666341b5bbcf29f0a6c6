@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be4dec9a_1633cc16",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-26T19:40:39Z",
+      "side": 1,
+      "message": "If I understand correctly, UpdateFecRates() will deduct only the overhead associated with FEC, not that associated with retransmissions. Please correct me if this assumption is false.",
+      "range": {
+        "startLine": 707,
+        "startChar": 0,
+        "endLine": 707,
+        "endChar": 61
+      },
+      "revId": "67a88b87f6ba6a77270d666341b5bbcf29f0a6c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18b75168_40285418",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-26T19:40:39Z",
+      "side": 1,
+      "message": "\"TODO: !!!\" is my notation for TODOs which will be handled before the CL is landed. I intend to affect this change in https://webrtc-review.googlesource.com/c/src/+/143966, as per my comment on that CL. Please ignore this, and the confusing name (\"fec_on\" rather than \"fec_allowed\"); these things will be fixed.",
+      "range": {
+        "startLine": 792,
+        "startChar": 0,
+        "endLine": 793,
+        "endChar": 54
+      },
+      "revId": "67a88b87f6ba6a77270d666341b5bbcf29f0a6c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

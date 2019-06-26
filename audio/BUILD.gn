@@ -188,6 +188,7 @@ if (rtc_include_tests) {
         "../test:test_common",
         "../test:test_main",
         "//testing/gtest",
+        "//third_party/abseil-cpp/absl/flags:flag",
       ]
       if (is_android) {
         deps += [ "//testing/android/native_test:native_test_native_code" ]

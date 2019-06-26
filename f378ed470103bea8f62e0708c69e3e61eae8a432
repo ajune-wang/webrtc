@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "be2e4b31_c1bb3de9",
+        "filename": "modules/audio_processing/include/audio_processing.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-06-26T06:15:20Z",
+      "side": 1,
+      "message": "I\u0027d prefer an empty string to be returned if there is no name.",
+      "range": {
+        "startLine": 19,
+        "startChar": 10,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "f378ed470103bea8f62e0708c69e3e61eae8a432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c7bf8ff2_a2298f64",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 3
@@ -36,6 +59,30 @@
       "writtenOn": "2019-06-25T14:57:45Z",
       "side": 1,
       "message": "I think I prefer the following:\n\n// Returns the name of the submodule if specified.\nvirtual absl::optional\u003cstd::string\u003e GetName();",
+      "range": {
+        "startLine": 931,
+        "startChar": 0,
+        "endLine": 932,
+        "endChar": 32
+      },
+      "revId": "f378ed470103bea8f62e0708c69e3e61eae8a432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88ef35cd_b8e9df44",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-06-26T06:15:20Z",
+      "side": 1,
+      "message": "What is the purpose of this method? There is already the ToString() method which was intended as an identifier of the submodule.",
+      "parentUuid": "c7bf8ff2_a2298f64",
       "range": {
         "startLine": 931,
         "startChar": 0,

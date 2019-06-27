@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a1c394e_78b4b97b",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-06-27T06:49:19Z",
+      "side": 1,
+      "message": "Can\u0027t you do the rename in the earlier CL, and then just rebase this CL?",
+      "range": {
+        "startLine": 792,
+        "startChar": 42,
+        "endLine": 792,
+        "endChar": 57
+      },
+      "revId": "6c02239684b17347dd80caf1a32dbbd923ade1a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

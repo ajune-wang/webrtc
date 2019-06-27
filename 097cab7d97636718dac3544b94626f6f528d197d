@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "83961dc4_5edd0ca3",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-27T10:13:36Z",
+      "side": 1,
+      "message": "How strong do you feel about it?\n\nhttps://google.github.io/styleguide/cppguide.html#Function_Names\n\"Accessors and mutators (get and set functions) may be named like variables.\"",
+      "parentUuid": "91bbbf71_516b6573",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 21
+      },
+      "revId": "097cab7d97636718dac3544b94626f6f528d197d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68dfc890_6fac19ef",
         "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "097cab7d97636718dac3544b94626f6f528d197d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fc5de17_9e0eb6bb",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-27T10:13:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68dfc890_6fac19ef",
+      "range": {
+        "startLine": 39,
+        "startChar": 16,
+        "endLine": 39,
+        "endChar": 22
+      },
+      "revId": "097cab7d97636718dac3544b94626f6f528d197d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4e2da4d3_9c4caf82",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-27T10:13:36Z",
+      "side": 1,
+      "message": "yep, optional\u003cResolution\u003e is sure cleaner.",
+      "parentUuid": "7a8f85d3_1c55edf1",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 70
+      },
+      "revId": "097cab7d97636718dac3544b94626f6f528d197d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3ff2f1c_42388e76",
         "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "097cab7d97636718dac3544b94626f6f528d197d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e3e1e2e_39f56e15",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-27T10:13:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3ff2f1c_42388e76",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 10
+      },
+      "revId": "097cab7d97636718dac3544b94626f6f528d197d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

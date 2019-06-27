@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91bbbf71_516b6573",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-06-27T09:15:52Z",
+      "side": 1,
+      "message": "Width()?",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 21
+      },
+      "revId": "097cab7d97636718dac3544b94626f6f528d197d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68dfc890_6fac19ef",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-06-27T09:15:52Z",
+      "side": 1,
+      "message": "Height()?",
+      "range": {
+        "startLine": 39,
+        "startChar": 16,
+        "endLine": 39,
+        "endChar": 22
+      },
+      "revId": "097cab7d97636718dac3544b94626f6f528d197d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a8f85d3_1c55edf1",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-06-27T09:15:52Z",
+      "side": 1,
+      "message": "1. This is not used anywhere yet, maybe we should wait to implement it?\n2. Don\u0027t you think it\u0027s cleaner to use an absl::optional\u003cRenderResolution\u003e in the DependencyDescriptor instead?",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 70
+      },
+      "revId": "097cab7d97636718dac3544b94626f6f528d197d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3ff2f1c_42388e76",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-06-27T09:15:52Z",
+      "side": 1,
+      "message": "I would prefer \u0027int\u0027 in this case. The frame number is 16 bits for now, but that will probably change and in that case \u0027uint16_t\u0027 does not really add anything.",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 10
+      },
+      "revId": "097cab7d97636718dac3544b94626f6f528d197d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

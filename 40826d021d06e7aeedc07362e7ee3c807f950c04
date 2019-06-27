@@ -60,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "1db740ce_d6a1d9c2",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-27T15:00:00Z",
+      "side": 1,
+      "message": "When could you please delete that asynchronous one from the ReceiveStatisticsProxy? And probably from the Timing class, as it won\u0027t be used anymore?",
+      "parentUuid": "664bec6b_5ec9426e",
+      "revId": "40826d021d06e7aeedc07362e7ee3c807f950c04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a5ac8cea_4fe2a074",
         "filename": "video/receive_statistics_proxy_unittest.cc",
         "patchSetId": 1

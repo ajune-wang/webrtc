@@ -51,8 +51,6 @@ class ReadableWavBuffer : public ReadableWav {
     return num_bytes;
   }
 
-  bool Eof() const override { return pos_ == size_; }
-
   bool SeekForward(uint32_t num_bytes) override {
     // Verify we don't try to read outside of a properly sized header.
     if (size_ >= kWavHeaderSize)

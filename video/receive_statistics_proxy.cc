@@ -723,6 +723,7 @@ void ReceiveStatisticsProxy::DataCountersUpdated(
 
 void ReceiveStatisticsProxy::OnDecodedFrame(const VideoFrame& frame,
                                             absl::optional<uint8_t> qp,
+                                            int32_t decode_time_ms,
                                             VideoContentType content_type) {
   rtc::CritScope lock(&crit_);
 
@@ -744,8 +745,10 @@ void ReceiveStatisticsProxy::OnDecodedFrame(const VideoFrame& frame,
     if (!stats_.qp_sum) {
       if (stats_.frames_decoded != 1) {
         RTC_LOG(LS_WARNING)
-            << "Frames decoded was not 1 when first qp value was received.";
+            << "Frames decoded was not 1 when first qp value was received. "
+            << "Resetting frame counter and total decode time.";
         stats_.frames_decoded = 1;
+        stats_.total_decode_time_ms = 0;
       }
       stats_.qp_sum = 0;
     }
@@ -756,6 +759,7 @@ void ReceiveStatisticsProxy::OnDecodedFrame(const VideoFrame& frame,
         << "QP sum was already set and no QP was given for a frame.";
     stats_.qp_sum = absl::nullopt;
   }
+  stats_.total_decode_time_ms += decode_time_ms;
   last_content_type_ = content_type;
   decode_fps_estimator_.Update(1, now_ms);
   if (last_decoded_frame_time_ms_) {

@@ -22,6 +22,30 @@
       "revId": "e12a8b3e376390056e9e775680fcfc823d9422ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5796274_97486a91",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-06-27T15:55:09Z",
+      "side": 1,
+      "message": "Looks like we can get rid of it!",
+      "parentUuid": "0763a246_9528a588",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 25
+      },
+      "revId": "e12a8b3e376390056e9e775680fcfc823d9422ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

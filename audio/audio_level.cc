@@ -61,7 +61,8 @@ void AudioLevel::ComputeLevel(const AudioFrame& audioFrame, double duration) {
   if (abs_value > abs_max_)
     abs_max_ = abs_value;
 
-  // Update level approximately 10 times per second
+  // Update level approximately 10 times per second, assuming audio frame
+  // duration is approximately 10 ms.
   if (count_++ == kUpdateFrequency) {
     current_level_full_range_ = abs_max_;
 

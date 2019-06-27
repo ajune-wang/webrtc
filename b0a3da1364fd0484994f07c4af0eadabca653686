@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a44d5bde_cfb59695",
+        "filename": "media/engine/encoder_simulcast_proxy.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-06-27T08:50:41Z",
+      "side": 1,
+      "message": "Did you intentionally not add this to the other wrappers (SimulcastEncoderAdapter, VideoEncoderSoftwareFallbackWrapper, ...)?\n\nI think it\u0027s fine to not add this to all the wrappers, but then maybe remove it from this wrapper for some form of consistency?",
+      "range": {
+        "startLine": 45,
+        "startChar": 7,
+        "endLine": 45,
+        "endChar": 31
+      },
+      "revId": "b0a3da1364fd0484994f07c4af0eadabca653686",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

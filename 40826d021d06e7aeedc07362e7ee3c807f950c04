@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4749d188_36bbb008",
+        "filename": "modules/video_coding/include/video_coding_defines.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-27T13:49:09Z",
+      "side": 1,
+      "message": "Double check that this isn\u0027t called anywhere within chrome or other first-party users. Red internal_compile_lite bot indicates, there is an issue here.\n\nI believe you will need to add the new 4-args method together with the old 3-arg method. Then cleanup other projects and remove the old method only then.",
+      "range": {
+        "startLine": 56,
+        "startChar": 32,
+        "endLine": 56,
+        "endChar": 55
+      },
+      "revId": "40826d021d06e7aeedc07362e7ee3c807f950c04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed3edd88_588fd0ae",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-27T13:49:09Z",
+      "side": 1,
+      "message": "Do you need to add this here?\nIsn\u0027t decode time already propagated to the statistics proxy here:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/video/receive_statistics_proxy.h?l\u003d71\n\nIt may be lagging one frame behind or be something else, but please check that you can\u0027t reuse it. Potentially see if you can delete it otherwise. Having to decode_time inputs is confusing.",
+      "revId": "40826d021d06e7aeedc07362e7ee3c807f950c04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5ac8cea_4fe2a074",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-06-27T13:49:09Z",
+      "side": 1,
+      "message": "Decode",
+      "range": {
+        "startLine": 171,
+        "startChar": 63,
+        "endLine": 171,
+        "endChar": 69
+      },
+      "revId": "40826d021d06e7aeedc07362e7ee3c807f950c04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

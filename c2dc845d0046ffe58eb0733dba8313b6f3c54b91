@@ -22,6 +22,30 @@
       "revId": "c2dc845d0046ffe58eb0733dba8313b6f3c54b91",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5011702c_632fb4f1",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-27T16:35:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9731363b_3e30c3b2",
+      "range": {
+        "startLine": 240,
+        "startChar": 2,
+        "endLine": 241,
+        "endChar": 58
+      },
+      "revId": "c2dc845d0046ffe58eb0733dba8313b6f3c54b91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

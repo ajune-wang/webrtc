@@ -116,13 +116,6 @@ class BitrateAllocator : public BitrateAllocatorInterface {
   // the list of added observers, a best guess is returned.
   int GetStartBitrate(BitrateAllocatorObserver* observer) const override;
 
-  // Sets external allocation strategy. If strategy is not set default WebRTC
-  // allocation mechanism will be used. The strategy may be changed during call.
-  // Setting NULL value will restore default WEBRTC allocation strategy.
-  void SetBitrateAllocationStrategy(
-      std::unique_ptr<rtc::BitrateAllocationStrategy>
-          bitrate_allocation_strategy);
-
  private:
   struct ObserverConfig : rtc::BitrateAllocationStrategy::TrackConfig {
     ObserverConfig(BitrateAllocatorObserver* observer,
@@ -243,10 +236,7 @@ class BitrateAllocator : public BitrateAllocatorInterface {
   uint32_t total_requested_padding_bitrate_ RTC_GUARDED_BY(&sequenced_checker_);
   uint32_t total_requested_min_bitrate_ RTC_GUARDED_BY(&sequenced_checker_);
   uint32_t total_requested_max_bitrate_ RTC_GUARDED_BY(&sequenced_checker_);
-  std::unique_ptr<rtc::BitrateAllocationStrategy> bitrate_allocation_strategy_
-      RTC_GUARDED_BY(&sequenced_checker_);
   const uint8_t transmission_max_bitrate_multiplier_;
-  const bool ignore_injected_strategy_;
 };
 
 }  // namespace webrtc

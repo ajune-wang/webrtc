@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82388a56_87074bfd",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-06-27T12:47:10Z",
+      "side": 1,
+      "message": "I\u0027m not 100% sure how this class is suppose to be used, but WDYT about making this class only parse the information that\u0027s on the wire? We can then combine this parsed information in some later step where keeping state is more appropriate.\n\nThat way we can avoid keeping state in the parser.",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 35
+      },
+      "revId": "6f57d787fa834ee72568f7a3b396650a7a7e1eee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

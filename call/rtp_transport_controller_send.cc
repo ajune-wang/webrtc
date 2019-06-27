@@ -74,6 +74,7 @@ RtpTransportControllerSend::RtpTransportControllerSend(
       controller_factory_fallback_(
           absl::make_unique<GoogCcNetworkControllerFactory>(predictor_factory)),
       process_interval_(controller_factory_fallback_->GetProcessInterval()),
+      last_send_time_(Timestamp::MinusInfinity()),
       last_report_block_time_(Timestamp::ms(clock_->TimeInMilliseconds())),
       reset_feedback_on_route_change_(
           !field_trial::IsEnabled("WebRTC-Bwe-NoFeedbackReset")),
@@ -154,6 +155,11 @@ rtc::TaskQueue* RtpTransportControllerSend::GetWorkerQueue() {
 
 PacketRouter* RtpTransportControllerSend::packet_router() {
   return &packet_router_;
+}
+
+NetworkStateEstimateObserver*
+RtpTransportControllerSend::network_state_estimate_observer() {
+  return this;
 }
 
 TransportFeedbackObserver*
@@ -318,6 +324,7 @@ void RtpTransportControllerSend::OnSentPacket(
   if (packet_msg) {
     task_queue_.PostTask([this, packet_msg]() {
       RTC_DCHECK_RUN_ON(&task_queue_);
+      last_send_time_ = packet_msg->send_time;
       if (controller_)
         PostUpdates(controller_->OnSentPacket(*packet_msg));
     });
@@ -448,6 +455,22 @@ void RtpTransportControllerSend::OnTransportFeedback(
   }
   pacer_.UpdateOutstandingData(
       transport_feedback_adapter_.GetOutstandingData().bytes());
+}
+
+void RtpTransportControllerSend::OnNetworkStateEstimate(
+    NetworkStateEstimate estimate) {
+  estimate.update_time = Timestamp::ms(clock_->TimeInMilliseconds());
+  task_queue_.PostTask([this, estimate] {
+    RTC_DCHECK_RUN_ON(&task_queue_);
+    const TimeDelta kPeriod = rtcp::NetworkEstimate::GetTimestampPeriod();
+    auto msg = estimate;
+    auto send_time_offset = last_send_time_ - msg.last_send_time;
+    auto period_compensation =
+        static_cast<int64_t>(std::round(send_time_offset / kPeriod));
+    msg.last_send_time += period_compensation * kPeriod;
+    if (controller_)
+      controller_->OnNetworkStateEstimate(msg);
+  });
 }
 
 void RtpTransportControllerSend::MaybeCreateControllers() {

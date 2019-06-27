@@ -215,6 +215,8 @@ RtpVideoSender::RtpVideoSender(
     const CryptoOptions& crypto_options)
     : send_side_bwe_with_overhead_(
           webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
+      frame_rate_based_overhead_(webrtc::field_trial::IsEnabled(
+          "WebRTC-Video-FrameRateBasedOverhead")),
       account_for_packetization_overhead_(!webrtc::field_trial::IsDisabled(
           "WebRTC-SubtractPacketizationOverhead")),
       use_early_loss_detection_(
@@ -693,9 +695,25 @@ void RtpVideoSender::OnBitrateUpdated(uint32_t bitrate_bps,
   DataSize max_total_packet_size = DataSize::bytes(
       rtp_config_.max_packet_size + transport_overhead_bytes_per_packet_);
   uint32_t payload_bitrate_bps = bitrate_bps;
+  Frequency packet_rate = Frequency::PlusInfinity();
   if (send_side_bwe_with_overhead_) {
-    DataRate overhead_rate = CalculateOverheadRate(
-        DataRate::bps(bitrate_bps), max_total_packet_size, packet_overhead);
+    DataRate target = DataRate::bps(bitrate_bps);
+    DataRate overhead_rate =
+        CalculateOverheadRate(target, max_total_packet_size, packet_overhead);
+    if (frame_rate_based_overhead_) {
+      if (framerate > 0) {
+        Frequency frame_rate = framerate / TimeDelta::seconds(1);
+        DataSize frame_size = target / frame_rate;
+        int packets_per_frame =
+            static_cast<int>(ceil(frame_size / max_total_packet_size));
+        packet_rate = packets_per_frame * frame_rate;
+      } else {
+        packet_rate =
+            (target / max_total_packet_size).Ceil(Frequency::hertz(1));
+      }
+      overhead_rate = packet_overhead * packet_rate;
+    }
+
     // TODO(srte): We probably should not accept 0 payload bitrate here.
     payload_bitrate_bps =
         rtc::saturated_cast<uint32_t>(bitrate_bps - overhead_rate.bps());
@@ -729,6 +747,10 @@ void RtpVideoSender::OnBitrateUpdated(uint32_t bitrate_bps,
         DataRate::bps(encoder_target_rate_bps_),
         max_total_packet_size - DataSize::bytes(overhead_bytes_per_packet_),
         packet_overhead);
+    if (packet_rate.IsFinite()) {
+      encoder_overhead_rate =
+          packet_rate * DataSize::bytes(overhead_bytes_per_packet_);
+    }
     encoder_overhead_rate_bps =
         std::min(encoder_overhead_rate.bps<uint32_t>(),
                  bitrate_bps - encoder_target_rate_bps_);

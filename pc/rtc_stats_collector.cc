@@ -1393,12 +1393,12 @@ void RTCStatsCollector::ProduceMediaSourceStats_s(
       const auto& track = sender_internal->track();
       if (!track)
         continue;
-      // TODO(hbos): The same track could be attached to multiple senders which
-      // should result in multiple senders referencing the same media source
-      // stats. When all media source related metrics are moved to the track's
-      // source (e.g. input frame rate is moved from cricket::VideoSenderInfo to
-      // VideoTrackSourceInterface::Stats), don't create separate media source
-      // stats objects on a per-attachment basis.
+      // TODO(https://crbug.com/webrtc/10771): The same track could be attached
+      // to multiple senders which should result in multiple senders referencing
+      // the same media source stats. When all media source related metrics are
+      // moved to the track's source (e.g. input frame rate is moved from
+      // cricket::VideoSenderInfo to VideoTrackSourceInterface::Stats), don't
+      // create separate media source stats objects on a per-attachment basis.
       std::unique_ptr<RTCMediaSourceStats> media_source_stats;
       if (track->kind() == MediaStreamTrackInterface::kAudioKind) {
         media_source_stats = absl::make_unique<RTCAudioSourceStats>(

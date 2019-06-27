@@ -614,6 +614,7 @@ WEBRTC_RTCSTATS_IMPL(
     &gap_loss_rate,
     &gap_discard_rate,
     &frames_decoded,
+    &total_decode_time,
     &content_type)
 // clang-format on
 
@@ -643,6 +644,7 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(std::string&& id,
       gap_loss_rate("gapLossRate"),
       gap_discard_rate("gapDiscardRate"),
       frames_decoded("framesDecoded"),
+      total_decode_time("totalDecodeTime"),
       content_type("contentType") {}
 
 RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
@@ -667,6 +669,7 @@ RTCInboundRTPStreamStats::RTCInboundRTPStreamStats(
       gap_loss_rate(other.gap_loss_rate),
       gap_discard_rate(other.gap_discard_rate),
       frames_decoded(other.frames_decoded),
+      total_decode_time(other.total_decode_time),
       content_type(other.content_type) {}
 
 RTCInboundRTPStreamStats::~RTCInboundRTPStreamStats() {}

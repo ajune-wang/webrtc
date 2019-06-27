@@ -309,6 +309,9 @@ void SetInboundRTPStreamStatsFromVideoReceiverInfo(
   inbound_video->nack_count =
       static_cast<uint32_t>(video_receiver_info.nacks_sent);
   inbound_video->frames_decoded = video_receiver_info.frames_decoded;
+  inbound_video->total_decode_time =
+      static_cast<double>(video_receiver_info.total_decode_time_ms) /
+      rtc::kNumMillisecsPerSec;
   if (video_receiver_info.qp_sum)
     inbound_video->qp_sum = *video_receiver_info.qp_sum;
   if (video_receiver_info.last_packet_received_timestamp_ms) {

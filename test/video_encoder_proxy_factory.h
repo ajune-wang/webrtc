@@ -30,7 +30,10 @@ const VideoEncoder::Capabilities kCapabilities(false);
 // a proxy for the same encoder, typically an instance of FakeEncoder.
 class VideoEncoderProxyFactory final : public VideoEncoderFactory {
  public:
-  explicit VideoEncoderProxyFactory(VideoEncoder* encoder) : encoder_(encoder) {
+  explicit VideoEncoderProxyFactory(VideoEncoder* encoder)
+      : encoder_(encoder),
+        num_encoder_instances_(0),
+        max_num_encoder_instances_(0) {
     codec_info_.is_hardware_accelerated = false;
     codec_info_.has_internal_source = false;
   }
@@ -47,7 +50,10 @@ class VideoEncoderProxyFactory final : public VideoEncoderFactory {
 
   std::unique_ptr<VideoEncoder> CreateVideoEncoder(
       const SdpVideoFormat& format) override {
-    return absl::make_unique<EncoderProxy>(encoder_);
+    ++num_encoder_instances_;
+    max_num_encoder_instances_ =
+        std::max(max_num_encoder_instances_, num_encoder_instances_);
+    return absl::make_unique<EncoderProxy>(encoder_, this);
   }
 
   void SetIsHardwareAccelerated(bool is_hardware_accelerated) {
@@ -57,12 +63,24 @@ class VideoEncoderProxyFactory final : public VideoEncoderFactory {
     codec_info_.has_internal_source = has_internal_source;
   }
 
+  int GetMaxNumberOfEncoderInstancesExistedSimultaneously() {
+    return max_num_encoder_instances_;
+  }
+
  private:
+  void OnDestroyVideoEncoder() {
+    RTC_CHECK_GT(num_encoder_instances_, 0);
+    --num_encoder_instances_;
+  }
+
   // Wrapper class, since CreateVideoEncoder needs to surrender
   // ownership to the object it returns.
   class EncoderProxy final : public VideoEncoder {
    public:
-    explicit EncoderProxy(VideoEncoder* encoder) : encoder_(encoder) {}
+    explicit EncoderProxy(VideoEncoder* encoder,
+                          VideoEncoderProxyFactory* encoder_factory)
+        : encoder_(encoder), encoder_factory_(encoder_factory) {}
+    ~EncoderProxy() { encoder_factory_->OnDestroyVideoEncoder(); }
 
    private:
     int32_t Encode(const VideoFrame& input_image,
@@ -86,10 +104,14 @@ class VideoEncoderProxyFactory final : public VideoEncoderFactory {
     }
 
     VideoEncoder* const encoder_;
+    VideoEncoderProxyFactory* const encoder_factory_;
   };
 
   VideoEncoder* const encoder_;
   CodecInfo codec_info_;
+
+  int num_encoder_instances_;
+  int max_num_encoder_instances_;
 };
 
 }  // namespace test

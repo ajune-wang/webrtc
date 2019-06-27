@@ -354,7 +354,6 @@ class VideoStreamEncoderTest : public ::testing::Test {
         task_queue_factory_(CreateDefaultTaskQueueFactory()),
         fake_encoder_(),
         encoder_factory_(&fake_encoder_),
-        bitrate_allocator_factory_(CreateBuiltinVideoBitrateAllocatorFactory()),
         stats_proxy_(new MockableSendStatisticsProxy(
             Clock::GetRealTimeClock(),
             video_send_config_,
@@ -366,7 +365,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
     video_send_config_ = VideoSendStream::Config(nullptr);
     video_send_config_.encoder_settings.encoder_factory = &encoder_factory_;
     video_send_config_.encoder_settings.bitrate_allocator_factory =
-        bitrate_allocator_factory_.get();
+        &bitrate_allocator_factory_;
     video_send_config_.rtp.payload_name = "FAKE";
     video_send_config_.rtp.payload_type = 125;
 
@@ -760,6 +759,11 @@ class VideoStreamEncoderTest : public ::testing::Test {
       return allocation;
     }
 
+    int GetNumEncoderInitializations() {
+      rtc::CritScope lock(&local_crit_sect_);
+      return num_encoder_initializations_;
+    }
+
    private:
     int32_t Encode(const VideoFrame& input_image,
                    const std::vector<VideoFrameType>* frame_types) override {
@@ -795,8 +799,12 @@ class VideoStreamEncoderTest : public ::testing::Test {
     int32_t InitEncode(const VideoCodec* config,
                        const Settings& settings) override {
       int res = FakeEncoder::InitEncode(config, settings);
+
       rtc::CritScope lock(&local_crit_sect_);
       EXPECT_EQ(initialized_, EncoderState::kUninitialized);
+
+      ++num_encoder_initializations_;
+
       if (config->codecType == kVideoCodecVP8) {
         // Simulate setting up temporal layers, in order to validate the life
         // cycle of these objects.
@@ -869,6 +877,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
     bool expect_null_frame_ = false;
     EncodedImageCallback* encoded_image_callback_
         RTC_GUARDED_BY(local_crit_sect_) = nullptr;
+    int num_encoder_initializations_ RTC_GUARDED_BY(local_crit_sect_) = 0;
   };
 
   class TestSink : public VideoStreamEncoder::EncoderSink {
@@ -1018,6 +1027,25 @@ class VideoStreamEncoderTest : public ::testing::Test {
     int min_transmit_bitrate_bps_ = 0;
   };
 
+  class VideoBitrateAllocatorProxyFactory
+      : public VideoBitrateAllocatorFactory {
+   public:
+    VideoBitrateAllocatorProxyFactory()
+        : bitrate_allocator_factory_(
+              CreateBuiltinVideoBitrateAllocatorFactory()) {}
+
+    std::unique_ptr<VideoBitrateAllocator> CreateVideoBitrateAllocator(
+        const VideoCodec& codec) {
+      codec_ = codec;
+      return bitrate_allocator_factory_->CreateVideoBitrateAllocator(codec);
+    }
+
+    VideoCodec codec_;
+
+   private:
+    std::unique_ptr<VideoBitrateAllocatorFactory> bitrate_allocator_factory_;
+  };
+
   VideoSendStream::Config video_send_config_;
   VideoEncoderConfig video_encoder_config_;
   int codec_width_;
@@ -1026,7 +1054,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
   const std::unique_ptr<TaskQueueFactory> task_queue_factory_;
   TestEncoder fake_encoder_;
   test::VideoEncoderProxyFactory encoder_factory_;
-  std::unique_ptr<VideoBitrateAllocatorFactory> bitrate_allocator_factory_;
+  VideoBitrateAllocatorProxyFactory bitrate_allocator_factory_;
   std::unique_ptr<MockableSendStatisticsProxy> stats_proxy_;
   TestSink sink_;
   AdaptingFrameForwarder video_source_;
@@ -1221,6 +1249,44 @@ TEST_F(VideoStreamEncoderTest, FrameResolutionChangeReconfigureEncoder) {
   EXPECT_EQ(codec_width_, fake_encoder_.codec_config().width);
   EXPECT_EQ(codec_height_, fake_encoder_.codec_config().height);
   EXPECT_EQ(2, sink_.number_of_reconfigurations());
+
+  video_stream_encoder_->Stop();
+}
+
+TEST_F(VideoStreamEncoderTest, MaxBitrateChangeDoesNotTriggerInitEncode) {
+  VideoEncoderConfig video_encoder_config;
+  test::FillEncoderConfiguration(kVideoCodecVP8, 1, &video_encoder_config);
+  video_encoder_config.max_bitrate_bps = kTargetBitrateBps;
+  video_stream_encoder_->ConfigureEncoder(video_encoder_config.Copy(),
+                                          kMaxPayloadLength);
+  video_stream_encoder_->OnBitrateUpdated(
+      DataRate::bps(kTargetBitrateBps), DataRate::bps(kTargetBitrateBps), 0, 0);
+  EXPECT_EQ(0, sink_.number_of_reconfigurations());
+
+  // Capture a frame and wait for it to synchronize with the encoder thread.
+  video_source_.IncomingCapturedFrame(CreateFrame(1, nullptr));
+  WaitForEncodedFrame(1);
+  // The encoder will have been configured once when the first frame is
+  // received.
+  EXPECT_EQ(1, sink_.number_of_reconfigurations());
+  EXPECT_EQ(1, fake_encoder_.GetNumEncoderInitializations());
+  EXPECT_EQ(kTargetBitrateBps,
+            bitrate_allocator_factory_.codec_.maxBitrate * 1000);
+
+  test::FillEncoderConfiguration(kVideoCodecVP8, 1, &video_encoder_config);
+  video_encoder_config.max_bitrate_bps = kTargetBitrateBps * 2;
+  video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
+                                          kMaxPayloadLength);
+
+  // Capture a frame and wait for it to synchronize with the encoder thread.
+  video_source_.IncomingCapturedFrame(CreateFrame(2, nullptr));
+  WaitForEncodedFrame(2);
+  // Max bitrate has changed - encoder should not be reconfigured, rate
+  // allocator should be reconfigured.
+  EXPECT_EQ(2, sink_.number_of_reconfigurations());
+  EXPECT_EQ(1, fake_encoder_.GetNumEncoderInitializations());
+  EXPECT_EQ(kTargetBitrateBps * 2,
+            bitrate_allocator_factory_.codec_.maxBitrate * 1000);
 
   video_stream_encoder_->Stop();
 }

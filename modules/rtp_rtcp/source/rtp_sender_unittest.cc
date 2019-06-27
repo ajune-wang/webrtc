@@ -206,14 +206,12 @@ class RtpSenderTest : public ::testing::TestWithParam<bool> {
   void SetUpRtpSender(bool pacer, bool populate_network2) {
     rtp_sender_.reset(new RTPSender(
         false, &fake_clock_, &transport_, pacer ? &mock_paced_sender_ : nullptr,
-        kFlexFecSsrc, &seq_num_allocator_, nullptr, nullptr, nullptr,
-        &mock_rtc_event_log_, &send_packet_observer_,
+        kSsrc, kRtxSsrc, kFlexFecSsrc, &seq_num_allocator_, nullptr, nullptr,
+        nullptr, &mock_rtc_event_log_, &send_packet_observer_,
         &retransmission_rate_limiter_, nullptr, populate_network2, nullptr,
         false, false, FieldTrialBasedConfig()));
     rtp_sender_->SetSequenceNumber(kSeqNum);
     rtp_sender_->SetTimestampOffset(0);
-    rtp_sender_->SetSSRC(kSsrc);
-    rtp_sender_->SetRtxSsrc(kRtxSsrc);
   }
 
   SimulatedClock fake_clock_;
@@ -347,12 +345,11 @@ TEST_P(RtpSenderTest, AssignSequenceNumberAllowsPaddingOnAudio) {
   MockTransport transport;
   const bool kEnableAudio = true;
   rtp_sender_.reset(new RTPSender(
-      kEnableAudio, &fake_clock_, &transport, &mock_paced_sender_,
-      absl::nullopt, nullptr, nullptr, nullptr, nullptr, &mock_rtc_event_log_,
-      nullptr, &retransmission_rate_limiter_, nullptr, false, nullptr, false,
-      false, FieldTrialBasedConfig()));
+      kEnableAudio, &fake_clock_, &transport, &mock_paced_sender_, kSsrc,
+      absl::nullopt, absl::nullopt, nullptr, nullptr, nullptr, nullptr,
+      &mock_rtc_event_log_, nullptr, &retransmission_rate_limiter_, nullptr,
+      false, nullptr, false, false, FieldTrialBasedConfig()));
   rtp_sender_->SetTimestampOffset(0);
-  rtp_sender_->SetSSRC(kSsrc);
 
   std::unique_ptr<RtpPacketToSend> audio_packet = rtp_sender_->AllocatePacket();
   // Padding on audio stream allowed regardless of marker in the last packet.
@@ -393,13 +390,12 @@ TEST_P(RtpSenderTestWithoutPacer,
        TransportFeedbackObserverGetsCorrectByteCount) {
   constexpr int kRtpOverheadBytesPerPacket = 12 + 8;
   NiceMock<MockOverheadObserver> mock_overhead_observer;
-  rtp_sender_.reset(
-      new RTPSender(false, &fake_clock_, &transport_, nullptr, absl::nullopt,
-                    &seq_num_allocator_, &feedback_observer_, nullptr, nullptr,
-                    &mock_rtc_event_log_, nullptr,
-                    &retransmission_rate_limiter_, &mock_overhead_observer,
-                    false, nullptr, false, false, FieldTrialBasedConfig()));
-  rtp_sender_->SetSSRC(kSsrc);
+  rtp_sender_.reset(new RTPSender(
+      false, &fake_clock_, &transport_, nullptr, kSsrc, absl::nullopt,
+      absl::nullopt, &seq_num_allocator_, &feedback_observer_, nullptr, nullptr,
+      &mock_rtc_event_log_, nullptr, &retransmission_rate_limiter_,
+      &mock_overhead_observer, false, nullptr, false, false,
+      FieldTrialBasedConfig()));
   EXPECT_EQ(0, rtp_sender_->RegisterRtpHeaderExtension(
                    kRtpExtensionTransportSequenceNumber,
                    kTransportSequenceNumberExtensionId));
@@ -427,13 +423,12 @@ TEST_P(RtpSenderTestWithoutPacer,
 }
 
 TEST_P(RtpSenderTestWithoutPacer, SendsPacketsWithTransportSequenceNumber) {
-  rtp_sender_.reset(
-      new RTPSender(false, &fake_clock_, &transport_, nullptr, absl::nullopt,
-                    &seq_num_allocator_, &feedback_observer_, nullptr, nullptr,
-                    &mock_rtc_event_log_, &send_packet_observer_,
-                    &retransmission_rate_limiter_, nullptr, false, nullptr,
-                    false, false, FieldTrialBasedConfig()));
-  rtp_sender_->SetSSRC(kSsrc);
+  rtp_sender_.reset(new RTPSender(
+      false, &fake_clock_, &transport_, nullptr, kSsrc, absl::nullopt,
+      absl::nullopt, &seq_num_allocator_, &feedback_observer_, nullptr, nullptr,
+      &mock_rtc_event_log_, &send_packet_observer_,
+      &retransmission_rate_limiter_, nullptr, false, nullptr, false, false,
+      FieldTrialBasedConfig()));
   EXPECT_EQ(0, rtp_sender_->RegisterRtpHeaderExtension(
                    kRtpExtensionTransportSequenceNumber,
                    kTransportSequenceNumberExtensionId));
@@ -465,13 +460,12 @@ TEST_P(RtpSenderTestWithoutPacer, SendsPacketsWithTransportSequenceNumber) {
 }
 
 TEST_P(RtpSenderTestWithoutPacer, PacketOptionsNoRetransmission) {
-  rtp_sender_.reset(
-      new RTPSender(false, &fake_clock_, &transport_, nullptr, absl::nullopt,
-                    &seq_num_allocator_, &feedback_observer_, nullptr, nullptr,
-                    &mock_rtc_event_log_, &send_packet_observer_,
-                    &retransmission_rate_limiter_, nullptr, false, nullptr,
-                    false, false, FieldTrialBasedConfig()));
-  rtp_sender_->SetSSRC(kSsrc);
+  rtp_sender_.reset(new RTPSender(
+      false, &fake_clock_, &transport_, nullptr, kSsrc, absl::nullopt,
+      absl::nullopt, &seq_num_allocator_, &feedback_observer_, nullptr, nullptr,
+      &mock_rtc_event_log_, &send_packet_observer_,
+      &retransmission_rate_limiter_, nullptr, false, nullptr, false, false,
+      FieldTrialBasedConfig()));
 
   SendGenericPacket();
 
@@ -521,12 +515,11 @@ TEST_P(RtpSenderTestWithoutPacer, DoesnSetIncludedInAllocationByDefault) {
 
 TEST_P(RtpSenderTestWithoutPacer, OnSendSideDelayUpdated) {
   StrictMock<MockSendSideDelayObserver> send_side_delay_observer_;
-  rtp_sender_.reset(
-      new RTPSender(false, &fake_clock_, &transport_, nullptr, absl::nullopt,
-                    nullptr, nullptr, nullptr, &send_side_delay_observer_,
-                    &mock_rtc_event_log_, nullptr, nullptr, nullptr, false,
-                    nullptr, false, false, FieldTrialBasedConfig()));
-  rtp_sender_->SetSSRC(kSsrc);
+  rtp_sender_.reset(new RTPSender(
+      false, &fake_clock_, &transport_, nullptr, kSsrc, absl::nullopt,
+      absl::nullopt, nullptr, nullptr, nullptr, &send_side_delay_observer_,
+      &mock_rtc_event_log_, nullptr, nullptr, nullptr, false, nullptr, false,
+      false, FieldTrialBasedConfig()));
   PlayoutDelayOracle playout_delay_oracle;
   RTPSenderVideo rtp_sender_video(&fake_clock_, rtp_sender_.get(), nullptr,
                                   &playout_delay_oracle, nullptr, false, false,
@@ -609,13 +602,12 @@ TEST_P(RtpSenderTestWithoutPacer, OnSendPacketUpdated) {
 
 TEST_P(RtpSenderTest, SendsPacketsWithTransportSequenceNumber) {
   rtp_sender_.reset(new RTPSender(
-      false, &fake_clock_, &transport_, &mock_paced_sender_, absl::nullopt,
-      &seq_num_allocator_, &feedback_observer_, nullptr, nullptr,
-      &mock_rtc_event_log_, &send_packet_observer_,
+      false, &fake_clock_, &transport_, &mock_paced_sender_, kSsrc,
+      absl::nullopt, absl::nullopt, &seq_num_allocator_, &feedback_observer_,
+      nullptr, nullptr, &mock_rtc_event_log_, &send_packet_observer_,
       &retransmission_rate_limiter_, nullptr, false, nullptr, false, false,
       FieldTrialBasedConfig()));
   rtp_sender_->SetSequenceNumber(kSeqNum);
-  rtp_sender_->SetSSRC(kSsrc);
   rtp_sender_->SetStorePacketsStatus(true, 10);
   EXPECT_EQ(0, rtp_sender_->RegisterRtpHeaderExtension(
                    kRtpExtensionTransportSequenceNumber,
@@ -1005,12 +997,12 @@ TEST_P(RtpSenderTest, OnSendPacketNotUpdatedForRetransmits) {
 
 TEST_P(RtpSenderTest, OnSendPacketNotUpdatedWithoutSeqNumAllocator) {
   rtp_sender_.reset(new RTPSender(
-      false, &fake_clock_, &transport_, &mock_paced_sender_, absl::nullopt,
+      false, &fake_clock_, &transport_, &mock_paced_sender_, kSsrc,
+      absl::nullopt, absl::nullopt,
       nullptr /* TransportSequenceNumberAllocator */, nullptr, nullptr, nullptr,
       nullptr, &send_packet_observer_, &retransmission_rate_limiter_, nullptr,
       false, nullptr, false, false, FieldTrialBasedConfig()));
   rtp_sender_->SetSequenceNumber(kSeqNum);
-  rtp_sender_->SetSSRC(kSsrc);
   EXPECT_EQ(0, rtp_sender_->RegisterRtpHeaderExtension(
                    kRtpExtensionTransportSequenceNumber,
                    kTransportSequenceNumberExtensionId));
@@ -1036,12 +1028,11 @@ TEST_P(RtpSenderTest, SendRedundantPayloads) {
       "WebRTC-PayloadPadding-UseMostUsefulPacket/Disabled/");
   MockTransport transport;
   rtp_sender_.reset(new RTPSender(
-      false, &fake_clock_, &transport, &mock_paced_sender_, absl::nullopt,
-      nullptr, nullptr, nullptr, nullptr, &mock_rtc_event_log_, nullptr,
-      &retransmission_rate_limiter_, nullptr, false, nullptr, false, false,
-      FieldTrialBasedConfig()));
+      false, &fake_clock_, &transport, &mock_paced_sender_, kSsrc, kRtxSsrc,
+      absl::nullopt, nullptr, nullptr, nullptr, nullptr, &mock_rtc_event_log_,
+      nullptr, &retransmission_rate_limiter_, nullptr, false, nullptr, false,
+      false, FieldTrialBasedConfig()));
   rtp_sender_->SetSequenceNumber(kSeqNum);
-  rtp_sender_->SetSSRC(kSsrc);
   rtp_sender_->SetRtxPayloadType(kRtxPayload, kPayload);
 
   uint16_t seq_num = kSeqNum;
@@ -1054,7 +1045,6 @@ TEST_P(RtpSenderTest, SendRedundantPayloads) {
   rtp_header_len += 4;  // 4 extra bytes common to all extension headers.
 
   rtp_sender_->SetRtxStatus(kRtxRetransmitted | kRtxRedundantPayloads);
-  rtp_sender_->SetRtxSsrc(1234);
 
   const size_t kNumPayloadSizes = 10;
   const size_t kPayloadSizes[kNumPayloadSizes] = {500, 550, 600, 650, 700,
@@ -1114,12 +1104,11 @@ TEST_P(RtpSenderTest, SendRedundantPayloadsUsefulPadding) {
       "WebRTC-PayloadPadding-UseMostUsefulPacket/Enabled/");
   MockTransport transport;
   rtp_sender_ = absl::make_unique<RTPSender>(
-      false, &fake_clock_, &transport, &mock_paced_sender_, absl::nullopt,
-      nullptr, nullptr, nullptr, nullptr, &mock_rtc_event_log_, nullptr,
-      &retransmission_rate_limiter_, nullptr, false, nullptr, false, false,
-      FieldTrialBasedConfig());
+      false, &fake_clock_, &transport, &mock_paced_sender_, kSsrc, kRtxSsrc,
+      absl::nullopt, nullptr, nullptr, nullptr, nullptr, &mock_rtc_event_log_,
+      nullptr, &retransmission_rate_limiter_, nullptr, false, nullptr, false,
+      false, FieldTrialBasedConfig());
   rtp_sender_->SetSequenceNumber(kSeqNum);
-  rtp_sender_->SetSSRC(kSsrc);
   rtp_sender_->SetRtxPayloadType(kRtxPayload, kPayload);
 
   uint16_t seq_num = kSeqNum;
@@ -1132,7 +1121,6 @@ TEST_P(RtpSenderTest, SendRedundantPayloadsUsefulPadding) {
   rtp_header_len += 4;  // 4 extra bytes common to all extension headers.
 
   rtp_sender_->SetRtxStatus(kRtxRetransmitted | kRtxRedundantPayloads);
-  rtp_sender_->SetRtxSsrc(1234);
 
   const size_t kNumPayloadSizes = 10;
   const size_t kPayloadSizes[kNumPayloadSizes] = {500, 550, 600, 650, 700,
@@ -1269,11 +1257,11 @@ TEST_P(RtpSenderTest, SendFlexfecPackets) {
 
   // Reset |rtp_sender_| to use FlexFEC.
   rtp_sender_.reset(new RTPSender(
-      false, &fake_clock_, &transport_, &mock_paced_sender_, kFlexfecSsrc,
-      &seq_num_allocator_, nullptr, nullptr, nullptr, &mock_rtc_event_log_,
-      &send_packet_observer_, &retransmission_rate_limiter_, nullptr, false,
-      nullptr, false, false, FieldTrialBasedConfig()));
-  rtp_sender_->SetSSRC(kMediaSsrc);
+      false, &fake_clock_, &transport_, &mock_paced_sender_, kMediaSsrc,
+      absl::nullopt, kFlexfecSsrc, &seq_num_allocator_, nullptr, nullptr,
+      nullptr, &mock_rtc_event_log_, &send_packet_observer_,
+      &retransmission_rate_limiter_, nullptr, false, nullptr, false, false,
+      FieldTrialBasedConfig()));
   rtp_sender_->SetSequenceNumber(kSeqNum);
   rtp_sender_->SetStorePacketsStatus(true, 10);
 
@@ -1341,11 +1329,11 @@ TEST_P(RtpSenderTestWithoutPacer, SendFlexfecPackets) {
 
   // Reset |rtp_sender_| to use FlexFEC.
   rtp_sender_.reset(new RTPSender(
-      false, &fake_clock_, &transport_, nullptr, flexfec_sender.ssrc(),
-      &seq_num_allocator_, nullptr, nullptr, nullptr, &mock_rtc_event_log_,
-      &send_packet_observer_, &retransmission_rate_limiter_, nullptr, false,
-      nullptr, false, false, FieldTrialBasedConfig()));
-  rtp_sender_->SetSSRC(kMediaSsrc);
+      false, &fake_clock_, &transport_, nullptr, kMediaSsrc, absl::nullopt,
+      flexfec_sender.ssrc(), &seq_num_allocator_, nullptr, nullptr, nullptr,
+      &mock_rtc_event_log_, &send_packet_observer_,
+      &retransmission_rate_limiter_, nullptr, false, nullptr, false, false,
+      FieldTrialBasedConfig()));
   rtp_sender_->SetSequenceNumber(kSeqNum);
 
   PlayoutDelayOracle playout_delay_oracle;
@@ -1434,7 +1422,6 @@ TEST_P(RtpSenderTestWithoutPacer, RidIncludedOnRtxSentPackets) {
   rtp_sender_->SetSendingMediaStatus(true);
 
   rtp_sender_->SetRtxStatus(kRtxRetransmitted | kRtxRedundantPayloads);
-  rtp_sender_->SetRtxSsrc(kRtxSsrc);
   rtp_sender_->SetRtxPayloadType(kRtxPayload, kPayload);
 
   rtp_sender_->SetStorePacketsStatus(true, 10);
@@ -1471,12 +1458,11 @@ TEST_P(RtpSenderTest, FecOverheadRate) {
 
   // Reset |rtp_sender_| to use FlexFEC.
   rtp_sender_.reset(new RTPSender(
-      false, &fake_clock_, &transport_, &mock_paced_sender_,
-      flexfec_sender.ssrc(), &seq_num_allocator_, nullptr, nullptr, nullptr,
-      &mock_rtc_event_log_, &send_packet_observer_,
+      false, &fake_clock_, &transport_, &mock_paced_sender_, kMediaSsrc,
+      absl::nullopt, flexfec_sender.ssrc(), &seq_num_allocator_, nullptr,
+      nullptr, nullptr, &mock_rtc_event_log_, &send_packet_observer_,
       &retransmission_rate_limiter_, nullptr, false, nullptr, false, false,
       FieldTrialBasedConfig()));
-  rtp_sender_->SetSSRC(kMediaSsrc);
   rtp_sender_->SetSequenceNumber(kSeqNum);
 
   PlayoutDelayOracle playout_delay_oracle;
@@ -1543,12 +1529,11 @@ TEST_P(RtpSenderTest, BitrateCallbacks) {
     uint32_t total_bitrate_;
     uint32_t retransmit_bitrate_;
   } callback;
-  rtp_sender_.reset(
-      new RTPSender(false, &fake_clock_, &transport_, nullptr, absl::nullopt,
-                    nullptr, nullptr, &callback, nullptr, nullptr, nullptr,
-                    &retransmission_rate_limiter_, nullptr, false, nullptr,
-                    false, false, FieldTrialBasedConfig()));
-  rtp_sender_->SetSSRC(kSsrc);
+  rtp_sender_.reset(new RTPSender(
+      false, &fake_clock_, &transport_, nullptr, kSsrc, absl::nullopt,
+      absl::nullopt, nullptr, nullptr, &callback, nullptr, nullptr, nullptr,
+      &retransmission_rate_limiter_, nullptr, false, nullptr, false, false,
+      FieldTrialBasedConfig()));
 
   PlayoutDelayOracle playout_delay_oracle;
   RTPSenderVideo rtp_sender_video(&fake_clock_, rtp_sender_.get(), nullptr,
@@ -1712,8 +1697,6 @@ TEST_P(RtpSenderTestWithoutPacer, StreamDataCountersCallbacks) {
 TEST_P(RtpSenderTestWithoutPacer, BytesReportedCorrectly) {
   // XXX const char* kPayloadName = "GENERIC";
   const uint8_t kPayloadType = 127;
-  rtp_sender_->SetSSRC(1234);
-  rtp_sender_->SetRtxSsrc(kRtxSsrc);
   rtp_sender_->SetRtxPayloadType(kPayloadType - 1, kPayloadType);
   rtp_sender_->SetRtxStatus(kRtxRetransmitted | kRtxRedundantPayloads);
 
@@ -1783,12 +1766,11 @@ TEST_P(RtpSenderTestWithoutPacer, RespectsNackBitrateLimit) {
 
 TEST_P(RtpSenderTest, OnOverheadChanged) {
   MockOverheadObserver mock_overhead_observer;
-  rtp_sender_.reset(
-      new RTPSender(false, &fake_clock_, &transport_, nullptr, absl::nullopt,
-                    nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
-                    &retransmission_rate_limiter_, &mock_overhead_observer,
-                    false, nullptr, false, false, FieldTrialBasedConfig()));
-  rtp_sender_->SetSSRC(kSsrc);
+  rtp_sender_.reset(new RTPSender(
+      false, &fake_clock_, &transport_, nullptr, kSsrc, absl::nullopt,
+      absl::nullopt, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+      &retransmission_rate_limiter_, &mock_overhead_observer, false, nullptr,
+      false, false, FieldTrialBasedConfig()));
 
   // RTP overhead is 12B.
   EXPECT_CALL(mock_overhead_observer, OnOverheadChanged(12)).Times(1);
@@ -1805,12 +1787,11 @@ TEST_P(RtpSenderTest, OnOverheadChanged) {
 
 TEST_P(RtpSenderTest, DoesNotUpdateOverheadOnEqualSize) {
   MockOverheadObserver mock_overhead_observer;
-  rtp_sender_.reset(
-      new RTPSender(false, &fake_clock_, &transport_, nullptr, absl::nullopt,
-                    nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
-                    &retransmission_rate_limiter_, &mock_overhead_observer,
-                    false, nullptr, false, false, FieldTrialBasedConfig()));
-  rtp_sender_->SetSSRC(kSsrc);
+  rtp_sender_.reset(new RTPSender(
+      false, &fake_clock_, &transport_, nullptr, kSsrc, absl::nullopt,
+      absl::nullopt, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+      &retransmission_rate_limiter_, &mock_overhead_observer, false, nullptr,
+      false, false, FieldTrialBasedConfig()));
 
   EXPECT_CALL(mock_overhead_observer, OnOverheadChanged(_)).Times(1);
   SendGenericPacket();
@@ -2027,12 +2008,10 @@ TEST_P(RtpSenderTest, TrySendPacketUpdatesStats) {
 
   StrictMock<MockSendSideDelayObserver> send_side_delay_observer;
   rtp_sender_.reset(new RTPSender(
-      false, &fake_clock_, &transport_, nullptr, kFlexFecSsrc, nullptr, nullptr,
-      nullptr, &send_side_delay_observer, &mock_rtc_event_log_,
-      &send_packet_observer_, nullptr, nullptr, false, nullptr, false, false,
-      FieldTrialBasedConfig()));
-  rtp_sender_->SetSSRC(kSsrc);
-  rtp_sender_->SetRtxSsrc(kRtxSsrc);
+      false, &fake_clock_, &transport_, nullptr, kSsrc, kRtxSsrc, kFlexFecSsrc,
+      nullptr, nullptr, nullptr, &send_side_delay_observer,
+      &mock_rtc_event_log_, &send_packet_observer_, nullptr, nullptr, false,
+      nullptr, false, false, FieldTrialBasedConfig()));
   ASSERT_EQ(0, rtp_sender_->RegisterRtpHeaderExtension(
                    kRtpExtensionTransportSequenceNumber,
                    kTransportSequenceNumberExtensionId));

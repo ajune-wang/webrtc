@@ -50,6 +50,8 @@ class RTPSender {
             Transport* transport,
             RtpPacketPacer* paced_sender,
             absl::optional<uint32_t> flexfec_ssrc,
+            absl::optional<uint32_t> media_send_ssrc_,
+            absl::optional<uint32_t> rtx_send_ssrc_,
             TransportSequenceNumberAllocator* sequence_number_allocator,
             TransportFeedbackObserver* transport_feedback_callback,
             BitrateStatisticsObserver* bitrate_callback,
@@ -83,6 +85,7 @@ class RTPSender {
   uint32_t TimestampOffset() const;
   void SetTimestampOffset(uint32_t timestamp);
 
+  // TODO(bugs.webrtc.org/10774): Remove.
   void SetSSRC(uint32_t ssrc);
 
   void SetRid(const std::string& rid);
@@ -129,8 +132,9 @@ class RTPSender {
   // RTX.
   void SetRtxStatus(int mode);
   int RtxStatus() const;
-
   uint32_t RtxSsrc() const;
+
+  // TODO(bugs.webrtc.org/10774): Remove.
   void SetRtxSsrc(uint32_t ssrc);
 
   void SetRtxPayloadType(int payload_type, int associated_payload_type);

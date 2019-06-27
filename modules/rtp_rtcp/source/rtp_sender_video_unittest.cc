@@ -145,6 +145,8 @@ class RtpSenderVideoTest : public ::testing::TestWithParam<bool> {
                     &fake_clock_,
                     &transport_,
                     nullptr,
+                    kSsrc,
+                    absl::nullopt,
                     absl::nullopt,
                     nullptr,
                     nullptr,
@@ -162,7 +164,6 @@ class RtpSenderVideoTest : public ::testing::TestWithParam<bool> {
         rtp_sender_video_(&fake_clock_, &rtp_sender_, nullptr, field_trials_) {
     rtp_sender_.SetSequenceNumber(kSeqNum);
     rtp_sender_.SetTimestampOffset(0);
-    rtp_sender_.SetSSRC(kSsrc);
 
     rtp_sender_video_.RegisterPayloadType(kPayload, "generic",
                                           /*raw_payload=*/false);

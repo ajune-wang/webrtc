@@ -108,10 +108,8 @@ class Vp8FrameBufferController {
 
   // Set a FecControllerOverride, through which the bandwidth allocation
   // decisions made by FecController may be overridden.
-  // TODO(bugs.webrtc.org/10769): Update downstream projects, then make
-  // this pure-virtual.
   virtual void SetFecControllerOverride(
-      FecControllerOverride* fec_controller_override) {}
+      FecControllerOverride* fec_controller_override) = 0;
 
   // Number of streamed controlled by |this|.
   virtual size_t StreamCount() const = 0;

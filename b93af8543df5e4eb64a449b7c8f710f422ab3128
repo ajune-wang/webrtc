@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4cab889a_ef85eccb",
+        "filename": "rtc_base/bitrate_allocation_strategy.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-27T13:37:09Z",
+      "side": 0,
+      "message": "Check if any of these can be removed from the build target deps.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 48
+      },
+      "revId": "b93af8543df5e4eb64a449b7c8f710f422ab3128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fe58018_b31f6e79",
+        "filename": "rtc_base/bitrate_allocation_strategy.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-27T13:37:09Z",
+      "side": 0,
+      "message": "check if any of these can be removed from the build target deps.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 51
+      },
+      "revId": "b93af8543df5e4eb64a449b7c8f710f422ab3128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

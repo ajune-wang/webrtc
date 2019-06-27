@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2a2482f7_cdeb274f",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-06-27T12:31:07Z",
+      "side": 1,
+      "message": "I created https://chromium-review.googlesource.com/c/chromium/src/+/1680254 for that.",
+      "parentUuid": "ddb31369_37b1b6f7",
+      "revId": "2cd889d10ce309f575185af295f70b3b75b4fd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de210834_9f862c1d",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 5
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "01439966_3b7a331b",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2286,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-06-27T12:31:07Z",
+      "side": 1,
+      "message": "Yes, we are iterating due to simulcast. And yes, we will accumulate all the keyframes on all the simulcast streams in the same outbound-rtp.\n\nI\u0027ll add a TODO.",
+      "parentUuid": "de210834_9f862c1d",
+      "revId": "2cd889d10ce309f575185af295f70b3b75b4fd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c91beee_dfb82ff9",
         "filename": "media/engine/webrtc_video_engine_unittest.cc",
         "patchSetId": 5
@@ -50,6 +86,24 @@
       "revId": "2cd889d10ce309f575185af295f70b3b75b4fd4d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4ba9fa5_06d7f7fe",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 4949,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-06-27T12:31:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c91beee_dfb82ff9",
+      "revId": "2cd889d10ce309f575185af295f70b3b75b4fd4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

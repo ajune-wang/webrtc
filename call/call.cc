@@ -37,6 +37,7 @@
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "logging/rtc_event_log/rtc_stream_config.h"
 #include "modules/congestion_controller/include/receive_side_congestion_controller.h"
+#include "modules/congestion_controller/receive_side_network_estimation.h"
 #include "modules/rtp_rtcp/include/flexfec_receiver.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
@@ -380,6 +381,7 @@ class Call final : public webrtc::Call,
   AvgCounter pacer_bitrate_kbps_counter_ RTC_GUARDED_BY(&bitrate_crit_);
 
   ReceiveSideCongestionController receive_side_cc_;
+  ReceiveSideNetworkEstimator receive_side_estimator_;
 
   const std::unique_ptr<ReceiveTimeCalculator> receive_time_calculator_;
 
@@ -484,6 +486,9 @@ Call::Call(Clock* clock,
       estimated_send_bitrate_kbps_counter_(clock_, nullptr, true),
       pacer_bitrate_kbps_counter_(clock_, nullptr, true),
       receive_side_cc_(clock_, transport_send->packet_router()),
+      receive_side_estimator_(task_queue_factory,
+                              transport_send->packet_router(),
+                              config.network_state_estimator_factory),
       receive_time_calculator_(ReceiveTimeCalculator::CreateFromFieldTrial()),
       video_send_delay_stats_(new SendDelayStats(clock_)),
       start_ms_(clock_->TimeInMilliseconds()) {
@@ -1502,6 +1507,7 @@ void Call::NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
   packet_msg.receive_time = Timestamp::ms(packet.arrival_time_ms());
   if (header.extension.hasAbsoluteSendTime) {
     packet_msg.send_time = header.extension.GetAbsoluteSendTimestamp();
+    receive_side_estimator_.OnReceivedPacket(packet_msg);
   }
   transport_send_ptr_->OnReceivedPacket(packet_msg);
 

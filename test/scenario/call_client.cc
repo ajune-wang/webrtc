@@ -66,6 +66,8 @@ Call* CreateCall(TimeController* time_controller,
       config.transport.rates.start_rate.bps();
   call_config.task_queue_factory = time_controller->GetTaskQueueFactory();
   call_config.network_controller_factory = network_controller_factory;
+  call_config.network_state_estimator_factory =
+      config.transport.estimator_factory;
   call_config.audio_state = audio_state;
   return Call::Create(call_config, time_controller->GetClock(),
                       time_controller->CreateProcessThread("CallModules"),

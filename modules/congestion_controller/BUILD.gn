@@ -16,6 +16,23 @@ config("bwe_test_logging") {
   }
 }
 
+rtc_source_set("receive_side_estimation") {
+  sources = [
+    "receive_side_network_estimation.cc",
+    "receive_side_network_estimation.h",
+  ]
+
+  deps = [
+    "../../api/task_queue",
+    "../../api/transport:field_trial_based_config",
+    "../../api/transport:network_control",
+    "../../rtc_base:rtc_task_queue",
+    "../../rtc_base/experiments:field_trial_parser",
+    "../pacing",
+    "../rtp_rtcp:rtp_rtcp_format",
+  ]
+}
+
 rtc_static_library("congestion_controller") {
   visibility = [ "*" ]
   configs += [ ":bwe_test_logging" ]

@@ -239,6 +239,7 @@ rtc_static_library("call") {
     "../logging:rtc_stream_config",
     "../modules:module_api",
     "../modules/congestion_controller",
+    "../modules/congestion_controller:receive_side_estimation",
     "../modules/pacing",
     "../modules/rtp_rtcp",
     "../modules/rtp_rtcp:rtp_rtcp_format",

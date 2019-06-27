@@ -49,6 +49,7 @@ struct TransportControllerConfig {
     DataRate start_rate = DataRate::kbps(300);
   } rates;
   NetworkControllerFactoryInterface* cc_factory = nullptr;
+  NetworkStateEstimatorFactory* estimator_factory = nullptr;
   TimeDelta state_log_interval = TimeDelta::ms(100);
 };
 

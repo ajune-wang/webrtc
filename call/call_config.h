@@ -56,6 +56,9 @@ struct CallConfig {
 
   // Network controller factory to use for this call.
   NetworkControllerFactoryInterface* network_controller_factory = nullptr;
+
+  // Network state estimator factory to use for this call.
+  NetworkStateEstimatorFactory* network_state_estimator_factory = nullptr;
 };
 
 }  // namespace webrtc

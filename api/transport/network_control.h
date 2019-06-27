@@ -110,6 +110,9 @@ class NetworkStateEstimator {
   virtual absl::optional<NetworkStateEstimate> GetCurrentEstimate() = 0;
   // Called with per packet feedback regarding receive time.
   virtual void OnTransportPacketsFeedback(const TransportPacketsFeedback&) = 0;
+  // Called for receive side estimation.
+  virtual absl::optional<NetworkStateEstimate> ProcessReceivedPacket(
+      const ReceivedPacket&) = 0;
   // Called when the receiving or sending endpoint changes address.
   virtual void OnRouteChange(const NetworkRouteChange&) = 0;
   virtual ~NetworkStateEstimator() = default;

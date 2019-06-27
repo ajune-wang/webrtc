@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bf8bb5a_4b71ccbb",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-06-27T12:30:07Z",
+      "side": 1,
+      "message": "Method level synchronized are discouraged.",
+      "range": {
+        "startLine": 80,
+        "startChar": 11,
+        "endLine": 80,
+        "endChar": 23
+      },
+      "revId": "02ffb72b5e0557b320e17e6b1c42c58cc9dc230f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb4c728d_b562c767",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-06-27T12:30:07Z",
+      "side": 1,
+      "message": "The Java style guide enforces brackets.",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 20
+      },
+      "revId": "02ffb72b5e0557b320e17e6b1c42c58cc9dc230f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e7961cd_ba26ce7c",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-06-27T12:30:07Z",
+      "side": 1,
+      "message": "Instead of blocking with locks, I would rather see an asynchronous design.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 5
+      },
+      "revId": "02ffb72b5e0557b320e17e6b1c42c58cc9dc230f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5243f5d_f042f161",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-06-27T12:30:07Z",
+      "side": 1,
+      "message": "Put this in the declaration instead.",
+      "range": {
+        "startLine": 201,
+        "startChar": 4,
+        "endLine": 201,
+        "endChar": 45
+      },
+      "revId": "02ffb72b5e0557b320e17e6b1c42c58cc9dc230f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3034f626_38000f3c",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-06-27T12:30:07Z",
+      "side": 1,
+      "message": "This looks prone to deadlocks.",
+      "range": {
+        "startLine": 542,
+        "startChar": 10,
+        "endLine": 542,
+        "endChar": 47
+      },
+      "revId": "02ffb72b5e0557b320e17e6b1c42c58cc9dc230f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40cdb807_98bc56c2",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-06-27T12:30:07Z",
+      "side": 1,
+      "message": "Can\u0027t you use nullptr directly? At least not a global ref for passing null.",
+      "range": {
+        "startLine": 40,
+        "startChar": 19,
+        "endLine": 40,
+        "endChar": 77
+      },
+      "revId": "02ffb72b5e0557b320e17e6b1c42c58cc9dc230f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

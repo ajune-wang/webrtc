@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fbb0e4f0_896a534d",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-06-27T15:59:50Z",
+      "side": 1,
+      "message": "Ok, I have copied the flag since that is global and mutable into a const string and passed the pointer to the string\u0027s underlying array of chars to IntiFieldTrialsFromString.",
+      "parentUuid": "725c96ff_64500c75",
+      "range": {
+        "startLine": 220,
+        "startChar": 23,
+        "endLine": 220,
+        "endChar": 48
+      },
+      "revId": "0b93fc632ffc994e796c2f1872eeb06d888586df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "caf047bb_864f48b9",
         "filename": "rtc_tools/event_log_visualizer/main.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "0b93fc632ffc994e796c2f1872eeb06d888586df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "803612db_d7299ea4",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-06-27T15:59:50Z",
+      "side": 1,
+      "message": "Yes, I think I will be able to re-enable this quite soon (1 or 2 weeks).",
+      "parentUuid": "caf047bb_864f48b9",
+      "range": {
+        "startLine": 524,
+        "startChar": 0,
+        "endLine": 524,
+        "endChar": 71
+      },
+      "revId": "0b93fc632ffc994e796c2f1872eeb06d888586df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

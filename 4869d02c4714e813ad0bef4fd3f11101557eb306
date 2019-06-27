@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26f4b49d_c43a1302",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/network_estimate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-27T15:50:29Z",
+      "side": 1,
+      "message": "Not sure about the name here. Maybe it should be RtcpNetworkEstimatePacket or something like that. It\u0027d be a bit redundant as it\u0027s in rtcp namespace, but having name collisions between namespaces is generally unpleasant.",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 21
+      },
+      "revId": "4869d02c4714e813ad0bef4fd3f11101557eb306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc1bf512_88793e4b",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/network_estimate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-27T15:50:29Z",
+      "side": 1,
+      "message": "I couldn\u0027t fins any elegant solution for declaring the name integer. Ideally it\u0027s be possible to do something like: constexpr uin32_t kName \u003d BigEndianUInt32(\"goog\");",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 58
+      },
+      "revId": "4869d02c4714e813ad0bef4fd3f11101557eb306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92237ec3_c64bf075",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-06-27T15:50:29Z",
+      "side": 1,
+      "message": "The way this class is used makes me wonder if it should be a static class or a function set instead, there\u0027s not really any need to pass around rtcp::NetworkEstimate instead of NetworkStateEstimate. I did it this way only to be consistent with how it\u0027s done for other rtcp classes.",
+      "range": {
+        "startLine": 698,
+        "startChar": 4,
+        "endLine": 698,
+        "endChar": 35
+      },
+      "revId": "4869d02c4714e813ad0bef4fd3f11101557eb306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

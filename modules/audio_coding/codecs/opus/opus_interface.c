@@ -602,9 +602,10 @@ int WebRtcOpus_DecodeFec(OpusDecInst* inst, const uint8_t* encoded,
   return decoded_samples;
 }
 
-int WebRtcOpus_DurationEst(OpusDecInst* inst,
-                           const uint8_t* payload,
-                           size_t payload_length_bytes) {
+// TODO(webrtc:10772): remove the legacy method.
+int WebRtcOpus_DurationEst_Legacy(OpusDecInst* inst,
+                                  const uint8_t* payload,
+                                  size_t payload_length_bytes) {
   if (payload_length_bytes == 0) {
     // WebRtcOpus_Decode calls PLC when payload length is zero. So we return
     // PLC duration correspondingly.
@@ -624,6 +625,31 @@ int WebRtcOpus_DurationEst(OpusDecInst* inst,
     return 0;
   }
   return samples;
+}
+
+int WebRtcOpus_DurationEst_New(OpusDecInst* inst,
+                               const uint8_t* payload,
+                               size_t payload_length_bytes) {
+  if (payload_length_bytes == 0) {
+    // WebRtcOpus_Decode calls PLC when payload length is zero. So we return
+    // PLC duration correspondingly.
+    return WebRtcOpus_PlcDuration(inst);
+  }
+
+  const int samples =
+      opus_packet_get_nb_samples(payload, (opus_int32)payload_length_bytes,
+                                 inst->sample_rate_hz);
+  return (samples == OPUS_INVALID_PACKET) ? 0 : samples;
+}
+
+int WebRtcOpus_DurationEst(OpusDecInst* inst,
+                           const uint8_t* payload,
+                           size_t payload_length_bytes) {
+  const int ret =
+      WebRtcOpus_DurationEst_New(inst, payload, payload_length_bytes);
+  RTC_DCHECK_EQ(ret, WebRtcOpus_DurationEst_Legacy(inst, payload,
+                                                   payload_length_bytes));
+  return ret;
 }
 
 int WebRtcOpus_PlcDuration(OpusDecInst* inst) {
@@ -653,8 +679,9 @@ int WebRtcOpus_FecDurationEst(const uint8_t* payload,
   return samples;
 }
 
-int WebRtcOpus_PacketHasFec(const uint8_t* payload,
-                            size_t payload_length_bytes) {
+// TODO(webrtc:10772): remove the legacy method.
+int WebRtcOpus_PacketHasFec_Legacy(const uint8_t* payload,
+                                   size_t payload_length_bytes) {
   int frames, channels, payload_length_ms;
   int n;
   opus_int16 frame_sizes[48];
@@ -711,3 +738,46 @@ int WebRtcOpus_PacketHasFec(const uint8_t* payload,
 
   return 0;
 }
+
+int WebRtcOpus_PacketHasFec_New(const uint8_t* payload,
+                                size_t payload_length_bytes) {
+  if (payload == NULL || payload_length_bytes == 0) {
+    return 0;
+  }
+
+  // In CELT_ONLY mode, packets should not have FEC.
+  // TODO(minyue): check if this is still true with newer Opus versions.
+  if (payload[0] & 0x80) {
+    return 0;
+  }
+
+  opus_int16 frame_sizes[48];
+  const unsigned char *frame_data[48];
+  const int frames = opus_packet_parse(payload,
+                                       (opus_int32)payload_length_bytes, NULL,
+                                       frame_data, frame_sizes, NULL);
+  if (frames <= 0 || frame_sizes[0] <= 1) {
+    // TODO(minyue): check if this can happen and use [D]CHECK if it should not.
+    return 0;
+  }
+
+  const int channels = opus_packet_get_nb_channels(payload);
+  RTC_DCHECK_GT(channels, 0);
+
+  for (int n = 0; n < channels; n++) {
+    if (frame_data[0][0] & (0x80 >> ((n + 1) * (frames + 1) - 1))) {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
+int WebRtcOpus_PacketHasFec(const uint8_t* payload,
+                            size_t payload_length_bytes) {
+  const int ret = WebRtcOpus_PacketHasFec_New(payload, payload_length_bytes);
+  RTC_DCHECK_EQ(ret, WebRtcOpus_PacketHasFec_Legacy(payload,
+                                                    payload_length_bytes));
+  return ret;
+}
+

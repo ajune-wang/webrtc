@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9d0e0717_23b32619",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-06-27T14:00:25Z",
+      "side": 1,
+      "message": "Aha, thanks for catching this.\n\nI should have checked the output of absl::ParseCommandLine before sending out the CL. :)\n\nAlso tested:\n$ ./out/Debug/neteq_rtpplay ./resources/audio_coding/neteq_opus.rtp\n(field_trial.cc:107): Setting field trial string:\nInput file: ./resources/audio_coding/neteq_opus.rtp\nFound valid packet with payload type 111 and SSRC 0x49a2e558\nNo output audio file\n(neteq_impl.cc:123): NetEq config: sample_rate_hz\u003d48000, enable_post_decode_vad\u003dfalse, max_packets_in_buffer\u003d50, min_delay_ms\u003d0, enable_fast_accelerate\u003dfalse, enable_muted_state\u003dfalse, enable_rtx_handling\u003dfalse\n(rtp_file_reader.cc:165): Failed to read\nSimulation statistics:\n  output duration: 275480 ms\n  packet_loss_rate: 4.301701 %\n  expand_rate: 3.969422 %\n  speech_expand_rate: 3.969422 %\n  preemptive_rate: 0.145845 %\n  accelerate_rate: 0.008902 %\n  secondary_decoded_rate: 6.806610 %\n  secondary_discarded_rate: 78.300305 %\n  clockdrift_ppm: -3097.270758 ppm\n  mean_waiting_time_ms: 24.523466 ms\n  median_waiting_time_ms: 26.418773 ms\n  min_waiting_time_ms: -1.000000 ms\n  max_waiting_time_ms: 60.000000 ms\n  current_buffer_size_ms: 19.129964 ms\n  preferred_buffer_size_ms: 19.855596 ms\n  total_samples_received: 13200960\n  concealed_samples: 433256\n  concealment_events: 597\n  delayed_packet_outage_samples: 73394\n  num_interruptions: 0\n  sum_interruption_length_ms: 0 ms\n  interruption_ratio: 0.000000\n\nNot sure about the \"(rtp_file_reader.cc:165): Failed to read\" in the output.",
+      "parentUuid": "ed698d6f_52ca77ca",
+      "range": {
+        "startLine": 299,
+        "startChar": 23,
+        "endLine": 299,
+        "endChar": 25
+      },
+      "revId": "d76eaae5fcdf6e4cdaa015b248f80326020cbde8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b6f3302_def0d4dd",
         "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "d76eaae5fcdf6e4cdaa015b248f80326020cbde8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "887b69c9_93d0c80e",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-06-27T14:00:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b6f3302_def0d4dd",
+      "range": {
+        "startLine": 305,
+        "startChar": 58,
+        "endLine": 305,
+        "endChar": 69
+      },
+      "revId": "d76eaae5fcdf6e4cdaa015b248f80326020cbde8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9f3c4755_bc289122",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-06-27T14:00:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "247d03d0_b25626fd",
+      "range": {
+        "startLine": 393,
+        "startChar": 56,
+        "endLine": 393,
+        "endChar": 63
+      },
+      "revId": "d76eaae5fcdf6e4cdaa015b248f80326020cbde8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2d7acff_369798ad",
         "filename": "modules/audio_coding/neteq/tools/rtp_analyze.cc",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "63859c74_5e6a0cbf",
+        "filename": "modules/audio_coding/neteq/tools/rtp_analyze.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-06-27T14:00:25Z",
+      "side": 1,
+      "message": "Done and tested:\n\n$ ./out/Debug/rtp_analyze ./resources/audio_coding/neteq_opus.rtp\nInput file: ./resources/audio_coding/neteq_opus.rtp\nSeqNo  TimeStamp   SendTime  Size    PT  M       SSRC\n 4095   11368069         20   102   111  0 0X49A2E558\n 4096   11369029         40   111   111  0 0X49A2E558\n 4097   11369989         60   125   111  0 0X49A2E558\n 4098   11370949         80   154   111  0 0X49A2E558\n 4099   11371909        100   150   111  0 0X49A2E558\n 4100   11372869        120   154   111  0 0X49A2E558\n 4102   11374789        160   157   111  0 0X49A2E558\n 4103   11375749        180   166   111  0 0X49A2E558\n 4104   11376709        200   153   111  0 0X49A2E558\n\nBut the output ends with a:\n\n17866   24713029     275440   111   111  0 0X49A2E558\n17867   24713989     275460   118   111  0 0X49A2E558\n17868   24714949     275480   112   111  0 0X49A2E558\n(rtp_file_reader.cc:165): Failed to read",
+      "parentUuid": "c2d7acff_369798ad",
+      "range": {
+        "startLine": 43,
+        "startChar": 5,
+        "endLine": 43,
+        "endChar": 43
+      },
+      "revId": "d76eaae5fcdf6e4cdaa015b248f80326020cbde8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a33ff8a_eac377c2",
         "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "d76eaae5fcdf6e4cdaa015b248f80326020cbde8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f6964e2_79b8c72d",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-06-27T14:00:25Z",
+      "side": 1,
+      "message": "Done, and tested:\n\n$ ./out/Debug/rtp_encode resources/far16_stereo.pcm /tmp/bar.rtp\n(audio_encoder_opus.cc:748): Set Opus bitrate to 32000 bps.\n(neteq_impl.cc:123): NetEq config: sample_rate_hz\u003d16000, enable_post_decode_vad\u003dtrue, max_packets_in_buffer\u003d200, min_delay_ms\u003d0, enable_fast_accelerate\u003dfalse, enable_muted_state\u003dfalse, enable_rtx_handling\u003dfalse\n(audio_coding_module.cc:311): Created\nInput file: resources/far16_stereo.pcm\nOutput file: /tmp/bar.rtp",
+      "parentUuid": "5a33ff8a_eac377c2",
+      "range": {
+        "startLine": 279,
+        "startChar": 58,
+        "endLine": 279,
+        "endChar": 59
+      },
+      "revId": "d76eaae5fcdf6e4cdaa015b248f80326020cbde8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

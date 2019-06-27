@@ -22,6 +22,30 @@
       "revId": "6c02239684b17347dd80caf1a32dbbd923ade1a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58ccbbb7_a2fa7067",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-27T08:21:45Z",
+      "side": 1,
+      "message": "I can and will. But I don\u0027t want to bother doing it if the earlier CL ends up being completely rejected. That would be a waste of time. Hence the TODO. ;-)",
+      "parentUuid": "8a1c394e_78b4b97b",
+      "range": {
+        "startLine": 792,
+        "startChar": 42,
+        "endLine": 792,
+        "endChar": 57
+      },
+      "revId": "6c02239684b17347dd80caf1a32dbbd923ade1a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -68,6 +68,8 @@ class RtpSenderAudioTest : public ::testing::Test {
                     &fake_clock_,
                     &transport_,
                     nullptr,
+                    kSsrc,
+                    absl::nullopt,
                     absl::nullopt,
                     nullptr,
                     nullptr,
@@ -83,7 +85,6 @@ class RtpSenderAudioTest : public ::testing::Test {
                     false,
                     FieldTrialBasedConfig()),
         rtp_sender_audio_(&fake_clock_, &rtp_sender_) {
-    rtp_sender_.SetSSRC(kSsrc);
     rtp_sender_.SetSequenceNumber(kSeqNum);
   }
 

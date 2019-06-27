@@ -99,6 +99,7 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
     rtp_sender_.reset(new RTPSender(
         configuration.audio, configuration.clock,
         configuration.outgoing_transport, configuration.paced_sender,
+        configuration.media_send_ssrc_, configuration.rtx_send_ssrc_,
         configuration.flexfec_sender
             ? absl::make_optional(configuration.flexfec_sender->ssrc())
             : absl::nullopt,

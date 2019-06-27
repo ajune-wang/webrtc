@@ -22,6 +22,30 @@
       "revId": "6f57d787fa834ee72568f7a3b396650a7a7e1eee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c57feb5_fab14cbb",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-27T13:44:46Z",
+      "side": 1,
+      "message": "Main purpose of this class is to keep state required to parsed DependencyDescriptor extension.\nThe complexity of this extension is that you do need state to be able to parse.\n\ne.g. number of decode targets and number of chains is only present in the frame dependency structure,\nbut is required to parse extended fields when descriptor doesn\u0027t have full dependency structure attached.\n\nExtended comments.",
+      "parentUuid": "82388a56_87074bfd",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 35
+      },
+      "revId": "6f57d787fa834ee72568f7a3b396650a7a7e1eee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

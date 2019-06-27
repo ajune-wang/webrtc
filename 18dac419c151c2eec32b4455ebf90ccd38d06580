@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d98f5d94_db2f24a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-27T10:05:17Z",
+      "side": 1,
+      "message": "I\u0027d describe actual change, \"Make ... pure virtual\" or \"Delete dummy default implementation of...\" on the first line, and \"Follow up to cl ...\", with link to the cl, below.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "18dac419c151c2eec32b4455ebf90ccd38d06580",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

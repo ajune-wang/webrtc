@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed698d6f_52ca77ca",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-06-27T12:35:30Z",
+      "side": 1,
+      "message": "The || should be \u0026\u0026 here, otherwise this will always evaluate to true. Also, we should check if the size is 2 or 3 instead of 1 and 2, since it seems like args contains the name of the executable itself as the first argument (just like with argc/argv).",
+      "range": {
+        "startLine": 299,
+        "startChar": 23,
+        "endLine": 299,
+        "endChar": 25
+      },
+      "revId": "d76eaae5fcdf6e4cdaa015b248f80326020cbde8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b6f3302_def0d4dd",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-06-27T12:35:30Z",
+      "side": 1,
+      "message": "Should be (args.size() \u003d\u003d 3) ? args[2] : \"\"",
+      "range": {
+        "startLine": 305,
+        "startChar": 58,
+        "endLine": 305,
+        "endChar": 69
+      },
+      "revId": "d76eaae5fcdf6e4cdaa015b248f80326020cbde8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "247d03d0_b25626fd",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-06-27T12:35:30Z",
+      "side": 1,
+      "message": "args[1]",
+      "range": {
+        "startLine": 393,
+        "startChar": 56,
+        "endLine": 393,
+        "endChar": 63
+      },
+      "revId": "d76eaae5fcdf6e4cdaa015b248f80326020cbde8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2d7acff_369798ad",
+        "filename": "modules/audio_coding/neteq/tools/rtp_analyze.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-06-27T12:35:30Z",
+      "side": 1,
+      "message": "The same comments apply to this file.",
+      "range": {
+        "startLine": 43,
+        "startChar": 5,
+        "endLine": 43,
+        "endChar": 43
+      },
+      "revId": "d76eaae5fcdf6e4cdaa015b248f80326020cbde8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a33ff8a_eac377c2",
+        "filename": "modules/audio_coding/neteq/tools/rtp_encode.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-06-27T12:35:30Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 279,
+        "startChar": 58,
+        "endLine": 279,
+        "endChar": 59
+      },
+      "revId": "d76eaae5fcdf6e4cdaa015b248f80326020cbde8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

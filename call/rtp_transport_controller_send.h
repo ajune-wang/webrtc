@@ -25,6 +25,7 @@
 #include "modules/congestion_controller/rtp/control_handler.h"
 #include "modules/congestion_controller/rtp/transport_feedback_adapter.h"
 #include "modules/pacing/packet_router.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/network_estimate.h"
 #include "modules/utility/include/process_thread.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/network_route.h"
@@ -43,7 +44,8 @@ class RtcEventLog;
 class RtpTransportControllerSend final
     : public RtpTransportControllerSendInterface,
       public RtcpBandwidthObserver,
-      public TransportFeedbackObserver {
+      public TransportFeedbackObserver,
+      public NetworkStateEstimateObserver {
  public:
   RtpTransportControllerSend(
       Clock* clock,
@@ -73,6 +75,7 @@ class RtpTransportControllerSend final
   rtc::TaskQueue* GetWorkerQueue() override;
   PacketRouter* packet_router() override;
 
+  NetworkStateEstimateObserver* network_state_estimate_observer() override;
   TransportFeedbackObserver* transport_feedback_observer() override;
   RtpPacketPacer* packet_sender() override;
 
@@ -113,6 +116,9 @@ class RtpTransportControllerSend final
   // Implements TransportFeedbackObserver interface
   void OnAddPacket(const RtpPacketSendInfo& packet_info) override;
   void OnTransportFeedback(const rtcp::TransportFeedback& feedback) override;
+
+  // Implements NetworkStateEstimateObserver interface
+  void OnNetworkStateEstimate(NetworkStateEstimate estimate) override;
 
  private:
   void MaybeCreateControllers() RTC_RUN_ON(task_queue_);
@@ -156,6 +162,8 @@ class RtpTransportControllerSend final
       RTC_GUARDED_BY(task_queue_) RTC_PT_GUARDED_BY(task_queue_);
 
   TimeDelta process_interval_ RTC_GUARDED_BY(task_queue_);
+
+  Timestamp last_send_time_ RTC_GUARDED_BY(task_queue_);
 
   std::map<uint32_t, RTCPReportBlock> last_report_blocks_
       RTC_GUARDED_BY(task_queue_);

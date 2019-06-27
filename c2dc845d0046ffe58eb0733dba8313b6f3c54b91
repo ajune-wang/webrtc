@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76d7889f_f97a18fd",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-06-27T16:13:37Z",
+      "side": 0,
+      "message": "Is this factor going to be added somewhere else, or is this a intended change in behavior?",
+      "range": {
+        "startLine": 390,
+        "startChar": 60,
+        "endLine": 392,
+        "endChar": 72
+      },
+      "revId": "c2dc845d0046ffe58eb0733dba8313b6f3c54b91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

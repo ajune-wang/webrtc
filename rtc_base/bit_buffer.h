@@ -51,6 +51,12 @@ class BitBuffer {
   // offset.
   bool PeekBits(uint32_t* val, size_t bit_count);
 
+  // Reads value in range [0, num_values - 1]. Returns false if there isn't
+  // enough data left.
+  // If num_values is 2^n, the helper is same as ReadBits(val, n)
+  // Otherwise smaller values consume 1 less bit than larger values.
+  bool ReadNonSymmetric(uint32_t* val, uint32_t num_values);
+
   // Reads the exponential golomb encoded value at the current offset.
   // Exponential golomb values are encoded as:
   // 1) x = source val + 1
@@ -105,6 +111,12 @@ class BitBufferWriter : public BitBuffer {
   // Writes bit-sized values to the buffer. Returns false if there isn't enough
   // room left for the specified number of bits.
   bool WriteBits(uint64_t val, size_t bit_count);
+
+  // Writers value in range [0, num_values - 1]. Returns false if there isn't
+  // room left.
+  bool WriteNonSymmetric(uint32_t val, uint32_t num_values);
+  // Returns number of bits required to store |val|.
+  static size_t SizeNonSymmetricBits(uint32_t val, uint32_t num_values);
 
   // Writes the exponential golomb encoded version of the supplied value.
   // Returns false if there isn't enough room left for the value.

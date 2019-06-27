@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "video/video_send_stream_impl.h"
+
 #include <string>
 
 #include "absl/memory/memory.h"
@@ -27,7 +29,6 @@
 #include "test/gtest.h"
 #include "test/mock_transport.h"
 #include "video/test/mock_video_stream_encoder.h"
-#include "video/video_send_stream_impl.h"
 
 namespace webrtc {
 namespace internal {
@@ -152,7 +153,6 @@ class VideoSendStreamImplTest : public ::testing::Test {
 
 TEST_F(VideoSendStreamImplTest, RegistersAsBitrateObserverOnStart) {
   test_queue_.SendTask([this] {
-    config_.track_id = "test";
     const bool kSuspend = false;
     config_.suspend_below_min_bitrate = kSuspend;
     auto vss_impl = CreateVideoSendStreamImpl(
@@ -165,7 +165,6 @@ TEST_F(VideoSendStreamImplTest, RegistersAsBitrateObserverOnStart) {
               EXPECT_EQ(config.max_bitrate_bps, kDefaultInitialBitrateBps);
               EXPECT_EQ(config.pad_up_bitrate_bps, 0u);
               EXPECT_EQ(config.enforce_min_bitrate, !kSuspend);
-              EXPECT_EQ(config.track_id, "test");
               EXPECT_EQ(config.bitrate_priority, kDefaultBitratePriority);
             }));
     vss_impl->Start();
@@ -176,7 +175,6 @@ TEST_F(VideoSendStreamImplTest, RegistersAsBitrateObserverOnStart) {
 
 TEST_F(VideoSendStreamImplTest, UpdatesObserverOnConfigurationChange) {
   test_queue_.SendTask([this] {
-    config_.track_id = "test";
     const bool kSuspend = false;
     config_.suspend_below_min_bitrate = kSuspend;
     config_.rtp.extensions.emplace_back(
@@ -239,7 +237,6 @@ TEST_F(VideoSendStreamImplTest, UpdatesObserverOnConfigurationChange) {
 
 TEST_F(VideoSendStreamImplTest, UpdatesObserverOnConfigurationChangeWithAlr) {
   test_queue_.SendTask([this] {
-    config_.track_id = "test";
     const bool kSuspend = false;
     config_.suspend_below_min_bitrate = kSuspend;
     config_.rtp.extensions.emplace_back(
@@ -339,20 +336,20 @@ TEST_F(VideoSendStreamImplTest,
     config_.rtp.ssrcs.emplace_back(2);
 
     EXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), _))
-        .WillRepeatedly(Invoke([&](BitrateAllocatorObserver*,
-                                   MediaStreamAllocationConfig config) {
-          EXPECT_EQ(config.min_bitrate_bps,
-                    static_cast<uint32_t>(low_stream.min_bitrate_bps));
-          EXPECT_EQ(config.max_bitrate_bps,
-                    static_cast<uint32_t>(low_stream.max_bitrate_bps +
-                                          high_stream.max_bitrate_bps));
-          if (config.pad_up_bitrate_bps != 0) {
-            EXPECT_EQ(
-                config.pad_up_bitrate_bps,
-                static_cast<uint32_t>(low_stream.target_bitrate_bps +
-                                      1.25 * high_stream.min_bitrate_bps));
-          }
-        }));
+        .WillRepeatedly(Invoke(
+            [&](BitrateAllocatorObserver*, MediaStreamAllocationConfig config) {
+              EXPECT_EQ(config.min_bitrate_bps,
+                        static_cast<uint32_t>(low_stream.min_bitrate_bps));
+              EXPECT_EQ(config.max_bitrate_bps,
+                        static_cast<uint32_t>(low_stream.max_bitrate_bps +
+                                              high_stream.max_bitrate_bps));
+              if (config.pad_up_bitrate_bps != 0) {
+                EXPECT_EQ(
+                    config.pad_up_bitrate_bps,
+                    static_cast<uint32_t>(low_stream.target_bitrate_bps +
+                                          1.25 * high_stream.min_bitrate_bps));
+              }
+            }));
 
     static_cast<VideoStreamEncoderInterface::EncoderSink*>(vss_impl.get())
         ->OnEncoderConfigurationChanged(
@@ -628,7 +625,6 @@ TEST_F(VideoSendStreamImplTest, ForwardsVideoBitrateAllocationAfterTimeout) {
 
 TEST_F(VideoSendStreamImplTest, CallsVideoStreamEncoderOnBitrateUpdate) {
   test_queue_.SendTask([this] {
-    config_.track_id = "test";
     const bool kSuspend = false;
     config_.suspend_below_min_bitrate = kSuspend;
     config_.rtp.extensions.emplace_back(
@@ -756,8 +752,6 @@ TEST_F(VideoSendStreamImplTest, DisablesPaddingOnPausedEncoder) {
     EXPECT_CALL(rtp_video_sender_, OnEncodedImage(_, _, _))
         .WillRepeatedly(Return(
             EncodedImageCallback::Result(EncodedImageCallback::Result::OK)));
-
-    config_.track_id = "test";
     const bool kSuspend = false;
     config_.suspend_below_min_bitrate = kSuspend;
     config_.rtp.extensions.emplace_back(

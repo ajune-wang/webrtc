@@ -12,6 +12,7 @@
 #define CALL_VIDEO_SEND_STREAM_H_
 
 #include <stdint.h>
+
 #include <map>
 #include <string>
 #include <vector>
@@ -154,9 +155,6 @@ class VideoSendStream {
 
     // Enables periodic bandwidth probing in application-limited region.
     bool periodic_alr_bandwidth_probing = false;
-
-    // Track ID as specified during track creation.
-    std::string track_id;
 
     // An optional custom frame encryptor that allows the entire frame to be
     // encrypted in whatever way the caller chooses. This is not required by

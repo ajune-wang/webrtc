@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2768562_d280c0f6",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-27T11:47:26Z",
+      "side": 1,
+      "message": "This is done here:\nhttps://webrtc-review.googlesource.com/c/src/+/144030\n\nSame for the two other instances of this TODO in this CL.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 24
+      },
+      "revId": "08d98cce2395e5c127f73e95f233a4d9ef140427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

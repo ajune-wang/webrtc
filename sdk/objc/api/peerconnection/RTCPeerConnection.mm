@@ -521,10 +521,6 @@ void PeerConnectionDelegateAdapter::OnRemoveTrack(
   }
   return _peerConnection->SetBitrate(params).ok();
 }
-
-- (void)setBitrateAllocationStrategy:
-        (std::unique_ptr<rtc::BitrateAllocationStrategy>)bitrateAllocationStrategy {
-  _peerConnection->SetBitrateAllocationStrategy(std::move(bitrateAllocationStrategy));
 }
 
 - (BOOL)startRtcEventLogWithFilePath:(NSString *)filePath

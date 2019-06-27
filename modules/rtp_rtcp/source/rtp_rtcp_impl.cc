@@ -75,6 +75,7 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
                      configuration.bandwidth_callback,
                      configuration.intra_frame_callback,
                      configuration.rtcp_loss_notification_observer,
+                     configuration.network_state_estimate_observer,
                      configuration.transport_feedback_callback,
                      configuration.bitrate_allocation_observer,
                      configuration.rtcp_report_interval_ms > 0
@@ -710,6 +711,11 @@ void ModuleRtpRtcpImpl::SetReportBlockDataObserver(
 bool ModuleRtpRtcpImpl::SendFeedbackPacket(
     const rtcp::TransportFeedback& packet) {
   return rtcp_sender_.SendFeedbackPacket(packet);
+}
+
+bool ModuleRtpRtcpImpl::SendNetworkStateEstimatePacket(
+    const rtcp::NetworkEstimate& packet) {
+  return rtcp_sender_.SendNetworkStateEstimatePacket(packet);
 }
 
 int32_t ModuleRtpRtcpImpl::SendLossNotification(uint16_t last_decoded_seq_num,

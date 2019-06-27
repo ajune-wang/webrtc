@@ -21,6 +21,7 @@
 #include "api/transport/network_types.h"
 #include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/network_estimate.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/critical_section.h"
@@ -85,6 +86,8 @@ class PacketRouter : public TransportSequenceNumberAllocator,
 
   // Send transport feedback packet to send-side.
   bool SendTransportFeedback(rtcp::TransportFeedback* packet) override;
+  // Send network state estimate packet to send-side.
+  bool SendNetworkStateEstimate(const rtcp::NetworkEstimate& packet);
 
  private:
   RtpRtcp* FindRtpModule(uint32_t ssrc)

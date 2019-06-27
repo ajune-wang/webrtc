@@ -310,6 +310,23 @@ bool PacketRouter::SendTransportFeedback(rtcp::TransportFeedback* packet) {
   return false;
 }
 
+bool PacketRouter::SendNetworkStateEstimate(
+    const rtcp::NetworkEstimate& packet) {
+  rtc::CritScope cs(&modules_crit_);
+  // Prefer send modules.
+  for (auto* rtp_module : rtp_send_modules_) {
+    if (rtp_module->SendNetworkStateEstimatePacket(packet)) {
+      return true;
+    }
+  }
+  for (auto* rtcp_sender : rtcp_feedback_senders_) {
+    if (rtcp_sender->SendNetworkStateEstimatePacket(packet)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 void PacketRouter::AddRembModuleCandidate(
     RtcpFeedbackSenderInterface* candidate_module,
     bool media_sender) {

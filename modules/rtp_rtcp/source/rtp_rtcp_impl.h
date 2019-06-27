@@ -240,6 +240,8 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
   void SetReportBlockDataObserver(ReportBlockDataObserver* observer) override;
 
   bool SendFeedbackPacket(const rtcp::TransportFeedback& packet) override;
+  bool SendNetworkStateEstimatePacket(
+      const rtcp::NetworkEstimate& packet) override;
   // (APP) Application specific data.
   int32_t SetRTCPApplicationSpecificData(uint8_t sub_type,
                                          uint32_t name,

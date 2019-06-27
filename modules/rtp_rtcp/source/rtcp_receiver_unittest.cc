@@ -137,6 +137,7 @@ class RtcpReceiverTest : public ::testing::Test {
                        &bandwidth_observer_,
                        &intra_frame_observer_,
                        &rtcp_loss_notification_observer_,
+                       nullptr,
                        &transport_feedback_observer_,
                        &bitrate_allocation_observer_,
                        kRtcpIntervalMs,

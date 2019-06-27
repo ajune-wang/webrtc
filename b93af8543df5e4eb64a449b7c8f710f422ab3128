@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31c970fd_c1214421",
+        "filename": "common_audio/wav_header_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-27T10:16:42Z",
+      "side": 0,
+      "message": "Attempt to read beyond EOF is perfectly normal; that\u0027s how applications detect EOF.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 32
+      },
+      "revId": "b93af8543df5e4eb64a449b7c8f710f422ab3128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

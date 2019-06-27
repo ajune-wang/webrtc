@@ -22,6 +22,30 @@
       "revId": "b0a3da1364fd0484994f07c4af0eadabca653686",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bff77f68_91f4a429",
+        "filename": "media/engine/encoder_simulcast_proxy.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-27T11:28:53Z",
+      "side": 1,
+      "message": "I\u0027ve added an implementation now.\n(All except VideoEncoderSoftwareFallbackWrapper just ignore this call, but they now do so explicitly.)",
+      "parentUuid": "a44d5bde_cfb59695",
+      "range": {
+        "startLine": 45,
+        "startChar": 7,
+        "endLine": 45,
+        "endChar": 31
+      },
+      "revId": "b0a3da1364fd0484994f07c4af0eadabca653686",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

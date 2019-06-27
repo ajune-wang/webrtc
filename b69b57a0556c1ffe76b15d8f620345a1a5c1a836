@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "ae535772_32a9d260",
+        "filename": "api/video/video_stream_encoder_settings.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-27T10:44:13Z",
+      "side": 1,
+      "message": "Better to name the class on the condition rather than the action.\n\nClass could be named EncoderFailureCallback or EncoderFailureObserver, and method OnEncoderFailure or maybe EncoderFailed.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 2
+      },
+      "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16e74bf9_a171e069",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-27T10:44:13Z",
+      "side": 1,
+      "message": "This applies the new settings to *all* send streams, not just the one that had the failing encoder? Is that how it\u0027s supposed to be? I\u0027m lacking some context of how these things are negotiated.",
+      "range": {
+        "startLine": 739,
+        "startChar": 0,
+        "endLine": 739,
+        "endChar": 35
+      },
+      "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "91073f89_f20081de",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 9
@@ -49,6 +95,53 @@
     },
     {
       "key": {
+        "uuid": "7b04f919_f788ac52",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2003,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-27T10:44:13Z",
+      "side": 1,
+      "message": "The renames adds noise to a cl that\u0027s fairly complex. It would help to do the clarifying renames to a cl landed before or after.",
+      "parentUuid": "16f895aa_f08bc949",
+      "range": {
+        "startLine": 2002,
+        "startChar": 0,
+        "endLine": 2003,
+        "endChar": 33
+      },
+      "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdef76e9_20af4f5b",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-27T10:44:13Z",
+      "side": 1,
+      "message": "Needed here because the WebrtcVideoSendStream is destroyed and recreated, so one can\u0027t use the send stream\u0027s invoker?\n\nI hope we can see some followups where logic is pushed downwards. Ultimately, it should be in VideoStreamEncoder or some nearby controller class.",
+      "range": {
+        "startLine": 569,
+        "startChar": 0,
+        "endLine": 571,
+        "endChar": 29
+      },
+      "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f54eefa_863e631e",
         "filename": "modules/video_coding/include/video_error_codes.h",
         "patchSetId": 9
@@ -84,6 +177,30 @@
       "side": 1,
       "message": "WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE does not have that exact meaning, so for now we can\u0027t merge the two.",
       "parentUuid": "1f54eefa_863e631e",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c368abf_8429ceff",
+        "filename": "modules/video_coding/include/video_error_codes.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-27T10:44:13Z",
+      "side": 1,
+      "message": "In which way are they different? As far as I\u0027ve understood (but I may well be missing some fine details) the error codes are just handled at different layers in the stack, one in the SoftwareFallbackEncodedWrapper, and the new one in the code you\u0027re adding.\n\nI think they should be unified. If they\u0027re unified by deleting both the SoftwareFallbackWwrapper and its associated error code, that fine.",
+      "parentUuid": "23fd26df_65662496",
       "range": {
         "startLine": 28,
         "startChar": 8,

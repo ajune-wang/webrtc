@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "50204aeb_8c3ceb12",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-06-28T11:13:53Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "451b3294_42094ec1",
+      "revId": "f2997055947f48f82a6ca8fc89826ee1d419313a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0522d8b9_41c95611",
         "filename": "modules/video_coding/generic_decoder.cc",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2019-06-28T09:55:22Z",
       "side": 1,
       "message": "Should we really have two different ways to measure decode time?",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 3
+      },
+      "revId": "f2997055947f48f82a6ca8fc89826ee1d419313a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "896f1d3b_96f433b5",
+        "filename": "modules/video_coding/generic_decoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-06-28T11:13:53Z",
+      "side": 1,
+      "message": "I agree that it looks a bit strange. I found this:\n\"allows the decoder to specify the decode time excluding waiting time for any previous pending frame to return. This is necessary for breaking positive feedback in the delay estimation when the decoder has a single output buffer.\"\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/api/video_codecs/video_decoder.h",
+      "parentUuid": "0522d8b9_41c95611",
       "range": {
         "startLine": 91,
         "startChar": 0,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "13c8787f_dff548bb",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-06-28T11:13:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5c3e0e7_f90b500d",
+      "revId": "f2997055947f48f82a6ca8fc89826ee1d419313a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44ba87a6_18f0d5d2",
         "filename": "video/receive_statistics_proxy.cc",
         "patchSetId": 3
@@ -70,6 +130,24 @@
       "writtenOn": "2019-06-28T10:28:45Z",
       "side": 1,
       "message": "Why are you resetting total counters? When does this happen? This looks non-standard?",
+      "revId": "f2997055947f48f82a6ca8fc89826ee1d419313a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a0699f0_b36fd71e",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-06-28T11:13:53Z",
+      "side": 1,
+      "message": "I don\u0027t know, I just adapted total_decode_time_ms to work with the current implementation.\n\nThinking of it, perhaps it\u0027s better to just remove this code and never reset either qp_sum or frames_decoded? That should give similar results if you always look at the delta between two qp_sums or total_frames_decodes",
+      "parentUuid": "44ba87a6_18f0d5d2",
       "revId": "f2997055947f48f82a6ca8fc89826ee1d419313a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -104,6 +182,24 @@
       "writtenOn": "2019-06-28T10:28:45Z",
       "side": 1,
       "message": "What is this logic? It resets the frames decoded and total decode time counters? When does this happen and why?\n\nAccording to the standard, this the counters are for the frames decoded for this SSRC, it should never reset.",
+      "revId": "f2997055947f48f82a6ca8fc89826ee1d419313a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6c882fc_1d1aa57c",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-06-28T11:13:53Z",
+      "side": 1,
+      "message": "I don\u0027t know. It seems to be cases where there\u0027s no qp value present. I\u0027ll ask around to try to understand when that happens.",
+      "parentUuid": "55a801f6_161bc2d0",
       "revId": "f2997055947f48f82a6ca8fc89826ee1d419313a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

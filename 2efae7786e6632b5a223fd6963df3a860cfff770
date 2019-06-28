@@ -22,6 +22,30 @@
       "revId": "2efae7786e6632b5a223fd6963df3a860cfff770",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c05da17f_09c5925f",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-06-28T13:49:12Z",
+      "side": 0,
+      "message": "Good catch. Removed min/max bitrate checks from simulcast encoder adapter as well.",
+      "parentUuid": "d60f187b_855525aa",
+      "range": {
+        "startLine": 388,
+        "startChar": 1,
+        "endLine": 388,
+        "endChar": 3
+      },
+      "revId": "2efae7786e6632b5a223fd6963df3a860cfff770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -40,13 +40,13 @@
 #include <dispatch/dispatch.h>
 #endif
 
-#define CS_DEBUG_CHECKS RTC_DCHECK_IS_ON
+#define RTC_CS_DEBUG_CHECKS RTC_DCHECK_IS_ON
 
-#if CS_DEBUG_CHECKS
-#define CS_DEBUG_CODE(x) x
-#else  // !CS_DEBUG_CHECKS
-#define CS_DEBUG_CODE(x)
-#endif  // !CS_DEBUG_CHECKS
+#if RTC_CS_DEBUG_CHECKS
+#define RTC_CS_DEBUG_CODE(x) x
+#else  // !RTC_CS_DEBUG_CHECKS
+#define RTC_CS_DEBUG_CODE(x)
+#endif  // !RTC_CS_DEBUG_CHECKS
 
 namespace rtc {
 

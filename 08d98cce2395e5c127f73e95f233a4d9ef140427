@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "373b2d8d_2ed13f21",
+        "filename": "call/rtp_transport_controller_send_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-28T13:20:57Z",
+      "side": 1,
+      "message": "Could you PTAL?",
+      "parentUuid": "3e9ab05c_07b66d5c",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 56
+      },
+      "revId": "08d98cce2395e5c127f73e95f233a4d9ef140427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c92822df_129213c3",
         "filename": "call/rtp_video_sender.h",
         "patchSetId": 4
@@ -274,6 +298,30 @@
       "writtenOn": "2019-06-28T13:20:35Z",
       "side": 1,
       "message": "But no change required for this cl.",
+      "parentUuid": "b3e46840_7ede5341",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 52
+      },
+      "revId": "08d98cce2395e5c127f73e95f233a4d9ef140427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb49ef21_0719ba0a",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-28T13:20:57Z",
+      "side": 1,
+      "message": "Resolving.",
       "parentUuid": "b3e46840_7ede5341",
       "range": {
         "startLine": 74,

@@ -1801,6 +1801,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRTPStreamStats_Video) {
   video_media_info.receivers[0].plis_sent = 6;
   video_media_info.receivers[0].nacks_sent = 7;
   video_media_info.receivers[0].frames_decoded = 8;
+  video_media_info.receivers[0].total_decode_time_ms = 9000;
   video_media_info.receivers[0].qp_sum = absl::nullopt;
   video_media_info.receivers[0].last_packet_received_timestamp_ms =
       absl::nullopt;
@@ -1837,6 +1838,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRTPStreamStats_Video) {
   expected_video.bytes_received = 3;
   expected_video.packets_lost = 42;
   expected_video.frames_decoded = 8;
+  expected_video.total_decode_time = 9.0;
   // |expected_video.qp_sum| should be undefined.
   // |expected_video.last_packet_received_timestamp| should be undefined.
   // |expected_video.content_type| should be undefined.

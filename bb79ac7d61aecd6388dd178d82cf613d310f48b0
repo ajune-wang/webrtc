@@ -22,6 +22,30 @@
       "revId": "bb79ac7d61aecd6388dd178d82cf613d310f48b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a0718b2_4e80b249",
+        "filename": "call/rtp_video_sender_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-28T15:41:09Z",
+      "side": 1,
+      "message": "Would that be just be to avoid an inheritance?\nInstead, the interface would have a getter to get another interface?\nI\u0027m not sure I find that cleaner, it would make usage of the code more complex at the expense of fairly straight-forward interface change.",
+      "parentUuid": "c20f33f7_d751db31",
+      "range": {
+        "startLine": 31,
+        "startChar": 32,
+        "endLine": 31,
+        "endChar": 61
+      },
+      "revId": "bb79ac7d61aecd6388dd178d82cf613d310f48b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -546,13 +546,12 @@ ProduceMediaStreamTrackStatsFromVoiceSenderInfo(
                                                  attachment_id);
   audio_track_stats->remote_source = false;
   audio_track_stats->detached = false;
-  if (voice_sender_info.audio_level >= 0) {
-    audio_track_stats->audio_level = DoubleAudioLevelFromIntAudioLevel(
-        voice_sender_info.audio_level);
-  }
-  audio_track_stats->total_audio_energy = voice_sender_info.total_input_energy;
-  audio_track_stats->total_samples_duration =
-      voice_sender_info.total_input_duration;
+  printf("\n\n\n\n\n\nTHE OLD AUDIO LEVEL === %d\n",
+         voice_sender_info.audio_level);
+  printf("THE OLD AUDIO ENERGY === %f\n",
+         voice_sender_info.total_input_energy);
+  printf("THE OLD AUDIO DURATION === %f\n\n\n\n\n\n\n",
+         voice_sender_info.total_input_duration);
   if (voice_sender_info.apm_statistics.echo_return_loss) {
     audio_track_stats->echo_return_loss =
         *voice_sender_info.apm_statistics.echo_return_loss;
@@ -1390,18 +1389,26 @@ void RTCStatsCollector::ProduceMediaSourceStats_s(
       const auto& track = sender_internal->track();
       if (!track)
         continue;
-      // TODO(hbos): The same track could be attached to multiple senders which
-      // should result in multiple senders referencing the same media source
-      // stats. When all media source related metrics are moved to the track's
-      // source (e.g. input frame rate is moved from cricket::VideoSenderInfo to
-      // VideoTrackSourceInterface::Stats), don't create separate media source
-      // stats objects on a per-attachment basis.
+      // TODO(https://crbug.com/webrtc/10771): The same track could be attached
+      // to multiple senders which should result in multiple senders referencing
+      // the same media source stats. When all media source related metrics are
+      // moved to the track's source (e.g. input frame rate is moved from
+      // cricket::VideoSenderInfo to VideoTrackSourceInterface::Stats), don't
+      // create separate media source stats objects on a per-attachment basis.
       std::unique_ptr<RTCMediaSourceStats> media_source_stats;
       if (track->kind() == MediaStreamTrackInterface::kAudioKind) {
-        media_source_stats = absl::make_unique<RTCAudioSourceStats>(
+        auto audio_source_stats = absl::make_unique<RTCAudioSourceStats>(
             RTCMediaSourceStatsIDFromKindAndAttachment(
                 cricket::MEDIA_TYPE_AUDIO, sender_internal->AttachmentId()),
             timestamp_us);
+        auto sender_audio_stats = sender_internal->GetAudioSourceStats();
+        RTC_DCHECK(sender_audio_stats.has_value());
+        audio_source_stats->audio_level = sender_audio_stats->audio_level;
+        audio_source_stats->total_audio_energy =
+            sender_audio_stats->total_audio_energy;
+        audio_source_stats->total_samples_duration =
+            sender_audio_stats->total_samples_duration;
+        media_source_stats = std::move(audio_source_stats);
       } else {
         RTC_DCHECK_EQ(MediaStreamTrackInterface::kVideoKind, track->kind());
         auto video_source_stats = absl::make_unique<RTCVideoSourceStats>(

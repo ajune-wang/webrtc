@@ -192,13 +192,13 @@ void ExtractStats(const cricket::VoiceSenderInfo& info, StatsReport* report) {
                           info.apm_statistics);
 
   const FloatForAdd floats[] = {
-      {StatsReport::kStatsValueNameTotalAudioEnergy, info.total_input_energy},
+      /*{StatsReport::kStatsValueNameTotalAudioEnergy, info.total_input_energy},
       {StatsReport::kStatsValueNameTotalSamplesDuration,
-       info.total_input_duration}};
+       info.total_input_duration}*/};
 
-  RTC_DCHECK_GE(info.audio_level, 0);
+//  RTC_DCHECK_GE(info.audio_level, 0);
   const IntForAdd ints[] = {
-      {StatsReport::kStatsValueNameAudioInputLevel, info.audio_level},
+//      {StatsReport::kStatsValueNameAudioInputLevel, info.audio_level},
       {StatsReport::kStatsValueNameJitterReceived, info.jitter_ms},
       {StatsReport::kStatsValueNamePacketsLost, info.packets_lost},
       {StatsReport::kStatsValueNamePacketsSent, info.packets_sent},

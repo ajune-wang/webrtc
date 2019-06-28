@@ -99,6 +99,13 @@ RtpParameters RestoreEncodingLayers(
 
 }  // namespace
 
+AudioSourceStats::AudioSourceStats(double audio_level,
+                                   double total_audio_energy,
+                                   double total_samples_duration)
+    : audio_level(audio_level),
+      total_audio_energy(total_audio_energy),
+      total_samples_duration(total_samples_duration) {}
+
 // Returns true if any RtpParameters member that isn't implemented contains a
 // value.
 bool UnimplementedRtpParameterHasValue(const RtpParameters& parameters) {
@@ -391,7 +398,39 @@ void LocalAudioSinkAdapter::OnData(const void* audio_data,
                                    int sample_rate,
                                    size_t number_of_channels,
                                    size_t number_of_frames) {
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
+  printf("*****************************************************************\n");
   rtc::CritScope lock(&lock_);
+  // TODO(hbos): Avoid frame copy by moving it at OnData().
+  std::unique_ptr<webrtc::AudioFrame> audio_frame(new webrtc::AudioFrame());
+  audio_frame->UpdateFrame(
+      audio_frame->timestamp_, static_cast<const int16_t*>(audio_data),
+      number_of_frames, sample_rate, audio_frame->speech_type_,
+      audio_frame->vad_activity_, number_of_channels);
+  double duration = static_cast<double>(audio_frame->samples_per_channel_) /
+                    audio_frame->sample_rate_hz_;
+  // TODO(hbos): Does it reset when "media-source" changes?
+  audio_level_.ComputeLevel(*audio_frame, duration);
   if (sink_) {
     sink_->OnData(audio_data, bits_per_sample, sample_rate, number_of_channels,
                   number_of_frames);
@@ -402,6 +441,19 @@ void LocalAudioSinkAdapter::SetSink(cricket::AudioSource::Sink* sink) {
   rtc::CritScope lock(&lock_);
   RTC_DCHECK(!sink || !sink_);
   sink_ = sink;
+}
+
+absl::optional<AudioSourceStats> LocalAudioSinkAdapter::GetAudioSourceStats()
+    const {
+  rtc::CritScope lock(&lock_);
+  return AudioSourceStats(audio_level_.LevelFullRange() / 32767.0,
+                          audio_level_.TotalEnergy(),
+                          audio_level_.TotalDuration());
+}
+
+void LocalAudioSinkAdapter::ResetAudioSourceStats() {
+  rtc::CritScope lock(&lock_);
+  audio_level_.Reset();
 }
 
 rtc::scoped_refptr<AudioRtpSender> AudioRtpSender::Create(
@@ -482,6 +534,7 @@ void AudioRtpSender::OnChanged() {
 void AudioRtpSender::DetachTrack() {
   RTC_DCHECK(track_);
   audio_track()->RemoveSink(sink_adapter_.get());
+  sink_adapter_->ResetAudioSourceStats();
 }
 
 void AudioRtpSender::AttachTrack() {
@@ -504,6 +557,10 @@ void AudioRtpSender::RemoveTrackFromStats() {
 
 rtc::scoped_refptr<DtmfSenderInterface> AudioRtpSender::GetDtmfSender() const {
   return dtmf_sender_proxy_;
+}
+
+absl::optional<AudioSourceStats> AudioRtpSender::GetAudioSourceStats() const {
+  return track_ ? sink_adapter_->GetAudioSourceStats() : absl::nullopt;
 }
 
 void AudioRtpSender::SetSend() {

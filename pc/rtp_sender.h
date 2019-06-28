@@ -19,8 +19,10 @@
 #include <string>
 #include <vector>
 
+#include "absl/types/optional.h"
 #include "api/media_stream_interface.h"
 #include "api/rtp_sender_interface.h"
+#include "audio/audio_level.h"
 #include "media/base/audio_source.h"
 #include "media/base/media_channel.h"
 #include "pc/dtmf_sender.h"
@@ -31,6 +33,21 @@ namespace webrtc {
 class StatsCollector;
 
 bool UnimplementedRtpParameterHasValue(const RtpParameters& parameters);
+
+// TODO(hbos): When https://github.com/w3c/webrtc-stats/pull/451 is merged,
+// update the spec links below.
+struct AudioSourceStats {
+  AudioSourceStats(double audio_level,
+                   double total_audio_energy,
+                   double total_samples_duration);
+
+  // https://w3c.github.io/webrtc-stats/#dom-rtcaudiohandlerstats-audiolevel
+  double audio_level;
+  // https://w3c.github.io/webrtc-stats/#dom-rtcaudiohandlerstats-totalaudioenergy
+  double total_audio_energy;
+  // https://w3c.github.io/webrtc-stats/#dom-rtcaudiohandlerstats-totalsamplesduration
+  double total_samples_duration;
+};
 
 // Internal interface used by PeerConnection.
 class RtpSenderInternal : public RtpSenderInterface {
@@ -69,6 +86,14 @@ class RtpSenderInternal : public RtpSenderInterface {
   // If the specified list is empty, this is a no-op.
   virtual RTCError DisableEncodingLayers(
       const std::vector<std::string>& rid) = 0;
+
+  // Returns audio source stats for this sender's track attachment. See
+  // https://w3c.github.io/webrtc-stats/#audiosourcestats-dict*. If track() is
+  // null or of kind video, returns nullopt.
+  // TODO(https://crbug.com/webrtc/10771): When "media-source" stats are
+  // per-source instead of per-attachment, move this function to the appropriate
+  // place.
+  virtual absl::optional<AudioSourceStats> GetAudioSourceStats() const = 0;
 };
 
 // Shared implementation for RtpSenderInternal interface.
@@ -207,6 +232,9 @@ class LocalAudioSinkAdapter : public AudioTrackSinkInterface,
   LocalAudioSinkAdapter();
   virtual ~LocalAudioSinkAdapter();
 
+  absl::optional<AudioSourceStats> GetAudioSourceStats() const;
+  void ResetAudioSourceStats();
+
  private:
   // AudioSinkInterface implementation.
   void OnData(const void* audio_data,
@@ -221,6 +249,7 @@ class LocalAudioSinkAdapter : public AudioTrackSinkInterface,
   cricket::AudioSource::Sink* sink_;
   // Critical section protecting |sink_|.
   rtc::CriticalSection lock_;
+  webrtc::voe::AudioLevel audio_level_;
 };
 
 class AudioRtpSender : public DtmfProviderInterface, public RtpSenderBase {
@@ -255,6 +284,8 @@ class AudioRtpSender : public DtmfProviderInterface, public RtpSenderBase {
   }
 
   rtc::scoped_refptr<DtmfSenderInterface> GetDtmfSender() const override;
+
+  absl::optional<AudioSourceStats> GetAudioSourceStats() const override;
 
  protected:
   AudioRtpSender(rtc::Thread* worker_thread,
@@ -314,6 +345,10 @@ class VideoRtpSender : public RtpSenderBase {
   }
 
   rtc::scoped_refptr<DtmfSenderInterface> GetDtmfSender() const override;
+
+  absl::optional<AudioSourceStats> GetAudioSourceStats() const override {
+    return absl::nullopt;
+  }
 
  protected:
   VideoRtpSender(rtc::Thread* worker_thread,

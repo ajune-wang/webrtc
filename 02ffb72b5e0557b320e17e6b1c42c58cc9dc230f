@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8746460b_33399fda",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T08:57:09Z",
+      "side": 1,
+      "message": "What would you suggest instead? synchronized (this) { ... } ? Or some separate lock object?\n\nI was thinking that for a small class whose main purpose is to synchronize things, method level would be appropriate.\n\nIt\u0027s tempting to instead use RefCountDelegate, with a release callback to call notifyAll, but I don\u0027t think that will work out well. The using notify/wait pattern is essentially using a condition variable, as I understand it. And that requires an associated lock, and then RefCountDelegate using atomics instead of locks isn\u0027t a good fit.",
+      "parentUuid": "2bf8bb5a_4b71ccbb",
+      "range": {
+        "startLine": 80,
+        "startChar": 11,
+        "endLine": 80,
+        "endChar": 23
+      },
+      "revId": "02ffb72b5e0557b320e17e6b1c42c58cc9dc230f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb4c728d_b562c767",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "640ce495_07d44258",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T08:57:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb4c728d_b562c767",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 20
+      },
+      "revId": "02ffb72b5e0557b320e17e6b1c42c58cc9dc230f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e7961cd_ba26ce7c",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 10
@@ -59,6 +107,30 @@
       "writtenOn": "2019-06-27T12:30:07Z",
       "side": 1,
       "message": "Instead of blocking with locks, I would rather see an asynchronous design.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 5
+      },
+      "revId": "02ffb72b5e0557b320e17e6b1c42c58cc9dc230f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c78ae3f2_ca2abb81",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T08:57:09Z",
+      "side": 1,
+      "message": "The most interesting use (besides destruction sequence) is the call from deliverEncodedImage. Where it\u0027s done when coded.dequeueOutputBuffer returns INFO_OUTPUT_BUFFERS_CHANGED, before we call codec.getOutputBuffers.\n\nI was told that getOutputBuffers may deallocate the old buffers (rather than just forgetting about them and leaving them to java gc), and then we mustn\u0027t call getOutputBuffers while buffers we share with downstream are still unused. What\u0027s the alternative to blocking with locks? If we just return, caller will repeat the call and we risk busy looping. Waiting until downstream have released buffers seem like the right thing.",
+      "parentUuid": "3e7961cd_ba26ce7c",
       "range": {
         "startLine": 86,
         "startChar": 0,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "605c7e1e_42fac347",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T08:57:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5243f5d_f042f161",
+      "range": {
+        "startLine": 201,
+        "startChar": 4,
+        "endLine": 201,
+        "endChar": 45
+      },
+      "revId": "02ffb72b5e0557b320e17e6b1c42c58cc9dc230f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3034f626_38000f3c",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 10
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "10c39978_832bf0ba",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T08:57:09Z",
+      "side": 1,
+      "message": "We\u0027re waiting for downstream code to release the encoded frames we have created. We have to do that in one way or the other, given that we want to avoid the downstream code to copy the buffer, and we\u0027re then into trouble in case downstream holds on to a frame indefinitely.",
+      "parentUuid": "3034f626_38000f3c",
+      "range": {
+        "startLine": 542,
+        "startChar": 10,
+        "endLine": 542,
+        "endChar": 47
+      },
+      "revId": "02ffb72b5e0557b320e17e6b1c42c58cc9dc230f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40cdb807_98bc56c2",
         "filename": "sdk/android/src/jni/encoded_image.cc",
         "patchSetId": 10
@@ -128,6 +248,30 @@
       "writtenOn": "2019-06-27T12:30:07Z",
       "side": 1,
       "message": "Can\u0027t you use nullptr directly? At least not a global ref for passing null.",
+      "range": {
+        "startLine": 40,
+        "startChar": 19,
+        "endLine": 40,
+        "endChar": 77
+      },
+      "revId": "02ffb72b5e0557b320e17e6b1c42c58cc9dc230f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87c5583d_23c35f48",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T08:57:09Z",
+      "side": 1,
+      "message": "Using just nullptr results in the following compile error:\n\n../../sdk/android/src/jni/encoded_image.cc:39:10: error: no matching function for call to \u0027Java_EncodedImage_Constructor\u0027\n  return Java_EncodedImage_Constructor(\n         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\ngen/sdk/android/generated_video_jni/jni/EncodedImage_jni.h:78:51: note: candidate function not viable: no known conversion from \u0027nullptr_t\u0027 to \u0027const base::android::JavaRef\u003cjobject\u003e\u0027 (aka \u0027const JavaRef\u003c_jobject *\u003e\u0027) for 3rd argument\nstatic base::android::ScopedJavaLocalRef\u003cjobject\u003e Java_EncodedImage_Constructor(JNIEnv* env, const\n\nThe explicit conversion to ScopedJavaGlobalRef was the best thing I could come up with that was accepted by the compiler. I\u0027d much prefer to either add whatever is needed in jni_helpers.h to let nullptr convert implicitly to something acceptable to jni, or use some other constant than nullptr. Suggestions welcome.",
+      "parentUuid": "40cdb807_98bc56c2",
       "range": {
         "startLine": 40,
         "startChar": 19,

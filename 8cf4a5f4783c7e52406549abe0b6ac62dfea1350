@@ -140,6 +140,30 @@
       "revId": "8cf4a5f4783c7e52406549abe0b6ac62dfea1350",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a91c7cd_8eb055a7",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-06-28T10:18:40Z",
+      "side": 1,
+      "message": "Actually, looks like this used to be guarded by a lock which meant there was an extra set of brackets here. they got removed but the indentation was unchanged.",
+      "parentUuid": "f9b5adf4_2e445583",
+      "range": {
+        "startLine": 763,
+        "startChar": 0,
+        "endLine": 779,
+        "endChar": 3
+      },
+      "revId": "8cf4a5f4783c7e52406549abe0b6ac62dfea1350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "4c839a7ea16c97a6182e0fb7d186a31ce12d3999",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16629f5a_eae2a797",
+        "filename": "AUTHORS",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 9507
+      },
+      "writtenOn": "2019-06-28T14:47:50Z",
+      "side": 1,
+      "message": "HI Mirko,\nYes, I did.\n\nmin",
+      "parentUuid": "17f36593_2fa2f5c6",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 30
+      },
+      "revId": "4c839a7ea16c97a6182e0fb7d186a31ce12d3999",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

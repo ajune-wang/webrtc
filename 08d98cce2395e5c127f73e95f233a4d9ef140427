@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b9588bd0_c7b0e628",
+        "filename": "call/rtp_transport_controller_send_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T10:12:29Z",
+      "side": 1,
+      "message": "Some alternatives:\n\n  1. Either move the call to SetFecControllerOverride() to the caller (will be natural if you\n     also move the implementation of the interface),\n\n  2. Variant of above: Implement a RtpVideoSender::GetFecControllerOverride method, so \n     inheriting FecControllerOverride need not be part of the interface. Still leave to caller \n     to connect encoder and transport.\n\n  3. (Don\u0027t really like this one) create yet another interface with only the \n     SetFecControllerOverride method in it, and pass that.",
+      "parentUuid": "b99706e7_d690094c",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 56
+      },
+      "revId": "08d98cce2395e5c127f73e95f233a4d9ef140427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c92822df_129213c3",
         "filename": "call/rtp_video_sender.h",
         "patchSetId": 4
@@ -107,6 +131,30 @@
       "side": 1,
       "message": "1. We can pass FecController down, but then we risk whoever gets it using more of its API than was intended. This is a way to expose only part of it. Wdyt?\n2. The decision to avoid FEC is not done per-frame, but rather for bandwidth allocation, so I am afraid that approach would not work.",
       "parentUuid": "c92822df_129213c3",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 52
+      },
+      "revId": "08d98cce2395e5c127f73e95f233a4d9ef140427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0472e0be_7c4d113d",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T10:12:29Z",
+      "side": 1,
+      "message": "\u003e 1. We can pass FecController down, but then we risk whoever gets it using more of its API than was intended. This is a way to expose only part of it. Wdyt?\n\nYou can make FecController implement the FecControllerOverride interface (a bit awkwardly named, maybe), and pass only a FecControllerOverride* down to the encoders. Alternatively, let FecController have a method to return a FecControllerOverride* that can then be passed down to whoever needs to override it. I agree the FecController shouldn\u0027t be exposed wholesale to the encoders, but should be straight-forward to give access only via the limited FecControllerOverride interface.\n\nWho owns and has access to the FecController now?\n\n\u003e 2. The decision to avoid FEC is not done per-frame, but rather for bandwidth allocation, so I am afraid that approach would not work.\n\nAck.",
+      "parentUuid": "25ee0f3c_71db6004",
       "range": {
         "startLine": 74,
         "startChar": 0,

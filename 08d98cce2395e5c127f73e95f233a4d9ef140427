@@ -22,6 +22,52 @@
       "revId": "08d98cce2395e5c127f73e95f233a4d9ef140427",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67801000_c7a91d81",
+        "filename": "call/rtp_transport_controller_send_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T09:43:25Z",
+      "side": 1,
+      "message": "It\u0027s unfortunate to have this dependency. We\u0027ve tried hard to disentangle encoding from transport.",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 56
+      },
+      "revId": "08d98cce2395e5c127f73e95f233a4d9ef140427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c92822df_129213c3",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T09:43:25Z",
+      "side": 1,
+      "message": "I wonder if this really is the right place to implement this interface. As I understand it (without having all context), the idea is that the encoder should be able to temporarily disable fec?\n\nWould it be possible to instead let the FecController itself implement the override interface, and pass that down to encoders? Then the transport need not be aware of the details, it has one FecController, and delegates all decisions related to FEC to that object. It\u0027s not so nice to have a \"controller\" object that\u0027s not really in control.\n\nAnother alternative (maybe this was discussed and rejected earlier) would be to add a flag or priority to the encoded frame, saying whether or not the encoder thinks it\u0027s worth while to give it additional protection.",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 52
+      },
+      "revId": "08d98cce2395e5c127f73e95f233a4d9ef140427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

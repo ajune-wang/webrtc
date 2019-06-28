@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17f36593_2fa2f5c6",
+        "filename": "AUTHORS",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-06-28T06:45:19Z",
+      "side": 1,
+      "message": "Have you filled the contributor agreement as explained here: https://webrtc.org/contributing/#contributor-agreement ?",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 30
+      },
+      "revId": "4c839a7ea16c97a6182e0fb7d186a31ce12d3999",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

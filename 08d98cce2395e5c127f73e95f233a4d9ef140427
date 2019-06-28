@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "102b8ad9_9a5154f9",
+        "filename": "call/rtp_transport_controller_send_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-28T10:50:24Z",
+      "side": 1,
+      "message": "I would highly prefer approach #3, and then cleaning up the technical debt in a later, smaller CL, and when we have the time for it. Right now, this is blocking me from making progress towards my OKR. Wdys?",
+      "parentUuid": "b9588bd0_c7b0e628",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 56
+      },
+      "revId": "08d98cce2395e5c127f73e95f233a4d9ef140427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c92822df_129213c3",
         "filename": "call/rtp_video_sender.h",
         "patchSetId": 4
@@ -155,6 +179,30 @@
       "side": 1,
       "message": "\u003e 1. We can pass FecController down, but then we risk whoever gets it using more of its API than was intended. This is a way to expose only part of it. Wdyt?\n\nYou can make FecController implement the FecControllerOverride interface (a bit awkwardly named, maybe), and pass only a FecControllerOverride* down to the encoders. Alternatively, let FecController have a method to return a FecControllerOverride* that can then be passed down to whoever needs to override it. I agree the FecController shouldn\u0027t be exposed wholesale to the encoders, but should be straight-forward to give access only via the limited FecControllerOverride interface.\n\nWho owns and has access to the FecController now?\n\n\u003e 2. The decision to avoid FEC is not done per-frame, but rather for bandwidth allocation, so I am afraid that approach would not work.\n\nAck.",
       "parentUuid": "25ee0f3c_71db6004",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 52
+      },
+      "revId": "08d98cce2395e5c127f73e95f233a4d9ef140427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6014bd8e_ab989aa1",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-28T10:50:24Z",
+      "side": 1,
+      "message": "Please note that in the current design, FecController is NOT the one implementing the FecControllerOverride interface. One nice thing about it - no need to update downstream projects that inject their own FecController. FecController is kept blissfully unaware that it can be overridden. Please see the comment here (separate CL):\nhttps://webrtc-review.googlesource.com/c/src/+/143966/3/call/rtp_video_sender.cc\n\nI think this is a good thing.",
+      "parentUuid": "0472e0be_7c4d113d",
       "range": {
         "startLine": 74,
         "startChar": 0,

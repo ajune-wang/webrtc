@@ -32,6 +32,10 @@ class RtpPacketPacer : public RtpPacketSender {
   // the packet, it will prioritized and scheduled relative to other packets and
   // the current target send rate.
   virtual void EnqueuePacket(std::unique_ptr<RtpPacketToSend> packet) = 0;
+
+  virtual int64_t QueueSizeBytesByPriority(int priority) const {
+    return 666;  // TODO: !!!
+  }
 };
 
 }  // namespace webrtc

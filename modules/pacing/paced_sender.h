@@ -62,6 +62,8 @@ class PacedSender : public Module, public RtpPacketPacer {
 
   virtual void CreateProbeCluster(int bitrate_bps, int cluster_id);
 
+  void ClearOfType(Priority priority) override;
+
   // Temporarily pause all sending.
   void Pause();
 
@@ -103,6 +105,8 @@ class PacedSender : public Module, public RtpPacketPacer {
 
   virtual size_t QueueSizePackets() const;
   virtual int64_t QueueSizeBytes() const;
+
+  int64_t QueueSizeBytesByPriority(int priority) const override;
 
   // Returns the time when the first packet was sent, or -1 if no packet is
   // sent.

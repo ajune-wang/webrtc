@@ -351,6 +351,8 @@ class RtpPacketSender {
                             size_t bytes,
                             bool retransmission) = 0;
 
+  virtual void ClearOfType(Priority priority) = 0;
+
   // Currently audio traffic is not accounted by pacer and passed through.
   // With the introduction of audio BWE audio traffic will be accounted for
   // the pacer budget calculation. The audio traffic still will be injected

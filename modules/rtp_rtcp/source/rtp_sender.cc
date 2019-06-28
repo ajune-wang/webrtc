@@ -11,6 +11,7 @@
 #include "modules/rtp_rtcp/source/rtp_sender.h"
 
 #include <algorithm>
+#include <atomic>
 #include <limits>
 #include <string>
 #include <utility>
@@ -32,6 +33,8 @@
 #include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/rate_limiter.h"
 #include "rtc_base/time_utils.h"
+
+std::atomic<size_t> ELAD_HACK_last_key_size(0);
 
 namespace webrtc {
 
@@ -492,6 +495,8 @@ bool RTPSender::StorePackets() const {
          RtpPacketHistory::StorageMode::kDisabled;
 }
 
+// TODO: !!! GetTotalPacketSize(bool including_non_retransmissible)
+
 int32_t RTPSender::ReSendPacket(uint16_t packet_id) {
   // Try to find packet in RTP packet history. Also verify RTT here, so that we
   // don't retransmit too often.
@@ -568,6 +573,65 @@ void RTPSender::OnReceivedNack(
     const std::vector<uint16_t>& nack_sequence_numbers,
     int64_t avg_rtt) {
   packet_history_.SetRtt(5 + avg_rtt);
+
+  size_t added_retransmissions_packets_total_size = 0;
+  for (uint16_t seq_no : nack_sequence_numbers) {
+    absl::optional<RtpPacketHistory::PacketState> stored_packet =
+        packet_history_.GetPacketState(seq_no);
+    if (stored_packet && !stored_packet->pending_transmission &&
+        true /* TODO: !!! Replace by making sure it's retransmissible. */) {
+      added_retransmissions_packets_total_size += stored_packet->packet_size;
+    }
+  }
+
+  // TODO: !!! if(!paced_sender_...)
+  const size_t retransmission_queue_size =
+      paced_sender_->QueueSizeBytesByPriority(
+          PacketTypeToPriority(RtpPacketToSend::Type::kRetransmission));
+
+  if (added_retransmissions_packets_total_size >
+          added_retransmissions_packets_total_size_max_ ||
+      retransmission_queue_size > retransmission_queue_size_max_) {
+    added_retransmissions_packets_total_size_max_ =
+        std::max<size_t>(added_retransmissions_packets_total_size_max_,
+                         added_retransmissions_packets_total_size);
+    retransmission_queue_size_max_ = std::max<size_t>(
+        retransmission_queue_size_max_, retransmission_queue_size);
+    printf(
+        "added_retransmissions_packets_total_size = %zu, "
+        "retransmission_queue_size = %zu\n",
+        added_retransmissions_packets_total_size, retransmission_queue_size);
+    RTC_LOG(LS_ERROR) << "added_retransmissions_packets_total_size = "
+                      << added_retransmissions_packets_total_size
+                      << "retransmission_queue_size = "
+                      << retransmission_queue_size;
+  }
+
+  const size_t threshold = static_cast<size_t>(1.0 * ELAD_HACK_last_key_size);
+  if (retransmission_queue_size + added_retransmissions_packets_total_size >=
+      threshold) {
+    std::string print = "Could send a key frame! ";
+    print += std::to_string(retransmission_queue_size);
+    print += ", ";
+    print += std::to_string(added_retransmissions_packets_total_size);
+    print += " (";
+    print += std::to_string(retransmission_queue_size +
+                            added_retransmissions_packets_total_size);
+    print += ") >= ";
+    print += std::to_string(threshold);
+    print += " by ";
+    print +=
+        std::to_string(retransmission_queue_size +
+                       added_retransmissions_packets_total_size - threshold);
+    printf("%s\n", print.c_str());
+    RTC_LOG(LS_ERROR) << print;
+
+    paced_sender_->ClearOfType(
+        PacketTypeToPriority(RtpPacketToSend::Type::kRetransmission));
+    RTC_NOTREACHED() << "TODO: !!! Force key frame.";
+    return;
+  }
+
   for (uint16_t seq_no : nack_sequence_numbers) {
     const int32_t bytes_sent = ReSendPacket(seq_no);
     if (bytes_sent < 0) {

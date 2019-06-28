@@ -89,6 +89,8 @@ class RoundRobinPacketQueue {
         packet_it_;
   };
 
+  void ClearOfPriority(int priority);
+
   void Push(int priority,
             RtpPacketToSend::Type type,
             uint32_t ssrc,
@@ -109,6 +111,7 @@ class RoundRobinPacketQueue {
   bool Empty() const;
   size_t SizeInPackets() const;
   uint64_t SizeInBytes() const;
+  uint64_t SizeInBytesByPriority(int priority) const;
 
   int64_t OldestEnqueueTimeMs() const;
   int64_t AverageQueueTimeMs() const;
@@ -164,6 +167,7 @@ class RoundRobinPacketQueue {
   bool paused_ = false;
   size_t size_packets_ = 0;
   size_t size_bytes_ = 0;
+  std::map<int, size_t> size_bytes_by_priority_;
   size_t max_bytes_ = kMaxLeadingBytes;
   int64_t queue_time_sum_ms_ = 0;
   int64_t pause_time_sum_ms_ = 0;

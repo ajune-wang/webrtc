@@ -746,6 +746,7 @@ void RtpVideoStreamReceiver::ParseAndHandleEncapsulatingHeader(
 // RtpFrameReferenceFinder will need to know about padding to
 // correctly calculate frame references.
 void RtpVideoStreamReceiver::NotifyReceiverOfEmptyPacket(uint16_t seq_num) {
+  printf("NotifyReceiverOfEmptyPacket\n");
   reference_finder_->PaddingReceived(seq_num);
   packet_buffer_->PaddingReceived(seq_num);
   if (nack_module_) {

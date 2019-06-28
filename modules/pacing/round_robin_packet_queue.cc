@@ -52,6 +52,11 @@ RoundRobinPacketQueue::QueuedPacket::ReleasePacket() {
   return packet_it_ ? std::move(**packet_it_) : nullptr;
 }
 
+void RoundRobinPacketQueue::ClearOfPriority(int priority) {
+  // TODO: !!!
+  RTC_NOTREACHED();
+}
+
 void RoundRobinPacketQueue::QueuedPacket::SubtractPauseTimeMs(
     int64_t pause_time_sum_ms) {
   enqueue_time_ms_ -= pause_time_sum_ms;
@@ -163,6 +168,7 @@ void RoundRobinPacketQueue::FinalizePop() {
     max_bytes_ = std::max(max_bytes_, stream->bytes);
 
     size_bytes_ -= packet.size_in_bytes();
+    size_bytes_by_priority_[packet.priority()] -= packet.size_in_bytes();
     size_packets_ -= 1;
     RTC_CHECK(size_packets_ > 0 || queue_time_sum_ms_ == 0);
 
@@ -193,6 +199,11 @@ size_t RoundRobinPacketQueue::SizeInPackets() const {
 
 uint64_t RoundRobinPacketQueue::SizeInBytes() const {
   return size_bytes_;
+}
+
+uint64_t RoundRobinPacketQueue::SizeInBytesByPriority(int priority) const {
+  const auto& iter = size_bytes_by_priority_.find(priority);
+  return iter == size_bytes_by_priority_.cend() ? 0 : iter->second;
 }
 
 int64_t RoundRobinPacketQueue::OldestEnqueueTimeMs() const {
@@ -267,6 +278,7 @@ void RoundRobinPacketQueue::Push(QueuedPacket packet) {
 
   size_packets_ += 1;
   size_bytes_ += packet.size_in_bytes();
+  size_bytes_by_priority_[packet.priority()] += packet.size_in_bytes();
 
   stream->packet_queue.push(packet);
 }

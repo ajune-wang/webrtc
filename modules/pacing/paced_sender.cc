@@ -114,6 +114,24 @@ void PacedSender::CreateProbeCluster(int bitrate_bps, int cluster_id) {
   prober_.CreateProbeCluster(bitrate_bps, TimeMilliseconds(), cluster_id);
 }
 
+void PacedSender::ClearOfType(RtpPacketSender::Priority priority) {
+  RtpPacketToSend::Type type;
+  switch (priority) {
+    case RtpPacketPacer::kHighPriority:
+      type = RtpPacketToSend::Type::kAudio;
+      break;
+    case RtpPacketPacer::kNormalPriority:
+      type = RtpPacketToSend::Type::kRetransmission;
+      break;
+    default:
+      type = RtpPacketToSend::Type::kVideo;
+  }
+  const int type_int = GetPriorityForType(type);
+
+  // TODO: !!! Finish.
+  printf("type_int = %d\n", type_int);
+}
+
 void PacedSender::Pause() {
   {
     rtc::CritScope cs(&critsect_);
@@ -260,6 +278,11 @@ size_t PacedSender::QueueSizePackets() const {
 int64_t PacedSender::QueueSizeBytes() const {
   rtc::CritScope cs(&critsect_);
   return packets_.SizeInBytes();
+}
+
+int64_t PacedSender::QueueSizeBytesByPriority(int priority) const {
+  rtc::CritScope cs(&critsect_);
+  return packets_.SizeInBytesByPriority(priority);
 }
 
 int64_t PacedSender::FirstSentPacketTimeMs() const {

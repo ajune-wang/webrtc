@@ -379,6 +379,8 @@ class RtpPacketSenderProxy : public RtpPacketPacer {
     rtp_packet_pacer_->EnqueuePacket(std::move(packet));
   }
 
+  void ClearOfType(Priority priority) override {}
+
   // Implements RtpPacketSender.
   void InsertPacket(Priority priority,
                     uint32_t ssrc,

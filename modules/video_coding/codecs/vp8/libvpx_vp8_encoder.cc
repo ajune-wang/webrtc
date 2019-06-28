@@ -14,6 +14,7 @@
 #include <string.h>
 
 #include <algorithm>
+#include <atomic>
 #include <cstdint>
 #include <iterator>
 #include <memory>
@@ -42,6 +43,8 @@
 #include "system_wrappers/include/field_trial.h"
 #include "third_party/libyuv/include/libyuv/scale.h"
 #include "vpx/vp8cx.h"
+
+extern std::atomic<size_t> ELAD_HACK_last_key_size;
 
 namespace webrtc {
 namespace {
@@ -1098,6 +1101,10 @@ void LibvpxVp8Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
 
   int qp = 0;
   vpx_codec_control(&encoders_[encoder_idx], VP8E_GET_LAST_QUANTIZER_64, &qp);
+  if ((pkt.data.frame.flags & VPX_FRAME_IS_KEY) != 0) {
+    ELAD_HACK_last_key_size = encoded_images_[encoder_idx].size();
+    printf("New key size = %zu\n", encoded_images_[encoder_idx].size());
+  }
   frame_buffer_controller_->OnEncodeDone(
       stream_idx, timestamp, encoded_images_[encoder_idx].size(),
       (pkt.data.frame.flags & VPX_FRAME_IS_KEY) != 0, qp, codec_specific);

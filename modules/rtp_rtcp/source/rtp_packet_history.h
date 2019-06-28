@@ -127,6 +127,9 @@ class RtpPacketHistory {
   // Returns true if status was set, false if packet was not found.
   bool SetPendingTransmission(uint16_t sequence_number);
 
+  // TODO: !!! Document (before landing).
+  size_t GetTotalPacketSize(bool including_non_retransmissible) const;
+
  private:
   struct MoreUseful;
   class StoredPacket;
@@ -198,7 +201,11 @@ class RtpPacketHistory {
   // Map from packet size to sequence number.
   std::map<size_t, uint16_t> packet_size_ RTC_GUARDED_BY(lock_);
 
-  // Total number of packets with StorageType::kAllowsRetransmission inserted.
+  // TODO: !!!
+  size_t packet_history_total_size_ RTC_GUARDED_BY(lock_);
+  size_t packet_history_total_size_retransmissible_ RTC_GUARDED_BY(lock_);
+
+  // Total number of packets with StorageType::kAllowRetransmission inserted.
   uint64_t retransmittable_packets_inserted_ RTC_GUARDED_BY(lock_);
   // Retransmittable objects from |packet_history_| ordered by
   // "most likely to be useful", used in GetPayloadPaddingPacket().

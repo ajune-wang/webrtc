@@ -125,6 +125,8 @@ class RTPSender {
 
   int32_t ReSendPacket(uint16_t packet_id);
 
+  // int32_t ReSendPackets(const std::vector<uint16_t>& packet_ids);
+
   // RTX.
   void SetRtxStatus(int mode);
   int RtxStatus() const;
@@ -308,6 +310,9 @@ class RTPSender {
 
   const bool send_side_bwe_with_overhead_;
   const bool legacy_packet_history_storage_mode_;
+
+  size_t added_retransmissions_packets_total_size_max_{0};
+  size_t retransmission_queue_size_max_{0};
 
   // Set by field trial "WebRTC-PayloadPadding-UseMostUsefulPacket". If set
   // to "Enabled" this field will be true and

@@ -88,6 +88,8 @@ RtpPacketHistory::RtpPacketHistory(Clock* clock)
       number_to_store_(0),
       mode_(StorageMode::kDisabled),
       rtt_ms_(-1),
+      packet_history_total_size_(0),
+      packet_history_total_size_retransmissible_(0),
       retransmittable_packets_inserted_(0) {}
 
 RtpPacketHistory::~RtpPacketHistory() {}
@@ -132,6 +134,11 @@ void RtpPacketHistory::PutRtpPacket(std::unique_ptr<RtpPacketToSend> packet,
   CullOldPackets(now_ms);
 
   // Store packet.
+  packet_history_total_size_ += packet->size();
+  if (type == StorageType::kAllowRetransmission) {
+    packet_history_total_size_retransmissible_ += packet->size();
+  }
+
   const uint16_t rtp_seq_no = packet->SequenceNumber();
   auto it = packet_history_.emplace(
       rtp_seq_no, StoredPacket(std::move(packet), type, send_time_ms,
@@ -397,6 +404,13 @@ bool RtpPacketHistory::SetPendingTransmission(uint16_t sequence_number) {
   return true;
 }
 
+size_t RtpPacketHistory::GetTotalPacketSize(
+    bool including_non_retransmissible) const {
+  return including_non_retransmissible
+             ? packet_history_total_size_
+             : packet_history_total_size_retransmissible_;
+}
+
 void RtpPacketHistory::Reset() {
   packet_history_.clear();
   packet_size_.clear();
@@ -457,6 +471,11 @@ std::unique_ptr<RtpPacketToSend> RtpPacketHistory::RemovePacket(
   // Erase from padding priority set, if eligible.
   if (packet_it->second.storage_type() != StorageType::kDontRetransmit) {
     RTC_CHECK_EQ(padding_priority_.erase(&packet_it->second), 1);
+  }
+
+  packet_history_total_size_ -= rtp_packet->size();
+  if (packet_it->second.storage_type() == StorageType::kAllowRetransmission) {
+    packet_history_total_size_retransmissible_ += rtp_packet->size();
   }
 
   // Erase the packet from the map, and capture iterator to the next one.

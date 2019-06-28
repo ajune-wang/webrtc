@@ -148,6 +148,8 @@ class MockRtpPacketPacer : public RtpPacketPacer {
 
   MOCK_METHOD1(EnqueuePacket, void(std::unique_ptr<RtpPacketToSend>));
 
+  MOCK_METHOD1(ClearOfType, void(Priority));
+
   MOCK_METHOD6(InsertPacket,
                void(Priority priority,
                     uint32_t ssrc,

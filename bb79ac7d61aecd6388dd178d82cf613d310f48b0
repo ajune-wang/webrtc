@@ -46,6 +46,30 @@
       "revId": "bb79ac7d61aecd6388dd178d82cf613d310f48b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62dde5e9_c553ea05",
+        "filename": "call/rtp_video_sender_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-06-28T15:52:03Z",
+      "side": 1,
+      "message": "That\u0027s what I think, too.\nI\u0027m going to land this. If you still disagree when you come back from vacation (do enjoy it!), we can reopen this matter and land changes then.",
+      "parentUuid": "4a0718b2_4e80b249",
+      "range": {
+        "startLine": 31,
+        "startChar": 32,
+        "endLine": 31,
+        "endChar": 61
+      },
+      "revId": "bb79ac7d61aecd6388dd178d82cf613d310f48b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

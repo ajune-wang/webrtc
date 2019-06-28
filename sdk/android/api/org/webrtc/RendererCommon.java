@@ -13,6 +13,7 @@ package org.webrtc;
 import android.graphics.Point;
 import android.opengl.Matrix;
 import android.view.View;
+import org.webrtc.RendererCommon.ScalingType;
 
 /**
  * Static helper functions for renderer implementations.
@@ -66,6 +67,7 @@ public class RendererCommon {
     // and when there is an orientation mismatch.
     private ScalingType scalingTypeMatchOrientation = ScalingType.SCALE_ASPECT_BALANCED;
     private ScalingType scalingTypeMismatchOrientation = ScalingType.SCALE_ASPECT_BALANCED;
+    private float visibleFraction = -1f;
 
     public void setScalingType(ScalingType scalingType) {
       this.scalingTypeMatchOrientation = scalingType;
@@ -76,6 +78,10 @@ public class RendererCommon {
         ScalingType scalingTypeMatchOrientation, ScalingType scalingTypeMismatchOrientation) {
       this.scalingTypeMatchOrientation = scalingTypeMatchOrientation;
       this.scalingTypeMismatchOrientation = scalingTypeMismatchOrientation;
+    }
+
+    public void setVisibleFraction(float fraction) {
+      this.visibleFraction = fraction;
     }
 
     public Point measure(int widthSpec, int heightSpec, int frameWidth, int frameHeight) {
@@ -92,7 +98,13 @@ public class RendererCommon {
       final ScalingType scalingType = (frameAspect > 1.0f) == (displayAspect > 1.0f)
           ? scalingTypeMatchOrientation
           : scalingTypeMismatchOrientation;
-      final Point layoutSize = getDisplaySize(scalingType, frameAspect, maxWidth, maxHeight);
+      final Point layoutSize;
+
+      if (visibleFraction >= 0) {
+        layoutSize = getDisplaySize(visibleFraction, frameAspect, maxWidth, maxHeight);
+      } else {
+        layoutSize = getDisplaySize(scalingType, frameAspect, maxWidth, maxHeight);
+      }
 
       // If the measure specification is forcing a specific size - yield.
       if (View.MeasureSpec.getMode(widthSpec) == View.MeasureSpec.EXACTLY) {

@@ -53,6 +53,7 @@ class VCMReceiveCallback {
  public:
   virtual int32_t FrameToRender(VideoFrame& videoFrame,  // NOLINT
                                 absl::optional<uint8_t> qp,
+                                int32_t decode_time_ms,
                                 VideoContentType content_type) = 0;
 
   // Called when the current receive codec changes.
@@ -71,8 +72,7 @@ class VCMReceiveStatisticsCallback {
                                size_t size_bytes,
                                VideoContentType content_type) = 0;
 
-  virtual void OnFrameBufferTimingsUpdated(int decode_ms,
-                                           int max_decode_ms,
+  virtual void OnFrameBufferTimingsUpdated(int max_decode_ms,
                                            int current_delay_ms,
                                            int target_delay_ms,
                                            int jitter_buffer_ms,

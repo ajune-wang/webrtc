@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "99661044_8b79d99c",
+        "filename": "modules/audio_coding/neteq/background_noise.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-06-28T08:05:29Z",
+      "side": 1,
+      "message": "I don\u0027t want to break the multi-channel case.\nWhat you suggest surely works with 1 channel.\nAlso note that at line 118 we set filter_params_saved \u003d true without returning; so we shouldn\u0027t add a return statement in there.",
+      "parentUuid": "9ad20548_fdb31cc5",
+      "range": {
+        "startLine": 50,
+        "startChar": 7,
+        "endLine": 50,
+        "endChar": 26
+      },
+      "revId": "180f6b54a20d4dd3e7b9f42ca21895776915f016",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70afa938_e853caa3",
         "filename": "modules/audio_coding/neteq/background_noise.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "180f6b54a20d4dd3e7b9f42ca21895776915f016",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3760f3c7_3fd8361f",
+        "filename": "modules/audio_coding/neteq/background_noise.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-06-28T08:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70afa938_e853caa3",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 36
+      },
+      "revId": "180f6b54a20d4dd3e7b9f42ca21895776915f016",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

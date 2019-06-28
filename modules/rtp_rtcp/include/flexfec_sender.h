@@ -41,9 +41,9 @@ class FlexfecSender {
                 rtc::ArrayView<const RtpExtensionSize> extension_sizes,
                 const RtpState* rtp_state,
                 Clock* clock);
-  ~FlexfecSender();
+  virtual ~FlexfecSender();
 
-  uint32_t ssrc() const { return ssrc_; }
+  virtual uint32_t Ssrc() const;
 
   // Sets the FEC rate, max frames sent before FEC packets are sent,
   // and what type of generator matrices are used.

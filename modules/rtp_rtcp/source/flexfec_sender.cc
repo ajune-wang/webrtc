@@ -102,6 +102,10 @@ FlexfecSender::FlexfecSender(
 
 FlexfecSender::~FlexfecSender() = default;
 
+uint32_t FlexfecSender::Ssrc() const {
+  return ssrc_;
+}
+
 // We are reusing the implementation from UlpfecGenerator for SetFecParameters,
 // AddRtpPacketAndGenerateFec, and FecAvailable.
 void FlexfecSender::SetFecParameters(const FecProtectionParams& params) {

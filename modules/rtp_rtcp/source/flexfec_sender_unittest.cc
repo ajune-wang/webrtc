@@ -81,7 +81,7 @@ TEST(FlexfecSenderTest, Ssrc) {
                        kNoRtpHeaderExtensions, kNoRtpHeaderExtensionSizes,
                        nullptr /* rtp_state */, &clock);
 
-  EXPECT_EQ(kFlexfecSsrc, sender.ssrc());
+  EXPECT_EQ(kFlexfecSsrc, sender.Ssrc());
 }
 
 TEST(FlexfecSenderTest, NoFecAvailableBeforeMediaAdded) {

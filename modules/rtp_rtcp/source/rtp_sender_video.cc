@@ -418,7 +418,7 @@ void RTPSenderVideo::SetFecParameters(const FecProtectionParams& delta_params,
 
 absl::optional<uint32_t> RTPSenderVideo::FlexfecSsrc() const {
   if (flexfec_sender_) {
-    return flexfec_sender_->ssrc();
+    return flexfec_sender_->Ssrc();
   }
   return absl::nullopt;
 }

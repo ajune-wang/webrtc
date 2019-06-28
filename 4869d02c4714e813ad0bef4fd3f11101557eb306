@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "47474f35_d0ffcdac",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/network_estimate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-06-28T16:29:31Z",
+      "side": 1,
+      "message": "This name seems quite unspecific. How about \"NetE\" or \"nets\" (for Network State) or \"gnse\" (for Google Network State Estimate)?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 60
+      },
+      "revId": "4869d02c4714e813ad0bef4fd3f11101557eb306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc1bf512_88793e4b",
         "filename": "modules/rtp_rtcp/source/rtcp_packet/network_estimate.h",
         "patchSetId": 1
@@ -64,6 +87,29 @@
         "startChar": 4,
         "endLine": 698,
         "endChar": 35
+      },
+      "revId": "4869d02c4714e813ad0bef4fd3f11101557eb306",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "870d9f75_b528d069",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1017,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-06-28T16:29:31Z",
+      "side": 1,
+      "message": "FYI: This will not do anything. We (deliberately) don\u0027t log RTCP of type APP.",
+      "range": {
+        "startLine": 1017,
+        "startChar": 8,
+        "endLine": 1017,
+        "endChar": 18
       },
       "revId": "4869d02c4714e813ad0bef4fd3f11101557eb306",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

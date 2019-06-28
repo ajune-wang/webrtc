@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "3e9ab05c_07b66d5c",
+        "filename": "call/rtp_transport_controller_send_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T12:40:44Z",
+      "side": 1,
+      "message": "Can you do #2 ? I think it should fairly minimal change, instead of caller doing\n\n-\u003eCreateRtpVideoSender( ... video_stream_encoder)\n\nit would be\n\nsender \u003d ...-\u003eCreateRtpVideoSender(...);\nvideo_stream_encoder-\u003eSetFecControllerOverride(sender-\u003eGetFecControllerOverride());\n\nTo me, that\u0027s a better separation between (i) encoding, (ii) transport, and (iii) piping stuff together. And implementation of the FecControllerOverride interface could be moved around later, if desired, with no changes to the calling code.",
+      "parentUuid": "102b8ad9_9a5154f9",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 56
+      },
+      "revId": "08d98cce2395e5c127f73e95f233a4d9ef140427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c92822df_129213c3",
         "filename": "call/rtp_video_sender.h",
         "patchSetId": 4
@@ -203,6 +227,30 @@
       "side": 1,
       "message": "Please note that in the current design, FecController is NOT the one implementing the FecControllerOverride interface. One nice thing about it - no need to update downstream projects that inject their own FecController. FecController is kept blissfully unaware that it can be overridden. Please see the comment here (separate CL):\nhttps://webrtc-review.googlesource.com/c/src/+/143966/3/call/rtp_video_sender.cc\n\nI think this is a good thing.",
       "parentUuid": "0472e0be_7c4d113d",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 52
+      },
+      "revId": "08d98cce2395e5c127f73e95f233a4d9ef140427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3e46840_7ede5341",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T12:40:44Z",
+      "side": 1,
+      "message": "I see. Not sure I agree, a class called \"FecController\" should be aware...",
+      "parentUuid": "6014bd8e_ab989aa1",
       "range": {
         "startLine": 74,
         "startChar": 0,

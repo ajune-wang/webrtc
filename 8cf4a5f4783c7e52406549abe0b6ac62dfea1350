@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1bc7f0fe_0cdc720f",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-06-28T09:35:50Z",
+      "side": 1,
+      "message": "Yep. It\u0027s part of the internal API used to configure the bitrate allocator.",
+      "parentUuid": "b457cfce_7942ea80",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 34
+      },
+      "revId": "8cf4a5f4783c7e52406549abe0b6ac62dfea1350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cfac1778_ddda0474",
         "filename": "call/bitrate_allocator_unittest.cc",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9577d1e5_9f258187",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-06-28T09:35:50Z",
+      "side": 1,
+      "message": "It is. I\u0027ve set my editor to run clang-format on every save, and it fixed this issue. I\u0027ll consider breaking the formatting changes out.",
+      "parentUuid": "cfac1778_ddda0474",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 42
+      },
+      "revId": "8cf4a5f4783c7e52406549abe0b6ac62dfea1350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68bdae35_470ad432",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 8
@@ -68,6 +116,30 @@
       "revId": "8cf4a5f4783c7e52406549abe0b6ac62dfea1350",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9b5adf4_2e445583",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-06-28T09:35:50Z",
+      "side": 1,
+      "message": "clang-format did this as well. This code if from 2016 or so, maybe it predates the format presubmit?",
+      "parentUuid": "68bdae35_470ad432",
+      "range": {
+        "startLine": 763,
+        "startChar": 0,
+        "endLine": 779,
+        "endChar": 3
+      },
+      "revId": "8cf4a5f4783c7e52406549abe0b6ac62dfea1350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

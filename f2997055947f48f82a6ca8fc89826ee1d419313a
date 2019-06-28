@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "451b3294_42094ec1",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-06-28T10:28:45Z",
+      "side": 1,
+      "message": "In order for this CL to be able to roll into chromium, you have to make a chromium CL updating this whitelist:\nhttps://cs.chromium.org/chromium/src/chrome/test/data/webrtc/peerconnection_getstats.js\n\nYou should make sure a CL for the whitelist lands before you land this one.",
+      "revId": "f2997055947f48f82a6ca8fc89826ee1d419313a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0522d8b9_41c95611",
         "filename": "modules/video_coding/generic_decoder.cc",
         "patchSetId": 3
@@ -19,6 +36,74 @@
         "endLine": 93,
         "endChar": 3
       },
+      "revId": "f2997055947f48f82a6ca8fc89826ee1d419313a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5c3e0e7_f90b500d",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-06-28T10:28:45Z",
+      "side": 1,
+      "message": "Can you also add a unittest in rtc_stats_collector_unittest.cc to verify the rtc_stats_collector.cc layer?\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/rtc_stats_collector_unittest.cc",
+      "revId": "f2997055947f48f82a6ca8fc89826ee1d419313a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44ba87a6_18f0d5d2",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-06-28T10:28:45Z",
+      "side": 1,
+      "message": "Why are you resetting total counters? When does this happen? This looks non-standard?",
+      "revId": "f2997055947f48f82a6ca8fc89826ee1d419313a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61b111b5_86252681",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-06-28T10:28:45Z",
+      "side": 1,
+      "message": "EXPECT_EQ here for total_decode_time too?",
+      "revId": "f2997055947f48f82a6ca8fc89826ee1d419313a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55a801f6_161bc2d0",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-06-28T10:28:45Z",
+      "side": 1,
+      "message": "What is this logic? It resets the frames decoded and total decode time counters? When does this happen and why?\n\nAccording to the standard, this the counters are for the frames decoded for this SSRC, it should never reset.",
       "revId": "f2997055947f48f82a6ca8fc89826ee1d419313a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

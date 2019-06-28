@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ad20548_fdb31cc5",
+        "filename": "modules/audio_coding/neteq/background_noise.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-06-28T07:18:10Z",
+      "side": 1,
+      "message": "I doubt the need of this variable. Simply return true/false at various places if possible.",
+      "range": {
+        "startLine": 50,
+        "startChar": 7,
+        "endLine": 50,
+        "endChar": 26
+      },
+      "revId": "180f6b54a20d4dd3e7b9f42ca21895776915f016",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70afa938_e853caa3",
+        "filename": "modules/audio_coding/neteq/background_noise.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-06-28T07:18:10Z",
+      "side": 1,
+      "message": "I would like to refactor this a bit as:\n\nif (!auto_correlation[0] \u003e 0) {\n  // Center value in auto-correlation is not positive. Do not update.\n  return false;\n}\nif (sample_energy \u003c ...)",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 36
+      },
+      "revId": "180f6b54a20d4dd3e7b9f42ca21895776915f016",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

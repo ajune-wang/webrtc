@@ -53,6 +53,7 @@ class VCMReceiveCallback {
  public:
   virtual int32_t FrameToRender(VideoFrame& videoFrame,  // NOLINT
                                 absl::optional<uint8_t> qp,
+                                int32_t decode_time_ms,
                                 VideoContentType content_type) = 0;
 
   // Called when the current receive codec changes.

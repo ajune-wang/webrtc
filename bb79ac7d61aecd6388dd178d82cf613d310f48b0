@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c20f33f7_d751db31",
+        "filename": "call/rtp_video_sender_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T13:27:56Z",
+      "side": 1,
+      "message": "If you add the GetFecControllerOverride method to the interface, this inherit and the corresponding method no longer needs to be part of the interface.",
+      "range": {
+        "startLine": 31,
+        "startChar": 32,
+        "endLine": 31,
+        "endChar": 61
+      },
+      "revId": "bb79ac7d61aecd6388dd178d82cf613d310f48b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

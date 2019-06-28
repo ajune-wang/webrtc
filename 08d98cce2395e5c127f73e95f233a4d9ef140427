@@ -260,6 +260,30 @@
       "revId": "08d98cce2395e5c127f73e95f233a4d9ef140427",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f5edd6f_70c1973c",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T13:20:35Z",
+      "side": 1,
+      "message": "But no change required for this cl.",
+      "parentUuid": "b3e46840_7ede5341",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 52
+      },
+      "revId": "08d98cce2395e5c127f73e95f233a4d9ef140427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

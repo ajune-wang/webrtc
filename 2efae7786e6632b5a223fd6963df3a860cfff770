@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d60f187b_855525aa",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-06-28T13:38:16Z",
+      "side": 0,
+      "message": "See also for example: https://cs.chromium.org/chromium/src/third_party/webrtc/media/engine/simulcast_encoder_adapter.cc?g\u003d0\u0026l\u003d462",
+      "range": {
+        "startLine": 388,
+        "startChar": 1,
+        "endLine": 388,
+        "endChar": 3
+      },
+      "revId": "2efae7786e6632b5a223fd6963df3a860cfff770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

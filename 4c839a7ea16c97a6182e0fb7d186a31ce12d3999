@@ -46,6 +46,30 @@
       "revId": "4c839a7ea16c97a6182e0fb7d186a31ce12d3999",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fb925bd_7b789613",
+        "filename": "AUTHORS",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-06-28T19:09:55Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "16629f5a_eae2a797",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 30
+      },
+      "revId": "4c839a7ea16c97a6182e0fb7d186a31ce12d3999",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

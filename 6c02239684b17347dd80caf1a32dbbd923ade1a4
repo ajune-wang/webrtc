@@ -94,6 +94,29 @@
       "revId": "6c02239684b17347dd80caf1a32dbbd923ade1a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7affe1af_ad755deb",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T08:23:59Z",
+      "side": 1,
+      "message": "Please add comment, saying that \"false\" implies an override, and maybe some context for why it is expected to be toggled mid-call.",
+      "range": {
+        "startLine": 184,
+        "startChar": 2,
+        "endLine": 184,
+        "endChar": 42
+      },
+      "revId": "6c02239684b17347dd80caf1a32dbbd923ade1a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

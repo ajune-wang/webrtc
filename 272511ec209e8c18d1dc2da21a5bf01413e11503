@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fbbb70c3_89d8d151",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-28T14:31:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5f4d025e_e0e127a3",
+      "revId": "272511ec209e8c18d1dc2da21a5bf01413e11503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a5fcb20_7cbb143d",
         "filename": "modules/rtp_rtcp/source/rtp_sender.h",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "272511ec209e8c18d1dc2da21a5bf01413e11503",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40f983ad_ab86ae3f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-06-28T14:31:26Z",
+      "side": 1,
+      "message": "Yes, this header has the names wrong, thanks for catching.\n\nChanged ctor to take the config, though it was a bit tricky.",
+      "parentUuid": "8a5fcb20_7cbb143d",
+      "revId": "272511ec209e8c18d1dc2da21a5bf01413e11503",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

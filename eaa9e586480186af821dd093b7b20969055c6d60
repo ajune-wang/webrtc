@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "301d796c_20792ae8",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-28T17:22:06Z",
+      "side": 1,
+      "message": "it is a struct, not a class: remove trailing \u0027_\u0027",
+      "range": {
+        "startLine": 125,
+        "startChar": 44,
+        "endLine": 125,
+        "endChar": 45
+      },
+      "revId": "eaa9e586480186af821dd093b7b20969055c6d60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05454a6f_98bab6ef",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-28T17:22:06Z",
+      "side": 1,
+      "message": "absl::string_view\n(not need to create temporary std::strings)",
+      "range": {
+        "startLine": 127,
+        "startChar": 15,
+        "endLine": 127,
+        "endChar": 26
+      },
+      "revId": "eaa9e586480186af821dd093b7b20969055c6d60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6c3c409_d32cec8d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-28T17:22:06Z",
+      "side": 1,
+      "message": "why add SetUp function instead of putting everything into constructor?\n\nhttps://github.com/google/googletest/blob/master/googletest/docs/faq.md#should-i-use-the-constructordestructor-of-the-test-fixture-or-setupteardown",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 23
+      },
+      "revId": "eaa9e586480186af821dd093b7b20969055c6d60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ae80901_c5ed719f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-28T17:22:06Z",
+      "side": 1,
+      "message": "you do not have to wrap rtp_sender_ into unique_ptr with this small trick:\n\nRtpSenderAudioTest() : fake_clock_(...),\nrtp_sender_([\u0026] {\n  RtpRtcp::Configuration config;\n  config.clock \u003d \u0026fake_clock_;\n  config.outgoing_transport \u003d \u0026transport_;\n  return config;\n}()),\nrtp_sender_audio_(\u0026fake_clock_, \u0026rtp_sender_) {\n  rtp_sender_.SetSequenceNumber(kSeqNum);\n}",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 55
+      },
+      "revId": "eaa9e586480186af821dd093b7b20969055c6d60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "21267cd9_8a1105db",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-06-28T17:22:06Z",
+      "side": 1,
+      "message": "if you create FlexfecSender with correct ssrc anyway, why mock it?",
+      "range": {
+        "startLine": 194,
+        "startChar": 7,
+        "endLine": 201,
+        "endChar": 28
+      },
+      "revId": "eaa9e586480186af821dd093b7b20969055c6d60",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

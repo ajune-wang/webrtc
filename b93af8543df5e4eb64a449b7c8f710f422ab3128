@@ -93,6 +93,29 @@
       "revId": "b93af8543df5e4eb64a449b7c8f710f422ab3128",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2386a8be_bdcf5c46",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection.mm",
+        "patchSetId": 8
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T08:44:06Z",
+      "side": 0,
+      "message": "There should be some analogous java and jni code to delete?",
+      "range": {
+        "startLine": 525,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 0
+      },
+      "revId": "b93af8543df5e4eb64a449b7c8f710f422ab3128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

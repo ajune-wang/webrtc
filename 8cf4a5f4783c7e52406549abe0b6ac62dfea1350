@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b457cfce_7942ea80",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T08:44:06Z",
+      "side": 1,
+      "message": "I take it this struct is used by the non-\"Strategy\" bitrate allocation code?",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 34
+      },
+      "revId": "8cf4a5f4783c7e52406549abe0b6ac62dfea1350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfac1778_ddda0474",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T08:44:06Z",
+      "side": 1,
+      "message": "This move seems unessential to this cl (if you\u0027d like to keep size down).",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 42
+      },
+      "revId": "8cf4a5f4783c7e52406549abe0b6ac62dfea1350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68bdae35_470ad432",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-06-28T08:44:06Z",
+      "side": 1,
+      "message": "Unrelated indentation fix? I wonder how the old version got in.",
+      "range": {
+        "startLine": 763,
+        "startChar": 0,
+        "endLine": 779,
+        "endChar": 3
+      },
+      "revId": "8cf4a5f4783c7e52406549abe0b6ac62dfea1350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -56,6 +56,51 @@ class HardwareVideoEncoder implements VideoEncoder {
   private static final int MEDIA_CODEC_RELEASE_TIMEOUT_MS = 5000;
   private static final int DEQUEUE_OUTPUT_BUFFER_TIMEOUT_US = 100000;
 
+  /**
+   * Keeps track of the number of output buffers that have been passed down the pipeline and not yet
+   * released. We need to wait for this to go down to zero before operations invalidating the output
+   * buffers, i.e., stop() and getOutputBuffers().
+   */
+  private static class BusyCount {
+    private boolean isWaiting;
+    private int count;
+
+    public BusyCount() {
+      isWaiting = false;
+      count = 0;
+    }
+
+    public synchronized void increment() {
+      if (isWaiting)
+        throw new IllegalStateException("Incoming frame while encoder is shutting down");
+      count++;
+    }
+
+    // This method may be called an arbitrary thread.
+    public synchronized void decrement() {
+      count--;
+      if (count == 0) {
+        notifyAll();
+      }
+    }
+
+    public synchronized void waitForZero() {
+      isWaiting = true;
+      boolean wasInterrupted = false;
+      while (count > 0) {
+        try {
+          wait();
+        } catch (InterruptedException e) {
+          Logging.e(TAG, "Interrupted while waiting on busy count");
+          wasInterrupted = true;
+        }
+      }
+      isWaiting = false;
+
+      if (wasInterrupted)
+        Thread.currentThread().interrupt();
+    }
+  }
   // --- Initialized on construction.
   private final MediaCodecWrapperFactory mediaCodecWrapperFactory;
   private final String codecName;
@@ -81,6 +126,7 @@ class HardwareVideoEncoder implements VideoEncoder {
 
   private final ThreadChecker encodeThreadChecker = new ThreadChecker();
   private final ThreadChecker outputThreadChecker = new ThreadChecker();
+  private final BusyCount outputBuffersBusyCount = new BusyCount();
 
   // --- Set on initialize and immutable until release.
   private Callback callback;
@@ -492,6 +538,7 @@ class HardwareVideoEncoder implements VideoEncoder {
       int index = codec.dequeueOutputBuffer(info, DEQUEUE_OUTPUT_BUFFER_TIMEOUT_US);
       if (index < 0) {
         if (index == MediaCodec.INFO_OUTPUT_BUFFERS_CHANGED) {
+          outputBuffersBusyCount.waitForZero();
           outputBuffers = codec.getOutputBuffers();
         }
         return;
@@ -535,12 +582,21 @@ class HardwareVideoEncoder implements VideoEncoder {
             ? EncodedImage.FrameType.VideoFrameKey
             : EncodedImage.FrameType.VideoFrameDelta;
 
+        outputBuffersBusyCount.increment();
         EncodedImage.Builder builder = outputBuilders.poll();
-        builder.setBuffer(frameBuffer).setFrameType(frameType);
+        EncodedImage encodedImage = builder
+                                        .setBuffer(frameBuffer,
+                                            () -> {
+                                              codec.releaseOutputBuffer(index, false);
+                                              outputBuffersBusyCount.decrement();
+                                            })
+                                        .setFrameType(frameType)
+                                        .createEncodedImage();
         // TODO(mellem):  Set codec-specific info.
-        callback.onEncodedFrame(builder.createEncodedImage(), new CodecSpecificInfo());
+        callback.onEncodedFrame(encodedImage, new CodecSpecificInfo());
+        // Note that the callback may have retained the image.
+        encodedImage.release();
       }
-      codec.releaseOutputBuffer(index, false);
     } catch (IllegalStateException e) {
       Logging.e(TAG, "deliverOutput failed", e);
     }
@@ -549,6 +605,7 @@ class HardwareVideoEncoder implements VideoEncoder {
   private void releaseCodecOnOutputThread() {
     outputThreadChecker.checkIsOnValidThread();
     Logging.d(TAG, "Releasing MediaCodec on output thread");
+    outputBuffersBusyCount.waitForZero();
     try {
       codec.stop();
     } catch (Exception e) {

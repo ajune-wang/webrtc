@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d89aa149_5f48ddfa",
+        "filename": "audio/audio_level.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-01T16:32:11Z",
+      "side": 1,
+      "message": "kUpdateFrequency is 10, but we update the level every 11th call. (count_++, not ++count_)\nSo if an audio frame is 10 ms, then we update every 11*10 ms. This means 1000/(11*10)\u003d9.09...\n\nI don\u0027t think this makes sense, I\u0027m just documenting the current behavior, because if you don\u0027t take this into account when you write a unittest you will start scratching your head, which I did.\n\nI considered updating it but I don\u0027t want this CL to break any current assumptions. I filed https://crbug.com/webrtc/10784.",
+      "parentUuid": "3ab8b0da_9f960340",
+      "range": {
+        "startLine": 72,
+        "startChar": 32,
+        "endLine": 72,
+        "endChar": 33
+      },
+      "revId": "a74a313b727c607d9d739760015a3faadfffe2a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56658a07_bb2d582f",
         "filename": "audio/audio_level.h",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "efaea517_d7dd8416",
+        "filename": "audio/audio_level.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-01T16:32:11Z",
+      "side": 1,
+      "message": "Done: https://crbug.com/webrtc/10784",
+      "parentUuid": "56658a07_bb2d582f",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 0
+      },
+      "revId": "a74a313b727c607d9d739760015a3faadfffe2a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "474b0b7b_b0d0c74a",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 10
@@ -59,6 +107,30 @@
       "writtenOn": "2019-07-01T15:32:24Z",
       "side": 1,
       "message": "Is this something you will address in a follow-up CL?",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 78
+      },
+      "revId": "a74a313b727c607d9d739760015a3faadfffe2a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "964c3d9e_5397ee23",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-01T16:32:11Z",
+      "side": 1,
+      "message": "The fact that we are reporting source-related metrics on a per-send stream basis is an existing problem (e.g. framesPerSecond for RTCVideoSourceStats). I would like to see it fixed, but it is a larger work effort than exposing a non-broken audio level, which was already only exposed after the send stream was created, even in the working native code path.\n\nI investigated fixing this problem but ran into problems of different code paths in chromium and native code, and realized I don\u0027t have time for this particular bug.\n\nWill I fix https://crbug.com/webrtc/10771 in a follow-up? Probably not :( because I\u0027m in-between two projects, and I\u0027m trying to ramp-down the stats work so that I can ramp-up on something else.",
+      "parentUuid": "474b0b7b_b0d0c74a",
       "range": {
         "startLine": 374,
         "startChar": 0,
@@ -91,6 +163,30 @@
       "revId": "a74a313b727c607d9d739760015a3faadfffe2a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "328ff217_e770ff13",
+        "filename": "audio/audio_send_stream_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-01T16:32:11Z",
+      "side": 1,
+      "message": "Yes, done! But I had to move it out into a target that both audio_mixer_unittests and audio_tests can depend on. And you need an AudioFrame to output the generator into, but 2 helper functions turned into 1.",
+      "parentUuid": "8fbc61b0_6e1ffd72",
+      "range": {
+        "startLine": 345,
+        "startChar": 0,
+        "endLine": 345,
+        "endChar": 77
+      },
+      "revId": "a74a313b727c607d9d739760015a3faadfffe2a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

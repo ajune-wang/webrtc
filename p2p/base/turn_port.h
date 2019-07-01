@@ -52,6 +52,8 @@ class TurnPort : public Port {
       rtc::PacketSocketFactory* factory,
       rtc::Network* network,
       rtc::AsyncPacketSocket* socket,
+      uint16_t min_port,
+      uint16_t max_port,
       const std::string& username,  // ice username.
       const std::string& password,  // ice password.
       const ProtocolAddress& server_address,
@@ -60,9 +62,10 @@ class TurnPort : public Port {
       const std::string& origin,
       webrtc::TurnCustomizer* customizer) {
     // Using `new` to access a non-public constructor.
-    return absl::WrapUnique(new TurnPort(
-        thread, factory, network, socket, username, password, server_address,
-        credentials, server_priority, origin, customizer));
+    return absl::WrapUnique(new TurnPort(thread, factory, network, socket,
+                                         min_port, max_port, username, password,
+                                         server_address, credentials,
+                                         server_priority, origin, customizer));
   }
   // TODO(steveanton): Remove once downstream clients have moved to |Create|.
   static std::unique_ptr<TurnPort> CreateUnique(
@@ -70,6 +73,8 @@ class TurnPort : public Port {
       rtc::PacketSocketFactory* factory,
       rtc::Network* network,
       rtc::AsyncPacketSocket* socket,
+      uint16_t min_port,
+      uint16_t max_port,
       const std::string& username,  // ice username.
       const std::string& password,  // ice password.
       const ProtocolAddress& server_address,
@@ -77,9 +82,9 @@ class TurnPort : public Port {
       int server_priority,
       const std::string& origin,
       webrtc::TurnCustomizer* customizer) {
-    return Create(thread, factory, network, socket, username, password,
-                  server_address, credentials, server_priority, origin,
-                  customizer);
+    return Create(thread, factory, network, socket, min_port, max_port,
+                  username, password, server_address, credentials,
+                  server_priority, origin, customizer);
   }
 
   // Create a TURN port that will use a new socket, bound to |network| and
@@ -237,6 +242,8 @@ class TurnPort : public Port {
            rtc::PacketSocketFactory* factory,
            rtc::Network* network,
            rtc::AsyncPacketSocket* socket,
+           uint16_t min_port,
+           uint16_t max_port,
            const std::string& username,
            const std::string& password,
            const ProtocolAddress& server_address,

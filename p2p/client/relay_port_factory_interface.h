@@ -36,15 +36,18 @@ struct RelayServerConfig;
 // A struct containing arguments to RelayPortFactory::Create()
 struct CreateRelayPortArgs {
   CreateRelayPortArgs();
-  rtc::Thread* network_thread;
-  rtc::PacketSocketFactory* socket_factory;
-  rtc::Network* network;
-  const ProtocolAddress* server_address;
-  const RelayServerConfig* config;
+  rtc::Thread* network_thread = nullptr;
+  rtc::PacketSocketFactory* socket_factory = nullptr;
+  rtc::Network* network = nullptr;
+  rtc::AsyncPacketSocket* shared_socket = nullptr;
+  uint16_t min_port;
+  uint16_t max_port;
+  const ProtocolAddress* server_address = nullptr;
+  const RelayServerConfig* config = nullptr;
   std::string username;
   std::string password;
   std::string origin;
-  webrtc::TurnCustomizer* turn_customizer;
+  webrtc::TurnCustomizer* turn_customizer = nullptr;
 };
 
 inline CreateRelayPortArgs::CreateRelayPortArgs() {}
@@ -63,6 +66,16 @@ class RelayPortFactoryInterface {
   virtual std::unique_ptr<Port> Create(const CreateRelayPortArgs& args,
                                        int min_port,
                                        int max_port) = 0;
+
+  // TODO(qingsi): Remove the above two overloads once the downstream projects
+  // have migrated to this one.
+  virtual std::unique_ptr<Port> Create(const CreateRelayPortArgs& args) {
+    if (args.shared_socket) {
+      return Create(args, args.shared_socket);
+    }
+
+    return Create(args, args.min_port, args.max_port);
+  }
 };
 
 }  // namespace cricket

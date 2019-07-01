@@ -1608,8 +1608,8 @@ void AllocationSequence::CreateTurnPort(const RelayServerConfig& config) {
     // due to webrtc bug https://code.google.com/p/webrtc/issues/detail?id=3537
     if (IsFlagSet(PORTALLOCATOR_ENABLE_SHARED_SOCKET) &&
         relay_port->proto == PROTO_UDP && udp_socket_) {
-      port = session_->allocator()->relay_port_factory()->Create(
-          args, udp_socket_.get());
+      args.shared_socket = udp_socket_.get();
+      port = session_->allocator()->relay_port_factory()->Create(args);
 
       if (!port) {
         RTC_LOG(LS_WARNING) << "Failed to create relay port with "
@@ -1622,9 +1622,10 @@ void AllocationSequence::CreateTurnPort(const RelayServerConfig& config) {
       // remove entrt from it's map.
       port->SignalDestroyed.connect(this, &AllocationSequence::OnPortDestroyed);
     } else {
-      port = session_->allocator()->relay_port_factory()->Create(
-          args, session_->allocator()->min_port(),
-          session_->allocator()->max_port());
+      args.min_port = session_->allocator()->min_port();
+      args.max_port = session_->allocator()->max_port();
+
+      port = session_->allocator()->relay_port_factory()->Create(args);
 
       if (!port) {
         RTC_LOG(LS_WARNING) << "Failed to create relay port with "
@@ -1632,7 +1633,7 @@ void AllocationSequence::CreateTurnPort(const RelayServerConfig& config) {
         continue;
       }
     }
-    RTC_DCHECK(port != NULL);
+    RTC_DCHECK(port != nullptr);
     session_->AddAllocatedPort(port.release(), this, true);
   }
 }

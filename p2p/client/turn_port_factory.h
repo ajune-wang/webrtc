@@ -30,6 +30,7 @@ class TurnPortFactory : public RelayPortFactoryInterface {
   std::unique_ptr<Port> Create(const CreateRelayPortArgs& args,
                                int min_port,
                                int max_port) override;
+  std::unique_ptr<Port> Create(const CreateRelayPortArgs& args) override;
 };
 
 }  // namespace cricket

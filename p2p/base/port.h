@@ -176,7 +176,8 @@ class Port : public PortInterface,
        uint16_t min_port,
        uint16_t max_port,
        const std::string& username_fragment,
-       const std::string& password);
+       const std::string& password,
+       bool shared_socket = false);
   ~Port() override;
 
   // Note that the port type does NOT uniquely identify different subclasses of

@@ -146,7 +146,8 @@ Port::Port(rtc::Thread* thread,
            uint16_t min_port,
            uint16_t max_port,
            const std::string& username_fragment,
-           const std::string& password)
+           const std::string& password,
+           bool shared_socket)
     : thread_(thread),
       factory_(factory),
       type_(type),
@@ -162,7 +163,7 @@ Port::Port(rtc::Thread* thread,
       enable_port_packets_(false),
       ice_role_(ICEROLE_UNKNOWN),
       tiebreaker_(0),
-      shared_socket_(false),
+      shared_socket_(shared_socket),
       weak_factory_(this) {
   RTC_DCHECK(factory_ != NULL);
   Construct();

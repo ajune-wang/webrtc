@@ -34,6 +34,24 @@
       "revId": "3f9f94ffa8e977ad27d5dae23c04e2f2595f7f27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa12b49f_44b24565",
+        "filename": "modules/video_coding/include/video_coding_defines.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-07-01T16:39:10Z",
+      "side": 1,
+      "message": "It looks like you are correct, but I am not willing to risk importing the code, which would crash if we both misunderstood something. FYI, codesearch might misbehave sometimes and miss some calls.\n\nSince you are on a vacation, If you are OK with it, I can pick this CL, change the default deprecated implementation here and merge it myself.",
+      "parentUuid": "51106fa1_899ad728",
+      "revId": "3f9f94ffa8e977ad27d5dae23c04e2f2595f7f27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

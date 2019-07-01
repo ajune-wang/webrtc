@@ -52,6 +52,24 @@
       "revId": "3f9f94ffa8e977ad27d5dae23c04e2f2595f7f27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "585dc898_dbff0d6c",
+        "filename": "modules/video_coding/include/video_coding_defines.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-07-01T21:54:27Z",
+      "side": 1,
+      "message": "Yeah, I guess that\u0027s the safest option.\nNo problem, I fixed it in the Gerrit editor.\n\nPlease feel free to submit once all reviewers have approved.",
+      "parentUuid": "fa12b49f_44b24565",
+      "revId": "3f9f94ffa8e977ad27d5dae23c04e2f2595f7f27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

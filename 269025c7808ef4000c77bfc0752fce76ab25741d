@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba8a27ab_3b8bc665",
+        "filename": "modules/video_coding/include/video_coding_defines.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-07-01T07:53:23Z",
+      "side": 1,
+      "message": "You need to add a deprecated FrameToRender method with the old signature here. It should just call the new one with 0 instead of decode_time_ms. You can define it right here, no need to add it to all VCMReceiveCallback implementations. Then, in the next CL you\u0027ll have to update all 1st party projects, which cause linux_internal_compile to fail. Then, the last cleanup CL should remove that deprecated one method.",
+      "revId": "269025c7808ef4000c77bfc0752fce76ab25741d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

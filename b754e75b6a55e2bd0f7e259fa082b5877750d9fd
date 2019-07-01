@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "df04aa16_efad12db",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-07-01T12:18:30Z",
+      "side": 1,
+      "message": "opus_packet_parse is defined that way.\n\nhttps://cs.chromium.org/chromium/src/third_party/opus/src/include/opus.h?type\u003dcs\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d527\n\nI thought compiler would complain if it is not 48, but it seems not.\n\nAdding a named constant now.",
+      "parentUuid": "1965ce5e_54c176ed",
+      "range": {
+        "startLine": 668,
+        "startChar": 25,
+        "endLine": 668,
+        "endChar": 27
+      },
+      "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34cd5328_8fb5338b",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 2
@@ -69,6 +93,30 @@
       "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47f4a472_4a99fbaf",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-07-01T12:18:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34cd5328_8fb5338b",
+      "range": {
+        "startLine": 671,
+        "startChar": 49,
+        "endLine": 671,
+        "endChar": 54
+      },
+      "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "94f2be93_6580c16e",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-07-01T12:18:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09481bb9_3ea95bca",
+      "range": {
+        "startLine": 686,
+        "startChar": 6,
+        "endLine": 686,
+        "endChar": 28
+      },
+      "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4442e53_6724b0a4",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 2
@@ -115,6 +187,30 @@
       "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afadaef2_fb02428a",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-07-01T12:18:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4442e53_6724b0a4",
+      "range": {
+        "startLine": 689,
+        "startChar": 18,
+        "endLine": 689,
+        "endChar": 21
+      },
+      "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

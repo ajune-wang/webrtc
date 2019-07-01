@@ -146,6 +146,9 @@ RtpRtcp* PacketRouter::FindRtpModule(uint32_t ssrc) {
 void PacketRouter::SendPacket(std::unique_ptr<RtpPacketToSend> packet,
                               const PacedPacketInfo& cluster_info) {
   rtc::CritScope cs(&modules_crit_);
+  if (packet->HasExtension<TransportSequenceNumber>()) {
+    packet->SetExtension<TransportSequenceNumber>(AllocateSequenceNumber());
+  }
   for (auto* rtp_module : rtp_send_modules_) {
     if (rtp_module->TrySendPacket(packet.get(), cluster_info)) {
       const bool can_send_padding =

@@ -38,9 +38,6 @@ class Vp8TemporalLayers final : public Vp8FrameBufferController {
 
   void SetQpLimits(size_t stream_index, int min_qp, int max_qp) override;
 
-  void SetFecControllerOverride(
-      FecControllerOverride* fec_controller_override) override;
-
   size_t StreamCount() const override;
 
   bool SupportsEncoderFrameDropping(size_t stream_index) const override;

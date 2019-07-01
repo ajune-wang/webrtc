@@ -24,7 +24,8 @@ namespace webrtc {
 
 std::unique_ptr<Vp8FrameBufferController> Vp8TemporalLayersFactory::Create(
     const VideoCodec& codec,
-    const VideoEncoder::Settings& settings) {
+    const VideoEncoder::Settings& settings,
+    FecControllerOverride* fec_controller_override) {
   std::vector<std::unique_ptr<Vp8FrameBufferController>> controllers;
   const int num_streams = SimulcastUtility::NumberOfSimulcastStreams(codec);
   RTC_DCHECK_GE(num_streams, 1);
@@ -39,6 +40,8 @@ std::unique_ptr<Vp8FrameBufferController> Vp8TemporalLayersFactory::Create(
       controllers.push_back(
           absl::make_unique<ScreenshareLayers>(num_temporal_layers));
     } else {
+      // TODO(bugs.webrtc.org/10769): Pass |fec_controller_override| to
+      // |DefaultTemporalLayers|.
       controllers.push_back(
           absl::make_unique<DefaultTemporalLayers>(num_temporal_layers));
     }

@@ -16,6 +16,24 @@
       "revId": "3f9f94ffa8e977ad27d5dae23c04e2f2595f7f27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51106fa1_899ad728",
+        "filename": "modules/video_coding/include/video_coding_defines.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-07-01T14:34:11Z",
+      "side": 1,
+      "message": "All downstream projects should have this implemented since it was pure virtual before, \u003d 0.\n\nThe downstream project I\u0027ve found had its own implementation of this class with the 3-argument function defined. Generic decoder has been changed to call the 4-argument function. So the default 4-argument function is defined to call the 3-argument function, this way it should work for the downstream project since generic decoder -\u003e default 4-argument function -\u003e downstream 3-argument function.\n\nI have not found any external calls to this function.",
+      "parentUuid": "5dcabb80_630a6e0a",
+      "revId": "3f9f94ffa8e977ad27d5dae23c04e2f2595f7f27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

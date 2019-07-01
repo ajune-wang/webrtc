@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3b0cdb5e_f4fb8cb9",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-07-01T09:39:17Z",
+      "side": 1,
+      "message": "Minyue brought up the same suggestion. I believe that the intent of this `Dependencies` struct is to make the member variables overridable (i.e. \"They can all be replaced by the user before sending the struct to the NetEqImpl constructor.\").\n\nBut since you both brought it up, then let\u0027s change it to a `const`. It doesn\u0027t anyway make too much sense that a caller would pass in one `Clock` only to immediately replace it with another.",
+      "parentUuid": "09708423_b9638d90",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 17
+      },
+      "revId": "942540ddc24e987fc32c9e082d12b7028a8427c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f69f772_a1287650",
         "filename": "modules/audio_coding/neteq/neteq_impl.h",
         "patchSetId": 14
@@ -45,6 +69,30 @@
       "revId": "942540ddc24e987fc32c9e082d12b7028a8427c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9199c542_db81a8f4",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-07-01T09:39:17Z",
+      "side": 1,
+      "message": "Note that it\u0027s the pointer that\u0027s const and not the pointee.\n\nI believe that the intent is to consider everything in this class under the protection of the critical section. `Clock`, `const bool`, and some of the others could do without. But being selective of which member variables to protect requires extra thought and may introduce extra risks since constness alone doesn\u0027t guarantee the thread safety of a class.\n\nI think that it\u0027s best to leave things as-is here.",
+      "parentUuid": "8f69f772_a1287650",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 49
+      },
+      "revId": "942540ddc24e987fc32c9e082d12b7028a8427c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

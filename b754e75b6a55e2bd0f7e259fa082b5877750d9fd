@@ -258,6 +258,30 @@
       "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc82b1a7_f493c0b5",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-07-01T14:33:57Z",
+      "side": 1,
+      "message": "OK. So what will happen currently if you give this code a multi-channel packet? Will it consistently return 0 or 1?",
+      "parentUuid": "29dd8bd1_d9c75f33",
+      "range": {
+        "startLine": 710,
+        "startChar": 2,
+        "endLine": 710,
+        "endChar": 45
+      },
+      "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

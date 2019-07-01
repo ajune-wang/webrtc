@@ -16,6 +16,24 @@
       "revId": "269025c7808ef4000c77bfc0752fce76ab25741d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be466484_4e393c8a",
+        "filename": "modules/video_coding/include/video_coding_defines.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-07-01T08:12:04Z",
+      "side": 1,
+      "message": "I\u0027ve made a fix, but I think it should be done in the opposite direction. Default implementation of new FrameToRender() calls old signature FrameToRender. As far as I can tell generic_decoder is the only place where the function is called. Seems to be a derived class in a downstream project that causes the build failure since the new function is not implemented.",
+      "parentUuid": "ba8a27ab_3b8bc665",
+      "revId": "269025c7808ef4000c77bfc0752fce76ab25741d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

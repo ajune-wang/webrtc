@@ -135,6 +135,10 @@ class PacedSender : public Module, public RtpPacketPacer {
   void UpdateBudgetWithBytesSent(size_t bytes)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
 
+  size_t TrySendPackets(const PacedPacketInfo& pacing_info,
+                        size_t bytes_sent,
+                        absl::optional<size_t> recommended_probe_size)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
   RoundRobinPacketQueue::QueuedPacket* GetPendingPacket(
       const PacedPacketInfo& pacing_info)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
@@ -195,6 +199,11 @@ class PacedSender : public Module, public RtpPacketPacer {
 
   int64_t queue_time_limit RTC_GUARDED_BY(critsect_);
   bool account_for_audio_ RTC_GUARDED_BY(critsect_);
+
+  // If true, PacedSender should only reference packets as in legacy mode.
+  // If false, PacedSender may have direct ownership of RtpPacketToSend objects.
+  // Defaults to true, will be changed to default false soon.
+  const bool pacer_reference_packets_;
 };
 }  // namespace webrtc
 #endif  // MODULES_PACING_PACED_SENDER_H_

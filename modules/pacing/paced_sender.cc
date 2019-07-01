@@ -97,7 +97,9 @@ PacedSender::PacedSender(Clock* clock,
       packets_(clock->TimeInMicroseconds()),
       packet_counter_(0),
       queue_time_limit(kMaxQueueLengthMs),
-      account_for_audio_(false) {
+      account_for_audio_(false),
+      pacer_reference_packets_(
+          !IsDisabled(*field_trials_, "WebRTC-Pacer-ReferencePackets")) {
   if (!drain_large_queues_) {
     RTC_LOG(LS_WARNING) << "Pacer queues will not be drained,"
                            "pushback experiment must be enabled.";
@@ -328,10 +330,17 @@ void PacedSender::Process() {
   int64_t now_us = clock_->TimeInMicroseconds();
   int64_t elapsed_time_ms = UpdateTimeAndGetElapsedMs(now_us);
   if (ShouldSendKeepalive(now_us)) {
-    critsect_.Leave();
-    size_t bytes_sent = packet_router_->TimeToSendPadding(1, PacedPacketInfo());
-    critsect_.Enter();
-    OnPaddingSent(bytes_sent);
+    if (pacer_reference_packets_) {
+      critsect_.Leave();
+      size_t bytes_sent =
+          packet_router_->TimeToSendPadding(1, PacedPacketInfo());
+      critsect_.Enter();
+      OnPaddingSent(bytes_sent);
+    } else {
+      critsect_.Leave();
+      packet_router_->GeneratePadding(1);
+      critsect_.Enter();
+    }
   }
 
   if (paused_)
@@ -364,12 +373,60 @@ void PacedSender::Process() {
 
   bool is_probing = prober_.IsProbing();
   PacedPacketInfo pacing_info;
-  size_t bytes_sent = 0;
   size_t recommended_probe_size = 0;
   if (is_probing) {
     pacing_info = prober_.CurrentCluster();
     recommended_probe_size = prober_.RecommendedMinProbeSize();
   }
+  size_t bytes_sent =
+      TrySendPackets(pacing_info, 0,
+                     is_probing ? absl::optional<size_t>(recommended_probe_size)
+                                : absl::nullopt);
+
+  if (packets_.Empty() && !Congested()) {
+    // We can not send padding unless a normal packet has first been sent. If we
+    // do, timestamps get messed up.
+    if (packet_counter_ > 0) {
+      int padding_needed =
+          static_cast<int>(is_probing ? (recommended_probe_size - bytes_sent)
+                                      : padding_budget_.bytes_remaining());
+      if (padding_needed > 0) {
+        if (pacer_reference_packets_) {
+          critsect_.Leave();
+          size_t padding_sent =
+              packet_router_->TimeToSendPadding(padding_needed, pacing_info);
+          critsect_.Enter();
+          bytes_sent += padding_sent;
+          OnPaddingSent(padding_sent);
+        } else {
+          critsect_.Leave();
+          packet_router_->GeneratePadding(padding_needed);
+          critsect_.Enter();
+          bytes_sent = TrySendPackets(
+              pacing_info, bytes_sent,
+              is_probing ? absl::optional<size_t>(recommended_probe_size)
+                         : absl::nullopt);
+        }
+      }
+    }
+  }
+  if (is_probing) {
+    probing_send_failure_ = bytes_sent == 0;
+    if (!probing_send_failure_)
+      prober_.ProbeSent(TimeMilliseconds(), bytes_sent);
+  }
+}
+
+void PacedSender::ProcessThreadAttached(ProcessThread* process_thread) {
+  RTC_LOG(LS_INFO) << "ProcessThreadAttached 0x" << process_thread;
+  rtc::CritScope cs(&process_thread_lock_);
+  process_thread_ = process_thread;
+}
+
+size_t PacedSender::TrySendPackets(
+    const PacedPacketInfo& pacing_info,
+    size_t bytes_sent,
+    absl::optional<size_t> recommended_probe_size) {
   // The paused state is checked in the loop since it leaves the critical
   // section allowing the paused state to be changed from other code.
   while (!packets_.Empty() && !paused_) {
@@ -400,7 +457,7 @@ void PacedSender::Process() {
       bytes_sent += packet->size_in_bytes();
       // Send succeeded, remove it from the queue.
       OnPacketSent(packet);
-      if (is_probing && bytes_sent > recommended_probe_size)
+      if (recommended_probe_size && bytes_sent > *recommended_probe_size)
         break;
     } else if (owned_rtp_packet) {
       // Send failed, but we can't put it back in the queue, remove it without
@@ -413,35 +470,7 @@ void PacedSender::Process() {
       break;
     }
   }
-
-  if (packets_.Empty() && !Congested()) {
-    // We can not send padding unless a normal packet has first been sent. If we
-    // do, timestamps get messed up.
-    if (packet_counter_ > 0) {
-      int padding_needed =
-          static_cast<int>(is_probing ? (recommended_probe_size - bytes_sent)
-                                      : padding_budget_.bytes_remaining());
-      if (padding_needed > 0) {
-        critsect_.Leave();
-        size_t padding_sent =
-            packet_router_->TimeToSendPadding(padding_needed, pacing_info);
-        critsect_.Enter();
-        bytes_sent += padding_sent;
-        OnPaddingSent(padding_sent);
-      }
-    }
-  }
-  if (is_probing) {
-    probing_send_failure_ = bytes_sent == 0;
-    if (!probing_send_failure_)
-      prober_.ProbeSent(TimeMilliseconds(), bytes_sent);
-  }
-}
-
-void PacedSender::ProcessThreadAttached(ProcessThread* process_thread) {
-  RTC_LOG(LS_INFO) << "ProcessThreadAttached 0x" << process_thread;
-  rtc::CritScope cs(&process_thread_lock_);
-  process_thread_ = process_thread;
+  return bytes_sent;
 }
 
 RoundRobinPacketQueue::QueuedPacket* PacedSender::GetPendingPacket(

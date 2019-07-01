@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1965ce5e_54c176ed",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-01T10:10:29Z",
+      "side": 1,
+      "message": "Yes please. Or a function-local named constant.",
+      "parentUuid": "b7566dab_e7c628e1",
+      "range": {
+        "startLine": 668,
+        "startChar": 25,
+        "endLine": 668,
+        "endChar": 27
+      },
+      "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "34cd5328_8fb5338b",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 2
@@ -41,6 +65,52 @@
         "startChar": 49,
         "endLine": 671,
         "endChar": 54
+      },
+      "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09481bb9_3ea95bca",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-01T10:10:29Z",
+      "side": 1,
+      "message": "Nit: payload_length_ms \u003c 10 would be easier on at least my eyes...",
+      "range": {
+        "startLine": 686,
+        "startChar": 6,
+        "endLine": 686,
+        "endChar": 28
+      },
+      "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4442e53_6724b0a4",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-01T10:10:29Z",
+      "side": 1,
+      "message": "Don\u0027t initialize; we always set the variable below, and if we didn\u0027t, we\u0027d want UBSan to notice.",
+      "range": {
+        "startLine": 689,
+        "startChar": 18,
+        "endLine": 689,
+        "endChar": 21
       },
       "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

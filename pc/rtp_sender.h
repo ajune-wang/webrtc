@@ -19,6 +19,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/types/optional.h"
 #include "api/media_stream_interface.h"
 #include "api/rtp_sender_interface.h"
 #include "media/base/audio_source.h"

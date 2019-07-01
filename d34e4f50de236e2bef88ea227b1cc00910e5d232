@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1bd144ad_0e6f9d9d",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4513,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-07-01T22:27:08Z",
+      "side": 1,
+      "message": "Maybe add another test were a layer is removed because it is not synced, but there is still simulcast?\na\u003drid:1 send\na\u003drid:2 recv\na\u003drid:3 send\na\u003dsimulcast:send 1;2;3",
+      "range": {
+        "startLine": 4513,
+        "startChar": 0,
+        "endLine": 4513,
+        "endChar": 6
+      },
+      "revId": "d34e4f50de236e2bef88ea227b1cc00910e5d232",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

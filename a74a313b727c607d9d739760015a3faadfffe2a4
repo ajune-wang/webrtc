@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ab8b0da_9f960340",
+        "filename": "audio/audio_level.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-07-01T15:32:24Z",
+      "side": 1,
+      "message": "Why nine?",
+      "range": {
+        "startLine": 72,
+        "startChar": 32,
+        "endLine": 72,
+        "endChar": 33
+      },
+      "revId": "a74a313b727c607d9d739760015a3faadfffe2a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56658a07_bb2d582f",
+        "filename": "audio/audio_level.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-07-01T15:32:24Z",
+      "side": 1,
+      "message": "This is a lot of information. Would you like to create and point to a bug for this as well?",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 0
+      },
+      "revId": "a74a313b727c607d9d739760015a3faadfffe2a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "474b0b7b_b0d0c74a",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-07-01T15:32:24Z",
+      "side": 1,
+      "message": "Is this something you will address in a follow-up CL?",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 78
+      },
+      "revId": "a74a313b727c607d9d739760015a3faadfffe2a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fbc61b0_6e1ffd72",
+        "filename": "audio/audio_send_stream_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-07-01T15:32:24Z",
+      "side": 1,
+      "message": "Can\u0027t you use modules/audio_mixer/sine_wave_generator?",
+      "range": {
+        "startLine": 345,
+        "startChar": 0,
+        "endLine": 345,
+        "endChar": 77
+      },
+      "revId": "a74a313b727c607d9d739760015a3faadfffe2a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

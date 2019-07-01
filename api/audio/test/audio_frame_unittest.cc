@@ -30,7 +30,9 @@ bool AllSamplesAre(int16_t sample, const AudioFrame& frame) {
 
 constexpr uint32_t kTimestamp = 27;
 constexpr int kSampleRateHz = 16000;
-constexpr size_t kNumChannels = 1;
+constexpr size_t kNumChannelsMono = 1;
+constexpr size_t kNumChannelsStereo = 2;
+constexpr size_t kNumChannels5_1 = 6;
 constexpr size_t kSamplesPerChannel = kSampleRateHz / 100;
 
 }  // namespace
@@ -62,34 +64,73 @@ TEST(AudioFrameTest, MutedFrameBufferIsZeroed) {
 
 TEST(AudioFrameTest, UpdateFrame) {
   AudioFrame frame;
-  int16_t samples[kNumChannels * kSamplesPerChannel] = {17};
+  int16_t samples[kNumChannelsMono * kSamplesPerChannel] = {17};
   frame.UpdateFrame(kTimestamp, samples, kSamplesPerChannel, kSampleRateHz,
-                    AudioFrame::kPLC, AudioFrame::kVadActive, kNumChannels);
+                    AudioFrame::kPLC, AudioFrame::kVadActive, kNumChannelsMono);
 
   EXPECT_EQ(kTimestamp, frame.timestamp_);
   EXPECT_EQ(kSamplesPerChannel, frame.samples_per_channel_);
   EXPECT_EQ(kSampleRateHz, frame.sample_rate_hz_);
   EXPECT_EQ(AudioFrame::kPLC, frame.speech_type_);
   EXPECT_EQ(AudioFrame::kVadActive, frame.vad_activity_);
-  EXPECT_EQ(kNumChannels, frame.num_channels_);
+  EXPECT_EQ(kNumChannelsMono, frame.num_channels_);
+  EXPECT_EQ(CHANNEL_LAYOUT_MONO, frame.channel_layout());
 
   EXPECT_FALSE(frame.muted());
   EXPECT_EQ(0, memcmp(samples, frame.data(), sizeof(samples)));
 
   frame.UpdateFrame(kTimestamp, nullptr /* data*/, kSamplesPerChannel,
                     kSampleRateHz, AudioFrame::kPLC, AudioFrame::kVadActive,
-                    kNumChannels);
+                    kNumChannelsMono);
   EXPECT_TRUE(frame.muted());
   EXPECT_TRUE(AllSamplesAre(0, frame));
+}
+
+TEST(AudioFrameTest, UpdateFrameMultiChannel) {
+  AudioFrame frame;
+  // Guess channel layout based on number of channels.
+  frame.UpdateFrame(kTimestamp, nullptr /* data */, kSamplesPerChannel,
+                    kSampleRateHz, AudioFrame::kPLC, AudioFrame::kVadActive,
+                    kNumChannelsStereo);
+  EXPECT_EQ(kSamplesPerChannel, frame.samples_per_channel_);
+  EXPECT_EQ(kNumChannelsStereo, frame.channels());
+  EXPECT_EQ(CHANNEL_LAYOUT_STEREO, frame.channel_layout());
+
+  // Use the specified channel layout instead of guessing based on number of
+  // channels.
+  frame.UpdateFrame(kTimestamp, nullptr /* data */, kSamplesPerChannel,
+                    kSampleRateHz, AudioFrame::kPLC, AudioFrame::kVadActive,
+                    kNumChannelsStereo, CHANNEL_LAYOUT_STEREO);
+  EXPECT_EQ(kSamplesPerChannel, frame.samples_per_channel_);
+  EXPECT_EQ(kNumChannelsStereo, frame.channels());
+  EXPECT_EQ(CHANNEL_LAYOUT_STEREO, frame.channel_layout());
+
+  // Guess channel layout based on number of channels.
+  frame.UpdateFrame(kTimestamp, nullptr /* data */, kSamplesPerChannel,
+                    kSampleRateHz, AudioFrame::kPLC, AudioFrame::kVadActive,
+                    kNumChannels5_1);
+  EXPECT_EQ(kSamplesPerChannel, frame.samples_per_channel_);
+  EXPECT_EQ(kNumChannels5_1, frame.channels());
+  EXPECT_EQ(CHANNEL_LAYOUT_5_1, frame.channel_layout());
+
+  // Use the specified channel layout instead of guessing based on number of
+  // channels.
+  frame.UpdateFrame(kTimestamp, nullptr /* data */, kSamplesPerChannel,
+                    kSampleRateHz, AudioFrame::kPLC, AudioFrame::kVadActive,
+                    kNumChannels5_1, CHANNEL_LAYOUT_5_1_BACK);
+  EXPECT_EQ(kSamplesPerChannel, frame.samples_per_channel_);
+  EXPECT_EQ(kNumChannels5_1, frame.channels());
+  EXPECT_EQ(CHANNEL_LAYOUT_5_1_BACK, frame.channel_layout());
 }
 
 TEST(AudioFrameTest, CopyFrom) {
   AudioFrame frame1;
   AudioFrame frame2;
 
-  int16_t samples[kNumChannels * kSamplesPerChannel] = {17};
+  int16_t samples[kNumChannelsMono * kSamplesPerChannel] = {17};
   frame2.UpdateFrame(kTimestamp, samples, kSamplesPerChannel, kSampleRateHz,
-                     AudioFrame::kPLC, AudioFrame::kVadActive, kNumChannels);
+                     AudioFrame::kPLC, AudioFrame::kVadActive,
+                     kNumChannelsMono);
   frame1.CopyFrom(frame2);
 
   EXPECT_EQ(frame2.timestamp_, frame1.timestamp_);
@@ -104,7 +145,7 @@ TEST(AudioFrameTest, CopyFrom) {
 
   frame2.UpdateFrame(kTimestamp, nullptr /* data */, kSamplesPerChannel,
                      kSampleRateHz, AudioFrame::kPLC, AudioFrame::kVadActive,
-                     kNumChannels);
+                     kNumChannelsMono);
   frame1.CopyFrom(frame2);
 
   EXPECT_EQ(frame2.muted(), frame1.muted());

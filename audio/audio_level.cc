@@ -22,12 +22,21 @@ AudioLevel::AudioLevel()
 
 AudioLevel::~AudioLevel() {}
 
+void AudioLevel::Reset() {
+  rtc::CritScope cs(&crit_sect_);
+  abs_max_ = 0;
+  count_ = 0;
+  current_level_full_range_ = 0;
+  total_energy_ = 0.0;
+  total_duration_ = 0.0;
+}
+
 int16_t AudioLevel::LevelFullRange() const {
   rtc::CritScope cs(&crit_sect_);
   return current_level_full_range_;
 }
 
-void AudioLevel::Clear() {
+void AudioLevel::ResetLevelFullRange() {
   rtc::CritScope cs(&crit_sect_);
   abs_max_ = 0;
   count_ = 0;
@@ -60,7 +69,9 @@ void AudioLevel::ComputeLevel(const AudioFrame& audioFrame, double duration) {
   if (abs_value > abs_max_)
     abs_max_ = abs_value;
 
-  // Update level approximately 10 times per second
+  // Update level approximately 9 times per second, assuming audio frame
+  // duration is approximately 10 ms. (The update frequency is every
+  // |kUpdateFrequency+1| call).
   if (count_++ == kUpdateFrequency) {
     current_level_full_range_ = abs_max_;
 

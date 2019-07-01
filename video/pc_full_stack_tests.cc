@@ -168,15 +168,6 @@ TEST_P(PCGenericDescriptorTest, ForemanCifPlr5Vp9) {
 }
 
 TEST(PCFullStackTest, GeneratorWithoutPacketLossVp9Profile2) {
-  bool profile_2_is_supported = false;
-  for (const auto& codec : SupportedVP9Codecs()) {
-    if (ParseSdpForVP9Profile(codec.parameters)
-            .value_or(VP9Profile::kProfile0) == VP9Profile::kProfile2) {
-      profile_2_is_supported = true;
-    }
-  }
-  if (!profile_2_is_supported)
-    return;
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
       CreateNetworkEmulationManager();
   auto fixture = CreateTestFixture(

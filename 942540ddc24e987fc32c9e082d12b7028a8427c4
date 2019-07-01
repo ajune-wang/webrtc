@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09708423_b9638d90",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-07-01T08:58:38Z",
+      "side": 1,
+      "message": "Suggest making this const",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 17
+      },
+      "revId": "942540ddc24e987fc32c9e082d12b7028a8427c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f69f772_a1287650",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-07-01T08:58:38Z",
+      "side": 1,
+      "message": "Should have to be protected by crit_sect_ if it\u0027s const, right?\n\nI wonder if the same is true for many of the other const members in here?",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 49
+      },
+      "revId": "942540ddc24e987fc32c9e082d12b7028a8427c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

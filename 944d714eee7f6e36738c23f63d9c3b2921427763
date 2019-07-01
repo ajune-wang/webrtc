@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee41f4bd_e658b071",
+        "filename": "modules/audio_coding/neteq/buffer_level_filter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-07-01T09:32:11Z",
+      "side": 1,
+      "message": "Please use\n static_cast\u003cint64_t\u003e(filtered_currentl_level_)\n\nhttps://google.github.io/styleguide/cppguide.html#Casting",
+      "range": {
+        "startLine": 37,
+        "startChar": 24,
+        "endLine": 37,
+        "endChar": 56
+      },
+      "revId": "944d714eee7f6e36738c23f63d9c3b2921427763",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f0dfb2b_5396bd2e",
+        "filename": "modules/audio_coding/neteq/buffer_level_filter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-07-01T09:32:11Z",
+      "side": 1,
+      "message": "And here.",
+      "range": {
+        "startLine": 44,
+        "startChar": 32,
+        "endLine": 44,
+        "endChar": 63
+      },
+      "revId": "944d714eee7f6e36738c23f63d9c3b2921427763",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

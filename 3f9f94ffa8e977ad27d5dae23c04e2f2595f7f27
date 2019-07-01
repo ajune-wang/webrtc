@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5dcabb80_630a6e0a",
+        "filename": "modules/video_coding/include/video_coding_defines.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-07-01T08:39:07Z",
+      "side": 1,
+      "message": "Please don\u0027t do this: once this CL would be imported to the downstream projects, they would crash in prod, because they\u0027re not changed yet! And you can\u0027t change them until this CL is imported because it\u0027s defining the new API.\n\nInstead do this here:\n\nvirtual int32_t FrameToRender(VideoFrame\u0026 videoFrame,  // NOLINT\n                                absl::optional\u003cuint8_t\u003e qp,\n                                VideoContentType content_type) {\n    // Cannot be pure virtual since this should be removed from derived\n    // classes. Use CHECK to detect if no FrameToRender is implemented.\n    return FrameToRender(videoFrame, qp, 0, content_type);\n  }",
+      "revId": "3f9f94ffa8e977ad27d5dae23c04e2f2595f7f27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

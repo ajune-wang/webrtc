@@ -66,4 +66,27 @@ double SamplesStatsCounter::GetPercentile(double percentile) {
   return low + fract_part * (high - low);
 }
 
+SamplesStatsCounter operator*(const SamplesStatsCounter& counter,
+                              double value) {
+  SamplesStatsCounter out;
+  for (auto& sample : counter.GetSamples()) {
+    out.AddSample(sample * value);
+  }
+  return out;
+}
+
+SamplesStatsCounter operator*(double value,
+                              const SamplesStatsCounter& counter) {
+  return counter * value;
+}
+
+SamplesStatsCounter operator/(const SamplesStatsCounter& counter,
+                              double value) {
+  SamplesStatsCounter out;
+  for (auto& sample : counter.GetSamples()) {
+    out.AddSample(sample / value);
+  }
+  return out;
+}
+
 }  // namespace webrtc

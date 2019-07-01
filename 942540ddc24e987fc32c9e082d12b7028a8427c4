@@ -93,6 +93,30 @@
       "revId": "942540ddc24e987fc32c9e082d12b7028a8427c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2764d1a7_bb759ce7",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-07-01T10:29:52Z",
+      "side": 1,
+      "message": "OK, to me it seems unlikely that the clock would need to be protected by a lock though. I doubt there\u0027s any example where that is done in webrtc. I think the methods of Clock could basically be seen as const.",
+      "parentUuid": "9199c542_db81a8f4",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 49
+      },
+      "revId": "942540ddc24e987fc32c9e082d12b7028a8427c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

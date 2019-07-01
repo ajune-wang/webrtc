@@ -117,6 +117,30 @@
       "revId": "942540ddc24e987fc32c9e082d12b7028a8427c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56e5f706_0b56b3f2",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-07-01T11:04:43Z",
+      "side": 1,
+      "message": "I\u0027ve removed the `RTC_GUARDED_BY` from `clock_`. It does make sense for code snippets to perhaps do a clock readout for log-writing purposes (or other similar reasons) while outside the clock.",
+      "parentUuid": "2764d1a7_bb759ce7",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 49
+      },
+      "revId": "942540ddc24e987fc32c9e082d12b7028a8427c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

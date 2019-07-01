@@ -68,6 +68,30 @@
       "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29dd8bd1_d9c75f33",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-07-01T07:57:18Z",
+      "side": 1,
+      "message": "AFAIK, this function can only return 1 or 2. \n\nhttps://cs.chromium.org/chromium/src/third_party/opus/src/src/opus_decoder.c?type\u003dcs\u0026q\u003dopus_packet_get_nb_channels\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d959\n\nBut yes, how about multi-channel?\n\nWe need to use multistream APIs\nhttps://mf4.xiph.org/jenkins/view/opus/job/opus/ws/doc/html/group__opus__multistream.html\n\nBasically, a multichannel Opus payload should have many frames, each can be mono/stereo and should be mapped to multichannel. The payload itself has no mapping information, and therefore \"the encoder and decoder must negotiate the channel configuration before the decoder can successfully interpret the data in the packets produced by the encoder.\"\n\nHow FEC should work in multichannel case is unclear. We should avoid multichannel payload to be parsed by this method actually.",
+      "parentUuid": "e84c1d70_25ea1745",
+      "range": {
+        "startLine": 710,
+        "startChar": 2,
+        "endLine": 710,
+        "endChar": 45
+      },
+      "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

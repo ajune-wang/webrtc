@@ -4496,6 +4496,34 @@ TEST_F(WebRtcSdpTest, TestDeserializeIgnoresDuplicateRidLines) {
   CompareRidDescriptionIds(rids, {"1", "3"});
 }
 
+TEST_F(WebRtcSdpTest, TestDeserializeRidSendDirection) {
+  std::string sdp = kUnifiedPlanSdpFullStringNoSsrc;
+  sdp += "a=rid:1 recv\r\n";
+  sdp += "a=rid:2 recv\r\n";
+  sdp += "a=simulcast:send 1;2\r\n";
+  JsepSessionDescription output(kDummyType);
+  SdpParseError error;
+  EXPECT_TRUE(webrtc::SdpDeserialize(sdp, &output, &error));
+  const cricket::ContentInfos& contents = output.description()->contents();
+  const cricket::MediaContentDescription* media =
+      contents.back().media_description();
+  EXPECT_FALSE(media->HasSimulcast());
+}
+
+TEST_F(WebRtcSdpTest, TestDeserializeRidRecvDirection) {
+  std::string sdp = kUnifiedPlanSdpFullStringNoSsrc;
+  sdp += "a=rid:1 send\r\n";
+  sdp += "a=rid:2 send\r\n";
+  sdp += "a=simulcast:recv 1;2\r\n";
+  JsepSessionDescription output(kDummyType);
+  SdpParseError error;
+  EXPECT_TRUE(webrtc::SdpDeserialize(sdp, &output, &error));
+  const cricket::ContentInfos& contents = output.description()->contents();
+  const cricket::MediaContentDescription* media =
+      contents.back().media_description();
+  EXPECT_FALSE(media->HasSimulcast());
+}
+
 // Simulcast serialization integration test.
 // This test will serialize and deserialize the description and compare.
 // More detailed tests for parsing simulcast can be found in

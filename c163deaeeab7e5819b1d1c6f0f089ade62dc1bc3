@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08c41378_54091136",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-02T12:13:53Z",
+      "side": 1,
+      "message": "The curly braces in the switch are unnecessary, since you don\u0027t declare new variables.",
+      "range": {
+        "startLine": 693,
+        "startChar": 13,
+        "endLine": 693,
+        "endChar": 14
+      },
+      "revId": "c163deaeeab7e5819b1d1c6f0f089ade62dc1bc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

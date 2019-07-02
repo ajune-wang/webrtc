@@ -282,6 +282,30 @@
       "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e181e94_7933d9d0",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-07-02T12:22:42Z",
+      "side": 1,
+      "message": "I notice that the method is used in multichannel decoding\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_coding/codecs/opus/audio_decoder_multi_channel_opus_impl.cc?type\u003dcs\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d126\n\nI don\u0027t know how well it is tested.\n\nThis method takes the first frame and returns 1 if it has LBRR in it. I don\u0027t know if it tells FEC correctly or not in multichannel case.\n\nI will make an attempt to avoid it being used in multichannel case.",
+      "parentUuid": "bc82b1a7_f493c0b5",
+      "range": {
+        "startLine": 710,
+        "startChar": 2,
+        "endLine": 710,
+        "endChar": 45
+      },
+      "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

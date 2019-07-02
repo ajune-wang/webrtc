@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67373646_9ef4daa8",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-02T19:40:32Z",
+      "side": 1,
+      "message": "const reference or std::move(rids)",
+      "range": {
+        "startLine": 241,
+        "startChar": 65,
+        "endLine": 241,
+        "endChar": 66
+      },
+      "revId": "a535cb651bb2be5ca85c02a3a9b999787d703c13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcb78eab_ea2b58ed",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1751,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-02T19:40:32Z",
+      "side": 1,
+      "message": "can just omit this",
+      "revId": "a535cb651bb2be5ca85c02a3a9b999787d703c13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

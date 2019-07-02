@@ -25,7 +25,8 @@ class Vp8TemporalLayersFactory : public Vp8FrameBufferControllerFactory {
 
   std::unique_ptr<Vp8FrameBufferController> Create(
       const VideoCodec& codec,
-      const VideoEncoder::Settings& settings) override;
+      const VideoEncoder::Settings& settings,
+      FecControllerOverride* fec_controller_override) override;
 };
 
 }  // namespace webrtc

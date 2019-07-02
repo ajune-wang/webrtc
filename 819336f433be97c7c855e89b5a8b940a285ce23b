@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7750e932_49e6f266",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-02T16:40:27Z",
+      "side": 1,
+      "message": "Why do we have to do this twice now? Previously we would only do it once, right?",
+      "range": {
+        "startLine": 382,
+        "startChar": 6,
+        "endLine": 382,
+        "endChar": 20
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2592e285_6b4a9617",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-02T16:40:27Z",
+      "side": 1,
+      "message": "It\u0027s not nice to have hidden exits of critical sections. Would it be possible to refactor in such a way that all explicit leaves and entries (non-scoped) are in Process()?",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 440,
+        "endChar": 22
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98de5c6a_d9fcfb5f",
+        "filename": "modules/pacing/paced_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-02T16:40:27Z",
+      "side": 1,
+      "message": "legacy_packet_reference_mode_?",
+      "range": {
+        "startLine": 206,
+        "startChar": 13,
+        "endLine": 206,
+        "endChar": 37
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "319549be_a48378b9",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-02T16:40:27Z",
+      "side": 1,
+      "message": "This is becoming quite complex, do we really need all the complexity here?",
+      "range": {
+        "startLine": 511,
+        "startChar": 0,
+        "endLine": 512,
+        "endChar": 37
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a986d620_55d0c057",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-02T16:40:27Z",
+      "side": 1,
+      "message": "Won\u0027t this set the sequence number of all pacer packets to 0? Or possibly hardcode the ID to 0.\n\nEither way it\u0027d be appropriate to add the argument name: /*extension_id*/\u003d0",
+      "range": {
+        "startLine": 901,
+        "startChar": 6,
+        "endLine": 901,
+        "endChar": 55
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

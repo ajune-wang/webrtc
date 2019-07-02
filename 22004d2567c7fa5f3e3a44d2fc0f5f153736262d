@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77841ff8_d2fc2b57",
+        "filename": "rtc_base/bit_buffer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-02T14:31:39Z",
+      "side": 1,
+      "message": "int; there\u0027s no particular reason to use any other type, is there?",
+      "range": {
+        "startLine": 320,
+        "startChar": 2,
+        "endLine": 320,
+        "endChar": 8
+      },
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "012dd18d_63d0f2f0",
+        "filename": "rtc_base/bit_buffer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-02T14:31:39Z",
+      "side": 1,
+      "message": "a \u003c\u003c b has the type of its left operand, so you need to say unit32_t{1} \u003c\u003c count_bits if you don\u0027t want UB if num_values \u003e\u003d 2^30. But then you still get UB if num_values \u003e\u003d 2^31. So I think you need\n\n  uint32_t num_min_bits_values \u003d static_cast\u003cuint32_t\u003e(uint64_t{1} \u003c\u003c count_bits) - num_values;",
+      "range": {
+        "startLine": 321,
+        "startChar": 34,
+        "endLine": 321,
+        "endChar": 49
+      },
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "108480b5_75d4d830",
+        "filename": "rtc_base/bit_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-02T14:31:39Z",
+      "side": 1,
+      "message": "I don\u0027t understand these docs, particularly the last line. Does it read k bits, where k is the smallest integer such that 2^k \u003c num_values? (And in that case, what happens if the bit pattern in those k bits corresponds to a number larger than num_values?)\n\nAlso, using max_val instead of num_values (with the range [0, max_val] instead of [0, num_values - 1]) would not needlessly exclude the [0, 2^32 - 1] range.\n\n...Having read the rest implementation, I would suggest something like this:\n\n  // Reads a value in the range [0, max_val]. Let n be the smallest integer such that 2^n \u003e max_val, and let k \u003d 2^n - 1 - max_val. An integer x in [0, k) is coded with n - 1 bits in the obvious way, and an integer x in [k, max_val] is coded as x + k with n bits.\n  // Returns false if not enough bits remain. (This is the only failure mode, since all bit patterns are valid inputs.)\n  bool ReadNonSymmetric(uint32_t* val, uint32_t max_val);",
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "438379ca_a2c08547",
+        "filename": "rtc_base/bit_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-02T14:31:39Z",
+      "side": 1,
+      "message": "Specify the number of bits written. Also, same comment as above regarding num_values vs. max_val.",
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64d93280_cac822b5",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-02T14:31:39Z",
+      "side": 1,
+      "message": "{} is better. {0, 0} is OK too, but then you have the possibility of size mismatch.",
+      "range": {
+        "startLine": 201,
+        "startChar": 21,
+        "endLine": 201,
+        "endChar": 24
+      },
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d170411b_58501c5e",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-02T14:31:39Z",
+      "side": 1,
+      "message": "Why the explicit size (which can mismatch)? Doesn\u0027t BitBufferWriter take an ArrayView argument?",
+      "range": {
+        "startLine": 202,
+        "startChar": 32,
+        "endLine": 202,
+        "endChar": 33
+      },
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f9b2b1b_d4ef37d6",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-02T14:31:39Z",
+      "side": 1,
+      "message": "You already have a unit test for reading. Why not just EXPECT that the right bytes are in the array?",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 55
+      },
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b8ba062_a5618096",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-07-02T12:00:53Z",
+      "side": 1,
+      "message": "nit: Public name_ field? Maybe add a getter please?",
+      "range": {
+        "startLine": 1047,
+        "startChar": 0,
+        "endLine": 1047,
+        "endChar": 22
+      },
+      "revId": "d465104266da486b1a523cdde5822f809a9b0043",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

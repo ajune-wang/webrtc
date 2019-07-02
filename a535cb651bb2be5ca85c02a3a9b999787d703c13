@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "aa5a7b14_c3997b11",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-07-02T21:35:35Z",
+      "side": 1,
+      "message": "i remember that in an early version i had this field there, but i ended up removing it. i guess it\u0027s not the most ideal place for this information, but there seems to be no better place for it as of now.",
+      "range": {
+        "startLine": 264,
+        "startChar": 30,
+        "endLine": 264,
+        "endChar": 43
+      },
+      "revId": "a535cb651bb2be5ca85c02a3a9b999787d703c13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcb78eab_ea2b58ed",
         "filename": "pc/webrtc_sdp.cc",
         "patchSetId": 1

@@ -70,6 +70,24 @@
       "revId": "3f9f94ffa8e977ad27d5dae23c04e2f2595f7f27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "52a374b2_38680647",
+        "filename": "modules/video_coding/include/video_coding_defines.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-07-02T08:06:31Z",
+      "side": 1,
+      "message": "Thank you! Submitting it.",
+      "parentUuid": "585dc898_dbff0d6c",
+      "revId": "3f9f94ffa8e977ad27d5dae23c04e2f2595f7f27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

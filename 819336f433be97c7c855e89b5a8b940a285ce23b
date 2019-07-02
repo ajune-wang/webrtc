@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "34370904_2bb2db9b",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-02T19:40:31Z",
+      "side": 1,
+      "message": "That\u0027s because previously TimeToSendPadding() would actually generate and immediately send padding packets.\nThe new GeneratePadding() will generate new padding packets and add them to the PacedSender queue, after which the pacer will need to actually send them out. This is done so that there will be a single way for RTP packets to be sent, plus it avoids some raciness where the pacer is potentially busy generating and sending padding packets while another thread is adding actual payload packets.",
+      "parentUuid": "7750e932_49e6f266",
+      "range": {
+        "startLine": 382,
+        "startChar": 6,
+        "endLine": 382,
+        "endChar": 20
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2592e285_6b4a9617",
         "filename": "modules/pacing/paced_sender.cc",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2019-07-02T16:40:27Z",
       "side": 1,
       "message": "It\u0027s not nice to have hidden exits of critical sections. Would it be possible to refactor in such a way that all explicit leaves and entries (non-scoped) are in Process()?",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 440,
+        "endChar": 22
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "540c85da_15ae0498",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-02T19:40:31Z",
+      "side": 1,
+      "message": "This leaving and re-taking the lock is ugly and should be removed anyway. In an upcoming CL I will split the logic of the PacedSender form the logic and ModuleProcessingThread that\u0027s driving it, so that most of the code can be re-used when a new TaskQueue-based implementation is added.\nCan we save that until then?",
+      "parentUuid": "2592e285_6b4a9617",
       "range": {
         "startLine": 440,
         "startChar": 0,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "7eca2891_f6ffe7e1",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-02T19:40:31Z",
+      "side": 1,
+      "message": "It\u0027s complex right now since we\u0027ll have three possible code paths: un-paced, legacy paced and the new paced one. Once I demonstrate that there are no regressions with the new path, I will remove the first two, significantly reducing the complexity.\nIf you\u0027re just talking about that if-statement, I can duplicate the retransmission rate checking code instead?",
+      "parentUuid": "319549be_a48378b9",
+      "range": {
+        "startLine": 511,
+        "startChar": 0,
+        "endLine": 512,
+        "endChar": 37
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a986d620_55d0c057",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 5
@@ -105,6 +177,30 @@
       "writtenOn": "2019-07-02T16:40:27Z",
       "side": 1,
       "message": "Won\u0027t this set the sequence number of all pacer packets to 0? Or possibly hardcode the ID to 0.\n\nEither way it\u0027d be appropriate to add the argument name: /*extension_id*/\u003d0",
+      "range": {
+        "startLine": 901,
+        "startChar": 6,
+        "endLine": 901,
+        "endChar": 55
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42e52b14_9c2d9ee4",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-02T19:40:31Z",
+      "side": 1,
+      "message": "That\u0027s not the extension id. I just populated them with a twsn of 0 so that is marked as set, then PacketRouter can update it to the actual value. I first just tried setting and ignoring\nthe packet which don\u0027t have the extension registered and reserved, but that resulted in a\nbunch of warning logging.\n\nFiled https://webrtc-review.googlesource.com/c/src/+/144461 in order to avoid that.",
+      "parentUuid": "a986d620_55d0c057",
       "range": {
         "startLine": 901,
         "startChar": 6,

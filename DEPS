@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '54ec0ffb8912de4c00c52a0c24a704a54c39bc4b',
+  'chromium_revision': '944fe24589520d6575037b99648d8ee86108a694',
 }
 
 deps = {
@@ -23,13 +23,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@269aa62e0eea17f130419d7b01f1d67d1e476b85',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@7de08a2f503e306a3517bf0a3d987a9f462eaeb3',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@49dccc9b604c75075b1ecd7d18739c111aa03478',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@8a70281840ddb340b24f9ca7ff7ba1370d633ca8',
+    'https://chromium.googlesource.com/chromium/src/third_party@db252e2a8b0dc88efc05fc60da27e05dca6c23fb',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -111,7 +111,7 @@ deps = {
   'src/third_party/boringssl/src':
     'https://boringssl.googlesource.com/boringssl.git@cfcb0060e8b8fba92d275fa4ac27d369890ea9bf',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@0c5ef59218561b0b28ad476fe7b7ed23e9c8432b',
+    'https://chromium.googlesource.com/catapult.git@160c1338291ed29f7d8e972ffb809b29308e6411',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
     'condition': 'checkout_android',
@@ -172,7 +172,7 @@ deps = {
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@cd9f1763c861edfd86d2814e029a34f3ce821e72',
   'src/third_party/libyuv':
-    'https://chromium.googlesource.com/libyuv/libyuv.git@09cfb2bbd61448da73a65cdf8eac3594290522bf',
+    'https://chromium.googlesource.com/libyuv/libyuv.git@f9aacffa029ff3a32f0408f78e2588663271f1b1',
   'src/third_party/lss': {
     'url': 'https://chromium.googlesource.com/linux-syscall-support.git@e6527b0cd469e3ff5764785dadcb39bf7d787154',
     'condition': 'checkout_android or checkout_linux',
@@ -231,7 +231,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@dbbe2e2f9e6e29761a74f69ef7d14388e04416e2',
+    'https://chromium.googlesource.com/chromium/src/tools@39ce247b540e50ea1de459dbc02155946d9b7871',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@96f125709acfd0b48fc1e5dae7d6ea42291726ac',
 

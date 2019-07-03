@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7bc8556c_9933ea33",
+        "filename": "rtc_base/bit_buffer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-07-03T12:04:30Z",
+      "side": 1,
+      "message": "CountBits function returns size_t. Is it good enough reason to keep using size_t?\n(may be CountBits better return int, but I think that is out of scope of this change).",
+      "parentUuid": "77841ff8_d2fc2b57",
+      "range": {
+        "startLine": 320,
+        "startChar": 2,
+        "endLine": 320,
+        "endChar": 8
+      },
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "012dd18d_63d0f2f0",
         "filename": "rtc_base/bit_buffer.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "774e3cf1_0eab9aef",
+        "filename": "rtc_base/bit_buffer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-07-03T12:04:30Z",
+      "side": 1,
+      "message": "changed int{1} to uint32_t{1}\ninstead of handling case count_bits\u003d32, DCHECKed to document it is not supported\n(I\u0027m unaware of use case where num_values is so large. for those cases it is more likely better to use fixed-size encoding.)",
+      "parentUuid": "012dd18d_63d0f2f0",
+      "range": {
+        "startLine": 321,
+        "startChar": 34,
+        "endLine": 321,
+        "endChar": 49
+      },
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -83,6 +131,24 @@
     },
     {
       "key": {
+        "uuid": "3edf59ea_95920ea5",
+        "filename": "rtc_base/bit_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-07-03T12:04:30Z",
+      "side": 1,
+      "message": "I would prefer to keep using num_values rather than max_val\nin particular because in c++ it is more common to specify upper bound exclusive rather than inclusive.\nif num_values \u003d\u003d 2³², then it is better to use ReadUInt32.\nFor my use case num_values will be maximum 33.\n\nUpdated the documentation with more details how this encoding works (by copy-pasting WriteNonSymmetric implementation and translating it to English)\n\nI took this encoding from av1 spec:\nhttps://aomediacodec.github.io/av1-spec/#nsn\nBut I didn\u0027t found more central rfc or wiki for that format",
+      "parentUuid": "108480b5_75d4d830",
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "438379ca_a2c08547",
         "filename": "rtc_base/bit_buffer.h",
         "patchSetId": 5
@@ -94,6 +160,24 @@
       "writtenOn": "2019-07-02T14:31:39Z",
       "side": 1,
       "message": "Specify the number of bits written. Also, same comment as above regarding num_values vs. max_val.",
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "571987ce_8058d4c0",
+        "filename": "rtc_base/bit_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-07-03T12:04:30Z",
+      "side": 1,
+      "message": "added math-readable hints how many bits will be used. Since exact number of bits is non-trivial, there is dedicated run-time function to get it.",
+      "parentUuid": "438379ca_a2c08547",
       "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -147,6 +231,30 @@
     },
     {
       "key": {
+        "uuid": "b7da6c3e_1c172446",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-07-03T12:04:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64d93280_cac822b5",
+      "range": {
+        "startLine": 201,
+        "startChar": 21,
+        "endLine": 201,
+        "endChar": 24
+      },
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d170411b_58501c5e",
         "filename": "rtc_base/bit_buffer_unittest.cc",
         "patchSetId": 5
@@ -167,6 +275,30 @@
       "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5c58a7a_a53e90a1",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-07-03T12:04:30Z",
+      "side": 1,
+      "message": "It doesn\u0027t.\nthere is only one constructor for BitBufferWriter (and only one for BitBuffer)",
+      "parentUuid": "d170411b_58501c5e",
+      "range": {
+        "startLine": 202,
+        "startChar": 32,
+        "endLine": 202,
+        "endChar": 33
+      },
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -202,6 +334,30 @@
         "id": 5126
       },
       "writtenOn": "2019-07-03T11:59:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f9b2b1b_d4ef37d6",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 55
+      },
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df197c0b_8d49e11c",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-07-03T12:04:30Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "4f9b2b1b_d4ef37d6",

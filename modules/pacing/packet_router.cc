@@ -146,6 +146,12 @@ RtpRtcp* PacketRouter::FindRtpModule(uint32_t ssrc) {
 void PacketRouter::SendPacket(std::unique_ptr<RtpPacketToSend> packet,
                               const PacedPacketInfo& cluster_info) {
   rtc::CritScope cs(&modules_crit_);
+  // With the new pacer code path, transport sequence numbers are only set here,
+  // on the pacer thread. Therefore we don't need atomics/synchronization.
+  if (packet->IsExtensionReserved<TransportSequenceNumber>() &&
+      packet->SetExtension<TransportSequenceNumber>(transport_seq_)) {
+    ++transport_seq_;
+  }
   for (auto* rtp_module : rtp_send_modules_) {
     if (rtp_module->TrySendPacket(packet.get(), cluster_info)) {
       const bool can_send_padding =

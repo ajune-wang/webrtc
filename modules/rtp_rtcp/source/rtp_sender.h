@@ -316,6 +316,11 @@ class RTPSender {
   // packet_history_.GetBestFittingPacket() in TrySendRedundantPayloads().
   const bool payload_padding_prefer_useful_packets_;
 
+  // If true, PacedSender should only reference packets as in legacy mode.
+  // If false, PacedSender may have direct ownership of RtpPacketToSend objects.
+  // Defaults to true, will be changed to default false soon.
+  const bool pacer_legacy_packet_referencing_;
+
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(RTPSender);
 };
 

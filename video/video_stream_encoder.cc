@@ -662,6 +662,28 @@ void VideoStreamEncoder::ConfigureEncoderOnTaskQueue(
   }
 }
 
+static absl::optional<VideoEncoder::ResolutionBitrateLimits>
+GetEncoderBitrateLimits(const VideoEncoder::EncoderInfo& encoder_info,
+                        int frame_size_pixels) {
+  for (size_t i = 0; i < encoder_info.resolution_bitrate_limits.size(); ++i) {
+    if (i > 0) {
+      RTC_DCHECK_GT(
+          encoder_info.resolution_bitrate_limits[i].frame_size_pixels,
+          encoder_info.resolution_bitrate_limits[i - 1].frame_size_pixels)
+          << "The bitrate limits should be ordered by frame size in ascending "
+             "order";
+    }
+
+    if (encoder_info.resolution_bitrate_limits[i].frame_size_pixels >=
+        frame_size_pixels) {
+      return absl::optional<VideoEncoder::ResolutionBitrateLimits>(
+          encoder_info.resolution_bitrate_limits[i]);
+    }
+  }
+
+  return absl::nullopt;
+}
+
 // TODO(bugs.webrtc.org/8807): Currently this always does a hard
 // reconfiguration, but this isn't always necessary. Add in logic to only update
 // the VideoBitrateAllocator and call OnEncoderConfigurationChanged with a
@@ -689,6 +711,38 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   RTC_CHECK_GE(last_frame_info_->height, highest_stream_height);
   crop_width_ = last_frame_info_->width - highest_stream_width;
   crop_height_ = last_frame_info_->height - highest_stream_height;
+
+  bool encoder_reset_required = false;
+  if (pending_encoder_creation_) {
+    // Destroy existing encoder instance before creating a new one. Otherwise
+    // attempt to create another instance will fail if encoder factory
+    // supports only single instance of encoder of given type.
+    encoder_.reset();
+
+    encoder_ = settings_.encoder_factory->CreateVideoEncoder(
+        encoder_config_.video_format);
+    // TODO(nisse): What to do if creating the encoder fails? Crash,
+    // or just discard incoming frames?
+    RTC_CHECK(encoder_);
+
+    encoder_->SetFecControllerOverride(fec_controller_override_);
+
+    codec_info_ = settings_.encoder_factory->QueryVideoEncoder(
+        encoder_config_.video_format);
+
+    encoder_bitrate_limits_ = GetEncoderBitrateLimits(
+        encoder_->GetEncoderInfo(),
+        last_frame_info_->width * last_frame_info_->height);
+
+    encoder_reset_required = true;
+  }
+
+  if (encoder_config_.max_bitrate_bps <= 0 && streams.size() == 1 &&
+      encoder_bitrate_limits_ && encoder_bitrate_limits_->max_bitrate_bps > 0) {
+    // If max video bitrate is not limited explicitly, set it equal to max
+    // bitrate recommended by encoder.
+    streams.back().max_bitrate_bps = encoder_bitrate_limits_->max_bitrate_bps;
+  }
 
   VideoCodec codec;
   if (!VideoCodecInitializer::SetupCodec(encoder_config_, streams, &codec)) {
@@ -743,8 +797,10 @@ void VideoStreamEncoder::ReconfigureEncoder() {
 
   // Reset (release existing encoder) if one exists and anything except
   // start bitrate or max framerate has changed.
-  const bool reset_required = RequiresEncoderReset(
-      codec, send_codec_, was_encode_called_since_last_initialization_);
+  if (!encoder_reset_required) {
+    encoder_reset_required = RequiresEncoderReset(
+        codec, send_codec_, was_encode_called_since_last_initialization_);
+  }
   send_codec_ = codec;
 
   // Keep the same encoder, as long as the video_format is unchanged.
@@ -752,26 +808,8 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   // CPU adaptation with the correct settings should be polled after
   // encoder_->InitEncode().
   bool success = true;
-  if (pending_encoder_creation_ || reset_required) {
+  if (encoder_reset_required) {
     ReleaseEncoder();
-    if (pending_encoder_creation_) {
-      // Destroy existing encoder instance before creating a new one. Otherwise
-      // attempt to create another instance will fail if encoder factory
-      // supports only single encoder instance.
-      encoder_.reset();
-
-      encoder_ = settings_.encoder_factory->CreateVideoEncoder(
-          encoder_config_.video_format);
-      // TODO(nisse): What to do if creating the encoder fails? Crash,
-      // or just discard incoming frames?
-      RTC_CHECK(encoder_);
-
-      encoder_->SetFecControllerOverride(fec_controller_override_);
-
-      codec_info_ = settings_.encoder_factory->QueryVideoEncoder(
-          encoder_config_.video_format);
-    }
-
     const size_t max_data_payload_length = max_data_payload_length_ > 0
                                                ? max_data_payload_length_
                                                : kDefaultPayloadSize;

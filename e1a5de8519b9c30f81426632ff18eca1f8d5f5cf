@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1aa63d9_7f679ff4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-03T12:03:33Z",
+      "side": 1,
+      "message": "Nit: Use the full macro name in the sed pattern, and use \\b where the name starts and ends. That makes it harder for errors to happen.",
+      "revId": "e1a5de8519b9c30f81426632ff18eca1f8d5f5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

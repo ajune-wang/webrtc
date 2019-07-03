@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a87bf839_31170ff2",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-07-03T13:39:58Z",
+      "side": 1,
+      "message": "I would like to modify this a bit to \n\nif ((generated_enough_noise \u0026\u0026 !below_target_window) || above_target_window)\n\nsince !below_target_window is only to AND generated_enough_noise, and is redundant to AND above_target_window.",
+      "range": {
+        "startLine": 375,
+        "startChar": 10,
+        "endLine": 376,
+        "endChar": 30
+      },
+      "revId": "45e9cdf52d23bdd08a283116e2fc87c00145bac4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

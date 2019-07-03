@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "81925cb4_c3ead253",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T16:23:25Z",
+      "side": 1,
+      "message": "I tried to create a second method but it becomes very complex since the compiler can\u0027t separate the two unless I use enum class, and that introduces lots of other issues.\n\nSo, instead I keep the existing signature and always guess the channel layout based on number of channels. I think we are OK since there is no support for channel layout in any other layer in WebRTC, hence adding a new ctor here will not be THE solution anyhow. All tests pass as is. I might have to add more once these parts run in Chrome.",
+      "parentUuid": "5dc10475_cfa7c6fd",
+      "range": {
+        "startLine": 74,
+        "startChar": 19,
+        "endLine": 75,
+        "endChar": 69
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "084ad5a2_a19bd473",
         "filename": "api/audio/audio_frame.h",
         "patchSetId": 20

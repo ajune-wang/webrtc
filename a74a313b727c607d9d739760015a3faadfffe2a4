@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8212f5e3_543f2b1e",
+        "filename": "audio/audio_level.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-07-03T11:11:49Z",
+      "side": 1,
+      "message": "Yeah, I was mostly wondering why it wasn\u0027t just changed to every tenth call, if that\u0027s what was originally intended. I see how you might not want to do that in this CL, though. Could you point out that this probably should be 10 times per second. The current explanation makes it sound like this was intended but gives no background as to why.",
+      "parentUuid": "d89aa149_5f48ddfa",
+      "range": {
+        "startLine": 72,
+        "startChar": 32,
+        "endLine": 72,
+        "endChar": 33
+      },
+      "revId": "a74a313b727c607d9d739760015a3faadfffe2a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56658a07_bb2d582f",
         "filename": "audio/audio_level.h",
         "patchSetId": 10
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "eaf81dc1_5122a6fc",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-07-03T11:11:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "964c3d9e_5397ee23",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 78
+      },
+      "revId": "a74a313b727c607d9d739760015a3faadfffe2a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fbc61b0_6e1ffd72",
         "filename": "audio/audio_send_stream_unittest.cc",
         "patchSetId": 10
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "Yes, done! But I had to move it out into a target that both audio_mixer_unittests and audio_tests can depend on. And you need an AudioFrame to output the generator into, but 2 helper functions turned into 1.",
       "parentUuid": "8fbc61b0_6e1ffd72",
+      "range": {
+        "startLine": 345,
+        "startChar": 0,
+        "endLine": 345,
+        "endChar": 77
+      },
+      "revId": "a74a313b727c607d9d739760015a3faadfffe2a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be9d6f11_0a4735bf",
+        "filename": "audio/audio_send_stream_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-07-03T11:11:49Z",
+      "side": 1,
+      "message": "Neat!",
+      "parentUuid": "328ff217_e770ff13",
       "range": {
         "startLine": 345,
         "startChar": 0,

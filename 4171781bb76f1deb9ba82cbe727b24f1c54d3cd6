@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a4634b8_2b4c41ca",
+        "filename": "audio/audio_send_stream_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-07-03T11:11:49Z",
+      "side": 1,
+      "message": "If the stats are updated only once every 11 frames, why not process that many frames in these blocks? It seems to me that the audio_level at first call to GetStats() will be zero only because it\u0027s not processed the level of any audio at all at that point. Or am I misunderstanding something?",
+      "range": {
+        "startLine": 454,
+        "startChar": 0,
+        "endLine": 454,
+        "endChar": 49
+      },
+      "revId": "4171781bb76f1deb9ba82cbe727b24f1c54d3cd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

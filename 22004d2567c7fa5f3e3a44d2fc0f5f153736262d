@@ -65,6 +65,24 @@
     },
     {
       "key": {
+        "uuid": "e9915c6c_82ec41da",
+        "filename": "rtc_base/bit_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-03T11:59:00Z",
+      "side": 1,
+      "message": "Is there a Wikipedia page or RFC or something that describes this encoding scheme, that you could point to?",
+      "parentUuid": "108480b5_75d4d830",
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "438379ca_a2c08547",
         "filename": "rtc_base/bit_buffer.h",
         "patchSetId": 5
@@ -102,6 +120,30 @@
       "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0547f14_3fa3a3b7",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-03T11:59:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64d93280_cac822b5",
+      "range": {
+        "startLine": 201,
+        "startChar": 21,
+        "endLine": 201,
+        "endChar": 24
+      },
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -148,6 +190,30 @@
       "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "569056a0_0db6dddb",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-03T11:59:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f9b2b1b_d4ef37d6",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 55
+      },
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

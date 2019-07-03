@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08350811_8411fbcc",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-07-03T11:30:58Z",
+      "side": 1,
+      "message": "I think we probably can make this a bit clearer. See below and comment.\n\nif (time_stretch_cn_) {\n  const bool above_target_window \u003d xxx;\n  const bool below_target_window \u003d xxx;\n  if (above_target_window \u0026\u0026 !below_target_window) {\n    time_stretched_cn_samples_ \u003d timestamp_leap - generated_noise_samples;\n    return kNormal;\n  }\n} else {\n  if (static_cast\u003cuint32_t\u003e(generated_noise_samples + target_timestamp) \u003e\n      available_timestamp ||\n      cur_size_samples \u003e\n          ((delay_manager_-\u003eTargetLevel() * packet_length_samples_) \u003e\u003e 8) * 4) {\n    // Time to play this new packet.\n    return kNormal;\n  }\n}\n\n// Too early to play this new packet; keep on playing comfort noise.\nif (prev_mode \u003d\u003d kModeRfc3389Cng) {\n  return kRfc3389CngNoPacket;\n} else {  // prevPlayMode \u003d\u003d kModeCodecInternalCng.\n  return kCodecInternalCng;\n}",
+      "range": {
+        "startLine": 351,
+        "startChar": 15,
+        "endLine": 351,
+        "endChar": 16
+      },
+      "revId": "073a8003486237ac9058d2833b5f56923a1c7ed0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

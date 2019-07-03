@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5dc10475_cfa7c6fd",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "See comments below. Let\u0027s discuss",
+      "parentUuid": "801bed2a_fea5379f",
+      "range": {
+        "startLine": 74,
+        "startChar": 19,
+        "endLine": 75,
+        "endChar": 69
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "084ad5a2_a19bd473",
         "filename": "api/audio/audio_frame.h",
         "patchSetId": 20
@@ -45,6 +69,30 @@
       "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3a2136d_f1732622",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "084ad5a2_a19bd473",
+      "range": {
+        "startLine": 103,
+        "startChar": 9,
+        "endLine": 103,
+        "endChar": 17
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f3e7da0e_7c069289",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d07fd868_9ee966ef",
+      "range": {
+        "startLine": 105,
+        "startChar": 6,
+        "endLine": 105,
+        "endChar": 17
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12148726_0ec507a3",
         "filename": "api/audio/audio_frame.h",
         "patchSetId": 20
@@ -82,6 +154,30 @@
       "writtenOn": "2019-07-03T11:35:42Z",
       "side": 1,
       "message": "It seems redundant to have both a channel count and a channel layout. The count should be easy to get from the layout. Is there any way you can get rid of the channel count?",
+      "range": {
+        "startLine": 117,
+        "startChar": 2,
+        "endLine": 117,
+        "endChar": 22
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7befd0ad_4b8bb62b",
+        "filename": "api/audio/audio_frame.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "I am following the Chrome way here and the reason is that a very common channel layout is DISCRETE which means that the device does not care about the exact order of channels. It could mean it is not a surround system but just a \"list of channels\" and in those cases one must use the combo of channel layout + channel config. \n\nhttps://cs.chromium.org/chromium/src/media/base/audio_parameters.h?q\u003daudio_para\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d281\n\n\u003d\u003e \n\nChannelLayout channel_layout_;  // Order of surround sound channels.\nint channels_;                  // Number of channels. Value set based on\n                                // |channel_layout|.",
+      "parentUuid": "12148726_0ec507a3",
       "range": {
         "startLine": 117,
         "startChar": 2,
@@ -128,6 +224,30 @@
       "writtenOn": "2019-07-03T11:35:42Z",
       "side": 1,
       "message": "Why not an enum class?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 4
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ed7e4f3_46354dc5",
+        "filename": "api/audio/channel_layout.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "(before I make any changes in ChannelLayout)\n\nI felt it was better to keep things as is given that this is more or less copy-paste from Chrome. Will be easier to update when needed.\n\nLet me know if you are OK with that. If not I can review the rest of your comments.",
+      "parentUuid": "4fe2f939_5f9eca5f",
       "range": {
         "startLine": 20,
         "startChar": 0,
@@ -278,6 +398,30 @@
     },
     {
       "key": {
+        "uuid": "443c64b9_a03a31c3",
+        "filename": "audio/utility/channel_mixer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Will do. Copied from the reference.",
+      "parentUuid": "019ea71b_5340e3fe",
+      "range": {
+        "startLine": 28,
+        "startChar": 19,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "390da58b_94ef43e3",
         "filename": "audio/utility/channel_mixer.cc",
         "patchSetId": 20
@@ -298,6 +442,30 @@
       "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c83d7630_f7dc682a",
+        "filename": "audio/utility/channel_mixer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "390da58b_94ef43e3",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 37
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -324,6 +492,30 @@
     },
     {
       "key": {
+        "uuid": "68ece09d_8ef37838",
+        "filename": "audio/utility/channel_mixer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9d97af8_5a4fa39b",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 0
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d4816e5_a48ad463",
         "filename": "audio/utility/channel_mixer.cc",
         "patchSetId": 20
@@ -335,6 +527,30 @@
       "writtenOn": "2019-07-03T11:35:42Z",
       "side": 1,
       "message": "Shouldn\u0027t you also change the frame\u0027s ChannelLayout?",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 75
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07795d77_09024be0",
+        "filename": "audio/utility/channel_mixer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Great comment, done!",
+      "parentUuid": "9d4816e5_a48ad463",
       "range": {
         "startLine": 58,
         "startChar": 2,
@@ -370,6 +586,30 @@
     },
     {
       "key": {
+        "uuid": "fca53a4e_501589d5",
+        "filename": "audio/utility/channel_mixer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "I actually uploaded a better version after this one. These parts are removed there.",
+      "parentUuid": "4c3d7beb_e1146434",
+      "range": {
+        "startLine": 76,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 6
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "01ab546d_426efdd8",
         "filename": "audio/utility/channel_mixer.cc",
         "patchSetId": 20
@@ -381,6 +621,30 @@
       "writtenOn": "2019-07-03T11:35:42Z",
       "side": 1,
       "message": "Since you are reallocating this vector for every call to Transform, I see no need to have it as a member variable; simply make it a local variable in this method. On the other hand, you know already at construction time of the object whether you\u0027ll need this, so you could instead allocate it once and for all in the ctor. That would likely save you some mem allocs.",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 12
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daf840da_1881eae7",
+        "filename": "audio/utility/channel_mixer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "I can\u0027t move it to the ctor since I don\u0027t know the frame size then. But I can remove it as member.",
+      "parentUuid": "01ab546d_426efdd8",
       "range": {
         "startLine": 82,
         "startChar": 4,
@@ -439,6 +703,30 @@
     },
     {
       "key": {
+        "uuid": "0ad7b134_b6c85fdd",
+        "filename": "audio/utility/channel_mixer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Thanks ;-) But it actually does not build and I would like to keep it as readable as possible. Hope you are OK with that.",
+      "parentUuid": "1283b3be_09171cf6",
+      "range": {
+        "startLine": 92,
+        "startChar": 6,
+        "endLine": 92,
+        "endChar": 29
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9efd5b57_e60f5456",
         "filename": "audio/utility/channel_mixer.cc",
         "patchSetId": 20
@@ -459,6 +747,30 @@
       "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea758a85_7ae5af03",
+        "filename": "audio/utility/channel_mixer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9efd5b57_e60f5456",
+      "range": {
+        "startLine": 93,
+        "startChar": 11,
+        "endLine": 93,
+        "endChar": 14
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -485,6 +797,30 @@
     },
     {
       "key": {
+        "uuid": "dda57881_b79107c5",
+        "filename": "audio/utility/channel_mixer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f049317e_d6e0d2ca",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 13
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ac4c273_66e2da16",
         "filename": "audio/utility/channel_mixer.cc",
         "patchSetId": 20
@@ -496,6 +832,30 @@
       "writtenOn": "2019-07-03T11:35:42Z",
       "side": 1,
       "message": "Are you sure that adding a branch inside of a tight loop is faster than multiplying with a number of zero values?",
+      "range": {
+        "startLine": 97,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 24
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d6f090a_6ed2d411",
+        "filename": "audio/utility/channel_mixer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Nope... removing branch ;-)",
+      "parentUuid": "0ac4c273_66e2da16",
       "range": {
         "startLine": 97,
         "startChar": 8,
@@ -531,6 +891,30 @@
     },
     {
       "key": {
+        "uuid": "58ea9e9e_2f1df64c",
+        "filename": "audio/utility/channel_mixer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f49f19a5_fa92d5d2",
+      "range": {
+        "startLine": 107,
+        "startChar": 2,
+        "endLine": 107,
+        "endChar": 42
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27506c8c_24c24aa2",
         "filename": "audio/utility/channel_mixer.cc",
         "patchSetId": 20
@@ -551,6 +935,30 @@
       "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f518f326_1019d4f7",
+        "filename": "audio/utility/channel_mixer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27506c8c_24c24aa2",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 5
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -577,6 +985,30 @@
     },
     {
       "key": {
+        "uuid": "ff7bdb2b_e34b51fb",
+        "filename": "audio/utility/channel_mixer.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d69150a4_741148c3",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 17
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "925a3818_63ea7f23",
         "filename": "audio/utility/channel_mixer.h",
         "patchSetId": 20
@@ -597,6 +1029,30 @@
       "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28b133ae_9f31a734",
+        "filename": "audio/utility/channel_mixer.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "925a3818_63ea7f23",
+      "range": {
+        "startLine": 61,
+        "startChar": 7,
+        "endLine": 61,
+        "endChar": 15
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -623,6 +1079,30 @@
     },
     {
       "key": {
+        "uuid": "a7486494_a66b87cc",
+        "filename": "audio/utility/channel_mixer.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c99b65b9_7ab917ee",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 72
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e926ab7_8cff56f2",
         "filename": "audio/utility/channel_mixer.h",
         "patchSetId": 20
@@ -643,6 +1123,30 @@
       "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60482dac_80696e51",
+        "filename": "audio/utility/channel_mixer.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e926ab7_8cff56f2",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 31
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -669,6 +1173,30 @@
     },
     {
       "key": {
+        "uuid": "e30067ea_bd2f651a",
+        "filename": "audio/utility/channel_mixer.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f60ae9b0_012242f4",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 23
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5629b25f_c540ac59",
         "filename": "audio/utility/channel_mixer.h",
         "patchSetId": 20
@@ -689,6 +1217,30 @@
       "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9761a194_14288156",
+        "filename": "audio/utility/channel_mixer.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-03T13:56:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5629b25f_c540ac59",
+      "range": {
+        "startLine": 76,
+        "startChar": 2,
+        "endLine": 76,
+        "endChar": 35
+      },
+      "revId": "e215439d87c940524e526a55d6fd78e9208a5f7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

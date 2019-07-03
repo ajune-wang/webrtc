@@ -666,6 +666,8 @@ class VideoStreamEncoderTest : public ::testing::Test {
           }
         }
       }
+
+      info.resolution_bitrate_thresholds = resolution_bitrate_thresholds_;
       return info;
     }
 
@@ -699,6 +701,12 @@ class VideoStreamEncoderTest : public ::testing::Test {
       RTC_DCHECK_LT(spatial_idx, kMaxSpatialLayers);
       rtc::CritScope lock(&local_crit_sect_);
       temporal_layers_supported_[spatial_idx] = supported;
+    }
+
+    void SetResolutionBitrateThresholds(
+        std::vector<ResolutionBitrateThresholds> thresholds) {
+      rtc::CritScope cs(&local_crit_sect_);
+      resolution_bitrate_thresholds_ = thresholds;
     }
 
     void ForceInitEncodeFailure(bool force_failure) {
@@ -882,6 +890,8 @@ class VideoStreamEncoderTest : public ::testing::Test {
         RTC_GUARDED_BY(local_crit_sect_) = nullptr;
     MockFecControllerOverride fec_controller_override_;
     int num_encoder_initializations_ RTC_GUARDED_BY(local_crit_sect_) = 0;
+    std::vector<ResolutionBitrateThresholds> resolution_bitrate_thresholds_
+        RTC_GUARDED_BY(local_crit_sect_);
   };
 
   class TestSink : public VideoStreamEncoder::EncoderSink {
@@ -1327,6 +1337,32 @@ TEST_F(VideoStreamEncoderTest, BitrateLimitsChangeReconfigureRateAllocator) {
   EXPECT_EQ(kStartBitrateBps * 2,
             bitrate_allocator_factory_.codec_config().startBitrate * 1000);
   EXPECT_EQ(1, fake_encoder_.GetNumEncoderInitializations());
+
+  video_stream_encoder_->Stop();
+}
+
+TEST_F(VideoStreamEncoderTest,
+       MaxBitrateIsUnsetEncoderRecommendedMaxBitrateIsUsed) {
+  video_stream_encoder_->OnBitrateUpdated(
+      DataRate::bps(kTargetBitrateBps), DataRate::bps(kTargetBitrateBps), 0, 0);
+
+  const uint32_t kEncoderMaxBitrateBps = kTargetBitrateBps + 123 * 1000;
+  VideoEncoder::ResolutionBitrateThresholds encoder_bitrate_thresholds(
+      codec_width_ * codec_height_, 0, 0, kEncoderMaxBitrateBps);
+  fake_encoder_.SetResolutionBitrateThresholds({encoder_bitrate_thresholds});
+
+  VideoEncoderConfig video_encoder_config;
+  test::FillEncoderConfiguration(kVideoCodecVP8, 1, &video_encoder_config);
+  video_encoder_config.max_bitrate_bps = 0;
+  video_stream_encoder_->ConfigureEncoder(video_encoder_config.Copy(),
+                                          kMaxPayloadLength);
+
+  // Capture a frame and wait for it to synchronize with the encoder thread.
+  video_source_.IncomingCapturedFrame(CreateFrame(1, nullptr));
+  WaitForEncodedFrame(1);
+
+  EXPECT_EQ(kEncoderMaxBitrateBps,
+            bitrate_allocator_factory_.codec_config().maxBitrate * 1000);
 
   video_stream_encoder_->Stop();
 }

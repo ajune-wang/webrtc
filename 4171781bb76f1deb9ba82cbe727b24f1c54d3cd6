@@ -22,6 +22,30 @@
       "revId": "4171781bb76f1deb9ba82cbe727b24f1c54d3cd6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91ef35ec_e9b8b2b4",
+        "filename": "audio/audio_send_stream_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-03T15:11:37Z",
+      "side": 1,
+      "message": "You would think, but no! That would make too much sense. While the cycle is 11, the audio level calculation is updated at the END of the cycle, not the beginning.\n\nSo, because the 11th call is when the audio level gets updated, if we did 11 silent frames here then the next \"cycle\" of 11 more frames would be doomed to have audio_level \u003d 0, meaning the subsequent audio frames - even though they contain 100% audio level, would be reported as 0.\n\nSo the audio level used for a cycle is actually based on the last frame of the previous cycle (and decay of previous cycles). But by the time you update the audio level, you take the current cycle into account.\n\nIt\u0027s like this:\n\nCycle0:\n  10 frames of the initial audio level \u003d 0.\n   1 frame of updated audio level \u003d Cycle0\u0027s audio level.\n       Cycle0\u0027s audio level is the maximum of Cycle0\u0027s 11 frames.\nCycle1:\n  10 frames of audio level \u003d Cycle0\u0027s audio level.\n   1 frame of updated audio level \u003d Cycle1\u0027s audio level.\n       Cycle1\u0027s audio level is Cycle0\u0027s audio level divided by four,\n       OR the maximum audio level of Cycle1\u0027s 11 frames, if that is higher.\nCycle2:\n  10 frames of audio level \u003d Cycle1\u0027s audio level.\n   1 frame of updated audio level \u003d Cycle2\u0027s audio level.\n       Cycle2\u0027s audio level is Cycle1\u0027s audio level divided by four,\n       OR the maximum audio level of Cycle2\u0027s 11 frames, if that is higher.\nCycle3:\n  ... and so on\n\nI tried to clarify the in-code comment without writing all of the above.",
+      "parentUuid": "1a4634b8_2b4c41ca",
+      "range": {
+        "startLine": 454,
+        "startChar": 0,
+        "endLine": 454,
+        "endChar": 49
+      },
+      "revId": "4171781bb76f1deb9ba82cbe727b24f1c54d3cd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

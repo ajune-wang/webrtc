@@ -16,6 +16,24 @@
       "revId": "e1a5de8519b9c30f81426632ff18eca1f8d5f5cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "163af6fd_0056ec93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-07-03T12:47:56Z",
+      "side": 1,
+      "message": "Ah, I always forget about \\b. :/\nThanks!",
+      "parentUuid": "e1aa63d9_7f679ff4",
+      "revId": "e1a5de8519b9c30f81426632ff18eca1f8d5f5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

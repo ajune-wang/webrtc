@@ -261,6 +261,7 @@ void FakeEncoder::SetRates(const RateControlParameters& parameters) {
 
 const char* FakeEncoder::kImplementationName = "fake_encoder";
 VideoEncoder::EncoderInfo FakeEncoder::GetEncoderInfo() const {
+  rtc::CritScope cs(&crit_sect_);
   EncoderInfo info;
   info.implementation_name = kImplementationName;
   return info;

@@ -34,6 +34,24 @@
       "revId": "ebab4b9f5b69c758e3296f4f99569c6c45973dc3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27c11058_698c498a",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1150,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-03T13:03:06Z",
+      "side": 1,
+      "message": "Ouch. Well, in that case,\n\n  const auto call \u003d absl::WrapUnique(webrtc::Call::Create(call_config));\n\nUsing the unique_ptr constructor directly is slightly error-prone precisely because readers can\u0027t easily tell whether the argument is a unique_ptr or a raw pointer. WrapUnique calls it out.",
+      "parentUuid": "ed2287a9_82be5e62",
+      "revId": "ebab4b9f5b69c758e3296f4f99569c6c45973dc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "184883c0_b1e59105",
+        "filename": "api/video/video_stream_encoder_settings.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-07-03T09:54:09Z",
+      "side": 1,
+      "message": "Done, now:\n\n  class EncoderFailureCallback {\n   public:\n    virtual ~EncoderFailureCallback() {}\n    virtual void OnEncoderFailure() \u003d 0;\n  };",
+      "parentUuid": "ae535772_32a9d260",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 2
+      },
+      "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16e74bf9_a171e069",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2019-06-27T10:44:13Z",
       "side": 1,
       "message": "This applies the new settings to *all* send streams, not just the one that had the failing encoder? Is that how it\u0027s supposed to be? I\u0027m lacking some context of how these things are negotiated.",
+      "range": {
+        "startLine": 739,
+        "startChar": 0,
+        "endLine": 739,
+        "endChar": 35
+      },
+      "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b368e3b8_55e8ee06",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-07-03T09:54:09Z",
+      "side": 1,
+      "message": "Preferably not, but for now we don\u0027t aim to support multiple codecs at once, we just want to be able to switch which codec that is used.",
+      "parentUuid": "16e74bf9_a171e069",
       "range": {
         "startLine": 739,
         "startChar": 0,
@@ -142,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "e01300e5_4373e2a6",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-07-03T09:54:09Z",
+      "side": 1,
+      "message": "\u003e Needed here because the WebrtcVideoSendStream is destroyed and recreated, so one can\u0027t use the send stream\u0027s invoker?\n\nExactly.\n\n\u003e I hope we can see some followups where logic is pushed downwards. Ultimately, it should be in VideoStreamEncoder or some nearby controller class.\n\nI agree, VideoStreamEncoder is probably the best place to make the switch. For that to be possible there are quite a few classes that needs to be changed.",
+      "parentUuid": "cdef76e9_20af4f5b",
+      "range": {
+        "startLine": 569,
+        "startChar": 0,
+        "endLine": 571,
+        "endChar": 29
+      },
+      "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f54eefa_863e631e",
         "filename": "modules/video_coding/include/video_error_codes.h",
         "patchSetId": 9
@@ -213,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "67d47417_eb6a13d3",
+        "filename": "modules/video_coding/include/video_error_codes.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-07-03T09:54:09Z",
+      "side": 1,
+      "message": "Currently WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE means \"fall back to an encoder that support simulcast\", while WEBRTC_VIDEO_CODEC_ENCODER_FAILURE means \"I\u0027m broken, fall back to some other encoder\".",
+      "parentUuid": "7c368abf_8429ceff",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6bc63ec5_38cb37ea",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 9
@@ -257,6 +353,30 @@
       "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cb03baa_1bad4cf9",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1360,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-07-03T09:54:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b10464da_075f63f5",
+      "range": {
+        "startLine": 1359,
+        "startChar": 0,
+        "endLine": 1360,
+        "endChar": 41
+      },
+      "revId": "b69b57a0556c1ffe76b15d8f620345a1a5c1a836",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

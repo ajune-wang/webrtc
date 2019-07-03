@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19420bdf_6ed374e7",
+        "filename": "rtc_base/bit_buffer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-03T12:23:02Z",
+      "side": 1,
+      "message": "Better to remove this and just point at ReadNonSymmetric as you do below.",
+      "range": {
+        "startLine": 120,
+        "startChar": 48,
+        "endLine": 121,
+        "endChar": 33
+      },
+      "revId": "c11872e4a76e0c597de9d3ed79ebd3fb0308cfd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

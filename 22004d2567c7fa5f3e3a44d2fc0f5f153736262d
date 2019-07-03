@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "855b14f4_05d0ed04",
+        "filename": "rtc_base/bit_buffer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-03T12:23:02Z",
+      "side": 1,
+      "message": "Ack. It should indeed have returned int...",
+      "parentUuid": "7bc8556c_9933ea33",
+      "range": {
+        "startLine": 320,
+        "startChar": 2,
+        "endLine": 320,
+        "endChar": 8
+      },
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "012dd18d_63d0f2f0",
         "filename": "rtc_base/bit_buffer.cc",
         "patchSetId": 5
@@ -143,6 +167,47 @@
       "side": 1,
       "message": "I would prefer to keep using num_values rather than max_val\nin particular because in c++ it is more common to specify upper bound exclusive rather than inclusive.\nif num_values \u003d\u003d 2³², then it is better to use ReadUInt32.\nFor my use case num_values will be maximum 33.\n\nUpdated the documentation with more details how this encoding works (by copy-pasting WriteNonSymmetric implementation and translating it to English)\n\nI took this encoding from av1 spec:\nhttps://aomediacodec.github.io/av1-spec/#nsn\nBut I didn\u0027t found more central rfc or wiki for that format",
       "parentUuid": "108480b5_75d4d830",
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d5a4865_420b4e56",
+        "filename": "rtc_base/bit_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-03T12:23:02Z",
+      "side": 1,
+      "message": "Pointing at that should be fine. And OK, keep using num_values.",
+      "parentUuid": "3edf59ea_95920ea5",
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6774966_8e40b872",
+        "filename": "rtc_base/bit_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-03T12:23:02Z",
+      "side": 1,
+      "message": "Writes",
+      "range": {
+        "startLine": 115,
+        "startChar": 5,
+        "endLine": 115,
+        "endChar": 12
+      },
       "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -290,6 +355,30 @@
       "side": 1,
       "message": "It doesn\u0027t.\nthere is only one constructor for BitBufferWriter (and only one for BitBuffer)",
       "parentUuid": "d170411b_58501c5e",
+      "range": {
+        "startLine": 202,
+        "startChar": 32,
+        "endLine": 202,
+        "endChar": 33
+      },
+      "revId": "22004d2567c7fa5f3e3a44d2fc0f5f153736262d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49c2968b_38c98e1f",
+        "filename": "rtc_base/bit_buffer_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-03T12:23:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f5c58a7a_a53e90a1",
       "range": {
         "startLine": 202,
         "startChar": 32,

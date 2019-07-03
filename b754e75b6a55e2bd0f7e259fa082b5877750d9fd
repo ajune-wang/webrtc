@@ -306,6 +306,30 @@
       "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87c12bfc_d6cce166",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-07-03T08:10:50Z",
+      "side": 1,
+      "message": "I took another look at the Opus spec. A multistream packet can be seen as a simple concatenation of a number of elementary packet, each of which correspond to a channel. So what we are doing here is to parse the first elementary packet, and tell if it has FEC or not. It may not be same for all channels, but can be a good guess.",
+      "parentUuid": "4e181e94_7933d9d0",
+      "range": {
+        "startLine": 710,
+        "startChar": 2,
+        "endLine": 710,
+        "endChar": 45
+      },
+      "revId": "b754e75b6a55e2bd0f7e259fa082b5877750d9fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

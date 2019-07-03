@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6f6ad82_03a91322",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-03T03:31:25Z",
+      "side": 1,
+      "message": "This one can be inline---both for efficiency, and to show readers of the header that it does what they expect.",
+      "revId": "b40efd7708a765d603c1d8ee50cff650ac44f8ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

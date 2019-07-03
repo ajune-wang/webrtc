@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "249a5640_058cf493",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-03T11:25:54Z",
+      "side": 1,
+      "message": "Could GeneratePadding() return the packets to PacedSender instead? That way it seems like we wouldn\u0027t have to exit the critscope in paced sender and we avoid one piece of circularity (PacedSender-\u003ePacketRouter-\u003eRtpRtcp-\u003eRtpSender-\u003ePacedSender) and one piece of hidden assumed side effect (PacedSender expects that a call to PacketRouter::GeneratePadding will in indirectly lead to PacedSender::EnqueuePacket being called).",
+      "parentUuid": "34370904_2bb2db9b",
+      "range": {
+        "startLine": 382,
+        "startChar": 6,
+        "endLine": 382,
+        "endChar": 20
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2592e285_6b4a9617",
         "filename": "modules/pacing/paced_sender.cc",
         "patchSetId": 5
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "This leaving and re-taking the lock is ugly and should be removed anyway. In an upcoming CL I will split the logic of the PacedSender form the logic and ModuleProcessingThread that\u0027s driving it, so that most of the code can be re-used when a new TaskQueue-based implementation is added.\nCan we save that until then?",
       "parentUuid": "2592e285_6b4a9617",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 440,
+        "endChar": 22
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd36f590_c145c76d",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-03T11:25:54Z",
+      "side": 1,
+      "message": "It should, but is made much worse if it\u0027s not obvious. We have had bugs caused by such this before. That caused me to spend some effort to ensure that we at least keep all the leaves and enters in the same function.\n\nNot that bugs caused by missing this tend to be flaky, making discovery and investigation particularly expensive.",
+      "parentUuid": "540c85da_15ae0498",
       "range": {
         "startLine": 440,
         "startChar": 0,
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "It\u0027s complex right now since we\u0027ll have three possible code paths: un-paced, legacy paced and the new paced one. Once I demonstrate that there are no regressions with the new path, I will remove the first two, significantly reducing the complexity.\nIf you\u0027re just talking about that if-statement, I can duplicate the retransmission rate checking code instead?",
       "parentUuid": "319549be_a48378b9",
+      "range": {
+        "startLine": 511,
+        "startChar": 0,
+        "endLine": 512,
+        "endChar": 37
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5c2633d_2809b46c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-03T11:25:54Z",
+      "side": 1,
+      "message": "Hmm, not sure I follow, are all combinations currently used? There\u0027s 2^3 \u003d 8 potential inputs to this expression, I\u0027m guessing that we only use a subset of those? Maybe that could be clarified by using DCHECK to ensure that we aren\u0027t using some unexpected combination, and then the condition itself could be simplified?\nMaybe it would help to add some intermediate variables like  no_pacing and legacy_pacing for use in the condition?",
+      "parentUuid": "7eca2891_f6ffe7e1",
       "range": {
         "startLine": 511,
         "startChar": 0,

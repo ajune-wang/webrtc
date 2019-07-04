@@ -34,6 +34,6 @@ void WebRtcIlbcfix_AbsQuant(
                                    input) */
     int16_t* in,             /* (i) vector to encode */
     int16_t* weightDenum     /* (i) denominator of synthesis filter */
-    );
+);
 
 #endif

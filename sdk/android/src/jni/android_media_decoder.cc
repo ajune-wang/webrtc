@@ -346,10 +346,9 @@ int32_t MediaCodecVideoDecoder::ProcessHWErrorOnCodecThread() {
   }
 }
 
-int32_t MediaCodecVideoDecoder::Decode(
-    const EncodedImage& inputImage,
-    bool missingFrames,
-    int64_t renderTimeMs) {
+int32_t MediaCodecVideoDecoder::Decode(const EncodedImage& inputImage,
+                                       bool missingFrames,
+                                       int64_t renderTimeMs) {
   if (sw_fallback_required_) {
     ALOGE << "Decode() - fallback to SW codec";
     return WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE;

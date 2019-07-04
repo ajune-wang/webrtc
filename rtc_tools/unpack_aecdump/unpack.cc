@@ -17,6 +17,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 #include <memory>
 #include <string>
 #include <vector>
@@ -78,9 +79,9 @@ WEBRTC_DEFINE_bool(help, false, "Print this message.");
 namespace webrtc {
 
 using audioproc::Event;
+using audioproc::Init;
 using audioproc::ReverseStream;
 using audioproc::Stream;
-using audioproc::Init;
 
 namespace {
 
@@ -278,7 +279,7 @@ int do_main(int argc, char* argv[]) {
           reverse_raw_file.reset(
               new RawFile(std::string(FLAG_reverse_file) + ".float"));
         }
-        std::unique_ptr<const float* []> data(
+        std::unique_ptr<const float*[]> data(
             new const float*[num_reverse_channels]);
         for (size_t i = 0; i < num_reverse_channels; ++i) {
           data[i] = reinterpret_cast<const float*>(msg.channel(i).data());
@@ -314,7 +315,7 @@ int do_main(int argc, char* argv[]) {
           input_raw_file.reset(
               new RawFile(std::string(FLAG_input_file) + ".float"));
         }
-        std::unique_ptr<const float* []> data(
+        std::unique_ptr<const float*[]> data(
             new const float*[num_input_channels]);
         for (size_t i = 0; i < num_input_channels; ++i) {
           data[i] = reinterpret_cast<const float*>(msg.input_channel(i).data());
@@ -337,7 +338,7 @@ int do_main(int argc, char* argv[]) {
           output_raw_file.reset(
               new RawFile(std::string(FLAG_output_file) + ".float"));
         }
-        std::unique_ptr<const float* []> data(
+        std::unique_ptr<const float*[]> data(
             new const float*[num_output_channels]);
         for (size_t i = 0; i < num_output_channels; ++i) {
           data[i] =

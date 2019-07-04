@@ -27,9 +27,10 @@ enum AudioDeviceMessageType : uint32_t {
 };
 
 CoreAudioInput::CoreAudioInput()
-    : CoreAudioBase(CoreAudioBase::Direction::kInput,
-                    [this](uint64_t freq) { return OnDataCallback(freq); },
-                    [this](ErrorType err) { return OnErrorCallback(err); }) {
+    : CoreAudioBase(
+          CoreAudioBase::Direction::kInput,
+          [this](uint64_t freq) { return OnDataCallback(freq); },
+          [this](ErrorType err) { return OnErrorCallback(err); }) {
   RTC_DLOG(INFO) << __FUNCTION__;
   RTC_DCHECK_RUN_ON(&thread_checker_);
   thread_checker_audio_.Detach();

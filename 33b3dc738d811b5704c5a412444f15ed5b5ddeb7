@@ -22,6 +22,30 @@
       "revId": "33b3dc738d811b5704c5a412444f15ed5b5ddeb7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e5d3003_1cec0ace",
+        "filename": "audio/utility/channel_mixer.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-07-04T09:29:05Z",
+      "side": 1,
+      "message": "Good point. Will change",
+      "parentUuid": "7ca06e60_94bbbe49",
+      "range": {
+        "startLine": 64,
+        "startChar": 34,
+        "endLine": 64,
+        "endChar": 68
+      },
+      "revId": "33b3dc738d811b5704c5a412444f15ed5b5ddeb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

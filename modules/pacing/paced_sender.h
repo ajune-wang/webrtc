@@ -17,6 +17,7 @@
 #include <memory>
 
 #include "absl/types/optional.h"
+#include "api/function_view.h"
 #include "api/transport/field_trial_based_config.h"
 #include "api/transport/network_types.h"
 #include "api/transport/webrtc_key_value_config.h"
@@ -124,6 +125,12 @@ class PacedSender : public Module, public RtpPacketPacer {
   void SetQueueTimeLimit(int limit_ms);
 
  private:
+  // Helper method that will release |critsect_|, run func() and then re-aquire
+  // |critsect_|. Calls that require this temporary release should all go
+  // through here to make sure we don't have any nested releases.
+  void WithoutLock(rtc::FunctionView<void()> func)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
+
   int64_t UpdateTimeAndGetElapsedMs(int64_t now_us)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
   bool ShouldSendKeepalive(int64_t at_time_us) const
@@ -135,6 +142,10 @@ class PacedSender : public Module, public RtpPacketPacer {
   void UpdateBudgetWithBytesSent(size_t bytes)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
 
+  size_t TrySendPackets(const PacedPacketInfo& pacing_info,
+                        size_t bytes_sent,
+                        absl::optional<size_t> recommended_probe_size)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
   RoundRobinPacketQueue::QueuedPacket* GetPendingPacket(
       const PacedPacketInfo& pacing_info)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
@@ -195,6 +206,11 @@ class PacedSender : public Module, public RtpPacketPacer {
 
   int64_t queue_time_limit RTC_GUARDED_BY(critsect_);
   bool account_for_audio_ RTC_GUARDED_BY(critsect_);
+
+  // If true, PacedSender should only reference packets as in legacy mode.
+  // If false, PacedSender may have direct ownership of RtpPacketToSend objects.
+  // Defaults to true, will be changed to default false soon.
+  const bool legacy_packet_referencing_;
 };
 }  // namespace webrtc
 #endif  // MODULES_PACING_PACED_SENDER_H_

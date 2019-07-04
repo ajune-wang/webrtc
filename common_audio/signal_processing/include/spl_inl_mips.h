@@ -62,11 +62,10 @@ static __inline int32_t WEBRTC_SPL_MUL_16_32_RSFT16(int16_t a, int32_t b) {
 
 #if defined(MIPS_DSP_R1_LE)
 static __inline int16_t WebRtcSpl_SatW32ToW16(int32_t value32) {
-  __asm __volatile(
-      "shll_s.w   %[value32], %[value32], 16      \n\t"
-      "sra        %[value32], %[value32], 16      \n\t"
-      : [value32] "+r"(value32)
-      :);
+  __asm __volatile("shll_s.w   %[value32], %[value32], 16      \n\t"
+                   "sra        %[value32], %[value32], 16      \n\t"
+                   : [value32] "+r"(value32)
+                   :);
   int16_t out16 = (int16_t)value32;
   return out16;
 }
@@ -83,10 +82,9 @@ static __inline int16_t WebRtcSpl_AddSatW16(int16_t a, int16_t b) {
 static __inline int32_t WebRtcSpl_AddSatW32(int32_t l_var1, int32_t l_var2) {
   int32_t l_sum;
 
-  __asm __volatile(
-      "addq_s.w   %[l_sum],       %[l_var1],      %[l_var2]    \n\t"
-      : [l_sum] "=r"(l_sum)
-      : [l_var1] "r"(l_var1), [l_var2] "r"(l_var2));
+  __asm __volatile("addq_s.w   %[l_sum],       %[l_var1],      %[l_var2]    \n\t"
+                   : [l_sum] "=r"(l_sum)
+                   : [l_var1] "r"(l_var1), [l_var2] "r"(l_var2));
 
   return l_sum;
 }
@@ -104,10 +102,9 @@ static __inline int16_t WebRtcSpl_SubSatW16(int16_t var1, int16_t var2) {
 static __inline int32_t WebRtcSpl_SubSatW32(int32_t l_var1, int32_t l_var2) {
   int32_t l_diff;
 
-  __asm __volatile(
-      "subq_s.w   %[l_diff],      %[l_var1],      %[l_var2]    \n\t"
-      : [l_diff] "=r"(l_diff)
-      : [l_var1] "r"(l_var1), [l_var2] "r"(l_var2));
+  __asm __volatile("subq_s.w   %[l_diff],      %[l_var1],      %[l_var2]    \n\t"
+                   : [l_diff] "=r"(l_diff)
+                   : [l_var1] "r"(l_var1), [l_var2] "r"(l_var2));
 
   return l_diff;
 }
@@ -117,11 +114,10 @@ static __inline int16_t WebRtcSpl_GetSizeInBits(uint32_t n) {
   int bits = 0;
   int i32 = 32;
 
-  __asm __volatile(
-      "clz    %[bits],    %[n]                    \n\t"
-      "subu   %[bits],    %[i32],     %[bits]     \n\t"
-      : [bits] "=&r"(bits)
-      : [n] "r"(n), [i32] "r"(i32));
+  __asm __volatile("clz    %[bits],    %[n]                    \n\t"
+                   "subu   %[bits],    %[i32],     %[bits]     \n\t"
+                   : [bits] "=&r"(bits)
+                   : [n] "r"(n), [i32] "r"(i32));
 
   return (int16_t)bits;
 }
@@ -129,21 +125,20 @@ static __inline int16_t WebRtcSpl_GetSizeInBits(uint32_t n) {
 static __inline int16_t WebRtcSpl_NormW32(int32_t a) {
   int zeros = 0;
 
-  __asm __volatile(
-      ".set       push                                \n\t"
-      ".set       noreorder                           \n\t"
-      "bnez       %[a],       1f                      \n\t"
-      " sra       %[zeros],   %[a],       31          \n\t"
-      "b          2f                                  \n\t"
-      " move      %[zeros],   $zero                   \n\t"
-      "1:                                              \n\t"
-      "xor        %[zeros],   %[a],       %[zeros]    \n\t"
-      "clz        %[zeros],   %[zeros]                \n\t"
-      "addiu      %[zeros],   %[zeros],   -1          \n\t"
-      "2:                                              \n\t"
-      ".set       pop                                 \n\t"
-      : [zeros] "=&r"(zeros)
-      : [a] "r"(a));
+  __asm __volatile(".set       push                                \n\t"
+                   ".set       noreorder                           \n\t"
+                   "bnez       %[a],       1f                      \n\t"
+                   " sra       %[zeros],   %[a],       31          \n\t"
+                   "b          2f                                  \n\t"
+                   " move      %[zeros],   $zero                   \n\t"
+                   "1:                                              \n\t"
+                   "xor        %[zeros],   %[a],       %[zeros]    \n\t"
+                   "clz        %[zeros],   %[zeros]                \n\t"
+                   "addiu      %[zeros],   %[zeros],   -1          \n\t"
+                   "2:                                              \n\t"
+                   ".set       pop                                 \n\t"
+                   : [zeros] "=&r"(zeros)
+                   : [a] "r"(a));
 
   return (int16_t)zeros;
 }
@@ -151,9 +146,7 @@ static __inline int16_t WebRtcSpl_NormW32(int32_t a) {
 static __inline int16_t WebRtcSpl_NormU32(uint32_t a) {
   int zeros = 0;
 
-  __asm __volatile("clz    %[zeros],   %[a]    \n\t"
-                   : [zeros] "=r"(zeros)
-                   : [a] "r"(a));
+  __asm __volatile("clz    %[zeros],   %[a]    \n\t" : [zeros] "=r"(zeros) : [a] "r"(a));
 
   return (int16_t)(zeros & 0x1f);
 }
@@ -162,21 +155,20 @@ static __inline int16_t WebRtcSpl_NormW16(int16_t a) {
   int zeros = 0;
   int a0 = a << 16;
 
-  __asm __volatile(
-      ".set       push                                \n\t"
-      ".set       noreorder                           \n\t"
-      "bnez       %[a0],      1f                      \n\t"
-      " sra       %[zeros],   %[a0],      31          \n\t"
-      "b          2f                                  \n\t"
-      " move      %[zeros],   $zero                   \n\t"
-      "1:                                              \n\t"
-      "xor        %[zeros],   %[a0],      %[zeros]    \n\t"
-      "clz        %[zeros],   %[zeros]                \n\t"
-      "addiu      %[zeros],   %[zeros],   -1          \n\t"
-      "2:                                              \n\t"
-      ".set       pop                                 \n\t"
-      : [zeros] "=&r"(zeros)
-      : [a0] "r"(a0));
+  __asm __volatile(".set       push                                \n\t"
+                   ".set       noreorder                           \n\t"
+                   "bnez       %[a0],      1f                      \n\t"
+                   " sra       %[zeros],   %[a0],      31          \n\t"
+                   "b          2f                                  \n\t"
+                   " move      %[zeros],   $zero                   \n\t"
+                   "1:                                              \n\t"
+                   "xor        %[zeros],   %[a0],      %[zeros]    \n\t"
+                   "clz        %[zeros],   %[zeros]                \n\t"
+                   "addiu      %[zeros],   %[zeros],   -1          \n\t"
+                   "2:                                              \n\t"
+                   ".set       pop                                 \n\t"
+                   : [zeros] "=&r"(zeros)
+                   : [a0] "r"(a0));
 
   return (int16_t)zeros;
 }

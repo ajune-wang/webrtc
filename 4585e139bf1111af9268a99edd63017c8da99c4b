@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93ecd90b_42f797a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-04T11:15:48Z",
+      "side": 1,
+      "message": "Note here that almost all the changes are due to changes in how clang-format wants to order and group #includes?",
+      "revId": "4585e139bf1111af9268a99edd63017c8da99c4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

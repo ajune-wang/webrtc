@@ -9,12 +9,12 @@
  */
 
 #include "modules/audio_device/win/core_audio_utility_win.h"
+
 #include "rtc_base/arraysize.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/win/windows_version.h"
-#include "test/gtest.h"
-
 #include "system_wrappers/include/sleep.h"
+#include "test/gtest.h"
 
 using Microsoft::WRL::ComPtr;
 using webrtc::AudioDeviceName;

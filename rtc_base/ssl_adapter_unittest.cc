@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "rtc_base/ssl_adapter.h"
+
 #include <memory>
 #include <string>
 #include <utility>
@@ -17,7 +19,6 @@
 #include "rtc_base/ip_address.h"
 #include "rtc_base/message_digest.h"
 #include "rtc_base/socket_stream.h"
-#include "rtc_base/ssl_adapter.h"
 #include "rtc_base/ssl_identity.h"
 #include "rtc_base/ssl_stream_adapter.h"
 #include "rtc_base/stream.h"

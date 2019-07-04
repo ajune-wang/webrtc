@@ -12,6 +12,7 @@
 #define SDK_ANDROID_SRC_JNI_AUDIO_DEVICE_AAUDIO_PLAYER_H_
 
 #include <aaudio/AAudio.h>
+
 #include <memory>
 
 #include "absl/types/optional.h"

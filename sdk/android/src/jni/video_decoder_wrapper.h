@@ -12,6 +12,7 @@
 #define SDK_ANDROID_SRC_JNI_VIDEO_DECODER_WRAPPER_H_
 
 #include <jni.h>
+
 #include <atomic>
 #include <deque>
 

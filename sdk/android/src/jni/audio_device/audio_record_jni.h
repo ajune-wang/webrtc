@@ -12,6 +12,7 @@
 #define SDK_ANDROID_SRC_JNI_AUDIO_DEVICE_AUDIO_RECORD_JNI_H_
 
 #include <jni.h>
+
 #include <memory>
 
 #include "modules/audio_device/audio_device_buffer.h"

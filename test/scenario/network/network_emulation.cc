@@ -24,10 +24,7 @@ EmulatedIpPacket::EmulatedIpPacket(const rtc::SocketAddress& from,
                                    const rtc::SocketAddress& to,
                                    rtc::CopyOnWriteBuffer data,
                                    Timestamp arrival_time)
-    : from(from),
-      to(to),
-      data(data),
-      arrival_time(arrival_time) {}
+    : from(from), to(to), data(data), arrival_time(arrival_time) {}
 
 void LinkEmulation::OnPacketReceived(EmulatedIpPacket packet) {
   struct Closure {

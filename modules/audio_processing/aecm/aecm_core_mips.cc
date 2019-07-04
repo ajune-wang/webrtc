@@ -9,7 +9,6 @@
  */
 
 #include "modules/audio_processing/aecm/aecm_core.h"
-
 #include "modules/audio_processing/aecm/echo_control_mobile.h"
 #include "modules/audio_processing/utility/delay_estimator_wrapper.h"
 #include "rtc_base/checks.h"
@@ -129,15 +128,15 @@ static void WindowAndFFT(AecmCore* aecm,
       "3:                                                                   "
       "\n\t"
       ".set        pop                                                     \n\t"
-      : [load_ptr] "=&r"(load_ptr), [shift] "=&r"(shift), [hann] "=&r"(hann),
-        [hann1] "=&r"(hann1), [shift1] "=&r"(shift1), [coefs] "=&r"(coefs),
-        [tmp1] "=&r"(tmp1), [tmp2] "=&r"(tmp2), [tmp3] "=&r"(tmp3),
-        [tmp4] "=&r"(tmp4), [i] "=&r"(i), [f_coef] "=&r"(f_coef),
-        [s_coef] "=&r"(s_coef), [store_ptr1] "=&r"(store_ptr1),
-        [store_ptr2] "=&r"(store_ptr2)
-      : [time_signal] "r"(time_signal), [coefTable] "r"(coefTable),
-        [time_signal_scaling] "r"(time_signal_scaling),
-        [hanning] "r"(WebRtcAecm_kSqrtHanning), [fft] "r"(fft)
+      : [ load_ptr ] "=&r"(load_ptr), [ shift ] "=&r"(shift),
+        [ hann ] "=&r"(hann), [ hann1 ] "=&r"(hann1), [ shift1 ] "=&r"(shift1),
+        [ coefs ] "=&r"(coefs), [ tmp1 ] "=&r"(tmp1), [ tmp2 ] "=&r"(tmp2),
+        [ tmp3 ] "=&r"(tmp3), [ tmp4 ] "=&r"(tmp4), [ i ] "=&r"(i),
+        [ f_coef ] "=&r"(f_coef), [ s_coef ] "=&r"(s_coef),
+        [ store_ptr1 ] "=&r"(store_ptr1), [ store_ptr2 ] "=&r"(store_ptr2)
+      : [ time_signal ] "r"(time_signal), [ coefTable ] "r"(coefTable),
+        [ time_signal_scaling ] "r"(time_signal_scaling),
+        [ hanning ] "r"(WebRtcAecm_kSqrtHanning), [ fft ] "r"(fft)
       : "memory", "hi", "lo");
 
   WebRtcSpl_ComplexFFT(fft, PART_LEN_SHIFT, 1);
@@ -203,9 +202,9 @@ static void WindowAndFFT(AecmCore* aecm,
       "\n\t"
       ".set        pop                                                      "
       "\n\t"
-      : [tmp1] "=&r"(tmp1), [tmp2] "=&r"(tmp2), [tmp3] "=&r"(tmp3),
-        [j] "=&r"(j), [pfrfi] "+r"(pfrfi), [pfreq_signal] "+r"(pfreq_signal),
-        [tmp4] "=&r"(tmp4)
+      : [ tmp1 ] "=&r"(tmp1), [ tmp2 ] "=&r"(tmp2), [ tmp3 ] "=&r"(tmp3),
+        [ j ] "=&r"(j), [ pfrfi ] "+r"(pfrfi),
+        [ pfreq_signal ] "+r"(pfreq_signal), [ tmp4 ] "=&r"(tmp4)
       :
       : "memory");
 }
@@ -334,9 +333,10 @@ static void InverseFFTAndWindow(AecmCore* aecm,
       "\n\t"
       ".set      pop                                                         "
       "\n\t"
-      : [tmp1] "=&r"(tmp1), [tmp2] "=&r"(tmp2), [pfft] "+r"(pfft), [i] "=&r"(i),
-        [tmp_re] "=&r"(tmp_re), [tmp_im] "=&r"(tmp_im), [pefw] "+r"(pefw),
-        [pcoefTable_ifft] "+r"(pcoefTable_ifft), [fft] "+r"(fft)
+      : [ tmp1 ] "=&r"(tmp1), [ tmp2 ] "=&r"(tmp2), [ pfft ] "+r"(pfft),
+        [ i ] "=&r"(i), [ tmp_re ] "=&r"(tmp_re), [ tmp_im ] "=&r"(tmp_im),
+        [ pefw ] "+r"(pefw), [ pcoefTable_ifft ] "+r"(pcoefTable_ifft),
+        [ fft ] "+r"(fft)
       :
       : "memory");
 
@@ -364,8 +364,9 @@ static void InverseFFTAndWindow(AecmCore* aecm,
       "bgtz       %[i],            1b                                \n\t"
       " addiu     %[pfft],         %[pfft],             8            \n\t"
       ".set       pop                                                \n\t"
-      : [tmp1] "=&r"(tmp1), [tmp2] "=&r"(tmp2), [pfft] "+r"(pfft), [i] "=&r"(i),
-        [tmp3] "=&r"(tmp3), [tmp4] "=&r"(tmp4), [ppfft] "+r"(ppfft)
+      : [ tmp1 ] "=&r"(tmp1), [ tmp2 ] "=&r"(tmp2), [ pfft ] "+r"(pfft),
+        [ i ] "=&r"(i), [ tmp3 ] "=&r"(tmp3), [ tmp4 ] "=&r"(tmp4),
+        [ ppfft ] "+r"(ppfft)
       :
       : "memory");
 
@@ -559,13 +560,13 @@ static void InverseFFTAndWindow(AecmCore* aecm,
       "\n\t"
       ".set       pop                                                        "
       "\n\t"
-      : [tmp1] "=&r"(tmp1), [tmp2] "=&r"(tmp2), [pfft] "+r"(pfft),
-        [output1] "+r"(output1), [tmp3] "=&r"(tmp3), [tmp4] "=&r"(tmp4),
-        [paecm_buf] "+r"(paecm_buf), [i] "=&r"(i),
-        [pp_kSqrtHanning] "+r"(pp_kSqrtHanning),
-        [p_kSqrtHanning] "+r"(p_kSqrtHanning)
-      : [out_aecm] "r"(out_aecm),
-        [WebRtcAecm_kSqrtHanning] "r"(WebRtcAecm_kSqrtHanning)
+      : [ tmp1 ] "=&r"(tmp1), [ tmp2 ] "=&r"(tmp2), [ pfft ] "+r"(pfft),
+        [ output1 ] "+r"(output1), [ tmp3 ] "=&r"(tmp3), [ tmp4 ] "=&r"(tmp4),
+        [ paecm_buf ] "+r"(paecm_buf), [ i ] "=&r"(i),
+        [ pp_kSqrtHanning ] "+r"(pp_kSqrtHanning),
+        [ p_kSqrtHanning ] "+r"(p_kSqrtHanning)
+      : [ out_aecm ] "r"(out_aecm),
+        [ WebRtcAecm_kSqrtHanning ] "r"(WebRtcAecm_kSqrtHanning)
       : "hi", "lo", "memory");
 
   // Copy the current block to the old position
@@ -643,14 +644,14 @@ void WebRtcAecm_CalcLinearEnergies_mips(AecmCore* aecm,
         "usw            %[echo0],       -8(%[echo_p])                   \n\t"
         "usw            %[echo1],       -4(%[echo_p])                   \n\t"
         ".set           pop                                             \n\t"
-        : [temp0] "=&r"(temp0), [stored0] "=&r"(stored0),
-          [adept0] "=&r"(adept0), [spectrum0] "=&r"(spectrum0),
-          [echo0] "=&r"(echo0), [echo_p] "+r"(echo_p), [par3] "+r"(par3),
-          [par1] "+r"(par1), [par2] "+r"(par2), [stored1] "=&r"(stored1),
-          [adept1] "=&r"(adept1), [echo1] "=&r"(echo1),
-          [spectrum1] "=&r"(spectrum1), [temp1] "=&r"(temp1),
-          [ch_stored_p] "+r"(ch_stored_p), [ch_adapt_p] "+r"(ch_adapt_p),
-          [spectrum_p] "+r"(spectrum_p)
+        : [ temp0 ] "=&r"(temp0), [ stored0 ] "=&r"(stored0),
+          [ adept0 ] "=&r"(adept0), [ spectrum0 ] "=&r"(spectrum0),
+          [ echo0 ] "=&r"(echo0), [ echo_p ] "+r"(echo_p), [ par3 ] "+r"(par3),
+          [ par1 ] "+r"(par1), [ par2 ] "+r"(par2), [ stored1 ] "=&r"(stored1),
+          [ adept1 ] "=&r"(adept1), [ echo1 ] "=&r"(echo1),
+          [ spectrum1 ] "=&r"(spectrum1), [ temp1 ] "=&r"(temp1),
+          [ ch_stored_p ] "+r"(ch_stored_p), [ ch_adapt_p ] "+r"(ch_adapt_p),
+          [ spectrum_p ] "+r"(spectrum_p)
         :
         : "hi", "lo", "memory");
   }
@@ -703,9 +704,10 @@ void WebRtcAecm_StoreAdaptiveChannel_mips(AecmCore* aecm,
         "usw            %[temp0],   -16(%[temp7])             \n\t"
         "usw            %[temp6],   -4(%[temp7])              \n\t"
         "usw            %[temp4],   -8(%[temp7])              \n\t"
-        : [temp0] "=&r"(temp0), [temp2] "=&r"(temp2), [temp3] "=&r"(temp3),
-          [temp4] "=&r"(temp4), [temp5] "=&r"(temp5), [temp6] "=&r"(temp6),
-          [temp1] "+r"(temp1), [temp8] "+r"(temp8), [temp7] "+r"(temp7)
+        : [ temp0 ] "=&r"(temp0), [ temp2 ] "=&r"(temp2),
+          [ temp3 ] "=&r"(temp3), [ temp4 ] "=&r"(temp4),
+          [ temp5 ] "=&r"(temp5), [ temp6 ] "=&r"(temp6), [ temp1 ] "+r"(temp1),
+          [ temp8 ] "+r"(temp8), [ temp7 ] "+r"(temp7)
         :
         : "hi", "lo", "memory");
   }
@@ -741,8 +743,9 @@ void WebRtcAecm_ResetAdaptiveChannel_mips(AecmCore* aecm) {
         "usw            %[temp5], 12(%[temp3])          \n\t"
         "usw            %[temp4], 8(%[temp3])           \n\t"
         "addiu          %[temp3], %[temp3], 16          \n\t"
-        : [temp1] "=&r"(temp1), [temp2] "=&r"(temp2), [temp4] "=&r"(temp4),
-          [temp5] "=&r"(temp5), [temp3] "+r"(temp3), [temp0] "+r"(temp0)
+        : [ temp1 ] "=&r"(temp1), [ temp2 ] "=&r"(temp2),
+          [ temp4 ] "=&r"(temp4), [ temp5 ] "=&r"(temp5), [ temp3 ] "+r"(temp3),
+          [ temp0 ] "+r"(temp0)
         :
         : "memory");
   }
@@ -850,9 +853,10 @@ static int TimeToFrequencyDomain(AecmCore* aecm,
       "extr.w         %[tmp32no20],   $ac0,       1           \n\t"
       "extr.w         %[tmp32no21],   $ac1,       1           \n\t"
       "extr.w         %[tmp32no22],   $ac2,       1           \n\t"
-      : [freqt0] "=&r"(freqt0), [freqt1] "=&r"(freqt1), [freqt2] "=&r"(freqt2),
-        [freqp] "+r"(freqp), [tmp32no20] "=r"(tmp32no20),
-        [tmp32no21] "=r"(tmp32no21), [tmp32no22] "=r"(tmp32no22)
+      : [ freqt0 ] "=&r"(freqt0), [ freqt1 ] "=&r"(freqt1),
+        [ freqt2 ] "=&r"(freqt2), [ freqp ] "+r"(freqp),
+        [ tmp32no20 ] "=r"(tmp32no20), [ tmp32no21 ] "=r"(tmp32no21),
+        [ tmp32no22 ] "=r"(tmp32no22)
       :
       : "memory", "hi", "lo", "$ac1hi", "$ac1lo", "$ac2hi", "$ac2lo");
 
@@ -886,11 +890,11 @@ static int TimeToFrequencyDomain(AecmCore* aecm,
         "extr.w         %[tmp32no21],   $ac1,           1           \n\t"
         "extr.w         %[tmp32no22],   $ac2,           1           \n\t"
         "extr.w         %[tmp32no23],   $ac3,           1           \n\t"
-        : [freqt0] "=&r"(freqt0), [freqt1] "=&r"(freqt1),
-          [freqt2] "=&r"(freqt2), [freqt3] "=&r"(freqt3),
-          [tmp32no20] "=r"(tmp32no20), [tmp32no21] "=r"(tmp32no21),
-          [tmp32no22] "=r"(tmp32no22), [tmp32no23] "=r"(tmp32no23),
-          [freqabsp] "+r"(freqabsp), [freqp] "+r"(freqp)
+        : [ freqt0 ] "=&r"(freqt0), [ freqt1 ] "=&r"(freqt1),
+          [ freqt2 ] "=&r"(freqt2), [ freqt3 ] "=&r"(freqt3),
+          [ tmp32no20 ] "=r"(tmp32no20), [ tmp32no21 ] "=r"(tmp32no21),
+          [ tmp32no22 ] "=r"(tmp32no22), [ tmp32no23 ] "=r"(tmp32no23),
+          [ freqabsp ] "+r"(freqabsp), [ freqp ] "+r"(freqp)
         :
         : "memory", "hi", "lo", "$ac1hi", "$ac1lo", "$ac2hi", "$ac2lo",
           "$ac3hi", "$ac3lo");
@@ -909,10 +913,10 @@ static int TimeToFrequencyDomain(AecmCore* aecm,
         "addu           %[freqs],       %[freqs],       %[tmp32no11]    \n\t"
         "addu           %[freqs],       %[freqs],       %[tmp32no12]    \n\t"
         "addu           %[freqs],       %[freqs],       %[tmp32no13]    \n\t"
-        : [freqs] "+r"(freqs)
-        : [tmp32no10] "r"(tmp32no10), [tmp32no11] "r"(tmp32no11),
-          [tmp32no12] "r"(tmp32no12), [tmp32no13] "r"(tmp32no13),
-          [freqabsp] "r"(freqabsp)
+        : [ freqs ] "+r"(freqs)
+        : [ tmp32no10 ] "r"(tmp32no10), [ tmp32no11 ] "r"(tmp32no11),
+          [ tmp32no12 ] "r"(tmp32no12), [ tmp32no13 ] "r"(tmp32no13),
+          [ freqabsp ] "r"(freqabsp)
         : "memory");
   }
 
@@ -1201,9 +1205,10 @@ int WebRtcAecm_ProcessBlock(AecmCore* aecm,
           "sh         %[temp7],       12(%[ptr1])                 \n\t"
           "sh         %[temp8],       14(%[ptr1])                 \n\t"
           "addiu      %[ptr1],        %[ptr1],        16          \n\t"
-          : [temp1] "=&r"(temp1), [temp2] "=&r"(temp2), [temp3] "=&r"(temp3),
-            [temp4] "=&r"(temp4), [temp5] "=&r"(temp5), [temp6] "=&r"(temp6),
-            [temp7] "=&r"(temp7), [temp8] "=&r"(temp8), [ptr1] "+r"(ptr1)
+          : [ temp1 ] "=&r"(temp1), [ temp2 ] "=&r"(temp2),
+            [ temp3 ] "=&r"(temp3), [ temp4 ] "=&r"(temp4),
+            [ temp5 ] "=&r"(temp5), [ temp6 ] "=&r"(temp6),
+            [ temp7 ] "=&r"(temp7), [ temp8 ] "=&r"(temp8), [ ptr1 ] "+r"(ptr1)
           :
           : "memory", "hi", "lo");
     }
@@ -1214,7 +1219,7 @@ int WebRtcAecm_ProcessBlock(AecmCore* aecm,
           "sra        %[temp1],       %[temp1],       14          \n\t"
           "sh         %[temp1],       0(%[ptr1])                  \n\t"
           "addiu      %[ptr1],        %[ptr1],        2           \n\t"
-          : [temp1] "=&r"(temp1), [ptr1] "+r"(ptr1)
+          : [ temp1 ] "=&r"(temp1), [ ptr1 ] "+r"(ptr1)
           :
           : "memory", "hi", "lo");
     }
@@ -1277,9 +1282,10 @@ int WebRtcAecm_ProcessBlock(AecmCore* aecm,
             "addiu      %[ptr],         %[ptr],         2           \n\t"
             "addiu      %[er_ptr],      %[er_ptr],      4           \n\t"
             ".set       pop                                         \n\t"
-            : [temp1] "=&r"(temp1), [temp2] "=&r"(temp2), [temp3] "=&r"(temp3),
-              [temp4] "=&r"(temp4), [temp5] "=&r"(temp5), [ptr] "+r"(ptr),
-              [er_ptr] "+r"(er_ptr), [dr_ptr] "+r"(dr_ptr)
+            : [ temp1 ] "=&r"(temp1), [ temp2 ] "=&r"(temp2),
+              [ temp3 ] "=&r"(temp3), [ temp4 ] "=&r"(temp4),
+              [ temp5 ] "=&r"(temp5), [ ptr ] "+r"(ptr),
+              [ er_ptr ] "+r"(er_ptr), [ dr_ptr ] "+r"(dr_ptr)
             :
             : "memory", "hi", "lo");
 #else
@@ -1318,9 +1324,10 @@ int WebRtcAecm_ProcessBlock(AecmCore* aecm,
             "addiu      %[ptr],         %[ptr],         2           \n\t"
             "addiu      %[er_ptr],      %[er_ptr],      4           \n\t"
             ".set       pop                                         \n\t"
-            : [temp1] "=&r"(temp1), [temp2] "=&r"(temp2), [temp3] "=&r"(temp3),
-              [temp4] "=&r"(temp4), [temp5] "=&r"(temp5), [ptr] "+r"(ptr),
-              [er_ptr] "+r"(er_ptr), [dr_ptr] "+r"(dr_ptr)
+            : [ temp1 ] "=&r"(temp1), [ temp2 ] "=&r"(temp2),
+              [ temp3 ] "=&r"(temp3), [ temp4 ] "=&r"(temp4),
+              [ temp5 ] "=&r"(temp5), [ ptr ] "+r"(ptr),
+              [ er_ptr ] "+r"(er_ptr), [ dr_ptr ] "+r"(dr_ptr)
             :
             : "memory", "hi", "lo");
 #endif
@@ -1394,10 +1401,10 @@ static void ComfortNoise(AecmCore* aecm,
         "lh     %[tmp32],       0(%[dfap])                              \n\t"
         "lw     %[tnoise],      0(%[tmp1])                              \n\t"
         "sllv   %[outLShift32], %[tmp32],   %[shiftFromNearToNoise]     \n\t"
-        : [tmp32] "=&r"(tmp32), [outLShift32] "=r"(outLShift32),
-          [tnoise] "=&r"(tnoise)
-        : [tmp1] "r"(tmp1), [dfap] "r"(dfap),
-          [shiftFromNearToNoise] "r"(shiftFromNearToNoise)
+        : [ tmp32 ] "=&r"(tmp32), [ outLShift32 ] "=r"(outLShift32),
+          [ tnoise ] "=&r"(tnoise)
+        : [ tmp1 ] "r"(tmp1), [ dfap ] "r"(dfap),
+          [ shiftFromNearToNoise ] "r"(shiftFromNearToNoise)
         : "memory");
 
     if (outLShift32 < tnoise) {
@@ -1418,9 +1425,9 @@ static void ComfortNoise(AecmCore* aecm,
             "subu   %[tmp32],       %[tnoise],      %[outLShift32]      \n\t"
             "srav   %[tmp32],       %[tmp32],       %[minTrackShift]    \n\t"
             "subu   %[tnoise],      %[tnoise],      %[tmp32]            \n\t"
-            : [tmp32] "=&r"(tmp32), [tnoise] "+r"(tnoise)
-            :
-            [outLShift32] "r"(outLShift32), [minTrackShift] "r"(minTrackShift));
+            : [ tmp32 ] "=&r"(tmp32), [ tnoise ] "+r"(tnoise)
+            : [ outLShift32 ] "r"(outLShift32),
+              [ minTrackShift ] "r"(minTrackShift));
       }
     } else {
       // Reset "too high" counter
@@ -1432,8 +1439,8 @@ static void ComfortNoise(AecmCore* aecm,
           __asm __volatile(
               "mul    %[tnoise],  %[tnoise],  %[c2049]    \n\t"
               "sra    %[tnoise],  %[tnoise],  11          \n\t"
-              : [tnoise] "+r"(tnoise)
-              : [c2049] "r"(c2049)
+              : [ tnoise ] "+r"(tnoise)
+              : [ c2049 ] "r"(c2049)
               : "hi", "lo");
         } else {
           // Make incremental increases based on size every
@@ -1444,7 +1451,7 @@ static void ComfortNoise(AecmCore* aecm,
                 "sra    %[tmp32],   %[tnoise],  9           \n\t"
                 "addi   %[tnoise],  %[tnoise],  1           \n\t"
                 "addu   %[tnoise],  %[tnoise],  %[tmp32]    \n\t"
-                : [tnoise] "+r"(tnoise), [tmp32] "=&r"(tmp32)
+                : [ tnoise ] "+r"(tnoise), [ tmp32 ] "=&r"(tmp32)
                 :);
             aecm->noiseEstTooLowCtr[i] = 0;  // Reset counter
           }
@@ -1456,8 +1463,8 @@ static void ComfortNoise(AecmCore* aecm,
         __asm __volatile(
             "sra    %[tnoise],  %[tnoise],  11          \n\t"
             "mul    %[tnoise],  %[tnoise],  %[c2049]    \n\t"
-            : [tnoise] "+r"(tnoise)
-            : [c2049] "r"(c2049)
+            : [ tnoise ] "+r"(tnoise)
+            : [ c2049 ] "r"(c2049)
             : "hi", "lo");
       }
     }
@@ -1468,9 +1475,9 @@ static void ComfortNoise(AecmCore* aecm,
         "lw     %[tnoise1],     4(%[tmp1])                              \n\t"
         "addiu  %[dfap],        %[dfap],    4                           \n\t"
         "sllv   %[outLShift32], %[tmp32],   %[shiftFromNearToNoise]     \n\t"
-        : [tmp32] "=&r"(tmp32), [dfap] "+r"(dfap),
-          [outLShift32] "=r"(outLShift32), [tnoise1] "=&r"(tnoise1)
-        : [tmp1] "r"(tmp1), [shiftFromNearToNoise] "r"(shiftFromNearToNoise)
+        : [ tmp32 ] "=&r"(tmp32), [ dfap ] "+r"(dfap),
+          [ outLShift32 ] "=r"(outLShift32), [ tnoise1 ] "=&r"(tnoise1)
+        : [ tmp1 ] "r"(tmp1), [ shiftFromNearToNoise ] "r"(shiftFromNearToNoise)
         : "memory");
 
     if (outLShift32 < tnoise1) {
@@ -1491,9 +1498,9 @@ static void ComfortNoise(AecmCore* aecm,
             "subu   %[tmp32],       %[tnoise1],     %[outLShift32]      \n\t"
             "srav   %[tmp32],       %[tmp32],       %[minTrackShift]    \n\t"
             "subu   %[tnoise1],     %[tnoise1],     %[tmp32]            \n\t"
-            : [tmp32] "=&r"(tmp32), [tnoise1] "+r"(tnoise1)
-            :
-            [outLShift32] "r"(outLShift32), [minTrackShift] "r"(minTrackShift));
+            : [ tmp32 ] "=&r"(tmp32), [ tnoise1 ] "+r"(tnoise1)
+            : [ outLShift32 ] "r"(outLShift32),
+              [ minTrackShift ] "r"(minTrackShift));
       }
     } else {
       // Reset "too high" counter
@@ -1505,8 +1512,8 @@ static void ComfortNoise(AecmCore* aecm,
           __asm __volatile(
               "mul    %[tnoise1], %[tnoise1], %[c2049]   \n\t"
               "sra    %[tnoise1], %[tnoise1], 11         \n\t"
-              : [tnoise1] "+r"(tnoise1)
-              : [c2049] "r"(c2049)
+              : [ tnoise1 ] "+r"(tnoise1)
+              : [ c2049 ] "r"(c2049)
               : "hi", "lo");
         } else {
           // Make incremental increases based on size every
@@ -1517,7 +1524,7 @@ static void ComfortNoise(AecmCore* aecm,
                 "sra    %[tmp32],   %[tnoise1], 9           \n\t"
                 "addi   %[tnoise1], %[tnoise1], 1           \n\t"
                 "addu   %[tnoise1], %[tnoise1], %[tmp32]    \n\t"
-                : [tnoise1] "+r"(tnoise1), [tmp32] "=&r"(tmp32)
+                : [ tnoise1 ] "+r"(tnoise1), [ tmp32 ] "=&r"(tmp32)
                 :);
             aecm->noiseEstTooLowCtr[i + 1] = 0;  // Reset counter
           }
@@ -1529,8 +1536,8 @@ static void ComfortNoise(AecmCore* aecm,
         __asm __volatile(
             "sra    %[tnoise1], %[tnoise1], 11          \n\t"
             "mul    %[tnoise1], %[tnoise1], %[c2049]    \n\t"
-            : [tnoise1] "+r"(tnoise1)
-            : [c2049] "r"(c2049)
+            : [ tnoise1 ] "+r"(tnoise1)
+            : [ c2049 ] "r"(c2049)
             : "hi", "lo");
       }
     }
@@ -1546,10 +1553,11 @@ static void ComfortNoise(AecmCore* aecm,
         "srav   %[tmp321],  %[tnoise1],     %[shiftFromNearToNoise] \n\t"
         "addiu  %[lambdap], %[lambdap],     4                       \n\t"
         "addiu  %[tmp1],    %[tmp1],        8                       \n\t"
-        : [tmp16] "=&r"(tmp16), [tmp161] "=&r"(tmp161), [tmp1] "+r"(tmp1),
-          [tmp32] "=&r"(tmp32), [tmp321] "=&r"(tmp321), [lambdap] "+r"(lambdap)
-        : [tnoise] "r"(tnoise), [tnoise1] "r"(tnoise1), [c114] "r"(c114),
-          [shiftFromNearToNoise] "r"(shiftFromNearToNoise)
+        : [ tmp16 ] "=&r"(tmp16), [ tmp161 ] "=&r"(tmp161), [ tmp1 ] "+r"(tmp1),
+          [ tmp32 ] "=&r"(tmp32), [ tmp321 ] "=&r"(tmp321),
+          [ lambdap ] "+r"(lambdap)
+        : [ tnoise ] "r"(tnoise), [ tnoise1 ] "r"(tnoise1), [ c114 ] "r"(c114),
+          [ shiftFromNearToNoise ] "r"(shiftFromNearToNoise)
         : "memory");
 
     if (tmp32 > 32767) {
@@ -1566,9 +1574,9 @@ static void ComfortNoise(AecmCore* aecm,
         "mul    %[tmp321],  %[tmp321],      %[tmp161]               \n\t"
         "sra    %[nrsh1],   %[tmp32],       14                      \n\t"
         "sra    %[nrsh2],   %[tmp321],      14                      \n\t"
-        : [nrsh1] "=&r"(nrsh1), [nrsh2] "=r"(nrsh2)
-        : [tmp16] "r"(tmp16), [tmp161] "r"(tmp161), [tmp32] "r"(tmp32),
-          [tmp321] "r"(tmp321)
+        : [ nrsh1 ] "=&r"(nrsh1), [ nrsh2 ] "=r"(nrsh2)
+        : [ tmp16 ] "r"(tmp16), [ tmp161 ] "r"(tmp161), [ tmp32 ] "r"(tmp32),
+          [ tmp321 ] "r"(tmp321)
         : "memory", "hi", "lo");
 
     __asm __volatile(
@@ -1579,9 +1587,10 @@ static void ComfortNoise(AecmCore* aecm,
         "mul    %[tmp321],      %[tmp321],      %[c359]     \n\t"
         "sra    %[tmp16],       %[tmp32],       15          \n\t"
         "sra    %[tmp161],      %[tmp321],      15          \n\t"
-        : [randW16p] "+r"(randW16p), [tmp32] "=&r"(tmp32), [tmp16] "=r"(tmp16),
-          [tmp161] "=r"(tmp161), [tmp321] "=&r"(tmp321)
-        : [c359] "r"(c359)
+        : [ randW16p ] "+r"(randW16p), [ tmp32 ] "=&r"(tmp32),
+          [ tmp16 ] "=r"(tmp16), [ tmp161 ] "=r"(tmp161),
+          [ tmp321 ] "=&r"(tmp321)
+        : [ c359 ] "r"(c359)
         : "memory", "hi", "lo");
 
 #if !defined(MIPS_DSP_R1_LE)
@@ -1597,10 +1606,10 @@ static void ComfortNoise(AecmCore* aecm,
         "lhx    %[tmp321],      %[tmp16](%[kSinTablep])                 \n\t"
         "lhx    %[tmp322],      %[tmp161](%[kCosTablep])                \n\t"
         "lhx    %[tmp323],      %[tmp161](%[kSinTablep])                \n\t"
-        : [tmp32] "=&r"(tmp32), [tmp321] "=&r"(tmp321), [tmp322] "=&r"(tmp322),
-          [tmp323] "=&r"(tmp323)
-        : [kCosTablep] "r"(kCosTablep), [tmp16] "r"(tmp16),
-          [tmp161] "r"(tmp161), [kSinTablep] "r"(kSinTablep)
+        : [ tmp32 ] "=&r"(tmp32), [ tmp321 ] "=&r"(tmp321),
+          [ tmp322 ] "=&r"(tmp322), [ tmp323 ] "=&r"(tmp323)
+        : [ kCosTablep ] "r"(kCosTablep), [ tmp16 ] "r"(tmp16),
+          [ tmp161 ] "r"(tmp161), [ kSinTablep ] "r"(kSinTablep)
         : "memory");
 #endif
     __asm __volatile(
@@ -1614,9 +1623,10 @@ static void ComfortNoise(AecmCore* aecm,
         "mul    %[tmp323],      %[tmp323],                  %[tmp163]   \n\t"
         "sra    %[tmp321],      %[tmp321],                  13          \n\t"
         "sra    %[tmp323],      %[tmp323],                  13          \n\t"
-        : [tmp32] "+r"(tmp32), [tmp321] "+r"(tmp321), [tmp162] "=&r"(tmp162),
-          [tmp322] "+r"(tmp322), [tmp323] "+r"(tmp323), [tmp163] "=&r"(tmp163)
-        : [nrsh1] "r"(nrsh1), [nrsh2] "r"(nrsh2)
+        : [ tmp32 ] "+r"(tmp32), [ tmp321 ] "+r"(tmp321),
+          [ tmp162 ] "=&r"(tmp162), [ tmp322 ] "+r"(tmp322),
+          [ tmp323 ] "+r"(tmp323), [ tmp163 ] "=&r"(tmp163)
+        : [ nrsh1 ] "r"(nrsh1), [ nrsh2 ] "r"(nrsh2)
         : "hi", "lo");
     // Tables are in Q13.
     uReal[i] = (int16_t)tmp32;

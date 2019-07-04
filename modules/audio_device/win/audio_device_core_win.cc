@@ -23,21 +23,19 @@
 
 #ifdef WEBRTC_WINDOWS_CORE_AUDIO_BUILD
 
-#include "modules/audio_device/win/audio_device_core_win.h"
-
 #include <assert.h>
-#include <string.h>
-
 #include <comdef.h>
 #include <dmo.h>
 #include <functiondiscoverykeys_devpkey.h>
 #include <mmsystem.h>
+#include <string.h>
 #include <strsafe.h>
 #include <uuids.h>
 #include <windows.h>
 
 #include <iomanip>
 
+#include "modules/audio_device/win/audio_device_core_win.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/platform_thread.h"
 #include "rtc_base/string_utils.h"

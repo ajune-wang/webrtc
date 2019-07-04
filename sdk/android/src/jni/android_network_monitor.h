@@ -12,6 +12,7 @@
 #define SDK_ANDROID_SRC_JNI_ANDROID_NETWORK_MONITOR_H_
 
 #include <stdint.h>
+
 #include <map>
 #include <string>
 #include <vector>

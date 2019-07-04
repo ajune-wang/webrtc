@@ -11,6 +11,7 @@
 #include "sdk/android/src/jni/pc/video.h"
 
 #include <jni.h>
+
 #include <memory>
 
 #include "api/video_codecs/video_decoder_factory.h"

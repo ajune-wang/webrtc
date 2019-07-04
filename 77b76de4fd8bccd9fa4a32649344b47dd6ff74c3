@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b83e1b00_c27bf7a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-07-04T17:34:28Z",
+      "side": 1,
+      "message": "That\u0027s quite a lot you\u0027re not formatting. Is it #include ordering that\u0027s the problem? If so, the problem is just going to recur as soon as someone touches the include lines in those files. https://clang.llvm.org/docs/ClangFormatStyleOptions.html#disabling-formatting-on-a-piece-of-code will probably help; you could do something like this:\n\n  #include \"my_own_header.h\"\n\n  // Don\u0027t reorder this header; it needs to be first.\n  // clang-format off\n  #include \"pushy_header_that_needs_to_be_first.h\"\n  // clang-format on\n\n  #include \"well_behaved_header.h\"\n  #include \"goody_twoshoes_header.h\"\n\nThen clang-format will hopefully sort the other headers while leaving the protected header alone. (If this doesn\u0027t work, it\u0027s probably time to ask the clang-format people for help.)",
+      "revId": "77b76de4fd8bccd9fa4a32649344b47dd6ff74c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

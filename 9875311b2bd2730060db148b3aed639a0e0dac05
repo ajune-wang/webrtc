@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2549beb9_ceaa8d6a",
+        "filename": "sdk/android/api/org/webrtc/EglRenderer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-07-04T15:01:10Z",
+      "side": 1,
+      "message": "I thought about that, but I want us to be selective for now. Out-of-memory is not a user error, but most other GL errors are, such as shader compile errors, and for such errors I want to crash immediately and not propagate anything upwards.",
+      "parentUuid": "c5e8321a_ac1c4c97",
+      "range": {
+        "startLine": 43,
+        "startChar": 9,
+        "endLine": 43,
+        "endChar": 24
+      },
+      "revId": "9875311b2bd2730060db148b3aed639a0e0dac05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab8f3d28_2a3a4b29",
         "filename": "sdk/android/api/org/webrtc/EglRenderer.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "9875311b2bd2730060db148b3aed639a0e0dac05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "834c4d67_44d15fc0",
+        "filename": "sdk/android/api/org/webrtc/EglRenderer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-07-04T15:01:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab8f3d28_2a3a4b29",
+      "range": {
+        "startLine": 682,
+        "startChar": 60,
+        "endLine": 682,
+        "endChar": 61
+      },
+      "revId": "9875311b2bd2730060db148b3aed639a0e0dac05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c9ece1e1_90349e07",
+        "filename": "sdk/android/api/org/webrtc/EglRenderer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-07-04T15:01:10Z",
+      "side": 1,
+      "message": "I rather keep these three lines inlined here. This is a best-effort attempt and some resources should not be released if we want to recover, such as the EGL context or surface, so it\u0027s very ad hoc and I\u0027m not sure clarity will improve by splitting it out to a mini function.",
+      "parentUuid": "164021d7_55a5829c",
+      "range": {
+        "startLine": 688,
+        "startChar": 6,
+        "endLine": 690,
+        "endChar": 41
+      },
+      "revId": "9875311b2bd2730060db148b3aed639a0e0dac05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2fbd6fa3_6df4f3e5",
         "filename": "sdk/android/api/org/webrtc/GlUtil.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "9875311b2bd2730060db148b3aed639a0e0dac05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4053d631_5bbd217d",
+        "filename": "sdk/android/api/org/webrtc/GlUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-07-04T15:01:10Z",
+      "side": 1,
+      "message": "I thought about this but I rather have named exceptions for the things we actually want to catch. I don\u0027t want to catch e.g. OpenGL shader compile errors. Out-of-memory is currently the only valid GL error I think we should catch, and we can always extend this later. Also, with a named exception, stack traces and bugreports will be obvious to everyone rather than \"GL error 1285\".",
+      "parentUuid": "2fbd6fa3_6df4f3e5",
+      "range": {
+        "startLine": 25,
+        "startChar": 22,
+        "endLine": 25,
+        "endChar": 35
+      },
+      "revId": "9875311b2bd2730060db148b3aed639a0e0dac05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

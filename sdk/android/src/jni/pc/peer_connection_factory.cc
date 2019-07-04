@@ -172,7 +172,6 @@ PeerConnectionFactoryInterface* PeerConnectionFactoryFromJava(jlong j_p) {
 // Set in PeerConnectionFactory_initializeAndroidGlobals().
 static bool factory_static_initialized = false;
 
-
 jobject NativeToJavaPeerConnectionFactory(
     JNIEnv* jni,
     rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> pcf,
@@ -373,8 +372,7 @@ JNI_PeerConnectionFactory_CreatePeerConnectionFactory(
           native_media_transport_factory));
 }
 
-static void JNI_PeerConnectionFactory_FreeFactory(JNIEnv*,
-                                                  jlong j_p) {
+static void JNI_PeerConnectionFactory_FreeFactory(JNIEnv*, jlong j_p) {
   delete reinterpret_cast<OwnedFactoryAndThreads*>(j_p);
   field_trial::InitFieldTrialsFromString(nullptr);
   GetStaticObjects().field_trials_init_string = nullptr;

@@ -139,8 +139,7 @@ ScopedJavaLocalRef<jobject> JNI_RtpTransceiver_CurrentDirection(
                    : nullptr;
 }
 
-void JNI_RtpTransceiver_Stop(JNIEnv* jni,
-                             jlong j_rtp_transceiver_pointer) {
+void JNI_RtpTransceiver_Stop(JNIEnv* jni, jlong j_rtp_transceiver_pointer) {
   reinterpret_cast<RtpTransceiverInterface*>(j_rtp_transceiver_pointer)->Stop();
 }
 

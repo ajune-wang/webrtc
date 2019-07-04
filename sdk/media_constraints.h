@@ -17,6 +17,7 @@
 #define SDK_MEDIA_CONSTRAINTS_H_
 
 #include <stddef.h>
+
 #include <string>
 #include <utility>
 #include <vector>

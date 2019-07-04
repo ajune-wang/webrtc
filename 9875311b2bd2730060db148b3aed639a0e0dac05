@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5e8321a_ac1c4c97",
+        "filename": "sdk/android/api/org/webrtc/EglRenderer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-07-04T13:43:21Z",
+      "side": 1,
+      "message": "Maybe more general onGlError that is given the actual error code?",
+      "range": {
+        "startLine": 43,
+        "startChar": 9,
+        "endLine": 43,
+        "endChar": 24
+      },
+      "revId": "9875311b2bd2730060db148b3aed639a0e0dac05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab8f3d28_2a3a4b29",
+        "filename": "sdk/android/api/org/webrtc/EglRenderer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-07-04T13:43:21Z",
+      "side": 1,
+      "message": "log the exception as well? Logging.e can take an exception",
+      "range": {
+        "startLine": 682,
+        "startChar": 60,
+        "endLine": 682,
+        "endChar": 61
+      },
+      "revId": "9875311b2bd2730060db148b3aed639a0e0dac05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "164021d7_55a5829c",
+        "filename": "sdk/android/api/org/webrtc/EglRenderer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-07-04T13:43:21Z",
+      "side": 1,
+      "message": "Can we have this in a method and call it from the existing code? Then if we add more things to be released in the future, we don\u0027t forget to add it here.",
+      "range": {
+        "startLine": 688,
+        "startChar": 6,
+        "endLine": 690,
+        "endChar": 41
+      },
+      "revId": "9875311b2bd2730060db148b3aed639a0e0dac05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fbd6fa3_6df4f3e5",
+        "filename": "sdk/android/api/org/webrtc/GlUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-07-04T13:43:21Z",
+      "side": 1,
+      "message": "How do you feel about instead just having a single GlError exception that has the actual error code as a parameter? That way, we don\u0027t have to ever had anything more here.",
+      "range": {
+        "startLine": 25,
+        "startChar": 22,
+        "endLine": 25,
+        "endChar": 35
+      },
+      "revId": "9875311b2bd2730060db148b3aed639a0e0dac05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

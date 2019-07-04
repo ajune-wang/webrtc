@@ -18,6 +18,7 @@
 #define SDK_ANDROID_NATIVE_API_JNI_JAVA_TYPES_H_
 
 #include <jni.h>
+
 #include <map>
 #include <string>
 #include <vector>

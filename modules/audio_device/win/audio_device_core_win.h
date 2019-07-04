@@ -13,12 +13,11 @@
 
 #if (_MSC_VER >= 1400)  // only include for VS 2005 and higher
 
-#include "rtc_base/win32.h"
+#include <wmcodecdsp.h>  // CLSID_CWMAudioAEC
 
 #include "modules/audio_device/audio_device_generic.h"
-
-#include <wmcodecdsp.h>   // CLSID_CWMAudioAEC
-                          // (must be before audioclient.h)
+#include "rtc_base/win32.h"
+// (must be before audioclient.h)
 #include <audioclient.h>  // WASAPI
 #include <audiopolicy.h>
 #include <avrt.h>  // Avrt

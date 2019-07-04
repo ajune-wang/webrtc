@@ -33,8 +33,8 @@ inline void FreeGlobalClassReferenceHolder() {}
 // TODO(magjed): Remove once external clients are updated.
 namespace webrtc_jni {
 
-using webrtc::jni::LoadGlobalClassReferenceHolder;
 using webrtc::jni::FreeGlobalClassReferenceHolder;
+using webrtc::jni::LoadGlobalClassReferenceHolder;
 
 }  // namespace webrtc_jni
 

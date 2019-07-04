@@ -12,6 +12,7 @@
 #define SDK_ANDROID_SRC_JNI_AUDIO_DEVICE_AUDIO_TRACK_JNI_H_
 
 #include <jni.h>
+
 #include <memory>
 
 #include "absl/types/optional.h"

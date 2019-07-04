@@ -9,6 +9,7 @@
  */
 
 #include "api/units/data_size.h"
+
 #include "test/gtest.h"
 
 namespace webrtc {

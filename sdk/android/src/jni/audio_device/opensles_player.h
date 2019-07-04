@@ -16,6 +16,7 @@
 #include <SLES/OpenSLES_AndroidConfiguration.h>
 
 #include <memory>
+
 #include "absl/types/optional.h"
 #include "api/scoped_refptr.h"
 #include "modules/audio_device/audio_device_buffer.h"

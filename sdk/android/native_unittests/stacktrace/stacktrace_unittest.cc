@@ -11,6 +11,7 @@
 #include "sdk/android/native_api/stacktrace/stacktrace.h"
 
 #include <dlfcn.h>
+
 #include <atomic>
 #include <vector>
 

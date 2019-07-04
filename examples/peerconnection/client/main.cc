@@ -83,24 +83,24 @@ int PASCAL wWinMain(HINSTANCE instance,
   int argc = win_args.argc();
   const char** argv = win_args.argv();
 
-  rtc::FlagList::SetFlagsFromCommandLine(&argc, argv, true);
-  if (FLAG_help) {
-    rtc::FlagList::Print(NULL, false);
-    return 0;
-  }
+  absl::ParseCommandLine(argc, argv);
 
   // InitFieldTrialsFromString stores the char*, so the char array must outlive
   // the application.
-  webrtc::field_trial::InitFieldTrialsFromString(FLAG_force_fieldtrials);
+  const std::string forced_field_trials =
+      absl::GetFlag(FLAGS_force_fieldtrials);
+  webrtc::field_trial::InitFieldTrialsFromString(forced_field_trials.c_str());
 
   // Abort if the user specifies a port that is outside the allowed
   // range [1, 65535].
-  if ((FLAG_port < 1) || (FLAG_port > 65535)) {
-    printf("Error: %i is not a valid port.\n", FLAG_port);
+  if ((absl::GetFlag(FLAGS_port) < 1) || (absl::GetFlag(FLAGS_port) > 65535)) {
+    printf("Error: %i is not a valid port.\n", absl::GetFlag(FLAGS_port));
     return -1;
   }
 
-  MainWnd wnd(FLAG_server, FLAG_port, FLAG_autoconnect, FLAG_autocall);
+  const std::string server = absl::GetFlag(FLAGS_server);
+  MainWnd wnd(server.c_str(), absl::GetFlag(FLAGS_port),
+              absl::GetFlag(FLAGS_autoconnect), absl::GetFlag(FLAGS_autocall));
   if (!wnd.Create()) {
     RTC_NOTREACHED();
     return -1;

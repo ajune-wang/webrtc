@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '778353d874abf0e660d3af16599182edcd98eebe',
+  'chromium_revision': 'c8a181e7434ff0035df72e6961177ceac4af3436',
 }
 
 deps = {
@@ -23,13 +23,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@d5b9ab9e68317e6b131609dfb639a2ae939cd62f',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@0582484b170da91acfcd9c8ddcd21b8ef0aeb21d',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@8ff45170c5e1a5bbab7805f94769ddc1c01482d9',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@f2705a717bfd68f23b5804344ba4d6400bce4ab8',
+    'https://chromium.googlesource.com/chromium/src/third_party@1b8cc02a5ba0e57d20b65f6931df38ddd9da45ab',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -131,7 +131,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/third_party/freetype/src':
-    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@7b1c7585d7ab929d9b29932d6697a22149162c13',
+    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@8cf046c38d4c6ada76ba070562beff0d5041f795',
   'src/third_party/harfbuzz-ng/src':
     'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@7185bd6ffb4dd8c0efebdab5b930e62c5695e3ab',
   # WebRTC-only dependency (not present in Chromium).
@@ -231,7 +231,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@40c476fef3db5cbf6754f6cfa76960c1044b61d8',
+    'https://chromium.googlesource.com/chromium/src/tools@1bfd1cfee662a45f2ab68fece7a27c209497286a',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@96f125709acfd0b48fc1e5dae7d6ea42291726ac',
 

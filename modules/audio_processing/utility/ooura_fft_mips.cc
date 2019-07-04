@@ -9,7 +9,6 @@
  */
 
 #include "modules/audio_processing/utility/ooura_fft.h"
-
 #include "modules/audio_processing/utility/ooura_fft_tables_common.h"
 
 namespace webrtc {
@@ -510,13 +509,14 @@ void cft1st_128_mips(float* a) {
       "bgtz       %[count],     1b                                        \n\t"
       " addiu     %[second],    %[second],    8                           \n\t"
       ".set       pop                                                     \n\t"
-      : [f0] "=&f"(f0), [f1] "=&f"(f1), [f2] "=&f"(f2), [f3] "=&f"(f3),
-        [f4] "=&f"(f4), [f5] "=&f"(f5), [f6] "=&f"(f6), [f7] "=&f"(f7),
-        [f8] "=&f"(f8), [f9] "=&f"(f9), [f10] "=&f"(f10), [f11] "=&f"(f11),
-        [f12] "=&f"(f12), [f13] "=&f"(f13), [f14] "=&f"(f14),
-        [a_ptr] "=&r"(a_ptr), [p1_rdft] "=&r"(p1_rdft), [first] "+r"(first),
-        [p2_rdft] "=&r"(p2_rdft), [count] "=&r"(count), [second] "+r"(second)
-      : [a] "r"(a), [rdft_w] "r"(rdft_w)
+      : [ f0 ] "=&f"(f0), [ f1 ] "=&f"(f1), [ f2 ] "=&f"(f2), [ f3 ] "=&f"(f3),
+        [ f4 ] "=&f"(f4), [ f5 ] "=&f"(f5), [ f6 ] "=&f"(f6), [ f7 ] "=&f"(f7),
+        [ f8 ] "=&f"(f8), [ f9 ] "=&f"(f9), [ f10 ] "=&f"(f10),
+        [ f11 ] "=&f"(f11), [ f12 ] "=&f"(f12), [ f13 ] "=&f"(f13),
+        [ f14 ] "=&f"(f14), [ a_ptr ] "=&r"(a_ptr), [ p1_rdft ] "=&r"(p1_rdft),
+        [ first ] "+r"(first), [ p2_rdft ] "=&r"(p2_rdft),
+        [ count ] "=&r"(count), [ second ] "+r"(second)
+      : [ a ] "r"(a), [ rdft_w ] "r"(rdft_w)
       : "memory");
 }
 
@@ -565,10 +565,10 @@ void cftmdl_128_mips(float* a) {
       "bgtz       %[count],   1b                            \n\t"
       " addiu     %[tmp_a],   %[tmp_a],     8               \n\t"
       ".set       pop                                       \n\t"
-      : [f0] "=&f"(f0), [f1] "=&f"(f1), [f2] "=&f"(f2), [f3] "=&f"(f3),
-        [f4] "=&f"(f4), [f5] "=&f"(f5), [f6] "=&f"(f6), [f7] "=&f"(f7),
-        [f8] "=&f"(f8), [tmp_a] "=&r"(tmp_a), [count] "=&r"(count)
-      : [a] "r"(a)
+      : [ f0 ] "=&f"(f0), [ f1 ] "=&f"(f1), [ f2 ] "=&f"(f2), [ f3 ] "=&f"(f3),
+        [ f4 ] "=&f"(f4), [ f5 ] "=&f"(f5), [ f6 ] "=&f"(f6), [ f7 ] "=&f"(f7),
+        [ f8 ] "=&f"(f8), [ tmp_a ] "=&r"(tmp_a), [ count ] "=&r"(count)
+      : [ a ] "r"(a)
       : "memory");
   f9 = rdft_w[2];
   __asm __volatile(
@@ -621,10 +621,10 @@ void cftmdl_128_mips(float* a) {
       "bgtz       %[count],   1b                            \n\t"
       " addiu     %[tmp_a],   %[tmp_a],     8               \n\t"
       ".set       pop                                       \n\t"
-      : [f0] "=&f"(f0), [f1] "=&f"(f1), [f2] "=&f"(f2), [f3] "=&f"(f3),
-        [f4] "=&f"(f4), [f5] "=&f"(f5), [f6] "=&f"(f6), [f7] "=&f"(f7),
-        [f8] "=&f"(f8), [tmp_a] "=&r"(tmp_a), [count] "=&r"(count)
-      : [a] "r"(a), [f9] "f"(f9)
+      : [ f0 ] "=&f"(f0), [ f1 ] "=&f"(f1), [ f2 ] "=&f"(f2), [ f3 ] "=&f"(f3),
+        [ f4 ] "=&f"(f4), [ f5 ] "=&f"(f5), [ f6 ] "=&f"(f6), [ f7 ] "=&f"(f7),
+        [ f8 ] "=&f"(f8), [ tmp_a ] "=&r"(tmp_a), [ count ] "=&r"(count)
+      : [ a ] "r"(a), [ f9 ] "f"(f9)
       : "memory");
   f10 = rdft_w[3];
   f11 = rdft_w[4];
@@ -708,11 +708,11 @@ void cftmdl_128_mips(float* a) {
       "bgtz       %[count],     1b                                        \n\t"
       " addiu     %[tmp_a],     %[tmp_a],     8                           \n\t"
       ".set       pop                                                     \n\t"
-      : [f0] "=&f"(f0), [f1] "=&f"(f1), [f2] "=&f"(f2), [f3] "=&f"(f3),
-        [f4] "=&f"(f4), [f5] "=&f"(f5), [f6] "=&f"(f6), [f7] "=&f"(f7),
-        [f8] "=&f"(f8), [tmp_a] "=&r"(tmp_a), [count] "=&r"(count)
-      : [a] "r"(a), [f9] "f"(f9), [f10] "f"(f10), [f11] "f"(f11),
-        [f12] "f"(f12), [f13] "f"(f13), [f14] "f"(f14)
+      : [ f0 ] "=&f"(f0), [ f1 ] "=&f"(f1), [ f2 ] "=&f"(f2), [ f3 ] "=&f"(f3),
+        [ f4 ] "=&f"(f4), [ f5 ] "=&f"(f5), [ f6 ] "=&f"(f6), [ f7 ] "=&f"(f7),
+        [ f8 ] "=&f"(f8), [ tmp_a ] "=&r"(tmp_a), [ count ] "=&r"(count)
+      : [ a ] "r"(a), [ f9 ] "f"(f9), [ f10 ] "f"(f10), [ f11 ] "f"(f11),
+        [ f12 ] "f"(f12), [ f13 ] "f"(f13), [ f14 ] "f"(f14)
       : "memory");
   f11 = rdft_w[6];
   f12 = rdft_w[7];
@@ -866,11 +866,11 @@ void cftmdl_128_mips(float* a) {
       "\n\t"
       ".set       pop                                                        "
       "\n\t"
-      : [f0] "=&f"(f0), [f1] "=&f"(f1), [f2] "=&f"(f2), [f3] "=&f"(f3),
-        [f4] "=&f"(f4), [f5] "=&f"(f5), [f6] "=&f"(f6), [f7] "=&f"(f7),
-        [f8] "=&f"(f8), [tmp_a] "=&r"(tmp_a), [count] "=&r"(count)
-      : [a] "r"(a), [f9] "f"(f9), [f10] "f"(f10), [f11] "f"(f11),
-        [f12] "f"(f12), [f13] "f"(f13), [f14] "f"(f14)
+      : [ f0 ] "=&f"(f0), [ f1 ] "=&f"(f1), [ f2 ] "=&f"(f2), [ f3 ] "=&f"(f3),
+        [ f4 ] "=&f"(f4), [ f5 ] "=&f"(f5), [ f6 ] "=&f"(f6), [ f7 ] "=&f"(f7),
+        [ f8 ] "=&f"(f8), [ tmp_a ] "=&r"(tmp_a), [ count ] "=&r"(count)
+      : [ a ] "r"(a), [ f9 ] "f"(f9), [ f10 ] "f"(f10), [ f11 ] "f"(f11),
+        [ f12 ] "f"(f12), [ f13 ] "f"(f13), [ f14 ] "f"(f14)
       : "memory");
 }
 
@@ -923,10 +923,10 @@ void cftfsub_128_mips(float* a) {
       "bgtz       %[count],       1b                        \n\t"
       " addiu     %[tmp_a],       %[tmp_a],   8             \n\t"
       ".set       pop                                       \n\t"
-      : [f0] "=&f"(f0), [f1] "=&f"(f1), [f2] "=&f"(f2), [f3] "=&f"(f3),
-        [f4] "=&f"(f4), [f5] "=&f"(f5), [f6] "=&f"(f6), [f7] "=&f"(f7),
-        [f8] "=&f"(f8), [tmp_a] "=&r"(tmp_a), [count] "=&r"(count)
-      : [a] "r"(a)
+      : [ f0 ] "=&f"(f0), [ f1 ] "=&f"(f1), [ f2 ] "=&f"(f2), [ f3 ] "=&f"(f3),
+        [ f4 ] "=&f"(f4), [ f5 ] "=&f"(f5), [ f6 ] "=&f"(f6), [ f7 ] "=&f"(f7),
+        [ f8 ] "=&f"(f8), [ tmp_a ] "=&r"(tmp_a), [ count ] "=&r"(count)
+      : [ a ] "r"(a)
       : "memory");
 }
 
@@ -980,10 +980,10 @@ void cftbsub_128_mips(float* a) {
       "bgtz       %[count],   1b                              \n\t"
       " addiu     %[tmp_a],   %[tmp_a],       8               \n\t"
       ".set       pop                                         \n\t"
-      : [f0] "=&f"(f0), [f1] "=&f"(f1), [f2] "=&f"(f2), [f3] "=&f"(f3),
-        [f4] "=&f"(f4), [f5] "=&f"(f5), [f6] "=&f"(f6), [f7] "=&f"(f7),
-        [f8] "=&f"(f8), [tmp_a] "=&r"(tmp_a), [count] "=&r"(count)
-      : [a] "r"(a)
+      : [ f0 ] "=&f"(f0), [ f1 ] "=&f"(f1), [ f2 ] "=&f"(f2), [ f3 ] "=&f"(f3),
+        [ f4 ] "=&f"(f4), [ f5 ] "=&f"(f5), [ f6 ] "=&f"(f6), [ f7 ] "=&f"(f7),
+        [ f8 ] "=&f"(f8), [ tmp_a ] "=&r"(tmp_a), [ count ] "=&r"(count)
+      : [ a ] "r"(a)
       : "memory");
 }
 
@@ -1103,13 +1103,13 @@ void rftfsub_128_mips(float* a) {
       "bgtz      %[count],    1b                                  \n\t"
       " addiu    %[a2],       %[a2],        -16                   \n\t"
       ".set      pop                                              \n\t"
-      : [a1] "+r"(a1), [a2] "+r"(a2), [c1] "+r"(c1), [c2] "+r"(c2),
-        [f1] "=&f"(f1), [f2] "=&f"(f2), [f3] "=&f"(f3), [f4] "=&f"(f4),
-        [f5] "=&f"(f5), [f6] "=&f"(f6), [f7] "=&f"(f7), [f8] "=&f"(f8),
-        [f9] "=&f"(f9), [f10] "=&f"(f10), [f11] "=&f"(f11), [f12] "=&f"(f12),
-        [f13] "=&f"(f13), [f14] "=&f"(f14), [f15] "=&f"(f15),
-        [count] "=&r"(count)
-      : [f0] "f"(f0)
+      : [ a1 ] "+r"(a1), [ a2 ] "+r"(a2), [ c1 ] "+r"(c1), [ c2 ] "+r"(c2),
+        [ f1 ] "=&f"(f1), [ f2 ] "=&f"(f2), [ f3 ] "=&f"(f3), [ f4 ] "=&f"(f4),
+        [ f5 ] "=&f"(f5), [ f6 ] "=&f"(f6), [ f7 ] "=&f"(f7), [ f8 ] "=&f"(f8),
+        [ f9 ] "=&f"(f9), [ f10 ] "=&f"(f10), [ f11 ] "=&f"(f11),
+        [ f12 ] "=&f"(f12), [ f13 ] "=&f"(f13), [ f14 ] "=&f"(f14),
+        [ f15 ] "=&f"(f15), [ count ] "=&r"(count)
+      : [ f0 ] "f"(f0)
       : "memory");
 }
 
@@ -1232,13 +1232,13 @@ void rftbsub_128_mips(float* a) {
       "bgtz      %[count],    1b                                  \n\t"
       " addiu    %[a2],       %[a2],        -16                   \n\t"
       ".set      pop                                              \n\t"
-      : [a1] "+r"(a1), [a2] "+r"(a2), [c1] "+r"(c1), [c2] "+r"(c2),
-        [f1] "=&f"(f1), [f2] "=&f"(f2), [f3] "=&f"(f3), [f4] "=&f"(f4),
-        [f5] "=&f"(f5), [f6] "=&f"(f6), [f7] "=&f"(f7), [f8] "=&f"(f8),
-        [f9] "=&f"(f9), [f10] "=&f"(f10), [f11] "=&f"(f11), [f12] "=&f"(f12),
-        [f13] "=&f"(f13), [f14] "=&f"(f14), [f15] "=&f"(f15),
-        [count] "=&r"(count)
-      : [f0] "f"(f0)
+      : [ a1 ] "+r"(a1), [ a2 ] "+r"(a2), [ c1 ] "+r"(c1), [ c2 ] "+r"(c2),
+        [ f1 ] "=&f"(f1), [ f2 ] "=&f"(f2), [ f3 ] "=&f"(f3), [ f4 ] "=&f"(f4),
+        [ f5 ] "=&f"(f5), [ f6 ] "=&f"(f6), [ f7 ] "=&f"(f7), [ f8 ] "=&f"(f8),
+        [ f9 ] "=&f"(f9), [ f10 ] "=&f"(f10), [ f11 ] "=&f"(f11),
+        [ f12 ] "=&f"(f12), [ f13 ] "=&f"(f13), [ f14 ] "=&f"(f14),
+        [ f15 ] "=&f"(f15), [ count ] "=&r"(count)
+      : [ f0 ] "f"(f0)
       : "memory");
 }
 #endif

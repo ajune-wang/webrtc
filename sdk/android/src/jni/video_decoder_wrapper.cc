@@ -85,10 +85,9 @@ int32_t VideoDecoderWrapper::InitDecodeInternal(JNIEnv* jni) {
   return status;
 }
 
-int32_t VideoDecoderWrapper::Decode(
-    const EncodedImage& image_param,
-    bool missing_frames,
-    int64_t render_time_ms) {
+int32_t VideoDecoderWrapper::Decode(const EncodedImage& image_param,
+                                    bool missing_frames,
+                                    int64_t render_time_ms) {
   RTC_DCHECK_RUN_ON(&decoder_thread_checker_);
   if (!initialized_) {
     // Most likely initializing the codec failed.

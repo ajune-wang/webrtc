@@ -10,11 +10,10 @@
 
 #include "sdk/android/src/jni/android_video_track_source.h"
 
-#include "sdk/android/generated_video_jni/NativeAndroidVideoTrackSource_jni.h"
-
 #include <utility>
 
 #include "rtc_base/logging.h"
+#include "sdk/android/generated_video_jni/NativeAndroidVideoTrackSource_jni.h"
 
 namespace webrtc {
 namespace jni {

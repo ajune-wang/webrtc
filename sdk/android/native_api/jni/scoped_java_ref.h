@@ -15,6 +15,7 @@
 #define SDK_ANDROID_NATIVE_API_JNI_SCOPED_JAVA_REF_H_
 
 #include <jni.h>
+
 #include <utility>
 
 #include "rtc_base/constructor_magic.h"

@@ -24,9 +24,10 @@ namespace webrtc {
 namespace webrtc_win {
 
 CoreAudioOutput::CoreAudioOutput()
-    : CoreAudioBase(CoreAudioBase::Direction::kOutput,
-                    [this](uint64_t freq) { return OnDataCallback(freq); },
-                    [this](ErrorType err) { return OnErrorCallback(err); }) {
+    : CoreAudioBase(
+          CoreAudioBase::Direction::kOutput,
+          [this](uint64_t freq) { return OnDataCallback(freq); },
+          [this](ErrorType err) { return OnErrorCallback(err); }) {
   RTC_DLOG(INFO) << __FUNCTION__;
   RTC_DCHECK_RUN_ON(&thread_checker_);
   thread_checker_audio_.Detach();

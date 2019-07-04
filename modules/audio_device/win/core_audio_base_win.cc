@@ -9,11 +9,11 @@
  */
 
 #include "modules/audio_device/win/core_audio_base_win.h"
-#include "modules/audio_device/audio_device_buffer.h"
 
 #include <string>
 
 #include "absl/memory/memory.h"
+#include "modules/audio_device/audio_device_buffer.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"

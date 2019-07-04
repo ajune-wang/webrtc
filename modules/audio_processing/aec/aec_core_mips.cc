@@ -12,9 +12,9 @@
  * The core AEC algorithm, which is presented with time-aligned signals.
  */
 
-#include "modules/audio_processing/aec/aec_core.h"
-
 #include <math.h>
+
+#include "modules/audio_processing/aec/aec_core.h"
 
 extern "C" {
 #include "common_audio/signal_processing/include/signal_processing_library.h"
@@ -131,12 +131,13 @@ void WebRtcAec_FilterFar_mips(
         "swc1       %[f2],      0(%[yf0])                               \n\t"
         "swc1       %[f3],      0(%[yf1])                               \n\t"
         ".set       pop                                                 \n\t"
-        : [f0] "=&f"(f0), [f1] "=&f"(f1), [f2] "=&f"(f2), [f3] "=&f"(f3),
-          [f4] "=&f"(f4), [f5] "=&f"(f5), [f6] "=&f"(f6), [f7] "=&f"(f7),
-          [f8] "=&f"(f8), [f9] "=&f"(f9), [f10] "=&f"(f10), [f11] "=&f"(f11),
-          [f12] "=&f"(f12), [f13] "=&f"(f13), [aRe] "+r"(aRe), [aIm] "+r"(aIm),
-          [bRe] "+r"(bRe), [bIm] "+r"(bIm), [yf0] "+r"(yf0), [yf1] "+r"(yf1),
-          [len] "+r"(len)
+        : [ f0 ] "=&f"(f0), [ f1 ] "=&f"(f1), [ f2 ] "=&f"(f2),
+          [ f3 ] "=&f"(f3), [ f4 ] "=&f"(f4), [ f5 ] "=&f"(f5),
+          [ f6 ] "=&f"(f6), [ f7 ] "=&f"(f7), [ f8 ] "=&f"(f8),
+          [ f9 ] "=&f"(f9), [ f10 ] "=&f"(f10), [ f11 ] "=&f"(f11),
+          [ f12 ] "=&f"(f12), [ f13 ] "=&f"(f13), [ aRe ] "+r"(aRe),
+          [ aIm ] "+r"(aIm), [ bRe ] "+r"(bRe), [ bIm ] "+r"(bIm),
+          [ yf0 ] "+r"(yf0), [ yf1 ] "+r"(yf1), [ len ] "+r"(len)
         :
         : "memory");
   }
@@ -228,12 +229,14 @@ void WebRtcAec_FilterAdaptation_mips(
 #endif  // #if !defined(MIPS32_R2_LE)
         "swc1       %[f8],      4(%[fft])                               \n\t"
         ".set       pop                                                 \n\t"
-        : [f0] "=&f"(f0), [f1] "=&f"(f1), [f2] "=&f"(f2), [f3] "=&f"(f3),
-          [f4] "=&f"(f4), [f5] "=&f"(f5), [f6] "=&f"(f6), [f7] "=&f"(f7),
-          [f8] "=&f"(f8), [f9] "=&f"(f9), [f10] "=&f"(f10), [f11] "=&f"(f11),
-          [f12] "=&f"(f12), [aRe] "+r"(aRe), [aIm] "+r"(aIm), [bRe] "+r"(bRe),
-          [bIm] "+r"(bIm), [fft_tmp] "=&r"(fft_tmp), [len] "+r"(len)
-        : [fft] "r"(fft)
+        : [ f0 ] "=&f"(f0), [ f1 ] "=&f"(f1), [ f2 ] "=&f"(f2),
+          [ f3 ] "=&f"(f3), [ f4 ] "=&f"(f4), [ f5 ] "=&f"(f5),
+          [ f6 ] "=&f"(f6), [ f7 ] "=&f"(f7), [ f8 ] "=&f"(f8),
+          [ f9 ] "=&f"(f9), [ f10 ] "=&f"(f10), [ f11 ] "=&f"(f11),
+          [ f12 ] "=&f"(f12), [ aRe ] "+r"(aRe), [ aIm ] "+r"(aIm),
+          [ bRe ] "+r"(bRe), [ bIm ] "+r"(bIm), [ fft_tmp ] "=&r"(fft_tmp),
+          [ len ] "+r"(len)
+        : [ fft ] "r"(fft)
         : "memory");
 
     ooura_fft.InverseFft(fft);
@@ -276,10 +279,11 @@ void WebRtcAec_FilterAdaptation_mips(
           "bgtz     %[len],     1b                          \n\t"
           " addiu   %[fft_tmp], %[fft_tmp],    32           \n\t"
           ".set     pop                                     \n\t"
-          : [f0] "=&f"(f0), [f1] "=&f"(f1), [f2] "=&f"(f2), [f3] "=&f"(f3),
-            [f4] "=&f"(f4), [f5] "=&f"(f5), [f6] "=&f"(f6), [f7] "=&f"(f7),
-            [len] "=&r"(len), [fft_tmp] "=&r"(fft_tmp)
-          : [scale] "f"(scale), [fft] "r"(fft)
+          : [ f0 ] "=&f"(f0), [ f1 ] "=&f"(f1), [ f2 ] "=&f"(f2),
+            [ f3 ] "=&f"(f3), [ f4 ] "=&f"(f4), [ f5 ] "=&f"(f5),
+            [ f6 ] "=&f"(f6), [ f7 ] "=&f"(f7), [ len ] "=&r"(len),
+            [ fft_tmp ] "=&r"(fft_tmp)
+          : [ scale ] "f"(scale), [ fft ] "r"(fft)
           : "memory");
     }
     ooura_fft.Fft(fft);
@@ -332,11 +336,11 @@ void WebRtcAec_FilterAdaptation_mips(
         "bgtz     %[len],     1b                          \n\t"
         " addiu   %[aIm],     %[aIm],        8            \n\t"
         ".set     pop                                     \n\t"
-        : [f0] "=&f"(f0), [f1] "=&f"(f1), [f2] "=&f"(f2), [f3] "=&f"(f3),
-          [f4] "=&f"(f4), [f5] "=&f"(f5), [f6] "=&f"(f6), [f7] "=&f"(f7),
-          [len] "=&r"(len), [fft_tmp] "=&r"(fft_tmp), [aRe] "+r"(aRe),
-          [aIm] "+r"(aIm)
-        : [fft] "r"(fft)
+        : [ f0 ] "=&f"(f0), [ f1 ] "=&f"(f1), [ f2 ] "=&f"(f2),
+          [ f3 ] "=&f"(f3), [ f4 ] "=&f"(f4), [ f5 ] "=&f"(f5),
+          [ f6 ] "=&f"(f6), [ f7 ] "=&f"(f7), [ len ] "=&r"(len),
+          [ fft_tmp ] "=&r"(fft_tmp), [ aRe ] "+r"(aRe), [ aIm ] "+r"(aIm)
+        : [ fft ] "r"(fft)
         : "memory");
   }
 }
@@ -373,9 +377,10 @@ void WebRtcAec_Overdrive_mips(float overdrive_scaling,
         "1:                                                           \n\t"
         "addiu     %[p_wC],     %[p_wC],      4                      \n\t"
         ".set      pop                                               \n\t"
-        : [temp1] "=&f"(temp1), [temp2] "=&f"(temp2), [temp3] "=&f"(temp3),
-          [temp4] "=&f"(temp4), [p_wC] "+r"(p_WebRtcAec_wC)
-        : [hNlFb] "f"(hNlFb), [one] "f"(one), [p_hNl] "r"(p_hNl)
+        : [ temp1 ] "=&f"(temp1), [ temp2 ] "=&f"(temp2),
+          [ temp3 ] "=&f"(temp3), [ temp4 ] "=&f"(temp4),
+          [ p_wC ] "+r"(p_WebRtcAec_wC)
+        : [ hNlFb ] "f"(hNlFb), [ one ] "f"(one), [ p_hNl ] "r"(p_hNl)
         : "memory");
 
     hNl[i] = powf(hNl[i], overdrive_scaling * WebRtcAec_overDriveCurve[i]);
@@ -406,9 +411,10 @@ void WebRtcAec_Suppress_mips(const float hNl[PART_LEN1],
         "neg.s     %[temp4],    %[temp3]                 \n\t"
         "swc1      %[temp2],    -4(%[p_efw0])            \n\t"
         "swc1      %[temp4],    -4(%[p_efw1])            \n\t"
-        : [temp1] "=&f"(temp1), [temp2] "=&f"(temp2), [temp3] "=&f"(temp3),
-          [temp4] "=&f"(temp4), [p_efw0] "+r"(p_efw0), [p_efw1] "+r"(p_efw1),
-          [p_hNl] "+r"(p_hNl)
+        : [ temp1 ] "=&f"(temp1), [ temp2 ] "=&f"(temp2),
+          [ temp3 ] "=&f"(temp3), [ temp4 ] "=&f"(temp4),
+          [ p_efw0 ] "+r"(p_efw0), [ p_efw1 ] "+r"(p_efw1),
+          [ p_hNl ] "+r"(p_hNl)
         :
         : "memory");
   }
@@ -465,13 +471,14 @@ void WebRtcAec_ScaleErrorSignal_mips(float mu,
       "bgtz       %[len],    1b                          \n\t"
       " addiu     %[ef1],    %[ef1],      4              \n\t"
       ".set       pop                                    \n\t"
-      : [f0] "=&f"(f0), [f1] "=&f"(f1), [f2] "=&f"(f2),
+      : [ f0 ] "=&f"(f0), [ f1 ] "=&f"(f1), [ f2 ] "=&f"(f2),
 #if !defined(MIPS32_R2_LE)
-        [f3] "=&f"(f3),
+        [ f3 ] "=&f"(f3),
 #endif
-        [x_pow] "+r"(x_pow), [ef0] "+r"(ef0), [ef1] "+r"(ef1), [len] "+r"(len)
-      : [fac1] "f"(fac1), [err_th2] "f"(err_th2), [mu] "f"(mu),
-        [err_th] "f"(error_threshold)
+        [ x_pow ] "+r"(x_pow), [ ef0 ] "+r"(ef0), [ ef1 ] "+r"(ef1),
+        [ len ] "+r"(len)
+      : [ fac1 ] "f"(fac1), [ err_th2 ] "f"(err_th2), [ mu ] "f"(mu),
+        [ err_th ] "f"(error_threshold)
       : "memory");
 }
 

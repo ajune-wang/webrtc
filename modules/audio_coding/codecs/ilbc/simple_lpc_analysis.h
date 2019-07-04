@@ -30,6 +30,6 @@ void WebRtcIlbcfix_SimpleLpcAnalysis(
     int16_t* data, /* (i) new block of speech */
     IlbcEncoder* iLBCenc_inst
     /* (i/o) the encoder state structure */
-    );
+);
 
 #endif

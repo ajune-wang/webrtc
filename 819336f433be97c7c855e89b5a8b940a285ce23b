@@ -216,6 +216,30 @@
     },
     {
       "key": {
+        "uuid": "0a308024_cdfa2d38",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-05T11:54:25Z",
+      "side": 1,
+      "message": "The new padding generation can be done within the loop. Adding the legacy one there will be quite messy.\nCan wait to clean this up... :/",
+      "parentUuid": "8454113c_ec9a95a3",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 440,
+        "endChar": 22
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "98de5c6a_d9fcfb5f",
         "filename": "modules/pacing/paced_sender.h",
         "patchSetId": 5

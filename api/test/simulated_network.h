@@ -14,6 +14,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <deque>
+#include <memory>
 #include <queue>
 #include <vector>
 
@@ -77,6 +78,14 @@ class NetworkBehaviorInterface {
   // DequeueDeliverablePackets to get next set of packets to deliver.
   virtual absl::optional<int64_t> NextDeliveryTimeUs() const = 0;
   virtual ~NetworkBehaviorInterface() = default;
+};
+
+class BuiltInNetworkBehavior : public NetworkBehaviorInterface {
+ public:
+  virtual ~BuiltInNetworkBehavior() = default;
+
+  // Sets a new configuration. This won't affect packets already in the pipe.
+  virtual void SetConfig(const BuiltInNetworkBehaviorConfig& config) = 0;
 };
 
 }  // namespace webrtc

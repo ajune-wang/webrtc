@@ -454,6 +454,19 @@ rtc_source_set("simulated_network_api") {
   ]
 }
 
+rtc_source_set("create_builtin_network_behavior") {
+  visibility = [ "*" ]
+  sources = [
+    "test/create_builtin_network_behavior.cc",
+    "test/create_builtin_network_behavior.h",
+  ]
+  deps = [
+    ":simulated_network_api",
+    "../call:simulated_network",
+    "//third_party/abseil-cpp/absl/memory:memory",
+  ]
+}
+
 rtc_source_set("network_emulation_manager_api") {
   visibility = [ "*" ]
   sources = [

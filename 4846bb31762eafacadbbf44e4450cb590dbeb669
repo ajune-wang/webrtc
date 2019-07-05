@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6bd81b09_096c0f03",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-05T07:28:21Z",
+      "side": 1,
+      "message": "This requirement is not clear from the api. Suggest either sorting the vector here or adding\ncomment to the header.",
+      "range": {
+        "startLine": 670,
+        "startChar": 6,
+        "endLine": 674,
+        "endChar": 21
+      },
+      "revId": "4846bb31762eafacadbbf44e4450cb590dbeb669",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0c9c8c5_2ffe9bb2",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-05T07:28:21Z",
+      "side": 1,
+      "message": "I think the coverage can be improved a bit. For instance\n* having two items in the list and checking that changes resolution does in fact change bitrate limit.\n* resolution higher than max in list removes limit\n* checking that encoder_config_.max_bitrate_bps takes precedence",
+      "range": {
+        "startLine": 1345,
+        "startChar": 7,
+        "endLine": 1345,
+        "endChar": 58
+      },
+      "revId": "4846bb31762eafacadbbf44e4450cb590dbeb669",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

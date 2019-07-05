@@ -8,8 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "test/scenario/network/network_emulation_manager.h"
-#include "test/time_controller/real_time_controller.h"
+#include "test/network/network_emulation_manager.h"
 
 #include <algorithm>
 #include <memory>
@@ -17,7 +16,9 @@
 #include "absl/memory/memory.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
+#include "call/simulated_network.h"
 #include "rtc_base/fake_network.h"
+#include "test/time_controller/real_time_controller.h"
 
 namespace webrtc {
 namespace test {
@@ -62,13 +63,17 @@ NetworkEmulationManagerImpl::NetworkEmulationManagerImpl(
       next_ip4_address_(kMinIPv4Address),
       task_queue_(time_controller->GetTaskQueueFactory()->CreateTaskQueue(
           "NetworkEmulation",
-          TaskQueueFactory::Priority::NORMAL)) {
-}
+          TaskQueueFactory::Priority::NORMAL)) {}
 
 // TODO(srte): Ensure that any pending task that must be run for consistency
 // (such as stats collection tasks) are not cancelled when the task queue is
 // destroyed.
 NetworkEmulationManagerImpl::~NetworkEmulationManagerImpl() = default;
+
+EmulatedNetworkNode* NetworkEmulationManagerImpl::CreateEmulatedNode(
+    BuiltInNetworkBehaviorConfig config) {
+  return CreateEmulatedNode(absl::make_unique<SimulatedNetwork>(config));
+}
 
 EmulatedNetworkNode* NetworkEmulationManagerImpl::CreateEmulatedNode(
     std::unique_ptr<NetworkBehaviorInterface> network_behavior) {

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b64d02da_131eccf8",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-05T13:17:39Z",
+      "side": 1,
+      "message": "Skip this, I think leave+enter is more clear. Better to focus on cleaning this up properly when it\u0027s possible.",
+      "range": {
+        "startLine": 301,
+        "startChar": 0,
+        "endLine": 306,
+        "endChar": 0
+      },
+      "revId": "42c9f6a6318eb2bee547863fe53a8afa14a55737",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bae8f710_8655e7b7",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-05T13:17:39Z",
+      "side": 1,
+      "message": "nit {} would improve readability slightly here. (saves the effort of checking what it contains)",
+      "range": {
+        "startLine": 979,
+        "startChar": 11,
+        "endLine": 979,
+        "endChar": 26
+      },
+      "revId": "42c9f6a6318eb2bee547863fe53a8afa14a55737",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

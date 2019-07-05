@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "601b46e6_677325d8",
+        "filename": "sdk/android/api/org/webrtc/GlUtil.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-07-05T08:46:40Z",
+      "side": 1,
+      "message": "nit: Usually exception classes end with \"Exception\".",
+      "range": {
+        "startLine": 25,
+        "startChar": 22,
+        "endLine": 25,
+        "endChar": 35
+      },
+      "revId": "e4af6b966ff46f2b5a47093299cf5d216faf3293",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

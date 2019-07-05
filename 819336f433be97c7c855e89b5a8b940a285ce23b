@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "1a4c28cc_635ce41a",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-05T10:21:43Z",
+      "side": 1,
+      "message": "We\u0027ll still have a lock order inversion problem, so must continue to release the lock until we can get rid of it.\nI have changed GeneratePadding() to return the padding packets though, agree that\u0027s cleaner.",
+      "parentUuid": "249a5640_058cf493",
+      "range": {
+        "startLine": 382,
+        "startChar": 6,
+        "endLine": 382,
+        "endChar": 20
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2592e285_6b4a9617",
         "filename": "modules/pacing/paced_sender.cc",
         "patchSetId": 5
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "It should, but is made much worse if it\u0027s not obvious. We have had bugs caused by such this before. That caused me to spend some effort to ensure that we at least keep all the leaves and enters in the same function.\n\nNot that bugs caused by missing this tend to be flaky, making discovery and investigation particularly expensive.",
       "parentUuid": "540c85da_15ae0498",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 440,
+        "endChar": 22
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8e7cba6_65cf091d",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-05T10:21:43Z",
+      "side": 1,
+      "message": "It\u0027s going to be quite tricky to avoid a helper method. Otherwise the loop will become quite incomprehensible.\nI\u0027ve made a change where all releasing of locks is scoped, I hope this will make things safer. wdyt?",
+      "parentUuid": "fd36f590_c145c76d",
       "range": {
         "startLine": 440,
         "startChar": 0,
@@ -259,6 +307,30 @@
       "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16e8cf85_c2483787",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-05T10:21:43Z",
+      "side": 1,
+      "message": "I split this up instead. Probably fine with some code duplication since we\u0027re going to clean this up soon anyway.",
+      "parentUuid": "f5c2633d_2809b46c",
+      "range": {
+        "startLine": 511,
+        "startChar": 0,
+        "endLine": 512,
+        "endChar": 37
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

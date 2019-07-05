@@ -46,6 +46,30 @@
       "revId": "ecae9cd1a7753e9f8025d0a3898a70fac07b954c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "937028cf_e1d7c406",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-07-05T18:42:33Z",
+      "side": 0,
+      "message": "\u003e It has a dependency on /test: Does this matter?\n\nNo, that is not a problem. The outcome is the same but in general we use `rtc_test` (which resolves to `test`) only for tests and not for tools.\n\n\u003e I\u0027m fine with either rtc_test or rtc_executable. Do what you think is appropriate.\n\nThanks, I have changed it.",
+      "parentUuid": "42b101a9_e2c3ce15",
+      "range": {
+        "startLine": 395,
+        "startChar": 4,
+        "endLine": 395,
+        "endChar": 12
+      },
+      "revId": "ecae9cd1a7753e9f8025d0a3898a70fac07b954c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

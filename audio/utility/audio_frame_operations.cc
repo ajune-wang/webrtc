@@ -17,6 +17,7 @@
 
 #include "common_audio/include/audio_util.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 
 namespace webrtc {
@@ -147,6 +148,15 @@ void AudioFrameOperations::DownmixChannels(size_t dst_channels,
   } else if (frame->num_channels_ == 4 && dst_channels == 2) {
     int err = QuadToStereo(frame);
     RTC_DCHECK_EQ(err, 0);
+  } else if (frame->num_channels_ == 6 && dst_channels == 2) {
+    int err = FivePointOneToStereo(frame);
+    RTC_DCHECK_EQ(err, 0);
+  } else if (frame->num_channels_ == 8 && dst_channels == 2) {
+    int err = SevenPointOneToStereo(frame);
+    RTC_DCHECK_EQ(err, 0);
+  } else if (frame->num_channels_ == 8 && dst_channels == 6) {
+    int err = SevenPointOneToFivePointOne(frame);
+    RTC_DCHECK_EQ(err, 0);
   } else {
     RTC_NOTREACHED() << "src_channels: " << frame->num_channels_
                      << ", dst_channels: " << dst_channels;
@@ -155,26 +165,40 @@ void AudioFrameOperations::DownmixChannels(size_t dst_channels,
 
 void AudioFrameOperations::UpmixChannels(size_t target_number_of_channels,
                                          AudioFrame* frame) {
-  RTC_DCHECK_EQ(frame->num_channels_, 1);
+  // RTC_DCHECK_EQ(frame->num_channels_, 1);
   RTC_DCHECK_LE(frame->samples_per_channel_ * target_number_of_channels,
                 AudioFrame::kMaxDataSizeSamples);
 
-  if (frame->num_channels_ != 1 ||
-      frame->samples_per_channel_ * target_number_of_channels >
-          AudioFrame::kMaxDataSizeSamples) {
+  if (frame->samples_per_channel_ * target_number_of_channels >
+      AudioFrame::kMaxDataSizeSamples) {
     return;
   }
 
-  if (!frame->muted()) {
-    // Up-mixing done in place. Going backwards through the frame ensure nothing
-    // is irrevocably overwritten.
-    for (int i = frame->samples_per_channel_ - 1; i >= 0; i--) {
-      for (size_t j = 0; j < target_number_of_channels; ++j) {
-        frame->mutable_data()[target_number_of_channels * i + j] =
-            frame->data()[i];
+  if (frame->num_channels_ == 1 && target_number_of_channels > 1) {
+    if (!frame->muted()) {
+      // Up-mixing done in place. Going backwards through the frame ensure
+      // nothing is irrevocably overwritten.
+      for (int i = frame->samples_per_channel_ - 1; i >= 0; i--) {
+        for (size_t j = 0; j < target_number_of_channels; ++j) {
+          frame->mutable_data()[target_number_of_channels * i + j] =
+              frame->data()[i];
+        }
       }
     }
+  } else if (frame->num_channels_ == 2 && target_number_of_channels == 6) {
+    int err = StereoToFivePointOne(frame);
+    RTC_DCHECK_EQ(err, 0);
+  } else if (frame->num_channels_ == 2 && target_number_of_channels == 8) {
+    int err = StereoToSevenPointOne(frame);
+    RTC_DCHECK_EQ(err, 0);
+  } else if (frame->num_channels_ == 6 && target_number_of_channels == 8) {
+    int err = FivePointOneToSevenPointOne(frame);
+    RTC_DCHECK_EQ(err, 0);
+  } else {
+    RTC_NOTREACHED() << "src_channels: " << frame->num_channels_
+                     << ", dst_channels: " << target_number_of_channels;
   }
+
   frame->num_channels_ = target_number_of_channels;
 }
 

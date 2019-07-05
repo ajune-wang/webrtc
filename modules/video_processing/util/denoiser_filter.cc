@@ -9,6 +9,7 @@
  */
 
 #include "modules/video_processing/util/denoiser_filter.h"
+
 #include "modules/video_processing/util/denoiser_filter_c.h"
 #include "modules/video_processing/util/denoiser_filter_neon.h"
 #include "modules/video_processing/util/denoiser_filter_sse2.h"

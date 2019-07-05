@@ -192,6 +192,30 @@
     },
     {
       "key": {
+        "uuid": "8454113c_ec9a95a3",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-05T10:48:33Z",
+      "side": 1,
+      "message": "That doesn\u0027t help against hidden release, so I don\u0027t think it\u0027s worth it considering that it\u0027s a bit unconventional. \n\nCould the large method be split into smaller pieces with consistent lock level so the repeated parts doesn\u0027t have to be as much? Or maybe the call to generate padding could be moved to inside the loop, so we don\u0027t need the two calls?",
+      "parentUuid": "e8e7cba6_65cf091d",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 440,
+        "endChar": 22
+      },
+      "revId": "819336f433be97c7c855e89b5a8b940a285ce23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "98de5c6a_d9fcfb5f",
         "filename": "modules/pacing/paced_sender.h",
         "patchSetId": 5

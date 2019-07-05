@@ -22,6 +22,30 @@
       "revId": "e4af6b966ff46f2b5a47093299cf5d216faf3293",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ab95a83_4b6352e5",
+        "filename": "sdk/android/api/org/webrtc/GlUtil.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-07-05T12:33:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "601b46e6_677325d8",
+      "range": {
+        "startLine": 25,
+        "startChar": 22,
+        "endLine": 25,
+        "endChar": 35
+      },
+      "revId": "e4af6b966ff46f2b5a47093299cf5d216faf3293",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

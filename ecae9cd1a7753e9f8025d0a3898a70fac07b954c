@@ -22,6 +22,30 @@
       "revId": "ecae9cd1a7753e9f8025d0a3898a70fac07b954c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42b101a9_e2c3ce15",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-07-05T15:12:52Z",
+      "side": 0,
+      "message": "It has a dependency on /test: Does this matter?\n\nI\u0027m fine with either rtc_test or rtc_executable. Do what you think is appropriate.",
+      "parentUuid": "2cb309d8_1208c1cb",
+      "range": {
+        "startLine": 395,
+        "startChar": 4,
+        "endLine": 395,
+        "endChar": 12
+      },
+      "revId": "ecae9cd1a7753e9f8025d0a3898a70fac07b954c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

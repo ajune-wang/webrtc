@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc932e32_6f8fe58a",
+        "filename": "logging/rtc_event_log/rtc_event_log2rtp_dump.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-07-05T14:46:17Z",
+      "side": 1,
+      "message": "I will clean this up in a few days, if you LGTM I would like to move on with the migration while this gets unblocked.",
+      "range": {
+        "startLine": 166,
+        "startChar": 2,
+        "endLine": 167,
+        "endChar": 23
+      },
+      "revId": "44b28f5f5fbcd40492f74b9d143fde6329ce52bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

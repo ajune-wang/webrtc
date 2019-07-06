@@ -340,7 +340,7 @@ void PacedSender::Process() {
     } else {
       critsect_.Leave();
       std::vector<std::unique_ptr<RtpPacketToSend>> keepalive_packets =
-          packet_router_->GeneratePadding(1);
+          packet_router_->GeneratePadding(1, true);
       critsect_.Enter();
       for (auto& packet : keepalive_packets) {
         EnqueuePacket(std::move(packet));
@@ -395,9 +395,11 @@ void PacedSender::Process() {
         size_t padding_bytes_to_add =
             PaddingBytesToAdd(recommended_probe_size, bytes_sent);
         if (padding_bytes_to_add > 0) {
+          bool padding_budget_max_out = padding_budget_.IsAtMaxLevel();
           critsect_.Leave();
           std::vector<std::unique_ptr<RtpPacketToSend>> padding_packets =
-              packet_router_->GeneratePadding(padding_bytes_to_add);
+              packet_router_->GeneratePadding(
+                  padding_bytes_to_add, is_probing || padding_budget_max_out);
           critsect_.Enter();
           if (padding_packets.empty()) {
             // No padding packets were generated, quite send loop.

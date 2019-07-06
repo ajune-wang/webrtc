@@ -410,8 +410,8 @@ size_t ModuleRtpRtcpImpl::TimeToSendPadding(
 }
 
 std::vector<std::unique_ptr<RtpPacketToSend>>
-ModuleRtpRtcpImpl::GeneratePadding(size_t target_size_bytes) {
-  return rtp_sender_->GeneratePadding(target_size_bytes);
+ModuleRtpRtcpImpl::GeneratePadding(size_t target_size_bytes, bool forced) {
+  return rtp_sender_->GeneratePadding(target_size_bytes, forced);
 }
 
 size_t ModuleRtpRtcpImpl::MaxRtpPacketSize() const {

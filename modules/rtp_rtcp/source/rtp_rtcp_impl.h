@@ -149,7 +149,8 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
                            const PacedPacketInfo& pacing_info) override;
 
   std::vector<std::unique_ptr<RtpPacketToSend>> GeneratePadding(
-      size_t target_size_bytes) override;
+      size_t target_size_bytes,
+      bool forced) override;
 
   // RTCP part.
 

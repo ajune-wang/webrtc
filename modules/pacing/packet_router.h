@@ -66,7 +66,8 @@ class PacketRouter : public TransportSequenceNumberAllocator,
                                    const PacedPacketInfo& packet_info);
 
   virtual std::vector<std::unique_ptr<RtpPacketToSend>> GeneratePadding(
-      size_t target_size_bytes);
+      size_t target_size_bytes,
+      bool forced);
 
   void SetTransportWideSequenceNumber(uint16_t sequence_number);
   uint16_t AllocateSequenceNumber() override;

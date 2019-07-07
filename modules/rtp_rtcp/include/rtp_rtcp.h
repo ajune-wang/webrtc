@@ -175,8 +175,6 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
 
   virtual int32_t DeregisterSendRtpHeaderExtension(RTPExtensionType type) = 0;
 
-  virtual bool HasBweExtensions() const = 0;
-
   // Returns start timestamp.
   virtual uint32_t StartTimestamp() const = 0;
 
@@ -283,6 +281,15 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
   // transport.
   virtual bool TrySendPacket(RtpPacketToSend* packet,
                              const PacedPacketInfo& pacing_info) = 0;
+
+  // Queries the RTP module for the next expected padding packet size.
+  // If sending is not enabled or there are none of the extensions reqiured for
+  // bandwidth estimation registered, returns nullopt.
+  // If module supports RTX-based payload padding, and there is an available
+  // packet in the history, then returns the size of that packet.
+  // If padding is supported but not availbe RTX-packet, then a suitable
+  // padding packet size is returned instead.
+  virtual absl::optional<size_t> NextPaddingPacketSize() const = 0;
 
   virtual size_t TimeToSendPadding(size_t bytes,
                                    const PacedPacketInfo& pacing_info) = 0;

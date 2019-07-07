@@ -93,6 +93,7 @@ class MockRtpRtcp : public RtpRtcp {
   MOCK_METHOD2(TrySendPacket,
                bool(RtpPacketToSend* packet,
                     const PacedPacketInfo& pacing_info));
+  MOCK_CONST_METHOD0(NextPaddingPacketSize, absl::optional<size_t>(void));
   MOCK_METHOD2(TimeToSendPadding,
                size_t(size_t bytes, const PacedPacketInfo& pacing_info));
   MOCK_METHOD1(

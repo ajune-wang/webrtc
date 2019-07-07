@@ -49,7 +49,6 @@ class MockRtpRtcp : public RtpRtcp {
                bool(const std::string& uri, int id));
   MOCK_METHOD1(DeregisterSendRtpHeaderExtension,
                int32_t(RTPExtensionType type));
-  MOCK_CONST_METHOD0(HasBweExtensions, bool());
   MOCK_CONST_METHOD0(StartTimestamp, uint32_t());
   MOCK_METHOD1(SetStartTimestamp, void(uint32_t timestamp));
   MOCK_CONST_METHOD0(SequenceNumber, uint16_t());
@@ -93,6 +92,7 @@ class MockRtpRtcp : public RtpRtcp {
   MOCK_METHOD2(TrySendPacket,
                bool(RtpPacketToSend* packet,
                     const PacedPacketInfo& pacing_info));
+  MOCK_CONST_METHOD0(NextPaddingPacketSize, absl::optional<size_t>(void));
   MOCK_METHOD2(TimeToSendPadding,
                size_t(size_t bytes, const PacedPacketInfo& pacing_info));
   MOCK_METHOD1(

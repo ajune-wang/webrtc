@@ -393,6 +393,15 @@ std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetPayloadPaddingPacket(
   return padding_packet;
 }
 
+absl::optional<size_t> RtpPacketHistory::NextPaddingPacketSize() const {
+  rtc::CritScope cs(&lock_);
+  if (mode_ == StorageMode::kDisabled || padding_priority_.empty()) {
+    return absl::nullopt;
+  }
+
+  return (*padding_priority_.begin())->packet_->payload_size();
+}
+
 void RtpPacketHistory::CullAcknowledgedPackets(
     rtc::ArrayView<const uint16_t> sequence_numbers) {
   rtc::CritScope cs(&lock_);

@@ -75,8 +75,6 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
 
   int32_t DeregisterSendRtpHeaderExtension(RTPExtensionType type) override;
 
-  bool HasBweExtensions() const override;
-
   // Get start timestamp.
   uint32_t StartTimestamp() const override;
 
@@ -142,6 +140,8 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
 
   bool TrySendPacket(RtpPacketToSend* packet,
                      const PacedPacketInfo& pacing_info) override;
+
+  absl::optional<size_t> NextPaddingPacketSize() const override;
 
   // Returns the number of padding bytes actually sent, which can be more or
   // less than |bytes|.

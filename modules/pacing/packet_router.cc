@@ -114,8 +114,7 @@ RtpPacketSendResult PacketRouter::TimeToSendPacket(
     return RtpPacketSendResult::kPacketNotFound;
   }
 
-  if ((rtp_module->RtxSendStatus() & kRtxRedundantPayloads) &&
-      rtp_module->HasBweExtensions()) {
+  if (rtp_module->NextPaddingPacketSize().has_value()) {
     // This is now the last module to send media, and has the desired
     // properties needed for payload based padding. Cache it for later use.
     last_send_module_ = rtp_module;
@@ -154,10 +153,7 @@ void PacketRouter::SendPacket(std::unique_ptr<RtpPacketToSend> packet,
   }
   for (auto* rtp_module : rtp_send_modules_) {
     if (rtp_module->TrySendPacket(packet.get(), cluster_info)) {
-      const bool can_send_padding =
-          (rtp_module->RtxSendStatus() & kRtxRedundantPayloads) &&
-          rtp_module->HasBweExtensions();
-      if (can_send_padding) {
+      if (rtp_module->NextPaddingPacketSize().has_value()) {
         // This is now the last module to send media, and has the desired
         // properties needed for payload based padding. Cache it for later use.
         last_send_module_ = rtp_module;
@@ -185,7 +181,7 @@ size_t PacketRouter::TimeToSendPadding(size_t bytes_to_send,
   if (last_send_module_ != nullptr) {
     RTC_DCHECK(std::find(rtp_send_modules_.begin(), rtp_send_modules_.end(),
                          last_send_module_) != rtp_send_modules_.end());
-    RTC_DCHECK(last_send_module_->HasBweExtensions());
+    RTC_DCHECK(last_send_module_->NextPaddingPacketSize().has_value());
     total_bytes_sent += last_send_module_->TimeToSendPadding(
         bytes_to_send - total_bytes_sent, pacing_info);
     if (total_bytes_sent >= bytes_to_send) {
@@ -195,7 +191,7 @@ size_t PacketRouter::TimeToSendPadding(size_t bytes_to_send,
 
   // Rtp modules are ordered by which stream can most benefit from padding.
   for (RtpRtcp* module : rtp_send_modules_) {
-    if (module->SendingMedia() && module->HasBweExtensions()) {
+    if (module->NextPaddingPacketSize().has_value()) {
       size_t bytes_sent = module->TimeToSendPadding(
           bytes_to_send - total_bytes_sent, pacing_info);
       total_bytes_sent += bytes_sent;
@@ -218,14 +214,18 @@ std::vector<std::unique_ptr<RtpPacketToSend>> PacketRouter::GeneratePadding(
   if (last_send_module_ != nullptr) {
     RTC_DCHECK(std::find(rtp_send_modules_.begin(), rtp_send_modules_.end(),
                          last_send_module_) != rtp_send_modules_.end());
-    RTC_DCHECK(last_send_module_->HasBweExtensions());
+    RTC_DCHECK(last_send_module_->NextPaddingPacketSize().has_value());
     return last_send_module_->GeneratePadding(target_size_bytes);
   }
 
   // Rtp modules are ordered by which stream can most benefit from padding.
   for (RtpRtcp* rtp_module : rtp_send_modules_) {
-    if (rtp_module->SendingMedia() && rtp_module->HasBweExtensions()) {
-      return rtp_module->GeneratePadding(target_size_bytes);
+    if (rtp_module->NextPaddingPacketSize().has_value()) {
+      auto padding_packets = rtp_module->GeneratePadding(target_size_bytes);
+      if (!padding_packets.empty()) {
+        last_send_module_ = rtp_module;
+      }
+      return padding_packets;
     }
   }
 

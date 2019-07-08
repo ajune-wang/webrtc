@@ -22,6 +22,30 @@
       "revId": "86f8b3bd5d29e790ae24e0c285fa501805529d62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d92c0d79_6f41fe32",
+        "filename": "modules/remote_bitrate_estimator/tools/bwe_rtp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-07-08T11:42:37Z",
+      "side": 0,
+      "message": "It is already provided by absl flags:\n\n  \u003e ./out/Debug/rtp_to_text --help\n  rtp_to_text: Warning: SetProgramUsageMessage() never called\n\n    No modules matched: use -helpfull\n\n  Try --helpfull to get a list of all flags.\n  \u003e ./out/Debug/rtp_to_text --helpfull\n  rtp_to_text: Warning: SetProgramUsageMessage() never called\n\n    Flags from ../../modules/remote_bitrate_estimator/tools/bwe_rtp.cc:\n      -extension_id (Extension id.); default: 3;\n      -extension_type (Extension type, either abs for absolute send time or\n        tsoffset for timestamp offset.); default: \"abs\";\n      -input_file (Input file.); default: \"\";\n      -ssrc_filter (Comma-separated list of SSRCs in hexadecimal which are to be\n        used as input to the BWE (only applicable to pcap files).); default: \"\";\n\nIn other tools we have a custom message and there I will follow up to add it as soon as it is available but here the flags list we have with --helpfull should be enough.",
+      "parentUuid": "1ba0e12e_ac7b6a90",
+      "range": {
+        "startLine": 84,
+        "startChar": 9,
+        "endLine": 84,
+        "endChar": 17
+      },
+      "revId": "86f8b3bd5d29e790ae24e0c285fa501805529d62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

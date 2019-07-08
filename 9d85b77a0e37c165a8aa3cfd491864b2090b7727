@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed12c865_00240ebe",
+        "filename": "modules/video_processing/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-07-08T08:37:54Z",
+      "side": 1,
+      "message": "Aren\u0027t these already under control of these targets (https://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_processing/BUILD.gn?l\u003d63-96\u0026rcl\u003d5d24b16c7722257edda195fce84bd89b94dd9c72)?",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "9d85b77a0e37c165a8aa3cfd491864b2090b7727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

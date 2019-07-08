@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19a7fddb_4998d6f6",
+        "filename": "audio/test/low_bandwidth_audio_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-07-08T18:15:20Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 57
+      },
+      "revId": "757ee280f636a25e69a8eadb9293c855d61c946b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3b36416_3b8c5d0a",
+        "filename": "audio/test/pc_low_bandwidth_audio_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-07-08T18:15:20Z",
+      "side": 1,
+      "message": "No default value? Are we ok with metric test case names that start with \"_\"?",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 41,
+        "endChar": 42
+      },
+      "revId": "757ee280f636a25e69a8eadb9293c855d61c946b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -2150,9 +2150,7 @@ WebRtcVideoChannel::WebRtcVideoSendStream::CreateVideoEncoderConfig(
   // or a screencast (and not in simulcast screenshare experiment), only
   // configure a single stream.
   encoder_config.number_of_streams = parameters_.config.rtp.ssrcs.size();
-  if (IsCodecBlacklistedForSimulcast(codec.name) ||
-      (is_screencast && (!ScreenshareSimulcastFieldTrialEnabled() ||
-                         !parameters_.conference_mode))) {
+  if (IsCodecBlacklistedForSimulcast(codec.name)) {
     encoder_config.number_of_streams = 1;
   }
 
@@ -2993,12 +2991,6 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
     int width,
     int height,
     const webrtc::VideoEncoderConfig& encoder_config) {
-  bool screenshare_simulcast_enabled =
-      screenshare_config_explicitly_enabled_ &&
-      cricket::ScreenshareSimulcastFieldTrialEnabled();
-  if (is_screenshare_ && !screenshare_simulcast_enabled) {
-    RTC_DCHECK_EQ(1, encoder_config.number_of_streams);
-  }
   RTC_DCHECK_GT(encoder_config.number_of_streams, 0);
   RTC_DCHECK_GE(encoder_config.simulcast_layers.size(),
                 encoder_config.number_of_streams);
@@ -3011,9 +3003,13 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
     const bool temporal_layers_supported =
         absl::EqualsIgnoreCase(codec_name_, kVp8CodecName) ||
         absl::EqualsIgnoreCase(codec_name_, kH264CodecName);
-    layers = GetSimulcastConfig(encoder_config.number_of_streams, width, height,
-                                encoder_config.bitrate_priority, max_qp_,
-                                is_screenshare_, temporal_layers_supported);
+    // Use legacy simulcast screenshare if it is explicitly enabled or use
+    // the regular simulcast configuration path which is more general.
+    layers = GetSimulcastConfig(
+        encoder_config.number_of_streams, width, height,
+        encoder_config.bitrate_priority, max_qp_,
+        is_screenshare_ && screenshare_config_explicitly_enabled_,
+        temporal_layers_supported);
     // The maximum |max_framerate| is currently used for video.
     const int max_framerate = GetMaxFramerate(encoder_config, layers.size());
     // Update the active simulcast layers and configured bitrates.

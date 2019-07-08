@@ -70,6 +70,30 @@
       "revId": "9d85b77a0e37c165a8aa3cfd491864b2090b7727",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4101486_80bc659c",
+        "filename": "modules/video_processing/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-07-08T10:13:29Z",
+      "side": 1,
+      "message": "Done.\nAt first I thought it was not viable, but turned out easy.",
+      "parentUuid": "71df71fe_a1fee0c2",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "9d85b77a0e37c165a8aa3cfd491864b2090b7727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -10,19 +10,13 @@
 
 #include "api/test/simulated_network.h"
 #include "audio/test/audio_end_to_end_test.h"
+// #include "audio/test/low_bandwidth_audio_test_flags.h"
 #include "rtc_base/flags.h"
 #include "system_wrappers/include/sleep.h"
 #include "test/testsupport/file_utils.h"
 
-WEBRTC_DEFINE_int(sample_rate_hz,
-                  16000,
-                  "Sample rate (Hz) of the produced audio files.");
-
-WEBRTC_DEFINE_bool(
-    quick,
-    false,
-    "Don't do the full audio recording. "
-    "Used to quickly check that the test runs without crashing.");
+WEBRTC_DECLARE_int(sample_rate_hz);
+WEBRTC_DECLARE_bool(quick);
 
 namespace webrtc {
 namespace test {

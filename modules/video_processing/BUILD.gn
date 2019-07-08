@@ -16,6 +16,8 @@ rtc_static_library("video_processing") {
     "util/denoiser_filter.cc",
     "util/denoiser_filter_c.cc",
     "util/denoiser_filter_c.h",
+    "util/denoiser_filter_neon.h",
+    "util/denoiser_filter_sse2.h",
     "util/noise_estimation.cc",
     "util/noise_estimation.h",
     "util/skin_detection.cc",

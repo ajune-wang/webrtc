@@ -1028,6 +1028,7 @@ if (is_ios || is_mac) {
         "objc/Framework/Native/src/objc_video_decoder_factory.h",
         "objc/Framework/Native/src/objc_video_encoder_factory.h",
       ]
+      include_dirs = [ "objc/" ]
     }
 
     if (rtc_include_tests) {

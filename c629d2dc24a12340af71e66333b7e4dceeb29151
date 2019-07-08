@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ea175385_187989a8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-07-08T19:15:55Z",
+      "side": 1,
+      "message": "Done, thx!",
+      "parentUuid": "20e1e34b_c016f3aa",
+      "range": {
+        "startLine": 16,
+        "startChar": 31,
+        "endLine": 16,
+        "endChar": 35
+      },
+      "revId": "c629d2dc24a12340af71e66333b7e4dceeb29151",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eebd829b_05005f02",
         "filename": "modules/desktop_capture/win/window_capture_utils.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "c629d2dc24a12340af71e66333b7e4dceeb29151",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d282a47_a3aba4ea",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-07-08T19:15:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eebd829b_05005f02",
+      "range": {
+        "startLine": 144,
+        "startChar": 6,
+        "endLine": 146,
+        "endChar": 46
+      },
+      "revId": "c629d2dc24a12340af71e66333b7e4dceeb29151",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

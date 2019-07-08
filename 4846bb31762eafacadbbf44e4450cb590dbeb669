@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f528c74b_d2fac907",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-07-08T15:59:27Z",
+      "side": 1,
+      "message": "Added sorting.",
+      "parentUuid": "6bd81b09_096c0f03",
+      "range": {
+        "startLine": 670,
+        "startChar": 6,
+        "endLine": 674,
+        "endChar": 21
+      },
+      "revId": "4846bb31762eafacadbbf44e4450cb590dbeb669",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0c9c8c5_2ffe9bb2",
         "filename": "video/video_stream_encoder_unittest.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "4846bb31762eafacadbbf44e4450cb590dbeb669",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "359024fc_c428174b",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-07-08T15:59:27Z",
+      "side": 1,
+      "message": "Added EncoderRecommendedMaxBitrateUsedForGivenResolution (bullets #1, #2).\nAdded EncoderConfigMaxBitrateOverridesMaxBitrateRecommendedByEncoder (bullet #3)",
+      "parentUuid": "a0c9c8c5_2ffe9bb2",
+      "range": {
+        "startLine": 1345,
+        "startChar": 7,
+        "endLine": 1345,
+        "endChar": 58
+      },
+      "revId": "4846bb31762eafacadbbf44e4450cb590dbeb669",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -52,7 +52,6 @@ class ForwardErrorCorrection {
     // reaches zero.
     virtual int32_t Release();
 
-    size_t length;                 // Length of packet in bytes.
     rtc::CopyOnWriteBuffer data;   // Packet data.
 
    private:

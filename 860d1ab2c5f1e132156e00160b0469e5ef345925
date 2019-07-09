@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c75a2e0a_28f932b2",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-07-09T11:13:00Z",
+      "side": 1,
+      "message": "just a question - is optional\u003cstring\u003e overkill? is there some benefit over checking if the string is empty? (an optional could be set to an empty string, which sounds confusing)",
+      "revId": "860d1ab2c5f1e132156e00160b0469e5ef345925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

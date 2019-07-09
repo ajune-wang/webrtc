@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0159082_1cbf4df4",
+        "filename": "pc/peer_connection_ice_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-09T13:13:00Z",
+      "side": 1,
+      "message": "I don\u0027t know if this is correct. Let\u0027s assume I call restartIce() because my network interface changes.\n\n// First restart.\npc.restartIce();\n// Initiate O/A exchange because of restart, e.g. in response to \"onnegotiationneeded\".\noffer \u003d pc.createOffer();\n// Network interface changes again, so the application asks to restart ICE again.\n// Let\u0027s say this happens before the first O/A has completed! No new \"onnegotationneeded\".\npc.restartIce();\npc.setLocalDescription(offer);\n...\npc.setRemoteDescription(answer);\n\nIn this case, [[RestartIce]] would be cleared, because at SRD(answer), the ICE credentials are all new compared to the previous value in [[CurrentLocalDescription]]. Even though the ICE credentials were generated BEFORE the second time the network interface changed.\n\nDo we need to remember this and make sure [[RestartIce]] is still true in this case? And make sure \"onnegotationneeded\" fires when we return to the \"stable\" signalingState?",
+      "revId": "b8bd495314daeefdbaa52fd354633f2e4bb162a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

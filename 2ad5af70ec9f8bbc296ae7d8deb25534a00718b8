@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a7fa0327_754f166c",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-07-09T22:55:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edf96ba1_0596302b",
+      "range": {
+        "startLine": 292,
+        "startChar": 41,
+        "endLine": 292,
+        "endChar": 47
+      },
+      "revId": "2ad5af70ec9f8bbc296ae7d8deb25534a00718b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f179ce3c_809d4b79",
         "filename": "modules/desktop_capture/window_capturer_win.cc",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2b988420_a2d00f9a",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-07-09T22:55:35Z",
+      "side": 1,
+      "message": "Improving 1) can be done separately. This CL does not impact the perf, as the fallback was already there. This CL just fixes the fallback. But yes it is a good idea for 1). Let\u0027s improve things one step after another.\n\n2) sounds a good idea too. In any case it has to be done separately to keep one CL per functionality.",
+      "parentUuid": "f179ce3c_809d4b79",
+      "range": {
+        "startLine": 295,
+        "startChar": 15,
+        "endLine": 296,
+        "endChar": 63
+      },
+      "revId": "2ad5af70ec9f8bbc296ae7d8deb25534a00718b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd2685ae_02ab8b49",
         "filename": "modules/desktop_capture/window_capturer_win.cc",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "2ad5af70ec9f8bbc296ae7d8deb25534a00718b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dd3accb_954d8eb7",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-07-09T22:55:35Z",
+      "side": 1,
+      "message": "Thx for the suggestion and the details, I fixed that in latest Patch Set. Please take a look. Thx!",
+      "parentUuid": "bd2685ae_02ab8b49",
+      "range": {
+        "startLine": 297,
+        "startChar": 2,
+        "endLine": 300,
+        "endChar": 44
+      },
+      "revId": "2ad5af70ec9f8bbc296ae7d8deb25534a00718b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

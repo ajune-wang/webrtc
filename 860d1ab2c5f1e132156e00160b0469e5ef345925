@@ -70,6 +70,24 @@
       "revId": "860d1ab2c5f1e132156e00160b0469e5ef345925",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0790b4ba_9c8b25c1",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-07-09T11:48:25Z",
+      "side": 1,
+      "message": "ok, sounds good. I\u0027m assuming that\u0027s only for the test API and not production since this seems to leave an opportunity for making simple errors.",
+      "parentUuid": "5d7df8d3_eb4306b1",
+      "revId": "860d1ab2c5f1e132156e00160b0469e5ef345925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

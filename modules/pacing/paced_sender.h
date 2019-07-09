@@ -160,6 +160,12 @@ class PacedSender : public Module, public RtpPacketPacer {
   const bool drain_large_queues_;
   const bool send_padding_if_silent_;
   const bool pace_audio_;
+
+  // If true, PacedSender should only reference packets as in legacy mode.
+  // If false, PacedSender may have direct ownership of RtpPacketToSend objects.
+  // Defaults to true, will be changed to default false soon.
+  const bool legacy_packet_referencing_;
+
   FieldTrialParameter<int> min_packet_limit_ms_;
 
   rtc::CriticalSection critsect_;
@@ -201,11 +207,6 @@ class PacedSender : public Module, public RtpPacketPacer {
 
   int64_t queue_time_limit RTC_GUARDED_BY(critsect_);
   bool account_for_audio_ RTC_GUARDED_BY(critsect_);
-
-  // If true, PacedSender should only reference packets as in legacy mode.
-  // If false, PacedSender may have direct ownership of RtpPacketToSend objects.
-  // Defaults to true, will be changed to default false soon.
-  const bool legacy_packet_referencing_;
 };
 }  // namespace webrtc
 #endif  // MODULES_PACING_PACED_SENDER_H_

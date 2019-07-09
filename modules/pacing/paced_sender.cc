@@ -84,11 +84,15 @@ PacedSender::PacedSender(Clock* clock,
       send_padding_if_silent_(
           IsEnabled(*field_trials_, "WebRTC-Pacer-PadInSilence")),
       pace_audio_(!IsDisabled(*field_trials_, "WebRTC-Pacer-BlockAudio")),
+      legacy_packet_referencing_(
+          !IsDisabled(*field_trials_, "WebRTC-Pacer-LegacyPacketReferencing")),
       min_packet_limit_ms_("", kDefaultMinPacketLimitMs),
       last_timestamp_ms_(clock_->TimeInMilliseconds()),
       paused_(false),
       media_budget_(0),
-      padding_budget_(0),
+      // In new paced mode, padding isn't generated until we have built up
+      // budget for it. It is therefore OK to build up underuse for padding.
+      padding_budget_(0, !legacy_packet_referencing_),
       prober_(*field_trials_),
       probing_send_failure_(false),
       pacing_bitrate_kbps_(0),
@@ -98,9 +102,7 @@ PacedSender::PacedSender(Clock* clock,
       packets_(clock->TimeInMicroseconds()),
       packet_counter_(0),
       queue_time_limit(kMaxQueueLengthMs),
-      account_for_audio_(false),
-      legacy_packet_referencing_(
-          !IsDisabled(*field_trials_, "WebRTC-Pacer-LegacyPacketReferencing")) {
+      account_for_audio_(false) {
   if (!drain_large_queues_) {
     RTC_LOG(LS_WARNING) << "Pacer queues will not be drained,"
                            "pushback experiment must be enabled.";
@@ -340,7 +342,7 @@ void PacedSender::Process() {
     } else {
       critsect_.Leave();
       std::vector<std::unique_ptr<RtpPacketToSend>> keepalive_packets =
-          packet_router_->GeneratePadding(1);
+          packet_router_->GeneratePadding(1, true);
       critsect_.Enter();
       for (auto& packet : keepalive_packets) {
         EnqueuePacket(std::move(packet));
@@ -395,9 +397,11 @@ void PacedSender::Process() {
         size_t padding_bytes_to_add =
             PaddingBytesToAdd(recommended_probe_size, bytes_sent);
         if (padding_bytes_to_add > 0) {
+          bool padding_budget_max_out = padding_budget_.IsAtMaxLevel();
           critsect_.Leave();
           std::vector<std::unique_ptr<RtpPacketToSend>> padding_packets =
-              packet_router_->GeneratePadding(padding_bytes_to_add);
+              packet_router_->GeneratePadding(
+                  padding_bytes_to_add, is_probing || padding_budget_max_out);
           critsect_.Enter();
           if (padding_packets.empty()) {
             // No padding packets were generated, quite send loop.

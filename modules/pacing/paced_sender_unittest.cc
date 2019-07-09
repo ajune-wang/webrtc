@@ -13,8 +13,11 @@
 #include <list>
 #include <memory>
 #include <string>
+#include <utility>
+#include <vector>
 
 #include "absl/memory/memory.h"
+#include "api/transport/network_types.h"
 #include "modules/pacing/packet_router.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
@@ -63,6 +66,10 @@ class MockPacedSenderCallback : public PacketRouter {
                     const PacedPacketInfo& pacing_info));
   MOCK_METHOD2(TimeToSendPadding,
                size_t(size_t bytes, const PacedPacketInfo& pacing_info));
+  MOCK_METHOD2(
+      GeneratePadding,
+      std::vector<std::unique_ptr<RtpPacketToSend>>(size_t target_size_bytes,
+                                                    bool forced));
 };
 
 class PacedSenderPadding : public PacketRouter {
@@ -123,10 +130,14 @@ class PacedSenderProbing : public PacketRouter {
 
 class PacedSenderTest : public ::testing::TestWithParam<std::string> {
  protected:
-  PacedSenderTest() : clock_(123456) {
-    srand(0);
+  PacedSenderTest() : clock_(123456) {}
+
+  void SetUp() override {
     // Need to initialize PacedSender after we initialize clock.
-    send_bucket_.reset(new PacedSender(&clock_, &callback_, nullptr));
+    srand(0);
+    FieldTrialBasedConfig field_trials;
+    send_bucket_ = absl::make_unique<PacedSender>(&clock_, &callback_, nullptr,
+                                                  &field_trials);
     send_bucket_->CreateProbeCluster(kFirstClusterBps, /*cluster_id=*/0);
     send_bucket_->CreateProbeCluster(kSecondClusterBps, /*cluster_id=*/1);
     // Default to bitrate probing disabled for testing purposes. Probing tests
@@ -1358,6 +1369,80 @@ TEST_F(PacedSenderTest, OwnedPacketPrioritizedOnType) {
       SendPacket(Pointee(Property(&RtpPacketToSend::Ssrc, kVideoRtxSsrc)), _));
 
   clock_.AdvanceTimeMilliseconds(200);
+  send_bucket_->Process();
+}
+
+TEST_F(PacedSenderTest, ForceGeneratePadding) {
+  // Make sure new pacer code-path is enabled and recreate bucket.
+  // TODO(sprang): Remove this once old path is gone.
+  test::ScopedFieldTrials trials(
+      "WebRTC-Pacer-LegacyPacketReferencing/Disabled/");
+  SetUp();
+
+  send_bucket_->SetPacingRates(kTargetBitrateBps * kPaceMultiplier,
+                               kTargetBitrateBps);
+  send_bucket_->SetProbingEnabled(true);
+
+  // Insert and send first media packet.
+  send_bucket_->EnqueuePacket(BuildRtpPacket(RtpPacketToSend::Type::kVideo));
+  clock_.AdvanceTimeMilliseconds(100);
+  EXPECT_CALL(callback_, SendPacket);
+  send_bucket_->Process();
+
+  const int kNotAProbe = PacedPacketInfo::kNotAProbe;
+
+  // Wait until padding has been sent, that's not part of the initial probe.
+  bool non_probe_padding_sent = false;
+  while (!non_probe_padding_sent) {
+    clock_.AdvanceTimeMilliseconds(send_bucket_->TimeUntilNextProcess());
+    EXPECT_CALL(callback_, SendPacket)
+        .WillRepeatedly([&](std::unique_ptr<RtpPacketToSend> packet,
+                            const PacedPacketInfo& pacing_info) {
+          if (pacing_info.probe_cluster_id == kNotAProbe &&
+              packet->packet_type() == RtpPacketToSend::Type::kPadding) {
+            non_probe_padding_sent = true;
+          }
+        });
+    EXPECT_CALL(callback_, GeneratePadding)
+        .WillRepeatedly([&](size_t target_size_bytes, bool forced) {
+          std::vector<std::unique_ptr<RtpPacketToSend>> padding_packets;
+          padding_packets.emplace_back(
+              BuildRtpPacket(RtpPacketToSend::Type::kPadding));
+          return padding_packets;
+        });
+    send_bucket_->Process();
+  }
+
+  // Reject sending padding until forced to do so. The padding budget should
+  // keep increase until it hits the upper bound.
+  bool forced_padding_sent = false;
+  size_t last_padding_budget = 0;
+  while (!forced_padding_sent) {
+    clock_.AdvanceTimeMilliseconds(send_bucket_->TimeUntilNextProcess());
+    EXPECT_CALL(callback_, SendPacket).Times(::testing::AnyNumber());
+    EXPECT_CALL(callback_, GeneratePadding)
+        .WillRepeatedly([&](size_t target_size_bytes, bool forced) {
+          last_padding_budget = target_size_bytes;
+          std::vector<std::unique_ptr<RtpPacketToSend>> padding_packets;
+          if (!forced) {
+            return padding_packets;
+          }
+          // Create a packet and consume the whole target size.
+          auto packet = BuildRtpPacket(RtpPacketToSend::Type::kPadding);
+          packet->SetPayloadSize(target_size_bytes);
+          padding_packets.emplace_back(std::move(packet));
+          forced_padding_sent = true;
+          return padding_packets;
+        });
+    send_bucket_->Process();
+  }
+
+  // The padding budget is now at 0, so that cannot force padding.
+  // Next, activate probing and make sure the forced flag is on again.
+  send_bucket_->CreateProbeCluster(kTargetBitrateBps * kPaceMultiplier, 2);
+  // Enqueue packet to ensure probing can start.
+  send_bucket_->EnqueuePacket(BuildRtpPacket(RtpPacketToSend::Type::kVideo));
+  EXPECT_CALL(callback_, GeneratePadding(_, true)).Times(::testing::AtLeast(1));
   send_bucket_->Process();
 }
 

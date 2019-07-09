@@ -2566,7 +2566,7 @@ TEST_P(RtpSenderTest, GeneratePaddingResendsOldPacketsWithRtx) {
   // Generated padding has large enough budget that the video packet should be
   // retransmitted as padding.
   std::vector<std::unique_ptr<RtpPacketToSend>> generated_packets =
-      rtp_sender_->GeneratePadding(kPayloadPacketSize + kRtxHeaderSize);
+      rtp_sender_->GeneratePadding(kPayloadPacketSize + kRtxHeaderSize, false);
   ASSERT_EQ(generated_packets.size(), 1u);
   auto& padding_packet = generated_packets.front();
   EXPECT_EQ(padding_packet->packet_type(), RtpPacketToSend::Type::kPadding);
@@ -2575,12 +2575,14 @@ TEST_P(RtpSenderTest, GeneratePaddingResendsOldPacketsWithRtx) {
             kPayloadPacketSize + kRtxHeaderSize);
 
   // Not enough budged for payload padding, use plain padding instead.
+  // This requires forced mode.
   const size_t kPaddingBytesRequested = kPayloadPacketSize + kRtxHeaderSize - 1;
   const size_t kExpectedNumPaddingPackets =
       (kPaddingBytesRequested + kMaxPaddingSize - 1) / kMaxPaddingSize;
 
   size_t padding_bytes_generated = 0;
-  generated_packets = rtp_sender_->GeneratePadding(kPaddingBytesRequested);
+  generated_packets =
+      rtp_sender_->GeneratePadding(kPaddingBytesRequested, true);
   EXPECT_EQ(generated_packets.size(), kExpectedNumPaddingPackets);
   for (auto& packet : generated_packets) {
     EXPECT_EQ(packet->packet_type(), RtpPacketToSend::Type::kPadding);
@@ -2590,8 +2592,7 @@ TEST_P(RtpSenderTest, GeneratePaddingResendsOldPacketsWithRtx) {
     padding_bytes_generated += packet->padding_size();
   }
 
-  EXPECT_EQ(padding_bytes_generated,
-            kExpectedNumPaddingPackets * kMaxPaddingSize);
+  EXPECT_EQ(padding_bytes_generated, kPaddingBytesRequested);
 }
 
 TEST_P(RtpSenderTest, GeneratePaddingCreatesPurePaddingWithoutRtx) {
@@ -2610,14 +2611,13 @@ TEST_P(RtpSenderTest, GeneratePaddingCreatesPurePaddingWithoutRtx) {
   // Payload padding not available without RTX, only generate plain padding on
   // the media SSRC.
   // Number of padding packets is the requested padding size divided by max
-  // padding packet size, rounded up. Pure padding packets are always of the
-  // maximum size.
+  // padding packet size, rounded down since forced mode is off.
   const size_t kPaddingBytesRequested = kPayloadPacketSize + kRtxHeaderSize;
   const size_t kExpectedNumPaddingPackets =
-      (kPaddingBytesRequested + kMaxPaddingSize - 1) / kMaxPaddingSize;
+      kPaddingBytesRequested / kMaxPaddingSize;
   size_t padding_bytes_generated = 0;
   std::vector<std::unique_ptr<RtpPacketToSend>> padding_packets =
-      rtp_sender_->GeneratePadding(kPaddingBytesRequested);
+      rtp_sender_->GeneratePadding(kPaddingBytesRequested, false);
   EXPECT_EQ(padding_packets.size(), kExpectedNumPaddingPackets);
   for (auto& packet : padding_packets) {
     EXPECT_EQ(packet->packet_type(), RtpPacketToSend::Type::kPadding);
@@ -2629,6 +2629,83 @@ TEST_P(RtpSenderTest, GeneratePaddingCreatesPurePaddingWithoutRtx) {
 
   EXPECT_EQ(padding_bytes_generated,
             kExpectedNumPaddingPackets * kMaxPaddingSize);
+
+  // Run again with force mode on, this time the excess is sent too.
+  padding_bytes_generated = 0;
+  padding_packets = rtp_sender_->GeneratePadding(kPaddingBytesRequested, true);
+  EXPECT_EQ(padding_packets.size(), kExpectedNumPaddingPackets + 1);
+  for (auto& packet : padding_packets) {
+    padding_bytes_generated += packet->padding_size();
+  }
+
+  EXPECT_EQ(padding_bytes_generated, kPaddingBytesRequested);
+}
+
+TEST_P(RtpSenderTest, RespectsPayloadPaddingSizeUnlessForced) {
+  rtp_sender_->SetRtxStatus(kRtxRetransmitted | kRtxRedundantPayloads);
+  rtp_sender_->SetRtxPayloadType(kRtxPayload, kPayload);
+  rtp_sender_->SetStorePacketsStatus(true, 1);
+
+  const size_t kPayloadPacketSize = 1234;
+  std::unique_ptr<RtpPacketToSend> packet =
+      BuildRtpPacket(kPayload, true, 0, fake_clock_.TimeInMilliseconds());
+  packet->set_allow_retransmission(true);
+  packet->SetPayloadSize(kPayloadPacketSize);
+  packet->set_packet_type(RtpPacketToSend::Type::kVideo);
+
+  // Send a dummy video packet so it ends up in the packet history.
+  EXPECT_TRUE(rtp_sender_->TrySendPacket(packet.get(), PacedPacketInfo()));
+
+  // Too low target size and not forced, no padding should be generated.
+  std::vector<std::unique_ptr<RtpPacketToSend>> generated_packets =
+      rtp_sender_->GeneratePadding(kPayloadPacketSize + kRtxHeaderSize - 1,
+                                   false);
+  EXPECT_TRUE(generated_packets.empty());
+
+  // Too low target size but padding forced, return plain padding instead.
+  generated_packets = rtp_sender_->GeneratePadding(
+      kPayloadPacketSize + kRtxHeaderSize - 1, true);
+
+  EXPECT_FALSE(generated_packets.empty());
+  for (auto& packet : generated_packets) {
+    EXPECT_GT(packet->padding_size(), 0u);
+  }
+
+  // Enough target size and not forced, return payload padding.
+  generated_packets =
+      rtp_sender_->GeneratePadding(kPayloadPacketSize + kRtxHeaderSize, true);
+
+  EXPECT_FALSE(generated_packets.empty());
+  EXPECT_GT(generated_packets.front()->payload_size(), kPayloadPacketSize);
+}
+
+TEST_P(RtpSenderTest, RespectsPlainPaddingSizeUnlessForced) {
+  rtp_sender_->SetRtxStatus(kRtxRetransmitted);
+  rtp_sender_->SetRtxPayloadType(kRtxPayload, kPayload);
+  rtp_sender_->SetStorePacketsStatus(true, 1);
+
+  // Send a media packet first, otherwise we can't generate padding.
+  std::unique_ptr<RtpPacketToSend> packet =
+      BuildRtpPacket(kPayload, true, 0, fake_clock_.TimeInMilliseconds());
+  packet->SetPayloadSize(123);
+  packet->set_packet_type(RtpPacketToSend::Type::kVideo);
+
+  // Send a dummy video packet so it ends up in the packet history.
+  EXPECT_TRUE(rtp_sender_->TrySendPacket(packet.get(), PacedPacketInfo()));
+
+  // Without forcing, don't generate padding if we don't have the budget.
+  // Too low target size and not forced, no padding should be generated.
+  std::vector<std::unique_ptr<RtpPacketToSend>> generated_packets =
+      rtp_sender_->GeneratePadding(kMaxPaddingSize - 1, false);
+  EXPECT_TRUE(generated_packets.empty());
+
+  // Enough budget for a single packet.
+  generated_packets = rtp_sender_->GeneratePadding(kMaxPaddingSize, false);
+  EXPECT_EQ(generated_packets.size(), 1u);
+
+  // If forced, generate on packet even if it is above budget.
+  generated_packets = rtp_sender_->GeneratePadding(kMaxPaddingSize - 1, true);
+  EXPECT_EQ(generated_packets.size(), 1u);
 }
 
 INSTANTIATE_TEST_SUITE_P(WithAndWithoutOverhead,

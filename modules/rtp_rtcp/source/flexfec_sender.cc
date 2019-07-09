@@ -153,7 +153,7 @@ std::vector<std::unique_ptr<RtpPacketToSend>> FlexfecSender::GetFecPackets() {
 
     // RTP payload.
     uint8_t* payload = fec_packet_to_send->AllocatePayload(fec_packet->length);
-    memcpy(payload, fec_packet->data, fec_packet->length);
+    memcpy(payload, fec_packet->data.cdata(), fec_packet->length);
 
     fec_packets_to_send.push_back(std::move(fec_packet_to_send));
   }

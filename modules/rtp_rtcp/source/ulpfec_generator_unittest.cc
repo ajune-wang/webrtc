@@ -117,7 +117,7 @@ TEST_F(UlpfecGeneratorTest, OneFrameFec) {
     std::unique_ptr<AugmentedPacket> packet =
         packet_generator_.NextPacket(i, 10);
     EXPECT_EQ(0, ulpfec_generator_.AddRtpPacketAndGenerateFec(
-                     packet->data, packet->length, kRtpHeaderSize));
+                     packet->data.data(), packet->length, kRtpHeaderSize));
     last_timestamp = packet->header.timestamp;
   }
   EXPECT_TRUE(ulpfec_generator_.FecAvailable());
@@ -151,7 +151,7 @@ TEST_F(UlpfecGeneratorTest, TwoFrameFec) {
       std::unique_ptr<AugmentedPacket> packet =
           packet_generator_.NextPacket(i * kNumPackets + j, 10);
       EXPECT_EQ(0, ulpfec_generator_.AddRtpPacketAndGenerateFec(
-                       packet->data, packet->length, kRtpHeaderSize));
+                       packet->data.data(), packet->length, kRtpHeaderSize));
       last_timestamp = packet->header.timestamp;
     }
   }
@@ -179,8 +179,9 @@ TEST_F(UlpfecGeneratorTest, MixedMediaRtpHeaderLengths) {
   for (size_t i = 0; i < kUlpfecMaxMediaPackets; ++i) {
     std::unique_ptr<AugmentedPacket> packet =
         packet_generator_.NextPacket(i, 10);
-    EXPECT_EQ(0, ulpfec_generator_.AddRtpPacketAndGenerateFec(
-                     packet->data, packet->length, kShortRtpHeaderLength));
+    EXPECT_EQ(0,
+              ulpfec_generator_.AddRtpPacketAndGenerateFec(
+                  packet->data.data(), packet->length, kShortRtpHeaderLength));
     EXPECT_FALSE(ulpfec_generator_.FecAvailable());
   }
 
@@ -189,7 +190,7 @@ TEST_F(UlpfecGeneratorTest, MixedMediaRtpHeaderLengths) {
   std::unique_ptr<AugmentedPacket> packet =
       packet_generator_.NextPacket(kUlpfecMaxMediaPackets, 10);
   EXPECT_EQ(0, ulpfec_generator_.AddRtpPacketAndGenerateFec(
-                   packet->data, packet->length, kLongRtpHeaderLength));
+                   packet->data.data(), packet->length, kLongRtpHeaderLength));
   EXPECT_TRUE(ulpfec_generator_.FecAvailable());
 
   // Ensure that the RED header is placed correctly, i.e. the correct

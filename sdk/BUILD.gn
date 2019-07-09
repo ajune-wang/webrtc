@@ -224,6 +224,7 @@ if (is_ios || is_mac) {
     if (is_ios) {
       rtc_static_library("native_api_audio_device_module") {
         visibility = [ "*" ]
+        allow_poison = [ "default_task_queue" ]
 
         sources = [
           "objc/native/api/audio_device_module.h",
@@ -254,6 +255,7 @@ if (is_ios || is_mac) {
 
       rtc_static_library("audio_device") {
         visibility = [ "*" ]
+        allow_poison = [ "default_task_queue" ]
 
         sources = [
           "objc/native/src/audio/audio_device_ios.h",

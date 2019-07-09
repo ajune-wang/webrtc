@@ -108,6 +108,7 @@ if (is_android) {
     visibility = [ "*" ]
     allow_poison = [
       "audio_codecs",  # TODO(bugs.webrtc.org/8396): Remove.
+      "default_task_queue",
       "software_video_codecs",  # TODO(bugs.webrtc.org/7925): Remove.
     ]
     public_deps = [  # no-presubmit-check TODO(webrtc:8603)
@@ -125,6 +126,7 @@ if (is_android) {
 
   rtc_static_library("libjingle_peerconnection_metrics_default_jni") {
     visibility = [ "*" ]
+    allow_poison = [ "default_task_queue" ]
     sources = [
       "src/jni/android_metrics.cc",
     ]
@@ -697,6 +699,7 @@ if (is_android) {
     # made public because we don't have a proper NDK yet. Header APIs here are not
     # considered public and are subject to change.
     visibility = [ "*" ]
+    allow_poison = [ "default_task_queue" ]
 
     sources = [
       "src/jni/android_network_monitor_jni.h",
@@ -783,6 +786,7 @@ if (is_android) {
   # JNI target for java_audio_device_module_java
   rtc_source_set("java_audio_device_module_jni") {
     visibility = [ "*" ]
+    allow_poison = [ "default_task_queue" ]
     sources = [
       "src/jni/audio_device/java_audio_device_module.cc",
     ]
@@ -900,6 +904,7 @@ if (is_android) {
 
   rtc_source_set("native_api_audio_device_module") {
     visibility = [ "*" ]
+    allow_poison = [ "default_task_queue" ]
 
     sources = [
       "native_api/audio_device_module/audio_device_android.cc",
@@ -947,6 +952,7 @@ if (is_android) {
   # API for creating Java PeerConnectionFactory from C++ equivalents.
   rtc_static_library("native_api_peerconnection") {
     visibility = [ "*" ]
+    allow_poison = [ "default_task_queue" ]
     sources = [
       "native_api/peerconnection/peer_connection_factory.cc",
       "native_api/peerconnection/peer_connection_factory.h",
@@ -1065,6 +1071,7 @@ if (is_android) {
 
   rtc_source_set("audio_device_module_base") {
     visibility = [ "*" ]
+    allow_poison = [ "default_task_queue" ]
 
     sources = [
       "src/jni/audio_device/audio_common.h",
@@ -1090,6 +1097,7 @@ if (is_android) {
 
   rtc_source_set("java_audio_device_module") {
     visibility = [ "*" ]
+    allow_poison = [ "default_task_queue" ]
 
     sources = [
       "src/jni/audio_device/audio_record_jni.cc",
@@ -1140,6 +1148,7 @@ if (is_android) {
 
   rtc_source_set("opensles_audio_device_module") {
     visibility = [ "*" ]
+    allow_poison = [ "default_task_queue" ]
     sources = [
       "src/jni/audio_device/opensles_common.cc",
       "src/jni/audio_device/opensles_common.h",

@@ -225,6 +225,26 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
     return cricket::ICEROLE_UNKNOWN;
   }
 
+  // Returns a list of (ufrag, pwd) pairs in the order that they appear in
+  // |description|, or the empty list if |description| is null.
+  std::vector<std::pair<std::string, std::string>> GetIceCredentials(
+      const SessionDescriptionInterface* description) {
+    std::vector<std::pair<std::string, std::string>> ice_credentials;
+    if (!description)
+      return ice_credentials;
+    const auto* desc = description->description();
+    for (const auto& content_info : desc->contents()) {
+      const auto* transport_info =
+          desc->GetTransportInfoByName(content_info.name);
+      if (transport_info) {
+        ice_credentials.push_back(
+            std::make_pair(transport_info->description.ice_ufrag,
+                           transport_info->description.ice_pwd));
+      }
+    }
+    return ice_credentials;
+  }
+
   bool AddCandidateToFirstTransport(cricket::Candidate* candidate,
                                     SessionDescriptionInterface* sdesc) {
     auto* desc = sdesc->description();
@@ -811,6 +831,101 @@ TEST_P(PeerConnectionIceTest, LaterAnswerHasSameIceCredentialsIfNoIceRestart) {
 
   EXPECT_EQ(answer_transport_desc->ice_ufrag, local_transport_desc->ice_ufrag);
   EXPECT_EQ(answer_transport_desc->ice_pwd, local_transport_desc->ice_pwd);
+}
+
+TEST_P(PeerConnectionIceTest, RestartIceGeneratesNewCredentials) {
+  auto caller = CreatePeerConnectionWithAudioVideo();
+  auto callee = CreatePeerConnectionWithAudioVideo();
+
+  ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
+  ASSERT_TRUE(
+      caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal()));
+
+  auto initial_ice_credentials =
+      GetIceCredentials(caller->pc()->local_description());
+  EXPECT_TRUE(caller->pc()->RestartIce());
+  caller->CreateOfferAndSetAsLocal();
+  auto restarted_ice_credentials =
+      GetIceCredentials(caller->pc()->local_description());
+  EXPECT_NE(initial_ice_credentials, restarted_ice_credentials);
+}
+
+TEST_P(PeerConnectionIceTest, RestartIceFlipsIsIceRestartNeeded) {
+  auto caller = CreatePeerConnectionWithAudioVideo();
+  auto callee = CreatePeerConnectionWithAudioVideo();
+
+  ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
+  ASSERT_TRUE(
+      caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal()));
+
+  // ICE restart becomes needed.
+  EXPECT_TRUE(caller->pc()->RestartIce());
+  // ICE restart is already needed, this is a NO-OP.
+  EXPECT_FALSE(caller->pc()->RestartIce());
+  ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
+  // While O/A is in-progress and ICE restart is already needed, this is still a
+  // NO-OP.
+  EXPECT_FALSE(caller->pc()->RestartIce());
+  ASSERT_TRUE(
+      caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal()));
+  // After completing the O/A, we can restart ICE again.
+  EXPECT_TRUE(caller->pc()->RestartIce());
+}
+
+TEST_P(PeerConnectionIceTest, RestartIceWhileOfferIsPending) {
+  auto caller = CreatePeerConnectionWithAudioVideo();
+  auto callee = CreatePeerConnectionWithAudioVideo();
+
+  ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
+  // ICE restart becomes needed while an O/A is pending.
+  EXPECT_TRUE(caller->pc()->RestartIce());
+  ASSERT_TRUE(
+      caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal()));
+  // Even though RestartIce() was late, the ICE credentials have been reset
+  // compared to [[CurrentLocalDescription]], which means that [[RestartIce]] is
+  // now false. We verify this by making sure that a follow-up RestartIce()
+  // returns true.
+  EXPECT_TRUE(caller->pc()->RestartIce());
+}
+
+TEST_P(PeerConnectionIceTest, RestartIceCausesNegotiationNeeded) {
+  auto caller = CreatePeerConnectionWithAudioVideo();
+  auto callee = CreatePeerConnectionWithAudioVideo();
+
+  ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
+  ASSERT_TRUE(
+      caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal()));
+
+  caller->observer()->clear_negotiation_needed();
+  EXPECT_TRUE(caller->pc()->RestartIce());
+  EXPECT_TRUE(caller->observer()->negotiation_needed());
+}
+
+TEST_P(PeerConnectionIceTest,
+       RestartIceWhileOfferIsPendingDoesNotCauseNegotiationNeededWhenStable) {
+  auto caller = CreatePeerConnectionWithAudioVideo();
+  auto callee = CreatePeerConnectionWithAudioVideo();
+
+  ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
+  EXPECT_TRUE(caller->pc()->RestartIce());
+  caller->observer()->clear_negotiation_needed();
+  ASSERT_TRUE(
+      caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal()));
+  EXPECT_FALSE(caller->observer()->negotiation_needed());
+}
+
+TEST_P(PeerConnectionIceTest,
+       RestartIceTwiceDoesNotFireNegotiationNeededTwice) {
+  auto caller = CreatePeerConnectionWithAudioVideo();
+  auto callee = CreatePeerConnectionWithAudioVideo();
+
+  ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
+  ASSERT_TRUE(
+      caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal()));
+  EXPECT_TRUE(caller->pc()->RestartIce());
+  caller->observer()->clear_negotiation_needed();
+  EXPECT_FALSE(caller->pc()->RestartIce());
+  EXPECT_FALSE(caller->observer()->negotiation_needed());
 }
 
 // The following parameterized test verifies that if an offer is sent with a

@@ -2631,6 +2631,39 @@ TEST_P(RtpSenderTest, GeneratePaddingCreatesPurePaddingWithoutRtx) {
             kExpectedNumPaddingPackets * kMaxPaddingSize);
 }
 
+TEST_P(RtpSenderTest, SupportsPadding) {
+  bool kSendingMediaStats[] = {true, false};
+  RTPExtensionType kBweExtensionTypes[] = {
+      kRtpExtensionTransportSequenceNumber,
+      kRtpExtensionTransportSequenceNumber02, kRtpExtensionAbsoluteSendTime,
+      kRtpExtensionTransmissionTimeOffset};
+  const int kExtensionsId = 7;
+
+  for (bool sending_media : kSendingMediaStats) {
+    rtp_sender_->SetSendingMediaStatus(sending_media);
+    for (auto extension_type : kBweExtensionTypes) {
+      EXPECT_FALSE(rtp_sender_->SupportsPadding());
+      rtp_sender_->RegisterRtpHeaderExtension(extension_type, kExtensionsId);
+      if (!sending_media) {
+        EXPECT_FALSE(rtp_sender_->SupportsPadding());
+      } else {
+        EXPECT_TRUE(rtp_sender_->SupportsPadding());
+      }
+      rtp_sender_->DeregisterRtpHeaderExtension(extension_type);
+      EXPECT_FALSE(rtp_sender_->SupportsPadding());
+    }
+  }
+
+  rtp_sender_->SetSendingMediaStatus(true);
+  EXPECT_FALSE(rtp_sender_->SupportsPadding());
+  for (auto extension_type : kBweExtensionTypes) {
+    rtp_sender_->RegisterRtpHeaderExtension(extension_type, kExtensionsId);
+  }
+  EXPECT_TRUE(rtp_sender_->SupportsPadding());
+  rtp_sender_->SetSendingMediaStatus(false);
+  EXPECT_FALSE(rtp_sender_->SupportsPadding());
+}
+
 INSTANTIATE_TEST_SUITE_P(WithAndWithoutOverhead,
                          RtpSenderTest,
                          ::testing::Values(TestConfig{false, false},

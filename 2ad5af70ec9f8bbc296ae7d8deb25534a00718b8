@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edf96ba1_0596302b",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 9572
+      },
+      "writtenOn": "2019-07-09T18:33:49Z",
+      "side": 1,
+      "message": "Typo",
+      "range": {
+        "startLine": 292,
+        "startChar": 41,
+        "endLine": 292,
+        "endChar": 47
+      },
+      "revId": "2ad5af70ec9f8bbc296ae7d8deb25534a00718b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f179ce3c_809d4b79",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 9572
+      },
+      "writtenOn": "2019-07-09T18:33:49Z",
+      "side": 1,
+      "message": "Hi Julien, thanks for working to address this issue. A couple suggestions on ways to partially mitigate the perf impact of this change, by making it more likely that the crop-from-screen path is used instead of the now-slower PrintWindow path:\n\n1. It might make sense to fix https://crbug.com/973245 prior to or in tandem with this change (i.e. in the same Chromium release that picks up this webrtc change). That would allow window capture via getDisplayMedia to use the cropping capturer when the window\u0027s only occluded by the sharing notification bar, including this in the output. This would match the behavior of window capture from extensions (via the chrome.desktopCapture API) \u0026 of the window capture support that predated getDisplayMedia (via non-standard constraints passed to getUserMedia).\n\n2. As suggested on https://crbug.com/webrtc/10734#c2 , perhaps using the cropping capturer shouldn\u0027t require explicit opt-in from client code. A change to use that by default (when appropriate) would benefit Firefox, for instance, by making the now-slower path less likely to be taken.",
+      "range": {
+        "startLine": 295,
+        "startChar": 15,
+        "endLine": 296,
+        "endChar": 63
+      },
+      "revId": "2ad5af70ec9f8bbc296ae7d8deb25534a00718b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd2685ae_02ab8b49",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 9572
+      },
+      "writtenOn": "2019-07-09T18:33:49Z",
+      "side": 1,
+      "message": "I think this flag is only available on Windows 8.1+ (at least, it\u0027s conditionally declared in WinUser.h based on the corresponding _WIN32_WINNT version value). I haven\u0027t tested the behavior of passing this flag on Windows 8, but suspect it may fail (at least in recent Windows versions, PrintWindow fails if passed an unknown flag).\n\nTrying to detect whether the OS version is Win8.1+ would depend on how the application is manifested (per https://docs.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversionexw ). To avoid potential false negatives in any client apps that aren\u0027t manifested for Win8.1+, perhaps it\u0027d make sense to try the call with the flag on Win8+, and fall back to the existing logic on failure. (I.e. calling PrintWindow without any flags if either of the existing conditions is met before falling back to BitBlt.)",
+      "range": {
+        "startLine": 297,
+        "startChar": 2,
+        "endLine": 300,
+        "endChar": 44
+      },
+      "revId": "2ad5af70ec9f8bbc296ae7d8deb25534a00718b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "revId": "860d1ab2c5f1e132156e00160b0469e5ef345925",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8adea099_04514088",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-07-09T11:32:23Z",
+      "side": 1,
+      "message": "I think optional explicitly says, that the value can be omitted.",
+      "parentUuid": "c75a2e0a_28f932b2",
+      "revId": "860d1ab2c5f1e132156e00160b0469e5ef345925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -26,6 +26,12 @@ if (is_android) {
 if (!build_with_chromium) {
   # This target should (transitively) cause everything to be built; if you run
   # 'ninja default' and then 'ninja all', the second build should do no work.
+  #
+  #
+  #
+  #
+  #
+  #
   group("default") {
     testonly = true
     deps = [

@@ -22,6 +22,30 @@
       "revId": "13ffc013551fff7f3c00d72198f31dddb78cfb98",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c085f3c_390f7307",
+        "filename": "media/engine/webrtc_media_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-07-09T06:36:24Z",
+      "side": 1,
+      "message": "I tried (patchset#3), but it turned out to be non-trivial: some of those checks breaks some android tests. Error message is not detailed (just reports a crash), so I\u0027m not sure which test or which check(s) cause it.\n\nSince removed function doesn\u0027t have these checks either, I\u0027ll consider it is out of scope of this change to introduce the checks and fix android tests that pass nullptr for some dependencies (or documenting that some dependencies can be nullptr)",
+      "parentUuid": "f9aacac4_edfb1413",
+      "range": {
+        "startLine": 28,
+        "startChar": 38,
+        "endLine": 28,
+        "endChar": 55
+      },
+      "revId": "13ffc013551fff7f3c00d72198f31dddb78cfb98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

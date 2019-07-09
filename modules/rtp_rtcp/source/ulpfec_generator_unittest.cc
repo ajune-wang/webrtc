@@ -116,8 +116,9 @@ TEST_F(UlpfecGeneratorTest, OneFrameFec) {
   for (size_t i = 0; i < kNumPackets; ++i) {
     std::unique_ptr<AugmentedPacket> packet =
         packet_generator_.NextPacket(i, 10);
-    EXPECT_EQ(0, ulpfec_generator_.AddRtpPacketAndGenerateFec(
-                     packet->data, packet->length, kRtpHeaderSize));
+    EXPECT_EQ(
+        0, ulpfec_generator_.AddRtpPacketAndGenerateFec(
+               packet->data, packet->length - kRtpHeaderSize, kRtpHeaderSize));
     last_timestamp = packet->header.timestamp;
   }
   EXPECT_TRUE(ulpfec_generator_.FecAvailable());
@@ -151,7 +152,8 @@ TEST_F(UlpfecGeneratorTest, TwoFrameFec) {
       std::unique_ptr<AugmentedPacket> packet =
           packet_generator_.NextPacket(i * kNumPackets + j, 10);
       EXPECT_EQ(0, ulpfec_generator_.AddRtpPacketAndGenerateFec(
-                       packet->data, packet->length, kRtpHeaderSize));
+                       packet->data, packet->length - kRtpHeaderSize,
+                       kRtpHeaderSize));
       last_timestamp = packet->header.timestamp;
     }
   }
@@ -180,7 +182,8 @@ TEST_F(UlpfecGeneratorTest, MixedMediaRtpHeaderLengths) {
     std::unique_ptr<AugmentedPacket> packet =
         packet_generator_.NextPacket(i, 10);
     EXPECT_EQ(0, ulpfec_generator_.AddRtpPacketAndGenerateFec(
-                     packet->data, packet->length, kShortRtpHeaderLength));
+                     packet->data, packet->length - kShortRtpHeaderLength,
+                     kShortRtpHeaderLength));
     EXPECT_FALSE(ulpfec_generator_.FecAvailable());
   }
 
@@ -189,7 +192,8 @@ TEST_F(UlpfecGeneratorTest, MixedMediaRtpHeaderLengths) {
   std::unique_ptr<AugmentedPacket> packet =
       packet_generator_.NextPacket(kUlpfecMaxMediaPackets, 10);
   EXPECT_EQ(0, ulpfec_generator_.AddRtpPacketAndGenerateFec(
-                   packet->data, packet->length, kLongRtpHeaderLength));
+                   packet->data, packet->length - kLongRtpHeaderLength,
+                   kLongRtpHeaderLength));
   EXPECT_TRUE(ulpfec_generator_.FecAvailable());
 
   // Ensure that the RED header is placed correctly, i.e. the correct

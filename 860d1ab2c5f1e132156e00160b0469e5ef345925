@@ -52,6 +52,24 @@
       "revId": "860d1ab2c5f1e132156e00160b0469e5ef345925",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d7df8d3_eb4306b1",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-07-09T11:43:45Z",
+      "side": 1,
+      "message": "It should be treated as invalid value. I agree, that we can use empty specifically for string, but there are a lot of optional fields in API, so also I want to keep similarity. And we can have other invalid values, not only empty one.",
+      "parentUuid": "f8a74120_78e51e0d",
+      "revId": "860d1ab2c5f1e132156e00160b0469e5ef345925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

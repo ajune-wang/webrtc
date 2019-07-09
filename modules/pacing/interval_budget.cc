@@ -65,4 +65,8 @@ int IntervalBudget::target_rate_kbps() const {
   return target_rate_kbps_;
 }
 
+bool IntervalBudget::IsAtMaxLevel() const {
+  return bytes_remaining_ == max_bytes_in_budget_;
+}
+
 }  // namespace webrtc

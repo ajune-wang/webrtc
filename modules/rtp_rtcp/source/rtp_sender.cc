@@ -968,7 +968,8 @@ size_t RTPSender::TimeToSendPadding(size_t bytes,
 }
 
 std::vector<std::unique_ptr<RtpPacketToSend>> RTPSender::GeneratePadding(
-    size_t target_size_bytes) {
+    size_t target_size_bytes,
+    bool forced) {
   // This method does not actually send packets, it just generates
   // them and puts them in the pacer queue. Since this should incur
   // low overhead, keep the lock for the scope of the method in order
@@ -982,15 +983,25 @@ std::vector<std::unique_ptr<RtpPacketToSend>> RTPSender::GeneratePadding(
   size_t bytes_left = target_size_bytes;
   if ((rtx_ & kRtxRedundantPayloads) != 0) {
     while (bytes_left >= 0) {
+      bool out_of_budget = false;
       std::unique_ptr<RtpPacketToSend> packet =
           packet_history_.GetPayloadPaddingPacket(
               [&](const RtpPacketToSend& packet)
                   -> std::unique_ptr<RtpPacketToSend> {
                 if (packet.payload_size() + kRtxHeaderSize > bytes_left) {
+                  out_of_budget = true;
                   return nullptr;
                 }
                 return BuildRtxPacket(packet);
               });
+
+      if (out_of_budget && !forced) {
+        // If we ran out of budget, and are not forced to generate padding (eg
+        // during probing), then return and let pacer try again once it has
+        // built up more budget.
+        return padding_packets;
+      }
+
       if (!packet) {
         break;
       }
@@ -1016,7 +1027,7 @@ std::vector<std::unique_ptr<RtpPacketToSend>> RTPSender::GeneratePadding(
     padding_bytes_in_packet = rtc::SafeMin(max_payload_size, kMaxPaddingLength);
   }
 
-  while (bytes_left > 0) {
+  while (bytes_left >= padding_bytes_in_packet || (forced && bytes_left > 0)) {
     auto padding_packet =
         absl::make_unique<RtpPacketToSend>(&rtp_header_extension_map_);
     padding_packet->set_packet_type(RtpPacketToSend::Type::kPadding);
@@ -1069,8 +1080,13 @@ std::vector<std::unique_ptr<RtpPacketToSend>> RTPSender::GeneratePadding(
     if (rtp_header_extension_map_.IsRegistered(TransportSequenceNumber::kId)) {
       padding_packet->ReserveExtension<TransportSequenceNumber>();
     }
-    padding_packet->SetPadding(padding_bytes_in_packet);
-    bytes_left -= std::min(bytes_left, padding_bytes_in_packet);
+
+    size_t padding_size =
+        forced ? rtc::SafeMin(padding_bytes_in_packet, bytes_left)
+               : padding_bytes_in_packet;
+
+    padding_packet->SetPadding(padding_size);
+    bytes_left -= std::min(bytes_left, padding_size);
     padding_packets.push_back(std::move(padding_packet));
   }
 

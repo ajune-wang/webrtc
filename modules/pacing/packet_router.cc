@@ -207,7 +207,8 @@ size_t PacketRouter::TimeToSendPadding(size_t bytes_to_send,
 }
 
 std::vector<std::unique_ptr<RtpPacketToSend>> PacketRouter::GeneratePadding(
-    size_t target_size_bytes) {
+    size_t target_size_bytes,
+    bool forced) {
   rtc::CritScope cs(&modules_crit_);
   // First try on the last rtp module to have sent media. This increases the
   // the chance that any payload based padding will be useful as it will be
@@ -219,13 +220,13 @@ std::vector<std::unique_ptr<RtpPacketToSend>> PacketRouter::GeneratePadding(
     RTC_DCHECK(std::find(rtp_send_modules_.begin(), rtp_send_modules_.end(),
                          last_send_module_) != rtp_send_modules_.end());
     RTC_DCHECK(last_send_module_->HasBweExtensions());
-    return last_send_module_->GeneratePadding(target_size_bytes);
+    return last_send_module_->GeneratePadding(target_size_bytes, forced);
   }
 
   // Rtp modules are ordered by which stream can most benefit from padding.
   for (RtpRtcp* rtp_module : rtp_send_modules_) {
     if (rtp_module->SendingMedia() && rtp_module->HasBweExtensions()) {
-      return rtp_module->GeneratePadding(target_size_bytes);
+      return rtp_module->GeneratePadding(target_size_bytes, forced);
     }
   }
 

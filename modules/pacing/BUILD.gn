@@ -74,6 +74,7 @@ if (rtc_include_tests) {
     deps = [
       ":interval_budget",
       ":pacing",
+      "../../api/transport:network_control",
       "../../api/units:time_delta",
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",

@@ -302,13 +302,13 @@ TEST(PacketRouterTest, GeneratePaddingPicksCorrectModule) {
 
   const size_t kPaddingSize = 123;
   const size_t kExpectedPaddingPackets = 1;
-  EXPECT_CALL(rtp_1, GeneratePadding(_)).Times(0);
-  EXPECT_CALL(rtp_2, GeneratePadding(kPaddingSize))
-      .WillOnce([&](size_t padding_size) {
+  EXPECT_CALL(rtp_1, GeneratePadding).Times(0);
+  EXPECT_CALL(rtp_2, GeneratePadding(kPaddingSize, true))
+      .WillOnce([&](size_t padding_size, bool forced) {
         return std::vector<std::unique_ptr<RtpPacketToSend>>(
             kExpectedPaddingPackets);
       });
-  auto generated_padding = packet_router.GeneratePadding(kPaddingSize);
+  auto generated_padding = packet_router.GeneratePadding(kPaddingSize, true);
   EXPECT_EQ(generated_padding.size(), kExpectedPaddingPackets);
 
   packet_router.RemoveSendRtpModule(&rtp_1);

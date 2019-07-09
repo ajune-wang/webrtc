@@ -31,6 +31,7 @@ class IntervalBudget {
   size_t bytes_remaining() const;
   double budget_ratio() const;
   int target_rate_kbps() const;
+  bool IsAtMaxLevel() const;
 
  private:
   int target_rate_kbps_;

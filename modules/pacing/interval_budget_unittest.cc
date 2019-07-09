@@ -120,4 +120,13 @@ TEST(IntervalBudgetTest, CanNotBuildUpUnderuseWhenConfigured) {
             TimeToBytes(kBitrateKbps, delta_time_ms));
 }
 
+TEST(IntervalBudgetTest, IndicatesAtMaxLevel) {
+  IntervalBudget interval_budget(kBitrateKbps);
+  EXPECT_FALSE(interval_budget.IsAtMaxLevel());
+  interval_budget.IncreaseBudget(kWindowMs);
+  EXPECT_TRUE(interval_budget.IsAtMaxLevel());
+  interval_budget.UseBudget(1);
+  EXPECT_FALSE(interval_budget.IsAtMaxLevel());
+}
+
 }  // namespace webrtc

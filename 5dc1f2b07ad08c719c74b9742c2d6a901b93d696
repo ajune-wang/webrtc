@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "9f510dcb_eddd8794",
+        "filename": "audio/test/low_bandwidth_audio_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-07-09T06:43:49Z",
+      "side": 1,
+      "message": "Unindent all of these lines because they don\u0027t use `f` anymore.",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 44
+      },
+      "revId": "5dc1f2b07ad08c719c74b9742c2d6a901b93d696",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5275bc36_05f8225d",
+        "filename": "audio/test/low_bandwidth_audio_test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-07-09T06:43:49Z",
+      "side": 1,
+      "message": "Why make a directory if you\u0027re making only 1 file in it?\n\nThen you can also do `with NamedTemporaryFile(zzz) as f:   ...  use f.name   ...`\ninstead of manually `finally: remove`\nhttps://docs.python.org/library/tempfile.html#tempfile.NamedTemporaryFile",
+      "range": {
+        "startLine": 255,
+        "startChar": 4,
+        "endLine": 255,
+        "endChar": 15
+      },
+      "revId": "5dc1f2b07ad08c719c74b9742c2d6a901b93d696",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "644d41fe_4142578d",
         "filename": "audio/test/pc_low_bandwidth_audio_test.cc",
         "patchSetId": 2

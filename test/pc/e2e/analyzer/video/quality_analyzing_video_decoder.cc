@@ -56,6 +56,8 @@ int32_t QualityAnalyzingVideoDecoder::Decode(const EncodedImage& input_image,
   EncodedImageExtractionResult out = extractor_->ExtractData(input_image, id_);
 
   if (out.discard) {
+    std::printf("Frame: %d; discard\n", out.id);
+    // RTC_CHECK(false);
     // To partly emulate behavior of Selective Forwarding Unit (SFU) in the
     // test, on receiver side we will "discard" frames from irrelevant streams.
     // When all encoded images were marked to discarded, black frame have to be

@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "26543db6_0fb45c85",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-09T18:09:27Z",
+      "side": 1,
+      "message": "You may find it easier to go through index-wise. The TransportDescription for a media section is at the same index as the ContentInfo that for that section.",
+      "revId": "b8bd495314daeefdbaa52fd354633f2e4bb162a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87cdabeb_94fca025",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2498,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-09T18:09:27Z",
+      "side": 1,
+      "message": "nit: newline below",
+      "revId": "b8bd495314daeefdbaa52fd354633f2e4bb162a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "231b6a63_821fafa7",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2979,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-09T18:09:27Z",
+      "side": 1,
+      "message": "nit: newline below",
+      "revId": "b8bd495314daeefdbaa52fd354633f2e4bb162a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c024d08a_944f7ddc",
+        "filename": "pc/peer_connection_ice_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-09T18:09:27Z",
+      "side": 1,
+      "message": "nit: ASSERT_TRUE(caller-\u003eExchangeOfferAnswerWith(callee.get()))",
+      "revId": "b8bd495314daeefdbaa52fd354633f2e4bb162a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0159082_1cbf4df4",
         "filename": "pc/peer_connection_ice_unittest.cc",
         "patchSetId": 1

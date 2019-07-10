@@ -22,6 +22,30 @@
       "revId": "e8fbbfd08c6900f6d40448787ae83667fa0cf3a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44caa992_2216e88d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-10T13:24:57Z",
+      "side": 1,
+      "message": "The reason for not sending padding if we don\u0027t have any of those extensions is that then can\u0027t use those packets to keep the bandwidth estimate high, meaning we\u0027re wasting bits for little benefit.\n\nNote that this is not a change in behavior. I\u0027m just doing the check in here once, rather than grabbing then lock multiple times per padding packet (see eg https://webrtc-review.googlesource.com/c/src/+/144780/12/modules/rtp_rtcp/source/rtp_rtcp_impl.cc#b594)\n\nThis CL is intended to have no functional difference, it\u0027s only aiming to reduce the number of times we acquire and release |send_critsect_| in this class.",
+      "parentUuid": "37c37f32_1b36f79e",
+      "range": {
+        "startLine": 873,
+        "startChar": 27,
+        "endLine": 873,
+        "endChar": 50
+      },
+      "revId": "e8fbbfd08c6900f6d40448787ae83667fa0cf3a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

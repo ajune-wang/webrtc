@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a614628_5ed988c2",
+        "filename": "pc/datagram_dtls_adaptor.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-07-10T21:40:39Z",
+      "side": 1,
+      "message": "sent",
+      "range": {
+        "startLine": 242,
+        "startChar": 59,
+        "endLine": 242,
+        "endChar": 64
+      },
+      "revId": "fa6164c2319d089651e7e7afd7c5bd30d792afad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb278487_57199d8d",
+        "filename": "pc/datagram_dtls_adaptor.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-07-10T21:40:39Z",
+      "side": 1,
+      "message": "RTC_NOTREACHED instead of DCHECK(false)?",
+      "revId": "fa6164c2319d089651e7e7afd7c5bd30d792afad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9a368d6_b55fb133",
+        "filename": "pc/datagram_dtls_adaptor.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-07-10T21:40:39Z",
+      "side": 1,
+      "message": "RTC_NOTREACHED?",
+      "range": {
+        "startLine": 356,
+        "startChar": 4,
+        "endLine": 356,
+        "endChar": 21
+      },
+      "revId": "fa6164c2319d089651e7e7afd7c5bd30d792afad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f616cddd_de9c2fe0",
+        "filename": "pc/datagram_dtls_adaptor.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-07-10T21:40:39Z",
+      "side": 1,
+      "message": "Nit: packets",
+      "range": {
+        "startLine": 192,
+        "startChar": 38,
+        "endLine": 192,
+        "endChar": 44
+      },
+      "revId": "fa6164c2319d089651e7e7afd7c5bd30d792afad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67db9d92_40f96459",
+        "filename": "pc/datagram_dtls_adaptor.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-07-10T21:40:39Z",
+      "side": 1,
+      "message": "Nit: packet",
+      "range": {
+        "startLine": 195,
+        "startChar": 58,
+        "endLine": 195,
+        "endChar": 65
+      },
+      "revId": "fa6164c2319d089651e7e7afd7c5bd30d792afad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

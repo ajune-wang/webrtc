@@ -93,6 +93,30 @@
       "revId": "0b93fc632ffc994e796c2f1872eeb06d888586df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1751740_7f1f922d",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-07-10T11:08:46Z",
+      "side": 1,
+      "message": "Please try to land the help text as soon as possible after this lands. This tool relies on a lot of flags and nobody remembers the exact names (including me, even though I added most of them).\n\nCould you also add a basic help text, e.g.\nif (argc !\u003d 2 || FLAGS_help) {\n  std::cerr \u003c\u003c usage \u003c\u003c std::endl;\n  std::cerr \u003c\u003c \"TODO(bugs.webrtc.org/10616): Print flag list again when Abseil supports it.\"\n}",
+      "parentUuid": "803612db_d7299ea4",
+      "range": {
+        "startLine": 524,
+        "startChar": 0,
+        "endLine": 524,
+        "endChar": 71
+      },
+      "revId": "0b93fc632ffc994e796c2f1872eeb06d888586df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -124,6 +124,17 @@ class PeerConnectionE2EQualityTestFixture {
 
     // Specified amount of simulcast streams/SVC layers, depending on which
     // encoder is used.
+    //
+    // SVC support is limited:
+    // Due to SVC logic framework doesn't support testing of quality for low
+    // layers if any frames/packets were dropped due to network conditions
+    // or other reasons. In such case WebRTC SVC implementation will decode
+    // the highest available layer and there is no way to force it decode
+    // low layers. So framework will see only the highest layer and will be able
+    // to evaluate quality metrics only for that one. If lower layer will be
+    // requested by user in |target_spatial_index|, then framework will drop
+    // all frames, that contains only the highest layer, which will lead to
+    // flaky results of test failures.
     int simulcast_streams_count;
     // Specifies spatial index of the video stream to analyze.
     // There are 2 cases:

@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "c961e128_73bc1811",
+        "filename": "pc/datagram_dtls_adaptor.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-10T22:35:13Z",
+      "side": 1,
+      "message": "RTC_NOTREACHED is a DCHECK: https://codesearch.chromium.org/chromium/src/third_party/webrtc/rtc_base/checks.h?l\u003d374\u0026rcl\u003d41300af8768cdbd9cd1785b3ecb0767ca6a43aba",
+      "parentUuid": "6ec449ac_8a38bcf2",
+      "revId": "fa6164c2319d089651e7e7afd7c5bd30d792afad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c9a368d6_b55fb133",
         "filename": "pc/datagram_dtls_adaptor.cc",
         "patchSetId": 10

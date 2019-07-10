@@ -46,6 +46,53 @@
       "revId": "e8fbbfd08c6900f6d40448787ae83667fa0cf3a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fd9363a1_d78372cb",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-10T13:44:20Z",
+      "side": 1,
+      "message": "Maybe the function name should reflect this? Maybe something like UseInBandwidthEstimationPadding?",
+      "parentUuid": "44caa992_2216e88d",
+      "range": {
+        "startLine": 873,
+        "startChar": 27,
+        "endLine": 873,
+        "endChar": 50
+      },
+      "revId": "e8fbbfd08c6900f6d40448787ae83667fa0cf3a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6016ca4_56f1b539",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 876,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-10T13:44:20Z",
+      "side": 1,
+      "message": "If the above name is changed, maybe this should be used in combination with that and be simplified? e.g.\nInstead of SupportsRtxPayloadPadding() we would do UseForBandwidthEstimationPadding() \u0026\u0026 SupportsRtxPayloadPadding()\n\nand the return value here would be just rtx_ \u0026 kRtxRedundantPayloads",
+      "range": {
+        "startLine": 876,
+        "startChar": 16,
+        "endLine": 876,
+        "endChar": 41
+      },
+      "revId": "e8fbbfd08c6900f6d40448787ae83667fa0cf3a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

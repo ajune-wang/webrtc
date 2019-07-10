@@ -92,6 +92,30 @@
       "revId": "0a821a150f8dfc4a117933fad2c7f8b85dbb41fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4702fb26_e6648556",
+        "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-07-10T09:10:29Z",
+      "side": 1,
+      "message": "Done. I though that sometimes payload_length+rtp_header_length may be larger that data_buffer.size() due to padding, but it was a test artifact. Fixed this and an offending test.\n\nBasically, payload_size isn\u0027t needed at all. Only total packet length and header size are needed.",
+      "parentUuid": "7e19336a_248ef61a",
+      "range": {
+        "startLine": 137,
+        "startChar": 11,
+        "endLine": 137,
+        "endChar": 25
+      },
+      "revId": "0a821a150f8dfc4a117933fad2c7f8b85dbb41fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

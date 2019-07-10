@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cf81025f_db3046b5",
+        "filename": "modules/rtp_rtcp/source/forward_error_correction.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-07-10T09:10:29Z",
+      "side": 1,
+      "message": "No, with simple memcpy to uint8_t[] it was fine to try and copy 0 bytes right after the end of the buffer. The COW buffers, however, check that offset is withing bounds, as they don\u0027t know what 0 bytes would be written at this address. So without this check, the line below would crash on data[fec_header_size] in some cases.",
+      "parentUuid": "3ffc8f8a_0ad6fbeb",
+      "range": {
+        "startLine": 243,
+        "startChar": 10,
+        "endLine": 243,
+        "endChar": 39
+      },
+      "revId": "19db5924f6e2efc8e20a3cc8d14a9251b25839b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dca38325_8b4e41e9",
         "filename": "modules/rtp_rtcp/source/forward_error_correction.cc",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "da706af4_b2a29824",
+        "filename": "modules/rtp_rtcp/source/forward_error_correction.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-07-10T09:10:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dca38325_8b4e41e9",
+      "range": {
+        "startLine": 579,
+        "startChar": 2,
+        "endLine": 579,
+        "endChar": 8
+      },
+      "revId": "19db5924f6e2efc8e20a3cc8d14a9251b25839b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9010b7d7_ed7335c4",
         "filename": "modules/rtp_rtcp/source/forward_error_correction.cc",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "19db5924f6e2efc8e20a3cc8d14a9251b25839b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60688511_196d9af8",
+        "filename": "modules/rtp_rtcp/source/forward_error_correction.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-07-10T09:10:29Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "9010b7d7_ed7335c4",
+      "range": {
+        "startLine": 644,
+        "startChar": 47,
+        "endLine": 644,
+        "endChar": 64
+      },
+      "revId": "19db5924f6e2efc8e20a3cc8d14a9251b25839b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

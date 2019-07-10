@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c2c0fcaa_f548ef9e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-10T14:40:34Z",
+      "side": 1,
+      "message": "OK, are they guaranteed to be the same size? I added a GetContentIndexByName() method and added some DCHECKs to ensure everything matches.",
+      "parentUuid": "26543db6_0fb45c85",
+      "revId": "b8bd495314daeefdbaa52fd354633f2e4bb162a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87cdabeb_94fca025",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "b8bd495314daeefdbaa52fd354633f2e4bb162a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6083d9ee_bf84508d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2498,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-10T14:40:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87cdabeb_94fca025",
+      "revId": "b8bd495314daeefdbaa52fd354633f2e4bb162a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "35389728_31e00c4c",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2979,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-10T14:40:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "231b6a63_821fafa7",
+      "revId": "b8bd495314daeefdbaa52fd354633f2e4bb162a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c024d08a_944f7ddc",
         "filename": "pc/peer_connection_ice_unittest.cc",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "b8bd495314daeefdbaa52fd354633f2e4bb162a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "941ff2a3_839ddbfe",
+        "filename": "pc/peer_connection_ice_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-10T14:40:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c024d08a_944f7ddc",
+      "revId": "b8bd495314daeefdbaa52fd354633f2e4bb162a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -4265,6 +4265,7 @@ TEST_F(WebRtcSdpTest, SerializeAndDeserializeWithHostnameConnectionAddress) {
   JsepSessionDescription expected_jsep(kDummyType);
   cricket::Candidate c;
   const rtc::SocketAddress hostname_addr("example.local", 1234);
+  const rtc::SocketAddress localhost_addr_ipv6("::1", 1234);
   audio_desc_->set_connection_address(hostname_addr);
   video_desc_->set_connection_address(hostname_addr);
   ASSERT_TRUE(
@@ -4272,6 +4273,10 @@ TEST_F(WebRtcSdpTest, SerializeAndDeserializeWithHostnameConnectionAddress) {
   // Serialization.
   std::string message = webrtc::SdpSerialize(expected_jsep);
   // Deserialization.
+  //
+  // Note that after serialization, the FQDN is replaced by an IPv6 localhost
+  // address in the connection address attribute. See the comment inside
+  // |BuildMediaDescription| in webrtc_sdp.cc for the spec-related discussion.
   JsepSessionDescription jdesc(kDummyType);
   ASSERT_TRUE(SdpDeserialize(message, &jdesc));
   auto audio_desc = jdesc.description()
@@ -4280,8 +4285,8 @@ TEST_F(WebRtcSdpTest, SerializeAndDeserializeWithHostnameConnectionAddress) {
   auto video_desc = jdesc.description()
                         ->GetContentByName(kVideoContentName)
                         ->media_description();
-  EXPECT_EQ(hostname_addr, audio_desc->connection_address());
-  EXPECT_EQ(hostname_addr, video_desc->connection_address());
+  EXPECT_EQ(localhost_addr_ipv6, audio_desc->connection_address());
+  EXPECT_EQ(localhost_addr_ipv6, video_desc->connection_address());
 }
 
 // RFC4566 says "If a session has no meaningful name, the value "s= " SHOULD be

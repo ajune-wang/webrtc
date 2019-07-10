@@ -1469,9 +1469,19 @@ void BuildMediaDescription(const ContentInfo* content_info,
     os << " " << kConnectionIpv6Addrtype << " "
        << media_desc->connection_address().ipaddr().ToString();
   } else if (!media_desc->connection_address().hostname().empty()) {
-    // For hostname candidates, we use c=IN IP4 <hostname>.
-    os << " " << kConnectionIpv4Addrtype << " "
-       << media_desc->connection_address().hostname();
+    // For hostname candidates, we use c=IN IP6 ::1.
+    //
+    // Note that the SDP grammar related to ICE candidates has been moved out of
+    // RFC8445, and is currently defined in draft-ietf-mmusic-ice-sip-sdp.
+    //
+    // A FQDN address must not be used in the connection address attribute per
+    // the above draft, if the ICE agent generates local candidates. In RFC5245,
+    // which allows the use of FQDN in an a=candidate attribute, it is suggested
+    // to prefer the resolution of the name with an IPv6 address. Combining the
+    // above facts, we use "IP6" in the c= line in the presence of hostname
+    // candidates, followed by the localhost address.
+    os << " " << kConnectionIpv6Addrtype << " "
+       << rtc::GetLoopbackIP(AF_INET6).ToString();
   } else {
     os << " " << kConnectionIpv4Addrtype << " " << kDummyAddress;
   }

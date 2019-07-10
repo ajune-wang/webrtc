@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8b4efc0a_d1de4c48",
+        "filename": "pc/datagram_dtls_adaptor.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-07-10T22:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a614628_5ed988c2",
+      "range": {
+        "startLine": 242,
+        "startChar": 59,
+        "endLine": 242,
+        "endChar": 64
+      },
+      "revId": "fa6164c2319d089651e7e7afd7c5bd30d792afad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb278487_57199d8d",
         "filename": "pc/datagram_dtls_adaptor.cc",
         "patchSetId": 10
@@ -39,6 +63,24 @@
       "revId": "fa6164c2319d089651e7e7afd7c5bd30d792afad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ec449ac_8a38bcf2",
+        "filename": "pc/datagram_dtls_adaptor.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-07-10T22:21:36Z",
+      "side": 1,
+      "message": "RTC_NOTREACHED is a CHECK, not DCHECK. I did not find DCHECK equivalent of not reached and here we definitely want DCHECK. It\u0027s a case of ACK coming after LOST. I think it should not happen and it would be nice to catch it in tests, but it\u0027s not a tragedy if it happens.",
+      "parentUuid": "eb278487_57199d8d",
+      "revId": "fa6164c2319d089651e7e7afd7c5bd30d792afad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "ba122825_8fe4dd2d",
+        "filename": "pc/datagram_dtls_adaptor.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-07-10T22:21:36Z",
+      "side": 1,
+      "message": "Same as above",
+      "parentUuid": "c9a368d6_b55fb133",
+      "range": {
+        "startLine": 356,
+        "startChar": 4,
+        "endLine": 356,
+        "endChar": 21
+      },
+      "revId": "fa6164c2319d089651e7e7afd7c5bd30d792afad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f616cddd_de9c2fe0",
         "filename": "pc/datagram_dtls_adaptor.h",
         "patchSetId": 10
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "6e934c86_85b75f9c",
+        "filename": "pc/datagram_dtls_adaptor.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-07-10T22:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f616cddd_de9c2fe0",
+      "range": {
+        "startLine": 192,
+        "startChar": 38,
+        "endLine": 192,
+        "endChar": 44
+      },
+      "revId": "fa6164c2319d089651e7e7afd7c5bd30d792afad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67db9d92_40f96459",
         "filename": "pc/datagram_dtls_adaptor.h",
         "patchSetId": 10
@@ -108,6 +198,30 @@
       "revId": "fa6164c2319d089651e7e7afd7c5bd30d792afad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "830ed32a_68c0834e",
+        "filename": "pc/datagram_dtls_adaptor.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-07-10T22:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67db9d92_40f96459",
+      "range": {
+        "startLine": 195,
+        "startChar": 58,
+        "endLine": 195,
+        "endChar": 65
+      },
+      "revId": "fa6164c2319d089651e7e7afd7c5bd30d792afad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

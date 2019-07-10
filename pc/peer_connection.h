@@ -168,6 +168,8 @@ class PeerConnection : public PeerConnectionInternal,
   const SessionDescriptionInterface* pending_remote_description()
       const override;
 
+  bool RestartIce() override;
+
   // JSEP01
   void CreateOffer(CreateSessionDescriptionObserver* observer,
                    const RTCOfferAnswerOptions& options) override;
@@ -1369,6 +1371,12 @@ class PeerConnection : public PeerConnectionInternal,
   std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>
       video_bitrate_allocator_factory_;
 
+  // This flag makes the next CreateOffer() produce new ICE credentials, whether
+  // or not the |ice_restart| offer options were provided. This represents the
+  // [[RestartIce]] internal slot in the spec, and is set to true in
+  // RestartIce() and false upon transitioning to a "stable" state with new ICE
+  // credentials.
+  bool is_ice_restart_needed_ RTC_GUARDED_BY(signaling_thread()) = false;
   bool is_negotiation_needed_ RTC_GUARDED_BY(signaling_thread()) = false;
 };
 

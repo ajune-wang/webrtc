@@ -108,6 +108,16 @@ ContentInfo* SessionDescription::GetContentByName(const std::string& name) {
   return FindContentInfoByName(&contents_, name);
 }
 
+size_t SessionDescription::GetContentIndexByName(
+    const std::string& name) const {
+  size_t i = 0;
+  for (; i < contents_.size(); ++i) {
+    if (contents_[i].name == name)
+      return i;
+  }
+  return i;
+}
+
 const MediaContentDescription* SessionDescription::GetContentDescriptionByName(
     const std::string& name) const {
   const ContentInfo* cinfo = FindContentInfoByName(contents_, name);

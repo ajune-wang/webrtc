@@ -85,9 +85,9 @@ class RtpPacket {
   void SetTimestamp(uint32_t timestamp);
   void SetSsrc(uint32_t ssrc);
 
-  // Copies the buffer with zero-ed mutable extensions,
+  // Fills with zeroes mutable extensions,
   // which are modified after FEC protection is generated.
-  void CopyAndZeroMutableExtensions(rtc::ArrayView<uint8_t> buffer) const;
+  void ZeroMutableExtensions();
 
   // Writes csrc list. Assumes:
   // a) There is enough room left in buffer.

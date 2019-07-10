@@ -517,9 +517,7 @@ void PeerConnectionE2EQualityTest::ValidateParams(const RunParams& run_params,
         }
       }
       if (video_config.simulcast_config) {
-        // We support simulcast only for Vp8 for now.
-        // RTC_CHECK_EQ(run_params.video_codec_name, cricket::kVp8CodecName);
-        // Also we support simulcast only from caller.
+        // We support simulcast only from caller.
         RTC_CHECK_EQ(i, 0)
             << "Only simulcast stream from first peer is supported";
       }
@@ -612,13 +610,17 @@ void PeerConnectionE2EQualityTest::SetupCallOnSignalingThread(
     if (video_config.simulcast_config) {
       RtpTransceiverInit transceiver_params;
       transceiver_params.direction = RtpTransceiverDirection::kSendOnly;
-      for (int i = 0;
-           i < video_config.simulcast_config->simulcast_streams_count; ++i) {
-        RtpEncodingParameters enc_params;
-        // We need to be sure, that all rids will be unique with all mids.
-        enc_params.rid = std::to_string(alice_transceivers_counter) + "000" +
-                         std::to_string(i);
-        transceiver_params.send_encodings.push_back(enc_params);
+      if (run_params.video_codec_name == cricket::kVp8CodecName) {
+        // For Vp8 simulcast we need to add as many RtpEncodingParameters to the
+        // track as many simulcast streams requested.
+        for (int i = 0;
+             i < video_config.simulcast_config->simulcast_streams_count; ++i) {
+          RtpEncodingParameters enc_params;
+          // We need to be sure, that all rids will be unique with all mids.
+          enc_params.rid = std::to_string(alice_transceivers_counter) + "000" +
+                           std::to_string(i);
+          transceiver_params.send_encodings.push_back(enc_params);
+        }
       }
       RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>> result =
           alice_->AddTransceiver(cricket::MediaType::MEDIA_TYPE_VIDEO,
@@ -641,7 +643,7 @@ void PeerConnectionE2EQualityTest::SetupCallOnSignalingThread(
   SetPeerCodecPreferences(alice_.get(), run_params);
   SetPeerCodecPreferences(bob_.get(), run_params);
 
-  SetupCall();
+  SetupCall(run_params);
 }
 
 void PeerConnectionE2EQualityTest::TearDownCallOnSignalingThread() {
@@ -818,8 +820,19 @@ void PeerConnectionE2EQualityTest::SetPeerCodecPreferences(
   }
 }
 
-void PeerConnectionE2EQualityTest::SetupCall() {
-  SignalingInterceptor signaling_interceptor;
+void PeerConnectionE2EQualityTest::SetupCall(const RunParams& run_params) {
+  std::map<std::string, int> stream_label_to_simulcast_streams_count;
+  // We add only Alice here, because simulcast/svc is supported only from the
+  // first peer.
+  for (auto& video_config : alice_->params()->video_configs) {
+    if (video_config.simulcast_config) {
+      stream_label_to_simulcast_streams_count.insert(
+          {*video_config.stream_label,
+           video_config.simulcast_config->simulcast_streams_count});
+    }
+  }
+  SignalingInterceptor signaling_interceptor(PatchingParams(
+      run_params.video_codec_name, stream_label_to_simulcast_streams_count));
   // Connect peers.
   ExchangeOfferAnswer(&signaling_interceptor);
   // Do the SDP negotiation, and also exchange ice candidates.

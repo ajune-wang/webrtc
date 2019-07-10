@@ -299,6 +299,8 @@ if (rtc_include_tests) {
       "../test:video_test_common",
       "../test:video_test_support",
       "//third_party/abseil-cpp/absl/algorithm:container",
+      "//third_party/abseil-cpp/absl/flags:flag",
+      "//third_party/abseil-cpp/absl/flags:parse",
       "//third_party/abseil-cpp/absl/memory",
     ]
 
@@ -330,6 +332,8 @@ if (rtc_include_tests) {
       "../test:test_common",
       "../test:test_support",
       "//testing/gtest",
+      "//third_party/abseil-cpp/absl/flags:flag",
+      "//third_party/abseil-cpp/absl/flags:parse",
       "//third_party/abseil-cpp/absl/memory",
     ]
   }
@@ -381,6 +385,8 @@ if (rtc_include_tests) {
       "../test:test_renderer",
       "../test:test_support",
       "//testing/gtest",
+      "//third_party/abseil-cpp/absl/flags:flag",
+      "//third_party/abseil-cpp/absl/flags:parse",
       "//third_party/abseil-cpp/absl/memory",
     ]
   }
@@ -430,6 +436,8 @@ if (rtc_include_tests) {
       "../test:test_common",
       "../test:test_renderer",
       "../test:test_support",
+      "//third_party/abseil-cpp/absl/flags:flag",
+      "//third_party/abseil-cpp/absl/flags:parse",
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
     ]
@@ -457,6 +465,8 @@ if (rtc_include_tests) {
       "../test:test_renderer",
       "../test:test_support",
       "//testing/gtest",
+      "//third_party/abseil-cpp/absl/flags:flag",
+      "//third_party/abseil-cpp/absl/flags:parse",
       "//third_party/abseil-cpp/absl/memory",
     ]
   }
@@ -490,6 +500,8 @@ if (rtc_include_tests) {
       "../test:test_support",
       "../test:video_test_common",
       "../test:video_test_support",
+      "//third_party/abseil-cpp/absl/flags:flag",
+      "//third_party/abseil-cpp/absl/flags:parse",
       "//third_party/abseil-cpp/absl/memory",
     ]
   }

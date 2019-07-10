@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37c37f32_1b36f79e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-10T12:56:24Z",
+      "side": 1,
+      "message": "It\u0027s not obvious to me why having abs send time etc. means that we should support padding and when and why we actually use the lack of such extensions to avoid sending padding.\n\nAFAICT padding is always allowed by RTP?",
+      "range": {
+        "startLine": 873,
+        "startChar": 27,
+        "endLine": 873,
+        "endChar": 50
+      },
+      "revId": "e8fbbfd08c6900f6d40448787ae83667fa0cf3a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

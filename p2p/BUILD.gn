@@ -93,6 +93,8 @@ rtc_static_library("rtc_p2p") {
     "../api/transport:enums",
     "../logging:ice_log",
     "../logging:rtc_event_log_api",
+    "../modules/rtp_rtcp",
+    "../modules/rtp_rtcp:rtp_rtcp_format",
     "../rtc_base",
     "../rtc_base:checks",
 

@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "49af585a_7f11de9c",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-07-11T20:43:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "185d1019_515d1781",
+      "range": {
+        "startLine": 292,
+        "startChar": 41,
+        "endLine": 292,
+        "endChar": 47
+      },
+      "revId": "2ad5af70ec9f8bbc296ae7d8deb25534a00718b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f179ce3c_809d4b79",
         "filename": "modules/desktop_capture/window_capturer_win.cc",
         "patchSetId": 4
@@ -144,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "94fed32b_97445922",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-07-11T20:43:20Z",
+      "side": 1,
+      "message": "I think I got it, what about adding a constructor parameter \"use_flaged_print_window\" to the \"WindowCapturerWin\" that would be false by default. So then the perf impact won\u0027t be affected by default. And then the CroppingWindowCaptureWindow will just set this parameter to true.\nWhat do you think ?",
+      "parentUuid": "b4b8dd41_7e752dae",
+      "range": {
+        "startLine": 295,
+        "startChar": 15,
+        "endLine": 296,
+        "endChar": 63
+      },
+      "revId": "2ad5af70ec9f8bbc296ae7d8deb25534a00718b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bd2685ae_02ab8b49",
         "filename": "modules/desktop_capture/window_capturer_win.cc",
         "patchSetId": 4
@@ -203,6 +251,30 @@
       "side": 1,
       "message": "Looks good, thanks. Consider updating the commit title / description to change some of the instances of Win8 to Win8.1.",
       "parentUuid": "4dd3accb_954d8eb7",
+      "range": {
+        "startLine": 297,
+        "startChar": 2,
+        "endLine": 300,
+        "endChar": 44
+      },
+      "revId": "2ad5af70ec9f8bbc296ae7d8deb25534a00718b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e92208fc_a7dce3b0",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-07-11T20:43:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fdcac64_bf91efc6",
       "range": {
         "startLine": 297,
         "startChar": 2,

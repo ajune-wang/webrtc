@@ -34,6 +34,24 @@
       "revId": "1c464f498b38bc2e348fa826333c354eeddd89d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9399d497_0b88a50b",
+        "filename": "pc/jsep_session_description.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 8393
+      },
+      "writtenOn": "2019-07-11T23:38:16Z",
+      "side": 1,
+      "message": "Sorry, I meant this reference (trickle ICE, not BUNDLE): https://tools.ietf.org/html/draft-ietf-mmusic-trickle-ice-sip-14#section-4.1.1",
+      "parentUuid": "89cb2100_0b0b8936",
+      "revId": "1c464f498b38bc2e348fa826333c354eeddd89d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

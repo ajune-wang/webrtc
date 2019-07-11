@@ -90,7 +90,26 @@ void UpdateConnectionAddress(
   }
   rtc::SocketAddress connection_addr(ip, port);
   if (rtc::IPIsUnspec(connection_addr.ipaddr()) && !hostname.empty()) {
-    connection_addr = rtc::SocketAddress(hostname, port);
+    // When a hostname candidate becomes the (default) connection address,
+    // we use the dummy address 0.0.0.0 and port 9 in the c= and the m= lines.
+    //
+    // Note that the SDP grammar related to ICE candidates has been moved out of
+    // RFC8445, and is currently defined in draft-ietf-mmusic-ice-sip-sdp. A
+    // FQDN address must not be used in the connection address attribute per the
+    // previous draft, if the ICE agent generates local candidates. Though the
+    // presence of a FQDN in the connection address must not fail the ICE
+    // processing either by the same spec, we have observed in deployment that
+    // with a FQDN in a c= line, SDP parsing could fail in other JSEP
+    // implementations. Note also that the wildcard addresses  (0.0.0.0 or ::)
+    // with port 9 are given the exception as the connection address that will
+    // not result in an ICE mismatch. In particular, 0.0.0.0 can be used as the
+    // connection address in the initial BUNDLE offer with trickle ICE
+    // (draft-ietf-mmusic-sdp-bundle-negotiation), and this use has been
+    // widely deployed without outstanding compatibility issues. Combining the
+    // above considerations, we use 0.0.0.0 with port 9 to populate the c= and
+    // the m= lines. See |BuildMediaDescription| in webrtc_sdp.cc for the SDP
+    // generation with |media_desc->connection_address()|.
+    connection_addr = rtc::SocketAddress(kDummyAddress, kDummyPort);
   }
   media_desc->set_connection_address(connection_addr);
 }

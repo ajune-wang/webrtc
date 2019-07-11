@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a51e313_ea1a8794",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-11T11:02:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dff014c0_69886759",
+      "range": {
+        "startLine": 161,
+        "startChar": 6,
+        "endLine": 161,
+        "endChar": 11
+      },
+      "revId": "e8fbbfd08c6900f6d40448787ae83667fa0cf3a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d010c52e_91b0ceba",
         "filename": "modules/pacing/packet_router.cc",
         "patchSetId": 12
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "71f5eb54_f9f17824",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-11T11:02:29Z",
+      "side": 1,
+      "message": "No, thanks for catching!",
+      "parentUuid": "d010c52e_91b0ceba",
+      "range": {
+        "startLine": 423,
+        "startChar": 8,
+        "endLine": 423,
+        "endChar": 64
+      },
+      "revId": "e8fbbfd08c6900f6d40448787ae83667fa0cf3a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5879e0b0_ad29ffb4",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 12
@@ -68,6 +116,30 @@
       "revId": "e8fbbfd08c6900f6d40448787ae83667fa0cf3a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caf6a3bc_071b5371",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-11T11:02:29Z",
+      "side": 1,
+      "message": "Done.\nThough I wonder if we should remove the return value, rtp_header_extension_map_.Deregister() always returns 0...",
+      "parentUuid": "5879e0b0_ad29ffb4",
+      "range": {
+        "startLine": 382,
+        "startChar": 2,
+        "endLine": 382,
+        "endChar": 6
+      },
+      "revId": "e8fbbfd08c6900f6d40448787ae83667fa0cf3a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

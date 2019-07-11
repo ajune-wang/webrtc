@@ -937,6 +937,11 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
   virtual const SessionDescriptionInterface* pending_local_description() const;
   virtual const SessionDescriptionInterface* pending_remote_description() const;
 
+  // TODO(hbos): Add description. Link to spec.
+  // TODO(hbos): Remove default implementation when downstream projects
+  // implements this.
+  virtual void RestartIce() {}
+
   // Create a new offer.
   // The CreateSessionDescriptionObserver callback will be called when done.
   virtual void CreateOffer(CreateSessionDescriptionObserver* observer,

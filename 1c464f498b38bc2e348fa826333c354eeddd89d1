@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a6e5f75_b9860426",
+        "filename": "pc/jsep_session_description.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 8393
+      },
+      "writtenOn": "2019-07-11T21:14:35Z",
+      "side": 1,
+      "message": "This prose doesn\u0027t really explain *why* this is necessary. What the spec says isn\u0027t that relevant, I would explicitly call out that we witnessed incompatibilities with a FQDN in c\u003d, and are using the well-known 0.0.0.0 from BUNDLE to fix these.",
+      "revId": "1c464f498b38bc2e348fa826333c354eeddd89d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

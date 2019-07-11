@@ -504,6 +504,9 @@ class SessionDescription {
   ContentInfos& contents() { return contents_; }
   const ContentInfo* GetContentByName(const std::string& name) const;
   ContentInfo* GetContentByName(const std::string& name);
+  // Returns the index of the ContentInfo with the specified name, or
+  // contents().size() if there is no such ContentInfo.
+  size_t GetContentIndexByName(const std::string& name) const;
   const MediaContentDescription* GetContentDescriptionByName(
       const std::string& name) const;
   MediaContentDescription* GetContentDescriptionByName(const std::string& name);

@@ -168,6 +168,8 @@ class PeerConnection : public PeerConnectionInternal,
   const SessionDescriptionInterface* pending_remote_description()
       const override;
 
+  void RestartIce() override;
+
   // JSEP01
   void CreateOffer(CreateSessionDescriptionObserver* observer,
                    const RTCOfferAnswerOptions& options) override;
@@ -1369,6 +1371,29 @@ class PeerConnection : public PeerConnectionInternal,
   std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>
       video_bitrate_allocator_factory_;
 
+  // Represents the [[LocalUfragsToReplace]] internal slot in the spec. It makes
+  // the next CreateOffer() produce new ICE credentials even if
+  // "iceRestart = true" was not passed in as RTCOfferOptions.
+  class LocalUfragsToReplace {
+   public:
+    // Sets which ICE credentials need restarting. Usage: Pass in the current
+    // and local descriptions in RestartIce(), or nullptr when ICE has
+    // successfully been restarted.
+    void SetRestartIceDescriptions(
+        const SessionDescriptionInterface* current_local_description,
+        const SessionDescriptionInterface* pending_local_description);
+    // Returns true if we have ICE credentials that need restarting.
+    bool HasRestartIceDescriptions() const;
+    // Returns true if |description| shares no ICE credentials with the ICE
+    // credentials that need restarting.
+    bool SatisfiesIceRestart(const SessionDescriptionInterface& description);
+
+   private:
+    std::unique_ptr<SessionDescriptionInterface> current_local_description_;
+    std::unique_ptr<SessionDescriptionInterface> pending_local_description_;
+  };
+  LocalUfragsToReplace local_ufrags_to_replace_
+      RTC_GUARDED_BY(signaling_thread());
   bool is_negotiation_needed_ RTC_GUARDED_BY(signaling_thread()) = false;
 };
 

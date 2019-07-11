@@ -16,6 +16,24 @@
       "revId": "1c464f498b38bc2e348fa826333c354eeddd89d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89cb2100_0b0b8936",
+        "filename": "pc/jsep_session_description.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-07-11T23:20:18Z",
+      "side": 1,
+      "message": "Justin, as to the rationale of choosing 0.0.0.0, can you elaborate a bit on \"0.0.0.0 from BUNDLE\"? Do you mean the initial BUNDLE offer with trickle ICE? This is my understanding in the updated comments.",
+      "parentUuid": "4a6e5f75_b9860426",
+      "revId": "1c464f498b38bc2e348fa826333c354eeddd89d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -16,6 +16,29 @@
       "revId": "7d390586fe6b6a5985358feaf278aa341195e3f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8058cd38_903d89ee",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 9572
+      },
+      "writtenOn": "2019-07-11T01:17:05Z",
+      "side": 1,
+      "message": "Consider clarifying that windows from certain apps (e.g. those using DirectComposition rendering) can\u0027t be captured using BitBlt or PrintWindow without this flag. Likewise in the commit description.",
+      "range": {
+        "startLine": 299,
+        "startChar": 7,
+        "endLine": 299,
+        "endChar": 60
+      },
+      "revId": "7d390586fe6b6a5985358feaf278aa341195e3f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

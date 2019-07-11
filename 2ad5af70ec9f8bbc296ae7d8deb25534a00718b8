@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "185d1019_515d1781",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 9572
+      },
+      "writtenOn": "2019-07-11T01:17:05Z",
+      "side": 1,
+      "message": "Still seems present in patch set 7, FWIW",
+      "parentUuid": "a7fa0327_754f166c",
+      "range": {
+        "startLine": 292,
+        "startChar": 41,
+        "endLine": 292,
+        "endChar": 47
+      },
+      "revId": "2ad5af70ec9f8bbc296ae7d8deb25534a00718b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f179ce3c_809d4b79",
         "filename": "modules/desktop_capture/window_capturer_win.cc",
         "patchSetId": 4
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "b4b8dd41_7e752dae",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 9572
+      },
+      "writtenOn": "2019-07-11T01:17:05Z",
+      "side": 1,
+      "message": "I think this CL does impact the capture perf when this path is used. Calling PrintWindow with the flag was significantly slower in my testing (~3-12x) than calling BitBlt, which the existing code typically uses for occluded windows or in client apps that didn\u0027t opt in to using CroppingWindowCapturer when appropriate.\n\nMaking those mitigating changes in the same Chromium / WebRTC release containing this change may reduce its perf impact.\n\nIf 2) is to be done on a separate CL, should a separate issue be filed to track that, or can the second CL reference the same issue?",
+      "parentUuid": "2b988420_a2d00f9a",
+      "range": {
+        "startLine": 295,
+        "startChar": 15,
+        "endLine": 296,
+        "endChar": 63
+      },
+      "revId": "2ad5af70ec9f8bbc296ae7d8deb25534a00718b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd2685ae_02ab8b49",
         "filename": "modules/desktop_capture/window_capturer_win.cc",
         "patchSetId": 4
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "Thx for the suggestion and the details, I fixed that in latest Patch Set. Please take a look. Thx!",
       "parentUuid": "bd2685ae_02ab8b49",
+      "range": {
+        "startLine": 297,
+        "startChar": 2,
+        "endLine": 300,
+        "endChar": 44
+      },
+      "revId": "2ad5af70ec9f8bbc296ae7d8deb25534a00718b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5fdcac64_bf91efc6",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 9572
+      },
+      "writtenOn": "2019-07-11T01:17:05Z",
+      "side": 1,
+      "message": "Looks good, thanks. Consider updating the commit title / description to change some of the instances of Win8 to Win8.1.",
+      "parentUuid": "4dd3accb_954d8eb7",
       "range": {
         "startLine": 297,
         "startChar": 2,

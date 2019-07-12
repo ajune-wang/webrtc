@@ -126,6 +126,7 @@ TEST_F(TestH264SpsPpsTracker, FuAFirstPacket) {
   uint8_t data[] = {1, 2, 3};
   H264VcmPacket packet;
   packet.h264().packetization_type = kH264FuA;
+  packet.h264().nalus_length = 1;
   packet.video_header.is_first_packet_in_frame = true;
   packet.dataPtr = data;
   packet.sizeBytes = sizeof(data);
@@ -152,6 +153,7 @@ TEST_F(TestH264SpsPpsTracker, StapAIncorrectSegmentLength) {
 TEST_F(TestH264SpsPpsTracker, SingleNaluInsertStartCode) {
   uint8_t data[] = {1, 2, 3};
   H264VcmPacket packet;
+  packet.h264().nalus_length = 1;
   packet.dataPtr = data;
   packet.sizeBytes = sizeof(data);
 
@@ -168,7 +170,6 @@ TEST_F(TestH264SpsPpsTracker, IdrNoSpsPpsInserted) {
   H264VcmPacket packet;
   packet.h264().packetization_type = kH264FuA;
 
-  AddIdr(&packet, 0);
   packet.dataPtr = data.data();
   packet.sizeBytes = data.size();
 

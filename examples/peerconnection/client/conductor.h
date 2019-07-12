@@ -19,8 +19,12 @@
 
 #include "api/media_stream_interface.h"
 #include "api/peer_connection_interface.h"
+#include "api/task_queue/task_queue_factory.h"
 #include "examples/peerconnection/client/main_wnd.h"
 #include "examples/peerconnection/client/peer_connection_client.h"
+#ifdef WEBRTC_WIN
+#include "modules/audio_device/win/core_audio_utility_win.h"
+#endif
 
 namespace webrtc {
 class VideoCaptureModule;
@@ -120,6 +124,11 @@ class Conductor : public webrtc::PeerConnectionObserver,
   // Send a message to the remote peer.
   void SendMessage(const std::string& json_object);
 
+ private:
+  // Helper method for creating a real ADM (using hardware) for all platforms.
+  rtc::scoped_refptr<webrtc::AudioDeviceModule> CreateAudioDevice();
+
+  const std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory_;
   int peer_id_;
   bool loopback_;
   rtc::scoped_refptr<webrtc::PeerConnectionInterface> peer_connection_;
@@ -129,6 +138,10 @@ class Conductor : public webrtc::PeerConnectionObserver,
   MainWindow* main_wnd_;
   std::deque<std::string*> pending_messages_;
   std::string server_;
+#ifdef WEBRTC_WIN
+  // Windows Core Audio based ADM needs to run on a COM initialized thread.
+  std::unique_ptr<webrtc::webrtc_win::ScopedCOMInitializer> com_initializer_;
+#endif
 };
 
 #endif  // EXAMPLES_PEERCONNECTION_CLIENT_CONDUCTOR_H_

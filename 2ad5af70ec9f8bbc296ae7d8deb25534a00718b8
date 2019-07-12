@@ -192,6 +192,30 @@
     },
     {
       "key": {
+        "uuid": "1c38576c_18deff97",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 9565
+      },
+      "writtenOn": "2019-07-12T02:54:44Z",
+      "side": 1,
+      "message": "this WindowCapturer is also used by chromium\u0027s window picker, the PW_RENDERFULLCONTENT should be enabled so the window picker can get the content of \"Hardware accelerated\" apps",
+      "parentUuid": "94fed32b_97445922",
+      "range": {
+        "startLine": 295,
+        "startChar": 15,
+        "endLine": 296,
+        "endChar": 63
+      },
+      "revId": "2ad5af70ec9f8bbc296ae7d8deb25534a00718b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bd2685ae_02ab8b49",
         "filename": "modules/desktop_capture/window_capturer_win.cc",
         "patchSetId": 4

@@ -80,7 +80,8 @@ FlexfecHeaderReader::~FlexfecHeaderReader() = default;
 // retransmissions, and/or several protected SSRCs.
 bool FlexfecHeaderReader::ReadFecHeader(
     ForwardErrorCorrection::ReceivedFecPacket* fec_packet) const {
-  if (fec_packet->pkt->length <= kBaseHeaderSize + kStreamSpecificHeaderSize) {
+  if (fec_packet->pkt->data.size() <=
+      kBaseHeaderSize + kStreamSpecificHeaderSize) {
     RTC_LOG(LS_WARNING) << "Discarding truncated FlexFEC packet.";
     return false;
   }
@@ -121,11 +122,11 @@ bool FlexfecHeaderReader::ReadFecHeader(
   //
   // We treat the mask parts as unsigned integers with host order endianness
   // in order to simplify the bit shifting between bytes.
-  if (fec_packet->pkt->length < kHeaderSizes[0]) {
+  if (fec_packet->pkt->data.size() < kHeaderSizes[0]) {
     RTC_LOG(LS_WARNING) << "Discarding truncated FlexFEC packet.";
     return false;
   }
-  uint8_t* const packet_mask = fec_packet->pkt->data + kPacketMaskOffset;
+  uint8_t* const packet_mask = fec_packet->pkt->data.data() + kPacketMaskOffset;
   bool k_bit0 = (packet_mask[0] & 0x80) != 0;
   uint16_t mask_part0 = ByteReader<uint16_t>::ReadBigEndian(&packet_mask[0]);
   // Shift away K-bit 0, implicitly clearing the last bit.
@@ -138,7 +139,7 @@ bool FlexfecHeaderReader::ReadFecHeader(
     // is payload.
     packet_mask_size = kFlexfecPacketMaskSizes[0];
   } else {
-    if (fec_packet->pkt->length < kHeaderSizes[1]) {
+    if (fec_packet->pkt->data.size() < kHeaderSizes[1]) {
       return false;
     }
     bool k_bit1 = (packet_mask[2] & 0x80) != 0;
@@ -158,7 +159,7 @@ bool FlexfecHeaderReader::ReadFecHeader(
       // and the rest of the packet is payload.
       packet_mask_size = kFlexfecPacketMaskSizes[1];
     } else {
-      if (fec_packet->pkt->length < kHeaderSizes[2]) {
+      if (fec_packet->pkt->data.size() < kHeaderSizes[2]) {
         RTC_LOG(LS_WARNING) << "Discarding truncated FlexFEC packet.";
         return false;
       }
@@ -198,7 +199,7 @@ bool FlexfecHeaderReader::ReadFecHeader(
 
   // In FlexFEC, all media packets are protected in their entirety.
   fec_packet->protection_length =
-      fec_packet->pkt->length - fec_packet->fec_header_size;
+      fec_packet->pkt->data.size() - fec_packet->fec_header_size;
 
   return true;
 }
@@ -260,7 +261,8 @@ void FlexfecHeaderWriter::FinalizeFecHeader(
   //
   // We treat the mask parts as unsigned integers with host order endianness
   // in order to simplify the bit shifting between bytes.
-  uint8_t* const written_packet_mask = fec_packet->data + kPacketMaskOffset;
+  uint8_t* const written_packet_mask =
+      fec_packet->data.data() + kPacketMaskOffset;
   if (packet_mask_size == kUlpfecPacketMaskSizeLBitSet) {
     // The packet mask is 48 bits long.
     uint16_t tmp_mask_part0 =

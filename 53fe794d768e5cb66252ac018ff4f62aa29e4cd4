@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e682b3a6_716cda50",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1824,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-07-12T20:05:49Z",
+      "side": 1,
+      "message": "do you need the CryptoOptions local variable? Why can\u0027t you just set it directly on the config.crypto_options?",
+      "range": {
+        "startLine": 1824,
+        "startChar": 2,
+        "endLine": 1824,
+        "endChar": 15
+      },
+      "revId": "53fe794d768e5cb66252ac018ff4f62aa29e4cd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

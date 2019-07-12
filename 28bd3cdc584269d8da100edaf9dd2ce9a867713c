@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06f17826_ca04a6cf",
+        "filename": "pc/datagram_dtls_adaptor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-12T23:02:55Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 189,
+        "startChar": 64,
+        "endLine": 189,
+        "endChar": 75
+      },
+      "revId": "28bd3cdc584269d8da100edaf9dd2ce9a867713c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56c2b658_ceb940aa",
+        "filename": "pc/datagram_dtls_adaptor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-12T23:02:55Z",
+      "side": 1,
+      "message": "RTCP",
+      "range": {
+        "startLine": 211,
+        "startChar": 62,
+        "endLine": 211,
+        "endChar": 66
+      },
+      "revId": "28bd3cdc584269d8da100edaf9dd2ce9a867713c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

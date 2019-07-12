@@ -22,6 +22,30 @@
       "revId": "53fe794d768e5cb66252ac018ff4f62aa29e4cd4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5edf0a88_496c88e8",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1824,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-12T20:09:19Z",
+      "side": 1,
+      "message": "config.crypto_options is an optional",
+      "parentUuid": "e682b3a6_716cda50",
+      "range": {
+        "startLine": 1824,
+        "startChar": 2,
+        "endLine": 1824,
+        "endChar": 15
+      },
+      "revId": "53fe794d768e5cb66252ac018ff4f62aa29e4cd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

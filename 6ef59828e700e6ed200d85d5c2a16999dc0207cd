@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e75db4f6_3e14db15",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-12T22:58:58Z",
+      "side": 1,
+      "message": "I think we can actually do something way simpler.\n\nThe JsepTransportController/JsepTransports already have a flag requesting an ICE restart.\n\nSo I think it would be sufficient to do:\n\nPeerConnection::RestartIce calls transport_controller_-\u003eSetNeedsIceRestartFlag()\nPeerConnection::CheckIfNegotiationIsNeeded calls a new JsepTransportController::AnyTransportNeedsIceRestart() which returns true if any JsepTransport has needs_ice_restart() true.\n\nLet me know if that works.",
+      "revId": "6ef59828e700e6ed200d85d5c2a16999dc0207cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ab8073e_02555734",
+        "filename": "pc/peer_connection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-12T22:58:58Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 998,
+        "startChar": 3,
+        "endLine": 998,
+        "endChar": 9
+      },
+      "revId": "6ef59828e700e6ed200d85d5c2a16999dc0207cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

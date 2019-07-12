@@ -770,6 +770,10 @@ HRESULT CoreAudioBase::OnSessionDisconnected(
   RTC_DLOG(INFO) << "___" << __FUNCTION__ << "["
                  << DirectionToString(direction()) << "] reason: "
                  << SessionDisconnectReasonToString(disconnect_reason);
+  if (IsRestarting()) {
+    RTC_DLOG(LS_WARNING) << "Ignoring since restart is already active";
+    return S_OK;
+  }
   if (disconnect_reason == DisconnectReasonDeviceRemoval ||
       disconnect_reason == DisconnectReasonFormatChanged) {
     is_restarting_ = true;

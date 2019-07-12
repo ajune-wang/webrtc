@@ -27,6 +27,7 @@
 #include "api/audio_options.h"
 #include "api/create_peerconnection_factory.h"
 #include "api/rtp_sender_interface.h"
+#include "api/task_queue/default_task_queue_factory.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "api/video_codecs/video_decoder_factory.h"
@@ -44,8 +45,13 @@
 #include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/strings/json.h"
 #include "test/vcm_capturer.h"
+#ifdef WEBRTC_WIN
+#include "modules/audio_device/include/audio_device.h"
+#include "modules/audio_device/include/audio_device_factory.h"
+#endif
 
 namespace {
+static std::unique_ptr<rtc::Thread> g_worker_thread;
 // Names used for a IceCandidate JSON object.
 const char kCandidateSdpMidName[] = "sdpMid";
 const char kCandidateSdpMlineIndexName[] = "sdpMLineIndex";
@@ -108,9 +114,16 @@ class CapturerTrackSource : public webrtc::VideoTrackSource {
 }  // namespace
 
 Conductor::Conductor(PeerConnectionClient* client, MainWindow* main_wnd)
-    : peer_id_(-1), loopback_(false), client_(client), main_wnd_(main_wnd) {
+    : task_queue_factory_(webrtc::CreateDefaultTaskQueueFactory()),
+      peer_id_(-1),
+      loopback_(false),
+      client_(client),
+      main_wnd_(main_wnd) {
   client_->RegisterObserver(this);
   main_wnd->RegisterObserver(this);
+  rtc::LogMessage::LogToDebug(rtc::LS_INFO);
+  rtc::LogMessage::LogTimestamps();
+  rtc::LogMessage::LogThreads();
 }
 
 Conductor::~Conductor() {
@@ -127,12 +140,26 @@ void Conductor::Close() {
 }
 
 bool Conductor::InitializePeerConnection() {
+  RTC_LOG(INFO) << __FUNCTION__;
   RTC_DCHECK(!peer_connection_factory_);
   RTC_DCHECK(!peer_connection_);
 
+  g_worker_thread = rtc::Thread::Create();
+  g_worker_thread->Start();
+
+  // Create an external ADM using a unique factory for Windows. We must create
+  // the ADM on the worker thread and then inject that thread into the PCF,
+  // otherwise the PCF will create its own worker thread and that will break the
+  // threading model of the ADM since it requires that all API calls are done
+  // on the same thread.
+  auto audio_device =
+      g_worker_thread->Invoke<rtc::scoped_refptr<webrtc::AudioDeviceModule>>(
+          RTC_FROM_HERE, [&] { return CreateAudioDevice(); });
+  RTC_CHECK(audio_device);
+
   peer_connection_factory_ = webrtc::CreatePeerConnectionFactory(
-      nullptr /* network_thread */, nullptr /* worker_thread */,
-      nullptr /* signaling_thread */, nullptr /* default_adm */,
+      nullptr /* network_thread */, g_worker_thread.get(),
+      nullptr /* signaling_thread */, audio_device.get(),
       webrtc::CreateBuiltinAudioEncoderFactory(),
       webrtc::CreateBuiltinAudioDecoderFactory(),
       webrtc::CreateBuiltinVideoEncoderFactory(),
@@ -153,10 +180,25 @@ bool Conductor::InitializePeerConnection() {
 
   AddTracks();
 
+#ifdef WEBRTC_WIN
+  // WebRTC uses default communication as default device. Switch to the normal
+  // default device instead to make this test easier to use on real devices.
+  g_worker_thread->Invoke<void>(RTC_FROM_HERE, [&] {
+    RTC_DCHECK(audio_device->Initialized());
+    RTC_DCHECK_GT(audio_device->RecordingDevices(), 0u);
+    RTC_DCHECK_GT(audio_device->PlayoutDevices(), 0u);
+    audio_device->SetRecordingDevice(
+        webrtc::AudioDeviceModule::WindowsDeviceType::kDefaultDevice);
+    audio_device->SetPlayoutDevice(
+        webrtc::AudioDeviceModule::WindowsDeviceType::kDefaultDevice);
+  });
+#endif
+
   return peer_connection_ != nullptr;
 }
 
 bool Conductor::ReinitializePeerConnectionForLoopback() {
+  RTC_LOG(INFO) << __FUNCTION__;
   loopback_ = true;
   std::vector<rtc::scoped_refptr<webrtc::RtpSenderInterface>> senders =
       peer_connection_->GetSenders();
@@ -172,6 +214,7 @@ bool Conductor::ReinitializePeerConnectionForLoopback() {
 }
 
 bool Conductor::CreatePeerConnection(bool dtls) {
+  RTC_LOG(INFO) << __FUNCTION__;
   RTC_DCHECK(peer_connection_factory_);
   RTC_DCHECK(!peer_connection_);
 
@@ -188,12 +231,14 @@ bool Conductor::CreatePeerConnection(bool dtls) {
 }
 
 void Conductor::DeletePeerConnection() {
+  RTC_LOG(INFO) << __FUNCTION__;
   main_wnd_->StopLocalRenderer();
   main_wnd_->StopRemoteRenderer();
   peer_connection_ = nullptr;
   peer_connection_factory_ = nullptr;
   peer_id_ = -1;
   loopback_ = false;
+  g_worker_thread.reset();
 }
 
 void Conductor::EnsureStreamingUI() {
@@ -574,4 +619,28 @@ void Conductor::OnFailure(webrtc::RTCError error) {
 void Conductor::SendMessage(const std::string& json_object) {
   std::string* msg = new std::string(json_object);
   main_wnd_->QueueUIThreadCallback(SEND_MESSAGE_TO_PEER, msg);
+}
+
+rtc::scoped_refptr<webrtc::AudioDeviceModule> Conductor::CreateAudioDevice() {
+  RTC_LOG(INFO) << __FUNCTION__;
+#ifdef WEBRTC_WIN
+  RTC_LOG(INFO) << "Using latest version of ADM on Windows";
+  // We must initialize the COM library on a thread before we calling any of
+  // the library functions. All COM functions in the ADM will return
+  // CO_E_NOTINITIALIZED otherwise. The legacy ADM for Windows used internal
+  // COM initialization but the new ADM requires COM to be initialized
+  // externally.
+  com_initializer_ =
+      absl::make_unique<webrtc::webrtc_win::ScopedCOMInitializer>(
+          webrtc::webrtc_win::ScopedCOMInitializer::kMTA);
+  RTC_CHECK(com_initializer_->Succeeded());
+  RTC_CHECK(webrtc::webrtc_win::core_audio_utility::IsSupported());
+  RTC_CHECK(webrtc::webrtc_win::core_audio_utility::IsMMCSSSupported());
+  return CreateWindowsCoreAudioAudioDeviceModule(task_queue_factory_.get());
+#else
+  // Use legacy factory method on all platforms except Windows.
+  return webrtc::AudioDeviceModule::Create(
+      webrtc::AudioDeviceModule::kPlatformDefaultAudio,
+      task_queue_factory_.get());
+#endif
 }

@@ -230,6 +230,9 @@ class WindowsAudioDeviceModule : public AudioDeviceModuleForTest {
     RTC_LOG(INFO) << __FUNCTION__;
     RTC_DCHECK_RUN_ON(&thread_checker_);
     RETURN_IF_OUTPUT_RESTARTS(0);
+    if (PlayoutIsInitialized()) {
+      return 0;
+    }
     return output_->InitPlayout();
   }
 
@@ -251,6 +254,9 @@ class WindowsAudioDeviceModule : public AudioDeviceModuleForTest {
     RTC_LOG(INFO) << __FUNCTION__;
     RTC_DCHECK_RUN_ON(&thread_checker_);
     RETURN_IF_INPUT_RESTARTS(0);
+    if (RecordingIsInitialized()) {
+      return 0;
+    }
     return input_->InitRecording();
   }
 
@@ -265,6 +271,9 @@ class WindowsAudioDeviceModule : public AudioDeviceModuleForTest {
     RTC_LOG(INFO) << __FUNCTION__;
     RTC_DCHECK_RUN_ON(&thread_checker_);
     RETURN_IF_OUTPUT_RESTARTS(0);
+    if (Playing()) {
+      return 0;
+    }
     return output_->StartPlayout();
   }
 
@@ -286,6 +295,9 @@ class WindowsAudioDeviceModule : public AudioDeviceModuleForTest {
     RTC_LOG(INFO) << __FUNCTION__;
     RTC_DCHECK_RUN_ON(&thread_checker_);
     RETURN_IF_INPUT_RESTARTS(0);
+    if (Recording()) {
+      return 0;
+    }
     return input_->StartRecording();
   }
 

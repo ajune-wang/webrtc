@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7bd51295_25d413e1",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-15T12:11:31Z",
+      "side": 1,
+      "message": "Hmmm... that might be correct, but...\n\nTo me it\u0027s less clear if this is spec-compliant or not. With that logic, ICE restart is a per-transport state, and when performing operations like:\n\n  PeerConnection::PushdownTransportDescription()\n\nIt fails or succeeds based on looping through several transports doing:\n\n  JsepTransport::SetLocalJsepTransportDescription()\n\nwhich each individually fails or succeeds with its own state. What happens if one succeeds and the other fails? If it doesn\u0027t have a local description yet? What happens when we\u0027ve implemented rollback? What happens for new transports or transports that get thrown away? Is this approach resilient to future changes?\n\nI would be hesitant to piggyback spec features on implementation-specific details of lower layers that probably has the correct behavior in most cases, but that *may or may not* behave differently in edge cases. For shipping I would want to have much more robust test coverage to do that; but regardless - going forward I don\u0027t want to maintain API code that is significantly different from the spec, because it is really hard to tell what is or is not correct if the implementation deviates from the wording of the spec.\n\nSide-note: I might just be fear-mongering, but iceConnectionState is an example where we\u0027ve shipped a feature that is in the spec with implementation-specific logic that is not correct in all cases, and we have twice now attempted to make it more spec-compliant, and in both cases this has caused a lot of regressions and behavioral differences in edge-case that we only discover through bug reports during Canary and Beta periods, and nobody on our side seem to fully know what the differences are between implementation and shipped product. (This has even given some web developers the impression that Unified Plan is to blame, because we decided to ship it only in that mode to minimize the risk of regressions, but now I\u0027m getting off-topic.)\n\nIf the concern is that we have multiple ways of restarting ICE, how about we remove the per-transport logic for restarting ICE?\n\nI wonder if this line...\n\n     // As described in JSEP, calling setConfiguration with new ICE servers or\n     // candidate policy must set a \"needs-ice-restart\" bit so that the next offer\n     // triggers an ICE restart which will pick up the changes.\n     if (modified_config.servers !\u003d configuration_.servers ||\n         modified_config.type !\u003d configuration_.type ||\n         modified_config.prune_turn_ports !\u003d configuration_.prune_turn_ports) {\n--\u003e    transport_controller_-\u003eSetNeedsIceRestartFlag();\n     }\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/peer_connection.cc?q\u003dSetNeedsIceRestartFlag\u0026sq\u003dpackage:chromium\u0026l\u003d3563\u0026dr\u003dC\n\nShould be changed to invoke PeerConnection::RestartIce(); instead? That way we can remove SetNeedsIceRestartFlag(). I could do try to do this in a follow-up CL. It seems to be the only use of this method outside of unittests.\n\n\nWhat do you think, Steve? I didn\u0027t try your suggestion yet for the reasons above, feel free to push back.",
+      "parentUuid": "e75db4f6_3e14db15",
+      "revId": "6ef59828e700e6ed200d85d5c2a16999dc0207cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ab8073e_02555734",
         "filename": "pc/peer_connection_ice_unittest.cc",
         "patchSetId": 9
@@ -39,6 +57,30 @@
       "revId": "6ef59828e700e6ed200d85d5c2a16999dc0207cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "206efcef_6adf2283",
+        "filename": "pc/peer_connection_ice_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-15T12:11:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ab8073e_02555734",
+      "range": {
+        "startLine": 998,
+        "startChar": 3,
+        "endLine": 998,
+        "endChar": 9
+      },
+      "revId": "6ef59828e700e6ed200d85d5c2a16999dc0207cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

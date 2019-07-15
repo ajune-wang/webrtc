@@ -240,6 +240,30 @@
     },
     {
       "key": {
+        "uuid": "25238187_e8bbf2af",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-07-15T16:20:15Z",
+      "side": 1,
+      "message": "Thx you both for your inputs, if I understand correctly, you are happy with the latest state of this CL.",
+      "parentUuid": "46086513_311da3f9",
+      "range": {
+        "startLine": 295,
+        "startChar": 15,
+        "endLine": 296,
+        "endChar": 63
+      },
+      "revId": "2ad5af70ec9f8bbc296ae7d8deb25534a00718b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd2685ae_02ab8b49",
         "filename": "modules/desktop_capture/window_capturer_win.cc",
         "patchSetId": 4

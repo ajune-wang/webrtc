@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c328f547_c10ec3e7",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-15T21:29:00Z",
+      "side": 1,
+      "message": "Ack. I took a stab at implementing it in JsepTransportController, but ran into problems since JsepTransport doesn\u0027t distinguish current/pending session descriptions. Instead, can we leave a TODO to move this logic to JsepTransport once it supports rollback?",
+      "parentUuid": "7bd51295_25d413e1",
+      "revId": "6ef59828e700e6ed200d85d5c2a16999dc0207cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ab8073e_02555734",
         "filename": "pc/peer_connection_ice_unittest.cc",
         "patchSetId": 9

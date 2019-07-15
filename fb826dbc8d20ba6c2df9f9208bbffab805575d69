@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "790fc296_0b024cdd",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-15T21:29:00Z",
+      "side": 1,
+      "message": "Factor these loops into a helper.\n\nstatic void AppendIceCredentialsFromSessionDescription(const SessionDescriptionInterface\u0026 desc, std::set\u003c...\u003e* credentials)",
+      "revId": "fb826dbc8d20ba6c2df9f9208bbffab805575d69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fe8446d_ead15a20",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-15T21:29:00Z",
+      "side": 1,
+      "message": "!ufrags_.empty()",
+      "revId": "fb826dbc8d20ba6c2df9f9208bbffab805575d69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab0c801a_298e6663",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2498,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-15T21:29:00Z",
+      "side": 1,
+      "message": "This would be a lot clearer just as local_ufrags_to_replace_.clear()",
+      "revId": "fb826dbc8d20ba6c2df9f9208bbffab805575d69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1c3cc3e_157446b9",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-15T21:29:00Z",
+      "side": 1,
+      "message": "In my opinion we should just inline this class into PeerConnection. Right now it doesn\u0027t really reduce the number of fields or methods on PeerConnection and is not testable by itself since it\u0027s private.",
+      "revId": "fb826dbc8d20ba6c2df9f9208bbffab805575d69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76fa3067_3d87735f",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1395,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-15T21:29:00Z",
+      "side": 1,
+      "message": "Why does this check both ufrag and pwd if the name/spec seems to imply it should just check ufrag? Is this an implementation bug or spec bug?",
+      "range": {
+        "startLine": 1395,
+        "startChar": 13,
+        "endLine": 1395,
+        "endChar": 48
+      },
+      "revId": "fb826dbc8d20ba6c2df9f9208bbffab805575d69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

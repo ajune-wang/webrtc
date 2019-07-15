@@ -216,6 +216,30 @@
     },
     {
       "key": {
+        "uuid": "46086513_311da3f9",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 9572
+      },
+      "writtenOn": "2019-07-15T07:01:18Z",
+      "side": 1,
+      "message": "Ah, interesting -- I\u0027d assumed the Chromium window picker was showing black previews for Electron apps / other Chromium instances because they weren\u0027t eligible for crop-from-screen capture at the time (because they weren\u0027t foreground / non-occluded). I see now that black previews are shown even when these windows are eligible for crop-from-screen capture.\n\nRegarding the constructor parameter suggestion: I suppose this would leave this bug unresolved for browsers / apps that have picked up a WebRTC version with this change but haven\u0027t opted in to using CroppingWindowCapturer. Notably, Firefox if this bug remains unresolved: https://bugzilla.mozilla.org/show_bug.cgi?id\u003d1559011 .\n\nRather than introduce further behavioral differences around whether CroppingWindowCapturer is used / attempted, it might be preferable to make that the default (remove the need to opt in by having DesktopCapturer::CreateWindowCapturer call CroppingWindowCapturer::CreateCapturer).\n\nCorrectness / reliability of the captured frames should perhaps take priority over performance, when a choice must be made. My original suggestions were around trying to avoid unnecessary perf impact when possible, but I think there are some cases where perf impact is unavoidable (short of special-casing captured app identities somehow, which\u0027d pose completeness \u0026 maintainability challenges).",
+      "parentUuid": "1c38576c_18deff97",
+      "range": {
+        "startLine": 295,
+        "startChar": 15,
+        "endLine": 296,
+        "endChar": 63
+      },
+      "revId": "2ad5af70ec9f8bbc296ae7d8deb25534a00718b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bd2685ae_02ab8b49",
         "filename": "modules/desktop_capture/window_capturer_win.cc",
         "patchSetId": 4

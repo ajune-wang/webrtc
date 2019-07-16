@@ -117,6 +117,30 @@
       "revId": "0b93fc632ffc994e796c2f1872eeb06d888586df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "143b7d41_aed33293",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-07-16T09:55:38Z",
+      "side": 1,
+      "message": "Done:\n\n$ ./out/Debug/event_log_visualizer \nTODO(bugs.webrtc.org/10616): Print flag list again when Abseil supports it.\n(field_trial.cc:107): Setting field trial string:\n(analyzer.cc:462): No useful events in the log.\n(analyzer.cc:490): Found 0 (LOG_START, LOG_END) segments in log.\nimport matplotlib.pyplot as plt",
+      "parentUuid": "f1751740_7f1f922d",
+      "range": {
+        "startLine": 524,
+        "startChar": 0,
+        "endLine": 524,
+        "endChar": 71
+      },
+      "revId": "0b93fc632ffc994e796c2f1872eeb06d888586df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0e6000f_bf505cd8",
+        "filename": "rtc_base/synchronization/yield_policy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-16T09:10:44Z",
+      "side": 1,
+      "message": "Nit: Duplicate the #if .. #elif sections for headers and definitions.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 35
+      },
+      "revId": "09e2ddded4430c5515a029c3cb97c434e524d243",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b662b06_a68d727b",
+        "filename": "rtc_base/synchronization/yield_policy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-16T09:10:44Z",
+      "side": 1,
+      "message": "Add a comment describing what specific supported platforms requires this. This will help ensure that the functionality is maintained and also will help to allow removal in the future if those platforms receive support for thread local or we drop support for them.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 27
+      },
+      "revId": "09e2ddded4430c5515a029c3cb97c434e524d243",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

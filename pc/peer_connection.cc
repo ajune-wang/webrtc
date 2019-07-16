@@ -690,6 +690,51 @@ const ContentInfo* FindTransceiverMSection(
 
 }  // namespace
 
+class PeerConnection::LocalUfragsToReplace {
+ public:
+  // Sets the ICE credentials that need restarting to the ICE credentials of
+  // the current and pending descriptions.
+  void SetIceCredentialsFromLocalDescriptions(
+      const SessionDescriptionInterface* current_local_description,
+      const SessionDescriptionInterface* pending_local_description) {
+    ufrags_.clear();
+    if (current_local_description) {
+      AppendIceCredentialsFromSessionDescription(*current_local_description);
+    }
+    if (pending_local_description) {
+      AppendIceCredentialsFromSessionDescription(*pending_local_description);
+    }
+  }
+
+  void ClearIceCredentials() { ufrags_.clear(); }
+
+  // Returns true if we have ICE credentials that need restarting.
+  bool HasIceCredentials() const { return !ufrags_.empty(); }
+
+  // Returns true if |local_description| shares no ICE credentials with the
+  // ICE credentials that need restarting.
+  bool SatisfiesIceRestart(
+      const SessionDescriptionInterface& local_description) const {
+    for (const auto& transport_info :
+         local_description.description()->transport_infos()) {
+      if (ufrags_.find(transport_info.description.ice_ufrag) != ufrags_.end()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+ private:
+  void AppendIceCredentialsFromSessionDescription(
+      const SessionDescriptionInterface& desc) {
+    for (const auto& transport_info : desc.description()->transport_infos()) {
+      ufrags_.insert(transport_info.description.ice_ufrag);
+    }
+  }
+
+  std::set<std::string> ufrags_;
+};
+
 // Upon completion, posts a task to execute the callback of the
 // SetSessionDescriptionObserver asynchronously on the same thread. At this
 // point, the state of the peer connection might no longer reflect the effects
@@ -878,7 +923,8 @@ PeerConnection::PeerConnection(PeerConnectionFactory* factory,
       local_streams_(StreamCollection::Create()),
       remote_streams_(StreamCollection::Create()),
       call_(std::move(call)),
-      call_ptr_(call_.get()) {}
+      call_ptr_(call_.get()),
+      local_ufrags_to_replace_(new LocalUfragsToReplace()) {}
 
 PeerConnection::~PeerConnection() {
   TRACE_EVENT0("webrtc", "PeerConnection::~PeerConnection");
@@ -1963,6 +2009,13 @@ rtc::scoped_refptr<DataChannelInterface> PeerConnection::CreateDataChannel(
   return DataChannelProxy::Create(signaling_thread(), channel.get());
 }
 
+void PeerConnection::RestartIce() {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  local_ufrags_to_replace_->SetIceCredentialsFromLocalDescriptions(
+      current_local_description_.get(), pending_local_description_.get());
+  UpdateNegotiationNeeded();
+}
+
 void PeerConnection::CreateOffer(CreateSessionDescriptionObserver* observer,
                                  const RTCOfferAnswerOptions& options) {
   RTC_DCHECK_RUN_ON(signaling_thread());
@@ -2448,6 +2501,11 @@ RTCError PeerConnection::ApplyLocalDescription(
     }
   }
 
+  if (type == SdpType::kAnswer && local_ufrags_to_replace_->SatisfiesIceRestart(
+                                      *current_local_description_)) {
+    local_ufrags_to_replace_->ClearIceCredentials();
+  }
+
   return RTCError::OK();
 }
 
@@ -2921,6 +2979,11 @@ RTCError PeerConnection::ApplyRemoteDescription(
     }
 
     UpdateEndedRemoteMediaStreams();
+  }
+
+  if (type == SdpType::kAnswer && local_ufrags_to_replace_->SatisfiesIceRestart(
+                                      *current_local_description_)) {
+    local_ufrags_to_replace_->ClearIceCredentials();
   }
 
   return RTCError::OK();
@@ -4336,8 +4399,10 @@ void PeerConnection::GetOptionsForOffer(
   }
 
   // Apply ICE restart flag and renomination flag.
+  bool ice_restart = offer_answer_options.ice_restart ||
+                     local_ufrags_to_replace_->HasIceCredentials();
   for (auto& options : session_options->media_description_options) {
-    options.transport_options.ice_restart = offer_answer_options.ice_restart;
+    options.transport_options.ice_restart = ice_restart;
     options.transport_options.enable_ice_renomination =
         configuration_.enable_ice_renomination;
   }
@@ -7334,19 +7399,24 @@ bool PeerConnection::CheckIfNegotiationIsNeeded() {
   // 1. If any implementation-specific negotiation is required, as described at
   // the start of this section, return true.
 
-  // 2. Let description be connection.[[CurrentLocalDescription]].
+  // 2. If connection's [[RestartIce]] internal slot is true, return true.
+  if (local_ufrags_to_replace_->HasIceCredentials()) {
+    return true;
+  }
+
+  // 3. Let description be connection.[[CurrentLocalDescription]].
   const SessionDescriptionInterface* description = current_local_description();
   if (!description)
     return true;
 
-  // 3. If connection has created any RTCDataChannels, and no m= section in
+  // 4. If connection has created any RTCDataChannels, and no m= section in
   // description has been negotiated yet for data, return true.
   if (!sctp_data_channels_.empty()) {
     if (!cricket::GetFirstDataContent(description->description()->contents()))
       return true;
   }
 
-  // 4. For each transceiver in connection's set of transceivers, perform the
+  // 5. For each transceiver in connection's set of transceivers, perform the
   // following checks:
   for (const auto& transceiver : transceivers_) {
     const ContentInfo* current_local_msection =
@@ -7355,7 +7425,7 @@ bool PeerConnection::CheckIfNegotiationIsNeeded() {
     const ContentInfo* current_remote_msection = FindTransceiverMSection(
         transceiver.get(), current_remote_description());
 
-    // 4.3 If transceiver is stopped and is associated with an m= section,
+    // 5.3 If transceiver is stopped and is associated with an m= section,
     // but the associated m= section is not yet rejected in
     // connection.[[CurrentLocalDescription]] or
     // connection.[[CurrentRemoteDescription]], return true.
@@ -7368,17 +7438,17 @@ bool PeerConnection::CheckIfNegotiationIsNeeded() {
       continue;
     }
 
-    // 4.1 If transceiver isn't stopped and isn't yet associated with an m=
+    // 5.1 If transceiver isn't stopped and isn't yet associated with an m=
     // section in description, return true.
     if (!current_local_msection)
       return true;
 
     const MediaContentDescription* current_local_media_description =
         current_local_msection->media_description();
-    // 4.2 If transceiver isn't stopped and is associated with an m= section
+    // 5.2 If transceiver isn't stopped and is associated with an m= section
     // in description then perform the following checks:
 
-    // 4.2.1 If transceiver.[[Direction]] is "sendrecv" or "sendonly", and the
+    // 5.2.1 If transceiver.[[Direction]] is "sendrecv" or "sendonly", and the
     // associated m= section in description either doesn't contain a single
     // "a=msid" line, or the number of MSIDs from the "a=msid" lines in this
     // m= section, or the MSID values themselves, differ from what is in
@@ -7404,7 +7474,7 @@ bool PeerConnection::CheckIfNegotiationIsNeeded() {
         return true;
     }
 
-    // 4.2.2 If description is of type "offer", and the direction of the
+    // 5.2.2 If description is of type "offer", and the direction of the
     // associated m= section in neither connection.[[CurrentLocalDescription]]
     // nor connection.[[CurrentRemoteDescription]] matches
     // transceiver.[[Direction]], return true.
@@ -7426,7 +7496,7 @@ bool PeerConnection::CheckIfNegotiationIsNeeded() {
       }
     }
 
-    // 4.2.3 If description is of type "answer", and the direction of the
+    // 5.2.3 If description is of type "answer", and the direction of the
     // associated m= section in the description does not match
     // transceiver.[[Direction]] intersected with the offered direction (as
     // described in [JSEP] (section 5.3.1.)), return true.

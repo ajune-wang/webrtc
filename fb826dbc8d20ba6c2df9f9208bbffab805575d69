@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "1c09dc49_e1b91110",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-16T18:15:03Z",
+      "side": 1,
+      "message": "Ah, I meant more to just make the set a member of PeerConnection and move the member functions to PeerConnection too. But I\u0027m fine with either way.",
+      "parentUuid": "4a34a07d_affacdba",
+      "revId": "fb826dbc8d20ba6c2df9f9208bbffab805575d69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76fa3067_3d87735f",
         "filename": "pc/peer_connection.h",
         "patchSetId": 10

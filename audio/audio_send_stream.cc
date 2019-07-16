@@ -823,13 +823,14 @@ void AudioSendStream::ConfigureBitrateObserver() {
   // This either updates the current observer or adds a new observer.
   // TODO(srte): Add overhead compensation here.
   auto constraints = GetMinMaxBitrateConstraints();
+  const DataRate priority_bitrate =
+      allocation_settings_.DefaultPriorityBitrate(constraints.min);
 
   bitrate_allocator_->AddObserver(
       this,
       MediaStreamAllocationConfig{
           constraints.min.bps<uint32_t>(), constraints.max.bps<uint32_t>(), 0,
-          allocation_settings_.DefaultPriorityBitrate().bps(), true,
-          config_.track_id,
+          priority_bitrate.bps(), true, config_.track_id,
           allocation_settings_.BitratePriority().value_or(
               config_.bitrate_priority)});
 }

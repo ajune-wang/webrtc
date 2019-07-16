@@ -72,7 +72,7 @@ class AudioAllocationSettings {
   // Indicates the default priority bitrate for audio streams. The bitrate
   // allocator will prioritize audio until it reaches this bitrate and will
   // divide bitrate evently between audio and video above this bitrate.
-  DataRate DefaultPriorityBitrate() const;
+  DataRate DefaultPriorityBitrate(DataRate min_bitrate) const;
 
   // The bitrate priority is used to determine how much of the available bitrate
   // beyond the min or priority bitrate audio streams should receive.
@@ -90,6 +90,9 @@ class AudioAllocationSettings {
   FieldTrialOptional<DataRate> min_bitrate_;
   FieldTrialOptional<DataRate> max_bitrate_;
   FieldTrialParameter<DataRate> priority_bitrate_;
+  // By default the priority_bitrate is compensated for packet overhead.
+  // Use this flag to configure a raw value instead.
+  FieldTrialOptional<DataRate> priority_bitrate_raw_;
   FieldTrialOptional<double> bitrate_priority_;
 };
 }  // namespace webrtc

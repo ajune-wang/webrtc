@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "98a1ed49_8ba1cfeb",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-16T16:09:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "790fc296_0b024cdd",
+      "revId": "fb826dbc8d20ba6c2df9f9208bbffab805575d69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fe8446d_ead15a20",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 10
@@ -33,6 +51,24 @@
       "revId": "fb826dbc8d20ba6c2df9f9208bbffab805575d69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79388a6a_5cc5415e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-16T16:09:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fe8446d_ead15a20",
+      "revId": "fb826dbc8d20ba6c2df9f9208bbffab805575d69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "caaaa12d_3636851d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2498,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-16T16:09:27Z",
+      "side": 1,
+      "message": "Done (ClearIceCredentials)",
+      "parentUuid": "ab0c801a_298e6663",
+      "revId": "fb826dbc8d20ba6c2df9f9208bbffab805575d69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1c3cc3e_157446b9",
         "filename": "pc/peer_connection.h",
         "patchSetId": 10
@@ -67,6 +121,24 @@
       "revId": "fb826dbc8d20ba6c2df9f9208bbffab805575d69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a34a07d_affacdba",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-16T16:09:27Z",
+      "side": 1,
+      "message": "OK I moved it but then I had to make it std::unique_ptr\u003c\u003e instead because the size of it is not known in the header.",
+      "parentUuid": "c1c3cc3e_157446b9",
+      "revId": "fb826dbc8d20ba6c2df9f9208bbffab805575d69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -90,6 +162,30 @@
       "revId": "fb826dbc8d20ba6c2df9f9208bbffab805575d69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be2e5772_47e394fb",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1395,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-16T16:09:27Z",
+      "side": 1,
+      "message": "Good question. Firefox implements it by looking at the the entire ufrag line of the SDP, which I had assumed contained both ufrag and pwd, but I just noticed that ufrag and pwd are separate a\u003d lines. And it might be strange if changing pwd counts are a restart (if you can even do that)? I changed my implementation to only look at the ufrag and filed https://github.com/w3c/webrtc-pc/issues/2229 for clarification.",
+      "parentUuid": "76fa3067_3d87735f",
+      "range": {
+        "startLine": 1395,
+        "startChar": 13,
+        "endLine": 1395,
+        "endChar": 48
+      },
+      "revId": "fb826dbc8d20ba6c2df9f9208bbffab805575d69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

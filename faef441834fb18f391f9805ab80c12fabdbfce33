@@ -93,6 +93,30 @@
       "revId": "faef441834fb18f391f9805ab80c12fabdbfce33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28d38c7d_0b8fe279",
+        "filename": "rtc_base/experiments/audio_allocation_settings.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-17T13:12:19Z",
+      "side": 1,
+      "message": "During the transition period while we want to support both legacy clients that does not support the new raw field and new clients that can use it. But maybe we simply want to stop using priority bitrate for all legacy clients?",
+      "parentUuid": "693c3dea_5e0a23eb",
+      "range": {
+        "startLine": 43,
+        "startChar": 3,
+        "endLine": 45,
+        "endChar": 68
+      },
+      "revId": "faef441834fb18f391f9805ab80c12fabdbfce33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

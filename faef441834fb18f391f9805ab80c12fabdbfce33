@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a90bb96_b85573c3",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-07-17T10:24:47Z",
+      "side": 1,
+      "message": "Hmm, it does seem to be saved by line 449 in bitrate_allocator.cc, so technically not required until someone changes that code.",
+      "parentUuid": "14d5ee66_1b2bf037",
+      "range": {
+        "startLine": 827,
+        "startChar": 0,
+        "endLine": 829,
+        "endChar": 0
+      },
+      "revId": "faef441834fb18f391f9805ab80c12fabdbfce33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9bb34dc_e717d693",
         "filename": "rtc_base/experiments/audio_allocation_settings.cc",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2019-07-17T09:22:22Z",
       "side": 1,
       "message": "This means that we won\u0027t be able to make a smooth transition by setting both values so old clients catch the old value and new clients the new.",
+      "range": {
+        "startLine": 43,
+        "startChar": 3,
+        "endLine": 45,
+        "endChar": 68
+      },
+      "revId": "faef441834fb18f391f9805ab80c12fabdbfce33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "693c3dea_5e0a23eb",
+        "filename": "rtc_base/experiments/audio_allocation_settings.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-07-17T10:24:47Z",
+      "side": 1,
+      "message": "I don\u0027t see why we would ever want or need to set both? That would mean explicitly typing in a field trial string that contains two conflicting key/value pairs.",
+      "parentUuid": "d9bb34dc_e717d693",
       "range": {
         "startLine": 43,
         "startChar": 3,

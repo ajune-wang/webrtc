@@ -160,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "afb8c0ad_2cc4e4b5",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-17T16:12:53Z",
+      "side": 1,
+      "message": "Sorry I misunderstood. But I\u0027ll keep it this way for the sake of grouping the related helpers into one logical place.",
+      "parentUuid": "1c09dc49_e1b91110",
+      "revId": "fb826dbc8d20ba6c2df9f9208bbffab805575d69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76fa3067_3d87735f",
         "filename": "pc/peer_connection.h",
         "patchSetId": 10

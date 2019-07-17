@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a7d4526_fdd377c9",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-07-17T22:13:58Z",
+      "side": 1,
+      "message": "Need to remove usage of rtc::FlagList here",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 26
+      },
+      "revId": "8143bd318f4babbb33651bc5f3234cefa9fed96b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78e7918d_0c1e4f71",
+        "filename": "test/testsupport/test_artifacts.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-07-17T22:13:58Z",
+      "side": 1,
+      "message": "the \u0027empty\u0027 method should be used to check for emptiness instead of \u0027size\u0027",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 60
+      },
+      "revId": "8143bd318f4babbb33651bc5f3234cefa9fed96b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fd3327e_bb0fc395",
+        "filename": "test/testsupport/test_artifacts.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-07-17T22:13:58Z",
+      "side": 1,
+      "message": "the \u0027empty\u0027 method should be used to check for emptiness instead of \u0027size\u0027",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 60
+      },
+      "revId": "8143bd318f4babbb33651bc5f3234cefa9fed96b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

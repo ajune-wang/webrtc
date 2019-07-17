@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c3d8237_910951bb",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-17T16:31:49Z",
+      "side": 1,
+      "message": "typo: ice_credentials_",
+      "range": {
+        "startLine": 739,
+        "startChar": 48,
+        "endLine": 739,
+        "endChar": 63
+      },
+      "revId": "946720bd28b67ac30e3feb297cb55956dac6ae50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

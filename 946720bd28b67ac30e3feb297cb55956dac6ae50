@@ -22,6 +22,30 @@
       "revId": "946720bd28b67ac30e3feb297cb55956dac6ae50",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c90bfc4c_aa8991b6",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-17T16:35:25Z",
+      "side": 1,
+      "message": "A shoot, I’ll land it tomorrow :)",
+      "parentUuid": "5c3d8237_910951bb",
+      "range": {
+        "startLine": 739,
+        "startChar": 48,
+        "endLine": 739,
+        "endChar": 63
+      },
+      "revId": "946720bd28b67ac30e3feb297cb55956dac6ae50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

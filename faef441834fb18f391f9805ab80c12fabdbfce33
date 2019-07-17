@@ -117,6 +117,30 @@
       "revId": "faef441834fb18f391f9805ab80c12fabdbfce33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf5dc8c8_44a34707",
+        "filename": "rtc_base/experiments/audio_allocation_settings.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-17T13:14:32Z",
+      "side": 1,
+      "message": "For instance, now it\u0027s fine to use priority bitrate override in Chromium 76, but we can\u0027t set the raw value there (it would be ignored), in the next chromium the raw will be possible to set, but with this DCHECK, we would not allow both to be set at the same time.",
+      "parentUuid": "28d38c7d_0b8fe279",
+      "range": {
+        "startLine": 43,
+        "startChar": 3,
+        "endLine": 45,
+        "endChar": 68
+      },
+      "revId": "faef441834fb18f391f9805ab80c12fabdbfce33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

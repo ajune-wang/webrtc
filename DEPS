@@ -5,14 +5,14 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '331304131f3bdcecb84b9e4dc75eb9f2ec42eb69',
+  'chromium_revision': '7646f2b0926db04b9d73443fd4d64de64766b784',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@70e24097c7baf5b0b0051bcdb4731a0d6ed06247',
+    'https://chromium.googlesource.com/chromium/src/base@ca8e481df10f6aa69cfdbf954a2c7a1cef09bde3',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@fdb6fae0ee409132c210eaab5cbf433a088213fb',
   'src/buildtools':
@@ -29,7 +29,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@6882056640b16aea7b1267a8231d8df984d3f88e',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@8c55ec71141fd639526ed07baf9d92d8abb33e86',
+    'https://chromium.googlesource.com/chromium/src/third_party@871b77703a3e33e62d44c357556049596db27959',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -231,7 +231,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@a4306383bce72280a2838076b361bb2997f9aa2c',
+    'https://chromium.googlesource.com/chromium/src/tools@e3670f3071a733b3e3242bf93b17a217aea335cd',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@96f125709acfd0b48fc1e5dae7d6ea42291726ac',
 

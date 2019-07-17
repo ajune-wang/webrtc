@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d116781_de25b841",
+        "filename": "rtc_base/synchronization/yield_policy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-17T06:43:28Z",
+      "side": 1,
+      "message": "Are we supporting those versions of xcode? If we are, specify which version range that we support that lack this feature. If not remove the mention of xcode.\n\nAlso add a note on as of when Emscripten lack this support (eg. \"as of mid 2019\") so people in the future know to check if it has been fixed.",
+      "range": {
+        "startLine": 36,
+        "startChar": 19,
+        "endLine": 36,
+        "endChar": 58
+      },
+      "revId": "2a8959373842483705b61e95f7bfcaae4204d6d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

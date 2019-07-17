@@ -22,6 +22,30 @@
       "revId": "fe6b21f6a6cd1ae73bae56141e2847d4e9548fd0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c8945ba_c7485988",
+        "filename": "rtc_base/experiments/audio_allocation_settings.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-07-17T09:13:04Z",
+      "side": 1,
+      "message": "Right, there is no reason to not apply the cap the the legacy specification. Having prio \u003c min would be an illogical setting, not sure how rest of code handles it.",
+      "parentUuid": "a0f8ad55_0eb59fdd",
+      "range": {
+        "startLine": 75,
+        "startChar": 10,
+        "endLine": 75,
+        "endChar": 55
+      },
+      "revId": "fe6b21f6a6cd1ae73bae56141e2847d4e9548fd0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

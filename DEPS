@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'a87860686ec496067157716e4578d95867a228e6',
+  'chromium_revision': 'd0792d6361f43e1bb37622839416b6b6a403e3a7',
 }
 
 deps = {
@@ -231,7 +231,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@ca91cf29b69371ce6314b4994c45f6bd465d142c',
+    'https://chromium.googlesource.com/chromium/src/tools@8f3c7e11818acd31d5db570a3c096aa1ad50d94b',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@96f125709acfd0b48fc1e5dae7d6ea42291726ac',
 

@@ -293,9 +293,7 @@ void StreamStatisticianImpl::GetDataCounters(size_t* bytes_received,
                                              uint32_t* packets_received) const {
   rtc::CritScope cs(&stream_lock_);
   if (bytes_received) {
-    *bytes_received = receive_counters_.transmitted.payload_bytes +
-                      receive_counters_.transmitted.header_bytes +
-                      receive_counters_.transmitted.padding_bytes;
+    *bytes_received = receive_counters_.transmitted.payload_bytes;
   }
   if (packets_received) {
     *packets_received = receive_counters_.transmitted.packets;

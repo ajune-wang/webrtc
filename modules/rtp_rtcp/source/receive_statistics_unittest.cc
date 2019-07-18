@@ -104,14 +104,14 @@ TEST_F(ReceiveStatisticsTest, TwoIncomingSsrcs) {
   size_t bytes_received = 0;
   uint32_t packets_received = 0;
   statistician->GetDataCounters(&bytes_received, &packets_received);
-  EXPECT_EQ(200u, bytes_received);
+  EXPECT_EQ(176u, bytes_received);
   EXPECT_EQ(2u, packets_received);
 
   statistician = receive_statistics_->GetStatistician(kSsrc2);
   ASSERT_TRUE(statistician != NULL);
   EXPECT_GT(statistician->BitrateReceived(), 0u);
   statistician->GetDataCounters(&bytes_received, &packets_received);
-  EXPECT_EQ(600u, bytes_received);
+  EXPECT_EQ(576u, bytes_received);
   EXPECT_EQ(2u, packets_received);
 
   EXPECT_EQ(2u, receive_statistics_->RtcpReportBlocks(3).size());
@@ -124,11 +124,11 @@ TEST_F(ReceiveStatisticsTest, TwoIncomingSsrcs) {
 
   receive_statistics_->GetStatistician(kSsrc1)->GetDataCounters(
       &bytes_received, &packets_received);
-  EXPECT_EQ(300u, bytes_received);
+  EXPECT_EQ(264u, bytes_received);
   EXPECT_EQ(3u, packets_received);
   receive_statistics_->GetStatistician(kSsrc2)->GetDataCounters(
       &bytes_received, &packets_received);
-  EXPECT_EQ(900u, bytes_received);
+  EXPECT_EQ(864u, bytes_received);
   EXPECT_EQ(3u, packets_received);
 }
 
@@ -201,7 +201,7 @@ TEST_F(ReceiveStatisticsTest, ActiveStatisticians) {
   size_t bytes_received = 0;
   uint32_t packets_received = 0;
   statistician->GetDataCounters(&bytes_received, &packets_received);
-  EXPECT_EQ(200u, bytes_received);
+  EXPECT_EQ(176u, bytes_received);
   EXPECT_EQ(2u, packets_received);
 }
 

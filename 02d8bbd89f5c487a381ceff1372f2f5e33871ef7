@@ -22,6 +22,30 @@
       "revId": "02d8bbd89f5c487a381ceff1372f2f5e33871ef7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa7c7ee4_4eb58f68",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-07-19T14:44:35Z",
+      "side": 1,
+      "message": "It\u0027s usually always enabled for all participants in the conference. It makes difference only on the send side, though.",
+      "parentUuid": "cb0fd1c2_9fcb5036",
+      "range": {
+        "startLine": 831,
+        "startChar": 2,
+        "endLine": 840,
+        "endChar": 3
+      },
+      "revId": "02d8bbd89f5c487a381ceff1372f2f5e33871ef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

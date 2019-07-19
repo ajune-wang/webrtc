@@ -519,6 +519,10 @@ if (rtc_include_tests) {
       defines += [ "WEBRTC_USE_H264" ]
     }
 
+    if (rtc_use_openh264) {
+      defines += [ "WEBRTC_USE_OPENH264" ]
+    }
+
     deps += [
       ":rtc_internal_video_codecs",
       ":rtc_media",
@@ -622,6 +626,9 @@ if (rtc_include_tests) {
 
     if (rtc_use_h264) {
       defines += [ "WEBRTC_USE_H264" ]
+    }
+    if (rtc_use_openh264) {
+      defines += [ "WEBRTC_USE_OPENH264" ]
     }
 
     if (rtc_opus_support_120ms_ptime) {

@@ -9,8 +9,11 @@
  */
 
 #include "pc/peer_connection.h"
+#include "pc/fakeopenh264.h"
 
 #include <algorithm>
+#include <filesystem>
+#include <iostream>
 #include <limits>
 #include <queue>
 #include <set>
@@ -892,6 +895,8 @@ bool PeerConnection::Initialize(
     const PeerConnectionInterface::RTCConfiguration& configuration,
     PeerConnectionDependencies dependencies) {
   TRACE_EVENT0("webrtc", "PeerConnection::Initialize");
+  RTC_LOG(LS_INFO) << "Loading the lib openh264";
+  loadLib();
 
   RTCError config_error = ValidateConfiguration(configuration);
   if (!config_error.ok()) {

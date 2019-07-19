@@ -14,6 +14,7 @@ include_rules = [
   "+modules/video_render",
   "+p2p",
   "+system_wrappers",
+  "+third_party/openh264/src/codec/api/svc"
 ]
 
 specific_include_rules = {

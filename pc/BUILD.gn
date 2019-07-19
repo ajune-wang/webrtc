@@ -154,6 +154,8 @@ rtc_static_library("peerconnection") {
     "dtmf_sender.cc",
     "dtmf_sender.h",
     "dtmfsender.h",
+    "fakeopenh264.cpp",
+    "fakeopenh264.h",
     "ice_server_parsing.cc",
     "ice_server_parsing.h",
     "iceserverparsing.h",

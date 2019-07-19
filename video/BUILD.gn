@@ -322,6 +322,9 @@ if (rtc_include_tests) {
     if (rtc_use_h264) {
       defines = [ "WEBRTC_USE_H264" ]
     }
+    if (rtc_use_openh264) {
+      defines = [ "WEBRTC_USE_OPENH264" ]
+    }
   }
 
   rtc_executable("video_loopback") {
@@ -581,6 +584,9 @@ if (rtc_include_tests) {
     }
     if (rtc_use_h264) {
       defines += [ "WEBRTC_USE_H264" ]
+    }
+    if (rtc_use_openh264) {
+      defines += [ "WEBRTC_USE_OPENH264" ]
     }
     if (!build_with_mozilla) {
       deps += [ "../media:rtc_media_base" ]

@@ -11,6 +11,8 @@
 
 #include "modules/video_coding/codecs/h264/h264_encoder_impl.h"
 
+#include <filesystem>
+#include <iostream>
 #include <limits>
 #include <string>
 
@@ -245,6 +247,7 @@ int32_t H264EncoderImpl::InitEncode(const VideoCodec* inst,
     }
     ISVCEncoder* openh264_encoder;
     // Create encoder.
+#if defined(WEBRTC_USE_H264) || (WEBRTC_USE_OPENH264)
     if (WelsCreateSVCEncoder(&openh264_encoder) != 0) {
       // Failed to create encoder.
       RTC_LOG(LS_ERROR) << "Failed to create OpenH264 encoder";
@@ -253,6 +256,7 @@ int32_t H264EncoderImpl::InitEncode(const VideoCodec* inst,
       ReportError();
       return WEBRTC_VIDEO_CODEC_ERROR;
     }
+#endif
     RTC_DCHECK(openh264_encoder);
     if (kOpenH264EncoderDetailedLogging) {
       int trace_level = WELS_LOG_DETAIL;
@@ -320,10 +324,12 @@ int32_t H264EncoderImpl::InitEncode(const VideoCodec* inst,
 int32_t H264EncoderImpl::Release() {
   while (!encoders_.empty()) {
     ISVCEncoder* openh264_encoder = encoders_.back();
+#if defined(WEBRTC_USE_H264) || (WEBRTC_USE_OPENH264)
     if (openh264_encoder) {
       RTC_CHECK_EQ(0, openh264_encoder->Uninitialize());
       WelsDestroySVCEncoder(openh264_encoder);
     }
+#endif
     encoders_.pop_back();
   }
   downscaled_buffers_.clear();

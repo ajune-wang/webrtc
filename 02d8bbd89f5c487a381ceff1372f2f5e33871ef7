@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb0fd1c2_9fcb5036",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-07-19T14:42:28Z",
+      "side": 1,
+      "message": "I\u0027m not sure here. How use_conference_mode have to be used on callee side?\nWhat if callee has it enabled and caller not? How it should be set in such case?",
+      "range": {
+        "startLine": 831,
+        "startChar": 2,
+        "endLine": 840,
+        "endChar": 3
+      },
+      "revId": "02d8bbd89f5c487a381ceff1372f2f5e33871ef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

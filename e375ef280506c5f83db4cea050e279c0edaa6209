@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67adc52a_d4b7b87d",
+        "filename": "tools_webrtc/mb/mb.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 6758
+      },
+      "writtenOn": "2019-07-19T19:10:22Z",
+      "side": 1,
+      "message": "You\u0027re adding this as an arg to analyze, but you don\u0027t actually handle this in analyze, so I think you need to fix that (same is true in the chromium version).",
+      "revId": "e375ef280506c5f83db4cea050e279c0edaa6209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08150115_1792c81a",
+        "filename": "tools_webrtc/mb/mb.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 6758
+      },
+      "writtenOn": "2019-07-19T19:10:22Z",
+      "side": 1,
+      "message": "Nit: Can we change this to --json-output (dash, not underline), here and in chromium (and v8), before we reland your build-side change, to be consistent with the other args?",
+      "revId": "e375ef280506c5f83db4cea050e279c0edaa6209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a4411d3_4cd217f0",
+        "filename": "tools_webrtc/mb/mb.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 6758
+      },
+      "writtenOn": "2019-07-19T19:10:22Z",
+      "side": 1,
+      "message": "You shouldn\u0027t need getattr here, you should just be able to say `if self.args.json_output and output:`. In fact, checking if output is non-empty is probably unnecessary as well.",
+      "revId": "e375ef280506c5f83db4cea050e279c0edaa6209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

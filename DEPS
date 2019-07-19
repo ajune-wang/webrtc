@@ -5,16 +5,16 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '52ad041d01164f33f1408a2adb59f5c046f9e43f',
+  'chromium_revision': 'bf8d79b5d902d451060ef1aff04b621bc9859aa1',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@fc0b3cd8af3c01ca70925a7d66ac6a19c889e862',
+    'https://chromium.googlesource.com/chromium/src/base@5de876cc3c0b082107d6b8845d053472894d7c23',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@7c66cabcf1c278ff4fc5d530284ad86c39141c2f',
+    'https://chromium.googlesource.com/chromium/src/build@c98642948c05efca3c0f3baafb076ed53965a3b6',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@7b7a5c0f25f11f3c5a1ed3935324c2c59fbc24a2',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -23,13 +23,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@cf7c884c072bf974566706985f4544f785f598f1',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@023f5c09490f4ef0ee209d4990b615a62cb6e7ec',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@cbfff17791779c0dac33c3616e11de349ecb826f',
+    'https://chromium.googlesource.com/chromium/src/testing@0aee28664a18fa041373f467eaf5df490f1ab417',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@97099a9b71fe5628f2cd22848ad11730766e2008',
+    'https://chromium.googlesource.com/chromium/src/third_party@204995421fce51ab1621ead9c88580e2104a197b',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -231,7 +231,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@f6c045f4de4d40010b1b9f643edc5290ced4a1fa',
+    'https://chromium.googlesource.com/chromium/src/tools@2f3eb212f533e6d05d4e12410bb247b7df259fb4',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@96f125709acfd0b48fc1e5dae7d6ea42291726ac',
 
@@ -1090,17 +1090,6 @@ deps = {
           {
               'package': 'chromium/third_party/android_deps/libs/com_google_android_gms_play_services_vision_common',
               'version': 'version:15.0.1-cr0',
-          },
-      ],
-      'condition': 'checkout_android',
-      'dep_type': 'cipd',
-  },
-
-  'src/third_party/android_deps/libs/com_google_ar_core': {
-      'packages': [
-          {
-              'package': 'chromium/third_party/android_deps/libs/com_google_ar_core',
-              'version': '4_5y1Cw_L1MHu3UedmkavqbZ7H7sYPBTdpcAOJQvlXkC',
           },
       ],
       'condition': 'checkout_android',

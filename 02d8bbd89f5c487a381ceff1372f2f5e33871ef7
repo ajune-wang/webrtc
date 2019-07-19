@@ -46,6 +46,30 @@
       "revId": "02d8bbd89f5c487a381ceff1372f2f5e33871ef7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "785e5e45_56be4c68",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-07-19T15:03:54Z",
+      "side": 1,
+      "message": "Discussed offline, decided to move use_conference_mode to RunParams and setup for all video tracks in the call for both peers.",
+      "parentUuid": "fa7c7ee4_4eb58f68",
+      "range": {
+        "startLine": 831,
+        "startChar": 2,
+        "endLine": 840,
+        "endChar": 3
+      },
+      "revId": "02d8bbd89f5c487a381ceff1372f2f5e33871ef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

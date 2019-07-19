@@ -148,8 +148,6 @@ class PeerConnectionE2EQualityTestFixture {
     //    spatial layer and all layers below, including target one will be
     //    processed. All layers above target one will be dropped.
     int target_spatial_index;
-    // If true will set conference mode in SDP media section for this track.
-    bool use_conference_mode = false;
   };
 
   // Contains properties of single video stream.
@@ -182,6 +180,8 @@ class PeerConnectionE2EQualityTestFixture {
     // Vp8 encoder. Also RTX doesn't supported with simulcast and will
     // automatically disabled for tracks with simulcast.
     absl::optional<VideoSimulcastConfig> simulcast_config;
+    // If true will set conference mode in SDP media section for this track.
+    bool use_conference_mode = false;
     // If specified the input stream will be also copied to specified file.
     // It is actually one of the test's output file, which contains copy of what
     // was captured during the test for this video stream on sender side.

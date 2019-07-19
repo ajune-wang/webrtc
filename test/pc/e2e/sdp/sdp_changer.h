@@ -20,7 +20,6 @@
 #include "api/array_view.h"
 #include "api/jsep.h"
 #include "api/rtp_parameters.h"
-#include "api/test/peerconnection_quality_test_fixture.h"
 #include "media/base/rid_description.h"
 #include "pc/session_description.h"
 #include "pc/simulcast_description.h"
@@ -60,19 +59,23 @@ struct LocalAndRemoteSdp {
   std::unique_ptr<SessionDescriptionInterface> remote_sdp;
 };
 
+// Contains parameters, that affects modifications for track's media section.
+struct TrackPatchingParams {
+  // Count of simulcast streams for this track. Have to be non 0 if and only if
+  // this track has simulcast/SVC enabled.
+  int simulcast_streams_count = 0;
+  bool use_conference_mode = false;
+};
+
 struct PatchingParams {
   PatchingParams(
       std::string video_codec_name,
-      std::map<std::string,
-               PeerConnectionE2EQualityTestFixture::VideoSimulcastConfig>
-          stream_label_to_simulcast_config)
+      std::map<std::string, TrackPatchingParams> stream_label_to_track_params)
       : video_codec_name(video_codec_name),
-        stream_label_to_simulcast_config(stream_label_to_simulcast_config) {}
+        stream_label_to_track_params(stream_label_to_track_params) {}
 
   std::string video_codec_name;
-  std::map<std::string,
-           PeerConnectionE2EQualityTestFixture::VideoSimulcastConfig>
-      stream_label_to_simulcast_config;
+  std::map<std::string, TrackPatchingParams> stream_label_to_track_params;
 };
 
 class SignalingInterceptor {
@@ -96,12 +99,10 @@ class SignalingInterceptor {
   struct SimulcastSectionInfo {
     SimulcastSectionInfo(const std::string& mid,
                          cricket::MediaProtocolType media_protocol_type,
-                         const std::vector<cricket::RidDescription>& rids_desc,
-                         bool conference_mode);
+                         const std::vector<cricket::RidDescription>& rids_desc);
 
     const std::string mid;
     const cricket::MediaProtocolType media_protocol_type;
-    const bool conference_mode;
     std::vector<std::string> rids;
     cricket::SimulcastDescription simulcast_description;
     webrtc::RtpExtension mid_extension;
@@ -126,6 +127,7 @@ class SignalingInterceptor {
     std::map<std::string, SimulcastSectionInfo*> simulcast_infos_by_rid;
 
     std::vector<std::string> mids_order;
+    std::map<std::string, TrackPatchingParams> mid_to_track_params;
   };
 
   LocalAndRemoteSdp PatchVp8Offer(

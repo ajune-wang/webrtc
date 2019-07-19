@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84e0c7af_99e75d14",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-07-19T07:30:58Z",
+      "side": 1,
+      "message": "nit: This number comes from the packets constructed from CreateRtpPacket with kPacketSize1 \u003d 100, and it using a hardcoded 12 as the header size. These numbers would seem less magical if you explicitly set packet1_ and packet2_ to CreateRtpPacket(ssrc,header_size,payload_size,padding_size), or if you added a comment to say that packet1_ and packet2_ has such and such payload size\n\nUp to you, either way, LGTM",
+      "revId": "efe0c9df0f5ce13f2fb7e0a91a04a90dde35c3a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

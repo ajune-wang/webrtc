@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2844a403_05b3b43a",
+        "filename": "video/pc_full_stack_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-07-19T09:10:02Z",
+      "side": 1,
+      "message": "The test isn\u0027t even simiulcast. It\u0027s 2 temporal layers, not 2 streams!\nProbably remove this test.",
+      "range": {
+        "startLine": 1092,
+        "startChar": 8,
+        "endLine": 1092,
+        "endChar": 60
+      },
+      "revId": "252c14a583de19532c9e750324fe902ecf170f1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f4d2093_54aa185b",
+        "filename": "video/pc_full_stack_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-07-19T09:10:02Z",
+      "side": 1,
+      "message": "Again, this is not simulcast. 2 Temporal layers.\n\nTry to create a single screenshare stream. It should be 2 temporal layers already, if you set conference flag.",
+      "range": {
+        "startLine": 1104,
+        "startChar": 43,
+        "endLine": 1104,
+        "endChar": 46
+      },
+      "revId": "252c14a583de19532c9e750324fe902ecf170f1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

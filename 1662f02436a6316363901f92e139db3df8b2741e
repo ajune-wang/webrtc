@@ -22,6 +22,30 @@
       "revId": "1662f02436a6316363901f92e139db3df8b2741e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4c7bdff_30edb331",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-07-20T16:13:10Z",
+      "side": 1,
+      "message": "I think this is a difference between incoming or outgoing streams.  For outgoing streams, the track id apparently contains the expected stream label.  When I tried calling GetStreamLabelFromStatsReport, it crashed (because the helper didn\u0027t find an entry for the track id in its map).\n\nI added a comment to explain this.",
+      "parentUuid": "153341d4_206a9313",
+      "range": {
+        "startLine": 61,
+        "startChar": 25,
+        "endLine": 61,
+        "endChar": 54
+      },
+      "revId": "1662f02436a6316363901f92e139db3df8b2741e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

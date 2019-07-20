@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '38f67470c9fbf67b87b40b65782cfe0b73e56014',
+  'chromium_revision': '0373d765ddd5757c4439b01e367383313f283b41',
 }
 
 deps = {
@@ -14,7 +14,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@9183ddf77a41745b8794dfd2e88b6ded765cf4f7',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@72caf3c67dc756caf1bbc292d1d487b8eb25b98c',
+    'https://chromium.googlesource.com/chromium/src/build@0d850f28ba08111b5ba3d705f29b3fb06bb74da8',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@67b293ca1316d06f7f00160ce35c92b8849a9dc9',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -29,7 +29,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@53ac2c9ad090543e907b76e5146e96b0a9b69b06',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@56660a75904ce212133c549159304ba09eb6a994',
+    'https://chromium.googlesource.com/chromium/src/third_party@3377970b3209fc297eef1ee690b2bd4406c78643',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -111,7 +111,7 @@ deps = {
   'src/third_party/boringssl/src':
     'https://boringssl.googlesource.com/boringssl.git@07432f325d6a388fe6d4881e84b076610c961f05',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@5075be939f844c14e43d6a8a16b67d6c6df08520',
+    'https://chromium.googlesource.com/catapult.git@53913cecb11a3ef993f6496b9110964e2e2aeec3',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
     'condition': 'checkout_android',
@@ -119,7 +119,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@5e67857cb3158ba6dd24ff3ddcd39b3018a78bb0',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@ee7b9dda90e409fb92031d511151debe5db7db9f',
   'src/third_party/errorprone/lib': {
       'url': 'https://chromium.googlesource.com/chromium/third_party/errorprone.git@980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',

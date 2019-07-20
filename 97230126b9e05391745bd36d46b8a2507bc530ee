@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7148441c_e65afbf4",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-07-20T20:02:32Z",
+      "side": 1,
+      "message": "Please use \"sizeInBytes\" as unit here and in audio analyzer, because dashboard API expect this value for binary sizes.",
+      "range": {
+        "startLine": 652,
+        "startChar": 73,
+        "endLine": 652,
+        "endChar": 78
+      },
+      "revId": "97230126b9e05391745bd36d46b8a2507bc530ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

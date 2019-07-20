@@ -104,14 +104,18 @@ TEST_F(ReceiveStatisticsTest, TwoIncomingSsrcs) {
   size_t bytes_received = 0;
   uint32_t packets_received = 0;
   statistician->GetDataCounters(&bytes_received, &packets_received);
-  EXPECT_EQ(200u, bytes_received);
+  // The 12-byte RTP header does not count toward bytes received.
+  uint64_t payload_size_1 = kPacketSize1 - 12;
+  EXPECT_EQ(2 * payload_size_1, bytes_received);
   EXPECT_EQ(2u, packets_received);
 
   statistician = receive_statistics_->GetStatistician(kSsrc2);
   ASSERT_TRUE(statistician != NULL);
   EXPECT_GT(statistician->BitrateReceived(), 0u);
   statistician->GetDataCounters(&bytes_received, &packets_received);
-  EXPECT_EQ(600u, bytes_received);
+  // Again, the 12-byte RTP header does not count toward bytes received.
+  uint64_t payload_size_2 = kPacketSize2 - 12;
+  EXPECT_EQ(2 * payload_size_2, bytes_received);
   EXPECT_EQ(2u, packets_received);
 
   EXPECT_EQ(2u, receive_statistics_->RtcpReportBlocks(3).size());
@@ -124,11 +128,11 @@ TEST_F(ReceiveStatisticsTest, TwoIncomingSsrcs) {
 
   receive_statistics_->GetStatistician(kSsrc1)->GetDataCounters(
       &bytes_received, &packets_received);
-  EXPECT_EQ(300u, bytes_received);
+  EXPECT_EQ(3 * payload_size_1, bytes_received);
   EXPECT_EQ(3u, packets_received);
   receive_statistics_->GetStatistician(kSsrc2)->GetDataCounters(
       &bytes_received, &packets_received);
-  EXPECT_EQ(900u, bytes_received);
+  EXPECT_EQ(3 * payload_size_2, bytes_received);
   EXPECT_EQ(3u, packets_received);
 }
 
@@ -201,7 +205,8 @@ TEST_F(ReceiveStatisticsTest, ActiveStatisticians) {
   size_t bytes_received = 0;
   uint32_t packets_received = 0;
   statistician->GetDataCounters(&bytes_received, &packets_received);
-  EXPECT_EQ(200u, bytes_received);
+  // The 12-byte header does not count as bytes received.
+  EXPECT_EQ(2 * (kPacketSize1 - 12), bytes_received);
   EXPECT_EQ(2u, packets_received);
 }
 

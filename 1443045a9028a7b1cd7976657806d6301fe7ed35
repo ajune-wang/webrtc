@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2886ad89_cfc9d9b4",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-07-22T09:00:02Z",
+      "side": 1,
+      "message": "Doesn\u0027t seem to be used anywhere? In that case let\u0027s delete it.",
+      "range": {
+        "startLine": 292,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 68
+      },
+      "revId": "1443045a9028a7b1cd7976657806d6301fe7ed35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

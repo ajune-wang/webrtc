@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ccdf951_97074b58",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-07-23T14:58:09Z",
+      "side": 1,
+      "message": "to boot?",
+      "range": {
+        "startLine": 16,
+        "startChar": 30,
+        "endLine": 16,
+        "endChar": 37
+      },
+      "revId": "3cd6b7a9649f918bffe14572cd0edf75ff6c0a66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d13dd297_466cabca",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1431,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-07-23T14:58:09Z",
+      "side": 1,
+      "message": "Does this actually happen runtime? Don\u0027t we always recreate the rtp modules if a stream is reconfigured?",
+      "range": {
+        "startLine": 1431,
+        "startChar": 16,
+        "endLine": 1431,
+        "endChar": 23
+      },
+      "revId": "3cd6b7a9649f918bffe14572cd0edf75ff6c0a66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

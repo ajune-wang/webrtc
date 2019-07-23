@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e1459935_652630f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-23T15:03:13Z",
+      "side": 1,
+      "message": "as in \"in addition\", adding to the undesirable behavior",
+      "parentUuid": "9ccdf951_97074b58",
+      "range": {
+        "startLine": 16,
+        "startChar": 30,
+        "endLine": 16,
+        "endChar": 37
+      },
+      "revId": "3cd6b7a9649f918bffe14572cd0edf75ff6c0a66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d13dd297_466cabca",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "3cd6b7a9649f918bffe14572cd0edf75ff6c0a66",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18be8229_f599686c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1431,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-23T15:03:13Z",
+      "side": 1,
+      "message": "I\u0027m trying to get rid of it, but yes - this can unfortunately currently happen.",
+      "parentUuid": "d13dd297_466cabca",
+      "range": {
+        "startLine": 1431,
+        "startChar": 16,
+        "endLine": 1431,
+        "endChar": 23
+      },
+      "revId": "3cd6b7a9649f918bffe14572cd0edf75ff6c0a66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

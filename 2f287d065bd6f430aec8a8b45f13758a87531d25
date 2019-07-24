@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c65aaf8_74636c7f",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-07-24T08:31:35Z",
+      "side": 1,
+      "message": "There already exists ack functionality for the PlayoutDelay extension. I think we should take the time to consolidate this somehow, at least it seems reasonable that they implement the same interface for observing acks, or? Can they share even more code?",
+      "range": {
+        "startLine": 738,
+        "startChar": 0,
+        "endLine": 738,
+        "endChar": 41
+      },
+      "revId": "2f287d065bd6f430aec8a8b45f13758a87531d25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e53b9cc8_4dc14b6f",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-07-24T14:49:57Z",
+      "side": 1,
+      "message": "Yes, I\u0027m aware of the PlayoutDelay extension and used that code as a reference for implementing this.\n\nA difference with MID and RID is that we don\u0027t need to track the first sequence number which included the header extension (like the PlayoutDelay extension does) because any indication of successful demuxing is good enough signal to stop attaching MID and RID. Additionally, this information should be preserved through renegotiation by exposing it to RtpState.\n\nInheriting from the ack interface is a bit awkward since we can\u0027t distinguish between primary and RTX SSRC in the RTPSender with that callback.\n\nI do think there\u0027s a good opportunity for an abstraction that separates the low-level per-SSRC state (e.g., sequence number assignment, mid, rid) from the rest of the RTPSender logic. I\u0027m willing to do that refactoring as a follow-up -- if that sounds reasonable I can file a bug to track the refactoring.",
+      "parentUuid": "0c65aaf8_74636c7f",
+      "range": {
+        "startLine": 738,
+        "startChar": 0,
+        "endLine": 738,
+        "endChar": 41
+      },
+      "revId": "2f287d065bd6f430aec8a8b45f13758a87531d25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c51187c1_05e586b3",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
         "patchSetId": 2

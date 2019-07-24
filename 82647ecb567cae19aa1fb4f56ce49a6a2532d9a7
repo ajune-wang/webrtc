@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0174b34d_d0d8aa73",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-07-24T14:02:42Z",
+      "side": 1,
+      "message": "I don\u0027t understand the period compensation.",
+      "range": {
+        "startLine": 468,
+        "startChar": 0,
+        "endLine": 468,
+        "endChar": 30
+      },
+      "revId": "82647ecb567cae19aa1fb4f56ce49a6a2532d9a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

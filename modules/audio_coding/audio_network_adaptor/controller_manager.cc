@@ -22,8 +22,11 @@
 #include "modules/audio_coding/audio_network_adaptor/fec_controller_rplr_based.h"
 #include "modules/audio_coding/audio_network_adaptor/frame_length_controller.h"
 #include "modules/audio_coding/audio_network_adaptor/util/threshold_curve.h"
+#include "rtc_base/experiments/field_trial_parser.h"
+#include "rtc_base/experiments/field_trial_units.h"
 #include "rtc_base/ignore_wundef.h"
 #include "rtc_base/time_utils.h"
+#include "system_wrappers/include/field_trial.h"
 
 #if WEBRTC_ENABLE_PROTOBUF
 RTC_PUSH_IGNORING_WUNDEF()
@@ -40,6 +43,22 @@ namespace webrtc {
 namespace {
 
 #if WEBRTC_ENABLE_PROTOBUF
+const char* kSimpleAna = "WebRTC-Audio-SimpleAna";
+
+struct SimpleAnaConfig {
+  FieldTrialParameter<DataRate> frame_length_decrease_threshold;
+  FieldTrialParameter<DataRate> frame_length_increase_threshold;
+  FieldTrialParameter<bool> enable_40_ms;
+
+  SimpleAnaConfig()
+      : frame_length_decrease_threshold("decr", DataRate::KilobitsPerSec<24>()),
+        frame_length_increase_threshold("incr", DataRate::KilobitsPerSec<16>()),
+        enable_40_ms("enable40", true) {
+    ParseFieldTrial({&frame_length_decrease_threshold,
+                     &frame_length_increase_threshold, &enable_40_ms},
+                    field_trial::FindFullName(kSimpleAna));
+  }
+};
 
 std::unique_ptr<FecControllerPlrBased> CreateFecControllerPlrBased(
     const audio_network_adaptor::config::FecController& config,
@@ -155,6 +174,25 @@ std::unique_ptr<FrameLengthController> CreateFrameLengthController(
 
   for (auto frame_length : encoder_frame_lengths_ms)
     ctor_config.encoder_frame_lengths_ms.insert(frame_length);
+
+  if (field_trial::IsEnabled(kSimpleAna)) {
+    const SimpleAnaConfig cfg;
+    ctor_config.frame_length_decrease_threshold_bps_ =
+        cfg.frame_length_decrease_threshold->bps();
+    ctor_config.frame_length_increase_threshold_bps_ =
+        cfg.frame_length_increase_threshold->bps();
+    if (cfg.enable_40_ms) {
+      auto& frame_lengths = ctor_config.encoder_frame_lengths_ms;
+      bool is_in_range =
+          *frame_lengths.begin() < 40 && *(--frame_lengths.end()) > 40;
+      bool is_not_in_set_already =
+          std::find(frame_lengths.begin(), frame_lengths.end(), 40) ==
+          frame_lengths.end();
+      if (is_in_range && is_not_in_set_already) {
+        frame_lengths.insert(40);
+      }
+    }
+  }
 
   return std::unique_ptr<FrameLengthController>(
       new FrameLengthController(ctor_config));

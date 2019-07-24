@@ -56,6 +56,9 @@ class FrameLengthController final : public Controller {
     // Offset to apply to overhead calculation when decreasing frame length.
     int fl_decrease_overhead_offset;
     std::map<FrameLengthChange, int> fl_changing_bandwidths_bps;
+    // If both thesholds are set a much simpler adaption mechanism is used.
+    absl::optional<int> frame_length_increase_threshold_bps_;
+    absl::optional<int> frame_length_decrease_threshold_bps_;
   };
 
   explicit FrameLengthController(const Config& config);
@@ -72,6 +75,10 @@ class FrameLengthController final : public Controller {
 
   bool FrameLengthDecreasingDecision(
       const AudioEncoderRuntimeConfig& config) const;
+
+  bool UseSimplifiedDecision() const;
+  bool SimplifiedIncreasingDecision() const;
+  bool SimplifiedDecreasingDecision(int shorter_frame_length_ms) const;
 
   const Config config_;
 

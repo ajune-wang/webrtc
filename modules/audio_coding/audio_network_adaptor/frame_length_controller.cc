@@ -98,6 +98,36 @@ bool FrameLengthController::Config::FrameLengthChange::operator<(
           to_frame_length_ms < rhs.to_frame_length_ms);
 }
 
+bool FrameLengthController::UseSimplifiedDecision() const {
+  return config_.frame_length_increase_threshold_bps_ &&
+         config_.frame_length_decrease_threshold_bps_;
+}
+
+bool FrameLengthController::SimplifiedIncreasingDecision() const {
+  if (uplink_bandwidth_bps_ && overhead_bytes_per_packet_) {
+    int current_payload_rate_bps =
+        *uplink_bandwidth_bps_ -
+        OverheadRateBps(*overhead_bytes_per_packet_, *frame_length_ms_);
+    return current_payload_rate_bps <
+           *config_.frame_length_increase_threshold_bps_;
+  } else {
+    return false;
+  }
+}
+
+bool FrameLengthController::SimplifiedDecreasingDecision(
+    int shorter_frame_length_ms) const {
+  if (uplink_bandwidth_bps_ && overhead_bytes_per_packet_) {
+    int payload_rate_on_decrease_bps =
+        *uplink_bandwidth_bps_ -
+        OverheadRateBps(*overhead_bytes_per_packet_, shorter_frame_length_ms);
+    return payload_rate_on_decrease_bps >
+           *config_.frame_length_decrease_threshold_bps_;
+  } else {
+    return false;
+  }
+}
+
 bool FrameLengthController::FrameLengthIncreasingDecision(
     const AudioEncoderRuntimeConfig& config) const {
   // Increase frame length if
@@ -111,6 +141,10 @@ bool FrameLengthController::FrameLengthIncreasingDecision(
   auto longer_frame_length_ms = std::next(frame_length_ms_);
   if (longer_frame_length_ms == config_.encoder_frame_lengths_ms.end())
     return false;
+
+  if (UseSimplifiedDecision()) {
+    return SimplifiedIncreasingDecision();
+  }
 
   auto increase_threshold = config_.fl_changing_bandwidths_bps.find(
       Config::FrameLengthChange(*frame_length_ms_, *longer_frame_length_ms));
@@ -163,6 +197,10 @@ bool FrameLengthController::FrameLengthDecreasingDecision(
 
   if (decrease_threshold == config_.fl_changing_bandwidths_bps.end())
     return false;
+
+  if (UseSimplifiedDecision()) {
+    return SimplifiedDecreasingDecision(*shorter_frame_length_ms);
+  }
 
   if (uplink_bandwidth_bps_ && overhead_bytes_per_packet_ &&
       *uplink_bandwidth_bps_ <=

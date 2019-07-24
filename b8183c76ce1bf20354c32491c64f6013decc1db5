@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "312e762d_8537f8bc",
+        "filename": "modules/audio_coding/audio_network_adaptor/controller_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-07-24T13:27:17Z",
+      "side": 1,
+      "message": "Do you think it would be possible to take a list of extra ptimes to enable?  That way we could default to {40 kbps}, but potentially add others (eg. change it to {40 kbps, 80 kbps, 100 kbps} in the future).\n\nOr is it not really possible to pass a list to a field trial?\n\n(Context:  IIRC, we thought that it would be ideal to change ptime in 20 ms steps, even between 60 and 120 ms, but we didn\u0027t think we could do 80 or 100 ms without extra work.  It would be nice to be able to turn them on with minimal extra configuration if it becomes possible later.)",
+      "revId": "b8183c76ce1bf20354c32491c64f6013decc1db5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5ed3e6a_be1b0ca4",
+        "filename": "modules/audio_coding/audio_network_adaptor/controller_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-07-24T13:27:17Z",
+      "side": 1,
+      "message": "Nit: Is it really necessary to check if it\u0027s in the set?  std::set::insert is a no-op if the element is already present.  This seems like it\u0027s adding complexity and extra checks to repeat what set already does for us.",
+      "revId": "b8183c76ce1bf20354c32491c64f6013decc1db5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

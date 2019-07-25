@@ -33,6 +33,29 @@
       "revId": "b8183c76ce1bf20354c32491c64f6013decc1db5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9861e387_d2081e96",
+        "filename": "modules/audio_coding/audio_network_adaptor/frame_length_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 8947
+      },
+      "writtenOn": "2019-07-25T17:13:24Z",
+      "side": 1,
+      "message": "It will always fail for 40ms. I guess simplified decision should be before this.",
+      "range": {
+        "startLine": 195,
+        "startChar": 28,
+        "endLine": 195,
+        "endChar": 68
+      },
+      "revId": "b8183c76ce1bf20354c32491c64f6013decc1db5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

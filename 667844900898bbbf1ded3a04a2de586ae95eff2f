@@ -126,6 +126,29 @@
     },
     {
       "key": {
+        "uuid": "69512b61_3035e6b1",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-07-26T15:28:55Z",
+      "side": 1,
+      "message": "Not your fault, but this code really looks like it\u0027s going against the design of ConfigureStream. :(\n(although, only slightly)",
+      "range": {
+        "startLine": 814,
+        "startChar": 0,
+        "endLine": 816,
+        "endChar": 69
+      },
+      "revId": "667844900898bbbf1ded3a04a2de586ae95eff2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6761614b_81f52a16",
         "filename": "audio/audio_send_stream_unittest.cc",
         "patchSetId": 2

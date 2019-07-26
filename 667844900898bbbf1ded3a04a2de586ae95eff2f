@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c391da53_216dd759",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-07-26T14:12:12Z",
+      "side": 1,
+      "message": "Not sure about that: more mutexes, and double lock acquisitions/releases when the predicate is satisfied (do you have an idea of how often it happens ?).\n\nRTC_GUARDED_BY: might force too much locking (e.g. lock although we know we are on the same thread).",
+      "parentUuid": "415fb90e_d2932d6f",
+      "range": {
+        "startLine": 495,
+        "startChar": 2,
+        "endLine": 495,
+        "endChar": 48
+      },
+      "revId": "667844900898bbbf1ded3a04a2de586ae95eff2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "895bfbcd_e515fe41",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 2
@@ -53,6 +77,30 @@
       "writtenOn": "2019-07-26T13:58:34Z",
       "side": 1,
       "message": "Does this catch the problem reliably? Seems to me you\u0027d want to run the operations on both threads a number of times to make overlap more probable; or does TSAN just \"get it\"?",
+      "range": {
+        "startLine": 698,
+        "startChar": 0,
+        "endLine": 702,
+        "endChar": 44
+      },
+      "revId": "667844900898bbbf1ded3a04a2de586ae95eff2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43c86767_c967ccef",
+        "filename": "audio/audio_send_stream_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-07-26T14:12:12Z",
+      "side": 1,
+      "message": "Yes it is reliable.\nI did TDD and made sure the test failed under tsan (200/200 Failures).",
+      "parentUuid": "6761614b_81f52a16",
       "range": {
         "startLine": 698,
         "startChar": 0,

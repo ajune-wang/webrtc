@@ -228,6 +228,7 @@ void AudioSendStream::ConfigureStream(
     webrtc::internal::AudioSendStream* stream,
     const webrtc::AudioSendStream::Config& new_config,
     bool first_time) {
+  rtc::CritScope cs(&stream->config_cs_);
   RTC_LOG(LS_INFO) << "AudioSendStream::ConfigureStream: "
                    << new_config.ToString();
   UpdateEventLogStreamConfig(stream->event_log_, new_config,
@@ -487,7 +488,12 @@ uint32_t AudioSendStream::OnBitrateUpdated(BitrateAllocationUpdate update) {
 void AudioSendStream::OnPacketAdded(uint32_t ssrc, uint16_t seq_num) {
   RTC_DCHECK(pacer_thread_checker_.IsCurrent());
   // Only packets that belong to this stream are of interest.
-  if (ssrc == config_.rtp.ssrc) {
+  bool same_ssrc;
+  {
+    rtc::CritScope lock(&config_cs_);
+    same_ssrc = ssrc == config_.rtp.ssrc;
+  }
+  if (same_ssrc) {
     rtc::CritScope lock(&packet_loss_tracker_cs_);
     // TODO(eladalon): This function call could potentially reset the window,
     // setting both PLR and RPLR to unknown. Consider (during upcoming

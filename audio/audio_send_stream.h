@@ -128,6 +128,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   static void ReconfigureCNG(AudioSendStream* stream, const Config& new_config);
   static void ReconfigureBitrateObserver(AudioSendStream* stream,
                                          const Config& new_config);
+  void SetConfig(const Config& new_config);
 
   void ConfigureBitrateObserver() RTC_RUN_ON(worker_queue_);
   void RemoveBitrateObserver();

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34a28125_945c74c8",
+        "filename": "test/frame_generator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-26T14:25:02Z",
+      "side": 1,
+      "message": "Do we want this? Since it\u0027s enum class you\u0027ll get a compiler error instead if we don\u0027t have a default clause right?",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 72
+      },
+      "revId": "f965c29c49a309358033475a2401d98787fbe2cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

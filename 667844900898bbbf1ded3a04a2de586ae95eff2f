@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8ac7a8b7_bd4d0dd2",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-07-26T15:07:05Z",
+      "side": 1,
+      "message": "The lock is there to protect access to a specific resource. packet_loss_tracker_cs_ does not indicate that it\u0027s protecting access to config_ (or config_.rtp.ssrc). Locking ought to be fast if the lock is uncontested. The interaction between OnPacketAdded and OnPacketFeedbackVector concerns me more than the interaction between OnPacketAdded and ConfigureStream, as the latter should only run once or twice.\n\nRTC_GUARDED_BY: Well, the other option is to replicate ssrc in AudioSendStream, only lock when accessing that one and annotate it properly. I think I prefer this.",
+      "parentUuid": "c391da53_216dd759",
+      "range": {
+        "startLine": 495,
+        "startChar": 2,
+        "endLine": 495,
+        "endChar": 48
+      },
+      "revId": "667844900898bbbf1ded3a04a2de586ae95eff2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "895bfbcd_e515fe41",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 2
@@ -60,6 +84,24 @@
       "writtenOn": "2019-07-26T14:00:44Z",
       "side": 1,
       "message": "Those ones should be guarded as well. Should I do that in a follow up CL?",
+      "revId": "667844900898bbbf1ded3a04a2de586ae95eff2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fe8c5b1_d7799feb",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-07-26T15:07:05Z",
+      "side": 1,
+      "message": "What\u0027s the other use? ConfigureStream? If so, I think it\u0027s safe. It\u0027s either called during construction or from Reconfigure, which runs on the worker thread already.",
+      "parentUuid": "895bfbcd_e515fe41",
       "revId": "667844900898bbbf1ded3a04a2de586ae95eff2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

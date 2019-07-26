@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "895bfbcd_e515fe41",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-07-26T14:00:44Z",
+      "side": 1,
+      "message": "Those ones should be guarded as well. Should I do that in a follow up CL?",
+      "revId": "667844900898bbbf1ded3a04a2de586ae95eff2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6761614b_81f52a16",
         "filename": "audio/audio_send_stream_unittest.cc",
         "patchSetId": 2

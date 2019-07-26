@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "852defc4_8d9dd1d2",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-07-26T21:10:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37f69fdd_38ff878b",
+      "range": {
+        "startLine": 599,
+        "startChar": 7,
+        "endLine": 599,
+        "endChar": 16
+      },
+      "revId": "45c1a0bd164385609aeae491557d0912529e6cf0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e4536a6_74ab2d85",
         "filename": "cr-buildbucket.cfg",
         "patchSetId": 1

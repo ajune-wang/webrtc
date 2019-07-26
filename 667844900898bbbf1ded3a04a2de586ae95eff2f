@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "415fb90e_d2932d6f",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-07-26T13:58:34Z",
+      "side": 1,
+      "message": "I think you should probably have a separate lock for the config than extending the scope of this one, something like config_lock_. Then you can slap an RTC_GUARDED_BY(config_lock_) on config as well. Oh, and only hold the lock while checking config.ssrc, not while calling into packet_loss_tracker_.",
+      "range": {
+        "startLine": 495,
+        "startChar": 2,
+        "endLine": 495,
+        "endChar": 48
+      },
+      "revId": "667844900898bbbf1ded3a04a2de586ae95eff2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6761614b_81f52a16",
+        "filename": "audio/audio_send_stream_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-07-26T13:58:34Z",
+      "side": 1,
+      "message": "Does this catch the problem reliably? Seems to me you\u0027d want to run the operations on both threads a number of times to make overlap more probable; or does TSAN just \"get it\"?",
+      "range": {
+        "startLine": 698,
+        "startChar": 0,
+        "endLine": 702,
+        "endChar": 44
+      },
+      "revId": "667844900898bbbf1ded3a04a2de586ae95eff2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

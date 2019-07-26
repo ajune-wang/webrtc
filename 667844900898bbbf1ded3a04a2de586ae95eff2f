@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "63f50712_45e3a974",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-07-26T15:13:13Z",
+      "side": 1,
+      "message": "That\u0027s the issue actually:\n* ConfigureStream on worker thread, writing config_.\n* OnAddedPacket on pacer thread, reading config_.\n\nThis method and \"config_ \u003d new_config\" assignment: same battle.\nCovered by patchset 3 anyway.",
+      "parentUuid": "9fe8c5b1_d7799feb",
+      "revId": "667844900898bbbf1ded3a04a2de586ae95eff2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6761614b_81f52a16",
         "filename": "audio/audio_send_stream_unittest.cc",
         "patchSetId": 2

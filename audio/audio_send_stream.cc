@@ -320,7 +320,14 @@ void AudioSendStream::ConfigureStream(
   if (stream->sending_) {
     ReconfigureBitrateObserver(stream, new_config);
   }
-  stream->config_ = new_config;
+
+  stream->SetConfig(new_config);
+}
+
+void AudioSendStream::SetConfig(const Config& new_config) {
+  // Reuse mutex (see OnPacketAdded).
+  rtc::CritScope lock(&packet_loss_tracker_cs_);
+  config_ = new_config;
 }
 
 void AudioSendStream::Start() {
@@ -485,10 +492,10 @@ uint32_t AudioSendStream::OnBitrateUpdated(BitrateAllocationUpdate update) {
 }
 
 void AudioSendStream::OnPacketAdded(uint32_t ssrc, uint16_t seq_num) {
+  rtc::CritScope lock(&packet_loss_tracker_cs_);
   RTC_DCHECK(pacer_thread_checker_.IsCurrent());
   // Only packets that belong to this stream are of interest.
   if (ssrc == config_.rtp.ssrc) {
-    rtc::CritScope lock(&packet_loss_tracker_cs_);
     // TODO(eladalon): This function call could potentially reset the window,
     // setting both PLR and RPLR to unknown. Consider (during upcoming
     // refactoring) passing an indication of such an event.

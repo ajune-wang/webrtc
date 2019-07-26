@@ -58,7 +58,7 @@ class FrameGenerator {
   // Change the capture resolution.
   virtual void ChangeResolution(size_t width, size_t height);
 
-  enum class OutputType { I420, I420A, I010 };
+  using OutputType = VideoFrameBuffer::Type;
 
   // Creates a frame generator that produces frames with small squares that
   // move randomly towards the lower right corner.

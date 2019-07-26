@@ -46,6 +46,8 @@ class VideoFrameBuffer : public rtc::RefCountInterface {
   enum class Type {
     kNative,
     kI420,
+    // TODO(srte): Remove this alias when downstream projects have been updated.
+    I420 = kI420,
     kI420A,
     kI444,
     kI010,

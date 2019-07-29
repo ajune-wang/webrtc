@@ -35,6 +35,7 @@ class NativeAndroidVideoTrackSource {
    * SourceState::kLive or SourceState::kEnded.
    */
   public void setState(boolean isLive) {
+    Logging.d("NativeAndroidVideoTrackSource", "Setting state to " + String.valueOf(isLive));
     nativeSetState(nativeAndroidVideoTrackSource, isLive);
   }
 

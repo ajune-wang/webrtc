@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45646d16_7aa516a5",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2019-07-29T16:00:09Z",
+      "side": 1,
+      "message": "Do we want to change this to \u0027decoding_neteq_plc\u0027 or do you want to keep as is?\nI know that is a bigger task since it\u0027s used externally, so we can wait with that too / see if someone else has opinions (as Henrik).",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 24
+      },
+      "revId": "e85e39ac33d7855d4ceb7a583561de68607ea036",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77ad3adb_d820f205",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2019-07-29T16:00:09Z",
+      "side": 1,
+      "message": "Same Q as previous file.",
+      "range": {
+        "startLine": 525,
+        "startChar": 6,
+        "endLine": 525,
+        "endChar": 18
+      },
+      "revId": "e85e39ac33d7855d4ceb7a583561de68607ea036",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

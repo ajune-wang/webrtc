@@ -241,6 +241,7 @@ void P2PTransportChannel::AddConnection(Connection* connection) {
 // a high-cost connection if it is not receiving.
 // TODO(honghaiz): Stop the aggressive nomination on the controlling side and
 // implement the ice-renomination option.
+// TODO(alexdrake): Add a reason to the return value.
 bool P2PTransportChannel::ShouldSwitchSelectedConnection(
     Connection* new_connection,
     bool* missed_receiving_unchanged_threshold) const {
@@ -284,7 +285,7 @@ bool P2PTransportChannel::MaybeSwitchSelectedConnection(
   if (ShouldSwitchSelectedConnection(new_connection,
                                      &missed_receiving_unchanged_threshold)) {
     RTC_LOG(LS_INFO) << "Switching selected connection due to: " << reason;
-    SwitchSelectedConnection(new_connection);
+    SwitchSelectedConnection(new_connection, reason);
     return true;
   }
   if (missed_receiving_unchanged_threshold &&
@@ -1917,7 +1918,9 @@ void P2PTransportChannel::PruneConnections() {
 }
 
 // Change the selected connection, and let listeners know.
-void P2PTransportChannel::SwitchSelectedConnection(Connection* conn) {
+// TODO(alexdrake): Add a reason for teh switch as input.
+void P2PTransportChannel::SwitchSelectedConnection(Connection* conn,
+                                                   const std::string& reason) {
   RTC_DCHECK_RUN_ON(network_thread_);
   // Note: if conn is NULL, the previous |selected_connection_| has been
   // destroyed, so don't use it.
@@ -1963,6 +1966,15 @@ void P2PTransportChannel::SwitchSelectedConnection(Connection* conn) {
     RTC_LOG(LS_INFO) << ToString() << ": No selected connection";
   }
 
+  // Create event for candidate pair change.
+  CandidatePairChangeEvent pairChange = CandidatePairChangeEvent();
+  pairChange.local_candidate = selected_connection_->local_candidate();
+  pairChange.remote_candidate = selected_connection_->remote_candidate();
+  pairChange.last_data_received = selected_connection_->last_data_received();
+  pairChange.reason = reason;
+  SignalCandidatePairChanged(pairChange);
+  // reason, selected_connection.local_candidate().network_type(),
+  // selected_connection.last_data_received()
   SignalNetworkRouteChanged(network_route_);
 }
 
@@ -2409,8 +2421,9 @@ void P2PTransportChannel::OnConnectionDestroyed(Connection* connection) {
   // there was no selected connection.
   if (selected_connection_ == connection) {
     RTC_LOG(LS_INFO) << "Selected connection destroyed. Will choose a new one.";
-    SwitchSelectedConnection(nullptr);
-    RequestSortAndStateUpdate("selected candidate pair destroyed");
+    const std::string reason = "selected candidate pair destroyed";
+    SwitchSelectedConnection(nullptr, reason);
+    RequestSortAndStateUpdate(reason);
   } else {
     // If a non-selected connection was destroyed, we don't need to re-sort but
     // we do need to update state, because we could be switching to "failed" or

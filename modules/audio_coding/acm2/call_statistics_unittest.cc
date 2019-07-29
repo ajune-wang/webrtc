@@ -37,6 +37,7 @@ TEST(CallStatisticsTest, AllCalls) {
   call_stats.DecodedBySilenceGenerator();
   call_stats.DecodedByNetEq(AudioFrame::kNormalSpeech, false);
   call_stats.DecodedByNetEq(AudioFrame::kPLC, false);
+  call_stats.DecodedByNetEq(AudioFrame::kCodecPLC, false);
   call_stats.DecodedByNetEq(AudioFrame::kPLCCNG, true);  // Let this be muted.
   call_stats.DecodedByNetEq(AudioFrame::kCNG, false);
 
@@ -45,7 +46,8 @@ TEST(CallStatisticsTest, AllCalls) {
   EXPECT_EQ(1, stats.calls_to_silence_generator);
   EXPECT_EQ(1, stats.decoded_normal);
   EXPECT_EQ(1, stats.decoded_cng);
-  EXPECT_EQ(1, stats.decoded_plc);
+  EXPECT_EQ(1, stats.decoded_neteq_plc);
+  EXPECT_EQ(1, stats.decoded_codec_plc);
   EXPECT_EQ(1, stats.decoded_plc_cng);
   EXPECT_EQ(1, stats.decoded_muted_output);
 }

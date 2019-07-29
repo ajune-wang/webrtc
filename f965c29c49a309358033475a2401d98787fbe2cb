@@ -22,6 +22,30 @@
       "revId": "f965c29c49a309358033475a2401d98787fbe2cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13e6714d_147f6f26",
+        "filename": "test/frame_generator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-29T09:06:16Z",
+      "side": 1,
+      "message": "VideoFrameBuffer::Type has more types, I think it\u0027s reasonable for the generator to fail at runtime if an unsupported types is used.",
+      "parentUuid": "34a28125_945c74c8",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 72
+      },
+      "revId": "f965c29c49a309358033475a2401d98787fbe2cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

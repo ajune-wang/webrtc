@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec1e09ac_fa9bb2a0",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1921,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-07-29T23:19:46Z",
+      "side": 1,
+      "message": "the",
+      "range": {
+        "startLine": 1921,
+        "startChar": 37,
+        "endLine": 1921,
+        "endChar": 40
+      },
+      "revId": "f4398458dcc1bb9ad2f5e843d6cc91baed2ccf6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8066c7fb_b658ce73",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1970,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-07-29T23:19:46Z",
+      "side": 1,
+      "message": "Not necessary. The default ctor will be called.",
+      "range": {
+        "startLine": 1970,
+        "startChar": 37,
+        "endLine": 1970,
+        "endChar": 66
+      },
+      "revId": "f4398458dcc1bb9ad2f5e843d6cc91baed2ccf6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

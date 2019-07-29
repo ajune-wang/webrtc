@@ -73,6 +73,7 @@ class AudioReceiveStream {
     int32_t decoding_calls_to_neteq = 0;
     int32_t decoding_normal = 0;
     int32_t decoding_plc = 0;
+    int32_t decoding_codec_plc = 0;
     int32_t decoding_cng = 0;
     int32_t decoding_plc_cng = 0;
     int32_t decoding_muted_output = 0;

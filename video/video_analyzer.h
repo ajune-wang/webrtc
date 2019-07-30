@@ -193,6 +193,10 @@ class VideoAnalyzer : public PacketReceiver,
   void PrintResults();
   void PerformFrameComparison(const FrameComparison& comparison);
   void PrintResult(const char* result_type, Statistics stats, const char* unit);
+  void PrintResult(const char* result_type,
+                   Statistics stats,
+                   double multiplier,
+                   const char* unit);
   void PrintSamplesToFile(void);
   double GetAverageMediaBitrateBps();
   void AddCapturedFrameForComparison(const VideoFrame& video_frame);

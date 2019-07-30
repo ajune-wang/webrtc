@@ -52,6 +52,7 @@ rtc_source_set("video_test_common") {
   ]
 
   deps = [
+    ":fileutils",
     "../api:libjingle_peerconnection_api",
     "../api:scoped_refptr",
     "../api/task_queue",

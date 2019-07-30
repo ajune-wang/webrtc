@@ -942,6 +942,15 @@ TEST_F(RTCStatsCollectorTest, CollectRTCCertificateStatsChain) {
   ExpectReportContainsCertificateInfo(report, *remote_certinfo);
 }
 
+TEST_F(RTCStatsCollectorTest, CollectTwoRTCDataChannelStatsWithPendingId) {
+  pc_->AddSctpDataChannel(
+      new MockDataChannel(/*id=*/-1, DataChannelInterface::kConnecting));
+  pc_->AddSctpDataChannel(
+      new MockDataChannel(/*id=*/-1, DataChannelInterface::kConnecting));
+
+  rtc::scoped_refptr<const RTCStatsReport> report = stats_->GetStatsReport();
+}
+
 TEST_F(RTCStatsCollectorTest, CollectRTCDataChannelStats) {
   pc_->AddSctpDataChannel(new MockDataChannel(0, "MockDataChannel0",
                                               DataChannelInterface::kConnecting,

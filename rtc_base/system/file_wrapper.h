@@ -72,10 +72,20 @@ class FileWrapper final {
 
   // Seeks to the beginning of file. Returns true on success, false on failure,
   // e.g., if the underlying file isn't seekable.
-  bool Rewind();
+  bool Rewind() { return SeekTo(0); }
+  // TODO(nisse): The seek functions are used only by the WavReader. If that
+  // code is demoted to test code, seek functions can be deleted from this
+  // utility.
+  // Similarly, seek forward, effectively skipping part of the data.
+  bool SeekForward(size_t length);
+  // Seek to given position.
+  bool SeekTo(size_t position);
 
   // Returns number of bytes read. Short count indicates EOF or error.
   size_t Read(void* buf, size_t length);
+
+  // If Read() returned a short count, this methods tells if that's due to EOF.
+  bool ReadEof();
 
   // Returns true if all data was successfully written (or buffered), or false
   // if there was an error. Writing buffered data can fail later, and is

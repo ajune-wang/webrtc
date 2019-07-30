@@ -22,6 +22,30 @@
       "revId": "339e72a7bc10f9d19576421e96eb903666b8aa21",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54de8e9d_766438a1",
+        "filename": "modules/pacing/round_robin_packet_queue.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-30T19:17:45Z",
+      "side": 1,
+      "message": "Yes, it at least includes all rtp overhead. See corresponding code for the old path:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/source/rtp_sender.cc?sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d1104\nNote that the old code does not include padding since that was always handled post-pacing. Even then it did not include rtp overhead for padding, which seems like an oversight.",
+      "parentUuid": "20f4c9c5_b03b8ad9",
+      "range": {
+        "startLine": 107,
+        "startChar": 28,
+        "endLine": 107,
+        "endChar": 42
+      },
+      "revId": "339e72a7bc10f9d19576421e96eb903666b8aa21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

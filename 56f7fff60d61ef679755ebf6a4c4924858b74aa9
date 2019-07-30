@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0feab8b3_36794006",
+        "filename": "rtc_base/string_utils.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-07-30T08:31:58Z",
+      "side": 1,
+      "message": "Prefer len \u003d\u003d 0",
+      "range": {
+        "startLine": 50,
+        "startChar": 7,
+        "endLine": 50,
+        "endChar": 10
+      },
+      "revId": "56f7fff60d61ef679755ebf6a4c4924858b74aa9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "67bfcaa01db5647ff336af1a007de5bd6703c717",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c57166fb_4ac0c9c9",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-07-31T12:39:44Z",
+      "side": 1,
+      "message": "No, it\u0027s not count and there is no better unit, that is supported by dashboard",
+      "parentUuid": "337aeecf_89de35c3",
+      "range": {
+        "startLine": 606,
+        "startChar": 52,
+        "endLine": 606,
+        "endChar": 60
+      },
+      "revId": "67bfcaa01db5647ff336af1a007de5bd6703c717",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -192,8 +192,6 @@ rtc_source_set("audio_device_impl") {
     "dummy/file_audio_device.cc",
     "dummy/file_audio_device.h",
     "include/fake_audio_device.h",
-    "include/test_audio_device.cc",
-    "include/test_audio_device.h",
   ]
 
   if (build_with_mozilla) {
@@ -340,6 +338,30 @@ rtc_source_set("audio_device_impl") {
   }
 }
 
+rtc_source_set("test_audio_device") {
+  visibility = [ "*" ]
+  testonly = true
+  deps = [
+    ":audio_device_api",
+    ":audio_device_default",
+    "../../api:array_view",
+    "../../api:scoped_refptr",
+    "../../api/task_queue",
+    "../../common_audio",
+    "../../rtc_base:checks",
+    "../../rtc_base:rtc_base_approved",
+    "../../rtc_base:rtc_event",
+    "../../rtc_base:rtc_task_queue",
+    "../../rtc_base/task_utils:repeating_task",
+    "//third_party/abseil-cpp/absl/memory",
+  ]
+
+  sources = [
+    "include/test_audio_device.cc",
+    "include/test_audio_device.h",
+  ]
+}
+
 rtc_source_set("mock_audio_device") {
   testonly = true
   sources = [
@@ -368,6 +390,7 @@ if (rtc_include_tests) {
       ":audio_device_buffer",
       ":audio_device_impl",
       ":mock_audio_device",
+      ":test_audio_device",
       "../../api:array_view",
       "../../api:scoped_refptr",
       "../../api/task_queue",

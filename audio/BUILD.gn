@@ -143,8 +143,8 @@ if (rtc_include_tests) {
       "../common_audio",
       "../logging:mocks",
       "../logging:rtc_event_log_api",
-      "../modules/audio_device:audio_device_impl",  # For TestAudioDeviceModule
       "../modules/audio_device:mock_audio_device",
+      "../modules/audio_device:test_audio_device",
       "../modules/audio_mixer:audio_mixer_impl",
       "../modules/audio_mixer:audio_mixer_test_utils",
       "../modules/audio_processing:audio_processing_statistics",

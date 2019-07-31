@@ -224,7 +224,7 @@ if (rtc_include_tests) {
       "../../../media:rtc_media_base",
       "../../../media:rtc_media_engine_defaults",
       "../../../modules/audio_device:audio_device_api",
-      "../../../modules/audio_device:audio_device_impl",
+      "../../../modules/audio_device:test_audio_device",
       "../../../modules/audio_processing:api",
       "../../../modules/audio_processing/aec_dump:aec_dump",
       "../../../p2p:rtc_p2p",

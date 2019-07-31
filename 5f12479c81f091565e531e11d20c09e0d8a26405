@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a2e328f7_38dc8f0b",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-07-31T08:12:02Z",
+      "side": 1,
+      "message": "1) I disagree with adding a multiplier here, perhaps the number can already be multiplied before being added into stats collection.\n2) This will surely cause a jump in stats everywhere (divided by 1000), chrome perf dashboard will not deal with this correctly.",
+      "range": {
+        "startLine": 642,
+        "startChar": 0,
+        "endLine": 642,
+        "endChar": 76
+      },
+      "revId": "5f12479c81f091565e531e11d20c09e0d8a26405",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

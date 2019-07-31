@@ -34,7 +34,6 @@ StreamStatisticianImpl::StreamStatisticianImpl(
     uint32_t ssrc,
     Clock* clock,
     int max_reordering_threshold,
-    RtcpStatisticsCallback* rtcp_callback,
     StreamDataCountersCallback* rtp_callback)
     : ssrc_(ssrc),
       clock_(clock),
@@ -51,7 +50,6 @@ StreamStatisticianImpl::StreamStatisticianImpl(
       last_report_inorder_packets_(0),
       last_report_old_packets_(0),
       last_report_seq_max_(-1),
-      rtcp_callback_(rtcp_callback),
       rtp_callback_(rtp_callback) {}
 
 StreamStatisticianImpl::~StreamStatisticianImpl() = default;
@@ -200,8 +198,6 @@ bool StreamStatisticianImpl::GetStatistics(RtcpStatistics* statistics,
     *statistics = CalculateRtcpStatistics();
   }
 
-  if (rtcp_callback_)
-    rtcp_callback_->StatisticsUpdated(*statistics, ssrc_);
   return true;
 }
 
@@ -221,8 +217,6 @@ bool StreamStatisticianImpl::GetActiveStatisticsAndReset(
     *statistics = CalculateRtcpStatistics();
   }
 
-  if (rtcp_callback_)
-    rtcp_callback_->StatisticsUpdated(*statistics, ssrc_);
   return true;
 }
 
@@ -343,20 +337,16 @@ bool StreamStatisticianImpl::IsRetransmitOfOldPacket(
 
 std::unique_ptr<ReceiveStatistics> ReceiveStatistics::Create(
     Clock* clock,
-    RtcpStatisticsCallback* rtcp_callback,
     StreamDataCountersCallback* rtp_callback) {
-  return absl::make_unique<ReceiveStatisticsImpl>(clock, rtcp_callback,
-                                                  rtp_callback);
+  return absl::make_unique<ReceiveStatisticsImpl>(clock, rtp_callback);
 }
 
 ReceiveStatisticsImpl::ReceiveStatisticsImpl(
     Clock* clock,
-    RtcpStatisticsCallback* rtcp_callback,
     StreamDataCountersCallback* rtp_callback)
     : clock_(clock),
       last_returned_ssrc_(0),
       max_reordering_threshold_(kDefaultMaxReorderingThreshold),
-      rtcp_stats_callback_(rtcp_callback),
       rtp_stats_callback_(rtp_callback) {}
 
 ReceiveStatisticsImpl::~ReceiveStatisticsImpl() {
@@ -396,9 +386,8 @@ StreamStatisticianImpl* ReceiveStatisticsImpl::GetOrCreateStatistician(
   rtc::CritScope cs(&receive_statistics_lock_);
   StreamStatisticianImpl*& impl = statisticians_[ssrc];
   if (impl == nullptr) {  // new element
-    impl =
-        new StreamStatisticianImpl(ssrc, clock_, max_reordering_threshold_,
-                                   rtcp_stats_callback_, rtp_stats_callback_);
+    impl = new StreamStatisticianImpl(ssrc, clock_, max_reordering_threshold_,
+                                      rtp_stats_callback_);
   }
   return impl;
 }

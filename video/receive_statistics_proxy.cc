@@ -673,6 +673,8 @@ void ReceiveStatisticsProxy::RtcpPacketTypesCounterUpdated(
 void ReceiveStatisticsProxy::StatisticsUpdated(
     const webrtc::RtcpStatistics& statistics,
     uint32_t ssrc) {
+  RTC_NOTREACHED();
+#if 0
   rtc::CritScope lock(&crit_);
   // TODO(pbos): Handle both local and remote ssrcs here and RTC_DCHECK that we
   // receive stats from one of them.
@@ -683,6 +685,7 @@ void ReceiveStatisticsProxy::StatisticsUpdated(
 
   if (first_report_block_time_ms_ == -1)
     first_report_block_time_ms_ = clock_->TimeInMilliseconds();
+#endif
 }
 
 void ReceiveStatisticsProxy::CNameChanged(const char* cname, uint32_t ssrc) {

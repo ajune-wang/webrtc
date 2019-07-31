@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7155ebce_be6240ff",
+        "filename": "video/report_block_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-07-31T11:59:54Z",
+      "side": 1,
+      "message": "If I understand this correctly, what the the delta + accumulate thing done by this class really achieves is extending the packet_lost counter from 24 bits on the wire to 32 bits. Is that right?\n\nWhile num_sequence_numbers should be the difference between first and last extended_highest_sequence_number.\n\nAnd we also have the logic to ignore negative deltas, if we ever get any.",
+      "range": {
+        "startLine": 58,
+        "startChar": 11,
+        "endLine": 58,
+        "endChar": 37
+      },
+      "revId": "90042aceb8fc742fce68f90c7fa6291c129f7372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

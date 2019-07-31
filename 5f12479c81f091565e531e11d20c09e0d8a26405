@@ -22,6 +22,30 @@
       "revId": "5f12479c81f091565e531e11d20c09e0d8a26405",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dba86ffd_0c7097b9",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-07-31T08:22:10Z",
+      "side": 1,
+      "message": "Yep, right, Chrome perf dashboard won\u0027t deal with it properly... Also noticed, that 1000 is weird number here and I don\u0027t know why I used that, because it should be just 8... But let\u0027s keep it as it was before. I\u0027ll think how to migrate these metrics properly later.",
+      "parentUuid": "a2e328f7_38dc8f0b",
+      "range": {
+        "startLine": 642,
+        "startChar": 0,
+        "endLine": 642,
+        "endChar": 76
+      },
+      "revId": "5f12479c81f091565e531e11d20c09e0d8a26405",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

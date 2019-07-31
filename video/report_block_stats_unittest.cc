@@ -79,18 +79,17 @@ class ReportBlockStatsTest : public ::testing::Test {
 };
 
 TEST_F(ReportBlockStatsTest, StoreAndGetFractionLost) {
-  const uint32_t kRemoteSsrc = 1;
   ReportBlockStats stats;
   EXPECT_EQ(-1, stats.FractionLostInPercent());
 
   // First block.
-  stats.Store(RtcpReportBlockToRtcpStatistics(block1_1_), kRemoteSsrc, kSsrc1);
+  stats.Store(kSsrc1, RtcpReportBlockToRtcpStatistics(block1_1_));
   EXPECT_EQ(-1, stats.FractionLostInPercent());
   // fl: 100 * (15-10) / (24100-24000) = 5%
-  stats.Store(RtcpReportBlockToRtcpStatistics(block1_2_), kRemoteSsrc, kSsrc1);
+  stats.Store(kSsrc1, RtcpReportBlockToRtcpStatistics(block1_2_));
   EXPECT_EQ(5, stats.FractionLostInPercent());
   // fl: 100 * (50-10) / (24200-24000) = 20%
-  stats.Store(RtcpReportBlockToRtcpStatistics(block1_3_), kRemoteSsrc, kSsrc1);
+  stats.Store(kSsrc1, RtcpReportBlockToRtcpStatistics(block1_3_));
   EXPECT_EQ(20, stats.FractionLostInPercent());
 }
 

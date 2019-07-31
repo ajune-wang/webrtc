@@ -143,6 +143,8 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
       RTC_EXCLUSIVE_LOCKS_REQUIRED(playout_delay_lock_);
   void RequestKeyFrame();
 
+  void UpdateHistograms();
+
   SequenceChecker worker_sequence_checker_;
   SequenceChecker module_process_sequence_checker_;
   SequenceChecker network_sequence_checker_;
@@ -194,6 +196,8 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
 
   // If we have successfully decoded any frame.
   bool frame_decoded_ = false;
+
+  const int64_t start_ms_;
 
   int64_t last_keyframe_request_ms_ = 0;
   int64_t last_complete_frame_time_ms_ = 0;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39921f66_68fa6076",
+        "filename": "modules/audio_device/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-07-31T08:48:58Z",
+      "side": 1,
+      "message": "This is not related to this CL but having .cc files inside an include directory seems wrong.\n\nMaybe we should remove the include directory (https://webrtc.googlesource.com/src/+/HEAD/style-guide.md#h-cc-pairs)?",
+      "range": {
+        "startLine": 360,
+        "startChar": 5,
+        "endLine": 360,
+        "endChar": 13
+      },
+      "revId": "67951dc6c5e48fe1ecc3a0a3ad7940bafc88d642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

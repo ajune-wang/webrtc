@@ -171,11 +171,26 @@ void CallStats::DeregisterStatsObserver(CallStatsObserver* observer) {
 }
 
 int64_t CallStats::LastProcessedRtt() const {
+  // TODO(tommi): On what thread does this get called? If it can be made to be
+  // the same TQ (e.g. configuration_sequence_checker_ in Call), then that TQ
+  // could be made to be the main TQ of CallStats and no lock would be required
+  // here.
+  // TEST:
+  RTC_DCHECK_RUN_ON(&process_thread_checker_);
+
   rtc::CritScope cs(&avg_rtt_ms_lock_);
   return avg_rtt_ms_;
 }
 
 void CallStats::OnRttUpdate(int64_t rtt) {
+  // TODO(tommi): On what thread are we now? Looks like this is called from
+  // the process thread in ModuleRtpRtcpImpl. Not sure if that's the same
+  // process thread as the |process_thread_| is...
+  // That same thread calls LastProcessedRtt() as well... perhaps it's all the
+  // same thread?
+  // TEST:
+  RTC_DCHECK_RUN_ON(&process_thread_checker_);
+
   int64_t now_ms = clock_->TimeInMilliseconds();
   process_thread_->PostTask(ToQueuedTask([rtt, now_ms, this]() {
     RTC_DCHECK_RUN_ON(&process_thread_checker_);

@@ -84,7 +84,6 @@ ReceiveStatisticsProxy::ReceiveStatisticsProxy(
     Clock* clock)
     : clock_(clock),
       config_(*config),
-      start_ms_(clock->TimeInMilliseconds()),
       last_sample_time_(clock->TimeInMilliseconds()),
       fps_threshold_(kLowFpsThreshold,
                      kHighFpsThreshold,
@@ -127,32 +126,15 @@ ReceiveStatisticsProxy::ReceiveStatisticsProxy(
   }
 }
 
-ReceiveStatisticsProxy::~ReceiveStatisticsProxy() {
-  RTC_DCHECK_RUN_ON(&main_thread_);
-  // In case you're reading this wondering "hmm... we're on the main thread but
-  // calling a method that needs to be called on the decoder thread...", then
-  // here's what's going on:
-  // - The decoder thread has been stopped and DecoderThreadStopped() has been
-  //   called.
-  // - The decode_thread_ thread checker has been detached, and will now become
-  //   attached to the current thread, which is OK since we're in the dtor.
-  UpdateHistograms();
-}
-
 void ReceiveStatisticsProxy::UpdateHistograms() {
+  // Not actually running on the decode_thread, but should be called after
+  // DecoderThreadStopped, which detaches the thread checker.
   RTC_DCHECK_RUN_ON(&decode_thread_);
+
+  rtc::CritScope lock(&crit_);
+
   char log_stream_buf[8 * 1024];
   rtc::SimpleStringBuilder log_stream(log_stream_buf);
-  int stream_duration_sec = (clock_->TimeInMilliseconds() - start_ms_) / 1000;
-  if (stats_.frame_counts.key_frames > 0 ||
-      stats_.frame_counts.delta_frames > 0) {
-    RTC_HISTOGRAM_COUNTS_100000("WebRTC.Video.ReceiveStreamLifetimeInSeconds",
-                                stream_duration_sec);
-    log_stream << "WebRTC.Video.ReceiveStreamLifetimeInSeconds "
-               << stream_duration_sec << '\n';
-  }
-
-  log_stream << "Frames decoded " << stats_.frames_decoded << '\n';
 
   if (num_unique_frames_) {
     int num_dropped_frames = *num_unique_frames_ - stats_.frames_decoded;
@@ -162,6 +144,7 @@ void ReceiveStatisticsProxy::UpdateHistograms() {
                << '\n';
   }
 
+#if 0
   if (first_report_block_time_ms_ != -1 &&
       ((clock_->TimeInMilliseconds() - first_report_block_time_ms_) / 1000) >=
           metrics::kMinRunTimeInSeconds) {
@@ -173,6 +156,7 @@ void ReceiveStatisticsProxy::UpdateHistograms() {
                  << fraction_lost << '\n';
     }
   }
+#endif
 
   if (first_decoded_frame_time_ms_) {
     const int64_t elapsed_ms =
@@ -226,18 +210,6 @@ void ReceiveStatisticsProxy::UpdateHistograms() {
                                freq_offset_stats.average);
     log_stream << "WebRTC.Video.RtpToNtpFreqOffsetInKhz "
                << freq_offset_stats.ToString() << '\n';
-  }
-
-  int num_total_frames =
-      stats_.frame_counts.key_frames + stats_.frame_counts.delta_frames;
-  if (num_total_frames >= kMinRequiredSamples) {
-    int num_key_frames = stats_.frame_counts.key_frames;
-    int key_frames_permille =
-        (num_key_frames * 1000 + num_total_frames / 2) / num_total_frames;
-    RTC_HISTOGRAM_COUNTS_1000("WebRTC.Video.KeyFramesReceivedInPermille",
-                              key_frames_permille);
-    log_stream << "WebRTC.Video.KeyFramesReceivedInPermille "
-               << key_frames_permille << '\n';
   }
 
   absl::optional<int> qp = qp_counters_.vp8.Avg(kMinRequiredSamples);

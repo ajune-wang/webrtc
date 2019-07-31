@@ -45,7 +45,7 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
  public:
   ReceiveStatisticsProxy(const VideoReceiveStream::Config* config,
                          Clock* clock);
-  ~ReceiveStatisticsProxy() override;
+  ~ReceiveStatisticsProxy() = default;
 
   VideoReceiveStream::Stats GetStats() const;
 
@@ -99,6 +99,10 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   void DecoderThreadStarting();
   void DecoderThreadStopped();
 
+  // Public, to produce histograms for data not exposed via GetStats. Must be
+  // called after DecoderThreadStopped().
+  void UpdateHistograms();
+
  private:
   struct QpCounters {
     rtc::SampleCounter vp8;
@@ -121,8 +125,6 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
     rtc::HistogramPercentileCounter interframe_delay_percentiles;
   };
 
-  void UpdateHistograms() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
-
   void QualitySample() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   // Removes info about old frames and then updates the framerate.
@@ -138,7 +140,6 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   // ReceiveStatisticsProxy() ctor to accept a const& of Config (since we'll
   // then no longer store a pointer to the object).
   const VideoReceiveStream::Config& config_;
-  const int64_t start_ms_;
 
   rtc::CriticalSection crit_;
   int64_t last_sample_time_ RTC_GUARDED_BY(crit_);

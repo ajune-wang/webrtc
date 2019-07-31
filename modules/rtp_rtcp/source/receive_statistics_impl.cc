@@ -302,6 +302,18 @@ void StreamStatisticianImpl::GetDataCounters(size_t* bytes_received,
   }
 }
 
+int StreamStatisticianImpl::GetFractionLostInPercent() const {
+  rtc::CritScope cs(&stream_lock_);
+  if (received_seq_max_ < 0) {
+    return -1;
+  }
+  int64_t expected_packets = received_seq_max_ - received_seq_first_;
+  if (expected_packets <= 0) {
+    return -1;
+  }
+  return 100 * (int64_t)cumulative_loss_ / expected_packets;
+}
+
 void StreamStatisticianImpl::GetReceiveStreamDataCounters(
     StreamDataCounters* data_counters) const {
   rtc::CritScope cs(&stream_lock_);

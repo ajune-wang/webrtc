@@ -48,6 +48,7 @@
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
+#include "system_wrappers/include/metrics.h"
 #include "video/call_stats.h"
 #include "video/frame_dumping_decoder.h"
 #include "video/receive_statistics_proxy.h"
@@ -210,6 +211,7 @@ VideoReceiveStream::VideoReceiveStream(
                                  this,     // OnCompleteFrameCallback
                                  config_.frame_decryptor),
       rtp_stream_sync_(this),
+      start_ms_(clock_->TimeInMilliseconds()),
       max_wait_for_keyframe_ms_(KeyframeIntervalSettings::ParseFromFieldTrials()
                                     .MaxWaitForKeyframeMs()
                                     .value_or(kMaxWaitForKeyFrameMs)),
@@ -451,6 +453,8 @@ void VideoReceiveStream::Stop() {
       video_receiver_.RegisterExternalDecoder(nullptr, decoder.payload_type);
   }
 
+  UpdateHistograms();
+
   video_stream_decoder_.reset();
   incoming_video_stream_.reset();
   transport_adapter_.Disable();
@@ -458,6 +462,53 @@ void VideoReceiveStream::Stop() {
 
 VideoReceiveStream::Stats VideoReceiveStream::GetStats() const {
   return stats_proxy_.GetStats();
+}
+
+void VideoReceiveStream::UpdateHistograms() {
+  VideoReceiveStream::Stats stats = GetStats();
+  char log_stream_buf[8 * 1024];
+  rtc::SimpleStringBuilder log_stream(log_stream_buf);
+  int stream_duration_sec = (clock_->TimeInMilliseconds() - start_ms_) / 1000;
+  if (stats.frame_counts.key_frames > 0 ||
+      stats.frame_counts.delta_frames > 0) {
+    RTC_HISTOGRAM_COUNTS_100000("WebRTC.Video.ReceiveStreamLifetimeInSeconds",
+                                stream_duration_sec);
+    log_stream << "WebRTC.Video.ReceiveStreamLifetimeInSeconds "
+               << stream_duration_sec << '\n';
+  }
+
+  log_stream << "Frames decoded " << stats.frames_decoded << '\n';
+
+  StreamStatistician* statistician =
+      rtp_receive_statistics_->GetStatistician(config_.rtp.remote_ssrc);
+  if (statistician) {
+    // XXX Take metrics::kMinRunTimeInSeconds into account?
+    int fraction_lost = statistician->GetFractionLostInPercent();
+
+    if (fraction_lost != -1) {
+      RTC_HISTOGRAM_PERCENTAGE("WebRTC.Video.ReceivedPacketsLostInPercent",
+                               fraction_lost);
+      log_stream << "WebRTC.Video.ReceivedPacketsLostInPercent "
+                 << fraction_lost << '\n';
+    }
+  }
+
+  const int kMinRequiredSamples = 200;
+  int num_total_frames =
+      stats.frame_counts.key_frames + stats.frame_counts.delta_frames;
+  if (num_total_frames >= kMinRequiredSamples) {
+    int num_key_frames = stats.frame_counts.key_frames;
+    int key_frames_permille =
+        (num_key_frames * 1000 + num_total_frames / 2) / num_total_frames;
+    RTC_HISTOGRAM_COUNTS_1000("WebRTC.Video.KeyFramesReceivedInPermille",
+                              key_frames_permille);
+    log_stream << "WebRTC.Video.KeyFramesReceivedInPermille "
+               << key_frames_permille << '\n';
+  }
+  RTC_LOG(LS_INFO) << log_stream.str();
+
+  // Histograms depending on state not exposed in GetStats.
+  stats_proxy_.UpdateHistograms();
 }
 
 void VideoReceiveStream::AddSecondarySink(RtpPacketSinkInterface* sink) {

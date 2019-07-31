@@ -44,6 +44,9 @@ class StreamStatistician {
   virtual void GetDataCounters(size_t* bytes_received,
                                uint32_t* packets_received) const = 0;
 
+  // Returns average over the stream life time.
+  virtual int GetFractionLostInPercent() const = 0;
+
   // Gets received stream data counters (includes reset counter values).
   virtual void GetReceiveStreamDataCounters(
       StreamDataCounters* data_counters) const = 0;

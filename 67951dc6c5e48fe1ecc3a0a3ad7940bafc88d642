@@ -22,6 +22,30 @@
       "revId": "67951dc6c5e48fe1ecc3a0a3ad7940bafc88d642",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dc6090a_3df01b33",
+        "filename": "modules/audio_device/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-07-31T09:02:59Z",
+      "side": 1,
+      "message": "Agree this begs for some reorganization. Most files in this include directory seem to be test utilities, but not sure if they all are. Some of the headers have corresponding .cc files in this directory, others in the parent directory.\n\nThe audio_device_data_observer.h file is unused in webrtc, but used downstream.",
+      "parentUuid": "39921f66_68fa6076",
+      "range": {
+        "startLine": 360,
+        "startChar": 5,
+        "endLine": 360,
+        "endChar": 13
+      },
+      "revId": "67951dc6c5e48fe1ecc3a0a3ad7940bafc88d642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

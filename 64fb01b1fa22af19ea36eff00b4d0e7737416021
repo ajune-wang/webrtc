@@ -46,6 +46,30 @@
       "revId": "64fb01b1fa22af19ea36eff00b4d0e7737416021",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93c946ea_c9298b26",
+        "filename": "test/frame_generator_capturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-31T15:44:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "200c5640_21366e91",
+      "range": {
+        "startLine": 33,
+        "startChar": 26,
+        "endLine": 33,
+        "endChar": 34
+      },
+      "revId": "64fb01b1fa22af19ea36eff00b4d0e7737416021",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "cb1f0f3d_9f3d0d85",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-31T14:54:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4461563a_1fcd1b90",
+      "range": {
+        "startLine": 634,
+        "startChar": 30,
+        "endLine": 634,
+        "endChar": 38
+      },
+      "revId": "734545cad5d098c399e8ba5676792167995cc5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bdd0fab1_1755b436",
         "filename": "video/video_analyzer.cc",
         "patchSetId": 3
@@ -154,6 +178,30 @@
       "writtenOn": "2019-07-31T12:29:22Z",
       "side": 1,
       "message": "Will revert this, because it can affect metric. Found, that dashboard expects values from 0 to 1 for this unit and this is reported in range from 0 to 100.",
+      "range": {
+        "startLine": 710,
+        "startChar": 21,
+        "endLine": 710,
+        "endChar": 23
+      },
+      "revId": "734545cad5d098c399e8ba5676792167995cc5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "781392db_353e070a",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-31T14:54:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "047d4ca9_c963c7c2",
       "range": {
         "startLine": 710,
         "startChar": 21,

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3160ea5a_e6a2fe60",
+        "filename": "test/peer_scenario/peer_scenario.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-31T19:01:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3495665b_45749e34",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 33
+      },
+      "revId": "dd487b58567abd0739076f12727c7dae50c17ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "826e93bd_30c7f1b8",
         "filename": "test/peer_scenario/peer_scenario.h",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "48fc6fc8_4ec38028",
+        "filename": "test/peer_scenario/peer_scenario.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-31T19:01:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "826e93bd_30c7f1b8",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 65
+      },
+      "revId": "dd487b58567abd0739076f12727c7dae50c17ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21439b24_d74b3f66",
         "filename": "test/peer_scenario/peer_scenario_client.h",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2019-07-31T17:27:58Z",
       "side": 1,
       "message": "What are the keys in this map, is this in preparation for unbundled transport support?",
+      "range": {
+        "startLine": 62,
+        "startChar": 13,
+        "endLine": 62,
+        "endChar": 16
+      },
+      "revId": "dd487b58567abd0739076f12727c7dae50c17ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf53d22d_73130587",
+        "filename": "test/peer_scenario/peer_scenario_client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-31T19:01:58Z",
+      "side": 1,
+      "message": "No, they are just to make it easy to add multiple endpoints in config and allow access in the code. Example:\nPeerScenarioClient::Config config;\nconfig.endpoints[1].generated_ip_family \u003d EmulatedEndpointConfig::IpAddressFamily::kIpv6; // Note how the entry is implicitly created here.\n...\nConnect(client.ep(0), ...)\nConnect(client.ep(1), ...)\n\nMight not be as clever as I thought though?",
+      "parentUuid": "21439b24_d74b3f66",
       "range": {
         "startLine": 62,
         "startChar": 13,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "47ec761d_23db63be",
+        "filename": "test/peer_scenario/peer_scenario_client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-31T19:01:58Z",
+      "side": 1,
+      "message": "Added a comment with an explanation, and yes. I had forgot to wire it up... Fixed!",
+      "parentUuid": "f3e3ab08_bbc459f8",
+      "range": {
+        "startLine": 65,
+        "startChar": 11,
+        "endLine": 65,
+        "endChar": 28
+      },
+      "revId": "dd487b58567abd0739076f12727c7dae50c17ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9b87c93_703342ea",
         "filename": "test/peer_scenario/peer_scenario_client.h",
         "patchSetId": 1
@@ -114,6 +210,30 @@
       "revId": "dd487b58567abd0739076f12727c7dae50c17ab4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d598660_6315cd00",
+        "filename": "test/peer_scenario/peer_scenario_client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-31T19:01:58Z",
+      "side": 1,
+      "message": "Mostly \"in case\" I\u0027d want to add more members, and when I thought it would be possible to have multiple generators at the same time. OTH, YAGNI etc. Let\u0027s skip this extra step for now. Nothing stops adding one later...",
+      "parentUuid": "f9b87c93_703342ea",
+      "range": {
+        "startLine": 71,
+        "startChar": 9,
+        "endLine": 71,
+        "endChar": 29
+      },
+      "revId": "dd487b58567abd0739076f12727c7dae50c17ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "05bd6342_4982dc50",
+        "filename": "test/peer_scenario/sdp_callbacks.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-31T19:01:58Z",
+      "side": 1,
+      "message": "Do you think that would be easier to read? I figure this is easy as you only need to check the signature of the function, which should reflect the declaration for readability reasons. We could also repeat it if you think that\u0027s nicer.",
+      "parentUuid": "5eb302ed_defb7bf6",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 12
+      },
+      "revId": "dd487b58567abd0739076f12727c7dae50c17ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5d328439_94cb28fb",
         "filename": "test/peer_scenario/sdp_callbacks.cc",
         "patchSetId": 1
@@ -154,6 +298,24 @@
       "revId": "dd487b58567abd0739076f12727c7dae50c17ab4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49e870a5_27d1f65d",
+        "filename": "test/peer_scenario/sdp_callbacks.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-31T19:01:58Z",
+      "side": 1,
+      "message": "error.value() has that check implicitly. Removed in favor of your previous suggestion.",
+      "parentUuid": "5d328439_94cb28fb",
+      "revId": "dd487b58567abd0739076f12727c7dae50c17ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -197,6 +359,30 @@
     },
     {
       "key": {
+        "uuid": "49db0bf7_1d300671",
+        "filename": "test/peer_scenario/signaling_route.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-31T19:01:58Z",
+      "side": 1,
+      "message": "Not unless someone write incorrect code! (Added check.)",
+      "parentUuid": "13c54cb1_87148efc",
+      "range": {
+        "startLine": 27,
+        "startChar": 18,
+        "endLine": 27,
+        "endChar": 21
+      },
+      "revId": "dd487b58567abd0739076f12727c7dae50c17ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b9e6bb7_57667c39",
         "filename": "test/peer_scenario/tests/peer_scenario_quality_test.cc",
         "patchSetId": 1
@@ -217,6 +403,30 @@
       "revId": "dd487b58567abd0739076f12727c7dae50c17ab4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6ae1c33_2b490eaf",
+        "filename": "test/peer_scenario/tests/peer_scenario_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-07-31T19:01:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b9e6bb7_57667c39",
+      "range": {
+        "startLine": 23,
+        "startChar": 7,
+        "endLine": 23,
+        "endChar": 10
+      },
+      "revId": "dd487b58567abd0739076f12727c7dae50c17ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

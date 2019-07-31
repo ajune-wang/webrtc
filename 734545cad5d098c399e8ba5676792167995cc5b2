@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e6a634e_64c2957f",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-31T12:12:24Z",
+      "side": 1,
+      "message": "the ssim has a range of 0.0-1.0, so maybe n% is suitable here?",
+      "range": {
+        "startLine": 634,
+        "startChar": 30,
+        "endLine": 634,
+        "endChar": 38
+      },
+      "revId": "734545cad5d098c399e8ba5676792167995cc5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdd0fab1_1755b436",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-31T12:12:24Z",
+      "side": 1,
+      "message": "count?",
+      "range": {
+        "startLine": 645,
+        "startChar": 44,
+        "endLine": 645,
+        "endChar": 52
+      },
+      "revId": "734545cad5d098c399e8ba5676792167995cc5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "430cbbac_7eaa529d",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-07-31T12:12:24Z",
+      "side": 1,
+      "message": "count?",
+      "range": {
+        "startLine": 708,
+        "startChar": 21,
+        "endLine": 708,
+        "endChar": 29
+      },
+      "revId": "734545cad5d098c399e8ba5676792167995cc5b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

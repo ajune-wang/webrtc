@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66b31011_39908f60",
+        "filename": "video/report_block_stats_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-01T15:44:44Z",
+      "side": 1,
+      "message": "I take it this improves test coverage. Nice!",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 46
+      },
+      "revId": "39522f3c375c22d64f52da1612aa7b7058abafaf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

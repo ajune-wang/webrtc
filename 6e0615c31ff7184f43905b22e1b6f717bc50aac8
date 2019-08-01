@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ea6ba102_a55a3bd6",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-08-01T15:32:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2faa63d5_85d0744f",
+      "range": {
+        "startLine": 389,
+        "startChar": 6,
+        "endLine": 389,
+        "endChar": 45
+      },
+      "revId": "6e0615c31ff7184f43905b22e1b6f717bc50aac8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b513399_c8a52ab3",
         "filename": "video/video_analyzer.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "6e0615c31ff7184f43905b22e1b6f717bc50aac8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8340bca5_19efe3b8",
+        "filename": "video/video_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-08-01T15:32:32Z",
+      "side": 1,
+      "message": "Done. The worst part is that I thought about that and somehow managed to forget just before sending the patchset!",
+      "parentUuid": "6b513399_c8a52ab3",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 51
+      },
+      "revId": "6e0615c31ff7184f43905b22e1b6f717bc50aac8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

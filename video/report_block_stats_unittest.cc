@@ -9,6 +9,7 @@
  */
 
 #include "video/report_block_stats.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 
 #include "test/gtest.h"
 
@@ -46,13 +47,6 @@ class ReportBlockStatsTest : public ::testing::Test {
     block2_2_.extended_highest_sequence_number = 8800;
     block2_2_.jitter = 888;
     block2_2_.source_ssrc = kSsrc2;
-
-    ssrc1block1_.push_back(block1_1_);
-    ssrc1block2_.push_back(block1_2_);
-    ssrc12block1_.push_back(block1_1_);
-    ssrc12block1_.push_back(block2_1_);
-    ssrc12block2_.push_back(block1_2_);
-    ssrc12block2_.push_back(block2_2_);
   }
 
   RtcpStatistics RtcpReportBlockToRtcpStatistics(const RTCPReportBlock& stats) {
@@ -72,25 +66,20 @@ class ReportBlockStatsTest : public ::testing::Test {
   RTCPReportBlock block1_3_;
   RTCPReportBlock block2_1_;
   RTCPReportBlock block2_2_;
-  std::vector<RTCPReportBlock> ssrc1block1_;
-  std::vector<RTCPReportBlock> ssrc1block2_;
-  std::vector<RTCPReportBlock> ssrc12block1_;
-  std::vector<RTCPReportBlock> ssrc12block2_;
 };
 
 TEST_F(ReportBlockStatsTest, StoreAndGetFractionLost) {
-  const uint32_t kRemoteSsrc = 1;
   ReportBlockStats stats;
   EXPECT_EQ(-1, stats.FractionLostInPercent());
 
   // First block.
-  stats.Store(RtcpReportBlockToRtcpStatistics(block1_1_), kRemoteSsrc, kSsrc1);
+  stats.Store(kSsrc1, RtcpReportBlockToRtcpStatistics(block1_1_));
   EXPECT_EQ(-1, stats.FractionLostInPercent());
   // fl: 100 * (15-10) / (24100-24000) = 5%
-  stats.Store(RtcpReportBlockToRtcpStatistics(block1_2_), kRemoteSsrc, kSsrc1);
+  stats.Store(kSsrc1, RtcpReportBlockToRtcpStatistics(block1_2_));
   EXPECT_EQ(5, stats.FractionLostInPercent());
   // fl: 100 * (50-10) / (24200-24000) = 20%
-  stats.Store(RtcpReportBlockToRtcpStatistics(block1_3_), kRemoteSsrc, kSsrc1);
+  stats.Store(kSsrc1, RtcpReportBlockToRtcpStatistics(block1_3_));
   EXPECT_EQ(20, stats.FractionLostInPercent());
 }
 

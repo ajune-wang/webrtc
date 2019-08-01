@@ -92,17 +92,14 @@ VideoAnalyzer::VideoAnalyzer(
       frames_to_process_(duration_frames),
       frames_recorded_(0),
       frames_processed_(0),
-      dropped_frames_(0),
       captured_frames_(0),
+      dropped_frames_(0),
       dropped_frames_before_first_encode_(0),
       dropped_frames_before_rendering_(0),
       last_render_time_(0),
       last_render_delta_ms_(0),
       last_unfreeze_time_ms_(0),
       rtp_timestamp_delta_(0),
-      total_media_bytes_(0),
-      first_sending_time_(0),
-      last_sending_time_(0),
       cpu_time_(0),
       wallclock_time_(0),
       avg_psnr_threshold_(avg_psnr_threshold),
@@ -289,12 +286,7 @@ bool VideoAnalyzer::SendRtp(const uint8_t* packet,
       if (IsInSelectedSpatialAndTemporalLayer(packet, length, header)) {
         encoded_frame_sizes_[timestamp] +=
             length - (header.headerLength + header.paddingLength);
-        total_media_bytes_ +=
-            length - (header.headerLength + header.paddingLength);
       }
-      if (first_sending_time_ == 0)
-        first_sending_time_ = current_time;
-      last_sending_time_ = current_time;
     }
   }
   return result;
@@ -624,10 +616,11 @@ bool VideoAnalyzer::FrameProcessed() {
 
 void VideoAnalyzer::PrintResults() {
   StopMeasuringCpuProcessTime();
-  int frames_left;
+  int dropped_frames_diff;
   {
     rtc::CritScope crit(&crit_);
-    frames_left = frames_.size();
+    dropped_frames_diff = dropped_frames_before_first_encode_ +
+                          dropped_frames_before_rendering_ + frames_.size();
   }
   rtc::CritScope crit(&comparison_lock_);
   PrintResult("psnr", psnr_, " dB");
@@ -702,8 +695,7 @@ void VideoAnalyzer::PrintResults() {
   if (receive_stream_ != nullptr) {
     PrintResult("decode_time", decode_time_ms_, " ms");
   }
-  dropped_frames_ += dropped_frames_before_first_encode_ +
-                     dropped_frames_before_rendering_ + frames_left;
+  dropped_frames_ += dropped_frames_diff;
   test::PrintResult("dropped_frames", "", test_label_.c_str(), dropped_frames_,
                     "frames", false);
   test::PrintResult("cpu_usage", "", test_label_.c_str(), GetCpuUsagePercent(),
@@ -850,21 +842,18 @@ void VideoAnalyzer::PrintSamplesToFile() {
   }
 }
 
-double VideoAnalyzer::GetAverageMediaBitrateBps() {
-  if (last_sending_time_ == first_sending_time_) {
-    return 0;
-  } else {
-    return static_cast<double>(total_media_bytes_) * 8 /
-           (last_sending_time_ - first_sending_time_) *
-           rtc::kNumMillisecsPerSec;
-  }
-}
-
 void VideoAnalyzer::AddCapturedFrameForComparison(
     const VideoFrame& video_frame) {
-  rtc::CritScope lock(&crit_);
-  if (captured_frames_ < frames_to_process_) {
-    ++captured_frames_;
+  bool must_capture = false;
+  {
+    rtc::CritScope lock(&comparison_lock_);
+    must_capture = captured_frames_ < frames_to_process_;
+    if (must_capture) {
+      ++captured_frames_;
+    }
+  }
+  if (must_capture) {
+    rtc::CritScope lock(&crit_);
     frames_.push_back(video_frame);
   }
 }

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59dad527_aae12c03",
+        "filename": "rtc_base/format_macros.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-02T12:18:55Z",
+      "side": 1,
+      "message": "I\u0027d prefer to delete this macro, and use %uz directly everywhere. (Probably best as a separate cl). Or does that break windows compiles, despite %z being in the C standard for 20 years now?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 22
+      },
+      "revId": "840438eb5729fe753f080e9391b154611e427ece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "445ba6b1_003533aa",
+        "filename": "rtc_base/format_macros.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-02T12:18:55Z",
+      "side": 1,
+      "message": "I take it PRIdNS is for NSINTEGER, and the other two for NSUInteger? Maybe document more clearly.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 23
+      },
+      "revId": "840438eb5729fe753f080e9391b154611e427ece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10780680_35e4a264",
+        "filename": "rtc_base/format_macros.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-02T12:18:55Z",
+      "side": 1,
+      "message": "Please document which compilers need this workaround.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 20
+      },
+      "revId": "840438eb5729fe753f080e9391b154611e427ece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -46,6 +46,30 @@
       "revId": "b3f78deb788449f8601173639764acfb727e66d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba1aeac2_5eaa76aa",
+        "filename": "rtc_base/format_macros.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-08-02T12:02:40Z",
+      "side": 0,
+      "message": "Agreed.\n\n+nisse@ in case he has an opinion / advice.",
+      "parentUuid": "8632abb5_261e95ac",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 40
+      },
+      "revId": "b3f78deb788449f8601173639764acfb727e66d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

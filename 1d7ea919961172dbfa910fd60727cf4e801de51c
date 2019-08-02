@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c66ec2ac_875e2c6f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-02T16:58:45Z",
+      "side": 1,
+      "message": "Could you also add a README.md to the test/peer_scenario folder?\n\nCopying in at least what you have written in the bug would be great.\n\nIn particular, it would be good to clarify when to use this framework vs. peer_connection_integrationtest.cc",
+      "revId": "1d7ea919961172dbfa910fd60727cf4e801de51c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f365491c_6bfc9ab1",
+        "filename": "test/peer_scenario/peer_scenario_client.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-02T16:58:45Z",
+      "side": 1,
+      "message": "Thanks for testing Unified Plan :D",
+      "range": {
+        "startLine": 84,
+        "startChar": 15,
+        "endLine": 84,
+        "endChar": 68
+      },
+      "revId": "1d7ea919961172dbfa910fd60727cf4e801de51c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95818d27_8562db51",
+        "filename": "test/peer_scenario/sdp_callbacks.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-02T16:58:45Z",
+      "side": 1,
+      "message": "In general I believe rtc::RefCountedObject should be the leaf of the inheritance hierarchy. Instead, could you have this class just inherit from SetSessionDescriptionObserver and SetRemoteDescriptionObserverInterface, then have a create method which returns a new rtc::RefCountedObject\u003cSdpSetObserversInterface\u003e ?",
+      "range": {
+        "startLine": 19,
+        "startChar": 13,
+        "endLine": 19,
+        "endChar": 34
+      },
+      "revId": "1d7ea919961172dbfa910fd60727cf4e801de51c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65da542e_972023ac",
+        "filename": "test/peer_scenario/sdp_callbacks.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-02T16:58:45Z",
+      "side": 1,
+      "message": "Can we have these return rtc::scoped_refptrs instead?",
+      "revId": "1d7ea919961172dbfa910fd60727cf4e801de51c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

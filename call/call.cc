@@ -282,6 +282,7 @@ class Call final : public webrtc::Call,
   const std::unique_ptr<BitrateAllocator> bitrate_allocator_;
   Call::Config config_;
   SequenceChecker configuration_sequence_checker_;
+  SequenceChecker worker_sequence_checker_;
 
   NetworkState audio_network_state_;
   NetworkState video_network_state_;
@@ -387,7 +388,7 @@ class Call final : public webrtc::Call,
   // Note that this is declared before transport_send_ to ensure that it is not
   // invalidated until no more tasks can be running on the transport_send_ task
   // queue.
-  RtpTransportControllerSendInterface* transport_send_ptr_;
+  RtpTransportControllerSendInterface* const transport_send_ptr_;
   // Declared last since it will issue callbacks from a task queue. Declaring it
   // last ensures that it is destroyed first and any running tasks are finished.
   std::unique_ptr<RtpTransportControllerSendInterface> transport_send_;
@@ -479,10 +480,11 @@ Call::Call(Clock* clock,
       receive_side_cc_(clock_, transport_send->packet_router()),
       receive_time_calculator_(ReceiveTimeCalculator::CreateFromFieldTrial()),
       video_send_delay_stats_(new SendDelayStats(clock_)),
-      start_ms_(clock_->TimeInMilliseconds()) {
+      start_ms_(clock_->TimeInMilliseconds()),
+      transport_send_ptr_(transport_send.get()),
+      transport_send_(std::move(transport_send)) {
   RTC_DCHECK(config.event_log != nullptr);
-  transport_send_ = std::move(transport_send);
-  transport_send_ptr_ = transport_send_.get();
+  worker_sequence_checker_.Detach();
 }
 
 Call::~Call() {
@@ -1045,7 +1047,8 @@ RtpTransportControllerSendInterface* Call::GetTransportControllerSend() {
 Call::Stats Call::GetStats() const {
   // TODO(solenberg): Some test cases in EndToEndTest use this from a different
   // thread. Re-enable once that is fixed.
-  // RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
+
   Stats stats;
   // Fetch available send/receive bitrates.
   std::vector<unsigned int> ssrcs;
@@ -1061,6 +1064,8 @@ Call::Stats Call::GetStats() const {
   // TODO(srte): It is unclear if we only want to report queues if network is
   // available.
   {
+    // TODO(tommi): Looks like aggregate_network_up_ is always used from the
+    // configuration thread? (do we need a lock?)
     rtc::CritScope cs(&aggregate_network_up_crit_);
     stats.pacer_delay_ms = aggregate_network_up_
                                ? transport_send_ptr_->GetPacerQueuingDelayMs()
@@ -1072,6 +1077,7 @@ Call::Stats Call::GetStats() const {
     rtc::CritScope cs(&bitrate_crit_);
     stats.max_padding_bitrate_bps = configured_max_padding_bitrate_bps_;
   }
+
   return stats;
 }
 
@@ -1175,6 +1181,8 @@ void Call::OnTargetTransferRate(TargetTransferRate msg) {
         [this, msg] { this->OnTargetTransferRate(msg); });
     return;
   }
+
+  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
 
   uint32_t target_bitrate_bps = msg.target_rate.bps();
   int loss_ratio_255 = msg.network_estimate.loss_rate_ratio * 255;

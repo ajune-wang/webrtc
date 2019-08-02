@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c39348e_1a906d71",
+        "filename": "modules/audio_processing/include/audio_processing.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-08-02T09:24:12Z",
+      "side": 1,
+      "message": "I\u0027m not sure if we should include the \u0027k\u0027 here, since that\u0027s just a consequence of the style guide.",
+      "range": {
+        "startLine": 22,
+        "startChar": 14,
+        "endLine": 22,
+        "endChar": 15
+      },
+      "revId": "8bbbebdf0885798b2400d24815fa7c776b4b561a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

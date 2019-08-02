@@ -664,10 +664,7 @@ void ReceiveStatisticsProxy::RtcpPacketTypesCounterUpdated(
 void ReceiveStatisticsProxy::StatisticsUpdated(
     const webrtc::RtcpStatistics& statistics,
     uint32_t ssrc) {
-  rtc::CritScope lock(&crit_);
-  if (stats_.ssrc != ssrc)
-    return;
-  stats_.rtcp_stats = statistics;
+  RTC_NOTREACHED();
 }
 
 void ReceiveStatisticsProxy::CNameChanged(const char* cname, uint32_t ssrc) {

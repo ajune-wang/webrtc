@@ -78,6 +78,7 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   void OnTimingFrameInfoUpdated(const TimingFrameInfo& info) override;
 
   // Overrides RtcpStatisticsCallback.
+  // TODO(nisse): Only wants cname change. Split into separate interfaces.
   void StatisticsUpdated(const webrtc::RtcpStatistics& statistics,
                          uint32_t ssrc) override;
   void CNameChanged(const char* cname, uint32_t ssrc) override;

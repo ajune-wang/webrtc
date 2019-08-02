@@ -166,6 +166,30 @@
       "revId": "840438eb5729fe753f080e9391b154611e427ece",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb810dc4_aa0f7c2a",
+        "filename": "rtc_base/format_macros.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-02T13:03:52Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "6970e64f_a049dbec",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 20
+      },
+      "revId": "840438eb5729fe753f080e9391b154611e427ece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

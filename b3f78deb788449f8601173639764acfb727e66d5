@@ -22,6 +22,30 @@
       "revId": "b3f78deb788449f8601173639764acfb727e66d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8632abb5_261e95ac",
+        "filename": "rtc_base/format_macros.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-08-02T12:00:15Z",
+      "side": 0,
+      "message": "So the part about \"Apple only\" is not true, there\u0027s also PRIuS.\n\nAnd in general I\u0027m having some difficulty in phrasing the comment so that it\u0027s actually useful and not stating something that\u0027s already obvious from the code itself.\n\nMaybe I\u0027ll just add a comment near the Windows macros - they\u0027re the outliers now.",
+      "parentUuid": "643c80f5_8777da3f",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 40
+      },
+      "revId": "b3f78deb788449f8601173639764acfb727e66d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

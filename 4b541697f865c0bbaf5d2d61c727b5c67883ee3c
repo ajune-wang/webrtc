@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "338e4897_f32435dc",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1968,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-02T17:47:08Z",
+      "side": 1,
+      "message": "nit: naming style, pair_change",
+      "range": {
+        "startLine": 1968,
+        "startChar": 27,
+        "endLine": 1968,
+        "endChar": 37
+      },
+      "revId": "4b541697f865c0bbaf5d2d61c727b5c67883ee3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccbd9dc7_6232dc7c",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-02T17:47:08Z",
+      "side": 1,
+      "message": "nit: candidate pair",
+      "range": {
+        "startLine": 301,
+        "startChar": 53,
+        "endLine": 301,
+        "endChar": 62
+      },
+      "revId": "4b541697f865c0bbaf5d2d61c727b5c67883ee3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

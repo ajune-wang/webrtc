@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "5039dbd6_a541380f",
+        "filename": "test/peer_scenario/peer_scenario_client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-02T08:42:54Z",
+      "side": 1,
+      "message": "Is see. A comment would be nice :)\nMaybe rename .ep(0) to .endpoint(0)? I don\u0027t think it\u0027s that common of an abbreviation.",
+      "parentUuid": "cf53d22d_73130587",
+      "range": {
+        "startLine": 62,
+        "startChar": 13,
+        "endLine": 62,
+        "endChar": 16
+      },
+      "revId": "dd487b58567abd0739076f12727c7dae50c17ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f3e3ab08_bbc459f8",
         "filename": "test/peer_scenario/peer_scenario_client.h",
         "patchSetId": 1
@@ -272,6 +296,30 @@
       "side": 1,
       "message": "Do you think that would be easier to read? I figure this is easy as you only need to check the signature of the function, which should reflect the declaration for readability reasons. We could also repeat it if you think that\u0027s nicer.",
       "parentUuid": "5eb302ed_defb7bf6",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 12
+      },
+      "revId": "dd487b58567abd0739076f12727c7dae50c17ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bfec657_d501bd7b",
+        "filename": "test/peer_scenario/sdp_callbacks.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-02T08:42:54Z",
+      "side": 1,
+      "message": "I usually find it easier to read especially with a good name. No I have to scan back through the code and figure out which of the \"callback\" was actually the definition and then see its type. The type is a bit verbose so repeating it would be worse :)\nJust my $0.02, I\u0027m not religious about this.",
+      "parentUuid": "05bd6342_4982dc50",
       "range": {
         "startLine": 50,
         "startChar": 4,

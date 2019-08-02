@@ -429,6 +429,7 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
   virtual void RegisterRtcpStatisticsCallback(
       RtcpStatisticsCallback* callback) = 0;
   virtual RtcpStatisticsCallback* GetRtcpStatisticsCallback() = 0;
+  virtual void RegisterRtcpCnameCallback(RtcpCnameCallback* callback) = 0;
   // TODO(https://crbug.com/webrtc/10680): When callbacks are registered at
   // construction, remove this setter.
   virtual void SetReportBlockDataObserver(

@@ -21,7 +21,7 @@
 //
 // To print a size_t value in a portable way:
 //   size_t size;
-//   printf("xyz: %" PRIuS, size);
+//   printf("xyz: %" RTC_PRIuS, size);
 // The "u" in the macro corresponds to %u, and S is for "size".
 
 #if defined(WEBRTC_POSIX)
@@ -39,9 +39,7 @@
 
 #include "rtc_base/system/arch.h"
 
-#if !defined(PRIuS)
-#define PRIuS "zu"
-#endif
+#define RTC_PRIuS "zu"
 
 // The size of NSInteger and NSUInteger varies between 32-bit and 64-bit
 // architectures and Apple does not provides standard format macros and
@@ -49,25 +47,13 @@
 // for formatting those types.
 #if defined(WEBRTC_MAC)
 #if defined(WEBRTC_ARCH_64_BITS)
-#if !defined(PRIdNS)
-#define PRIdNS "ld"
-#endif
-#if !defined(PRIuNS)
-#define PRIuNS "lu"
-#endif
-#if !defined(PRIxNS)
-#define PRIxNS "lx"
-#endif
+#define RTC_PRIdNS "ld"
+#define RTC_PRIuNS "lu"
+#define RTC_PRIxNS "lx"
 #else  // defined(WEBRTC_ARCH_64_BITS)
-#if !defined(PRIdNS)
-#define PRIdNS "d"
-#endif
-#if !defined(PRIuNS)
-#define PRIuNS "u"
-#endif
-#if !defined(PRIxNS)
-#define PRIxNS "x"
-#endif
+#define RTC_PRIdNS "d"
+#define RTC_PRIuNS "u"
+#define RTC_PRIxNS "x"
 #endif
 #endif  // defined(WEBRTC_MAC)
 
@@ -87,9 +73,7 @@
 #define PRIx64 "I64x"
 #endif
 
-#if !defined(PRIuS)
-#define PRIuS "Iu"
-#endif
+#define RTC_PRIuS "Iu"
 
 #endif
 

@@ -917,6 +917,7 @@ rtc_static_library("audio_network_adaptor") {
 
   deps = [
     "../../api/audio_codecs:audio_codecs_api",
+    "../../api/rtc_event_log",
     "../../common_audio",
     "../../logging:rtc_event_audio",
     "../../logging:rtc_event_log_api",

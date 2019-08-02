@@ -23,6 +23,8 @@ struct RtcpStatistics {
   uint32_t jitter = 0;
 };
 
+// TODO(nisse): Split in two interfaces. StatisticsUpdated is used only for send
+// streams, and CNameChanged is used only for receive streams.
 class RtcpStatisticsCallback {
  public:
   virtual ~RtcpStatisticsCallback() {}

@@ -65,16 +65,16 @@ void IncrementSequenceNumber(RtpPacketReceived* packet) {
   IncrementSequenceNumber(packet, 1);
 }
 
+#if 0
 void IncrementTimestamp(RtpPacketReceived* packet, uint32_t incr) {
   packet->SetTimestamp(packet->Timestamp() + incr);
 }
-
+#endif
 class ReceiveStatisticsTest : public ::testing::Test {
  public:
   ReceiveStatisticsTest()
       : clock_(0),
-        receive_statistics_(
-            ReceiveStatistics::Create(&clock_, nullptr, nullptr)) {
+        receive_statistics_(ReceiveStatistics::Create(&clock_, nullptr)) {
     packet1_ = CreateRtpPacket(kSsrc1, kPacketSize1);
     packet2_ = CreateRtpPacket(kSsrc2, kPacketSize2);
   }
@@ -233,6 +233,7 @@ TEST_F(ReceiveStatisticsTest, GetReceiveStreamDataCounters) {
   EXPECT_EQ(2u, counters.transmitted.packets);
 }
 
+#if 0
 TEST_F(ReceiveStatisticsTest, RtcpCallbacks) {
   class TestCallback : public RtcpStatisticsCallback {
    public:
@@ -295,6 +296,7 @@ TEST_F(ReceiveStatisticsTest, RtcpCallbacks) {
   EXPECT_EQ(5u, statistics.extended_highest_sequence_number);
   EXPECT_EQ(177u, statistics.jitter);
 }
+#endif
 
 TEST_F(ReceiveStatisticsTest, SimpleLossComputation) {
   packet1_.SetSequenceNumber(1);
@@ -560,7 +562,7 @@ class RtpTestCallback : public StreamDataCountersCallback {
 
 TEST_F(ReceiveStatisticsTest, RtpCallbacks) {
   RtpTestCallback callback;
-  receive_statistics_ = ReceiveStatistics::Create(&clock_, nullptr, &callback);
+  receive_statistics_ = ReceiveStatistics::Create(&clock_, &callback);
   receive_statistics_->EnableRetransmitDetection(kSsrc1, true);
 
   const size_t kHeaderLength = 20;
@@ -623,7 +625,7 @@ TEST_F(ReceiveStatisticsTest, RtpCallbacks) {
 
 TEST_F(ReceiveStatisticsTest, LastPacketReceivedTimestamp) {
   RtpTestCallback callback;
-  receive_statistics_ = ReceiveStatistics::Create(&clock_, nullptr, &callback);
+  receive_statistics_ = ReceiveStatistics::Create(&clock_, &callback);
 
   clock_.AdvanceTimeMilliseconds(42);
   receive_statistics_->OnRtpPacket(packet1_);
@@ -636,7 +638,7 @@ TEST_F(ReceiveStatisticsTest, LastPacketReceivedTimestamp) {
 
 TEST_F(ReceiveStatisticsTest, RtpCallbacksFecFirst) {
   RtpTestCallback callback;
-  receive_statistics_ = ReceiveStatistics::Create(&clock_, nullptr, &callback);
+  receive_statistics_ = ReceiveStatistics::Create(&clock_, &callback);
 
   const uint32_t kHeaderLength = 20;
   RtpPacketReceived packet =

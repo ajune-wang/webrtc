@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "e4126772_9fb6bbbe",
+        "filename": "test/peer_scenario/peer_scenario_client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-02T13:18:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5039dbd6_a541380f",
+      "range": {
+        "startLine": 62,
+        "startChar": 13,
+        "endLine": 62,
+        "endChar": 16
+      },
+      "revId": "dd487b58567abd0739076f12727c7dae50c17ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3e3ab08_bbc459f8",
         "filename": "test/peer_scenario/peer_scenario_client.h",
         "patchSetId": 1

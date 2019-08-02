@@ -49,6 +49,7 @@ rtc_static_library("audio") {
     "../api/audio:audio_frame_api",
     "../api/audio:audio_mixer_api",
     "../api/audio_codecs:audio_codecs_api",
+    "../api/rtc_event_log",
     "../api/task_queue",
     "../call:bitrate_allocator",
     "../call:call_interfaces",
@@ -56,7 +57,6 @@ rtc_static_library("audio") {
     "../common_audio",
     "../common_audio:common_audio_c",
     "../logging:rtc_event_audio",
-    "../logging:rtc_event_log_api",
     "../logging:rtc_stream_config",
     "../modules/audio_coding",
     "../modules/audio_coding:audio_encoder_cng",
@@ -123,6 +123,7 @@ if (rtc_include_tests) {
     deps = [
       ":audio",
       ":audio_end_to_end_test",
+      "../../api/rtc_event_log",
       "../api:libjingle_peerconnection_api",
       "../api:loopback_media_transport",
       "../api:mock_audio_mixer",
@@ -142,7 +143,6 @@ if (rtc_include_tests) {
       "../call:rtp_sender",
       "../common_audio",
       "../logging:mocks",
-      "../logging:rtc_event_log_api",
       "../modules/audio_device:audio_device_impl",  # For TestAudioDeviceModule
       "../modules/audio_device:mock_audio_device",
       "../modules/audio_mixer:audio_mixer_impl",

@@ -5,16 +5,16 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '7c6275bdfa64354f75d39496fcb3f23d422b0f3b',
+  'chromium_revision': '93c860325304ca076467f92ac3ef37ea3e9a4ea8',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@4c6ed4708bb01c2dd071e0083824bcc5d6b0f668',
+    'https://chromium.googlesource.com/chromium/src/base@7d151201574812bea50014925dd42d1c520c9242',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@c441c0a09d0cf470d5a0eab7b2d644114ed30673',
+    'https://chromium.googlesource.com/chromium/src/build@a975a2834870e5c7a4a34cb574de825eca2131d9',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@74cfb57006f83cfe050817526db359d5c8a11628',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -23,13 +23,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@ec642043d5a2ba0cc3ed174b8f143f0571abe4f5',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@10cb3ba83d81682004bc33a21878d9215b9575cd',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@12f69d1a5b02ceaa45121a0fb2f45c7b60dd22fa',
+    'https://chromium.googlesource.com/chromium/src/testing@ec231ecfc00e50501317a73e71db597e3f487779',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@7448965c2a1fc4ddb0714f6343e382b4cb178cad',
+    'https://chromium.googlesource.com/chromium/src/third_party@07035fa50534d8e5785c1a55424e178f014c5b7a',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -111,7 +111,7 @@ deps = {
   'src/third_party/boringssl/src':
     'https://boringssl.googlesource.com/boringssl.git@4dfd5af70191b068aebe567b8e29ce108cee85ce',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@4f68ff26e4e9a74f1d227d98c9df781e868e4d5e',
+    'https://chromium.googlesource.com/catapult.git@93ee550c1fe841b822f3a714f63245594c616522',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
     'condition': 'checkout_android',
@@ -119,7 +119,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@59bb8cce842ce937f07064f64f18a6f9192110de',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@921f6a17514698ebc9b037f1f1e8696b6c359fdd',
   'src/third_party/errorprone/lib': {
       'url': 'https://chromium.googlesource.com/chromium/third_party/errorprone.git@980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',
@@ -184,7 +184,7 @@ deps = {
 
   # Used by boringssl.
   'src/third_party/nasm': {
-      'url': 'https://chromium.googlesource.com/chromium/deps/nasm.git@f564874f49556d930882645a348fcd6ddc6847b0'
+      'url': 'https://chromium.googlesource.com/chromium/deps/nasm.git@da0dcccc44f11809d1241fcd52b4c0e25146d2a2'
   },
 
   'src/third_party/openh264/src':
@@ -231,7 +231,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@494a8a0b5aab82044891f2703217c7b9e1c4b039',
+    'https://chromium.googlesource.com/chromium/src/tools@a1fcb088c28c6d117a7e383110fd45498586c5ec',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@96f125709acfd0b48fc1e5dae7d6ea42291726ac',
 

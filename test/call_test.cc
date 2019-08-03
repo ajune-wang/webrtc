@@ -684,6 +684,7 @@ void CallTest::SetVideoEncoderConfig(const VideoEncoderConfig& config) {
 VideoSendStream* CallTest::GetVideoSendStream() {
   return video_send_streams_[0];
 }
+
 FlexfecReceiveStream::Config* CallTest::GetFlexFecConfig() {
   return &flexfec_receive_configs_[0];
 }

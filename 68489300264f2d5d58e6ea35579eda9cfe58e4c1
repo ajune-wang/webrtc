@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8fdc984_f95b0b0a",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-05T13:54:40Z",
+      "side": 1,
+      "message": "Driveby fix:  RTC_LOCKS_EXCLUDED(stream_lock_); ?",
+      "range": {
+        "startLine": 105,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 59
+      },
+      "revId": "68489300264f2d5d58e6ea35579eda9cfe58e4c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

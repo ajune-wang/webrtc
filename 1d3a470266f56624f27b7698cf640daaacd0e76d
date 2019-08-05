@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "27a13265_3b61f2b6",
+        "filename": "common_audio/wav_file.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-05T09:10:41Z",
+      "side": 1,
+      "message": "This code seems to CHECK for errors liberally, so I would go with that.",
+      "parentUuid": "e5962ab6_3ad8d875",
+      "revId": "1d3a470266f56624f27b7698cf640daaacd0e76d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e52cef5_b15bf22a",
         "filename": "rtc_base/system/file_wrapper.cc",
         "patchSetId": 1
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "b7844c55_5ad06db0",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-05T09:10:41Z",
+      "side": 1,
+      "message": "SGTM.",
+      "parentUuid": "4fc30b5e_df574f4c",
+      "revId": "1d3a470266f56624f27b7698cf640daaacd0e76d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "68768688_ff1c6012",
         "filename": "rtc_base/system/file_wrapper.h",
         "patchSetId": 1
@@ -101,6 +137,24 @@
       "side": 1,
       "message": "The return value is useful only when called after Read returned a short count. Before that, it\u0027s always false, just like feof(), which is often misunderstood. Feel free to suggest clearer wording or naming.\n\n\"Read\" in this name is intended to be a past tense verb.",
       "parentUuid": "68768688_ff1c6012",
+      "revId": "1d3a470266f56624f27b7698cf640daaacd0e76d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5943fab8_72cf5b36",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-05T09:10:41Z",
+      "side": 1,
+      "message": "Maybe\n\n  // If the most recent Read() returned a short count, this method returns true if that was due to encountering EOF, false if it was caused by something else.\n\nThat makes it clear that we\u0027re not saying what the return value is if you call it under other circumstances.\n\nAlso, shouldn\u0027t this be const?",
+      "parentUuid": "8063ebd0_0d11a82a",
       "revId": "1d3a470266f56624f27b7698cf640daaacd0e76d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

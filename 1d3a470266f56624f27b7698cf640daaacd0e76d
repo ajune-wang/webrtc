@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e5962ab6_3ad8d875",
+        "filename": "common_audio/wav_file.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-05T08:58:26Z",
+      "side": 1,
+      "message": "What\u0027s the desired behavior if a file ends in the middle of a sample? Silently ignoring the partial sample seems reasonable to me. Shouldn\u0027t happen in the read_bytes \u003d\u003d num_bytes case; that could be CHECKed, but gets a bit involved.",
+      "parentUuid": "a4862e87_b8ed3550",
+      "revId": "1d3a470266f56624f27b7698cf640daaacd0e76d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e52cef5_b15bf22a",
         "filename": "rtc_base/system/file_wrapper.cc",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "4fc30b5e_df574f4c",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-05T08:58:26Z",
+      "side": 1,
+      "message": "I\u0027ll change to int64_t. And use an rtc::checked_cast to long.\n\nI chose size_t because (i) only forward seek was needed, and (ii) it seemed nice to stick to the same type as Read.",
+      "parentUuid": "3e52cef5_b15bf22a",
+      "revId": "1d3a470266f56624f27b7698cf640daaacd0e76d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "68768688_ff1c6012",
         "filename": "rtc_base/system/file_wrapper.h",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2019-08-05T08:43:51Z",
       "side": 1,
       "message": "Am I only allowed to call this after Read has returned a short count?",
+      "revId": "1d3a470266f56624f27b7698cf640daaacd0e76d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8063ebd0_0d11a82a",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-05T08:58:26Z",
+      "side": 1,
+      "message": "The return value is useful only when called after Read returned a short count. Before that, it\u0027s always false, just like feof(), which is often misunderstood. Feel free to suggest clearer wording or naming.\n\n\"Read\" in this name is intended to be a past tense verb.",
+      "parentUuid": "68768688_ff1c6012",
       "revId": "1d3a470266f56624f27b7698cf640daaacd0e76d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

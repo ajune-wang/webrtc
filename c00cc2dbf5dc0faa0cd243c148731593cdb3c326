@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a149c22_2486e427",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-05T09:06:59Z",
+      "side": 1,
+      "message": "This method needs a new name, to support seek backwards. Just \"Seek\", or \"SeekRelative\", SeekFrom\", ...?",
+      "range": {
+        "startLine": 80,
+        "startChar": 7,
+        "endLine": 80,
+        "endChar": 18
+      },
+      "revId": "c00cc2dbf5dc0faa0cd243c148731593cdb3c326",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

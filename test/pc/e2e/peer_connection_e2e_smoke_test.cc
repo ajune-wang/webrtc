@@ -38,6 +38,8 @@ class PeerConnectionE2EQualityTestSmokeTest : public ::testing::Test {
   using ScrollingParams = PeerConnectionE2EQualityTestFixture::ScrollingParams;
   using VideoSimulcastConfig =
       PeerConnectionE2EQualityTestFixture::VideoSimulcastConfig;
+  using EchoEmulationConfig =
+      PeerConnectionE2EQualityTestFixture::EchoEmulationConfig;
 
   void RunTest(const std::string& test_case_name,
                const RunParams& run_params,
@@ -136,6 +138,7 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Smoke) {
   run_params.use_flex_fec = true;
   run_params.use_ulp_fec = true;
   run_params.video_encoder_bitrate_multiplier = 1.1;
+  run_params.echo_emulation_config = EchoEmulationConfig();
   RunTest(
       "smoke", run_params,
       [](PeerConfigurer* alice) {
@@ -148,6 +151,7 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Smoke) {
         audio.mode = AudioConfig::Mode::kFile;
         audio.input_file_name =
             test::ResourcePath("pc_quality_smoke_test_alice_source", "wav");
+        audio.output_dump_file_name = "/tmp/alice_out.wav";
         audio.sampling_frequency_in_hz = 48000;
         alice->SetAudioConfig(std::move(audio));
       },

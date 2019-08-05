@@ -66,6 +66,7 @@ class TestAudioDeviceModuleImpl
         audio_callback_(nullptr),
         rendering_(false),
         capturing_(false) {
+    std::printf("process_interval_us_=%ld\n", process_interval_us_);
     auto good_sample_rate = [](int sr) {
       return sr == 8000 || sr == 16000 || sr == 32000 || sr == 44100 ||
              sr == 48000;
@@ -94,6 +95,7 @@ class TestAudioDeviceModuleImpl
 
     RepeatingTaskHandle::Start(task_queue_->Get(), [this]() {
       ProcessAudio();
+      std::printf("process_interval_us_=%ld\n", process_interval_us_);
       return TimeDelta::us(process_interval_us_);
     });
     return 0;

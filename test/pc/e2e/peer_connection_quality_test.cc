@@ -277,7 +277,7 @@ void PeerConnectionE2EQualityTest::Run(RunParams run_params) {
           [this]() { StartVideo(alice_video_sources_); }),
       video_quality_analyzer_injection_helper_.get(), signaling_thread.get(),
       alice_remote_audio_config, run_params.video_encoder_bitrate_multiplier,
-      task_queue_.get());
+      run_params.echo_emulation_config, task_queue_.get());
   bob_ = TestPeer::CreateTestPeer(
       std::move(bob_components), std::move(bob_params),
       absl::make_unique<FixturePeerConnectionObserver>(
@@ -288,7 +288,7 @@ void PeerConnectionE2EQualityTest::Run(RunParams run_params) {
           [this]() { StartVideo(bob_video_sources_); }),
       video_quality_analyzer_injection_helper_.get(), signaling_thread.get(),
       bob_remote_audio_config, run_params.video_encoder_bitrate_multiplier,
-      task_queue_.get());
+      run_params.echo_emulation_config, task_queue_.get());
 
   int num_cores = CpuInfo::DetectNumberOfCores();
   RTC_DCHECK_GE(num_cores, 1);
@@ -359,6 +359,7 @@ void PeerConnectionE2EQualityTest::Run(RunParams run_params) {
         });
   });
 
+  std::printf("Test started\n");
   rtc::Event done;
   bool is_quick_test_enabled = field_trial::IsEnabled("WebRTC-QuickPerfTest");
   if (is_quick_test_enabled) {
@@ -366,6 +367,7 @@ void PeerConnectionE2EQualityTest::Run(RunParams run_params) {
   } else {
     done.Wait(run_params.run_duration.ms());
   }
+  std::printf("Test ended\n");
 
   rtc::Event stats_polling_stopped;
   task_queue_->PostTask([&stats_polling_stopped, this]() {
@@ -390,11 +392,13 @@ void PeerConnectionE2EQualityTest::Run(RunParams run_params) {
       handle.Stop();
     }
   });
+  std::printf("Tear down call\n");
   // Tear down the call.
   signaling_thread->Invoke<void>(
       RTC_FROM_HERE,
       rtc::Bind(&PeerConnectionE2EQualityTest::TearDownCallOnSignalingThread,
                 this));
+  std::printf("Call terminated\n");
   Timestamp end_time = Now();
   {
     rtc::CritScope crit(&lock_);
@@ -935,8 +939,14 @@ void PeerConnectionE2EQualityTest::TearDownCall() {
     video_source->Stop();
   }
 
+  std::printf("Close Alice\n");
+  Timestamp alice_close_start = Now();
   alice_->pc()->Close();
+  std::printf("Alice closed in %lums, close Bob\n",
+              (Now() - alice_close_start).ms());
+  Timestamp bob_close_start = Now();
   bob_->pc()->Close();
+  std::printf("Bob closed in %lums\n", (Now() - bob_close_start).ms());
 
   for (const auto& video_writer : video_writers_) {
     video_writer->Close();

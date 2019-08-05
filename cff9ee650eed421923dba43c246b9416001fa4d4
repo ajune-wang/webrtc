@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3b6cea1_2e4f681d",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoEncoderFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 7223
+      },
+      "writtenOn": "2019-08-05T13:05:07Z",
+      "side": 1,
+      "message": "why do we only consider ENCODER_COLOR_FORMATS here?",
+      "revId": "cff9ee650eed421923dba43c246b9416001fa4d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

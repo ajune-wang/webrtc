@@ -38,6 +38,8 @@ class PeerConnectionE2EQualityTestSmokeTest : public ::testing::Test {
   using ScrollingParams = PeerConnectionE2EQualityTestFixture::ScrollingParams;
   using VideoSimulcastConfig =
       PeerConnectionE2EQualityTestFixture::VideoSimulcastConfig;
+  using EchoEmulationConfig =
+      PeerConnectionE2EQualityTestFixture::EchoEmulationConfig;
 
   void RunTest(const std::string& test_case_name,
                const RunParams& run_params,
@@ -136,39 +138,44 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Smoke) {
   run_params.use_flex_fec = true;
   run_params.use_ulp_fec = true;
   run_params.video_encoder_bitrate_multiplier = 1.1;
+  run_params.echo_emulation_config = EchoEmulationConfig();
   RunTest(
       "smoke", run_params,
       [](PeerConfigurer* alice) {
-        VideoConfig video(640, 360, 30);
-        video.stream_label = "alice-video";
-        alice->AddVideoConfig(std::move(video));
+        // VideoConfig video(640, 360, 30);
+        // video.stream_label = "alice-video";
+        // alice->AddVideoConfig(std::move(video));
 
         AudioConfig audio;
         audio.stream_label = "alice-audio";
         audio.mode = AudioConfig::Mode::kFile;
         audio.input_file_name =
             test::ResourcePath("pc_quality_smoke_test_alice_source", "wav");
+        audio.input_dump_file_name = "/tmp/alice_in.wav";
+        audio.output_dump_file_name = "/tmp/alice_out.wav";
         audio.sampling_frequency_in_hz = 48000;
         alice->SetAudioConfig(std::move(audio));
       },
       [](PeerConfigurer* bob) {
-        VideoConfig video(640, 360, 30);
-        video.stream_label = "bob-video";
-        bob->AddVideoConfig(std::move(video));
+        // VideoConfig video(640, 360, 30);
+        // video.stream_label = "bob-video";
+        // bob->AddVideoConfig(std::move(video));
 
-        VideoConfig screenshare(640, 360, 30);
-        screenshare.stream_label = "bob-screenshare";
-        screenshare.screen_share_config =
-            ScreenShareConfig(TimeDelta::seconds(2));
-        screenshare.screen_share_config->scrolling_params = ScrollingParams(
-            TimeDelta::ms(1800), kDefaultSlidesWidth, kDefaultSlidesHeight);
-        bob->AddVideoConfig(screenshare);
+        // VideoConfig screenshare(640, 360, 30);
+        // screenshare.stream_label = "bob-screenshare";
+        // screenshare.screen_share_config =
+        //     ScreenShareConfig(TimeDelta::seconds(2));
+        // screenshare.screen_share_config->scrolling_params = ScrollingParams(
+        //     TimeDelta::ms(1800), kDefaultSlidesWidth, kDefaultSlidesHeight);
+        // bob->AddVideoConfig(screenshare);
 
         AudioConfig audio;
         audio.stream_label = "bob-audio";
         audio.mode = AudioConfig::Mode::kFile;
         audio.input_file_name =
             test::ResourcePath("pc_quality_smoke_test_bob_source", "wav");
+        audio.input_dump_file_name = "/tmp/bob_in.wav";
+        audio.output_dump_file_name = "/tmp/bob_out.wav";
         bob->SetAudioConfig(std::move(audio));
       });
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b156e0e2_67104b50",
+        "filename": "common_audio/wav_file.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-05T09:23:15Z",
+      "side": 1,
+      "message": "I think size_t is still reasonable here. Or do you prefer int64_t?",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 98,
+        "endChar": 8
+      },
+      "revId": "bf3aa25102e1c16f8075e1e1d21b897a2d96e860",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

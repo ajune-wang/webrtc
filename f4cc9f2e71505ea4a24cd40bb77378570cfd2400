@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00e43031_cdaa09ea",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-05T08:14:47Z",
+      "side": 1,
+      "message": "Could perhaps be made a construction-time setting in RtpRtcp::Configuration instead. But a setter makes this change smaller.",
+      "range": {
+        "startLine": 432,
+        "startChar": 0,
+        "endLine": 432,
+        "endChar": 74
+      },
+      "revId": "f4cc9f2e71505ea4a24cd40bb77378570cfd2400",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "855759da_8b6aca05",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-05T08:14:47Z",
+      "side": 1,
+      "message": "Is this the proper way to construct a string from a string_view?",
+      "range": {
+        "startLine": 679,
+        "startChar": 18,
+        "endLine": 679,
+        "endChar": 37
+      },
+      "revId": "f4cc9f2e71505ea4a24cd40bb77378570cfd2400",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

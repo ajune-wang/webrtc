@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4862e87_b8ed3550",
+        "filename": "common_audio/wav_file.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-05T08:43:51Z",
+      "side": 1,
+      "message": "CHECK that this division doesn\u0027t truncate?",
+      "revId": "1d3a470266f56624f27b7698cf640daaacd0e76d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e52cef5_b15bf22a",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-05T08:43:51Z",
+      "side": 1,
+      "message": "The type of fseek\u0027s second argument is long, which is (1) signed and (2) has nothing particular to do with the size of a machine pointer. Why do these two functions use size_t? int or int64_t would seem like better choices.",
+      "revId": "1d3a470266f56624f27b7698cf640daaacd0e76d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68768688_ff1c6012",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-05T08:43:51Z",
+      "side": 1,
+      "message": "Am I only allowed to call this after Read has returned a short count?",
+      "revId": "1d3a470266f56624f27b7698cf640daaacd0e76d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

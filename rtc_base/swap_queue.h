@@ -200,6 +200,10 @@ class SwapQueue {
     return true;
   }
 
+  size_t Size() const {
+    return std::atomic_load_explicit(&num_elements_, std::memory_order_acquire);
+  }
+
  private:
   // Verify that the queue slots complies with the ItemVerifier test. This
   // function is not thread-safe and can only be used in the constructors.

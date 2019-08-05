@@ -88,11 +88,11 @@ rtc_static_library("rtc_p2p") {
   ]
 
   deps = [
+    "../../api/rtc_event_log",
     "../api:libjingle_peerconnection_api",
     "../api:scoped_refptr",
     "../api/transport:enums",
     "../logging:ice_log",
-    "../logging:rtc_event_log_api",
     "../rtc_base",
     "../rtc_base:checks",
 

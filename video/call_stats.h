@@ -26,6 +26,10 @@ namespace webrtc {
 class CallStatsObserver;
 
 // CallStats keeps track of statistics for a call.
+// TODO(tommi): Break away the inheritance from RtcpRttStats. Avoid exposing
+// LastProcessedRtt() and control how it gets called. Once we're there, we can
+// control whether or not it returns a value or if a callback is executed from
+// a separate thread/queue.
 class CallStats : public Module, public RtcpRttStats {
  public:
   // Time interval for updating the observers.
@@ -59,6 +63,19 @@ class CallStats : public Module, public RtcpRttStats {
   };
 
  private:
+  /*class RtcpRttStatsImpl : public RtcpRttStats {
+   public:
+    RtcpRttStatsImpl(CallStats* stats) : stats_(stats) {}
+
+   private:
+    // RtcpRttStats implementation.
+    void OnRttUpdate(int64_t rtt) override {
+      stats_->OnRttUpdate(rtt);
+    }
+
+    CallStats* const stats_;
+  };*/
+
   // RtcpRttStats implementation.
   void OnRttUpdate(int64_t rtt) override;
 
@@ -113,6 +130,8 @@ class CallStats : public Module, public RtcpRttStats {
   rtc::ThreadChecker process_thread_checker_;
   ProcessThread* const process_thread_;
   bool process_thread_running_ RTC_GUARDED_BY(construction_thread_checker_);
+
+  /*RtcpRttStatsImpl rtt_stats_impl_{this};*/
 
   RTC_DISALLOW_COPY_AND_ASSIGN(CallStats);
 };

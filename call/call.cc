@@ -282,11 +282,11 @@ class Call final : public webrtc::Call,
   const std::unique_ptr<BitrateAllocator> bitrate_allocator_;
   Call::Config config_;
   SequenceChecker configuration_sequence_checker_;
+  SequenceChecker worker_sequence_checker_;
 
   NetworkState audio_network_state_;
   NetworkState video_network_state_;
-  rtc::CriticalSection aggregate_network_up_crit_;
-  bool aggregate_network_up_ RTC_GUARDED_BY(aggregate_network_up_crit_);
+  bool aggregate_network_up_ RTC_GUARDED_BY(configuration_sequence_checker_);
 
   std::unique_ptr<RWLockWrapper> receive_crit_;
   // Audio, Video, and FlexFEC receive streams are owned by the client that
@@ -387,7 +387,7 @@ class Call final : public webrtc::Call,
   // Note that this is declared before transport_send_ to ensure that it is not
   // invalidated until no more tasks can be running on the transport_send_ task
   // queue.
-  RtpTransportControllerSendInterface* transport_send_ptr_;
+  RtpTransportControllerSendInterface* const transport_send_ptr_;
   // Declared last since it will issue callbacks from a task queue. Declaring it
   // last ensures that it is destroyed first and any running tasks are finished.
   std::unique_ptr<RtpTransportControllerSendInterface> transport_send_;
@@ -479,10 +479,11 @@ Call::Call(Clock* clock,
       receive_side_cc_(clock_, transport_send->packet_router()),
       receive_time_calculator_(ReceiveTimeCalculator::CreateFromFieldTrial()),
       video_send_delay_stats_(new SendDelayStats(clock_)),
-      start_ms_(clock_->TimeInMilliseconds()) {
+      start_ms_(clock_->TimeInMilliseconds()),
+      transport_send_ptr_(transport_send.get()),
+      transport_send_(std::move(transport_send)) {
   RTC_DCHECK(config.event_log != nullptr);
-  transport_send_ = std::move(transport_send);
-  transport_send_ptr_ = transport_send_.get();
+  worker_sequence_checker_.Detach();
 }
 
 Call::~Call() {
@@ -1043,9 +1044,8 @@ RtpTransportControllerSendInterface* Call::GetTransportControllerSend() {
 }
 
 Call::Stats Call::GetStats() const {
-  // TODO(solenberg): Some test cases in EndToEndTest use this from a different
-  // thread. Re-enable once that is fixed.
-  // RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
+
   Stats stats;
   // Fetch available send/receive bitrates.
   std::vector<unsigned int> ssrcs;
@@ -1058,20 +1058,18 @@ Call::Stats Call::GetStats() const {
     stats.send_bandwidth_bps = last_bandwidth_bps_;
   }
   stats.recv_bandwidth_bps = recv_bandwidth;
+
   // TODO(srte): It is unclear if we only want to report queues if network is
   // available.
-  {
-    rtc::CritScope cs(&aggregate_network_up_crit_);
-    stats.pacer_delay_ms = aggregate_network_up_
-                               ? transport_send_ptr_->GetPacerQueuingDelayMs()
-                               : 0;
-  }
+  stats.pacer_delay_ms =
+      aggregate_network_up_ ? transport_send_ptr_->GetPacerQueuingDelayMs() : 0;
 
   stats.rtt_ms = call_stats_->LastProcessedRtt();
   {
     rtc::CritScope cs(&bitrate_crit_);
     stats.max_padding_bitrate_bps = configured_max_padding_bitrate_bps_;
   }
+
   return stats;
 }
 
@@ -1141,10 +1139,8 @@ void Call::UpdateAggregateNetworkState() {
 
   RTC_LOG(LS_INFO) << "UpdateAggregateNetworkState: aggregate_state="
                    << (aggregate_network_up ? "up" : "down");
-  {
-    rtc::CritScope cs(&aggregate_network_up_crit_);
-    aggregate_network_up_ = aggregate_network_up;
-  }
+  aggregate_network_up_ = aggregate_network_up;
+
   transport_send_ptr_->OnNetworkAvailability(aggregate_network_up);
 }
 
@@ -1175,6 +1171,8 @@ void Call::OnTargetTransferRate(TargetTransferRate msg) {
         [this, msg] { this->OnTargetTransferRate(msg); });
     return;
   }
+
+  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
 
   uint32_t target_bitrate_bps = msg.target_rate.bps();
   int loss_ratio_255 = msg.network_estimate.loss_rate_ratio * 255;
@@ -1224,6 +1222,7 @@ void Call::OnTargetTransferRate(TargetTransferRate msg) {
 void Call::OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
                                      uint32_t max_padding_bitrate_bps,
                                      uint32_t total_bitrate_bps) {
+  // TODO(tommi): On what thread are we now?
   transport_send_ptr_->SetAllocatedSendBitrateLimits(
       min_send_bitrate_bps, max_padding_bitrate_bps, total_bitrate_bps);
 

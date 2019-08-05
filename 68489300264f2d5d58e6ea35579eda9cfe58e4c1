@@ -22,6 +22,30 @@
       "revId": "68489300264f2d5d58e6ea35579eda9cfe58e4c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96d77887_46b76921",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-05T14:14:16Z",
+      "side": 1,
+      "message": "Apparently doesn\u0027t work, \n\n  error: \u0027locks_excluded\u0027 attribute only applies to functions [-Werror,-Wignored-attributes]\n\nNot sure exactly what \"function\" means in this context. Maybe it would help if the callback were a std::function rather than an interface class?",
+      "parentUuid": "f8fdc984_f95b0b0a",
+      "range": {
+        "startLine": 105,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 59
+      },
+      "revId": "68489300264f2d5d58e6ea35579eda9cfe58e4c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c57f56e_81e1587c",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1975,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-05T19:54:07Z",
+      "side": 1,
+      "message": "We should have a p2p_transport_channel level test that validates the contents of the event struct.",
+      "revId": "1b946ce2d161ec4d0ce06872d1c82febff340a35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d691215_8ab4697b",
+        "filename": "p2p/base/port.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-05T19:54:07Z",
+      "side": 1,
+      "message": "Please document the units",
+      "revId": "1b946ce2d161ec4d0ce06872d1c82febff340a35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9625acc8_79d1ea97",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 4222,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-05T19:54:07Z",
+      "side": 1,
+      "message": "nit: EXPECT_EQ for these",
+      "revId": "1b946ce2d161ec4d0ce06872d1c82febff340a35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c28e335c_6b555f09",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 4254,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-05T19:54:07Z",
+      "side": 1,
+      "message": "At this level a basic sanity check is probably ok. But something should test that the values in the event are correct (I suggest P2PTransportChannel tests).",
+      "revId": "1b946ce2d161ec4d0ce06872d1c82febff340a35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

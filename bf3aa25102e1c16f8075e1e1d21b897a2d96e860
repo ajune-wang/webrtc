@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c827cbc2_179f956f",
+        "filename": "common_audio/wav_file.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-06T07:39:11Z",
+      "side": 1,
+      "message": "\u003e (Not asking you to change more than necessary in this CL though.)\n\nThat\u0027s nice, but what changes do you consider necessary?",
+      "parentUuid": "0ec8ad63_537ba74b",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 98,
+        "endChar": 8
+      },
+      "revId": "bf3aa25102e1c16f8075e1e1d21b897a2d96e860",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b7a316a2_a32d40a1",
         "filename": "rtc_base/system/file_wrapper.h",
         "patchSetId": 3
@@ -69,6 +93,30 @@
       "revId": "bf3aa25102e1c16f8075e1e1d21b897a2d96e860",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de1029de_916b1e34",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-06T07:39:11Z",
+      "side": 1,
+      "message": "Done, here and int he method implementation.",
+      "parentUuid": "b7a316a2_a32d40a1",
+      "range": {
+        "startLine": 80,
+        "startChar": 28,
+        "endLine": 80,
+        "endChar": 34
+      },
+      "revId": "bf3aa25102e1c16f8075e1e1d21b897a2d96e860",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

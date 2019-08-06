@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aae30b06_77713e56",
+        "filename": "call/rampup_tests.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2019-08-06T07:31:00Z",
+      "side": 1,
+      "message": "You can remove \u0027stop_event_\u0027.",
+      "revId": "f92579e54d0a38e069fa4cde12e5ba45f89ad551",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

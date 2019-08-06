@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83651cd6_545f1b8a",
+        "filename": "call/degraded_call.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-06T12:36:36Z",
+      "side": 1,
+      "message": "Could we create a single send pipe in the constructor? Then the |task_queue_factory_| member would get unused. (But maybe for a separate cl).",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 80
+      },
+      "revId": "a41b9c14c0b3b8ae5726070665345a7b3fb51625",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c34adae_c4fb77e0",
+        "filename": "call/degraded_call.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-06T12:36:36Z",
+      "side": 1,
+      "message": "Name suggest that it is a kind of task queue, which it isn\u0027t. Maybe FakeNetworkPipeOnTaskQueue or ...WithTaskQueue?\n\nDo you plan to change the FakeNetworkPipe class itself to work with a task queue? Then this class would no longer be needed.\n\nUnrelated to this cl: Does the class need to be declared in the header? Could it be moved to anonymous namespace in the .cc file?",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 30
+      },
+      "revId": "a41b9c14c0b3b8ae5726070665345a7b3fb51625",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

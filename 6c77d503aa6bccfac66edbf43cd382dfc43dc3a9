@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe235424_4436c990",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-08-06T08:22:01Z",
+      "side": 1,
+      "message": "Is this always safe? No null pointers get returned? I didn\u0027t understand what happens in FuzzyPacketBuffer https://cs.chromium.org/chromium/src/third_party/webrtc/test/fuzzers/rtp_frame_reference_finder_fuzzer.cc?q\u003dFuzzyPacketBuffer\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d82\n\nOtherwise LGTM!",
+      "range": {
+        "startLine": 129,
+        "startChar": 4,
+        "endLine": 129,
+        "endChar": 43
+      },
+      "revId": "6c77d503aa6bccfac66edbf43cd382dfc43dc3a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

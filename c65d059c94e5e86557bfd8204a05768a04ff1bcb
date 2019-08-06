@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bcf3a8c3_244f2e4e",
+        "filename": "test/pc/e2e/echo/echo_emulation.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-06T13:03:27Z",
+      "side": 1,
+      "message": "nit: This could be replaced with an `else`.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 1
+      },
+      "revId": "c65d059c94e5e86557bfd8204a05768a04ff1bcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

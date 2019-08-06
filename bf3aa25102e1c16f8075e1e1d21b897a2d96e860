@@ -22,6 +22,53 @@
       "revId": "bf3aa25102e1c16f8075e1e1d21b897a2d96e860",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ec8ad63_537ba74b",
+        "filename": "common_audio/wav_file.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-06T03:40:56Z",
+      "side": 1,
+      "message": "size_t is the right type for the size of arrays in memory. For the size of stuff on disk, int64_t is better. Consider the fact that there\u0027s no good reason for 64-bit machines to be better than 32-bit machines at handling large (4GB+) files.\n\nHere, num_samples_ and num_samples_remaining_ look like they should be int64_t, and num_channels_ and data_start_pos_ look like they would comfortably fit in int. (Not asking you to change more than necessary in this CL though.)",
+      "parentUuid": "b156e0e2_67104b50",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 98,
+        "endChar": 8
+      },
+      "revId": "bf3aa25102e1c16f8075e1e1d21b897a2d96e860",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7a316a2_a32d40a1",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-06T03:40:56Z",
+      "side": 1,
+      "message": "Call this \"offset\"?",
+      "range": {
+        "startLine": 80,
+        "startChar": 28,
+        "endLine": 80,
+        "endChar": 34
+      },
+      "revId": "bf3aa25102e1c16f8075e1e1d21b897a2d96e860",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

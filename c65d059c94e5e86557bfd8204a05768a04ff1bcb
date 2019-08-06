@@ -46,6 +46,30 @@
       "revId": "c65d059c94e5e86557bfd8204a05768a04ff1bcb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88cc1940_50f3c5bf",
+        "filename": "test/pc/e2e/echo/echo_emulation.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-06T14:10:42Z",
+      "side": 1,
+      "message": "Ohh I see, thanks for explaining! :)",
+      "parentUuid": "b6a61f76_5c515e55",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 1
+      },
+      "revId": "c65d059c94e5e86557bfd8204a05768a04ff1bcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

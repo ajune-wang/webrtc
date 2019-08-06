@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6102fb99_af681f13",
+        "filename": "test/pc/e2e/echo/echo_emulation.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-06T11:54:12Z",
+      "side": 1,
+      "message": "Ok, thanks!",
+      "parentUuid": "79525cfc_bcf28e60",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 5
+      },
+      "revId": "85e7ea4ea7755153d7921a7cd39d24f150a32a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44c07c4a_718c741c",
         "filename": "test/pc/e2e/echo/echo_emulation.cc",
         "patchSetId": 10
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "4390f9a3_6e672a0f",
+        "filename": "test/pc/e2e/echo/echo_emulation.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-06T11:54:12Z",
+      "side": 1,
+      "message": "Good point. sgtm :)",
+      "parentUuid": "ac9b283d_fa5f0f71",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 5
+      },
+      "revId": "85e7ea4ea7755153d7921a7cd39d24f150a32a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "daac03d8_467ca249",
         "filename": "test/pc/e2e/echo/echo_emulation.cc",
         "patchSetId": 10
@@ -210,6 +258,30 @@
       "revId": "85e7ea4ea7755153d7921a7cd39d24f150a32a91",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f56c54e7_d638bb33",
+        "filename": "test/pc/e2e/test_peer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-06T11:54:12Z",
+      "side": 1,
+      "message": "This sounded way less judgmental in my head, I apologize. Thank you for extracting it to a separate CL!",
+      "parentUuid": "ae74d2b9_3636d187",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 18
+      },
+      "revId": "85e7ea4ea7755153d7921a7cd39d24f150a32a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -22,6 +22,30 @@
       "revId": "6c77d503aa6bccfac66edbf43cd382dfc43dc3a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fd180b5_e6b2a02e",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-08-06T09:01:21Z",
+      "side": 1,
+      "message": "I had to look this up too. But it is safe.\n\nFuzzyPacketBuffer::packets is an std::map\u003c\u003e. The line\nVCMPacket* packet \u003d \u0026packets[seq_num];\nwill insert a new element with the key seq_num and return this.\n\n\nFrom https://en.cppreference.com/w/cpp/container/map/operator_at\n\"Returns a reference to the value that is mapped to a key equivalent to key, performing an insertion if such key does not already exist.\"",
+      "parentUuid": "fe235424_4436c990",
+      "range": {
+        "startLine": 129,
+        "startChar": 4,
+        "endLine": 129,
+        "endChar": 43
+      },
+      "revId": "6c77d503aa6bccfac66edbf43cd382dfc43dc3a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

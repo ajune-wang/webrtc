@@ -19,7 +19,9 @@
 #include "test/testsupport/file_utils.h"
 
 namespace webrtc {
+#if 0
 
+// TODO(nisse): XXX If kept, needs to call AcmReceiver directly.
 class TargetDelayTest : public ::testing::Test {
  protected:
   TargetDelayTest()
@@ -183,5 +185,6 @@ TEST_F(TargetDelayTest, MAYBE_WithTargetDelayBufferNotChanging) {
 TEST_F(TargetDelayTest, MAYBE_TargetDelayBufferMinMax) {
   TargetDelayBufferMinMax();
 }
+#endif
 
 }  // namespace webrtc

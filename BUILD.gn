@@ -399,6 +399,7 @@ if (!build_with_chromium) {
 
     deps = [
       ":webrtc_common",
+      "api:create_peerconnection_factory",
       "api:libjingle_peerconnection_api",
       "api:transport_api",
       "api/rtc_event_log:rtc_event_log_factory",

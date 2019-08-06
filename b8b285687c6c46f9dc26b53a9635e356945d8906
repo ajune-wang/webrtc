@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "4f27b761_00c0a83f",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-06T11:06:19Z",
+      "side": 1,
+      "message": "How about \"...the echo path delay, i.e. how soon rendered signal should reach capturer.\" to clarify what is being emulated.",
+      "range": {
+        "startLine": 280,
+        "startChar": 30,
+        "endLine": 280,
+        "endChar": 76
+      },
+      "revId": "b8b285687c6c46f9dc26b53a9635e356945d8906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98c2255b_0db1d02a",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-06T11:06:19Z",
+      "side": 1,
+      "message": "\"...will be done, by mixing the render audio into the capture signal.\" to be a little more explicit about the effect.",
+      "range": {
+        "startLine": 319,
+        "startChar": 35,
+        "endLine": 319,
+        "endChar": 47
+      },
+      "revId": "b8b285687c6c46f9dc26b53a9635e356945d8906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60ee0dfe_aa74d010",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-06T11:06:19Z",
+      "side": 1,
+      "message": "\"...to avoid saturation or compression in the echo path simulation.\"\nGives the reader a little bit of insight into why we do this.",
+      "range": {
+        "startLine": 320,
+        "startChar": 29,
+        "endLine": 320,
+        "endChar": 59
+      },
+      "revId": "b8b285687c6c46f9dc26b53a9635e356945d8906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "faf1727e_f5e769cc",
         "filename": "test/pc/e2e/analyzer/audio/echo_emulation.cc",
         "patchSetId": 8

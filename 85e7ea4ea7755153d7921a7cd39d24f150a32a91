@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "409ffd16_6fd23911",
+        "filename": "test/pc/e2e/echo/echo_emulation.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-06T11:06:19Z",
+      "side": 1,
+      "message": "Will this work differently depending on if the test WAV file starts with complete silence or not?",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 5
+      },
+      "revId": "85e7ea4ea7755153d7921a7cd39d24f150a32a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44c07c4a_718c741c",
+        "filename": "test/pc/e2e/echo/echo_emulation.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-06T11:06:19Z",
+      "side": 1,
+      "message": "I suggest replacing with \"avoid saturation when mixing\" to be more explicit about why this is done.",
+      "range": {
+        "startLine": 72,
+        "startChar": 43,
+        "endLine": 72,
+        "endChar": 70
+      },
+      "revId": "85e7ea4ea7755153d7921a7cd39d24f150a32a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8115a6d_1912f034",
+        "filename": "test/pc/e2e/echo/echo_emulation.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-06T11:06:19Z",
+      "side": 1,
+      "message": "I think we should add a check for int16 overflow, either a real CHECK or a log statement, since it may cause clicks in the audio.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 5
+      },
+      "revId": "85e7ea4ea7755153d7921a7cd39d24f150a32a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daac03d8_467ca249",
+        "filename": "test/pc/e2e/echo/echo_emulation.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-06T11:06:19Z",
+      "side": 1,
+      "message": "Should there be a RTC_(D)CHECK on echo_emulating_capturer_?",
+      "range": {
+        "startLine": 93,
+        "startChar": 57,
+        "endLine": 93,
+        "endChar": 58
+      },
+      "revId": "85e7ea4ea7755153d7921a7cd39d24f150a32a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae74d2b9_3636d187",
+        "filename": "test/pc/e2e/test_peer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-06T11:06:19Z",
+      "side": 1,
+      "message": "This file was hard to review, but it looks like it is a no-change refactoring plus some minor new code for the echo emulation. The refactoring should probably have been done in a separate CL, unless it was unavoidable?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 18
+      },
+      "revId": "85e7ea4ea7755153d7921a7cd39d24f150a32a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb8caa02_20273228",
+        "filename": "test/pc/e2e/test_peer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-06T11:06:19Z",
+      "side": 1,
+      "message": "I had a hard time following along what happened here but I can\u0027t really see any way of making it clearer. Possibly by collecting the echo emulation stuff, not sure. Do what you think is best.\n\n// Create regular capturer ...\n\n// Create regular renderer ...\n\nif (audio_config_opt_ \u0026\u0026 echo_emulation_config_) {\n  capturer \u003d absl::make_unique\u003cEchoEmulatingCapturer\u003e(\n      std::move(capturer), *echo_emulation_config_);\n  echo_emulating_capturer \u003d\n      static_cast\u003cEchoEmulatingCapturer*\u003e(capturer.get());\n  renderer \u003d absl::make_unique\u003cEchoEmulatingRenderer\u003e(\n      std::move(renderer), echo_emulating_capturer);\n}",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 5
+      },
+      "revId": "85e7ea4ea7755153d7921a7cd39d24f150a32a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

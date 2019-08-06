@@ -45,6 +45,30 @@
       "revId": "b8b285687c6c46f9dc26b53a9635e356945d8906",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17743cb1_856706c3",
+        "filename": "test/pc/e2e/analyzer/audio/echo_emulation.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-08-06T09:38:26Z",
+      "side": 1,
+      "message": "One more point is that it will be good to run this code with sanitizers to check it, but performance results with sanitizers are meaningless, it\u0027s correct.",
+      "parentUuid": "8a8bdd94_88aa00c9",
+      "range": {
+        "startLine": 61,
+        "startChar": 36,
+        "endLine": 61,
+        "endChar": 79
+      },
+      "revId": "b8b285687c6c46f9dc26b53a9635e356945d8906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "faf1727e_f5e769cc",
+        "filename": "test/pc/e2e/analyzer/audio/echo_emulation.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-08-06T09:22:04Z",
+      "side": 1,
+      "message": "It is probably better to generalize the comment since we are also skipping the check on Android.",
+      "range": {
+        "startLine": 58,
+        "startChar": 45,
+        "endLine": 58,
+        "endChar": 55
+      },
+      "revId": "b8b285687c6c46f9dc26b53a9635e356945d8906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a8bdd94_88aa00c9",
+        "filename": "test/pc/e2e/analyzer/audio/echo_emulation.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-08-06T09:22:04Z",
+      "side": 1,
+      "message": "Is this doable?\n\nI don\u0027t have any experience in that but if this is something we cannot achieve maybe we should just avoid to run tests with Echo Emulation on sanitizers.\n\nWe have briefly discussed this by person, living this comment here for other reviewers.",
+      "range": {
+        "startLine": 61,
+        "startChar": 36,
+        "endLine": 61,
+        "endChar": 79
+      },
+      "revId": "b8b285687c6c46f9dc26b53a9635e356945d8906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

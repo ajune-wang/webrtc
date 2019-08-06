@@ -141,6 +141,30 @@
       "revId": "a41b9c14c0b3b8ae5726070665345a7b3fb51625",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dace66a2_0f28cf3a",
+        "filename": "call/degraded_call.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-06T13:55:04Z",
+      "side": 1,
+      "message": "Oh, right.\nSure, moved into DegradedCall.",
+      "parentUuid": "20110461_d1bcfc77",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 30
+      },
+      "revId": "a41b9c14c0b3b8ae5726070665345a7b3fb51625",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "3af7f37c_9ff1439a",
+        "filename": "common_audio/wav_file.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-06T07:59:57Z",
+      "side": 1,
+      "message": "Hmm. I\u0027d prefer to use the same type here as for ReadableWavFile::GetPosition(). And there int doesn\u0027t seem appropriate. So I\u0027m changing them both to int64_t.",
+      "parentUuid": "bb16a565_96e7d65c",
+      "range": {
+        "startLine": 98,
+        "startChar": 2,
+        "endLine": 98,
+        "endChar": 8
+      },
+      "revId": "bf3aa25102e1c16f8075e1e1d21b897a2d96e860",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7a316a2_a32d40a1",
         "filename": "rtc_base/system/file_wrapper.h",
         "patchSetId": 3

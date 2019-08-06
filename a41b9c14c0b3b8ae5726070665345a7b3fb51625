@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "116adeb4_d897d7cd",
+        "filename": "call/degraded_call.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-06T13:15:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9caa31b3_498cf5c3",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 80
+      },
+      "revId": "a41b9c14c0b3b8ae5726070665345a7b3fb51625",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c34adae_c4fb77e0",
         "filename": "call/degraded_call.h",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "\u003e Name suggest that it is a kind of task queue, which it isn\u0027t. Maybe FakeNetworkPipeOnTaskQueue or ...WithTaskQueue?\n\nRenamed to FakeNetworkPipeOnTaskQueue.\n\n\n\u003e Do you plan to change the FakeNetworkPipe class itself to work with a task queue? Then this class would no longer be needed.\n\nOne day, but right now I\u0027m just trying to unblock testing. If we change FakeNetworkPipe itself\nit will likely lead to a long range of alerts for minor changes to perf stats, and I would\nlike to avoid dealing with that right now.\n\n\n\u003e Unrelated to this cl: Does the class need to be declared in the header? Could it be moved to anonymous namespace in the .cc file?\n\nWith a forward declaration, sure. But I though those were discouraged?",
       "parentUuid": "5c34adae_c4fb77e0",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 30
+      },
+      "revId": "a41b9c14c0b3b8ae5726070665345a7b3fb51625",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "20110461_d1bcfc77",
+        "filename": "call/degraded_call.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-06T13:15:24Z",
+      "side": 1,
+      "message": "Rename ps not yet uploaded?\n\n\u003e With a forward declaration, sure. But I though those were discouraged?\n\nThey are. Another way to get it out of the webrtc namespace is to make it a private member class of DegradedCall.",
+      "parentUuid": "8ac0e471_0e094b6e",
       "range": {
         "startLine": 43,
         "startChar": 6,

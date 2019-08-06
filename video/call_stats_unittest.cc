@@ -77,7 +77,6 @@ TEST_F(CallStatsTest, AddAndTriggerCallback) {
   AsyncSimulateRttUpdate(kRtt);
 
   EXPECT_TRUE(event.Wait(1000));
-
   EXPECT_EQ(kRtt, rtcp_rtt_stats->LastProcessedRtt());
 
   call_stats_.DeregisterStatsObserver(&stats_observer);

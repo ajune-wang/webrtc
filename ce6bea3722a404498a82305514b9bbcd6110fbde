@@ -22,6 +22,30 @@
       "revId": "ce6bea3722a404498a82305514b9bbcd6110fbde",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "861a7891_66e23677",
+        "filename": "common_audio/wav_file.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-06T08:32:00Z",
+      "side": 1,
+      "message": "Yes, there is size_t in all sorts of unfortunate places in this code. Dig into the history and I suspect you might find that I\u0027m originally responsible for a large chunk of it...\n\nBasically, we *should* be using int64_t for file sizes and offsets, size_t for memory sizes, ptrdiff_t for memory offsets, and int for general small integers. That we do not consistently do so is a bit of a mess, since it forces new code to either be inconsistent or continue using the wrong types.",
+      "parentUuid": "bc099112_33efc343",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 39
+      },
+      "revId": "ce6bea3722a404498a82305514b9bbcd6110fbde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

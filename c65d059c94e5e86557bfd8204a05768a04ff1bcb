@@ -22,6 +22,30 @@
       "revId": "c65d059c94e5e86557bfd8204a05768a04ff1bcb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6a61f76_5c515e55",
+        "filename": "test/pc/e2e/echo/echo_emulation.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-08-06T13:05:17Z",
+      "side": 1,
+      "message": "Actually no, because the value can be updated on this invocation.",
+      "parentUuid": "bcf3a8c3_244f2e4e",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 1
+      },
+      "revId": "c65d059c94e5e86557bfd8204a05768a04ff1bcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

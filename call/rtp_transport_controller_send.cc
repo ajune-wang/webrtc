@@ -20,6 +20,7 @@
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "call/rtp_video_sender.h"
+#include "logging/rtc_event_log/events/rtc_event_bwe_update_target_rate.h"
 #include "logging/rtc_event_log/events/rtc_event_route_change.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/location.h"
@@ -570,6 +571,8 @@ void RtpTransportControllerSend::PostUpdates(NetworkControlUpdate update) {
     pacer()->CreateProbeCluster(probe.target_data_rate, probe.id);
   }
   if (update.target_rate) {
+    event_log_->Log(absl::make_unique<RtcEventBweUpdateTargetRate>(
+        update.target_rate->target_rate.bps()));
     control_handler_->SetTargetRate(*update.target_rate);
     UpdateControlState();
   }

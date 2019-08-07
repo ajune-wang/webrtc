@@ -27,6 +27,7 @@
 #include "logging/rtc_event_log/encoder/blob_encoding.h"
 #include "logging/rtc_event_log/encoder/delta_encoding.h"
 #include "logging/rtc_event_log/encoder/rtc_event_log_encoder_common.h"
+#include "logging/rtc_event_log/logged_events.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "logging/rtc_event_log/rtc_event_processor.h"
 #include "modules/audio_coding/audio_network_adaptor/include/audio_network_adaptor.h"
@@ -1140,6 +1141,7 @@ bool ParsedRtcEventLog::ParseStream(
   StoreFirstAndLastTimestamp(bwe_probe_success_events());
   StoreFirstAndLastTimestamp(bwe_delay_updates());
   StoreFirstAndLastTimestamp(bwe_loss_updates());
+  StoreFirstAndLastTimestamp(bwe_target_rate_updates());
   StoreFirstAndLastTimestamp(dtls_transport_states());
   StoreFirstAndLastTimestamp(dtls_writable_states());
   StoreFirstAndLastTimestamp(ice_candidate_pair_configs());
@@ -2142,6 +2144,7 @@ void ParsedRtcEventLog::StoreParsedNewFormatEvent(
           stream.audio_playout_events_size() + stream.begin_log_events_size() +
           stream.end_log_events_size() + stream.loss_based_bwe_updates_size() +
           stream.delay_based_bwe_updates_size() +
+          stream.target_rate_bwe_updates_size() +
           stream.dtls_transport_state_events_size() +
           stream.dtls_writable_states_size() +
           stream.audio_network_adaptations_size() +
@@ -2176,6 +2179,8 @@ void ParsedRtcEventLog::StoreParsedNewFormatEvent(
     StoreBweLossBasedUpdate(stream.loss_based_bwe_updates(0));
   } else if (stream.delay_based_bwe_updates_size() == 1) {
     StoreBweDelayBasedUpdate(stream.delay_based_bwe_updates(0));
+  } else if (stream.target_rate_bwe_updates_size() == 1) {
+    StoreBweTargetRateUpdate(stream.target_rate_bwe_updates(0));
   } else if (stream.dtls_transport_state_events_size() == 1) {
     StoreDtlsTransportState(stream.dtls_transport_state_events(0));
   } else if (stream.dtls_writable_states_size() == 1) {
@@ -2445,6 +2450,18 @@ void ParsedRtcEventLog::StoreBweDelayBasedUpdate(
     bwe_delay_updates_.emplace_back(1000 * timestamp_ms, bitrate_bps,
                                     GetRuntimeDetectorState(detector_state));
   }
+}
+
+void ParsedRtcEventLog::StoreBweTargetRateUpdate(
+    const rtclog2::TargetRateBweUpdates& proto) {
+  RTC_CHECK(proto.has_timestamp_ms());
+  RTC_CHECK(proto.has_target_rate());
+
+  // TODO(eshr): Deltas
+  LoggedBweTargetRateUpdate target_rate_event;
+  target_rate_event.timestamp_us = 1000 * proto.timestamp_ms();
+  target_rate_event.target_rate = proto.target_rate();
+  bwe_target_rate_updates_.push_back(target_rate_event);
 }
 
 void ParsedRtcEventLog::StoreBweProbeClusterCreated(

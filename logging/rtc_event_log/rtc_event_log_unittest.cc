@@ -69,6 +69,7 @@ struct EventCounts {
   size_t ana_configs = 0;
   size_t bwe_loss_events = 0;
   size_t bwe_delay_events = 0;
+  size_t bwe_target_rate_events = 0;
   size_t dtls_transport_states = 0;
   size_t dtls_writable_states = 0;
   size_t probe_creations = 0;
@@ -86,10 +87,10 @@ struct EventCounts {
 
   size_t total_nonconfig_events() const {
     return alr_states + route_changes + audio_playouts + ana_configs +
-           bwe_loss_events + bwe_delay_events + dtls_transport_states +
-           dtls_writable_states + probe_creations + probe_successes +
-           probe_failures + ice_configs + ice_events + incoming_rtp_packets +
-           outgoing_rtp_packets + incoming_rtcp_packets +
+           bwe_loss_events + bwe_delay_events + bwe_target_rate_events +
+           dtls_transport_states + dtls_writable_states + probe_creations +
+           probe_successes + probe_failures + ice_configs + ice_events +
+           incoming_rtp_packets + outgoing_rtp_packets + incoming_rtcp_packets +
            outgoing_rtcp_packets + generic_packets_sent +
            generic_packets_received + generic_acks_received;
   }
@@ -163,6 +164,8 @@ class RtcEventLogSession
       ana_configs_list_;
   std::vector<std::unique_ptr<RtcEventBweUpdateDelayBased>> bwe_delay_list_;
   std::vector<std::unique_ptr<RtcEventBweUpdateLossBased>> bwe_loss_list_;
+  std::vector<std::unique_ptr<RtcEventBweUpdateTargetRate>>
+      bwe_target_rate_list_;
   std::vector<std::unique_ptr<RtcEventDtlsTransportState>>
       dtls_transport_state_list_;
   std::vector<std::unique_ptr<RtcEventDtlsWritableState>>
@@ -400,6 +403,15 @@ void RtcEventLogSession::WriteLog(EventCounts count,
     }
     selection -= count.bwe_delay_events;
 
+    if (selection < count.bwe_target_rate_events) {
+      auto event = gen_.NewBweUpdateTargetRate();
+      event_log->Log(event->Copy());
+      bwe_target_rate_list_.push_back(std::move(event));
+      count.bwe_target_rate_events--;
+      continue;
+    }
+    selection -= count.bwe_target_rate_events;
+
     if (selection < count.probe_creations) {
       auto event = gen_.NewProbeClusterCreated();
       event_log->Log(event->Copy());
@@ -607,6 +619,14 @@ void RtcEventLogSession::ReadAndVerifyLog() {
                                              parsed_bwe_loss_updates[i]);
   }
 
+  auto& parsed_bwe_target_rate_updates = parsed_log.bwe_target_rate_updates();
+  ASSERT_EQ(parsed_bwe_target_rate_updates.size(),
+            bwe_target_rate_list_.size());
+  for (size_t i = 0; i < parsed_bwe_target_rate_updates.size(); i++) {
+    verifier_.VerifyLoggedBweTargetRateUpdate(
+        *bwe_target_rate_list_[i], parsed_bwe_target_rate_updates[i]);
+  }
+
   auto& parsed_bwe_probe_cluster_created_events =
       parsed_log.bwe_probe_cluster_created_events();
   ASSERT_EQ(parsed_bwe_probe_cluster_created_events.size(),
@@ -770,6 +790,7 @@ TEST_P(RtcEventLogSession, StartLoggingFromBeginning) {
   count.outgoing_rtcp_packets = 20;
   if (IsNewFormat()) {
     count.route_changes = 4;
+    count.bwe_target_rate_events = 20;
     count.generic_packets_sent = 100;
     count.generic_packets_received = 100;
     count.generic_acks_received = 20;
@@ -803,6 +824,7 @@ TEST_P(RtcEventLogSession, StartLoggingInTheMiddle) {
   count.outgoing_rtcp_packets = 50;
   if (IsNewFormat()) {
     count.route_changes = 10;
+    count.bwe_target_rate_events = 50;
     count.generic_packets_sent = 500;
     count.generic_packets_received = 500;
     count.generic_acks_received = 50;

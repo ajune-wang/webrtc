@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "2851dbc7_131cc488",
+        "filename": "rtc_base/format_macros.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-08-07T11:23:37Z",
+      "side": 1,
+      "message": "I don\u0027t see deleting this macro as viable, and regardless of that, it will not be part of this CL.\n\nWe could live without this macro if we accept that we will cause WebRTC to get really obscure failures on old MSVC.\n\n\u003e We already use %zu in a handful of places \n\nSo the problems probably already exist and may be security problems. I\u0027m particularly worried about snprintf and sscanf:\n\nhttps://cs.chromium.org/search/?q\u003d%25zu+file:webrtc+%2Bsnprintf%7Csscanf",
+      "parentUuid": "195800ec_76ad12f8",
+      "revId": "39b5f4e8afaa3833e8826dd26c3fbe7bd5384fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3588c7ec_2ef37904",
         "filename": "rtc_base/format_macros.h",
         "patchSetId": 4
@@ -54,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "0d7a2730_1c0d3630",
+        "filename": "rtc_base/format_macros.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-08-07T11:23:37Z",
+      "side": 1,
+      "message": "Good point. I don\u0027t much care for that, but I can just make another CL to delete them.",
+      "parentUuid": "3588c7ec_2ef37904",
+      "revId": "39b5f4e8afaa3833e8826dd26c3fbe7bd5384fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ef05f46_8e8bad79",
         "filename": "rtc_base/format_macros.h",
         "patchSetId": 4
@@ -68,6 +104,24 @@
       "revId": "39b5f4e8afaa3833e8826dd26c3fbe7bd5384fbf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e63a22c2_d0dfcec2",
+        "filename": "rtc_base/format_macros.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-08-07T11:23:37Z",
+      "side": 1,
+      "message": "\u003e Since we apparently use raw %zu without breaking\n\nHow can you make that claim? I\u0027m sure it\u0027s very much breaking, just that we don\u0027t test it.",
+      "parentUuid": "1ef05f46_8e8bad79",
+      "revId": "39b5f4e8afaa3833e8826dd26c3fbe7bd5384fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -466,7 +466,8 @@ ChannelReceive::ChannelReceive(
     rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor,
     const webrtc::CryptoOptions& crypto_options)
     : event_log_(rtc_event_log),
-      rtp_receive_statistics_(ReceiveStatistics::Create(clock)),
+      rtp_receive_statistics_(
+          ReceiveStatistics::Create(clock, /*rtp_callback=*/nullptr)),
       remote_ssrc_(remote_ssrc),
       acm_receiver_(AcmConfig(decoder_factory,
                               codec_pair_id,

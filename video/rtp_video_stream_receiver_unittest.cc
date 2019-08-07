@@ -138,8 +138,8 @@ class RtpVideoStreamReceiverTest : public ::testing::Test {
         process_thread_(ProcessThread::Create("TestThread")) {}
 
   void SetUp() {
-    rtp_receive_statistics_ =
-        absl::WrapUnique(ReceiveStatistics::Create(Clock::GetRealTimeClock()));
+    rtp_receive_statistics_ = ReceiveStatistics::Create(
+        Clock::GetRealTimeClock(), /*rtp_callback=*/nullptr);
     rtp_video_stream_receiver_ = absl::make_unique<RtpVideoStreamReceiver>(
         Clock::GetRealTimeClock(), &mock_transport_, nullptr, nullptr, &config_,
         rtp_receive_statistics_.get(), nullptr, process_thread_.get(),

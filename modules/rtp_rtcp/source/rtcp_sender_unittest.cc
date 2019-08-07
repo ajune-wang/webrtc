@@ -73,7 +73,8 @@ class RtcpSenderTest : public ::testing::Test {
  protected:
   RtcpSenderTest()
       : clock_(1335900000),
-        receive_statistics_(ReceiveStatistics::Create(&clock_)),
+        receive_statistics_(
+            ReceiveStatistics::Create(&clock_, /*rtp_callback=*/nullptr)),
         retransmission_rate_limiter_(&clock_, 1000) {
     RtpRtcp::Configuration configuration = GetDefaultConfig();
     rtp_rtcp_impl_.reset(new ModuleRtpRtcpImpl(configuration));

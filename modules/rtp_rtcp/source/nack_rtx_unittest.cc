@@ -131,7 +131,8 @@ class RtpRtcpRtxNackTest : public ::testing::Test {
     RtpRtcp::Configuration configuration;
     configuration.audio = false;
     configuration.clock = &fake_clock;
-    receive_statistics_.reset(ReceiveStatistics::Create(&fake_clock));
+    receive_statistics_ =
+        ReceiveStatistics::Create(&fake_clock, /*rtp_callback=*/nullptr);
     configuration.receive_statistics = receive_statistics_.get();
     configuration.outgoing_transport = &transport_;
     configuration.retransmission_rate_limiter = &retransmission_rate_limiter_;

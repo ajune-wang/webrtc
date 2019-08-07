@@ -147,7 +147,8 @@ FlexfecReceiveStreamImpl::FlexfecReceiveStreamImpl(
       receiver_(MaybeCreateFlexfecReceiver(clock,
                                            config_,
                                            recovered_packet_receiver)),
-      rtp_receive_statistics_(ReceiveStatistics::Create(clock)),
+      rtp_receive_statistics_(
+          ReceiveStatistics::Create(clock, /*rtp_callback=*/nullptr)),
       rtp_rtcp_(CreateRtpRtcpModule(clock,
                                     rtp_receive_statistics_.get(),
                                     config_.rtcp_send_transport,

@@ -60,6 +60,10 @@ class ReceiveStatistics : public ReceiveStatisticsProvider,
  public:
   ~ReceiveStatistics() override = default;
 
+  // TODO(nisse): Intention is not to delete this method, but to change the
+  // return value to unique_ptr. To do that users of the current method must be
+  // changed to use the Create method with an additional argument.
+  RTC_DEPRECATED
   static ReceiveStatistics* Create(Clock* clock) {
     return Create(clock, nullptr).release();
   }

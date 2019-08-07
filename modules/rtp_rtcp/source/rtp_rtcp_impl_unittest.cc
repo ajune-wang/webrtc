@@ -104,7 +104,8 @@ class SendTransport : public Transport {
 class RtpRtcpModule : public RtcpPacketTypeCounterObserver {
  public:
   explicit RtpRtcpModule(SimulatedClock* clock)
-      : receive_statistics_(ReceiveStatistics::Create(clock)),
+      : receive_statistics_(
+            ReceiveStatistics::Create(clock, /*rtp_callback=*/nullptr)),
         remote_ssrc_(0),
         clock_(clock) {
     CreateModuleImpl();

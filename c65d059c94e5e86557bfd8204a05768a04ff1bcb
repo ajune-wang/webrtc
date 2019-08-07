@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "cc52aa27_29e6d5c8",
+        "filename": "rtc_base/swap_queue.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-07T02:36:19Z",
+      "side": 1,
+      "message": "It\u0027s not in general possible to write this method, since the return value might be outdated in either direction by the time the caller can act on it.",
+      "revId": "c65d059c94e5e86557bfd8204a05768a04ff1bcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bcf3a8c3_244f2e4e",
         "filename": "test/pc/e2e/echo/echo_emulation.cc",
         "patchSetId": 17

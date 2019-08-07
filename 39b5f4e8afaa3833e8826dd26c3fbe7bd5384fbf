@@ -158,6 +158,24 @@
       "revId": "39b5f4e8afaa3833e8826dd26c3fbe7bd5384fbf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "47a9e653_bda6cb64",
+        "filename": "rtc_base/format_macros.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-07T11:59:09Z",
+      "side": 1,
+      "message": "\u003e Ah, I was assuming that printf would do something sensible when given an unrecognized format parameter.\n\nI see no way for printf to skip the corresponding argument without knowing what type it is.\nIt could crash on the spot, if you consider that sensible (it would at least avoid subtle security implications), but I\u0027d be a bit surprised if an implementation did that.",
+      "parentUuid": "1eac1407_b66c6925",
+      "revId": "39b5f4e8afaa3833e8826dd26c3fbe7bd5384fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

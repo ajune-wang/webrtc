@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30b9f3e0_42876f0d",
+        "filename": "logging/rtc_event_log/rtc_event_log.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-07T10:18:20Z",
+      "side": 0,
+      "message": "For a much-used header like this one, it\u0027s often useful to remove the #includes and the actual header in separate CLs, since the former is a large and merge conflict prone change, and the latter is tiny but may need reverting if the header turns out to be used externally. Combining them in one CL gives you the worst of both worlds.\n\nThat said, I don\u0027t object to doing it in one CL---it\u0027s all a question of what\u0027s more convenient for you.",
+      "revId": "ad5c4accad00e04de08e2b62d366cc1f8e0320a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

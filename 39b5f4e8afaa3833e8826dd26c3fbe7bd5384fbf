@@ -176,6 +176,24 @@
       "revId": "39b5f4e8afaa3833e8826dd26c3fbe7bd5384fbf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbcf2584_19f61b1e",
+        "filename": "rtc_base/format_macros.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-07T12:06:06Z",
+      "side": 1,
+      "message": "Crashing was what I had in mind, but yes, that would be out of character for the C standard library. It could plausibly turn into a no-op, though, or stop printing+consuming arguments when it encountered the unknown format.",
+      "parentUuid": "47a9e653_bda6cb64",
+      "revId": "39b5f4e8afaa3833e8826dd26c3fbe7bd5384fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

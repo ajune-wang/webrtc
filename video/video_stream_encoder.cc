@@ -754,11 +754,21 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       encoder_->GetEncoderInfo(),
       last_frame_info_->width * last_frame_info_->height);
 
-  if (encoder_config_.max_bitrate_bps <= 0 && streams.size() == 1 &&
-      encoder_bitrate_limits_ && encoder_bitrate_limits_->max_bitrate_bps > 0) {
-    // If max video bitrate is not limited explicitly, set it equal to max
-    // bitrate recommended by encoder.
-    streams.back().max_bitrate_bps = encoder_bitrate_limits_->max_bitrate_bps;
+  if (streams.size() == 1 && encoder_bitrate_limits_) {
+    // Use the bitrate limits recommended by encoder.
+    if (encoder_bitrate_limits_->min_bitrate_bps > 0) {
+      streams.back().min_bitrate_bps = encoder_bitrate_limits_->min_bitrate_bps;
+    }
+
+    if (encoder_bitrate_limits_->max_bitrate_bps > 0 &&
+        encoder_config_.max_bitrate_bps <= 0) {
+      // If max video bitrate is not limited explicitly, set it equal to max
+      // bitrate recommended by encoder and currect the target bitrate.
+      streams.back().max_bitrate_bps = encoder_bitrate_limits_->max_bitrate_bps;
+      streams.back().target_bitrate_bps =
+          std::min(streams.back().target_bitrate_bps,
+                   encoder_bitrate_limits_->max_bitrate_bps);
+    }
   }
 
   VideoCodec codec;

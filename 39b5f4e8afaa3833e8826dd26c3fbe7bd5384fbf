@@ -194,6 +194,24 @@
       "revId": "39b5f4e8afaa3833e8826dd26c3fbe7bd5384fbf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d83521d_04ab4d50",
+        "filename": "rtc_base/format_macros.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-08-07T12:09:46Z",
+      "side": 1,
+      "message": "\u003e IIRC we went from the oldest supported MSVC being 2013 to 2015 to 2017\n\nI don\u0027t think we ever officially dropped support (or I just don\u0027t know any reference to such an event), it probably just happened by itself because we only test on latest.\n\nWell then, follow up to remove PRI*64 because Chromium has done it long ago:\nhttps://webrtc-review.googlesource.com/c/src/+/148443",
+      "parentUuid": "dbcf2584_19f61b1e",
+      "revId": "39b5f4e8afaa3833e8826dd26c3fbe7bd5384fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

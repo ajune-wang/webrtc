@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e7791f1_03de48aa",
+        "filename": "video/picture_id_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-07T12:25:34Z",
+      "side": 1,
+      "message": "I know this is a port of the old code, but I think we can make it more readable.\nHow about adding a double scale_factor \u003d 1.0 outside the loop, have the loop go backwards, and then let scale_factor *\u003d 2.0 at the end of the for block?",
+      "range": {
+        "startLine": 289,
+        "startChar": 38,
+        "endLine": 289,
+        "endChar": 66
+      },
+      "revId": "87ae832c70f0f13c54164b744cf03d3fda6c05e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

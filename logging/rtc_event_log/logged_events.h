@@ -116,6 +116,18 @@ struct LoggedBweLossBasedUpdate {
   int32_t expected_packets;
 };
 
+struct LoggedBweTargetRateUpdate {
+  LoggedBweTargetRateUpdate() = default;
+  LoggedBweTargetRateUpdate(int64_t timestamp_us, int32_t target_rate)
+      : timestamp_us(timestamp_us), target_rate(target_rate) {}
+
+  int64_t log_time_us() const { return timestamp_us; }
+  int64_t log_time_ms() const { return timestamp_us / 1000; }
+
+  int64_t timestamp_us;
+  int32_t target_rate;
+};
+
 struct LoggedDtlsTransportState {
   int64_t log_time_us() const { return timestamp_us; }
   int64_t log_time_ms() const { return timestamp_us / 1000; }

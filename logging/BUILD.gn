@@ -97,6 +97,8 @@ rtc_source_set("rtc_event_bwe") {
     "rtc_event_log/events/rtc_event_bwe_update_delay_based.h",
     "rtc_event_log/events/rtc_event_bwe_update_loss_based.cc",
     "rtc_event_log/events/rtc_event_bwe_update_loss_based.h",
+    "rtc_event_log/events/rtc_event_bwe_update_target_rate.cc",
+    "rtc_event_log/events/rtc_event_bwe_update_target_rate.h",
     "rtc_event_log/events/rtc_event_probe_cluster_created.cc",
     "rtc_event_log/events/rtc_event_probe_cluster_created.h",
     "rtc_event_log/events/rtc_event_probe_result_failure.cc",

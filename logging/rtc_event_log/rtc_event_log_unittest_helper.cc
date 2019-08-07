@@ -134,6 +134,14 @@ EventGenerator::NewBweUpdateLossBased() {
       bitrate_bps, fraction_lost, total_packets);
 }
 
+std::unique_ptr<RtcEventBweUpdateTargetRate>
+EventGenerator::NewBweUpdateTargetRate() {
+  constexpr int32_t kMaxTargetRate = 20000000;
+  int32_t target_rate = prng_.Rand(0, kMaxTargetRate);
+
+  return absl::make_unique<RtcEventBweUpdateTargetRate>(target_rate);
+}
+
 std::unique_ptr<RtcEventDtlsTransportState>
 EventGenerator::NewDtlsTransportState() {
   DtlsTransportState state = static_cast<DtlsTransportState>(
@@ -786,6 +794,13 @@ void EventVerifier::VerifyLoggedBweLossBasedUpdate(
   EXPECT_EQ(original_event.bitrate_bps(), logged_event.bitrate_bps);
   EXPECT_EQ(original_event.fraction_loss(), logged_event.fraction_lost);
   EXPECT_EQ(original_event.total_packets(), logged_event.expected_packets);
+}
+
+void EventVerifier::VerifyLoggedBweTargetRateUpdate(
+    const RtcEventBweUpdateTargetRate& original_event,
+    const LoggedBweTargetRateUpdate& logged_event) const {
+  EXPECT_EQ(original_event.timestamp_ms(), logged_event.log_time_ms());
+  EXPECT_EQ(original_event.target_rate(), logged_event.target_rate);
 }
 
 void EventVerifier::VerifyLoggedBweProbeClusterCreatedEvent(

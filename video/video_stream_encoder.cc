@@ -690,6 +690,14 @@ GetEncoderBitrateLimits(const VideoEncoder::EncoderInfo& encoder_info,
                     bitrate_limits[i - 1].min_start_bitrate_bps);
       RTC_DCHECK_GE(bitrate_limits[i].max_bitrate_bps,
                     bitrate_limits[i - 1].max_bitrate_bps);
+    } else {
+      RTC_DCHECK_GT(bitrate_limits[i].max_bitrate_bps, 0);
+      RTC_DCHECK_LE(bitrate_limits[i].min_bitrate_bps,
+                    bitrate_limits[i].max_bitrate_bps);
+      RTC_DCHECK_GE(bitrate_limits[i].min_start_bitrate_bps,
+                    bitrate_limits[i].min_bitrate_bps);
+      RTC_DCHECK_LE(bitrate_limits[i].min_start_bitrate_bps,
+                    bitrate_limits[i].max_bitrate_bps);
     }
 
     if (bitrate_limits[i].frame_size_pixels >= frame_size_pixels) {
@@ -754,11 +762,17 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       encoder_->GetEncoderInfo(),
       last_frame_info_->width * last_frame_info_->height);
 
-  if (encoder_config_.max_bitrate_bps <= 0 && streams.size() == 1 &&
-      encoder_bitrate_limits_ && encoder_bitrate_limits_->max_bitrate_bps > 0) {
-    // If max video bitrate is not limited explicitly, set it equal to max
-    // bitrate recommended by encoder.
-    streams.back().max_bitrate_bps = encoder_bitrate_limits_->max_bitrate_bps;
+  if (streams.size() == 1 && encoder_bitrate_limits_) {
+    // Use the bitrate limits recommended by encoder.
+    streams.back().min_bitrate_bps = encoder_bitrate_limits_->min_bitrate_bps;
+
+    // Don't override the max video bitrate limit if it is set by app.
+    if (encoder_config_.max_bitrate_bps <= 0) {
+      streams.back().max_bitrate_bps = encoder_bitrate_limits_->max_bitrate_bps;
+      streams.back().target_bitrate_bps =
+          std::min(streams.back().target_bitrate_bps,
+                   encoder_bitrate_limits_->max_bitrate_bps);
+    }
   }
 
   VideoCodec codec;

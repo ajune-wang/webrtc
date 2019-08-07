@@ -38,6 +38,7 @@ message EventStream {
   repeated GenericPacketReceived generic_packets_received = 30;
   repeated GenericAckReceived generic_acks_received = 31;
   repeated RouteChange route_changes = 32;
+  repeated TargetRateBweUpdates target_rate_bwe_updates = 33;
 
   repeated AudioRecvStreamConfig audio_recv_stream_configs = 101;
   repeated AudioSendStreamConfig audio_send_stream_configs = 102;
@@ -663,4 +664,11 @@ message RouteChange {
   optional bool connected = 2;
   // required - The per packet data overhead for this route.
   optional uint32 overhead = 3;
+}
+
+message TargetRateBweUpdates {
+  // required
+  optional int64 timestamp_ms = 1;
+  // required
+  optional int32 target_rate = 2;
 }

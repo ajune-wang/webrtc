@@ -402,6 +402,11 @@ class ParsedRtcEventLog {
     return bwe_loss_updates_;
   }
 
+  const std::vector<LoggedBweTargetRateUpdate>& bwe_target_rate_updates()
+      const {
+    return bwe_target_rate_updates_;
+  }
+
   // DTLS
   const std::vector<LoggedDtlsTransportState>& dtls_transport_states() const {
     return dtls_transport_states_;
@@ -638,6 +643,7 @@ class ParsedRtcEventLog {
   void StoreAudioSendConfig(const rtclog2::AudioSendStreamConfig& proto);
   void StoreBweDelayBasedUpdate(const rtclog2::DelayBasedBweUpdates& proto);
   void StoreBweLossBasedUpdate(const rtclog2::LossBasedBweUpdates& proto);
+  void StoreBweTargetRateUpdate(const rtclog2::TargetRateBweUpdates& proto);
   void StoreBweProbeClusterCreated(const rtclog2::BweProbeCluster& proto);
   void StoreBweProbeFailureEvent(const rtclog2::BweProbeResultFailure& proto);
   void StoreBweProbeSuccessEvent(const rtclog2::BweProbeResultSuccess& proto);
@@ -754,6 +760,7 @@ class ParsedRtcEventLog {
 
   std::vector<LoggedBweDelayBasedUpdate> bwe_delay_updates_;
   std::vector<LoggedBweLossBasedUpdate> bwe_loss_updates_;
+  std::vector<LoggedBweTargetRateUpdate> bwe_target_rate_updates_;
 
   std::vector<LoggedDtlsTransportState> dtls_transport_states_;
   std::vector<LoggedDtlsWritableState> dtls_writable_states_;

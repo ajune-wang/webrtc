@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "195800ec_76ad12f8",
+        "filename": "rtc_base/format_macros.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-07T10:54:21Z",
+      "side": 1,
+      "message": "I think we should either delete the macro, or use it everywhere.\n\nWhat\u0027s the failure mode if we attempt to use %zu with the microsoft C library not supporting it? I\u0027d guess we\u0027ll get %zu printed literally without consuming any argument, and then the remaining format specifiers are out of sync with the arguments (at least, that\u0027s how glibc treats unknown format specifiers). Example program:\n\n  #include \u003cstdio.h\u003e\n\n  int main (int argc, char **argv) {\n    printf (\"%d %y %d %d\\n\", 1,2,3,4);\n    return 0;\n  }\n\nproduces a compiler warning (with gcc -Wall), and when run the output is\n\n  1 %y 2 3",
+      "parentUuid": "b2ce6429_491447f1",
+      "revId": "39b5f4e8afaa3833e8826dd26c3fbe7bd5384fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3588c7ec_2ef37904",
         "filename": "rtc_base/format_macros.h",
         "patchSetId": 4

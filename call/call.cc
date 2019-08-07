@@ -270,23 +270,27 @@ class Call final : public webrtc::Call,
   MediaTransportInterface* media_transport()
       RTC_LOCKS_EXCLUDED(target_observer_crit_);
 
+  rtc::TaskQueue* network_queue() const {
+    return transport_send_ptr_->GetWorkerQueue();
+  }
+
   Clock* const clock_;
   TaskQueueFactory* const task_queue_factory_;
 
   // Caching the last SetBitrate for media transport.
   absl::optional<MediaTransportTargetRateConstraints> last_set_bitrate_
-      RTC_GUARDED_BY(&target_observer_crit_);
+      RTC_GUARDED_BY(&configuration_sequence_checker_);
   const int num_cpu_cores_;
   const std::unique_ptr<ProcessThread> module_process_thread_;
   const std::unique_ptr<CallStats> call_stats_;
   const std::unique_ptr<BitrateAllocator> bitrate_allocator_;
   Call::Config config_;
   SequenceChecker configuration_sequence_checker_;
+  SequenceChecker worker_sequence_checker_;
 
   NetworkState audio_network_state_;
   NetworkState video_network_state_;
-  rtc::CriticalSection aggregate_network_up_crit_;
-  bool aggregate_network_up_ RTC_GUARDED_BY(aggregate_network_up_crit_);
+  bool aggregate_network_up_ RTC_GUARDED_BY(configuration_sequence_checker_);
 
   std::unique_ptr<RWLockWrapper> receive_crit_;
   // Audio, Video, and FlexFEC receive streams are owned by the client that
@@ -367,10 +371,11 @@ class Call final : public webrtc::Call,
 
   rtc::CriticalSection last_bandwidth_bps_crit_;
   uint32_t last_bandwidth_bps_ RTC_GUARDED_BY(&last_bandwidth_bps_crit_);
+  uint32_t min_allocated_send_bitrate_bps_
+      RTC_GUARDED_BY(&worker_sequence_checker_);
   // TODO(holmer): Remove this lock once BitrateController no longer calls
   // OnNetworkChanged from multiple threads.
   rtc::CriticalSection bitrate_crit_;
-  uint32_t min_allocated_send_bitrate_bps_ RTC_GUARDED_BY(&bitrate_crit_);
   uint32_t configured_max_padding_bitrate_bps_ RTC_GUARDED_BY(&bitrate_crit_);
   AvgCounter estimated_send_bitrate_kbps_counter_
       RTC_GUARDED_BY(&bitrate_crit_);
@@ -387,16 +392,19 @@ class Call final : public webrtc::Call,
   // Note that this is declared before transport_send_ to ensure that it is not
   // invalidated until no more tasks can be running on the transport_send_ task
   // queue.
-  RtpTransportControllerSendInterface* transport_send_ptr_;
+  RtpTransportControllerSendInterface* const transport_send_ptr_;
   // Declared last since it will issue callbacks from a task queue. Declaring it
   // last ensures that it is destroyed first and any running tasks are finished.
   std::unique_ptr<RtpTransportControllerSendInterface> transport_send_;
 
+  bool is_target_rate_observer_registered_
+      RTC_GUARDED_BY(&configuration_sequence_checker_) = false;
+
   // This is a precaution, since |MediaTransportChange| is not guaranteed to be
   // invoked on a particular thread.
   rtc::CriticalSection target_observer_crit_;
-  bool is_target_rate_observer_registered_
-      RTC_GUARDED_BY(&target_observer_crit_) = false;
+  // TODO(tommi): Remove |media_transport_| and related code. See also
+  // comment in OnTargetTransferRate related to |media_transport_|.
   MediaTransportInterface* media_transport_
       RTC_GUARDED_BY(&target_observer_crit_) = nullptr;
 
@@ -479,10 +487,11 @@ Call::Call(Clock* clock,
       receive_side_cc_(clock_, transport_send->packet_router()),
       receive_time_calculator_(ReceiveTimeCalculator::CreateFromFieldTrial()),
       video_send_delay_stats_(new SendDelayStats(clock_)),
-      start_ms_(clock_->TimeInMilliseconds()) {
+      start_ms_(clock_->TimeInMilliseconds()),
+      transport_send_ptr_(transport_send.get()),
+      transport_send_(std::move(transport_send)) {
   RTC_DCHECK(config.event_log != nullptr);
-  transport_send_ = std::move(transport_send);
-  transport_send_ptr_ = transport_send_.get();
+  worker_sequence_checker_.Detach();
 }
 
 Call::~Call() {
@@ -516,13 +525,15 @@ Call::~Call() {
 }
 
 void Call::RegisterRateObserver() {
-  rtc::CritScope lock(&target_observer_crit_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
 
   if (is_target_rate_observer_registered_) {
     return;
   }
 
   is_target_rate_observer_registered_ = true;
+
+  rtc::CritScope lock(&target_observer_crit_);
 
   if (media_transport_) {
     // TODO(bugs.webrtc.org/9719): We should report call_stats_ from
@@ -543,53 +554,62 @@ void Call::RegisterRateObserver() {
 }
 
 MediaTransportInterface* Call::media_transport() {
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
   rtc::CritScope lock(&target_observer_crit_);
   return media_transport_;
 }
 
 void Call::MediaTransportChange(MediaTransportInterface* media_transport) {
-  rtc::CritScope lock(&target_observer_crit_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
 
   if (is_target_rate_observer_registered_) {
     // Only used to unregister rate observer from media transport. Registration
     // happens when the stream is created.
-    if (!media_transport && media_transport_) {
+    // TODO(tommi): Lock necessary?
+    rtc::CritScope lock(&target_observer_crit_);
+    if (media_transport != media_transport_) {
       media_transport_->RemoveTargetTransferRateObserver(this);
       media_transport_ = nullptr;
       is_target_rate_observer_registered_ = false;
     }
-  } else if (media_transport) {
-    RTC_DCHECK(media_transport_ == nullptr ||
-               media_transport_ == media_transport)
-        << "media_transport_=" << (media_transport_ != nullptr)
-        << ", (media_transport_==media_transport)="
-        << (media_transport_ == media_transport);
-    media_transport_ = media_transport;
-    MediaTransportTargetRateConstraints constraints;
-    if (config_.bitrate_config.start_bitrate_bps > 0) {
-      constraints.starting_bitrate =
-          DataRate::bps(config_.bitrate_config.start_bitrate_bps);
-    }
-    if (config_.bitrate_config.max_bitrate_bps > 0) {
-      constraints.max_bitrate =
-          DataRate::bps(config_.bitrate_config.max_bitrate_bps);
-    }
-    if (config_.bitrate_config.min_bitrate_bps > 0) {
-      constraints.min_bitrate =
-          DataRate::bps(config_.bitrate_config.min_bitrate_bps);
-    }
-
-    // User called ::SetBitrate on peer connection before
-    // media transport was created.
-    if (last_set_bitrate_) {
-      media_transport_->SetTargetBitrateLimits(*last_set_bitrate_);
-    } else {
-      media_transport_->SetTargetBitrateLimits(constraints);
-    }
   }
+
+  if (!media_transport)
+    return;
+
+  // TODO(tommi): Lock necessary?
+  rtc::CritScope lock(&target_observer_crit_);
+
+  RTC_DCHECK(media_transport_ == nullptr || media_transport_ == media_transport)
+      << "media_transport_=" << (media_transport_ != nullptr)
+      << ", (media_transport_==media_transport)="
+      << (media_transport_ == media_transport);
+  media_transport_ = media_transport;
+  MediaTransportTargetRateConstraints constraints;
+  if (config_.bitrate_config.start_bitrate_bps > 0) {
+    constraints.starting_bitrate =
+        DataRate::bps(config_.bitrate_config.start_bitrate_bps);
+  }
+  if (config_.bitrate_config.max_bitrate_bps > 0) {
+    constraints.max_bitrate =
+        DataRate::bps(config_.bitrate_config.max_bitrate_bps);
+  }
+  if (config_.bitrate_config.min_bitrate_bps > 0) {
+    constraints.min_bitrate =
+        DataRate::bps(config_.bitrate_config.min_bitrate_bps);
+  }
+
+  // User called ::SetBitrate on peer connection before
+  // media transport was created.
+  // TODO(tommi): This could potentially be offloaded to run on the
+  // network thread/sequence.
+  media_transport_->SetTargetBitrateLimits(
+      last_set_bitrate_ ? *last_set_bitrate_ : constraints);
 }
 
 void Call::SetClientBitratePreferences(const BitrateSettings& preferences) {
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
+
   GetTransportControllerSend()->SetClientBitratePreferences(preferences);
   // Can the client code invoke 'SetBitrate' before media transport is created?
   // It's probably possible :/
@@ -606,8 +626,10 @@ void Call::SetClientBitratePreferences(const BitrateSettings& preferences) {
     constraints.min_bitrate =
         webrtc::DataRate::bps(*preferences.min_bitrate_bps);
   }
-  rtc::CritScope lock(&target_observer_crit_);
+
   last_set_bitrate_ = constraints;
+
+  rtc::CritScope lock(&target_observer_crit_);
   if (media_transport_) {
     media_transport_->SetTargetBitrateLimits(constraints);
   }
@@ -619,6 +641,7 @@ void Call::UpdateHistograms() {
       (clock_->TimeInMilliseconds() - start_ms_) / 1000);
 }
 
+// Called from the dtor.
 void Call::UpdateSendHistograms(Timestamp first_sent_packet) {
   int64_t elapsed_sec =
       (clock_->TimeInMilliseconds() - first_sent_packet.ms()) / 1000;
@@ -1043,35 +1066,42 @@ RtpTransportControllerSendInterface* Call::GetTransportControllerSend() {
 }
 
 Call::Stats Call::GetStats() const {
-  // TODO(solenberg): Some test cases in EndToEndTest use this from a different
-  // thread. Re-enable once that is fixed.
-  // RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
+
+  // TODO(tommi): These stats seem to most (all?) be managed on the process
+  // thread. Should the call be forced to be made there?
+
   Stats stats;
   // Fetch available send/receive bitrates.
   std::vector<unsigned int> ssrcs;
   uint32_t recv_bandwidth = 0;
+  // Sync with process thread (fwict).
   receive_side_cc_.GetRemoteBitrateEstimator(false)->LatestEstimate(
       &ssrcs, &recv_bandwidth);
 
   {
+    // Sync with worker thread... perhaps that could be done on the
+    // process thread? (See OnTargetTransferRate)
     rtc::CritScope cs(&last_bandwidth_bps_crit_);
     stats.send_bandwidth_bps = last_bandwidth_bps_;
   }
   stats.recv_bandwidth_bps = recv_bandwidth;
+
   // TODO(srte): It is unclear if we only want to report queues if network is
   // available.
-  {
-    rtc::CritScope cs(&aggregate_network_up_crit_);
-    stats.pacer_delay_ms = aggregate_network_up_
-                               ? transport_send_ptr_->GetPacerQueuingDelayMs()
-                               : 0;
-  }
+  // Syncs with process thread (PacedSender::Process)
+  stats.pacer_delay_ms =
+      aggregate_network_up_ ? transport_send_ptr_->GetPacerQueuingDelayMs() : 0;
 
+  // synchronizes with process thread.
   stats.rtt_ms = call_stats_->LastProcessedRtt();
+
   {
+    // sync with worker thread (could possibly be process thread)
     rtc::CritScope cs(&bitrate_crit_);
     stats.max_padding_bitrate_bps = configured_max_padding_bitrate_bps_;
   }
+
   return stats;
 }
 
@@ -1141,10 +1171,8 @@ void Call::UpdateAggregateNetworkState() {
 
   RTC_LOG(LS_INFO) << "UpdateAggregateNetworkState: aggregate_state="
                    << (aggregate_network_up ? "up" : "down");
-  {
-    rtc::CritScope cs(&aggregate_network_up_crit_);
-    aggregate_network_up_ = aggregate_network_up;
-  }
+  aggregate_network_up_ = aggregate_network_up;
+
   transport_send_ptr_->OnNetworkAvailability(aggregate_network_up);
 }
 
@@ -1175,6 +1203,8 @@ void Call::OnTargetTransferRate(TargetTransferRate msg) {
         [this, msg] { this->OnTargetTransferRate(msg); });
     return;
   }
+
+  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
 
   uint32_t target_bitrate_bps = msg.target_rate.bps();
   int loss_ratio_255 = msg.network_estimate.loss_rate_ratio * 255;
@@ -1224,10 +1254,14 @@ void Call::OnTargetTransferRate(TargetTransferRate msg) {
 void Call::OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
                                      uint32_t max_padding_bitrate_bps,
                                      uint32_t total_bitrate_bps) {
+  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+
   transport_send_ptr_->SetAllocatedSendBitrateLimits(
       min_send_bitrate_bps, max_padding_bitrate_bps, total_bitrate_bps);
 
   {
+    // TODO(tommi): Could we post this to the network thread/sequence?
+    // (are we perhaps already running on that thread?)
     rtc::CritScope lock(&target_observer_crit_);
     if (media_transport_) {
       MediaTransportAllocatedBitrateLimits limits;
@@ -1238,8 +1272,8 @@ void Call::OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
     }
   }
 
-  rtc::CritScope lock(&bitrate_crit_);
   min_allocated_send_bitrate_bps_ = min_send_bitrate_bps;
+  rtc::CritScope lock(&bitrate_crit_);
   configured_max_padding_bitrate_bps_ = max_padding_bitrate_bps;
 }
 

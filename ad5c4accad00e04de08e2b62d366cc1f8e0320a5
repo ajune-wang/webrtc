@@ -16,6 +16,24 @@
       "revId": "ad5c4accad00e04de08e2b62d366cc1f8e0320a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b7e816f_c2009645",
+        "filename": "logging/rtc_event_log/rtc_event_log.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-08-07T10:28:36Z",
+      "side": 0,
+      "message": "good point.\n\nThough in this case I feel relatively safe since the header removed from logging:rtc_event_log_api target that has private visibility.",
+      "parentUuid": "30b9f3e0_42876f0d",
+      "revId": "ad5c4accad00e04de08e2b62d366cc1f8e0320a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

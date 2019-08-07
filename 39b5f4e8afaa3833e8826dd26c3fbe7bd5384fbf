@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "ed2ec847_eb1bb247",
+        "filename": "rtc_base/format_macros.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-07T11:47:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0d7a2730_1c0d3630",
+      "revId": "39b5f4e8afaa3833e8826dd26c3fbe7bd5384fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ef05f46_8e8bad79",
         "filename": "rtc_base/format_macros.h",
         "patchSetId": 4
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "\u003e Since we apparently use raw %zu without breaking\n\nHow can you make that claim? I\u0027m sure it\u0027s very much breaking, just that we don\u0027t test it.",
       "parentUuid": "1ef05f46_8e8bad79",
+      "revId": "39b5f4e8afaa3833e8826dd26c3fbe7bd5384fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1eac1407_b66c6925",
+        "filename": "rtc_base/format_macros.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-07T11:47:45Z",
+      "side": 1,
+      "message": "Ah, I was assuming that printf would do something sensible when given an unrecognized format parameter. My bad.\n\nThat said, IIRC we went from the oldest supported MSVC being 2013 to 2015 to 2017 before finally dropping MSVC support, so how sure are you that these old compilers need supporting?",
+      "parentUuid": "e63a22c2_d0dfcec2",
       "revId": "39b5f4e8afaa3833e8826dd26c3fbe7bd5384fbf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

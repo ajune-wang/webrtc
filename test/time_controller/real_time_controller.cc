@@ -30,8 +30,8 @@ std::unique_ptr<ProcessThread> RealTimeController::CreateProcessThread(
   return ProcessThread::Create(thread_name);
 }
 
-void RealTimeController::Sleep(TimeDelta duration) {
-  SleepMs(duration.ms());
+void RealTimeController::Sleep(absl::Duration duration) {
+  SleepMs(absl::ToInt64Milliseconds(duration));
 }
 
 void RealTimeController::InvokeWithControlledYield(

@@ -74,7 +74,7 @@ class SimulatedClock : public Clock {
   // microseconds.
   void AdvanceTimeMilliseconds(int64_t milliseconds);
   void AdvanceTimeMicroseconds(int64_t microseconds);
-  void AdvanceTime(TimeDelta delta);
+  void AdvanceTime(absl::Duration delta);
 
  private:
   Timestamp time_;

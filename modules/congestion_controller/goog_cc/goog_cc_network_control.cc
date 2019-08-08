@@ -382,11 +382,11 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportLossReport(
 
 void GoogCcNetworkController::UpdateCongestionWindowSize(
     TimeDelta time_since_last_packet) {
-  TimeDelta min_feedback_max_rtt = TimeDelta::ms(
-      *std::min_element(feedback_max_rtts_.begin(), feedback_max_rtts_.end()));
+  absl::Duration min_feedback_max_rtt =
+      *std::min_element(feedback_max_rtts_.begin(), feedback_max_rtts_.end());
 
   const DataSize kMinCwnd = DataSize::bytes(2 * 1500);
-  TimeDelta time_window =
+  absl::Duration time_window =
       min_feedback_max_rtt +
       TimeDelta::ms(
           rate_control_settings_.GetCongestionWindowAdditionalTimeMs());
@@ -417,8 +417,8 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
     congestion_window_pushback_controller_->UpdateOutstandingData(
         report.data_in_flight.bytes());
   }
-  TimeDelta max_feedback_rtt = TimeDelta::MinusInfinity();
-  TimeDelta min_propagation_rtt = TimeDelta::PlusInfinity();
+  absl::Duration max_feedback_rtt = TimeDelta::MinusInfinity();
+  absl::Duration min_propagation_rtt = TimeDelta::PlusInfinity();
   Timestamp max_recv_time = Timestamp::MinusInfinity();
 
   std::vector<PacketResult> feedbacks = report.ReceivedWithSendInfo();
@@ -426,42 +426,44 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
     max_recv_time = std::max(max_recv_time, feedback.receive_time);
 
   for (const auto& feedback : feedbacks) {
-    TimeDelta feedback_rtt =
+    absl::Duration feedback_rtt =
         report.feedback_time - feedback.sent_packet.send_time;
-    TimeDelta min_pending_time = feedback.receive_time - max_recv_time;
-    TimeDelta propagation_rtt = feedback_rtt - min_pending_time;
+    absl::Duration min_pending_time = feedback.receive_time - max_recv_time;
+    absl::Duration propagation_rtt = feedback_rtt - min_pending_time;
     max_feedback_rtt = std::max(max_feedback_rtt, feedback_rtt);
     min_propagation_rtt = std::min(min_propagation_rtt, propagation_rtt);
   }
 
-  if (max_feedback_rtt.IsFinite()) {
-    feedback_max_rtts_.push_back(max_feedback_rtt.ms());
+  if (max_feedback_rtt > absl::ZeroDuration()) {
+    feedback_max_rtts_.push_back(max_feedback_rtt);
     const size_t kMaxFeedbackRttWindow = 32;
     if (feedback_max_rtts_.size() > kMaxFeedbackRttWindow)
       feedback_max_rtts_.pop_front();
     // TODO(srte): Use time since last unacknowledged packet.
     bandwidth_estimation_->UpdatePropagationRtt(report.feedback_time,
-                                                min_propagation_rtt);
+                                                TimeDelta(min_propagation_rtt));
   }
   if (packet_feedback_only_) {
     if (!feedback_max_rtts_.empty()) {
-      int64_t sum_rtt_ms = std::accumulate(feedback_max_rtts_.begin(),
-                                           feedback_max_rtts_.end(), 0);
-      int64_t mean_rtt_ms = sum_rtt_ms / feedback_max_rtts_.size();
+      absl::Duration sum_rtt =
+          std::accumulate(feedback_max_rtts_.begin(), feedback_max_rtts_.end(),
+                          absl::ZeroDuration());
+      absl::Duration mean_rtt = sum_rtt / feedback_max_rtts_.size();
       if (delay_based_bwe_)
-        delay_based_bwe_->OnRttUpdate(TimeDelta::ms(mean_rtt_ms));
+        delay_based_bwe_->OnRttUpdate(TimeDelta(mean_rtt));
     }
 
-    TimeDelta feedback_min_rtt = TimeDelta::PlusInfinity();
+    absl::Duration feedback_min_rtt = TimeDelta::PlusInfinity();
     for (const auto& packet_feedback : feedbacks) {
       TimeDelta pending_time = packet_feedback.receive_time - max_recv_time;
-      TimeDelta rtt = report.feedback_time -
-                      packet_feedback.sent_packet.send_time - pending_time;
+      absl::Duration rtt = report.feedback_time -
+                           packet_feedback.sent_packet.send_time - pending_time;
       // Value used for predicting NACK round trip time in FEC controller.
       feedback_min_rtt = std::min(rtt, feedback_min_rtt);
     }
-    if (feedback_min_rtt.IsFinite()) {
-      bandwidth_estimation_->UpdateRtt(feedback_min_rtt, report.feedback_time);
+    if (feedback_min_rtt < absl::InfiniteDuration()) {
+      bandwidth_estimation_->UpdateRtt(TimeDelta(feedback_min_rtt),
+                                       report.feedback_time);
     }
 
     expected_packets_since_last_loss_update_ +=
@@ -550,7 +552,7 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
   // No valid RTT could be because send-side BWE isn't used, in which case
   // we don't try to limit the outstanding packets.
   if (rate_control_settings_.UseCongestionWindow() &&
-      max_feedback_rtt.IsFinite()) {
+      max_feedback_rtt > absl::ZeroDuration()) {
     UpdateCongestionWindowSize(/*time_since_last_packet*/ TimeDelta::Zero());
   }
   if (congestion_window_pushback_controller_ && current_data_window_) {

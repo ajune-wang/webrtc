@@ -101,31 +101,32 @@ inline int64_t MillibytePerSec(const DataRate& size) {
 }
 }  // namespace data_rate_impl
 
-inline DataRate operator/(const DataSize size, const TimeDelta duration) {
-  return DataRate::bps(data_rate_impl::Microbits(size) / duration.us());
+inline DataRate operator/(DataSize size, absl::Duration duration) {
+  return DataRate::bps(data_rate_impl::Microbits(size) /
+                       absl::ToInt64Microseconds(duration));
 }
-inline TimeDelta operator/(const DataSize size, const DataRate rate) {
+inline TimeDelta operator/(DataSize size, DataRate rate) {
   return TimeDelta::us(data_rate_impl::Microbits(size) / rate.bps());
 }
-inline DataSize operator*(const DataRate rate, const TimeDelta duration) {
-  int64_t microbits = rate.bps() * duration.us();
+inline DataSize operator*(DataRate rate, absl::Duration duration) {
+  int64_t microbits = rate.bps() * absl::ToInt64Microseconds(duration);
   return DataSize::bytes((microbits + 4000000) / 8000000);
 }
-inline DataSize operator*(const TimeDelta duration, const DataRate rate) {
+inline DataSize operator*(absl::Duration duration, DataRate rate) {
   return rate * duration;
 }
 
-inline DataSize operator/(const DataRate rate, const Frequency frequency) {
+inline DataSize operator/(DataRate rate, Frequency frequency) {
   int64_t millihertz = frequency.millihertz<int64_t>();
   // Note that the value is truncated here reather than rounded, potentially
   // introducing an error of .5 bytes if rounding were expected.
   return DataSize::bytes(data_rate_impl::MillibytePerSec(rate) / millihertz);
 }
-inline Frequency operator/(const DataRate rate, const DataSize size) {
+inline Frequency operator/(DataRate rate, DataSize size) {
   return Frequency::millihertz(data_rate_impl::MillibytePerSec(rate) /
                                size.bytes());
 }
-inline DataRate operator*(const DataSize size, const Frequency frequency) {
+inline DataRate operator*(DataSize size, Frequency frequency) {
   RTC_DCHECK(frequency.IsZero() ||
              size.bytes() <= std::numeric_limits<int64_t>::max() / 8 /
                                  frequency.millihertz<int64_t>());
@@ -133,7 +134,7 @@ inline DataRate operator*(const DataSize size, const Frequency frequency) {
       size.bytes() * 8 * frequency.millihertz<int64_t>();
   return DataRate::bps((millibits_per_second + 500) / 1000);
 }
-inline DataRate operator*(const Frequency frequency, const DataSize size) {
+inline DataRate operator*(Frequency frequency, DataSize size) {
   return size * frequency;
 }
 

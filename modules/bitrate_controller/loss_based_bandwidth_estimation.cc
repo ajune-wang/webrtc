@@ -36,7 +36,8 @@ double GetIncreaseFactor(const LossBasedControlConfig& config, TimeDelta rtt) {
     return config.min_increase_factor;
   }
   auto rtt_offset = rtt - config.increase_low_rtt;
-  auto relative_offset = std::max(0.0, std::min(rtt_offset / rtt_range, 1.0));
+  auto relative_offset =
+      std::max(0.0, std::min(absl::FDivDuration(rtt_offset, rtt_range), 1.0));
   auto factor_range = config.max_increase_factor - config.min_increase_factor;
   return config.min_increase_factor + (1 - relative_offset) * factor_range;
 }
@@ -68,7 +69,7 @@ double ExponentialUpdate(TimeDelta window, TimeDelta interval) {
     RTC_DCHECK(false);
     return 1.0f;
   }
-  return 1.0f - exp(interval / window * -1.0);
+  return 1.0f - exp(-absl::FDivDuration(interval, window));
 }
 
 }  // namespace

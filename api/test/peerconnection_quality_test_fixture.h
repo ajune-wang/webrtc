@@ -366,7 +366,7 @@ class PeerConnectionE2EQualityTestFixture {
   // Run(...) method returned). Test execution time is time from end of call
   // setup (offer/answer, ICE candidates exchange done and ICE connected) to
   // start of call tear down (PeerConnection closed).
-  virtual TimeDelta GetRealTestDuration() const = 0;
+  virtual absl::Duration GetRealTestDuration() const = 0;
 };
 
 }  // namespace webrtc_pc_e2e

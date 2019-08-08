@@ -697,7 +697,7 @@ void BbrNetworkController::CheckIfFullBandwidthReached() {
 void BbrNetworkController::MaybeExitStartupOrDrain(
     const TransportPacketsFeedback& msg) {
   TimeDelta exit_threshold = config_.exit_startup_rtt_threshold;
-  TimeDelta rtt_delta = last_rtt_ - min_rtt_;
+  absl::Duration rtt_delta = last_rtt_ - min_rtt_;
   if (mode_ == STARTUP &&
       (is_at_full_bandwidth_ || rtt_delta > exit_threshold)) {
     if (rtt_delta > exit_threshold)
@@ -842,7 +842,7 @@ void BbrNetworkController::CalculatePacingRate() {
 
   // Pace at the rate of initial_window / RTT as soon as RTT measurements are
   // available.
-  if (pacing_rate_.IsZero() && !rtt_stats_.min_rtt().IsZero()) {
+  if (pacing_rate_.IsZero() && rtt_stats_.min_rtt() != absl::ZeroDuration()) {
     pacing_rate_ = initial_congestion_window_ / rtt_stats_.min_rtt();
     return;
   }

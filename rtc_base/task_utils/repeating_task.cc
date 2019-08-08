@@ -10,6 +10,7 @@
 
 #include "rtc_base/task_utils/repeating_task.h"
 
+#include "absl/memory/memory.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/time_utils.h"
@@ -17,7 +18,7 @@
 namespace webrtc {
 namespace webrtc_repeating_task_impl {
 RepeatingTaskBase::RepeatingTaskBase(TaskQueueBase* task_queue,
-                                     TimeDelta first_delay)
+                                     absl::Duration first_delay)
     : task_queue_(task_queue),
       next_run_time_(Timestamp::us(rtc::TimeMicros()) + first_delay) {}
 
@@ -29,20 +30,21 @@ bool RepeatingTaskBase::Run() {
   if (next_run_time_.IsPlusInfinity())
     return true;
 
-  TimeDelta delay = RunClosure();
+  absl::Duration delay = RunClosure();
 
   // The closure might have stopped this task, in which case we return true to
   // destruct this object.
   if (next_run_time_.IsPlusInfinity())
     return true;
 
-  RTC_DCHECK(delay.IsFinite());
-  TimeDelta lost_time = Timestamp::us(rtc::TimeMicros()) - next_run_time_;
+  RTC_DCHECK(delay < absl::InfiniteDuration());
+  absl::Duration lost_time = Timestamp::us(rtc::TimeMicros()) - next_run_time_;
   next_run_time_ += delay;
   delay -= lost_time;
-  delay = std::max(delay, TimeDelta::Zero());
+  delay = std::max(delay, absl::ZeroDuration());
 
-  task_queue_->PostDelayedTask(absl::WrapUnique(this), delay.ms());
+  task_queue_->PostDelayedTask(absl::WrapUnique(this),
+                               absl::ToInt64Milliseconds(delay));
 
   // Return false to tell the TaskQueue to not destruct this object since we
   // have taken ownership with absl::WrapUnique.

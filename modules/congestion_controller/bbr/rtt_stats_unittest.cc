@@ -57,8 +57,9 @@ TEST_F(RttStatsTest, SmoothedRttStability) {
     RttStats stats;
     for (int64_t i = 0; i < 100; i++) {
       stats.UpdateRtt(TimeDelta::us(time), TimeDelta::ms(0), Timestamp::ms(0));
-      int64_t time_delta_us = stats.smoothed_rtt().us() - time;
-      ASSERT_LE(std::abs(time_delta_us), 1);
+      absl::Duration time_delta =
+          stats.smoothed_rtt() - absl::Microseconds(time);
+      ASSERT_LE(absl::AbsDuration(time_delta), absl::Microseconds(1));
     }
   }
 }
@@ -73,7 +74,7 @@ TEST_F(RttStatsTest, PreviousSmoothedRtt) {
   // Ensure the previous SRTT is 200ms after a 100ms sample.
   rtt_stats_.UpdateRtt(TimeDelta::ms(100), TimeDelta::Zero(), Timestamp::ms(0));
   EXPECT_EQ(TimeDelta::ms(100), rtt_stats_.latest_rtt());
-  EXPECT_EQ(TimeDelta::us(187500).us(), rtt_stats_.smoothed_rtt().us());
+  EXPECT_EQ(TimeDelta::us(187500), rtt_stats_.smoothed_rtt());
   EXPECT_EQ(TimeDelta::ms(200), rtt_stats_.previous_srtt());
 }
 
@@ -107,7 +108,7 @@ TEST_F(RttStatsTest, ExpireSmoothedMetrics) {
   EXPECT_EQ(0.5 * initial_rtt, rtt_stats_.mean_deviation());
 
   // Update once with a 20ms RTT.
-  TimeDelta doubled_rtt = 2 * initial_rtt;
+  TimeDelta doubled_rtt(2 * initial_rtt);
   rtt_stats_.UpdateRtt(doubled_rtt, TimeDelta::Zero(), Timestamp::ms(0));
   EXPECT_EQ(1.125 * initial_rtt, rtt_stats_.smoothed_rtt());
 
@@ -118,8 +119,8 @@ TEST_F(RttStatsTest, ExpireSmoothedMetrics) {
 
   // Now go back down to 5ms and expire the smoothed metrics, and ensure the
   // mean deviation increases to 15ms.
-  TimeDelta half_rtt = 0.5 * initial_rtt;
-  rtt_stats_.UpdateRtt(half_rtt, TimeDelta::Zero(), Timestamp::ms(0));
+  absl::Duration half_rtt = initial_rtt / 2;
+  rtt_stats_.UpdateRtt(half_rtt, absl::ZeroDuration(), Timestamp::ms(0));
   EXPECT_GT(doubled_rtt, rtt_stats_.smoothed_rtt());
   EXPECT_LT(initial_rtt, rtt_stats_.mean_deviation());
 }

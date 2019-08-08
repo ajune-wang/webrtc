@@ -117,7 +117,7 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   int lost_packets_since_last_loss_update_ = 0;
   int expected_packets_since_last_loss_update_ = 0;
 
-  std::deque<int64_t> feedback_max_rtts_;
+  std::deque<absl::Duration> feedback_max_rtts_;
 
   DataRate last_raw_target_rate_;
   DataRate last_pushback_target_rate_;

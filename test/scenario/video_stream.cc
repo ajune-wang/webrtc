@@ -268,7 +268,7 @@ std::unique_ptr<FrameGenerator> CreateImageSlideGenerator(
   for (std::string& path : paths)
     path = TransformFilePath(path);
   if (slides.images.crop.width || slides.images.crop.height) {
-    TimeDelta pause_duration =
+    absl::Duration pause_duration =
         slides.change_interval - slides.images.crop.scroll_duration;
     RTC_CHECK_GE(pause_duration, TimeDelta::Zero());
     int crop_width = slides.images.crop.width.value_or(slides.images.width);
@@ -277,8 +277,9 @@ std::unique_ptr<FrameGenerator> CreateImageSlideGenerator(
     RTC_CHECK_LE(crop_height, slides.images.height);
     return FrameGenerator::CreateScrollingInputFromYuvFiles(
         clock, paths, slides.images.width, slides.images.height, crop_width,
-        crop_height, slides.images.crop.scroll_duration.ms(),
-        pause_duration.ms());
+        crop_height,
+        absl::ToInt64Milliseconds(slides.images.crop.scroll_duration),
+        absl::ToInt64Milliseconds(pause_duration));
   } else {
     return FrameGenerator::CreateFromYuvFile(
         paths, slides.images.width, slides.images.height,

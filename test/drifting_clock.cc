@@ -27,7 +27,7 @@ DriftingClock::DriftingClock(Clock* clock, float speed)
 TimeDelta DriftingClock::Drift() const {
   auto now = clock_->CurrentTime();
   RTC_DCHECK_GE(now, start_time_);
-  return (now - start_time_) * drift_;
+  return TimeDelta((now - start_time_) * drift_);
 }
 
 Timestamp DriftingClock::CurrentTime() {

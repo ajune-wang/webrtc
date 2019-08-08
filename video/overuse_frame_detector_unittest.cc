@@ -399,8 +399,8 @@ TEST_F(OveruseFrameDetectorTest, UpdatesExistingSamples) {
   // >85% encoding time should trigger overuse.
   overuse_detector_->SetOptions(options_);
   EXPECT_CALL(mock_observer_, AdaptDown(reason_)).Times(::testing::AtLeast(1));
-  static const int kIntervalUs = 33 * rtc::kNumMicrosecsPerMillisec;
-  static const int kDelayUs = 30 * rtc::kNumMicrosecsPerMillisec;
+  static const absl::Duration kInterval = absl::Milliseconds(33);
+  static const absl::Duration kDelay = absl::Milliseconds(30);
   VideoFrame frame =
       VideoFrame::Builder()
           .set_video_frame_buffer(I420Buffer::Create(kWidth, kHeight))
@@ -413,15 +413,15 @@ TEST_F(OveruseFrameDetectorTest, UpdatesExistingSamples) {
     int64_t capture_time_us = rtc::TimeMicros();
     overuse_detector_->FrameCaptured(frame, capture_time_us);
     // Encode and send first parts almost instantly.
-    clock_.AdvanceTime(TimeDelta::ms(1));
+    clock_.AdvanceTime(absl::Milliseconds(1));
     overuse_detector_->FrameSent(timestamp, rtc::TimeMicros(), capture_time_us,
                                  rtc::kNumMicrosecsPerMillisec);
     // Encode heavier part, resulting in >85% usage total.
-    clock_.AdvanceTime(TimeDelta::us(kDelayUs) - TimeDelta::ms(1));
+    clock_.AdvanceTime(kDelay - absl::Milliseconds(1));
     overuse_detector_->FrameSent(timestamp, rtc::TimeMicros(), capture_time_us,
-                                 kDelayUs);
-    clock_.AdvanceTime(TimeDelta::us(kIntervalUs - kDelayUs));
-    timestamp += kIntervalUs * 90 / 1000;
+                                 absl::ToInt64Microseconds(kDelay));
+    clock_.AdvanceTime(kInterval - kDelay);
+    timestamp += absl::ToInt64Seconds(kInterval * 90000);
     overuse_detector_->CheckForOveruse(observer_);
   }
 }

@@ -336,7 +336,7 @@ TimeDelta Scenario::TimeSinceStart() {
 }
 
 TimeDelta Scenario::TimeUntilTarget(TimeDelta target_time_offset) {
-  return target_time_offset - TimeSinceStart();
+  return TimeDelta(target_time_offset - TimeSinceStart());
 }
 
 }  // namespace test

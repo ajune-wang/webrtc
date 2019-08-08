@@ -11,11 +11,10 @@
 #include "rtc_base/task_utils/repeating_task.h"
 
 #include <atomic>
-#include <chrono>  // Not allowed in production per Chromium style guide.
 #include <memory>
-#include <thread>  // Not allowed in production per Chromium style guide.
 
 #include "absl/memory/memory.h"
+#include "absl/time/clock.h"
 #include "rtc_base/event.h"
 #include "rtc_base/task_queue_for_test.h"
 #include "test/gmock.h"
@@ -33,10 +32,8 @@ using ::testing::Return;
 
 constexpr TimeDelta kTimeout = TimeDelta::Millis<1000>();
 
-void Sleep(TimeDelta time_delta) {
-  // Note that Chromium style guide prohibits use of <thread> and <chrono> in
-  // production code, used here since webrtc::SleepMs may return early.
-  std::this_thread::sleep_for(std::chrono::microseconds(time_delta.us()));
+void Sleep(absl::Duration time_delta) {
+  absl::SleepFor(time_delta);
 }
 
 class MockClosure {
@@ -76,8 +73,8 @@ class TaskHandleStopper {
 }  // namespace
 
 TEST(RepeatingTaskTest, TaskIsStoppedOnStop) {
-  const TimeDelta kShortInterval = TimeDelta::ms(50);
-  const TimeDelta kLongInterval = TimeDelta::ms(200);
+  const absl::Duration kShortInterval = TimeDelta::ms(50);
+  const absl::Duration kLongInterval = TimeDelta::ms(200);
   const int kShortIntervalCount = 4;
   const int kMargin = 1;
 

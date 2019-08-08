@@ -40,7 +40,7 @@ class FakeClock : public ClockInterface {
   // Should only be used to set a time in the future.
   void SetTime(webrtc::Timestamp new_time);
 
-  void AdvanceTime(webrtc::TimeDelta delta);
+  void AdvanceTime(absl::Duration delta);
 
  private:
   CriticalSection lock_;
@@ -51,7 +51,7 @@ class ThreadProcessingFakeClock : public ClockInterface {
  public:
   int64_t TimeNanos() const override { return clock_.TimeNanos(); }
   void SetTime(webrtc::Timestamp time);
-  void AdvanceTime(webrtc::TimeDelta delta);
+  void AdvanceTime(absl::Duration delta);
 
  private:
   FakeClock clock_;

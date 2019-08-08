@@ -39,18 +39,19 @@ RttStats::RttStats()
 
 void RttStats::ExpireSmoothedMetrics() {
   mean_deviation_ =
-      std::max(mean_deviation_, (smoothed_rtt_ - latest_rtt_).Abs());
+      std::max(mean_deviation_, absl::AbsDuration(smoothed_rtt_ - latest_rtt_));
   smoothed_rtt_ = std::max(smoothed_rtt_, latest_rtt_);
 }
 
 // Updates the RTT based on a new sample.
-void RttStats::UpdateRtt(TimeDelta send_delta,
-                         TimeDelta ack_delay,
+void RttStats::UpdateRtt(absl::Duration send_delta,
+                         absl::Duration ack_delay,
                          Timestamp now) {
-  if (send_delta.IsInfinite() || send_delta <= TimeDelta::Zero()) {
+  if (send_delta == absl::InfiniteDuration() ||
+      send_delta <= absl::ZeroDuration()) {
     RTC_LOG(LS_WARNING) << "Ignoring measured send_delta, because it's is "
                         << "either infinite, zero, or negative.  send_delta = "
-                        << ToString(send_delta);
+                        << send_delta;
     return;
   }
 
@@ -58,14 +59,14 @@ void RttStats::UpdateRtt(TimeDelta send_delta,
   // ack_delay but the raw observed send_delta, since poor clock granularity at
   // the client may cause a high ack_delay to result in underestimation of the
   // min_rtt_.
-  if (min_rtt_.IsZero() || min_rtt_ > send_delta) {
+  if (min_rtt_ == absl::ZeroDuration() || min_rtt_ > send_delta) {
     min_rtt_ = send_delta;
   }
 
   // Correct for ack_delay if information received from the peer results in a
   // positive RTT sample. Otherwise, we use the send_delta as a reasonable
   // measure for smoothed_rtt.
-  TimeDelta rtt_sample = send_delta;
+  absl::Duration rtt_sample = send_delta;
   previous_srtt_ = smoothed_rtt_;
 
   if (rtt_sample > ack_delay) {
@@ -73,23 +74,23 @@ void RttStats::UpdateRtt(TimeDelta send_delta,
   }
   latest_rtt_ = rtt_sample;
   // First time call.
-  if (smoothed_rtt_.IsZero()) {
+  if (smoothed_rtt_ == absl::ZeroDuration()) {
     smoothed_rtt_ = rtt_sample;
     mean_deviation_ = rtt_sample / 2;
   } else {
     mean_deviation_ = kOneMinusBeta * mean_deviation_ +
-                      kBeta * (smoothed_rtt_ - rtt_sample).Abs();
+                      kBeta * absl::AbsDuration(smoothed_rtt_ - rtt_sample);
     smoothed_rtt_ = kOneMinusAlpha * smoothed_rtt_ + kAlpha * rtt_sample;
-    RTC_LOG(LS_VERBOSE) << " smoothed_rtt(us):" << smoothed_rtt_.us()
-                        << " mean_deviation(us):" << mean_deviation_.us();
+    RTC_LOG(LS_VERBOSE) << " smoothed_rtt:" << smoothed_rtt_
+                        << " mean_deviation:" << mean_deviation_;
   }
 }
 
 void RttStats::OnConnectionMigration() {
-  latest_rtt_ = TimeDelta::Zero();
-  min_rtt_ = TimeDelta::Zero();
-  smoothed_rtt_ = TimeDelta::Zero();
-  mean_deviation_ = TimeDelta::Zero();
+  latest_rtt_ = absl::ZeroDuration();
+  min_rtt_ = absl::ZeroDuration();
+  smoothed_rtt_ = absl::ZeroDuration();
+  mean_deviation_ = absl::ZeroDuration();
   initial_rtt_us_ = kInitialRttMs * kNumMicrosPerMilli;
 }
 

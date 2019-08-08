@@ -17,24 +17,26 @@
 namespace webrtc {
 namespace test {
 TEST(TimeDeltaTest, ConstExpr) {
-  constexpr int64_t kValue = -12345;
   constexpr TimeDelta kTimeDeltaZero = TimeDelta::Zero();
   constexpr TimeDelta kTimeDeltaPlusInf = TimeDelta::PlusInfinity();
   constexpr TimeDelta kTimeDeltaMinusInf = TimeDelta::MinusInfinity();
   static_assert(kTimeDeltaZero.IsZero(), "");
   static_assert(kTimeDeltaPlusInf.IsPlusInfinity(), "");
   static_assert(kTimeDeltaMinusInf.IsMinusInfinity(), "");
-  static_assert(kTimeDeltaPlusInf.ms_or(-1) == -1, "");
 
   static_assert(kTimeDeltaPlusInf > kTimeDeltaZero, "");
+}
 
+TEST(TimeDeltaTest, ValueOr) {
+  constexpr int64_t kValue = -12345;
   constexpr TimeDelta kTimeDeltaSeconds = TimeDelta::Seconds<kValue>();
   constexpr TimeDelta kTimeDeltaMs = TimeDelta::Millis<kValue>();
   constexpr TimeDelta kTimeDeltaUs = TimeDelta::Micros<kValue>();
 
-  static_assert(kTimeDeltaSeconds.seconds_or(0) == kValue, "");
-  static_assert(kTimeDeltaMs.ms_or(0) == kValue, "");
-  static_assert(kTimeDeltaUs.us_or(0) == kValue, "");
+  EXPECT_EQ(TimeDelta::PlusInfinity().ms_or(-1), -1);
+  EXPECT_EQ(kTimeDeltaSeconds.seconds_or(0), kValue);
+  EXPECT_EQ(kTimeDeltaMs.ms_or(0), kValue);
+  EXPECT_EQ(kTimeDeltaUs.us_or(0), kValue);
 }
 
 TEST(TimeDeltaTest, GetBackSameValues) {
@@ -179,17 +181,20 @@ TEST(TimeDeltaTest, MathOperations) {
   const int64_t kValueB = 450;
   const TimeDelta delta_a = TimeDelta::ms(kValueA);
   const TimeDelta delta_b = TimeDelta::ms(kValueB);
-  EXPECT_EQ((delta_a + delta_b).ms(), kValueA + kValueB);
-  EXPECT_EQ((delta_a - delta_b).ms(), kValueA - kValueB);
+  EXPECT_EQ(delta_a + delta_b, TimeDelta::ms(kValueA + kValueB));
+  EXPECT_EQ(delta_a - delta_b, TimeDelta::ms(kValueA - kValueB));
 
   const int32_t kInt32Value = 123;
   const double kFloatValue = 123.0;
-  EXPECT_EQ((TimeDelta::us(kValueA) * kValueB).us(), kValueA * kValueB);
-  EXPECT_EQ((TimeDelta::us(kValueA) * kInt32Value).us(), kValueA * kInt32Value);
-  EXPECT_EQ((TimeDelta::us(kValueA) * kFloatValue).us(), kValueA * kFloatValue);
+  EXPECT_EQ(TimeDelta::us(kValueA) * kValueB, TimeDelta::us(kValueA * kValueB));
+  EXPECT_EQ(TimeDelta::us(kValueA) * kInt32Value,
+            TimeDelta::us(kValueA * kInt32Value));
+  EXPECT_EQ(TimeDelta::us(kValueA) * kFloatValue,
+            TimeDelta::us(kValueA * kFloatValue));
 
-  EXPECT_EQ((delta_b / 10).ms(), kValueB / 10);
-  EXPECT_EQ(delta_b / delta_a, static_cast<double>(kValueB) / kValueA);
+  EXPECT_EQ(delta_b / 10, TimeDelta::ms(kValueB / 10));
+  EXPECT_DOUBLE_EQ(absl::FDivDuration(delta_b, delta_a),
+                   static_cast<double>(kValueB) / kValueA);
 
   EXPECT_EQ(TimeDelta::us(-kValueA).Abs().us(), kValueA);
   EXPECT_EQ(TimeDelta::us(kValueA).Abs().us(), kValueA);
@@ -204,15 +209,15 @@ TEST(TimeDeltaTest, MathOperations) {
 TEST(TimeDeltaTest, InfinityOperations) {
   const int64_t kValue = 267;
   const TimeDelta finite = TimeDelta::ms(kValue);
-  EXPECT_TRUE((TimeDelta::PlusInfinity() + finite).IsPlusInfinity());
-  EXPECT_TRUE((TimeDelta::PlusInfinity() - finite).IsPlusInfinity());
-  EXPECT_TRUE((finite + TimeDelta::PlusInfinity()).IsPlusInfinity());
-  EXPECT_TRUE((finite - TimeDelta::MinusInfinity()).IsPlusInfinity());
+  EXPECT_EQ(TimeDelta::PlusInfinity() + finite, TimeDelta::PlusInfinity());
+  EXPECT_EQ(TimeDelta::PlusInfinity() - finite, TimeDelta::PlusInfinity());
+  EXPECT_EQ(finite + TimeDelta::PlusInfinity(), TimeDelta::PlusInfinity());
+  EXPECT_EQ(finite - TimeDelta::MinusInfinity(), TimeDelta::PlusInfinity());
 
-  EXPECT_TRUE((TimeDelta::MinusInfinity() + finite).IsMinusInfinity());
-  EXPECT_TRUE((TimeDelta::MinusInfinity() - finite).IsMinusInfinity());
-  EXPECT_TRUE((finite + TimeDelta::MinusInfinity()).IsMinusInfinity());
-  EXPECT_TRUE((finite - TimeDelta::PlusInfinity()).IsMinusInfinity());
+  EXPECT_EQ(TimeDelta::MinusInfinity() + finite, TimeDelta::MinusInfinity());
+  EXPECT_EQ(TimeDelta::MinusInfinity() - finite, TimeDelta::MinusInfinity());
+  EXPECT_EQ(finite + TimeDelta::MinusInfinity(), TimeDelta::MinusInfinity());
+  EXPECT_EQ(finite - TimeDelta::PlusInfinity(), TimeDelta::MinusInfinity());
 }
 }  // namespace test
 }  // namespace webrtc

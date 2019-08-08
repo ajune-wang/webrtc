@@ -81,31 +81,23 @@ class Timestamp final : public rtc_units_impl::UnitBase<Timestamp> {
     return ToValueOr(fallback_value);
   }
 
-  Timestamp operator+(const TimeDelta delta) const {
-    if (IsPlusInfinity() || delta.IsPlusInfinity()) {
-      RTC_DCHECK(!IsMinusInfinity());
-      RTC_DCHECK(!delta.IsMinusInfinity());
+  Timestamp operator+(absl::Duration delta) const {
+    if (IsPlusInfinity() || delta == absl::InfiniteDuration()) {
       return PlusInfinity();
-    } else if (IsMinusInfinity() || delta.IsMinusInfinity()) {
-      RTC_DCHECK(!IsPlusInfinity());
-      RTC_DCHECK(!delta.IsPlusInfinity());
+    } else if (IsMinusInfinity() || delta == -absl::InfiniteDuration()) {
       return MinusInfinity();
     }
-    return Timestamp::us(us() + delta.us());
+    return Timestamp::us(us() + absl::ToInt64Microseconds(delta));
   }
-  Timestamp operator-(const TimeDelta delta) const {
-    if (IsPlusInfinity() || delta.IsMinusInfinity()) {
-      RTC_DCHECK(!IsMinusInfinity());
-      RTC_DCHECK(!delta.IsPlusInfinity());
+  Timestamp operator-(absl::Duration delta) const {
+    if (IsPlusInfinity() || delta == -absl::InfiniteDuration()) {
       return PlusInfinity();
-    } else if (IsMinusInfinity() || delta.IsPlusInfinity()) {
-      RTC_DCHECK(!IsPlusInfinity());
-      RTC_DCHECK(!delta.IsMinusInfinity());
+    } else if (IsMinusInfinity() || delta == absl::InfiniteDuration()) {
       return MinusInfinity();
     }
-    return Timestamp::us(us() - delta.us());
+    return Timestamp::us(us() - absl::ToInt64Microseconds(delta));
   }
-  TimeDelta operator-(const Timestamp other) const {
+  TimeDelta operator-(Timestamp other) const {
     if (IsPlusInfinity() || other.IsMinusInfinity()) {
       RTC_DCHECK(!IsMinusInfinity());
       RTC_DCHECK(!other.IsPlusInfinity());
@@ -117,11 +109,11 @@ class Timestamp final : public rtc_units_impl::UnitBase<Timestamp> {
     }
     return TimeDelta::us(us() - other.us());
   }
-  Timestamp& operator-=(const TimeDelta delta) {
+  Timestamp& operator-=(absl::Duration delta) {
     *this = *this - delta;
     return *this;
   }
-  Timestamp& operator+=(const TimeDelta delta) {
+  Timestamp& operator+=(absl::Duration delta) {
     *this = *this + delta;
     return *this;
   }

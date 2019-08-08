@@ -90,7 +90,7 @@ class GlobalSimulatedTimeController : public TimeController {
   TaskQueueFactory* GetTaskQueueFactory() override;
   std::unique_ptr<ProcessThread> CreateProcessThread(
       const char* thread_name) override;
-  void Sleep(TimeDelta duration) override;
+  void Sleep(absl::Duration duration) override;
   void InvokeWithControlledYield(std::function<void()> closure) override;
 
  private:

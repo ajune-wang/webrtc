@@ -745,12 +745,12 @@ TEST_F(GoogCcNetworkControllerTest, NoBandwidthTogglingInLossControlTrial) {
   s.RunFor(TimeDelta::ms(250));
 
   std::queue<DataRate> bandwidth_history;
-  const TimeDelta step = TimeDelta::ms(50);
-  for (TimeDelta time = TimeDelta::Zero(); time < TimeDelta::ms(2000);
+  const absl::Duration step = absl::Milliseconds(50);
+  for (absl::Duration time = absl::ZeroDuration(); time < absl::Seconds(2);
        time += step) {
-    s.RunFor(step);
-    const TimeDelta window = TimeDelta::ms(500);
-    if (bandwidth_history.size() >= window / step)
+    s.RunFor(TimeDelta(step));
+    const absl::Duration window = absl::Milliseconds(500);
+    if (static_cast<int64_t>(bandwidth_history.size()) >= window / step)
       bandwidth_history.pop();
     bandwidth_history.push(client->send_bandwidth());
     EXPECT_LT(CountBandwidthDips(bandwidth_history, DataRate::kbps(100)), 2);

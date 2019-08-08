@@ -26,9 +26,9 @@ void FakeClock::SetTime(webrtc::Timestamp new_time) {
   time_ns_ = new_time.us() * 1000;
 }
 
-void FakeClock::AdvanceTime(webrtc::TimeDelta delta) {
+void FakeClock::AdvanceTime(absl::Duration delta) {
   CritScope cs(&lock_);
-  time_ns_ += delta.ns();
+  time_ns_ += absl::ToInt64Nanoseconds(delta);
 }
 
 void ThreadProcessingFakeClock::SetTime(webrtc::Timestamp time) {
@@ -38,7 +38,7 @@ void ThreadProcessingFakeClock::SetTime(webrtc::Timestamp time) {
   MessageQueueManager::ProcessAllMessageQueuesForTesting();
 }
 
-void ThreadProcessingFakeClock::AdvanceTime(webrtc::TimeDelta delta) {
+void ThreadProcessingFakeClock::AdvanceTime(absl::Duration delta) {
   clock_.AdvanceTime(delta);
   MessageQueueManager::ProcessAllMessageQueuesForTesting();
 }

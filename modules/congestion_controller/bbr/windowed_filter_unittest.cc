@@ -40,10 +40,9 @@ class WindowedFilterTest : public ::testing::Test {
     for (int i = 0; i < 5; ++i) {
       windowed_min_rtt_.Update(rtt_sample, now_ms);
       RTC_LOG(LS_VERBOSE) << "i: " << i << " sample: " << ToString(rtt_sample)
-                          << " mins: "
-                          << " " << ToString(windowed_min_rtt_.GetBest()) << " "
-                          << ToString(windowed_min_rtt_.GetSecondBest()) << " "
-                          << ToString(windowed_min_rtt_.GetThirdBest());
+                          << " mins: " << windowed_min_rtt_.GetBest() << " "
+                          << windowed_min_rtt_.GetSecondBest() << " "
+                          << windowed_min_rtt_.GetThirdBest();
       now_ms += 25;
       rtt_sample = rtt_sample + TimeDelta::ms(10);
     }
@@ -75,7 +74,7 @@ class WindowedFilterTest : public ::testing::Test {
   }
 
  protected:
-  WindowedFilter<TimeDelta, MinFilter<TimeDelta>, int64_t, int64_t>
+  WindowedFilter<absl::Duration, MinFilter<absl::Duration>, int64_t, int64_t>
       windowed_min_rtt_;
   WindowedFilter<DataRate, MaxFilter<DataRate>, int64_t, int64_t>
       windowed_max_bw_;
@@ -116,10 +115,9 @@ TEST_F(WindowedFilterTest, MonotonicallyIncreasingMin) {
     rtt_sample = rtt_sample + TimeDelta::ms(10);
     windowed_min_rtt_.Update(rtt_sample, now_ms);
     RTC_LOG(LS_VERBOSE) << "i: " << i << " sample: " << rtt_sample.ms()
-                        << " mins: "
-                        << " " << windowed_min_rtt_.GetBest().ms() << " "
-                        << windowed_min_rtt_.GetSecondBest().ms() << " "
-                        << windowed_min_rtt_.GetThirdBest().ms();
+                        << " mins: " << windowed_min_rtt_.GetBest() << " "
+                        << windowed_min_rtt_.GetSecondBest() << " "
+                        << windowed_min_rtt_.GetThirdBest();
     if (i < 3) {
       EXPECT_EQ(TimeDelta::ms(10), windowed_min_rtt_.GetBest());
     } else if (i == 3) {
@@ -160,13 +158,14 @@ TEST_F(WindowedFilterTest, MonotonicallyDecreasingMax) {
 TEST_F(WindowedFilterTest, SampleChangesThirdBestMin) {
   InitializeMinFilter();
   // RTT sample lower than the third-choice min-rtt sets that, but nothing else.
-  TimeDelta rtt_sample = windowed_min_rtt_.GetThirdBest() - TimeDelta::ms(5);
+  absl::Duration rtt_sample =
+      windowed_min_rtt_.GetThirdBest() - absl::Milliseconds(5);
   // This assert is necessary to avoid triggering -Wstrict-overflow
   // See crbug/616957
-  ASSERT_GT(windowed_min_rtt_.GetThirdBest(), TimeDelta::ms(5));
+  ASSERT_GT(windowed_min_rtt_.GetThirdBest(), absl::Milliseconds(5));
   // Latest sample was recorded at 100ms.
   int64_t now_ms = 101;
-  windowed_min_rtt_.Update(rtt_sample, now_ms);
+  windowed_min_rtt_.Update(TimeDelta(rtt_sample), now_ms);
   EXPECT_EQ(rtt_sample, windowed_min_rtt_.GetThirdBest());
   EXPECT_EQ(TimeDelta::ms(40), windowed_min_rtt_.GetSecondBest());
   EXPECT_EQ(TimeDelta::ms(20), windowed_min_rtt_.GetBest());
@@ -189,13 +188,14 @@ TEST_F(WindowedFilterTest, SampleChangesSecondBestMin) {
   InitializeMinFilter();
   // RTT sample lower than the second-choice min sets that and also
   // the third-choice min.
-  TimeDelta rtt_sample = windowed_min_rtt_.GetSecondBest() - TimeDelta::ms(5);
+  absl::Duration rtt_sample =
+      windowed_min_rtt_.GetSecondBest() - absl::Milliseconds(5);
   // This assert is necessary to avoid triggering -Wstrict-overflow
   // See crbug/616957
   ASSERT_GT(windowed_min_rtt_.GetSecondBest(), TimeDelta::ms(5));
   // Latest sample was recorded at 100ms.
   int64_t now_ms = 101;
-  windowed_min_rtt_.Update(rtt_sample, now_ms);
+  windowed_min_rtt_.Update(TimeDelta(rtt_sample), now_ms);
   EXPECT_EQ(rtt_sample, windowed_min_rtt_.GetThirdBest());
   EXPECT_EQ(rtt_sample, windowed_min_rtt_.GetSecondBest());
   EXPECT_EQ(TimeDelta::ms(20), windowed_min_rtt_.GetBest());
@@ -220,7 +220,7 @@ TEST_F(WindowedFilterTest, SampleChangesAllMins) {
   InitializeMinFilter();
   // RTT sample lower than the first-choice min-rtt sets that and also
   // the second and third-choice mins.
-  TimeDelta rtt_sample = windowed_min_rtt_.GetBest() - TimeDelta::ms(5);
+  absl::Duration rtt_sample = windowed_min_rtt_.GetBest() - TimeDelta::ms(5);
   // This assert is necessary to avoid triggering -Wstrict-overflow
   // See crbug/616957
   ASSERT_GT(windowed_min_rtt_.GetBest(), TimeDelta::ms(5));
@@ -247,9 +247,9 @@ TEST_F(WindowedFilterTest, SampleChangesAllMaxs) {
 
 TEST_F(WindowedFilterTest, ExpireBestMin) {
   InitializeMinFilter();
-  TimeDelta old_third_best = windowed_min_rtt_.GetThirdBest();
-  TimeDelta old_second_best = windowed_min_rtt_.GetSecondBest();
-  TimeDelta rtt_sample = old_third_best + TimeDelta::ms(5);
+  absl::Duration old_third_best = windowed_min_rtt_.GetThirdBest();
+  absl::Duration old_second_best = windowed_min_rtt_.GetSecondBest();
+  absl::Duration rtt_sample = old_third_best + TimeDelta::ms(5);
   // Best min sample was recorded at 25ms, so expiry time is 124ms.
   int64_t now_ms = 125;
   windowed_min_rtt_.Update(rtt_sample, now_ms);
@@ -273,8 +273,8 @@ TEST_F(WindowedFilterTest, ExpireBestMax) {
 
 TEST_F(WindowedFilterTest, ExpireSecondBestMin) {
   InitializeMinFilter();
-  TimeDelta old_third_best = windowed_min_rtt_.GetThirdBest();
-  TimeDelta rtt_sample = old_third_best + TimeDelta::ms(5);
+  absl::Duration old_third_best = windowed_min_rtt_.GetThirdBest();
+  absl::Duration rtt_sample = old_third_best + TimeDelta::ms(5);
   // Second best min sample was recorded at 75ms, so expiry time is 174ms.
   int64_t now_ms = 175;
   windowed_min_rtt_.Update(rtt_sample, now_ms);
@@ -297,7 +297,8 @@ TEST_F(WindowedFilterTest, ExpireSecondBestMax) {
 
 TEST_F(WindowedFilterTest, ExpireAllMins) {
   InitializeMinFilter();
-  TimeDelta rtt_sample = windowed_min_rtt_.GetThirdBest() + TimeDelta::ms(5);
+  absl::Duration rtt_sample =
+      windowed_min_rtt_.GetThirdBest() + TimeDelta::ms(5);
   // This assert is necessary to avoid triggering -Wstrict-overflow
   // See crbug/616957
   ASSERT_LT(windowed_min_rtt_.GetThirdBest(), TimeDelta::PlusInfinity());

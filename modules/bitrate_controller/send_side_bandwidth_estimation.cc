@@ -128,7 +128,9 @@ void LinkCapacityTracker::OnRateUpdate(DataRate acknowledged,
                                        Timestamp at_time) {
   if (acknowledged.bps() > capacity_estimate_bps_) {
     TimeDelta delta = at_time - last_link_capacity_update_;
-    double alpha = delta.IsFinite() ? exp(-(delta / tracking_rate.Get())) : 0;
+    double alpha = delta.IsFinite()
+                       ? exp(-absl::FDivDuration(delta, tracking_rate.Get()))
+                       : 0;
     capacity_estimate_bps_ = alpha * capacity_estimate_bps_ +
                              (1 - alpha) * acknowledged.bps<double>();
   }
@@ -178,15 +180,15 @@ void RttBasedBackoff::UpdatePropagationRtt(Timestamp at_time,
 }
 
 TimeDelta RttBasedBackoff::CorrectedRtt(Timestamp at_time) const {
-  TimeDelta time_since_rtt = at_time - last_propagation_rtt_update_;
-  TimeDelta timeout_correction = time_since_rtt;
+  absl::Duration time_since_rtt = at_time - last_propagation_rtt_update_;
+  absl::Duration timeout_correction = time_since_rtt;
   if (safe_timeout_) {
     // Avoid timeout when no packets are being sent.
     TimeDelta time_since_packet_sent = at_time - last_packet_sent_;
     timeout_correction =
-        std::max(time_since_rtt - time_since_packet_sent, TimeDelta::Zero());
+        std::max(time_since_rtt - time_since_packet_sent, absl::ZeroDuration());
   }
-  return timeout_correction + last_propagation_rtt_;
+  return TimeDelta(timeout_correction + last_propagation_rtt_);
 }
 
 RttBasedBackoff::~RttBasedBackoff() = default;

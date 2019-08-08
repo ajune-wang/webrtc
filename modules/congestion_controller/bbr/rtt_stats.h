@@ -28,7 +28,9 @@ class RttStats {
 
   // Updates the RTT from an incoming ack which is received |send_delta| after
   // the packet is sent and the peer reports the ack being delayed |ack_delay|.
-  void UpdateRtt(TimeDelta send_delta, TimeDelta ack_delay, Timestamp now);
+  void UpdateRtt(absl::Duration send_delta,
+                 absl::Duration ack_delay,
+                 Timestamp now);
 
   // Causes the smoothed_rtt to be increased to the latest_rtt if the latest_rtt
   // is larger. The mean deviation is increased to the most recent deviation if
@@ -40,10 +42,10 @@ class RttStats {
 
   // Returns the EWMA smoothed RTT for the connection.
   // May return Zero if no valid updates have occurred.
-  TimeDelta smoothed_rtt() const { return smoothed_rtt_; }
+  absl::Duration smoothed_rtt() const { return smoothed_rtt_; }
 
   // Returns the EWMA smoothed RTT prior to the most recent RTT sample.
-  TimeDelta previous_srtt() const { return previous_srtt_; }
+  absl::Duration previous_srtt() const { return previous_srtt_; }
 
   int64_t initial_rtt_us() const { return initial_rtt_us_; }
 
@@ -59,23 +61,23 @@ class RttStats {
 
   // The most recent RTT measurement.
   // May return Zero if no valid updates have occurred.
-  TimeDelta latest_rtt() const { return latest_rtt_; }
+  absl::Duration latest_rtt() const { return latest_rtt_; }
 
   // Returns the min_rtt for the entire connection.
   // May return Zero if no valid updates have occurred.
-  TimeDelta min_rtt() const { return min_rtt_; }
+  absl::Duration min_rtt() const { return min_rtt_; }
 
-  TimeDelta mean_deviation() const { return mean_deviation_; }
+  absl::Duration mean_deviation() const { return mean_deviation_; }
 
  private:
-  TimeDelta latest_rtt_;
-  TimeDelta min_rtt_;
-  TimeDelta smoothed_rtt_;
-  TimeDelta previous_srtt_;
+  absl::Duration latest_rtt_;
+  absl::Duration min_rtt_;
+  absl::Duration smoothed_rtt_;
+  absl::Duration previous_srtt_;
   // Mean RTT deviation during this session.
   // Approximation of standard deviation, the error is roughly 1.25 times
   // larger than the standard deviation, for a normally distributed signal.
-  TimeDelta mean_deviation_;
+  absl::Duration mean_deviation_;
   int64_t initial_rtt_us_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(RttStats);

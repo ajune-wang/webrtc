@@ -269,7 +269,7 @@ void SimulatedClock::AdvanceTimeMicroseconds(int64_t microseconds) {
   AdvanceTime(TimeDelta::us(microseconds));
 }
 
-void SimulatedClock::AdvanceTime(TimeDelta delta) {
+void SimulatedClock::AdvanceTime(absl::Duration delta) {
   WriteLockScoped synchronize(*lock_);
   time_ += delta;
 }

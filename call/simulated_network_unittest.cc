@@ -129,10 +129,11 @@ TEST(SimulatedNetworkTest, CodelLimitsDelayAndDropsPacketsOnOverload) {
     }
     if (current_time > last_check + kCheckInterval) {
       last_check = current_time;
-      TimeDelta average_delay =
-          TimeDelta::us(absl::c_accumulate(delays_us, 0)) / delays_us.size();
+      absl::Duration average_delay =
+          absl::Microseconds(absl::c_accumulate(delays_us, 0)) /
+          delays_us.size();
       double loss_ratio = static_cast<double>(lost) / (lost + delays_us.size());
-      EXPECT_LT(average_delay.ms(), 200)
+      EXPECT_LT(average_delay, absl::Milliseconds(200))
           << "Time " << (current_time - start_time).ms() << "\n";
       EXPECT_GT(loss_ratio, 0.5 * (overload_rate - 1));
     }

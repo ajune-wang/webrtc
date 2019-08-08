@@ -225,7 +225,7 @@ void AimdRateControl::SetNetworkStateEstimate(
 
 double AimdRateControl::GetNearMaxIncreaseRateBpsPerSecond() const {
   RTC_DCHECK(!current_bitrate_.IsZero());
-  const TimeDelta kFrameInterval = TimeDelta::seconds(1) / 30;
+  const absl::Duration kFrameInterval = TimeDelta::seconds(1) / 30;
   DataSize frame_size = current_bitrate_ * kFrameInterval;
   const DataSize kPacketSize = DataSize::bytes(1200);
   double packets_per_frame = std::ceil(frame_size / kPacketSize);

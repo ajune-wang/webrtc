@@ -29,9 +29,9 @@ class RepeatingTaskHandle;
 namespace webrtc_repeating_task_impl {
 class RepeatingTaskBase : public QueuedTask {
  public:
-  RepeatingTaskBase(TaskQueueBase* task_queue, TimeDelta first_delay);
+  RepeatingTaskBase(TaskQueueBase* task_queue, absl::Duration first_delay);
   ~RepeatingTaskBase() override;
-  virtual TimeDelta RunClosure() = 0;
+  virtual absl::Duration RunClosure() = 0;
 
  private:
   friend class ::webrtc::RepeatingTaskHandle;
@@ -50,22 +50,15 @@ template <class Closure>
 class RepeatingTaskImpl final : public RepeatingTaskBase {
  public:
   RepeatingTaskImpl(TaskQueueBase* task_queue,
-                    TimeDelta first_delay,
+                    absl::Duration first_delay,
                     Closure&& closure)
       : RepeatingTaskBase(task_queue, first_delay),
-        closure_(std::forward<Closure>(closure)) {
-    static_assert(
-        std::is_same<TimeDelta,
-                     typename std::result_of<decltype (&Closure::operator())(
-                         Closure)>::type>::value,
-        "");
-  }
+        closure_(std::forward<Closure>(closure)) {}
 
-  TimeDelta RunClosure() override { return closure_(); }
+  absl::Duration RunClosure() override { return closure_(); }
 
  private:
-  typename std::remove_const<
-      typename std::remove_reference<Closure>::type>::type closure_;
+  typename std::decay<Closure>::type closure_;
 };
 }  // namespace webrtc_repeating_task_impl
 
@@ -95,7 +88,7 @@ class RepeatingTaskHandle {
                                    Closure&& closure) {
     auto repeating_task = absl::make_unique<
         webrtc_repeating_task_impl::RepeatingTaskImpl<Closure>>(
-        task_queue, TimeDelta::Zero(), std::forward<Closure>(closure));
+        task_queue, absl::ZeroDuration(), std::forward<Closure>(closure));
     auto* repeating_task_ptr = repeating_task.get();
     task_queue->PostTask(std::move(repeating_task));
     return RepeatingTaskHandle(repeating_task_ptr);
@@ -105,13 +98,14 @@ class RepeatingTaskHandle {
   // closure will be delayed by the given amount.
   template <class Closure>
   static RepeatingTaskHandle DelayedStart(TaskQueueBase* task_queue,
-                                          TimeDelta first_delay,
+                                          absl::Duration first_delay,
                                           Closure&& closure) {
     auto repeating_task = absl::make_unique<
         webrtc_repeating_task_impl::RepeatingTaskImpl<Closure>>(
         task_queue, first_delay, std::forward<Closure>(closure));
     auto* repeating_task_ptr = repeating_task.get();
-    task_queue->PostDelayedTask(std::move(repeating_task), first_delay.ms());
+    task_queue->PostDelayedTask(std::move(repeating_task),
+                                absl::ToInt64Milliseconds(first_delay));
     return RepeatingTaskHandle(repeating_task_ptr);
   }
 

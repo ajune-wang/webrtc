@@ -1549,6 +1549,8 @@ include_rules = [
   "+absl/strings/match.h",
   "+absl/strings/str_replace.h",
   "+absl/strings/string_view.h",
+  "+absl/time/clock.h",
+  "+absl/time/time.h",
   "+absl/types/optional.h",
   "+absl/types/variant.h",
 

@@ -170,13 +170,13 @@ void PeerConnectionE2EQualityTest::PostTask(ScheduledActivity activity) {
   // variable to capture in in lambda without requirement to hold a lock.
   Timestamp start_time = start_time_;
 
-  TimeDelta remaining_delay =
+  absl::Duration remaining_delay =
       activity.initial_delay_since_start == TimeDelta::Zero()
-          ? TimeDelta::Zero()
+          ? absl::ZeroDuration()
           : activity.initial_delay_since_start - (Now() - start_time_);
   if (remaining_delay < TimeDelta::Zero()) {
     RTC_LOG(WARNING) << "Executing late task immediately, late by="
-                     << ToString(remaining_delay.Abs());
+                     << absl::AbsDuration(remaining_delay);
     remaining_delay = TimeDelta::Zero();
   }
 
@@ -205,7 +205,7 @@ void PeerConnectionE2EQualityTest::PostTask(ScheduledActivity activity) {
 
   task_queue_->PostDelayedTask(
       [activity, start_time, this]() { activity.func(Now() - start_time); },
-      remaining_delay.ms());
+      absl::ToInt64Milliseconds(remaining_delay));
 }
 
 void PeerConnectionE2EQualityTest::AddQualityMetricsReporter(
@@ -774,7 +774,7 @@ PeerConnectionE2EQualityTest::CreateScreenShareFrameGenerator(
   }
 
   // |pause_duration| is nonnegative. It is validated in ValidateParams(...).
-  TimeDelta pause_duration =
+  absl::Duration pause_duration =
       video_config.screen_share_config->slide_change_interval -
       video_config.screen_share_config->scrolling_params->duration;
 
@@ -783,8 +783,9 @@ PeerConnectionE2EQualityTest::CreateScreenShareFrameGenerator(
       video_config.screen_share_config->scrolling_params->source_width,
       video_config.screen_share_config->scrolling_params->source_height,
       video_config.width, video_config.height,
-      video_config.screen_share_config->scrolling_params->duration.ms(),
-      pause_duration.ms());
+      absl::ToInt64Milliseconds(
+          video_config.screen_share_config->scrolling_params->duration),
+      absl::ToInt64Milliseconds(pause_duration));
 }
 
 void PeerConnectionE2EQualityTest::MaybeAddAudio(TestPeer* peer) {

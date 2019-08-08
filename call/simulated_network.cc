@@ -37,7 +37,7 @@ bool CoDelSimulation::DropDequeuedPacket(Timestamp now,
   constexpr DataSize kMaxPacketSize = DataSize::Bytes<1500>();
 
   // Compensates for process interval in simulation; not part of standard CoDel.
-  TimeDelta queuing_time = now - enqueing_time - kDefaultProcessDelay;
+  absl::Duration queuing_time = now - enqueing_time - kDefaultProcessDelay;
 
   if (queue_size < kMaxPacketSize || queuing_time < kDelayThreshold) {
     enter_drop_state_at_ = Timestamp::PlusInfinity();
@@ -66,7 +66,8 @@ bool CoDelSimulation::DropDequeuedPacket(Timestamp now,
       return false;
 
     case kDropping:
-      TimeDelta drop_delay = kWindow / sqrt(static_cast<double>(drop_count_));
+      absl::Duration drop_delay =
+          kWindow / sqrt(static_cast<double>(drop_count_));
       Timestamp next_drop_at = last_drop_at_ + drop_delay;
       if (now >= next_drop_at) {
         if (queue_size - packet_size < kMaxPacketSize)

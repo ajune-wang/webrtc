@@ -11,14 +11,12 @@
 #ifndef API_UNITS_TIME_DELTA_H_
 #define API_UNITS_TIME_DELTA_H_
 
-#ifdef UNIT_TEST
-#include <ostream>  // no-presubmit-check TODO(webrtc:8982)
-#endif              // UNIT_TEST
-
+#include <algorithm>
 #include <cstdlib>
 #include <string>
 #include <type_traits>
 
+#include "absl/time/time.h"
 #include "rtc_base/units/unit_base.h"
 
 namespace webrtc {
@@ -30,84 +28,117 @@ namespace webrtc {
 // undefined. To simplify usage, it can be constructed and converted to
 // different units, specifically seconds (s), milliseconds (ms) and
 // microseconds (us).
-class TimeDelta final : public rtc_units_impl::RelativeUnit<TimeDelta> {
+class TimeDelta final : public absl::Duration {
  public:
-  TimeDelta() = delete;
+  using Duration::Duration;
+
+  constexpr explicit TimeDelta(absl::Duration duration) : Duration(duration) {}
+  TimeDelta& operator=(absl::Duration duration) {
+    static_cast<absl::Duration&>(*this) = duration;
+    return *this;
+  }
+
   template <int64_t seconds>
   static constexpr TimeDelta Seconds() {
-    return FromStaticFraction<seconds, 1000000>();
+    return TimeDelta(absl::Seconds(seconds));
   }
   template <int64_t ms>
   static constexpr TimeDelta Millis() {
-    return FromStaticFraction<ms, 1000>();
+    return TimeDelta(absl::Milliseconds(ms));
   }
   template <int64_t us>
   static constexpr TimeDelta Micros() {
-    return FromStaticValue<us>();
+    return TimeDelta(absl::Microseconds(us));
   }
   template <typename T>
-  static TimeDelta seconds(T seconds) {
-    static_assert(std::is_arithmetic<T>::value, "");
-    return FromFraction<1000000>(seconds);
+  static constexpr TimeDelta seconds(T seconds) {
+    return TimeDelta(absl::Seconds(seconds));
   }
   template <typename T>
-  static TimeDelta ms(T milliseconds) {
-    static_assert(std::is_arithmetic<T>::value, "");
-    return FromFraction<1000>(milliseconds);
+  static constexpr TimeDelta ms(T milliseconds) {
+    return TimeDelta(absl::Milliseconds(milliseconds));
   }
   template <typename T>
-  static TimeDelta us(T microseconds) {
-    static_assert(std::is_arithmetic<T>::value, "");
-    return FromValue(microseconds);
+  static constexpr TimeDelta us(T microseconds) {
+    return TimeDelta(absl::Microseconds(microseconds));
   }
   template <typename T = int64_t>
   T seconds() const {
-    return ToFraction<1000000, T>();
+    return absl::ToInt64Seconds(*this);
   }
   template <typename T = int64_t>
   T ms() const {
-    return ToFraction<1000, T>();
+    return absl::ToInt64Milliseconds(*this);
   }
   template <typename T = int64_t>
   T us() const {
-    return ToValue<T>();
+    return absl::ToInt64Microseconds(*this);
   }
   template <typename T = int64_t>
   T ns() const {
-    return ToMultiple<1000, T>();
+    return absl::ToInt64Nanoseconds(*this);
   }
 
-  constexpr int64_t seconds_or(int64_t fallback_value) const {
-    return ToFractionOr<1000000>(fallback_value);
+  int64_t seconds_or(int64_t fallback_value) const {
+    return IsFinite() ? seconds() : fallback_value;
   }
-  constexpr int64_t ms_or(int64_t fallback_value) const {
-    return ToFractionOr<1000>(fallback_value);
+  int64_t ms_or(int64_t fallback_value) const {
+    return IsFinite() ? ms() : fallback_value;
   }
-  constexpr int64_t us_or(int64_t fallback_value) const {
-    return ToValueOr(fallback_value);
+  int64_t us_or(int64_t fallback_value) const {
+    return IsFinite() ? us() : fallback_value;
   }
 
-  TimeDelta Abs() const { return TimeDelta::us(std::abs(us())); }
+  TimeDelta Abs() const { return TimeDelta(absl::AbsDuration(*this)); }
 
- private:
-  friend class rtc_units_impl::UnitBase<TimeDelta>;
-  using RelativeUnit::RelativeUnit;
-  static constexpr bool one_sided = false;
+  static constexpr TimeDelta Zero() { return TimeDelta(absl::ZeroDuration()); }
+  static constexpr TimeDelta PlusInfinity() {
+    return TimeDelta(absl::InfiniteDuration());
+  }
+  static constexpr TimeDelta MinusInfinity() {
+    return TimeDelta(-absl::InfiniteDuration());
+  }
+  constexpr bool IsZero() const { return *this == absl::ZeroDuration(); }
+  constexpr bool IsPlusInfinity() const {
+    return *this == absl::InfiniteDuration();
+  }
+  constexpr bool IsMinusInfinity() const {
+    return *this == -absl::InfiniteDuration();
+  }
+  constexpr bool IsInfinite() const {
+    return IsPlusInfinity() || IsMinusInfinity();
+  }
+  constexpr bool IsFinite() const { return !IsInfinite(); }
+
+  TimeDelta Clamped(absl::Duration min_value, absl::Duration max_value) const {
+    return TimeDelta(std::max(
+        min_value, std::min(static_cast<absl::Duration>(*this), max_value)));
+  }
+  void Clamp(absl::Duration min_value, absl::Duration max_value) {
+    *this = Clamped(min_value, max_value);
+  }
+
+  friend TimeDelta operator+(TimeDelta lhs, TimeDelta rhs) {
+    return TimeDelta(static_cast<absl::Duration>(lhs) +
+                     static_cast<absl::Duration>(rhs));
+  }
 };
 
-std::string ToString(TimeDelta value);
+inline std::string ToString(TimeDelta value) {
+  return absl::FormatDuration(value);
+}
 inline std::string ToLogString(TimeDelta value) {
-  return ToString(value);
+  return absl::FormatDuration(value);
 }
-
-#ifdef UNIT_TEST
-inline std::ostream& operator<<(  // no-presubmit-check TODO(webrtc:8982)
-    std::ostream& stream,         // no-presubmit-check TODO(webrtc:8982)
-    TimeDelta value) {
-  return stream << ToString(value);
-}
-#endif  // UNIT_TEST
 
 }  // namespace webrtc
+
+namespace absl {
+
+inline std::string ToLogString(Duration value) {
+  return FormatDuration(value);
+}
+
+}  // namespace absl
 
 #endif  // API_UNITS_TIME_DELTA_H_

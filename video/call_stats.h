@@ -114,6 +114,8 @@ class CallStats : public Module, public RtcpRttStats {
   ProcessThread* const process_thread_;
   bool process_thread_running_ RTC_GUARDED_BY(construction_thread_checker_);
 
+  /*RtcpRttStatsImpl rtt_stats_impl_{this};*/
+
   RTC_DISALLOW_COPY_AND_ASSIGN(CallStats);
 };
 

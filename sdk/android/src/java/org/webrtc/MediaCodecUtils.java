@@ -10,8 +10,6 @@
 
 package org.webrtc;
 
-import android.annotation.TargetApi;
-import android.media.MediaCodec;
 import android.media.MediaCodecInfo;
 import android.media.MediaCodecInfo.CodecCapabilities;
 import android.os.Build;
@@ -24,13 +22,26 @@ import java.util.Map;
 @SuppressWarnings("deprecation")
 class MediaCodecUtils {
   private static final String TAG = "MediaCodecUtils";
+  private static final String[] SOFTWARE_IMPLEMENTATION_PREFIXES = {"OMX.google.", "OMX.SEC."};
 
   // Prefixes for supported hardware encoder/decoder component names.
   static final String EXYNOS_PREFIX = "OMX.Exynos.";
-  static final String INTEL_PREFIX = "OMX.Intel.";
-  static final String NVIDIA_PREFIX = "OMX.Nvidia.";
   static final String QCOM_PREFIX = "OMX.qcom.";
-  static final String[] SOFTWARE_IMPLEMENTATION_PREFIXES = {"OMX.google.", "OMX.SEC."};
+  static final Predicate<MediaCodecInfo> SOFTWARE_IMPLEMENTATION_PREDICATE =
+      new Predicate<MediaCodecInfo>() {
+        @Override
+        public boolean test(MediaCodecInfo arg) {
+          final String name = arg.getName();
+          for (String prefix : SOFTWARE_IMPLEMENTATION_PREFIXES) {
+            if (name.startsWith(prefix)) {
+              return true;
+            }
+          }
+          return false;
+        }
+      };
+  static final Predicate<MediaCodecInfo> HARDWARE_IMPLEMENTATION_PREDICATE =
+      SOFTWARE_IMPLEMENTATION_PREDICATE.negate();
 
   // NV12 color format supported by QCOM codec, but not declared in MediaCodec -
   // see /hardware/qcom/media/mm-core/inc/OMX_QCOMExtns.h

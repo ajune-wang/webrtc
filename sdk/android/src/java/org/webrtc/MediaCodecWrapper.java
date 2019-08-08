@@ -18,9 +18,9 @@ import android.view.Surface;
 import java.nio.ByteBuffer;
 
 /**
- * Subset of methods defined in {@link android.media.MediaCodec} needed by
- * {@link HardwareVideoEncoder} and {@link AndroidVideoDecoder}. This interface
- * exists to allow mocking and using a fake implementation in tests.
+ * Subset of methods defined in {@link android.media.MediaCodec} needed by {@link
+ * AndroidVideoEncoder} and {@link AndroidVideoDecoder}. This interface exists to allow mocking and
+ * using a fake implementation in tests.
  */
 interface MediaCodecWrapper {
   void configure(MediaFormat format, Surface surface, MediaCrypto crypto, int flags);

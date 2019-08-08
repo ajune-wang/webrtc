@@ -645,11 +645,11 @@ if (rtc_include_tests) {
         "examples/androidjunit/src/org/appspot/apprtc/DirectRTCClientTest.java",
         "examples/androidjunit/src/org/appspot/apprtc/TCPChannelClientTest.java",
         "sdk/android/tests/src/org/webrtc/AndroidVideoDecoderTest.java",
+        "sdk/android/tests/src/org/webrtc/AndroidVideoEncoderTest.java",
         "sdk/android/tests/src/org/webrtc/CameraEnumerationTest.java",
         "sdk/android/tests/src/org/webrtc/CodecTestHelper.java",
         "sdk/android/tests/src/org/webrtc/FakeMediaCodecWrapper.java",
         "sdk/android/tests/src/org/webrtc/GlGenericDrawerTest.java",
-        "sdk/android/tests/src/org/webrtc/HardwareVideoEncoderTest.java",
         "sdk/android/tests/src/org/webrtc/ScalingSettingsTest.java",
         "sdk/android/tests/src/org/webrtc/CryptoOptionsTest.java",
       ]

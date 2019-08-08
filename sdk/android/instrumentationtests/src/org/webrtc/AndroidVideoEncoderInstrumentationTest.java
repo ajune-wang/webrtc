@@ -34,14 +34,13 @@ import org.chromium.base.test.params.ParameterSet;
 import org.chromium.base.test.params.ParameterizedRunner;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @TargetApi(16)
 @RunWith(ParameterizedRunner.class)
 @UseRunnerDelegate(BaseJUnit4RunnerDelegate.class)
-public class HardwareVideoEncoderTest {
+public class AndroidVideoEncoderInstrumentationTest {
   @ClassParameter private static List<ParameterSet> CLASS_PARAMS = new ArrayList<>();
 
   static {
@@ -59,12 +58,12 @@ public class HardwareVideoEncoderTest {
   private final boolean useTextures;
   private final boolean useEglContext;
 
-  public HardwareVideoEncoderTest(boolean useTextures, boolean useEglContext) {
+  public AndroidVideoEncoderInstrumentationTest(boolean useTextures, boolean useEglContext) {
     this.useTextures = useTextures;
     this.useEglContext = useEglContext;
   }
 
-  final static String TAG = "HwVideoEncoderTest";
+  static final String TAG = "HwVideoEncoderTest";
 
   private static final boolean ENABLE_INTEL_VP8_ENCODER = true;
   private static final boolean ENABLE_H264_HIGH_PROFILE = true;
@@ -129,7 +128,7 @@ public class HardwareVideoEncoderTest {
   }
 
   /** A common base class for the texture and I420 buffer that implements reference counting. */
-  private static abstract class MockBufferBase implements VideoFrame.Buffer {
+  private abstract static class MockBufferBase implements VideoFrame.Buffer {
     protected final int width;
     protected final int height;
     private final Runnable releaseCallback;
@@ -204,7 +203,7 @@ public class HardwareVideoEncoderTest {
     public VideoFrame.Buffer cropAndScale(
         int cropX, int cropY, int cropWidth, int cropHeight, int scaleWidth, int scaleHeight) {
       retain();
-      return new MockTextureBuffer(textureId, scaleWidth, scaleHeight, this ::release);
+      return new MockTextureBuffer(textureId, scaleWidth, scaleHeight, this::release);
     }
   }
 

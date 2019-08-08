@@ -16,7 +16,6 @@ import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
-import static org.robolectric.Shadows.shadowOf;
 
 import android.media.MediaCodec;
 import android.media.MediaCodecInfo;
@@ -24,8 +23,6 @@ import android.media.MediaFormat;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
 import org.chromium.testing.local.LocalRobolectricTestRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,23 +31,17 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowSystemClock;
-import org.webrtc.EglBase.Context;
-import org.webrtc.EncodedImage;
 import org.webrtc.EncodedImage.FrameType;
 import org.webrtc.FakeMediaCodecWrapper.State;
-import org.webrtc.VideoCodecStatus;
-import org.webrtc.VideoEncoder;
 import org.webrtc.VideoEncoder.CodecSpecificInfo;
 import org.webrtc.VideoEncoder.EncodeInfo;
 import org.webrtc.VideoEncoder.Settings;
-import org.webrtc.VideoFrame;
 import org.webrtc.VideoFrame.Buffer;
 import org.webrtc.VideoFrame.I420Buffer;
 
 @RunWith(LocalRobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
-public class HardwareVideoEncoderTest {
+public class AndroidVideoEncoderTest {
   private static final VideoEncoder.Settings TEST_ENCODER_SETTINGS = new Settings(
       /* numberOfCores= */ 1,
       /* width= */ 640,
@@ -63,16 +54,16 @@ public class HardwareVideoEncoderTest {
   private static final long POLL_DELAY_MS = 10;
   private static final long DELIVER_ENCODED_IMAGE_DELAY_MS = 10;
 
-  private static class TestEncoder extends HardwareVideoEncoder {
+  private static class TestEncoder extends AndroidVideoEncoder {
     private final Object deliverEncodedImageLock = new Object();
     private boolean deliverEncodedImageDone = true;
 
     TestEncoder(MediaCodecWrapperFactory mediaCodecWrapperFactory, String codecName,
         VideoCodecType codecType, Integer surfaceColorFormat, Integer yuvColorFormat,
-        Map<String, String> params, int keyFrameIntervalSec, int forceKeyFrameIntervalMs,
-        BitrateAdjuster bitrateAdjuster, EglBase14.Context sharedContext) {
+        Map<String, String> params, int keyFrameIntervalSec, BitrateAdjuster bitrateAdjuster,
+        EglBase14.Context sharedContext) {
       super(mediaCodecWrapperFactory, codecName, codecType, surfaceColorFormat, yuvColorFormat,
-          params, keyFrameIntervalSec, forceKeyFrameIntervalMs, bitrateAdjuster, sharedContext);
+          params, keyFrameIntervalSec, bitrateAdjuster, sharedContext);
     }
 
     public void waitDeliverEncodedImage() throws InterruptedException {
@@ -133,7 +124,6 @@ public class HardwareVideoEncoderTest {
           /* yuvColorFormat= */ MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420Planar,
           /* params= */ new HashMap<>(),
           /* keyFrameIntervalSec= */ 0,
-          /* forceKeyFrameIntervalMs= */ 0,
           /* bitrateAdjuster= */ new BaseBitrateAdjuster(),
           /* sharedContext= */ null);
     }
@@ -153,8 +143,7 @@ public class HardwareVideoEncoderTest {
   @Test
   public void testInit() {
     // Set-up.
-    HardwareVideoEncoder encoder =
-        new TestEncoderBuilder().setCodecType(VideoCodecType.VP8).build();
+    AndroidVideoEncoder encoder = new TestEncoderBuilder().setCodecType(VideoCodecType.VP8).build();
 
     // Test.
     assertThat(encoder.initEncode(TEST_ENCODER_SETTINGS, mockEncoderCallback))
@@ -179,7 +168,7 @@ public class HardwareVideoEncoderTest {
   @Test
   public void testEncodeByteBuffer() {
     // Set-up.
-    HardwareVideoEncoder encoder = new TestEncoderBuilder().build();
+    AndroidVideoEncoder encoder = new TestEncoderBuilder().build();
     encoder.initEncode(TEST_ENCODER_SETTINGS, mockEncoderCallback);
 
     // Test.
@@ -247,7 +236,7 @@ public class HardwareVideoEncoderTest {
   @Test
   public void testRelease() {
     // Set-up.
-    HardwareVideoEncoder encoder = new TestEncoderBuilder().build();
+    AndroidVideoEncoder encoder = new TestEncoderBuilder().build();
     encoder.initEncode(TEST_ENCODER_SETTINGS, mockEncoderCallback);
 
     // Test.
@@ -260,7 +249,7 @@ public class HardwareVideoEncoderTest {
   @Test
   public void testReleaseMultipleTimes() {
     // Set-up.
-    HardwareVideoEncoder encoder = new TestEncoderBuilder().build();
+    AndroidVideoEncoder encoder = new TestEncoderBuilder().build();
     encoder.initEncode(TEST_ENCODER_SETTINGS, mockEncoderCallback);
 
     // Test.

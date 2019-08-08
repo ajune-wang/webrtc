@@ -12,7 +12,6 @@ package org.webrtc;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import android.support.annotation.Nullable;
 import android.support.test.filters.SmallTest;
@@ -140,8 +139,8 @@ public final class AndroidVideoDecoderInstrumentationTest {
     VideoEncoderFactory encoderFactory = new HardwareVideoEncoderFactory(
         eglBase.getEglBaseContext(), ENABLE_INTEL_VP8_ENCODER, ENABLE_H264_HIGH_PROFILE);
     VideoEncoder encoder = encoderFactory.createEncoder(codecType);
-    HardwareVideoEncoderTest.MockEncoderCallback encodeCallback =
-        new HardwareVideoEncoderTest.MockEncoderCallback();
+    AndroidVideoEncoderInstrumentationTest.MockEncoderCallback encodeCallback =
+        new AndroidVideoEncoderInstrumentationTest.MockEncoderCallback();
     assertEquals(VideoCodecStatus.OK, encoder.initEncode(ENCODER_SETTINGS, encodeCallback));
 
     long lastTimestampNs = 0;
@@ -149,7 +148,7 @@ public final class AndroidVideoDecoderInstrumentationTest {
       lastTimestampNs += TimeUnit.SECONDS.toNanos(1) / ENCODER_SETTINGS.maxFramerate;
       VideoEncoder.EncodeInfo info = new VideoEncoder.EncodeInfo(
           new EncodedImage.FrameType[] {EncodedImage.FrameType.VideoFrameDelta});
-      HardwareVideoEncoderTest.testEncodeFrame(
+      AndroidVideoEncoderInstrumentationTest.testEncodeFrame(
           encoder, new VideoFrame(TEST_FRAMES[i], 0 /* rotation */, lastTimestampNs), info);
       encodedTestFrames[i] = encodeCallback.poll();
     }

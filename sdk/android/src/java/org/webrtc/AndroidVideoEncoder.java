@@ -11,9 +11,9 @@
 package org.webrtc;
 
 import android.annotation.TargetApi;
-import android.graphics.Matrix;
 import android.media.MediaCodec;
 import android.media.MediaCodecInfo;
+import android.media.MediaCodecInfo.CodecProfileLevel;
 import android.media.MediaFormat;
 import android.opengl.GLES20;
 import android.os.Bundle;
@@ -21,11 +21,10 @@ import android.support.annotation.Nullable;
 import android.view.Surface;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.Deque;
 import java.util.Map;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.TimeUnit;
+import org.webrtc.EglBase14.Context;
 import org.webrtc.ThreadUtils.ThreadChecker;
 
 /**
@@ -35,8 +34,8 @@ import org.webrtc.ThreadUtils.ThreadChecker;
  */
 @TargetApi(19)
 @SuppressWarnings("deprecation") // Cannot support API level 19 without using deprecated methods.
-class HardwareVideoEncoder implements VideoEncoder {
-  private static final String TAG = "HardwareVideoEncoder";
+class AndroidVideoEncoder implements VideoEncoder {
+  private static final String TAG = "AndroidVideoEncoder";
 
   // Bitrate modes - should be in sync with OMX_VIDEO_CONTROLRATETYPE defined
   // in OMX_Video.h
@@ -44,9 +43,6 @@ class HardwareVideoEncoder implements VideoEncoder {
   // Key associated with the bitrate control mode value (above). Not present as a MediaFormat
   // constant until API level 21.
   private static final String KEY_BITRATE_MODE = "bitrate-mode";
-
-  private static final int VIDEO_AVC_PROFILE_HIGH = 8;
-  private static final int VIDEO_AVC_LEVEL_3 = 0x100;
 
   private static final int MAX_VIDEO_FRAMERATE = 30;
 
@@ -65,9 +61,6 @@ class HardwareVideoEncoder implements VideoEncoder {
   private final YuvFormat yuvFormat;
   private final Map<String, String> params;
   private final int keyFrameIntervalSec; // Base interval for generating key frames.
-  // Interval at which to force a key frame. Used to reduce color distortions caused by some
-  // Qualcomm video encoders.
-  private final long forcedKeyFrameNs;
   private final BitrateAdjuster bitrateAdjuster;
   // EGL context shared with the application.  Used to access texture inputs.
   private final EglBase14.Context sharedContext;
@@ -120,7 +113,7 @@ class HardwareVideoEncoder implements VideoEncoder {
   @Nullable private volatile Exception shutdownException;
 
   /**
-   * Creates a new HardwareVideoEncoder with the given codecName, codecType, colorFormat, key frame
+   * Creates a new AndroidVideoEncoder with the given codecName, codecType, colorFormat, key frame
    * intervals, and bitrateAdjuster.
    *
    * @param codecName the hardware codec implementation to use
@@ -128,16 +121,14 @@ class HardwareVideoEncoder implements VideoEncoder {
    * @param surfaceColorFormat color format for surface mode or null if not available
    * @param yuvColorFormat color format for bytebuffer mode
    * @param keyFrameIntervalSec interval in seconds between key frames; used to initialize the codec
-   * @param forceKeyFrameIntervalMs interval at which to force a key frame if one is not requested;
-   *     used to reduce distortion caused by some codec implementations
    * @param bitrateAdjuster algorithm used to correct codec implementations that do not produce the
    *     desired bitrates
    * @throws IllegalArgumentException if colorFormat is unsupported
    */
-  public HardwareVideoEncoder(MediaCodecWrapperFactory mediaCodecWrapperFactory, String codecName,
+  public AndroidVideoEncoder(MediaCodecWrapperFactory mediaCodecWrapperFactory, String codecName,
       VideoCodecType codecType, Integer surfaceColorFormat, Integer yuvColorFormat,
-      Map<String, String> params, int keyFrameIntervalSec, int forceKeyFrameIntervalMs,
-      BitrateAdjuster bitrateAdjuster, EglBase14.Context sharedContext) {
+      Map<String, String> params, int keyFrameIntervalSec, BitrateAdjuster bitrateAdjuster,
+      Context sharedContext) {
     this.mediaCodecWrapperFactory = mediaCodecWrapperFactory;
     this.codecName = codecName;
     this.codecType = codecType;
@@ -146,7 +137,6 @@ class HardwareVideoEncoder implements VideoEncoder {
     this.yuvFormat = YuvFormat.valueOf(yuvColorFormat);
     this.params = params;
     this.keyFrameIntervalSec = keyFrameIntervalSec;
-    this.forcedKeyFrameNs = TimeUnit.MILLISECONDS.toNanos(forceKeyFrameIntervalMs);
     this.bitrateAdjuster = bitrateAdjuster;
     this.sharedContext = sharedContext;
 
@@ -202,8 +192,10 @@ class HardwareVideoEncoder implements VideoEncoder {
         }
         switch (profileLevelId) {
           case VideoCodecInfo.H264_CONSTRAINED_HIGH_3_1:
-            format.setInteger("profile", VIDEO_AVC_PROFILE_HIGH);
-            format.setInteger("level", VIDEO_AVC_LEVEL_3);
+            // TODO(sakal): Why we use high and level 3 when constrained high and level 3.1 is
+            // requested?
+            format.setInteger("profile", CodecProfileLevel.AVCProfileHigh);
+            format.setInteger("level", CodecProfileLevel.AVCLevel3);
             break;
           case VideoCodecInfo.H264_CONSTRAINED_BASELINE_3_1:
             break;
@@ -316,7 +308,7 @@ class HardwareVideoEncoder implements VideoEncoder {
       }
     }
 
-    if (requestedKeyFrame || shouldForceKeyFrame(videoFrame.getTimestampNs())) {
+    if (requestedKeyFrame) {
       requestKeyFrame(videoFrame.getTimestampNs());
     }
 
@@ -448,11 +440,6 @@ class HardwareVideoEncoder implements VideoEncoder {
     height = newHeight;
     useSurfaceMode = newUseSurfaceMode;
     return initEncodeInternal();
-  }
-
-  private boolean shouldForceKeyFrame(long presentationTimestampNs) {
-    encodeThreadChecker.checkIsOnValidThread();
-    return forcedKeyFrameNs > 0 && presentationTimestampNs > lastKeyFrameNs + forcedKeyFrameNs;
   }
 
   private void requestKeyFrame(long presentationTimestampNs) {
@@ -588,9 +575,7 @@ class HardwareVideoEncoder implements VideoEncoder {
     yuvFormat.fillBuffer(buffer, videoFrameBuffer);
   }
 
-  /**
-   * Enumeration of supported YUV color formats used for MediaCodec's input.
-   */
+  /** Enumeration of supported YUV color formats used for MediaCodec's input. */
   private enum YuvFormat {
     I420 {
       @Override

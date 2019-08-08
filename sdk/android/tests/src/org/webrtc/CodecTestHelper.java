@@ -16,9 +16,7 @@ import static com.google.common.truth.Truth.assertWithMessage;
 import java.nio.ByteBuffer;
 import java.util.Random;
 
-/**
- * Helper methods for {@link HardwareVideoEncoderTest} and {@link AndroidVideoDecoderTest}.
- */
+/** Helper methods for {@link AndroidVideoEncoderTest} and {@link AndroidVideoDecoderTest}. */
 class CodecTestHelper {
   static void assertEqualContents(byte[] expected, ByteBuffer actual, int offset, int size) {
     assertThat(size).isEqualTo(expected.length);

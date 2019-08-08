@@ -22,6 +22,7 @@
 #include "logging/rtc_event_log/events/rtc_event_audio_send_stream_config.h"
 #include "logging/rtc_event_log/events/rtc_event_bwe_update_delay_based.h"
 #include "logging/rtc_event_log/events/rtc_event_bwe_update_loss_based.h"
+#include "logging/rtc_event_log/events/rtc_event_bwe_update_target_rate.h"
 #include "logging/rtc_event_log/events/rtc_event_dtls_transport_state.h"
 #include "logging/rtc_event_log/events/rtc_event_dtls_writable_state.h"
 #include "logging/rtc_event_log/events/rtc_event_generic_ack_received.h"
@@ -674,6 +675,7 @@ std::string RtcEventLogEncoderNewFormat::EncodeBatch(
     std::vector<const RtcEventAudioSendStreamConfig*> audio_send_stream_configs;
     std::vector<const RtcEventBweUpdateDelayBased*> bwe_delay_based_updates;
     std::vector<const RtcEventBweUpdateLossBased*> bwe_loss_based_updates;
+    std::vector<const RtcEventBweUpdateTargetRate*> bwe_target_rate_updates;
     std::vector<const RtcEventDtlsTransportState*> dtls_transport_states;
     std::vector<const RtcEventDtlsWritableState*> dtls_writable_states;
     std::vector<const RtcEventGenericAckReceived*> generic_acks_received;
@@ -741,6 +743,12 @@ std::string RtcEventLogEncoderNewFormat::EncodeBatch(
           auto* rtc_event =
               static_cast<const RtcEventBweUpdateLossBased* const>(it->get());
           bwe_loss_based_updates.push_back(rtc_event);
+          break;
+        }
+        case RtcEvent::Type::BweUpdateTargetRate: {
+          auto* rtc_event =
+              static_cast<const RtcEventBweUpdateTargetRate* const>(it->get());
+          bwe_target_rate_updates.push_back(rtc_event);
           break;
         }
         case RtcEvent::Type::DtlsTransportState: {
@@ -862,6 +870,7 @@ std::string RtcEventLogEncoderNewFormat::EncodeBatch(
     EncodeAudioSendStreamConfig(audio_send_stream_configs, &event_stream);
     EncodeBweUpdateDelayBased(bwe_delay_based_updates, &event_stream);
     EncodeBweUpdateLossBased(bwe_loss_based_updates, &event_stream);
+    EncodeBweUpdateTargetRate(bwe_target_rate_updates, &event_stream);
     EncodeDtlsTransportState(dtls_transport_states, &event_stream);
     EncodeDtlsWritableState(dtls_writable_states, &event_stream);
     EncodeGenericAcksReceived(generic_acks_received, &event_stream);
@@ -1244,6 +1253,48 @@ void RtcEventLogEncoderNewFormat::EncodeBweUpdateLossBased(
   encoded_deltas = EncodeDeltas(base_event->total_packets(), values);
   if (!encoded_deltas.empty()) {
     proto_batch->set_total_packets_deltas(encoded_deltas);
+  }
+}
+
+void RtcEventLogEncoderNewFormat::EncodeBweUpdateTargetRate(
+    rtc::ArrayView<const RtcEventBweUpdateTargetRate*> batch,
+    rtclog2::EventStream* event_stream) {
+  if (batch.empty()) {
+    return;
+  }
+  // Base event
+  const RtcEventBweUpdateTargetRate* const base_event = batch[0];
+  rtclog2::TargetRateBweUpdates* proto_batch =
+      event_stream->add_target_rate_bwe_updates();
+  proto_batch->set_timestamp_ms(base_event->timestamp_ms());
+  proto_batch->set_target_rate(base_event->target_rate());
+
+  if (batch.size() == 1) {
+    return;
+  }
+
+  // Delta encoding
+  proto_batch->set_number_of_deltas(batch.size() - 1);
+  std::vector<absl::optional<uint64_t>> values(batch.size() - 1);
+  std::string encoded_deltas;
+
+  // timestamp_ms
+  for (size_t i = 0; i < values.size(); i++) {
+    const RtcEventBweUpdateTargetRate* event = batch[i + 1];
+    values[i] = ToUnsigned(event->timestamp_ms());
+  }
+  encoded_deltas = EncodeDeltas(ToUnsigned(base_event->timestamp_ms()), values);
+  if (!encoded_deltas.empty()) {
+    proto_batch->set_timestamp_ms_deltas(encoded_deltas);
+  }
+  // target_rate
+  for (size_t i = 0; i < values.size(); i++) {
+    const RtcEventBweUpdateTargetRate* event = batch[i + 1];
+    values[i] = event->target_rate();
+  }
+  encoded_deltas = EncodeDeltas(base_event->target_rate(), values);
+  if (!encoded_deltas.empty()) {
+    proto_batch->set_target_rate_deltas(encoded_deltas);
   }
 }
 

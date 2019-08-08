@@ -19,6 +19,7 @@
 
 #include "api/array_view.h"
 #include "logging/rtc_event_log/encoder/rtc_event_log_encoder.h"
+#include "logging/rtc_event_log/events/rtc_event_bwe_update_target_rate.h"
 
 namespace webrtc {
 
@@ -34,6 +35,7 @@ class RtcEventAudioReceiveStreamConfig;
 class RtcEventAudioSendStreamConfig;
 class RtcEventBweUpdateDelayBased;
 class RtcEventBweUpdateLossBased;
+class RtcEventBweUpdateTargetRate;
 class RtcEventDtlsTransportState;
 class RtcEventDtlsWritableState;
 class RtcEventLoggingStarted;
@@ -86,6 +88,9 @@ class RtcEventLogEncoderNewFormat final : public RtcEventLogEncoder {
       rtclog2::EventStream* event_stream);
   void EncodeBweUpdateLossBased(
       rtc::ArrayView<const RtcEventBweUpdateLossBased*> batch,
+      rtclog2::EventStream* event_stream);
+  void EncodeBweUpdateTargetRate(
+      rtc::ArrayView<const RtcEventBweUpdateTargetRate*> batch,
       rtclog2::EventStream* event_stream);
   void EncodeDtlsTransportState(
       rtc::ArrayView<const RtcEventDtlsTransportState*> batch,

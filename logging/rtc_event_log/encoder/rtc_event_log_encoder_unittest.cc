@@ -484,6 +484,31 @@ TEST_P(RtcEventLogEncoderTest, RtcEventBweUpdateLossBased) {
   }
 }
 
+TEST_P(RtcEventLogEncoderTest, RtcEventBweUpdateTargetRate) {
+  if (!new_encoding_) {
+    return;
+  }
+  std::vector<std::unique_ptr<RtcEventBweUpdateTargetRate>> events(
+      event_count_);
+  for (size_t i = 0; i < event_count_; ++i) {
+    events[i] = (i == 0 || !force_repeated_fields_)
+                    ? gen_.NewBweUpdateTargetRate()
+                    : events[0]->Copy();
+    history_.push_back(events[i]->Copy());
+  }
+
+  std::string encoded = encoder_->EncodeBatch(history_.begin(), history_.end());
+  ASSERT_TRUE(parsed_log_.ParseString(encoded));
+
+  const auto& bwe_target_rate_updates = parsed_log_.bwe_target_rate_updates();
+  ASSERT_EQ(bwe_target_rate_updates.size(), event_count_);
+
+  for (size_t i = 0; i < event_count_; ++i) {
+    verifier_.VerifyLoggedBweTargetRateUpdate(*events[i],
+                                              bwe_target_rate_updates[i]);
+  }
+}
+
 TEST_P(RtcEventLogEncoderTest, RtcEventGenericPacketReceived) {
   if (!new_encoding_) {
     return;

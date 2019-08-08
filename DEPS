@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '498f5876beea9d297f7844a22ec935265645c692',
+  'chromium_revision': '06e0dedff317386dac498c20e7857ba1926267c8',
 }
 
 deps = {
@@ -23,13 +23,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@c625bfa134a0fb7dc90f119d71f96a6406c1abe3',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@419824f64e930013a221ab97c12b26f026443d00',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@bdb993fbd0632a0a6b745ea3874ef78200d9917c',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@a6f6d37c5dca2152374568311f28dc4cb2f47423',
+    'https://chromium.googlesource.com/chromium/src/third_party@36842fd28d259acb286d69075b0a25118ecf1305',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -111,7 +111,7 @@ deps = {
   'src/third_party/boringssl/src':
     'https://boringssl.googlesource.com/boringssl.git@4dfd5af70191b068aebe567b8e29ce108cee85ce',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@5508416f19586f3b2eba9aee68ece7ceb00b71ae',
+    'https://chromium.googlesource.com/catapult.git@bca4ad25f4fd90e2a2c69e00dc7e353748e428a6',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
     'condition': 'checkout_android',
@@ -231,7 +231,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@19dddc6c886a05895ff3e259637de469be35011b',
+    'https://chromium.googlesource.com/chromium/src/tools@93a3960d717923f69b7885ae5f58c8bd6b518a4e',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@96f125709acfd0b48fc1e5dae7d6ea42291726ac',
 

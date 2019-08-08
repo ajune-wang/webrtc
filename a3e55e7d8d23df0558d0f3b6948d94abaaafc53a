@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "67ce25a0_9f68d7b7",
+        "filename": "call/call.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-08-08T10:27:52Z",
+      "side": 1,
+      "message": "Good point. I added the following comment for this function:\n\n// TODO(tommi): Most of this work could be done when Call gets created.\n// Starting the process thread itself could be done on demand when streams\n// are created and in that case, calling Start() multiple times is harmless\n// so holding an extra state variable, |is_target_rate_observer_registered_|\n// also shouldn\u0027t be necessary.",
+      "parentUuid": "bf583247_1f377ffa",
+      "range": {
+        "startLine": 499,
+        "startChar": 11,
+        "endLine": 499,
+        "endChar": 31
+      },
+      "revId": "a3e55e7d8d23df0558d0f3b6948d94abaaafc53a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "862f1326_73a89945",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2019-08-08T10:09:23Z",
       "side": 1,
       "message": "Should the clean up continue and remove use_media_transport_ from RTCConfiguration and other places?",
+      "range": {
+        "startLine": 7292,
+        "startChar": 0,
+        "endLine": 7294,
+        "endChar": 3
+      },
+      "revId": "a3e55e7d8d23df0558d0f3b6948d94abaaafc53a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a9a89da_352fbd49",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 7294,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-08-08T10:27:52Z",
+      "side": 1,
+      "message": "At the moment there\u0027s a lot more tied to media transport in PeerConnection because of the data channel. So let\u0027s have a followup conversation around that.",
+      "parentUuid": "862f1326_73a89945",
       "range": {
         "startLine": 7292,
         "startChar": 0,

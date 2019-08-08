@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dc104386_cd3f6ed7",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-08T11:29:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7c16c04_0221ea94",
+      "range": {
+        "startLine": 20,
+        "startChar": 33,
+        "endLine": 22,
+        "endChar": 65
+      },
+      "revId": "79383b753f173153cdebe4b596ff81d942d97e72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f3122b2_0601b200",
         "filename": "system_wrappers/source/ntp_time.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "79383b753f173153cdebe4b596ff81d942d97e72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "133f3069_f20215eb",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-08T11:29:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f3122b2_0601b200",
+      "range": {
+        "startLine": 31,
+        "startChar": 30,
+        "endLine": 32,
+        "endChar": 51
+      },
+      "revId": "79383b753f173153cdebe4b596ff81d942d97e72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2556d9b9_fd45ae5c",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-08T11:29:58Z",
+      "side": 1,
+      "message": "Let\u0027s refactor this part into its own method instead.",
+      "parentUuid": "6ee11951_833cd02a",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 3
+      },
+      "revId": "79383b753f173153cdebe4b596ff81d942d97e72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ee4aaf6_6a8c6131",
         "filename": "system_wrappers/source/ntp_time.cc",
         "patchSetId": 2
@@ -85,6 +157,24 @@
       "revId": "79383b753f173153cdebe4b596ff81d942d97e72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33bee4dc_9ac1514c",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-08T11:29:58Z",
+      "side": 1,
+      "message": "I think we might as well get rid of them altogether like for the cases above.",
+      "parentUuid": "2ee4aaf6_6a8c6131",
+      "revId": "79383b753f173153cdebe4b596ff81d942d97e72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "53dc785d_089c65af",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-08T11:29:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81ec0ed2_35cbd7af",
+      "range": {
+        "startLine": 43,
+        "startChar": 21,
+        "endLine": 43,
+        "endChar": 44
+      },
+      "revId": "79383b753f173153cdebe4b596ff81d942d97e72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8f25d78_87b8d499",
         "filename": "system_wrappers/source/ntp_time.cc",
         "patchSetId": 2
@@ -131,6 +245,30 @@
       "revId": "79383b753f173153cdebe4b596ff81d942d97e72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eef2f28_23394fab",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-08T11:29:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8f25d78_87b8d499",
+      "range": {
+        "startLine": 57,
+        "startChar": 56,
+        "endLine": 57,
+        "endChar": 68
+      },
+      "revId": "79383b753f173153cdebe4b596ff81d942d97e72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

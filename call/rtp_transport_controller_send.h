@@ -134,7 +134,7 @@ class RtpTransportControllerSend final
   void OnReceivedRtcpReceiverReportBlocks(const ReportBlockList& report_blocks,
                                           int64_t now_ms)
       RTC_RUN_ON(task_queue_);
-  void PostUpdates(NetworkControlUpdate update) RTC_RUN_ON(task_queue_);
+  void PostUpdates(const NetworkControlUpdate& update) RTC_RUN_ON(task_queue_);
   void UpdateControlState() RTC_RUN_ON(task_queue_);
   RtpPacketPacer* pacer();
   const RtpPacketPacer* pacer() const;

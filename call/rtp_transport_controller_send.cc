@@ -558,7 +558,8 @@ void RtpTransportControllerSend::UpdateStreamsConfig() {
     PostUpdates(controller_->OnStreamsConfig(streams_config_));
 }
 
-void RtpTransportControllerSend::PostUpdates(NetworkControlUpdate update) {
+void RtpTransportControllerSend::PostUpdates(
+    const NetworkControlUpdate& update) {
   if (update.congestion_window) {
     pacer()->SetCongestionWindow(*update.congestion_window);
   }

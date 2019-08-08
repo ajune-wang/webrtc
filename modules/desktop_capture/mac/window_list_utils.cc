@@ -29,6 +29,19 @@ namespace webrtc {
 
 namespace {
 
+bool ToUtf8(const CFStringRef str16, std::string* str8) {
+  size_t maxlen = CFStringGetMaximumSizeForEncoding(CFStringGetLength(str16),
+                                                    kCFStringEncodingUTF8) +
+                  1;
+  std::unique_ptr<char[]> buffer(new char[maxlen]);
+  if (!buffer ||
+      !CFStringGetCString(str16, buffer.get(), maxlen, kCFStringEncodingUTF8)) {
+    return false;
+  }
+  str8->assign(buffer.get());
+  return true;
+}
+
 // Get CFDictionaryRef from |id| and call |on_window| against it. This function
 // returns false if native APIs fail, typically it indicates that the |id| does
 // not represent a window. |on_window| will not be called if false is returned

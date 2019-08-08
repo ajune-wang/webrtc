@@ -195,19 +195,18 @@ class StructParametersParser {
 // usage. Note that the struct type is inferred from the field getters. Beware
 // of providing incorrect arguments to this, such as mixing the struct type or
 // incorrect return values, as this will cause very confusing compile errors.
+// It returns a raw pointer to allow it to be assigned as a static member to
+// avoid repeated construction cost.
 template <typename Closure,
           typename S = typename struct_parser_impl::LambdaTraits<Closure>::src,
           typename... Args>
-std::unique_ptr<StructParametersParser<S>> CreateStructParametersParser(
-    std::string first_key,
-    Closure first_getter,
-    Args... args) {
+StructParametersParser<S>* CreateStructParametersParser(std::string first_key,
+                                                        Closure first_getter,
+                                                        Args... args) {
   std::vector<struct_parser_impl::StructParameter<S>> parameters;
   struct_parser_impl::AddParameters<S>(&parameters, std::move(first_key),
                                        first_getter, args...);
-  // absl::make_unique can't be used since the StructParametersParser
-  // constructor is only visible to this create function.
-  return absl::WrapUnique(new StructParametersParser<S>(std::move(parameters)));
+  return new StructParametersParser<S>(std::move(parameters));
 }
 }  // namespace webrtc
 

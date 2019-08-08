@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c0fd30f1_0516b01f",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-08-08T16:00:05Z",
+      "side": 1,
+      "message": "changed to:\nif (i \u003d\u003d 0) {\n check limits.\n} else {\n check that limits don\u0027t decrease with resolution increase.\n}",
+      "parentUuid": "d497e4ca_ebd827d4",
+      "range": {
+        "startLine": 693,
+        "startChar": 6,
+        "endLine": 693,
+        "endChar": 12
+      },
+      "revId": "de6ace6d15759a2db6b0dc41ccafc322ae9fedbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37ed051f_9e19c9d9",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "de6ace6d15759a2db6b0dc41ccafc322ae9fedbb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a37bf1a_e03aa37d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-08-08T16:00:05Z",
+      "side": 1,
+      "message": "I thought to allow 0 for min and min start limits. But probably it would be better to request all limits to be non-zero. Changed to min_bitrate_bps.",
+      "parentUuid": "37ed051f_9e19c9d9",
+      "range": {
+        "startLine": 694,
+        "startChar": 38,
+        "endLine": 694,
+        "endChar": 41
+      },
+      "revId": "de6ace6d15759a2db6b0dc41ccafc322ae9fedbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e2dce9bc_baa608b2",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-08-08T16:00:05Z",
+      "side": 1,
+      "message": "yes, you are right. 2 checks would be enough.",
+      "parentUuid": "5549329b_7ec6ae9e",
+      "range": {
+        "startLine": 695,
+        "startChar": 6,
+        "endLine": 696,
+        "endChar": 55
+      },
+      "revId": "de6ace6d15759a2db6b0dc41ccafc322ae9fedbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ad18bbb_5445c98e",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 9
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "c57d802a_4a509beb",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-08-08T16:00:05Z",
+      "side": 1,
+      "message": "changed to RTC_DCHECK_GT. max_bitrate_bps \u003d min_start_bitrate_bps doesn\u0027t look like a valid config.",
+      "parentUuid": "6ad18bbb_5445c98e",
+      "range": {
+        "startLine": 699,
+        "startChar": 17,
+        "endLine": 699,
+        "endChar": 19
+      },
+      "revId": "de6ace6d15759a2db6b0dc41ccafc322ae9fedbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c617de8_e757f3f8",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 9
@@ -114,6 +210,30 @@
       "revId": "de6ace6d15759a2db6b0dc41ccafc322ae9fedbb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ade8f9c7_57853f39",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-08-08T16:00:05Z",
+      "side": 1,
+      "message": "no. changed: only override the min bitrate if app didn\u0027t set that.",
+      "parentUuid": "5c617de8_e757f3f8",
+      "range": {
+        "startLine": 767,
+        "startChar": 19,
+        "endLine": 767,
+        "endChar": 34
+      },
+      "revId": "de6ace6d15759a2db6b0dc41ccafc322ae9fedbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

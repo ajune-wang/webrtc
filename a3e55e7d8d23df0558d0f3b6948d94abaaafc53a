@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf583247_1f377ffa",
+        "filename": "call/call.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2019-08-08T09:38:02Z",
+      "side": 1,
+      "message": "Most of this cold be done when creating call, instead of when creating a video/audio stream, just leaving the module_process_thread_-\u003eStart() when creating a stream, to avoid starting before we have a stream. But leave that for now and I can take a look at that later on.",
+      "range": {
+        "startLine": 499,
+        "startChar": 11,
+        "endLine": 499,
+        "endChar": 31
+      },
+      "revId": "a3e55e7d8d23df0558d0f3b6948d94abaaafc53a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -214,6 +214,7 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
   UpdateAllocationLimits();
 }
 
+// Called on sequenced_checker_.
 void BitrateAllocator::UpdateAllocationLimits() {
   uint32_t total_requested_padding_bitrate = 0;
   uint32_t total_requested_min_bitrate = 0;

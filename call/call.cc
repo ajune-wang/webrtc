@@ -255,6 +255,10 @@ class Call final : public webrtc::Call,
 
   void RegisterRateObserver();
 
+  rtc::TaskQueue* network_queue() const {
+    return transport_send_ptr_->GetWorkerQueue();
+  }
+
   Clock* const clock_;
   TaskQueueFactory* const task_queue_factory_;
 
@@ -268,11 +272,7 @@ class Call final : public webrtc::Call,
 
   NetworkState audio_network_state_;
   NetworkState video_network_state_;
-  // TODO(tommi): Once tests have been fixed to not call GetStats() on the wrong
-  // thread, remove this lock and protect aggregate_network_up_crit_ with the
-  // configuration_sequence_checker_.
-  rtc::CriticalSection aggregate_network_up_crit_;
-  bool aggregate_network_up_ RTC_GUARDED_BY(aggregate_network_up_crit_);
+  bool aggregate_network_up_ RTC_GUARDED_BY(configuration_sequence_checker_);
 
   std::unique_ptr<RWLockWrapper> receive_crit_;
   // Audio, Video, and FlexFEC receive streams are owned by the client that
@@ -531,6 +531,7 @@ void Call::UpdateHistograms() {
       (clock_->TimeInMilliseconds() - start_ms_) / 1000);
 }
 
+// Called from the dtor.
 void Call::UpdateSendHistograms(Timestamp first_sent_packet) {
   int64_t elapsed_sec =
       (clock_->TimeInMilliseconds() - first_sent_packet.ms()) / 1000;
@@ -950,35 +951,42 @@ RtpTransportControllerSendInterface* Call::GetTransportControllerSend() {
 }
 
 Call::Stats Call::GetStats() const {
-  // TODO(solenberg): Some test cases in EndToEndTest use this from a different
-  // thread. Re-enable once that is fixed.
-  // RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
+  RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
+
+  // TODO(tommi): These stats seem to most (all?) be managed on the process
+  // thread. Should the call be forced to be made there?
+
   Stats stats;
   // Fetch available send/receive bitrates.
   std::vector<unsigned int> ssrcs;
   uint32_t recv_bandwidth = 0;
+  // Sync with process thread (fwict).
   receive_side_cc_.GetRemoteBitrateEstimator(false)->LatestEstimate(
       &ssrcs, &recv_bandwidth);
 
   {
+    // Sync with worker thread... perhaps that could be done on the
+    // process thread? (See OnTargetTransferRate)
     rtc::CritScope cs(&last_bandwidth_bps_crit_);
     stats.send_bandwidth_bps = last_bandwidth_bps_;
   }
   stats.recv_bandwidth_bps = recv_bandwidth;
+
   // TODO(srte): It is unclear if we only want to report queues if network is
   // available.
-  {
-    rtc::CritScope cs(&aggregate_network_up_crit_);
-    stats.pacer_delay_ms = aggregate_network_up_
-                               ? transport_send_ptr_->GetPacerQueuingDelayMs()
-                               : 0;
-  }
+  // Syncs with process thread (PacedSender::Process)
+  stats.pacer_delay_ms =
+      aggregate_network_up_ ? transport_send_ptr_->GetPacerQueuingDelayMs() : 0;
 
+  // synchronizes with process thread.
   stats.rtt_ms = call_stats_->LastProcessedRtt();
+
   {
+    // sync with worker thread (could possibly be process thread)
     rtc::CritScope cs(&bitrate_crit_);
     stats.max_padding_bitrate_bps = configured_max_padding_bitrate_bps_;
   }
+
   return stats;
 }
 
@@ -1048,10 +1056,8 @@ void Call::UpdateAggregateNetworkState() {
 
   RTC_LOG(LS_INFO) << "UpdateAggregateNetworkState: aggregate_state="
                    << (aggregate_network_up ? "up" : "down");
-  {
-    rtc::CritScope cs(&aggregate_network_up_crit_);
-    aggregate_network_up_ = aggregate_network_up;
-  }
+  aggregate_network_up_ = aggregate_network_up;
+
   transport_send_ptr_->OnNetworkAvailability(aggregate_network_up);
 }
 
@@ -1123,6 +1129,7 @@ void Call::OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
                                      uint32_t max_padding_bitrate_bps,
                                      uint32_t total_bitrate_bps) {
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+
   transport_send_ptr_->SetAllocatedSendBitrateLimits(
       min_send_bitrate_bps, max_padding_bitrate_bps, total_bitrate_bps);
 

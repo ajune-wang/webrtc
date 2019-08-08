@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7c16c04_0221ea94",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-08T08:47:05Z",
+      "side": 1,
+      "message": "Take these three as template parameters, and static_assert that the first two are \u003e0?",
+      "range": {
+        "startLine": 20,
+        "startChar": 33,
+        "endLine": 22,
+        "endChar": 65
+      },
+      "revId": "79383b753f173153cdebe4b596ff81d942d97e72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f3122b2_0601b200",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-08T08:47:05Z",
+      "side": 1,
+      "message": "Why are these casts needed? IIUC they are no-ops if nothing overflows---do you expect overflow?",
+      "range": {
+        "startLine": 31,
+        "startChar": 30,
+        "endLine": 32,
+        "endChar": 51
+      },
+      "revId": "79383b753f173153cdebe4b596ff81d942d97e72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ee11951_833cd02a",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-08T08:47:05Z",
+      "side": 1,
+      "message": "Can you remove these braces?",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 3
+      },
+      "revId": "79383b753f173153cdebe4b596ff81d942d97e72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ee4aaf6_6a8c6131",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-08T08:47:05Z",
+      "side": 1,
+      "message": "These three casts can all be dchecked_cast, since they can never wrap.",
+      "revId": "79383b753f173153cdebe4b596ff81d942d97e72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81ec0ed2_35cbd7af",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-08T08:47:05Z",
+      "side": 1,
+      "message": "Remove the outermost parentheses.",
+      "range": {
+        "startLine": 43,
+        "startChar": 21,
+        "endLine": 43,
+        "endChar": 44
+      },
+      "revId": "79383b753f173153cdebe4b596ff81d942d97e72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8f25d78_87b8d499",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-08T08:47:05Z",
+      "side": 1,
+      "message": "Please give this a name and explain what it is.",
+      "range": {
+        "startLine": 57,
+        "startChar": 56,
+        "endLine": 57,
+        "endChar": 68
+      },
+      "revId": "79383b753f173153cdebe4b596ff81d942d97e72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

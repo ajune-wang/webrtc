@@ -46,6 +46,30 @@
       "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f00c9bb_7d546a7c",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-09T06:51:15Z",
+      "side": 0,
+      "message": "Right, it\u0027s not surprising that deleting these deps break the build. But I don\u0027t think they belong on this target after mac_utils is deleted, so question is where to move them.\n\nWhatever framework is needed for CFStringGetCString should be in the modules/desktop_capture:desktop_capture_generic target, which is where I moved the code depending on that. I don\u0027t quite understand this target though, it includes both mac-specific and windows-specific source files, and no #ifdef:ery in the source files either, as far as I can tell. \n\nBut the other libraries should probably be moved somewhere else.",
+      "parentUuid": "969da87e_b8da25a8",
+      "range": {
+        "startLine": 937,
+        "startChar": 0,
+        "endLine": 943,
+        "endChar": 5
+      },
+      "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

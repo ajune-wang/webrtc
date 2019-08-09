@@ -142,6 +142,30 @@
       "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42bd1c84_d0dab63c",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-08-09T07:16:57Z",
+      "side": 0,
+      "message": "Yes, that looks good. Is the error you posted above the only linker error you see? Then this CL should be good to go after the other one lands.",
+      "parentUuid": "4fed29d6_4840f6a2",
+      "range": {
+        "startLine": 937,
+        "startChar": 0,
+        "endLine": 943,
+        "endChar": 5
+      },
+      "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

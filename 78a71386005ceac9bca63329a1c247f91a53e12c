@@ -22,6 +22,30 @@
       "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "969da87e_b8da25a8",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-08-09T06:41:51Z",
+      "side": 0,
+      "message": "Hi, removing these could be an issue since \"libs\" are passed to the -framework linker flag in the final binary (https://gn.googlesource.com/gn/+/master/docs/reference.md#var_libs).\n\nSo it is possible that some WebRTC libs are replying on this list.\n\nWRT AppKit I think you are right, let\u0027s wait for Kari\u0027s here.",
+      "parentUuid": "6fbe5e5d_ba90d0f7",
+      "range": {
+        "startLine": 937,
+        "startChar": 0,
+        "endLine": 943,
+        "endChar": 5
+      },
+      "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

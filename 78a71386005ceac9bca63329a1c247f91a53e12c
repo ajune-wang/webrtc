@@ -118,6 +118,30 @@
       "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fed29d6_4840f6a2",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-09T07:06:45Z",
+      "side": 0,
+      "message": "Kári: Like https://webrtc-review.googlesource.com/c/src/+/148584 ?\n\nMirko: I understand the rtc_base target, it\u0027s modules/desktop_capture:desktop_capture_generic that I find a bit strange.",
+      "parentUuid": "b3137fcc_9f1da3e4",
+      "range": {
+        "startLine": 937,
+        "startChar": 0,
+        "endLine": 943,
+        "endChar": 5
+      },
+      "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

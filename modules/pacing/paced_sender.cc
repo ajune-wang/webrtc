@@ -96,7 +96,7 @@ PacedSender::PacedSender(Clock* clock,
       pacing_bitrate_(DataRate::Zero()),
       time_last_process_us_(clock->TimeInMicroseconds()),
       last_send_time_us_(clock->TimeInMicroseconds()),
-      packets_(clock->TimeInMicroseconds(), field_trials),
+      packets_(clock->CurrentTime(), field_trials),
       packet_counter_(0),
       congestion_window_size_(DataSize::PlusInfinity()),
       outstanding_data_(DataSize::Zero()),
@@ -127,7 +127,7 @@ void PacedSender::Pause() {
     if (!paused_)
       RTC_LOG(LS_INFO) << "PacedSender paused.";
     paused_ = true;
-    packets_.SetPauseState(true, TimeMilliseconds());
+    packets_.SetPauseState(true, Timestamp::ms(TimeMilliseconds()));
   }
   rtc::CritScope cs(&process_thread_lock_);
   // Tell the process thread to call our TimeUntilNextProcess() method to get
@@ -142,7 +142,7 @@ void PacedSender::Resume() {
     if (paused_)
       RTC_LOG(LS_INFO) << "PacedSender resumed.";
     paused_ = false;
-    packets_.SetPauseState(false, TimeMilliseconds());
+    packets_.SetPauseState(false, Timestamp::ms(TimeMilliseconds()));
   }
   rtc::CritScope cs(&process_thread_lock_);
   // Tell the process thread to call our TimeUntilNextProcess() method to
@@ -226,8 +226,8 @@ void PacedSender::InsertPacket(RtpPacketSender::Priority priority,
       type = RtpPacketToSend::Type::kVideo;
   }
   packets_.Push(GetPriorityForType(type), type, ssrc, sequence_number,
-                capture_time_ms, now_ms, bytes, retransmission,
-                packet_counter_++);
+                capture_time_ms, Timestamp::ms(now_ms), DataSize::bytes(bytes),
+                retransmission, packet_counter_++);
 }
 
 void PacedSender::EnqueuePacket(std::unique_ptr<RtpPacketToSend> packet) {
@@ -244,7 +244,8 @@ void PacedSender::EnqueuePacket(std::unique_ptr<RtpPacketToSend> packet) {
 
   RTC_CHECK(packet->packet_type());
   int priority = GetPriorityForType(*packet->packet_type());
-  packets_.Push(priority, now_ms, packet_counter_++, std::move(packet));
+  packets_.Push(priority, Timestamp::ms(now_ms), packet_counter_++,
+                std::move(packet));
 }
 
 void PacedSender::SetAccountForAudioPackets(bool account_for_audio) {
@@ -267,7 +268,7 @@ size_t PacedSender::QueueSizePackets() const {
 
 DataSize PacedSender::QueueSizeData() const {
   rtc::CritScope cs(&critsect_);
-  return DataSize::bytes(packets_.SizeInBytes());
+  return packets_.Size();
 }
 
 absl::optional<Timestamp> PacedSender::FirstSentPacketTime() const {
@@ -278,12 +279,12 @@ absl::optional<Timestamp> PacedSender::FirstSentPacketTime() const {
 TimeDelta PacedSender::OldestPacketWaitTime() const {
   rtc::CritScope cs(&critsect_);
 
-  int64_t oldest_packet = packets_.OldestEnqueueTimeMs();
-  if (oldest_packet == 0) {
+  Timestamp oldest_enqueue_time = packets_.OldestEnqueueTime();
+  if (oldest_enqueue_time.IsInfinite()) {
     return TimeDelta::Zero();
   }
 
-  return TimeDelta::ms(TimeMilliseconds() - oldest_packet);
+  return Timestamp::ms(TimeMilliseconds()) - oldest_enqueue_time;
 }
 
 int64_t PacedSender::TimeUntilNextProcess() {
@@ -362,15 +363,15 @@ void PacedSender::Process() {
 
   if (elapsed_time_ms > 0) {
     int target_bitrate_kbps = pacing_bitrate_.kbps();
-    size_t queue_size_bytes = packets_.SizeInBytes();
+    size_t queue_size_bytes = packets_.Size().bytes<size_t>();
     if (queue_size_bytes > 0) {
       // Assuming equal size packets and input/output rate, the average packet
       // has avg_time_left_ms left to get queue_size_bytes out of the queue, if
       // time constraint shall be met. Determine bitrate needed for that.
-      packets_.UpdateQueueTime(TimeMilliseconds());
+      packets_.UpdateQueueTime(Timestamp::ms(TimeMilliseconds()));
       if (drain_large_queues_) {
         int64_t avg_time_left_ms = std::max<int64_t>(
-            1, queue_time_limit - packets_.AverageQueueTimeMs());
+            1, queue_time_limit - packets_.AverageQueueTime().ms());
         int min_bitrate_needed_kbps =
             static_cast<int>(queue_size_bytes * 8 / avg_time_left_ms);
         if (min_bitrate_needed_kbps > target_bitrate_kbps) {
@@ -445,7 +446,7 @@ void PacedSender::Process() {
         success == RtpPacketSendResult::kPacketNotFound) {
       // Packet sent or invalid packet, remove it from queue.
       // TODO(webrtc:8052): Don't consume media budget on kInvalid.
-      bytes_sent += packet->size_in_bytes();
+      bytes_sent += packet->size().bytes<size_t>();
       // Send succeeded, remove it from the queue.
       OnPacketSent(packet);
       if (recommended_probe_size && bytes_sent > *recommended_probe_size)
@@ -551,7 +552,7 @@ void PacedSender::OnPacketSent(RoundRobinPacketQueue::QueuedPacket* packet) {
   bool audio_packet = packet->type() == RtpPacketToSend::Type::kAudio;
   if (!audio_packet || account_for_audio_) {
     // Update media bytes sent.
-    UpdateBudgetWithBytesSent(packet->size_in_bytes());
+    UpdateBudgetWithBytesSent(packet->size().bytes<size_t>());
     last_send_time_us_ = clock_->TimeInMicroseconds();
   }
   // Send succeeded, remove it from the queue.

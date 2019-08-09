@@ -200,6 +200,13 @@ class SwapQueue {
     return true;
   }
 
+  // Can be called only by consumer.
+  // Returns current size of the queue and should be considered as "at least"
+  // amount of elements in the queue for consumer.
+  size_t LowestSize() const {
+    return std::atomic_load_explicit(&num_elements_, std::memory_order_acquire);
+  }
+
  private:
   // Verify that the queue slots complies with the ItemVerifier test. This
   // function is not thread-safe and can only be used in the constructors.

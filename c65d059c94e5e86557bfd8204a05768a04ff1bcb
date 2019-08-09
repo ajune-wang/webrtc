@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a2db387_11b99f7a",
+        "filename": "rtc_base/swap_queue.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-08-09T09:15:17Z",
+      "side": 1,
+      "message": "Discussed offline. Method renamed, doc added.",
+      "parentUuid": "cc52aa27_29e6d5c8",
+      "revId": "c65d059c94e5e86557bfd8204a05768a04ff1bcb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcf3a8c3_244f2e4e",
         "filename": "test/pc/e2e/echo/echo_emulation.cc",
         "patchSetId": 17

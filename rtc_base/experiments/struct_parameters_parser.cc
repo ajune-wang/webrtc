@@ -24,44 +24,72 @@ size_t FindOrEnd(absl::string_view str, size_t start, char delimiter) {
 }
 }  // namespace
 
-void ParseConfigParams(
-    absl::string_view config_str,
-    std::map<std::string, std::function<bool(absl::string_view)>> field_map) {
+ParserBase::ParserBase(std::vector<ParameterParser> fields)
+    : fields_(std::move(fields)) {
+  std::sort(fields_.begin(), fields_.end(),
+            [](const ParameterParser& a, const ParameterParser& b) {
+              return static_cast<bool>(a.key < b.key);
+            });
+}
+
+void ParserBase::Parse(void* target, absl::string_view src) const {
   size_t i = 0;
-  while (i < config_str.length()) {
-    size_t val_end = FindOrEnd(config_str, i, ',');
-    size_t colon_pos = FindOrEnd(config_str, i, ':');
+  while (i < src.length()) {
+    size_t val_end = FindOrEnd(src, i, ',');
+    size_t colon_pos = FindOrEnd(src, i, ':');
     size_t key_end = std::min(val_end, colon_pos);
     size_t val_begin = key_end + 1u;
-    std::string key(config_str.substr(i, key_end - i));
+    absl::string_view key(src.substr(i, key_end - i));
     absl::string_view opt_value;
     if (val_end >= val_begin)
-      opt_value = config_str.substr(val_begin, val_end - val_begin);
+      opt_value = src.substr(val_begin, val_end - val_begin);
     i = val_end + 1u;
-    auto field = field_map.find(key);
-    if (field != field_map.end()) {
-      if (!field->second(opt_value)) {
-        RTC_LOG(LS_WARNING) << "Failed to read field with key: '" << key
-                            << "' in trial: \"" << config_str << "\"";
+    bool found = false;
+    for (const auto& parser : fields_) {
+      if (key == parser.key) {
+        found = true;
+        if (!parser.Parse(opt_value, target)) {
+          RTC_LOG(LS_WARNING) << "Failed to read field with key: '" << key
+                              << "' in trial: \"" << src << "\"";
+        }
+        break;
       }
-    } else {
+    }
+    if (!found) {
       RTC_LOG(LS_INFO) << "No field with key: '" << key
-                       << "' (found in trial: \"" << config_str << "\")";
+                       << "' (found in trial: \"" << src << "\")";
     }
   }
 }
 
-std::string EncodeStringStringMap(std::map<std::string, std::string> mapping) {
+std::string ParserBase::EncodeChanged(const void* src, const void* base) const {
   rtc::StringBuilder sb;
   bool first = true;
-  for (const auto& kv : mapping) {
+  for (const auto& parser : fields_) {
+    if (parser.Changed(src, base)) {
+      if (!first)
+        sb << ",";
+      sb << parser.key << ":";
+      parser.Encode(src, &sb);
+      first = false;
+    }
+  }
+  return sb.Release();
+}
+
+std::string ParserBase::EncodeAll(const void* src) const {
+  rtc::StringBuilder sb;
+  bool first = true;
+  for (const auto& parser : fields_) {
     if (!first)
       sb << ",";
-    sb << kv.first << ":" << kv.second;
+    sb << parser.key << ":";
+    parser.Encode(src, &sb);
     first = false;
   }
   return sb.Release();
 }
+
 }  // namespace struct_parser_impl
 
 }  // namespace webrtc

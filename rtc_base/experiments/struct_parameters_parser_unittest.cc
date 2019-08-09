@@ -26,15 +26,15 @@ struct DummyConfig {
 StructParametersParser<DummyConfig>* DummyConfig::Parser() {
   using C = DummyConfig;
   // The empty comments ensures that each pair is on a separate line.
-  static auto parser = CreateStructParametersParser(
+  static auto* parser = CreateStructParametersParser(
       "e", [](C* c) { return &c->enabled; },   //
       "f", [](C* c) { return &c->factor; },    //
       "r", [](C* c) { return &c->retries; },   //
       "p", [](C* c) { return &c->ping; },      //
       "h", [](C* c) { return &c->hash; },      //
       "d", [](C* c) { return &c->duration; },  //
-      "l", [](C* c) { return &c->latency; });  //
-  return parser.get();
+      "l", [](C* c) { return &c->latency; });
+  return parser;
 }
 }  // namespace
 

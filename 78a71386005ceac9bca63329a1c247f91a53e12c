@@ -166,6 +166,30 @@
       "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dfcf7f3_58e63fdc",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-08-09T07:18:05Z",
+      "side": 0,
+      "message": "nisse@: Feel free to come at my desk to discuss further, I suspect that https://cs.chromium.org/chromium/src/build/config/BUILDCONFIG.gn?l\u003d298-401\u0026rcl\u003d5a2d9b626783c2640803cf4047dd523da246c5a0 is what makes things \"a bit strange\" (more documentation: https://gn.googlesource.com/gn/+/master/docs/reference.md#func_set_sources_assignment_filter).",
+      "parentUuid": "4fed29d6_4840f6a2",
+      "range": {
+        "startLine": 937,
+        "startChar": 0,
+        "endLine": 943,
+        "endChar": 5
+      },
+      "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

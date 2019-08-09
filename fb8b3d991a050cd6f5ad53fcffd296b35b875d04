@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "40b5fe35_46222095",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-08-09T12:08:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0b0bce1_97c29e34",
+      "range": {
+        "startLine": 687,
+        "startChar": 0,
+        "endLine": 690,
+        "endChar": 61
+      },
+      "revId": "fb8b3d991a050cd6f5ad53fcffd296b35b875d04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9135c783_1dbeabe0",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "fb8b3d991a050cd6f5ad53fcffd296b35b875d04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4cfbe81_63e29cce",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-08-09T12:08:07Z",
+      "side": 1,
+      "message": "changed it such that overrides are applied only if none of the limits is set by app.",
+      "parentUuid": "9135c783_1dbeabe0",
+      "range": {
+        "startLine": 769,
+        "startChar": 3,
+        "endLine": 769,
+        "endChar": 5
+      },
+      "revId": "fb8b3d991a050cd6f5ad53fcffd296b35b875d04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7c6aa240_b5db3c6d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-08-09T12:08:07Z",
+      "side": 1,
+      "message": "changed it such that overrides are applied only if none of the limits is set by app.",
+      "parentUuid": "5ec02dd7_0ed4798a",
+      "range": {
+        "startLine": 774,
+        "startChar": 10,
+        "endLine": 774,
+        "endChar": 18
+      },
+      "revId": "fb8b3d991a050cd6f5ad53fcffd296b35b875d04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02b3575b_041577ff",
         "filename": "video/video_stream_encoder_unittest.cc",
         "patchSetId": 10
@@ -91,6 +163,30 @@
       "revId": "fb8b3d991a050cd6f5ad53fcffd296b35b875d04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91bc28ba_92a75a26",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1371,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-08-09T12:08:07Z",
+      "side": 1,
+      "message": "added. thanks!",
+      "parentUuid": "02b3575b_041577ff",
+      "range": {
+        "startLine": 1371,
+        "startChar": 54,
+        "endLine": 1371,
+        "endChar": 66
+      },
+      "revId": "fb8b3d991a050cd6f5ad53fcffd296b35b875d04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

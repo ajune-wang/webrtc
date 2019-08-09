@@ -114,12 +114,15 @@ class DegradedCall : public Call, private Transport, private PacketReceiver {
                  const PacketOptions& options);
     void SendRtcp(const uint8_t* packet, size_t length);
 
+    const Transport* GetTransport() const;
+
    private:
     // Try to process packets on the fake network queue.
     // Returns true if call resulted in a delayed process, false if queue empty.
     bool Process();
 
     Clock* const clock_;
+    Transport* const transport_;
     rtc::TaskQueue task_queue_;
     FakeNetworkPipe pipe_;
     absl::optional<int64_t> next_process_ms_ RTC_GUARDED_BY(&task_queue_);
@@ -131,6 +134,8 @@ class DegradedCall : public Call, private Transport, private PacketReceiver {
 
   void SetClientBitratePreferences(
       const webrtc::BitrateSettings& preferences) override {}
+  void MaybeCreateFakeSendPipe(Transport* real_transport);
+
   const absl::optional<BuiltInNetworkBehaviorConfig> send_config_;
   SimulatedNetwork* send_simulated_network_;
   std::unique_ptr<FakeNetworkPipeOnTaskQueue> send_pipe_;

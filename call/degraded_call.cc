@@ -23,6 +23,7 @@ DegradedCall::FakeNetworkPipeOnTaskQueue::FakeNetworkPipeOnTaskQueue(
     std::unique_ptr<NetworkBehaviorInterface> network_behavior,
     Transport* transport)
     : clock_(clock),
+      transport_(transport),
       task_queue_(task_queue_factory->CreateTaskQueue(
           "DegradedSendQueue",
           TaskQueueFactory::Priority::NORMAL)),
@@ -40,6 +41,11 @@ void DegradedCall::FakeNetworkPipeOnTaskQueue::SendRtcp(const uint8_t* packet,
                                                         size_t length) {
   pipe_.SendRtcp(packet, length);
   Process();
+}
+
+const Transport* DegradedCall::FakeNetworkPipeOnTaskQueue::GetTransport()
+    const {
+  return transport_;
 }
 
 bool DegradedCall::FakeNetworkPipeOnTaskQueue::Process() {
@@ -93,6 +99,12 @@ DegradedCall::~DegradedCall() = default;
 
 AudioSendStream* DegradedCall::CreateAudioSendStream(
     const AudioSendStream::Config& config) {
+  if (send_config_) {
+    MaybeCreateFakeSendPipe(config.send_transport);
+    AudioSendStream::Config degrade_config = config;
+    degrade_config.send_transport = this;
+    return call_->CreateAudioSendStream(degrade_config);
+  }
   return call_->CreateAudioSendStream(config);
 }
 
@@ -113,11 +125,8 @@ void DegradedCall::DestroyAudioReceiveStream(
 VideoSendStream* DegradedCall::CreateVideoSendStream(
     VideoSendStream::Config config,
     VideoEncoderConfig encoder_config) {
-  if (send_config_ && !send_pipe_) {
-    auto network = absl::make_unique<SimulatedNetwork>(*send_config_);
-    send_simulated_network_ = network.get();
-    send_pipe_ = absl::make_unique<FakeNetworkPipeOnTaskQueue>(
-        task_queue_factory_, clock_, std::move(network), config.send_transport);
+  if (send_config_) {
+    MaybeCreateFakeSendPipe(config.send_transport);
     config.send_transport = this;
   }
   return call_->CreateVideoSendStream(std::move(config),
@@ -128,11 +137,8 @@ VideoSendStream* DegradedCall::CreateVideoSendStream(
     VideoSendStream::Config config,
     VideoEncoderConfig encoder_config,
     std::unique_ptr<FecController> fec_controller) {
-  if (send_config_ && !send_pipe_) {
-    auto network = absl::make_unique<SimulatedNetwork>(*send_config_);
-    send_simulated_network_ = network.get();
-    send_pipe_ = absl::make_unique<FakeNetworkPipeOnTaskQueue>(
-        task_queue_factory_, clock_, std::move(network), config.send_transport);
+  if (send_config_) {
+    MaybeCreateFakeSendPipe(config.send_transport);
     config.send_transport = this;
   }
   return call_->CreateVideoSendStream(
@@ -233,7 +239,7 @@ PacketReceiver::DeliveryStatus DegradedCall::DeliverPacket(
   // This is not optimal, but there are many places where there are thread
   // checks that fail if we're not using the worker thread call into this
   // method. If we want to fix this we probably need a task queue to do handover
-  // of all overriden methods, which feels like overikill for the current use
+  // of all overriden methods, which feels like overkill for the current use
   // case.
   // By just having this thread call out via the Process() method we work around
   // that, with the tradeoff that a non-zero delay may become a little larger
@@ -242,4 +248,15 @@ PacketReceiver::DeliveryStatus DegradedCall::DeliverPacket(
   return status;
 }
 
+void DegradedCall::MaybeCreateFakeSendPipe(Transport* real_transport) {
+  if (!send_pipe_) {
+    auto network = absl::make_unique<SimulatedNetwork>(*send_config_);
+    send_simulated_network_ = network.get();
+    send_pipe_ = absl::make_unique<FakeNetworkPipeOnTaskQueue>(
+        task_queue_factory_, clock_, std::move(network), real_transport);
+  } else {
+    // We only support one actual transport per DegradedCall.
+    RTC_CHECK(real_transport == send_pipe_->GetTransport());
+  }
+}
 }  // namespace webrtc

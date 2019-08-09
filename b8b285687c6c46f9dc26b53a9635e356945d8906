@@ -234,6 +234,30 @@
       "revId": "b8b285687c6c46f9dc26b53a9635e356945d8906",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6be8dfa9_d63954e6",
+        "filename": "test/pc/e2e/analyzer/audio/echo_emulation.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-09T11:07:14Z",
+      "side": 1,
+      "message": "srte@ has done some work on virtualizing time in order to make tests wait less and run faster, but maybe it could also help here?",
+      "parentUuid": "17743cb1_856706c3",
+      "range": {
+        "startLine": 61,
+        "startChar": 36,
+        "endLine": 61,
+        "endChar": 79
+      },
+      "revId": "b8b285687c6c46f9dc26b53a9635e356945d8906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

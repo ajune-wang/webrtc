@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8e07d62_5b0fa309",
+        "filename": "rtc_base/swap_queue.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-09T11:07:14Z",
+      "side": 1,
+      "message": "// Returns the current number of elements in the queue. Since elements may be concurrently added to the queue, the caller must treat this as a lower bound, not an exact count.\n  // May only be called by the consumer.",
+      "revId": "686c2de206238a087eee06e0079672168b2d9487",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2cbe5e5_6f0d079a",
+        "filename": "rtc_base/swap_queue.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-09T11:07:14Z",
+      "side": 1,
+      "message": "\"SizeAtLeast\"?",
+      "range": {
+        "startLine": 206,
+        "startChar": 9,
+        "endLine": 206,
+        "endChar": 19
+      },
+      "revId": "686c2de206238a087eee06e0079672168b2d9487",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e239bd91_d395accb",
+        "filename": "rtc_base/swap_queue.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-09T11:07:14Z",
+      "side": 1,
+      "message": "Comment before this line:\n\n  // Acquire memory ordering ensures that we wait for the producer to finish inserting any element in progress.",
+      "revId": "686c2de206238a087eee06e0079672168b2d9487",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

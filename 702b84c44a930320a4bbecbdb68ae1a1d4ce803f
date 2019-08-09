@@ -166,6 +166,30 @@
       "revId": "702b84c44a930320a4bbecbdb68ae1a1d4ce803f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff1c0d8e_7b0cb7d5",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-09T08:01:40Z",
+      "side": 1,
+      "message": "Filed issue bugs.webrtc.org/10857",
+      "parentUuid": "9ab9266f_fb321ded",
+      "range": {
+        "startLine": 491,
+        "startChar": 12,
+        "endLine": 491,
+        "endChar": 65
+      },
+      "revId": "702b84c44a930320a4bbecbdb68ae1a1d4ce803f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

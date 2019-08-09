@@ -17,15 +17,7 @@
 namespace webrtc {
 
 class FakeAudioDeviceModule
-    : public webrtc_impl::AudioDeviceModuleDefault<AudioDeviceModule> {
- public:
-  // TODO(nisse): Fix all users of this class to managed references using
-  // scoped_refptr. Current code doesn't always use refcounting for this class.
-  void AddRef() const override {}
-  rtc::RefCountReleaseStatus Release() const override {
-    return rtc::RefCountReleaseStatus::kDroppedLastRef;
-  }
-};
+    : public webrtc_impl::AudioDeviceModuleDefault<AudioDeviceModule> {};
 
 }  // namespace webrtc
 

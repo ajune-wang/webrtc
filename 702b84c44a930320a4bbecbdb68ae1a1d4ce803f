@@ -118,6 +118,30 @@
       "revId": "702b84c44a930320a4bbecbdb68ae1a1d4ce803f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2be1ce86_562ef2e2",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-08-09T07:44:48Z",
+      "side": 1,
+      "message": "\u003e Yeah that would be great. It sounds doable as the frameworks (almost?) always map to an include of the form \u003cFrameworkName/FrameworkName.h\u003e.\n\nAh, this is good.\n\nnisse@ I can\u0027t promise anything but feel free to open a bug about this presubmit.",
+      "parentUuid": "d4d8f2e0_e81fffb7",
+      "range": {
+        "startLine": 491,
+        "startChar": 12,
+        "endLine": 491,
+        "endChar": 65
+      },
+      "revId": "702b84c44a930320a4bbecbdb68ae1a1d4ce803f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

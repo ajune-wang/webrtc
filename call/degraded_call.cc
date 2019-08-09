@@ -93,6 +93,12 @@ DegradedCall::~DegradedCall() = default;
 
 AudioSendStream* DegradedCall::CreateAudioSendStream(
     const AudioSendStream::Config& config) {
+  if (send_config_) {
+    MaybeCreateFakeSendPipe(config.send_transport);
+    AudioSendStream::Config degrade_config = config;
+    degrade_config.send_transport = this;
+    return call_->CreateAudioSendStream(degrade_config);
+  }
   return call_->CreateAudioSendStream(config);
 }
 
@@ -113,11 +119,8 @@ void DegradedCall::DestroyAudioReceiveStream(
 VideoSendStream* DegradedCall::CreateVideoSendStream(
     VideoSendStream::Config config,
     VideoEncoderConfig encoder_config) {
-  if (send_config_ && !send_pipe_) {
-    auto network = absl::make_unique<SimulatedNetwork>(*send_config_);
-    send_simulated_network_ = network.get();
-    send_pipe_ = absl::make_unique<FakeNetworkPipeOnTaskQueue>(
-        task_queue_factory_, clock_, std::move(network), config.send_transport);
+  if (send_config_) {
+    MaybeCreateFakeSendPipe(config.send_transport);
     config.send_transport = this;
   }
   return call_->CreateVideoSendStream(std::move(config),
@@ -128,11 +131,8 @@ VideoSendStream* DegradedCall::CreateVideoSendStream(
     VideoSendStream::Config config,
     VideoEncoderConfig encoder_config,
     std::unique_ptr<FecController> fec_controller) {
-  if (send_config_ && !send_pipe_) {
-    auto network = absl::make_unique<SimulatedNetwork>(*send_config_);
-    send_simulated_network_ = network.get();
-    send_pipe_ = absl::make_unique<FakeNetworkPipeOnTaskQueue>(
-        task_queue_factory_, clock_, std::move(network), config.send_transport);
+  if (send_config_) {
+    MaybeCreateFakeSendPipe(config.send_transport);
     config.send_transport = this;
   }
   return call_->CreateVideoSendStream(
@@ -246,6 +246,15 @@ void DegradedCall::MediaTransportChange(
     MediaTransportInterface* media_transport) {
   // TODO(bugs.webrtc.org/9719) We should add support for media transport here
   // at some point.
+}
+
+void DegradedCall::MaybeCreateFakeSendPipe(Transport* real_transport) {
+  if (!send_pipe_) {
+    auto network = absl::make_unique<SimulatedNetwork>(*send_config_);
+    send_simulated_network_ = network.get();
+    send_pipe_ = absl::make_unique<FakeNetworkPipeOnTaskQueue>(
+        task_queue_factory_, clock_, std::move(network), real_transport);
+  }
 }
 
 }  // namespace webrtc

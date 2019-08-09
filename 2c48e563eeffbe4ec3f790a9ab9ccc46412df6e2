@@ -22,6 +22,30 @@
       "revId": "2c48e563eeffbe4ec3f790a9ab9ccc46412df6e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3544b49_35c81b87",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-08-09T16:54:03Z",
+      "side": 1,
+      "message": "Yes, there is also a bug at the remote.\n\nThe scenario I hit: remote provided high-precision values for arrive time of the rtp packets, probably from network interface. When network path changed, values made a huge jump (and then continue to monotonically increase with the new base time).\nwebrtc already has a field trial WebRTC-Bwe-ReceiveTimeFix to counter that.\n\nMy understanding that while remote misbehave, such jumps should be rare, so I suggest to do a simple recover.\nEither way, code shouldn\u0027t DCHECK on invalid input from the network.\n\nwithout this fix, provided test crashes:\n# Fatal error in: rtc_base/units/unit_base.h, line 139\n# Check failed: value \u003e\u003d 0\n\nYou think it is better to remove that DCHECK?",
+      "parentUuid": "ea7cf350_0da7f0fd",
+      "range": {
+        "startLine": 202,
+        "startChar": 5,
+        "endLine": 202,
+        "endChar": 72
+      },
+      "revId": "2c48e563eeffbe4ec3f790a9ab9ccc46412df6e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

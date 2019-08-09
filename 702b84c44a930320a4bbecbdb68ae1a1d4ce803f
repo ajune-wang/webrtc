@@ -46,6 +46,30 @@
       "revId": "702b84c44a930320a4bbecbdb68ae1a1d4ce803f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00a3a581_8a9719c8",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-09T07:30:16Z",
+      "side": 1,
+      "message": "I think include and library dependency should be consistent. Any chance of getting a gn or presubmit check to understand mac/objc system libraries?\n\nSo which one should I change, and how? Is it #import \u003cAppKit/AppKit.h\u003e ?",
+      "parentUuid": "4cac577f_6819aad2",
+      "range": {
+        "startLine": 491,
+        "startChar": 12,
+        "endLine": 491,
+        "endChar": 65
+      },
+      "revId": "702b84c44a930320a4bbecbdb68ae1a1d4ce803f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

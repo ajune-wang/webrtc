@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fbe5e5d_ba90d0f7",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-09T06:28:25Z",
+      "side": 0,
+      "message": "I need some advice on where to move these library dependencies. I get link errors like\n\nFAILED: obj/sdk/mac_framework_objc_shared_library/WebRTC \n[...]\nUndefined symbols for architecture x86_64:\n  \"_OBJC_METACLASS_$_NSView\", referenced from:\n      _OBJC_METACLASS_$_RTCMTLNSVideoView in libmetal_objc.a(RTCMTLNSVideoView.o)\n\nAnd it seems NSView is part of \"Appkit\" (see https://developer.apple.com/documentation/appkit/nsview?language\u003dobjc), which isn\u0027t in the above list of frameworks.",
+      "range": {
+        "startLine": 937,
+        "startChar": 0,
+        "endLine": 943,
+        "endChar": 5
+      },
+      "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

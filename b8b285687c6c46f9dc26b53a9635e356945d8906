@@ -258,6 +258,30 @@
       "revId": "b8b285687c6c46f9dc26b53a9635e356945d8906",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2c4e1ff_dd042383",
+        "filename": "test/pc/e2e/analyzer/audio/echo_emulation.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-08-09T11:13:59Z",
+      "side": 1,
+      "message": "Right now it\u0027s not applicable for PC. srte@ has a prototype CL to add such ability for PC, so it\u0027s on track. But for now we need different solution",
+      "parentUuid": "6be8dfa9_d63954e6",
+      "range": {
+        "startLine": 61,
+        "startChar": 36,
+        "endLine": 61,
+        "endChar": 79
+      },
+      "revId": "b8b285687c6c46f9dc26b53a9635e356945d8906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -94,6 +94,30 @@
       "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3137fcc_9f1da3e4",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-08-09T07:01:12Z",
+      "side": 0,
+      "message": "IIUC #ifdef:ery is not required here because mac targets only exist when it is a mac build and in that case the rtc_base target has the header. I know this is confusing and maybe a bit too magic/implicit.\n\nWRT cleaning these libs from here... I agree but I don\u0027t know the hierarchy of frameworks (e.g. the fact that AppKit is part of Cocoa.framework) so I always procrastinated this but we should definitely do something about it.",
+      "parentUuid": "251a4790_26f681f2",
+      "range": {
+        "startLine": 937,
+        "startChar": 0,
+        "endLine": 943,
+        "endChar": 5
+      },
+      "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

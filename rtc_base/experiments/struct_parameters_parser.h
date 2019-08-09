@@ -23,171 +23,173 @@
 #include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/experiments/field_trial_units.h"
 #include "rtc_base/string_encode.h"
+#include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
 namespace struct_parser_impl {
-inline std::string StringEncode(bool val) {
-  return rtc::ToString(val);
+inline void StringEncode(rtc::StringBuilder* sb, bool val) {
+  *sb << rtc::ToString(val);
 }
-inline std::string StringEncode(double val) {
-  return rtc::ToString(val);
+inline void StringEncode(rtc::StringBuilder* sb, double val) {
+  *sb << val;
 }
-inline std::string StringEncode(int val) {
-  return rtc::ToString(val);
+inline void StringEncode(rtc::StringBuilder* sb, int val) {
+  *sb << val;
 }
-inline std::string StringEncode(std::string val) {
-  return val;
+inline void StringEncode(rtc::StringBuilder* sb, const std::string& val) {
+  *sb << val;
 }
-inline std::string StringEncode(DataRate val) {
-  return ToString(val);
+inline void StringEncode(rtc::StringBuilder* sb, DataRate val) {
+  *sb << ToString(val);
 }
-inline std::string StringEncode(DataSize val) {
-  return ToString(val);
+inline void StringEncode(rtc::StringBuilder* sb, DataSize val) {
+  *sb << ToString(val);
 }
-inline std::string StringEncode(TimeDelta val) {
-  return ToString(val);
+inline void StringEncode(rtc::StringBuilder* sb, TimeDelta val) {
+  *sb << ToString(val);
 }
 
 template <typename T>
-inline std::string StringEncode(absl::optional<T> val) {
+inline void StringEncode(rtc::StringBuilder* sb, absl::optional<T> val) {
   if (val)
-    return StringEncode(*val);
-  return "";
+    StringEncode(sb, *val);
 }
 
 template <typename T>
 struct LambdaTraits : public LambdaTraits<decltype(&T::operator())> {};
 
 template <typename ClassType, typename RetType, typename SourceType>
-struct LambdaTraits<RetType* (ClassType::*)(SourceType*)const> {
+struct LambdaTraits<RetType (ClassType::*)(SourceType*) const> {
   using ret = RetType;
   using src = SourceType;
 };
 
-void ParseConfigParams(
-    absl::string_view config_str,
-    std::map<std::string, std::function<bool(absl::string_view)>> field_map);
-
-std::string EncodeStringStringMap(std::map<std::string, std::string> mapping);
-
-template <typename StructType>
-class StructParameterParser {
+struct TypedMemberParser {
  public:
-  virtual bool Parse(absl::string_view src, StructType* target) const = 0;
-  virtual bool Changed(const StructType& src, const StructType& base) const = 0;
-  virtual std::string Encode(const StructType& src) const = 0;
-  virtual ~StructParameterParser() = default;
+  bool (*parse)(const absl::string_view src, void* target);
+  bool (*changed)(const void* src, const void* base);
+  void (*encode)(const void* src, rtc::StringBuilder* target);
 };
 
-template <typename StructType, typename T>
-class StructParameterImpl : public StructParameterParser<StructType> {
- public:
-  explicit StructParameterImpl(std::function<T*(StructType*)> field_getter)
-      : field_getter_(std::move(field_getter)) {}
-  bool Parse(absl::string_view src, StructType* target) const override {
-    auto parsed = ParseTypedParameter<T>(std::string(src));
-    if (parsed.has_value())
-      *field_getter_(target) = *parsed;
-    return parsed.has_value();
+struct StructFieldEntry {
+  absl::string_view key;
+  size_t member_offset;
+  TypedMemberParser parser;
+
+  bool Parse(const absl::string_view src, void* target_struct) const {
+    return parser.parse(src, MemberPtr(target_struct));
   }
-  bool Changed(const StructType& src, const StructType& base) const override {
-    T base_value = *field_getter_(const_cast<StructType*>(&base));
-    T value = *field_getter_(const_cast<StructType*>(&src));
-    return value != base_value;
+  bool Changed(const void* src_struct, const void* base_struct) const {
+    return parser.changed(MemberPtr(src_struct), MemberPtr(base_struct));
   }
-  std::string Encode(const StructType& src) const override {
-    T value = *field_getter_(const_cast<StructType*>(&src));
-    return struct_parser_impl::StringEncode(value);
+  void Encode(const void* src_struct, rtc::StringBuilder* target) const {
+    parser.encode(MemberPtr(src_struct), target);
   }
 
  private:
-  const std::function<T*(StructType*)> field_getter_;
+  void* MemberPtr(void* struct_ptr) const {
+    return reinterpret_cast<char*>(struct_ptr) + member_offset;
+  }
+  const void* MemberPtr(const void* struct_ptr) const {
+    return reinterpret_cast<const char*>(struct_ptr) + member_offset;
+  }
 };
 
-template <typename StructType>
-struct StructParameter {
-  std::string key;
-  StructParameterParser<StructType>* parser;
+struct MemberParameter {
+  absl::string_view key;
+  void* member_ptr;
+  TypedMemberParser parser;
 };
 
-template <typename S,
-          typename Closure,
-          typename T = typename LambdaTraits<Closure>::ret>
-void AddParameters(std::vector<StructParameter<S>>* out,
-                   std::string key,
-                   Closure getter) {
-  auto* parser = new StructParameterImpl<S, T>(getter);
-  out->push_back(StructParameter<S>{std::move(key), parser});
+class ParserBase {
+ public:
+  ParserBase(void* ref, std::vector<MemberParameter> members);
+  explicit ParserBase(std::vector<StructFieldEntry> fields)
+      : fields_(std::move(fields)) {}
+  void Parse(void* target, absl::string_view src) const;
+  std::string EncodeChanged(const void* src, const void* base) const;
+  std::string EncodeAll(const void* src) const;
+
+ private:
+  std::vector<StructFieldEntry> fields_;
+};
+
+template <typename T>
+bool TypedParserParse(absl::string_view src, void* target) {
+  auto parsed = ParseTypedParameter<T>(std::string(src));
+  if (parsed.has_value())
+    *reinterpret_cast<T*>(target) = *parsed;
+  return parsed.has_value();
+}
+template <typename T>
+bool TypedParserChanged(const void* src, const void* base) {
+  return *reinterpret_cast<const T*>(src) != *reinterpret_cast<const T*>(base);
+}
+template <typename T>
+void TypedParserEncode(const void* src, rtc::StringBuilder* target) {
+  StringEncode(target, *reinterpret_cast<const T*>(src));
 }
 
-template <typename S,
-          typename Closure,
-          typename T = typename LambdaTraits<Closure>::ret,
-          typename... Args>
-void AddParameters(std::vector<StructParameter<S>>* out,
-                   std::string key,
-                   Closure getter,
-                   Args... args) {
-  AddParameters(out, key, getter);
-  AddParameters<S>(out, args...);
+template <typename T>
+MemberParameter TypedParser(const char* key, T* member) {
+  return MemberParameter{
+      key, member,
+      TypedMemberParser{&TypedParserParse<T>, &TypedParserChanged<T>,
+                        &TypedParserEncode<T>}};
 }
 
+template <typename S, typename T>
+void AddMembers(MemberParameter* out, const char* key, T* member) {
+  *out = TypedParser<T>(key, member);
+}
+
+template <typename S, typename T, typename... Args>
+void AddMembers(MemberParameter* out,
+                const char* key,
+                T* member,
+                Args... args) {
+  AddMembers<S>(out, key, member);
+  AddMembers<S>(++out, args...);
+}
 }  // namespace struct_parser_impl
 
 template <typename StructType>
 class StructParametersParser {
  public:
-  ~StructParametersParser() {
-    for (auto& param : parameters_) {
-      delete param.parser;
-    }
+  void Parse(StructType* target, absl::string_view src) const {
+    base_parser_.Parse(target, src);
   }
-
-  void Parse(StructType* target, absl::string_view src) {
-    std::map<std::string, std::function<bool(absl::string_view)>> field_parsers;
-    for (const auto& param : parameters_) {
-      field_parsers.emplace(param.key, [target, param](absl::string_view src) {
-        return param.parser->Parse(src, target);
-      });
-    }
-    struct_parser_impl::ParseConfigParams(src, std::move(field_parsers));
-  }
-
-  StructType Parse(absl::string_view src) {
+  StructType Parse(absl::string_view src) const {
     StructType res;
     Parse(&res, src);
     return res;
   }
-
-  std::string EncodeChanged(const StructType& src) {
+  std::string EncodeChanged(const StructType& src) const {
     static StructType base;
-    std::map<std::string, std::string> pairs;
-    for (const auto& param : parameters_) {
-      if (param.parser->Changed(src, base))
-        pairs[param.key] = param.parser->Encode(src);
-    }
-    return struct_parser_impl::EncodeStringStringMap(pairs);
+    return base_parser_.EncodeChanged(&src, &base);
   }
-
-  std::string EncodeAll(const StructType& src) {
-    std::map<std::string, std::string> pairs;
-    for (const auto& param : parameters_) {
-      pairs[param.key] = param.parser->Encode(src);
-    }
-    return struct_parser_impl::EncodeStringStringMap(pairs);
+  std::string EncodeAll(const StructType& src) const {
+    return base_parser_.EncodeAll(&src);
   }
 
  private:
-  template <typename C, typename S, typename... Args>
-  friend std::unique_ptr<StructParametersParser<S>>
-  CreateStructParametersParser(std::string, C, Args...);
+  template <typename Closure, typename S>
+  friend StructParametersParser<S>* CreateStructParametersParser(Closure);
 
-  explicit StructParametersParser(
-      std::vector<struct_parser_impl::StructParameter<StructType>> parameters)
-      : parameters_(parameters) {}
-
-  std::vector<struct_parser_impl::StructParameter<StructType>> parameters_;
+  explicit StructParametersParser(struct_parser_impl::ParserBase base)
+      : base_parser_(std::move(base)) {}
+  const struct_parser_impl::ParserBase base_parser_;
 };
+
+template <typename S, typename T, typename... Args>
+static std::vector<struct_parser_impl::MemberParameter>
+StructMembers(const char* first_key, T* first_member, Args... args) {
+  std::vector<struct_parser_impl::MemberParameter> members(sizeof...(args) / 2 +
+                                                           1);
+  struct_parser_impl::AddMembers<S>(&members.front(), std::move(first_key),
+                                    first_member, args...);
+  return members;
+}
 
 // Creates a struct parameters parser based on interleaved key and field
 // accessor arguments, where the field accessor converts a struct pointer to a
@@ -195,20 +197,18 @@ class StructParametersParser {
 // usage. Note that the struct type is inferred from the field getters. Beware
 // of providing incorrect arguments to this, such as mixing the struct type or
 // incorrect return values, as this will cause very confusing compile errors.
+// It returns a raw pointer to allow it to be assigned as a static member to
+// avoid repeated construction cost.
 template <typename Closure,
-          typename S = typename struct_parser_impl::LambdaTraits<Closure>::src,
-          typename... Args>
-std::unique_ptr<StructParametersParser<S>> CreateStructParametersParser(
-    std::string first_key,
-    Closure first_getter,
-    Args... args) {
-  std::vector<struct_parser_impl::StructParameter<S>> parameters;
-  struct_parser_impl::AddParameters<S>(&parameters, std::move(first_key),
-                                       first_getter, args...);
-  // absl::make_unique can't be used since the StructParametersParser
-  // constructor is only visible to this create function.
-  return absl::WrapUnique(new StructParametersParser<S>(std::move(parameters)));
+          typename S = typename struct_parser_impl::LambdaTraits<
+              Closure>::src>  // = typename std::decay<>::type>
+StructParametersParser<S>* CreateStructParametersParser(
+    Closure members_getter) {
+  S ref;
+  return new StructParametersParser<S>(
+      struct_parser_impl::ParserBase(&ref, members_getter(&ref)));
 }
+
 }  // namespace webrtc
 
 #endif  // RTC_BASE_EXPERIMENTS_STRUCT_PARAMETERS_PARSER_H_

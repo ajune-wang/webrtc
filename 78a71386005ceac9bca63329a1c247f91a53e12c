@@ -190,6 +190,30 @@
       "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9543a8fe_33f71c90",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-09T07:26:23Z",
+      "side": 0,
+      "message": "sources_assignment_filter explains that. A bit more magic than I expected...\n\nAnd that link error is the only one I see on https://logs.chromium.org/logs/webrtc/buildbucket/cr-buildbucket.appspot.com/8905684357118903312/+/steps/compile/0/stdout.",
+      "parentUuid": "8dfcf7f3_58e63fdc",
+      "range": {
+        "startLine": 937,
+        "startChar": 0,
+        "endLine": 943,
+        "endChar": 5
+      },
+      "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -70,6 +70,30 @@
       "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "251a4790_26f681f2",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-08-09T06:54:01Z",
+      "side": 0,
+      "message": "AppKit is also a part of Cocoa.framework, but we should be adding AppKit explicitly to where it\u0027s needed (looks like it\u0027s at least missing from the metal_objc target). Note that it\u0027s mac-only and should be added inside an is_mac block.",
+      "parentUuid": "969da87e_b8da25a8",
+      "range": {
+        "startLine": 937,
+        "startChar": 0,
+        "endLine": 943,
+        "endChar": 5
+      },
+      "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

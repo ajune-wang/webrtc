@@ -22,6 +22,30 @@
       "revId": "61eb799f7234f0f577a0cd7ee3bea70be50965f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3c69888_2ccd97b1",
+        "filename": "sdk/android/src/java/org/webrtc/MediaCodecUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-08-09T08:49:30Z",
+      "side": 1,
+      "message": "There is one more forgotten usage in decoder factory. I will remove at some future point and query media codec info H264 HP support there as well.\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/sdk/android/src/java/org/webrtc/MediaCodecVideoDecoderFactory.java?q\u003dfile:third_party/webrtc/+QCOM_PREFIX\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d137",
+      "parentUuid": "46ed2173_26e80cf6",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 48
+      },
+      "revId": "61eb799f7234f0f577a0cd7ee3bea70be50965f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

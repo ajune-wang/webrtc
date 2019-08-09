@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4dafe87_603e0fd0",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-08-09T07:11:24Z",
+      "side": 1,
+      "message": "Should this #include be more strict then? https://cs.chromium.org/chromium/src/third_party/webrtc/sdk/objc/components/renderer/metal/RTCMTLNSVideoView.h?l\u003d11\u0026rcl\u003de8d5724cc5ee0b593a996477c7230bba3dc4d7bc\n\nMaybe an header from AppKit?",
+      "range": {
+        "startLine": 491,
+        "startChar": 12,
+        "endLine": 491,
+        "endChar": 65
+      },
+      "revId": "702b84c44a930320a4bbecbdb68ae1a1d4ce803f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

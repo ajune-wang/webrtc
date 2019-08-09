@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '87ee38fb42b57edae0754e6af752a9ee9bc82843',
+  'chromium_revision': 'f655093df2bf2aa086eb3129556e8bf5f68ea6b2',
 }
 
 deps = {
@@ -14,7 +14,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@17d8ac209c7f2ea2648a6bc98e9397d1cbac6844',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@f3d0ca5f46b7b190dbbdc6be508ca11dd5c54302',
+    'https://chromium.googlesource.com/chromium/src/build@43c7ae21308929fd2732144e15e0451b8edf1624',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@74cfb57006f83cfe050817526db359d5c8a11628',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -27,9 +27,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@89806dc3f6dce10e2d65b254283e399474e8bc5a',
+    'https://chromium.googlesource.com/chromium/src/testing@f2e70b006c7ab2263dbcd0c4dbecc34422898f09',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@cc3095340556fbca5a3a1761d947d52eede936c5',
+    'https://chromium.googlesource.com/chromium/src/third_party@7c9d36f87c15994f8b799dd3d141c33340ee6830',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -111,7 +111,7 @@ deps = {
   'src/third_party/boringssl/src':
     'https://boringssl.googlesource.com/boringssl.git@81080a729af568f7b5fde92b9170cc17065027c9',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@30604c6c8ec1c53b63a2340d0a81acfb1cb12f99',
+    'https://chromium.googlesource.com/catapult.git@e00548aa79c77afbe796d78ab7b97576b49d8159',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
     'condition': 'checkout_android',

@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3eca588_e95a4a47",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-09T09:24:22Z",
+      "side": 1,
+      "message": "Two points:\n\n  * You can make this constexpr. Makes it much easier to test, although it does impair readability somewhat.\n\n  * You tie-break by rounding away from zero. Please document.\n\n  * Negative quotients are truncated, not rounded.\n\nI toyed around with it here, and managed to get it working: https://godbolt.org/z/jFvb1N",
+      "revId": "5e3cd6c09aeeff77f40e99b7b39efb5e233c85bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62720fdb_89669ccf",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-09T09:24:22Z",
+      "side": 1,
+      "message": "These two can be const.",
+      "revId": "5e3cd6c09aeeff77f40e99b7b39efb5e233c85bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eac1b412_28828b90",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-09T09:24:22Z",
+      "side": 1,
+      "message": "I suspect the suffix is unnecessary.",
+      "range": {
+        "startLine": 60,
+        "startChar": 60,
+        "endLine": 60,
+        "endChar": 63
+      },
+      "revId": "5e3cd6c09aeeff77f40e99b7b39efb5e233c85bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

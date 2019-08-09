@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abbdf731_88ae710c",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-09T16:17:08Z",
+      "side": 1,
+      "message": "Maybe make TimeInMilliseconds return a Timestamp? \"TimeRoundedToMs()\" if you want to keep the resolution intact.",
+      "range": {
+        "startLine": 145,
+        "startChar": 34,
+        "endLine": 145,
+        "endChar": 67
+      },
+      "revId": "b38f17d282104c7a508c399132ddf989e4d19d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c2583c2_40375daf",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-09T16:17:08Z",
+      "side": 1,
+      "message": "Subtle thing that might be causing the check failure. .ms() rounds the output, clock_-\u003eTimeInMilliseconds() returns the truncated time.",
+      "range": {
+        "startLine": 374,
+        "startChar": 61,
+        "endLine": 374,
+        "endChar": 66
+      },
+      "revId": "b38f17d282104c7a508c399132ddf989e4d19d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b9ee98d_920c9698",
+        "filename": "modules/pacing/round_robin_packet_queue.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-09T16:17:08Z",
+      "side": 1,
+      "message": "nit:",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 34
+      },
+      "revId": "b38f17d282104c7a508c399132ddf989e4d19d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "affe57ae_36f2fbf0",
+        "filename": "modules/pacing/round_robin_packet_queue.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-09T16:17:08Z",
+      "side": 1,
+      "message": "I\u0027ll leave it up to you, but consider that using size_t and assuming that it is in bytes* can sometimes be more readable that using DataSize. DataSize is mostly valuable when used together with the other unit types to compute bitrates etc. \n\n* I haven\u0027t seen any cases where we use size_t for other things without clear indications, unlike for instance bitrates where we mix both unit and type.",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 43
+      },
+      "revId": "b38f17d282104c7a508c399132ddf989e4d19d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2a748b4_db932190",
+        "filename": "modules/pacing/round_robin_packet_queue.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-09T16:17:08Z",
+      "side": 1,
+      "message": "nit:",
+      "range": {
+        "startLine": 79,
+        "startChar": 26,
+        "endLine": 79,
+        "endChar": 28
+      },
+      "revId": "b38f17d282104c7a508c399132ddf989e4d19d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

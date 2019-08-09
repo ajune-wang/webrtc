@@ -214,6 +214,30 @@
       "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "543893f0_9fa4ada2",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-09T08:41:28Z",
+      "side": 0,
+      "message": "Link error seems solved now.",
+      "parentUuid": "9543a8fe_33f71c90",
+      "range": {
+        "startLine": 937,
+        "startChar": 0,
+        "endLine": 943,
+        "endChar": 5
+      },
+      "revId": "78a71386005ceac9bca63329a1c247f91a53e12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

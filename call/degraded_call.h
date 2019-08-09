@@ -132,6 +132,8 @@ class DegradedCall : public Call, private Transport, private PacketReceiver {
   void MediaTransportChange(MediaTransportInterface* media_transport) override;
   void SetClientBitratePreferences(
       const webrtc::BitrateSettings& preferences) override {}
+  void MaybeCreateFakeSendPipe(Transport* real_transport);
+
   const absl::optional<BuiltInNetworkBehaviorConfig> send_config_;
   SimulatedNetwork* send_simulated_network_;
   std::unique_ptr<FakeNetworkPipeOnTaskQueue> send_pipe_;

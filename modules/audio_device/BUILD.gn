@@ -191,7 +191,6 @@ rtc_source_set("audio_device_impl") {
     "dummy/audio_device_dummy.h",
     "dummy/file_audio_device.cc",
     "dummy/file_audio_device.h",
-    "include/fake_audio_device.h",
     "include/test_audio_device.cc",
     "include/test_audio_device.h",
   ]

@@ -198,6 +198,12 @@ std::vector<PacketFeedback> TransportFeedbackAdapter::GetPacketFeedbackVector(
     current_offset_ms_ = feedback_time.ms();
   } else {
     current_offset_ms_ += feedback.GetBaseDeltaUs(last_timestamp_us_) / 1000;
+    if (current_offset_ms_ < 0) {
+      // Most likely remote endpoint changed clock for receving packets.
+      RTC_LOG(LS_WARNING)
+          << "Inconsistent flow of time in incoming transport feedbacks";
+      current_offset_ms_ = feedback_time.ms();
+    }
   }
   last_timestamp_us_ = feedback.GetBaseTimeUs();
 

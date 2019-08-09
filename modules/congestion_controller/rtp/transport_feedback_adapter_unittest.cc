@@ -455,6 +455,26 @@ TEST_F(TransportFeedbackAdapterTest, AllowDuplicatePacketSentCallsWithTrial) {
   EXPECT_TRUE(duplicate_packet.has_value());
 }
 
+TEST_F(TransportFeedbackAdapterTest, SurvivesUnexpectedTimeJumps) {
+  // See rtcp::TransportFeedback implementation for details how wrap-around time
+  // is calculated.
+  constexpr int64_t kWrapPeriodUs = 250ll << 32;
+  constexpr int64_t kFirstTimeUs = 1000000;
+  constexpr int64_t kSecondTimeUs = kFirstTimeUs + kWrapPeriodUs * 3 / 4;
+  rtcp::TransportFeedback feedback1;
+  feedback1.SetBase(/*sequence_number=*/1, /*arrival_time_us=*/kFirstTimeUs);
+  feedback1.AddReceivedPacket(1, kFirstTimeUs);
+  feedback1.Build();
+  adapter_->ProcessTransportFeedback(feedback1, Timestamp::ms(0));
+
+  rtcp::TransportFeedback feedback2;
+  feedback2.SetBase(/*sequence_number=*/2, /*arrival_time_us=*/kSecondTimeUs);
+  feedback2.AddReceivedPacket(2, kSecondTimeUs);
+  feedback2.Build();
+  adapter_->ProcessTransportFeedback(feedback2, Timestamp::ms(1));
+  // Expect no RTC_DCHECK crashes.
+}
+
 }  // namespace test
 }  // namespace webrtc_cc
 }  // namespace webrtc

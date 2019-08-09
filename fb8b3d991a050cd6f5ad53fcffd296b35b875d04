@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0b0bce1_97c29e34",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-08-09T10:22:44Z",
+      "side": 1,
+      "message": "always do these checks (not only for i \u003d 0)?",
+      "range": {
+        "startLine": 687,
+        "startChar": 0,
+        "endLine": 690,
+        "endChar": 61
+      },
+      "revId": "fb8b3d991a050cd6f5ad53fcffd296b35b875d04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9135c783_1dbeabe0",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-08-09T10:22:44Z",
+      "side": 1,
+      "message": "make sure target/max are above min?",
+      "range": {
+        "startLine": 769,
+        "startChar": 3,
+        "endLine": 769,
+        "endChar": 5
+      },
+      "revId": "fb8b3d991a050cd6f5ad53fcffd296b35b875d04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ec02dd7_0ed4798a",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-08-09T10:22:44Z",
+      "side": 1,
+      "message": "also do the same for min bitrate (and only change if not set)?",
+      "range": {
+        "startLine": 774,
+        "startChar": 10,
+        "endLine": 774,
+        "endChar": 18
+      },
+      "revId": "fb8b3d991a050cd6f5ad53fcffd296b35b875d04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02b3575b_041577ff",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1371,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-08-09T10:22:44Z",
+      "side": 1,
+      "message": "check min bitrate",
+      "range": {
+        "startLine": 1371,
+        "startChar": 54,
+        "endLine": 1371,
+        "endChar": 66
+      },
+      "revId": "fb8b3d991a050cd6f5ad53fcffd296b35b875d04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

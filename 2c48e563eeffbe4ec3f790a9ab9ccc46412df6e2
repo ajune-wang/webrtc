@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea7cf350_0da7f0fd",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-09T16:01:27Z",
+      "side": 1,
+      "message": "Note that this means the the remote is broken, it should ensure that a monotonically increasing clock is used. So if this happens somewhere we should look into why the endpoint provides incorrect values. Obviously, this shouldn\u0027t cause CHECK failures.\n\nMy guess is that the DCHECK was intentional, as it makes sense that we would want to detect such a bug in testing. If we don\u0027t want that, maybe we could change this where the DCHECK is rather than here? I think we have other correction mechanisms in other places, so adding one extra here risks making it harder to debug. Optionally, we could add this, but remove later correction mechanisms.",
+      "range": {
+        "startLine": 202,
+        "startChar": 5,
+        "endLine": 202,
+        "endChar": 72
+      },
+      "revId": "2c48e563eeffbe4ec3f790a9ab9ccc46412df6e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -41,7 +41,8 @@ class NetworkPacket {
                 absl::optional<PacketOptions> packet_options,
                 bool is_rtcp,
                 MediaType media_type,
-                absl::optional<int64_t> packet_time_us);
+                absl::optional<int64_t> packet_time_us,
+                Transport* transport);
 
   // Disallow copy constructor and copy assignment (no deep copies of |data_|).
   NetworkPacket(const NetworkPacket&) = delete;
@@ -65,6 +66,7 @@ class NetworkPacket {
   bool is_rtcp() const { return is_rtcp_; }
   MediaType media_type() const { return media_type_; }
   absl::optional<int64_t> packet_time_us() const { return packet_time_us_; }
+  Transport* transport() const { return transport_; }
 
  private:
   rtc::CopyOnWriteBuffer packet_;
@@ -82,6 +84,7 @@ class NetworkPacket {
   // network pipe.
   MediaType media_type_;
   absl::optional<int64_t> packet_time_us_;
+  Transport* transport_;
 };
 
 // Class faking a network link, internally is uses an implementation of a
@@ -89,7 +92,6 @@ class NetworkPacket {
 class FakeNetworkPipe : public SimulatedPacketReceiverInterface {
  public:
   // Will keep |network_behavior| alive while pipe is alive itself.
-  // Use these constructors if you plan to insert packets using DeliverPacket().
   FakeNetworkPipe(Clock* clock,
                   std::unique_ptr<NetworkBehaviorInterface> network_behavior);
   FakeNetworkPipe(Clock* clock,
@@ -99,11 +101,6 @@ class FakeNetworkPipe : public SimulatedPacketReceiverInterface {
                   std::unique_ptr<NetworkBehaviorInterface> network_behavior,
                   PacketReceiver* receiver,
                   uint64_t seed);
-
-  // Use this constructor if you plan to insert packets using SendRt[c?]p().
-  FakeNetworkPipe(Clock* clock,
-                  std::unique_ptr<NetworkBehaviorInterface> network_behavior,
-                  Transport* transport);
 
   ~FakeNetworkPipe() override;
 
@@ -118,8 +115,9 @@ class FakeNetworkPipe : public SimulatedPacketReceiverInterface {
   // constructor.
   bool SendRtp(const uint8_t* packet,
                size_t length,
-               const PacketOptions& options);
-  bool SendRtcp(const uint8_t* packet, size_t length);
+               const PacketOptions& options,
+               Transport* transport);
+  bool SendRtcp(const uint8_t* packet, size_t length, Transport* transport);
 
   // Implements the PacketReceiver interface. When/if packets are delivered,
   // they will be passed directly to the receiver instance given in
@@ -164,21 +162,23 @@ class FakeNetworkPipe : public SimulatedPacketReceiverInterface {
   };
 
   // Returns true if enqueued, or false if packet was dropped.
-  virtual bool EnqueuePacket(rtc::CopyOnWriteBuffer packet,
-                             absl::optional<PacketOptions> options,
-                             bool is_rtcp,
-                             MediaType media_type,
-                             absl::optional<int64_t> packet_time_us);
+  bool EnqueuePacket(rtc::CopyOnWriteBuffer packet,
+                     absl::optional<PacketOptions> options,
+                     bool is_rtcp,
+                     MediaType media_type,
+                     absl::optional<int64_t> packet_time_us,
+                     Transport* transport);
 
   bool EnqueuePacket(rtc::CopyOnWriteBuffer packet,
                      absl::optional<PacketOptions> options,
                      bool is_rtcp,
-                     MediaType media_type) {
-    return EnqueuePacket(packet, options, is_rtcp, media_type, absl::nullopt);
+                     MediaType media_type,
+                     Transport* transport) {
+    return EnqueuePacket(packet, options, is_rtcp, media_type, absl::nullopt,
+                         transport);
   }
   void DeliverNetworkPacket(NetworkPacket* packet)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(config_lock_);
-  bool HasTransport() const;
   bool HasReceiver() const;
 
   Clock* const clock_;
@@ -186,7 +186,6 @@ class FakeNetworkPipe : public SimulatedPacketReceiverInterface {
   rtc::CriticalSection config_lock_;
   const std::unique_ptr<NetworkBehaviorInterface> network_behavior_;
   PacketReceiver* receiver_ RTC_GUARDED_BY(config_lock_);
-  Transport* const transport_ RTC_GUARDED_BY(config_lock_);
 
   // |process_lock| guards the data structures involved in delay and loss
   // processes, such as the packet queues.

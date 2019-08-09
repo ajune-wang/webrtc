@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e04b096_e69bde0d",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-09T11:24:47Z",
+      "side": 1,
+      "message": "One option if you want to be explicit about it is\n\n  -int64_t{2208988800}\n\nYour choice.",
+      "range": {
+        "startLine": 72,
+        "startChar": 50,
+        "endLine": 72,
+        "endChar": 62
+      },
+      "revId": "b2cd9b0b2c1b51c4c76eb62521c68f372e725180",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b374412e_3543c429",
+        "filename": "system_wrappers/source/ntp_time_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-09T11:24:47Z",
+      "side": 1,
+      "message": "uint64_t{1} is better, since that avoids use of the unsigned long long type and also produces exactly the desired type. (int is the only built-in integer type not frowned upon by the style guide.)\n\nThis applies in a bunch more places below.",
+      "range": {
+        "startLine": 74,
+        "startChar": 39,
+        "endLine": 74,
+        "endChar": 43
+      },
+      "revId": "b2cd9b0b2c1b51c4c76eb62521c68f372e725180",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

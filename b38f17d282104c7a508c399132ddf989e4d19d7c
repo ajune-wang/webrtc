@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "baa0b16d_1d29c94a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-09T20:45:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8e11d01_7e90f4b9",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "b38f17d282104c7a508c399132ddf989e4d19d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abbdf731_88ae710c",
         "filename": "modules/pacing/paced_sender.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "b38f17d282104c7a508c399132ddf989e4d19d7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fd56edc_48e24db0",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-09T20:45:47Z",
+      "side": 1,
+      "message": "I ported just the queue code from a larger wip cl in order to get a smaller change to review,\nand just did minimal fixes here. Now I\u0027m dealing with bugs caused by different precision being\nused here and in the queue, so I\u0027ll just move over all the type changes into this cl.\nThat includes using Timestamp wherever possible.",
+      "parentUuid": "abbdf731_88ae710c",
+      "range": {
+        "startLine": 145,
+        "startChar": 34,
+        "endLine": 145,
+        "endChar": 67
+      },
+      "revId": "b38f17d282104c7a508c399132ddf989e4d19d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "61ff5fb5_6dfe4c64",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-09T20:45:47Z",
+      "side": 1,
+      "message": "Ack. It was not the root cause though.",
+      "parentUuid": "8c2583c2_40375daf",
+      "range": {
+        "startLine": 374,
+        "startChar": 61,
+        "endLine": 374,
+        "endChar": 66
+      },
+      "revId": "b38f17d282104c7a508c399132ddf989e4d19d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b9ee98d_920c9698",
         "filename": "modules/pacing/round_robin_packet_queue.h",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "b38f17d282104c7a508c399132ddf989e4d19d7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fbdff31_db82b337",
+        "filename": "modules/pacing/round_robin_packet_queue.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-09T20:45:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b9ee98d_920c9698",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 34
+      },
+      "revId": "b38f17d282104c7a508c399132ddf989e4d19d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "6be7f580_cbeaa7d8",
+        "filename": "modules/pacing/round_robin_packet_queue.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-09T20:45:47Z",
+      "side": 1,
+      "message": "Agree and I think this is borderline.\nThe main reason was that we mix size in number of packets and size in number of bytes here and there, so most places calls things size_in_bytes to clarify. I think using DataSize here is better.",
+      "parentUuid": "affe57ae_36f2fbf0",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 43
+      },
+      "revId": "b38f17d282104c7a508c399132ddf989e4d19d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2a748b4_db932190",
         "filename": "modules/pacing/round_robin_packet_queue.h",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "b38f17d282104c7a508c399132ddf989e4d19d7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24d5df9e_5f0fe136",
+        "filename": "modules/pacing/round_robin_packet_queue.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-09T20:45:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2a748b4_db932190",
+      "range": {
+        "startLine": 79,
+        "startChar": 26,
+        "endLine": 79,
+        "endChar": 28
+      },
+      "revId": "b38f17d282104c7a508c399132ddf989e4d19d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

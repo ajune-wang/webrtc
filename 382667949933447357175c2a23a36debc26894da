@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8066f68_0a8bb19a",
+        "filename": "call/degraded_call.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-12T08:09:37Z",
+      "side": 1,
+      "message": "Please add a comment explaining the purpose of this class.",
+      "range": {
+        "startLine": 125,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 24
+      },
+      "revId": "382667949933447357175c2a23a36debc26894da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d7586b1_b7c7ac0e",
+        "filename": "call/fake_network_pipe.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-12T08:09:37Z",
+      "side": 1,
+      "message": "Do we need both |media_type_| and |transport_| ? Both are intended to handle the videoengine/voiceengine split, if I remember correctly. It seems a bit brittle with the raw Transport pointer, if the transport may go away before the packet is delivered.",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 24
+      },
+      "revId": "382667949933447357175c2a23a36debc26894da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

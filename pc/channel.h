@@ -221,7 +221,7 @@ class BaseChannel : public ChannelInterface,
                   rtc::CopyOnWriteBuffer* packet,
                   const rtc::PacketOptions& options);
 
-  void OnRtcpPacketReceived(rtc::CopyOnWriteBuffer* packet,
+  void OnRtcpPacketReceived(rtc::CopyOnWriteBuffer packet,
                             int64_t packet_time_us);
 
   void OnPacketReceived(bool rtcp,

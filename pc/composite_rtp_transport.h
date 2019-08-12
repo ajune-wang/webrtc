@@ -98,7 +98,7 @@ class CompositeRtpTransport : public RtpTransportInternal {
  private:
   // Receive-side signals.
   void OnNetworkRouteChanged(absl::optional<rtc::NetworkRoute> route);
-  void OnRtcpPacketReceived(rtc::CopyOnWriteBuffer* packet,
+  void OnRtcpPacketReceived(rtc::CopyOnWriteBuffer packet,
                             int64_t packet_time_us);
 
   // Send-side signals.

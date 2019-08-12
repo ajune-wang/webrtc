@@ -180,9 +180,9 @@ void CompositeRtpTransport::OnNetworkRouteChanged(
   SignalNetworkRouteChanged(route);
 }
 
-void CompositeRtpTransport::OnRtcpPacketReceived(rtc::CopyOnWriteBuffer* packet,
+void CompositeRtpTransport::OnRtcpPacketReceived(rtc::CopyOnWriteBuffer packet,
                                                  int64_t packet_time_us) {
-  SignalRtcpPacketReceived(packet, packet_time_us);
+  SignalRtcpPacketReceived(std::move(packet), packet_time_us);
 }
 
 void CompositeRtpTransport::OnWritableState(bool writable) {

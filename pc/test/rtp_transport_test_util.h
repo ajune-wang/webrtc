@@ -11,6 +11,8 @@
 #ifndef PC_TEST_RTP_TRANSPORT_TEST_UTIL_H_
 #define PC_TEST_RTP_TRANSPORT_TEST_UTIL_H_
 
+#include <utility>
+
 #include "call/rtp_packet_sink_interface.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "pc/rtp_transport_internal.h"
@@ -38,10 +40,10 @@ class TransportObserver : public RtpPacketSinkInterface,
     last_recv_rtp_packet_ = packet.Buffer();
   }
 
-  void OnRtcpPacketReceived(rtc::CopyOnWriteBuffer* packet,
+  void OnRtcpPacketReceived(rtc::CopyOnWriteBuffer packet,
                             int64_t packet_time_us) {
     rtcp_count_++;
-    last_recv_rtcp_packet_ = *packet;
+    last_recv_rtcp_packet_ = std::move(packet);
   }
 
   int rtp_count() const { return rtp_count_; }

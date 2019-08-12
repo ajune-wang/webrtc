@@ -235,7 +235,7 @@ void RtpTransport::OnRtpPacketReceived(rtc::CopyOnWriteBuffer packet,
 
 void RtpTransport::OnRtcpPacketReceived(rtc::CopyOnWriteBuffer packet,
                                         int64_t packet_time_us) {
-  SignalRtcpPacketReceived(&packet, packet_time_us);
+  SignalRtcpPacketReceived(std::move(packet), packet_time_us);
 }
 
 void RtpTransport::OnReadPacket(rtc::PacketTransportInternal* transport,

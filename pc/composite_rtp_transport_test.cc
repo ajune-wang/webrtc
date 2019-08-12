@@ -11,6 +11,7 @@
 #include "pc/composite_rtp_transport.h"
 
 #include <memory>
+#include <utility>
 
 #include "absl/memory/memory.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
@@ -82,10 +83,10 @@ class CompositeRtpTransportTest : public ::testing::Test,
     ++network_route_count_;
     last_network_route_ = route;
   }
-  void OnRtcpPacketReceived(rtc::CopyOnWriteBuffer* buffer,
+  void OnRtcpPacketReceived(rtc::CopyOnWriteBuffer buffer,
                             int64_t packet_time_us) {
     ++rtcp_packet_count_;
-    last_packet_ = *buffer;
+    last_packet_ = std::move(buffer);
   }
   void OnRtpPacket(const RtpPacketReceived& packet) {
     ++rtp_packet_count_;

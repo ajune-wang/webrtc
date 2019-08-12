@@ -492,9 +492,9 @@ bool BaseChannel::RegisterRtpDemuxerSink() {
   });
 }
 
-void BaseChannel::OnRtcpPacketReceived(rtc::CopyOnWriteBuffer* packet,
+void BaseChannel::OnRtcpPacketReceived(rtc::CopyOnWriteBuffer packet,
                                        int64_t packet_time_us) {
-  OnPacketReceived(/*rtcp=*/true, *packet, packet_time_us);
+  OnPacketReceived(/*rtcp=*/true, std::move(packet), packet_time_us);
 }
 
 void BaseChannel::OnPacketReceived(bool rtcp,

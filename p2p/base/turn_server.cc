@@ -201,7 +201,7 @@ void TurnServer::OnInternalPacket(rtc::AsyncPacketSocket* socket,
                                   const char* data,
                                   size_t size,
                                   const rtc::SocketAddress& addr,
-                                  const int64_t& /* packet_time_us */) {
+                                  int64_t /* packet_time_us */) {
   RTC_DCHECK(thread_checker_.IsCurrent());
   // Fail if the packet is too small to even contain a channel header.
   if (size < TURN_CHANNEL_HEADER_SIZE) {
@@ -840,12 +840,11 @@ void TurnServerAllocation::HandleChannelData(const char* data, size_t size) {
   }
 }
 
-void TurnServerAllocation::OnExternalPacket(
-    rtc::AsyncPacketSocket* socket,
-    const char* data,
-    size_t size,
-    const rtc::SocketAddress& addr,
-    const int64_t& /* packet_time_us */) {
+void TurnServerAllocation::OnExternalPacket(rtc::AsyncPacketSocket* socket,
+                                            const char* data,
+                                            size_t size,
+                                            const rtc::SocketAddress& addr,
+                                            int64_t /* packet_time_us */) {
   RTC_DCHECK(external_socket_.get() == socket);
   Channel* channel = FindChannel(addr);
   if (channel) {

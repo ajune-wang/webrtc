@@ -121,7 +121,7 @@ struct Receiver : public MessageHandler, public sigslot::has_slots<> {
                     const char* data,
                     size_t size,
                     const SocketAddress& remote_addr,
-                    const int64_t& /* packet_time_us */) {
+                    int64_t /* packet_time_us */) {
     ASSERT_EQ(socket.get(), s);
     ASSERT_GE(size, 4U);
 

@@ -148,7 +148,7 @@ void TestClient::OnPacket(AsyncPacketSocket* socket,
                           const char* buf,
                           size_t size,
                           const SocketAddress& remote_addr,
-                          const int64_t& packet_time_us) {
+                          int64_t packet_time_us) {
   CritScope cs(&crit_);
   packets_.push_back(
       absl::make_unique<Packet>(remote_addr, buf, size, packet_time_us));

@@ -399,7 +399,7 @@ class AllocationSequence : public rtc::MessageHandler,
                     const char* data,
                     size_t size,
                     const rtc::SocketAddress& remote_addr,
-                    const int64_t& packet_time_us);
+                    int64_t packet_time_us);
 
   void OnPortDestroyed(PortInterface* port);
 

@@ -85,7 +85,7 @@ void TestController::OnReadPacket(rtc::AsyncPacketSocket* socket,
                                   const char* data,
                                   size_t len,
                                   const rtc::SocketAddress& remote_addr,
-                                  const int64_t& packet_time_us) {
+                                  int64_t packet_time_us) {
   RTC_DCHECK_RUN_ON(&test_controller_thread_checker_);
   size_t packet_size = data[0];
   std::string receive_data(&data[1], packet_size);

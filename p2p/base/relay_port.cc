@@ -153,7 +153,7 @@ class RelayEntry : public rtc::MessageHandler, public sigslot::has_slots<> {
                     const char* data,
                     size_t size,
                     const rtc::SocketAddress& remote_addr,
-                    const int64_t& packet_time_us);
+                    int64_t packet_time_us);
 
   void OnSentPacket(rtc::AsyncPacketSocket* socket,
                     const rtc::SentPacket& sent_packet);
@@ -700,7 +700,7 @@ void RelayEntry::OnReadPacket(rtc::AsyncPacketSocket* socket,
                               const char* data,
                               size_t size,
                               const rtc::SocketAddress& remote_addr,
-                              const int64_t& packet_time_us) {
+                              int64_t packet_time_us) {
   // RTC_DCHECK(remote_addr == port_->server_addr());
   // TODO(?): are we worried about this?
 

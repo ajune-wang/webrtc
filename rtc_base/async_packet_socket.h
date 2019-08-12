@@ -101,9 +101,7 @@ class AsyncPacketSocket : public sigslot::has_slots<> {
                    const char*,
                    size_t,
                    const SocketAddress&,
-                   // TODO(bugs.webrtc.org/9584): Change to passing the int64_t
-                   // timestamp by value.
-                   const int64_t&>
+                   int64_t>  // packet_time_us
       SignalReadPacket;
 
   // Emitted each time a packet is sent.

@@ -93,6 +93,30 @@
       "revId": "382667949933447357175c2a23a36debc26894da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "269fe4db_80b4ad85",
+        "filename": "call/fake_network_pipe.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-12T09:08:14Z",
+      "side": 1,
+      "message": "I\u0027m a bit confused. FakeNetworkPipe::EnqueuePacket sets both media_type_ and transport_, and that sounds like a uni-directional method.\n\nAre there different users of this NetworkPacket class, or is it only FakeNetworkPipe?\n\nThat said, explicit refcounting seems like a reasonable way to deal with the problem. You could consider moving that inside the TransportAdapter, with a map real_transport --\u003e TransportAdapter in DegradedCall, and a refcount inside TransportAdapter.",
+      "parentUuid": "a6be7e44_6aa72400",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 24
+      },
+      "revId": "382667949933447357175c2a23a36debc26894da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

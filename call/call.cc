@@ -381,6 +381,9 @@ class Call final : public webrtc::Call,
 
   bool is_target_rate_observer_registered_
       RTC_GUARDED_BY(&configuration_sequence_checker_) = false;
+#if RTC_DCHECK_IS_ON
+  int64_t last_packet_arrival_time_ms_ = -1;
+#endif
 
   RTC_DISALLOW_COPY_AND_ASSIGN(Call);
 };
@@ -1255,6 +1258,10 @@ PacketReceiver::DeliveryStatus Call::DeliverRtp(MediaType media_type,
   } else {
     parsed_packet.set_arrival_time_ms(clock_->TimeInMilliseconds());
   }
+#if RTC_DCHECK_IS_ON
+  RTC_DCHECK_LE(last_packet_arrival_time_ms_, parsed_packet.arrival_time_ms());
+  last_packet_arrival_time_ms_ = parsed_packet.arrival_time_ms();
+#endif
 
   // We might get RTP keep-alive packets in accordance with RFC6263 section 4.6.
   // These are empty (zero length payload) RTP packets with an unsignaled

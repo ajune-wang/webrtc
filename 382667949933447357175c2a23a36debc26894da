@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f80c6fe1_20026a26",
+        "filename": "call/degraded_call.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-12T08:45:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8066f68_0a8bb19a",
+      "range": {
+        "startLine": 125,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 24
+      },
+      "revId": "382667949933447357175c2a23a36debc26894da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d7586b1_b7c7ac0e",
         "filename": "call/fake_network_pipe.h",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "382667949933447357175c2a23a36debc26894da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6be7e44_6aa72400",
+        "filename": "call/fake_network_pipe.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-12T08:45:13Z",
+      "side": 1,
+      "message": "They are used in opposite directions. Receiving packets and sending them use completely different APIs, so depending on which packets you want to delay we need to use one api or the other.\nI don\u0027t see any easy way around the destruction problem. I don\u0027t want to resort to a shared pointer as that would mean mucking up the production APIs for the sake of testing features.\nKeeping track of live transport should work well enough.",
+      "parentUuid": "2d7586b1_b7c7ac0e",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 24
+      },
+      "revId": "382667949933447357175c2a23a36debc26894da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

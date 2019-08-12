@@ -117,6 +117,30 @@
       "revId": "382667949933447357175c2a23a36debc26894da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "754d05c9_c704ea0f",
+        "filename": "call/fake_network_pipe.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-12T09:25:28Z",
+      "side": 1,
+      "message": "In both cases EnqueuePacket can be used, but if used when receiving packets then media_type_ is populated with an actual media type and the receiver_ field is set in the fake network pipe (and transport will be nullptr).\nIf used when sending packets, media_type will be ANY, receiver_ will not be set and the transport is non-null.\n\nI could consider adding a separate method to clarify this.\n\nI don\u0027t think the normal refcounted pointer type will help much since we can refcount the real Transport instance. We also can\u0027t easily use TransportAdapter for this purpose too since it\u0027s already implementing Transport to capture packets to be inserted into the queue. So we\u0027d need another adapter class to keep track of real transports after the queue. I considered that but I got even uglier quickly.",
+      "parentUuid": "269fe4db_80b4ad85",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 24
+      },
+      "revId": "382667949933447357175c2a23a36debc26894da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

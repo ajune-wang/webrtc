@@ -74,10 +74,13 @@ struct NetworkRouteChange {
 };
 
 struct PacedPacketInfo {
-  PacedPacketInfo();
-  PacedPacketInfo(int probe_cluster_id,
-                  int probe_cluster_min_probes,
-                  int probe_cluster_min_bytes);
+  constexpr PacedPacketInfo() = default;
+  constexpr PacedPacketInfo(int probe_cluster_id,
+                            int probe_cluster_min_probes,
+                            int probe_cluster_min_bytes)
+      : probe_cluster_id(probe_cluster_id),
+        probe_cluster_min_probes(probe_cluster_min_probes),
+        probe_cluster_min_bytes(probe_cluster_min_bytes) {}
 
   bool operator==(const PacedPacketInfo& rhs) const;
 

@@ -91,6 +91,7 @@ if (rtc_include_tests) {
       "../../remote_bitrate_estimator",
       "../../rtp_rtcp:rtp_rtcp_format",
       "//testing/gmock",
+      "//third_party/abseil-cpp/absl/memory:memory",
     ]
   }
 }

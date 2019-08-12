@@ -22,6 +22,30 @@
       "revId": "ec7d3b3fe1b3598a9dc99ebeb1ff6a380a10d750",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d639823f_0cc097e2",
+        "filename": "call/degraded_call.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-12T13:57:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8aa1e3c1_9346a1b9",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 24
+      },
+      "revId": "ec7d3b3fe1b3598a9dc99ebeb1ff6a380a10d750",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

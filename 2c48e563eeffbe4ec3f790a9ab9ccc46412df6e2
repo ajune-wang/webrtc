@@ -46,6 +46,30 @@
       "revId": "2c48e563eeffbe4ec3f790a9ab9ccc46412df6e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "273a53fc_52556ffa",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-12T07:14:32Z",
+      "side": 1,
+      "message": "That DCHECK should not trigger due to decreasing timestamps as it\u0027s just checking initialization of a variable. Rather, it\u0027s likely that the issue is visible in some scope on that call stack, where it should be fixed. As mentioned, it\u0027s likely that there is a code that is intended to fix this that has failed.",
+      "parentUuid": "a3544b49_35c81b87",
+      "range": {
+        "startLine": 202,
+        "startChar": 5,
+        "endLine": 202,
+        "endChar": 72
+      },
+      "revId": "2c48e563eeffbe4ec3f790a9ab9ccc46412df6e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

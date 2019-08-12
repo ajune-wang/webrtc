@@ -70,6 +70,30 @@
       "revId": "2c48e563eeffbe4ec3f790a9ab9ccc46412df6e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45a4ebe3_a8dc64ca",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-08-12T12:09:31Z",
+      "side": 1,
+      "message": "a bit more details about the crash:\ncurrent_offset_ms_ a bit later in this function is used to generate timestamp_ms.\nThat one is used during creating of the PacketFeedback as arrival_time_ms.\n\nThen, in the TransportFeedbackAdapter::ProcessTransportFeedback line 163 that arrival_time_ms converted into Timestamp type cause a crash because it is negative.\n\nI found no attempt to fix or validate these timestamps.",
+      "parentUuid": "273a53fc_52556ffa",
+      "range": {
+        "startLine": 202,
+        "startChar": 5,
+        "endLine": 202,
+        "endChar": 72
+      },
+      "revId": "2c48e563eeffbe4ec3f790a9ab9ccc46412df6e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

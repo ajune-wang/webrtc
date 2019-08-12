@@ -99,7 +99,7 @@ class TestClient : public sigslot::has_slots<> {
                 const char* buf,
                 size_t len,
                 const SocketAddress& remote_addr,
-                const int64_t& packet_time_us);
+                int64_t packet_time_us);
   void OnReadyToSend(AsyncPacketSocket* socket);
   bool CheckTimestamp(int64_t packet_timestamp);
   void AdvanceTime(int ms);

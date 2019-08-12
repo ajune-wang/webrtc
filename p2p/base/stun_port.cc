@@ -390,7 +390,7 @@ void UDPPort::OnReadPacket(rtc::AsyncPacketSocket* socket,
                            const char* data,
                            size_t size,
                            const rtc::SocketAddress& remote_addr,
-                           const int64_t& packet_time_us) {
+                           int64_t packet_time_us) {
   RTC_DCHECK(socket == socket_);
   RTC_DCHECK(!remote_addr.IsUnresolvedIP());
 

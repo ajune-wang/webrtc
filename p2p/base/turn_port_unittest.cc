@@ -216,7 +216,7 @@ class TurnPortTest : public ::testing::Test,
                           const char* data,
                           size_t size,
                           const rtc::SocketAddress& remote_addr,
-                          const int64_t& packet_time_us) {
+                          int64_t packet_time_us) {
     turn_port_->HandleIncomingPacket(socket, data, size, remote_addr,
                                      packet_time_us);
   }

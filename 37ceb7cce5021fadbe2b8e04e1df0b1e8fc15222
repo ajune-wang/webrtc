@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd9b6000_fcac01d2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-08-12T08:55:00Z",
+      "side": 1,
+      "message": "asymmetric",
+      "revId": "37ceb7cce5021fadbe2b8e04e1df0b1e8fc15222",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6efad773_4c76ffe7",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-08-12T08:55:00Z",
+      "side": 1,
+      "message": "I don\u0027t thinks these checks are strictly needed here. Being outside the interval in \"FloatS16\" is not worse than outside the interval in \"Float\". Maybe a DCHECK?",
+      "revId": "37ceb7cce5021fadbe2b8e04e1df0b1e8fc15222",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acdbda8d_05733238",
+        "filename": "common_audio/include/audio_util.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-08-12T08:55:00Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "37ceb7cce5021fadbe2b8e04e1df0b1e8fc15222",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

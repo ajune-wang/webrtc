@@ -389,7 +389,12 @@ TEST(RtpVideoSenderTest, FrameCountCallbacks) {
 // Integration test verifying that ack of packet via TransportFeedback means
 // that the packet is removed from RtpPacketHistory and won't be retransmitted
 // again.
+// Flaky on iOS. See: https://crbug.com/webrtc/10870
+#if defined(WEBRTC_IOS)
+TEST(RtpVideoSenderTest, DISABLED_DoesNotRetrasmitAckedPackets) {
+#else
 TEST(RtpVideoSenderTest, DoesNotRetrasmitAckedPackets) {
+#endif
   const int64_t kTimeoutMs = 500;
 
   RtpVideoSenderTestFixture test({kSsrc1, kSsrc2}, {kRtxSsrc1, kRtxSsrc2},

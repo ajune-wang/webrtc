@@ -33,6 +33,8 @@ class StreamStatisticianImpl : public StreamStatistician,
                          StreamDataCountersCallback* rtp_callback);
   ~StreamStatisticianImpl() override;
 
+  RtcpStatistics GetStats() const override;
+
   // |reset| here and in next method restarts calculation of fraction_lost stat.
   bool GetStatistics(RtcpStatistics* statistics, bool reset) override;
   bool GetActiveStatisticsAndReset(RtcpStatistics* statistics);

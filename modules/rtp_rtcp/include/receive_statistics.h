@@ -41,6 +41,11 @@ class StreamStatistician {
  public:
   virtual ~StreamStatistician();
 
+  // Produces cumulative counters and current jitter estimate.
+  // Does *not* set fraction_lost.
+  virtual RtcpStatistics GetStats() const = 0;
+
+  RTC_DEPRECATED
   virtual bool GetStatistics(RtcpStatistics* statistics, bool reset) = 0;
   virtual void GetDataCounters(size_t* bytes_received,
                                uint32_t* packets_received) const = 0;

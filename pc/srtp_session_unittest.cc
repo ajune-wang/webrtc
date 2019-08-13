@@ -163,7 +163,12 @@ TEST_F(SrtpSessionTest, TestTamperReject) {
 }
 
 // Test that we fail to unprotect if the payloads are not authenticated.
+// Flaky on iOS. See: https://crbug.com/webrtc/10870
+#if defined(WEBRTC_IOS)
+TEST_F(SrtpSessionTest, DISABLED_TestUnencryptReject) {
+#else
 TEST_F(SrtpSessionTest, TestUnencryptReject) {
+#endif
   int out_len;
   EXPECT_TRUE(s1_.SetSend(SRTP_AES128_CM_SHA1_80, kTestKey1, kTestKeyLen,
                           kEncryptedHeaderExtensionIds));
@@ -180,7 +185,12 @@ TEST_F(SrtpSessionTest, TestUnencryptReject) {
 }
 
 // Test that we fail when using buffers that are too small.
+// Flaky on iOS. See: https://crbug.com/webrtc/10870
+#if defined(WEBRTC_IOS)
+TEST_F(SrtpSessionTest, DISABLED_TestBuffersTooSmall) {
+#else
 TEST_F(SrtpSessionTest, TestBuffersTooSmall) {
+#endif
   int out_len;
   EXPECT_TRUE(s1_.SetSend(SRTP_AES128_CM_SHA1_80, kTestKey1, kTestKeyLen,
                           kEncryptedHeaderExtensionIds));

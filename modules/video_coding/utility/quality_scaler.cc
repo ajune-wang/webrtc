@@ -96,7 +96,8 @@ QualityScaler::QualityScaler(rtc::TaskQueue* task_queue,
                                 .value_or(kSamplePeriodScaleFactor)),
       scale_factor_(
           QualityScalerSettings::ParseFromFieldTrials().ScaleFactor()),
-      last_adapted_(false) {
+      last_adapted_(false),
+      last_adapt_ok_(true) {
   RTC_DCHECK_RUN_ON(&task_checker_);
   if (experiment_enabled_) {
     config_ = QualityScalingExperiment::GetConfig();
@@ -126,6 +127,10 @@ int64_t QualityScaler::GetSamplingPeriodMs() const {
   if (experiment_enabled_ && !observed_enough_frames_) {
     // Use half the interval while waiting for enough frames.
     return sampling_period_ms_ / 2;
+  }
+  if (!last_adapt_ok_) {
+    // Check shortly again.
+    return sampling_period_ms_ / 4;
   }
   if (scale_factor_ && !last_adapted_) {
     // Last check did not result in a AdaptDown/Up, possibly reduce interval.
@@ -165,6 +170,7 @@ void QualityScaler::CheckQp() {
   RTC_DCHECK_RUN_ON(&task_checker_);
   // Should be set through InitEncode -> Should be set by now.
   RTC_DCHECK_GE(thresholds_.low, 0);
+  last_adapt_ok_ = true;
   last_adapted_ = false;
 
   // If we have not observed at least this many frames we can't make a good
@@ -220,8 +226,11 @@ void QualityScaler::ReportQpLow() {
 
 void QualityScaler::ReportQpHigh() {
   RTC_DCHECK_RUN_ON(&task_checker_);
-  ClearSamples();
-  observer_->AdaptDown(AdaptationObserverInterface::AdaptReason::kQuality);
+  last_adapt_ok_ =
+      observer_->AdaptDown(AdaptationObserverInterface::AdaptReason::kQuality);
+  if (last_adapt_ok_) {
+    ClearSamples();
+  }
   // If we've scaled down, wait longer before scaling up again.
   if (fast_rampup_) {
     fast_rampup_ = false;

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ab531216_5a48db2c",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-08-13T08:49:13Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "696f3ef8_78af5e56",
+      "range": {
+        "startLine": 348,
+        "startChar": 47,
+        "endLine": 348,
+        "endChar": 60
+      },
+      "revId": "1b1ec1a56df1839306faa216b8f70edd372de57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "744771d2_2acb2f59",
         "filename": "pc/peer_connection_factory.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "1b1ec1a56df1839306faa216b8f70edd372de57f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c4ce346_b7dc3f80",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-08-13T08:49:13Z",
+      "side": 1,
+      "message": "This uses an underlying dchecked_cast, right? That will have no effect in release builds. So defective values pushed from the experiment server would cause undefined behavior when casting. I want to avoid that. (And btw, I have seen something similar happen IRL in another place I had worked, so I don\u0027t think we [humans] can trust in our ability to be sufficiently careful about what values we serve.)",
+      "parentUuid": "744771d2_2acb2f59",
+      "range": {
+        "startLine": 358,
+        "startChar": 5,
+        "endLine": 358,
+        "endChar": 52
+      },
+      "revId": "1b1ec1a56df1839306faa216b8f70edd372de57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -129,7 +129,7 @@ PeerScenarioClient::PeerScenarioClient(NetworkEmulationManager* net,
         auto track = transceiver->receiver()->track().get();
         if (track->kind() == MediaStreamTrackInterface::kVideoKind) {
           auto* video = static_cast<VideoTrackInterface*>(track);
-          RTC_DCHECK_RUN_ON(signaling_thread_);
+          RTC_CHECK_RUN_ON(signaling_thread_);
           for (auto* sink : track_id_to_video_sinks_[track->id()]) {
             video->AddOrUpdateSink(sink, rtc::VideoSinkWants());
           }
@@ -139,7 +139,7 @@ PeerScenarioClient::PeerScenarioClient(NetworkEmulationManager* net,
       [this](PeerConnectionInterface::SignalingState state) {
         if (state == PeerConnectionInterface::SignalingState::kStable &&
             peer_connection_->current_remote_description()) {
-          RTC_DCHECK_RUN_ON(signaling_thread_);
+          RTC_CHECK_RUN_ON(signaling_thread_);
           for (const auto& candidate : pending_ice_candidates_) {
             RTC_CHECK(peer_connection_->AddIceCandidate(candidate.get()));
           }
@@ -231,7 +231,7 @@ PeerScenarioClient::VideoSendTrack PeerScenarioClient::CreateVideo(
 void PeerScenarioClient::AddVideoReceiveSink(
     std::string track_id,
     rtc::VideoSinkInterface<VideoFrame>* video_sink) {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_CHECK_RUN_ON(signaling_thread_);
   track_id_to_video_sinks_[track_id].push_back(video_sink);
 }
 
@@ -290,7 +290,7 @@ void PeerScenarioClient::AddIceCandidate(
       peer_connection_->current_remote_description()) {
     RTC_CHECK(peer_connection_->AddIceCandidate(candidate.get()));
   } else {
-    RTC_DCHECK_RUN_ON(signaling_thread_);
+    RTC_CHECK_RUN_ON(signaling_thread_);
     pending_ice_candidates_.push_back(std::move(candidate));
   }
 }

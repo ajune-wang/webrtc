@@ -68,7 +68,7 @@ void VideoStreamDecoderImpl::OnFrame(
     return;
   }
 
-  RTC_DCHECK_RUN_ON(&bookkeeping_queue_);
+  RTC_CHECK_RUN_ON(&bookkeeping_queue_);
 
   uint64_t continuous_pid = frame_buffer_.InsertFrame(std::move(frame));
   video_coding::VideoLayerFrameId continuous_id(continuous_pid, 0);
@@ -159,7 +159,7 @@ void VideoStreamDecoderImpl::DecodeLoop(void* ptr) {
         // If we end up here it means that we got a decoding error and there is
         // no keyframe available in the |frame_buffer_|.
         vs_decoder->bookkeeping_queue_.PostTask([vs_decoder]() {
-          RTC_DCHECK_RUN_ON(&vs_decoder->bookkeeping_queue_);
+          RTC_CHECK_RUN_ON(&vs_decoder->bookkeeping_queue_);
           vs_decoder->callbacks_->OnNonDecodableState();
         });
         break;
@@ -199,7 +199,7 @@ VideoStreamDecoderImpl::DecodeResult VideoStreamDecoderImpl::DecodeNextFrame(
     int64_t render_time_us = frame->RenderTimeMs() * 1000;
     bookkeeping_queue_.PostTask(
         [this, decode_start_time_ms, timestamp, render_time_us]() {
-          RTC_DCHECK_RUN_ON(&bookkeeping_queue_);
+          RTC_CHECK_RUN_ON(&bookkeeping_queue_);
           // Saving decode start time this way wont work if we decode spatial
           // layers sequentially.
           FrameTimestamps* frame_timestamps =
@@ -224,7 +224,7 @@ VideoStreamDecoderImpl::DecodeResult VideoStreamDecoderImpl::DecodeNextFrame(
 
 VideoStreamDecoderImpl::FrameTimestamps*
 VideoStreamDecoderImpl::GetFrameTimestamps(int64_t timestamp) {
-  RTC_DCHECK_RUN_ON(&bookkeeping_queue_);
+  RTC_CHECK_RUN_ON(&bookkeeping_queue_);
 
   int start_time_index = next_frame_timestamps_index_;
   for (int i = 0; i < kFrameTimestampsMemory; ++i) {
@@ -258,7 +258,7 @@ void VideoStreamDecoderImpl::Decoded(VideoFrame& decoded_image,
 
   bookkeeping_queue_.PostTask([this, decode_stop_time_ms, decoded_image,
                                decode_time_ms, qp]() {
-    RTC_DCHECK_RUN_ON(&bookkeeping_queue_);
+    RTC_CHECK_RUN_ON(&bookkeeping_queue_);
 
     FrameTimestamps* frame_timestamps =
         GetFrameTimestamps(decoded_image.timestamp());

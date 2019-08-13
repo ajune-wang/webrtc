@@ -16,8 +16,22 @@
 #include "rtc_base/deprecation.h"
 #include "rtc_base/synchronization/sequence_checker.h"
 
+#if RTC_DCHECK_IS_ON
+#define RTC_THREAD_CHECKER(name) base::ThreadChecker name
+#define RTC_DCHECK_CALLED_ON_VALID_THREAD(name) \
+  DCHECK((name).CalledOnValidThread())
+#define RTC_DETACH_FROM_THREAD(name) (name).DetachFromThread()
+#define RTC_GUARDED_BY_THREAD(name) RTC_GUARDED_BY(name)
+#define RTC_PT_GUARDED_BY_THREAD(name) RTC_PT_GUARDED_BY(name)
+#else  // RTC_DCHECK_IS_ON
+#define RTC_THREAD_CHECKER(name) static_assert(true, "")
+#define RTC_DCHECK_CALLED_ON_VALID_THREAD(name) RTC_EAT_STREAM_PARAMETERS(0)
+#define RTC_DETACH_FROM_THREAD(name)
+#define RTC_GUARDED_BY_THREAD(name)
+#define RTC_PT_GUARDED_BY_THREAD(name)
+#endif  // RTC_DCHECK_IS_ON
+
 namespace rtc {
-// TODO(srte): Replace usages of this with SequenceChecker.
 class ThreadChecker : public webrtc::SequenceChecker {
  public:
   RTC_DEPRECATED bool CalledOnValidThread() const { return IsCurrent(); }

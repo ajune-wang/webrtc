@@ -291,11 +291,11 @@ class StatsReport {
     // affecting the ref count (in practice, creation and copying of
     // the Values mapping) must occur on webrtc's signalling thread.
     int AddRef() const {
-      RTC_DCHECK_RUN_ON(&thread_checker_);
+      RTC_DCHECK_CALLED_ON_VALID_THREAD(thread_checker_);
       return ++ref_count_;
     }
     int Release() const {
-      RTC_DCHECK_RUN_ON(&thread_checker_);
+      RTC_DCHECK_CALLED_ON_VALID_THREAD(thread_checker_);
       int count = --ref_count_;
       if (!count)
         delete this;
@@ -342,8 +342,8 @@ class StatsReport {
     const StatsValueName name;
 
    private:
-    rtc::ThreadChecker thread_checker_;
-    mutable int ref_count_ RTC_GUARDED_BY(thread_checker_) = 0;
+    RTC_THREAD_CHECKER(thread_checker_);
+    mutable int ref_count_ RTC_GUARDED_BY_THREAD(thread_checker_) = 0;
 
     const Type type_;
     // TODO(tommi): Use C++ 11 union and make value_ const.
@@ -445,7 +445,7 @@ class StatsCollection {
 
  private:
   Container list_;
-  rtc::ThreadChecker thread_checker_;
+  RTC_THREAD_CHECKER(thread_checker_);
 };
 
 }  // namespace webrtc

@@ -53,7 +53,9 @@ static bool VerifyIceParams(const JsepTransportDescription& jsep_description) {
   return true;
 }
 
-JsepTransportDescription::JsepTransportDescription() {}
+JsepTransportDescription::JsepTransportDescription() {
+  RTC_DETACH_FROM_THREAD(network_thread_checker_);
+}
 
 JsepTransportDescription::JsepTransportDescription(
     bool rtcp_mux_enabled,

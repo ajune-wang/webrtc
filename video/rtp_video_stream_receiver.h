@@ -260,9 +260,9 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
   ReceiveStatistics* const rtp_receive_statistics_;
   std::unique_ptr<UlpfecReceiver> ulpfec_receiver_;
 
-  SequenceChecker worker_task_checker_;
-  bool receiving_ RTC_GUARDED_BY(worker_task_checker_);
-  int64_t last_packet_log_ms_ RTC_GUARDED_BY(worker_task_checker_);
+  RTC_SEQUENCE_CHECKER(worker_task_checker_);
+  bool receiving_ RTC_GUARDED_BY_SEQUENCE(worker_task_checker_);
+  int64_t last_packet_log_ms_ RTC_GUARDED_BY_SEQUENCE(worker_task_checker_);
 
   const std::unique_ptr<RtpRtcp> rtp_rtcp_;
 
@@ -292,7 +292,7 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
   bool has_received_frame_;
 
   std::vector<RtpPacketSinkInterface*> secondary_sinks_
-      RTC_GUARDED_BY(worker_task_checker_);
+      RTC_GUARDED_BY_SEQUENCE(worker_task_checker_);
 
   // Info for GetSyncInfo is updated on network or worker thread, and queried on
   // the worker thread.
@@ -304,11 +304,11 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
 
   // Used to validate the buffered frame decryptor is always run on the correct
   // thread.
-  rtc::ThreadChecker network_tc_;
+  RTC_THREAD_CHECKER(network_tc_);
   // Handles incoming encrypted frames and forwards them to the
   // rtp_reference_finder if they are decryptable.
   std::unique_ptr<BufferedFrameDecryptor> buffered_frame_decryptor_
-      RTC_PT_GUARDED_BY(network_tc_);
+      RTC_PT_GUARDED_BY_THREAD(network_tc_);
   std::atomic<bool> frames_decryptable_;
   absl::optional<ColorSpace> last_color_space_;
 };

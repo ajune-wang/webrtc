@@ -94,7 +94,7 @@ PacketSender::PacketSender(TestController* test_controller,
 PacketSender::~PacketSender() = default;
 
 void PacketSender::StartSending() {
-  worker_queue_checker_.Detach();
+  RTC_DETACH_FROM_SEQUENCE(worker_queue_checker_);
   worker_queue_.PostTask([this]() {
     RTC_DCHECK_RUN_ON(&worker_queue_checker_);
     sending_ = true;

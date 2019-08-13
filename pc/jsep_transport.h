@@ -109,13 +109,13 @@ class JsepTransport : public sigslot::has_slots<>,
   // Needed in order to verify the local fingerprint.
   void SetLocalCertificate(
       const rtc::scoped_refptr<rtc::RTCCertificate>& local_certificate) {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_DCHECK_RUN_ON(network_thread_checker_);
     local_certificate_ = local_certificate;
   }
 
   // Return the local certificate provided by SetLocalCertificate.
   rtc::scoped_refptr<rtc::RTCCertificate> GetLocalCertificate() const {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_DCHECK_RUN_ON(network_thread_checker_);
     return local_certificate_;
   }
 
@@ -155,12 +155,12 @@ class JsepTransport : public sigslot::has_slots<>,
   bool GetStats(TransportStats* stats);
 
   const JsepTransportDescription* local_description() const {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_DCHECK_RUN_ON(network_thread_checker_);
     return local_description_.get();
   }
 
   const JsepTransportDescription* remote_description() const {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_DCHECK_RUN_ON(network_thread_checker_);
     return remote_description_.get();
   }
 
@@ -305,7 +305,8 @@ class JsepTransport : public sigslot::has_slots<>,
   // Deactivates, signals removal, and deletes |composite_rtp_transport_| if the
   // current state of negotiation is sufficient to determine which rtp_transport
   // to use.
-  void NegotiateRtpTransport(webrtc::SdpType type) RTC_RUN_ON(network_thread_);
+  void NegotiateRtpTransport(webrtc::SdpType type)
+      RTC_GUARDED_BY_THREAD(network_thread_checker_);
 
   // Returns the default (non-datagram) rtp transport, if any.
   webrtc::RtpTransportInternal* default_rtp_transport() const
@@ -323,6 +324,8 @@ class JsepTransport : public sigslot::has_slots<>,
 
   // Owning thread, for safety checks
   const rtc::Thread* const network_thread_;
+  RTC_THREAD_CHECKER(network_thread_checker_);
+
   // Critical scope for fields accessed off-thread
   // TODO(https://bugs.webrtc.org/10300): Stop doing this.
   rtc::CriticalSection accessor_lock_;
@@ -330,11 +333,11 @@ class JsepTransport : public sigslot::has_slots<>,
   // needs-ice-restart bit as described in JSEP.
   bool needs_ice_restart_ RTC_GUARDED_BY(accessor_lock_) = false;
   rtc::scoped_refptr<rtc::RTCCertificate> local_certificate_
-      RTC_GUARDED_BY(network_thread_);
+      RTC_GUARDED_BY_THREAD(network_thread_checker_);
   std::unique_ptr<JsepTransportDescription> local_description_
-      RTC_GUARDED_BY(network_thread_);
+      RTC_GUARDED_BY_THREAD(network_thread_checker_);
   std::unique_ptr<JsepTransportDescription> remote_description_
-      RTC_GUARDED_BY(network_thread_);
+      RTC_GUARDED_BY_THREAD(network_thread_checker_);
 
   // Ice transport which may be used by any of upper-layer transports (below).
   // Owned by JsepTransport and guaranteed to outlive the transports below.
@@ -366,14 +369,15 @@ class JsepTransport : public sigslot::has_slots<>,
   rtc::scoped_refptr<webrtc::DtlsTransport> datagram_dtls_transport_
       RTC_GUARDED_BY(accessor_lock_);
 
-  SrtpFilter sdes_negotiator_ RTC_GUARDED_BY(network_thread_);
-  RtcpMuxFilter rtcp_mux_negotiator_ RTC_GUARDED_BY(network_thread_);
+  SrtpFilter sdes_negotiator_ RTC_GUARDED_BY_THREAD(network_thread_checker_);
+  RtcpMuxFilter rtcp_mux_negotiator_
+      RTC_GUARDED_BY_THREAD(network_thread_checker_);
 
   // Cache the encrypted header extension IDs for SDES negoitation.
   absl::optional<std::vector<int>> send_extension_ids_
-      RTC_GUARDED_BY(network_thread_);
+      RTC_GUARDED_BY_THREAD(network_thread_checker_);
   absl::optional<std::vector<int>> recv_extension_ids_
-      RTC_GUARDED_BY(network_thread_);
+      RTC_GUARDED_BY_THREAD(network_thread_checker_);
 
   // Optional media transport (experimental).
   std::unique_ptr<webrtc::MediaTransportInterface> media_transport_

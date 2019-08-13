@@ -164,7 +164,9 @@ int GetFps(VideoCodecType type,
       break;
   }
 
-  return fps.value_or(config->fps);
+  const int framerate = fps.value_or(config->fps);
+
+  return (framerate == kMaxFps) ? std::numeric_limits<int>::max() : framerate;
 }
 }  // namespace
 

@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '514a543362beb90cc2d706b2cb10b6682b5c8209',
+  'chromium_revision': 'aa95adf5b4b0fc26014a83c7e36eba0cfea00b26',
 }
 
 deps = {
@@ -29,7 +29,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@b3a01bdf19b28cdb160899536a7ebb64ff678451',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@1d6494df55126f0bc58166b2e712f6daaa8a51d9',
+    'https://chromium.googlesource.com/chromium/src/third_party@2fd63fb6d400cb26ea2c64e68d53cca4d7212541',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -119,7 +119,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@d6186f993681ad1862236fb895dd4efb2f132bce',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@3c814957ee532260024e544bf10230348bbc4909',
   'src/third_party/errorprone/lib': {
       'url': 'https://chromium.googlesource.com/chromium/third_party/errorprone.git@980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',
@@ -231,7 +231,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@7bb19f3198bc234e9bd64bdfb0a6a08327c76ac0',
+    'https://chromium.googlesource.com/chromium/src/tools@380d7938c716b6cada7d6a5338a7ce6ba096e17a',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@96f125709acfd0b48fc1e5dae7d6ea42291726ac',
 

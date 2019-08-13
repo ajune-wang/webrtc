@@ -379,7 +379,12 @@ public class PeerConnection {
     WIFI,
     CELLULAR,
     VPN,
-    LOOPBACK,
+    LOOPBACK;
+
+    @CalledByNative("AdapterType")
+    static AdapterType fromNativeIndex(int nativeIndex) {
+      return values()[nativeIndex];
+    }
   }
 
   /** Java version of rtc::KeyType */

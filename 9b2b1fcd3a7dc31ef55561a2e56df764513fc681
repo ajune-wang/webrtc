@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58c25978_a77b9306",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-08-14T11:04:21Z",
+      "side": 1,
+      "message": "Not clear to me why you need this here: is it not \"capture by value\"? And you don\u0027t return anything...",
+      "range": {
+        "startLine": 136,
+        "startChar": 24,
+        "endLine": 136,
+        "endChar": 27
+      },
+      "revId": "9b2b1fcd3a7dc31ef55561a2e56df764513fc681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

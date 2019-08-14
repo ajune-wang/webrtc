@@ -1710,6 +1710,7 @@ TEST_F(VideoSendStreamTest, ChangingNetworkRoute) {
 
     Action OnSendRtp(const uint8_t* packet, size_t length) override {
       Call::Stats stats;
+      RTC_DCHECK(!task_queue_->IsCurrent());
       task_queue_->SendTask([this, &stats]() { stats = call_->GetStats(); });
       if (stats.send_bandwidth_bps > kStartBitrateBps) {
         observation_complete_.Set();

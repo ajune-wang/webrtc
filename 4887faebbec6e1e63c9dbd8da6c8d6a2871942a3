@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7613b94c_d46eae8c",
+        "filename": "rtc_base/experiments/struct_parameters_parser.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-08-14T10:28:37Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be necessary, right?",
+      "range": {
+        "startLine": 26,
+        "startChar": 13,
+        "endLine": 26,
+        "endChar": 15
+      },
+      "revId": "4887faebbec6e1e63c9dbd8da6c8d6a2871942a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c114600a_7a6444d4",
+        "filename": "rtc_base/experiments/struct_parameters_parser.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-08-14T10:28:37Z",
+      "side": 1,
+      "message": "Do you think we want a DCHECK here as well? Seems like it\u0027d help make parse failures visible early.",
+      "range": {
+        "startLine": 97,
+        "startChar": 10,
+        "endLine": 98,
+        "endChar": 65
+      },
+      "revId": "4887faebbec6e1e63c9dbd8da6c8d6a2871942a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "690ebd8e_5aa24477",
+        "filename": "rtc_base/experiments/struct_parameters_parser.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-08-14T10:28:37Z",
+      "side": 1,
+      "message": "s/Gennerally/Generally/",
+      "range": {
+        "startLine": 49,
+        "startChar": 25,
+        "endLine": 49,
+        "endChar": 26
+      },
+      "revId": "4887faebbec6e1e63c9dbd8da6c8d6a2871942a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "377014f4_1d4fe26b",
+        "filename": "rtc_base/experiments/struct_parameters_parser.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-08-14T10:28:37Z",
+      "side": 1,
+      "message": "s/event/even/",
+      "range": {
+        "startLine": 49,
+        "startChar": 67,
+        "endLine": 49,
+        "endChar": 72
+      },
+      "revId": "4887faebbec6e1e63c9dbd8da6c8d6a2871942a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

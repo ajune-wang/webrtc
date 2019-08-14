@@ -80,6 +80,7 @@ SingleThreadedTaskQueueForTesting::PostDelayedTask(Task task,
 }
 
 void SingleThreadedTaskQueueForTesting::SendTask(Task task) {
+  RTC_DCHECK(!IsCurrent());
   rtc::Event done;
   PostTask([&task, &done]() {
     task();
@@ -97,6 +98,10 @@ bool SingleThreadedTaskQueueForTesting::CancelTask(TaskId task_id) {
     }
   }
   return false;
+}
+
+bool SingleThreadedTaskQueueForTesting::IsCurrent() {
+  return rtc::IsThreadRefEqual(thread_.GetThreadRef(), rtc::CurrentThreadRef());
 }
 
 void SingleThreadedTaskQueueForTesting::Run(void* obj) {

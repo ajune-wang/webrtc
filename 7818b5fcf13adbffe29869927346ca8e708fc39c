@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95792933_40ce03d1",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2019-08-14T12:55:59Z",
+      "side": 1,
+      "message": "missing a \u0027less\u0027 compared to base and it would be good with a comment around kbps.",
+      "range": {
+        "startLine": 61,
+        "startChar": 31,
+        "endLine": 61,
+        "endChar": 35
+      },
+      "revId": "7818b5fcf13adbffe29869927346ca8e708fc39c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68330474_4298c704",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1904,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2019-08-14T12:55:59Z",
+      "side": 1,
+      "message": "I\u0027d prefer calling \u0027min_kbps\u0027 something telling this is for the next layer, like \u0027next_layer_min_kbps\u0027. Just for readability.",
+      "range": {
+        "startLine": 1904,
+        "startChar": 26,
+        "endLine": 1904,
+        "endChar": 34
+      },
+      "revId": "7818b5fcf13adbffe29869927346ca8e708fc39c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

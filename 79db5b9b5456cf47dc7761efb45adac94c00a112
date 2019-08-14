@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "55d65a78_460fb693",
+        "filename": "modules/pacing/paced_sending_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-14T08:47:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d4eb4dc_48d70e41",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 28
+      },
+      "revId": "79db5b9b5456cf47dc7761efb45adac94c00a112",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cab04354_b34890a2",
         "filename": "modules/pacing/paced_sending_controller.h",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "eb51aafe_c92020ff",
+        "filename": "modules/pacing/paced_sending_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-14T08:47:42Z",
+      "side": 1,
+      "message": "Agree, but trying to keep changes small for now. Additionally there are some peculiarities around timing in this class that requires state to be kept, and I don\u0027t want that code duplicated in PacedSender with ProcessThread and with TaskQeueu.",
+      "parentUuid": "cab04354_b34890a2",
+      "range": {
+        "startLine": 82,
+        "startChar": 25,
+        "endLine": 82,
+        "endChar": 38
+      },
+      "revId": "79db5b9b5456cf47dc7761efb45adac94c00a112",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a4c49b4_5d3a91b5",
         "filename": "modules/pacing/paced_sending_controller.h",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "79db5b9b5456cf47dc7761efb45adac94c00a112",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24baa630_3c41ef2c",
+        "filename": "modules/pacing/paced_sending_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-14T08:47:42Z",
+      "side": 1,
+      "message": "\u003e It would also be nice to avoid callbacks. One intermediate step could be to provide callback interfaces only to the calls that might trigger callbacks (Only Process, right?)\n\nHm, yes. I\u0027d like to save this until after I\u0027ve cleaned up the old code-path so there are fewer callback paths to worry about. Also doing this after the task-queue implementation is the only will be simpler as we don\u0027t have to think abot that ugly lock-releasing.\n\n\u003e Even nice would be to make it completely side-effect free, maybe using a coroutine-like interface?\n\u003e Example:\n\u003e Action Process(Timestamp);\n\u003e Action ProcessNext(PriorResult, Timestamp);\n\u003e \n\u003e Usage:\n\u003e Action action \u003d  controller.Process(at_time);\n\u003e do\n\u003e result \u003d HandleAction(action);\n\u003e while(action \u003d controller.ProcessNext(result, at_time));\n\nInteresting idea! That\u0027s quite a large change though. I\u0027d lake to save that until the taskqueue implementation is the only one, so we don\u0027t have those extra complexities to worry about.\nIn general I\u0027d like to break the functionality of PacedSender up more, since it\u0027s doing more things than just pacing. This change would fit nicely with that.",
+      "parentUuid": "3a4c49b4_5d3a91b5",
+      "range": {
+        "startLine": 83,
+        "startChar": 22,
+        "endLine": 83,
+        "endChar": 53
+      },
+      "revId": "79db5b9b5456cf47dc7761efb45adac94c00a112",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

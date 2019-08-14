@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d4eb4dc_48d70e41",
+        "filename": "modules/pacing/paced_sending_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-14T07:04:30Z",
+      "side": 1,
+      "message": "Suggestion: PacingController",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 28
+      },
+      "revId": "79db5b9b5456cf47dc7761efb45adac94c00a112",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cab04354_b34890a2",
+        "filename": "modules/pacing/paced_sending_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-14T07:04:30Z",
+      "side": 1,
+      "message": "Mnaybe for a followup, but it would be really nice if the class could clockless and get timing as arguments instead.",
+      "range": {
+        "startLine": 82,
+        "startChar": 25,
+        "endLine": 82,
+        "endChar": 38
+      },
+      "revId": "79db5b9b5456cf47dc7761efb45adac94c00a112",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a4c49b4_5d3a91b5",
+        "filename": "modules/pacing/paced_sending_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-14T07:04:30Z",
+      "side": 1,
+      "message": "It would also be nice to avoid callbacks. One intermediate step could be to provide callback interfaces only to the calls that might trigger callbacks (Only Process, right?)\n\nEven nice would be to make it completely side-effect free, maybe using a coroutine-like interface?\nExample:\nAction Process(Timestamp);\nAction ProcessNext(PriorResult, Timestamp);\n\nUsage:\nAction action \u003d  controller.Process(at_time);\ndo\nresult \u003d HandleAction(action);\nwhile(action \u003d controller.ProcessNext(result, at_time));",
+      "range": {
+        "startLine": 83,
+        "startChar": 22,
+        "endLine": 83,
+        "endChar": 53
+      },
+      "revId": "79db5b9b5456cf47dc7761efb45adac94c00a112",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

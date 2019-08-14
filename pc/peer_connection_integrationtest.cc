@@ -5198,7 +5198,7 @@ TEST_P(PeerConnectionIntegrationTest, RegatherAfterChangingIceTransportType) {
   // Loosen the caller's candidate filter.
   caller_config = caller()->pc()->GetConfiguration();
   caller_config.type = webrtc::PeerConnectionInterface::kAll;
-  caller()->pc()->SetConfiguration(caller_config);
+  caller()->pc()->SetConfiguration(caller_config, nullptr);
   // We should have gathered a new host candidate.
   EXPECT_EQ_WAIT(cricket::LOCAL_PORT_TYPE,
                  caller()->last_candidate_gathered().type(), kDefaultTimeout);
@@ -5206,7 +5206,7 @@ TEST_P(PeerConnectionIntegrationTest, RegatherAfterChangingIceTransportType) {
   // Loosen the callee's candidate filter.
   callee_config = callee()->pc()->GetConfiguration();
   callee_config.type = webrtc::PeerConnectionInterface::kAll;
-  callee()->pc()->SetConfiguration(callee_config);
+  callee()->pc()->SetConfiguration(callee_config, nullptr);
   EXPECT_EQ_WAIT(cricket::LOCAL_PORT_TYPE,
                  callee()->last_candidate_gathered().type(), kDefaultTimeout);
 }

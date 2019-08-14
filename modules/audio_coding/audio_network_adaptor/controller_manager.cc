@@ -22,8 +22,12 @@
 #include "modules/audio_coding/audio_network_adaptor/fec_controller_rplr_based.h"
 #include "modules/audio_coding/audio_network_adaptor/frame_length_controller.h"
 #include "modules/audio_coding/audio_network_adaptor/util/threshold_curve.h"
+#include "rtc_base/experiments/field_trial_list.h"
+#include "rtc_base/experiments/field_trial_parser.h"
+#include "rtc_base/experiments/field_trial_units.h"
 #include "rtc_base/ignore_wundef.h"
 #include "rtc_base/time_utils.h"
+#include "system_wrappers/include/field_trial.h"
 
 #if WEBRTC_ENABLE_PROTOBUF
 RTC_PUSH_IGNORING_WUNDEF()
@@ -40,6 +44,23 @@ namespace webrtc {
 namespace {
 
 #if WEBRTC_ENABLE_PROTOBUF
+const char* kSimpleAna = "WebRTC-Audio-SimpleAna";
+
+struct SimpleAnaConfig {
+  FieldTrialParameter<DataRate> frame_length_decrease_threshold;
+  FieldTrialParameter<DataRate> frame_length_increase_threshold;
+  FieldTrialList<int> extra_frame_length_list;
+
+  SimpleAnaConfig()
+      : frame_length_decrease_threshold("decr", DataRate::KilobitsPerSec<24>()),
+        frame_length_increase_threshold("incr", DataRate::KilobitsPerSec<16>()),
+        extra_frame_length_list("fl_list", {40}) {
+    ParseFieldTrial(
+        {&frame_length_decrease_threshold, &frame_length_increase_threshold,
+         &extra_frame_length_list},
+        field_trial::FindFullName(kSimpleAna));
+  }
+};
 
 std::unique_ptr<FecControllerPlrBased> CreateFecControllerPlrBased(
     const audio_network_adaptor::config::FecController& config,
@@ -155,6 +176,23 @@ std::unique_ptr<FrameLengthController> CreateFrameLengthController(
 
   for (auto frame_length : encoder_frame_lengths_ms)
     ctor_config.encoder_frame_lengths_ms.insert(frame_length);
+
+  if (field_trial::IsEnabled(kSimpleAna)) {
+    const SimpleAnaConfig cfg;
+    ctor_config.frame_length_decrease_threshold_bps_ =
+        cfg.frame_length_decrease_threshold->bps();
+    ctor_config.frame_length_increase_threshold_bps_ =
+        cfg.frame_length_increase_threshold->bps();
+    if (!cfg.extra_frame_length_list->empty()) {
+      auto& frame_lengths = ctor_config.encoder_frame_lengths_ms;
+      for (int i = 0; i < cfg.extra_frame_length_list->size(); i++) {
+        int fl = cfg.extra_frame_length_list[i];
+        if (*frame_lengths.begin() < fl && *(--frame_lengths.end()) > fl) {
+          frame_lengths.insert(fl);
+        }
+      }
+    }
+  }
 
   return std::unique_ptr<FrameLengthController>(
       new FrameLengthController(ctor_config));

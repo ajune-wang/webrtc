@@ -22,6 +22,30 @@
       "revId": "e7416cbd9b6a99a70d439c76d2252942b16b8725",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8bef619_bda0473e",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 8409
+      },
+      "writtenOn": "2019-08-14T14:31:49Z",
+      "side": 1,
+      "message": "Yes. Because now with this FieldTrial becoming default, OnMaxTotalAllocatedBitrate() only sends a probe if we\u0027re in ALR (and the test checks that we send a probe). And SetAlrStartTimeMs() is the way to define/set that we\u0027re in ALR. \n\nOK?",
+      "parentUuid": "7079b904_173a6a9b",
+      "range": {
+        "startLine": 366,
+        "startChar": 0,
+        "endLine": 366,
+        "endChar": 48
+      },
+      "revId": "e7416cbd9b6a99a70d439c76d2252942b16b8725",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

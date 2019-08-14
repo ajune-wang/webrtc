@@ -22,6 +22,30 @@
       "revId": "9b2b1fcd3a7dc31ef55561a2e56df764513fc681",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71a6bf3f_74022e1b",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-14T17:44:51Z",
+      "side": 1,
+      "message": "It captures |watcher| and |this| (used for access to watcher_) by copy.",
+      "parentUuid": "58c25978_a77b9306",
+      "range": {
+        "startLine": 136,
+        "startChar": 24,
+        "endLine": 136,
+        "endChar": 27
+      },
+      "revId": "9b2b1fcd3a7dc31ef55561a2e56df764513fc681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "47751a83_4dad4bb6",
+        "filename": "common_video/frame_rate_estimator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-14T11:21:41Z",
+      "side": 1,
+      "message": "Done.\nAlso added an explanation of how this class differs from other rate estimators such as RateStatistics.",
+      "parentUuid": "22249ead_8db44fd5",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "70f0a29989ab359573f149397c7e47829ba0cd57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c92547b_4eae00c9",
         "filename": "common_video/frame_rate_estimator_unittest.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0ac248fb_feef060a",
+        "filename": "common_video/frame_rate_estimator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-14T11:21:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c92547b_4eae00c9",
+      "range": {
+        "startLine": 24,
+        "startChar": 36,
+        "endLine": 24,
+        "endChar": 37
+      },
+      "revId": "70f0a29989ab359573f149397c7e47829ba0cd57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "360665ad_990cf106",
         "filename": "common_video/frame_rate_estimator_unittest.cc",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "70f0a29989ab359573f149397c7e47829ba0cd57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6654dd16_487677f4",
+        "filename": "common_video/frame_rate_estimator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-14T11:21:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "360665ad_990cf106",
+      "range": {
+        "startLine": 94,
+        "startChar": 74,
+        "endLine": 94,
+        "endChar": 75
+      },
+      "revId": "70f0a29989ab359573f149397c7e47829ba0cd57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

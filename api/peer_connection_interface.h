@@ -961,15 +961,10 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
   virtual void SetLocalDescription(SetSessionDescriptionObserver* observer,
                                    SessionDescriptionInterface* desc) = 0;
   // Sets the remote session description.
-  // The PeerConnection takes the ownership of |desc| even if it fails.
   // The |observer| callback will be called when done.
-  // TODO(hbos): Remove when Chrome implements the new signature.
-  virtual void SetRemoteDescription(SetSessionDescriptionObserver* observer,
-                                    SessionDescriptionInterface* desc) {}
-  // TODO(hbos): Make pure virtual when Chrome has updated its signature.
   virtual void SetRemoteDescription(
       std::unique_ptr<SessionDescriptionInterface> desc,
-      rtc::scoped_refptr<SetRemoteDescriptionObserverInterface> observer) {}
+      rtc::scoped_refptr<SetRemoteDescriptionObserverInterface> observer) = 0;
 
   // TODO(deadbeef): Make this pure virtual once all Chrome subclasses of
   // PeerConnectionInterface implement it.

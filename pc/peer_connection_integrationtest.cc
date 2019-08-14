@@ -786,15 +786,15 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   }
 
   bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc) {
-    rtc::scoped_refptr<MockSetSessionDescriptionObserver> observer(
-        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+    rtc::scoped_refptr<MockSetRemoteDescriptionObserver> observer(
+        new rtc::RefCountedObject<MockSetRemoteDescriptionObserver>());
     RTC_LOG(LS_INFO) << debug_name_ << ": SetRemoteDescription";
-    pc()->SetRemoteDescription(observer, desc.release());
+    pc()->SetRemoteDescription(std::move(desc), observer);
     if (sdp_semantics_ == SdpSemantics::kUnifiedPlan) {
       RemoveUnusedVideoRenderers();
     }
     EXPECT_TRUE_WAIT(observer->called(), kDefaultTimeout);
-    return observer->result();
+    return observer->error().ok();
   }
 
   // This is a work around to remove unused fake_video_renderers from

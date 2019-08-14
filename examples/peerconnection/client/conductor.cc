@@ -58,13 +58,30 @@ const char kSessionDescriptionSdpName[] = "sdp";
 class DummySetSessionDescriptionObserver
     : public webrtc::SetSessionDescriptionObserver {
  public:
-  static DummySetSessionDescriptionObserver* Create() {
+  static rtc::scoped_refptr<DummySetSessionDescriptionObserver> Create() {
     return new rtc::RefCountedObject<DummySetSessionDescriptionObserver>();
   }
   virtual void OnSuccess() { RTC_LOG(INFO) << __FUNCTION__; }
   virtual void OnFailure(webrtc::RTCError error) {
     RTC_LOG(INFO) << __FUNCTION__ << " " << ToString(error.type()) << ": "
                   << error.message();
+  }
+};
+
+class DummySetRemoteSessionDescriptionObserver
+    : public webrtc::SetRemoteDescriptionObserverInterface {
+ public:
+  static rtc::scoped_refptr<DummySetRemoteSessionDescriptionObserver> Create() {
+    return new rtc::RefCountedObject<
+        DummySetRemoteSessionDescriptionObserver>();
+  }
+  virtual void OnSetRemoteDescriptionComplete(webrtc::RTCError error) {
+    if (error.ok()) {
+      RTC_LOG(INFO) << __FUNCTION__;
+    } else {
+      RTC_LOG(INFO) << __FUNCTION__ << " " << ToString(error.type()) << ": "
+                    << error.message();
+    }
   }
 };
 
@@ -350,8 +367,8 @@ void Conductor::OnMessageFromPeer(int peer_id, const std::string& message) {
     }
     RTC_LOG(INFO) << " Received session description :" << message;
     peer_connection_->SetRemoteDescription(
-        DummySetSessionDescriptionObserver::Create(),
-        session_description.release());
+        std::move(session_description),
+        DummySetRemoteSessionDescriptionObserver::Create());
     if (type == webrtc::SdpType::kOffer) {
       peer_connection_->CreateAnswer(
           this, webrtc::PeerConnectionInterface::RTCOfferAnswerOptions());
@@ -554,8 +571,8 @@ void Conductor::OnSuccess(webrtc::SessionDescriptionInterface* desc) {
     std::unique_ptr<webrtc::SessionDescriptionInterface> session_description =
         webrtc::CreateSessionDescription(webrtc::SdpType::kAnswer, sdp);
     peer_connection_->SetRemoteDescription(
-        DummySetSessionDescriptionObserver::Create(),
-        session_description.release());
+        std::move(session_description),
+        DummySetRemoteSessionDescriptionObserver::Create());
     return;
   }
 

@@ -835,11 +835,11 @@ TEST_P(PeerConnectionRtpTest,
   auto caller = CreatePeerConnection();
   auto callee = CreatePeerConnection();
 
-  rtc::scoped_refptr<webrtc::MockSetSessionDescriptionObserver> observer =
-      new rtc::RefCountedObject<webrtc::MockSetSessionDescriptionObserver>();
+  rtc::scoped_refptr<webrtc::MockSetRemoteDescriptionObserver> observer =
+      new rtc::RefCountedObject<webrtc::MockSetRemoteDescriptionObserver>();
 
   auto offer = caller->CreateOfferAndSetAsLocal();
-  callee->pc()->SetRemoteDescription(observer, offer.release());
+  callee->pc()->SetRemoteDescription(std::move(offer), observer);
   callee = nullptr;
   rtc::Thread::Current()->ProcessMessages(0);
   EXPECT_FALSE(observer->called());

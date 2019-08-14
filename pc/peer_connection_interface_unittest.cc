@@ -897,14 +897,23 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
     rtc::scoped_refptr<MockSetSessionDescriptionObserver> observer(
         new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
     if (local) {
+      rtc::scoped_refptr<MockSetSessionDescriptionObserver> observer(
+          new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
       pc_->SetLocalDescription(observer, desc.release());
+      if (pc_->signaling_state() != PeerConnectionInterface::kClosed) {
+        EXPECT_EQ_WAIT(true, observer->called(), kTimeout);
+      }
+      return observer->result();
     } else {
-      pc_->SetRemoteDescription(observer, desc.release());
+      rtc::scoped_refptr<MockSetRemoteDescriptionObserver> observer(
+          new rtc::RefCountedObject<MockSetRemoteDescriptionObserver>());
+      pc_->SetRemoteDescription(std::move(desc), observer);
+
+      if (pc_->signaling_state() != PeerConnectionInterface::kClosed) {
+        EXPECT_EQ_WAIT(true, observer->called(), kTimeout);
+      }
+      return observer->error().ok();
     }
-    if (pc_->signaling_state() != PeerConnectionInterface::kClosed) {
-      EXPECT_EQ_WAIT(true, observer->called(), kTimeout);
-    }
-    return observer->result();
   }
 
   bool DoSetLocalDescription(

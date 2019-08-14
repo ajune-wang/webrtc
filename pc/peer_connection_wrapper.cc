@@ -151,16 +151,19 @@ bool PeerConnectionWrapper::SetLocalDescription(
 bool PeerConnectionWrapper::SetRemoteDescription(
     std::unique_ptr<SessionDescriptionInterface> desc,
     std::string* error_out) {
-  return SetSdp(
-      [this, &desc](SetSessionDescriptionObserver* observer) {
-        pc()->SetRemoteDescription(observer, desc.release());
-      },
-      error_out);
+  RTCError error;
+  bool success = SetRemoteDescription(std::move(desc), &error);
+  if (error_out) {
+    *error_out = error.message();
+  }
+  return success;
 }
 
 bool PeerConnectionWrapper::SetRemoteDescription(
     std::unique_ptr<SessionDescriptionInterface> desc,
     RTCError* error_out) {
+  // Can't use SetSdp due to the different observer types, and a template taking
+  // observer type and mock type as argument seems a bit overkill.
   rtc::scoped_refptr<MockSetRemoteDescriptionObserver> observer =
       new MockSetRemoteDescriptionObserver();
   pc()->SetRemoteDescription(std::move(desc), observer);

@@ -45,6 +45,7 @@ using webrtc::FakeVideoTrackRenderer;
 using webrtc::IceCandidateInterface;
 using webrtc::MediaStreamInterface;
 using webrtc::MediaStreamTrackInterface;
+using webrtc::MockSetRemoteDescriptionObserver;
 using webrtc::MockSetSessionDescriptionObserver;
 using webrtc::PeerConnectionInterface;
 using webrtc::RtpReceiverInterface;
@@ -219,10 +220,10 @@ void PeerConnectionTestWrapper::SetRemoteDescription(SdpType type,
                    << ": SetRemoteDescription " << webrtc::SdpTypeToString(type)
                    << " " << sdp;
 
-  rtc::scoped_refptr<MockSetSessionDescriptionObserver> observer(
-      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+  rtc::scoped_refptr<MockSetRemoteDescriptionObserver> observer(
+      new rtc::RefCountedObject<MockSetRemoteDescriptionObserver>());
   peer_connection_->SetRemoteDescription(
-      observer, webrtc::CreateSessionDescription(type, sdp).release());
+      webrtc::CreateSessionDescription(type, sdp), observer);
 }
 
 void PeerConnectionTestWrapper::AddIceCandidate(const std::string& sdp_mid,

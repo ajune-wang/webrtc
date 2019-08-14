@@ -101,10 +101,6 @@ PROXY_METHOD2(void,
               SessionDescriptionInterface*)
 PROXY_METHOD2(void,
               SetRemoteDescription,
-              SetSessionDescriptionObserver*,
-              SessionDescriptionInterface*)
-PROXY_METHOD2(void,
-              SetRemoteDescription,
               std::unique_ptr<SessionDescriptionInterface>,
               rtc::scoped_refptr<SetRemoteDescriptionObserverInterface>)
 PROXY_METHOD0(PeerConnectionInterface::RTCConfiguration, GetConfiguration)

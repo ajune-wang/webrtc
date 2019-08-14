@@ -135,11 +135,6 @@ bool PeerConnectionInterface::SetConfiguration(
   return false;
 }
 
-bool PeerConnectionInterface::SetConfiguration(
-    const PeerConnectionInterface::RTCConfiguration& config) {
-  return false;
-}
-
 bool PeerConnectionInterface::RemoveIceCandidates(
     const std::vector<cricket::Candidate>& candidates) {
   return false;

@@ -170,11 +170,6 @@ class FakePeerConnectionBase : public PeerConnectionInternal {
     return false;
   }
 
-  bool SetConfiguration(
-      const PeerConnectionInterface::RTCConfiguration& config) override {
-    return false;
-  }
-
   bool AddIceCandidate(const IceCandidateInterface* candidate) override {
     return false;
   }

@@ -112,9 +112,6 @@ PROXY_METHOD2(bool,
               SetConfiguration,
               const PeerConnectionInterface::RTCConfiguration&,
               RTCError*)
-PROXY_METHOD1(bool,
-              SetConfiguration,
-              const PeerConnectionInterface::RTCConfiguration&)
 PROXY_METHOD1(bool, AddIceCandidate, const IceCandidateInterface*)
 PROXY_METHOD1(bool, RemoveIceCandidates, const std::vector<cricket::Candidate>&)
 PROXY_METHOD1(RTCError, SetBitrate, const BitrateSettings&)

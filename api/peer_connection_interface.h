@@ -1002,11 +1002,6 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
       const PeerConnectionInterface::RTCConfiguration& config,
       RTCError* error);
 
-  // Version without error output param for backwards compatibility.
-  // TODO(deadbeef): Remove once chromium is updated.
-  virtual bool SetConfiguration(
-      const PeerConnectionInterface::RTCConfiguration& config);
-
   // Provides a remote candidate to the ICE Agent.
   // A copy of the |candidate| will be created and added to the remote
   // description. So the caller of this method still has the ownership of the

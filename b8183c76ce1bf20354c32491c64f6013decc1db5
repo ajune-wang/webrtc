@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ff1907f9_471cbf88",
+        "filename": "modules/audio_coding/audio_network_adaptor/controller_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-08-14T13:19:23Z",
+      "side": 1,
+      "message": "Good idea. done.",
+      "parentUuid": "312e762d_8537f8bc",
+      "revId": "b8183c76ce1bf20354c32491c64f6013decc1db5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5ed3e6a_be1b0ca4",
         "filename": "modules/audio_coding/audio_network_adaptor/controller_manager.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "b8183c76ce1bf20354c32491c64f6013decc1db5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "612a9799_27e0a885",
+        "filename": "modules/audio_coding/audio_network_adaptor/controller_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-08-14T13:19:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5ed3e6a_be1b0ca4",
+      "revId": "b8183c76ce1bf20354c32491c64f6013decc1db5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "b8183c76ce1bf20354c32491c64f6013decc1db5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04ce506f_e6d6cf46",
+        "filename": "modules/audio_coding/audio_network_adaptor/frame_length_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-08-14T13:19:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9861e387_d2081e96",
+      "range": {
+        "startLine": 195,
+        "startChar": 28,
+        "endLine": 195,
+        "endChar": 68
+      },
+      "revId": "b8183c76ce1bf20354c32491c64f6013decc1db5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

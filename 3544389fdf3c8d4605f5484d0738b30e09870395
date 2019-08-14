@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6852a33a_7a9f8592",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2019-08-14T07:41:21Z",
+      "side": 1,
+      "message": "It would be good with a comment, here or elsewhere, saying this \u003d\u003d unlimited.",
+      "range": {
+        "startLine": 24,
+        "startChar": 14,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "3544389fdf3c8d4605f5484d0738b30e09870395",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -65,6 +65,10 @@ class RTC_EXPORT BasicPortAllocator : public PortAllocator {
     return socket_factory_;
   }
 
+  bool MdnsObfuscationEnabled() const override {
+    return network_manager()->GetMdnsResponder() != nullptr;
+  }
+
   PortAllocatorSession* CreateSessionInternal(
       const std::string& content_name,
       int component,
@@ -247,14 +251,6 @@ class RTC_EXPORT BasicPortAllocatorSession : public PortAllocatorSession,
 
   bool CheckCandidateFilter(const Candidate& c) const;
   bool CandidatePairable(const Candidate& c, const Port* port) const;
-
-  // Returns true if there is an mDNS responder attached to the network manager
-  bool MdnsObfuscationEnabled() const;
-
-  // Clears 1) the address if the candidate is supposedly a hostname candidate;
-  // 2) the related address according to the flags and candidate filter in order
-  // to avoid leaking any information.
-  Candidate SanitizeCandidate(const Candidate& c) const;
 
   std::vector<PortData*> GetUnprunedPorts(
       const std::vector<rtc::Network*>& networks);

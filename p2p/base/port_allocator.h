@@ -579,6 +579,14 @@ class RTC_EXPORT PortAllocator : public sigslot::has_slots<> {
   // Return IceParameters of the pooled sessions.
   std::vector<IceParameters> GetPooledIceCredentials();
 
+  // Returns true if the mDNS concealment of private IPs is enabled.
+  virtual bool MdnsObfuscationEnabled() const { return false; }
+
+  // Clears 1) the address if the candidate is supposedly a hostname candidate;
+  // 2) the related address according to the flags and candidate filter in order
+  // to avoid leaking any information.
+  Candidate SanitizeCandidate(const Candidate& c) const;
+
   // Fired when |candidate_filter_| changes.
   sigslot::signal2<uint32_t /* prev_filter */, uint32_t /* cur_filter */>
       SignalCandidateFilterChanged;

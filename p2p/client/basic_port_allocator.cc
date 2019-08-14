@@ -178,6 +178,7 @@ BasicPortAllocator::BasicPortAllocator(rtc::NetworkManager* network_manager,
     : network_manager_(network_manager), socket_factory_(socket_factory) {
   InitRelayPortFactory(nullptr);
   RTC_DCHECK(relay_port_factory_ != nullptr);
+  RTC_DCHECK(network_manager_ != nullptr);
   RTC_DCHECK(socket_factory_ != NULL);
   SetConfiguration(stun_servers, std::vector<RelayServerConfig>(), 0, false,
                    nullptr);
@@ -190,7 +191,7 @@ BasicPortAllocator::BasicPortAllocator(
     const rtc::SocketAddress& relay_address_udp,
     const rtc::SocketAddress& relay_address_tcp,
     const rtc::SocketAddress& relay_address_ssl)
-    : network_manager_(network_manager), socket_factory_(NULL) {
+    : network_manager_(network_manager), socket_factory_(nullptr) {
   InitRelayPortFactory(nullptr);
   RTC_DCHECK(relay_port_factory_ != nullptr);
   RTC_DCHECK(network_manager_ != nullptr);
@@ -298,6 +299,7 @@ BasicPortAllocatorSession::BasicPortAllocatorSession(
       network_manager_started_(false),
       allocation_sequences_created_(false),
       prune_turn_ports_(allocator->prune_turn_ports()) {
+  RTC_DCHECK(allocator_ != nullptr);
   allocator_->network_manager()->SignalNetworksChanged.connect(
       this, &BasicPortAllocatorSession::OnNetworksChanged);
   allocator_->network_manager()->StartUpdating();
@@ -578,35 +580,8 @@ void BasicPortAllocatorSession::GetCandidatesFromPort(
     if (!CheckCandidateFilter(candidate)) {
       continue;
     }
-    auto sanitized_candidate = SanitizeCandidate(candidate);
-    candidates->push_back(sanitized_candidate);
+    candidates->push_back(allocator_->SanitizeCandidate(candidate));
   }
-}
-
-bool BasicPortAllocatorSession::MdnsObfuscationEnabled() const {
-  return allocator_->network_manager()->GetMdnsResponder() != nullptr;
-}
-
-Candidate BasicPortAllocatorSession::SanitizeCandidate(
-    const Candidate& c) const {
-  RTC_DCHECK_RUN_ON(network_thread_);
-  // If the candidate has a generated hostname, we need to obfuscate its IP
-  // address when signaling this candidate.
-  bool use_hostname_address =
-      !c.address().hostname().empty() && !c.address().IsUnresolvedIP();
-  // If adapter enumeration is disabled or host candidates are disabled,
-  // clear the raddr of STUN candidates to avoid local address leakage.
-  bool filter_stun_related_address =
-      ((flags() & PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION) &&
-       (flags() & PORTALLOCATOR_DISABLE_DEFAULT_LOCAL_CANDIDATE)) ||
-      !(candidate_filter_ & CF_HOST) || MdnsObfuscationEnabled();
-  // If the candidate filter doesn't allow reflexive addresses, empty TURN raddr
-  // to avoid reflexive address leakage.
-  bool filter_turn_related_address = !(candidate_filter_ & CF_REFLEXIVE);
-  bool filter_related_address =
-      ((c.type() == STUN_PORT_TYPE && filter_stun_related_address) ||
-       (c.type() == RELAY_PORT_TYPE && filter_turn_related_address));
-  return c.ToSanitizedCopy(use_hostname_address, filter_related_address);
 }
 
 bool BasicPortAllocatorSession::CandidatesAllocationDone() const {
@@ -1014,7 +989,7 @@ void BasicPortAllocatorSession::OnCandidateReady(Port* port,
 
   if (data->ready() && CheckCandidateFilter(c)) {
     std::vector<Candidate> candidates;
-    candidates.push_back(SanitizeCandidate(c));
+    candidates.push_back(allocator_->SanitizeCandidate(c));
     SignalCandidatesReady(this, candidates);
   } else {
     RTC_LOG(LS_INFO) << "Discarding candidate because it doesn't match filter.";

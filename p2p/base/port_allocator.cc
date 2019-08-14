@@ -268,6 +268,27 @@ const PortAllocatorSession* PortAllocator::GetPooledSession(
   }
 }
 
+Candidate PortAllocator::SanitizeCandidate(const Candidate& c) const {
+  CheckRunOnValidThreadIfInitialized();
+  // If the candidate has a generated hostname, we need to obfuscate its IP
+  // address when signaling this candidate.
+  bool use_hostname_address =
+      !c.address().hostname().empty() && !c.address().IsUnresolvedIP();
+  // If adapter enumeration is disabled or host candidates are disabled,
+  // clear the raddr of STUN candidates to avoid local address leakage.
+  bool filter_stun_related_address =
+      ((flags() & PORTALLOCATOR_DISABLE_ADAPTER_ENUMERATION) &&
+       (flags() & PORTALLOCATOR_DISABLE_DEFAULT_LOCAL_CANDIDATE)) ||
+      !(candidate_filter_ & CF_HOST) || MdnsObfuscationEnabled();
+  // If the candidate filter doesn't allow reflexive addresses, empty TURN raddr
+  // to avoid reflexive address leakage.
+  bool filter_turn_related_address = !(candidate_filter_ & CF_REFLEXIVE);
+  bool filter_related_address =
+      ((c.type() == STUN_PORT_TYPE && filter_stun_related_address) ||
+       (c.type() == RELAY_PORT_TYPE && filter_turn_related_address));
+  return c.ToSanitizedCopy(use_hostname_address, filter_related_address);
+}
+
 std::vector<std::unique_ptr<PortAllocatorSession>>::const_iterator
 PortAllocator::FindPooledSession(const IceParameters* ice_credentials) const {
   for (auto it = pooled_sessions_.begin(); it != pooled_sessions_.end(); ++it) {

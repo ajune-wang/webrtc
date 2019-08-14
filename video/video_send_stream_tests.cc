@@ -1941,14 +1941,25 @@ class MaxPaddingSetTest : public test::SendTest {
   test::SingleThreadedTaskQueueForTesting* task_queue_;
 };
 
+// TODO(crbug.com/webrtc/10880): Re-enable on Mac
+#if defined(WEBRTC_MAC)
+TEST_F(VideoSendStreamTest, DISABLED_RespectsMinTransmitBitrate) {
+#else
 TEST_F(VideoSendStreamTest, RespectsMinTransmitBitrate) {
+#endif
   auto reset_fun = [](const VideoSendStream::Config& send_stream_config,
                       const VideoEncoderConfig& encoder_config) {};
   MaxPaddingSetTest<decltype(reset_fun)> test(false, &reset_fun, &task_queue_);
   RunBaseTest(&test);
 }
 
+// TODO(crbug.com/webrtc/10880): Re-enable on Mac
+#if defined(WEBRTC_MAC)
+TEST_F(VideoSendStreamTest,
+       DISABLED_RespectsMinTransmitBitrateAfterContentSwitch) {
+#else
 TEST_F(VideoSendStreamTest, RespectsMinTransmitBitrateAfterContentSwitch) {
+#endif
   // Function for removing and recreating the send stream with a new config.
   auto reset_fun = [this](const VideoSendStream::Config& send_stream_config,
                           const VideoEncoderConfig& encoder_config) {

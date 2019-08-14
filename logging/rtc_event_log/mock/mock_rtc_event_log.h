@@ -20,21 +20,16 @@ namespace webrtc {
 
 class MockRtcEventLog : public RtcEventLog {
  public:
-  MockRtcEventLog();
-  ~MockRtcEventLog();
-
-  virtual bool StartLogging(std::unique_ptr<RtcEventLogOutput> output,
-                            int64_t output_period_ms) {
-    return StartLoggingProxy(output.get(), output_period_ms);
-  }
-  MOCK_METHOD2(StartLoggingProxy, bool(RtcEventLogOutput*, int64_t));
-
-  MOCK_METHOD0(StopLogging, void());
-
-  virtual void Log(std::unique_ptr<RtcEvent> event) {
-    return LogProxy(event.get());
-  }
-  MOCK_METHOD1(LogProxy, void(RtcEvent*));
+  MOCK_METHOD(bool,
+              StartLogging,
+              (std::unique_ptr<RtcEventLogOutput>, int64_t),
+              (override));
+  MOCK_METHOD(void, StopLogging, (), (override));
+  MOCK_METHOD(void,
+              StopLogging,
+              (std::function<void()> on_stopped),
+              (override));
+  MOCK_METHOD(void, Log, (std::unique_ptr<RtcEvent> event), (override));
 };
 
 }  // namespace webrtc

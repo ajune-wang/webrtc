@@ -51,7 +51,7 @@ MATCHER_P(IsRtcEventAnaConfigEqualTo, config, "") {
   if (arg->GetType() != RtcEvent::Type::AudioNetworkAdaptation) {
     return false;
   }
-  auto ana_event = static_cast<RtcEventAudioNetworkAdaptation*>(arg);
+  auto* ana_event = static_cast<RtcEventAudioNetworkAdaptation*>(arg.get());
   return ana_event->config() == config;
 }
 
@@ -279,7 +279,7 @@ TEST(AudioNetworkAdaptorImplTest, LogRuntimeConfigOnGetEncoderRuntimeConfig) {
   EXPECT_CALL(*states.mock_controllers[0], MakeDecision(_))
       .WillOnce(SetArgPointee<0>(config));
 
-  EXPECT_CALL(*states.event_log, LogProxy(IsRtcEventAnaConfigEqualTo(config)))
+  EXPECT_CALL(*states.event_log, Log(IsRtcEventAnaConfigEqualTo(config)))
       .Times(1);
   states.audio_network_adaptor->GetEncoderRuntimeConfig();
 }

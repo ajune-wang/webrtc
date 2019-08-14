@@ -22,7 +22,7 @@ MATCHER(LossBasedBweUpdateWithBitrateOnly, "") {
   if (arg->GetType() != RtcEvent::Type::BweUpdateLossBased) {
     return false;
   }
-  auto bwe_event = static_cast<RtcEventBweUpdateLossBased*>(arg);
+  auto bwe_event = static_cast<RtcEventBweUpdateLossBased*>(arg.get());
   return bwe_event->bitrate_bps() > 0 && bwe_event->fraction_loss() == 0;
 }
 
@@ -30,7 +30,7 @@ MATCHER(LossBasedBweUpdateWithBitrateAndLossFraction, "") {
   if (arg->GetType() != RtcEvent::Type::BweUpdateLossBased) {
     return false;
   }
-  auto bwe_event = static_cast<RtcEventBweUpdateLossBased*>(arg);
+  auto bwe_event = static_cast<RtcEventBweUpdateLossBased*>(arg.get());
   return bwe_event->bitrate_bps() > 0 && bwe_event->fraction_loss() > 0;
 }
 
@@ -85,10 +85,8 @@ TEST(SendSideBweTest, InitialDelayBasedBweWithProbing) {
 
 TEST(SendSideBweTest, DoesntReapplyBitrateDecreaseWithoutFollowingRemb) {
   MockRtcEventLog event_log;
-  EXPECT_CALL(event_log, LogProxy(LossBasedBweUpdateWithBitrateOnly()))
-      .Times(1);
-  EXPECT_CALL(event_log,
-              LogProxy(LossBasedBweUpdateWithBitrateAndLossFraction()))
+  EXPECT_CALL(event_log, Log(LossBasedBweUpdateWithBitrateOnly())).Times(1);
+  EXPECT_CALL(event_log, Log(LossBasedBweUpdateWithBitrateAndLossFraction()))
       .Times(1);
   SendSideBandwidthEstimation bwe(&event_log);
   static const int kMinBitrateBps = 100000;

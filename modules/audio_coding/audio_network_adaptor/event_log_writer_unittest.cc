@@ -37,7 +37,7 @@ MATCHER_P(IsRtcEventAnaConfigEqualTo, config, "") {
   if (arg->GetType() != RtcEvent::Type::AudioNetworkAdaptation) {
     return false;
   }
-  auto ana_event = static_cast<RtcEventAudioNetworkAdaptation*>(arg);
+  auto* ana_event = static_cast<RtcEventAudioNetworkAdaptation*>(arg.get());
   return ana_event->config() == config;
 }
 
@@ -66,7 +66,7 @@ EventLogWriterStates CreateEventLogWriter() {
 TEST(EventLogWriterTest, FirstConfigIsLogged) {
   auto state = CreateEventLogWriter();
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
 }
@@ -74,7 +74,7 @@ TEST(EventLogWriterTest, FirstConfigIsLogged) {
 TEST(EventLogWriterTest, SameConfigIsNotLogged) {
   auto state = CreateEventLogWriter();
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
@@ -83,13 +83,13 @@ TEST(EventLogWriterTest, SameConfigIsNotLogged) {
 TEST(EventLogWriterTest, LogFecStateChange) {
   auto state = CreateEventLogWriter();
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
 
   state.runtime_config.enable_fec = !kEnableFec;
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
 }
@@ -97,13 +97,13 @@ TEST(EventLogWriterTest, LogFecStateChange) {
 TEST(EventLogWriterTest, LogDtxStateChange) {
   auto state = CreateEventLogWriter();
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
 
   state.runtime_config.enable_dtx = !kEnableDtx;
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
 }
@@ -111,13 +111,13 @@ TEST(EventLogWriterTest, LogDtxStateChange) {
 TEST(EventLogWriterTest, LogChannelChange) {
   auto state = CreateEventLogWriter();
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
 
   state.runtime_config.num_channels = kNumChannels + 1;
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
 }
@@ -125,13 +125,13 @@ TEST(EventLogWriterTest, LogChannelChange) {
 TEST(EventLogWriterTest, LogFrameLengthChange) {
   auto state = CreateEventLogWriter();
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
 
   state.runtime_config.frame_length_ms = 20;
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
 }
@@ -139,7 +139,7 @@ TEST(EventLogWriterTest, LogFrameLengthChange) {
 TEST(EventLogWriterTest, DoNotLogSmallBitrateChange) {
   auto state = CreateEventLogWriter();
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
   state.runtime_config.bitrate_bps = kHighBitrateBps + kMinBitrateChangeBps - 1;
@@ -149,7 +149,7 @@ TEST(EventLogWriterTest, DoNotLogSmallBitrateChange) {
 TEST(EventLogWriterTest, LogLargeBitrateChange) {
   auto state = CreateEventLogWriter();
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
   // At high bitrate, the min fraction rule requires a larger change than the
@@ -158,7 +158,7 @@ TEST(EventLogWriterTest, LogLargeBitrateChange) {
                 kMinBitrateChangeBps);
   state.runtime_config.bitrate_bps = kHighBitrateBps + kMinBitrateChangeBps;
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
 }
@@ -167,7 +167,7 @@ TEST(EventLogWriterTest, LogMinBitrateChangeFractionOnLowBitrateChange) {
   auto state = CreateEventLogWriter();
   state.runtime_config.bitrate_bps = kLowBitrateBps;
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
   // At high bitrate, the min change rule requires a larger change than the min
@@ -175,7 +175,7 @@ TEST(EventLogWriterTest, LogMinBitrateChangeFractionOnLowBitrateChange) {
   state.runtime_config.bitrate_bps =
       kLowBitrateBps + kLowBitrateBps * kMinBitrateChangeFraction;
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
 }
@@ -183,7 +183,7 @@ TEST(EventLogWriterTest, LogMinBitrateChangeFractionOnLowBitrateChange) {
 TEST(EventLogWriterTest, DoNotLogSmallPacketLossFractionChange) {
   auto state = CreateEventLogWriter();
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
   state.runtime_config.uplink_packet_loss_fraction =
@@ -195,13 +195,13 @@ TEST(EventLogWriterTest, DoNotLogSmallPacketLossFractionChange) {
 TEST(EventLogWriterTest, LogLargePacketLossFractionChange) {
   auto state = CreateEventLogWriter();
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
   state.runtime_config.uplink_packet_loss_fraction =
       kPacketLossFraction + kMinPacketLossChangeFraction * kPacketLossFraction;
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
 }
@@ -209,14 +209,14 @@ TEST(EventLogWriterTest, LogLargePacketLossFractionChange) {
 TEST(EventLogWriterTest, LogJustOnceOnMultipleChanges) {
   auto state = CreateEventLogWriter();
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
   state.runtime_config.uplink_packet_loss_fraction =
       kPacketLossFraction + kMinPacketLossChangeFraction * kPacketLossFraction;
   state.runtime_config.frame_length_ms = 20;
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
 }
@@ -224,12 +224,12 @@ TEST(EventLogWriterTest, LogJustOnceOnMultipleChanges) {
 TEST(EventLogWriterTest, LogAfterGradualChange) {
   auto state = CreateEventLogWriter();
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   state.event_log_writer->MaybeLogEncoderConfig(state.runtime_config);
   state.runtime_config.bitrate_bps = kHighBitrateBps + kMinBitrateChangeBps;
   EXPECT_CALL(*state.event_log,
-              LogProxy(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
+              Log(IsRtcEventAnaConfigEqualTo(state.runtime_config)))
       .Times(1);
   for (int bitrate_bps = kHighBitrateBps;
        bitrate_bps <= kHighBitrateBps + kMinBitrateChangeBps; bitrate_bps++) {

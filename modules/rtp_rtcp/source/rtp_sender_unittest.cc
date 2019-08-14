@@ -885,7 +885,7 @@ TEST_P(RtpSenderTest, WritesNetwork2ToTimingExtensionWithoutPacer) {
 
 TEST_P(RtpSenderTest, TrafficSmoothingWithExtensions) {
   EXPECT_CALL(mock_rtc_event_log_,
-              LogProxy(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)));
+              Log(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)));
 
   rtp_sender_->SetStorePacketsStatus(true, 10);
   EXPECT_EQ(0, rtp_sender_->RegisterRtpHeaderExtension(
@@ -942,7 +942,7 @@ TEST_P(RtpSenderTest, TrafficSmoothingWithExtensions) {
 
 TEST_P(RtpSenderTest, TrafficSmoothingRetransmits) {
   EXPECT_CALL(mock_rtc_event_log_,
-              LogProxy(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)));
+              Log(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)));
 
   rtp_sender_->SetStorePacketsStatus(true, 10);
   EXPECT_EQ(0, rtp_sender_->RegisterRtpHeaderExtension(
@@ -988,7 +988,7 @@ TEST_P(RtpSenderTest, TrafficSmoothingRetransmits) {
   fake_clock_.AdvanceTimeMilliseconds(kStoredTimeInMs);
 
   EXPECT_CALL(mock_rtc_event_log_,
-              LogProxy(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)));
+              Log(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)));
   if (GetParam().pacer_references_packets) {
     EXPECT_CALL(mock_paced_sender_,
                 InsertPacket(RtpPacketSender::kNormalPriority, kSsrc, kSeqNum,
@@ -1031,7 +1031,7 @@ TEST_P(RtpSenderTest, TrafficSmoothingRetransmits) {
 TEST_P(RtpSenderTest, SendPadding) {
   // Make all (non-padding) packets go to send queue.
   EXPECT_CALL(mock_rtc_event_log_,
-              LogProxy(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)))
+              Log(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)))
       .Times(1 + 4 + 1);
 
   uint16_t seq_num = kSeqNum;
@@ -1305,7 +1305,7 @@ TEST_P(RtpSenderTest, SendRedundantPayloads) {
                                                   750, 800, 850, 900, 950};
   // Expect all packets go through the pacer.
   EXPECT_CALL(mock_rtc_event_log_,
-              LogProxy(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)))
+              Log(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)))
       .Times(kNumPayloadSizes);
 
   // Send 10 packets of increasing size.
@@ -1336,7 +1336,7 @@ TEST_P(RtpSenderTest, SendRedundantPayloads) {
   }
 
   EXPECT_CALL(mock_rtc_event_log_,
-              LogProxy(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)))
+              Log(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)))
       .Times(AtLeast(4));
 
   // The amount of padding to send it too small to send a payload packet.
@@ -1589,7 +1589,7 @@ TEST_P(RtpSenderTest, NoFlexfecForTimingFrames) {
   video_header.video_timing.flags = VideoSendTiming::kTriggeredByTimer;
 
   EXPECT_CALL(mock_rtc_event_log_,
-              LogProxy(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)))
+              Log(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)))
       .Times(1);
   if (GetParam().pacer_references_packets) {
     EXPECT_CALL(mock_paced_sender_, InsertPacket(RtpPacketSender::kLowPriority,
@@ -1642,7 +1642,7 @@ TEST_P(RtpSenderTest, NoFlexfecForTimingFrames) {
   uint16_t flexfec_seq_num;
 
   EXPECT_CALL(mock_rtc_event_log_,
-              LogProxy(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)))
+              Log(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)))
       .Times(2);
   if (GetParam().pacer_references_packets) {
     EXPECT_CALL(mock_paced_sender_, InsertPacket(RtpPacketSender::kLowPriority,
@@ -1748,7 +1748,7 @@ TEST_P(RtpSenderTestWithoutPacer, SendFlexfecPackets) {
   rtp_sender_video.SetFecParameters(params, params);
 
   EXPECT_CALL(mock_rtc_event_log_,
-              LogProxy(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)))
+              Log(SameRtcEventTypeAs(RtcEvent::Type::RtpPacketOutgoing)))
       .Times(2);
   RTPVideoHeader video_header;
   EXPECT_TRUE(rtp_sender_video.SendVideo(

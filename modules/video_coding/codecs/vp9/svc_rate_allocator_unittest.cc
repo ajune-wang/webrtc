@@ -198,8 +198,8 @@ TEST(SvcRateAllocatorTest, NoPaddingIfAllLayersAreDeactivated) {
   EXPECT_EQ(codec.VP9()->numberOfSpatialLayers, 3U);
   // Deactivation of base layer deactivates all layers.
   codec.spatialLayers[0].active = false;
-  uint32_t padding_bps = SvcRateAllocator::GetPaddingBitrateBps(codec);
-  EXPECT_EQ(padding_bps, 0U);
+  DataRate padding_rate = SvcRateAllocator::GetPaddingBitrate(codec);
+  EXPECT_EQ(padding_rate, DataRate::Zero());
 }
 
 class SvcRateAllocatorTestParametrizedContentType
@@ -214,33 +214,32 @@ class SvcRateAllocatorTestParametrizedContentType
 
 TEST_P(SvcRateAllocatorTestParametrizedContentType, MaxBitrate) {
   VideoCodec codec = Configure(1280, 720, 3, 1, is_screen_sharing_);
-  EXPECT_EQ(
-      SvcRateAllocator::GetMaxBitrateBps(codec),
-      (codec.spatialLayers[0].maxBitrate + codec.spatialLayers[1].maxBitrate +
-       codec.spatialLayers[2].maxBitrate) *
-          1000);
+  EXPECT_EQ(SvcRateAllocator::GetMaxBitrate(codec),
+            DataRate::kbps(codec.spatialLayers[0].maxBitrate +
+                           codec.spatialLayers[1].maxBitrate +
+                           codec.spatialLayers[2].maxBitrate));
 
   // Deactivate middle layer. This causes deactivation of top layer as well.
   codec.spatialLayers[1].active = false;
-  EXPECT_EQ(SvcRateAllocator::GetMaxBitrateBps(codec),
-            codec.spatialLayers[0].maxBitrate * 1000);
+  EXPECT_EQ(SvcRateAllocator::GetMaxBitrate(codec),
+            DataRate::kbps(codec.spatialLayers[0].maxBitrate));
 }
 
 TEST_P(SvcRateAllocatorTestParametrizedContentType, PaddingBitrate) {
   VideoCodec codec = Configure(1280, 720, 3, 1, is_screen_sharing_);
   SvcRateAllocator allocator = SvcRateAllocator(codec);
 
-  uint32_t padding_bitrate_bps = SvcRateAllocator::GetPaddingBitrateBps(codec);
+  DataRate padding_bitrate = SvcRateAllocator::GetPaddingBitrate(codec);
 
-  VideoBitrateAllocation allocation = allocator.Allocate(
-      VideoBitrateAllocationParameters(padding_bitrate_bps, 30));
+  VideoBitrateAllocation allocation =
+      allocator.Allocate(VideoBitrateAllocationParameters(padding_bitrate, 30));
   EXPECT_GT(allocation.GetSpatialLayerSum(0), 0UL);
   EXPECT_GT(allocation.GetSpatialLayerSum(1), 0UL);
   EXPECT_GT(allocation.GetSpatialLayerSum(2), 0UL);
 
   // Allocate 90% of padding bitrate. Top layer should be disabled.
   allocation = allocator.Allocate(
-      VideoBitrateAllocationParameters(9 * padding_bitrate_bps / 10, 30));
+      VideoBitrateAllocationParameters(9 * padding_bitrate / 10, 30));
   EXPECT_GT(allocation.GetSpatialLayerSum(0), 0UL);
   EXPECT_GT(allocation.GetSpatialLayerSum(1), 0UL);
   EXPECT_EQ(allocation.GetSpatialLayerSum(2), 0UL);
@@ -248,15 +247,15 @@ TEST_P(SvcRateAllocatorTestParametrizedContentType, PaddingBitrate) {
   // Deactivate top layer.
   codec.spatialLayers[2].active = false;
 
-  padding_bitrate_bps = SvcRateAllocator::GetPaddingBitrateBps(codec);
-  allocation = allocator.Allocate(
-      VideoBitrateAllocationParameters(padding_bitrate_bps, 30));
+  padding_bitrate = SvcRateAllocator::GetPaddingBitrate(codec);
+  allocation =
+      allocator.Allocate(VideoBitrateAllocationParameters(padding_bitrate, 30));
   EXPECT_GT(allocation.GetSpatialLayerSum(0), 0UL);
   EXPECT_GT(allocation.GetSpatialLayerSum(1), 0UL);
   EXPECT_EQ(allocation.GetSpatialLayerSum(2), 0UL);
 
   allocation = allocator.Allocate(
-      VideoBitrateAllocationParameters(9 * padding_bitrate_bps / 10, 30));
+      VideoBitrateAllocationParameters(9 * padding_bitrate / 10, 30));
   EXPECT_GT(allocation.GetSpatialLayerSum(0), 0UL);
   EXPECT_EQ(allocation.GetSpatialLayerSum(1), 0UL);
   EXPECT_EQ(allocation.GetSpatialLayerSum(2), 0UL);

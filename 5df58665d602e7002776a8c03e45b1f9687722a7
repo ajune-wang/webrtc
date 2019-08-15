@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2742fbfa_7b456863",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-08-15T08:17:14Z",
+      "side": 1,
+      "message": "nit: Commit message is not in-sync with code? Code has 30/10 seconds.",
+      "range": {
+        "startLine": 11,
+        "startChar": 32,
+        "endLine": 12,
+        "endChar": 26
+      },
+      "revId": "5df58665d602e7002776a8c03e45b1f9687722a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

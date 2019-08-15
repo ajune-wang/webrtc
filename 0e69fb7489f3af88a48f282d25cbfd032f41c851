@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "96baab0c_b2438900",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-15T14:16:06Z",
+      "side": 1,
+      "message": "\u003e 1) The check is already there: `RTC_DCHECK_GE(value, 0);`\n\nSorry, I misread.",
+      "parentUuid": "be5dfd42_b2c71651",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 1
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5477f14c_e08b5621",
         "filename": "system_wrappers/source/ntp_time.cc",
         "patchSetId": 7
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "58edf08a_8260cf15",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-15T14:16:06Z",
+      "side": 1,
+      "message": "Bit input/output is flat, not like struct timeval, right? To illustrate what I mean, I\u0027m thinking that\n\nDurationMsToDurationQ32x32(int64_t duration_ms) {\n  return static_cast\u003cint64_t\u003e(duration_ms / 1000.0 * NtpTime::kFractionsPerSecond + 0.5);\n}\n\nwould give the right result. If you are saying that split into seconds and fractions is a way to avoid overflow, and that floating point isn\u0027t good enough, then what we really need is a type larger than 64 bits for holding intermediate results (there are a couple of options, but I\u0027d like to understand the requirements first).",
+      "parentUuid": "3f2fa791_f774a06f",
+      "range": {
+        "startLine": 56,
+        "startChar": 10,
+        "endLine": 56,
+        "endChar": 53
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0360bb21_15a6e5d8",
         "filename": "system_wrappers/source/ntp_time.cc",
         "patchSetId": 7
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "Almost all WebRTC code uses `Clock::TimeInMilliseconds()` today:\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/system_wrappers/include/clock.h?l\u003d38\u0026rcl\u003d7c6f74ab0344e9c6201de711d54026e9990b8e6c",
       "parentUuid": "0360bb21_15a6e5d8",
+      "range": {
+        "startLine": 63,
+        "startChar": 36,
+        "endLine": 63,
+        "endChar": 56
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69ee3066_f5791b6a",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-15T14:16:06Z",
+      "side": 1,
+      "message": "But TimeInMilliseconds does *not* return time relative to the unix epoch.",
+      "parentUuid": "7f2909f9_5c2cfeff",
       "range": {
         "startLine": 63,
         "startChar": 36,

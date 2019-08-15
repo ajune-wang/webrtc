@@ -74,6 +74,32 @@ void RmsLevel::Analyze(rtc::ArrayView<const int16_t> data) {
   max_sum_square_ = std::max(max_sum_square_, sum_square);
 }
 
+void RmsLevel::Analyze(rtc::ArrayView<const float> data) {
+  if (data.empty()) {
+    return;
+  }
+
+  CheckBlockSize(data.size());
+
+  float sum_square = 0.f;
+
+  for (float data_k : data) {
+    int16_t tmp =
+        static_cast<int16_t>(std::min(std::max(data_k, -32768.f), 32767.f));
+    sum_square += tmp * tmp;
+  }
+  // const float sum_square =
+  //     std::accumulate(data.begin(), data.end(), 0.f,
+  //                     [](float a, float b) { int16_t b16 =
+  //                     static_cast<int16_t>(std::min(std::max(b, -32768.f),
+  //                     32767.f)); return a + b16 * b16; });
+  RTC_DCHECK_GE(sum_square, 0.f);
+  sum_square_ += sum_square;
+  sample_count_ += data.size();
+
+  max_sum_square_ = std::max(max_sum_square_, sum_square);
+}
+
 void RmsLevel::AnalyzeMuted(size_t length) {
   CheckBlockSize(length);
   sample_count_ += length;

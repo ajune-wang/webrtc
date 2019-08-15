@@ -96,11 +96,21 @@ LowCutFilter::~LowCutFilter() {}
 
 void LowCutFilter::Process(AudioBuffer* audio) {
   RTC_DCHECK(audio);
-  RTC_DCHECK_GE(160, audio->num_frames_per_band());
+  constexpr size_t kMaxSplitFrameLength = 160;
+  RTC_DCHECK_GE(kMaxSplitFrameLength, audio->num_frames_per_band());
   RTC_DCHECK_EQ(filters_.size(), audio->num_channels());
   for (size_t i = 0; i < filters_.size(); i++) {
-    filters_[i]->Process(audio->split_bands(i)[kBand0To8kHz],
-                         audio->num_frames_per_band());
+    int16_t data16[kMaxSplitFrameLength];
+    float* data = audio->split_bands_f(i)[kBand0To8kHz];
+    for (size_t k = 0; k < audio->num_frames_per_band(); ++k) {
+      data16[k] = FloatS16ToS16(data[k]);
+    }
+
+    filters_[i]->Process(data16, audio->num_frames_per_band());
+
+    for (size_t k = 0; k < audio->num_frames_per_band(); ++k) {
+      data[k] = data16[k];
+    }
   }
 }
 

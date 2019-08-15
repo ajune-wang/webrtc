@@ -128,8 +128,8 @@ class DelayedEncoder : public test::FakeEncoder {
                  const std::vector<VideoFrameType>* frame_types) override;
 
  private:
-  int delay_ms_ RTC_GUARDED_BY(sequence_checker_);
-  SequenceChecker sequence_checker_;
+  int delay_ms_ RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
+  RTC_SEQUENCE_CHECKER(sequence_checker_);
 };
 
 // This class implements a multi-threaded fake encoder by posting
@@ -157,12 +157,12 @@ class MultithreadedFakeH264Encoder : public test::FakeH264Encoder {
   class EncodeTask;
 
   TaskQueueFactory* const task_queue_factory_;
-  int current_queue_ RTC_GUARDED_BY(sequence_checker_);
+  int current_queue_ RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
   std::unique_ptr<TaskQueueBase, TaskQueueDeleter> queue1_
-      RTC_GUARDED_BY(sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
   std::unique_ptr<TaskQueueBase, TaskQueueDeleter> queue2_
-      RTC_GUARDED_BY(sequence_checker_);
-  SequenceChecker sequence_checker_;
+      RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
+  RTC_SEQUENCE_CHECKER(sequence_checker_);
 };
 
 }  // namespace test

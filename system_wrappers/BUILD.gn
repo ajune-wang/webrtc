@@ -23,6 +23,7 @@ rtc_static_library("system_wrappers") {
     "source/clock.cc",
     "source/cpu_features.cc",
     "source/cpu_info.cc",
+    "source/ntp_time.cc",
     "source/rtp_to_ntp_estimator.cc",
     "source/sleep.cc",
   ]

@@ -60,5 +60,19 @@ inline bool operator!=(const NtpTime& n1, const NtpTime& n2) {
   return !(n1 == n2);
 }
 
+// Converts "milliseconds since Unix epoch (1970-01-01)" to "UQ32.32-formatted
+// seconds since NTP epoch (1900-01-01)".
+uint64_t UnixTimeMsToNtpTimeUQ32x32(int64_t unix_time_ms);
+
+// Converts "UQ32.32-formatted seconds since NTP epoch (1900-01-01)" to
+// "milliseconds since Unix epoch (1970-01-01)".
+int64_t NtpTimeUQ32x32ToUnixTimeMs(uint64_t ntp_time_uq32x32);
+
+// Converts "milliseconds" to "Q32.32-formatted seconds".
+int64_t DurationMsToDurationQ32x32(int64_t duration_ms);
+
+// Converts "Q32.32-formatted seconds" to "milliseconds".
+int64_t DurationQ32x32ToDurationMs(int64_t duration_q32x32);
+
 }  // namespace webrtc
 #endif  // SYSTEM_WRAPPERS_INCLUDE_NTP_TIME_H_

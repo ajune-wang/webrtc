@@ -228,8 +228,8 @@ class ChannelSend : public ChannelSendInterface,
   // specific threads we know about. The goal is to eventually split up
   // voe::Channel into parts with single-threaded semantics, and thereby reduce
   // the need for locks.
-  rtc::ThreadChecker worker_thread_checker_;
-  rtc::ThreadChecker module_process_thread_checker_;
+  RTC_THREAD_CHECKER(worker_thread_checker_);
+  RTC_THREAD_CHECKER(module_process_thread_checker_);
   // Methods accessed from audio and video threads are checked for sequential-
   // only access. We don't necessarily own and control these threads, so thread
   // checkers cannot be used. E.g. Chromium may transfer "ownership" from one
@@ -238,7 +238,7 @@ class ChannelSend : public ChannelSendInterface,
 
   rtc::CriticalSection volume_settings_critsect_;
 
-  bool sending_ RTC_GUARDED_BY(&worker_thread_checker_) = false;
+  bool sending_ RTC_GUARDED_BY_THREAD(&worker_thread_checker_) = false;
 
   RtcEventLog* const event_log_;
 
@@ -261,7 +261,7 @@ class ChannelSend : public ChannelSendInterface,
   // RtcpBandwidthObserver
   const std::unique_ptr<VoERtcpObserver> rtcp_observer_;
 
-  PacketRouter* packet_router_ RTC_GUARDED_BY(&worker_thread_checker_) =
+  PacketRouter* packet_router_ RTC_GUARDED_BY_THREAD(&worker_thread_checker_) =
       nullptr;
   const std::unique_ptr<TransportFeedbackProxy> feedback_observer_proxy_;
   const std::unique_ptr<TransportSequenceNumberProxy> seq_num_allocator_proxy_;
@@ -485,7 +485,7 @@ int32_t ChannelSend::SendData(AudioFrameType frameType,
                               uint32_t timeStamp,
                               const uint8_t* payloadData,
                               size_t payloadSize) {
-  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_CHECK_RUN_ON(&encoder_queue_);
   rtc::ArrayView<const uint8_t> payload(payloadData, payloadSize);
 
   if (media_transport() != nullptr) {
@@ -669,7 +669,7 @@ ChannelSend::ChannelSend(Clock* clock,
           "AudioEncoder",
           TaskQueueFactory::Priority::NORMAL)) {
   RTC_DCHECK(module_process_thread);
-  module_process_thread_checker_.Detach();
+  RTC_DETACH_FROM_THREAD(module_process_thread_checker_);
 
   audio_coding_.reset(AudioCodingModule::Create(AudioCodingModule::Config()));
 
@@ -761,7 +761,7 @@ void ChannelSend::StartSend() {
   RTC_DCHECK_EQ(0, ret);
   // It is now OK to start processing on the encoder task queue.
   encoder_queue_.PostTask([this] {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
+    RTC_CHECK_RUN_ON(&encoder_queue_);
     encoder_queue_is_active_ = true;
   });
 }
@@ -775,7 +775,7 @@ void ChannelSend::StopSend() {
 
   rtc::Event flush;
   encoder_queue_.PostTask([this, &flush]() {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
+    RTC_CHECK_RUN_ON(&encoder_queue_);
     encoder_queue_is_active_ = false;
     flush.Set();
   });
@@ -1113,7 +1113,7 @@ void ChannelSend::ProcessAndEncodeAudio(
   RTC_DCHECK_RUNS_SERIALIZED(&audio_thread_race_checker_);
   struct ProcessAndEncodeAudio {
     void operator()() {
-      RTC_DCHECK_RUN_ON(&channel->encoder_queue_);
+      RTC_CHECK_RUN_ON(&channel->encoder_queue_);
       if (!channel->encoder_queue_is_active_) {
         return;
       }
@@ -1175,7 +1175,7 @@ ANAStats ChannelSend::GetANAStatistics() const {
 }
 
 RtpRtcp* ChannelSend::GetRtpRtcp() const {
-  RTC_DCHECK(module_process_thread_checker_.IsCurrent());
+  RTC_DCHECK_RUN_ON(&module_process_thread_checker_);
   return _rtpRtcpModule.get();
 }
 
@@ -1235,7 +1235,7 @@ void ChannelSend::SetFrameEncryptor(
     rtc::scoped_refptr<FrameEncryptorInterface> frame_encryptor) {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   encoder_queue_.PostTask([this, frame_encryptor]() mutable {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
+    RTC_CHECK_RUN_ON(&encoder_queue_);
     frame_encryptor_ = std::move(frame_encryptor);
   });
 }

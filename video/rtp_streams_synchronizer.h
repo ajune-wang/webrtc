@@ -54,8 +54,8 @@ class RtpStreamsSynchronizer : public Module {
   StreamSynchronization::Measurements audio_measurement_ RTC_GUARDED_BY(crit_);
   StreamSynchronization::Measurements video_measurement_ RTC_GUARDED_BY(crit_);
 
-  rtc::ThreadChecker process_thread_checker_;
-  int64_t last_sync_time_ RTC_GUARDED_BY(&process_thread_checker_);
+  RTC_THREAD_CHECKER(process_thread_checker_);
+  int64_t last_sync_time_ RTC_GUARDED_BY_THREAD(&process_thread_checker_);
 };
 
 }  // namespace webrtc

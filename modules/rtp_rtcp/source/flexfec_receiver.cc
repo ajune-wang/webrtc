@@ -52,7 +52,7 @@ FlexfecReceiver::FlexfecReceiver(
       last_recovered_packet_ms_(-1) {
   // It's OK to create this object on a different thread/task queue than
   // the one used during main operation.
-  sequence_checker_.Detach();
+  RTC_DETACH_FROM_SEQUENCE(sequence_checker_);
 }
 
 FlexfecReceiver::~FlexfecReceiver() = default;

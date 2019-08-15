@@ -61,6 +61,14 @@ const double kBitratePriority = 1.0;
 const int kMaxFramerateFps = 30;
 const int kMaxQp = 56;
 
+void BreakLogInLines(const std::string& log) {
+  // Android has a 1024 chars limit on log inputs
+  // so we need to split the log.
+  for (const auto& line : absl::StrSplit(log, '\n')) {
+    RTC_LOG(LS_INFO) << line;
+  }
+}
+
 void ConfigureSimulcast(VideoCodec* codec_settings) {
   const std::vector<webrtc::VideoStream> streams = cricket::GetSimulcastConfig(
       codec_settings->numberOfSimulcastStreams, codec_settings->width,
@@ -541,7 +549,7 @@ void VideoCodecTestFixtureImpl::AnalyzeAllFrames(
     }
   }
 
-  RTC_LOG(LS_INFO) << log_output.str();
+  BreakLogInLines(log_output.str());
   cpu_process_time_->Print();
 }
 
@@ -736,7 +744,7 @@ void VideoCodecTestFixtureImpl::PrintSettings(
   log_output << "enc_impl_name: " << encoder_name << "\n";
   log_output << "dec_impl_name: " << decoder_name << "\n";
 
-  RTC_LOG(LS_INFO) << log_output.str();
+  BreakLogInLines(log_output.str());
 }
 
 }  // namespace test

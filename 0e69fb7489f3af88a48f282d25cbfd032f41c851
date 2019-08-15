@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d1c1650_31063281",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-15T12:40:20Z",
+      "side": 1,
+      "message": "I see a few issues here:\n\n1. Is it supposed to work for value \u003c 0 ? If not, would be good to document with a DCHECK.\n\n2. Can\u0027t it be simplified to (value + kDivisor/2) / kDivisor? If there\u0027s some problem with odd kDivisor, add a static_assert to enforce that kDivisor is even. An addition like that has some potential for overflow, but I would expect that it can\u0027t happen for the below usecases.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 1
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5477f14c_e08b5621",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-15T12:40:20Z",
+      "side": 1,
+      "message": "This explicitly wants to handle input  \u003c 0, to get division corresponding to floor(input / kInputSecondsDivisor). I think a helper function to do that may make sense.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 3
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3832d86_b0b8e757",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-15T12:40:20Z",
+      "side": 1,
+      "message": "This should be non-negative, and bounded away from the type limit, to allow DivideAndRound to be simpler.\n\nTo me, the templating makes hard to reason about the correctness, with concrete types, it would be easier to be sure that the multiplication can\u0027t overflow. Risk for overflow would also be reduced of we took out common factors of kInputSecondsDivisor and kOutputSecondsMultiplier.\n\nAlso, it\u0027s not clear to me why we separate seconds and fractions at all; I would understand it if the unix time was represented with separate seconds and fraction (ms or us), but since we don\u0027t do that? Can\u0027t we just treat unix time as a flat time in units of 1^-3 s, and ntp time as a flat time in units of 2^-32 s, with a scaling factor of 0x2000000/125 in between? Maybe I\u0027m misunderstanding the ux32x32 format.",
+      "range": {
+        "startLine": 56,
+        "startChar": 10,
+        "endLine": 56,
+        "endChar": 53
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0360bb21_15a6e5d8",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-15T12:40:20Z",
+      "side": 1,
+      "message": "Is this a common representation of unix time in the code? I would have expected a seconds, microseconds pair, like in struct timeval.",
+      "range": {
+        "startLine": 63,
+        "startChar": 36,
+        "endLine": 63,
+        "endChar": 56
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "755abaea_cd451687",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-15T12:40:20Z",
+      "side": 1,
+      "message": "To convert durations, maybe it\u0027s better to add methods to the TimeDelta class? Sebastian, what\u0027s your opinion?",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 1
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

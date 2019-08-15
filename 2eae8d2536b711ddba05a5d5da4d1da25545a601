@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9468f713_b72b9269",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2019-08-15T10:20:22Z",
+      "side": 1,
+      "message": "It\u0027s not obvious from the names what these two members represent, can we rename them to something more descriptive?\ndid_adapt_last_time_ is a bit long, but something that better describes what they mean.",
+      "range": {
+        "startLine": 100,
+        "startChar": 6,
+        "endLine": 100,
+        "endChar": 20
+      },
+      "revId": "2eae8d2536b711ddba05a5d5da4d1da25545a601",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73ea2a6b_216a9533",
+        "filename": "modules/video_coding/utility/quality_scaler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2019-08-15T10:20:22Z",
+      "side": 1,
+      "message": "Would be good with a comment about the return value.",
+      "revId": "2eae8d2536b711ddba05a5d5da4d1da25545a601",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01335b6f_0173330b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1795,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2019-08-15T10:20:22Z",
+      "side": 1,
+      "message": "Should this be named something like \u0027did_adapt\u0027 instead? Or something similar.",
+      "revId": "2eae8d2536b711ddba05a5d5da4d1da25545a601",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

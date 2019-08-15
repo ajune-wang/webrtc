@@ -207,12 +207,12 @@ class EmulatedEndpoint : public EmulatedNetworkReceiverInterface {
   void UpdateReceiveStats(const EmulatedIpPacket& packet);
 
   rtc::CriticalSection receiver_lock_;
-  rtc::ThreadChecker enabled_state_checker_;
+  RTC_THREAD_CHECKER(enabled_state_checker_);
 
   uint64_t id_;
   // Peer's local IP address for this endpoint network interface.
   const rtc::IPAddress peer_local_addr_;
-  bool is_enabled_ RTC_GUARDED_BY(enabled_state_checker_);
+  bool is_enabled_ RTC_GUARDED_BY_THREAD(enabled_state_checker_);
   Clock* const clock_;
   rtc::TaskQueue* const task_queue_;
   std::unique_ptr<rtc::Network> network_;

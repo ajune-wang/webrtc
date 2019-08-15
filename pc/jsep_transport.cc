@@ -193,7 +193,7 @@ webrtc::RTCError JsepTransport::SetLocalJsepTransportDescription(
     SdpType type) {
   webrtc::RTCError error;
 
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   if (!VerifyIceParams(jsep_description)) {
     return webrtc::RTCError(webrtc::RTCErrorType::INVALID_PARAMETER,
                             "Invalid ice-ufrag or ice-pwd length.");
@@ -280,7 +280,7 @@ webrtc::RTCError JsepTransport::SetRemoteJsepTransportDescription(
     webrtc::SdpType type) {
   webrtc::RTCError error;
 
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   if (!VerifyIceParams(jsep_description)) {
     remote_description_.reset();
     return webrtc::RTCError(webrtc::RTCErrorType::INVALID_PARAMETER,
@@ -339,7 +339,7 @@ webrtc::RTCError JsepTransport::SetRemoteJsepTransportDescription(
 
 webrtc::RTCError JsepTransport::AddRemoteCandidates(
     const Candidates& candidates) {
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   if (!local_description_ || !remote_description_) {
     return webrtc::RTCError(webrtc::RTCErrorType::INVALID_STATE,
                             mid() +
@@ -373,7 +373,7 @@ void JsepTransport::SetNeedsIceRestartFlag() {
 }
 
 absl::optional<rtc::SSLRole> JsepTransport::GetDtlsRole() const {
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   rtc::CritScope scope(&accessor_lock_);
   RTC_DCHECK(rtp_dtls_transport_);
   RTC_DCHECK(rtp_dtls_transport_->internal());

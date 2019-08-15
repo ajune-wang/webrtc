@@ -218,7 +218,7 @@ class DtlsTransport : public DtlsTransportInternal {
   // Sets the DTLS state, signaling if necessary.
   void set_dtls_state(DtlsTransportState state);
 
-  rtc::ThreadChecker thread_checker_;
+  RTC_THREAD_CHECKER(thread_checker_);
 
   std::string transport_name_;
   int component_;

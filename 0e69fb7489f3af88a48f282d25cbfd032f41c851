@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "be5dfd42_b2c71651",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-15T13:46:26Z",
+      "side": 1,
+      "message": "1) The check is already there: `RTC_DCHECK_GE(value, 0);`\n\n2) I don\u0027t think that it\u0027s a good idea to make this helper method rely on external restrictions on `value` to guarantee that the calculations won\u0027t overflow. But I do like the idea of doing a `static_assert(kDivisor % 2 \u003d\u003d 0, ...)` to simplify the code a bit.",
+      "parentUuid": "9d1c1650_31063281",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 1
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5477f14c_e08b5621",
         "filename": "system_wrappers/source/ntp_time.cc",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fad53f8b_073a75f5",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-15T13:46:26Z",
+      "side": 1,
+      "message": "The intent is actually to make the remainder non-negative (i.e. \"modulo operation\" in some languages). I\u0027ll move this to another helper function.",
+      "parentUuid": "5477f14c_e08b5621",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 3
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3f2fa791_f774a06f",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-15T13:46:26Z",
+      "side": 1,
+      "message": "\u003e This should be non-negative, and bounded away from the type limit, to allow DivideAndRound to be simpler.\n\nBoth `input_fractional` and `kOutputSecondsMultiplier` are guaranteed to be non-negative (there is `RTC_DCHECK_GE` + `static_assert`).\n\n\u003e Also, it\u0027s not clear to me why we separate seconds and fractions at all; I would understand it if the unix time was represented with separate seconds and fraction (ms or us), but since we don\u0027t do that? Can\u0027t we just treat unix time as a flat time in units of 1^-3 s, and ntp time as a flat time in units of 2^-32 s, with a scaling factor of 0x2000000/125 in between? Maybe I\u0027m misunderstanding the ux32x32 format.\n\nThe split into seconds and fractions actually does exactly that. Unix time is treated as having a 10^3 divisor while the NTP time has a 2^32 divisor. The need to compensate for a difference in Unix/NTP epochs, combined with proper handling of overflows and rounding, leads us to a set of arithmetics like the ones used here.",
+      "parentUuid": "d3832d86_b0b8e757",
+      "range": {
+        "startLine": 56,
+        "startChar": 10,
+        "endLine": 56,
+        "endChar": 53
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0360bb21_15a6e5d8",
         "filename": "system_wrappers/source/ntp_time.cc",
         "patchSetId": 7
@@ -82,6 +154,30 @@
       "writtenOn": "2019-08-15T12:40:20Z",
       "side": 1,
       "message": "Is this a common representation of unix time in the code? I would have expected a seconds, microseconds pair, like in struct timeval.",
+      "range": {
+        "startLine": 63,
+        "startChar": 36,
+        "endLine": 63,
+        "endChar": 56
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f2909f9_5c2cfeff",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-15T13:46:26Z",
+      "side": 1,
+      "message": "Almost all WebRTC code uses `Clock::TimeInMilliseconds()` today:\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/system_wrappers/include/clock.h?l\u003d38\u0026rcl\u003d7c6f74ab0344e9c6201de711d54026e9990b8e6c",
+      "parentUuid": "0360bb21_15a6e5d8",
       "range": {
         "startLine": 63,
         "startChar": 36,
@@ -129,6 +225,30 @@
       "side": 1,
       "message": "I don\u0027t know the exact context of where this is intended to be used. But maybe we could just add Q-format compatible constructors to the Timestamp and TimeDelta classes.\n\nIdeally we should try to do avoid representing timestamps using raw integers as far as possible as such code tends to be inconsistent, mixing int32, int64, ms, us, seconds, etc, which in turn makes it error prone.\n\nCurrently we don\u0027t have a way to keep track of different time bases, it\u0027s mostly using the real time clock, but it\u0027s up to the developer to ensure that the value they are handling is in the right base. We could consider if we want to add specific variations of the Timestamp class representing different time bases such as unix epoch etc.",
       "parentUuid": "755abaea_cd451687",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 1
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c54fd622_36fd8466",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-15T13:46:26Z",
+      "side": 1,
+      "message": "Agreed in principle. If we have `absl::Time`, then I would probably push for it being used everywhere.\n\n`Timestamp` is unfortunately too new (i.e. the old code hasn\u0027t been changed to use it yet), and it does not have enough precision to safely \"forward\" UQ32.32-style NTP timestamps described at: https://tools.ietf.org/html/rfc3550#section-4",
+      "parentUuid": "8a4a03de_9be90de9",
       "range": {
         "startLine": 79,
         "startChar": 0,

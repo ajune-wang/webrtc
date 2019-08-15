@@ -42,6 +42,7 @@
 #include "modules/audio_coding/neteq/tools/rtp_file_source.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/event.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/message_digest.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/platform_thread.h"
@@ -1659,7 +1660,9 @@ class AcmSetBitRateTest : public ::testing::Test {
     int nr_bytes = 0;
     while (std::unique_ptr<test::Packet> next_packet =
                send_test_->NextPacket()) {
-      nr_bytes += rtc::checked_cast<int>(next_packet->payload_length_bytes());
+      auto cum = rtc::checked_cast<int>(next_packet->payload_length_bytes());
+      RTC_LOG(LS_WARNING) << "payload:" << cum;
+      nr_bytes += cum;
     }
     EXPECT_LE(min_expected_total_bits, nr_bytes * 8);
     EXPECT_GE(max_expected_total_bits, nr_bytes * 8);

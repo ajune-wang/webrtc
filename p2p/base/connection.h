@@ -11,6 +11,7 @@
 #ifndef P2P_BASE_CONNECTION_H_
 #define P2P_BASE_CONNECTION_H_
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -228,6 +229,11 @@ class Connection : public CandidatePairInterface,
   void HandlePiggybackCheckAcknowledgementIfAny(StunMessage* msg);
   int64_t last_data_received() const { return last_data_received_; }
 
+  // Returns the equivalent candidate pair and sanitizes the local and the
+  // remote candidates if necessary.
+  std::unique_ptr<CandidatePairInterface>
+  ToCandidatePairAndSanitizeIfNecessary() const;
+
   // Debugging description of this connection
   std::string ToDebugId() const;
   std::string ToString() const;
@@ -286,6 +292,16 @@ class Connection : public CandidatePairInterface,
 
  protected:
   enum { MSG_DELETE = 0, MSG_FIRST_AVAILABLE };
+
+  struct BasicCandidatePair : public CandidatePairInterface {
+    ~BasicCandidatePair() override = default;
+
+    const Candidate& local_candidate() const override { return local; }
+    const Candidate& remote_candidate() const override { return remote; }
+
+    Candidate local;
+    Candidate remote;
+  };
 
   // Constructs a new connection to the given remote port.
   Connection(Port* port, size_t index, const Candidate& candidate);

@@ -12,6 +12,7 @@
 #define P2P_BASE_FAKE_ICE_TRANSPORT_H_
 
 #include <map>
+#include <memory>
 #include <string>
 #include <utility>
 
@@ -206,7 +207,10 @@ class FakeIceTransport : public IceTransportInternal {
 
   absl::optional<int> GetRttEstimate() override { return absl::nullopt; }
 
-  const Connection* selected_connection() const override { return nullptr; }
+  std::unique_ptr<const CandidatePairInterface> GetSelectedCandidatePair()
+      const override {
+    return nullptr;
+  }
 
   // Fake PacketTransportInternal implementation.
   bool writable() const override { return writable_; }

@@ -3695,13 +3695,7 @@ bool PeerConnection::AddIceCandidate(
   if (ready) {
     bool result = UseCandidate(ice_candidate);
     if (result) {
-      NoteUsageEvent(UsageEvent::REMOTE_CANDIDATE_ADDED);
-      if (ice_candidate->candidate().address().IsUnresolvedIP()) {
-        NoteUsageEvent(UsageEvent::REMOTE_MDNS_CANDIDATE_ADDED);
-      }
-      if (ice_candidate->candidate().address().IsPrivateIP()) {
-        NoteUsageEvent(UsageEvent::REMOTE_PRIVATE_CANDIDATE_ADDED);
-      }
+      NoteUsageEvent(UsageEvent::ADD_ICE_CANDIDATE_SUCCEEDED);
       NoteAddIceCandidateResult(kAddIceCandidateSuccess);
     } else {
       NoteAddIceCandidateResult(kAddIceCandidateFailNotUsable);
@@ -4245,15 +4239,7 @@ void PeerConnection::OnIceCandidate(
   if (IsClosed()) {
     return;
   }
-  NoteUsageEvent(UsageEvent::CANDIDATE_COLLECTED);
-  if (candidate->candidate().type() == LOCAL_PORT_TYPE &&
-      candidate->candidate().address().IsPrivateIP()) {
-    NoteUsageEvent(UsageEvent::PRIVATE_CANDIDATE_COLLECTED);
-  }
-  if (candidate->candidate().type() == LOCAL_PORT_TYPE &&
-      candidate->candidate().address().IsUnresolvedIP()) {
-    NoteUsageEvent(UsageEvent::MDNS_CANDIDATE_COLLECTED);
-  }
+  ReportIceCandidateCollected(candidate->candidate());
   Observer()->OnIceCandidate(candidate.get());
 }
 
@@ -4280,6 +4266,12 @@ void PeerConnection::OnSelectedCandidatePairChanged(
   if (IsClosed()) {
     return;
   }
+
+  if (event.local_candidate.type() == LOCAL_PORT_TYPE &&
+      event.remote_candidate.type() == LOCAL_PORT_TYPE) {
+    NoteUsageEvent(UsageEvent::DIRECT_CONNECTION_SELECTED);
+  }
+
   Observer()->OnIceSelectedCandidatePairChanged(event);
 }
 
@@ -6344,6 +6336,7 @@ bool PeerConnection::UseCandidate(const IceCandidateInterface* candidate) {
   RTCError error = transport_controller_->AddRemoteCandidates(
       result.value()->name, candidates);
   if (error.ok()) {
+    ReportRemoteIceCandidateAdded(candidate->candidate());
     // Candidates successfully submitted for checking.
     if (ice_connection_state_ == PeerConnectionInterface::kIceConnectionNew ||
         ice_connection_state_ ==
@@ -6952,6 +6945,40 @@ void PeerConnection::ReportSdpFormatReceived(
   }
   RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.SdpFormatReceived", format,
                             kSdpFormatReceivedMax);
+}
+
+void PeerConnection::ReportIceCandidateCollected(
+    const cricket::Candidate& candidate) {
+  NoteUsageEvent(UsageEvent::CANDIDATE_COLLECTED);
+  if (candidate.type() != LOCAL_PORT_TYPE) {
+    return;
+  }
+  if (candidate.address().IsPrivateIP()) {
+    NoteUsageEvent(UsageEvent::PRIVATE_CANDIDATE_COLLECTED);
+  }
+  if (candidate.address().IsUnresolvedIP()) {
+    NoteUsageEvent(UsageEvent::MDNS_CANDIDATE_COLLECTED);
+  }
+  if (candidate.address().family() == AF_INET6) {
+    NoteUsageEvent(UsageEvent::IPV6_HOST_CANDIDATE_COLLECTED);
+  }
+}
+
+void PeerConnection::ReportRemoteIceCandidateAdded(
+    const cricket::Candidate& candidate) {
+  NoteUsageEvent(UsageEvent::REMOTE_CANDIDATE_ADDED);
+  if (candidate.type() != LOCAL_PORT_TYPE) {
+    return;
+  }
+  if (candidate.address().IsPrivateIP()) {
+    NoteUsageEvent(UsageEvent::REMOTE_PRIVATE_CANDIDATE_ADDED);
+  }
+  if (candidate.address().IsUnresolvedIP()) {
+    NoteUsageEvent(UsageEvent::REMOTE_MDNS_CANDIDATE_ADDED);
+  }
+  if (candidate.address().family() == AF_INET6) {
+    NoteUsageEvent(UsageEvent::REMOTE_IPV6_HOST_CANDIDATE_ADDED);
+  }
 }
 
 void PeerConnection::NoteUsageEvent(UsageEvent event) {

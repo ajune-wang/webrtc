@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "d4ba60d0_da0fd0f8",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-15T17:49:05Z",
+      "side": 1,
+      "message": "How about just `CandidatePair`\n\nCan also mark final if you\u0027d like.",
+      "range": {
+        "startLine": 40,
+        "startChar": 7,
+        "endLine": 40,
+        "endChar": 25
+      },
+      "revId": "7dbad428c161b901cb43fd30bce3532a0d3e02c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7da01cd_330900fb",
         "filename": "p2p/base/fake_ice_transport.h",
         "patchSetId": 4

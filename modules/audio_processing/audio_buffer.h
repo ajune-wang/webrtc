@@ -52,8 +52,7 @@ class AudioBuffer {
   // Where:
   // 0 <= channel < |num_proc_channels_|
   // 0 <= sample < |proc_num_frames_|
-  int16_t* const* channels();
-  const int16_t* const* channels_const() const;
+  // int16_t* const* channels();
   float* const* channels_f();
   const float* const* channels_const_f() const;
 
@@ -64,8 +63,6 @@ class AudioBuffer {
   // 0 <= channel < |num_proc_channels_|
   // 0 <= band < |num_bands_|
   // 0 <= sample < |num_split_frames_|
-  int16_t* const* split_bands(size_t channel);
-  const int16_t* const* split_bands_const(size_t channel) const;
   float* const* split_bands_f(size_t channel);
   const float* const* split_bands_const_f(size_t channel) const;
 
@@ -76,7 +73,7 @@ class AudioBuffer {
   // 0 <= band < |num_bands_|
   // 0 <= channel < |num_proc_channels_|
   // 0 <= sample < |num_split_frames_|
-  const int16_t* const* split_channels_const(Band band) const;
+  const float* const* split_channels_const_f(Band band) const;
 
   // Use for int16 interleaved data.
   void DeinterleaveFrom(const AudioFrame* audioFrame);
@@ -92,6 +89,32 @@ class AudioBuffer {
   void SplitIntoFrequencyBands();
   // Recombine the different bands into one signal.
   void MergeFrequencyBands();
+
+  // Copies the split bands data into the integer two-dimensional array.
+  void CopySplitChannelDataTo(size_t channel, int16_t* const* split_band_data) {
+    for (size_t k = 0; k < num_bands(); ++k) {
+      const float* band_data = split_bands_f(channel)[k];
+      RTC_DCHECK(split_band_data[k]);
+      RTC_DCHECK(band_data);
+      for (size_t i = 0; i < num_frames_per_band(); ++i) {
+        split_band_data[k][i] = FloatS16ToS16(band_data[i]);
+      }
+    }
+  }
+
+  // Copies the data in the integer two-dimensional array into the split_bands
+  // data.
+  void CopySplitChannelDataFrom(size_t channel,
+                                const int16_t* const* split_band_data) {
+    for (size_t k = 0; k < num_bands(); ++k) {
+      float* band_data = split_bands_f(channel)[k];
+      RTC_DCHECK(split_band_data[k]);
+      RTC_DCHECK(band_data);
+      for (size_t i = 0; i < num_frames_per_band(); ++i) {
+        band_data[i] = split_band_data[k][i];
+      }
+    }
+  }
 
  private:
   FRIEND_TEST_ALL_PREFIXES(AudioBufferTest,

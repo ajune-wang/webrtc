@@ -169,29 +169,11 @@ void AudioBuffer::InitForNewData() {
   }
 }
 
-const int16_t* const* AudioBuffer::channels_const() const {
-  return data_->ibuf_const()->channels();
-}
-
-int16_t* const* AudioBuffer::channels() {
-  return data_->ibuf()->channels();
-}
-
-const int16_t* const* AudioBuffer::split_bands_const(size_t channel) const {
-  return split_data_.get() ? split_data_->ibuf_const()->bands(channel)
-                           : data_->ibuf_const()->bands(channel);
-}
-
-int16_t* const* AudioBuffer::split_bands(size_t channel) {
-  return split_data_.get() ? split_data_->ibuf()->bands(channel)
-                           : data_->ibuf()->bands(channel);
-}
-
-const int16_t* const* AudioBuffer::split_channels_const(Band band) const {
+const float* const* AudioBuffer::split_channels_const_f(Band band) const {
   if (split_data_.get()) {
-    return split_data_->ibuf_const()->channels(band);
+    return split_data_->fbuf_const()->channels(band);
   } else {
-    return band == kBand0To8kHz ? data_->ibuf_const()->channels() : nullptr;
+    return band == kBand0To8kHz ? data_->fbuf_const()->channels() : nullptr;
   }
 }
 

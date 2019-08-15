@@ -16,6 +16,24 @@
       "revId": "58ee187554a78ade9dbd95d76b5d8d892f84c7f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe0227d1_7b0246e0",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-15T14:54:20Z",
+      "side": 1,
+      "message": "Yes the scope is quite large, but just to be clear that did not change in this cl. The old code path took that same lock in PacketRouter::TimeToSendPacket() on L110.\nAt the moment it\u0027s not going to be easy to either remove or reduce the scope of that lock.\nThat said I am working on a refactorings that will allow to do that, most importantly a PacedSender that is run by TaskQueue instead of a module processing thread. Count on it being a number of weeks before we can do that, so if you are working on a deadlock (https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d10861 ?) I would suggest other avenues, such as not posting synchronous tasks to a single-threaded task queue...",
+      "parentUuid": "cbcaac8c_a0e0778b",
+      "revId": "58ee187554a78ade9dbd95d76b5d8d892f84c7f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

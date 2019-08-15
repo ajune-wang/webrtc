@@ -30,6 +30,11 @@ constexpr int kFl20msTo60msBandwidthBps = 40000;
 constexpr int kFl60msTo20msBandwidthBps = 50000;
 constexpr int kFl60msTo120msBandwidthBps = 30000;
 constexpr int kFl120msTo60msBandwidthBps = 40000;
+constexpr int kFl20msTo40msBandwidthBps = 45000;
+constexpr int kFl40msTo20msBandwidthBps = 50000;
+constexpr int kFl40msTo60msBandwidthBps = 40000;
+constexpr int kFl60msTo40msBandwidthBps = 45000;
+
 constexpr int kMediumBandwidthBps =
     (kFl60msTo20msBandwidthBps + kFl20msTo60msBandwidthBps) / 2;
 constexpr float kMediumPacketLossFraction =
@@ -65,6 +70,15 @@ CreateChangeCriteriaFor20msAnd60ms() {
 }
 
 std::map<FrameLengthController::Config::FrameLengthChange, int>
+CreateChangeCriteriaFor20msAnd40ms() {
+  return std::map<FrameLengthController::Config::FrameLengthChange, int>{
+      {FrameLengthController::Config::FrameLengthChange(20, 40),
+       kFl20msTo40msBandwidthBps},
+      {FrameLengthController::Config::FrameLengthChange(40, 20),
+       kFl40msTo20msBandwidthBps}};
+}
+
+std::map<FrameLengthController::Config::FrameLengthChange, int>
 CreateChangeCriteriaFor20ms60msAnd120ms() {
   return std::map<FrameLengthController::Config::FrameLengthChange, int>{
       {FrameLengthController::Config::FrameLengthChange(20, 60),
@@ -75,6 +89,15 @@ CreateChangeCriteriaFor20ms60msAnd120ms() {
        kFl60msTo120msBandwidthBps},
       {FrameLengthController::Config::FrameLengthChange(120, 60),
        kFl120msTo60msBandwidthBps}};
+}
+
+std::map<FrameLengthController::Config::FrameLengthChange, int>
+CreateChangeCriteriaFor40msAnd60ms() {
+  return std::map<FrameLengthController::Config::FrameLengthChange, int>{
+      {FrameLengthController::Config::FrameLengthChange(40, 60),
+       kFl40msTo60msBandwidthBps},
+      {FrameLengthController::Config::FrameLengthChange(60, 40),
+       kFl60msTo40msBandwidthBps}};
 }
 
 void UpdateNetworkMetrics(
@@ -135,6 +158,28 @@ TEST(FrameLengthControllerTest,
   // Set FEC on that would cause frame length to decrease if receiver frame
   // length range included 20ms.
   CheckDecision(controller.get(), 60);
+}
+
+TEST(FrameLengthControllerTest, IncreaseTo40MsOnMultipleConditions) {
+  // Increase to 40ms frame length if
+  // 1. |uplink_bandwidth_bps| is known to be smaller than a threshold AND
+  // 2. |uplink_packet_loss_fraction| is known to be smaller than a threshold
+  //    AND
+  // 3. FEC is not decided or OFF.
+  auto controller =
+      CreateController(CreateChangeCriteriaFor20msAnd40ms(), {20, 40}, 20);
+  UpdateNetworkMetrics(controller.get(), kFl20msTo40msBandwidthBps,
+                       kFlIncreasingPacketLossFraction,
+                       kOverheadBytesPerPacket);
+  CheckDecision(controller.get(), 40);
+}
+
+TEST(FrameLengthControllerTest, DecreaseTo40MsOnHighUplinkBandwidth) {
+  auto controller =
+      CreateController(CreateChangeCriteriaFor40msAnd60ms(), {40, 60}, 40);
+  UpdateNetworkMetrics(controller.get(), kFl60msTo40msBandwidthBps,
+                       absl::nullopt, kOverheadBytesPerPacket);
+  CheckDecision(controller.get(), 40);
 }
 
 TEST(FrameLengthControllerTest, Maintain60MsOnMultipleConditions) {

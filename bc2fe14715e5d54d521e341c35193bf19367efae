@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4465e161_422a3a1b",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_fixture_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-08-15T11:24:49Z",
+      "side": 1,
+      "message": "I think using an std::stringstream and then combining it with std::getline would be cleaner.\n\nYou can look at an example here: https://en.cppreference.com/w/cpp/string/basic_string/getline",
+      "range": {
+        "startLine": 71,
+        "startChar": 6,
+        "endLine": 71,
+        "endChar": 24
+      },
+      "revId": "bc2fe14715e5d54d521e341c35193bf19367efae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

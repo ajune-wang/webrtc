@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "42a6b343_54a2c85a",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-15T16:01:52Z",
+      "side": 1,
+      "message": "The precision loss might actually be less of a problem than I originally thought since `NptTime::kFractionsPerSecond` is a power of 2 (i.e. using it as a divisor/factor won\u0027t affect the floating point value\u0027s mantissa).\n\nThe main requirements for these conversions functions are:\n\n1. Must be able to survive a Millisecond -\u003e UQ32.32 -\u003e Millisecond round-trip for every non-overflowing value.\n\n2. Should ideally overflow gracefully. UQ32.32 NTP timestamps overflow in year 2036.\n\nSome more testing is needed to verify the floating-point solution for (1), and I\u0027m now leaning towards that we should just ignore (2) for now.",
+      "parentUuid": "58edf08a_8260cf15",
+      "range": {
+        "startLine": 56,
+        "startChar": 10,
+        "endLine": 56,
+        "endChar": 53
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0360bb21_15a6e5d8",
         "filename": "system_wrappers/source/ntp_time.cc",
         "patchSetId": 7
@@ -250,6 +274,30 @@
       "side": 1,
       "message": "But TimeInMilliseconds does *not* return time relative to the unix epoch.",
       "parentUuid": "7f2909f9_5c2cfeff",
+      "range": {
+        "startLine": 63,
+        "startChar": 36,
+        "endLine": 63,
+        "endChar": 56
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60214aad_253bfa1e",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-15T16:01:52Z",
+      "side": 1,
+      "message": "That\u0027s a very, very good point. We have to use the offset from `NtpOffsetMs()` like the RTCP sender code does.\n\nI\u0027ll re-locate these conversion function to `modules/rtp_rtcp/source/time_util.cc`.",
+      "parentUuid": "69ee3066_f5791b6a",
       "range": {
         "startLine": 63,
         "startChar": 36,

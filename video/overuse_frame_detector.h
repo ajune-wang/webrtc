@@ -123,29 +123,32 @@ class OveruseFrameDetector {
   static std::unique_ptr<ProcessingUsage> CreateProcessingUsage(
       const CpuOveruseOptions& options);
 
-  SequenceChecker task_checker_;
+  RTC_SEQUENCE_CHECKER(task_checker_);
   // Owned by the task queue from where StartCheckForOveruse is called.
-  RepeatingTaskHandle check_overuse_task_ RTC_GUARDED_BY(task_checker_);
+  RepeatingTaskHandle check_overuse_task_
+      RTC_GUARDED_BY_SEQUENCE(task_checker_);
 
   // Stats metrics.
   CpuOveruseMetricsObserver* const metrics_observer_;
-  absl::optional<int> encode_usage_percent_ RTC_GUARDED_BY(task_checker_);
+  absl::optional<int> encode_usage_percent_
+      RTC_GUARDED_BY_SEQUENCE(task_checker_);
 
-  int64_t num_process_times_ RTC_GUARDED_BY(task_checker_);
+  int64_t num_process_times_ RTC_GUARDED_BY_SEQUENCE(task_checker_);
 
-  int64_t last_capture_time_us_ RTC_GUARDED_BY(task_checker_);
+  int64_t last_capture_time_us_ RTC_GUARDED_BY_SEQUENCE(task_checker_);
 
   // Number of pixels of last captured frame.
-  int num_pixels_ RTC_GUARDED_BY(task_checker_);
-  int max_framerate_ RTC_GUARDED_BY(task_checker_);
-  int64_t last_overuse_time_ms_ RTC_GUARDED_BY(task_checker_);
-  int checks_above_threshold_ RTC_GUARDED_BY(task_checker_);
-  int num_overuse_detections_ RTC_GUARDED_BY(task_checker_);
-  int64_t last_rampup_time_ms_ RTC_GUARDED_BY(task_checker_);
-  bool in_quick_rampup_ RTC_GUARDED_BY(task_checker_);
-  int current_rampup_delay_ms_ RTC_GUARDED_BY(task_checker_);
+  int num_pixels_ RTC_GUARDED_BY_SEQUENCE(task_checker_);
+  int max_framerate_ RTC_GUARDED_BY_SEQUENCE(task_checker_);
+  int64_t last_overuse_time_ms_ RTC_GUARDED_BY_SEQUENCE(task_checker_);
+  int checks_above_threshold_ RTC_GUARDED_BY_SEQUENCE(task_checker_);
+  int num_overuse_detections_ RTC_GUARDED_BY_SEQUENCE(task_checker_);
+  int64_t last_rampup_time_ms_ RTC_GUARDED_BY_SEQUENCE(task_checker_);
+  bool in_quick_rampup_ RTC_GUARDED_BY_SEQUENCE(task_checker_);
+  int current_rampup_delay_ms_ RTC_GUARDED_BY_SEQUENCE(task_checker_);
 
-  std::unique_ptr<ProcessingUsage> usage_ RTC_PT_GUARDED_BY(task_checker_);
+  std::unique_ptr<ProcessingUsage> usage_
+      RTC_PT_GUARDED_BY_SEQUENCE(task_checker_);
 
   // If set by field trial, overrides CpuOveruseOptions::filter_time_ms.
   FieldTrialOptional<TimeDelta> filter_time_constant_{"tau"};

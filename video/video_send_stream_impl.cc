@@ -252,7 +252,7 @@ VideoSendStreamImpl::VideoSendStreamImpl(
       weak_ptr_factory_(this),
       media_transport_(media_transport) {
   video_stream_encoder->SetFecControllerOverride(rtp_video_sender_);
-  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_CHECK_RUN_ON(worker_queue_);
   RTC_LOG(LS_INFO) << "VideoSendStreamInternal: " << config_->ToString();
   weak_ptr_ = weak_ptr_factory_.GetWeakPtr();
 
@@ -338,7 +338,7 @@ VideoSendStreamImpl::VideoSendStreamImpl(
 }
 
 VideoSendStreamImpl::~VideoSendStreamImpl() {
-  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_CHECK_RUN_ON(worker_queue_);
   RTC_DCHECK(!rtp_video_sender_->IsActive())
       << "VideoSendStreamImpl::Stop not called";
   RTC_LOG(LS_INFO) << "~VideoSendStreamInternal: " << config_->ToString();
@@ -365,7 +365,7 @@ void VideoSendStreamImpl::DeliverRtcp(const uint8_t* packet, size_t length) {
 
 void VideoSendStreamImpl::UpdateActiveSimulcastLayers(
     const std::vector<bool> active_layers) {
-  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_CHECK_RUN_ON(worker_queue_);
   RTC_LOG(LS_INFO) << "VideoSendStream::UpdateActiveSimulcastLayers";
   bool previously_active = rtp_video_sender_->IsActive();
   rtp_video_sender_->SetActiveModules(active_layers);
@@ -379,7 +379,7 @@ void VideoSendStreamImpl::UpdateActiveSimulcastLayers(
 }
 
 void VideoSendStreamImpl::Start() {
-  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_CHECK_RUN_ON(worker_queue_);
   RTC_LOG(LS_INFO) << "VideoSendStream::Start";
   if (rtp_video_sender_->IsActive())
     return;
@@ -389,7 +389,7 @@ void VideoSendStreamImpl::Start() {
 }
 
 void VideoSendStreamImpl::StartupVideoSendStream() {
-  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_CHECK_RUN_ON(worker_queue_);
   bitrate_allocator_->AddObserver(this, GetAllocationConfig());
   // Start monitoring encoder activity.
   {
@@ -399,7 +399,7 @@ void VideoSendStreamImpl::StartupVideoSendStream() {
     timed_out_ = false;
     check_encoder_activity_task_ = RepeatingTaskHandle::DelayedStart(
         worker_queue_->Get(), kEncoderTimeOut, [this] {
-          RTC_DCHECK_RUN_ON(worker_queue_);
+          RTC_CHECK_RUN_ON(worker_queue_);
           if (!activity_) {
             if (!timed_out_) {
               SignalEncoderTimedOut();
@@ -419,7 +419,7 @@ void VideoSendStreamImpl::StartupVideoSendStream() {
 }
 
 void VideoSendStreamImpl::Stop() {
-  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_CHECK_RUN_ON(worker_queue_);
   RTC_LOG(LS_INFO) << "VideoSendStream::Stop";
   if (!rtp_video_sender_->IsActive())
     return;
@@ -437,7 +437,7 @@ void VideoSendStreamImpl::StopVideoSendStream() {
 }
 
 void VideoSendStreamImpl::SignalEncoderTimedOut() {
-  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_CHECK_RUN_ON(worker_queue_);
   // If the encoder has not produced anything the last kEncoderTimeOut and it
   // is supposed to, deregister as BitrateAllocatorObserver. This can happen
   // if a camera stops producing frames.
@@ -459,7 +459,7 @@ void VideoSendStreamImpl::OnBitrateAllocationUpdated(
     return;
   }
 
-  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_CHECK_RUN_ON(worker_queue_);
 
   int64_t now_ms = clock_->TimeInMilliseconds();
   if (encoder_target_rate_bps_ != 0) {
@@ -497,7 +497,7 @@ void VideoSendStreamImpl::OnBitrateAllocationUpdated(
 }
 
 void VideoSendStreamImpl::SignalEncoderActive() {
-  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_CHECK_RUN_ON(worker_queue_);
   if (rtp_video_sender_->IsActive()) {
     RTC_LOG(LS_INFO) << "SignalEncoderActive, Encoder is active.";
     bitrate_allocator_->AddObserver(this, GetAllocationConfig());
@@ -532,7 +532,7 @@ void VideoSendStreamImpl::OnEncoderConfigurationChanged(
   RTC_DCHECK_GE(config_->rtp.ssrcs.size(), streams.size());
   TRACE_EVENT0("webrtc", "VideoSendStream::OnEncoderConfigurationChanged");
   RTC_DCHECK_GE(config_->rtp.ssrcs.size(), streams.size());
-  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_CHECK_RUN_ON(worker_queue_);
 
   encoder_min_bitrate_bps_ =
       std::max(streams[0].min_bitrate_bps,
@@ -597,7 +597,7 @@ EncodedImageCallback::Result VideoSendStreamImpl::OnEncodedImage(
 
   auto enable_padding_task = [this]() {
     if (disable_padding_) {
-      RTC_DCHECK_RUN_ON(worker_queue_);
+      RTC_CHECK_RUN_ON(worker_queue_);
       disable_padding_ = false;
       // To ensure that padding bitrate is propagated to the bitrate allocator.
       SignalEncoderActive();
@@ -640,7 +640,7 @@ EncodedImageCallback::Result VideoSendStreamImpl::OnEncodedImage(
   rtc::WeakPtr<VideoSendStreamImpl> send_stream = weak_ptr_;
   auto update_task = [send_stream]() {
     if (send_stream) {
-      RTC_DCHECK_RUN_ON(send_stream->worker_queue_);
+      RTC_CHECK_RUN_ON(send_stream->worker_queue_);
       auto& context = send_stream->video_bitrate_allocation_context_;
       if (context && context->throttled_allocation) {
         send_stream->OnBitrateAllocationUpdated(*context->throttled_allocation);
@@ -666,7 +666,7 @@ std::map<uint32_t, RtpPayloadState> VideoSendStreamImpl::GetRtpPayloadStates()
 }
 
 uint32_t VideoSendStreamImpl::OnBitrateUpdated(BitrateAllocationUpdate update) {
-  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_CHECK_RUN_ON(worker_queue_);
   RTC_DCHECK(rtp_video_sender_->IsActive())
       << "VideoSendStream::Start has not been called.";
 

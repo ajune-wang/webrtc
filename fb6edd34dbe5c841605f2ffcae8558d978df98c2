@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc47aa1e_586a6eb8",
+        "filename": "pc/peer_connection_histogram_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-15T06:33:45Z",
+      "side": 0,
+      "message": "Note: this existing test is deleted because it does not achieve what it assumes. The kNoHost type is unfortunately not respected in the lower layer if the IP is public (please see https://cs.chromium.org/chromium/src/third_party/webrtc/p2p/client/basic_port_allocator.cc?l\u003d131). So we actually have a host-host connection in this test. For the private IP case we have tests below to cover that, and also tests to cover the case when the new bit for the host-host connection should not be set.",
+      "range": {
+        "startLine": 411,
+        "startChar": 41,
+        "endLine": 411,
+        "endChar": 48
+      },
+      "revId": "fb6edd34dbe5c841605f2ffcae8558d978df98c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

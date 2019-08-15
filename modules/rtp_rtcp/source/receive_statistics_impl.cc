@@ -166,6 +166,20 @@ void StreamStatisticianImpl::EnableRetransmitDetection(bool enable) {
   enable_retransmit_detection_ = enable;
 }
 
+RtcpStatistics StreamStatisticianImpl::GetStats() const {
+  rtc::CritScope cs(&stream_lock_);
+  RtcpStatistics stats;
+  stats.fraction_lost = -1;  // Used only for receiver report blocks, not
+                             // GetStats.
+  stats.packets_lost = cumulative_loss_;
+  stats.extended_highest_sequence_number =
+      static_cast<uint32_t>(received_seq_max_);
+  // Note: internal jitter value is in Q4 and needs to be scaled by 1/16.
+  stats.jitter = jitter_q4_ >> 4;
+
+  return stats;
+}
+
 bool StreamStatisticianImpl::GetStatistics(RtcpStatistics* statistics,
                                            bool reset) {
   rtc::CritScope cs(&stream_lock_);

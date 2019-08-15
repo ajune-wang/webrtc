@@ -233,6 +233,7 @@ TEST_F(ReceiveStatisticsTest, GetReceiveStreamDataCounters) {
   EXPECT_EQ(2u, counters.transmitted.packets);
 }
 
+#if 0
 TEST_F(ReceiveStatisticsTest, SimpleLossComputation) {
   packet1_.SetSequenceNumber(1);
   receive_statistics_->OnRtpPacket(packet1_);
@@ -458,6 +459,7 @@ TEST_F(ReceiveStatisticsTest, WrapsAroundExtendedHighestSequenceNumber) {
                                                               true);
   EXPECT_EQ(0x20001u, statistics.extended_highest_sequence_number);
 }
+#endif
 
 TEST_F(ReceiveStatisticsTest, StreamDataCounters) {
   receive_statistics_ = ReceiveStatistics::Create(&clock_);

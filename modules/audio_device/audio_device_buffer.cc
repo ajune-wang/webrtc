@@ -359,7 +359,7 @@ void AudioDeviceBuffer::StopPeriodicLogging() {
 }
 
 void AudioDeviceBuffer::LogStats(LogState state) {
-  RTC_DCHECK_RUN_ON(&task_queue_);
+  RTC_CHECK_RUN_ON(&task_queue_);
   int64_t now_time = rtc::TimeMillis();
 
   if (state == AudioDeviceBuffer::LOG_START) {
@@ -450,14 +450,14 @@ void AudioDeviceBuffer::LogStats(LogState state) {
 }
 
 void AudioDeviceBuffer::ResetRecStats() {
-  RTC_DCHECK_RUN_ON(&task_queue_);
+  RTC_CHECK_RUN_ON(&task_queue_);
   last_stats_.ResetRecStats();
   rtc::CritScope cs(&lock_);
   stats_.ResetRecStats();
 }
 
 void AudioDeviceBuffer::ResetPlayStats() {
-  RTC_DCHECK_RUN_ON(&task_queue_);
+  RTC_CHECK_RUN_ON(&task_queue_);
   last_stats_.ResetPlayStats();
   rtc::CritScope cs(&lock_);
   stats_.ResetPlayStats();

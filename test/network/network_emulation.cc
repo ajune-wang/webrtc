@@ -30,7 +30,7 @@ EmulatedIpPacket::EmulatedIpPacket(const rtc::SocketAddress& from,
 void LinkEmulation::OnPacketReceived(EmulatedIpPacket packet) {
   struct Closure {
     void operator()() {
-      RTC_DCHECK_RUN_ON(link->task_queue_);
+      RTC_CHECK_RUN_ON(link->task_queue_);
       link->HandlePacketReceived(std::move(packet));
     }
     LinkEmulation* link;
@@ -57,7 +57,7 @@ void LinkEmulation::HandlePacketReceived(EmulatedIpPacket packet) {
       task_queue_->Get(),
       std::max(TimeDelta::Zero(), Timestamp::us(*next_time_us) - current_time),
       [this]() {
-        RTC_DCHECK_RUN_ON(task_queue_);
+        RTC_CHECK_RUN_ON(task_queue_);
         Timestamp current_time = clock_->CurrentTime();
         Process(current_time);
         absl::optional<int64_t> next_time_us =
@@ -101,7 +101,7 @@ NetworkRouterNode::NetworkRouterNode(rtc::TaskQueue* task_queue)
     : task_queue_(task_queue) {}
 
 void NetworkRouterNode::OnPacketReceived(EmulatedIpPacket packet) {
-  RTC_DCHECK_RUN_ON(task_queue_);
+  RTC_CHECK_RUN_ON(task_queue_);
   if (watcher_) {
     watcher_(packet);
   }
@@ -118,7 +118,7 @@ void NetworkRouterNode::SetReceiver(
     rtc::IPAddress dest_ip,
     EmulatedNetworkReceiverInterface* receiver) {
   task_queue_->PostTask([=] {
-    RTC_DCHECK_RUN_ON(task_queue_);
+    RTC_CHECK_RUN_ON(task_queue_);
     EmulatedNetworkReceiverInterface* cur_receiver = routing_[dest_ip];
     RTC_CHECK(cur_receiver == nullptr || cur_receiver == receiver)
         << "Routing for dest_ip=" << dest_ip.ToString() << " already exists";
@@ -127,14 +127,14 @@ void NetworkRouterNode::SetReceiver(
 }
 
 void NetworkRouterNode::RemoveReceiver(rtc::IPAddress dest_ip) {
-  RTC_DCHECK_RUN_ON(task_queue_);
+  RTC_CHECK_RUN_ON(task_queue_);
   routing_.erase(dest_ip);
 }
 
 void NetworkRouterNode::SetWatcher(
     std::function<void(const EmulatedIpPacket&)> watcher) {
   task_queue_->PostTask([=] {
-    RTC_DCHECK_RUN_ON(task_queue_);
+    RTC_CHECK_RUN_ON(task_queue_);
     watcher_ = watcher;
   });
 }
@@ -195,7 +195,7 @@ EmulatedEndpoint::EmulatedEndpoint(uint64_t id,
       prefix_length, rtc::AdapterType::ADAPTER_TYPE_UNKNOWN);
   network_->AddIP(ip);
 
-  enabled_state_checker_.Detach();
+  RTC_DETACH_FROM_THREAD(enabled_state_checker_);
 }
 EmulatedEndpoint::~EmulatedEndpoint() = default;
 
@@ -271,7 +271,7 @@ rtc::IPAddress EmulatedEndpoint::GetPeerLocalAddress() const {
 }
 
 void EmulatedEndpoint::OnPacketReceived(EmulatedIpPacket packet) {
-  RTC_DCHECK_RUN_ON(task_queue_);
+  RTC_CHECK_RUN_ON(task_queue_);
   RTC_CHECK(packet.to.ipaddr() == peer_local_addr_)
       << "Routing error: wrong destination endpoint. Packet.to.ipaddr()=: "
       << packet.to.ipaddr().ToString()
@@ -313,12 +313,12 @@ bool EmulatedEndpoint::Enabled() const {
 }
 
 EmulatedNetworkStats EmulatedEndpoint::stats() {
-  RTC_DCHECK_RUN_ON(task_queue_);
+  RTC_CHECK_RUN_ON(task_queue_);
   return stats_;
 }
 
 void EmulatedEndpoint::UpdateSendStats(const EmulatedIpPacket& packet) {
-  RTC_DCHECK_RUN_ON(task_queue_);
+  RTC_CHECK_RUN_ON(task_queue_);
   Timestamp current_time = clock_->CurrentTime();
   if (stats_.first_packet_sent_time.IsInfinite()) {
     stats_.first_packet_sent_time = current_time;
@@ -330,7 +330,7 @@ void EmulatedEndpoint::UpdateSendStats(const EmulatedIpPacket& packet) {
 }
 
 void EmulatedEndpoint::UpdateReceiveStats(const EmulatedIpPacket& packet) {
-  RTC_DCHECK_RUN_ON(task_queue_);
+  RTC_CHECK_RUN_ON(task_queue_);
   Timestamp current_time = clock_->CurrentTime();
   if (stats_.first_packet_received_time.IsInfinite()) {
     stats_.first_packet_received_time = current_time;

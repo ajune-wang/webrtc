@@ -29,16 +29,18 @@ class SvcRateAllocator : public VideoBitrateAllocator {
   VideoBitrateAllocation Allocate(
       VideoBitrateAllocationParameters parameters) override;
 
-  static uint32_t GetMaxBitrateBps(const VideoCodec& codec);
-  static uint32_t GetPaddingBitrateBps(const VideoCodec& codec);
+  static DataRate GetMaxBitrate(const VideoCodec& codec);
+  static DataRate GetPaddingBitrate(const VideoCodec& codec);
 
  private:
   VideoBitrateAllocation GetAllocationNormalVideo(
-      uint32_t total_bitrate_bps,
+      DataRate total_bitrate,
+      DataRate stable_bitrate,
       size_t num_spatial_layers) const;
 
   VideoBitrateAllocation GetAllocationScreenSharing(
-      uint32_t total_bitrate_bps,
+      DataRate total_bitrate,
+      DataRate stable_bitrate,
       size_t num_spatial_layers) const;
 
   const VideoCodec codec_;

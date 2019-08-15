@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f708e11_b101b0f2",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1644,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-08-15T16:35:22Z",
+      "side": 1,
+      "message": "This test fails (7360 bits \u003c 8000) here: https://chromium-swarm.appspot.com/task?id\u003d46aa25114ba24a10\nApparently due to new clang version (10.0.0).\n\nWhat is the rational behind those numbers?\nWhy may the payload vary in a non deterministic way?\nOr perhaps the number of packets changes? Or both?\n\nThank you for your attention!",
+      "revId": "b9fc6508c00ac6d453e4d7c472abe174f07258ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

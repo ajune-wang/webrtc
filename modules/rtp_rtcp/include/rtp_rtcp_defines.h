@@ -444,6 +444,15 @@ class StreamDataCountersCallback {
                                    uint32_t ssrc) = 0;
 };
 
+// Information exposed via GetStats
+struct RtpReceiveStats {
+  int32_t packets_lost = 0;  // Defined as a 24 bit signed integer in RTCP
+  uint32_t extended_highest_sequence_number = 0;
+  uint32_t jitter = 0;
+
+  StreamDataCounters data;
+};
+
 class RtcpAckObserver {
  public:
   // This method is called on received report blocks matching the sender ssrc.

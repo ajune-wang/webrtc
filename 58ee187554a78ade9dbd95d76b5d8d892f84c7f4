@@ -34,6 +34,24 @@
       "revId": "58ee187554a78ade9dbd95d76b5d8d892f84c7f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3871a02c_c95c11f0",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-08-15T16:19:24Z",
+      "side": 1,
+      "message": "Thanks Erik - indeed that looks like the same issue. I was looking at issue 10880. Completely agree with your suggestion btw.",
+      "parentUuid": "fe0227d1_7b0246e0",
+      "revId": "58ee187554a78ade9dbd95d76b5d8d892f84c7f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

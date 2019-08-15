@@ -98,6 +98,19 @@ bool FrameLengthController::Config::FrameLengthChange::operator<(
           to_frame_length_ms < rhs.to_frame_length_ms);
 }
 
+bool FrameLengthController::SimplifiedDecreasingDecision(
+    int shorter_frame_length_ms) const {
+  if (uplink_bandwidth_bps_ && overhead_bytes_per_packet_) {
+    int payload_rate_on_decrease_bps =
+        *uplink_bandwidth_bps_ -
+        OverheadRateBps(*overhead_bytes_per_packet_, shorter_frame_length_ms);
+    return payload_rate_on_decrease_bps >
+           *config_.frame_length_decrease_threshold_bps_;
+  } else {
+    return false;
+  }
+}
+
 bool FrameLengthController::FrameLengthIncreasingDecision(
     const AudioEncoderRuntimeConfig& config) const {
   // Increase frame length if

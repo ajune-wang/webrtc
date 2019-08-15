@@ -73,14 +73,18 @@ class PeerConnection : public PeerConnectionInternal,
     SET_LOCAL_DESCRIPTION_CALLED = 0x20,
     SET_REMOTE_DESCRIPTION_CALLED = 0x40,
     CANDIDATE_COLLECTED = 0x80,
-    REMOTE_CANDIDATE_ADDED = 0x100,
+    ADD_ICE_CANDIDATE_SUCCEEDED = 0x100,
     ICE_STATE_CONNECTED = 0x200,
     CLOSE_CALLED = 0x400,
     PRIVATE_CANDIDATE_COLLECTED = 0x800,
     REMOTE_PRIVATE_CANDIDATE_ADDED = 0x1000,
     MDNS_CANDIDATE_COLLECTED = 0x2000,
     REMOTE_MDNS_CANDIDATE_ADDED = 0x4000,
-    MAX_VALUE = 0x8000,
+    IPV6_HOST_CANDIDATE_COLLECTED = 0x8000,
+    REMOTE_IPV6_HOST_CANDIDATE_ADDED = 0x10000,
+    REMOTE_CANDIDATE_ADDED = 0x20000,
+    DIRECT_CONNECTION_SELECTED = 0x40000,
+    MAX_VALUE = 0x80000,
   };
 
   explicit PeerConnection(PeerConnectionFactory* factory,
@@ -1069,6 +1073,10 @@ class PeerConnection : public PeerConnectionInternal,
 
   void ReportNegotiatedCiphers(const cricket::TransportStats& stats,
                                const std::set<cricket::MediaType>& media_types)
+      RTC_RUN_ON(signaling_thread());
+  void ReportIceCandidateCollected(const cricket::Candidate& candidate)
+      RTC_RUN_ON(signaling_thread());
+  void ReportRemoteIceCandidateAdded(const cricket::Candidate& candidate)
       RTC_RUN_ON(signaling_thread());
 
   void NoteUsageEvent(UsageEvent event);

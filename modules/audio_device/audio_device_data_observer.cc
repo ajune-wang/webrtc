@@ -261,6 +261,9 @@ class ADMWrapper : public AudioDeviceModule, public AudioTransport {
   int32_t EnableBuiltInNS(bool enable) override {
     return impl_->EnableBuiltInNS(enable);
   }
+  int32_t GetUnderrunCount() const override {
+    return impl_->GetUnderrunCount();
+  }
 // Only supported on iOS.
 #if defined(WEBRTC_IOS)
   int GetPlayoutAudioParameters(AudioParameters* params) const override {

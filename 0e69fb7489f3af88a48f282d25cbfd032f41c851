@@ -114,6 +114,30 @@
       "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a4a03de_9be90de9",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-15T12:51:18Z",
+      "side": 1,
+      "message": "I don\u0027t know the exact context of where this is intended to be used. But maybe we could just add Q-format compatible constructors to the Timestamp and TimeDelta classes.\n\nIdeally we should try to do avoid representing timestamps using raw integers as far as possible as such code tends to be inconsistent, mixing int32, int64, ms, us, seconds, etc, which in turn makes it error prone.\n\nCurrently we don\u0027t have a way to keep track of different time bases, it\u0027s mostly using the real time clock, but it\u0027s up to the developer to ensure that the value they are handling is in the right base. We could consider if we want to add specific variations of the Timestamp class representing different time bases such as unix epoch etc.",
+      "parentUuid": "755abaea_cd451687",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 1
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

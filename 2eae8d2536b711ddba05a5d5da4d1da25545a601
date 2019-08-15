@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0531597d_a550741b",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-08-15T15:41:21Z",
+      "side": 1,
+      "message": "Tried to make the names more clear.",
+      "parentUuid": "9468f713_b72b9269",
+      "range": {
+        "startLine": 100,
+        "startChar": 6,
+        "endLine": 100,
+        "endChar": 20
+      },
+      "revId": "2eae8d2536b711ddba05a5d5da4d1da25545a601",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "73ea2a6b_216a9533",
         "filename": "modules/video_coding/utility/quality_scaler.h",
         "patchSetId": 3
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "7d35d43e_7c151aca",
+        "filename": "modules/video_coding/utility/quality_scaler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-08-15T15:41:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73ea2a6b_216a9533",
+      "revId": "2eae8d2536b711ddba05a5d5da4d1da25545a601",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01335b6f_0173330b",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 3
@@ -56,6 +98,24 @@
       "revId": "2eae8d2536b711ddba05a5d5da4d1da25545a601",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a746c17d_9fbdb4c6",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1795,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-08-15T15:41:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01335b6f_0173330b",
+      "revId": "2eae8d2536b711ddba05a5d5da4d1da25545a601",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

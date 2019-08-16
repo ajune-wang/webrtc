@@ -68,6 +68,29 @@
       "revId": "969c6b9a589088e2c47126b40e99da38843524fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "799c68c7_f746ada7",
+        "filename": "modules/audio_coding/audio_network_adaptor/controller_manager_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-08-16T14:21:01Z",
+      "side": 1,
+      "message": "nit: although this should not matter to the test, it would be good to write a reasonable setting. Let\u0027s remove these two lines.",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 62
+      },
+      "revId": "969c6b9a589088e2c47126b40e99da38843524fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

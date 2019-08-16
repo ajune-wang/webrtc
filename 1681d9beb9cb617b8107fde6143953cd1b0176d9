@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "720e39f8_c02216b3",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-16T08:13:39Z",
+      "side": 1,
+      "message": "Good point. I\u0027m adding references for jitter and packet_lost (defined by RFC 3550, exposed in RTCReceivedRtpStreamStats).\n\nAs for extended_highest_sequence_number, unclear if it is made available to GetStats. Maybe it can be deleted?\n\nAny suggestions for renaming data? Current code reads like \n\n    info.bytes_rcvd \u003d stats.rtp_stats.data.transmitted.payload_bytes;\n\nand replacing |data| with, e.g., |data_counters|, isn\u0027t so useful. Maybe it would be clearest to not use the StreamDataCounter type here, but instead add \n\n  RtpPacketCounter transmitted;\n  RtpPacketCounter retransmitted;  \n\nThe name |transmitted| also looks strange in this context, it could be |received|, but less obvious if and how to rename |retransmitted|.",
+      "parentUuid": "04097ceb_964ead01",
+      "revId": "1681d9beb9cb617b8107fde6143953cd1b0176d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d5ba37fc_d2fa68e4",
         "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
         "patchSetId": 5
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "f77ab7e6_9bb45e0a",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-16T08:13:39Z",
+      "side": 1,
+      "message": "Just to separate the uninteresting boilerplate above from the main expectations.\n\nI was considering writing some helper method or function go get one report block, but I wasn\u0027t sure if that\u0027s useful, and I\u0027m still a bit confused about usage of EXPECT_* and ASSERT_* in helper functions.",
+      "parentUuid": "d5ba37fc_d2fa68e4",
+      "revId": "1681d9beb9cb617b8107fde6143953cd1b0176d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02cef8d1_d672ff3d",
         "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
         "patchSetId": 5
@@ -47,6 +83,30 @@
       "writtenOn": "2019-08-15T15:51:37Z",
       "side": 1,
       "message": "may be\nASSERT_THAT(report_blocks, SizeIs(1));",
+      "range": {
+        "startLine": 272,
+        "startChar": 2,
+        "endLine": 273,
+        "endChar": 38
+      },
+      "revId": "1681d9beb9cb617b8107fde6143953cd1b0176d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "feca9812_6679fec6",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-16T08:13:39Z",
+      "side": 1,
+      "message": "I were thinking that test should be aborted (ASSERT) if there are no block, but just give failing expectations if there are unexpected extra blocks. But that\u0027s probably not worth extra lines, so changing to ASSERT_THAT everywhere.",
+      "parentUuid": "02cef8d1_d672ff3d",
       "range": {
         "startLine": 272,
         "startChar": 2,

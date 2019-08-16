@@ -1154,6 +1154,7 @@ if (rtc_include_tests) {
       "numerics/mod_ops_unittest.cc",
       "numerics/moving_max_counter_unittest.cc",
       "numerics/safe_compare_unittest.cc",
+      "numerics/safe_conversions_unittest.cc",
       "numerics/safe_minmax_unittest.cc",
       "numerics/sample_counter_unittest.cc",
       "one_time_event_unittest.cc",

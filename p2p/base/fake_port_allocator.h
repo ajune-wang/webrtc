@@ -151,6 +151,9 @@ class FakePortAllocatorSession : public PortAllocatorSession {
     SignalIceRegathering(this, IceRegatheringReason::NETWORK_FAILURE);
   }
 
+  void GetCandidateStatsFromReadyPorts(
+      CandidateStatsList* candidate_stats_list) const override {}
+
   std::vector<PortInterface*> ReadyPorts() const override {
     return ready_ports_;
   }

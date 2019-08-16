@@ -1556,6 +1556,42 @@ TEST_F(P2PTransportChannelTest, PeerReflexiveCandidateBeforeSignaling) {
   DestroyChannels();
 }
 
+// Test than we learn a prflx remote candidate, its address is sanitized in
+// 1. the selected candidate pair accessed via the public API;
+// 2. the candidate pair stats.
+TEST_F(P2PTransportChannelTest, PeerReflexiveRemoteCandidateIsSanitized) {
+  ConfigureEndpoints(OPEN, OPEN, kOnlyLocalPorts, kOnlyLocalPorts);
+  // Emulate no remote parameters coming in.
+  set_remote_ice_parameter_source(FROM_CANDIDATE);
+  CreateChannels();
+  // Only have remote parameters come in for ep2, not ep1.
+  ep2_ch1()->SetRemoteIceParameters(kIceParams[0]);
+
+  // Pause sending ep2's candidates to ep1 until ep1 receives the peer reflexive
+  // candidate.
+  PauseCandidates(1);
+
+  ASSERT_TRUE_WAIT(ep2_ch1()->selected_connection() != nullptr, kMediumTimeout);
+  ep1_ch1()->SetRemoteIceParameters(kIceParams[1]);
+  ASSERT_TRUE_WAIT(ep1_ch1()->selected_connection() != nullptr, kMediumTimeout);
+
+  // Check the selected candidate pair.
+  auto pair_ep1 = ep1_ch1()->GetSelectedCandidatePair();
+  ASSERT_TRUE(pair_ep1.has_value());
+  EXPECT_EQ(PRFLX_PORT_TYPE, pair_ep1->remote_candidate().type());
+  EXPECT_TRUE(pair_ep1->remote_candidate().address().ipaddr().IsNil());
+
+  ConnectionInfos pair_stats;
+  CandidateStatsList candidate_stats;
+  ep1_ch1()->GetStats(&pair_stats, &candidate_stats);
+  // Check the candidate pair stats.
+  ASSERT_EQ(1u, pair_stats.size());
+  EXPECT_EQ(PRFLX_PORT_TYPE, pair_stats[0].remote_candidate.type());
+  EXPECT_TRUE(pair_stats[0].remote_candidate.address().ipaddr().IsNil());
+
+  DestroyChannels();
+}
+
 // Test that we properly create a connection on a STUN ping from unknown address
 // when the signaling is slow and the end points are behind NAT.
 TEST_F(P2PTransportChannelTest, PeerReflexiveCandidateBeforeSignalingWithNAT) {

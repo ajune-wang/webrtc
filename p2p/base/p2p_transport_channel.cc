@@ -387,7 +387,12 @@ P2PTransportChannel::GetSelectedCandidatePair() const {
     return absl::nullopt;
   }
 
-  return selected_connection_->ToCandidatePairAndSanitizeIfNecessary();
+  CandidatePair pair;
+  pair.local = allocator_->SanitizeCandidate(
+      selected_connection_->local_candidate(), true /* is_local */);
+  pair.remote = allocator_->SanitizeCandidate(
+      selected_connection_->remote_candidate(), false /* is_local */);
+  return pair;
 }
 
 // A channel is considered ICE completed once there is at most one active
@@ -1502,9 +1507,13 @@ bool P2PTransportChannel::GetStats(ConnectionInfos* candidate_pair_stats_list,
 
   // TODO(qingsi): Remove naming inconsistency for candidate pair/connection.
   for (Connection* connection : connections_) {
-    ConnectionInfo candidate_pair_stats = connection->stats();
-    candidate_pair_stats.best_connection = (selected_connection_ == connection);
-    candidate_pair_stats_list->push_back(std::move(candidate_pair_stats));
+    ConnectionInfo stats = connection->stats();
+    stats.local_candidate = allocator_->SanitizeCandidate(stats.local_candidate,
+                                                          true /* is_local */);
+    stats.remote_candidate = allocator_->SanitizeCandidate(
+        stats.remote_candidate, false /* is_local */);
+    stats.best_connection = (selected_connection_ == connection);
+    candidate_pair_stats_list->push_back(std::move(stats));
     connection->set_reported(true);
   }
 

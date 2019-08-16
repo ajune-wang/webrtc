@@ -39,9 +39,7 @@ namespace webrtc {
 class Clock;
 class RtcEventLog;
 
-class PacedSender : public Module,
-                    public RtpPacketPacer,
-                    public RtpPacketSender {
+class PacedSender : public RtpPacketPacer, public RtpPacketSender {
  public:
   // Expected max pacer delay in ms. If ExpectedQueueTime() is higher than
   // this value, the packet producers should wait (eg drop frames rather than
@@ -58,6 +56,7 @@ class PacedSender : public Module,
   PacedSender(Clock* clock,
               PacketRouter* packet_router,
               RtcEventLog* event_log,
+              ProcessThread* process_thread,
               const WebRtcKeyValueConfig* field_trials = nullptr);
 
   ~PacedSender() override;
@@ -121,19 +120,19 @@ class PacedSender : public Module,
   // effect.
   void SetProbingEnabled(bool enabled);
 
+ private:
   // Methods implementing Module.
 
   // Returns the number of milliseconds until the module want a worker thread
   // to call Process.
-  int64_t TimeUntilNextProcess() override;
+  int64_t TimeUntilNextProcess();
 
   // Process any pending packets in the queue(s).
-  void Process() override;
+  void Process();
 
   // Called when the prober is associated with a process thread.
-  void ProcessThreadAttached(ProcessThread* process_thread) override;
+  void ProcessThreadAttached(ProcessThread* process_thread);
 
- private:
   TimeDelta UpdateTimeAndGetElapsed(Timestamp now)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
   bool ShouldSendKeepalive(Timestamp now) const
@@ -159,6 +158,24 @@ class PacedSender : public Module,
 
   bool Congested() const RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
   Timestamp CurrentTime() const RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
+
+  // Private implementation of Module to not expose those implementation details
+  // publicly and control when the class is registered/deregistered.
+  class ModuleProxy : public Module {
+   public:
+    explicit ModuleProxy(PacedSender* delegate) : delegate_(delegate) {}
+
+   private:
+    int64_t TimeUntilNextProcess() override {
+      return delegate_->TimeUntilNextProcess();
+    }
+    void Process() override { return delegate_->Process(); }
+    void ProcessThreadAttached(ProcessThread* process_thread) override {
+      return delegate_->ProcessThreadAttached(process_thread);
+    }
+
+    PacedSender* const delegate_;
+  } module_proxy_{this};
 
   Clock* const clock_;
   PacketRouter* const packet_router_;
@@ -198,13 +215,7 @@ class PacedSender : public Module,
   DataSize congestion_window_size_ RTC_GUARDED_BY(critsect_);
   DataSize outstanding_data_ RTC_GUARDED_BY(critsect_);
 
-  // Lock to avoid race when attaching process thread. This can happen due to
-  // the Call class setting network state on RtpTransportControllerSend, which
-  // in turn calls Pause/Resume on Pacedsender, before actually starting the
-  // pacer process thread. If RtpTransportControllerSend is running on a task
-  // queue separate from the thread used by Call, this causes a race.
-  rtc::CriticalSection process_thread_lock_;
-  ProcessThread* process_thread_ RTC_GUARDED_BY(process_thread_lock_);
+  ProcessThread* const process_thread_;
 
   TimeDelta queue_time_limit RTC_GUARDED_BY(critsect_);
   bool account_for_audio_ RTC_GUARDED_BY(critsect_);

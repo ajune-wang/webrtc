@@ -46,6 +46,30 @@
       "revId": "3564ed79767eda4a3de3861c9ba48339588880b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "817b40fc_fd422df6",
+        "filename": "system_wrappers/include/ntp_time.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-16T14:14:42Z",
+      "side": 1,
+      "message": "There\u0027s unfortunately a bug that prevents `rtc::saturated_cast` from being used. I\u0027ve reverted the previous code and added a link to that bug.",
+      "parentUuid": "92cd2aba_c332ce6c",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 45
+      },
+      "revId": "3564ed79767eda4a3de3861c9ba48339588880b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

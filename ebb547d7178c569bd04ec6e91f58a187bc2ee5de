@@ -22,6 +22,30 @@
       "revId": "ebb547d7178c569bd04ec6e91f58a187bc2ee5de",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5712ecfd_0494e51d",
+        "filename": "system_wrappers/include/ntp_time.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-16T14:14:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "06bd5d8d_54c62d75",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 17
+      },
+      "revId": "ebb547d7178c569bd04ec6e91f58a187bc2ee5de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

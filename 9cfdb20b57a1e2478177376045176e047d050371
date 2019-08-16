@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b91336a5_ee18b4bd",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-16T09:13:49Z",
+      "side": 0,
+      "message": "I think it\u0027s now possible to change the return value to RTCEerror in this cl, rather than deleting the method and adding it back with a different return value later.",
+      "range": {
+        "startLine": 1007,
+        "startChar": 10,
+        "endLine": 1007,
+        "endChar": 14
+      },
+      "revId": "9cfdb20b57a1e2478177376045176e047d050371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

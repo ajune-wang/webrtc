@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "d8127145_d491b038",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-16T10:37:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42a6b343_54a2c85a",
+      "range": {
+        "startLine": 56,
+        "startChar": 10,
+        "endLine": 56,
+        "endChar": 53
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0360bb21_15a6e5d8",
         "filename": "system_wrappers/source/ntp_time.cc",
         "patchSetId": 7
@@ -298,6 +322,30 @@
       "side": 1,
       "message": "That\u0027s a very, very good point. We have to use the offset from `NtpOffsetMs()` like the RTCP sender code does.\n\nI\u0027ll re-locate these conversion function to `modules/rtp_rtcp/source/time_util.cc`.",
       "parentUuid": "69ee3066_f5791b6a",
+      "range": {
+        "startLine": 63,
+        "startChar": 36,
+        "endLine": 63,
+        "endChar": 56
+      },
+      "revId": "0e69fb7489f3af88a48f282d25cbfd032f41c851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "245a17ca_3aa4aeed",
+        "filename": "system_wrappers/source/ntp_time.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-16T10:37:15Z",
+      "side": 1,
+      "message": "How about we just add the simple conversion functions between integer milliseconds and fixed-point seconds, and then move the responsibility of epoch adjustment to the caller?",
+      "parentUuid": "60214aad_253bfa1e",
       "range": {
         "startLine": 63,
         "startChar": 36,

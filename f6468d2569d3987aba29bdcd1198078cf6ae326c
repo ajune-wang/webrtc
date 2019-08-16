@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04b8065c_30a2252d",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-08-16T08:29:26Z",
+      "side": 1,
+      "message": "From what I can tell, the PacedSender calls this method on a process thread and not on the pacer thread. Is this comment incorrect?",
+      "revId": "f6468d2569d3987aba29bdcd1198078cf6ae326c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fde1910b_80610151",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-08-16T08:29:26Z",
+      "side": 1,
+      "message": "This seems like a possible bug. Should use an atomic increment operation. There\u0027s also a race between read and write (this line and the preceding one).",
+      "revId": "f6468d2569d3987aba29bdcd1198078cf6ae326c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -140,6 +140,30 @@
       "revId": "ec9b74e4b7bfe1f77ba1b892881a765bf0b6c177",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "540beb38_01affd9c",
+        "filename": "system_wrappers/include/ntp_time.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-16T11:26:03Z",
+      "side": 1,
+      "message": "Style guide discourages use of uint64_t, it\u0027s appropriate only in special cases, e.g., if one really wants mod 2^64 arithmetic, or if one represents an on-the-wire value of corresponding type. So don\u0027t add the uint64_t functions unless there\u0027s some clear use case for them.",
+      "parentUuid": "65ec8894_b8347401",
+      "range": {
+        "startLine": 70,
+        "startChar": 34,
+        "endLine": 70,
+        "endChar": 55
+      },
+      "revId": "ec9b74e4b7bfe1f77ba1b892881a765bf0b6c177",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

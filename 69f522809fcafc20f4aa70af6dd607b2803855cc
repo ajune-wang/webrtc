@@ -22,6 +22,30 @@
       "revId": "69f522809fcafc20f4aa70af6dd607b2803855cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78c0705a_a1da4eb3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-08-16T10:11:18Z",
+      "side": 1,
+      "message": "Thanks! Good catch!",
+      "parentUuid": "3ae05146_f80ecff2",
+      "range": {
+        "startLine": 9,
+        "startChar": 16,
+        "endLine": 9,
+        "endChar": 27
+      },
+      "revId": "69f522809fcafc20f4aa70af6dd607b2803855cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

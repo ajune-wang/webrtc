@@ -81,6 +81,7 @@ if (rtc_include_tests) {
       ":interval_budget",
       ":pacing",
       "../../api/units:time_delta",
+      "../../modules/utility:mock_process_thread",
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
       "../../rtc_base:rtc_base_tests_utils",

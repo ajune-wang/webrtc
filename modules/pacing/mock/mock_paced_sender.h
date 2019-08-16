@@ -22,7 +22,7 @@ namespace webrtc {
 class MockPacedSender : public PacedSender {
  public:
   MockPacedSender()
-      : PacedSender(Clock::GetRealTimeClock(), nullptr, nullptr) {}
+      : PacedSender(Clock::GetRealTimeClock(), nullptr, nullptr, nullptr) {}
   MOCK_METHOD6(SendPacket,
                bool(Priority priority,
                     uint32_t ssrc,

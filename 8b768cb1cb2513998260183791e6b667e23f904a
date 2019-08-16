@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5639986d_6a38848a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 6965,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-16T16:31:22Z",
+      "side": 1,
+      "message": "The REMOTE_CANDIDATE_ADDED bit is logged for all types of candidates. The original logging does not gate the subcategories, and this is changed to match the logging of local candidates, where we only logged subcategories for host candidates. My understanding is these subcategories (private, mDNS, v6) are meant for host candidates and hence re-organized both places as is.",
+      "parentUuid": "13f239bb_e83d7626",
+      "revId": "8b768cb1cb2513998260183791e6b667e23f904a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9386ae3e_a830fcb8",
         "filename": "pc/peer_connection.h",
         "patchSetId": 6
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "cb8a6e43_f8381f9c",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-16T16:31:22Z",
+      "side": 1,
+      "message": "The REMOTE_CANDIDATE_ADDED is repurposed to log all added remote candidates in addition to the case covered by ADD_ICE_CANDIDATE_SUCCEEDED in AddIceCandidate (what REMOTE_CANDIDATE_ADDED originally did). This includes the cases: 1) AddIceCandidate fails, and candidates are buffered and later added when applying SDP in a different path. 2) The candidates are added from SDP directly in non-trickled sessions. Currently we have a number of samples that are connected but the AddIceCandidate path is not triggered (no originalR EMOTE_CANDIDATE_ADDED bit), and 2) is what we thought could have contributed to this big slice given a separate histogram on AddIceCandidate.",
+      "parentUuid": "9386ae3e_a830fcb8",
+      "revId": "8b768cb1cb2513998260183791e6b667e23f904a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c9d1f111_49ec27d5",
         "filename": "pc/peer_connection.h",
         "patchSetId": 6
@@ -47,6 +83,24 @@
       "writtenOn": "2019-08-16T12:29:34Z",
       "side": 1,
       "message": "Somewhere we need to document that REMOTE_CANDIDATE_ADDED and CANDIDATE_COLLECTED are the aggregate numbers, and that IPv6, private and MDNS are 3 subcategories that can be present in each of them (with the remainder presumably assumed to be public IPv4). Since we can\u0027t make the numbers contiguous, perhaps we should put an explicit comment ahead of the list?",
+      "revId": "8b768cb1cb2513998260183791e6b667e23f904a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81dba25b_de9fe7f6",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-16T16:31:22Z",
+      "side": 1,
+      "message": "Will add text in a new patchset. The current patch treats the 3 subcategories as sub slices of host candidates but not all candidates. This is related to the other comment. Please let me know if you think this is not the right slicing.",
+      "parentUuid": "c9d1f111_49ec27d5",
       "revId": "8b768cb1cb2513998260183791e6b667e23f904a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

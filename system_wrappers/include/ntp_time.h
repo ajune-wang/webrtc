@@ -10,7 +10,8 @@
 #ifndef SYSTEM_WRAPPERS_INCLUDE_NTP_TIME_H_
 #define SYSTEM_WRAPPERS_INCLUDE_NTP_TIME_H_
 
-#include <stdint.h>
+#include <cmath>
+#include <cstdint>
 
 #include "rtc_base/numerics/safe_conversions.h"
 
@@ -58,6 +59,30 @@ inline bool operator==(const NtpTime& n1, const NtpTime& n2) {
 }
 inline bool operator!=(const NtpTime& n1, const NtpTime& n2) {
   return !(n1 == n2);
+}
+
+// Converts |int64_t| milliseconds to Q32.32-formatted fixed-point seconds.
+inline int64_t Int64MsToQ32x32(int64_t milliseconds) {
+  return static_cast<int64_t>(
+      std::round(milliseconds * (NtpTime::kFractionsPerSecond / 1000.0)));
+}
+
+// Converts |uint64_t| milliseconds to UQ32.32-formatted fixed-point seconds.
+inline uint64_t UInt64MsToUQ32x32(uint64_t milliseconds) {
+  return static_cast<uint64_t>(
+      std::round(milliseconds * (NtpTime::kFractionsPerSecond / 1000.0)));
+}
+
+// Converts Q32.32-formatted fixed-point seconds to |int64_t| milliseconds.
+inline int64_t Q32x32ToInt64Ms(int64_t q32x32) {
+  return static_cast<int64_t>(
+      std::round(q32x32 * (1000.0 / NtpTime::kFractionsPerSecond)));
+}
+
+// Converts UQ32.32-formatted fixed-point seconds to |uint64_t| milliseconds.
+inline uint64_t UQ32x32ToUInt64Ms(uint64_t q32x32) {
+  return static_cast<uint64_t>(
+      std::round(q32x32 * (1000.0 / NtpTime::kFractionsPerSecond)));
 }
 
 }  // namespace webrtc

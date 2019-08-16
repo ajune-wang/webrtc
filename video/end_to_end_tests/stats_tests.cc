@@ -115,17 +115,17 @@ TEST_F(StatsEndToEndTest, GetStats) {
         receive_stats_filled_["FrameRendered"] |= stats.render_frame_rate != 0;
 
         receive_stats_filled_["StatisticsUpdated"] |=
-            stats.rtcp_stats.packets_lost != 0 ||
-            stats.rtcp_stats.extended_highest_sequence_number != 0 ||
-            stats.rtcp_stats.fraction_lost != 0 || stats.rtcp_stats.jitter != 0;
+            stats.rtp_stats.packets_lost != 0 ||
+            stats.rtp_stats.extended_highest_sequence_number != 0 ||
+            stats.rtp_stats.jitter != 0;
 
         receive_stats_filled_["DataCountersUpdated"] |=
-            stats.rtp_stats.transmitted.payload_bytes != 0 ||
-            stats.rtp_stats.fec.packets != 0 ||
-            stats.rtp_stats.transmitted.header_bytes != 0 ||
-            stats.rtp_stats.transmitted.packets != 0 ||
-            stats.rtp_stats.transmitted.padding_bytes != 0 ||
-            stats.rtp_stats.retransmitted.packets != 0;
+            stats.rtp_stats.data.transmitted.payload_bytes != 0 ||
+            stats.rtp_stats.data.fec.packets != 0 ||
+            stats.rtp_stats.data.transmitted.header_bytes != 0 ||
+            stats.rtp_stats.data.transmitted.packets != 0 ||
+            stats.rtp_stats.data.transmitted.padding_bytes != 0 ||
+            stats.rtp_stats.data.retransmitted.packets != 0;
 
         receive_stats_filled_["CodecStats"] |= stats.target_delay_ms != 0;
 
@@ -445,7 +445,7 @@ TEST_F(StatsEndToEndTest, TestReceivedRtpPacketStats) {
     Action OnSendRtp(const uint8_t* packet, size_t length) override {
       if (sent_rtp_ >= kNumRtpPacketsToSend) {
         VideoReceiveStream::Stats stats = receive_stream_->GetStats();
-        if (kNumRtpPacketsToSend == stats.rtp_stats.transmitted.packets) {
+        if (kNumRtpPacketsToSend == stats.rtp_stats.data.transmitted.packets) {
           observation_complete_.Set();
         }
         return DROP_PACKET;

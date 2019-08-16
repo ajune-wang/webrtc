@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b3ff1952_a4ee8851",
+        "filename": "modules/audio_coding/audio_network_adaptor/controller_manager.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-08-16T14:47:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76ccd588_1e5e233a",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 56
+      },
+      "revId": "969c6b9a589088e2c47126b40e99da38843524fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71a19299_0f527dc5",
         "filename": "modules/audio_coding/audio_network_adaptor/controller_manager.cc",
         "patchSetId": 16
@@ -45,6 +69,30 @@
       "revId": "969c6b9a589088e2c47126b40e99da38843524fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25c59a49_fcb638b4",
+        "filename": "modules/audio_coding/audio_network_adaptor/controller_manager.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-08-16T14:47:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71a19299_0f527dc5",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 52
+      },
+      "revId": "969c6b9a589088e2c47126b40e99da38843524fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d3d961af_52db6e09",
+        "filename": "modules/audio_coding/audio_network_adaptor/controller_manager.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-08-16T14:47:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8be1f5ee_5b5aea45",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 3
+      },
+      "revId": "969c6b9a589088e2c47126b40e99da38843524fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "799c68c7_f746ada7",
         "filename": "modules/audio_coding/audio_network_adaptor/controller_manager_unittest.cc",
         "patchSetId": 16
@@ -91,6 +163,30 @@
       "revId": "969c6b9a589088e2c47126b40e99da38843524fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0eb7c22b_665194de",
+        "filename": "modules/audio_coding/audio_network_adaptor/controller_manager_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-08-16T14:47:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "799c68c7_f746ada7",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 62
+      },
+      "revId": "969c6b9a589088e2c47126b40e99da38843524fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

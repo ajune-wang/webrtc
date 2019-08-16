@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "4549a2a5_85843e41",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-08-16T09:27:19Z",
+      "side": 1,
+      "message": "I\u0027m running tests, for example PeerConnectionIntegrationTestPlanB.MediaFlowsAfterEarlyWarmupWithCreateSender in peerconnection_unittests, and there I see this get called from two different ProcessThreads, one called PacerThread and another called ModuleProcessThread\n\nBasically, the same PacketRouter instance is getting calls from both of those process threads. Is that a bug in the tests?",
+      "parentUuid": "720bd122_52f2efc3",
+      "revId": "f6468d2569d3987aba29bdcd1198078cf6ae326c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fde1910b_80610151",
         "filename": "modules/pacing/packet_router.cc",
         "patchSetId": 14
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "This code is now essentially serialized. If the code path is used where this method is called, then the AllocateSequenceNumber() method and the entire SequenceNumberAllocator interface is unused. They will be removed shortly and we\u0027ll stop using atomics (we\u0027re keeping both code paths alive for a transition period with a field trial flag that allows switching between them).",
       "parentUuid": "fde1910b_80610151",
+      "revId": "f6468d2569d3987aba29bdcd1198078cf6ae326c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77946ebc_cc4cac02",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-08-16T09:27:19Z",
+      "side": 1,
+      "message": "I thought that the \u0027set\u0027 method for the sequence number, was only used for testing, so I tried renaming it \"ForTesting\", but that caused some trybots to break for external reasons.\n\nI was seeing multiple threads touching this variable (see other comment), which is why I\u0027m wondering if this is actually a problem or if some tests are simply not representative of how this runs in production.",
+      "parentUuid": "032908fa_a67205e1",
       "revId": "f6468d2569d3987aba29bdcd1198078cf6ae326c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

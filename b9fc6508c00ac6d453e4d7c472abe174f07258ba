@@ -16,6 +16,24 @@
       "revId": "b9fc6508c00ac6d453e4d7c472abe174f07258ba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ed14e5f_6b708667",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1644,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-08-16T12:18:53Z",
+      "side": 1,
+      "message": "The bitrate should be deterministic, but can vary slightly between Opus releases. A new version of Clang changing the bitrate makes me concerned. That should not be the case.",
+      "parentUuid": "3f708e11_b101b0f2",
+      "revId": "b9fc6508c00ac6d453e4d7c472abe174f07258ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e864a1f_29be5255",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-16T09:20:01Z",
+      "side": 1,
+      "message": "This value is propagated a bit for audio, up to VoiceReceiverInfo::ext_seqnum. But as far as I can tell, never exposed via GetStats.",
+      "range": {
+        "startLine": 454,
+        "startChar": 11,
+        "endLine": 454,
+        "endChar": 43
+      },
+      "revId": "c03f9e6571cd555f85a08cbea4992965f005245d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

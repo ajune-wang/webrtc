@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2853252_c3f3ff61",
+        "filename": "api/peer_connection_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-16T19:59:30Z",
+      "side": 1,
+      "message": "Have these call each other?",
+      "revId": "6c28cb52326b47c880188730d87cf8dfb0b6c938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1947561_52ff8289",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3479,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-16T19:59:30Z",
+      "side": 1,
+      "message": "Bonus points for converting these to LOG_AND_RETURN_ERROR :)",
+      "revId": "6c28cb52326b47c880188730d87cf8dfb0b6c938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0926012b_e5b6152a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3582,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-16T19:59:30Z",
+      "side": 1,
+      "message": "just return validate_error",
+      "range": {
+        "startLine": 3582,
+        "startChar": 11,
+        "endLine": 3582,
+        "endChar": 46
+      },
+      "revId": "6c28cb52326b47c880188730d87cf8dfb0b6c938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ef51c9a_6033b5b0",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3649,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-16T19:59:30Z",
+      "side": 1,
+      "message": "nit: RTCError::OK()",
+      "range": {
+        "startLine": 3649,
+        "startChar": 9,
+        "endLine": 3649,
+        "endChar": 37
+      },
+      "revId": "6c28cb52326b47c880188730d87cf8dfb0b6c938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f749868_6310b6ca",
+        "filename": "pc/peer_connection_histogram_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-16T19:59:30Z",
+      "side": 1,
+      "message": "can even do: ASSERT_TRUE(... .ok()); on one line",
+      "revId": "6c28cb52326b47c880188730d87cf8dfb0b6c938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d45abace_3b369a74",
+        "filename": "pc/peer_connection_ice_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1232,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-16T19:59:30Z",
+      "side": 1,
+      "message": "hmm I realize there wasn\u0027t an assertion before, but could you change it to ASSERT_TRUE(SetConfiguration(config).ok()) ?",
+      "revId": "6c28cb52326b47c880188730d87cf8dfb0b6c938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

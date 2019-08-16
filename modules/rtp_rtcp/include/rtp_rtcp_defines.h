@@ -444,6 +444,23 @@ class StreamDataCountersCallback {
                                    uint32_t ssrc) = 0;
 };
 
+// Information exposed through the GetStats api.
+struct RtpReceiveStats {
+  // |packets_lost| and |jitter| are defined by RFC 3550, and exposed in the
+  // RTCReceivedRtpStreamStats dictionary.
+  int32_t packets_lost = 0;
+  uint32_t jitter = 0;
+
+  // TODO(nisse): |extended_highest_sequence_number| is not needed for GetStats,
+  // but it's currently propagated to VoiceReceiverInfo::ext_seqnum. Investigate
+  // if it can be deleted.
+  uint32_t extended_highest_sequence_number = 0;
+
+  // Data counters used to populate the RTCInboundRtpStreamStats, e.g.,
+  // bytesReceived.
+  StreamDataCounters data;
+};
+
 class RtcpAckObserver {
  public:
   // This method is called on received report blocks matching the sender ssrc.

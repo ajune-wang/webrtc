@@ -22,6 +22,30 @@
       "revId": "a45fd34b96ee5ed9cf1e2f74eafffab592382736",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95fa2988_22b560f5",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-08-16T14:05:12Z",
+      "side": 1,
+      "message": "Discussed offline. Decided to keep as is.",
+      "parentUuid": "32f4787e_5cba1f8d",
+      "range": {
+        "startLine": 334,
+        "startChar": 2,
+        "endLine": 334,
+        "endChar": 75
+      },
+      "revId": "a45fd34b96ee5ed9cf1e2f74eafffab592382736",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

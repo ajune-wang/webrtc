@@ -120,13 +120,25 @@ std::unique_ptr<FrameLengthController> CreateFrameLengthController(
   RTC_CHECK(config.has_fl_decreasing_packet_loss_fraction());
   RTC_CHECK(config.has_fl_20ms_to_60ms_bandwidth_bps());
   RTC_CHECK(config.has_fl_60ms_to_20ms_bandwidth_bps());
+  RTC_CHECK(config.has_fl_20ms_to_40ms_bandwidth_bps());
+  RTC_CHECK(config.has_fl_40ms_to_20ms_bandwidth_bps());
+  RTC_CHECK(config.has_fl_40ms_to_60ms_bandwidth_bps());
+  RTC_CHECK(config.has_fl_60ms_to_40ms_bandwidth_bps());
 
   std::map<FrameLengthController::Config::FrameLengthChange, int>
       fl_changing_bandwidths_bps = {
           {FrameLengthController::Config::FrameLengthChange(20, 60),
            config.fl_20ms_to_60ms_bandwidth_bps()},
           {FrameLengthController::Config::FrameLengthChange(60, 20),
-           config.fl_60ms_to_20ms_bandwidth_bps()}};
+           config.fl_60ms_to_20ms_bandwidth_bps()},
+          {FrameLengthController::Config::FrameLengthChange(20, 40),
+           config.fl_20ms_to_40ms_bandwidth_bps()},
+          {FrameLengthController::Config::FrameLengthChange(40, 20),
+           config.fl_40ms_to_20ms_bandwidth_bps()},
+          {FrameLengthController::Config::FrameLengthChange(40, 60),
+           config.fl_40ms_to_60ms_bandwidth_bps()},
+          {FrameLengthController::Config::FrameLengthChange(60, 40),
+           config.fl_60ms_to_40ms_bandwidth_bps()}};
 
   if (config.has_fl_60ms_to_120ms_bandwidth_bps() &&
       config.has_fl_120ms_to_60ms_bandwidth_bps()) {

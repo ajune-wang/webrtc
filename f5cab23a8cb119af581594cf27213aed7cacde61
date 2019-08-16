@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afdf6546_8e5d3f6d",
+        "filename": "modules/audio_coding/audio_network_adaptor/config.proto",
+        "patchSetId": 14
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-08-16T12:34:54Z",
+      "side": 1,
+      "message": "It would be nice to add one more line of comment:\n\nIn current implementation, defining this will invalidate fl_20ms_to_60ms_bandwidth_bps.",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 76
+      },
+      "revId": "f5cab23a8cb119af581594cf27213aed7cacde61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1808751c_1f27af3a",
+        "filename": "modules/audio_coding/audio_network_adaptor/config.proto",
+        "patchSetId": 14
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-08-16T12:34:54Z",
+      "side": 1,
+      "message": "In current implementation, defining this will invalidate fl_60ms_to_20ms_bandwidth_bps.",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 79
+      },
+      "revId": "f5cab23a8cb119af581594cf27213aed7cacde61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17d3daf6_452207a1",
+        "filename": "modules/audio_coding/audio_network_adaptor/frame_length_controller_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-08-16T12:34:54Z",
+      "side": 1,
+      "message": "replace with kDefaultEncoderFrameLengthsMs",
+      "range": {
+        "startLine": 192,
+        "startChar": 61,
+        "endLine": 192,
+        "endChar": 69
+      },
+      "revId": "f5cab23a8cb119af581594cf27213aed7cacde61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfa03fb0_26c00518",
+        "filename": "modules/audio_coding/audio_network_adaptor/frame_length_controller_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-08-16T12:34:54Z",
+      "side": 1,
+      "message": "kDefaultEncoderFrameLengthsMs",
+      "range": {
+        "startLine": 201,
+        "startChar": 61,
+        "endLine": 201,
+        "endChar": 69
+      },
+      "revId": "f5cab23a8cb119af581594cf27213aed7cacde61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

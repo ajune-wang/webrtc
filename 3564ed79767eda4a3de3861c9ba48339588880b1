@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4217d5a_6ec3d93b",
+        "filename": "system_wrappers/include/ntp_time.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-16T13:01:35Z",
+      "side": 1,
+      "message": "Looks similar to rtc::saturated_cast. Does it work with\n\nreturn rtc::saturated_cast\u003cint64_t\u003e(std::round(...));\n\n?",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 45
+      },
+      "revId": "3564ed79767eda4a3de3861c9ba48339588880b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

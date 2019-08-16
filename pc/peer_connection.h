@@ -83,7 +83,8 @@ class PeerConnection : public PeerConnectionInternal,
     IPV6_HOST_CANDIDATE_COLLECTED = 0x8000,
     REMOTE_IPV6_HOST_CANDIDATE_ADDED = 0x10000,
     REMOTE_CANDIDATE_ADDED = 0x20000,
-    MAX_VALUE = 0x40000,
+    DIRECT_CONNECTION_SELECTED = 0x40000,
+    MAX_VALUE = 0x80000,
   };
 
   explicit PeerConnection(PeerConnectionFactory* factory,

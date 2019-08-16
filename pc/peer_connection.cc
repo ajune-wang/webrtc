@@ -4267,6 +4267,11 @@ void PeerConnection::OnSelectedCandidatePairChanged(
     return;
   }
 
+  if (event.local_candidate.type() == LOCAL_PORT_TYPE &&
+      event.remote_candidate.type() == LOCAL_PORT_TYPE) {
+    NoteUsageEvent(UsageEvent::DIRECT_CONNECTION_SELECTED);
+  }
+
   Observer()->OnIceSelectedCandidatePairChanged(event);
 }
 

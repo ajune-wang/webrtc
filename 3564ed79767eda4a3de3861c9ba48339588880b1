@@ -22,6 +22,30 @@
       "revId": "3564ed79767eda4a3de3861c9ba48339588880b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92cd2aba_c332ce6c",
+        "filename": "system_wrappers/include/ntp_time.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-16T13:04:38Z",
+      "side": 1,
+      "message": "Awesome!",
+      "parentUuid": "d4217d5a_6ec3d93b",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 45
+      },
+      "revId": "3564ed79767eda4a3de3861c9ba48339588880b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

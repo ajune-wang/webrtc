@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "82a2ec5c_096001c0",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-08-16T14:23:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6de69f64_43fca06b",
+      "range": {
+        "startLine": 234,
+        "startChar": 7,
+        "endLine": 234,
+        "endChar": 20
+      },
+      "revId": "b5b89ae54276ad4f3aaa7ef0a05535de15d70683",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f740fc2_8aa7beb2",
         "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-08-16T08:34:32Z",
       "side": 1,
       "message": "Do we always want to go to the lowest possible config or are there cases where we want to take \"one step at the time\"?\n\nLet\u0027s chat about this, just so I fully understand.",
+      "range": {
+        "startLine": 293,
+        "startChar": 2,
+        "endLine": 294,
+        "endChar": 34
+      },
+      "revId": "b5b89ae54276ad4f3aaa7ef0a05535de15d70683",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9b38eb1_ef44e6d2",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-08-16T14:23:13Z",
+      "side": 1,
+      "message": "Ok.",
+      "parentUuid": "7f740fc2_8aa7beb2",
       "range": {
         "startLine": 293,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "dcdd9043_d483d817",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-08-16T14:23:13Z",
+      "side": 1,
+      "message": "The value is used to configure no limit, e.g. fps_diff:2|-100|2.",
+      "parentUuid": "338612a1_4df7987e",
+      "range": {
+        "startLine": 23,
+        "startChar": 36,
+        "endLine": 23,
+        "endChar": 40
+      },
+      "revId": "b5b89ae54276ad4f3aaa7ef0a05535de15d70683",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb6c13c7_bc25cf70",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "b5b89ae54276ad4f3aaa7ef0a05535de15d70683",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f36e8d0e_efdd1c4d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1795,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-08-16T14:23:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb6c13c7_bc25cf70",
+      "range": {
+        "startLine": 1795,
+        "startChar": 7,
+        "endLine": 1795,
+        "endChar": 23
+      },
+      "revId": "b5b89ae54276ad4f3aaa7ef0a05535de15d70683",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

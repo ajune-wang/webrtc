@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edd49370_24356cdc",
+        "filename": "modules/audio_coding/audio_network_adaptor/frame_length_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-08-16T08:31:42Z",
+      "side": 1,
+      "message": "We could use the same pattern here that the code above uses, i.e.:\n\nif (...) {\n  frame_length_ms_ \u003d longer_frame_length_ms;\n  return true;\n}\nreturn false;\n\nSince both pieces of code are similar it would be nice to use the same pattern in both places (same applies to the decrease function below).",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 18
+      },
+      "revId": "6b13f4b3324b9545f42ef5231a96d2ef54f7f3c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59521240_948098e8",
+        "filename": "modules/audio_coding/audio_network_adaptor/frame_length_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-08-16T08:31:42Z",
+      "side": 1,
+      "message": "Doesn\u0027t this mean we will never be allowed to switch back to the first element in config_.encoder_frame_lengths_ms? To avoid this you could consider using a reverse_iterator instead here, so the code becomes almost the same as the increase case, i.e.:\n\n// Note that this iterator points to the element before frame_length_ms.\nauto shorter_frame_length_ms \u003d std::make_reverse_iterator(frame_length_ms);\nwhile (shorter_frame_length_ms !\u003d config_.encoder_frame_lengths_ms.rend()) {\n  decrease_threshold \u003d config_.fl_changing_bandwidths_bps.find(\n      Config::FrameLengthChange(*frame_length_ms_, *shorter_frame_length_ms));\n  if (decrease_threshold !\u003d config_.fl_changing_bandwidths_bps.end())\n    break;\n  shorter_frame_length_ms \u003d std::next(shorter_frame_length_ms);\n}",
+      "range": {
+        "startLine": 170,
+        "startChar": 9,
+        "endLine": 170,
+        "endChar": 76
+      },
+      "revId": "6b13f4b3324b9545f42ef5231a96d2ef54f7f3c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

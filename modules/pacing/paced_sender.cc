@@ -20,6 +20,7 @@
 #include "modules/pacing/interval_budget.h"
 #include "modules/utility/include/process_thread.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/location.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/time_utils.h"
 #include "system_wrappers/include/clock.h"
@@ -75,6 +76,7 @@ const float PacedSender::kDefaultPaceMultiplier = 2.5f;
 PacedSender::PacedSender(Clock* clock,
                          PacketRouter* packet_router,
                          RtcEventLog* event_log,
+                         ProcessThread* process_thread,
                          const WebRtcKeyValueConfig* field_trials)
     : clock_(clock),
       packet_router_(packet_router),
@@ -100,7 +102,7 @@ PacedSender::PacedSender(Clock* clock,
       packet_counter_(0),
       congestion_window_size_(DataSize::PlusInfinity()),
       outstanding_data_(DataSize::Zero()),
-      process_thread_(nullptr),
+      process_thread_(process_thread),
       queue_time_limit(TimeDelta::ms(kMaxQueueLengthMs)),
       account_for_audio_(false),
       legacy_packet_referencing_(
@@ -114,9 +116,15 @@ PacedSender::PacedSender(Clock* clock,
                   field_trials_->Lookup("WebRTC-Pacer-MinPacketLimitMs"));
   min_packet_limit_ = TimeDelta::ms(min_packet_limit_ms.Get());
   UpdateBudgetWithElapsedTime(min_packet_limit_);
+
+  if (process_thread_)
+    process_thread_->RegisterModule(&module_proxy_, RTC_FROM_HERE);
 }
 
-PacedSender::~PacedSender() {}
+PacedSender::~PacedSender() {
+  if (process_thread_)
+    process_thread_->DeRegisterModule(&module_proxy_);
+}
 
 void PacedSender::CreateProbeCluster(DataRate bitrate, int cluster_id) {
   rtc::CritScope cs(&critsect_);
@@ -131,11 +139,11 @@ void PacedSender::Pause() {
     paused_ = true;
     packets_.SetPauseState(true, CurrentTime());
   }
-  rtc::CritScope cs(&process_thread_lock_);
+
   // Tell the process thread to call our TimeUntilNextProcess() method to get
   // a new (longer) estimate for when to call Process().
   if (process_thread_)
-    process_thread_->WakeUp(this);
+    process_thread_->WakeUp(&module_proxy_);
 }
 
 void PacedSender::Resume() {
@@ -146,11 +154,11 @@ void PacedSender::Resume() {
     paused_ = false;
     packets_.SetPauseState(false, CurrentTime());
   }
-  rtc::CritScope cs(&process_thread_lock_);
+
   // Tell the process thread to call our TimeUntilNextProcess() method to
   // refresh the estimate for when to call Process().
   if (process_thread_)
-    process_thread_->WakeUp(this);
+    process_thread_->WakeUp(&module_proxy_);
 }
 
 void PacedSender::SetCongestionWindow(DataSize congestion_window_size) {
@@ -493,8 +501,7 @@ void PacedSender::Process() {
 
 void PacedSender::ProcessThreadAttached(ProcessThread* process_thread) {
   RTC_LOG(LS_INFO) << "ProcessThreadAttached 0x" << process_thread;
-  rtc::CritScope cs(&process_thread_lock_);
-  process_thread_ = process_thread;
+  RTC_DCHECK(!process_thread || process_thread == process_thread_);
 }
 
 DataSize PacedSender::PaddingToAdd(

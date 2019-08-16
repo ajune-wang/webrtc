@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "720bd122_52f2efc3",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-16T09:21:37Z",
+      "side": 1,
+      "message": "The each PacedSender has it\u0027s own dedicated ProcessThread. That thread is the only thread that calls this method, and there is exactly one PacketRouter per PacedSender.\nSo just using the lock here is fine.",
+      "parentUuid": "04b8065c_30a2252d",
+      "revId": "f6468d2569d3987aba29bdcd1198078cf6ae326c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fde1910b_80610151",
         "filename": "modules/pacing/packet_router.cc",
         "patchSetId": 14
@@ -33,6 +51,24 @@
       "revId": "f6468d2569d3987aba29bdcd1198078cf6ae326c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "032908fa_a67205e1",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-16T09:21:37Z",
+      "side": 1,
+      "message": "This code is now essentially serialized. If the code path is used where this method is called, then the AllocateSequenceNumber() method and the entire SequenceNumberAllocator interface is unused. They will be removed shortly and we\u0027ll stop using atomics (we\u0027re keeping both code paths alive for a transition period with a field trial flag that allows switching between them).",
+      "parentUuid": "fde1910b_80610151",
+      "revId": "f6468d2569d3987aba29bdcd1198078cf6ae326c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

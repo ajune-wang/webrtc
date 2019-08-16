@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "178b33a6_e6eba742",
+        "filename": "system_wrappers/include/ntp_time.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-16T11:21:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cef66cf3_9c695b86",
+      "range": {
+        "startLine": 66,
+        "startChar": 6,
+        "endLine": 66,
+        "endChar": 11
+      },
+      "revId": "ec9b74e4b7bfe1f77ba1b892881a765bf0b6c177",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e190e74_f33079ef",
+        "filename": "system_wrappers/include/ntp_time.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-16T11:21:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8a86e60_58e6230b",
+      "range": {
+        "startLine": 66,
+        "startChar": 25,
+        "endLine": 66,
+        "endChar": 65
+      },
+      "revId": "ec9b74e4b7bfe1f77ba1b892881a765bf0b6c177",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4dbfb68f_bf5e5375",
         "filename": "system_wrappers/include/ntp_time.h",
         "patchSetId": 10
@@ -59,6 +107,30 @@
       "writtenOn": "2019-08-16T11:07:50Z",
       "side": 1,
       "message": "Do we really need the uint64_t milliseconds?",
+      "range": {
+        "startLine": 70,
+        "startChar": 34,
+        "endLine": 70,
+        "endChar": 55
+      },
+      "revId": "ec9b74e4b7bfe1f77ba1b892881a765bf0b6c177",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65ec8894_b8347401",
+        "filename": "system_wrappers/include/ntp_time.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-08-16T11:21:10Z",
+      "side": 1,
+      "message": "It seems to make sense for symmetry reasons.\n\nOne alternative is to only use signed `int64_t milliseconds` for both sets of conversion functions to/from Q32.32 and UQ32.32, and then maybe add code to do clamping to handle overflow?",
+      "parentUuid": "4dbfb68f_bf5e5375",
       "range": {
         "startLine": 70,
         "startChar": 34,

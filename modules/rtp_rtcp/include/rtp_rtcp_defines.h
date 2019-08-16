@@ -444,6 +444,18 @@ class StreamDataCountersCallback {
                                    uint32_t ssrc) = 0;
 };
 
+// Information exposed via GetStats
+struct RtpReceiveStats {
+  // packets_lost and jitter are defined by RFC 3550, and exposed in the
+  // RTCReceivedRtpStreamStats dictionary.
+  int32_t packets_lost = 0;
+  uint32_t jitter = 0;
+
+  uint32_t extended_highest_sequence_number = 0;
+
+  StreamDataCounters data;
+};
+
 class RtcpAckObserver {
  public:
   // This method is called on received report blocks matching the sender ssrc.

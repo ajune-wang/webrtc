@@ -578,8 +578,7 @@ TEST_F(PeerConnectionUsageHistogramTest, FingerprintStunTurnInReconfiguration) {
   configuration.servers.push_back(server);
   auto caller = CreatePeerConnection();
   ASSERT_TRUE(caller);
-  RTCError error;
-  caller->pc()->SetConfiguration(configuration, &error);
+  RTCError error = caller->pc()->SetConfiguration(configuration);
   ASSERT_TRUE(error.ok());
   caller->pc()->Close();
   int expected_fingerprint =

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13f239bb_e83d7626",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 6965,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-08-16T12:29:34Z",
+      "side": 1,
+      "message": "Is this right? Are we really not registering anything about PRFLX, STUN or RELAY remote candidates?\n\n(And if this is a bug - we need to add a test that would have caught it.)",
+      "revId": "8b768cb1cb2513998260183791e6b667e23f904a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9386ae3e_a830fcb8",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-08-16T12:29:34Z",
+      "side": 1,
+      "message": "I\u0027m puzzled by the renumbering of this name. What does it accomplish?\nThe old code only logged when successful, the new code logs when not successful, but logs more details of the transaction.\nDo we have reason to suspect that there\u0027s a significant difference here?",
+      "revId": "8b768cb1cb2513998260183791e6b667e23f904a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9d1f111_49ec27d5",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-08-16T12:29:34Z",
+      "side": 1,
+      "message": "Somewhere we need to document that REMOTE_CANDIDATE_ADDED and CANDIDATE_COLLECTED are the aggregate numbers, and that IPv6, private and MDNS are 3 subcategories that can be present in each of them (with the remainder presumably assumed to be public IPv4). Since we can\u0027t make the numbers contiguous, perhaps we should put an explicit comment ahead of the list?",
+      "revId": "8b768cb1cb2513998260183791e6b667e23f904a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bc178fc_10f0d826",
+        "filename": "pc/peer_connection_histogram_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-08-16T12:29:34Z",
+      "side": 1,
+      "message": "Code and comment are inconsistent. You also don\u0027t CHECK that you got a candidate - if this times out, the test will fail to show expected behavior.",
+      "revId": "8b768cb1cb2513998260183791e6b667e23f904a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

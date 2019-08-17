@@ -37,6 +37,29 @@
     },
     {
       "key": {
+        "uuid": "12851128_bda9149e",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 8393
+      },
+      "writtenOn": "2019-08-17T03:31:14Z",
+      "side": 1,
+      "message": "Should these also be \"_SUCCEEDED\"? From a cursory evaluation it seems like the log event only occurs at the successful end of the function.",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 32
+      },
+      "revId": "8b768cb1cb2513998260183791e6b667e23f904a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9386ae3e_a830fcb8",
         "filename": "pc/peer_connection.h",
         "patchSetId": 6

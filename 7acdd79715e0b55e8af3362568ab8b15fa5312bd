@@ -22,6 +22,53 @@
       "revId": "7acdd79715e0b55e8af3362568ab8b15fa5312bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5d02ab1_d8c3efb9",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-19T09:01:16Z",
+      "side": 1,
+      "message": "Well, we\u0027d still need to check that rtx.ssrcs.size() \u003e 0, and then this seems safer. As I understand it, CHECK-failures are seen as security issues. Maybe keeping this version and adding a DCHECK makes more sense?\n\nThere might be more to it, though. It could be that it\u0027s allowed to protect only one layer but not the other in a simulcast stream for instance.",
+      "parentUuid": "9e9349d0_78c9386e",
+      "range": {
+        "startLine": 124,
+        "startChar": 3,
+        "endLine": 124,
+        "endChar": 42
+      },
+      "revId": "7acdd79715e0b55e8af3362568ab8b15fa5312bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ce2a208_32d06e2d",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-19T09:01:16Z",
+      "side": 1,
+      "message": "nit: configuration.media_send_ssrc?",
+      "range": {
+        "startLine": 125,
+        "startChar": 36,
+        "endLine": 125,
+        "endChar": 59
+      },
+      "revId": "7acdd79715e0b55e8af3362568ab8b15fa5312bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

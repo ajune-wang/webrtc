@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a1711628_47751e89",
+        "filename": "p2p/base/port_allocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-19T23:15:12Z",
+      "side": 1,
+      "message": "SG. After some thought, I removed the method for remote candidates to the transport. Conceptually the allocator only handles the local candidates, and the transport handles the remote ones. It could be easier to reason where the methods are. The transport also has a wrapper for locals to be a bit cleaner and complete, which delegates to the allocator.",
+      "parentUuid": "b9ccfe86_eb400393",
+      "revId": "cf5b78a1161755a00cbb5e3ed28b2c18832c4974",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98476aae_1ce669ef",
         "filename": "p2p/client/basic_port_allocator.h",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "cf5b78a1161755a00cbb5e3ed28b2c18832c4974",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ab56309_2b6b2a85",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-19T23:15:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98476aae_1ce669ef",
+      "revId": "cf5b78a1161755a00cbb5e3ed28b2c18832c4974",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

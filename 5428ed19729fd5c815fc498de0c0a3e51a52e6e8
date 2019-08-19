@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f9e9afe_d3d13df2",
+        "filename": "sdk/android/src/jni/pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-08-19T08:09:36Z",
+      "side": 1,
+      "message": "nit: Add logging of the error if this fails? Or maybe it is already logged upstream?",
+      "range": {
+        "startLine": 590,
+        "startChar": 54,
+        "endLine": 590,
+        "endChar": 61
+      },
+      "revId": "5428ed19729fd5c815fc498de0c0a3e51a52e6e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

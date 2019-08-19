@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac7e37a0_c209c7b1",
+        "filename": "pc/peer_connection_histogram_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-08-19T11:55:26Z",
+      "side": 1,
+      "message": "Is this right? Connections that happen via a peer-reflexive candidate will commonly be host-to-host. It seems wrong to have a connection where the two ends have differing views of whether it\u0027s a host-to-host connection.",
+      "revId": "3532b1c10ea1d9b4c596e5e5d7c1a0278b2c8f6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

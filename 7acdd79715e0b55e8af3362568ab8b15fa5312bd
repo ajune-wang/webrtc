@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "edf044ec_4e09590b",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-19T10:43:28Z",
+      "side": 1,
+      "message": "That\u0027s my worry too. I\u0027ll keep it like shit but add a dcheck and see if we hit any issues.",
+      "parentUuid": "f5d02ab1_d8c3efb9",
+      "range": {
+        "startLine": 124,
+        "startChar": 3,
+        "endLine": 124,
+        "endChar": 42
+      },
+      "revId": "7acdd79715e0b55e8af3362568ab8b15fa5312bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ce2a208_32d06e2d",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 2
@@ -69,6 +93,30 @@
       "revId": "7acdd79715e0b55e8af3362568ab8b15fa5312bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c0fe972_ba4a3e90",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-19T10:43:28Z",
+      "side": 1,
+      "message": "That\u0027s already set on L114 above.",
+      "parentUuid": "4ce2a208_32d06e2d",
+      "range": {
+        "startLine": 125,
+        "startChar": 36,
+        "endLine": 125,
+        "endChar": 59
+      },
+      "revId": "7acdd79715e0b55e8af3362568ab8b15fa5312bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

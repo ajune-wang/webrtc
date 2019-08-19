@@ -343,8 +343,8 @@ class StatsReport {
     const StatsValueName name;
 
    private:
-    rtc::ThreadChecker thread_checker_;
-    mutable int ref_count_ RTC_GUARDED_BY(thread_checker_) = 0;
+    RTC_THREAD_CHECKER(thread_checker_);
+    mutable int ref_count_ RTC_GUARDED_BY_THREAD(thread_checker_) = 0;
 
     const Type type_;
     // TODO(tommi): Use C++ 11 union and make value_ const.
@@ -446,7 +446,7 @@ class StatsCollection {
 
  private:
   Container list_;
-  rtc::ThreadChecker thread_checker_;
+  RTC_THREAD_CHECKER(thread_checker_);
 };
 
 }  // namespace webrtc

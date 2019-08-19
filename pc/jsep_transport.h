@@ -109,13 +109,13 @@ class JsepTransport : public sigslot::has_slots<>,
   // Needed in order to verify the local fingerprint.
   void SetLocalCertificate(
       const rtc::scoped_refptr<rtc::RTCCertificate>& local_certificate) {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     local_certificate_ = local_certificate;
   }
 
   // Return the local certificate provided by SetLocalCertificate.
   rtc::scoped_refptr<rtc::RTCCertificate> GetLocalCertificate() const {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     return local_certificate_;
   }
 
@@ -155,12 +155,12 @@ class JsepTransport : public sigslot::has_slots<>,
   bool GetStats(TransportStats* stats);
 
   const JsepTransportDescription* local_description() const {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     return local_description_.get();
   }
 
   const JsepTransportDescription* remote_description() const {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     return remote_description_.get();
   }
 
@@ -323,6 +323,7 @@ class JsepTransport : public sigslot::has_slots<>,
 
   // Owning thread, for safety checks
   const rtc::Thread* const network_thread_;
+
   // Critical scope for fields accessed off-thread
   // TODO(https://bugs.webrtc.org/10300): Stop doing this.
   rtc::CriticalSection accessor_lock_;

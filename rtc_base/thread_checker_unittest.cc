@@ -192,6 +192,8 @@ TEST(ThreadCheckerTest, DetachFromThreadInRelease) {
 
 #endif  // GTEST_HAS_DEATH_TEST || !ENABLE_THREAD_CHECKER
 
+#if RTC_DCHECK_IS_ON
+
 class ThreadAnnotateTest {
  public:
   // Next two function should create warnings when compile (e.g. if used with
@@ -246,6 +248,8 @@ class ThreadAnnotateTest {
   int var_checker_ RTC_GUARDED_BY(checker_);
   int var_queue_ RTC_GUARDED_BY(queue_);
 };
+
+#endif  // RTC_DCHECK_IS_ON
 
 // Just in case we ever get lumped together with other compilation units.
 #undef ENABLE_THREAD_CHECKER

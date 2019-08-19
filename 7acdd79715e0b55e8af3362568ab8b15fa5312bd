@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e9349d0_78c9386e",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-19T08:43:51Z",
+      "side": 1,
+      "message": "Can this be a CHECK instead? It seems like the expectation could be that\nrtp_config.rtx.ssrcs.empty() || rtp_config.rtx.ssrcs.size() \u003d\u003d rtp_config.ssrcs.size()\nBut afaict it\u0027s not explicitly stated anywhere?",
+      "range": {
+        "startLine": 124,
+        "startChar": 3,
+        "endLine": 124,
+        "endChar": 42
+      },
+      "revId": "7acdd79715e0b55e8af3362568ab8b15fa5312bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

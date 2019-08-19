@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "884030eb_8584f392",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-19T09:29:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c3bda0ff_aaaf9e26",
+      "revId": "7086df0ad429fbb662345d3cf0ab3f6e2def6ada",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a590d516_b3cd5ffa",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
         "patchSetId": 8
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "StreamDataCountersCallback has been deleted from the ReceiveStatistics class, but it is used on the send side, so not going away from receive side refactoring. \n\nGetReceiveStreamDataCounters could perhaps be deleted, depending on what downstream users need.",
       "parentUuid": "a590d516_b3cd5ffa",
+      "revId": "7086df0ad429fbb662345d3cf0ab3f6e2def6ada",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b5c672c_2ee50801",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-19T09:29:40Z",
+      "side": 1,
+      "message": "How about adding a TODO to delete in favor of GetStats() when downstream projects have migrated, to document its superflousness?",
+      "parentUuid": "3526b0dc_99f63db5",
       "revId": "7086df0ad429fbb662345d3cf0ab3f6e2def6ada",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -122,6 +158,24 @@
       "revId": "7086df0ad429fbb662345d3cf0ab3f6e2def6ada",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24b46f74_f51a5225",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-19T09:29:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "629feefa_f556d340",
+      "revId": "7086df0ad429fbb662345d3cf0ab3f6e2def6ada",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

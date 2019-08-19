@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e69fc30c_9ee355a4",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-08-19T12:43:11Z",
+      "side": 1,
+      "message": "nit: implements RefCounted",
+      "range": {
+        "startLine": 21,
+        "startChar": 13,
+        "endLine": 21,
+        "endChar": 25
+      },
+      "revId": "030976e32c6aa657f3029fa33437a0910ac4483d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b1657b7_60c471da",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-08-19T12:43:11Z",
+      "side": 1,
+      "message": "nit: literal comment",
+      "range": {
+        "startLine": 143,
+        "startChar": 31,
+        "endLine": 143,
+        "endChar": 35
+      },
+      "revId": "030976e32c6aa657f3029fa33437a0910ac4483d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "653fb789_c3db06d1",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-08-19T12:43:11Z",
+      "side": 1,
+      "message": "needs to be volatile",
+      "range": {
+        "startLine": 65,
+        "startChar": 12,
+        "endLine": 65,
+        "endChar": 19
+      },
+      "revId": "030976e32c6aa657f3029fa33437a0910ac4483d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d8019b1_24c583e0",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-08-19T12:43:11Z",
+      "side": 1,
+      "message": "Can we instead use AtomicInteger to avoid having to lock in decrement/increment?",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 22
+      },
+      "revId": "030976e32c6aa657f3029fa33437a0910ac4483d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4334529_e53dbf61",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-08-19T12:43:11Z",
+      "side": 1,
+      "message": "nit: Please add braces (Google Java style)",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 17
+      },
+      "revId": "030976e32c6aa657f3029fa33437a0910ac4483d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff6cc678_2215e688",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-08-19T12:43:11Z",
+      "side": 1,
+      "message": "Please instead use AtomicInteger and call notifyAll/wait on it.",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 17
+      },
+      "revId": "030976e32c6aa657f3029fa33437a0910ac4483d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f472b6d_2bf9014c",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-08-19T12:43:11Z",
+      "side": 1,
+      "message": "Log exception here",
+      "range": {
+        "startLine": 94,
+        "startChar": 66,
+        "endLine": 94,
+        "endChar": 68
+      },
+      "revId": "030976e32c6aa657f3029fa33437a0910ac4483d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -46,6 +46,30 @@
       "revId": "5428ed19729fd5c815fc498de0c0a3e51a52e6e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd9d1de2_d2c53b54",
+        "filename": "sdk/android/src/jni/pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-08-19T13:17:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5c30b1e9_0a89c81a",
+      "range": {
+        "startLine": 590,
+        "startChar": 54,
+        "endLine": 590,
+        "endChar": 61
+      },
+      "revId": "5428ed19729fd5c815fc498de0c0a3e51a52e6e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

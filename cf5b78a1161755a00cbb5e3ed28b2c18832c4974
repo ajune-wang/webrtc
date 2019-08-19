@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9ccfe86_eb400393",
+        "filename": "p2p/base/port_allocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-19T22:28:46Z",
+      "side": 1,
+      "message": "I think this would be more clear as two separate functions, one for remote and one for local candidates.\n\nThis would help since a lot of the body only applies to one or the other.\n\nCan keep any shared logic as static internal functions.",
+      "revId": "cf5b78a1161755a00cbb5e3ed28b2c18832c4974",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98476aae_1ce669ef",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-19T22:28:46Z",
+      "side": 1,
+      "message": "Move this documentation to port_allocator.h",
+      "revId": "cf5b78a1161755a00cbb5e3ed28b2c18832c4974",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

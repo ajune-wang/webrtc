@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1e2b2a3_b35209e8",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-08-19T11:51:06Z",
+      "side": 1,
+      "message": "Micro-nit: Use either addIceCandidate or AddIceCandidate in this file.",
+      "revId": "cc0ca3f46fee6f47f661e3681abf40231d96caf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "8a8575af_cb248887",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 6965,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-08-19T11:51:06Z",
+      "side": 1,
+      "message": "I think this is wrong. The most obvious case is that remote non-host candidates can be IPv6 or private IP, and should be counted as such.\nWe don\u0027t have any worked examples of STUN/TURN servers producing MDNS candidates yet, but in theory, there\u0027s nothing that prevents them from doing so. (Would be strange if it was useful, but who knows? Perhaps someone has corporate-wide MDNS resolution?)",
+      "parentUuid": "5639986d_6a38848a",
+      "revId": "8b768cb1cb2513998260183791e6b667e23f904a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "12851128_bda9149e",
         "filename": "pc/peer_connection.h",
         "patchSetId": 6

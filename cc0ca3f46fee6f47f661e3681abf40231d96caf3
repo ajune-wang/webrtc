@@ -16,6 +16,24 @@
       "revId": "cc0ca3f46fee6f47f661e3681abf40231d96caf3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fdc2601_25360ece",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-19T19:01:12Z",
+      "side": 1,
+      "message": "Fixed and also scanned the whole file.",
+      "parentUuid": "c1e2b2a3_b35209e8",
+      "revId": "cc0ca3f46fee6f47f661e3681abf40231d96caf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

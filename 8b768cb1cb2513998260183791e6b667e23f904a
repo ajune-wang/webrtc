@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "e451e68d_bef4a280",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 6965,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-19T19:01:12Z",
+      "side": 1,
+      "message": "I\u0027ve tentatively also removed the restriction for local candidates and we log the subcategories for all local ones as well. The rationale is to keep the parity between sending and receiving candidates in libwebrtc, so that we can have some inference to the distribution of libwebrtc^2 pairs vs libwebrtc-thirdparty pairs. Please let me know if this doesn\u0027t make sense. Also edited names and comments accordingly.",
+      "parentUuid": "8a8575af_cb248887",
+      "revId": "8b768cb1cb2513998260183791e6b667e23f904a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "12851128_bda9149e",
         "filename": "pc/peer_connection.h",
         "patchSetId": 6

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ff9d6de0_bc1afebb",
+        "filename": "api/peer_connection_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-19T07:59:01Z",
+      "side": 1,
+      "message": "They didn\u0027t do that before this cl, so that seems kind of unrelated. Do you expect there are subclasses overriding one but not the other? I\u0027m happy to do it, if you think it solves a real problem. I would hope that overload with an RTCERROR* pointer can be deleted fairly soon.",
+      "parentUuid": "e2853252_c3f3ff61",
+      "revId": "6c28cb52326b47c880188730d87cf8dfb0b6c938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d1947561_52ff8289",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-08-16T19:59:30Z",
       "side": 1,
       "message": "Bonus points for converting these to LOG_AND_RETURN_ERROR :)",
+      "revId": "6c28cb52326b47c880188730d87cf8dfb0b6c938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b02e0b6_4de87421",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3479,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-19T07:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1947561_52ff8289",
       "revId": "6c28cb52326b47c880188730d87cf8dfb0b6c938",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "54bdde5b_efa5ef7b",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3582,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-19T07:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0926012b_e5b6152a",
+      "range": {
+        "startLine": 3582,
+        "startChar": 11,
+        "endLine": 3582,
+        "endChar": 46
+      },
+      "revId": "6c28cb52326b47c880188730d87cf8dfb0b6c938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ef51c9a_6033b5b0",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 1
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "fcb4ee74_7b84880b",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3649,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-19T07:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ef51c9a_6033b5b0",
+      "range": {
+        "startLine": 3649,
+        "startChar": 9,
+        "endLine": 3649,
+        "endChar": 37
+      },
+      "revId": "6c28cb52326b47c880188730d87cf8dfb0b6c938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f749868_6310b6ca",
         "filename": "pc/peer_connection_histogram_unittest.cc",
         "patchSetId": 1
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "86af8a1d_eab793bc",
+        "filename": "pc/peer_connection_histogram_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-19T07:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f749868_6310b6ca",
+      "revId": "6c28cb52326b47c880188730d87cf8dfb0b6c938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d45abace_3b369a74",
         "filename": "pc/peer_connection_ice_unittest.cc",
         "patchSetId": 1
@@ -113,6 +215,24 @@
       "revId": "6c28cb52326b47c880188730d87cf8dfb0b6c938",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af1f8dd1_973e26bf",
+        "filename": "pc/peer_connection_ice_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1232,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-19T07:59:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d45abace_3b369a74",
+      "revId": "6c28cb52326b47c880188730d87cf8dfb0b6c938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

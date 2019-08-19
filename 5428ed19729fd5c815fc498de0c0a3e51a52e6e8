@@ -22,6 +22,30 @@
       "revId": "5428ed19729fd5c815fc498de0c0a3e51a52e6e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c30b1e9_0a89c81a",
+        "filename": "sdk/android/src/jni/pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-19T08:15:46Z",
+      "side": 1,
+      "message": "PeerConnection::SetConfiguration logs errors. Also, current plan is to land cl https://webrtc-review.googlesource.com/c/src/+/149166 instead of this one. Sorry for the confusion. On that cl, this line is changed to\n\nreturn owned_pc-\u003epc()-\u003eSetConfiguration(rtc_config).ok();",
+      "parentUuid": "5f9e9afe_d3d13df2",
+      "range": {
+        "startLine": 590,
+        "startChar": 54,
+        "endLine": 590,
+        "endChar": 61
+      },
+      "revId": "5428ed19729fd5c815fc498de0c0a3e51a52e6e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

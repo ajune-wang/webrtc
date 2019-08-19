@@ -264,11 +264,19 @@ TEST_F(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
             }
             break;
           case 1:
-            if (stats.send_bandwidth_bps <= 210000) {
+            if (stats.send_bandwidth_bps <= 200000) {
+              // Initial probing finished. Increase link capacity and wait
+              // until BWE ramped up enough to be in ALR.
               BuiltInNetworkBehaviorConfig config;
               config.link_capacity_kbps = 5000;
               send_simulated_network_->SetConfig(config);
-
+              ++state_;
+            }
+            break;
+          case 2:
+            if (stats.send_bandwidth_bps > 240000) {
+              // BWE ramped up enough to be in ALR. Setting higher max_bitrate
+              // should trigger an allocation probe.
               encoder_config_->max_bitrate_bps = 2000000;
               encoder_config_->simulcast_layers[0].max_bitrate_bps = 1200000;
               task_queue_->SendTask([this]() {
@@ -278,7 +286,7 @@ TEST_F(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
               ++state_;
             }
             break;
-          case 2:
+          case 3:
             if (stats.send_bandwidth_bps >= 1000000) {
               *success_ = true;
               observation_complete_.Set();
@@ -289,7 +297,7 @@ TEST_F(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
     }
 
    private:
-    const int kTimeoutMs = 3000;
+    const int kTimeoutMs = 10000;
     test::SingleThreadedTaskQueueForTesting* const task_queue_;
     bool* const success_;
     SimulatedNetwork* send_simulated_network_;

@@ -60,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "b35ef7fe_2cde5961",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-19T04:06:29Z",
+      "side": 1,
+      "message": "Agree that SLD and SRD bits are only registered if the methods succeed. Renamed for accuracy in the new patchset.",
+      "parentUuid": "12851128_bda9149e",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 32
+      },
+      "revId": "8b768cb1cb2513998260183791e6b667e23f904a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9386ae3e_a830fcb8",
         "filename": "pc/peer_connection.h",
         "patchSetId": 6
@@ -144,6 +168,24 @@
       "revId": "8b768cb1cb2513998260183791e6b667e23f904a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97d02e2f_7a54ad94",
+        "filename": "pc/peer_connection_histogram_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-19T04:06:29Z",
+      "side": 1,
+      "message": "Thanks for catching this. Having a dedicated check definitely makes the diagnosis clearer. Fixed.",
+      "parentUuid": "2bc178fc_10f0d826",
+      "revId": "8b768cb1cb2513998260183791e6b667e23f904a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

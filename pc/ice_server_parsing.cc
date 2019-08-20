@@ -266,7 +266,8 @@ static RTCErrorType ParseIceServerUrl(
 RTCErrorType ParseIceServers(
     const PeerConnectionInterface::IceServers& servers,
     cricket::ServerAddresses* stun_servers,
-    std::vector<cricket::RelayServerConfig>* turn_servers) {
+    std::vector<cricket::RelayServerConfig>* turn_servers,
+    absl::optional<std::string> turn_logging_id) {
   for (const PeerConnectionInterface::IceServer& server : servers) {
     if (!server.urls.empty()) {
       for (const std::string& url : server.urls) {
@@ -298,6 +299,11 @@ RTCErrorType ParseIceServers(
   for (cricket::RelayServerConfig& turn_server : *turn_servers) {
     // First in the list gets highest priority.
     turn_server.priority = priority--;
+  }
+
+  // Add the turn logging id to all turn servers
+  for (cricket::RelayServerConfig& turn_server : *turn_servers) {
+    turn_server.turn_logging_id = turn_logging_id;
   }
   return RTCErrorType::NONE;
 }

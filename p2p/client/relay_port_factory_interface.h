@@ -45,6 +45,7 @@ struct CreateRelayPortArgs {
   std::string password;
   std::string origin;
   webrtc::TurnCustomizer* turn_customizer;
+  absl::optional<std::string> turn_logging_id;
 };
 
 inline CreateRelayPortArgs::CreateRelayPortArgs() {}

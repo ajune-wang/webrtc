@@ -1692,6 +1692,8 @@ void RTCStatsCollector::ProduceTransportStats_n(
       transport_stats->bytes_received = 0;
       transport_stats->dtls_state =
           DtlsTransportStateToRTCDtlsTransportState(channel_stats.dtls_state);
+      transport_stats->selected_candidate_pair_change_counter =
+          channel_stats.selected_candidate_pair_change_counter;
       for (const cricket::ConnectionInfo& info :
            channel_stats.connection_infos) {
         *transport_stats->bytes_sent += info.sent_total_bytes;

@@ -1233,9 +1233,12 @@ TEST_F(P2PTransportChannelTest, GetStats) {
   TestSendRecv(&clock);
   ConnectionInfos infos;
   CandidateStatsList candidate_stats_list;
-  ASSERT_TRUE(ep1_ch1()->GetStats(&infos, &candidate_stats_list));
+  uint32_t selected_candidate_pair_change_counter;
+  ASSERT_TRUE(ep1_ch1()->GetStats(&infos, &candidate_stats_list,
+                                  &selected_candidate_pair_change_counter));
   ASSERT_GE(infos.size(), 1u);
   ASSERT_GE(candidate_stats_list.size(), 1u);
+  EXPECT_EQ(selected_candidate_pair_change_counter, 1u);
   ConnectionInfo* best_conn_info = nullptr;
   for (ConnectionInfo& info : infos) {
     if (info.best_connection) {
@@ -1584,11 +1587,14 @@ TEST_F(P2PTransportChannelTest, PeerReflexiveRemoteCandidateIsSanitized) {
 
   ConnectionInfos pair_stats;
   CandidateStatsList candidate_stats;
-  ep1_ch1()->GetStats(&pair_stats, &candidate_stats);
+  uint32_t selected_candidate_pair_change_counter;
+  ep1_ch1()->GetStats(&pair_stats, &candidate_stats,
+                      &selected_candidate_pair_change_counter);
   // Check the candidate pair stats.
   ASSERT_EQ(1u, pair_stats.size());
   EXPECT_EQ(PRFLX_PORT_TYPE, pair_stats[0].remote_candidate.type());
   EXPECT_TRUE(pair_stats[0].remote_candidate.address().ipaddr().IsNil());
+  EXPECT_EQ(selected_candidate_pair_change_counter, 1u);
 
   // Let ep1 receive the remote candidate to update its type from prflx to host.
   ResumeCandidates(1);
@@ -1608,12 +1614,14 @@ TEST_F(P2PTransportChannelTest, PeerReflexiveRemoteCandidateIsSanitized) {
   EXPECT_TRUE(
       updated_pair_ep1->remote_candidate().address().EqualIPs(kPublicAddrs[1]));
 
-  ep1_ch1()->GetStats(&pair_stats, &candidate_stats);
+  ep1_ch1()->GetStats(&pair_stats, &candidate_stats,
+                      &selected_candidate_pair_change_counter);
   // Check the candidate pair stats.
   ASSERT_EQ(1u, pair_stats.size());
   EXPECT_EQ(LOCAL_PORT_TYPE, pair_stats[0].remote_candidate.type());
   EXPECT_TRUE(
       pair_stats[0].remote_candidate.address().EqualIPs(kPublicAddrs[1]));
+  EXPECT_EQ(selected_candidate_pair_change_counter, 1u);
 
   DestroyChannels();
 }
@@ -5012,13 +5020,19 @@ TEST_F(P2PTransportChannelTest,
 
   ConnectionInfos connection_infos_ep1;
   CandidateStatsList candidate_stats_list_ep1;
+  uint32_t selected_candidate_pair_change_counter1;
   ConnectionInfos connection_infos_ep2;
   CandidateStatsList candidate_stats_list_ep2;
-  ep1_ch1()->GetStats(&connection_infos_ep1, &candidate_stats_list_ep1);
-  ep2_ch1()->GetStats(&connection_infos_ep2, &candidate_stats_list_ep2);
+  uint32_t selected_candidate_pair_change_counter2;
+  ep1_ch1()->GetStats(&connection_infos_ep1, &candidate_stats_list_ep1,
+                      &selected_candidate_pair_change_counter1);
+  ep2_ch1()->GetStats(&connection_infos_ep2, &candidate_stats_list_ep2,
+                      &selected_candidate_pair_change_counter2);
   EXPECT_EQ(3u, connection_infos_ep1.size());
   EXPECT_EQ(3u, candidate_stats_list_ep1.size());
+  EXPECT_EQ(selected_candidate_pair_change_counter1, 1u);
   EXPECT_EQ(3u, connection_infos_ep2.size());
+  EXPECT_EQ(selected_candidate_pair_change_counter2, 1u);
   // Check the stats of ep1 seen by ep1.
   for (const auto& connection_info : connection_infos_ep1) {
     const auto& local_candidate = connection_info.local_candidate;

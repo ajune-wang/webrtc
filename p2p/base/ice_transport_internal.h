@@ -257,7 +257,8 @@ class RTC_EXPORT IceTransportInternal : public rtc::PacketTransportInternal {
 
   // Returns the current stats for this connection.
   virtual bool GetStats(ConnectionInfos* candidate_pair_stats_list,
-                        CandidateStatsList* candidate_stats_list) = 0;
+                        CandidateStatsList* candidate_stats_list,
+                        uint32_t* selected_candidate_pair_change_counter) = 0;
 
   // Returns RTT estimate over the currently active connection, or an empty
   // absl::optional if there is none.

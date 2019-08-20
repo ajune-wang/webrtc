@@ -1493,8 +1493,10 @@ int P2PTransportChannel::SendPacket(const char* data,
   return sent;
 }
 
-bool P2PTransportChannel::GetStats(ConnectionInfos* candidate_pair_stats_list,
-                                   CandidateStatsList* candidate_stats_list) {
+bool P2PTransportChannel::GetStats(
+    ConnectionInfos* candidate_pair_stats_list,
+    CandidateStatsList* candidate_stats_list,
+    uint32_t* selected_candidate_pair_change_counter) {
   RTC_DCHECK_RUN_ON(network_thread_);
   // Gather candidate and candidate pair stats.
   candidate_stats_list->clear();
@@ -1514,6 +1516,7 @@ bool P2PTransportChannel::GetStats(ConnectionInfos* candidate_pair_stats_list,
     connection->set_reported(true);
   }
 
+  *selected_candidate_pair_change_counter = selected_candidate_pair_switches_;
   return true;
 }
 
@@ -1991,6 +1994,8 @@ void P2PTransportChannel::SwitchSelectedConnection(Connection* conn,
     SignalCandidatePairChanged(pair_change);
   }
   SignalNetworkRouteChanged(network_route_);
+
+  selected_candidate_pair_switches_++;
 }
 
 // Warning: UpdateState should eventually be called whenever a connection

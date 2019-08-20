@@ -107,18 +107,16 @@ int16_t FakeAudioCaptureModule::RecordingDevices() {
   return 0;
 }
 
-int32_t FakeAudioCaptureModule::PlayoutDeviceName(
-    uint16_t /*index*/,
-    char /*name*/[webrtc::kAdmMaxDeviceNameSize],
-    char /*guid*/[webrtc::kAdmMaxGuidSize]) {
+int32_t FakeAudioCaptureModule::PlayoutDeviceName(uint16_t /*index*/,
+                                                  std::string* /*name*/,
+                                                  std::string* /*guid*/) {
   RTC_NOTREACHED();
   return 0;
 }
 
-int32_t FakeAudioCaptureModule::RecordingDeviceName(
-    uint16_t /*index*/,
-    char /*name*/[webrtc::kAdmMaxDeviceNameSize],
-    char /*guid*/[webrtc::kAdmMaxGuidSize]) {
+int32_t FakeAudioCaptureModule::RecordingDeviceName(uint16_t /*index*/,
+                                                    std::string* /*name*/,
+                                                    std::string* /*guid*/) {
   RTC_NOTREACHED();
   return 0;
 }

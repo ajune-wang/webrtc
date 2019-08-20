@@ -1091,16 +1091,12 @@ int32_t AudioDeviceIOS::MinMicrophoneVolume(uint32_t& minVolume) const {
   return -1;
 }
 
-int32_t AudioDeviceIOS::PlayoutDeviceName(uint16_t index,
-                                          char name[kAdmMaxDeviceNameSize],
-                                          char guid[kAdmMaxGuidSize]) {
+int32_t AudioDeviceIOS::PlayoutDeviceName(uint16_t index, std::string* name, std::string* guid) {
   RTC_NOTREACHED() << "Not implemented";
   return -1;
 }
 
-int32_t AudioDeviceIOS::RecordingDeviceName(uint16_t index,
-                                            char name[kAdmMaxDeviceNameSize],
-                                            char guid[kAdmMaxGuidSize]) {
+int32_t AudioDeviceIOS::RecordingDeviceName(uint16_t index, std::string* name, std::string* guid) {
   RTC_NOTREACHED() << "Not implemented";
   return -1;
 }

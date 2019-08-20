@@ -74,30 +74,30 @@ int16_t FileAudioDevice::RecordingDevices() {
 }
 
 int32_t FileAudioDevice::PlayoutDeviceName(uint16_t index,
-                                           char name[kAdmMaxDeviceNameSize],
-                                           char guid[kAdmMaxGuidSize]) {
+                                           std::string* name,
+                                           std::string* guid) {
   const char* kName = "dummy_device";
   const char* kGuid = "dummy_device_unique_id";
   if (index < 1) {
-    memset(name, 0, kAdmMaxDeviceNameSize);
-    memset(guid, 0, kAdmMaxGuidSize);
-    memcpy(name, kName, strlen(kName));
-    memcpy(guid, kGuid, strlen(guid));
+    if (name)
+      *name = kName;
+    if (guid)
+      *guid = kGuid;
     return 0;
   }
   return -1;
 }
 
 int32_t FileAudioDevice::RecordingDeviceName(uint16_t index,
-                                             char name[kAdmMaxDeviceNameSize],
-                                             char guid[kAdmMaxGuidSize]) {
+                                             std::string* name,
+                                             std::string* guid) {
   const char* kName = "dummy_device";
   const char* kGuid = "dummy_device_unique_id";
   if (index < 1) {
-    memset(name, 0, kAdmMaxDeviceNameSize);
-    memset(guid, 0, kAdmMaxGuidSize);
-    memcpy(name, kName, strlen(kName));
-    memcpy(guid, kGuid, strlen(guid));
+    if (name)
+      *name = kName;
+    if (guid)
+      *guid = kGuid;
     return 0;
   }
   return -1;

@@ -683,10 +683,9 @@ int32_t AudioDeviceModuleImpl::SetPlayoutDevice(WindowsDeviceType device) {
   return audio_device_->SetPlayoutDevice(device);
 }
 
-int32_t AudioDeviceModuleImpl::PlayoutDeviceName(
-    uint16_t index,
-    char name[kAdmMaxDeviceNameSize],
-    char guid[kAdmMaxGuidSize]) {
+int32_t AudioDeviceModuleImpl::PlayoutDeviceName(uint16_t index,
+                                                 std::string* name,
+                                                 std::string* guid) {
   RTC_LOG(INFO) << __FUNCTION__ << "(" << index << ", ...)";
   CHECKinitialized_();
   if (name == NULL) {
@@ -696,18 +695,17 @@ int32_t AudioDeviceModuleImpl::PlayoutDeviceName(
     return -1;
   }
   if (name != NULL) {
-    RTC_LOG(INFO) << "output: name = " << name;
+    RTC_LOG(INFO) << "output: name = " << *name;
   }
   if (guid != NULL) {
-    RTC_LOG(INFO) << "output: guid = " << guid;
+    RTC_LOG(INFO) << "output: guid = " << *guid;
   }
   return 0;
 }
 
-int32_t AudioDeviceModuleImpl::RecordingDeviceName(
-    uint16_t index,
-    char name[kAdmMaxDeviceNameSize],
-    char guid[kAdmMaxGuidSize]) {
+int32_t AudioDeviceModuleImpl::RecordingDeviceName(uint16_t index,
+                                                   std::string* name,
+                                                   std::string* guid) {
   RTC_LOG(INFO) << __FUNCTION__ << "(" << index << ", ...)";
   CHECKinitialized_();
   if (name == NULL) {
@@ -717,10 +715,10 @@ int32_t AudioDeviceModuleImpl::RecordingDeviceName(
     return -1;
   }
   if (name != NULL) {
-    RTC_LOG(INFO) << "output: name = " << name;
+    RTC_LOG(INFO) << "output: name = " << *name;
   }
   if (guid != NULL) {
-    RTC_LOG(INFO) << "output: guid = " << guid;
+    RTC_LOG(INFO) << "output: guid = " << *guid;
   }
   return 0;
 }

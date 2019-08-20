@@ -704,25 +704,26 @@ TEST_P(AudioDeviceTest, InitTerminate) {
 // Enumerate all available and active output devices.
 TEST_P(AudioDeviceTest, PlayoutDeviceNames) {
   SKIP_TEST_IF_NOT(requirements_satisfied());
-  char device_name[kAdmMaxDeviceNameSize];
-  char unique_id[kAdmMaxGuidSize];
+  std::string device_name;
+  std::string unique_id;
   int num_devices = audio_device()->PlayoutDevices();
   if (NewWindowsAudioDeviceModuleIsUsed()) {
     num_devices += 2;
   }
   EXPECT_GT(num_devices, 0);
   for (int i = 0; i < num_devices; ++i) {
-    EXPECT_EQ(0, audio_device()->PlayoutDeviceName(i, device_name, unique_id));
+    EXPECT_EQ(0,
+              audio_device()->PlayoutDeviceName(i, &device_name, &unique_id));
   }
-  EXPECT_EQ(-1, audio_device()->PlayoutDeviceName(num_devices, device_name,
-                                                  unique_id));
+  EXPECT_EQ(-1, audio_device()->PlayoutDeviceName(num_devices, &device_name,
+                                                  &unique_id));
 }
 
 // Enumerate all available and active input devices.
 TEST_P(AudioDeviceTest, RecordingDeviceNames) {
   SKIP_TEST_IF_NOT(requirements_satisfied());
-  char device_name[kAdmMaxDeviceNameSize];
-  char unique_id[kAdmMaxGuidSize];
+  std::string device_name;
+  std::string unique_id;
   int num_devices = audio_device()->RecordingDevices();
   if (NewWindowsAudioDeviceModuleIsUsed()) {
     num_devices += 2;
@@ -730,10 +731,10 @@ TEST_P(AudioDeviceTest, RecordingDeviceNames) {
   EXPECT_GT(num_devices, 0);
   for (int i = 0; i < num_devices; ++i) {
     EXPECT_EQ(0,
-              audio_device()->RecordingDeviceName(i, device_name, unique_id));
+              audio_device()->RecordingDeviceName(i, &device_name, &unique_id));
   }
-  EXPECT_EQ(-1, audio_device()->RecordingDeviceName(num_devices, device_name,
-                                                    unique_id));
+  EXPECT_EQ(-1, audio_device()->RecordingDeviceName(num_devices, &device_name,
+                                                    &unique_id));
 }
 
 // Counts number of active output devices and ensure that all can be selected.

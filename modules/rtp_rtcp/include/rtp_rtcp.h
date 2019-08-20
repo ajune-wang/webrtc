@@ -122,9 +122,11 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
     // defaults to  webrtc::FieldTrialBasedConfig.
     const WebRtcKeyValueConfig* field_trials = nullptr;
 
-    // SSRCs for sending media and retransmission, respectively.
+    // SSRCs for media and retransmission, respectively.
     // FlexFec SSRC is fetched from |flexfec_sender|.
+    // |media_send_ssrc| has been deprecated, use local_media_ssrc instead.
     absl::optional<uint32_t> media_send_ssrc;
+    absl::optional<uint32_t> local_media_ssrc;
     absl::optional<uint32_t> rtx_send_ssrc;
 
    private:

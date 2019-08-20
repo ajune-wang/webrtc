@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "15a0971e_61fe7e0d",
+        "filename": "common_audio/resampler/push_sinc_resampler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-08-20T18:43:48Z",
+      "side": 1,
+      "message": "Hmm, that is indeed a very weird DCHECK. This is, however, now corrected in the follow-up CL.",
+      "parentUuid": "ed7d290c_0f7d2461",
+      "revId": "62c174c5a1d567806447801e9afd08e295c8167e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc4966de_25ce463e",
         "filename": "common_audio/resampler/push_sinc_resampler_unittest.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "62c174c5a1d567806447801e9afd08e295c8167e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19765274_3a092dfa",
+        "filename": "common_audio/resampler/push_sinc_resampler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-08-20T18:43:48Z",
+      "side": 1,
+      "message": "Good point! This code did indeed not turn out well either. This is now corrected in the follow-up CL.",
+      "parentUuid": "bc4966de_25ce463e",
+      "revId": "62c174c5a1d567806447801e9afd08e295c8167e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ad93c8b_dae117e5",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 7796
+      },
+      "writtenOn": "2019-08-20T09:36:16Z",
+      "side": 0,
+      "message": "Looks like removing this breaks Chromium WebRTC FYI waterfall:\nhttps://ci.chromium.org/p/chromium/builders/webrtc.fyi/WebRTC%20Chromium%20FYI%20Mac%20Builder%20(dbg)/4269\n\n[1364/1746] SOLINK libpolicy_component.dylib libpolicy_component.dylib.TOC\nFAILED: libpolicy_component.dylib libpolicy_component.dylib.TOC\nif [ ! -e \"./libpolicy_component.dylib\" -o ! -e \"./libpolicy_component.dylib.TOC\" ] || ../../build/m...(too long)\nUndefined symbols for architecture x86_64:\n\"_SCDynamicStoreCopyComputerName\", referenced from:\npolicy::GetMachineName() in cloud_policy_util.o\n\"_SCDynamicStoreCopyLocalHostName\", referenced from:\npolicy::GetMachineName() in cloud_policy_util.o\n\"_SCDynamicStoreCreate\", referenced from:\npolicy::GetMachineName() in cloud_policy_util.o\nld: symbol(s) not found for architecture x86_64",
+      "revId": "928146f546193cfd56256aa828e2e19a013012cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

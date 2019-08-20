@@ -16,6 +16,24 @@
       "revId": "ad844e4440db4abedde9cc1d7c81e453ffec5834",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d81d962d_c33858e7",
+        "filename": "audio/audio_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-20T08:51:45Z",
+      "side": 1,
+      "message": "I was trying to split this into smaller parts, but I think I\u0027m just loosing context by doing that.\nMoved the whole change into this cl.",
+      "parentUuid": "68533657_b419bd29",
+      "revId": "ad844e4440db4abedde9cc1d7c81e453ffec5834",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

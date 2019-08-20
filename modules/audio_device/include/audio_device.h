@@ -11,6 +11,8 @@
 #ifndef MODULES_AUDIO_DEVICE_INCLUDE_AUDIO_DEVICE_H_
 #define MODULES_AUDIO_DEVICE_INCLUDE_AUDIO_DEVICE_H_
 
+#include <string>
+
 #include "api/scoped_refptr.h"
 #include "api/task_queue/task_queue_factory.h"
 #include "modules/audio_device/include/audio_device_defines.h"
@@ -66,12 +68,20 @@ class AudioDeviceModule : public rtc::RefCountInterface {
   // Device enumeration
   virtual int16_t PlayoutDevices() = 0;
   virtual int16_t RecordingDevices() = 0;
+
+  virtual int32_t PlayoutDeviceName(uint16_t index,
+                                    std::string* name,
+                                    std::string* guid);
+  virtual int32_t RecordingDeviceName(uint16_t index,
+                                      std::string* name,
+                                      std::string* guid);
+  // Deprecated variants using char arrays.
   virtual int32_t PlayoutDeviceName(uint16_t index,
                                     char name[kAdmMaxDeviceNameSize],
-                                    char guid[kAdmMaxGuidSize]) = 0;
+                                    char guid[kAdmMaxGuidSize]);
   virtual int32_t RecordingDeviceName(uint16_t index,
                                       char name[kAdmMaxDeviceNameSize],
-                                      char guid[kAdmMaxGuidSize]) = 0;
+                                      char guid[kAdmMaxGuidSize]);
 
   // Device selection
   virtual int32_t SetPlayoutDevice(uint16_t index) = 0;

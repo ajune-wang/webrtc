@@ -38,14 +38,14 @@ int16_t AudioDeviceDummy::RecordingDevices() {
 }
 
 int32_t AudioDeviceDummy::PlayoutDeviceName(uint16_t index,
-                                            char name[kAdmMaxDeviceNameSize],
-                                            char guid[kAdmMaxGuidSize]) {
+                                            std::string* name,
+                                            std::string* guid) {
   return -1;
 }
 
 int32_t AudioDeviceDummy::RecordingDeviceName(uint16_t index,
-                                              char name[kAdmMaxDeviceNameSize],
-                                              char guid[kAdmMaxGuidSize]) {
+                                              std::string* name,
+                                              std::string* guid) {
   return -1;
 }
 

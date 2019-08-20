@@ -48,11 +48,11 @@ class AudioDeviceLinuxALSA : public AudioDeviceGeneric {
   int16_t PlayoutDevices() override;
   int16_t RecordingDevices() override;
   int32_t PlayoutDeviceName(uint16_t index,
-                            char name[kAdmMaxDeviceNameSize],
-                            char guid[kAdmMaxGuidSize]) override;
+                            std::string* name,
+                            std::string* guid) override;
   int32_t RecordingDeviceName(uint16_t index,
-                              char name[kAdmMaxDeviceNameSize],
-                              char guid[kAdmMaxGuidSize]) override;
+                              std::string* name,
+                              std::string* guid) override;
 
   // Device selection
   int32_t SetPlayoutDevice(uint16_t index) override;
@@ -125,8 +125,7 @@ class AudioDeviceLinuxALSA : public AudioDeviceGeneric {
   int32_t GetDevicesInfo(const int32_t function,
                          const bool playback,
                          const int32_t enumDeviceNo = 0,
-                         char* enumDeviceName = NULL,
-                         const int32_t ednLen = 0) const;
+                         std::string* enumDeviceName = NULL) const;
   int32_t ErrorRecovery(int32_t error, snd_pcm_t* deviceHandle);
 
   bool KeyPressed() const;

@@ -22,6 +22,30 @@
       "revId": "2b0091480b42714ef644501db6541d0210542200",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61e992c0_c7c25364",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-20T17:13:40Z",
+      "side": 1,
+      "message": "Tried that in earlier patch set, but it did not work due to non-trivial default constructors.\nIt\u0027s going to be removed very shortly anyway.",
+      "parentUuid": "b03ad772_756ff909",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 46
+      },
+      "revId": "2b0091480b42714ef644501db6541d0210542200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

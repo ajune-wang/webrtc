@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f5f9adf_d2c3ad18",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-08-20T09:01:29Z",
+      "side": 1,
+      "message": "\"media_send_ssrc\" seems like an odd name to me - why not local_ssrc or send_ssrc? Does the RtpRtcp module keep track of SSRCs for not sending media?",
+      "revId": "1316d69756068d72cc338fbc412947c5c7d3f150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

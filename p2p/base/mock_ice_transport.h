@@ -40,9 +40,10 @@ class MockIceTransport : public IceTransportInternal {
   MOCK_METHOD2(SetOption, int(rtc::Socket::Option opt, int value));
   MOCK_METHOD0(GetError, int());
   MOCK_CONST_METHOD0(GetIceRole, cricket::IceRole());
-  MOCK_METHOD2(GetStats,
+  MOCK_METHOD3(GetStats,
                bool(cricket::ConnectionInfos* candidate_pair_stats_list,
-                    cricket::CandidateStatsList* candidate_stats_list));
+                    cricket::CandidateStatsList* candidate_stats_list,
+                    uint32_t* selected_candidate_pair_change_counter));
 
   IceTransportState GetState() const override {
     return IceTransportState::STATE_INIT;

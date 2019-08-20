@@ -31,6 +31,11 @@ struct TransportChannelStats {
   int srtp_crypto_suite = rtc::SRTP_INVALID_CRYPTO_SUITE;
   int ssl_cipher_suite = rtc::TLS_NULL_WITH_NULL_NULL;
   DtlsTransportState dtls_state = DTLS_TRANSPORT_NEW;
+  // No of times the selected candidate pair has changed,
+  // initially 0 and 1 once the first candidate pair has
+  // been selected. The counter is increase also when
+  // "unselecting" a connection.
+  uint32_t selected_candidate_pair_change_counter = 0;
 };
 
 // Information about all the channels of a transport.

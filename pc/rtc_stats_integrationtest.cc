@@ -947,6 +947,8 @@ class RTCStatsReportVerifier {
                                      RTCCertificateStats::kType);
     verifier.TestMemberIsIDReference(transport.remote_certificate_id,
                                      RTCCertificateStats::kType);
+    verifier.TestMemberIsNonNegative<uint32_t>(
+        transport.selected_candidate_pair_change_counter);
     return verifier.ExpectAllMembersSuccessfullyTested();
   }
 

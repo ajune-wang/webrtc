@@ -194,7 +194,8 @@ class FakeIceTransport : public IceTransportInternal {
   void RemoveAllRemoteCandidates() override { remote_candidates_.clear(); }
 
   bool GetStats(ConnectionInfos* candidate_pair_stats_list,
-                CandidateStatsList* candidate_stats_list) override {
+                CandidateStatsList* candidate_stats_list,
+                uint32_t* selected_candidate_pair_change_counter) override {
     CandidateStats candidate_stats;
     ConnectionInfo candidate_pair_stats;
     candidate_stats_list->clear();

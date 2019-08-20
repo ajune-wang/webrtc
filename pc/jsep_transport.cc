@@ -761,7 +761,8 @@ bool JsepTransport::GetTransportStats(DtlsTransportInternal* dtls_transport,
   dtls_transport->GetSslCipherSuite(&substats.ssl_cipher_suite);
   substats.dtls_state = dtls_transport->dtls_state();
   if (!dtls_transport->ice_transport()->GetStats(
-          &substats.connection_infos, &substats.candidate_stats_list)) {
+          &substats.connection_infos, &substats.candidate_stats_list,
+          &substats.selected_candidate_pair_change_counter)) {
     return false;
   }
   stats->channel_stats.push_back(substats);

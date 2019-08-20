@@ -2079,6 +2079,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCTransportStats) {
   expected_rtp_transport.bytes_sent = 42;
   expected_rtp_transport.bytes_received = 1337;
   expected_rtp_transport.dtls_state = RTCDtlsTransportState::kNew;
+  expected_rtp_transport.selected_candidate_pair_change_counter = 0;
 
   ASSERT_TRUE(report->Get(expected_rtp_transport.id()));
   EXPECT_EQ(
@@ -2109,9 +2110,9 @@ TEST_F(RTCStatsCollectorTest, CollectRTCTransportStats) {
   expected_rtcp_transport.bytes_sent = 1337;
   expected_rtcp_transport.bytes_received = 42;
   expected_rtcp_transport.dtls_state = RTCDtlsTransportState::kConnecting;
+  expected_rtcp_transport.selected_candidate_pair_change_counter = 0;
 
   expected_rtp_transport.rtcp_transport_stats_id = expected_rtcp_transport.id();
-
   ASSERT_TRUE(report->Get(expected_rtp_transport.id()));
   EXPECT_EQ(
       expected_rtp_transport,

@@ -48,6 +48,7 @@ rtc_source_set("audio_device") {
 rtc_source_set("audio_device_api") {
   visibility = [ "*" ]
   sources = [
+    "include/audio_device.cc",
     "include/audio_device.h",
     "include/audio_device_defines.h",
   ]

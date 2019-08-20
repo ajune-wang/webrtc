@@ -1519,10 +1519,9 @@ int32_t AudioDeviceWindowsCore::SetPlayoutDevice(
 //  PlayoutDeviceName
 // ----------------------------------------------------------------------------
 
-int32_t AudioDeviceWindowsCore::PlayoutDeviceName(
-    uint16_t index,
-    char name[kAdmMaxDeviceNameSize],
-    char guid[kAdmMaxGuidSize]) {
+int32_t AudioDeviceWindowsCore::PlayoutDeviceName(uint16_t index,
+                                                  std::string* name,
+                                                  std::string* guid) {
   bool defaultCommunicationDevice(false);
   const int16_t nDevices(PlayoutDevices());  // also updates the list of devices
 
@@ -1536,12 +1535,6 @@ int32_t AudioDeviceWindowsCore::PlayoutDeviceName(
 
   if ((index > (nDevices - 1)) || (name == NULL)) {
     return -1;
-  }
-
-  memset(name, 0, kAdmMaxDeviceNameSize);
-
-  if (guid != NULL) {
-    memset(guid, 0, kAdmMaxGuidSize);
   }
 
   rtc::CritScope lock(&_critSect);
@@ -1560,12 +1553,7 @@ int32_t AudioDeviceWindowsCore::PlayoutDeviceName(
 
   if (ret == 0) {
     // Convert the endpoint device's friendly-name to UTF-8
-    if (WideCharToMultiByte(CP_UTF8, 0, szDeviceName, -1, name,
-                            kAdmMaxDeviceNameSize, NULL, NULL) == 0) {
-      RTC_LOG(LS_ERROR)
-          << "WideCharToMultiByte(CP_UTF8) failed with error code "
-          << GetLastError();
-    }
+    *name = rtc::ToUtf8(szDeviceName);
   }
 
   // Get the endpoint ID string (uniquely identifies the device among all audio
@@ -1578,13 +1566,7 @@ int32_t AudioDeviceWindowsCore::PlayoutDeviceName(
   }
 
   if (guid != NULL && ret == 0) {
-    // Convert the endpoint device's ID string to UTF-8
-    if (WideCharToMultiByte(CP_UTF8, 0, szDeviceName, -1, guid, kAdmMaxGuidSize,
-                            NULL, NULL) == 0) {
-      RTC_LOG(LS_ERROR)
-          << "WideCharToMultiByte(CP_UTF8) failed with error code "
-          << GetLastError();
-    }
+    *guid = rtc::ToUtf8(szDeviceName);
   }
 
   return ret;

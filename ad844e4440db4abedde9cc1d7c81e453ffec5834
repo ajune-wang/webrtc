@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68533657_b419bd29",
+        "filename": "audio/audio_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-08-20T08:26:23Z",
+      "side": 1,
+      "message": "Since the whole purpose of the CL is that changing the SSRC will not be allowed, shouldn\u0027t local ssrc be handled just like remote ssrc (L389-L392) below?",
+      "revId": "ad844e4440db4abedde9cc1d7c81e453ffec5834",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

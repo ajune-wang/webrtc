@@ -76,7 +76,7 @@ class SetLocalSessionDescriptionObserver
 
 AndroidCallClient::AndroidCallClient()
     : call_started_(false), pc_observer_(absl::make_unique<PCObserver>(this)) {
-  thread_checker_.Detach();
+  RTC_DETACH_FROM_THREAD(thread_checker_);
   CreatePeerConnectionFactory();
 }
 

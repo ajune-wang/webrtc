@@ -39,9 +39,9 @@ class AnalyzerHelper : public TrackIdStreamLabelMap {
       const std::string& track_id) const override;
 
  private:
-  SequenceChecker signaling_sequence_checker_;
+  RTC_SEQUENCE_CHECKER(signaling_sequence_checker_);
   std::map<std::string, std::string> track_to_stream_map_
-      RTC_GUARDED_BY(signaling_sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(signaling_sequence_checker_);
 };
 
 }  // namespace webrtc_pc_e2e

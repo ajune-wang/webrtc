@@ -25,12 +25,12 @@ IceTransportWithPointer::~IceTransportWithPointer() {
 }
 
 cricket::IceTransportInternal* IceTransportWithPointer::internal() {
-  RTC_DCHECK_RUN_ON(creator_thread_);
+  RTC_CHECK_RUN_ON(creator_thread_);
   return internal_;
 }
 
 void IceTransportWithPointer::Clear() {
-  RTC_DCHECK_RUN_ON(creator_thread_);
+  RTC_CHECK_RUN_ON(creator_thread_);
   internal_ = nullptr;
 }
 

@@ -172,7 +172,7 @@ class DatagramDtlsAdaptor : public DtlsTransportInternal,
   void OnSentPacket(rtc::PacketTransportInternal* transport,
                     const rtc::SentPacket& sent_packet);
 
-  rtc::ThreadChecker thread_checker_;
+  RTC_THREAD_CHECKER(thread_checker_);
   webrtc::CryptoOptions crypto_options_;
   IceTransportInternal* ice_transport_;
 

@@ -644,6 +644,12 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
     // passed.
     bool offer_extmap_allow_mixed = false;
 
+    // TURN logging identifier.
+    // This identifier is added to a TURN allocation
+    // and it intended to be used to be able to match client side
+    // logs with TURN server logs.
+    absl::optional<std::string> turn_logging_id;
+
     //
     // Don't forget to update operator== if adding something.
     //

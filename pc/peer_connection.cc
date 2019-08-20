@@ -820,6 +820,7 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
     absl::optional<bool> use_datagram_transport;
     absl::optional<CryptoOptions> crypto_options;
     bool offer_extmap_allow_mixed;
+    absl::optional<std::string> turn_logging_id;
   };
   static_assert(sizeof(stuff_being_tested_for_equality) == sizeof(*this),
                 "Did you add something to RTCConfiguration and forget to "
@@ -880,7 +881,8 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
              o.use_media_transport_for_data_channels &&
          use_datagram_transport == o.use_datagram_transport &&
          crypto_options == o.crypto_options &&
-         offer_extmap_allow_mixed == o.offer_extmap_allow_mixed;
+         offer_extmap_allow_mixed == o.offer_extmap_allow_mixed &&  //
+         turn_logging_id == o.turn_logging_id;
 }
 
 bool PeerConnectionInterface::RTCConfiguration::operator!=(
@@ -1025,7 +1027,8 @@ bool PeerConnection::Initialize(
   std::vector<cricket::RelayServerConfig> turn_servers;
 
   RTCErrorType parse_error =
-      ParseIceServers(configuration.servers, &stun_servers, &turn_servers);
+      ParseIceServers(configuration.servers, &stun_servers, &turn_servers,
+                      configuration.turn_logging_id);
   if (parse_error != RTCErrorType::NONE) {
     return false;
   }
@@ -3599,7 +3602,8 @@ bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
   cricket::ServerAddresses stun_servers;
   std::vector<cricket::RelayServerConfig> turn_servers;
   RTCErrorType parse_error =
-      ParseIceServers(configuration.servers, &stun_servers, &turn_servers);
+      ParseIceServers(configuration.servers, &stun_servers, &turn_servers,
+                      configuration.turn_logging_id);
   if (parse_error != RTCErrorType::NONE) {
     return SafeSetError(parse_error, error);
   }

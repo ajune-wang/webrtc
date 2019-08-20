@@ -16,6 +16,24 @@
       "revId": "3532b1c10ea1d9b4c596e5e5d7c1a0278b2c8f6f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e4d0903_f1cade21",
+        "filename": "pc/peer_connection_histogram_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-20T03:50:04Z",
+      "side": 1,
+      "message": "This is related to the definition of the new bit. Please see my reply to the top-level comment.",
+      "parentUuid": "ac7e37a0_c209c7b1",
+      "revId": "3532b1c10ea1d9b4c596e5e5d7c1a0278b2c8f6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

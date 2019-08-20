@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed7d290c_0f7d2461",
+        "filename": "common_audio/resampler/push_sinc_resampler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-08-20T07:38:51Z",
+      "side": 1,
+      "message": "What is this check guarding against?",
+      "revId": "62c174c5a1d567806447801e9afd08e295c8167e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc4966de_25ce463e",
+        "filename": "common_audio/resampler/push_sinc_resampler_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-08-20T07:38:51Z",
+      "side": 1,
+      "message": "Note that dest[i] is always overwritten on L44.",
+      "revId": "62c174c5a1d567806447801e9afd08e295c8167e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

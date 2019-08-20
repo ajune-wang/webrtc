@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94119019_047a288d",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-20T07:13:05Z",
+      "side": 1,
+      "message": "I take it these numbers are put onto the wire? How does it relate to iana registries? There\u0027s some experimental/private use range? Would be nice with a link.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 52
+      },
+      "revId": "56b65f83ec4bfda04e2c378cf4581c46f017bf14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1ef5bbe_8c55b410",
+        "filename": "p2p/base/turn_port.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-20T07:13:05Z",
+      "side": 1,
+      "message": "If possible, prefer construction-time config over setter methods. Any need to changed this after construction?",
+      "range": {
+        "startLine": 151,
+        "startChar": 2,
+        "endLine": 151,
+        "endChar": 76
+      },
+      "revId": "56b65f83ec4bfda04e2c378cf4581c46f017bf14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -77,11 +77,11 @@ class AudioDeviceMac : public AudioDeviceGeneric {
   virtual int16_t PlayoutDevices();
   virtual int16_t RecordingDevices();
   virtual int32_t PlayoutDeviceName(uint16_t index,
-                                    char name[kAdmMaxDeviceNameSize],
-                                    char guid[kAdmMaxGuidSize]);
+                                    std::string* name,
+                                    std::string* guid);
   virtual int32_t RecordingDeviceName(uint16_t index,
-                                      char name[kAdmMaxDeviceNameSize],
-                                      char guid[kAdmMaxGuidSize]);
+                                      std::string* name,
+                                      std::string* guid);
 
   // Device selection
   virtual int32_t SetPlayoutDevice(uint16_t index);

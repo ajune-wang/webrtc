@@ -415,10 +415,9 @@ AudioDeviceModuleIOS::AudioDeviceModuleIOS()
     return audio_device_->SetPlayoutDevice(device);
   }
 
-  int32_t AudioDeviceModuleIOS::PlayoutDeviceName(
-      uint16_t index,
-      char name[kAdmMaxDeviceNameSize],
-      char guid[kAdmMaxGuidSize]) {
+  int32_t AudioDeviceModuleIOS::PlayoutDeviceName(uint16_t index,
+                                                  std::string* name,
+                                                  std::string* guid) {
     RTC_LOG(INFO) << __FUNCTION__ << "(" << index << ", ...)";
     CHECKinitialized_();
     if (name == NULL) {

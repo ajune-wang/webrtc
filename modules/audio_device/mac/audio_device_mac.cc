@@ -826,8 +826,8 @@ int32_t AudioDeviceMac::SetPlayoutDevice(
 }
 
 int32_t AudioDeviceMac::PlayoutDeviceName(uint16_t index,
-                                          char name[kAdmMaxDeviceNameSize],
-                                          char guid[kAdmMaxGuidSize]) {
+                                          std::string* name,
+                                          std::string* guid) {
   const uint16_t nDevices(PlayoutDevices());
 
   if ((index > (nDevices - 1)) || (name == NULL)) {

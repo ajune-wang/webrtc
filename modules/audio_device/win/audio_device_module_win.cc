@@ -186,8 +186,8 @@ class WindowsAudioDeviceModule : public AudioDeviceModuleForTest {
   }
 
   int32_t PlayoutDeviceName(uint16_t index,
-                            char name[kAdmMaxDeviceNameSize],
-                            char guid[kAdmMaxGuidSize]) override {
+                            std::string* name,
+                            std::string* guid) override {
     RTC_LOG(INFO) << __FUNCTION__;
     RTC_DCHECK_RUN_ON(&thread_checker_);
     RETURN_IF_OUTPUT_RESTARTS(0);

@@ -243,7 +243,7 @@ int32_t AudioDeviceLinuxPulse::InitSpeaker() {
   // check if default device
   if (_outputDeviceIndex == 0) {
     uint16_t deviceIndex = 0;
-    GetDefaultDeviceInfo(false, NULL, deviceIndex);
+    GetDefaultDeviceInfo(false, NULL, &deviceIndex);
     _paDeviceIndex = deviceIndex;
   } else {
     // get the PA device index from
@@ -280,7 +280,7 @@ int32_t AudioDeviceLinuxPulse::InitMicrophone() {
   // Check if default device
   if (_inputDeviceIndex == 0) {
     uint16_t deviceIndex = 0;
-    GetDefaultDeviceInfo(true, NULL, deviceIndex);
+    GetDefaultDeviceInfo(true, NULL, &deviceIndex);
     _paDeviceIndex = deviceIndex;
   } else {
     // Get the PA device index from
@@ -689,10 +689,9 @@ int32_t AudioDeviceLinuxPulse::SetPlayoutDevice(
   return -1;
 }
 
-int32_t AudioDeviceLinuxPulse::PlayoutDeviceName(
-    uint16_t index,
-    char name[kAdmMaxDeviceNameSize],
-    char guid[kAdmMaxGuidSize]) {
+int32_t AudioDeviceLinuxPulse::PlayoutDeviceName(uint16_t index,
+                                                 std::string* name,
+                                                 std::string* guid) {
   RTC_DCHECK(thread_checker_.IsCurrent());
   const uint16_t nDevices = PlayoutDevices();
 
@@ -709,7 +708,7 @@ int32_t AudioDeviceLinuxPulse::PlayoutDeviceName(
   // Check if default device
   if (index == 0) {
     uint16_t deviceIndex = 0;
-    return GetDefaultDeviceInfo(false, name, deviceIndex);
+    return GetDefaultDeviceInfo(false, name, &deviceIndex);
   }
 
   // Tell the callback that we want
@@ -727,10 +726,9 @@ int32_t AudioDeviceLinuxPulse::PlayoutDeviceName(
   return 0;
 }
 
-int32_t AudioDeviceLinuxPulse::RecordingDeviceName(
-    uint16_t index,
-    char name[kAdmMaxDeviceNameSize],
-    char guid[kAdmMaxGuidSize]) {
+int32_t AudioDeviceLinuxPulse::RecordingDeviceName(uint16_t index,
+                                                   std::string* name,
+                                                   std::string* guid) {
   RTC_DCHECK(thread_checker_.IsCurrent());
   const uint16_t nDevices(RecordingDevices());
 
@@ -747,7 +745,7 @@ int32_t AudioDeviceLinuxPulse::RecordingDeviceName(
   // Check if default device
   if (index == 0) {
     uint16_t deviceIndex = 0;
-    return GetDefaultDeviceInfo(true, name, deviceIndex);
+    return GetDefaultDeviceInfo(true, name, &deviceIndex);
   }
 
   // Tell the callback that we want
@@ -1352,8 +1350,7 @@ void AudioDeviceLinuxPulse::PaSinkInfoCallbackHandler(const pa_sink_info* i,
     }
     if (_playDisplayDeviceName) {
       // Copy the sink display name
-      strncpy(_playDisplayDeviceName, i->description, kAdmMaxDeviceNameSize);
-      _playDisplayDeviceName[kAdmMaxDeviceNameSize - 1] = '\0';
+      *_playDisplayDeviceName = i->description;
     }
   }
 
@@ -1381,8 +1378,7 @@ void AudioDeviceLinuxPulse::PaSourceInfoCallbackHandler(const pa_source_info* i,
       }
       if (_recDisplayDeviceName) {
         // Copy the source display name
-        strncpy(_recDisplayDeviceName, i->description, kAdmMaxDeviceNameSize);
-        _recDisplayDeviceName[kAdmMaxDeviceNameSize - 1] = '\0';
+        *_recDisplayDeviceName = i->description;
       }
     }
 
@@ -1401,16 +1397,12 @@ void AudioDeviceLinuxPulse::PaServerInfoCallbackHandler(
 
   if (_recDisplayDeviceName) {
     // Copy the source name
-    strncpy(_recDisplayDeviceName, i->default_source_name,
-            kAdmMaxDeviceNameSize);
-    _recDisplayDeviceName[kAdmMaxDeviceNameSize - 1] = '\0';
+    *_recDisplayDeviceName = i->default_source_name;
   }
 
   if (_playDisplayDeviceName) {
     // Copy the sink name
-    strncpy(_playDisplayDeviceName, i->default_sink_name,
-            kAdmMaxDeviceNameSize);
-    _playDisplayDeviceName[kAdmMaxDeviceNameSize - 1] = '\0';
+    *_playDisplayDeviceName = i->default_sink_name;
   }
 
   LATE(pa_threaded_mainloop_signal)(_paMainloop, 0);
@@ -1474,25 +1466,25 @@ int32_t AudioDeviceLinuxPulse::InitSamplingFrequency() {
 }
 
 int32_t AudioDeviceLinuxPulse::GetDefaultDeviceInfo(bool recDevice,
-                                                    char* name,
-                                                    uint16_t& index) {
-  char tmpName[kAdmMaxDeviceNameSize] = {0};
+                                                    std::string* name,
+                                                    uint16_t* index) {
+  std::string tmpName;
+#if 0
   // subtract length of "default: "
   uint16_t nameLen = kAdmMaxDeviceNameSize - 9;
   char* pName = NULL;
-
+#endif
   if (name) {
     // Add "default: "
-    strcpy(name, "default: ");
-    pName = &name[9];
+    *name = "default: ";
   }
 
   // Tell the callback that we want
   // the name for this device
   if (recDevice) {
-    _recDisplayDeviceName = tmpName;
+    _recDisplayDeviceName = &tmpName;
   } else {
-    _playDisplayDeviceName = tmpName;
+    _playDisplayDeviceName = &tmpName;
   }
 
   // Set members
@@ -1514,10 +1506,10 @@ int32_t AudioDeviceLinuxPulse::GetDefaultDeviceInfo(bool recDevice,
   // Get the device index
   if (recDevice) {
     paOperation = LATE(pa_context_get_source_info_by_name)(
-        _paContext, (char*)tmpName, PaSourceInfoCallback, this);
+        _paContext, tmpName.c_str(), PaSourceInfoCallback, this);
   } else {
     paOperation = LATE(pa_context_get_sink_info_by_name)(
-        _paContext, (char*)tmpName, PaSinkInfoCallback, this);
+        _paContext, tmpName.c_str(), PaSinkInfoCallback, this);
   }
 
   WaitForOperationCompletion(paOperation);
@@ -1525,16 +1517,16 @@ int32_t AudioDeviceLinuxPulse::GetDefaultDeviceInfo(bool recDevice,
   PaUnLock();
 
   // Set the index
-  index = _paDeviceIndex;
+  *index = _paDeviceIndex;
 
   if (name) {
     // Copy to name string
-    strncpy(pName, tmpName, nameLen);
+    *name += tmpName;
   }
 
   // Clear members
-  _playDisplayDeviceName = NULL;
-  _recDisplayDeviceName = NULL;
+  _playDisplayDeviceName = nullptr;
+  _recDisplayDeviceName = nullptr;
   _paDeviceIndex = -1;
   _deviceIndex = -1;
   _numPlayDevices = 0;

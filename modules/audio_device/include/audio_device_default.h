@@ -56,13 +56,13 @@ class AudioDeviceModuleDefault : public T {
   int16_t PlayoutDevices() override { return 0; }
   int16_t RecordingDevices() override { return 0; }
   int32_t PlayoutDeviceName(uint16_t index,
-                            char name[kAdmMaxDeviceNameSize],
-                            char guid[kAdmMaxGuidSize]) override {
+                            std::string* name,
+                            std::string* guid) override {
     return 0;
   }
   int32_t RecordingDeviceName(uint16_t index,
-                              char name[kAdmMaxDeviceNameSize],
-                              char guid[kAdmMaxGuidSize]) override {
+                              std::string* name,
+                              std::string* guid) override {
     return 0;
   }
   int32_t PlayoutIsAvailable(bool* available) override { return 0; }

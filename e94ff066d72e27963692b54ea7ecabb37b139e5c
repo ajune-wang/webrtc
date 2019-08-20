@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "4474560c_26644a7f",
+        "filename": "p2p/base/turn_port.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-20T18:19:56Z",
+      "side": 1,
+      "message": "Question on the design: could we reuse the ICE credential for this instead of inject a new ID from the top? We can have an offline discussion.",
+      "range": {
+        "startLine": 40,
+        "startChar": 17,
+        "endLine": 40,
+        "endChar": 42
+      },
+      "revId": "e94ff066d72e27963692b54ea7ecabb37b139e5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be114047_ca35e382",
         "filename": "p2p/base/turn_port_unittest.cc",
         "patchSetId": 4
@@ -41,6 +64,76 @@
         "startChar": 63,
         "endLine": 821,
         "endChar": 69
+      },
+      "revId": "e94ff066d72e27963692b54ea7ecabb37b139e5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa916f2b_78384e1f",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-20T18:19:56Z",
+      "side": 1,
+      "message": "We have p2p_constants.h for this.",
+      "parentUuid": "be114047_ca35e382",
+      "range": {
+        "startLine": 821,
+        "startChar": 63,
+        "endLine": 821,
+        "endChar": 69
+      },
+      "revId": "e94ff066d72e27963692b54ea7ecabb37b139e5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4959fb64_a2df5118",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-20T18:19:56Z",
+      "side": 1,
+      "message": "Could be an EXPECT, and \"KESO\" could be a parameter to the validator, since you will set it later in the test. It would be clearer in the test the same ID is expected from what is set.",
+      "range": {
+        "startLine": 824,
+        "startChar": 8,
+        "endLine": 824,
+        "endChar": 14
+      },
+      "revId": "e94ff066d72e27963692b54ea7ecabb37b139e5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7f6fae2_269bb17a",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-20T18:19:56Z",
+      "side": 1,
+      "message": "Maybe a /**/ commented name for this argument.",
+      "range": {
+        "startLine": 841,
+        "startChar": 62,
+        "endLine": 841,
+        "endChar": 71
       },
       "revId": "e94ff066d72e27963692b54ea7ecabb37b139e5c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

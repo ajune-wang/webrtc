@@ -61,11 +61,11 @@ class AudioDeviceModuleImpl : public AudioDeviceModuleForTest {
   int16_t PlayoutDevices() override;
   int16_t RecordingDevices() override;
   int32_t PlayoutDeviceName(uint16_t index,
-                            char name[kAdmMaxDeviceNameSize],
-                            char guid[kAdmMaxGuidSize]) override;
+                            std::string* name,
+                            std::string* guid) override;
   int32_t RecordingDeviceName(uint16_t index,
-                              char name[kAdmMaxDeviceNameSize],
-                              char guid[kAdmMaxGuidSize]) override;
+                              std::string* name,
+                              std::string* guid) override;
 
   // Device selection
   int32_t SetPlayoutDevice(uint16_t index) override;

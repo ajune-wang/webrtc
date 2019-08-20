@@ -186,38 +186,20 @@ class WindowsAudioDeviceModule : public AudioDeviceModuleForTest {
   }
 
   int32_t PlayoutDeviceName(uint16_t index,
-                            char name[kAdmMaxDeviceNameSize],
-                            char guid[kAdmMaxGuidSize]) override {
+                            std::string* name,
+                            std::string* guid) override {
     RTC_LOG(INFO) << __FUNCTION__;
     RTC_DCHECK_RUN_ON(&thread_checker_);
     RETURN_IF_OUTPUT_RESTARTS(0);
-    std::string name_str, guid_str;
-    int ret = -1;
-    if (guid != nullptr) {
-      ret = output_->DeviceName(index, &name_str, &guid_str);
-      rtc::strcpyn(guid, kAdmMaxGuidSize, guid_str.c_str());
-    } else {
-      ret = output_->DeviceName(index, &name_str, nullptr);
-    }
-    rtc::strcpyn(name, kAdmMaxDeviceNameSize, name_str.c_str());
-    return ret;
+    return output_->DeviceName(index, name, guid);
   }
   int32_t RecordingDeviceName(uint16_t index,
-                              char name[kAdmMaxDeviceNameSize],
-                              char guid[kAdmMaxGuidSize]) override {
+                              std::string* name,
+                              std::string* guid) override {
     RTC_LOG(INFO) << __FUNCTION__;
     RTC_DCHECK_RUN_ON(&thread_checker_);
     RETURN_IF_INPUT_RESTARTS(0);
-    std::string name_str, guid_str;
-    int ret = -1;
-    if (guid != nullptr) {
-      ret = input_->DeviceName(index, &name_str, &guid_str);
-      rtc::strcpyn(guid, kAdmMaxGuidSize, guid_str.c_str());
-    } else {
-      ret = input_->DeviceName(index, &name_str, nullptr);
-    }
-    rtc::strcpyn(name, kAdmMaxDeviceNameSize, name_str.c_str());
-    return ret;
+    return input_->DeviceName(index, name, guid);
   }
 
   int32_t SetPlayoutDevice(uint16_t index) override {

@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7509543_d1398b97",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-20T18:02:06Z",
+      "side": 1,
+      "message": "Can logging ids be empty? If not, can reduce the optional to just a std::string and use empty string as an absence indicator.",
+      "range": {
+        "startLine": 651,
+        "startChar": 4,
+        "endLine": 651,
+        "endChar": 32
+      },
+      "revId": "e94ff066d72e27963692b54ea7ecabb37b139e5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be114047_ca35e382",
+        "filename": "p2p/base/turn_port_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-20T18:02:06Z",
+      "side": 1,
+      "message": "Can we move the constant into a header file so that the source \u0026 test can share it?",
+      "range": {
+        "startLine": 821,
+        "startChar": 63,
+        "endLine": 821,
+        "endChar": 69
+      },
+      "revId": "e94ff066d72e27963692b54ea7ecabb37b139e5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25a2b0cd_e83247c4",
+        "filename": "pc/ice_server_parsing.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-20T18:02:06Z",
+      "side": 1,
+      "message": "Let\u0027s move this to the calling code so that the ParseIceServers signature stays simple and focused (i.e., not adding the turn_logging_id parameter).\n\nAlternatively, maybe the logging ID could be carried in the URL? Unfortunately it doesn\u0027t look like the RFC\u0027s grammar allows extensions... so maybe that\u0027s out of the question.",
+      "revId": "e94ff066d72e27963692b54ea7ecabb37b139e5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "996f1069_06eab620",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-20T18:02:06Z",
+      "side": 1,
+      "message": "extra comment",
+      "range": {
+        "startLine": 884,
+        "startChar": 66,
+        "endLine": 884,
+        "endChar": 70
+      },
+      "revId": "e94ff066d72e27963692b54ea7ecabb37b139e5c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

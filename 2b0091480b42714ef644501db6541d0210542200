@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b03ad772_756ff909",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-20T16:22:13Z",
+      "side": 1,
+      "message": "Maybe the union trick would work? (depending on absl::optional semantics)\nunion {\n    absl::optional\u003cuint32_t\u003e media_send_ssrc;\n    absl::optional\u003cuint32_t\u003e local_media_ssrc;\n};",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 46
+      },
+      "revId": "2b0091480b42714ef644501db6541d0210542200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

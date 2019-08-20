@@ -107,9 +107,23 @@ class AudioDeviceTemplate : public AudioDeviceGeneric {
     return -1;
   }
 
+  int32_t PlayoutDeviceName(uint16_t index,
+                            std::string* name,
+                            std::string* guid) override {
+    FATAL() << "Should never be called";
+    return -1;
+  }
+
   int32_t RecordingDeviceName(uint16_t index,
                               char name[kAdmMaxDeviceNameSize],
                               char guid[kAdmMaxGuidSize]) override {
+    FATAL() << "Should never be called";
+    return -1;
+  }
+
+  int32_t RecordingDeviceName(uint16_t index,
+                              std::string* name,
+                              std::string* guid) override {
     FATAL() << "Should never be called";
     return -1;
   }

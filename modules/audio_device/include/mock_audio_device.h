@@ -33,13 +33,9 @@ class MockAudioDeviceModule : public AudioDeviceModule {
   MOCK_METHOD0(PlayoutDevices, int16_t());
   MOCK_METHOD0(RecordingDevices, int16_t());
   MOCK_METHOD3(PlayoutDeviceName,
-               int32_t(uint16_t index,
-                       char name[kAdmMaxDeviceNameSize],
-                       char guid[kAdmMaxGuidSize]));
+               int32_t(uint16_t index, std::string* name, std::string* guid));
   MOCK_METHOD3(RecordingDeviceName,
-               int32_t(uint16_t index,
-                       char name[kAdmMaxDeviceNameSize],
-                       char guid[kAdmMaxGuidSize]));
+               int32_t(uint16_t index, std::string* name, std::string* guid));
   MOCK_METHOD1(SetPlayoutDevice, int32_t(uint16_t index));
   MOCK_METHOD1(SetPlayoutDevice, int32_t(WindowsDeviceType device));
   MOCK_METHOD1(SetRecordingDevice, int32_t(uint16_t index));

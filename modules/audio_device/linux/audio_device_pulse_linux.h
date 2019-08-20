@@ -123,11 +123,11 @@ class AudioDeviceLinuxPulse : public AudioDeviceGeneric {
   int16_t PlayoutDevices() override;
   int16_t RecordingDevices() override;
   int32_t PlayoutDeviceName(uint16_t index,
-                            char name[kAdmMaxDeviceNameSize],
-                            char guid[kAdmMaxGuidSize]) override;
+                            std::string* name,
+                            std::string* guid) override;
   int32_t RecordingDeviceName(uint16_t index,
-                              char name[kAdmMaxDeviceNameSize],
-                              char guid[kAdmMaxGuidSize]) override;
+                              std::string* name,
+                              std::string* guid) override;
 
   // Device selection
   int32_t SetPlayoutDevice(uint16_t index) override;
@@ -247,7 +247,9 @@ class AudioDeviceLinuxPulse : public AudioDeviceGeneric {
 
   int32_t CheckPulseAudioVersion();
   int32_t InitSamplingFrequency();
-  int32_t GetDefaultDeviceInfo(bool recDevice, char* name, uint16_t& index);
+  int32_t GetDefaultDeviceInfo(bool recDevice,
+                               std::string* name,
+                               uint16_t* index);
   int32_t InitPulseAudio();
   int32_t TerminatePulseAudio();
 
@@ -307,8 +309,8 @@ class AudioDeviceLinuxPulse : public AudioDeviceGeneric {
   int16_t _numRecDevices;
   char* _playDeviceName;
   char* _recDeviceName;
-  char* _playDisplayDeviceName;
-  char* _recDisplayDeviceName;
+  std::string* _playDisplayDeviceName;
+  std::string* _recDisplayDeviceName;
   char _paServerVersion[32];
 
   int8_t* _playBuffer;

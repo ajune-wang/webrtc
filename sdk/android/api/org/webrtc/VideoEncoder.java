@@ -183,8 +183,9 @@ public interface VideoEncoder {
 
   public interface Callback {
     /**
-     * Call to return an encoded frame. It is safe to assume the byte buffer held by |frame| is not
-     * accessed after the call to this method returns.
+     * Call to return an encoded frame. The byte buffer held by |frame| may be accessed after the
+     * call to this method returns. To get to know when the buffer can be reused, attach a release
+     * callback to the EncodedImage.
      */
     void onEncodedFrame(EncodedImage frame, CodecSpecificInfo info);
   }

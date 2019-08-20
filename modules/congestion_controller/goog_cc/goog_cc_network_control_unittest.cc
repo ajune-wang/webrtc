@@ -487,37 +487,9 @@ TEST_F(GoogCcNetworkControllerTest, UpdatesTargetRateBasedOnLinkCapacity) {
   UpdatesTargetRateBasedOnLinkCapacity();
 }
 
-TEST_F(GoogCcNetworkControllerTest, DefaultEstimateVariesInSteadyState) {
-  auto factory = CreateFeedbackOnlyFactory();
-  ScopedFieldTrials trial("WebRTC-Bwe-StableBandwidthEstimate/Disabled/");
-  Scenario s("googcc_unit/no_stable_varies", false);
-  CallClientConfig config;
-  config.transport.cc_factory = &factory;
-  NetworkSimulationConfig net_conf;
-  net_conf.bandwidth = DataRate::kbps(500);
-  net_conf.delay = TimeDelta::ms(100);
-  auto send_net = s.CreateSimulationNode(net_conf);
-  auto ret_net = s.CreateSimulationNode(net_conf);
-
-  auto* client = CreateVideoSendingClient(&s, config, {send_net}, {ret_net});
-  // Run for a while to allow the estimate to stabilize.
-  s.RunFor(TimeDelta::seconds(20));
-  DataRate min_estimate = DataRate::PlusInfinity();
-  DataRate max_estimate = DataRate::MinusInfinity();
-  // Measure variation in steady state.
-  for (int i = 0; i < 20; ++i) {
-    min_estimate = std::min(min_estimate, client->link_capacity());
-    max_estimate = std::max(max_estimate, client->link_capacity());
-    s.RunFor(TimeDelta::seconds(1));
-  }
-  // We should expect drops by at least 15% (default backoff.)
-  EXPECT_LT(min_estimate / max_estimate, 0.85);
-}
-
 TEST_F(GoogCcNetworkControllerTest, StableEstimateDoesNotVaryInSteadyState) {
   auto factory = CreateFeedbackOnlyFactory();
-  ScopedFieldTrials trial("WebRTC-Bwe-StableBandwidthEstimate/Enabled/");
-  Scenario s("googcc_unit/stable_is_stable", false);
+  Scenario s("googcc_unit/stable_target", false);
   CallClientConfig config;
   config.transport.cc_factory = &factory;
   NetworkSimulationConfig net_conf;
@@ -529,16 +501,23 @@ TEST_F(GoogCcNetworkControllerTest, StableEstimateDoesNotVaryInSteadyState) {
   auto* client = CreateVideoSendingClient(&s, config, {send_net}, {ret_net});
   // Run for a while to allow the estimate to stabilize.
   s.RunFor(TimeDelta::seconds(30));
+  DataRate min_estimate_stable = DataRate::PlusInfinity();
+  DataRate max_estimate_stable = DataRate::MinusInfinity();
   DataRate min_estimate = DataRate::PlusInfinity();
   DataRate max_estimate = DataRate::MinusInfinity();
+
   // Measure variation in steady state.
   for (int i = 0; i < 20; ++i) {
+    min_estimate_stable = std::min(min_estimate, client->stable_target_rate());
+    max_estimate_stable = std::max(max_estimate, client->stable_target_rate());
     min_estimate = std::min(min_estimate, client->link_capacity());
     max_estimate = std::max(max_estimate, client->link_capacity());
     s.RunFor(TimeDelta::seconds(1));
   }
   // We expect no variation under the trial in steady state.
-  EXPECT_GT(min_estimate / max_estimate, 0.95);
+  EXPECT_GT(min_estimate_stable / max_estimate_stable, 0.95);
+  // We should expect drops by at least 15% (default backoff.)
+  EXPECT_LT(min_estimate / max_estimate, 0.85);
 }
 
 TEST_F(GoogCcNetworkControllerTest,

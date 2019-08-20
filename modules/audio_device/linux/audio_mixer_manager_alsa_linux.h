@@ -21,8 +21,8 @@ namespace webrtc {
 
 class AudioMixerManagerLinuxALSA {
  public:
-  int32_t OpenSpeaker(char* deviceName);
-  int32_t OpenMicrophone(char* deviceName);
+  int32_t OpenSpeaker(const char* deviceName);
+  int32_t OpenMicrophone(const char* deviceName);
   int32_t SetSpeakerVolume(uint32_t volume);
   int32_t SpeakerVolume(uint32_t& volume) const;
   int32_t MaxSpeakerVolume(uint32_t& maxVolume) const;
@@ -52,14 +52,14 @@ class AudioMixerManagerLinuxALSA {
  private:
   int32_t LoadMicMixerElement() const;
   int32_t LoadSpeakerMixerElement() const;
-  void GetControlName(char* controlName, char* deviceName) const;
+  std::string GetControlName(const std::string& deviceName) const;
 
  private:
   rtc::CriticalSection _critSect;
   mutable snd_mixer_t* _outputMixerHandle;
-  char _outputMixerStr[kAdmMaxDeviceNameSize];
+  std::string _outputMixerStr;
   mutable snd_mixer_t* _inputMixerHandle;
-  char _inputMixerStr[kAdmMaxDeviceNameSize];
+  std::string _inputMixerStr;
   mutable snd_mixer_elem_t* _outputMixerElement;
   mutable snd_mixer_elem_t* _inputMixerElement;
 };

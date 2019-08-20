@@ -21,6 +21,7 @@
 #define PC_TEST_FAKE_AUDIO_CAPTURE_MODULE_H_
 
 #include <memory>
+#include <string>
 
 #include "api/scoped_refptr.h"
 #include "modules/audio_device/include/audio_device.h"
@@ -62,11 +63,11 @@ class FakeAudioCaptureModule : public webrtc::AudioDeviceModule,
   int16_t PlayoutDevices() override;
   int16_t RecordingDevices() override;
   int32_t PlayoutDeviceName(uint16_t index,
-                            char name[webrtc::kAdmMaxDeviceNameSize],
-                            char guid[webrtc::kAdmMaxGuidSize]) override;
+                            std::string* name,
+                            std::string* guid) override;
   int32_t RecordingDeviceName(uint16_t index,
-                              char name[webrtc::kAdmMaxDeviceNameSize],
-                              char guid[webrtc::kAdmMaxGuidSize]) override;
+                              std::string* name,
+                              std::string* guid) override;
 
   int32_t SetPlayoutDevice(uint16_t index) override;
   int32_t SetPlayoutDevice(WindowsDeviceType device) override;

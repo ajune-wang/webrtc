@@ -28,9 +28,6 @@ AudioMixerManagerLinuxALSA::AudioMixerManagerLinuxALSA()
       _outputMixerElement(NULL),
       _inputMixerElement(NULL) {
   RTC_LOG(LS_INFO) << __FUNCTION__ << " created";
-
-  memset(_outputMixerStr, 0, kAdmMaxDeviceNameSize);
-  memset(_inputMixerStr, 0, kAdmMaxDeviceNameSize);
 }
 
 AudioMixerManagerLinuxALSA::~AudioMixerManagerLinuxALSA() {
@@ -67,7 +64,8 @@ int32_t AudioMixerManagerLinuxALSA::CloseSpeaker() {
       RTC_LOG(LS_ERROR) << "Error freeing playout mixer: "
                         << LATE(snd_strerror)(errVal);
     }
-    errVal = LATE(snd_mixer_detach)(_outputMixerHandle, _outputMixerStr);
+    errVal =
+        LATE(snd_mixer_detach)(_outputMixerHandle, _outputMixerStr.c_str());
     if (errVal < 0) {
       RTC_LOG(LS_ERROR) << "Error detaching playout mixer: "
                         << LATE(snd_strerror)(errVal);
@@ -80,7 +78,7 @@ int32_t AudioMixerManagerLinuxALSA::CloseSpeaker() {
     _outputMixerHandle = NULL;
     _outputMixerElement = NULL;
   }
-  memset(_outputMixerStr, 0, kAdmMaxDeviceNameSize);
+  _outputMixerStr.clear();
 
   return 0;
 }
@@ -102,7 +100,7 @@ int32_t AudioMixerManagerLinuxALSA::CloseMicrophone() {
     }
     RTC_LOG(LS_VERBOSE) << "Closing record mixer 2";
 
-    errVal = LATE(snd_mixer_detach)(_inputMixerHandle, _inputMixerStr);
+    errVal = LATE(snd_mixer_detach)(_inputMixerHandle, _inputMixerStr.c_str());
     if (errVal < 0) {
       RTC_LOG(LS_ERROR) << "Error detaching record mixer: "
                         << LATE(snd_strerror)(errVal);
@@ -119,12 +117,12 @@ int32_t AudioMixerManagerLinuxALSA::CloseMicrophone() {
     _inputMixerHandle = NULL;
     _inputMixerElement = NULL;
   }
-  memset(_inputMixerStr, 0, kAdmMaxDeviceNameSize);
+  _inputMixerStr.clear();
 
   return 0;
 }
 
-int32_t AudioMixerManagerLinuxALSA::OpenSpeaker(char* deviceName) {
+int32_t AudioMixerManagerLinuxALSA::OpenSpeaker(const char* deviceName) {
   RTC_LOG(LS_VERBOSE) << "AudioMixerManagerLinuxALSA::OpenSpeaker(name="
                       << deviceName << ")";
 
@@ -142,7 +140,8 @@ int32_t AudioMixerManagerLinuxALSA::OpenSpeaker(char* deviceName) {
       RTC_LOG(LS_ERROR) << "Error freeing playout mixer: "
                         << LATE(snd_strerror)(errVal);
     }
-    errVal = LATE(snd_mixer_detach)(_outputMixerHandle, _outputMixerStr);
+    errVal =
+        LATE(snd_mixer_detach)(_outputMixerHandle, _outputMixerStr.c_str());
     if (errVal < 0) {
       RTC_LOG(LS_ERROR) << "Error detaching playout mixer: "
                         << LATE(snd_strerror)(errVal);
@@ -162,20 +161,19 @@ int32_t AudioMixerManagerLinuxALSA::OpenSpeaker(char* deviceName) {
     return -1;
   }
 
-  char controlName[kAdmMaxDeviceNameSize] = {0};
-  GetControlName(controlName, deviceName);
+  std::string controlName = GetControlName(deviceName);
 
   RTC_LOG(LS_VERBOSE) << "snd_mixer_attach(_outputMixerHandle, " << controlName
                       << ")";
 
-  errVal = LATE(snd_mixer_attach)(_outputMixerHandle, controlName);
+  errVal = LATE(snd_mixer_attach)(_outputMixerHandle, controlName.c_str());
   if (errVal < 0) {
     RTC_LOG(LS_ERROR) << "snd_mixer_attach(_outputMixerHandle, " << controlName
                       << ") error: " << LATE(snd_strerror)(errVal);
     _outputMixerHandle = NULL;
     return -1;
   }
-  strcpy(_outputMixerStr, controlName);
+  _outputMixerStr = controlName;
 
   errVal = LATE(snd_mixer_selem_register)(_outputMixerHandle, NULL, NULL);
   if (errVal < 0) {
@@ -199,7 +197,7 @@ int32_t AudioMixerManagerLinuxALSA::OpenSpeaker(char* deviceName) {
   return 0;
 }
 
-int32_t AudioMixerManagerLinuxALSA::OpenMicrophone(char* deviceName) {
+int32_t AudioMixerManagerLinuxALSA::OpenMicrophone(const char* deviceName) {
   RTC_LOG(LS_VERBOSE) << "AudioMixerManagerLinuxALSA::OpenMicrophone(name="
                       << deviceName << ")";
 
@@ -219,7 +217,7 @@ int32_t AudioMixerManagerLinuxALSA::OpenMicrophone(char* deviceName) {
     }
     RTC_LOG(LS_VERBOSE) << "Closing record mixer";
 
-    errVal = LATE(snd_mixer_detach)(_inputMixerHandle, _inputMixerStr);
+    errVal = LATE(snd_mixer_detach)(_inputMixerHandle, _inputMixerStr.c_str());
     if (errVal < 0) {
       RTC_LOG(LS_ERROR) << "Error detaching record mixer: "
                         << LATE(snd_strerror)(errVal);
@@ -242,13 +240,12 @@ int32_t AudioMixerManagerLinuxALSA::OpenMicrophone(char* deviceName) {
     return -1;
   }
 
-  char controlName[kAdmMaxDeviceNameSize] = {0};
-  GetControlName(controlName, deviceName);
+  std::string controlName = GetControlName(deviceName);
 
   RTC_LOG(LS_VERBOSE) << "snd_mixer_attach(_inputMixerHandle, " << controlName
                       << ")";
 
-  errVal = LATE(snd_mixer_attach)(_inputMixerHandle, controlName);
+  errVal = LATE(snd_mixer_attach)(_inputMixerHandle, controlName.c_str());
   if (errVal < 0) {
     RTC_LOG(LS_ERROR) << "snd_mixer_attach(_inputMixerHandle, " << controlName
                       << ") error: " << LATE(snd_strerror)(errVal);
@@ -256,7 +253,7 @@ int32_t AudioMixerManagerLinuxALSA::OpenMicrophone(char* deviceName) {
     _inputMixerHandle = NULL;
     return -1;
   }
-  strcpy(_inputMixerStr, controlName);
+  _inputMixerStr = controlName;
 
   errVal = LATE(snd_mixer_selem_register)(_inputMixerHandle, NULL, NULL);
   if (errVal < 0) {
@@ -947,24 +944,17 @@ int32_t AudioMixerManagerLinuxALSA::LoadSpeakerMixerElement() const {
   return 0;
 }
 
-void AudioMixerManagerLinuxALSA::GetControlName(char* controlName,
-                                                char* deviceName) const {
+std::string AudioMixerManagerLinuxALSA::GetControlName(
+    const std::string& deviceName) const {
   // Example
   // deviceName: "front:CARD=Intel,DEV=0"
   // controlName: "hw:CARD=Intel"
-  char* pos1 = strchr(deviceName, ':');
-  char* pos2 = strchr(deviceName, ',');
-  if (!pos2) {
-    // Can also be default:CARD=Intel
-    pos2 = &deviceName[strlen(deviceName)];
-  }
-  if (pos1 && pos2) {
-    strcpy(controlName, "hw");
-    int nChar = (int)(pos2 - pos1);
-    strncpy(&controlName[2], pos1, nChar);
-    controlName[2 + nChar] = '\0';
+  size_t pos1 = deviceName.find(':');
+  size_t pos2 = deviceName.find(',');
+  if (pos1 != std::string::npos) {
+    return std::string("hw") + deviceName.substr(pos1, pos2);
   } else {
-    strcpy(controlName, deviceName);
+    return deviceName;
   }
 }
 

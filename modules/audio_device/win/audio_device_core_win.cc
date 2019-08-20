@@ -1519,10 +1519,9 @@ int32_t AudioDeviceWindowsCore::SetPlayoutDevice(
 //  PlayoutDeviceName
 // ----------------------------------------------------------------------------
 
-int32_t AudioDeviceWindowsCore::PlayoutDeviceName(
-    uint16_t index,
-    char name[kAdmMaxDeviceNameSize],
-    char guid[kAdmMaxGuidSize]) {
+int32_t AudioDeviceWindowsCore::PlayoutDeviceName(uint16_t index,
+                                                  std::string* name,
+                                                  std::string* guid) {
   bool defaultCommunicationDevice(false);
   const int16_t nDevices(PlayoutDevices());  // also updates the list of devices
 

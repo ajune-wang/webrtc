@@ -125,13 +125,13 @@ class ADMWrapper : public AudioDeviceModule, public AudioTransport {
   int16_t PlayoutDevices() override { return impl_->PlayoutDevices(); }
   int16_t RecordingDevices() override { return impl_->RecordingDevices(); }
   int32_t PlayoutDeviceName(uint16_t index,
-                            char name[kAdmMaxDeviceNameSize],
-                            char guid[kAdmMaxGuidSize]) override {
+                            std::string* name,
+                            std::string* guid) override {
     return impl_->PlayoutDeviceName(index, name, guid);
   }
   int32_t RecordingDeviceName(uint16_t index,
-                              char name[kAdmMaxDeviceNameSize],
-                              char guid[kAdmMaxGuidSize]) override {
+                              std::string* name,
+                              std::string* guid) override {
     return impl_->RecordingDeviceName(index, name, guid);
   }
   int32_t SetPlayoutDevice(uint16_t index) override {

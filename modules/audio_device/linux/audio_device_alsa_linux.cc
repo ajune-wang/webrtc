@@ -222,9 +222,9 @@ int32_t AudioDeviceLinuxALSA::InitSpeaker() {
     return -1;
   }
 
-  char devName[kAdmMaxDeviceNameSize] = {0};
-  GetDevicesInfo(2, true, _outputDeviceIndex, devName, kAdmMaxDeviceNameSize);
-  return _mixerManager.OpenSpeaker(devName);
+  std::string devName;
+  GetDevicesInfo(2, true, _outputDeviceIndex, &devName);
+  return _mixerManager.OpenSpeaker(devName.c_str());
 }
 
 int32_t AudioDeviceLinuxALSA::InitMicrophone() {
@@ -234,9 +234,9 @@ int32_t AudioDeviceLinuxALSA::InitMicrophone() {
     return -1;
   }
 
-  char devName[kAdmMaxDeviceNameSize] = {0};
-  GetDevicesInfo(2, false, _inputDeviceIndex, devName, kAdmMaxDeviceNameSize);
-  return _mixerManager.OpenMicrophone(devName);
+  std::string devName;
+  GetDevicesInfo(2, false, _inputDeviceIndex, &devName);
+  return _mixerManager.OpenMicrophone(devName.c_str());
 }
 
 bool AudioDeviceLinuxALSA::SpeakerIsInitialized() const {
@@ -621,42 +621,38 @@ int32_t AudioDeviceLinuxALSA::SetPlayoutDevice(
   return -1;
 }
 
-int32_t AudioDeviceLinuxALSA::PlayoutDeviceName(
-    uint16_t index,
-    char name[kAdmMaxDeviceNameSize],
-    char guid[kAdmMaxGuidSize]) {
+int32_t AudioDeviceLinuxALSA::PlayoutDeviceName(uint16_t index,
+                                                std::string* name,
+                                                std::string* guid) {
   const uint16_t nDevices(PlayoutDevices());
 
   if ((index > (nDevices - 1)) || (name == NULL)) {
     return -1;
   }
 
-  memset(name, 0, kAdmMaxDeviceNameSize);
-
   if (guid != NULL) {
-    memset(guid, 0, kAdmMaxGuidSize);
+    *guid = "";
   }
 
-  return GetDevicesInfo(1, true, index, name, kAdmMaxDeviceNameSize);
+  return GetDevicesInfo(1, true, index, name);
 }
 
-int32_t AudioDeviceLinuxALSA::RecordingDeviceName(
-    uint16_t index,
-    char name[kAdmMaxDeviceNameSize],
-    char guid[kAdmMaxGuidSize]) {
+int32_t AudioDeviceLinuxALSA::RecordingDeviceName(uint16_t index,
+                                                  std::string* name,
+                                                  std::string* guid) {
   const uint16_t nDevices(RecordingDevices());
 
   if ((index > (nDevices - 1)) || (name == NULL)) {
     return -1;
   }
 
-  memset(name, 0, kAdmMaxDeviceNameSize);
+  *name = "";
 
   if (guid != NULL) {
-    memset(guid, 0, kAdmMaxGuidSize);
+    *guid = "";
   }
 
-  return GetDevicesInfo(1, false, index, name, kAdmMaxDeviceNameSize);
+  return GetDevicesInfo(1, false, index, name);
 }
 
 int16_t AudioDeviceLinuxALSA::RecordingDevices() {
@@ -777,20 +773,19 @@ int32_t AudioDeviceLinuxALSA::InitPlayout() {
   }
 
   // Open PCM device for playout
-  char deviceName[kAdmMaxDeviceNameSize] = {0};
-  GetDevicesInfo(2, true, _outputDeviceIndex, deviceName,
-                 kAdmMaxDeviceNameSize);
+  std::string deviceName;
+  GetDevicesInfo(2, true, _outputDeviceIndex, &deviceName);
 
   RTC_LOG(LS_VERBOSE) << "InitPlayout open (" << deviceName << ")";
 
-  errVal = LATE(snd_pcm_open)(&_handlePlayout, deviceName,
+  errVal = LATE(snd_pcm_open)(&_handlePlayout, deviceName.c_str(),
                               SND_PCM_STREAM_PLAYBACK, SND_PCM_NONBLOCK);
 
   if (errVal == -EBUSY)  // Device busy - try some more!
   {
     for (int i = 0; i < 5; i++) {
       SleepMs(1000);
-      errVal = LATE(snd_pcm_open)(&_handlePlayout, deviceName,
+      errVal = LATE(snd_pcm_open)(&_handlePlayout, deviceName.c_str(),
                                   SND_PCM_STREAM_PLAYBACK, SND_PCM_NONBLOCK);
       if (errVal == 0) {
         break;
@@ -900,12 +895,11 @@ int32_t AudioDeviceLinuxALSA::InitRecording() {
 
   // Open PCM device for recording
   // The corresponding settings for playout are made after the record settings
-  char deviceName[kAdmMaxDeviceNameSize] = {0};
-  GetDevicesInfo(2, false, _inputDeviceIndex, deviceName,
-                 kAdmMaxDeviceNameSize);
+  std::string deviceName;
+  GetDevicesInfo(2, false, _inputDeviceIndex, &deviceName);
 
   RTC_LOG(LS_VERBOSE) << "InitRecording open (" << deviceName << ")";
-  errVal = LATE(snd_pcm_open)(&_handleRecord, deviceName,
+  errVal = LATE(snd_pcm_open)(&_handleRecord, deviceName.c_str(),
                               SND_PCM_STREAM_CAPTURE, SND_PCM_NONBLOCK);
 
   // Available modes: 0 = blocking, SND_PCM_NONBLOCK, SND_PCM_ASYNC
@@ -913,7 +907,7 @@ int32_t AudioDeviceLinuxALSA::InitRecording() {
   {
     for (int i = 0; i < 5; i++) {
       SleepMs(1000);
-      errVal = LATE(snd_pcm_open)(&_handleRecord, deviceName,
+      errVal = LATE(snd_pcm_open)(&_handleRecord, deviceName.c_str(),
                                   SND_PCM_STREAM_CAPTURE, SND_PCM_NONBLOCK);
       if (errVal == 0) {
         break;
@@ -1220,11 +1214,11 @@ bool AudioDeviceLinuxALSA::Playing() const {
 //                                 Private Methods
 // ============================================================================
 
-int32_t AudioDeviceLinuxALSA::GetDevicesInfo(const int32_t function,
-                                             const bool playback,
-                                             const int32_t enumDeviceNo,
-                                             char* enumDeviceName,
-                                             const int32_t ednLen) const {
+int32_t AudioDeviceLinuxALSA::GetDevicesInfo(
+    const int32_t function,
+    const bool playback,
+    const int32_t enumDeviceNo,
+    std::string* enumDeviceName) const {
   // Device enumeration based on libjingle implementation
   // by Tristan Schmelcher at Google Inc.
 
@@ -1258,7 +1252,7 @@ int32_t AudioDeviceLinuxALSA::GetDevicesInfo(const int32_t function,
     if ((function == FUNC_GET_DEVICE_NAME ||
          function == FUNC_GET_DEVICE_NAME_FOR_AN_ENUM) &&
         enumDeviceNo == 0) {
-      strcpy(enumDeviceName, "default");
+      *enumDeviceName = "default";
 
       err = LATE(snd_device_name_free_hint)(hints);
       if (err != 0) {
@@ -1304,19 +1298,17 @@ int32_t AudioDeviceLinuxALSA::GetDevicesInfo(const int32_t function,
         }
         if ((FUNC_GET_DEVICE_NAME == function) && (enumDeviceNo == enumCount)) {
           // We have found the enum device, copy the name to buffer.
-          strncpy(enumDeviceName, desc, ednLen);
-          enumDeviceName[ednLen - 1] = '\0';
+          *enumDeviceName = desc;
           keepSearching = false;
           // Replace '\n' with '-'.
-          char* pret = strchr(enumDeviceName, '\n' /*0xa*/);  // LF
+          char* pret = strchr(&enumDeviceName->front(), '\n' /*0xa*/);  // LF
           if (pret)
             *pret = '-';
         }
         if ((FUNC_GET_DEVICE_NAME_FOR_AN_ENUM == function) &&
             (enumDeviceNo == enumCount)) {
           // We have found the enum device, copy the name to buffer.
-          strncpy(enumDeviceName, name, ednLen);
-          enumDeviceName[ednLen - 1] = '\0';
+          *enumDeviceName = name;
           keepSearching = false;
         }
 

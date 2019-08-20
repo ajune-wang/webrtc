@@ -826,18 +826,16 @@ int32_t AudioDeviceMac::SetPlayoutDevice(
 }
 
 int32_t AudioDeviceMac::PlayoutDeviceName(uint16_t index,
-                                          char name[kAdmMaxDeviceNameSize],
-                                          char guid[kAdmMaxGuidSize]) {
+                                          std::string* name,
+                                          std::string* guid) {
   const uint16_t nDevices(PlayoutDevices());
 
   if ((index > (nDevices - 1)) || (name == NULL)) {
     return -1;
   }
 
-  memset(name, 0, kAdmMaxDeviceNameSize);
-
   if (guid != NULL) {
-    memset(guid, 0, kAdmMaxGuidSize);
+    *guid = "";
   }
 
   return GetDeviceName(kAudioDevicePropertyScopeOutput, index, name);
@@ -1646,7 +1644,7 @@ int32_t AudioDeviceMac::GetNumberDevices(const AudioObjectPropertyScope scope,
 
 int32_t AudioDeviceMac::GetDeviceName(const AudioObjectPropertyScope scope,
                                       const uint16_t index,
-                                      char* name) {
+                                      std::string* name) {
   OSStatus err = noErr;
   UInt32 len = kAdmMaxDeviceNameSize;
   AudioDeviceID deviceIds[MaxNumberDevices];
@@ -1694,7 +1692,7 @@ int32_t AudioDeviceMac::GetDeviceName(const AudioObjectPropertyScope scope,
     WEBRTC_CA_RETURN_ON_ERR(AudioObjectGetPropertyData(usedID, &propertyAddress,
                                                        0, NULL, &len, devName));
 
-    sprintf(name, "default (%s)", devName);
+    *name = "default (" + std::string(devName) + ")";
   } else {
     if (index < numberDevices) {
       usedID = deviceIds[index];

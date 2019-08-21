@@ -22,6 +22,30 @@
       "revId": "a310b388c0cf7e88791aa87ab501b775ece09ed1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77d29562_9b2e8684",
+        "filename": "modules/audio_device/win/audio_device_core_win.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-08-21T12:39:44Z",
+      "side": 0,
+      "message": "Agree. You can find many really bad parts in this implementation. That is one of the main reasons why we implemented the ADM2 instead. I would not spend too much time on cleaning up this version if I were you.",
+      "parentUuid": "17586694_8910c8f5",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 25
+      },
+      "revId": "a310b388c0cf7e88791aa87ab501b775ece09ed1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

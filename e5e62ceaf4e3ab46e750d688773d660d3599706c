@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b64d71e_75cdfac8",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-21T08:51:28Z",
+      "side": 1,
+      "message": "This MUST match the PR, which currently says selectedCandidatePairChanges (here: selected_candidate_pair_changes). Update the CL or make the argument to change the PR.",
+      "revId": "e5e62ceaf4e3ab46e750d688773d660d3599706c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "895ca3fb_ffa48c0f",
+        "filename": "p2p/base/ice_transport_internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-21T08:51:28Z",
+      "side": 1,
+      "message": "I would prefer if we didn\u0027t add to the list of arguments any time we want to add another metric, that requires updating all the calling places every time, including any tests testing behavior unrelated to this particular metric. A single output struct would be nice.\n\nExisting problem: Not sure I like this \"output is part of the input as pointers\" way of constructing the output either which there is more of in jsep_transport.cc. I would prefer if methods simply returned what they returned.\n\nCan we refactor this so that GetStats() returns a struct with all the output, instead of taking pointers as argument? Why return a bool? The only implementation is always successful, there\u0027s no error handling needed, and any fakes/mocks could return something that makes sense for what they are testing.\n\ncricket::TransportChannelStats can contain an IceTransportStats containing the ConnectionInfos etc, rather than containing ConnectionInfos harvested from this method. What do you think?",
+      "revId": "e5e62ceaf4e3ab46e750d688773d660d3599706c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3b09e37_945d6cd4",
+        "filename": "p2p/base/p2p_transport_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-21T08:51:28Z",
+      "side": 1,
+      "message": "Changes, change counter, switches... Can we be consistent with the name used?",
+      "revId": "e5e62ceaf4e3ab46e750d688773d660d3599706c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86e0c30c_9181c73f",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1241,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-21T08:51:28Z",
+      "side": 1,
+      "message": "I prefer behavioral-driven testing to operational-driven testing. I.e. a test is responsible for testing one behavior.\n\nExample tests: \"connecting increases the change counter to 1\", \"changing candidate pair while being connected increases the counter\", \"deselecting candidate pair changes the counter\".\n\nThis makes it clear what behaviors we are or are not testing, if something fails the test name will tell us what, and if we change a behavior we only have to update the tests related to those behaviors rather than changing any test using that operation.\n\nHere we have a single test: GetStats. This does not adequately test all the behaviors we are interested in supporting stats-wise, it just makes sure that one particular use case of GetStats returns some expected values.\n\nYou\u0027ve now updated tests seemingly testing unrelated behaviors such as \"CandidatesSanitizedInStatsWhenMdnsObfuscationEnabled\" to assert that the changes counter has particular values. It would seem irrelevant to such tests?\n\nPardon the rant, but could you test selected_candidate_pair_changes in separate tests? For instance the example tests I listed above would be nice things to test. Without separate tests like that we don\u0027t have test coverage for edge cases, and there are no nice integration tests that actually verify details like that, so this would be the best place for it right now.",
+      "revId": "e5e62ceaf4e3ab46e750d688773d660d3599706c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d330803f_8a20213f",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 951,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-21T08:51:28Z",
+      "side": 1,
+      "message": "Considering the test above has verified that we have a selected_candidate_pair_id, it should be safe to TestMemberIsPositive",
+      "revId": "e5e62ceaf4e3ab46e750d688773d660d3599706c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e41715bf_d12bcf29",
+        "filename": "pc/transport_stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-21T08:51:28Z",
+      "side": 1,
+      "message": "\"Number of times\". And use the full 80 character line width.",
+      "revId": "e5e62ceaf4e3ab46e750d688773d660d3599706c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "339af195_d4aa6422",
+        "filename": "stats/rtcstats_objects.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-21T08:51:28Z",
+      "side": 1,
+      "message": "\"selectedCandidatePairChanges\"",
+      "revId": "e5e62ceaf4e3ab46e750d688773d660d3599706c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

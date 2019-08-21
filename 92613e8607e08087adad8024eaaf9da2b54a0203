@@ -164,6 +164,30 @@
       "revId": "92613e8607e08087adad8024eaaf9da2b54a0203",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "47827012_adf03f96",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-21T13:30:52Z",
+      "side": 1,
+      "message": "Changed to \n\nRtpPacketCounter packet_counter;\n\nSince only the transmitted counter is used. (fec counter is used for histograms, but could be moved elsewhere in a followup). And a separate member for the timestamp.",
+      "parentUuid": "cf7ae1f7_e450c9a0",
+      "range": {
+        "startLine": 461,
+        "startChar": 21,
+        "endLine": 461,
+        "endChar": 25
+      },
+      "revId": "92613e8607e08087adad8024eaaf9da2b54a0203",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

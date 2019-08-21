@@ -16,6 +16,24 @@
       "revId": "1316d69756068d72cc338fbc412947c5c7d3f150",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f05d990e_3ce4c78d",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-08-21T11:37:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f5f9adf_d2c3ad18",
+      "revId": "1316d69756068d72cc338fbc412947c5c7d3f150",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -64,9 +64,9 @@ default_args = {
 
   ios_deployment_target = "10.0"
 
-  # The SDK API level, in contrast, is set by build/android/AndroidManifest.xml.
-  android32_ndk_api_level = 16
-  android64_ndk_api_level = 21
+  android_ndk_root = "//third_party/android_ndk"
+  android_ndk_version = "r20"
+  android_ndk_major_version = 20
 
   # WebRTC does not want to switch to C++14 yet.
   use_cxx11 = true

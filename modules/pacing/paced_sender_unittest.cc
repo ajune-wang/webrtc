@@ -18,6 +18,7 @@
 
 #include "absl/memory/memory.h"
 #include "modules/pacing/packet_router.h"
+#include "modules/utility/include/mock/mock_process_thread.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
 #include "test/field_trial.h"
@@ -26,6 +27,7 @@
 
 using ::testing::_;
 using ::testing::Return;
+using ::testing::SaveArg;
 
 namespace {
 static const int kTargetBitrateBps = 800000;
@@ -86,9 +88,14 @@ std::unique_ptr<RtpPacketToSend> BuildRtpPacket(RtpPacketToSend::Type type) {
 TEST(PacedSenderTest, PacesPacketsLegacyWay) {
   SimulatedClock clock(0);
   MockCallback callback;
+  MockProcessThread process_thread;
+  Module* paced_module = nullptr;
   ScopedFieldTrials field_trials(
       "WebRTC-Pacer-LegacyPacketReferencing/Enabled/");
-  PacedSender pacer(&clock, &callback, nullptr, nullptr);
+  EXPECT_CALL(process_thread, RegisterModule(_, _))
+      .WillOnce(SaveArg<0>(&paced_module));
+  PacedSender pacer(&clock, &callback, nullptr, &process_thread);
+  EXPECT_CALL(process_thread, DeRegisterModule(paced_module)).Times(1);
 
   // Insert a number of packets over one second.
   static constexpr size_t kPacketsToSend = 42;
@@ -102,7 +109,7 @@ TEST(PacedSenderTest, PacesPacketsLegacyWay) {
 
   // Expect all of them to be sent.
   size_t packets_sent = 0;
-  clock.AdvanceTimeMilliseconds(pacer.TimeUntilNextProcess());
+  clock.AdvanceTimeMilliseconds(paced_module->TimeUntilNextProcess());
   EXPECT_CALL(callback, TimeToSendPacket)
       .WillRepeatedly([&](uint32_t ssrc, uint16_t sequence_number,
                           int64_t capture_time_ms, bool retransmission,
@@ -114,8 +121,8 @@ TEST(PacedSenderTest, PacesPacketsLegacyWay) {
   const Timestamp start_time = clock.CurrentTime();
 
   while (packets_sent < kPacketsToSend) {
-    clock.AdvanceTimeMilliseconds(pacer.TimeUntilNextProcess());
-    pacer.Process();
+    clock.AdvanceTimeMilliseconds(paced_module->TimeUntilNextProcess());
+    paced_module->Process();
   }
 
   // Packets should be sent over a period of close to 1s. Expect a little lower
@@ -127,7 +134,12 @@ TEST(PacedSenderTest, PacesPacketsLegacyWay) {
 TEST(PacedSenderTest, PacesPackets) {
   SimulatedClock clock(0);
   MockCallback callback;
-  PacedSender pacer(&clock, &callback, nullptr, nullptr);
+  MockProcessThread process_thread;
+  Module* paced_module = nullptr;
+  EXPECT_CALL(process_thread, RegisterModule(_, _))
+      .WillOnce(SaveArg<0>(&paced_module));
+  PacedSender pacer(&clock, &callback, nullptr, &process_thread);
+  EXPECT_CALL(process_thread, DeRegisterModule(paced_module)).Times(1);
 
   // Insert a number of packets, covering one second.
   static constexpr size_t kPacketsToSend = 42;
@@ -139,7 +151,7 @@ TEST(PacedSenderTest, PacesPackets) {
 
   // Expect all of them to be sent.
   size_t packets_sent = 0;
-  clock.AdvanceTimeMilliseconds(pacer.TimeUntilNextProcess());
+  clock.AdvanceTimeMilliseconds(paced_module->TimeUntilNextProcess());
   EXPECT_CALL(callback, SendPacket)
       .WillRepeatedly(
           [&](std::unique_ptr<RtpPacketToSend> packet,
@@ -148,8 +160,8 @@ TEST(PacedSenderTest, PacesPackets) {
   const Timestamp start_time = clock.CurrentTime();
 
   while (packets_sent < kPacketsToSend) {
-    clock.AdvanceTimeMilliseconds(pacer.TimeUntilNextProcess());
-    pacer.Process();
+    clock.AdvanceTimeMilliseconds(paced_module->TimeUntilNextProcess());
+    paced_module->Process();
   }
 
   // Packets should be sent over a period of close to 1s. Expect a little lower
@@ -166,7 +178,12 @@ TEST(PacedSenderTest, AvoidBusyLoopOnSendFailure) {
       "WebRTC-Pacer-LegacyPacketReferencing/Enabled/");
   MockCallback callback;
   SimulatedClock clock(0);
-  PacedSender pacer(&clock, &callback, nullptr, nullptr);
+  MockProcessThread process_thread;
+  Module* paced_module = nullptr;
+  EXPECT_CALL(process_thread, RegisterModule(_, _))
+      .WillOnce(SaveArg<0>(&paced_module));
+  PacedSender pacer(&clock, &callback, nullptr, &process_thread);
+  EXPECT_CALL(process_thread, DeRegisterModule(paced_module)).Times(1);
 
   // Configure up to full target bitrate of padding.
   pacer.SetPacingRates(DataRate::bps(kTargetBitrateBps),
@@ -180,14 +197,14 @@ TEST(PacedSenderTest, AvoidBusyLoopOnSendFailure) {
 
   // Expect all of them to be sent.
   size_t packets_sent = 0;
-  clock.AdvanceTimeMilliseconds(pacer.TimeUntilNextProcess());
+  clock.AdvanceTimeMilliseconds(paced_module->TimeUntilNextProcess());
   EXPECT_CALL(callback, SendPacket)
       .WillRepeatedly(
           [&](std::unique_ptr<RtpPacketToSend> packet,
               const PacedPacketInfo& cluster_info) { ++packets_sent; });
   while (packets_sent < kPacketsToSend) {
-    clock.AdvanceTimeMilliseconds(pacer.TimeUntilNextProcess());
-    pacer.Process();
+    clock.AdvanceTimeMilliseconds(paced_module->TimeUntilNextProcess());
+    paced_module->Process();
   }
 
   // Make sure we have budget for padding.
@@ -195,11 +212,11 @@ TEST(PacedSenderTest, AvoidBusyLoopOnSendFailure) {
 
   // If sending padding fails, wait the standard 5ms until trying again.
   EXPECT_CALL(callback, TimeToSendPadding).Times(2).WillRepeatedly(Return(0));
-  pacer.Process();
-  EXPECT_EQ(5, pacer.TimeUntilNextProcess());
+  paced_module->Process();
+  EXPECT_EQ(5, paced_module->TimeUntilNextProcess());
   clock.AdvanceTimeMilliseconds(5);
-  pacer.Process();
-  EXPECT_EQ(5, pacer.TimeUntilNextProcess());
+  paced_module->Process();
+  EXPECT_EQ(5, paced_module->TimeUntilNextProcess());
 }
 
 }  // namespace test

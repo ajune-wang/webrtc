@@ -123,7 +123,7 @@ AudioReceiveStream::AudioReceiveStream(
   RTC_DCHECK(audio_state_);
   RTC_DCHECK(channel_receive_);
 
-  module_process_thread_checker_.Detach();
+  RTC_DETACH_FROM_THREAD(module_process_thread_checker_);
 
   if (!config.media_transport_config.media_transport) {
     RTC_DCHECK(receiver_controller);
@@ -150,7 +150,7 @@ AudioReceiveStream::~AudioReceiveStream() {
 
 void AudioReceiveStream::Reconfigure(
     const webrtc::AudioReceiveStream::Config& config) {
-  RTC_DCHECK(worker_thread_checker_.IsCurrent());
+  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   ConfigureStream(this, config, false);
 }
 

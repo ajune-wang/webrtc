@@ -16,6 +16,24 @@
       "revId": "a46f1121238c475d22df7316b5bae065368477df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e67a87dd_31b839a3",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-22T08:36:19Z",
+      "side": 1,
+      "message": "The RtpReceiveStatistics struct includes default values (\u003d 0) for these members. The CallReceiveStatistics struct doesn\u0027t. So the lines can\u0027t be moved without other changes to ensure the returned struct is fully initialized.",
+      "parentUuid": "91ae1951_8f4846ea",
+      "revId": "a46f1121238c475d22df7316b5bae065368477df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

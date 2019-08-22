@@ -820,6 +820,7 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
     absl::optional<bool> use_datagram_transport;
     absl::optional<CryptoOptions> crypto_options;
     bool offer_extmap_allow_mixed;
+    std::string turn_logging_id;
   };
   static_assert(sizeof(stuff_being_tested_for_equality) == sizeof(*this),
                 "Did you add something to RTCConfiguration and forget to "
@@ -880,7 +881,8 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
              o.use_media_transport_for_data_channels &&
          use_datagram_transport == o.use_datagram_transport &&
          crypto_options == o.crypto_options &&
-         offer_extmap_allow_mixed == o.offer_extmap_allow_mixed;
+         offer_extmap_allow_mixed == o.offer_extmap_allow_mixed &&
+         turn_logging_id == o.turn_logging_id;
 }
 
 bool PeerConnectionInterface::RTCConfiguration::operator!=(
@@ -1028,6 +1030,11 @@ bool PeerConnection::Initialize(
       ParseIceServers(configuration.servers, &stun_servers, &turn_servers);
   if (parse_error != RTCErrorType::NONE) {
     return false;
+  }
+
+  // Add the turn logging id to all turn servers
+  for (cricket::RelayServerConfig& turn_server : turn_servers) {
+    turn_server.turn_logging_id = configuration.turn_logging_id;
   }
 
   // The port allocator lives on the network thread and should be initialized
@@ -3577,6 +3584,7 @@ bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
   modified_config.use_media_transport_for_data_channels =
       configuration.use_media_transport_for_data_channels;
   modified_config.use_datagram_transport = configuration.use_datagram_transport;
+  modified_config.turn_logging_id = configuration.turn_logging_id;
   if (configuration != modified_config) {
     RTC_LOG(LS_ERROR) << "Modifying the configuration in an unsupported way.";
     return SafeSetError(RTCErrorType::INVALID_MODIFICATION, error);
@@ -3603,6 +3611,11 @@ bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
   if (parse_error != RTCErrorType::NONE) {
     return SafeSetError(parse_error, error);
   }
+  // Add the turn logging id to all turn servers
+  for (cricket::RelayServerConfig& turn_server : turn_servers) {
+    turn_server.turn_logging_id = configuration.turn_logging_id;
+  }
+
   // Note if STUN or TURN servers were supplied.
   if (!stun_servers.empty()) {
     NoteUsageEvent(UsageEvent::STUN_SERVER_ADDED);

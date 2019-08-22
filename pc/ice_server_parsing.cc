@@ -299,6 +299,7 @@ RTCErrorType ParseIceServers(
     // First in the list gets highest priority.
     turn_server.priority = priority--;
   }
+
   return RTCErrorType::NONE;
 }
 

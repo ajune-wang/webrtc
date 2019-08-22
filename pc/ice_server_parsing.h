@@ -11,8 +11,10 @@
 #ifndef PC_ICE_SERVER_PARSING_H_
 #define PC_ICE_SERVER_PARSING_H_
 
+#include <string>
 #include <vector>
 
+#include "absl/types/optional.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtc_error.h"
 #include "p2p/base/port.h"

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "a3654997_7823d716",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-08-22T11:40:31Z",
+      "side": 1,
+      "message": "remove \"used\"",
+      "range": {
+        "startLine": 42,
+        "startChar": 50,
+        "endLine": 42,
+        "endChar": 54
+      },
+      "revId": "6cd93d194bb33abd42cf740590ccc22bb462b2c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "58b8b650_648241f5",
         "filename": "modules/audio_coding/neteq/delay_manager.cc",
         "patchSetId": 6
@@ -42,6 +65,29 @@
         "startChar": 0,
         "endLine": 335,
         "endChar": 57
+      },
+      "revId": "6cd93d194bb33abd42cf740590ccc22bb462b2c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca07964d_af3766b8",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-08-22T11:40:31Z",
+      "side": 1,
+      "message": "nit: timestamp - xxx.timestamp \u003e kMaxHistoryMs * sample_rate_hz / 1000",
+      "range": {
+        "startLine": 337,
+        "startChar": 9,
+        "endLine": 337,
+        "endChar": 22
       },
       "revId": "6cd93d194bb33abd42cf740590ccc22bb462b2c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

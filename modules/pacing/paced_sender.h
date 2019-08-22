@@ -39,6 +39,7 @@ namespace webrtc {
 class Clock;
 class RtcEventLog;
 
+// TODO(tommi): Remove the inheritance from Module after updating dependencies.
 class PacedSender : public Module,
                     public RtpPacketPacer,
                     public RtpPacketSender,
@@ -56,9 +57,12 @@ class PacedSender : public Module,
   // overshoots from the encoder.
   static const float kDefaultPaceMultiplier;
 
+  // TODO(tommi): Make the |process_thread| argument be non optional once
+  // all callers have been updated.
   PacedSender(Clock* clock,
               PacketRouter* packet_router,
               RtcEventLog* event_log,
+              ProcessThread* process_thread = nullptr,
               const WebRtcKeyValueConfig* field_trials = nullptr);
 
   ~PacedSender() override;
@@ -117,7 +121,10 @@ class PacedSender : public Module,
   // Below are methods specific to this implementation, such as things related
   // to module processing thread specifics or methods exposed for test.
 
+ private:
   // Methods implementing Module.
+  // TODO(tommi): Remove the inheritance from Module once all use of it has
+  // been cleared up.
 
   // Returns the number of milliseconds until the module want a worker thread
   // to call Process.
@@ -139,18 +146,29 @@ class PacedSender : public Module,
   std::vector<std::unique_ptr<RtpPacketToSend>> GeneratePadding(
       DataSize size) override RTC_EXCLUSIVE_LOCKS_REQUIRED(critsect_);
 
+  // Private implementation of Module to not expose those implementation details
+  // publicly and control when the class is registered/deregistered.
+  class ModuleProxy : public Module {
+   public:
+    explicit ModuleProxy(PacedSender* delegate) : delegate_(delegate) {}
+
+   private:
+    int64_t TimeUntilNextProcess() override {
+      return delegate_->TimeUntilNextProcess();
+    }
+    void Process() override { return delegate_->Process(); }
+    void ProcessThreadAttached(ProcessThread* process_thread) override {
+      return delegate_->ProcessThreadAttached(process_thread);
+    }
+
+    PacedSender* const delegate_;
+  } module_proxy_{this};
+
   rtc::CriticalSection critsect_;
   PacingController pacing_controller_ RTC_GUARDED_BY(critsect_);
 
   PacketRouter* const packet_router_;
-
-  // Lock to avoid race when attaching process thread. This can happen due to
-  // the Call class setting network state on RtpTransportControllerSend, which
-  // in turn calls Pause/Resume on Pacedsender, before actually starting the
-  // pacer process thread. If RtpTransportControllerSend is running on a task
-  // queue separate from the thread used by Call, this causes a race.
-  rtc::CriticalSection process_thread_lock_;
-  ProcessThread* process_thread_ RTC_GUARDED_BY(process_thread_lock_);
+  ProcessThread* const process_thread_;
 };
 }  // namespace webrtc
 #endif  // MODULES_PACING_PACED_SENDER_H_

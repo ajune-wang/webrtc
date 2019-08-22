@@ -1220,7 +1220,7 @@ void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {
   BitrateObserver observer;
   RtcEventLogNull null_event_log;
   PacketRouter packet_router;
-  PacedSender pacer(&clock, &packet_router, &null_event_log);
+  PacedSender pacer(&clock, &packet_router, &null_event_log, nullptr);
   TransportFeedbackAdapter transport_feedback;
   auto factory = GoogCcNetworkControllerFactory();
   TimeDelta process_interval = factory.GetProcessInterval();

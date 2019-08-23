@@ -18,6 +18,8 @@
 #include <memory>
 #include <queue>
 
+#include "absl/flags/flag.h"
+#include "absl/flags/parse.h"
 #include "common_audio/include/audio_util.h"
 #include "common_audio/resampler/include/push_resampler.h"
 #include "common_audio/resampler/push_sinc_resampler.h"
@@ -53,19 +55,18 @@ RTC_PUSH_IGNORING_WUNDEF()
 #endif
 RTC_POP_IGNORING_WUNDEF()
 
+ABSL_FLAG(bool,
+          write_ref_data,
+          false,
+          "Write ApmTest.Process results to file, instead of comparing results "
+          "to the existing reference data file.");
+
 namespace webrtc {
 namespace {
 
 // TODO(ekmeyerson): Switch to using StreamConfig and ProcessingConfig where
 // applicable.
 
-// TODO(bjornv): This is not feasible until the functionality has been
-// re-implemented; see comment at the bottom of this file. For now, the user has
-// to hard code the |write_ref_data| value.
-// When false, this will compare the output data with the results stored to
-// file. This is the typical case. When the file should be updated, it can
-// be set to true with the command-line switch --write_ref_data.
-bool write_ref_data = false;
 const int32_t kChannels[] = {1, 2};
 const int kSampleRates[] = {8000, 16000, 32000, 48000};
 
@@ -1569,7 +1570,7 @@ TEST_F(ApmTest, Process) {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
   audioproc::OutputData ref_data;
 
-  if (!write_ref_data) {
+  if (!absl::GetFlag(FLAGS_write_ref_data)) {
     OpenFileAndReadMessage(ref_filename_, &ref_data);
   } else {
     // Write the desired tests to the protobuf reference file.
@@ -1689,7 +1690,7 @@ TEST_F(ApmTest, Process) {
         const float residual_echo_likelihood_recent_max =
             stats.residual_echo_likelihood_recent_max.value_or(-1.0f);
 
-        if (!write_ref_data) {
+        if (!absl::GetFlag(FLAGS_write_ref_data)) {
           const audioproc::Test::EchoMetrics& reference =
               test->echo_metrics(stats_index);
           constexpr float kEpsilon = 0.01;
@@ -1719,7 +1720,7 @@ TEST_F(ApmTest, Process) {
     ns_speech_prob_average /= frame_count;
     rms_dbfs_average /= frame_count;
 
-    if (!write_ref_data) {
+    if (!absl::GetFlag(FLAGS_write_ref_data)) {
       const int kIntNear = 1;
       // When running the test on a N7 we get a {2, 6} difference of
       // |has_voice_count| and |max_output_average| is up to 18 higher.
@@ -1771,7 +1772,7 @@ TEST_F(ApmTest, Process) {
     rewind(near_file_);
   }
 
-  if (write_ref_data) {
+  if (absl::GetFlag(FLAGS_write_ref_data)) {
     OpenFileAndWriteMessage(ref_filename_, ref_data);
   }
 }
@@ -2623,3 +2624,9 @@ TEST(ApmStatistics, ReportHasVoice) {
   EXPECT_FALSE(apm->GetStatistics(false).voice_detected);
 }
 }  // namespace webrtc
+
+int main(int argc, char** argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  absl::ParseCommandLine(argc, argv);
+  return RUN_ALL_TESTS();
+}

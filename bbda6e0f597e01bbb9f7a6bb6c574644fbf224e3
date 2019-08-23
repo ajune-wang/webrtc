@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2d125c4_9571f712",
+        "filename": "test/peer_scenario/tests/remote_estimate_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-08-23T14:42:10Z",
+      "side": 1,
+      "message": "Took a while to understand what \"here\" means. I guess it means \"before PeerScenario\" so it gets destructed after it? Maybe update the comment a little so it is more clear?",
+      "range": {
+        "startLine": 75,
+        "startChar": 13,
+        "endLine": 75,
+        "endChar": 17
+      },
+      "revId": "bbda6e0f597e01bbb9f7a6bb6c574644fbf224e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -45,6 +45,30 @@
       "revId": "03e87795d2d4269ee23a77f162af6830cf9bd674",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4ec811a_c77d3c84",
+        "filename": "modules/pacing/paced_sender.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-08-23T16:53:15Z",
+      "side": 1,
+      "message": "This isn\u0027t strictly needed in this CL. The reason I figured I\u0027d keep it around now, is to make a future CL simpler.  The added complexity is effectively comparable to an additional vtable.\n\nWhat this is meant to protect, and as I\u0027ve found out while writing the CL, is that if functionality is provided via the public interface of a class, it gets used. In this case it was being used by a separate class in webrtc, RtpTransportControllerSend, but no other place, including tests. As I tried to remove it, it turned out that there were other places outside of WebRTC, that were using it, but not in the same way as RtpTransportControllerSend.\n\nSo as is, how the |Module| implementation of this class is used, is unspecified - and that\u0027s an unintentional side effect of inheriting publicly from that interface. Subsequently there\u0027s a lock needed to protect the ProcessThread* pointer, since because of the unknown external complexity, there are race cases that need to be guarded against. Those are not documented, nor really necessary for the purposes of guarding a pointer that we can simply restrict the use and contain it within the class itself. Making the design more deliberate and the implementation in a single source file.",
+      "parentUuid": "b032081f_d247bbf5",
+      "range": {
+        "startLine": 155,
+        "startChar": 2,
+        "endLine": 155,
+        "endChar": 37
+      },
+      "revId": "03e87795d2d4269ee23a77f162af6830cf9bd674",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -16,6 +16,11 @@ linux_use_bundled_binutils_override = true
 # only needed to support both WebRTC standalone and Chromium builds.
 build_with_chromium = false
 
+# Support different NDK locations in non-Chromium builds.
+default_android_ndk_root = "//third_party/android_ndk"
+default_android_ndk_version = "r20"
+default_android_ndk_major_version = 20
+
 # Use our own suppressions files.
 asan_suppressions_file = "//build/sanitizers/asan_suppressions.cc"
 lsan_suppressions_file = "//tools_webrtc/sanitizers/lsan_suppressions_webrtc.cc"

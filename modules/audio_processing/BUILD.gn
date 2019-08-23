@@ -510,6 +510,8 @@ if (rtc_include_tests) {
         "../../rtc_base:rtc_task_queue",
         "aec_dump",
         "aec_dump:aec_dump_unittests",
+        "//third_party/abseil-cpp/absl/flags:flag",
+        "//third_party/abseil-cpp/absl/flags:parse",
       ]
       sources += [
         "audio_processing_impl_locking_unittest.cc",

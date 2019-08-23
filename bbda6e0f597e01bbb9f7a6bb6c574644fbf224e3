@@ -22,6 +22,30 @@
       "revId": "bbda6e0f597e01bbb9f7a6bb6c574644fbf224e3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea4b53fd_0f56e479",
+        "filename": "test/peer_scenario/tests/remote_estimate_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-23T16:34:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2d125c4_9571f712",
+      "range": {
+        "startLine": 75,
+        "startChar": 13,
+        "endLine": 75,
+        "endChar": 17
+      },
+      "revId": "bbda6e0f597e01bbb9f7a6bb6c574644fbf224e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

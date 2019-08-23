@@ -39,16 +39,25 @@ namespace webrtc {
 // queue.
 class Aec3RenderQueueItemVerifier {
  public:
-  explicit Aec3RenderQueueItemVerifier(size_t num_bands, size_t frame_length)
-      : num_bands_(num_bands), frame_length_(frame_length) {}
+  Aec3RenderQueueItemVerifier(size_t num_bands,
+                              size_t num_channels,
+                              size_t frame_length)
+      : num_bands_(num_bands),
+        num_channels_(num_channels),
+        frame_length_(frame_length) {}
 
-  bool operator()(const std::vector<std::vector<float>>& v) const {
+  bool operator()(const std::vector<std::vector<std::vector<float>>>& v) const {
     if (v.size() != num_bands_) {
       return false;
     }
     for (const auto& v_k : v) {
-      if (v_k.size() != frame_length_) {
+      if (v_k.size() != num_channels_) {
         return false;
+      }
+      for (const auto& v_k_j : v_k) {
+        if (v_k_j.size() != frame_length_) {
+          return false;
+        }
       }
     }
     return true;
@@ -56,6 +65,7 @@ class Aec3RenderQueueItemVerifier {
 
  private:
   const size_t num_bands_;
+  const size_t num_channels_;
   const size_t frame_length_;
 };
 
@@ -76,10 +86,12 @@ class EchoCanceller3 : public EchoControl {
   // Normal c-tor to use.
   EchoCanceller3(const EchoCanceller3Config& config,
                  int sample_rate_hz,
+                 size_t num_channels,
                  bool use_highpass_filter);
   // Testing c-tor that is used only for testing purposes.
   EchoCanceller3(const EchoCanceller3Config& config,
                  int sample_rate_hz,
+                 size_t num_channels,
                  bool use_highpass_filter,
                  std::unique_ptr<BlockProcessor> block_processor);
   ~EchoCanceller3() override;
@@ -124,15 +136,17 @@ class EchoCanceller3 : public EchoControl {
   const EchoCanceller3Config config_;
   const int sample_rate_hz_;
   const int num_bands_;
+  const size_t num_channels_;
   const size_t frame_length_;
   BlockFramer output_framer_ RTC_GUARDED_BY(capture_race_checker_);
   FrameBlocker capture_blocker_ RTC_GUARDED_BY(capture_race_checker_);
   FrameBlocker render_blocker_ RTC_GUARDED_BY(capture_race_checker_);
-  SwapQueue<std::vector<std::vector<float>>, Aec3RenderQueueItemVerifier>
+  SwapQueue<std::vector<std::vector<std::vector<float>>>,
+            Aec3RenderQueueItemVerifier>
       render_transfer_queue_;
   std::unique_ptr<BlockProcessor> block_processor_
       RTC_GUARDED_BY(capture_race_checker_);
-  std::vector<std::vector<float>> render_queue_output_frame_
+  std::vector<std::vector<std::vector<float>>> render_queue_output_frame_
       RTC_GUARDED_BY(capture_race_checker_);
   std::unique_ptr<CascadedBiQuadFilter> capture_highpass_filter_
       RTC_GUARDED_BY(capture_race_checker_);

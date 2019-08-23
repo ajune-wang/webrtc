@@ -23,6 +23,7 @@
 
 #include "absl/memory/memory.h"
 #include "api/units/time_delta.h"
+#include "logging/rtc_event_log/events/rtc_event_bwe_update_goog_cc.h"
 #include "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator.h"
 #include "modules/congestion_controller/goog_cc/alr_detector.h"
 #include "modules/congestion_controller/goog_cc/probe_controller.h"
@@ -598,6 +599,8 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
   int32_t estimated_bitrate_bps;
   uint8_t fraction_loss;
   int64_t rtt_ms;
+  DelayBasedBwe::Estimate delay_based_estimate =
+      delay_based_bwe_->CurrentEstimate();
   bandwidth_estimation_->CurrentEstimate(&estimated_bitrate_bps, &fraction_loss,
                                          &rtt_ms);
 
@@ -655,6 +658,12 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
     RTC_LOG(LS_VERBOSE) << "bwe " << at_time.ms() << " pushback_target_bps="
                         << last_pushback_target_rate_.bps()
                         << " estimate_bps=" << last_raw_target_rate_.bps();
+    if (event_log_) {
+      event_log_->Log(absl::make_unique<RtcEventBweUpdateGoogCc>(
+          target_rate.bps(), delay_based_estimate.bitrate.bps(),
+          delay_based_estimate.bandwidth_usage, estimated_bitrate_bps,
+          fraction_loss));
+    }
   }
 }
 

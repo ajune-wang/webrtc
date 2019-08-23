@@ -231,6 +231,10 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
   return result;
 }
 
+DelayBasedBwe::Estimate DelayBasedBwe::CurrentEstimate() {
+  return DelayBasedBwe::Estimate(prev_bitrate_, prev_state_);
+}
+
 bool DelayBasedBwe::UpdateEstimate(Timestamp at_time,
                                    absl::optional<DataRate> acked_bitrate,
                                    DataRate* target_rate) {
@@ -278,5 +282,11 @@ TimeDelta DelayBasedBwe::GetExpectedBwePeriod() const {
 void DelayBasedBwe::SetAlrLimitedBackoffExperiment(bool enabled) {
   alr_limited_backoff_enabled_ = enabled;
 }
+
+DelayBasedBwe::Estimate::Estimate(const DataRate& bitrate,
+                                  const BandwidthUsage bandwidth_usage)
+    : bitrate(bitrate), bandwidth_usage(bandwidth_usage) {}
+
+DelayBasedBwe::Estimate::~Estimate() = default;
 
 }  // namespace webrtc

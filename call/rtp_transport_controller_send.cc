@@ -20,6 +20,7 @@
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "call/rtp_video_sender.h"
+#include "logging/rtc_event_log/events/rtc_event_bwe_update_goog_cc.h"
 #include "logging/rtc_event_log/events/rtc_event_route_change.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/location.h"

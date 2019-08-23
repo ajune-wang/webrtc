@@ -22,6 +22,7 @@
 #include "logging/rtc_event_log/events/rtc_event_audio_receive_stream_config.h"
 #include "logging/rtc_event_log/events/rtc_event_audio_send_stream_config.h"
 #include "logging/rtc_event_log/events/rtc_event_bwe_update_delay_based.h"
+#include "logging/rtc_event_log/events/rtc_event_bwe_update_goog_cc.h"
 #include "logging/rtc_event_log/events/rtc_event_bwe_update_loss_based.h"
 #include "logging/rtc_event_log/events/rtc_event_dtls_transport_state.h"
 #include "logging/rtc_event_log/events/rtc_event_dtls_writable_state.h"
@@ -68,6 +69,7 @@ class EventGenerator {
   std::unique_ptr<RtcEventAudioPlayout> NewAudioPlayout(uint32_t ssrc);
   std::unique_ptr<RtcEventBweUpdateDelayBased> NewBweUpdateDelayBased();
   std::unique_ptr<RtcEventBweUpdateLossBased> NewBweUpdateLossBased();
+  std::unique_ptr<RtcEventBweUpdateGoogCc> NewBweUpdateGoogCc();
   std::unique_ptr<RtcEventDtlsTransportState> NewDtlsTransportState();
   std::unique_ptr<RtcEventDtlsWritableState> NewDtlsWritableState();
   std::unique_ptr<RtcEventGenericAckReceived> NewGenericAckReceived();
@@ -166,6 +168,10 @@ class EventVerifier {
   void VerifyLoggedBweLossBasedUpdate(
       const RtcEventBweUpdateLossBased& original_event,
       const LoggedBweLossBasedUpdate& logged_event) const;
+
+  void VerifyLoggedGoogCcBweUpdate(
+      const RtcEventBweUpdateGoogCc& original_event,
+      const LoggedGoogCcBweUpdate& logged_event) const;
 
   void VerifyLoggedBweProbeClusterCreatedEvent(
       const RtcEventProbeClusterCreated& original_event,

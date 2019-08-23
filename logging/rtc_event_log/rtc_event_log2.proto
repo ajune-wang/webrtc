@@ -38,6 +38,7 @@ message EventStream {
   repeated GenericPacketReceived generic_packets_received = 30;
   repeated GenericAckReceived generic_acks_received = 31;
   repeated RouteChange route_changes = 32;
+  repeated GoogCcBweUpdate goog_cc_bwe_updates = 33;
 
   repeated AudioRecvStreamConfig audio_recv_stream_configs = 101;
   repeated AudioSendStreamConfig audio_send_stream_configs = 102;
@@ -663,4 +664,36 @@ message RouteChange {
   optional bool connected = 2;
   // required - The per packet data overhead for this route.
   optional uint32 overhead = 3;
+}
+
+message GoogCcBweUpdate {
+  // required
+  optional int64 timestamp_ms = 1;
+  // required
+  optional int32 target_bitrate_bps = 2;
+  // optional - required if the batch contains delta encoded events.
+
+  // required - Bandwidth estimate (in bps) after the update.
+  optional uint32 delay_based_estimate_bps = 3;
+
+  optional DelayBasedBweUpdates.DetectorState detector_state = 4;
+
+  // TODO(terelius): Update log interface to unsigned.
+  // required - Bandwidth estimate (in bps) after the update.
+  optional uint32 loss_based_estimate_bps = 5;
+
+  // required - Fraction of lost packets since last receiver report
+  // computed as floor( 256 * (#lost_packets / #total_packets) ).
+  // The possible values range from 0 to 255.
+  optional uint32 fraction_loss = 6;
+
+  optional uint32 number_of_deltas = 10;
+
+  // Delta encodings.
+  optional bytes timestamp_ms_deltas = 101;
+  optional bytes target_bitrate_bps_deltas = 102;
+  optional bytes delay_based_estimate_bps_deltas = 103;
+  optional bytes detector_state_deltas = 104;
+  optional bytes loss_based_estimate_bps_deltas = 105;
+  optional bytes fraction_loss_deltas = 106;
 }

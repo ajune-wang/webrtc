@@ -116,6 +116,32 @@ struct LoggedBweLossBasedUpdate {
   int32_t expected_packets;
 };
 
+struct LoggedGoogCcBweUpdate {
+  LoggedGoogCcBweUpdate() = default;
+  LoggedGoogCcBweUpdate(int64_t timestamp_us,
+                        int32_t target_rate_bps,
+                        uint32_t delay_based_estimate_bps,
+                        BandwidthUsage detector_state,
+                        uint32_t loss_based_estimate_bps,
+                        uint8_t fraction_loss)
+      : timestamp_us(timestamp_us),
+        target_rate_bps(target_rate_bps),
+        delay_based_estimate_bps(delay_based_estimate_bps),
+        detector_state(detector_state),
+        loss_based_estimate_bps(loss_based_estimate_bps),
+        fraction_loss(fraction_loss) {}
+
+  int64_t log_time_us() const { return timestamp_us; }
+  int64_t log_time_ms() const { return timestamp_us / 1000; }
+
+  int64_t timestamp_us;
+  int32_t target_rate_bps;
+  uint32_t delay_based_estimate_bps;
+  BandwidthUsage detector_state;
+  uint32_t loss_based_estimate_bps;
+  uint8_t fraction_loss;
+};
+
 struct LoggedDtlsTransportState {
   int64_t log_time_us() const { return timestamp_us; }
   int64_t log_time_ms() const { return timestamp_us / 1000; }

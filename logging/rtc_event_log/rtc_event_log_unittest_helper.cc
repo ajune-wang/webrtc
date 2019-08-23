@@ -134,6 +134,20 @@ EventGenerator::NewBweUpdateLossBased() {
       bitrate_bps, fraction_lost, total_packets);
 }
 
+std::unique_ptr<RtcEventBweUpdateGoogCc> EventGenerator::NewBweUpdateGoogCc() {
+  constexpr int32_t kMaxBweBps = 20000000;
+  int32_t target_rate = prng_.Rand(0, kMaxBweBps);
+  int32_t delay_based_estimate_bps = prng_.Rand(0, kMaxBweBps);
+  BandwidthUsage state = static_cast<BandwidthUsage>(
+      prng_.Rand(static_cast<uint32_t>(BandwidthUsage::kLast) - 1));
+  int32_t loss_based_estimate_bps = prng_.Rand(0, kMaxBweBps);
+  uint8_t fraction_lost = prng_.Rand<uint8_t>();
+
+  return absl::make_unique<RtcEventBweUpdateGoogCc>(
+      target_rate, delay_based_estimate_bps, state, loss_based_estimate_bps,
+      fraction_lost);
+}
+
 std::unique_ptr<RtcEventDtlsTransportState>
 EventGenerator::NewDtlsTransportState() {
   DtlsTransportState state = static_cast<DtlsTransportState>(
@@ -786,6 +800,19 @@ void EventVerifier::VerifyLoggedBweLossBasedUpdate(
   EXPECT_EQ(original_event.bitrate_bps(), logged_event.bitrate_bps);
   EXPECT_EQ(original_event.fraction_loss(), logged_event.fraction_lost);
   EXPECT_EQ(original_event.total_packets(), logged_event.expected_packets);
+}
+
+void EventVerifier::VerifyLoggedGoogCcBweUpdate(
+    const RtcEventBweUpdateGoogCc& original_event,
+    const LoggedGoogCcBweUpdate& logged_event) const {
+  EXPECT_EQ(original_event.timestamp_ms(), logged_event.log_time_ms());
+  EXPECT_EQ(original_event.target_rate_bps(), logged_event.target_rate_bps);
+  EXPECT_EQ(original_event.delay_based_estimate_bps(),
+            logged_event.delay_based_estimate_bps);
+  EXPECT_EQ(original_event.detector_state(), logged_event.detector_state);
+  EXPECT_EQ(original_event.loss_based_estimate_bps(),
+            logged_event.loss_based_estimate_bps);
+  EXPECT_EQ(original_event.fraction_loss(), logged_event.fraction_loss);
 }
 
 void EventVerifier::VerifyLoggedBweProbeClusterCreatedEvent(

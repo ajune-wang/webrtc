@@ -1140,6 +1140,7 @@ bool ParsedRtcEventLog::ParseStream(
   StoreFirstAndLastTimestamp(bwe_probe_success_events());
   StoreFirstAndLastTimestamp(bwe_delay_updates());
   StoreFirstAndLastTimestamp(bwe_loss_updates());
+  StoreFirstAndLastTimestamp(bwe_goog_cc_updates());
   StoreFirstAndLastTimestamp(dtls_transport_states());
   StoreFirstAndLastTimestamp(dtls_writable_states());
   StoreFirstAndLastTimestamp(ice_candidate_pair_configs());
@@ -2142,6 +2143,7 @@ void ParsedRtcEventLog::StoreParsedNewFormatEvent(
           stream.audio_playout_events_size() + stream.begin_log_events_size() +
           stream.end_log_events_size() + stream.loss_based_bwe_updates_size() +
           stream.delay_based_bwe_updates_size() +
+          stream.goog_cc_bwe_updates_size() +
           stream.dtls_transport_state_events_size() +
           stream.dtls_writable_states_size() +
           stream.audio_network_adaptations_size() +
@@ -2176,6 +2178,8 @@ void ParsedRtcEventLog::StoreParsedNewFormatEvent(
     StoreBweLossBasedUpdate(stream.loss_based_bwe_updates(0));
   } else if (stream.delay_based_bwe_updates_size() == 1) {
     StoreBweDelayBasedUpdate(stream.delay_based_bwe_updates(0));
+  } else if (stream.goog_cc_bwe_updates_size() == 1) {
+    StoreBweGoogCcUpdate(stream.goog_cc_bwe_updates(0));
   } else if (stream.dtls_transport_state_events_size() == 1) {
     StoreDtlsTransportState(stream.dtls_transport_state_events(0));
   } else if (stream.dtls_writable_states_size() == 1) {
@@ -2444,6 +2448,105 @@ void ParsedRtcEventLog::StoreBweDelayBasedUpdate(
 
     bwe_delay_updates_.emplace_back(1000 * timestamp_ms, bitrate_bps,
                                     GetRuntimeDetectorState(detector_state));
+  }
+}
+
+void ParsedRtcEventLog::StoreBweGoogCcUpdate(
+    const rtclog2::GoogCcBweUpdate& proto) {
+  RTC_CHECK(proto.has_timestamp_ms());
+  RTC_CHECK(proto.has_target_bitrate_bps());
+  RTC_CHECK(proto.has_delay_based_estimate_bps());
+  RTC_CHECK(proto.has_detector_state());
+  RTC_CHECK(proto.has_loss_based_estimate_bps());
+  RTC_CHECK(proto.has_fraction_loss());
+
+  // Base event
+  LoggedGoogCcBweUpdate goog_cc_bwe_update;
+  goog_cc_bwe_update.timestamp_us = 1000 * proto.timestamp_ms();
+  goog_cc_bwe_update.target_rate_bps = proto.target_bitrate_bps();
+  goog_cc_bwe_update.delay_based_estimate_bps =
+      proto.delay_based_estimate_bps();
+  goog_cc_bwe_update.detector_state =
+      GetRuntimeDetectorState(proto.detector_state());
+  goog_cc_bwe_update.loss_based_estimate_bps = proto.loss_based_estimate_bps();
+  goog_cc_bwe_update.fraction_loss = proto.fraction_loss();
+
+  bwe_target_rate_updates_.push_back(goog_cc_bwe_update);
+  const size_t number_of_deltas =
+      proto.has_number_of_deltas() ? proto.number_of_deltas() : 0u;
+  if (number_of_deltas == 0) {
+    return;
+  }
+
+  // timestamp_ms
+  std::vector<absl::optional<uint64_t>> timestamp_ms_values =
+      DecodeDeltas(proto.timestamp_ms_deltas(),
+                   ToUnsigned(proto.timestamp_ms()), number_of_deltas);
+  RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
+  // target_rate
+  std::vector<absl::optional<uint64_t>> target_rate_values =
+      DecodeDeltas(proto.target_bitrate_bps_deltas(),
+                   proto.target_bitrate_bps(), number_of_deltas);
+  RTC_CHECK_EQ(target_rate_values.size(), number_of_deltas);
+  // delay_based_estimate_bps
+  std::vector<absl::optional<uint64_t>> delay_based_estimate_bps_values =
+      DecodeDeltas(proto.delay_based_estimate_bps_deltas(),
+                   proto.delay_based_estimate_bps(), number_of_deltas);
+  RTC_CHECK_EQ(delay_based_estimate_bps_values.size(), number_of_deltas);
+  // detector_state
+  std::vector<absl::optional<uint64_t>> detector_state_values = DecodeDeltas(
+      proto.detector_state_deltas(),
+      static_cast<uint64_t>(proto.detector_state()), number_of_deltas);
+  RTC_CHECK_EQ(detector_state_values.size(), number_of_deltas);
+  // loss_based_estimate_bps
+  std::vector<absl::optional<uint64_t>> loss_based_estimate_bps_values =
+      DecodeDeltas(proto.loss_based_estimate_bps_deltas(),
+                   proto.loss_based_estimate_bps(), number_of_deltas);
+  RTC_CHECK_EQ(loss_based_estimate_bps_values.size(), number_of_deltas);
+  // fraction_loss
+  std::vector<absl::optional<uint64_t>> fraction_loss_values = DecodeDeltas(
+      proto.fraction_loss_deltas(), proto.fraction_loss(), number_of_deltas);
+  RTC_CHECK_EQ(fraction_loss_values.size(), number_of_deltas);
+
+  // Delta decoding
+  for (size_t i = 0; i < number_of_deltas; i++) {
+    RTC_CHECK(timestamp_ms_values[i].has_value());
+    int64_t timestamp_ms;
+    RTC_CHECK(ToSigned(timestamp_ms_values[i].value(), &timestamp_ms));
+
+    // target_bitrate_bps
+    RTC_CHECK(target_rate_values[i].has_value());
+    RTC_CHECK_LE(target_rate_values[i].value(),
+                 std::numeric_limits<uint32_t>::max());
+    const uint32_t target_rate =
+        static_cast<uint32_t>(target_rate_values[i].value());
+    // delay_based_estimate_bps
+    RTC_CHECK_LE(delay_based_estimate_bps_values[i].value(),
+                 std::numeric_limits<uint32_t>::max());
+    const uint32_t delay_based_estimate_bps =
+        static_cast<uint32_t>(delay_based_estimate_bps_values[i].value());
+    // detector_state
+    RTC_CHECK(detector_state_values[i].has_value());
+    const auto detector_state =
+        static_cast<rtclog2::DelayBasedBweUpdates::DetectorState>(
+            detector_state_values[i].value());
+    // loss_based_estimate_bps
+    RTC_CHECK(loss_based_estimate_bps_values[i].has_value());
+    RTC_CHECK_LE(loss_based_estimate_bps_values[i].value(),
+                 std::numeric_limits<uint32_t>::max());
+    const uint32_t loss_based_estimate_bps =
+        static_cast<uint32_t>(loss_based_estimate_bps_values[i].value());
+    // fraction_loss
+    RTC_CHECK(fraction_loss_values[i].has_value());
+    RTC_CHECK_LE(fraction_loss_values[i].value(),
+                 std::numeric_limits<uint32_t>::max());
+    const uint32_t fraction_loss =
+        static_cast<uint32_t>(fraction_loss_values[i].value());
+
+    bwe_target_rate_updates_.emplace_back(
+        1000 * timestamp_ms, target_rate, delay_based_estimate_bps,
+        GetRuntimeDetectorState(detector_state), loss_based_estimate_bps,
+        fraction_loss);
   }
 }
 

@@ -45,6 +45,14 @@ class DelayBasedBwe {
     bool backoff_in_alr;
   };
 
+  struct Estimate {
+    Estimate(const DataRate& bitrate, BandwidthUsage bandwidth_usage);
+    ~Estimate();
+
+    const DataRate bitrate;
+    const BandwidthUsage bandwidth_usage;
+  };
+
   explicit DelayBasedBwe(const WebRtcKeyValueConfig* key_value_config,
                          RtcEventLog* event_log,
                          NetworkStatePredictor* network_state_predictor);
@@ -65,6 +73,8 @@ class DelayBasedBwe {
 
   DataRate TriggerOveruse(Timestamp at_time,
                           absl::optional<DataRate> link_capacity);
+
+  Estimate CurrentEstimate();
 
  private:
   friend class GoogCcStatePrinter;

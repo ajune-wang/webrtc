@@ -134,8 +134,6 @@ rtc_static_library("libjingle_peerconnection_api") {
     "media_transport_config.h",
     "media_transport_interface.cc",
     "media_transport_interface.h",
-    "media_types.cc",
-    "media_types.h",
     "notifier.h",
     "peer_connection_factory_proxy.h",
     "peer_connection_interface.cc",
@@ -145,8 +143,6 @@ rtc_static_library("libjingle_peerconnection_api") {
     "proxy.h",
     "rtc_error.cc",
     "rtc_error.h",
-    "rtp_parameters.cc",
-    "rtp_parameters.h",
     "rtp_receiver_interface.cc",
     "rtp_receiver_interface.h",
     "rtp_sender_interface.cc",
@@ -171,6 +167,7 @@ rtc_static_library("libjingle_peerconnection_api") {
     ":network_state_predictor_api",
     ":rtc_stats_api",
     ":rtp_packet_info",
+    ":rtp_parameters",
     ":scoped_refptr",
     "audio:audio_mixer_api",
     "audio_codecs:audio_codecs_api",
@@ -221,6 +218,7 @@ rtc_source_set("video_quality_test_fixture_api") {
     ":fec_controller_api",
     ":libjingle_peerconnection_api",
     ":network_state_predictor_api",
+    ":rtp_parameters",
     ":simulated_network_api",
     "../call:fake_network",
     "../call:rtp_interfaces",
@@ -255,6 +253,23 @@ rtc_source_set("track_id_stream_label_map") {
   ]
 }
 
+rtc_source_set("rtp_parameters") {
+  visibility = [ "*" ]
+  sources = [
+    "media_types.cc",
+    "media_types.h",
+    "rtp_parameters.cc",
+    "rtp_parameters.h",
+  ]
+  deps = [
+    ":array_view",
+    "../rtc_base:checks",
+    "../rtc_base:stringutils",
+    "../rtc_base/system:rtc_export",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
 rtc_source_set("audio_quality_analyzer_api") {
   visibility = [ "*" ]
   testonly = true
@@ -277,6 +292,7 @@ rtc_source_set("stats_observer_interface") {
 
   deps = [
     ":libjingle_peerconnection_api",
+    ":rtp_parameters",
   ]
 }
 
@@ -700,6 +716,7 @@ if (rtc_include_tests) {
     deps = [
       ":array_view",
       ":libjingle_peerconnection_api",
+      ":rtp_parameters",
       "..:webrtc_common",
       "../rtc_base:checks",
       "../rtc_base:rtc_base_approved",
@@ -715,6 +732,7 @@ if (rtc_include_tests) {
     deps = [
       ":array_view",
       ":libjingle_peerconnection_api",
+      ":rtp_parameters",
       "..:webrtc_common",
       "../rtc_base:checks",
       "../rtc_base:rtc_base_approved",
@@ -867,6 +885,7 @@ if (rtc_include_tests) {
       ":loopback_media_transport",
       ":rtc_event_log_output_file",
       ":rtp_packet_info",
+      ":rtp_parameters",
       "../rtc_base:checks",
       "../rtc_base:gunit_helpers",
       "../rtc_base:rtc_base_approved",

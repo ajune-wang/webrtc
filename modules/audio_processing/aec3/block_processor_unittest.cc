@@ -110,7 +110,7 @@ TEST(BlockProcessor, DISABLED_DelayControllerIntegration) {
   constexpr size_t kDelayInBlocks =
       kDelayInSamples / kBlockSize - kDelayHeadroom;
   Random random_generator(42U);
-  for (auto rate : {8000, 16000, 32000, 48000}) {
+  for (auto rate : {16000, 32000, 48000}) {
     SCOPED_TRACE(ProduceDebugText(rate));
     std::unique_ptr<testing::StrictMock<webrtc::test::MockRenderDelayBuffer>>
         render_delay_buffer_mock(
@@ -145,7 +145,7 @@ TEST(BlockProcessor, DISABLED_DelayControllerIntegration) {
 TEST(BlockProcessor, DISABLED_SubmoduleIntegration) {
   constexpr size_t kNumBlocks = 310;
   Random random_generator(42U);
-  for (auto rate : {8000, 16000, 32000, 48000}) {
+  for (auto rate : {16000, 32000, 48000}) {
     SCOPED_TRACE(ProduceDebugText(rate));
     std::unique_ptr<testing::StrictMock<webrtc::test::MockRenderDelayBuffer>>
         render_delay_buffer_mock(
@@ -193,7 +193,7 @@ TEST(BlockProcessor, DISABLED_SubmoduleIntegration) {
 }
 
 TEST(BlockProcessor, BasicSetupAndApiCalls) {
-  for (auto rate : {8000, 16000, 32000, 48000}) {
+  for (auto rate : {16000, 32000, 48000}) {
     SCOPED_TRACE(ProduceDebugText(rate));
     RunBasicSetupAndApiCallTest(rate, 1);
   }
@@ -207,21 +207,21 @@ TEST(BlockProcessor, TestLongerCall) {
 // TODO(gustaf): Re-enable the test once the issue with memory leaks during
 // DEATH tests on test bots has been fixed.
 TEST(BlockProcessor, DISABLED_VerifyRenderBlockSizeCheck) {
-  for (auto rate : {8000, 16000, 32000, 48000}) {
+  for (auto rate : {16000, 32000, 48000}) {
     SCOPED_TRACE(ProduceDebugText(rate));
     RunRenderBlockSizeVerificationTest(rate);
   }
 }
 
 TEST(BlockProcessor, VerifyCaptureBlockSizeCheck) {
-  for (auto rate : {8000, 16000, 32000, 48000}) {
+  for (auto rate : {16000, 32000, 48000}) {
     SCOPED_TRACE(ProduceDebugText(rate));
     RunCaptureBlockSizeVerificationTest(rate);
   }
 }
 
 TEST(BlockProcessor, VerifyRenderNumBandsCheck) {
-  for (auto rate : {8000, 16000, 32000, 48000}) {
+  for (auto rate : {16000, 32000, 48000}) {
     SCOPED_TRACE(ProduceDebugText(rate));
     RunRenderNumBandsVerificationTest(rate);
   }
@@ -230,7 +230,7 @@ TEST(BlockProcessor, VerifyRenderNumBandsCheck) {
 // TODO(peah): Verify the check for correct number of bands in the capture
 // signal.
 TEST(BlockProcessor, VerifyCaptureNumBandsCheck) {
-  for (auto rate : {8000, 16000, 32000, 48000}) {
+  for (auto rate : {16000, 32000, 48000}) {
     SCOPED_TRACE(ProduceDebugText(rate));
     RunCaptureNumBandsVerificationTest(rate);
   }
@@ -239,7 +239,7 @@ TEST(BlockProcessor, VerifyCaptureNumBandsCheck) {
 // Verifiers that the verification for null ProcessCapture input works.
 TEST(BlockProcessor, NullProcessCaptureParameter) {
   EXPECT_DEATH(std::unique_ptr<BlockProcessor>(
-                   BlockProcessor::Create(EchoCanceller3Config(), 8000))
+                   BlockProcessor::Create(EchoCanceller3Config(), 16000))
                    ->ProcessCapture(false, false, nullptr),
                "");
 }

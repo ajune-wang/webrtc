@@ -53,7 +53,7 @@ TEST(RenderDelayController, NoRenderSignal) {
     for (auto down_sampling_factor : kDownSamplingFactors) {
       config.delay.down_sampling_factor = down_sampling_factor;
       config.delay.num_filters = num_matched_filters;
-      for (auto rate : {8000, 16000, 32000, 48000}) {
+      for (auto rate : {16000, 32000, 48000}) {
         SCOPED_TRACE(ProduceDebugText(rate));
         std::unique_ptr<RenderDelayBuffer> delay_buffer(
             RenderDelayBuffer::Create(config, rate));
@@ -80,7 +80,7 @@ TEST(RenderDelayController, BasicApiCalls) {
       EchoCanceller3Config config;
       config.delay.down_sampling_factor = down_sampling_factor;
       config.delay.num_filters = num_matched_filters;
-      for (auto rate : {8000, 16000, 32000, 48000}) {
+      for (auto rate : {16000, 32000, 48000}) {
         std::vector<std::vector<float>> render_block(
             NumBandsForRate(rate), std::vector<float>(kBlockSize, 0.f));
         std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
@@ -114,7 +114,7 @@ TEST(RenderDelayController, Alignment) {
       config.delay.down_sampling_factor = down_sampling_factor;
       config.delay.num_filters = num_matched_filters;
 
-      for (auto rate : {8000, 16000, 32000, 48000}) {
+      for (auto rate : {16000, 32000, 48000}) {
         std::vector<std::vector<float>> render_block(
             NumBandsForRate(rate), std::vector<float>(kBlockSize, 0.f));
 
@@ -159,7 +159,7 @@ TEST(RenderDelayController, NonCausalAlignment) {
       EchoCanceller3Config config;
       config.delay.down_sampling_factor = down_sampling_factor;
       config.delay.num_filters = num_matched_filters;
-      for (auto rate : {8000, 16000, 32000, 48000}) {
+      for (auto rate : {16000, 32000, 48000}) {
         std::vector<std::vector<float>> render_block(
             NumBandsForRate(rate), std::vector<float>(kBlockSize, 0.f));
         std::vector<std::vector<float>> capture_block(
@@ -202,7 +202,7 @@ TEST(RenderDelayController, AlignmentWithJitter) {
       EchoCanceller3Config config;
       config.delay.down_sampling_factor = down_sampling_factor;
       config.delay.num_filters = num_matched_filters;
-      for (auto rate : {8000, 16000, 32000, 48000}) {
+      for (auto rate : {16000, 32000, 48000}) {
         std::vector<std::vector<float>> render_block(
             NumBandsForRate(rate), std::vector<float>(kBlockSize, 0.f));
         for (size_t delay_samples : {15, 50, 300, 800}) {
@@ -259,7 +259,7 @@ TEST(RenderDelayController, InitialHeadroom) {
       EchoCanceller3Config config;
       config.delay.down_sampling_factor = down_sampling_factor;
       config.delay.num_filters = num_matched_filters;
-      for (auto rate : {8000, 16000, 32000, 48000}) {
+      for (auto rate : {16000, 32000, 48000}) {
         SCOPED_TRACE(ProduceDebugText(rate));
         std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
             RenderDelayBuffer::Create(config, rate));
@@ -277,7 +277,7 @@ TEST(RenderDelayController, InitialHeadroom) {
 TEST(RenderDelayController, WrongCaptureSize) {
   std::vector<float> block(kBlockSize - 1, 0.f);
   EchoCanceller3Config config;
-  for (auto rate : {8000, 16000, 32000, 48000}) {
+  for (auto rate : {16000, 32000, 48000}) {
     SCOPED_TRACE(ProduceDebugText(rate));
     std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
         RenderDelayBuffer::Create(config, rate));

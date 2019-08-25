@@ -90,7 +90,6 @@ class RenderDelayBufferImpl final : public RenderDelayBuffer {
   bool external_audio_buffer_delay_verified_after_reset_ = false;
   size_t min_latency_blocks_ = 0;
   size_t excess_render_detection_counter_ = 0;
-  int sample_rate_hz_;
 
   int MapDelayToTotalDelay(size_t delay) const;
   int ComputeDelay() const;
@@ -132,9 +131,7 @@ RenderDelayBufferImpl::RenderDelayBufferImpl(const EchoCanceller3Config& config,
       render_decimator_(down_sampling_factor_),
       fft_(),
       render_ds_(sub_block_size_, 0.f),
-      buffer_headroom_(config.filter.main.length_blocks),
-      sample_rate_hz_(sample_rate_hz) {
-  RTC_DCHECK_GE(sample_rate_hz, 8000);
+      buffer_headroom_(config.filter.main.length_blocks) {
   RTC_DCHECK_EQ(blocks_.buffer.size(), ffts_.buffer.size());
   RTC_DCHECK_EQ(spectra_.buffer.size(), ffts_.buffer.size());
 
@@ -315,8 +312,7 @@ void RenderDelayBufferImpl::SetAudioBufferDelay(size_t delay_ms) {
   }
 
   // Convert delay from milliseconds to blocks (rounded down).
-  external_audio_buffer_delay_ =
-      delay_ms >> ((sample_rate_hz_ == 8000) ? 1 : 2);
+  external_audio_buffer_delay_ = delay_ms >> 2;
 }
 
 bool RenderDelayBufferImpl::HasReceivedBufferDelay() {

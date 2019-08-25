@@ -35,7 +35,7 @@ std::string ProduceDebugText(int sample_rate_hz) {
 // Verifies that the buffer overflow is correctly reported.
 TEST(RenderDelayBuffer, BufferOverflow) {
   const EchoCanceller3Config config;
-  for (auto rate : {8000, 16000, 32000, 48000}) {
+  for (auto rate : {16000, 32000, 48000}) {
     SCOPED_TRACE(ProduceDebugText(rate));
     std::unique_ptr<RenderDelayBuffer> delay_buffer(
         RenderDelayBuffer::Create(config, rate));
@@ -111,7 +111,7 @@ TEST(RenderDelayBuffer, WrongNumberOfBands) {
 
 // Verifies the check of the length of the inserted blocks.
 TEST(RenderDelayBuffer, WrongBlockLength) {
-  for (auto rate : {8000, 16000, 32000, 48000}) {
+  for (auto rate : {16000, 32000, 48000}) {
     SCOPED_TRACE(ProduceDebugText(rate));
     std::unique_ptr<RenderDelayBuffer> delay_buffer(
         RenderDelayBuffer::Create(EchoCanceller3Config(), 48000));

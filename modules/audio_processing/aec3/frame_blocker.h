@@ -17,7 +17,6 @@
 
 #include "api/array_view.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
-#include "rtc_base/constructor_magic.h"
 
 namespace webrtc {
 
@@ -25,12 +24,15 @@ namespace webrtc {
 // 2 subframes of 80 samples.
 class FrameBlocker {
  public:
-  explicit FrameBlocker(size_t num_bands);
+  FrameBlocker(size_t num_bands, size_t num_channels);
   ~FrameBlocker();
+  FrameBlocker(const FrameBlocker&) = delete;
+  FrameBlocker& operator=(const FrameBlocker&) = delete;
+
   // Inserts one 80 sample multiband subframe from the multiband frame and
   // extracts one 64 sample multiband block.
   void InsertSubFrameAndExtractBlock(
-      const std::vector<rtc::ArrayView<float>>& sub_frame,
+      const std::vector<std::vector<rtc::ArrayView<float>>>& sub_frame,
       std::vector<std::vector<float>>* block);
   // Reports whether a multiband block of 64 samples is available for
   // extraction.
@@ -40,9 +42,8 @@ class FrameBlocker {
 
  private:
   const size_t num_bands_;
-  std::vector<std::vector<float>> buffer_;
-
-  RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(FrameBlocker);
+  const size_t num_channels_;
+  std::vector<std::vector<std::vector<float>>> buffer_;
 };
 }  // namespace webrtc
 

@@ -109,8 +109,7 @@ void BlockProcessorImpl::ProcessCapture(
   data_dumper_->DumpRaw("aec3_processblock_call_order",
                         static_cast<int>(BlockProcessorApiCall::kCapture));
   data_dumper_->DumpWav("aec3_processblock_capture_input", kBlockSize,
-                        &(*capture_block)[0][0],
-                        LowestBandRate(sample_rate_hz_), 1);
+                        &(*capture_block)[0][0], 16000, 1);
 
   if (render_properly_started_) {
     if (!capture_properly_started_) {
@@ -151,8 +150,7 @@ void BlockProcessorImpl::ProcessCapture(
   }
 
   data_dumper_->DumpWav("aec3_processblock_capture_input2", kBlockSize,
-                        &(*capture_block)[0][0],
-                        LowestBandRate(sample_rate_hz_), 1);
+                        &(*capture_block)[0][0], 16000, 1);
 
   bool has_delay_estimator = !config_.delay.use_external_delay_estimator;
   if (has_delay_estimator) {
@@ -198,9 +196,9 @@ void BlockProcessorImpl::BufferRender(
   data_dumper_->DumpRaw("aec3_processblock_call_order",
                         static_cast<int>(BlockProcessorApiCall::kRender));
   data_dumper_->DumpWav("aec3_processblock_render_input", kBlockSize,
-                        &block[0][0], LowestBandRate(sample_rate_hz_), 1);
+                        &block[0][0], 16000, 1);
   data_dumper_->DumpWav("aec3_processblock_render_input2", kBlockSize,
-                        &block[0][0], LowestBandRate(sample_rate_hz_), 1);
+                        &block[0][0], 16000, 1);
 
   render_event_ = render_buffer_->Insert(block);
 
@@ -218,7 +216,7 @@ void BlockProcessorImpl::UpdateEchoLeakageStatus(bool leakage_detected) {
 
 void BlockProcessorImpl::GetMetrics(EchoControl::Metrics* metrics) const {
   echo_remover_->GetMetrics(metrics);
-  const int block_size_ms = sample_rate_hz_ == 8000 ? 8 : 4;
+  constexpr int block_size_ms = 4;
   absl::optional<size_t> delay = render_buffer_->Delay();
   metrics->delay_ms = delay ? static_cast<int>(*delay) * block_size_ms : 0;
 }

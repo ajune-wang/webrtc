@@ -17,9 +17,13 @@
 
 namespace webrtc {
 
-BlockFramer::BlockFramer(size_t num_bands)
+BlockFramer::BlockFramer(size_t num_bands, size_t num_channels)
     : num_bands_(num_bands),
-      buffer_(num_bands_, std::vector<float>(kBlockSize, 0.f)) {}
+      num_channels_(num_channels),
+      buffer_(num_bands_,
+              std::vector<std::vector<float>>(
+                  num_channels,
+                  std::vector<float>(kBlockSize, 0.f))) {}
 
 BlockFramer::~BlockFramer() = default;
 
@@ -29,31 +33,42 @@ BlockFramer::~BlockFramer() = default;
 // to be called in the correct order.
 void BlockFramer::InsertBlock(const std::vector<std::vector<float>>& block) {
   RTC_DCHECK_EQ(num_bands_, block.size());
-  for (size_t i = 0; i < num_bands_; ++i) {
-    RTC_DCHECK_EQ(kBlockSize, block[i].size());
-    RTC_DCHECK_EQ(0, buffer_[i].size());
-    buffer_[i].insert(buffer_[i].begin(), block[i].begin(), block[i].end());
+  for (size_t band = 0; band < num_bands_; ++band) {
+    for (size_t channel = 0; channel < num_channels_; ++channel) {
+      RTC_DCHECK_EQ(kBlockSize, block[band].size());
+      RTC_DCHECK_EQ(0, buffer_[band][channel].size());
+      buffer_[band][channel].insert(buffer_[band][channel].begin(),
+                                    block[band].begin(), block[band].end());
+    }
   }
 }
 
 void BlockFramer::InsertBlockAndExtractSubFrame(
     const std::vector<std::vector<float>>& block,
-    std::vector<rtc::ArrayView<float>>* sub_frame) {
+    std::vector<std::vector<rtc::ArrayView<float>>>* sub_frame) {
   RTC_DCHECK(sub_frame);
   RTC_DCHECK_EQ(num_bands_, block.size());
   RTC_DCHECK_EQ(num_bands_, sub_frame->size());
-  for (size_t i = 0; i < num_bands_; ++i) {
-    RTC_DCHECK_LE(kSubFrameLength, buffer_[i].size() + kBlockSize);
-    RTC_DCHECK_EQ(kBlockSize, block[i].size());
-    RTC_DCHECK_GE(kBlockSize, buffer_[i].size());
-    RTC_DCHECK_EQ(kSubFrameLength, (*sub_frame)[i].size());
-    const int samples_to_frame = kSubFrameLength - buffer_[i].size();
-    std::copy(buffer_[i].begin(), buffer_[i].end(), (*sub_frame)[i].begin());
-    std::copy(block[i].begin(), block[i].begin() + samples_to_frame,
-              (*sub_frame)[i].begin() + buffer_[i].size());
-    buffer_[i].clear();
-    buffer_[i].insert(buffer_[i].begin(), block[i].begin() + samples_to_frame,
-                      block[i].end());
+  RTC_DCHECK_EQ(num_channels_, (*sub_frame)[0].size());
+  for (size_t band = 0; band < num_bands_; ++band) {
+    for (size_t channel = 0; channel < num_channels_; ++channel) {
+      RTC_DCHECK_LE(kSubFrameLength,
+                    buffer_[band][channel].size() + kBlockSize);
+      RTC_DCHECK_EQ(kBlockSize, block[band].size());
+      RTC_DCHECK_GE(kBlockSize, buffer_[band][channel].size());
+      RTC_DCHECK_EQ(kSubFrameLength, (*sub_frame)[band][channel].size());
+      const int samples_to_frame =
+          kSubFrameLength - buffer_[band][channel].size();
+      std::copy(buffer_[band][channel].begin(), buffer_[band][channel].end(),
+                (*sub_frame)[band][channel].begin());
+      std::copy(
+          block[band].begin(), block[band].begin() + samples_to_frame,
+          (*sub_frame)[band][channel].begin() + buffer_[band][channel].size());
+      buffer_[band][channel].clear();
+      buffer_[band][channel].insert(buffer_[band][channel].begin(),
+                                    block[band].begin() + samples_to_frame,
+                                    block[band].end());
+    }
   }
 }
 

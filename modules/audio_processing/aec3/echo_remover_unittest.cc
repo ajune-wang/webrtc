@@ -44,7 +44,7 @@ std::string ProduceDebugText(int sample_rate_hz, int delay) {
 // Verifies the basic API call sequence
 TEST(EchoRemover, BasicApiCalls) {
   absl::optional<DelayEstimate> delay_estimate;
-  for (auto rate : {8000, 16000, 32000, 48000}) {
+  for (auto rate : {16000, 32000, 48000}) {
     SCOPED_TRACE(ProduceDebugText(rate));
     std::unique_ptr<EchoRemover> remover(
         EchoRemover::Create(EchoCanceller3Config(), rate));
@@ -85,7 +85,7 @@ TEST(EchoRemover, DISABLED_WrongSampleRate) {
 // Verifies the check for the capture block size.
 TEST(EchoRemover, WrongCaptureBlockSize) {
   absl::optional<DelayEstimate> delay_estimate;
-  for (auto rate : {8000, 16000, 32000, 48000}) {
+  for (auto rate : {16000, 32000, 48000}) {
     SCOPED_TRACE(ProduceDebugText(rate));
     std::unique_ptr<EchoRemover> remover(
         EchoRemover::Create(EchoCanceller3Config(), rate));
@@ -129,9 +129,9 @@ TEST(EchoRemover, DISABLED_WrongCaptureNumBands) {
 TEST(EchoRemover, NullCapture) {
   absl::optional<DelayEstimate> delay_estimate;
   std::unique_ptr<EchoRemover> remover(
-      EchoRemover::Create(EchoCanceller3Config(), 8000));
+      EchoRemover::Create(EchoCanceller3Config(), 16000));
   std::unique_ptr<RenderDelayBuffer> render_buffer(
-      RenderDelayBuffer::Create(EchoCanceller3Config(), 8000));
+      RenderDelayBuffer::Create(EchoCanceller3Config(), 16000));
   EchoPathVariability echo_path_variability(
       false, EchoPathVariability::DelayAdjustment::kNone, false);
   EXPECT_DEATH(
@@ -148,7 +148,7 @@ TEST(EchoRemover, BasicEchoRemoval) {
   constexpr int kNumBlocksToProcess = 500;
   Random random_generator(42U);
   absl::optional<DelayEstimate> delay_estimate;
-  for (auto rate : {8000, 16000, 32000, 48000}) {
+  for (auto rate : {16000, 32000, 48000}) {
     std::vector<std::vector<float>> x(NumBandsForRate(rate),
                                       std::vector<float>(kBlockSize, 0.f));
     std::vector<std::vector<float>> y(NumBandsForRate(rate),

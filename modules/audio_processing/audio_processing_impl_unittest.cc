@@ -396,4 +396,102 @@ TEST(AudioProcessingImplTest, RenderPreProcessorBeforeEchoDetector) {
             test_echo_detector->last_render_audio_first_sample());
 }
 
+// Tests to make sure that the supported rates and number of channels are
+// properly handled.
+TEST(AudioProcessingImplTest, HandlingOfRatesAndChannelCombinations) {
+  constexpr size_t kMaxNumChannels = 2;
+  auto rates = {8000, 11025, 16000, 22050, 32000, 48000, 96000, 192000};
+  for (auto render_input_sample_rate_hz : rates) {
+    for (auto render_output_sample_rate_hz : rates) {
+      for (auto capture_input_sample_rate_hz : rates) {
+        for (auto capture_output_sample_rate_hz : rates) {
+          for (size_t render_input_num_channels = 0;
+               render_input_num_channels < kMaxNumChannels;
+               ++render_input_num_channels) {
+            for (size_t render_output_num_channels = 0;
+                 render_output_num_channels < kMaxNumChannels;
+                 ++render_output_num_channels) {
+              for (size_t capture_input_num_channels = 0;
+                   capture_input_num_channels < kMaxNumChannels;
+                   ++capture_input_num_channels) {
+                for (size_t capture_output_num_channels = 0;
+                     capture_output_num_channels < kMaxNumChannels;
+                     ++capture_output_num_channels) {
+                  std::unique_ptr<AudioProcessing> apm(
+                      AudioProcessingBuilder().Create());
+                  webrtc::AudioProcessing::Config apm_config;
+                  apm_config.echo_canceller.enabled = true;
+                  apm->ApplyConfig(apm_config);
+
+                  auto populate_audio_frame =
+                      [](int sample_rate_hz, size_t num_channels,
+                         StreamConfig* cfg, std::vector<float>* channels_data,
+                         std::vector<float*>* frame_data) {
+                        cfg->set_sample_rate_hz(sample_rate_hz);
+                        cfg->set_num_channels(num_channels);
+                        cfg->set_has_keyboard(false);
+
+                        size_t max_frame_size = ceil(sample_rate_hz / 100.f);
+                        channels_data->resize(num_channels * max_frame_size);
+                        std::fill(channels_data->begin(), channels_data->end(),
+                                  0.5f);
+                        frame_data->resize(2);
+                        for (size_t channel = 0; channel < num_channels;
+                             ++channel) {
+                          (*frame_data)[channel] =
+                              &(*channels_data)[channel * max_frame_size];
+                        }
+                      };
+
+                  StreamConfig render_input_stream_config;
+                  StreamConfig render_output_stream_config;
+                  StreamConfig capture_input_stream_config;
+                  StreamConfig capture_output_stream_config;
+
+                  std::vector<float> render_input_frame_channels;
+                  std::vector<float*> render_input_frame;
+                  std::vector<float> render_output_frame_channels;
+                  std::vector<float*> render_output_frame;
+                  std::vector<float> capture_input_frame_channels;
+                  std::vector<float*> capture_input_frame;
+                  std::vector<float> capture_output_frame_channels;
+                  std::vector<float*> capture_output_frame;
+
+                  populate_audio_frame(
+                      render_input_sample_rate_hz, render_input_num_channels,
+                      &render_input_stream_config, &render_input_frame_channels,
+                      &render_input_frame);
+                  populate_audio_frame(
+                      render_output_sample_rate_hz, render_output_num_channels,
+                      &render_output_stream_config,
+                      &render_output_frame_channels, &render_output_frame);
+                  populate_audio_frame(
+                      capture_input_sample_rate_hz, capture_input_num_channels,
+                      &capture_input_stream_config,
+                      &capture_input_frame_channels, &capture_input_frame);
+                  populate_audio_frame(capture_output_sample_rate_hz,
+                                       capture_output_num_channels,
+                                       &capture_output_stream_config,
+                                       &capture_output_frame_channels,
+                                       &capture_output_frame);
+
+                  for (size_t frame = 0; frame < 100; ++frame) {
+                    int result = apm->ProcessReverseStream(
+                        &render_input_frame[0], render_input_stream_config,
+                        render_output_stream_config, &render_output_frame[0]);
+                    EXPECT_EQ(result, AudioProcessing::kNoError);
+                    result = apm->ProcessStream(
+                        &capture_input_frame[0], capture_input_stream_config,
+                        capture_output_stream_config, &capture_output_frame[0]);
+                    EXPECT_EQ(result, AudioProcessing::kNoError);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 }  // namespace webrtc

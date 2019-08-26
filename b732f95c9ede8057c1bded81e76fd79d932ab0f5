@@ -76,6 +76,52 @@
     },
     {
       "key": {
+        "uuid": "ae2ded66_8258b477",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 6232
+      },
+      "writtenOn": "2019-08-26T23:42:39Z",
+      "side": 1,
+      "message": "It actually updates |monitors_|, not just |selected_monitor_rect_|. It should be clear from the name. I suggest renaming to UpdateMonitors() or UpdateMonitorConfiguration()",
+      "range": {
+        "startLine": 170,
+        "startChar": 24,
+        "endLine": 170,
+        "endChar": 51
+      },
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "663aa76a_351c5ce2",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 6232
+      },
+      "writtenOn": "2019-08-26T23:42:39Z",
+      "side": 1,
+      "message": "What if it was never selected?",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 191,
+        "endChar": 31
+      },
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ffbf96c_c0949474",
         "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
         "patchSetId": 1
@@ -93,6 +139,29 @@
     },
     {
       "key": {
+        "uuid": "d6e64ca6_9e1dacea",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 6232
+      },
+      "writtenOn": "2019-08-26T23:42:39Z",
+      "side": 1,
+      "message": "This function should call options_.x_display()-\u003eProcessPendingXEvents(). Otherwise |monitors_| will not be updated between GetSourceList() calls.",
+      "range": {
+        "startLine": 248,
+        "startChar": 24,
+        "endLine": 248,
+        "endChar": 37
+      },
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd9e09bd_24acb5b1",
         "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
         "patchSetId": 1
@@ -104,6 +173,52 @@
       "writtenOn": "2019-08-26T23:13:35Z",
       "side": 1,
       "message": "Is there a way to always put the primary screen at the first position ?",
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49a0575c_18415c57",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 6232
+      },
+      "writtenOn": "2019-08-26T23:42:39Z",
+      "side": 1,
+      "message": "This is somewhat confusing because |name| is used as window Id. It\u0027s not obvious that |name| is an Atom. I suggest adding a comment to make it clear.\nAlso would it make sense to get full window name and return it in the title filed?",
+      "range": {
+        "startLine": 252,
+        "startChar": 25,
+        "endLine": 252,
+        "endChar": 44
+      },
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef6e19cc_dbcb0065",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6232
+      },
+      "writtenOn": "2019-08-26T23:42:39Z",
+      "side": 1,
+      "message": "nit: Suggest calling this InitXrandr(). \nSee https://google.github.io/styleguide/cppguide.html#General_Naming_Rules - abbreviations should be capitalized as a single word.",
+      "range": {
+        "startLine": 68,
+        "startChar": 7,
+        "endLine": 68,
+        "endChar": 18
+      },
       "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

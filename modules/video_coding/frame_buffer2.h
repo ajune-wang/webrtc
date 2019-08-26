@@ -47,7 +47,8 @@ class FrameBuffer {
 
   FrameBuffer(Clock* clock,
               VCMTiming* timing,
-              VCMReceiveStatisticsCallback* stats_callback);
+              VCMReceiveStatisticsCallback* stats_callback,
+              bool force_decode_all_layers);
 
   virtual ~FrameBuffer();
 
@@ -194,6 +195,7 @@ class FrameBuffer {
   int64_t last_log_non_decoded_ms_ RTC_GUARDED_BY(crit_);
 
   const bool add_rtt_to_playout_delay_;
+  const bool force_decode_all_layers_;
 
   // rtt_mult experiment settings.
   const absl::optional<RttMultExperiment::Settings> rtt_mult_settings_;

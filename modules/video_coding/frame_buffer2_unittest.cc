@@ -135,7 +135,7 @@ class TestFrameBuffer2 : public ::testing::Test {
       : trial_("WebRTC-AddRttToPlayoutDelay/Enabled/"),
         clock_(0),
         timing_(&clock_),
-        buffer_(new FrameBuffer(&clock_, &timing_, &stats_callback_)),
+        buffer_(new FrameBuffer(&clock_, &timing_, &stats_callback_, false)),
         rand_(0x34678213),
         tear_down_(false),
         extract_thread_(&ExtractLoop, this, "Extract Thread") {}
@@ -309,7 +309,7 @@ TEST_F(TestFrameBuffer2, OneSuperFrame) {
 
 TEST_F(TestFrameBuffer2, ZeroPlayoutDelay) {
   VCMTiming timing(&clock_);
-  buffer_.reset(new FrameBuffer(&clock_, &timing, &stats_callback_));
+  buffer_.reset(new FrameBuffer(&clock_, &timing, &stats_callback_, false));
   const PlayoutDelay kPlayoutDelayMs = {0, 0};
   std::unique_ptr<FrameObjectFake> test_frame(new FrameObjectFake());
   test_frame->id.picture_id = 0;
@@ -692,6 +692,20 @@ TEST_F(TestFrameBuffer2, HigherSpatialLayerNonDecodable) {
   ExtractFrame();
   CheckFrame(1, pid + 1, 1);
   CheckFrame(2, pid + 2, 1);
+}
+
+TEST_F(TestFrameBuffer2, ReturnsAllLayersIfAsked) {
+  buffer_.reset(new FrameBuffer(&clock_, &timing_, &stats_callback_, true));
+  uint16_t pid = Rand();
+  uint32_t ts = Rand();
+
+  InsertFrame(pid, 1, ts, false, true, kFrameSize);
+  ExtractFrame();
+  CheckNoFrame(0);
+  InsertFrame(pid, 0, ts, false, false, kFrameSize);
+  ExtractFrame();
+  CheckFrame(1, pid, 1);
+  CheckFrameSize(1, 2 * kFrameSize);
 }
 
 }  // namespace video_coding

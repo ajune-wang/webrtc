@@ -240,8 +240,8 @@ VideoReceiveStream::VideoReceiveStream(
 
   timing_->set_render_delay(config_.render_delay_ms);
 
-  frame_buffer_.reset(
-      new video_coding::FrameBuffer(clock_, timing_.get(), &stats_proxy_));
+  frame_buffer_.reset(new video_coding::FrameBuffer(clock_, timing_.get(),
+                                                    &stats_proxy_, false));
 
   process_thread_->RegisterModule(&rtp_stream_sync_, RTC_FROM_HERE);
   if (config_.media_transport()) {

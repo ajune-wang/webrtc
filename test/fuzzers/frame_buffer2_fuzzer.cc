@@ -66,7 +66,7 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
   DataReader reader(data, size);
   Clock* clock = Clock::GetRealTimeClock();
   VCMTiming timing(clock);
-  video_coding::FrameBuffer frame_buffer(clock, &timing, nullptr);
+  video_coding::FrameBuffer frame_buffer(clock, &timing, nullptr, false);
 
   while (reader.MoreToRead()) {
     if (reader.GetNum<uint8_t>() & 1) {

@@ -48,26 +48,6 @@ class RTPSender {
  public:
   explicit RTPSender(const RtpRtcp::Configuration& config);
 
-  // TODO(bugs.webrtc.org/10774): Remove once downstream projects are fixed.
-  RTPSender(bool audio,
-            Clock* clock,
-            Transport* transport,
-            RtpPacketSender* paced_sender,
-            absl::optional<uint32_t> flexfec_ssrc,
-            TransportSequenceNumberAllocator* sequence_number_allocator,
-            TransportFeedbackObserver* transport_feedback_callback,
-            BitrateStatisticsObserver* bitrate_callback,
-            SendSideDelayObserver* send_side_delay_observer,
-            RtcEventLog* event_log,
-            SendPacketObserver* send_packet_observer,
-            RateLimiter* nack_rate_limiter,
-            OverheadObserver* overhead_observer,
-            bool populate_network2_timestamp,
-            FrameEncryptorInterface* frame_encryptor,
-            bool require_frame_encryption,
-            bool extmap_allow_mixed,
-            const WebRtcKeyValueConfig& field_trials);
-
   ~RTPSender();
 
   void ProcessBitrate();
@@ -193,10 +173,19 @@ class RTPSender {
   // time.
   typedef std::map<int64_t, int> SendDelayMap;
 
-  bool PrepareAndSendPacket(std::unique_ptr<RtpPacketToSend> packet,
-                            bool send_over_rtx,
-                            bool is_retransmit,
-                            const PacedPacketInfo& pacing_info);
+  // Helper class that redirects packets directly to the send part of this class
+  // without passing through an actual paced sender.
+  class DirectPacketSender : public RtpPacketSender {
+   public:
+    explicit DirectPacketSender(RTPSender* rtp_sender);
+    virtual ~DirectPacketSender();
+
+    void EnqueuePacket(std::unique_ptr<RtpPacketToSend> packet) override;
+
+   private:
+    uint16_t transport_sequence_number_;
+    RTPSender* const rtp_sender_;
+  };
 
   std::unique_ptr<RtpPacketToSend> BuildRtxPacket(
       const RtpPacketToSend& packet);
@@ -213,9 +202,6 @@ class RTPSender {
   void UpdateOnSendPacket(int packet_id,
                           int64_t capture_time_ms,
                           uint32_t ssrc);
-
-  bool UpdateTransportSequenceNumber(RtpPacketToSend* packet, int* packet_id)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(send_critsect_);
 
   void UpdateRtpStats(const RtpPacketToSend& packet,
                       bool is_rtx,
@@ -235,8 +221,8 @@ class RTPSender {
 
   const absl::optional<uint32_t> flexfec_ssrc_;
 
+  const std::unique_ptr<DirectPacketSender> direct_packet_sender_;
   RtpPacketSender* const paced_sender_;
-  TransportSequenceNumberAllocator* const transport_sequence_number_allocator_;
   TransportFeedbackObserver* const transport_feedback_observer_;
   rtc::CriticalSection send_critsect_;
 

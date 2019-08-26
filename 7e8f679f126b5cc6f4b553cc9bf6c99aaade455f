@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8bad2c8b_dec2de47",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-26T06:33:30Z",
+      "side": 1,
+      "message": "Comment above says this is \"legacy\" screenshare; do we need to to check the field trial here?\n\nFor \"normal\" simulcast, it seems we instead use the unchanged function FindSimulcastMinBitrateBps, which uses a different const table of values, where the last two entries also have 30 kbit hardcoded.",
+      "range": {
+        "startLine": 312,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 3
+      },
+      "revId": "7e8f679f126b5cc6f4b553cc9bf6c99aaade455f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

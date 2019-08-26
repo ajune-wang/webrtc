@@ -34,7 +34,7 @@ VideoStreamDecoderImpl::VideoStreamDecoderImpl(
                      "video_stream_decoder_decode_thread",
                      rtc::kHighestPriority),
       timing_(Clock::GetRealTimeClock()),
-      frame_buffer_(Clock::GetRealTimeClock(), &timing_, nullptr),
+      frame_buffer_(Clock::GetRealTimeClock(), &timing_, nullptr, false),
       next_frame_timestamps_index_(0) {
   frame_timestamps_.fill({-1, -1, -1});
   decode_thread_.Start();

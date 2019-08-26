@@ -50,7 +50,8 @@ constexpr int64_t kLogNonDecodedIntervalMs = 5000;
 
 FrameBuffer::FrameBuffer(Clock* clock,
                          VCMTiming* timing,
-                         VCMReceiveStatisticsCallback* stats_callback)
+                         VCMReceiveStatisticsCallback* stats_callback,
+                         bool force_decode_all_layers)
     : decoded_frames_history_(kMaxFramesHistory),
       clock_(clock),
       callback_queue_(nullptr),
@@ -63,6 +64,7 @@ FrameBuffer::FrameBuffer(Clock* clock,
       last_log_non_decoded_ms_(-kLogNonDecodedIntervalMs),
       add_rtt_to_playout_delay_(
           webrtc::field_trial::IsEnabled("WebRTC-AddRttToPlayoutDelay")),
+      force_decode_all_layers_(force_decode_all_layers),
       rtt_mult_settings_(RttMultExperiment::GetRttMultValue()) {}
 
 FrameBuffer::~FrameBuffer() {}
@@ -192,7 +194,11 @@ int64_t FrameBuffer::FindNextFrame(int64_t now_ms) {
 
     // Only ever return all parts of a superframe. Therefore skip this
     // frame if it's not a beginning of a superframe.
-    if (frame->inter_layer_predicted) {
+    // If there are redundant layers without spatial references, any of them
+    // can be chosen as a superframe start, unless decoding all layers is
+    // requested in constructor parameters.
+    if (frame->inter_layer_predicted ||
+        (force_decode_all_layers_ && frame->id.spatial_layer > 0)) {
       continue;
     }
 

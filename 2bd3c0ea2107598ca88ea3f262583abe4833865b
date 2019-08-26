@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d81692dc_4c8b721a",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-26T12:25:47Z",
+      "side": 1,
+      "message": "This doesn\u0027t look like the intended way to use ParseFieldTrial, it would be nicer if MinVideoBitrateConfig was a member, initialized on construction.\n\nBut I don\u0027t seen any easy way to do that, without also rewriting the handling of kForcedFallbackFieldTrial. Is that still active? Introduced novenber 2017.",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 333,
+        "endChar": 3
+      },
+      "revId": "2bd3c0ea2107598ca88ea3f262583abe4833865b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

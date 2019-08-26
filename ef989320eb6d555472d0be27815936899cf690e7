@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b6f0711_6068e4c1",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5711,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-26T22:32:18Z",
+      "side": 0,
+      "message": "Why don\u0027t we need this check any more?",
+      "range": {
+        "startLine": 5711,
+        "startChar": 9,
+        "endLine": 5711,
+        "endChar": 23
+      },
+      "revId": "ef989320eb6d555472d0be27815936899cf690e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03b6dccb_7097b2e0",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-26T22:32:18Z",
+      "side": 1,
+      "message": "Won\u0027t this create an SctpTransport for every m\u003d line in a conservative BUNDLE offer?\n\nIs there any disadvantage to having these extra transports lying around unused? From a casual reading it looks like it does the same for data channel m\u003d sections (creates unused RtpTransports).",
+      "revId": "f68da4a364eb44f568da4f908e920d9c06097f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef23619f_b9bf9f5b",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1321,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-26T22:32:18Z",
+      "side": 1,
+      "message": "Not a huge fan of using atomic here. We don\u0027t actually need it to ensure correctness since the signaling thread and networking thread operate in lock step during negotiation. It\u0027s a bit obscure, but I\u0027d rather fix the root of the problem by moving the access to all one thread rather than using an atomic.",
+      "range": {
+        "startLine": 1321,
+        "startChar": 2,
+        "endLine": 1321,
+        "endChar": 13
+      },
+      "revId": "f68da4a364eb44f568da4f908e920d9c06097f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

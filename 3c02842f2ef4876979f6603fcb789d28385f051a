@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f178658_3faa5bd1",
+        "filename": "media/engine/constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-27T07:32:14Z",
+      "side": 0,
+      "message": "Regarding the revert: I take it this should be \n\nextern const char * const kMinVideoBitrateExperiment;\n\nto declare both the pointer itself and the data pointed to as const.",
+      "range": {
+        "startLine": 23,
+        "startChar": 7,
+        "endLine": 23,
+        "endChar": 46
+      },
+      "revId": "3c02842f2ef4876979f6603fcb789d28385f051a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

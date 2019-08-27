@@ -21,6 +21,7 @@
 #include <utility>
 
 #include "absl/memory/memory.h"
+#include "modules/desktop_capture/cropped_desktop_frame.h"
 #include "modules/desktop_capture/desktop_capture_options.h"
 #include "modules/desktop_capture/desktop_capturer.h"
 #include "modules/desktop_capture/desktop_frame.h"
@@ -45,6 +46,10 @@ ScreenCapturerX11::~ScreenCapturerX11() {
   if (use_damage_) {
     options_.x_display()->RemoveEventHandler(damage_event_base_ + XDamageNotify,
                                              this);
+  }
+  if (use_randr_) {
+    options_.x_display()->RemoveEventHandler(
+        randr_event_base_ + RRScreenChangeNotify, this);
   }
   DeinitXlib();
 }
@@ -93,6 +98,8 @@ bool ScreenCapturerX11::Init(const DesktopCaptureOptions& options) {
     InitXDamage();
   }
 
+  InitXrandr();
+
   return true;
 }
 
@@ -137,6 +144,56 @@ void ScreenCapturerX11::InitXDamage() {
   RTC_LOG(LS_INFO) << "Using XDamage extension.";
 }
 
+void ScreenCapturerX11::InitXrandr() {
+  int major_version = 0;
+  int minor_version = 0;
+  int error_base_ignored = 0;
+  if (XRRQueryExtension(display(), &randr_event_base_, &error_base_ignored) &&
+      XRRQueryVersion(display(), &major_version, &minor_version)) {
+    if (major_version > 1 || (major_version == 1 && minor_version >= 5)) {
+      use_randr_ = true;
+      RTC_LOG(LS_INFO) << "Using XRandR extension v" << major_version << '.'
+                       << minor_version << '.';
+      monitors_ = XRRGetMonitors(display(), root_window_, true, &num_monitors_);
+
+      // Register for screen change notifications
+      XRRSelectInput(display(), root_window_, RRScreenChangeNotifyMask);
+      options_.x_display()->AddEventHandler(
+          randr_event_base_ + RRScreenChangeNotify, this);
+    } else {
+      RTC_LOG(LS_ERROR) << "XRandR entension is older than v1.5.";
+    }
+  } else {
+    RTC_LOG(LS_ERROR) << "X server does not support XRandR.";
+  }
+}
+
+void ScreenCapturerX11::UpdateMonitors() {
+  if (monitors_) {
+    XRRFreeMonitors(monitors_);
+    monitors_ = nullptr;
+  }
+
+  monitors_ = XRRGetMonitors(display(), root_window_, true, &num_monitors_);
+
+  if (selected_monitor_name_) {
+    for (int i = 0; i < num_monitors_; ++i) {
+      XRRMonitorInfo& m = monitors_[i];
+      if (selected_monitor_name_ == m.name) {
+        RTC_LOG(LS_INFO) << "XRandR monitor " << m.name << " rect updated.";
+        selected_monitor_rect_ =
+            DesktopRect::MakeXYWH(m.x, m.y, m.width, m.height);
+        return;
+      }
+    }
+
+    // The selected monitor is not connected anymore
+    RTC_LOG(LS_INFO) << "XRandR selected monitor " << selected_monitor_name_
+                     << " lost.";
+    selected_monitor_rect_ = DesktopRect::MakeWH(0, 0);
+  }
+}
+
 void ScreenCapturerX11::Start(Callback* callback) {
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
@@ -178,6 +235,16 @@ void ScreenCapturerX11::CaptureFrame() {
     RTC_LOG(LS_WARNING) << "Temporarily failed to capture screen.";
     callback_->OnCaptureResult(Result::ERROR_TEMPORARY, nullptr);
     return;
+  } else if (use_randr_) {
+    // TODO(trevor) Optimize the bliting process so that we can avoid cropping.
+    // Cropping is required because all screens are captured in the same frame.
+    // The updated regions of the frame are clipped to the selected screen, so
+    // hopefully performance is not impacted too much for now,
+    // but this is still a waste of memory. We should just get the frame for
+    // the selected screen, but doing so breaks some assumptions in
+    // x_server_pixel_buffer.cc that will need to be changed.
+    result =
+        CreateCroppedDesktopFrame(std::move(result), selected_monitor_rect_);
   }
 
   last_invalid_region_ = result->updated_region();
@@ -188,14 +255,43 @@ void ScreenCapturerX11::CaptureFrame() {
 
 bool ScreenCapturerX11::GetSourceList(SourceList* sources) {
   RTC_DCHECK(sources->size() == 0);
-  // TODO(jiayl): implement screen enumeration.
-  sources->push_back({0});
+  if (use_randr_) {
+    // Ensure that |monitors_| is updated with changes that may have happened
+    // between calls to GetSourceList().
+    options_.x_display()->ProcessPendingXEvents();
+
+    for (int i = 0; i < num_monitors_; ++i) {
+      XRRMonitorInfo& m = monitors_[i];
+      char* monitor_title = XGetAtomName(display(), m.name);
+      sources->push_back(
+          {m.name,  // Note name is an X11 Atom used to id the monitor.
+           monitor_title});
+      XFree(monitor_title);
+    }
+  } else {
+    sources->push_back({0});
+  }
   return true;
 }
 
 bool ScreenCapturerX11::SelectSource(SourceId id) {
-  // TODO(jiayl): implement screen selection.
-  return true;
+  if (use_randr_) {
+    for (int i = 0; i < num_monitors_; ++i) {
+      if (id == static_cast<SourceId>(monitors_[i].name)) {
+        RTC_LOG(LS_INFO) << "XRandR selected source: " << id;
+        XRRMonitorInfo& m = monitors_[i];
+        selected_monitor_name_ = m.name;
+        selected_monitor_rect_ =
+            DesktopRect::MakeXYWH(m.x, m.y, m.width, m.height);
+        return true;
+      }
+    }
+    return false;
+  } else {
+    selected_monitor_rect_ =
+        DesktopRect::MakeSize(x_server_pixel_buffer_.window_size());
+    return true;
+  }
 }
 
 bool ScreenCapturerX11::HandleXEvent(const XEvent& event) {
@@ -205,6 +301,12 @@ bool ScreenCapturerX11::HandleXEvent(const XEvent& event) {
     if (damage_event->damage != damage_handle_)
       return false;
     RTC_DCHECK(damage_event->level == XDamageReportNonEmpty);
+    return true;
+  } else if (use_randr_ &&
+             event.type == randr_event_base_ + RRScreenChangeNotify) {
+    XRRUpdateConfiguration(const_cast<XEvent*>(&event));
+    UpdateMonitors();
+    RTC_LOG(LS_INFO) << "XRandR screen change event received.";
     return true;
   } else if (event.type == ConfigureNotify) {
     ScreenConfigurationChanged();
@@ -251,8 +353,7 @@ std::unique_ptr<DesktopFrame> ScreenCapturerX11::CaptureScreen() {
     // Clip the damaged portions to the current screen size, just in case some
     // spurious XDamage notifications were received for a previous (larger)
     // screen size.
-    updated_region->IntersectWith(
-        DesktopRect::MakeSize(x_server_pixel_buffer_.window_size()));
+    updated_region->IntersectWith(selected_monitor_rect_);
 
     for (DesktopRegion::Iterator it(*updated_region); !it.IsAtEnd();
          it.Advance()) {
@@ -262,10 +363,10 @@ std::unique_ptr<DesktopFrame> ScreenCapturerX11::CaptureScreen() {
   } else {
     // Doing full-screen polling, or this is the first capture after a
     // screen-resolution change.  In either case, need a full-screen capture.
-    DesktopRect screen_rect = DesktopRect::MakeSize(frame->size());
-    if (!x_server_pixel_buffer_.CaptureRect(screen_rect, frame.get()))
+    if (!x_server_pixel_buffer_.CaptureRect(selected_monitor_rect_,
+                                            frame.get()))
       return nullptr;
-    updated_region->SetRect(screen_rect);
+    updated_region->SetRect(selected_monitor_rect_);
   }
 
   return std::move(frame);
@@ -281,6 +382,11 @@ void ScreenCapturerX11::ScreenConfigurationChanged() {
                                    DefaultRootWindow(display()))) {
     RTC_LOG(LS_ERROR) << "Failed to initialize pixel buffer after screen "
                          "configuration change.";
+  }
+
+  if (!use_randr_) {
+    selected_monitor_rect_ =
+        DesktopRect::MakeSize(x_server_pixel_buffer_.window_size());
   }
 }
 
@@ -305,6 +411,11 @@ void ScreenCapturerX11::SynchronizeFrame() {
 }
 
 void ScreenCapturerX11::DeinitXlib() {
+  if (monitors_) {
+    XRRFreeMonitors(monitors_);
+    monitors_ = nullptr;
+  }
+
   if (gc_) {
     XFreeGC(display(), gc_);
     gc_ = nullptr;

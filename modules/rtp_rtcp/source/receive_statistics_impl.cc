@@ -226,9 +226,8 @@ RtcpStatistics StreamStatisticianImpl::CalculateRtcpStatistics() {
 
   // Number of received RTP packets since last report, counts all packets but
   // not re-transmissions.
-  uint32_t rec_since_last = (receive_counters_.transmitted.packets -
-                             receive_counters_.retransmitted.packets) -
-                            last_report_inorder_packets_;
+  uint32_t rec_since_last =
+      receive_counters_.transmitted.packets - last_report_inorder_packets_;
 
   // With NACK we don't know the expected retransmissions during the last
   // second. We know how many "old" packets we have received. We just count
@@ -239,9 +238,7 @@ RtcpStatistics StreamStatisticianImpl::CalculateRtcpStatistics() {
   // With NACK we don't count old packets as received since they are
   // re-transmitted. We use RTT to decide if a packet is re-ordered or
   // re-transmitted.
-  uint32_t retransmitted_packets =
-      receive_counters_.retransmitted.packets - last_report_old_packets_;
-  rec_since_last += retransmitted_packets;
+  rec_since_last -= last_report_old_packets_;
 
   int32_t missing = 0;
   if (exp_since_last > rec_since_last) {

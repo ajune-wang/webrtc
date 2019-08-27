@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c46d2326_087558cf",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-08-27T06:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b83716d_6323f462",
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5a81387_48fb00aa",
         "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "aa25d569_aada360b",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-08-27T06:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5a81387_48fb00aa",
+      "range": {
+        "startLine": 150,
+        "startChar": 56,
+        "endLine": 150,
+        "endChar": 73
+      },
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53717bd5_27874c58",
         "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
         "patchSetId": 1
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "f1ef7ba2_c5dd8c62",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-08-27T06:50:07Z",
+      "side": 1,
+      "message": "Yes, I picked version 1.5 for XRRGetMonitors. There might be a way to do it with older versions but it would have to be done differently. The documentation for version 1.5 is dated 2015-03-14. I was hoping that is old enough to be widely supported at least on machines running software with an up to date version of WebRTC. For users who don\u0027t have it though it will degrade gracefully to the old behavior.\n\nFor reference: https://cgit.freedesktop.org/xorg/proto/randrproto/tree/randrproto.txt#n162",
+      "parentUuid": "53717bd5_27874c58",
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fd5d50f6_30e92e53",
         "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
         "patchSetId": 1
@@ -70,6 +130,24 @@
       "writtenOn": "2019-08-26T23:13:35Z",
       "side": 1,
       "message": "Chromium also adds: RROutputChangeNotifyMask | RRCrtcChangeNotifyMask.",
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a99704d_406c4304",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-08-27T06:50:07Z",
+      "side": 1,
+      "message": "I wonder if those are still required when using Monitors, because I\u0027m not directly using the older interfaces for CRTCs and outputs. This is my first time writing any XRandR code though so I don\u0027t really know, but I did test resizing my virtual machine windows, changing resolutions, disabling screens, and everything was updating without them.\n\nI could add the masks but then I should handle those events and I don\u0027t currently know what I need them to do if anything.",
+      "parentUuid": "fd5d50f6_30e92e53",
       "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -96,6 +174,30 @@
       "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7727420a_3d830bd3",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-08-27T06:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae2ded66_8258b477",
+      "range": {
+        "startLine": 170,
+        "startChar": 24,
+        "endLine": 170,
+        "endChar": 51
+      },
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "d459ac40_ec5bca03",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-08-27T06:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ffbf96c_c0949474",
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6e64ca6_9e1dacea",
         "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
         "patchSetId": 1
@@ -159,6 +279,30 @@
       "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef3d48fa_c2a17942",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-08-27T06:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6e64ca6_9e1dacea",
+      "range": {
+        "startLine": 248,
+        "startChar": 24,
+        "endLine": 248,
+        "endChar": 37
+      },
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -202,6 +346,30 @@
     },
     {
       "key": {
+        "uuid": "154862fd_8bb341b1",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-08-27T06:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49a0575c_18415c57",
+      "range": {
+        "startLine": 252,
+        "startChar": 25,
+        "endLine": 252,
+        "endChar": 44
+      },
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef6e19cc_dbcb0065",
         "filename": "modules/desktop_capture/linux/screen_capturer_x11.h",
         "patchSetId": 1
@@ -225,6 +393,30 @@
     },
     {
       "key": {
+        "uuid": "94dc4376_eda820ea",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-08-27T06:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef6e19cc_dbcb0065",
+      "range": {
+        "startLine": 68,
+        "startChar": 7,
+        "endLine": 68,
+        "endChar": 18
+      },
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "741b8e4f_717a4957",
         "filename": "modules/desktop_capture/linux/screen_capturer_x11.h",
         "patchSetId": 1
@@ -239,6 +431,24 @@
       "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "162fe2bb_73fd5603",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-08-27T06:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "741b8e4f_717a4957",
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -262,6 +472,30 @@
       "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb216a0d_59a456d7",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-08-27T06:50:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ceb53ea3_837153d2",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 23
+      },
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

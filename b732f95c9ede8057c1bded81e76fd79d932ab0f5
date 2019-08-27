@@ -224,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "75c5d19c_d466d03d",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-08-27T21:15:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "663aa76a_351c5ce2",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 191,
+        "endChar": 31
+      },
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ffbf96c_c0949474",
         "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
         "patchSetId": 1
@@ -364,6 +388,24 @@
         "endLine": 252,
         "endChar": 44
       },
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd7859cc_fa068e78",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-08-27T21:15:38Z",
+      "side": 1,
+      "message": "I did a test before attempting this change. I changed the primary screen with with the xrandr command line tool and the list order seemed to update automatically. I check the source for XRRGetMonitors and it looks like they do this for us already. https://gitlab.freedesktop.org/xorg/xserver/blob/master/randr/rrmonitor.c#L331",
+      "parentUuid": "cd9e09bd_24acb5b1",
       "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

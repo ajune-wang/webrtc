@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ab8e6a6_c40a2901",
+        "filename": "media/engine/constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-08-27T10:12:10Z",
+      "side": 1,
+      "message": "This needs to be changed to:\n\n  extern const char kMinVideoBitrateExperiment[];",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 46
+      },
+      "revId": "d75b5b5bc22c74315afe5d42d15753e70af83ae3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "90aa744c_ab56e475",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-08-27T13:48:17Z",
+      "side": 1,
+      "message": "I think we should remove setBuffer call without callback after we have migrated all clients. After that we can rely that we can have persistent access to the buffer.",
+      "parentUuid": "371cb133_c0e46429",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 36
+      },
+      "revId": "030976e32c6aa657f3029fa33437a0910ac4483d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "653fb789_c3db06d1",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 11

@@ -14,11 +14,13 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <map>
 #include <vector>
 
 #include "api/video/video_bitrate_allocation.h"
 #include "api/video/video_bitrate_allocator.h"
 #include "api/video_codecs/video_codec.h"
+#include "rtc_base/experiments/stable_target_rate_experiment.h"
 
 namespace webrtc {
 
@@ -29,19 +31,26 @@ class SvcRateAllocator : public VideoBitrateAllocator {
   VideoBitrateAllocation Allocate(
       VideoBitrateAllocationParameters parameters) override;
 
-  static uint32_t GetMaxBitrateBps(const VideoCodec& codec);
-  static uint32_t GetPaddingBitrateBps(const VideoCodec& codec);
+  static DataRate GetMaxBitrate(const VideoCodec& codec);
+  static DataRate GetPaddingBitrate(const VideoCodec& codec);
+  static std::map<DataRate, size_t> GetLayerStartBitrates(
+      const VideoCodec& codec);
 
  private:
   VideoBitrateAllocation GetAllocationNormalVideo(
-      uint32_t total_bitrate_bps,
+      DataRate total_bitrate,
       size_t num_spatial_layers) const;
 
   VideoBitrateAllocation GetAllocationScreenSharing(
-      uint32_t total_bitrate_bps,
+      DataRate total_bitrate,
       size_t num_spatial_layers) const;
 
+  size_t FindNumActiveLayers(DataRate target_rate) const;
+
   const VideoCodec codec_;
+  const StableTargetRateExperiment experiment_settings_;
+  const std::map<DataRate, size_t> cumulative_layer_start_bitrates_;
+  size_t last_active_layer_count_;
 };
 
 }  // namespace webrtc

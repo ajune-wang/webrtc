@@ -120,6 +120,20 @@ rtc_source_set("encoded_image") {
   ]
 }
 
+rtc_source_set("ivf_stream_writer") {
+  visibility = [ "*" ]
+  sources = [
+    "ivf_stream_writer.cc",
+    "ivf_stream_writer.h"
+  ]
+  deps = [
+    ":encoded_image",
+    "../../api:output_stream",
+    "../../modules/video_coding:video_coding_utility",
+    "//third_party/abseil-cpp/absl/memory:memory",
+  ]
+}
+
 rtc_source_set("encoded_frame") {
   visibility = [ "*" ]
   sources = [

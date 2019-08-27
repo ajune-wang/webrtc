@@ -709,13 +709,7 @@ void VideoCodecTestFixtureImpl::ReleaseAndCloseObjects(
   source_frame_reader_->Close();
 
   // Close visualization files.
-  for (auto& encoded_frame_writer : encoded_frame_writers_) {
-    EXPECT_TRUE(encoded_frame_writer.second->Close());
-  }
   encoded_frame_writers_.clear();
-  for (auto& decoded_frame_writer : decoded_frame_writers_) {
-    decoded_frame_writer->Close();
-  }
   decoded_frame_writers_.clear();
 }
 

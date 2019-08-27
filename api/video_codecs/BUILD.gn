@@ -66,6 +66,18 @@ rtc_source_set("bitstream_parser_api") {
   ]
 }
 
+rtc_source_set("video_decoder_frame_dumping_wrapper") {
+  visibility = [ "*" ]
+  sources = [
+    "video_decoder_frame_dumping_wrapper.h",
+  ]
+  deps = [
+    ":video_codecs_api",
+    "../../api:output_stream",
+    "../../rtc_base/system:rtc_export",
+  ]
+}
+
 rtc_static_library("builtin_video_decoder_factory") {
   visibility = [ "*" ]
   allow_poison = [

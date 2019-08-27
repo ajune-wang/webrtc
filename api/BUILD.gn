@@ -374,6 +374,13 @@ if (rtc_include_tests) {
   }
 }
 
+rtc_source_set("output_stream") {
+  visibility = [ "*" ]
+  sources = [
+    "output_stream.h",
+  ]
+}
+
 rtc_source_set("libjingle_logging_api") {
   visibility = [ "*" ]
   sources = [

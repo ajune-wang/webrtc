@@ -113,7 +113,7 @@ class IvfFileWriterTest : public ::testing::Test {
     const int kNumFrames = 257;
     ASSERT_TRUE(WriteDummyTestFrames(codec_type, kWidth, kHeight, kNumFrames,
                                      use_capture_tims_ms));
-    EXPECT_TRUE(file_writer_->Close());
+    file_writer_ = nullptr;
 
     FileWrapper out_file = FileWrapper::OpenReadOnly(file_name_);
     VerifyIvfHeader(&out_file, fourcc, kWidth, kHeight, kNumFrames,
@@ -172,7 +172,7 @@ TEST_F(IvfFileWriterTest, ClosesWhenReachesLimit) {
 
   ASSERT_FALSE(WriteDummyTestFrames(kVideoCodecVP8, kWidth, kHeight,
                                     kNumFramesToWrite, true));
-  ASSERT_FALSE(file_writer_->Close());
+  file_writer_ = nullptr;
 
   FileWrapper out_file = FileWrapper::OpenReadOnly(file_name_);
   VerifyIvfHeader(&out_file, fourcc, kWidth, kHeight, kNumFramesToFit, true);

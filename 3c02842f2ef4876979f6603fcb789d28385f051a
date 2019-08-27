@@ -46,6 +46,30 @@
       "revId": "3c02842f2ef4876979f6603fcb789d28385f051a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eba95930_9aab647d",
+        "filename": "media/engine/constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-27T07:38:07Z",
+      "side": 0,
+      "message": "I agree the array type, const char [], is preferable.",
+      "parentUuid": "ac20073c_e2999998",
+      "range": {
+        "startLine": 23,
+        "startChar": 7,
+        "endLine": 23,
+        "endChar": 46
+      },
+      "revId": "3c02842f2ef4876979f6603fcb789d28385f051a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

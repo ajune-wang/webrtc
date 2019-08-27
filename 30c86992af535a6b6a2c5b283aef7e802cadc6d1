@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f50c5bde_ac1cd4a6",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1997,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-27T18:58:50Z",
+      "side": 1,
+      "message": "nit: the style guide votes for ++selected_candidate_pair_changes_",
+      "range": {
+        "startLine": 1997,
+        "startChar": 2,
+        "endLine": 1997,
+        "endChar": 34
+      },
+      "revId": "30c86992af535a6b6a2c5b283aef7e802cadc6d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43f0233b_ff14eae9",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5060,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-27T18:58:50Z",
+      "side": 1,
+      "message": "nit: Increases",
+      "range": {
+        "startLine": 5060,
+        "startChar": 17,
+        "endLine": 5060,
+        "endChar": 25
+      },
+      "revId": "30c86992af535a6b6a2c5b283aef7e802cadc6d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da391124_55c2a690",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5073,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-27T18:58:50Z",
+      "side": 1,
+      "message": "ep1_ch1()-\u003eselected_connection() !\u003d nullptr may be simpler and slightly more clear.",
+      "range": {
+        "startLine": 5071,
+        "startChar": 29,
+        "endLine": 5073,
+        "endChar": 54
+      },
+      "revId": "30c86992af535a6b6a2c5b283aef7e802cadc6d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7aa029b7_1289dc38",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5083,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-27T18:58:50Z",
+      "side": 1,
+      "message": "nit: *s",
+      "range": {
+        "startLine": 5083,
+        "startChar": 19,
+        "endLine": 5083,
+        "endChar": 27
+      },
+      "revId": "30c86992af535a6b6a2c5b283aef7e802cadc6d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8332dbda_181a53d0",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5109,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-27T18:58:50Z",
+      "side": 1,
+      "message": "Do we need this expectation?",
+      "range": {
+        "startLine": 5109,
+        "startChar": 2,
+        "endLine": 5109,
+        "endChar": 11
+      },
+      "revId": "30c86992af535a6b6a2c5b283aef7e802cadc6d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99995ab2_67152c50",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5137,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-27T18:58:50Z",
+      "side": 1,
+      "message": "nit: new one",
+      "range": {
+        "startLine": 5137,
+        "startChar": 10,
+        "endLine": 5137,
+        "endChar": 13
+      },
+      "revId": "30c86992af535a6b6a2c5b283aef7e802cadc6d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d7091fd_df8c9792",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5150,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-08-27T18:58:50Z",
+      "side": 1,
+      "message": "Seems unnecessary given the above.",
+      "range": {
+        "startLine": 5150,
+        "startChar": 2,
+        "endLine": 5150,
+        "endChar": 11
+      },
+      "revId": "30c86992af535a6b6a2c5b283aef7e802cadc6d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

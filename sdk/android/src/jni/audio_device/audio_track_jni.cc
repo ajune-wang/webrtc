@@ -81,9 +81,15 @@ int32_t AudioTrackJni::InitPlayout() {
     return 0;
   }
   RTC_DCHECK(!playing_);
+  double buffer_factor = strtod(webrtc::field_trial::FindFullName(
+                                    "WebRTC-AudioDevicePlayoutBufferSizeFactor")
+                                    .c_str(),
+                                nullptr);
+  if (buffer_factor == 0)
+    buffer_factor = 1;
   if (!Java_WebRtcAudioTrack_initPlayout(
           env_, j_audio_track_, audio_parameters_.sample_rate(),
-          static_cast<int>(audio_parameters_.channels()))) {
+          static_cast<int>(audio_parameters_.channels()), buffer_factor)) {
     RTC_LOG(LS_ERROR) << "InitPlayout failed";
     return -1;
   }

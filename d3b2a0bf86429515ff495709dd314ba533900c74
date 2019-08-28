@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d2b6912_33b5f06b",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-08-28T23:39:25Z",
+      "side": 1,
+      "message": "nit: after you put payload into message you should stop referencing it completely. imagine some future code along the way Advance()s your message. payload is no longer relevant.",
+      "range": {
+        "startLine": 530,
+        "startChar": 27,
+        "endLine": 530,
+        "endChar": 41
+      },
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a86d7b7c_b44ff754",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-08-28T23:39:25Z",
+      "side": 1,
+      "message": "nit: how about a different approach that removes the need to understand message size\nmessage.Advance(sent_size);\nif (message.size() \u003e 0) {\n  // code for maintaining partial message\n}",
+      "range": {
+        "startLine": 538,
+        "startChar": 4,
+        "endLine": 538,
+        "endChar": 31
+      },
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

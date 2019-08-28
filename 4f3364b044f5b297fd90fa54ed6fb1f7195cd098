@@ -22,6 +22,30 @@
       "revId": "4f3364b044f5b297fd90fa54ed6fb1f7195cd098",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c40a3d2_c5da1bfb",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-08-28T09:35:49Z",
+      "side": 1,
+      "message": "Maybe add a DCHECK that this is always true (so that we don\u0027t end up setting only one at a later point)?",
+      "parentUuid": "fcdfeb5e_b4792111",
+      "range": {
+        "startLine": 581,
+        "startChar": 2,
+        "endLine": 581,
+        "endChar": 63
+      },
+      "revId": "4f3364b044f5b297fd90fa54ed6fb1f7195cd098",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

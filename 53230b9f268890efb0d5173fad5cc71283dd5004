@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3de3db8a_e2a10b89",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-28T22:31:16Z",
+      "side": 1,
+      "message": "Yeah I prefer early returns as well. Thanks for catching this.",
+      "parentUuid": "24dc34e8_46c50c03",
+      "range": {
+        "startLine": 524,
+        "startChar": 2,
+        "endLine": 524,
+        "endChar": 22
+      },
+      "revId": "53230b9f268890efb0d5173fad5cc71283dd5004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0274898_59adbea6",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "53230b9f268890efb0d5173fad5cc71283dd5004",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8df844dc_062dbe49",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-28T22:31:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0274898_59adbea6",
+      "range": {
+        "startLine": 528,
+        "startChar": 4,
+        "endLine": 528,
+        "endChar": 63
+      },
+      "revId": "53230b9f268890efb0d5173fad5cc71283dd5004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6fe9b5de_c4af9720",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-28T22:31:16Z",
+      "side": 1,
+      "message": "Discussed offline. I was trying to get away with this because it was a private struct. Updated by making it a class with an Advance() function.",
+      "parentUuid": "e1f84980_de555c35",
+      "range": {
+        "startLine": 551,
+        "startChar": 2,
+        "endLine": 551,
+        "endChar": 63
+      },
+      "revId": "53230b9f268890efb0d5173fad5cc71283dd5004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eef94a67_0569b3cd",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "53230b9f268890efb0d5173fad5cc71283dd5004",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8161f5b_5011bdc7",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-28T22:31:16Z",
+      "side": 1,
+      "message": "Added the function here as discussed offline.",
+      "parentUuid": "eef94a67_0569b3cd",
+      "range": {
+        "startLine": 897,
+        "startChar": 4,
+        "endLine": 897,
+        "endChar": 51
+      },
+      "revId": "53230b9f268890efb0d5173fad5cc71283dd5004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "fb6b48e8_8822cf2a",
+        "filename": "media/sctp/sctp_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-28T22:31:16Z",
+      "side": 1,
+      "message": "No, removed.",
+      "parentUuid": "0b45ba19_f1931eee",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 12
+      },
+      "revId": "53230b9f268890efb0d5173fad5cc71283dd5004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94f094d1_45bfab6c",
         "filename": "media/sctp/sctp_transport_unittest.cc",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2019-08-28T18:36:26Z",
       "side": 1,
       "message": "i\u0027m wondering if you have to do this or if you can mock the library and have it just buffer the first message.\ndownside of this code is that if the library changes somehow so that this doesn\u0027t fill almost all of the send buffer, your test breaks.",
+      "range": {
+        "startLine": 413,
+        "startChar": 0,
+        "endLine": 416,
+        "endChar": 0
+      },
+      "revId": "53230b9f268890efb0d5173fad5cc71283dd5004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f43dff5_6a99d85a",
+        "filename": "media/sctp/sctp_transport_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-28T22:31:16Z",
+      "side": 1,
+      "message": "Yeah I thought of this....ideally I would like to use a mock here for that reason. It would also help test other cases, for example a partially buffered message is partially sent more than once. Downside of introducing a mock is this is a much larger change and ideally I\u0027d like to keep this fix minimal. I avoided it because I don\u0027t want to introducing a new interface that wraps every sctp library call, updating tests, etc. \n\nI could definitely do this, it\u0027s just going to be more investment. Lmk if you feel strongly about this.",
+      "parentUuid": "94f094d1_45bfab6c",
       "range": {
         "startLine": 413,
         "startChar": 0,

@@ -60,6 +60,14 @@ class MockEchoControlFactory : public EchoControlFactory {
     return mock;
   }
 
+  std::unique_ptr<EchoControl> Create(int sample_rate_hz,
+                                      size_t num_render_channels,
+                                      size_t num_capture_channels) override {
+    std::unique_ptr<EchoControl> mock = std::move(next_mock_);
+    next_mock_ = absl::make_unique<MockEchoControl>();
+    return mock;
+  }
+
  private:
   std::unique_ptr<MockEchoControl> next_mock_;
 };

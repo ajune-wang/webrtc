@@ -67,7 +67,8 @@ void FastBlit(XImage* x_image,
               const DesktopRect& rect,
               DesktopFrame* frame) {
   int src_stride = x_image->bytes_per_line;
-  int dst_x = rect.left(), dst_y = rect.top();
+  int dst_x = rect.left() - frame->top_left().x();
+  int dst_y = rect.top() - frame->top_left().y();
 
   uint8_t* dst_pos = frame->data() + frame->stride() * dst_y;
   dst_pos += dst_x * DesktopFrame::kBytesPerPixel;
@@ -86,7 +87,8 @@ void SlowBlit(XImage* x_image,
               const DesktopRect& rect,
               DesktopFrame* frame) {
   int src_stride = x_image->bytes_per_line;
-  int dst_x = rect.left(), dst_y = rect.top();
+  int dst_x = rect.left() - frame->top_left().x();
+  int dst_y = rect.top() - frame->top_left().y();
   int width = rect.width(), height = rect.height();
 
   uint32_t red_mask = x_image->red_mask;

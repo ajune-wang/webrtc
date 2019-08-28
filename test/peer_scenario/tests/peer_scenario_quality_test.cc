@@ -16,7 +16,6 @@ namespace test {
 
 TEST(PeerScenarioQualityTest, PsnrIsCollected) {
   VideoQualityAnalyzerConfig analyzer_config;
-  analyzer_config.thread = rtc::Thread::Current();
   VideoQualityAnalyzer analyzer(analyzer_config);
   PeerScenario s;
   auto caller = s.CreateClient(PeerScenarioClient::Config());

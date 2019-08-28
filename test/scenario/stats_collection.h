@@ -23,7 +23,6 @@ namespace test {
 
 struct VideoQualityAnalyzerConfig {
   double psnr_coverage = 1;
-  rtc::Thread* thread = nullptr;
 };
 
 class VideoLayerAnalyzer {

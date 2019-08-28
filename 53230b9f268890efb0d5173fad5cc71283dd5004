@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24dc34e8_46c50c03",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-08-28T18:36:26Z",
+      "side": 1,
+      "message": "nit: worth inverting this for code clarity\nif (sent_size \u003c\u003d 0) return false;",
+      "range": {
+        "startLine": 524,
+        "startChar": 2,
+        "endLine": 524,
+        "endChar": 22
+      },
+      "revId": "53230b9f268890efb0d5173fad5cc71283dd5004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0274898_59adbea6",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-08-28T18:36:26Z",
+      "side": 1,
+      "message": "nit: maybe worth adding some DCHECKS here for sent_size \u003c\u003d payload.size()",
+      "range": {
+        "startLine": 528,
+        "startChar": 4,
+        "endLine": 528,
+        "endChar": 63
+      },
+      "revId": "53230b9f268890efb0d5173fad5cc71283dd5004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1f84980_de555c35",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-08-28T18:36:26Z",
+      "side": 1,
+      "message": "clients shouldn\u0027t be aware of the offset member in OutgoingMessage, it should be encapsulated. make it private and see what gets broken, then fix those breaks by having OutgoingMessage provide the relevant methods:\npayload_size()\ndata()\n\nthis will make it a lot harder to add a bug by forgetting to add the offset somewhere.",
+      "range": {
+        "startLine": 551,
+        "startChar": 2,
+        "endLine": 551,
+        "endChar": 63
+      },
+      "revId": "53230b9f268890efb0d5173fad5cc71283dd5004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eef94a67_0569b3cd",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-08-28T18:36:26Z",
+      "side": 1,
+      "message": "if copying the message object is trivial (i.e. no memcopy of the actual message) then i would suggest something like:\npartial_outgoing_message_ \u003d partial_outgoing_message_.remainder(sent_size)\nif not trivial (or some other memory management nonsense due to the fact that the member looks like a pointer - or maybe an optional), perhaps something like\npartial_outgoing_message_-\u003eremainder(sent_size); to adjust the offset.",
+      "range": {
+        "startLine": 897,
+        "startChar": 4,
+        "endLine": 897,
+        "endChar": 51
+      },
+      "revId": "53230b9f268890efb0d5173fad5cc71283dd5004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b45ba19_f1931eee",
+        "filename": "media/sctp/sctp_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-08-28T18:36:26Z",
+      "side": 1,
+      "message": "nit: do you need explicit when there is more than one argument?",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 12
+      },
+      "revId": "53230b9f268890efb0d5173fad5cc71283dd5004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94f094d1_45bfab6c",
+        "filename": "media/sctp/sctp_transport_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-08-28T18:36:26Z",
+      "side": 1,
+      "message": "i\u0027m wondering if you have to do this or if you can mock the library and have it just buffer the first message.\ndownside of this code is that if the library changes somehow so that this doesn\u0027t fill almost all of the send buffer, your test breaks.",
+      "range": {
+        "startLine": 413,
+        "startChar": 0,
+        "endLine": 416,
+        "endChar": 0
+      },
+      "revId": "53230b9f268890efb0d5173fad5cc71283dd5004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

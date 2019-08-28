@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb748ead_e44d9e42",
+        "filename": "modules/desktop_capture/linux/x_server_pixel_buffer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-08-28T22:46:49Z",
+      "side": 1,
+      "message": "Thx for resolving the TODO, can you can some RTC_DCHECK_LE around that. I think it is fine when not use xdamage as dst_x and dst_y will be always 0 but when using xdamage it might be messed up.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 0
+      },
+      "revId": "bd442198c33fa984efc28a172004846b65095233",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

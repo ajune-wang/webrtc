@@ -39,7 +39,8 @@ class RtpHeaderParserImpl : public RtpHeaderParser {
       RTC_GUARDED_BY(critical_section_);
 };
 
-RtpHeaderParser* RtpHeaderParser::Create() {
+// TODO(tommi): Move this source to test directory (or delete).
+RtpHeaderParser* RtpHeaderParser::CreateForTest() {
   return new RtpHeaderParserImpl;
 }
 

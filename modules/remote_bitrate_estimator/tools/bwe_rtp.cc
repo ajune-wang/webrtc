@@ -109,7 +109,7 @@ bool ParseArgsAndSetupEstimator(int argc,
   }
 
   // Setup the RTP header parser and the bitrate estimator.
-  *parser = webrtc::RtpHeaderParser::Create();
+  *parser = webrtc::RtpHeaderParser::CreateForTest();
   (*parser)->RegisterRtpHeaderExtension(extension, ExtensionId());
   if (estimator) {
     switch (extension) {

@@ -71,7 +71,8 @@ class RtpRtcpObserver {
  protected:
   RtpRtcpObserver() : RtpRtcpObserver(0) {}
   explicit RtpRtcpObserver(int event_timeout_ms)
-      : parser_(RtpHeaderParser::Create()), timeout_ms_(event_timeout_ms) {}
+      : parser_(RtpHeaderParser::CreateForTest()),
+        timeout_ms_(event_timeout_ms) {}
 
   rtc::Event observation_complete_;
   const std::unique_ptr<RtpHeaderParser> parser_;

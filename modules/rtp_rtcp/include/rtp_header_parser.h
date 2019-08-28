@@ -19,7 +19,7 @@ struct RTPHeader;
 
 class RtpHeaderParser {
  public:
-  static RtpHeaderParser* Create();
+  static RtpHeaderParser* CreateForTest();
   virtual ~RtpHeaderParser() {}
 
   // Returns true if the packet is an RTCP packet, false otherwise.

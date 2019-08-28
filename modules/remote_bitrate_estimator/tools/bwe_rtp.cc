@@ -20,8 +20,8 @@
 #include "absl/flags/parse.h"
 #include "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.h"
 #include "modules/remote_bitrate_estimator/remote_bitrate_estimator_single_stream.h"
-#include "modules/rtp_rtcp/include/rtp_header_parser.h"
 #include "test/rtp_file_reader.h"
+#include "test/rtp_header_parser.h"
 
 ABSL_FLAG(std::string,
           extension_type,
@@ -109,7 +109,7 @@ bool ParseArgsAndSetupEstimator(int argc,
   }
 
   // Setup the RTP header parser and the bitrate estimator.
-  *parser = webrtc::RtpHeaderParser::Create();
+  *parser = webrtc::RtpHeaderParser::CreateForTest();
   (*parser)->RegisterRtpHeaderExtension(extension, ExtensionId());
   if (estimator) {
     switch (extension) {

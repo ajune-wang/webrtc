@@ -158,7 +158,8 @@ void RtpReplayer::ReplayPackets(Call* call, test::RtpFileReader* rtp_reader) {
         break;
       case PacketReceiver::DELIVERY_UNKNOWN_SSRC: {
         RTPHeader header;
-        std::unique_ptr<RtpHeaderParser> parser(RtpHeaderParser::Create());
+        std::unique_ptr<RtpHeaderParser> parser(
+            RtpHeaderParser::CreateForTest());
 
         parser->Parse(packet.data, packet.length, &header);
         if (unknown_packets[header.ssrc] == 0) {
@@ -171,7 +172,8 @@ void RtpReplayer::ReplayPackets(Call* call, test::RtpFileReader* rtp_reader) {
         RTC_LOG(LS_ERROR)
             << "Packet error, corrupt packets or incorrect setup?";
         RTPHeader header;
-        std::unique_ptr<RtpHeaderParser> parser(RtpHeaderParser::Create());
+        std::unique_ptr<RtpHeaderParser> parser(
+            RtpHeaderParser::CreateForTest());
         parser->Parse(packet.data, packet.length, &header);
         RTC_LOG(LS_ERROR) << "Packet packet_length=" << packet.length
                           << " payload_type=" << header.payloadType

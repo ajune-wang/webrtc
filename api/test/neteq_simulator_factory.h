@@ -28,6 +28,9 @@ class NetEqSimulatorFactory {
   ~NetEqSimulatorFactory();
   struct Config {
     int max_nr_packets_in_buffer = 0;
+    int initial_dummy_packets = 0;
+    int skip_get_audio_events = 0;
+    std::string field_trial_string;
   };
   // This function takes the same arguments as the neteq_rtpplay utility.
   std::unique_ptr<NetEqSimulator> CreateSimulator(int argc, char* argv[]);

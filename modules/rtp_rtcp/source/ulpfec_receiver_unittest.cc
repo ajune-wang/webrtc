@@ -177,7 +177,7 @@ void UlpfecReceiverTest::SurvivesMaliciousPacket(const uint8_t* data,
                                                  size_t length,
                                                  uint8_t ulpfec_payload_type) {
   RTPHeader header;
-  std::unique_ptr<RtpHeaderParser> parser(RtpHeaderParser::Create());
+  std::unique_ptr<RtpHeaderParser> parser(RtpHeaderParser::CreateForTest());
   ASSERT_TRUE(parser->Parse(data, length, &header));
 
   NullRecoveredPacketReceiver null_callback;

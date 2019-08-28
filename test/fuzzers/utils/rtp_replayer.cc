@@ -158,7 +158,8 @@ void RtpReplayer::ReplayPackets(Call* call, test::RtpFileReader* rtp_reader) {
         break;
       case PacketReceiver::DELIVERY_UNKNOWN_SSRC: {
         RTPHeader header;
-        std::unique_ptr<RtpHeaderParser> parser(RtpHeaderParser::Create());
+        std::unique_ptr<RtpHeaderParser> parser(
+            RtpHeaderParser::CreateForTest());
 
         parser->Parse(packet.data, packet.length, &header);
         if (unknown_packets[header.ssrc] == 0) {

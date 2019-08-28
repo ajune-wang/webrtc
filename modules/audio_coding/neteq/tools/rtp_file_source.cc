@@ -83,7 +83,7 @@ std::unique_ptr<Packet> RtpFileSource::NextPacket() {
 
 RtpFileSource::RtpFileSource(absl::optional<uint32_t> ssrc_filter)
     : PacketSource(),
-      parser_(RtpHeaderParser::Create()),
+      parser_(RtpHeaderParser::CreateForTest()),
       ssrc_filter_(ssrc_filter) {}
 
 bool RtpFileSource::OpenFile(const std::string& file_name) {

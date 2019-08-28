@@ -22,6 +22,30 @@
       "revId": "ef989320eb6d555472d0be27815936899cf690e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "523f2769_01b0bd47",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5711,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-08-28T22:12:23Z",
+      "side": 0,
+      "message": "It\u0027s not necessary, since we can only reach this code if both local and remote descriptions are set, and setting the local description sets is_caller_.\n\nHowever, it\u0027s probably more robust against future changes if we keep the check, so I\u0027ve put it back.",
+      "parentUuid": "5b6f0711_6068e4c1",
+      "range": {
+        "startLine": 5711,
+        "startChar": 9,
+        "endLine": 5711,
+        "endChar": 23
+      },
+      "revId": "ef989320eb6d555472d0be27815936899cf690e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

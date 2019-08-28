@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9746e6eb_f10defc2",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-08-28T22:12:23Z",
+      "side": 1,
+      "message": "Yes, it does create an SctpTransport for every non-bundled m\u003d line.  The converse (creating an RtpTransport for every non-bundled m\u003d line, including the data channel section) was already true.\n\nI don\u0027t think there are any negative side-effects except for slightly more memory usage.  We only connect and use the SctpTransport associated with the mid for the data section.  The memory usage should be limited to the extra WebRTC adapters (cricket::SctpTransport and webrtc::SctpTransport), since they don\u0027t call usrsctp unless they\u0027re actually connected.\n\nI think this overhead is fairly minimal, and matches the model already in place for RTP.  We can try to fix both in a follow-up if you think it\u0027s useful.",
+      "parentUuid": "03b6dccb_7097b2e0",
+      "revId": "f68da4a364eb44f568da4f908e920d9c06097f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef23619f_b9bf9f5b",
         "filename": "pc/peer_connection.h",
         "patchSetId": 3
@@ -39,6 +57,30 @@
       "revId": "f68da4a364eb44f568da4f908e920d9c06097f82",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a639a6f_51b4f894",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1321,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-08-28T22:12:23Z",
+      "side": 1,
+      "message": "Alright, I\u0027ll leave it with the same TODO as sctp_mid_, then.",
+      "parentUuid": "ef23619f_b9bf9f5b",
+      "range": {
+        "startLine": 1321,
+        "startChar": 2,
+        "endLine": 1321,
+        "endChar": 13
+      },
+      "revId": "f68da4a364eb44f568da4f908e920d9c06097f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

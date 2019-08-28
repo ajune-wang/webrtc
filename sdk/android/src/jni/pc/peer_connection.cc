@@ -274,6 +274,13 @@ void JavaToNativeRTCConfiguration(
                                                                 j_rtc_config);
   rtc_config->crypto_options =
       JavaToNativeOptionalCryptoOptions(jni, j_crypto_options);
+
+  ScopedJavaLocalRef<jobject> j_turn_logging_id =
+      Java_RTCConfiguration_getTurnLoggingId(jni, j_rtc_config);
+  if (!IsNull(jni, j_turn_logging_id)) {
+    rtc_config->turn_logging_id =
+        JavaToNativeOptionalString(jni, j_turn_logging_id);
+  }
 }
 
 rtc::KeyType GetRtcConfigKeyType(JNIEnv* env,

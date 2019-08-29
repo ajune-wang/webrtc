@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -31,8 +32,8 @@ public class VideoFileRenderer implements VideoSink {
   private final Handler renderThreadHandler;
   private final HandlerThread fileThread;
   private final Handler fileThreadHandler;
-  private final FileOutputStream videoOutFile;
-  private final String outputFileName;
+  private final OutputStream videoOutFile;
+  private String outputFileName;
   private final int outputFileWidth;
   private final int outputFileHeight;
   private final int outputFrameSize;
@@ -43,18 +44,24 @@ public class VideoFileRenderer implements VideoSink {
 
   public VideoFileRenderer(String outputFile, int outputFileWidth, int outputFileHeight,
       final EglBase.Context sharedContext) throws IOException {
+    this(new FileOutputStream(outputFile), outputFileWidth, outputFileHeight, sharedContext);
+    this.outputFileName = outputFile;
+  }
+
+  public VideoFileRenderer(OutputStream outputStream, int outputFileWidth, int outputFileHeight,
+      final EglBase.Context sharedContext) throws IOException {
     if ((outputFileWidth % 2) == 1 || (outputFileHeight % 2) == 1) {
       throw new IllegalArgumentException("Does not support uneven width or height");
     }
 
-    this.outputFileName = outputFile;
+    this.outputFileName = "output stream";
     this.outputFileWidth = outputFileWidth;
     this.outputFileHeight = outputFileHeight;
 
     outputFrameSize = outputFileWidth * outputFileHeight * 3 / 2;
     outputFrameBuffer = ByteBuffer.allocateDirect(outputFrameSize);
 
-    videoOutFile = new FileOutputStream(outputFile);
+    videoOutFile = outputStream;
     videoOutFile.write(
         ("YUV4MPEG2 C420 W" + outputFileWidth + " H" + outputFileHeight + " Ip F30:1 A1:1\n")
             .getBytes(Charset.forName("US-ASCII")));
@@ -147,7 +154,7 @@ public class VideoFileRenderer implements VideoSink {
       try {
         videoOutFile.close();
         Logging.d(TAG,
-            "Video written to disk as " + outputFileName + ". The number of frames is " + frameCount
+            "Video written as " + outputFileName + ". The number of frames is " + frameCount
                 + " and the dimensions of the frames are " + outputFileWidth + "x"
                 + outputFileHeight + ".");
       } catch (IOException e) {

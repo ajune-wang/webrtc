@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e0e161b_b79fc39f",
+        "filename": "rtc_base/string_encode.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-29T12:51:19Z",
+      "side": 1,
+      "message": "Change this to\n\n  \u0026s[0]\n\ninstead? (That used to be UB, but C++11 made it legal.) Compared to adding an extra condition, this should be more efficient and easier to read.",
+      "range": {
+        "startLine": 96,
+        "startChar": 28,
+        "endLine": 96,
+        "endChar": 39
+      },
+      "revId": "0d38e5e5f49a8420d299fd5ebe88aa16cab8c586",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7f22548_adcc6e71",
+        "filename": "test/scenario/stats_collection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-08-29T19:23:20Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "revId": "a57c4c7eff5074d1649f51ecc19b0a13d8fb65d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

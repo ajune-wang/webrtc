@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c8109ca_556855b6",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-08-29T14:13:12Z",
+      "side": 1,
+      "message": "Why not use remove_if also here, and change the id in a second pass? (The change could be done in the predicate for extra-speed, but I wouldn\u0027t recommend it unless proven necessary).",
+      "revId": "695cfbf26b06369735757a94b9f55054155c6d92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

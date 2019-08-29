@@ -869,6 +869,8 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsNonNegative<double>(
           outbound_stream.total_packet_send_delay);
       verifier.TestMemberIsDefined(outbound_stream.quality_limitation_reason);
+      verifier.TestMemberIsNonNegative<uint64_t>(
+          outbound_stream.quality_limitation_resolution_changes);
       // The integration test is not set up to test screen share; don't require
       // this to be present.
       verifier.MarkMemberTested(outbound_stream.content_type, true);

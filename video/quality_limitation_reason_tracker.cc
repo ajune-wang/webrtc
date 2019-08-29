@@ -20,6 +20,7 @@ QualityLimitationReasonTracker::QualityLimitationReasonTracker(Clock* clock)
     : clock_(clock),
       current_reason_(QualityLimitationReason::kNone),
       current_reason_updated_timestamp_ms_(clock_->TimeInMilliseconds()),
+      resolution_changes_(0),
       durations_ms_({std::make_pair(QualityLimitationReason::kNone, 0),
                      std::make_pair(QualityLimitationReason::kCpu, 0),
                      std::make_pair(QualityLimitationReason::kBandwidth, 0),
@@ -29,7 +30,13 @@ QualityLimitationReason QualityLimitationReasonTracker::current_reason() const {
   return current_reason_;
 }
 
+uint64_t QualityLimitationReasonTracker::resolution_changes() const {
+  return resolution_changes_;
+}
+
 void QualityLimitationReasonTracker::SetReason(QualityLimitationReason reason) {
+  // Even if the reason did not change, the resolution has.
+  resolution_changes_ += 1;
   if (reason == current_reason_)
     return;
   int64_t now_ms = clock_->TimeInMilliseconds();

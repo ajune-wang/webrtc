@@ -1080,6 +1080,8 @@ TEST_F(SendStatisticsProxyTest,
 
   EXPECT_EQ(QualityLimitationReason::kCpu,
             statistics_proxy_->GetStats().quality_limitation_reason);
+  EXPECT_EQ(
+      1u, statistics_proxy_->GetStats().quality_limitation_resolution_changes);
 }
 
 TEST_F(SendStatisticsProxyTest,
@@ -1095,6 +1097,8 @@ TEST_F(SendStatisticsProxyTest,
 
   EXPECT_EQ(QualityLimitationReason::kCpu,
             statistics_proxy_->GetStats().quality_limitation_reason);
+  EXPECT_EQ(
+      1u, statistics_proxy_->GetStats().quality_limitation_resolution_changes);
 }
 
 TEST_F(SendStatisticsProxyTest,
@@ -1110,6 +1114,8 @@ TEST_F(SendStatisticsProxyTest,
 
   EXPECT_EQ(QualityLimitationReason::kBandwidth,
             statistics_proxy_->GetStats().quality_limitation_reason);
+  EXPECT_EQ(
+      1u, statistics_proxy_->GetStats().quality_limitation_resolution_changes);
 }
 
 TEST_F(SendStatisticsProxyTest,
@@ -1125,6 +1131,8 @@ TEST_F(SendStatisticsProxyTest,
 
   EXPECT_EQ(QualityLimitationReason::kBandwidth,
             statistics_proxy_->GetStats().quality_limitation_reason);
+  EXPECT_EQ(
+      1u, statistics_proxy_->GetStats().quality_limitation_resolution_changes);
 }
 
 TEST_F(SendStatisticsProxyTest,
@@ -1143,6 +1151,8 @@ TEST_F(SendStatisticsProxyTest,
 
   EXPECT_EQ(QualityLimitationReason::kBandwidth,
             statistics_proxy_->GetStats().quality_limitation_reason);
+  EXPECT_EQ(
+      1u, statistics_proxy_->GetStats().quality_limitation_resolution_changes);
 }
 
 TEST_F(SendStatisticsProxyTest, QualityLimitationReasonIsNoneWhenNotLimited) {
@@ -1163,6 +1173,8 @@ TEST_F(SendStatisticsProxyTest, QualityLimitationReasonIsNoneWhenNotLimited) {
 
   EXPECT_EQ(QualityLimitationReason::kNone,
             statistics_proxy_->GetStats().quality_limitation_reason);
+  EXPECT_EQ(
+      2u, statistics_proxy_->GetStats().quality_limitation_resolution_changes);
 }
 
 TEST_F(SendStatisticsProxyTest, QualityLimitationDurationIncreasesWithTime) {
@@ -1204,6 +1216,8 @@ TEST_F(SendStatisticsProxyTest, QualityLimitationDurationIncreasesWithTime) {
       quality_limitation_durations_ms[QualityLimitationReason::kBandwidth]);
   EXPECT_EQ(0,
             quality_limitation_durations_ms[QualityLimitationReason::kOther]);
+  EXPECT_EQ(
+      3u, statistics_proxy_->GetStats().quality_limitation_resolution_changes);
 }
 
 TEST_F(SendStatisticsProxyTest, SwitchContentTypeUpdatesHistograms) {

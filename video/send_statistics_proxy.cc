@@ -1100,6 +1100,8 @@ void SendStatisticsProxy::UpdateAdaptationStats(
   stats_.bw_limited_framerate = quality_counts.num_framerate_reductions > 0;
   stats_.quality_limitation_reason =
       quality_limitation_reason_tracker_.current_reason();
+  stats_.quality_limitation_resolution_changes =
+      quality_limitation_reason_tracker_.resolution_changes();
   // |stats_.quality_limitation_durations_ms| depends on the current time
   // when it is polled; it is updated in SendStatisticsProxy::GetStats().
 }

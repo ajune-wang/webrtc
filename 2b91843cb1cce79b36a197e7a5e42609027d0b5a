@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a427910c_129a6c93",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-29T17:34:07Z",
+      "side": 1,
+      "message": "nit.: \u003c\u003c not needed, \"aa\" \"bb\" is concatenated to \"aabb\".\n\nNote that this is a bit redundant since we will get a warning from the parser either way. It will specify the reason somewhat though.",
+      "range": {
+        "startLine": 128,
+        "startChar": 23,
+        "endLine": 128,
+        "endChar": 26
+      },
+      "revId": "2b91843cb1cce79b36a197e7a5e42609027d0b5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dedaa51_9234995f",
+        "filename": "rtc_base/experiments/struct_parameters_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-29T17:34:07Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 20
+      },
+      "revId": "2b91843cb1cce79b36a197e7a5e42609027d0b5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

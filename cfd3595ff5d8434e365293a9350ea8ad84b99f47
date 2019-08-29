@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94f38fa7_91b76c4e",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2268,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-29T06:48:17Z",
+      "side": 1,
+      "message": "nit: The sample rate parameters are in a different order than the channel count parameters.\n\nrender in\nrender out\ncapture in\ncapture out\n\n\nvs \n\n\nrender in\ncapture in\nrender out\ncapture out\n\n\nIs this intended? Change to render render capture capture and it will be aligned with the rest of the function.",
+      "range": {
+        "startLine": 2261,
+        "startChar": 0,
+        "endLine": 2268,
+        "endChar": 66
+      },
+      "revId": "cfd3595ff5d8434e365293a9350ea8ad84b99f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

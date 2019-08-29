@@ -48,6 +48,9 @@ class EchoControl {
 class EchoControlFactory {
  public:
   virtual std::unique_ptr<EchoControl> Create(int sample_rate_hz) = 0;
+  virtual std::unique_ptr<EchoControl> Create(int sample_rate_hz,
+                                              size_t num_render_channels,
+                                              size_t num_capture_channels) = 0;
   virtual ~EchoControlFactory() = default;
 };
 }  // namespace webrtc

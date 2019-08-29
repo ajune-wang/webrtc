@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fddeba6e_06232cc4",
+        "filename": "rtc_base/experiments/bwe_ignore_small_packets_settings.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-29T10:55:14Z",
+      "side": 1,
+      "message": "Make this a struct and skip the getters.\n \nPreferably, also use the StructParametersParser and a simple POD struct.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 5
+      },
+      "revId": "25f0c15956b8f16ae864a6e26e4336c18d706e83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62c6a598_fc0363c6",
+        "filename": "rtc_base/experiments/bwe_ignore_small_packets_settings.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-29T10:55:14Z",
+      "side": 1,
+      "message": "Move this to trenadline_estimator.h",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 35
+      },
+      "revId": "25f0c15956b8f16ae864a6e26e4336c18d706e83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

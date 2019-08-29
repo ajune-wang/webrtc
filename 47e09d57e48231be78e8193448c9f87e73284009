@@ -16,6 +16,24 @@
       "revId": "47e09d57e48231be78e8193448c9f87e73284009",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4aa9a8a9_4acaf4a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-08-29T13:23:56Z",
+      "side": 1,
+      "message": "You are right. I have changed the CL description.",
+      "parentUuid": "7204528e_cac23483",
+      "revId": "47e09d57e48231be78e8193448c9f87e73284009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

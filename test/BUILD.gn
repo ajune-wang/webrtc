@@ -132,10 +132,13 @@ rtc_source_set("rtp_test_utils") {
     "rtp_file_reader.h",
     "rtp_file_writer.cc",
     "rtp_file_writer.h",
+    "rtp_header_parser.cc",
+    "rtp_header_parser.h",
   ]
 
   deps = [
     "../api:array_view",
+    "../api:libjingle_peerconnection_api",
     "../modules/rtp_rtcp",
     "../modules/rtp_rtcp:rtp_rtcp_format",
     "../rtc_base:checks",
@@ -598,6 +601,7 @@ rtc_source_set("direct_transport") {
     "direct_transport.h",
   ]
   deps = [
+    ":rtp_test_utils",
     "../api:simulated_network_api",
     "../api:transport_api",
     "../call:call_interfaces",

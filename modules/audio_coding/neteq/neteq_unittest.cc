@@ -93,7 +93,6 @@ void Convert(const webrtc::NetEqNetworkStatistics& stats_raw,
   stats->set_accelerate_rate(stats_raw.accelerate_rate);
   stats->set_secondary_decoded_rate(stats_raw.secondary_decoded_rate);
   stats->set_secondary_discarded_rate(stats_raw.secondary_discarded_rate);
-  stats->set_clockdrift_ppm(stats_raw.clockdrift_ppm);
   stats->set_added_zero_samples(stats_raw.added_zero_samples);
   stats->set_mean_waiting_time_ms(stats_raw.mean_waiting_time_ms);
   stats->set_median_waiting_time_ms(stats_raw.median_waiting_time_ms);
@@ -581,62 +580,6 @@ TEST_F(NetEqDecodingTestFaxMode, TestFrameWaitingTimeStatistics) {
   EXPECT_EQ(-1, stats.median_waiting_time_ms);
   EXPECT_EQ(-1, stats.min_waiting_time_ms);
   EXPECT_EQ(-1, stats.max_waiting_time_ms);
-}
-
-TEST_F(NetEqDecodingTest, TestAverageInterArrivalTimeNegative) {
-  const int kNumFrames = 3000;  // Needed for convergence.
-  int frame_index = 0;
-  const size_t kSamples = 10 * 16;
-  const size_t kPayloadBytes = kSamples * 2;
-  while (frame_index < kNumFrames) {
-    // Insert one packet each time, except every 10th time where we insert two
-    // packets at once. This will create a negative clock-drift of approx. 10%.
-    int num_packets = (frame_index % 10 == 0 ? 2 : 1);
-    for (int n = 0; n < num_packets; ++n) {
-      uint8_t payload[kPayloadBytes] = {0};
-      RTPHeader rtp_info;
-      PopulateRtpInfo(frame_index, frame_index * kSamples, &rtp_info);
-      ASSERT_EQ(0, neteq_->InsertPacket(rtp_info, payload, 0));
-      ++frame_index;
-    }
-
-    // Pull out data once.
-    bool muted;
-    ASSERT_EQ(0, neteq_->GetAudio(&out_frame_, &muted));
-    ASSERT_EQ(kBlockSize16kHz, out_frame_.samples_per_channel_);
-  }
-
-  NetEqNetworkStatistics network_stats;
-  ASSERT_EQ(0, neteq_->NetworkStatistics(&network_stats));
-  EXPECT_EQ(-103192, network_stats.clockdrift_ppm);
-}
-
-TEST_F(NetEqDecodingTest, TestAverageInterArrivalTimePositive) {
-  const int kNumFrames = 5000;  // Needed for convergence.
-  int frame_index = 0;
-  const size_t kSamples = 10 * 16;
-  const size_t kPayloadBytes = kSamples * 2;
-  for (int i = 0; i < kNumFrames; ++i) {
-    // Insert one packet each time, except every 10th time where we don't insert
-    // any packet. This will create a positive clock-drift of approx. 11%.
-    int num_packets = (i % 10 == 9 ? 0 : 1);
-    for (int n = 0; n < num_packets; ++n) {
-      uint8_t payload[kPayloadBytes] = {0};
-      RTPHeader rtp_info;
-      PopulateRtpInfo(frame_index, frame_index * kSamples, &rtp_info);
-      ASSERT_EQ(0, neteq_->InsertPacket(rtp_info, payload, 0));
-      ++frame_index;
-    }
-
-    // Pull out data once.
-    bool muted;
-    ASSERT_EQ(0, neteq_->GetAudio(&out_frame_, &muted));
-    ASSERT_EQ(kBlockSize16kHz, out_frame_.samples_per_channel_);
-  }
-
-  NetEqNetworkStatistics network_stats;
-  ASSERT_EQ(0, neteq_->NetworkStatistics(&network_stats));
-  EXPECT_EQ(110953, network_stats.clockdrift_ppm);
 }
 
 void NetEqDecodingTest::LongCngWithClockDrift(double drift_factor,

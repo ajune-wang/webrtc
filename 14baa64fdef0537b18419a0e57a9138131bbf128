@@ -45,6 +45,52 @@
       "revId": "14baa64fdef0537b18419a0e57a9138131bbf128",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cddd35c3_4c45f8a1",
+        "filename": "p2p/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-08-29T14:24:54Z",
+      "side": 1,
+      "message": "Well, these are actually stun types from RFC5389 so the name SGTM. Another idea is stun_base.",
+      "range": {
+        "startLine": 18,
+        "startChar": 16,
+        "endLine": 18,
+        "endChar": 26
+      },
+      "revId": "14baa64fdef0537b18419a0e57a9138131bbf128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5e85760_3aa2e3d2",
+        "filename": "p2p/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-08-29T14:24:54Z",
+      "side": 1,
+      "message": "Is this needed?\n\nI see some forward declarations in api/ to avoid to take a dependency. We should remove them indeed but maybe we can avoid the public visibility in the meantime?",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "14baa64fdef0537b18419a0e57a9138131bbf128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

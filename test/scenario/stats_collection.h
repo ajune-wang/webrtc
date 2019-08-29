@@ -15,16 +15,12 @@
 
 #include "absl/types/optional.h"
 #include "call/call.h"
+#include "rtc_base/race_checker.h"
 #include "test/logging/log_writer.h"
 #include "test/scenario/performance_stats.h"
 
 namespace webrtc {
 namespace test {
-
-struct VideoQualityAnalyzerConfig {
-  double psnr_coverage = 1;
-  rtc::Thread* thread = nullptr;
-};
 
 class VideoLayerAnalyzer {
  public:
@@ -40,25 +36,29 @@ class VideoLayerAnalyzer {
   int skip_count_ = 0;
 };
 
+// Instance of this class is constructed on the test thread, then modified
+// during the test scenario at the thread that runs the intended test scenario
+// and then again read after the test scenario has finished referencing this
+// instance.
 class VideoQualityAnalyzer {
  public:
   explicit VideoQualityAnalyzer(
-      VideoQualityAnalyzerConfig config = VideoQualityAnalyzerConfig(),
       std::unique_ptr<RtcEventLogOutput> writer = nullptr);
   ~VideoQualityAnalyzer();
   void HandleFramePair(VideoFramePair sample);
   std::vector<VideoQualityStats> layer_stats() const;
-  VideoQualityStats& stats();
+  VideoQualityStats stats() const;
   void PrintHeaders();
   void PrintFrameInfo(const VideoFramePair& sample);
   std::function<void(const VideoFramePair&)> Handler();
 
  private:
   void HandleFramePair(VideoFramePair sample, double psnr);
-  const VideoQualityAnalyzerConfig config_;
-  std::map<int, VideoLayerAnalyzer> layer_analyzers_;
-  const std::unique_ptr<RtcEventLogOutput> writer_;
-  absl::optional<VideoQualityStats> cached_;
+  std::map<int, VideoLayerAnalyzer> layer_analyzers_
+      RTC_GUARDED_BY(race_checker_);
+  const std::unique_ptr<RtcEventLogOutput> writer_
+      RTC_GUARDED_BY(race_checker_);
+  rtc::RaceChecker race_checker_;
 };
 
 class CallStatsCollector {

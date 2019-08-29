@@ -17,9 +17,8 @@ namespace webrtc {
 namespace test {
 
 VideoQualityAnalyzer::VideoQualityAnalyzer(
-    VideoQualityAnalyzerConfig config,
     std::unique_ptr<RtcEventLogOutput> writer)
-    : config_(config), writer_(std::move(writer)) {
+    : writer_(std::move(writer)) {
   if (writer_) {
     PrintHeaders();
   }
@@ -28,6 +27,7 @@ VideoQualityAnalyzer::VideoQualityAnalyzer(
 VideoQualityAnalyzer::~VideoQualityAnalyzer() = default;
 
 void VideoQualityAnalyzer::PrintHeaders() {
+  RTC_DCHECK_RUNS_SERIALIZED(&race_checker_);
   writer_->Write(
       "capture_time render_time capture_width capture_height render_width "
       "render_height psnr\n");
@@ -38,39 +38,33 @@ std::function<void(const VideoFramePair&)> VideoQualityAnalyzer::Handler() {
 }
 
 void VideoQualityAnalyzer::HandleFramePair(VideoFramePair sample, double psnr) {
+  RTC_DCHECK_RUNS_SERIALIZED(&race_checker_);
   layer_analyzers_[sample.layer_id].HandleFramePair(sample, psnr,
                                                     writer_.get());
-  cached_.reset();
 }
 
 void VideoQualityAnalyzer::HandleFramePair(VideoFramePair sample) {
+  RTC_DCHECK_RUNS_SERIALIZED(&race_checker_);
   double psnr = NAN;
   if (sample.decoded)
     psnr = I420PSNR(*sample.captured->ToI420(), *sample.decoded->ToI420());
-
-  if (config_.thread) {
-    config_.thread->PostTask(RTC_FROM_HERE, [this, sample, psnr] {
-      HandleFramePair(std::move(sample), psnr);
-    });
-  } else {
-    HandleFramePair(std::move(sample), psnr);
-  }
+  HandleFramePair(std::move(sample), psnr);
 }
 
 std::vector<VideoQualityStats> VideoQualityAnalyzer::layer_stats() const {
+  RTC_DCHECK_RUNS_SERIALIZED(&race_checker_);
   std::vector<VideoQualityStats> res;
   for (auto& layer : layer_analyzers_)
     res.push_back(layer.second.stats_);
   return res;
 }
 
-VideoQualityStats& VideoQualityAnalyzer::stats() {
-  if (!cached_) {
-    cached_ = VideoQualityStats();
-    for (auto& layer : layer_analyzers_)
-      cached_->AddStats(layer.second.stats_);
-  }
-  return *cached_;
+VideoQualityStats VideoQualityAnalyzer::stats() const {
+  RTC_DCHECK_RUNS_SERIALIZED(&race_checker_);
+  VideoQualityStats stats;
+  for (auto& layer : layer_analyzers_)
+    stats.AddStats(layer.second.stats_);
+  return stats;
 }
 
 void VideoLayerAnalyzer::HandleFramePair(VideoFramePair sample,

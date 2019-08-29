@@ -95,17 +95,16 @@ void SetupVideoCall(Scenario& s, VideoQualityAnalyzer* analyzer) {
 #define MAYBE_SimTimeEncoding SimTimeEncoding
 #endif
 TEST(ScenarioTest, MAYBE_SimTimeEncoding) {
-  VideoQualityAnalyzerConfig analyzer_config;
-  analyzer_config.psnr_coverage = 0.1;
-  VideoQualityAnalyzer analyzer(analyzer_config);
+  VideoQualityAnalyzer analyzer;
   {
     Scenario s("scenario/encode_sim", false);
     SetupVideoCall(s, &analyzer);
     s.RunFor(TimeDelta::seconds(60));
   }
   // Regression tests based on previous runs.
-  EXPECT_EQ(analyzer.stats().lost_count, 0);
-  EXPECT_NEAR(analyzer.stats().psnr_with_freeze.Mean(), 38, 2);
+  auto stats = analyzer.stats();
+  EXPECT_EQ(stats.lost_count, 0);
+  EXPECT_NEAR(stats.psnr_with_freeze.Mean(), 38, 2);
 }
 
 // TODO(bugs.webrtc.org/10515): Remove this when performance has been improved.
@@ -115,17 +114,16 @@ TEST(ScenarioTest, MAYBE_SimTimeEncoding) {
 #define MAYBE_RealTimeEncoding RealTimeEncoding
 #endif
 TEST(ScenarioTest, MAYBE_RealTimeEncoding) {
-  VideoQualityAnalyzerConfig analyzer_config;
-  analyzer_config.psnr_coverage = 0.1;
-  VideoQualityAnalyzer analyzer(analyzer_config);
+  VideoQualityAnalyzer analyzer;
   {
     Scenario s("scenario/encode_real", true);
     SetupVideoCall(s, &analyzer);
     s.RunFor(TimeDelta::seconds(10));
   }
   // Regression tests based on previous runs.
-  EXPECT_LT(analyzer.stats().lost_count, 2);
-  EXPECT_NEAR(analyzer.stats().psnr_with_freeze.Mean(), 38, 10);
+  auto stats = analyzer.stats();
+  EXPECT_LT(stats.lost_count, 2);
+  EXPECT_NEAR(stats.psnr_with_freeze.Mean(), 38, 10);
 }
 
 TEST(ScenarioTest, SimTimeFakeing) {

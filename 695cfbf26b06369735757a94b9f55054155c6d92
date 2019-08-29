@@ -16,6 +16,24 @@
       "revId": "695cfbf26b06369735757a94b9f55054155c6d92",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01b8c9fa_ae693fa1",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 8783
+      },
+      "writtenOn": "2019-08-29T14:32:08Z",
+      "side": 1,
+      "message": "1) It\u0027s more ugly when preserving the comments the original author wanted\n2) it needs another for-each pass for the assignment\n3) it\u0027s a bigger diff\n4) The pattern of modifying iterator in for loop exists in 100s of places through out the codebase already (not always using erase+removeif)\n\n(had this but then reverted to the original structure)",
+      "parentUuid": "1c8109ca_556855b6",
+      "revId": "695cfbf26b06369735757a94b9f55054155c6d92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

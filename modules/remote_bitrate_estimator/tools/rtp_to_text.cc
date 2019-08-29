@@ -13,10 +13,10 @@
 #include <memory>
 
 #include "modules/remote_bitrate_estimator/tools/bwe_rtp.h"
-#include "modules/rtp_rtcp/include/rtp_header_parser.h"
 #include "rtc_base/format_macros.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/rtp_file_reader.h"
+#include "test/rtp_header_parser.h"
 
 int main(int argc, char* argv[]) {
   webrtc::test::RtpFileReader* reader;

@@ -29,6 +29,7 @@
 #include "modules/audio_mixer/audio_mixer_impl.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/thread.h"
 #include "rtc_base/thread_annotations.h"
 #include "system_wrappers/include/metrics.h"
 #include "test/call_test.h"

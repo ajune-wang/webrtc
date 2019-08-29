@@ -69,6 +69,7 @@ struct D {
 };
 struct E : public D {
   int Release();
+  bool HasOneRef();
 };
 struct F {
   void AddRef();
@@ -79,6 +80,7 @@ struct LifeTimeCheck {
   LifeTimeCheck() : ref_count_(0) {}
   void AddRef() { ++ref_count_; }
   void Release() { --ref_count_; }
+  bool HasOneRef() { return ref_count_ == 1; }
   void NullaryVoid() {}
   int ref_count_;
 };

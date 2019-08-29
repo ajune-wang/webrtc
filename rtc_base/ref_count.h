@@ -55,6 +55,7 @@ class RefCountInterface {
  public:
   virtual void AddRef() const = 0;
   virtual RefCountReleaseStatus Release() const = 0;
+  virtual bool HasOneRef() const = 0;
 
   // Non-public destructor, because Release() has exclusive responsibility for
   // destroying the object.

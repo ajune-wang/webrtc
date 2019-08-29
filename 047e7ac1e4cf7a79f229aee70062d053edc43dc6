@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "363f116e_85e5a793",
+        "filename": "modules/audio_coding/neteq/tools/packet.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-08-29T13:31:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef746a0d_d5797df3",
+      "range": {
+        "startLine": 32,
+        "startChar": 5,
+        "endLine": 32,
+        "endChar": 18
+      },
+      "revId": "047e7ac1e4cf7a79f229aee70062d053edc43dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04c7c3d7_c63df89b",
         "filename": "modules/audio_coding/neteq/tools/packet.h",
         "patchSetId": 9
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0fd68d7a_9a9fcbab",
+        "filename": "modules/audio_coding/neteq/tools/packet.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-08-29T13:31:31Z",
+      "side": 1,
+      "message": "it was kind of pulling its weight but I made this a little bit more consistent now and have the default implicit values here for variables that don\u0027t get their values assigned via parameters.\n\nAlso made a couple of member variables const that don\u0027t need to be writable.",
+      "parentUuid": "04c7c3d7_c63df89b",
+      "range": {
+        "startLine": 106,
+        "startChar": 36,
+        "endLine": 106,
+        "endChar": 39
+      },
+      "revId": "047e7ac1e4cf7a79f229aee70062d053edc43dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "786f6280_7010ab08",
         "filename": "modules/audio_coding/neteq/tools/rtp_file_source.cc",
         "patchSetId": 9
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "714d7681_be899b44",
+        "filename": "modules/audio_coding/neteq/tools/rtp_file_source.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-08-29T13:31:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "786f6280_7010ab08",
+      "revId": "047e7ac1e4cf7a79f229aee70062d053edc43dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72a5fd2d_16520d99",
         "filename": "test/rtp_header_parser.cc",
         "patchSetId": 9
@@ -79,6 +145,24 @@
       "revId": "047e7ac1e4cf7a79f229aee70062d053edc43dc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30f80433_ba15a4da",
+        "filename": "test/rtp_header_parser.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-08-29T13:31:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72a5fd2d_16520d99",
+      "revId": "047e7ac1e4cf7a79f229aee70062d053edc43dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

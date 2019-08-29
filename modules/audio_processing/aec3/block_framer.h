@@ -15,7 +15,6 @@
 
 #include "api/array_view.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
-#include "rtc_base/constructor_magic.h"
 
 namespace webrtc {
 
@@ -27,20 +26,22 @@ namespace webrtc {
 // overrun if any other rate of packets insertion is used.
 class BlockFramer {
  public:
-  explicit BlockFramer(size_t num_bands);
+  BlockFramer(size_t num_bands, size_t num_channels);
   ~BlockFramer();
+  BlockFramer(const BlockFramer&) = delete;
+  BlockFramer& operator=(const BlockFramer&) = delete;
+
   // Adds a 64 sample block into the data that will form the next output frame.
-  void InsertBlock(const std::vector<std::vector<float>>& block);
+  void InsertBlock(const std::vector<std::vector<std::vector<float>>>& block);
   // Adds a 64 sample block and extracts an 80 sample subframe.
   void InsertBlockAndExtractSubFrame(
-      const std::vector<std::vector<float>>& block,
-      std::vector<rtc::ArrayView<float>>* sub_frame);
+      const std::vector<std::vector<std::vector<float>>>& block,
+      std::vector<std::vector<rtc::ArrayView<float>>>* sub_frame);
 
  private:
   const size_t num_bands_;
-  std::vector<std::vector<float>> buffer_;
-
-  RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(BlockFramer);
+  const size_t num_channels_;
+  std::vector<std::vector<std::vector<float>>> buffer_;
 };
 }  // namespace webrtc
 

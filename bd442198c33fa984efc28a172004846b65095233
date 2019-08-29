@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "b049340e_36faaba1",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2019-08-29T03:32:38Z",
+      "side": 1,
+      "message": "nit: same as SelectSource(): this function would be more readable if use_randr_ was handled first.",
+      "range": {
+        "startLine": 264,
+        "startChar": 2,
+        "endLine": 264,
+        "endChar": 10
+      },
+      "revId": "bd442198c33fa984efc28a172004846b65095233",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf3f9c6c_eed46f07",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2019-08-29T03:32:38Z",
+      "side": 1,
+      "message": "nit: don\u0027t use else after return please. I suggest handling !use_randr_ case first, i.e.:\n\n if (!use_ranrd) {\n   ..\n   return true;\n }\n \n for (...) {\n   ...\n }\n return false;",
+      "range": {
+        "startLine": 283,
+        "startChar": 3,
+        "endLine": 283,
+        "endChar": 9
+      },
+      "revId": "bd442198c33fa984efc28a172004846b65095233",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e880c88_f4964c5d",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2019-08-29T03:32:38Z",
+      "side": 1,
+      "message": "Update this comment please. Or maybe just remove it since the code is readable as is",
+      "range": {
+        "startLine": 346,
+        "startChar": 4,
+        "endLine": 348,
+        "endChar": 19
+      },
+      "revId": "bd442198c33fa984efc28a172004846b65095233",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "596c4c33_a78c3eec",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2019-08-29T03:32:38Z",
+      "side": 1,
+      "message": "add {} please since the condition no longer fits one line",
+      "range": {
+        "startLine": 361,
+        "startChar": 6,
+        "endLine": 361,
+        "endChar": 21
+      },
+      "revId": "bd442198c33fa984efc28a172004846b65095233",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb748ead_e44d9e42",
         "filename": "modules/desktop_capture/linux/x_server_pixel_buffer.cc",
         "patchSetId": 5

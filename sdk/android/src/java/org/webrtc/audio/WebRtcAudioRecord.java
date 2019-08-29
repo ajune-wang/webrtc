@@ -10,10 +10,12 @@
 
 package org.webrtc.audio;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
+import android.media.AudioRecordingConfiguration;
 import android.media.MediaRecorder.AudioSource;
 import android.os.Build;
 import android.os.Process;
@@ -21,6 +23,7 @@ import android.support.annotation.Nullable;
 import java.lang.System;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.webrtc.CalledByNative;
 import org.webrtc.Logging;
@@ -170,6 +173,7 @@ class WebRtcAudioRecord {
     this.audioSamplesReadyCallback = audioSamplesReadyCallback;
     this.isAcousticEchoCancelerSupported = isAcousticEchoCancelerSupported;
     this.isNoiseSuppressorSupported = isNoiseSuppressorSupported;
+    Logging.d(TAG, "ctor" + WebRtcAudioUtils.getThreadInfo());
   }
 
   @CalledByNative
@@ -252,6 +256,7 @@ class WebRtcAudioRecord {
     effects.enable(audioRecord.getAudioSessionId());
     logMainParameters();
     logMainParametersExtended();
+    logRecordingConfigurations();
     return framesPerBuffer;
   }
 
@@ -301,13 +306,26 @@ class WebRtcAudioRecord {
             + "sample rate: " + audioRecord.getSampleRate());
   }
 
+  @TargetApi(Build.VERSION_CODES.M)
   private void logMainParametersExtended() {
-    if (Build.VERSION.SDK_INT >= 23) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       Logging.d(TAG,
           "AudioRecord: "
               // The frame count of the native AudioRecord buffer.
               + "buffer size in frames: " + audioRecord.getBufferSizeInFrames());
     }
+  }
+
+  @TargetApi(Build.VERSION_CODES.N)
+  private void logRecordingConfigurations() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+      return;
+    }
+    // Returns the current active audio recording configurations of the device.
+    // A non-null list of recording configurations. An empty list indicates there is no recording
+    // active when queried.
+    List<AudioRecordingConfiguration> configs = audioManager.getActiveRecordingConfigurations();
+    Logging.d(TAG, "Number of active recording sessions: " + configs.size());
   }
 
   // Helper method which throws an exception  when an assertion has failed.

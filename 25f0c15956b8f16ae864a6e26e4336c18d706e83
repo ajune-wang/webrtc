@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "cbfc3e55_bfb8f743",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-29T10:58:59Z",
+      "side": 1,
+      "message": "Add some explanation on why this is done.",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 15
+      },
+      "revId": "25f0c15956b8f16ae864a6e26e4336c18d706e83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83ffa453_b34ef63b",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-29T10:58:59Z",
+      "side": 1,
+      "message": "I suggest making these tunable as well.",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 130,
+        "endChar": 11
+      },
+      "revId": "25f0c15956b8f16ae864a6e26e4336c18d706e83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fddeba6e_06232cc4",
         "filename": "rtc_base/experiments/bwe_ignore_small_packets_settings.h",
         "patchSetId": 3

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "233cc640_6a23f48a",
+        "filename": "test/scenario/stats_collection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-08-29T13:57:57Z",
+      "side": 1,
+      "message": "Less convinced by this change:\n* Irrelevant to the issue at hand.\n* Now the API is slightly different from the other *StatsCollector.",
+      "revId": "8a68cb13edc7ed457f63ba0c029ab389c2a5fee8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e70bccd1_38dbfbe0",
+        "filename": "test/scenario/stats_collection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-08-29T13:57:57Z",
+      "side": 1,
+      "message": "You don\u0027t use that anymore. But as said above, maybe you should!",
+      "revId": "8a68cb13edc7ed457f63ba0c029ab389c2a5fee8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

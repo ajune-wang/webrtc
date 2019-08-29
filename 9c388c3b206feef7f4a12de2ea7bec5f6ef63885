@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8ae9f08_efda4518",
+        "filename": "modules/audio_device/android/audio_track_jni.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-08-29T08:32:53Z",
+      "side": 1,
+      "message": "Is this check safe? It is not 100% clear to me that an inactive experiment will result in a scale factor of 1.0.",
+      "revId": "9c388c3b206feef7f4a12de2ea7bec5f6ef63885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4454da9a_c1bb826f",
+        "filename": "modules/audio_device/android/audio_track_jni.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-08-29T08:32:53Z",
+      "side": 1,
+      "message": "1.0?",
+      "revId": "9c388c3b206feef7f4a12de2ea7bec5f6ef63885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb6b96fc_7f275a84",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-08-29T08:32:53Z",
+      "side": 1,
+      "message": "bufferSizeFactor",
+      "range": {
+        "startLine": 185,
+        "startChar": 67,
+        "endLine": 185,
+        "endChar": 79
+      },
+      "revId": "9c388c3b206feef7f4a12de2ea7bec5f6ef63885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e7b43a3_3f980d3b",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-08-29T08:32:53Z",
+      "side": 1,
+      "message": "Odd indentation. Is it really according to the style guide? Java lines are 100, can\u0027t you use all of it and then add remaining parts on one extra line. Does not look OK as is.",
+      "revId": "9c388c3b206feef7f4a12de2ea7bec5f6ef63885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd044598_6672b713",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-08-29T08:32:53Z",
+      "side": 1,
+      "message": "Style looks odd here as well. Also, have you verified that rounding is OK?",
+      "range": {
+        "startLine": 210,
+        "startChar": 8,
+        "endLine": 210,
+        "endChar": 9
+      },
+      "revId": "9c388c3b206feef7f4a12de2ea7bec5f6ef63885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ab57ab3_7164a9b0",
+        "filename": "sdk/android/src/jni/audio_device/audio_track_jni.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-08-29T08:32:53Z",
+      "side": 1,
+      "message": "I would use buffer_size_factor",
+      "range": {
+        "startLine": 85,
+        "startChar": 9,
+        "endLine": 85,
+        "endChar": 22
+      },
+      "revId": "9c388c3b206feef7f4a12de2ea7bec5f6ef63885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

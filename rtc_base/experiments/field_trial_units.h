@@ -24,6 +24,16 @@ absl::optional<DataSize> ParseTypedParameter<DataSize>(std::string str);
 template <>
 absl::optional<TimeDelta> ParseTypedParameter<TimeDelta>(std::string str);
 
+template <>
+absl::optional<absl::optional<DataRate>>
+ParseTypedParameter<absl::optional<DataRate>>(std::string str);
+template <>
+absl::optional<absl::optional<DataSize>>
+ParseTypedParameter<absl::optional<DataSize>>(std::string str);
+template <>
+absl::optional<absl::optional<TimeDelta>>
+ParseTypedParameter<absl::optional<TimeDelta>>(std::string str);
+
 extern template class FieldTrialParameter<DataRate>;
 extern template class FieldTrialParameter<DataSize>;
 extern template class FieldTrialParameter<TimeDelta>;
@@ -32,9 +42,9 @@ extern template class FieldTrialConstrained<DataRate>;
 extern template class FieldTrialConstrained<DataSize>;
 extern template class FieldTrialConstrained<TimeDelta>;
 
-extern template class FieldTrialOptional<DataRate>;
-extern template class FieldTrialOptional<DataSize>;
-extern template class FieldTrialOptional<TimeDelta>;
+extern template class FieldTrialParameter<absl::optional<DataRate>>;
+extern template class FieldTrialParameter<absl::optional<DataSize>>;
+extern template class FieldTrialParameter<absl::optional<TimeDelta>>;
 }  // namespace webrtc
 
 #endif  // RTC_BASE_EXPERIMENTS_FIELD_TRIAL_UNITS_H_

@@ -50,7 +50,7 @@ class FieldTrialParameterInterface {
       std::initializer_list<FieldTrialParameterInterface*> fields,
       std::string raw_string);
   void MarkAsUsed() { used_ = true; }
-  virtual bool Parse(absl::optional<std::string> str_value) = 0;
+  virtual bool Parse(std::string str_value) = 0;
 
   virtual void ParseDone() {}
 
@@ -79,20 +79,18 @@ class FieldTrialParameter : public FieldTrialParameterInterface {
  public:
   FieldTrialParameter(std::string key, T default_value)
       : FieldTrialParameterInterface(key), value_(default_value) {}
-  T Get() const { return value_; }
+  const T& Get() const { return value_; }
   operator T() const { return Get(); }
   const T* operator->() const { return &value_; }
 
   void SetForTest(T value) { value_ = value; }
 
  protected:
-  bool Parse(absl::optional<std::string> str_value) override {
-    if (str_value) {
-      absl::optional<T> value = ParseTypedParameter<T>(*str_value);
-      if (value.has_value()) {
-        value_ = value.value();
-        return true;
-      }
+  bool Parse(std::string str_value) override {
+    absl::optional<T> value = ParseTypedParameter<T>(str_value);
+    if (value.has_value()) {
+      value_ = value.value();
+      return true;
     }
     return false;
   }
@@ -120,14 +118,12 @@ class FieldTrialConstrained : public FieldTrialParameterInterface {
   const T* operator->() const { return &value_; }
 
  protected:
-  bool Parse(absl::optional<std::string> str_value) override {
-    if (str_value) {
-      absl::optional<T> value = ParseTypedParameter<T>(*str_value);
-      if (value && (!lower_limit_ || *value >= *lower_limit_) &&
-          (!upper_limit_ || *value <= *upper_limit_)) {
-        value_ = *value;
-        return true;
-      }
+  bool Parse(std::string str_value) override {
+    absl::optional<T> value = ParseTypedParameter<T>(str_value);
+    if (value && (!lower_limit_ || *value >= *lower_limit_) &&
+        (!upper_limit_ || *value <= *upper_limit_)) {
+      value_ = *value;
+      return true;
     }
     return false;
   }
@@ -147,7 +143,7 @@ class AbstractFieldTrialEnum : public FieldTrialParameterInterface {
   AbstractFieldTrialEnum(const AbstractFieldTrialEnum&);
 
  protected:
-  bool Parse(absl::optional<std::string> str_value) override;
+  bool Parse(std::string str_value) override;
 
  protected:
   int value_;
@@ -182,50 +178,28 @@ class FieldTrialEnum : public AbstractFieldTrialEnum {
 // This class uses the ParseTypedParameter function to implement an optional
 // parameter implementation that can default to absl::nullopt.
 template <typename T>
-class FieldTrialOptional : public FieldTrialParameterInterface {
+class FieldTrialOptional : public FieldTrialParameter<absl::optional<T>> {
  public:
+  using FieldTrialParameter<absl::optional<T>>::FieldTrialParameter;
   explicit FieldTrialOptional(std::string key)
-      : FieldTrialParameterInterface(key) {}
-  FieldTrialOptional(std::string key, absl::optional<T> default_value)
-      : FieldTrialParameterInterface(key), value_(default_value) {}
-  absl::optional<T> GetOptional() const { return value_; }
-  const T& Value() const { return value_.value(); }
-  const T& operator*() const { return value_.value(); }
-  const T* operator->() const { return &value_.value(); }
-  explicit operator bool() const { return value_.has_value(); }
-
- protected:
-  bool Parse(absl::optional<std::string> str_value) override {
-    if (str_value) {
-      absl::optional<T> value = ParseTypedParameter<T>(*str_value);
-      if (!value.has_value())
-        return false;
-      value_ = value.value();
-    } else {
-      value_ = absl::nullopt;
-    }
-    return true;
+      : FieldTrialParameter<absl::optional<T>>(key, absl::nullopt) {}
+  const absl::optional<T>& GetOptional() const {
+    return FieldTrialParameter<absl::optional<T>>::Get();
   }
-
- private:
-  absl::optional<T> value_;
+  const T& Value() const { return GetOptional().value(); }
+  const T& operator*() const { return GetOptional().value(); }
+  const T* operator->() const { return &GetOptional().value(); }
+  explicit operator bool() const { return GetOptional().has_value(); }
 };
 
-// Equivalent to a FieldTrialParameter<bool> in the case that both key and value
-// are present. If key is missing, evaluates to false. If key is present, but no
-// explicit value is provided, the flag evaluates to true.
-class FieldTrialFlag : public FieldTrialParameterInterface {
+// Equivalent to a FieldTrialParameter<bool>. If key is missing,
+// evaluates to false. If key is present, but no explicit value
+// is provided, the flag evaluates to true.
+class FieldTrialFlag : public FieldTrialParameter<bool> {
  public:
-  explicit FieldTrialFlag(std::string key);
-  FieldTrialFlag(std::string key, bool default_value);
-  bool Get() const;
-  operator bool() const;
-
- protected:
-  bool Parse(absl::optional<std::string> str_value) override;
-
- private:
-  bool value_;
+  using FieldTrialParameter<bool>::FieldTrialParameter;
+  explicit FieldTrialFlag(std::string key)
+      : FieldTrialParameter<bool>(key, false) {}
 };
 
 template <typename T>
@@ -265,9 +239,9 @@ extern template class FieldTrialParameter<int>;
 extern template class FieldTrialConstrained<double>;
 extern template class FieldTrialConstrained<int>;
 
-extern template class FieldTrialOptional<double>;
-extern template class FieldTrialOptional<int>;
-extern template class FieldTrialOptional<bool>;
+extern template class FieldTrialParameter<absl::optional<bool>>;
+extern template class FieldTrialParameter<absl::optional<double>>;
+extern template class FieldTrialParameter<absl::optional<int>>;
 
 }  // namespace webrtc
 

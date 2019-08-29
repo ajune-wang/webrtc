@@ -90,7 +90,7 @@ TEST(FieldTrialParserTest, IgnoresNewKey) {
   EXPECT_EQ(exp.retries.Get(), -11);
 }
 TEST(FieldTrialParserTest, IgnoresInvalid) {
-  DummyExperiment exp("Enabled,f,p:,r:%,,:foo,h");
+  DummyExperiment exp("Enabled,f,p:-,r:%,,:foo,h");
   EXPECT_TRUE(exp.enabled.Get());
   EXPECT_EQ(exp.factor.Get(), 0.5);
   EXPECT_EQ(exp.retries.Get(), 5);
@@ -118,17 +118,17 @@ TEST(FieldTrialParserTest, ReadsValuesFromFieldWithoutKey) {
   EXPECT_EQ(req.Get(), 30);
 }
 TEST(FieldTrialParserTest, ParsesOptionalParameters) {
-  FieldTrialOptional<int> max_count("c", absl::nullopt);
+  FieldTrialParameter<absl::optional<int>> max_count("c", absl::nullopt);
   ParseFieldTrial({&max_count}, "");
-  EXPECT_FALSE(max_count.GetOptional().has_value());
+  EXPECT_FALSE(max_count.Get().has_value());
   ParseFieldTrial({&max_count}, "c:10");
-  EXPECT_EQ(max_count.GetOptional().value(), 10);
+  EXPECT_EQ(max_count.Get().value(), 10);
   ParseFieldTrial({&max_count}, "c");
-  EXPECT_FALSE(max_count.GetOptional().has_value());
+  EXPECT_FALSE(max_count.Get().has_value());
   ParseFieldTrial({&max_count}, "c:20");
-  EXPECT_EQ(max_count.GetOptional().value(), 20);
+  EXPECT_EQ(max_count.Get().value(), 20);
   ParseFieldTrial({&max_count}, "c:");
-  EXPECT_EQ(max_count.GetOptional().value(), 20);
+  EXPECT_EQ(max_count.Get(), absl::nullopt);
 }
 TEST(FieldTrialParserTest, ParsesCustomEnumParameter) {
   FieldTrialEnum<CustomEnum> my_enum("e", CustomEnum::kDefault,

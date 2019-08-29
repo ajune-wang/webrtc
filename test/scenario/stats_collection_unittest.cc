@@ -54,7 +54,8 @@ TEST(ScenarioAnalyzerTest, PsnrIsHighWhenNetworkIsGood) {
   // might change due to changes in configuration and encoder etc. The main
   // purpose is to show how the stats can be used. To avoid being overly
   // sensistive to change, the ranges are chosen to be quite large.
-  EXPECT_NEAR(analyzer.stats().psnr_with_freeze.Mean(), 43, 10);
+  auto analyzer_stats = analyzer.stats();
+  EXPECT_NEAR(analyzer_stats.psnr_with_freeze.Mean(), 43, 10);
   EXPECT_NEAR(stats.call.stats().target_rate.Mean().kbps(), 700, 300);
   EXPECT_NEAR(stats.video_send.stats().media_bitrate.Mean().kbps(), 500, 200);
   EXPECT_NEAR(stats.video_receive.stats().resolution.Mean(), 180, 10);
@@ -92,8 +93,9 @@ TEST(ScenarioAnalyzerTest, CountsCapturedButNotRendered) {
     // Enough time to send frames but not enough to deliver.
     s.RunFor(TimeDelta::ms(100));
   }
-  EXPECT_GE(analyzer.stats().capture.count, 1);
-  EXPECT_EQ(analyzer.stats().render.count, 0);
+  auto analyzer_stats = analyzer.stats();
+  EXPECT_GE(analyzer_stats.capture.count, 1);
+  EXPECT_EQ(analyzer_stats.render.count, 0);
 }
 }  // namespace test
 }  // namespace webrtc

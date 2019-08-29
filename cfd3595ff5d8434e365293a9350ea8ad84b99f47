@@ -22,6 +22,29 @@
       "revId": "cfd3595ff5d8434e365293a9350ea8ad84b99f47",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7533e0cf_8d7d4684",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2331,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-29T07:08:36Z",
+      "side": 1,
+      "message": "By the way: This is inconsistent with the rest of APM, since APM usually just assumes that at sample rate X, frames have X/100 samples. Is this an intentional step towards (better) supporting variable-length frames and non-divisible-by-100 sample rates?",
+      "range": {
+        "startLine": 2331,
+        "startChar": 40,
+        "endLine": 2331,
+        "endChar": 68
+      },
+      "revId": "cfd3595ff5d8434e365293a9350ea8ad84b99f47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

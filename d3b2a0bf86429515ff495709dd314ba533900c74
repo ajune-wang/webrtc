@@ -2,6 +2,63 @@
   "comments": [
     {
       "key": {
+        "uuid": "0c00ce66_843573df",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-29T18:10:09Z",
+      "side": 1,
+      "message": "Put these below the system includes",
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aae7b900_1cd361e7",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-29T18:10:09Z",
+      "side": 1,
+      "message": "Hmm just thinking it might be worth logging a warning if we return a message that didn\u0027t have MSG_EOR set. Actually, I can\u0027t quite remember why we don\u0027t buffer beyond the send buffer size.",
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c2cce31_dc6f3d89",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-29T18:10:09Z",
+      "side": 1,
+      "message": "\u0027set only when\u0027",
+      "range": {
+        "startLine": 518,
+        "startChar": 32,
+        "endLine": 518,
+        "endChar": 40
+      },
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4d2b6912_33b5f06b",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 3
@@ -25,6 +82,23 @@
     },
     {
       "key": {
+        "uuid": "c73d9272_48a34002",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-29T18:10:09Z",
+      "side": 1,
+      "message": "RTC_DLOG and verbose, or remove.",
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a86d7b7c_b44ff754",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 3
@@ -42,6 +116,131 @@
         "endLine": 538,
         "endChar": 31
       },
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "831accd3_d9ea32e8",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-29T18:10:09Z",
+      "side": 1,
+      "message": "just \u003d works",
+      "range": {
+        "startLine": 539,
+        "startChar": 29,
+        "endLine": 539,
+        "endChar": 38
+      },
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a52cfcc1_1c90de9e",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-29T18:10:09Z",
+      "side": 1,
+      "message": "Could just mutate OutgoingMessage and return SendDataResult.",
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e864621_34bba40d",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-29T18:10:09Z",
+      "side": 1,
+      "message": "Make this an RTC_DLOG verbose or remove.",
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc295f20_f17aeaa2",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-29T18:10:09Z",
+      "side": 1,
+      "message": "Can just make this a static helper.",
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45b5c728_88ea22d7",
+        "filename": "media/sctp/sctp_transport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-29T18:10:09Z",
+      "side": 1,
+      "message": "Explain a bit more what this class is for. E.g., this is used to track the progress of writing a single message to the sctp library in the presence of partial writes.",
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "132771ed_59fc9751",
+        "filename": "media/sctp/sctp_transport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-29T18:10:09Z",
+      "side": 1,
+      "message": "Put this below the partial_flags_ since those two fields are relevant only for incoming messages.",
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10c79614_11cde662",
+        "filename": "media/sctp/sctp_transport_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-08-29T18:10:09Z",
+      "side": 1,
+      "message": "can still use a for loop:\n\n`for (; message_count \u003c kMaxMessages; ++message_count)`",
       "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

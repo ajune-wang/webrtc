@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abcb2b68_c6b54882",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-29T09:18:22Z",
+      "side": 1,
+      "message": "This was needed to not break the GoogCcNetworkControllerTest.DetectsHighRateInSafeResetTrial test, but I suspect our loss-based bandwidth estimator misbehaves generally with negative cumulative loss. So until that is fixed in some other way, we should probably have similar clamping logic also on the receive side.",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 3
+      },
+      "revId": "f7d4eb4c2a56057f376eb02182bf977874571785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

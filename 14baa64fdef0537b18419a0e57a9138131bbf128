@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "813195f1_277fc0a5",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-08-29T14:14:20Z",
+      "side": 1,
+      "message": "+benwright@: Ben, if you are not already working on this. What is your idea about the future structure of api/crypto/BUILD.gn?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 53
+      },
+      "revId": "14baa64fdef0537b18419a0e57a9138131bbf128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "26045005_283e0eb3",
         "filename": "call/audio_receive_stream.h",
         "patchSetId": 1

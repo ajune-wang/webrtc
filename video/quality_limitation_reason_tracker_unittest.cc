@@ -28,6 +28,7 @@ class QualityLimitationReasonTrackerTest : public ::testing::Test {
 
 TEST_F(QualityLimitationReasonTrackerTest, DefaultValues) {
   EXPECT_EQ(QualityLimitationReason::kNone, tracker_.current_reason());
+  EXPECT_EQ(0u, tracker_.resolution_changes());
   auto durations_ms = tracker_.DurationsMs();
   EXPECT_EQ(4u, durations_ms.size());
   EXPECT_EQ(0, durations_ms.find(QualityLimitationReason::kNone)->second);
@@ -54,6 +55,13 @@ TEST_F(QualityLimitationReasonTrackerTest,
   fake_clock_.AdvanceTimeMilliseconds(50);
   EXPECT_EQ(initial_duration_ms + 50,
             tracker_.DurationsMs()[QualityLimitationReason::kCpu]);
+}
+
+TEST_F(QualityLimitationReasonTrackerTest,
+       ResolutionSwitchesIncreaseForSameReason) {
+  tracker_.SetReason(QualityLimitationReason::kCpu);
+  tracker_.SetReason(QualityLimitationReason::kCpu);
+  EXPECT_EQ(2u, tracker_.resolution_changes());
 }
 
 class QualityLimitationReasonTrackerTestWithParamReason
@@ -87,21 +95,26 @@ TEST_P(QualityLimitationReasonTrackerTestWithParamReason,
   tracker_.SetReason(different_reason_);
   fake_clock_.AdvanceTimeMilliseconds(100);
   EXPECT_EQ(initial_duration_ms, tracker_.DurationsMs()[reason_]);
+  EXPECT_EQ(1u, tracker_.resolution_changes());
   // Spend 50 ms in |reason_|.
   tracker_.SetReason(reason_);
   fake_clock_.AdvanceTimeMilliseconds(50);
   EXPECT_EQ(initial_duration_ms + 50, tracker_.DurationsMs()[reason_]);
+  EXPECT_EQ(2u, tracker_.resolution_changes());
   // Spend another 1000 ms in |different_reason_|.
   tracker_.SetReason(different_reason_);
   fake_clock_.AdvanceTimeMilliseconds(1000);
   EXPECT_EQ(initial_duration_ms + 50, tracker_.DurationsMs()[reason_]);
+  EXPECT_EQ(3u, tracker_.resolution_changes());
   // Spend another 100 ms in |reason_|.
   tracker_.SetReason(reason_);
   fake_clock_.AdvanceTimeMilliseconds(100);
   EXPECT_EQ(initial_duration_ms + 150, tracker_.DurationsMs()[reason_]);
+  EXPECT_EQ(4u, tracker_.resolution_changes());
   // Change reason one last time without advancing time.
   tracker_.SetReason(different_reason_);
   EXPECT_EQ(initial_duration_ms + 150, tracker_.DurationsMs()[reason_]);
+  EXPECT_EQ(5u, tracker_.resolution_changes());
 }
 
 INSTANTIATE_TEST_SUITE_P(

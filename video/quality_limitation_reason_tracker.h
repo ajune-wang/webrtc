@@ -21,12 +21,15 @@ namespace webrtc {
 // A tracker of quality limitation reasons. The quality limitation reason is the
 // primary reason for limiting resolution and/or framerate (such as CPU or
 // bandwidth limitations). The tracker keeps track of the current reason and the
-// duration of time spent in each reason. See qualityLimitationReason[1] and
-// qualityLimitationDurations[2] in the webrtc-stats spec.
+// duration of time spent in each reason. See qualityLimitationReason[1],
+// qualityLimitationDurations[2], and qualityLimitationResolutionChanges[3] in
+// the webrtc-stats spec.
 // [1]
 // https://w3c.github.io/webrtc-stats/#dom-rtcoutboundrtpstreamstats-qualitylimitationreason
 // [2]
 // https://w3c.github.io/webrtc-stats/#dom-rtcoutboundrtpstreamstats-qualitylimitationdurations
+// [3]
+// https://w3c.github.io/webrtc-stats/#dom-rtcoutboundrtpstreamstats-qualitylimitationresolutionchanges
 class QualityLimitationReasonTracker {
  public:
   // The caller is responsible for making sure |clock| outlives the tracker.
@@ -34,6 +37,7 @@ class QualityLimitationReasonTracker {
 
   // The current reason defaults to QualityLimitationReason::kNone.
   QualityLimitationReason current_reason() const;
+  uint64_t resolution_changes() const;
   void SetReason(QualityLimitationReason reason);
   std::map<QualityLimitationReason, int64_t> DurationsMs() const;
 
@@ -41,6 +45,7 @@ class QualityLimitationReasonTracker {
   Clock* const clock_;
   QualityLimitationReason current_reason_;
   int64_t current_reason_updated_timestamp_ms_;
+  uint64_t resolution_changes_;
   // The total amount of time spent in each reason at time
   // |current_reason_updated_timestamp_ms_|. To get the total amount duration
   // so-far, including the time spent in |current_reason_| elapsed since the

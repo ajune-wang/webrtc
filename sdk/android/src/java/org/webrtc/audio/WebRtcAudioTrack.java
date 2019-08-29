@@ -174,6 +174,7 @@ class WebRtcAudioTrack {
     this.audioManager = audioManager;
     this.errorCallback = errorCallback;
     this.volumeLogger = new VolumeLogger(audioManager);
+    Logging.d(TAG, "ctor" + WebRtcAudioUtils.getThreadInfo());
   }
 
   @CalledByNative

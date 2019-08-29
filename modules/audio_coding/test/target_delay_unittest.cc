@@ -53,20 +53,6 @@ class TargetDelayTest : public ::testing::Test {
     EXPECT_EQ(-1, SetMinimumDelay(10001));
   }
 
-  void WithTargetDelayBufferNotChanging() {
-    // A target delay that is one packet larger than jitter.
-    const int kTargetDelayMs =
-        (kInterarrivalJitterPacket + 1) * kNum10msPerFrame * 10;
-    ASSERT_EQ(0, SetMinimumDelay(kTargetDelayMs));
-    for (int n = 0; n < 30; ++n)  // Run enough iterations to fill the buffer.
-      Run(true);
-    int clean_optimal_delay = GetCurrentOptimalDelayMs();
-    EXPECT_EQ(kTargetDelayMs, clean_optimal_delay);
-    Run(false);  // Run with jitter.
-    int jittery_optimal_delay = GetCurrentOptimalDelayMs();
-    EXPECT_EQ(jittery_optimal_delay, clean_optimal_delay);
-  }
-
   void TargetDelayBufferMinMax() {
     const int kTargetMinDelayMs = kNum10msPerFrame * 10;
     ASSERT_EQ(0, SetMinimumDelay(kTargetMinDelayMs));

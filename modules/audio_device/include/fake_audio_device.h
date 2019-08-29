@@ -25,6 +25,7 @@ class FakeAudioDeviceModule
   rtc::RefCountReleaseStatus Release() const override {
     return rtc::RefCountReleaseStatus::kDroppedLastRef;
   }
+  bool HasOneRef() { return true; }
 };
 
 }  // namespace webrtc

@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef746a0d_d5797df3",
+        "filename": "modules/audio_coding/neteq/tools/packet.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-29T12:39:35Z",
+      "side": 1,
+      "message": "You\u0027re missing some text now.",
+      "range": {
+        "startLine": 32,
+        "startChar": 5,
+        "endLine": 32,
+        "endChar": 18
+      },
+      "revId": "047e7ac1e4cf7a79f229aee70062d053edc43dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04c7c3d7_c63df89b",
+        "filename": "modules/audio_coding/neteq/tools/packet.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-29T12:39:35Z",
+      "side": 1,
+      "message": "In how many constructors do you avoid initializing this one thanks to the initialization here? IOW, is it pulling its weight? The compiler will enforce that every constructor initializes all const data members that don\u0027t have a default member initializer.",
+      "range": {
+        "startLine": 106,
+        "startChar": 36,
+        "endLine": 106,
+        "endChar": 39
+      },
+      "revId": "047e7ac1e4cf7a79f229aee70062d053edc43dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "786f6280_7010ab08",
+        "filename": "modules/audio_coding/neteq/tools/rtp_file_source.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-29T12:39:35Z",
+      "side": 1,
+      "message": "auto packet \u003d absl::make_unique\u003cPacket\u003e(...);",
+      "revId": "047e7ac1e4cf7a79f229aee70062d053edc43dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72a5fd2d_16520d99",
+        "filename": "test/rtp_header_parser.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-08-29T12:39:35Z",
+      "side": 1,
+      "message": "Return a unique_ptr instead? Most callers presumably already store the returned value in a unique_ptr.",
+      "revId": "047e7ac1e4cf7a79f229aee70062d053edc43dc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -210,12 +210,26 @@ rtc_static_library("stable_target_rate_experiment") {
   ]
 }
 
+rtc_static_library("bwe_ignore_small_packets_settings") {
+  sources = [
+    "bwe_ignore_small_packets_settings.cc",
+    "bwe_ignore_small_packets_settings.h",
+  ]
+  deps = [
+    ":field_trial_parser",
+    "../../api/transport:field_trial_based_config",
+    "../../api/transport:webrtc_key_value_config",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
 if (rtc_include_tests) {
   rtc_source_set("experiments_unittests") {
     testonly = true
 
     sources = [
       "balanced_degradation_settings_unittest.cc",
+      "bwe_ignore_small_packets_settings_unittest.cc",
       "cpu_speed_experiment_unittest.cc",
       "field_trial_list_unittest.cc",
       "field_trial_parser_unittest.cc",
@@ -231,6 +245,7 @@ if (rtc_include_tests) {
     ]
     deps = [
       ":balanced_degradation_settings",
+      ":bwe_ignore_small_packets_settings",
       ":cpu_speed_experiment",
       ":field_trial_parser",
       ":keyframe_interval_settings_experiment",

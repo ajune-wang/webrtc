@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26045005_283e0eb3",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-08-29T14:11:25Z",
+      "side": 1,
+      "message": "WRT to this one, I see that a big refactoring was carried out by ossu@ in https://codereview.webrtc.org/2514883002 so maybe we can ask him (together with hbos@ and hta@) for advice about which small target should own it.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 53
+      },
+      "revId": "14baa64fdef0537b18419a0e57a9138131bbf128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

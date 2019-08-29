@@ -55,6 +55,9 @@ class RefCountInterface {
  public:
   virtual void AddRef() const = 0;
   virtual RefCountReleaseStatus Release() const = 0;
+  // TODO(ilnik): remove default implmeentation when downstream projects
+  // override the method correctly.
+  virtual bool HasOneRef() const { return true; }
 
   // Non-public destructor, because Release() has exclusive responsibility for
   // destroying the object.

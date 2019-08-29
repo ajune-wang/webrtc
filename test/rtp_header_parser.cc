@@ -7,7 +7,7 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#include "modules/rtp_rtcp/include/rtp_header_parser.h"
+#include "test/rtp_header_parser.h"
 
 #include <string.h>
 
@@ -39,8 +39,8 @@ class RtpHeaderParserImpl : public RtpHeaderParser {
       RTC_GUARDED_BY(critical_section_);
 };
 
-RtpHeaderParser* RtpHeaderParser::Create() {
-  return new RtpHeaderParserImpl;
+std::unique_ptr<RtpHeaderParser> RtpHeaderParser::CreateForTest() {
+  return std::unique_ptr<RtpHeaderParser>(new RtpHeaderParserImpl());
 }
 
 RtpHeaderParserImpl::RtpHeaderParserImpl() {}

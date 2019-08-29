@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9199129_09197344",
+        "filename": "api/audio/echo_canceller3_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-29T12:11:17Z",
+      "side": 1,
+      "message": "style guide: Comment these arguments.\n/*num_render_channels\u003d*/1,\n/*num_capture_channels\u003d*/1);\n\n\nhttps://google.github.io/styleguide/cppguide.html#Function_Argument_Comments",
+      "range": {
+        "startLine": 25,
+        "startChar": 68,
+        "endLine": 25,
+        "endChar": 72
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a529461_80d86301",
+        "filename": "modules/audio_processing/aec3/block_framer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-29T12:11:17Z",
+      "side": 1,
+      "message": "Are the 1 and 2 subframe frames cases both still valid after removing 8 kHz support?",
+      "range": {
+        "startLine": 21,
+        "startChar": 23,
+        "endLine": 21,
+        "endChar": 60
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41718687_b6536aca",
+        "filename": "modules/audio_processing/aec3/block_framer_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-29T12:11:17Z",
+      "side": 1,
+      "message": "I guess you only want to keep one of these two loops?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 54
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b69cdb23_7a501a4d",
+        "filename": "modules/audio_processing/aec3/block_framer_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-29T12:11:17Z",
+      "side": 1,
+      "message": "I guess you only want to keep one of these two loops?",
+      "range": {
+        "startLine": 379,
+        "startChar": 0,
+        "endLine": 380,
+        "endChar": 35
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccac1ba5_ddccbf4c",
+        "filename": "modules/audio_processing/aec3/frame_blocker.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-29T12:11:17Z",
+      "side": 1,
+      "message": "Is this still the right formulation without the 8000 Hz support? Or do all frames have 2 subframes now?",
+      "range": {
+        "startLine": 23,
+        "startChar": 55,
+        "endLine": 24,
+        "endChar": 29
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb0ddc1e_08a1348c",
+        "filename": "modules/audio_processing/aec3/suppression_filter.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-29T12:11:17Z",
+      "side": 1,
+      "message": "It will be interesting to grep for \"[0]\" when we\u0027ve done the first pass of multi-channel work, to see how many of these that we\u0027ve missed.",
+      "range": {
+        "startLine": 119,
+        "startChar": 24,
+        "endLine": 119,
+        "endChar": 27
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f687cab_ea18a2ca",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-29T12:11:17Z",
+      "side": 1,
+      "message": "I haven\u0027t tried to understand what this function does, but just want to check:\nShould this still be \u00278000\u0027 after removing 8 kHz support?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 65
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50eebe8f_2bf30d4b",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1852,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-29T12:11:17Z",
+      "side": 1,
+      "message": "style guide: Comment these arguments.\n/*num_render_channels\u003d*/1,\n/*num_capture_channels\u003d*/1);\n\n\nhttps://google.github.io/styleguide/cppguide.html#Function_Argument_Comments",
+      "range": {
+        "startLine": 1852,
+        "startChar": 55,
+        "endLine": 1852,
+        "endChar": 61
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24f77931_11773897",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-29T12:11:17Z",
+      "side": 1,
+      "message": "nit: Can this delegate to Create(int, size_t, size_t) instead of duplicating?",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 16
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b19e3e2f_ca0bb373",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2392,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-08-29T12:11:17Z",
+      "side": 1,
+      "message": "nit: Can this delegate to Create(int, size_t, size_t) instead of duplicating the EXPECT_CALLs?",
+      "range": {
+        "startLine": 2388,
+        "startChar": 0,
+        "endLine": 2392,
+        "endChar": 44
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

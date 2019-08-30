@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98fb36b7_e6bff4f1",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-30T14:05:00Z",
+      "side": 1,
+      "message": "struct_parameters_parser?",
+      "range": {
+        "startLine": 22,
+        "startChar": 31,
+        "endLine": 22,
+        "endChar": 49
+      },
+      "revId": "dc52b27a09339a515a03f9f3fe537bdcc8db03b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c35f571c_dd7d74d0",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-30T14:05:00Z",
+      "side": 1,
+      "message": "Suggest adding // comments at the end of each line to ensure one field per line.",
+      "range": {
+        "startLine": 39,
+        "startChar": 43,
+        "endLine": 39,
+        "endChar": 45
+      },
+      "revId": "dc52b27a09339a515a03f9f3fe537bdcc8db03b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd0ea105_3fd4c963",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-30T14:05:00Z",
+      "side": 1,
+      "message": "It would be nice if these values only were calculated when ignore_small_packets_.ignored_size \u003e 0. That would make it more clear to the reader the the code has no effect by default. Now a reader kind of have to read exactly what the code does to realize that it doesn\u0027t do anything unless in the trial.",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 63
+      },
+      "revId": "dc52b27a09339a515a03f9f3fe537bdcc8db03b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d951e8a9_608622e6",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-30T14:05:00Z",
+      "side": 1,
+      "message": "DataSize?",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 10
+      },
+      "revId": "dc52b27a09339a515a03f9f3fe537bdcc8db03b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "020ce0f0_41b49acc",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-30T14:05:00Z",
+      "side": 1,
+      "message": "Generally it\u0027s preferable to avoid fixture based tests unless there\u0027s a clear need for complex setup code. As they makes it slightly less obvious what happens in each test.",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 28
+      },
+      "revId": "dc52b27a09339a515a03f9f3fe537bdcc8db03b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7016aa01_841eb815",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-08-30T14:05:00Z",
+      "side": 1,
+      "message": "Suggestion to improve failure messages and readability:\n\nauto state \u003d RunToStateChange();\nEXPECT_EQ(state,BandwidthUsage::kBwNormal);\nauto state \u003d RunToStateChange();\nEXPECT_EQ(state,BandwidthUsage::kBwUnderusing);",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 12
+      },
+      "revId": "dc52b27a09339a515a03f9f3fe537bdcc8db03b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

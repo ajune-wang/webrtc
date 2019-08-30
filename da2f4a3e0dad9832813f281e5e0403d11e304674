@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "302345f7_10008a35",
+        "filename": "api/video/encoded_image.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-30T08:16:18Z",
+      "side": 0,
+      "message": "I wonder if we could move some of this logic into the Realloc method. But maybe not worth the effort, since all this should go away when Allocate() is deleted.\n\nThe idea is that whoever creates and modifies an EncodedImageBuffer should be exclusive owner, and once assigned to an EncodedImage and passed down the pipeline, that buffer must not be modified. Are you aware of any places currently using Allocate where that model is a problem?\n\nIf reuse turns out to be important for performance, that could be implemented in some class analogous to I420BufferPool.",
+      "revId": "da2f4a3e0dad9832813f281e5e0403d11e304674",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

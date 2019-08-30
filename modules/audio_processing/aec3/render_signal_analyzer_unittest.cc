@@ -37,8 +37,8 @@ void ProduceSinusoid(int sample_rate_hz,
   // Produce a sinusoid of the specified frequency.
   for (size_t k = *sample_counter, j = 0; k < (*sample_counter + kBlockSize);
        ++k, ++j) {
-    x[j] = 32767.f *
-           std::sin(2.f * kPi * sinusoidal_frequency_hz * k / sample_rate_hz);
+    x[j] += 32767.f *
+            std::sin(2.f * kPi * sinusoidal_frequency_hz * k / sample_rate_hz);
   }
   *sample_counter = *sample_counter + kBlockSize;
 }
@@ -98,12 +98,14 @@ TEST(RenderSignalAnalyzer, NarrowBandDetection) {
 
   std::array<float, kFftLengthBy2Plus1> mask;
   x_old.fill(0.f);
-  constexpr int kSinusFrequencyBin = 32;
 
-  auto generate_sinusoid_test = [&](bool known_delay) {
+  auto generate_sinusoid_test = [&](bool known_delay,
+                                    size_t sinusoid_frequency_bin) {
     size_t sample_counter = 0;
     for (size_t k = 0; k < 100; ++k) {
-      ProduceSinusoid(16000, 16000 / 2 * kSinusFrequencyBin / kFftLengthBy2,
+      RandomizeSampleVector(&random_generator, x[0]);
+      ProduceSinusoid(16000,
+                      16000 / 2 * (sinusoid_frequency_bin) / kFftLengthBy2,
                       &sample_counter, x[0]);
 
       render_delay_buffer->Insert(x);
@@ -117,16 +119,19 @@ TEST(RenderSignalAnalyzer, NarrowBandDetection) {
     }
   };
 
-  generate_sinusoid_test(true);
-  mask.fill(1.f);
-  analyzer.MaskRegionsAroundNarrowBands(&mask);
-  for (int k = 0; k < static_cast<int>(mask.size()); ++k) {
-    EXPECT_EQ(abs(k - kSinusFrequencyBin) <= 2 ? 0.f : 1.f, mask[k]);
+  for (int sinusoid_frequency_bin :
+       {1, 32, static_cast<int>(kFftLengthBy2) - 1}) {
+    generate_sinusoid_test(true, sinusoid_frequency_bin);
+    mask.fill(1.f);
+    analyzer.MaskRegionsAroundNarrowBands(&mask);
+    for (int k = 0; k < static_cast<int>(mask.size()); ++k) {
+      EXPECT_EQ(abs(k - sinusoid_frequency_bin) <= 2 ? 0.f : 1.f, mask[k]);
+    }
+    EXPECT_TRUE(analyzer.PoorSignalExcitation());
   }
-  EXPECT_TRUE(analyzer.PoorSignalExcitation());
 
   // Verify that no bands are detected as narrow when the delay is unknown.
-  generate_sinusoid_test(false);
+  generate_sinusoid_test(false, 32);
   mask.fill(1.f);
   analyzer.MaskRegionsAroundNarrowBands(&mask);
   std::for_each(mask.begin(), mask.end(), [](float a) { EXPECT_EQ(1.f, a); });

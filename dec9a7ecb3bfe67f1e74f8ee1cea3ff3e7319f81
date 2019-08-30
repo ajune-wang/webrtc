@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72d1b26c_24eaf386",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-30T06:58:28Z",
+      "side": 1,
+      "message": "Not sure if it would add to clarity to add a name for this combination too, say, |kDefaultRetransmissionMode|.",
+      "range": {
+        "startLine": 214,
+        "startChar": 17,
+        "endLine": 214,
+        "endChar": 77
+      },
+      "revId": "dec9a7ecb3bfe67f1e74f8ee1cea3ff3e7319f81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

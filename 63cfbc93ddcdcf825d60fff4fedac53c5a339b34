@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f307f17_b8ed44da",
+        "filename": "p2p/base/basic_packet_socket_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-30T11:48:27Z",
+      "side": 1,
+      "message": "Consistently use NULL or nullptr.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "63cfbc93ddcdcf825d60fff4fedac53c5a339b34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39577cb5_962fc290",
+        "filename": "p2p/base/basic_packet_socket_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-30T11:48:27Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s right to assign these members here. And if the members aren\u0027t assigned anywhere else (e.g., in a new constructor), they can be deleted.\n\nIn addition, storing the addresses is unsafe, since the referenced objects proxy_info and user_agent are owned by the caller and can be destroyed any time after this method has returned.\n\nI\u0027d suggest do the method forwarding in the other direction, like\n\nAsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(\n    const SocketAddress\u0026 local_address,\n    const SocketAddress\u0026 remote_address,\n    const PacketSocketTcpOptions\u0026 tcp_options) {\n  return CreateClientTcpSocket(local_address, remote_address, ProxyInfo(), \"\", tcp_options);\n}\n\nor something a bit more complicated if the members can ever be set to anything interesting.",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 28
+      },
+      "revId": "63cfbc93ddcdcf825d60fff4fedac53c5a339b34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c13e389b_5db2e7db",
+        "filename": "p2p/base/basic_packet_socket_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-30T11:48:27Z",
+      "side": 1,
+      "message": "I think this functionality should be taken out to separate classes, e.g., SocksPacketSocketFactory and HttpsProxyPacketSocketFactory. But that can be separate cls.",
+      "range": {
+        "startLine": 168,
+        "startChar": 1,
+        "endLine": 177,
+        "endChar": 3
+      },
+      "revId": "63cfbc93ddcdcf825d60fff4fedac53c5a339b34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

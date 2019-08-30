@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94c9ce94_60b5fd29",
+        "filename": "p2p/base/packet_socket_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-30T13:41:02Z",
+      "side": 1,
+      "message": "Do you plan to remove these forward declarations in a alter cl?\nWe should include the types the interface depends on.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 29
+      },
+      "revId": "ebbf5588d5e470d13335cd178d0e3da243b32fe8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d52869b4_c5276e21",
+        "filename": "p2p/base/basic_packet_socket_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-08-30T12:02:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f307f17_b8ed44da",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "63cfbc93ddcdcf825d60fff4fedac53c5a339b34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39577cb5_962fc290",
         "filename": "p2p/base/basic_packet_socket_factory.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "63cfbc93ddcdcf825d60fff4fedac53c5a339b34",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5dd3347_169c89c3",
+        "filename": "p2p/base/basic_packet_socket_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-08-30T12:02:44Z",
+      "side": 1,
+      "message": "Right, that\u0027s much nicer than what I did. Fixing.",
+      "parentUuid": "39577cb5_962fc290",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 28
+      },
+      "revId": "63cfbc93ddcdcf825d60fff4fedac53c5a339b34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

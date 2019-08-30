@@ -118,7 +118,7 @@ void RenderSignalAnalyzer::MaskRegionsAroundNarrowBands(
 
   // Set v to zero around narrow band signal regions.
   if (narrow_band_counters_[0] > kCounterThreshold) {
-    (*v)[1] = (*v)[0] = 0.f;
+    (*v)[3] = (*v)[2] = (*v)[1] = (*v)[0] = 0.f;
   }
   for (size_t k = 2; k < kFftLengthBy2 - 1; ++k) {
     if (narrow_band_counters_[k - 1] > kCounterThreshold) {
@@ -126,7 +126,8 @@ void RenderSignalAnalyzer::MaskRegionsAroundNarrowBands(
     }
   }
   if (narrow_band_counters_[kFftLengthBy2 - 2] > kCounterThreshold) {
-    (*v)[kFftLengthBy2] = (*v)[kFftLengthBy2 - 1] = 0.f;
+    (*v)[kFftLengthBy2] = (*v)[kFftLengthBy2 - 1] = (*v)[kFftLengthBy2 - 2] =
+        (*v)[kFftLengthBy2 - 3] = 0.f;
   }
 }
 

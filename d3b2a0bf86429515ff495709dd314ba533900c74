@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b0c52465_700847db",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-30T01:03:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c00ce66_843573df",
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aae7b900_1cd361e7",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07723996_4131c780",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-30T01:03:57Z",
+      "side": 1,
+      "message": "https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d7774\n\nLooks like an arbitrary value is set as a limit (256 KB). A quick change could be changing this buffer limit to the send buffer limit on the PC level (16 MB). A better change would be to take the max size negotiated in the SDP \u0026 if you get a message larger than this w/o the EOR bit set, then you close the channel and propagate an error. I *think* the SDP work is already done, so we could probably implement this here:\nhttps://bugs.chromium.org/p/chromium/issues/detail?id\u003d943975\n\nAnyways I added a warning log \u0026 a bug reference. We can follow up.",
+      "parentUuid": "aae7b900_1cd361e7",
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "38a63658_098554ab",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-30T01:03:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c2cce31_dc6f3d89",
+      "range": {
+        "startLine": 518,
+        "startChar": 32,
+        "endLine": 518,
+        "endChar": 40
+      },
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d2b6912_33b5f06b",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 3
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "1f1c5556_ebb9a579",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-30T01:03:57Z",
+      "side": 1,
+      "message": "It\u0027s passed in as a const reference, so it shouldn\u0027t be modified. I understand the point that there are always workarounds to this, so it\u0027s best to defensively program. Done.",
+      "parentUuid": "4d2b6912_33b5f06b",
+      "range": {
+        "startLine": 530,
+        "startChar": 27,
+        "endLine": 530,
+        "endChar": 41
+      },
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c73d9272_48a34002",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 3
@@ -96,6 +180,24 @@
       "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5cef9a3_db883dc1",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-30T01:03:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c73d9272_48a34002",
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "83275a60_5af16bbc",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-30T01:03:57Z",
+      "side": 1,
+      "message": "Done, with also incorporating Steve\u0027s suggestion in advancing within SendMessageInternal().",
+      "parentUuid": "a86d7b7c_b44ff754",
+      "range": {
+        "startLine": 538,
+        "startChar": 4,
+        "endLine": 538,
+        "endChar": 31
+      },
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "831accd3_d9ea32e8",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 3
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "3dcb3033_0bb0eb3b",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-30T01:03:57Z",
+      "side": 1,
+      "message": "\"object of type \u0027absl::optional\u003ccricket::SctpTransport::OutgoingMessage\u003e\u0027 cannot be assigned because its copy assignment operator is implicitly deleted\"",
+      "parentUuid": "831accd3_d9ea32e8",
+      "range": {
+        "startLine": 539,
+        "startChar": 29,
+        "endLine": 539,
+        "endChar": 38
+      },
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a52cfcc1_1c90de9e",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 3
@@ -162,6 +312,24 @@
     },
     {
       "key": {
+        "uuid": "739fa542_77eb6068",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-30T01:03:57Z",
+      "side": 1,
+      "message": "I was on the fence on this. I did like keeping this const \u0026 returning the size makes it very clear how much was sent (as opposed to using message.size() after calling the function. On the other hand it does make sense to advance the message when it is partially sent and return only one result instead of adding in a second return as a parameter. In the end I just changed it as you suggested.",
+      "parentUuid": "a52cfcc1_1c90de9e",
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e864621_34bba40d",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 3
@@ -176,6 +344,24 @@
       "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6339e829_69a68e97",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-30T01:03:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e864621_34bba40d",
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -213,6 +399,24 @@
     },
     {
       "key": {
+        "uuid": "4ddb3886_e87e848b",
+        "filename": "media/sctp/sctp_transport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-30T01:03:57Z",
+      "side": 1,
+      "message": "Always happy to provide extra documentation :).",
+      "parentUuid": "45b5c728_88ea22d7",
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "132771ed_59fc9751",
         "filename": "media/sctp/sctp_transport.h",
         "patchSetId": 3
@@ -227,6 +431,24 @@
       "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "457a9c4e_8c59f7e4",
+        "filename": "media/sctp/sctp_transport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-08-30T01:03:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "132771ed_59fc9751",
+      "revId": "d3b2a0bf86429515ff495709dd314ba533900c74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

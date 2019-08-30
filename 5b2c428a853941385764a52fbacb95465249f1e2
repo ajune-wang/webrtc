@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "83c83eea_e8f87c28",
+        "filename": "api/audio/echo_canceller3_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-08-30T05:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9199129_09197344",
+      "range": {
+        "startLine": 25,
+        "startChar": 68,
+        "endLine": 25,
+        "endChar": 72
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a529461_80d86301",
         "filename": "modules/audio_processing/aec3/block_framer.h",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4a0f992_f02b3054",
+        "filename": "modules/audio_processing/aec3/block_framer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-08-30T05:45:34Z",
+      "side": 1,
+      "message": "Good find!",
+      "parentUuid": "1a529461_80d86301",
+      "range": {
+        "startLine": 21,
+        "startChar": 23,
+        "endLine": 21,
+        "endChar": 60
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "462401cd_7bc0382f",
+        "filename": "modules/audio_processing/aec3/block_framer_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-08-30T05:45:34Z",
+      "side": 1,
+      "message": "Good find!",
+      "parentUuid": "41718687_b6536aca",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 54
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b69cdb23_7a501a4d",
         "filename": "modules/audio_processing/aec3/block_framer_unittest.cc",
         "patchSetId": 10
@@ -91,6 +163,30 @@
       "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a071331d_059fe823",
+        "filename": "modules/audio_processing/aec3/block_framer_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-08-30T05:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b69cdb23_7a501a4d",
+      "range": {
+        "startLine": 379,
+        "startChar": 0,
+        "endLine": 380,
+        "endChar": 35
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "91fa9aee_e004fc5e",
+        "filename": "modules/audio_processing/aec3/frame_blocker.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-08-30T05:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccac1ba5_ddccbf4c",
+      "range": {
+        "startLine": 23,
+        "startChar": 55,
+        "endLine": 24,
+        "endChar": 29
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb0ddc1e_08a1348c",
         "filename": "modules/audio_processing/aec3/suppression_filter.cc",
         "patchSetId": 10
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "c19f3752_2fe20066",
+        "filename": "modules/audio_processing/aec3/suppression_filter.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-08-30T05:45:34Z",
+      "side": 1,
+      "message": "There is definitely a fair amount of them. Some are fully ok though.",
+      "parentUuid": "eb0ddc1e_08a1348c",
+      "range": {
+        "startLine": 119,
+        "startChar": 24,
+        "endLine": 119,
+        "endChar": 27
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f687cab_ea18a2ca",
         "filename": "modules/audio_processing/aec3/suppression_gain.cc",
         "patchSetId": 10
@@ -151,6 +295,30 @@
       "writtenOn": "2019-08-29T12:11:17Z",
       "side": 1,
       "message": "I haven\u0027t tried to understand what this function does, but just want to check:\nShould this still be \u00278000\u0027 after removing 8 kHz support?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 65
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e10df906_0367857c",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-08-30T05:45:34Z",
+      "side": 1,
+      "message": "Thanks for checking!\nYes, I believe this is correct. 8000 is the Nyquist frequency, which maps to a sample rate of 16 kHz.",
+      "parentUuid": "9f687cab_ea18a2ca",
       "range": {
         "startLine": 38,
         "startChar": 0,
@@ -209,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "fd8f4982_be1eb108",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-08-30T05:45:34Z",
+      "side": 1,
+      "message": "Good point! I did it the other way around though.",
+      "parentUuid": "24f77931_11773897",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 16
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b19e3e2f_ca0bb373",
         "filename": "modules/audio_processing/audio_processing_unittest.cc",
         "patchSetId": 10
@@ -229,6 +421,30 @@
       "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b69a106_e84b9148",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2392,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-08-30T05:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b19e3e2f_ca0bb373",
+      "range": {
+        "startLine": 2388,
+        "startChar": 0,
+        "endLine": 2392,
+        "endChar": 44
+      },
+      "revId": "5b2c428a853941385764a52fbacb95465249f1e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

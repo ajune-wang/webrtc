@@ -16,6 +16,24 @@
       "revId": "a57c4c7eff5074d1649f51ecc19b0a13d8fb65d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8869164b_be10bc0c",
+        "filename": "test/scenario/stats_collection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-30T06:53:15Z",
+      "side": 1,
+      "message": "Yes. rtc::Thread is forward declared somewhere in included headers, and below on line 53 there\u0027s a call to the method config_.thread-\u003ePostTask.\n\nBefore this cl, an include of rtp_receiver_interface.h indirectly included thread.h.",
+      "parentUuid": "c7f22548_adcc6e71",
+      "revId": "a57c4c7eff5074d1649f51ecc19b0a13d8fb65d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

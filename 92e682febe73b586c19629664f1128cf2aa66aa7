@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1ee8e5e_57621e4f",
+        "filename": "modules/desktop_capture/window_finder_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2019-08-30T17:42:12Z",
+      "side": 1,
+      "message": "Optional: Consider using a simple RAII struct instead of changing the structure of the code below. It would be a bit more idiomatic, I think",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 72
+      },
+      "revId": "92e682febe73b586c19629664f1128cf2aa66aa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

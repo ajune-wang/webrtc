@@ -139,6 +139,30 @@
       "revId": "14baa64fdef0537b18419a0e57a9138131bbf128",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bf42118_3bdf6ce8",
+        "filename": "p2p/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-08-30T08:19:59Z",
+      "side": 1,
+      "message": "If you don\u0027t specify anything it should be WebRTC visible (https://cs.chromium.org/chromium/src/third_party/webrtc/webrtc.gni?l\u003d323\u0026rcl\u003d2dac4e4e3577d1f61f7249df043d7ed1df7ec611) but not externally visible.",
+      "parentUuid": "a5cfab11_c1ac4e66",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "14baa64fdef0537b18419a0e57a9138131bbf128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

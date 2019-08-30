@@ -22,6 +22,30 @@
       "revId": "ebbf5588d5e470d13335cd178d0e3da243b32fe8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc6e747f_1792a942",
+        "filename": "p2p/base/packet_socket_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-08-30T13:45:49Z",
+      "side": 1,
+      "message": "Yeah. SSLCertificateVerifier will go away like we talked about earlier. I realize now that AsyncPacket is going to be a problem in itself; it pulls in a bunch of rtc_base things. I guess it will be another CL to slim that one down before we move that one too to api/.",
+      "parentUuid": "94c9ce94_60b5fd29",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 29
+      },
+      "revId": "ebbf5588d5e470d13335cd178d0e3da243b32fe8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

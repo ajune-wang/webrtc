@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "c5289b74_bd5b5159",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-30T08:17:19Z",
+      "side": 1,
+      "message": "For the time being, talking out just the class RtpSource is likely enough. See https://webrtc-review.googlesource.com/c/src/+/150880",
+      "parentUuid": "26045005_283e0eb3",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 53
+      },
+      "revId": "14baa64fdef0537b18419a0e57a9138131bbf128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cddd35c3_4c45f8a1",
         "filename": "p2p/BUILD.gn",
         "patchSetId": 1
@@ -82,6 +106,30 @@
       "writtenOn": "2019-08-29T14:24:54Z",
       "side": 1,
       "message": "Is this needed?\n\nI see some forward declarations in api/ to avoid to take a dependency. We should remove them indeed but maybe we can avoid the public visibility in the meantime?",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "14baa64fdef0537b18419a0e57a9138131bbf128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5cfab11_c1ac4e66",
+        "filename": "p2p/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-30T08:17:19Z",
+      "side": 1,
+      "message": "What visibility would you suggest? It\u0027s used from media:rtc_media_base, so needs to escape p2p.",
+      "parentUuid": "a5e85760_3aa2e3d2",
       "range": {
         "startLine": 19,
         "startChar": 2,

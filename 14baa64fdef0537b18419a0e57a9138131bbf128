@@ -163,6 +163,30 @@
       "revId": "14baa64fdef0537b18419a0e57a9138131bbf128",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83e71dd5_091fa90f",
+        "filename": "p2p/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-30T08:31:08Z",
+      "side": 1,
+      "message": "Ok, deleting visibility line.",
+      "parentUuid": "1bf42118_3bdf6ce8",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "14baa64fdef0537b18419a0e57a9138131bbf128",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -65,6 +65,7 @@ class RTC_EXPORT PacketSocketFactory {
 
   // TODO(deadbeef): |proxy_info| and |user_agent| should be set
   // per-factory and not when socket is created.
+  // TODO(bugs.webrtc.org/7447): Remove this deprecated method.
   virtual AsyncPacketSocket* CreateClientTcpSocket(
       const SocketAddress& local_address,
       const SocketAddress& remote_address,
@@ -76,11 +77,17 @@ class RTC_EXPORT PacketSocketFactory {
   // be set per-factory and not when socket is created.
   // TODO(deadbeef): Implement this method in all subclasses (namely those in
   // Chromium), make pure virtual, and remove the old CreateClientTcpSocket.
+  // TODO(bugs.webrtc.org/7447): Remove this deprecated method.
   virtual AsyncPacketSocket* CreateClientTcpSocket(
       const SocketAddress& local_address,
       const SocketAddress& remote_address,
       const ProxyInfo& proxy_info,
       const std::string& user_agent,
+      const PacketSocketTcpOptions& tcp_options);
+
+  virtual AsyncPacketSocket* CreateClientTcpSocket(
+      const SocketAddress& local_address,
+      const SocketAddress& remote_address,
       const PacketSocketTcpOptions& tcp_options);
 
   virtual AsyncResolverInterface* CreateAsyncResolver() = 0;

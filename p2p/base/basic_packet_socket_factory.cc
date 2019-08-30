@@ -29,14 +29,23 @@
 namespace rtc {
 
 BasicPacketSocketFactory::BasicPacketSocketFactory()
-    : thread_(Thread::Current()), socket_factory_(NULL) {}
+    : thread_(Thread::Current()),
+      socket_factory_(NULL),
+      proxy_info_(nullptr),
+      user_agent_(nullptr) {}
 
 BasicPacketSocketFactory::BasicPacketSocketFactory(Thread* thread)
-    : thread_(thread), socket_factory_(NULL) {}
+    : thread_(thread),
+      socket_factory_(NULL),
+      proxy_info_(nullptr),
+      user_agent_(nullptr) {}
 
 BasicPacketSocketFactory::BasicPacketSocketFactory(
     SocketFactory* socket_factory)
-    : thread_(NULL), socket_factory_(socket_factory) {}
+    : thread_(NULL),
+      socket_factory_(socket_factory),
+      proxy_info_(nullptr),
+      user_agent_(nullptr) {}
 
 BasicPacketSocketFactory::~BasicPacketSocketFactory() {}
 
@@ -103,6 +112,13 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
     const ProxyInfo& proxy_info,
     const std::string& user_agent,
     int opts) {
+  // TODO(bugs.webrtc.org/7447): Make sure this hack goes away before finishing
+  // this bug. All CreateClientTcpSocket methods that take user_agent and
+  // proxy_info should go away. If this class still needs those after the
+  // methods go away, it should take them in the constructor.
+  proxy_info_ = &proxy_info;
+  user_agent_ = &user_agent;
+
   PacketSocketTcpOptions tcp_options;
   tcp_options.opts = opts;
   return CreateClientTcpSocket(local_address, remote_address, proxy_info,
@@ -114,6 +130,16 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
     const SocketAddress& remote_address,
     const ProxyInfo& proxy_info,
     const std::string& user_agent,
+    const PacketSocketTcpOptions& tcp_options) {
+  proxy_info_ = &proxy_info;
+  user_agent_ = &user_agent;
+
+  return CreateClientTcpSocket(local_address, remote_address, tcp_options);
+}
+
+AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
+    const SocketAddress& local_address,
+    const SocketAddress& remote_address,
     const PacketSocketTcpOptions& tcp_options) {
   AsyncSocket* socket =
       socket_factory()->CreateAsyncSocket(local_address.family(), SOCK_STREAM);
@@ -136,13 +162,17 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
   }
 
   // If using a proxy, wrap the socket in a proxy socket.
-  if (proxy_info.type == PROXY_SOCKS5) {
-    socket = new AsyncSocksProxySocket(
-        socket, proxy_info.address, proxy_info.username, proxy_info.password);
-  } else if (proxy_info.type == PROXY_HTTPS) {
-    socket =
-        new AsyncHttpsProxySocket(socket, user_agent, proxy_info.address,
-                                  proxy_info.username, proxy_info.password);
+  if (proxy_info_) {
+    if (proxy_info_->type == PROXY_SOCKS5) {
+      socket = new AsyncSocksProxySocket(socket, proxy_info_->address,
+                                         proxy_info_->username,
+                                         proxy_info_->password);
+    } else if (proxy_info_->type == PROXY_HTTPS) {
+      RTC_DCHECK(user_agent_) << "If proxy_info is set, so must user_agent.";
+      socket = new AsyncHttpsProxySocket(
+          socket, *user_agent_, proxy_info_->address, proxy_info_->username,
+          proxy_info_->password);
+    }
   }
 
   // Assert that at most one TLS option is used.

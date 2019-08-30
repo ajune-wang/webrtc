@@ -35,6 +35,10 @@ class BasicPacketSocketFactory : public PacketSocketFactory {
                                            uint16_t min_port,
                                            uint16_t max_port,
                                            int opts) override;
+  AsyncPacketSocket* CreateClientTcpSocket(
+      const SocketAddress& local_address,
+      const SocketAddress& remote_address,
+      const PacketSocketTcpOptions& tcp_options) override;
   AsyncPacketSocket* CreateClientTcpSocket(const SocketAddress& local_address,
                                            const SocketAddress& remote_address,
                                            const ProxyInfo& proxy_info,
@@ -59,6 +63,8 @@ class BasicPacketSocketFactory : public PacketSocketFactory {
 
   Thread* thread_;
   SocketFactory* socket_factory_;
+  const ProxyInfo* proxy_info_;
+  const std::string* user_agent_;
 };
 
 }  // namespace rtc

@@ -28,4 +28,11 @@ AsyncPacketSocket* PacketSocketFactory::CreateClientTcpSocket(
                                user_agent, tcp_options.opts);
 }
 
+AsyncPacketSocket* PacketSocketFactory::CreateClientTcpSocket(
+    const SocketAddress& local_address,
+    const SocketAddress& remote_address,
+    const PacketSocketTcpOptions& tcp_options) {
+  RTC_NOTREACHED();
+}
+
 }  // namespace rtc

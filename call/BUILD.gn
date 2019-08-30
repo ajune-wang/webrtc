@@ -31,9 +31,6 @@ rtc_source_set("call_interfaces") {
     ":rtp_interfaces",
     ":video_stream_api",
     "../api:fec_controller_api",
-
-    # For api/media_transport_config.h
-    "../api:libjingle_peerconnection_api",
     "../api:network_state_predictor_api",
     "../api:rtp_headers",
     "../api:rtp_parameters",
@@ -77,9 +74,6 @@ rtc_source_set("rtp_interfaces") {
   deps = [
     "../api:array_view",
     "../api:fec_controller_api",
-
-    # For api/crypto/crypto_options.h
-    "../api:libjingle_peerconnection_api",
     "../api:rtp_headers",
     "../api:rtp_parameters",
     "../api/rtc_event_log",
@@ -280,7 +274,6 @@ rtc_source_set("video_stream_api") {
   ]
   deps = [
     ":rtp_interfaces",
-    "../api:libjingle_peerconnection_api",
     "../api:rtp_headers",
     "../api:rtp_parameters",
     "../api:transport_api",

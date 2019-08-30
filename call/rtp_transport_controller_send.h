@@ -24,6 +24,8 @@
 #include "call/rtp_video_sender.h"
 #include "modules/congestion_controller/rtp/control_handler.h"
 #include "modules/congestion_controller/rtp/transport_feedback_adapter.h"
+#include "modules/pacing/paced_sender.h"
+#include "modules/pacing/paced_sender_taskqueue.h"
 #include "modules/pacing/packet_router.h"
 #include "modules/pacing/rtp_packet_pacer.h"
 #include "modules/utility/include/process_thread.h"
@@ -54,7 +56,8 @@ class RtpTransportControllerSend final
       NetworkControllerFactoryInterface* controller_factory,
       const BitrateConstraints& bitrate_config,
       std::unique_ptr<ProcessThread> process_thread,
-      TaskQueueFactory* task_queue_factory);
+      TaskQueueFactory* task_queue_factory,
+      const WebRtcKeyValueConfig* field_trials);
   ~RtpTransportControllerSend() override;
 
   RtpVideoSenderInterface* CreateRtpVideoSender(
@@ -147,7 +150,9 @@ class RtpTransportControllerSend final
   RtpBitrateConfigurator bitrate_configurator_;
   std::map<std::string, rtc::NetworkRoute> network_routes_;
   const std::unique_ptr<ProcessThread> process_thread_;
-  PacedSender pacer_;
+  const bool use_task_queue_pacer_;
+  PacedSender process_thread_pacer_;
+  PacedSenderTaskQueue task_queue_pacer_;
 
   TargetTransferRateObserver* observer_ RTC_GUARDED_BY(task_queue_);
 

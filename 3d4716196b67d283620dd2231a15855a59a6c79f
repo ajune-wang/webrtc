@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "7c9e103c_d201dc2e",
+        "filename": "p2p/base/basic_packet_socket_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-30T12:39:59Z",
+      "side": 1,
+      "message": "Delete; call the method with a PacketSocketTcpOptions\u0026 rather than int as the last argument.",
+      "range": {
+        "startLine": 208,
+        "startChar": 42,
+        "endLine": 208,
+        "endChar": 47
+      },
+      "revId": "3d4716196b67d283620dd2231a15855a59a6c79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17e8ed87_6c52486b",
+        "filename": "p2p/base/packet_socket_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-30T12:39:59Z",
+      "side": 1,
+      "message": "Not really sure, but I think our convention is to write proper copyright year only when adding new files, and never update it.",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "3d4716196b67d283620dd2231a15855a59a6c79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dcb0dd07_2281f1a5",
         "filename": "p2p/base/packet_socket_factory.h",
         "patchSetId": 4
@@ -13,6 +59,30 @@
       "writtenOn": "2019-08-30T12:16:40Z",
       "side": 1,
       "message": "Forgot to mention this: this is a preparation to move this file to api/. Overriding the tls_cert_verifier seems an exotic capability, so we don\u0027t need to expose that to outside users. We can\u0027t pull in ssl_certificate.h; that will pull in all of rtc_base.",
+      "range": {
+        "startLine": 34,
+        "startChar": 53,
+        "endLine": 35,
+        "endChar": 33
+      },
+      "revId": "3d4716196b67d283620dd2231a15855a59a6c79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9707f5dd_8b7718f6",
+        "filename": "p2p/base/packet_socket_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-08-30T12:39:59Z",
+      "side": 1,
+      "message": "These settings should probably also move to the factory, and not be passed to the Create methods. And then I\u0027m in agreement with Taylor\u0027s TODO comment.",
+      "parentUuid": "dcb0dd07_2281f1a5",
       "range": {
         "startLine": 34,
         "startChar": 53,

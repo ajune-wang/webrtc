@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "346c4999_56b2f9aa",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-30T09:55:59Z",
+      "side": 1,
+      "message": "\"unsigned long\" in WebIDL means uint32_t in C++ (uint64_t is \"unsigned long long\"), please change the type to uint32_t or argue for updating the spec to unsigned long long.\n\nUpdating the type applies to all the places in this CL.",
+      "revId": "72b82adbeec9b3790af83c374907bec7639da54f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa7838e2_28911205",
+        "filename": "video/quality_limitation_reason_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-30T09:55:59Z",
+      "side": 1,
+      "message": "I don\u0027t think a function called SetReason() that doesn\u0027t say anything about resolution or take resolution as an argument is clear that this will increment a resolution changed counter.\n\nI think as-is it needs to be renamed, e.g. OnQualityLimitedResolutionChanged(). However, I think this is the wrong approach. Changing quality limitation reason is separate from whether or not the resolution changed. For example, our 720p resolution might get limited to 480p due to being \"bandwidth\" limited. Bandwidth frees up, but now we are \"cpu\" limited instead. The resolution didn\u0027t change but we entered \"cpu\" limited. The reason should change but the counter shouldn\u0027t go up. The current tracker API does not allow to express this.\n\nCan we make this method be something like...?\nSetReasonAndLimitedResolution(QualityLimitationReason reason, uint32_t limited_width, uint32_t limited_height)\n\nHowever, if reason is \"none\" then the width and height argument are not applicable I guess.\n\nIf we keep track of what the currently limited resolution is then we can ensure that the counter only goes up if the resolution changes, and not because somebody called the function twice with the same resolution. Also if we are not limited then the limited resolution should be \"null\" (absl::optional). The resolution could change because of the track changed resolution and not because we are limited, so we want to make sure we don\u0027t accidentally increase the counter as a side-effect of the resolution changing if this isn\u0027t the limiting resolution. At the same time, the counter should go up when we stop being limited.",
+      "revId": "72b82adbeec9b3790af83c374907bec7639da54f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "863d5fa5_121c921f",
+        "filename": "video/quality_limitation_reason_tracker.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-30T09:55:59Z",
+      "side": 1,
+      "message": "micro-nit: Can we have the description also mention that it tracks this or add a \"...and other quality limitation related metrics\"? I thought the sentence got a bit weird saying \"The tracker keeps track of X and Y. See X, Y and Z.\"\n\n\"...spent in that reason, as well as number of times the resolution changes because of being quality limited.\"",
+      "revId": "72b82adbeec9b3790af83c374907bec7639da54f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6582832f_85445d06",
+        "filename": "video/quality_limitation_reason_tracker_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-30T09:55:59Z",
+      "side": 1,
+      "message": "See my other comment about finding 2 to be an unexpected outcome based on the name of the function.",
+      "revId": "72b82adbeec9b3790af83c374907bec7639da54f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18183e13_72d3455d",
+        "filename": "video/quality_limitation_reason_tracker_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-30T09:55:59Z",
+      "side": 1,
+      "message": "See my other comment about preferring to test new behaviors in new tests (usually).",
+      "revId": "72b82adbeec9b3790af83c374907bec7639da54f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f68816a_9d9be5fa",
+        "filename": "video/send_statistics_proxy_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-30T09:55:59Z",
+      "side": 1,
+      "message": "The existing tests tests the behaviors of the reason changing. Could we test how the quality limitation resolution changes increase in separate tests? I like to separate tests by behaviors rather than asserting all the side effects of a function in the same tests.",
+      "revId": "72b82adbeec9b3790af83c374907bec7639da54f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

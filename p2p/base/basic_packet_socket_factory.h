@@ -35,6 +35,10 @@ class BasicPacketSocketFactory : public PacketSocketFactory {
                                            uint16_t min_port,
                                            uint16_t max_port,
                                            int opts) override;
+  AsyncPacketSocket* CreateClientTcpSocket(
+      const SocketAddress& local_address,
+      const SocketAddress& remote_address,
+      const PacketSocketTcpOptions& tcp_options) override;
   AsyncPacketSocket* CreateClientTcpSocket(const SocketAddress& local_address,
                                            const SocketAddress& remote_address,
                                            const ProxyInfo& proxy_info,

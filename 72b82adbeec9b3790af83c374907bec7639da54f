@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "011225b4_35cc9f19",
+        "filename": "video/quality_limitation_reason_tracker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-08-30T09:58:40Z",
+      "side": 1,
+      "message": "absl::optional\u003cuint32_t\u003e and absl::nullopt_t can be used if we go with that approach",
+      "parentUuid": "aa7838e2_28911205",
+      "revId": "72b82adbeec9b3790af83c374907bec7639da54f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "863d5fa5_121c921f",
         "filename": "video/quality_limitation_reason_tracker.h",
         "patchSetId": 3

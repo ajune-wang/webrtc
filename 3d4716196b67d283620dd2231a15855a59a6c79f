@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c72096f1_07d5d5b8",
+        "filename": "p2p/base/basic_packet_socket_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-08-30T13:32:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c9e103c_d201dc2e",
+      "range": {
+        "startLine": 208,
+        "startChar": 42,
+        "endLine": 208,
+        "endChar": 47
+      },
+      "revId": "3d4716196b67d283620dd2231a15855a59a6c79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17e8ed87_6c52486b",
         "filename": "p2p/base/packet_socket_factory.h",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "3d4716196b67d283620dd2231a15855a59a6c79f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5660504_c27c5e95",
+        "filename": "p2p/base/packet_socket_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-08-30T13:32:44Z",
+      "side": 1,
+      "message": "Right, this _was_ a new file in my last CL but it isn\u0027t now :)",
+      "parentUuid": "17e8ed87_6c52486b",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "3d4716196b67d283620dd2231a15855a59a6c79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -92,6 +140,30 @@
       "revId": "3d4716196b67d283620dd2231a15855a59a6c79f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca147e0b_f6380418",
+        "filename": "p2p/base/packet_socket_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-08-30T13:32:44Z",
+      "side": 1,
+      "message": "Right. It needs to stay there until I can kill the downstream signatures that reference it, but I can get rid of it in the next CL. In that case my new method shouldn\u0027t take a tcp_options; I\u0027ll update the signature.",
+      "parentUuid": "9707f5dd_8b7718f6",
+      "range": {
+        "startLine": 34,
+        "startChar": 53,
+        "endLine": 35,
+        "endChar": 33
+      },
+      "revId": "3d4716196b67d283620dd2231a15855a59a6c79f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6004d68a_cf9cb7e9",
+        "filename": "rtc_base/task_utils/repeating_task.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-09-01T13:41:40Z",
+      "side": 1,
+      "message": "What is the rationale for that?\nIn my book, that prevents a nice symmetry: the object starting the task would be the one stopping it.\nWhich is the proper way to use this class:\n  * Event/condition shared between the client and the task for signaling the later to stop itself?\n  * Ensure that all objects referenced by the task don\u0027t outlive the TaskQueue. How do you enfore that?\n  * Other?",
+      "range": {
+        "startLine": 128,
+        "startChar": 61,
+        "endLine": 129,
+        "endChar": 50
+      },
+      "revId": "ecb6897adea334e32c355930166963e5fdfe20d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

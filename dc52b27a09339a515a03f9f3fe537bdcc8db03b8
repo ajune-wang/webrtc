@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2f386702_806ac103",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-09-01T17:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98fb36b7_e6bff4f1",
+      "range": {
+        "startLine": 22,
+        "startChar": 31,
+        "endLine": 22,
+        "endChar": 49
+      },
+      "revId": "dc52b27a09339a515a03f9f3fe537bdcc8db03b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c35f571c_dd7d74d0",
         "filename": "modules/congestion_controller/goog_cc/trendline_estimator.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "dc52b27a09339a515a03f9f3fe537bdcc8db03b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed04edfc_d99c9768",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-09-01T17:26:33Z",
+      "side": 1,
+      "message": "Good ideea. Done.",
+      "parentUuid": "c35f571c_dd7d74d0",
+      "range": {
+        "startLine": 39,
+        "startChar": 43,
+        "endLine": 39,
+        "endChar": 45
+      },
+      "revId": "dc52b27a09339a515a03f9f3fe537bdcc8db03b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1aa35714_02503172",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-09-01T17:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd0ea105_3fd4c963",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 63
+      },
+      "revId": "dc52b27a09339a515a03f9f3fe537bdcc8db03b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d951e8a9_608622e6",
         "filename": "modules/congestion_controller/goog_cc/trendline_estimator.h",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2019-08-30T14:05:00Z",
       "side": 1,
       "message": "DataSize?",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 10
+      },
+      "revId": "dc52b27a09339a515a03f9f3fe537bdcc8db03b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "801d15ba_d7f9fcff",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-09-01T17:26:33Z",
+      "side": 1,
+      "message": "That wouldn\u0027t be consistent with the existing code.",
+      "parentUuid": "d951e8a9_608622e6",
       "range": {
         "startLine": 38,
         "startChar": 2,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "243f09b1_80f20eb2",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-09-01T17:26:33Z",
+      "side": 1,
+      "message": "I prefer to avoiding a lot of copy-pasted code.",
+      "parentUuid": "020ce0f0_41b49acc",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 28
+      },
+      "revId": "dc52b27a09339a515a03f9f3fe537bdcc8db03b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7016aa01_841eb815",
         "filename": "modules/congestion_controller/goog_cc/trendline_estimator_unittest.cc",
         "patchSetId": 5
@@ -128,6 +248,30 @@
       "writtenOn": "2019-08-30T14:05:00Z",
       "side": 1,
       "message": "Suggestion to improve failure messages and readability:\n\nauto state \u003d RunToStateChange();\nEXPECT_EQ(state,BandwidthUsage::kBwNormal);\nauto state \u003d RunToStateChange();\nEXPECT_EQ(state,BandwidthUsage::kBwUnderusing);",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 12
+      },
+      "revId": "dc52b27a09339a515a03f9f3fe537bdcc8db03b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9aefe04_97d555db",
+        "filename": "modules/congestion_controller/goog_cc/trendline_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-09-01T17:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7016aa01_841eb815",
       "range": {
         "startLine": 125,
         "startChar": 0,

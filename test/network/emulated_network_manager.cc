@@ -53,7 +53,7 @@ void EmulatedNetworkManager::DisableEndpoint(EmulatedEndpoint* endpoint) {
 // Network manager interface. All these methods are supposed to be called from
 // the same thread.
 void EmulatedNetworkManager::StartUpdating() {
-  RTC_DCHECK_RUN_ON(&network_thread_);
+  RTC_CHECK_RUN_ON(&network_thread_);
 
   if (start_count_) {
     // If network interfaces are already discovered and signal is sent,
@@ -69,7 +69,7 @@ void EmulatedNetworkManager::StartUpdating() {
 }
 
 void EmulatedNetworkManager::StopUpdating() {
-  RTC_DCHECK_RUN_ON(&network_thread_);
+  RTC_CHECK_RUN_ON(&network_thread_);
   if (!start_count_)
     return;
 
@@ -87,7 +87,7 @@ void EmulatedNetworkManager::GetStats(
 }
 
 void EmulatedNetworkManager::UpdateNetworksOnce() {
-  RTC_DCHECK_RUN_ON(&network_thread_);
+  RTC_CHECK_RUN_ON(&network_thread_);
 
   std::vector<rtc::Network*> networks;
   for (std::unique_ptr<rtc::Network>& net :
@@ -105,7 +105,7 @@ void EmulatedNetworkManager::UpdateNetworksOnce() {
 }
 
 void EmulatedNetworkManager::MaybeSignalNetworksChanged() {
-  RTC_DCHECK_RUN_ON(&network_thread_);
+  RTC_CHECK_RUN_ON(&network_thread_);
   // If manager is stopped we don't need to signal anything.
   if (start_count_ == 0) {
     return;

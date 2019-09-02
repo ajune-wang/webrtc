@@ -351,7 +351,7 @@ void AudioSendStream::Start() {
     rtp_rtcp_module_->SetAsPartOfAllocation(true);
     rtc::Event thread_sync_event;
     worker_queue_->PostTask([&] {
-      RTC_DCHECK_RUN_ON(worker_queue_);
+      RTC_CHECK_RUN_ON(worker_queue_);
       ConfigureBitrateObserver();
       thread_sync_event.Set();
     });
@@ -557,7 +557,7 @@ void AudioSendStream::UpdateOverheadForEncoder() {
     encoder->OnReceivedOverhead(overhead_per_packet_bytes);
   });
   worker_queue_->PostTask([this, overhead_per_packet_bytes] {
-    RTC_DCHECK_RUN_ON(worker_queue_);
+    RTC_CHECK_RUN_ON(worker_queue_);
     if (total_packet_overhead_bytes_ != overhead_per_packet_bytes) {
       total_packet_overhead_bytes_ = overhead_per_packet_bytes;
       if (registered_with_allocator_) {
@@ -814,7 +814,7 @@ void AudioSendStream::ReconfigureBitrateObserver(
     stream->rtp_transport_->AccountForAudioPacketsInPacedSender(true);
     rtc::Event thread_sync_event;
     stream->worker_queue_->PostTask([&] {
-      RTC_DCHECK_RUN_ON(stream->worker_queue_);
+      RTC_CHECK_RUN_ON(stream->worker_queue_);
       stream->registered_with_allocator_ = true;
       // We may get a callback immediately as the observer is registered, so
       // make
@@ -852,7 +852,7 @@ void AudioSendStream::RemoveBitrateObserver() {
   RTC_DCHECK(worker_thread_checker_.IsCurrent());
   rtc::Event thread_sync_event;
   worker_queue_->PostTask([this, &thread_sync_event] {
-    RTC_DCHECK_RUN_ON(worker_queue_);
+    RTC_CHECK_RUN_ON(worker_queue_);
     registered_with_allocator_ = false;
     bitrate_allocator_->RemoveObserver(this);
     thread_sync_event.Set();

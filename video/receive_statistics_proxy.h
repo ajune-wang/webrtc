@@ -165,7 +165,7 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   std::map<VideoContentType, ContentSpecificStats> content_specific_stats_
       RTC_GUARDED_BY(crit_);
   MaxCounter freq_offset_counter_ RTC_GUARDED_BY(crit_);
-  QpCounters qp_counters_ RTC_GUARDED_BY(decode_thread_);
+  QpCounters qp_counters_ RTC_GUARDED_BY_THREAD(decode_thread_);
   int64_t avg_rtt_ms_ RTC_GUARDED_BY(crit_);
   mutable std::map<int64_t, size_t> frame_window_ RTC_GUARDED_BY(&crit_);
   VideoContentType last_content_type_ RTC_GUARDED_BY(&crit_);
@@ -180,9 +180,9 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   mutable rtc::MovingMaxCounter<TimingFrameInfo> timing_frame_info_counter_
       RTC_GUARDED_BY(&crit_);
   absl::optional<int> num_unique_frames_ RTC_GUARDED_BY(crit_);
-  rtc::ThreadChecker decode_thread_;
-  rtc::ThreadChecker network_thread_;
-  rtc::ThreadChecker main_thread_;
+  RTC_THREAD_CHECKER(decode_thread_);
+  RTC_THREAD_CHECKER(network_thread_);
+  RTC_THREAD_CHECKER(main_thread_);
 };
 
 }  // namespace webrtc

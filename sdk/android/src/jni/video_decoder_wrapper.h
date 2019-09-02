@@ -71,33 +71,35 @@ class VideoDecoderWrapper : public VideoDecoder {
     ~FrameExtraInfo();
   };
 
-  int32_t InitDecodeInternal(JNIEnv* jni) RTC_RUN_ON(decoder_thread_checker_);
+  int32_t InitDecodeInternal(JNIEnv* jni)
+      RTC_DECLARE_RUN_ON(decoder_thread_checker_);
 
   // Takes Java VideoCodecStatus, handles it and returns WEBRTC_VIDEO_CODEC_*
   // status code.
   int32_t HandleReturnCode(JNIEnv* jni,
                            const JavaRef<jobject>& j_value,
                            const char* method_name)
-      RTC_RUN_ON(decoder_thread_checker_);
+      RTC_DECLARE_RUN_ON(decoder_thread_checker_);
 
   absl::optional<uint8_t> ParseQP(const EncodedImage& input_image)
-      RTC_RUN_ON(decoder_thread_checker_);
+      RTC_DECLARE_RUN_ON(decoder_thread_checker_);
 
   const ScopedJavaGlobalRef<jobject> decoder_;
   const std::string implementation_name_;
 
-  rtc::ThreadChecker decoder_thread_checker_;
+  RTC_THREAD_CHECKER(decoder_thread_checker_);
+
   // Callbacks must be executed sequentially on an arbitrary thread. We do not
   // own this thread so a thread checker cannot be used.
   rtc::RaceChecker callback_race_checker_;
 
   // Initialized on InitDecode and immutable after that.
-  VideoCodec codec_settings_ RTC_GUARDED_BY(decoder_thread_checker_);
-  int32_t number_of_cores_ RTC_GUARDED_BY(decoder_thread_checker_);
+  VideoCodec codec_settings_ RTC_GUARDED_BY_THREAD(decoder_thread_checker_);
+  int32_t number_of_cores_ RTC_GUARDED_BY_THREAD(decoder_thread_checker_);
 
-  bool initialized_ RTC_GUARDED_BY(decoder_thread_checker_);
+  bool initialized_ RTC_GUARDED_BY_THREAD(decoder_thread_checker_);
   H264BitstreamParser h264_bitstream_parser_
-      RTC_GUARDED_BY(decoder_thread_checker_);
+      RTC_GUARDED_BY_THREAD(decoder_thread_checker_);
 
   DecodedImageCallback* callback_ RTC_GUARDED_BY(callback_race_checker_);
 

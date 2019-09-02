@@ -116,7 +116,7 @@ bool RtcEventLogImpl::StartLogging(std::unique_ptr<RtcEventLogOutput> output,
   // Binding to |this| is safe because |this| outlives the |task_queue_|.
   auto start = [this, output_period_ms, timestamp_us,
                 utc_time_us](std::unique_ptr<RtcEventLogOutput> output) {
-    RTC_DCHECK_RUN_ON(task_queue_.get());
+    RTC_CHECK_RUN_ON(task_queue_.get());
     RTC_DCHECK(output->IsActive());
     output_period_ms_ = output_period_ms;
     event_output_ = std::move(output);
@@ -155,7 +155,7 @@ void RtcEventLogImpl::StopLogging(std::function<void()> callback) {
   RTC_DCHECK_RUN_ON(&logging_state_checker_);
   logging_state_started_ = false;
   task_queue_->PostTask([this, callback] {
-    RTC_DCHECK_RUN_ON(task_queue_.get());
+    RTC_CHECK_RUN_ON(task_queue_.get());
     if (event_output_) {
       RTC_DCHECK(event_output_->IsActive());
       LogEventsFromMemoryToOutput();
@@ -170,7 +170,7 @@ void RtcEventLogImpl::Log(std::unique_ptr<RtcEvent> event) {
 
   // Binding to |this| is safe because |this| outlives the |task_queue_|.
   auto event_handler = [this](std::unique_ptr<RtcEvent> unencoded_event) {
-    RTC_DCHECK_RUN_ON(task_queue_.get());
+    RTC_CHECK_RUN_ON(task_queue_.get());
     LogToMemory(std::move(unencoded_event));
     if (event_output_)
       ScheduleOutput();
@@ -201,7 +201,7 @@ void RtcEventLogImpl::ScheduleOutput() {
     output_scheduled_ = true;
     // Binding to |this| is safe because |this| outlives the |task_queue_|.
     auto output_task = [this]() {
-      RTC_DCHECK_RUN_ON(task_queue_.get());
+      RTC_CHECK_RUN_ON(task_queue_.get());
       if (event_output_) {
         RTC_DCHECK(event_output_->IsActive());
         LogEventsFromMemoryToOutput();

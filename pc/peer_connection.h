@@ -247,19 +247,19 @@ class PeerConnection : public PeerConnectionInternal,
   }
 
   std::string session_id() const override {
-    RTC_DCHECK_RUN_ON(signaling_thread());
+    RTC_CHECK_RUN_ON(signaling_thread());
     return session_id_;
   }
 
   bool initial_offerer() const override {
-    RTC_DCHECK_RUN_ON(signaling_thread());
+    RTC_CHECK_RUN_ON(signaling_thread());
     return transport_controller_ && transport_controller_->initial_offerer();
   }
 
   std::vector<
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
   GetTransceiversInternal() const override {
-    RTC_DCHECK_RUN_ON(signaling_thread());
+    RTC_CHECK_RUN_ON(signaling_thread());
     return transceivers_;
   }
 
@@ -273,12 +273,12 @@ class PeerConnection : public PeerConnectionInternal,
 
   std::vector<rtc::scoped_refptr<DataChannel>> sctp_data_channels()
       const override {
-    RTC_DCHECK_RUN_ON(signaling_thread());
+    RTC_CHECK_RUN_ON(signaling_thread());
     return sctp_data_channels_;
   }
 
   absl::optional<std::string> sctp_content_name() const override {
-    RTC_DCHECK_RUN_ON(signaling_thread());
+    RTC_CHECK_RUN_ON(signaling_thread());
     return sctp_mid_;
   }
 
@@ -300,7 +300,7 @@ class PeerConnection : public PeerConnectionInternal,
   bool GetSslRole(const std::string& content_name, rtc::SSLRole* role) override;
 
   void ReturnHistogramVeryQuicklyForTesting() {
-    RTC_DCHECK_RUN_ON(signaling_thread());
+    RTC_CHECK_RUN_ON(signaling_thread());
     return_histogram_very_quickly_ = true;
   }
   void RequestUsagePatternReportForTesting();
@@ -633,7 +633,7 @@ class PeerConnection : public PeerConnectionInternal,
   void OnNegotiationNeeded();
 
   bool IsClosed() const {
-    RTC_DCHECK_RUN_ON(signaling_thread());
+    RTC_CHECK_RUN_ON(signaling_thread());
     return signaling_state_ == PeerConnectionInterface::kClosed;
   }
 

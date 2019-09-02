@@ -59,17 +59,17 @@ class FlexfecReceiver {
 
   // Erasure code interfacing and callback.
   std::unique_ptr<ForwardErrorCorrection> erasure_code_
-      RTC_GUARDED_BY(sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
   ForwardErrorCorrection::RecoveredPacketList recovered_packets_
-      RTC_GUARDED_BY(sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
   RecoveredPacketReceiver* const recovered_packet_receiver_;
 
   // Logging and stats.
   Clock* const clock_;
-  int64_t last_recovered_packet_ms_ RTC_GUARDED_BY(sequence_checker_);
-  FecPacketCounter packet_counter_ RTC_GUARDED_BY(sequence_checker_);
+  int64_t last_recovered_packet_ms_ RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
+  FecPacketCounter packet_counter_ RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
 
-  SequenceChecker sequence_checker_;
+  RTC_SEQUENCE_CHECKER(sequence_checker_);
 };
 
 }  // namespace webrtc

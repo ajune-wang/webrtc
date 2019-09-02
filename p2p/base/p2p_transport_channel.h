@@ -139,28 +139,28 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   // TODO(honghaiz): Remove this method once the reference of it in
   // Chromoting is removed.
   const Connection* best_connection() const {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     return selected_connection_;
   }
 
   void set_incoming_only(bool value) {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     incoming_only_ = value;
   }
 
   // Note: These are only for testing purpose.
   // |ports_| and |pruned_ports| should not be changed from outside.
   const std::vector<PortInterface*>& ports() {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     return ports_;
   }
   const std::vector<PortInterface*>& pruned_ports() {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     return pruned_ports_;
   }
 
   IceMode remote_ice_mode() const {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     return remote_ice_mode_;
   }
 
@@ -180,7 +180,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
 
   // Public for unit tests.
   PortAllocatorSession* allocator_session() const {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     if (allocator_sessions_.empty()) {
       return nullptr;
     }
@@ -189,12 +189,12 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
 
   // Public for unit tests.
   const std::vector<RemoteCandidate>& remote_candidates() const {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     return remote_candidates_;
   }
 
   std::string ToString() const {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     const std::string RECEIVING_ABBREV[2] = {"_", "R"};
     const std::string WRITABLE_ABBREV[2] = {"_", "W"};
     rtc::StringBuilder ss;
@@ -207,7 +207,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   rtc::Thread* thread() const { return network_thread_; }
 
   bool IsGettingPorts() {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     return allocator_session()->IsGettingPorts();
   }
 
@@ -216,13 +216,13 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   bool weak() const;
 
   int weak_ping_interval() const {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     return std::max(config_.ice_check_interval_weak_connectivity_or_default(),
                     config_.ice_check_min_interval_or_default());
   }
 
   int strong_ping_interval() const {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     return std::max(config_.ice_check_interval_strong_connectivity_or_default(),
                     config_.ice_check_min_interval_or_default());
   }
@@ -376,7 +376,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   // Returns the latest remote ICE parameters or nullptr if there are no remote
   // ICE parameters yet.
   IceParameters* remote_ice() {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     return remote_ice_parameters_.empty() ? nullptr
                                           : &remote_ice_parameters_.back();
   }
@@ -387,7 +387,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   // Returns the index of the latest remote ICE parameters, or 0 if no remote
   // ICE parameters have been received.
   uint32_t remote_ice_generation() {
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
     return remote_ice_parameters_.empty()
                ? 0
                : static_cast<uint32_t>(remote_ice_parameters_.size() - 1);

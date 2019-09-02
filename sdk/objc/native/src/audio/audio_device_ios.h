@@ -203,10 +203,10 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
 
   // Ensures that methods are called from the same thread as this object is
   // created on.
-  rtc::ThreadChecker thread_checker_;
+  RTC_THREAD_CHECKER(thread_checker_);
 
   // Native I/O audio thread checker.
-  rtc::ThreadChecker io_thread_checker_;
+  RTC_THREAD_CHECKER(io_thread_checker_);
 
   // Thread that this object is created on.
   rtc::Thread* thread_;
@@ -261,7 +261,7 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
   volatile int playing_;
 
   // Set to true after successful call to Init(), false otherwise.
-  bool initialized_ RTC_GUARDED_BY(thread_checker_);
+  bool initialized_ RTC_GUARDED_BY_THREAD(thread_checker_);
 
   // Set to true after successful call to InitRecording() or InitPlayout(),
   // false otherwise.
@@ -272,14 +272,14 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
 
   // Audio interruption observer instance.
   RTCNativeAudioSessionDelegateAdapter* audio_session_observer_
-      RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
 
   // Set to true if we've activated the audio session.
-  bool has_configured_session_ RTC_GUARDED_BY(thread_checker_);
+  bool has_configured_session_ RTC_GUARDED_BY_THREAD(thread_checker_);
 
   // Counts number of detected audio glitches on the playout side.
-  int64_t num_detected_playout_glitches_ RTC_GUARDED_BY(thread_checker_);
-  int64_t last_playout_time_ RTC_GUARDED_BY(io_thread_checker_);
+  int64_t num_detected_playout_glitches_ RTC_GUARDED_BY_THREAD(thread_checker_);
+  int64_t last_playout_time_ RTC_GUARDED_BY_THREAD(io_thread_checker_);
 
   // Counts number of playout callbacks per call.
   // The value isupdated on the native I/O thread and later read on the
@@ -288,7 +288,8 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
   int64_t num_playout_callbacks_;
 
   // Contains the time for when the last output volume change was detected.
-  int64_t last_output_volume_change_time_ RTC_GUARDED_BY(thread_checker_);
+  int64_t last_output_volume_change_time_
+      RTC_GUARDED_BY_THREAD(thread_checker_);
 };
 }  // namespace ios_adm
 }  // namespace webrtc

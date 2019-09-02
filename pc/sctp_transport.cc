@@ -44,26 +44,26 @@ SctpTransportInformation SctpTransport::Information() const {
 }
 
 void SctpTransport::RegisterObserver(SctpTransportObserverInterface* observer) {
-  RTC_DCHECK_RUN_ON(owner_thread_);
+  RTC_CHECK_RUN_ON(owner_thread_);
   RTC_DCHECK(observer);
   RTC_DCHECK(!observer_);
   observer_ = observer;
 }
 
 void SctpTransport::UnregisterObserver() {
-  RTC_DCHECK_RUN_ON(owner_thread_);
+  RTC_CHECK_RUN_ON(owner_thread_);
   observer_ = nullptr;
 }
 
 rtc::scoped_refptr<DtlsTransportInterface> SctpTransport::dtls_transport()
     const {
-  RTC_DCHECK_RUN_ON(owner_thread_);
+  RTC_CHECK_RUN_ON(owner_thread_);
   return dtls_transport_;
 }
 
 // Internal functions
 void SctpTransport::Clear() {
-  RTC_DCHECK_RUN_ON(owner_thread_);
+  RTC_CHECK_RUN_ON(owner_thread_);
   RTC_DCHECK(internal());
   {
     rtc::CritScope scope(&lock_);
@@ -77,7 +77,7 @@ void SctpTransport::Clear() {
 
 void SctpTransport::SetDtlsTransport(
     rtc::scoped_refptr<DtlsTransport> transport) {
-  RTC_DCHECK_RUN_ON(owner_thread_);
+  RTC_CHECK_RUN_ON(owner_thread_);
   SctpTransportState next_state;
   {
     rtc::CritScope scope(&lock_);
@@ -119,7 +119,7 @@ void SctpTransport::Start(int local_port,
 }
 
 void SctpTransport::UpdateInformation(SctpTransportState state) {
-  RTC_DCHECK_RUN_ON(owner_thread_);
+  RTC_CHECK_RUN_ON(owner_thread_);
   bool must_send_update;
   SctpTransportInformation info_copy(SctpTransportState::kNew);
   {
@@ -145,7 +145,7 @@ void SctpTransport::UpdateInformation(SctpTransportState state) {
 }
 
 void SctpTransport::OnAssociationChangeCommunicationUp() {
-  RTC_DCHECK_RUN_ON(owner_thread_);
+  RTC_CHECK_RUN_ON(owner_thread_);
   {
     rtc::CritScope scope(&lock_);
     RTC_DCHECK(internal_sctp_transport_);

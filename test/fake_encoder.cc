@@ -338,7 +338,7 @@ DelayedEncoder::DelayedEncoder(Clock* clock, int delay_ms)
     : test::FakeEncoder(clock), delay_ms_(delay_ms) {
   // The encoder could be created on a different thread than
   // it is being used on.
-  sequence_checker_.Detach();
+  RTC_DETACH_FROM_SEQUENCE(sequence_checker_);
 }
 
 void DelayedEncoder::SetDelay(int delay_ms) {
@@ -365,7 +365,7 @@ MultithreadedFakeH264Encoder::MultithreadedFakeH264Encoder(
       queue2_(nullptr) {
   // The encoder could be created on a different thread than
   // it is being used on.
-  sequence_checker_.Detach();
+  RTC_DETACH_FROM_SEQUENCE(sequence_checker_);
 }
 
 int32_t MultithreadedFakeH264Encoder::InitEncode(const VideoCodec* config,

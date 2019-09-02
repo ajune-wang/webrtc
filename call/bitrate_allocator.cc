@@ -67,7 +67,7 @@ BitrateAllocator::BitrateAllocator(Clock* clock, LimitObserver* limit_observer)
       total_requested_max_bitrate_(0),
       transmission_max_bitrate_multiplier_(
           GetTransmissionMaxBitrateMultiplier()) {
-  sequenced_checker_.Detach();
+  RTC_DETACH_FROM_SEQUENCE(sequenced_checker_);
 }
 
 BitrateAllocator::~BitrateAllocator() {

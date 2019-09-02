@@ -356,10 +356,10 @@ void PeerConnectionE2EQualityTest::Run(RunParams run_params) {
                            {{"alice", alice_.get()}, {"bob", bob_.get()}});
 
   task_queue_->PostTask([&stats_poller, this]() {
-    RTC_DCHECK_RUN_ON(task_queue_.get());
+    RTC_CHECK_RUN_ON(task_queue_.get());
     stats_polling_task_ =
         RepeatingTaskHandle::Start(task_queue_->Get(), [this, &stats_poller]() {
-          RTC_DCHECK_RUN_ON(task_queue_.get());
+          RTC_CHECK_RUN_ON(task_queue_.get());
           stats_poller.PollStatsAndNotifyObservers();
           return kStatsUpdateInterval;
         });
@@ -374,7 +374,6 @@ void PeerConnectionE2EQualityTest::Run(RunParams run_params) {
   }
 
   RTC_LOG(INFO) << "Test is done, initiating disconnect sequence.";
-
   task_queue_->SendTask([this]() {
     RTC_DCHECK_RUN_ON(task_queue_.get());
     stats_polling_task_.Stop();

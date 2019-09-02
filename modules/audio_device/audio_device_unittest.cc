@@ -214,8 +214,8 @@ class LatencyAudioStream : public AudioStream {
   LatencyAudioStream() {
     // Delay thread checkers from being initialized until first callback from
     // respective thread.
-    read_thread_checker_.Detach();
-    write_thread_checker_.Detach();
+    RTC_DETACH_FROM_THREAD(read_thread_checker_);
+    RTC_DETACH_FROM_THREAD(write_thread_checker_);
   }
 
   // Insert periodic impulses in first two samples of |destination|.
@@ -316,13 +316,13 @@ class LatencyAudioStream : public AudioStream {
 
   rtc::CriticalSection lock_;
   rtc::RaceChecker race_checker_;
-  rtc::ThreadChecker read_thread_checker_;
-  rtc::ThreadChecker write_thread_checker_;
+  RTC_THREAD_CHECKER(read_thread_checker_);
+  RTC_THREAD_CHECKER(write_thread_checker_);
 
   absl::optional<int64_t> pulse_time_ RTC_GUARDED_BY(lock_);
   std::vector<int> latencies_ RTC_GUARDED_BY(race_checker_);
-  size_t read_count_ RTC_GUARDED_BY(read_thread_checker_) = 0;
-  size_t write_count_ RTC_GUARDED_BY(write_thread_checker_) = 0;
+  size_t read_count_ RTC_GUARDED_BY_THREAD(read_thread_checker_) = 0;
+  size_t write_count_ RTC_GUARDED_BY_THREAD(write_thread_checker_) = 0;
 };
 
 // Mocks the AudioTransport object and proxies actions for the two callbacks

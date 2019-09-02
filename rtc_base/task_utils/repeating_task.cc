@@ -24,7 +24,7 @@ RepeatingTaskBase::RepeatingTaskBase(TaskQueueBase* task_queue,
 RepeatingTaskBase::~RepeatingTaskBase() = default;
 
 bool RepeatingTaskBase::Run() {
-  RTC_DCHECK_RUN_ON(task_queue_);
+  RTC_CHECK_RUN_ON(task_queue_);
   // Return true to tell the TaskQueue to destruct this object.
   if (next_run_time_.IsPlusInfinity())
     return true;
@@ -74,7 +74,7 @@ RepeatingTaskHandle::RepeatingTaskHandle(
 
 void RepeatingTaskHandle::Stop() {
   if (repeating_task_) {
-    RTC_DCHECK_RUN_ON(repeating_task_->task_queue_);
+    RTC_CHECK_RUN_ON(repeating_task_->task_queue_);
     repeating_task_->Stop();
     repeating_task_ = nullptr;
   }

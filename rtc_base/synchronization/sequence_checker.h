@@ -158,11 +158,46 @@ class RTC_SCOPED_LOCKABLE SequenceCheckerScope {
 // }
 
 // Document if a function expected to be called from same thread/task queue.
+// TODO(tommi): The name of this macro conflicts with RTC_[D]CHECK_RUN_ON
+// macros which are used within a scope - while this one is an annotation
+// macro.
 #define RTC_RUN_ON(x) \
   RTC_THREAD_ANNOTATION_ATTRIBUTE__(exclusive_locks_required(x))
+
+#if RTC_DCHECK_IS_ON
+#define RTC_SEQUENCE_CHECKER(name) webrtc::SequenceChecker name
+
+#define RTC_DCHECK_IS_CURRENT(name) RTC_DCHECK((name).IsCurrent())
 
 #define RTC_DCHECK_RUN_ON(x)                                              \
   webrtc::webrtc_seq_check_impl::SequenceCheckerScope seq_check_scope(x); \
   RTC_DCHECK((x)->IsCurrent())
+
+// TODO(tommi): The name "CHECK" implies that there's a runtime CHECK() that
+// will halt the process in a non-DCHECK release build. However, this macro
+// is more about doing DCHECKs in DCHECK enabled builds and still supporting
+// pseudo 'locking' for TaskQueue/Thread objects in release builds without
+// code size impact. (kind of like the RTC_DCHECK_RUN_ON macro actually... hmmm)
+#define RTC_CHECK_RUN_ON(x) RTC_DCHECK_RUN_ON(x)
+
+// Used for function declarations.
+#define RTC_DECLARE_RUN_ON(x) RTC_RUN_ON(x)
+
+#define RTC_DETACH_FROM_SEQUENCE(name) (name).Detach()
+#define RTC_GUARDED_BY_SEQUENCE(name) RTC_GUARDED_BY(name)
+#define RTC_PT_GUARDED_BY_SEQUENCE(name) RTC_PT_GUARDED_BY(name)
+#else  // RTC_DCHECK_IS_ON
+#define RTC_SEQUENCE_CHECKER(name) static_assert(true, "")
+#define RTC_DCHECK_IS_CURRENT(name) RTC_EAT_STREAM_PARAMETERS(0)
+#define RTC_DCHECK_RUN_ON(x) RTC_EAT_STREAM_PARAMETERS(0)
+#define RTC_CHECK_RUN_ON(x) \
+  webrtc::webrtc_seq_check_impl::SequenceCheckerScope seq_check_scope(x);
+
+#define RTC_DECLARE_RUN_ON(x)
+
+#define RTC_DETACH_FROM_SEQUENCE(name)
+#define RTC_GUARDED_BY_SEQUENCE(name)
+#define RTC_PT_GUARDED_BY_SEQUENCE(name)
+#endif  // RTC_DCHECK_IS_ON
 
 #endif  // RTC_BASE_SYNCHRONIZATION_SEQUENCE_CHECKER_H_

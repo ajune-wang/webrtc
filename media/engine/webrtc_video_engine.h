@@ -269,23 +269,22 @@ class WebRtcVideoChannel : public VideoMediaChannel,
 
   bool GetChangedSendParameters(const VideoSendParameters& params,
                                 ChangedSendParameters* changed_params) const
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(thread_checker_);
+      RTC_DECLARE_RUN_ON(thread_checker_);
   bool ApplyChangedParams(const ChangedSendParameters& changed_params);
   bool GetChangedRecvParameters(const VideoRecvParameters& params,
                                 ChangedRecvParameters* changed_params) const
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(thread_checker_);
+      RTC_DECLARE_RUN_ON(thread_checker_);
 
   void ConfigureReceiverRtp(
       webrtc::VideoReceiveStream::Config* config,
       webrtc::FlexfecReceiveStream::Config* flexfec_config,
-      const StreamParams& sp) const
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(thread_checker_);
+      const StreamParams& sp) const RTC_DECLARE_RUN_ON(thread_checker_);
   bool ValidateSendSsrcAvailability(const StreamParams& sp) const
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(thread_checker_);
+      RTC_DECLARE_RUN_ON(thread_checker_);
   bool ValidateReceiveSsrcAvailability(const StreamParams& sp) const
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(thread_checker_);
+      RTC_DECLARE_RUN_ON(thread_checker_);
   void DeleteReceiveStream(WebRtcVideoReceiveStream* stream)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(thread_checker_);
+      RTC_DECLARE_RUN_ON(thread_checker_);
 
   static std::string CodecSettingsVectorToString(
       const std::vector<VideoCodecSettings>& codecs);
@@ -365,32 +364,35 @@ class WebRtcVideoChannel : public VideoMediaChannel,
     void UpdateSendState();
 
     webrtc::DegradationPreference GetDegradationPreference() const
-        RTC_EXCLUSIVE_LOCKS_REQUIRED(&thread_checker_);
+        RTC_DECLARE_RUN_ON(&thread_checker_);
 
-    rtc::ThreadChecker thread_checker_;
+    RTC_THREAD_CHECKER(thread_checker_);
     rtc::Thread* worker_thread_;
-    const std::vector<uint32_t> ssrcs_ RTC_GUARDED_BY(&thread_checker_);
-    const std::vector<SsrcGroup> ssrc_groups_ RTC_GUARDED_BY(&thread_checker_);
+    const std::vector<uint32_t> ssrcs_ RTC_GUARDED_BY_THREAD(&thread_checker_);
+    const std::vector<SsrcGroup> ssrc_groups_
+        RTC_GUARDED_BY_THREAD(&thread_checker_);
     webrtc::Call* const call_;
     const bool enable_cpu_overuse_detection_;
     rtc::VideoSourceInterface<webrtc::VideoFrame>* source_
-        RTC_GUARDED_BY(&thread_checker_);
+        RTC_GUARDED_BY_THREAD(&thread_checker_);
 
-    webrtc::VideoSendStream* stream_ RTC_GUARDED_BY(&thread_checker_);
+    webrtc::VideoSendStream* stream_ RTC_GUARDED_BY_THREAD(&thread_checker_);
     rtc::VideoSinkInterface<webrtc::VideoFrame>* encoder_sink_
-        RTC_GUARDED_BY(&thread_checker_);
+        RTC_GUARDED_BY_THREAD(&thread_checker_);
     // Contains settings that are the same for all streams in the MediaChannel,
     // such as codecs, header extensions, and the global bitrate limit for the
     // entire channel.
-    VideoSendStreamParameters parameters_ RTC_GUARDED_BY(&thread_checker_);
+    VideoSendStreamParameters parameters_
+        RTC_GUARDED_BY_THREAD(&thread_checker_);
     // Contains settings that are unique for each stream, such as max_bitrate.
     // Does *not* contain codecs, however.
     // TODO(skvlad): Move ssrcs_ and ssrc_groups_ into rtp_parameters_.
     // TODO(skvlad): Combine parameters_ and rtp_parameters_ once we have only
     // one stream per MediaChannel.
-    webrtc::RtpParameters rtp_parameters_ RTC_GUARDED_BY(&thread_checker_);
+    webrtc::RtpParameters rtp_parameters_
+        RTC_GUARDED_BY_THREAD(&thread_checker_);
 
-    bool sending_ RTC_GUARDED_BY(&thread_checker_);
+    bool sending_ RTC_GUARDED_BY_THREAD(&thread_checker_);
 
     const bool use_standard_bytes_stats_;
 
@@ -504,87 +506,92 @@ class WebRtcVideoChannel : public VideoMediaChannel,
   // Get all codecs that are compatible with the receiver.
   std::vector<VideoCodecSettings> SelectSendVideoCodecs(
       const std::vector<VideoCodecSettings>& remote_mapped_codecs) const
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(thread_checker_);
+      RTC_DECLARE_RUN_ON(thread_checker_);
 
   static bool NonFlexfecReceiveCodecsHaveChanged(
       std::vector<VideoCodecSettings> before,
       std::vector<VideoCodecSettings> after);
 
   void FillSenderStats(VideoMediaInfo* info, bool log_stats)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(thread_checker_);
+      RTC_DECLARE_RUN_ON(thread_checker_);
   void FillReceiverStats(VideoMediaInfo* info, bool log_stats)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(thread_checker_);
+      RTC_DECLARE_RUN_ON(thread_checker_);
   void FillBandwidthEstimationStats(const webrtc::Call::Stats& stats,
                                     VideoMediaInfo* info)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(thread_checker_);
+      RTC_DECLARE_RUN_ON(thread_checker_);
   void FillSendAndReceiveCodecStats(VideoMediaInfo* video_media_info)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(thread_checker_);
+      RTC_DECLARE_RUN_ON(thread_checker_);
 
   rtc::Thread* worker_thread_;
-  rtc::ThreadChecker thread_checker_;
+  RTC_THREAD_CHECKER(thread_checker_);
 
-  uint32_t rtcp_receiver_report_ssrc_ RTC_GUARDED_BY(thread_checker_);
-  bool sending_ RTC_GUARDED_BY(thread_checker_);
-  webrtc::Call* const call_ RTC_GUARDED_BY(thread_checker_);
+  uint32_t rtcp_receiver_report_ssrc_ RTC_GUARDED_BY_THREAD(thread_checker_);
+  bool sending_ RTC_GUARDED_BY_THREAD(thread_checker_);
+  webrtc::Call* const call_ RTC_GUARDED_BY_THREAD(thread_checker_);
 
   DefaultUnsignalledSsrcHandler default_unsignalled_ssrc_handler_
-      RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
   UnsignalledSsrcHandler* const unsignalled_ssrc_handler_
-      RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
 
   // Delay for unsignaled streams, which may be set before the stream exists.
-  int default_recv_base_minimum_delay_ms_ RTC_GUARDED_BY(thread_checker_) = 0;
+  int default_recv_base_minimum_delay_ms_
+      RTC_GUARDED_BY_THREAD(thread_checker_) = 0;
 
-  const MediaConfig::Video video_config_ RTC_GUARDED_BY(thread_checker_);
+  const MediaConfig::Video video_config_ RTC_GUARDED_BY_THREAD(thread_checker_);
 
   // Using primary-ssrc (first ssrc) as key.
   std::map<uint32_t, WebRtcVideoSendStream*> send_streams_
-      RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
   std::map<uint32_t, WebRtcVideoReceiveStream*> receive_streams_
-      RTC_GUARDED_BY(thread_checker_);
-  std::set<uint32_t> send_ssrcs_ RTC_GUARDED_BY(thread_checker_);
-  std::set<uint32_t> receive_ssrcs_ RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
+  std::set<uint32_t> send_ssrcs_ RTC_GUARDED_BY_THREAD(thread_checker_);
+  std::set<uint32_t> receive_ssrcs_ RTC_GUARDED_BY_THREAD(thread_checker_);
 
   absl::optional<VideoCodecSettings> send_codec_
-      RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
   std::vector<VideoCodecSettings> negotiated_codecs_
-      RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
 
   absl::optional<std::vector<webrtc::RtpExtension>> send_rtp_extensions_
-      RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
 
   webrtc::VideoEncoderFactory* const encoder_factory_
-      RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
   webrtc::VideoDecoderFactory* const decoder_factory_
-      RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
   webrtc::VideoBitrateAllocatorFactory* const bitrate_allocator_factory_
-      RTC_GUARDED_BY(thread_checker_);
-  std::vector<VideoCodecSettings> recv_codecs_ RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
+  std::vector<VideoCodecSettings> recv_codecs_
+      RTC_GUARDED_BY_THREAD(thread_checker_);
   std::vector<webrtc::RtpExtension> recv_rtp_extensions_
-      RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
   // See reason for keeping track of the FlexFEC payload type separately in
   // comment in WebRtcVideoChannel::ChangedRecvParameters.
-  int recv_flexfec_payload_type_ RTC_GUARDED_BY(thread_checker_);
-  webrtc::BitrateConstraints bitrate_config_ RTC_GUARDED_BY(thread_checker_);
+  int recv_flexfec_payload_type_ RTC_GUARDED_BY_THREAD(thread_checker_);
+  webrtc::BitrateConstraints bitrate_config_
+      RTC_GUARDED_BY_THREAD(thread_checker_);
   // TODO(deadbeef): Don't duplicate information between
   // send_params/recv_params, rtp_extensions, options, etc.
-  VideoSendParameters send_params_ RTC_GUARDED_BY(thread_checker_);
-  VideoOptions default_send_options_ RTC_GUARDED_BY(thread_checker_);
-  VideoRecvParameters recv_params_ RTC_GUARDED_BY(thread_checker_);
-  int64_t last_stats_log_ms_ RTC_GUARDED_BY(thread_checker_);
-  const bool discard_unknown_ssrc_packets_ RTC_GUARDED_BY(thread_checker_);
+  VideoSendParameters send_params_ RTC_GUARDED_BY_THREAD(thread_checker_);
+  VideoOptions default_send_options_ RTC_GUARDED_BY_THREAD(thread_checker_);
+  VideoRecvParameters recv_params_ RTC_GUARDED_BY_THREAD(thread_checker_);
+  int64_t last_stats_log_ms_ RTC_GUARDED_BY_THREAD(thread_checker_);
+  const bool discard_unknown_ssrc_packets_
+      RTC_GUARDED_BY_THREAD(thread_checker_);
   // This is a stream param that comes from the remote description, but wasn't
   // signaled with any a=ssrc lines. It holds information that was signaled
   // before the unsignaled receive stream is created when the first packet is
   // received.
-  StreamParams unsignaled_stream_params_ RTC_GUARDED_BY(thread_checker_);
+  StreamParams unsignaled_stream_params_ RTC_GUARDED_BY_THREAD(thread_checker_);
   // Per peer connection crypto options that last for the lifetime of the peer
   // connection.
-  const webrtc::CryptoOptions crypto_options_ RTC_GUARDED_BY(thread_checker_);
+  const webrtc::CryptoOptions crypto_options_
+      RTC_GUARDED_BY_THREAD(thread_checker_);
 
   // Buffer for unhandled packets.
   std::unique_ptr<UnhandledPacketsBuffer> unknown_ssrc_packet_buffer_
-      RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
 
   // In order for the |invoker_| to protect other members from being destructed
   // as they are used in asynchronous tasks it has to be destructed first.

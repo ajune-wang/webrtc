@@ -61,25 +61,26 @@ class LossNotificationController {
   void HandleLoss(uint16_t last_received_seq_num, bool decodability_flag);
 
   KeyFrameRequestSender* const key_frame_request_sender_
-      RTC_GUARDED_BY(sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
 
   LossNotificationSender* const loss_notification_sender_
-      RTC_GUARDED_BY(sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
 
   SeqNumUnwrapper<uint16_t> frame_id_unwrapper_
-      RTC_GUARDED_BY(sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
 
   // Tracked to avoid processing repeated frames (buggy/malicious remote).
   absl::optional<int64_t> last_received_unwrapped_frame_id_
-      RTC_GUARDED_BY(sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
 
   // Tracked to avoid processing repeated packets.
   absl::optional<uint16_t> last_received_seq_num_
-      RTC_GUARDED_BY(sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
 
   // Tracked in order to correctly report the potential-decodability of
   // multi-packet frames.
-  bool current_frame_potentially_decodable_ RTC_GUARDED_BY(sequence_checker_);
+  bool current_frame_potentially_decodable_
+      RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
 
   // Loss notifications contain the sequence number of the first packet of
   // the last decodable-and-non-discardable frame. Since this is a bit of
@@ -91,15 +92,15 @@ class LossNotificationController {
     uint16_t first_seq_num;
   };
   absl::optional<FrameInfo> last_decodable_non_discardable_
-      RTC_GUARDED_BY(sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
 
   // Track which frames are decodable. Later frames are also decodable if
   // all of their dependencies can be found in this container.
   // (Naturally, later frames must also be assemblable to be decodable.)
   std::set<int64_t> decodable_unwrapped_frame_ids_
-      RTC_GUARDED_BY(sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
 
-  SequenceChecker sequence_checker_;
+  RTC_SEQUENCE_CHECKER(sequence_checker_);
 };
 
 }  // namespace webrtc

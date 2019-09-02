@@ -272,12 +272,13 @@ class Call final : public webrtc::Call,
   const std::unique_ptr<CallStats> call_stats_;
   const std::unique_ptr<BitrateAllocator> bitrate_allocator_;
   Call::Config config_;
-  SequenceChecker configuration_sequence_checker_;
-  SequenceChecker worker_sequence_checker_;
+  RTC_SEQUENCE_CHECKER(configuration_sequence_checker_);
+  RTC_SEQUENCE_CHECKER(worker_sequence_checker_);
 
   NetworkState audio_network_state_;
   NetworkState video_network_state_;
-  bool aggregate_network_up_ RTC_GUARDED_BY(configuration_sequence_checker_);
+  bool aggregate_network_up_
+      RTC_GUARDED_BY_SEQUENCE(configuration_sequence_checker_);
 
   std::unique_ptr<RWLockWrapper> receive_crit_;
   // Audio, Video, and FlexFEC receive streams are owned by the client that
@@ -334,13 +335,13 @@ class Call final : public webrtc::Call,
 
   using RtpStateMap = std::map<uint32_t, RtpState>;
   RtpStateMap suspended_audio_send_ssrcs_
-      RTC_GUARDED_BY(configuration_sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(configuration_sequence_checker_);
   RtpStateMap suspended_video_send_ssrcs_
-      RTC_GUARDED_BY(configuration_sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(configuration_sequence_checker_);
 
   using RtpPayloadStateMap = std::map<uint32_t, RtpPayloadState>;
   RtpPayloadStateMap suspended_video_payload_states_
-      RTC_GUARDED_BY(configuration_sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(configuration_sequence_checker_);
 
   webrtc::RtcEventLog* event_log_;
 
@@ -362,7 +363,7 @@ class Call final : public webrtc::Call,
   // OnNetworkChanged from multiple threads.
   rtc::CriticalSection bitrate_crit_;
   uint32_t min_allocated_send_bitrate_bps_
-      RTC_GUARDED_BY(&worker_sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(&worker_sequence_checker_);
   uint32_t configured_max_padding_bitrate_bps_ RTC_GUARDED_BY(&bitrate_crit_);
   AvgCounter estimated_send_bitrate_kbps_counter_
       RTC_GUARDED_BY(&bitrate_crit_);
@@ -385,7 +386,7 @@ class Call final : public webrtc::Call,
   std::unique_ptr<RtpTransportControllerSendInterface> transport_send_;
 
   bool is_target_rate_observer_registered_
-      RTC_GUARDED_BY(&configuration_sequence_checker_) = false;
+      RTC_GUARDED_BY_SEQUENCE(&configuration_sequence_checker_) = false;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(Call);
 };
@@ -470,7 +471,7 @@ Call::Call(Clock* clock,
       transport_send_ptr_(transport_send.get()),
       transport_send_(std::move(transport_send)) {
   RTC_DCHECK(config.event_log != nullptr);
-  worker_sequence_checker_.Detach();
+  RTC_DETACH_FROM_SEQUENCE(worker_sequence_checker_);
 
   call_stats_->RegisterStatsObserver(&receive_side_cc_);
 

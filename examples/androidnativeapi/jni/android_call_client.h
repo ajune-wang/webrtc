@@ -42,29 +42,31 @@ class AndroidCallClient {
  private:
   class PCObserver;
 
-  void CreatePeerConnectionFactory() RTC_RUN_ON(thread_checker_);
-  void CreatePeerConnection() RTC_RUN_ON(thread_checker_);
-  void Connect() RTC_RUN_ON(thread_checker_);
+  void CreatePeerConnectionFactory() RTC_DECLARE_RUN_ON(thread_checker_);
+  void CreatePeerConnection() RTC_DECLARE_RUN_ON(thread_checker_);
+  void Connect() RTC_DECLARE_RUN_ON(thread_checker_);
 
-  rtc::ThreadChecker thread_checker_;
+  RTC_THREAD_CHECKER(thread_checker_);
 
-  bool call_started_ RTC_GUARDED_BY(thread_checker_);
+  bool call_started_ RTC_GUARDED_BY_THREAD(thread_checker_);
 
   const std::unique_ptr<PCObserver> pc_observer_;
 
   rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> pcf_
-      RTC_GUARDED_BY(thread_checker_);
-  std::unique_ptr<rtc::Thread> network_thread_ RTC_GUARDED_BY(thread_checker_);
-  std::unique_ptr<rtc::Thread> worker_thread_ RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
+  std::unique_ptr<rtc::Thread> network_thread_
+      RTC_GUARDED_BY_THREAD(thread_checker_);
+  std::unique_ptr<rtc::Thread> worker_thread_
+      RTC_GUARDED_BY_THREAD(thread_checker_);
   std::unique_ptr<rtc::Thread> signaling_thread_
-      RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
 
   std::unique_ptr<rtc::VideoSinkInterface<webrtc::VideoFrame>> local_sink_
-      RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
   std::unique_ptr<rtc::VideoSinkInterface<webrtc::VideoFrame>> remote_sink_
-      RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
   rtc::scoped_refptr<webrtc::JavaVideoTrackSourceInterface> video_source_
-      RTC_GUARDED_BY(thread_checker_);
+      RTC_GUARDED_BY_THREAD(thread_checker_);
 
   rtc::CriticalSection pc_mutex_;
   rtc::scoped_refptr<webrtc::PeerConnectionInterface> pc_

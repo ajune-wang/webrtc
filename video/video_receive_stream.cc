@@ -284,7 +284,7 @@ VideoReceiveStream::VideoReceiveStream(
                          new VCMTiming(clock)) {}
 
 VideoReceiveStream::~VideoReceiveStream() {
-  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+  RTC_CHECK_RUN_ON(&worker_sequence_checker_);
   RTC_LOG(LS_INFO) << "~VideoReceiveStream: " << config_.ToString();
   Stop();
   if (config_.media_transport()) {
@@ -295,7 +295,7 @@ VideoReceiveStream::~VideoReceiveStream() {
 }
 
 void VideoReceiveStream::SignalNetworkState(NetworkState state) {
-  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+  RTC_CHECK_RUN_ON(&worker_sequence_checker_);
   rtp_video_stream_receiver_.SignalNetworkState(state);
 }
 
@@ -304,12 +304,12 @@ bool VideoReceiveStream::DeliverRtcp(const uint8_t* packet, size_t length) {
 }
 
 void VideoReceiveStream::SetSync(Syncable* audio_syncable) {
-  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+  RTC_CHECK_RUN_ON(&worker_sequence_checker_);
   rtp_stream_sync_.ConfigureSync(audio_syncable);
 }
 
 void VideoReceiveStream::Start() {
-  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+  RTC_CHECK_RUN_ON(&worker_sequence_checker_);
 
   if (decoder_running_) {
     return;
@@ -399,7 +399,7 @@ void VideoReceiveStream::Start() {
     decode_thread_.Start();
   } else {
     decode_queue_.PostTask([this] {
-      RTC_DCHECK_RUN_ON(&decode_queue_);
+      RTC_CHECK_RUN_ON(&decode_queue_);
       decoder_stopped_ = false;
       StartNextDecode();
     });
@@ -409,7 +409,7 @@ void VideoReceiveStream::Start() {
 }
 
 void VideoReceiveStream::Stop() {
-  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+  RTC_CHECK_RUN_ON(&worker_sequence_checker_);
   rtp_video_stream_receiver_.StopReceive();
 
   stats_proxy_.OnUniqueFramesCounted(
@@ -433,7 +433,7 @@ void VideoReceiveStream::Stop() {
     } else {
       rtc::Event done;
       decode_queue_.PostTask([this, &done] {
-        RTC_DCHECK_RUN_ON(&decode_queue_);
+        RTC_CHECK_RUN_ON(&decode_queue_);
         decoder_stopped_ = true;
         done.Set();
       });
@@ -507,7 +507,7 @@ void VideoReceiveStream::RemoveSecondarySink(
 }
 
 bool VideoReceiveStream::SetBaseMinimumPlayoutDelayMs(int delay_ms) {
-  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+  RTC_CHECK_RUN_ON(&worker_sequence_checker_);
   if (delay_ms < kMinBaseMinimumDelayMs || delay_ms > kMaxBaseMinimumDelayMs) {
     return false;
   }
@@ -519,7 +519,7 @@ bool VideoReceiveStream::SetBaseMinimumPlayoutDelayMs(int delay_ms) {
 }
 
 int VideoReceiveStream::GetBaseMinimumPlayoutDelayMs() const {
-  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+  RTC_CHECK_RUN_ON(&worker_sequence_checker_);
 
   rtc::CritScope cs(&playout_delay_lock_);
   return base_minimum_playout_delay_ms_;
@@ -612,7 +612,7 @@ void VideoReceiveStream::OnRttUpdated(int64_t rtt_ms) {
 }
 
 int VideoReceiveStream::id() const {
-  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+  RTC_CHECK_RUN_ON(&worker_sequence_checker_);
   return config_.rtp.remote_ssrc;
 }
 
@@ -651,7 +651,7 @@ void VideoReceiveStream::StartNextDecode() {
 
   struct DecodeTask {
     void operator()() {
-      RTC_DCHECK_RUN_ON(&stream->decode_queue_);
+      RTC_CHECK_RUN_ON(&stream->decode_queue_);
       if (stream->decoder_stopped_)
         return;
       if (frame) {

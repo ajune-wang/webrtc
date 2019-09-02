@@ -78,8 +78,8 @@ class RtcEventLogImpl final : public RtcEventLog {
   int64_t last_output_ms_ RTC_GUARDED_BY(*task_queue_);
   bool output_scheduled_ RTC_GUARDED_BY(*task_queue_);
 
-  SequenceChecker logging_state_checker_;
-  bool logging_state_started_ RTC_GUARDED_BY(logging_state_checker_);
+  RTC_SEQUENCE_CHECKER(logging_state_checker_);
+  bool logging_state_started_ RTC_GUARDED_BY_SEQUENCE(logging_state_checker_);
 
   // Since we are posting tasks bound to |this|,  it is critical that the event
   // log and its members outlive |task_queue_|. Keep the |task_queue_|

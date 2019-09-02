@@ -353,7 +353,7 @@ void MediaTransportPair::LoopbackMediaTransport::AddTargetTransferRateObserver(
     target_transfer_rate_observers_.push_back(observer);
   }
   invoker_.AsyncInvoke<void>(RTC_FROM_HERE, thread_, [this] {
-    RTC_DCHECK_RUN_ON(thread_);
+    RTC_CHECK_RUN_ON(thread_);
     const DataRate kBitrate = DataRate::kbps(300);
     const Timestamp now = Timestamp::us(rtc::TimeMicros());
 
@@ -394,7 +394,7 @@ void MediaTransportPair::LoopbackMediaTransport::AddRttObserver(
     rtt_observers_.push_back(observer);
   }
   invoker_.AsyncInvoke<void>(RTC_FROM_HERE, thread_, [this] {
-    RTC_DCHECK_RUN_ON(thread_);
+    RTC_CHECK_RUN_ON(thread_);
 
     rtc::CritScope cs(&sink_lock_);
     for (auto* o : rtt_observers_) {
@@ -419,7 +419,7 @@ void MediaTransportPair::LoopbackMediaTransport::SetMediaTransportStateCallback(
   rtc::CritScope lock(&sink_lock_);
   state_callback_ = callback;
   invoker_.AsyncInvoke<void>(RTC_FROM_HERE, thread_, [this] {
-    RTC_DCHECK_RUN_ON(thread_);
+    RTC_CHECK_RUN_ON(thread_);
     OnStateChanged();
   });
 }
@@ -497,7 +497,7 @@ bool MediaTransportPair::LoopbackDataChannelTransport::IsReadyToSend() const {
 void MediaTransportPair::LoopbackMediaTransport::SetState(
     MediaTransportState state) {
   invoker_.AsyncInvoke<void>(RTC_FROM_HERE, thread_, [this, state] {
-    RTC_DCHECK_RUN_ON(thread_);
+    RTC_CHECK_RUN_ON(thread_);
     state_ = state;
     OnStateChanged();
   });

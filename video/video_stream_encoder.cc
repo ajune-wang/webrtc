@@ -427,7 +427,7 @@ class VideoStreamEncoder::VideoSourceProxy {
   }
 
   rtc::CriticalSection crit_;
-  SequenceChecker main_checker_;
+  RTC_SEQUENCE_CHECKER(main_checker_);
   VideoStreamEncoder* const video_stream_encoder_;
   rtc::VideoSinkWants sink_wants_ RTC_GUARDED_BY(&crit_);
   DegradationPreference degradation_preference_ RTC_GUARDED_BY(&crit_);
@@ -537,7 +537,7 @@ void VideoStreamEncoder::Stop() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   source_proxy_->SetSource(nullptr, DegradationPreference());
   encoder_queue_.PostTask([this] {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
+    RTC_CHECK_RUN_ON(&encoder_queue_);
     overuse_detector_->StopCheckForOveruse();
     rate_allocator_ = nullptr;
     bitrate_observer_ = nullptr;
@@ -553,7 +553,7 @@ void VideoStreamEncoder::SetBitrateAllocationObserver(
     VideoBitrateAllocationObserver* bitrate_observer) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   encoder_queue_.PostTask([this, bitrate_observer] {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
+    RTC_CHECK_RUN_ON(&encoder_queue_);
     RTC_DCHECK(!bitrate_observer_);
     bitrate_observer_ = bitrate_observer;
   });
@@ -562,7 +562,7 @@ void VideoStreamEncoder::SetBitrateAllocationObserver(
 void VideoStreamEncoder::SetFecControllerOverride(
     FecControllerOverride* fec_controller_override) {
   encoder_queue_.PostTask([this, fec_controller_override] {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
+    RTC_CHECK_RUN_ON(&encoder_queue_);
     RTC_DCHECK(!fec_controller_override_);
     fec_controller_override_ = fec_controller_override;
     if (encoder_) {
@@ -577,7 +577,7 @@ void VideoStreamEncoder::SetSource(
   RTC_DCHECK_RUN_ON(&thread_checker_);
   source_proxy_->SetSource(source, degradation_preference);
   encoder_queue_.PostTask([this, degradation_preference] {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
+    RTC_CHECK_RUN_ON(&encoder_queue_);
     if (degradation_preference_ != degradation_preference) {
       // Reset adaptation state, so that we're not tricked into thinking there's
       // an already pending request of the same type.
@@ -607,14 +607,14 @@ void VideoStreamEncoder::SetSource(
 void VideoStreamEncoder::SetSink(EncoderSink* sink, bool rotation_applied) {
   source_proxy_->SetWantsRotationApplied(rotation_applied);
   encoder_queue_.PostTask([this, sink] {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
+    RTC_CHECK_RUN_ON(&encoder_queue_);
     sink_ = sink;
   });
 }
 
 void VideoStreamEncoder::SetStartBitrate(int start_bitrate_bps) {
   encoder_queue_.PostTask([this, start_bitrate_bps] {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
+    RTC_CHECK_RUN_ON(&encoder_queue_);
     encoder_start_bitrate_bps_ = start_bitrate_bps;
     set_start_bitrate_bps_ = start_bitrate_bps;
     set_start_bitrate_time_ms_ = clock_->TimeInMilliseconds();
@@ -641,7 +641,7 @@ void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
 void VideoStreamEncoder::ConfigureEncoderOnTaskQueue(
     VideoEncoderConfig config,
     size_t max_data_payload_length) {
-  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_CHECK_RUN_ON(&encoder_queue_);
   RTC_DCHECK(sink_);
   RTC_LOG(LS_INFO) << "ConfigureEncoder requested.";
 
@@ -949,7 +949,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
 
 void VideoStreamEncoder::ConfigureQualityScaler(
     const VideoEncoder::EncoderInfo& encoder_info) {
-  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_CHECK_RUN_ON(&encoder_queue_);
   const auto scaling_settings = encoder_info.scaling_settings;
   const bool quality_scaling_allowed =
       IsResolutionScalingEnabled(degradation_preference_) &&
@@ -1032,7 +1032,7 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
                         << " <= " << last_captured_timestamp_
                         << ") for incoming frame. Dropping.";
     encoder_queue_.PostTask([this, incoming_frame]() {
-      RTC_DCHECK_RUN_ON(&encoder_queue_);
+      RTC_CHECK_RUN_ON(&encoder_queue_);
       accumulated_update_rect_.Union(incoming_frame.update_rect());
     });
     return;
@@ -1051,7 +1051,7 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
 
   encoder_queue_.PostTask(
       [this, incoming_frame, post_time_us, log_stats]() {
-        RTC_DCHECK_RUN_ON(&encoder_queue_);
+        RTC_CHECK_RUN_ON(&encoder_queue_);
         encoder_stats_observer_->OnIncomingFrame(incoming_frame.width(),
                                                  incoming_frame.height());
         ++captured_frame_count_;
@@ -1087,7 +1087,7 @@ void VideoStreamEncoder::OnDiscardedFrame() {
 }
 
 bool VideoStreamEncoder::EncoderPaused() const {
-  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_CHECK_RUN_ON(&encoder_queue_);
   // Pause video if paused by caller or as long as the network is down or the
   // pacer queue has grown too large in buffered mode.
   // If the pacer queue has grown too large or the network is down,
@@ -1097,7 +1097,7 @@ bool VideoStreamEncoder::EncoderPaused() const {
 }
 
 void VideoStreamEncoder::TraceFrameDropStart() {
-  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_CHECK_RUN_ON(&encoder_queue_);
   // Start trace event only on the first frame after encoder is paused.
   if (!encoder_paused_and_dropped_frame_) {
     TRACE_EVENT_ASYNC_BEGIN0("webrtc", "EncoderPaused", this);
@@ -1106,7 +1106,7 @@ void VideoStreamEncoder::TraceFrameDropStart() {
 }
 
 void VideoStreamEncoder::TraceFrameDropEnd() {
-  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_CHECK_RUN_ON(&encoder_queue_);
   // End trace event on first frame after encoder resumes, if frame was dropped.
   if (encoder_paused_and_dropped_frame_) {
     TRACE_EVENT_ASYNC_END0("webrtc", "EncoderPaused", this);
@@ -1204,7 +1204,7 @@ void VideoStreamEncoder::SetEncoderRates(
 
 void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
                                                int64_t time_when_posted_us) {
-  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_CHECK_RUN_ON(&encoder_queue_);
 
   if (!last_frame_info_ || video_frame.width() != last_frame_info_->width ||
       video_frame.height() != last_frame_info_->height ||
@@ -1329,7 +1329,7 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
 
 void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
                                           int64_t time_when_posted_us) {
-  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_CHECK_RUN_ON(&encoder_queue_);
 
   // If the encoder fail we can't continue to encode frames. When this happens
   // the WebrtcVideoSender is notified and the whole VideoSendStream is
@@ -1490,7 +1490,7 @@ void VideoStreamEncoder::SendKeyFrame() {
     encoder_queue_.PostTask([this] { SendKeyFrame(); });
     return;
   }
-  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_CHECK_RUN_ON(&encoder_queue_);
   TRACE_EVENT0("webrtc", "OnKeyFrameRequest");
   RTC_DCHECK(!next_frame_types_.empty());
 
@@ -1530,7 +1530,7 @@ void VideoStreamEncoder::OnLossNotification(
     return;
   }
 
-  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_CHECK_RUN_ON(&encoder_queue_);
   if (encoder_) {
     encoder_->OnLossNotification(loss_notification);
   }
@@ -1669,7 +1669,7 @@ void VideoStreamEncoder::OnDroppedFrame(DropReason reason) {
       encoder_stats_observer_->OnFrameDropped(
           VideoStreamEncoderObserver::DropReason::kMediaOptimization);
       encoder_queue_.PostTask([this] {
-        RTC_DCHECK_RUN_ON(&encoder_queue_);
+        RTC_CHECK_RUN_ON(&encoder_queue_);
         if (quality_scaler_)
           quality_scaler_->ReportDroppedFrameByMediaOpt();
       });
@@ -1678,7 +1678,7 @@ void VideoStreamEncoder::OnDroppedFrame(DropReason reason) {
       encoder_stats_observer_->OnFrameDropped(
           VideoStreamEncoderObserver::DropReason::kEncoder);
       encoder_queue_.PostTask([this] {
-        RTC_DCHECK_RUN_ON(&encoder_queue_);
+        RTC_CHECK_RUN_ON(&encoder_queue_);
         if (quality_scaler_)
           quality_scaler_->ReportDroppedFrameByEncoder();
       });
@@ -1699,7 +1699,7 @@ void VideoStreamEncoder::OnBitrateUpdated(DataRate target_bitrate,
     });
     return;
   }
-  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_CHECK_RUN_ON(&encoder_queue_);
   RTC_DCHECK(sink_) << "sink_ must be set before the encoder is active.";
 
   RTC_LOG(LS_VERBOSE) << "OnBitrateUpdated, bitrate " << target_bitrate.bps()
@@ -1782,7 +1782,7 @@ bool VideoStreamEncoder::DropDueToSize(uint32_t pixel_count) const {
 }
 
 bool VideoStreamEncoder::AdaptDown(AdaptReason reason) {
-  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_CHECK_RUN_ON(&encoder_queue_);
   AdaptationRequest adaptation_request = {
       last_frame_info_->pixel_count(),
       encoder_stats_observer_->GetInputFrameRate(),
@@ -1883,7 +1883,7 @@ bool VideoStreamEncoder::AdaptDown(AdaptReason reason) {
 }
 
 void VideoStreamEncoder::AdaptUp(AdaptReason reason) {
-  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_CHECK_RUN_ON(&encoder_queue_);
 
   const AdaptCounter& adapt_counter = GetConstAdaptCounter();
   int num_downgrades = adapt_counter.TotalCount(reason);
@@ -2043,7 +2043,7 @@ void VideoStreamEncoder::RunPostEncode(EncodedImage encoded_image,
     return;
   }
 
-  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_CHECK_RUN_ON(&encoder_queue_);
 
   absl::optional<int> encode_duration_us;
   if (encoded_image.timing_.flags != VideoSendTiming::kInvalid) {

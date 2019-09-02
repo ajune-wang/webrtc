@@ -182,7 +182,7 @@ webrtc::RTCError JsepTransport::SetLocalJsepTransportDescription(
     SdpType type) {
   webrtc::RTCError error;
 
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   if (!VerifyIceParams(jsep_description)) {
     return webrtc::RTCError(webrtc::RTCErrorType::INVALID_PARAMETER,
                             "Invalid ice-ufrag or ice-pwd length.");
@@ -269,7 +269,7 @@ webrtc::RTCError JsepTransport::SetRemoteJsepTransportDescription(
     webrtc::SdpType type) {
   webrtc::RTCError error;
 
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   if (!VerifyIceParams(jsep_description)) {
     remote_description_.reset();
     return webrtc::RTCError(webrtc::RTCErrorType::INVALID_PARAMETER,
@@ -328,7 +328,7 @@ webrtc::RTCError JsepTransport::SetRemoteJsepTransportDescription(
 
 webrtc::RTCError JsepTransport::AddRemoteCandidates(
     const Candidates& candidates) {
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   if (!local_description_ || !remote_description_) {
     return webrtc::RTCError(webrtc::RTCErrorType::INVALID_STATE,
                             mid() +
@@ -362,7 +362,7 @@ void JsepTransport::SetNeedsIceRestartFlag() {
 }
 
 absl::optional<rtc::SSLRole> JsepTransport::GetDtlsRole() const {
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   rtc::CritScope scope(&accessor_lock_);
   RTC_DCHECK(rtp_dtls_transport_);
   RTC_DCHECK(rtp_dtls_transport_->internal());
@@ -387,7 +387,7 @@ JsepTransport::GetTransportParameters() const {
 }
 
 bool JsepTransport::GetStats(TransportStats* stats) {
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   rtc::CritScope scope(&accessor_lock_);
   stats->transport_name = mid();
   stats->channel_stats.clear();
@@ -403,7 +403,7 @@ bool JsepTransport::GetStats(TransportStats* stats) {
 webrtc::RTCError JsepTransport::VerifyCertificateFingerprint(
     const rtc::RTCCertificate* certificate,
     const rtc::SSLFingerprint* fingerprint) const {
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   if (!fingerprint) {
     return webrtc::RTCError(webrtc::RTCErrorType::INVALID_PARAMETER,
                             "No fingerprint");
@@ -429,7 +429,7 @@ webrtc::RTCError JsepTransport::VerifyCertificateFingerprint(
 }
 
 void JsepTransport::SetActiveResetSrtpParams(bool active_reset_srtp_params) {
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   rtc::CritScope scope(&accessor_lock_);
   if (dtls_srtp_transport_) {
     RTC_LOG(INFO)
@@ -440,7 +440,7 @@ void JsepTransport::SetActiveResetSrtpParams(bool active_reset_srtp_params) {
 }
 
 void JsepTransport::SetLocalIceParameters(IceTransportInternal* ice_transport) {
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   RTC_DCHECK(ice_transport);
   RTC_DCHECK(local_description_);
   ice_transport->SetIceParameters(
@@ -449,7 +449,7 @@ void JsepTransport::SetLocalIceParameters(IceTransportInternal* ice_transport) {
 
 void JsepTransport::SetRemoteIceParameters(
     IceTransportInternal* ice_transport) {
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   RTC_DCHECK(ice_transport);
   RTC_DCHECK(remote_description_);
   ice_transport->SetRemoteIceParameters(
@@ -461,7 +461,7 @@ webrtc::RTCError JsepTransport::SetNegotiatedDtlsParameters(
     DtlsTransportInternal* dtls_transport,
     absl::optional<rtc::SSLRole> dtls_role,
     rtc::SSLFingerprint* remote_fingerprint) {
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   RTC_DCHECK(dtls_transport);
   // Set SSL role. Role must be set before fingerprint is applied, which
   // initiates DTLS setup.
@@ -483,7 +483,7 @@ webrtc::RTCError JsepTransport::SetNegotiatedDtlsParameters(
 bool JsepTransport::SetRtcpMux(bool enable,
                                webrtc::SdpType type,
                                ContentSource source) {
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   bool ret = false;
   switch (type) {
     case SdpType::kOffer:
@@ -518,7 +518,7 @@ void JsepTransport::ActivateRtcpMux() {
     // Don't hold the network_thread_ lock while calling other functions,
     // since they might call other functions that call RTC_DCHECK_RUN_ON.
     // TODO(https://crbug.com/webrtc/10318): Simplify when possible.
-    RTC_DCHECK_RUN_ON(network_thread_);
+    RTC_CHECK_RUN_ON(network_thread_);
   }
   {
     rtc::CritScope scope(&accessor_lock_);
@@ -547,7 +547,7 @@ bool JsepTransport::SetSdes(const std::vector<CryptoParams>& cryptos,
                             const std::vector<int>& encrypted_extension_ids,
                             webrtc::SdpType type,
                             ContentSource source) {
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   rtc::CritScope scope(&accessor_lock_);
   bool ret = false;
   ret = sdes_negotiator_.Process(cryptos, type, source);
@@ -591,7 +591,7 @@ bool JsepTransport::SetSdes(const std::vector<CryptoParams>& cryptos,
 
 webrtc::RTCError JsepTransport::NegotiateAndSetDtlsParameters(
     SdpType local_description_type) {
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   if (!local_description_ || !remote_description_) {
     return webrtc::RTCError(webrtc::RTCErrorType::INVALID_STATE,
                             "Applying an answer transport description "
@@ -732,7 +732,7 @@ webrtc::RTCError JsepTransport::NegotiateDtlsRole(
 
 bool JsepTransport::GetTransportStats(DtlsTransportInternal* dtls_transport,
                                       TransportStats* stats) {
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   rtc::CritScope scope(&accessor_lock_);
   RTC_DCHECK(dtls_transport);
   TransportChannelStats substats;
@@ -758,7 +758,7 @@ void JsepTransport::OnStateChanged(webrtc::MediaTransportState state) {
   // TODO(bugs.webrtc.org/9719) This method currently fires on the network
   // thread, but media transport does not make such guarantees. We need to make
   // sure this callback is guaranteed to be executed on the network thread.
-  RTC_DCHECK_RUN_ON(network_thread_);
+  RTC_CHECK_RUN_ON(network_thread_);
   {
     rtc::CritScope scope(&accessor_lock_);
     media_transport_state_ = state;

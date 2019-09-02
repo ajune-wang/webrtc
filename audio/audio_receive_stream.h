@@ -102,15 +102,15 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
 
   AudioState* audio_state() const;
 
-  rtc::ThreadChecker worker_thread_checker_;
-  rtc::ThreadChecker module_process_thread_checker_;
+  RTC_THREAD_CHECKER(worker_thread_checker_);
+  RTC_THREAD_CHECKER(module_process_thread_checker_);
   webrtc::AudioReceiveStream::Config config_;
   rtc::scoped_refptr<webrtc::AudioState> audio_state_;
   const std::unique_ptr<voe::ChannelReceiveInterface> channel_receive_;
   SourceTracker source_tracker_;
   AudioSendStream* associated_send_stream_ = nullptr;
 
-  bool playing_ RTC_GUARDED_BY(worker_thread_checker_) = false;
+  bool playing_ RTC_GUARDED_BY_THREAD(worker_thread_checker_) = false;
 
   std::unique_ptr<RtpStreamReceiverInterface> rtp_stream_receiver_;
 

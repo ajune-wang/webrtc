@@ -140,7 +140,7 @@ class AudioDeviceBuffer {
   // TODO(henrika): see if it is possible to refactor and annotate all members.
 
   // Main thread on which this object is created.
-  rtc::ThreadChecker main_thread_checker_;
+  RTC_THREAD_CHECKER(main_thread_checker_);
 
   rtc::CriticalSection lock_;
 
@@ -168,8 +168,8 @@ class AudioDeviceBuffer {
   // Keeps track of if playout/recording are active or not. A combination
   // of these states are used to determine when to start and stop the timer.
   // Only used on the creating thread and not used to control any media flow.
-  bool playing_ RTC_GUARDED_BY(main_thread_checker_);
-  bool recording_ RTC_GUARDED_BY(main_thread_checker_);
+  bool playing_ RTC_GUARDED_BY_THREAD(main_thread_checker_);
+  bool recording_ RTC_GUARDED_BY_THREAD(main_thread_checker_);
 
   // Buffer used for audio samples to be played out. Size can be changed
   // dynamically. The 16-bit samples are interleaved, hence the size is
@@ -199,8 +199,8 @@ class AudioDeviceBuffer {
   int16_t play_stat_count_;
 
   // Time stamps of when playout and recording starts.
-  int64_t play_start_time_ RTC_GUARDED_BY(main_thread_checker_);
-  int64_t rec_start_time_ RTC_GUARDED_BY(main_thread_checker_);
+  int64_t play_start_time_ RTC_GUARDED_BY_THREAD(main_thread_checker_);
+  int64_t rec_start_time_ RTC_GUARDED_BY_THREAD(main_thread_checker_);
 
   // Contains counters for playout and recording statistics.
   Stats stats_ RTC_GUARDED_BY(lock_);

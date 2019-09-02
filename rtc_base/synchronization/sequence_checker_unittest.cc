@@ -29,7 +29,9 @@ namespace {
 // attributes that are checked at compile-time.
 class CompileTimeTestForGuardedBy {
  public:
-  int CalledOnSequence() RTC_RUN_ON(sequence_checker_) { return guarded_; }
+  int CalledOnSequence() RTC_DECLARE_RUN_ON(sequence_checker_) {
+    return guarded_;
+  }
 
   void CallMeFromSequence() {
     RTC_DCHECK_RUN_ON(&sequence_checker_) << "Should be called on sequence";
@@ -37,8 +39,8 @@ class CompileTimeTestForGuardedBy {
   }
 
  private:
-  int guarded_ RTC_GUARDED_BY(sequence_checker_);
-  ::webrtc::SequenceChecker sequence_checker_;
+  int guarded_ RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
+  RTC_SEQUENCE_CHECKER(sequence_checker_);
 };
 
 void RunOnDifferentThread(rtc::FunctionView<void()> run) {
@@ -134,8 +136,8 @@ class TestAnnotations {
   }
 
  private:
-  bool test_var_ RTC_GUARDED_BY(&checker_);
-  SequenceChecker checker_;
+  bool test_var_ RTC_GUARDED_BY_SEQUENCE(&checker_);
+  RTC_SEQUENCE_CHECKER(checker_);
 };
 
 TEST(SequenceCheckerTest, TestAnnotations) {

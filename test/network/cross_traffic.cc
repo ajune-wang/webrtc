@@ -27,7 +27,7 @@ RandomWalkCrossTraffic::RandomWalkCrossTraffic(RandomWalkConfig config,
     : config_(config),
       traffic_route_(traffic_route),
       random_(config_.random_seed) {
-  sequence_checker_.Detach();
+  RTC_DETACH_FROM_SEQUENCE(sequence_checker_);
 }
 RandomWalkCrossTraffic::~RandomWalkCrossTraffic() = default;
 
@@ -72,7 +72,7 @@ ColumnPrinter RandomWalkCrossTraffic::StatsPrinter() {
 PulsedPeaksCrossTraffic::PulsedPeaksCrossTraffic(PulsedPeaksConfig config,
                                                  TrafficRoute* traffic_route)
     : config_(config), traffic_route_(traffic_route) {
-  sequence_checker_.Detach();
+  RTC_DETACH_FROM_SEQUENCE(sequence_checker_);
 }
 PulsedPeaksCrossTraffic::~PulsedPeaksCrossTraffic() = default;
 

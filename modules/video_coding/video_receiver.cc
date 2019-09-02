@@ -56,8 +56,8 @@ VideoReceiver::VideoReceiver(Clock* clock, VCMTiming* timing)
       _receiveStatsTimer(1000, clock_),
       _retransmissionTimer(10, clock_),
       _keyRequestTimer(500, clock_) {
-  decoder_thread_checker_.Detach();
-  module_thread_checker_.Detach();
+  RTC_DETACH_FROM_THREAD(decoder_thread_checker_);
+  RTC_DETACH_FROM_THREAD(module_thread_checker_);
 }
 
 VideoReceiver::~VideoReceiver() {
@@ -210,7 +210,7 @@ void VideoReceiver::DecoderThreadStopped() {
   }
 #if RTC_DCHECK_IS_ON
   decoder_thread_is_running_ = false;
-  decoder_thread_checker_.Detach();
+  RTC_DETACH_FROM_THREAD(decoder_thread_checker_);
 #endif
 }
 

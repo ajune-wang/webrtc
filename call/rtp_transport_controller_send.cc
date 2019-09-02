@@ -187,7 +187,7 @@ void RtpTransportControllerSend::SetAllocatedSendBitrateLimits(
     int min_send_bitrate_bps,
     int max_padding_bitrate_bps,
     int max_total_bitrate_bps) {
-  RTC_DCHECK_RUN_ON(&task_queue_);
+  RTC_CHECK_RUN_ON(&task_queue_);
   streams_config_.min_total_allocated_bitrate =
       DataRate::bps(min_send_bitrate_bps);
   streams_config_.max_padding_rate = DataRate::bps(max_padding_bitrate_bps);
@@ -196,7 +196,7 @@ void RtpTransportControllerSend::SetAllocatedSendBitrateLimits(
   UpdateStreamsConfig();
 }
 void RtpTransportControllerSend::SetPacingFactor(float pacing_factor) {
-  RTC_DCHECK_RUN_ON(&task_queue_);
+  RTC_CHECK_RUN_ON(&task_queue_);
   streams_config_.pacing_factor = pacing_factor;
   UpdateStreamsConfig();
 }
@@ -215,7 +215,7 @@ void RtpTransportControllerSend::DeRegisterPacketFeedbackObserver(
 void RtpTransportControllerSend::RegisterTargetTransferRateObserver(
     TargetTransferRateObserver* observer) {
   task_queue_.PostTask([this, observer] {
-    RTC_DCHECK_RUN_ON(&task_queue_);
+    RTC_CHECK_RUN_ON(&task_queue_);
     RTC_DCHECK(observer_ == nullptr);
     observer_ = observer;
     observer_->OnStartRateUpdate(*initial_config_.constraints.starting_rate);
@@ -272,7 +272,7 @@ void RtpTransportControllerSend::OnNetworkRouteChanged(
     msg.at_time = Timestamp::ms(clock_->TimeInMilliseconds());
     msg.constraints = ConvertConstraints(bitrate_config, clock_);
     task_queue_.PostTask([this, msg] {
-      RTC_DCHECK_RUN_ON(&task_queue_);
+      RTC_CHECK_RUN_ON(&task_queue_);
       if (controller_) {
         PostUpdates(controller_->OnNetworkRouteChange(msg));
       } else {
@@ -289,7 +289,7 @@ void RtpTransportControllerSend::OnNetworkAvailability(bool network_available) {
   msg.at_time = Timestamp::ms(clock_->TimeInMilliseconds());
   msg.network_available = network_available;
   task_queue_.PostTask([this, msg]() {
-    RTC_DCHECK_RUN_ON(&task_queue_);
+    RTC_CHECK_RUN_ON(&task_queue_);
     if (network_available_ == msg.network_available)
       return;
     network_available_ = msg.network_available;
@@ -325,7 +325,7 @@ absl::optional<Timestamp> RtpTransportControllerSend::GetFirstPacketTime()
 }
 void RtpTransportControllerSend::EnablePeriodicAlrProbing(bool enable) {
   task_queue_.PostTask([this, enable]() {
-    RTC_DCHECK_RUN_ON(&task_queue_);
+    RTC_CHECK_RUN_ON(&task_queue_);
     streams_config_.requests_alr_probing = enable;
     UpdateStreamsConfig();
   });
@@ -336,7 +336,7 @@ void RtpTransportControllerSend::OnSentPacket(
       transport_feedback_adapter_.ProcessSentPacket(sent_packet);
   if (packet_msg) {
     task_queue_.PostTask([this, packet_msg]() {
-      RTC_DCHECK_RUN_ON(&task_queue_);
+      RTC_CHECK_RUN_ON(&task_queue_);
       if (controller_)
         PostUpdates(controller_->OnSentPacket(*packet_msg));
     });
@@ -348,7 +348,7 @@ void RtpTransportControllerSend::OnSentPacket(
 void RtpTransportControllerSend::OnReceivedPacket(
     const ReceivedPacket& packet_msg) {
   task_queue_.PostTask([this, packet_msg]() {
-    RTC_DCHECK_RUN_ON(&task_queue_);
+    RTC_CHECK_RUN_ON(&task_queue_);
     if (controller_)
       PostUpdates(controller_->OnReceivedPacket(packet_msg));
   });
@@ -361,7 +361,7 @@ void RtpTransportControllerSend::SetSdpBitrateParameters(
   if (updated.has_value()) {
     TargetRateConstraints msg = ConvertConstraints(*updated, clock_);
     task_queue_.PostTask([this, msg]() {
-      RTC_DCHECK_RUN_ON(&task_queue_);
+      RTC_CHECK_RUN_ON(&task_queue_);
       if (controller_) {
         PostUpdates(controller_->OnTargetRateConstraints(msg));
       } else {
@@ -382,7 +382,7 @@ void RtpTransportControllerSend::SetClientBitratePreferences(
   if (updated.has_value()) {
     TargetRateConstraints msg = ConvertConstraints(*updated, clock_);
     task_queue_.PostTask([this, msg]() {
-      RTC_DCHECK_RUN_ON(&task_queue_);
+      RTC_CHECK_RUN_ON(&task_queue_);
       if (controller_) {
         PostUpdates(controller_->OnTargetRateConstraints(msg));
       } else {
@@ -421,7 +421,7 @@ void RtpTransportControllerSend::OnReceivedEstimatedBitrate(uint32_t bitrate) {
   msg.receive_time = Timestamp::ms(clock_->TimeInMilliseconds());
   msg.bandwidth = DataRate::bps(bitrate);
   task_queue_.PostTask([this, msg]() {
-    RTC_DCHECK_RUN_ON(&task_queue_);
+    RTC_CHECK_RUN_ON(&task_queue_);
     if (controller_)
       PostUpdates(controller_->OnRemoteBitrateReport(msg));
   });
@@ -432,12 +432,12 @@ void RtpTransportControllerSend::OnReceivedRtcpReceiverReport(
     int64_t rtt_ms,
     int64_t now_ms) {
   task_queue_.PostTask([this, report_blocks, now_ms]() {
-    RTC_DCHECK_RUN_ON(&task_queue_);
+    RTC_CHECK_RUN_ON(&task_queue_);
     OnReceivedRtcpReceiverReportBlocks(report_blocks, now_ms);
   });
 
   task_queue_.PostTask([this, now_ms, rtt_ms]() {
-    RTC_DCHECK_RUN_ON(&task_queue_);
+    RTC_CHECK_RUN_ON(&task_queue_);
     RoundTripTimeUpdate report;
     report.receive_time = Timestamp::ms(now_ms);
     report.round_trip_time = TimeDelta::ms(rtt_ms);
@@ -465,7 +465,7 @@ void RtpTransportControllerSend::OnTransportFeedback(
           feedback, Timestamp::ms(clock_->TimeInMilliseconds()));
   if (feedback_msg) {
     task_queue_.PostTask([this, feedback_msg]() {
-      RTC_DCHECK_RUN_ON(&task_queue_);
+      RTC_CHECK_RUN_ON(&task_queue_);
       if (controller_)
         PostUpdates(controller_->OnTransportPacketsFeedback(*feedback_msg));
     });
@@ -478,7 +478,7 @@ void RtpTransportControllerSend::OnRemoteNetworkEstimate(
     NetworkStateEstimate estimate) {
   estimate.update_time = Timestamp::ms(clock_->TimeInMilliseconds());
   task_queue_.PostTask([this, estimate] {
-    RTC_DCHECK_RUN_ON(&task_queue_);
+    RTC_CHECK_RUN_ON(&task_queue_);
     if (controller_)
       controller_->OnNetworkStateEstimate(estimate);
   });
@@ -522,7 +522,7 @@ void RtpTransportControllerSend::StartProcessPeriodicTasks() {
   if (!pacer_queue_update_task_.Running()) {
     pacer_queue_update_task_ = RepeatingTaskHandle::DelayedStart(
         task_queue_.Get(), kPacerQueueUpdateInterval, [this]() {
-          RTC_DCHECK_RUN_ON(&task_queue_);
+          RTC_CHECK_RUN_ON(&task_queue_);
           TimeDelta expected_queue_time = pacer()->ExpectedQueueTime();
           control_handler_->SetPacerQueue(expected_queue_time);
           UpdateControlState();
@@ -533,7 +533,7 @@ void RtpTransportControllerSend::StartProcessPeriodicTasks() {
   if (process_interval_.IsFinite()) {
     controller_task_ = RepeatingTaskHandle::DelayedStart(
         task_queue_.Get(), process_interval_, [this]() {
-          RTC_DCHECK_RUN_ON(&task_queue_);
+          RTC_CHECK_RUN_ON(&task_queue_);
           UpdateControllerWithTimeInterval();
           return process_interval_;
         });

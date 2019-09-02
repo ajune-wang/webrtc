@@ -55,7 +55,7 @@ class FakeVP8Encoder : public FakeEncoder {
       EncodedImage* encoded_image,
       CodecSpecificInfo* codec_specific) override;
 
-  SequenceChecker sequence_checker_;
+  RTC_SEQUENCE_CHECKER(sequence_checker_);
 
   class FakeFecControllerOverride : public FecControllerOverride {
    public:
@@ -65,10 +65,10 @@ class FakeVP8Encoder : public FakeEncoder {
   };
 
   FakeFecControllerOverride fec_controller_override_
-      RTC_GUARDED_BY(sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
 
   std::unique_ptr<Vp8FrameBufferController> frame_buffer_controller_
-      RTC_GUARDED_BY(sequence_checker_);
+      RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
 };
 
 }  // namespace test

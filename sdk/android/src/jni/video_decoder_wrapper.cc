@@ -45,11 +45,9 @@ VideoDecoderWrapper::VideoDecoderWrapper(JNIEnv* jni,
           jni,
           Java_VideoDecoder_getImplementationName(jni, decoder))),
       initialized_(false),
-      qp_parsing_enabled_(true)  // QP parsing starts enabled and we disable it
-                                 // if the decoder provides frames.
-
-{
-  decoder_thread_checker_.Detach();
+      qp_parsing_enabled_(true) {  // QP parsing starts enabled and we disable
+                                   // it if the decoder provides frames.
+  RTC_DETACH_FROM_THREAD(decoder_thread_checker_);
 }
 
 VideoDecoderWrapper::~VideoDecoderWrapper() = default;
@@ -140,7 +138,7 @@ int32_t VideoDecoderWrapper::Release() {
   }
   initialized_ = false;
   // It is allowed to reinitialize the codec on a different thread.
-  decoder_thread_checker_.Detach();
+  RTC_DETACH_FROM_THREAD(decoder_thread_checker_);
   return status;
 }
 

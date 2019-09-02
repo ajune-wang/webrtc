@@ -249,7 +249,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   VideoStreamEncoderObserver* const encoder_stats_observer_;
   // |thread_checker_| checks that public methods that are related to lifetime
   // of VideoStreamEncoder are called on the same thread.
-  rtc::ThreadChecker thread_checker_;
+  RTC_THREAD_CHECKER(thread_checker_);
 
   VideoEncoderConfig encoder_config_ RTC_GUARDED_BY(&encoder_queue_);
   std::unique_ptr<VideoEncoder> encoder_ RTC_GUARDED_BY(&encoder_queue_)

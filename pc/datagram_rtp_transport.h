@@ -137,8 +137,9 @@ class DatagramRtpTransport : public RtpTransportInternal,
   // Propagates network route changes from ICE.
   void OnNetworkRouteChanged(absl::optional<rtc::NetworkRoute> network_route);
 
-  rtc::ThreadChecker thread_checker_;
+  RTC_THREAD_CHECKER(thread_checker_);
   cricket::IceTransportInternal* ice_transport_;
+
   webrtc::DatagramTransportInterface* datagram_transport_;
 
   RtpDemuxer rtp_demuxer_;

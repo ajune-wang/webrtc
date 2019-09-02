@@ -568,7 +568,7 @@ WebRtcVideoChannel::WebRtcVideoChannel(
               "WebRTC-Video-BufferPacketsWithUnknownSsrc")
               ? new UnhandledPacketsBuffer()
               : nullptr) {
-  RTC_DCHECK(thread_checker_.IsCurrent());
+  RTC_DCHECK_IS_CURRENT(thread_checker_);
 
   rtcp_receiver_report_ssrc_ = kDefaultRtcpReceiverReportSsrc;
   sending_ = false;

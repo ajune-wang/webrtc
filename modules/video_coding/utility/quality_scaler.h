@@ -81,30 +81,36 @@ class QualityScaler {
   void ReportQpHigh();
   int64_t GetSamplingPeriodMs() const;
 
-  RepeatingTaskHandle check_qp_task_ RTC_GUARDED_BY(&task_checker_);
-  AdaptationObserverInterface* const observer_ RTC_GUARDED_BY(&task_checker_);
-  SequenceChecker task_checker_;
+  RepeatingTaskHandle check_qp_task_ RTC_GUARDED_BY_SEQUENCE(&task_checker_);
+  AdaptationObserverInterface* const observer_
+      RTC_GUARDED_BY_SEQUENCE(&task_checker_);
+  RTC_SEQUENCE_CHECKER(task_checker_);
 
-  VideoEncoder::QpThresholds thresholds_ RTC_GUARDED_BY(&task_checker_);
+  VideoEncoder::QpThresholds thresholds_
+      RTC_GUARDED_BY_SEQUENCE(&task_checker_);
   const int64_t sampling_period_ms_;
-  bool fast_rampup_ RTC_GUARDED_BY(&task_checker_);
-  rtc::MovingAverage average_qp_ RTC_GUARDED_BY(&task_checker_);
+  bool fast_rampup_ RTC_GUARDED_BY_SEQUENCE(&task_checker_);
+  rtc::MovingAverage average_qp_ RTC_GUARDED_BY_SEQUENCE(&task_checker_);
   rtc::MovingAverage framedrop_percent_media_opt_
-      RTC_GUARDED_BY(&task_checker_);
-  rtc::MovingAverage framedrop_percent_all_ RTC_GUARDED_BY(&task_checker_);
+      RTC_GUARDED_BY_SEQUENCE(&task_checker_);
+  rtc::MovingAverage framedrop_percent_all_
+      RTC_GUARDED_BY_SEQUENCE(&task_checker_);
 
   // Used by QualityScalingExperiment.
   const bool experiment_enabled_;
-  QualityScalingExperiment::Config config_ RTC_GUARDED_BY(&task_checker_);
-  std::unique_ptr<QpSmoother> qp_smoother_high_ RTC_GUARDED_BY(&task_checker_);
-  std::unique_ptr<QpSmoother> qp_smoother_low_ RTC_GUARDED_BY(&task_checker_);
-  bool observed_enough_frames_ RTC_GUARDED_BY(&task_checker_);
+  QualityScalingExperiment::Config config_
+      RTC_GUARDED_BY_SEQUENCE(&task_checker_);
+  std::unique_ptr<QpSmoother> qp_smoother_high_
+      RTC_GUARDED_BY_SEQUENCE(&task_checker_);
+  std::unique_ptr<QpSmoother> qp_smoother_low_
+      RTC_GUARDED_BY_SEQUENCE(&task_checker_);
+  bool observed_enough_frames_ RTC_GUARDED_BY_SEQUENCE(&task_checker_);
 
   const size_t min_frames_needed_;
   const double initial_scale_factor_;
   const absl::optional<double> scale_factor_;
-  bool adapt_called_ RTC_GUARDED_BY(&task_checker_);
-  bool adapt_failed_ RTC_GUARDED_BY(&task_checker_);
+  bool adapt_called_ RTC_GUARDED_BY_SEQUENCE(&task_checker_);
+  bool adapt_failed_ RTC_GUARDED_BY_SEQUENCE(&task_checker_);
 };
 }  // namespace webrtc
 

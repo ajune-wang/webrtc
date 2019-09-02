@@ -61,7 +61,7 @@ class SimulatedTimeControllerImpl : public TaskQueueFactory,
 
  private:
   const rtc::PlatformThreadId thread_id_;
-  rtc::ThreadChecker thread_checker_;
+  RTC_THREAD_CHECKER(thread_checker_);
   rtc::CriticalSection time_lock_;
   Timestamp current_time_ RTC_GUARDED_BY(time_lock_);
   rtc::CriticalSection lock_;
@@ -72,7 +72,8 @@ class SimulatedTimeControllerImpl : public TaskQueueFactory,
   std::list<SimulatedSequenceRunner*> ready_runners_ RTC_GUARDED_BY(lock_);
 
   // Task queues on which YieldExecution has been called.
-  std::unordered_set<TaskQueueBase*> yielded_ RTC_GUARDED_BY(thread_checker_);
+  std::unordered_set<TaskQueueBase*> yielded_
+      RTC_GUARDED_BY_THREAD(thread_checker_);
 };
 }  // namespace sim_time_impl
 

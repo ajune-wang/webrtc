@@ -115,8 +115,8 @@ ReceiveStatisticsProxy::ReceiveStatisticsProxy(
       num_delayed_frames_rendered_(0),
       sum_missed_render_deadline_ms_(0),
       timing_frame_info_counter_(kMovingMaxWindowMs) {
-  decode_thread_.Detach();
-  network_thread_.Detach();
+  RTC_DETACH_FROM_THREAD(decode_thread_);
+  RTC_DETACH_FROM_THREAD(network_thread_);
   stats_.ssrc = config_.rtp.remote_ssrc;
 }
 
@@ -833,7 +833,7 @@ void ReceiveStatisticsProxy::DecoderThreadStarting() {
 
 void ReceiveStatisticsProxy::DecoderThreadStopped() {
   RTC_DCHECK_RUN_ON(&main_thread_);
-  decode_thread_.Detach();
+  RTC_DETACH_FROM_THREAD(decode_thread_);
 }
 
 ReceiveStatisticsProxy::ContentSpecificStats::ContentSpecificStats()

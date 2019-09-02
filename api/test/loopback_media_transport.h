@@ -248,6 +248,8 @@ class MediaTransportPair {
     // Implementation of the data channel transport.
     LoopbackDataChannelTransport dc_transport_;
 
+    RTC_THREAD_CHECKER(thread_checker_);  // Maps to |thread_|.
+
     rtc::Thread* const thread_;
     rtc::CriticalSection sink_lock_;
     rtc::CriticalSection stats_lock_;

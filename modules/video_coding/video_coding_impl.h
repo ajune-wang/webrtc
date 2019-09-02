@@ -106,9 +106,9 @@ class VideoReceiver : public Module {
   // In builds where DCHECKs aren't enabled, it will return true.
   bool IsDecoderThreadRunning();
 
-  rtc::ThreadChecker construction_thread_checker_;
-  rtc::ThreadChecker decoder_thread_checker_;
-  rtc::ThreadChecker module_thread_checker_;
+  RTC_THREAD_CHECKER(construction_thread_checker_);
+  RTC_THREAD_CHECKER(decoder_thread_checker_);
+  RTC_THREAD_CHECKER(module_thread_checker_);
   Clock* const clock_;
   rtc::CriticalSection process_crit_;
   VCMTiming* _timing;
@@ -134,16 +134,19 @@ class VideoReceiver : public Module {
   // over to the decoder thread.
   VCMDecoderDataBase _codecDataBase;
 
-  VCMProcessTimer _receiveStatsTimer RTC_GUARDED_BY(module_thread_checker_);
-  VCMProcessTimer _retransmissionTimer RTC_GUARDED_BY(module_thread_checker_);
-  VCMProcessTimer _keyRequestTimer RTC_GUARDED_BY(module_thread_checker_);
+  VCMProcessTimer _receiveStatsTimer
+      RTC_GUARDED_BY_THREAD(module_thread_checker_);
+  VCMProcessTimer _retransmissionTimer
+      RTC_GUARDED_BY_THREAD(module_thread_checker_);
+  VCMProcessTimer _keyRequestTimer
+      RTC_GUARDED_BY_THREAD(module_thread_checker_);
   ThreadUnsafeOneTimeEvent first_frame_received_
-      RTC_GUARDED_BY(decoder_thread_checker_);
+      RTC_GUARDED_BY_THREAD(decoder_thread_checker_);
   // Modified on the construction thread. Can be read without a lock and assumed
   // to be non-null on the module and decoder threads.
   ProcessThread* process_thread_ = nullptr;
   bool is_attached_to_process_thread_
-      RTC_GUARDED_BY(construction_thread_checker_) = false;
+      RTC_GUARDED_BY_THREAD(construction_thread_checker_) = false;
 #if RTC_DCHECK_IS_ON
   bool decoder_thread_is_running_ = false;
 #endif

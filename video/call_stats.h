@@ -78,9 +78,9 @@ class CallStats : public Module, public RtcpRttStats {
   Clock* const clock_;
 
   // The last time 'Process' resulted in statistic update.
-  int64_t last_process_time_ RTC_GUARDED_BY(process_thread_checker_);
+  int64_t last_process_time_ RTC_GUARDED_BY_THREAD(process_thread_checker_);
   // The last RTT in the statistics update (zero if there is no valid estimate).
-  int64_t max_rtt_ms_ RTC_GUARDED_BY(process_thread_checker_);
+  int64_t max_rtt_ms_ RTC_GUARDED_BY_THREAD(process_thread_checker_);
 
   // Accessed from random threads (seemingly). Consider atomic.
   // |avg_rtt_ms_| is allowed to be read on the process thread without a lock.
@@ -95,12 +95,12 @@ class CallStats : public Module, public RtcpRttStats {
   // on the ProcessThread when running. When the Process Thread is not running,
   // (and only then) they can be used in UpdateHistograms(), usually called from
   // the dtor.
-  int64_t sum_avg_rtt_ms_ RTC_GUARDED_BY(process_thread_checker_);
-  int64_t num_avg_rtt_ RTC_GUARDED_BY(process_thread_checker_);
-  int64_t time_of_first_rtt_ms_ RTC_GUARDED_BY(process_thread_checker_);
+  int64_t sum_avg_rtt_ms_ RTC_GUARDED_BY_THREAD(process_thread_checker_);
+  int64_t num_avg_rtt_ RTC_GUARDED_BY_THREAD(process_thread_checker_);
+  int64_t time_of_first_rtt_ms_ RTC_GUARDED_BY_THREAD(process_thread_checker_);
 
   // All Rtt reports within valid time interval, oldest first.
-  std::list<RttTime> reports_ RTC_GUARDED_BY(process_thread_checker_);
+  std::list<RttTime> reports_ RTC_GUARDED_BY_THREAD(process_thread_checker_);
 
   // Observers getting stats reports.
   // When attached to ProcessThread, this is read-only. In order to allow
@@ -109,10 +109,11 @@ class CallStats : public Module, public RtcpRttStats {
   // for the observers_ list, which makes the most common case lock free.
   std::list<CallStatsObserver*> observers_;
 
-  rtc::ThreadChecker construction_thread_checker_;
-  rtc::ThreadChecker process_thread_checker_;
+  RTC_THREAD_CHECKER(construction_thread_checker_);
+  RTC_THREAD_CHECKER(process_thread_checker_);
   ProcessThread* const process_thread_;
-  bool process_thread_running_ RTC_GUARDED_BY(construction_thread_checker_);
+  bool process_thread_running_
+      RTC_GUARDED_BY_THREAD(construction_thread_checker_);
 
   RTC_DISALLOW_COPY_AND_ASSIGN(CallStats);
 };

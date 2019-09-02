@@ -99,7 +99,7 @@ class NoOpDtlsTransport : public DtlsTransportInternal {
   int SetOption(rtc::Socket::Option opt, int value) override;
   int GetError() override;
 
-  rtc::ThreadChecker thread_checker_;
+  RTC_THREAD_CHECKER(thread_checker_);
 
   webrtc::CryptoOptions crypto_options_;
   IceTransportInternal* ice_transport_;

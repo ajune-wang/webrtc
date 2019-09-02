@@ -46,7 +46,7 @@ namespace webrtc {
 namespace test {
 
 FakeVP8Encoder::FakeVP8Encoder(Clock* clock) : FakeEncoder(clock) {
-  sequence_checker_.Detach();
+  RTC_DETACH_FROM_SEQUENCE(sequence_checker_);
 }
 
 int32_t FakeVP8Encoder::InitEncode(const VideoCodec* config,
@@ -66,7 +66,7 @@ int32_t FakeVP8Encoder::InitEncode(const VideoCodec* config,
 
 int32_t FakeVP8Encoder::Release() {
   auto result = FakeEncoder::Release();
-  sequence_checker_.Detach();
+  RTC_DETACH_FROM_SEQUENCE(sequence_checker_);
   return result;
 }
 

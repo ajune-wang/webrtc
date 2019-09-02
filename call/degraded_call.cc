@@ -62,13 +62,13 @@ bool DegradedCall::FakeNetworkPipeOnTaskQueue::Process() {
   }
 
   task_queue_.PostTask([this, time_to_next]() {
-    RTC_DCHECK_RUN_ON(&task_queue_);
+    RTC_CHECK_RUN_ON(&task_queue_);
     int64_t next_process_time = *time_to_next + clock_->TimeInMilliseconds();
     if (!next_process_ms_ || next_process_time < *next_process_ms_) {
       next_process_ms_ = next_process_time;
       task_queue_.PostDelayedTask(
           [this]() {
-            RTC_DCHECK_RUN_ON(&task_queue_);
+            RTC_CHECK_RUN_ON(&task_queue_);
             if (!Process()) {
               next_process_ms_.reset();
             }

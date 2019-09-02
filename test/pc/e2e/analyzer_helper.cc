@@ -16,7 +16,7 @@ namespace webrtc {
 namespace webrtc_pc_e2e {
 
 AnalyzerHelper::AnalyzerHelper() {
-  signaling_sequence_checker_.Detach();
+  RTC_DETACH_FROM_SEQUENCE(signaling_sequence_checker_);
 }
 
 void AnalyzerHelper::AddTrackToStreamMapping(std::string track_id,

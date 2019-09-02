@@ -161,38 +161,40 @@ class BitrateAllocator : public BitrateAllocatorInterface {
 
   // Calculates the minimum requested send bitrate and max padding bitrate and
   // calls LimitObserver::OnAllocationLimitsChanged.
-  void UpdateAllocationLimits() RTC_RUN_ON(&sequenced_checker_);
+  void UpdateAllocationLimits() RTC_DECLARE_RUN_ON(&sequenced_checker_);
 
   typedef std::vector<ObserverConfig> ObserverConfigs;
   ObserverConfigs::const_iterator FindObserverConfig(
       const BitrateAllocatorObserver* observer) const
-      RTC_RUN_ON(&sequenced_checker_);
+      RTC_DECLARE_RUN_ON(&sequenced_checker_);
   ObserverConfigs::iterator FindObserverConfig(
-      const BitrateAllocatorObserver* observer) RTC_RUN_ON(&sequenced_checker_);
+      const BitrateAllocatorObserver* observer)
+      RTC_DECLARE_RUN_ON(&sequenced_checker_);
 
   typedef std::multimap<uint32_t, const ObserverConfig*> ObserverSortingMap;
   typedef std::map<BitrateAllocatorObserver*, int> ObserverAllocation;
 
   ObserverAllocation AllocateBitrates(uint32_t bitrate) const
-      RTC_RUN_ON(&sequenced_checker_);
+      RTC_DECLARE_RUN_ON(&sequenced_checker_);
 
   // Allocates zero bitrate to all observers.
-  ObserverAllocation ZeroRateAllocation() const RTC_RUN_ON(&sequenced_checker_);
+  ObserverAllocation ZeroRateAllocation() const
+      RTC_DECLARE_RUN_ON(&sequenced_checker_);
   // Allocates bitrate to observers when there isn't enough to allocate the
   // minimum to all observers.
   ObserverAllocation LowRateAllocation(uint32_t bitrate) const
-      RTC_RUN_ON(&sequenced_checker_);
+      RTC_DECLARE_RUN_ON(&sequenced_checker_);
   // Allocates bitrate to all observers when the available bandwidth is enough
   // to allocate the minimum to all observers but not enough to allocate the
   // max bitrate of each observer.
   ObserverAllocation NormalRateAllocation(uint32_t bitrate,
                                           uint32_t sum_min_bitrates) const
-      RTC_RUN_ON(&sequenced_checker_);
+      RTC_DECLARE_RUN_ON(&sequenced_checker_);
   // Allocates bitrate to observers when there is enough available bandwidth
   // for all observers to be allocated their max bitrate.
   ObserverAllocation MaxRateAllocation(uint32_t bitrate,
                                        uint32_t sum_max_bitrates) const
-      RTC_RUN_ON(&sequenced_checker_);
+      RTC_DECLARE_RUN_ON(&sequenced_checker_);
 
   // Splits |bitrate| evenly to observers already in |allocation|.
   // |include_zero_allocations| decides if zero allocations should be part of
@@ -202,10 +204,10 @@ class BitrateAllocator : public BitrateAllocatorInterface {
                                bool include_zero_allocations,
                                int max_multiplier,
                                ObserverAllocation* allocation) const
-      RTC_RUN_ON(&sequenced_checker_);
+      RTC_DECLARE_RUN_ON(&sequenced_checker_);
   bool EnoughBitrateForAllObservers(uint32_t bitrate,
                                     uint32_t sum_min_bitrates) const
-      RTC_RUN_ON(&sequenced_checker_);
+      RTC_DECLARE_RUN_ON(&sequenced_checker_);
 
   // From the available |bitrate|, each observer will be allocated a
   // proportional amount based upon its bitrate priority. If that amount is
@@ -216,7 +218,8 @@ class BitrateAllocator : public BitrateAllocatorInterface {
   void DistributeBitrateRelatively(
       uint32_t bitrate,
       const ObserverAllocation& observers_capacities,
-      ObserverAllocation* allocation) const RTC_RUN_ON(&sequenced_checker_);
+      ObserverAllocation* allocation) const
+      RTC_DECLARE_RUN_ON(&sequenced_checker_);
 
   // Allow packets to be transmitted in up to 2 times max video bitrate if the
   // bandwidth estimate allows it.
@@ -224,24 +227,30 @@ class BitrateAllocator : public BitrateAllocatorInterface {
   // video send stream.
   static uint8_t GetTransmissionMaxBitrateMultiplier();
 
-  SequenceChecker sequenced_checker_;
-  LimitObserver* const limit_observer_ RTC_GUARDED_BY(&sequenced_checker_);
+  RTC_SEQUENCE_CHECKER(sequenced_checker_);
+  LimitObserver* const limit_observer_
+      RTC_GUARDED_BY_SEQUENCE(&sequenced_checker_);
   // Stored in a list to keep track of the insertion order.
-  ObserverConfigs bitrate_observer_configs_ RTC_GUARDED_BY(&sequenced_checker_);
-  uint32_t last_target_bps_ RTC_GUARDED_BY(&sequenced_checker_);
-  uint32_t last_stable_target_bps_ RTC_GUARDED_BY(&sequenced_checker_);
-  uint32_t last_bandwidth_bps_ RTC_GUARDED_BY(&sequenced_checker_);
-  uint32_t last_non_zero_bitrate_bps_ RTC_GUARDED_BY(&sequenced_checker_);
-  uint8_t last_fraction_loss_ RTC_GUARDED_BY(&sequenced_checker_);
-  int64_t last_rtt_ RTC_GUARDED_BY(&sequenced_checker_);
-  int64_t last_bwe_period_ms_ RTC_GUARDED_BY(&sequenced_checker_);
+  ObserverConfigs bitrate_observer_configs_
+      RTC_GUARDED_BY_SEQUENCE(&sequenced_checker_);
+  uint32_t last_target_bps_ RTC_GUARDED_BY_SEQUENCE(&sequenced_checker_);
+  uint32_t last_stable_target_bps_ RTC_GUARDED_BY_SEQUENCE(&sequenced_checker_);
+  uint32_t last_bandwidth_bps_ RTC_GUARDED_BY_SEQUENCE(&sequenced_checker_);
+  uint32_t last_non_zero_bitrate_bps_
+      RTC_GUARDED_BY_SEQUENCE(&sequenced_checker_);
+  uint8_t last_fraction_loss_ RTC_GUARDED_BY_SEQUENCE(&sequenced_checker_);
+  int64_t last_rtt_ RTC_GUARDED_BY_SEQUENCE(&sequenced_checker_);
+  int64_t last_bwe_period_ms_ RTC_GUARDED_BY_SEQUENCE(&sequenced_checker_);
   // Number of mute events based on too low BWE, not network up/down.
-  int num_pause_events_ RTC_GUARDED_BY(&sequenced_checker_);
-  Clock* const clock_ RTC_GUARDED_BY(&sequenced_checker_);
-  int64_t last_bwe_log_time_ RTC_GUARDED_BY(&sequenced_checker_);
-  uint32_t total_requested_padding_bitrate_ RTC_GUARDED_BY(&sequenced_checker_);
-  uint32_t total_requested_min_bitrate_ RTC_GUARDED_BY(&sequenced_checker_);
-  uint32_t total_requested_max_bitrate_ RTC_GUARDED_BY(&sequenced_checker_);
+  int num_pause_events_ RTC_GUARDED_BY_SEQUENCE(&sequenced_checker_);
+  Clock* const clock_ RTC_GUARDED_BY_SEQUENCE(&sequenced_checker_);
+  int64_t last_bwe_log_time_ RTC_GUARDED_BY_SEQUENCE(&sequenced_checker_);
+  uint32_t total_requested_padding_bitrate_
+      RTC_GUARDED_BY_SEQUENCE(&sequenced_checker_);
+  uint32_t total_requested_min_bitrate_
+      RTC_GUARDED_BY_SEQUENCE(&sequenced_checker_);
+  uint32_t total_requested_max_bitrate_
+      RTC_GUARDED_BY_SEQUENCE(&sequenced_checker_);
   const uint8_t transmission_max_bitrate_multiplier_;
 };
 

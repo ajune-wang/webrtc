@@ -532,7 +532,7 @@ OveruseFrameDetector::OveruseFrameDetector(
       last_rampup_time_ms_(-1),
       in_quick_rampup_(false),
       current_rampup_delay_ms_(kStandardRampUpDelayMs) {
-  task_checker_.Detach();
+  RTC_DETACH_FROM_SEQUENCE(task_checker_);
   ParseFieldTrial({&filter_time_constant_},
                   field_trial::FindFullName("WebRTC-CpuLoadEstimator"));
 }

@@ -47,19 +47,21 @@ class RandomWalkCrossTraffic {
   ColumnPrinter StatsPrinter();
 
  private:
-  SequenceChecker sequence_checker_;
+  RTC_SEQUENCE_CHECKER(sequence_checker_);
   const RandomWalkConfig config_;
-  TrafficRoute* const traffic_route_ RTC_PT_GUARDED_BY(sequence_checker_);
-  webrtc::Random random_ RTC_GUARDED_BY(sequence_checker_);
+  TrafficRoute* const traffic_route_
+      RTC_PT_GUARDED_BY_SEQUENCE(sequence_checker_);
+  webrtc::Random random_ RTC_GUARDED_BY_SEQUENCE(sequence_checker_);
 
-  Timestamp last_process_time_ RTC_GUARDED_BY(sequence_checker_) =
+  Timestamp last_process_time_ RTC_GUARDED_BY_SEQUENCE(sequence_checker_) =
       Timestamp::MinusInfinity();
-  Timestamp last_update_time_ RTC_GUARDED_BY(sequence_checker_) =
+  Timestamp last_update_time_ RTC_GUARDED_BY_SEQUENCE(sequence_checker_) =
       Timestamp::MinusInfinity();
-  Timestamp last_send_time_ RTC_GUARDED_BY(sequence_checker_) =
+  Timestamp last_send_time_ RTC_GUARDED_BY_SEQUENCE(sequence_checker_) =
       Timestamp::MinusInfinity();
-  double intensity_ RTC_GUARDED_BY(sequence_checker_) = 0;
-  DataSize pending_size_ RTC_GUARDED_BY(sequence_checker_) = DataSize::Zero();
+  double intensity_ RTC_GUARDED_BY_SEQUENCE(sequence_checker_) = 0;
+  DataSize pending_size_ RTC_GUARDED_BY_SEQUENCE(sequence_checker_) =
+      DataSize::Zero();
 };
 
 struct PulsedPeaksConfig {
@@ -81,15 +83,16 @@ class PulsedPeaksCrossTraffic {
   ColumnPrinter StatsPrinter();
 
  private:
-  SequenceChecker sequence_checker_;
+  RTC_SEQUENCE_CHECKER(sequence_checker_);
   const PulsedPeaksConfig config_;
-  TrafficRoute* const traffic_route_ RTC_PT_GUARDED_BY(sequence_checker_);
+  TrafficRoute* const traffic_route_
+      RTC_PT_GUARDED_BY_SEQUENCE(sequence_checker_);
 
-  Timestamp last_update_time_ RTC_GUARDED_BY(sequence_checker_) =
+  Timestamp last_update_time_ RTC_GUARDED_BY_SEQUENCE(sequence_checker_) =
       Timestamp::MinusInfinity();
-  Timestamp last_send_time_ RTC_GUARDED_BY(sequence_checker_) =
+  Timestamp last_send_time_ RTC_GUARDED_BY_SEQUENCE(sequence_checker_) =
       Timestamp::MinusInfinity();
-  bool sending_ RTC_GUARDED_BY(sequence_checker_) = false;
+  bool sending_ RTC_GUARDED_BY_SEQUENCE(sequence_checker_) = false;
 };
 
 struct FakeTcpConfig {

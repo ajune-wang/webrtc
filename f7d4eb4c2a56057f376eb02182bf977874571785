@@ -2,6 +2,184 @@
   "comments": [
     {
       "key": {
+        "uuid": "2ab51119_04c72352",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-02T13:39:02Z",
+      "side": 1,
+      "message": "may be drop \u0027now\u0027",
+      "range": {
+        "startLine": 59,
+        "startChar": 7,
+        "endLine": 59,
+        "endChar": 11
+      },
+      "revId": "f7d4eb4c2a56057f376eb02182bf977874571785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f97df66_3e735056",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-02T13:39:02Z",
+      "side": 1,
+      "message": "please use 2 statements.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 69
+      },
+      "revId": "f7d4eb4c2a56057f376eb02182bf977874571785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c36bd74f_72d1487d",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-02T13:39:02Z",
+      "side": 1,
+      "message": "may be give another motivation.",
+      "range": {
+        "startLine": 86,
+        "startChar": 60,
+        "endLine": 86,
+        "endChar": 72
+      },
+      "revId": "f7d4eb4c2a56057f376eb02182bf977874571785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d49f9b37_369be710",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-02T13:39:02Z",
+      "side": 1,
+      "message": "may be put this line a bit up, right next to \u0027transmiited.AddPacket\u0027",
+      "revId": "f7d4eb4c2a56057f376eb02182bf977874571785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68f9b4bf_6f25c540",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-02T13:39:02Z",
+      "side": 1,
+      "message": "please split into two expressions",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 67
+      },
+      "revId": "f7d4eb4c2a56057f376eb02182bf977874571785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d2d6508_9671707a",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-02T13:39:02Z",
+      "side": 1,
+      "message": "may be improve this check by avoiding implicit conversion int-\u003ebool:\nif (exp_since_last \u003e 0 \u0026\u0026 lost_since_last \u003e 0)",
+      "range": {
+        "startLine": 230,
+        "startChar": 6,
+        "endLine": 230,
+        "endChar": 20
+      },
+      "revId": "f7d4eb4c2a56057f376eb02182bf977874571785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1736ea19_8942ee63",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-02T13:39:02Z",
+      "side": 1,
+      "message": "would simpler adjustment\nstats.packet_lost \u003d std::max(cumulative_loss_, 0);\nwork? (yep, that would produce slightly different result, but may it is ok)\n\nbtw, is there a need for hack that cumulative loss doesn\u0027t decrease?",
+      "range": {
+        "startLine": 238,
+        "startChar": 2,
+        "endLine": 238,
+        "endChar": 39
+      },
+      "revId": "f7d4eb4c2a56057f376eb02182bf977874571785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8078b21e_3feb1842",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-02T13:39:02Z",
+      "side": 1,
+      "message": "is it same as?\ncumulative_loss_rtcp_offset_ \u003d -cumulative_loss_;",
+      "range": {
+        "startLine": 242,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 55
+      },
+      "revId": "f7d4eb4c2a56057f376eb02182bf977874571785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abcb2b68_c6b54882",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 6
@@ -22,6 +200,29 @@
       "revId": "f7d4eb4c2a56057f376eb02182bf977874571785",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea05b942_5bc3d4c4",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-02T13:39:02Z",
+      "side": 1,
+      "message": "may be use plain int\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types\nsuggests explicit size \"when you need a guarantee on the size of an integer.\"\nwhich doesn\u0027t look like the case here.",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 9
+      },
+      "revId": "f7d4eb4c2a56057f376eb02182bf977874571785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

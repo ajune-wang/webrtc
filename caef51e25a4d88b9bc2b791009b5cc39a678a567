@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89268775_417fd06b",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-02T13:39:02Z",
+      "side": 0,
+      "message": "since you haven\u0027t resolve the todo, may be keep it\n(though may be update to be more accurate: max value of the cumulative loss is 2^23\nwhen I\u0027ve wrote the todo, I missed that cumulative loss can be negative)",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 76
+      },
+      "revId": "caef51e25a4d88b9bc2b791009b5cc39a678a567",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

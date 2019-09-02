@@ -20,10 +20,10 @@
 #include "absl/types/optional.h"
 #include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_options.h"
-#include "api/crypto/frame_decryptor_interface.h"
-#include "api/crypto/frame_encryptor_interface.h"
-#include "api/media_transport_config.h"
-#include "api/rtc_error.h"
+#include "api/crypto/frame_decryptor_interface.h"  // nogncheck
+#include "api/crypto/frame_encryptor_interface.h"  // nogncheck
+#include "api/media_transport_config.h"            // nogncheck
+#include "api/rtc_error.h"                         // nogncheck
 #include "api/rtp_parameters.h"
 #include "api/transport/rtp/rtp_source.h"
 #include "api/video/video_content_type.h"

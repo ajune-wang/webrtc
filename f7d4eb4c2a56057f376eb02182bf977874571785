@@ -157,6 +157,30 @@
     },
     {
       "key": {
+        "uuid": "dc8d0460_c66fe814",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-02T14:15:58Z",
+      "side": 1,
+      "message": "Just commenting on this (I\u0027ll address your other comments later): The simpler adjustment implies that if |cumulative_loss_| increases from, e.g., -100 to -90, in the interval between two RTCP packets, both packets will get stats.packets_lost \u003d\u003d 0. With |cumulative_loss_rtcp_offset_|, we\u0027ll get x and x + 10. And in either case, stats.fraction_loss \u003e 0.\n\nMy understanding is that in case we have non-rtx retransmissions, and any type of occasional packet reorder resulting in NACK packets, then it\u0027s likely that |cumulative_loss| grows slowly in the negative direction and never again is positive. In the failing test, the reorder happened in connection with a route change. In this scenario, the simple adjustment would set stats.packets_lost \u003d 0 in *all* rtcp packets, which seems quite bad to me.\n\nUsing |cumulative_loss_rtcp_offset_| is intended to not change the current behavior, even if I\u0027m not sure it\u0027s 100% identical.",
+      "parentUuid": "1736ea19_8942ee63",
+      "range": {
+        "startLine": 238,
+        "startChar": 2,
+        "endLine": 238,
+        "endChar": 39
+      },
+      "revId": "f7d4eb4c2a56057f376eb02182bf977874571785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8078b21e_3feb1842",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 6

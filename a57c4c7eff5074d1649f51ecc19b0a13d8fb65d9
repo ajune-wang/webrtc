@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b6770896_2defde62",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-02T13:09:09Z",
+      "side": 1,
+      "message": "You inlined these three. Why not inline the constructor on line 30 too?",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 25
+      },
+      "revId": "a57c4c7eff5074d1649f51ecc19b0a13d8fb65d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c7f22548_adcc6e71",
         "filename": "test/scenario/stats_collection.cc",
         "patchSetId": 2

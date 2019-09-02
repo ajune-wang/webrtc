@@ -790,7 +790,7 @@ TEST_F(NetEqDecodingTest, LongCngWithPositiveClockDrift) {
   const double kDriftFactor = 1000.0 / (1000.0 - 25.0);
   const double kNetworkFreezeTimeMs = 0.0;
   const bool kGetAudioDuringFreezeRecovery = false;
-  const int kDelayToleranceMs = 20;
+  const int kDelayToleranceMs = 40;
   const int kMaxTimeToSpeechMs = 100;
   LongCngWithClockDrift(kDriftFactor, kNetworkFreezeTimeMs,
                         kGetAudioDuringFreezeRecovery, kDelayToleranceMs,
@@ -814,7 +814,7 @@ TEST_F(NetEqDecodingTest, LongCngWithPositiveClockDriftNetworkFreeze) {
   const double kDriftFactor = 1000.0 / (1000.0 - 25.0);
   const double kNetworkFreezeTimeMs = 5000.0;
   const bool kGetAudioDuringFreezeRecovery = false;
-  const int kDelayToleranceMs = 20;
+  const int kDelayToleranceMs = 40;
   const int kMaxTimeToSpeechMs = 100;
   LongCngWithClockDrift(kDriftFactor, kNetworkFreezeTimeMs,
                         kGetAudioDuringFreezeRecovery, kDelayToleranceMs,
@@ -826,7 +826,7 @@ TEST_F(NetEqDecodingTest, LongCngWithPositiveClockDriftNetworkFreezeExtraPull) {
   const double kDriftFactor = 1000.0 / (1000.0 - 25.0);
   const double kNetworkFreezeTimeMs = 5000.0;
   const bool kGetAudioDuringFreezeRecovery = true;
-  const int kDelayToleranceMs = 20;
+  const int kDelayToleranceMs = 40;
   const int kMaxTimeToSpeechMs = 100;
   LongCngWithClockDrift(kDriftFactor, kNetworkFreezeTimeMs,
                         kGetAudioDuringFreezeRecovery, kDelayToleranceMs,

@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "dfacd4c6_142691ef",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-02T13:59:15Z",
+      "side": 1,
+      "message": "I thought it made sense to just move the \u003d default ones; assignment and copy construction should boil down to memcpy (unless absl::optional prevents that), destructor is trivial. I tink inlining them explains the small reduction in binary size.\n\nWhile the remaining constructor needs to deal with members one by one. But nevertheless, inlining that too (making callers store values directly into memory instead of passing register arguments) seems to be a net saving too.",
+      "parentUuid": "af8375a1_ed42c43c",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 25
+      },
+      "revId": "a57c4c7eff5074d1649f51ecc19b0a13d8fb65d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7f22548_adcc6e71",
         "filename": "test/scenario/stats_collection.cc",
         "patchSetId": 2

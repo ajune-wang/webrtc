@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b387cbd9_1527a3cb",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-02T13:17:39Z",
+      "side": 1,
+      "message": "I can inline it and delete the .cc file. I see no strong reason to do it one way or the other.",
+      "parentUuid": "b6770896_2defde62",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 25
+      },
+      "revId": "a57c4c7eff5074d1649f51ecc19b0a13d8fb65d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7f22548_adcc6e71",
         "filename": "test/scenario/stats_collection.cc",
         "patchSetId": 2

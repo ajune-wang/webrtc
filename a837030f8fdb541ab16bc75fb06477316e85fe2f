@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75ac04b5_ffc1327b",
+        "filename": "modules/audio_coding/test/target_delay_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-09-03T10:32:19Z",
+      "side": 0,
+      "message": "This test introduces a lot of clock drift when it runs with \"jitter\".",
+      "range": {
+        "startLine": 56,
+        "startChar": 7,
+        "endLine": 56,
+        "endChar": 39
+      },
+      "revId": "a837030f8fdb541ab16bc75fb06477316e85fe2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0c3a85ad_23af8118",
+        "filename": "test/scenario/stats_collection_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-09-03T10:32:19Z",
+      "side": 0,
+      "message": "This test seems to introduce a lot of clock drift and was very different between platforms.",
+      "range": {
+        "startLine": 81,
+        "startChar": 14,
+        "endLine": 81,
+        "endChar": 67
+      },
+      "revId": "a837030f8fdb541ab16bc75fb06477316e85fe2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

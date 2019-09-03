@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cad24ff9_a4b29a15",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-09-03T12:24:22Z",
+      "side": 1,
+      "message": "Would be nice to reuse kDefaultEncoderMinBitrateBps here",
+      "range": {
+        "startLine": 68,
+        "startChar": 65,
+        "endLine": 68,
+        "endChar": 67
+      },
+      "revId": "35cbaf534553eb01b269518ee8e24d6cd614a92b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

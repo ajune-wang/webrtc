@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9819a3b_473abeb6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-09-03T14:07:42Z",
+      "side": 1,
+      "message": "Please instead write what you changed priority of two field trial experiments: \"WebRTC-Video-MinVideoBitrate\" is now lower priority than \"WebRTC-VP8-Forced-Fallback-Encoder-v2\".",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 59
+      },
+      "revId": "f0ebe684bc38e261ab2554830e70ec1d951b48e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35e9ac68_0522c636",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-09-03T14:07:42Z",
+      "side": 1,
+      "message": "Nit:\n\nThis is copy from webrtc_video_engine.h\n\nCould you please move both copies to rtc_base/experiments and use it everywhere?\n\nYou could also remove this constant:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/media/engine/constants.cc?type\u003dcs\u0026q\u003dkMinVideoBitrateExperiment\u0026g\u003d0\u0026l\u003d19",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 2
+      },
+      "revId": "f0ebe684bc38e261ab2554830e70ec1d951b48e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

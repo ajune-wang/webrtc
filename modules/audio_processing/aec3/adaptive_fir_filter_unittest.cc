@@ -420,7 +420,8 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
       }
 
       std::array<float, kFftLengthBy2Plus1> render_power;
-      render_buffer->SpectralSum(filter.SizePartitions(), &render_power);
+      render_buffer->SpectralSum(/*channel=*/0, filter.SizePartitions(),
+                                 &render_power);
       gain.Compute(render_power, render_signal_analyzer, E,
                    filter.SizePartitions(), false, &G);
       filter.Adapt(*render_buffer, G);

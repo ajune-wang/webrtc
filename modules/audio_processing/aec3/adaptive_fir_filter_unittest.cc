@@ -159,8 +159,8 @@ TEST(AdaptiveFirFilter, UpdateErlNeonOptimization) {
     }
   }
 
-  UpdateErlEstimator(H2, &erl);
-  UpdateErlEstimator_NEON(H2, &erl_NEON);
+  UpdateErlEstimator(H2, erl);
+  UpdateErlEstimator_NEON(H2, erl_NEON);
 
   for (size_t j = 0; j < erl.size(); ++j) {
     EXPECT_FLOAT_EQ(erl[j], erl_NEON[j]);
@@ -282,8 +282,8 @@ TEST(AdaptiveFirFilter, UpdateErlSse2Optimization) {
       }
     }
 
-    UpdateErlEstimator(H2, &erl);
-    UpdateErlEstimator_SSE2(H2, &erl_SSE2);
+    UpdateErlEstimator(H2, erl);
+    UpdateErlEstimator_SSE2(H2, erl_SSE2);
 
     for (size_t j = 0; j < erl.size(); ++j) {
       EXPECT_FLOAT_EQ(erl[j], erl_SSE2[j]);
@@ -316,8 +316,16 @@ TEST(AdaptiveFirFilter, NullFilterOutput) {
 TEST(AdaptiveFirFilter, FilterStatisticsAccess) {
   ApmDataDumper data_dumper(42);
   AdaptiveFirFilter filter(9, 9, 250, DetectOptimization(), &data_dumper);
-  filter.Erl();
-  filter.FilterFrequencyResponse();
+  std::vector<std::array<float, kFftLengthBy2Plus1>> H2(
+      filter.max_filter_size_partitions(),
+      std::array<float, kFftLengthBy2Plus1>());
+  for (auto& H2_k : H2) {
+    H2_k.fill(0.f);
+  }
+
+  std::array<float, kFftLengthBy2Plus1> erl;
+  filter.ComputeErl(H2, erl);
+  filter.ComputeFrequencyResponse(&H2);
 }
 
 // Verifies that the filter size if correctly repported.
@@ -344,6 +352,11 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
                            config.filter.main.length_blocks,
                            config.filter.config_change_duration_blocks,
                            DetectOptimization(), &data_dumper);
+  std::vector<std::array<float, kFftLengthBy2Plus1>> H2(
+      filter.max_filter_size_partitions(),
+      std::array<float, kFftLengthBy2Plus1>());
+  std::vector<float> h(GetTimeDomainLength(filter.max_filter_size_partitions()),
+                       0.f);
   Aec3Fft fft;
   config.delay.default_delay = 1;
   std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
@@ -423,13 +436,13 @@ TEST(AdaptiveFirFilter, FilterAndAdapt) {
       render_buffer->SpectralSum(filter.SizePartitions(), &render_power);
       gain.Compute(render_power, render_signal_analyzer, E,
                    filter.SizePartitions(), false, &G);
-      filter.Adapt(*render_buffer, G);
+      filter.Adapt(*render_buffer, G, &h);
       aec_state.HandleEchoPathChange(EchoPathVariability(
           false, EchoPathVariability::DelayAdjustment::kNone, false));
 
-      aec_state.Update(delay_estimate, filter.FilterFrequencyResponse(),
-                       filter.FilterImpulseResponse(), *render_buffer, E2_main,
-                       Y2, output, y);
+      filter.ComputeFrequencyResponse(&H2);
+      aec_state.Update(delay_estimate, H2, h, *render_buffer, E2_main, Y2,
+                       output, y);
     }
     // Verify that the filter is able to perform well.
     EXPECT_LT(1000 * std::inner_product(e.begin(), e.end(), e.begin(), 0.f),

@@ -57,6 +57,15 @@ void RunFilterUpdateTest(int num_blocks_to_process,
                                   config.filter.shadow.length_blocks,
                                   config.filter.config_change_duration_blocks,
                                   DetectOptimization(), &data_dumper);
+  std::vector<std::array<float, kFftLengthBy2Plus1>> H2(
+      main_filter.max_filter_size_partitions(),
+      std::array<float, kFftLengthBy2Plus1>());
+  for (auto& H2_k : H2) {
+    H2_k.fill(0.f);
+  }
+  std::vector<float> h(
+      GetTimeDomainLength(main_filter.max_filter_size_partitions()), 0.f);
+
   Aec3Fft fft;
   std::array<float, kBlockSize> x_old;
   x_old.fill(0.f);
@@ -168,15 +177,18 @@ void RunFilterUpdateTest(int num_blocks_to_process,
     // Adapt the main filter
     render_delay_buffer->GetRenderBuffer()->SpectralSum(
         main_filter.SizePartitions(), &render_power);
-    main_gain.Compute(render_power, render_signal_analyzer, output, main_filter,
-                      saturation, &G);
-    main_filter.Adapt(*render_delay_buffer->GetRenderBuffer(), G);
+
+    std::array<float, kFftLengthBy2Plus1> erl;
+    main_filter.ComputeErl(H2, erl);
+    main_gain.Compute(render_power, render_signal_analyzer, output, erl,
+                      main_filter.SizePartitions(), saturation, &G);
+    main_filter.Adapt(*render_delay_buffer->GetRenderBuffer(), G, &h);
 
     // Update the delay.
     aec_state.HandleEchoPathChange(EchoPathVariability(
         false, EchoPathVariability::DelayAdjustment::kNone, false));
-    aec_state.Update(delay_estimate, main_filter.FilterFrequencyResponse(),
-                     main_filter.FilterImpulseResponse(),
+    main_filter.ComputeFrequencyResponse(&H2);
+    aec_state.Update(delay_estimate, H2, h,
                      *render_delay_buffer->GetRenderBuffer(), E2_main, Y2,
                      output, y);
   }
@@ -218,8 +230,11 @@ TEST(MainFilterUpdateGain, NullDataOutputGain) {
                             config.filter.config_change_duration_blocks);
   std::array<float, kFftLengthBy2Plus1> render_power;
   render_power.fill(0.f);
-  EXPECT_DEATH(
-      gain.Compute(render_power, analyzer, output, filter, false, nullptr), "");
+  std::array<float, kFftLengthBy2Plus1> erl;
+  erl.fill(0.f);
+  EXPECT_DEATH(gain.Compute(render_power, analyzer, output, erl,
+                            filter.SizePartitions(), false, nullptr),
+               "");
 }
 
 #endif

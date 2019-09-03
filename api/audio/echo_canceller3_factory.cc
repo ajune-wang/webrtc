@@ -26,5 +26,4 @@ std::unique_ptr<EchoControl> EchoCanceller3Factory::Create(int sample_rate_hz) {
                                            /*num_render_channels=*/1,
                                            /*num_capture_channels=*/1);
 }
-
 }  // namespace webrtc

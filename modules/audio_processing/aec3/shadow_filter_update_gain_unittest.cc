@@ -109,7 +109,7 @@ void RunFilterUpdateTest(int num_blocks_to_process,
 
     std::array<float, kFftLengthBy2Plus1> render_power;
     render_delay_buffer->GetRenderBuffer()->SpectralSum(
-        shadow_filter.SizePartitions(), &render_power);
+        /*channel=*/0, shadow_filter.SizePartitions(), &render_power);
     shadow_gain.Compute(render_power, render_signal_analyzer, E_shadow,
                         shadow_filter.SizePartitions(), saturation, &G);
     shadow_filter.Adapt(*render_delay_buffer->GetRenderBuffer(), G);
@@ -141,7 +141,7 @@ std::string ProduceDebugText(size_t delay, int filter_length_blocks) {
 // Verifies that the check for non-null output gain parameter works.
 TEST(ShadowFilterUpdateGain, NullDataOutputGain) {
   ApmDataDumper data_dumper(42);
-  FftBuffer fft_buffer(1);
+  FftBuffer fft_buffer(1, 1);
   RenderSignalAnalyzer analyzer(EchoCanceller3Config{});
   FftData E;
   const EchoCanceller3Config::Filter::ShadowConfiguration& config = {

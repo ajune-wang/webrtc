@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e4665e7_5452a83d",
+        "filename": "modules/audio_processing/aec3/render_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-03T19:02:06Z",
+      "side": 1,
+      "message": "Please add a for-loop here over the number of channels.",
+      "range": {
+        "startLine": 44,
+        "startChar": 21,
+        "endLine": 44,
+        "endChar": 40
+      },
+      "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "250e6016_a4d77b1d",
+        "filename": "modules/audio_processing/aec3/render_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-03T19:02:06Z",
+      "side": 1,
+      "message": "As above",
+      "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93699e0a_b0b83f20",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-03T19:02:06Z",
+      "side": 1,
+      "message": "I think it would be good to have the order of these parameters match the order of the indices into spectrum_buffer_-\u003ebuffer",
+      "range": {
+        "startLine": 47,
+        "startChar": 46,
+        "endLine": 47,
+        "endChar": 53
+      },
+      "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87732628_850af24d",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-03T19:02:06Z",
+      "side": 1,
+      "message": "This will be used differently once the filter is properly adjusted to handle multiple channels. Please remove the channel parameter and for now in the .cc file only compute this for the left channel.",
+      "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe675f01_3a6eebb6",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-03T19:02:06Z",
+      "side": 1,
+      "message": "Same comment as above",
+      "range": {
+        "startLine": 72,
+        "startChar": 27,
+        "endLine": 72,
+        "endChar": 34
+      },
+      "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5a7ebfc_f3bfa006",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-03T19:02:06Z",
+      "side": 1,
+      "message": "Please add code that ensures that all available channels are stored in the spectrum buffer.",
+      "range": {
+        "startLine": 384,
+        "startChar": 64,
+        "endLine": 384,
+        "endChar": 71
+      },
+      "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,7 +22,6 @@
 #include "modules/audio_processing/aec3/fft_data.h"
 #include "modules/audio_processing/aec3/render_buffer.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/constructor_magic.h"
 #include "rtc_base/system/arch.h"
 
 namespace webrtc {
@@ -46,16 +45,16 @@ void UpdateFrequencyResponse_SSE2(
 // sum of the partition frequency responses.
 void UpdateErlEstimator(
     const std::vector<std::array<float, kFftLengthBy2Plus1>>& H2,
-    std::array<float, kFftLengthBy2Plus1>* erl);
+    rtc::ArrayView<float> erl);
 #if defined(WEBRTC_HAS_NEON)
 void UpdateErlEstimator_NEON(
     const std::vector<std::array<float, kFftLengthBy2Plus1>>& H2,
-    std::array<float, kFftLengthBy2Plus1>* erl);
+    rtc::ArrayView<float> erl);
 #endif
 #if defined(WEBRTC_ARCH_X86_FAMILY)
 void UpdateErlEstimator_SSE2(
     const std::vector<std::array<float, kFftLengthBy2Plus1>>& H2,
-    std::array<float, kFftLengthBy2Plus1>* erl);
+    rtc::ArrayView<float> erl);
 #endif
 
 // Adapts the filter partitions.
@@ -101,8 +100,17 @@ class AdaptiveFirFilter {
 
   ~AdaptiveFirFilter();
 
+  AdaptiveFirFilter(const AdaptiveFirFilter&) = delete;
+  AdaptiveFirFilter& operator=(const AdaptiveFirFilter&) = delete;
+
   // Produces the output of the filter.
   void Filter(const RenderBuffer& render_buffer, FftData* S) const;
+
+  // Adapts the filter and updates an externally stored impulse response
+  // estimate.
+  void Adapt(const RenderBuffer& render_buffer,
+             const FftData& G,
+             std::vector<float>* impulse_response);
 
   // Adapts the filter.
   void Adapt(const RenderBuffer& render_buffer, const FftData& G);
@@ -117,20 +125,18 @@ class AdaptiveFirFilter {
   // Sets the filter size.
   void SetSizePartitions(size_t size, bool immediate_effect);
 
-  // Returns the filter based echo return loss.
-  const std::array<float, kFftLengthBy2Plus1>& Erl() const { return erl_; }
+  // Computes the echo return loss based on a frequency response.
+  void ComputeErl(const std::vector<std::array<float, kFftLengthBy2Plus1>>& H2,
+                  rtc::ArrayView<float> erl) const;
 
-  // Returns the frequency responses for the filter partitions.
-  const std::vector<std::array<float, kFftLengthBy2Plus1>>&
-  FilterFrequencyResponse() const {
-    return H2_;
-  }
+  // Computes the frequency responses for the filter partitions.
+  void ComputeFrequencyResponse(
+      std::vector<std::array<float, kFftLengthBy2Plus1>>* H2) const;
 
-  // Returns the estimate of the impulse response.
-  const std::vector<float>& FilterImpulseResponse() const { return h_; }
+  // Returns the maximum number of partitions for the filter.
+  size_t max_filter_size_partitions() const { return max_size_partitions_; }
 
-  void DumpFilter(const char* name_frequency_domain,
-                  const char* name_time_domain) {
+  void DumpFilter(const char* name_frequency_domain) {
     size_t current_size = H_.size();
     H_.resize(max_size_partitions_);
     for (auto& H : H_) {
@@ -138,11 +144,6 @@ class AdaptiveFirFilter {
       data_dumper_->DumpRaw(name_frequency_domain, H.im);
     }
     H_.resize(current_size);
-
-    current_size = h_.size();
-    h_.resize(GetTimeDomainLength(max_size_partitions_));
-    data_dumper_->DumpRaw(name_time_domain, h_);
-    h_.resize(current_size);
   }
 
   // Scale the filter impulse response and spectrum by a factor.
@@ -155,8 +156,14 @@ class AdaptiveFirFilter {
   const std::vector<FftData>& GetFilter() const { return H_; }
 
  private:
+  // Adapts the filter and updates the filter size.
+  void AdaptAndUpdateSize(const RenderBuffer& render_buffer, const FftData& G);
+
   // Constrain the filter partitions in a cyclic manner.
   void Constrain();
+  // Constrains the filter in a cyclic manner and updates the corresponding
+  // values in the supplied impulse response.
+  void ConstrainAndUpdateImpulseResponse(std::vector<float>* impulse_response);
 
   // Resets the filter buffers to use the current size.
   void ResetFilterBuffersToCurrentSize();
@@ -175,12 +182,7 @@ class AdaptiveFirFilter {
   size_t old_target_size_partitions_;
   int size_change_counter_ = 0;
   std::vector<FftData> H_;
-  std::vector<std::array<float, kFftLengthBy2Plus1>> H2_;
-  std::vector<float> h_;
-  std::array<float, kFftLengthBy2Plus1> erl_;
   size_t partition_to_constrain_ = 0;
-
-  RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(AdaptiveFirFilter);
 };
 
 }  // namespace webrtc

@@ -45,6 +45,30 @@
       "revId": "a837030f8fdb541ab16bc75fb06477316e85fe2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72064a49_1e5fc258",
+        "filename": "test/scenario/stats_collection_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-03T10:50:44Z",
+      "side": 0,
+      "message": "Hmm, there shouldn\u0027t really be clock drift in this test, as it\u0027s supposed to be deterministic for a given platform. Maybe there has been a regression in that\n\nIt\u0027s different on different platforms because we have #ifdef constants based on platform in the underlying code. I\u0027m not sure the right way to handle it is to remove the test completely.\n\nWould it work to just increase the range enough that it doesn\u0027t trigger, then we\u0027ll at least detect if it\u0027s significantly changed. (going to 0 or a few seconds for instance)",
+      "parentUuid": "0c3a85ad_23af8118",
+      "range": {
+        "startLine": 81,
+        "startChar": 14,
+        "endLine": 81,
+        "endChar": 67
+      },
+      "revId": "a837030f8fdb541ab16bc75fb06477316e85fe2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

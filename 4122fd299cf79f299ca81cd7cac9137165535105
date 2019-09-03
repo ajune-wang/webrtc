@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e4023fa_465b76be",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-09-03T13:39:49Z",
+      "side": 1,
+      "message": "Did you mean \"absl/container/inlined_vector.h\" ?",
+      "revId": "4122fd299cf79f299ca81cd7cac9137165535105",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a58c688b_7acb3ec0",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-09-03T13:39:49Z",
+      "side": 1,
+      "message": "Did you add \u003cvector\u003e for an absl::InlinedVector? There should be a proper Absl header instead.",
+      "revId": "4122fd299cf79f299ca81cd7cac9137165535105",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

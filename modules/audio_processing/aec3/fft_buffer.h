@@ -23,22 +23,22 @@ namespace webrtc {
 // Struct for bundling a circular buffer of FftData objects together with the
 // read and write indices.
 struct FftBuffer {
-  explicit FftBuffer(size_t size);
+  FftBuffer(size_t num_channels, size_t size);
   ~FftBuffer();
 
   int IncIndex(int index) const {
-    RTC_DCHECK_EQ(buffer.size(), static_cast<size_t>(size));
+    RTC_DCHECK_EQ(buffer[0].size(), static_cast<size_t>(size));
     return index < size - 1 ? index + 1 : 0;
   }
 
   int DecIndex(int index) const {
-    RTC_DCHECK_EQ(buffer.size(), static_cast<size_t>(size));
+    RTC_DCHECK_EQ(buffer[0].size(), static_cast<size_t>(size));
     return index > 0 ? index - 1 : size - 1;
   }
 
   int OffsetIndex(int index, int offset) const {
-    RTC_DCHECK_GE(buffer.size(), offset);
-    RTC_DCHECK_EQ(buffer.size(), static_cast<size_t>(size));
+    RTC_DCHECK_GE(buffer[0].size(), offset);
+    RTC_DCHECK_EQ(buffer[0].size(), static_cast<size_t>(size));
     return (size + index + offset) % size;
   }
 
@@ -50,7 +50,7 @@ struct FftBuffer {
   void DecReadIndex() { read = DecIndex(read); }
 
   const int size;
-  std::vector<FftData> buffer;
+  std::vector<std::vector<FftData>> buffer;
   int write = 0;
   int read = 0;
 };

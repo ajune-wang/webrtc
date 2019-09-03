@@ -44,15 +44,16 @@ class RenderBuffer {
   }
 
   // Get the spectrum from one of the FFTs in the buffer.
-  rtc::ArrayView<const float> Spectrum(int buffer_offset_ffts) const {
+  rtc::ArrayView<const float> Spectrum(size_t channel,
+                                       int buffer_offset_ffts) const {
     int position = spectrum_buffer_->OffsetIndex(spectrum_buffer_->read,
                                                  buffer_offset_ffts);
-    return spectrum_buffer_->buffer[position];
+    return spectrum_buffer_->buffer[position][channel];
   }
 
   // Returns the circular fft buffer.
-  rtc::ArrayView<const FftData> GetFftBuffer() const {
-    return fft_buffer_->buffer;
+  rtc::ArrayView<const FftData> GetFftBuffer(size_t channel) const {
+    return fft_buffer_->buffer[channel];
   }
 
   // Returns the current position in the circular buffer.
@@ -63,11 +64,13 @@ class RenderBuffer {
   }
 
   // Returns the sum of the spectrums for a certain number of FFTs.
-  void SpectralSum(size_t num_spectra,
+  void SpectralSum(size_t channel,
+                   size_t num_spectra,
                    std::array<float, kFftLengthBy2Plus1>* X2) const;
 
   // Returns the sums of the spectrums for two numbers of FFTs.
-  void SpectralSums(size_t num_spectra_shorter,
+  void SpectralSums(size_t channel,
+                    size_t num_spectra_shorter,
                     size_t num_spectra_longer,
                     std::array<float, kFftLengthBy2Plus1>* X2_shorter,
                     std::array<float, kFftLengthBy2Plus1>* X2_longer) const;

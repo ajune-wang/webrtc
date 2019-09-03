@@ -110,8 +110,10 @@ TEST(AecState, NormalUsage) {
   }
 
   x[0][0][0] = 5000.f;
-  for (size_t k = 0;
-       k < render_delay_buffer->GetRenderBuffer()->GetFftBuffer().size(); ++k) {
+  for (size_t k = 0; k < render_delay_buffer->GetRenderBuffer()
+                             ->GetFftBuffer(/*channel=*/0)
+                             .size();
+       ++k) {
     render_delay_buffer->Insert(x);
     if (k == 0) {
       render_delay_buffer->Reset();

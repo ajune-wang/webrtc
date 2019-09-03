@@ -474,13 +474,6 @@ class P2PTransportChannelTestBase : public ::testing::Test,
     GetEndpoint(endpoint)->network_manager_.RemoveInterface(addr);
     fw()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY, addr);
   }
-  void SetProxy(int endpoint, rtc::ProxyType type) {
-    rtc::ProxyInfo info;
-    info.type = type;
-    info.address = (type == rtc::PROXY_HTTPS) ? kHttpsProxyAddrs[endpoint]
-                                              : kSocksProxyAddrs[endpoint];
-    GetAllocator(endpoint)->set_proxy("unittest/1.0", info);
-  }
   void SetAllocatorFlags(int endpoint, int flags) {
     GetAllocator(endpoint)->set_flags(flags);
   }
@@ -1071,20 +1064,6 @@ class P2PTransportChannelTest : public P2PTransportChannelTestBase {
                         SocketAddress(rtc::IPAddress(INADDR_ANY), 443));
           fw()->AddRule(false, rtc::FP_TCP, rtc::FD_ANY,
                         kPublicAddrs[endpoint]);
-        } else if (config == PROXY_HTTPS) {
-          // Block all TCP to/from the endpoint except to the proxy server
-          fw()->AddRule(true, rtc::FP_TCP, kPublicAddrs[endpoint],
-                        kHttpsProxyAddrs[endpoint]);
-          fw()->AddRule(false, rtc::FP_TCP, rtc::FD_ANY,
-                        kPublicAddrs[endpoint]);
-          SetProxy(endpoint, rtc::PROXY_HTTPS);
-        } else if (config == PROXY_SOCKS) {
-          // Block all TCP to/from the endpoint except to the proxy server
-          fw()->AddRule(true, rtc::FP_TCP, kPublicAddrs[endpoint],
-                        kSocksProxyAddrs[endpoint]);
-          fw()->AddRule(false, rtc::FP_TCP, rtc::FD_ANY,
-                        kPublicAddrs[endpoint]);
-          SetProxy(endpoint, rtc::PROXY_SOCKS5);
         }
         break;
       default:
@@ -1184,7 +1163,6 @@ const P2PTransportChannelTest::Result*
   P2P_TEST(x, BLOCK_UDP)                   \
   P2P_TEST(x, BLOCK_UDP_AND_INCOMING_TCP)  \
   P2P_TEST(x, BLOCK_ALL_BUT_OUTGOING_HTTP) \
-  P2P_TEST(x, PROXY_HTTPS)                 \
   P2P_TEST(x, PROXY_SOCKS)
 
 P2P_TEST_SET(OPEN)
@@ -1197,7 +1175,6 @@ P2P_TEST_SET(NAT_SYMMETRIC_THEN_CONE)
 P2P_TEST_SET(BLOCK_UDP)
 P2P_TEST_SET(BLOCK_UDP_AND_INCOMING_TCP)
 P2P_TEST_SET(BLOCK_ALL_BUT_OUTGOING_HTTP)
-P2P_TEST_SET(PROXY_HTTPS)
 P2P_TEST_SET(PROXY_SOCKS)
 
 // Test that we restart candidate allocation when local ufrag&pwd changed.

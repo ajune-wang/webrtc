@@ -14,6 +14,8 @@
 #include <string>
 
 #include "p2p/base/packet_socket_factory.h"
+#include "rtc_base/proxy_info.h"
+#include "rtc_base/ssl_certificate.h"
 
 namespace rtc {
 
@@ -37,18 +39,8 @@ class BasicPacketSocketFactory : public PacketSocketFactory {
                                            int opts) override;
   AsyncPacketSocket* CreateClientTcpSocket(
       const SocketAddress& local_address,
-      const SocketAddress& remote_address) override;
-  AsyncPacketSocket* CreateClientTcpSocket(const SocketAddress& local_address,
-                                           const SocketAddress& remote_address,
-                                           const ProxyInfo& proxy_info,
-                                           const std::string& user_agent,
-                                           int opts) override;
-  AsyncPacketSocket* CreateClientTcpSocket(
-      const SocketAddress& local_address,
       const SocketAddress& remote_address,
-      const ProxyInfo& proxy_info,
-      const std::string& user_agent,
-      const PacketSocketTcpOptions& tcp_options) override;
+      const PacketSocketTcpOptions& opts) override;
 
   AsyncResolverInterface* CreateAsyncResolver() override;
 
@@ -62,6 +54,7 @@ class BasicPacketSocketFactory : public PacketSocketFactory {
 
   Thread* thread_;
   SocketFactory* socket_factory_;
+  PacketSocketTcpOptions tcp_options_;
 };
 
 }  // namespace rtc

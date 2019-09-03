@@ -36,7 +36,6 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/net_helper.h"
 #include "rtc_base/network.h"
-#include "rtc_base/proxy_info.h"
 #include "rtc_base/rate_tracker.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/system/rtc_export.h"
@@ -303,13 +302,6 @@ class Port : public PortInterface,
                                 int error_code,
                                 const std::string& reason) override;
 
-  void set_proxy(const std::string& user_agent, const rtc::ProxyInfo& proxy) {
-    user_agent_ = user_agent;
-    proxy_ = proxy;
-  }
-  const std::string& user_agent() { return user_agent_; }
-  const rtc::ProxyInfo& proxy() { return proxy_; }
-
   void EnablePortPackets() override;
 
   // Called if the port has no connections and is no longer useful.
@@ -478,9 +470,6 @@ class Port : public PortInterface,
   IceRole ice_role_;
   uint64_t tiebreaker_;
   bool shared_socket_;
-  // Information to use when going through a proxy.
-  std::string user_agent_;
-  rtc::ProxyInfo proxy_;
 
   // A virtual cost perceived by the user, usually based on the network type
   // (WiFi. vs. Cellular). It takes precedence over the priority when

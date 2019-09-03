@@ -10,10 +10,13 @@
 
 package org.webrtc.audio;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.media.AudioDeviceInfo;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
+import android.media.AudioRecordingConfiguration;
 import android.media.MediaRecorder.AudioSource;
 import android.os.Build;
 import android.os.Process;
@@ -21,6 +24,8 @@ import android.support.annotation.Nullable;
 import java.lang.System;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.webrtc.CalledByNative;
 import org.webrtc.Logging;
@@ -170,6 +175,7 @@ class WebRtcAudioRecord {
     this.audioSamplesReadyCallback = audioSamplesReadyCallback;
     this.isAcousticEchoCancelerSupported = isAcousticEchoCancelerSupported;
     this.isNoiseSuppressorSupported = isNoiseSuppressorSupported;
+    Logging.d(TAG, "ctor" + WebRtcAudioUtils.getThreadInfo());
   }
 
   @CalledByNative
@@ -252,6 +258,9 @@ class WebRtcAudioRecord {
     effects.enable(audioRecord.getAudioSessionId());
     logMainParameters();
     logMainParametersExtended();
+    // Check number of active recording sessions. Should be zero but we have seen conflict cases
+    // and adding a log for it can help us figure out details about conflicting sessions.
+    logRecordingConfigurations();
     return framesPerBuffer;
   }
 
@@ -273,6 +282,8 @@ class WebRtcAudioRecord {
               + audioRecord.getRecordingState());
       return false;
     }
+    // TODO(henrika): #active sessions can be zero even at this stage.
+    logRecordingConfigurations();
     audioThread = new AudioRecordThread("AudioRecordJavaThread");
     audioThread.start();
     return true;
@@ -301,12 +312,29 @@ class WebRtcAudioRecord {
             + "sample rate: " + audioRecord.getSampleRate());
   }
 
+  @TargetApi(Build.VERSION_CODES.M)
   private void logMainParametersExtended() {
-    if (Build.VERSION.SDK_INT >= 23) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       Logging.d(TAG,
           "AudioRecord: "
               // The frame count of the native AudioRecord buffer.
               + "buffer size in frames: " + audioRecord.getBufferSizeInFrames());
+    }
+  }
+
+  @TargetApi(Build.VERSION_CODES.N)
+  private void logRecordingConfigurations() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+      return;
+    }
+    // Returns the current active audio recording configurations of the device.
+    // A non-null list of recording configurations. An empty list indicates there is no recording
+    // active when queried.
+    List<AudioRecordingConfiguration> configs = audioManager.getActiveRecordingConfigurations();
+    final int numActiveRecordingSessions = configs.size();
+    Logging.d(TAG, "Number of active recording sessions: " + numActiveRecordingSessions);
+    if (numActiveRecordingSessions > 0) {
+      logActiveRecordingConfigs(configs);
     }
   }
 
@@ -384,4 +412,205 @@ class WebRtcAudioRecord {
         throw new IllegalArgumentException("Bad audio format " + audioFormat);
     }
   }
+
+  @TargetApi(Build.VERSION_CODES.N)
+  private static boolean logActiveRecordingConfigs(List<AudioRecordingConfiguration> configs) {
+    if (!configs.isEmpty()) {
+      Iterator<AudioRecordingConfiguration> it = configs.iterator();
+      Logging.d(TAG, "AudioRecordingConfigurations: ");
+      while (it.hasNext()) {
+        final AudioRecordingConfiguration config = it.next();
+        StringBuilder conf = new StringBuilder();
+        // The audio source selected by the client.
+        final int audioSource = config.getClientAudioSource();
+        conf.append("client audio source=")
+            .append(audioSourceToString(audioSource))
+            .append(", client session id=")
+            .append(config.getClientAudioSessionId())
+            .append("\n");
+        // Audio format at which audio is recorded on this Android device. Note that it may differ
+        // from the client application recording format (see getClientFormat()).
+        AudioFormat format = config.getFormat();
+        conf.append("Device AudioFormat: ")
+            .append("channel count=")
+            .append(format.getChannelCount())
+            .append(", channel index mask=")
+            .append(format.getChannelIndexMask())
+            .append(", channel index=")
+            .append(format.getChannelMask())
+            .append(", encoding=")
+            .append(format.getEncoding())
+            .append(", sample rate=")
+            .append(format.getSampleRate())
+            .append("\n");
+        // Audio format at which the client application is recording audio.
+        format = config.getClientFormat();
+        conf.append("Client AudioFormat: ")
+            .append("channel count=")
+            .append(format.getChannelCount())
+            .append(", channel index mask=")
+            .append(format.getChannelIndexMask())
+            .append(", channel index=")
+            .append(format.getChannelMask())
+            .append(", encoding=")
+            .append(format.getEncoding())
+            .append(", sample rate=")
+            .append(format.getSampleRate())
+            .append("\n");
+        // Audio input device used for this recording session.
+        final AudioDeviceInfo device = config.getAudioDevice();
+        assertTrue(device.isSource());
+        conf.append("AudioDevice: ")
+            .append("type=")
+            .append(WebRtcAudioUtils.deviceTypeToString(device.getType()))
+            .append(", id=")
+            .append(device.getId());
+        Logging.d(TAG, conf.toString());
+      }
+      return true;
+    }
+    return false;
+  }
+
+  @TargetApi(Build.VERSION_CODES.N)
+  private static String audioSourceToString(int source) {
+    // AudioSource.UNPROCESSED requires API level 29. Use local define instead.
+    final int VOICE_PERFORMANCE = 10;
+    switch (source) {
+      case AudioSource.DEFAULT:
+        return "DEFAULT";
+      case AudioSource.MIC:
+        return "MIC";
+      case AudioSource.VOICE_UPLINK:
+        return "VOICE_UPLINK";
+      case AudioSource.VOICE_DOWNLINK:
+        return "VOICE_DOWNLINK";
+      case AudioSource.VOICE_CALL:
+        return "VOICE_CALL";
+      case AudioSource.CAMCORDER:
+        return "CAMCORDER";
+      case AudioSource.VOICE_RECOGNITION:
+        return "VOICE_RECOGNITION";
+      case AudioSource.VOICE_COMMUNICATION:
+        return "VOICE_COMMUNICATION";
+      case AudioSource.UNPROCESSED:
+        return "UNPROCESSED";
+      case VOICE_PERFORMANCE:
+        return "VOICE_PERFORMANCE";
+      default:
+        return "INVALID";
+    }
+  }
+
+  /*
+
+  AudioDeviceInfo info = config.getAudioDevice();
+        String typeString = "UNDEFINED";
+        if (info != null) {
+          // typeString = audioDeviceTypeToString(info.getType());
+        }
+
+        Logging.d(TAG, "AudioRecordingConfiguration: "
+                + "audio source=" + audioSourceToString(config.getClientAudioSource())
+                + ", device type=" + typeString);
+
+  // verify our recording shows as one of the recording configs
+        assertTrue("Test source/session not amongst active record configurations",
+                verifyAudioConfig(TEST_AUDIO_SOURCE, mAudioRecord.getAudioSessionId(),
+                        mAudioRecord.getFormat(), mAudioRecord.getRoutedDevice(), configs));
+
+
+  final AudioDeviceInfo testDevice = mAudioRecord.getRoutedDevice();
+            assertTrue("AudioRecord null routed device after start", testDevice != null);
+            final boolean match = verifyAudioConfig(mAudioRecord.getAudioSource(),
+                    mAudioRecord.getAudioSessionId(), mAudioRecord.getFormat(),
+                    testDevice, callback.mConfigs);
+
+
+   private static boolean deviceMatch(AudioDeviceInfo devJoe, AudioDeviceInfo devJeff) {
+        return ((devJoe.getId() == devJeff.getId()
+                && (devJoe.getAddress() == devJeff.getAddress())
+                && (devJoe.getType() == devJeff.getType())));
+    }
+
+    private static boolean verifyAudioConfig(int source, int session, AudioFormat format,
+            AudioDeviceInfo device, List<AudioRecordingConfiguration> configs) {
+        final Iterator<AudioRecordingConfiguration> confIt = configs.iterator();
+        while (confIt.hasNext()) {
+            final AudioRecordingConfiguration config = confIt.next();
+            final AudioDeviceInfo configDevice = config.getAudioDevice();
+            assertTrue("Current recording config has null device", configDevice != null);
+            if ((config.getClientAudioSource() == source)
+                    && (config.getClientAudioSessionId() == session)
+                    // test the client format matches that requested (same as the AudioRecord's)
+                    && (config.getClientFormat().getEncoding() == format.getEncoding())
+                    && (config.getClientFormat().getSampleRate() == format.getSampleRate())
+                    && (config.getClientFormat().getChannelMask() == format.getChannelMask())
+                    && (config.getClientFormat().getChannelIndexMask() ==
+                            format.getChannelIndexMask())
+                    // test the device format is configured
+                    && (config.getFormat().getEncoding() != AudioFormat.ENCODING_INVALID)
+                    && (config.getFormat().getSampleRate() > 0)
+                    //  for the channel mask, either the position or index-based value must be valid
+                    && ((config.getFormat().getChannelMask() != AudioFormat.CHANNEL_INVALID)
+                            || (config.getFormat().getChannelIndexMask() !=
+                                    AudioFormat.CHANNEL_INVALID))
+                    && deviceMatch(device, configDevice)) {
+                return true;
+            }
+        }
+        return false;
+    }
+  */
+
+  /*
+    private void logAudioRecordingConfiguration(List<AudioRecordingConfiguration>
+     configs) {
+      if (!configs.isEmpty()) {
+        Iterator<AudioRecordingConfiguration> it = configs.iterator();
+        while (it.hasNext()) {
+          final AudioRecordingConfiguration config = it.next();
+          AudioDeviceInfo info = config.getAudioDevice();
+         String typeString = "UNDEFINED";
+          if (info != null) {
+            // Seems like AudioDeviceInfo.getAudioDevice() can return null sometim.
+            typeString = audioDeviceTypeToString(info.getType());
+          }
+          Log.d(TAG, "AudioRecordingConfiguration: "
+                  + "audio source=" + audioSourceToString(config.getClientAudioSou
+     rce())
+                  + ", device type=" + typeString);
+        }
+      }
+    }
+
+
+ 700   private String audioDeviceTypeToString(int type) {
+ 701     final int TYPE_UNKNOWN = 0;
+ 702     final int TYPE_BUILTIN_EARPIECE = 1;
+ 703     final int TYPE_WIRED_HEADSET = 3;
+ 704     final int TYPE_WIRED_HEADPHONES = 4;
+ 705     final int TYPE_BLUETOOTH_SCO = 7;
+ 706     final int TYPE_USB_DEVICE = 11;
+ 707     final int TYPE_BUILTIN_MIC = 15;
+ 708     switch (type) {
+ 709       case TYPE_UNKNOWN:
+ 710         return "UNKNOWN";
+ 711       case TYPE_BUILTIN_EARPIECE:
+ 712         return "BUILTIN_EARPIECE";
+ 713       case TYPE_WIRED_HEADSET:
+ 714         return "WIRED_HEADSET";
+ 715       case TYPE_WIRED_HEADPHONES:
+ 716         return "WIRED_HEADPHONES";
+ 717       case TYPE_BLUETOOTH_SCO:
+ 718         return "BLUETOOTH_SCO";
+ 719       case TYPE_USB_DEVICE:
+ 720         return "USB_DEVICE";
+ 721       case TYPE_BUILTIN_MIC:
+ 722         return "BUILTIN_MIC";
+ 723       default:
+ 724         return "UNKNOWN";
+ 725     }
+ 726   }
+ */
 }

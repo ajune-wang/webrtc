@@ -127,8 +127,8 @@ RenderDelayBufferImpl::RenderDelayBufferImpl(const EchoCanceller3Config& config,
               NumBandsForRate(sample_rate_hz),
               num_render_channels,
               kBlockSize),
-      spectra_(blocks_.buffer.size(), kFftLengthBy2Plus1),
-      ffts_(blocks_.buffer.size()),
+      spectra_(blocks_.buffer.size(), num_render_channels, kFftLengthBy2Plus1),
+      ffts_(num_render_channels, blocks_.buffer.size()),
       delay_(config_.delay.default_delay),
       echo_remover_buffer_(&blocks_, &spectra_, &ffts_),
       low_rate_(GetDownSampledBufferSize(down_sampling_factor_,
@@ -137,8 +137,14 @@ RenderDelayBufferImpl::RenderDelayBufferImpl(const EchoCanceller3Config& config,
       fft_(),
       render_ds_(sub_block_size_, 0.f),
       buffer_headroom_(config.filter.main.length_blocks) {
-  RTC_DCHECK_EQ(blocks_.buffer.size(), ffts_.buffer.size());
-  RTC_DCHECK_EQ(spectra_.buffer.size(), ffts_.buffer.size());
+  RTC_DCHECK_EQ(blocks_.buffer.size(), spectra_.buffer.size());
+  for (size_t i = 0; i < num_render_channels; ++i) {
+    RTC_DCHECK_EQ(blocks_.buffer.size(), ffts_.buffer[i].size());
+  }
+  for (size_t i = 0; i < blocks_.buffer.size(); ++i) {
+    RTC_DCHECK_EQ(blocks_.buffer[i][0].size(), spectra_.buffer[i].size());
+    RTC_DCHECK_EQ(blocks_.buffer[i][0].size(), ffts_.buffer.size());
+  }
 
   Reset();
 }
@@ -379,9 +385,13 @@ void RenderDelayBufferImpl::InsertBlock(
   data_dumper_->DumpWav("aec3_render_decimator_output", ds.size(), ds.data(),
                         16000 / down_sampling_factor_, 1);
   std::copy(ds.rbegin(), ds.rend(), lr.buffer.begin() + lr.write);
-  fft_.PaddedFft(block[0][0], b.buffer[previous_write][0][0],
-                 &f.buffer[f.write]);
-  f.buffer[f.write].Spectrum(optimization_, s.buffer[s.write]);
+
+  for (size_t channel = 0; channel < block[0].size(); ++channel) {
+    fft_.PaddedFft(block[0][channel], b.buffer[previous_write][0][channel],
+                   &f.buffer[channel][f.write]);
+    f.buffer[channel][f.write].Spectrum(optimization_,
+                                        s.buffer[s.write][channel]);
+  }
 }
 
 bool RenderDelayBufferImpl::DetectActiveRender(

@@ -160,14 +160,14 @@ void RunFilterUpdateTest(int num_blocks_to_process,
     // Adapt the shadow filter.
     std::array<float, kFftLengthBy2Plus1> render_power;
     render_delay_buffer->GetRenderBuffer()->SpectralSum(
-        shadow_filter.SizePartitions(), &render_power);
+        /*channel=*/0, shadow_filter.SizePartitions(), &render_power);
     shadow_gain.Compute(render_power, render_signal_analyzer, E_shadow,
                         shadow_filter.SizePartitions(), saturation, &G);
     shadow_filter.Adapt(*render_delay_buffer->GetRenderBuffer(), G);
 
     // Adapt the main filter
     render_delay_buffer->GetRenderBuffer()->SpectralSum(
-        main_filter.SizePartitions(), &render_power);
+        /*channel=*/0, main_filter.SizePartitions(), &render_power);
     main_gain.Compute(render_power, render_signal_analyzer, output, main_filter,
                       saturation, &G);
     main_filter.Adapt(*render_delay_buffer->GetRenderBuffer(), G);

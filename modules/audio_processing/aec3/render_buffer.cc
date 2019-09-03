@@ -27,8 +27,8 @@ RenderBuffer::RenderBuffer(MatrixBuffer* block_buffer,
   RTC_DCHECK(block_buffer_);
   RTC_DCHECK(spectrum_buffer_);
   RTC_DCHECK(fft_buffer_);
-  RTC_DCHECK_EQ(block_buffer_->buffer.size(), fft_buffer_->buffer.size());
-  RTC_DCHECK_EQ(spectrum_buffer_->buffer.size(), fft_buffer_->buffer.size());
+  RTC_DCHECK_EQ(block_buffer_->buffer.size(), fft_buffer_->buffer[0].size());
+  RTC_DCHECK_EQ(spectrum_buffer_->buffer.size(), fft_buffer_->buffer[0].size());
   RTC_DCHECK_EQ(spectrum_buffer_->read, fft_buffer_->read);
   RTC_DCHECK_EQ(spectrum_buffer_->write, fft_buffer_->write);
 }
@@ -36,19 +36,21 @@ RenderBuffer::RenderBuffer(MatrixBuffer* block_buffer,
 RenderBuffer::~RenderBuffer() = default;
 
 void RenderBuffer::SpectralSum(
+    size_t channel,
     size_t num_spectra,
     std::array<float, kFftLengthBy2Plus1>* X2) const {
   X2->fill(0.f);
   int position = spectrum_buffer_->read;
   for (size_t j = 0; j < num_spectra; ++j) {
     std::transform(X2->begin(), X2->end(),
-                   spectrum_buffer_->buffer[position].begin(), X2->begin(),
-                   std::plus<float>());
+                   spectrum_buffer_->buffer[position][channel].begin(),
+                   X2->begin(), std::plus<float>());
     position = spectrum_buffer_->IncIndex(position);
   }
 }
 
 void RenderBuffer::SpectralSums(
+    size_t channel,
     size_t num_spectra_shorter,
     size_t num_spectra_longer,
     std::array<float, kFftLengthBy2Plus1>* X2_shorter,
@@ -59,14 +61,14 @@ void RenderBuffer::SpectralSums(
   size_t j = 0;
   for (; j < num_spectra_shorter; ++j) {
     std::transform(X2_shorter->begin(), X2_shorter->end(),
-                   spectrum_buffer_->buffer[position].begin(),
+                   spectrum_buffer_->buffer[position][channel].begin(),
                    X2_shorter->begin(), std::plus<float>());
     position = spectrum_buffer_->IncIndex(position);
   }
   std::copy(X2_shorter->begin(), X2_shorter->end(), X2_longer->begin());
   for (; j < num_spectra_longer; ++j) {
     std::transform(X2_longer->begin(), X2_longer->end(),
-                   spectrum_buffer_->buffer[position].begin(),
+                   spectrum_buffer_->buffer[position][channel].begin(),
                    X2_longer->begin(), std::plus<float>());
     position = spectrum_buffer_->IncIndex(position);
   }

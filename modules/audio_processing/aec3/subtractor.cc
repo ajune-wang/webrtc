@@ -165,13 +165,14 @@ void Subtractor::Process(const RenderBuffer& render_buffer,
           ? X2_main
           : X2_shadow_data;
   if (main_filter_.SizePartitions() == shadow_filter_.SizePartitions()) {
-    render_buffer.SpectralSum(main_filter_.SizePartitions(), &X2_main);
+    render_buffer.SpectralSum(/*channel=*/0, main_filter_.SizePartitions(),
+                              &X2_main);
   } else if (main_filter_.SizePartitions() > shadow_filter_.SizePartitions()) {
-    render_buffer.SpectralSums(shadow_filter_.SizePartitions(),
+    render_buffer.SpectralSums(/*channel=*/0, shadow_filter_.SizePartitions(),
                                main_filter_.SizePartitions(), &X2_shadow,
                                &X2_main);
   } else {
-    render_buffer.SpectralSums(main_filter_.SizePartitions(),
+    render_buffer.SpectralSums(/*channel=*/0, main_filter_.SizePartitions(),
                                shadow_filter_.SizePartitions(), &X2_main,
                                &X2_shadow);
   }

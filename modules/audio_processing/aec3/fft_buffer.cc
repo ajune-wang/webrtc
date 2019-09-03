@@ -12,9 +12,13 @@
 
 namespace webrtc {
 
-FftBuffer::FftBuffer(size_t size) : size(static_cast<int>(size)), buffer(size) {
-  for (auto& b : buffer) {
-    b.Clear();
+FftBuffer::FftBuffer(size_t num_channels, size_t size)
+    : size(static_cast<int>(size)),
+      buffer(num_channels, std::vector<FftData>(size)) {
+  for (auto& channel : buffer) {
+    for (auto& fft_data : channel) {
+      fft_data.Clear();
+    }
   }
 }
 

@@ -91,7 +91,7 @@ bool IsEnabled(absl::string_view name,
                const WebRtcKeyValueConfig* field_trials) {
   FieldTrialBasedConfig default_trials;
   auto& trials = field_trials ? *field_trials : default_trials;
-  return trials.Lookup(name).find("Enabled") == 0;
+  return absl::StartsWith(trials.Lookup(name), "Enabled");
 }
 
 bool HasBweExtension(const RtpHeaderExtensionMap& extensions_map) {

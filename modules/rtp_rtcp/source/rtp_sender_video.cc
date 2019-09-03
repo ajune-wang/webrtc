@@ -227,11 +227,11 @@ RTPSenderVideo::RTPSenderVideo(Clock* clock,
       frame_encryptor_(frame_encryptor),
       require_frame_encryption_(require_frame_encryption),
       generic_descriptor_auth_experiment_(
-          field_trials.Lookup("WebRTC-GenericDescriptorAuth").find("Enabled") ==
-          0),
-      exclude_transport_sequence_number_from_fec_experiment_(
-          field_trials.Lookup(kExcludeTransportSequenceNumberFromFecFieldTrial)
-              .find("Enabled") == 0) {
+          absl::StartsWith(field_trials.Lookup("WebRTC-GenericDescriptorAuth"),
+                           "Enabled")),
+      exclude_transport_sequence_number_from_fec_experiment_(absl::StartsWith(
+          field_trials.Lookup(kExcludeTransportSequenceNumberFromFecFieldTrial),
+          "Enabled")) {
   RTC_DCHECK(playout_delay_oracle_);
 }
 

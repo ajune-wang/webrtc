@@ -69,6 +69,30 @@
       "revId": "a837030f8fdb541ab16bc75fb06477316e85fe2f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dba04a2_bc3ef6c9",
+        "filename": "test/scenario/stats_collection_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-09-03T11:05:48Z",
+      "side": 0,
+      "message": "The test would pass if we add like a +-100 ms range. I\u0027m fine with that, done.\n\nBut I think there is something wrong with the test. I did some logging when running it and the audio delay is increasing for every packet arriving.",
+      "parentUuid": "72064a49_1e5fc258",
+      "range": {
+        "startLine": 81,
+        "startChar": 14,
+        "endLine": 81,
+        "endChar": 67
+      },
+      "revId": "a837030f8fdb541ab16bc75fb06477316e85fe2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

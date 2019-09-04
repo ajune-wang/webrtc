@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "ea5ab217_acf7097f",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-04T07:51:54Z",
+      "side": 1,
+      "message": "If there is no better motivation, keep this one.\nChanging this behavior/modifying the test might be better to do in a separate change (if it would case some problem)",
+      "parentUuid": "987e5832_36e37e71",
+      "range": {
+        "startLine": 86,
+        "startChar": 60,
+        "endLine": 86,
+        "endChar": 72
+      },
+      "revId": "f7d4eb4c2a56057f376eb02182bf977874571785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d49f9b37_369be710",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 6
@@ -354,6 +378,30 @@
       "side": 1,
       "message": "Should be the same, do you find that clearer?",
       "parentUuid": "8078b21e_3feb1842",
+      "range": {
+        "startLine": 242,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 55
+      },
+      "revId": "f7d4eb4c2a56057f376eb02182bf977874571785",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "916aa2ba_0f9d7ebc",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-04T07:51:54Z",
+      "side": 1,
+      "message": "personally generally find assignment clearer than modification.\nnot sure in this case. Up to you.",
+      "parentUuid": "d1bee101_3537eef7",
       "range": {
         "startLine": 242,
         "startChar": 4,

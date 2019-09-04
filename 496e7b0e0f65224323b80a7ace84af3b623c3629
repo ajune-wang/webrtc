@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed9a4f41_5e4a4853",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-04T08:16:12Z",
+      "side": 1,
+      "message": "This check is now redundant: the loop inside would exit immediately, since k \u003c H_.size() from the start.",
+      "range": {
+        "startLine": 473,
+        "startChar": 2,
+        "endLine": 473,
+        "endChar": 45
+      },
+      "revId": "496e7b0e0f65224323b80a7ace84af3b623c3629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9dafdde_ed972a70",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-04T08:16:12Z",
+      "side": 1,
+      "message": "What is this for, if the filter will be resized to current_size_partitions_ immediately after?\n\nMy read is that next time the array grows, it will be filled with default-inserted elements:\nhttps://en.cppreference.com/w/cpp/container/vector/resize",
+      "range": {
+        "startLine": 474,
+        "startChar": 4,
+        "endLine": 476,
+        "endChar": 5
+      },
+      "revId": "496e7b0e0f65224323b80a7ace84af3b623c3629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f1c2934_9ea9abde",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-04T08:16:12Z",
+      "side": 1,
+      "message": "fyi: This function uses no properties specific to AdaptiveFirFilter. |optimization_| is available inside the caller, the Subtractor. Does it make sense to make this a static class function, or maybe to move it into an anonymous function in the Subtractor? On the other hand, keeping it here keeps all the optimization stuff in one place.",
+      "range": {
+        "startLine": 546,
+        "startChar": 0,
+        "endLine": 566,
+        "endChar": 1
+      },
+      "revId": "496e7b0e0f65224323b80a7ace84af3b623c3629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18ecdfbb_8d834aa3",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-04T08:16:12Z",
+      "side": 1,
+      "message": "Same question as above - is the zeroing of the to-be-resized-away content useful?",
+      "range": {
+        "startLine": 625,
+        "startChar": 0,
+        "endLine": 632,
+        "endChar": 74
+      },
+      "revId": "496e7b0e0f65224323b80a7ace84af3b623c3629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e681f4a_26e3dc0e",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-04T08:16:12Z",
+      "side": 1,
+      "message": "Use |current_time_domain_size| here to make it clear how it relates to the above std::fill.",
+      "range": {
+        "startLine": 632,
+        "startChar": 27,
+        "endLine": 632,
+        "endChar": 72
+      },
+      "revId": "496e7b0e0f65224323b80a7ace84af3b623c3629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44ab70e0_dca46bc9",
+        "filename": "modules/audio_processing/aec3/main_filter_update_gain_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-04T08:16:12Z",
+      "side": 1,
+      "message": "nit: Shouldn\u0027t these always be based on the same config? I get that that is the result in practice, since both configs are defaults, but `RenderSignalAnalyzer analyzer(config);` makes it clear.",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 56
+      },
+      "revId": "496e7b0e0f65224323b80a7ace84af3b623c3629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19bb9b5c_1852d1b3",
+        "filename": "modules/audio_processing/aec3/main_filter_update_gain_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-04T08:16:12Z",
+      "side": 1,
+      "message": "nit: This is now the only usage of |filter|. Does it make sense to replace it with config.filter.main.length_blocks to make the unit test read easier, or does that skip some layer of abstraction?",
+      "range": {
+        "startLine": 236,
+        "startChar": 28,
+        "endLine": 236,
+        "endChar": 51
+      },
+      "revId": "496e7b0e0f65224323b80a7ace84af3b623c3629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

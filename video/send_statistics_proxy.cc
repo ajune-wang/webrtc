@@ -11,11 +11,13 @@
 #include "video/send_statistics_proxy.h"
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <limits>
 #include <utility>
 
 #include "absl/algorithm/container.h"
+#include "api/video/video_codec_constants.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -142,6 +144,7 @@ SendStatisticsProxy::SendStatisticsProxy(
       encoded_frame_rate_tracker_(kBucketSizeMs, kBucketCount),
       uma_container_(
           new UmaSamplesContainer(GetUmaPrefix(content_type_), stats_, clock)) {
+  last_spatial_layer_use_.fill(false);
 }
 
 SendStatisticsProxy::~SendStatisticsProxy() {
@@ -1102,6 +1105,20 @@ void SendStatisticsProxy::UpdateAdaptationStats(
       quality_limitation_reason_tracker_.current_reason();
   // |stats_.quality_limitation_durations_ms| depends on the current time
   // when it is polled; it is updated in SendStatisticsProxy::GetStats().
+}
+
+void SendStatisticsProxy::OnBitrateAllocationUpdated(
+    const VideoBitrateAllocation& allocation) {
+  rtc::CritScope lock(&crit_);
+  std::array<bool, kMaxSpatialLayers> spatial_layers;
+  for (int i = 0; i < kMaxSpatialLayers; i++) {
+    spatial_layers[i] = (allocation.GetSpatialLayerSum(i) > 0);
+  }
+
+  if (last_spatial_layer_use_ != spatial_layers) {
+    ++stats_.quality_limitation_resolution_changes;
+    last_spatial_layer_use_ = spatial_layers;
+  }
 }
 
 // TODO(asapersson): Include fps changes.

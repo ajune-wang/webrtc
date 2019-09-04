@@ -30,6 +30,7 @@ QualityLimitationReason QualityLimitationReasonTracker::current_reason() const {
 }
 
 void QualityLimitationReasonTracker::SetReason(QualityLimitationReason reason) {
+  // Even if the reason did not change, the resolution has.
   if (reason == current_reason_)
     return;
   int64_t now_ms = clock_->TimeInMilliseconds();

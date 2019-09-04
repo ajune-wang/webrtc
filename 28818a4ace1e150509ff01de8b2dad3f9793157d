@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c140903_f7ffd9d0",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-04T06:48:35Z",
+      "side": 1,
+      "message": "Ok, but I\u0027m not sure it\u0027s an improvement. foo \u003c\u003d max \u0026\u0026 foo \u003e min looks like a reasonable pattern to check that a value is in an interval. The choice of strict/non-strict inequalities is a bit unusual, though. I think I\u0027d prefer\n\n  name.size() \u003e\u003d 1 \u0026\u0026 name.size() \u003c\u003d kMidRsidMaxSize\n\nDo whatever you find clearest, but clangtidy\u0027s answer isn\u0027t necessarily the best.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 60
+      },
+      "revId": "28818a4ace1e150509ff01de8b2dad3f9793157d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52eb5af0_db31c9c6",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-04T06:48:35Z",
+      "side": 1,
+      "message": "Or if (!packet); I don\u0027t think nullptr comparison adds clarity in this context.",
+      "range": {
+        "startLine": 746,
+        "startChar": 10,
+        "endLine": 746,
+        "endChar": 27
+      },
+      "revId": "28818a4ace1e150509ff01de8b2dad3f9793157d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37080267_907ddc74",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-04T06:48:35Z",
+      "side": 1,
+      "message": "In contrast, this is a proper use of empty().",
+      "range": {
+        "startLine": 697,
+        "startChar": 38,
+        "endLine": 697,
+        "endChar": 67
+      },
+      "revId": "28818a4ace1e150509ff01de8b2dad3f9793157d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

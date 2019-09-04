@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5da7ad4b_a759b3d4",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-09-04T12:31:08Z",
+      "side": 1,
+      "message": "No, I just moved it from the header since it\u0027s not actually used there. This is only for AdjustAndVerify() below.",
+      "parentUuid": "2e4023fa_465b76be",
+      "revId": "4122fd299cf79f299ca81cd7cac9137165535105",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a58c688b_7acb3ec0",
         "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator_unittest.cc",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "4122fd299cf79f299ca81cd7cac9137165535105",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93a43eb6_aa5503ae",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-09-04T12:31:08Z",
+      "side": 1,
+      "message": "No, for the vector\u003c\u003e usages here now that it\u0027s gone from svc_rate_allocator.h\nBut since I also use the absl one I\u0027ll include that too instead of relying on the implicit include.",
+      "parentUuid": "a58c688b_7acb3ec0",
+      "revId": "4122fd299cf79f299ca81cd7cac9137165535105",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

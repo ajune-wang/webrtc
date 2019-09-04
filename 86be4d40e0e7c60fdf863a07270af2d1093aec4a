@@ -184,6 +184,24 @@
     },
     {
       "key": {
+        "uuid": "1aa3b9a9_f2835941",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-04T11:30:26Z",
+      "side": 1,
+      "message": "If looping is better, then loop we shall. Added loops.",
+      "parentUuid": "9dd866c2_8240330e",
+      "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe675f01_3a6eebb6",
         "filename": "modules/audio_processing/aec3/render_buffer.h",
         "patchSetId": 2

@@ -62,17 +62,17 @@ class FieldTrialList : public FieldTrialListBase {
   const std::vector<T>* operator->() const { return &values_; }
 
  protected:
-  bool Parse(absl::optional<std::string> str_value) override {
+  bool Parse(std::string str_value) override {
     parse_got_called_ = true;
 
-    if (!str_value) {
+    if (str_value.empty()) {
       values_.clear();
       return true;
     }
 
     std::vector<std::string> tokens;
     std::vector<T> new_values_;
-    rtc::split(str_value.value(), '|', &tokens);
+    rtc::split(str_value, '|', &tokens);
 
     for (std::string token : tokens) {
       absl::optional<T> value = ParseTypedParameter<T>(token);
@@ -178,7 +178,7 @@ class FieldTrialStructListBase : public FieldTrialParameterInterface {
   // user-supplied values, we return -1.
   int ValidateAndGetLength();
 
-  bool Parse(absl::optional<std::string> str_value) override;
+  bool Parse(std::string str_value) override;
 
   std::vector<std::unique_ptr<FieldTrialListWrapper>> sub_lists_;
 };

@@ -108,7 +108,7 @@ template class FieldTrialConstrained<DataRate>;
 template class FieldTrialConstrained<DataSize>;
 template class FieldTrialConstrained<TimeDelta>;
 
-template class FieldTrialOptional<DataRate>;
-template class FieldTrialOptional<DataSize>;
-template class FieldTrialOptional<TimeDelta>;
+template class FieldTrialParameter<absl::optional<DataRate>>;
+template class FieldTrialParameter<absl::optional<DataSize>>;
+template class FieldTrialParameter<absl::optional<TimeDelta>>;
 }  // namespace webrtc

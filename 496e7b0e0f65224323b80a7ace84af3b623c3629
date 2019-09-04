@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8e217297_9b101c92",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-04T13:56:03Z",
+      "side": 1,
+      "message": "Good point!",
+      "parentUuid": "ed9a4f41_5e4a4853",
+      "range": {
+        "startLine": 473,
+        "startChar": 2,
+        "endLine": 473,
+        "endChar": 45
+      },
+      "revId": "496e7b0e0f65224323b80a7ace84af3b623c3629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9dafdde_ed972a70",
         "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "38f16e96_53eaad62",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-04T13:56:03Z",
+      "side": 1,
+      "message": "Good point! I did not know that.",
+      "parentUuid": "d9dafdde_ed972a70",
+      "range": {
+        "startLine": 474,
+        "startChar": 4,
+        "endLine": 476,
+        "endChar": 5
+      },
+      "revId": "496e7b0e0f65224323b80a7ace84af3b623c3629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f1c2934_9ea9abde",
         "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2019-09-04T08:16:12Z",
       "side": 1,
       "message": "fyi: This function uses no properties specific to AdaptiveFirFilter. |optimization_| is available inside the caller, the Subtractor. Does it make sense to make this a static class function, or maybe to move it into an anonymous function in the Subtractor? On the other hand, keeping it here keeps all the optimization stuff in one place.",
+      "range": {
+        "startLine": 546,
+        "startChar": 0,
+        "endLine": 566,
+        "endChar": 1
+      },
+      "revId": "496e7b0e0f65224323b80a7ace84af3b623c3629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac2fb014_a179ed34",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-04T13:56:03Z",
+      "side": 1,
+      "message": "My reason for keeping it here was that the optimizations is very dependent on the actual structure of the adaptive filters. However, I think you are right that we should break this apart.\n\nI\u0027ve done that now.\nPTAL",
+      "parentUuid": "5f1c2934_9ea9abde",
       "range": {
         "startLine": 546,
         "startChar": 0,
@@ -117,6 +189,54 @@
     },
     {
       "key": {
+        "uuid": "af474fc3_82c39e25",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-04T13:56:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e681f4a_26e3dc0e",
+      "range": {
+        "startLine": 632,
+        "startChar": 27,
+        "endLine": 632,
+        "endChar": 72
+      },
+      "revId": "496e7b0e0f65224323b80a7ace84af3b623c3629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ad36387_4a789ab7",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-04T13:56:03Z",
+      "side": 1,
+      "message": "Agree. It is not.",
+      "parentUuid": "18ecdfbb_8d834aa3",
+      "range": {
+        "startLine": 625,
+        "startChar": 0,
+        "endLine": 632,
+        "endChar": 74
+      },
+      "revId": "496e7b0e0f65224323b80a7ace84af3b623c3629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44ab70e0_dca46bc9",
         "filename": "modules/audio_processing/aec3/main_filter_update_gain_unittest.cc",
         "patchSetId": 5
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "9a8862a2_01f13a02",
+        "filename": "modules/audio_processing/aec3/main_filter_update_gain_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-04T13:56:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44ab70e0_dca46bc9",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 56
+      },
+      "revId": "496e7b0e0f65224323b80a7ace84af3b623c3629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19bb9b5c_1852d1b3",
         "filename": "modules/audio_processing/aec3/main_filter_update_gain_unittest.cc",
         "patchSetId": 5
@@ -160,6 +304,30 @@
       "revId": "496e7b0e0f65224323b80a7ace84af3b623c3629",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e90513a4_aff97874",
+        "filename": "modules/audio_processing/aec3/main_filter_update_gain_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-04T13:56:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19bb9b5c_1852d1b3",
+      "range": {
+        "startLine": 236,
+        "startChar": 28,
+        "endLine": 236,
+        "endChar": 51
+      },
+      "revId": "496e7b0e0f65224323b80a7ace84af3b623c3629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

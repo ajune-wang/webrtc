@@ -22,14 +22,12 @@ both.
 
 ### C++ version
 
-WebRTC is written in C++11, but with some restrictions:
+WebRTC is written in C++14, but with some restrictions:
 
-* We only allow the subset of C++11 (language and library) in the
-  “allowed” section of [this Chromium page][chromium-cpp11].
-* We only allow the subset of C++11 that is also valid C++14;
-  otherwise, users would not be able to compile WebRTC in C++14 mode.
+* We only allow the subset of C++14 (language and library) in the
+  “allowed” section of [this Chromium page][chromium-cpp14].
 
-[chromium-cpp11]: https://chromium-cpp.appspot.com/
+[chromium-cpp14]: https://chromium-cpp.appspot.com/
 
 ### Abseil
 

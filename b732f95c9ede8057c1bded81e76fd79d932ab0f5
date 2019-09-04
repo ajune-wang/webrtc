@@ -190,6 +190,24 @@
     },
     {
       "key": {
+        "uuid": "0950ae47_6d10f231",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-09-04T19:49:25Z",
+      "side": 1,
+      "message": "Same I confirm it works, and I have not found a way to not trigger RRScreenChangeNotify. I tried to disconnect cables and played with xrandr and every time I could see ScreenCapturerX11::UpdateMonitors being called. So it seems unnecessary to add the 2 other flags.",
+      "parentUuid": "70155994_802aa7fc",
+      "revId": "b732f95c9ede8057c1bded81e76fd79d932ab0f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae2ded66_8258b477",
         "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
         "patchSetId": 1

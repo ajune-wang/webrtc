@@ -166,6 +166,24 @@
     },
     {
       "key": {
+        "uuid": "9dd866c2_8240330e",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-04T09:26:15Z",
+      "side": 1,
+      "message": "It is fine to do it in a follow up CL. But it would be good to add this already now as that would make this class one more step towards being complete.\nIt will still be bitexact for the mono case.",
+      "parentUuid": "32e8bfbc_2d5faea0",
+      "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe675f01_3a6eebb6",
         "filename": "modules/audio_processing/aec3/render_buffer.h",
         "patchSetId": 2
@@ -248,6 +266,30 @@
       "side": 1,
       "message": "Only channel 0 is available in the FftBuffer |f|, so all channels cannot be written to the spectrum buffer. The code is added in https://webrtc-review.googlesource.com/c/src/+/151132. I added a TODO instead.",
       "parentUuid": "f5a7ebfc_f3bfa006",
+      "range": {
+        "startLine": 384,
+        "startChar": 64,
+        "endLine": 384,
+        "endChar": 71
+      },
+      "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f09e7b0a_3e5c21f9",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-04T09:26:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "84b3a8ce_11803a8d",
       "range": {
         "startLine": 384,
         "startChar": 64,

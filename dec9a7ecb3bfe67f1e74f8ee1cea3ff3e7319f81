@@ -46,6 +46,30 @@
       "revId": "dec9a7ecb3bfe67f1e74f8ee1cea3ff3e7319f81",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7cbf0bd_70a3666f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-04T06:52:16Z",
+      "side": 1,
+      "message": "Never mind. This seems to be the only use of this combination of flag constants, and the constructor context makes is it quite clear that it defines a default behavior.",
+      "parentUuid": "dbf15062_db5ce9ef",
+      "range": {
+        "startLine": 214,
+        "startChar": 17,
+        "endLine": 214,
+        "endChar": 77
+      },
+      "revId": "dec9a7ecb3bfe67f1e74f8ee1cea3ff3e7319f81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

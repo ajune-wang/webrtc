@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1712e8d0_5a591f02",
+        "filename": "modules/audio_coding/test/target_delay_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-09-04T15:48:33Z",
+      "side": 0,
+      "message": "No. The \"clock drift\" is actually that they double the inter-arrival time for each packet when jitter is introduced. One would need to completely re-write the test in order to emulate jitter properly. Either way, I don\u0027t get why the OptimalDelayMs wouldn\u0027t change when jitter is introduced, which is what this test checks?",
+      "parentUuid": "ad3edaf5_7043d944",
+      "range": {
+        "startLine": 56,
+        "startChar": 7,
+        "endLine": 56,
+        "endChar": 39
+      },
+      "revId": "a837030f8fdb541ab16bc75fb06477316e85fe2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c3a85ad_23af8118",
         "filename": "test/scenario/stats_collection_unittest.cc",
         "patchSetId": 8

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0f1c3abf_f3db5e51",
+        "filename": "modules/audio_processing/aec3/render_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-04T08:51:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3e4665e7_5452a83d",
+      "range": {
+        "startLine": 44,
+        "startChar": 21,
+        "endLine": 44,
+        "endChar": 40
+      },
+      "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "250e6016_a4d77b1d",
         "filename": "modules/audio_processing/aec3/render_buffer.cc",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48cd7f73_135d694d",
+        "filename": "modules/audio_processing/aec3/render_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-04T08:51:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "250e6016_a4d77b1d",
+      "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "9842a63b_36a074b8",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-04T08:51:59Z",
+      "side": 1,
+      "message": "Good point! Fixed.",
+      "parentUuid": "93699e0a_b0b83f20",
+      "range": {
+        "startLine": 47,
+        "startChar": 46,
+        "endLine": 47,
+        "endChar": 53
+      },
+      "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87732628_850af24d",
         "filename": "modules/audio_processing/aec3/render_buffer.h",
         "patchSetId": 2
@@ -79,6 +145,24 @@
       "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32e8bfbc_2d5faea0",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-04T08:51:59Z",
+      "side": 1,
+      "message": "I removed the parameter.\n\nComputing it for the left channel conflicts with your comments in render_buffer.cc to loop over all channels. I have modified the code to compute it for the left channel, and added TODOs for doing all channels. Let me know if you think it should be over all channels instead.",
+      "parentUuid": "87732628_850af24d",
+      "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "d12a9606_9278f8c7",
+        "filename": "modules/audio_processing/aec3/render_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-04T08:51:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe675f01_3a6eebb6",
+      "range": {
+        "startLine": 72,
+        "startChar": 27,
+        "endLine": 72,
+        "endChar": 34
+      },
+      "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5a7ebfc_f3bfa006",
         "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
         "patchSetId": 2
@@ -125,6 +233,30 @@
       "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84b3a8ce_11803a8d",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-04T08:51:59Z",
+      "side": 1,
+      "message": "Only channel 0 is available in the FftBuffer |f|, so all channels cannot be written to the spectrum buffer. The code is added in https://webrtc-review.googlesource.com/c/src/+/151132. I added a TODO instead.",
+      "parentUuid": "f5a7ebfc_f3bfa006",
+      "range": {
+        "startLine": 384,
+        "startChar": 64,
+        "endLine": 384,
+        "endChar": 71
+      },
+      "revId": "86be4d40e0e7c60fdf863a07270af2d1093aec4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

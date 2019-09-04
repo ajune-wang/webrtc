@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2b4cd0a7_5ff3904c",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2019-09-04T13:36:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "346c4999_56b2f9aa",
+      "revId": "72b82adbeec9b3790af83c374907bec7639da54f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa7838e2_28911205",
         "filename": "video/quality_limitation_reason_tracker.cc",
         "patchSetId": 3

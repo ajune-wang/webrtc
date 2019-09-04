@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cefcd800_1b95b08e",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-09-04T12:47:07Z",
+      "side": 0,
+      "message": "I\u0027m not sure this will work. We need the max bitrate either through the global max or through a single simulcastStream[] instance.",
+      "range": {
+        "startLine": 443,
+        "startChar": 76,
+        "endLine": 443,
+        "endChar": 0
+      },
+      "revId": "77d197fe1d0bc8f7cd1a6521ad8625c362104483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94261c37_e719f1bf",
+        "filename": "modules/video_coding/utility/default_video_bitrate_allocator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-09-04T12:47:07Z",
+      "side": 0,
+      "message": "If there are no simulcast/spatial layers configured, the encoder bitrate is now allowed to grow up to whatever the network can handle?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 3
+      },
+      "revId": "77d197fe1d0bc8f7cd1a6521ad8625c362104483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d541d141_82e22c0b",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-09-04T12:47:07Z",
+      "side": 0,
+      "message": "This is still needed to avoid growing the encoded bitrate indefinitely.",
+      "range": {
+        "startLine": 194,
+        "startChar": 32,
+        "endLine": 194,
+        "endChar": 42
+      },
+      "revId": "77d197fe1d0bc8f7cd1a6521ad8625c362104483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

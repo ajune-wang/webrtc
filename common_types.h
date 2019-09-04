@@ -64,6 +64,7 @@ struct SpatialLayer {
   unsigned short height;
   float maxFramerate;  // fps.
   unsigned char numberOfTemporalLayers;
+  // TODO(nisse): Delete?
   unsigned int maxBitrate;     // kilobits/sec.
   unsigned int targetBitrate;  // kilobits/sec.
   unsigned int minBitrate;     // kilobits/sec.

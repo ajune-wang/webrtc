@@ -404,10 +404,6 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
   if (inst->maxFramerate < 1) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
-  // Allow zero to represent an unspecified maxBitRate
-  if (inst->maxBitrate > 0 && inst->startBitrate > inst->maxBitrate) {
-    return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
-  }
   if (inst->width < 1 || inst->height < 1) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }

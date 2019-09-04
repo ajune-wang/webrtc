@@ -265,7 +265,6 @@ std::string VideoCodecTestFixtureImpl::Config::ToString() const {
   ss << "\nheight: " << codec_settings.height;
   ss << "\nmax_framerate_fps: " << codec_settings.maxFramerate;
   ss << "\nstart_bitrate_kbps: " << codec_settings.startBitrate;
-  ss << "\nmax_bitrate_kbps: " << codec_settings.maxBitrate;
   ss << "\nmin_bitrate_kbps: " << codec_settings.minBitrate;
   ss << "\nmax_qp: " << codec_settings.qpMax;
   ss << "\nnum_simulcast_streams: "

@@ -212,20 +212,6 @@ class SvcRateAllocatorTestParametrizedContentType
   const bool is_screen_sharing_;
 };
 
-TEST_P(SvcRateAllocatorTestParametrizedContentType, MaxBitrate) {
-  VideoCodec codec = Configure(1280, 720, 3, 1, is_screen_sharing_);
-  EXPECT_EQ(
-      SvcRateAllocator::GetMaxBitrateBps(codec),
-      (codec.spatialLayers[0].maxBitrate + codec.spatialLayers[1].maxBitrate +
-       codec.spatialLayers[2].maxBitrate) *
-          1000);
-
-  // Deactivate middle layer. This causes deactivation of top layer as well.
-  codec.spatialLayers[1].active = false;
-  EXPECT_EQ(SvcRateAllocator::GetMaxBitrateBps(codec),
-            codec.spatialLayers[0].maxBitrate * 1000);
-}
-
 TEST_P(SvcRateAllocatorTestParametrizedContentType, PaddingBitrate) {
   VideoCodec codec = Configure(1280, 720, 3, 1, is_screen_sharing_);
   SvcRateAllocator allocator = SvcRateAllocator(codec);

@@ -106,9 +106,6 @@ SvcRateAllocator::SvcRateAllocator(const VideoCodec& codec) : codec_(codec) {
 VideoBitrateAllocation SvcRateAllocator::Allocate(
     VideoBitrateAllocationParameters parameters) {
   DataRate total_bitrate = parameters.total_bitrate;
-  if (codec_.maxBitrate != 0) {
-    total_bitrate = std::min(total_bitrate, DataRate::kbps(codec_.maxBitrate));
-  }
 
   if (codec_.spatialLayers[0].targetBitrate == 0) {
     // Delegate rate distribution to VP9 encoder wrapper if bitrate thresholds
@@ -226,21 +223,6 @@ VideoBitrateAllocation SvcRateAllocator::GetAllocationScreenSharing(
   }
 
   return bitrate_allocation;
-}
-
-uint32_t SvcRateAllocator::GetMaxBitrateBps(const VideoCodec& codec) {
-  const size_t num_spatial_layers = GetNumActiveSpatialLayers(codec);
-
-  uint32_t max_bitrate_kbps = 0;
-  for (size_t sl_idx = 0; sl_idx < num_spatial_layers; ++sl_idx) {
-    max_bitrate_kbps += codec.spatialLayers[sl_idx].maxBitrate;
-  }
-
-  if (codec.maxBitrate != 0) {
-    max_bitrate_kbps = std::min(max_bitrate_kbps, codec.maxBitrate);
-  }
-
-  return max_bitrate_kbps * 1000;
 }
 
 uint32_t SvcRateAllocator::GetPaddingBitrateBps(const VideoCodec& codec) {

@@ -28,26 +28,19 @@ constexpr size_t kMaxFrameInPipelineCount = 1000;
 constexpr double kNoMultiplier = 1.0;
 constexpr double kEps = 1e-6;
 
-std::pair<uint32_t, uint32_t> GetMinMaxBitratesBps(const VideoCodec& codec,
-                                                   size_t spatial_idx) {
+uint32_t GetMinBitratesBps(const VideoCodec& codec, size_t spatial_idx) {
   uint32_t min_bitrate = codec.minBitrate;
-  uint32_t max_bitrate = codec.maxBitrate;
   if (spatial_idx < codec.numberOfSimulcastStreams &&
       codec.codecType != VideoCodecType::kVideoCodecVP9) {
     min_bitrate =
         std::max(min_bitrate, codec.simulcastStream[spatial_idx].minBitrate);
-    max_bitrate =
-        std::min(max_bitrate, codec.simulcastStream[spatial_idx].maxBitrate);
   }
   if (codec.codecType == VideoCodecType::kVideoCodecVP9 &&
       spatial_idx < codec.VP9().numberOfSpatialLayers) {
     min_bitrate =
         std::max(min_bitrate, codec.spatialLayers[spatial_idx].minBitrate);
-    max_bitrate =
-        std::min(max_bitrate, codec.spatialLayers[spatial_idx].maxBitrate);
   }
-  RTC_DCHECK_GT(max_bitrate, min_bitrate);
-  return {min_bitrate * 1000, max_bitrate * 1000};
+  return min_bitrate * 1000;
 }
 
 }  // namespace
@@ -172,18 +165,13 @@ void QualityAnalyzingVideoEncoder::SetRates(
     }
 
     uint32_t min_bitrate_bps;
-    uint32_t max_bitrate_bps;
-    std::tie(min_bitrate_bps, max_bitrate_bps) =
-        GetMinMaxBitratesBps(codec_settings_, si);
+    min_bitrate_bps = GetMinBitratesBps(codec_settings_, si);
     double bitrate_multiplier = bitrate_multiplier_;
     const uint32_t corrected_bitrate = rtc::checked_cast<uint32_t>(
         bitrate_multiplier * spatial_layer_bitrate_bps);
     if (corrected_bitrate < min_bitrate_bps) {
       bitrate_multiplier = min_bitrate_bps / spatial_layer_bitrate_bps;
-    } else if (corrected_bitrate > max_bitrate_bps) {
-      bitrate_multiplier = max_bitrate_bps / spatial_layer_bitrate_bps;
     }
-
     for (size_t ti = 0; ti < kMaxTemporalStreams; ++ti) {
       if (parameters.bitrate.HasBitrate(si, ti)) {
         multiplied_allocation.SetBitrate(

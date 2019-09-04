@@ -102,7 +102,7 @@ CpuOveruseOptions GetCpuOveruseOptions(
 bool RequiresEncoderReset(const VideoCodec& prev_send_codec,
                           const VideoCodec& new_send_codec,
                           bool was_encode_called_since_last_initialization) {
-  // Does not check max/minBitrate or maxFramerate.
+  // Does not check minBitrate or maxFramerate.
   if (new_send_codec.codecType != prev_send_codec.codecType ||
       new_send_codec.width != prev_send_codec.width ||
       new_send_codec.height != prev_send_codec.height ||
@@ -780,9 +780,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
 
   // Set min_bitrate_bps, max_bitrate_bps, and max padding bit rate for VP9.
   if (encoder_config_.codec_type == kVideoCodecVP9) {
-    // Lower max bitrate to the level codec actually can produce.
-    streams[0].max_bitrate_bps = std::min<int>(
-        streams[0].max_bitrate_bps, SvcRateAllocator::GetMaxBitrateBps(codec));
     streams[0].min_bitrate_bps = codec.spatialLayers[0].minBitrate * 1000;
     // target_bitrate_bps specifies the maximum padding bitrate.
     streams[0].target_bitrate_bps =
@@ -791,7 +788,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
 
   codec.startBitrate =
       std::max(encoder_start_bitrate_bps_ / 1000, codec.minBitrate);
-  codec.startBitrate = std::min(codec.startBitrate, codec.maxBitrate);
   codec.expect_encode_from_texture = last_frame_info_->is_texture;
   // Make sure the start bit rate is sane...
   RTC_DCHECK_LE(codec.startBitrate, 1000000);
@@ -803,23 +799,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     max_framerate = std::max(stream.max_framerate, max_framerate);
   }
   source_proxy_->SetMaxFramerate(max_framerate);
-
-  if (codec.maxBitrate == 0) {
-    // max is one bit per pixel
-    codec.maxBitrate =
-        (static_cast<int>(codec.height) * static_cast<int>(codec.width) *
-         static_cast<int>(codec.maxFramerate)) /
-        1000;
-    if (codec.startBitrate > codec.maxBitrate) {
-      // But if the user tries to set a higher start bit rate we will
-      // increase the max accordingly.
-      codec.maxBitrate = codec.startBitrate;
-    }
-  }
-
-  if (codec.startBitrate > codec.maxBitrate) {
-    codec.startBitrate = codec.maxBitrate;
-  }
 
   rate_allocator_ =
       settings_.bitrate_allocator_factory->CreateVideoBitrateAllocator(codec);
@@ -869,8 +848,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     next_frame_types_.resize(
         std::max(static_cast<int>(codec.numberOfSimulcastStreams), 1),
         VideoFrameType::kVideoFrameKey);
-    RTC_LOG(LS_VERBOSE) << " max bitrate " << codec.maxBitrate
-                        << " start bitrate " << codec.startBitrate
+    RTC_LOG(LS_VERBOSE) << " start bitrate " << codec.startBitrate
                         << " max frame rate " << codec.maxFramerate
                         << " max payload size " << max_data_payload_length_;
   } else {

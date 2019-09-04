@@ -55,7 +55,6 @@ class SimulcastRateAllocatorTest : public ::testing::TestWithParam<bool> {
     memset(&codec_, 0, sizeof(VideoCodec));
     codec_.codecType = kVideoCodecVP8;
     codec_.minBitrate = kMinBitrateKbps;
-    codec_.maxBitrate = kLegacyScreenshareMaxBitrateKbps;
     codec_.active = true;
     CreateAllocator();
   }
@@ -127,7 +126,6 @@ class SimulcastRateAllocatorTest : public ::testing::TestWithParam<bool> {
   }
 
   void SetupCodec3TL() {
-    codec_.maxBitrate = 0;
     codec_.VP8()->numberOfTemporalLayers = 3;
   }
 
@@ -150,17 +148,9 @@ TEST_F(SimulcastRateAllocatorTest, NoSimulcastBelowMin) {
   ExpectEqual(expected, GetAllocation(0));
 }
 
-TEST_F(SimulcastRateAllocatorTest, NoSimulcastAboveMax) {
-  uint32_t expected[] = {codec_.maxBitrate};
-  codec_.active = true;
-  ExpectEqual(expected, GetAllocation(codec_.maxBitrate + 1));
-  ExpectEqual(expected, GetAllocation(std::numeric_limits<uint32_t>::max()));
-}
-
 TEST_F(SimulcastRateAllocatorTest, NoSimulcastNoMax) {
   const uint32_t kMax = VideoBitrateAllocation::kMaxBitrateBps / 1000;
   codec_.active = true;
-  codec_.maxBitrate = 0;
   CreateAllocator();
 
   uint32_t expected[] = {kMax};
@@ -169,8 +159,8 @@ TEST_F(SimulcastRateAllocatorTest, NoSimulcastNoMax) {
 
 TEST_F(SimulcastRateAllocatorTest, NoSimulcastWithinLimits) {
   codec_.active = true;
-  for (uint32_t bitrate = codec_.minBitrate; bitrate <= codec_.maxBitrate;
-       ++bitrate) {
+  for (uint32_t bitrate = codec_.minBitrate;
+       bitrate <= kLegacyScreenshareMaxBitrateKbps; ++bitrate) {
     uint32_t expected[] = {bitrate};
     ExpectEqual(expected, GetAllocation(bitrate));
   }
@@ -529,8 +519,6 @@ class ScreenshareRateAllocationTest : public SimulcastRateAllocatorTest {
   void SetupConferenceScreenshare(bool use_simulcast, bool active = true) {
     codec_.mode = VideoCodecMode::kScreensharing;
     codec_.minBitrate = kMinBitrateKbps;
-    codec_.maxBitrate =
-        kLegacyScreenshareMaxBitrateKbps + kSimulcastScreenshareMaxBitrateKbps;
     if (use_simulcast) {
       codec_.numberOfSimulcastStreams = 2;
       codec_.simulcastStream[0].minBitrate = kMinBitrateKbps;

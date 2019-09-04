@@ -2800,25 +2800,10 @@ TEST_F(VideoSendStreamTest, ReconfigureBitratesSetsEncoderBitratesCorrectly) {
     std::unique_ptr<VideoBitrateAllocator> CreateVideoBitrateAllocator(
         const VideoCodec& codec) override {
       EXPECT_GE(codec.startBitrate, codec.minBitrate);
-      EXPECT_LE(codec.startBitrate, codec.maxBitrate);
       if (num_rate_allocator_creations_ == 0) {
         EXPECT_EQ(static_cast<unsigned int>(kMinBitrateKbps), codec.minBitrate);
         EXPECT_EQ(static_cast<unsigned int>(kStartBitrateKbps),
                   codec.startBitrate);
-        EXPECT_EQ(static_cast<unsigned int>(kMaxBitrateKbps), codec.maxBitrate);
-      } else if (num_rate_allocator_creations_ == 1) {
-        EXPECT_EQ(static_cast<unsigned int>(kLowerMaxBitrateKbps),
-                  codec.maxBitrate);
-        // The start bitrate should be kept (-1) and capped to the max bitrate.
-        // Since this is not an end-to-end call no receiver should have been
-        // returning a REMB that could lower this estimate.
-        EXPECT_EQ(codec.startBitrate, codec.maxBitrate);
-      } else if (num_rate_allocator_creations_ == 2) {
-        EXPECT_EQ(static_cast<unsigned int>(kIncreasedMaxBitrateKbps),
-                  codec.maxBitrate);
-        // The start bitrate will be whatever the rate BitRateController
-        // has currently configured but in the span of the set max and min
-        // bitrate.
       }
       ++num_rate_allocator_creations_;
       create_rate_allocator_event_.Set();
@@ -2833,8 +2818,6 @@ TEST_F(VideoSendStreamTest, ReconfigureBitratesSetsEncoderBitratesCorrectly) {
                 codecSettings->minBitrate);
       EXPECT_EQ(static_cast<unsigned int>(kStartBitrateKbps),
                 codecSettings->startBitrate);
-      EXPECT_EQ(static_cast<unsigned int>(kMaxBitrateKbps),
-                codecSettings->maxBitrate);
 
       ++num_encoder_initializations_;
 

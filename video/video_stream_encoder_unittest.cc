@@ -1319,8 +1319,6 @@ TEST_F(VideoStreamEncoderTest, BitrateLimitsChangeReconfigureRateAllocator) {
   // The encoder will have been configured once when the first frame is
   // received.
   EXPECT_EQ(1, sink_.number_of_reconfigurations());
-  EXPECT_EQ(kTargetBitrateBps,
-            bitrate_allocator_factory_.codec_config().maxBitrate * 1000);
   EXPECT_EQ(kStartBitrateBps,
             bitrate_allocator_factory_.codec_config().startBitrate * 1000);
 
@@ -1337,8 +1335,6 @@ TEST_F(VideoStreamEncoderTest, BitrateLimitsChangeReconfigureRateAllocator) {
   EXPECT_EQ(2, sink_.number_of_reconfigurations());
   // Bitrate limits have changed - rate allocator should be reconfigured,
   // encoder should not be reconfigured.
-  EXPECT_EQ(kTargetBitrateBps * 2,
-            bitrate_allocator_factory_.codec_config().maxBitrate * 1000);
   EXPECT_EQ(kStartBitrateBps * 2,
             bitrate_allocator_factory_.codec_config().startBitrate * 1000);
   EXPECT_EQ(1, fake_encoder_.GetNumEncoderInitializations());
@@ -1365,16 +1361,12 @@ TEST_F(VideoStreamEncoderTest,
   // application and encoder recommended limits.
   const uint32_t kDefaultMinBitrateKbps =
       bitrate_allocator_factory_.codec_config().minBitrate;
-  const uint32_t kDefaultMaxBitrateKbps =
-      bitrate_allocator_factory_.codec_config().maxBitrate;
   const uint32_t kEncMinBitrateKbps = kDefaultMinBitrateKbps * 2;
-  const uint32_t kEncMaxBitrateKbps = kDefaultMaxBitrateKbps * 2;
   const uint32_t kAppMinBitrateKbps = kDefaultMinBitrateKbps * 3;
-  const uint32_t kAppMaxBitrateKbps = kDefaultMaxBitrateKbps * 3;
 
   const VideoEncoder::ResolutionBitrateLimits encoder_bitrate_limits(
       codec_width_ * codec_height_, kEncMinBitrateKbps * 1000,
-      kEncMinBitrateKbps * 1000, kEncMaxBitrateKbps * 1000);
+      kEncMinBitrateKbps * 1000, -1);
   fake_encoder_.SetResolutionBitrateLimits({encoder_bitrate_limits});
 
   // Change resolution. This will trigger encoder re-configuration and video
@@ -1386,12 +1378,9 @@ TEST_F(VideoStreamEncoderTest,
 
   // App bitrate limits are not set - bitrate limits recommended by encoder
   // should be used.
-  EXPECT_EQ(kEncMaxBitrateKbps,
-            bitrate_allocator_factory_.codec_config().maxBitrate);
   EXPECT_EQ(kEncMinBitrateKbps,
             bitrate_allocator_factory_.codec_config().minBitrate);
 
-  video_encoder_config.max_bitrate_bps = kAppMaxBitrateKbps * 1000;
   video_encoder_config.simulcast_layers[0].min_bitrate_bps = 0;
   video_stream_encoder_->ConfigureEncoder(video_encoder_config.Copy(),
                                           kMaxPayloadLength);
@@ -1400,8 +1389,6 @@ TEST_F(VideoStreamEncoderTest,
 
   // App limited the max bitrate - bitrate limits recommended by encoder should
   // not be applied.
-  EXPECT_EQ(kAppMaxBitrateKbps,
-            bitrate_allocator_factory_.codec_config().maxBitrate);
   EXPECT_EQ(kDefaultMinBitrateKbps,
             bitrate_allocator_factory_.codec_config().minBitrate);
 
@@ -1415,12 +1402,9 @@ TEST_F(VideoStreamEncoderTest,
 
   // App limited the min bitrate - bitrate limits recommended by encoder should
   // not be applied.
-  EXPECT_EQ(kDefaultMaxBitrateKbps,
-            bitrate_allocator_factory_.codec_config().maxBitrate);
   EXPECT_EQ(kAppMinBitrateKbps,
             bitrate_allocator_factory_.codec_config().minBitrate);
 
-  video_encoder_config.max_bitrate_bps = kAppMaxBitrateKbps * 1000;
   video_encoder_config.simulcast_layers[0].min_bitrate_bps =
       kAppMinBitrateKbps * 1000;
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
@@ -1430,8 +1414,6 @@ TEST_F(VideoStreamEncoderTest,
 
   // App limited both min and max bitrates - bitrate limits recommended by
   // encoder should not be applied.
-  EXPECT_EQ(kAppMaxBitrateKbps,
-            bitrate_allocator_factory_.codec_config().maxBitrate);
   EXPECT_EQ(kAppMinBitrateKbps,
             bitrate_allocator_factory_.codec_config().minBitrate);
 
@@ -1461,16 +1443,12 @@ TEST_F(VideoStreamEncoderTest,
   WaitForEncodedFrame(1);
   EXPECT_EQ(static_cast<uint32_t>(encoder_bitrate_limits_270p.min_bitrate_bps),
             bitrate_allocator_factory_.codec_config().minBitrate * 1000);
-  EXPECT_EQ(static_cast<uint32_t>(encoder_bitrate_limits_270p.max_bitrate_bps),
-            bitrate_allocator_factory_.codec_config().maxBitrate * 1000);
 
   // 360p. The bitrate limits recommended by encoder for 360p should be used.
   video_source_.IncomingCapturedFrame(CreateFrame(2, 640, 360));
   WaitForEncodedFrame(2);
   EXPECT_EQ(static_cast<uint32_t>(encoder_bitrate_limits_360p.min_bitrate_bps),
             bitrate_allocator_factory_.codec_config().minBitrate * 1000);
-  EXPECT_EQ(static_cast<uint32_t>(encoder_bitrate_limits_360p.max_bitrate_bps),
-            bitrate_allocator_factory_.codec_config().maxBitrate * 1000);
 
   // Resolution between 270p and 360p. The bitrate limits recommended by
   // encoder for 360p should be used.
@@ -1479,8 +1457,6 @@ TEST_F(VideoStreamEncoderTest,
   WaitForEncodedFrame(3);
   EXPECT_EQ(static_cast<uint32_t>(encoder_bitrate_limits_360p.min_bitrate_bps),
             bitrate_allocator_factory_.codec_config().minBitrate * 1000);
-  EXPECT_EQ(static_cast<uint32_t>(encoder_bitrate_limits_360p.max_bitrate_bps),
-            bitrate_allocator_factory_.codec_config().maxBitrate * 1000);
 
   // Resolution higher than 360p. The caps recommended by encoder should be
   // ignored.
@@ -1488,12 +1464,8 @@ TEST_F(VideoStreamEncoderTest,
   WaitForEncodedFrame(4);
   EXPECT_NE(static_cast<uint32_t>(encoder_bitrate_limits_270p.min_bitrate_bps),
             bitrate_allocator_factory_.codec_config().minBitrate * 1000);
-  EXPECT_NE(static_cast<uint32_t>(encoder_bitrate_limits_270p.max_bitrate_bps),
-            bitrate_allocator_factory_.codec_config().maxBitrate * 1000);
   EXPECT_NE(static_cast<uint32_t>(encoder_bitrate_limits_360p.min_bitrate_bps),
             bitrate_allocator_factory_.codec_config().minBitrate * 1000);
-  EXPECT_NE(static_cast<uint32_t>(encoder_bitrate_limits_360p.max_bitrate_bps),
-            bitrate_allocator_factory_.codec_config().maxBitrate * 1000);
 
   // Resolution lower than 270p. The max bitrate limit recommended by encoder
   // for 270p should be used.
@@ -1501,8 +1473,6 @@ TEST_F(VideoStreamEncoderTest,
   WaitForEncodedFrame(5);
   EXPECT_EQ(static_cast<uint32_t>(encoder_bitrate_limits_270p.min_bitrate_bps),
             bitrate_allocator_factory_.codec_config().minBitrate * 1000);
-  EXPECT_EQ(static_cast<uint32_t>(encoder_bitrate_limits_270p.max_bitrate_bps),
-            bitrate_allocator_factory_.codec_config().maxBitrate * 1000);
 
   video_stream_encoder_->Stop();
 }
@@ -1539,8 +1509,6 @@ TEST_F(VideoStreamEncoderTest, EncoderRecommendedMaxBitrateCapsTargetBitrate) {
   WaitForEncodedFrame(3);
 
   // Ensure the target bitrate is capped by the max bitrate.
-  EXPECT_EQ(bitrate_allocator_factory_.codec_config().maxBitrate * 1000,
-            static_cast<uint32_t>(encoder_bitrate_limits.max_bitrate_bps));
   EXPECT_EQ(bitrate_allocator_factory_.codec_config()
                     .simulcastStream[0]
                     .targetBitrate *

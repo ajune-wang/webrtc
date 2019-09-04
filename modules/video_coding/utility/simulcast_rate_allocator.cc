@@ -77,9 +77,6 @@ void SimulcastRateAllocator::DistributeAllocationToSimulcastLayers(
     uint32_t total_bitrate_bps,
     VideoBitrateAllocation* allocated_bitrates_bps) {
   uint32_t left_to_allocate = total_bitrate_bps;
-  if (codec_.maxBitrate && codec_.maxBitrate * 1000 < left_to_allocate)
-    left_to_allocate = codec_.maxBitrate * 1000;
-
   if (codec_.numberOfSimulcastStreams == 0) {
     // No simulcast, just set the target as this has been capped already.
     if (codec_.active) {
@@ -224,7 +221,7 @@ void SimulcastRateAllocator::DistributeAllocationToTemporalLayers(
       target_bitrate_kbps =
           std::min(kLegacyScreenshareTl0BitrateKbps, target_bitrate_kbps);
     } else if (num_spatial_streams == 1) {
-      max_bitrate_kbps = codec_.maxBitrate;
+      max_bitrate_kbps = 0;  // TODO(nisse): Ok?
     } else {
       max_bitrate_kbps = codec_.simulcastStream[simulcast_id].maxBitrate;
     }

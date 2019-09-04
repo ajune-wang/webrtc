@@ -120,19 +120,9 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
     video_codec.minBitrate =
         std::min(static_cast<uint16_t>(video_codec.minBitrate),
                  static_cast<uint16_t>(streams[i].min_bitrate_bps / 1000));
-    video_codec.maxBitrate += streams[i].max_bitrate_bps / 1000;
     video_codec.qpMax = std::max(video_codec.qpMax,
                                  static_cast<unsigned int>(streams[i].max_qp));
   }
-
-  if (video_codec.maxBitrate == 0) {
-    // Unset max bitrate -> cap to one bit per pixel.
-    video_codec.maxBitrate =
-        (video_codec.width * video_codec.height * video_codec.maxFramerate) /
-        1000;
-  }
-  if (video_codec.maxBitrate < kEncoderMinBitrateKbps)
-    video_codec.maxBitrate = kEncoderMinBitrateKbps;
 
   RTC_DCHECK_GT(streams[0].max_framerate, 0);
   video_codec.maxFramerate = streams[0].max_framerate;
@@ -190,8 +180,7 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
         if (no_spatial_layering) {
           // Use codec's bitrate limits.
           spatial_layers.back().minBitrate = video_codec.minBitrate;
-          spatial_layers.back().targetBitrate = video_codec.maxBitrate;
-          spatial_layers.back().maxBitrate = video_codec.maxBitrate;
+          spatial_layers.back().maxBitrate = 0;
         }
 
         for (size_t spatial_idx = 0;

@@ -109,7 +109,6 @@ class RTC_EXPORT VideoCodec {
   uint16_t height;
 
   unsigned int startBitrate;  // kilobits/sec.
-  unsigned int maxBitrate;    // kilobits/sec.
   unsigned int minBitrate;    // kilobits/sec.
 
   uint32_t maxFramerate;

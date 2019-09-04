@@ -35,7 +35,6 @@ void SetDefaultSettings(VideoCodec* codec_settings) {
   // be controlled for RC_QUALITY_MODE; RC_BITRATE_MODE and RC_TIMESTAMP_MODE
   codec_settings->H264()->frameDroppingOn = true;
   codec_settings->startBitrate = 2000;
-  codec_settings->maxBitrate = 4000;
 }
 
 TEST(H264EncoderImplTest, CanInitializeWithDefaultParameters) {

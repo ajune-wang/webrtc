@@ -262,7 +262,7 @@ int32_t H264EncoderImpl::InitEncode(const VideoCodec* inst,
     }
 
     // Codec_settings uses kbits/second; encoder uses bits/second.
-    configurations_[i].max_bps = codec_.maxBitrate * 1000;
+    configurations_[i].max_bps = 0;  // TODO(nisse): Ok?
     configurations_[i].target_bps = codec_.startBitrate * 1000;
 
     // Create encoder parameters based on the layer configuration.

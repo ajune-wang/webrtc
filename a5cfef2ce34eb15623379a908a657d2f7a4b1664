@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "51954753_974b1f50",
+        "filename": "api/packet_socket_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-05T11:24:41Z",
+      "side": 1,
+      "message": "Ok, I have taken another look and this is needed.",
+      "parentUuid": "7bd14249_42916263",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 4
+      },
+      "revId": "a5cfef2ce34eb15623379a908a657d2f7a4b1664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cf01dd2_48f114bf",
         "filename": "api/packet_socket_factory.h",
         "patchSetId": 5

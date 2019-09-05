@@ -135,6 +135,8 @@ rtc_static_library("libjingle_peerconnection_api") {
     "media_transport_interface.cc",
     "media_transport_interface.h",
     "notifier.h",
+    "packet_socket_factory.cc",
+    "packet_socket_factory.h",
     "peer_connection_factory_proxy.h",
     "peer_connection_interface.cc",
     "peer_connection_interface.h",

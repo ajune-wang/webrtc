@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa8d2b01_a7d1a2e3",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-05T07:23:01Z",
+      "side": 1,
+      "message": "Please document. In particular, is it expected to be higher or lower than the |target_bitrate|? Can it be larger than |link_allocation| ? Is it just a low-pass filtered version of |target_bitrate| or something more subtle?\n\nIf we expect further extensions to this method, it would make sense to pack the values into a struct and pass that; then one could add fields with default values without breaking applications.",
+      "range": {
+        "startLine": 92,
+        "startChar": 41,
+        "endLine": 92,
+        "endChar": 62
+      },
+      "revId": "43e1946298a77841d8c18d2fd7e42a7b799fe6af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

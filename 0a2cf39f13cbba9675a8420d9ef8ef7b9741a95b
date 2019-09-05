@@ -22,6 +22,29 @@
       "revId": "0a2cf39f13cbba9675a8420d9ef8ef7b9741a95b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfa9ff88_18ef8393",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-05T13:46:29Z",
+      "side": 1,
+      "message": "It may",
+      "range": {
+        "startLine": 29,
+        "startChar": 47,
+        "endLine": 29,
+        "endChar": 50
+      },
+      "revId": "0a2cf39f13cbba9675a8420d9ef8ef7b9741a95b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

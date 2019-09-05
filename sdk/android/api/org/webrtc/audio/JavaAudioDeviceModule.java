@@ -36,6 +36,8 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
     private AudioTrackErrorCallback audioTrackErrorCallback;
     private AudioRecordErrorCallback audioRecordErrorCallback;
     private SamplesReadyCallback samplesReadyCallback;
+    private AudioTrackStateCallback audioTrackStateCallback;
+    private AudioRecordStateCallback audioRecordStateCallback;
     private boolean useHardwareAcousticEchoCanceler = isBuiltInAcousticEchoCancelerSupported();
     private boolean useHardwareNoiseSuppressor = isBuiltInNoiseSuppressorSupported();
     private boolean useStereoInput;
@@ -119,6 +121,22 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
      */
     public Builder setSamplesReadyCallback(SamplesReadyCallback samplesReadyCallback) {
       this.samplesReadyCallback = samplesReadyCallback;
+      return this;
+    }
+
+    /**
+     * Set a callback to retrieve information from the AudioTrack on when audio starts and stops.
+     */
+    public Builder setAudioTrackStateCallback(AudioTrackStateCallback audioTrackStateCallback) {
+      this.audioTrackStateCallback = audioTrackStateCallback;
+      return this;
+    }
+
+    /**
+     * Set a callback to retrieve information from the AudioRecord on when audio starts and stops.
+     */
+    public Builder setAudioRecordStateCallback(AudioRecordStateCallback audioRecordStateCallback) {
+      this.audioRecordStateCallback = audioRecordStateCallback;
       return this;
     }
 
@@ -210,6 +228,12 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
     void onWebRtcAudioRecordError(String errorMessage);
   }
 
+  /** Called when audio recording starts and stops */
+  public static interface AudioRecordStateCallback {
+    void onWebRtcAudioRecordStart();
+    void onWebRtcAudioRecordStop();
+  }
+
   /**
    * Contains audio sample information.
    */
@@ -263,6 +287,12 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
     void onWebRtcAudioTrackInitError(String errorMessage);
     void onWebRtcAudioTrackStartError(AudioTrackStartErrorCode errorCode, String errorMessage);
     void onWebRtcAudioTrackError(String errorMessage);
+  }
+
+  /** Called when audio playout starts and stops */
+  public static interface AudioTrackStateCallback {
+    void onWebRtcAudioTrackStart();
+    void onWebRtcAudioTrackStop();
   }
 
   /**

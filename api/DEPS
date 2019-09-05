@@ -115,6 +115,10 @@ specific_include_rules = {
     "+rtc_base/network_route.h",
   ],
 
+  "packet_socket_factory\.h": [
+    "+rtc_base/proxy_info.h",
+  ],
+
   "peer_connection_factory_proxy\.h": [
     "+rtc_base/bind.h",
   ],

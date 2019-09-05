@@ -5,16 +5,16 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'e96090c328fe6b9edfffb9ad479dc89ff364ed49',
+  'chromium_revision': '9d2d05f5a2e8a5b9a09cd72d7d6f8b255ceafd23',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@594e748e9e7acc986f5a0cfc4da61ad760f94c5e',
+    'https://chromium.googlesource.com/chromium/src/base@ebf82dc7c4f05d3df2b0c164810d893a54c77f81',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@e030d8a0ae31cc53fb5e16fea7005ddbd64087bd',
+    'https://chromium.googlesource.com/chromium/src/build@7f76a96f7e0a21d1aa69473dad9760e1e972d517',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@74cfb57006f83cfe050817526db359d5c8a11628',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -29,7 +29,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@66f8176e03b8b52129d08f8a193eef087ffcaf64',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@5214bb55d3eae96138aa527f5c4f983970baac0c',
+    'https://chromium.googlesource.com/chromium/src/third_party@85087ab68e572f45cf4c19a8a9161944e42f72d8',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -231,7 +231,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@cd56b39a009f0670d80dc06bb93dd1cb7443fb8b',
+    'https://chromium.googlesource.com/chromium/src/tools@f7062f19203a060fcacd4b9701772391043d6070',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@96f125709acfd0b48fc1e5dae7d6ea42291726ac',
 

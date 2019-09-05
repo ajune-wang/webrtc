@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0023a8b4_2d4b815c",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-09-05T17:06:27Z",
+      "side": 1,
+      "message": "Would it make sense to test colon_pos \u003c val_end instead?\nE.g.\nbool has_colon \u003d false;\nif (colon_pos \u003c val_end) {\n  has_colon \u003d true;\n  int val_begin \u003d colon_pos + 1;\n  str_value \u003d trial_string.substr(val_begin, val_end - val_begin);\n}",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 31
+      },
+      "revId": "3be0446c3e037387bbfe67b34ac423be21893e91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe6b7938_cc679e06",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-09-05T17:06:27Z",
+      "side": 1,
+      "message": "Should FieldTrial/flag:/ set flag to the default value (which I assume is false) or set the flag to true?",
+      "range": {
+        "startLine": 102,
+        "startChar": 6,
+        "endLine": 102,
+        "endChar": 17
+      },
+      "revId": "3be0446c3e037387bbfe67b34ac423be21893e91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1726ebe_ed17e554",
+        "filename": "rtc_base/experiments/field_trial_parser_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-09-05T17:06:27Z",
+      "side": 1,
+      "message": "Test case that uses FieldTrial/foo:/ for both bool and some other type?",
+      "revId": "3be0446c3e037387bbfe67b34ac423be21893e91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -810,6 +810,7 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
     absl::optional<CryptoOptions> crypto_options;
     bool offer_extmap_allow_mixed;
     std::string turn_logging_id;
+    absl::optional<std::string> audio_network_adaptor_config;
   };
   static_assert(sizeof(stuff_being_tested_for_equality) == sizeof(*this),
                 "Did you add something to RTCConfiguration and forget to "
@@ -873,7 +874,8 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
              o.use_datagram_transport_for_data_channels &&
          crypto_options == o.crypto_options &&
          offer_extmap_allow_mixed == o.offer_extmap_allow_mixed &&
-         turn_logging_id == o.turn_logging_id;
+         turn_logging_id == o.turn_logging_id &&
+         audio_network_adaptor_config == o.audio_network_adaptor_config;
 }
 
 bool PeerConnectionInterface::RTCConfiguration::operator!=(
@@ -1229,6 +1231,12 @@ bool PeerConnection::Initialize(
 
   audio_options_.audio_jitter_buffer_enable_rtx_handling =
       configuration.audio_jitter_buffer_enable_rtx_handling;
+
+  audio_options_.audio_network_adaptor_config =
+      configuration.audio_network_adaptor_config;
+  if (configuration.audio_network_adaptor_config) {
+    audio_options_.audio_network_adaptor = true;
+  }
 
   // Whether the certificate generator/certificate is null or not determines
   // what PeerConnectionDescriptionFactory will do, so make sure that we give it

@@ -11,11 +11,14 @@
 #include "video/send_statistics_proxy.h"
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <limits>
 #include <utility>
 
 #include "absl/algorithm/container.h"
+#include "api/video/video_codec_constants.h"
+#include "api/video_codecs/video_encoder_config.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -140,6 +143,8 @@ SendStatisticsProxy::SendStatisticsProxy(
       quality_limitation_reason_tracker_(clock_),
       media_byte_rate_tracker_(kBucketSizeMs, kBucketCount),
       encoded_frame_rate_tracker_(kBucketSizeMs, kBucketCount),
+      n_layers_(0),
+      last_spatial_layer_use_{},
       uma_container_(
           new UmaSamplesContainer(GetUmaPrefix(content_type_), stats_, clock)) {
 }
@@ -1102,6 +1107,36 @@ void SendStatisticsProxy::UpdateAdaptationStats(
       quality_limitation_reason_tracker_.current_reason();
   // |stats_.quality_limitation_durations_ms| depends on the current time
   // when it is polled; it is updated in SendStatisticsProxy::GetStats().
+}
+
+void SendStatisticsProxy::OnBitrateAllocationUpdated(
+    const VideoEncoderConfig& encoder_config,
+    const VideoBitrateAllocation& allocation) {
+  // TODO(eshr) What about SpatialLayers?
+  size_t n_layers = encoder_config.simulcast_layers.size();
+
+  std::array<bool, kMaxSpatialLayers> spatial_layers;
+  for (int i = 0; i < kMaxSpatialLayers; i++) {
+    spatial_layers[i] = (allocation.GetSpatialLayerSum(i) > 0);
+  }
+
+  rtc::CritScope lock(&crit_);
+
+  if (spatial_layers != last_spatial_layer_use_) {
+    RTC_LOG(INFO) << "maybe?";
+    // If the number of layers has changed, the resolution change is
+    // not due to quality limitations, it is because the configuration
+    // changed.
+    if (n_layers_ == n_layers) {
+      RTC_LOG(INFO) << "bump";
+      ++stats_.quality_limitation_resolution_changes;
+    }
+    last_spatial_layer_use_ = spatial_layers;
+  } else {
+    RTC_LOG(INFO) << "Or not";
+  }
+
+  n_layers_ = n_layers;
 }
 
 // TODO(asapersson): Include fps changes.

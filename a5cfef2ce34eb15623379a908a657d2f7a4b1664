@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ae70d644_bdd6daef",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-05T10:33:36Z",
+      "side": 1,
+      "message": "Yes, please.\n\nBTW, do you know why we have both PacketSocketFactory::CreateAsyncResolver() and AsyncResolverFactory::Create() ?\n\nIf we don\u0027t want one target per header file, it might make sense to group packet_socket_factory.*, async_resolver_interface.h and async_resolver_factory.h together.",
+      "parentUuid": "a223dd25_bbde5d08",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 139,
+        "endChar": 30
+      },
+      "revId": "a5cfef2ce34eb15623379a908a657d2f7a4b1664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7048b84d_7af29119",
         "filename": "api/packet_socket_factory.h",
         "patchSetId": 5
@@ -64,6 +88,53 @@
         "startChar": 2,
         "endLine": 52,
         "endChar": 4
+      },
+      "revId": "a5cfef2ce34eb15623379a908a657d2f7a4b1664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bd14249_42916263",
+        "filename": "api/packet_socket_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-05T10:33:36Z",
+      "side": 1,
+      "message": "Ideally, the Create*Socket methods should only have address and port arguments, everything else being configured on the factory. But that\u0027s not going to be fixed very soon.\n\nAs for ssltcp, I\u0027m investigating if we can delete that, it\u0027s a weird hack that I hope is unused.",
+      "parentUuid": "af741201_85f2ea4b",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 4
+      },
+      "revId": "a5cfef2ce34eb15623379a908a657d2f7a4b1664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cf01dd2_48f114bf",
+        "filename": "api/packet_socket_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-05T10:33:36Z",
+      "side": 1,
+      "message": "What happened to the two-argument version, from cl https://webrtc-review.googlesource.com/c/src/+/150941",
+      "range": {
+        "startLine": 66,
+        "startChar": 29,
+        "endLine": 66,
+        "endChar": 50
       },
       "revId": "a5cfef2ce34eb15623379a908a657d2f7a4b1664",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

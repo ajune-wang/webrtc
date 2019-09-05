@@ -2240,6 +2240,21 @@ void ParsedRtcEventLog::StoreRouteChangeEvent(
   // TODO(terelius): Should we delta encode this event type?
 }
 
+void ParsedRtcEventLog::StoreRemoteEstimateEvent(
+    const rtclog2::RemoteEstimate& proto) {
+  RTC_CHECK(proto.has_timestamp_ms());
+  LoggedRemoteEstimateEvent event;
+  event.timestamp_ms = proto.timestamp_ms();
+  if (proto.has_link_capacity_lower_kbps())
+    event.link_capacity_lower =
+        DataRate::kbps(proto.link_capacity_lower_kbps());
+  if (proto.has_link_capacity_upper_kbps())
+    event.link_capacity_upper =
+        DataRate::kbps(proto.link_capacity_upper_kbps());
+  remote_estimate_events_.push_back(event);
+  // TODO(terelius): Should we delta encode this event type?
+}
+
 void ParsedRtcEventLog::StoreAudioPlayoutEvent(
     const rtclog2::AudioPlayoutEvents& proto) {
   RTC_CHECK(proto.has_timestamp_ms());

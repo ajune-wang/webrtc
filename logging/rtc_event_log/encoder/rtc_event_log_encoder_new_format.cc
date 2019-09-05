@@ -32,6 +32,7 @@
 #include "logging/rtc_event_log/events/rtc_event_probe_cluster_created.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_result_failure.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_result_success.h"
+#include "logging/rtc_event_log/events/rtc_event_remote_estimate.h"
 #include "logging/rtc_event_log/events/rtc_event_route_change.h"
 #include "logging/rtc_event_log/events/rtc_event_rtcp_packet_incoming.h"
 #include "logging/rtc_event_log/events/rtc_event_rtcp_packet_outgoing.h"
@@ -686,6 +687,7 @@ std::string RtcEventLogEncoderNewFormat::EncodeBatch(
     std::vector<const RtcEventProbeResultFailure*> probe_result_failure_events;
     std::vector<const RtcEventProbeResultSuccess*> probe_result_success_events;
     std::vector<const RtcEventRouteChange*> route_change_events;
+    std::vector<const RtcEventRemoteEstimate*> remote_estimate_events;
     std::vector<const RtcEventRtcpPacketIncoming*> incoming_rtcp_packets;
     std::vector<const RtcEventRtcpPacketOutgoing*> outgoing_rtcp_packets;
     std::map<uint32_t /* SSRC */, std::vector<const RtcEventRtpPacketIncoming*>>
@@ -777,6 +779,12 @@ std::string RtcEventLogEncoderNewFormat::EncodeBatch(
           auto* rtc_event =
               static_cast<const RtcEventRouteChange* const>(it->get());
           route_change_events.push_back(rtc_event);
+          break;
+        }
+        case RtcEvent::Type::RemoteEstimateEvent: {
+          auto* rtc_event =
+              static_cast<const RtcEventRemoteEstimate* const>(it->get());
+          remote_estimate_events.push_back(rtc_event);
           break;
         }
         case RtcEvent::Type::RtcpPacketIncoming: {
@@ -1318,6 +1326,22 @@ void RtcEventLogEncoderNewFormat::EncodeRouteChange(
     proto_batch->set_timestamp_ms(base_event->timestamp_ms());
     proto_batch->set_connected(base_event->connected());
     proto_batch->set_overhead(base_event->overhead());
+  }
+  // TODO(terelius): Should we delta-compress this event type?
+}
+
+void RtcEventLogEncoderNewFormat::EncodeRemoteEstimate(
+    rtc::ArrayView<const RtcEventRemoteEstimate*> batch,
+    rtclog2::EventStream* event_stream) {
+  for (const RtcEventRemoteEstimate* base_event : batch) {
+    rtclog2::RemoteEstimate* proto_batch = event_stream->add_remote_estimates();
+    proto_batch->set_timestamp_ms(base_event->timestamp_ms());
+    if (base_event->link_capacity_lower_.IsFinite())
+      proto_batch->set_link_capacity_lower_kbps(
+          base_event->link_capacity_lower_.kbps<uint32_t>());
+    if (base_event->link_capacity_upper_.IsFinite())
+      proto_batch->set_link_capacity_upper_kbps(
+          base_event->link_capacity_upper_.kbps<uint32_t>());
   }
   // TODO(terelius): Should we delta-compress this event type?
 }

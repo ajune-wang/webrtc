@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8ed01472_e125d8fa",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-09-05T11:47:45Z",
+      "side": 1,
+      "message": "New target: done. I\u0027ll have to work a bit on it later so it doesn\u0027t depend on rtc_base (need to split out some things from rtc_base).\n\nI can move the async resolver headers too, but async_resolver_interface.h is in rtc_base. Do you want me to move that one in this CL?\n\nFor async resolver: Looks like Chromium wants to put in its own async resolver: https://cs.chromium.org/chromium/src/content/renderer/p2p/ipc_socket_factory.cc?type\u003dcs\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d791. That kind of looks like a hack, it doesn\u0027t have anything to do with sockets?",
+      "parentUuid": "ae70d644_bdd6daef",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 139,
+        "endChar": 30
+      },
+      "revId": "a5cfef2ce34eb15623379a908a657d2f7a4b1664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7048b84d_7af29119",
         "filename": "api/packet_socket_factory.h",
         "patchSetId": 5
@@ -69,6 +93,30 @@
       "revId": "a5cfef2ce34eb15623379a908a657d2f7a4b1664",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ab95df3_6b64886c",
+        "filename": "api/packet_socket_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-09-05T11:47:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7048b84d_7af29119",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 24
+      },
+      "revId": "a5cfef2ce34eb15623379a908a657d2f7a4b1664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "2227e29a_d35f8048",
+        "filename": "api/packet_socket_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-09-05T11:47:45Z",
+      "side": 1,
+      "message": "Yeah, I spent probably 6 hours trying to get rid of the proxy stuff and tcpopts, but the code assumes you can hand those to the factory post-creation in a lot of places. It\u0027s hard to change now but might be easier later.",
+      "parentUuid": "51954753_974b1f50",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 4
+      },
+      "revId": "a5cfef2ce34eb15623379a908a657d2f7a4b1664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cf01dd2_48f114bf",
         "filename": "api/packet_socket_factory.h",
         "patchSetId": 5
@@ -166,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "b38427bf_438c1145",
+        "filename": "api/packet_socket_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-09-05T11:47:45Z",
+      "side": 1,
+      "message": "I thought I better get rid of it since no one will use it anyway. I can\u0027t remove this method so I thought it\u0027s better to just have one method.",
+      "parentUuid": "2cf01dd2_48f114bf",
+      "range": {
+        "startLine": 66,
+        "startChar": 29,
+        "endLine": 66,
+        "endChar": 50
+      },
+      "revId": "a5cfef2ce34eb15623379a908a657d2f7a4b1664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23bc444a_a5f6b2a2",
         "filename": "pc/peer_connection_factory.cc",
         "patchSetId": 5
@@ -186,6 +282,30 @@
       "revId": "a5cfef2ce34eb15623379a908a657d2f7a4b1664",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da8999cc_547abdf5",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-09-05T11:47:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23bc444a_a5f6b2a2",
+      "range": {
+        "startLine": 247,
+        "startChar": 21,
+        "endLine": 247,
+        "endChar": 34
+      },
+      "revId": "a5cfef2ce34eb15623379a908a657d2f7a4b1664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

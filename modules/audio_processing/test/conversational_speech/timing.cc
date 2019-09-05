@@ -13,7 +13,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "rtc_base/string_encode.h"
+#include "absl/strings/str_split.h"
 
 namespace webrtc {
 namespace test {
@@ -28,8 +28,7 @@ bool Turn::operator==(const Turn& b) const {
 std::vector<Turn> LoadTiming(const std::string& timing_filepath) {
   // Line parser.
   auto parse_line = [](const std::string& line) {
-    std::vector<std::string> fields;
-    rtc::split(line, ' ', &fields);
+    std::vector<std::string> fields = absl::StrSplit(line, ' ');
     RTC_CHECK_GE(fields.size(), 3);
     RTC_CHECK_LE(fields.size(), 4);
     int gain = 0;

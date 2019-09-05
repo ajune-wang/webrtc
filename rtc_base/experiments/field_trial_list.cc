@@ -9,6 +9,8 @@
  */
 #include "rtc_base/experiments/field_trial_list.h"
 
+#include "rtc_base/checks.h"
+
 namespace webrtc {
 
 FieldTrialListBase::FieldTrialListBase(std::string key)

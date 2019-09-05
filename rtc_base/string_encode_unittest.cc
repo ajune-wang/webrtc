@@ -282,42 +282,6 @@ TEST(TokenizeFirstTest, SingleToken) {
   ASSERT_STREQ("ABC    ", rest.c_str());
 }
 
-// Tests counting substrings.
-TEST(SplitTest, CountSubstrings) {
-  std::vector<std::string> fields;
-
-  EXPECT_EQ(5ul, split("one,two,three,four,five", ',', &fields));
-  fields.clear();
-  EXPECT_EQ(1ul, split("one", ',', &fields));
-
-  // Empty fields between commas count.
-  fields.clear();
-  EXPECT_EQ(5ul, split("one,,three,four,five", ',', &fields));
-  fields.clear();
-  EXPECT_EQ(3ul, split(",three,", ',', &fields));
-  fields.clear();
-  EXPECT_EQ(1ul, split("", ',', &fields));
-}
-
-// Tests comparing substrings.
-TEST(SplitTest, CompareSubstrings) {
-  std::vector<std::string> fields;
-
-  split("find,middle,one", ',', &fields);
-  ASSERT_EQ(3ul, fields.size());
-  ASSERT_STREQ("middle", fields.at(1).c_str());
-  fields.clear();
-
-  // Empty fields between commas count.
-  split("find,,middle,one", ',', &fields);
-  ASSERT_EQ(4ul, fields.size());
-  ASSERT_STREQ("middle", fields.at(2).c_str());
-  fields.clear();
-  split("", ',', &fields);
-  ASSERT_EQ(1ul, fields.size());
-  ASSERT_STREQ("", fields.at(0).c_str());
-}
-
 TEST(ToString, SanityCheck) {
   EXPECT_EQ(ToString(true), "true");
   EXPECT_EQ(ToString(false), "false");

@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "ce6018f1_b0adb30e",
+        "filename": "api/packet_socket_factory.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-05T12:10:35Z",
+      "side": 1,
+      "message": "Yeah, https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d163 is no more. :)",
+      "parentUuid": "f05193a1_b5124894",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 60
+      },
+      "revId": "c2aa1dbeee36be4b9775410d934ad338561e3303",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20ef1aa2_e56c88b1",
         "filename": "pc/peer_connection_factory.cc",
         "patchSetId": 7

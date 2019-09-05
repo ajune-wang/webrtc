@@ -313,7 +313,7 @@ TEST(NetworkEmulationManagerTest, ThroughputStats) {
     EXPECT_EQ(st.packets_sent, 11l);
     EXPECT_EQ(st.bytes_sent.bytes(), single_packet_size * 11l);
     EXPECT_GE(st.last_packet_sent_time - st.first_packet_sent_time,
-              TimeDelta::seconds(1));
+              TimeDelta::ms(900));
     EXPECT_GT(st.AverageSendRate().bps(), 0);
     received_stats_count++;
   });

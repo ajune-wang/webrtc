@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94a0e709_c2f7969f",
+        "filename": "style-guide.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-05T07:51:16Z",
+      "side": 1,
+      "message": "That page now default allows all of C++14 except the parts that it explicitly bans. So maybe\n\n  We only allow the subset of C++14 (language and library) that is\n  not banned by Chromium; see [this page][chromium-cpp].",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 59
+      },
+      "revId": "cd3fc1adbe7b261921ddb60bb6938b4f018e0c30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33710ed3_ae9d8bac",
+        "filename": "style-guide.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-05T07:51:16Z",
+      "side": 1,
+      "message": "That webpage is titled \"C++ use in Chromium\" nowadays, so just call it \"chromium-cpp\" here.",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 32,
+        "endChar": 15
+      },
+      "revId": "cd3fc1adbe7b261921ddb60bb6938b4f018e0c30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

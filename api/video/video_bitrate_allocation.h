@@ -27,8 +27,9 @@ namespace webrtc {
 // Class that describes how video bitrate, in bps, is allocated across temporal
 // and spatial layers. Not that bitrates are NOT cumulative. Depending on if
 // layers are dependent or not, it is up to the user to aggregate.
-// For each index, the bitrate can also both set and unset. This is used with a
-// set bps = 0 to signal an explicit "turn off" signal.
+// For each index, the bitrate can both set and unset. This is used with a
+// set bps = 0 to signal an explicit "turn off" signal. Note that a spacial
+// layer is considered used even if the bitrate is 0.
 class RTC_EXPORT VideoBitrateAllocation {
  public:
   static constexpr uint32_t kMaxBitrateBps =

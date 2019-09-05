@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a223dd25_bbde5d08",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-05T09:46:27Z",
+      "side": 1,
+      "message": "nisse@: Should we move it in another target?",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 139,
+        "endChar": 30
+      },
+      "revId": "a5cfef2ce34eb15623379a908a657d2f7a4b1664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7048b84d_7af29119",
+        "filename": "api/packet_socket_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-05T09:46:27Z",
+      "side": 1,
+      "message": "We can remove this since we are including the header.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 24
+      },
+      "revId": "a5cfef2ce34eb15623379a908a657d2f7a4b1664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af741201_85f2ea4b",
+        "filename": "api/packet_socket_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-05T09:46:27Z",
+      "side": 1,
+      "message": "Is it possible to keep this internally or is it needed in the API?",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 4
+      },
+      "revId": "a5cfef2ce34eb15623379a908a657d2f7a4b1664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23bc444a_a5f6b2a2",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-05T09:46:27Z",
+      "side": 1,
+      "message": "We should probably be more specific here. E.g. \"will soon be removed from API, see bugs.webrtc.org/7447\".",
+      "range": {
+        "startLine": 247,
+        "startChar": 21,
+        "endLine": 247,
+        "endChar": 34
+      },
+      "revId": "a5cfef2ce34eb15623379a908a657d2f7a4b1664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

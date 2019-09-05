@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7089b4f5_2594d888",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-09-05T18:49:26Z",
+      "side": 1,
+      "message": "This constructor can use the one below. And the one at the top can use this... \n\nie BasicPortAllocator::BasicPortAllocator(rtc::NetworkManager* network_manager,\n                                       const ServerAddresses\u0026 stun_servers) : BasicPortAllocator(network_manager, nullptr, stun_servers)\n\nactually, all of them can use the one at the top.",
+      "range": {
+        "startLine": 177,
+        "startChar": 62,
+        "endLine": 177,
+        "endChar": 74
+      },
+      "revId": "0c3b8b2cd751c6a26d0c0ea5e43042c1c960e9fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

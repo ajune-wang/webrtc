@@ -23,26 +23,7 @@ PacketSocketTcpOptions::~PacketSocketTcpOptions() = default;
 AsyncPacketSocket* PacketSocketFactory::CreateClientTcpSocket(
     const SocketAddress& local_address,
     const SocketAddress& remote_address,
-    const ProxyInfo& proxy_info,
-    const std::string& user_agent,
-    const PacketSocketTcpOptions& tcp_options) {
-  return CreateClientTcpSocket(local_address, remote_address, proxy_info,
-                               user_agent, tcp_options.opts);
-}
-
-AsyncPacketSocket* PacketSocketFactory::CreateClientTcpSocket(
-    const SocketAddress& local_address,
-    const SocketAddress& remote_address,
-    const ProxyInfo& proxy_info,
-    const std::string& user_agent,
-    int opts) {
-  RTC_NOTREACHED();
-  return nullptr;
-}
-
-AsyncPacketSocket* PacketSocketFactory::CreateClientTcpSocket(
-    const SocketAddress& local_address,
-    const SocketAddress& remote_address) {
+    const PacketSocketTcpOptions& opts) {
   RTC_NOTREACHED();
   return nullptr;
 }

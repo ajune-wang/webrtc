@@ -170,7 +170,7 @@ cricket::BasicPortAllocator* CreateBasicPortAllocator(
   std::vector<cricket::RelayServerConfig> turn_servers(1, turn_server);
 
   cricket::BasicPortAllocator* allocator =
-      new cricket::BasicPortAllocator(network_manager);
+      new cricket::BasicPortAllocator(network_manager, new BasicPacketSocketFactoryWithProxy(), stun_servers);
   allocator->Initialize();
   allocator->SetConfiguration(stun_servers, turn_servers, 0, false);
   return allocator;

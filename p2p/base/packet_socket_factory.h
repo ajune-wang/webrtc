@@ -14,7 +14,7 @@
 #include <string>
 #include <vector>
 
-#include "rtc_base/proxy_info.h"
+#include "rtc_base/socket_address.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace rtc {
@@ -23,7 +23,6 @@ class SSLCertificateVerifier;
 class AsyncPacketSocket;
 class AsyncResolverInterface;
 
-// TODO(bugs.webrtc.org/7447): move this to basic_packet_socket_factory.
 struct PacketSocketTcpOptions {
   PacketSocketTcpOptions();
   ~PacketSocketTcpOptions();
@@ -63,27 +62,10 @@ class RTC_EXPORT PacketSocketFactory {
       uint16_t max_port,
       int opts) = 0;
 
-  // TODO(bugs.webrtc.org/7447): This should be the only CreateClientTcpSocket
-  // implementation left; the two other are deprecated.
-  virtual AsyncPacketSocket* CreateClientTcpSocket(
-      const SocketAddress& local_address,
-      const SocketAddress& remote_address);
-
-  // TODO(bugs.webrtc.org/7447): Deprecated, about to be removed.
   virtual AsyncPacketSocket* CreateClientTcpSocket(
       const SocketAddress& local_address,
       const SocketAddress& remote_address,
-      const ProxyInfo& proxy_info,
-      const std::string& user_agent,
-      int opts);
-
-  // TODO(bugs.webrtc.org/7447): Deprecated, about to be removed.
-  virtual AsyncPacketSocket* CreateClientTcpSocket(
-      const SocketAddress& local_address,
-      const SocketAddress& remote_address,
-      const ProxyInfo& proxy_info,
-      const std::string& user_agent,
-      const PacketSocketTcpOptions& tcp_options);
+      const PacketSocketTcpOptions& opts);
 
   virtual AsyncResolverInterface* CreateAsyncResolver() = 0;
 

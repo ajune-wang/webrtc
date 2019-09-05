@@ -14,12 +14,15 @@
 #include <string>
 
 #include "p2p/base/packet_socket_factory.h"
+#include "rtc_base/proxy_info.h"
+#include "rtc_base/ssl_certificate.h"
 
 namespace rtc {
 
 class AsyncSocket;
 class SocketFactory;
 class Thread;
+
 
 class BasicPacketSocketFactory : public PacketSocketFactory {
  public:
@@ -37,20 +40,16 @@ class BasicPacketSocketFactory : public PacketSocketFactory {
                                            int opts) override;
   AsyncPacketSocket* CreateClientTcpSocket(
       const SocketAddress& local_address,
-      const SocketAddress& remote_address) override;
-  AsyncPacketSocket* CreateClientTcpSocket(const SocketAddress& local_address,
-                                           const SocketAddress& remote_address,
-                                           const ProxyInfo& proxy_info,
-                                           const std::string& user_agent,
-                                           int opts) override;
-  AsyncPacketSocket* CreateClientTcpSocket(
-      const SocketAddress& local_address,
       const SocketAddress& remote_address,
-      const ProxyInfo& proxy_info,
-      const std::string& user_agent,
-      const PacketSocketTcpOptions& tcp_options) override;
+      const PacketSocketTcpOptions& opts) override;
 
   AsyncResolverInterface* CreateAsyncResolver() override;
+
+ protected:
+   AsyncSocket* MaybeWrapAsyncSocket(AsyncSocket* socket) {
+     // Default: do nothing.
+    return socket;
+   }
 
  private:
   int BindSocket(AsyncSocket* socket,
@@ -62,6 +61,17 @@ class BasicPacketSocketFactory : public PacketSocketFactory {
 
   Thread* thread_;
   SocketFactory* socket_factory_;
+  PacketSocketTcpOptions tcp_options_;
+};
+
+class BasicPacketSocketFactoryWithProxy : public BasicPacketSocketFactory {
+ public:
+  BasicPacketSocketFactoryWithProxy(const std::string& user_agent, const ProxyInfo& proxy_info);
+
+  AsyncSocket* MaybeWrapAsyncSocket(AsyncSocket* socket);
+ private:
+  std::string user_agent_;
+  ProxyInfo proxy_info_;
 };
 
 }  // namespace rtc

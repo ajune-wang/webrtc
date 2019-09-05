@@ -97,12 +97,26 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateServerTcpSocket(
   return new AsyncTCPSocket(socket, true);
 }
 
+BasicPacketSocketFactoryWithProxy::BasicPacketSocketFactoryWithProxy(const std::string& user_agent, const ProxyInfo& proxy_info)
+    : user_agent_(user_agent), proxy_info_(proxy_info) {}
+
+AsyncSocket* BasicPacketSocketFactoryWithProxy::MaybeWrapAsyncSocket(AsyncSocket* socket) {
+  // If using a proxy, wrap the socket in a proxy socket.
+  if (proxy_info_.type == PROXY_SOCKS5) {
+    return new AsyncSocksProxySocket(
+        socket, proxy_info_.address, proxy_info_.username, proxy_info_.password);
+  } else if (proxy_info_.type == PROXY_info__HTTPS) {
+    return new AsyncHttpsProxySocket(socket, user_agent_, proxy_info_.address,
+                                     proxy_info_.username, proxy_info_.password);
+  } else {
+    return socket;
+  }
+}
+
 AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
     const SocketAddress& local_address,
     const SocketAddress& remote_address,
-    const ProxyInfo& proxy_info,
-    const std::string& user_agent,
-    const PacketSocketTcpOptions& tcp_options) {
+    const PacketSocketTcpOptions& opts) {
   AsyncSocket* socket =
       socket_factory()->CreateAsyncSocket(local_address.family(), SOCK_STREAM);
   if (!socket) {
@@ -123,20 +137,12 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
     }
   }
 
-  // If using a proxy, wrap the socket in a proxy socket.
-  if (proxy_info.type == PROXY_SOCKS5) {
-    socket = new AsyncSocksProxySocket(
-        socket, proxy_info.address, proxy_info.username, proxy_info.password);
-  } else if (proxy_info.type == PROXY_HTTPS) {
-    socket =
-        new AsyncHttpsProxySocket(socket, user_agent, proxy_info.address,
-                                  proxy_info.username, proxy_info.password);
-  }
+  socket = MaybeWrapAsyncSocket(socket);
 
   // Assert that at most one TLS option is used.
-  int tlsOpts = tcp_options.opts & (PacketSocketFactory::OPT_TLS |
-                                    PacketSocketFactory::OPT_TLS_FAKE |
-                                    PacketSocketFactory::OPT_TLS_INSECURE);
+  int tlsOpts = tcp_options_.opts & (PacketSocketFactory::OPT_TLS |
+                                     PacketSocketFactory::OPT_TLS_FAKE |
+                                     PacketSocketFactory::OPT_TLS_INSECURE);
   RTC_DCHECK((tlsOpts & (tlsOpts - 1)) == 0);
 
   if ((tlsOpts & PacketSocketFactory::OPT_TLS) ||
@@ -151,9 +157,9 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
       ssl_adapter->SetIgnoreBadCert(true);
     }
 
-    ssl_adapter->SetAlpnProtocols(tcp_options.tls_alpn_protocols);
-    ssl_adapter->SetEllipticCurves(tcp_options.tls_elliptic_curves);
-    ssl_adapter->SetCertVerifier(tcp_options.tls_cert_verifier);
+    ssl_adapter->SetAlpnProtocols(tcp_options_.tls_alpn_protocols);
+    ssl_adapter->SetEllipticCurves(tcp_options_.tls_elliptic_curves);
+    ssl_adapter->SetCertVerifier(tcp_options_.tls_cert_verifier);
 
     socket = ssl_adapter;
 
@@ -175,7 +181,7 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
 
   // Finally, wrap that socket in a TCP or STUN TCP packet socket.
   AsyncPacketSocket* tcp_socket;
-  if (tcp_options.opts & PacketSocketFactory::OPT_STUN) {
+  if (tcp_options_.opts & PacketSocketFactory::OPT_STUN) {
     tcp_socket = new cricket::AsyncStunTCPSocket(socket, false);
   } else {
     tcp_socket = new AsyncTCPSocket(socket, false);
@@ -186,25 +192,6 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
   tcp_socket->SetOption(Socket::OPT_NODELAY, 1);
 
   return tcp_socket;
-}
-
-AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
-    const SocketAddress& local_address,
-    const SocketAddress& remote_address,
-    const ProxyInfo& proxy_info,
-    const std::string& user_agent,
-    int opts) {
-  PacketSocketTcpOptions tcp_options;
-  tcp_options.opts = opts;
-  return CreateClientTcpSocket(local_address, remote_address, proxy_info,
-                               user_agent, tcp_options);
-}
-
-AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
-    const SocketAddress& local_address,
-    const SocketAddress& remote_address) {
-  return CreateClientTcpSocket(local_address, remote_address, ProxyInfo(), "",
-                               PacketSocketTcpOptions());
 }
 
 AsyncResolverInterface* BasicPacketSocketFactory::CreateAsyncResolver() {

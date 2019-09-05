@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afbb0eb7_5eedaf5d",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-05T11:59:00Z",
+      "side": 1,
+      "message": "Should these go into the new target as well?",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 139,
+        "endChar": 30
+      },
+      "revId": "c2aa1dbeee36be4b9775410d934ad338561e3303",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "056603af_09c187f6",
+        "filename": "api/packet_socket_factory.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-05T11:59:00Z",
+      "side": 1,
+      "message": "I think we can inline these.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 60
+      },
+      "revId": "c2aa1dbeee36be4b9775410d934ad338561e3303",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20ef1aa2_e56c88b1",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-05T11:59:00Z",
+      "side": 1,
+      "message": "Missing \")\".",
+      "range": {
+        "startLine": 247,
+        "startChar": 60,
+        "endLine": 247,
+        "endChar": 61
+      },
+      "revId": "c2aa1dbeee36be4b9775410d934ad338561e3303",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

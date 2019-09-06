@@ -153,6 +153,13 @@ class TestMainImpl : public TestMain {
   }
 
   int Run(int argc, char* argv[]) override {
+    std::string chartjson_result_file =
+        absl::GetFlag(FLAGS_isolated_script_test_perf_output);
+    if (!chartjson_result_file.empty()) {
+      webrtc::test::EnablePerfLoggingFeature(
+          webrtc::test::PerfLoggingFeature::kJson);
+    }
+
 #if defined(WEBRTC_IOS)
     rtc::test::InitTestSuite(RUN_ALL_TESTS, argc, argv,
                              absl::GetFlag(FLAGS_save_chartjson_result));
@@ -161,8 +168,6 @@ class TestMainImpl : public TestMain {
 #else
     int exit_code = RUN_ALL_TESTS();
 
-    std::string chartjson_result_file =
-        absl::GetFlag(FLAGS_isolated_script_test_perf_output);
     if (!chartjson_result_file.empty()) {
       webrtc::test::WritePerfResults(chartjson_result_file);
     }

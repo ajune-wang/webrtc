@@ -61,6 +61,12 @@ void PrintResultList(const std::string& measurement,
                      const std::string& units,
                      bool important);
 
+enum class PerfLoggingFeature { kStdOut, kJson };
+
+void EnablePerfLoggingFeature(PerfLoggingFeature feature);
+
+void DisablePerfLoggingFeature(PerfLoggingFeature feature);
+
 // Returns all perf results to date in a JSON string formatted as described in
 // https://github.com/catapult-project/catapult/blob/master/dashboard/docs/data-format.md
 std::string GetPerfResultsJSON();

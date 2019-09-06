@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87921e4b_324eb1df",
+        "filename": "test/peer_scenario/peer_scenario_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-09-06T08:43:38Z",
+      "side": 1,
+      "message": "\"std::move of the const variable \u0027sdp_offer\u0027 has no effect; remove std::move() or make the variable non-const [hicpp-move-const-arg]\"",
+      "revId": "c8d7ddc651907bc6746f73320354e00998f8e67d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

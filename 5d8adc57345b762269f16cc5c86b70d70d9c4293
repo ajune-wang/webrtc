@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8bcc0036_5e9f9544",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-09-06T13:32:58Z",
+      "side": 1,
+      "message": "Why \u0027buffering\u0027? This flag controls layer/frame dropping mode.",
+      "range": {
+        "startLine": 236,
+        "startChar": 6,
+        "endLine": 236,
+        "endChar": 22
+      },
+      "revId": "5d8adc57345b762269f16cc5c86b70d70d9c4293",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

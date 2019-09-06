@@ -22,6 +22,30 @@
       "revId": "5d8adc57345b762269f16cc5c86b70d70d9c4293",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcaf7eca_2f402d51",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-09-06T15:16:10Z",
+      "side": 1,
+      "message": "It also controls if we buffer frames before delivering them.\nThe confusion is, it has to be true for screenshare, in which we don\u0027t drop full superframe, yet buffering is not needed.",
+      "parentUuid": "8bcc0036_5e9f9544",
+      "range": {
+        "startLine": 236,
+        "startChar": 6,
+        "endLine": 236,
+        "endChar": 22
+      },
+      "revId": "5d8adc57345b762269f16cc5c86b70d70d9c4293",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cb6fbb54_5f7dfa6a",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-06T07:47:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0023a8b4_2d4b815c",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 31
+      },
+      "revId": "3be0446c3e037387bbfe67b34ac423be21893e91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe6b7938_cc679e06",
         "filename": "rtc_base/experiments/field_trial_parser.cc",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-09-05T17:06:27Z",
       "side": 1,
       "message": "Should FieldTrial/flag:/ set flag to the default value (which I assume is false) or set the flag to true?",
+      "range": {
+        "startLine": 102,
+        "startChar": 6,
+        "endLine": 102,
+        "endChar": 17
+      },
+      "revId": "3be0446c3e037387bbfe67b34ac423be21893e91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77dbf599_e4cb2aab",
+        "filename": "rtc_base/experiments/field_trial_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-06T07:47:51Z",
+      "side": 1,
+      "message": "Should be true, the canonical example is \"Enabled\", also compare with command line flags --dostuff \u003d\u003e bool dostuff \u003d true;",
+      "parentUuid": "fe6b7938_cc679e06",
       "range": {
         "startLine": 102,
         "startChar": 6,

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f9b97df_be6465aa",
+        "filename": "modules/audio_coding/neteq/tools/neteq_initial_packet_inserter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-09-06T12:23:02Z",
+      "side": 1,
+      "message": "can this still be nullptr?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 41
+      },
+      "revId": "1c825bd5080be703f3be6065f6c2dba59bffdea0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c322b131_57ab9cf1",
+        "filename": "modules/audio_coding/neteq/tools/neteq_initial_packet_inserter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-09-06T12:23:02Z",
+      "side": 1,
+      "message": "Maybe PacketInsertedNetEqInput?",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 32
+      },
+      "revId": "1c825bd5080be703f3be6065f6c2dba59bffdea0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1099e0e_1eabd17e",
+        "filename": "modules/audio_coding/neteq/tools/neteq_initial_packet_inserter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-09-06T12:23:02Z",
+      "side": 1,
+      "message": "add const?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 38
+      },
+      "revId": "1c825bd5080be703f3be6065f6c2dba59bffdea0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "280e0a51_87ba9a0d",
+        "filename": "modules/audio_coding/neteq/tools/neteq_initial_packet_inserter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-09-06T12:23:02Z",
+      "side": 1,
+      "message": "how about packets_to_insert",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 32
+      },
+      "revId": "1c825bd5080be703f3be6065f6c2dba59bffdea0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

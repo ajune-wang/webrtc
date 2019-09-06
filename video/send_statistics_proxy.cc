@@ -11,11 +11,15 @@
 #include "video/send_statistics_proxy.h"
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <limits>
 #include <utility>
 
 #include "absl/algorithm/container.h"
+#include "api/video/video_codec_constants.h"
+#include "api/video/video_codec_type.h"
+#include "api/video_codecs/video_codec.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -140,6 +144,8 @@ SendStatisticsProxy::SendStatisticsProxy(
       quality_limitation_reason_tracker_(clock_),
       media_byte_rate_tracker_(kBucketSizeMs, kBucketCount),
       encoded_frame_rate_tracker_(kBucketSizeMs, kBucketCount),
+      last_num_spatial_layers_(0),
+      last_spatial_layer_use_{},
       uma_container_(
           new UmaSamplesContainer(GetUmaPrefix(content_type_), stats_, clock)) {
 }
@@ -1102,6 +1108,32 @@ void SendStatisticsProxy::UpdateAdaptationStats(
       quality_limitation_reason_tracker_.current_reason();
   // |stats_.quality_limitation_durations_ms| depends on the current time
   // when it is polled; it is updated in SendStatisticsProxy::GetStats().
+}
+
+void SendStatisticsProxy::OnBitrateAllocationUpdated(
+    const VideoCodec& codec,
+    const VideoBitrateAllocation& allocation) {
+  int num_spatial_layers =
+      codec.codecType == kVideoCodecVP9 ? codec.VP9().numberOfSpatialLayers : 1;
+  num_spatial_layers = codec.numberOfSimulcastStreams * num_spatial_layers;
+
+  std::array<bool, kMaxSpatialLayers> spatial_layers;
+  for (int i = 0; i < kMaxSpatialLayers; i++) {
+    spatial_layers[i] = (allocation.GetSpatialLayerSum(i) > 0);
+  }
+
+  rtc::CritScope lock(&crit_);
+
+  if (spatial_layers != last_spatial_layer_use_) {
+    // If the number of spatial layers has changed, the resolution change is
+    // not due to quality limitations, it is because the configuration
+    // changed.
+    if (last_num_spatial_layers_ == num_spatial_layers) {
+      ++stats_.quality_limitation_resolution_changes;
+    }
+    last_spatial_layer_use_ = spatial_layers;
+  }
+  last_num_spatial_layers_ = num_spatial_layers;
 }
 
 // TODO(asapersson): Include fps changes.

@@ -71,7 +71,7 @@ class RenderDelayBufferImpl final : public RenderDelayBuffer {
   const Aec3Optimization optimization_;
   const EchoCanceller3Config config_;
   size_t down_sampling_factor_;
-  const int sub_block_size_;
+  const int ds_block_size_;
   BlockBuffer blocks_;
   SpectrumBuffer spectra_;
   FftBuffer ffts_;
@@ -80,6 +80,7 @@ class RenderDelayBufferImpl final : public RenderDelayBuffer {
   DownsampledRenderBuffer low_rate_;
   Decimator render_decimator_;
   const Aec3Fft fft_;
+  std::vector<float> decimator_input_;
   std::vector<float> render_ds_;
   const int buffer_headroom_;
   bool last_call_was_render_ = false;
@@ -118,9 +119,9 @@ RenderDelayBufferImpl::RenderDelayBufferImpl(const EchoCanceller3Config& config,
       optimization_(DetectOptimization()),
       config_(config),
       down_sampling_factor_(config.delay.down_sampling_factor),
-      sub_block_size_(static_cast<int>(down_sampling_factor_ > 0
-                                           ? kBlockSize / down_sampling_factor_
-                                           : kBlockSize)),
+      ds_block_size_(static_cast<int>(down_sampling_factor_ > 0
+                                          ? kBlockSize / down_sampling_factor_
+                                          : kBlockSize)),
       blocks_(GetRenderDelayBufferSize(down_sampling_factor_,
                                        config.delay.num_filters,
                                        config.filter.main.length_blocks),
@@ -135,7 +136,8 @@ RenderDelayBufferImpl::RenderDelayBufferImpl(const EchoCanceller3Config& config,
                                          config.delay.num_filters)),
       render_decimator_(down_sampling_factor_),
       fft_(),
-      render_ds_(sub_block_size_, 0.f),
+      decimator_input_(kBlockSize, 0.f),
+      render_ds_(ds_block_size_, 0.f),
       buffer_headroom_(config.filter.main.length_blocks) {
   RTC_DCHECK_EQ(blocks_.buffer.size(), ffts_.buffer.size());
   RTC_DCHECK_EQ(spectra_.buffer.size(), ffts_.buffer.size());
@@ -152,8 +154,8 @@ void RenderDelayBufferImpl::Reset() {
   min_latency_blocks_ = 0;
   excess_render_detection_counter_ = 0;
 
-  // Initialize the read index to one sub-block before the write index.
-  low_rate_.read = low_rate_.OffsetIndex(low_rate_.write, sub_block_size_);
+  // Initialize the read index to one block before the write index.
+  low_rate_.read = low_rate_.OffsetIndex(low_rate_.write, ds_block_size_);
 
   // Check for any external audio buffer delay and whether it is feasible.
   if (external_audio_buffer_delay_) {
@@ -373,9 +375,20 @@ void RenderDelayBufferImpl::InsertBlock(
     std::copy(block[k].begin(), block[k].end(), b.buffer[b.write][k].begin());
   }
 
-  data_dumper_->DumpWav("aec3_render_decimator_input", block[0][0].size(),
-                        block[0][0].data(), 16000, 1);
-  render_decimator_.Decimate(block[0][0], ds);
+  // Mix channels before decimation.
+  std::copy(block[0][0].begin(), block[0][0].end(), decimator_input_.begin());
+  if (config_.delay.downmix_before_delay_estimation) {
+    for (size_t channel = 1; channel < block[0].size(); channel++) {
+      const auto& data = block[0][channel];
+      for (size_t i = 0; i < kBlockSize; i++) {
+        decimator_input_[i] += data[i];
+      }
+    }
+  }
+
+  data_dumper_->DumpWav("aec3_render_decimator_input", decimator_input_.size(),
+                        decimator_input_.data(), 16000, 1);
+  render_decimator_.Decimate(decimator_input_, ds);
   data_dumper_->DumpWav("aec3_render_decimator_output", ds.size(), ds.data(),
                         16000 / down_sampling_factor_, 1);
   std::copy(ds.rbegin(), ds.rend(), lr.buffer.begin() + lr.write);
@@ -418,17 +431,17 @@ bool RenderDelayBufferImpl::DetectExcessRenderBlocks() {
   return excess_render_detected;
 }
 
-// Computes the latency in the buffer (the number of unread sub-blocks).
+// Computes the latency in the buffer (the number of unread low-rate blocks).
 int RenderDelayBufferImpl::BufferLatency() const {
   const DownsampledRenderBuffer& l = low_rate_;
   int latency_samples = (l.buffer.size() + l.read - l.write) % l.buffer.size();
-  int latency_blocks = latency_samples / sub_block_size_;
+  int latency_blocks = latency_samples / ds_block_size_;
   return latency_blocks;
 }
 
 // Increments the write indices for the render buffers.
 void RenderDelayBufferImpl::IncrementWriteIndices() {
-  low_rate_.UpdateWriteIndex(-sub_block_size_);
+  low_rate_.UpdateWriteIndex(-ds_block_size_);
   blocks_.IncWriteIndex();
   spectra_.DecWriteIndex();
   ffts_.DecWriteIndex();
@@ -436,7 +449,7 @@ void RenderDelayBufferImpl::IncrementWriteIndices() {
 
 // Increments the read indices of the low rate render buffers.
 void RenderDelayBufferImpl::IncrementLowRateReadIndices() {
-  low_rate_.UpdateReadIndex(-sub_block_size_);
+  low_rate_.UpdateReadIndex(-ds_block_size_);
 }
 
 // Increments the read indices for the render buffers.

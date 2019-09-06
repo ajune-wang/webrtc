@@ -63,12 +63,24 @@ RtpTransportControllerSend::RtpTransportControllerSend(
     NetworkControllerFactoryInterface* controller_factory,
     const BitrateConstraints& bitrate_config,
     std::unique_ptr<ProcessThread> process_thread,
-    TaskQueueFactory* task_queue_factory)
+    TaskQueueFactory* task_queue_factory,
+    const WebRtcKeyValueConfig* field_trials)
     : clock_(clock),
       event_log_(event_log),
       bitrate_configurator_(bitrate_config),
       process_thread_(std::move(process_thread)),
-      pacer_(clock, &packet_router_, event_log, nullptr, process_thread_.get()),
+      use_task_queue_pacer_(
+          field_trials->Lookup("WebRTC-TaskQueuePacer").find("Enabled") == 0),
+      process_thread_pacer_(clock,
+                            &packet_router_,
+                            event_log,
+                            field_trials,
+                            process_thread_.get()),
+      task_queue_pacer_(clock,
+                        &packet_router_,
+                        event_log,
+                        field_trials,
+                        task_queue_factory),
       observer_(nullptr),
       controller_factory_override_(controller_factory),
       controller_factory_fallback_(
@@ -148,15 +160,17 @@ void RtpTransportControllerSend::UpdateControlState() {
 }
 
 RtpPacketPacer* RtpTransportControllerSend::pacer() {
-  // TODO(bugs.webrtc.org/10809): Return reference to the correct
-  // pacer implementation.
-  return &pacer_;
+  if (use_task_queue_pacer_) {
+    return &task_queue_pacer_;
+  }
+  return &process_thread_pacer_;
 }
 
 const RtpPacketPacer* RtpTransportControllerSend::pacer() const {
-  // TODO(bugs.webrtc.org/10809): Return reference to the correct
-  // pacer implementation.
-  return &pacer_;
+  if (use_task_queue_pacer_) {
+    return &task_queue_pacer_;
+  }
+  return &process_thread_pacer_;
 }
 
 rtc::TaskQueue* RtpTransportControllerSend::GetWorkerQueue() {
@@ -178,9 +192,10 @@ RtpTransportControllerSend::transport_feedback_observer() {
 }
 
 RtpPacketSender* RtpTransportControllerSend::packet_sender() {
-  // TODO(bugs.webrtc.org/10809): Return reference to the correct
-  // pacer implementation.
-  return &pacer_;
+  if (use_task_queue_pacer_) {
+    return &task_queue_pacer_;
+  }
+  return &process_thread_pacer_;
 }
 
 void RtpTransportControllerSend::SetAllocatedSendBitrateLimits(

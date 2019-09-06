@@ -176,7 +176,7 @@ class PacingControllerTest : public ::testing::Test {
     srand(0);
     // Need to initialize PacingController after we initialize clock.
     pacer_ = absl::make_unique<PacingController>(&clock_, &callback_, nullptr,
-                                                 nullptr);
+                                                 nullptr, true);
     Init();
   }
 
@@ -291,7 +291,7 @@ class PacingControllerFieldTrialTest : public ::testing::Test {
 };
 
 TEST_F(PacingControllerFieldTrialTest, DefaultNoPaddingInSilence) {
-  PacingController pacer(&clock_, &callback_, nullptr, nullptr);
+  PacingController pacer(&clock_, &callback_, nullptr, nullptr, true);
   pacer.SetPacingRates(kTargetRate, DataRate::Zero());
   // Video packet to reset last send time and provide padding data.
   InsertPacket(&pacer, &video);
@@ -306,7 +306,7 @@ TEST_F(PacingControllerFieldTrialTest, DefaultNoPaddingInSilence) {
 
 TEST_F(PacingControllerFieldTrialTest, PaddingInSilenceWithTrial) {
   ScopedFieldTrials trial("WebRTC-Pacer-PadInSilence/Enabled/");
-  PacingController pacer(&clock_, &callback_, nullptr, nullptr);
+  PacingController pacer(&clock_, &callback_, nullptr, nullptr, true);
   pacer.SetPacingRates(kTargetRate, DataRate::Zero());
   // Video packet to reset last send time and provide padding data.
   InsertPacket(&pacer, &video);
@@ -321,7 +321,7 @@ TEST_F(PacingControllerFieldTrialTest, PaddingInSilenceWithTrial) {
 
 TEST_F(PacingControllerFieldTrialTest, DefaultCongestionWindowAffectsAudio) {
   EXPECT_CALL(callback_, SendPadding).Times(0);
-  PacingController pacer(&clock_, &callback_, nullptr, nullptr);
+  PacingController pacer(&clock_, &callback_, nullptr, nullptr, true);
   pacer.SetPacingRates(DataRate::bps(10000000), DataRate::Zero());
   pacer.SetCongestionWindow(DataSize::bytes(800));
   pacer.UpdateOutstandingData(DataSize::Zero());
@@ -345,7 +345,7 @@ TEST_F(PacingControllerFieldTrialTest,
        CongestionWindowDoesNotAffectAudioInTrial) {
   ScopedFieldTrials trial("WebRTC-Pacer-BlockAudio/Disabled/");
   EXPECT_CALL(callback_, SendPadding).Times(0);
-  PacingController pacer(&clock_, &callback_, nullptr, nullptr);
+  PacingController pacer(&clock_, &callback_, nullptr, nullptr, true);
   pacer.SetPacingRates(DataRate::bps(10000000), DataRate::Zero());
   pacer.SetCongestionWindow(DataSize::bytes(800));
   pacer.UpdateOutstandingData(DataSize::Zero());
@@ -360,7 +360,7 @@ TEST_F(PacingControllerFieldTrialTest,
 }
 
 TEST_F(PacingControllerFieldTrialTest, DefaultBudgetAffectsAudio) {
-  PacingController pacer(&clock_, &callback_, nullptr, nullptr);
+  PacingController pacer(&clock_, &callback_, nullptr, nullptr, true);
   pacer.SetPacingRates(
       DataRate::bps(video.packet_size / 3 * 8 * kProcessIntervalsPerSecond),
       DataRate::Zero());
@@ -383,7 +383,7 @@ TEST_F(PacingControllerFieldTrialTest, DefaultBudgetAffectsAudio) {
 TEST_F(PacingControllerFieldTrialTest, BudgetDoesNotAffectAudioInTrial) {
   ScopedFieldTrials trial("WebRTC-Pacer-BlockAudio/Disabled/");
   EXPECT_CALL(callback_, SendPadding).Times(0);
-  PacingController pacer(&clock_, &callback_, nullptr, nullptr);
+  PacingController pacer(&clock_, &callback_, nullptr, nullptr, true);
   pacer.SetPacingRates(
       DataRate::bps(video.packet_size / 3 * 8 * kProcessIntervalsPerSecond),
       DataRate::Zero());
@@ -613,8 +613,8 @@ TEST_F(PacingControllerTest, VerifyAverageBitrateVaryingMediaPayload) {
   const int kTimeStep = 5;
   const int64_t kBitrateWindow = 10000;
   PacingControllerPadding callback;
-  pacer_ =
-      absl::make_unique<PacingController>(&clock_, &callback, nullptr, nullptr);
+  pacer_ = absl::make_unique<PacingController>(&clock_, &callback, nullptr,
+                                               nullptr, true);
   pacer_->SetProbingEnabled(false);
   pacer_->SetPacingRates(kTargetRate * kPaceMultiplier, kTargetRate);
 
@@ -1067,7 +1067,7 @@ TEST_F(PacingControllerTest, ProbingWithInsertedPackets) {
 
   PacingControllerProbing packet_sender;
   pacer_ = absl::make_unique<PacingController>(&clock_, &packet_sender, nullptr,
-                                               nullptr);
+                                               nullptr, true);
   pacer_->CreateProbeCluster(kFirstClusterRate,
                              /*cluster_id=*/0);
   pacer_->CreateProbeCluster(kSecondClusterRate,
@@ -1114,7 +1114,7 @@ TEST_F(PacingControllerTest, ProbingWithPaddingSupport) {
 
   PacingControllerProbing packet_sender;
   pacer_ = absl::make_unique<PacingController>(&clock_, &packet_sender, nullptr,
-                                               nullptr);
+                                               nullptr, true);
   pacer_->CreateProbeCluster(kFirstClusterRate,
                              /*cluster_id=*/0);
   pacer_->SetPacingRates(DataRate::bps(kInitialBitrateBps * kPaceMultiplier),
@@ -1173,8 +1173,8 @@ TEST_F(PacingControllerTest, PaddingOveruse) {
 TEST_F(PacingControllerTest, ProbeClusterId) {
   MockPacketSender callback;
 
-  pacer_ =
-      absl::make_unique<PacingController>(&clock_, &callback, nullptr, nullptr);
+  pacer_ = absl::make_unique<PacingController>(&clock_, &callback, nullptr,
+                                               nullptr, true);
   Init();
 
   uint32_t ssrc = 12346;
@@ -1227,8 +1227,8 @@ TEST_F(PacingControllerTest, ProbeClusterId) {
 
 TEST_F(PacingControllerTest, OwnedPacketPrioritizedOnType) {
   MockPacketSender callback;
-  pacer_ =
-      absl::make_unique<PacingController>(&clock_, &callback, nullptr, nullptr);
+  pacer_ = absl::make_unique<PacingController>(&clock_, &callback, nullptr,
+                                               nullptr, true);
   Init();
 
   // Insert a packet of each type, from low to high priority. Since priority

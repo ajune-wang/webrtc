@@ -22,6 +22,30 @@
       "revId": "0c3b8b2cd751c6a26d0c0ea5e43042c1c960e9fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3226af7c_6a44b881",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-06T06:54:08Z",
+      "side": 1,
+      "message": "Except for the RTC_DCHECK on line 162 above or 192 below, which forbids passing a null socket_factory.. Is it better to delete the DCHECKs?",
+      "parentUuid": "7089b4f5_2594d888",
+      "range": {
+        "startLine": 177,
+        "startChar": 62,
+        "endLine": 177,
+        "endChar": 74
+      },
+      "revId": "0c3b8b2cd751c6a26d0c0ea5e43042c1c960e9fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

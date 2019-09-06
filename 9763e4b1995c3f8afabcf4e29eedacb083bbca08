@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "414d9495_769730ac",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-06T02:32:47Z",
+      "side": 1,
+      "message": "Use a lambda here instead of giving the comparison function a name?",
+      "range": {
+        "startLine": 57,
+        "startChar": 27,
+        "endLine": 57,
+        "endChar": 46
+      },
+      "revId": "9763e4b1995c3f8afabcf4e29eedacb083bbca08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "634e6ee2_1485ce32",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-06T02:32:47Z",
+      "side": 1,
+      "message": "Move this class into SampleStatsCounter?",
+      "revId": "9763e4b1995c3f8afabcf4e29eedacb083bbca08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0236886e_58b14cad",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-06T02:32:47Z",
+      "side": 1,
+      "message": "Reserve the correct amount of space in the vector?",
+      "revId": "9763e4b1995c3f8afabcf4e29eedacb083bbca08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

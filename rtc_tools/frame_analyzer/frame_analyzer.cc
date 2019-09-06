@@ -105,6 +105,13 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
+  std::string chartjson_result_file =
+      absl::GetFlag(FLAGS_chartjson_result_file);
+  if (!chartjson_result_file.empty()) {
+    webrtc::test::EnablePerfLoggingFeature(
+        webrtc::test::PerfLoggingFeature::kJson);
+  }
+
   webrtc::test::ResultsContainer results;
 
   rtc::scoped_refptr<webrtc::test::Video> reference_video =
@@ -161,8 +168,6 @@ int main(int argc, char* argv[]) {
 
   webrtc::test::PrintAnalysisResults(absl::GetFlag(FLAGS_label), &results);
 
-  std::string chartjson_result_file =
-      absl::GetFlag(FLAGS_chartjson_result_file);
   if (!chartjson_result_file.empty()) {
     webrtc::test::WritePerfResults(chartjson_result_file);
   }

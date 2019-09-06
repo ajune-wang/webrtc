@@ -106,6 +106,8 @@ TEST(IsacFixTest, Kenny) {
   int endfile;
 
   const char* chartjson_result_file = NULL;
+  webrtc::test::EnablePerfLoggingFeature(
+      webrtc::test::PerfLoggingFeature::kJson);
 
   int i;
   int errtype, h = 0, k, packetLossPercent = 0;

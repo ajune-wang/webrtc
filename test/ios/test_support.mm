@@ -71,6 +71,10 @@ static bool g_save_chartjson_result;
 }
 
 - (void)runTests {
+  if (g_save_chartjson_result) {
+    webrtc::test::EnablePerfLoggingFeature(webrtc::test::PerfLoggingFeature::kJson);
+  }
+
   rtc::test::ConfigureCoverageReportPath();
 
   int exitStatus = g_test_suite();

@@ -159,10 +159,15 @@ class TestMainImpl : public TestMain {
     rtc::test::RunTestsFromIOSApp();
     return 0;
 #else
-    int exit_code = RUN_ALL_TESTS();
-
     std::string chartjson_result_file =
         absl::GetFlag(FLAGS_isolated_script_test_perf_output);
+    if (!chartjson_result_file.empty()) {
+      webrtc::test::EnablePerfLoggingFeature(
+          webrtc::test::PerfLoggingFeature::kJson);
+    }
+
+    int exit_code = RUN_ALL_TESTS();
+
     if (!chartjson_result_file.empty()) {
       webrtc::test::WritePerfResults(chartjson_result_file);
     }

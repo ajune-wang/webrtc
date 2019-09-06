@@ -91,6 +91,7 @@ TEST_F(PerfTest, MAYBE_TestPrintResult) {
 }
 
 TEST_F(PerfTest, TestGetPerfResultsJSON) {
+  EnablePerfLoggingFeature(PerfLoggingFeature::kJson);
   PrintResult("measurement", "modifier", "trace", 42, "units", false);
   PrintResult("foo", "bar", "baz_v", 7, "widgets", true);
   PrintResultMeanAndError("foo", "bar", "baz_me", 1, 2, "lemurs", false);
@@ -101,6 +102,7 @@ TEST_F(PerfTest, TestGetPerfResultsJSON) {
 }
 
 TEST_F(PerfTest, TestClearPerfResults) {
+  EnablePerfLoggingFeature(PerfLoggingFeature::kJson);
   PrintResult("measurement", "modifier", "trace", 42, "units", false);
   ClearPerfResults();
   EXPECT_EQ(R"({"format_version":"1.0","charts":{}})", GetPerfResultsJSON());

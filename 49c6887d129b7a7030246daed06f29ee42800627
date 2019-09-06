@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b95ff05d_c6c54fe1",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-09-06T11:50:31Z",
+      "side": 1,
+      "message": "A brief description of these fields would be nice.",
+      "range": {
+        "startLine": 672,
+        "startChar": 0,
+        "endLine": 672,
+        "endChar": 46
+      },
+      "revId": "49c6887d129b7a7030246daed06f29ee42800627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "feceea45_61b47578",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2255,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-09-06T11:50:31Z",
+      "side": 1,
+      "message": "How often do we expect these to be generated?",
+      "range": {
+        "startLine": 2255,
+        "startChar": 0,
+        "endLine": 2255,
+        "endChar": 60
+      },
+      "revId": "49c6887d129b7a7030246daed06f29ee42800627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

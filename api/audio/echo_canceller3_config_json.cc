@@ -171,6 +171,8 @@ void Aec3ConfigFromJsonString(absl::string_view json_string,
 
     ReadParam(section, "use_external_delay_estimator",
               &cfg.delay.use_external_delay_estimator);
+    ReadParam(section, "downmix_before_delay_estimation",
+              &cfg.delay.downmix_before_delay_estimation);
   }
 
   if (rtc::GetValueFromJsonObject(aec3_root, "filter", &section)) {

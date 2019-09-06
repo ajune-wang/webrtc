@@ -186,6 +186,10 @@ JsepTransport::~JsepTransport() {
     media_transport_.reset();
   }
 
+  if (sctp_transport_) {
+    sctp_transport_->Clear();
+  }
+
   // Clear all DtlsTransports. There may be pointers to these from
   // other places, so we can't assume they'll be deleted by the destructor.
   rtp_dtls_transport_->Clear();

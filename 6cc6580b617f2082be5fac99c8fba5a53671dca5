@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "ff883ca1_02148507",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-09-06T08:13:05Z",
+      "side": 1,
+      "message": "And now, it\u0027s not needed, as you can use rtc::VideoSinkInterface\u003cVideoFrame\u003e instead.",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "6cc6580b617f2082be5fac99c8fba5a53671dca5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8383bab1_f2dd73b3",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-09-06T08:13:05Z",
+      "side": 1,
+      "message": "nit: When it\u0027s a derivative of a VideoSinkInterface, IMHO you can remove \"Listener\" from the name. Just VideoWriter, which is a VideoSink - it\u0027s a common naming patter in webrtc.",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 25
+      },
+      "revId": "6cc6580b617f2082be5fac99c8fba5a53671dca5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00bb3620_436beff8",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-09-06T08:13:05Z",
+      "side": 1,
+      "message": "nit: sinks",
+      "range": {
+        "startLine": 48,
+        "startChar": 19,
+        "endLine": 48,
+        "endChar": 28
+      },
+      "revId": "6cc6580b617f2082be5fac99c8fba5a53671dca5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04140b46_656b7762",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-09-06T08:13:05Z",
+      "side": 1,
+      "message": "nit: sinks",
+      "range": {
+        "startLine": 55,
+        "startChar": 55,
+        "endLine": 55,
+        "endChar": 64
+      },
+      "revId": "6cc6580b617f2082be5fac99c8fba5a53671dca5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d3d8970_7f9cb5d9",
         "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
         "patchSetId": 1

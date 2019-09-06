@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c76b47c5_7541d6b3",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-06T10:05:04Z",
+      "side": 1,
+      "message": "\"const char*\" to avoid to build temporaries?",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 11
+      },
+      "revId": "e4a0e155fbd54851d520065c1e7a93cd1cf2e6f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9df43bd_19ce7d3e",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-06T10:05:04Z",
+      "side": 1,
+      "message": "I am not sure \"Featured\"is expressive enough. Maybe \"Composite\", or maybe just call it PerfResultsLogger.",
+      "range": {
+        "startLine": 248,
+        "startChar": 6,
+        "endLine": 248,
+        "endChar": 14
+      },
+      "revId": "e4a0e155fbd54851d520065c1e7a93cd1cf2e6f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d789e1a6_46f09779",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-06T10:05:04Z",
+      "side": 1,
+      "message": "I am leaning towards crashing. This is test code and among a lot of logs this is can end up in leaving useless things around.",
+      "range": {
+        "startLine": 273,
+        "startChar": 6,
+        "endLine": 274,
+        "endChar": 47
+      },
+      "revId": "e4a0e155fbd54851d520065c1e7a93cd1cf2e6f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1983e25_5ccdadc3",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-06T10:05:04Z",
+      "side": 1,
+      "message": "Same here (see below), in the future someone will trip on these so it is better to provide a good message about how to enable such feature.",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 34
+      },
+      "revId": "e4a0e155fbd54851d520065c1e7a93cd1cf2e6f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fa5c26f_1d2fc9d2",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-06T10:05:04Z",
+      "side": 1,
+      "message": "We can say something more here, e.g. invoke \"webrtc::test::EnablePerfLoggingFeature(webrtc::test::PerfLoggingFeature::kJson);\" in your test main.",
+      "range": {
+        "startLine": 291,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 34
+      },
+      "revId": "e4a0e155fbd54851d520065c1e7a93cd1cf2e6f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

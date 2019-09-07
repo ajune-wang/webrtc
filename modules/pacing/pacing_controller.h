@@ -69,10 +69,13 @@ class PacingController {
   // to lack of feedback.
   static const TimeDelta kPausedProcessInterval;
 
+  static const TimeDelta kMinSleepDuration;
+
   PacingController(Clock* clock,
                    PacketSender* packet_sender,
                    RtcEventLog* event_log,
-                   const WebRtcKeyValueConfig* field_trials);
+                   const WebRtcKeyValueConfig* field_trials,
+                   bool use_interval_budget);
 
   ~PacingController();
 
@@ -143,12 +146,14 @@ class PacingController {
   void UpdateBudgetWithSentData(DataSize size);
 
   DataSize PaddingToAdd(absl::optional<DataSize> recommended_probe_size,
-                        DataSize data_sent);
+                        DataSize data_sent) const;
 
   RoundRobinPacketQueue::QueuedPacket* GetPendingPacket(
       const PacedPacketInfo& pacing_info);
   void OnPacketSent(RoundRobinPacketQueue::QueuedPacket* packet);
   void OnPaddingSent(DataSize padding_sent);
+
+  bool CanUseMediaBudget() const;
 
   Timestamp CurrentTime() const;
 
@@ -160,12 +165,19 @@ class PacingController {
   const bool drain_large_queues_;
   const bool send_padding_if_silent_;
   const bool pace_audio_;
+  const bool use_interval_budget_;
+
   TimeDelta min_packet_limit_;
 
   // TODO(webrtc:9716): Remove this when we are certain clocks are monotonic.
   // The last millisecond timestamp returned by |clock_|.
   mutable Timestamp last_timestamp_;
   bool paused_;
+
+  // If |use_interval_budget_| is true, |media_budget_| and |padding_budget_|
+  // will be used to track when packets can be sent. Otherwise the media and
+  // padding debt counters will be used together with the target rates.
+
   // This is the media budget, keeping track of how many bits of media
   // we can pace out during the current interval.
   IntervalBudget media_budget_;
@@ -174,9 +186,13 @@ class PacingController {
   // utilized when there's no media to send.
   IntervalBudget padding_budget_;
 
+  DataSize media_debt_;
+  DataSize padding_debt_;
+  DataRate media_rate_;
+  DataRate padding_rate_;
+
   BitrateProber prober_;
   bool probing_send_failure_;
-  bool padding_failure_state_;
 
   DataRate pacing_bitrate_;
 

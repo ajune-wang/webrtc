@@ -415,12 +415,13 @@ Call* Call::Create(const Call::Config& config,
                    std::unique_ptr<ProcessThread> call_thread,
                    std::unique_ptr<ProcessThread> pacer_thread) {
   RTC_DCHECK(config.task_queue_factory);
+  FieldTrialBasedConfig field_trials;
   return new internal::Call(
       clock, config,
       absl::make_unique<RtpTransportControllerSend>(
           clock, config.event_log, config.network_state_predictor_factory,
           config.network_controller_factory, config.bitrate_config,
-          std::move(pacer_thread), config.task_queue_factory),
+          std::move(pacer_thread), config.task_queue_factory, &field_trials),
       std::move(call_thread), config.task_queue_factory);
 }
 

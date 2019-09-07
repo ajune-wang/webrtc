@@ -129,7 +129,8 @@ class RtpVideoSenderTestFixture {
                               nullptr,
                               bitrate_config_,
                               ProcessThread::Create("PacerThread"),
-                              task_queue_factory_.get()),
+                              task_queue_factory_.get(),
+                              &field_trials_),
         process_thread_(ProcessThread::Create("test_thread")),
         call_stats_(&clock_, process_thread_.get()),
         stats_proxy_(&clock_,
@@ -164,6 +165,7 @@ class RtpVideoSenderTestFixture {
   SimulatedClock& clock() { return clock_; }
 
  private:
+  const FieldTrialBasedConfig field_trials_;
   NiceMock<MockTransport> transport_;
   NiceMock<MockRtcpIntraFrameObserver> encoder_feedback_;
   SimulatedClock clock_;

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6912c96_13b053a8",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 9753
+      },
+      "writtenOn": "2019-09-07T21:51:08Z",
+      "side": 0,
+      "message": "Is there a way to relax the build time dependency since it seems to be handled at runtime to keep the old behavior?\n\nFAILED: deb_chrome.deps \npython ../../chrome/installer/linux/debian/calculate_package_deps.py chrome ../../build/linux/debian_sid_amd64-sysroot x64 deb_chrome.deps --distro-check\nDependency libxrandr2 (\u003e\u003d 2:1.5.0) not satisfiable on distro Debian 8 (Jessie) caused by binary chrome",
+      "revId": "c2accf2de53a435aa2b96e1f0676239ca7cadd2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

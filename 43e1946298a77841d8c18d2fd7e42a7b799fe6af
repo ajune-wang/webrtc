@@ -22,6 +22,30 @@
       "revId": "43e1946298a77841d8c18d2fd7e42a7b799fe6af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04c0d033_4c567ad3",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-09-09T11:38:18Z",
+      "side": 1,
+      "message": "Done.\nWe don\u0027t expect more extensions to this method, so while I considered it, I don\u0027t think using a struct here would make sense.",
+      "parentUuid": "aa8d2b01_a7d1a2e3",
+      "range": {
+        "startLine": 92,
+        "startChar": 41,
+        "endLine": 92,
+        "endChar": 62
+      },
+      "revId": "43e1946298a77841d8c18d2fd7e42a7b799fe6af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

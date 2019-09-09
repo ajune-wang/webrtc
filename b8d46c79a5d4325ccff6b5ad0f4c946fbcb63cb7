@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4e2d532f_56026627",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2019-09-09T08:34:38Z",
+      "side": 1,
+      "message": "Not sure where the svc streams are.\n\nI can change this to check the active setting of each stream instead of just the count. Without checking the spatial layers then VP9 does not work.",
+      "parentUuid": "6a5659f4_95e35dc4",
+      "range": {
+        "startLine": 1116,
+        "startChar": 2,
+        "endLine": 1118,
+        "endChar": 75
+      },
+      "revId": "b8d46c79a5d4325ccff6b5ad0f4c946fbcb63cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70e8701e_b125e25f",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "b8d46c79a5d4325ccff6b5ad0f4c946fbcb63cb7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "681a7318_6540ba8f",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2019-09-09T08:34:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "70e8701e_b125e25f",
+      "range": {
+        "startLine": 1120,
+        "startChar": 7,
+        "endLine": 1120,
+        "endChar": 12
+      },
+      "revId": "b8d46c79a5d4325ccff6b5ad0f4c946fbcb63cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

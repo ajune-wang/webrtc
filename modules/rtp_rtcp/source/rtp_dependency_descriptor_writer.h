@@ -11,7 +11,9 @@
 #define MODULES_RTP_RTCP_SOURCE_RTP_DEPENDENCY_DESCRIPTOR_WRITER_H_
 
 #include <cstdint>
+#include <vector>
 
+#include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "common_video/generic_frame_descriptor/generic_frame_info.h"
 
@@ -22,26 +24,38 @@ class RtpDependencyDescriptorWriter {
   // Returns minimum number of bits needed to serialize descriptor with respect
   // to current FrameDependencyStructure. Returns 0 if |descriptor| can't be
   // serialized.
-  size_t ValueSizeBits(const DependencyDescriptor& descriptor) const {
-    // TODO(bugs.webrtc.org/10342): Implement.
-    return 0;
-  }
+  size_t ValueSizeBits(const DependencyDescriptor& descriptor) const;
   size_t ValueSizeBytes(const DependencyDescriptor& descriptor) const {
     return (ValueSizeBits(descriptor) + 7) / 8;
   }
 
   bool Write(const DependencyDescriptor& frame_info,
-             rtc::ArrayView<uint8_t> raw_data) const {
-    // TODO(bugs.webrtc.org/10342): Implement.
-    return false;
-  }
+             rtc::ArrayView<uint8_t> raw_data) const;
 
   // Sets FrameDependencyStructure to derive individual descriptors from.
   // Returns false on failure, e.g. structure is invalid or oversized.
-  bool SetStructure(const FrameDependencyStructure& structure) {
-    // TODO(bugs.webrtc.org/10342): Implement.
-    return false;
-  }
+  bool SetStructure(const FrameDependencyStructure& structure);
+
+ private:
+  using TemplateIndex = std::vector<FrameDependencyTemplate>::const_iterator;
+  struct TemplateMatch {
+    // Template from the frame_dependency_structure_->templates
+    TemplateIndex template_index;
+    bool need_custom_fdiffs;
+    bool need_custom_dtis;
+    bool need_custom_chains;
+    // Size in bits to store frame-specific details, i.e.
+    // excluding Mandatory fields and excluding template dependency structure.
+    int extra_size_bits;
+  };
+  TemplateMatch AdditionalSizeBits(const DependencyDescriptor& descriptor,
+                                   TemplateIndex frame_template) const;
+  absl::optional<TemplateMatch> FindBestTemplate(
+      const DependencyDescriptor& descriptor) const;
+
+  // Size needed to serialize |frame_dependency_structure_|.
+  size_t structure_size_bits_ = 0;
+  absl::optional<FrameDependencyStructure> frame_dependency_structure_;
 };
 
 }  // namespace webrtc

@@ -46,6 +46,30 @@
       "revId": "5d8adc57345b762269f16cc5c86b70d70d9c4293",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b822d11_211cf4af",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-09-09T07:58:44Z",
+      "side": 1,
+      "message": "Frame buffering is needed to set end-of-frame flag correctly when encoder is allowed to drop upper layers. I.e. it depends on frame dropping mode but not vice verse.\n\nMaybe split this this flag into two?:\n1. layer dropping mode\n2. layer buffering mode",
+      "parentUuid": "fcaf7eca_2f402d51",
+      "range": {
+        "startLine": 236,
+        "startChar": 6,
+        "endLine": 236,
+        "endChar": 22
+      },
+      "revId": "5d8adc57345b762269f16cc5c86b70d70d9c4293",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

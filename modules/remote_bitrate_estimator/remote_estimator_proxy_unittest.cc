@@ -11,6 +11,7 @@
 #include "modules/remote_bitrate_estimator/remote_estimator_proxy.h"
 
 #include "api/transport/field_trial_based_config.h"
+#include "api/transport/test/mock_network_control.h"
 #include "modules/pacing/packet_router.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 #include "system_wrappers/include/clock.h"
@@ -61,27 +62,48 @@ class MockTransportFeedbackSender : public TransportFeedbackSenderInterface {
  public:
   MOCK_METHOD1(SendTransportFeedback,
                bool(rtcp::TransportFeedback* feedback_packet));
+  MOCK_METHOD1(SendNetworkStateEstimatePacket,
+               void(rtcp::RemoteEstimate* packet));
 };
 
 class RemoteEstimatorProxyTest : public ::testing::Test {
  public:
   RemoteEstimatorProxyTest()
-      : clock_(0), proxy_(&clock_, &router_, &field_trial_config_) {}
+      : clock_(0),
+        proxy_(&clock_,
+               &router_,
+               &field_trial_config_,
+               &network_state_estimator_) {}
 
  protected:
+  void IncomingPacket(uint16_t seq, int64_t time_ms) {
+    proxy_.IncomingPacket(time_ms, kDefaultPacketSize,
+                          CreateHeader(seq, absl::nullopt, absl::nullopt));
+  }
   void IncomingPacket(uint16_t seq,
                       int64_t time_ms,
                       absl::optional<FeedbackRequest> feedback_request) {
+    proxy_.IncomingPacket(time_ms, kDefaultPacketSize,
+                          CreateHeader(seq, feedback_request, absl::nullopt));
+  }
+
+  RTPHeader CreateHeader(uint16_t seq,
+                         absl::optional<FeedbackRequest> feedback_request,
+                         absl::optional<uint32_t> absolute_send_time) {
     RTPHeader header;
     header.extension.hasTransportSequenceNumber = true;
     header.extension.transportSequenceNumber = seq;
     header.extension.feedback_request = feedback_request;
+    if (absolute_send_time) {
+      header.extension.hasAbsoluteSendTime = true;
+      header.extension.absoluteSendTime = absolute_send_time.value();
+    }
     header.ssrc = kMediaSsrc;
-    proxy_.IncomingPacket(time_ms, kDefaultPacketSize, header);
+    return header;
   }
 
-  void IncomingPacket(uint16_t seq, int64_t time_ms) {
-    IncomingPacket(seq, time_ms, absl::nullopt);
+  void IncomingPacket(uint16_t seq, int64_t time_ms, const RTPHeader& header) {
+    proxy_.IncomingPacket(time_ms, kDefaultPacketSize, header);
   }
 
   void Process() {
@@ -92,6 +114,7 @@ class RemoteEstimatorProxyTest : public ::testing::Test {
   FieldTrialBasedConfig field_trial_config_;
   SimulatedClock clock_;
   ::testing::StrictMock<MockTransportFeedbackSender> router_;
+  ::testing::NiceMock<MockNetworkStateEstimator> network_state_estimator_;
   RemoteEstimatorProxy proxy_;
 };
 
@@ -497,6 +520,31 @@ TEST_F(RemoteEstimatorProxyOnRequestTest,
       /*include_timestamps=*/true, /*sequence_count=*/5};
   IncomingPacket(kBaseSeq + i, kBaseTimeMs + i * kMaxSmallDeltaMs,
                  kFivePacketsFeedbackRequest);
+}
+
+TEST_F(RemoteEstimatorProxyTest, ReportsIncomingPacketToNetworkStateEstimator) {
+  EXPECT_CALL(network_state_estimator_, OnReceivedPacket(_))
+      .WillOnce(Invoke([](const PacketResult& packet) {
+        EXPECT_EQ(packet.receive_time, Timestamp::ms(kBaseTimeMs));
+        EXPECT_EQ(packet.sent_packet.send_time.ms(), kBaseTimeMs - 1);
+      }));
+  proxy_.IncomingPacket(
+      kBaseTimeMs, kDefaultPacketSize,
+      CreateHeader(kBaseSeq, absl::nullopt,
+                   AbsoluteSendTime::MsTo24Bits(kBaseTimeMs - 1)));
+}
+
+TEST_F(RemoteEstimatorProxyTest, SendTransportFeedbackAndNetworkStateUpdate) {
+  proxy_.IncomingPacket(
+      kBaseTimeMs, kDefaultPacketSize,
+      CreateHeader(kBaseSeq, absl::nullopt,
+                   AbsoluteSendTime::MsTo24Bits(kBaseTimeMs - 1)));
+
+  EXPECT_CALL(router_, SendTransportFeedback(_));
+  EXPECT_CALL(network_state_estimator_, GetCurrentEstimate())
+      .WillOnce(Return(NetworkStateEstimate()));
+  EXPECT_CALL(router_, SendNetworkStateEstimatePacket(_));
+  Process();
 }
 
 }  // namespace

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a5659f4_95e35dc4",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-09-09T07:02:27Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is enough. There\u0027s the active flag to take into account as well. Eg on a reconfig the number spatial layers may stay the same but the active flag is set to false for some of them.\n\nNot sure you need to consider simulcast of svc streams though, I can\u0027t see how we can even support that without massive changes.",
+      "range": {
+        "startLine": 1116,
+        "startChar": 2,
+        "endLine": 1118,
+        "endChar": 75
+      },
+      "revId": "b8d46c79a5d4325ccff6b5ad0f4c946fbcb63cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70e8701e_b125e25f",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-09-09T07:02:27Z",
+      "side": 1,
+      "message": "absl::InlinedVector may be useful here - it has a compile time max size just like std::array but can be used like vector otherwise. Then you don\u0027t need the extra num_spatial_layers.",
+      "range": {
+        "startLine": 1120,
+        "startChar": 7,
+        "endLine": 1120,
+        "endChar": 12
+      },
+      "revId": "b8d46c79a5d4325ccff6b5ad0f4c946fbcb63cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

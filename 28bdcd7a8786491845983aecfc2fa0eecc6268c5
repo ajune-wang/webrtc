@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ef0541a_50ad2cfb",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-09T14:16:06Z",
+      "side": 1,
+      "message": "nit: due",
+      "range": {
+        "startLine": 46,
+        "startChar": 77,
+        "endLine": 46,
+        "endChar": 79
+      },
+      "revId": "28bdcd7a8786491845983aecfc2fa0eecc6268c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d7888a2_b1006db4",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-09T14:16:06Z",
+      "side": 1,
+      "message": "Can you clarify in the comment why they are too large? Is it a problem that you encountered while making the CL, or that you know from experience may become an issue?\n\nI got the impression from offline discussion that the issue was that the number of channels now has variable length.",
+      "range": {
+        "startLine": 47,
+        "startChar": 10,
+        "endLine": 47,
+        "endChar": 48
+      },
+      "revId": "28bdcd7a8786491845983aecfc2fa0eecc6268c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b90c0c07_869d2758",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-09T14:16:06Z",
+      "side": 1,
+      "message": "Does it make sense to always keep up to two channels on the stack, and the rest on heap? Or does that make the code too messy?",
+      "range": {
+        "startLine": 49,
+        "startChar": 57,
+        "endLine": 49,
+        "endChar": 77
+      },
+      "revId": "28bdcd7a8786491845983aecfc2fa0eecc6268c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76b7e10a_10699c80",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-09T14:16:06Z",
+      "side": 1,
+      "message": "Shouldn\u0027t these be initialized to size NumChannelsOnHeap(num_capture_channels_)?",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 52
+      },
+      "revId": "28bdcd7a8786491845983aecfc2fa0eecc6268c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5d6fe3f_5dec382f",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-09T14:16:06Z",
+      "side": 1,
+      "message": "nit: \"If the stack-allocated space is too small\" or \"stack-allocated arrays\" is a little easier to read, \u0027data\u0027 is used in multiple ways in this sentence.",
+      "range": {
+        "startLine": 267,
+        "startChar": 7,
+        "endLine": 267,
+        "endChar": 37
+      },
+      "revId": "28bdcd7a8786491845983aecfc2fa0eecc6268c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

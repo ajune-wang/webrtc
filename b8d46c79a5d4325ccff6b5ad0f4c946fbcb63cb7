@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "21826492_edd0790b",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2019-09-09T10:58:12Z",
+      "side": 1,
+      "message": "Fixed in the latest patch.",
+      "parentUuid": "4e2d532f_56026627",
+      "range": {
+        "startLine": 1116,
+        "startChar": 2,
+        "endLine": 1118,
+        "endChar": 75
+      },
+      "revId": "b8d46c79a5d4325ccff6b5ad0f4c946fbcb63cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70e8701e_b125e25f",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 9

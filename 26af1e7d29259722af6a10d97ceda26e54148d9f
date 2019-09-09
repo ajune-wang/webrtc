@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7efb7f95_56f53fe0",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-09T16:06:36Z",
+      "side": 1,
+      "message": "Tries\n\nhttps://google.github.io/styleguide/cppguide.html#Function_Comments\n\n\"These comments should open with descriptive verbs in the indicative mood (\"Opens the file\") rather than verbs in the imperative (\"Open the file\").\"",
+      "range": {
+        "startLine": 92,
+        "startChar": 5,
+        "endLine": 92,
+        "endChar": 8
+      },
+      "revId": "26af1e7d29259722af6a10d97ceda26e54148d9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

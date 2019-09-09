@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a126b2c_588b3807",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-09T17:19:16Z",
+      "side": 1,
+      "message": "I can do that, but shouldn\u0027t that be at the source? The NetworkStateEstimate struct? What will be the source of truth if one, but not the other, description is updated?",
+      "parentUuid": "b95ff05d_c6c54fe1",
+      "range": {
+        "startLine": 672,
+        "startChar": 0,
+        "endLine": 672,
+        "endChar": 46
+      },
+      "revId": "49c6887d129b7a7030246daed06f29ee42800627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "feceea45_61b47578",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-09-06T11:50:31Z",
       "side": 1,
       "message": "How often do we expect these to be generated?",
+      "range": {
+        "startLine": 2255,
+        "startChar": 0,
+        "endLine": 2255,
+        "endChar": 60
+      },
+      "revId": "49c6887d129b7a7030246daed06f29ee42800627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "add013a8_7fe5ddfe",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2255,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-09T17:19:16Z",
+      "side": 1,
+      "message": "Currently we are looking at roughly once per feedback packet.",
+      "parentUuid": "feceea45_61b47578",
       "range": {
         "startLine": 2255,
         "startChar": 0,

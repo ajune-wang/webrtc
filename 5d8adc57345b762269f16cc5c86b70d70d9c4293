@@ -70,6 +70,30 @@
       "revId": "5d8adc57345b762269f16cc5c86b70d70d9c4293",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b797de8_9d55471a",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-09-09T08:13:47Z",
+      "side": 1,
+      "message": "Great idea, thank you! Done.",
+      "parentUuid": "5b822d11_211cf4af",
+      "range": {
+        "startLine": 236,
+        "startChar": 6,
+        "endLine": 236,
+        "endChar": 22
+      },
+      "revId": "5d8adc57345b762269f16cc5c86b70d70d9c4293",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

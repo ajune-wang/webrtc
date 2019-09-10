@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "87c5f3a0_42d0aafc",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-10T08:31:19Z",
+      "side": 1,
+      "message": "They set up some DCHECK state. So not obviously useless.",
+      "parentUuid": "3a8e2446_7cb22906",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 391,
+        "endChar": 39
+      },
+      "revId": "5f1c61f89574aa9ba955a4b8a2b01d107f4004a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8cd0a415_4b977060",
         "filename": "video/video_receive_stream.cc",
         "patchSetId": 1
@@ -68,6 +92,30 @@
       "revId": "5f1c61f89574aa9ba955a4b8a2b01d107f4004a8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79b470c5_1a0c5d9e",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-10T08:31:19Z",
+      "side": 1,
+      "message": "Weird, it was ignored by auto format for some reason...",
+      "parentUuid": "8cd0a415_4b977060",
+      "range": {
+        "startLine": 392,
+        "startChar": 0,
+        "endLine": 397,
+        "endChar": 0
+      },
+      "revId": "5f1c61f89574aa9ba955a4b8a2b01d107f4004a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

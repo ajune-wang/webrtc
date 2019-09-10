@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fac8f4fa_ea38e2ee",
+        "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-09-10T09:24:51Z",
+      "side": 1,
+      "message": "Looks like it is OK to change this one to 192000.",
+      "range": {
+        "startLine": 384,
+        "startChar": 36,
+        "endLine": 384,
+        "endChar": 41
+      },
+      "revId": "7156519e3930ac771a86409b3e7752c8a47ed5eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

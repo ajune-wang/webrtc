@@ -22,6 +22,30 @@
       "revId": "9509d95c48ea24bba22bd784e83fea03265aab4d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d49d8072_924ee8a9",
+        "filename": "test/drifting_clock.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-10T11:44:43Z",
+      "side": 0,
+      "message": "yep, code search reveal they are not used.",
+      "parentUuid": "f3a55b0f_98040ec2",
+      "range": {
+        "startLine": 23,
+        "startChar": 1,
+        "endLine": 25,
+        "endChar": 44
+      },
+      "revId": "9509d95c48ea24bba22bd784e83fea03265aab4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

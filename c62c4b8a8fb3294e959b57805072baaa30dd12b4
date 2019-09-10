@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d06b737_472e33a9",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-09-10T14:22:30Z",
+      "side": 1,
+      "message": "How about \"rtp_seq_num\", to match \"last_received_seq_num_\", as well as be clearer about the distinction between RTP and GFD seq-nums?",
+      "range": {
+        "startLine": 64,
+        "startChar": 27,
+        "endLine": 64,
+        "endChar": 42
+      },
+      "revId": "c62c4b8a8fb3294e959b57805072baaa30dd12b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ff72efb_f5fc2e9c",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-09-10T14:22:30Z",
+      "side": 1,
+      "message": "const-ref?",
+      "range": {
+        "startLine": 103,
+        "startChar": 24,
+        "endLine": 103,
+        "endChar": 70
+      },
+      "revId": "c62c4b8a8fb3294e959b57805072baaa30dd12b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4de72a6_25bde6b4",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-09-10T14:22:30Z",
+      "side": 1,
+      "message": "This name is confusing now.",
+      "range": {
+        "startLine": 197,
+        "startChar": 44,
+        "endLine": 197,
+        "endChar": 75
+      },
+      "revId": "c62c4b8a8fb3294e959b57805072baaa30dd12b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c75fb96a_723b0843",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-09-10T14:22:30Z",
+      "side": 1,
+      "message": "I wonder if I was right to set the level here to WARNING. Wdyt?",
+      "range": {
+        "startLine": 336,
+        "startChar": 14,
+        "endLine": 336,
+        "endChar": 24
+      },
+      "revId": "c62c4b8a8fb3294e959b57805072baaa30dd12b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -101,8 +101,21 @@ struct RTPHeaderExtension {
   Timestamp GetAbsoluteSendTimestamp() const {
     RTC_DCHECK(hasAbsoluteSendTime);
     RTC_DCHECK(absoluteSendTime < (1ul << 24));
-    return Timestamp::us((absoluteSendTime * 1000000L) /
+    return Timestamp::us((absoluteSendTime * 1000000ll) /
                          (1 << kAbsSendTimeFraction));
+  }
+
+  TimeDelta GetAbsoluteSendTimeDelta(uint32_t previous_sendtime) const {
+    RTC_DCHECK(hasAbsoluteSendTime);
+    RTC_DCHECK(absoluteSendTime < (1ul << 24));
+    RTC_DCHECK(previous_sendtime < (1ul << 24));
+    int64_t delta = static_cast<int64_t>(absoluteSendTime) -
+                    static_cast<int64_t>(previous_sendtime);
+    // Detect and compensate for wrap-arounds.
+    if (delta < -(1l << 23)) {
+      delta += 1l << 24;
+    }
+    return TimeDelta::us((delta * 1000000ll) / (1 << kAbsSendTimeFraction));
   }
 
   bool hasTransmissionTimeOffset;

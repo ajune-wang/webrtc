@@ -22,6 +22,30 @@
       "revId": "c25c15db82f3bfc1b430f9cfe07bf394b1647778",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd3592e0_869b5006",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4261,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-09-10T12:31:05Z",
+      "side": 1,
+      "message": "lgtm",
+      "parentUuid": "8c5de20f_7fd95388",
+      "range": {
+        "startLine": 4261,
+        "startChar": 2,
+        "endLine": 4261,
+        "endChar": 77
+      },
+      "revId": "c25c15db82f3bfc1b430f9cfe07bf394b1647778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

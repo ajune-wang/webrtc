@@ -52,7 +52,7 @@ class RtpReceiverInternal : public RtpReceiverInterface {
   // Configures the RtpReceiver with the underlying media channel, with the
   // given SSRC as the stream identifier. If |ssrc| is 0, the receiver will
   // receive packets on unsignaled SSRCs.
-  virtual void SetupMediaChannel(uint32_t ssrc) = 0;
+  virtual void SetupMediaChannel(absl::optional<uint32_t> ssrc) = 0;
 
   virtual void set_transport(
       rtc::scoped_refptr<DtlsTransportInterface> dtls_transport) = 0;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c5de20f_7fd95388",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4261,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-10T11:33:25Z",
+      "side": 1,
+      "message": "Erik, I guess this use of vcm::VCMProcessTimer::kDefaultProcessIntervalMs was copied here in your earlier cleanup of the encode pipeline. I haven\u0027t looked closer at what these tests really do. Feel free to suggest other naming or organization.",
+      "range": {
+        "startLine": 4261,
+        "startChar": 2,
+        "endLine": 4261,
+        "endChar": 77
+      },
+      "revId": "c25c15db82f3bfc1b430f9cfe07bf394b1647778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

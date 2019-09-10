@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "85794d38_6efbc8b8",
+        "filename": "api/rtp_headers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-09-10T15:14:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5aa37086_8352a1f2",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 5
+      },
+      "revId": "79bf8aa12aa02e06f62dd831055d35764f6affb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcdbebd4_bdf68e58",
         "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
         "patchSetId": 5
@@ -60,6 +84,30 @@
       "writtenOn": "2019-09-10T08:17:42Z",
       "side": 1,
       "message": "We need to ensure that we don\u0027t get negative wraparounds causing negative timestamps. In particular, it\u0027s 50% chance that the first delta would be negative. \n\nProtection can be done in a few ways. One is to use an initial value large enough that it\u0027s unfeasible that we\u0027d go negative. Another is to check for that particular case when adding the delta to the timestamp.\n\nWe can also to a bit of both, that is, starting at a value so that it\u0027s unlikely that correct data would cause a negative timestamp, but check so that incorrect data can\u0027t cause it.",
+      "range": {
+        "startLine": 47,
+        "startChar": 26,
+        "endLine": 47,
+        "endChar": 42
+      },
+      "revId": "79bf8aa12aa02e06f62dd831055d35764f6affb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "387eeda9_0c24abe2",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-09-10T15:14:28Z",
+      "side": 1,
+      "message": "Used local time as base. Ensure that each delta is positive as discussed.",
+      "parentUuid": "bcdbebd4_bdf68e58",
       "range": {
         "startLine": 47,
         "startChar": 26,
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "6fb60e0d_337f1c80",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-09-10T15:14:28Z",
+      "side": 1,
+      "message": "that is not available here and not something we currently use. That might be a future project though.",
+      "parentUuid": "36621552_d4b79cba",
+      "range": {
+        "startLine": 122,
+        "startChar": 24,
+        "endLine": 122,
+        "endChar": 58
+      },
+      "revId": "79bf8aa12aa02e06f62dd831055d35764f6affb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed94ba35_5ee5091b",
         "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy_unittest.cc",
         "patchSetId": 5
@@ -115,6 +187,30 @@
       "revId": "79bf8aa12aa02e06f62dd831055d35764f6affb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6c5e4f2_2bbc5c32",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-09-10T15:14:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed94ba35_5ee5091b",
+      "range": {
+        "startLine": 519,
+        "startChar": 0,
+        "endLine": 522,
+        "endChar": 64
+      },
+      "revId": "79bf8aa12aa02e06f62dd831055d35764f6affb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

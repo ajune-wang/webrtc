@@ -275,22 +275,6 @@ std::string join(const std::vector<std::string>& source, char delimiter) {
   return joined_string;
 }
 
-size_t split(const std::string& source,
-             char delimiter,
-             std::vector<std::string>* fields) {
-  RTC_DCHECK(fields);
-  fields->clear();
-  size_t last = 0;
-  for (size_t i = 0; i < source.length(); ++i) {
-    if (source[i] == delimiter) {
-      fields->push_back(source.substr(last, i - last));
-      last = i + 1;
-    }
-  }
-  fields->push_back(source.substr(last, source.length() - last));
-  return fields->size();
-}
-
 std::string ToString(const bool b) {
   return b ? "true" : "false";
 }

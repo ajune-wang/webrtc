@@ -15,8 +15,8 @@
 #include <string>
 #include <vector>
 
+#include "absl/strings/str_split.h"
 #include "rtc_base/experiments/field_trial_parser.h"
-#include "rtc_base/string_encode.h"
 
 // List support for field trial strings. FieldTrialList and FieldTrialStructList
 // are used similarly to the other FieldTrialParameters, but take a variable
@@ -70,9 +70,8 @@ class FieldTrialList : public FieldTrialListBase {
       return true;
     }
 
-    std::vector<std::string> tokens;
     std::vector<T> new_values_;
-    rtc::split(str_value.value(), '|', &tokens);
+    std::vector<std::string> tokens = absl::StrSplit(str_value.value(), '|');
 
     for (std::string token : tokens) {
       absl::optional<T> value = ParseTypedParameter<T>(token);

@@ -14,9 +14,9 @@
 
 namespace webrtc {
 namespace test {
-const float DriftingClock::kDoubleSpeed = 2.0f;
-const float DriftingClock::kNoDrift = 1.0f;
-const float DriftingClock::kHalfSpeed = 0.5f;
+constexpr float DriftingClock::kDoubleSpeed;
+constexpr float DriftingClock::kNoDrift;
+constexpr float DriftingClock::kHalfSpeed;
 
 DriftingClock::DriftingClock(Clock* clock, float speed)
     : clock_(clock), drift_(speed - 1.0f), start_time_(clock_->CurrentTime()) {

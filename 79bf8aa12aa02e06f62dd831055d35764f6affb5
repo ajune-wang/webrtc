@@ -22,6 +22,52 @@
       "revId": "79bf8aa12aa02e06f62dd831055d35764f6affb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcdbebd4_bdf68e58",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-10T08:17:42Z",
+      "side": 1,
+      "message": "We need to ensure that we don\u0027t get negative wraparounds causing negative timestamps. In particular, it\u0027s 50% chance that the first delta would be negative. \n\nProtection can be done in a few ways. One is to use an initial value large enough that it\u0027s unfeasible that we\u0027d go negative. Another is to check for that particular case when adding the delta to the timestamp.\n\nWe can also to a bit of both, that is, starting at a value so that it\u0027s unlikely that correct data would cause a negative timestamp, but check so that incorrect data can\u0027t cause it.",
+      "range": {
+        "startLine": 47,
+        "startChar": 26,
+        "endLine": 47,
+        "endChar": 42
+      },
+      "revId": "79bf8aa12aa02e06f62dd831055d35764f6affb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed94ba35_5ee5091b",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-10T08:17:42Z",
+      "side": 1,
+      "message": "The motivation behind these values aren\u0027t really obvious from context. It looks a bit like you are trying to test the wraparound behavior as well? If so, I suggest making a separate test for that. Either way, explain the reasoning behind the 1\u003c\u003c24.\n\nDon\u0027t use the l suffix as we just learned, it does different things on different platforms. numerals are guaranteed to be at least 32 bit on all supported platforms.",
+      "range": {
+        "startLine": 519,
+        "startChar": 0,
+        "endLine": 522,
+        "endChar": 64
+      },
+      "revId": "79bf8aa12aa02e06f62dd831055d35764f6affb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

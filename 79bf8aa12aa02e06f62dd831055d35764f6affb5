@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19419411_38d8b45b",
+        "filename": "api/rtp_headers.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-10T08:01:30Z",
+      "side": 1,
+      "message": "How about:\nint32_t delta \u003d (static_cast\u003cint32_t\u003e((absoluteSendTime-previous_sendtime)\u003c\u003c8))\u003e\u003e8;\n\nOr without relying on wraparound behavior:\nint32_t delta \u003d static_cast\u003cint32_t\u003e(absoluteSendTime-previous_sendtime);\nif (delta \u003e (1 \u003c\u003c 23)) {\n  delta -\u003d 1 \u003c\u003c 24;\n}",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 5
+      },
+      "revId": "79bf8aa12aa02e06f62dd831055d35764f6affb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -13,6 +13,7 @@
 #include <limits>
 #include <string>
 #include <tuple>
+#include <utility>
 #include <vector>
 
 #include "absl/types/optional.h"
@@ -20,10 +21,9 @@
 
 namespace webrtc {
 namespace {
-VCMPacket CreatePacket(
+RtpGenericFrameDescriptor CreateRtpGenericFrameDescriptor(
     bool first_in_frame,
     bool last_in_frame,
-    uint16_t seq_num,
     uint16_t frame_id,
     bool is_key_frame,
     std::vector<uint16_t> ref_frame_ids = std::vector<uint16_t>()) {
@@ -39,29 +39,25 @@ VCMPacket CreatePacket(
       }
     }
   }
-
-  VCMPacket packet;
-  packet.seqNum = seq_num;
-  packet.generic_descriptor = frame_descriptor;
-  return packet;
+  return frame_descriptor;
 }
 
 class PacketStreamCreator final {
  public:
   PacketStreamCreator() : seq_num_(0), frame_id_(0), next_is_key_frame_(true) {}
 
-  VCMPacket NextPacket() {
+  std::pair<uint16_t, RtpGenericFrameDescriptor> NextPacket() {
     std::vector<uint16_t> ref_frame_ids;
     if (!next_is_key_frame_) {
       ref_frame_ids.push_back(frame_id_ - 1);
     }
 
-    VCMPacket packet = CreatePacket(true, true, seq_num_++, frame_id_++,
-                                    next_is_key_frame_, ref_frame_ids);
+    RtpGenericFrameDescriptor descriptor = CreateRtpGenericFrameDescriptor(
+        true, true, frame_id_++, next_is_key_frame_, ref_frame_ids);
 
     next_is_key_frame_ = false;
 
-    return packet;
+    return {seq_num_++, descriptor};
   }
 
  private:
@@ -104,16 +100,19 @@ class LossNotificationControllerBaseTest : public ::testing::Test,
                                     decodability_flag);
   }
 
-  void OnReceivedPacket(const VCMPacket& packet) {
+  void OnReceivedPacket(std::pair<uint16_t, RtpGenericFrameDescriptor> packet) {
+    OnReceivedPacket(packet.first, packet.second);
+  }
+  void OnReceivedPacket(uint16_t sequence_number,
+                        const RtpGenericFrameDescriptor& descriptor) {
     EXPECT_FALSE(LastKeyFrameRequest());
     EXPECT_FALSE(LastLossNotification());
 
-    if (packet.generic_descriptor &&
-        packet.generic_descriptor->FirstPacketInSubFrame()) {
-      previous_first_packet_in_frame_ = packet;
+    if (descriptor.FirstPacketInSubFrame()) {
+      previous_first_packet_in_frame_ = descriptor;
     }
 
-    uut_.OnReceivedPacket(packet);
+    uut_.OnReceivedPacket(sequence_number, descriptor);
   }
 
   void OnAssembledFrame(uint16_t first_seq_num,
@@ -123,11 +122,9 @@ class LossNotificationControllerBaseTest : public ::testing::Test,
     EXPECT_FALSE(LastLossNotification());
 
     ASSERT_TRUE(previous_first_packet_in_frame_);
-    const RtpGenericFrameDescriptor& frame_descriptor =
-        previous_first_packet_in_frame_->generic_descriptor.value();
-
-    uut_.OnAssembledFrame(first_seq_num, frame_id, discardable,
-                          frame_descriptor.FrameDependenciesDiffs());
+    uut_.OnAssembledFrame(
+        first_seq_num, frame_id, discardable,
+        previous_first_packet_in_frame_->FrameDependenciesDiffs());
   }
 
   void ExpectKeyFrameRequest() {
@@ -193,11 +190,11 @@ class LossNotificationControllerBaseTest : public ::testing::Test,
 
   absl::optional<LossNotification> last_loss_notification_;
 
-  // First packet of last frame. (Note that if a test skips the first packet
-  // of a subsequent frame, OnAssembledFrame is not called, and so this is
-  // note read. Therefore, it's not a problem if it is not cleared when
+  // Descriptor of first packet of last frame. (Note that if a test skips the
+  // first packet of a subsequent frame, OnAssembledFrame is not called, and so
+  // this is note read. Therefore, it's not a problem if it is not cleared when
   // the frame changes.)
-  absl::optional<VCMPacket> previous_first_packet_in_frame_;
+  absl::optional<RtpGenericFrameDescriptor> previous_first_packet_in_frame_;
 };
 
 class LossNotificationControllerTest
@@ -223,8 +220,9 @@ INSTANTIATE_TEST_SUITE_P(_,
 // is requested.
 TEST_P(LossNotificationControllerTest,
        PacketLossBeforeFirstFrameAssembledTriggersKeyFrameRequest) {
-  OnReceivedPacket(CreatePacket(true, false, 100, 0, true));
-  OnReceivedPacket(CreatePacket(Bool<0>(), Bool<1>(), 103, 1, false, {0}));
+  OnReceivedPacket(100, CreateRtpGenericFrameDescriptor(true, false, 0, true));
+  OnReceivedPacket(103, CreateRtpGenericFrameDescriptor(Bool<0>(), Bool<1>(), 1,
+                                                        false, {0}));
   ExpectKeyFrameRequest();
 }
 
@@ -232,11 +230,12 @@ TEST_P(LossNotificationControllerTest,
 // is issued.
 TEST_P(LossNotificationControllerTest,
        PacketLossAfterFirstFrameAssembledTriggersLossNotification) {
-  OnReceivedPacket(CreatePacket(true, true, 100, 0, true));
+  OnReceivedPacket(100, CreateRtpGenericFrameDescriptor(true, true, 0, true));
   OnAssembledFrame(100, 0, false);
   const bool first = Bool<0>();
   const bool last = Bool<1>();
-  OnReceivedPacket(CreatePacket(first, last, 103, 1, false, {0}));
+  OnReceivedPacket(103,
+                   CreateRtpGenericFrameDescriptor(first, last, 1, false, {0}));
   const bool expected_decodability_flag = first;
   ExpectLossNotification(100, 103, expected_decodability_flag);
 }
@@ -245,35 +244,39 @@ TEST_P(LossNotificationControllerTest,
 // of the sequence number.
 TEST_P(LossNotificationControllerTest, SeqNumWrapAround) {
   uint16_t seq_num = std::numeric_limits<uint16_t>::max();
-  OnReceivedPacket(CreatePacket(true, true, seq_num, 0, true));
+  OnReceivedPacket(seq_num,
+                   CreateRtpGenericFrameDescriptor(true, true, 0, true));
   OnAssembledFrame(seq_num, 0, false);
   const bool first = Bool<0>();
   const bool last = Bool<1>();
-  OnReceivedPacket(CreatePacket(first, last, ++seq_num, 1, false, {0}));
+  OnReceivedPacket(++seq_num,
+                   CreateRtpGenericFrameDescriptor(first, last, 1, false, {0}));
 }
 
 // No key frame or loss notifications issued due to an innocuous wrap-around
 // of the frame ID.
 TEST_P(LossNotificationControllerTest, FrameIdWrapAround) {
   uint16_t frame_id = std::numeric_limits<uint16_t>::max();
-  OnReceivedPacket(CreatePacket(true, true, 100, frame_id, true));
+  OnReceivedPacket(100,
+                   CreateRtpGenericFrameDescriptor(true, true, frame_id, true));
   OnAssembledFrame(100, frame_id, false);
   ++frame_id;
   const bool first = Bool<0>();
   const bool last = Bool<1>();
-  OnReceivedPacket(CreatePacket(first, last, 100, frame_id, false,
-                                {static_cast<uint16_t>(frame_id - 1)}));
+  OnReceivedPacket(100, CreateRtpGenericFrameDescriptor(
+                            first, last, frame_id, false,
+                            {static_cast<uint16_t>(frame_id - 1)}));
 }
 
 TEST_F(LossNotificationControllerTest,
        KeyFrameAfterPacketLossProducesNoLossNotifications) {
-  OnReceivedPacket(CreatePacket(true, true, 100, 1, true));
+  OnReceivedPacket(100, CreateRtpGenericFrameDescriptor(true, true, 1, true));
   OnAssembledFrame(100, 1, false);
-  OnReceivedPacket(CreatePacket(true, true, 108, 8, true));
+  OnReceivedPacket(108, CreateRtpGenericFrameDescriptor(true, true, 8, true));
 }
 
 TEST_P(LossNotificationControllerTest, LostReferenceProducesLossNotification) {
-  OnReceivedPacket(CreatePacket(true, true, 100, 0, true));
+  OnReceivedPacket(100, CreateRtpGenericFrameDescriptor(true, true, 0, true));
   OnAssembledFrame(100, 0, false);
   uint16_t last_decodable_non_discardable_seq_num = 100;
 
@@ -282,7 +285,8 @@ TEST_P(LossNotificationControllerTest, LostReferenceProducesLossNotification) {
   const bool last = Bool<1>();
   const bool discardable = Bool<2>();
   const bool decodable = first;  // Depends on assemblability.
-  OnReceivedPacket(CreatePacket(first, last, 107, 3, false, {0}));
+  OnReceivedPacket(107,
+                   CreateRtpGenericFrameDescriptor(first, last, 3, false, {0}));
   ExpectLossNotification(100, 107, decodable);
   OnAssembledFrame(107, 3, discardable);
   if (!discardable) {
@@ -292,7 +296,8 @@ TEST_P(LossNotificationControllerTest, LostReferenceProducesLossNotification) {
   // Test focus - a loss notification is produced because of the missing
   // dependency (frame ID 2), despite the RTP sequence number being the
   // next expected one.
-  OnReceivedPacket(CreatePacket(true, true, 108, 4, false, {2, 0}));
+  OnReceivedPacket(
+      108, CreateRtpGenericFrameDescriptor(true, true, 4, false, {2, 0}));
   ExpectLossNotification(last_decodable_non_discardable_seq_num, 108, false);
 }
 
@@ -300,28 +305,31 @@ TEST_P(LossNotificationControllerTest, LostReferenceProducesLossNotification) {
 // although the reference frame was received, it was not decodable.
 TEST_P(LossNotificationControllerTest,
        UndecodableReferenceProducesLossNotification) {
-  OnReceivedPacket(CreatePacket(true, true, 100, 0, true));
+  OnReceivedPacket(100, CreateRtpGenericFrameDescriptor(true, true, 0, true));
   OnAssembledFrame(100, 0, false);
   uint16_t last_decodable_non_discardable_seq_num = 100;
 
   // RTP gap produces loss notification - not the focus of this test.
   // Also, not decodable; this is important for later in the test.
-  OnReceivedPacket(CreatePacket(true, true, 107, 3, false, {2}));
+  OnReceivedPacket(107,
+                   CreateRtpGenericFrameDescriptor(true, true, 3, false, {2}));
   ExpectLossNotification(100, 107, false);
   const bool discardable = Bool<0>();
   OnAssembledFrame(107, 3, discardable);
 
   // Test focus - a loss notification is produced because of the undecodable
   // dependency (frame ID 3, which depended on the missing frame ID 2).
-  OnReceivedPacket(CreatePacket(true, true, 108, 4, false, {3, 0}));
+  OnReceivedPacket(
+      108, CreateRtpGenericFrameDescriptor(true, true, 4, false, {3, 0}));
   ExpectLossNotification(last_decodable_non_discardable_seq_num, 108, false);
 }
 
 TEST_P(LossNotificationControllerTest, RobustnessAgainstHighInitialRefFrameId) {
   constexpr uint16_t max_uint16_t = std::numeric_limits<uint16_t>::max();
-  OnReceivedPacket(CreatePacket(true, true, 100, 0, true));
+  OnReceivedPacket(100, CreateRtpGenericFrameDescriptor(true, true, 0, true));
   OnAssembledFrame(100, 0, false);
-  OnReceivedPacket(CreatePacket(true, true, 101, 1, false, {max_uint16_t}));
+  OnReceivedPacket(101, CreateRtpGenericFrameDescriptor(true, true, 1, false,
+                                                        {max_uint16_t}));
   ExpectLossNotification(100, 101, false);
   OnAssembledFrame(101, max_uint16_t, Bool<0>());
 }
@@ -331,8 +339,8 @@ TEST_P(LossNotificationControllerTest, RepeatedPacketsAreIgnored) {
 
   const auto key_frame_packet = packet_stream.NextPacket();
   OnReceivedPacket(key_frame_packet);
-  OnAssembledFrame(key_frame_packet.seqNum,
-                   key_frame_packet.generic_descriptor->FrameId(), false);
+  OnAssembledFrame(key_frame_packet.first, key_frame_packet.second.FrameId(),
+                   false);
 
   const bool gap = Bool<0>();
 
@@ -346,19 +354,10 @@ TEST_P(LossNotificationControllerTest, RepeatedPacketsAreIgnored) {
   if (gap) {
     // Loss notification issued because of the gap. This is not the focus of
     // the test.
-    ExpectLossNotification(key_frame_packet.seqNum, repeated_packet.seqNum,
+    ExpectLossNotification(key_frame_packet.first, repeated_packet.first,
                            false);
   }
   OnReceivedPacket(repeated_packet);
-}
-
-// Frames without the generic frame descriptor cannot be properly handled,
-// but must not induce a crash.
-TEST_F(LossNotificationControllerTest,
-       IgnoreFramesWithoutGenericFrameDescriptor) {
-  auto packet = CreatePacket(true, true, 1, 0, true);
-  packet.generic_descriptor.reset();
-  OnReceivedPacket(packet);
 }
 
 class LossNotificationControllerTestDecodabilityFlag
@@ -373,8 +372,9 @@ class LossNotificationControllerTestDecodabilityFlag
 
   void ReceiveKeyFrame() {
     RTC_DCHECK_NE(key_frame_frame_id_, never_received_frame_id_);
-    OnReceivedPacket(CreatePacket(true, true, key_frame_seq_num_,
-                                  key_frame_frame_id_, true));
+    OnReceivedPacket(
+        key_frame_seq_num_,
+        CreateRtpGenericFrameDescriptor(true, true, key_frame_frame_id_, true));
     OnAssembledFrame(key_frame_seq_num_, key_frame_frame_id_, false);
     seq_num_ = key_frame_seq_num_;
     frame_id_ = key_frame_frame_id_;
@@ -388,9 +388,10 @@ class LossNotificationControllerTestDecodabilityFlag
     }
     RTC_DCHECK_NE(frame_id_, never_received_frame_id_);
     constexpr bool is_key_frame = false;
-    OnReceivedPacket(CreatePacket(first_packet_in_frame, last_packet_in_frame,
-                                  ++seq_num_, frame_id_, is_key_frame,
-                                  ref_frame_ids));
+    OnReceivedPacket(++seq_num_,
+                     CreateRtpGenericFrameDescriptor(
+                         first_packet_in_frame, last_packet_in_frame, frame_id_,
+                         is_key_frame, ref_frame_ids));
   }
 
   void CreateGap() {

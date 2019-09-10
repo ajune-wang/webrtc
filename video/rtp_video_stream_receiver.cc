@@ -335,8 +335,12 @@ int32_t RtpVideoStreamReceiver::OnReceivedPayloadData(
       // TODO(bugs.webrtc.org/10336): Implement support for reordering.
       RTC_LOG(LS_WARNING)
           << "LossNotificationController does not support reordering.";
+    } else if (!generic_descriptor) {
+      RTC_LOG(LS_WARNING) << "LossNotificationController requires Generic "
+                             "frame descriptor, but it is missing.";
     } else {
-      loss_notification_controller_->OnReceivedPacket(packet);
+      loss_notification_controller_->OnReceivedPacket(rtp_header.sequenceNumber,
+                                                      *generic_descriptor);
     }
   }
 

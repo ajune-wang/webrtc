@@ -32,15 +32,19 @@ static constexpr int64_t kMaxTimeMs =
 RemoteEstimatorProxy::RemoteEstimatorProxy(
     Clock* clock,
     TransportFeedbackSenderInterface* feedback_sender,
-    const WebRtcKeyValueConfig* key_value_config)
+    const WebRtcKeyValueConfig* key_value_config,
+    NetworkStateEstimator* network_state_estimator)
     : clock_(clock),
       feedback_sender_(feedback_sender),
       send_config_(key_value_config),
       last_process_time_ms_(-1),
+      network_state_estimator_(network_state_estimator),
       media_ssrc_(0),
       feedback_packet_count_(0),
       send_interval_ms_(send_config_.default_interval->ms()),
-      send_periodic_feedback_(true) {
+      send_periodic_feedback_(true),
+      previous_abs_send_time_(0),
+      abs_send_timestamp_(Timestamp::ms(0)) {
   RTC_LOG(LS_INFO)
       << "Maximum interval between transport feedback RTCP messages (ms): "
       << send_config_.max_interval->ms();
@@ -106,6 +110,19 @@ void RemoteEstimatorProxy::IncomingPacket(int64_t arrival_time_ms,
     // Send feedback packet immediately.
     SendFeedbackOnRequest(seq, header.extension.feedback_request.value());
   }
+
+  if (network_state_estimator_ && header.extension.hasAbsoluteSendTime) {
+    PacketResult packet_result;
+    packet_result.receive_time = Timestamp::ms(arrival_time_ms);
+    abs_send_timestamp_ +=
+        header.extension.GetAbsoluteSendTimeDelta(previous_abs_send_time_);
+    previous_abs_send_time_ = header.extension.absoluteSendTime;
+    packet_result.sent_packet.send_time = abs_send_timestamp_;
+    packet_result.sent_packet.size =
+        DataSize::bytes(header.headerLength + payload_size);
+    packet_result.sent_packet.sequence_number = seq;
+    network_state_estimator_->OnReceivedPacket(packet_result);
+  }
 }
 
 bool RemoteEstimatorProxy::LatestEstimate(std::vector<unsigned int>* ssrcs,
@@ -168,6 +185,16 @@ void RemoteEstimatorProxy::SendPeriodicFeedbacks() {
   // reordering happens and we need to retransmit them.
   if (!periodic_window_start_seq_)
     return;
+
+  if (network_state_estimator_) {
+    absl::optional<NetworkStateEstimate> state_estimate =
+        network_state_estimator_->GetCurrentEstimate();
+    if (state_estimate) {
+      rtcp::RemoteEstimate rtcp_estimate;
+      rtcp_estimate.SetEstimate(state_estimate.value());
+      feedback_sender_->SendNetworkStateEstimatePacket(&rtcp_estimate);
+    }
+  }
 
   for (auto begin_iterator =
            packet_arrival_times_.lower_bound(*periodic_window_start_seq_);

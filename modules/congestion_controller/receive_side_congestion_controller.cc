@@ -121,8 +121,17 @@ void ReceiveSideCongestionController::WrappingBitrateEstimator::
 ReceiveSideCongestionController::ReceiveSideCongestionController(
     Clock* clock,
     PacketRouter* packet_router)
+    : ReceiveSideCongestionController(clock, packet_router, nullptr) {}
+
+ReceiveSideCongestionController::ReceiveSideCongestionController(
+    Clock* clock,
+    PacketRouter* packet_router,
+    NetworkStateEstimator* network_state_estimator)
     : remote_bitrate_estimator_(packet_router, clock),
-      remote_estimator_proxy_(clock, packet_router, &field_trial_config_) {}
+      remote_estimator_proxy_(clock,
+                              packet_router,
+                              &field_trial_config_,
+                              network_state_estimator) {}
 
 void ReceiveSideCongestionController::OnReceivedPacket(
     int64_t arrival_time_ms,

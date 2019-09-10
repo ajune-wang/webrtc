@@ -330,6 +330,30 @@
       "revId": "28bdcd7a8786491845983aecfc2fa0eecc6268c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ec0bf08_ac345107",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-10T16:05:41Z",
+      "side": 1,
+      "message": "Good suggestion. I changed to that.",
+      "parentUuid": "ea700aa7_4a430184",
+      "range": {
+        "startLine": 267,
+        "startChar": 7,
+        "endLine": 267,
+        "endChar": 37
+      },
+      "revId": "28bdcd7a8786491845983aecfc2fa0eecc6268c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89d9b5a7_d5114326",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2905,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-10T23:30:18Z",
+      "side": 1,
+      "message": "Can omit this if you want",
+      "range": {
+        "startLine": 2905,
+        "startChar": 37,
+        "endLine": 2905,
+        "endChar": 53
+      },
+      "revId": "69a99cf262406dc85f216840ebbb2ea63358127e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4354f950_730a8968",
+        "filename": "pc/rtp_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-10T23:30:18Z",
+      "side": 1,
+      "message": "is nullopt",
+      "range": {
+        "startLine": 53,
+        "startChar": 52,
+        "endLine": 53,
+        "endChar": 56
+      },
+      "revId": "69a99cf262406dc85f216840ebbb2ea63358127e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db1a435b_51200e4b",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-10T23:30:18Z",
+      "side": 1,
+      "message": "Just factor out the ssrc parameter and not duplicate the invoke?",
+      "revId": "69a99cf262406dc85f216840ebbb2ea63358127e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

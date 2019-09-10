@@ -160,6 +160,8 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
                       const StatsReports& stats_reports) override;
 
   std::map<std::string, VideoBweStats> GetVideoBweStats() const;
+  // Enables or disables heavy metrics computations like PSNR and SSIM.
+  void SetEnableHeavyMetricsComputations(bool enabled);
 
  private:
   struct FrameStats {
@@ -276,6 +278,8 @@ class DefaultVideoQualityAnalyzer : public VideoQualityAnalyzerInterface {
       RTC_GUARDED_BY(lock_);
 
   rtc::CriticalSection comparison_lock_;
+  bool heavy_metrics_computation_enabled_ RTC_GUARDED_BY(comparison_lock_) =
+      true;
   std::map<std::string, StreamStats> stream_stats_
       RTC_GUARDED_BY(comparison_lock_);
   std::map<std::string, Timestamp> stream_last_freeze_end_time_

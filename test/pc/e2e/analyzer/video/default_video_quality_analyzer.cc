@@ -436,6 +436,12 @@ DefaultVideoQualityAnalyzer::GetVideoBweStats() const {
   return video_bwe_stats_;
 }
 
+void DefaultVideoQualityAnalyzer::SetEnableHeavyMetricsComputations(
+    bool enabled) {
+  rtc::CritScope crit(&comparison_lock_);
+  heavy_metrics_computation_enabled_ = enabled;
+}
+
 void DefaultVideoQualityAnalyzer::AddComparison(
     absl::optional<VideoFrame> captured,
     absl::optional<VideoFrame> rendered,
@@ -497,7 +503,15 @@ void DefaultVideoQualityAnalyzer::ProcessComparison(
   // Perform expensive psnr and ssim calculations while not holding lock.
   double psnr = -1.0;
   double ssim = -1.0;
-  if (comparison.captured && !comparison.dropped) {
+  bool heavy_metrics_computation_enabled = false;
+  {
+    // copy value from |heavy_metrics_computation_enabled_| locally to avoid
+    // holding a lock during computation of PSNR and SSIM.
+    rtc::CritScope crit(&comparison_lock_);
+    heavy_metrics_computation_enabled = heavy_metrics_computation_enabled_;
+  }
+  if (heavy_metrics_computation_enabled && comparison.captured &&
+      !comparison.dropped) {
     psnr = I420PSNR(&*comparison.captured, &*comparison.rendered);
     ssim = I420SSIM(&*comparison.captured, &*comparison.rendered);
   }

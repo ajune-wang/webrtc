@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "be9f5a50_283c0cf6",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-11T09:04:21Z",
+      "side": 1,
+      "message": "I don\u0027t think adding a typedef makes things clearer. I could add a\n\nstruct Packet\n{\n  uint16_t seq_num;\n  RtpGenericFrameDescriptor descriptor;\n};\n\nfor the tests and basically replace all use of VCMPacket with that struct. Do you think that is better than passing around seqno and descriptor separately?\n\nOr rename this member (suggestions welcome), if it\u0027s only the name you find confusing.",
+      "parentUuid": "72cda7bd_8ba2f836",
+      "range": {
+        "startLine": 197,
+        "startChar": 44,
+        "endLine": 197,
+        "endChar": 75
+      },
+      "revId": "c62c4b8a8fb3294e959b57805072baaa30dd12b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c75fb96a_723b0843",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 1

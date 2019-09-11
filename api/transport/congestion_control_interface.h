@@ -9,14 +9,14 @@
 
 // This is EXPERIMENTAL interface for media and datagram transports.
 
-#ifndef API_CONGESTION_CONTROL_INTERFACE_H_
-#define API_CONGESTION_CONTROL_INTERFACE_H_
+#ifndef API_TRANSPORT_CONGESTION_CONTROL_INTERFACE_H_
+#define API_TRANSPORT_CONGESTION_CONTROL_INTERFACE_H_
 
 #include <memory>
 #include <string>
 #include <utility>
 
-#include "api/transport/media/media_transport_interface.h"
+#include "api/transport/media/media_transport_interface.h"  // nogncheck
 #include "api/units/data_rate.h"
 
 namespace webrtc {
@@ -64,4 +64,4 @@ class CongestionControlInterface {
 
 }  // namespace webrtc
 
-#endif  // API_CONGESTION_CONTROL_INTERFACE_H_
+#endif  // API_TRANSPORT_CONGESTION_CONTROL_INTERFACE_H_

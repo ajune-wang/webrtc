@@ -19,8 +19,8 @@
 #include <vector>
 
 #include "api/data_channel_transport_interface.h"
-#include "api/media_transport_interface.h"
 #include "api/peer_connection_interface.h"
+#include "api/transport/media/media_transport_interface.h"
 #include "api/turn_customizer.h"
 #include "pc/ice_server_parsing.h"
 #include "pc/jsep_transport_controller.h"

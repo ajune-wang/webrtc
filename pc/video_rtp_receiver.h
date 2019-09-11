@@ -86,7 +86,7 @@ class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal> {
 
   // RtpReceiverInternal implementation.
   void Stop() override;
-  void SetupMediaChannel(uint32_t ssrc) override;
+  void SetupMediaChannel(absl::optional<uint32_t> ssrc) override;
   uint32_t ssrc() const override { return ssrc_.value_or(0); }
   void NotifyFirstPacketReceived() override;
   void set_stream_ids(std::vector<std::string> stream_ids) override;
@@ -136,7 +136,7 @@ class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal> {
   rtc::scoped_refptr<VideoRtpTrackSource> source_;
   rtc::scoped_refptr<VideoTrackInterface> track_;
   std::vector<rtc::scoped_refptr<MediaStreamInterface>> streams_;
-  bool stopped_ = false;
+  bool stopped_ = true;
   RtpReceiverObserverInterface* observer_ = nullptr;
   bool received_first_packet_ = false;
   int attachment_id_ = 0;

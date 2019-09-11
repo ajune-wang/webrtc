@@ -21,7 +21,7 @@
 
 #include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/audio_encoder_factory.h"
-#include "api/crypto/crypto_options.h"
+#include "api/crypto/crypto_options.h"  // nogncheck
 #include "api/rtp_parameters.h"
 #include "api/video/video_bitrate_allocator_factory.h"
 #include "call/audio_state.h"

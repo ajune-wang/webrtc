@@ -19,9 +19,9 @@
 #include "absl/types/optional.h"
 #include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/call/transport.h"
-#include "api/crypto/crypto_options.h"
-#include "api/crypto/frame_decryptor_interface.h"
-#include "api/media_transport_config.h"
+#include "api/crypto/crypto_options.h"             // nogncheck
+#include "api/crypto/frame_decryptor_interface.h"  // nogncheck
+#include "api/media_transport_config.h"            // nogncheck
 #include "api/rtp_parameters.h"
 #include "api/scoped_refptr.h"
 #include "api/transport/rtp/rtp_source.h"

@@ -10,7 +10,7 @@
 #ifndef CALL_CALL_CONFIG_H_
 #define CALL_CALL_CONFIG_H_
 
-#include "api/bitrate_constraints.h"
+#include "api/bitrate_constraints.h"  // nogncheck
 #include "api/fec_controller.h"
 #include "api/network_state_predictor.h"
 #include "api/rtc_error.h"

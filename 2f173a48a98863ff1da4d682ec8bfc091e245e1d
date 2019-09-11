@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ae1c2950_7b3dca69",
+        "filename": "api/datagram_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-11T13:13:28Z",
+      "side": 1,
+      "message": "Fixed (and the other two places).",
+      "parentUuid": "f0871ba4_f3d618c5",
+      "range": {
+        "startLine": 13,
+        "startChar": 8,
+        "endLine": 13,
+        "endChar": 23
+      },
+      "revId": "2f173a48a98863ff1da4d682ec8bfc091e245e1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6fd624d4_337f410d",
         "filename": "api/media_transport_config.h",
         "patchSetId": 1
@@ -118,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "c0df74ad_6ed914f2",
+        "filename": "api/transport/congestion_control_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-11T13:13:28Z",
+      "side": 1,
+      "message": "They\u0027re referenced in the MediaTransportInterface, so they have to be exposed. Or possibly replaced with some other similar api type. For the time being, deleting the include and adding forward declarations.",
+      "parentUuid": "98f76713_860d5f2a",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 72
+      },
+      "revId": "2f173a48a98863ff1da4d682ec8bfc091e245e1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0897638f_d787ac2d",
         "filename": "api/transport/datagram_transport_interface.h",
         "patchSetId": 1
@@ -129,6 +177,30 @@
       "writtenOn": "2019-09-11T09:49:10Z",
       "side": 1,
       "message": "Why these are commented out? (nogncheck?)",
+      "range": {
+        "startLine": 22,
+        "startChar": 1,
+        "endLine": 23,
+        "endChar": 61
+      },
+      "revId": "2f173a48a98863ff1da4d682ec8bfc091e245e1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53a0d11a_cc904174",
+        "filename": "api/transport/datagram_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-11T13:13:28Z",
+      "side": 1,
+      "message": "They would have needed nogncheck, but it didn\u0027t break the compile to delete the includes (probably fortunate include order where used). So not sure how to deal with this.\n\nKept the include of data_channel_transport_interface.h (at new location), and forward declare the type needed from media_Transport_interface.h.",
+      "parentUuid": "0897638f_d787ac2d",
       "range": {
         "startLine": 22,
         "startChar": 1,
@@ -161,6 +233,30 @@
       "revId": "2f173a48a98863ff1da4d682ec8bfc091e245e1d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6e5a8f6_c7964e59",
+        "filename": "api/transport/media/media_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-11T13:13:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c556fde_434972c3",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 63
+      },
+      "revId": "2f173a48a98863ff1da4d682ec8bfc091e245e1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

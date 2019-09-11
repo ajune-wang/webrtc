@@ -334,6 +334,12 @@ AudioProcessingBuilder& AudioProcessingBuilder::SetEchoDetector(
   return *this;
 }
 
+AudioProcessingBuilder& AudioProcessingBuilder::SetAlwaysEnableMultichannel(
+    bool always_enable_multichannel) {
+  always_enable_multichannel_ = always_enable_multichannel;
+  return *this;
+}
+
 AudioProcessing* AudioProcessingBuilder::Create() {
   webrtc::Config config;
   return Create(config);
@@ -341,7 +347,7 @@ AudioProcessing* AudioProcessingBuilder::Create() {
 
 AudioProcessing* AudioProcessingBuilder::Create(const webrtc::Config& config) {
   AudioProcessingImpl* apm = new rtc::RefCountedObject<AudioProcessingImpl>(
-      config, std::move(capture_post_processing_),
+      config, always_enable_multichannel_, std::move(capture_post_processing_),
       std::move(render_pre_processing_), std::move(echo_control_factory_),
       std::move(echo_detector_), std::move(capture_analyzer_));
   if (apm->Initialize() != AudioProcessing::kNoError) {
@@ -352,13 +358,19 @@ AudioProcessing* AudioProcessingBuilder::Create(const webrtc::Config& config) {
 }
 
 AudioProcessingImpl::AudioProcessingImpl(const webrtc::Config& config)
-    : AudioProcessingImpl(config, nullptr, nullptr, nullptr, nullptr, nullptr) {
-}
+    : AudioProcessingImpl(config,
+                          /*always_enable_multichannel=*/false,
+                          /*capture_post_processor=*/nullptr,
+                          /*render_pre_processor=*/nullptr,
+                          /*echo_control_factory=*/nullptr,
+                          /*echo_detector=*/nullptr,
+                          /*capture_analyzer=*/nullptr) {}
 
 int AudioProcessingImpl::instance_count_ = 0;
 
 AudioProcessingImpl::AudioProcessingImpl(
     const webrtc::Config& config,
+    bool always_enable_multichannel,
     std::unique_ptr<CustomProcessing> capture_post_processor,
     std::unique_ptr<CustomProcessing> render_pre_processor,
     std::unique_ptr<EchoControlFactory> echo_control_factory,
@@ -386,13 +398,14 @@ AudioProcessingImpl::AudioProcessingImpl(
                  /* enabled= */ false,
                  /* enabled_agc2_level_estimator= */ false,
                  /* digital_adaptive_disabled= */ false,
-                 /* analyze_before_aec= */ false),
+                 /* analyze_before_aec= */ false,
 #else
                  config.Get<ExperimentalAgc>().enabled,
                  config.Get<ExperimentalAgc>().enabled_agc2_level_estimator,
                  config.Get<ExperimentalAgc>().digital_adaptive_disabled,
-                 config.Get<ExperimentalAgc>().analyze_before_aec),
+                 config.Get<ExperimentalAgc>().analyze_before_aec,
 #endif
+                 always_enable_multichannel),
 #if defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS)
       capture_(false),
 #else
@@ -633,9 +646,10 @@ int AudioProcessingImpl::InitializeLocked(const ProcessingConfig& config) {
 
   RTC_DCHECK_NE(8000, render_processing_rate);
 
-  // Always downmix the render stream to mono for analysis. This has been
-  // demonstrated to work well for AEC in most practical scenarios.
-  if (submodule_states_.RenderMultiBandSubModulesActive()) {
+  if (submodule_states_.RenderMultiBandSubModulesActive() &&
+      !constants_.always_enable_multichannel) {
+    // Downmix the render stream to mono for analysis. This has been
+    // demonstrated to work well for AEC in most practical scenarios.
     formats_.render_processing_format = StreamConfig(render_processing_rate, 1);
   } else {
     formats_.render_processing_format = StreamConfig(
@@ -812,7 +826,11 @@ size_t AudioProcessingImpl::num_input_channels() const {
 
 size_t AudioProcessingImpl::num_proc_channels() const {
   // Used as callback from submodules, hence locking is not allowed.
-  return capture_nonlocked_.echo_controller_enabled ? 1 : num_output_channels();
+  if (capture_nonlocked_.echo_controller_enabled &&
+      !constants_.always_enable_multichannel) {
+    return 1;
+  }
+  return num_output_channels();
 }
 
 size_t AudioProcessingImpl::num_output_channels() const {

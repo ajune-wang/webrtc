@@ -211,6 +211,10 @@ ABSL_FLAG(int,
           0,
           "Activate (1) or deactivate(0) the analog mic gain simulation");
 ABSL_FLAG(int,
+          always_enable_multichannel,
+          kParameterNotSpecifiedValue,
+          "Activate (1) or deactivate(0) multichannel in all circumstances");
+ABSL_FLAG(int,
           simulated_mic_kind,
           kParameterNotSpecifiedValue,
           "Specify which microphone kind to use for microphone simulation");
@@ -430,6 +434,8 @@ SimulationSettings CreateSettings() {
   SetSettingIfSpecified(absl::GetFlag(FLAGS_aec_settings),
                         &settings.aec_settings_filename);
   settings.initial_mic_level = absl::GetFlag(FLAGS_initial_mic_level);
+  SetSettingIfFlagSet(absl::GetFlag(FLAGS_always_enable_multichannel),
+                      &settings.always_enable_multichannel);
   settings.simulate_mic_gain = absl::GetFlag(FLAGS_simulate_mic_gain);
   SetSettingIfSpecified(absl::GetFlag(FLAGS_simulated_mic_kind),
                         &settings.simulated_mic_kind);
@@ -653,6 +659,10 @@ int AudioprocFloatImpl(std::unique_ptr<AudioProcessingBuilder> ap_builder,
   PerformBasicParameterSanityChecks(settings);
   std::unique_ptr<AudioProcessingSimulator> processor;
 
+  if (settings.always_enable_multichannel) {
+    ap_builder->SetAlwaysEnableMultichannel(
+        *settings.always_enable_multichannel);
+  }
   if (settings.aec_dump_input_filename || settings.aec_dump_input_string) {
     processor.reset(new AecDumpBasedSimulator(settings, std::move(ap_builder)));
   } else {

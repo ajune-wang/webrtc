@@ -40,6 +40,7 @@ class AudioProcessingImpl : public AudioProcessing {
   explicit AudioProcessingImpl(const webrtc::Config& config);
   // AudioProcessingImpl takes ownership of capture post processor.
   AudioProcessingImpl(const webrtc::Config& config,
+                      bool always_enable_multichannel,
                       std::unique_ptr<CustomProcessing> capture_post_processor,
                       std::unique_ptr<CustomProcessing> render_pre_processor,
                       std::unique_ptr<EchoControlFactory> echo_control_factory,
@@ -354,7 +355,8 @@ class AudioProcessingImpl : public AudioProcessing {
                  bool use_experimental_agc,
                  bool use_experimental_agc_agc2_level_estimation,
                  bool use_experimental_agc_agc2_digital_adaptive,
-                 bool use_experimental_agc_process_before_aec)
+                 bool use_experimental_agc_process_before_aec,
+                 bool always_enable_multichannel)
         :  // Format of processing streams at input/output call sites.
           agc_startup_min_volume(agc_startup_min_volume),
           agc_clipped_level_min(agc_clipped_level_min),
@@ -364,14 +366,15 @@ class AudioProcessingImpl : public AudioProcessing {
           use_experimental_agc_agc2_digital_adaptive(
               use_experimental_agc_agc2_digital_adaptive),
           use_experimental_agc_process_before_aec(
-              use_experimental_agc_process_before_aec) {}
+              use_experimental_agc_process_before_aec),
+          always_enable_multichannel(always_enable_multichannel) {}
     int agc_startup_min_volume;
     int agc_clipped_level_min;
     bool use_experimental_agc;
     bool use_experimental_agc_agc2_level_estimation;
     bool use_experimental_agc_agc2_digital_adaptive;
     bool use_experimental_agc_process_before_aec;
-
+    bool always_enable_multichannel;
   } constants_;
 
   struct ApmCaptureState {

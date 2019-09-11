@@ -738,6 +738,11 @@ class RTC_EXPORT AudioProcessingBuilder {
   // The AudioProcessingBuilder takes ownership of the capture_analyzer.
   AudioProcessingBuilder& SetCaptureAnalyzer(
       std::unique_ptr<CustomAudioAnalyzer> capture_analyzer);
+  // This will force multi-channel processing on playout and capture audio.
+  // Do not use: Experimental, used for development. Likely to change without
+  // warning.
+  AudioProcessingBuilder& SetAlwaysEnableMultichannel(
+      bool always_enable_multichannel);
   // This creates an APM instance using the previously set components. Calling
   // the Create function resets the AudioProcessingBuilder to its initial state.
   AudioProcessing* Create();
@@ -749,6 +754,7 @@ class RTC_EXPORT AudioProcessingBuilder {
   std::unique_ptr<CustomProcessing> render_pre_processing_;
   rtc::scoped_refptr<EchoDetector> echo_detector_;
   std::unique_ptr<CustomAudioAnalyzer> capture_analyzer_;
+  bool always_enable_multichannel_ = false;
   RTC_DISALLOW_COPY_AND_ASSIGN(AudioProcessingBuilder);
 };
 

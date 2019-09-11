@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "435185b3_b6bdfb1f",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-09-11T17:47:10Z",
+      "side": 1,
+      "message": "You\u0027ve made a significant improvement to the code in PS2 (rtp-seq-num more distinct from frame-id), that\u0027s gone in PS4. Could we keep that improvement?",
+      "parentUuid": "08c09777_15fdfae5",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 21
+      },
+      "revId": "a2c991f78dd9bb92df15900547c8f8aebc603887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c87c8d94_d7debd7a",
         "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "return Packet(seq_num, frame_descriptor);\n\nfails compile, since the struct doesn\u0027t have any constructor (and I\u0027d prefer to keep it simple and not to add one).\n\n  return Packet{seq_num, frame_descriptor};\n\nseems to work. But looks a bit unusual to me.",
       "parentUuid": "c87c8d94_d7debd7a",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 16
+      },
+      "revId": "a2c991f78dd9bb92df15900547c8f8aebc603887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae8ae213_7a88c74b",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-09-11T17:47:10Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s unusual. My vote is to use it, if you\u0027re counting votes.",
+      "parentUuid": "87a7c673_cedd609b",
       "range": {
         "startLine": 50,
         "startChar": 0,

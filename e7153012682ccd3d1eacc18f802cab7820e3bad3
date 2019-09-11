@@ -70,6 +70,30 @@
       "revId": "e7153012682ccd3d1eacc18f802cab7820e3bad3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd749fb1_af955d00",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-09-11T22:01:44Z",
+      "side": 1,
+      "message": "Oh, I see.\n\nMy current understanding is that https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/chrome/installer/linux/debian/calculate_package_deps.py uses dpkg-shlibdeps to check package dependencies and then checks them against https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/chrome/installer/linux/debian/dist_package_versions.json#67\n\nI am running Arch, and I have never made a Debian package before, but from researching dpkg-shlibdeps I am guessing it has detected the XRRGetMonitors symbol and so reported version 1.5.\n\nTo complicate matters for all versions of Debian after Jessie depending on version 1.5 is exactly what we want. However for Debian Jessie it\u0027s probably being too strict given the runtime checks. I will have to setup some Debian VMs to confirm my assumptions.",
+      "parentUuid": "7106ad94_f48c919d",
+      "range": {
+        "startLine": 414,
+        "startChar": 7,
+        "endLine": 414,
+        "endChar": 13
+      },
+      "revId": "e7153012682ccd3d1eacc18f802cab7820e3bad3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

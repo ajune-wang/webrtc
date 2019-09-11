@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "45f164e5_5597fa96",
+        "filename": "pc/audio_rtp_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 9262
+      },
+      "writtenOn": "2019-09-11T22:43:38Z",
+      "side": 1,
+      "message": "Agreed, keeping the todos.",
+      "parentUuid": "f036448c_edbb8837",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 54
+      },
+      "revId": "02be0637b8e631ffce4221603be7d78bf5d96170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7bb21f8_43ae75e6",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "02be0637b8e631ffce4221603be7d78bf5d96170",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53047c10_46276b35",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2910,
+      "author": {
+        "id": 9262
+      },
+      "writtenOn": "2019-09-11T22:43:38Z",
+      "side": 1,
+      "message": "Also agree with this.",
+      "parentUuid": "a7bb21f8_43ae75e6",
+      "range": {
+        "startLine": 2910,
+        "startChar": 54,
+        "endLine": 2910,
+        "endChar": 71
+      },
+      "revId": "02be0637b8e631ffce4221603be7d78bf5d96170",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

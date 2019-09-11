@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74d9d592_cec74c7f",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-11T08:11:07Z",
+      "side": 1,
+      "message": "this if/else branches are not really needed: same checks are duplicated in the for/while loops.\ni.e. you can reduce indentation a bit:\n// If packet to be inserted ahead of first packet, expand front.\nfor (; packet_index \u003c 0; ++packet_index) {\n  packet_history_.emplace_front(nullptr, absl::nullopt, 0);\n}\n// If packet to be insterted behind last packet, expand back.\nwhile (static_cast\u003cint\u003e(packet_history_.size()) \u003c\u003d packet_index) {\n  packet_history_.emplace_back(nullptr, absl::nullopt, 0);\n}",
+      "revId": "998a85b74038d86e93dec1bb6b306553d9850de1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e19847b9_24c4486a",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-11T08:11:07Z",
+      "side": 1,
+      "message": "may be also RTC_DCHECK_EQ(packet_history_[packet_index].packet, nullptr);\nSince code above ensures that.",
+      "revId": "998a85b74038d86e93dec1bb6b306553d9850de1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a332559_3d798f3a",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-11T08:11:07Z",
+      "side": 1,
+      "message": "I would probably just write 0x10000\n\n(this expression rely on non-obvious integer promotion rules, in particular it assumes that uint16_t + 1 wouldn\u0027t have type uint16_t)",
+      "range": {
+        "startLine": 442,
+        "startChar": 30,
+        "endLine": 442,
+        "endChar": 70
+      },
+      "revId": "998a85b74038d86e93dec1bb6b306553d9850de1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

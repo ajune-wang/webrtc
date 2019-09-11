@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "72cda7bd_8ba2f836",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-09-11T08:38:50Z",
+      "side": 1,
+      "message": "I suggest typedef-ing std::pair\u003cuint16_t, RtpGenericFrameDescriptor\u003e and using it here, too.\n1. This is a unit test, so the small loss of efficiency through storing unused information is unimportant.\n2. This variable occurs only 4 times in the file, so it\u0027s a small and easy change.",
+      "parentUuid": "02c21e0d_6d3490d5",
+      "range": {
+        "startLine": 197,
+        "startChar": 44,
+        "endLine": 197,
+        "endChar": 75
+      },
+      "revId": "c62c4b8a8fb3294e959b57805072baaa30dd12b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c75fb96a_723b0843",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 1
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "Changing this one to LS_INFO, since we should be cautious with per-packet logs, and as far as I understand it is normal that this will happen from time to time. |is_recovered| means that the packets is not the original transmission, but a packet reconstructed from FEC, or decapsulated from RTX.\n\nShould the one below stay at LS_WARNING? It indicates some configuration problem, if I understand this correctly.",
       "parentUuid": "c75fb96a_723b0843",
+      "range": {
+        "startLine": 336,
+        "startChar": 14,
+        "endLine": 336,
+        "endChar": 24
+      },
+      "revId": "c62c4b8a8fb3294e959b57805072baaa30dd12b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf1e8171_b0178748",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-09-11T08:38:50Z",
+      "side": 1,
+      "message": "The one below I think should stay. The one here - we might even want to remove it.",
+      "parentUuid": "55daaeac_acb8ca27",
       "range": {
         "startLine": 336,
         "startChar": 14,

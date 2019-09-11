@@ -22,6 +22,30 @@
       "revId": "eabda583a85444d2efa1dcd4b1401a47ffab4c1f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "130f1c6c_4c80b496",
+        "filename": "test/peer_scenario/scenario_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-11T07:31:06Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "ad41e51a_561e71b7",
+      "range": {
+        "startLine": 48,
+        "startChar": 26,
+        "endLine": 48,
+        "endChar": 42
+      },
+      "revId": "eabda583a85444d2efa1dcd4b1401a47ffab4c1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

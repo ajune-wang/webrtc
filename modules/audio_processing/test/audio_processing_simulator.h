@@ -81,6 +81,8 @@ struct SimulationSettings {
   absl::optional<float> pre_amplifier_gain_factor;
   absl::optional<int> vad_likelihood;
   absl::optional<int> ns_level;
+  absl::optional<bool> enforce_low_complexity_band_split;
+  absl::optional<bool> use_adaptive_band_split_complexity;
   absl::optional<bool> use_refined_adaptive_filter;
   int initial_mic_level;
   bool simulate_mic_gain = false;

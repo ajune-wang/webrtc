@@ -194,6 +194,16 @@ ABSL_FLAG(int,
           kParameterNotSpecifiedValue,
           "Specify the NS level (0-3)");
 ABSL_FLAG(int,
+          enforce_low_complexity_band_split,
+          kParameterNotSpecifiedValue,
+          "Enforce (1) or not enforce (0) the low-complexity band-split mode "
+          "to be used");
+ABSL_FLAG(int,
+          use_adaptive_band_split_complexity,
+          kParameterNotSpecifiedValue,
+          "Activate (1) or deactivate (0) adaptive selection of band-split "
+          "complexity");
+ABSL_FLAG(int,
           stream_delay,
           kParameterNotSpecifiedValue,
           "Specify the stream delay in ms to use");
@@ -417,6 +427,10 @@ SimulationSettings CreateSettings() {
   SetSettingIfSpecified(absl::GetFlag(FLAGS_vad_likelihood),
                         &settings.vad_likelihood);
   SetSettingIfSpecified(absl::GetFlag(FLAGS_ns_level), &settings.ns_level);
+  SetSettingIfFlagSet(absl::GetFlag(FLAGS_enforce_low_complexity_band_split),
+                      &settings.enforce_low_complexity_band_split);
+  SetSettingIfFlagSet(absl::GetFlag(FLAGS_use_adaptive_band_split_complexity),
+                      &settings.use_adaptive_band_split_complexity);
   SetSettingIfSpecified(absl::GetFlag(FLAGS_stream_delay),
                         &settings.stream_delay);
   SetSettingIfFlagSet(absl::GetFlag(FLAGS_use_stream_delay),

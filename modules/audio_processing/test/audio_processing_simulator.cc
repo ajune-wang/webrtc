@@ -470,6 +470,16 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
     apm_config.residual_echo_detector.enabled = *settings_.use_ed;
   }
 
+  if (settings_.enforce_low_complexity_band_split) {
+    apm_config.pipeline.enforce_low_complexity_band_split =
+        *settings_.enforce_low_complexity_band_split;
+  }
+
+  if (settings_.use_adaptive_band_split_complexity) {
+    apm_config.pipeline.use_adaptive_band_split_complexity =
+        *settings_.use_adaptive_band_split_complexity;
+  }
+
   RTC_CHECK(ap_builder_);
   if (echo_control_factory) {
     ap_builder_->SetEchoControlFactory(std::move(echo_control_factory));

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "08c09777_15fdfae5",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-11T13:22:14Z",
+      "side": 1,
+      "message": "Unchanged in this cl.",
+      "parentUuid": "0123d7ba_54bb4c95",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 21
+      },
+      "revId": "a2c991f78dd9bb92df15900547c8f8aebc603887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c87c8d94_d7debd7a",
         "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-09-11T11:45:19Z",
       "side": 1,
       "message": "nit: I\u0027d use - return Packet(seq_num, frame_descriptor);\nSince they\u0027re not the same type, and since there are only two parameters, I see no room for confusion.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 16
+      },
+      "revId": "a2c991f78dd9bb92df15900547c8f8aebc603887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87a7c673_cedd609b",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-11T13:22:14Z",
+      "side": 1,
+      "message": "return Packet(seq_num, frame_descriptor);\n\nfails compile, since the struct doesn\u0027t have any constructor (and I\u0027d prefer to keep it simple and not to add one).\n\n  return Packet{seq_num, frame_descriptor};\n\nseems to work. But looks a bit unusual to me.",
+      "parentUuid": "c87c8d94_d7debd7a",
       "range": {
         "startLine": 50,
         "startChar": 0,

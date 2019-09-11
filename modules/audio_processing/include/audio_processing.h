@@ -371,6 +371,15 @@ class AudioProcessing : public rtc::RefCountInterface {
       return *this;
     }
 
+    // Sets the properties of the audio processing pipeline.
+    struct PipeLine {
+      // Selects that the lower-complexity 2-band split should be used.
+      bool use_low_complexity_band_split = false;
+      // Selects that the appropriate band split complexity should be chosen by
+      // the APM.
+      bool adaptive_band_split_complexity = true;
+    } pipeline;
+
     std::string ToString() const;
   };
 

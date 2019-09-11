@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a2d44598_3cbc1f75",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-11T07:20:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d06b737_472e33a9",
+      "range": {
+        "startLine": 64,
+        "startChar": 27,
+        "endLine": 64,
+        "endChar": 42
+      },
+      "revId": "c62c4b8a8fb3294e959b57805072baaa30dd12b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ff72efb_f5fc2e9c",
         "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "c62c4b8a8fb3294e959b57805072baaa30dd12b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f9bdc39_3675844d",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-11T07:20:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ff72efb_f5fc2e9c",
+      "range": {
+        "startLine": 103,
+        "startChar": 24,
+        "endLine": 103,
+        "endChar": 70
+      },
+      "revId": "c62c4b8a8fb3294e959b57805072baaa30dd12b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "02c21e0d_6d3490d5",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-11T07:20:22Z",
+      "side": 1,
+      "message": "Can you suggest a better name? In a way, it still represents information about a packet, even if it uses a different type.",
+      "parentUuid": "c4de72a6_25bde6b4",
+      "range": {
+        "startLine": 197,
+        "startChar": 44,
+        "endLine": 197,
+        "endChar": 75
+      },
+      "revId": "c62c4b8a8fb3294e959b57805072baaa30dd12b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c75fb96a_723b0843",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-09-10T14:22:30Z",
       "side": 1,
       "message": "I wonder if I was right to set the level here to WARNING. Wdyt?",
+      "range": {
+        "startLine": 336,
+        "startChar": 14,
+        "endLine": 336,
+        "endChar": 24
+      },
+      "revId": "c62c4b8a8fb3294e959b57805072baaa30dd12b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55daaeac_acb8ca27",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-11T07:20:22Z",
+      "side": 1,
+      "message": "Changing this one to LS_INFO, since we should be cautious with per-packet logs, and as far as I understand it is normal that this will happen from time to time. |is_recovered| means that the packets is not the original transmission, but a packet reconstructed from FEC, or decapsulated from RTX.\n\nShould the one below stay at LS_WARNING? It indicates some configuration problem, if I understand this correctly.",
+      "parentUuid": "c75fb96a_723b0843",
       "range": {
         "startLine": 336,
         "startChar": 14,

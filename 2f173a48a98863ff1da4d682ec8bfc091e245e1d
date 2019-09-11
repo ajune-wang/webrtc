@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df69d7b1_96d8cfe1",
+        "filename": "api/transport/congestion_control_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-11T08:57:16Z",
+      "side": 1,
+      "message": "This is for the MediaTransport* types used below. But dependency is in the opposite direction, imo. Not sure if the types should just be moved here, or moved somewhere else.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 72
+      },
+      "revId": "2f173a48a98863ff1da4d682ec8bfc091e245e1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c556fde_434972c3",
+        "filename": "api/transport/media/media_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-11T08:57:16Z",
+      "side": 1,
+      "message": "This also needs moving to api/transport/, but cl is getting a bit large.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 63
+      },
+      "revId": "2f173a48a98863ff1da4d682ec8bfc091e245e1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

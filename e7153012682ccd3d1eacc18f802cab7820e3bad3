@@ -46,6 +46,30 @@
       "revId": "e7153012682ccd3d1eacc18f802cab7820e3bad3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7106ad94_f48c919d",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-09-11T17:44:07Z",
+      "side": 1,
+      "message": "I meant, the CL was reverted because of chromium and chromium does not guard Xrandr so we need to understand more the reason of the failure.",
+      "parentUuid": "be4179d4_413cc803",
+      "range": {
+        "startLine": 414,
+        "startChar": 7,
+        "endLine": 414,
+        "endChar": 13
+      },
+      "revId": "e7153012682ccd3d1eacc18f802cab7820e3bad3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad41e51a_561e71b7",
+        "filename": "test/peer_scenario/scenario_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-11T06:37:19Z",
+      "side": 1,
+      "message": "JsepTransportController::NegotiationState",
+      "range": {
+        "startLine": 48,
+        "startChar": 26,
+        "endLine": 48,
+        "endChar": 42
+      },
+      "revId": "eabda583a85444d2efa1dcd4b1401a47ffab4c1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

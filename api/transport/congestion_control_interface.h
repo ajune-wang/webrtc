@@ -9,17 +9,25 @@
 
 // This is EXPERIMENTAL interface for media and datagram transports.
 
-#ifndef API_CONGESTION_CONTROL_INTERFACE_H_
-#define API_CONGESTION_CONTROL_INTERFACE_H_
+#ifndef API_TRANSPORT_CONGESTION_CONTROL_INTERFACE_H_
+#define API_TRANSPORT_CONGESTION_CONTROL_INTERFACE_H_
 
 #include <memory>
 #include <string>
 #include <utility>
 
-#include "api/transport/media/media_transport_interface.h"
+#include "api/transport/network_control.h"
 #include "api/units/data_rate.h"
 
 namespace webrtc {
+
+// TODO(nisse): Defined together with MediaTransportInterface. But we should use
+// types that aren't tied to media, so that MediaTransportInterface can depend
+// on CongestionControlInterface, but not the other way around.
+// api/transport/network_control.h may be a reasonable place.
+class MediaTransportRttObserver;
+struct MediaTransportAllocatedBitrateLimits;
+struct MediaTransportTargetRateConstraints;
 
 // Defines congestion control feedback interface for media and datagram
 // transports.
@@ -64,4 +72,4 @@ class CongestionControlInterface {
 
 }  // namespace webrtc
 
-#endif  // API_CONGESTION_CONTROL_INTERFACE_H_
+#endif  // API_TRANSPORT_CONGESTION_CONTROL_INTERFACE_H_

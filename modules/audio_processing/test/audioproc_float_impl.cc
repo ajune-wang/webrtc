@@ -211,6 +211,14 @@ ABSL_FLAG(int,
           0,
           "Activate (1) or deactivate(0) the analog mic gain simulation");
 ABSL_FLAG(int,
+          experimental_multichannel_echo_control,
+          kParameterNotSpecifiedValue,
+          "Activate (1) or deactivate(0) multichannel capture with all AECs");
+ABSL_FLAG(int,
+          experimental_multichannel_render_analysis,
+          kParameterNotSpecifiedValue,
+          "Activate (1) or deactivate(0) multichannel render analysis");
+ABSL_FLAG(int,
           simulated_mic_kind,
           kParameterNotSpecifiedValue,
           "Specify which microphone kind to use for microphone simulation");
@@ -430,6 +438,12 @@ SimulationSettings CreateSettings() {
   SetSettingIfSpecified(absl::GetFlag(FLAGS_aec_settings),
                         &settings.aec_settings_filename);
   settings.initial_mic_level = absl::GetFlag(FLAGS_initial_mic_level);
+  SetSettingIfFlagSet(
+      absl::GetFlag(FLAGS_experimental_multichannel_echo_control),
+      &settings.experimental_multichannel_echo_control);
+  SetSettingIfFlagSet(
+      absl::GetFlag(FLAGS_experimental_multichannel_render_analysis),
+      &settings.experimental_multichannel_render_analysis);
   settings.simulate_mic_gain = absl::GetFlag(FLAGS_simulate_mic_gain);
   SetSettingIfSpecified(absl::GetFlag(FLAGS_simulated_mic_kind),
                         &settings.simulated_mic_kind);

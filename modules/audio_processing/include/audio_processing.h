@@ -245,6 +245,15 @@ class AudioProcessing : public rtc::RefCountInterface {
   // submodule resets, affecting the audio quality. Use the RuntimeSetting
   // construct for runtime configuration.
   struct Config {
+    // General settings not relating to a particular submodule.
+    struct Pipeline {
+      // The following settings will force multi-channel processing on playout
+      // and capture audio. They are experimental and likely to change without
+      // warning.
+      bool experimental_multichannel_echo_control = false;
+      bool experimental_multichannel_render_analysis = false;
+    } pipeline;
+
     // Enabled the pre-amplifier. It amplifies the capture signal
     // before any other processing is done.
     struct PreAmplifier {

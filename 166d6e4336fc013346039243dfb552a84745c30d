@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f3ebf8b_61df6e85",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-09-12T11:34:52Z",
+      "side": 1,
+      "message": "Does it make sense to have this variable in Q8? Also, do we need it as member or can we use the constant instead?",
+      "range": {
+        "startLine": 134,
+        "startChar": 6,
+        "endLine": 134,
+        "endChar": 42
+      },
+      "revId": "166d6e4336fc013346039243dfb552a84745c30d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

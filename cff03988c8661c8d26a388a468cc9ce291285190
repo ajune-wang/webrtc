@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "533cef99_2be061ee",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-09-12T10:59:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c76381b_cc40387e",
+      "range": {
+        "startLine": 663,
+        "startChar": 33,
+        "endLine": 663,
+        "endChar": 35
+      },
+      "revId": "cff03988c8661c8d26a388a468cc9ce291285190",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db4d9503_ac496000",
         "filename": "test/test_main_lib.cc",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-09-12T10:28:06Z",
       "side": 1,
       "message": "I think \"plot_metrics\" is a good name as well (shorter).",
+      "range": {
+        "startLine": 74,
+        "startChar": 10,
+        "endLine": 74,
+        "endChar": 34
+      },
+      "revId": "cff03988c8661c8d26a388a468cc9ce291285190",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5ad024d_e56b9325",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-09-12T10:59:52Z",
+      "side": 1,
+      "message": "I though about it, but it won\u0027t plot by  itself, so it is a bit confusing. WDYT?",
+      "parentUuid": "db4d9503_ac496000",
       "range": {
         "startLine": 74,
         "startChar": 10,

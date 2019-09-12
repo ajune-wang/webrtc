@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "118165c4_39e34163",
+        "filename": "modules/audio_coding/neteq/delay_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-09-12T12:22:02Z",
+      "side": 1,
+      "message": "as said in another comment, I don\u0027t think we need this method.",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 51
+      },
+      "revId": "449cbfd22d8665e4e56d87779983d57cca3f56fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4e5676a_01a69b7e",
+        "filename": "modules/audio_coding/neteq/delay_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-09-12T12:22:02Z",
+      "side": 1,
+      "message": "delete?",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 211,
+        "endChar": 49
+      },
+      "revId": "449cbfd22d8665e4e56d87779983d57cca3f56fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e195b85e_7bb7a119",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-09-12T12:22:02Z",
+      "side": 1,
+      "message": "I think these is no need to add this method just for test. We can simply repeat the value in this test. I mean\n\n// Deceleration target level offset as hardcoded in delay_manager.cc.\nconstexpr int kDecelerationTargetLevelOffsetMs \u003d 85;\n\nIf the test is well written, it should fail if one changes the value in delay_manager.cc, and that forces one to update the test.",
+      "range": {
+        "startLine": 602,
+        "startChar": 22,
+        "endLine": 602,
+        "endChar": 64
+      },
+      "revId": "449cbfd22d8665e4e56d87779983d57cca3f56fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

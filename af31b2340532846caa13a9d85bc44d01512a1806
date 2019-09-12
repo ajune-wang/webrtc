@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f557396c_76400ef0",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-12T16:50:46Z",
+      "side": 1,
+      "message": "that would mean\ndecode_target_protected_by_chain.size() !\u003d num_decode_targets\nwhich would require more complicated structure than vector where index of the element is the index of the decode_target",
+      "parentUuid": "a67fd1c3_0829f3e8",
+      "range": {
+        "startLine": 207,
+        "startChar": 48,
+        "endLine": 207,
+        "endChar": 64
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8895d07f_f7e18e14",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5afb8af4_28e2a5ec",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-12T16:50:46Z",
+      "side": 1,
+      "message": "yep, consistency is a good idea.\nhow do you feel about binary values?\n(I\u0027m a bit cheating : c++14 is not officially allowed yet in webrtc, but most likely it will be allowed veery soon)",
+      "parentUuid": "8895d07f_f7e18e14",
+      "range": {
+        "startLine": 247,
+        "startChar": 15,
+        "endLine": 247,
+        "endChar": 23
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2e50e3a9_cb378c4d",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-12T16:50:46Z",
+      "side": 1,
+      "message": "I just changed the check here [for now].\nAnd added a TODO to rethink overlap issue later if it would lead to practical issues.",
+      "parentUuid": "b71e6439_202a5f5b",
+      "range": {
+        "startLine": 286,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 26
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9860add5_f680d438",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e706cd9_f7068623",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-12T16:50:46Z",
+      "side": 1,
+      "message": "that is part of the ReadResolutions function.",
+      "parentUuid": "9860add5_f680d438",
+      "range": {
+        "startLine": 307,
+        "startChar": 7,
+        "endLine": 307,
+        "endChar": 22
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "29b6ba38_97d5e6be",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-12T16:50:46Z",
+      "side": 1,
+      "message": "extended comment in the WriteResolutions that writes that flag.",
+      "parentUuid": "d9a1b137_e88fd0ff",
+      "range": {
+        "startLine": 249,
+        "startChar": 7,
+        "endLine": 249,
+        "endChar": 23
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11e2738a_6213d320",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
         "patchSetId": 2
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "b2f28edf_26d3fe6a",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-12T16:50:46Z",
+      "side": 1,
+      "message": "for consistency with reader changed to binary.",
+      "parentUuid": "11e2738a_6213d320",
+      "range": {
+        "startLine": 361,
+        "startChar": 18,
+        "endLine": 361,
+        "endChar": 22
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13bc6a3b_b784c1df",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
         "patchSetId": 2
@@ -160,6 +304,30 @@
       "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0420cfa_59a696d5",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-12T16:50:46Z",
+      "side": 1,
+      "message": "Does extra comment explain why I skip it?",
+      "parentUuid": "13bc6a3b_b784c1df",
+      "range": {
+        "startLine": 464,
+        "startChar": 9,
+        "endLine": 464,
+        "endChar": 14
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

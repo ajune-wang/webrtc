@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6eeac2e5_822a9e94",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-12T17:02:42Z",
+      "side": 0,
+      "message": "Is OnRtcpPacketReceived still used after this? Do we have dead code to delete?",
+      "revId": "e373bb6ea58b0bfeafca9c3685a41b3b670c4d28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

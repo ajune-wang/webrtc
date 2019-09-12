@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fdeba7d6_d96da041",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-12T11:11:10Z",
+      "side": 1,
+      "message": "This needs to be glaznev@webrtc.org.",
+      "range": {
+        "startLine": 11,
+        "startChar": 5,
+        "endLine": 11,
+        "endChar": 12
+      },
+      "revId": "24af8b6fa6aed29a22e0b2acce52e692e86634c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

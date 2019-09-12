@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "013c7491_a1a1326b",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-12T12:00:14Z",
+      "side": 1,
+      "message": "Sorry for the late comment, I have just realized. You can collapse in one flag (plot, which will be a vector of strings) and avoid to plot if {}.",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 47
+      },
+      "revId": "cdda5c0133ab9e8b5a079bc31c6c2c328bf1f5e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

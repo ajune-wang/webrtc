@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70084a9d_052fcf68",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-09-12T11:13:33Z",
+      "side": 1,
+      "message": "Only difference between version 1 and version 2.",
+      "range": {
+        "startLine": 266,
+        "startChar": 40,
+        "endLine": 266,
+        "endChar": 69
+      },
+      "revId": "7638129b876a16a349604050fd0c1ebb2dfa91f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

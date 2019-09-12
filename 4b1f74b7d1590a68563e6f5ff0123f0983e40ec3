@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "854fd2b9_6e3cdad0",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-09-12T10:17:06Z",
+      "side": 1,
+      "message": "As I understand desired behavior is to be able to pass a list of metrics to plot, not to exclude. So I renamed flag.",
+      "parentUuid": "9a7c8906_0815860b",
+      "range": {
+        "startLine": 80,
+        "startChar": 10,
+        "endLine": 81,
+        "endChar": 20
+      },
+      "revId": "4b1f74b7d1590a68563e6f5ff0123f0983e40ec3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2a1497e_32303d7c",
         "filename": "test/testsupport/perf_test.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "4b1f74b7d1590a68563e6f5ff0123f0983e40ec3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04c2fea2_a96e583c",
+        "filename": "test/testsupport/perf_test.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-09-12T10:17:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2a1497e_32303d7c",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 28
+      },
+      "revId": "4b1f74b7d1590a68563e6f5ff0123f0983e40ec3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

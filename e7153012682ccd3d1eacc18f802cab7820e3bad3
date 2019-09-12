@@ -118,6 +118,30 @@
       "revId": "e7153012682ccd3d1eacc18f802cab7820e3bad3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdd74e85_bdd87efa",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 9753
+      },
+      "writtenOn": "2019-09-12T11:40:05Z",
+      "side": 1,
+      "message": "Just throwing this out there as an idea. I have no way to test this myself. What if you provided a weak stub implementation of XRRGetMonitors() to allow Debian 8 to link, like so:\n\nextern \"C\" {\n__attribute__((weak))\nXRRMonitorInfo *\nXRRGetMonitors(Display *, Window, Bool, int *) { return nullptr; }\n}\n\nIn theory, if xrandr 1.5 is available with a real XRRGetMonitors() implementation it will override the weak stub",
+      "parentUuid": "d1d82753_9cd22232",
+      "range": {
+        "startLine": 414,
+        "startChar": 7,
+        "endLine": 414,
+        "endChar": 13
+      },
+      "revId": "e7153012682ccd3d1eacc18f802cab7820e3bad3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -94,6 +94,30 @@
       "revId": "e7153012682ccd3d1eacc18f802cab7820e3bad3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1d82753_9cd22232",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-09-12T09:32:58Z",
+      "side": 1,
+      "message": "I have set up VMs with Debian 8 and Debian 10. I then wrote a small test program that checks the XRandR version and uses XRRGetMonitors to print the monitor count if it\u0027s version 1.5 otherwise it prints the old version number found. The results are as expected. You can compile the program on Debian 10, copy it to Debian 8, and there are no dynamic linking errors when you run it. It prints out version 1.4 for Debian 8. It prints the monitor count for Debian 10. What you can\u0027t do is compile the program on Debian 8.\n\nIs it a requirement that chromium can be compiled from source on a Debian 8 machine?",
+      "parentUuid": "cd749fb1_af955d00",
+      "range": {
+        "startLine": 414,
+        "startChar": 7,
+        "endLine": 414,
+        "endChar": 13
+      },
+      "revId": "e7153012682ccd3d1eacc18f802cab7820e3bad3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

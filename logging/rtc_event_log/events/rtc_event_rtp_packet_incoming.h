@@ -18,11 +18,9 @@
 
 namespace webrtc {
 
-class RtpPacketReceived;
-
 class RtcEventRtpPacketIncoming final : public RtcEvent {
  public:
-  explicit RtcEventRtpPacketIncoming(const RtpPacketReceived& packet);
+  explicit RtcEventRtpPacketIncoming(const RtpPacket& packet);
   ~RtcEventRtpPacketIncoming() override;
 
   Type GetType() const override;
@@ -31,22 +29,17 @@ class RtcEventRtpPacketIncoming final : public RtcEvent {
 
   std::unique_ptr<RtcEventRtpPacketIncoming> Copy() const;
 
-  size_t packet_length() const {
-    return payload_length_ + header_length_ + padding_length_;
-  }
+  size_t packet_length() const { return header_.size(); }
 
   const RtpPacket& header() const { return header_; }
-  size_t payload_length() const { return payload_length_; }
-  size_t header_length() const { return header_length_; }
-  size_t padding_length() const { return padding_length_; }
+  size_t payload_length() const { return header_.payload_size(); }
+  size_t header_length() const { return header_.headers_size(); }
+  size_t padding_length() const { return header_.padding_size(); }
 
  private:
   RtcEventRtpPacketIncoming(const RtcEventRtpPacketIncoming& other);
 
-  RtpPacket header_;  // Only the packet's header will be stored here.
-  const size_t payload_length_;  // Media payload, excluding header and padding.
-  const size_t header_length_;   // RTP header.
-  const size_t padding_length_;  // RTP padding.
+  const RtpPacket header_;  // Only the packet's header will be used.
 };
 
 }  // namespace webrtc

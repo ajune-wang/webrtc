@@ -18,12 +18,9 @@
 
 namespace webrtc {
 
-class RtpPacketToSend;
-
 class RtcEventRtpPacketOutgoing final : public RtcEvent {
  public:
-  RtcEventRtpPacketOutgoing(const RtpPacketToSend& packet,
-                            int probe_cluster_id);
+  RtcEventRtpPacketOutgoing(const RtpPacket& packet, int probe_cluster_id);
   ~RtcEventRtpPacketOutgoing() override;
 
   Type GetType() const override;
@@ -33,22 +30,19 @@ class RtcEventRtpPacketOutgoing final : public RtcEvent {
   std::unique_ptr<RtcEventRtpPacketOutgoing> Copy() const;
 
   size_t packet_length() const {
-    return payload_length_ + header_length_ + padding_length_;
+    return payload_length() + header_length() + padding_length();
   }
 
   const RtpPacket& header() const { return header_; }
-  size_t payload_length() const { return payload_length_; }
-  size_t header_length() const { return header_length_; }
-  size_t padding_length() const { return padding_length_; }
+  size_t payload_length() const { return header_.payload_size(); }
+  size_t header_length() const { return header_.headers_size(); }
+  size_t padding_length() const { return header_.padding_size(); }
   int probe_cluster_id() const { return probe_cluster_id_; }
 
  private:
   RtcEventRtpPacketOutgoing(const RtcEventRtpPacketOutgoing& other);
 
-  RtpPacket header_;  // Only the packet's header will be stored here.
-  const size_t payload_length_;  // Media payload, excluding header and padding.
-  const size_t header_length_;   // RTP header.
-  const size_t padding_length_;  // RTP padding.
+  const RtpPacket header_;  // Only the packet's header will be used.
   // TODO(eladalon): Delete |probe_cluster_id_| along with legacy encoding.
   const int probe_cluster_id_;
 };

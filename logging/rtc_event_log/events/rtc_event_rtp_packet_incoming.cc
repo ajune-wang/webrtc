@@ -16,24 +16,14 @@
 
 namespace webrtc {
 
-RtcEventRtpPacketIncoming::RtcEventRtpPacketIncoming(
-    const RtpPacketReceived& packet)
-    : payload_length_(packet.payload_size()),
-      header_length_(packet.headers_size()),
-      padding_length_(packet.padding_size()) {
-  header_.CopyHeaderFrom(packet);
+RtcEventRtpPacketIncoming::RtcEventRtpPacketIncoming(const RtpPacket& packet)
+    : header_(packet) {
   RTC_DCHECK_EQ(packet.size(),
-                payload_length_ + header_length_ + padding_length_);
+                payload_length() + header_length() + padding_length());
 }
 
 RtcEventRtpPacketIncoming::RtcEventRtpPacketIncoming(
-    const RtcEventRtpPacketIncoming& other)
-    : RtcEvent(other.timestamp_us_),
-      payload_length_(other.payload_length_),
-      header_length_(other.header_length_),
-      padding_length_(other.padding_length_) {
-  header_.CopyHeaderFrom(other.header_);
-}
+    const RtcEventRtpPacketIncoming& other) = default;
 
 RtcEventRtpPacketIncoming::~RtcEventRtpPacketIncoming() = default;
 

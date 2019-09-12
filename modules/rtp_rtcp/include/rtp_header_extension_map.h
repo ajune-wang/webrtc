@@ -51,9 +51,6 @@ class RtpHeaderExtensionMap {
   }
 
   // TODO(danilchap): Remove use of the functions below.
-  int32_t Register(RTPExtensionType type, int id) {
-    return RegisterByType(id, type) ? 0 : -1;
-  }
   int32_t Deregister(RTPExtensionType type);
 
   // Corresponds to the SDP attribute extmap-allow-mixed, see RFC8285.

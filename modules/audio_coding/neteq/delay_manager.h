@@ -125,7 +125,7 @@ class DelayManager {
   }
 
   // This accessor is only intended for testing purposes.
-  absl::optional<int> deceleration_target_level_offset_ms() const {
+  int deceleration_target_level_offset_ms() const {
     return deceleration_target_level_offset_ms_;
   }
 
@@ -208,7 +208,7 @@ class DelayManager {
   // |deceleration_target_level_offset_ms_| below the target level, NetEq will
   // impose deceleration to increase the buffer level. The value is in Q8, and
   // measured in milliseconds.
-  const absl::optional<int> deceleration_target_level_offset_ms_;
+  const int deceleration_target_level_offset_ms_;
   const absl::optional<int> extra_delay_ms_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(DelayManager);

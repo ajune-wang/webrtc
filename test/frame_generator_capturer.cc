@@ -46,8 +46,10 @@ FrameGeneratorCapturer::FrameGeneratorCapturer(
     Clock* clock,
     std::unique_ptr<FrameGenerator> frame_generator,
     int target_fps,
-    TaskQueueFactory& task_queue_factory)
-    : clock_(clock),
+    TaskQueueFactory& task_queue_factory,
+    std::unique_ptr<TestVideoCapturer::FramePreprocessor> frame_preprocessor)
+    : TestVideoCapturer(std::move(frame_preprocessor)),
+      clock_(clock),
       sending_(true),
       sink_wants_observer_(nullptr),
       frame_generator_(std::move(frame_generator)),

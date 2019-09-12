@@ -25,19 +25,23 @@ namespace test {
 class MacCapturer : public TestVideoCapturer,
                     public rtc::VideoSinkInterface<VideoFrame> {
  public:
-  static MacCapturer* Create(size_t width,
-                             size_t height,
-                             size_t target_fps,
-                             size_t capture_device_index);
+  static MacCapturer* Create(
+      size_t width,
+      size_t height,
+      size_t target_fps,
+      size_t capture_device_index,
+      std::unique_ptr<TestVideoCapturer::FramePreprocessor> frame_preprocessor);
   ~MacCapturer() override;
 
   void OnFrame(const VideoFrame& frame) override;
 
  private:
-  MacCapturer(size_t width,
-              size_t height,
-              size_t target_fps,
-              size_t capture_device_index);
+  MacCapturer(
+      size_t width,
+      size_t height,
+      size_t target_fps,
+      size_t capture_device_index,
+      std::unique_ptr<TestVideoCapturer::FramePreprocessor> frame_preprocessor);
   void Destroy();
 
   void* capturer_;

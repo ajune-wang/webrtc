@@ -23,13 +23,16 @@ std::unique_ptr<TestVideoCapturer> CreateVideoCapturer(
     size_t width,
     size_t height,
     size_t target_fps,
-    size_t capture_device_index) {
+    size_t capture_device_index,
+    std::unique_ptr<TestVideoCapturer::FramePreprocessor> frame_preprocessor) {
 #if defined(WEBRTC_MAC)
-  return absl::WrapUnique<TestVideoCapturer>(test::MacCapturer::Create(
-      width, height, target_fps, capture_device_index));
+  return absl::WrapUnique<TestVideoCapturer>(
+      test::MacCapturer::Create(width, height, target_fps, capture_device_index,
+                                std::move(frame_preprocessor)));
 #else
-  return absl::WrapUnique<TestVideoCapturer>(test::VcmCapturer::Create(
-      width, height, target_fps, capture_device_index));
+  return absl::WrapUnique<TestVideoCapturer>(
+      test::VcmCapturer::Create(width, height, target_fps, capture_device_index,
+                                std::move(frame_preprocessor)));
 #endif
 }
 

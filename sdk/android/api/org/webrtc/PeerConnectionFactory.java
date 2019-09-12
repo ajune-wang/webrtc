@@ -254,8 +254,10 @@ public class PeerConnectionFactory {
     }
 
     public PeerConnectionFactory createPeerConnectionFactory() {
+      Logging.d(TAG, "createPeerConnectionFactory");
       checkInitializeHasBeenCalled();
       if (audioDeviceModule == null) {
+        Logging.d(TAG, "Creating default ADM...");
         audioDeviceModule = JavaAudioDeviceModule.builder(ContextUtils.getApplicationContext())
                                 .createAudioDeviceModule();
       }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "444568a3_e995581e",
+        "filename": "modules/audio_coding/neteq/delay_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-09-12T13:00:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "118165c4_39e34163",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 51
+      },
+      "revId": "449cbfd22d8665e4e56d87779983d57cca3f56fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4e5676a_01a69b7e",
         "filename": "modules/audio_coding/neteq/delay_manager.h",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "17980aa6_52c7b3e9",
+        "filename": "modules/audio_coding/neteq/delay_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-09-12T13:00:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4e5676a_01a69b7e",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 211,
+        "endChar": 49
+      },
+      "revId": "449cbfd22d8665e4e56d87779983d57cca3f56fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e195b85e_7bb7a119",
         "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "449cbfd22d8665e4e56d87779983d57cca3f56fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6f2127f_3e0623b4",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-09-12T13:00:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e195b85e_7bb7a119",
+      "range": {
+        "startLine": 602,
+        "startChar": 22,
+        "endLine": 602,
+        "endChar": 64
+      },
+      "revId": "449cbfd22d8665e4e56d87779983d57cca3f56fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

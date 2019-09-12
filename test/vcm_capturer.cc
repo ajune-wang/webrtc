@@ -21,7 +21,9 @@
 namespace webrtc {
 namespace test {
 
-VcmCapturer::VcmCapturer() : vcm_(nullptr) {}
+VcmCapturer::VcmCapturer(
+    std::unique_ptr<TestVideoCapturer::FramePreprocessor> frame_preprocessor)
+    : TestVideoCapturer(std::move(frame_preprocessor)), vcm_(nullptr) {}
 
 bool VcmCapturer::Init(size_t width,
                        size_t height,
@@ -62,11 +64,14 @@ bool VcmCapturer::Init(size_t width,
   return true;
 }
 
-VcmCapturer* VcmCapturer::Create(size_t width,
-                                 size_t height,
-                                 size_t target_fps,
-                                 size_t capture_device_index) {
-  std::unique_ptr<VcmCapturer> vcm_capturer(new VcmCapturer());
+VcmCapturer* VcmCapturer::Create(
+    size_t width,
+    size_t height,
+    size_t target_fps,
+    size_t capture_device_index,
+    std::unique_ptr<TestVideoCapturer::FramePreprocessor> frame_preprocessor) {
+  std::unique_ptr<VcmCapturer> vcm_capturer(
+      new VcmCapturer(std::move(frame_preprocessor)));
   if (!vcm_capturer->Init(width, height, target_fps, capture_device_index)) {
     RTC_LOG(LS_WARNING) << "Failed to create VcmCapturer(w = " << width
                         << ", h = " << height << ", fps = " << target_fps

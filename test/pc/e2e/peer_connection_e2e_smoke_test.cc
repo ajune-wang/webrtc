@@ -143,6 +143,8 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Smoke) {
       [](PeerConfigurer* alice) {
         VideoConfig video(640, 360, 30);
         video.stream_label = "alice-video";
+        video.capturing_device_index = 0;
+        video.show_on_screen = true;
         alice->AddVideoConfig(std::move(video));
 
         AudioConfig audio;

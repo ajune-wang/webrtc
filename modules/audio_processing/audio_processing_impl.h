@@ -371,7 +371,6 @@ class AudioProcessingImpl : public AudioProcessing {
     bool use_experimental_agc_agc2_level_estimation;
     bool use_experimental_agc_agc2_digital_adaptive;
     bool use_experimental_agc_process_before_aec;
-
   } constants_;
 
   struct ApmCaptureState {

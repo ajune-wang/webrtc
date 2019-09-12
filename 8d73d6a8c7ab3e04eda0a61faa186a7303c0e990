@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d785a6e1_924842c9",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-12T11:59:40Z",
+      "side": 1,
+      "message": "Drive-by comments:\n\nKeep the Config::operator\u003d below all the config structs.\n\nConsider placing the Pipeline struct at the top of AudioProcessing::Config, since it affects everything.",
+      "range": {
+        "startLine": 367,
+        "startChar": 0,
+        "endLine": 382,
+        "endChar": 0
+      },
+      "revId": "8d73d6a8c7ab3e04eda0a61faa186a7303c0e990",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

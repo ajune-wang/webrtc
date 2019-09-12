@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a67fd1c3_0829f3e8",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-12T15:13:15Z",
+      "side": 1,
+      "message": "Maybe we should not add it if value \u003d\u003d structure-\u003enum_chains (meaning it is not protected by any chain)",
+      "range": {
+        "startLine": 207,
+        "startChar": 48,
+        "endLine": 207,
+        "endChar": 64
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8895d07f_f7e18e14",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-12T15:13:15Z",
+      "side": 1,
+      "message": "In ReadMandatoryFields we use hex values as a mask, I think we should do the same thing here.",
+      "range": {
+        "startLine": 247,
+        "startChar": 15,
+        "endLine": 247,
+        "endChar": 23
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b71e6439_202a5f5b",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-12T15:13:15Z",
+      "side": 1,
+      "message": "To check that there is no overlap we also have to check that template_id_offset is not in the range of the previous frame_dependency_structure_. That can be checked here or where it is read.",
+      "range": {
+        "startLine": 286,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 26
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9860add5_f680d438",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-12T15:13:15Z",
+      "side": 1,
+      "message": "First we have to read resolutions_present_flag to see if resolutions are present.",
+      "range": {
+        "startLine": 307,
+        "startChar": 7,
+        "endLine": 307,
+        "endChar": 22
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9a1b137_e88fd0ff",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-12T15:13:15Z",
+      "side": 1,
+      "message": "Write resolutions_present_flag and check if resolutions should be included.",
+      "range": {
+        "startLine": 249,
+        "startChar": 7,
+        "endLine": 249,
+        "endChar": 23
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11e2738a_6213d320",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-12T15:13:15Z",
+      "side": 1,
+      "message": "1 \u003c\u003c 7 instead?",
+      "range": {
+        "startLine": 361,
+        "startChar": 18,
+        "endLine": 361,
+        "endChar": 22
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13bc6a3b_b784c1df",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-12T15:13:15Z",
+      "side": 1,
+      "message": "This does not look right, it looks like you skip the first template?",
+      "range": {
+        "startLine": 464,
+        "startChar": 9,
+        "endLine": 464,
+        "endChar": 14
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

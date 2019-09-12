@@ -56,8 +56,9 @@ class CapturerTrackSource : public webrtc::VideoTrackSource {
     const size_t kHeight = 480;
     const size_t kFps = 30;
     const size_t kDeviceIndex = 0;
-    std::unique_ptr<webrtc::test::VcmCapturer> capturer = absl::WrapUnique(
-        webrtc::test::VcmCapturer::Create(kWidth, kHeight, kFps, kDeviceIndex));
+    std::unique_ptr<webrtc::test::VcmCapturer> capturer =
+        absl::WrapUnique(webrtc::test::VcmCapturer::Create(
+            kWidth, kHeight, kFps, kDeviceIndex, nullptr));
     if (!capturer) {
       return nullptr;
     }

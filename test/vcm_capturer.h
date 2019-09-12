@@ -23,16 +23,19 @@ namespace test {
 class VcmCapturer : public TestVideoCapturer,
                     public rtc::VideoSinkInterface<VideoFrame> {
  public:
-  static VcmCapturer* Create(size_t width,
-                             size_t height,
-                             size_t target_fps,
-                             size_t capture_device_index);
+  static VcmCapturer* Create(
+      size_t width,
+      size_t height,
+      size_t target_fps,
+      size_t capture_device_index,
+      std::unique_ptr<TestVideoCapturer::FramePreprocessor> frame_preprocessor);
   virtual ~VcmCapturer();
 
   void OnFrame(const VideoFrame& frame) override;
 
  private:
-  VcmCapturer();
+  VcmCapturer(
+      std::unique_ptr<TestVideoCapturer::FramePreprocessor> frame_preprocessor);
   bool Init(size_t width,
             size_t height,
             size_t target_fps,

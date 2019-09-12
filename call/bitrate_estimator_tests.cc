@@ -221,7 +221,9 @@ class BitrateEstimatorTest : public test::CallTest {
       if (is_sending_receiving_) {
         send_stream_->Stop();
         if (video_receive_stream_) {
-          video_receive_stream_->Stop();
+          test_->receiver_call_->DestroyVideoReceiveStream(
+              video_receive_stream_);
+          video_receive_stream_ = nullptr;
         }
         is_sending_receiving_ = false;
       }

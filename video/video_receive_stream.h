@@ -81,7 +81,6 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
 
   // Implements webrtc::VideoReceiveStream.
   void Start() override;
-  void Stop() override;
 
   webrtc::VideoReceiveStream::Stats GetStats() const override;
 
@@ -141,6 +140,7 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
       RTC_EXCLUSIVE_LOCKS_REQUIRED(playout_delay_lock_);
   void RequestKeyFrame();
 
+  void Stop();
   void UpdateHistograms();
 
   SequenceChecker worker_sequence_checker_;

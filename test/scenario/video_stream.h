@@ -72,7 +72,7 @@ class ReceiveVideoStream {
   RTC_DISALLOW_COPY_AND_ASSIGN(ReceiveVideoStream);
   ~ReceiveVideoStream();
   void Start();
-  void Stop();
+
   VideoReceiveStream::Stats GetStats() const;
 
  private:

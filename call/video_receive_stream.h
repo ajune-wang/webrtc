@@ -261,8 +261,6 @@ class VideoReceiveStream {
   virtual void Start() = 0;
   // Stops stream activity.
   // When a stream is stopped, it can't receive, process or deliver packets.
-  virtual void Stop() = 0;
-
   // TODO(pbos): Add info on currently-received codec to Stats.
   virtual Stats GetStats() const = 0;
 

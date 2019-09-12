@@ -579,13 +579,6 @@ void ReceiveVideoStream::Start() {
   });
 }
 
-void ReceiveVideoStream::Stop() {
-  receiver_->SendTask([this] {
-    for (auto* recv_stream : receive_streams_)
-      recv_stream->Stop();
-  });
-}
-
 VideoReceiveStream::Stats ReceiveVideoStream::GetStats() const {
   if (receive_streams_.empty())
     return VideoReceiveStream::Stats();

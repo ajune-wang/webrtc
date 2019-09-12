@@ -232,7 +232,6 @@ class FakeVideoReceiveStream final : public webrtc::VideoReceiveStream {
  private:
   // webrtc::VideoReceiveStream implementation.
   void Start() override;
-  void Stop() override;
 
   webrtc::VideoReceiveStream::Stats GetStats() const override;
 

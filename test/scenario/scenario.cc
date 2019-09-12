@@ -318,8 +318,6 @@ void Scenario::Stop() {
   }
   for (auto& stream_pair : audio_streams_)
     stream_pair->send()->Stop();
-  for (auto& stream_pair : video_streams_)
-    stream_pair->receive()->Stop();
   for (auto& stream_pair : audio_streams_)
     stream_pair->receive()->Stop();
   start_time_ = Timestamp::PlusInfinity();

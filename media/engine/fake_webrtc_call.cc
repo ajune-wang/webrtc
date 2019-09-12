@@ -343,10 +343,6 @@ void FakeVideoReceiveStream::Start() {
   receiving_ = true;
 }
 
-void FakeVideoReceiveStream::Stop() {
-  receiving_ = false;
-}
-
 void FakeVideoReceiveStream::SetStats(
     const webrtc::VideoReceiveStream::Stats& stats) {
   stats_ = stats;

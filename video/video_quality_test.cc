@@ -1172,8 +1172,6 @@ void VideoQualityTest::StartThumbnails() {
 }
 
 void VideoQualityTest::StopThumbnails() {
-  for (VideoReceiveStream* receive_stream : thumbnail_receive_streams_)
-    receive_stream->Stop();
   for (VideoSendStream* send_stream : thumbnail_send_streams_)
     send_stream->Stop();
 }

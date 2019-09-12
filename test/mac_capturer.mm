@@ -62,7 +62,9 @@ namespace test {
 MacCapturer::MacCapturer(size_t width,
                          size_t height,
                          size_t target_fps,
-                         size_t capture_device_index) {
+                         size_t capture_device_index,
+                         std::unique_ptr<TestVideoCapturer::FramePreprocessor> frame_preprocessor)
+    : TestVideoCapturer(std::move(frame_preprocessor)) {
   RTCTestVideoSourceAdapter *adapter = [[RTCTestVideoSourceAdapter alloc] init];
   adapter_ = (__bridge_retained void *)adapter;
   adapter.capturer = this;
@@ -76,11 +78,14 @@ MacCapturer::MacCapturer(size_t width,
   [capturer startCaptureWithDevice:device format:format fps:target_fps];
 }
 
-MacCapturer *MacCapturer::Create(size_t width,
-                                 size_t height,
-                                 size_t target_fps,
-                                 size_t capture_device_index) {
-  return new MacCapturer(width, height, target_fps, capture_device_index);
+MacCapturer *MacCapturer::Create(
+    size_t width,
+    size_t height,
+    size_t target_fps,
+    size_t capture_device_index,
+    std::unique_ptr<TestVideoCapturer::FramePreprocessor> frame_preprocessor) {
+  return new MacCapturer(
+      width, height, target_fps, capture_device_index, std::move(frame_preprocessor));
 }
 
 void MacCapturer::Destroy() {

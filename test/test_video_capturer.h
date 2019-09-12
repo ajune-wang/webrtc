@@ -24,7 +24,14 @@ namespace test {
 
 class TestVideoCapturer : public rtc::VideoSourceInterface<VideoFrame> {
  public:
-  TestVideoCapturer();
+  class FramePreprocessor {
+   public:
+    virtual ~FramePreprocessor() = default;
+
+    virtual VideoFrame Preprocess(const VideoFrame& frame) = 0;
+  };
+
+  explicit TestVideoCapturer(std::unique_ptr<FramePreprocessor> preprocessor);
   ~TestVideoCapturer() override;
 
   void AddOrUpdateSink(rtc::VideoSinkInterface<VideoFrame>* sink,
@@ -37,7 +44,9 @@ class TestVideoCapturer : public rtc::VideoSourceInterface<VideoFrame> {
 
  private:
   void UpdateVideoAdapter();
+  VideoFrame MaybePreprocess(const VideoFrame& frame);
 
+  std::unique_ptr<FramePreprocessor> preprocessor_;
   rtc::VideoBroadcaster broadcaster_;
   cricket::VideoAdapter video_adapter_;
 };

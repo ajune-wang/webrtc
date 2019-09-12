@@ -21,7 +21,9 @@ std::unique_ptr<TestVideoCapturer> CreateVideoCapturer(
     size_t width,
     size_t height,
     size_t target_fps,
-    size_t capture_device_index);
+    size_t capture_device_index,
+    std::unique_ptr<TestVideoCapturer::FramePreprocessor> frame_preprocessor =
+        nullptr);
 
 }  // namespace test
 }  // namespace webrtc

@@ -6776,6 +6776,16 @@ void PeerConnection::OnSctpClosingProcedureComplete_n(int sid) {
                 &SignalSctpClosingProcedureComplete, sid));
 }
 
+void PeerConnection::OnRtcpPacketReceived_n(rtc::CopyOnWriteBuffer* packet,
+                                            int64_t packet_time_us) {
+  auto packet_copy = *packet;
+  worker_thread()->PostTask(RTC_FROM_HERE, [this, packet_copy, packet_time_us] {
+    RTC_DCHECK_RUN_ON(worker_thread());
+    call_->Receiver()->DeliverPacket(MediaType::ANY, packet_copy,
+                                     packet_time_us);
+  });
+}
+
 bool PeerConnection::SetupDataChannelTransport_n(const std::string& mid) {
   data_channel_transport_ = transport_controller_->GetDataChannelTransport(mid);
   if (!data_channel_transport_) {
@@ -7436,6 +7446,22 @@ bool PeerConnection::OnTransportChanged(
     JsepTransportController::NegotiationState negotiation_state) {
   RTC_DCHECK_RUN_ON(network_thread());
   RTC_DCHECK_RUNS_SERIALIZED(&use_media_transport_race_checker_);
+  if (rtp_transport) {
+    if (rtp_transport_mids_.count(rtp_transport) == 0) {
+      rtp_transport->SignalRtcpPacketReceived.connect(
+          this, &PeerConnection::OnRtcpPacketReceived_n);
+    }
+    rtp_transport_mids_[rtp_transport].insert(mid);
+    mid_rtp_transport_[mid] = rtp_transport;
+  } else if (mid_rtp_transport_.count(mid) != 0) {
+    auto prev_transport = mid_rtp_transport_[mid];
+    rtp_transport_mids_[prev_transport].erase(mid);
+    mid_rtp_transport_.erase(mid);
+    if (rtp_transport_mids_.count(prev_transport) == 0) {
+      rtp_transport->SignalRtcpPacketReceived.disconnect(this);
+    }
+  }
+
   bool ret = true;
   auto base_channel = GetChannel(mid);
   if (base_channel) {

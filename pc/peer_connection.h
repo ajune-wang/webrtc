@@ -1041,6 +1041,9 @@ class PeerConnection : public PeerConnectionInternal,
   void OnSctpClosingProcedureStartedRemotely_n(int sid);
   void OnSctpClosingProcedureComplete_n(int sid);
 
+  void OnRtcpPacketReceived_n(rtc::CopyOnWriteBuffer* packet,
+                              int64_t packet_time_us);
+
   bool SetupDataChannelTransport_n(const std::string& mid)
       RTC_RUN_ON(network_thread());
   void OnMediaTransportStateChanged_n() RTC_RUN_ON(network_thread());
@@ -1338,6 +1341,11 @@ class PeerConnection : public PeerConnectionInternal,
   absl::optional<std::string>
       sctp_mid_;  // TODO(bugs.webrtc.org/9987): Accessed on both signaling
                   // and network thread.
+
+  std::map<RtpTransportInternal*, std::set<std::string>> rtp_transport_mids_
+      RTC_GUARDED_BY(network_thread());
+  std::map<std::string, RtpTransportInternal*> mid_rtp_transport_
+      RTC_GUARDED_BY(network_thread());
 
   // Value cached on signaling thread. Only updated when SctpReadyToSendData
   // fires on the signaling thread.

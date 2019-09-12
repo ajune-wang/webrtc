@@ -171,8 +171,6 @@ bool BaseChannel::ConnectToRtpTransport() {
   }
   rtp_transport_->SignalReadyToSend.connect(
       this, &BaseChannel::OnTransportReadyToSend);
-  rtp_transport_->SignalRtcpPacketReceived.connect(
-      this, &BaseChannel::OnRtcpPacketReceived);
 
   // If media transport is used, it's responsible for providing network
   // route changed callbacks.
@@ -193,7 +191,6 @@ void BaseChannel::DisconnectFromRtpTransport() {
   RTC_DCHECK(rtp_transport_);
   rtp_transport_->UnregisterRtpDemuxerSink(this);
   rtp_transport_->SignalReadyToSend.disconnect(this);
-  rtp_transport_->SignalRtcpPacketReceived.disconnect(this);
   rtp_transport_->SignalNetworkRouteChanged.disconnect(this);
   rtp_transport_->SignalWritableState.disconnect(this);
   rtp_transport_->SignalSentPacket.disconnect(this);

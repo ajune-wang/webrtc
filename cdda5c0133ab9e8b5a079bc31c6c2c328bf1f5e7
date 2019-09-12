@@ -22,6 +22,30 @@
       "revId": "cdda5c0133ab9e8b5a079bc31c6c2c328bf1f5e7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6573576c_47209294",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-09-12T12:58:42Z",
+      "side": 1,
+      "message": "Actually I can\u0027t, because empty list means plot all.",
+      "parentUuid": "013c7491_a1a1326b",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 47
+      },
+      "revId": "cdda5c0133ab9e8b5a079bc31c6c2c328bf1f5e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

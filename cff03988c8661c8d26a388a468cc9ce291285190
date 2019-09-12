@@ -93,6 +93,30 @@
       "revId": "cff03988c8661c8d26a388a468cc9ce291285190",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc094f93_17c10213",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-12T11:02:43Z",
+      "side": 1,
+      "message": "We can try to be consistent with https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_tools/rtc_event_log_visualizer/main.cc but that tool always plots. :)\n\nIt is you call, I think it is fine to assume the user of the framework knows that they should pipe the output to python to get a plot.",
+      "parentUuid": "a5ad024d_e56b9325",
+      "range": {
+        "startLine": 74,
+        "startChar": 10,
+        "endLine": 74,
+        "endChar": 34
+      },
+      "revId": "cff03988c8661c8d26a388a468cc9ce291285190",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

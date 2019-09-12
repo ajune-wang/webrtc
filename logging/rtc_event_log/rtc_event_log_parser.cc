@@ -1534,7 +1534,6 @@ rtclog::StreamConfig ParsedRtcEventLog::GetVideoReceiveConfig(
   RTC_CHECK(receiver_config.has_rtcp_mode());
   config.rtcp_mode = GetRuntimeRtcpMode(receiver_config.rtcp_mode());
   RTC_CHECK(receiver_config.has_remb());
-  config.remb = receiver_config.remb();
 
   // Get RTX map.
   std::map<uint32_t, const rtclog::RtxConfig> rtx_map;

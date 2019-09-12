@@ -22,7 +22,7 @@ StreamConfig::StreamConfig(const StreamConfig& other) = default;
 bool StreamConfig::operator==(const StreamConfig& other) const {
   return local_ssrc == other.local_ssrc && remote_ssrc == other.remote_ssrc &&
          rtx_ssrc == other.rtx_ssrc && rsid == other.rsid &&
-         remb == other.remb && rtcp_mode == other.rtcp_mode &&
+         rtcp_mode == other.rtcp_mode &&
          rtp_extensions == other.rtp_extensions && codecs == other.codecs;
 }
 

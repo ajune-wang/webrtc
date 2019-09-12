@@ -696,7 +696,6 @@ EventGenerator::NewVideoReceiveStreamConfig(
   // Add extensions and settings for RTCP.
   config->rtcp_mode =
       prng_.Rand<bool>() ? RtcpMode::kCompound : RtcpMode::kReducedSize;
-  config->remb = prng_.Rand<bool>();
   config->rtx_ssrc = prng_.Rand<uint32_t>();
   config->codecs.emplace_back(prng_.Rand<bool>() ? "VP8" : "H264",
                               prng_.Rand(127), prng_.Rand(127));

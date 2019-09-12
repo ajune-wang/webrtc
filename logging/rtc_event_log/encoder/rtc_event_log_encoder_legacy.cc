@@ -616,7 +616,7 @@ std::string RtcEventLogEncoderLegacy::EncodeVideoReceiveStreamConfig(
 
   // TODO(perkj): Add field for rsid.
   receiver_config->set_rtcp_mode(ConvertRtcpMode(event.config().rtcp_mode));
-  receiver_config->set_remb(event.config().remb);
+  receiver_config->set_remb(false);
 
   for (const auto& e : event.config().rtp_extensions) {
     rtclog::RtpHeaderExtension* extension =

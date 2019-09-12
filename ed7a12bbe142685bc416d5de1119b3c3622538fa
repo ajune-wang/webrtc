@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52ff6721_8b9774a3",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-09-12T13:34:56Z",
+      "side": 1,
+      "message": "just add a comment\n// Deceleration target level offset follows the value hardcoded in delay_manager.cc.",
+      "range": {
+        "startLine": 600,
+        "startChar": 2,
+        "endLine": 600,
+        "endChar": 11
+      },
+      "revId": "ed7a12bbe142685bc416d5de1119b3c3622538fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

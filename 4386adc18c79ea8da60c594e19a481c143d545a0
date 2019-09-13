@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d05d96df_2af3d99d",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-13T13:58:26Z",
+      "side": 1,
+      "message": "Should we delete this last one too, and just include rtc_base/thread.h here?",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 13
+      },
+      "revId": "4386adc18c79ea8da60c594e19a481c143d545a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

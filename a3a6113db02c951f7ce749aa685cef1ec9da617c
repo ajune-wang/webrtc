@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eae6c1a8_3e7205ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-13T10:42:55Z",
+      "side": 1,
+      "message": "It looks like there are still a few left?",
+      "revId": "a3a6113db02c951f7ce749aa685cef1ec9da617c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

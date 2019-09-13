@@ -1272,7 +1272,6 @@ bool WebRtcVideoChannel::AddRecvStream(const StreamParams& sp,
     return false;
 
   uint32_t ssrc = sp.first_ssrc();
-  RTC_DCHECK(ssrc != 0);  // TODO(pbos): Is this ever valid?
 
   // Remove running stream if this was a default stream.
   const auto& prev_stream = receive_streams_.find(ssrc);
@@ -1365,12 +1364,6 @@ void WebRtcVideoChannel::ConfigureReceiverRtp(
 bool WebRtcVideoChannel::RemoveRecvStream(uint32_t ssrc) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_LOG(LS_INFO) << "RemoveRecvStream: " << ssrc;
-  if (ssrc == 0) {
-    // This indicates that we need to remove the unsignaled stream parameters
-    // that are cached.
-    unsignaled_stream_params_ = StreamParams();
-    return true;
-  }
 
   std::map<uint32_t, WebRtcVideoReceiveStream*>::iterator stream =
       receive_streams_.find(ssrc);
@@ -1381,6 +1374,13 @@ bool WebRtcVideoChannel::RemoveRecvStream(uint32_t ssrc) {
   DeleteReceiveStream(stream->second);
   receive_streams_.erase(stream);
 
+  return true;
+}
+
+bool WebRtcVideoChannel::ResetUnsignaledRecvStream() {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  RTC_LOG(LS_INFO) << "ResetUnsignaledRecvStream.";
+  unsignaled_stream_params_ = StreamParams();
   return true;
 }
 

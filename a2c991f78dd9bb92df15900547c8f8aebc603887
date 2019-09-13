@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "764832e5_9b96d9e1",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-09-13T19:14:54Z",
+      "side": 1,
+      "message": "I think it could work if we used a helper called CreateFrameDescriptor(). Example:\n  OnReceivedPacket(CreatePacket(101, CreateFrameDescriptor(true, true, 1, false, {max_uint16_t}));\n\n(If this is too much work, by all means, ignore. But I think you did something good in PS2, which I should have used to begin with.)",
+      "parentUuid": "12fbedd9_85fdcc75",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 21
+      },
+      "revId": "a2c991f78dd9bb92df15900547c8f8aebc603887",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c87c8d94_d7debd7a",
         "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
         "patchSetId": 4

@@ -179,6 +179,9 @@ class BaseChannel : public ChannelInterface,
 
   MediaChannel* media_channel() const override { return media_channel_.get(); }
 
+  void OnRtcpPacketReceivedForTest(rtc::CopyOnWriteBuffer* packet,
+                                   int64_t packet_time_us);
+
  protected:
   bool was_ever_writable() const { return was_ever_writable_; }
   void set_local_content_direction(webrtc::RtpTransceiverDirection direction) {
@@ -220,9 +223,6 @@ class BaseChannel : public ChannelInterface,
   bool SendPacket(bool rtcp,
                   rtc::CopyOnWriteBuffer* packet,
                   const rtc::PacketOptions& options);
-
-  void OnRtcpPacketReceived(rtc::CopyOnWriteBuffer* packet,
-                            int64_t packet_time_us);
 
   void OnPacketReceived(bool rtcp,
                         const rtc::CopyOnWriteBuffer& packet,

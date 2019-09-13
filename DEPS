@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'f7cd88eb51da350a37855c41541c313a9f2a3561',
+  'chromium_revision': '465489971eea184a1357b8004cc7fa0447067918',
 }
 
 deps = {
@@ -29,7 +29,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@3eeaff6f9f412776fc4f258b0aba70b0ad6d4e4b',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@88bce8c16d21250d2c5164ba5a63055cf3b378a9',
+    'https://chromium.googlesource.com/chromium/src/third_party@283ffe163736afa55438bd915311300735b8a83d',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -119,7 +119,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@2d75cf6238a5c8bb594a5fc90c041542a2ca1178',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@5b6ae8bc74d18033d8880e6183efa9ef6ca71de3',
   'src/third_party/errorprone/lib': {
       'url': 'https://chromium.googlesource.com/chromium/third_party/errorprone.git@980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',

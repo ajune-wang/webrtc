@@ -82,6 +82,9 @@ struct FrameDependencyStructure {
   int structure_id = 0;
   int num_decode_targets = 0;
   int num_chains = 0;
+  // If chains are used (num_chains > 0), maps decode target index into index of
+  // the chain protecting that target or |num_chains| value if decode target is
+  // not protected by a chain.
   absl::InlinedVector<int, 10> decode_target_protected_by_chain;
   absl::InlinedVector<RenderResolution, 4> resolutions;
   std::vector<FrameDependencyTemplate> templates;

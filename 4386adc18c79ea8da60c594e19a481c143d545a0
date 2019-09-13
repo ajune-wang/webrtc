@@ -22,6 +22,30 @@
       "revId": "4386adc18c79ea8da60c594e19a481c143d545a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0ecc6be_d678c278",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-13T14:08:07Z",
+      "side": 1,
+      "message": "This discussion came up with srte@ a couple of days ago.\n\nIMO rtc::Thread is part of the API since we can inject it in the API. kwiberg@, any opinions on this topic?\n\nIn any case this should not happen in this CL.",
+      "parentUuid": "d05d96df_2af3d99d",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 13
+      },
+      "revId": "4386adc18c79ea8da60c594e19a481c143d545a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

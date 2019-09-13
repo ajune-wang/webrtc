@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d72cf38_4d221de9",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-13T06:08:04Z",
+      "side": 1,
+      "message": "Maybe remove \"This has been demonstrated to work well for AEC in most practical scenarios.\"\n?",
+      "range": {
+        "startLine": 641,
+        "startChar": 67,
+        "endLine": 642,
+        "endChar": 69
+      },
+      "revId": "4cfd575c784e17e1b13cf9857cdf32a4a2449214",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed9196ff_cba39645",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-13T06:08:04Z",
+      "side": 1,
+      "message": "Please change this to \n        config_.pipeline.experimental_multichannel_render_analysis || config_.pipeline.experimental_multichannel_echo_control \n\nOtherwise, we will have a parameter combination for which the AEC will likely crash.",
+      "range": {
+        "startLine": 644,
+        "startChar": 8,
+        "endLine": 644,
+        "endChar": 15
+      },
+      "revId": "4cfd575c784e17e1b13cf9857cdf32a4a2449214",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a333c81f_35ee2526",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-13T06:08:04Z",
+      "side": 1,
+      "message": "Unintentional change?",
+      "range": {
+        "startLine": 374,
+        "startChar": 4,
+        "endLine": 374,
+        "endChar": 14
+      },
+      "revId": "4cfd575c784e17e1b13cf9857cdf32a4a2449214",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3218c2a0_f7587d6c",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-13T06:08:04Z",
+      "side": 1,
+      "message": "I point here is that if we have\nexperimental_multichannel_echo_control set to true while experimental_multichannel_render_analysis, things will not work. \n\nIs it possible to somehow only end up with one parameter? For instance, only have experimental_multichannel_echo_control?",
+      "revId": "4cfd575c784e17e1b13cf9857cdf32a4a2449214",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

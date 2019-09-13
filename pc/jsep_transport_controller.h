@@ -106,6 +106,9 @@ class JsepTransportController : public sigslot::has_slots<> {
     // Used to inject the ICE/DTLS transports created externally.
     cricket::TransportFactoryInterface* external_transport_factory = nullptr;
     Observer* transport_observer = nullptr;
+    std::function<void(const rtc::CopyOnWriteBuffer& packet,
+                       int64_t packet_time_us)>
+        rtcp_handler;
     bool active_reset_srtp_params = false;
     RtcEventLog* event_log = nullptr;
 
@@ -436,6 +439,9 @@ class JsepTransportController : public sigslot::has_slots<> {
       bool provisional);
 
   void UpdateAggregateStates_n();
+
+  void OnRtcpPacketReceived_n(rtc::CopyOnWriteBuffer* packet,
+                              int64_t packet_time_us);
 
   void OnDtlsHandshakeError(rtc::SSLHandshakeError error);
 

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "549144e5_e143d06e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6782,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-13T13:15:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "281f8e64_d1ab116e",
+      "revId": "2656160f6389d732135f76dc17801bbd7ead2018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d13273f_4f798d4f",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "2656160f6389d732135f76dc17801bbd7ead2018",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6eaf5a08_74820032",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6784,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-13T13:15:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1d13273f_4f798d4f",
+      "revId": "2656160f6389d732135f76dc17801bbd7ead2018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "50ba30ae_c23244c5",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 7452,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-13T13:15:07Z",
+      "side": 1,
+      "message": "Did kind of 2, but without information of the source transport since we don\u0027t have a way to handle that currently. If we want to do something with the information later on we can add it then.",
+      "parentUuid": "d2f846af_e1d197e9",
+      "revId": "2656160f6389d732135f76dc17801bbd7ead2018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8db7459_a7f31fab",
         "filename": "pc/peer_connection.h",
         "patchSetId": 1
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "8ce964f9_953cc586",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-13T13:15:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8db7459_a7f31fab",
+      "revId": "2656160f6389d732135f76dc17801bbd7ead2018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66c0c7de_2eac2eb3",
         "filename": "pc/peer_connection.h",
         "patchSetId": 1
@@ -84,6 +156,24 @@
       "revId": "2656160f6389d732135f76dc17801bbd7ead2018",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e531b54_fde919c1",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-13T13:15:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "66c0c7de_2eac2eb3",
+      "revId": "2656160f6389d732135f76dc17801bbd7ead2018",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

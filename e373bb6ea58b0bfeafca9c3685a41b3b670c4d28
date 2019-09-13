@@ -16,6 +16,24 @@
       "revId": "e373bb6ea58b0bfeafca9c3685a41b3b670c4d28",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41f5526f_a72ca1ff",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-13T13:15:07Z",
+      "side": 0,
+      "message": "I kept it for the unit tests which aren\u0027t using JsepTransportController.",
+      "parentUuid": "6eeac2e5_822a9e94",
+      "revId": "e373bb6ea58b0bfeafca9c3685a41b3b670c4d28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -16,6 +16,40 @@
       "revId": "a3a6113db02c951f7ce749aa685cef1ec9da617c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c917bd25_0ee80edc",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-13T11:39:18Z",
+      "side": 1,
+      "message": "We can remove this TODO now.",
+      "revId": "a3a6113db02c951f7ce749aa685cef1ec9da617c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07023de1_e13200e3",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-13T11:39:18Z",
+      "side": 1,
+      "message": "According to the TODO above we want to remove this function, so making it pure virtual would actually prevent Chrome from removing it, now allowing us to remove it here. Let this one be {}.",
+      "revId": "a3a6113db02c951f7ce749aa685cef1ec9da617c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "8fa4ee8c00bdb0da10fefc6d66288de1b3742897",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89bdffb6_98d87cfb",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-13T10:46:59Z",
+      "side": 1,
+      "message": "I bit of thinking required to decide how to move that check outside of this class.\nSince this reader has to decide: should that new packet update the internal state, or should internal state be kept.\n\nI guess you right, that decision should be made outside (e.g. it might take into account rtp sequence number). Need to think how todo that.\nLet me do that before proceeding with this change.",
+      "parentUuid": "a4169396_cf62aeba",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 3
+      },
+      "revId": "8fa4ee8c00bdb0da10fefc6d66288de1b3742897",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

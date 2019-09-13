@@ -310,6 +310,30 @@
     },
     {
       "key": {
+        "uuid": "57917f0b_62bd8727",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-13T10:46:59Z",
+      "side": 1,
+      "message": "hm, looking at spec, I guess better to read the has_resolution flag outside.\nwhile num_chains still ok to read inside ReatTemplateChains",
+      "parentUuid": "c758388b_6ec45308",
+      "range": {
+        "startLine": 307,
+        "startChar": 7,
+        "endLine": 307,
+        "endChar": 22
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9a1b137_e88fd0ff",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
         "patchSetId": 2

@@ -22,6 +22,30 @@
       "revId": "bd21d70a9cb3be8f3f57e217e166e009c262f7ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45650b5c_cd386829",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-13T10:46:59Z",
+      "side": 1,
+      "message": "for consistency with reader where it is for better horizontal alignment of binary constants.\n\nI guess that reason doesn\u0027t pull it weight. reverted.",
+      "parentUuid": "5991a942_ef85d540",
+      "range": {
+        "startLine": 292,
+        "startChar": 9,
+        "endLine": 292,
+        "endChar": 27
+      },
+      "revId": "bd21d70a9cb3be8f3f57e217e166e009c262f7ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

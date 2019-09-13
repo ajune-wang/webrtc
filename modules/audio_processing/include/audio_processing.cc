@@ -51,10 +51,21 @@ std::string GainController2LevelEstimatorToString(
   }
 }
 
+int GetDefaultMaxInternalRate() {
+#ifdef WEBRTC_ARCH_ARM_FAMILY
+  return 32000;
+#else
+  return 48000;
+#endif
+}
+
 }  // namespace
 
 void CustomProcessing::SetRuntimeSetting(
     AudioProcessing::RuntimeSetting setting) {}
+
+AudioProcessing::Config::Pipeline::Pipeline()
+    : maximum_internal_processing_rate(GetDefaultMaxInternalRate()) {}
 
 std::string AudioProcessing::Config::ToString() const {
   char buf[1024];

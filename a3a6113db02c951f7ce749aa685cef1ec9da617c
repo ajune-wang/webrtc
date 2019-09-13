@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8882230b_5eaf8d2b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-13T13:43:55Z",
+      "side": 1,
+      "message": "Edited.",
+      "parentUuid": "eae6c1a8_3e7205ae",
+      "revId": "a3a6113db02c951f7ce749aa685cef1ec9da617c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c917bd25_0ee80edc",
         "filename": "api/peer_connection_interface.h",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "5c96f0be_327ff099",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-13T13:43:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c917bd25_0ee80edc",
+      "revId": "a3a6113db02c951f7ce749aa685cef1ec9da617c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07023de1_e13200e3",
         "filename": "api/peer_connection_interface.h",
         "patchSetId": 7
@@ -50,6 +86,24 @@
       "revId": "a3a6113db02c951f7ce749aa685cef1ec9da617c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e11d7fe2_8f6aa9a2",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-13T13:43:55Z",
+      "side": 1,
+      "message": "Done. And this is one of the methods that should probably be\n\n  virtual void SetRemoteDescription(\n      std::unique_ptr\u003cSessionDescriptionInterface\u003e desc,\n      std::function\u003cvoid(RTCError)\u003e callback);\n\nper recent discussion. The callback will be a copyable thing that holds refcounted pointers to whatever state it depends on.",
+      "parentUuid": "07023de1_e13200e3",
+      "revId": "a3a6113db02c951f7ce749aa685cef1ec9da617c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

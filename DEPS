@@ -5,14 +5,14 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'f34aba1c4b6bc3bbd019f5a8f953fee9e0f48e31',
+  'chromium_revision': '2e35ae1e3092c6736b448cf84e3cc89371709037',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@f4abcfef4023371cedf7759c6bbf32927904ea34',
+    'https://chromium.googlesource.com/chromium/src/base@4cc37528396439f545d04052d0cf3b0c624c2573',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@84f457cd3a04b9f6725cf039d6722f138ecd19ad',
   'src/buildtools':
@@ -23,13 +23,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@daccfbb8f2322d9ea5d0d1042b11b7548e93856e',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@d59007cfe9ae9adb79ca0b5dc11ba6734c2f1254',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@f10bc9f2a62be9eb9b7f4e0604b0bc7e2d303549',
+    'https://chromium.googlesource.com/chromium/src/testing@9e4e9634555bfba92750345411d20854478bce90',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@ade1bb5565493abb7443c6a181ea86e228e7b2b8',
+    'https://chromium.googlesource.com/chromium/src/third_party@edd7c66b4efc292e0cffe8222069888f0035a68d',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -111,7 +111,7 @@ deps = {
   'src/third_party/boringssl/src':
     'https://boringssl.googlesource.com/boringssl.git@05cd93068b0a553afc48f69acbceae10c6a17593',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@18bc4ae25cdbe2713ae2b258350034d59ebd83df',
+    'https://chromium.googlesource.com/catapult.git@3732ed115b74ff95f4064ad721823fd0addd970e',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
     'condition': 'checkout_android',
@@ -119,7 +119,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@0910f787ebc0fc4b39b9bf9aaf4c980baaca293a',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@c8b67ed81fd495b19c58030f0d3b6d40fddc7ac8',
   'src/third_party/errorprone/lib': {
       'url': 'https://chromium.googlesource.com/chromium/third_party/errorprone.git@980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',
@@ -231,7 +231,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@de937bd3adaea153681c52c845f03df2496a4e37',
+    'https://chromium.googlesource.com/chromium/src/tools@7b413770a5c51625e11749437a7d7bb4217d529a',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@96f125709acfd0b48fc1e5dae7d6ea42291726ac',
 

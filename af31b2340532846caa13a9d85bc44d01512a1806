@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "8e12d4d5_0b2db9a0",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-13T09:21:32Z",
+      "side": 1,
+      "message": "I\u0027ve tried to accept the overlapping to avoid getting stuck,\nbut then my fuzzer test start to failing and I was unsure how to adjust the expectations.",
+      "parentUuid": "2e50e3a9_cb378c4d",
+      "range": {
+        "startLine": 286,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 26
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9860add5_f680d438",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
         "patchSetId": 2

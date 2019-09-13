@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4169396_cf62aeba",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-13T09:37:53Z",
+      "side": 1,
+      "message": "I think this whole check should be moved out of the reader, let the application check for overlap and decide what to do in that case. I feel like we are mixing purposes/making the class less defined by doing this.",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 3
+      },
+      "revId": "8fa4ee8c00bdb0da10fefc6d66288de1b3742897",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

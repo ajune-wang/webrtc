@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "72a66f85_06f23168",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-13T09:32:26Z",
+      "side": 1,
+      "message": "You are right, the decode_target_protected_by_chain comment clear things up.",
+      "parentUuid": "f557396c_76400ef0",
+      "range": {
+        "startLine": 207,
+        "startChar": 48,
+        "endLine": 207,
+        "endChar": 64
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8895d07f_f7e18e14",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
         "patchSetId": 2
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "yep, consistency is a good idea.\nhow do you feel about binary values?\n(I\u0027m a bit cheating : c++14 is not officially allowed yet in webrtc, but most likely it will be allowed veery soon)",
       "parentUuid": "8895d07f_f7e18e14",
+      "range": {
+        "startLine": 247,
+        "startChar": 15,
+        "endLine": 247,
+        "endChar": 23
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b071cbdf_2e981196",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-13T09:32:26Z",
+      "side": 1,
+      "message": "Cheating looks good :)",
+      "parentUuid": "5afb8af4_28e2a5ec",
       "range": {
         "startLine": 247,
         "startChar": 15,
@@ -167,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "afc32638_57139f48",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-13T09:32:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2e50e3a9_cb378c4d",
+      "range": {
+        "startLine": 286,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 26
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9860add5_f680d438",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
         "patchSetId": 2
@@ -202,6 +274,30 @@
       "side": 1,
       "message": "that is part of the ReadResolutions function.",
       "parentUuid": "9860add5_f680d438",
+      "range": {
+        "startLine": 307,
+        "startChar": 7,
+        "endLine": 307,
+        "endChar": 22
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c758388b_6ec45308",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-13T09:32:26Z",
+      "side": 1,
+      "message": "Ack, but I think we are mixing two ways of program flow. In Read for example we first check if template_id \u003d\u003d kExtendedFieldsIndicator and then ReadExtendedFields if it\u0027s present.\n\nI would prefer if the bit was checked before ReadResolutions was called, or secondly if ReadResolutions could be renamed to ReadResolutionsIfPresent.",
+      "parentUuid": "4e706cd9_f7068623",
       "range": {
         "startLine": 307,
         "startChar": 7,
@@ -308,6 +404,30 @@
     },
     {
       "key": {
+        "uuid": "4f7291b6_e4867c70",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-13T09:32:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b2f28edf_26d3fe6a",
+      "range": {
+        "startLine": 361,
+        "startChar": 18,
+        "endLine": 361,
+        "endChar": 22
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13bc6a3b_b784c1df",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
         "patchSetId": 2
@@ -343,6 +463,30 @@
       "side": 1,
       "message": "Does extra comment explain why I skip it?",
       "parentUuid": "13bc6a3b_b784c1df",
+      "range": {
+        "startLine": 464,
+        "startChar": 9,
+        "endLine": 464,
+        "endChar": 14
+      },
+      "revId": "af31b2340532846caa13a9d85bc44d01512a1806",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "000ece64_2b66c1ad",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-13T09:32:26Z",
+      "side": 1,
+      "message": "Yes, that makes it clear.",
+      "parentUuid": "b0420cfa_59a696d5",
       "range": {
         "startLine": 464,
         "startChar": 9,

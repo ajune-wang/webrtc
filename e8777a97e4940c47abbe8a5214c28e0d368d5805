@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "faee3dcd_45319638",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-13T11:35:30Z",
+      "side": 1,
+      "message": "Not sure what 32 * 8 is in this case? Width + height is 32 bits right?",
+      "range": {
+        "startLine": 128,
+        "startChar": 53,
+        "endLine": 128,
+        "endChar": 59
+      },
+      "revId": "e8777a97e4940c47abbe8a5214c28e0d368d5805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26c5f417_9fa92756",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-13T11:35:30Z",
+      "side": 1,
+      "message": "In a followup CL it would be nice to have a common definition for these values. Could be a TODO for now.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 44
+      },
+      "revId": "e8777a97e4940c47abbe8a5214c28e0d368d5805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87199483_c8c8a4b5",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-13T11:35:30Z",
+      "side": 1,
+      "message": "What is 32*8?",
+      "range": {
+        "startLine": 193,
+        "startChar": 57,
+        "endLine": 193,
+        "endChar": 63
+      },
+      "revId": "e8777a97e4940c47abbe8a5214c28e0d368d5805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aec7ec4_81d69645",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-13T11:35:30Z",
+      "side": 1,
+      "message": "nit: TemplateIterator",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 21
+      },
+      "revId": "e8777a97e4940c47abbe8a5214c28e0d368d5805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

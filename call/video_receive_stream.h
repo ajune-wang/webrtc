@@ -18,8 +18,8 @@
 #include <vector>
 
 #include "api/call/transport.h"
-#include "api/crypto/crypto_options.h"
-#include "api/crypto/frame_decryptor_interface.h"
+#include "api/crypto/crypto_options.h"             // nogncheck
+#include "api/crypto/frame_decryptor_interface.h"  // nogncheck
 #include "api/rtp_headers.h"
 #include "api/rtp_parameters.h"
 #include "api/transport/media/media_transport_config.h"

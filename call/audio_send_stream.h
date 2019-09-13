@@ -21,8 +21,8 @@
 #include "api/audio_codecs/audio_encoder_factory.h"
 #include "api/audio_codecs/audio_format.h"
 #include "api/call/transport.h"
-#include "api/crypto/crypto_options.h"
-#include "api/crypto/frame_encryptor_interface.h"
+#include "api/crypto/crypto_options.h"             // nogncheck
+#include "api/crypto/frame_encryptor_interface.h"  // nogncheck
 #include "api/rtp_parameters.h"
 #include "api/scoped_refptr.h"
 #include "api/transport/media/media_transport_config.h"

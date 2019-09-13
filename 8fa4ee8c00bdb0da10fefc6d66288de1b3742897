@@ -70,6 +70,30 @@
       "revId": "8fa4ee8c00bdb0da10fefc6d66288de1b3742897",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da0dce56_aea7e0b1",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_reader.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-13T14:12:02Z",
+      "side": 1,
+      "message": "my idea was that RtpDependencyDescriptorReader is the state while DependencyDescriptorExtension::Parse is stateless.\nI guess updating that state as part of Parsing might be bad idea.\n\nI made an alternative:\nhttps://webrtc-review.googlesource.com/c/src/+/152823/\n\n(that cause removing optimization when same structure is sent, but that optimization probably a bad idea anyway)",
+      "parentUuid": "5143ad58_b9ded64c",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 3
+      },
+      "revId": "8fa4ee8c00bdb0da10fefc6d66288de1b3742897",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

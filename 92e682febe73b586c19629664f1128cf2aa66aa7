@@ -22,6 +22,30 @@
       "revId": "92e682febe73b586c19629664f1128cf2aa66aa7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b4c0525_4f0f045b",
+        "filename": "modules/desktop_capture/window_finder_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 8783
+      },
+      "writtenOn": "2019-09-13T10:57:16Z",
+      "side": 1,
+      "message": "Thanks for the review. Originally I did write a version of it but it\u0027s not really idiomatic due to the conditionality in the call. Also the code flow in question is not really complicated to assert the level of correctness that is needed. We are talking about one return statement here. Realistically, it is not going to have very many additional returns in the future either.\n\nI\u0027d like to proceed submitting this, though I don\u0027t oppose somebody further refactoring if breaks are converted to RAIIs en masse. Naturally, I\u0027m not saying should matter if I did :) Feel free to back the commit if it\u0027s not up to the standards.",
+      "parentUuid": "f1ee8e5e_57621e4f",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 72
+      },
+      "revId": "92e682febe73b586c19629664f1128cf2aa66aa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

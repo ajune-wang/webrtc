@@ -329,7 +329,7 @@ if (is_ios || is_mac) {
         ":mediasource_objc",
         ":native_video",
         ":videoframebuffer_objc",
-        "../api:libjingle_peerconnection_api",
+        "../api:stream_interface",
         "../api/video:video_frame",
         "../api/video:video_frame_i420",
         "../api/video:video_rtp_headers",
@@ -732,6 +732,7 @@ if (is_ios || is_mac) {
         ":native_api",
         ":videoframebuffer_objc",
         "../api:libjingle_peerconnection_api",
+        "../api:stream_interface",
       ]
     }
 
@@ -750,7 +751,7 @@ if (is_ios || is_mac) {
 
       deps = [
         ":base_objc",
-        "../api:libjingle_peerconnection_api",
+        "../api:stream_interface",
         "../rtc_base:checks",
       ]
     }
@@ -924,6 +925,7 @@ if (is_ios || is_mac) {
         "../api:rtc_stats_api",
         "../api:rtp_parameters",
         "../api:scoped_refptr",
+        "../api:stream_interface",
         "../api/audio_codecs:audio_codecs_api",
         "../api/audio_codecs:builtin_audio_decoder_factory",
         "../api/audio_codecs:builtin_audio_encoder_factory",
@@ -1568,6 +1570,7 @@ if (is_ios || is_mac) {
         ":videoframebuffer_objc",
         "../api:libjingle_peerconnection_api",
         "../api:scoped_refptr",
+        "../api:stream_interface",
         "../api/video:video_frame",
         "../api/video:video_rtp_headers",
         "../api/video_codecs:video_codecs_api",

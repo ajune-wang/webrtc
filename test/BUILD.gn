@@ -85,6 +85,7 @@ if (!build_with_chromium) {
         ":video_test_common",
         "../api:libjingle_peerconnection_api",
         "../api:scoped_refptr",
+        "../api:stream_interface",
         "../modules/video_capture:video_capture_module",
         "../rtc_base",
         "../sdk:base_objc",

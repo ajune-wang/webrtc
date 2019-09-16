@@ -631,19 +631,10 @@ void VideoStreamEncoder::SetStartBitrate(int start_bitrate_bps) {
 
 void VideoStreamEncoder::ConfigureEncoder(VideoEncoderConfig config,
                                           size_t max_data_payload_length) {
-  // TODO(srte): This struct should be replaced by a lambda with move capture
-  // when C++14 lambda is allowed.
-  struct ConfigureEncoderTask {
-    void operator()() {
-      encoder->ConfigureEncoderOnTaskQueue(std::move(config),
-                                           max_data_payload_length);
-    }
-    VideoStreamEncoder* encoder;
-    VideoEncoderConfig config;
-    size_t max_data_payload_length;
-  };
   encoder_queue_.PostTask(
-      ConfigureEncoderTask{this, std::move(config), max_data_payload_length});
+      [this, max_data_payload_length, config{std::move(config)}]() mutable {
+        ConfigureEncoderOnTaskQueue(std::move(config), max_data_payload_length);
+      });
 }
 
 void VideoStreamEncoder::ConfigureEncoderOnTaskQueue(

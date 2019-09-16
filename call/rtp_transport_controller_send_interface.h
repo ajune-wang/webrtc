@@ -19,7 +19,7 @@
 #include <vector>
 
 #include "absl/types/optional.h"
-#include "api/bitrate_constraints.h"
+#include "api/bitrate_constraints.h"  // nogncheck
 #include "api/crypto/crypto_options.h"
 #include "api/fec_controller.h"
 #include "api/rtc_event_log/rtc_event_log.h"

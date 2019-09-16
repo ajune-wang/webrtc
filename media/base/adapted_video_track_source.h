@@ -14,8 +14,8 @@
 #include <stdint.h>
 
 #include "absl/types/optional.h"
-#include "api/media_stream_interface.h"
-#include "api/notifier.h"
+#include "api/media_stream_interface.h"  // nogncheck
+#include "api/notifier.h"                // nogncheck
 #include "api/video/video_frame.h"
 #include "api/video/video_sink_interface.h"
 #include "api/video/video_source_interface.h"

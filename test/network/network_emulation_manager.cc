@@ -28,29 +28,6 @@ namespace {
 constexpr uint32_t kMinIPv4Address = 0xC0A80000;
 // uint32_t representation of 192.168.255.255 address
 constexpr uint32_t kMaxIPv4Address = 0xC0A8FFFF;
-
-template <typename T, typename Closure>
-class ResourceOwningTask final : public QueuedTask {
- public:
-  ResourceOwningTask(T&& resource, Closure&& handler)
-      : resource_(std::move(resource)),
-        handler_(std::forward<Closure>(handler)) {}
-
-  bool Run() override {
-    handler_(std::move(resource_));
-    return true;
-  }
-
- private:
-  T resource_;
-  Closure handler_;
-};
-template <typename T, typename Closure>
-std::unique_ptr<QueuedTask> CreateResourceOwningTask(T resource,
-                                                     Closure&& closure) {
-  return absl::make_unique<ResourceOwningTask<T, Closure>>(
-      std::forward<T>(resource), std::forward<Closure>(closure));
-}
 }  // namespace
 
 NetworkEmulationManagerImpl::NetworkEmulationManagerImpl()
@@ -80,10 +57,9 @@ EmulatedNetworkNode* NetworkEmulationManagerImpl::CreateEmulatedNode(
   auto node = absl::make_unique<EmulatedNetworkNode>(
       clock_, &task_queue_, std::move(network_behavior));
   EmulatedNetworkNode* out = node.get();
-  task_queue_.PostTask(CreateResourceOwningTask(
-      std::move(node), [this](std::unique_ptr<EmulatedNetworkNode> node) {
-        network_nodes_.push_back(std::move(node));
-      }));
+  task_queue_.PostTask([this, node = std::move(node)]() mutable {
+    network_nodes_.push_back(std::move(node));
+  });
   return out;
 }
 
@@ -204,9 +180,8 @@ NetworkEmulationManagerImpl::CreateRandomWalkCrossTraffic(
       absl::make_unique<RandomWalkCrossTraffic>(config, traffic_route);
   RandomWalkCrossTraffic* out = traffic.get();
 
-  task_queue_.PostTask(CreateResourceOwningTask(
-      std::move(traffic),
-      [this, config](std::unique_ptr<RandomWalkCrossTraffic> traffic) {
+  task_queue_.PostTask(
+      [this, config, traffic = std::move(traffic)]() mutable {
         auto* traffic_ptr = traffic.get();
         random_cross_traffics_.push_back(std::move(traffic));
         RepeatingTaskHandle::Start(task_queue_.Get(),
@@ -214,7 +189,7 @@ NetworkEmulationManagerImpl::CreateRandomWalkCrossTraffic(
                                      traffic_ptr->Process(Now());
                                      return config.min_packet_interval;
                                    });
-      }));
+      });
   return out;
 }
 
@@ -225,9 +200,8 @@ NetworkEmulationManagerImpl::CreatePulsedPeaksCrossTraffic(
   auto traffic =
       absl::make_unique<PulsedPeaksCrossTraffic>(config, traffic_route);
   PulsedPeaksCrossTraffic* out = traffic.get();
-  task_queue_.PostTask(CreateResourceOwningTask(
-      std::move(traffic),
-      [this, config](std::unique_ptr<PulsedPeaksCrossTraffic> traffic) {
+  task_queue_.PostTask(
+      [this, config, traffic = std::move(traffic)]() mutable {
         auto* traffic_ptr = traffic.get();
         pulsed_cross_traffics_.push_back(std::move(traffic));
         RepeatingTaskHandle::Start(task_queue_.Get(),
@@ -235,7 +209,7 @@ NetworkEmulationManagerImpl::CreatePulsedPeaksCrossTraffic(
                                      traffic_ptr->Process(Now());
                                      return config.min_packet_interval;
                                    });
-      }));
+      });
   return out;
 }
 

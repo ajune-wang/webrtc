@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '1d12ff693df75cfd1d662094fca30811e4d995d0',
+  'chromium_revision': 'e8366027b2eab834aa6a1fa4001c98d02180fa99',
 }
 
 deps = {
@@ -29,7 +29,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@15e0bc2f47cf04345022ba368567d6bed95fddab',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@3355b26c6ec80fc66724881730762c825d3704a4',
+    'https://chromium.googlesource.com/chromium/src/third_party@7b318e9da969255e7348205f91f6e8532d1fae9d',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -131,7 +131,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/third_party/freetype/src':
-    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@3de1b8d0b0983cf49a187a4227e7950395a3b08f',
+    'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@cc17f852d575a8a66f9be51461af550d0f413891',
   'src/third_party/harfbuzz-ng/src':
     'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@170b5dd856b1ba8f26e79863fe0c64a52eb68951',
   # WebRTC-only dependency (not present in Chromium).

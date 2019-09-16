@@ -653,6 +653,7 @@ if (is_linux || is_win) {
       "../api:create_peerconnection_factory",
       "../api:libjingle_peerconnection_api",
       "../api:scoped_refptr",
+      "../api:stream_interface",
       "../api/audio:audio_mixer_api",
       "../api/audio_codecs:audio_codecs_api",
       "../api/video:video_frame_i420",
@@ -809,6 +810,7 @@ if (is_win || is_android) {
     deps = [
       "../api:create_peerconnection_factory",
       "../api:libjingle_peerconnection_api",
+      "../api:stream_interface",
       "../api/audio_codecs:builtin_audio_decoder_factory",
       "../api/audio_codecs:builtin_audio_encoder_factory",
       "../api/video:video_frame",

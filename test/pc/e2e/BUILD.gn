@@ -283,6 +283,7 @@ if (rtc_include_tests) {
       "../../../api:peer_connection_quality_test_fixture_api",
       "../../../api:rtc_event_log_output_file",
       "../../../api:scoped_refptr",
+      "../../../api:stream_interface",
       "../../../api:video_quality_analyzer_api",
       "../../../api/rtc_event_log",
       "../../../api/task_queue",

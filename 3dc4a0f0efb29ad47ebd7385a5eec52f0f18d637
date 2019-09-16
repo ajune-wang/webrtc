@@ -25,6 +25,53 @@
     },
     {
       "key": {
+        "uuid": "620f5038_0fe257a0",
+        "filename": "common_video/incoming_video_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-16T16:54:36Z",
+      "side": 1,
+      "message": "Without the new capture, the type will be const, but I can do video_frame\u003dvideo_frame, to make a copy that\u0027s not const. I added a TODO on avoiding the interface induced copy.",
+      "parentUuid": "92aba9f6_8415f819",
+      "range": {
+        "startLine": 42,
+        "startChar": 13,
+        "endLine": 42,
+        "endChar": 48
+      },
+      "revId": "3dc4a0f0efb29ad47ebd7385a5eec52f0f18d637",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb22f45c_fcb15b21",
+        "filename": "rtc_base/task_utils/repeating_task_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-16T16:54:36Z",
+      "side": 1,
+      "message": "I\u0027d like to keep the braces for the lines identical to this, since the one character line length reduction mean that it\u0027s a one-liner rather than a two-liner.",
+      "range": {
+        "startLine": 83,
+        "startChar": 29,
+        "endLine": 83,
+        "endChar": 30
+      },
+      "revId": "3dc4a0f0efb29ad47ebd7385a5eec52f0f18d637",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f62185a_b7fbd735",
         "filename": "test/peer_scenario/scenario_connection.cc",
         "patchSetId": 1

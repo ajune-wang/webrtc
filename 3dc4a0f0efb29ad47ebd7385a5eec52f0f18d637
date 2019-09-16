@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92aba9f6_8415f819",
+        "filename": "common_video/incoming_video_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-16T16:36:51Z",
+      "side": 1,
+      "message": "Arguably,\n\n  [this, video_frame \u003d std::move(video_frame)]() mutable {\n\nwould be easier to read on account of being more common and having fewer parentheses. (This point applies to more cases below.)\n\nHmm. std::move is a no-op for both the new and old code, since video_frame is a const ref. You always copy. So in order to not be confusing, you should probably write\n\n  [this, video_frame]() mutable {\n\nand add a TODO about avoiding the copy.",
+      "range": {
+        "startLine": 42,
+        "startChar": 13,
+        "endLine": 42,
+        "endChar": 48
+      },
+      "revId": "3dc4a0f0efb29ad47ebd7385a5eec52f0f18d637",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f62185a_b7fbd735",
+        "filename": "test/peer_scenario/scenario_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-16T16:36:51Z",
+      "side": 1,
+      "message": "Instead of\n\n  if (x \u003d\u003d nullptr)\n    return;\n  x-\u003eFoo();\n\nconsider\n\n  if (x !\u003d nullptr)\n    x-\u003eFoo();\n\nsince you\u0027re touching these lines anyway...",
+      "range": {
+        "startLine": 144,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 17
+      },
+      "revId": "3dc4a0f0efb29ad47ebd7385a5eec52f0f18d637",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

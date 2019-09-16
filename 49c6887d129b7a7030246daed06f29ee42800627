@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9116dff6_5ccd2783",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-09-16T15:10:56Z",
+      "side": 1,
+      "message": "Since this file also serves as documentation of the log contents, I think it is important that it can be read stand-alone.\n\nIf the meaning of these fields change significantly, then it might be better to add new fields. However, do we expect changes? The NetworkStateEstimate may be sent over the network, so we still need to be backwards compatible, right?",
+      "parentUuid": "9a126b2c_588b3807",
+      "range": {
+        "startLine": 672,
+        "startChar": 0,
+        "endLine": 672,
+        "endChar": 46
+      },
+      "revId": "49c6887d129b7a7030246daed06f29ee42800627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "feceea45_61b47578",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Currently we are looking at roughly once per feedback packet.",
       "parentUuid": "feceea45_61b47578",
+      "range": {
+        "startLine": 2255,
+        "startChar": 0,
+        "endLine": 2255,
+        "endChar": 60
+      },
+      "revId": "49c6887d129b7a7030246daed06f29ee42800627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab992b77_3eb91d8c",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2255,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-09-16T15:10:56Z",
+      "side": 1,
+      "message": "The fields should probably be delta compressed then. See StoreAudioPlayoutEvent below for an example.",
+      "parentUuid": "add013a8_7fe5ddfe",
       "range": {
         "startLine": 2255,
         "startChar": 0,

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "469ef758_31d39ffd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-16T08:46:50Z",
+      "side": 1,
+      "message": "\"per media stream\"\n\nDoes this refer RTP stream, transceiver/m\u003d section, MediaStream, etc?",
+      "revId": "ed4baaacac334fc720a2ac4718825045346407b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a50aa4a9_478eda3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-16T08:46:50Z",
+      "side": 1,
+      "message": "\"per rtp connection\"\n\nDoes this refer to per PeerConnection or per RtpTransport, etc?",
+      "revId": "ed4baaacac334fc720a2ac4718825045346407b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e0817bf_c16f559f",
+        "filename": "pc/channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-16T08:46:50Z",
+      "side": 1,
+      "message": "Usually \"ForTest\" methods are something that the test invokes to simulate something happening, and it\u0027s pretty straight-forward. Here, while the name of the function is pretty straight-forward, the tests use this function to connect RtpTransportInternal and BaseChannel, which is \"more\" than the test triggering something happening - it is actually gluing components together. It is not obvious what functionality is being replaced by wiring it this way or what the difference is between real world and testing.\n\nCan you add a document explaining how this function is intended to be used in testing, and what outside-of-testing functionality it is replacing? E.g. say that outside testing this is handled by the PC but inside testing we bypass the PC or something like that.\n\n---\n\nLooking at the actual implementation it gets more confusing:\n\nThe \"real-world\" use case triggers call_-\u003eReceiver()-\u003eDeliverPacket(), but the \"ForTesting\" use case triggers BaseChannel::OnPacketReceived(). These things are different. Why is the test doing that? Is OnPacketReceived() running any code that is only used for testing??\n\nIt looks like we should get rid of the \"bool rtcp\" parameter of OnPacketReceived if real-world usage is ALWAYS rtcp\u003dfalse.",
+      "revId": "ed4baaacac334fc720a2ac4718825045346407b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd5bcc66_0207c027",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-16T08:46:50Z",
+      "side": 1,
+      "message": "If this needs to be valid for the lifetime of the JsepTransportController document that. If it only needs to be valid during a subset of its lifetime, document that. This would document at \"API\" level rather than the usage level which you already have a comment for, and we should have both. :)",
+      "revId": "ed4baaacac334fc720a2ac4718825045346407b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -377,6 +377,11 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
   if (settings_.use_ts) {
     config.Set<ExperimentalNs>(new ExperimentalNs(*settings_.use_ts));
   }
+  if (settings_.experimental_multichannel) {
+    apm_config.pipeline.experimental_multichannel =
+        *settings_.experimental_multichannel;
+  }
+
   if (settings_.use_agc2) {
     apm_config.gain_controller2.enabled = *settings_.use_agc2;
     if (settings_.agc2_fixed_gain_db) {

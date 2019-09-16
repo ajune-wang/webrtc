@@ -168,11 +168,8 @@ class FakeNetworkInterface : public MediaChannel::NetworkInterface,
     rtc::TypedMessageData<rtc::CopyOnWriteBuffer>* msg_data =
         static_cast<rtc::TypedMessageData<rtc::CopyOnWriteBuffer>*>(msg->pdata);
     if (dest_) {
-      if (msg->message_id == ST_RTP) {
-        dest_->OnPacketReceived(msg_data->data(), rtc::TimeMicros());
-      } else {
-        dest_->OnRtcpReceived(msg_data->data(), rtc::TimeMicros());
-      }
+      RTC_DCHECK_EQ(msg->message_id, ST_RTP);
+      dest_->OnPacketReceived(msg_data->data(), rtc::TimeMicros());
     }
     delete msg_data;
   }

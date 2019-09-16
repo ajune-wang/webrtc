@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a26a77f_6d98694f",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-16T08:30:02Z",
+      "side": 1,
+      "message": "Done. Can it be called from jni code if it\u0027s private?",
+      "parentUuid": "4e9c839f_a9e6344a",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 8
+      },
+      "revId": "439560ec121dd6138b97ea179c0b7d152bf22210",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8923c7f4_35c77130",
         "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
         "patchSetId": 16
@@ -45,6 +69,30 @@
       "revId": "439560ec121dd6138b97ea179c0b7d152bf22210",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fbbabaf_ff46551a",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-16T08:30:02Z",
+      "side": 1,
+      "message": "Done. I also prefer this, but I had the impression that coding style prefers early return for failure-like cases.",
+      "parentUuid": "8923c7f4_35c77130",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 16
+      },
+      "revId": "439560ec121dd6138b97ea179c0b7d152bf22210",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "837a9af8_82321ec3",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-16T08:30:02Z",
+      "side": 1,
+      "message": "Done. After this transition is done, I think it would make some sense to keep this method, and have it mean that the caller promises to never again modify the buffer.",
+      "parentUuid": "90b20bd6_9fcdb0d0",
+      "range": {
+        "startLine": 156,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 49
+      },
+      "revId": "439560ec121dd6138b97ea179c0b7d152bf22210",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a951d86_ecfea96c",
         "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
         "patchSetId": 16
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "d494d735_c8f1cdf6",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-16T08:30:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a951d86_ecfea96c",
+      "range": {
+        "startLine": 67,
+        "startChar": 12,
+        "endLine": 67,
+        "endChar": 25
+      },
+      "revId": "439560ec121dd6138b97ea179c0b7d152bf22210",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13fa144b_e6c8027a",
         "filename": "sdk/android/src/jni/encoded_image.cc",
         "patchSetId": 16
@@ -114,6 +210,30 @@
       "revId": "439560ec121dd6138b97ea179c0b7d152bf22210",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4047407_fec3494f",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-16T08:30:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13fa144b_e6c8027a",
+      "range": {
+        "startLine": 40,
+        "startChar": 19,
+        "endLine": 40,
+        "endChar": 23
+      },
+      "revId": "439560ec121dd6138b97ea179c0b7d152bf22210",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

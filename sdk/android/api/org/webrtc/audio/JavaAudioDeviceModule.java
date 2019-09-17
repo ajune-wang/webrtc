@@ -188,7 +188,6 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
      * and is responsible for calling release().
      */
     public AudioDeviceModule createAudioDeviceModule() {
-      Logging.d(TAG, "createAudioDeviceModule");
       if (useHardwareNoiseSuppressor) {
         Logging.d(TAG, "HW NS will be used.");
       } else {

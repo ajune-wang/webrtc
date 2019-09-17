@@ -529,6 +529,7 @@ public class PeerConnectionClient {
       }
     };
 
+    Log.i(TAG, "Creating Java ADM");
     return JavaAudioDeviceModule.builder(appContext)
         .setSamplesReadyCallback(saveRecordedAudioToFile)
         .setUseHardwareAcousticEchoCanceler(!peerConnectionParameters.disableBuiltInAEC)

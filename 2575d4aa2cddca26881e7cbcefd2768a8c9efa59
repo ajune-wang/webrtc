@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a400204b_15e41c7b",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-17T07:55:55Z",
+      "side": 1,
+      "message": "media_stream_interface?",
+      "range": {
+        "startLine": 101,
+        "startChar": 16,
+        "endLine": 101,
+        "endChar": 32
+      },
+      "revId": "2575d4aa2cddca26881e7cbcefd2768a8c9efa59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

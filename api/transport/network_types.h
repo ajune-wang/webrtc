@@ -35,11 +35,8 @@ struct StreamsConfig {
   Timestamp at_time = Timestamp::PlusInfinity();
   absl::optional<bool> requests_alr_probing;
   absl::optional<double> pacing_factor;
-  union {
-    absl::optional<DataRate> min_total_allocated_bitrate = absl::nullopt;
-    // Use min_total_allocated_bitrate instead.
-    RTC_DEPRECATED absl::optional<DataRate> min_pacing_rate;
-  };
+
+  absl::optional<DataRate> min_total_allocated_bitrate;
   absl::optional<DataRate> max_padding_rate;
   absl::optional<DataRate> max_total_allocated_bitrate;
   absl::optional<DataRate> allocated_outside_remb;

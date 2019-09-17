@@ -189,6 +189,30 @@
       "revId": "49c6887d129b7a7030246daed06f29ee42800627",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a6e341e_54d90e1c",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2255,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-17T18:27:14Z",
+      "side": 1,
+      "message": "Never mind, was an error in the test code.",
+      "parentUuid": "6389ccac_c518bbc2",
+      "range": {
+        "startLine": 2255,
+        "startChar": 0,
+        "endLine": 2255,
+        "endChar": 60
+      },
+      "revId": "49c6887d129b7a7030246daed06f29ee42800627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

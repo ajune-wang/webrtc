@@ -99,6 +99,8 @@ struct RtpConfig {
   // RTP header extensions to use for this send stream.
   std::vector<RtpExtension> extensions;
 
+  bool remb_enabled = false;
+
   // TODO(nisse): For now, these are fixed, but we'd like to support
   // changing codec without recreating the VideoSendStream. Then these
   // fields must be removed, and association between payload type and codec

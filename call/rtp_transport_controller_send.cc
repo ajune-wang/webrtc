@@ -186,13 +186,16 @@ RtpPacketSender* RtpTransportControllerSend::packet_sender() {
 void RtpTransportControllerSend::SetAllocatedSendBitrateLimits(
     int min_send_bitrate_bps,
     int max_padding_bitrate_bps,
-    int max_total_bitrate_bps) {
+    int max_total_bitrate_bps,
+    int allocated_outside_remb_bps) {
   RTC_DCHECK_RUN_ON(&task_queue_);
   streams_config_.min_total_allocated_bitrate =
       DataRate::bps(min_send_bitrate_bps);
   streams_config_.max_padding_rate = DataRate::bps(max_padding_bitrate_bps);
   streams_config_.max_total_allocated_bitrate =
       DataRate::bps(max_total_bitrate_bps);
+  streams_config_.allocated_outside_remb =
+      DataRate::bps(allocated_outside_remb_bps);
   UpdateStreamsConfig();
 }
 void RtpTransportControllerSend::SetPacingFactor(float pacing_factor) {

@@ -106,7 +106,10 @@ GoogCcNetworkController::GoogCcNetworkController(NetworkControllerConfig config,
               DataRate::Zero())),
       max_padding_rate_(config.stream_based_config.max_padding_rate.value_or(
           DataRate::Zero())),
-      max_total_allocated_bitrate_(DataRate::Zero()) {
+      max_total_allocated_bitrate_(DataRate::Zero()),
+      allocated_outside_remb_(
+          config.stream_based_config.allocated_outside_remb.value_or(
+              DataRate::Zero())) {
   RTC_DCHECK(config.constraints.at_time.IsFinite());
   ParseFieldTrial(
       {&safe_reset_on_route_change_, &safe_reset_acknowledged_rate_},
@@ -223,8 +226,8 @@ NetworkControlUpdate GoogCcNetworkController::OnRemoteBitrateReport(
     RTC_LOG(LS_ERROR) << "Received REMB for packet feedback only GoogCC";
     return NetworkControlUpdate();
   }
-  bandwidth_estimation_->UpdateReceiverEstimate(msg.receive_time,
-                                                msg.bandwidth);
+  bandwidth_estimation_->UpdateReceiverEstimate(
+      msg.receive_time, msg.bandwidth + allocated_outside_remb_);
   BWE_TEST_LOGGING_PLOT(1, "REMB_kbps", msg.receive_time.ms(),
                         msg.bandwidth.bps() / 1000);
   return NetworkControlUpdate();
@@ -314,6 +317,10 @@ NetworkControlUpdate GoogCcNetworkController::OnStreamsConfig(
   if (msg.max_padding_rate && *msg.max_padding_rate != max_padding_rate_) {
     max_padding_rate_ = *msg.max_padding_rate;
     pacing_changed = true;
+  }
+
+  if (msg.allocated_outside_remb) {
+    allocated_outside_remb_ = *msg.allocated_outside_remb;
   }
 
   if (pacing_changed)

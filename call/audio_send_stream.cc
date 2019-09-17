@@ -80,6 +80,7 @@ std::string AudioSendStream::Config::SendCodecSpec::ToString() const {
   rtc::SimpleStringBuilder ss(buf);
   ss << "{nack_enabled: " << (nack_enabled ? "true" : "false");
   ss << ", transport_cc_enabled: " << (transport_cc_enabled ? "true" : "false");
+  ss << ", remb_enabled: " << (remb_enabled ? "true" : "false");
   ss << ", cng_payload_type: "
      << (cng_payload_type ? rtc::ToString(*cng_payload_type) : "<unset>");
   ss << ", payload_type: " << payload_type;
@@ -92,6 +93,7 @@ bool AudioSendStream::Config::SendCodecSpec::operator==(
     const AudioSendStream::Config::SendCodecSpec& rhs) const {
   if (nack_enabled == rhs.nack_enabled &&
       transport_cc_enabled == rhs.transport_cc_enabled &&
+      remb_enabled == rhs.remb_enabled &&
       cng_payload_type == rhs.cng_payload_type &&
       payload_type == rhs.payload_type && format == rhs.format &&
       target_bitrate_bps == rhs.target_bitrate_bps) {

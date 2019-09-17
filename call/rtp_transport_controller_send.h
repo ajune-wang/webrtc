@@ -81,7 +81,8 @@ class RtpTransportControllerSend final
 
   void SetAllocatedSendBitrateLimits(int min_send_bitrate_bps,
                                      int max_padding_bitrate_bps,
-                                     int max_total_bitrate_bps) override;
+                                     int max_total_bitrate_bps,
+                                     int allocated_outside_remb_bps) override;
 
   void SetPacingFactor(float pacing_factor) override;
   void SetQueueTimeLimit(int limit_ms) override;

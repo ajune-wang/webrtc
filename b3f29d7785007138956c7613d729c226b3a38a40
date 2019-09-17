@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6420a792_f5e8b7d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2019-09-17T09:27:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "667935e6_f21c2999",
+      "range": {
+        "startLine": 14,
+        "startChar": 5,
+        "endLine": 14,
+        "endChar": 9
+      },
+      "revId": "b3f29d7785007138956c7613d729c226b3a38a40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f45d8711_0edd8024",
         "filename": "video/video_stream_encoder_unittest.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "b3f29d7785007138956c7613d729c226b3a38a40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe2835ea_56df5313",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4907,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2019-09-17T09:27:19Z",
+      "side": 1,
+      "message": "Good find! My mistake, I have added a new test for both cases.",
+      "parentUuid": "f45d8711_0edd8024",
+      "range": {
+        "startLine": 4907,
+        "startChar": 11,
+        "endLine": 4907,
+        "endChar": 29
+      },
+      "revId": "b3f29d7785007138956c7613d729c226b3a38a40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

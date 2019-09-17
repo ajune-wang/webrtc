@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5937fbd2_c3be4ef9",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-17T08:43:25Z",
+      "side": 1,
+      "message": "Yes, I agree, on both points.",
+      "parentUuid": "a01f9c5b_dafcee3e",
+      "range": {
+        "startLine": 1094,
+        "startChar": 31,
+        "endLine": 1094,
+        "endChar": 44
+      },
+      "revId": "bd46912087daa3c827b983b4ab88e70c79ca40ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49002e3f_6c0f0e75",
         "filename": "pc/peer_connection.h",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2019-09-17T08:32:29Z",
       "side": 1,
       "message": "Is there a way to use TaskQueue::Post or rtc::Thread::Post instead of AsyncInvoker?",
+      "range": {
+        "startLine": 1291,
+        "startChar": 2,
+        "endLine": 1291,
+        "endChar": 19
+      },
+      "revId": "bd46912087daa3c827b983b4ab88e70c79ca40ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ea47520_555c2240",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1291,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-17T08:43:25Z",
+      "side": 1,
+      "message": "Currently, the this that\u0027s missing is a way to cancel posted tasks. The difference being that  TaskQueues doesn\u0027t allow cancellation of tasks. A workaround would be to check a shared boolean if the task has been cancelled, but the task would still run, so to avoid changing that behavior I used the AsyncInvoker.\n\nI\u0027m not sure why we allow removal of messages when using rtc::Thread, so I haven\u0027t dared to just replace it with allowing hte task to live on and check a shared bool.",
+      "parentUuid": "49002e3f_6c0f0e75",
       "range": {
         "startLine": 1291,
         "startChar": 2,

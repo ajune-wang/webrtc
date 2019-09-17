@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "a4fe6d7a_569017e3",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-17T18:16:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9116dff6_5ccd2783",
+      "range": {
+        "startLine": 672,
+        "startChar": 0,
+        "endLine": 672,
+        "endChar": 46
+      },
+      "revId": "49c6887d129b7a7030246daed06f29ee42800627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "feceea45_61b47578",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
         "patchSetId": 1
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "The fields should probably be delta compressed then. See StoreAudioPlayoutEvent below for an example.",
       "parentUuid": "add013a8_7fe5ddfe",
+      "range": {
+        "startLine": 2255,
+        "startChar": 0,
+        "endLine": 2255,
+        "endChar": 60
+      },
+      "revId": "49c6887d129b7a7030246daed06f29ee42800627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6389ccac_c518bbc2",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2255,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-17T18:16:51Z",
+      "side": 1,
+      "message": "I tried it, didn\u0027t work. Do you have time to do it, or can we just land this as is?",
+      "parentUuid": "ab992b77_3eb91d8c",
       "range": {
         "startLine": 2255,
         "startChar": 0,

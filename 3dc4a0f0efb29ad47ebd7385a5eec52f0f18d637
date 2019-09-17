@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0c7de0a8_94680100",
+        "filename": "common_video/incoming_video_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-17T08:57:29Z",
+      "side": 1,
+      "message": "Ah, because saying just [this, video_frame] will in fact capture a const reference, not a value! We need to learn to watch out for that sort of bug...\n\nhttps://godbolt.org/z/NQmfDL demonstrates the problem.",
+      "parentUuid": "620f5038_0fe257a0",
+      "range": {
+        "startLine": 42,
+        "startChar": 13,
+        "endLine": 42,
+        "endChar": 48
+      },
+      "revId": "3dc4a0f0efb29ad47ebd7385a5eec52f0f18d637",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb22f45c_fcb15b21",
         "filename": "rtc_base/task_utils/repeating_task_unittest.cc",
         "patchSetId": 1
@@ -60,6 +84,30 @@
       "writtenOn": "2019-09-16T16:54:36Z",
       "side": 1,
       "message": "I\u0027d like to keep the braces for the lines identical to this, since the one character line length reduction mean that it\u0027s a one-liner rather than a two-liner.",
+      "range": {
+        "startLine": 83,
+        "startChar": 29,
+        "endLine": 83,
+        "endChar": 30
+      },
+      "revId": "3dc4a0f0efb29ad47ebd7385a5eec52f0f18d637",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1993830a_a7ac305b",
+        "filename": "rtc_base/task_utils/repeating_task_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-17T08:57:29Z",
+      "side": 1,
+      "message": "If you insist. But shorter code isn\u0027t necessarily easier to read. If fitting this statement on one line is a priority, I\u0027d rather have `task_queue` shortened to `tq` or something.",
+      "parentUuid": "fb22f45c_fcb15b21",
       "range": {
         "startLine": 83,
         "startChar": 29,

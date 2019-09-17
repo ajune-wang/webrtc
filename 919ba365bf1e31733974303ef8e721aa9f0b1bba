@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "557cfcf7_80f31a41",
+        "filename": "common_video/incoming_video_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-17T08:57:29Z",
+      "side": 1,
+      "message": "Maybe just\n\n  TODO(srte): Using video_frame \u003d std::move(video_frame) would move the frame into the lambda instead of copying it, but it doesn\u0027t work unless we change OnFrame to take its frame argument by value instead of const reference.",
+      "revId": "919ba365bf1e31733974303ef8e721aa9f0b1bba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06cd896b_6ef1e581",
+        "filename": "test/peer_scenario/scenario_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-17T08:57:29Z",
+      "side": 1,
+      "message": "Here too!",
+      "revId": "919ba365bf1e31733974303ef8e721aa9f0b1bba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

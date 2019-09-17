@@ -165,9 +165,9 @@ class SendSideBandwidthEstimation {
   UmaState uma_update_state_;
   UmaState uma_rtt_state_;
   std::vector<bool> rampup_uma_stats_updated_;
-  RtcEventLog* event_log_;
+  RtcEventLog* const event_log_;
   Timestamp last_rtc_event_log_;
-  bool in_timeout_experiment_;
+  const bool in_timeout_experiment_;
   float low_loss_threshold_;
   float high_loss_threshold_;
   DataRate bitrate_threshold_;

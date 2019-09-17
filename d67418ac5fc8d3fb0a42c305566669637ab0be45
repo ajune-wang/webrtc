@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3157a2c_e2a2a559",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-17T21:01:34Z",
+      "side": 1,
+      "message": "The comments just say the same thing as the variable names. Either give more details, or remove them.",
+      "revId": "d67418ac5fc8d3fb0a42c305566669637ab0be45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

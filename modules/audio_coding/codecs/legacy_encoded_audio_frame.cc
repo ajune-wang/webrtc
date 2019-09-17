@@ -31,6 +31,7 @@ size_t LegacyEncodedAudioFrame::Duration() const {
 
 absl::optional<AudioDecoder::EncodedAudioFrame::DecodeResult>
 LegacyEncodedAudioFrame::Decode(rtc::ArrayView<int16_t> decoded) const {
+#if 0
   AudioDecoder::SpeechType speech_type = AudioDecoder::kSpeech;
   const int ret = decoder_->Decode(
       payload_.data(), payload_.size(), decoder_->SampleRateHz(),
@@ -40,6 +41,8 @@ LegacyEncodedAudioFrame::Decode(rtc::ArrayView<int16_t> decoded) const {
     return absl::nullopt;
 
   return DecodeResult{static_cast<size_t>(ret), speech_type};
+#endif
+  return absl::nullopt;
 }
 
 std::vector<AudioDecoder::ParseResult> LegacyEncodedAudioFrame::SplitBySamples(

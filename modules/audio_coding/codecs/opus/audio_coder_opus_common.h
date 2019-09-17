@@ -59,6 +59,7 @@ class OpusFrame : public AudioDecoder::EncodedAudioFrame {
 
   absl::optional<DecodeResult> Decode(
       rtc::ArrayView<int16_t> decoded) const override {
+#if 0
     AudioDecoder::SpeechType speech_type = AudioDecoder::kSpeech;
     int ret;
     if (is_primary_payload_) {
@@ -75,6 +76,8 @@ class OpusFrame : public AudioDecoder::EncodedAudioFrame {
       return absl::nullopt;
 
     return DecodeResult{static_cast<size_t>(ret), speech_type};
+#endif
+    return absl::nullopt;
   }
 
  private:

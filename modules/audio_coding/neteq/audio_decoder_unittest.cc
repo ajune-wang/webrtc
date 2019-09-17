@@ -178,12 +178,14 @@ class AudioDecoderTest : public ::testing::Test {
           EncodeFrame(&input[processed_samples], frame_size_, &encoded);
       // Make sure that frame_size_ * channels_ samples are allocated and free.
       decoded.resize((processed_samples + frame_size_) * channels_, 0);
+#if 0
       AudioDecoder::SpeechType speech_type;
       size_t dec_len = decoder_->Decode(
           &encoded.data()[encoded_bytes], enc_len, codec_input_rate_hz_,
           frame_size_ * channels_ * sizeof(int16_t),
           &decoded[processed_samples * channels_], &speech_type);
       EXPECT_EQ(frame_size_ * channels_, dec_len);
+#endif
       encoded_bytes += enc_len;
       processed_samples += frame_size_;
     }
@@ -216,19 +218,24 @@ class AudioDecoderTest : public ::testing::Test {
     AudioDecoder::SpeechType speech_type1, speech_type2;
     decoder_->Reset();
     std::unique_ptr<int16_t[]> output1(new int16_t[frame_size_ * channels_]);
+    (void) enc_len; dec_len = 0;
+#if 0
     dec_len = decoder_->Decode(encoded.data(), enc_len, codec_input_rate_hz_,
                                frame_size_ * channels_ * sizeof(int16_t),
                                output1.get(), &speech_type1);
     ASSERT_LE(dec_len, frame_size_ * channels_);
     EXPECT_EQ(frame_size_ * channels_, dec_len);
+#endif
     // Re-init decoder and decode again.
     decoder_->Reset();
     std::unique_ptr<int16_t[]> output2(new int16_t[frame_size_ * channels_]);
+#if 0
     dec_len = decoder_->Decode(encoded.data(), enc_len, codec_input_rate_hz_,
                                frame_size_ * channels_ * sizeof(int16_t),
                                output2.get(), &speech_type2);
     ASSERT_LE(dec_len, frame_size_ * channels_);
     EXPECT_EQ(frame_size_ * channels_, dec_len);
+#endif
     for (unsigned int n = 0; n < frame_size_; ++n) {
       ASSERT_EQ(output1[n], output2[n]) << "Exit test on first diff; n = " << n;
     }
@@ -246,15 +253,18 @@ class AudioDecoderTest : public ::testing::Test {
     AudioDecoder::SpeechType speech_type;
     decoder_->Reset();
     std::unique_ptr<int16_t[]> output(new int16_t[frame_size_ * channels_]);
+    (void) enc_len; (void) speech_type;
+#if 0
     size_t dec_len = decoder_->Decode(
         encoded.data(), enc_len, codec_input_rate_hz_,
         frame_size_ * channels_ * sizeof(int16_t), output.get(), &speech_type);
     EXPECT_EQ(frame_size_ * channels_, dec_len);
+#endif
     // Call DecodePlc and verify that we get one frame of data.
     // (Overwrite the output from the above Decode call, but that does not
     // matter.)
-    dec_len = decoder_->DecodePlc(1, output.get());
-    EXPECT_EQ(frame_size_ * channels_, dec_len);
+    size_t plc_dec_len = decoder_->DecodePlc(1, output.get());
+    EXPECT_EQ(frame_size_ * channels_, plc_dec_len);
   }
 
   test::ResampleInputAudioFile input_audio_;
@@ -335,10 +345,13 @@ class AudioDecoderIlbcTest : public AudioDecoderTest {
     AudioDecoder::SpeechType speech_type;
     decoder_->Reset();
     std::unique_ptr<int16_t[]> output(new int16_t[frame_size_ * channels_]);
+    (void) enc_len; (void) speech_type;
+#if 0
     size_t dec_len = decoder_->Decode(
         encoded.data(), enc_len, codec_input_rate_hz_,
         frame_size_ * channels_ * sizeof(int16_t), output.get(), &speech_type);
     EXPECT_EQ(frame_size_, dec_len);
+#endif
     // Simply call DecodePlc and verify that we get 0 as return value.
     EXPECT_EQ(0U, decoder_->DecodePlc(1, output.get()));
   }

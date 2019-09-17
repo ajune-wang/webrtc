@@ -30,13 +30,6 @@ class AudioDecoderG722Impl final : public AudioDecoder {
   int SampleRateHz() const override;
   size_t Channels() const override;
 
- protected:
-  int DecodeInternal(const uint8_t* encoded,
-                     size_t encoded_len,
-                     int sample_rate_hz,
-                     int16_t* decoded,
-                     SpeechType* speech_type) override;
-
  private:
   G722DecInst* dec_state_;
   RTC_DISALLOW_COPY_AND_ASSIGN(AudioDecoderG722Impl);
@@ -51,13 +44,6 @@ class AudioDecoderG722StereoImpl final : public AudioDecoder {
                                         uint32_t timestamp) override;
   int SampleRateHz() const override;
   size_t Channels() const override;
-
- protected:
-  int DecodeInternal(const uint8_t* encoded,
-                     size_t encoded_len,
-                     int sample_rate_hz,
-                     int16_t* decoded,
-                     SpeechType* speech_type) override;
 
  private:
   // Splits the stereo-interleaved payload in |encoded| into separate payloads

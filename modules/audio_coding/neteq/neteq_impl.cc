@@ -1397,13 +1397,16 @@ int NetEqImpl::DecodeCng(AudioDecoder* decoder,
   }
 
   while (*decoded_length < rtc::dchecked_cast<int>(output_size_samples_)) {
+#if 0
     const int length = decoder->Decode(
         nullptr, 0, fs_hz_,
         (decoded_buffer_length_ - *decoded_length) * sizeof(int16_t),
         &decoded_buffer_[*decoded_length], speech_type);
     if (length > 0) {
       *decoded_length += length;
-    } else {
+    } else
+#endif
+    {
       // Error.
       RTC_LOG(LS_WARNING) << "Failed to decode CNG";
       *decoded_length = -1;

@@ -35,13 +35,6 @@ class AudioDecoderIlbcImpl final : public AudioDecoder {
   int SampleRateHz() const override;
   size_t Channels() const override;
 
- protected:
-  int DecodeInternal(const uint8_t* encoded,
-                     size_t encoded_len,
-                     int sample_rate_hz,
-                     int16_t* decoded,
-                     SpeechType* speech_type) override;
-
  private:
   IlbcDecoderInstance* dec_state_;
   RTC_DISALLOW_COPY_AND_ASSIGN(AudioDecoderIlbcImpl);

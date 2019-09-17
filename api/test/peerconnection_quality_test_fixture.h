@@ -190,6 +190,10 @@ class PeerConnectionE2EQualityTestFixture {
     // each RtpEncodingParameters of RtpParameters of corresponding
     // RtpSenderInterface for this video stream.
     absl::optional<int> temporal_layers_count;
+    // Sets the maxiumum encode bitrate in bps.
+    absl::optional<int> max_encode_bitrate_bps;
+    // Sets the minimum encode bitrate in bps.
+    absl::optional<int> min_encode_bitrate_bps;
     // If specified the input stream will be also copied to specified file.
     // It is actually one of the test's output file, which contains copy of what
     // was captured during the test for this video stream on sender side.

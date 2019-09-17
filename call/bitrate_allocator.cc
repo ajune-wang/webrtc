@@ -183,7 +183,8 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
     bitrate_observer_configs_.push_back(
         ObserverConfig(observer, config.min_bitrate_bps, config.max_bitrate_bps,
                        config.pad_up_bitrate_bps, config.priority_bitrate_bps,
-                       config.enforce_min_bitrate, config.bitrate_priority));
+                       config.enforce_min_bitrate, config.bitrate_priority,
+                       config.included_in_remb));
   }
 
   if (last_target_bps_ > 0) {
@@ -232,6 +233,7 @@ void BitrateAllocator::UpdateAllocationLimits() {
   uint32_t total_requested_padding_bitrate = 0;
   uint32_t total_requested_min_bitrate = 0;
   uint32_t total_requested_max_bitrate = 0;
+  uint32_t total_allocated_outside_remb = 0;
   for (const auto& config : bitrate_observer_configs_) {
     uint32_t stream_padding = config.pad_up_bitrate_bps;
     if (config.enforce_min_bitrate) {
@@ -242,27 +244,34 @@ void BitrateAllocator::UpdateAllocationLimits() {
     }
     total_requested_padding_bitrate += stream_padding;
     total_requested_max_bitrate += config.max_bitrate_bps;
+    if (!config.included_in_remb) {
+      total_allocated_outside_remb += config.min_bitrate_bps;
+    }
   }
 
   if (total_requested_padding_bitrate == total_requested_padding_bitrate_ &&
       total_requested_min_bitrate == total_requested_min_bitrate_ &&
-      total_requested_max_bitrate == total_requested_max_bitrate_) {
+      total_requested_max_bitrate == total_requested_max_bitrate_ &&
+      total_allocated_outside_remb == total_allocated_outside_remb_) {
     return;
   }
 
   total_requested_min_bitrate_ = total_requested_min_bitrate;
   total_requested_padding_bitrate_ = total_requested_padding_bitrate;
   total_requested_max_bitrate_ = total_requested_max_bitrate;
+  total_allocated_outside_remb_ = total_allocated_outside_remb;
 
   RTC_LOG(LS_INFO) << "UpdateAllocationLimits : total_requested_min_bitrate: "
                    << total_requested_min_bitrate
                    << "bps, total_requested_padding_bitrate: "
                    << total_requested_padding_bitrate
                    << "bps, total_requested_max_bitrate: "
-                   << total_requested_max_bitrate << "bps";
-  limit_observer_->OnAllocationLimitsChanged(total_requested_min_bitrate,
-                                             total_requested_padding_bitrate,
-                                             total_requested_max_bitrate);
+                   << total_requested_max_bitrate
+                   << "bps, total_allocated_outside_remb_: "
+                   << total_allocated_outside_remb << "bps";
+  limit_observer_->OnAllocationLimitsChanged(
+      total_requested_min_bitrate, total_requested_padding_bitrate,
+      total_requested_max_bitrate, total_allocated_outside_remb);
 }
 
 void BitrateAllocator::RemoveObserver(BitrateAllocatorObserver* observer) {

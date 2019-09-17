@@ -42,6 +42,7 @@ struct StreamsConfig {
   };
   absl::optional<DataRate> max_padding_rate;
   absl::optional<DataRate> max_total_allocated_bitrate;
+  absl::optional<DataRate> allocated_outside_remb;
 };
 
 struct TargetRateConstraints {

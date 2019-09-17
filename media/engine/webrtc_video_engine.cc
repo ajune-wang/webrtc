@@ -2005,6 +2005,7 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::SetCodec(
       parameters_.config.rtp.rtx.payload_type = codec_settings.rtx_payload_type;
     }
   }
+  parameters_.config.rtp.remb_enabled = HasRemb(codec_settings.codec);
 
   const bool has_lntf = HasLntf(codec_settings.codec);
   parameters_.config.rtp.lntf.enabled = has_lntf;

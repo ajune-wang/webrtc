@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1494cd39_0192e86d",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-09-17T21:50:06Z",
+      "side": 1,
+      "message": "Explain the difference with SetBitrateParameters(...) on PeerConfigurer object and when which API should be used.",
+      "range": {
+        "startLine": 194,
+        "startChar": 4,
+        "endLine": 194,
+        "endChar": 46
+      },
+      "revId": "d67418ac5fc8d3fb0a42c305566669637ab0be45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3157a2c_e2a2a559",
         "filename": "api/test/peerconnection_quality_test_fixture.h",
         "patchSetId": 1

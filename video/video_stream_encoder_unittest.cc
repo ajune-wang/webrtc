@@ -146,10 +146,14 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
                            task_queue_factory) {}
 
   void PostTaskAndWait(bool down, AdaptReason reason) {
+    PostTaskAndWait(down, reason, /*expected_results=*/true);
+  }
+
+  void PostTaskAndWait(bool down, AdaptReason reason, bool expected_results) {
     rtc::Event event;
-    encoder_queue()->PostTask([this, &event, reason, down] {
+    encoder_queue()->PostTask([this, &event, reason, down, expected_results] {
       if (down)
-        AdaptDown(reason);
+        EXPECT_EQ(expected_results, AdaptDown(reason));
       else
         AdaptUp(reason);
       event.Set();
@@ -165,13 +169,26 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
     ASSERT_TRUE(event.Wait(5000));
   }
 
-  void TriggerCpuOveruse() { PostTaskAndWait(true, AdaptReason::kCpu); }
+  void TriggerCpuOveruse() {
+    PostTaskAndWait(/*down=*/true, AdaptReason::kCpu);
+  }
 
-  void TriggerCpuNormalUsage() { PostTaskAndWait(false, AdaptReason::kCpu); }
+  void TriggerCpuNormalUsage() {
+    PostTaskAndWait(/*down=*/false, AdaptReason::kCpu);
+  }
 
-  void TriggerQualityLow() { PostTaskAndWait(true, AdaptReason::kQuality); }
+  void TriggerQualityLow() {
+    PostTaskAndWait(/*down=*/true, AdaptReason::kQuality);
+  }
 
-  void TriggerQualityHigh() { PostTaskAndWait(false, AdaptReason::kQuality); }
+  void TriggerQualityLowExpectFalse() {
+    PostTaskAndWait(/*down=*/true, AdaptReason::kQuality,
+                    /*expected_results=*/false);
+  }
+
+  void TriggerQualityHigh() {
+    PostTaskAndWait(/*down=*/false, AdaptReason::kQuality);
+  }
 
   CpuOveruseDetectorProxy* overuse_detector_proxy_;
 };
@@ -2636,6 +2653,102 @@ TEST_F(VideoStreamEncoderTest,
   VerifyFpsMaxResolutionMax(source.sink_wants());
   EXPECT_FALSE(stats_proxy_->GetStats().bw_limited_resolution);
   EXPECT_EQ(4, stats_proxy_->GetStats().number_of_quality_adapt_changes);
+
+  video_stream_encoder_->Stop();
+}
+
+class BalancedDegradationTest : public VideoStreamEncoderTest {
+ protected:
+  void SetupTest() {
+    // Reset encoder for field trials to take effect.
+    ConfigureEncoder(video_encoder_config_.Copy());
+    OnBitrateUpdated(kTargetBitrateBps);
+
+    // Enable BALANCED preference.
+    source_.set_adaptation_enabled(true);
+    video_stream_encoder_->SetSource(&source_,
+                                     webrtc::DegradationPreference::BALANCED);
+  }
+
+  void OnBitrateUpdated(int bitrate_bps) {
+    video_stream_encoder_->OnBitrateUpdated(DataRate::bps(bitrate_bps),
+                                            DataRate::bps(bitrate_bps),
+                                            DataRate::bps(bitrate_bps), 0, 0);
+  }
+
+  void IncomingCapturedFrame() {
+    timestamp_ms_ += kFrameIntervalMs;
+    source_.IncomingCapturedFrame(CreateFrame(timestamp_ms_, kWidth, kHeight));
+    sink_.WaitForEncodedFrame(timestamp_ms_);
+  }
+
+  const int kWidth = 640;  // pixels:640x360=230400
+  const int kHeight = 360;
+  const int64_t kFrameIntervalMs = 150;
+  int64_t timestamp_ms_ = 0;
+  AdaptingFrameForwarder source_;
+};
+
+TEST_F(BalancedDegradationTest, AdaptDownReturnsTrueIfFpsDiffGeThreshold) {
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-Video-BalancedDegradationSettings/"
+      "pixels:57600|129600|230400,fps:7|10|24,fps_diff:1|1|1/");
+  SetupTest();
+
+  // Force input frame rate.
+  const int kInputFps = 25;
+  VideoSendStream::Stats stats = stats_proxy_->GetStats();
+  stats.input_frame_rate = kInputFps;
+  stats_proxy_->SetMockStats(stats);
+
+  IncomingCapturedFrame();
+  VerifyFpsMaxResolutionMax(source_.sink_wants());
+
+  // Trigger adapt down, expect scaled down framerate (640x360@24fps).
+  // Input - requested fps: 1, expect TriggerQualityLow to return true.
+  video_stream_encoder_->TriggerQualityLow();
+  VerifyFpsEqResolutionMax(source_.sink_wants(), 24);
+
+  video_stream_encoder_->Stop();
+}
+
+TEST_F(BalancedDegradationTest, AdaptDownReturnsFalseIfFpsDiffLtThreshold) {
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-Video-BalancedDegradationSettings/"
+      "pixels:57600|129600|230400,fps:7|10|24,fps_diff:1|1|1/");
+  SetupTest();
+
+  // Force input frame rate.
+  const int kInputFps = 24;
+  VideoSendStream::Stats stats = stats_proxy_->GetStats();
+  stats.input_frame_rate = kInputFps;
+  stats_proxy_->SetMockStats(stats);
+
+  IncomingCapturedFrame();
+  VerifyFpsMaxResolutionMax(source_.sink_wants());
+
+  // Trigger adapt down, expect scaled down framerate (640x360@24fps).
+  // Input - requested fps: 0, expect TriggerQualityLow to return false.
+  video_stream_encoder_->TriggerQualityLowExpectFalse();
+  VerifyFpsEqResolutionMax(source_.sink_wants(), 24);
+
+  video_stream_encoder_->Stop();
+}
+
+TEST_F(BalancedDegradationTest, AdaptDownUsesCodecSpecificFps) {
+  webrtc::test::ScopedFieldTrials field_trials(
+      "WebRTC-Video-BalancedDegradationSettings/"
+      "pixels:57600|129600|230400,fps:7|10|24,vp8_fps:8|11|22/");
+  SetupTest();
+
+  EXPECT_EQ(kVideoCodecVP8, video_encoder_config_.codec_type);
+
+  IncomingCapturedFrame();
+  VerifyFpsMaxResolutionMax(source_.sink_wants());
+
+  // Trigger adapt down, expect scaled down framerate (640x360@22fps).
+  video_stream_encoder_->TriggerQualityLow();
+  VerifyFpsEqResolutionMax(source_.sink_wants(), 22);
 
   video_stream_encoder_->Stop();
 }

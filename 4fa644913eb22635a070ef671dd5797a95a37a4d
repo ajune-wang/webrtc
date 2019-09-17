@@ -22,6 +22,30 @@
       "revId": "4fa644913eb22635a070ef671dd5797a95a37a4d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68be0639_3de92d9d",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-17T18:51:51Z",
+      "side": 1,
+      "message": "Rephrased and added comment to all members.\n\nNot directly related no. Those constraints should be seen more as per session constants while these are more dynamic. At least that\u0027s how I\u0027ve understood it.",
+      "parentUuid": "793c819f_5ee261ad",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 57
+      },
+      "revId": "4fa644913eb22635a070ef671dd5797a95a37a4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

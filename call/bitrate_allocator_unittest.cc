@@ -29,6 +29,14 @@ class LimitObserverWrapper : public BitrateAllocator::LimitObserver {
   virtual void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
                                          uint32_t max_padding_bitrate_bps,
                                          uint32_t total_bitrate_bps) = 0;
+
+  void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
+                                 uint32_t max_padding_bitrate_bps,
+                                 uint32_t total_bitrate_bps,
+                                 uint32_t allocated_outside_remb_bps) override {
+    OnAllocationLimitsChanged(min_send_bitrate_bps, max_padding_bitrate_bps,
+                              total_bitrate_bps);
+  }
 };
 
 class MockLimitObserver : public LimitObserverWrapper {
@@ -112,6 +120,7 @@ class BitrateAllocatorTest : public ::testing::Test {
     default_config.priority_bitrate_bps = 0;
     default_config.enforce_min_bitrate = true;
     default_config.bitrate_priority = kDefaultBitratePriority;
+    default_config.included_in_remb = true;
     return default_config;
   }
 

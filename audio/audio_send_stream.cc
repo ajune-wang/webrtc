@@ -845,7 +845,8 @@ void AudioSendStream::ConfigureBitrateObserver() {
           constraints.min.bps<uint32_t>(), constraints.max.bps<uint32_t>(), 0,
           allocation_settings_.DefaultPriorityBitrate().bps(), true,
           allocation_settings_.BitratePriority().value_or(
-              config_.bitrate_priority)});
+              config_.bitrate_priority),
+          config_.send_codec_spec->remb_enabled});
 }
 
 void AudioSendStream::RemoveBitrateObserver() {

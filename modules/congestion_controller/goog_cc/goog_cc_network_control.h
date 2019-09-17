@@ -130,6 +130,7 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   DataRate min_total_allocated_bitrate_;
   DataRate max_padding_rate_;
   DataRate max_total_allocated_bitrate_;
+  DataRate allocated_outside_remb_;
 
   bool previously_in_alr_ = false;
 

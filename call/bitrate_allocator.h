@@ -57,6 +57,7 @@ struct MediaStreamAllocationConfig {
   int64_t priority_bitrate_bps;
   bool enforce_min_bitrate;
   double bitrate_priority;
+  bool included_in_remb;
 };
 
 // Interface used for mocking
@@ -80,9 +81,11 @@ class BitrateAllocator : public BitrateAllocatorInterface {
   // bitrate and max padding bitrate is changed.
   class LimitObserver {
    public:
-    virtual void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
-                                           uint32_t max_padding_bitrate_bps,
-                                           uint32_t total_bitrate_bps) = 0;
+    virtual void OnAllocationLimitsChanged(
+        uint32_t min_send_bitrate_bps,
+        uint32_t max_padding_bitrate_bps,
+        uint32_t total_bitrate_bps,
+        uint32_t allocated_outside_remb_bps) = 0;
 
    protected:
     virtual ~LimitObserver() = default;
@@ -123,7 +126,8 @@ class BitrateAllocator : public BitrateAllocatorInterface {
                    uint32_t pad_up_bitrate_bps,
                    int64_t priority_bitrate_bps,
                    bool enforce_min_bitrate,
-                   double bitrate_priority)
+                   double bitrate_priority,
+                   bool included_in_remb)
         : observer(observer),
           pad_up_bitrate_bps(pad_up_bitrate_bps),
           priority_bitrate_bps(priority_bitrate_bps),
@@ -132,7 +136,8 @@ class BitrateAllocator : public BitrateAllocatorInterface {
           bitrate_priority(bitrate_priority),
           min_bitrate_bps(min_bitrate_bps),
           max_bitrate_bps(max_bitrate_bps),
-          enforce_min_bitrate(enforce_min_bitrate) {}
+          enforce_min_bitrate(enforce_min_bitrate),
+          included_in_remb(included_in_remb) {}
 
     BitrateAllocatorObserver* observer;
     uint32_t pad_up_bitrate_bps;
@@ -152,6 +157,8 @@ class BitrateAllocator : public BitrateAllocatorInterface {
 
     // True means track may not be paused by allocating 0 bitrate.
     bool enforce_min_bitrate;
+
+    bool included_in_remb;
 
     uint32_t LastAllocatedBitrate() const;
     // The minimum bitrate required by this observer, including

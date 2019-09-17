@@ -233,7 +233,8 @@ class Call final : public webrtc::Call,
   // Implements BitrateAllocator::LimitObserver.
   void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
                                  uint32_t max_padding_bitrate_bps,
-                                 uint32_t total_bitrate_bps) override;
+                                 uint32_t total_bitrate_bps,
+                                 uint32_t allocated_outside_remb_bps) override;
 
   void SetClientBitratePreferences(const BitrateSettings& preferences) override;
 
@@ -1116,12 +1117,14 @@ void Call::OnTargetTransferRate(TargetTransferRate msg) {
 
 void Call::OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
                                      uint32_t max_padding_bitrate_bps,
-                                     uint32_t total_bitrate_bps) {
+                                     uint32_t total_bitrate_bps,
+                                     uint32_t allocated_outside_remb_bps) {
   RTC_DCHECK(network_queue()->IsCurrent());
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
 
   transport_send_ptr_->SetAllocatedSendBitrateLimits(
-      min_send_bitrate_bps, max_padding_bitrate_bps, total_bitrate_bps);
+      min_send_bitrate_bps, max_padding_bitrate_bps, total_bitrate_bps,
+      allocated_outside_remb_bps);
 
   min_allocated_send_bitrate_bps_ = min_send_bitrate_bps;
 

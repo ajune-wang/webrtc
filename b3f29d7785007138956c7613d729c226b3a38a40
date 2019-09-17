@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "667935e6_f21c2999",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-09-17T09:13:16Z",
+      "side": 1,
+      "message": "Please refer to the same bug as the cl causing the regression did.",
+      "range": {
+        "startLine": 14,
+        "startChar": 5,
+        "endLine": 14,
+        "endChar": 9
+      },
+      "revId": "b3f29d7785007138956c7613d729c226b3a38a40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f45d8711_0edd8024",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4907,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-09-17T09:13:16Z",
+      "side": 1,
+      "message": "Wait, if the target changes then this _should_ cause a reconfig?\nIf the target is the same but stable changes then we should not reconfigure. Or am I missing something?",
+      "range": {
+        "startLine": 4907,
+        "startChar": 11,
+        "endLine": 4907,
+        "endChar": 29
+      },
+      "revId": "b3f29d7785007138956c7613d729c226b3a38a40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

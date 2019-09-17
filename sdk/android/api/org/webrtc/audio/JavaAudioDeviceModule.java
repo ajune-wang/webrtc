@@ -44,6 +44,7 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
     private boolean useStereoOutput;
 
     private Builder(Context context) {
+      Logging.d(TAG, "Builder::ctor");
       this.context = context;
       this.audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
       this.inputSampleRate = WebRtcAudioManager.getSampleRate(audioManager);
@@ -188,7 +189,7 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
      * and is responsible for calling release().
      */
     public AudioDeviceModule createAudioDeviceModule() {
-      Logging.d(TAG, "createAudioDeviceModule");
+      Logging.d(TAG, "____createAudioDeviceModule");
       if (useHardwareNoiseSuppressor) {
         Logging.d(TAG, "HW NS will be used.");
       } else {
@@ -334,10 +335,12 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
     this.outputSampleRate = outputSampleRate;
     this.useStereoInput = useStereoInput;
     this.useStereoOutput = useStereoOutput;
+    Logging.d(TAG, "ctor");
   }
 
   @Override
   public long getNativeAudioDeviceModulePointer() {
+    Logging.d(TAG, "getNativeAudioDeviceModulePointer");
     synchronized (nativeLock) {
       if (nativeAudioDeviceModule == 0) {
         nativeAudioDeviceModule = nativeCreateAudioDeviceModule(context, audioManager, audioInput,

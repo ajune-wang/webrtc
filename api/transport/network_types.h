@@ -24,6 +24,18 @@
 namespace webrtc {
 
 // Configuration
+// Represents constraints and rates related to the currently enabled streams.
+struct BitrateAllocationLimits {
+  // The total minimum send bitrate required by all sending streams.  This is
+  // the minimum bitrate the pacer will use.
+  DataRate min_allocatable_rate = DataRate::Zero();
+  DataRate max_allocatable_rate = DataRate::Zero();
+  // The max bitrate the send streams request for padding. This can be higher
+  // than the current network estimate and tells the pacer how much it
+  // should max pad unless there is real packets to send.
+  DataRate max_padding_rate = DataRate::Zero();
+  DataRate allocated_outside_remb = DataRate::Zero();
+};
 
 // Use StreamsConfig for information about streams that is required for specific
 // adjustments to the algorithms in network controllers. Especially useful
@@ -36,6 +48,7 @@ struct StreamsConfig {
   absl::optional<bool> requests_alr_probing;
   absl::optional<double> pacing_factor;
 
+  // TODO(srte): Use BitrateAllocationLimits here.
   absl::optional<DataRate> min_total_allocated_bitrate;
   absl::optional<DataRate> max_padding_rate;
   absl::optional<DataRate> max_total_allocated_bitrate;

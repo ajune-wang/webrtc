@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4a15cb50_ef695b94",
+        "filename": "media/base/fake_media_engine.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-17T10:14:01Z",
+      "side": 1,
+      "message": "Ok. I find the organization of this code a bit strange, with the huge RtpHelper class being inherited by Fake*MediaChannel.",
+      "parentUuid": "d8489220_952f55f2",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 237,
+        "endChar": 0
+      },
+      "revId": "bd46912087daa3c827b983b4ab88e70c79ca40ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a01f9c5b_dafcee3e",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 8

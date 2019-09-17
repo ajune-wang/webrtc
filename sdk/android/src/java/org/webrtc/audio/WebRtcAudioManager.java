@@ -36,6 +36,7 @@ class WebRtcAudioManager {
 
   @CalledByNative
   static AudioManager getAudioManager(Context context) {
+    Logging.d(TAG, "getAudioManager");
     return (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
   }
 

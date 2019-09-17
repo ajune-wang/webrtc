@@ -20,6 +20,7 @@
 #include <vector>
 
 #include "api/call/bitrate_allocation.h"
+#include "api/transport/network_types.h"
 #include "rtc_base/synchronization/sequence_checker.h"
 
 namespace webrtc {
@@ -82,9 +83,7 @@ class BitrateAllocator : public BitrateAllocatorInterface {
   // bitrate and max padding bitrate is changed.
   class LimitObserver {
    public:
-    virtual void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
-                                           uint32_t max_padding_bitrate_bps,
-                                           uint32_t total_bitrate_bps) = 0;
+    virtual void OnAllocationLimitsChanged(BitrateAllocationLimits limits) = 0;
 
    protected:
     virtual ~LimitObserver() = default;
@@ -123,16 +122,13 @@ class BitrateAllocator : public BitrateAllocatorInterface {
 
  private:
   struct AllocatableTrack {
-    AllocatableTrack(
-        BitrateAllocatorObserver* observer,
-        MediaStreamAllocationConfig allocation_config) double bitrate_priority,
+    AllocatableTrack(BitrateAllocatorObserver* observer,
+                     MediaStreamAllocationConfig allocation_config)
         : observer(observer),
           config(allocation_config),
           allocated_bitrate_bps(-1),
           media_ratio(1.0) {}
-    enforce_min_bitrate(enforce_min_bitrate),
-
-        BitrateAllocatorObserver* observer;
+    BitrateAllocatorObserver* observer;
     MediaStreamAllocationConfig config;
     int64_t allocated_bitrate_bps;
     double media_ratio;  // Part of the total bitrate used for media [0.0, 1.0].
@@ -217,10 +213,7 @@ class BitrateAllocator : public BitrateAllocatorInterface {
   int num_pause_events_ RTC_GUARDED_BY(&sequenced_checker_);
   Clock* const clock_ RTC_GUARDED_BY(&sequenced_checker_);
   int64_t last_bwe_log_time_ RTC_GUARDED_BY(&sequenced_checker_);
-  uint32_t total_requested_padding_bitrate_ RTC_GUARDED_BY(&sequenced_checker_);
-  uint32_t total_requested_min_bitrate_ RTC_GUARDED_BY(&sequenced_checker_);
-  uint32_t total_requested_max_bitrate_ RTC_GUARDED_BY(&sequenced_checker_);
-  uint32_t total_allocated_outside_remb_ RTC_GUARDED_BY(&sequenced_checker_);
+  BitrateAllocationLimits current_limits_ RTC_GUARDED_BY(&sequenced_checker_);
   const uint8_t transmission_max_bitrate_multiplier_;
 };
 

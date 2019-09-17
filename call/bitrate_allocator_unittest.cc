@@ -29,6 +29,12 @@ class LimitObserverWrapper : public BitrateAllocator::LimitObserver {
   virtual void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
                                          uint32_t max_padding_bitrate_bps,
                                          uint32_t total_bitrate_bps) = 0;
+
+  void OnAllocationLimitsChanged(BitrateAllocationLimits limits) override {
+    OnAllocationLimitsChanged(limits.min_allocatable_rate.bps(),
+                              limits.max_padding_rate.bps(),
+                              limits.max_allocatable_rate.bps());
+  }
 };
 
 class MockLimitObserver : public LimitObserverWrapper {

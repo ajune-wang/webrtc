@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a01f9c5b_dafcee3e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-17T08:32:29Z",
+      "side": 1,
+      "message": "I think it would be preferable to call DeliverRtcp, but that\u0027s a change to the PacketReceiver interface. So perhaps better done in a different cl.",
+      "range": {
+        "startLine": 1094,
+        "startChar": 31,
+        "endLine": 1094,
+        "endChar": 44
+      },
+      "revId": "bd46912087daa3c827b983b4ab88e70c79ca40ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49002e3f_6c0f0e75",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1291,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-17T08:32:29Z",
+      "side": 1,
+      "message": "Is there a way to use TaskQueue::Post or rtc::Thread::Post instead of AsyncInvoker?",
+      "range": {
+        "startLine": 1291,
+        "startChar": 2,
+        "endLine": 1291,
+        "endChar": 19
+      },
+      "revId": "bd46912087daa3c827b983b4ab88e70c79ca40ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

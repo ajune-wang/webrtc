@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f630ff31_a9815253",
+        "filename": "rtc_base/numerics/divide_round.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-18T13:31:43Z",
+      "side": 1,
+      "message": "In C++14, you can write\n\n  std::is_integral\u003cDividend\u003e()\n\nif you want.",
+      "range": {
+        "startLine": 22,
+        "startChar": 42,
+        "endLine": 22,
+        "endChar": 49
+      },
+      "revId": "ae4cc9fa5a193b03fce15761a1c77d56a860da29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ab77ddd_d7eface0",
+        "filename": "rtc_base/numerics/divide_round.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-18T13:31:43Z",
+      "side": 1,
+      "message": "Can you just name the variables `quotient` and `remainder` instead, and skip the comments?",
+      "revId": "ae4cc9fa5a193b03fce15761a1c77d56a860da29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf2c66ae_447cb3b9",
+        "filename": "rtc_base/numerics/divide_round.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-18T13:31:43Z",
+      "side": 1,
+      "message": "Same.",
+      "revId": "ae4cc9fa5a193b03fce15761a1c77d56a860da29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "591cb00c_b5026cb6",
+        "filename": "rtc_base/numerics/divide_round.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-18T13:31:43Z",
+      "side": 1,
+      "message": "You can avoid the cast by using rtc::SafeGt.",
+      "range": {
+        "startLine": 42,
+        "startChar": 14,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "ae4cc9fa5a193b03fce15761a1c77d56a860da29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95b6942b_ac115d82",
+        "filename": "rtc_base/numerics/divide_round_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-18T13:31:43Z",
+      "side": 1,
+      "message": "Instead of creating these variables, you could just say TypeParam{100}, int8_t{3}, etc. in the code below.",
+      "revId": "ae4cc9fa5a193b03fce15761a1c77d56a860da29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b11025e9_dccff84b",
+        "filename": "rtc_base/numerics/divide_round_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-18T13:31:43Z",
+      "side": 1,
+      "message": "Same.",
+      "revId": "ae4cc9fa5a193b03fce15761a1c77d56a860da29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

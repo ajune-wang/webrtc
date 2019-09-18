@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70a3584f_0bc9ad0b",
+        "filename": "p2p/client/basic_port_allocator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-18T14:35:29Z",
+      "side": 1,
+      "message": "Should this be here, or should each test setup the ports they want to test? Should we have PROTO_TCP too?",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 43
+      },
+      "revId": "a0257036666d47d06a08f2ead7be3e1b7905a404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "455f89f9_3641340e",
+        "filename": "p2p/client/basic_port_allocator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-18T14:35:29Z",
+      "side": 1,
+      "message": "As I understand, enabling tcp and udp above is expected to revive candidates. But test fails with \n\n../../p2p/client/basic_port_allocator_unittest.cc:1053: Failure\nExpected equality of these values:\n  3U\n    Which is: 3\n  candidates_.size()\n    Which is: 0\nStack trace:\n  0x561ad61da171: cricket::BasicPortAllocatorTest_TestSameNetworkDownAndUpWhenSessionNotStopped_Test::TestBody()\n  0x561ad66de7a4: testing::internal::HandleSehExceptionsInMethodIfSupported\u003c\u003e()\n  0x561ad66d0ff2: testing::internal::HandleExceptionsInMethodIfSupported\u003c\u003e()\n  0x561ad66c3083: testing::Test::Run()\n  0x561ad66c3777: testing::TestInfo::Run()\n... Google Test internal frames ...\n\n../../p2p/client/basic_port_allocator_unittest.cc:1054: Failure\nExpected equality of these values:\n  3U\n    Which is: 3\n  ports_.size()\n    Which is: 0\nStack trace:\n  0x561ad61da24c: cricket::BasicPortAllocatorTest_TestSameNetworkDownAndUpWhenSessionNotStopped_Test::TestBody()\n  0x561ad66de7a4: testing::internal::HandleSehExceptionsInMethodIfSupported\u003c\u003e()\n  0x561ad66d0ff2: testing::internal::HandleExceptionsInMethodIfSupported\u003c\u003e()\n  0x561ad66c3083: testing::Test::Run()\n  0x561ad66c3777: testing::TestInfo::Run()\n... Google Test internal frames ...\n\n[  FAILED  ] BasicPortAllocatorTest.TestSameNetworkDownAndUpWhenSessionNotStopped (89 ms)",
+      "range": {
+        "startLine": 1054,
+        "startChar": 0,
+        "endLine": 1056,
+        "endChar": 31
+      },
+      "revId": "a0257036666d47d06a08f2ead7be3e1b7905a404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3320fb9e_197c3166",
+        "filename": "p2p/client/basic_port_allocator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1442,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-18T14:35:29Z",
+      "side": 1,
+      "message": "Is there a better way to test STUN timeout? Fails like this:\n\n../../p2p/client/basic_port_allocator_unittest.cc:1442: Failure\nExpected equality of these values:\n  3U\n    Which is: 3\n  candidates_.size()\n    Which is: 2\nStack trace:\n  0x5575c67076e6: cricket::BasicPortAllocatorTest_TestGetAllPortsNoUdpAllowed_Test::TestBody()\n  0x5575c6c047a4: testing::internal::HandleSehExceptionsInMethodIfSupported\u003c\u003e()\n  0x5575c6bf6ff2: testing::internal::HandleExceptionsInMethodIfSupported\u003c\u003e()\n  0x5575c6be9083: testing::Test::Run()\n  0x5575c6be9777: testing::TestInfo::Run()\n... Google Test internal frames ...\n\n../../p2p/client/basic_port_allocator_unittest.cc:1443: Failure\nExpected equality of these values:\n  3U\n    Which is: 3\n  ports_.size()\n    Which is: 2\nStack trace:\n  0x5575c67077c1: cricket::BasicPortAllocatorTest_TestGetAllPortsNoUdpAllowed_Test::TestBody()\n  0x5575c6c047a4: testing::internal::HandleSehExceptionsInMethodIfSupported\u003c\u003e()\n  0x5575c6bf6ff2: testing::internal::HandleExceptionsInMethodIfSupported\u003c\u003e()\n  0x5575c6be9083: testing::Test::Run()\n  0x5575c6be9777: testing::TestInfo::Run()\n... Google Test internal frames ...\n\n(stun_port.cc:96): Binding request timed out from 11.11.11.11:49153 (test0)\n(stun_port.cc:96): Binding request timed out from 11.11.11.11:49153 (test0)\n(basic_port_allocator.cc:1079): Port[cab443e0:test content:1:0:stun:Net[test0:11.11.11.0/24:Unknown:id\u003d1]]: Port encountered error while gathering candidates.\n(basic_port_allocator.cc:1136): All candidates gathered for test content:1:0\n[  FAILED  ] BasicPortAllocatorTest.TestGetAllPortsNoUdpAllowed (154 ms)",
+      "range": {
+        "startLine": 1441,
+        "startChar": 0,
+        "endLine": 1442,
+        "endChar": 68
+      },
+      "revId": "a0257036666d47d06a08f2ead7be3e1b7905a404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

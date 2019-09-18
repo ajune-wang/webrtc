@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e37a379_7a342690",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-18T06:55:49Z",
+      "side": 1,
+      "message": "Does the \"int_\" and Int prefixes really add clarity?\n\nIf we need them, I think DivideRoundToNearestInt reads better then IntDivideRoundToNearest.",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 345,
+        "endChar": 34
+      },
+      "revId": "63c848766be9662ef6e7cd144fef8916bfdda881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9d129e4_a24188c0",
+        "filename": "rtc_base/numerics/int_divide_round.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-18T06:55:49Z",
+      "side": 1,
+      "message": "Since divisor \u003e 0, this alternative should also work:\n\nhalf \u003d (divisor - 1) / 2;\nif (dividend % divisor \u003e half)\n  ++result;\n\nwith one operation less. Neither version is obvious to me. It might be a little clearer to write the condition as \n\nauto r \u003d dividend % divisor;\nif (2*r \u003e\u003d divisor) ++result;\n\nbut that risks overflow in 2*r.\n\nI would consider writing the update as\n\nauto q \u003d dividend / divisor;\nauto r \u003d dividend % divisor;\nreturn q + (condition on r);\n\n(applies to above function too).",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 33
+      },
+      "revId": "63c848766be9662ef6e7cd144fef8916bfdda881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

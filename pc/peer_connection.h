@@ -338,6 +338,18 @@ class PeerConnection : public PeerConnectionInternal,
     FieldTrialFlag default_value;
   };
 
+  // Captures partial state to be used for rollback.
+  struct TransceiverStableState {
+    TransceiverStableState() : direction(RtpTransceiverDirection::kRecvOnly) {}
+    TransceiverStableState(RtpTransceiverDirection direction,
+                           absl::optional<std::string> mid,
+                           absl::optional<size_t> mline_index)
+        : direction(direction), mid(mid), mline_index(mline_index) {}
+    RtpTransceiverDirection direction;
+    absl::optional<std::string> mid;
+    absl::optional<size_t> mline_index;
+  };
+
   // Implements MessageHandler.
   void OnMessage(rtc::Message* msg) override;
 
@@ -1124,6 +1136,7 @@ class PeerConnection : public PeerConnectionInternal,
 
   void UpdateNegotiationNeeded();
   bool CheckIfNegotiationIsNeeded();
+  bool Rollback();
 
   sigslot::signal1<DataChannel*> SignalDataChannelCreated_
       RTC_GUARDED_BY(signaling_thread());
@@ -1230,7 +1243,9 @@ class PeerConnection : public PeerConnectionInternal,
       RTC_GUARDED_BY(signaling_thread());  // A pointer is passed to senders_
   rtc::scoped_refptr<RTCStatsCollector> stats_collector_
       RTC_GUARDED_BY(signaling_thread());
-
+  std::map<rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>,
+           TransceiverStableState>
+      transceiver_stable_states_;  // For rollback.
   std::vector<
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
       transceivers_;  // TODO(bugs.webrtc.org/9987): Accessed on both signaling

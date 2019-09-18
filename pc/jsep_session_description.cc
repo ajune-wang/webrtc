@@ -153,7 +153,8 @@ std::unique_ptr<SessionDescriptionInterface> CreateSessionDescription(
     const std::string& sdp,
     SdpParseError* error_out) {
   auto jsep_desc = absl::make_unique<JsepSessionDescription>(type);
-  if (!SdpDeserialize(sdp, jsep_desc.get(), error_out)) {
+  if (!SdpDeserialize(sdp, jsep_desc.get(), error_out) &&
+      type != SdpType::kRollback) {
     return nullptr;
   }
   return std::move(jsep_desc);

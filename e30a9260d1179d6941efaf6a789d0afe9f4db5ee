@@ -22,6 +22,30 @@
       "revId": "e30a9260d1179d6941efaf6a789d0afe9f4db5ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8480472_9868e064",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-18T09:53:00Z",
+      "side": 1,
+      "message": "Removed and used a struct matcher instead.",
+      "parentUuid": "edc23596_17f6d28d",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 73
+      },
+      "revId": "e30a9260d1179d6941efaf6a789d0afe9f4db5ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

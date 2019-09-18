@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "733892d8_fe7d5393",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_extension.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-18T11:28:14Z",
+      "side": 1,
+      "message": "// Add 7 bits so that we don\u0027t round down.",
+      "range": {
+        "startLine": 38,
+        "startChar": 33,
+        "endLine": 38,
+        "endChar": 41
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b667692e_0f6a1043",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-18T11:28:14Z",
+      "side": 1,
+      "message": "Can we have a common definition of these values in a followup CL?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9509f697_726329b2",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-18T11:28:14Z",
+      "side": 1,
+      "message": "build_failed_ \u003d true;\nreturn NextLayerIdc::kInvalid;",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 32
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "621a53d9_6b221eca",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-18T11:28:14Z",
+      "side": 1,
+      "message": "Some minor opt:\n\n  for (auto next \u003d std::next(first); next !\u003d last; ++next) {\n    if (best_template_.extra_size_bits \u003d\u003d 0)\n      return true;  \n    ...\n  }",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 60
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "febb38cd_099d62dc",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-18T11:28:14Z",
+      "side": 1,
+      "message": "WDYT about implementing a WriteBit(bool value) function? I don\u0027t feel strongly about not having it.",
+      "range": {
+        "startLine": 261,
+        "startChar": 4,
+        "endLine": 261,
+        "endChar": 42
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1210d63f_d4229cfd",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-18T11:28:14Z",
+      "side": 1,
+      "message": "I don\u0027t think we should consider a build successful if you try to put invalid values into it. This is true for other places as well.\n\n  if (resolution.Width() \u003c\u003d 0 || resolution.Width() \u003e (1 \u003c\u003c 16) ||\n      resolution.Height() \u003c\u003d 0 || resolution.Height() \u003e (1 \u003c\u003c 16)) {\n    build_failed_ \u003d true;\n    return;\n  }",
+      "range": {
+        "startLine": 294,
+        "startChar": 0,
+        "endLine": 297,
+        "endChar": 48
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "907c1a70_287ed461",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-18T11:28:14Z",
+      "side": 1,
+      "message": "descriptor",
+      "range": {
+        "startLine": 29,
+        "startChar": 22,
+        "endLine": 29,
+        "endChar": 32
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b689ae65_125c2c81",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-18T11:28:14Z",
+      "side": 1,
+      "message": "WriteSuccessful",
+      "range": {
+        "startLine": 30,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 12
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

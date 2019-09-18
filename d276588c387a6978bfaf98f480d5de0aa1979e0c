@@ -22,6 +22,30 @@
       "revId": "d276588c387a6978bfaf98f480d5de0aa1979e0c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3900067f_fbbf9ce6",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-18T16:33:05Z",
+      "side": 1,
+      "message": "It must be defined before it\u0027s used, which is done implicitly in gtest framework. But it\u0027s just to provide readable error messages for the units tests. They still work without it, so removed.",
+      "parentUuid": "87d93b00_01bb4da0",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 1
+      },
+      "revId": "d276588c387a6978bfaf98f480d5de0aa1979e0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

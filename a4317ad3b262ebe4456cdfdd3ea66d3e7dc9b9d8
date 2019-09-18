@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "131a6acb_811aa3aa",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_extension.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-18T12:34:27Z",
+      "side": 1,
+      "message": "Added comment for now,\n[but I\u0027m also working on https://webrtc-review.googlesource.com/c/src/+/153354\nand probably would use that helper instead of the comment.]",
+      "parentUuid": "733892d8_fe7d5393",
+      "range": {
+        "startLine": 38,
+        "startChar": 33,
+        "endLine": 38,
+        "endChar": 41
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b667692e_0f6a1043",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "890fa56a_890eae6f",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-18T12:34:27Z",
+      "side": 1,
+      "message": "probably.... I\u0027ll think about it.\nadded TODO for now.",
+      "parentUuid": "b667692e_0f6a1043",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fbc52d63_b9dfcbb3",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-18T12:34:27Z",
+      "side": 1,
+      "message": "this is a free function, it can\u0027t update the build_failed_ flag.\ncaller DCHECKs this would never happen.",
+      "parentUuid": "9509f697_726329b2",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 32
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "621a53d9_6b221eca",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d320c314_59b5292f",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-18T12:34:27Z",
+      "side": 1,
+      "message": "may be it improves speed, but may be not: it also adds a new branch and at microlevel extra branches are expensive, it also slightly increases binary size.\ni.e. it is unclear if that optimization brings positive value.\nSo, prefer to keep it simpler, at least for now.\n\nin a followup I might want to review the code and do some optimizations, but those would need to be backed up by microbenchmarks.",
+      "parentUuid": "621a53d9_6b221eca",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 60
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9a593fbc_34290f7b",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-18T12:34:27Z",
+      "side": 1,
+      "message": "I do not see why such extra helper would be better. [it is an extra basic function to keep in mind while reading this code]",
+      "parentUuid": "febb38cd_099d62dc",
+      "range": {
+        "startLine": 261,
+        "startChar": 4,
+        "endLine": 261,
+        "endChar": 42
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1210d63f_d4229cfd",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86fdc0ab_ed84b125",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-18T12:34:27Z",
+      "side": 1,
+      "message": "DCHECK means \u0027caller shouldn\u0027t even call this builder with invalid values\u0027, i.e. it is even stronger than failed build.\n\nand in release mode (where dchecks are skipped) nothing too bad [i.e. no out of memory access or infinte loop or anything similar] would happen when invalid values are put into bitstream.\n\nbut may be you mean that instead of crashing invalid input should just fail the building?\n(for now I made change in reverse direction. Added strong assumption there is always matching template for the |descriptor|. Now the only reason for failed build is too small buffer.",
+      "parentUuid": "1210d63f_d4229cfd",
+      "range": {
+        "startLine": 294,
+        "startChar": 0,
+        "endLine": 297,
+        "endChar": 48
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "ee5ec7b0_aa0b9dab",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-18T12:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "907c1a70_287ed461",
+      "range": {
+        "startLine": 29,
+        "startChar": 22,
+        "endLine": 29,
+        "endChar": 32
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b689ae65_125c2c81",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.h",
         "patchSetId": 2
@@ -183,6 +351,30 @@
       "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2629136f_8ecdcad1",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-18T12:34:27Z",
+      "side": 1,
+      "message": "Unlike Reader, this function actually writes the descriptor.\n(unlike reader, writer needs two public function: Write and ValueSizeBits. Constructor does part that is common for those two functions)",
+      "parentUuid": "b689ae65_125c2c81",
+      "range": {
+        "startLine": 30,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 12
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

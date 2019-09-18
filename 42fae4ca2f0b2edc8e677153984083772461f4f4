@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4512edf4_194c0bb7",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-18T09:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f56b93b_1a781869",
+      "revId": "42fae4ca2f0b2edc8e677153984083772461f4f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43340d8d_a9960231",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 10
@@ -30,6 +48,24 @@
       "writtenOn": "2019-09-18T02:32:30Z",
       "side": 1,
       "message": "Could also make the rtcp_invoker a unique_ptr and reset it in Close(). That would eliminate the call_ check here. (see sctp_invoker as an example)",
+      "revId": "42fae4ca2f0b2edc8e677153984083772461f4f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af7a63f_f1698d01",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-18T09:07:10Z",
+      "side": 1,
+      "message": "That\u0027s true. I\u0027d say that this is slightly more clear since I\u0027d still want to document the fact that we do that here. Longer term I think we\u0027ll want to move towards using a worker TaskQueue that\u0027s owned by the peer connection instead of the worker thread. That way we can guarantee that it\u0027s destroyed before any of the objects it touches are destroyed.",
+      "parentUuid": "43340d8d_a9960231",
       "revId": "42fae4ca2f0b2edc8e677153984083772461f4f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -50,6 +86,24 @@
       "revId": "42fae4ca2f0b2edc8e677153984083772461f4f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94c6281f_b3343396",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-18T09:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56e0ee5d_3f2b2757",
+      "revId": "42fae4ca2f0b2edc8e677153984083772461f4f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

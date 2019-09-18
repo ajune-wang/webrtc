@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e293cab9_044dbc39",
+        "filename": "rtc_base/numerics/int_divide_round.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-18T08:38:47Z",
+      "side": 1,
+      "message": "Unfortunately, C++ signed integer division (and corresponding %) are not defined as floor operations, but rounding towards zero. I\u0027ve so far never seen a case where that causes anything but trouble with negative numbers.",
+      "parentUuid": "5f90fe87_e66dfa1b",
+      "revId": "63c848766be9662ef6e7cd144fef8916bfdda881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d9d129e4_a24188c0",
         "filename": "rtc_base/numerics/int_divide_round.h",
         "patchSetId": 1

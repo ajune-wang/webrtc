@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15fe7941_4d98469c",
+        "filename": "call/rtp_bitrate_configurator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-18T12:11:09Z",
+      "side": 1,
+      "message": "Suggested doc for all three copies:\n\n  // Returns its smallest positive argument. If neither argument is positive, returns an arbitrary nonpositive value.",
+      "revId": "547393eba76afd5b346be7913a7ceea118eddfb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

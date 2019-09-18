@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e88dba06_a29b31ee",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_extension.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-18T16:12:17Z",
+      "side": 1,
+      "message": "switched to DivideRoundUp helper",
+      "parentUuid": "131a6acb_811aa3aa",
+      "range": {
+        "startLine": 38,
+        "startChar": 33,
+        "endLine": 38,
+        "endChar": 41
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b667692e_0f6a1043",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
         "patchSetId": 2
@@ -285,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "08ae4fdd_fbe8f790",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-18T16:12:17Z",
+      "side": 1,
+      "message": "Here I comment parameters names because both are constants.\nWriteBits(0, 1); imho would be harder to read.\n\nI can add bit_count comment to all other comments if you think it makes it easier to follow,\nto me [as writer] that seems unnecessary. what do you think as the reader?",
+      "parentUuid": "9927dc82_4a4aa635",
+      "range": {
+        "startLine": 261,
+        "startChar": 4,
+        "endLine": 261,
+        "endChar": 42
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1210d63f_d4229cfd",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
         "patchSetId": 2
@@ -344,6 +392,30 @@
       "side": 1,
       "message": "Ok, I see what you mean.\n\nI think the comment for Write() in the .h file could be a bit misleading in that case.",
       "parentUuid": "86fdc0ab_ed84b125",
+      "range": {
+        "startLine": 294,
+        "startChar": 0,
+        "endLine": 297,
+        "endChar": 48
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7e60ba5_789c14f9",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-18T16:12:17Z",
+      "side": 1,
+      "message": "update the comment next to Write and constructor functions.\n\n[Reader takes input from the network, so had to be extremely careful and support all bad inputs.\nWriter takes input from the other components, co can be more trusty and more harsh when input data is invalid]",
+      "parentUuid": "4b661b4f_a6dea62c",
       "range": {
         "startLine": 294,
         "startChar": 0,

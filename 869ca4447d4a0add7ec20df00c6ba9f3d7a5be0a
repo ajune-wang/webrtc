@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8801044_d828df4f",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-09-18T14:16:42Z",
+      "side": 1,
+      "message": "It will make sense to try this test couple of times on the bots, because it can fail because of bot is not powerful enough",
+      "range": {
+        "startLine": 291,
+        "startChar": 7,
+        "endLine": 291,
+        "endChar": 44
+      },
+      "revId": "869ca4447d4a0add7ec20df00c6ba9f3d7a5be0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c03c9ca_0275cb33",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-09-18T14:16:42Z",
+      "side": 1,
+      "message": "_counter",
+      "range": {
+        "startLine": 618,
+        "startChar": 9,
+        "endLine": 618,
+        "endChar": 47
+      },
+      "revId": "869ca4447d4a0add7ec20df00c6ba9f3d7a5be0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc4b055a_83b777cb",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-09-18T14:16:42Z",
+      "side": 1,
+      "message": "Should we also apply min/max bitrates here if they specified?",
+      "range": {
+        "startLine": 630,
+        "startChar": 10,
+        "endLine": 630,
+        "endChar": 20
+      },
+      "revId": "869ca4447d4a0add7ec20df00c6ba9f3d7a5be0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8887b2be_517047fa",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-09-18T14:16:42Z",
+      "side": 1,
+      "message": "Extract out from the \"if\"?",
+      "range": {
+        "startLine": 640,
+        "startChar": 6,
+        "endLine": 641,
+        "endChar": 72
+      },
+      "revId": "869ca4447d4a0add7ec20df00c6ba9f3d7a5be0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4da3be02_c4f77aed",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-09-18T14:16:42Z",
+      "side": 1,
+      "message": "Why we need it?\nFor simulcast case it was required, because we use rids as mids on receiver side for simulcast tracks.",
+      "range": {
+        "startLine": 643,
+        "startChar": 6,
+        "endLine": 644,
+        "endChar": 66
+      },
+      "revId": "869ca4447d4a0add7ec20df00c6ba9f3d7a5be0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acde4d0a_fb45056f",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-09-18T14:16:42Z",
+      "side": 1,
+      "message": "Extract out from the \"if\"?",
+      "range": {
+        "startLine": 649,
+        "startChar": 6,
+        "endLine": 652,
+        "endChar": 29
+      },
+      "revId": "869ca4447d4a0add7ec20df00c6ba9f3d7a5be0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

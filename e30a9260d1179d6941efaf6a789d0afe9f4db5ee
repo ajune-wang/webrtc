@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edc23596_17f6d28d",
+        "filename": "call/bitrate_allocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-18T06:20:45Z",
+      "side": 1,
+      "message": "Is this old method still needed? If it\u0027s kept for now, add TODO item on the deletion plan.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 73
+      },
+      "revId": "e30a9260d1179d6941efaf6a789d0afe9f4db5ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -74,9 +74,13 @@ class BitrateAllocatorForTest : public BitrateAllocator {
                         uint8_t fraction_loss,
                         int64_t rtt,
                         int64_t bwe_period_ms) {
-    BitrateAllocator::OnNetworkChanged(target_bitrate_bps, target_bitrate_bps,
-                                       target_bitrate_bps, fraction_loss, rtt,
-                                       bwe_period_ms);
+    TargetTransferRate msg;
+    msg.target_rate = DataRate::bps(target_bitrate_bps);
+    msg.stable_target_rate = msg.target_rate;
+    msg.network_estimate.bandwidth = msg.target_rate;
+    msg.network_estimate.loss_rate_ratio = fraction_loss / 255.0;
+    msg.network_estimate.bwe_period = TimeDelta::ms(bwe_period_ms);
+    BitrateAllocator::OnNetworkEstimateChanged(msg);
   }
 };
 
@@ -88,8 +92,7 @@ const double kDefaultBitratePriority = 1.0;
 class BitrateAllocatorTest : public ::testing::Test {
  protected:
   BitrateAllocatorTest()
-      : allocator_(new BitrateAllocatorForTest(Clock::GetRealTimeClock(),
-                                               &limit_observer_)) {
+      : allocator_(new BitrateAllocatorForTest(&limit_observer_)) {
     allocator_->OnNetworkChanged(300000u, 0, 0, kDefaultProbingIntervalMs);
   }
   ~BitrateAllocatorTest() {}
@@ -267,8 +270,7 @@ TEST_F(BitrateAllocatorTest, RemoveObserverTriggersLimitObserver) {
 class BitrateAllocatorTestNoEnforceMin : public ::testing::Test {
  protected:
   BitrateAllocatorTestNoEnforceMin()
-      : allocator_(new BitrateAllocatorForTest(Clock::GetRealTimeClock(),
-                                               &limit_observer_)) {
+      : allocator_(new BitrateAllocatorForTest(&limit_observer_)) {
     allocator_->OnNetworkChanged(300000u, 0, 0, kDefaultProbingIntervalMs);
   }
   ~BitrateAllocatorTestNoEnforceMin() {}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "295e5130_2c7376be",
+        "filename": "abseil-in-webrtc.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-18T05:58:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de789edd_3026e083",
+      "revId": "1efd7c20271c3f5c648bd242d8f70d520d7c7f11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d08bd2b5_1eb06c7f",
         "filename": "abseil-in-webrtc.md",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "1efd7c20271c3f5c648bd242d8f70d520d7c7f11",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faccc350_d500cd6a",
+        "filename": "abseil-in-webrtc.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-18T05:58:59Z",
+      "side": 1,
+      "message": "Aha, it is possible to preview from Gerrit. That is nice and I didn\u0027t know it! :)\n\nDone.",
+      "parentUuid": "d08bd2b5_1eb06c7f",
+      "range": {
+        "startLine": 33,
+        "startChar": 1,
+        "endLine": 33,
+        "endChar": 2
+      },
+      "revId": "1efd7c20271c3f5c648bd242d8f70d520d7c7f11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

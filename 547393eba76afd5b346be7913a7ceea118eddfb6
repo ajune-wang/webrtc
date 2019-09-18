@@ -16,6 +16,24 @@
       "revId": "547393eba76afd5b346be7913a7ceea118eddfb6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ce54f69_fb81881d",
+        "filename": "call/rtp_bitrate_configurator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-18T12:16:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15fe7941_4d98469c",
+      "revId": "547393eba76afd5b346be7913a7ceea118eddfb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

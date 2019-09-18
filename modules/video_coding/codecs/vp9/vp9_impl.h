@@ -119,6 +119,7 @@ class VP9EncoderImpl : public VP9Encoder {
   uint8_t num_temporal_layers_;
   uint8_t num_spatial_layers_;         // Number of configured SLs
   uint8_t num_active_spatial_layers_;  // Number of actively encoded SLs
+  uint8_t first_active_layer_;
   bool layer_deactivation_requires_key_frame_;
   bool is_svc_;
   InterLayerPredMode inter_layer_pred_;
@@ -132,6 +133,7 @@ class VP9EncoderImpl : public VP9Encoder {
   VideoBitrateAllocation current_bitrate_allocation_;
   absl::optional<RateControlParameters> requested_rate_settings_;
   bool ss_info_needed_;
+  bool force_all_layers_;
 
   std::vector<FramerateController> framerate_controller_;
 

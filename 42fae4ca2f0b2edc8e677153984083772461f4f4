@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f56b93b_1a781869",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-18T02:32:30Z",
+      "side": 1,
+      "message": "RTC_DCHECK(config_.rtcp_handler);",
+      "revId": "42fae4ca2f0b2edc8e677153984083772461f4f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43340d8d_a9960231",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-18T02:32:30Z",
+      "side": 1,
+      "message": "Could also make the rtcp_invoker a unique_ptr and reset it in Close(). That would eliminate the call_ check here. (see sctp_invoker as an example)",
+      "revId": "42fae4ca2f0b2edc8e677153984083772461f4f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56e0ee5d_3f2b2757",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-18T02:32:30Z",
+      "side": 1,
+      "message": "nit: { } to align with style in this function",
+      "revId": "42fae4ca2f0b2edc8e677153984083772461f4f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

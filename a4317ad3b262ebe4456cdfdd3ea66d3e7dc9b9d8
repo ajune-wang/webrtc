@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "53570b1c_f9352be9",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-18T14:43:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d320c314_59b5292f",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 60
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "febb38cd_099d62dc",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
         "patchSetId": 2
@@ -237,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "9927dc82_4a4aa635",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-18T14:43:03Z",
+      "side": 1,
+      "message": "Just to make the code slightly easier to read. Here you document /*bit_count\u003d*/, but not in other places.\n\nIt doesn\u0027t matter much",
+      "parentUuid": "9a593fbc_34290f7b",
+      "range": {
+        "startLine": 261,
+        "startChar": 4,
+        "endLine": 261,
+        "endChar": 42
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1210d63f_d4229cfd",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
         "patchSetId": 2
@@ -272,6 +320,30 @@
       "side": 1,
       "message": "DCHECK means \u0027caller shouldn\u0027t even call this builder with invalid values\u0027, i.e. it is even stronger than failed build.\n\nand in release mode (where dchecks are skipped) nothing too bad [i.e. no out of memory access or infinte loop or anything similar] would happen when invalid values are put into bitstream.\n\nbut may be you mean that instead of crashing invalid input should just fail the building?\n(for now I made change in reverse direction. Added strong assumption there is always matching template for the |descriptor|. Now the only reason for failed build is too small buffer.",
       "parentUuid": "1210d63f_d4229cfd",
+      "range": {
+        "startLine": 294,
+        "startChar": 0,
+        "endLine": 297,
+        "endChar": 48
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b661b4f_a6dea62c",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-18T14:43:03Z",
+      "side": 1,
+      "message": "Ok, I see what you mean.\n\nI think the comment for Write() in the .h file could be a bit misleading in that case.",
+      "parentUuid": "86fdc0ab_ed84b125",
       "range": {
         "startLine": 294,
         "startChar": 0,
@@ -366,6 +438,30 @@
       "side": 1,
       "message": "Unlike Reader, this function actually writes the descriptor.\n(unlike reader, writer needs two public function: Write and ValueSizeBits. Constructor does part that is common for those two functions)",
       "parentUuid": "b689ae65_125c2c81",
+      "range": {
+        "startLine": 30,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 12
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5ebd26d_c128a08b",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-18T14:43:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2629136f_8ecdcad1",
       "range": {
         "startLine": 30,
         "startChar": 7,

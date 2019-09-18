@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "58d02357_67dc0e88",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-09-18T18:09:36Z",
+      "side": 1,
+      "message": "We could decrease the bitrate and just have it as a test that nothing crashes when the setting is used.",
+      "parentUuid": "f8801044_d828df4f",
+      "range": {
+        "startLine": 291,
+        "startChar": 7,
+        "endLine": 291,
+        "endChar": 44
+      },
+      "revId": "869ca4447d4a0add7ec20df00c6ba9f3d7a5be0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0c03c9ca_0275cb33",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "a02352fb_ba6bc680",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-09-18T18:09:36Z",
+      "side": 1,
+      "message": "I think it needs to be changed to handle simulcast streams then. Probably better to wait with that until there\u0027s a need for it.",
+      "parentUuid": "bc4b055a_83b777cb",
+      "range": {
+        "startLine": 630,
+        "startChar": 10,
+        "endLine": 630,
+        "endChar": 20
+      },
+      "revId": "869ca4447d4a0add7ec20df00c6ba9f3d7a5be0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8887b2be_517047fa",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "abf09b95_c9310a4a",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-09-18T18:09:36Z",
+      "side": 1,
+      "message": "How do you mean?",
+      "parentUuid": "8887b2be_517047fa",
+      "range": {
+        "startLine": 640,
+        "startChar": 6,
+        "endLine": 641,
+        "endChar": 72
+      },
+      "revId": "869ca4447d4a0add7ec20df00c6ba9f3d7a5be0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4da3be02_c4f77aed",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1
@@ -105,6 +177,30 @@
       "writtenOn": "2019-09-18T14:16:42Z",
       "side": 1,
       "message": "Why we need it?\nFor simulcast case it was required, because we use rids as mids on receiver side for simulcast tracks.",
+      "range": {
+        "startLine": 643,
+        "startChar": 6,
+        "endLine": 644,
+        "endChar": 66
+      },
+      "revId": "869ca4447d4a0add7ec20df00c6ba9f3d7a5be0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ee5d645_20e1d867",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-09-18T18:09:36Z",
+      "side": 1,
+      "message": "Perhaps not needed, will make a test and remove it if it\u0027s still working.",
+      "parentUuid": "4da3be02_c4f77aed",
       "range": {
         "startLine": 643,
         "startChar": 6,

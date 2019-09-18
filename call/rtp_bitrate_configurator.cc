@@ -14,6 +14,20 @@
 
 #include "rtc_base/checks.h"
 
+namespace {
+
+int MinPositive(int a, int b) {
+  if (a <= 0) {
+    return b;
+  }
+  if (b <= 0) {
+    return a;
+  }
+  return std::min(a, b);
+}
+
+}  // namespace
+
 namespace webrtc {
 RtpBitrateConfigurator::RtpBitrateConfigurator(
     const BitrateConstraints& bitrate_config)

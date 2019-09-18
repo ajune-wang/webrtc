@@ -25,6 +25,70 @@
     },
     {
       "key": {
+        "uuid": "c526ced8_c94c6bf6",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-18T08:21:26Z",
+      "side": 1,
+      "message": "Weak +1 for removing the prefixes.",
+      "parentUuid": "2e37a379_7a342690",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 345,
+        "endChar": 34
+      },
+      "revId": "63c848766be9662ef6e7cd144fef8916bfdda881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad2d73bf_95ecc0b9",
+        "filename": "rtc_base/numerics/int_divide_round.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-18T08:21:26Z",
+      "side": 1,
+      "message": "Say `Dividend` here instead? That would make it easier for callers.",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 11
+      },
+      "revId": "63c848766be9662ef6e7cd144fef8916bfdda881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f90fe87_e66dfa1b",
+        "filename": "rtc_base/numerics/int_divide_round.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-18T08:21:26Z",
+      "side": 1,
+      "message": "Have you tried building this in debug mode? I don\u0027t know of a way to CHECK in a constexpr function prior to C++20.\n\nAlso, why restrict the arguments to positive numbers? Just ease of implementation?",
+      "revId": "63c848766be9662ef6e7cd144fef8916bfdda881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d9d129e4_a24188c0",
         "filename": "rtc_base/numerics/int_divide_round.h",
         "patchSetId": 1
@@ -42,6 +106,23 @@
         "endLine": 45,
         "endChar": 33
       },
+      "revId": "63c848766be9662ef6e7cd144fef8916bfdda881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "039b18c4_a1bf971b",
+        "filename": "rtc_base/numerics/int_divide_round_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-18T08:21:26Z",
+      "side": 1,
+      "message": "These two can be static_assert.",
       "revId": "63c848766be9662ef6e7cd144fef8916bfdda881",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

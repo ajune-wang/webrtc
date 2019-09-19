@@ -142,6 +142,30 @@
       "revId": "e7153012682ccd3d1eacc18f802cab7820e3bad3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b31a601a_9edce8c6",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-09-19T06:38:19Z",
+      "side": 1,
+      "message": "Thanks for the idea, I have done an experiment with my test program. It will compile on Debian 8 however if that executable is then taken to Debian 10 it will not be able to list monitors. Recompiling on Debian 10 ended up still using the weak stubs. I also tried with #pragma weak.\n\nEven if it had worked, I suspect that the chrome build might still complain, because the symbols are in the file.\n\nI may just have to rewrite it for an older version, at this point that\u0027s starting to look easier, and it will fix the bug for more people. It\u0027s possible other projects using WebRTC might have a similar issue as well depending on their build systems. The only way I can think of now to continue to use XRRGetMonitors without requiring patches to the chrome build system and while allowing compiling from source on Debian 8 is to implement XRRGetMonitors internally under a different name... Depending on how the IPC to the X server works that might not be too difficult the library implementation is quite small. https://gitlab.freedesktop.org/xorg/lib/libxrandr/blob/master/src/XrrMonitor.c",
+      "parentUuid": "bdd74e85_bdd87efa",
+      "range": {
+        "startLine": 414,
+        "startChar": 7,
+        "endLine": 414,
+        "endChar": 13
+      },
+      "revId": "e7153012682ccd3d1eacc18f802cab7820e3bad3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

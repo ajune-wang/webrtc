@@ -22,6 +22,30 @@
       "revId": "96e311916648e102c330844270859c80c0dbf2af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3f188fd_534c78db",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-19T16:16:33Z",
+      "side": 1,
+      "message": "Yes, that\u0027s why I added \"\u0026\u0026 !use_stable_target_for_adaptation_\" in the condition on line 860.",
+      "parentUuid": "c92a78c5_2a052d48",
+      "range": {
+        "startLine": 867,
+        "startChar": 32,
+        "endLine": 867,
+        "endChar": 50
+      },
+      "revId": "96e311916648e102c330844270859c80c0dbf2af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

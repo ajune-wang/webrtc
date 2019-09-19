@@ -333,6 +333,30 @@
     },
     {
       "key": {
+        "uuid": "e3c0c2bf_5e07111b",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-19T07:57:51Z",
+      "side": 1,
+      "message": "As a reader it is clear what is going on here and in other places as well, but it was not clear as to why you commented in this particular case. Now I understand why, and it makes sense.\n\nIt all LGTM.",
+      "parentUuid": "08ae4fdd_fbe8f790",
+      "range": {
+        "startLine": 261,
+        "startChar": 4,
+        "endLine": 261,
+        "endChar": 42
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1210d63f_d4229cfd",
         "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
         "patchSetId": 2
@@ -416,6 +440,30 @@
       "side": 1,
       "message": "update the comment next to Write and constructor functions.\n\n[Reader takes input from the network, so had to be extremely careful and support all bad inputs.\nWriter takes input from the other components, co can be more trusty and more harsh when input data is invalid]",
       "parentUuid": "4b661b4f_a6dea62c",
+      "range": {
+        "startLine": 294,
+        "startChar": 0,
+        "endLine": 297,
+        "endChar": 48
+      },
+      "revId": "a4317ad3b262ebe4456cdfdd3ea66d3e7dc9b9d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ee68ed1_de2ba184",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-19T07:57:51Z",
+      "side": 1,
+      "message": "That makes sense, and the comments make it clear.",
+      "parentUuid": "f7e60ba5_789c14f9",
       "range": {
         "startLine": 294,
         "startChar": 0,

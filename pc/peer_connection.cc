@@ -2648,6 +2648,23 @@ void PeerConnection::SetRemoteDescription(
         RTCError(RTCErrorType::INTERNAL_ERROR, std::move(error_message)));
     return;
   }
+  // Implicit rollback.
+  if (desc->GetType() == SdpType::kOffer &&
+      signaling_state() == kHaveLocalOffer) {
+    Rollback();
+  }
+  // Explicit rollback.
+  if (desc->GetType() == SdpType::kRollback) {
+    if (Rollback()) {
+      observer->OnSetRemoteDescriptionComplete(RTCError::OK());
+    } else {
+      observer->OnSetRemoteDescriptionComplete(
+          RTCError(RTCErrorType::INVALID_STATE,
+                   "Called in wrong state: " +
+                       GetSignalingStateString(signaling_state())));
+    }
+    return;
+  }
 
   if (desc->GetType() == SdpType::kOffer) {
     // Report to UMA the format of the received offer.
@@ -3401,8 +3418,12 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
       transceiver = CreateAndAddTransceiver(sender, receiver);
       transceiver->internal()->set_direction(
           RtpTransceiverDirection::kRecvOnly);
+      if (type == SdpType::kOffer) {
+        transceiver_stable_states_[transceiver] = TransceiverStableState(
+            RtpTransceiverDirection::kRecvOnly, content.name,
+            -1);  // -1 indicate added transceiver.
+      }
     }
-
     // Check if the offer indicated simulcast but the answer rejected it.
     // This can happen when simulcast is not supported on the remote party.
     if (SimulcastIsRejected(old_local_content, *media_desc)) {
@@ -3435,6 +3456,17 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
       return std::move(error);
     }
   }
+  if (type == SdpType::kOffer) {
+    auto it = transceiver_stable_states_.find(transceiver);
+    if (it == transceiver_stable_states_.end() &&
+        (transceiver->internal()->mid() != content.name ||
+         transceiver->internal()->mline_index() != mline_index)) {
+      transceiver_stable_states_[transceiver] = TransceiverStableState(
+          transceiver->internal()->direction(), transceiver->internal()->mid(),
+          transceiver->internal()->mline_index());
+    }
+  }
+
   // Associate the found or created RtpTransceiver with the m= section by
   // setting the value of the RtpTransceiver's mid property to the MID of the m=
   // section, and establish a mapping between the transceiver and the index of
@@ -5806,6 +5838,7 @@ RTCError PeerConnection::UpdateSessionState(
   } else {
     RTC_DCHECK(type == SdpType::kAnswer);
     ChangeSignalingState(PeerConnectionInterface::kStable);
+    transceiver_stable_states_.clear();
   }
 
   // Update internal objects according to the session description's media
@@ -7739,6 +7772,54 @@ bool PeerConnection::CheckIfNegotiationIsNeeded() {
   // If all the preceding checks were performed and true was not returned,
   // nothing remains to be negotiated; return false.
   return false;
+}
+
+bool PeerConnection::Rollback() {
+  auto state = signaling_state();
+  if (state != PeerConnectionInterface::kHaveLocalOffer &&
+      state != PeerConnectionInterface::kHaveRemoteOffer) {
+    return false;
+  }
+  RTC_DCHECK_RUN_ON(signaling_thread());
+
+  for (auto&& tss : transceiver_stable_states_) {
+    std::string mid = tss.first->internal()->mid().value_or("");
+    if (!transport_controller_->network_thread_->IsCurrent()) {
+      transport_controller_->network_thread_->Invoke<void>(RTC_FROM_HERE, [=] {
+        transport_controller_->RemoveTransportForMid(mid);
+        transport_controller_->MaybeDestroyJsepTransport(mid);
+      });
+    } else {
+      transport_controller_->RemoveTransportForMid(mid);
+      transport_controller_->MaybeDestroyJsepTransport(mid);
+    }
+    DestroyTransceiverChannel(tss.first);
+
+    if (tss.second.mline_index.value_or(0) == (size_t)-1) {
+      // Remove added transceivers with no added track
+      if (!tss.first->internal()->sender()->track()) {
+        int remaining_transceiver_count = 0;
+        for (auto&& t : transceivers_) {
+          if (t != tss.first) {
+            transceivers_[remaining_transceiver_count++] = t;
+          }
+        }
+        transceivers_.resize(remaining_transceiver_count);
+      }
+      continue;
+    }
+    tss.first->internal()->sender_internal()->set_transport(nullptr);
+    tss.first->internal()->receiver_internal()->set_transport(nullptr);
+    tss.first->internal()->set_direction(tss.second.direction);
+    tss.first->internal()->set_mid(tss.second.mid);
+    tss.first->internal()->set_mline_index(tss.second.mline_index);
+  }
+  transceiver_stable_states_.clear();
+
+  pending_local_description_.reset();
+  pending_remote_description_.reset();
+  ChangeSignalingState(PeerConnectionInterface::kStable);
+  return true;
 }
 
 }  // namespace webrtc

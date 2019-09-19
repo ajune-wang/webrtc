@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5e31d9a6_1beef942",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-09-19T11:01:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "647c59e6_b866ebb9",
+      "range": {
+        "startLine": 542,
+        "startChar": 6,
+        "endLine": 542,
+        "endChar": 14
+      },
+      "revId": "bb7dcfe3ff2220ef2ae41f5e29771b735676be95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94b046ad_2e9f505f",
         "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
         "patchSetId": 23
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "cb9e101b_2f03cf0b",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-09-19T11:01:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94b046ad_2e9f505f",
+      "range": {
+        "startLine": 553,
+        "startChar": 6,
+        "endLine": 553,
+        "endChar": 12
+      },
+      "revId": "bb7dcfe3ff2220ef2ae41f5e29771b735676be95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85799741_b89fb0fc",
         "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
         "patchSetId": 23
@@ -62,6 +110,24 @@
       "revId": "bb7dcfe3ff2220ef2ae41f5e29771b735676be95",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8372315_5563f565",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-09-19T11:01:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85799741_b89fb0fc",
+      "revId": "bb7dcfe3ff2220ef2ae41f5e29771b735676be95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

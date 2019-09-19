@@ -46,6 +46,30 @@
       "revId": "109cc9274570eb19eac1d94df4286da2741a3f6f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57cc45f9_b52d1ee4",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-19T16:09:33Z",
+      "side": 1,
+      "message": "SGTM!",
+      "parentUuid": "3853b85e_a414262e",
+      "range": {
+        "startLine": 358,
+        "startChar": 22,
+        "endLine": 358,
+        "endChar": 66
+      },
+      "revId": "109cc9274570eb19eac1d94df4286da2741a3f6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

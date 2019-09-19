@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "839191bd_d28fac8b",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-19T12:58:59Z",
+      "side": 1,
+      "message": "Since it is a bit unknown how expensive the field_trial lookup is, I think it is better to only do that when APM is constructed.",
+      "range": {
+        "startLine": 656,
+        "startChar": 8,
+        "endLine": 656,
+        "endChar": 46
+      },
+      "revId": "0b77df82bd33378553eef5e8259efbfce361d06b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d6feb40_3bb1c64c",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-19T12:58:59Z",
+      "side": 1,
+      "message": "Since it is a bit unknown how expensive the field_trial lookup is, I think it is better to only do that when APM is constructed.",
+      "range": {
+        "startLine": 847,
+        "startChar": 7,
+        "endLine": 847,
+        "endChar": 46
+      },
+      "revId": "0b77df82bd33378553eef5e8259efbfce361d06b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3454f2e2_67cbdf57",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 1887,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-19T12:58:59Z",
+      "side": 1,
+      "message": "I think we now can use std::make_unique. Could you change that at the same time?",
+      "range": {
+        "startLine": 1887,
+        "startChar": 51,
+        "endLine": 1887,
+        "endChar": 62
+      },
+      "revId": "0b77df82bd33378553eef5e8259efbfce361d06b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6bbb802_783cf2ae",
+        "filename": "modules/audio_processing/high_pass_filter_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-19T12:58:59Z",
+      "side": 1,
+      "message": "Since the LowCutFilter is now called highpass filter it makes sense to change lc to hp or hpf.",
+      "range": {
+        "startLine": 154,
+        "startChar": 17,
+        "endLine": 154,
+        "endChar": 19
+      },
+      "revId": "0b77df82bd33378553eef5e8259efbfce361d06b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a68e6c4_b8b40141",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-19T12:58:59Z",
+      "side": 1,
+      "message": "Hmm, I think multichannel should count as two words, so this should probably be experimental_multi_channel.",
+      "range": {
+        "startLine": 259,
+        "startChar": 11,
+        "endLine": 259,
+        "endChar": 36
+      },
+      "revId": "0b77df82bd33378553eef5e8259efbfce361d06b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65478a15_f1e7d993",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-19T12:58:59Z",
+      "side": 1,
+      "message": "experimental_multi_channel",
+      "range": {
+        "startLine": 88,
+        "startChar": 23,
+        "endLine": 88,
+        "endChar": 48
+      },
+      "revId": "0b77df82bd33378553eef5e8259efbfce361d06b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

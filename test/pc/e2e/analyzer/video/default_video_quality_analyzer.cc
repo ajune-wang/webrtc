@@ -187,7 +187,7 @@ void DefaultVideoQualityAnalyzer::OnFrameDropped(
   // Here we do nothing, because we will see this drop on renderer side.
 }
 
-void DefaultVideoQualityAnalyzer::OnFrameReceived(
+void DefaultVideoQualityAnalyzer::OnFramePreDecode(
     uint16_t frame_id,
     const webrtc::EncodedImage& input_image) {
   rtc::CritScope crit(&lock_);
@@ -198,7 +198,10 @@ void DefaultVideoQualityAnalyzer::OnFrameReceived(
       << it->second.stream_label;
   frame_counters_.received++;
   stream_frame_counters_[it->second.stream_label].received++;
-  it->second.received_time = Now();
+  it->second.decode_start_time = Now();
+  RTC_DCHECK(!input_image.PacketInfos().empty());
+  it->second.received_time =
+      Timestamp::ms(input_image.PacketInfos().back().receive_time_ms());
 }
 
 void DefaultVideoQualityAnalyzer::OnFrameDecoded(
@@ -210,7 +213,7 @@ void DefaultVideoQualityAnalyzer::OnFrameDecoded(
   RTC_DCHECK(it != frame_stats_.end());
   frame_counters_.decoded++;
   stream_frame_counters_[it->second.stream_label].decoded++;
-  it->second.decoded_time = Now();
+  it->second.decode_end_time = Now();
 }
 
 void DefaultVideoQualityAnalyzer::OnFrameRendered(
@@ -542,7 +545,9 @@ void DefaultVideoQualityAnalyzer::ProcessComparison(
     stats->total_delay_incl_transport_ms.AddSample(
         (frame_stats.rendered_time - frame_stats.captured_time).ms());
     stats->decode_time_ms.AddSample(
-        (frame_stats.decoded_time - frame_stats.received_time).ms());
+        (frame_stats.decode_end_time - frame_stats.decode_start_time).ms());
+    stats->receive_to_render_time_ms.AddSample(
+        (frame_stats.rendered_time - frame_stats.received_time).ms());
 
     if (frame_stats.prev_frame_rendered_time.IsFinite()) {
       TimeDelta time_between_rendered_frames =
@@ -643,6 +648,8 @@ void DefaultVideoQualityAnalyzer::ReportResults(
                     stats.psnr.IsEmpty() ? 0 : stats.psnr.GetMin(), "dB",
                     /*important=*/false);
   ReportResult("decode_time", test_case_name, stats.decode_time_ms, "ms");
+  ReportResult("receive_to_render_time", test_case_name,
+               stats.receive_to_render_time_ms, "ms");
   test::PrintResult("dropped_frames", "", test_case_name,
                     frame_counters.dropped, "count",
                     /*important=*/false);

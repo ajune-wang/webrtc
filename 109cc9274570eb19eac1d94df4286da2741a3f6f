@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d304c56_75e0db7d",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-19T15:50:22Z",
+      "side": 1,
+      "message": "Nit: I\u0027m not superhappy about this naming.\n\nTo me the killswitch is the actual switch, and the effect is something else (not a switch). \n \nWhat about \noverride_experimental_multi_channel_render \noverride_experimental_multi_channel_capture\nor maybe\nexperimental_multi_channel_render_override, \nexperimental_multi_channel_capture_override\n\n\nWith that terminology, the switch would trigger an override effect. WDYT?",
+      "range": {
+        "startLine": 358,
+        "startChar": 22,
+        "endLine": 358,
+        "endChar": 66
+      },
+      "revId": "109cc9274570eb19eac1d94df4286da2741a3f6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

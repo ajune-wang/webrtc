@@ -22,6 +22,30 @@
       "revId": "18d3ed911bafaa456a2ec4af92a40b5d7767c972",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1698d191_c2366b1a",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-19T13:18:23Z",
+      "side": 0,
+      "message": "And instead the caller if this method is required to hold the lock? Sounds like a nice simplification.",
+      "parentUuid": "20abea10_9f685a96",
+      "range": {
+        "startLine": 469,
+        "startChar": 9,
+        "endLine": 469,
+        "endChar": 37
+      },
+      "revId": "18d3ed911bafaa456a2ec4af92a40b5d7767c972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

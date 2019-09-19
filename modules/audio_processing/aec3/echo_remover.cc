@@ -151,9 +151,9 @@ class EchoRemoverImpl final : public EchoRemover {
   bool echo_leakage_detected_ = false;
   AecState aec_state_;
   EchoRemoverMetrics metrics_;
-  std::array<float, kFftLengthBy2> e_old_;
-  std::array<float, kFftLengthBy2> x_old_;
-  std::array<float, kFftLengthBy2> y_old_;
+  std::vector<std::array<float, kFftLengthBy2>> e_;
+  std::vector<std::array<float, kFftLengthBy2>> e_old_;
+  std::vector<std::array<float, kFftLengthBy2>> y_old_;
   size_t block_counter_ = 0;
   int gain_change_hangover_ = 0;
   bool main_filter_output_last_selected_ = true;
@@ -197,6 +197,9 @@ EchoRemoverImpl::EchoRemoverImpl(const EchoCanceller3Config& config,
       render_signal_analyzer_(config_),
       residual_echo_estimator_(config_),
       aec_state_(config_),
+      e_(num_capture_channels_),
+      e_old_(num_capture_channels_),
+      y_old_(num_capture_channels_),
       Y2_heap_(NumChannelsOnHeap(num_capture_channels_)),
       E2_heap_(NumChannelsOnHeap(num_capture_channels_)),
       R2_heap_(NumChannelsOnHeap(num_capture_channels_)),
@@ -207,9 +210,11 @@ EchoRemoverImpl::EchoRemoverImpl(const EchoCanceller3Config& config,
       high_band_comfort_noise_heap_(NumChannelsOnHeap(num_capture_channels_)),
       subtractor_output_heap_(NumChannelsOnHeap(num_capture_channels_)) {
   RTC_DCHECK(ValidFullBandRate(sample_rate_hz));
-  x_old_.fill(0.f);
-  y_old_.fill(0.f);
-  e_old_.fill(0.f);
+  for (size_t ch = 0; ch < num_capture_channels_; ch++) {
+    e_[ch].fill(0.f);
+    e_old_[ch].fill(0.f);
+    y_old_[ch].fill(0.f);
+  }
 }
 
 EchoRemoverImpl::~EchoRemoverImpl() = default;
@@ -328,8 +333,9 @@ void EchoRemoverImpl::ProcessCapture(
     --gain_change_hangover_;
   }
 
-  float high_bands_gain;
+  float high_bands_gain = 1.f;
   std::array<float, kFftLengthBy2Plus1> G;
+  G.fill(1.f);
 
   // Analyze the render signal.
   render_signal_analyzer_.Update(*render_buffer,
@@ -341,18 +347,21 @@ void EchoRemoverImpl::ProcessCapture(
     suppression_gain_.SetInitialState(false);
   }
 
-  // If the delay is known, use the echo subtractor.
-  subtractor_.Process(*render_buffer, y0, render_signal_analyzer_, aec_state_,
-                      &subtractor_output[0]);
-  std::array<float, kBlockSize> e;
-  FormLinearFilterOutput(subtractor_output[0], e);
+  for (size_t ch = 0; ch < num_capture_channels_; ch++) {
+    auto& y_low = (*y)[0][ch];
 
-  // Compute spectra.
-  WindowedPaddedFft(fft_, y0, y_old_, &Y[0]);
-  WindowedPaddedFft(fft_, e, e_old_, &E[0]);
-  LinearEchoPower(E[0], Y[0], &S2_linear[0]);
-  Y[0].Spectrum(optimization_, Y2[0]);
-  E[0].Spectrum(optimization_, E2[0]);
+    // If the delay is known, use the echo subtractor.
+    subtractor_.Process(*render_buffer, y_low, render_signal_analyzer_,
+                        aec_state_, &subtractor_output[ch]);
+
+    // Compute spectra.
+    FormLinearFilterOutput(subtractor_output[ch], e_[ch]);
+    WindowedPaddedFft(fft_, y_low, y_old_[ch], &Y[ch]);
+    WindowedPaddedFft(fft_, e_[ch], e_old_[ch], &E[ch]);
+    LinearEchoPower(E[ch], Y[ch], &S2_linear[ch]);
+    Y[ch].Spectrum(optimization_, Y2[ch]);
+    E[ch].Spectrum(optimization_, E2[ch]);
+  }
 
   // Update the AEC state information.
   aec_state_.Update(external_delay, subtractor_.FilterFrequencyResponse(),
@@ -360,50 +369,66 @@ void EchoRemoverImpl::ProcessCapture(
                     Y2[0], subtractor_output[0], y0);
 
   // Choose the linear output.
-  data_dumper_->DumpWav("aec3_output_linear2", kBlockSize, &e[0], 16000, 1);
-  if (aec_state_.UseLinearFilterOutput()) {
-    if (!linear_filter_output_last_selected_) {
-      SignalTransition(y0, e, y0);
+  data_dumper_->DumpWav("aec3_output_linear2", kBlockSize, &e_[0][0], 16000, 1);
+  for (size_t ch = 0; ch < num_capture_channels_; ch++) {
+    auto& y_low = (*y)[0][ch];
+    if (aec_state_.UseLinearFilterOutput()) {
+      if (!linear_filter_output_last_selected_) {
+        SignalTransition(y_low, e_[ch], y_low);
+      } else {
+        std::copy(e_[ch].begin(), e_[ch].end(), y_low.begin());
+      }
     } else {
-      std::copy(e.begin(), e.end(), y0.begin());
-    }
-  } else {
-    if (linear_filter_output_last_selected_) {
-      SignalTransition(e, y0, y0);
+      if (linear_filter_output_last_selected_) {
+        SignalTransition(e_[ch], y_low, y_low);
+      }
     }
   }
   linear_filter_output_last_selected_ = aec_state_.UseLinearFilterOutput();
-  const auto& Y_fft = aec_state_.UseLinearFilterOutput() ? E[0] : Y[0];
 
   data_dumper_->DumpWav("aec3_output_linear", kBlockSize, &y0[0], 16000, 1);
 
-  // Estimate the residual echo power.
-  residual_echo_estimator_.Estimate(aec_state_, *render_buffer, S2_linear[0],
-                                    Y2[0], &R2[0]);
+  for (size_t ch = 0; ch < num_capture_channels_; ch++) {
+    // Estimate the residual echo power.
+    residual_echo_estimator_.Estimate(aec_state_, *render_buffer, S2_linear[ch],
+                                      Y2[ch], &R2[ch]);
 
-  // Estimate the comfort noise.
-  cng_.Compute(aec_state_, Y2[0], &comfort_noise[0],
-               &high_band_comfort_noise[0]);
+    // Estimate the comfort noise.
+    cng_.Compute(aec_state_, Y2[ch], &comfort_noise[ch],
+                 &high_band_comfort_noise[ch]);
 
-  // Suppressor echo estimate.
-  const auto& echo_spectrum =
-      aec_state_.UsableLinearEstimate() ? S2_linear[0] : R2[0];
+    // Suppressor echo estimate.
+    const auto& echo_spectrum =
+        aec_state_.UsableLinearEstimate() ? S2_linear[ch] : R2[ch];
 
-  // Suppressor nearend estimate.
-  std::array<float, kFftLengthBy2Plus1> nearend_spectrum_bounded;
-  if (aec_state_.UsableLinearEstimate()) {
-    std::transform(E2[0].begin(), E2[0].end(), Y2[0].begin(),
-                   nearend_spectrum_bounded.begin(),
+    // Suppressor nearend estimate.
+    std::array<float, kFftLengthBy2Plus1> nearend_spectrum_bounded;
+    if (aec_state_.UsableLinearEstimate()) {
+      std::transform(E2[ch].begin(), E2[ch].end(), Y2[ch].begin(),
+                     nearend_spectrum_bounded.begin(),
+                     [](float a, float b) { return std::min(a, b); });
+    }
+    const auto& nearend_spectrum =
+        aec_state_.UsableLinearEstimate() ? nearend_spectrum_bounded : Y2[ch];
+
+    // Compute and apply the suppression gain.
+    float high_bands_gain_channel;
+    std::array<float, kFftLengthBy2Plus1> G_channel;
+    suppression_gain_.GetGain(nearend_spectrum, echo_spectrum, R2[ch],
+                              cng_.NoiseSpectrum(), render_signal_analyzer_,
+                              aec_state_, x, &high_bands_gain_channel,
+                              &G_channel);
+
+    // Compute preferred gains for each channel. The minimum gain determines the
+    // final gain.
+    high_bands_gain = std::min(high_bands_gain, high_bands_gain_channel);
+    std::transform(G.begin(), G.end(), G_channel.begin(), G.begin(),
                    [](float a, float b) { return std::min(a, b); });
   }
-  const auto& nearend_spectrum =
-      aec_state_.UsableLinearEstimate() ? nearend_spectrum_bounded : Y2[0];
 
-  // Compute and apply the suppression gain.
-  suppression_gain_.GetGain(nearend_spectrum, echo_spectrum, R2[0],
-                            cng_.NoiseSpectrum(), render_signal_analyzer_,
-                            aec_state_, x, &high_bands_gain, &G);
+  const auto& Y_fft = aec_state_.UseLinearFilterOutput() ? E[0] : Y[0];
 
+  // TODO(gustaf): Make ApplyGain handle multiple channels.
   suppression_filter_.ApplyGain(comfort_noise[0], high_band_comfort_noise[0], G,
                                 high_bands_gain, Y_fft, y);
 

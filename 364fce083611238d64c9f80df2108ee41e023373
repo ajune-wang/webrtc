@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "046546a5_5ac174e5",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-09-19T10:26:45Z",
+      "side": 1,
+      "message": "Pleas add a comment with explanation of the metric meaning",
+      "range": {
+        "startLine": 84,
+        "startChar": 22,
+        "endLine": 84,
+        "endChar": 47
+      },
+      "revId": "364fce083611238d64c9f80df2108ee41e023373",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f70d4db9_85d74369",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-09-19T10:26:45Z",
+      "side": 1,
+      "message": "Please add a comment what received_time will mean now",
+      "range": {
+        "startLine": 176,
+        "startChar": 14,
+        "endLine": 176,
+        "endChar": 27
+      },
+      "revId": "364fce083611238d64c9f80df2108ee41e023373",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

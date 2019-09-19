@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e29c65ac_4a25fa0d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-19T11:45:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cbaa5fd_0440d61c",
+      "range": {
+        "startLine": 7,
+        "startChar": 5,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "d15098c74f246782f9ac1852febb31d6f2cea6bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9017ee81_d6ff99c3",
         "filename": "modules/video_coding/packet_buffer.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-09-19T09:33:01Z",
       "side": 1,
       "message": "Two questions:\n\n1. Is it easy to change the signature to just\n\nrtc::scoped_refptr\u003cEncoidedImageBuffer\u003e GetBitstream();\n\n(and perhaps rename while at it).\n\n2. This is a private method, and with this cl it\u0027s no longer called from RtpFrameObject. Is that enough for removing the friend declaration in packet_buffer.h?",
+      "range": {
+        "startLine": 456,
+        "startChar": 0,
+        "endLine": 456,
+        "endChar": 60
+      },
+      "revId": "d15098c74f246782f9ac1852febb31d6f2cea6bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eedafd74_18754464",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-19T11:45:44Z",
+      "side": 1,
+      "message": "\u003e Two questions:\n\u003e \n\u003e 1. Is it easy to change the signature to just\n\u003e \n\u003e rtc::scoped_refptr\u003cEncoidedImageBuffer\u003e GetBitstream();\n\nI will make GetBitstream non-virtual and remove overrides from tests in the next CL, after that it is easy to change the signature to whatever we want.\n\n\u003e (and perhaps rename while at it).\n\u003e \n\u003e 2. This is a private method, and with this cl it\u0027s no longer called from RtpFrameObject. Is that enough for removing the friend declaration in packet_buffer.h?\n\nThe RtpFrameObject ctor still calls the private function GetPacket, but that will also be removed in coming CLs. After that we can remove the friend declaration.",
+      "parentUuid": "9017ee81_d6ff99c3",
       "range": {
         "startLine": 456,
         "startChar": 0,

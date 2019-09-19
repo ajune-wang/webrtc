@@ -615,6 +615,7 @@ void PeerConnectionE2EQualityTest::SetupCallOnSignalingThread(
     alice_transceivers_counter++;
   }
 
+  size_t alice_video_transceivers_non_simulcast_counter = 0;
   for (auto& video_config : alice_->params()->video_configs) {
     if (video_config.simulcast_config) {
       RtpTransceiverInit transceiver_params;
@@ -635,16 +636,34 @@ void PeerConnectionE2EQualityTest::SetupCallOnSignalingThread(
           alice_->AddTransceiver(cricket::MediaType::MEDIA_TYPE_VIDEO,
                                  transceiver_params);
       RTC_CHECK(result.ok());
-      alice_transceivers_counter++;
+    } else {
+      RtpTransceiverInit transceiver_params;
+      transceiver_params.direction = RtpTransceiverDirection::kSendRecv;
+      RtpEncodingParameters enc_params;
+      enc_params.max_bitrate_bps = video_config.max_encode_bitrate_bps;
+      enc_params.min_bitrate_bps = video_config.min_encode_bitrate_bps;
+      transceiver_params.send_encodings.push_back(enc_params);
+
+      RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>> result =
+          alice_->AddTransceiver(cricket::MediaType::MEDIA_TYPE_VIDEO,
+                                 transceiver_params);
+      RTC_CHECK(result.ok());
+      alice_video_transceivers_non_simulcast_counter++;
     }
+    alice_transceivers_counter++;
   }
-  for (size_t i = 0; i < bob_->params()->video_configs.size(); ++i) {
+
+  // Add receive only transceivers in case Bob has more video_configs than
+  // Alice.
+  for (size_t i = alice_video_transceivers_non_simulcast_counter;
+       i < bob_->params()->video_configs.size(); ++i) {
     RTCErrorOr<rtc::scoped_refptr<RtpTransceiverInterface>> result =
         alice_->AddTransceiver(cricket::MediaType::MEDIA_TYPE_VIDEO,
                                receive_only_transceiver_init);
     RTC_CHECK(result.ok());
     alice_transceivers_counter++;
   }
+
   // Then add media for Alice and Bob
   alice_video_sources_ = MaybeAddMedia(alice_.get());
   bob_video_sources_ = MaybeAddMedia(bob_.get());
@@ -990,7 +1009,7 @@ PeerConnectionE2EQualityTest::ScheduledActivity::ScheduledActivity(
     absl::optional<TimeDelta> interval,
     std::function<void(TimeDelta)> func)
     : initial_delay_since_start(initial_delay_since_start),
-      interval(std::move(interval)),
+      interval(interval),
       func(std::move(func)) {}
 
 }  // namespace webrtc_pc_e2e

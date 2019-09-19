@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20abea10_9f685a96",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-19T13:05:19Z",
+      "side": 0,
+      "message": "When this class was written |crit_| could be released in between creating an RtpFrameObject and it calling GetBitstream. Since that is not the case anymore this should never happen.",
+      "range": {
+        "startLine": 469,
+        "startChar": 9,
+        "endLine": 469,
+        "endChar": 37
+      },
+      "revId": "18d3ed911bafaa456a2ec4af92a40b5d7767c972",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

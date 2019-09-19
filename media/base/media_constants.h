@@ -53,6 +53,7 @@ extern const char kDtmfCodecName[];
 // Attribute parameters
 extern const char kCodecParamPTime[];
 extern const char kCodecParamMaxPTime[];
+extern const char kCodecParamAdaptivePTime[];
 // fmtp parameters
 extern const char kCodecParamMinPTime[];
 extern const char kCodecParamSPropStereo[];

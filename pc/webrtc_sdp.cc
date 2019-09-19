@@ -25,6 +25,7 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/strings/match.h"
+#include "absl/types/optional.h"
 #include "api/candidate.h"
 #include "api/crypto_params.h"
 #include "api/jsep_ice_candidate.h"
@@ -44,6 +45,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/message_digest.h"
+#include "rtc_base/string_to_number.h"
 #include "rtc_base/string_utils.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/third_party/base64/base64.h"
@@ -55,6 +57,7 @@ using cricket::ContentInfo;
 using cricket::CryptoParams;
 using cricket::ICE_CANDIDATE_COMPONENT_RTCP;
 using cricket::ICE_CANDIDATE_COMPONENT_RTP;
+using cricket::kCodecParamAdaptivePTime;
 using cricket::kCodecParamMaxPTime;
 using cricket::kCodecParamMinPTime;
 using cricket::kCodecParamPTime;
@@ -1812,10 +1815,11 @@ void WriteFmtpParameters(const cricket::CodecParameterMap& parameters,
 
 bool IsFmtpParam(const std::string& name) {
   // RFC 4855, section 3 specifies the mapping of media format parameters to SDP
-  // parameters. Only ptime, maxptime, channels and rate are placed outside of
-  // the fmtp line. In WebRTC, channels and rate are already handled separately
-  // and thus not included in the CodecParameterMap.
-  return name != kCodecParamPTime && name != kCodecParamMaxPTime;
+  // parameters. Only ptime, maxptime, adaptiveptime, channels and rate are
+  // placed outside of the fmtp line. In WebRTC, channels and rate are already
+  // handled separately and thus not included in the CodecParameterMap.
+  return name != kCodecParamPTime && name != kCodecParamMaxPTime &&
+         name != kCodecParamAdaptivePTime;
 }
 
 // Retreives fmtp parameters from |params|, which may contain other parameters
@@ -1931,17 +1935,26 @@ void BuildRtpMap(const MediaContentDescription* media_desc,
       AddLine(os.str(), message);
       AddRtcpFbLines(codec, message);
       AddFmtpLine(codec, message);
+
       int minptime = 0;
       if (GetParameter(kCodecParamMinPTime, codec.params, &minptime)) {
         max_minptime = std::max(minptime, max_minptime);
       }
+
       int ptime;
       if (GetParameter(kCodecParamPTime, codec.params, &ptime)) {
         ptimes.push_back(ptime);
       }
+
       int maxptime;
       if (GetParameter(kCodecParamMaxPTime, codec.params, &maxptime)) {
         maxptimes.push_back(maxptime);
+      }
+
+      int adaptive_ptime;  // Ignored.  // TODO: !!!
+      if (GetParameter(kCodecParamAdaptivePTime, codec.params,
+                       &adaptive_ptime)) {
+        AddAttributeLine(kCodecParamAdaptivePTime, codec.id, message);
       }
     }
     // Populate the maxptime attribute with the smallest maxptime of all codecs
@@ -2191,7 +2204,7 @@ bool ParseSessionDescription(const std::string& message,
                                  std::string(), error);
   }
 
-  // absl::optional lines
+  // Optional lines
   // Those are the optional lines, so shouldn't return false if not present.
   // RFC 4566
   // i=* (session information)
@@ -3027,6 +3040,22 @@ void AddAudioAttribute(const std::string& name,
   audio_desc->set_codecs(codecs);
 }
 
+void AddAudioAttributeByCodecId(const std::string& name,
+                                const std::string& value,
+                                int codec_id,
+                                AudioContentDescription* audio_desc) {
+  if (value.empty()) {
+    return;
+  }
+  std::vector<cricket::AudioCodec> codecs = audio_desc->codecs();
+  for (cricket::AudioCodec& codec : codecs) {
+    if (codec.id == codec_id) {
+      codec.params[name] = value;
+    }
+  }
+  audio_desc->set_codecs(codecs);
+}
+
 bool ParseContent(const std::string& message,
                   const cricket::MediaType media_type,
                   int mline_index,
@@ -3059,6 +3088,7 @@ bool ParseContent(const std::string& message,
   SsrcGroupVec ssrc_groups;
   std::string maxptime_as_string;
   std::string ptime_as_string;
+  std::vector<int> adaptive_ptime_codecs;  // Codec PTs with adaptiveptime set.
   std::vector<std::string> stream_ids;
   std::string track_id;
   SdpSerializer deserializer;
@@ -3266,6 +3296,22 @@ bool ParseContent(const std::string& message,
         if (!GetValue(line, kCodecParamPTime, &ptime_as_string, error)) {
           return false;
         }
+      } else if (HasAttribute(line, kCodecParamAdaptivePTime)) {
+        std::string pt_as_string;
+        if (!GetValue(line, kCodecParamAdaptivePTime, &pt_as_string, error)) {
+          return false;  // Couldn't parse value.
+        }
+        absl::optional<int> pt = rtc::StringToNumber<int>(pt_as_string);
+        if (!pt) {
+          return false;  // Value was not an integer.
+        }
+        if (std::find(adaptive_ptime_codecs.begin(),
+                      adaptive_ptime_codecs.end(),
+                      *pt) != adaptive_ptime_codecs.end()) {
+          // We guard against repetitions even though they're not contradictory.
+          return false;
+        }
+        adaptive_ptime_codecs.push_back(*pt);
       } else if (HasAttribute(line, kAttributeSendOnly)) {
         media_desc->set_direction(RtpTransceiverDirection::kSendOnly);
       } else if (HasAttribute(line, kAttributeRecvOnly)) {
@@ -3435,6 +3481,11 @@ bool ParseContent(const std::string& message,
     }
     AddAudioAttribute(kCodecParamMaxPTime, maxptime_as_string, audio_desc);
     AddAudioAttribute(kCodecParamPTime, ptime_as_string, audio_desc);
+    for (int codec_id : adaptive_ptime_codecs) {
+      AddAudioAttributeByCodecId(kCodecParamAdaptivePTime,
+                                 std::to_string(codec_id), codec_id,
+                                 audio_desc);
+    }
   }
 
   if (media_type == cricket::MEDIA_TYPE_VIDEO) {

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "17e43c08_337fdef9",
+        "filename": "test/fuzzers/rtp_dependency_descriptor_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-19T12:10:50Z",
+      "side": 1,
+      "message": "Yes, initialized to nullptr is one reason, though not the main one.\nStructure is normally allocated by the RtpDependencyDescriptorExtension::Parse.\n\nstructure1 though can live on the stack. no need to reallocte it. adjusted.",
+      "parentUuid": "e7670f1c_189324dc",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 43
+      },
+      "revId": "f6f9decfd1561b82feaeba72a8c7ba817b186bdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82daab71_a4febf65",
         "filename": "test/fuzzers/rtp_dependency_descriptor_fuzzer.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "608ac6c1_beeed2b8",
+        "filename": "test/fuzzers/rtp_dependency_descriptor_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-19T12:10:50Z",
+      "side": 1,
+      "message": "If only Parse would be checked, then yes, one Parse would be enough.\n\nbut this fuzzer validates both Parsing and Building. To validate Building it does re-parsing.\n(and building itself validates that Parsing did reject unreasonable structures. e.g. this fuzzer noticed a corner case fixed in this CL in reader.)\n\nafter each loop structure1 and structure2 should be equivalent,\nthough not necessary identical.",
+      "parentUuid": "82daab71_a4febf65",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 55
+      },
+      "revId": "f6f9decfd1561b82feaeba72a8c7ba817b186bdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "137f84a6_5ddcc247",
         "filename": "test/fuzzers/rtp_dependency_descriptor_fuzzer.cc",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "f6f9decfd1561b82feaeba72a8c7ba817b186bdc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80089dc6_a7444017",
+        "filename": "test/fuzzers/rtp_dependency_descriptor_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-19T12:10:50Z",
+      "side": 1,
+      "message": "why?\n\nhttps://google.github.io/styleguide/cppguide.html#Use_of_const\n\n\"Using const on local variables is neither encouraged nor discouraged.\"",
+      "parentUuid": "137f84a6_5ddcc247",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 7
+      },
+      "revId": "f6f9decfd1561b82feaeba72a8c7ba817b186bdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

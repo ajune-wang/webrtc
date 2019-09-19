@@ -111,6 +111,16 @@ class MediaTransportPair {
     second_datagram_transport_.SetState(state);
   }
 
+  void SetFirstState(MediaTransportState state) {
+    first_.SetState(state);
+    first_datagram_transport_.SetState(state);
+  }
+
+  void SetSecondState(MediaTransportState state) {
+    second_.SetState(state);
+    second_datagram_transport_.SetState(state);
+  }
+
   void SetFirstDatagramTransportParameters(const std::string& params) {
     first_datagram_transport_.set_transport_parameters(params);
   }

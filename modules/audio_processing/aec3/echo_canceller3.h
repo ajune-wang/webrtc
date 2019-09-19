@@ -111,6 +111,21 @@ class EchoCanceller3 : public EchoControl {
   // Provides an optional external estimate of the audio buffer delay.
   void SetAudioBufferDelay(size_t delay_ms) override;
 
+  // Returns the used config.
+  const& EchoCanceller3Config config() const { return config_; }
+
+  // Returns the most recently produced 10 ms of the linear AEC output at a rate
+  // of 16 kHz. If there is more than one capture channel, a mono representation
+  // of the input is returned. The input vector must be of size 160.
+  void GetLinearOutput(std::vector<float>* x) const {
+    RTC_DCHECK(config_.filter.export_linear_filter_output);
+    RTC_DCHECK_EQ(160, x->size());
+    RTC_DCHECK_EQ(160, linear_output_frame_.size());
+    if (linear_output_frame_.size() == 160 && x->size() == 160) {
+      x->swap(linear_output_frame_[0]);
+    }
+  }
+
   // Signals whether an external detector has detected echo leakage from the
   // echo canceller.
   // Note that in the case echo leakage has been flagged, it should be unflagged
@@ -147,6 +162,8 @@ class EchoCanceller3 : public EchoControl {
   const int num_bands_;
   const size_t num_render_channels_;
   const size_t num_capture_channels_;
+  std::unique_ptr<BlockFramer> linear_output_framer_
+      RTC_GUARDED_BY(capture_race_checker_);
   BlockFramer output_framer_ RTC_GUARDED_BY(capture_race_checker_);
   FrameBlocker capture_blocker_ RTC_GUARDED_BY(capture_race_checker_);
   FrameBlocker render_blocker_ RTC_GUARDED_BY(capture_race_checker_);
@@ -161,10 +178,16 @@ class EchoCanceller3 : public EchoControl {
       false;
   std::vector<std::vector<std::vector<float>>> render_block_
       RTC_GUARDED_BY(capture_race_checker_);
+  std::unique_ptr<std::vector<std::vector<float>>> linear_output_block_
+      RTC_GUARDED_BY(capture_race_checker_);
+  std::vector<std::vector<float>> linear_output_frame_
+      RTC_GUARDED_BY(capture_race_checker_);
   std::vector<std::vector<std::vector<float>>> capture_block_
       RTC_GUARDED_BY(capture_race_checker_);
   std::vector<std::vector<rtc::ArrayView<float>>> render_sub_frame_view_
       RTC_GUARDED_BY(capture_race_checker_);
+  std::unique_ptr<std::vector<rtc::ArrayView<float>>>
+      linear_output_sub_frame_view_ RTC_GUARDED_BY(capture_race_checker_);
   std::vector<std::vector<rtc::ArrayView<float>>> capture_sub_frame_view_
       RTC_GUARDED_BY(capture_race_checker_);
   BlockDelayBuffer block_delay_buffer_ RTC_GUARDED_BY(capture_race_checker_);

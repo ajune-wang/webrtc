@@ -583,6 +583,11 @@ class AudioProcessing : public rtc::RefCountInterface {
                                    const StreamConfig& output_config,
                                    float* const* dest) = 0;
 
+  // Returns the most recently produced 10 ms of the linear AEC output at a rate
+  // of 16 kHz. If there is more than one capture channel, a mono representation
+  // of the input is returned.
+  virtual void GetLinearAecOutput(rtc::ArrayView<float> linear_output) = 0;
+
   // This must be called prior to ProcessStream() if and only if adaptive analog
   // gain control is enabled, to pass the current analog level from the audio
   // HAL. Must be within the range provided in Config::GainController1.

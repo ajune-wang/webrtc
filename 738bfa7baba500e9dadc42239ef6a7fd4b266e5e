@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbf33979_b684033f",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-19T11:52:35Z",
+      "side": 0,
+      "message": "y0 is modified here but not in the new version, since y_low is used instead. All the subsequent uses (only data dumping) of y0 will change meaning (even in the mono case).\n\nUpdate the data dumping appropriately, or set y0 to the first channel y_low.",
+      "range": {
+        "startLine": 363,
+        "startChar": 0,
+        "endLine": 372,
+        "endChar": 34
+      },
+      "revId": "738bfa7baba500e9dadc42239ef6a7fd4b266e5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba08dea7_bbf4ea75",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-19T11:52:35Z",
+      "side": 0,
+      "message": "Why is this not the same thing as on line 378? It doesn\u0027t look like y0 is modified in between? :o\n\n  data_dumper_-\u003eDumpWav(\"aec3_output_linear\", kBlockSize, \u0026y0[0], 16000, 1);\n\nvs\n\n  data_dumper_-\u003eDumpWav(\n      \"aec3_output\", rtc::ArrayView\u003cconst float\u003e(\u0026y0[0], kBlockSize), 16000, 1);",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 80
+      },
+      "revId": "738bfa7baba500e9dadc42239ef6a7fd4b266e5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

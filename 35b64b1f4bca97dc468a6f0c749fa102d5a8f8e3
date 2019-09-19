@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7733028c_b2df0b5e",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-19T11:52:35Z",
+      "side": 1,
+      "message": "ultra-nit: most of AEC3 seems to be prefix ++\u0027ing, including this file. Please change.",
+      "range": {
+        "startLine": 213,
+        "startChar": 52,
+        "endLine": 213,
+        "endChar": 54
+      },
+      "revId": "35b64b1f4bca97dc468a6f0c749fa102d5a8f8e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22a9db9e_560e0a27",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-19T11:52:35Z",
+      "side": 1,
+      "message": "I suggest keeping this together with defining Y_fft, to avoid separating related code (since Y_fft is how the output is actually chosen).",
+      "range": {
+        "startLine": 382,
+        "startChar": 2,
+        "endLine": 382,
+        "endChar": 75
+      },
+      "revId": "35b64b1f4bca97dc468a6f0c749fa102d5a8f8e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "697e18c5_ec0ebb78",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-19T11:52:35Z",
+      "side": 1,
+      "message": "Same question as below, about multiple channels and internal state.",
+      "range": {
+        "startLine": 393,
+        "startChar": 0,
+        "endLine": 394,
+        "endChar": 55
+      },
+      "revId": "35b64b1f4bca97dc468a6f0c749fa102d5a8f8e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcd2dd34_9c6ab12a",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-19T11:52:35Z",
+      "side": 1,
+      "message": "Won\u0027t running all channels on one CNG mess up its internal state? Smoothed spectra, block counters, etc.\n\nIf so, then use one CNG per channel instead. Or add a TODO(bugs.webrtc.org/10913) to handle it some other way.",
+      "range": {
+        "startLine": 396,
+        "startChar": 0,
+        "endLine": 398,
+        "endChar": 47
+      },
+      "revId": "35b64b1f4bca97dc468a6f0c749fa102d5a8f8e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e138ee5c_0680e706",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-19T11:52:35Z",
+      "side": 1,
+      "message": "Same question about multiple channels and internal state.",
+      "range": {
+        "startLine": 417,
+        "startChar": 0,
+        "endLine": 420,
+        "endChar": 42
+      },
+      "revId": "35b64b1f4bca97dc468a6f0c749fa102d5a8f8e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

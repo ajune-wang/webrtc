@@ -46,6 +46,30 @@
       "revId": "96e311916648e102c330844270859c80c0dbf2af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "215cb91b_4ca6a9c8",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 7102
+      },
+      "writtenOn": "2019-09-19T20:32:37Z",
+      "side": 1,
+      "message": "ok, now I see it, but maybe clearer if we put the entire MaybeUpdateUplinkBandwidth() and all relevant resources (bitrate_smoother_*) under use_stable_target_for_adaptation_?",
+      "parentUuid": "d3f188fd_534c78db",
+      "range": {
+        "startLine": 867,
+        "startChar": 32,
+        "endLine": 867,
+        "endChar": 50
+      },
+      "revId": "96e311916648e102c330844270859c80c0dbf2af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

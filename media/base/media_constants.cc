@@ -45,9 +45,11 @@ const char kPcmaCodecName[] = "PCMA";
 const char kCnCodecName[] = "CN";
 const char kDtmfCodecName[] = "telephone-event";
 
-// draft-spittka-payload-rtp-opus-03.txt
 const char kCodecParamPTime[] = "ptime";
 const char kCodecParamMaxPTime[] = "maxptime";
+const char kCodecParamAdaptivePTime[] = "adaptiveptime";
+
+// draft-spittka-payload-rtp-opus-03.txt
 const char kCodecParamMinPTime[] = "minptime";
 const char kCodecParamSPropStereo[] = "sprop-stereo";
 const char kCodecParamStereo[] = "stereo";

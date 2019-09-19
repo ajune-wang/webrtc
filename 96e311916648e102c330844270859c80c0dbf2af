@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c92a78c5_2a052d48",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-09-19T14:10:32Z",
+      "side": 1,
+      "message": "The purpose of MaybeUpdateUplinkBandwidth is to get a smoothed bitrate and feed it to udio_network_adaptor_ by SetUplinkBandwidth.\n\nIf stable_target_for_adaptation_ is a smoothed bitrate, we don\u0027t need this method (and this contradict with the other call to SetUplinkBandwidth, which is introduced by this CL)",
+      "range": {
+        "startLine": 867,
+        "startChar": 32,
+        "endLine": 867,
+        "endChar": 50
+      },
+      "revId": "96e311916648e102c330844270859c80c0dbf2af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

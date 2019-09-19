@@ -377,8 +377,6 @@ rtc_static_library("isac_common") {
     "codecs/isac/audio_decoder_isac_t_impl.h",
     "codecs/isac/audio_encoder_isac_t.h",
     "codecs/isac/audio_encoder_isac_t_impl.h",
-    "codecs/isac/locked_bandwidth_info.cc",
-    "codecs/isac/locked_bandwidth_info.h",
   ]
   deps = [
     ":isac_bwinfo",

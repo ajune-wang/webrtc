@@ -122,19 +122,13 @@ void UlpfecReceiverTest::PacketizeFrame(
 }
 
 void UlpfecReceiverTest::BuildAndAddRedMediaPacket(AugmentedPacket* packet) {
-  std::unique_ptr<AugmentedPacket> red_packet(
-      packet_generator_.BuildMediaRedPacket(*packet));
-  EXPECT_EQ(0, receiver_fec_->AddReceivedRedPacket(
-                   red_packet->header, red_packet->data.cdata(),
-                   red_packet->data.size(), kFecPayloadType));
+  RtpPacket red_packet = packet_generator_.BuildMediaRedPacket(*packet);
+  EXPECT_TRUE(receiver_fec_->AddReceivedRedPacket(red_packet, kFecPayloadType));
 }
 
 void UlpfecReceiverTest::BuildAndAddRedFecPacket(Packet* packet) {
-  std::unique_ptr<AugmentedPacket> red_packet(
-      packet_generator_.BuildUlpfecRedPacket(*packet));
-  EXPECT_EQ(0, receiver_fec_->AddReceivedRedPacket(
-                   red_packet->header, red_packet->data.cdata(),
-                   red_packet->data.size(), kFecPayloadType));
+  RtpPacket red_packet = packet_generator_.BuildUlpfecRedPacket(*packet);
+  EXPECT_TRUE(receiver_fec_->AddReceivedRedPacket(red_packet, kFecPayloadType));
 }
 
 void UlpfecReceiverTest::VerifyReconstructedMediaPacket(
@@ -177,15 +171,13 @@ void UlpfecReceiverTest::InjectGarbagePacketLength(size_t fec_garbage_offset) {
 void UlpfecReceiverTest::SurvivesMaliciousPacket(const uint8_t* data,
                                                  size_t length,
                                                  uint8_t ulpfec_payload_type) {
-  RTPHeader header;
-  std::unique_ptr<RtpHeaderParser> parser(RtpHeaderParser::CreateForTest());
-  ASSERT_TRUE(parser->Parse(data, length, &header));
-
   NullRecoveredPacketReceiver null_callback;
   std::unique_ptr<UlpfecReceiver> receiver_fec(
       UlpfecReceiver::Create(kMediaSsrc, &null_callback, {}));
 
-  receiver_fec->AddReceivedRedPacket(header, data, length, ulpfec_payload_type);
+  RtpPacket rtp_packet;
+  if (rtp_packet.Parse(data, length))
+    receiver_fec->AddReceivedRedPacket(rtp_packet, ulpfec_payload_type);
 }
 
 TEST_F(UlpfecReceiverTest, TwoMediaOneFec) {
@@ -204,6 +196,7 @@ TEST_F(UlpfecReceiverTest, TwoMediaOneFec) {
   auto it = augmented_media_packets.begin();
   BuildAndAddRedMediaPacket(*it);
   VerifyReconstructedMediaPacket(**it, 1);
+
   EXPECT_EQ(0, receiver_fec_->ProcessReceivedFec());
   counter = receiver_fec_->GetPacketCounter();
   EXPECT_EQ(1u, counter.num_packets);

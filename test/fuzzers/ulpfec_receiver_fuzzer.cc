@@ -64,11 +64,8 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
       ByteWriter<uint32_t>::WriteBigEndian(packet.get() + 8, media_ssrc);
     }
     RtpPacketReceived parsed_packet;
-    RTPHeader parsed_header;
     if (parsed_packet.Parse(packet.get(), packet_length)) {
-      parsed_packet.GetHeader(&parsed_header);
-      receiver->AddReceivedRedPacket(parsed_header, packet.get(), packet_length,
-                                     0);
+      receiver->AddReceivedRedPacket(parsed_packet, 0);
     }
   }
 

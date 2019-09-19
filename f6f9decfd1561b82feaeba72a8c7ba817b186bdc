@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7670f1c_189324dc",
+        "filename": "test/fuzzers/rtp_dependency_descriptor_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-19T11:03:00Z",
+      "side": 1,
+      "message": "The DependencyDescriptors are stack-allocated but structure1 and structure2 are kept in unique_ptrs. Aren\u0027t they handled in the same way? What\u0027s stopping us from stack-allocating the FrameDependencyStructure. initialized to nullptr?",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 43
+      },
+      "revId": "f6f9decfd1561b82feaeba72a8c7ba817b186bdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82daab71_a4febf65",
+        "filename": "test/fuzzers/rtp_dependency_descriptor_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-19T11:03:00Z",
+      "side": 1,
+      "message": "Do these represent some sequential state between iterations of the while-loop? Otherwise the fuzzer could run just one parsing iteration per input, to reduce the search space.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 55
+      },
+      "revId": "f6f9decfd1561b82feaeba72a8c7ba817b186bdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "137f84a6_5ddcc247",
+        "filename": "test/fuzzers/rtp_dependency_descriptor_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-19T11:03:00Z",
+      "side": 1,
+      "message": "nit: const int",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 7
+      },
+      "revId": "f6f9decfd1561b82feaeba72a8c7ba817b186bdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

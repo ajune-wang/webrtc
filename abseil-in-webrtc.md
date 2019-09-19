@@ -13,6 +13,7 @@ adds the first use.
 
 * `absl::InlinedVector`
 * `absl::WrapUnique`
+* `absl::int128`
 * `absl::optional` and related stuff from `absl/types/optional.h`.
 * `absl::string_view`
 * The functions in `absl/strings/ascii.h`, `absl/strings/match.h`,

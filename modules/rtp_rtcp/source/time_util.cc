@@ -12,6 +12,7 @@
 
 #include <algorithm>
 
+#include "absl/numeric/int128.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/numerics/divide_round.h"
 #include "rtc_base/time_utils.h"
@@ -42,22 +43,13 @@ NtpTime TimeMicrosToNtp(int64_t time_us) {
   int64_t time_ntp_us = time_us + NtpOffsetMs() * 1000;
   RTC_DCHECK_GE(time_ntp_us, 0);  // Time before year 1900 is unsupported.
 
-  // TODO(danilchap): Convert both seconds and fraction together using int128
-  // when that type is easily available.
-  // Currently conversion is done separetly for seconds and fraction of a second
-  // to avoid overflow.
-
-  // Convert seconds to uint32 through uint64 for well-defined cast.
+  static constexpr uint64_t kNtpInSecond = 1LL << 32;
+  absl::uint128 ntp_us = time_ntp_us;
+  // Logically should first divide ntp_us to get seconds, then multiple to get
+  // ntp units. Swap operations to avoid floating point operations.
   // Wrap around (will happen in 2036) is expected for ntp time.
-  uint32_t ntp_seconds =
-      static_cast<uint64_t>(time_ntp_us / rtc::kNumMicrosecsPerSec);
-
-  // Scale fractions of the second to ntp resolution.
-  constexpr int64_t kNtpInSecond = 1LL << 32;
-  int64_t us_fractions = time_ntp_us % rtc::kNumMicrosecsPerSec;
-  uint32_t ntp_fractions =
-      us_fractions * kNtpInSecond / rtc::kNumMicrosecsPerSec;
-  return NtpTime(ntp_seconds, ntp_fractions);
+  return NtpTime(
+      static_cast<uint64_t>(ntp_us * kNtpInSecond / rtc::kNumMicrosecsPerSec));
 }
 
 uint32_t SaturatedUsToCompactNtp(int64_t us) {

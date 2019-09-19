@@ -2249,6 +2249,7 @@ include_rules = [
   "+absl/container/inlined_vector.h",
   "+absl/memory/memory.h",
   "+absl/meta/type_traits.h",
+  "+absl/numeric/int128.h",
   "+absl/strings/ascii.h",
   "+absl/strings/match.h",
   "+absl/strings/str_replace.h",

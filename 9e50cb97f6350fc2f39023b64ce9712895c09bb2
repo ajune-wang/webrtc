@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55daec9b_ed670192",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-09-20T10:33:05Z",
+      "side": 1,
+      "message": "I realize this was just changed based on Minyue\u0027s comment, but I find it odd that we have a function called \"MaybeUpdateUplinkBandwidth()\" that, at least from the sound of it, knows the conditions necessary to update the uplink bandwidth and we still add conditions around it. Why can\u0027t this new check be in the function instead?",
+      "range": {
+        "startLine": 652,
+        "startChar": 0,
+        "endLine": 654,
+        "endChar": 3
+      },
+      "revId": "9e50cb97f6350fc2f39023b64ce9712895c09bb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

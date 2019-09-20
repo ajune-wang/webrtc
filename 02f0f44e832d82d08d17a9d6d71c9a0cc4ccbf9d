@@ -22,6 +22,30 @@
       "revId": "02f0f44e832d82d08d17a9d6d71c9a0cc4ccbf9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33f57525_e648846b",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-20T12:55:45Z",
+      "side": 1,
+      "message": "Aha, maybe https://cs.chromium.org/chromium/src/third_party/blink/renderer/platform/peerconnection/rtc_video_encoder.cc?l\u003d452\u0026rcl\u003ddc48c5c2e95a6bbd1a4aa525e6632b0e106ad7df, let me try to remove it.",
+      "parentUuid": "e6e05107_f33d7013",
+      "range": {
+        "startLine": 112,
+        "startChar": 13,
+        "endLine": 112,
+        "endChar": 23
+      },
+      "revId": "02f0f44e832d82d08d17a9d6d71c9a0cc4ccbf9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "fa901da59d573fe2c5cf40906390d8662dc8555e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c144f91b_9b5f744e",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3658,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-20T21:59:56Z",
+      "side": 1,
+      "message": "In the zero-RTT case, the callee\u0027s transport becomes writable on Connect():\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/jsep_transport_controller.cc?l\u003d1176\u0026rcl\u003d03bbef5e1f40413667826d6a8006abf7a0b630b6\n\nI changed it so that the callee\u0027s transport also becomes writable on Connect().",
+      "parentUuid": "d41a8fc9_8c8e3710",
+      "range": {
+        "startLine": 3658,
+        "startChar": 24,
+        "endLine": 3658,
+        "endChar": 63
+      },
+      "revId": "fa901da59d573fe2c5cf40906390d8662dc8555e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

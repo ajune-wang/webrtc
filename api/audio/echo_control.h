@@ -41,7 +41,19 @@ class EchoControl {
   // Provides an optional external estimate of the audio buffer delay.
   virtual void SetAudioBufferDelay(size_t delay_ms) = 0;
 
+  // Returns the most recently produced 10 ms of the linear AEC output at a rate
+  // of 16 kHz. If there is more than one capture channel, a mono representation
+  // of the input is returned. The input vector must be of size 160.
+  // Returns true/false whether the a linear output was returned.
+  // TODO(peah): Make pure virtual.
+  virtual bool GetLinearOutput(std::vector<float>* linear_output) {
+    return false;
+  }
+
   virtual ~EchoControl() {}
+
+ private:
+  const EchoCanceller3Config config_;
 };
 
 // Interface for a factory that creates EchoControllers.

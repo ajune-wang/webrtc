@@ -572,7 +572,6 @@ NetworkControlUpdate GoogCcNetworkController::GetNetworkState(
   NetworkControlUpdate update;
   update.target_rate = TargetTransferRate();
   update.target_rate->network_estimate.at_time = at_time;
-  update.target_rate->network_estimate.bandwidth = last_raw_target_rate_;
   update.target_rate->network_estimate.loss_rate_ratio =
       last_estimated_fraction_loss_ / 255.0;
   update.target_rate->network_estimate.round_trip_time = rtt;

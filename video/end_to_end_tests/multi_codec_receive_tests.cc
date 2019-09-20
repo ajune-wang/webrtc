@@ -211,6 +211,7 @@ void MultiCodecReceiveTest::RunTestWithCodecs(
     ConfigureEncoder(configs[0]);
     CreateMatchingReceiveConfigs(receive_transport_.get());
     video_receive_configs_[0].renderer = &observer_;
+    video_receive_configs_[0].enable_prerenderer_smoothing = false;
     ConfigureDecoders(configs);
     CreateVideoStreams();
     CreateFrameGeneratorCapturer(kFps, kWidth, kHeight);

@@ -518,7 +518,13 @@ void VideoReceiveStream::OnFrame(const VideoFrame& video_frame) {
   }
   source_tracker_.OnFrameDelivered(video_frame.packet_infos());
 
-  config_.renderer->OnFrame(video_frame);
+  if (encoded_output_balance_ != 0) {
+    VideoFrame frame = video_frame;
+    frame.set_encoded_frame_source(std::move(encoded_frame_source_));
+    config_.renderer->OnFrame(frame);
+  } else {
+    config_.renderer->OnFrame(video_frame);
+  }
 
   // TODO(tommi): OnRenderFrame grabs a lock too.
   stats_proxy_.OnRenderedFrame(video_frame);
@@ -664,12 +670,15 @@ void VideoReceiveStream::HandleEncodedFrame(
   }
   stats_proxy_.OnPreDecode(frame->CodecSpecific()->codecType, qp);
 
-  int decode_result = video_receiver_.Decode(frame.get());
+  EncodedFrame* frame_ptr = frame.get();
+  int64_t picture_id = frame->id.picture_id;
+  encoded_frame_source_ = std::move(frame);
+  int decode_result = video_receiver_.Decode(frame_ptr);
   if (decode_result == WEBRTC_VIDEO_CODEC_OK ||
       decode_result == WEBRTC_VIDEO_CODEC_OK_REQUEST_KEYFRAME) {
     keyframe_required_ = false;
     frame_decoded_ = true;
-    rtp_video_stream_receiver_.FrameDecoded(frame->id.picture_id);
+    rtp_video_stream_receiver_.FrameDecoded(picture_id);
 
     if (decode_result == WEBRTC_VIDEO_CODEC_OK_REQUEST_KEYFRAME)
       RequestKeyFrame();
@@ -727,6 +736,36 @@ void VideoReceiveStream::UpdatePlayoutDelays() const {
 
 std::vector<webrtc::RtpSource> VideoReceiveStream::GetSources() const {
   return source_tracker_.GetSources();
+}
+
+void VideoReceiveStream::EnableEncodedOutput() {
+  decode_queue_.PostTask([this] {
+    encoded_output_balance_++;
+    RequestKeyFrame();
+  });
+}
+
+void VideoReceiveStream::DoneEncodedOutput() {
+  decode_queue_.PostTask([this] {
+    encoded_output_balance_--;
+    RTC_DCHECK_GE(encoded_output_balance_, 0);
+  });
+}
+
+int VideoReceiveStream::GetEncodedOutputBalance() {
+  rtc::Event event;
+  int encoded_output_balance = 0;
+  decode_queue_.PostTask([this, &event, &encoded_output_balance] {
+    encoded_output_balance = encoded_output_balance_;
+    event.Set();
+  });
+  event.Wait(rtc::Event::kForever);
+  return encoded_output_balance;
+}
+
+void VideoReceiveStream::SetEncodedOutputBalance(int balance) {
+  decode_queue_.PostTask(
+      [this, balance] { encoded_output_balance_ = balance; });
 }
 
 }  // namespace internal

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dedc637b_8079b391",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-20T08:04:32Z",
+      "side": 1,
+      "message": "I initially tried to just stop the network thread at this point. But that doesn\u0027t work, since the destruction of the channels, below, wants to run code on the network thread.",
+      "range": {
+        "startLine": 988,
+        "startChar": 4,
+        "endLine": 988,
+        "endChar": 21
+      },
+      "revId": "8dec80cc69d484df8a59a14b8a3a783d3014faf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

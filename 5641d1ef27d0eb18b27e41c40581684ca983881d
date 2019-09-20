@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "301011a5_aadb8ee4",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-20T06:43:50Z",
+      "side": 1,
+      "message": "Is the return value meaningful? When would the method fail? Are callers prepared to handle failure?",
+      "range": {
+        "startLine": 231,
+        "startChar": 10,
+        "endLine": 231,
+        "endChar": 14
+      },
+      "revId": "5641d1ef27d0eb18b27e41c40581684ca983881d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

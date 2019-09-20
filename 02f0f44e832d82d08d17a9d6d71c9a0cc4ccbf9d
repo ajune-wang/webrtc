@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6e05107_f33d7013",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-20T12:54:34Z",
+      "side": 1,
+      "message": "This is maybe something we want to avoid. I guess it is needed because we have a header that uses an RTC_CHECKS or because Chromium does. Let me know if this is fine or if I have to change something.",
+      "range": {
+        "startLine": 112,
+        "startChar": 13,
+        "endLine": 112,
+        "endChar": 23
+      },
+      "revId": "02f0f44e832d82d08d17a9d6d71c9a0cc4ccbf9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

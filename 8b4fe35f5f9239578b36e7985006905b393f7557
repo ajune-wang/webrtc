@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc4d2b0b_70113c14",
+        "filename": "modules/video_coding/frame_object.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-20T08:14:38Z",
+      "side": 1,
+      "message": "Looks like these three arguments could be replaced by pointers to the first and last packets, or relevant meta from those packets.\n\nOr is the packet buffer used for anything else? \n\nCould be a followup cl.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 26
+      },
+      "revId": "8b4fe35f5f9239578b36e7985006905b393f7557",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

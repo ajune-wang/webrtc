@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a018901_4a8f890c",
+        "filename": "modules/audio_coding/codecs/isac/unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-20T12:47:49Z",
+      "side": 0,
+      "message": "At second look, there seems to be nothing useful left in this file; it should be deleted.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 22
+      },
+      "revId": "48b32b748e98f87ff17737dd6f97647dbc267bb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

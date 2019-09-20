@@ -164,44 +164,42 @@ TEST_F(StatsEndToEndTest, GetStats) {
           stats.encoder_implementation_name ==
           test::FakeEncoder::kImplementationName;
 
-      for (std::map<uint32_t, VideoSendStream::StreamStats>::const_iterator it =
-               stats.substreams.begin();
-           it != stats.substreams.end(); ++it) {
-        if (expected_send_ssrcs_.find(it->first) == expected_send_ssrcs_.end())
+      for (const auto& it : stats.substreams) {
+        if (expected_send_ssrcs_.find(it.first) == expected_send_ssrcs_.end())
           continue;  // Probably RTX.
 
-        send_stats_filled_[CompoundKey("CapturedFrameRate", it->first)] |=
+        send_stats_filled_[CompoundKey("CapturedFrameRate", it.first)] |=
             stats.input_frame_rate != 0;
 
-        const VideoSendStream::StreamStats& stream_stats = it->second;
+        const VideoSendStream::StreamStats& stream_stats = it.second;
 
-        send_stats_filled_[CompoundKey("StatisticsUpdated", it->first)] |=
+        send_stats_filled_[CompoundKey("StatisticsUpdated", it.first)] |=
             stream_stats.rtcp_stats.packets_lost != 0 ||
             stream_stats.rtcp_stats.extended_highest_sequence_number != 0 ||
             stream_stats.rtcp_stats.fraction_lost != 0;
 
-        send_stats_filled_[CompoundKey("DataCountersUpdated", it->first)] |=
+        send_stats_filled_[CompoundKey("DataCountersUpdated", it.first)] |=
             stream_stats.rtp_stats.fec.packets != 0 ||
             stream_stats.rtp_stats.transmitted.padding_bytes != 0 ||
             stream_stats.rtp_stats.retransmitted.packets != 0 ||
             stream_stats.rtp_stats.transmitted.packets != 0;
 
         send_stats_filled_[CompoundKey("BitrateStatisticsObserver.Total",
-                                       it->first)] |=
+                                       it.first)] |=
             stream_stats.total_bitrate_bps != 0;
 
         send_stats_filled_[CompoundKey("BitrateStatisticsObserver.Retransmit",
-                                       it->first)] |=
+                                       it.first)] |=
             stream_stats.retransmit_bitrate_bps != 0;
 
-        send_stats_filled_[CompoundKey("FrameCountObserver", it->first)] |=
+        send_stats_filled_[CompoundKey("FrameCountObserver", it.first)] |=
             stream_stats.frame_counts.delta_frames != 0 ||
             stream_stats.frame_counts.key_frames != 0;
 
-        send_stats_filled_[CompoundKey("OutgoingRate", it->first)] |=
+        send_stats_filled_[CompoundKey("OutgoingRate", it.first)] |=
             stats.encode_frame_rate != 0;
 
-        send_stats_filled_[CompoundKey("Delay", it->first)] |=
+        send_stats_filled_[CompoundKey("Delay", it.first)] |=
             stream_stats.avg_delay_ms != 0 || stream_stats.max_delay_ms != 0;
 
         // TODO(pbos): Use CompoundKey when the test makes sure that all SSRCs
@@ -340,19 +338,15 @@ TEST_F(StatsEndToEndTest, GetStats) {
       }
 
       ADD_FAILURE() << "Timed out waiting for filled stats.";
-      for (std::map<std::string, bool>::const_iterator it =
-               receive_stats_filled_.begin();
-           it != receive_stats_filled_.end(); ++it) {
-        if (!it->second) {
-          ADD_FAILURE() << "Missing receive stats: " << it->first;
+      for (const auto& kv : receive_stats_filled_) {
+        if (!kv.second) {
+          ADD_FAILURE() << "Missing receive stats: " << kv.first;
         }
       }
 
-      for (std::map<std::string, bool>::const_iterator it =
-               send_stats_filled_.begin();
-           it != send_stats_filled_.end(); ++it) {
-        if (!it->second) {
-          ADD_FAILURE() << "Missing send stats: " << it->first;
+      for (const auto& kv : send_stats_filled_) {
+        if (!kv.second) {
+          ADD_FAILURE() << "Missing send stats: " << kv.first;
         }
       }
     }
@@ -639,10 +633,8 @@ TEST_F(StatsEndToEndTest, VerifyNackStats) {
       int send_stream_nack_packets = 0;
       int receive_stream_nack_packets = 0;
       VideoSendStream::Stats stats = send_stream_->GetStats();
-      for (std::map<uint32_t, VideoSendStream::StreamStats>::const_iterator it =
-               stats.substreams.begin();
-           it != stats.substreams.end(); ++it) {
-        const VideoSendStream::StreamStats& stream_stats = it->second;
+      for (const auto& it : stats.substreams) {
+        const VideoSendStream::StreamStats& stream_stats = it.second;
         send_stream_nack_packets +=
             stream_stats.rtcp_packet_type_counts.nack_packets;
       }

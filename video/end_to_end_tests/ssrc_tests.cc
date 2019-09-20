@@ -60,13 +60,12 @@ TEST_F(SsrcEndToEndTest, UnknownRtpPacketGivesUnknownSsrcReturnCode) {
       if (RtpHeaderParser::IsRtcp(packet.cdata(), packet.size())) {
         return receiver_->DeliverPacket(media_type, std::move(packet),
                                         packet_time_us);
-      } else {
-        DeliveryStatus delivery_status = receiver_->DeliverPacket(
-            media_type, std::move(packet), packet_time_us);
-        EXPECT_EQ(DELIVERY_UNKNOWN_SSRC, delivery_status);
-        delivered_packet_.Set();
-        return delivery_status;
       }
+      DeliveryStatus delivery_status = receiver_->DeliverPacket(
+          media_type, std::move(packet), packet_time_us);
+      EXPECT_EQ(DELIVERY_UNKNOWN_SSRC, delivery_status);
+      delivered_packet_.Set();
+      return delivery_status;
     }
 
     PacketReceiver* receiver_;

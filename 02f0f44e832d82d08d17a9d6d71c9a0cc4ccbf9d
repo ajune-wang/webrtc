@@ -94,6 +94,30 @@
       "revId": "02f0f44e832d82d08d17a9d6d71c9a0cc4ccbf9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "166383c8_f9ed19b4",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-20T13:38:43Z",
+      "side": 1,
+      "message": "SGTM, I heard that WebRTC headers should avoid checks but maybe that is not a strict rule.",
+      "parentUuid": "85ec1ed4_ef96bd97",
+      "range": {
+        "startLine": 112,
+        "startChar": 13,
+        "endLine": 112,
+        "endChar": 23
+      },
+      "revId": "02f0f44e832d82d08d17a9d6d71c9a0cc4ccbf9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

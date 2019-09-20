@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcddd42c_2cb281e6",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-20T12:59:36Z",
+      "side": 1,
+      "message": "Thanks for this cleanup! One less user of RTPHeader.",
+      "range": {
+        "startLine": 735,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 54
+      },
+      "revId": "04fd21513bfad682c3e0f5e8c31464b53b4cd0ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

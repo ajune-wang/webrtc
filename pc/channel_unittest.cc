@@ -982,6 +982,10 @@ class ChannelTest : public ::testing::Test, public sigslot::has_slots<> {
     SendRtp2();
     SendRtcp1();
     SendRtcp2();
+    // Stop network thread, to enforce thread synchronization. Otherwise, we get
+    // a data race between rtcp delivery on the network thread, calling
+    // RtcpHelper::SendRtcp, and the RtpHelper destructor.
+    network_thread_keeper_.reset();
     // Do not wait, destroy channels.
     channel1_.reset(nullptr);
     channel2_.reset(nullptr);

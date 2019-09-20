@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d611c850_d2738019",
+        "filename": "test/fuzzers/ulpfec_receiver_fuzzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-20T09:02:36Z",
+      "side": 1,
+      "message": "optional nit: If you\u0027re into drive-by cleaning, it looks like this could be harmonized with the looping in [1] to make it read easier and keep the fuzzer family more uniform.\n\n[1] https://webrtc-review.googlesource.com/c/src/+/153662/2/test/fuzzers/rtp_dependency_descriptor_fuzzer.cc",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "de201c728829e13e0ceabf6a676ae7a6367e7474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "de201c728829e13e0ceabf6a676ae7a6367e7474",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "482967b4_65de6297",
+        "filename": "test/fuzzers/ulpfec_receiver_fuzzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-20T09:40:59Z",
+      "side": 1,
+      "message": "uniform is good.\nI rewrote the loop to make use of FuzzDataHelper\nwill do the same for [1].",
+      "parentUuid": "d611c850_d2738019",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "de201c728829e13e0ceabf6a676ae7a6367e7474",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

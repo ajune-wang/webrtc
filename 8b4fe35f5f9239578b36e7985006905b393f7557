@@ -22,6 +22,30 @@
       "revId": "8b4fe35f5f9239578b36e7985006905b393f7557",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81bdcf27_cd39ad3e",
+        "filename": "modules/video_coding/frame_object.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-20T08:20:22Z",
+      "side": 1,
+      "message": "They could, but ultimately we want to get rid of VCMPacket. I think I will create a settings struct that will be passed to this ctor.",
+      "parentUuid": "bc4d2b0b_70113c14",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 26
+      },
+      "revId": "8b4fe35f5f9239578b36e7985006905b393f7557",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

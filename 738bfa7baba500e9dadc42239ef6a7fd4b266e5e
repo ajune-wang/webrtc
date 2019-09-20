@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8922a823_9e883476",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-20T08:49:38Z",
+      "side": 0,
+      "message": "Yes, but both y0 and y_low reference y, so they are the same.",
+      "parentUuid": "cbf33979_b684033f",
+      "range": {
+        "startLine": 363,
+        "startChar": 0,
+        "endLine": 372,
+        "endChar": 34
+      },
+      "revId": "738bfa7baba500e9dadc42239ef6a7fd4b266e5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba08dea7_bbf4ea75",
         "filename": "modules/audio_processing/aec3/echo_remover.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "738bfa7baba500e9dadc42239ef6a7fd4b266e5e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfada455_235defec",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-20T08:49:38Z",
+      "side": 0,
+      "message": "This is the signal with suppression applied (by ApplyGain).",
+      "parentUuid": "ba08dea7_bbf4ea75",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 80
+      },
+      "revId": "738bfa7baba500e9dadc42239ef6a7fd4b266e5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

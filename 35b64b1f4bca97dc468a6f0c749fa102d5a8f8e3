@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "15e18952_1d4e89b9",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-20T08:49:38Z",
+      "side": 1,
+      "message": "Mmm ok, I\u0027ll change it. :)",
+      "parentUuid": "7733028c_b2df0b5e",
+      "range": {
+        "startLine": 213,
+        "startChar": 52,
+        "endLine": 213,
+        "endChar": 54
+      },
+      "revId": "35b64b1f4bca97dc468a6f0c749fa102d5a8f8e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22a9db9e_560e0a27",
         "filename": "modules/audio_processing/aec3/echo_remover.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "35b64b1f4bca97dc468a6f0c749fa102d5a8f8e3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47a6f6c5_6ffb0dad",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-20T08:49:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22a9db9e_560e0a27",
+      "range": {
+        "startLine": 382,
+        "startChar": 2,
+        "endLine": 382,
+        "endChar": 75
+      },
+      "revId": "35b64b1f4bca97dc468a6f0c749fa102d5a8f8e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6b743677_b1975446",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-20T08:49:38Z",
+      "side": 1,
+      "message": "See below.",
+      "parentUuid": "697e18c5_ec0ebb78",
+      "range": {
+        "startLine": 393,
+        "startChar": 0,
+        "endLine": 394,
+        "endChar": 55
+      },
+      "revId": "35b64b1f4bca97dc468a6f0c749fa102d5a8f8e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcd2dd34_9c6ab12a",
         "filename": "modules/audio_processing/aec3/echo_remover.cc",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "ccc9aa2b_2ba4f520",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-20T08:49:38Z",
+      "side": 1,
+      "message": "The echo remover now has multiple subcomponents of each type. One per mic channel.",
+      "parentUuid": "fcd2dd34_9c6ab12a",
+      "range": {
+        "startLine": 396,
+        "startChar": 0,
+        "endLine": 398,
+        "endChar": 47
+      },
+      "revId": "35b64b1f4bca97dc468a6f0c749fa102d5a8f8e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e138ee5c_0680e706",
         "filename": "modules/audio_processing/aec3/echo_remover.cc",
         "patchSetId": 4
@@ -114,6 +210,30 @@
       "revId": "35b64b1f4bca97dc468a6f0c749fa102d5a8f8e3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "721ad38a_f88852d0",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-20T08:49:38Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "e138ee5c_0680e706",
+      "range": {
+        "startLine": 417,
+        "startChar": 0,
+        "endLine": 420,
+        "endChar": 42
+      },
+      "revId": "35b64b1f4bca97dc468a6f0c749fa102d5a8f8e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

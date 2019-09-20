@@ -143,7 +143,8 @@ class AudioDecoder {
   // Resets the decoder state (empty buffers etc.).
   virtual void Reset() = 0;
 
-  // Notifies the decoder of an incoming packet to NetEQ.
+  // TODO(bugs.webrtc.org/10098): DEprecated, delete as soon as downstream
+  // decoder wrappers are updated.
   virtual int IncomingPacket(const uint8_t* payload,
                              size_t payload_len,
                              uint16_t rtp_sequence_number,

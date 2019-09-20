@@ -22,6 +22,30 @@
       "revId": "9e50cb97f6350fc2f39023b64ce9712895c09bb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f7afed3_e0d482c9",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-20T11:59:45Z",
+      "side": 1,
+      "message": "I don\u0027t care that much, but from a readability POW I think this is better, since someone reading EncodeImpl now can immediately see when MaybeUpdateUplinkBandwidth will be called and can ignore it in the contexts it won\u0027t. At the same time, no loss of information occurs when reading the function, since the DCHECKS confirms the requirements.",
+      "parentUuid": "55daec9b_ed670192",
+      "range": {
+        "startLine": 652,
+        "startChar": 0,
+        "endLine": 654,
+        "endChar": 3
+      },
+      "revId": "9e50cb97f6350fc2f39023b64ce9712895c09bb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

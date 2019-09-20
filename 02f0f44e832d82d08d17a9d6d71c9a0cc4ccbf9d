@@ -46,6 +46,30 @@
       "revId": "02f0f44e832d82d08d17a9d6d71c9a0cc4ccbf9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c209a366_faaedc59",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-20T13:15:14Z",
+      "side": 1,
+      "message": "That is not enough, we probably have to de-inline https://cs.chromium.org/chromium/src/third_party/webrtc/p2p/base/port_allocator.h?l\u003d610-616\u0026rcl\u003d3c02842f2ef4876979f6603fcb789d28385f051a as well (and maybe others).",
+      "parentUuid": "33f57525_e648846b",
+      "range": {
+        "startLine": 112,
+        "startChar": 13,
+        "endLine": 112,
+        "endChar": 23
+      },
+      "revId": "02f0f44e832d82d08d17a9d6d71c9a0cc4ccbf9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

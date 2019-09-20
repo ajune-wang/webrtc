@@ -141,39 +141,47 @@ class BitrateAllocator : public BitrateAllocatorInterface {
   typedef std::multimap<uint32_t, const AllocatableTrack*> ObserverSortingMap;
   typedef std::map<BitrateAllocatorObserver*, int> ObserverAllocation;
 
-  ObserverAllocation AllocateBitrates(uint32_t bitrate) const
-      RTC_RUN_ON(&sequenced_checker_);
+  static ObserverAllocation AllocateBitrates(
+      const std::vector<AllocatableTrack>& allocatable_tracks,
+      uint32_t bitrate);
 
   // Allocates zero bitrate to all observers.
-  ObserverAllocation ZeroRateAllocation() const RTC_RUN_ON(&sequenced_checker_);
+  static ObserverAllocation ZeroRateAllocation(
+      const std::vector<AllocatableTrack>& allocatable_tracks);
   // Allocates bitrate to observers when there isn't enough to allocate the
   // minimum to all observers.
-  ObserverAllocation LowRateAllocation(uint32_t bitrate) const
-      RTC_RUN_ON(&sequenced_checker_);
+  static ObserverAllocation LowRateAllocation(
+      const std::vector<AllocatableTrack>& allocatable_tracks,
+      uint32_t bitrate);
   // Allocates bitrate to all observers when the available bandwidth is enough
   // to allocate the minimum to all observers but not enough to allocate the
   // max bitrate of each observer.
-  ObserverAllocation NormalRateAllocation(uint32_t bitrate,
-                                          uint32_t sum_min_bitrates) const
-      RTC_RUN_ON(&sequenced_checker_);
+  static ObserverAllocation NormalRateAllocation(
+      const std::vector<AllocatableTrack>& allocatable_tracks,
+      uint32_t bitrate,
+      uint32_t sum_min_bitrates);
   // Allocates bitrate to observers when there is enough available bandwidth
   // for all observers to be allocated their max bitrate.
-  ObserverAllocation MaxRateAllocation(uint32_t bitrate,
-                                       uint32_t sum_max_bitrates) const
-      RTC_RUN_ON(&sequenced_checker_);
+  static ObserverAllocation MaxRateAllocation(
+      const std::vector<AllocatableTrack>& allocatable_tracks,
+      uint32_t bitrate,
+      uint32_t sum_max_bitrates);
 
   // Splits |bitrate| evenly to observers already in |allocation|.
   // |include_zero_allocations| decides if zero allocations should be part of
   // the distribution or not. The allowed max bitrate is |max_multiplier| x
   // observer max bitrate.
-  void DistributeBitrateEvenly(uint32_t bitrate,
-                               bool include_zero_allocations,
-                               int max_multiplier,
-                               ObserverAllocation* allocation) const
-      RTC_RUN_ON(&sequenced_checker_);
-  bool EnoughBitrateForAllObservers(uint32_t bitrate,
-                                    uint32_t sum_min_bitrates) const
-      RTC_RUN_ON(&sequenced_checker_);
+  static void DistributeBitrateEvenly(
+      const std::vector<AllocatableTrack>& allocatable_tracks,
+      uint32_t bitrate,
+      bool include_zero_allocations,
+      int max_multiplier,
+      ObserverAllocation* allocation);
+
+  static bool EnoughBitrateForAllObservers(
+      const std::vector<AllocatableTrack>& allocatable_tracks,
+      uint32_t bitrate,
+      uint32_t sum_min_bitrates);
 
   // From the available |bitrate|, each observer will be allocated a
   // proportional amount based upon its bitrate priority. If that amount is
@@ -181,10 +189,11 @@ class BitrateAllocator : public BitrateAllocatorInterface {
   // the excess bitrate is still allocated proportionally to other observers.
   // Allocating the proportional amount means an observer with twice the
   // bitrate_priority of another will be allocated twice the bitrate.
-  void DistributeBitrateRelatively(
+  static void DistributeBitrateRelatively(
+      const std::vector<AllocatableTrack>& allocatable_tracks,
       uint32_t bitrate,
       const ObserverAllocation& observers_capacities,
-      ObserverAllocation* allocation) const RTC_RUN_ON(&sequenced_checker_);
+      ObserverAllocation* allocation);
 
   // Allow packets to be transmitted in up to 2 times max video bitrate if the
   // bandwidth estimate allows it.
@@ -207,7 +216,6 @@ class BitrateAllocator : public BitrateAllocatorInterface {
   int num_pause_events_ RTC_GUARDED_BY(&sequenced_checker_);
   int64_t last_bwe_log_time_ RTC_GUARDED_BY(&sequenced_checker_);
   BitrateAllocationLimits current_limits_ RTC_GUARDED_BY(&sequenced_checker_);
-  const uint8_t transmission_max_bitrate_multiplier_;
 };
 
 }  // namespace webrtc

@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "05af7c31_05c6d396",
+        "filename": "test/fuzzers/rtp_dependency_descriptor_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-20T08:56:20Z",
+      "side": 1,
+      "message": "Ok, thank you for explaining.",
+      "parentUuid": "608ac6c1_beeed2b8",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 55
+      },
+      "revId": "f6f9decfd1561b82feaeba72a8c7ba817b186bdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "137f84a6_5ddcc247",
         "filename": "test/fuzzers/rtp_dependency_descriptor_fuzzer.cc",
         "patchSetId": 1
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "why?\n\nhttps://google.github.io/styleguide/cppguide.html#Use_of_const\n\n\"Using const on local variables is neither encouraged nor discouraged.\"",
       "parentUuid": "137f84a6_5ddcc247",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 7
+      },
+      "revId": "f6f9decfd1561b82feaeba72a8c7ba817b186bdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7041ee10_a8ced6c0",
+        "filename": "test/fuzzers/rtp_dependency_descriptor_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-20T08:56:20Z",
+      "side": 1,
+      "message": "Oh so it\u0027s probably just personal preference. Thanks for pointing it out. Feel free to ignore :)\n\nI would have const\u0027d it since data and size are modified in the same context as next_size and I\u0027d like to tell my future self that at least next_size will remain unchanged.",
+      "parentUuid": "80089dc6_a7444017",
       "range": {
         "startLine": 44,
         "startChar": 4,

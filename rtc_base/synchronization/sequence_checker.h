@@ -14,6 +14,7 @@
 #include "rtc_base/critical_section.h"
 #include "rtc_base/platform_thread_types.h"
 #include "rtc_base/thread_annotations.h"
+#include "third_party/webrtc/rtc_base/system/rtc_export.h"
 
 namespace webrtc {
 // Real implementation of SequenceChecker, for use in debug mode, or
@@ -22,7 +23,7 @@ namespace webrtc {
 //
 // Note: You should almost always use the SequenceChecker class to get the
 // right version for your build configuration.
-class SequenceCheckerImpl {
+class RTC_EXPORT SequenceCheckerImpl {
  public:
   SequenceCheckerImpl();
   ~SequenceCheckerImpl();

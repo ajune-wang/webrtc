@@ -756,6 +756,7 @@ rtc_static_library("rtc_base") {
     "../api:scoped_refptr",
     "network:sent_packet",
     "system:file_wrapper",
+    "system:rtc_export",
     "third_party/base64",
     "third_party/sigslot",
     "//third_party/abseil-cpp/absl/algorithm:container",

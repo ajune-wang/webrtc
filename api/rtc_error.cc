@@ -15,7 +15,7 @@
 
 namespace {
 
-const absl::string_view kRTCErrorTypeNames[] = {
+const char* kRTCErrorTypeNames[] = {
     "NONE",
     "UNSUPPORTED_OPERATION",
     "UNSUPPORTED_PARAMETER",
@@ -53,7 +53,7 @@ void RTCError::set_message(std::string message) {
   message_ = std::move(message);
 }
 
-absl::string_view ToString(RTCErrorType error) {
+const char* ToString(RTCErrorType error) {
   int index = static_cast<int>(error);
   return kRTCErrorTypeNames[index];
 }

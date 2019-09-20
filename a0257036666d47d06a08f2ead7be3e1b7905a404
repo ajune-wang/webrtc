@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "18bff3e1_ea60ecfe",
+        "filename": "p2p/client/basic_port_allocator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-20T09:00:00Z",
+      "side": 1,
+      "message": "Done. It seems only the BasicPortAllocatorTest.TestBasic depended on this turn server, so I deleted those expectations.",
+      "parentUuid": "5b6b5b46_d24af03f",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 43
+      },
+      "revId": "a0257036666d47d06a08f2ead7be3e1b7905a404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "455f89f9_3641340e",
         "filename": "p2p/client/basic_port_allocator_unittest.cc",
         "patchSetId": 1
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "f0f6e04f_0debfde3",
+        "filename": "p2p/client/basic_port_allocator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-20T09:00:00Z",
+      "side": 1,
+      "message": "The AddInterface call results in the following logs:\n\n(basic_port_allocator.cc:869): Prune 1 ports because their networks were gone\n(basic_port_allocator_unittest.cc:405): Number of ports pruned: 1\n(basic_port_allocator.cc:799): Allocate ports on 1 networks\n\nBut I think the problem is that candidate_allocation_done_ is already true here, so we never wait for regathering to happen. It seems we get a call to OnCandidatesAllocationDone during the call to SIMULATED_WAIT a few lines above. Is that correct?\n\nIf I add another an assignment \n\n  candidate_allocation_done_ \u003d false;\n\nthe test passes.",
+      "parentUuid": "c9e37db3_b77404f2",
+      "range": {
+        "startLine": 1054,
+        "startChar": 0,
+        "endLine": 1056,
+        "endChar": 31
+      },
+      "revId": "a0257036666d47d06a08f2ead7be3e1b7905a404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3320fb9e_197c3166",
         "filename": "p2p/client/basic_port_allocator_unittest.cc",
         "patchSetId": 1
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "I think the STUN timeout is tested and the expectation should be 2u since we are only left with the two host candidates.",
       "parentUuid": "3320fb9e_197c3166",
+      "range": {
+        "startLine": 1441,
+        "startChar": 0,
+        "endLine": 1442,
+        "endChar": 68
+      },
+      "revId": "a0257036666d47d06a08f2ead7be3e1b7905a404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e34c135_194ff1c2",
+        "filename": "p2p/client/basic_port_allocator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1442,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-20T09:00:00Z",
+      "side": 1,
+      "message": "Updated expectation. What\u0027s unclear to me is what the second wait,\n\n  EXPECT_EQ_SIMULATED_WAIT(2U, candidates_.size(), 3500, fake_clock);\n\nis waiting for? Since it seems candidates_.size() \u003d\u003d 2 already before this point.\n\nSo I\u0027 deleting this wait, and instead increasing the timeout for the final wait, for candidate_allocation_done_ becoming true.",
+      "parentUuid": "0f8692ac_d134680f",
       "range": {
         "startLine": 1441,
         "startChar": 0,

@@ -53,6 +53,22 @@ rtc_library("video_frame") {
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base/system:rtc_export",
     "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/webrtc/api:refcountedbase",
+  ]
+}
+
+rtc_library("video_frame_encoded_frame") {
+  visibility = [ "*" ]
+  sources = [
+    "video_frame_encoded_frame.cc",
+  ]
+
+  deps = [
+    ":video_frame",
+    "..:scoped_refptr",
+    "//third_party/webrtc/api:refcountedbase",
+    "//third_party/webrtc/api/video:encoded_frame",
+    "//third_party/webrtc/rtc_base:refcount",
   ]
 }
 

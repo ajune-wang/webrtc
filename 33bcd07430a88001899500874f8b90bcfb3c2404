@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4cbccb6_8b41d448",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-20T11:37:24Z",
+      "side": 1,
+      "message": "In the android tests, I see errors like this:\n\nI   30.180s run_tests_on_device(01e132812394bb54)    INSTRUMENTATION_RESULT: longMsg\u003djava.lang.IllegalMonitorStateException: object not locked by thread before notify()\n\nThe docs on notify and notifyAll are quite clear (https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html): \"This method should only be called by a thread that is the owner of this object\u0027s monitor.\"\n\nThe way I read that, it\u0027s a mistake to try to use an AtomicInteger here. We have to use a plain int with an associated mutex, so we can hold that mutex when calling notify(). Just like the standard pattern with mutex + condition variable.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 5
+      },
+      "revId": "33bcd07430a88001899500874f8b90bcfb3c2404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

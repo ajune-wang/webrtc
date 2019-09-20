@@ -21,6 +21,7 @@
 #include "api/array_view.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/constructor_magic.h"
+#include "rtc_base/deprecation.h"
 
 namespace webrtc {
 
@@ -143,7 +144,9 @@ class AudioDecoder {
   // Resets the decoder state (empty buffers etc.).
   virtual void Reset() = 0;
 
-  // Notifies the decoder of an incoming packet to NetEQ.
+  // TODO(bugs.webrtc.org/10098): Deprecated, delete as soon as downstream
+  // decoder wrappers are updated.
+  RTC_DEPRECATED
   virtual int IncomingPacket(const uint8_t* payload,
                              size_t payload_len,
                              uint16_t rtp_sequence_number,

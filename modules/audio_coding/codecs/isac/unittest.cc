@@ -160,6 +160,7 @@ void TestGetSetBandwidthInfo(const int16_t* speech_data,
     ASSERT_EQ(bitstream1.size(), bitstream2.size());
     EXPECT_EQ(bitstream1, bitstream2);
 
+#if 0
     // 2. Deliver the encoded data to the decoders.
     const int send_time = elapsed_time_ms * (sample_rate_hz / 1000);
     EXPECT_EQ(0, T::UpdateBwEstimate(
@@ -170,7 +171,7 @@ void TestGetSetBandwidthInfo(const int16_t* speech_data,
                      dec, bitstream2.data(), bitstream2.size(), i, send_time,
                      channel2.Send(send_time,
                                    rtc::checked_cast<int>(bitstream2.size()))));
-
+#endif
     // 3. Decode, and get new BW info from the separate decoder.
     ASSERT_EQ(0, T::SetDecSampRate(encdec, sample_rate_hz));
     ASSERT_EQ(0, T::SetDecSampRate(dec, sample_rate_hz));

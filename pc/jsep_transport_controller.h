@@ -529,6 +529,7 @@ class JsepTransportController : public sigslot::has_slots<> {
   rtc::AsyncInvoker invoker_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(JsepTransportController);
+  friend class PeerConnection;
 };
 
 }  // namespace webrtc

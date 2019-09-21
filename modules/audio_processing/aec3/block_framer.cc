@@ -50,6 +50,18 @@ void BlockFramer::InsertBlock(
   }
 }
 
+void BlockFramer::InsertBlock(const std::vector<std::vector<float>>& block) {
+  RTC_DCHECK_EQ(num_bands_, 1);
+  RTC_DCHECK_EQ(num_channels_, block[0].size());
+  for (size_t channel = 0; channel < num_channels_; ++channel) {
+    RTC_DCHECK_EQ(kBlockSize, block[channel].size());
+    RTC_DCHECK_EQ(0, buffer_[0][channel].size());
+
+    buffer_[0][channel].insert(buffer_[0][channel].begin(),
+                               block[channel].begin(), block[channel].end());
+  }
+}
+
 void BlockFramer::InsertBlockAndExtractSubFrame(
     const std::vector<std::vector<std::vector<float>>>& block,
     std::vector<std::vector<rtc::ArrayView<float>>>* sub_frame) {
@@ -80,6 +92,31 @@ void BlockFramer::InsertBlockAndExtractSubFrame(
           block[band][channel].begin() + samples_to_frame,
           block[band][channel].end());
     }
+  }
+}
+
+void BlockFramer::InsertBlockAndExtractSubFrame(
+    const std::vector<std::vector<float>>& block,
+    std::vector<rtc::ArrayView<float>>* sub_frame) {
+  RTC_DCHECK(sub_frame);
+  RTC_DCHECK_EQ(num_bands_, 1);
+  RTC_DCHECK_EQ(num_channels_, block.size());
+  RTC_DCHECK_EQ(num_channels_, (*sub_frame).size());
+  for (size_t channel = 0; channel < num_channels_; ++channel) {
+    RTC_DCHECK_LE(kSubFrameLength, buffer_[0][channel].size() + kBlockSize);
+    RTC_DCHECK_EQ(kBlockSize, block[channel].size());
+    RTC_DCHECK_GE(kBlockSize, buffer_[0][channel].size());
+    RTC_DCHECK_EQ(kSubFrameLength, (*sub_frame)[channel].size());
+
+    const int samples_to_frame = kSubFrameLength - buffer_[0][channel].size();
+    std::copy(buffer_[0][channel].begin(), buffer_[0][channel].end(),
+              (*sub_frame)[channel].begin());
+    std::copy(block[channel].begin(), block[channel].begin() + samples_to_frame,
+              (*sub_frame)[channel].begin() + buffer_[0][channel].size());
+    buffer_[0][channel].clear();
+    buffer_[0][channel].insert(buffer_[0][channel].begin(),
+                               block[channel].begin() + samples_to_frame,
+                               block[channel].end());
   }
 }
 

@@ -25,6 +25,7 @@
 
 #include <string>
 
+#include "absl/types/variant.h"
 #include "rtc_base/byte_order.h"
 #if defined(WEBRTC_WIN)
 #include "rtc_base/win32.h"
@@ -48,50 +49,62 @@ enum IPv6AddressFlag {
 // Version-agnostic IP address class, wraps a union of in_addr and in6_addr.
 class IPAddress {
  public:
-  IPAddress() : family_(AF_UNSPEC) { ::memset(&u_, 0, sizeof(u_)); }
+  IPAddress() = default;
+  explicit IPAddress(const in_addr& ip4) : address_(IpV4{ip4}) {}
+  explicit IPAddress(uint32_t ip_in_host_byte_order)
+      : IPAddress(in_addr{HostToNetwork32(ip_in_host_byte_order)}) {}
+  explicit IPAddress(const in6_addr& ip6) : address_(IpV6{ip6}) {}
 
-  explicit IPAddress(const in_addr& ip4) : family_(AF_INET) {
-    memset(&u_, 0, sizeof(u_));
-    u_.ip4 = ip4;
+  IPAddress(const IPAddress& other) = default;
+  IPAddress& operator=(const IPAddress& other) = default;
+
+  virtual ~IPAddress() = default;
+
+  friend bool operator==(const IPAddress& lhs, const IPAddress& rhs) {
+    return lhs.address_ == rhs.address_;
   }
-
-  explicit IPAddress(const in6_addr& ip6) : family_(AF_INET6) { u_.ip6 = ip6; }
-
-  explicit IPAddress(uint32_t ip_in_host_byte_order) : family_(AF_INET) {
-    memset(&u_, 0, sizeof(u_));
-    u_.ip4.s_addr = HostToNetwork32(ip_in_host_byte_order);
+  friend bool operator!=(const IPAddress& lhs, const IPAddress& rhs) {
+    return !(lhs == rhs);
   }
-
-  IPAddress(const IPAddress& other) : family_(other.family_) {
-    ::memcpy(&u_, &other.u_, sizeof(u_));
+  friend bool operator<(const IPAddress& lhs, const IPAddress& rhs) {
+    return lhs.address_ < rhs.address_;
   }
-
-  virtual ~IPAddress() {}
-
-  const IPAddress& operator=(const IPAddress& other) {
-    family_ = other.family_;
-    ::memcpy(&u_, &other.u_, sizeof(u_));
-    return *this;
+  friend bool operator>(const IPAddress& lhs, const IPAddress& rhs) {
+    return rhs.address_ < lhs.address_;
   }
-
-  bool operator==(const IPAddress& other) const;
-  bool operator!=(const IPAddress& other) const;
-  bool operator<(const IPAddress& other) const;
-  bool operator>(const IPAddress& other) const;
 
 #ifdef UNIT_TEST
-  inline std::ostream& operator<<(  // no-presubmit-check TODO(webrtc:8982)
-      std::ostream& os) {           // no-presubmit-check TODO(webrtc:8982)
-    return os << ToString();
+  friend std::ostream& operator<<(  // no-presubmit-check TODO(webrtc:8982)
+      std::ostream& os,             // no-presubmit-check TODO(webrtc:8982)
+      const IPAddress& rhs) {
+    return os << rhs.ToString();
   }
 #endif  // UNIT_TEST
 
-  int family() const { return family_; }
-  in_addr ipv4_address() const;
-  in6_addr ipv6_address() const;
+  int family() const {
+    struct FamilyVisitor {
+      int operator()(const absl::monostate&) { return AF_UNSPEC; }
+      int operator()(const IpV4&) { return AF_INET; }
+      int operator()(const IpV6&) { return AF_INET6; }
+    };
+    return absl::visit(FamilyVisitor(), address_);
+  }
+  in_addr ipv4_address() const { return absl::get<IpV4>(address_).value; }
+  in6_addr ipv6_address() const { return absl::get<IpV6>(address_).value; }
+  const in6_addr* maybe_ipv6_address() const {
+    const IpV6* ip6 = absl::get_if<IpV6>(&address_);
+    return ip6 == nullptr ? nullptr : &ip6->value;
+  }
 
   // Returns the number of bytes needed to store the raw address.
-  size_t Size() const;
+  size_t Size() const {
+    struct SizeVisitor {
+      int operator()(const absl::monostate&) { return 0; }
+      int operator()(const IpV4&) { return sizeof(in_addr); }
+      int operator()(const IpV6&) { return sizeof(in6_addr); }
+    };
+    return absl::visit(SizeVisitor(), address_);
+  }
 
   // Wraps inet_ntop.
   std::string ToString() const;
@@ -111,14 +124,41 @@ class IPAddress {
   uint32_t v4AddressAsHostOrderInteger() const;
 
   // Whether this is an unspecified IP address.
-  bool IsNil() const;
+  bool IsNil() const {
+    return absl::holds_alternative<absl::monostate>(address_);
+  }
 
  private:
-  int family_;
-  union {
-    in_addr ip4;
-    in6_addr ip6;
-  } u_;
+  // To make the address comparable, wrap system addressed into own structures
+  // with defined compare operators.
+  struct IpV4 {
+    friend bool operator==(const IpV4& lhs, const IpV4& rhs) {
+      return std::memcmp(&lhs.value, &rhs.value, sizeof(lhs.value)) == 0;
+    }
+    friend bool operator<(const IpV4& lhs, const IpV4& rhs) {
+      return NetworkToHost32(lhs.value.s_addr) <
+             NetworkToHost32(rhs.value.s_addr);
+    }
+    in_addr value;
+  };
+  struct IpV6 {
+    friend bool operator==(const IpV6& lhs, const IpV6& rhs) {
+      return memcmp(&lhs.value, &rhs.value, sizeof(lhs.value)) == 0;
+    }
+    friend bool operator<(const IpV6& lhs, const IpV6& rhs) {
+      return std::memcmp(&lhs.value, &rhs.value, 16) < 0;
+    }
+    in6_addr value;
+  };
+
+  static std::string ToString(const absl::monostate&);
+  static std::string ToString(const IpV4& ip4);
+  static std::string ToString(const IpV6& ip6);
+  static std::string ToSensitiveString(const absl::monostate&);
+  static std::string ToSensitiveString(const IpV4& ip4);
+  static std::string ToSensitiveString(const IpV6& ip6);
+
+  absl::variant<absl::monostate, IpV4, IpV6> address_;
 };
 
 // IP class which could represent IPv6 address flags which is only

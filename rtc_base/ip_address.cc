@@ -30,110 +30,106 @@
 #endif  // WEBRTC_WIN
 
 namespace rtc {
-
+namespace {
 // Prefixes used for categorizing IPv6 addresses.
-static const in6_addr kV4MappedPrefix = {
+constexpr in6_addr kV4MappedPrefix = {
     {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xFF, 0xFF, 0}}};
-static const in6_addr k6To4Prefix = {{{0x20, 0x02, 0}}};
-static const in6_addr kTeredoPrefix = {{{0x20, 0x01, 0x00, 0x00}}};
-static const in6_addr kV4CompatibilityPrefix = {{{0}}};
-static const in6_addr k6BonePrefix = {{{0x3f, 0xfe, 0}}};
-static const in6_addr kPrivateNetworkPrefix = {{{0xFD}}};
+constexpr in6_addr k6To4Prefix = {{{0x20, 0x02, 0}}};
+constexpr in6_addr kTeredoPrefix = {{{0x20, 0x01, 0x00, 0x00}}};
+constexpr in6_addr kV4CompatibilityPrefix = {{{0}}};
+constexpr in6_addr k6BonePrefix = {{{0x3f, 0xfe, 0}}};
+constexpr in6_addr kPrivateNetworkPrefix = {{{0xFD}}};
 
-static bool IPIsHelper(const IPAddress& ip,
-                       const in6_addr& tomatch,
-                       int length);
-static in_addr ExtractMappedAddress(const in6_addr& addr);
+bool IPIsHelper(const in6_addr& addr, const in6_addr& tomatch, int length) {
+  // Helper method for checking IP prefix matches (but only on whole byte
+  // lengths). Length is in bits.
+  return ::memcmp(&addr, &tomatch, (length >> 3)) == 0;
+}
+
+bool IPIsHelper(const IPAddress& ip, const in6_addr& tomatch, int length) {
+  // Helper method for checking IP prefix matches (but only on whole byte
+  // lengths). Length is in bits.
+  const in6_addr* addr = ip.maybe_ipv6_address();
+  return addr && IPIsHelper(*addr, tomatch, length);
+}
+
+bool IP6IsV4Mapped(const in6_addr& ip) {
+  return IPIsHelper(ip, kV4MappedPrefix, 96);
+}
+
+in_addr ExtractMappedAddress(const in6_addr& in6) {
+  in_addr ipv4;
+  ::memcpy(&ipv4.s_addr, &in6.s6_addr[12], sizeof(ipv4.s_addr));
+  return ipv4;
+}
+}  // namespace
 
 uint32_t IPAddress::v4AddressAsHostOrderInteger() const {
-  if (family_ == AF_INET) {
-    return NetworkToHost32(u_.ip4.s_addr);
-  } else {
-    return 0;
-  }
-}
-
-bool IPAddress::IsNil() const {
-  return IPIsUnspec(*this);
-}
-
-size_t IPAddress::Size() const {
-  switch (family_) {
-    case AF_INET:
-      return sizeof(in_addr);
-    case AF_INET6:
-      return sizeof(in6_addr);
-  }
-  return 0;
-}
-
-bool IPAddress::operator==(const IPAddress& other) const {
-  if (family_ != other.family_) {
-    return false;
-  }
-  if (family_ == AF_INET) {
-    return memcmp(&u_.ip4, &other.u_.ip4, sizeof(u_.ip4)) == 0;
-  }
-  if (family_ == AF_INET6) {
-    return memcmp(&u_.ip6, &other.u_.ip6, sizeof(u_.ip6)) == 0;
-  }
-  return family_ == AF_UNSPEC;
-}
-
-bool IPAddress::operator!=(const IPAddress& other) const {
-  return !((*this) == other);
-}
-
-bool IPAddress::operator>(const IPAddress& other) const {
-  return (*this) != other && !((*this) < other);
-}
-
-bool IPAddress::operator<(const IPAddress& other) const {
-  // IPv4 is 'less than' IPv6
-  if (family_ != other.family_) {
-    if (family_ == AF_UNSPEC) {
-      return true;
+  struct V4AddressVisitor {
+    uint32_t operator()(const absl::monostate&) { return 0; }
+    uint32_t operator()(const IpV4& ip4) {
+      return NetworkToHost32(ip4.value.s_addr);
     }
-    if (family_ == AF_INET && other.family_ == AF_INET6) {
-      return true;
-    }
-    return false;
-  }
-  // Comparing addresses of the same family.
-  switch (family_) {
-    case AF_INET: {
-      return NetworkToHost32(u_.ip4.s_addr) <
-             NetworkToHost32(other.u_.ip4.s_addr);
-    }
-    case AF_INET6: {
-      return memcmp(&u_.ip6.s6_addr, &other.u_.ip6.s6_addr, 16) < 0;
-    }
-  }
-  // Catches AF_UNSPEC and invalid addresses.
-  return false;
+    uint32_t operator()(const IpV6&) { return 0; }
+  };
+  return absl::visit(V4AddressVisitor(), address_);
 }
 
-in6_addr IPAddress::ipv6_address() const {
-  return u_.ip6;
+bool IPIs6Bone(const IPAddress& ip) {
+  return IPIsHelper(ip, k6BonePrefix, 16);
 }
 
-in_addr IPAddress::ipv4_address() const {
-  return u_.ip4;
+bool IPIs6To4(const IPAddress& ip) {
+  return IPIsHelper(ip, k6To4Prefix, 16);
 }
 
-std::string IPAddress::ToString() const {
-  if (family_ != AF_INET && family_ != AF_INET6) {
-    return std::string();
-  }
+std::string IPAddress::ToString(const absl::monostate&) {
+  return std::string();
+}
+
+std::string IPAddress::ToString(const IpV4& ip4) {
   char buf[INET6_ADDRSTRLEN] = {0};
-  const void* src = &u_.ip4;
-  if (family_ == AF_INET6) {
-    src = &u_.ip6;
-  }
-  if (!rtc::inet_ntop(family_, src, buf, sizeof(buf))) {
+  if (!rtc::inet_ntop(AF_INET, &ip4.value, buf, sizeof(buf))) {
     return std::string();
   }
   return std::string(buf);
+}
+
+std::string IPAddress::ToString(const IpV6& ip6) {
+  char buf[INET6_ADDRSTRLEN] = {0};
+  if (!rtc::inet_ntop(AF_INET6, &ip6.value, buf, sizeof(buf))) {
+    return std::string();
+  }
+  return std::string(buf);
+}
+
+std::string IPAddress::ToSensitiveString(const absl::monostate&) {
+  return std::string();
+}
+
+std::string IPAddress::ToSensitiveString(const IpV4& ip4) {
+  std::string address = ToString(ip4);
+  size_t find_pos = address.rfind('.');
+  if (find_pos == std::string::npos)
+    return std::string();
+  address.resize(find_pos);
+  address += ".x";
+  return address;
+}
+
+std::string IPAddress::ToSensitiveString(const IpV6& ip6) {
+  std::string result;
+  result.resize(INET6_ADDRSTRLEN);
+  const auto& addr = ip6.value.s6_addr;
+  size_t len = snprintf(&(result[0]), result.size(), "%x:%x:%x:x:x:x:x:x",
+                        (addr[0] << 8) + addr[1], (addr[2] << 8) + addr[3],
+                        (addr[4] << 8) + addr[5]);
+  result.resize(len);
+  return result;
+}
+
+std::string IPAddress::ToString() const {
+  return absl::visit([](const auto& ip) { return ToString(ip); }, address_);
 }
 
 std::string IPAddress::ToSensitiveString() const {
@@ -141,49 +137,26 @@ std::string IPAddress::ToSensitiveString() const {
   // Return non-stripped in debug.
   return ToString();
 #else
-  switch (family_) {
-    case AF_INET: {
-      std::string address = ToString();
-      size_t find_pos = address.rfind('.');
-      if (find_pos == std::string::npos)
-        return std::string();
-      address.resize(find_pos);
-      address += ".x";
-      return address;
-    }
-    case AF_INET6: {
-      std::string result;
-      result.resize(INET6_ADDRSTRLEN);
-      in6_addr addr = ipv6_address();
-      size_t len = snprintf(&(result[0]), result.size(), "%x:%x:%x:x:x:x:x:x",
-                            (addr.s6_addr[0] << 8) + addr.s6_addr[1],
-                            (addr.s6_addr[2] << 8) + addr.s6_addr[3],
-                            (addr.s6_addr[4] << 8) + addr.s6_addr[5]);
-      result.resize(len);
-      return result;
-    }
-  }
-  return std::string();
+  return absl::visit([](const auto& ip) { return ToSensitiveString(ip); },
+                     address_);
 #endif
 }
 
 IPAddress IPAddress::Normalized() const {
-  if (family_ != AF_INET6) {
-    return *this;
+  const IpV6* ip6 = absl::get_if<IpV6>(&address_);
+  if (ip6 != nullptr && IP6IsV4Mapped(ip6->value)) {
+    return IPAddress(ExtractMappedAddress(ip6->value));
   }
-  if (!IPIsV4Mapped(*this)) {
-    return *this;
-  }
-  in_addr addr = ExtractMappedAddress(u_.ip6);
-  return IPAddress(addr);
+  return *this;
 }
 
 IPAddress IPAddress::AsIPv6Address() const {
-  if (family_ != AF_INET) {
+  const IpV4* ip4 = absl::get_if<IpV4>(&address_);
+  if (ip4 == nullptr) {
     return *this;
   }
   in6_addr v6addr = kV4MappedPrefix;
-  ::memcpy(&v6addr.s6_addr[12], &u_.ip4.s_addr, sizeof(u_.ip4.s_addr));
+  ::memcpy(&v6addr.s6_addr[12], &ip4->value.s_addr, sizeof(ip4->value.s_addr));
   return IPAddress(v6addr);
 }
 
@@ -245,12 +218,6 @@ bool IPIsSharedNetwork(const IPAddress& ip) {
     return IPIsSharedNetworkV4(ip);
   }
   return false;
-}
-
-in_addr ExtractMappedAddress(const in6_addr& in6) {
-  in_addr ipv4;
-  ::memcpy(&ipv4.s_addr, &in6.s6_addr[12], sizeof(ipv4.s_addr));
-  return ipv4;
 }
 
 bool IPFromAddrInfo(struct addrinfo* info, IPAddress* out) {
@@ -451,21 +418,6 @@ int CountIPMaskBits(IPAddress mask) {
   return bits + (32 - zeroes);
 }
 
-bool IPIsHelper(const IPAddress& ip, const in6_addr& tomatch, int length) {
-  // Helper method for checking IP prefix matches (but only on whole byte
-  // lengths). Length is in bits.
-  in6_addr addr = ip.ipv6_address();
-  return ::memcmp(&addr, &tomatch, (length >> 3)) == 0;
-}
-
-bool IPIs6Bone(const IPAddress& ip) {
-  return IPIsHelper(ip, k6BonePrefix, 16);
-}
-
-bool IPIs6To4(const IPAddress& ip) {
-  return IPIsHelper(ip, k6To4Prefix, 16);
-}
-
 static bool IPIsLinkLocalV4(const IPAddress& ip) {
   uint32_t ip_in_host_order = ip.v4AddressAsHostOrderInteger();
   return ((ip_in_host_order >> 16) == ((169 << 8) | 254));
@@ -500,14 +452,14 @@ bool IPIsMacBased(const IPAddress& ip) {
 
 bool IPIsSiteLocal(const IPAddress& ip) {
   // Can't use the helper because the prefix is 10 bits.
-  in6_addr addr = ip.ipv6_address();
-  return addr.s6_addr[0] == 0xFE && (addr.s6_addr[1] & 0xC0) == 0xC0;
+  const in6_addr* addr = ip.maybe_ipv6_address();
+  return addr && addr->s6_addr[0] == 0xFE && (addr->s6_addr[1] & 0xC0) == 0xC0;
 }
 
 bool IPIsULA(const IPAddress& ip) {
   // Can't use the helper because the prefix is 7 bits.
-  in6_addr addr = ip.ipv6_address();
-  return (addr.s6_addr[0] & 0xFE) == 0xFC;
+  const in6_addr* addr = ip.maybe_ipv6_address();
+  return addr && (addr->s6_addr[0] & 0xFE) == 0xFC;
 }
 
 bool IPIsTeredo(const IPAddress& ip) {

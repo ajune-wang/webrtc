@@ -95,27 +95,15 @@ static const std::string kIPv6BrokenString14 =
     "0x2401:fa00:4:1000:be30:5bff:fee5:c3";
 
 bool AreEqual(const IPAddress& addr, const IPAddress& addr2) {
-  if ((IPIsAny(addr) != IPIsAny(addr2)) ||
-      (IPIsLoopback(addr) != IPIsLoopback(addr2)) ||
-      (IPIsPrivate(addr) != IPIsPrivate(addr2)) ||
-      (HashIP(addr) != HashIP(addr2)) || (addr.Size() != addr2.Size()) ||
-      (addr.family() != addr2.family()) ||
-      (addr.ToString() != addr2.ToString())) {
-    return false;
-  }
-  in_addr v4addr, v4addr2;
-  v4addr = addr.ipv4_address();
-  v4addr2 = addr2.ipv4_address();
-  if (0 != memcmp(&v4addr, &v4addr2, sizeof(v4addr))) {
-    return false;
-  }
-  in6_addr v6addr, v6addr2;
-  v6addr = addr.ipv6_address();
-  v6addr2 = addr2.ipv6_address();
-  if (0 != memcmp(&v6addr, &v6addr2, sizeof(v6addr))) {
-    return false;
-  }
-  return true;
+  /*  if ((IPIsAny(addr) != IPIsAny(addr2)) ||
+        (IPIsLoopback(addr) != IPIsLoopback(addr2)) ||
+        (IPIsPrivate(addr) != IPIsPrivate(addr2)) ||
+        (HashIP(addr) != HashIP(addr2)) || (addr.Size() != addr2.Size()) ||
+        (addr.family() != addr2.family()) ||
+        (addr.ToString() != addr2.ToString())) {
+      return false;
+    }*/
+  return addr == addr2;
 }
 
 bool BrokenIPStringFails(const std::string& broken) {
@@ -406,14 +394,14 @@ TEST(IPAddressTest, TestComparison) {
   IPAddress addr7(kIPv6PublicAddr);     // 2401....
   IPAddress addr8(kIPv6LinkLocalAddr);  // fe80....
 
-  EXPECT_TRUE(addr0 < addr1);
-  EXPECT_TRUE(addr1 < addr2);
-  EXPECT_TRUE(addr2 < addr3);
-  EXPECT_TRUE(addr3 < addr4);
-  EXPECT_TRUE(addr4 < addr5);
-  EXPECT_TRUE(addr5 < addr6);
-  EXPECT_TRUE(addr6 < addr7);
-  EXPECT_TRUE(addr7 < addr8);
+  EXPECT_LT(addr0, addr1);
+  EXPECT_LT(addr1, addr2);
+  EXPECT_LT(addr2, addr3);
+  EXPECT_LT(addr3, addr4);
+  EXPECT_LT(addr4, addr5);
+  EXPECT_LT(addr5, addr6);
+  EXPECT_LT(addr6, addr7);
+  EXPECT_LT(addr7, addr8);
 
   EXPECT_FALSE(addr0 > addr1);
   EXPECT_FALSE(addr1 > addr2);
@@ -706,7 +694,6 @@ TEST(IPAddressTest, TestAsIPv6Address) {
 }
 
 TEST(IPAddressTest, TestCountIPMaskBits) {
-  IPAddress mask;
   // IPv4 on byte boundaries
   EXPECT_PRED2(CheckMaskCount, "255.255.255.255", 32);
   EXPECT_PRED2(CheckMaskCount, "255.255.255.0", 24);

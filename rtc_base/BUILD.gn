@@ -767,6 +767,7 @@ rtc_static_library("rtc_base") {
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp/absl/types:variant",
   ]
   public_deps = [
     ":rtc_base_approved",

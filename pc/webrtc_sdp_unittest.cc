@@ -22,6 +22,7 @@
 #include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
 #include "absl/strings/str_replace.h"
+#include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "api/crypto_params.h"
 #include "api/jsep_session_description.h"
@@ -137,6 +138,7 @@ struct CodecParams {
   int max_ptime;
   int ptime;
   int min_ptime;
+  std::vector<int> adaptive_ptime_enabled_codecs;
   int sprop_stereo;
   int stereo;
   int useinband;
@@ -1921,12 +1923,17 @@ class WebRtcSdpTest : public ::testing::Test {
     }
   }
 
+  // If |expected_value| is unset, verify that the codec parameter is *missing*.
   void VerifyCodecParameter(const cricket::CodecParameterMap& params,
                             const std::string& name,
-                            int expected_value) {
+                            absl::optional<int> expected_value) {
     cricket::CodecParameterMap::const_iterator found = params.find(name);
-    ASSERT_TRUE(found != params.end());
-    EXPECT_EQ(found->second, rtc::ToString(expected_value));
+    if (expected_value.has_value()) {
+      ASSERT_TRUE(found != params.end()) << name << " not found.";
+      EXPECT_EQ(found->second, rtc::ToString(*expected_value));
+    } else {
+      EXPECT_TRUE(found == params.end()) << name << " unexpectedly found.";
+    }
   }
 
   void TestDeserializeCodecParams(const CodecParams& params,
@@ -1956,6 +1963,9 @@ class WebRtcSdpTest : public ::testing::Test {
        << "; maxaveragebitrate=" << params.maxaveragebitrate << "\r\n"
        << "a=ptime:" << params.ptime << "\r\n"
        << "a=maxptime:" << params.max_ptime << "\r\n";
+    for (int pt : params.adaptive_ptime_enabled_codecs) {
+      os << "a=adaptive-ptime:" << pt << "\r\n";
+    }
     sdp += os.str();
 
     os.clear();
@@ -1988,6 +1998,14 @@ class WebRtcSdpTest : public ::testing::Test {
       cricket::AudioCodec codec = acd->codecs()[i];
       VerifyCodecParameter(codec.params, "ptime", params.ptime);
       VerifyCodecParameter(codec.params, "maxptime", params.max_ptime);
+      // adaptive-ptime
+      const auto& adaptive_ptime_codecs = params.adaptive_ptime_enabled_codecs;
+      const bool adaptive_ptime =
+          (std::find(adaptive_ptime_codecs.begin(), adaptive_ptime_codecs.end(),
+                     codec.id) != adaptive_ptime_codecs.end());
+      VerifyCodecParameter(
+          codec.params, "adaptive-ptime",
+          adaptive_ptime ? absl::make_optional(codec.id) : absl::nullopt);
     }
 
     const VideoContentDescription* vcd =
@@ -3370,6 +3388,7 @@ TEST_F(WebRtcSdpTest, DeserializeSerializeCodecParams) {
   params.max_ptime = 40;
   params.ptime = 30;
   params.min_ptime = 10;
+  params.adaptive_ptime_enabled_codecs = {111};
   params.sprop_stereo = 1;
   params.stereo = 1;
   params.useinband = 1;

@@ -48,7 +48,7 @@ void RunBasicSetupAndApiCallTest(int sample_rate_hz, int num_iterations) {
                                       std::vector<float>(kBlockSize, 1000.f)));
   for (int k = 0; k < num_iterations; ++k) {
     block_processor->BufferRender(block);
-    block_processor->ProcessCapture(false, false, &block);
+    block_processor->ProcessCapture(false, false, nullptr, &block);
     block_processor->UpdateEchoLeakageStatus(false);
   }
 }
@@ -172,7 +172,7 @@ TEST(BlockProcessor, DISABLED_DelayControllerIntegration) {
       RandomizeSampleVector(&random_generator, render_block[0][0]);
       signal_delay_buffer.Delay(render_block[0][0], capture_block[0][0]);
       block_processor->BufferRender(render_block);
-      block_processor->ProcessCapture(false, false, &capture_block);
+      block_processor->ProcessCapture(false, false, nullptr, &capture_block);
     }
   }
 }
@@ -207,7 +207,7 @@ TEST(BlockProcessor, DISABLED_SubmoduleIntegration) {
         .WillRepeatedly(Return(0));
     EXPECT_CALL(*render_delay_controller_mock, GetDelay(_, _, _))
         .Times(kNumBlocks);
-    EXPECT_CALL(*echo_remover_mock, ProcessCapture(_, _, _, _, _))
+    EXPECT_CALL(*echo_remover_mock, ProcessCapture(_, _, _, _, _, _))
         .Times(kNumBlocks);
     EXPECT_CALL(*echo_remover_mock, UpdateEchoLeakageStatus(_))
         .Times(kNumBlocks);
@@ -230,7 +230,7 @@ TEST(BlockProcessor, DISABLED_SubmoduleIntegration) {
       RandomizeSampleVector(&random_generator, render_block[0][0]);
       signal_delay_buffer.Delay(render_block[0][0], capture_block[0][0]);
       block_processor->BufferRender(render_block);
-      block_processor->ProcessCapture(false, false, &capture_block);
+      block_processor->ProcessCapture(false, false, nullptr, &capture_block);
       block_processor->UpdateEchoLeakageStatus(false);
     }
   }

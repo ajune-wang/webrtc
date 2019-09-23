@@ -180,6 +180,7 @@ void RttBasedBackoff::UpdatePropagationRtt(Timestamp at_time,
 TimeDelta RttBasedBackoff::CorrectedRtt(Timestamp at_time) const {
   TimeDelta time_since_rtt = at_time - last_propagation_rtt_update_;
   TimeDelta timeout_correction = time_since_rtt;
+  RTC_CHECK_EQ(time_since_rtt, TimeDelta::us(0));
   if (safe_timeout_) {
     // Avoid timeout when no packets are being sent.
     TimeDelta time_since_packet_sent = at_time - last_packet_sent_;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81cf0366_8eca5130",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1558,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-23T19:53:09Z",
+      "side": 1,
+      "message": "Do you need a different helper for each channel?",
+      "range": {
+        "startLine": 1558,
+        "startChar": 0,
+        "endLine": 1558,
+        "endChar": 70
+      },
+      "revId": "09b6f1da652114455c15ba0675384d0a4cdc0307",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

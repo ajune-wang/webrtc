@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8775c04_36cb8aa9",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-23T13:19:30Z",
+      "side": 1,
+      "message": "Is it accurate to say \u0027apply\u0027 here? Is it better to place the comment before the loop, line ~400?",
+      "range": {
+        "startLine": 428,
+        "startChar": 14,
+        "endLine": 428,
+        "endChar": 24
+      },
+      "revId": "7933a667306fab2ac6def11a4ff9eb9596753393",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

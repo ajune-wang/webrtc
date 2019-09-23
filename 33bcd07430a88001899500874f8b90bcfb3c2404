@@ -22,6 +22,30 @@
       "revId": "33bcd07430a88001899500874f8b90bcfb3c2404",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29941895_923a4d48",
+        "filename": "sdk/android/src/java/org/webrtc/HardwareVideoEncoder.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-23T08:58:53Z",
+      "side": 1,
+      "message": "Tests pass, after switching back from AtomicInteger to using a mutex (or more precisely, using a separate Object for synchromized(){}, wait() and notifyAll()).",
+      "parentUuid": "d4cbccb6_8b41d448",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 5
+      },
+      "revId": "33bcd07430a88001899500874f8b90bcfb3c2404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

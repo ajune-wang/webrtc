@@ -22,6 +22,30 @@
       "revId": "7933a667306fab2ac6def11a4ff9eb9596753393",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5ba46d2_efc5b68a",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-23T14:03:48Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "f8775c04_36cb8aa9",
+      "range": {
+        "startLine": 428,
+        "startChar": 14,
+        "endLine": 428,
+        "endChar": 24
+      },
+      "revId": "7933a667306fab2ac6def11a4ff9eb9596753393",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

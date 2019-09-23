@@ -18,7 +18,6 @@
 
 #include "api/scoped_refptr.h"
 #include "api/video/encoded_image.h"
-#include "modules/include/module_common_types.h"
 #include "modules/video_coding/packet.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/numerics/sequence_number_util.h"

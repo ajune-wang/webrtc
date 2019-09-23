@@ -40,6 +40,7 @@ ABSL_FLAG(std::string,
           artificial_nearend,
           "",
           "Artificial nearend wav filename");
+ABSL_FLAG(std::string, linear_aec_output, "", "Linear AEC wav filename");
 ABSL_FLAG(int,
           output_num_channels,
           kParameterNotSpecifiedValue,
@@ -365,6 +366,8 @@ SimulationSettings CreateSettings() {
                         &settings.reverse_output_filename);
   SetSettingIfSpecified(absl::GetFlag(FLAGS_artificial_nearend),
                         &settings.artificial_nearend_filename);
+  SetSettingIfSpecified(absl::GetFlag(FLAGS_linear_aec_output),
+                        &settings.linear_aec_output_filename);
   SetSettingIfSpecified(absl::GetFlag(FLAGS_output_num_channels),
                         &settings.output_num_channels);
   SetSettingIfSpecified(absl::GetFlag(FLAGS_reverse_output_num_channels),
@@ -508,6 +511,17 @@ void PerformBasicParameterSanityChecks(const SimulationSettings& settings) {
         "Error: The aec dump input file cannot be specified together with the "
         "aec dump input string!\n");
   }
+
+  ReportConditionalErrorAndExit(settings.use_aec && !(*settings.use_aec) &&
+                                    !!settings.linear_aec_output_filename,
+                                "Error: The linear AEC ouput filename cannot "
+                                "be specified without the AEC being active");
+
+  ReportConditionalErrorAndExit(
+      settings.use_aec && *settings.use_aec && settings.use_legacy_aec &&
+          *settings.use_legacy_aec && !!settings.linear_aec_output_filename,
+      "Error: The linear AEC ouput filename cannot be specified when the "
+      "legacy AEC is used");
 
   ReportConditionalErrorAndExit(
       settings.use_aec && *settings.use_aec && settings.use_aecm &&

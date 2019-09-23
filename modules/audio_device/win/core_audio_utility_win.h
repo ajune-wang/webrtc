@@ -88,7 +88,7 @@ class ScopedMMCSSRegistration {
     DWORD mmcss_task_index = 0;
     mmcss_handle_ = AvSetMmThreadCharacteristicsW(task_name, &mmcss_task_index);
     if (mmcss_handle_ == nullptr) {
-      RTC_LOG(LS_ERROR) << "Failed to enable MMCSS on this thread: "
+      RTC_DLOG(LS_ERROR) << "Failed to enable MMCSS on this thread: "
                         << GetLastError();
     } else {
       const DWORD priority_class = GetPriorityClass(GetCurrentProcess());

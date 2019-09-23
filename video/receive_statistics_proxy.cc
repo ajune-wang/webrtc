@@ -468,7 +468,7 @@ void ReceiveStatisticsProxy::UpdateHistograms(
                              static_cast<int>(100 * *qp_fraction));
   }
 
-  RTC_LOG(LS_INFO) << log_stream.str();
+  RTC_DLOG(LS_INFO) << log_stream.str();
   video_quality_observer_->UpdateHistograms();
 }
 
@@ -501,30 +501,30 @@ void ReceiveStatisticsProxy::QualitySample() {
   bool any_bad = fps_bad || qp_bad || variance_bad;
 
   if (!prev_any_bad && any_bad) {
-    RTC_LOG(LS_INFO) << "Bad call (any) start: " << now;
+    RTC_DLOG(LS_INFO) << "Bad call (any) start: " << now;
   } else if (prev_any_bad && !any_bad) {
-    RTC_LOG(LS_INFO) << "Bad call (any) end: " << now;
+    RTC_DLOG(LS_INFO) << "Bad call (any) end: " << now;
   }
 
   if (!prev_fps_bad && fps_bad) {
-    RTC_LOG(LS_INFO) << "Bad call (fps) start: " << now;
+    RTC_DLOG(LS_INFO) << "Bad call (fps) start: " << now;
   } else if (prev_fps_bad && !fps_bad) {
-    RTC_LOG(LS_INFO) << "Bad call (fps) end: " << now;
+    RTC_DLOG(LS_INFO) << "Bad call (fps) end: " << now;
   }
 
   if (!prev_qp_bad && qp_bad) {
-    RTC_LOG(LS_INFO) << "Bad call (qp) start: " << now;
+    RTC_DLOG(LS_INFO) << "Bad call (qp) start: " << now;
   } else if (prev_qp_bad && !qp_bad) {
-    RTC_LOG(LS_INFO) << "Bad call (qp) end: " << now;
+    RTC_DLOG(LS_INFO) << "Bad call (qp) end: " << now;
   }
 
   if (!prev_variance_bad && variance_bad) {
-    RTC_LOG(LS_INFO) << "Bad call (variance) start: " << now;
+    RTC_DLOG(LS_INFO) << "Bad call (variance) start: " << now;
   } else if (prev_variance_bad && !variance_bad) {
-    RTC_LOG(LS_INFO) << "Bad call (variance) end: " << now;
+    RTC_DLOG(LS_INFO) << "Bad call (variance) end: " << now;
   }
 
-  RTC_LOG(LS_VERBOSE) << "SAMPLE: sample_length: " << (now - last_sample_time_)
+  RTC_DLOG(LS_VERBOSE) << "SAMPLE: sample_length: " << (now - last_sample_time_)
                       << " fps: " << fps << " fps_bad: " << fps_bad
                       << " qp: " << qp.value_or(-1) << " qp_bad: " << qp_bad
                       << " variance_bad: " << variance_bad
@@ -682,7 +682,7 @@ void ReceiveStatisticsProxy::OnDecodedFrame(const VideoFrame& frame,
   if (qp) {
     if (!stats_.qp_sum) {
       if (stats_.frames_decoded != 1) {
-        RTC_LOG(LS_WARNING)
+        RTC_DLOG(LS_WARNING)
             << "Frames decoded was not 1 when first qp value was received.";
       }
       stats_.qp_sum = 0;
@@ -690,7 +690,7 @@ void ReceiveStatisticsProxy::OnDecodedFrame(const VideoFrame& frame,
     *stats_.qp_sum += *qp;
     content_specific_stats->qp_counter.Add(*qp);
   } else if (stats_.qp_sum) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "QP sum was already set and no QP was given for a frame.";
   }
   decode_time_counter_.Add(decode_time_ms);

@@ -28,13 +28,13 @@ namespace rtc {
 
 #define MAYBE_SKIP_IPV4                        \
   if (!HasIPv4Enabled()) {                     \
-    RTC_LOG(LS_INFO) << "No IPv4... skipping"; \
+    RTC_DLOG(LS_INFO) << "No IPv4... skipping"; \
     return;                                    \
   }
 
 #define MAYBE_SKIP_IPV6                        \
   if (!HasIPv6Enabled()) {                     \
-    RTC_LOG(LS_INFO) << "No IPv6... skipping"; \
+    RTC_DLOG(LS_INFO) << "No IPv6... skipping"; \
     return;                                    \
   }
 
@@ -519,11 +519,11 @@ class PosixSignalDeliveryTest : public ::testing::Test {
 
   bool ExpectSignal(int signum) {
     if (signals_received_.empty()) {
-      RTC_LOG(LS_ERROR) << "ExpectSignal(): No signal received";
+      RTC_DLOG(LS_ERROR) << "ExpectSignal(): No signal received";
       return false;
     }
     if (signals_received_[0] != signum) {
-      RTC_LOG(LS_ERROR) << "ExpectSignal(): Received signal "
+      RTC_DLOG(LS_ERROR) << "ExpectSignal(): Received signal "
                         << signals_received_[0] << ", expected " << signum;
       return false;
     }
@@ -534,7 +534,7 @@ class PosixSignalDeliveryTest : public ::testing::Test {
   bool ExpectNone() {
     bool ret = signals_received_.empty();
     if (!ret) {
-      RTC_LOG(LS_ERROR) << "ExpectNone(): Received signal "
+      RTC_DLOG(LS_ERROR) << "ExpectNone(): Received signal "
                         << signals_received_[0] << ", expected none";
     }
     return ret;

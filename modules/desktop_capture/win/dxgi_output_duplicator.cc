@@ -103,7 +103,7 @@ bool DxgiOutputDuplicator::DuplicateOutput() {
       output_->DuplicateOutput(static_cast<IUnknown*>(device_.d3d_device()),
                                duplication_.GetAddressOf());
   if (error.Error() != S_OK || !duplication_) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Failed to duplicate output from IDXGIOutput1, error "
         << error.ErrorMessage() << ", with code " << error.Error();
     return false;
@@ -112,7 +112,7 @@ bool DxgiOutputDuplicator::DuplicateOutput() {
   memset(&desc_, 0, sizeof(desc_));
   duplication_->GetDesc(&desc_);
   if (desc_.ModeDesc.Format != DXGI_FORMAT_B8G8R8A8_UNORM) {
-    RTC_LOG(LS_ERROR) << "IDXGIDuplicateOutput does not use RGBA (8 bit) "
+    RTC_DLOG(LS_ERROR) << "IDXGIDuplicateOutput does not use RGBA (8 bit) "
                          "format, which is required by downstream components, "
                          "format is "
                       << desc_.ModeDesc.Format;
@@ -121,7 +121,7 @@ bool DxgiOutputDuplicator::DuplicateOutput() {
 
   if (static_cast<int>(desc_.ModeDesc.Width) != desktop_rect_.width() ||
       static_cast<int>(desc_.ModeDesc.Height) != desktop_rect_.height()) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "IDXGIDuplicateOutput does not return a same size as its "
            "IDXGIOutput1, size returned by IDXGIDuplicateOutput is "
         << desc_.ModeDesc.Width << " x " << desc_.ModeDesc.Height
@@ -140,7 +140,7 @@ bool DxgiOutputDuplicator::ReleaseFrame() {
   RTC_DCHECK(duplication_);
   _com_error error = duplication_->ReleaseFrame();
   if (error.Error() != S_OK) {
-    RTC_LOG(LS_ERROR) << "Failed to release frame from IDXGIOutputDuplication, "
+    RTC_DLOG(LS_ERROR) << "Failed to release frame from IDXGIOutputDuplication, "
                          "error"
                       << error.ErrorMessage() << ", code " << error.Error();
     return false;
@@ -166,7 +166,7 @@ bool DxgiOutputDuplicator::Duplicate(Context* context,
   _com_error error = duplication_->AcquireNextFrame(
       kAcquireTimeoutMs, &frame_info, resource.GetAddressOf());
   if (error.Error() != S_OK && error.Error() != DXGI_ERROR_WAIT_TIMEOUT) {
-    RTC_LOG(LS_ERROR) << "Failed to capture frame, error "
+    RTC_DLOG(LS_ERROR) << "Failed to capture frame, error "
                       << error.ErrorMessage() << ", code " << error.Error();
     return false;
   }
@@ -268,7 +268,7 @@ bool DxgiOutputDuplicator::DoDetectUpdatedRegion(
   updated_region->Clear();
   if (frame_info.TotalMetadataBufferSize == 0) {
     // This should not happen, since frame_info.AccumulatedFrames > 0.
-    RTC_LOG(LS_ERROR) << "frame_info.AccumulatedFrames > 0, "
+    RTC_DLOG(LS_ERROR) << "frame_info.AccumulatedFrames > 0, "
                          "but TotalMetadataBufferSize == 0";
     return false;
   }
@@ -285,7 +285,7 @@ bool DxgiOutputDuplicator::DoDetectUpdatedRegion(
   _com_error error = duplication_->GetFrameMoveRects(
       static_cast<UINT>(metadata_.capacity()), move_rects, &buff_size);
   if (error.Error() != S_OK) {
-    RTC_LOG(LS_ERROR) << "Failed to get move rectangles, error "
+    RTC_DLOG(LS_ERROR) << "Failed to get move rectangles, error "
                       << error.ErrorMessage() << ", code " << error.Error();
     return false;
   }
@@ -297,7 +297,7 @@ bool DxgiOutputDuplicator::DoDetectUpdatedRegion(
       static_cast<UINT>(metadata_.capacity()) - buff_size, dirty_rects,
       &buff_size);
   if (error.Error() != S_OK) {
-    RTC_LOG(LS_ERROR) << "Failed to get dirty rectangles, error "
+    RTC_DLOG(LS_ERROR) << "Failed to get dirty rectangles, error "
                       << error.ErrorMessage() << ", code " << error.Error();
     return false;
   }
@@ -327,7 +327,7 @@ bool DxgiOutputDuplicator::DoDetectUpdatedRegion(
                                            move_rects->DestinationRect.bottom),
                      unrotated_size_, rotation_));
     } else {
-      RTC_LOG(LS_INFO) << "Unmoved move_rect detected, ["
+      RTC_DLOG(LS_INFO) << "Unmoved move_rect detected, ["
                        << move_rects->DestinationRect.left << ", "
                        << move_rects->DestinationRect.top << "] - ["
                        << move_rects->DestinationRect.right << ", "

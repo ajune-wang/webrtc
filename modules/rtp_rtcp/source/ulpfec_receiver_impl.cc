@@ -77,12 +77,12 @@ FecPacketCounter UlpfecReceiverImpl::GetPacketCounter() const {
 bool UlpfecReceiverImpl::AddReceivedRedPacket(const RtpPacket& rtp_packet,
                                               uint8_t ulpfec_payload_type) {
   if (rtp_packet.Ssrc() != ssrc_) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Received RED packet with different SSRC than expected; dropping.";
     return false;
   }
   if (rtp_packet.size() > IP_PACKET_SIZE) {
-    RTC_LOG(LS_WARNING) << "Received RED packet with length exceeds maximum IP "
+    RTC_DLOG(LS_WARNING) << "Received RED packet with length exceeds maximum IP "
                            "packet size; dropping.";
     return false;
   }
@@ -91,7 +91,7 @@ bool UlpfecReceiverImpl::AddReceivedRedPacket(const RtpPacket& rtp_packet,
   static constexpr uint8_t kRedHeaderLength = 1;
 
   if (rtp_packet.payload_size() == 0) {
-    RTC_LOG(LS_WARNING) << "Corrupt/truncated FEC packet.";
+    RTC_DLOG(LS_WARNING) << "Corrupt/truncated FEC packet.";
     return false;
   }
 
@@ -109,7 +109,7 @@ bool UlpfecReceiverImpl::AddReceivedRedPacket(const RtpPacket& rtp_packet,
   if (rtp_packet.payload()[0] & 0x80) {
     // f bit set in RED header, i.e. there are more than one RED header blocks.
     // WebRTC never generates multiple blocks in a RED packet for FEC.
-    RTC_LOG(LS_WARNING) << "More than 1 block in RED packet is not supported.";
+    RTC_DLOG(LS_WARNING) << "More than 1 block in RED packet is not supported.";
     return false;
   }
 

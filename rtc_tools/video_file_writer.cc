@@ -30,7 +30,7 @@ void WriteVideoToFile(const rtc::scoped_refptr<Video>& video,
   RTC_CHECK(video);
   FILE* output_file = fopen(file_name.c_str(), "wb");
   if (output_file == nullptr) {
-    RTC_LOG(LS_ERROR) << "Could not open file for writing: " << file_name;
+    RTC_DLOG(LS_ERROR) << "Could not open file for writing: " << file_name;
     return;
   }
 
@@ -63,7 +63,7 @@ void WriteVideoToFile(const rtc::scoped_refptr<Video>& video,
     }
   }
   if (ferror(output_file) != 0) {
-    RTC_LOG(LS_ERROR) << "Error writing to file " << file_name;
+    RTC_DLOG(LS_ERROR) << "Error writing to file " << file_name;
   }
   fclose(output_file);
 }

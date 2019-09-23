@@ -256,9 +256,9 @@ AudioCodingModuleImpl::AudioCodingModuleImpl(
       codec_histogram_bins_log_(),
       number_of_consecutive_empty_packets_(0) {
   if (InitializeReceiverSafe() < 0) {
-    RTC_LOG(LS_ERROR) << "Cannot initialize receiver";
+    RTC_DLOG(LS_ERROR) << "Cannot initialize receiver";
   }
-  RTC_LOG(LS_INFO) << "Created";
+  RTC_DLOG(LS_INFO) << "Created";
 }
 
 AudioCodingModuleImpl::~AudioCodingModuleImpl() = default;
@@ -377,20 +377,20 @@ int AudioCodingModuleImpl::Add10MsDataInternal(const AudioFrame& audio_frame,
                                                InputData* input_data) {
   if (audio_frame.samples_per_channel_ == 0) {
     assert(false);
-    RTC_LOG(LS_ERROR) << "Cannot Add 10 ms audio, payload length is zero";
+    RTC_DLOG(LS_ERROR) << "Cannot Add 10 ms audio, payload length is zero";
     return -1;
   }
 
   if (audio_frame.sample_rate_hz_ > 192000) {
     assert(false);
-    RTC_LOG(LS_ERROR) << "Cannot Add 10 ms audio, input frequency not valid";
+    RTC_DLOG(LS_ERROR) << "Cannot Add 10 ms audio, input frequency not valid";
     return -1;
   }
 
   // If the length and frequency matches. We currently just support raw PCM.
   if (static_cast<size_t>(audio_frame.sample_rate_hz_ / 100) !=
       audio_frame.samples_per_channel_) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "Cannot Add 10 ms audio, input frequency and length doesn't match";
     return -1;
   }
@@ -398,7 +398,7 @@ int AudioCodingModuleImpl::Add10MsDataInternal(const AudioFrame& audio_frame,
   if (audio_frame.num_channels_ != 1 && audio_frame.num_channels_ != 2 &&
       audio_frame.num_channels_ != 4 && audio_frame.num_channels_ != 6 &&
       audio_frame.num_channels_ != 8) {
-    RTC_LOG(LS_ERROR) << "Cannot Add 10 ms audio, invalid number of channels.";
+    RTC_DLOG(LS_ERROR) << "Cannot Add 10 ms audio, invalid number of channels.";
     return -1;
   }
 
@@ -471,7 +471,7 @@ int AudioCodingModuleImpl::PreprocessToAddData(const AudioFrame& in_frame,
     expected_codec_ts_ = in_frame.timestamp_;
     first_10ms_data_ = true;
   } else if (in_frame.timestamp_ != expected_in_ts_) {
-    RTC_LOG(LS_WARNING) << "Unexpected input timestamp: " << in_frame.timestamp_
+    RTC_DLOG(LS_WARNING) << "Unexpected input timestamp: " << in_frame.timestamp_
                         << ", expected: " << expected_in_ts_;
     expected_codec_ts_ +=
         (in_frame.timestamp_ - expected_in_ts_) *
@@ -529,7 +529,7 @@ int AudioCodingModuleImpl::PreprocessToAddData(const AudioFrame& in_frame,
         dest_ptr_audio);
 
     if (samples_per_channel < 0) {
-      RTC_LOG(LS_ERROR) << "Cannot add 10 ms audio, resampling failed";
+      RTC_DLOG(LS_ERROR) << "Cannot add 10 ms audio, resampling failed";
       return -1;
     }
     preprocess_frame_.samples_per_channel_ =
@@ -601,7 +601,7 @@ int AudioCodingModuleImpl::PlayoutData10Ms(int desired_freq_hz,
                                            bool* muted) {
   // GetAudio always returns 10 ms, at the requested sample rate.
   if (receiver_.GetAudio(desired_freq_hz, audio_frame, muted) != 0) {
-    RTC_LOG(LS_ERROR) << "PlayoutData failed, RecOut Failed";
+    RTC_DLOG(LS_ERROR) << "PlayoutData failed, RecOut Failed";
     return -1;
   }
   return 0;
@@ -619,7 +619,7 @@ int AudioCodingModuleImpl::GetNetworkStatistics(NetworkStatistics* statistics) {
 }
 
 int AudioCodingModuleImpl::RegisterVADCallback(ACMVADCallback* vad_callback) {
-  RTC_LOG(LS_VERBOSE) << "RegisterVADCallback()";
+  RTC_DLOG(LS_VERBOSE) << "RegisterVADCallback()";
   rtc::CritScope lock(&callback_crit_sect_);
   vad_callback_ = vad_callback;
   return 0;
@@ -627,7 +627,7 @@ int AudioCodingModuleImpl::RegisterVADCallback(ACMVADCallback* vad_callback) {
 
 bool AudioCodingModuleImpl::HaveValidEncoder(const char* caller_name) const {
   if (!encoder_stack_) {
-    RTC_LOG(LS_ERROR) << caller_name << " failed: No send codec is registered.";
+    RTC_DLOG(LS_ERROR) << caller_name << " failed: No send codec is registered.";
     return false;
   }
   return true;

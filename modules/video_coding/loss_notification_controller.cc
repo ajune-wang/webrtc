@@ -71,7 +71,7 @@ void LossNotificationController::OnReceivedPacket(
     // TODO(TODO(bugs.webrtc.org/10336): Handle frame reordering.
     if (last_received_unwrapped_frame_id_ &&
         unwrapped_frame_id <= *last_received_unwrapped_frame_id_) {
-      RTC_LOG(LS_WARNING) << "Repeated or reordered frame ID (" << frame_id
+      RTC_DLOG(LS_WARNING) << "Repeated or reordered frame ID (" << frame_id
                           << ").";
       return;
     }

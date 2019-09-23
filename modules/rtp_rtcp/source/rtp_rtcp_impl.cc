@@ -304,7 +304,7 @@ int32_t ModuleRtpRtcpImpl::SetSendingStatus(const bool sending) {
   if (rtcp_sender_.Sending() != sending) {
     // Sends RTCP BYE when going from true to false
     if (rtcp_sender_.SetSendingStatus(GetFeedbackState(), sending) != 0) {
-      RTC_LOG(LS_WARNING) << "Failed to send RTCP BYE";
+      RTC_DLOG(LS_WARNING) << "Failed to send RTCP BYE";
     }
     if (sending && rtp_sender_) {
       // Update Rtcp receiver config, to track Rtx config changes from

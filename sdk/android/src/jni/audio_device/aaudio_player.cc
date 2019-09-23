@@ -28,19 +28,19 @@ enum AudioDeviceMessageType : uint32_t {
 AAudioPlayer::AAudioPlayer(const AudioParameters& audio_parameters)
     : main_thread_(rtc::Thread::Current()),
       aaudio_(audio_parameters, AAUDIO_DIRECTION_OUTPUT, this) {
-  RTC_LOG(INFO) << "ctor";
+  RTC_DLOG(INFO) << "ctor";
   thread_checker_aaudio_.Detach();
 }
 
 AAudioPlayer::~AAudioPlayer() {
-  RTC_LOG(INFO) << "dtor";
+  RTC_DLOG(INFO) << "dtor";
   RTC_DCHECK_RUN_ON(&main_thread_checker_);
   Terminate();
-  RTC_LOG(INFO) << "#detected underruns: " << underrun_count_;
+  RTC_DLOG(INFO) << "#detected underruns: " << underrun_count_;
 }
 
 int AAudioPlayer::Init() {
-  RTC_LOG(INFO) << "Init";
+  RTC_DLOG(INFO) << "Init";
   RTC_DCHECK_RUN_ON(&main_thread_checker_);
   if (aaudio_.audio_parameters().channels() == 2) {
     RTC_DLOG(LS_WARNING) << "Stereo mode is enabled";
@@ -49,14 +49,14 @@ int AAudioPlayer::Init() {
 }
 
 int AAudioPlayer::Terminate() {
-  RTC_LOG(INFO) << "Terminate";
+  RTC_DLOG(INFO) << "Terminate";
   RTC_DCHECK_RUN_ON(&main_thread_checker_);
   StopPlayout();
   return 0;
 }
 
 int AAudioPlayer::InitPlayout() {
-  RTC_LOG(INFO) << "InitPlayout";
+  RTC_DLOG(INFO) << "InitPlayout";
   RTC_DCHECK_RUN_ON(&main_thread_checker_);
   RTC_DCHECK(!initialized_);
   RTC_DCHECK(!playing_);
@@ -73,7 +73,7 @@ bool AAudioPlayer::PlayoutIsInitialized() const {
 }
 
 int AAudioPlayer::StartPlayout() {
-  RTC_LOG(INFO) << "StartPlayout";
+  RTC_DLOG(INFO) << "StartPlayout";
   RTC_DCHECK_RUN_ON(&main_thread_checker_);
   RTC_DCHECK(!playing_);
   if (!initialized_) {
@@ -94,13 +94,13 @@ int AAudioPlayer::StartPlayout() {
 }
 
 int AAudioPlayer::StopPlayout() {
-  RTC_LOG(INFO) << "StopPlayout";
+  RTC_DLOG(INFO) << "StopPlayout";
   RTC_DCHECK_RUN_ON(&main_thread_checker_);
   if (!initialized_ || !playing_) {
     return 0;
   }
   if (!aaudio_.Stop()) {
-    RTC_LOG(LS_ERROR) << "StopPlayout failed";
+    RTC_DLOG(LS_ERROR) << "StopPlayout failed";
     return -1;
   }
   thread_checker_aaudio_.Detach();
@@ -149,7 +149,7 @@ absl::optional<uint32_t> AAudioPlayer::MinSpeakerVolume() const {
 }
 
 void AAudioPlayer::OnErrorCallback(aaudio_result_t error) {
-  RTC_LOG(LS_ERROR) << "OnErrorCallback: " << AAudio_convertResultToText(error);
+  RTC_DLOG(LS_ERROR) << "OnErrorCallback: " << AAudio_convertResultToText(error);
   // TODO(henrika): investigate if we can use a thread checker here. Initial
   // tests shows that this callback can sometimes be called on a unique thread
   // but according to the documentation it should be on the same thread as the
@@ -158,7 +158,7 @@ void AAudioPlayer::OnErrorCallback(aaudio_result_t error) {
   if (aaudio_.stream_state() == AAUDIO_STREAM_STATE_DISCONNECTED) {
     // The stream is disconnected and any attempt to use it will return
     // AAUDIO_ERROR_DISCONNECTED.
-    RTC_LOG(WARNING) << "Output stream disconnected";
+    RTC_DLOG(WARNING) << "Output stream disconnected";
     // AAudio documentation states: "You should not close or reopen the stream
     // from the callback, use another thread instead". A message is therefore
     // sent to the main thread to do the restart operation.
@@ -173,7 +173,7 @@ aaudio_data_callback_result_t AAudioPlayer::OnDataCallback(void* audio_data,
   // Log device id in first data callback to ensure that a valid device is
   // utilized.
   if (first_data_callback_) {
-    RTC_LOG(INFO) << "--- First output data callback: "
+    RTC_DLOG(INFO) << "--- First output data callback: "
                   << "device id=" << aaudio_.device_id();
     first_data_callback_ = false;
   }
@@ -184,7 +184,7 @@ aaudio_data_callback_result_t AAudioPlayer::OnDataCallback(void* audio_data,
   // TODO(henrika): enable possibility to disable and/or tune the algorithm.
   const int32_t underrun_count = aaudio_.xrun_count();
   if (underrun_count > underrun_count_) {
-    RTC_LOG(LS_ERROR) << "Underrun detected: " << underrun_count;
+    RTC_DLOG(LS_ERROR) << "Underrun detected: " << underrun_count;
     underrun_count_ = underrun_count;
     aaudio_.IncreaseOutputBufferSize();
   }

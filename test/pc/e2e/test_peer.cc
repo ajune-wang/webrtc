@@ -358,7 +358,7 @@ bool TestPeer::AddIceCandidates(
       std::string candidate_str;
       bool res = candidate->ToString(&candidate_str);
       RTC_CHECK(res);
-      RTC_LOG(LS_ERROR) << "Failed to add ICE candidate, candidate_str="
+      RTC_DLOG(LS_ERROR) << "Failed to add ICE candidate, candidate_str="
                         << candidate_str;
       success = false;
     } else {

@@ -83,7 +83,7 @@ bool PacketBuffer::Empty() const {
 
 int PacketBuffer::InsertPacket(Packet&& packet, StatisticsCalculator* stats) {
   if (packet.empty()) {
-    RTC_LOG(LS_WARNING) << "InsertPacket invalid packet";
+    RTC_DLOG(LS_WARNING) << "InsertPacket invalid packet";
     return kInvalidPacket;
   }
 
@@ -98,7 +98,7 @@ int PacketBuffer::InsertPacket(Packet&& packet, StatisticsCalculator* stats) {
     // Buffer is full. Flush it.
     Flush();
     stats->FlushedPacketBuffer();
-    RTC_LOG(LS_WARNING) << "Packet buffer flushed";
+    RTC_DLOG(LS_WARNING) << "Packet buffer flushed";
     return_val = kFlushed;
   }
 

@@ -48,14 +48,14 @@ double ReadBackoffFactor(const WebRtcKeyValueConfig& key_value_config) {
       sscanf(experiment_string.c_str(), "Enabled-%lf", &backoff_factor);
   if (parsed_values == 1) {
     if (backoff_factor >= 1.0) {
-      RTC_LOG(WARNING) << "Back-off factor must be less than 1.";
+      RTC_DLOG(WARNING) << "Back-off factor must be less than 1.";
     } else if (backoff_factor <= 0.0) {
-      RTC_LOG(WARNING) << "Back-off factor must be greater than 0.";
+      RTC_DLOG(WARNING) << "Back-off factor must be greater than 0.";
     } else {
       return backoff_factor;
     }
   }
-  RTC_LOG(LS_WARNING) << "Failed to parse parameters for AimdRateControl "
+  RTC_DLOG(LS_WARNING) << "Failed to parse parameters for AimdRateControl "
                          "experiment from field trial string. Using default.";
   return kDefaultBackoffFactor;
 }
@@ -103,10 +103,10 @@ AimdRateControl::AimdRateControl(const WebRtcKeyValueConfig* key_value_config,
   ParseFieldTrial({&initial_backoff_interval_, &low_throughput_threshold_},
                   key_value_config->Lookup("WebRTC-BweAimdRateControlConfig"));
   if (initial_backoff_interval_) {
-    RTC_LOG(LS_INFO) << "Using aimd rate control with initial back-off interval"
+    RTC_DLOG(LS_INFO) << "Using aimd rate control with initial back-off interval"
                      << " " << ToString(*initial_backoff_interval_) << ".";
   }
-  RTC_LOG(LS_INFO) << "Using aimd rate control with back off factor " << beta_;
+  RTC_DLOG(LS_INFO) << "Using aimd rate control with back off factor " << beta_;
   ParseFieldTrial(
       {&capacity_deviation_ratio_threshold_, &capacity_limit_deviation_factor_},
       key_value_config->Lookup("WebRTC-Bwe-AimdRateControl-NetworkState"));

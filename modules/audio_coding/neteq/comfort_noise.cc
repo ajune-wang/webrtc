@@ -49,7 +49,7 @@ int ComfortNoise::Generate(size_t requested_length, AudioMultiVector* output) {
          fs_hz_ == 48000);
   // Not adapted for multi-channel yet.
   if (output->Channels() != 1) {
-    RTC_LOG(LS_ERROR) << "No multi-channel support";
+    RTC_DLOG(LS_ERROR) << "No multi-channel support";
     return kMultiChannelNotSupported;
   }
 
@@ -64,7 +64,7 @@ int ComfortNoise::Generate(size_t requested_length, AudioMultiVector* output) {
   // Get the decoder from the database.
   ComfortNoiseDecoder* cng_decoder = decoder_database_->GetActiveCngDecoder();
   if (!cng_decoder) {
-    RTC_LOG(LS_ERROR) << "Unknwown payload type";
+    RTC_DLOG(LS_ERROR) << "Unknwown payload type";
     return kUnknownPayloadType;
   }
 
@@ -73,7 +73,7 @@ int ComfortNoise::Generate(size_t requested_length, AudioMultiVector* output) {
           rtc::ArrayView<int16_t>(temp.get(), number_of_samples), new_period)) {
     // Error returned.
     output->Zeros(requested_length);
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "ComfortNoiseDecoder::Genererate failed to generate comfort noise";
     return kInternalError;
   }

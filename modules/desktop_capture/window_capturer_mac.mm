@@ -113,7 +113,7 @@ bool WindowCapturerMac::FocusOnSelectedSource() {
       CGWindowListCreateDescriptionFromArray(window_id_array);
   if (!window_array || 0 == CFArrayGetCount(window_array)) {
     // Could not find the window. It might have been closed.
-    RTC_LOG(LS_INFO) << "Window not found";
+    RTC_DLOG(LS_INFO) << "Window not found";
     CFRelease(window_id_array);
     return false;
   }
@@ -157,7 +157,7 @@ void WindowCapturerMac::CaptureFrame() {
   TRACE_EVENT0("webrtc", "WindowCapturerMac::CaptureFrame");
 
   if (!IsWindowValid(window_id_)) {
-    RTC_LOG(LS_ERROR) << "The window is not valid any longer.";
+    RTC_DLOG(LS_ERROR) << "The window is not valid any longer.";
     callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
     return;
   }
@@ -173,7 +173,7 @@ void WindowCapturerMac::CaptureFrame() {
 
   std::unique_ptr<DesktopFrame> frame = DesktopFrameCGImage::CreateForWindow(on_screen_window);
   if (!frame) {
-    RTC_LOG(LS_WARNING) << "Temporarily failed to capture window.";
+    RTC_DLOG(LS_WARNING) << "Temporarily failed to capture window.";
     callback_->OnCaptureResult(Result::ERROR_TEMPORARY, nullptr);
     return;
   }

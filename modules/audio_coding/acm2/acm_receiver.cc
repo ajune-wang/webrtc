@@ -50,14 +50,14 @@ AcmReceiver::~AcmReceiver() = default;
 int AcmReceiver::SetMinimumDelay(int delay_ms) {
   if (neteq_->SetMinimumDelay(delay_ms))
     return 0;
-  RTC_LOG(LERROR) << "AcmReceiver::SetExtraDelay " << delay_ms;
+  RTC_DLOG(LERROR) << "AcmReceiver::SetExtraDelay " << delay_ms;
   return -1;
 }
 
 int AcmReceiver::SetMaximumDelay(int delay_ms) {
   if (neteq_->SetMaximumDelay(delay_ms))
     return 0;
-  RTC_LOG(LERROR) << "AcmReceiver::SetExtraDelay " << delay_ms;
+  RTC_DLOG(LERROR) << "AcmReceiver::SetExtraDelay " << delay_ms;
   return -1;
 }
 
@@ -118,7 +118,7 @@ int AcmReceiver::InsertPacket(const RTPHeader& rtp_header,
   uint32_t receive_timestamp = NowInTimestamp(format->clockrate_hz);
   if (neteq_->InsertPacket(rtp_header, incoming_payload, receive_timestamp) <
       0) {
-    RTC_LOG(LERROR) << "AcmReceiver::InsertPacket "
+    RTC_DLOG(LERROR) << "AcmReceiver::InsertPacket "
                     << static_cast<int>(rtp_header.payloadType)
                     << " Failed to insert packet";
     return -1;
@@ -134,7 +134,7 @@ int AcmReceiver::GetAudio(int desired_freq_hz,
   rtc::CritScope lock(&crit_sect_);
 
   if (neteq_->GetAudio(audio_frame, muted) != NetEq::kOK) {
-    RTC_LOG(LERROR) << "AcmReceiver::GetAudio - NetEq Failed.";
+    RTC_DLOG(LERROR) << "AcmReceiver::GetAudio - NetEq Failed.";
     return -1;
   }
 
@@ -152,7 +152,7 @@ int AcmReceiver::GetAudio(int desired_freq_hz,
         audio_frame->num_channels_, AudioFrame::kMaxDataSizeSamples,
         temp_output);
     if (samples_per_channel_int < 0) {
-      RTC_LOG(LERROR) << "AcmReceiver::GetAudio - "
+      RTC_DLOG(LERROR) << "AcmReceiver::GetAudio - "
                          "Resampling last_audio_buffer_ failed.";
       return -1;
     }
@@ -167,7 +167,7 @@ int AcmReceiver::GetAudio(int desired_freq_hz,
         audio_frame->num_channels_, AudioFrame::kMaxDataSizeSamples,
         audio_frame->mutable_data());
     if (samples_per_channel_int < 0) {
-      RTC_LOG(LERROR)
+      RTC_DLOG(LERROR)
           << "AcmReceiver::GetAudio - Resampling audio_buffer_ failed.";
       return -1;
     }

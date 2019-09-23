@@ -110,7 +110,7 @@ int DefaultNumberOfTemporalLayers(int simulcast_id, bool screenshare) {
     return num_temporal_layers;
   }
 
-  RTC_LOG(LS_WARNING) << "Attempt to set number of temporal layers to "
+  RTC_DLOG(LS_WARNING) << "Attempt to set number of temporal layers to "
                          "incorrect value: "
                       << group_name;
 
@@ -215,7 +215,7 @@ int LimitSimulcastLayerCount(int width, int height, int layer_count) {
     int adaptive_layer_count =
         kSimulcastFormats[FindSimulcastFormatIndex(width, height)].max_layers;
     if (layer_count > adaptive_layer_count) {
-      RTC_LOG(LS_WARNING) << "Reducing simulcast layer count from "
+      RTC_DLOG(LS_WARNING) << "Reducing simulcast layer count from "
                           << layer_count << " to " << adaptive_layer_count;
       layer_count = adaptive_layer_count;
     }

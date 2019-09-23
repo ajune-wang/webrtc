@@ -56,7 +56,7 @@ RtpHeaderExtensionMap RegisterSupportedExtensions(
     } else if (extension.uri == RtpMid::kUri) {
       map.Register<RtpMid>(extension.id);
     } else {
-      RTC_LOG(LS_INFO)
+      RTC_DLOG(LS_INFO)
           << "FlexfecSender only supports RTP header extensions for "
           << "BWE and MID, so the extension " << extension.ToString()
           << " will not be used.";
@@ -164,7 +164,7 @@ std::vector<std::unique_ptr<RtpPacketToSend>> FlexfecSender::GetFecPackets() {
   int64_t now_ms = clock_->TimeInMilliseconds();
   if (!fec_packets_to_send.empty() &&
       now_ms - last_generated_packet_ms_ > kPacketLogIntervalMs) {
-    RTC_LOG(LS_VERBOSE) << "Generated " << fec_packets_to_send.size()
+    RTC_DLOG(LS_VERBOSE) << "Generated " << fec_packets_to_send.size()
                         << " FlexFEC packets with payload type: "
                         << payload_type_ << " and SSRC: " << ssrc_ << ".";
     last_generated_packet_ms_ = now_ms;

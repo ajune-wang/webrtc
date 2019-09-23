@@ -136,7 +136,7 @@ static void LogSslError() {
   do {
     error_code = ERR_get_error_line(&file, &line);
     if (ERR_GET_LIB(error_code) == ERR_LIB_SSL) {
-      RTC_LOG(LS_ERROR) << "ERR_LIB_SSL: " << error_code << ", " << file << ":"
+      RTC_DLOG(LS_ERROR) << "ERR_LIB_SSL: " << error_code << ", " << file << ":"
                         << line;
       break;
     }
@@ -267,7 +267,7 @@ int OpenSSLAdapter::StartSSL(const char* hostname, bool restartable) {
 }
 
 int OpenSSLAdapter::BeginSSL() {
-  RTC_LOG(LS_INFO) << "OpenSSLAdapter::BeginSSL: " << ssl_host_name_;
+  RTC_DLOG(LS_INFO) << "OpenSSLAdapter::BeginSSL: " << ssl_host_name_;
   RTC_DCHECK(state_ == SSL_CONNECTING);
 
   int err = 0;
@@ -326,12 +326,12 @@ int OpenSSLAdapter::BeginSSL() {
       SSL_SESSION* cached = ssl_session_cache_->LookupSession(ssl_host_name_);
       if (cached) {
         if (SSL_set_session(ssl_, cached) == 0) {
-          RTC_LOG(LS_WARNING) << "Failed to apply SSL session from cache";
+          RTC_DLOG(LS_WARNING) << "Failed to apply SSL session from cache";
           err = -1;
           goto ssl_error;
         }
 
-        RTC_LOG(LS_INFO) << "Attempting to resume SSL session to "
+        RTC_DLOG(LS_INFO) << "Attempting to resume SSL session to "
                          << ssl_host_name_;
       }
     }
@@ -388,7 +388,7 @@ int OpenSSLAdapter::ContinueSSL() {
   switch (SSL_get_error(ssl_, code)) {
     case SSL_ERROR_NONE:
       if (!SSLPostConnectionCheck(ssl_, ssl_host_name_)) {
-        RTC_LOG(LS_ERROR) << "TLS post connection check failed";
+        RTC_DLOG(LS_ERROR) << "TLS post connection check failed";
         // make sure we close the socket
         Cleanup();
         // The connect failed so return -1 to shut down the socket
@@ -400,14 +400,14 @@ int OpenSSLAdapter::ContinueSSL() {
       // TODO(benwright): Refactor this code path.
       // Don't let ourselves go away during the callbacks
       // PRefPtr<OpenSSLAdapter> lock(this);
-      // RTC_LOG(LS_INFO) << " -- onStreamReadable";
+      // RTC_DLOG(LS_INFO) << " -- onStreamReadable";
       // AsyncSocketAdapter::OnReadEvent(this);
-      // RTC_LOG(LS_INFO) << " -- onStreamWriteable";
+      // RTC_DLOG(LS_INFO) << " -- onStreamWriteable";
       // AsyncSocketAdapter::OnWriteEvent(this);
       break;
 
     case SSL_ERROR_WANT_READ:
-      RTC_LOG(LS_VERBOSE) << " -- error want read";
+      RTC_DLOG(LS_VERBOSE) << " -- error want read";
       struct timeval timeout;
       if (DTLSv1_get_timeout(ssl_, &timeout)) {
         int delay = timeout.tv_sec * 1000 + timeout.tv_usec / 1000;
@@ -422,7 +422,7 @@ int OpenSSLAdapter::ContinueSSL() {
 
     case SSL_ERROR_ZERO_RETURN:
     default:
-      RTC_LOG(LS_WARNING) << "ContinueSSL -- error " << code;
+      RTC_DLOG(LS_WARNING) << "ContinueSSL -- error " << code;
       return (code != 0) ? code : -1;
   }
 
@@ -430,7 +430,7 @@ int OpenSSLAdapter::ContinueSSL() {
 }
 
 void OpenSSLAdapter::Error(const char* context, int err, bool signal) {
-  RTC_LOG(LS_WARNING) << "OpenSSLAdapter::Error(" << context << ", " << err
+  RTC_DLOG(LS_WARNING) << "OpenSSLAdapter::Error(" << context << ", " << err
                       << ")";
   state_ = SSL_ERROR;
   SetError(err);
@@ -440,7 +440,7 @@ void OpenSSLAdapter::Error(const char* context, int err, bool signal) {
 }
 
 void OpenSSLAdapter::Cleanup() {
-  RTC_LOG(LS_INFO) << "OpenSSLAdapter::Cleanup";
+  RTC_DLOG(LS_INFO) << "OpenSSLAdapter::Cleanup";
 
   state_ = SSL_NONE;
   ssl_read_needs_write_ = false;
@@ -477,12 +477,12 @@ int OpenSSLAdapter::DoSslWrite(const void* pv, size_t cb, int* error) {
       // Success!
       return ret;
     case SSL_ERROR_WANT_READ:
-      RTC_LOG(LS_INFO) << " -- error want read";
+      RTC_DLOG(LS_INFO) << " -- error want read";
       ssl_write_needs_read_ = true;
       SetError(EWOULDBLOCK);
       break;
     case SSL_ERROR_WANT_WRITE:
-      RTC_LOG(LS_INFO) << " -- error want write";
+      RTC_DLOG(LS_INFO) << " -- error want write";
       SetError(EWOULDBLOCK);
       break;
     case SSL_ERROR_ZERO_RETURN:
@@ -559,7 +559,7 @@ int OpenSSLAdapter::Send(const void* pv, size_t cb) {
   if (error == SSL_ERROR_WANT_READ || error == SSL_ERROR_WANT_WRITE) {
     // Shouldn't be able to get to this point if we already have pending data.
     RTC_DCHECK(pending_data_.empty());
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "SSL_write couldn't write to the underlying socket; buffering data.";
     pending_data_.SetData(static_cast<const uint8_t*>(pv), cb);
     // Since we're taking responsibility for sending this data, return its full
@@ -665,14 +665,14 @@ bool OpenSSLAdapter::IsResumedSession() {
 
 void OpenSSLAdapter::OnMessage(Message* msg) {
   if (MSG_TIMEOUT == msg->message_id) {
-    RTC_LOG(LS_INFO) << "DTLS timeout expired";
+    RTC_DLOG(LS_INFO) << "DTLS timeout expired";
     DTLSv1_handle_timeout(ssl_);
     ContinueSSL();
   }
 }
 
 void OpenSSLAdapter::OnConnectEvent(AsyncSocket* socket) {
-  RTC_LOG(LS_INFO) << "OpenSSLAdapter::OnConnectEvent";
+  RTC_DLOG(LS_INFO) << "OpenSSLAdapter::OnConnectEvent";
   if (state_ != SSL_WAIT) {
     RTC_DCHECK(state_ == SSL_NONE);
     AsyncSocketAdapter::OnConnectEvent(socket);
@@ -749,7 +749,7 @@ void OpenSSLAdapter::OnWriteEvent(AsyncSocket* socket) {
 }
 
 void OpenSSLAdapter::OnCloseEvent(AsyncSocket* socket, int err) {
-  RTC_LOG(LS_INFO) << "OpenSSLAdapter::OnCloseEvent(" << err << ")";
+  RTC_DLOG(LS_INFO) << "OpenSSLAdapter::OnCloseEvent(" << err << ")";
   AsyncSocketAdapter::OnCloseEvent(socket, err);
 }
 
@@ -822,14 +822,14 @@ int OpenSSLAdapter::SSLVerifyCallback(int ok, X509_STORE_CTX* store) {
       reinterpret_cast<OpenSSLAdapter*>(SSL_get_app_data(ssl));
 
   if (!ok && stream->ssl_cert_verifier_ != nullptr) {
-    RTC_LOG(LS_INFO) << "Invoking SSL Verify Callback.";
+    RTC_DLOG(LS_INFO) << "Invoking SSL Verify Callback.";
     const OpenSSLCertificate cert(X509_STORE_CTX_get_current_cert(store));
     if (stream->ssl_cert_verifier_->Verify(cert)) {
       stream->custom_cert_verifier_status_ = true;
-      RTC_LOG(LS_INFO) << "Validated certificate using custom callback";
+      RTC_DLOG(LS_INFO) << "Validated certificate using custom callback";
       ok = true;
     } else {
-      RTC_LOG(LS_INFO) << "Failed to verify certificate using custom callback";
+      RTC_DLOG(LS_INFO) << "Failed to verify certificate using custom callback";
     }
   }
 
@@ -846,7 +846,7 @@ int OpenSSLAdapter::NewSSLSessionCallback(SSL* ssl, SSL_SESSION* session) {
   OpenSSLAdapter* stream =
       reinterpret_cast<OpenSSLAdapter*>(SSL_get_app_data(ssl));
   RTC_DCHECK(stream->ssl_session_cache_);
-  RTC_LOG(LS_INFO) << "Caching SSL session for " << stream->ssl_host_name_;
+  RTC_DLOG(LS_INFO) << "Caching SSL session for " << stream->ssl_host_name_;
   stream->ssl_session_cache_->AddSession(stream->ssl_host_name_, session);
   return 1;  // We've taken ownership of the session; OpenSSL shouldn't free it.
 }
@@ -856,7 +856,7 @@ SSL_CTX* OpenSSLAdapter::CreateContext(SSLMode mode, bool enable_cache) {
       SSL_CTX_new(mode == SSL_MODE_DTLS ? DTLS_method() : TLS_method());
   if (ctx == nullptr) {
     unsigned long error = ERR_get_error();  // NOLINT: type used by OpenSSL.
-    RTC_LOG(LS_WARNING) << "SSL_CTX creation failed: " << '"'
+    RTC_DLOG(LS_WARNING) << "SSL_CTX creation failed: " << '"'
                         << ERR_reason_error_string(error) << "\" "
                         << "(error=" << error << ')';
     return nullptr;
@@ -864,7 +864,7 @@ SSL_CTX* OpenSSLAdapter::CreateContext(SSLMode mode, bool enable_cache) {
 
 #ifndef WEBRTC_EXCLUDE_BUILT_IN_SSL_ROOT_CERTS
   if (!openssl::LoadBuiltinSSLRootCertificates(ctx)) {
-    RTC_LOG(LS_ERROR) << "SSL_CTX creation failed: Failed to load any trusted "
+    RTC_DLOG(LS_ERROR) << "SSL_CTX creation failed: Failed to load any trusted "
                          "ssl root certificates.";
     SSL_CTX_free(ctx);
     return nullptr;
@@ -905,14 +905,14 @@ std::string TransformAlpnProtocols(
   std::string transformed_alpn;
   for (const std::string& proto : alpn_protocols) {
     if (proto.size() == 0 || proto.size() > 0xFF) {
-      RTC_LOG(LS_ERROR) << "OpenSSLAdapter::Error("
+      RTC_DLOG(LS_ERROR) << "OpenSSLAdapter::Error("
                         << "TransformAlpnProtocols received proto with size "
                         << proto.size() << ")";
       return "";
     }
     transformed_alpn += static_cast<char>(proto.size());
     transformed_alpn += proto;
-    RTC_LOG(LS_VERBOSE) << "TransformAlpnProtocols: Adding proto: " << proto;
+    RTC_DLOG(LS_VERBOSE) << "TransformAlpnProtocols: Adding proto: " << proto;
   }
   return transformed_alpn;
 }

@@ -112,10 +112,10 @@ void FrameEncodeMetadataWriter::OnEncodeStarted(const VideoFrame& frame) {
       ++stalled_encoder_logged_messages_;
       if (stalled_encoder_logged_messages_ <= kMessagesThrottlingThreshold ||
           stalled_encoder_logged_messages_ % kThrottleRatio == 0) {
-        RTC_LOG(LS_WARNING) << "Too many frames in the encode_start_list."
+        RTC_DLOG(LS_WARNING) << "Too many frames in the encode_start_list."
                                " Did encoder stall?";
         if (stalled_encoder_logged_messages_ == kMessagesThrottlingThreshold) {
-          RTC_LOG(LS_WARNING)
+          RTC_DLOG(LS_WARNING)
               << "Too many log messages. Further stalled encoder"
                  "warnings will be throttled.";
         }
@@ -285,11 +285,11 @@ FrameEncodeMetadataWriter::ExtractEncodeStartTimeAndFillMetadata(
       ++reordered_frames_logged_messages_;
       if (reordered_frames_logged_messages_ <= kMessagesThrottlingThreshold ||
           reordered_frames_logged_messages_ % kThrottleRatio == 0) {
-        RTC_LOG(LS_WARNING) << "Frame with no encode started time recordings. "
+        RTC_DLOG(LS_WARNING) << "Frame with no encode started time recordings. "
                                "Encoder may be reordering frames "
                                "or not preserving RTP timestamps.";
         if (reordered_frames_logged_messages_ == kMessagesThrottlingThreshold) {
-          RTC_LOG(LS_WARNING) << "Too many log messages. Further frames "
+          RTC_DLOG(LS_WARNING) << "Too many log messages. Further frames "
                                  "reordering warnings will be throttled.";
         }
       }

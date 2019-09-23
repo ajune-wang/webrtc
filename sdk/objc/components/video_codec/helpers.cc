@@ -44,7 +44,7 @@ void SetVTSessionProperty(VTSessionRef session,
   CFRelease(cfNum);
   if (status != noErr) {
     std::string key_string = CFStringToString(key);
-    RTC_LOG(LS_ERROR) << "VTSessionSetProperty failed to set: " << key_string
+    RTC_DLOG(LS_ERROR) << "VTSessionSetProperty failed to set: " << key_string
                       << " to " << value << ": " << status;
   }
 }
@@ -60,7 +60,7 @@ void SetVTSessionProperty(VTSessionRef session,
   CFRelease(cfNum);
   if (status != noErr) {
     std::string key_string = CFStringToString(key);
-    RTC_LOG(LS_ERROR) << "VTSessionSetProperty failed to set: " << key_string
+    RTC_DLOG(LS_ERROR) << "VTSessionSetProperty failed to set: " << key_string
                       << " to " << value << ": " << status;
   }
 }
@@ -71,7 +71,7 @@ void SetVTSessionProperty(VTSessionRef session, CFStringRef key, bool value) {
   OSStatus status = VTSessionSetProperty(session, key, cf_bool);
   if (status != noErr) {
     std::string key_string = CFStringToString(key);
-    RTC_LOG(LS_ERROR) << "VTSessionSetProperty failed to set: " << key_string
+    RTC_DLOG(LS_ERROR) << "VTSessionSetProperty failed to set: " << key_string
                       << " to " << value << ": " << status;
   }
 }
@@ -84,7 +84,7 @@ void SetVTSessionProperty(VTSessionRef session,
   if (status != noErr) {
     std::string key_string = CFStringToString(key);
     std::string val_string = CFStringToString(value);
-    RTC_LOG(LS_ERROR) << "VTSessionSetProperty failed to set: " << key_string
+    RTC_DLOG(LS_ERROR) << "VTSessionSetProperty failed to set: " << key_string
                       << " to " << val_string << ": " << status;
   }
 }

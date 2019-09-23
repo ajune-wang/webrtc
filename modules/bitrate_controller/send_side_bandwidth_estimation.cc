@@ -95,7 +95,7 @@ bool ReadBweLossExperimentParameters(float* low_loss_threshold,
         << "Bitrate must be smaller enough to avoid overflows.";
     return true;
   }
-  RTC_LOG(LS_WARNING) << "Failed to parse parameters for BweLossExperiment "
+  RTC_DLOG(LS_WARNING) << "Failed to parse parameters for BweLossExperiment "
                          "experiment from field trial string. Using default.";
   *low_loss_threshold = kDefaultLowLossThreshold;
   *high_loss_threshold = kDefaultHighLossThreshold;
@@ -228,7 +228,7 @@ SendSideBandwidthEstimation::SendSideBandwidthEstimation(RtcEventLog* event_log)
     if (ReadBweLossExperimentParameters(&low_loss_threshold_,
                                         &high_loss_threshold_,
                                         &bitrate_threshold_kbps)) {
-      RTC_LOG(LS_INFO) << "Enabled BweLossExperiment with parameters "
+      RTC_DLOG(LS_INFO) << "Enabled BweLossExperiment with parameters "
                        << low_loss_threshold_ << ", " << high_loss_threshold_
                        << ", " << bitrate_threshold_kbps;
       bitrate_threshold_ = DataRate::kbps(bitrate_threshold_kbps);
@@ -542,7 +542,7 @@ void SendSideBandwidthEstimation::UpdateEstimate(Timestamp at_time) {
              (last_timeout_.IsInfinite() ||
               at_time - last_timeout_ > kTimeoutInterval)) {
     if (in_timeout_experiment_) {
-      RTC_LOG(LS_WARNING) << "Feedback timed out ("
+      RTC_DLOG(LS_WARNING) << "Feedback timed out ("
                           << ToString(time_since_loss_feedback)
                           << "), reducing bitrate.";
       new_bitrate = new_bitrate * 0.8;
@@ -608,7 +608,7 @@ DataRate SendSideBandwidthEstimation::MaybeRampupOrBackoff(DataRate new_bitrate,
              (last_timeout_.IsInfinite() ||
               at_time - last_timeout_ > kTimeoutInterval)) {
     if (in_timeout_experiment_) {
-      RTC_LOG(LS_WARNING) << "Feedback timed out ("
+      RTC_DLOG(LS_WARNING) << "Feedback timed out ("
                           << ToString(time_since_loss_feedback)
                           << "), reducing bitrate.";
       new_bitrate = new_bitrate * 0.8;
@@ -641,7 +641,7 @@ void SendSideBandwidthEstimation::CapBitrateToThresholds(Timestamp at_time,
   if (bitrate < min_bitrate_configured_) {
     if (last_low_bitrate_log_.IsInfinite() ||
         at_time - last_low_bitrate_log_ > kLowBitrateLogPeriod) {
-      RTC_LOG(LS_WARNING) << "Estimated available bandwidth "
+      RTC_DLOG(LS_WARNING) << "Estimated available bandwidth "
                           << ToString(bitrate)
                           << " is below configured min bitrate "
                           << ToString(min_bitrate_configured_) << ".";

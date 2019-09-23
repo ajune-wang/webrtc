@@ -234,7 +234,7 @@ bool AudioMixerImpl::GetAudioSourceMixabilityStatusForTest(
     return (*iter)->is_mixed;
   }
 
-  RTC_LOG(LS_ERROR) << "Audio source unknown";
+  RTC_DLOG(LS_ERROR) << "Audio source unknown";
   return false;
 }
 }  // namespace webrtc

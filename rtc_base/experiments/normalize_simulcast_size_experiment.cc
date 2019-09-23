@@ -34,12 +34,12 @@ absl::optional<int> NormalizeSimulcastSizeExperiment::GetBase2Exponent() {
 
   int exponent;
   if (sscanf(group.c_str(), "Enabled-%d", &exponent) != 1) {
-    RTC_LOG(LS_WARNING) << "No parameter provided.";
+    RTC_DLOG(LS_WARNING) << "No parameter provided.";
     return absl::nullopt;
   }
 
   if (exponent < kMinSetting || exponent > kMaxSetting) {
-    RTC_LOG(LS_WARNING) << "Unsupported exp value provided, value ignored.";
+    RTC_DLOG(LS_WARNING) << "Unsupported exp value provided, value ignored.";
     return absl::nullopt;
   }
 

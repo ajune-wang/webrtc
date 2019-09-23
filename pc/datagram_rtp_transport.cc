@@ -74,7 +74,7 @@ DatagramRtpTransport::DatagramRtpTransport(
     rtp_header_extension_map_.Register<TransportSequenceNumber>(
         transport_sequence_number_extension->id);
   } else {
-    RTC_LOG(LS_ERROR) << "Transport sequence numbers are not supported in "
+    RTC_DLOG(LS_ERROR) << "Transport sequence numbers are not supported in "
                          "datagram transport connection";
   }
 
@@ -135,7 +135,7 @@ bool DatagramRtpTransport::SendRtpPacket(rtc::CopyOnWriteBuffer* packet,
     // Save packet info without transport sequence number.
     sent_rtp_packet_map_[datagram_id] = SentPacketInfo(options.packet_id);
 
-    RTC_LOG(LS_VERBOSE)
+    RTC_DLOG(LS_VERBOSE)
         << "Sending rtp packet without transport sequence number, packet="
         << rtp_packet.ToString();
 
@@ -156,7 +156,7 @@ bool DatagramRtpTransport::SendRtpPacket(rtc::CopyOnWriteBuffer* packet,
     return -1;
   }
 
-  RTC_LOG(LS_VERBOSE) << "Removed transport_senquence_number="
+  RTC_DLOG(LS_VERBOSE) << "Removed transport_senquence_number="
                       << transport_senquence_number
                       << " from packet=" << rtp_packet.ToString()
                       << ", saved bytes=" << packet->size() - rtp_packet.size();
@@ -204,11 +204,11 @@ void DatagramRtpTransport::OnDatagramReceived(
   // make sure it works as expected.
   RtpPacketReceived parsed_packet(&rtp_header_extension_map_);
   if (!parsed_packet.Parse(data)) {
-    RTC_LOG(LS_ERROR) << "Failed to parse incoming RTP packet";
+    RTC_DLOG(LS_ERROR) << "Failed to parse incoming RTP packet";
     return;
   }
   if (!rtp_demuxer_.OnRtpPacket(parsed_packet)) {
-    RTC_LOG(LS_WARNING) << "Failed to demux RTP packet: "
+    RTC_DLOG(LS_WARNING) << "Failed to demux RTP packet: "
                         << RtpDemuxer::DescribePacket(parsed_packet);
   }
 }
@@ -261,7 +261,7 @@ void DatagramRtpTransport::OnDatagramAcked(const DatagramAck& ack) {
     return;
   }
 
-  RTC_LOG(LS_VERBOSE) << "Datagram acked, ack.datagram_id=" << ack.datagram_id
+  RTC_DLOG(LS_VERBOSE) << "Datagram acked, ack.datagram_id=" << ack.datagram_id
                       << ", sent_packet_info.packet_id="
                       << sent_packet_info.packet_id
                       << ", sent_packet_info.transport_sequence_number="
@@ -323,7 +323,7 @@ void DatagramRtpTransport::OnDatagramAcked(const DatagramAck& ack) {
 void DatagramRtpTransport::OnDatagramLost(DatagramId datagram_id) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
 
-  RTC_LOG(LS_INFO) << "Datagram lost, datagram_id=" << datagram_id;
+  RTC_DLOG(LS_INFO) << "Datagram lost, datagram_id=" << datagram_id;
 
   SentPacketInfo sent_packet_info;
   if (!GetAndRemoveSentPacketInfo(datagram_id, &sent_packet_info)) {

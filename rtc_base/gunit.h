@@ -85,7 +85,7 @@
     WAIT_(ex, timeout, res);                                                   \
     if (res)                                                                   \
       break;                                                                   \
-    RTC_LOG(LS_WARNING) << "Expression " << #ex << " still not true after "    \
+    RTC_DLOG(LS_WARNING) << "Expression " << #ex << " still not true after "    \
                         << (timeout) << "ms; waiting an additional " << margin \
                         << "ms";                                               \
     WAIT_(ex, margin, res);                                                    \

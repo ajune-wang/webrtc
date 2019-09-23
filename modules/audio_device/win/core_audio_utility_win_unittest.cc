@@ -39,7 +39,7 @@ bool ShouldAbortTest(bool requirements_satisfied,
                      const char* requirements_expression,
                      bool* should_fail) {
   if (!requirements_satisfied) {
-    RTC_LOG(LS_ERROR) << "Requirement(s) not satisfied ("
+    RTC_DLOG(LS_ERROR) << "Requirement(s) not satisfied ("
                       << requirements_expression << ")";
     // TODO(henrika): improve hard-coded condition to determine if test should
     // fail or be ignored. Could use e.g. a command-line argument here to

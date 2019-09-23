@@ -140,7 +140,7 @@ AudioSendStream::AudioSendStream(
                            kRecoverablePacketLossRateMinNumAckedPairs),
       rtp_rtcp_module_(nullptr),
       suspended_rtp_state_(suspended_rtp_state) {
-  RTC_LOG(LS_INFO) << "AudioSendStream: " << config.rtp.ssrc;
+  RTC_DLOG(LS_INFO) << "AudioSendStream: " << config.rtp.ssrc;
   RTC_DCHECK(worker_queue_);
   RTC_DCHECK(audio_state_);
   RTC_DCHECK(channel_send_);
@@ -177,7 +177,7 @@ AudioSendStream::AudioSendStream(
 
 AudioSendStream::~AudioSendStream() {
   RTC_DCHECK(worker_thread_checker_.IsCurrent());
-  RTC_LOG(LS_INFO) << "~AudioSendStream: " << config_.rtp.ssrc;
+  RTC_DLOG(LS_INFO) << "~AudioSendStream: " << config_.rtp.ssrc;
   RTC_DCHECK(!sending_);
   if (rtp_transport_) {
     rtp_transport_->DeRegisterPacketFeedbackObserver(this);
@@ -230,7 +230,7 @@ void AudioSendStream::ConfigureStream(
     webrtc::internal::AudioSendStream* stream,
     const webrtc::AudioSendStream::Config& new_config,
     bool first_time) {
-  RTC_LOG(LS_INFO) << "AudioSendStream::ConfigureStream: "
+  RTC_DLOG(LS_INFO) << "AudioSendStream::ConfigureStream: "
                    << new_config.ToString();
   UpdateEventLogStreamConfig(stream->event_log_, new_config,
                              first_time ? nullptr : &stream->config_);
@@ -328,7 +328,7 @@ void AudioSendStream::ConfigureStream(
   }
 
   if (!ReconfigureSendCodec(stream, new_config)) {
-    RTC_LOG(LS_ERROR) << "Failed to set up send codec state.";
+    RTC_DLOG(LS_ERROR) << "Failed to set up send codec state.";
   }
 
   if (stream->sending_) {

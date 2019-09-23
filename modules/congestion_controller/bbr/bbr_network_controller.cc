@@ -215,7 +215,7 @@ BbrNetworkController::BbrNetworkController(NetworkControllerConfig config)
       recovery_window_(max_congestion_window_),
       app_limited_since_last_probe_rtt_(false),
       min_rtt_since_last_probe_rtt_(TimeDelta::PlusInfinity()) {
-  RTC_LOG(LS_INFO) << "Creating BBR controller";
+  RTC_DLOG(LS_INFO) << "Creating BBR controller";
   if (config.constraints.starting_rate)
     default_bandwidth_ = *config.constraints.starting_rate;
   constraints_ = config.constraints;
@@ -701,7 +701,7 @@ void BbrNetworkController::MaybeExitStartupOrDrain(
   if (mode_ == STARTUP &&
       (is_at_full_bandwidth_ || rtt_delta > exit_threshold)) {
     if (rtt_delta > exit_threshold)
-      RTC_LOG(LS_INFO) << "Exiting startup due to rtt increase from: "
+      RTC_DLOG(LS_INFO) << "Exiting startup due to rtt increase from: "
                        << ToString(min_rtt_) << " to:" << ToString(last_rtt_)
                        << " > " << ToString(min_rtt_ + exit_threshold);
     mode_ = DRAIN;
@@ -801,7 +801,7 @@ void BbrNetworkController::UpdateAckAggregationBytes(
     Timestamp ack_time,
     DataSize newly_acked_bytes) {
   if (!aggregation_epoch_start_time_) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "Received feedback before information about sent packets.";
     RTC_DCHECK(aggregation_epoch_start_time_.has_value());
     return;
@@ -947,7 +947,7 @@ void BbrNetworkController::OnApplicationLimited(DataSize bytes_in_flight) {
   app_limited_since_last_probe_rtt_ = true;
   sampler_->OnAppLimited();
 
-  RTC_LOG(LS_INFO) << "Becoming application limited. Last sent packet: "
+  RTC_DLOG(LS_INFO) << "Becoming application limited. Last sent packet: "
                    << last_sent_packet_
                    << ", CWND: " << ToString(GetCongestionWindow());
 }

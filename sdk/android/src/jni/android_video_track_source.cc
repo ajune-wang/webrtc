@@ -47,7 +47,7 @@ AndroidVideoTrackSource::AndroidVideoTrackSource(rtc::Thread* signaling_thread,
       signaling_thread_(signaling_thread),
       is_screencast_(is_screencast),
       align_timestamps_(align_timestamps) {
-  RTC_LOG(LS_INFO) << "AndroidVideoTrackSource ctor";
+  RTC_DLOG(LS_INFO) << "AndroidVideoTrackSource ctor";
 }
 AndroidVideoTrackSource::~AndroidVideoTrackSource() = default;
 

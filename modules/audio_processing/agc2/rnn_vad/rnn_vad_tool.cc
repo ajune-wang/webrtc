@@ -37,14 +37,14 @@ int main(int argc, char* argv[]) {
   const std::string input_wav_file = absl::GetFlag(FLAGS_i);
   WavReader wav_reader(input_wav_file);
   if (wav_reader.num_channels() != 1) {
-    RTC_LOG(LS_ERROR) << "Only mono wav files are supported";
+    RTC_DLOG(LS_ERROR) << "Only mono wav files are supported";
     return 1;
   }
   if (wav_reader.sample_rate() % 100 != 0) {
-    RTC_LOG(LS_ERROR) << "The sample rate rate must allow 10 ms frames.";
+    RTC_DLOG(LS_ERROR) << "The sample rate rate must allow 10 ms frames.";
     return 1;
   }
-  RTC_LOG(LS_INFO) << "Input sample rate: " << wav_reader.sample_rate();
+  RTC_DLOG(LS_INFO) << "Input sample rate: " << wav_reader.sample_rate();
 
   // Init output files.
   const std::string output_vad_probs_file = absl::GetFlag(FLAGS_o);
@@ -102,10 +102,10 @@ int main(int argc, char* argv[]) {
 
   // Close output file(s).
   fclose(vad_probs_file);
-  RTC_LOG(LS_INFO) << "VAD probabilities written to " << output_vad_probs_file;
+  RTC_DLOG(LS_INFO) << "VAD probabilities written to " << output_vad_probs_file;
   if (features_file) {
     fclose(features_file);
-    RTC_LOG(LS_INFO) << "features written to " << output_feature_file;
+    RTC_DLOG(LS_INFO) << "features written to " << output_feature_file;
   }
 
   return 0;

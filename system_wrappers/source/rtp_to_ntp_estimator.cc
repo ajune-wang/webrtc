@@ -146,7 +146,7 @@ bool RtpToNtpEstimator::UpdateMeasurements(uint32_t ntp_secs,
         ntp_ms_new > old_ntp_ms + kMaxAllowedRtcpNtpIntervalMs) {
       invalid_sample = true;
     } else if (unwrapped_rtp_timestamp <= old_rtp_timestamp) {
-      RTC_LOG(LS_WARNING)
+      RTC_DLOG(LS_WARNING)
           << "Newer RTCP SR report with older RTP timestamp, dropping";
       invalid_sample = true;
     } else if (unwrapped_rtp_timestamp - old_rtp_timestamp > (1 << 25)) {
@@ -160,7 +160,7 @@ bool RtpToNtpEstimator::UpdateMeasurements(uint32_t ntp_secs,
     if (consecutive_invalid_samples_ < kMaxInvalidSamples) {
       return false;
     }
-    RTC_LOG(LS_WARNING) << "Multiple consecutively invalid RTCP SR reports, "
+    RTC_DLOG(LS_WARNING) << "Multiple consecutively invalid RTCP SR reports, "
                            "clearing measurements.";
     measurements_.clear();
     params_ = absl::nullopt;

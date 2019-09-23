@@ -44,7 +44,7 @@ VideoRenderFrames::~VideoRenderFrames() {
   frames_dropped_ += incoming_frames_.size();
   RTC_HISTOGRAM_COUNTS_1000("WebRTC.Video.DroppedFrames.RenderQueue",
                             frames_dropped_);
-  RTC_LOG(LS_INFO) << "WebRTC.Video.DroppedFrames.RenderQueue "
+  RTC_DLOG(LS_INFO) << "WebRTC.Video.DroppedFrames.RenderQueue "
                    << frames_dropped_;
 }
 
@@ -55,20 +55,20 @@ int32_t VideoRenderFrames::AddFrame(VideoFrame&& new_frame) {
   // really slow system never renders any frames.
   if (!incoming_frames_.empty() &&
       new_frame.render_time_ms() + kOldRenderTimestampMS < time_now) {
-    RTC_LOG(LS_WARNING) << "Too old frame, timestamp=" << new_frame.timestamp();
+    RTC_DLOG(LS_WARNING) << "Too old frame, timestamp=" << new_frame.timestamp();
     ++frames_dropped_;
     return -1;
   }
 
   if (new_frame.render_time_ms() > time_now + kFutureRenderTimestampMS) {
-    RTC_LOG(LS_WARNING) << "Frame too long into the future, timestamp="
+    RTC_DLOG(LS_WARNING) << "Frame too long into the future, timestamp="
                         << new_frame.timestamp();
     ++frames_dropped_;
     return -1;
   }
 
   if (new_frame.render_time_ms() < last_render_time_ms_) {
-    RTC_LOG(LS_WARNING) << "Frame scheduled out of order, render_time="
+    RTC_DLOG(LS_WARNING) << "Frame scheduled out of order, render_time="
                         << new_frame.render_time_ms()
                         << ", latest=" << last_render_time_ms_;
     // For more details, see bug:
@@ -81,7 +81,7 @@ int32_t VideoRenderFrames::AddFrame(VideoFrame&& new_frame) {
   incoming_frames_.emplace_back(std::move(new_frame));
 
   if (incoming_frames_.size() > kMaxIncomingFramesBeforeLogged) {
-    RTC_LOG(LS_WARNING) << "Stored incoming frames: "
+    RTC_DLOG(LS_WARNING) << "Stored incoming frames: "
                         << incoming_frames_.size();
   }
   return static_cast<int32_t>(incoming_frames_.size());

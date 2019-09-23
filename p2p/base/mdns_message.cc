@@ -113,7 +113,7 @@ bool MdnsHeader::Read(MessageBufferReader* buf) {
   if (!buf->ReadUInt16(&id) || !buf->ReadUInt16(&flags) ||
       !buf->ReadUInt16(&qdcount) || !buf->ReadUInt16(&ancount) ||
       !buf->ReadUInt16(&nscount) || !buf->ReadUInt16(&arcount)) {
-    RTC_LOG(LS_ERROR) << "Invalid mDNS header.";
+    RTC_DLOG(LS_ERROR) << "Invalid mDNS header.";
     return false;
   }
   return true;
@@ -185,11 +185,11 @@ MdnsQuestion::~MdnsQuestion() = default;
 
 bool MdnsQuestion::Read(MessageBufferReader* buf) {
   if (!ReadDomainName(buf, &name_)) {
-    RTC_LOG(LS_ERROR) << "Invalid name.";
+    RTC_DLOG(LS_ERROR) << "Invalid name.";
     return false;
   }
   if (!buf->ReadUInt16(&type_) || !buf->ReadUInt16(&class_)) {
-    RTC_LOG(LS_ERROR) << "Invalid type and class.";
+    RTC_DLOG(LS_ERROR) << "Invalid type and class.";
     return false;
   }
   return true;

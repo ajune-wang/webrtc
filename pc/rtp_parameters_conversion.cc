@@ -256,7 +256,7 @@ absl::optional<RtcpFeedback> ToRtcpFeedback(
     if (cricket_feedback.param() == cricket::kRtcpFbCcmParamFir) {
       return RtcpFeedback(RtcpFeedbackType::CCM, RtcpFeedbackMessageType::FIR);
     } else {
-      RTC_LOG(LS_WARNING) << "Unsupported parameter for CCM RTCP feedback: "
+      RTC_DLOG(LS_WARNING) << "Unsupported parameter for CCM RTCP feedback: "
                           << cricket_feedback.param();
       return absl::nullopt;
     }
@@ -264,7 +264,7 @@ absl::optional<RtcpFeedback> ToRtcpFeedback(
     if (cricket_feedback.param().empty()) {
       return RtcpFeedback(RtcpFeedbackType::LNTF);
     } else {
-      RTC_LOG(LS_WARNING) << "Unsupported parameter for LNTF RTCP feedback: "
+      RTC_DLOG(LS_WARNING) << "Unsupported parameter for LNTF RTCP feedback: "
                           << cricket_feedback.param();
       return absl::nullopt;
     }
@@ -275,13 +275,13 @@ absl::optional<RtcpFeedback> ToRtcpFeedback(
     } else if (cricket_feedback.param() == cricket::kRtcpFbNackParamPli) {
       return RtcpFeedback(RtcpFeedbackType::NACK, RtcpFeedbackMessageType::PLI);
     } else {
-      RTC_LOG(LS_WARNING) << "Unsupported parameter for NACK RTCP feedback: "
+      RTC_DLOG(LS_WARNING) << "Unsupported parameter for NACK RTCP feedback: "
                           << cricket_feedback.param();
       return absl::nullopt;
     }
   } else if (cricket_feedback.id() == cricket::kRtcpFbParamRemb) {
     if (!cricket_feedback.param().empty()) {
-      RTC_LOG(LS_WARNING) << "Unsupported parameter for REMB RTCP feedback: "
+      RTC_DLOG(LS_WARNING) << "Unsupported parameter for REMB RTCP feedback: "
                           << cricket_feedback.param();
       return absl::nullopt;
     } else {
@@ -289,7 +289,7 @@ absl::optional<RtcpFeedback> ToRtcpFeedback(
     }
   } else if (cricket_feedback.id() == cricket::kRtcpFbParamTransportCc) {
     if (!cricket_feedback.param().empty()) {
-      RTC_LOG(LS_WARNING)
+      RTC_DLOG(LS_WARNING)
           << "Unsupported parameter for transport-cc RTCP feedback: "
           << cricket_feedback.param();
       return absl::nullopt;
@@ -297,7 +297,7 @@ absl::optional<RtcpFeedback> ToRtcpFeedback(
       return RtcpFeedback(RtcpFeedbackType::TRANSPORT_CC);
     }
   }
-  RTC_LOG(LS_WARNING) << "Unsupported RTCP feedback type: "
+  RTC_DLOG(LS_WARNING) << "Unsupported RTCP feedback type: "
                       << cricket_feedback.id();
   return absl::nullopt;
 }

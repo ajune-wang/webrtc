@@ -147,7 +147,7 @@ inline std::ostream& operator<<(  // no-presubmit-check TODO(webrtc:8982)
 #define LOG_AND_RETURN_ERROR_EX(type, message, severity)           \
   {                                                                \
     RTC_DCHECK(type != RTCErrorType::NONE);                        \
-    RTC_LOG(severity) << message << " (" << ToString(type) << ")"; \
+    RTC_DLOG(severity) << message << " (" << ToString(type) << ")"; \
     return webrtc::RTCError(type, message);                        \
   }
 
@@ -172,7 +172,7 @@ inline std::ostream& operator<<(  // no-presubmit-check TODO(webrtc:8982)
 //    std::unique_ptr<Foo> foo = result.ConsumeValue();
 //    foo->DoSomethingCool();
 //  } else {
-//    RTC_LOG(LS_ERROR) << result.error();
+//    RTC_DLOG(LS_ERROR) << result.error();
 //  }
 //
 // Example factory implementation returning RTCErrorOr<std::unique_ptr<T>>:

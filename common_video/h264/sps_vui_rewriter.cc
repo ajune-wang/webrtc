@@ -164,7 +164,7 @@ SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
   ParseResult vui_updated;
   if (!CopyAndRewriteVui(*sps_state, &source_buffer, &sps_writer, color_space,
                          &vui_updated)) {
-    RTC_LOG(LS_ERROR) << "Failed to parse/copy SPS VUI.";
+    RTC_DLOG(LS_ERROR) << "Failed to parse/copy SPS VUI.";
     return ParseResult::kFailure;
   }
 
@@ -174,7 +174,7 @@ SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
   }
 
   if (!CopyRemainingBits(&source_buffer, &sps_writer)) {
-    RTC_LOG(LS_ERROR) << "Failed to parse/copy SPS VUI.";
+    RTC_DLOG(LS_ERROR) << "Failed to parse/copy SPS VUI.";
     return ParseResult::kFailure;
   }
 

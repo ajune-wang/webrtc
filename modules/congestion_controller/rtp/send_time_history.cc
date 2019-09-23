@@ -46,7 +46,7 @@ void SendTimeHistory::AddNewPacket(PacketFeedback packet) {
 
 void SendTimeHistory::AddUntracked(size_t packet_size, int64_t send_time_ms) {
   if (send_time_ms < last_send_time_ms_) {
-    RTC_LOG(LS_WARNING) << "ignoring untracked data for out of order packet.";
+    RTC_DLOG(LS_WARNING) << "ignoring untracked data for out of order packet.";
   }
   pending_untracked_size_ += packet_size;
   last_untracked_send_time_ms_ =
@@ -66,7 +66,7 @@ SendTimeHistory::Status SendTimeHistory::OnSentPacket(uint16_t sequence_number,
     AddPacketBytes(it->second);
   if (pending_untracked_size_ > 0) {
     if (send_time_ms < last_untracked_send_time_ms_)
-      RTC_LOG(LS_WARNING)
+      RTC_DLOG(LS_WARNING)
           << "appending acknowledged data for out of order packet. (Diff: "
           << last_untracked_send_time_ms_ - send_time_ms << " ms.)";
     it->second.unacknowledged_data += pending_untracked_size_;

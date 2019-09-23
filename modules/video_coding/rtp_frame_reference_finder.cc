@@ -179,7 +179,7 @@ RtpFrameReferenceFinder::ManageFrameGeneric(
 
   rtc::ArrayView<const uint16_t> diffs = descriptor.FrameDependenciesDiffs();
   if (EncodedFrame::kMaxFrameReferences < diffs.size()) {
-    RTC_LOG(LS_WARNING) << "Too many dependencies in generic descriptor.";
+    RTC_DLOG(LS_WARNING) << "Too many dependencies in generic descriptor.";
     return kDrop;
   }
 
@@ -225,7 +225,7 @@ RtpFrameReferenceFinder::ManageFramePidOrSeqNum(RtpFrameObject* frame,
   // that this frame indirectly references.
   auto seq_num_it = last_seq_num_gop_.upper_bound(frame->last_seq_num());
   if (seq_num_it == last_seq_num_gop_.begin()) {
-    RTC_LOG(LS_WARNING) << "Generic frame with packet range ["
+    RTC_DLOG(LS_WARNING) << "Generic frame with packet range ["
                         << frame->first_seq_num() << ", "
                         << frame->last_seq_num()
                         << "] has no GoP, dropping frame.";
@@ -368,7 +368,7 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp8(
 
     if (!(AheadOf<uint16_t, kPicIdLength>(frame->id.picture_id,
                                           layer_info_it->second[layer]))) {
-      RTC_LOG(LS_WARNING) << "Frame with picture id " << frame->id.picture_id
+      RTC_DLOG(LS_WARNING) << "Frame with picture id " << frame->id.picture_id
                           << " and packet range [" << frame->first_seq_num()
                           << ", " << frame->last_seq_num()
                           << "] already received, "
@@ -440,7 +440,7 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp9(
   }
 
   if (codec_header.tl0_pic_idx == kNoTl0PicIdx) {
-    RTC_LOG(LS_WARNING) << "TL0PICIDX is expected to be present in "
+    RTC_DLOG(LS_WARNING) << "TL0PICIDX is expected to be present in "
                            "non-flexible mode.";
     return kDrop;
   }
@@ -449,7 +449,7 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp9(
   int64_t unwrapped_tl0 = tl0_unwrapper_.Unwrap(codec_header.tl0_pic_idx);
   if (codec_header.ss_data_available) {
     if (codec_header.temporal_idx != 0) {
-      RTC_LOG(LS_WARNING) << "Received scalability structure on a non base "
+      RTC_DLOG(LS_WARNING) << "Received scalability structure on a non base "
                              "layer frame. Scalability structure ignored.";
     } else {
       if (codec_header.gof.num_frames_in_gof > kMaxVp9FramesInGof) {
@@ -458,7 +458,7 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp9(
 
       GofInfoVP9 gof = codec_header.gof;
       if (gof.num_frames_in_gof == 0) {
-        RTC_LOG(LS_WARNING) << "Number of frames in GOF is zero. Assume "
+        RTC_DLOG(LS_WARNING) << "Number of frames in GOF is zero. Assume "
                                "that stream has only one temporal layer.";
         gof.SetGofInfoVP9(kTemporalStructureMode1);
       }
@@ -485,7 +485,7 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp9(
     }
   } else if (frame->frame_type() == VideoFrameType::kVideoFrameKey) {
     if (frame->id.spatial_layer == 0) {
-      RTC_LOG(LS_WARNING) << "Received keyframe without scalability structure";
+      RTC_DLOG(LS_WARNING) << "Received keyframe without scalability structure";
       return kDrop;
     }
     const auto gof_info_it = gof_info_.find(unwrapped_tl0);
@@ -573,7 +573,7 @@ bool RtpFrameReferenceFinder::MissingRequiredFrameVp9(uint16_t picture_id,
   size_t temporal_idx = info.gof->temporal_idx[gof_idx];
 
   if (temporal_idx >= kMaxTemporalLayers) {
-    RTC_LOG(LS_WARNING) << "At most " << kMaxTemporalLayers << " temporal "
+    RTC_DLOG(LS_WARNING) << "At most " << kMaxTemporalLayers << " temporal "
                         << "layers are supported.";
     return true;
   }
@@ -616,7 +616,7 @@ void RtpFrameReferenceFinder::FrameReceivedVp9(uint16_t picture_id,
 
       size_t temporal_idx = info->gof->temporal_idx[gof_idx];
       if (temporal_idx >= kMaxTemporalLayers) {
-        RTC_LOG(LS_WARNING) << "At most " << kMaxTemporalLayers << " temporal "
+        RTC_DLOG(LS_WARNING) << "At most " << kMaxTemporalLayers << " temporal "
                             << "layers are supported.";
         return;
       }
@@ -634,7 +634,7 @@ void RtpFrameReferenceFinder::FrameReceivedVp9(uint16_t picture_id,
 
     size_t temporal_idx = info->gof->temporal_idx[gof_idx];
     if (temporal_idx >= kMaxTemporalLayers) {
-      RTC_LOG(LS_WARNING) << "At most " << kMaxTemporalLayers << " temporal "
+      RTC_DLOG(LS_WARNING) << "At most " << kMaxTemporalLayers << " temporal "
                           << "layers are supported.";
       return;
     }
@@ -767,7 +767,7 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameH264(
     }
 
     if (!(AheadOf<uint16_t>(frame->id.picture_id, last_frame_in_layer))) {
-      RTC_LOG(LS_WARNING) << "Frame with picture id " << frame->id.picture_id
+      RTC_DLOG(LS_WARNING) << "Frame with picture id " << frame->id.picture_id
                           << " and packet range [" << frame->first_seq_num()
                           << ", " << frame->last_seq_num()
                           << "] already received, "

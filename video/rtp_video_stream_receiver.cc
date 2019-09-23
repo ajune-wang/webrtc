@@ -61,7 +61,7 @@ int PacketBufferMaxSize() {
        packet_buffer_max_size <= 0 ||
        // Verify that the number is a positive power of 2.
        (packet_buffer_max_size & (packet_buffer_max_size - 1)) != 0)) {
-    RTC_LOG(LS_WARNING) << "Invalid packet buffer max size: " << group_name;
+    RTC_DLOG(LS_WARNING) << "Invalid packet buffer max size: " << group_name;
     packet_buffer_max_size = kPacketBufferMaxSize;
   }
   return packet_buffer_max_size;
@@ -338,10 +338,10 @@ int32_t RtpVideoStreamReceiver::OnReceivedPayloadData(
   if (loss_notification_controller_) {
     if (is_recovered) {
       // TODO(bugs.webrtc.org/10336): Implement support for reordering.
-      RTC_LOG(LS_INFO)
+      RTC_DLOG(LS_INFO)
           << "LossNotificationController does not support reordering.";
     } else if (!generic_descriptor) {
-      RTC_LOG(LS_WARNING) << "LossNotificationController requires generic "
+      RTC_DLOG(LS_WARNING) << "LossNotificationController requires generic "
                              "frame descriptor, but it is missing.";
     } else {
       loss_notification_controller_->OnReceivedPacket(rtp_header.sequenceNumber,
@@ -405,7 +405,7 @@ void RtpVideoStreamReceiver::OnRecoveredPacket(const uint8_t* rtp_packet,
   if (!packet.Parse(rtp_packet, rtp_packet_length))
     return;
   if (packet.PayloadType() == config_.rtp.red_payload_type) {
-    RTC_LOG(LS_WARNING) << "Discarding recovered packet with RED encapsulation";
+    RTC_DLOG(LS_WARNING) << "Discarding recovered packet with RED encapsulation";
     return;
   }
 
@@ -453,7 +453,7 @@ void RtpVideoStreamReceiver::OnRtpPacket(const RtpPacketReceived& packet) {
       if (packet.GetExtension<AbsoluteSendTime>(&send_time)) {
         ss << ", abs send time: " << send_time;
       }
-      RTC_LOG(LS_INFO) << ss.str();
+      RTC_DLOG(LS_INFO) << ss.str();
       last_packet_log_ms_ = now_ms;
     }
   }
@@ -608,7 +608,7 @@ void RtpVideoStreamReceiver::RemoveSecondarySink(
     // We might be rolling-back a call whose setup failed mid-way. In such a
     // case, it's simpler to remove "everything" rather than remember what
     // has already been added.
-    RTC_LOG(LS_WARNING) << "Removal of unknown sink.";
+    RTC_DLOG(LS_WARNING) << "Removal of unknown sink.";
     return;
   }
   secondary_sinks_.erase(it);
@@ -635,13 +635,13 @@ void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
       absl::WrapUnique(RtpDepacketizer::Create(type_it->second));
 
   if (!depacketizer) {
-    RTC_LOG(LS_ERROR) << "Failed to create depacketizer.";
+    RTC_DLOG(LS_ERROR) << "Failed to create depacketizer.";
     return;
   }
   RtpDepacketizer::ParsedPayload parsed_payload;
   if (!depacketizer->Parse(&parsed_payload, packet.payload().data(),
                            packet.payload().size())) {
-    RTC_LOG(LS_WARNING) << "Failed parsing payload.";
+    RTC_DLOG(LS_WARNING) << "Failed parsing payload.";
     return;
   }
 
@@ -692,7 +692,7 @@ void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
       packet.GetExtension<RtpGenericFrameDescriptorExtension01>(
           &generic_descriptor_wire.value());
   if (generic_descriptor_v00 && generic_descriptor_v01) {
-    RTC_LOG(LS_WARNING) << "RTP packet had two different GFD versions.";
+    RTC_DLOG(LS_WARNING) << "RTP packet had two different GFD versions.";
     return;
   }
 
@@ -758,7 +758,7 @@ void RtpVideoStreamReceiver::NotifyReceiverOfEmptyPacket(uint16_t seq_num) {
   }
   if (loss_notification_controller_) {
     // TODO(bugs.webrtc.org/10336): Handle empty packets.
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "LossNotificationController does not expect empty packets.";
   }
 }
@@ -883,7 +883,7 @@ void RtpVideoStreamReceiver::InsertSpsPpsIntoTracker(uint8_t payload_type) {
   if (codec_params_it == pt_codec_params_.end())
     return;
 
-  RTC_LOG(LS_INFO) << "Found out of band supplied codec parameters for"
+  RTC_DLOG(LS_INFO) << "Found out of band supplied codec parameters for"
                    << " payload type: " << static_cast<int>(payload_type);
 
   H264SpropParameterSets sprop_decoder;

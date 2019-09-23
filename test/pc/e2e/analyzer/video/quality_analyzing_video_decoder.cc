@@ -206,7 +206,7 @@ void QualityAnalyzingVideoDecoder::OnFrameDecoded(
       // Ensure, that we have info about this frame. It can happen that for some
       // reasons decoder response, that he failed to decode, when we were
       // posting frame to it, but then call the callback for this frame.
-      RTC_LOG(LS_ERROR) << "QualityAnalyzingVideoDecoder::OnFrameDecoded: No "
+      RTC_DLOG(LS_ERROR) << "QualityAnalyzingVideoDecoder::OnFrameDecoded: No "
                            "frame id for frame for frame->timestamp()="
                         << frame->timestamp();
       return;

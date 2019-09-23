@@ -43,7 +43,7 @@ bool CheckAndLogError(BOOL success, NSError* error) {
         [NSString stringWithFormat:@"Error: %ld, %@, %@", (long)error.code,
                                    error.localizedDescription,
                                    error.localizedFailureReason];
-    RTC_LOG(LS_ERROR) << StdStringFromNSString(msg);
+    RTC_DLOG(LS_ERROR) << StdStringFromNSString(msg);
     return false;
   }
   return true;

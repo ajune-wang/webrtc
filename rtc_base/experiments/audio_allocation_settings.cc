@@ -44,7 +44,7 @@ AudioAllocationSettings::AudioAllocationSettings()
   }
   // priority_bitrate_raw will override priority_bitrate.
   if (priority_bitrate_raw_ && !priority_bitrate_->IsZero()) {
-    RTC_LOG(LS_WARNING) << "'priority_bitrate' and '_raw' are mutually "
+    RTC_DLOG(LS_WARNING) << "'priority_bitrate' and '_raw' are mutually "
                            "exclusive but both were configured.";
   }
 }

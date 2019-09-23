@@ -78,11 +78,11 @@ bool ValidateRtpExtensions(
   for (const auto& extension : extensions) {
     if (extension.id < webrtc::RtpExtension::kMinId ||
         extension.id > webrtc::RtpExtension::kMaxId) {
-      RTC_LOG(LS_ERROR) << "Bad RTP extension ID: " << extension.ToString();
+      RTC_DLOG(LS_ERROR) << "Bad RTP extension ID: " << extension.ToString();
       return false;
     }
     if (id_used[extension.id]) {
-      RTC_LOG(LS_ERROR) << "Duplicate RTP extension ID: "
+      RTC_DLOG(LS_ERROR) << "Duplicate RTP extension ID: "
                         << extension.ToString();
       return false;
     }
@@ -104,7 +104,7 @@ std::vector<webrtc::RtpExtension> FilterRtpExtensions(
     if (supported(extension.uri)) {
       result.push_back(extension);
     } else {
-      RTC_LOG(LS_WARNING) << "Unsupported RTP extension: "
+      RTC_DLOG(LS_WARNING) << "Unsupported RTP extension: "
                           << extension.ToString();
     }
   }

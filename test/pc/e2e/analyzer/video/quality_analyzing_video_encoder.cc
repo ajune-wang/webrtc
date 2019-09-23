@@ -244,7 +244,7 @@ EncodedImageCallback::Result QualityAnalyzingVideoEncoder::OnEncodedImage(
       // Ensure, that we have info about this frame. It can happen that for some
       // reasons encoder response, that he failed to decode, when we were
       // posting frame to it, but then call the callback for this frame.
-      RTC_LOG(LS_ERROR) << "QualityAnalyzingVideoEncoder::OnEncodedImage: No "
+      RTC_DLOG(LS_ERROR) << "QualityAnalyzingVideoEncoder::OnEncodedImage: No "
                            "frame id for encoded_image.Timestamp()="
                         << encoded_image.Timestamp();
       return EncodedImageCallback::Result(

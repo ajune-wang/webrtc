@@ -72,7 +72,7 @@ int DtmfBuffer::ParseEvent(uint32_t rtp_timestamp,
   RTC_CHECK(payload);
   RTC_CHECK(event);
   if (payload_length_bytes < 4) {
-    RTC_LOG(LS_WARNING) << "ParseEvent payload too short";
+    RTC_DLOG(LS_WARNING) << "ParseEvent payload too short";
     return kPayloadTooShort;
   }
 
@@ -99,7 +99,7 @@ int DtmfBuffer::ParseEvent(uint32_t rtp_timestamp,
 int DtmfBuffer::InsertEvent(const DtmfEvent& event) {
   if (event.event_no < 0 || event.event_no > 15 || event.volume < 0 ||
       event.volume > 63 || event.duration <= 0 || event.duration > 65535) {
-    RTC_LOG(LS_WARNING) << "InsertEvent invalid parameters";
+    RTC_DLOG(LS_WARNING) << "InsertEvent invalid parameters";
     return kInvalidEventParameters;
   }
   DtmfList::iterator it = buffer_.begin();

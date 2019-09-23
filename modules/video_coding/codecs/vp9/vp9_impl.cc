@@ -329,7 +329,7 @@ bool VP9EncoderImpl::SetSvcRates(
     for (int i = 0; i < num_spatial_layers_; ++i) {
       if (svc_params_.scaling_factor_num[i] <= 0 ||
           svc_params_.scaling_factor_den[i] <= 0) {
-        RTC_LOG(LS_ERROR) << "Scaling factors not specified!";
+        RTC_DLOG(LS_ERROR) << "Scaling factors not specified!";
         return false;
       }
       rate_ratio[i] = static_cast<float>(svc_params_.scaling_factor_num[i]) /
@@ -357,7 +357,7 @@ bool VP9EncoderImpl::SetSvcRates(
         config_->layer_target_bitrate[i * num_temporal_layers_ + 2] =
             config_->ss_target_bitrate[i];
       } else {
-        RTC_LOG(LS_ERROR) << "Unsupported number of temporal layers: "
+        RTC_DLOG(LS_ERROR) << "Unsupported number of temporal layers: "
                           << num_temporal_layers_;
         return false;
       }
@@ -379,15 +379,15 @@ bool VP9EncoderImpl::SetSvcRates(
 
 void VP9EncoderImpl::SetRates(const RateControlParameters& parameters) {
   if (!inited_) {
-    RTC_LOG(LS_WARNING) << "SetRates() calll while uninitialzied.";
+    RTC_DLOG(LS_WARNING) << "SetRates() calll while uninitialzied.";
     return;
   }
   if (encoder_->err) {
-    RTC_LOG(LS_WARNING) << "Encoder in error state: " << encoder_->err;
+    RTC_DLOG(LS_WARNING) << "Encoder in error state: " << encoder_->err;
     return;
   }
   if (parameters.framerate_fps < 1.0) {
-    RTC_LOG(LS_WARNING) << "Unsupported framerate: "
+    RTC_DLOG(LS_WARNING) << "Unsupported framerate: "
                         << parameters.framerate_fps;
     return;
   }
@@ -527,7 +527,7 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
 
   if (num_spatial_layers_ > 1 &&
       codec_.mode == VideoCodecMode::kScreensharing && !is_flexible_mode_) {
-    RTC_LOG(LS_ERROR) << "Flexible mode is required for screenshare with "
+    RTC_DLOG(LS_ERROR) << "Flexible mode is required for screenshare with "
                          "several spatial layers";
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
@@ -671,7 +671,7 @@ int VP9EncoderImpl::InitAndSetControlSettings(const VideoCodec* inst) {
       encoder_, vpx_codec_vp9_cx(), config_,
       config_->g_bit_depth == VPX_BITS_8 ? 0 : VPX_CODEC_USE_HIGHBITDEPTH);
   if (rv != VPX_CODEC_OK) {
-    RTC_LOG(LS_ERROR) << "Init error: " << vpx_codec_err_to_string(rv);
+    RTC_DLOG(LS_ERROR) << "Init error: " << vpx_codec_err_to_string(rv);
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
   }
   vpx_codec_control(encoder_, VP8E_SET_CPUUSED, cpu_speed_);
@@ -1014,7 +1014,7 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
   const vpx_codec_err_t rv = vpx_codec_encode(encoder_, raw_, timestamp_,
                                               duration, flags, VPX_DL_REALTIME);
   if (rv != VPX_CODEC_OK) {
-    RTC_LOG(LS_ERROR) << "Encoding error: " << vpx_codec_err_to_string(rv)
+    RTC_DLOG(LS_ERROR) << "Encoding error: " << vpx_codec_err_to_string(rv)
                       << "\n"
                       << "Details: " << vpx_codec_error(encoder_) << "\n"
                       << vpx_codec_error_detail(encoder_);
@@ -1190,7 +1190,7 @@ void VP9EncoderImpl::FillReferenceIndices(const vpx_codec_cx_pkt& pkt,
       }
     }
 
-    RTC_LOG(LS_VERBOSE) << "Frame " << pic_num << " sl "
+    RTC_DLOG(LS_VERBOSE) << "Frame " << pic_num << " sl "
                         << layer_id.spatial_layer_id << " tl "
                         << layer_id.temporal_layer_id << " refered buffers "
                         << (ref_buf_flags & (1 << 0) ? 1 : 0)
@@ -1279,7 +1279,7 @@ void VP9EncoderImpl::UpdateReferenceBuffers(const vpx_codec_cx_pkt& pkt,
       }
     }
 
-    RTC_LOG(LS_VERBOSE) << "Frame " << pic_num << " sl "
+    RTC_DLOG(LS_VERBOSE) << "Frame " << pic_num << " sl "
                         << layer_id.spatial_layer_id << " tl "
                         << layer_id.temporal_layer_id << " updated buffers "
                         << (update_buffer_slot & (1 << 0) ? 1 : 0)
@@ -1587,7 +1587,7 @@ VP9DecoderImpl::~VP9DecoderImpl() {
     // The frame buffers are reference counted and frames are exposed after
     // decoding. There may be valid usage cases where previous frames are still
     // referenced after ~VP9DecoderImpl that is not a leak.
-    RTC_LOG(LS_INFO) << num_buffers_in_use << " Vp9FrameBuffers are still "
+    RTC_DLOG(LS_INFO) << num_buffers_in_use << " Vp9FrameBuffers are still "
                      << "referenced during ~VP9DecoderImpl.";
   }
 }

@@ -60,8 +60,8 @@
   rtc::RTCCertificatePEM pem = cc_certificate->ToPEM();
   std::string pem_private_key = pem.private_key();
   std::string pem_certificate = pem.certificate();
-  RTC_LOG(LS_INFO) << "CERT PEM ";
-  RTC_LOG(LS_INFO) << pem_certificate;
+  RTC_DLOG(LS_INFO) << "CERT PEM ";
+  RTC_DLOG(LS_INFO) << pem_certificate;
 
   RTCCertificate *cert = [[RTCCertificate alloc] initWithPrivateKey:@(pem_private_key.c_str())
                                                         certificate:@(pem_certificate.c_str())];

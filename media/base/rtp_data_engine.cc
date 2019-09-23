@@ -106,7 +106,7 @@ const DataCodec* FindKnownCodec(const std::vector<DataCodec>& codecs) {
 bool RtpDataMediaChannel::SetRecvCodecs(const std::vector<DataCodec>& codecs) {
   const DataCodec* unknown_codec = FindUnknownCodec(codecs);
   if (unknown_codec) {
-    RTC_LOG(LS_WARNING) << "Failed to SetRecvCodecs because of unknown codec: "
+    RTC_DLOG(LS_WARNING) << "Failed to SetRecvCodecs because of unknown codec: "
                         << unknown_codec->ToString();
     return false;
   }
@@ -118,7 +118,7 @@ bool RtpDataMediaChannel::SetRecvCodecs(const std::vector<DataCodec>& codecs) {
 bool RtpDataMediaChannel::SetSendCodecs(const std::vector<DataCodec>& codecs) {
   const DataCodec* known_codec = FindKnownCodec(codecs);
   if (!known_codec) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Failed to SetSendCodecs because there is no known codec.";
     return false;
   }
@@ -142,7 +142,7 @@ bool RtpDataMediaChannel::AddSendStream(const StreamParams& stream) {
   }
 
   if (GetStreamBySsrc(send_streams_, stream.first_ssrc())) {
-    RTC_LOG(LS_WARNING) << "Not adding data send stream '" << stream.id
+    RTC_DLOG(LS_WARNING) << "Not adding data send stream '" << stream.id
                         << "' with ssrc=" << stream.first_ssrc()
                         << " because stream already exists.";
     return false;
@@ -155,7 +155,7 @@ bool RtpDataMediaChannel::AddSendStream(const StreamParams& stream) {
       new RtpClock(kDataCodecClockrate, rtc::CreateRandomNonZeroId(),
                    rtc::CreateRandomNonZeroId());
 
-  RTC_LOG(LS_INFO) << "Added data send stream '" << stream.id
+  RTC_DLOG(LS_INFO) << "Added data send stream '" << stream.id
                    << "' with ssrc=" << stream.first_ssrc();
   return true;
 }
@@ -177,14 +177,14 @@ bool RtpDataMediaChannel::AddRecvStream(const StreamParams& stream) {
   }
 
   if (GetStreamBySsrc(recv_streams_, stream.first_ssrc())) {
-    RTC_LOG(LS_WARNING) << "Not adding data recv stream '" << stream.id
+    RTC_DLOG(LS_WARNING) << "Not adding data recv stream '" << stream.id
                         << "' with ssrc=" << stream.first_ssrc()
                         << " because stream already exists.";
     return false;
   }
 
   recv_streams_.push_back(stream);
-  RTC_LOG(LS_INFO) << "Added data recv stream '" << stream.id
+  RTC_DLOG(LS_INFO) << "Added data recv stream '" << stream.id
                    << "' with ssrc=" << stream.first_ssrc();
   return true;
 }
@@ -210,7 +210,7 @@ void RtpDataMediaChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
   size_t data_len = packet.size() - header_length - sizeof(kReservedSpace);
 
   if (!receiving_) {
-    RTC_LOG(LS_WARNING) << "Not receiving packet " << header.ssrc << ":"
+    RTC_DLOG(LS_WARNING) << "Not receiving packet " << header.ssrc << ":"
                         << header.seq_num << " before SetReceive(true) called.";
     return;
   }
@@ -220,13 +220,13 @@ void RtpDataMediaChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
   }
 
   if (!GetStreamBySsrc(recv_streams_, header.ssrc)) {
-    RTC_LOG(LS_WARNING) << "Received packet for unknown ssrc: " << header.ssrc;
+    RTC_DLOG(LS_WARNING) << "Received packet for unknown ssrc: " << header.ssrc;
     return;
   }
 
   // Uncomment this for easy debugging.
   // const auto* found_stream = GetStreamBySsrc(recv_streams_, header.ssrc);
-  // RTC_LOG(LS_INFO) << "Received packet"
+  // RTC_DLOG(LS_INFO) << "Received packet"
   //              << " groupid=" << found_stream.groupid
   //              << ", ssrc=" << header.ssrc
   //              << ", seqnum=" << header.seq_num
@@ -245,7 +245,7 @@ bool RtpDataMediaChannel::SetMaxSendBandwidth(int bps) {
     bps = kDataMaxBandwidth;
   }
   send_limiter_.reset(new rtc::DataRateLimiter(bps / 8, 1.0));
-  RTC_LOG(LS_INFO) << "RtpDataMediaChannel::SetSendBandwidth to " << bps
+  RTC_DLOG(LS_INFO) << "RtpDataMediaChannel::SetSendBandwidth to " << bps
                    << "bps.";
   return true;
 }
@@ -258,14 +258,14 @@ bool RtpDataMediaChannel::SendData(const SendDataParams& params,
     *result = SDR_ERROR;
   }
   if (!sending_) {
-    RTC_LOG(LS_WARNING) << "Not sending packet with ssrc=" << params.ssrc
+    RTC_DLOG(LS_WARNING) << "Not sending packet with ssrc=" << params.ssrc
                         << " len=" << payload.size()
                         << " before SetSend(true).";
     return false;
   }
 
   if (params.type != cricket::DMT_TEXT) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Not sending data because binary type is unsupported.";
     return false;
   }
@@ -273,7 +273,7 @@ bool RtpDataMediaChannel::SendData(const SendDataParams& params,
   const StreamParams* found_stream =
       GetStreamBySsrc(send_streams_, params.ssrc);
   if (!found_stream) {
-    RTC_LOG(LS_WARNING) << "Not sending data because ssrc is unknown: "
+    RTC_DLOG(LS_WARNING) << "Not sending data because ssrc is unknown: "
                         << params.ssrc;
     return false;
   }
@@ -281,7 +281,7 @@ bool RtpDataMediaChannel::SendData(const SendDataParams& params,
   const DataCodec* found_codec =
       FindCodecByName(send_codecs_, kGoogleRtpDataCodecName);
   if (!found_codec) {
-    RTC_LOG(LS_WARNING) << "Not sending data because codec is unknown: "
+    RTC_DLOG(LS_WARNING) << "Not sending data because codec is unknown: "
                         << kGoogleRtpDataCodecName;
     return false;
   }
@@ -296,7 +296,7 @@ bool RtpDataMediaChannel::SendData(const SendDataParams& params,
       rtc::TimeMicros() / static_cast<double>(rtc::kNumMicrosecsPerSec);
 
   if (!send_limiter_->CanUse(packet_len, now)) {
-    RTC_LOG(LS_VERBOSE) << "Dropped data packet of len=" << packet_len
+    RTC_DLOG(LS_VERBOSE) << "Dropped data packet of len=" << packet_len
                         << "; already sent " << send_limiter_->used_in_period()
                         << "/" << send_limiter_->max_per_period();
     return false;
@@ -315,7 +315,7 @@ bool RtpDataMediaChannel::SendData(const SendDataParams& params,
   packet.AppendData(kReservedSpace);
   packet.AppendData(payload);
 
-  RTC_LOG(LS_VERBOSE) << "Sent RTP data packet: "
+  RTC_DLOG(LS_VERBOSE) << "Sent RTP data packet: "
                       << " stream=" << found_stream->id
                       << " ssrc=" << header.ssrc
                       << ", seqnum=" << header.seq_num

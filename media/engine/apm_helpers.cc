@@ -29,7 +29,7 @@ void Init(AudioProcessing* apm) {
 #else
   config.gain_controller1.mode = config.gain_controller1.kAdaptiveAnalog;
 #endif
-  RTC_LOG(LS_INFO) << "Setting AGC mode to " << config.gain_controller1.mode;
+  RTC_DLOG(LS_INFO) << "Setting AGC mode to " << config.gain_controller1.mode;
   // This is the initialization which used to happen in VoEBase::Init(), but
   // which is not covered by the WVoE::ApplyOptions().
   config.gain_controller1.analog_level_minimum = kMinVolumeLevel;
@@ -45,21 +45,21 @@ void SetEcStatus(AudioProcessing* apm, bool enable, EcModes mode) {
   apm_config.echo_canceller.mobile_mode = (mode == kEcAecm);
   apm_config.echo_canceller.legacy_moderate_suppression_level = false;
   apm->ApplyConfig(apm_config);
-  RTC_LOG(LS_INFO) << "Echo control set to " << enable << " with mode " << mode;
+  RTC_DLOG(LS_INFO) << "Echo control set to " << enable << " with mode " << mode;
 }
 
 void SetNsStatus(AudioProcessing* apm, bool enable) {
   RTC_DCHECK(apm);
   NoiseSuppression* ns = apm->noise_suppression();
   if (ns->set_level(NoiseSuppression::kHigh) != 0) {
-    RTC_LOG(LS_ERROR) << "Failed to set high NS level.";
+    RTC_DLOG(LS_ERROR) << "Failed to set high NS level.";
     return;
   }
   if (ns->Enable(enable) != 0) {
-    RTC_LOG(LS_ERROR) << "Failed to enable/disable NS: " << enable;
+    RTC_DLOG(LS_ERROR) << "Failed to enable/disable NS: " << enable;
     return;
   }
-  RTC_LOG(LS_INFO) << "NS set to " << enable;
+  RTC_DLOG(LS_INFO) << "NS set to " << enable;
 }
 }  // namespace apm_helpers
 }  // namespace webrtc

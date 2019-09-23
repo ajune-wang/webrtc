@@ -555,7 +555,7 @@ int32_t MediaCodecVideoEncoder::InitEncodeInternal(int width,
         encoder_fourcc_ = libyuv::FOURCC_NV12;
         break;
       default:
-        RTC_LOG(LS_ERROR) << "Wrong color format.";
+        RTC_DLOG(LS_ERROR) << "Wrong color format.";
         ProcessHWError(false /* reset_if_fallback_unavailable */);
         return WEBRTC_VIDEO_CODEC_ERROR;
     }

@@ -46,7 +46,7 @@ bool ReceiverReport::Parse(const CommonHeader& packet) {
 
   if (packet.payload_size_bytes() <
       kRrBaseLength + report_blocks_count * ReportBlock::kLength) {
-    RTC_LOG(LS_WARNING) << "Packet is too small to contain all the data.";
+    RTC_DLOG(LS_WARNING) << "Packet is too small to contain all the data.";
     return false;
   }
 
@@ -91,7 +91,7 @@ bool ReceiverReport::Create(uint8_t* packet,
 
 bool ReceiverReport::AddReportBlock(const ReportBlock& block) {
   if (report_blocks_.size() >= kMaxNumberOfReportBlocks) {
-    RTC_LOG(LS_WARNING) << "Max report blocks reached.";
+    RTC_DLOG(LS_WARNING) << "Max report blocks reached.";
     return false;
   }
   report_blocks_.push_back(block);
@@ -100,7 +100,7 @@ bool ReceiverReport::AddReportBlock(const ReportBlock& block) {
 
 bool ReceiverReport::SetReportBlocks(std::vector<ReportBlock> blocks) {
   if (blocks.size() > kMaxNumberOfReportBlocks) {
-    RTC_LOG(LS_WARNING) << "Too many report blocks (" << blocks.size()
+    RTC_DLOG(LS_WARNING) << "Too many report blocks (" << blocks.size()
                         << ") for receiver report.";
     return false;
   }

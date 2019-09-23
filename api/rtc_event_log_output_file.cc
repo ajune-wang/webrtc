@@ -46,7 +46,7 @@ RtcEventLogOutputFile::RtcEventLogOutputFile(FileWrapper file,
     : max_size_bytes_(max_size_bytes), file_(std::move(file)) {
   RTC_CHECK_LE(max_size_bytes_, kMaxReasonableFileSize);
   if (!file_.is_open()) {
-    RTC_LOG(LS_ERROR) << "Invalid file. WebRTC event log not started.";
+    RTC_DLOG(LS_ERROR) << "Invalid file. WebRTC event log not started.";
   }
 }
 
@@ -66,10 +66,10 @@ bool RtcEventLogOutputFile::Write(const std::string& output) {
       written_bytes_ += output.size();
       return true;
     } else {
-      RTC_LOG(LS_ERROR) << "Write to WebRtcEventLog file failed.";
+      RTC_DLOG(LS_ERROR) << "Write to WebRtcEventLog file failed.";
     }
   } else {
-    RTC_LOG(LS_VERBOSE) << "Max file size reached.";
+    RTC_DLOG(LS_VERBOSE) << "Max file size reached.";
   }
 
   // Failed, for one of above reasons. Close output file.

@@ -1056,7 +1056,7 @@ class JsepTransport2HeaderExtensionTest
                      size_t size,
                      const int64_t& /* packet_time_us */,
                      int flags) {
-    RTC_LOG(LS_INFO) << "JsepTransport 1 Received a packet.";
+    RTC_DLOG(LS_INFO) << "JsepTransport 1 Received a packet.";
     CompareHeaderExtensions(
         reinterpret_cast<const char*>(kPcmuFrameWithExtensions),
         sizeof(kPcmuFrameWithExtensions), data, size, recv_encrypted_headers1_,
@@ -1069,7 +1069,7 @@ class JsepTransport2HeaderExtensionTest
                      size_t size,
                      const int64_t& /* packet_time_us */,
                      int flags) {
-    RTC_LOG(LS_INFO) << "JsepTransport 2 Received a packet.";
+    RTC_DLOG(LS_INFO) << "JsepTransport 2 Received a packet.";
     CompareHeaderExtensions(
         reinterpret_cast<const char*>(kPcmuFrameWithExtensions),
         sizeof(kPcmuFrameWithExtensions), data, size, recv_encrypted_headers2_,

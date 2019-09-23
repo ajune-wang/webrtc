@@ -53,7 +53,7 @@ std::vector<SdpVideoFormat> InternalDecoderFactory::GetSupportedFormats()
 std::unique_ptr<VideoDecoder> InternalDecoderFactory::CreateVideoDecoder(
     const SdpVideoFormat& format) {
   if (!IsFormatSupported(GetSupportedFormats(), format)) {
-    RTC_LOG(LS_ERROR) << "Trying to create decoder for unsupported format";
+    RTC_DLOG(LS_ERROR) << "Trying to create decoder for unsupported format";
     return nullptr;
   }
 

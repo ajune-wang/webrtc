@@ -191,7 +191,7 @@ bool XServerPixelBuffer::Init(XAtomCache* cache, Window window) {
           icc_profile_property.data(),
           icc_profile_property.data() + icc_profile_property.size());
     } else {
-      RTC_LOG(LS_WARNING) << "Failed to get icc profile";
+      RTC_DLOG(LS_WARNING) << "Failed to get icc profile";
     }
   }
 
@@ -236,18 +236,18 @@ void XServerPixelBuffer::InitShm(const XWindowAttributes& attributes) {
         if (error_trap.GetLastErrorAndDisable() != 0)
           using_shm = false;
         if (using_shm) {
-          RTC_LOG(LS_VERBOSE)
+          RTC_DLOG(LS_VERBOSE)
               << "Using X shared memory segment " << shm_segment_info_->shmid;
         }
       }
     } else {
-      RTC_LOG(LS_WARNING) << "Failed to get shared memory segment. "
+      RTC_DLOG(LS_WARNING) << "Failed to get shared memory segment. "
                              "Performance may be degraded.";
     }
   }
 
   if (!using_shm) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Not using shared memory. Performance may be degraded.";
     ReleaseSharedMemorySegment();
     return;
@@ -259,7 +259,7 @@ void XServerPixelBuffer::InitShm(const XWindowAttributes& attributes) {
   shmctl(shm_segment_info_->shmid, IPC_RMID, 0);
   shm_segment_info_->shmid = -1;
 
-  RTC_LOG(LS_VERBOSE) << "Using X shared memory extension v" << major << "."
+  RTC_DLOG(LS_VERBOSE) << "Using X shared memory extension v" << major << "."
                       << minor << " with" << (have_pixmaps ? "" : "out")
                       << " pixmaps.";
 }

@@ -138,7 +138,7 @@ PeerConnectionTestWrapper::CreateDataChannel(
 void PeerConnectionTestWrapper::OnAddTrack(
     rtc::scoped_refptr<RtpReceiverInterface> receiver,
     const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams) {
-  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_ << ": OnAddTrack";
+  RTC_DLOG(LS_INFO) << "PeerConnectionTestWrapper " << name_ << ": OnAddTrack";
   if (receiver->track()->kind() == MediaStreamTrackInterface::kVideoKind) {
     auto* video_track =
         static_cast<VideoTrackInterface*>(receiver->track().get());
@@ -167,7 +167,7 @@ void PeerConnectionTestWrapper::OnSuccess(SessionDescriptionInterface* desc) {
   std::string sdp;
   EXPECT_TRUE(desc->ToString(&sdp));
 
-  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_ << ": "
+  RTC_DLOG(LS_INFO) << "PeerConnectionTestWrapper " << name_ << ": "
                    << webrtc::SdpTypeToString(desc->GetType())
                    << " sdp created: " << sdp;
 
@@ -181,13 +181,13 @@ void PeerConnectionTestWrapper::OnSuccess(SessionDescriptionInterface* desc) {
 
 void PeerConnectionTestWrapper::CreateOffer(
     const webrtc::PeerConnectionInterface::RTCOfferAnswerOptions& options) {
-  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_ << ": CreateOffer.";
+  RTC_DLOG(LS_INFO) << "PeerConnectionTestWrapper " << name_ << ": CreateOffer.";
   peer_connection_->CreateOffer(this, options);
 }
 
 void PeerConnectionTestWrapper::CreateAnswer(
     const webrtc::PeerConnectionInterface::RTCOfferAnswerOptions& options) {
-  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
+  RTC_DLOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
                    << ": CreateAnswer.";
   peer_connection_->CreateAnswer(this, options);
 }
@@ -203,7 +203,7 @@ void PeerConnectionTestWrapper::ReceiveAnswerSdp(const std::string& sdp) {
 
 void PeerConnectionTestWrapper::SetLocalDescription(SdpType type,
                                                     const std::string& sdp) {
-  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
+  RTC_DLOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
                    << ": SetLocalDescription " << webrtc::SdpTypeToString(type)
                    << " " << sdp;
 
@@ -215,7 +215,7 @@ void PeerConnectionTestWrapper::SetLocalDescription(SdpType type,
 
 void PeerConnectionTestWrapper::SetRemoteDescription(SdpType type,
                                                      const std::string& sdp) {
-  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
+  RTC_DLOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
                    << ": SetRemoteDescription " << webrtc::SdpTypeToString(type)
                    << " " << sdp;
 
@@ -241,7 +241,7 @@ void PeerConnectionTestWrapper::WaitForCallEstablished() {
 
 void PeerConnectionTestWrapper::WaitForConnection() {
   EXPECT_TRUE_WAIT(CheckForConnection(), kMaxWait);
-  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_ << ": Connected.";
+  RTC_DLOG(LS_INFO) << "PeerConnectionTestWrapper " << name_ << ": Connected.";
 }
 
 bool PeerConnectionTestWrapper::CheckForConnection() {
@@ -253,7 +253,7 @@ bool PeerConnectionTestWrapper::CheckForConnection() {
 
 void PeerConnectionTestWrapper::WaitForAudio() {
   EXPECT_TRUE_WAIT(CheckForAudio(), kMaxWait);
-  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
+  RTC_DLOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
                    << ": Got enough audio frames.";
 }
 
@@ -264,7 +264,7 @@ bool PeerConnectionTestWrapper::CheckForAudio() {
 
 void PeerConnectionTestWrapper::WaitForVideo() {
   EXPECT_TRUE_WAIT(CheckForVideo(), kMaxWait);
-  RTC_LOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
+  RTC_DLOG(LS_INFO) << "PeerConnectionTestWrapper " << name_
                    << ": Got enough video frames.";
 }
 

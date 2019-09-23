@@ -31,12 +31,12 @@ absl::optional<double> JitterUpperBoundExperiment::GetUpperBoundSigmas() {
 
   double upper_bound_sigmas;
   if (sscanf(group.c_str(), "Enabled-%lf", &upper_bound_sigmas) != 1) {
-    RTC_LOG(LS_WARNING) << "Invalid number of parameters provided.";
+    RTC_DLOG(LS_WARNING) << "Invalid number of parameters provided.";
     return absl::nullopt;
   }
 
   if (upper_bound_sigmas < 0) {
-    RTC_LOG(LS_WARNING) << "Invalid jitter upper bound sigmas, must be >= 0.0: "
+    RTC_DLOG(LS_WARNING) << "Invalid jitter upper bound sigmas, must be >= 0.0: "
                         << upper_bound_sigmas;
     return absl::nullopt;
   }

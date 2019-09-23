@@ -146,7 +146,7 @@ void PacketRouter::SendPacket(std::unique_ptr<RtpPacketToSend> packet,
     }
   }
 
-  RTC_LOG(LS_WARNING) << "Failed to send packet, matching RTP module not found "
+  RTC_DLOG(LS_WARNING) << "Failed to send packet, matching RTP module not found "
                          "or transport error. SSRC = "
                       << packet->Ssrc() << ", sequence number "
                       << packet->SequenceNumber();

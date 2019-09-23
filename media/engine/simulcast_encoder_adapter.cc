@@ -457,12 +457,12 @@ void SimulcastEncoderAdapter::SetRates(
   RTC_DCHECK_RUN_ON(&encoder_queue_);
 
   if (!Initialized()) {
-    RTC_LOG(LS_WARNING) << "SetRates while not initialized";
+    RTC_DLOG(LS_WARNING) << "SetRates while not initialized";
     return;
   }
 
   if (parameters.framerate_fps < 1.0) {
-    RTC_LOG(LS_WARNING) << "Invalid framerate: " << parameters.framerate_fps;
+    RTC_DLOG(LS_WARNING) << "Invalid framerate: " << parameters.framerate_fps;
     return;
   }
 

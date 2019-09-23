@@ -69,13 +69,13 @@ bool SrtpSession::UpdateRecv(int cs,
 bool SrtpSession::ProtectRtp(void* p, int in_len, int max_len, int* out_len) {
   RTC_DCHECK(thread_checker_.IsCurrent());
   if (!session_) {
-    RTC_LOG(LS_WARNING) << "Failed to protect SRTP packet: no SRTP Session";
+    RTC_DLOG(LS_WARNING) << "Failed to protect SRTP packet: no SRTP Session";
     return false;
   }
 
   int need_len = in_len + rtp_auth_tag_len_;  // NOLINT
   if (max_len < need_len) {
-    RTC_LOG(LS_WARNING) << "Failed to protect SRTP packet: The buffer length "
+    RTC_DLOG(LS_WARNING) << "Failed to protect SRTP packet: The buffer length "
                         << max_len << " is less than the needed " << need_len;
     return false;
   }
@@ -85,7 +85,7 @@ bool SrtpSession::ProtectRtp(void* p, int in_len, int max_len, int* out_len) {
   int seq_num;
   GetRtpSeqNum(p, in_len, &seq_num);
   if (err != srtp_err_status_ok) {
-    RTC_LOG(LS_WARNING) << "Failed to protect SRTP packet, seqnum=" << seq_num
+    RTC_DLOG(LS_WARNING) << "Failed to protect SRTP packet, seqnum=" << seq_num
                         << ", err=" << err
                         << ", last seqnum=" << last_send_seq_num_;
     return false;
@@ -108,13 +108,13 @@ bool SrtpSession::ProtectRtp(void* p,
 bool SrtpSession::ProtectRtcp(void* p, int in_len, int max_len, int* out_len) {
   RTC_DCHECK(thread_checker_.IsCurrent());
   if (!session_) {
-    RTC_LOG(LS_WARNING) << "Failed to protect SRTCP packet: no SRTP Session";
+    RTC_DLOG(LS_WARNING) << "Failed to protect SRTCP packet: no SRTP Session";
     return false;
   }
 
   int need_len = in_len + sizeof(uint32_t) + rtcp_auth_tag_len_;  // NOLINT
   if (max_len < need_len) {
-    RTC_LOG(LS_WARNING) << "Failed to protect SRTCP packet: The buffer length "
+    RTC_DLOG(LS_WARNING) << "Failed to protect SRTCP packet: The buffer length "
                         << max_len << " is less than the needed " << need_len;
     return false;
   }
@@ -122,7 +122,7 @@ bool SrtpSession::ProtectRtcp(void* p, int in_len, int max_len, int* out_len) {
   *out_len = in_len;
   int err = srtp_protect_rtcp(session_, p, out_len);
   if (err != srtp_err_status_ok) {
-    RTC_LOG(LS_WARNING) << "Failed to protect SRTCP packet, err=" << err;
+    RTC_DLOG(LS_WARNING) << "Failed to protect SRTCP packet, err=" << err;
     return false;
   }
   return true;
@@ -131,7 +131,7 @@ bool SrtpSession::ProtectRtcp(void* p, int in_len, int max_len, int* out_len) {
 bool SrtpSession::UnprotectRtp(void* p, int in_len, int* out_len) {
   RTC_DCHECK(thread_checker_.IsCurrent());
   if (!session_) {
-    RTC_LOG(LS_WARNING) << "Failed to unprotect SRTP packet: no SRTP Session";
+    RTC_DLOG(LS_WARNING) << "Failed to unprotect SRTP packet: no SRTP Session";
     return false;
   }
 
@@ -142,7 +142,7 @@ bool SrtpSession::UnprotectRtp(void* p, int in_len, int* out_len) {
     // bad packets.
     const int kFailureLogThrottleCount = 100;
     if (decryption_failure_count_ % kFailureLogThrottleCount == 0) {
-      RTC_LOG(LS_WARNING) << "Failed to unprotect SRTP packet, err=" << err
+      RTC_DLOG(LS_WARNING) << "Failed to unprotect SRTP packet, err=" << err
                           << ", previous failure count: "
                           << decryption_failure_count_;
     }
@@ -157,14 +157,14 @@ bool SrtpSession::UnprotectRtp(void* p, int in_len, int* out_len) {
 bool SrtpSession::UnprotectRtcp(void* p, int in_len, int* out_len) {
   RTC_DCHECK(thread_checker_.IsCurrent());
   if (!session_) {
-    RTC_LOG(LS_WARNING) << "Failed to unprotect SRTCP packet: no SRTP Session";
+    RTC_DLOG(LS_WARNING) << "Failed to unprotect SRTCP packet: no SRTP Session";
     return false;
   }
 
   *out_len = in_len;
   int err = srtp_unprotect_rtcp(session_, p, out_len);
   if (err != srtp_err_status_ok) {
-    RTC_LOG(LS_WARNING) << "Failed to unprotect SRTCP packet, err=" << err;
+    RTC_DLOG(LS_WARNING) << "Failed to unprotect SRTCP packet, err=" << err;
     RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.SrtcpUnprotectError",
                               static_cast<int>(err), kSrtpErrorCodeBoundary);
     return false;
@@ -190,7 +190,7 @@ bool SrtpSession::GetRtpAuthParams(uint8_t** key, int* key_len, int* tag_len) {
   }
 
   if (!external_hmac) {
-    RTC_LOG(LS_ERROR) << "Failed to get auth keys from libsrtp!.";
+    RTC_DLOG(LS_ERROR) << "Failed to get auth keys from libsrtp!.";
     return false;
   }
 
@@ -256,7 +256,7 @@ bool SrtpSession::DoSetKey(int type,
     srtp_crypto_policy_set_aes_gcm_256_16_auth(&policy.rtp);
     srtp_crypto_policy_set_aes_gcm_256_16_auth(&policy.rtcp);
   } else {
-    RTC_LOG(LS_WARNING) << "Failed to " << (session_ ? "update" : "create")
+    RTC_DLOG(LS_WARNING) << "Failed to " << (session_ ? "update" : "create")
                         << " SRTP session: unsupported cipher_suite " << cs;
     return false;
   }
@@ -267,7 +267,7 @@ bool SrtpSession::DoSetKey(int type,
                                      &expected_salt_len)) {
     // This should never happen.
     RTC_NOTREACHED();
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Failed to " << (session_ ? "update" : "create")
         << " SRTP session: unsupported cipher_suite without length information"
         << cs;
@@ -276,7 +276,7 @@ bool SrtpSession::DoSetKey(int type,
 
   if (!key ||
       len != static_cast<size_t>(expected_key_len + expected_salt_len)) {
-    RTC_LOG(LS_WARNING) << "Failed to " << (session_ ? "update" : "create")
+    RTC_DLOG(LS_WARNING) << "Failed to " << (session_ ? "update" : "create")
                         << " SRTP session: invalid key";
     return false;
   }
@@ -307,14 +307,14 @@ bool SrtpSession::DoSetKey(int type,
     int err = srtp_create(&session_, &policy);
     if (err != srtp_err_status_ok) {
       session_ = nullptr;
-      RTC_LOG(LS_ERROR) << "Failed to create SRTP session, err=" << err;
+      RTC_DLOG(LS_ERROR) << "Failed to create SRTP session, err=" << err;
       return false;
     }
     srtp_set_user_data(session_, this);
   } else {
     int err = srtp_update(session_, &policy);
     if (err != srtp_err_status_ok) {
-      RTC_LOG(LS_ERROR) << "Failed to update SRTP session, err=" << err;
+      RTC_DLOG(LS_ERROR) << "Failed to update SRTP session, err=" << err;
       return false;
     }
   }
@@ -332,7 +332,7 @@ bool SrtpSession::SetKey(int type,
                          const std::vector<int>& extension_ids) {
   RTC_DCHECK(thread_checker_.IsCurrent());
   if (session_) {
-    RTC_LOG(LS_ERROR) << "Failed to create SRTP session: "
+    RTC_DLOG(LS_ERROR) << "Failed to create SRTP session: "
                          "SRTP session already created";
     return false;
   }
@@ -355,7 +355,7 @@ bool SrtpSession::UpdateKey(int type,
                             const std::vector<int>& extension_ids) {
   RTC_DCHECK(thread_checker_.IsCurrent());
   if (!session_) {
-    RTC_LOG(LS_ERROR) << "Failed to update non-existing SRTP session";
+    RTC_DLOG(LS_ERROR) << "Failed to update non-existing SRTP session";
     return false;
   }
 
@@ -374,19 +374,19 @@ bool SrtpSession::IncrementLibsrtpUsageCountAndMaybeInit() {
     int err;
     err = srtp_init();
     if (err != srtp_err_status_ok) {
-      RTC_LOG(LS_ERROR) << "Failed to init SRTP, err=" << err;
+      RTC_DLOG(LS_ERROR) << "Failed to init SRTP, err=" << err;
       return false;
     }
 
     err = srtp_install_event_handler(&SrtpSession::HandleEventThunk);
     if (err != srtp_err_status_ok) {
-      RTC_LOG(LS_ERROR) << "Failed to install SRTP event handler, err=" << err;
+      RTC_DLOG(LS_ERROR) << "Failed to install SRTP event handler, err=" << err;
       return false;
     }
 
     err = external_crypto_init();
     if (err != srtp_err_status_ok) {
-      RTC_LOG(LS_ERROR) << "Failed to initialize fake auth, err=" << err;
+      RTC_DLOG(LS_ERROR) << "Failed to initialize fake auth, err=" << err;
       return false;
     }
   }
@@ -402,7 +402,7 @@ void SrtpSession::DecrementLibsrtpUsageCountAndMaybeDeinit() {
   if (--g_libsrtp_usage_count == 0) {
     int err = srtp_shutdown();
     if (err) {
-      RTC_LOG(LS_ERROR) << "srtp_shutdown failed. err=" << err;
+      RTC_DLOG(LS_ERROR) << "srtp_shutdown failed. err=" << err;
     }
   }
 }
@@ -411,20 +411,20 @@ void SrtpSession::HandleEvent(const srtp_event_data_t* ev) {
   RTC_DCHECK(thread_checker_.IsCurrent());
   switch (ev->event) {
     case event_ssrc_collision:
-      RTC_LOG(LS_INFO) << "SRTP event: SSRC collision";
+      RTC_DLOG(LS_INFO) << "SRTP event: SSRC collision";
       break;
     case event_key_soft_limit:
-      RTC_LOG(LS_INFO) << "SRTP event: reached soft key usage limit";
+      RTC_DLOG(LS_INFO) << "SRTP event: reached soft key usage limit";
       break;
     case event_key_hard_limit:
-      RTC_LOG(LS_INFO) << "SRTP event: reached hard key usage limit";
+      RTC_DLOG(LS_INFO) << "SRTP event: reached hard key usage limit";
       break;
     case event_packet_index_limit:
-      RTC_LOG(LS_INFO)
+      RTC_DLOG(LS_INFO)
           << "SRTP event: reached hard packet limit (2^48 packets)";
       break;
     default:
-      RTC_LOG(LS_INFO) << "SRTP event: unknown " << ev->event;
+      RTC_DLOG(LS_INFO) << "SRTP event: unknown " << ev->event;
       break;
   }
 }

@@ -38,13 +38,13 @@ CpuSpeedExperiment::GetConfigs() {
              &(configs[0].cpu_speed), &(configs[1].pixels),
              &(configs[1].cpu_speed), &(configs[2].pixels),
              &(configs[2].cpu_speed)) != 6) {
-    RTC_LOG(LS_WARNING) << "Too few parameters provided.";
+    RTC_DLOG(LS_WARNING) << "Too few parameters provided.";
     return absl::nullopt;
   }
 
   for (const auto& config : configs) {
     if (config.cpu_speed < kMinSetting || config.cpu_speed > kMaxSetting) {
-      RTC_LOG(LS_WARNING) << "Unsupported cpu speed setting, value ignored.";
+      RTC_DLOG(LS_WARNING) << "Unsupported cpu speed setting, value ignored.";
       return absl::nullopt;
     }
   }
@@ -52,7 +52,7 @@ CpuSpeedExperiment::GetConfigs() {
   for (size_t i = 1; i < configs.size(); ++i) {
     if (configs[i].pixels < configs[i - 1].pixels ||
         configs[i].cpu_speed > configs[i - 1].cpu_speed) {
-      RTC_LOG(LS_WARNING) << "Invalid parameter value provided.";
+      RTC_DLOG(LS_WARNING) << "Invalid parameter value provided.";
       return absl::nullopt;
     }
   }

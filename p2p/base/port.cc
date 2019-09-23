@@ -182,7 +182,7 @@ void Port::Construct() {
 
   thread_->PostDelayed(RTC_FROM_HERE, timeout_delay_, this,
                        MSG_DESTROY_IF_DEAD);
-  RTC_LOG(LS_INFO) << ToString() << ": Port created with network cost "
+  RTC_DLOG(LS_INFO) << ToString() << ": Port created with network cost "
                    << network_cost_;
 }
 
@@ -358,7 +358,7 @@ void Port::AddOrReplaceConnection(Connection* conn) {
   // If there is a different connection on the same remote address, replace
   // it with the new one and destroy the old one.
   if (ret.second == false && ret.first->second != conn) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << ToString()
         << ": A new connection was created on an existing remote address. "
            "New remote candidate: "
@@ -386,13 +386,13 @@ void Port::OnReadPacket(const char* data,
   std::unique_ptr<IceMessage> msg;
   std::string remote_username;
   if (!GetStunMessage(data, size, addr, &msg, &remote_username)) {
-    RTC_LOG(LS_ERROR) << ToString()
+    RTC_DLOG(LS_ERROR) << ToString()
                       << ": Received non-STUN packet from unknown address: "
                       << addr.ToSensitiveString();
   } else if (!msg) {
     // STUN message handled already
   } else if (msg->type() == STUN_BINDING_REQUEST) {
-    RTC_LOG(LS_INFO) << "Received STUN ping id="
+    RTC_DLOG(LS_INFO) << "Received STUN ping id="
                      << rtc::hex_encode(msg->transaction_id())
                      << " from unknown address " << addr.ToSensitiveString();
     // We need to signal an unknown address before we handle any role conflict
@@ -401,7 +401,7 @@ void Port::OnReadPacket(const char* data,
     SignalUnknownAddress(this, addr, proto, msg.get(), remote_username, false);
     // Check for role conflicts.
     if (!MaybeIceRoleConflict(addr, msg.get(), remote_username)) {
-      RTC_LOG(LS_INFO) << "Received conflicting role from the peer.";
+      RTC_DLOG(LS_INFO) << "Received conflicting role from the peer.";
       return;
     }
   } else {
@@ -410,7 +410,7 @@ void Port::OnReadPacket(const char* data,
     // because we then get back responses for them, which this code correctly
     // does not handle.
     if (msg->type() != STUN_BINDING_RESPONSE) {
-      RTC_LOG(LS_ERROR) << ToString()
+      RTC_DLOG(LS_ERROR) << ToString()
                         << ": Received unexpected STUN message type: "
                         << msg->type() << " from unknown address: "
                         << addr.ToSensitiveString();
@@ -461,7 +461,7 @@ bool Port::GetStunMessage(const char* data,
     // If not present, fail with a 400 Bad Request.
     if (!stun_msg->GetByteString(STUN_ATTR_USERNAME) ||
         !stun_msg->GetByteString(STUN_ATTR_MESSAGE_INTEGRITY)) {
-      RTC_LOG(LS_ERROR) << ToString()
+      RTC_DLOG(LS_ERROR) << ToString()
                         << ": Received STUN request without username/M-I from: "
                         << addr.ToSensitiveString();
       SendBindingErrorResponse(stun_msg.get(), addr, STUN_ERROR_BAD_REQUEST,
@@ -474,7 +474,7 @@ bool Port::GetStunMessage(const char* data,
     std::string remote_ufrag;
     if (!ParseStunUsername(stun_msg.get(), &local_ufrag, &remote_ufrag) ||
         local_ufrag != username_fragment()) {
-      RTC_LOG(LS_ERROR) << ToString()
+      RTC_DLOG(LS_ERROR) << ToString()
                         << ": Received STUN request with bad local username "
                         << local_ufrag << " from " << addr.ToSensitiveString();
       SendBindingErrorResponse(stun_msg.get(), addr, STUN_ERROR_UNAUTHORIZED,
@@ -484,7 +484,7 @@ bool Port::GetStunMessage(const char* data,
 
     // If ICE, and the MESSAGE-INTEGRITY is bad, fail with a 401 Unauthorized
     if (!stun_msg->ValidateMessageIntegrity(data, size, password_)) {
-      RTC_LOG(LS_ERROR) << ToString()
+      RTC_DLOG(LS_ERROR) << ToString()
                         << ": Received STUN request with bad M-I from "
                         << addr.ToSensitiveString()
                         << ", password_=" << password_;
@@ -497,7 +497,7 @@ bool Port::GetStunMessage(const char* data,
              (stun_msg->type() == STUN_BINDING_ERROR_RESPONSE)) {
     if (stun_msg->type() == STUN_BINDING_ERROR_RESPONSE) {
       if (const StunErrorCodeAttribute* error_code = stun_msg->GetErrorCode()) {
-        RTC_LOG(LS_ERROR) << ToString()
+        RTC_DLOG(LS_ERROR) << ToString()
                           << ": Received STUN binding error: class="
                           << error_code->eclass()
                           << " number=" << error_code->number() << " reason='"
@@ -505,7 +505,7 @@ bool Port::GetStunMessage(const char* data,
                           << addr.ToSensitiveString();
         // Return message to allow error-specific processing
       } else {
-        RTC_LOG(LS_ERROR)
+        RTC_DLOG(LS_ERROR)
             << ToString()
             << ": Received STUN binding error without a error code from "
             << addr.ToSensitiveString();
@@ -515,14 +515,14 @@ bool Port::GetStunMessage(const char* data,
     // NOTE: Username should not be used in verifying response messages.
     out_username->clear();
   } else if (stun_msg->type() == STUN_BINDING_INDICATION) {
-    RTC_LOG(LS_VERBOSE) << ToString()
+    RTC_DLOG(LS_VERBOSE) << ToString()
                         << ": Received STUN binding indication: from "
                         << addr.ToSensitiveString();
     out_username->clear();
     // No stun attributes will be verified, if it's stun indication message.
     // Returning from end of the this method.
   } else {
-    RTC_LOG(LS_ERROR) << ToString()
+    RTC_DLOG(LS_ERROR) << ToString()
                       << ": Received STUN packet with invalid type ("
                       << stun_msg->type() << ") from "
                       << addr.ToSensitiveString();
@@ -687,7 +687,7 @@ void Port::SendBindingResponse(StunMessage* request,
         STUN_ATTR_RETRANSMIT_COUNT, retransmit_attr->value()));
 
     if (retransmit_attr->value() > CONNECTION_WRITE_CONNECT_FAILURES) {
-      RTC_LOG(LS_INFO)
+      RTC_DLOG(LS_INFO)
           << ToString()
           << ": Received a remote ping with high retransmit count: "
           << retransmit_attr->value();
@@ -707,7 +707,7 @@ void Port::SendBindingResponse(StunMessage* request,
       rtc::PacketType::kIceConnectivityCheckResponse;
   auto err = SendTo(buf.Data(), buf.Length(), addr, options, false);
   if (err < 0) {
-    RTC_LOG(LS_ERROR) << ToString()
+    RTC_DLOG(LS_ERROR) << ToString()
                       << ": Failed to send STUN ping response, to="
                       << addr.ToSensitiveString() << ", err=" << err
                       << ", id=" << rtc::hex_encode(response.transaction_id());
@@ -760,7 +760,7 @@ void Port::SendBindingErrorResponse(StunMessage* request,
   options.info_signaled_after_sent.packet_type =
       rtc::PacketType::kIceConnectivityCheckResponse;
   SendTo(buf.Data(), buf.Length(), addr, options, false);
-  RTC_LOG(LS_INFO) << ToString()
+  RTC_DLOG(LS_INFO) << ToString()
                    << ": Sending STUN binding error: reason=" << reason
                    << " to " << addr.ToSensitiveString();
 }
@@ -808,7 +808,7 @@ void Port::UpdateNetworkCost() {
   if (network_cost_ == new_cost) {
     return;
   }
-  RTC_LOG(LS_INFO) << "Network cost changed from " << network_cost_ << " to "
+  RTC_DLOG(LS_INFO) << "Network cost changed from " << network_cost_ << " to "
                    << new_cost
                    << ". Number of candidates created: " << candidates_.size()
                    << ". Number of connections created: "
@@ -851,7 +851,7 @@ void Port::OnConnectionDestroyed(Connection* conn) {
 
 void Port::Destroy() {
   RTC_DCHECK(connections_.empty());
-  RTC_LOG(LS_INFO) << ToString() << ": Port deleted";
+  RTC_DLOG(LS_INFO) << ToString() << ": Port deleted";
   SignalDestroyed(this);
   delete this;
 }

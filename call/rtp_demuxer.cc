@@ -360,7 +360,7 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByPayloadType(
 bool RtpDemuxer::AddSsrcSinkBinding(uint32_t ssrc,
                                     RtpPacketSinkInterface* sink) {
   if (sink_by_ssrc_.size() >= kMaxSsrcBindings) {
-    RTC_LOG(LS_WARNING) << "New SSRC=" << ssrc
+    RTC_DLOG(LS_WARNING) << "New SSRC=" << ssrc
                         << " sink binding ignored; limit of" << kMaxSsrcBindings
                         << " bindings has been reached.";
     return false;

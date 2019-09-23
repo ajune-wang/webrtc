@@ -56,7 +56,7 @@ std::unique_ptr<DesktopFrameWin> DesktopFrameWin::Create(
   HBITMAP bitmap =
       CreateDIBSection(hdc, &bmi, DIB_RGB_COLORS, &data, section_handle, 0);
   if (!bitmap) {
-    RTC_LOG(LS_WARNING) << "Failed to allocate new window frame "
+    RTC_DLOG(LS_WARNING) << "Failed to allocate new window frame "
                         << GetLastError();
     return nullptr;
   }

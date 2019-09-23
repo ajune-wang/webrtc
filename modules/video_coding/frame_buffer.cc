@@ -108,7 +108,7 @@ VCMFrameBufferEnum VCMFrameBuffer::InsertPacket(const VCMPacket& packet,
         (requiredSizeBytes % kBufferIncStepSizeBytes > 0);
     const uint32_t newSize = capacity() + increments * kBufferIncStepSizeBytes;
     if (newSize > kMaxJBFrameSizeBytes) {
-      RTC_LOG(LS_ERROR) << "Failed to insert packet due to frame being too "
+      RTC_DLOG(LS_ERROR) << "Failed to insert packet due to frame being too "
                            "big.";
       return kSizeError;
     }

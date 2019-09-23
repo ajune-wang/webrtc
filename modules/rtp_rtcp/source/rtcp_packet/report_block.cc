@@ -48,7 +48,7 @@ ReportBlock::ReportBlock()
 bool ReportBlock::Parse(const uint8_t* buffer, size_t length) {
   RTC_DCHECK(buffer != nullptr);
   if (length < ReportBlock::kLength) {
-    RTC_LOG(LS_ERROR) << "Report Block should be 24 bytes long";
+    RTC_DLOG(LS_ERROR) << "Report Block should be 24 bytes long";
     return false;
   }
 
@@ -80,7 +80,7 @@ void ReportBlock::Create(uint8_t* buffer) const {
 bool ReportBlock::SetCumulativeLost(int32_t cumulative_lost) {
   // We have only 3 bytes to store it, and it's a signed value.
   if (cumulative_lost >= (1 << 23) || cumulative_lost < -(1 << 23)) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Cumulative lost is too big to fit into Report Block";
     return false;
   }
@@ -90,7 +90,7 @@ bool ReportBlock::SetCumulativeLost(int32_t cumulative_lost) {
 
 uint32_t ReportBlock::cumulative_lost() const {
   if (cumulative_lost_ < 0) {
-    RTC_LOG(LS_VERBOSE) << "Ignoring negative value of cumulative_lost";
+    RTC_DLOG(LS_VERBOSE) << "Ignoring negative value of cumulative_lost";
     return 0;
   }
   return cumulative_lost_;

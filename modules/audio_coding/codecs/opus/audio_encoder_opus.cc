@@ -136,12 +136,12 @@ int CalculateBitrate(int max_playback_rate_hz,
           std::max(AudioEncoderOpusConfig::kMinBitrateBps,
                    std::min(*bitrate, AudioEncoderOpusConfig::kMaxBitrateBps));
       if (bitrate != chosen_bitrate) {
-        RTC_LOG(LS_WARNING) << "Invalid maxaveragebitrate " << *bitrate
+        RTC_DLOG(LS_WARNING) << "Invalid maxaveragebitrate " << *bitrate
                             << " clamped to " << chosen_bitrate;
       }
       return chosen_bitrate;
     }
-    RTC_LOG(LS_WARNING) << "Invalid maxaveragebitrate \"" << *bitrate_param
+    RTC_DLOG(LS_WARNING) << "Invalid maxaveragebitrate \"" << *bitrate_param
                         << "\" replaced by default bitrate " << default_bitrate;
   }
 
@@ -219,7 +219,7 @@ float GetMinPacketLossRate() {
     int value = kDefaultMinPacketLossRate;
     if (sscanf(field_trial_string.c_str(), "Enabled-%d", &value) == 1 &&
         !IsValidPacketLossRate(value)) {
-      RTC_LOG(LS_WARNING) << "Invalid parameter for " << kPacketLossFieldTrial
+      RTC_DLOG(LS_WARNING) << "Invalid parameter for " << kPacketLossFieldTrial
                           << ", using default value: "
                           << kDefaultMinPacketLossRate;
       value = kDefaultMinPacketLossRate;
@@ -247,7 +247,7 @@ GetNewPacketLossRateOptimizer() {
       return std::make_unique<AudioEncoderOpusImpl::NewPacketLossRateOptimizer>(
           ToFraction(min_rate), ToFraction(max_rate), slope);
     }
-    RTC_LOG(LS_WARNING) << "Invalid parameters for "
+    RTC_DLOG(LS_WARNING) << "Invalid parameters for "
                         << kPacketLossOptimizationName
                         << ", using default values.";
     return std::make_unique<AudioEncoderOpusImpl::NewPacketLossRateOptimizer>();
@@ -587,7 +587,7 @@ void AudioEncoderOpusImpl::OnReceivedUplinkBandwidth(
     ApplyAudioNetworkAdaptor();
   } else if (send_side_bwe_with_overhead_) {
     if (!overhead_bytes_per_packet_) {
-      RTC_LOG(LS_INFO)
+      RTC_DLOG(LS_INFO)
           << "AudioEncoderOpusImpl: Overhead unknown, target audio bitrate "
           << target_audio_bitrate_bps << " bps is ignored.";
       return;
@@ -743,7 +743,7 @@ bool AudioEncoderOpusImpl::RecreateEncoderInstance(
                       config.sample_rate_hz));
   const int bitrate = GetBitrateBps(config);
   RTC_CHECK_EQ(0, WebRtcOpus_SetBitRate(inst_, bitrate));
-  RTC_LOG(LS_INFO) << "Set Opus bitrate to " << bitrate << " bps.";
+  RTC_DLOG(LS_INFO) << "Set Opus bitrate to " << bitrate << " bps.";
   if (config.fec_enabled) {
     RTC_CHECK_EQ(0, WebRtcOpus_EnableFec(inst_));
   } else {
@@ -814,7 +814,7 @@ void AudioEncoderOpusImpl::SetTargetBitrate(int bits_per_second) {
     RTC_DCHECK(config_.IsOk());
     const int bitrate = GetBitrateBps(config_);
     RTC_CHECK_EQ(0, WebRtcOpus_SetBitRate(inst_, bitrate));
-    RTC_LOG(LS_INFO) << "Set Opus bitrate to " << bitrate << " bps.";
+    RTC_DLOG(LS_INFO) << "Set Opus bitrate to " << bitrate << " bps.";
     bitrate_changed_ = true;
   }
 

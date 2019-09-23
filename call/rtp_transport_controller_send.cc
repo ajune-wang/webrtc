@@ -224,7 +224,7 @@ void RtpTransportControllerSend::OnNetworkRouteChanged(
     const rtc::NetworkRoute& network_route) {
   // Check if the network route is connected.
   if (!network_route.connected) {
-    RTC_LOG(LS_INFO) << "Transport " << transport_name << " is disconnected";
+    RTC_DLOG(LS_INFO) << "Transport " << transport_name << " is disconnected";
     // TODO(honghaiz): Perhaps handle this in SignalChannelNetworkState and
     // consider merging these two methods.
     return;
@@ -244,7 +244,7 @@ void RtpTransportControllerSend::OnNetworkRouteChanged(
       kv->second.remote_network_id != network_route.remote_network_id) {
     kv->second = network_route;
     BitrateConstraints bitrate_config = bitrate_configurator_.GetConfig();
-    RTC_LOG(LS_INFO) << "Network route changed on transport " << transport_name
+    RTC_DLOG(LS_INFO) << "Network route changed on transport " << transport_name
                      << ": new local network id "
                      << network_route.local_network_id
                      << " new remote network id "
@@ -280,7 +280,7 @@ void RtpTransportControllerSend::OnNetworkRouteChanged(
   }
 }
 void RtpTransportControllerSend::OnNetworkAvailability(bool network_available) {
-  RTC_LOG(LS_INFO) << "SignalNetworkState "
+  RTC_DLOG(LS_INFO) << "SignalNetworkState "
                    << (network_available ? "Up" : "Down");
   NetworkAvailability msg;
   msg.at_time = Timestamp::ms(clock_->TimeInMilliseconds());
@@ -366,7 +366,7 @@ void RtpTransportControllerSend::SetSdpBitrateParameters(
       }
     });
   } else {
-    RTC_LOG(LS_VERBOSE)
+    RTC_DLOG(LS_VERBOSE)
         << "WebRTC.RtpTransportControllerSend.SetSdpBitrateParameters: "
         << "nothing to update";
   }
@@ -387,7 +387,7 @@ void RtpTransportControllerSend::SetClientBitratePreferences(
       }
     });
   } else {
-    RTC_LOG(LS_VERBOSE)
+    RTC_DLOG(LS_VERBOSE)
         << "WebRTC.RtpTransportControllerSend.SetClientBitratePreferences: "
         << "nothing to update";
   }
@@ -396,7 +396,7 @@ void RtpTransportControllerSend::SetClientBitratePreferences(
 void RtpTransportControllerSend::OnTransportOverheadChanged(
     size_t transport_overhead_bytes_per_packet) {
   if (transport_overhead_bytes_per_packet >= kMaxOverheadBytes) {
-    RTC_LOG(LS_ERROR) << "Transport overhead exceeds " << kMaxOverheadBytes;
+    RTC_DLOG(LS_ERROR) << "Transport overhead exceeds " << kMaxOverheadBytes;
     return;
   }
 
@@ -499,11 +499,11 @@ void RtpTransportControllerSend::MaybeCreateControllers() {
 
   // TODO(srte): Use fallback controller if no feedback is available.
   if (controller_factory_override_) {
-    RTC_LOG(LS_INFO) << "Creating overridden congestion controller";
+    RTC_DLOG(LS_INFO) << "Creating overridden congestion controller";
     controller_ = controller_factory_override_->Create(initial_config_);
     process_interval_ = controller_factory_override_->GetProcessInterval();
   } else {
-    RTC_LOG(LS_INFO) << "Creating fallback congestion controller";
+    RTC_DLOG(LS_INFO) << "Creating fallback congestion controller";
     controller_ = controller_factory_fallback_->Create(initial_config_);
     process_interval_ = controller_factory_fallback_->GetProcessInterval();
   }

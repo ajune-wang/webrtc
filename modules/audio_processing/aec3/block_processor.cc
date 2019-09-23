@@ -139,7 +139,7 @@ void BlockProcessorImpl::ProcessCapture(
         EchoPathVariability::DelayAdjustment::kBufferFlush;
     if (delay_controller_)
       delay_controller_->Reset(true);
-    RTC_LOG(LS_WARNING) << "Reset due to render buffer overrun at block  "
+    RTC_DLOG(LS_WARNING) << "Reset due to render buffer overrun at block  "
                         << capture_call_counter_;
   }
   render_event_ = RenderDelayBuffer::BufferingEvent::kNone;
@@ -171,7 +171,7 @@ void BlockProcessorImpl::ProcessCapture(
       bool delay_change =
           render_buffer_->AlignFromDelay(estimated_delay_->delay);
       if (delay_change) {
-        RTC_LOG(LS_INFO) << "Delay changed to " << estimated_delay_->delay
+        RTC_DLOG(LS_INFO) << "Delay changed to " << estimated_delay_->delay
                          << " at block " << capture_call_counter_;
         echo_path_variability.delay_change =
             EchoPathVariability::DelayAdjustment::kNewDetectedDelay;

@@ -293,7 +293,7 @@ static StreamParams CreateStreamParamsForNewSenderWithSsrcs(
   // TODO(brandtr): Update when we support multistream protection.
   if (include_flexfec_stream && sender.num_sim_layers > 1) {
     include_flexfec_stream = false;
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Our FlexFEC implementation only supports protecting "
            "a single media streams. This session has multiple "
            "media streams however, so no FlexFEC SSRC will be generated.";
@@ -783,7 +783,7 @@ static bool FindMatchingCodec(const std::vector<C>& codecs1,
                                      &apt_value_1) ||
             !potential_match.GetParam(kCodecParamAssociatedPayloadType,
                                       &apt_value_2)) {
-          RTC_LOG(LS_WARNING) << "RTX missing associated payload type.";
+          RTC_DLOG(LS_WARNING) << "RTX missing associated payload type.";
           continue;
         }
         if (!ReferencedCodecsMatch(codecs1, apt_value_1, codecs2,
@@ -807,14 +807,14 @@ static const C* GetAssociatedCodec(const std::vector<C>& codec_list,
   std::string associated_pt_str;
   if (!rtx_codec.GetParam(kCodecParamAssociatedPayloadType,
                           &associated_pt_str)) {
-    RTC_LOG(LS_WARNING) << "RTX codec " << rtx_codec.name
+    RTC_DLOG(LS_WARNING) << "RTX codec " << rtx_codec.name
                         << " is missing an associated payload type.";
     return nullptr;
   }
 
   int associated_pt;
   if (!rtc::FromString(associated_pt_str, &associated_pt)) {
-    RTC_LOG(LS_WARNING) << "Couldn't convert payload type " << associated_pt_str
+    RTC_DLOG(LS_WARNING) << "Couldn't convert payload type " << associated_pt_str
                         << " of RTX codec " << rtx_codec.name
                         << " to an integer.";
     return nullptr;
@@ -823,7 +823,7 @@ static const C* GetAssociatedCodec(const std::vector<C>& codec_list,
   // Find the associated reference codec for the reference RTX codec.
   const C* associated_codec = FindCodecById(codec_list, associated_pt);
   if (!associated_codec) {
-    RTC_LOG(LS_WARNING) << "Couldn't find associated codec with payload type "
+    RTC_DLOG(LS_WARNING) << "Couldn't find associated codec with payload type "
                         << associated_pt << " for RTX codec " << rtx_codec.name
                         << ".";
   }
@@ -864,7 +864,7 @@ static void MergeCodecs(const std::vector<C>& reference_codecs,
       C matching_codec;
       if (!FindMatchingCodec<C>(reference_codecs, *offered_codecs,
                                 *associated_codec, &matching_codec)) {
-        RTC_LOG(LS_WARNING)
+        RTC_DLOG(LS_WARNING)
             << "Couldn't find matching " << associated_codec->name << " codec.";
         continue;
       }
@@ -1495,12 +1495,12 @@ std::unique_ptr<SessionDescription> MediaSessionDescriptionFactory::CreateOffer(
     if (!offer_bundle.content_names().empty()) {
       offer->AddGroup(offer_bundle);
       if (!UpdateTransportInfoForBundle(offer_bundle, offer.get())) {
-        RTC_LOG(LS_ERROR)
+        RTC_DLOG(LS_ERROR)
             << "CreateOffer failed to UpdateTransportInfoForBundle.";
         return nullptr;
       }
       if (!UpdateCryptoParamsForBundle(offer_bundle, offer.get())) {
-        RTC_LOG(LS_ERROR)
+        RTC_DLOG(LS_ERROR)
             << "CreateOffer failed to UpdateCryptoParamsForBundle.";
         return nullptr;
       }
@@ -1659,13 +1659,13 @@ MediaSessionDescriptionFactory::CreateAnswer(
     // Share the same ICE credentials and crypto params across all contents,
     // as BUNDLE requires.
     if (!UpdateTransportInfoForBundle(answer_bundle, answer.get())) {
-      RTC_LOG(LS_ERROR)
+      RTC_DLOG(LS_ERROR)
           << "CreateAnswer failed to UpdateTransportInfoForBundle.";
       return NULL;
     }
 
     if (!UpdateCryptoParamsForBundle(answer_bundle, answer.get())) {
-      RTC_LOG(LS_ERROR)
+      RTC_DLOG(LS_ERROR)
           << "CreateAnswer failed to UpdateCryptoParamsForBundle.";
       return NULL;
     }
@@ -1943,7 +1943,7 @@ bool MediaSessionDescriptionFactory::AddTransportOffer(
       transport_desc_factory_->CreateOffer(transport_options, current_tdesc,
                                            ice_credentials));
   if (!new_tdesc) {
-    RTC_LOG(LS_ERROR) << "Failed to AddTransportOffer, content name="
+    RTC_DLOG(LS_ERROR) << "Failed to AddTransportOffer, content name="
                       << content_name;
   }
   offer_desc->AddTransportInfo(TransportInfo(content_name, *new_tdesc));
@@ -2388,7 +2388,7 @@ bool MediaSessionDescriptionFactory::AddAudioContentForAnswer(
   }
 
   if (rejected) {
-    RTC_LOG(LS_INFO) << "Audio m= section '" << media_description_options.mid
+    RTC_DLOG(LS_INFO) << "Audio m= section '" << media_description_options.mid
                      << "' being rejected in answer.";
   }
 
@@ -2498,7 +2498,7 @@ bool MediaSessionDescriptionFactory::AddVideoContentForAnswer(
   if (!rejected) {
     video_answer->set_bandwidth(kAutoBandwidth);
   } else {
-    RTC_LOG(LS_INFO) << "Video m= section '" << media_description_options.mid
+    RTC_DLOG(LS_INFO) << "Video m= section '" << media_description_options.mid
                      << "' being rejected in answer.";
   }
   answer->AddContent(media_description_options.mid, offer_content->type,
@@ -2601,7 +2601,7 @@ bool MediaSessionDescriptionFactory::AddDataContentForAnswer(
   } else {
     // RFC 3264
     // The answer MUST contain the same number of m-lines as the offer.
-    RTC_LOG(LS_INFO) << "Data is not supported in the answer.";
+    RTC_DLOG(LS_INFO) << "Data is not supported in the answer.";
   }
   answer->AddContent(media_description_options.mid, offer_content->type,
                      rejected, std::move(data_answer));

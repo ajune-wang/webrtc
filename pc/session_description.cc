@@ -265,7 +265,7 @@ ContentInfo::~ContentInfo() {
   if (description_ && description_.get() != description) {
     // If description_ is null, we assume that a move operator
     // has been applied.
-    RTC_LOG(LS_ERROR) << "ContentInfo::description has been updated by "
+    RTC_DLOG(LS_ERROR) << "ContentInfo::description has been updated by "
                       << "assignment. This usage is deprecated.";
     description_.reset(description);  // ensure that it is destroyed.
   }
@@ -294,7 +294,7 @@ const MediaContentDescription* ContentInfo::media_description() const {
   if (description_.get() != description) {
     // Someone's updated |description|, or used a move operator
     // on the record.
-    RTC_LOG(LS_ERROR) << "ContentInfo::description has been updated by "
+    RTC_DLOG(LS_ERROR) << "ContentInfo::description has been updated by "
                       << "assignment. This usage is deprecated.";
     const_cast<ContentInfo*>(this)->description_.reset(description);
   }
@@ -305,7 +305,7 @@ MediaContentDescription* ContentInfo::media_description() {
   if (description_.get() != description) {
     // Someone's updated |description|, or used a move operator
     // on the record.
-    RTC_LOG(LS_ERROR) << "ContentInfo::description has been updated by "
+    RTC_DLOG(LS_ERROR) << "ContentInfo::description has been updated by "
                       << "assignment. This usage is deprecated.";
     description_.reset(description);
   }

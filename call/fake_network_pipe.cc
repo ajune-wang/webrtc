@@ -272,7 +272,7 @@ void FakeNetworkPipe::Process() {
         queueing_delay_us =
             time_now_us - packets_in_flight_.front().packet.send_time();
 
-      RTC_LOG(LS_INFO) << "Network queue: " << queueing_delay_us / 1000
+      RTC_DLOG(LS_INFO) << "Network queue: " << queueing_delay_us / 1000
                        << " ms.";
       last_log_time_us_ = time_now_us;
     }

@@ -60,7 +60,7 @@ DeferXFree::~DeferXFree() {
   unsigned int num_children;
   if (!XQueryTree(cache->display(), window, &root, &parent, &children,
                   &num_children)) {
-    RTC_LOG(LS_ERROR) << "Failed to query for child windows although window"
+    RTC_DLOG(LS_ERROR) << "Failed to query for child windows although window"
                       << "does not have a valid WM_STATE.";
     return 0;
   }
@@ -140,7 +140,7 @@ bool GetWindowList(XAtomCache* cache,
                      &num_children) == 0 ||
           error_trap.GetLastErrorAndDisable() != 0) {
         failed_screens++;
-        RTC_LOG(LS_ERROR) << "Failed to query for child windows for screen "
+        RTC_DLOG(LS_ERROR) << "Failed to query for child windows for screen "
                           << screen;
         continue;
       }

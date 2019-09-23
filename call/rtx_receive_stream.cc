@@ -33,7 +33,7 @@ RtxReceiveStream::RtxReceiveStream(
       media_ssrc_(media_ssrc),
       rtp_receive_statistics_(rtp_receive_statistics) {
   if (associated_payload_types_.empty()) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "RtxReceiveStream created with empty payload type mapping.";
   }
 }
@@ -52,7 +52,7 @@ void RtxReceiveStream::OnRtpPacket(const RtpPacketReceived& rtx_packet) {
 
   auto it = associated_payload_types_.find(rtx_packet.PayloadType());
   if (it == associated_payload_types_.end()) {
-    RTC_LOG(LS_VERBOSE) << "Unknown payload type "
+    RTC_DLOG(LS_VERBOSE) << "Unknown payload type "
                         << static_cast<int>(rtx_packet.PayloadType())
                         << " on rtx ssrc " << rtx_packet.Ssrc();
     return;

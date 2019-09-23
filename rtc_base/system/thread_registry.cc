@@ -62,9 +62,9 @@ void PrintStackTracesOfRegisteredThreads() {
   }
   for (const auto& e : *g_registered_threads) {
     const ThreadData& td = e.second;
-    RTC_LOG(LS_WARNING) << "Thread " << td.thread_id << " registered at "
+    RTC_DLOG(LS_WARNING) << "Thread " << td.thread_id << " registered at "
                         << td.location.ToString() << ":";
-    RTC_LOG(LS_WARNING) << StackTraceToString(GetStackTrace(td.thread_id));
+    RTC_DLOG(LS_WARNING) << StackTraceToString(GetStackTrace(td.thread_id));
   }
 }
 

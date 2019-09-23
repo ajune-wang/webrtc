@@ -164,19 +164,19 @@ std::unique_ptr<FlexfecSender> MaybeCreateFlexfecSender(
   RTC_DCHECK_GE(rtp.flexfec.payload_type, 0);
   RTC_DCHECK_LE(rtp.flexfec.payload_type, 127);
   if (rtp.flexfec.ssrc == 0) {
-    RTC_LOG(LS_WARNING) << "FlexFEC is enabled, but no FlexFEC SSRC given. "
+    RTC_DLOG(LS_WARNING) << "FlexFEC is enabled, but no FlexFEC SSRC given. "
                            "Therefore disabling FlexFEC.";
     return nullptr;
   }
   if (rtp.flexfec.protected_media_ssrcs.empty()) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "FlexFEC is enabled, but no protected media SSRC given. "
            "Therefore disabling FlexFEC.";
     return nullptr;
   }
 
   if (rtp.flexfec.protected_media_ssrcs.size() > 1) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "The supplied FlexfecConfig contained multiple protected "
            "media streams, but our implementation currently only "
            "supports protecting a single media stream. "
@@ -500,14 +500,14 @@ void RtpVideoSender::ConfigureProtection() {
   };
 
   if (webrtc::field_trial::IsEnabled("WebRTC-DisableUlpFecExperiment")) {
-    RTC_LOG(LS_INFO) << "Experiment to disable sending ULPFEC is enabled.";
+    RTC_DLOG(LS_INFO) << "Experiment to disable sending ULPFEC is enabled.";
     DisableRedAndUlpfec();
   }
 
   // If enabled, FlexFEC takes priority over RED+ULPFEC.
   if (flexfec_enabled) {
     if (IsUlpfecEnabled()) {
-      RTC_LOG(LS_INFO)
+      RTC_DLOG(LS_INFO)
           << "Both FlexFEC and ULPFEC are configured. Disabling ULPFEC.";
     }
     DisableRedAndUlpfec();
@@ -519,7 +519,7 @@ void RtpVideoSender::ConfigureProtection() {
   // Note that this is not the case with FlexFEC.
   if (nack_enabled && IsUlpfecEnabled() &&
       !PayloadTypeSupportsSkippingFecPackets(rtp_config_.payload_name)) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Transmitting payload type without picture ID using "
            "NACK+ULPFEC is a waste of bandwidth since ULPFEC packets "
            "also have to be retransmitted. Disabling ULPFEC.";
@@ -528,7 +528,7 @@ void RtpVideoSender::ConfigureProtection() {
 
   // Verify payload types.
   if (IsUlpfecEnabled() ^ IsRedEnabled()) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Only RED or only ULPFEC enabled, but not both. Disabling both.";
     DisableRedAndUlpfec();
   }

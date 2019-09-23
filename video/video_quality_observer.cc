@@ -128,7 +128,7 @@ void VideoQualityObserver::UpdateHistograms() {
                  << harmonic_framerate_fps << "\n";
     }
   }
-  RTC_LOG(LS_INFO) << log_stream.str();
+  RTC_DLOG(LS_INFO) << log_stream.str();
 }
 
 void VideoQualityObserver::OnRenderedFrame(const VideoFrame& frame,
@@ -244,7 +244,7 @@ void VideoQualityObserver::OnDecodedFrame(const VideoFrame& frame,
     if (qp_blocky_threshold && *qp > *qp_blocky_threshold) {
       // Cache blocky frame. Its duration will be calculated in render callback.
       if (blocky_frames_.size() > kMaxNumCachedBlockyFrames) {
-        RTC_LOG(LS_WARNING) << "Overflow of blocky frames cache.";
+        RTC_DLOG(LS_WARNING) << "Overflow of blocky frames cache.";
         blocky_frames_.erase(
             blocky_frames_.begin(),
             std::next(blocky_frames_.begin(), kMaxNumCachedBlockyFrames / 2));

@@ -238,11 +238,11 @@ absl::optional<uint16_t> EmulatedEndpoint::BindReceiver(
                        << id_;
   bool result = port_to_receiver_.insert({port, receiver}).second;
   if (!result) {
-    RTC_LOG(INFO) << "Can't bind receiver to used port " << desired_port
+    RTC_DLOG(INFO) << "Can't bind receiver to used port " << desired_port
                   << " in endpoint " << id_;
     return absl::nullopt;
   }
-  RTC_LOG(INFO) << "New receiver is binded to endpoint " << id_ << " on port "
+  RTC_DLOG(INFO) << "New receiver is binded to endpoint " << id_ << " on port "
                 << port;
   return port;
 }
@@ -279,7 +279,7 @@ void EmulatedEndpoint::OnPacketReceived(EmulatedIpPacket packet) {
     // It can happen, that remote peer closed connection, but there still some
     // packets, that are going to it. It can happen during peer connection close
     // process: one peer closed connection, second still sending data.
-    RTC_LOG(INFO) << "Drop packet: no receiver registered in " << id_
+    RTC_DLOG(INFO) << "Drop packet: no receiver registered in " << id_
                   << " on port " << packet.to.port();
     stats_.packets_dropped++;
     stats_.bytes_dropped += DataSize::bytes(packet.size());

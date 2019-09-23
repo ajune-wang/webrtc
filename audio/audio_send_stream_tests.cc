@@ -124,7 +124,7 @@ TEST_F(AudioSendStreamCallTest, SupportsAudioLevel) {
         // Wait for at least one packet with a non-zero level.
         observation_complete_.Set();
       } else {
-        RTC_LOG(LS_WARNING) << "Got a packet with zero audioLevel - waiting"
+        RTC_DLOG(LS_WARNING) << "Got a packet with zero audioLevel - waiting"
                                " for another packet...";
       }
 

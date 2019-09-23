@@ -118,7 +118,7 @@ bool IsLowLatencySupported(IAudioClient3* client3,
   // default engine period.
   // TODO(henrika): verify that this assumption is correct.
   const bool low_latency = min_period < default_period;
-  RTC_LOG(INFO) << "low_latency: " << low_latency;
+  RTC_DLOG(INFO) << "low_latency: " << low_latency;
   *min_period_in_frames = low_latency ? min_period : 0;
   return low_latency;
 }
@@ -230,7 +230,7 @@ bool CoreAudioBase::IsOutput() const {
 
 std::string CoreAudioBase::GetDeviceID(int index) const {
   if (index >= NumberOfEnumeratedDevices()) {
-    RTC_LOG(LS_ERROR) << "Invalid device index";
+    RTC_DLOG(LS_ERROR) << "Invalid device index";
     return std::string();
   }
 
@@ -275,7 +275,7 @@ int CoreAudioBase::DeviceName(int index,
   RTC_DLOG(INFO) << __FUNCTION__ << "[" << DirectionToString(direction())
                  << "]";
   if (index > NumberOfEnumeratedDevices() - 1) {
-    RTC_LOG(LS_ERROR) << "Invalid device index";
+    RTC_DLOG(LS_ERROR) << "Invalid device index";
     return -1;
   }
 
@@ -283,7 +283,7 @@ int CoreAudioBase::DeviceName(int index,
   bool ok = IsInput() ? core_audio_utility::GetInputDeviceNames(&device_names)
                       : core_audio_utility::GetOutputDeviceNames(&device_names);
   if (!ok) {
-    RTC_LOG(LS_ERROR) << "Failed to get the device name";
+    RTC_DLOG(LS_ERROR) << "Failed to get the device name";
     return -1;
   }
 
@@ -375,7 +375,7 @@ bool CoreAudioBase::Init() {
     // TODO(henrika): ensure that this approach works on different multi-channel
     // devices. Verified on:
     // - Corsair VOID PRO Surround USB Adapter (supports 7.1)
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Using channel upmixing in WASAPI audio engine (2 => "
         << params.channels() << ")";
     format->nChannels = 2;
@@ -467,7 +467,7 @@ bool CoreAudioBase::Init() {
   RTC_DLOG(INFO) << "preferred_frames_per_buffer: "
                  << preferred_frames_per_buffer;
   if (preferred_frames_per_buffer % params.frames_per_buffer()) {
-    RTC_LOG(WARNING) << "Buffer size of " << params.frames_per_buffer()
+    RTC_DLOG(WARNING) << "Buffer size of " << params.frames_per_buffer()
                      << " is not an even divisor of "
                      << preferred_frames_per_buffer;
   }
@@ -523,7 +523,7 @@ bool CoreAudioBase::Start() {
     audio_thread_->Start();
     if (!audio_thread_->IsRunning()) {
       StopThread();
-      RTC_LOG(LS_ERROR) << "Failed to start audio thread";
+      RTC_DLOG(LS_ERROR) << "Failed to start audio thread";
       return false;
     }
     RTC_DLOG(INFO) << "Started thread with name: " << audio_thread_->name()
@@ -534,7 +534,7 @@ bool CoreAudioBase::Start() {
   _com_error error = audio_client_->Start();
   if (FAILED(error.Error())) {
     StopThread();
-    RTC_LOG(LS_ERROR) << "IAudioClient::Start failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient::Start failed: "
                       << core_audio_utility::ErrorToString(error);
     return false;
   }
@@ -553,7 +553,7 @@ bool CoreAudioBase::Stop() {
   // Stop audio streaming.
   _com_error error = audio_client_->Stop();
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient::Stop failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient::Stop failed: "
                       << core_audio_utility::ErrorToString(error);
   }
   // Stop and destroy the audio thread but only when a restart attempt is not
@@ -565,7 +565,7 @@ bool CoreAudioBase::Stop() {
   // Flush all pending data and reset the audio clock stream position to 0.
   error = audio_client_->Reset();
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient::Reset failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient::Reset failed: "
                       << core_audio_utility::ErrorToString(error);
   }
 
@@ -585,7 +585,7 @@ bool CoreAudioBase::Stop() {
                  << SessionStateToString(GetAudioSessionState());
   error = audio_session_control_->UnregisterAudioSessionNotification(this);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "IAudioSessionControl::UnregisterAudioSessionNotification failed: "
         << core_audio_utility::ErrorToString(error);
   }
@@ -626,7 +626,7 @@ bool CoreAudioBase::IsVolumeControlAvailable(bool* available) const {
   float volume = 0.0;
   _com_error error = audio_volume->GetMasterVolume(&volume);
   if (error.Error() != S_OK) {
-    RTC_LOG(LS_ERROR) << "ISimpleAudioVolume::GetMasterVolume failed: "
+    RTC_DLOG(LS_ERROR) << "ISimpleAudioVolume::GetMasterVolume failed: "
                       << core_audio_utility::ErrorToString(error);
     *available = false;
   }
@@ -707,16 +707,16 @@ bool CoreAudioBase::SwitchDeviceIfNeeded() {
   // the device configuration is the same as before.
   std::string device_id = GetDeviceID(device_index_);
   if (device_id != device_id_) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Device configuration has changed => changing device selection...";
     // TODO(henrika): depending on the current state and how we got here, we
     // must select a new device here.
     if (SetDevice(kDefault) == -1) {
-      RTC_LOG(LS_WARNING) << "Failed to set new audio device";
+      RTC_DLOG(LS_WARNING) << "Failed to set new audio device";
       return false;
     }
   } else {
-    RTC_LOG(INFO)
+    RTC_DLOG(INFO)
         << "Device configuration has not changed => keeping selected device";
   }
   return true;
@@ -836,7 +836,7 @@ HRESULT CoreAudioBase::OnGroupingParamChanged(LPCGUID new_grouping_param,
 
 void CoreAudioBase::ThreadRun() {
   if (!core_audio_utility::IsMMCSSSupported()) {
-    RTC_LOG(LS_ERROR) << "MMCSS is not supported";
+    RTC_DLOG(LS_ERROR) << "MMCSS is not supported";
     return;
   }
   RTC_DLOG(INFO) << "[" << DirectionToString(direction())
@@ -862,7 +862,7 @@ void CoreAudioBase::ThreadRun() {
     RTC_DCHECK(IsOutput());
     result = audio_clock_->GetFrequency(&device_frequency);
     if (FAILED(result.Error())) {
-      RTC_LOG(LS_ERROR) << "IAudioClock::GetFrequency failed: "
+      RTC_DLOG(LS_ERROR) << "IAudioClock::GetFrequency failed: "
                         << core_audio_utility::ErrorToString(result);
     }
   }
@@ -893,14 +893,14 @@ void CoreAudioBase::ThreadRun() {
   }
 
   if (streaming && error) {
-    RTC_LOG(LS_ERROR) << "[" << DirectionToString(direction())
+    RTC_DLOG(LS_ERROR) << "[" << DirectionToString(direction())
                       << "] WASAPI streaming failed.";
     // Stop audio streaming since something has gone wrong in our main thread
     // loop. Note that, we are still in a "started" state, hence a Stop() call
     // is required to join the thread properly.
     result = audio_client_->Stop();
     if (FAILED(result.Error())) {
-      RTC_LOG(LS_ERROR) << "IAudioClient::Stop failed: "
+      RTC_DLOG(LS_ERROR) << "IAudioClient::Stop failed: "
                         << core_audio_utility::ErrorToString(result);
     }
 

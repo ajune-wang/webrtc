@@ -255,7 +255,7 @@ webrtc::RTCError JsepTransport::SetLocalJsepTransportDescription(
     rtc::CritScope scope(&accessor_lock_);
     if (needs_ice_restart_ && ice_restarting) {
       needs_ice_restart_ = false;
-      RTC_LOG(LS_VERBOSE) << "needs-ice-restart flag cleared for transport "
+      RTC_DLOG(LS_VERBOSE) << "needs-ice-restart flag cleared for transport "
                           << mid();
     }
   }
@@ -357,7 +357,7 @@ void JsepTransport::SetNeedsIceRestartFlag() {
   rtc::CritScope scope(&accessor_lock_);
   if (!needs_ice_restart_) {
     needs_ice_restart_ = true;
-    RTC_LOG(LS_VERBOSE) << "needs-ice-restart flag set for transport " << mid();
+    RTC_DLOG(LS_VERBOSE) << "needs-ice-restart flag set for transport " << mid();
   }
 }
 
@@ -432,7 +432,7 @@ void JsepTransport::SetActiveResetSrtpParams(bool active_reset_srtp_params) {
   RTC_DCHECK_RUN_ON(network_thread_);
   rtc::CritScope scope(&accessor_lock_);
   if (dtls_srtp_transport_) {
-    RTC_LOG(INFO)
+    RTC_DLOG(INFO)
         << "Setting active_reset_srtp_params of DtlsSrtpTransport to: "
         << active_reset_srtp_params;
     dtls_srtp_transport_->SetActiveResetSrtpParams(active_reset_srtp_params);
@@ -577,7 +577,7 @@ bool JsepTransport::SetSdes(const std::vector<CryptoParams>& cryptos,
           static_cast<int>(sdes_negotiator_.recv_key().size()),
           *(recv_extension_ids_));
     } else {
-      RTC_LOG(LS_INFO) << "No crypto keys are provided for SDES.";
+      RTC_DLOG(LS_INFO) << "No crypto keys are provided for SDES.";
       if (type == SdpType::kAnswer) {
         // Explicitly reset the |sdes_transport_| if no crypto param is
         // provided in the answer. No need to call |ResetParams()| for
@@ -778,7 +778,7 @@ void JsepTransport::NegotiateDatagramTransport(SdpType type) {
       remote_description_->transport_desc.opaque_parameters ==
           local_description_->transport_desc.opaque_parameters;
 
-  RTC_LOG(LS_INFO) << "Negotiating datagram transport, use_datagram_transport="
+  RTC_DLOG(LS_INFO) << "Negotiating datagram transport, use_datagram_transport="
                    << use_datagram_transport << " answer type="
                    << (type == SdpType::kAnswer ? "answer" : "pr_answer");
 

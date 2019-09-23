@@ -59,7 +59,7 @@ absl::optional<std::string> CreateAdaptationString(
   std::string config_string = cont_conf.SerializeAsString();
   return config_string;
 #else
-  RTC_LOG(LS_ERROR) << "audio_network_adaptation is enabled"
+  RTC_DLOG(LS_ERROR) << "audio_network_adaptation is enabled"
                        " but WEBRTC_ENABLE_PROTOBUF is false.\n"
                        "Ignoring settings.";
   return absl::nullopt;

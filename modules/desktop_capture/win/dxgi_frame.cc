@@ -43,7 +43,7 @@ bool DxgiFrame::Prepare(DesktopSize size, DesktopCapturer::SourceId source_id) {
       frame = SharedMemoryDesktopFrame::Create(size, factory_);
 
       if (!frame) {
-        RTC_LOG(LS_WARNING) << "DxgiFrame cannot create a new DesktopFrame.";
+        RTC_DLOG(LS_WARNING) << "DxgiFrame cannot create a new DesktopFrame.";
         return false;
       }
 

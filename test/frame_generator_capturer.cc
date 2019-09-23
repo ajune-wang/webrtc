@@ -224,13 +224,13 @@ void FrameGeneratorCapturer::ChangeFramerate(int target_framerate) {
   rtc::CritScope cs(&lock_);
   RTC_CHECK(target_capture_fps_ > 0);
   if (target_framerate > source_fps_)
-    RTC_LOG(LS_WARNING) << "Target framerate clamped from " << target_framerate
+    RTC_DLOG(LS_WARNING) << "Target framerate clamped from " << target_framerate
                         << " to " << source_fps_;
   if (source_fps_ % target_capture_fps_ != 0) {
     int decimation =
         std::round(static_cast<double>(source_fps_) / target_capture_fps_);
     int effective_rate = target_capture_fps_ / decimation;
-    RTC_LOG(LS_WARNING) << "Target framerate, " << target_framerate
+    RTC_DLOG(LS_WARNING) << "Target framerate, " << target_framerate
                         << ", is an uneven fraction of the source rate, "
                         << source_fps_
                         << ". The framerate will be :" << effective_rate;

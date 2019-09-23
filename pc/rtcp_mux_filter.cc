@@ -39,7 +39,7 @@ bool RtcpMuxFilter::SetOffer(bool offer_enable, ContentSource src) {
   }
 
   if (!ExpectOffer(offer_enable, src)) {
-    RTC_LOG(LS_ERROR) << "Invalid state for change of RTCP mux offer";
+    RTC_DLOG(LS_ERROR) << "Invalid state for change of RTCP mux offer";
     return false;
   }
 
@@ -56,7 +56,7 @@ bool RtcpMuxFilter::SetProvisionalAnswer(bool answer_enable,
   }
 
   if (!ExpectAnswer(src)) {
-    RTC_LOG(LS_ERROR) << "Invalid state for RTCP mux provisional answer";
+    RTC_DLOG(LS_ERROR) << "Invalid state for RTCP mux provisional answer";
     return false;
   }
 
@@ -77,7 +77,7 @@ bool RtcpMuxFilter::SetProvisionalAnswer(bool answer_enable,
     }
   } else if (answer_enable) {
     // If the offer didn't specify RTCP mux, the answer shouldn't either.
-    RTC_LOG(LS_WARNING) << "Invalid parameters in RTCP mux provisional answer";
+    RTC_DLOG(LS_WARNING) << "Invalid parameters in RTCP mux provisional answer";
     return false;
   }
 
@@ -91,7 +91,7 @@ bool RtcpMuxFilter::SetAnswer(bool answer_enable, ContentSource src) {
   }
 
   if (!ExpectAnswer(src)) {
-    RTC_LOG(LS_ERROR) << "Invalid state for RTCP mux answer";
+    RTC_DLOG(LS_ERROR) << "Invalid state for RTCP mux answer";
     return false;
   }
 
@@ -99,7 +99,7 @@ bool RtcpMuxFilter::SetAnswer(bool answer_enable, ContentSource src) {
     state_ = ST_ACTIVE;
   } else if (answer_enable) {
     // If the offer didn't specify RTCP mux, the answer shouldn't either.
-    RTC_LOG(LS_WARNING) << "Invalid parameters in RTCP mux answer";
+    RTC_DLOG(LS_WARNING) << "Invalid parameters in RTCP mux answer";
     return false;
   } else {
     state_ = ST_INIT;

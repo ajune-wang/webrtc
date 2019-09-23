@@ -85,7 +85,7 @@ uint8_t BitrateAllocator::GetTransmissionMaxBitrateMultiplier() {
                                     .c_str(),
                                 nullptr, 10);
   if (multiplier > 0 && multiplier <= kTransmissionMaxBitrateMultiplier) {
-    RTC_LOG(LS_INFO) << "TransmissionMaxBitrateMultiplier is set to "
+    RTC_DLOG(LS_INFO) << "TransmissionMaxBitrateMultiplier is set to "
                      << multiplier;
     return static_cast<uint8_t>(multiplier);
   }
@@ -109,7 +109,7 @@ void BitrateAllocator::OnNetworkEstimateChanged(TargetTransferRate msg) {
   // Periodically log the incoming BWE.
   int64_t now = msg.at_time.ms();
   if (now > last_bwe_log_time_ + kBweLogIntervalMs) {
-    RTC_LOG(LS_INFO) << "Current BWE " << last_target_bps_;
+    RTC_DLOG(LS_INFO) << "Current BWE " << last_target_bps_;
     last_bwe_log_time_ = now;
   }
 
@@ -140,7 +140,7 @@ void BitrateAllocator::OnNetworkEstimateChanged(TargetTransferRate msg) {
       // and protection used before this observer was muted.
       uint32_t predicted_protection_bps =
           (1.0 - config.media_ratio) * config.config.min_bitrate_bps;
-      RTC_LOG(LS_INFO) << "Pausing observer " << config.observer
+      RTC_DLOG(LS_INFO) << "Pausing observer " << config.observer
                        << " with configured min bitrate "
                        << config.config.min_bitrate_bps
                        << " and current estimate of " << last_target_bps_
@@ -149,7 +149,7 @@ void BitrateAllocator::OnNetworkEstimateChanged(TargetTransferRate msg) {
     } else if (allocated_bitrate > 0 && config.allocated_bitrate_bps == 0) {
       if (last_target_bps_ > 0)
         ++num_pause_events_;
-      RTC_LOG(LS_INFO) << "Resuming observer " << config.observer
+      RTC_DLOG(LS_INFO) << "Resuming observer " << config.observer
                        << ", configured min bitrate "
                        << config.config.min_bitrate_bps
                        << ", current allocation " << allocated_bitrate
@@ -243,7 +243,7 @@ void BitrateAllocator::UpdateAllocationLimits() {
   }
   current_limits_ = limits;
 
-  RTC_LOG(LS_INFO) << "UpdateAllocationLimits : total_requested_min_bitrate: "
+  RTC_DLOG(LS_INFO) << "UpdateAllocationLimits : total_requested_min_bitrate: "
                    << ToString(limits.min_allocatable_rate)
                    << ", total_requested_padding_bitrate: "
                    << ToString(limits.max_padding_rate)

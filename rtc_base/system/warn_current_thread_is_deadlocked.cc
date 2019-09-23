@@ -16,8 +16,8 @@
 namespace webrtc {
 
 void WarnThatTheCurrentThreadIsProbablyDeadlocked() {
-  RTC_LOG(LS_WARNING) << "Probable deadlock:";
-  RTC_LOG(LS_WARNING) << StackTraceToString(GetStackTrace());
+  RTC_DLOG(LS_WARNING) << "Probable deadlock:";
+  RTC_DLOG(LS_WARNING) << StackTraceToString(GetStackTrace());
 }
 
 }  // namespace webrtc

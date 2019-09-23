@@ -82,7 +82,7 @@ bool DecodedFramesHistory::WasDecoded(const VideoLayerFrameId& frameid) {
 
   // Reference to the picture_id out of the stored history should happen.
   if (frameid.picture_id <= *history.last_picture_id - window_size_) {
-    RTC_LOG(LS_WARNING) << "Referencing a frame out of the history window. "
+    RTC_DLOG(LS_WARNING) << "Referencing a frame out of the history window. "
                            "Assuming it was undecoded to avoid artifacts.";
     return false;
   }

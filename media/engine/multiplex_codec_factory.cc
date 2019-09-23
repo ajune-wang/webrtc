@@ -72,7 +72,7 @@ std::unique_ptr<VideoEncoder> MultiplexEncoderFactory::CreateVideoEncoder(
   const auto& it =
       format.parameters.find(cricket::kCodecParamAssociatedCodecName);
   if (it == format.parameters.end()) {
-    RTC_LOG(LS_ERROR) << "No assicated codec for multiplex.";
+    RTC_DLOG(LS_ERROR) << "No assicated codec for multiplex.";
     return nullptr;
   }
   SdpVideoFormat associated_format = format;
@@ -109,7 +109,7 @@ std::unique_ptr<VideoDecoder> MultiplexDecoderFactory::CreateVideoDecoder(
   const auto& it =
       format.parameters.find(cricket::kCodecParamAssociatedCodecName);
   if (it == format.parameters.end()) {
-    RTC_LOG(LS_ERROR) << "No assicated codec for multiplex.";
+    RTC_DLOG(LS_ERROR) << "No assicated codec for multiplex.";
     return nullptr;
   }
   SdpVideoFormat associated_format = format;

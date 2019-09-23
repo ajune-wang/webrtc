@@ -50,7 +50,7 @@ bool Remb::Parse(const CommonHeader& packet) {
   RTC_DCHECK_EQ(packet.fmt(), Psfb::kAfbMessageType);
 
   if (packet.payload_size_bytes() < 16) {
-    RTC_LOG(LS_WARNING) << "Payload length " << packet.payload_size_bytes()
+    RTC_DLOG(LS_WARNING) << "Payload length " << packet.payload_size_bytes()
                         << " is too small for Remb packet.";
     return false;
   }
@@ -61,7 +61,7 @@ bool Remb::Parse(const CommonHeader& packet) {
   uint8_t number_of_ssrcs = payload[12];
   if (packet.payload_size_bytes() !=
       kCommonFeedbackLength + (2 + number_of_ssrcs) * 4) {
-    RTC_LOG(LS_WARNING) << "Payload size " << packet.payload_size_bytes()
+    RTC_DLOG(LS_WARNING) << "Payload size " << packet.payload_size_bytes()
                         << " does not match " << number_of_ssrcs << " ssrcs.";
     return false;
   }
@@ -73,7 +73,7 @@ bool Remb::Parse(const CommonHeader& packet) {
   bitrate_bps_ = (mantissa << exponenta);
   bool shift_overflow = (bitrate_bps_ >> exponenta) != mantissa;
   if (shift_overflow) {
-    RTC_LOG(LS_ERROR) << "Invalid remb bitrate value : " << mantissa << "*2^"
+    RTC_DLOG(LS_ERROR) << "Invalid remb bitrate value : " << mantissa << "*2^"
                       << static_cast<int>(exponenta);
     return false;
   }
@@ -91,7 +91,7 @@ bool Remb::Parse(const CommonHeader& packet) {
 
 bool Remb::SetSsrcs(std::vector<uint32_t> ssrcs) {
   if (ssrcs.size() > kMaxNumberOfSsrcs) {
-    RTC_LOG(LS_WARNING) << "Not enough space for all given SSRCs.";
+    RTC_DLOG(LS_WARNING) << "Not enough space for all given SSRCs.";
     return false;
   }
   ssrcs_ = std::move(ssrcs);

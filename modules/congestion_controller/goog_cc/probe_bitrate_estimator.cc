@@ -106,7 +106,7 @@ absl::optional<DataRate> ProbeBitrateEstimator::HandleProbeAndEstimateBitrate(
   if (send_interval <= TimeDelta::Zero() || send_interval > kMaxProbeInterval ||
       receive_interval <= TimeDelta::Zero() ||
       receive_interval > kMaxProbeInterval) {
-    RTC_LOG(LS_INFO) << "Probing unsuccessful, invalid send/receive interval"
+    RTC_DLOG(LS_INFO) << "Probing unsuccessful, invalid send/receive interval"
                      << " [cluster id: " << cluster_id
                      << "] [send interval: " << ToString(send_interval) << "]"
                      << " [receive interval: " << ToString(receive_interval)
@@ -133,7 +133,7 @@ absl::optional<DataRate> ProbeBitrateEstimator::HandleProbeAndEstimateBitrate(
 
   double ratio = receive_rate / send_rate;
   if (ratio > kMaxValidRatio) {
-    RTC_LOG(LS_INFO) << "Probing unsuccessful, receive/send ratio too high"
+    RTC_DLOG(LS_INFO) << "Probing unsuccessful, receive/send ratio too high"
                      << " [cluster id: " << cluster_id
                      << "] [send: " << ToString(send_size) << " / "
                      << ToString(send_interval) << " = " << ToString(send_rate)
@@ -150,7 +150,7 @@ absl::optional<DataRate> ProbeBitrateEstimator::HandleProbeAndEstimateBitrate(
     }
     return absl::nullopt;
   }
-  RTC_LOG(LS_INFO) << "Probing successful"
+  RTC_DLOG(LS_INFO) << "Probing successful"
                    << " [cluster id: " << cluster_id
                    << "] [send: " << ToString(send_size) << " / "
                    << ToString(send_interval) << " = " << ToString(send_rate)

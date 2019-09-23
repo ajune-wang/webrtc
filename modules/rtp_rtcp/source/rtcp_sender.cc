@@ -695,7 +695,7 @@ int32_t RTCPSender::SendCompoundRTCP(
   {
     rtc::CritScope lock(&critical_section_rtcp_sender_);
     if (method_ == RtcpMode::kOff) {
-      RTC_LOG(LS_WARNING) << "Can't send rtcp if it is disabled.";
+      RTC_DLOG(LS_WARNING) << "Can't send rtcp if it is disabled.";
       return -1;
     }
     // Add all flags as volatile. Non volatile entries will not be overwritten.
@@ -864,7 +864,7 @@ int32_t RTCPSender::SetApplicationSpecificData(uint8_t subType,
                                                const uint8_t* data,
                                                uint16_t length) {
   if (length % 4 != 0) {
-    RTC_LOG(LS_ERROR) << "Failed to SetApplicationSpecificData.";
+    RTC_DLOG(LS_ERROR) << "Failed to SetApplicationSpecificData.";
     return -1;
   }
   rtc::CritScope lock(&critical_section_rtcp_sender_);
@@ -939,7 +939,7 @@ void RTCPSender::SetVideoBitrateAllocation(
       CheckAndUpdateLayerStructure(bitrate);
   if (new_bitrate) {
     video_bitrate_allocation_ = *new_bitrate;
-    RTC_LOG(LS_INFO) << "Emitting TargetBitrate XR for SSRC " << ssrc_
+    RTC_DLOG(LS_INFO) << "Emitting TargetBitrate XR for SSRC " << ssrc_
                      << " with new layers enabled/disabled: "
                      << video_bitrate_allocation_.ToString();
     next_time_to_send_rtcp_ = clock_->TimeInMilliseconds();

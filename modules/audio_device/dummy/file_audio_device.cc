@@ -208,7 +208,7 @@ int32_t FileAudioDevice::StartPlayout() {
   if (!_outputFilename.empty()) {
     _outputFile = FileWrapper::OpenWriteOnly(_outputFilename.c_str());
     if (!_outputFile.is_open()) {
-      RTC_LOG(LS_ERROR) << "Failed to open playout file: " << _outputFilename;
+      RTC_DLOG(LS_ERROR) << "Failed to open playout file: " << _outputFilename;
       _playing = false;
       delete[] _playoutBuffer;
       _playoutBuffer = NULL;
@@ -221,7 +221,7 @@ int32_t FileAudioDevice::StartPlayout() {
       rtc::kRealtimePriority));
   _ptrThreadPlay->Start();
 
-  RTC_LOG(LS_INFO) << "Started playout capture to output file: "
+  RTC_DLOG(LS_INFO) << "Started playout capture to output file: "
                    << _outputFilename;
   return 0;
 }
@@ -245,7 +245,7 @@ int32_t FileAudioDevice::StopPlayout() {
   _playoutBuffer = NULL;
   _outputFile.Close();
 
-  RTC_LOG(LS_INFO) << "Stopped playout capture to output file: "
+  RTC_DLOG(LS_INFO) << "Stopped playout capture to output file: "
                    << _outputFilename;
   return 0;
 }
@@ -267,7 +267,7 @@ int32_t FileAudioDevice::StartRecording() {
   if (!_inputFilename.empty()) {
     _inputFile = FileWrapper::OpenReadOnly(_inputFilename.c_str());
     if (!_inputFile.is_open()) {
-      RTC_LOG(LS_ERROR) << "Failed to open audio input file: "
+      RTC_DLOG(LS_ERROR) << "Failed to open audio input file: "
                         << _inputFilename;
       _recording = false;
       delete[] _recordingBuffer;
@@ -282,7 +282,7 @@ int32_t FileAudioDevice::StartRecording() {
 
   _ptrThreadRec->Start();
 
-  RTC_LOG(LS_INFO) << "Started recording from input file: " << _inputFilename;
+  RTC_DLOG(LS_INFO) << "Started recording from input file: " << _inputFilename;
 
   return 0;
 }
@@ -306,7 +306,7 @@ int32_t FileAudioDevice::StopRecording() {
   }
   _inputFile.Close();
 
-  RTC_LOG(LS_INFO) << "Stopped recording from input file: " << _inputFilename;
+  RTC_DLOG(LS_INFO) << "Stopped recording from input file: " << _inputFilename;
   return 0;
 }
 

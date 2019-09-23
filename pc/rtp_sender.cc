@@ -232,11 +232,11 @@ void RtpSenderBase::SetStreams(const std::vector<std::string>& stream_ids) {
 bool RtpSenderBase::SetTrack(MediaStreamTrackInterface* track) {
   TRACE_EVENT0("webrtc", "RtpSenderBase::SetTrack");
   if (stopped_) {
-    RTC_LOG(LS_ERROR) << "SetTrack can't be called on a stopped RtpSender.";
+    RTC_DLOG(LS_ERROR) << "SetTrack can't be called on a stopped RtpSender.";
     return false;
   }
   if (track && track->kind() != track_kind()) {
-    RTC_LOG(LS_ERROR) << "SetTrack with " << track->kind()
+    RTC_DLOG(LS_ERROR) << "SetTrack with " << track->kind()
                       << " called on RtpSender with " << track_kind()
                       << " track.";
     return false;
@@ -436,13 +436,13 @@ AudioRtpSender::~AudioRtpSender() {
 
 bool AudioRtpSender::CanInsertDtmf() {
   if (!media_channel_) {
-    RTC_LOG(LS_ERROR) << "CanInsertDtmf: No audio channel exists.";
+    RTC_DLOG(LS_ERROR) << "CanInsertDtmf: No audio channel exists.";
     return false;
   }
   // Check that this RTP sender is active (description has been applied that
   // matches an SSRC to its ID).
   if (!ssrc_) {
-    RTC_LOG(LS_ERROR) << "CanInsertDtmf: Sender does not have SSRC.";
+    RTC_DLOG(LS_ERROR) << "CanInsertDtmf: Sender does not have SSRC.";
     return false;
   }
   return worker_thread_->Invoke<bool>(
@@ -451,18 +451,18 @@ bool AudioRtpSender::CanInsertDtmf() {
 
 bool AudioRtpSender::InsertDtmf(int code, int duration) {
   if (!media_channel_) {
-    RTC_LOG(LS_ERROR) << "InsertDtmf: No audio channel exists.";
+    RTC_DLOG(LS_ERROR) << "InsertDtmf: No audio channel exists.";
     return false;
   }
   if (!ssrc_) {
-    RTC_LOG(LS_ERROR) << "InsertDtmf: Sender does not have SSRC.";
+    RTC_DLOG(LS_ERROR) << "InsertDtmf: Sender does not have SSRC.";
     return false;
   }
   bool success = worker_thread_->Invoke<bool>(RTC_FROM_HERE, [&] {
     return voice_media_channel()->InsertDtmf(ssrc_, code, duration);
   });
   if (!success) {
-    RTC_LOG(LS_ERROR) << "Failed to insert DTMF to channel.";
+    RTC_DLOG(LS_ERROR) << "Failed to insert DTMF to channel.";
   }
   return success;
 }
@@ -513,7 +513,7 @@ void AudioRtpSender::SetSend() {
   RTC_DCHECK(!stopped_);
   RTC_DCHECK(can_send_track());
   if (!media_channel_) {
-    RTC_LOG(LS_ERROR) << "SetAudioSend: No audio channel exists.";
+    RTC_DLOG(LS_ERROR) << "SetAudioSend: No audio channel exists.";
     return;
   }
   cricket::AudioOptions options;
@@ -535,7 +535,7 @@ void AudioRtpSender::SetSend() {
                                                sink_adapter_.get());
   });
   if (!success) {
-    RTC_LOG(LS_ERROR) << "SetAudioSend: ssrc is incorrect: " << ssrc_;
+    RTC_DLOG(LS_ERROR) << "SetAudioSend: ssrc is incorrect: " << ssrc_;
   }
 }
 
@@ -543,7 +543,7 @@ void AudioRtpSender::ClearSend() {
   RTC_DCHECK(ssrc_ != 0);
   RTC_DCHECK(!stopped_);
   if (!media_channel_) {
-    RTC_LOG(LS_WARNING) << "ClearAudioSend: No audio channel exists.";
+    RTC_DLOG(LS_WARNING) << "ClearAudioSend: No audio channel exists.";
     return;
   }
   cricket::AudioOptions options;
@@ -551,7 +551,7 @@ void AudioRtpSender::ClearSend() {
     return voice_media_channel()->SetAudioSend(ssrc_, false, &options, nullptr);
   });
   if (!success) {
-    RTC_LOG(LS_WARNING) << "ClearAudioSend: ssrc is incorrect: " << ssrc_;
+    RTC_DLOG(LS_WARNING) << "ClearAudioSend: ssrc is incorrect: " << ssrc_;
   }
 }
 
@@ -590,7 +590,7 @@ void VideoRtpSender::AttachTrack() {
 }
 
 rtc::scoped_refptr<DtmfSenderInterface> VideoRtpSender::GetDtmfSender() const {
-  RTC_LOG(LS_ERROR) << "Tried to get DTMF sender from video sender.";
+  RTC_DLOG(LS_ERROR) << "Tried to get DTMF sender from video sender.";
   return nullptr;
 }
 
@@ -598,7 +598,7 @@ void VideoRtpSender::SetSend() {
   RTC_DCHECK(!stopped_);
   RTC_DCHECK(can_send_track());
   if (!media_channel_) {
-    RTC_LOG(LS_ERROR) << "SetVideoSend: No video channel exists.";
+    RTC_DLOG(LS_ERROR) << "SetVideoSend: No video channel exists.";
     return;
   }
   cricket::VideoOptions options;
@@ -628,7 +628,7 @@ void VideoRtpSender::ClearSend() {
   RTC_DCHECK(ssrc_ != 0);
   RTC_DCHECK(!stopped_);
   if (!media_channel_) {
-    RTC_LOG(LS_WARNING) << "SetVideoSend: No video channel exists.";
+    RTC_DLOG(LS_WARNING) << "SetVideoSend: No video channel exists.";
     return;
   }
   // Allow SetVideoSend to fail since |enable| is false and |source| is null.

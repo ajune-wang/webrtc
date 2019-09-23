@@ -101,14 +101,14 @@ void StructParametersParser::Parse(absl::string_view src) {
       if (key == member.key) {
         found = true;
         if (!member.parser.parse(opt_value, member.member_ptr)) {
-          RTC_LOG(LS_WARNING) << "Failed to read field with key: '" << key
+          RTC_DLOG(LS_WARNING) << "Failed to read field with key: '" << key
                               << "' in trial: \"" << src << "\"";
         }
         break;
       }
     }
     if (!found) {
-      RTC_LOG(LS_INFO) << "No field with key: '" << key
+      RTC_DLOG(LS_INFO) << "No field with key: '" << key
                        << "' (found in trial: \"" << src << "\")";
     }
   }

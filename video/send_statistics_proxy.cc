@@ -429,7 +429,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
         RTC_HISTOGRAMS_COUNTS_200(kIndex, uma_prefix_ + "Encoded.Qp.Vp8.S2",
                                   qp_vp8);
       } else {
-        RTC_LOG(LS_WARNING)
+        RTC_DLOG(LS_WARNING)
             << "QP stats not recorded for VP8 spatial idx " << spatial_idx;
       }
     }
@@ -449,7 +449,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
         RTC_HISTOGRAMS_COUNTS_500(kIndex, uma_prefix_ + "Encoded.Qp.Vp9.S2",
                                   qp_vp9);
       } else {
-        RTC_LOG(LS_WARNING)
+        RTC_DLOG(LS_WARNING)
             << "QP stats not recorded for VP9 spatial layer " << spatial_idx;
       }
     }
@@ -469,7 +469,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
         RTC_HISTOGRAMS_COUNTS_200(kIndex, uma_prefix_ + "Encoded.Qp.H264.S2",
                                   qp_h264);
       } else {
-        RTC_LOG(LS_WARNING)
+        RTC_DLOG(LS_WARNING)
             << "QP stats not recorded for H264 spatial idx " << spatial_idx;
       }
     }
@@ -660,7 +660,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
   RTC_HISTOGRAMS_COUNTS_1000(kIndex, uma_prefix_ + "DroppedFrames.Ratelimiter",
                              current_stats.frames_dropped_by_rate_limiter);
 
-  RTC_LOG(LS_INFO) << log_stream.str();
+  RTC_DLOG(LS_INFO) << log_stream.str();
 }
 
 void SendStatisticsProxy::OnEncoderReconfigured(
@@ -925,7 +925,7 @@ void SendStatisticsProxy::OnSendEncodedImage(
   }
 
   if (static_cast<size_t>(simulcast_idx) >= rtp_config_.ssrcs.size()) {
-    RTC_LOG(LS_ERROR) << "Encoded image outside simulcast range ("
+    RTC_DLOG(LS_ERROR) << "Encoded image outside simulcast range ("
                       << simulcast_idx << " >= " << rtp_config_.ssrcs.size()
                       << ").";
     return;

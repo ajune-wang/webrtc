@@ -62,10 +62,10 @@ rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> CreateTestPCF(
       std::make_unique<webrtc::InternalDecoderFactory>();
   SetMediaEngineDefaults(&media_deps);
   pcf_deps.media_engine = cricket::CreateMediaEngine(std::move(media_deps));
-  RTC_LOG(LS_INFO) << "Media engine created: " << pcf_deps.media_engine.get();
+  RTC_DLOG(LS_INFO) << "Media engine created: " << pcf_deps.media_engine.get();
 
   auto factory = CreateModularPeerConnectionFactory(std::move(pcf_deps));
-  RTC_LOG(LS_INFO) << "PeerConnectionFactory created: " << factory;
+  RTC_DLOG(LS_INFO) << "PeerConnectionFactory created: " << factory;
   RTC_CHECK(factory) << "Failed to create the peer connection factory; "
                      << "WebRTC/libjingle init likely failed on this device";
 
@@ -75,10 +75,10 @@ rtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> CreateTestPCF(
 TEST(PeerConnectionFactoryTest, NativeToJavaPeerConnectionFactory) {
   JNIEnv* jni = AttachCurrentThreadIfNeeded();
 
-  RTC_LOG(INFO) << "Initializing java peer connection factory.";
+  RTC_DLOG(INFO) << "Initializing java peer connection factory.";
   jni::Java_PeerConnectionFactoryInitializationHelper_initializeFactoryForTests(
       jni);
-  RTC_LOG(INFO) << "Java peer connection factory initialized.";
+  RTC_DLOG(INFO) << "Java peer connection factory initialized.";
 
   // Create threads.
   std::unique_ptr<rtc::Thread> network_thread =
@@ -102,7 +102,7 @@ TEST(PeerConnectionFactoryTest, NativeToJavaPeerConnectionFactory) {
       jni, factory, std::move(network_thread), std::move(worker_thread),
       std::move(signaling_thread), nullptr /* network_monitor_factory */);
 
-  RTC_LOG(INFO) << java_factory;
+  RTC_DLOG(INFO) << java_factory;
 
   EXPECT_NE(java_factory, nullptr);
 }

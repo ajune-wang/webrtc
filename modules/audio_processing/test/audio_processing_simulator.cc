@@ -161,7 +161,7 @@ AudioProcessingSimulator::AudioProcessingSimulator(
   }
 
   if (settings_.simulate_mic_gain)
-    RTC_LOG(LS_VERBOSE) << "Simulating analog mic gain";
+    RTC_DLOG(LS_VERBOSE) << "Simulating analog mic gain";
 }
 
 AudioProcessingSimulator::~AudioProcessingSimulator() {
@@ -436,14 +436,14 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
   }
 
   if (settings_.use_drift_compensation && *settings_.use_drift_compensation) {
-    RTC_LOG(LS_ERROR) << "Ignoring deprecated setting: AEC2 drift compensation";
+    RTC_DLOG(LS_ERROR) << "Ignoring deprecated setting: AEC2 drift compensation";
   }
   if (settings_.aec_suppression_level) {
     auto level = static_cast<webrtc::EchoCancellationImpl::SuppressionLevel>(
         *settings_.aec_suppression_level);
     if (level ==
         webrtc::EchoCancellationImpl::SuppressionLevel::kLowSuppression) {
-      RTC_LOG(LS_ERROR) << "Ignoring deprecated setting: AEC2 low suppression";
+      RTC_DLOG(LS_ERROR) << "Ignoring deprecated setting: AEC2 low suppression";
     } else {
       apm_config.echo_canceller.legacy_moderate_suppression_level =
           (level == webrtc::EchoCancellationImpl::SuppressionLevel::

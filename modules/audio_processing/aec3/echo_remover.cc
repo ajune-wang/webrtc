@@ -321,7 +321,7 @@ void EchoRemoverImpl::ProcessCapture(
       if (gain_change_hangover_ == 0) {
         constexpr int kMaxBlocksPerFrame = 3;
         gain_change_hangover_ = kMaxBlocksPerFrame;
-        RTC_LOG(LS_INFO) << "Gain change detected at block " << block_counter_;
+        RTC_DLOG(LS_INFO) << "Gain change detected at block " << block_counter_;
       } else {
         echo_path_variability.gain_change = false;
       }

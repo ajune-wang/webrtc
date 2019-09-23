@@ -143,7 +143,7 @@ BaseChannel::BaseChannel(rtc::Thread* worker_thread,
   RTC_DCHECK_RUN_ON(worker_thread_);
   RTC_DCHECK(ssrc_generator_);
   demuxer_criteria_.mid = content_name;
-  RTC_LOG(LS_INFO) << "Created channel for " << content_name;
+  RTC_DLOG(LS_INFO) << "Created channel for " << content_name;
 }
 
 BaseChannel::~BaseChannel() {
@@ -161,7 +161,7 @@ BaseChannel::~BaseChannel() {
   // the media channel may try to send on the dead transport channel. NULLing
   // is not an effective strategy since the sends will come on another thread.
   media_channel_.reset();
-  RTC_LOG(LS_INFO) << "Destroyed channel: " << content_name_;
+  RTC_DLOG(LS_INFO) << "Destroyed channel: " << content_name_;
 }
 
 bool BaseChannel::ConnectToRtpTransport() {
@@ -209,7 +209,7 @@ void BaseChannel::Init_w(
   // the media channel and it can set network options.
   media_channel_->SetInterface(this, media_transport_config);
 
-  RTC_LOG(LS_INFO) << "BaseChannel::Init_w, media_transport_config="
+  RTC_DLOG(LS_INFO) << "BaseChannel::Init_w, media_transport_config="
                    << media_transport_config.DebugString();
   if (media_transport_config_.media_transport) {
     media_transport_config_.media_transport->AddNetworkChangeCallback(this);
@@ -255,7 +255,7 @@ bool BaseChannel::SetRtpTransport(webrtc::RtpTransportInternal* rtp_transport) {
     transport_name_ = rtp_transport_->transport_name();
 
     if (!ConnectToRtpTransport()) {
-      RTC_LOG(LS_ERROR) << "Failed to connect to the new RtpTransport.";
+      RTC_DLOG(LS_ERROR) << "Failed to connect to the new RtpTransport.";
       return false;
     }
     OnTransportReadyToSend(rtp_transport_->IsReadyToSend());
@@ -367,7 +367,7 @@ void BaseChannel::OnWritableState(bool writable) {
 
 void BaseChannel::OnNetworkRouteChanged(
     absl::optional<rtc::NetworkRoute> network_route) {
-  RTC_LOG(LS_INFO) << "Network route was changed.";
+  RTC_DLOG(LS_INFO) << "Network route was changed.";
 
   RTC_DCHECK(network_thread_->IsCurrent());
   rtc::NetworkRoute new_route;
@@ -422,7 +422,7 @@ bool BaseChannel::SendPacket(bool rtcp,
 
   // Protect ourselves against crazy data.
   if (!IsValidRtpPacketSize(packet_type, packet->size())) {
-    RTC_LOG(LS_ERROR) << "Dropping outgoing " << content_name_ << " "
+    RTC_DLOG(LS_ERROR) << "Dropping outgoing " << content_name_ << " "
                       << RtpPacketTypeToString(packet_type)
                       << " packet: wrong size=" << packet->size();
     return false;
@@ -438,7 +438,7 @@ bool BaseChannel::SendPacket(bool rtcp,
       }
       // However, there shouldn't be any RTP packets sent before SRTP is set up
       // (and SetSend(true) is called).
-      RTC_LOG(LS_ERROR)
+      RTC_DLOG(LS_ERROR)
           << "Can't send outgoing RTP packet when SRTP is inactive"
           << " and crypto is required";
       RTC_NOTREACHED();
@@ -446,7 +446,7 @@ bool BaseChannel::SendPacket(bool rtcp,
     }
 
     std::string packet_type = rtcp ? "RTCP" : "RTP";
-    RTC_LOG(LS_WARNING) << "Sending an " << packet_type
+    RTC_DLOG(LS_WARNING) << "Sending an " << packet_type
                         << " packet without encryption.";
   }
 
@@ -480,7 +480,7 @@ void BaseChannel::OnRtpPacket(const webrtc::RtpPacketReceived& parsed_packet) {
     //    before sending  media, to prevent weird failure modes, so it's fine
     //    for us to just eat packets here. This is all sidestepped if RTCP mux
     //    is used anyway.
-    RTC_LOG(LS_WARNING) << "Can't process incoming RTP packet when "
+    RTC_DLOG(LS_WARNING) << "Can't process incoming RTP packet when "
                            "SRTP is inactive and crypto is required";
     return;
   }
@@ -522,7 +522,7 @@ void BaseChannel::EnableMedia_w() {
   if (enabled_)
     return;
 
-  RTC_LOG(LS_INFO) << "Channel enabled";
+  RTC_DLOG(LS_INFO) << "Channel enabled";
   enabled_ = true;
   UpdateMediaSendRecvState_w();
 }
@@ -532,7 +532,7 @@ void BaseChannel::DisableMedia_w() {
   if (!enabled_)
     return;
 
-  RTC_LOG(LS_INFO) << "Channel disabled";
+  RTC_DLOG(LS_INFO) << "Channel disabled";
   enabled_ = false;
   UpdateMediaSendRecvState_w();
 }
@@ -552,7 +552,7 @@ void BaseChannel::ChannelWritable_n() {
     return;
   }
 
-  RTC_LOG(LS_INFO) << "Channel writable (" << content_name_ << ")"
+  RTC_DLOG(LS_INFO) << "Channel writable (" << content_name_ << ")"
                    << (was_ever_writable_ ? "" : " for the first time");
 
   was_ever_writable_ = true;
@@ -565,7 +565,7 @@ void BaseChannel::ChannelNotWritable_n() {
   if (!writable_)
     return;
 
-  RTC_LOG(LS_INFO) << "Channel not writable (" << content_name_ << ")";
+  RTC_DLOG(LS_INFO) << "Channel not writable (" << content_name_ << ")";
   writable_ = false;
   UpdateMediaSendRecvState();
 }
@@ -645,7 +645,7 @@ bool BaseChannel::UpdateLocalStreams_w(const std::vector<StreamParams>& streams,
     }
 
     if (media_channel()->AddSendStream(new_stream)) {
-      RTC_LOG(LS_INFO) << "Add send stream ssrc: " << new_stream.ssrcs[0];
+      RTC_DLOG(LS_INFO) << "Add send stream ssrc: " << new_stream.ssrcs[0];
     } else {
       rtc::StringBuilder desc;
       desc << "Failed to add send stream ssrc: " << new_stream.first_ssrc();
@@ -669,7 +669,7 @@ bool BaseChannel::UpdateRemoteStreams_w(
     if ((!old_stream.has_ssrcs() && !HasStreamWithNoSsrcs(streams)) ||
         !GetStreamBySsrc(streams, old_stream.first_ssrc())) {
       if (RemoveRecvStream_w(old_stream.first_ssrc())) {
-        RTC_LOG(LS_INFO) << "Remove remote ssrc: " << old_stream.first_ssrc();
+        RTC_DLOG(LS_INFO) << "Remove remote ssrc: " << old_stream.first_ssrc();
       } else {
         rtc::StringBuilder desc;
         desc << "Failed to remove remote stream with ssrc "
@@ -688,7 +688,7 @@ bool BaseChannel::UpdateRemoteStreams_w(
     if ((!new_stream.has_ssrcs() && !HasStreamWithNoSsrcs(remote_streams_)) ||
         !GetStreamBySsrc(remote_streams_, new_stream.first_ssrc())) {
       if (AddRecvStream_w(new_stream)) {
-        RTC_LOG(LS_INFO) << "Add remote ssrc: " << new_stream.first_ssrc();
+        RTC_DLOG(LS_INFO) << "Add remote ssrc: " << new_stream.first_ssrc();
       } else {
         rtc::StringBuilder desc;
         desc << "Failed to add remote stream ssrc: " << new_stream.first_ssrc();
@@ -834,7 +834,7 @@ void VoiceChannel::UpdateMediaSendRecvState_w() {
   bool send = IsReadyToSendMedia_w();
   media_channel()->SetSend(send);
 
-  RTC_LOG(LS_INFO) << "Changing voice state, recv=" << recv << " send=" << send;
+  RTC_DLOG(LS_INFO) << "Changing voice state, recv=" << recv << " send=" << send;
 }
 
 bool VoiceChannel::SetLocalContent_w(const MediaContentDescription* content,
@@ -842,7 +842,7 @@ bool VoiceChannel::SetLocalContent_w(const MediaContentDescription* content,
                                      std::string* error_desc) {
   TRACE_EVENT0("webrtc", "VoiceChannel::SetLocalContent_w");
   RTC_DCHECK_RUN_ON(worker_thread());
-  RTC_LOG(LS_INFO) << "Setting local voice description";
+  RTC_DLOG(LS_INFO) << "Setting local voice description";
 
   RTC_DCHECK(content);
   if (!content) {
@@ -871,7 +871,7 @@ bool VoiceChannel::SetLocalContent_w(const MediaContentDescription* content,
     }
     // Need to re-register the sink to update the handled payload.
     if (!RegisterRtpDemuxerSink()) {
-      RTC_LOG(LS_ERROR) << "Failed to set up audio demuxing.";
+      RTC_DLOG(LS_ERROR) << "Failed to set up audio demuxing.";
       return false;
     }
   }
@@ -897,7 +897,7 @@ bool VoiceChannel::SetRemoteContent_w(const MediaContentDescription* content,
                                       std::string* error_desc) {
   TRACE_EVENT0("webrtc", "VoiceChannel::SetRemoteContent_w");
   RTC_DCHECK_RUN_ON(worker_thread());
-  RTC_LOG(LS_INFO) << "Setting remote voice description";
+  RTC_DLOG(LS_INFO) << "Setting remote voice description";
 
   RTC_DCHECK(content);
   if (!content) {
@@ -928,7 +928,7 @@ bool VoiceChannel::SetRemoteContent_w(const MediaContentDescription* content,
                             "disable payload type demuxing";
     ClearHandledPayloadTypes();
     if (!RegisterRtpDemuxerSink()) {
-      RTC_LOG(LS_ERROR) << "Failed to update audio demuxing.";
+      RTC_DLOG(LS_ERROR) << "Failed to update audio demuxing.";
       return false;
     }
   }
@@ -976,11 +976,11 @@ void VideoChannel::UpdateMediaSendRecvState_w() {
   // and we have had some form of connectivity.
   bool send = IsReadyToSendMedia_w();
   if (!media_channel()->SetSend(send)) {
-    RTC_LOG(LS_ERROR) << "Failed to SetSend on video channel";
+    RTC_DLOG(LS_ERROR) << "Failed to SetSend on video channel";
     // TODO(gangji): Report error back to server.
   }
 
-  RTC_LOG(LS_INFO) << "Changing video state, send=" << send;
+  RTC_DLOG(LS_INFO) << "Changing video state, send=" << send;
 }
 
 void VideoChannel::FillBitrateInfo(BandwidthEstimationInfo* bwe_info) {
@@ -993,7 +993,7 @@ bool VideoChannel::SetLocalContent_w(const MediaContentDescription* content,
                                      std::string* error_desc) {
   TRACE_EVENT0("webrtc", "VideoChannel::SetLocalContent_w");
   RTC_DCHECK_RUN_ON(worker_thread());
-  RTC_LOG(LS_INFO) << "Setting local video description";
+  RTC_DLOG(LS_INFO) << "Setting local video description";
 
   RTC_DCHECK(content);
   if (!content) {
@@ -1042,7 +1042,7 @@ bool VideoChannel::SetLocalContent_w(const MediaContentDescription* content,
     }
     // Need to re-register the sink to update the handled payload.
     if (!RegisterRtpDemuxerSink()) {
-      RTC_LOG(LS_ERROR) << "Failed to set up video demuxing.";
+      RTC_DLOG(LS_ERROR) << "Failed to set up video demuxing.";
       return false;
     }
   }
@@ -1076,7 +1076,7 @@ bool VideoChannel::SetRemoteContent_w(const MediaContentDescription* content,
                                       std::string* error_desc) {
   TRACE_EVENT0("webrtc", "VideoChannel::SetRemoteContent_w");
   RTC_DCHECK_RUN_ON(worker_thread());
-  RTC_LOG(LS_INFO) << "Setting remote video description";
+  RTC_DLOG(LS_INFO) << "Setting remote video description";
 
   RTC_DCHECK(content);
   if (!content) {
@@ -1136,7 +1136,7 @@ bool VideoChannel::SetRemoteContent_w(const MediaContentDescription* content,
                             "disable payload type demuxing";
     ClearHandledPayloadTypes();
     if (!RegisterRtpDemuxerSink()) {
-      RTC_LOG(LS_ERROR) << "Failed to update video demuxing.";
+      RTC_DLOG(LS_ERROR) << "Failed to update video demuxing.";
       return false;
     }
   }
@@ -1215,7 +1215,7 @@ bool RtpDataChannel::SetLocalContent_w(const MediaContentDescription* content,
                                        std::string* error_desc) {
   TRACE_EVENT0("webrtc", "RtpDataChannel::SetLocalContent_w");
   RTC_DCHECK_RUN_ON(worker_thread());
-  RTC_LOG(LS_INFO) << "Setting local data description";
+  RTC_DLOG(LS_INFO) << "Setting local data description";
 
   RTC_DCHECK(content);
   if (!content) {
@@ -1244,7 +1244,7 @@ bool RtpDataChannel::SetLocalContent_w(const MediaContentDescription* content,
   }
   // Need to re-register the sink to update the handled payload.
   if (!RegisterRtpDemuxerSink()) {
-    RTC_LOG(LS_ERROR) << "Failed to set up data demuxing.";
+    RTC_DLOG(LS_ERROR) << "Failed to set up data demuxing.";
     return false;
   }
 
@@ -1269,7 +1269,7 @@ bool RtpDataChannel::SetRemoteContent_w(const MediaContentDescription* content,
                                         std::string* error_desc) {
   TRACE_EVENT0("webrtc", "RtpDataChannel::SetRemoteContent_w");
   RTC_DCHECK_RUN_ON(worker_thread());
-  RTC_LOG(LS_INFO) << "Setting remote data description";
+  RTC_DLOG(LS_INFO) << "Setting remote data description";
 
   RTC_DCHECK(content);
   if (!content) {
@@ -1280,7 +1280,7 @@ bool RtpDataChannel::SetRemoteContent_w(const MediaContentDescription* content,
   const RtpDataContentDescription* data = content->as_rtp_data();
 
   if (!data) {
-    RTC_LOG(LS_INFO) << "Accepting and ignoring non-RTP content description";
+    RTC_DLOG(LS_INFO) << "Accepting and ignoring non-RTP content description";
     return true;
   }
 
@@ -1296,7 +1296,7 @@ bool RtpDataChannel::SetRemoteContent_w(const MediaContentDescription* content,
   RtpHeaderExtensions rtp_header_extensions =
       GetFilteredRtpHeaderExtensions(data->rtp_header_extensions());
 
-  RTC_LOG(LS_INFO) << "Setting remote data description";
+  RTC_DLOG(LS_INFO) << "Setting remote data description";
   DataSendParameters send_params = last_send_params_;
   RtpSendParametersFromMediaDescription<DataCodec>(data, rtp_header_extensions,
                                                    &send_params);
@@ -1326,20 +1326,20 @@ void RtpDataChannel::UpdateMediaSendRecvState_w() {
   // content. We receive data on the default channel and multiplexed streams.
   bool recv = IsReadyToReceiveMedia_w();
   if (!media_channel()->SetReceive(recv)) {
-    RTC_LOG(LS_ERROR) << "Failed to SetReceive on data channel";
+    RTC_DLOG(LS_ERROR) << "Failed to SetReceive on data channel";
   }
 
   // Send outgoing data if we're the active call, we have the remote content,
   // and we have had some form of connectivity.
   bool send = IsReadyToSendMedia_w();
   if (!media_channel()->SetSend(send)) {
-    RTC_LOG(LS_ERROR) << "Failed to SetSend on data channel";
+    RTC_DLOG(LS_ERROR) << "Failed to SetSend on data channel";
   }
 
   // Trigger SignalReadyToSendData asynchronously.
   OnDataChannelReadyToSend(send);
 
-  RTC_LOG(LS_INFO) << "Changing data state, recv=" << recv << " send=" << send;
+  RTC_DLOG(LS_INFO) << "Changing data state, recv=" << recv << " send=" << send;
 }
 
 void RtpDataChannel::OnMessage(rtc::Message* pmsg) {

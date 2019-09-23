@@ -51,7 +51,7 @@ bool ExtendedReports::Parse(const CommonHeader& packet) {
   RTC_DCHECK_EQ(packet.type(), kPacketType);
 
   if (packet.payload_size_bytes() < kXrBaseLength) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Packet is too small to be an ExtendedReports packet.";
     return false;
   }
@@ -72,7 +72,7 @@ bool ExtendedReports::Parse(const CommonHeader& packet) {
     const uint8_t* next_block =
         current_block + kBlockHeaderSizeBytes + block_length * 4;
     if (next_block > packet_end) {
-      RTC_LOG(LS_WARNING)
+      RTC_DLOG(LS_WARNING)
           << "Report block in extended report packet is too big.";
       return false;
     }
@@ -88,7 +88,7 @@ bool ExtendedReports::Parse(const CommonHeader& packet) {
         break;
       default:
         // Unknown block, ignore.
-        RTC_LOG(LS_WARNING)
+        RTC_DLOG(LS_WARNING)
             << "Unknown extended report block type " << block_type;
         break;
     }
@@ -100,13 +100,13 @@ bool ExtendedReports::Parse(const CommonHeader& packet) {
 
 void ExtendedReports::SetRrtr(const Rrtr& rrtr) {
   if (rrtr_block_)
-    RTC_LOG(LS_WARNING) << "Rrtr already set, overwriting.";
+    RTC_DLOG(LS_WARNING) << "Rrtr already set, overwriting.";
   rrtr_block_.emplace(rrtr);
 }
 
 bool ExtendedReports::AddDlrrItem(const ReceiveTimeInfo& time_info) {
   if (dlrr_block_.sub_blocks().size() >= kMaxNumberOfDlrrItems) {
-    RTC_LOG(LS_WARNING) << "Reached maximum number of DLRR items.";
+    RTC_DLOG(LS_WARNING) << "Reached maximum number of DLRR items.";
     return false;
   }
   dlrr_block_.AddDlrrItem(time_info);
@@ -115,7 +115,7 @@ bool ExtendedReports::AddDlrrItem(const ReceiveTimeInfo& time_info) {
 
 void ExtendedReports::SetTargetBitrate(const TargetBitrate& bitrate) {
   if (target_bitrate_)
-    RTC_LOG(LS_WARNING) << "TargetBitrate already set, overwriting.";
+    RTC_DLOG(LS_WARNING) << "TargetBitrate already set, overwriting.";
 
   target_bitrate_ = bitrate;
 }
@@ -163,12 +163,12 @@ size_t ExtendedReports::TargetBitrateLength() const {
 void ExtendedReports::ParseRrtrBlock(const uint8_t* block,
                                      uint16_t block_length) {
   if (block_length != Rrtr::kBlockLength) {
-    RTC_LOG(LS_WARNING) << "Incorrect rrtr block size " << block_length
+    RTC_DLOG(LS_WARNING) << "Incorrect rrtr block size " << block_length
                         << " Should be " << Rrtr::kBlockLength;
     return;
   }
   if (rrtr_block_) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Two rrtr blocks found in same Extended Report packet";
     return;
   }
@@ -179,7 +179,7 @@ void ExtendedReports::ParseRrtrBlock(const uint8_t* block,
 void ExtendedReports::ParseDlrrBlock(const uint8_t* block,
                                      uint16_t block_length) {
   if (dlrr_block_) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Two Dlrr blocks found in same Extended Report packet";
     return;
   }

@@ -59,7 +59,7 @@ DxgiDuplicatorController::Instance() {
 bool DxgiDuplicatorController::IsCurrentSessionSupported() {
   DWORD session_id = 0;
   if (!::ProcessIdToSessionId(::GetCurrentProcessId(), &session_id)) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Failed to retrieve current session Id, current binary "
            "may not have required priviledge.";
     return false;
@@ -78,7 +78,7 @@ void DxgiDuplicatorController::Release() {
   int refcount = (--refcount_);
   RTC_DCHECK(refcount >= 0);
   if (refcount == 0) {
-    RTC_LOG(LS_WARNING) << "Count of references reaches zero, "
+    RTC_DLOG(LS_WARNING) << "Count of references reaches zero, "
                            "DxgiDuplicatorController will be unloaded.";
     Unload();
   }
@@ -97,7 +97,7 @@ bool DxgiDuplicatorController::RetrieveD3dInfo(D3dInfo* info) {
     *info = d3d_info_;
   }
   if (!result) {
-    RTC_LOG(LS_WARNING) << "Failed to initialize DXGI components, the D3dInfo "
+    RTC_DLOG(LS_WARNING) << "Failed to initialize DXGI components, the D3dInfo "
                            "retrieved may not accurate or out of date.";
   }
   return result;
@@ -166,7 +166,7 @@ DxgiDuplicatorController::Result DxgiDuplicatorController::DoDuplicate(
 
   if (!Initialize()) {
     if (succeeded_duplications_ == 0 && !IsCurrentSessionSupported()) {
-      RTC_LOG(LS_WARNING) << "Current binary is running in session 0. DXGI "
+      RTC_DLOG(LS_WARNING) << "Current binary is running in session 0. DXGI "
                              "components cannot be initialized.";
       return Result::UNSUPPORTED_SESSION;
     }
@@ -235,7 +235,7 @@ bool DxgiDuplicatorController::DoInitialize() {
 
   std::vector<D3dDevice> devices = D3dDevice::EnumDevices();
   if (devices.empty()) {
-    RTC_LOG(LS_WARNING) << "No D3dDevice found.";
+    RTC_DLOG(LS_WARNING) << "No D3dDevice found.";
     return false;
   }
 
@@ -257,7 +257,7 @@ bool DxgiDuplicatorController::DoInitialize() {
     // taking effect, so we should continually try other adapters. This usually
     // happens when a non-official virtual adapter is installed on the system.
     if (!duplicator.Initialize()) {
-      RTC_LOG(LS_WARNING) << "Failed to initialize DxgiAdapterDuplicator on "
+      RTC_DLOG(LS_WARNING) << "Failed to initialize DxgiAdapterDuplicator on "
                              "adapter "
                           << i;
       continue;
@@ -279,7 +279,7 @@ bool DxgiDuplicatorController::DoInitialize() {
   identity_++;
 
   if (duplicators_.empty()) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Cannot initialize any DxgiAdapterDuplicator instance.";
   }
 
@@ -462,7 +462,7 @@ bool DxgiDuplicatorController::EnsureFrameCaptured(Context* context,
       return false;
     }
     if (rtc::TimeMillis() - start_ms > timeout_ms) {
-      RTC_LOG(LS_ERROR) << "Failed to capture " << frames_to_skip
+      RTC_DLOG(LS_ERROR) << "Failed to capture " << frames_to_skip
                         << " frames "
                            "within "
                         << timeout_ms << " milliseconds.";

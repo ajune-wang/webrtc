@@ -413,7 +413,7 @@ HttpAuthResult HttpAuthenticate(const char* challenge,
     if (neg) {
       const size_t max_steps = 10;
       if (++neg->steps >= max_steps) {
-        RTC_LOG(WARNING) << "AsyncHttpsProxySocket::Authenticate(Negotiate) "
+        RTC_DLOG(WARNING) << "AsyncHttpsProxySocket::Authenticate(Negotiate) "
                             "too many retries";
         return HAR_ERROR;
       }
@@ -437,7 +437,7 @@ HttpAuthResult HttpAuthenticate(const char* challenge,
             &neg->cred, &neg->ctx, spn, flags, 0, SECURITY_NATIVE_DREP,
             &in_buf_desc, 0, &neg->ctx, &out_buf_desc, &ret_flags, &lifetime);
         if (FAILED(ret)) {
-          RTC_LOG(LS_ERROR) << "InitializeSecurityContext returned: "
+          RTC_DLOG(LS_ERROR) << "InitializeSecurityContext returned: "
                             << GetErrorName(ret, SECURITY_ERRORS);
           return HAR_ERROR;
         }
@@ -492,10 +492,10 @@ HttpAuthResult HttpAuthenticate(const char* challenge,
         auth_id.Password = passbuf;
         auth_id.Flags = SEC_WINNT_AUTH_IDENTITY_ANSI;
         pauth_id = &auth_id;
-        RTC_LOG(LS_VERBOSE)
+        RTC_DLOG(LS_VERBOSE)
             << "Negotiate protocol: Using specified credentials";
       } else {
-        RTC_LOG(LS_VERBOSE) << "Negotiate protocol: Using default credentials";
+        RTC_DLOG(LS_VERBOSE) << "Negotiate protocol: Using default credentials";
       }
 
       CredHandle cred;
@@ -503,7 +503,7 @@ HttpAuthResult HttpAuthenticate(const char* challenge,
           0, const_cast<char*>(want_negotiate ? NEGOSSP_NAME_A : NTLMSP_NAME_A),
           SECPKG_CRED_OUTBOUND, 0, pauth_id, 0, 0, &cred, &lifetime);
       if (ret != SEC_E_OK) {
-        RTC_LOG(LS_ERROR) << "AcquireCredentialsHandle error: "
+        RTC_DLOG(LS_ERROR) << "AcquireCredentialsHandle error: "
                           << GetErrorName(ret, SECURITY_ERRORS);
         return HAR_IGNORE;
       }
@@ -515,7 +515,7 @@ HttpAuthResult HttpAuthenticate(const char* challenge,
                                        SECURITY_NATIVE_DREP, 0, 0, &ctx,
                                        &out_buf_desc, &ret_flags, &lifetime);
       if (FAILED(ret)) {
-        RTC_LOG(LS_ERROR) << "InitializeSecurityContext returned: "
+        RTC_DLOG(LS_ERROR) << "InitializeSecurityContext returned: "
                           << GetErrorName(ret, SECURITY_ERRORS);
         FreeCredentialsHandle(&cred);
         return HAR_IGNORE;
@@ -530,7 +530,7 @@ HttpAuthResult HttpAuthenticate(const char* challenge,
     if ((ret == SEC_I_COMPLETE_NEEDED) ||
         (ret == SEC_I_COMPLETE_AND_CONTINUE)) {
       ret = CompleteAuthToken(&neg->ctx, &out_buf_desc);
-      RTC_LOG(LS_VERBOSE) << "CompleteAuthToken returned: "
+      RTC_DLOG(LS_VERBOSE) << "CompleteAuthToken returned: "
                           << GetErrorName(ret, SECURITY_ERRORS);
       if (FAILED(ret)) {
         return HAR_ERROR;

@@ -129,7 +129,7 @@ void VideoRtpReceiver::Stop() {
   }
   source_->SetState(MediaSourceInterface::kEnded);
   if (!media_channel_) {
-    RTC_LOG(LS_WARNING) << "VideoRtpReceiver::Stop: No video channel exists.";
+    RTC_DLOG(LS_WARNING) << "VideoRtpReceiver::Stop: No video channel exists.";
   } else {
     // Allow that SetSink fail. This is the normal case when the underlying
     // media channel has already been deleted.
@@ -161,7 +161,7 @@ void VideoRtpReceiver::RestartMediaChannel(absl::optional<uint32_t> ssrc) {
 
 void VideoRtpReceiver::SetupMediaChannel(uint32_t ssrc) {
   if (!media_channel_) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "VideoRtpReceiver::SetupMediaChannel: No video channel exists.";
   }
   RestartMediaChannel(ssrc);
@@ -169,7 +169,7 @@ void VideoRtpReceiver::SetupMediaChannel(uint32_t ssrc) {
 
 void VideoRtpReceiver::SetupUnsignaledMediaChannel() {
   if (!media_channel_) {
-    RTC_LOG(LS_ERROR) << "VideoRtpReceiver::SetupUnsignaledMediaChannel: No "
+    RTC_DLOG(LS_ERROR) << "VideoRtpReceiver::SetupUnsignaledMediaChannel: No "
                          "video channel exists.";
   }
   RestartMediaChannel(absl::nullopt);

@@ -32,7 +32,7 @@ SendDelayStats::SendDelayStats(Clock* clock)
 
 SendDelayStats::~SendDelayStats() {
   if (num_old_packets_ > 0 || num_skipped_packets_ > 0) {
-    RTC_LOG(LS_WARNING) << "Delay stats: number of old packets "
+    RTC_DLOG(LS_WARNING) << "Delay stats: number of old packets "
                         << num_old_packets_ << ", skipped packets "
                         << num_skipped_packets_ << ". Number of streams "
                         << send_delay_counters_.size();
@@ -46,7 +46,7 @@ void SendDelayStats::UpdateHistograms() {
     AggregatedStats stats = it.second->GetStats();
     if (stats.num_samples >= kMinRequiredPeriodicSamples) {
       RTC_HISTOGRAM_COUNTS_10000("WebRTC.Video.SendDelayInMs", stats.average);
-      RTC_LOG(LS_INFO) << "WebRTC.Video.SendDelayInMs, " << stats.ToString();
+      RTC_DLOG(LS_INFO) << "WebRTC.Video.SendDelayInMs, " << stats.ToString();
     }
   }
 }

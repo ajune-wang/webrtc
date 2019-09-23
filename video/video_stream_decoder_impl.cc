@@ -98,7 +98,7 @@ VideoDecoder* VideoStreamDecoderImpl::GetDecoder(int payload_type) {
 
   auto decoder_settings_it = decoder_settings_.find(payload_type);
   if (decoder_settings_it == decoder_settings_.end()) {
-    RTC_LOG(LS_WARNING) << "Payload type " << payload_type
+    RTC_DLOG(LS_WARNING) << "Payload type " << payload_type
                         << " not registered.";
     return nullptr;
   }
@@ -107,7 +107,7 @@ VideoDecoder* VideoStreamDecoderImpl::GetDecoder(int payload_type) {
   std::unique_ptr<VideoDecoder> decoder =
       decoder_factory_->CreateVideoDecoder(video_format);
   if (!decoder) {
-    RTC_LOG(LS_WARNING) << "Failed to create decoder for payload type "
+    RTC_DLOG(LS_WARNING) << "Failed to create decoder for payload type "
                         << payload_type << ".";
     return nullptr;
   }
@@ -115,14 +115,14 @@ VideoDecoder* VideoStreamDecoderImpl::GetDecoder(int payload_type) {
   int num_cores = decoder_settings_it->second.second;
   int32_t init_result = decoder->InitDecode(nullptr, num_cores);
   if (init_result != WEBRTC_VIDEO_CODEC_OK) {
-    RTC_LOG(LS_WARNING) << "Failed to initialize decoder for payload type "
+    RTC_DLOG(LS_WARNING) << "Failed to initialize decoder for payload type "
                         << payload_type << ".";
     return nullptr;
   }
 
   int32_t register_result = decoder->RegisterDecodeCompleteCallback(this);
   if (register_result != WEBRTC_VIDEO_CODEC_OK) {
-    RTC_LOG(LS_WARNING) << "Failed to register decode callback.";
+    RTC_DLOG(LS_WARNING) << "Failed to register decode callback.";
     return nullptr;
   }
 
@@ -189,7 +189,7 @@ VideoStreamDecoderImpl::DecodeResult VideoStreamDecoderImpl::DecodeNextFrame(
   if (frame) {
     VideoDecoder* decoder = GetDecoder(frame->PayloadType());
     if (!decoder) {
-      RTC_LOG(LS_WARNING) << "Failed to get decoder, dropping frame ("
+      RTC_DLOG(LS_WARNING) << "Failed to get decoder, dropping frame ("
                           << frame->id.picture_id << ":"
                           << frame->id.spatial_layer << ").";
       return kNoDecoder;
@@ -264,7 +264,7 @@ void VideoStreamDecoderImpl::Decoded(VideoFrame& decoded_image,
     FrameTimestamps* frame_timestamps =
         GetFrameTimestamps(decoded_image.timestamp());
     if (!frame_timestamps) {
-      RTC_LOG(LS_ERROR) << "No frame information found for frame with timestamp"
+      RTC_DLOG(LS_ERROR) << "No frame information found for frame with timestamp"
                         << decoded_image.timestamp();
       return;
     }

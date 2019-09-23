@@ -355,7 +355,7 @@ RTCError JsepTransportController::AddRemoteCandidates(
   }
   auto jsep_transport = GetJsepTransportByName(transport_name);
   if (!jsep_transport) {
-    RTC_LOG(LS_WARNING) << "Not adding candidate because the JsepTransport "
+    RTC_DLOG(LS_WARNING) << "Not adding candidate because the JsepTransport "
                            "doesn't exist. Ignore it.";
     return RTCError::OK();
   }
@@ -380,7 +380,7 @@ RTCError JsepTransportController::RemoveRemoteCandidates(
     if (!cand.transport_name().empty()) {
       candidates_by_transport_name[cand.transport_name()].push_back(cand);
     } else {
-      RTC_LOG(LS_ERROR) << "Not removing candidate because it does not have a "
+      RTC_DLOG(LS_ERROR) << "Not removing candidate because it does not have a "
                            "transport name set: "
                         << cand.ToSensitiveString();
     }
@@ -392,7 +392,7 @@ RTCError JsepTransportController::RemoveRemoteCandidates(
     cricket::JsepTransport* jsep_transport =
         GetJsepTransportByName(transport_name);
     if (!jsep_transport) {
-      RTC_LOG(LS_WARNING)
+      RTC_DLOG(LS_WARNING)
           << "Not removing candidate because the JsepTransport doesn't exist.";
       continue;
     }
@@ -432,7 +432,7 @@ void JsepTransportController::SetActiveResetSrtpParams(
     return;
   }
 
-  RTC_LOG(INFO)
+  RTC_DLOG(INFO)
       << "Updating the active_reset_srtp_params for JsepTransportController: "
       << active_reset_srtp_params;
   config_.active_reset_srtp_params = active_reset_srtp_params;
@@ -1024,10 +1024,10 @@ JsepTransportController::MaybeCreateMediaTransport(
   // Caller (offerer) media transport.
   if (local) {
     if (offer_media_transport_) {
-      RTC_LOG(LS_INFO) << "Offered media transport has now been activated.";
+      RTC_DLOG(LS_INFO) << "Offered media transport has now been activated.";
       return std::move(offer_media_transport_);
     } else {
-      RTC_LOG(LS_INFO)
+      RTC_DLOG(LS_INFO)
           << "Not returning media transport. Either SDES wasn't enabled, or "
              "media transport didn't return an offer earlier.";
       // Offer wasn't generated. Either because media transport didn't want it,
@@ -1045,7 +1045,7 @@ JsepTransportController::MaybeCreateMediaTransport(
   // the second transport is destroyed (right away).
   // For media transport, we don't want to create the second
   // media transport in the first place.
-  RTC_LOG(LS_INFO) << "Returning new, client media transport.";
+  RTC_DLOG(LS_INFO) << "Returning new, client media transport.";
 
   RTC_DCHECK(!local)
       << "If media transport is used, you must call "
@@ -1096,7 +1096,7 @@ JsepTransportController::MaybeCreateDatagramTransport(
   // Caller (offerer) datagram transport.
   if (offer_datagram_transport_) {
     RTC_DCHECK(local);
-    RTC_LOG(LS_INFO) << "Offered datagram transport has now been activated.";
+    RTC_DLOG(LS_INFO) << "Offered datagram transport has now been activated.";
     return std::move(offer_datagram_transport_);
   }
 
@@ -1106,14 +1106,14 @@ JsepTransportController::MaybeCreateDatagramTransport(
       << "Missing transport description for mid=" << content_info.mid();
 
   if (!transport_description->opaque_parameters) {
-    RTC_LOG(LS_INFO)
+    RTC_DLOG(LS_INFO)
         << "No opaque transport parameters, not creating datagram transport";
     return nullptr;
   }
 
   if (transport_description->opaque_parameters->protocol !=
       config_.media_transport_factory->GetTransportName()) {
-    RTC_LOG(LS_INFO) << "Opaque transport parameters for protocol="
+    RTC_DLOG(LS_INFO) << "Opaque transport parameters for protocol="
                      << transport_description->opaque_parameters->protocol
                      << ", which does not match supported protocol="
                      << config_.media_transport_factory->GetTransportName();
@@ -1125,7 +1125,7 @@ JsepTransportController::MaybeCreateDatagramTransport(
   // the second transport is destroyed (right away).
   // For datagram transport, we don't want to create the second
   // datagram transport in the first place.
-  RTC_LOG(LS_INFO) << "Returning new, client datagram transport.";
+  RTC_DLOG(LS_INFO) << "Returning new, client datagram transport.";
 
   MediaTransportSettings settings;
   settings.is_caller = local;
@@ -1206,7 +1206,7 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
     // - Fusing
     // - Rtp header compression
     // - Handling Rtcp feedback.
-    RTC_LOG(LS_INFO) << "Creating UnencryptedRtpTransport, because datagram "
+    RTC_DLOG(LS_INFO) << "Creating UnencryptedRtpTransport, because datagram "
                         "transport is used.";
     RTC_DCHECK(!rtcp_dtls_transport);
     datagram_rtp_transport = std::make_unique<DatagramRtpTransport>(
@@ -1215,16 +1215,16 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
   }
 
   if (config_.disable_encryption) {
-    RTC_LOG(LS_INFO)
+    RTC_DLOG(LS_INFO)
         << "Creating UnencryptedRtpTransport, becayse encryption is disabled.";
     unencrypted_rtp_transport = CreateUnencryptedRtpTransport(
         content_info.name, rtp_dtls_transport.get(), rtcp_dtls_transport.get());
   } else if (!content_desc->cryptos().empty()) {
     sdes_transport = CreateSdesTransport(
         content_info.name, rtp_dtls_transport.get(), rtcp_dtls_transport.get());
-    RTC_LOG(LS_INFO) << "Creating SdesTransport.";
+    RTC_DLOG(LS_INFO) << "Creating SdesTransport.";
   } else {
-    RTC_LOG(LS_INFO) << "Creating DtlsSrtpTransport.";
+    RTC_DLOG(LS_INFO) << "Creating DtlsSrtpTransport.";
     dtls_srtp_transport = CreateDtlsSrtpTransport(
         content_info.name, rtp_dtls_transport.get(), rtcp_dtls_transport.get());
   }
@@ -1366,7 +1366,7 @@ cricket::IceRole JsepTransportController::DetermineIceRole(
 void JsepTransportController::OnTransportWritableState_n(
     rtc::PacketTransportInternal* transport) {
   RTC_DCHECK(network_thread_->IsCurrent());
-  RTC_LOG(LS_INFO) << " Transport " << transport->transport_name()
+  RTC_DLOG(LS_INFO) << " Transport " << transport->transport_name()
                    << " writability changed to " << transport->writable()
                    << ".";
   UpdateAggregateStates_n();
@@ -1432,7 +1432,7 @@ void JsepTransportController::OnTransportRoleConflict_n(
   cricket::IceRole reversed_role = (ice_role_ == cricket::ICEROLE_CONTROLLING)
                                        ? cricket::ICEROLE_CONTROLLED
                                        : cricket::ICEROLE_CONTROLLING;
-  RTC_LOG(LS_INFO) << "Got role conflict; switching to "
+  RTC_DLOG(LS_INFO) << "Got role conflict; switching to "
                    << (reversed_role == cricket::ICEROLE_CONTROLLING
                            ? "controlling"
                            : "controlled")
@@ -1443,7 +1443,7 @@ void JsepTransportController::OnTransportRoleConflict_n(
 void JsepTransportController::OnTransportStateChanged_n(
     cricket::IceTransportInternal* transport) {
   RTC_DCHECK(network_thread_->IsCurrent());
-  RTC_LOG(LS_INFO) << transport->transport_name() << " Transport "
+  RTC_DLOG(LS_INFO) << transport->transport_name() << " Transport "
                    << transport->component()
                    << " state changed. Check if state is complete.";
   UpdateAggregateStates_n();
@@ -1705,12 +1705,12 @@ void JsepTransportController::OnDtlsHandshakeError(
 absl::optional<cricket::SessionDescription::MediaTransportSetting>
 JsepTransportController::GenerateOrGetLastMediaTransportOffer() {
   if (media_transport_created_once_) {
-    RTC_LOG(LS_INFO) << "Not regenerating media transport for the new offer in "
+    RTC_DLOG(LS_INFO) << "Not regenerating media transport for the new offer in "
                         "existing session.";
     return media_transport_offer_settings_;
   }
 
-  RTC_LOG(LS_INFO) << "Generating media transport offer!";
+  RTC_DLOG(LS_INFO) << "Generating media transport offer!";
 
   absl::optional<std::string> transport_parameters;
 
@@ -1738,18 +1738,18 @@ JsepTransportController::GenerateOrGetLastMediaTransportOffer() {
       transport_parameters =
           offer_media_transport_->GetTransportParametersOffer();
     } else {
-      RTC_LOG(LS_INFO) << "Unable to create media transport, error="
+      RTC_DLOG(LS_INFO) << "Unable to create media transport, error="
                        << media_transport_or_error.error().message();
     }
   }
 
   if (!offer_media_transport_) {
-    RTC_LOG(LS_INFO) << "Media and data transports do not exist";
+    RTC_DLOG(LS_INFO) << "Media and data transports do not exist";
     return absl::nullopt;
   }
 
   if (!transport_parameters) {
-    RTC_LOG(LS_INFO) << "Media transport didn't generate the offer";
+    RTC_DLOG(LS_INFO) << "Media transport didn't generate the offer";
     // Media transport didn't generate the offer, and is not supposed to be
     // used. Destroy the temporary media transport.
     offer_media_transport_ = nullptr;
@@ -1797,7 +1797,7 @@ JsepTransportController::GetTransportParameters(const std::string& mid) {
       offer_datagram_transport_ =
           std::move(datagram_transport_or_error.value());
     } else {
-      RTC_LOG(LS_INFO) << "Unable to create datagram transport, error="
+      RTC_DLOG(LS_INFO) << "Unable to create datagram transport, error="
                        << datagram_transport_or_error.error().message();
     }
   }

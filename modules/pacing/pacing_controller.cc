@@ -106,7 +106,7 @@ PacingController::PacingController(Clock* clock,
       queue_time_limit(kMaxExpectedQueueLength),
       account_for_audio_(false) {
   if (!drain_large_queues_) {
-    RTC_LOG(LS_WARNING) << "Pacer queues will not be drained,"
+    RTC_DLOG(LS_WARNING) << "Pacer queues will not be drained,"
                            "pushback experiment must be enabled.";
   }
   FieldTrialParameter<int> min_packet_limit_ms("", min_packet_limit_.ms());
@@ -124,14 +124,14 @@ void PacingController::CreateProbeCluster(DataRate bitrate, int cluster_id) {
 
 void PacingController::Pause() {
   if (!paused_)
-    RTC_LOG(LS_INFO) << "PacedSender paused.";
+    RTC_DLOG(LS_INFO) << "PacedSender paused.";
   paused_ = true;
   packet_queue_.SetPauseState(true, CurrentTime());
 }
 
 void PacingController::Resume() {
   if (paused_)
-    RTC_LOG(LS_INFO) << "PacedSender resumed.";
+    RTC_DLOG(LS_INFO) << "PacedSender resumed.";
   paused_ = false;
   packet_queue_.SetPauseState(false, CurrentTime());
 }
@@ -158,7 +158,7 @@ bool PacingController::Congested() const {
 Timestamp PacingController::CurrentTime() const {
   Timestamp time = clock_->CurrentTime();
   if (time < last_timestamp_) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Non-monotonic clock behavior observed. Previous timestamp: "
         << last_timestamp_.ms() << ", new timestamp: " << time.ms();
     RTC_DCHECK_GE(time, last_timestamp_);
@@ -179,7 +179,7 @@ void PacingController::SetPacingRates(DataRate pacing_rate,
   pacing_bitrate_ = pacing_rate;
   padding_budget_.set_target_rate_kbps(padding_rate.kbps());
 
-  RTC_LOG(LS_VERBOSE) << "bwe:pacer_updated pacing_kbps="
+  RTC_DLOG(LS_VERBOSE) << "bwe:pacer_updated pacing_kbps="
                       << pacing_bitrate_.kbps()
                       << " padding_budget_kbps=" << padding_rate.kbps();
 }
@@ -236,7 +236,7 @@ TimeDelta PacingController::UpdateTimeAndGetElapsed(Timestamp now) {
   TimeDelta elapsed_time = now - time_last_process_;
   time_last_process_ = now;
   if (elapsed_time > kMaxElapsedTime) {
-    RTC_LOG(LS_WARNING) << "Elapsed time (" << elapsed_time.ms()
+    RTC_DLOG(LS_WARNING) << "Elapsed time (" << elapsed_time.ms()
                         << " ms) longer than expected, limiting to "
                         << kMaxElapsedTime.ms();
     elapsed_time = kMaxElapsedTime;
@@ -312,7 +312,7 @@ void PacingController::ProcessPackets() {
         DataRate min_rate_needed = queue_size_data / avg_time_left;
         if (min_rate_needed > target_rate) {
           target_rate = min_rate_needed;
-          RTC_LOG(LS_VERBOSE) << "bwe:large_pacing_queue pacing_rate_kbps="
+          RTC_DLOG(LS_VERBOSE) << "bwe:large_pacing_queue pacing_rate_kbps="
                               << target_rate.kbps();
         }
       }

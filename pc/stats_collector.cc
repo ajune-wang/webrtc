@@ -388,7 +388,7 @@ std::string GetTrackIdBySsrc(
     // SSRC, so try looking up by the special SSRC 0.
     it = track_id_by_ssrc.find(0);
     if (it != track_id_by_ssrc.end()) {
-      RTC_LOG(LS_INFO) << "Assuming SSRC=" << ssrc
+      RTC_DLOG(LS_INFO) << "Assuming SSRC=" << ssrc
                        << " is an unsignalled receive stream corresponding "
                           "to the RtpReceiver with track ID \""
                        << it->second << "\".";
@@ -1054,7 +1054,7 @@ void StatsCollector::ExtractMediaInfo() {
          /* incremented manually */) {
       MediaChannelStatsGatherer* gatherer = it->get();
       if (!gatherer->GetStatsOnWorkerThread()) {
-        RTC_LOG(LS_ERROR) << "Failed to get media channel stats for mid="
+        RTC_DLOG(LS_ERROR) << "Failed to get media channel stats for mid="
                           << gatherer->mid;
         it = gatherers.erase(it);
         continue;
@@ -1149,7 +1149,7 @@ void StatsCollector::UpdateStatsFromExistingLocalAudioTracks(
     if (report == NULL) {
       // This can happen if a local audio track is added to a stream on the
       // fly and the report has not been set up yet. Do nothing in this case.
-      RTC_LOG(LS_ERROR) << "Stats report does not exist for ssrc " << ssrc;
+      RTC_DLOG(LS_ERROR) << "Stats report does not exist for ssrc " << ssrc;
       continue;
     }
 

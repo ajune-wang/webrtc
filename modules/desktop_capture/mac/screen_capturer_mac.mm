@@ -152,7 +152,7 @@ ScreenCapturerMac::ScreenCapturerMac(
     : detect_updated_region_(detect_updated_region),
       desktop_config_monitor_(desktop_config_monitor),
       desktop_frame_provider_(allow_iosurface) {
-  RTC_LOG(LS_INFO) << "Allow IOSurface: " << allow_iosurface;
+  RTC_DLOG(LS_INFO) << "Allow IOSurface: " << allow_iosurface;
   thread_checker_.Detach();
 }
 
@@ -185,7 +185,7 @@ void ScreenCapturerMac::Start(Callback* callback) {
   callback_ = callback;
   // Start and operate CGDisplayStream handler all from capture thread.
   if (!RegisterRefreshAndMoveHandlers()) {
-    RTC_LOG(LS_ERROR) << "Failed to register refresh and move handlers.";
+    RTC_DLOG(LS_ERROR) << "Failed to register refresh and move handlers.";
     callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
     return;
   }
@@ -208,7 +208,7 @@ void ScreenCapturerMac::CaptureFrame() {
     // the screen mode changes, so re-register them here.
     UnregisterRefreshAndMoveHandlers();
     if (!RegisterRefreshAndMoveHandlers()) {
-      RTC_LOG(LS_ERROR) << "Failed to register refresh and move handlers.";
+      RTC_DLOG(LS_ERROR) << "Failed to register refresh and move handlers.";
       callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
       return;
     }
@@ -308,7 +308,7 @@ bool ScreenCapturerMac::CgBlit(const DesktopFrame& frame, const DesktopRegion& r
     if (config) {
       displays_to_capture.push_back(*config);
     } else {
-      RTC_LOG(LS_ERROR) << "The selected screen cannot be found for capturing.";
+      RTC_DLOG(LS_ERROR) << "The selected screen cannot be found for capturing.";
       return false;
     }
   } else {

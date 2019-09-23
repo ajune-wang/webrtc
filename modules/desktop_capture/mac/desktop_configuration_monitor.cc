@@ -20,7 +20,7 @@ DesktopConfigurationMonitor::DesktopConfigurationMonitor() {
   CGError err = CGDisplayRegisterReconfigurationCallback(
       DesktopConfigurationMonitor::DisplaysReconfiguredCallback, this);
   if (err != kCGErrorSuccess)
-    RTC_LOG(LS_ERROR) << "CGDisplayRegisterReconfigurationCallback " << err;
+    RTC_DLOG(LS_ERROR) << "CGDisplayRegisterReconfigurationCallback " << err;
   rtc::CritScope cs(&desktop_configuration_lock_);
   desktop_configuration_ = MacDesktopConfiguration::GetCurrent(
       MacDesktopConfiguration::TopLeftOrigin);
@@ -30,7 +30,7 @@ DesktopConfigurationMonitor::~DesktopConfigurationMonitor() {
   CGError err = CGDisplayRemoveReconfigurationCallback(
       DesktopConfigurationMonitor::DisplaysReconfiguredCallback, this);
   if (err != kCGErrorSuccess)
-    RTC_LOG(LS_ERROR) << "CGDisplayRemoveReconfigurationCallback " << err;
+    RTC_DLOG(LS_ERROR) << "CGDisplayRemoveReconfigurationCallback " << err;
 }
 
 MacDesktopConfiguration DesktopConfigurationMonitor::desktop_configuration() {
@@ -53,7 +53,7 @@ void DesktopConfigurationMonitor::DisplaysReconfigured(
     CGDirectDisplayID display,
     CGDisplayChangeSummaryFlags flags) {
   TRACE_EVENT0("webrtc", "DesktopConfigurationMonitor::DisplaysReconfigured");
-  RTC_LOG(LS_INFO) << "DisplaysReconfigured: "
+  RTC_DLOG(LS_INFO) << "DisplaysReconfigured: "
                    << "DisplayID " << display << "; ChangeSummaryFlags "
                    << flags;
 

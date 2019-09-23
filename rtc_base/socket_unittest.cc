@@ -48,7 +48,7 @@ using webrtc::testing::StreamSink;
 
 #define MAYBE_SKIP_IPV6                        \
   if (!HasIPv6Enabled()) {                     \
-    RTC_LOG(LS_INFO) << "No IPv6... skipping"; \
+    RTC_DLOG(LS_INFO) << "No IPv6... skipping"; \
     return;                                    \
   }
 
@@ -74,7 +74,7 @@ void SocketTest::TestConnectWithDnsLookupIPv4() {
 
 void SocketTest::TestConnectWithDnsLookupIPv6() {
   // TODO: Enable this when DNS resolution supports IPv6.
-  RTC_LOG(LS_INFO) << "Skipping IPv6 DNS test";
+  RTC_DLOG(LS_INFO) << "Skipping IPv6 DNS test";
   // ConnectWithDnsLookupInternal(kIPv6Loopback, "localhost6");
 }
 
@@ -391,7 +391,7 @@ void SocketTest::ConnectWithDnsLookupFailInternal(const IPAddress& loopback) {
   WAIT_(client->GetState() == AsyncSocket::CS_CLOSED, kTimeout,
         dns_lookup_finished);
   if (!dns_lookup_finished) {
-    RTC_LOG(LS_WARNING) << "Skipping test; DNS resolution took longer than 5 "
+    RTC_DLOG(LS_WARNING) << "Skipping test; DNS resolution took longer than 5 "
                         << "seconds.";
     return;
   }
@@ -984,7 +984,7 @@ void SocketTest::UdpReadyToSend(const IPAddress& loopback) {
     if (ret != test_packet_size) {
       error = client->GetError();
       if (error == expected_error) {
-        RTC_LOG(LS_INFO) << "Got expected error code after sending "
+        RTC_DLOG(LS_INFO) << "Got expected error code after sending "
                          << sent_packet_num << " packets.";
         break;
       }
@@ -993,7 +993,7 @@ void SocketTest::UdpReadyToSend(const IPAddress& loopback) {
   EXPECT_EQ(expected_error, error);
   EXPECT_FALSE(client->ready_to_send());
   EXPECT_TRUE_WAIT(client->ready_to_send(), kTimeout);
-  RTC_LOG(LS_INFO) << "Got SignalReadyToSend";
+  RTC_DLOG(LS_INFO) << "Got SignalReadyToSend";
 }
 
 void SocketTest::GetSetOptionsInternal(const IPAddress& loopback) {

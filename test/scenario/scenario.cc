@@ -42,7 +42,7 @@ std::unique_ptr<FileLogWriterFactory> GetScenarioLogManager(
       output_root = OutputPath() + "output_data/";
 
     auto base_filename = output_root + file_name + ".";
-    RTC_LOG(LS_INFO) << "Saving scenario logs to: " << base_filename;
+    RTC_DLOG(LS_INFO) << "Saving scenario logs to: " << base_filename;
     return std::make_unique<FileLogWriterFactory>(base_filename);
   }
   return nullptr;

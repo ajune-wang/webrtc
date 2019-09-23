@@ -45,7 +45,7 @@ cricket::Candidate JavaToNativeCandidate(JNIEnv* jni,
       JavaToStdString(jni, Java_IceCandidate_getSdp(jni, j_candidate));
   cricket::Candidate candidate;
   if (!SdpDeserializeCandidate(sdp_mid, sdp, &candidate, NULL)) {
-    RTC_LOG(LS_ERROR) << "SdpDescrializeCandidate failed with sdp " << sdp;
+    RTC_DLOG(LS_ERROR) << "SdpDescrializeCandidate failed with sdp " << sdp;
   }
   return candidate;
 }

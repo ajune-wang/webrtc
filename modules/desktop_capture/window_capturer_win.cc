@@ -277,13 +277,13 @@ WindowCapturerWin::CaptureResults WindowCapturerWin::CaptureFrame(
   TRACE_EVENT0("webrtc", "WindowCapturerWin::CaptureFrame");
 
   if (!window_) {
-    RTC_LOG(LS_ERROR) << "Window hasn't been selected: " << GetLastError();
+    RTC_DLOG(LS_ERROR) << "Window hasn't been selected: " << GetLastError();
     return {Result::ERROR_PERMANENT, nullptr};
   }
 
   // Stop capturing if the window has been closed.
   if (!IsWindow(window_)) {
-    RTC_LOG(LS_ERROR) << "target window has been closed";
+    RTC_DLOG(LS_ERROR) << "target window has been closed";
     return {Result::ERROR_PERMANENT, nullptr};
   }
 
@@ -298,7 +298,7 @@ WindowCapturerWin::CaptureResults WindowCapturerWin::CaptureFrame(
 
   if (!GetCroppedWindowRect(window_, avoid_cropping_border, &cropped_rect,
                             &original_rect)) {
-    RTC_LOG(LS_WARNING) << "Failed to get drawable window area: "
+    RTC_DLOG(LS_WARNING) << "Failed to get drawable window area: "
                         << GetLastError();
     return {Result::ERROR_TEMPORARY, nullptr};
   }
@@ -318,7 +318,7 @@ WindowCapturerWin::CaptureResults WindowCapturerWin::CaptureFrame(
 
   HDC window_dc = GetWindowDC(window_);
   if (!window_dc) {
-    RTC_LOG(LS_WARNING) << "Failed to get window DC: " << GetLastError();
+    RTC_DLOG(LS_WARNING) << "Failed to get window DC: " << GetLastError();
     return {Result::ERROR_TEMPORARY, nullptr};
   }
 
@@ -352,7 +352,7 @@ WindowCapturerWin::CaptureResults WindowCapturerWin::CaptureFrame(
   std::unique_ptr<DesktopFrameWin> frame(
       DesktopFrameWin::Create(original_rect.size(), nullptr, window_dc));
   if (!frame.get()) {
-    RTC_LOG(LS_WARNING) << "Failed to create frame.";
+    RTC_DLOG(LS_WARNING) << "Failed to create frame.";
     ReleaseDC(window_, window_dc);
     return {Result::ERROR_TEMPORARY, nullptr};
   }
@@ -418,7 +418,7 @@ WindowCapturerWin::CaptureResults WindowCapturerWin::CaptureFrame(
       original_rect.top_left().subtract(GetFullscreenRect().top_left()));
 
   if (!result) {
-    RTC_LOG(LS_ERROR) << "Both PrintWindow() and BitBlt() failed.";
+    RTC_DLOG(LS_ERROR) << "Both PrintWindow() and BitBlt() failed.";
     return {Result::ERROR_TEMPORARY, nullptr};
   }
 
@@ -459,7 +459,7 @@ WindowCapturerWin::CaptureResults WindowCapturerWin::CaptureFrame(
               // bubbling it up to the caller (an expected error here is that
               // the owned/pop-up window was closed; any unexpected errors won't
               // fail the outer capture).
-              RTC_LOG(LS_INFO) << "Capturing owned window failed (previous "
+              RTC_DLOG(LS_INFO) << "Capturing owned window failed (previous "
                                   "error/warning pertained to that)";
             } else {
               // Copy / composite the captured frame into the outer frame. This

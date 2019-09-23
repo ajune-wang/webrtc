@@ -39,7 +39,7 @@ class WindowedFilterTest : public ::testing::Test {
     TimeDelta rtt_sample = TimeDelta::ms(10);
     for (int i = 0; i < 5; ++i) {
       windowed_min_rtt_.Update(rtt_sample, now_ms);
-      RTC_LOG(LS_VERBOSE) << "i: " << i << " sample: " << ToString(rtt_sample)
+      RTC_DLOG(LS_VERBOSE) << "i: " << i << " sample: " << ToString(rtt_sample)
                           << " mins: "
                           << " " << ToString(windowed_min_rtt_.GetBest()) << " "
                           << ToString(windowed_min_rtt_.GetSecondBest()) << " "
@@ -61,7 +61,7 @@ class WindowedFilterTest : public ::testing::Test {
     DataRate bw_sample = DataRate::bps(1000);
     for (int i = 0; i < 5; ++i) {
       windowed_max_bw_.Update(bw_sample, now_ms);
-      RTC_LOG(LS_VERBOSE) << "i: " << i << " sample: " << ToString(bw_sample)
+      RTC_DLOG(LS_VERBOSE) << "i: " << i << " sample: " << ToString(bw_sample)
                           << " maxs: "
                           << " " << ToString(windowed_max_bw_.GetBest()) << " "
                           << ToString(windowed_max_bw_.GetSecondBest()) << " "
@@ -115,7 +115,7 @@ TEST_F(WindowedFilterTest, MonotonicallyIncreasingMin) {
     now_ms += 25;
     rtt_sample = rtt_sample + TimeDelta::ms(10);
     windowed_min_rtt_.Update(rtt_sample, now_ms);
-    RTC_LOG(LS_VERBOSE) << "i: " << i << " sample: " << rtt_sample.ms()
+    RTC_DLOG(LS_VERBOSE) << "i: " << i << " sample: " << rtt_sample.ms()
                         << " mins: "
                         << " " << windowed_min_rtt_.GetBest().ms() << " "
                         << windowed_min_rtt_.GetSecondBest().ms() << " "
@@ -142,7 +142,7 @@ TEST_F(WindowedFilterTest, MonotonicallyDecreasingMax) {
     now_ms += 25;
     bw_sample = DataRate::bps(bw_sample.bps() - 100);
     windowed_max_bw_.Update(bw_sample, now_ms);
-    RTC_LOG(LS_VERBOSE) << "i: " << i << " sample: " << bw_sample.bps()
+    RTC_DLOG(LS_VERBOSE) << "i: " << i << " sample: " << bw_sample.bps()
                         << " maxs: "
                         << " " << windowed_max_bw_.GetBest().bps() << " "
                         << windowed_max_bw_.GetSecondBest().bps() << " "
@@ -347,8 +347,8 @@ TEST_F(WindowedFilterTest, ExpireCounterBasedMax) {
   EXPECT_EQ(kBest, max_filter.GetBest());
   UpdateWithIrrelevantSamples(&max_filter, 20, 3);
   EXPECT_EQ(kBest, max_filter.GetBest());
-  RTC_LOG(LS_VERBOSE) << max_filter.GetSecondBest();
-  RTC_LOG(LS_VERBOSE) << max_filter.GetThirdBest();
+  RTC_DLOG(LS_VERBOSE) << max_filter.GetSecondBest();
+  RTC_DLOG(LS_VERBOSE) << max_filter.GetThirdBest();
 
   // Insert 20000 at t = 4.  50000 at t = 1 expires, so 40000 becomes the new
   // maximum.

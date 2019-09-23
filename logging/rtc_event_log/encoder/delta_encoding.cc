@@ -735,7 +735,7 @@ std::unique_ptr<FixedLengthDeltaDecoder> FixedLengthDeltaDecoder::Create(
   if (encoding != EncodingType::kFixedSizeUnsignedDeltasNoEarlyWrapNoOpt &&
       encoding !=
           EncodingType::kFixedSizeSignedDeltasEarlyWrapAndOptSupported) {
-    RTC_LOG(LS_WARNING) << "Unrecognized encoding type.";
+    RTC_DLOG(LS_WARNING) << "Unrecognized encoding type.";
     return nullptr;
   }
 
@@ -784,7 +784,7 @@ std::unique_ptr<FixedLengthDeltaDecoder> FixedLengthDeltaDecoder::Create(
   // changes in the future in a way that breaks this promise.
   if (!FixedLengthEncodingParameters::ValidParameters(
           delta_width_bits, signed_deltas, values_optional, value_width_bits)) {
-    RTC_LOG(LS_WARNING) << "Corrupt log; illegal encoding parameters.";
+    RTC_DLOG(LS_WARNING) << "Corrupt log; illegal encoding parameters.";
     return nullptr;
   }
 
@@ -814,7 +814,7 @@ std::vector<absl::optional<uint64_t>> FixedLengthDeltaDecoder::Decode() {
     for (size_t i = 0; i < num_of_deltas_; ++i) {
       uint32_t exists;
       if (!reader_->ReadBits(&exists, 1u)) {
-        RTC_LOG(LS_WARNING) << "Failed to read existence-indicating bit.";
+        RTC_DLOG(LS_WARNING) << "Failed to read existence-indicating bit.";
         return std::vector<absl::optional<uint64_t>>();
       }
       RTC_DCHECK_LE(exists, 1u);
@@ -839,7 +839,7 @@ std::vector<absl::optional<uint64_t>> FixedLengthDeltaDecoder::Decode() {
       RTC_DCHECK(!base_.has_value());
       uint64_t first_value;
       if (!ParseVarInt(&first_value)) {
-        RTC_LOG(LS_WARNING) << "Failed to read first value.";
+        RTC_DLOG(LS_WARNING) << "Failed to read first value.";
         return std::vector<absl::optional<uint64_t>>();
       }
       values[i] = first_value;
@@ -878,7 +878,7 @@ bool FixedLengthDeltaDecoder::ParseDelta(uint64_t* delta) {
 
   if (higher_bit_count > 0) {
     if (!reader_->ReadBits(&higher_bits, higher_bit_count)) {
-      RTC_LOG(LS_WARNING) << "Failed to read higher half of delta.";
+      RTC_DLOG(LS_WARNING) << "Failed to read higher half of delta.";
       return false;
     }
   } else {
@@ -886,7 +886,7 @@ bool FixedLengthDeltaDecoder::ParseDelta(uint64_t* delta) {
   }
 
   if (!reader_->ReadBits(&lower_bits, lower_bit_count)) {
-    RTC_LOG(LS_WARNING) << "Failed to read lower half of delta.";
+    RTC_DLOG(LS_WARNING) << "Failed to read lower half of delta.";
     return false;
   }
 
@@ -957,7 +957,7 @@ std::vector<absl::optional<uint64_t>> DecodeDeltas(
     return FixedLengthDeltaDecoder::DecodeDeltas(input, base, num_of_deltas);
   }
 
-  RTC_LOG(LS_WARNING) << "Could not decode delta-encoded stream.";
+  RTC_DLOG(LS_WARNING) << "Could not decode delta-encoded stream.";
   return std::vector<absl::optional<uint64_t>>();
 }
 

@@ -47,7 +47,7 @@ std::unique_ptr<DesktopFrameCGImage> DesktopFrameCGImage::CreateFromCGImage(
   // Verify that the image has 32-bit depth.
   int bits_per_pixel = CGImageGetBitsPerPixel(cg_image.get());
   if (bits_per_pixel / 8 != DesktopFrame::kBytesPerPixel) {
-    RTC_LOG(LS_ERROR) << "CGDisplayCreateImage() returned imaged with " << bits_per_pixel
+    RTC_DLOG(LS_ERROR) << "CGDisplayCreateImage() returned imaged with " << bits_per_pixel
                       << " bits per pixel. Only 32-bit depth is supported.";
     return nullptr;
   }

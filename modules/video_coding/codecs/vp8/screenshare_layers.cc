@@ -296,7 +296,7 @@ void ScreenshareLayers::OnEncodeDone(size_t stream_index,
   RTC_DCHECK_LT(stream_index, StreamCount());
 
   if (size_bytes == 0) {
-    RTC_LOG(LS_WARNING) << "Empty frame; treating as dropped.";
+    RTC_DLOG(LS_WARNING) << "Empty frame; treating as dropped.";
     OnFrameDropped(stream_index, rtp_timestamp);
     return;
   }

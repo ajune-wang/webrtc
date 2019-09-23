@@ -63,7 +63,7 @@ bool InterArrival::ComputeDeltas(uint32_t timestamp,
           prev_timestamp_group_.last_system_time_ms;
       if (*arrival_time_delta_ms - system_time_delta_ms >=
           kArrivalTimeOffsetThresholdMs) {
-        RTC_LOG(LS_WARNING)
+        RTC_DLOG(LS_WARNING)
             << "The arrival time clock offset has changed (diff = "
             << *arrival_time_delta_ms - system_time_delta_ms
             << " ms), resetting.";
@@ -75,7 +75,7 @@ bool InterArrival::ComputeDeltas(uint32_t timestamp,
         // arrival timestamp.
         ++num_consecutive_reordered_packets_;
         if (num_consecutive_reordered_packets_ >= kReorderedResetThreshold) {
-          RTC_LOG(LS_WARNING)
+          RTC_DLOG(LS_WARNING)
               << "Packets are being reordered on the path from the "
                  "socket to the bandwidth estimator. Ignoring this "
                  "packet for bandwidth estimation, resetting.";

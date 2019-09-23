@@ -556,19 +556,19 @@ bool RtpPacketizerVp9::WriteHeader(bool layer_begin,
 
   // Add fields that are present.
   if (i_bit && !WritePictureId(hdr_, &writer)) {
-    RTC_LOG(LS_ERROR) << "Failed writing VP9 picture id.";
+    RTC_DLOG(LS_ERROR) << "Failed writing VP9 picture id.";
     return false;
   }
   if (l_bit && !WriteLayerInfo(hdr_, &writer)) {
-    RTC_LOG(LS_ERROR) << "Failed writing VP9 layer info.";
+    RTC_DLOG(LS_ERROR) << "Failed writing VP9 layer info.";
     return false;
   }
   if (p_bit && f_bit && !WriteRefIndices(hdr_, &writer)) {
-    RTC_LOG(LS_ERROR) << "Failed writing VP9 ref indices.";
+    RTC_DLOG(LS_ERROR) << "Failed writing VP9 ref indices.";
     return false;
   }
   if (v_bit && !WriteSsData(hdr_, &writer)) {
-    RTC_LOG(LS_ERROR) << "Failed writing VP9 SS data.";
+    RTC_DLOG(LS_ERROR) << "Failed writing VP9 SS data.";
     return false;
   }
 
@@ -585,7 +585,7 @@ bool RtpDepacketizerVp9::Parse(ParsedPayload* parsed_payload,
                                size_t payload_length) {
   RTC_DCHECK(parsed_payload != nullptr);
   if (payload_length == 0) {
-    RTC_LOG(LS_ERROR) << "Payload length is zero.";
+    RTC_DLOG(LS_ERROR) << "Payload length is zero.";
     return false;
   }
 
@@ -622,20 +622,20 @@ bool RtpDepacketizerVp9::Parse(ParsedPayload* parsed_payload,
 
   // Parse fields that are present.
   if (i_bit && !ParsePictureId(&parser, &vp9_header)) {
-    RTC_LOG(LS_ERROR) << "Failed parsing VP9 picture id.";
+    RTC_DLOG(LS_ERROR) << "Failed parsing VP9 picture id.";
     return false;
   }
   if (l_bit && !ParseLayerInfo(&parser, &vp9_header)) {
-    RTC_LOG(LS_ERROR) << "Failed parsing VP9 layer info.";
+    RTC_DLOG(LS_ERROR) << "Failed parsing VP9 layer info.";
     return false;
   }
   if (p_bit && f_bit && !ParseRefIndices(&parser, &vp9_header)) {
-    RTC_LOG(LS_ERROR) << "Failed parsing VP9 ref indices.";
+    RTC_DLOG(LS_ERROR) << "Failed parsing VP9 ref indices.";
     return false;
   }
   if (v_bit) {
     if (!ParseSsData(&parser, &vp9_header)) {
-      RTC_LOG(LS_ERROR) << "Failed parsing VP9 SS data.";
+      RTC_DLOG(LS_ERROR) << "Failed parsing VP9 SS data.";
       return false;
     }
     if (vp9_header.spatial_layer_resolution_present) {
@@ -651,7 +651,7 @@ bool RtpDepacketizerVp9::Parse(ParsedPayload* parsed_payload,
   RTC_DCHECK_EQ(rem_bits % 8, 0);
   parsed_payload->payload_length = rem_bits / 8;
   if (parsed_payload->payload_length == 0) {
-    RTC_LOG(LS_ERROR) << "Failed parsing VP9 payload data.";
+    RTC_DLOG(LS_ERROR) << "Failed parsing VP9 payload data.";
     return false;
   }
   parsed_payload->payload =

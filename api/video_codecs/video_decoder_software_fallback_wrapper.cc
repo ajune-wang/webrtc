@@ -92,7 +92,7 @@ int32_t VideoDecoderSoftwareFallbackWrapper::InitDecode(
   number_of_cores_ = number_of_cores;
 
   if (webrtc::field_trial::IsEnabled("WebRTC-Video-ForcedSwDecoderFallback")) {
-    RTC_LOG(LS_INFO) << "Forced software decoder fallback enabled.";
+    RTC_DLOG(LS_INFO) << "Forced software decoder fallback enabled.";
     RTC_DCHECK(decoder_type_ == DecoderType::kNone);
     return InitFallbackDecoder() ? WEBRTC_VIDEO_CODEC_OK
                                  : WEBRTC_VIDEO_CODEC_ERROR;
@@ -126,11 +126,11 @@ int32_t VideoDecoderSoftwareFallbackWrapper::InitHwDecoder() {
 bool VideoDecoderSoftwareFallbackWrapper::InitFallbackDecoder() {
   RTC_DCHECK(decoder_type_ == DecoderType::kNone ||
              decoder_type_ == DecoderType::kHardware);
-  RTC_LOG(LS_WARNING) << "Decoder falling back to software decoding.";
+  RTC_DLOG(LS_WARNING) << "Decoder falling back to software decoding.";
   int32_t status =
       fallback_decoder_->InitDecode(&codec_settings_, number_of_cores_);
   if (status != WEBRTC_VIDEO_CODEC_OK) {
-    RTC_LOG(LS_ERROR) << "Failed to initialize software-decoder fallback.";
+    RTC_DLOG(LS_ERROR) << "Failed to initialize software-decoder fallback.";
     return false;
   }
 
@@ -190,7 +190,7 @@ int32_t VideoDecoderSoftwareFallbackWrapper::Release() {
       status = hw_decoder_->Release();
       break;
     case DecoderType::kFallback:
-      RTC_LOG(LS_INFO) << "Releasing software fallback decoder.";
+      RTC_DLOG(LS_INFO) << "Releasing software fallback decoder.";
       status = fallback_decoder_->Release();
       break;
     case DecoderType::kNone:

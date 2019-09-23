@@ -130,7 +130,7 @@ VideoSendStream::~VideoSendStream() {
 void VideoSendStream::UpdateActiveSimulcastLayers(
     const std::vector<bool> active_layers) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
-  RTC_LOG(LS_INFO) << "VideoSendStream::UpdateActiveSimulcastLayers";
+  RTC_DLOG(LS_INFO) << "VideoSendStream::UpdateActiveSimulcastLayers";
   VideoSendStreamImpl* send_stream = send_stream_.get();
   worker_queue_->PostTask([this, send_stream, active_layers] {
     send_stream->UpdateActiveSimulcastLayers(active_layers);
@@ -142,7 +142,7 @@ void VideoSendStream::UpdateActiveSimulcastLayers(
 
 void VideoSendStream::Start() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
-  RTC_LOG(LS_INFO) << "VideoSendStream::Start";
+  RTC_DLOG(LS_INFO) << "VideoSendStream::Start";
   VideoSendStreamImpl* send_stream = send_stream_.get();
   worker_queue_->PostTask([this, send_stream] {
     send_stream->Start();
@@ -157,7 +157,7 @@ void VideoSendStream::Start() {
 
 void VideoSendStream::Stop() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
-  RTC_LOG(LS_INFO) << "VideoSendStream::Stop";
+  RTC_DLOG(LS_INFO) << "VideoSendStream::Stop";
   VideoSendStreamImpl* send_stream = send_stream_.get();
   worker_queue_->PostTask([send_stream] { send_stream->Stop(); });
 }

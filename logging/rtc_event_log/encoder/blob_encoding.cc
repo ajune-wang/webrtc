@@ -48,12 +48,12 @@ std::string EncodeBlobs(const std::vector<std::string>& blobs) {
 std::vector<absl::string_view> DecodeBlobs(absl::string_view encoded_blobs,
                                            size_t num_of_blobs) {
   if (encoded_blobs.empty()) {
-    RTC_LOG(LS_WARNING) << "Corrupt input; empty input.";
+    RTC_DLOG(LS_WARNING) << "Corrupt input; empty input.";
     return std::vector<absl::string_view>();
   }
 
   if (num_of_blobs == 0u) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Corrupt input; number of blobs must be greater than 0.";
     return std::vector<absl::string_view>();
   }
@@ -65,14 +65,14 @@ std::vector<absl::string_view> DecodeBlobs(absl::string_view encoded_blobs,
   for (size_t i = 0; i < num_of_blobs; ++i) {
     if (read_idx >= encoded_blobs.length()) {
       RTC_DCHECK_EQ(read_idx, encoded_blobs.length());
-      RTC_LOG(LS_WARNING) << "Corrupt input; excessive number of blobs.";
+      RTC_DLOG(LS_WARNING) << "Corrupt input; excessive number of blobs.";
       return std::vector<absl::string_view>();
     }
 
     const size_t read_bytes =
         DecodeVarInt(encoded_blobs.substr(read_idx), &lengths[i]);
     if (read_bytes == 0) {
-      RTC_LOG(LS_WARNING) << "Corrupt input; varint decoding failed.";
+      RTC_DLOG(LS_WARNING) << "Corrupt input; varint decoding failed.";
       return std::vector<absl::string_view>();
     }
 
@@ -87,12 +87,12 @@ std::vector<absl::string_view> DecodeBlobs(absl::string_view encoded_blobs,
   std::vector<absl::string_view> blobs(num_of_blobs);
   for (size_t i = 0; i < num_of_blobs; ++i) {
     if (read_idx + lengths[i] < read_idx) {  // Wrap-around detection.
-      RTC_LOG(LS_WARNING) << "Corrupt input; unreasonably large blob sequence.";
+      RTC_DLOG(LS_WARNING) << "Corrupt input; unreasonably large blob sequence.";
       return std::vector<absl::string_view>();
     }
 
     if (read_idx + lengths[i] > encoded_blobs.length()) {
-      RTC_LOG(LS_WARNING) << "Corrupt input; blob sizes exceed input size.";
+      RTC_DLOG(LS_WARNING) << "Corrupt input; blob sizes exceed input size.";
       return std::vector<absl::string_view>();
     }
 
@@ -101,7 +101,7 @@ std::vector<absl::string_view> DecodeBlobs(absl::string_view encoded_blobs,
   }
 
   if (read_idx != encoded_blobs.length()) {
-    RTC_LOG(LS_WARNING) << "Corrupt input; unrecognized trailer.";
+    RTC_DLOG(LS_WARNING) << "Corrupt input; unrecognized trailer.";
     return std::vector<absl::string_view>();
   }
 

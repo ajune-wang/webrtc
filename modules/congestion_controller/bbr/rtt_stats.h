@@ -51,7 +51,7 @@ class RttStats {
   void set_initial_rtt_us(int64_t initial_rtt_us) {
     RTC_DCHECK_GE(initial_rtt_us, 0);
     if (initial_rtt_us <= 0) {
-      RTC_LOG(LS_ERROR) << "Attempt to set initial rtt to <= 0.";
+      RTC_DLOG(LS_ERROR) << "Attempt to set initial rtt to <= 0.";
       return;
     }
     initial_rtt_us_ = initial_rtt_us;

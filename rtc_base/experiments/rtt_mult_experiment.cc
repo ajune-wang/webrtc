@@ -38,14 +38,14 @@ RttMultExperiment::GetRttMultValue() {
   const std::string group =
       webrtc::field_trial::FindFullName(kRttMultExperiment);
   if (group.empty()) {
-    RTC_LOG(LS_WARNING) << "Could not find rtt_mult_experiment.";
+    RTC_DLOG(LS_WARNING) << "Could not find rtt_mult_experiment.";
     return absl::nullopt;
   }
 
   Settings s;
   if (sscanf(group.c_str(), "Enabled-%f,%f", &s.rtt_mult_setting,
              &s.rtt_mult_add_cap_ms) != 2) {
-    RTC_LOG(LS_WARNING) << "Invalid number of parameters provided.";
+    RTC_DLOG(LS_WARNING) << "Invalid number of parameters provided.";
     return absl::nullopt;
   }
   // Bounds check rtt_mult_setting and rtt_mult_add_cap_ms values.
@@ -55,7 +55,7 @@ RttMultExperiment::GetRttMultValue() {
       std::min(s.rtt_mult_add_cap_ms, max_rtt_mult_add_cap_ms);
   s.rtt_mult_add_cap_ms =
       std::max(s.rtt_mult_add_cap_ms, min_rtt_mult_add_cap_ms);
-  RTC_LOG(LS_INFO) << "rtt_mult experiment: rtt_mult value = "
+  RTC_DLOG(LS_INFO) << "rtt_mult experiment: rtt_mult value = "
                    << s.rtt_mult_setting
                    << " rtt_mult addition cap = " << s.rtt_mult_add_cap_ms
                    << " ms.";

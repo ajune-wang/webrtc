@@ -51,7 +51,7 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateUdpSocket(
     return NULL;
   }
   if (BindSocket(socket, address, min_port, max_port) < 0) {
-    RTC_LOG(LS_ERROR) << "UDP bind failed with error " << socket->GetError();
+    RTC_DLOG(LS_ERROR) << "UDP bind failed with error " << socket->GetError();
     delete socket;
     return NULL;
   }
@@ -65,7 +65,7 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateServerTcpSocket(
     int opts) {
   // Fail if TLS is required.
   if (opts & PacketSocketFactory::OPT_TLS) {
-    RTC_LOG(LS_ERROR) << "TLS support currently is not available.";
+    RTC_DLOG(LS_ERROR) << "TLS support currently is not available.";
     return NULL;
   }
 
@@ -76,7 +76,7 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateServerTcpSocket(
   }
 
   if (BindSocket(socket, local_address, min_port, max_port) < 0) {
-    RTC_LOG(LS_ERROR) << "TCP bind failed with error " << socket->GetError();
+    RTC_DLOG(LS_ERROR) << "TCP bind failed with error " << socket->GetError();
     delete socket;
     return NULL;
   }
@@ -114,10 +114,10 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
     // is mostly redundant in the first place. The socket will be bound when we
     // call Connect() instead.
     if (local_address.IsAnyIP()) {
-      RTC_LOG(LS_WARNING) << "TCP bind failed with error " << socket->GetError()
+      RTC_DLOG(LS_WARNING) << "TCP bind failed with error " << socket->GetError()
                           << "; ignoring since socket is using 'any' address.";
     } else {
-      RTC_LOG(LS_ERROR) << "TCP bind failed with error " << socket->GetError();
+      RTC_DLOG(LS_ERROR) << "TCP bind failed with error " << socket->GetError();
       delete socket;
       return NULL;
     }
@@ -168,7 +168,7 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateClientTcpSocket(
   }
 
   if (socket->Connect(remote_address) < 0) {
-    RTC_LOG(LS_ERROR) << "TCP connect failed with error " << socket->GetError();
+    RTC_DLOG(LS_ERROR) << "TCP connect failed with error " << socket->GetError();
     delete socket;
     return NULL;
   }

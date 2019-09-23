@@ -403,7 +403,7 @@ static bool ParseFailed(const std::string& message,
     error->line = first_line;
     error->description = description;
   }
-  RTC_LOG(LS_ERROR) << "Failed to parse: \"" << first_line
+  RTC_DLOG(LS_ERROR) << "Failed to parse: \"" << first_line
                     << "\". Reason: " << description;
   return false;
 }
@@ -673,7 +673,7 @@ void CreateTrackWithNoSsrcs(const std::vector<std::string>& msid_stream_ids,
   StreamParams track;
   if (msid_track_id.empty() && rids.empty()) {
     // We only create an unsignaled track if a=msid lines were signaled.
-    RTC_LOG(LS_INFO) << "MSID not signaled, skipping creation of StreamParams";
+    RTC_DLOG(LS_INFO) << "MSID not signaled, skipping creation of StreamParams";
     return;
   }
   track.set_stream_ids(msid_stream_ids);
@@ -1628,7 +1628,7 @@ void BuildRtpContentAttributes(const MediaContentDescription* media_desc,
         AddLine(os.str(), message);
       }
     } else if (streams.size() > 1u) {
-      RTC_LOG(LS_WARNING)
+      RTC_DLOG(LS_WARNING)
           << "Trying to serialize Unified Plan SDP with more than "
              "one track in a media section. Omitting 'a=msid'.";
     }
@@ -2318,7 +2318,7 @@ bool ParseSessionDescription(const std::string& message,
         if (setting.transport_name == transport_name) {
           // Ignore repeated transport names rather than failing to parse so
           // that in the future the same transport could have multiple configs.
-          RTC_LOG(INFO) << "x-mt line with repeated transport, transport_name="
+          RTC_DLOG(INFO) << "x-mt line with repeated transport, transport_name="
                         << transport_name;
           return true;
         }
@@ -2798,7 +2798,7 @@ bool ParseMediaDescription(
         content = std::move(data_desc);
       }
     } else {
-      RTC_LOG(LS_WARNING) << "Unsupported media type: " << line;
+      RTC_DLOG(LS_WARNING) << "Unsupported media type: " << line;
       continue;
     }
     if (!content.get()) {
@@ -2816,7 +2816,7 @@ bool ParseMediaDescription(
         // Usage of bundle-only with a nonzero port is unspecified. So just
         // ignore bundle-only if we see this.
         bundle_only = false;
-        RTC_LOG(LS_WARNING)
+        RTC_DLOG(LS_WARNING)
             << "a=bundle-only attribute observed with a nonzero "
                "port; this usage is unspecified so the attribute is being "
                "ignored.";
@@ -2843,7 +2843,7 @@ bool ParseMediaDescription(
     } else if (content->as_sctp()) {
       // Do nothing, it's OK
     } else {
-      RTC_LOG(LS_WARNING) << "Parse failed with unknown protocol " << protocol;
+      RTC_DLOG(LS_WARNING) << "Parse failed with unknown protocol " << protocol;
       return false;
     }
 
@@ -3093,7 +3093,7 @@ bool ParseContent(const std::string& message,
           // transitioned applications to doing the right thing, it would be
           // better to treat this as a hard error instead of just ignoring it.
           if (b == -1) {
-            RTC_LOG(LS_WARNING)
+            RTC_DLOG(LS_WARNING)
                 << "Ignoring \"b=AS:-1\"; will be treated as \"no "
                    "bandwidth limit\".";
             continue;
@@ -3133,7 +3133,7 @@ bool ParseContent(const std::string& message,
 
     if (!IsLineType(line, kLineTypeAttributes)) {
       // TODO(deadbeef): Handle other lines if needed.
-      RTC_LOG(LS_INFO) << "Ignored line: " << line;
+      RTC_DLOG(LS_INFO) << "Ignored line: " << line;
       continue;
     }
 
@@ -3302,7 +3302,7 @@ bool ParseContent(const std::string& message,
         const size_t kRidPrefixLength =
             kLinePrefixLength + arraysize(kAttributeRid);
         if (line.size() <= kRidPrefixLength) {
-          RTC_LOG(LS_INFO) << "Ignoring empty RID attribute: " << line;
+          RTC_DLOG(LS_INFO) << "Ignoring empty RID attribute: " << line;
           continue;
         }
         RTCErrorOr<RidDescription> error_or_rid_description =
@@ -3311,7 +3311,7 @@ bool ParseContent(const std::string& message,
 
         // Malformed a=rid lines are discarded.
         if (!error_or_rid_description.ok()) {
-          RTC_LOG(LS_INFO) << "Ignoring malformed RID line: '" << line
+          RTC_DLOG(LS_INFO) << "Ignoring malformed RID line: '" << line
                            << "'. Error: "
                            << error_or_rid_description.error().message();
           continue;
@@ -3343,12 +3343,12 @@ bool ParseContent(const std::string& message,
         simulcast = error_or_simulcast.value();
       } else {
         // Unrecognized attribute in RTP protocol.
-        RTC_LOG(LS_INFO) << "Ignored line: " << line;
+        RTC_DLOG(LS_INFO) << "Ignored line: " << line;
         continue;
       }
     } else {
       // Only parse lines that we are interested of.
-      RTC_LOG(LS_INFO) << "Ignored line: " << line;
+      RTC_DLOG(LS_INFO) << "Ignored line: " << line;
       continue;
     }
   }
@@ -3658,7 +3658,7 @@ bool ParseRtpmapAttribute(const std::string& line,
   }
 
   if (!absl::c_linear_search(payload_types, payload_type)) {
-    RTC_LOG(LS_WARNING) << "Ignore rtpmap line that did not appear in the "
+    RTC_DLOG(LS_WARNING) << "Ignore rtpmap line that did not appear in the "
                            "<fmt> of the m-line: "
                         << line;
     return true;

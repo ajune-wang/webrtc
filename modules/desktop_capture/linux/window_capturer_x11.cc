@@ -43,7 +43,7 @@ WindowCapturerX11::WindowCapturerX11(const DesktopCaptureOptions& options)
       (major_version > 0 || minor_version >= 2)) {
     has_composite_extension_ = true;
   } else {
-    RTC_LOG(LS_INFO) << "Xcomposite extension not available or too old.";
+    RTC_DLOG(LS_INFO) << "Xcomposite extension not available or too old.";
   }
 
   x_display_->AddEventHandler(ConfigureNotify, this);
@@ -97,7 +97,7 @@ bool WindowCapturerX11::FocusOnSelectedSource() {
   int status = XQueryTree(display(), selected_window_, &root, &parent,
                           &children, &num_children);
   if (status == 0) {
-    RTC_LOG(LS_ERROR) << "Failed to query for the root window.";
+    RTC_DLOG(LS_ERROR) << "Failed to query for the root window.";
     return false;
   }
 
@@ -142,7 +142,7 @@ void WindowCapturerX11::CaptureFrame() {
   TRACE_EVENT0("webrtc", "WindowCapturerX11::CaptureFrame");
 
   if (!x_server_pixel_buffer_.IsWindowValid()) {
-    RTC_LOG(LS_ERROR) << "The window is no longer valid.";
+    RTC_DLOG(LS_ERROR) << "The window is no longer valid.";
     callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
     return;
   }
@@ -153,7 +153,7 @@ void WindowCapturerX11::CaptureFrame() {
     // Without the Xcomposite extension we capture when the whole window is
     // visible on screen and not covered by any other window. This is not
     // something we want so instead, just bail out.
-    RTC_LOG(LS_ERROR) << "No Xcomposite extension detected.";
+    RTC_DLOG(LS_ERROR) << "No Xcomposite extension detected.";
     callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
     return;
   }
@@ -172,7 +172,7 @@ void WindowCapturerX11::CaptureFrame() {
   x_server_pixel_buffer_.Synchronize();
   if (!x_server_pixel_buffer_.CaptureRect(DesktopRect::MakeSize(frame->size()),
                                           frame.get())) {
-    RTC_LOG(LS_WARNING) << "Temporarily failed to capture winodw.";
+    RTC_DLOG(LS_WARNING) << "Temporarily failed to capture winodw.";
     callback_->OnCaptureResult(Result::ERROR_TEMPORARY, nullptr);
     return;
   }
@@ -196,7 +196,7 @@ bool WindowCapturerX11::HandleXEvent(const XEvent& event) {
       if (!DesktopRectFromXAttributes(xce).equals(
               x_server_pixel_buffer_.window_rect())) {
         if (!x_server_pixel_buffer_.Init(&atom_cache_, selected_window_)) {
-          RTC_LOG(LS_ERROR)
+          RTC_DLOG(LS_ERROR)
               << "Failed to initialize pixel buffer after resizing.";
         }
       }
@@ -221,7 +221,7 @@ bool WindowCapturerX11::GetWindowTitle(::Window window, std::string* title) {
           Xutf8TextPropertyToTextList(display(), &window_name, &list, &cnt);
       if (status >= Success && cnt && *list) {
         if (cnt > 1) {
-          RTC_LOG(LS_INFO) << "Window has " << cnt
+          RTC_DLOG(LS_INFO) << "Window has " << cnt
                            << " text properties, only using the first one.";
         }
         *title = *list;

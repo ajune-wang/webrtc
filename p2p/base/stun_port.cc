@@ -51,10 +51,10 @@ class StunBindingRequest : public StunRequest {
     const StunAddressAttribute* addr_attr =
         response->GetAddress(STUN_ATTR_MAPPED_ADDRESS);
     if (!addr_attr) {
-      RTC_LOG(LS_ERROR) << "Binding response missing mapped address.";
+      RTC_DLOG(LS_ERROR) << "Binding response missing mapped address.";
     } else if (addr_attr->family() != STUN_ADDRESS_IPV4 &&
                addr_attr->family() != STUN_ADDRESS_IPV6) {
-      RTC_LOG(LS_ERROR) << "Binding address has bad family";
+      RTC_DLOG(LS_ERROR) << "Binding address has bad family";
     } else {
       rtc::SocketAddress addr(addr_attr->ipaddr(), addr_attr->port());
       port_->OnStunBindingRequestSucceeded(this->Elapsed(), server_addr_, addr);
@@ -71,9 +71,9 @@ class StunBindingRequest : public StunRequest {
   void OnErrorResponse(StunMessage* response) override {
     const StunErrorCodeAttribute* attr = response->GetErrorCode();
     if (!attr) {
-      RTC_LOG(LS_ERROR) << "Missing binding response error code.";
+      RTC_DLOG(LS_ERROR) << "Missing binding response error code.";
     } else {
-      RTC_LOG(LS_ERROR) << "Binding error response:"
+      RTC_DLOG(LS_ERROR) << "Binding error response:"
                            " class="
                         << attr->eclass() << " number=" << attr->number()
                         << " reason=" << attr->reason();
@@ -93,7 +93,7 @@ class StunBindingRequest : public StunRequest {
     }
   }
   void OnTimeout() override {
-    RTC_LOG(LS_ERROR) << "Binding request timed out from "
+    RTC_DLOG(LS_ERROR) << "Binding request timed out from "
                       << port_->GetLocalAddress().ToSensitiveString() << " ("
                       << port_->Network()->name() << ")";
     port_->OnStunBindingOrResolveRequestFailed(
@@ -218,7 +218,7 @@ bool UDPPort::Init() {
     socket_ = socket_factory()->CreateUdpSocket(
         rtc::SocketAddress(Network()->GetBestIP(), 0), min_port(), max_port());
     if (!socket_) {
-      RTC_LOG(LS_WARNING) << ToString() << ": UDP socket creation failed";
+      RTC_DLOG(LS_WARNING) << ToString() << ": UDP socket creation failed";
       return false;
     }
     socket_->SignalReadPacket.connect(this, &UDPPort::OnReadPacket);
@@ -305,7 +305,7 @@ int UDPPort::SendTo(const void* data,
     // TODO(webrtc:9622): Use general rate limiting mechanism once it exists.
     if (send_error_count_ < kSendErrorLogLimit) {
       ++send_error_count_;
-      RTC_LOG(LS_ERROR) << ToString() << ": UDP send of " << size
+      RTC_DLOG(LS_ERROR) << ToString() << ": UDP send of " << size
                         << " bytes failed with error " << error_;
     }
   } else {
@@ -436,7 +436,7 @@ void UDPPort::ResolveStunAddress(const rtc::SocketAddress& stun_addr) {
     resolver_->SignalDone.connect(this, &UDPPort::OnResolveResult);
   }
 
-  RTC_LOG(LS_INFO) << ToString() << ": Starting STUN host lookup for "
+  RTC_DLOG(LS_INFO) << ToString() << ": Starting STUN host lookup for "
                    << stun_addr.ToSensitiveString();
   resolver_->Resolve(stun_addr);
 }
@@ -447,7 +447,7 @@ void UDPPort::OnResolveResult(const rtc::SocketAddress& input, int error) {
   rtc::SocketAddress resolved;
   if (error != 0 || !resolver_->GetResolvedAddress(
                         input, Network()->GetBestIP().family(), &resolved)) {
-    RTC_LOG(LS_WARNING) << ToString()
+    RTC_DLOG(LS_WARNING) << ToString()
                         << ": StunPort: stun host lookup received error "
                         << error;
     OnStunBindingOrResolveRequestFailed(input, SERVER_NOT_REACHABLE_ERROR,
@@ -476,7 +476,7 @@ void UDPPort::SendStunBindingRequest(const rtc::SocketAddress& stun_addr) {
       // Since we can't send stun messages to the server, we should mark this
       // port ready.
       const char* reason = "STUN server address is incompatible.";
-      RTC_LOG(LS_WARNING) << reason;
+      RTC_DLOG(LS_WARNING) << reason;
       OnStunBindingOrResolveRequestFailed(stun_addr, SERVER_NOT_REACHABLE_ERROR,
                                           reason);
     }

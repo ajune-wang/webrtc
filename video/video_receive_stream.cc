@@ -102,20 +102,20 @@ class NullVideoDecoder : public webrtc::VideoDecoder {
  public:
   int32_t InitDecode(const webrtc::VideoCodec* codec_settings,
                      int32_t number_of_cores) override {
-    RTC_LOG(LS_ERROR) << "Can't initialize NullVideoDecoder.";
+    RTC_DLOG(LS_ERROR) << "Can't initialize NullVideoDecoder.";
     return WEBRTC_VIDEO_CODEC_OK;
   }
 
   int32_t Decode(const webrtc::EncodedImage& input_image,
                  bool missing_frames,
                  int64_t render_time_ms) override {
-    RTC_LOG(LS_ERROR) << "The NullVideoDecoder doesn't support decoding.";
+    RTC_DLOG(LS_ERROR) << "The NullVideoDecoder doesn't support decoding.";
     return WEBRTC_VIDEO_CODEC_OK;
   }
 
   int32_t RegisterDecodeCompleteCallback(
       webrtc::DecodedImageCallback* callback) override {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "Can't register decode complete callback on NullVideoDecoder.";
     return WEBRTC_VIDEO_CODEC_OK;
   }
@@ -212,7 +212,7 @@ VideoReceiveStream::VideoReceiveStream(
       decode_queue_(task_queue_factory_->CreateTaskQueue(
           "DecodingQueue",
           TaskQueueFactory::Priority::HIGH)) {
-  RTC_LOG(LS_INFO) << "VideoReceiveStream: " << config_.ToString();
+  RTC_DLOG(LS_INFO) << "VideoReceiveStream: " << config_.ToString();
 
   RTC_DCHECK(config_.renderer);
   RTC_DCHECK(process_thread_);
@@ -279,7 +279,7 @@ VideoReceiveStream::VideoReceiveStream(
 
 VideoReceiveStream::~VideoReceiveStream() {
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
-  RTC_LOG(LS_INFO) << "~VideoReceiveStream: " << config_.ToString();
+  RTC_DLOG(LS_INFO) << "~VideoReceiveStream: " << config_.ToString();
   Stop();
   if (config_.media_transport()) {
     config_.media_transport()->SetReceiveVideoSink(nullptr);
@@ -650,7 +650,7 @@ void VideoReceiveStream::HandleEncodedFrame(
   int qp = -1;
   if (frame->CodecSpecific()->codecType == kVideoCodecVP8) {
     if (!vp8::GetQp(frame->data(), frame->size(), &qp)) {
-      RTC_LOG(LS_WARNING) << "Failed to extract QP from VP8 video frame";
+      RTC_DLOG(LS_WARNING) << "Failed to extract QP from VP8 video frame";
     }
   }
   stats_proxy_.OnPreDecode(frame->CodecSpecific()->codecType, qp);
@@ -696,7 +696,7 @@ void VideoReceiveStream::HandleFrameBufferTimeout() {
   if (stream_is_active && !receiving_keyframe &&
       (!config_.crypto_options.sframe.require_frame_encryption ||
        rtp_video_stream_receiver_.IsDecryptable())) {
-    RTC_LOG(LS_WARNING) << "No decodable frame in " << GetWaitMs()
+    RTC_DLOG(LS_WARNING) << "No decodable frame in " << GetWaitMs()
                         << " ms, requesting keyframe.";
     RequestKeyFrame();
   }

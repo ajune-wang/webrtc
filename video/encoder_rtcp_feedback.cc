@@ -69,7 +69,7 @@ void EncoderRtcpFeedback::OnReceivedIntraFrameRequest(uint32_t ssrc) {
 
 void EncoderRtcpFeedback::OnKeyFrameRequested(uint64_t channel_id) {
   if (channel_id != ssrcs_[0]) {
-    RTC_LOG(LS_INFO) << "Key frame request on unknown channel id " << channel_id
+    RTC_DLOG(LS_INFO) << "Key frame request on unknown channel id " << channel_id
                      << " expected " << ssrcs_[0];
     return;
   }

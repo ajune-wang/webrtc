@@ -104,7 +104,7 @@ std::string FindFullName(const std::string& name) {
 
 // Optionally initialize field trial from a string.
 void InitFieldTrialsFromString(const char* trials_string) {
-  RTC_LOG(LS_INFO) << "Setting field trial string:" << trials_string;
+  RTC_DLOG(LS_INFO) << "Setting field trial string:" << trials_string;
 #ifndef WEBRTC_EXCLUDE_FIELD_TRIAL_DEFAULT
   if (trials_string) {
     RTC_DCHECK(FieldTrialsStringIsValid(trials_string))

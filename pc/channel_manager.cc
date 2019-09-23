@@ -58,7 +58,7 @@ bool ChannelManager::SetVideoRtxEnabled(bool enable) {
     enable_rtx_ = enable;
     return true;
   } else {
-    RTC_LOG(LS_WARNING) << "Cannot toggle rtx after initialization!";
+    RTC_DLOG(LS_WARNING) << "Cannot toggle rtx after initialization!";
     return false;
   }
 }
@@ -316,7 +316,7 @@ RtpDataChannel* ChannelManager::CreateRtpDataChannel(
   RTC_DCHECK(initialized_);
   DataMediaChannel* media_channel = data_engine_->CreateChannel(media_config);
   if (!media_channel) {
-    RTC_LOG(LS_WARNING) << "Failed to create RTP data channel.";
+    RTC_DLOG(LS_WARNING) << "Failed to create RTP data channel.";
     return nullptr;
   }
 

@@ -20,7 +20,7 @@ TEST(DataRateTest, CompilesWithChecksAndLogs) {
   DataRate a = DataRate::kbps(300);
   DataRate b = DataRate::kbps(210);
   RTC_CHECK_GT(a, b);
-  RTC_LOG(LS_INFO) << a;
+  RTC_DLOG(LS_INFO) << a;
 }
 
 TEST(DataRateTest, ConstExpr) {

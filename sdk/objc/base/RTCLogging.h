@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, RTCLoggingSeverity) {
   RTCLoggingSeverityNone,
 };
 
-// Wrapper for C++ RTC_LOG(sev) macros.
+// Wrapper for C++ RTC_DLOG(sev) macros.
 // Logs the log string to the webrtc logstream for the given severity.
 RTC_EXTERN void RTCLogEx(RTCLoggingSeverity severity, NSString* log_string);
 

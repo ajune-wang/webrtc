@@ -93,7 +93,7 @@ void RtpPacketHistory::SetStorePacketsStatus(StorageMode mode,
   RTC_DCHECK_LE(number_to_store, kMaxCapacity);
   rtc::CritScope cs(&lock_);
   if (mode != StorageMode::kDisabled && mode_ != StorageMode::kDisabled) {
-    RTC_LOG(LS_WARNING) << "Purging packet history in order to re-set status.";
+    RTC_DLOG(LS_WARNING) << "Purging packet history in order to re-set status.";
   }
   Reset();
   mode_ = mode;
@@ -135,7 +135,7 @@ void RtpPacketHistory::PutRtpPacket(std::unique_ptr<RtpPacketToSend> packet,
   if (packet_index >= 0u &&
       static_cast<size_t>(packet_index) < packet_history_.size() &&
       packet_history_[packet_index].packet_ != nullptr) {
-    RTC_LOG(LS_WARNING) << "Duplicate packet inserted: " << rtp_seq_no;
+    RTC_DLOG(LS_WARNING) << "Duplicate packet inserted: " << rtp_seq_no;
     // Remove previous packet to avoid inconsistent state.
     RemovePacket(packet_index);
     packet_index = GetPacketIndex(rtp_seq_no);

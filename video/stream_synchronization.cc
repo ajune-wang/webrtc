@@ -69,7 +69,7 @@ bool StreamSynchronization::ComputeDelays(int relative_delay_ms,
   assert(total_audio_delay_target_ms && total_video_delay_target_ms);
 
   int current_video_delay_ms = *total_video_delay_target_ms;
-  RTC_LOG(LS_VERBOSE) << "Audio delay: " << current_audio_delay_ms
+  RTC_DLOG(LS_VERBOSE) << "Audio delay: " << current_audio_delay_ms
                       << " current diff: " << relative_delay_ms
                       << " for stream " << audio_stream_id_;
   // Calculate the difference between the lowest possible video delay and
@@ -164,7 +164,7 @@ bool StreamSynchronization::ComputeDelays(int relative_delay_ms,
   channel_delay_.last_video_delay_ms = new_video_delay_ms;
   channel_delay_.last_audio_delay_ms = new_audio_delay_ms;
 
-  RTC_LOG(LS_VERBOSE) << "Sync video delay " << new_video_delay_ms
+  RTC_DLOG(LS_VERBOSE) << "Sync video delay " << new_video_delay_ms
                       << " for video stream " << video_stream_id_
                       << " and audio delay "
                       << channel_delay_.extra_audio_delay_ms

@@ -72,7 +72,7 @@ DelayHistogramConfig GetDelayHistogramConfig() {
                                    : absl::nullopt;
     }
   }
-  RTC_LOG(LS_INFO) << "Delay histogram config:"
+  RTC_DLOG(LS_INFO) << "Delay histogram config:"
                    << " quantile=" << config.quantile
                    << " forget_factor=" << config.forget_factor
                    << " start_forget_weight="
@@ -91,7 +91,7 @@ absl::optional<int> GetExtraDelayMs() {
   int extra_delay_ms = -1;
   sscanf(field_trial_string.c_str(), "Enabled-%d", &extra_delay_ms);
   if (extra_delay_ms >= 0) {
-    RTC_LOG(LS_INFO) << "NetEq extra delay in milliseconds: " << extra_delay_ms;
+    RTC_DLOG(LS_INFO) << "NetEq extra delay in milliseconds: " << extra_delay_ms;
     return extra_delay_ms;
   }
   return absl::nullopt;

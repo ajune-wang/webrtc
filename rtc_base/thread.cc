@@ -255,7 +255,7 @@ bool Thread::Start() {
 
   int error_code = pthread_create(&thread_, &attr, PreRun, this);
   if (0 != error_code) {
-    RTC_LOG(LS_ERROR) << "Unable to create pthread, error " << error_code;
+    RTC_DLOG(LS_ERROR) << "Unable to create pthread, error " << error_code;
     thread_ = 0;
     return false;
   }
@@ -295,7 +295,7 @@ void Thread::Join() {
 
   RTC_DCHECK(!IsCurrent());
   if (Current() && !Current()->blocking_calls_allowed_) {
-    RTC_LOG(LS_WARNING) << "Waiting for the thread to join, "
+    RTC_DLOG(LS_WARNING) << "Waiting for the thread to join, "
                         << "but blocking calls have been disallowed";
   }
 

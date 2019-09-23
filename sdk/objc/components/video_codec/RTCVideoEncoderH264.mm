@@ -105,7 +105,7 @@ bool CopyVideoFrameToNV12PixelBuffer(id<RTCI420Buffer> frameBuffer, CVPixelBuffe
 
   CVReturn cvRet = CVPixelBufferLockBaseAddress(pixelBuffer, 0);
   if (cvRet != kCVReturnSuccess) {
-    RTC_LOG(LS_ERROR) << "Failed to lock base address: " << cvRet;
+    RTC_DLOG(LS_ERROR) << "Failed to lock base address: " << cvRet;
     return false;
   }
   uint8_t *dstY = reinterpret_cast<uint8_t *>(CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, 0));
@@ -127,7 +127,7 @@ bool CopyVideoFrameToNV12PixelBuffer(id<RTCI420Buffer> frameBuffer, CVPixelBuffe
                                frameBuffer.height);
   CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
   if (ret) {
-    RTC_LOG(LS_ERROR) << "Error converting I420 VideoFrame to NV12 :" << ret;
+    RTC_DLOG(LS_ERROR) << "Error converting I420 VideoFrame to NV12 :" << ret;
     return false;
   }
   return true;
@@ -135,13 +135,13 @@ bool CopyVideoFrameToNV12PixelBuffer(id<RTCI420Buffer> frameBuffer, CVPixelBuffe
 
 CVPixelBufferRef CreatePixelBuffer(CVPixelBufferPoolRef pixel_buffer_pool) {
   if (!pixel_buffer_pool) {
-    RTC_LOG(LS_ERROR) << "Failed to get pixel buffer pool.";
+    RTC_DLOG(LS_ERROR) << "Failed to get pixel buffer pool.";
     return nullptr;
   }
   CVPixelBufferRef pixel_buffer;
   CVReturn ret = CVPixelBufferPoolCreatePixelBuffer(nullptr, pixel_buffer_pool, &pixel_buffer);
   if (ret != kCVReturnSuccess) {
-    RTC_LOG(LS_ERROR) << "Failed to create pixel buffer: " << ret;
+    RTC_DLOG(LS_ERROR) << "Failed to create pixel buffer: " << ret;
     // We probably want to drop frames here, since failure probably means
     // that the pool is empty.
     return nullptr;
@@ -348,7 +348,7 @@ NSUInteger GetMaxSampleRate(const webrtc::H264::ProfileLevelId &profile_level_id
     _profile_level_id =
         webrtc::H264::ParseSdpProfileLevelId([codecInfo nativeSdpVideoFormat].parameters);
     RTC_DCHECK(_profile_level_id);
-    RTC_LOG(LS_INFO) << "Using profile " << CFStringToString(ExtractProfile(*_profile_level_id));
+    RTC_DLOG(LS_INFO) << "Using profile " << CFStringToString(ExtractProfile(*_profile_level_id));
     RTC_CHECK([codecInfo.name isEqualToString:kRTCVideoCodecH264Name]);
   }
   return self;
@@ -377,7 +377,7 @@ NSUInteger GetMaxSampleRate(const webrtc::H264::ProfileLevelId &profile_level_id
   _bitrateAdjuster->SetTargetBitrateBps(_targetBitrateBps);
   _encoderFrameRate = MIN(settings.maxFramerate, _maxAllowedFrameRate);
   if (settings.maxFramerate > _maxAllowedFrameRate && _maxAllowedFrameRate > 0) {
-    RTC_LOG(LS_WARNING) << "Initial encoder frame rate setting " << settings.maxFramerate
+    RTC_DLOG(LS_WARNING) << "Initial encoder frame rate setting " << settings.maxFramerate
                         << " is larger than the "
                         << "maximal allowed frame rate " << _maxAllowedFrameRate << ".";
   }
@@ -445,7 +445,7 @@ NSUInteger GetMaxSampleRate(const webrtc::H264::ProfileLevelId &profile_level_id
     }
     RTC_DCHECK(pixelBuffer);
     if (!CopyVideoFrameToNV12PixelBuffer([frame.buffer toI420], pixelBuffer)) {
-      RTC_LOG(LS_ERROR) << "Failed to copy frame data.";
+      RTC_DLOG(LS_ERROR) << "Failed to copy frame data.";
       CVBufferRelease(pixelBuffer);
       return WEBRTC_VIDEO_CODEC_ERROR;
     }
@@ -498,12 +498,12 @@ NSUInteger GetMaxSampleRate(const webrtc::H264::ProfileLevelId &profile_level_id
 
   if (status == kVTInvalidSessionErr) {
     // This error occurs when entering foreground after backgrounding the app.
-    RTC_LOG(LS_ERROR) << "Invalid compression session, resetting.";
+    RTC_DLOG(LS_ERROR) << "Invalid compression session, resetting.";
     [self resetCompressionSessionWithPixelFormat:[self pixelFormatOfFrame:frame]];
 
     return WEBRTC_VIDEO_CODEC_NO_OUTPUT;
   } else if (status != noErr) {
-    RTC_LOG(LS_ERROR) << "Failed to encode frame with code: " << status;
+    RTC_DLOG(LS_ERROR) << "Failed to encode frame with code: " << status;
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
   return WEBRTC_VIDEO_CODEC_OK;
@@ -517,7 +517,7 @@ NSUInteger GetMaxSampleRate(const webrtc::H264::ProfileLevelId &profile_level_id
   _targetBitrateBps = 1000 * bitrateKbit;
   _bitrateAdjuster->SetTargetBitrateBps(_targetBitrateBps);
   if (framerate > _maxAllowedFrameRate && _maxAllowedFrameRate > 0) {
-    RTC_LOG(LS_WARNING) << "Encoder frame rate setting " << framerate << " is larger than the "
+    RTC_DLOG(LS_WARNING) << "Encoder frame rate setting " << framerate << " is larger than the "
                         << "maximal allowed frame rate " << _maxAllowedFrameRate << ".";
   }
   framerate = MIN(framerate, _maxAllowedFrameRate);
@@ -570,7 +570,7 @@ NSUInteger GetMaxSampleRate(const webrtc::H264::ProfileLevelId &profile_level_id
     if (![compressionSessionPixelFormats
             containsObject:[NSNumber numberWithLong:framePixelFormat]]) {
       resetCompressionSession = YES;
-      RTC_LOG(LS_INFO) << "Resetting compression session due to non-matching pixel format.";
+      RTC_DLOG(LS_INFO) << "Resetting compression session due to non-matching pixel format.";
     }
   } else {
     resetCompressionSession = YES;
@@ -640,7 +640,7 @@ NSUInteger GetMaxSampleRate(const webrtc::H264::ProfileLevelId &profile_level_id
     encoder_specs = nullptr;
   }
   if (status != noErr) {
-    RTC_LOG(LS_ERROR) << "Failed to create compression session: " << status;
+    RTC_DLOG(LS_ERROR) << "Failed to create compression session: " << status;
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
 #if defined(WEBRTC_MAC) && !defined(WEBRTC_IOS)
@@ -650,9 +650,9 @@ NSUInteger GetMaxSampleRate(const webrtc::H264::ProfileLevelId &profile_level_id
                                  nullptr,
                                  &hwaccl_enabled);
   if (status == noErr && (CFBooleanGetValue(hwaccl_enabled))) {
-    RTC_LOG(LS_INFO) << "Compression session created with hw accl enabled";
+    RTC_DLOG(LS_INFO) << "Compression session created with hw accl enabled";
   } else {
-    RTC_LOG(LS_INFO) << "Compression session created with hw accl disabled";
+    RTC_DLOG(LS_INFO) << "Compression session created with hw accl disabled";
   }
 #endif
   [self configureCompressionSession];
@@ -737,7 +737,7 @@ NSUInteger GetMaxSampleRate(const webrtc::H264::ProfileLevelId &profile_level_id
       CFRelease(dataRateLimits);
     }
     if (status != noErr) {
-      RTC_LOG(LS_ERROR) << "Failed to set data rate limit with code: " << status;
+      RTC_DLOG(LS_ERROR) << "Failed to set data rate limit with code: " << status;
     }
 
     _encoderBitrateBps = bitrateBps;
@@ -755,11 +755,11 @@ NSUInteger GetMaxSampleRate(const webrtc::H264::ProfileLevelId &profile_level_id
               timestamp:(uint32_t)timestamp
                rotation:(RTCVideoRotation)rotation {
   if (status != noErr) {
-    RTC_LOG(LS_ERROR) << "H264 encode failed with code: " << status;
+    RTC_DLOG(LS_ERROR) << "H264 encode failed with code: " << status;
     return;
   }
   if (infoFlags & kVTEncodeInfo_FrameDropped) {
-    RTC_LOG(LS_INFO) << "H264 encode dropped frame.";
+    RTC_DLOG(LS_INFO) << "H264 encode dropped frame.";
     return;
   }
 
@@ -772,7 +772,7 @@ NSUInteger GetMaxSampleRate(const webrtc::H264::ProfileLevelId &profile_level_id
   }
 
   if (isKeyframe) {
-    RTC_LOG(LS_INFO) << "Generated keyframe";
+    RTC_DLOG(LS_INFO) << "Generated keyframe";
   }
 
   // Convert the sample buffer into a buffer suitable for RTP packetization.
@@ -809,7 +809,7 @@ NSUInteger GetMaxSampleRate(const webrtc::H264::ProfileLevelId &profile_level_id
 
   BOOL res = _callback(frame, codecSpecificInfo, header);
   if (!res) {
-    RTC_LOG(LS_ERROR) << "Encode callback failed";
+    RTC_DLOG(LS_ERROR) << "Encode callback failed";
     return;
   }
   _bitrateAdjuster->Update(frame.buffer.length);

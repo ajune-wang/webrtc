@@ -337,7 +337,7 @@ VideoCodec::CodecType VideoCodec::GetCodecType() const {
 
 bool VideoCodec::ValidateCodecFormat() const {
   if (id < 0 || id > 127) {
-    RTC_LOG(LS_ERROR) << "Codec with invalid payload type: " << ToString();
+    RTC_DLOG(LS_ERROR) << "Codec with invalid payload type: " << ToString();
     return false;
   }
   if (GetCodecType() != CODEC_VIDEO) {
@@ -350,7 +350,7 @@ bool VideoCodec::ValidateCodecFormat() const {
   if (GetParam(kCodecParamMinBitrate, &min_bitrate) &&
       GetParam(kCodecParamMaxBitrate, &max_bitrate)) {
     if (max_bitrate < min_bitrate) {
-      RTC_LOG(LS_ERROR) << "Codec with max < min bitrate: " << ToString();
+      RTC_DLOG(LS_ERROR) << "Codec with max < min bitrate: " << ToString();
       return false;
     }
   }

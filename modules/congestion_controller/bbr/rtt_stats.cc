@@ -48,7 +48,7 @@ void RttStats::UpdateRtt(TimeDelta send_delta,
                          TimeDelta ack_delay,
                          Timestamp now) {
   if (send_delta.IsInfinite() || send_delta <= TimeDelta::Zero()) {
-    RTC_LOG(LS_WARNING) << "Ignoring measured send_delta, because it's is "
+    RTC_DLOG(LS_WARNING) << "Ignoring measured send_delta, because it's is "
                         << "either infinite, zero, or negative.  send_delta = "
                         << ToString(send_delta);
     return;
@@ -80,7 +80,7 @@ void RttStats::UpdateRtt(TimeDelta send_delta,
     mean_deviation_ = kOneMinusBeta * mean_deviation_ +
                       kBeta * (smoothed_rtt_ - rtt_sample).Abs();
     smoothed_rtt_ = kOneMinusAlpha * smoothed_rtt_ + kAlpha * rtt_sample;
-    RTC_LOG(LS_VERBOSE) << " smoothed_rtt(us):" << smoothed_rtt_.us()
+    RTC_DLOG(LS_VERBOSE) << " smoothed_rtt(us):" << smoothed_rtt_.us()
                         << " mean_deviation(us):" << mean_deviation_.us();
   }
 }

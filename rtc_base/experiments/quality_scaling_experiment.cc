@@ -31,7 +31,7 @@ absl::optional<VideoEncoder::QpThresholds> GetThresholds(int low,
   if (low < kMinQp || high > max || high < low)
     return absl::nullopt;
 
-  RTC_LOG(LS_INFO) << "QP thresholds: low: " << low << ", high: " << high;
+  RTC_DLOG(LS_INFO) << "QP thresholds: low: " << low << ", high: " << high;
   return absl::optional<VideoEncoder::QpThresholds>(
       VideoEncoder::QpThresholds(low, high));
 }
@@ -52,7 +52,7 @@ QualityScalingExperiment::ParseSettings() {
              &s.vp8_low, &s.vp8_high, &s.vp9_low, &s.vp9_high, &s.h264_low,
              &s.h264_high, &s.generic_low, &s.generic_high, &s.alpha_high,
              &s.alpha_low, &s.drop) != 11) {
-    RTC_LOG(LS_WARNING) << "Invalid number of parameters provided.";
+    RTC_DLOG(LS_WARNING) << "Invalid number of parameters provided.";
     return absl::nullopt;
   }
   return s;
@@ -88,7 +88,7 @@ QualityScalingExperiment::Config QualityScalingExperiment::GetConfig() {
   config.use_all_drop_reasons = settings->drop > 0;
 
   if (settings->alpha_high < 0 || settings->alpha_low < settings->alpha_high) {
-    RTC_LOG(LS_WARNING) << "Invalid alpha value provided, using default.";
+    RTC_DLOG(LS_WARNING) << "Invalid alpha value provided, using default.";
     return config;
   }
   config.alpha_high = settings->alpha_high;

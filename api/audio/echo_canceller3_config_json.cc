@@ -63,7 +63,7 @@ void ReadParam(const Json::Value& root,
     std::vector<double> v;
     rtc::JsonArrayToDoubleVector(json_array, &v);
     if (v.size() != 6) {
-      RTC_LOG(LS_ERROR) << "Incorrect array size for " << param_name;
+      RTC_DLOG(LS_ERROR) << "Incorrect array size for " << param_name;
       return;
     }
     param->length_blocks = static_cast<size_t>(v[0]);
@@ -84,7 +84,7 @@ void ReadParam(const Json::Value& root,
     std::vector<double> v;
     rtc::JsonArrayToDoubleVector(json_array, &v);
     if (v.size() != 3) {
-      RTC_LOG(LS_ERROR) << "Incorrect array size for " << param_name;
+      RTC_DLOG(LS_ERROR) << "Incorrect array size for " << param_name;
       return;
     }
     param->length_blocks = static_cast<size_t>(v[0]);
@@ -102,7 +102,7 @@ void ReadParam(const Json::Value& root,
     std::vector<double> v;
     rtc::JsonArrayToDoubleVector(json_array, &v);
     if (v.size() != 3) {
-      RTC_LOG(LS_ERROR) << "Incorrect array size for " << param_name;
+      RTC_DLOG(LS_ERROR) << "Incorrect array size for " << param_name;
       return;
     }
     param->enr_transparent = static_cast<float>(v[0]);
@@ -124,7 +124,7 @@ void Aec3ConfigFromJsonString(absl::string_view json_string,
   Json::Value root;
   bool success = Json::Reader().parse(std::string(json_string), root);
   if (!success) {
-    RTC_LOG(LS_ERROR) << "Incorrect JSON format: " << json_string;
+    RTC_DLOG(LS_ERROR) << "Incorrect JSON format: " << json_string;
     *parsing_successful = false;
     return;
   }
@@ -132,7 +132,7 @@ void Aec3ConfigFromJsonString(absl::string_view json_string,
   Json::Value aec3_root;
   success = rtc::GetValueFromJsonObject(root, "aec3", &aec3_root);
   if (!success) {
-    RTC_LOG(LS_ERROR) << "Missing AEC3 config field: " << json_string;
+    RTC_DLOG(LS_ERROR) << "Missing AEC3 config field: " << json_string;
     *parsing_successful = false;
     return;
   }

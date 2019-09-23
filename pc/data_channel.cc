@@ -50,12 +50,12 @@ InternalDataChannelInit::InternalDataChannelInit(const DataChannelInit& base)
   // Backwards compatibility: If base.maxRetransmits or base.maxRetransmitTime
   // have been set to -1, unset them.
   if (maxRetransmits && *maxRetransmits == -1) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "Accepting maxRetransmits = -1 for backwards compatibility";
     maxRetransmits = absl::nullopt;
   }
   if (maxRetransmitTime && *maxRetransmitTime == -1) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "Accepting maxRetransmitTime = -1 for backwards compatibility";
     maxRetransmitTime = absl::nullopt;
   }
@@ -178,7 +178,7 @@ bool DataChannel::Init(const InternalDataChannelInit& config) {
   if (data_channel_type_ == cricket::DCT_RTP) {
     if (config.reliable || config.id != -1 || config.maxRetransmits ||
         config.maxRetransmitTime) {
-      RTC_LOG(LS_ERROR) << "Failed to initialize the RTP data channel due to "
+      RTC_DLOG(LS_ERROR) << "Failed to initialize the RTP data channel due to "
                            "invalid DataChannelInit.";
       return false;
     }
@@ -187,12 +187,12 @@ bool DataChannel::Init(const InternalDataChannelInit& config) {
     if (config.id < -1 ||
         (config.maxRetransmits && *config.maxRetransmits < 0) ||
         (config.maxRetransmitTime && *config.maxRetransmitTime < 0)) {
-      RTC_LOG(LS_ERROR) << "Failed to initialize the SCTP data channel due to "
+      RTC_DLOG(LS_ERROR) << "Failed to initialize the SCTP data channel due to "
                            "invalid DataChannelInit.";
       return false;
     }
     if (config.maxRetransmits && config.maxRetransmitTime) {
-      RTC_LOG(LS_ERROR)
+      RTC_DLOG(LS_ERROR)
           << "maxRetransmits and maxRetransmitTime should not be both set.";
       return false;
     }
@@ -281,7 +281,7 @@ bool DataChannel::Send(const DataBuffer& buffer) {
     // blocked.
     RTC_DCHECK(IsSctpLike(data_channel_type_));
     if (!QueueSendDataMessage(buffer)) {
-      RTC_LOG(LS_ERROR) << "Closing the DataChannel due to a failure to queue "
+      RTC_DLOG(LS_ERROR) << "Closing the DataChannel due to a failure to queue "
                            "additional data.";
       CloseAbruptly();
     }
@@ -394,7 +394,7 @@ void DataChannel::OnDataReceived(const cricket::ReceiveDataParams& params,
     RTC_DCHECK(IsSctpLike(data_channel_type_));
     if (handshake_state_ != kHandshakeWaitingForAck) {
       // Ignore it if we are not expecting an ACK message.
-      RTC_LOG(LS_WARNING)
+      RTC_DLOG(LS_WARNING)
           << "DataChannel received unexpected CONTROL message, sid = "
           << params.sid;
       return;
@@ -402,10 +402,10 @@ void DataChannel::OnDataReceived(const cricket::ReceiveDataParams& params,
     if (ParseDataChannelOpenAckMessage(payload)) {
       // We can send unordered as soon as we receive the ACK message.
       handshake_state_ = kHandshakeReady;
-      RTC_LOG(LS_INFO) << "DataChannel received OPEN_ACK message, sid = "
+      RTC_DLOG(LS_INFO) << "DataChannel received OPEN_ACK message, sid = "
                        << params.sid;
     } else {
-      RTC_LOG(LS_WARNING)
+      RTC_DLOG(LS_WARNING)
           << "DataChannel failed to parse OPEN_ACK message, sid = "
           << params.sid;
     }
@@ -415,7 +415,7 @@ void DataChannel::OnDataReceived(const cricket::ReceiveDataParams& params,
   RTC_DCHECK(params.type == cricket::DMT_BINARY ||
              params.type == cricket::DMT_TEXT);
 
-  RTC_LOG(LS_VERBOSE) << "DataChannel received DATA message, sid = "
+  RTC_DLOG(LS_VERBOSE) << "DataChannel received DATA message, sid = "
                       << params.sid;
   // We can send unordered as soon as we receive any DATA message since the
   // remote side must have received the OPEN (and old clients do not send
@@ -433,7 +433,7 @@ void DataChannel::OnDataReceived(const cricket::ReceiveDataParams& params,
   } else {
     if (queued_received_data_.byte_count() + payload.size() >
         kMaxQueuedReceivedDataBytes) {
-      RTC_LOG(LS_ERROR) << "Queued received data exceeds the max buffer size.";
+      RTC_DLOG(LS_ERROR) << "Queued received data exceeds the max buffer size.";
 
       queued_received_data_.Clear();
       if (data_channel_type_ != cricket::DCT_RTP) {
@@ -607,7 +607,7 @@ bool DataChannel::SendDataMessage(const DataBuffer& buffer,
     // Send as ordered if it is still going through OPEN/ACK signaling.
     if (handshake_state_ != kHandshakeReady && !config_.ordered) {
       send_params.ordered = true;
-      RTC_LOG(LS_VERBOSE)
+      RTC_DLOG(LS_VERBOSE)
           << "Sending data as ordered for unordered DataChannel "
              "because the OPEN_ACK message has not been received.";
     }
@@ -648,7 +648,7 @@ bool DataChannel::SendDataMessage(const DataBuffer& buffer,
   }
   // Close the channel if the error is not SDR_BLOCK, or if queuing the
   // message failed.
-  RTC_LOG(LS_ERROR) << "Closing the DataChannel due to a failure to send data, "
+  RTC_DLOG(LS_ERROR) << "Closing the DataChannel due to a failure to send data, "
                        "send_result = "
                     << send_result;
   CloseAbruptly();
@@ -659,7 +659,7 @@ bool DataChannel::SendDataMessage(const DataBuffer& buffer,
 bool DataChannel::QueueSendDataMessage(const DataBuffer& buffer) {
   size_t start_buffered_amount = queued_send_data_.byte_count();
   if (start_buffered_amount + buffer.size() > kMaxQueuedSendDataBytes) {
-    RTC_LOG(LS_ERROR) << "Can't buffer any more data for the data channel.";
+    RTC_DLOG(LS_ERROR) << "Can't buffer any more data for the data channel.";
     return false;
   }
   queued_send_data_.PushBack(std::make_unique<DataBuffer>(buffer));
@@ -699,7 +699,7 @@ bool DataChannel::SendControlMessage(const rtc::CopyOnWriteBuffer& buffer) {
   cricket::SendDataResult send_result = cricket::SDR_SUCCESS;
   bool retval = provider_->SendData(send_params, buffer, &send_result);
   if (retval) {
-    RTC_LOG(LS_INFO) << "Sent CONTROL message on channel " << config_.id;
+    RTC_DLOG(LS_INFO) << "Sent CONTROL message on channel " << config_.id;
 
     if (handshake_state_ == kHandshakeShouldSendAck) {
       handshake_state_ = kHandshakeReady;
@@ -709,7 +709,7 @@ bool DataChannel::SendControlMessage(const rtc::CopyOnWriteBuffer& buffer) {
   } else if (send_result == cricket::SDR_BLOCK) {
     QueueControlMessage(buffer);
   } else {
-    RTC_LOG(LS_ERROR) << "Closing the DataChannel due to a failure to send"
+    RTC_DLOG(LS_ERROR) << "Closing the DataChannel due to a failure to send"
                          " the CONTROL message, send_result = "
                       << send_result;
     CloseAbruptly();

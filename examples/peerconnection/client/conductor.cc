@@ -61,9 +61,9 @@ class DummySetSessionDescriptionObserver
   static DummySetSessionDescriptionObserver* Create() {
     return new rtc::RefCountedObject<DummySetSessionDescriptionObserver>();
   }
-  virtual void OnSuccess() { RTC_LOG(INFO) << __FUNCTION__; }
+  virtual void OnSuccess() { RTC_DLOG(INFO) << __FUNCTION__; }
   virtual void OnFailure(webrtc::RTCError error) {
-    RTC_LOG(INFO) << __FUNCTION__ << " " << ToString(error.type()) << ": "
+    RTC_DLOG(INFO) << __FUNCTION__ << " " << ToString(error.type()) << ": "
                   << error.message();
   }
 };
@@ -212,23 +212,23 @@ void Conductor::OnAddTrack(
     rtc::scoped_refptr<webrtc::RtpReceiverInterface> receiver,
     const std::vector<rtc::scoped_refptr<webrtc::MediaStreamInterface>>&
         streams) {
-  RTC_LOG(INFO) << __FUNCTION__ << " " << receiver->id();
+  RTC_DLOG(INFO) << __FUNCTION__ << " " << receiver->id();
   main_wnd_->QueueUIThreadCallback(NEW_TRACK_ADDED,
                                    receiver->track().release());
 }
 
 void Conductor::OnRemoveTrack(
     rtc::scoped_refptr<webrtc::RtpReceiverInterface> receiver) {
-  RTC_LOG(INFO) << __FUNCTION__ << " " << receiver->id();
+  RTC_DLOG(INFO) << __FUNCTION__ << " " << receiver->id();
   main_wnd_->QueueUIThreadCallback(TRACK_REMOVED, receiver->track().release());
 }
 
 void Conductor::OnIceCandidate(const webrtc::IceCandidateInterface* candidate) {
-  RTC_LOG(INFO) << __FUNCTION__ << " " << candidate->sdp_mline_index();
+  RTC_DLOG(INFO) << __FUNCTION__ << " " << candidate->sdp_mline_index();
   // For loopback test. To save some connecting delay.
   if (loopback_) {
     if (!peer_connection_->AddIceCandidate(candidate)) {
-      RTC_LOG(WARNING) << "Failed to apply the received candidate";
+      RTC_DLOG(WARNING) << "Failed to apply the received candidate";
     }
     return;
   }
@@ -240,7 +240,7 @@ void Conductor::OnIceCandidate(const webrtc::IceCandidateInterface* candidate) {
   jmessage[kCandidateSdpMlineIndexName] = candidate->sdp_mline_index();
   std::string sdp;
   if (!candidate->ToString(&sdp)) {
-    RTC_LOG(LS_ERROR) << "Failed to serialize candidate";
+    RTC_DLOG(LS_ERROR) << "Failed to serialize candidate";
     return;
   }
   jmessage[kCandidateSdpName] = sdp;
@@ -252,12 +252,12 @@ void Conductor::OnIceCandidate(const webrtc::IceCandidateInterface* candidate) {
 //
 
 void Conductor::OnSignedIn() {
-  RTC_LOG(INFO) << __FUNCTION__;
+  RTC_DLOG(INFO) << __FUNCTION__;
   main_wnd_->SwitchToPeerList(client_->peers());
 }
 
 void Conductor::OnDisconnected() {
-  RTC_LOG(INFO) << __FUNCTION__;
+  RTC_DLOG(INFO) << __FUNCTION__;
 
   DeletePeerConnection();
 
@@ -266,16 +266,16 @@ void Conductor::OnDisconnected() {
 }
 
 void Conductor::OnPeerConnected(int id, const std::string& name) {
-  RTC_LOG(INFO) << __FUNCTION__;
+  RTC_DLOG(INFO) << __FUNCTION__;
   // Refresh the list if we're showing it.
   if (main_wnd_->current_ui() == MainWindow::LIST_PEERS)
     main_wnd_->SwitchToPeerList(client_->peers());
 }
 
 void Conductor::OnPeerDisconnected(int id) {
-  RTC_LOG(INFO) << __FUNCTION__;
+  RTC_DLOG(INFO) << __FUNCTION__;
   if (id == peer_id_) {
-    RTC_LOG(INFO) << "Our peer disconnected";
+    RTC_DLOG(INFO) << "Our peer disconnected";
     main_wnd_->QueueUIThreadCallback(PEER_CONNECTION_CLOSED, NULL);
   } else {
     // Refresh the list if we're showing it.
@@ -293,13 +293,13 @@ void Conductor::OnMessageFromPeer(int peer_id, const std::string& message) {
     peer_id_ = peer_id;
 
     if (!InitializePeerConnection()) {
-      RTC_LOG(LS_ERROR) << "Failed to initialize our PeerConnection instance";
+      RTC_DLOG(LS_ERROR) << "Failed to initialize our PeerConnection instance";
       client_->SignOut();
       return;
     }
   } else if (peer_id != peer_id_) {
     RTC_DCHECK(peer_id_ != -1);
-    RTC_LOG(WARNING)
+    RTC_DLOG(WARNING)
         << "Received a message from unknown peer while already in a "
            "conversation with a different peer.";
     return;
@@ -308,7 +308,7 @@ void Conductor::OnMessageFromPeer(int peer_id, const std::string& message) {
   Json::Reader reader;
   Json::Value jmessage;
   if (!reader.parse(message, jmessage)) {
-    RTC_LOG(WARNING) << "Received unknown message. " << message;
+    RTC_DLOG(WARNING) << "Received unknown message. " << message;
     return;
   }
   std::string type_str;
@@ -321,7 +321,7 @@ void Conductor::OnMessageFromPeer(int peer_id, const std::string& message) {
       // This is a loopback call.
       // Recreate the peerconnection with DTLS disabled.
       if (!ReinitializePeerConnectionForLoopback()) {
-        RTC_LOG(LS_ERROR) << "Failed to initialize our PeerConnection instance";
+        RTC_DLOG(LS_ERROR) << "Failed to initialize our PeerConnection instance";
         DeletePeerConnection();
         client_->SignOut();
       }
@@ -330,25 +330,25 @@ void Conductor::OnMessageFromPeer(int peer_id, const std::string& message) {
     absl::optional<webrtc::SdpType> type_maybe =
         webrtc::SdpTypeFromString(type_str);
     if (!type_maybe) {
-      RTC_LOG(LS_ERROR) << "Unknown SDP type: " << type_str;
+      RTC_DLOG(LS_ERROR) << "Unknown SDP type: " << type_str;
       return;
     }
     webrtc::SdpType type = *type_maybe;
     std::string sdp;
     if (!rtc::GetStringFromJsonObject(jmessage, kSessionDescriptionSdpName,
                                       &sdp)) {
-      RTC_LOG(WARNING) << "Can't parse received session description message.";
+      RTC_DLOG(WARNING) << "Can't parse received session description message.";
       return;
     }
     webrtc::SdpParseError error;
     std::unique_ptr<webrtc::SessionDescriptionInterface> session_description =
         webrtc::CreateSessionDescription(type, sdp, &error);
     if (!session_description) {
-      RTC_LOG(WARNING) << "Can't parse received session description message. "
+      RTC_DLOG(WARNING) << "Can't parse received session description message. "
                        << "SdpParseError was: " << error.description;
       return;
     }
-    RTC_LOG(INFO) << " Received session description :" << message;
+    RTC_DLOG(INFO) << " Received session description :" << message;
     peer_connection_->SetRemoteDescription(
         DummySetSessionDescriptionObserver::Create(),
         session_description.release());
@@ -365,22 +365,22 @@ void Conductor::OnMessageFromPeer(int peer_id, const std::string& message) {
         !rtc::GetIntFromJsonObject(jmessage, kCandidateSdpMlineIndexName,
                                    &sdp_mlineindex) ||
         !rtc::GetStringFromJsonObject(jmessage, kCandidateSdpName, &sdp)) {
-      RTC_LOG(WARNING) << "Can't parse received message.";
+      RTC_DLOG(WARNING) << "Can't parse received message.";
       return;
     }
     webrtc::SdpParseError error;
     std::unique_ptr<webrtc::IceCandidateInterface> candidate(
         webrtc::CreateIceCandidate(sdp_mid, sdp_mlineindex, sdp, &error));
     if (!candidate.get()) {
-      RTC_LOG(WARNING) << "Can't parse received candidate message. "
+      RTC_DLOG(WARNING) << "Can't parse received candidate message. "
                        << "SdpParseError was: " << error.description;
       return;
     }
     if (!peer_connection_->AddIceCandidate(candidate.get())) {
-      RTC_LOG(WARNING) << "Failed to apply the received candidate";
+      RTC_DLOG(WARNING) << "Failed to apply the received candidate";
       return;
     }
-    RTC_LOG(INFO) << " Received candidate :" << message;
+    RTC_DLOG(INFO) << " Received candidate :" << message;
   }
 }
 
@@ -440,7 +440,7 @@ void Conductor::AddTracks() {
                            cricket::AudioOptions())));
   auto result_or_error = peer_connection_->AddTrack(audio_track, {kStreamId});
   if (!result_or_error.ok()) {
-    RTC_LOG(LS_ERROR) << "Failed to add audio track to PeerConnection: "
+    RTC_DLOG(LS_ERROR) << "Failed to add audio track to PeerConnection: "
                       << result_or_error.error().message();
   }
 
@@ -453,18 +453,18 @@ void Conductor::AddTracks() {
 
     result_or_error = peer_connection_->AddTrack(video_track_, {kStreamId});
     if (!result_or_error.ok()) {
-      RTC_LOG(LS_ERROR) << "Failed to add video track to PeerConnection: "
+      RTC_DLOG(LS_ERROR) << "Failed to add video track to PeerConnection: "
                         << result_or_error.error().message();
     }
   } else {
-    RTC_LOG(LS_ERROR) << "OpenVideoCaptureDevice failed";
+    RTC_DLOG(LS_ERROR) << "OpenVideoCaptureDevice failed";
   }
 
   main_wnd_->SwitchToStreamingUI();
 }
 
 void Conductor::DisconnectFromCurrentPeer() {
-  RTC_LOG(INFO) << __FUNCTION__;
+  RTC_DLOG(INFO) << __FUNCTION__;
   if (peer_connection_.get()) {
     client_->SendHangUp(peer_id_);
     DeletePeerConnection();
@@ -477,7 +477,7 @@ void Conductor::DisconnectFromCurrentPeer() {
 void Conductor::UIThreadCallback(int msg_id, void* data) {
   switch (msg_id) {
     case PEER_CONNECTION_CLOSED:
-      RTC_LOG(INFO) << "PEER_CONNECTION_CLOSED";
+      RTC_DLOG(INFO) << "PEER_CONNECTION_CLOSED";
       DeletePeerConnection();
 
       if (main_wnd_->IsWindow()) {
@@ -492,7 +492,7 @@ void Conductor::UIThreadCallback(int msg_id, void* data) {
       break;
 
     case SEND_MESSAGE_TO_PEER: {
-      RTC_LOG(INFO) << "SEND_MESSAGE_TO_PEER";
+      RTC_DLOG(INFO) << "SEND_MESSAGE_TO_PEER";
       std::string* msg = reinterpret_cast<std::string*>(data);
       if (msg) {
         // For convenience, we always run the message through the queue.
@@ -506,7 +506,7 @@ void Conductor::UIThreadCallback(int msg_id, void* data) {
         pending_messages_.pop_front();
 
         if (!client_->SendToPeer(peer_id_, *msg) && peer_id_ != -1) {
-          RTC_LOG(LS_ERROR) << "SendToPeer failed";
+          RTC_DLOG(LS_ERROR) << "SendToPeer failed";
           DisconnectFromServer();
         }
         delete msg;
@@ -568,7 +568,7 @@ void Conductor::OnSuccess(webrtc::SessionDescriptionInterface* desc) {
 }
 
 void Conductor::OnFailure(webrtc::RTCError error) {
-  RTC_LOG(LERROR) << ToString(error.type()) << ": " << error.message();
+  RTC_DLOG(LERROR) << ToString(error.type()) << ": " << error.message();
 }
 
 void Conductor::SendMessage(const std::string& json_object) {

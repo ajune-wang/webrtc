@@ -64,7 +64,7 @@ void EchoEmulatingCapturer::OnAudioRendered(
 #if defined(THREAD_SANITIZER) || defined(MEMORY_SANITIZER) || \
     defined(ADDRESS_SANITIZER) || defined(WEBRTC_ANDROID) ||  \
     (defined(_MSC_VER) && !defined(__clang__) && !defined(NDEBUG))
-    RTC_LOG(WARNING) << "Echo queue is full";
+    RTC_DLOG(WARNING) << "Echo queue is full";
 #else
     RTC_CHECK(false) << "Echo queue is full";
 #endif

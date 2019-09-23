@@ -60,7 +60,7 @@ void BandwidthSampler::OnPacketSent(Timestamp sent_time,
   if (!connection_state_map_.IsEmpty() &&
       packet_number >
           connection_state_map_.last_packet() + kMaxTrackedPackets) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "BandwidthSampler in-flight packet map has exceeded maximum "
            "number "
            "of tracked packets.";
@@ -69,7 +69,7 @@ void BandwidthSampler::OnPacketSent(Timestamp sent_time,
   bool success =
       connection_state_map_.Emplace(packet_number, sent_time, data_size, *this);
   if (!success)
-    RTC_LOG(LS_WARNING) << "BandwidthSampler failed to insert the packet "
+    RTC_DLOG(LS_WARNING) << "BandwidthSampler failed to insert the packet "
                            "into the map, most likely because it's already "
                            "in it.";
 }
@@ -125,7 +125,7 @@ BandwidthSample BandwidthSampler::OnPacketAcknowledgedInner(
   // always larger than the time of the previous packet, otherwise division by
   // zero or integer underflow can occur.
   if (ack_time <= *sent_packet.last_acked_packet_ack_time) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Time of the previously acked packet is larger than the time "
            "of the current packet.";
     return BandwidthSample();

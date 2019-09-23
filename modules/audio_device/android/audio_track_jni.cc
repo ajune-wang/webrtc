@@ -79,7 +79,7 @@ AudioTrackJni::AudioTrackJni(AudioManager* audio_manager)
       initialized_(false),
       playing_(false),
       audio_device_buffer_(nullptr) {
-  RTC_LOG(INFO) << "ctor";
+  RTC_DLOG(INFO) << "ctor";
   RTC_DCHECK(audio_parameters_.is_valid());
   RTC_CHECK(j_environment_);
   JNINativeMethod native_methods[] = {
@@ -101,32 +101,32 @@ AudioTrackJni::AudioTrackJni(AudioManager* audio_manager)
 }
 
 AudioTrackJni::~AudioTrackJni() {
-  RTC_LOG(INFO) << "dtor";
+  RTC_DLOG(INFO) << "dtor";
   RTC_DCHECK(thread_checker_.IsCurrent());
   Terminate();
 }
 
 int32_t AudioTrackJni::Init() {
-  RTC_LOG(INFO) << "Init";
+  RTC_DLOG(INFO) << "Init";
   RTC_DCHECK(thread_checker_.IsCurrent());
   return 0;
 }
 
 int32_t AudioTrackJni::Terminate() {
-  RTC_LOG(INFO) << "Terminate";
+  RTC_DLOG(INFO) << "Terminate";
   RTC_DCHECK(thread_checker_.IsCurrent());
   StopPlayout();
   return 0;
 }
 
 int32_t AudioTrackJni::InitPlayout() {
-  RTC_LOG(INFO) << "InitPlayout";
+  RTC_DLOG(INFO) << "InitPlayout";
   RTC_DCHECK(thread_checker_.IsCurrent());
   RTC_DCHECK(!initialized_);
   RTC_DCHECK(!playing_);
   if (!j_audio_track_->InitPlayout(audio_parameters_.sample_rate(),
                                    audio_parameters_.channels())) {
-    RTC_LOG(LS_ERROR) << "InitPlayout failed";
+    RTC_DLOG(LS_ERROR) << "InitPlayout failed";
     return -1;
   }
   initialized_ = true;
@@ -134,7 +134,7 @@ int32_t AudioTrackJni::InitPlayout() {
 }
 
 int32_t AudioTrackJni::StartPlayout() {
-  RTC_LOG(INFO) << "StartPlayout";
+  RTC_DLOG(INFO) << "StartPlayout";
   RTC_DCHECK(thread_checker_.IsCurrent());
   RTC_DCHECK(!playing_);
   if (!initialized_) {
@@ -143,7 +143,7 @@ int32_t AudioTrackJni::StartPlayout() {
     return 0;
   }
   if (!j_audio_track_->StartPlayout()) {
-    RTC_LOG(LS_ERROR) << "StartPlayout failed";
+    RTC_DLOG(LS_ERROR) << "StartPlayout failed";
     return -1;
   }
   playing_ = true;
@@ -151,13 +151,13 @@ int32_t AudioTrackJni::StartPlayout() {
 }
 
 int32_t AudioTrackJni::StopPlayout() {
-  RTC_LOG(INFO) << "StopPlayout";
+  RTC_DLOG(INFO) << "StopPlayout";
   RTC_DCHECK(thread_checker_.IsCurrent());
   if (!initialized_ || !playing_) {
     return 0;
   }
   if (!j_audio_track_->StopPlayout()) {
-    RTC_LOG(LS_ERROR) << "StopPlayout failed";
+    RTC_DLOG(LS_ERROR) << "StopPlayout failed";
     return -1;
   }
   // If we don't detach here, we will hit a RTC_DCHECK in OnDataIsRecorded()
@@ -176,7 +176,7 @@ int AudioTrackJni::SpeakerVolumeIsAvailable(bool& available) {
 }
 
 int AudioTrackJni::SetSpeakerVolume(uint32_t volume) {
-  RTC_LOG(INFO) << "SetSpeakerVolume(" << volume << ")";
+  RTC_DLOG(INFO) << "SetSpeakerVolume(" << volume << ")";
   RTC_DCHECK(thread_checker_.IsCurrent());
   return j_audio_track_->SetStreamVolume(volume) ? 0 : -1;
 }
@@ -196,20 +196,20 @@ int AudioTrackJni::MinSpeakerVolume(uint32_t& min_volume) const {
 int AudioTrackJni::SpeakerVolume(uint32_t& volume) const {
   RTC_DCHECK(thread_checker_.IsCurrent());
   volume = j_audio_track_->GetStreamVolume();
-  RTC_LOG(INFO) << "SpeakerVolume: " << volume;
+  RTC_DLOG(INFO) << "SpeakerVolume: " << volume;
   return 0;
 }
 
 // TODO(henrika): possibly add stereo support.
 void AudioTrackJni::AttachAudioBuffer(AudioDeviceBuffer* audioBuffer) {
-  RTC_LOG(INFO) << "AttachAudioBuffer";
+  RTC_DLOG(INFO) << "AttachAudioBuffer";
   RTC_DCHECK(thread_checker_.IsCurrent());
   audio_device_buffer_ = audioBuffer;
   const int sample_rate_hz = audio_parameters_.sample_rate();
-  RTC_LOG(INFO) << "SetPlayoutSampleRate(" << sample_rate_hz << ")";
+  RTC_DLOG(INFO) << "SetPlayoutSampleRate(" << sample_rate_hz << ")";
   audio_device_buffer_->SetPlayoutSampleRate(sample_rate_hz);
   const size_t channels = audio_parameters_.channels();
-  RTC_LOG(INFO) << "SetPlayoutChannels(" << channels << ")";
+  RTC_DLOG(INFO) << "SetPlayoutChannels(" << channels << ")";
   audio_device_buffer_->SetPlayoutChannels(channels);
 }
 
@@ -225,16 +225,16 @@ void JNICALL AudioTrackJni::CacheDirectBufferAddress(JNIEnv* env,
 
 void AudioTrackJni::OnCacheDirectBufferAddress(JNIEnv* env,
                                                jobject byte_buffer) {
-  RTC_LOG(INFO) << "OnCacheDirectBufferAddress";
+  RTC_DLOG(INFO) << "OnCacheDirectBufferAddress";
   RTC_DCHECK(thread_checker_.IsCurrent());
   RTC_DCHECK(!direct_buffer_address_);
   direct_buffer_address_ = env->GetDirectBufferAddress(byte_buffer);
   jlong capacity = env->GetDirectBufferCapacity(byte_buffer);
-  RTC_LOG(INFO) << "direct buffer capacity: " << capacity;
+  RTC_DLOG(INFO) << "direct buffer capacity: " << capacity;
   direct_buffer_capacity_in_bytes_ = static_cast<size_t>(capacity);
   const size_t bytes_per_frame = audio_parameters_.channels() * sizeof(int16_t);
   frames_per_buffer_ = direct_buffer_capacity_in_bytes_ / bytes_per_frame;
-  RTC_LOG(INFO) << "frames_per_buffer: " << frames_per_buffer_;
+  RTC_DLOG(INFO) << "frames_per_buffer: " << frames_per_buffer_;
 }
 
 JNI_FUNCTION_ALIGN
@@ -254,13 +254,13 @@ void AudioTrackJni::OnGetPlayoutData(size_t length) {
   const size_t bytes_per_frame = audio_parameters_.channels() * sizeof(int16_t);
   RTC_DCHECK_EQ(frames_per_buffer_, length / bytes_per_frame);
   if (!audio_device_buffer_) {
-    RTC_LOG(LS_ERROR) << "AttachAudioBuffer has not been called";
+    RTC_DLOG(LS_ERROR) << "AttachAudioBuffer has not been called";
     return;
   }
   // Pull decoded data (in 16-bit PCM format) from jitter buffer.
   int samples = audio_device_buffer_->RequestPlayoutData(frames_per_buffer_);
   if (samples <= 0) {
-    RTC_LOG(LS_ERROR) << "AudioDeviceBuffer::RequestPlayoutData failed";
+    RTC_DLOG(LS_ERROR) << "AudioDeviceBuffer::RequestPlayoutData failed";
     return;
   }
   RTC_DCHECK_EQ(samples, frames_per_buffer_);

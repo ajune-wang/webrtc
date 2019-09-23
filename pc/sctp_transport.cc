@@ -108,7 +108,7 @@ void SctpTransport::Start(int local_port,
   }
   if (owner_thread_->IsCurrent()) {
     if (!internal()->Start(local_port, remote_port, max_message_size)) {
-      RTC_LOG(LS_ERROR) << "Failed to push down SCTP parameters, closing.";
+      RTC_DLOG(LS_ERROR) << "Failed to push down SCTP parameters, closing.";
       UpdateInformation(SctpTransportState::kClosed);
     }
   } else {

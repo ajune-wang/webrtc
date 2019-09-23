@@ -357,7 +357,7 @@ class TestChannel : public sigslot::has_slots<> {
 
   void OnDestroyed(Connection* conn) {
     ASSERT_EQ(conn_, conn);
-    RTC_LOG(INFO) << "OnDestroy connection " << conn << " deleted";
+    RTC_DLOG(INFO) << "OnDestroy connection " << conn << " deleted";
     conn_ = NULL;
     // When the connection is destroyed, also clear these fields so future
     // connections are possible.
@@ -872,7 +872,7 @@ void PortTest::TestConnectivity(const char* name1,
                                 bool same_addr2,
                                 bool possible) {
   rtc::ScopedFakeClock clock;
-  RTC_LOG(LS_INFO) << "Test: " << name1 << " to " << name2 << ": ";
+  RTC_DLOG(LS_INFO) << "Test: " << name1 << " to " << name2 << ": ";
   port1->set_component(cricket::ICE_CANDIDATE_COMPONENT_DEFAULT);
   port2->set_component(cricket::ICE_CANDIDATE_COMPONENT_DEFAULT);
 

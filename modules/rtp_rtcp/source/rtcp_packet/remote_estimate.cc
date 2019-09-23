@@ -49,7 +49,7 @@ class DataRateSerializer {
   bool Write(const NetworkStateEstimate& src, uint8_t* target) const {
     auto value = *field_getter_(const_cast<NetworkStateEstimate*>(&src));
     if (value.IsMinusInfinity()) {
-      RTC_LOG(LS_WARNING) << "Trying to serialize MinusInfinity";
+      RTC_DLOG(LS_WARNING) << "Trying to serialize MinusInfinity";
       return false;
     }
     ByteWriter<uint8_t>::WriteBigEndian(target++, id_);
@@ -60,7 +60,7 @@ class DataRateSerializer {
       scaled = value / kDataRateResolution;
       if (scaled >= kMaxEncoded) {
         scaled = kMaxEncoded;
-        RTC_LOG(LS_WARNING) << ToString(value) << " is larger than max ("
+        RTC_DLOG(LS_WARNING) << ToString(value) << " is larger than max ("
                             << ToString(kMaxEncoded * kDataRateResolution)
                             << "), encoded as PlusInfinity.";
       }

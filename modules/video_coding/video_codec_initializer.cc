@@ -33,7 +33,7 @@ bool VideoCodecInitializer::SetupCodec(const VideoEncoderConfig& config,
     VideoEncoderConfig associated_config = config.Copy();
     associated_config.codec_type = kVideoCodecVP9;
     if (!SetupCodec(associated_config, streams, codec)) {
-      RTC_LOG(LS_ERROR) << "Failed to create stereo encoder configuration.";
+      RTC_DLOG(LS_ERROR) << "Failed to create stereo encoder configuration.";
       return false;
     }
     codec->codecType = kVideoCodecMultiplex;

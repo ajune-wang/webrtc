@@ -38,7 +38,7 @@ void BufferedFrameDecryptor::ManageEncryptedFrame(
   switch (DecryptFrame(encrypted_frame.get())) {
     case FrameDecision::kStash:
       if (stashed_frames_.size() >= kMaxStashedFrames) {
-        RTC_LOG(LS_WARNING) << "Encrypted frame stash full poping oldest item.";
+        RTC_DLOG(LS_WARNING) << "Encrypted frame stash full poping oldest item.";
         stashed_frames_.pop_front();
       }
       stashed_frames_.push_back(std::move(encrypted_frame));
@@ -56,7 +56,7 @@ BufferedFrameDecryptor::FrameDecision BufferedFrameDecryptor::DecryptFrame(
     video_coding::RtpFrameObject* frame) {
   // Optionally attempt to decrypt the raw video frame if it was provided.
   if (frame_decryptor_ == nullptr) {
-    RTC_LOG(LS_INFO) << "Frame decryption required but not attached to this "
+    RTC_DLOG(LS_INFO) << "Frame decryption required but not attached to this "
                         "stream. Stashing frame.";
     return FrameDecision::kStash;
   }
@@ -64,7 +64,7 @@ BufferedFrameDecryptor::FrameDecision BufferedFrameDecryptor::DecryptFrame(
   absl::optional<RtpGenericFrameDescriptor> descriptor =
       frame->GetGenericFrameDescriptor();
   if (!descriptor) {
-    RTC_LOG(LS_ERROR) << "No generic frame descriptor found dropping frame.";
+    RTC_DLOG(LS_ERROR) << "No generic frame descriptor found dropping frame.";
     return FrameDecision::kDrop;
   }
   // Retrieve the maximum possible size of the decrypted payload.
@@ -113,7 +113,7 @@ BufferedFrameDecryptor::FrameDecision BufferedFrameDecryptor::DecryptFrame(
 
 void BufferedFrameDecryptor::RetryStashedFrames() {
   if (!stashed_frames_.empty()) {
-    RTC_LOG(LS_INFO) << "Retrying stashed encrypted frames. Count: "
+    RTC_DLOG(LS_INFO) << "Retrying stashed encrypted frames. Count: "
                      << stashed_frames_.size();
   }
   for (auto& frame : stashed_frames_) {

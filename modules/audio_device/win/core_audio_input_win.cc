@@ -189,7 +189,7 @@ int CoreAudioInput::StopRecording() {
   }
 
   if (!Stop()) {
-    RTC_LOG(LS_ERROR) << "StopRecording failed";
+    RTC_DLOG(LS_ERROR) << "StopRecording failed";
     return -1;
   }
 
@@ -232,7 +232,7 @@ int CoreAudioInput::RestartRecording() {
   }
 
   if (!Restart()) {
-    RTC_LOG(LS_ERROR) << "RestartRecording failed";
+    RTC_DLOG(LS_ERROR) << "RestartRecording failed";
     return -1;
   }
   return 0;
@@ -262,7 +262,7 @@ void CoreAudioInput::ReleaseCOMObjects() {
 bool CoreAudioInput::OnDataCallback(uint64_t device_frequency) {
   RTC_DCHECK_RUN_ON(&thread_checker_audio_);
   if (num_data_callbacks_ == 0) {
-    RTC_LOG(INFO) << "--- Input audio stream is alive ---";
+    RTC_DLOG(INFO) << "--- Input audio stream is alive ---";
   }
   UINT32 num_frames_in_next_packet = 0;
   _com_error error =
@@ -276,7 +276,7 @@ bool CoreAudioInput::OnDataCallback(uint64_t device_frequency) {
     return true;
   }
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioCaptureClient::GetNextPacketSize failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioCaptureClient::GetNextPacketSize failed: "
                       << core_audio_utility::ErrorToString(error);
     return false;
   }
@@ -298,7 +298,7 @@ bool CoreAudioInput::OnDataCallback(uint64_t device_frequency) {
       return true;
     }
     if (FAILED(error.Error())) {
-      RTC_LOG(LS_ERROR) << "IAudioCaptureClient::GetBuffer failed: "
+      RTC_DLOG(LS_ERROR) << "IAudioCaptureClient::GetBuffer failed: "
                         << core_audio_utility::ErrorToString(error);
       return false;
     }
@@ -353,7 +353,7 @@ bool CoreAudioInput::OnDataCallback(uint64_t device_frequency) {
 
     error = audio_capture_client_->ReleaseBuffer(num_frames_to_read);
     if (FAILED(error.Error())) {
-      RTC_LOG(LS_ERROR) << "IAudioCaptureClient::ReleaseBuffer failed: "
+      RTC_DLOG(LS_ERROR) << "IAudioCaptureClient::ReleaseBuffer failed: "
                         << core_audio_utility::ErrorToString(error);
       return false;
     }
@@ -361,7 +361,7 @@ bool CoreAudioInput::OnDataCallback(uint64_t device_frequency) {
     error =
         audio_capture_client_->GetNextPacketSize(&num_frames_in_next_packet);
     if (FAILED(error.Error())) {
-      RTC_LOG(LS_ERROR) << "IAudioCaptureClient::GetNextPacketSize failed: "
+      RTC_DLOG(LS_ERROR) << "IAudioCaptureClient::GetNextPacketSize failed: "
                         << core_audio_utility::ErrorToString(error);
       return false;
     }

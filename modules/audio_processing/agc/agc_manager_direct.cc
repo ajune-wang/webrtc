@@ -93,23 +93,23 @@ int LevelFromGainError(int gain_error, int level) {
 int InitializeGainControl(GainControl* gain_control,
                           bool disable_digital_adaptive) {
   if (gain_control->set_mode(GainControl::kFixedDigital) != 0) {
-    RTC_LOG(LS_ERROR) << "set_mode(GainControl::kFixedDigital) failed.";
+    RTC_DLOG(LS_ERROR) << "set_mode(GainControl::kFixedDigital) failed.";
     return -1;
   }
   const int target_level_dbfs = disable_digital_adaptive ? 0 : 2;
   if (gain_control->set_target_level_dbfs(target_level_dbfs) != 0) {
-    RTC_LOG(LS_ERROR) << "set_target_level_dbfs() failed.";
+    RTC_DLOG(LS_ERROR) << "set_target_level_dbfs() failed.";
     return -1;
   }
   const int compression_gain_db =
       disable_digital_adaptive ? 0 : kDefaultCompressionGain;
   if (gain_control->set_compression_gain_db(compression_gain_db) != 0) {
-    RTC_LOG(LS_ERROR) << "set_compression_gain_db() failed.";
+    RTC_DLOG(LS_ERROR) << "set_compression_gain_db() failed.";
     return -1;
   }
   const bool enable_limiter = !disable_digital_adaptive;
   if (gain_control->enable_limiter(enable_limiter) != 0) {
-    RTC_LOG(LS_ERROR) << "enable_limiter() failed.";
+    RTC_DLOG(LS_ERROR) << "enable_limiter() failed.";
     return -1;
   }
   return 0;
@@ -333,7 +333,7 @@ void AgcManagerDirect::SetLevel(int new_level) {
     return;
   }
   if (voe_level < 0 || voe_level > kMaxMicLevel) {
-    RTC_LOG(LS_ERROR) << "VolumeCallbacks returned an invalid level="
+    RTC_DLOG(LS_ERROR) << "VolumeCallbacks returned an invalid level="
                       << voe_level;
     return;
   }
@@ -409,7 +409,7 @@ int AgcManagerDirect::CheckVolumeAndReset() {
     return 0;
   }
   if (level < 0 || level > kMaxMicLevel) {
-    RTC_LOG(LS_ERROR) << "[agc] VolumeCallbacks returned an invalid level="
+    RTC_DLOG(LS_ERROR) << "[agc] VolumeCallbacks returned an invalid level="
                       << level;
     return -1;
   }
@@ -525,7 +525,7 @@ void AgcManagerDirect::UpdateCompressor() {
     compression_ = new_compression;
     compression_accumulator_ = new_compression;
     if (gctrl_->set_compression_gain_db(compression_) != 0) {
-      RTC_LOG(LS_ERROR) << "set_compression_gain_db(" << compression_
+      RTC_DLOG(LS_ERROR) << "set_compression_gain_db(" << compression_
                         << ") failed.";
     }
   }

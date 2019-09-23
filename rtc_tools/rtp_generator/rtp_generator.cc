@@ -66,23 +66,23 @@ ParseVideoSendStreamConfig(const Json::Value& json) {
 
   // Parse video source settings.
   if (!rtc::GetIntFromJsonObject(json, "duration_ms", &config.duration_ms)) {
-    RTC_LOG(LS_WARNING) << "duration_ms not specified using default: "
+    RTC_DLOG(LS_WARNING) << "duration_ms not specified using default: "
                         << config.duration_ms;
   }
   if (!rtc::GetIntFromJsonObject(json, "video_width", &config.video_width)) {
-    RTC_LOG(LS_WARNING) << "video_width not specified using default: "
+    RTC_DLOG(LS_WARNING) << "video_width not specified using default: "
                         << config.video_width;
   }
   if (!rtc::GetIntFromJsonObject(json, "video_height", &config.video_height)) {
-    RTC_LOG(LS_WARNING) << "video_height not specified using default: "
+    RTC_DLOG(LS_WARNING) << "video_height not specified using default: "
                         << config.video_height;
   }
   if (!rtc::GetIntFromJsonObject(json, "video_fps", &config.video_fps)) {
-    RTC_LOG(LS_WARNING) << "video_fps not specified using default: "
+    RTC_DLOG(LS_WARNING) << "video_fps not specified using default: "
                         << config.video_fps;
   }
   if (!rtc::GetIntFromJsonObject(json, "num_squares", &config.num_squares)) {
-    RTC_LOG(LS_WARNING) << "num_squares not specified using default: "
+    RTC_DLOG(LS_WARNING) << "num_squares not specified using default: "
                         << config.num_squares;
   }
 
@@ -90,16 +90,16 @@ ParseVideoSendStreamConfig(const Json::Value& json) {
   config.rtp.ssrcs.push_back(kDefaultSsrc);
   Json::Value rtp_json;
   if (!rtc::GetValueFromJsonObject(json, "rtp", &rtp_json)) {
-    RTC_LOG(LS_ERROR) << "video_streams must have an rtp section";
+    RTC_DLOG(LS_ERROR) << "video_streams must have an rtp section";
     return absl::nullopt;
   }
   if (!rtc::GetStringFromJsonObject(rtp_json, "payload_name",
                                     &config.rtp.payload_name)) {
-    RTC_LOG(LS_ERROR) << "rtp.payload_name must be specified";
+    RTC_DLOG(LS_ERROR) << "rtp.payload_name must be specified";
     return absl::nullopt;
   }
   if (!IsValidCodecType(config.rtp.payload_name)) {
-    RTC_LOG(LS_ERROR) << "rtp.payload_name must be VP8,VP9 or H264";
+    RTC_DLOG(LS_ERROR) << "rtp.payload_name must be VP8,VP9 or H264";
     return absl::nullopt;
   }
 
@@ -107,7 +107,7 @@ ParseVideoSendStreamConfig(const Json::Value& json) {
       GetDefaultTypeForPayloadName(config.rtp.payload_name);
   if (!rtc::GetIntFromJsonObject(rtp_json, "payload_type",
                                  &config.rtp.payload_type)) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "rtp.payload_type not specified using default for codec type"
         << config.rtp.payload_type;
   }
@@ -120,7 +120,7 @@ ParseVideoSendStreamConfig(const Json::Value& json) {
 absl::optional<RtpGeneratorOptions> ParseRtpGeneratorOptionsFromFile(
     const std::string& options_file) {
   if (!test::FileExists(options_file)) {
-    RTC_LOG(LS_ERROR) << " configuration file does not exist";
+    RTC_DLOG(LS_ERROR) << " configuration file does not exist";
     return absl::nullopt;
   }
 
@@ -130,7 +130,7 @@ absl::optional<RtpGeneratorOptions> ParseRtpGeneratorOptionsFromFile(
   size_t bytes_read =
       config_file.Read(raw_json_buffer.data(), raw_json_buffer.size() - 1);
   if (bytes_read == 0) {
-    RTC_LOG(LS_ERROR) << "Unable to read the configuration file.";
+    RTC_DLOG(LS_ERROR) << "Unable to read the configuration file.";
     return absl::nullopt;
   }
 
@@ -138,7 +138,7 @@ absl::optional<RtpGeneratorOptions> ParseRtpGeneratorOptionsFromFile(
   Json::Reader json_reader;
   Json::Value json;
   if (!json_reader.parse(raw_json_buffer.data(), json)) {
-    RTC_LOG(LS_ERROR) << "Unable to parse the corpus config json file";
+    RTC_DLOG(LS_ERROR) << "Unable to parse the corpus config json file";
     return absl::nullopt;
   }
 
@@ -147,7 +147,7 @@ absl::optional<RtpGeneratorOptions> ParseRtpGeneratorOptionsFromFile(
     absl::optional<RtpGeneratorOptions::VideoSendStreamConfig>
         video_stream_config = ParseVideoSendStreamConfig(video_stream_json);
     if (!video_stream_config.has_value()) {
-      RTC_LOG(LS_ERROR) << "Unable to parse the corpus config json file";
+      RTC_DLOG(LS_ERROR) << "Unable to parse the corpus config json file";
       return absl::nullopt;
     }
     gen_options.video_streams.push_back(*video_stream_config);

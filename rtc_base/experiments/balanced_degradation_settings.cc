@@ -56,17 +56,17 @@ std::vector<BalancedDegradationSettings::Config> DefaultConfigs() {
 bool IsValidConfig(
     const BalancedDegradationSettings::CodecTypeSpecific& config) {
   if (config.GetQpLow().has_value() != config.GetQpHigh().has_value()) {
-    RTC_LOG(LS_WARNING) << "Neither or both thresholds should be set.";
+    RTC_DLOG(LS_WARNING) << "Neither or both thresholds should be set.";
     return false;
   }
   if (config.GetQpLow().has_value() && config.GetQpHigh().has_value() &&
       config.GetQpLow().value() >= config.GetQpHigh().value()) {
-    RTC_LOG(LS_WARNING) << "Invalid threshold value, low >= high threshold.";
+    RTC_DLOG(LS_WARNING) << "Invalid threshold value, low >= high threshold.";
     return false;
   }
   if (config.GetFps().has_value() && (config.GetFps().value() < kMinFps ||
                                       config.GetFps().value() > kMaxFps)) {
-    RTC_LOG(LS_WARNING) << "Unsupported fps setting, value ignored.";
+    RTC_DLOG(LS_WARNING) << "Unsupported fps setting, value ignored.";
     return false;
   }
   return true;
@@ -78,11 +78,11 @@ bool IsValid(const BalancedDegradationSettings::CodecTypeSpecific& config1,
                            (config1.qp_high > 0) == (config2.qp_high > 0) &&
                            (config1.fps > 0) == (config2.fps > 0));
   if (!both_or_none_set) {
-    RTC_LOG(LS_WARNING) << "Invalid value, all/none should be set.";
+    RTC_DLOG(LS_WARNING) << "Invalid value, all/none should be set.";
     return false;
   }
   if (config1.fps > 0 && config1.fps < config2.fps) {
-    RTC_LOG(LS_WARNING) << "Invalid fps/pixel value provided.";
+    RTC_DLOG(LS_WARNING) << "Invalid fps/pixel value provided.";
     return false;
   }
   return true;
@@ -90,12 +90,12 @@ bool IsValid(const BalancedDegradationSettings::CodecTypeSpecific& config1,
 
 bool IsValid(const std::vector<BalancedDegradationSettings::Config>& configs) {
   if (configs.size() <= 1) {
-    RTC_LOG(LS_WARNING) << "Unsupported size, value ignored.";
+    RTC_DLOG(LS_WARNING) << "Unsupported size, value ignored.";
     return false;
   }
   for (const auto& config : configs) {
     if (config.fps < kMinFps || config.fps > kMaxFps) {
-      RTC_LOG(LS_WARNING) << "Unsupported fps setting, value ignored.";
+      RTC_DLOG(LS_WARNING) << "Unsupported fps setting, value ignored.";
       return false;
     }
   }
@@ -103,7 +103,7 @@ bool IsValid(const std::vector<BalancedDegradationSettings::Config>& configs) {
   for (size_t i = 1; i < configs.size(); ++i) {
     if (configs[i].kbps > 0) {
       if (configs[i].kbps < last_kbps) {
-        RTC_LOG(LS_WARNING) << "Invalid bitrate value provided.";
+        RTC_DLOG(LS_WARNING) << "Invalid bitrate value provided.";
         return false;
       }
       last_kbps = configs[i].kbps;
@@ -112,7 +112,7 @@ bool IsValid(const std::vector<BalancedDegradationSettings::Config>& configs) {
   for (size_t i = 1; i < configs.size(); ++i) {
     if (configs[i].pixels < configs[i - 1].pixels ||
         configs[i].fps < configs[i - 1].fps) {
-      RTC_LOG(LS_WARNING) << "Invalid fps/pixel value provided.";
+      RTC_DLOG(LS_WARNING) << "Invalid fps/pixel value provided.";
       return false;
     }
     if (!IsValid(configs[i].vp8, configs[i - 1].vp8) ||
@@ -167,7 +167,7 @@ absl::optional<VideoEncoder::QpThresholds> GetThresholds(
   }
 
   if (low && high) {
-    RTC_LOG(LS_INFO) << "QP thresholds: low: " << *low << ", high: " << *high;
+    RTC_DLOG(LS_INFO) << "QP thresholds: low: " << *low << ", high: " << *high;
     return absl::optional<VideoEncoder::QpThresholds>(
         VideoEncoder::QpThresholds(*low, *high));
   }

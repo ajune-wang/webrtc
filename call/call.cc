@@ -543,7 +543,7 @@ void Call::UpdateSendHistograms(Timestamp first_sent_packet) {
   if (send_bitrate_stats.num_samples > kMinRequiredPeriodicSamples) {
     RTC_HISTOGRAM_COUNTS_100000("WebRTC.Call.EstimatedSendBitrateInKbps",
                                 send_bitrate_stats.average);
-    RTC_LOG(LS_INFO) << "WebRTC.Call.EstimatedSendBitrateInKbps, "
+    RTC_DLOG(LS_INFO) << "WebRTC.Call.EstimatedSendBitrateInKbps, "
                      << send_bitrate_stats.ToString();
   }
   AggregatedStats pacer_bitrate_stats =
@@ -551,7 +551,7 @@ void Call::UpdateSendHistograms(Timestamp first_sent_packet) {
   if (pacer_bitrate_stats.num_samples > kMinRequiredPeriodicSamples) {
     RTC_HISTOGRAM_COUNTS_100000("WebRTC.Call.PacerBitrateInKbps",
                                 pacer_bitrate_stats.average);
-    RTC_LOG(LS_INFO) << "WebRTC.Call.PacerBitrateInKbps, "
+    RTC_DLOG(LS_INFO) << "WebRTC.Call.PacerBitrateInKbps, "
                      << pacer_bitrate_stats.ToString();
   }
 }
@@ -573,7 +573,7 @@ void Call::UpdateReceiveHistograms() {
   if (video_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
     RTC_HISTOGRAM_COUNTS_100000("WebRTC.Call.VideoBitrateReceivedInKbps",
                                 video_bytes_per_sec.average * 8 / 1000);
-    RTC_LOG(LS_INFO) << "WebRTC.Call.VideoBitrateReceivedInBps, "
+    RTC_DLOG(LS_INFO) << "WebRTC.Call.VideoBitrateReceivedInBps, "
                      << video_bytes_per_sec.ToStringWithMultiplier(8);
   }
   AggregatedStats audio_bytes_per_sec =
@@ -581,7 +581,7 @@ void Call::UpdateReceiveHistograms() {
   if (audio_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
     RTC_HISTOGRAM_COUNTS_100000("WebRTC.Call.AudioBitrateReceivedInKbps",
                                 audio_bytes_per_sec.average * 8 / 1000);
-    RTC_LOG(LS_INFO) << "WebRTC.Call.AudioBitrateReceivedInBps, "
+    RTC_DLOG(LS_INFO) << "WebRTC.Call.AudioBitrateReceivedInBps, "
                      << audio_bytes_per_sec.ToStringWithMultiplier(8);
   }
   AggregatedStats rtcp_bytes_per_sec =
@@ -589,7 +589,7 @@ void Call::UpdateReceiveHistograms() {
   if (rtcp_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
     RTC_HISTOGRAM_COUNTS_100000("WebRTC.Call.RtcpBitrateReceivedInBps",
                                 rtcp_bytes_per_sec.average * 8);
-    RTC_LOG(LS_INFO) << "WebRTC.Call.RtcpBitrateReceivedInBps, "
+    RTC_DLOG(LS_INFO) << "WebRTC.Call.RtcpBitrateReceivedInBps, "
                      << rtcp_bytes_per_sec.ToStringWithMultiplier(8);
   }
   AggregatedStats recv_bytes_per_sec =
@@ -597,7 +597,7 @@ void Call::UpdateReceiveHistograms() {
   if (recv_bytes_per_sec.num_samples > kMinRequiredPeriodicSamples) {
     RTC_HISTOGRAM_COUNTS_100000("WebRTC.Call.BitrateReceivedInKbps",
                                 recv_bytes_per_sec.average * 8 / 1000);
-    RTC_LOG(LS_INFO) << "WebRTC.Call.BitrateReceivedInBps, "
+    RTC_DLOG(LS_INFO) << "WebRTC.Call.BitrateReceivedInBps, "
                      << recv_bytes_per_sec.ToStringWithMultiplier(8);
   }
 }
@@ -777,7 +777,7 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
     webrtc::VideoSendStream::Config config,
     VideoEncoderConfig encoder_config) {
   if (config_.fec_controller_factory) {
-    RTC_LOG(LS_INFO) << "External FEC Controller will be used.";
+    RTC_DLOG(LS_INFO) << "External FEC Controller will be used.";
   }
   std::unique_ptr<FecController> fec_controller =
       config_.fec_controller_factory
@@ -1042,7 +1042,7 @@ void Call::UpdateAggregateNetworkState() {
       ((have_video && video_network_state_ == kNetworkUp) ||
        (have_audio && audio_network_state_ == kNetworkUp));
 
-  RTC_LOG(LS_INFO) << "UpdateAggregateNetworkState: aggregate_state="
+  RTC_DLOG(LS_INFO) << "UpdateAggregateNetworkState: aggregate_state="
                    << (aggregate_network_up ? "up" : "down");
   aggregate_network_up_ = aggregate_network_up;
 
@@ -1128,7 +1128,7 @@ void Call::ConfigureSync(const std::string& sync_group) {
     for (AudioReceiveStream* stream : audio_receive_streams_) {
       if (stream->config().sync_group == sync_group) {
         if (sync_audio_stream != nullptr) {
-          RTC_LOG(LS_WARNING)
+          RTC_DLOG(LS_WARNING)
               << "Attempting to sync more than one audio stream "
                  "within the same sync group. This is not "
                  "supported in the current implementation.";
@@ -1148,7 +1148,7 @@ void Call::ConfigureSync(const std::string& sync_group) {
     if (num_synced_streams > 1) {
       // TODO(pbos): Support synchronizing more than one A/V pair.
       // https://code.google.com/p/webrtc/issues/detail?id=4762
-      RTC_LOG(LS_WARNING)
+      RTC_DLOG(LS_WARNING)
           << "Attempting to sync more than one audio/video pair "
              "within the same sync group. This is not supported in "
              "the current implementation.";
@@ -1245,7 +1245,7 @@ PacketReceiver::DeliveryStatus Call::DeliverRtp(MediaType media_type,
   ReadLockScoped read_lock(*receive_crit_);
   auto it = receive_rtp_config_.find(parsed_packet.Ssrc());
   if (it == receive_rtp_config_.end()) {
-    RTC_LOG(LS_ERROR) << "receive_rtp_config_ lookup failed for ssrc "
+    RTC_DLOG(LS_ERROR) << "receive_rtp_config_ lookup failed for ssrc "
                       << parsed_packet.Ssrc();
     // Destruction of the receive stream, including deregistering from the
     // RtpDemuxer, is not protected by the |receive_crit_| lock. But
@@ -1315,7 +1315,7 @@ void Call::OnRecoveredPacket(const uint8_t* packet, size_t length) {
   ReadLockScoped read_lock(*receive_crit_);
   auto it = receive_rtp_config_.find(parsed_packet.Ssrc());
   if (it == receive_rtp_config_.end()) {
-    RTC_LOG(LS_ERROR) << "receive_rtp_config_ lookup failed for ssrc "
+    RTC_DLOG(LS_ERROR) << "receive_rtp_config_ lookup failed for ssrc "
                       << parsed_packet.Ssrc();
     // Destruction of the receive stream, including deregistering from the
     // RtpDemuxer, is not protected by the |receive_crit_| lock. But

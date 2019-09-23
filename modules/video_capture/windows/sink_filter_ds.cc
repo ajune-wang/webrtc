@@ -194,7 +194,7 @@ bool TranslateMediaTypeToVideoCaptureCapability(
     return false;
   }
 
-  RTC_LOG(LS_INFO) << "TranslateMediaTypeToVideoCaptureCapability width:"
+  RTC_DLOG(LS_INFO) << "TranslateMediaTypeToVideoCaptureCapability width:"
                    << bih->biWidth << " height:" << bih->biHeight
                    << " Compression:0x" << rtc::ToHex(bih->biCompression);
 
@@ -245,7 +245,7 @@ class MediaTypesEnum : public IEnumMediaTypes {
     auto it = std::find(format_preference_order_.begin(),
                         format_preference_order_.end(), capability_.videoType);
     if (it != format_preference_order_.end()) {
-      RTC_LOG(LS_INFO) << "Selected video type: " << *it;
+      RTC_DLOG(LS_INFO) << "Selected video type: " << *it;
       // Move it to the front of the list, if it isn't already there.
       if (it != format_preference_order_.begin()) {
         format_preference_order_.splice(format_preference_order_.begin(),
@@ -253,7 +253,7 @@ class MediaTypesEnum : public IEnumMediaTypes {
                                         std::next(it));
       }
     } else {
-      RTC_LOG(LS_WARNING) << "Unsupported video type: " << *it
+      RTC_DLOG(LS_WARNING) << "Unsupported video type: " << *it
                           << ", using default preference list.";
     }
   }

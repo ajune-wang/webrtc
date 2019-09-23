@@ -338,7 +338,7 @@ VCMFrameBufferEnum VCMJitterBuffer::GetFrame(const VCMPacket& packet,
   *frame = GetEmptyFrame();
   if (*frame == NULL) {
     // No free frame! Try to reclaim some...
-    RTC_LOG(LS_WARNING) << "Unable to get empty frame; Recycling.";
+    RTC_DLOG(LS_WARNING) << "Unable to get empty frame; Recycling.";
     bool found_key_frame = RecycleFramesUntilKeyFrame();
     *frame = GetEmptyFrame();
     RTC_CHECK(*frame);
@@ -382,7 +382,7 @@ VCMFrameBufferEnum VCMJitterBuffer::InsertPacket(const VCMPacket& packet,
     FindAndInsertContinuousFramesWithState(last_decoded_state_);
 
     if (num_consecutive_old_packets_ > kMaxConsecutiveOldPackets) {
-      RTC_LOG(LS_WARNING)
+      RTC_DLOG(LS_WARNING)
           << num_consecutive_old_packets_
           << " consecutive old packets received. Flushing the jitter buffer.";
       Flush();
@@ -695,12 +695,12 @@ bool VCMJitterBuffer::UpdateNackList(uint16_t sequence_number) {
       missing_sequence_numbers_.insert(missing_sequence_numbers_.end(), i);
     }
     if (TooLargeNackList() && !HandleTooLargeNackList()) {
-      RTC_LOG(LS_WARNING) << "Requesting key frame due to too large NACK list.";
+      RTC_DLOG(LS_WARNING) << "Requesting key frame due to too large NACK list.";
       return false;
     }
     if (MissingTooOldPacket(sequence_number) &&
         !HandleTooOldPackets(sequence_number)) {
-      RTC_LOG(LS_WARNING)
+      RTC_DLOG(LS_WARNING)
           << "Requesting key frame due to missing too old packets";
       return false;
     }
@@ -797,7 +797,7 @@ bool VCMJitterBuffer::RecycleFramesUntilKeyFrame() {
     key_frame_found = key_frame_it != decodable_frames_.end();
   }
   if (key_frame_found) {
-    RTC_LOG(LS_INFO) << "Found key frame while dropping frames.";
+    RTC_DLOG(LS_INFO) << "Found key frame while dropping frames.";
     // Reset last decoded state to make sure the next frame decoded is a key
     // frame, and start NACKing from here.
     last_decoded_state_.Reset();

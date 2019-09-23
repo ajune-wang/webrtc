@@ -142,11 +142,11 @@ TEST(SanitizerTest, MsanUninitialized) {
   // Check that a read after initialization is OK.
   bar.ID = 1;
   EXPECT_EQ(1u, bar.ID);
-  RTC_LOG(LS_INFO) << "read after init passed";
+  RTC_DLOG(LS_INFO) << "read after init passed";
   // Check that other fields are uninitialized and equal to zero.
   MsanExpectUninitializedRead([&] { EXPECT_EQ(0u, bar.foo.field1); });
   MsanExpectUninitializedRead([&] { EXPECT_EQ(0u, bar.foo.field2); });
-  RTC_LOG(LS_INFO) << "read with no init passed";
+  RTC_DLOG(LS_INFO) << "read with no init passed";
 }
 
 }  // namespace rtc

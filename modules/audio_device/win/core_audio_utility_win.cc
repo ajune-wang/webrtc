@@ -230,11 +230,11 @@ ComPtr<IMMDeviceEnumerator> CreateDeviceEnumeratorInternal(
       ::CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL,
                          IID_PPV_ARGS(&device_enumerator));
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "CoCreateInstance failed: " << ErrorToString(error);
+    RTC_DLOG(LS_ERROR) << "CoCreateInstance failed: " << ErrorToString(error);
   }
 
   if (error.Error() == CO_E_NOTINITIALIZED && allow_reinitialize) {
-    RTC_LOG(LS_ERROR) << "CoCreateInstance failed with CO_E_NOTINITIALIZED";
+    RTC_DLOG(LS_ERROR) << "CoCreateInstance failed with CO_E_NOTINITIALIZED";
     // We have seen crashes which indicates that this method can in fact
     // fail with CO_E_NOTINITIALIZED in combination with certain 3rd party
     // modules. Calling CoInitializeEx() is an attempt to resolve the reported
@@ -244,7 +244,7 @@ ComPtr<IMMDeviceEnumerator> CreateDeviceEnumeratorInternal(
       error = ::CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr,
                                  CLSCTX_ALL, IID_PPV_ARGS(&device_enumerator));
       if (FAILED(error.Error())) {
-        RTC_LOG(LS_ERROR) << "CoCreateInstance failed: "
+        RTC_DLOG(LS_ERROR) << "CoCreateInstance failed: "
                           << ErrorToString(error);
       }
     }
@@ -268,7 +268,7 @@ bool IsSupportedInternal() {
   ComPtr<IMMDeviceEnumerator> device_enumerator =
       CreateDeviceEnumeratorInternal(false);
   if (!device_enumerator) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "Failed to create Core Audio device enumerator on thread with ID "
         << rtc::CurrentThreadId();
     return false;
@@ -300,7 +300,7 @@ ComPtr<IMMDevice> CreateDeviceInternal(const std::string& device_id,
     error = device_enum->GetDefaultAudioEndpoint(
         data_flow, role, audio_endpoint_device.GetAddressOf());
     if (FAILED(error.Error())) {
-      RTC_LOG(LS_ERROR)
+      RTC_DLOG(LS_ERROR)
           << "IMMDeviceEnumerator::GetDefaultAudioEndpoint failed: "
           << ErrorToString(error);
     }
@@ -308,7 +308,7 @@ ComPtr<IMMDevice> CreateDeviceInternal(const std::string& device_id,
     error = device_enum->GetDevice(rtc::ToUtf16(device_id).c_str(),
                                    audio_endpoint_device.GetAddressOf());
     if (FAILED(error.Error())) {
-      RTC_LOG(LS_ERROR) << "IMMDeviceEnumerator::GetDevice failed: "
+      RTC_DLOG(LS_ERROR) << "IMMDeviceEnumerator::GetDevice failed: "
                         << ErrorToString(error);
     }
   }
@@ -317,7 +317,7 @@ ComPtr<IMMDevice> CreateDeviceInternal(const std::string& device_id,
   // adapter that connects to the endpoint device is present and enabled.
   if (SUCCEEDED(error.Error()) &&
       !IsDeviceActive(audio_endpoint_device.Get())) {
-    RTC_LOG(LS_WARNING) << "Selected endpoint device is not active";
+    RTC_DLOG(LS_WARNING) << "Selected endpoint device is not active";
     audio_endpoint_device.Reset();
   }
 
@@ -370,7 +370,7 @@ ComPtr<IAudioSessionManager2> CreateSessionManager2Internal(
       audio_device->Activate(__uuidof(IAudioSessionManager2), CLSCTX_ALL,
                              nullptr, &audio_session_manager);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IMMDevice::Activate(IAudioSessionManager2) failed: "
+    RTC_DLOG(LS_ERROR) << "IMMDevice::Activate(IAudioSessionManager2) failed: "
                       << ErrorToString(error);
   }
   return audio_session_manager;
@@ -391,7 +391,7 @@ ComPtr<IAudioSessionEnumerator> CreateSessionEnumeratorInternal(
   _com_error error =
       audio_session_manager->GetSessionEnumerator(&audio_session_enumerator);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "IAudioSessionEnumerator::IAudioSessionEnumerator failed: "
         << ErrorToString(error);
     return ComPtr<IAudioSessionEnumerator>();
@@ -409,7 +409,7 @@ ComPtr<IAudioClient> CreateClientInternal(IMMDevice* audio_device) {
   _com_error error = audio_device->Activate(__uuidof(IAudioClient), CLSCTX_ALL,
                                             nullptr, &audio_client);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IMMDevice::Activate(IAudioClient) failed: "
+    RTC_DLOG(LS_ERROR) << "IMMDevice::Activate(IAudioClient) failed: "
                       << ErrorToString(error);
   }
   return audio_client;
@@ -423,7 +423,7 @@ ComPtr<IAudioClient2> CreateClient2Internal(IMMDevice* audio_device) {
   _com_error error = audio_device->Activate(__uuidof(IAudioClient2), CLSCTX_ALL,
                                             nullptr, &audio_client);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IMMDevice::Activate(IAudioClient2) failed: "
+    RTC_DLOG(LS_ERROR) << "IMMDevice::Activate(IAudioClient2) failed: "
                       << ErrorToString(error);
   }
   return audio_client;
@@ -437,7 +437,7 @@ ComPtr<IAudioClient3> CreateClient3Internal(IMMDevice* audio_device) {
   _com_error error = audio_device->Activate(__uuidof(IAudioClient3), CLSCTX_ALL,
                                             nullptr, &audio_client);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IMMDevice::Activate(IAudioClient3) failed: "
+    RTC_DLOG(LS_ERROR) << "IMMDevice::Activate(IAudioClient3) failed: "
                       << ErrorToString(error);
   }
   return audio_client;
@@ -457,7 +457,7 @@ ComPtr<IMMDeviceCollection> CreateCollectionInternal(EDataFlow data_flow) {
   _com_error error = device_enumerator->EnumAudioEndpoints(
       data_flow, DEVICE_STATE_ACTIVE, collection.GetAddressOf());
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IMMDeviceCollection::EnumAudioEndpoints failed: "
+    RTC_DLOG(LS_ERROR) << "IMMDeviceCollection::EnumAudioEndpoints failed: "
                       << ErrorToString(error);
   }
   return collection;
@@ -696,7 +696,7 @@ EDataFlow GetDataFlow(IMMDevice* device) {
   ComPtr<IMMEndpoint> endpoint;
   _com_error error = device->QueryInterface(endpoint.GetAddressOf());
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IMMDevice::QueryInterface failed: "
+    RTC_DLOG(LS_ERROR) << "IMMDevice::QueryInterface failed: "
                       << ErrorToString(error);
     return eAll;
   }
@@ -704,7 +704,7 @@ EDataFlow GetDataFlow(IMMDevice* device) {
   EDataFlow data_flow;
   error = endpoint->GetDataFlow(&data_flow);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IMMEndpoint::GetDataFlow failed: "
+    RTC_DLOG(LS_ERROR) << "IMMEndpoint::GetDataFlow failed: "
                       << ErrorToString(error);
     return eAll;
   }
@@ -743,7 +743,7 @@ int NumberOfActiveSessions(IMMDevice* device) {
   int session_count = 0;
   _com_error error = session_enumerator->GetCount(&session_count);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioSessionEnumerator::GetCount failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioSessionEnumerator::GetCount failed: "
                       << ErrorToString(error);
     return 0;
   }
@@ -755,7 +755,7 @@ int NumberOfActiveSessions(IMMDevice* device) {
     ComPtr<IAudioSessionControl> session_control;
     error = session_enumerator->GetSession(session, &session_control);
     if (FAILED(error.Error())) {
-      RTC_LOG(LS_ERROR) << "IAudioSessionEnumerator::GetSession failed: "
+      RTC_DLOG(LS_ERROR) << "IAudioSessionEnumerator::GetSession failed: "
                         << ErrorToString(error);
       return 0;
     }
@@ -772,7 +772,7 @@ int NumberOfActiveSessions(IMMDevice* device) {
     AudioSessionState state;
     error = session_control->GetState(&state);
     if (FAILED(error.Error())) {
-      RTC_LOG(LS_ERROR) << "IAudioSessionControl::GetState failed: "
+      RTC_DLOG(LS_ERROR) << "IAudioSessionControl::GetState failed: "
                         << ErrorToString(error);
       return 0;
     }
@@ -813,7 +813,7 @@ HRESULT SetClientProperties(IAudioClient2* client) {
   RTC_DLOG(INFO) << "SetClientProperties";
   RTC_DCHECK(client);
   if (GetAudioClientVersion() < 2) {
-    RTC_LOG(LS_WARNING) << "Requires IAudioClient2 or higher";
+    RTC_DLOG(LS_WARNING) << "Requires IAudioClient2 or higher";
     return AUDCLNT_E_UNSUPPORTED_FORMAT;
   }
   AudioClientProperties props = {0};
@@ -830,7 +830,7 @@ HRESULT SetClientProperties(IAudioClient2* client) {
   _com_error error =
       client->IsOffloadCapable(props.eCategory, &supports_offload);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient2::IsOffloadCapable failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient2::IsOffloadCapable failed: "
                       << ErrorToString(error);
   }
   RTC_DLOG(INFO) << "supports_offload: " << supports_offload;
@@ -857,7 +857,7 @@ HRESULT SetClientProperties(IAudioClient2* client) {
 #endif
   error = client->SetClientProperties(&props);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient2::SetClientProperties failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient2::SetClientProperties failed: "
                       << ErrorToString(error);
   }
   return error.Error();
@@ -870,7 +870,7 @@ HRESULT GetBufferSizeLimits(IAudioClient2* client,
   RTC_DLOG(INFO) << "GetBufferSizeLimits";
   RTC_DCHECK(client);
   if (GetAudioClientVersion() < 2) {
-    RTC_LOG(LS_WARNING) << "Requires IAudioClient2 or higher";
+    RTC_DLOG(LS_WARNING) << "Requires IAudioClient2 or higher";
     return AUDCLNT_E_UNSUPPORTED_FORMAT;
   }
   REFERENCE_TIME min_duration = 0;
@@ -881,10 +881,10 @@ HRESULT GetBufferSizeLimits(IAudioClient2* client,
   if (error.Error() == AUDCLNT_E_OFFLOAD_MODE_ONLY) {
     // This API seems to be supported in off-load mode only but it is not
     // documented as a valid error code. Making a special note about it here.
-    RTC_LOG(LS_ERROR) << "IAudioClient2::GetBufferSizeLimits failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient2::GetBufferSizeLimits failed: "
                       << "AUDCLNT_E_OFFLOAD_MODE_ONLY";
   } else if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient2::GetBufferSizeLimits failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient2::GetBufferSizeLimits failed: "
                       << ErrorToString(error);
   } else {
     *min_buffer_duration = min_duration;
@@ -903,7 +903,7 @@ HRESULT GetSharedModeMixFormat(IAudioClient* client,
   _com_error error =
       client->GetMixFormat(reinterpret_cast<WAVEFORMATEX**>(&format_ex));
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient::GetMixFormat failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient::GetMixFormat failed: "
                       << ErrorToString(error);
     return error.Error();
   }
@@ -936,9 +936,9 @@ bool IsFormatSupported(IAudioClient* client,
   } else if ((error.Error() == S_FALSE) && (closest_match != nullptr)) {
     // Call succeeded with a closest match to the specified format. This log can
     // only be triggered for shared mode.
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Exact format is not supported, but a closest match exists";
-    RTC_LOG(INFO) << WaveFormatExToString(closest_match);
+    RTC_DLOG(INFO) << WaveFormatExToString(closest_match);
   } else if ((error.Error() == AUDCLNT_E_UNSUPPORTED_FORMAT) &&
              (closest_match == nullptr)) {
     // The audio engine does not support the caller-specified format or any
@@ -946,7 +946,7 @@ bool IsFormatSupported(IAudioClient* client,
     RTC_DLOG(INFO) << "The audio endpoint device does not support the "
                       "specified stream format";
   } else {
-    RTC_LOG(LS_ERROR) << "IAudioClient::IsFormatSupported failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient::IsFormatSupported failed: "
                       << ErrorToString(error);
   }
 
@@ -966,16 +966,16 @@ HRESULT GetDevicePeriod(IAudioClient* client,
   REFERENCE_TIME minimum_period = 0;
   _com_error error = client->GetDevicePeriod(&default_period, &minimum_period);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient::GetDevicePeriod failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient::GetDevicePeriod failed: "
                       << ErrorToString(error);
     return error.Error();
   }
 
   *device_period = (share_mode == AUDCLNT_SHAREMODE_SHARED) ? default_period
                                                             : minimum_period;
-  RTC_LOG(INFO) << "device_period: "
+  RTC_DLOG(INFO) << "device_period: "
                 << ReferenceTimeToTimeDelta(*device_period).ms() << " [ms]";
-  RTC_LOG(INFO) << "minimum_period: "
+  RTC_DLOG(INFO) << "minimum_period: "
                 << ReferenceTimeToTimeDelta(minimum_period).ms() << " [ms]";
   return error.Error();
 }
@@ -997,21 +997,21 @@ HRESULT GetSharedModeEnginePeriod(IAudioClient3* client3,
       reinterpret_cast<const WAVEFORMATEX*>(format), &default_period,
       &fundamental_period, &min_period, &max_period);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient3::GetSharedModeEnginePeriod failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient3::GetSharedModeEnginePeriod failed: "
                       << ErrorToString(error);
     return error.Error();
   }
 
   WAVEFORMATEX format_ex = format->Format;
   const WORD sample_rate = format_ex.nSamplesPerSec;
-  RTC_LOG(INFO) << "default_period_in_frames: " << default_period << " ("
+  RTC_DLOG(INFO) << "default_period_in_frames: " << default_period << " ("
                 << FramesToMilliseconds(default_period, sample_rate) << " ms)";
-  RTC_LOG(INFO) << "fundamental_period_in_frames: " << fundamental_period
+  RTC_DLOG(INFO) << "fundamental_period_in_frames: " << fundamental_period
                 << " (" << FramesToMilliseconds(fundamental_period, sample_rate)
                 << " ms)";
-  RTC_LOG(INFO) << "min_period_in_frames: " << min_period << " ("
+  RTC_DLOG(INFO) << "min_period_in_frames: " << min_period << " ("
                 << FramesToMilliseconds(min_period, sample_rate) << " ms)";
-  RTC_LOG(INFO) << "max_period_in_frames: " << max_period << " ("
+  RTC_DLOG(INFO) << "max_period_in_frames: " << max_period << " ("
                 << FramesToMilliseconds(max_period, sample_rate) << " ms)";
   *default_period_in_frames = default_period;
   *fundamental_period_in_frames = fundamental_period;
@@ -1114,7 +1114,7 @@ HRESULT SharedModeInitialize(IAudioClient* client,
       AUDCLNT_SHAREMODE_SHARED, stream_flags, buffer_duration, 0,
       reinterpret_cast<const WAVEFORMATEX*>(format), nullptr);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient::Initialize failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient::Initialize failed: "
                       << ErrorToString(error);
     return error.Error();
   }
@@ -1125,7 +1125,7 @@ HRESULT SharedModeInitialize(IAudioClient* client,
   if (use_event) {
     error = client->SetEventHandle(event_handle);
     if (FAILED(error.Error())) {
-      RTC_LOG(LS_ERROR) << "IAudioClient::SetEventHandle failed: "
+      RTC_DLOG(LS_ERROR) << "IAudioClient::SetEventHandle failed: "
                         << ErrorToString(error);
       return error.Error();
     }
@@ -1141,7 +1141,7 @@ HRESULT SharedModeInitialize(IAudioClient* client,
   // read from the endpoint buffer during a single processing pass.
   error = client->GetBufferSize(&buffer_size_in_frames);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient::GetBufferSize failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient::GetBufferSize failed: "
                       << ErrorToString(error);
     return error.Error();
   }
@@ -1203,7 +1203,7 @@ HRESULT SharedModeInitializeLowLatency(IAudioClient3* client,
       stream_flags, period_in_frames,
       reinterpret_cast<const WAVEFORMATEX*>(format), nullptr);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient3::InitializeSharedAudioStream failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient3::InitializeSharedAudioStream failed: "
                       << ErrorToString(error);
     return error.Error();
   }
@@ -1212,7 +1212,7 @@ HRESULT SharedModeInitializeLowLatency(IAudioClient3* client,
   if (use_event) {
     error = client->SetEventHandle(event_handle);
     if (FAILED(error.Error())) {
-      RTC_LOG(LS_ERROR) << "IAudioClient::SetEventHandle failed: "
+      RTC_DLOG(LS_ERROR) << "IAudioClient::SetEventHandle failed: "
                         << ErrorToString(error);
       return error.Error();
     }
@@ -1222,7 +1222,7 @@ HRESULT SharedModeInitializeLowLatency(IAudioClient3* client,
   // Retrieve the size (maximum capacity) of the endpoint buffer.
   error = client->GetBufferSize(&buffer_size_in_frames);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient::GetBufferSize failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient::GetBufferSize failed: "
                       << ErrorToString(error);
     return error.Error();
   }
@@ -1244,7 +1244,7 @@ HRESULT SharedModeInitializeLowLatency(IAudioClient3* client,
   REFERENCE_TIME latency = 0;
   error = client->GetStreamLatency(&latency);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_WARNING) << "IAudioClient::GetStreamLatency failed: "
+    RTC_DLOG(LS_WARNING) << "IAudioClient::GetStreamLatency failed: "
                         << ErrorToString(error);
   } else {
     RTC_DLOG(INFO) << "stream latency: "
@@ -1261,7 +1261,7 @@ ComPtr<IAudioRenderClient> CreateRenderClient(IAudioClient* client) {
   ComPtr<IAudioRenderClient> audio_render_client;
   _com_error error = client->GetService(IID_PPV_ARGS(&audio_render_client));
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "IAudioClient::GetService(IID_IAudioRenderClient) failed: "
         << ErrorToString(error);
     return ComPtr<IAudioRenderClient>();
@@ -1277,7 +1277,7 @@ ComPtr<IAudioCaptureClient> CreateCaptureClient(IAudioClient* client) {
   ComPtr<IAudioCaptureClient> audio_capture_client;
   _com_error error = client->GetService(IID_PPV_ARGS(&audio_capture_client));
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "IAudioClient::GetService(IID_IAudioCaptureClient) failed: "
         << ErrorToString(error);
     return ComPtr<IAudioCaptureClient>();
@@ -1293,7 +1293,7 @@ ComPtr<IAudioClock> CreateAudioClock(IAudioClient* client) {
   ComPtr<IAudioClock> audio_clock;
   _com_error error = client->GetService(IID_PPV_ARGS(&audio_clock));
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient::GetService(IID_IAudioClock) failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient::GetService(IID_IAudioClock) failed: "
                       << ErrorToString(error);
     return ComPtr<IAudioClock>();
   }
@@ -1306,7 +1306,7 @@ ComPtr<IAudioSessionControl> CreateAudioSessionControl(IAudioClient* client) {
   ComPtr<IAudioSessionControl> audio_session_control;
   _com_error error = client->GetService(IID_PPV_ARGS(&audio_session_control));
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient::GetService(IID_IAudioControl) failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient::GetService(IID_IAudioControl) failed: "
                       << ErrorToString(error);
     return ComPtr<IAudioSessionControl>();
   }
@@ -1321,7 +1321,7 @@ ComPtr<ISimpleAudioVolume> CreateSimpleAudioVolume(IAudioClient* client) {
   ComPtr<ISimpleAudioVolume> simple_audio_volume;
   _com_error error = client->GetService(IID_PPV_ARGS(&simple_audio_volume));
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "IAudioClient::GetService(IID_ISimpleAudioVolume) failed: "
         << ErrorToString(error);
     return ComPtr<ISimpleAudioVolume>();
@@ -1337,7 +1337,7 @@ bool FillRenderEndpointBufferWithSilence(IAudioClient* client,
   UINT32 endpoint_buffer_size = 0;
   _com_error error = client->GetBufferSize(&endpoint_buffer_size);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient::GetBufferSize failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient::GetBufferSize failed: "
                       << ErrorToString(error);
     return false;
   }
@@ -1347,7 +1347,7 @@ bool FillRenderEndpointBufferWithSilence(IAudioClient* client,
   // buffer.
   error = client->GetCurrentPadding(&num_queued_frames);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient::GetCurrentPadding failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient::GetCurrentPadding failed: "
                       << ErrorToString(error);
     return false;
   }
@@ -1358,7 +1358,7 @@ bool FillRenderEndpointBufferWithSilence(IAudioClient* client,
   RTC_DLOG(INFO) << "num_frames_to_fill: " << num_frames_to_fill;
   error = render_client->GetBuffer(num_frames_to_fill, &data);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioRenderClient::GetBuffer failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioRenderClient::GetBuffer failed: "
                       << ErrorToString(error);
     return false;
   }
@@ -1368,7 +1368,7 @@ bool FillRenderEndpointBufferWithSilence(IAudioClient* client,
   error = render_client->ReleaseBuffer(num_frames_to_fill,
                                        AUDCLNT_BUFFERFLAGS_SILENT);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioRenderClient::ReleaseBuffer failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioRenderClient::ReleaseBuffer failed: "
                       << ErrorToString(error);
     return false;
   }

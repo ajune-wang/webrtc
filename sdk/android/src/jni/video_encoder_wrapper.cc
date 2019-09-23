@@ -90,7 +90,7 @@ int32_t VideoEncoderWrapper::InitEncodeInternal(JNIEnv* jni) {
 
   int32_t status = JavaToNativeVideoCodecStatus(
       jni, Java_VideoEncoder_initEncode(jni, encoder_, settings, callback));
-  RTC_LOG(LS_INFO) << "initEncode: " << status;
+  RTC_DLOG(LS_INFO) << "initEncode: " << status;
 
   encoder_info_.supports_native_handle = true;
   encoder_info_.implementation_name = GetImplementationName(jni);
@@ -115,7 +115,7 @@ int32_t VideoEncoderWrapper::Release() {
 
   int32_t status = JavaToNativeVideoCodecStatus(
       jni, Java_VideoEncoder_release(jni, encoder_));
-  RTC_LOG(LS_INFO) << "release: " << status;
+  RTC_DLOG(LS_INFO) << "release: " << status;
   frame_extra_infos_.clear();
   initialized_ = false;
   {
@@ -277,7 +277,7 @@ void VideoEncoderWrapper::OnEncodedFrame(
         }
         if (frame_extra_infos_.empty() ||
             frame_extra_infos_.front().capture_time_ns != capture_time_ns) {
-          RTC_LOG(LS_WARNING)
+          RTC_DLOG(LS_WARNING)
               << "Java encoder produced an unexpected frame with timestamp: "
               << capture_time_ns;
           return;
@@ -317,21 +317,21 @@ int32_t VideoEncoderWrapper::HandleReturnCode(JNIEnv* jni,
     return value;
   }
 
-  RTC_LOG(LS_WARNING) << method_name << ": " << value;
+  RTC_DLOG(LS_WARNING) << method_name << ": " << value;
   if (value == WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE ||
       value == WEBRTC_VIDEO_CODEC_UNINITIALIZED) {  // Critical error.
-    RTC_LOG(LS_WARNING) << "Java encoder requested software fallback.";
+    RTC_DLOG(LS_WARNING) << "Java encoder requested software fallback.";
     return WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE;
   }
 
   // Try resetting the codec.
   if (Release() == WEBRTC_VIDEO_CODEC_OK &&
       InitEncodeInternal(jni) == WEBRTC_VIDEO_CODEC_OK) {
-    RTC_LOG(LS_WARNING) << "Reset Java encoder.";
+    RTC_DLOG(LS_WARNING) << "Reset Java encoder.";
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
 
-  RTC_LOG(LS_WARNING) << "Unable to reset Java encoder.";
+  RTC_DLOG(LS_WARNING) << "Unable to reset Java encoder.";
   return WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE;
 }
 
@@ -345,8 +345,8 @@ RTPFragmentationHeader VideoEncoderWrapper::ParseFragmentationHeader(
     const std::vector<H264::NaluIndex> nalu_idxs =
         H264::FindNaluIndices(buffer.data(), buffer.size());
     if (nalu_idxs.empty()) {
-      RTC_LOG(LS_ERROR) << "Start code is not found!";
-      RTC_LOG(LS_ERROR) << "Data:" << buffer[0] << " " << buffer[1] << " "
+      RTC_DLOG(LS_ERROR) << "Start code is not found!";
+      RTC_DLOG(LS_ERROR) << "Data:" << buffer[0] << " " << buffer[1] << " "
                         << buffer[2] << " " << buffer[3] << " " << buffer[4]
                         << " " << buffer[5];
     }

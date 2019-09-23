@@ -31,7 +31,7 @@ uint16_t ExampleVideoQualityAnalyzer::OnFrameCaptured(
     frames_in_flight_.insert(frame_id);
     frames_to_stream_label_.insert({frame_id, stream_label});
   } else {
-    RTC_LOG(WARNING) << "Meet new frame with the same id: " << frame_id
+    RTC_DLOG(WARNING) << "Meet new frame with the same id: " << frame_id
                      << ". Assumes old one as dropped";
     // We needn't insert frame to frames_in_flight_, because it is already
     // there.
@@ -59,7 +59,7 @@ void ExampleVideoQualityAnalyzer::OnFrameEncoded(
 
 void ExampleVideoQualityAnalyzer::OnFrameDropped(
     webrtc::EncodedImageCallback::DropReason reason) {
-  RTC_LOG(INFO) << "Frame dropped by encoder";
+  RTC_DLOG(INFO) << "Frame dropped by encoder";
   rtc::CritScope crit(&lock_);
   ++frames_dropped_;
 }
@@ -89,19 +89,19 @@ void ExampleVideoQualityAnalyzer::OnFrameRendered(
 void ExampleVideoQualityAnalyzer::OnEncoderError(
     const webrtc::VideoFrame& frame,
     int32_t error_code) {
-  RTC_LOG(LS_ERROR) << "Failed to encode frame " << frame.id()
+  RTC_DLOG(LS_ERROR) << "Failed to encode frame " << frame.id()
                     << ". Code: " << error_code;
 }
 
 void ExampleVideoQualityAnalyzer::OnDecoderError(uint16_t frame_id,
                                                  int32_t error_code) {
-  RTC_LOG(LS_ERROR) << "Failed to decode frame " << frame_id
+  RTC_DLOG(LS_ERROR) << "Failed to decode frame " << frame_id
                     << ". Code: " << error_code;
 }
 
 void ExampleVideoQualityAnalyzer::Stop() {
   rtc::CritScope crit(&lock_);
-  RTC_LOG(INFO) << "There are " << frames_in_flight_.size()
+  RTC_DLOG(INFO) << "There are " << frames_in_flight_.size()
                 << " frames in flight, assuming all of them are dropped";
   frames_dropped_ += frames_in_flight_.size();
 }

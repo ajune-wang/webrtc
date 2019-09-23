@@ -110,7 +110,7 @@ bool RtpDepacketizerGeneric::Parse(ParsedPayload* parsed_payload,
                                    size_t payload_data_length) {
   assert(parsed_payload != NULL);
   if (payload_data_length == 0) {
-    RTC_LOG(LS_WARNING) << "Empty payload.";
+    RTC_DLOG(LS_WARNING) << "Empty payload.";
     return false;
   }
 
@@ -130,7 +130,7 @@ bool RtpDepacketizerGeneric::Parse(ParsedPayload* parsed_payload,
 
     if (generic_header & RtpFormatVideoGeneric::kExtendedHeaderBit) {
       if (payload_data_length < kExtendedHeaderLength) {
-        RTC_LOG(LS_WARNING) << "Too short payload for generic header.";
+        RTC_DLOG(LS_WARNING) << "Too short payload for generic header.";
         return false;
       }
       parsed_payload->video_header().generic.emplace();

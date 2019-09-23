@@ -81,7 +81,7 @@ void ScreenCapturerWinGdi::CaptureFrame() {
   PrepareCaptureResources();
 
   if (!CaptureImage()) {
-    RTC_LOG(WARNING) << "Failed to capture screen by GDI.";
+    RTC_DLOG(WARNING) << "Failed to capture screen by GDI.";
     callback_->OnCaptureResult(Result::ERROR_TEMPORARY, nullptr);
     return;
   }
@@ -179,7 +179,7 @@ bool ScreenCapturerWinGdi::CaptureImage() {
   DesktopRect screen_rect =
       GetScreenRect(current_screen_id_, current_device_key_);
   if (screen_rect.is_empty()) {
-    RTC_LOG(LS_WARNING) << "Failed to get screen rect.";
+    RTC_DLOG(LS_WARNING) << "Failed to get screen rect.";
     return false;
   }
 
@@ -195,7 +195,7 @@ bool ScreenCapturerWinGdi::CaptureImage() {
     std::unique_ptr<DesktopFrame> buffer = DesktopFrameWin::Create(
         size, shared_memory_factory_.get(), desktop_dc_);
     if (!buffer) {
-      RTC_LOG(LS_WARNING) << "Failed to create frame buffer.";
+      RTC_DLOG(LS_WARNING) << "Failed to create frame buffer.";
       return false;
     }
     queue_.ReplaceCurrentFrame(SharedDesktopFrame::Wrap(std::move(buffer)));
@@ -209,7 +209,7 @@ bool ScreenCapturerWinGdi::CaptureImage() {
       queue_.current_frame()->GetUnderlyingFrame());
   HGDIOBJ previous_object = SelectObject(memory_dc_, current->bitmap());
   if (!previous_object || previous_object == HGDI_ERROR) {
-    RTC_LOG(LS_WARNING) << "Failed to select current bitmap into memery dc.";
+    RTC_DLOG(LS_WARNING) << "Failed to select current bitmap into memery dc.";
     return false;
   }
 

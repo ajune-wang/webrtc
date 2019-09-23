@@ -66,11 +66,11 @@ void BitrateProber::SetEnabled(bool enable) {
   if (enable) {
     if (probing_state_ == ProbingState::kDisabled) {
       probing_state_ = ProbingState::kInactive;
-      RTC_LOG(LS_INFO) << "Bandwidth probing enabled, set to inactive";
+      RTC_DLOG(LS_INFO) << "Bandwidth probing enabled, set to inactive";
     }
   } else {
     probing_state_ = ProbingState::kDisabled;
-    RTC_LOG(LS_INFO) << "Bandwidth probing disabled";
+    RTC_DLOG(LS_INFO) << "Bandwidth probing disabled";
   }
 }
 
@@ -114,7 +114,7 @@ void BitrateProber::CreateProbeCluster(int bitrate_bps,
   cluster.pace_info.probe_cluster_id = cluster_id;
   clusters_.push(cluster);
 
-  RTC_LOG(LS_INFO) << "Probe cluster (bitrate:min bytes:min packets): ("
+  RTC_DLOG(LS_INFO) << "Probe cluster (bitrate:min bytes:min packets): ("
                    << cluster.pace_info.send_bitrate_bps << ":"
                    << cluster.pace_info.probe_cluster_min_bytes << ":"
                    << cluster.pace_info.probe_cluster_min_probes << ")";

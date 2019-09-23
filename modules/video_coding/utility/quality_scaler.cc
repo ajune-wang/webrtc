@@ -110,7 +110,7 @@ QualityScaler::QualityScaler(rtc::TaskQueue* task_queue,
         CheckQp();
         return TimeDelta::ms(GetSamplingPeriodMs());
       });
-  RTC_LOG(LS_INFO) << "QP thresholds: low: " << thresholds_.low
+  RTC_DLOG(LS_INFO) << "QP thresholds: low: " << thresholds_.low
                    << ", high: " << thresholds_.high;
 }
 
@@ -190,7 +190,7 @@ void QualityScaler::CheckQp() {
           ? framedrop_percent_all_.GetAverageRoundedDown()
           : framedrop_percent_media_opt_.GetAverageRoundedDown();
   if (drop_rate && *drop_rate >= kFramedropPercentThreshold) {
-    RTC_LOG(LS_INFO) << "Reporting high QP, framedrop percent " << *drop_rate;
+    RTC_DLOG(LS_INFO) << "Reporting high QP, framedrop percent " << *drop_rate;
     ReportQpHigh();
     return;
   }
@@ -203,7 +203,7 @@ void QualityScaler::CheckQp() {
       qp_smoother_low_ ? qp_smoother_low_->GetAvg()
                        : average_qp_.GetAverageRoundedDown();
   if (avg_qp_high && avg_qp_low) {
-    RTC_LOG(LS_INFO) << "Checking average QP " << *avg_qp_high << " ("
+    RTC_DLOG(LS_INFO) << "Checking average QP " << *avg_qp_high << " ("
                      << *avg_qp_low << ").";
     if (*avg_qp_high > thresholds_.high) {
       ReportQpHigh();

@@ -90,7 +90,7 @@ void AndroidCallClient::Call(JNIEnv* env,
 
   rtc::CritScope lock(&pc_mutex_);
   if (call_started_) {
-    RTC_LOG(LS_WARNING) << "Call already started.";
+    RTC_DLOG(LS_WARNING) << "Call already started.";
     return;
   }
   call_started_ = true;
@@ -167,10 +167,10 @@ void AndroidCallClient::CreatePeerConnectionFactory() {
       std::make_unique<webrtc::InternalDecoderFactory>();
   webrtc::SetMediaEngineDefaults(&media_deps);
   pcf_deps.media_engine = cricket::CreateMediaEngine(std::move(media_deps));
-  RTC_LOG(LS_INFO) << "Media engine created: " << pcf_deps.media_engine.get();
+  RTC_DLOG(LS_INFO) << "Media engine created: " << pcf_deps.media_engine.get();
 
   pcf_ = CreateModularPeerConnectionFactory(std::move(pcf_deps));
-  RTC_LOG(LS_INFO) << "PeerConnectionFactory created: " << pcf_;
+  RTC_DLOG(LS_INFO) << "PeerConnectionFactory created: " << pcf_;
 }
 
 void AndroidCallClient::CreatePeerConnection() {
@@ -182,13 +182,13 @@ void AndroidCallClient::CreatePeerConnection() {
   pc_ = pcf_->CreatePeerConnection(config, nullptr /* port_allocator */,
                                    nullptr /* cert_generator */,
                                    pc_observer_.get());
-  RTC_LOG(LS_INFO) << "PeerConnection created: " << pc_;
+  RTC_DLOG(LS_INFO) << "PeerConnection created: " << pc_;
 
   rtc::scoped_refptr<webrtc::VideoTrackInterface> local_video_track =
       pcf_->CreateVideoTrack("video", video_source_);
   local_video_track->AddOrUpdateSink(local_sink_.get(), rtc::VideoSinkWants());
   pc_->AddTransceiver(local_video_track);
-  RTC_LOG(LS_INFO) << "Local video sink set up: " << local_video_track;
+  RTC_DLOG(LS_INFO) << "Local video sink set up: " << local_video_track;
 
   for (const rtc::scoped_refptr<webrtc::RtpTransceiverInterface>& tranceiver :
        pc_->GetTransceivers()) {
@@ -198,7 +198,7 @@ void AndroidCallClient::CreatePeerConnection() {
         track->kind() == webrtc::MediaStreamTrackInterface::kVideoKind) {
       static_cast<webrtc::VideoTrackInterface*>(track.get())
           ->AddOrUpdateSink(remote_sink_.get(), rtc::VideoSinkWants());
-      RTC_LOG(LS_INFO) << "Remote video sink set up: " << track;
+      RTC_DLOG(LS_INFO) << "Remote video sink set up: " << track;
       break;
     }
   }
@@ -215,31 +215,31 @@ AndroidCallClient::PCObserver::PCObserver(AndroidCallClient* client)
 
 void AndroidCallClient::PCObserver::OnSignalingChange(
     webrtc::PeerConnectionInterface::SignalingState new_state) {
-  RTC_LOG(LS_INFO) << "OnSignalingChange: " << new_state;
+  RTC_DLOG(LS_INFO) << "OnSignalingChange: " << new_state;
 }
 
 void AndroidCallClient::PCObserver::OnDataChannel(
     rtc::scoped_refptr<webrtc::DataChannelInterface> data_channel) {
-  RTC_LOG(LS_INFO) << "OnDataChannel";
+  RTC_DLOG(LS_INFO) << "OnDataChannel";
 }
 
 void AndroidCallClient::PCObserver::OnRenegotiationNeeded() {
-  RTC_LOG(LS_INFO) << "OnRenegotiationNeeded";
+  RTC_DLOG(LS_INFO) << "OnRenegotiationNeeded";
 }
 
 void AndroidCallClient::PCObserver::OnIceConnectionChange(
     webrtc::PeerConnectionInterface::IceConnectionState new_state) {
-  RTC_LOG(LS_INFO) << "OnIceConnectionChange: " << new_state;
+  RTC_DLOG(LS_INFO) << "OnIceConnectionChange: " << new_state;
 }
 
 void AndroidCallClient::PCObserver::OnIceGatheringChange(
     webrtc::PeerConnectionInterface::IceGatheringState new_state) {
-  RTC_LOG(LS_INFO) << "OnIceGatheringChange: " << new_state;
+  RTC_DLOG(LS_INFO) << "OnIceGatheringChange: " << new_state;
 }
 
 void AndroidCallClient::PCObserver::OnIceCandidate(
     const webrtc::IceCandidateInterface* candidate) {
-  RTC_LOG(LS_INFO) << "OnIceCandidate: " << candidate->server_url();
+  RTC_DLOG(LS_INFO) << "OnIceCandidate: " << candidate->server_url();
   rtc::CritScope lock(&client_->pc_mutex_);
   RTC_DCHECK(client_->pc_ != nullptr);
   client_->pc_->AddIceCandidate(candidate);
@@ -252,7 +252,7 @@ CreateOfferObserver::CreateOfferObserver(
 void CreateOfferObserver::OnSuccess(webrtc::SessionDescriptionInterface* desc) {
   std::string sdp;
   desc->ToString(&sdp);
-  RTC_LOG(LS_INFO) << "Created offer: " << sdp;
+  RTC_DLOG(LS_INFO) << "Created offer: " << sdp;
 
   // Ownership of desc was transferred to us, now we transfer it forward.
   pc_->SetLocalDescription(
@@ -267,21 +267,21 @@ void CreateOfferObserver::OnSuccess(webrtc::SessionDescriptionInterface* desc) {
 }
 
 void CreateOfferObserver::OnFailure(webrtc::RTCError error) {
-  RTC_LOG(LS_INFO) << "Failed to create offer: " << ToString(error.type())
+  RTC_DLOG(LS_INFO) << "Failed to create offer: " << ToString(error.type())
                    << ": " << error.message();
 }
 
 void SetRemoteSessionDescriptionObserver::OnSetRemoteDescriptionComplete(
     webrtc::RTCError error) {
-  RTC_LOG(LS_INFO) << "Set remote description: " << error.message();
+  RTC_DLOG(LS_INFO) << "Set remote description: " << error.message();
 }
 
 void SetLocalSessionDescriptionObserver::OnSuccess() {
-  RTC_LOG(LS_INFO) << "Set local description success!";
+  RTC_DLOG(LS_INFO) << "Set local description success!";
 }
 
 void SetLocalSessionDescriptionObserver::OnFailure(webrtc::RTCError error) {
-  RTC_LOG(LS_INFO) << "Set local description failure: "
+  RTC_DLOG(LS_INFO) << "Set local description failure: "
                    << ToString(error.type()) << ": " << error.message();
 }
 

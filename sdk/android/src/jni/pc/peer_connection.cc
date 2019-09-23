@@ -684,7 +684,7 @@ static ScopedJavaLocalRef<jobject> JNI_PeerConnection_AddTrack(
           JavaListToNativeVector<std::string, jstring>(jni, j_stream_labels,
                                                        &JavaToNativeString));
   if (!result.ok()) {
-    RTC_LOG(LS_ERROR) << "Failed to add track: " << result.error().message();
+    RTC_DLOG(LS_ERROR) << "Failed to add track: " << result.error().message();
     return nullptr;
   } else {
     return NativeToJavaRtpSender(jni, result.MoveValue());
@@ -709,7 +709,7 @@ static ScopedJavaLocalRef<jobject> JNI_PeerConnection_AddTransceiverWithTrack(
           reinterpret_cast<MediaStreamTrackInterface*>(native_track),
           JavaToNativeRtpTransceiverInit(jni, j_init));
   if (!result.ok()) {
-    RTC_LOG(LS_ERROR) << "Failed to add transceiver: "
+    RTC_DLOG(LS_ERROR) << "Failed to add transceiver: "
                       << result.error().message();
     return nullptr;
   } else {
@@ -727,7 +727,7 @@ static ScopedJavaLocalRef<jobject> JNI_PeerConnection_AddTransceiverOfType(
           JavaToNativeMediaType(jni, j_media_type),
           JavaToNativeRtpTransceiverInit(jni, j_init));
   if (!result.ok()) {
-    RTC_LOG(LS_ERROR) << "Failed to add transceiver: "
+    RTC_DLOG(LS_ERROR) << "Failed to add transceiver: "
                       << result.error().message();
     return nullptr;
   } else {

@@ -184,7 +184,7 @@ class FakeIceTransport : public IceTransportInternal {
   void RemoveRemoteCandidate(const Candidate& candidate) override {
     auto it = absl::c_find(remote_candidates_, candidate);
     if (it == remote_candidates_.end()) {
-      RTC_LOG(LS_INFO) << "Trying to remove a candidate which doesn't exist.";
+      RTC_DLOG(LS_INFO) << "Trying to remove a candidate which doesn't exist.";
       return;
     }
 
@@ -276,7 +276,7 @@ class FakeIceTransport : public IceTransportInternal {
     if (writable_ == writable) {
       return;
     }
-    RTC_LOG(INFO) << "Change writable_ to " << writable;
+    RTC_DLOG(INFO) << "Change writable_ to " << writable;
     writable_ = writable;
     if (writable_) {
       SignalReadyToSend(this);

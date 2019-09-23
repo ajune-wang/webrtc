@@ -260,7 +260,7 @@ bool RTPSenderAudio::SendAudio(AudioFrameType frame_type,
   packet->set_allow_retransmission(true);
   bool send_result = LogAndSendToNetwork(std::move(packet));
   if (first_packet_sent_()) {
-    RTC_LOG(LS_INFO) << "First audio RTP packet sent to pacer";
+    RTC_DLOG(LS_INFO) << "First audio RTP packet sent to pacer";
   }
   return send_result;
 }

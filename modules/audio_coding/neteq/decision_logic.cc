@@ -84,7 +84,7 @@ DecisionLogic::DecisionLogic(int fs_hz,
   ParseFieldTrial(
       {&estimate_dtx_delay_, &time_stretch_cn_, &target_level_window_ms_},
       field_trial_name);
-  RTC_LOG(LS_INFO) << "NetEq decision logic settings:"
+  RTC_DLOG(LS_INFO) << "NetEq decision logic settings:"
                    << " estimate_dtx_delay=" << estimate_dtx_delay_
                    << " time_stretch_cn=" << time_stretch_cn_
                    << " target_level_window_ms=" << target_level_window_ms_;

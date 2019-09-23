@@ -117,7 +117,7 @@ AudioReceiveStream::AudioReceiveStream(
     : audio_state_(audio_state),
       channel_receive_(std::move(channel_receive)),
       source_tracker_(clock) {
-  RTC_LOG(LS_INFO) << "AudioReceiveStream: " << config.rtp.remote_ssrc;
+  RTC_DLOG(LS_INFO) << "AudioReceiveStream: " << config.rtp.remote_ssrc;
   RTC_DCHECK(config.decoder_factory);
   RTC_DCHECK(config.rtcp_send_transport);
   RTC_DCHECK(audio_state_);
@@ -140,7 +140,7 @@ AudioReceiveStream::AudioReceiveStream(
 
 AudioReceiveStream::~AudioReceiveStream() {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
-  RTC_LOG(LS_INFO) << "~AudioReceiveStream: " << config_.rtp.remote_ssrc;
+  RTC_DLOG(LS_INFO) << "~AudioReceiveStream: " << config_.rtp.remote_ssrc;
   Stop();
   channel_receive_->SetAssociatedSendChannel(nullptr);
   if (!config_.media_transport_config.media_transport) {
@@ -361,7 +361,7 @@ internal::AudioState* AudioReceiveStream::audio_state() const {
 void AudioReceiveStream::ConfigureStream(AudioReceiveStream* stream,
                                          const Config& new_config,
                                          bool first_time) {
-  RTC_LOG(LS_INFO) << "AudioReceiveStream::ConfigureStream: "
+  RTC_DLOG(LS_INFO) << "AudioReceiveStream::ConfigureStream: "
                    << new_config.ToString();
   RTC_DCHECK(stream);
   const auto& channel_receive = stream->channel_receive_;

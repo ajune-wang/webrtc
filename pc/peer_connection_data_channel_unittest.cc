@@ -423,7 +423,7 @@ TEST_P(PeerConnectionDataChannelTest, ModernSdpSyntaxByDefault) {
                    ->use_sctpmap());
   std::string sdp;
   offer->ToString(&sdp);
-  RTC_LOG(LS_ERROR) << sdp;
+  RTC_DLOG(LS_ERROR) << sdp;
   EXPECT_THAT(sdp, HasSubstr(" UDP/DTLS/SCTP webrtc-datachannel"));
   EXPECT_THAT(sdp, Not(HasSubstr("a=sctpmap:")));
 }

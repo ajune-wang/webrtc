@@ -19,7 +19,7 @@
   do {                                                                        \
     aaudio_result_t result = (op);                                            \
     if (result != AAUDIO_OK) {                                                \
-      RTC_LOG(LS_ERROR) << #op << ": " << AAudio_convertResultToText(result); \
+      RTC_DLOG(LS_ERROR) << #op << ": " << AAudio_convertResultToText(result); \
     }                                                                         \
   } while (0)
 
@@ -27,7 +27,7 @@
   do {                                                                        \
     aaudio_result_t result = (op);                                            \
     if (result != AAUDIO_OK) {                                                \
-      RTC_LOG(LS_ERROR) << #op << ": " << AAudio_convertResultToText(result); \
+      RTC_DLOG(LS_ERROR) << #op << ": " << AAudio_convertResultToText(result); \
       return __VA_ARGS__;                                                     \
     }                                                                         \
   } while (0)
@@ -91,7 +91,7 @@ void ErrorCallback(AAudioStream* stream,
                    aaudio_result_t error) {
   RTC_DCHECK(user_data);
   AAudioWrapper* aaudio_wrapper = reinterpret_cast<AAudioWrapper*>(user_data);
-  RTC_LOG(WARNING) << "ErrorCallback: "
+  RTC_DLOG(WARNING) << "ErrorCallback: "
                    << DirectionToString(aaudio_wrapper->direction());
   RTC_DCHECK(aaudio_wrapper->observer());
   aaudio_wrapper->observer()->OnErrorCallback(error);
@@ -134,23 +134,23 @@ AAudioWrapper::AAudioWrapper(AudioManager* audio_manager,
                              aaudio_direction_t direction,
                              AAudioObserverInterface* observer)
     : direction_(direction), observer_(observer) {
-  RTC_LOG(INFO) << "ctor";
+  RTC_DLOG(INFO) << "ctor";
   RTC_DCHECK(observer_);
   direction_ == AAUDIO_DIRECTION_OUTPUT
       ? audio_parameters_ = audio_manager->GetPlayoutAudioParameters()
       : audio_parameters_ = audio_manager->GetRecordAudioParameters();
   aaudio_thread_checker_.Detach();
-  RTC_LOG(INFO) << audio_parameters_.ToString();
+  RTC_DLOG(INFO) << audio_parameters_.ToString();
 }
 
 AAudioWrapper::~AAudioWrapper() {
-  RTC_LOG(INFO) << "dtor";
+  RTC_DLOG(INFO) << "dtor";
   RTC_DCHECK(thread_checker_.IsCurrent());
   RTC_DCHECK(!stream_);
 }
 
 bool AAudioWrapper::Init() {
-  RTC_LOG(INFO) << "Init";
+  RTC_DLOG(INFO) << "Init";
   RTC_DCHECK(thread_checker_.IsCurrent());
   // Creates a stream builder which can be used to open an audio stream.
   ScopedStreamBuilder builder;
@@ -174,12 +174,12 @@ bool AAudioWrapper::Init() {
 }
 
 bool AAudioWrapper::Start() {
-  RTC_LOG(INFO) << "Start";
+  RTC_DLOG(INFO) << "Start";
   RTC_DCHECK(thread_checker_.IsCurrent());
   // TODO(henrika): this state check might not be needed.
   aaudio_stream_state_t current_state = AAudioStream_getState(stream_);
   if (current_state != AAUDIO_STREAM_STATE_OPEN) {
-    RTC_LOG(LS_ERROR) << "Invalid state: "
+    RTC_DLOG(LS_ERROR) << "Invalid state: "
                       << AAudio_convertStreamStateToText(current_state);
     return false;
   }
@@ -190,7 +190,7 @@ bool AAudioWrapper::Start() {
 }
 
 bool AAudioWrapper::Stop() {
-  RTC_LOG(INFO) << "Stop: " << DirectionToString(direction());
+  RTC_DLOG(INFO) << "Stop: " << DirectionToString(direction());
   RTC_DCHECK(thread_checker_.IsCurrent());
   // Asynchronous request for the stream to stop.
   RETURN_ON_ERROR(AAudioStream_requestStop(stream_), false);
@@ -240,7 +240,7 @@ double AAudioWrapper::EstimateLatencyMillis() const {
 // Returns new buffer size or a negative error value if buffer size could not
 // be increased.
 bool AAudioWrapper::IncreaseOutputBufferSize() {
-  RTC_LOG(INFO) << "IncreaseBufferSize";
+  RTC_DLOG(INFO) << "IncreaseBufferSize";
   RTC_DCHECK(stream_);
   RTC_DCHECK(aaudio_thread_checker_.IsCurrent());
   RTC_DCHECK_EQ(direction(), AAUDIO_DIRECTION_OUTPUT);
@@ -251,24 +251,24 @@ bool AAudioWrapper::IncreaseOutputBufferSize() {
   // TODO(henrika): keep track of case when we reach the capacity limit.
   const int32_t max_buffer_size = buffer_capacity_in_frames();
   if (buffer_size > max_buffer_size) {
-    RTC_LOG(LS_ERROR) << "Required buffer size (" << buffer_size
+    RTC_DLOG(LS_ERROR) << "Required buffer size (" << buffer_size
                       << ") is higher than max: " << max_buffer_size;
     return false;
   }
-  RTC_LOG(INFO) << "Updating buffer size to: " << buffer_size
+  RTC_DLOG(INFO) << "Updating buffer size to: " << buffer_size
                 << " (max=" << max_buffer_size << ")";
   buffer_size = AAudioStream_setBufferSizeInFrames(stream_, buffer_size);
   if (buffer_size < 0) {
-    RTC_LOG(LS_ERROR) << "Failed to change buffer size: "
+    RTC_DLOG(LS_ERROR) << "Failed to change buffer size: "
                       << AAudio_convertResultToText(buffer_size);
     return false;
   }
-  RTC_LOG(INFO) << "Buffer size changed to: " << buffer_size;
+  RTC_DLOG(INFO) << "Buffer size changed to: " << buffer_size;
   return true;
 }
 
 void AAudioWrapper::ClearInputStream(void* audio_data, int32_t num_frames) {
-  RTC_LOG(INFO) << "ClearInputStream";
+  RTC_DLOG(INFO) << "ClearInputStream";
   RTC_DCHECK(stream_);
   RTC_DCHECK(aaudio_thread_checker_.IsCurrent());
   RTC_DCHECK_EQ(direction(), AAUDIO_DIRECTION_INPUT);
@@ -357,7 +357,7 @@ int64_t AAudioWrapper::frames_read() const {
 }
 
 void AAudioWrapper::SetStreamConfiguration(AAudioStreamBuilder* builder) {
-  RTC_LOG(INFO) << "SetStreamConfiguration";
+  RTC_DLOG(INFO) << "SetStreamConfiguration";
   RTC_DCHECK(builder);
   RTC_DCHECK(thread_checker_.IsCurrent());
   // Request usage of default primary output/input device.
@@ -390,7 +390,7 @@ void AAudioWrapper::SetStreamConfiguration(AAudioStreamBuilder* builder) {
 }
 
 bool AAudioWrapper::OpenStream(AAudioStreamBuilder* builder) {
-  RTC_LOG(INFO) << "OpenStream";
+  RTC_DLOG(INFO) << "OpenStream";
   RTC_DCHECK(builder);
   AAudioStream* stream = nullptr;
   RETURN_ON_ERROR(AAudioStreamBuilder_openStream(builder, &stream), false);
@@ -400,7 +400,7 @@ bool AAudioWrapper::OpenStream(AAudioStreamBuilder* builder) {
 }
 
 void AAudioWrapper::CloseStream() {
-  RTC_LOG(INFO) << "CloseStream";
+  RTC_DLOG(INFO) << "CloseStream";
   RTC_DCHECK(stream_);
   LOG_ON_ERROR(AAudioStream_close(stream_));
   stream_ = nullptr;
@@ -419,62 +419,62 @@ void AAudioWrapper::LogStreamConfiguration() {
   ss << ", direction=" << DirectionToString(direction());
   ss << ", device id=" << AAudioStream_getDeviceId(stream_);
   ss << ", frames per callback=" << frames_per_callback();
-  RTC_LOG(INFO) << ss.str();
+  RTC_DLOG(INFO) << ss.str();
 }
 
 void AAudioWrapper::LogStreamState() {
-  RTC_LOG(INFO) << "AAudio stream state: "
+  RTC_DLOG(INFO) << "AAudio stream state: "
                 << AAudio_convertStreamStateToText(stream_state());
 }
 
 bool AAudioWrapper::VerifyStreamConfiguration() {
-  RTC_LOG(INFO) << "VerifyStreamConfiguration";
+  RTC_DLOG(INFO) << "VerifyStreamConfiguration";
   RTC_DCHECK(stream_);
   // TODO(henrika): should we verify device ID as well?
   if (AAudioStream_getSampleRate(stream_) != audio_parameters().sample_rate()) {
-    RTC_LOG(LS_ERROR) << "Stream unable to use requested sample rate";
+    RTC_DLOG(LS_ERROR) << "Stream unable to use requested sample rate";
     return false;
   }
   if (AAudioStream_getChannelCount(stream_) !=
       static_cast<int32_t>(audio_parameters().channels())) {
-    RTC_LOG(LS_ERROR) << "Stream unable to use requested channel count";
+    RTC_DLOG(LS_ERROR) << "Stream unable to use requested channel count";
     return false;
   }
   if (AAudioStream_getFormat(stream_) != AAUDIO_FORMAT_PCM_I16) {
-    RTC_LOG(LS_ERROR) << "Stream unable to use requested format";
+    RTC_DLOG(LS_ERROR) << "Stream unable to use requested format";
     return false;
   }
   if (AAudioStream_getSharingMode(stream_) != AAUDIO_SHARING_MODE_SHARED) {
-    RTC_LOG(LS_ERROR) << "Stream unable to use requested sharing mode";
+    RTC_DLOG(LS_ERROR) << "Stream unable to use requested sharing mode";
     return false;
   }
   if (AAudioStream_getPerformanceMode(stream_) !=
       AAUDIO_PERFORMANCE_MODE_LOW_LATENCY) {
-    RTC_LOG(LS_ERROR) << "Stream unable to use requested performance mode";
+    RTC_DLOG(LS_ERROR) << "Stream unable to use requested performance mode";
     return false;
   }
   if (AAudioStream_getDirection(stream_) != direction()) {
-    RTC_LOG(LS_ERROR) << "Stream direction could not be set";
+    RTC_DLOG(LS_ERROR) << "Stream direction could not be set";
     return false;
   }
   if (AAudioStream_getSamplesPerFrame(stream_) !=
       static_cast<int32_t>(audio_parameters().channels())) {
-    RTC_LOG(LS_ERROR) << "Invalid number of samples per frame";
+    RTC_DLOG(LS_ERROR) << "Invalid number of samples per frame";
     return false;
   }
   return true;
 }
 
 bool AAudioWrapper::OptimizeBuffers() {
-  RTC_LOG(INFO) << "OptimizeBuffers";
+  RTC_DLOG(INFO) << "OptimizeBuffers";
   RTC_DCHECK(stream_);
   // Maximum number of frames that can be filled without blocking.
-  RTC_LOG(INFO) << "max buffer capacity in frames: "
+  RTC_DLOG(INFO) << "max buffer capacity in frames: "
                 << buffer_capacity_in_frames();
   // Query the number of frames that the application should read or write at
   // one time for optimal performance.
   int32_t frames_per_burst = AAudioStream_getFramesPerBurst(stream_);
-  RTC_LOG(INFO) << "frames per burst for optimal performance: "
+  RTC_DLOG(INFO) << "frames per burst for optimal performance: "
                 << frames_per_burst;
   frames_per_burst_ = frames_per_burst;
   if (direction() == AAUDIO_DIRECTION_INPUT) {
@@ -488,11 +488,11 @@ bool AAudioWrapper::OptimizeBuffers() {
   AAudioStream_setBufferSizeInFrames(stream_, frames_per_burst);
   int32_t buffer_size = AAudioStream_getBufferSizeInFrames(stream_);
   if (buffer_size != frames_per_burst) {
-    RTC_LOG(LS_ERROR) << "Failed to use optimal buffer burst size";
+    RTC_DLOG(LS_ERROR) << "Failed to use optimal buffer burst size";
     return false;
   }
   // Maximum number of frames that can be filled without blocking.
-  RTC_LOG(INFO) << "buffer burst size in frames: " << buffer_size;
+  RTC_DLOG(INFO) << "buffer burst size in frames: " << buffer_size;
   return true;
 }
 

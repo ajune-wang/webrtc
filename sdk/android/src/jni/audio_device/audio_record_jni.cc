@@ -38,7 +38,7 @@ class ScopedHistogramTimer {
   ~ScopedHistogramTimer() {
     const int64_t life_time_ms = rtc::TimeSince(start_time_ms_);
     RTC_HISTOGRAM_COUNTS_1000(histogram_name_, life_time_ms);
-    RTC_LOG(INFO) << histogram_name_ << ": " << life_time_ms;
+    RTC_DLOG(INFO) << histogram_name_ << ": " << life_time_ms;
   }
 
  private:
@@ -68,7 +68,7 @@ AudioRecordJni::AudioRecordJni(JNIEnv* env,
       initialized_(false),
       recording_(false),
       audio_device_buffer_(nullptr) {
-  RTC_LOG(INFO) << "ctor";
+  RTC_DLOG(INFO) << "ctor";
   RTC_DCHECK(audio_parameters_.is_valid());
   Java_WebRtcAudioRecord_setNativeAudioRecord(env, j_audio_record_,
                                               jni::jlongFromPointer(this));
@@ -79,20 +79,20 @@ AudioRecordJni::AudioRecordJni(JNIEnv* env,
 }
 
 AudioRecordJni::~AudioRecordJni() {
-  RTC_LOG(INFO) << "dtor";
+  RTC_DLOG(INFO) << "dtor";
   RTC_DCHECK(thread_checker_.IsCurrent());
   Terminate();
 }
 
 int32_t AudioRecordJni::Init() {
-  RTC_LOG(INFO) << "Init";
+  RTC_DLOG(INFO) << "Init";
   env_ = AttachCurrentThreadIfNeeded();
   RTC_DCHECK(thread_checker_.IsCurrent());
   return 0;
 }
 
 int32_t AudioRecordJni::Terminate() {
-  RTC_LOG(INFO) << "Terminate";
+  RTC_DLOG(INFO) << "Terminate";
   RTC_DCHECK(thread_checker_.IsCurrent());
   StopRecording();
   thread_checker_.Detach();
@@ -100,7 +100,7 @@ int32_t AudioRecordJni::Terminate() {
 }
 
 int32_t AudioRecordJni::InitRecording() {
-  RTC_LOG(INFO) << "InitRecording";
+  RTC_DLOG(INFO) << "InitRecording";
   RTC_DCHECK(thread_checker_.IsCurrent());
   if (initialized_) {
     // Already initialized.
@@ -114,11 +114,11 @@ int32_t AudioRecordJni::InitRecording() {
       static_cast<int>(audio_parameters_.channels()));
   if (frames_per_buffer < 0) {
     direct_buffer_address_ = nullptr;
-    RTC_LOG(LS_ERROR) << "InitRecording failed";
+    RTC_DLOG(LS_ERROR) << "InitRecording failed";
     return -1;
   }
   frames_per_buffer_ = static_cast<size_t>(frames_per_buffer);
-  RTC_LOG(INFO) << "frames_per_buffer: " << frames_per_buffer_;
+  RTC_DLOG(INFO) << "frames_per_buffer: " << frames_per_buffer_;
   const size_t bytes_per_frame = audio_parameters_.channels() * sizeof(int16_t);
   RTC_CHECK_EQ(direct_buffer_capacity_in_bytes_,
                frames_per_buffer_ * bytes_per_frame);
@@ -132,7 +132,7 @@ bool AudioRecordJni::RecordingIsInitialized() const {
 }
 
 int32_t AudioRecordJni::StartRecording() {
-  RTC_LOG(INFO) << "StartRecording";
+  RTC_DLOG(INFO) << "StartRecording";
   RTC_DCHECK(thread_checker_.IsCurrent());
   if (recording_) {
     // Already recording.
@@ -145,7 +145,7 @@ int32_t AudioRecordJni::StartRecording() {
   }
   ScopedHistogramTimer timer("WebRTC.Audio.StartRecordingDurationMs");
   if (!Java_WebRtcAudioRecord_startRecording(env_, j_audio_record_)) {
-    RTC_LOG(LS_ERROR) << "StartRecording failed";
+    RTC_DLOG(LS_ERROR) << "StartRecording failed";
     return -1;
   }
   recording_ = true;
@@ -153,7 +153,7 @@ int32_t AudioRecordJni::StartRecording() {
 }
 
 int32_t AudioRecordJni::StopRecording() {
-  RTC_LOG(INFO) << "StopRecording";
+  RTC_DLOG(INFO) << "StopRecording";
   RTC_DCHECK(thread_checker_.IsCurrent());
   if (!initialized_ || !recording_) {
     return 0;
@@ -163,10 +163,10 @@ int32_t AudioRecordJni::StopRecording() {
           env_, j_audio_record_);
   RTC_HISTOGRAM_BOOLEAN("WebRTC.Audio.SourceMatchesRecordingSession",
                         session_was_ok);
-  RTC_LOG(INFO) << "HISTOGRAM(WebRTC.Audio.SourceMatchesRecordingSession): "
+  RTC_DLOG(INFO) << "HISTOGRAM(WebRTC.Audio.SourceMatchesRecordingSession): "
                 << session_was_ok;
   if (!Java_WebRtcAudioRecord_stopRecording(env_, j_audio_record_)) {
-    RTC_LOG(LS_ERROR) << "StopRecording failed";
+    RTC_DLOG(LS_ERROR) << "StopRecording failed";
     return -1;
   }
   // If we don't detach here, we will hit a RTC_DCHECK in OnDataIsRecorded()
@@ -184,14 +184,14 @@ bool AudioRecordJni::Recording() const {
 }
 
 void AudioRecordJni::AttachAudioBuffer(AudioDeviceBuffer* audioBuffer) {
-  RTC_LOG(INFO) << "AttachAudioBuffer";
+  RTC_DLOG(INFO) << "AttachAudioBuffer";
   RTC_DCHECK(thread_checker_.IsCurrent());
   audio_device_buffer_ = audioBuffer;
   const int sample_rate_hz = audio_parameters_.sample_rate();
-  RTC_LOG(INFO) << "SetRecordingSampleRate(" << sample_rate_hz << ")";
+  RTC_DLOG(INFO) << "SetRecordingSampleRate(" << sample_rate_hz << ")";
   audio_device_buffer_->SetRecordingSampleRate(sample_rate_hz);
   const size_t channels = audio_parameters_.channels();
-  RTC_LOG(INFO) << "SetRecordingChannels(" << channels << ")";
+  RTC_DLOG(INFO) << "SetRecordingChannels(" << channels << ")";
   audio_device_buffer_->SetRecordingChannels(channels);
 }
 
@@ -208,7 +208,7 @@ bool AudioRecordJni::IsNoiseSuppressorSupported() const {
 }
 
 int32_t AudioRecordJni::EnableBuiltInAEC(bool enable) {
-  RTC_LOG(INFO) << "EnableBuiltInAEC(" << enable << ")";
+  RTC_DLOG(INFO) << "EnableBuiltInAEC(" << enable << ")";
   RTC_DCHECK(thread_checker_.IsCurrent());
   return Java_WebRtcAudioRecord_enableBuiltInAEC(env_, j_audio_record_, enable)
              ? 0
@@ -216,7 +216,7 @@ int32_t AudioRecordJni::EnableBuiltInAEC(bool enable) {
 }
 
 int32_t AudioRecordJni::EnableBuiltInNS(bool enable) {
-  RTC_LOG(INFO) << "EnableBuiltInNS(" << enable << ")";
+  RTC_DLOG(INFO) << "EnableBuiltInNS(" << enable << ")";
   RTC_DCHECK(thread_checker_.IsCurrent());
   return Java_WebRtcAudioRecord_enableBuiltInNS(env_, j_audio_record_, enable)
              ? 0
@@ -227,12 +227,12 @@ void AudioRecordJni::CacheDirectBufferAddress(
     JNIEnv* env,
     const JavaParamRef<jobject>& j_caller,
     const JavaParamRef<jobject>& byte_buffer) {
-  RTC_LOG(INFO) << "OnCacheDirectBufferAddress";
+  RTC_DLOG(INFO) << "OnCacheDirectBufferAddress";
   RTC_DCHECK(thread_checker_.IsCurrent());
   RTC_DCHECK(!direct_buffer_address_);
   direct_buffer_address_ = env->GetDirectBufferAddress(byte_buffer.obj());
   jlong capacity = env->GetDirectBufferCapacity(byte_buffer.obj());
-  RTC_LOG(INFO) << "direct buffer capacity: " << capacity;
+  RTC_DLOG(INFO) << "direct buffer capacity: " << capacity;
   direct_buffer_capacity_in_bytes_ = static_cast<size_t>(capacity);
 }
 
@@ -243,7 +243,7 @@ void AudioRecordJni::DataIsRecorded(JNIEnv* env,
                                     int length) {
   RTC_DCHECK(thread_checker_java_.IsCurrent());
   if (!audio_device_buffer_) {
-    RTC_LOG(LS_ERROR) << "AttachAudioBuffer has not been called";
+    RTC_DLOG(LS_ERROR) << "AttachAudioBuffer has not been called";
     return;
   }
   audio_device_buffer_->SetRecordedBuffer(direct_buffer_address_,
@@ -253,7 +253,7 @@ void AudioRecordJni::DataIsRecorded(JNIEnv* env,
   // of |playDelayMs| and |recDelayMs|, hence the distributions does not matter.
   audio_device_buffer_->SetVQEData(total_delay_ms_, 0);
   if (audio_device_buffer_->DeliverRecordedData() == -1) {
-    RTC_LOG(INFO) << "AudioDeviceBuffer::DeliverRecordedData failed";
+    RTC_DLOG(INFO) << "AudioDeviceBuffer::DeliverRecordedData failed";
   }
 }
 

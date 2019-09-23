@@ -56,7 +56,7 @@ static void PrintCert(X509* x509) {
 // Generate a self-signed certificate, with the public key from the
 // given key pair. Caller is responsible for freeing the returned object.
 static X509* MakeCertificate(EVP_PKEY* pkey, const SSLIdentityParams& params) {
-  RTC_LOG(LS_INFO) << "Making certificate for " << params.common_name;
+  RTC_DLOG(LS_INFO) << "Making certificate for " << params.common_name;
 
   ASN1_INTEGER* asn1_serial_number = nullptr;
   BIGNUM* serial_number = nullptr;
@@ -106,7 +106,7 @@ static X509* MakeCertificate(EVP_PKEY* pkey, const SSLIdentityParams& params) {
 
   BN_free(serial_number);
   X509_NAME_free(name);
-  RTC_LOG(LS_INFO) << "Returning certificate";
+  RTC_DLOG(LS_INFO) << "Returning certificate";
   return x509;
 
 error:
@@ -202,7 +202,7 @@ bool OpenSSLCertificate::GetSignatureDigestAlgorithm(
     default:
       // Unknown algorithm.  There are several unhandled options that are less
       // common and more complex.
-      RTC_LOG(LS_ERROR) << "Unknown signature algorithm NID: " << nid;
+      RTC_DLOG(LS_ERROR) << "Unknown signature algorithm NID: " << nid;
       algorithm->clear();
       return false;
   }

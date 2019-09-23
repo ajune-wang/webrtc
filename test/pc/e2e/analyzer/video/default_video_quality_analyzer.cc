@@ -29,18 +29,18 @@ constexpr int kMicrosPerSecond = 1000000;
 constexpr int kBitsInByte = 8;
 
 void LogFrameCounters(const std::string& name, const FrameCounters& counters) {
-  RTC_LOG(INFO) << "[" << name << "] Captured    : " << counters.captured;
-  RTC_LOG(INFO) << "[" << name << "] Pre encoded : " << counters.pre_encoded;
-  RTC_LOG(INFO) << "[" << name << "] Encoded     : " << counters.encoded;
-  RTC_LOG(INFO) << "[" << name << "] Received    : " << counters.received;
-  RTC_LOG(INFO) << "[" << name << "] Rendered    : " << counters.rendered;
-  RTC_LOG(INFO) << "[" << name << "] Dropped     : " << counters.dropped;
+  RTC_DLOG(INFO) << "[" << name << "] Captured    : " << counters.captured;
+  RTC_DLOG(INFO) << "[" << name << "] Pre encoded : " << counters.pre_encoded;
+  RTC_DLOG(INFO) << "[" << name << "] Encoded     : " << counters.encoded;
+  RTC_DLOG(INFO) << "[" << name << "] Received    : " << counters.received;
+  RTC_DLOG(INFO) << "[" << name << "] Rendered    : " << counters.rendered;
+  RTC_DLOG(INFO) << "[" << name << "] Dropped     : " << counters.dropped;
 }
 
 void LogStreamInternalStats(const std::string& name, const StreamStats& stats) {
-  RTC_LOG(INFO) << "[" << name
+  RTC_DLOG(INFO) << "[" << name
                 << "] Dropped by encoder     : " << stats.dropped_by_encoder;
-  RTC_LOG(INFO) << "[" << name << "] Dropped before encoder : "
+  RTC_DLOG(INFO) << "[" << name << "] Dropped before encoder : "
                 << stats.dropped_before_encoder;
 }
 
@@ -296,13 +296,13 @@ void DefaultVideoQualityAnalyzer::OnFrameRendered(
 void DefaultVideoQualityAnalyzer::OnEncoderError(
     const webrtc::VideoFrame& frame,
     int32_t error_code) {
-  RTC_LOG(LS_ERROR) << "Encoder error for frame.id=" << frame.id()
+  RTC_DLOG(LS_ERROR) << "Encoder error for frame.id=" << frame.id()
                     << ", code=" << error_code;
 }
 
 void DefaultVideoQualityAnalyzer::OnDecoderError(uint16_t frame_id,
                                                  int32_t error_code) {
-  RTC_LOG(LS_ERROR) << "Decoder error for frame_id=" << frame_id
+  RTC_DLOG(LS_ERROR) << "Decoder error for frame_id=" << frame_id
                     << ", code=" << error_code;
 }
 
@@ -598,14 +598,14 @@ void DefaultVideoQualityAnalyzer::ReportResults() {
     LogStreamInternalStats(item.first, item.second);
   }
   if (!analyzer_stats_.comparisons_queue_size.IsEmpty()) {
-    RTC_LOG(INFO) << "comparisons_queue_size min="
+    RTC_DLOG(INFO) << "comparisons_queue_size min="
                   << analyzer_stats_.comparisons_queue_size.GetMin()
                   << "; max=" << analyzer_stats_.comparisons_queue_size.GetMax()
                   << "; 99%="
                   << analyzer_stats_.comparisons_queue_size.GetPercentile(0.99);
   }
-  RTC_LOG(INFO) << "comparisons_done=" << analyzer_stats_.comparisons_done;
-  RTC_LOG(INFO) << "overloaded_comparisons_done="
+  RTC_DLOG(INFO) << "comparisons_done=" << analyzer_stats_.comparisons_done;
+  RTC_DLOG(INFO) << "overloaded_comparisons_done="
                 << analyzer_stats_.overloaded_comparisons_done;
 }
 

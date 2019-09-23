@@ -70,11 +70,11 @@ class FakeNetworkMonitorFactory : public NetworkMonitorFactory {
 
 bool SameNameAndPrefix(const rtc::Network& a, const rtc::Network& b) {
   if (a.name() != b.name()) {
-    RTC_LOG(INFO) << "Different interface names.";
+    RTC_DLOG(INFO) << "Different interface names.";
     return false;
   }
   if (a.prefix_length() != b.prefix_length() || a.prefix() != b.prefix()) {
-    RTC_LOG(INFO) << "Different IP prefixes.";
+    RTC_DLOG(INFO) << "Different IP prefixes.";
     return false;
   }
   return true;
@@ -924,10 +924,10 @@ TEST_F(NetworkTest, TestIgnoreNonDefaultRoutes) {
   NetworkManager::NetworkList list;
   list = GetNetworks(manager, false);
   bool found_dummy = false;
-  RTC_LOG(LS_INFO) << "Looking for dummy network: ";
+  RTC_DLOG(LS_INFO) << "Looking for dummy network: ";
   for (NetworkManager::NetworkList::iterator it = list.begin();
        it != list.end(); ++it) {
-    RTC_LOG(LS_INFO) << "  Network name: " << (*it)->name();
+    RTC_DLOG(LS_INFO) << "  Network name: " << (*it)->name();
     found_dummy |= (*it)->name().find("dummy0") != std::string::npos;
   }
   for (NetworkManager::NetworkList::iterator it = list.begin();
@@ -935,16 +935,16 @@ TEST_F(NetworkTest, TestIgnoreNonDefaultRoutes) {
     delete (*it);
   }
   if (!found_dummy) {
-    RTC_LOG(LS_INFO) << "No dummy found, quitting.";
+    RTC_DLOG(LS_INFO) << "No dummy found, quitting.";
     return;
   }
-  RTC_LOG(LS_INFO) << "Found dummy, running again while ignoring non-default "
+  RTC_DLOG(LS_INFO) << "Found dummy, running again while ignoring non-default "
                    << "routes.";
   manager.set_ignore_non_default_routes(true);
   list = GetNetworks(manager, false);
   for (NetworkManager::NetworkList::iterator it = list.begin();
        it != list.end(); ++it) {
-    RTC_LOG(LS_INFO) << "  Network name: " << (*it)->name();
+    RTC_DLOG(LS_INFO) << "  Network name: " << (*it)->name();
     EXPECT_TRUE((*it)->name().find("dummy0") == std::string::npos);
   }
   for (NetworkManager::NetworkList::iterator it = list.begin();

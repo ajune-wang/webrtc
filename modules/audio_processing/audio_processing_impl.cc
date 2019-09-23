@@ -433,7 +433,7 @@ AudioProcessingImpl::AudioProcessingImpl(
   // implemented.
   private_submodules_->gain_controller2.reset(new GainController2());
 
-  RTC_LOG(LS_INFO) << "Capture analyzer activated: "
+  RTC_DLOG(LS_INFO) << "Capture analyzer activated: "
                    << !!private_submodules_->capture_analyzer
                    << "\nCapture post processor activated: "
                    << !!private_submodules_->capture_post_processor
@@ -715,7 +715,7 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
 
   InitializeHighPassFilter();
 
-  RTC_LOG(LS_INFO) << "Highpass filter activated: "
+  RTC_DLOG(LS_INFO) << "Highpass filter activated: "
                    << config_.high_pass_filter.enabled;
 
   if (agc1_config_changed) {
@@ -724,7 +724,7 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
 
   const bool config_ok = GainController2::Validate(config_.gain_controller2);
   if (!config_ok) {
-    RTC_LOG(LS_ERROR) << "AudioProcessing module config error\n"
+    RTC_DLOG(LS_ERROR) << "AudioProcessing module config error\n"
                          "Gain Controller 2: "
                       << GainController2::ToString(config_.gain_controller2)
                       << "\nReverting to default parameter set";
@@ -733,9 +733,9 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
   InitializeGainController2();
   InitializePreAmplifier();
   private_submodules_->gain_controller2->ApplyConfig(config_.gain_controller2);
-  RTC_LOG(LS_INFO) << "Gain Controller 2 activated: "
+  RTC_DLOG(LS_INFO) << "Gain Controller 2 activated: "
                    << config_.gain_controller2.enabled;
-  RTC_LOG(LS_INFO) << "Pre-amplifier activated: "
+  RTC_DLOG(LS_INFO) << "Pre-amplifier activated: "
                    << config_.pre_amplifier.enabled;
 
   if (config_.level_estimation.enabled &&
@@ -895,11 +895,11 @@ void AudioProcessingImpl::RuntimeSettingEnqueuer::Enqueue(
   while (!runtime_settings_.Insert(&setting) && remaining_attempts-- > 0) {
     RuntimeSetting setting_to_discard;
     if (runtime_settings_.Remove(&setting_to_discard))
-      RTC_LOG(LS_ERROR)
+      RTC_DLOG(LS_ERROR)
           << "The runtime settings queue is full. Oldest setting discarded.";
   }
   if (remaining_attempts == 0)
-    RTC_LOG(LS_ERROR) << "Cannot enqueue a new runtime setting.";
+    RTC_DLOG(LS_ERROR) << "Cannot enqueue a new runtime setting.";
 }
 
 int AudioProcessingImpl::ProcessStream(const float* const* src,

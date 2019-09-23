@@ -344,17 +344,17 @@ int LibvpxVp8Encoder::Release() {
 
 void LibvpxVp8Encoder::SetRates(const RateControlParameters& parameters) {
   if (!inited_) {
-    RTC_LOG(LS_WARNING) << "SetRates() while not initialize";
+    RTC_DLOG(LS_WARNING) << "SetRates() while not initialize";
     return;
   }
 
   if (encoders_[0].err) {
-    RTC_LOG(LS_WARNING) << "Encoder in error state.";
+    RTC_DLOG(LS_WARNING) << "Encoder in error state.";
     return;
   }
 
   if (parameters.framerate_fps < 1.0) {
-    RTC_LOG(LS_WARNING) << "Unsupported framerate (must be >= 1.0): "
+    RTC_DLOG(LS_WARNING) << "Unsupported framerate (must be >= 1.0): "
                         << parameters.framerate_fps;
     return;
   }
@@ -414,7 +414,7 @@ void LibvpxVp8Encoder::SetRates(const RateControlParameters& parameters) {
     vpx_codec_err_t err =
         libvpx_->codec_enc_config_set(&encoders_[i], &vpx_configs_[i]);
     if (err != VPX_CODEC_OK) {
-      RTC_LOG(LS_WARNING) << "Error configuring codec, error code: " << err;
+      RTC_DLOG(LS_WARNING) << "Error configuring codec, error code: " << err;
     }
   }
 }
@@ -565,7 +565,7 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
   if (field_trial::IsEnabled(kVp8ForcePartitionResilience) &&
       (number_of_streams == 1) &&
       (SimulcastUtility::NumberOfTemporalLayers(*inst, 0) > 1)) {
-    RTC_LOG(LS_INFO) << "Overriding g_error_resilient from "
+    RTC_DLOG(LS_INFO) << "Overriding g_error_resilient from "
                      << vpx_configs_[0].g_error_resilient << " to "
                      << VPX_ERROR_RESILIENT_PARTITIONS;
     vpx_configs_[0].g_error_resilient = VPX_ERROR_RESILIENT_PARTITIONS;

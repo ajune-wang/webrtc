@@ -282,7 +282,7 @@ void RTPSender::SetRtxPayloadType(int payload_type,
   RTC_DCHECK_LE(payload_type, 127);
   RTC_DCHECK_LE(associated_payload_type, 127);
   if (payload_type < 0) {
-    RTC_LOG(LS_ERROR) << "Invalid RTX payload type: " << payload_type << ".";
+    RTC_DLOG(LS_ERROR) << "Invalid RTX payload type: " << payload_type << ".";
     return;
   }
 
@@ -373,7 +373,7 @@ bool RTPSender::SendPacketToNetwork(const RtpPacketToSend& packet,
   }
   // TODO(pwestin): Add a separate bitrate for sent bitrate after pacer.
   if (bytes_sent <= 0) {
-    RTC_LOG(LS_WARNING) << "Transport failed to send packet.";
+    RTC_DLOG(LS_WARNING) << "Transport failed to send packet.";
     return false;
   }
   return true;
@@ -387,7 +387,7 @@ void RTPSender::OnReceivedNack(
     const int32_t bytes_sent = ReSendPacket(seq_no);
     if (bytes_sent < 0) {
       // Failed to send one Sequence number. Give up the rest in this nack.
-      RTC_LOG(LS_WARNING) << "Failed resending RTP packet " << seq_no
+      RTC_DLOG(LS_WARNING) << "Failed resending RTP packet " << seq_no
                           << ", Discard rest of packets.";
       break;
     }

@@ -152,7 +152,7 @@ bool RateControlSettings::UseAlrProbing() const {
 absl::optional<int> RateControlSettings::LibvpxVp8QpMax() const {
   if (video_config_.vp8_qp_max &&
       (*video_config_.vp8_qp_max < 0 || *video_config_.vp8_qp_max > 63)) {
-    RTC_LOG(LS_WARNING) << "Unsupported vp8_qp_max_ value, ignored.";
+    RTC_DLOG(LS_WARNING) << "Unsupported vp8_qp_max_ value, ignored.";
     return absl::nullopt;
   }
   return video_config_.vp8_qp_max;

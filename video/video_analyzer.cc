@@ -724,7 +724,7 @@ void VideoAnalyzer::PrintResults() {
     test::GetTestArtifactsDir(&output_dir);
     std::string output_path =
         test::JoinFilename(output_dir, test_label_ + ".jpg");
-    RTC_LOG(LS_INFO) << "Saving worst frame to " << output_path;
+    RTC_DLOG(LS_INFO) << "Saving worst frame to " << output_path;
     test::JpegFrameWriter frame_writer(output_path);
     RTC_CHECK(
         frame_writer.WriteFrame(worst_frame_->frame, 100 /*best quality*/));

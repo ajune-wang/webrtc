@@ -268,7 +268,7 @@
   // Prepare output pointers.
   CVReturn cvRet = CVPixelBufferLockBaseAddress(outputPixelBuffer, 0);
   if (cvRet != kCVReturnSuccess) {
-    RTC_LOG(LS_ERROR) << "Failed to lock base address: " << cvRet;
+    RTC_DLOG(LS_ERROR) << "Failed to lock base address: " << cvRet;
   }
   const int dstWidth = CVPixelBufferGetWidth(outputPixelBuffer);
   const int dstHeight = CVPixelBufferGetHeight(outputPixelBuffer);
@@ -312,7 +312,7 @@
   // Prepare output pointers.
   CVReturn cvRet = CVPixelBufferLockBaseAddress(outputPixelBuffer, 0);
   if (cvRet != kCVReturnSuccess) {
-    RTC_LOG(LS_ERROR) << "Failed to lock base address: " << cvRet;
+    RTC_DLOG(LS_ERROR) << "Failed to lock base address: " << cvRet;
   }
   const int dstWidth = CVPixelBufferGetWidth(outputPixelBuffer);
   const int dstHeight = CVPixelBufferGetHeight(outputPixelBuffer);

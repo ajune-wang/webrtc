@@ -60,7 +60,7 @@ class FakeNetworkManagerWithNoAnyNetwork : public rtc::FakeNetworkManager {
     // all networks independent of the network manager.
     // In order to prevent use-after-free issues, don't allow this
     // function to have any effect when run in tests.
-    RTC_LOG(LS_INFO) << "FakeNetworkManager::GetAnyAddressNetworks ignored";
+    RTC_DLOG(LS_INFO) << "FakeNetworkManager::GetAnyAddressNetworks ignored";
   }
 };
 

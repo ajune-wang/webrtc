@@ -33,11 +33,11 @@ AudioManager::JavaAudioManager::JavaAudioManager(
       is_device_blacklisted_for_open_sles_usage_(
           native_reg->GetMethodId("isDeviceBlacklistedForOpenSLESUsage",
                                   "()Z")) {
-  RTC_LOG(INFO) << "JavaAudioManager::ctor";
+  RTC_DLOG(INFO) << "JavaAudioManager::ctor";
 }
 
 AudioManager::JavaAudioManager::~JavaAudioManager() {
-  RTC_LOG(INFO) << "JavaAudioManager::~dtor";
+  RTC_DLOG(INFO) << "JavaAudioManager::~dtor";
 }
 
 bool AudioManager::JavaAudioManager::Init() {
@@ -68,7 +68,7 @@ AudioManager::AudioManager()
       low_latency_playout_(false),
       low_latency_record_(false),
       delay_estimate_in_milliseconds_(0) {
-  RTC_LOG(INFO) << "ctor";
+  RTC_DLOG(INFO) << "ctor";
   RTC_CHECK(j_environment_);
   JNINativeMethod native_methods[] = {
       {"nativeCacheAudioParameters", "(IIIZZZZZZZIIJ)V",
@@ -83,14 +83,14 @@ AudioManager::AudioManager()
 }
 
 AudioManager::~AudioManager() {
-  RTC_LOG(INFO) << "dtor";
+  RTC_DLOG(INFO) << "dtor";
   RTC_DCHECK(thread_checker_.IsCurrent());
   Close();
 }
 
 void AudioManager::SetActiveAudioLayer(
     AudioDeviceModule::AudioLayer audio_layer) {
-  RTC_LOG(INFO) << "SetActiveAudioLayer: " << audio_layer;
+  RTC_DLOG(INFO) << "SetActiveAudioLayer: " << audio_layer;
   RTC_DCHECK(thread_checker_.IsCurrent());
   RTC_DCHECK(!initialized_);
   // Store the currently utilized audio layer.
@@ -103,18 +103,18 @@ void AudioManager::SetActiveAudioLayer(
       (audio_layer == AudioDeviceModule::kAndroidJavaAudio)
           ? kHighLatencyModeDelayEstimateInMilliseconds
           : kLowLatencyModeDelayEstimateInMilliseconds;
-  RTC_LOG(INFO) << "delay_estimate_in_milliseconds: "
+  RTC_DLOG(INFO) << "delay_estimate_in_milliseconds: "
                 << delay_estimate_in_milliseconds_;
 }
 
 SLObjectItf AudioManager::GetOpenSLEngine() {
-  RTC_LOG(INFO) << "GetOpenSLEngine";
+  RTC_DLOG(INFO) << "GetOpenSLEngine";
   RTC_DCHECK(thread_checker_.IsCurrent());
   // Only allow usage of OpenSL ES if such an audio layer has been specified.
   if (audio_layer_ != AudioDeviceModule::kAndroidOpenSLESAudio &&
       audio_layer_ !=
           AudioDeviceModule::kAndroidJavaInputAndOpenSLESOutputAudio) {
-    RTC_LOG(INFO)
+    RTC_DLOG(INFO)
         << "Unable to create OpenSL engine for the current audio layer: "
         << audio_layer_;
     return nullptr;
@@ -123,7 +123,7 @@ SLObjectItf AudioManager::GetOpenSLEngine() {
   // If one already has been created, return existing object instead of
   // creating a new.
   if (engine_object_.Get() != nullptr) {
-    RTC_LOG(WARNING) << "The OpenSL ES engine object has already been created";
+    RTC_DLOG(WARNING) << "The OpenSL ES engine object has already been created";
     return engine_object_.Get();
   }
   // Create the engine object in thread safe mode.
@@ -132,7 +132,7 @@ SLObjectItf AudioManager::GetOpenSLEngine() {
   SLresult result =
       slCreateEngine(engine_object_.Receive(), 1, option, 0, NULL, NULL);
   if (result != SL_RESULT_SUCCESS) {
-    RTC_LOG(LS_ERROR) << "slCreateEngine() failed: "
+    RTC_DLOG(LS_ERROR) << "slCreateEngine() failed: "
                       << GetSLErrorString(result);
     engine_object_.Reset();
     return nullptr;
@@ -140,7 +140,7 @@ SLObjectItf AudioManager::GetOpenSLEngine() {
   // Realize the SL Engine in synchronous mode.
   result = engine_object_->Realize(engine_object_.Get(), SL_BOOLEAN_FALSE);
   if (result != SL_RESULT_SUCCESS) {
-    RTC_LOG(LS_ERROR) << "Realize() failed: " << GetSLErrorString(result);
+    RTC_DLOG(LS_ERROR) << "Realize() failed: " << GetSLErrorString(result);
     engine_object_.Reset();
     return nullptr;
   }
@@ -149,12 +149,12 @@ SLObjectItf AudioManager::GetOpenSLEngine() {
 }
 
 bool AudioManager::Init() {
-  RTC_LOG(INFO) << "Init";
+  RTC_DLOG(INFO) << "Init";
   RTC_DCHECK(thread_checker_.IsCurrent());
   RTC_DCHECK(!initialized_);
   RTC_DCHECK_NE(audio_layer_, AudioDeviceModule::kPlatformDefaultAudio);
   if (!j_audio_manager_->Init()) {
-    RTC_LOG(LS_ERROR) << "Init() failed";
+    RTC_DLOG(LS_ERROR) << "Init() failed";
     return false;
   }
   initialized_ = true;
@@ -162,7 +162,7 @@ bool AudioManager::Init() {
 }
 
 bool AudioManager::Close() {
-  RTC_LOG(INFO) << "Close";
+  RTC_DLOG(INFO) << "Close";
   RTC_DCHECK(thread_checker_.IsCurrent());
   if (!initialized_)
     return true;
@@ -273,7 +273,7 @@ void AudioManager::OnCacheAudioParameters(JNIEnv* env,
                                           jboolean a_audio,
                                           jint output_buffer_size,
                                           jint input_buffer_size) {
-  RTC_LOG(INFO)
+  RTC_DLOG(INFO)
       << "OnCacheAudioParameters: "
       << "hardware_aec: " << static_cast<bool>(hardware_aec)
       << ", hardware_agc: " << static_cast<bool>(hardware_agc)

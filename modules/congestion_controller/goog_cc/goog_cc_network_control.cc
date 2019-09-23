@@ -219,7 +219,7 @@ NetworkControlUpdate GoogCcNetworkController::OnProcessInterval(
 NetworkControlUpdate GoogCcNetworkController::OnRemoteBitrateReport(
     RemoteBitrateReport msg) {
   if (packet_feedback_only_) {
-    RTC_LOG(LS_ERROR) << "Received REMB for packet feedback only GoogCC";
+    RTC_DLOG(LS_ERROR) << "Received REMB for packet feedback only GoogCC";
     return NetworkControlUpdate();
   }
   bandwidth_estimation_->UpdateReceiverEstimate(msg.receive_time,
@@ -337,11 +337,11 @@ void GoogCcNetworkController::ClampConstraints() {
   if (use_min_allocatable_as_lower_bound_)
     min_data_rate_ = std::max(min_data_rate_, min_total_allocated_bitrate_);
   if (max_data_rate_ < min_data_rate_) {
-    RTC_LOG(LS_WARNING) << "max bitrate smaller than min bitrate";
+    RTC_DLOG(LS_WARNING) << "max bitrate smaller than min bitrate";
     max_data_rate_ = min_data_rate_;
   }
   if (starting_rate_ && starting_rate_ < min_data_rate_) {
-    RTC_LOG(LS_WARNING) << "start bitrate smaller than min bitrate";
+    RTC_DLOG(LS_WARNING) << "start bitrate smaller than min bitrate";
     starting_rate_ = min_data_rate_;
   }
 }
@@ -647,7 +647,7 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
                                          probes.begin(), probes.end());
     update->pacer_config = GetPacingRates(at_time);
 
-    RTC_LOG(LS_VERBOSE) << "bwe " << at_time.ms() << " pushback_target_bps="
+    RTC_DLOG(LS_VERBOSE) << "bwe " << at_time.ms() << " pushback_target_bps="
                         << last_pushback_target_rate_.bps()
                         << " estimate_bps=" << last_raw_target_rate_.bps();
   }

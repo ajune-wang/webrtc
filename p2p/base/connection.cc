@@ -272,7 +272,7 @@ Connection::Connection(Port* port,
   // TODO(mallinath) - Start connections from STATE_FROZEN.
   // Wire up to send stun packets
   requests_.SignalSendPacket.connect(this, &Connection::OnSendStunPacket);
-  RTC_LOG(LS_INFO) << ToString() << ": Connection created";
+  RTC_DLOG(LS_INFO) << ToString() << ": Connection created";
 }
 
 Connection::~Connection() {}
@@ -315,7 +315,7 @@ void Connection::set_write_state(WriteState value) {
   WriteState old_value = write_state_;
   write_state_ = value;
   if (value != old_value) {
-    RTC_LOG(LS_VERBOSE) << ToString() << ": set_write_state from: " << old_value
+    RTC_DLOG(LS_VERBOSE) << ToString() << ": set_write_state from: " << old_value
                         << " to " << value;
     SignalStateChange(this);
   }
@@ -340,7 +340,7 @@ void Connection::UpdateReceiving(int64_t now) {
   if (receiving_ == receiving) {
     return;
   }
-  RTC_LOG(LS_VERBOSE) << ToString() << ": set_receiving to " << receiving;
+  RTC_DLOG(LS_VERBOSE) << ToString() << ": set_receiving to " << receiving;
   receiving_ = receiving;
   receiving_unchanged_since_ = now;
   SignalStateChange(this);
@@ -350,7 +350,7 @@ void Connection::set_state(IceCandidatePairState state) {
   IceCandidatePairState old_state = state_;
   state_ = state;
   if (state != old_state) {
-    RTC_LOG(LS_VERBOSE) << ToString() << ": set_state";
+    RTC_DLOG(LS_VERBOSE) << ToString() << ": set_state";
   }
 }
 
@@ -358,7 +358,7 @@ void Connection::set_connected(bool value) {
   bool old_value = connected_;
   connected_ = value;
   if (value != old_value) {
-    RTC_LOG(LS_VERBOSE) << ToString() << ": Change connected_ to " << value;
+    RTC_DLOG(LS_VERBOSE) << ToString() << ": Change connected_ to " << value;
     SignalStateChange(this);
   }
 }
@@ -392,7 +392,7 @@ void Connection::OnSendStunPacket(const void* data,
   auto err =
       port_->SendTo(data, size, remote_candidate_.address(), options, false);
   if (err < 0) {
-    RTC_LOG(LS_WARNING) << ToString()
+    RTC_DLOG(LS_WARNING) << ToString()
                         << ": Failed to send STUN ping "
                            " err="
                         << err << " id=" << rtc::hex_encode(req->id());
@@ -415,7 +415,7 @@ void Connection::OnReadPacket(const char* data,
 
     // If timed out sending writability checks, start up again
     if (!pruned_ && (write_state_ == STATE_WRITE_TIMEOUT)) {
-      RTC_LOG(LS_WARNING)
+      RTC_DLOG(LS_WARNING)
           << "Received a data packet on a timed-out Connection. "
              "Resetting state to STATE_WRITE_INIT.";
       set_write_state(STATE_WRITE_INIT);
@@ -439,7 +439,7 @@ void Connection::OnReadPacket(const char* data,
         } else {
           // The packet had the right local username, but the remote username
           // was not the right one for the remote address.
-          RTC_LOG(LS_ERROR)
+          RTC_DLOG(LS_ERROR)
               << ToString()
               << ": Received STUN request with bad remote username "
               << remote_ufrag;
@@ -486,14 +486,14 @@ void Connection::HandleBindingRequest(IceMessage* msg) {
         remote_candidate().type() == PRFLX_PORT_TYPE) {
       const int64_t now = rtc::TimeMillis();
       if (last_ping_sent_ + kMinExtraPingDelayMs <= now) {
-        RTC_LOG(LS_INFO) << ToString()
+        RTC_DLOG(LS_INFO) << ToString()
                          << "WebRTC-ExtraICEPing/Sending extra ping"
                          << " last_ping_sent_: " << last_ping_sent_
                          << " now: " << now
                          << " (diff: " << (now - last_ping_sent_) << ")";
         Ping(now);
       } else {
-        RTC_LOG(LS_INFO) << ToString()
+        RTC_DLOG(LS_INFO) << ToString()
                          << "WebRTC-ExtraICEPing/Not sending extra ping"
                          << " last_ping_sent_: " << last_ping_sent_
                          << " now: " << now
@@ -507,7 +507,7 @@ void Connection::HandleBindingRequest(IceMessage* msg) {
   // Check for role conflicts.
   if (!port_->MaybeIceRoleConflict(remote_addr, msg, remote_ufrag)) {
     // Received conflicting role from the peer.
-    RTC_LOG(LS_INFO) << "Received conflicting role from the peer.";
+    RTC_DLOG(LS_INFO) << "Received conflicting role from the peer.";
     return;
   }
 
@@ -530,7 +530,7 @@ void Connection::HandleBindingRequest(IceMessage* msg) {
     if (nomination_attr) {
       nomination = nomination_attr->value();
       if (nomination == 0) {
-        RTC_LOG(LS_ERROR) << "Invalid nomination: " << nomination;
+        RTC_DLOG(LS_ERROR) << "Invalid nomination: " << nomination;
       }
     } else {
       const StunByteStringAttribute* use_candidate_attr =
@@ -573,7 +573,7 @@ void Connection::OnReadyToSend() {
 
 void Connection::Prune() {
   if (!pruned_ || active()) {
-    RTC_LOG(LS_INFO) << ToString() << ": Connection pruned";
+    RTC_DLOG(LS_INFO) << ToString() << ": Connection pruned";
     pruned_ = true;
     requests_.Clear();
     set_write_state(STATE_WRITE_TIMEOUT);
@@ -586,7 +586,7 @@ void Connection::Destroy() {
   // with the networking thread on which this message is posted). Also affects
   // tests, with a workaround in
   // AutoSocketServerThread::~AutoSocketServerThread.
-  RTC_LOG(LS_VERBOSE) << ToString() << ": Connection destroyed";
+  RTC_DLOG(LS_VERBOSE) << ToString() << ": Connection destroyed";
   port_->thread()->Post(RTC_FROM_HERE, this, MSG_DELETE);
   LogCandidatePairConfig(webrtc::IceCandidatePairConfigType::kDestroyed);
 }
@@ -623,7 +623,7 @@ void Connection::UpdateState(int64_t now) {
   if (RTC_LOG_CHECK_LEVEL(LS_VERBOSE)) {
     std::string pings;
     PrintPingsSinceLastResponse(&pings, 5);
-    RTC_LOG(LS_VERBOSE) << ToString()
+    RTC_DLOG(LS_VERBOSE) << ToString()
                         << ": UpdateState()"
                            ", ms since last received response="
                         << now - last_ping_response_received_
@@ -647,7 +647,7 @@ void Connection::UpdateState(int64_t now) {
       TooLongWithoutResponse(pings_since_last_response_, unwritable_timeout(),
                              now)) {
     uint32_t max_pings = unwritable_min_checks();
-    RTC_LOG(LS_INFO) << ToString() << ": Unwritable after " << max_pings
+    RTC_DLOG(LS_INFO) << ToString() << ": Unwritable after " << max_pings
                      << " ping failures and "
                      << now - pings_since_last_response_[0].sent_time
                      << " ms without a response,"
@@ -661,7 +661,7 @@ void Connection::UpdateState(int64_t now) {
        write_state_ == STATE_WRITE_INIT) &&
       TooLongWithoutResponse(pings_since_last_response_, inactive_timeout(),
                              now)) {
-    RTC_LOG(LS_INFO) << ToString() << ": Timed out after "
+    RTC_DLOG(LS_INFO) << ToString() << ": Timed out after "
                      << now - pings_since_last_response_[0].sent_time
                      << " ms without a response, rtt=" << rtt;
     set_write_state(STATE_WRITE_TIMEOUT);
@@ -685,7 +685,7 @@ void Connection::Ping(int64_t now) {
     nomination = nomination_;
   }
   pings_since_last_response_.push_back(SentPing(req->id(), now, nomination));
-  RTC_LOG(LS_VERBOSE) << ToString() << ": Sending STUN ping, id="
+  RTC_DLOG(LS_VERBOSE) << ToString() << ": Sending STUN ping, id="
                       << rtc::hex_encode(req->id())
                       << ", nomination=" << nomination_;
   requests_.Send(req);
@@ -920,7 +920,7 @@ void Connection::OnConnectionRequestResponse(ConnectionRequest* request,
 void Connection::OnConnectionRequestErrorResponse(ConnectionRequest* request,
                                                   StunMessage* response) {
   int error_code = response->GetErrorCodeValue();
-  RTC_LOG(LS_WARNING) << ToString() << ": Received STUN error response id="
+  RTC_DLOG(LS_WARNING) << ToString() << ": Received STUN error response id="
                       << rtc::hex_encode(request->id())
                       << " code=" << error_code
                       << " rtt=" << request->Elapsed();
@@ -935,7 +935,7 @@ void Connection::OnConnectionRequestErrorResponse(ConnectionRequest* request,
     HandleRoleConflictFromPeer();
   } else {
     // This is not a valid connection.
-    RTC_LOG(LS_ERROR) << ToString()
+    RTC_DLOG(LS_ERROR) << ToString()
                       << ": Received STUN error response, code=" << error_code
                       << "; killing connection";
     FailAndDestroy();
@@ -1001,7 +1001,7 @@ void Connection::MaybeUpdatePeerReflexiveCandidate(
 
 void Connection::OnMessage(rtc::Message* pmsg) {
   RTC_DCHECK(pmsg->message_id == MSG_DELETE);
-  RTC_LOG(LS_INFO) << "Connection deleted with number of pings sent: "
+  RTC_DLOG(LS_INFO) << "Connection deleted with number of pings sent: "
                    << num_pings_sent_;
   SignalDestroyed(this);
   delete this;
@@ -1043,7 +1043,7 @@ void Connection::MaybeUpdateLocalCandidate(ConnectionRequest* request,
   const StunAddressAttribute* addr =
       response->GetAddress(STUN_ATTR_XOR_MAPPED_ADDRESS);
   if (!addr) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Connection::OnConnectionRequestResponse - "
            "No MAPPED-ADDRESS or XOR-MAPPED-ADDRESS found in the "
            "stun response message";
@@ -1053,7 +1053,7 @@ void Connection::MaybeUpdateLocalCandidate(ConnectionRequest* request,
   for (size_t i = 0; i < port_->Candidates().size(); ++i) {
     if (port_->Candidates()[i].address() == addr->GetAddress()) {
       if (local_candidate_index_ != i) {
-        RTC_LOG(LS_INFO) << ToString()
+        RTC_DLOG(LS_INFO) << ToString()
                          << ": Updating local candidate type to srflx.";
         local_candidate_index_ = i;
         // SignalStateChange to force a re-sort in P2PTransportChannel as this
@@ -1070,7 +1070,7 @@ void Connection::MaybeUpdateLocalCandidate(ConnectionRequest* request,
   const StunUInt32Attribute* priority_attr =
       request->msg()->GetUInt32(STUN_ATTR_PRIORITY);
   if (!priority_attr) {
-    RTC_LOG(LS_WARNING) << "Connection::OnConnectionRequestResponse - "
+    RTC_DLOG(LS_WARNING) << "Connection::OnConnectionRequestResponse - "
                            "No STUN_ATTR_PRIORITY found in the "
                            "stun response message";
     return;
@@ -1098,7 +1098,7 @@ void Connection::MaybeUpdateLocalCandidate(ConnectionRequest* request,
   new_local_candidate.set_network_cost(local_candidate().network_cost());
 
   // Change the local candidate of this Connection to the new prflx candidate.
-  RTC_LOG(LS_INFO) << ToString() << ": Updating local candidate type to prflx.";
+  RTC_DLOG(LS_INFO) << ToString() << ": Updating local candidate type to prflx.";
   local_candidate_index_ = port_->AddPrflxCandidate(new_local_candidate);
 
   // SignalStateChange to force a re-sort in P2PTransportChannel as this

@@ -316,7 +316,7 @@ void AecDumpBasedSimulator::HandleMessage(
       if (settings_.use_drift_compensation
               ? *settings_.use_drift_compensation
               : msg.aec_drift_compensation_enabled()) {
-        RTC_LOG(LS_ERROR)
+        RTC_DLOG(LS_ERROR)
             << "Ignoring deprecated setting: AEC2 drift compensation";
       }
     }
@@ -339,7 +339,7 @@ void AecDumpBasedSimulator::HandleMessage(
                                           : msg.aec_suppression_level());
       if (level ==
           webrtc::EchoCancellationImpl::SuppressionLevel::kLowSuppression) {
-        RTC_LOG(LS_ERROR)
+        RTC_DLOG(LS_ERROR)
             << "Ignoring deprecated setting: AEC2 low suppression";
       } else {
         apm_config.echo_canceller.legacy_moderate_suppression_level =
@@ -364,13 +364,13 @@ void AecDumpBasedSimulator::HandleMessage(
 
     if (msg.has_aecm_comfort_noise_enabled() &&
         msg.aecm_comfort_noise_enabled()) {
-      RTC_LOG(LS_ERROR) << "Ignoring deprecated setting: AECM comfort noise";
+      RTC_DLOG(LS_ERROR) << "Ignoring deprecated setting: AECM comfort noise";
     }
 
     if (msg.has_aecm_routing_mode() &&
         static_cast<webrtc::EchoControlMobileImpl::RoutingMode>(
             msg.aecm_routing_mode()) != EchoControlMobileImpl::kSpeakerphone) {
-      RTC_LOG(LS_ERROR) << "Ignoring deprecated setting: AECM routing mode: "
+      RTC_DLOG(LS_ERROR) << "Ignoring deprecated setting: AECM routing mode: "
                         << msg.aecm_routing_mode();
     }
 

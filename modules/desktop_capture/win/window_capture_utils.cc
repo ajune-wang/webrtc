@@ -173,7 +173,7 @@ WindowCaptureHelperWin::WindowCaptureHelperWin() {
     if (FAILED(::CoCreateInstance(__uuidof(VirtualDesktopManager), nullptr,
                                   CLSCTX_ALL,
                                   IID_PPV_ARGS(&virtual_desktop_manager_)))) {
-      RTC_LOG(LS_WARNING) << "Fail to create instance of VirtualDesktopManager";
+      RTC_DLOG(LS_WARNING) << "Fail to create instance of VirtualDesktopManager";
     }
   }
 }

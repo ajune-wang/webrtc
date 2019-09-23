@@ -218,7 +218,7 @@ int64_t FrameBuffer::FindNextFrame(int64_t now_ms) {
       }
       // All frames in the superframe should have the same timestamp.
       if (frame->Timestamp() != next_frame_it->second.frame->Timestamp()) {
-        RTC_LOG(LS_WARNING) << "Frames in a single superframe have different"
+        RTC_DLOG(LS_WARNING) << "Frames in a single superframe have different"
                                " timestamps. Skipping undecodable superframe.";
         break;
       }
@@ -348,14 +348,14 @@ bool FrameBuffer::HasBadRenderTiming(const EncodedFrame& frame,
   const int64_t kMaxVideoDelayMs = 10000;
   if (std::abs(render_time_ms - now_ms) > kMaxVideoDelayMs) {
     int frame_delay = static_cast<int>(std::abs(render_time_ms - now_ms));
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "A frame about to be decoded is out of the configured "
         << "delay bounds (" << frame_delay << " > " << kMaxVideoDelayMs
         << "). Resetting the video jitter buffer.";
     return true;
   }
   if (static_cast<int>(timing_->TargetVideoDelay()) > kMaxVideoDelayMs) {
-    RTC_LOG(LS_WARNING) << "The video target delay has grown larger than "
+    RTC_DLOG(LS_WARNING) << "The video target delay has grown larger than "
                         << kMaxVideoDelayMs << " ms.";
     return true;
   }
@@ -469,7 +469,7 @@ int64_t FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
       !last_continuous_frame_ ? -1 : last_continuous_frame_->picture_id;
 
   if (!ValidReferences(*frame)) {
-    RTC_LOG(LS_WARNING) << "Frame with (picture_id:spatial_id) ("
+    RTC_DLOG(LS_WARNING) << "Frame with (picture_id:spatial_id) ("
                         << id.picture_id << ":"
                         << static_cast<int>(id.spatial_layer)
                         << ") has invalid frame references, dropping frame.";
@@ -478,14 +478,14 @@ int64_t FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
 
   if (frames_.size() >= kMaxFramesBuffered) {
     if (frame->is_keyframe()) {
-      RTC_LOG(LS_WARNING) << "Inserting keyframe (picture_id:spatial_id) ("
+      RTC_DLOG(LS_WARNING) << "Inserting keyframe (picture_id:spatial_id) ("
                           << id.picture_id << ":"
                           << static_cast<int>(id.spatial_layer)
                           << ") but buffer is full, clearing"
                           << " buffer and inserting the frame.";
       ClearFramesAndHistory();
     } else {
-      RTC_LOG(LS_WARNING) << "Frame with (picture_id:spatial_id) ("
+      RTC_DLOG(LS_WARNING) << "Frame with (picture_id:spatial_id) ("
                           << id.picture_id << ":"
                           << static_cast<int>(id.spatial_layer)
                           << ") could not be inserted due to the frame "
@@ -505,12 +505,12 @@ int64_t FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
       // reconfiguration or some other reason. Even though this is not according
       // to spec we can still continue to decode from this frame if it is a
       // keyframe.
-      RTC_LOG(LS_WARNING)
+      RTC_DLOG(LS_WARNING)
           << "A jump in picture id was detected, clearing buffer.";
       ClearFramesAndHistory();
       last_continuous_picture_id = -1;
     } else {
-      RTC_LOG(LS_WARNING) << "Frame with (picture_id:spatial_id) ("
+      RTC_DLOG(LS_WARNING) << "Frame with (picture_id:spatial_id) ("
                           << id.picture_id << ":"
                           << static_cast<int>(id.spatial_layer)
                           << ") inserted after frame ("
@@ -526,7 +526,7 @@ int64_t FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
   // when the picture id make large jumps mid stream.
   if (!frames_.empty() && id < frames_.begin()->first &&
       frames_.rbegin()->first < id) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "A jump in picture id was detected, clearing buffer.";
     ClearFramesAndHistory();
     last_continuous_picture_id = -1;
@@ -535,7 +535,7 @@ int64_t FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
   auto info = frames_.emplace(id, FrameInfo()).first;
 
   if (info->second.frame) {
-    RTC_LOG(LS_WARNING) << "Frame with (picture_id:spatial_id) ("
+    RTC_DLOG(LS_WARNING) << "Frame with (picture_id:spatial_id) ("
                         << id.picture_id << ":"
                         << static_cast<int>(id.spatial_layer)
                         << ") already inserted, dropping frame.";
@@ -658,7 +658,7 @@ bool FrameBuffer::UpdateFrameInfoWithIncomingFrame(const EncodedFrame& frame,
       if (!decoded_frames_history_.WasDecoded(ref_key)) {
         int64_t now_ms = clock_->TimeInMilliseconds();
         if (last_log_non_decoded_ms_ + kLogNonDecodedIntervalMs < now_ms) {
-          RTC_LOG(LS_WARNING)
+          RTC_DLOG(LS_WARNING)
               << "Frame with (picture_id:spatial_id) (" << id.picture_id << ":"
               << static_cast<int>(id.spatial_layer)
               << ") depends on a non-decoded frame more previous than"

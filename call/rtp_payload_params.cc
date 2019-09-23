@@ -308,7 +308,7 @@ void RtpPayloadParams::H264ToGeneric(const CodecSpecificInfoH264& h264_info,
       h264_info.temporal_idx != kNoTemporalIdx ? h264_info.temporal_idx : 0;
 
   if (temporal_index >= RtpGenericFrameDescriptor::kMaxTemporalLayers) {
-    RTC_LOG(LS_WARNING) << "Temporal and/or spatial index is too high to be "
+    RTC_DLOG(LS_WARNING) << "Temporal and/or spatial index is too high to be "
                            "used with generic frame descriptor.";
     return;
   }
@@ -365,7 +365,7 @@ void RtpPayloadParams::Vp8ToGeneric(const CodecSpecificInfoVP8& vp8_info,
 
   if (temporal_index >= RtpGenericFrameDescriptor::kMaxTemporalLayers ||
       spatial_index >= RtpGenericFrameDescriptor::kMaxSpatialLayers) {
-    RTC_LOG(LS_WARNING) << "Temporal and/or spatial index is too high to be "
+    RTC_DLOG(LS_WARNING) << "Temporal and/or spatial index is too high to be "
                            "used with generic frame descriptor.";
     return;
   }

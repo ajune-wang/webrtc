@@ -157,7 +157,7 @@ LoggingNetworkControllerFactory::LoggingNetworkControllerFactory(
   if (config.cc_factory) {
     cc_factory_ = config.cc_factory;
     if (log_writer_factory)
-      RTC_LOG(LS_WARNING)
+      RTC_DLOG(LS_WARNING)
           << "Can't log controller state for injected network controllers";
   } else {
     if (log_writer_factory) {

@@ -38,12 +38,12 @@ int main(int argc, char* argv[]) {
   absl::ParseCommandLine(argc, argv);
   // Check parameters.
   if (absl::GetFlag(FLAGS_f) < 1 || absl::GetFlag(FLAGS_f) > kMaxFrameLenMs) {
-    RTC_LOG(LS_ERROR) << "Invalid frame length (min: 1, max: " << kMaxFrameLenMs
+    RTC_DLOG(LS_ERROR) << "Invalid frame length (min: 1, max: " << kMaxFrameLenMs
                       << ")";
     return 1;
   }
   if (absl::GetFlag(FLAGS_a) < 0 || absl::GetFlag(FLAGS_d) < 0) {
-    RTC_LOG(LS_ERROR) << "Attack and decay must be non-negative";
+    RTC_DLOG(LS_ERROR) << "Attack and decay must be non-negative";
     return 1;
   }
 
@@ -53,11 +53,11 @@ int main(int argc, char* argv[]) {
   const std::string levels_output_file = absl::GetFlag(FLAGS_ol);
   WavReader wav_reader(input_file);
   if (wav_reader.num_channels() != 1) {
-    RTC_LOG(LS_ERROR) << "Only mono wav files supported";
+    RTC_DLOG(LS_ERROR) << "Only mono wav files supported";
     return 1;
   }
   if (wav_reader.sample_rate() > kMaxSampleRate) {
-    RTC_LOG(LS_ERROR) << "Beyond maximum sample rate (" << kMaxSampleRate
+    RTC_DLOG(LS_ERROR) << "Beyond maximum sample rate (" << kMaxSampleRate
                       << ")";
     return 1;
   }

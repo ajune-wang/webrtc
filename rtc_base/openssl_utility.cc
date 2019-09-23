@@ -97,7 +97,7 @@ void LogSSLErrors(const std::string& prefix) {
 
   while ((err = ERR_get_error()) != 0) {
     ERR_error_string_n(err, error_buf, sizeof(error_buf));
-    RTC_LOG(LS_ERROR) << prefix << ": " << error_buf << "\n";
+    RTC_DLOG(LS_ERROR) << prefix << ": " << error_buf << "\n";
   }
 }
 
@@ -112,7 +112,7 @@ bool LoadBuiltinSSLRootCertificates(SSL_CTX* ctx) {
     if (cert) {
       int return_value = X509_STORE_add_cert(SSL_CTX_get_cert_store(ctx), cert);
       if (return_value == 0) {
-        RTC_LOG(LS_WARNING) << "Unable to add certificate.";
+        RTC_DLOG(LS_WARNING) << "Unable to add certificate.";
       } else {
         count_of_added_certs++;
       }

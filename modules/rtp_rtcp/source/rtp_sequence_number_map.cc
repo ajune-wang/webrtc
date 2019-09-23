@@ -43,7 +43,7 @@ void RtpSequenceNumberMap::InsertPacket(uint16_t sequence_number, Info info) {
       AheadOrAt(associations_.back().sequence_number, sequence_number)) {
     // The sequence number has wrapped around and is within the range
     // currently held by |associations_| - we should invalidate all entries.
-    RTC_LOG(LS_WARNING) << "Sequence number wrapped-around unexpectedly.";
+    RTC_DLOG(LS_WARNING) << "Sequence number wrapped-around unexpectedly.";
     associations_.clear();
     associations_.emplace_back(sequence_number, info);
     return;

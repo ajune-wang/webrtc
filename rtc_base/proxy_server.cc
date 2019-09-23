@@ -53,7 +53,7 @@ void ProxyServer::OnAcceptEvent(AsyncSocket* socket) {
     bindings_.emplace_back(
         std::make_unique<ProxyBinding>(wrapped_socket, ext_socket));
   } else {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "Unable to create external socket on proxy accept event";
   }
 }

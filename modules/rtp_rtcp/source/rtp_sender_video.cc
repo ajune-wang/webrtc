@@ -273,7 +273,7 @@ void RTPSenderVideo::SendVideoPacket(std::unique_ptr<RtpPacketToSend> packet) {
   uint16_t seq_num = packet->SequenceNumber();
   packet->set_packet_type(RtpPacketToSend::Type::kVideo);
   if (!LogAndSendToNetwork(std::move(packet))) {
-    RTC_LOG(LS_WARNING) << "Failed to send video packet " << seq_num;
+    RTC_DLOG(LS_WARNING) << "Failed to send video packet " << seq_num;
     return;
   }
   rtc::CritScope cs(&stats_crit_);
@@ -335,7 +335,7 @@ void RTPSenderVideo::SendVideoPacketAsRedMaybeWithUlpfec(
     rtc::CritScope cs(&stats_crit_);
     video_bitrate_.Update(red_packet_size, clock_->TimeInMilliseconds());
   } else {
-    RTC_LOG(LS_WARNING) << "Failed to send RED packet " << media_seq_num;
+    RTC_DLOG(LS_WARNING) << "Failed to send RED packet " << media_seq_num;
   }
   for (const auto& fec_packet : fec_packets) {
     // TODO(danilchap): Make ulpfec_generator_ generate RtpPacketToSend to avoid
@@ -351,7 +351,7 @@ void RTPSenderVideo::SendVideoPacketAsRedMaybeWithUlpfec(
       rtc::CritScope cs(&stats_crit_);
       fec_bitrate_.Update(fec_packet->length(), clock_->TimeInMilliseconds());
     } else {
-      RTC_LOG(LS_WARNING) << "Failed to send ULPFEC packet "
+      RTC_DLOG(LS_WARNING) << "Failed to send ULPFEC packet "
                           << fec_sequence_number;
     }
   }
@@ -380,7 +380,7 @@ void RTPSenderVideo::SendVideoPacketWithFlexfec(
         rtc::CritScope cs(&stats_crit_);
         fec_bitrate_.Update(packet_length, clock_->TimeInMilliseconds());
       } else {
-        RTC_LOG(LS_WARNING) << "Failed to send FlexFEC packet " << seq_num;
+        RTC_DLOG(LS_WARNING) << "Failed to send FlexFEC packet " << seq_num;
       }
     }
   }
@@ -597,7 +597,7 @@ bool RTPSenderVideo::SendVideo(
 
   if (!generic_descriptor_raw_00.empty() &&
       !generic_descriptor_raw_01.empty()) {
-    RTC_LOG(LS_WARNING) << "Two versions of GFD extension used.";
+    RTC_DLOG(LS_WARNING) << "Two versions of GFD extension used.";
     return false;
   }
 
@@ -641,7 +641,7 @@ bool RTPSenderVideo::SendVideo(
     payload_data = encrypted_video_payload.data();
     payload_size = encrypted_video_payload.size();
   } else if (require_frame_encryption_) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "No FrameEncryptor is attached to this video sending stream but "
         << "one is required since require_frame_encryptor is set";
   }
@@ -651,7 +651,7 @@ bool RTPSenderVideo::SendVideo(
     rtc::CritScope cs(&payload_type_crit_);
     const auto it = payload_type_map_.find(payload_type);
     if (it == payload_type_map_.end()) {
-      RTC_LOG(LS_ERROR) << "Payload type " << static_cast<int>(payload_type)
+      RTC_DLOG(LS_ERROR) << "Payload type " << static_cast<int>(payload_type)
                         << " not registered.";
       return false;
     }
@@ -753,11 +753,11 @@ bool RTPSenderVideo::SendVideo(
 
     if (first_frame) {
       if (i == 0) {
-        RTC_LOG(LS_INFO)
+        RTC_DLOG(LS_INFO)
             << "Sent first RTP packet of the first video frame (pre-pacer)";
       }
       if (i == num_packets - 1) {
-        RTC_LOG(LS_INFO)
+        RTC_DLOG(LS_INFO)
             << "Sent last RTP packet of the first video frame (pre-pacer)";
       }
     }

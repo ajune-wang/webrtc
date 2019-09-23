@@ -147,8 +147,8 @@ TEST(LogTest, SingleStream) {
   LogMessage::AddLogToStream(&stream, LS_INFO);
   EXPECT_EQ(LS_INFO, LogMessage::GetLogToStream(&stream));
 
-  RTC_LOG(LS_INFO) << "INFO";
-  RTC_LOG(LS_VERBOSE) << "VERBOSE";
+  RTC_DLOG(LS_INFO) << "INFO";
+  RTC_DLOG(LS_VERBOSE) << "VERBOSE";
   EXPECT_NE(std::string::npos, str.find("INFO"));
   EXPECT_EQ(std::string::npos, str.find("VERBOSE"));
 
@@ -167,7 +167,7 @@ TEST(LogTest, SingleStream) {
   void* p = reinterpret_cast<void*>(0xabcd);
 
   // Log all suported types(except doubles/floats) as a sanity-check.
-  RTC_LOG(LS_INFO) << "|" << i << "|" << l << "|" << ll << "|" << u << "|" << ul
+  RTC_DLOG(LS_INFO) << "|" << i << "|" << l << "|" << ll << "|" << u << "|" << ul
                    << "|" << ull << "|" << s1.c_str() << "|" << s2 << "|"
                    << absl::string_view(s3) << "|" << p << "|" << null_string
                    << "|";
@@ -239,8 +239,8 @@ TEST(LogTest, MultipleStreams) {
   EXPECT_EQ(LS_INFO, LogMessage::GetLogToStream(&stream1));
   EXPECT_EQ(LS_VERBOSE, LogMessage::GetLogToStream(&stream2));
 
-  RTC_LOG(LS_INFO) << "INFO";
-  RTC_LOG(LS_VERBOSE) << "VERBOSE";
+  RTC_DLOG(LS_INFO) << "INFO";
+  RTC_DLOG(LS_VERBOSE) << "VERBOSE";
 
   EXPECT_NE(std::string::npos, str1.find("INFO"));
   EXPECT_EQ(std::string::npos, str1.find("VERBOSE"));
@@ -263,7 +263,7 @@ class LogThread {
   void Start() { thread_.Start(); }
 
  private:
-  void Run() { RTC_LOG(LS_VERBOSE) << "RTC_LOG"; }
+  void Run() { RTC_DLOG(LS_VERBOSE) << "RTC_LOG"; }
 
   static void ThreadEntry(void* p) { static_cast<LogThread*>(p)->Run(); }
 
@@ -365,7 +365,7 @@ TEST(LogTest, Perf) {
   stream.Close();
 
   EXPECT_EQ(str.size(), (message.size() + logging_overhead) * kRepetitions);
-  RTC_LOG(LS_INFO) << "Total log time: " << TimeDiff(finish, start) << " ms "
+  RTC_DLOG(LS_INFO) << "Total log time: " << TimeDiff(finish, start) << " ms "
                    << " total bytes logged: " << str.size();
 }
 
@@ -374,10 +374,10 @@ TEST(LogTest, EnumsAreSupported) {
   std::string str;
   LogSinkImpl<StringStream> stream(&str);
   LogMessage::AddLogToStream(&stream, LS_INFO);
-  RTC_LOG(LS_INFO) << "[" << TestEnum::kValue0 << "]";
+  RTC_DLOG(LS_INFO) << "[" << TestEnum::kValue0 << "]";
   EXPECT_NE(std::string::npos, str.find("[0]"));
   EXPECT_EQ(std::string::npos, str.find("[1]"));
-  RTC_LOG(LS_INFO) << "[" << TestEnum::kValue1 << "]";
+  RTC_DLOG(LS_INFO) << "[" << TestEnum::kValue1 << "]";
   EXPECT_NE(std::string::npos, str.find("[1]"));
   LogMessage::RemoveLogToStream(&stream);
   stream.Close();

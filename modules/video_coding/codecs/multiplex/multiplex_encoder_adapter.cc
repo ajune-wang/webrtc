@@ -109,7 +109,7 @@ int MultiplexEncoderAdapter::InitEncode(
         factory_->CreateVideoEncoder(associated_format_);
     const int rv = encoder->InitEncode(&video_codec, settings);
     if (rv) {
-      RTC_LOG(LS_ERROR) << "Failed to create multiplex codec index " << i;
+      RTC_DLOG(LS_ERROR) << "Failed to create multiplex codec index " << i;
       return rv;
     }
     adapter_callbacks_.emplace_back(new AdapterEncodedImageCallback(

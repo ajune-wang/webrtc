@@ -55,7 +55,7 @@ void decompressionOutputCallback(void *decoderRef,
   if (status != noErr) {
     RTCVideoDecoderH264 *decoder = (__bridge RTCVideoDecoderH264 *)decoderRef;
     [decoder setError:status];
-    RTC_LOG(LS_ERROR) << "Failed to decode frame. Status: " << status;
+    RTC_DLOG(LS_ERROR) << "Failed to decode frame. Status: " << status;
     return;
   }
   // TODO(tkchin): Handle CVO properly.
@@ -103,7 +103,7 @@ void decompressionOutputCallback(void *decoderRef,
   RTC_DCHECK(inputImage.buffer);
 
   if (_error != noErr) {
-    RTC_LOG(LS_WARNING) << "Last frame decode failed.";
+    RTC_DLOG(LS_WARNING) << "Last frame decode failed.";
     _error = noErr;
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
@@ -128,7 +128,7 @@ void decompressionOutputCallback(void *decoderRef,
     // This can happen after backgrounding. We need to wait for the next
     // sps/pps before we can resume so we request a keyframe by returning an
     // error.
-    RTC_LOG(LS_WARNING) << "Missing video format. Frame with sps/pps required.";
+    RTC_DLOG(LS_WARNING) << "Missing video format. Frame with sps/pps required.";
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
   CMSampleBufferRef sampleBuffer = nullptr;
@@ -156,7 +156,7 @@ void decompressionOutputCallback(void *decoderRef,
 #endif
   CFRelease(sampleBuffer);
   if (status != noErr) {
-    RTC_LOG(LS_ERROR) << "Failed to decode frame with code: " << status;
+    RTC_DLOG(LS_ERROR) << "Failed to decode frame with code: " << status;
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
   return WEBRTC_VIDEO_CODEC_OK;
@@ -227,7 +227,7 @@ void decompressionOutputCallback(void *decoderRef,
       nullptr, _videoFormat, nullptr, attributes, &record, &_decompressionSession);
   CFRelease(attributes);
   if (status != noErr) {
-    RTC_LOG(LS_ERROR) << "Failed to create decompression session: " << status;
+    RTC_DLOG(LS_ERROR) << "Failed to create decompression session: " << status;
     [self destroyDecompressionSession];
     return WEBRTC_VIDEO_CODEC_ERROR;
   }

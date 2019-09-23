@@ -245,7 +245,7 @@ void PeerScenarioClient::CreateAndSetSdp(
         RTC_DCHECK_RUN_ON(signaling_thread_);
         std::string sdp_offer;
         offer->ToString(&sdp_offer);
-        RTC_LOG(LS_INFO) << sdp_offer;
+        RTC_DLOG(LS_INFO) << sdp_offer;
         peer_connection_->SetLocalDescription(
             SdpSetObserver(
                 [sdp_offer, offer_handler]() { offer_handler(sdp_offer); }),
@@ -273,7 +273,7 @@ void PeerScenarioClient::SetSdpOfferAndGetAnswer(
               RTC_DCHECK_RUN_ON(signaling_thread_);
               std::string sdp_answer;
               answer->ToString(&sdp_answer);
-              RTC_LOG(LS_INFO) << sdp_answer;
+              RTC_DLOG(LS_INFO) << sdp_answer;
               peer_connection_->SetLocalDescription(
                   SdpSetObserver([answer_handler, sdp_answer]() {
                     answer_handler(sdp_answer);

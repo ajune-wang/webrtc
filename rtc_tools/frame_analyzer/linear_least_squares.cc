@@ -138,7 +138,7 @@ Matrix<double> GaussianElimination(Matrix<double> matrix_to_invert,
     // value. If the diagonal element is 0, it means the system of equations has
     // many solutions, and in that case we will return an arbitrary solution.
     if (matrix_to_invert[diagonal_index][diagonal_index] == 0.0) {
-      RTC_LOG(LS_WARNING) << "Matrix is not invertible, ignoring.";
+      RTC_DLOG(LS_WARNING) << "Matrix is not invertible, ignoring.";
       continue;
     }
     const double diagonal_element =

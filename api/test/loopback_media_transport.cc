@@ -252,11 +252,11 @@ void MediaTransportPair::LoopbackDataChannelTransport::Connect(
 MediaTransportPair::LoopbackMediaTransport::LoopbackMediaTransport(
     rtc::Thread* thread)
     : dc_transport_(thread), thread_(thread), other_(nullptr) {
-  RTC_LOG(LS_INFO) << "LoopbackMediaTransport";
+  RTC_DLOG(LS_INFO) << "LoopbackMediaTransport";
 }
 
 MediaTransportPair::LoopbackMediaTransport::~LoopbackMediaTransport() {
-  RTC_LOG(LS_INFO) << "~LoopbackMediaTransport";
+  RTC_DLOG(LS_INFO) << "~LoopbackMediaTransport";
   rtc::CritScope lock(&sink_lock_);
   RTC_CHECK(audio_sink_ == nullptr);
   RTC_CHECK(video_sink_ == nullptr);
@@ -379,7 +379,7 @@ void MediaTransportPair::LoopbackMediaTransport::
   rtc::CritScope cs(&sink_lock_);
   auto it = absl::c_find(target_transfer_rate_observers_, observer);
   if (it == target_transfer_rate_observers_.end()) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "Attempt to remove an unknown TargetTransferRate observer";
     return;
   }
@@ -409,7 +409,7 @@ void MediaTransportPair::LoopbackMediaTransport::RemoveRttObserver(
   rtc::CritScope cs(&sink_lock_);
   auto it = absl::c_find(rtt_observers_, observer);
   if (it == rtt_observers_.end()) {
-    RTC_LOG(LS_WARNING) << "Attempt to remove an unknown RTT observer";
+    RTC_DLOG(LS_WARNING) << "Attempt to remove an unknown RTT observer";
     return;
   }
   rtt_observers_.erase(it);

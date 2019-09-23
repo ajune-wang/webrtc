@@ -92,7 +92,7 @@ DelayBasedBwe::Result DelayBasedBwe::IncomingPacketFeedbackVector(
   // all acks were too late and that the send time history had
   // timed out. We should reduce the rate when this occurs.
   if (packet_feedback_vector.empty()) {
-    RTC_LOG(LS_WARNING) << "Very late feedback received.";
+    RTC_DLOG(LS_WARNING) << "Very late feedback received.";
     return DelayBasedBwe::Result();
   }
 
@@ -263,7 +263,7 @@ bool DelayBasedBwe::LatestEstimate(std::vector<uint32_t>* ssrcs,
 }
 
 void DelayBasedBwe::SetStartBitrate(DataRate start_bitrate) {
-  RTC_LOG(LS_INFO) << "BWE Setting start bitrate to: "
+  RTC_DLOG(LS_INFO) << "BWE Setting start bitrate to: "
                    << ToString(start_bitrate);
   rate_control_.SetStartBitrate(start_bitrate);
 }

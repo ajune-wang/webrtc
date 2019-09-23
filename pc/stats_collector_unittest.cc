@@ -1802,7 +1802,7 @@ TEST_P(StatsCollectorTrackTest, TwoLocalSendersWithSameTrack) {
 
   StatsReports reports;
   stats->GetStats(local_track.get(), &reports);
-  RTC_LOG(LS_INFO) << reports.size();
+  RTC_DLOG(LS_INFO) << reports.size();
 
   // Both SSRC reports have the same track ID.
   EXPECT_EQ(kLocalTrackId, GetValueInNthReportByType(

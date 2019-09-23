@@ -163,7 +163,7 @@ int CoreAudioOutput::StartPlayout() {
 
   if (!core_audio_utility::FillRenderEndpointBufferWithSilence(
           audio_client_.Get(), audio_render_client_.Get())) {
-    RTC_LOG(LS_WARNING) << "Failed to prepare output endpoint with silence";
+    RTC_DLOG(LS_WARNING) << "Failed to prepare output endpoint with silence";
   }
 
   num_frames_written_ = endpoint_buffer_size_frames_;
@@ -192,7 +192,7 @@ int CoreAudioOutput::StopPlayout() {
   }
 
   if (!Stop()) {
-    RTC_LOG(LS_ERROR) << "StopPlayout failed";
+    RTC_DLOG(LS_ERROR) << "StopPlayout failed";
     return -1;
   }
 
@@ -233,7 +233,7 @@ int CoreAudioOutput::RestartPlayout() {
     return 0;
   }
   if (!Restart()) {
-    RTC_LOG(LS_ERROR) << "RestartPlayout failed";
+    RTC_DLOG(LS_ERROR) << "RestartPlayout failed";
     return -1;
   }
   return 0;
@@ -278,7 +278,7 @@ bool CoreAudioOutput::OnErrorCallback(ErrorType error) {
 bool CoreAudioOutput::OnDataCallback(uint64_t device_frequency) {
   RTC_DCHECK_RUN_ON(&thread_checker_audio_);
   if (num_data_callbacks_ == 0) {
-    RTC_LOG(INFO) << "--- Output audio stream is alive ---";
+    RTC_DLOG(INFO) << "--- Output audio stream is alive ---";
   }
   // Get the padding value which indicates the amount of valid unread data that
   // the endpoint buffer currently contains.
@@ -293,7 +293,7 @@ bool CoreAudioOutput::OnDataCallback(uint64_t device_frequency) {
     return true;
   }
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioClient::GetCurrentPadding failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioClient::GetCurrentPadding failed: "
                       << core_audio_utility::ErrorToString(error);
     return false;
   }
@@ -315,7 +315,7 @@ bool CoreAudioOutput::OnDataCallback(uint64_t device_frequency) {
   uint8_t* audio_data;
   error = audio_render_client_->GetBuffer(num_requested_frames, &audio_data);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioRenderClient::GetBuffer failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioRenderClient::GetBuffer failed: "
                       << core_audio_utility::ErrorToString(error);
     return false;
   }
@@ -340,7 +340,7 @@ bool CoreAudioOutput::OnDataCallback(uint64_t device_frequency) {
   // Release the buffer space acquired in IAudioRenderClient::GetBuffer.
   error = audio_render_client_->ReleaseBuffer(num_requested_frames, 0);
   if (FAILED(error.Error())) {
-    RTC_LOG(LS_ERROR) << "IAudioRenderClient::ReleaseBuffer failed: "
+    RTC_DLOG(LS_ERROR) << "IAudioRenderClient::ReleaseBuffer failed: "
                       << core_audio_utility::ErrorToString(error);
     return false;
   }

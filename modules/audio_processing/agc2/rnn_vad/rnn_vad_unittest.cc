@@ -38,10 +38,10 @@ void DumpPerfStats(size_t num_samples,
       1e3f * static_cast<float>(num_samples) / static_cast<float>(sample_rate);
   float average_ms = static_cast<float>(average_us) / 1e3f;
   float speed = audio_track_length_ms / average_ms;
-  RTC_LOG(LS_INFO) << "track duration (ms): " << audio_track_length_ms;
-  RTC_LOG(LS_INFO) << "average processing time (ms): " << average_ms << " +/- "
+  RTC_DLOG(LS_INFO) << "track duration (ms): " << audio_track_length_ms;
+  RTC_DLOG(LS_INFO) << "average processing time (ms): " << average_ms << " +/- "
                    << (standard_deviation / 1e3);
-  RTC_LOG(LS_INFO) << "speed: " << speed << "x";
+  RTC_DLOG(LS_INFO) << "speed: " << speed << "x";
 }
 
 // When the RNN VAD model is updated and the expected output changes, set the

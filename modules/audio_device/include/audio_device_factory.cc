@@ -40,7 +40,7 @@ CreateWindowsCoreAudioAudioDeviceModuleForTest(
   // Returns NULL if Core Audio is not supported or if COM has not been
   // initialized correctly using webrtc_win::ScopedCOMInitializer.
   if (!webrtc_win::core_audio_utility::IsSupported()) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "Unable to create ADM since Core Audio is not supported";
     return nullptr;
   }

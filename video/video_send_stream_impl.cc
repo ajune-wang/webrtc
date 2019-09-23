@@ -273,7 +273,7 @@ VideoSendStreamImpl::VideoSendStreamImpl(
       media_transport_(media_transport) {
   video_stream_encoder->SetFecControllerOverride(rtp_video_sender_);
   RTC_DCHECK_RUN_ON(worker_queue_);
-  RTC_LOG(LS_INFO) << "VideoSendStreamInternal: " << config_->ToString();
+  RTC_DLOG(LS_INFO) << "VideoSendStreamInternal: " << config_->ToString();
   weak_ptr_ = weak_ptr_factory_.GetWeakPtr();
 
   encoder_feedback_.SetRtpVideoSender(rtp_video_sender_);
@@ -361,7 +361,7 @@ VideoSendStreamImpl::~VideoSendStreamImpl() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_DCHECK(!rtp_video_sender_->IsActive())
       << "VideoSendStreamImpl::Stop not called";
-  RTC_LOG(LS_INFO) << "~VideoSendStreamInternal: " << config_->ToString();
+  RTC_DLOG(LS_INFO) << "~VideoSendStreamInternal: " << config_->ToString();
   transport_->DestroyRtpVideoSender(rtp_video_sender_);
   if (media_transport_) {
     media_transport_->SetKeyFrameRequestCallback(nullptr);
@@ -386,7 +386,7 @@ void VideoSendStreamImpl::DeliverRtcp(const uint8_t* packet, size_t length) {
 void VideoSendStreamImpl::UpdateActiveSimulcastLayers(
     const std::vector<bool> active_layers) {
   RTC_DCHECK_RUN_ON(worker_queue_);
-  RTC_LOG(LS_INFO) << "VideoSendStream::UpdateActiveSimulcastLayers";
+  RTC_DLOG(LS_INFO) << "VideoSendStream::UpdateActiveSimulcastLayers";
   bool previously_active = rtp_video_sender_->IsActive();
   rtp_video_sender_->SetActiveModules(active_layers);
   if (!rtp_video_sender_->IsActive() && previously_active) {
@@ -400,7 +400,7 @@ void VideoSendStreamImpl::UpdateActiveSimulcastLayers(
 
 void VideoSendStreamImpl::Start() {
   RTC_DCHECK_RUN_ON(worker_queue_);
-  RTC_LOG(LS_INFO) << "VideoSendStream::Start";
+  RTC_DLOG(LS_INFO) << "VideoSendStream::Start";
   if (rtp_video_sender_->IsActive())
     return;
   TRACE_EVENT_INSTANT0("webrtc", "VideoSendStream::Start");
@@ -440,7 +440,7 @@ void VideoSendStreamImpl::StartupVideoSendStream() {
 
 void VideoSendStreamImpl::Stop() {
   RTC_DCHECK_RUN_ON(worker_queue_);
-  RTC_LOG(LS_INFO) << "VideoSendStream::Stop";
+  RTC_DLOG(LS_INFO) << "VideoSendStream::Stop";
   if (!rtp_video_sender_->IsActive())
     return;
   TRACE_EVENT_INSTANT0("webrtc", "VideoSendStream::Stop");
@@ -462,7 +462,7 @@ void VideoSendStreamImpl::SignalEncoderTimedOut() {
   // is supposed to, deregister as BitrateAllocatorObserver. This can happen
   // if a camera stops producing frames.
   if (encoder_target_rate_bps_ > 0) {
-    RTC_LOG(LS_INFO) << "SignalEncoderTimedOut, Encoder timed out.";
+    RTC_DLOG(LS_INFO) << "SignalEncoderTimedOut, Encoder timed out.";
     bitrate_allocator_->RemoveObserver(this);
   }
 }
@@ -519,7 +519,7 @@ void VideoSendStreamImpl::OnBitrateAllocationUpdated(
 void VideoSendStreamImpl::SignalEncoderActive() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   if (rtp_video_sender_->IsActive()) {
-    RTC_LOG(LS_INFO) << "SignalEncoderActive, Encoder is active.";
+    RTC_DLOG(LS_INFO) << "SignalEncoderActive, Encoder is active.";
     bitrate_allocator_->AddObserver(this, GetAllocationConfig());
   }
 }

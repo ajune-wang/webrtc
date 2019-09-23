@@ -1030,7 +1030,7 @@ bool ParsedRtcEventLog::ParseFile(const std::string& filename) {
   std::ifstream file(  // no-presubmit-check TODO(webrtc:8982)
       filename, std::ios_base::in | std::ios_base::binary);
   if (!file.good() || !file.is_open()) {
-    RTC_LOG(LS_WARNING) << "Could not open file for reading.";
+    RTC_DLOG(LS_WARNING) << "Could not open file for reading.";
     return false;
   }
 
@@ -1183,14 +1183,14 @@ bool ParsedRtcEventLog::ParseStreamInternal(
     absl::optional<uint64_t> tag =
         ParseVarInt(stream, buffer.data(), &bytes_written);
     if (!tag) {
-      RTC_LOG(LS_WARNING)
+      RTC_DLOG(LS_WARNING)
           << "Missing field tag from beginning of protobuf event.";
       return false;
     }
     constexpr uint64_t kWireTypeMask = 0x07;
     const uint64_t wire_type = *tag & kWireTypeMask;
     if (wire_type != 2) {
-      RTC_LOG(LS_WARNING) << "Expected field tag with wire type 2 (length "
+      RTC_DLOG(LS_WARNING) << "Expected field tag with wire type 2 (length "
                              "delimited message). Found wire type "
                           << wire_type;
       return false;
@@ -1200,10 +1200,10 @@ bool ParsedRtcEventLog::ParseStreamInternal(
     absl::optional<uint64_t> message_length =
         ParseVarInt(stream, buffer.data(), &bytes_written);
     if (!message_length) {
-      RTC_LOG(LS_WARNING) << "Missing message length after protobuf field tag.";
+      RTC_DLOG(LS_WARNING) << "Missing message length after protobuf field tag.";
       return false;
     } else if (*message_length > kMaxEventSize) {
-      RTC_LOG(LS_WARNING) << "Protobuf message length is too large.";
+      RTC_DLOG(LS_WARNING) << "Protobuf message length is too large.";
       return false;
     }
 
@@ -1212,7 +1212,7 @@ bool ParsedRtcEventLog::ParseStreamInternal(
       buffer.resize(bytes_written + *message_length);
     stream.read(buffer.data() + bytes_written, *message_length);
     if (stream.gcount() != static_cast<int>(*message_length)) {
-      RTC_LOG(LS_WARNING) << "Failed to read protobuf message from file.";
+      RTC_DLOG(LS_WARNING) << "Failed to read protobuf message from file.";
       return false;
     }
     size_t buffer_size = bytes_written + *message_length;
@@ -1221,7 +1221,7 @@ bool ParsedRtcEventLog::ParseStreamInternal(
       // Parse the protobuf event from the buffer.
       rtclog::EventStream event_stream;
       if (!event_stream.ParseFromArray(buffer.data(), buffer_size)) {
-        RTC_LOG(LS_WARNING)
+        RTC_DLOG(LS_WARNING)
             << "Failed to parse legacy-format protobuf message.";
         return false;
       }
@@ -1232,7 +1232,7 @@ bool ParsedRtcEventLog::ParseStreamInternal(
       // Parse the protobuf event from the buffer.
       rtclog2::EventStream event_stream;
       if (!event_stream.ParseFromArray(buffer.data(), buffer_size)) {
-        RTC_LOG(LS_WARNING) << "Failed to parse new-format protobuf message.";
+        RTC_DLOG(LS_WARNING) << "Failed to parse new-format protobuf message.";
         return false;
       }
       StoreParsedNewFormatEvent(event_stream);
@@ -1479,7 +1479,7 @@ const webrtc::RtpHeaderExtensionMap* ParsedRtcEventLog::GetRtpHeader(
     }
     if (parse_unconfigured_header_extensions_ ==
         UnconfiguredHeaderExtensions::kAttemptWebrtcDefaultConfig) {
-      RTC_LOG(LS_WARNING) << "Using default header extension map for SSRC "
+      RTC_DLOG(LS_WARNING) << "Using default header extension map for SSRC "
                           << ssrc;
       extensions_maps.insert(std::make_pair(ssrc, default_extension_map_));
       return &default_extension_map_;
@@ -1561,7 +1561,7 @@ rtclog::StreamConfig ParsedRtcEventLog::GetVideoReceiveConfig(
       rtx_payload_type = rtx_it->second.rtx_payload_type();
       if (config.rtx_ssrc != 0 &&
           config.rtx_ssrc != rtx_it->second.rtx_ssrc()) {
-        RTC_LOG(LS_WARNING)
+        RTC_DLOG(LS_WARNING)
             << "RtcEventLog protobuf contained different SSRCs for "
                "different received RTX payload types. Will only use "
                "rtx_ssrc = "
@@ -1974,7 +1974,7 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
           seq_num_unwrapper.Unwrap(logged.transport_seq_no);
       if (indices.find(unwrapped_seq_num) != indices.end()) {
         auto prev = packets[indices[unwrapped_seq_num]];
-        RTC_LOG(LS_WARNING)
+        RTC_DLOG(LS_WARNING)
             << "Repeated sent packet sequence number: " << unwrapped_seq_num
             << " Packet time:" << prev.log_packet_time.seconds() << "s vs "
             << logged.log_packet_time.seconds()
@@ -2019,7 +2019,7 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
           LoggedPacketInfo* sent = &packets[it->second];
           if (log_feedback_time - sent->log_packet_time >
               TimeDelta::seconds(60)) {
-            RTC_LOG(LS_WARNING)
+            RTC_DLOG(LS_WARNING)
                 << "Received very late feedback, possibly due to wraparound.";
             continue;
           }
@@ -2039,7 +2039,7 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
           packet_feedbacks.push_back(sent);
         }
         if (!unknown_seq_nums.empty()) {
-          RTC_LOG(LS_WARNING)
+          RTC_DLOG(LS_WARNING)
               << "Received feedback for unknown packets: "
               << unknown_seq_nums.front() << " - " << unknown_seq_nums.back();
         }

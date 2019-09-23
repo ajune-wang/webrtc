@@ -149,7 +149,7 @@ bool RtpTransport::SendPacket(bool rtcp,
                                   options, flags);
   if (ret != static_cast<int>(packet->size())) {
     if (transport->GetError() == ENOTCONN) {
-      RTC_LOG(LS_WARNING) << "Got ENOTCONN from transport.";
+      RTC_DLOG(LS_WARNING) << "Got ENOTCONN from transport.";
       SetReadyToSend(rtcp, false);
     }
     return false;
@@ -166,7 +166,7 @@ bool RtpTransport::RegisterRtpDemuxerSink(const RtpDemuxerCriteria& criteria,
                                           RtpPacketSinkInterface* sink) {
   rtp_demuxer_.RemoveSink(sink);
   if (!rtp_demuxer_.AddSink(criteria, sink)) {
-    RTC_LOG(LS_ERROR) << "Failed to register the sink for RTP demuxer.";
+    RTC_DLOG(LS_ERROR) << "Failed to register the sink for RTP demuxer.";
     return false;
   }
   return true;
@@ -174,7 +174,7 @@ bool RtpTransport::RegisterRtpDemuxerSink(const RtpDemuxerCriteria& criteria,
 
 bool RtpTransport::UnregisterRtpDemuxerSink(RtpPacketSinkInterface* sink) {
   if (!rtp_demuxer_.RemoveSink(sink)) {
-    RTC_LOG(LS_ERROR) << "Failed to unregister the sink for RTP demuxer.";
+    RTC_DLOG(LS_ERROR) << "Failed to unregister the sink for RTP demuxer.";
     return false;
   }
   return true;
@@ -184,7 +184,7 @@ void RtpTransport::DemuxPacket(rtc::CopyOnWriteBuffer packet,
                                int64_t packet_time_us) {
   webrtc::RtpPacketReceived parsed_packet(&header_extension_map_);
   if (!parsed_packet.Parse(std::move(packet))) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "Failed to parse the incoming RTP packet before demuxing. Drop it.";
     return;
   }
@@ -193,7 +193,7 @@ void RtpTransport::DemuxPacket(rtc::CopyOnWriteBuffer packet,
     parsed_packet.set_arrival_time_ms((packet_time_us + 500) / 1000);
   }
   if (!rtp_demuxer_.OnRtpPacket(parsed_packet)) {
-    RTC_LOG(LS_WARNING) << "Failed to demux RTP packet: "
+    RTC_DLOG(LS_WARNING) << "Failed to demux RTP packet: "
                         << RtpDemuxer::DescribePacket(parsed_packet);
   }
 }
@@ -256,7 +256,7 @@ void RtpTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
 
   // Protect ourselves against crazy data.
   if (!cricket::IsValidRtpPacketSize(packet_type, len)) {
-    RTC_LOG(LS_ERROR) << "Dropping incoming "
+    RTC_DLOG(LS_ERROR) << "Dropping incoming "
                       << cricket::RtpPacketTypeToString(packet_type)
                       << " packet: wrong size=" << len;
     return;

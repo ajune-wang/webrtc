@@ -45,7 +45,7 @@ RemoteEstimatorProxy::RemoteEstimatorProxy(
       send_periodic_feedback_(true),
       previous_abs_send_time_(0),
       abs_send_timestamp_(clock->CurrentTime()) {
-  RTC_LOG(LS_INFO)
+  RTC_DLOG(LS_INFO)
       << "Maximum interval between transport feedback RTCP messages (ms): "
       << send_config_.max_interval->ms();
 }
@@ -56,7 +56,7 @@ void RemoteEstimatorProxy::IncomingPacket(int64_t arrival_time_ms,
                                           size_t payload_size,
                                           const RTPHeader& header) {
   if (arrival_time_ms < 0 || arrival_time_ms > kMaxTimeMs) {
-    RTC_LOG(LS_WARNING) << "Arrival time out of bounds: " << arrival_time_ms;
+    RTC_DLOG(LS_WARNING) << "Arrival time out of bounds: " << arrival_time_ms;
     return;
   }
   rtc::CritScope cs(&lock_);

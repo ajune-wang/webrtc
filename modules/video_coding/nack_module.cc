@@ -36,7 +36,7 @@ int64_t GetSendNackDelay() {
       webrtc::field_trial::FindFullName("WebRTC-SendNackDelayMs").c_str(),
       nullptr, 10);
   if (delay_ms > 0 && delay_ms <= 20) {
-    RTC_LOG(LS_INFO) << "SendNackDelay is set to " << delay_ms;
+    RTC_DLOG(LS_INFO) << "SendNackDelay is set to " << delay_ms;
     return delay_ms;
   }
   return kDefaultSendNackDelayMs;
@@ -237,7 +237,7 @@ void NackModule::AddPacketsToNack(uint16_t seq_num_start,
 
     if (nack_list_.size() + num_new_nacks > kMaxNackPackets) {
       nack_list_.clear();
-      RTC_LOG(LS_WARNING) << "NACK list full, clearing NACK"
+      RTC_DLOG(LS_WARNING) << "NACK list full, clearing NACK"
                              " list and requesting keyframe.";
       keyframe_request_sender_->RequestKeyFrame();
       return;
@@ -274,7 +274,7 @@ std::vector<uint16_t> NackModule::GetNackBatch(NackFilterOptions options) {
       ++it->second.retries;
       it->second.sent_at_time = now_ms;
       if (it->second.retries >= kMaxNackRetries) {
-        RTC_LOG(LS_WARNING) << "Sequence number " << it->second.seq_num
+        RTC_DLOG(LS_WARNING) << "Sequence number " << it->second.seq_num
                             << " removed from NACK list due to max retries.";
         it = nack_list_.erase(it);
       } else {

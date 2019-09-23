@@ -206,7 +206,7 @@ static void JNI_PeerConnectionFactory_InitializeFieldTrials(
   }
   field_trials_init_string = std::make_unique<std::string>(
       JavaToNativeString(jni, j_trials_init_string));
-  RTC_LOG(LS_INFO) << "initializeFieldTrials: " << *field_trials_init_string;
+  RTC_DLOG(LS_INFO) << "initializeFieldTrials: " << *field_trials_init_string;
   field_trial::InitFieldTrialsFromString(field_trials_init_string->c_str());
 }
 
@@ -230,7 +230,7 @@ static jboolean JNI_PeerConnectionFactory_StartInternalTracingCapture(
 
   const char* init_string =
       jni->GetStringUTFChars(j_event_tracing_filename.obj(), NULL);
-  RTC_LOG(LS_INFO) << "Starting internal tracing to: " << init_string;
+  RTC_DLOG(LS_INFO) << "Starting internal tracing to: " << init_string;
   bool ret = rtc::tracing::StartInternalCapture(init_string);
   jni->ReleaseStringUTFChars(j_event_tracing_filename.obj(), init_string);
   return ret;
@@ -459,7 +459,7 @@ static jlong JNI_PeerConnectionFactory_CreatePeerConnection(
           rtc::RTCCertificateGenerator::GenerateCertificate(
               rtc::KeyParams(key_type), absl::nullopt);
       if (!certificate) {
-        RTC_LOG(LS_ERROR) << "Failed to generate certificate. KeyType: "
+        RTC_DLOG(LS_ERROR) << "Failed to generate certificate. KeyType: "
                           << key_type;
         return 0;
       }
@@ -547,7 +547,7 @@ static void JNI_PeerConnectionFactory_DeleteLoggable(JNIEnv* jni) {
 }
 
 static void JNI_PeerConnectionFactory_PrintStackTrace(JNIEnv* env, jint tid) {
-  RTC_LOG(LS_WARNING) << StackTraceToString(GetStackTrace(tid));
+  RTC_DLOG(LS_WARNING) << StackTraceToString(GetStackTrace(tid));
 }
 
 static void JNI_PeerConnectionFactory_PrintStackTracesOfRegisteredThreads(

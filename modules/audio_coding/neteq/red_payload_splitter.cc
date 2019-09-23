@@ -106,7 +106,7 @@ bool RedPayloadSplitter::SplitRed(PacketList* packet_list) {
           // The block lengths in the RED headers do not match the overall
           // packet length. Something is corrupt. Discard this and the remaining
           // payloads from this packet.
-          RTC_LOG(LS_WARNING) << "SplitRed length mismatch";
+          RTC_DLOG(LS_WARNING) << "SplitRed length mismatch";
           ret = false;
           break;
         }
@@ -132,7 +132,7 @@ bool RedPayloadSplitter::SplitRed(PacketList* packet_list) {
       // iterator |it|.
       packet_list->splice(it, std::move(new_packets));
     } else {
-      RTC_LOG(LS_WARNING) << "SplitRed too many blocks: " << new_headers.size();
+      RTC_DLOG(LS_WARNING) << "SplitRed too many blocks: " << new_headers.size();
       ret = false;
     }
     // Remove |it| from the packet list. This operation effectively moves the

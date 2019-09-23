@@ -126,7 +126,7 @@ DataRate PccMonitorInterval::GetTransmittedPacketsRate() const {
   Timestamp receive_time_of_last_packet =
       received_packets_.back().sent_time + received_packets_.back().delay;
   if (receive_time_of_first_packet == receive_time_of_last_packet) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "All packets in monitor interval were received at the same time.";
     return target_sending_rate_;
   }

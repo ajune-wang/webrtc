@@ -76,7 +76,7 @@ AlrExperimentSettings::CreateFromFieldTrial(
              &settings.alr_stop_budget_level_percent,
              &settings.group_id) == 6) {
     ret.emplace(settings);
-    RTC_LOG(LS_INFO) << "Using ALR experiment settings: "
+    RTC_DLOG(LS_INFO) << "Using ALR experiment settings: "
                         "pacing factor: "
                      << settings.pacing_factor << ", max pacer queue length: "
                      << settings.max_paced_queue_time
@@ -88,7 +88,7 @@ AlrExperimentSettings::CreateFromFieldTrial(
                      << settings.alr_stop_budget_level_percent
                      << ", ALR experiment group ID: " << settings.group_id;
   } else {
-    RTC_LOG(LS_INFO) << "Failed to parse ALR experiment: " << experiment_name;
+    RTC_DLOG(LS_INFO) << "Failed to parse ALR experiment: " << experiment_name;
   }
 
   return ret;

@@ -99,7 +99,7 @@ bool PacketBuffer::InsertPacket(VCMPacket* packet) {
       if (sequence_buffer_[index].used) {
         // Clear the buffer, delete payload, and return false to signal that a
         // new keyframe is needed.
-        RTC_LOG(LS_WARNING) << "Clear PacketBuffer and request key frame.";
+        RTC_DLOG(LS_WARNING) << "Clear PacketBuffer and request key frame.";
         Clear();
         delete[] packet->dataPtr;
         packet->dataPtr = nullptr;
@@ -234,7 +234,7 @@ int PacketBuffer::GetUniqueFramesSeen() const {
 
 bool PacketBuffer::ExpandBufferSize() {
   if (size_ == max_size_) {
-    RTC_LOG(LS_WARNING) << "PacketBuffer is already at max size (" << max_size_
+    RTC_DLOG(LS_WARNING) << "PacketBuffer is already at max size (" << max_size_
                         << "), failed to increase size.";
     return false;
   }
@@ -252,7 +252,7 @@ bool PacketBuffer::ExpandBufferSize() {
   size_ = new_size;
   sequence_buffer_ = std::move(new_sequence_buffer);
   data_buffer_ = std::move(new_data_buffer);
-  RTC_LOG(LS_INFO) << "PacketBuffer size expanded to " << new_size;
+  RTC_DLOG(LS_INFO) << "PacketBuffer size expanded to " << new_size;
   return true;
 }
 
@@ -384,7 +384,7 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
       if (is_h264) {
         // Warn if this is an unsafe frame.
         if (has_h264_idr && (!has_h264_sps || !has_h264_pps)) {
-          RTC_LOG(LS_WARNING)
+          RTC_DLOG(LS_WARNING)
               << "Received H.264-IDR frame "
               << "(SPS: " << has_h264_sps << ", PPS: " << has_h264_pps
               << "). Treating as "

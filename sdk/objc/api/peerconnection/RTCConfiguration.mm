@@ -215,19 +215,19 @@
       [[self class] nativeEncryptionKeyTypeForKeyType:_keyType];
   if (_certificate != nullptr) {
     // if offered a pemcert use it...
-    RTC_LOG(LS_INFO) << "Have configured cert - using it.";
+    RTC_DLOG(LS_INFO) << "Have configured cert - using it.";
     std::string pem_private_key = [[_certificate private_key] UTF8String];
     std::string pem_certificate = [[_certificate certificate] UTF8String];
     rtc::RTCCertificatePEM pem = rtc::RTCCertificatePEM(pem_private_key, pem_certificate);
     rtc::scoped_refptr<rtc::RTCCertificate> certificate = rtc::RTCCertificate::FromPEM(pem);
-    RTC_LOG(LS_INFO) << "Created cert from PEM strings.";
+    RTC_DLOG(LS_INFO) << "Created cert from PEM strings.";
     if (!certificate) {
-      RTC_LOG(LS_ERROR) << "Failed to generate certificate from PEM.";
+      RTC_DLOG(LS_ERROR) << "Failed to generate certificate from PEM.";
       return nullptr;
     }
     nativeConfig->certificates.push_back(certificate);
   } else {
-    RTC_LOG(LS_INFO) << "Don't have configured cert.";
+    RTC_DLOG(LS_INFO) << "Don't have configured cert.";
     // Generate non-default certificate.
     if (keyType != rtc::KT_DEFAULT) {
       rtc::scoped_refptr<rtc::RTCCertificate> certificate =

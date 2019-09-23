@@ -570,7 +570,7 @@ int32_t ChannelSend::SendMediaTransportAudio(
       media_transport()->SendAudioFrame(channel_id, std::move(frame));
 
   if (!rtc_error.ok()) {
-    RTC_LOG(LS_ERROR) << "Failed to send frame, rtc_error="
+    RTC_DLOG(LS_ERROR) << "Failed to send frame, rtc_error="
                       << ToString(rtc_error.type()) << ", "
                       << rtc_error.message();
     return -1;

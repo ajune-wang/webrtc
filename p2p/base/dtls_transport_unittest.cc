@@ -28,7 +28,7 @@
 
 #define MAYBE_SKIP_TEST(feature)                                  \
   if (!(rtc::SSLStreamAdapter::feature())) {                      \
-    RTC_LOG(LS_INFO) << #feature " feature disabled... skipping"; \
+    RTC_DLOG(LS_INFO) << #feature " feature disabled... skipping"; \
     return;                                                       \
   }
 
@@ -230,7 +230,7 @@ class DtlsTestClient : public sigslot::has_slots<> {
 
   // Transport callbacks
   void OnTransportWritableState(rtc::PacketTransportInternal* transport) {
-    RTC_LOG(LS_INFO) << name_ << ": Transport '" << transport->transport_name()
+    RTC_DLOG(LS_INFO) << name_ << ": Transport '" << transport->transport_name()
                      << "' is writable";
   }
 
@@ -373,7 +373,7 @@ class DtlsTransportTestBase {
   }
 
   void TestTransfer(size_t size, size_t count, bool srtp) {
-    RTC_LOG(LS_INFO) << "Expect packets, size=" << size;
+    RTC_DLOG(LS_INFO) << "Expect packets, size=" << size;
     client2_.ExpectPackets(size);
     client1_.SendPackets(size, count, srtp);
     EXPECT_EQ_SIMULATED_WAIT(count, client2_.NumPacketsReceived(), kTimeout,

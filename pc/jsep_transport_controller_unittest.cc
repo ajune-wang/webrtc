@@ -278,7 +278,7 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
 
   void OnCombinedConnectionState(
       PeerConnectionInterface::PeerConnectionState state) {
-    RTC_LOG(LS_INFO) << "OnCombinedConnectionState: "
+    RTC_DLOG(LS_INFO) << "OnCombinedConnectionState: "
                      << static_cast<int>(state);
     if (!signaling_thread_->IsCurrent()) {
       signaled_on_non_signaling_thread_ = true;

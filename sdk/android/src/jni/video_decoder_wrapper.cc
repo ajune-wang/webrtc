@@ -73,7 +73,7 @@ int32_t VideoDecoderWrapper::InitDecodeInternal(JNIEnv* jni) {
 
   int32_t status = JavaToNativeVideoCodecStatus(
       jni, Java_VideoDecoder_initDecode(jni, decoder_, settings, callback));
-  RTC_LOG(LS_INFO) << "initDecode: " << status;
+  RTC_DLOG(LS_INFO) << "initDecode: " << status;
   if (status == WEBRTC_VIDEO_CODEC_OK) {
     initialized_ = true;
   }
@@ -133,7 +133,7 @@ int32_t VideoDecoderWrapper::Release() {
   JNIEnv* jni = AttachCurrentThreadIfNeeded();
   int32_t status = JavaToNativeVideoCodecStatus(
       jni, Java_VideoDecoder_release(jni, decoder_));
-  RTC_LOG(LS_INFO) << "release: " << status;
+  RTC_DLOG(LS_INFO) << "release: " << status;
   {
     rtc::CritScope cs(&frame_extra_infos_lock_);
     frame_extra_infos_.clear();
@@ -167,7 +167,7 @@ void VideoDecoderWrapper::OnDecodedFrame(
 
     do {
       if (frame_extra_infos_.empty()) {
-        RTC_LOG(LS_WARNING)
+        RTC_DLOG(LS_WARNING)
             << "Java decoder produced an unexpected frame: " << timestamp_ns;
         return;
       }
@@ -208,21 +208,21 @@ int32_t VideoDecoderWrapper::HandleReturnCode(JNIEnv* jni,
     return value;
   }
 
-  RTC_LOG(LS_WARNING) << method_name << ": " << value;
+  RTC_DLOG(LS_WARNING) << method_name << ": " << value;
   if (value == WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE ||
       value == WEBRTC_VIDEO_CODEC_UNINITIALIZED) {  // Critical error.
-    RTC_LOG(LS_WARNING) << "Java decoder requested software fallback.";
+    RTC_DLOG(LS_WARNING) << "Java decoder requested software fallback.";
     return WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE;
   }
 
   // Try resetting the codec.
   if (Release() == WEBRTC_VIDEO_CODEC_OK &&
       InitDecodeInternal(jni) == WEBRTC_VIDEO_CODEC_OK) {
-    RTC_LOG(LS_WARNING) << "Reset Java decoder.";
+    RTC_DLOG(LS_WARNING) << "Reset Java decoder.";
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
 
-  RTC_LOG(LS_WARNING) << "Unable to reset Java decoder.";
+  RTC_DLOG(LS_WARNING) << "Unable to reset Java decoder.";
   return WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE;
 }
 

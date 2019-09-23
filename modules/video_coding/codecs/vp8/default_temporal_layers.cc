@@ -475,7 +475,7 @@ void DefaultTemporalLayers::OnEncodeDone(size_t stream_index,
   RTC_DCHECK_GT(num_layers_, 0);
 
   if (size_bytes == 0) {
-    RTC_LOG(LS_WARNING) << "Empty frame; treating as dropped.";
+    RTC_DLOG(LS_WARNING) << "Empty frame; treating as dropped.";
     OnFrameDropped(stream_index, rtp_timestamp);
     return;
   }
@@ -712,15 +712,15 @@ bool DefaultTemporalLayersChecker::CheckTemporalConfig(
   if (pattern_idx_ == temporal_ids_.size()) {
     // All non key-frame buffers should be updated each pattern cycle.
     if (!last_.is_keyframe && !last_.is_updated_this_cycle) {
-      RTC_LOG(LS_ERROR) << "Last buffer was not updated during pattern cycle.";
+      RTC_DLOG(LS_ERROR) << "Last buffer was not updated during pattern cycle.";
       return false;
     }
     if (!arf_.is_keyframe && !arf_.is_updated_this_cycle) {
-      RTC_LOG(LS_ERROR) << "Arf buffer was not updated during pattern cycle.";
+      RTC_DLOG(LS_ERROR) << "Arf buffer was not updated during pattern cycle.";
       return false;
     }
     if (!golden_.is_keyframe && !golden_.is_updated_this_cycle) {
-      RTC_LOG(LS_ERROR)
+      RTC_DLOG(LS_ERROR)
           << "Golden buffer was not updated during pattern cycle.";
       return false;
     }
@@ -731,7 +731,7 @@ bool DefaultTemporalLayersChecker::CheckTemporalConfig(
   }
   uint8_t expected_tl_idx = temporal_ids_[pattern_idx_];
   if (frame_config.packetizer_temporal_idx != expected_tl_idx) {
-    RTC_LOG(LS_ERROR) << "Frame has an incorrect temporal index. Expected: "
+    RTC_DLOG(LS_ERROR) << "Frame has an incorrect temporal index. Expected: "
                       << static_cast<int>(expected_tl_idx) << " Actual: "
                       << static_cast<int>(frame_config.packetizer_temporal_idx);
     return false;
@@ -751,7 +751,7 @@ bool DefaultTemporalLayersChecker::CheckTemporalConfig(
     }
   } else if (frame_config.first_reference == Vp8BufferReference::kLast ||
              frame_config.second_reference == Vp8BufferReference::kLast) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "Last buffer not referenced, but present in search order.";
     return false;
   }
@@ -766,7 +766,7 @@ bool DefaultTemporalLayersChecker::CheckTemporalConfig(
     }
   } else if (frame_config.first_reference == Vp8BufferReference::kAltref ||
              frame_config.second_reference == Vp8BufferReference::kAltref) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "Altret buffer not referenced, but present in search order.";
     return false;
   }
@@ -781,13 +781,13 @@ bool DefaultTemporalLayersChecker::CheckTemporalConfig(
     }
   } else if (frame_config.first_reference == Vp8BufferReference::kGolden ||
              frame_config.second_reference == Vp8BufferReference::kGolden) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "Golden buffer not referenced, but present in search order.";
     return false;
   }
 
   if (need_sync != frame_config.layer_sync) {
-    RTC_LOG(LS_ERROR) << "Sync bit is set incorrectly on a frame. Expected: "
+    RTC_DLOG(LS_ERROR) << "Sync bit is set incorrectly on a frame. Expected: "
                       << need_sync << " Actual: " << frame_config.layer_sync;
     return false;
   }
@@ -797,7 +797,7 @@ bool DefaultTemporalLayersChecker::CheckTemporalConfig(
     for (i = 0; i < dependencies.size(); ++i) {
       if (temporal_dependencies_[pattern_idx_].find(dependencies[i]) ==
           temporal_dependencies_[pattern_idx_].end()) {
-        RTC_LOG(LS_ERROR)
+        RTC_DLOG(LS_ERROR)
             << "Illegal temporal dependency out of defined pattern "
                "from position "
             << static_cast<int>(pattern_idx_) << " to position "

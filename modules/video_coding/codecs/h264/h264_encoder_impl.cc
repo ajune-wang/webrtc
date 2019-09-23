@@ -226,7 +226,7 @@ int32_t H264EncoderImpl::InitEncode(const VideoCodec* inst,
     // Create encoder.
     if (WelsCreateSVCEncoder(&openh264_encoder) != 0) {
       // Failed to create encoder.
-      RTC_LOG(LS_ERROR) << "Failed to create OpenH264 encoder";
+      RTC_DLOG(LS_ERROR) << "Failed to create OpenH264 encoder";
       RTC_DCHECK(!openh264_encoder);
       Release();
       ReportError();
@@ -270,7 +270,7 @@ int32_t H264EncoderImpl::InitEncode(const VideoCodec* inst,
 
     // Initialize.
     if (openh264_encoder->InitializeExt(&encoder_params) != 0) {
-      RTC_LOG(LS_ERROR) << "Failed to initialize OpenH264 encoder";
+      RTC_DLOG(LS_ERROR) << "Failed to initialize OpenH264 encoder";
       Release();
       ReportError();
       return WEBRTC_VIDEO_CODEC_ERROR;
@@ -326,12 +326,12 @@ int32_t H264EncoderImpl::RegisterEncodeCompleteCallback(
 
 void H264EncoderImpl::SetRates(const RateControlParameters& parameters) {
   if (encoders_.empty()) {
-    RTC_LOG(LS_WARNING) << "SetRates() while uninitialized.";
+    RTC_DLOG(LS_WARNING) << "SetRates() while uninitialized.";
     return;
   }
 
   if (parameters.framerate_fps < 1.0) {
-    RTC_LOG(LS_WARNING) << "Invalid frame rate: " << parameters.framerate_fps;
+    RTC_DLOG(LS_WARNING) << "Invalid frame rate: " << parameters.framerate_fps;
     return;
   }
 
@@ -377,7 +377,7 @@ int32_t H264EncoderImpl::Encode(
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
   }
   if (!encoded_image_callback_) {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "InitEncode() has been called, but a callback function "
         << "has not been set with RegisterEncodeCompleteCallback()";
     ReportError();
@@ -471,7 +471,7 @@ int32_t H264EncoderImpl::Encode(
     // Encode!
     int enc_ret = encoders_[i]->EncodeFrame(&pictures_[i], &info);
     if (enc_ret != 0) {
-      RTC_LOG(LS_ERROR)
+      RTC_DLOG(LS_ERROR)
           << "OpenH264 frame encoding failed, EncodeFrame returned " << enc_ret
           << ".";
       ReportError();
@@ -573,7 +573,7 @@ SEncParamExt H264EncoderImpl::CreateEncoderParams(size_t i) const {
   if (encoder_params.iTemporalLayerNum > 1) {
     encoder_params.iNumRefFrame = 1;
   }
-  RTC_LOG(INFO) << "OpenH264 version is " << OPENH264_MAJOR << "."
+  RTC_DLOG(INFO) << "OpenH264 version is " << OPENH264_MAJOR << "."
                 << OPENH264_MINOR;
   switch (packetization_mode_) {
     case H264PacketizationMode::SingleNalUnit:
@@ -583,7 +583,7 @@ SEncParamExt H264EncoderImpl::CreateEncoderParams(size_t i) const {
           SM_SIZELIMITED_SLICE;
       encoder_params.sSpatialLayers[0].sSliceArgument.uiSliceSizeConstraint =
           static_cast<unsigned int>(max_payload_size_);
-      RTC_LOG(INFO) << "Encoder is configured with NALU constraint: "
+      RTC_DLOG(INFO) << "Encoder is configured with NALU constraint: "
                     << max_payload_size_ << " bytes";
       break;
     case H264PacketizationMode::NonInterleaved:

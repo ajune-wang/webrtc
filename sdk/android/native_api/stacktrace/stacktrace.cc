@@ -173,7 +173,7 @@ std::vector<StackTraceElement> FormatStackTrace(
 
     Dl_info dl_info = {};
     if (!dladdr(reinterpret_cast<void*>(address), &dl_info)) {
-      RTC_LOG(LS_WARNING)
+      RTC_DLOG(LS_WARNING)
           << "Could not translate address to symbolic information for address "
           << address << " at stack depth " << i;
       continue;
@@ -202,12 +202,12 @@ std::vector<StackTraceElement> GetStackTrace(int tid) {
 
   const char* error_string = CaptureRawStacktrace(getpid(), tid, &params);
   if (error_string != nullptr) {
-    RTC_LOG(LS_ERROR) << error_string << ". tid: " << tid
+    RTC_DLOG(LS_ERROR) << error_string << ". tid: " << tid
                       << ". errno: " << errno;
     return {};
   }
   if (params.stack_size_counter >= kMaxStackSize) {
-    RTC_LOG(LS_WARNING) << "Stack trace for thread " << tid << " was truncated";
+    RTC_DLOG(LS_WARNING) << "Stack trace for thread " << tid << " was truncated";
   }
   return FormatStackTrace(params);
 }
@@ -216,7 +216,7 @@ std::vector<StackTraceElement> GetStackTrace() {
   SignalHandlerOutputState params;
   _Unwind_Backtrace(&UnwindBacktrace, &params);
   if (params.stack_size_counter >= kMaxStackSize) {
-    RTC_LOG(LS_WARNING) << "Stack trace was truncated";
+    RTC_DLOG(LS_WARNING) << "Stack trace was truncated";
   }
   return FormatStackTrace(params);
 }

@@ -61,9 +61,9 @@ size_t ReadTrendlineFilterWindowSize(
   if (parsed_values == 1) {
     if (window_size > 1)
       return window_size;
-    RTC_LOG(WARNING) << "Window size must be greater than 1.";
+    RTC_DLOG(WARNING) << "Window size must be greater than 1.";
   }
-  RTC_LOG(LS_WARNING) << "Failed to parse parameters for BweWindowSizeInPackets"
+  RTC_DLOG(LS_WARNING) << "Failed to parse parameters for BweWindowSizeInPackets"
                          " experiment from field trial string. Using default.";
   return kDefaultTrendlineWindowSize;
 }
@@ -127,7 +127,7 @@ TrendlineEstimator::TrendlineEstimator(
       hypothesis_(BandwidthUsage::kBwNormal),
       hypothesis_predicted_(BandwidthUsage::kBwNormal),
       network_state_predictor_(network_state_predictor) {
-  RTC_LOG(LS_INFO)
+  RTC_DLOG(LS_INFO)
       << "Using Trendline filter for delay change estimation with window size "
       << window_size_ << ", field trial "
       << ignore_small_packets_.Parser()->Encode() << " and "

@@ -56,7 +56,7 @@ bool Nack::Parse(const CommonHeader& packet) {
   RTC_DCHECK_EQ(packet.fmt(), kFeedbackMessageType);
 
   if (packet.payload_size_bytes() < kCommonFeedbackLength + kNackItemLength) {
-    RTC_LOG(LS_WARNING) << "Payload length " << packet.payload_size_bytes()
+    RTC_DLOG(LS_WARNING) << "Payload length " << packet.payload_size_bytes()
                         << " is too small for a Nack.";
     return false;
   }

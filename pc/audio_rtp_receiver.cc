@@ -86,7 +86,7 @@ void AudioRtpReceiver::OnSetVolume(double volume) {
   RTC_DCHECK_LE(volume, 10);
   cached_volume_ = volume;
   if (!media_channel_ || stopped_) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "AudioRtpReceiver::OnSetVolume: No audio channel exists.";
     return;
   }
@@ -176,7 +176,7 @@ void AudioRtpReceiver::RestartMediaChannel(absl::optional<uint32_t> ssrc) {
 
 void AudioRtpReceiver::SetupMediaChannel(uint32_t ssrc) {
   if (!media_channel_) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "AudioRtpReceiver::SetupMediaChannel: No audio channel exists.";
     return;
   }
@@ -185,7 +185,7 @@ void AudioRtpReceiver::SetupMediaChannel(uint32_t ssrc) {
 
 void AudioRtpReceiver::SetupUnsignaledMediaChannel() {
   if (!media_channel_) {
-    RTC_LOG(LS_ERROR) << "AudioRtpReceiver::SetupUnsignaledMediaChannel: No "
+    RTC_DLOG(LS_ERROR) << "AudioRtpReceiver::SetupUnsignaledMediaChannel: No "
                          "audio channel exists.";
   }
   RestartMediaChannel(absl::nullopt);
@@ -238,7 +238,7 @@ std::vector<RtpSource> AudioRtpReceiver::GetSources() const {
 
 void AudioRtpReceiver::Reconfigure() {
   if (!media_channel_ || stopped_) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "AudioRtpReceiver::Reconfigure: No audio channel exists.";
     return;
   }

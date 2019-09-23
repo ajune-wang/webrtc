@@ -87,7 +87,7 @@ void PeerConnectionClient::Connect(const std::string& server,
   RTC_DCHECK(!client_name.empty());
 
   if (state_ != NOT_CONNECTED) {
-    RTC_LOG(WARNING)
+    RTC_DLOG(WARNING)
         << "The client must not be connected before you can call Connect()";
     callback_->OnServerConnectionFailure();
     return;
@@ -295,7 +295,7 @@ bool PeerConnectionClient::ReadIntoBuffer(rtc::AsyncSocket* socket,
   bool ret = false;
   size_t i = data->find("\r\n\r\n");
   if (i != std::string::npos) {
-    RTC_LOG(INFO) << "Headers received";
+    RTC_DLOG(INFO) << "Headers received";
     if (GetHeaderValue(*data, i, "\r\nContent-Length: ", content_length)) {
       size_t total_response_size = (i + 4) + *content_length;
       if (data->length() >= total_response_size) {
@@ -313,7 +313,7 @@ bool PeerConnectionClient::ReadIntoBuffer(rtc::AsyncSocket* socket,
         // We haven't received everything.  Just continue to accept data.
       }
     } else {
-      RTC_LOG(LS_ERROR) << "No content length field specified by the server.";
+      RTC_DLOG(LS_ERROR) << "No content length field specified by the server.";
     }
   }
   return ret;
@@ -372,7 +372,7 @@ void PeerConnectionClient::OnRead(rtc::AsyncSocket* socket) {
 }
 
 void PeerConnectionClient::OnHangingGetRead(rtc::AsyncSocket* socket) {
-  RTC_LOG(INFO) << __FUNCTION__;
+  RTC_DLOG(INFO) << __FUNCTION__;
   size_t content_length = 0;
   if (ReadIntoBuffer(socket, &notification_data_, &content_length)) {
     size_t peer_id = 0, eoh = 0;
@@ -450,7 +450,7 @@ bool PeerConnectionClient::ParseServerResponse(const std::string& response,
                                                size_t* eoh) {
   int status = GetResponseStatus(response.c_str());
   if (status != 200) {
-    RTC_LOG(LS_ERROR) << "Received error from server";
+    RTC_DLOG(LS_ERROR) << "Received error from server";
     Close();
     callback_->OnDisconnected();
     return false;
@@ -471,7 +471,7 @@ bool PeerConnectionClient::ParseServerResponse(const std::string& response,
 }
 
 void PeerConnectionClient::OnClose(rtc::AsyncSocket* socket, int err) {
-  RTC_LOG(INFO) << __FUNCTION__;
+  RTC_DLOG(INFO) << __FUNCTION__;
 
   socket->Close();
 
@@ -490,7 +490,7 @@ void PeerConnectionClient::OnClose(rtc::AsyncSocket* socket, int err) {
     }
   } else {
     if (socket == control_socket_.get()) {
-      RTC_LOG(WARNING) << "Connection refused; retrying in 2 seconds";
+      RTC_DLOG(WARNING) << "Connection refused; retrying in 2 seconds";
       rtc::Thread::Current()->PostDelayed(RTC_FROM_HERE, kReconnectDelay, this,
                                           0);
     } else {

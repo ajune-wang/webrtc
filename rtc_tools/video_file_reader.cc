@@ -62,7 +62,7 @@ class VideoFile : public Video {
                    buffer->ChromaWidth() * buffer->ChromaHeight(), file_) ||
         !ReadBytes(buffer->MutableDataV(),
                    buffer->ChromaWidth() * buffer->ChromaHeight(), file_)) {
-      RTC_LOG(LS_ERROR) << "Could not read YUV data for frame " << frame_index;
+      RTC_DLOG(LS_ERROR) << "Could not read YUV data for frame " << frame_index;
       return nullptr;
     }
 
@@ -120,14 +120,14 @@ Video::Iterator Video::end() const {
 rtc::scoped_refptr<Video> OpenY4mFile(const std::string& file_name) {
   FILE* file = fopen(file_name.c_str(), "rb");
   if (file == nullptr) {
-    RTC_LOG(LS_ERROR) << "Could not open input file for reading: " << file_name;
+    RTC_DLOG(LS_ERROR) << "Could not open input file for reading: " << file_name;
     return nullptr;
   }
 
   int parse_file_header_result = -1;
   if (fscanf(file, "YUV4MPEG2 %n", &parse_file_header_result) != 0 ||
       parse_file_header_result == -1) {
-    RTC_LOG(LS_ERROR) << "File " << file_name
+    RTC_DLOG(LS_ERROR) << "File " << file_name
                       << " does not start with YUV4MPEG2 header";
     return nullptr;
   }
@@ -136,7 +136,7 @@ rtc::scoped_refptr<Video> OpenY4mFile(const std::string& file_name) {
   while (true) {
     const int c = fgetc(file);
     if (c == EOF) {
-      RTC_LOG(LS_ERROR) << "Could not read header line";
+      RTC_DLOG(LS_ERROR) << "Could not read header line";
       return nullptr;
     }
     if (c == '\n')
@@ -162,7 +162,7 @@ rtc::scoped_refptr<Video> OpenY4mFile(const std::string& file_name) {
         break;
       case 'C':
         if (suffix != "420" && suffix != "420mpeg2") {
-          RTC_LOG(LS_ERROR)
+          RTC_DLOG(LS_ERROR)
               << "Does not support any other color space than I420 or "
                  "420mpeg2, but was: "
               << suffix;
@@ -185,17 +185,17 @@ rtc::scoped_refptr<Video> OpenY4mFile(const std::string& file_name) {
     }
   }
   if (!width || !height) {
-    RTC_LOG(LS_ERROR) << "Could not find width and height in file header";
+    RTC_DLOG(LS_ERROR) << "Could not find width and height in file header";
     return nullptr;
   }
   if (!fps) {
-    RTC_LOG(LS_ERROR) << "Could not find fps in file header";
+    RTC_DLOG(LS_ERROR) << "Could not find fps in file header";
     return nullptr;
   }
-  RTC_LOG(LS_INFO) << "Video has resolution: " << *width << "x" << *height
+  RTC_DLOG(LS_INFO) << "Video has resolution: " << *width << "x" << *height
                    << " " << *fps << " fps";
   if (*width % 2 != 0 || *height % 2 != 0) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "Only supports even width/height so that chroma size is a "
            "whole number.";
     return nullptr;
@@ -208,7 +208,7 @@ rtc::scoped_refptr<Video> OpenY4mFile(const std::string& file_name) {
     if (fscanf(file, "FRAME\n%n", &parse_frame_header_result) != 0 ||
         parse_frame_header_result == -1) {
       if (!feof(file)) {
-        RTC_LOG(LS_ERROR) << "Did not find FRAME header, ignoring rest of file";
+        RTC_DLOG(LS_ERROR) << "Did not find FRAME header, ignoring rest of file";
       }
       break;
     }
@@ -219,10 +219,10 @@ rtc::scoped_refptr<Video> OpenY4mFile(const std::string& file_name) {
     fseek(file, i420_frame_size, SEEK_CUR);
   }
   if (frame_positions.empty()) {
-    RTC_LOG(LS_ERROR) << "Could not find any frames in the file";
+    RTC_DLOG(LS_ERROR) << "Could not find any frames in the file";
     return nullptr;
   }
-  RTC_LOG(LS_INFO) << "Video has " << frame_positions.size() << " frames";
+  RTC_DLOG(LS_INFO) << "Video has " << frame_positions.size() << " frames";
 
   return new rtc::RefCountedObject<VideoFile>(*width, *height, frame_positions,
                                               file);
@@ -233,12 +233,12 @@ rtc::scoped_refptr<Video> OpenYuvFile(const std::string& file_name,
                                       int height) {
   FILE* file = fopen(file_name.c_str(), "rb");
   if (file == nullptr) {
-    RTC_LOG(LS_ERROR) << "Could not open input file for reading: " << file_name;
+    RTC_DLOG(LS_ERROR) << "Could not open input file for reading: " << file_name;
     return nullptr;
   }
 
   if (width % 2 != 0 || height % 2 != 0) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "Only supports even width/height so that chroma size is a "
            "whole number.";
     return nullptr;
@@ -261,10 +261,10 @@ rtc::scoped_refptr<Video> OpenYuvFile(const std::string& file_name,
     fseek(file, i420_frame_size, SEEK_CUR);
   }
   if (frame_positions.empty()) {
-    RTC_LOG(LS_ERROR) << "Could not find any frames in the file";
+    RTC_DLOG(LS_ERROR) << "Could not find any frames in the file";
     return nullptr;
   }
-  RTC_LOG(LS_INFO) << "Video has " << frame_positions.size() << " frames";
+  RTC_DLOG(LS_INFO) << "Video has " << frame_positions.size() << " frames";
 
   return new rtc::RefCountedObject<VideoFile>(width, height, frame_positions,
                                               file);
@@ -278,7 +278,7 @@ rtc::scoped_refptr<Video> OpenYuvOrY4mFile(const std::string& file_name,
   if (absl::EndsWith(file_name, ".y4m"))
     return OpenY4mFile(file_name);
 
-  RTC_LOG(LS_ERROR) << "Video file does not end in either .yuv or .y4m: "
+  RTC_DLOG(LS_ERROR) << "Video file does not end in either .yuv or .y4m: "
                     << file_name;
 
   return nullptr;

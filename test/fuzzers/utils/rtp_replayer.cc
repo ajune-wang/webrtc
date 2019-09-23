@@ -46,7 +46,7 @@ void RtpReplayer::Replay(
   // Attempt to create an RtpReader from the input file.
   auto rtp_reader = CreateRtpReader(rtp_dump_data, rtp_dump_size);
   if (rtp_reader == nullptr) {
-    RTC_LOG(LS_ERROR) << "Failed to create the rtp_reader";
+    RTC_DLOG(LS_ERROR) << "Failed to create the rtp_reader";
     return;
   }
 
@@ -77,7 +77,7 @@ std::vector<VideoReceiveStream::Config> RtpReplayer::ReadConfigFromFile(
   Json::Reader json_reader;
   Json::Value json_configs;
   if (!json_reader.parse(replay_config, json_configs)) {
-    RTC_LOG(LS_ERROR)
+    RTC_DLOG(LS_ERROR)
         << "Error parsing JSON replay configuration for the fuzzer"
         << json_reader.getFormatedErrorMessages();
     return {};
@@ -121,7 +121,7 @@ std::unique_ptr<test::RtpFileReader> RtpReplayer::CreateRtpReader(
   std::unique_ptr<test::RtpFileReader> rtp_reader(test::RtpFileReader::Create(
       test::RtpFileReader::kRtpDump, rtp_dump_data, rtp_dump_size, {}));
   if (!rtp_reader) {
-    RTC_LOG(LS_ERROR) << "Unable to open input file with any supported format";
+    RTC_DLOG(LS_ERROR) << "Unable to open input file with any supported format";
     return nullptr;
   }
   return rtp_reader;
@@ -163,19 +163,19 @@ void RtpReplayer::ReplayPackets(Call* call, test::RtpFileReader* rtp_reader) {
 
         parser->Parse(packet.data, packet.length, &header);
         if (unknown_packets[header.ssrc] == 0) {
-          RTC_LOG(LS_ERROR) << "Unknown SSRC: " << header.ssrc;
+          RTC_DLOG(LS_ERROR) << "Unknown SSRC: " << header.ssrc;
         }
         ++unknown_packets[header.ssrc];
         break;
       }
       case PacketReceiver::DELIVERY_PACKET_ERROR: {
-        RTC_LOG(LS_ERROR)
+        RTC_DLOG(LS_ERROR)
             << "Packet error, corrupt packets or incorrect setup?";
         RTPHeader header;
         std::unique_ptr<RtpHeaderParser> parser(
             RtpHeaderParser::CreateForTest());
         parser->Parse(packet.data, packet.length, &header);
-        RTC_LOG(LS_ERROR) << "Packet packet_length=" << packet.length
+        RTC_DLOG(LS_ERROR) << "Packet packet_length=" << packet.length
                           << " payload_type=" << header.payloadType
                           << " sequence_number=" << header.sequenceNumber
                           << " time_stamp=" << header.timestamp
@@ -184,10 +184,10 @@ void RtpReplayer::ReplayPackets(Call* call, test::RtpFileReader* rtp_reader) {
       }
     }
   }
-  RTC_LOG(LS_INFO) << "num_packets: " << num_packets;
+  RTC_DLOG(LS_INFO) << "num_packets: " << num_packets;
 
   for (const auto& unknown_packet : unknown_packets) {
-    RTC_LOG(LS_ERROR) << "Packets for unknown ssrc " << unknown_packet.first
+    RTC_DLOG(LS_ERROR) << "Packets for unknown ssrc " << unknown_packet.first
                       << ":" << unknown_packet.second;
   }
 }

@@ -158,6 +158,7 @@ class MockAudioProcessing : public ::testing::NiceMock<AudioProcessing> {
                    const StreamConfig& input_config,
                    const StreamConfig& output_config,
                    float* const* dest));
+  MOCK_METHOD1(GetLinearAecOutput, bool(rtc::ArrayView<float> linear_output));
   MOCK_METHOD1(set_stream_delay_ms, int(int delay));
   MOCK_CONST_METHOD0(stream_delay_ms, int());
   MOCK_CONST_METHOD0(was_stream_delay_set, bool());

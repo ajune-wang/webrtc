@@ -43,6 +43,7 @@ constexpr int kRenderTransferQueueSizeFrames = 100;
 
 constexpr size_t kMaxNumBands = 3;
 constexpr size_t kSubFrameLength = 80;
+constexpr size_t kFrameSize = 2 * kSubFrameLength;
 
 constexpr size_t kBlockSize = kFftLengthBy2;
 constexpr size_t kBlockSizeLog2 = kFftLengthBy2Log2;

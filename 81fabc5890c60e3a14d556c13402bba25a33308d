@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9e5d8b8_d014d97d",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-09-24T15:38:10Z",
+      "side": 1,
+      "message": "What is target rate? Can you add a better pointer in the comment? There is nothing called target rate in this file as far as I can see?",
+      "range": {
+        "startLine": 183,
+        "startChar": 28,
+        "endLine": 183,
+        "endChar": 32
+      },
+      "revId": "81fabc5890c60e3a14d556c13402bba25a33308d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

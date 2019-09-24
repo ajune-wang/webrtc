@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "d2e11718_97e70780",
+        "filename": "logging/rtc_event_log/logged_events.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-09-24T15:11:43Z",
+      "side": 1,
+      "message": "I think work is still ongoing to switch chromium over to the new format. But yes, we don\u0027t need to add new features in the old format.",
+      "parentUuid": "f9a28c7b_b91b6ec7",
+      "range": {
+        "startLine": 22,
+        "startChar": 52,
+        "endLine": 22,
+        "endChar": 65
+      },
+      "revId": "8a175b72be16e64fc8c2f62854014653f11c36c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a34f5bd1_057b5e66",
         "filename": "logging/rtc_event_log/logged_events.cc",
         "patchSetId": 1

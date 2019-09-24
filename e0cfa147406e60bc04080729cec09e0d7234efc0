@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1909f44_fc1bbc92",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-24T15:07:08Z",
+      "side": 1,
+      "message": "fabsf for avoiding double precision?\nMaybe std::minmax_element and fabsf on the results?",
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcd3a558_1729dfaf",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-24T15:07:08Z",
+      "side": 1,
+      "message": "TODO still needed?",
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "710026f1_e913db84",
+        "filename": "modules/audio_processing/aec3/subtractor_output_analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-24T15:07:08Z",
+      "side": 1,
+      "message": "We probably have to rethink this a bit. What happens if all channels never have loud enough signal at the same time? Then the filters will not be considered to have converged.",
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

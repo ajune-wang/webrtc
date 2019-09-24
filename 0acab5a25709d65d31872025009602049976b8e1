@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2d19a922_4b3356cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-24T14:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0655d28e_207ef4e8",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "0acab5a25709d65d31872025009602049976b8e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eacbc36a_47864ca8",
         "filename": "modules/bitrate_controller/BUILD.gn",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c56f3fad_9ef0080f",
+        "filename": "modules/bitrate_controller/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-24T14:52:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eacbc36a_47864ca8",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 50
+      },
+      "revId": "0acab5a25709d65d31872025009602049976b8e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1884c9f6_d6e353fc",
         "filename": "modules/bitrate_controller/BUILD.gn",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "0acab5a25709d65d31872025009602049976b8e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9ef02c2_43518c5a",
+        "filename": "modules/bitrate_controller/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-24T14:52:38Z",
+      "side": 1,
+      "message": "Was supposed to be removed.",
+      "parentUuid": "1884c9f6_d6e353fc",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 5
+      },
+      "revId": "0acab5a25709d65d31872025009602049976b8e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

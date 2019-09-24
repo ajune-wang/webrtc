@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a3b03e8_16166802",
+        "filename": "p2p/client/basic_port_allocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-09-24T00:58:59Z",
+      "side": 1,
+      "message": "We set this to false a few lines before, and I was wondering if this was ever toggled by the original test (because of regathering when the interface went down), we would have the same failure there. It turns out there was a subtle issue when we had the relay port, and the gathering of that port would fail because of the firewall rule above, which puts that port into an incomplete state limbo (and this feels like a bug). As a result, OnCandidateAllocationDone was not triggered there and hence we don\u0027t need to reset (which again looks like a bug).\n\nThis change looks good to me.",
+      "range": {
+        "startLine": 1037,
+        "startChar": 2,
+        "endLine": 1037,
+        "endChar": 28
+      },
+      "revId": "d14fe340cb9d594247050f9c1c184fe32eafdee2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

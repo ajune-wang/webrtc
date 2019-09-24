@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "e8589b7e_2a43c58d",
+        "filename": "p2p/client/basic_port_allocator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-09-24T00:58:59Z",
+      "side": 1,
+      "message": "Please see my other comment.",
+      "parentUuid": "f0f6e04f_0debfde3",
+      "range": {
+        "startLine": 1054,
+        "startChar": 0,
+        "endLine": 1056,
+        "endChar": 31
+      },
+      "revId": "a0257036666d47d06a08f2ead7be3e1b7905a404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3320fb9e_197c3166",
         "filename": "p2p/client/basic_port_allocator_unittest.cc",
         "patchSetId": 1
@@ -203,6 +227,30 @@
       "side": 1,
       "message": "Updated expectation. What\u0027s unclear to me is what the second wait,\n\n  EXPECT_EQ_SIMULATED_WAIT(2U, candidates_.size(), 3500, fake_clock);\n\nis waiting for? Since it seems candidates_.size() \u003d\u003d 2 already before this point.\n\nSo I\u0027 deleting this wait, and instead increasing the timeout for the final wait, for candidate_allocation_done_ becoming true.",
       "parentUuid": "0f8692ac_d134680f",
+      "range": {
+        "startLine": 1441,
+        "startChar": 0,
+        "endLine": 1442,
+        "endChar": 68
+      },
+      "revId": "a0257036666d47d06a08f2ead7be3e1b7905a404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eb86933_5da875d2",
+        "filename": "p2p/client/basic_port_allocator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1442,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-09-24T00:58:59Z",
+      "side": 1,
+      "message": "The original second wait was for the connection timeout, which triggers the TCP connection with the gTURN server (please see the comment line before the original expectation). Now that gTURN is removed, this behavior no longer holds. I would add an expectation after the final wait to confirm that no STUN candidates are gathered, i.e., the number of candidates does not change after the wait (yeah, it seems the original test should have it...)",
+      "parentUuid": "7e34c135_194ff1c2",
       "range": {
         "startLine": 1441,
         "startChar": 0,

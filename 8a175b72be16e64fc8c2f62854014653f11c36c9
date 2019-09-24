@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f9a28c7b_b91b6ec7",
+        "filename": "logging/rtc_event_log/logged_events.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-24T14:25:08Z",
+      "side": 1,
+      "message": "I don\u0027t know how it\u0027s stored in the old format. But I don\u0027t think I need support for that, we use the new format now right?",
+      "parentUuid": "3a272a4a_7b75df9b",
+      "range": {
+        "startLine": 22,
+        "startChar": 52,
+        "endLine": 22,
+        "endChar": 65
+      },
+      "revId": "8a175b72be16e64fc8c2f62854014653f11c36c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a34f5bd1_057b5e66",
         "filename": "logging/rtc_event_log/logged_events.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "8a175b72be16e64fc8c2f62854014653f11c36c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51976b42_af34524c",
+        "filename": "logging/rtc_event_log/logged_events.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-24T14:25:08Z",
+      "side": 1,
+      "message": "Because the header is not saved in this packet and we want this struct to be a fixed length record making it appropriate to store in a data frame.",
+      "parentUuid": "a34f5bd1_057b5e66",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 24
+      },
+      "revId": "8a175b72be16e64fc8c2f62854014653f11c36c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

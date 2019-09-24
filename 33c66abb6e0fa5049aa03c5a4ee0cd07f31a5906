@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "36a7de66_7e7e339e",
+        "filename": "api/audio/echo_control.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-24T12:28:33Z",
+      "side": 1,
+      "message": "nit: true/false is return \u003d\u003e Returns true/false",
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94971143_b80d0d85",
+        "filename": "api/audio/echo_control.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-24T12:28:33Z",
+      "side": 1,
+      "message": "If linear_output has to be of length 160 it might be better to use a different data structure. Such as an std::array of length 160.",
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfb01cad_46188ca2",
+        "filename": "modules/audio_processing/aec3/aec3_common.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-24T12:28:33Z",
+      "side": 1,
+      "message": "I would prefer if this is explicitly set to 160.",
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "09fd5030_0261111d",
         "filename": "modules/audio_processing/aec3/echo_canceller3.h",
         "patchSetId": 12
@@ -19,6 +70,40 @@
         "endLine": 74,
         "endChar": 20
       },
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dcc8d40_1a3894c3",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-24T12:28:33Z",
+      "side": 1,
+      "message": "Same comment as in echo_control.h",
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18b4f8e0_7c3d4f62",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-24T12:28:33Z",
+      "side": 1,
+      "message": "Why is linear_output multidimensional if only one dimension is used?",
       "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

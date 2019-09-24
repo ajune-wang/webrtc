@@ -539,6 +539,21 @@ void RtpVideoStreamReceiver::OnAssembledFrame(
     has_received_frame_ = true;
   }
 
+  // Reset |reference_finder_| if |frame| is new and the codec have changed.
+  if (current_codec_) {
+    if (AheadOf(frame->Timestamp(), last_assembled_frame_rtp_timestamp_)) {
+      if (frame->codec_type() != current_codec_) {
+        reference_finder_ =
+            std::make_unique<video_coding::RtpFrameReferenceFinder>(this);
+        current_codec_ = frame->codec_type();
+      }
+      last_assembled_frame_rtp_timestamp_ = frame->Timestamp();
+    }
+  } else {
+    current_codec_ = frame->codec_type();
+    last_assembled_frame_rtp_timestamp_ = frame->Timestamp();
+  }
+
   if (buffered_frame_decryptor_ == nullptr) {
     reference_finder_->ManageFrame(std::move(frame));
   } else {

@@ -274,7 +274,11 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
   std::unique_ptr<LossNotificationController> loss_notification_controller_;
 
   video_coding::PacketBuffer packet_buffer_;
+
   std::unique_ptr<video_coding::RtpFrameReferenceFinder> reference_finder_;
+  absl::optional<VideoCodecType> current_codec_;
+  uint32_t last_assembled_frame_rtp_timestamp_;
+
   rtc::CriticalSection last_seq_num_cs_;
   std::map<int64_t, uint16_t> last_seq_num_for_pic_id_
       RTC_GUARDED_BY(last_seq_num_cs_);

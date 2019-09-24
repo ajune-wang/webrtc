@@ -157,9 +157,6 @@ class EchoRemoverImpl final : public EchoRemover {
   size_t block_counter_ = 0;
   int gain_change_hangover_ = 0;
   bool main_filter_output_last_selected_ = true;
-#if WEBRTC_APM_DEBUG_DUMP
-  bool linear_filter_output_last_selected_ = true;
-#endif
 
   std::vector<std::array<float, kFftLengthBy2Plus1>> Y2_heap_;
   std::vector<std::array<float, kFftLengthBy2Plus1>> E2_heap_;
@@ -379,21 +376,6 @@ void EchoRemoverImpl::ProcessCapture(
 
   // Choose the linear output.
   const auto& Y_fft = aec_state_.UseLinearFilterOutput() ? E[0] : Y[0];
-
-#if WEBRTC_APM_DEBUG_DUMP
-  if (aec_state_.UseLinearFilterOutput()) {
-    if (!linear_filter_output_last_selected_) {
-      SignalTransition(y0, e_[0], y0);
-    } else {
-      std::copy(e_[0].begin(), e_[0].end(), y0.begin());
-    }
-  } else {
-    if (linear_filter_output_last_selected_) {
-      SignalTransition(e_[0], y0, y0);
-    }
-  }
-  linear_filter_output_last_selected_ = aec_state_.UseLinearFilterOutput();
-#endif
 
   data_dumper_->DumpWav("aec3_output_linear", kBlockSize, &y0[0], 16000, 1);
   data_dumper_->DumpWav("aec3_output_linear2", kBlockSize, &e_[0][0], 16000, 1);

@@ -75,8 +75,14 @@ class SendSideBandwidthEstimation {
   ~SendSideBandwidthEstimation();
 
   void OnRouteChange();
-  void CurrentEstimate(int* bitrate, uint8_t* loss, int64_t* rtt) const;
+
+  DataRate target_rate() const;
+  uint8_t fraction_loss() const { return last_fraction_loss_; }
+  TimeDelta round_trip_time() const { return last_round_trip_time_; }
+
   DataRate GetEstimatedLinkCapacity() const;
+
+  absl::optional<DataRate> MaybeBackoffDueToLargeRtt(Timestamp at_time);
   // Call periodically to update estimate.
   void UpdateEstimate(Timestamp at_time);
   void OnSentPacket(const SentPacket& sent_packet);

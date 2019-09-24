@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "28882678_563eb4eb",
+        "filename": "api/audio/echo_control.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T15:30:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36a7de66_7e7e339e",
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94971143_b80d0d85",
         "filename": "api/audio/echo_control.h",
         "patchSetId": 12
@@ -54,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "eb59a0bf_cf23ef86",
+        "filename": "api/audio/echo_control.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T15:30:53Z",
+      "side": 1,
+      "message": "I made it an ArrayView of fixed length.",
+      "parentUuid": "83978c79_1891e8ba",
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cfb01cad_46188ca2",
         "filename": "modules/audio_processing/aec3/aec3_common.h",
         "patchSetId": 12
@@ -68,6 +104,24 @@
       "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6eab4203_0f134572",
+        "filename": "modules/audio_processing/aec3/aec3_common.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T15:30:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfb01cad_46188ca2",
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +148,30 @@
     },
     {
       "key": {
+        "uuid": "50f6c6b8_d4db749c",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T15:30:53Z",
+      "side": 1,
+      "message": "Good catch!",
+      "parentUuid": "09fd5030_0261111d",
+      "range": {
+        "startLine": 74,
+        "startChar": 18,
+        "endLine": 74,
+        "endChar": 20
+      },
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7dcc8d40_1a3894c3",
         "filename": "modules/audio_processing/aec3/echo_canceller3.h",
         "patchSetId": 12
@@ -111,6 +189,24 @@
     },
     {
       "key": {
+        "uuid": "6ba6ebdf_d8884974",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T15:30:53Z",
+      "side": 1,
+      "message": "I\u0027ll move to use array instead.",
+      "parentUuid": "7dcc8d40_1a3894c3",
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18b4f8e0_7c3d4f62",
         "filename": "modules/audio_processing/aec3/echo_remover.cc",
         "patchSetId": 12
@@ -125,6 +221,24 @@
       "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1faaf753_8505839d",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T15:30:53Z",
+      "side": 1,
+      "message": "I don\u0027t have a good answer for that. I\u0027ll make it one dimensional.",
+      "parentUuid": "18b4f8e0_7c3d4f62",
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -148,6 +262,30 @@
       "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95f29d8a_f57d125d",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1957,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T15:30:53Z",
+      "side": 1,
+      "message": "No. There is an early return on 1950.",
+      "parentUuid": "4e94b8a7_7fd0bea2",
+      "range": {
+        "startLine": 1955,
+        "startChar": 0,
+        "endLine": 1957,
+        "endChar": 47
+      },
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -198,6 +336,30 @@
     },
     {
       "key": {
+        "uuid": "cb0aafb6_9fa55c84",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T15:30:53Z",
+      "side": 1,
+      "message": "That is a very good point.\nAs was discussed offline, the price is mainly in internal code complexity. CPU and memory is close to maintained as long as this is not used.\nAlso, there is not really any overhead in what the AEC needs to do.\n\nA new ProcessStream parameter becomes a bit problematic as the this feature by necessity must be a setup-time which means that there are configurations for which the ProcessStream call needs to fail. \nFailing in ProcessStream would require a new (partial) error return code which is tricky to handle properly, which from experience is often ignored.\n\nUsing a lock for this is not desired as it comes at a cost for the rest of the code, in particular for future optimizations.",
+      "parentUuid": "0484ddfa_ef7a7a24",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 44
+      },
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "237cea56_237f81d5",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 12
@@ -218,6 +380,30 @@
       "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "290be967_c903d8b9",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T15:30:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "237cea56_237f81d5",
+      "range": {
+        "startLine": 604,
+        "startChar": 12,
+        "endLine": 604,
+        "endChar": 13
+      },
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -244,6 +430,30 @@
     },
     {
       "key": {
+        "uuid": "f999e13b_96671c15",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T15:30:53Z",
+      "side": 1,
+      "message": "Good find!",
+      "parentUuid": "4ec8fafe_ebd791a6",
+      "range": {
+        "startLine": 181,
+        "startChar": 62,
+        "endLine": 182,
+        "endChar": 80
+      },
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98dd11d3_3a11c611",
         "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
         "patchSetId": 12
@@ -267,6 +477,30 @@
     },
     {
       "key": {
+        "uuid": "10cfb16a_3fbc5641",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T15:30:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98dd11d3_3a11c611",
+      "range": {
+        "startLine": 515,
+        "startChar": 32,
+        "endLine": 516,
+        "endChar": 73
+      },
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb8534b8_6111bde5",
         "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
         "patchSetId": 12
@@ -287,6 +521,30 @@
       "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c55db50b_5552b508",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T15:30:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb8534b8_6111bde5",
+      "range": {
+        "startLine": 523,
+        "startChar": 44,
+        "endLine": 524,
+        "endChar": 25
+      },
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

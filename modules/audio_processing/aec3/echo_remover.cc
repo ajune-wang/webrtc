@@ -118,6 +118,7 @@ class EchoRemoverImpl final : public EchoRemover {
       bool capture_signal_saturation,
       const absl::optional<DelayEstimate>& external_delay,
       RenderBuffer* render_buffer,
+      std::vector<float>* linear_output,
       std::vector<std::vector<std::vector<float>>>* capture) override;
 
   // Updates the status on whether echo leakage is detected in the output of the
@@ -237,6 +238,7 @@ void EchoRemoverImpl::ProcessCapture(
     bool capture_signal_saturation,
     const absl::optional<DelayEstimate>& external_delay,
     RenderBuffer* render_buffer,
+    std::vector<float>* linear_output,
     std::vector<std::vector<std::vector<float>>>* capture) {
   ++block_counter_;
   const std::vector<std::vector<std::vector<float>>>& x =
@@ -369,6 +371,12 @@ void EchoRemoverImpl::ProcessCapture(
     LinearEchoPower(E[ch], Y[ch], &S2_linear[ch]);
     Y[ch].Spectrum(optimization_, Y2[ch]);
     E[ch].Spectrum(optimization_, E2[ch]);
+  }
+
+  // Optionally return the linear filter output.
+  if (linear_output) {
+    RTC_DCHECK_EQ(160, linear_output->size());
+    std::copy(e_[0].begin(), e_[0].end(), linear_output->begin());
   }
 
   // Update the AEC state information.

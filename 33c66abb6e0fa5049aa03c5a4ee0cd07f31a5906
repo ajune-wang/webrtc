@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "0484ddfa_ef7a7a24",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-24T10:51:53Z",
+      "side": 1,
+      "message": "Follow-up: One could go even further and do the same to the AEC interface, i.e. have another parameter in ProcessCapture(..). Does that cut down the amount of work the AEC needs to do?",
+      "parentUuid": "f19cfefc_d61e4a48",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 44
+      },
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "237cea56_237f81d5",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 12

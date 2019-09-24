@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "acde8bd5_8dacc38c",
+        "filename": "modules/audio_processing/aec3/suppression_filter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T12:09:13Z",
+      "side": 1,
+      "message": "I think it would be good to use band instead of k for the indexing. It becomes so confusing now with all the nested vectors and we\u0027ve anyway taken the first step of naming the channel loop variable.",
+      "range": {
+        "startLine": 74,
+        "startChar": 14,
+        "endLine": 74,
+        "endChar": 15
+      },
+      "revId": "90a08fd071a8713fdc569b004aff6798888c0c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9edbdae_b8908309",
+        "filename": "modules/audio_processing/aec3/suppression_filter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T12:09:13Z",
+      "side": 1,
+      "message": "Replace 3 with NumBandsForRate(sample_rate_hz_).",
+      "range": {
+        "startLine": 92,
+        "startChar": 27,
+        "endLine": 92,
+        "endChar": 28
+      },
+      "revId": "90a08fd071a8713fdc569b004aff6798888c0c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b546a6ad_f39db9d1",
+        "filename": "modules/audio_processing/aec3/suppression_filter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T12:09:13Z",
+      "side": 1,
+      "message": "k -\u003e band",
+      "range": {
+        "startLine": 141,
+        "startChar": 16,
+        "endLine": 141,
+        "endChar": 17
+      },
+      "revId": "90a08fd071a8713fdc569b004aff6798888c0c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffe5dad7_7b73db3f",
+        "filename": "modules/audio_processing/aec3/suppression_filter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T12:09:13Z",
+      "side": 1,
+      "message": "k -\u003e band",
+      "range": {
+        "startLine": 164,
+        "startChar": 16,
+        "endLine": 164,
+        "endChar": 17
+      },
+      "revId": "90a08fd071a8713fdc569b004aff6798888c0c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43371cef_b99b0166",
+        "filename": "modules/audio_processing/aec3/suppression_filter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T12:09:13Z",
+      "side": 1,
+      "message": "e_k -\u003e e_band\n\nalso in other places",
+      "range": {
+        "startLine": 165,
+        "startChar": 12,
+        "endLine": 165,
+        "endChar": 15
+      },
+      "revId": "90a08fd071a8713fdc569b004aff6798888c0c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b6e3ec2_c7990a38",
+        "filename": "modules/audio_processing/aec3/suppression_filter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T12:09:13Z",
+      "side": 1,
+      "message": "Nice!",
+      "revId": "90a08fd071a8713fdc569b004aff6798888c0c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5758fc19_e5a1eaec",
+        "filename": "modules/audio_processing/aec3/suppression_filter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-24T12:09:13Z",
+      "side": 1,
+      "message": "k -\u003e band",
+      "range": {
+        "startLine": 173,
+        "startChar": 16,
+        "endLine": 173,
+        "endChar": 17
+      },
+      "revId": "90a08fd071a8713fdc569b004aff6798888c0c33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

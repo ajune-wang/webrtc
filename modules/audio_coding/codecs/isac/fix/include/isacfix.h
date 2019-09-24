@@ -110,55 +110,6 @@ int WebRtcIsacfix_Encode(ISACFIX_MainStruct* ISAC_main_inst,
 void WebRtcIsacfix_DecoderInit(ISACFIX_MainStruct* ISAC_main_inst);
 
 /****************************************************************************
- * WebRtcIsacfix_UpdateBwEstimate1(...)
- *
- * This function updates the estimate of the bandwidth.
- *
- * Input:
- *      - ISAC_main_inst    : ISAC instance.
- *      - encoded           : encoded ISAC frame(s).
- *      - packet_size       : size of the packet in bytes.
- *      - rtp_seq_number    : the RTP number of the packet.
- *      - arr_ts            : the arrival time of the packet (from NetEq)
- *                            in samples.
- *
- * Return value             : 0 - Ok
- *                           -1 - Error
- */
-
-int16_t WebRtcIsacfix_UpdateBwEstimate1(ISACFIX_MainStruct* ISAC_main_inst,
-                                        const uint8_t* encoded,
-                                        size_t packet_size,
-                                        uint16_t rtp_seq_number,
-                                        uint32_t arr_ts);
-
-/****************************************************************************
- * WebRtcIsacfix_UpdateBwEstimate(...)
- *
- * This function updates the estimate of the bandwidth.
- *
- * Input:
- *      - ISAC_main_inst    : ISAC instance.
- *      - encoded           : encoded ISAC frame(s).
- *      - packet_size       : size of the packet in bytes.
- *      - rtp_seq_number    : the RTP number of the packet.
- *      - send_ts           : the send time of the packet from RTP header,
- *                            in samples.
- *      - arr_ts            : the arrival time of the packet (from NetEq)
- *                            in samples.
- *
- * Return value             :  0 - Ok
- *                            -1 - Error
- */
-
-int16_t WebRtcIsacfix_UpdateBwEstimate(ISACFIX_MainStruct* ISAC_main_inst,
-                                       const uint8_t* encoded,
-                                       size_t packet_size,
-                                       uint16_t rtp_seq_number,
-                                       uint32_t send_ts,
-                                       uint32_t arr_ts);
-
-/****************************************************************************
  * WebRtcIsacfix_Decode(...)
  *
  * This function decodes an ISAC frame. Output speech length

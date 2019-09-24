@@ -25,13 +25,6 @@
 extern "C" {
 #endif
 
-int WebRtcIsacfix_EstimateBandwidth(BwEstimatorstr* bwest_str,
-                                    Bitstr_dec* streamdata,
-                                    size_t packet_size,
-                                    uint16_t rtp_seq_number,
-                                    uint32_t send_ts,
-                                    uint32_t arr_ts);
-
 int WebRtcIsacfix_DecodeImpl(int16_t* signal_out16,
                              IsacFixDecoderInstance* ISACdec_obj,
                              size_t* current_framesamples);

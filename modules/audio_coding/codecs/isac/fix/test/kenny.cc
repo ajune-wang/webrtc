@@ -753,19 +753,6 @@ TEST(IsacFixTest, Kenny) {
         }
       }
 
-      if (testNum != 9) {
-        err = WebRtcIsacfix_UpdateBwEstimate(
-            ISAC_main_inst, reinterpret_cast<const uint8_t*>(streamdata),
-            stream_len, BN_data.rtp_number, BN_data.send_time,
-            BN_data.arrival_time);
-
-        if (err < 0) {
-          /* exit if returned with error */
-          errtype = WebRtcIsacfix_GetErrorCode(ISAC_main_inst);
-          printf("\nError in decoder: %d.\n", errtype);
-        }
-      }
-
       if (readLoss == 1) {
         if (fread(&lostFrame, sizeof(int16_t), 1, plFile) != 1) {
           rewind(plFile);

@@ -111,31 +111,6 @@ int WebRtcIsac_Encode(ISACStruct* ISAC_main_inst,
 void WebRtcIsac_DecoderInit(ISACStruct* ISAC_main_inst);
 
 /******************************************************************************
- * WebRtcIsac_UpdateBwEstimate(...)
- *
- * This function updates the estimate of the bandwidth.
- *
- * Input:
- *        - ISAC_main_inst    : ISAC instance.
- *        - encoded           : encoded ISAC frame(s).
- *        - packet_size       : size of the packet.
- *        - rtp_seq_number    : the RTP number of the packet.
- *        - send_ts           : the RTP send timestamp, given in samples
- *        - arr_ts            : the arrival time of the packet (from NetEq)
- *                              in samples.
- *
- * Return value               : 0 - Ok
- *                             -1 - Error
- */
-
-int16_t WebRtcIsac_UpdateBwEstimate(ISACStruct* ISAC_main_inst,
-                                    const uint8_t* encoded,
-                                    size_t packet_size,
-                                    uint16_t rtp_seq_number,
-                                    uint32_t send_ts,
-                                    uint32_t arr_ts);
-
-/******************************************************************************
  * WebRtcIsac_Decode(...)
  *
  * This function decodes an ISAC frame. At 16 kHz sampling rate, the length

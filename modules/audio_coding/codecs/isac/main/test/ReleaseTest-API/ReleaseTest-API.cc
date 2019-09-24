@@ -753,27 +753,6 @@ int main(int argc, char* argv[]) {
         }
       }
 
-      if (testNum != 9) {
-        err = WebRtcIsac_UpdateBwEstimate(
-            ISAC_main_inst, reinterpret_cast<const uint8_t*>(streamdata),
-            stream_len, BN_data.rtp_number, BN_data.sample_count,
-            BN_data.arrival_time);
-
-        if (err < 0) {
-          /* exit if returned with error */
-          errtype = WebRtcIsac_GetErrorCode(ISAC_main_inst);
-          if (testNum == 0) {
-            printf("\n\n");
-          }
-
-          printf("Error: in decoder: %d.", errtype);
-          std::cout << std::flush;
-          if (testNum == 0) {
-            printf("\n\n");
-          }
-        }
-      }
-
       /* Call getFramelen, only used here for function test */
       err = WebRtcIsac_ReadFrameLen(
           ISAC_main_inst, reinterpret_cast<const uint8_t*>(streamdata), &FL);

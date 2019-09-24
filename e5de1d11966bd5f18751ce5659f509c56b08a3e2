@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75094883_33fd8e60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-24T08:06:18Z",
+      "side": 1,
+      "message": "Please elaborate. What happens if we have an empty instantiation name, and why is it bad?",
+      "revId": "e5de1d11966bd5f18751ce5659f509c56b08a3e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

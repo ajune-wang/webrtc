@@ -70,6 +70,30 @@
       "revId": "9e50cb97f6350fc2f39023b64ce9712895c09bb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f332cd59_380236dd",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-24T11:40:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdc37627_3c2147bd",
+      "range": {
+        "startLine": 652,
+        "startChar": 0,
+        "endLine": 654,
+        "endChar": 3
+      },
+      "revId": "9e50cb97f6350fc2f39023b64ce9712895c09bb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

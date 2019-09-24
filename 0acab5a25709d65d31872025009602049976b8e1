@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0655d28e_207ef4e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-24T13:06:06Z",
+      "side": 1,
+      "message": "Please be a bit more explicit on which directories and files are involved in the move.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "0acab5a25709d65d31872025009602049976b8e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eacbc36a_47864ca8",
+        "filename": "modules/bitrate_controller/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-24T13:06:06Z",
+      "side": 1,
+      "message": "I take it there\u0027s some reason this file can\u0027t be deleted completely right away? Add a TODO item?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 50
+      },
+      "revId": "0acab5a25709d65d31872025009602049976b8e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1884c9f6_d6e353fc",
+        "filename": "modules/bitrate_controller/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-24T13:06:06Z",
+      "side": 1,
+      "message": "The deps no longer needed.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 5
+      },
+      "revId": "0acab5a25709d65d31872025009602049976b8e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

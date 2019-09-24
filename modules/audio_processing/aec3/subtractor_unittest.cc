@@ -45,7 +45,7 @@ float RunSubtractorTest(int num_blocks_to_process,
                      kNumChannels, std::vector<float>(kBlockSize, 0.f)));
   std::vector<float> y(kBlockSize, 0.f);
   std::array<float, kBlockSize> x_old;
-  SubtractorOutput output;
+  std::vector<SubtractorOutput> output(kNumChannels);
   config.delay.default_delay = 1;
   std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
       RenderDelayBuffer::Create(config, kSampleRateHz, kNumChannels));
@@ -86,18 +86,19 @@ float RunSubtractorTest(int num_blocks_to_process,
           false));
     }
     subtractor.Process(*render_delay_buffer->GetRenderBuffer(), y,
-                       render_signal_analyzer, aec_state, &output);
+                       render_signal_analyzer, aec_state, &output[0]);
 
     aec_state.HandleEchoPathChange(EchoPathVariability(
         false, EchoPathVariability::DelayAdjustment::kNone, false));
     aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
                      *render_delay_buffer->GetRenderBuffer(), E2_main, Y2,
-                     output, y);
+                     output);
   }
 
-  const float output_power = std::inner_product(
-      output.e_main.begin(), output.e_main.end(), output.e_main.begin(), 0.f);
+  const float output_power =
+      std::inner_product(output[0].e_main.begin(), output[0].e_main.end(),
+                         output[0].e_main.begin(), 0.f);
   const float y_power = std::inner_product(y.begin(), y.end(), y.begin(), 0.f);
   if (y_power == 0.f) {
     ADD_FAILURE();
@@ -151,11 +152,11 @@ TEST(Subtractor, WrongCaptureSize) {
       RenderDelayBuffer::Create(config, 48000, 1));
   RenderSignalAnalyzer render_signal_analyzer(config);
   std::vector<float> y(kBlockSize - 1, 0.f);
-  SubtractorOutput output;
+  std::vector<SubtractorOutput> output(/*num_channels=*/1);
 
   EXPECT_DEATH(
       subtractor.Process(*render_delay_buffer->GetRenderBuffer(), y,
-                         render_signal_analyzer, AecState(config), &output),
+                         render_signal_analyzer, AecState(config), &output[0]),
       "");
 }
 

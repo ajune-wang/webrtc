@@ -19,17 +19,22 @@ namespace webrtc {
 SubtractorOutputAnalyzer::SubtractorOutputAnalyzer() {}
 
 void SubtractorOutputAnalyzer::Update(
-    const SubtractorOutput& subtractor_output) {
-  const float y2 = subtractor_output.y2;
-  const float e2_main = subtractor_output.e2_main;
-  const float e2_shadow = subtractor_output.e2_shadow;
+    rtc::ArrayView<const SubtractorOutput> subtractor_output) {
+  shadow_filter_converged_ = true;
+  main_filter_converged_ = true;
+  filter_diverged_ = false;
+  for (size_t ch = 0; ch < subtractor_output.size(); ++ch) {
+    const float y2 = subtractor_output[ch].y2;
+    const float e2_main = subtractor_output[ch].e2_main;
+    const float e2_shadow = subtractor_output[ch].e2_shadow;
 
-  constexpr float kConvergenceThreshold = 50 * 50 * kBlockSize;
-  main_filter_converged_ = e2_main < 0.5f * y2 && y2 > kConvergenceThreshold;
-  shadow_filter_converged_ =
-      e2_shadow < 0.05f * y2 && y2 > kConvergenceThreshold;
-  float min_e2 = std::min(e2_main, e2_shadow);
-  filter_diverged_ = min_e2 > 1.5f * y2 && y2 > 30.f * 30.f * kBlockSize;
+    constexpr float kConvergenceThreshold = 50 * 50 * kBlockSize;
+    main_filter_converged_ &= e2_main < 0.5f * y2 && y2 > kConvergenceThreshold;
+    shadow_filter_converged_ &=
+        e2_shadow < 0.05f * y2 && y2 > kConvergenceThreshold;
+    float min_e2 = std::min(e2_main, e2_shadow);
+    filter_diverged_ |= min_e2 > 1.5f * y2 && y2 > 30.f * 30.f * kBlockSize;
+  }
 }
 
 void SubtractorOutputAnalyzer::HandleEchoPathChange() {

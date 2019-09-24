@@ -46,6 +46,30 @@
       "revId": "9e50cb97f6350fc2f39023b64ce9712895c09bb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdc37627_3c2147bd",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-09-24T09:09:38Z",
+      "side": 1,
+      "message": "I don\u0027t like it. You\u0027re spreading out the conditions over two methods and to combat the confusion, MaybeUpdateUplinkBandwidth needs DCHECKs when it could just as well deal with it itself (and just not do anything).",
+      "parentUuid": "3f7afed3_e0d482c9",
+      "range": {
+        "startLine": 652,
+        "startChar": 0,
+        "endLine": 654,
+        "endChar": 3
+      },
+      "revId": "9e50cb97f6350fc2f39023b64ce9712895c09bb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "bbd19a0b_a868c250",
+        "filename": "video/end_to_end_tests/multi_codec_receive_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-09-24T12:31:56Z",
+      "side": 1,
+      "message": "In that case, we should have:\n* A comment stating that (otherwise we aren\u0027t sure whether it\u0027s an oversight).\n* A RTC_DCHECK_RUN_ON()\n* Other?\n\nWDYT?",
+      "parentUuid": "3054c27d_40bae3f3",
+      "revId": "bf5ee00f8d403810456ca98a8c13c80916573578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "04d6ea48_25f42250",
         "filename": "video/end_to_end_tests/multi_codec_receive_tests.cc",
         "patchSetId": 4
@@ -69,6 +87,24 @@
       "revId": "bf5ee00f8d403810456ca98a8c13c80916573578",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29ce9934_0ed9a9cb",
+        "filename": "video/end_to_end_tests/multi_codec_receive_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-09-24T12:31:56Z",
+      "side": 1,
+      "message": "Ack.\nAs a general guideline, such explanation should appear as a comment. What the code is doing is pretty clear. Why are we doing it less so :)",
+      "parentUuid": "65802da6_87626e89",
+      "revId": "bf5ee00f8d403810456ca98a8c13c80916573578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

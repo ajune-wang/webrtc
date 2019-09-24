@@ -230,6 +230,13 @@ void AudioProcessingSimulator::ProcessStream(bool fixed_interface) {
     buffer_file_writer_->Write(*out_buf_);
   }
 
+  if (linear_aec_output_file_writer_) {
+    bool output_available = ap_->GetLinearAecOutput(linear_aec_output_buf_);
+    RTC_CHECK(output_available);
+    linear_aec_output_file_writer_->WriteSamples(linear_aec_output_buf_.data(),
+                                                 linear_aec_output_buf_.size());
+  }
+
   if (residual_echo_likelihood_graph_writer_.is_open()) {
     auto stats = ap_->GetStatistics(true /*has_remote_tracks*/);
     residual_echo_likelihood_graph_writer_
@@ -345,6 +352,18 @@ void AudioProcessingSimulator::SetupOutput() {
         settings_.processed_capture_samples);
   }
 
+  if (settings_.linear_aec_output_filename) {
+    std::string filename;
+    if (settings_.store_intermediate_output) {
+      filename = GetIndexedOutputWavFilename(
+          *settings_.linear_aec_output_filename, output_reset_counter_);
+    } else {
+      filename = *settings_.linear_aec_output_filename;
+    }
+
+    linear_aec_output_file_writer_.reset(new WavWriter(filename, 16000, 1));
+  }
+
   if (settings_.reverse_output_filename) {
     std::string filename;
     if (settings_.store_intermediate_output) {
@@ -413,6 +432,8 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
     apm_config.echo_canceller.mobile_mode = use_aecm;
     apm_config.echo_canceller.use_legacy_aec = use_legacy_aec;
   }
+  apm_config.echo_canceller.export_linear_aec_output =
+      !!settings_.linear_aec_output_filename;
 
   RTC_CHECK(!(use_legacy_aec && settings_.aec_settings_filename))
       << "The legacy AEC cannot be configured using settings";
@@ -424,8 +445,13 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
         std::cout << "Reading AEC Parameters from JSON input." << std::endl;
       }
       cfg = ReadAec3ConfigFromJsonFile(*settings_.aec_settings_filename);
-      echo_control_factory.reset(new EchoCanceller3Factory(cfg));
     }
+
+    if (settings_.linear_aec_output_filename) {
+      cfg.filter.export_linear_aec_output = true;
+    }
+
+    echo_control_factory.reset(new EchoCanceller3Factory(cfg));
 
     if (settings_.print_aec_parameter_values) {
       if (!settings_.use_quiet_output) {

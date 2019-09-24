@@ -278,6 +278,7 @@ class AudioProcessing : public rtc::RefCountInterface {
       bool legacy_moderate_suppression_level = false;
       // Recommended not to use. Will be removed in the future.
       bool use_legacy_aec = false;
+      bool export_linear_aec_output = false;
     } echo_canceller;
 
     // Enables background noise suppression.
@@ -596,6 +597,12 @@ class AudioProcessing : public rtc::RefCountInterface {
                                    const StreamConfig& input_config,
                                    const StreamConfig& output_config,
                                    float* const* dest) = 0;
+
+  // Returns the most recently produced 10 ms of the linear AEC output at a rate
+  // of 16 kHz. If there is more than one capture channel, a mono representation
+  // of the input is returned. Returns true/false to indicate whether an output
+  // returned.
+  virtual bool GetLinearAecOutput(rtc::ArrayView<float> linear_output) = 0;
 
   // This must be called prior to ProcessStream() if and only if adaptive analog
   // gain control is enabled, to pass the current analog level from the audio

@@ -12,6 +12,9 @@
 #define API_AUDIO_ECHO_CONTROL_H_
 
 #include <memory>
+#include <vector>
+
+#include "api/array_view.h"
 
 namespace webrtc {
 
@@ -40,6 +43,15 @@ class EchoControl {
 
   // Provides an optional external estimate of the audio buffer delay.
   virtual void SetAudioBufferDelay(size_t delay_ms) = 0;
+
+  // Returns the most recently produced 10 ms of the linear AEC output at a rate
+  // of 16 kHz. If there is more than one capture channel, a mono representation
+  // of the linear output is returned. The vector linear_output must be of size
+  // 160. Returns true/false to indicate whether a linear output was returned.
+  // TODO(peah): Make pure virtual.
+  virtual bool GetLinearOutput(rtc::ArrayView<float, 160> linear_output) {
+    return false;
+  }
 
   virtual ~EchoControl() {}
 };

@@ -161,6 +161,7 @@ class EchoRemoverImpl final : public EchoRemover {
   bool linear_filter_output_last_selected_ = true;
 #endif
 
+  std::vector<std::array<float, kFftLengthBy2>> e_heap_;
   std::vector<std::array<float, kFftLengthBy2Plus1>> Y2_heap_;
   std::vector<std::array<float, kFftLengthBy2Plus1>> E2_heap_;
   std::vector<std::array<float, kFftLengthBy2Plus1>> R2_heap_;
@@ -195,9 +196,9 @@ EchoRemoverImpl::EchoRemoverImpl(const EchoCanceller3Config& config,
       render_signal_analyzer_(config_),
       residual_echo_estimators_(num_capture_channels_),
       aec_state_(config_),
-      e_(num_capture_channels_),
       e_old_(num_capture_channels_),
       y_old_(num_capture_channels_),
+      e_heap_(NumChannelsOnHeap(num_capture_channels_)),
       Y2_heap_(NumChannelsOnHeap(num_capture_channels_)),
       E2_heap_(NumChannelsOnHeap(num_capture_channels_)),
       R2_heap_(NumChannelsOnHeap(num_capture_channels_)),
@@ -252,6 +253,7 @@ void EchoRemoverImpl::ProcessCapture(
   RTC_DCHECK_EQ((*y)[0][0].size(), kBlockSize);
 
   // Stack allocated data to use when the number of channels is low.
+  std::array<std::array<float, kFftLengthBy2>, kMaxNumChannelsOnStack> e_stack;
   std::array<std::array<float, kFftLengthBy2Plus1>, kMaxNumChannelsOnStack>
       Y2_stack;
   std::array<std::array<float, kFftLengthBy2Plus1>, kMaxNumChannelsOnStack>
@@ -266,6 +268,8 @@ void EchoRemoverImpl::ProcessCapture(
   std::array<FftData, kMaxNumChannelsOnStack> high_band_comfort_noise_stack;
   std::array<SubtractorOutput, kMaxNumChannelsOnStack> subtractor_output_stack;
 
+  rtc::ArrayView<std::array<float, kFftLengthBy2>> e(e_stack.data(),
+                                                     num_capture_channels_);
   rtc::ArrayView<std::array<float, kFftLengthBy2Plus1>> Y2(
       Y2_stack.data(), num_capture_channels_);
   rtc::ArrayView<std::array<float, kFftLengthBy2Plus1>> E2(
@@ -285,6 +289,8 @@ void EchoRemoverImpl::ProcessCapture(
   if (NumChannelsOnHeap(num_capture_channels_) > 0) {
     // If the stack-allocated space is too small, use the heap for storing the
     // microphone data.
+    e = rtc::ArrayView<std::array<float, kFftLengthBy2>>(e_heap_.data(),
+                                                         num_capture_channels_);
     Y2 = rtc::ArrayView<std::array<float, kFftLengthBy2Plus1>>(
         Y2_heap_.data(), num_capture_channels_);
     E2 = rtc::ArrayView<std::array<float, kFftLengthBy2Plus1>>(

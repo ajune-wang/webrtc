@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3054c27d_40bae3f3",
+        "filename": "video/end_to_end_tests/multi_codec_receive_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-09-24T11:34:30Z",
+      "side": 1,
+      "message": "called from the same thread",
+      "parentUuid": "f73c790c_f9268540",
+      "revId": "bf5ee00f8d403810456ca98a8c13c80916573578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "04d6ea48_25f42250",
         "filename": "video/end_to_end_tests/multi_codec_receive_tests.cc",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2019-09-24T09:13:31Z",
       "side": 1,
       "message": "Isn\u0027t that just hiding the issue under the carper?",
+      "revId": "bf5ee00f8d403810456ca98a8c13c80916573578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65802da6_87626e89",
+        "filename": "video/end_to_end_tests/multi_codec_receive_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-09-24T11:34:30Z",
+      "side": 1,
+      "message": "Since the tests are mainly for testing that all frames are decoded, I think that disabling the prerender step should be ok (at least until bug:7253 is fixed).",
+      "parentUuid": "04d6ea48_25f42250",
       "revId": "bf5ee00f8d403810456ca98a8c13c80916573578",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -129,15 +129,15 @@ class AecState {
   }
 
   // Updates the aec state.
-  void Update(const absl::optional<DelayEstimate>& external_delay,
-              const std::vector<std::array<float, kFftLengthBy2Plus1>>&
-                  adaptive_filter_frequency_response,
-              const std::vector<float>& adaptive_filter_impulse_response,
-              const RenderBuffer& render_buffer,
-              const std::array<float, kFftLengthBy2Plus1>& E2_main,
-              const std::array<float, kFftLengthBy2Plus1>& Y2,
-              const SubtractorOutput& subtractor_output,
-              rtc::ArrayView<const float> y);
+  void Update(
+      const absl::optional<DelayEstimate>& external_delay,
+      rtc::ArrayView<const std::vector<std::array<float, kFftLengthBy2Plus1>>>
+          adaptive_filter_frequency_response,
+      rtc::ArrayView<const std::vector<float>> adaptive_filter_impulse_response,
+      const RenderBuffer& render_buffer,
+      rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>> E2_main,
+      rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>> Y2,
+      rtc::ArrayView<const SubtractorOutput> subtractor_output);
 
   // Returns filter length in blocks.
   int FilterLengthBlocks() const {
@@ -275,10 +275,10 @@ class AecState {
     bool SaturatedEcho() const { return saturated_echo_; }
 
     // Updates the detection decision based on new data.
-    void Update(rtc::ArrayView<const float> x,
+    void Update(rtc::ArrayView<const std::vector<float>> x,
                 bool saturated_capture,
                 bool usable_linear_estimate,
-                const SubtractorOutput& subtractor_output,
+                rtc::ArrayView<const SubtractorOutput> subtractor_output,
                 float echo_path_gain);
 
    private:

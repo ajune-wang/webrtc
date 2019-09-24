@@ -71,7 +71,7 @@ TEST(SuppressionGain, BasicGainComputation) {
   std::array<float, kFftLengthBy2Plus1> R2;
   std::array<float, kFftLengthBy2Plus1> N2;
   std::array<float, kFftLengthBy2Plus1> g;
-  SubtractorOutput output;
+  std::vector<SubtractorOutput> output(kNumChannels);
   std::array<float, kBlockSize> y;
   std::vector<std::vector<std::vector<float>>> x(
       kNumBands, std::vector<std::vector<float>>(
@@ -90,22 +90,22 @@ TEST(SuppressionGain, BasicGainComputation) {
   R2.fill(0.1f);
   S2.fill(0.1f);
   N2.fill(100.f);
-  output.Reset();
+  for (auto& subtractor_output : output) {
+    subtractor_output.Reset();
+  }
   y.fill(0.f);
 
   // Ensure that the gain is no longer forced to zero.
   for (int k = 0; k <= kNumBlocksPerSecond / 5 + 1; ++k) {
     aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
-                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, output,
-                     y);
+                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, output);
   }
 
   for (int k = 0; k < 100; ++k) {
     aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
-                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, output,
-                     y);
+                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, output);
     suppression_gain.GetGain(E2, S2, R2, N2, analyzer, aec_state, x,
                              &high_bands_gain, &g);
   }
@@ -122,8 +122,7 @@ TEST(SuppressionGain, BasicGainComputation) {
   for (int k = 0; k < 100; ++k) {
     aec_state.Update(delay_estimate, subtractor.FilterFrequencyResponse(),
                      subtractor.FilterImpulseResponse(),
-                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, output,
-                     y);
+                     *render_delay_buffer->GetRenderBuffer(), E2, Y2, output);
     suppression_gain.GetGain(E2, S2, R2, N2, analyzer, aec_state, x,
                              &high_bands_gain, &g);
   }

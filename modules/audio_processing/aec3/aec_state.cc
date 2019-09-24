@@ -100,14 +100,20 @@ void AecState::HandleEchoPathChange(
 
 void AecState::Update(
     const absl::optional<DelayEstimate>& external_delay,
-    const std::vector<std::array<float, kFftLengthBy2Plus1>>&
+    rtc::ArrayView<const std::vector<std::array<float, kFftLengthBy2Plus1>>>
         adaptive_filter_frequency_response,
-    const std::vector<float>& adaptive_filter_impulse_response,
+    rtc::ArrayView<const std::vector<float>> adaptive_filter_impulse_response,
     const RenderBuffer& render_buffer,
-    const std::array<float, kFftLengthBy2Plus1>& E2_main,
-    const std::array<float, kFftLengthBy2Plus1>& Y2,
-    const SubtractorOutput& subtractor_output,
-    rtc::ArrayView<const float> y) {
+    rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>> E2_main,
+    rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>> Y2,
+    rtc::ArrayView<const SubtractorOutput> subtractor_output) {
+  const size_t num_render_channels = render_buffer.Block(0)[0];
+  DCHECK_EQ(adaptive_filter_frequency_response.size(), num_render_channels);
+  DCHECK_EQ(adaptive_filter_impulse_response.size(), num_render_channels);
+  const size_t num_capture_channels = subtractor_output.size();
+  DCHECK_EQ(E2_main.size(), num_capture_channels);
+  DCHECK_EQ(Y2.size(), num_capture_channels);
+
   // Analyze the filter output.
   subtractor_output_analyzer_.Update(subtractor_output);
 
@@ -120,13 +126,13 @@ void AecState::Update(
                         strong_not_saturated_render_blocks_);
   }
 
-  const std::vector<float>& aligned_render_block =
-      render_buffer.Block(-delay_state_.DirectPathFilterDelay())[0][0];
+  const std::vector<std::vector<float>>& aligned_render_block =
+      render_buffer.Block(-delay_state_.DirectPathFilterDelay())[0];
 
   // Update render counters.
   const float render_energy = std::inner_product(
-      aligned_render_block.begin(), aligned_render_block.end(),
-      aligned_render_block.begin(), 0.f);
+      aligned_render_block[0].begin(), aligned_render_block[0].end(),
+      aligned_render_block[0].begin(), 0.f);
   const bool active_render =
       render_energy > (config_.render_levels.active_render_limit *
                        config_.render_levels.active_render_limit) *
@@ -406,28 +412,37 @@ void AecState::FilteringQualityAnalyzer::Update(
   usable_linear_estimate_ = usable_linear_estimate_ && !transparent_mode;
 }
 
-
 void AecState::SaturationDetector::Update(
-    rtc::ArrayView<const float> x,
+    rtc::ArrayView<const std::vector<float>> x,
     bool saturated_capture,
     bool usable_linear_estimate,
-    const SubtractorOutput& subtractor_output,
+    rtc::ArrayView<const SubtractorOutput> subtractor_output,
     float echo_path_gain) {
-  saturated_echo_ = saturated_capture;
+  saturated_echo_ = false;
+
   if (usable_linear_estimate) {
     constexpr float kSaturationThreshold = 20000.f;
-    saturated_echo_ =
-        saturated_echo_ &&
-        (subtractor_output.s_main_max_abs > kSaturationThreshold ||
-         subtractor_output.s_shadow_max_abs > kSaturationThreshold);
+    for (size_t channel = 0; channel < subtractor_output.size(); ++channel) {
+      saturated_echo_ =
+          saturated_echo_ ||
+          (subtractor_output[channel].s_main_max_abs > kSaturationThreshold ||
+           subtractor_output[channel].s_shadow_max_abs > kSaturationThreshold);
+    }
   } else {
-    const float max_sample = fabs(*std::max_element(
-        x.begin(), x.end(), [](float a, float b) { return a * a < b * b; }));
+    float max_sample = 0.f;
+    for (auto& channel : x) {
+      for (float sample : channel) {
+        if (fabs(sample) > max_sample) {
+          max_sample = fabs(sample);
+        }
+      }
+    }
 
     const float kMargin = 10.f;
     float peak_echo_amplitude = max_sample * echo_path_gain * kMargin;
-    saturated_echo_ = saturated_echo_ && peak_echo_amplitude > 32000;
+    saturated_echo_ = saturated_echo_ || peak_echo_amplitude > 32000;
   }
+  saturated_echo_ &= saturated_capture;
 }
 
 }  // namespace webrtc

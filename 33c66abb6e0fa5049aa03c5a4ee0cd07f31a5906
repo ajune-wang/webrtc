@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "83978c79_1891e8ba",
+        "filename": "api/audio/echo_control.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-24T13:27:35Z",
+      "side": 1,
+      "message": "rtc::ArrayView\u003cfloat, 160\u003e is another option. Less restrictive for the user.",
+      "parentUuid": "94971143_b80d0d85",
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cfb01cad_46188ca2",
         "filename": "modules/audio_processing/aec3/aec3_common.h",
         "patchSetId": 12
@@ -110,6 +128,29 @@
     },
     {
       "key": {
+        "uuid": "4e94b8a7_7fd0bea2",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1957,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-24T13:27:35Z",
+      "side": 1,
+      "message": "Doesn\u0027t this undo the setup on lines 1932-1937?",
+      "range": {
+        "startLine": 1955,
+        "startChar": 0,
+        "endLine": 1957,
+        "endChar": 47
+      },
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f19cfefc_d61e4a48",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 12
@@ -173,6 +214,75 @@
         "startChar": 12,
         "endLine": 604,
         "endChar": 13
+      },
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ec8fafe_ebd791a6",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-24T13:27:35Z",
+      "side": 1,
+      "message": "This seems like an unused variable.",
+      "range": {
+        "startLine": 181,
+        "startChar": 62,
+        "endLine": 182,
+        "endChar": 80
+      },
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98dd11d3_3a11c611",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-24T13:27:35Z",
+      "side": 1,
+      "message": "nit: inconsistent.\nimplicitly converting settings.use_aec to bool but explicitly (!!) converting settings.linear_aec_output_filename to bool. Pick one.\n\nSame below.",
+      "range": {
+        "startLine": 515,
+        "startChar": 32,
+        "endLine": 516,
+        "endChar": 73
+      },
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb8534b8_6111bde5",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-24T13:27:35Z",
+      "side": 1,
+      "message": "I guess this applies to AECM, too?",
+      "range": {
+        "startLine": 523,
+        "startChar": 44,
+        "endLine": 524,
+        "endChar": 25
       },
       "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

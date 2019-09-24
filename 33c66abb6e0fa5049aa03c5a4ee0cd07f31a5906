@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09fd5030_0261111d",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-24T10:49:43Z",
+      "side": 1,
+      "message": "nit: unintentional?",
+      "range": {
+        "startLine": 74,
+        "startChar": 18,
+        "endLine": 74,
+        "endChar": 20
+      },
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f19cfefc_d61e4a48",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-24T10:49:43Z",
+      "side": 1,
+      "message": "It looks like the APM code is paying a somewhat high price (config setting, internal swapqueue, code juggling) to avoid taking a lock in GetLinearAecOutput. Can we make linear_output a parameter of the ProcessStream function call? Since it should always - when used - be called precisely once per ProcessStream call anyway. Then the entirety of the APM code will be reduced to essentially:\n\nif (linear_output) {\n  private_submodules_-\u003eecho_controller-\u003eGetLinearOutput(linear_output);\n}",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 44
+      },
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "237cea56_237f81d5",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-24T10:49:43Z",
+      "side": 1,
+      "message": "nit: punctuation",
+      "range": {
+        "startLine": 604,
+        "startChar": 12,
+        "endLine": 604,
+        "endChar": 13
+      },
+      "revId": "33c66abb6e0fa5049aa03c5a4ee0cd07f31a5906",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

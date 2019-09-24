@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'ae812cd84fab63232a2e296a672059a77e3a0fe5',
+  'chromium_revision': '7075352610f1c43f0897609c7feccf285f455b7c',
 }
 
 deps = {
@@ -14,7 +14,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@48123426be2a7c8ee2258a83129c15897a7430cd',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@2885ef80463a390f32107a23408dbc2582a2ac93',
+    'https://chromium.googlesource.com/chromium/src/build@623e98b4a3dec903fc50d11bb4eedf1c042049f6',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@cf454b247c611167388742c7a31ef138a6031172',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -23,13 +23,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@0969b164cdefcde09ebd7b840b261a23c378dad0',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@9feb4b1a42467ed8017fa9eb6686ed634dbe5ffc',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@817467ec61f52326e0d1f16d621bd0d6c69fec38',
+    'https://chromium.googlesource.com/chromium/src/testing@c8a5d16b98af80b7b6d2423e98ba8330763aa016',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@d5c12817e07b37a623c9433b994600b8f4393fa7',
+    'https://chromium.googlesource.com/chromium/src/third_party@b1545097c31738ac9dd878c4add6b0a108619fc8',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -231,7 +231,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@8144dc3f1da6a1312b839ff98f8ad03157604e16',
+    'https://chromium.googlesource.com/chromium/src/tools@ebc6bed910e1eb8a4bdb84213d8e29bbdca7683b',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@885b3febcc170a60f25795304e60927b77d1e92d',
 

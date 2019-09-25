@@ -632,6 +632,11 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
     // of SCTP-DTLS.
     absl::optional<bool> use_datagram_transport_for_data_channels;
 
+    // If true, this PeerConnection will only use datagram transport for data
+    // channels when receiving an incoming call, not when placing an outgoing
+    // call.
+    absl::optional<bool> use_datagram_transport_for_data_channels_receive_only;
+
     // Defines advanced optional cryptographic settings related to SRTP and
     // frame encryption for native WebRTC. Setting this will overwrite any
     // settings set in PeerConnectionFactory (which is deprecated).

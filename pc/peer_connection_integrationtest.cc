@@ -3647,7 +3647,102 @@ TEST_P(PeerConnectionIntegrationTest,
   ASSERT_TRUE(ExpectNewFrames(media_expectations));
 }
 
+// Tests that data channels use SCTP instead of datagram transport if datagram
+// transport is configured in receive-only mode on the caller.
+TEST_P(PeerConnectionIntegrationTest,
+       DatagramTransportDataChannelReceiveOnlyOnCallerUsesSctp) {
+  PeerConnectionInterface::RTCConfiguration rtc_config;
+  rtc_config.rtcp_mux_policy = PeerConnectionInterface::kRtcpMuxPolicyRequire;
+  rtc_config.bundle_policy = PeerConnectionInterface::kBundlePolicyMaxBundle;
+  rtc_config.use_datagram_transport_for_data_channels = true;
+  rtc_config.use_datagram_transport_for_data_channels_receive_only = true;
+
+  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
+      rtc_config, rtc_config, loopback_media_transports()->first_factory(),
+      loopback_media_transports()->second_factory()));
+  ConnectFakeSignaling();
+
+  // The caller should offer a data channel using SCTP.
+  caller()->CreateDataChannel();
+  caller()->AddAudioVideoTracks();
+  callee()->AddAudioVideoTracks();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+
+  ASSERT_NE(nullptr, caller()->data_channel());
+
+  // Note that we do *not* set the datagram transport to be ready-to-send
+  // before this.  This prevents the callee from observing the data channel
+  // if the caller tries to use the datagram transport, so the following
+  // assertion only passes if SCTP is used.
+  ASSERT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
+  EXPECT_TRUE_WAIT(caller()->data_observer()->IsOpen(), kDefaultTimeout);
+  EXPECT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+
+  // Ensure data can be sent in both directions.
+  std::string data = "hello world";
+  caller()->data_channel()->Send(DataBuffer(data));
+  EXPECT_EQ_WAIT(data, callee()->data_observer()->last_message(),
+                 kDefaultTimeout);
+  callee()->data_channel()->Send(DataBuffer(data));
+  EXPECT_EQ_WAIT(data, caller()->data_observer()->last_message(),
+                 kDefaultTimeout);
+}
+
 #endif  // HAVE_SCTP
+
+// Tests that a callee configured for receive-only use of datagram transport
+// data channels accepts them on incoming calls.
+TEST_P(PeerConnectionIntegrationTest,
+       DatagramTransportDataChannelReceiveOnlyOnCallee) {
+  PeerConnectionInterface::RTCConfiguration offerer_config;
+  offerer_config.rtcp_mux_policy =
+      PeerConnectionInterface::kRtcpMuxPolicyRequire;
+  offerer_config.bundle_policy =
+      PeerConnectionInterface::kBundlePolicyMaxBundle;
+  offerer_config.use_datagram_transport_for_data_channels = true;
+  // Disabling DTLS precludes a fallback to SCTP, so that this test only passes
+  // if the datagram transport is successfully negotiated and used.
+  offerer_config.enable_dtls_srtp = false;
+
+  PeerConnectionInterface::RTCConfiguration answerer_config;
+  answerer_config.rtcp_mux_policy =
+      PeerConnectionInterface::kRtcpMuxPolicyRequire;
+  answerer_config.bundle_policy =
+      PeerConnectionInterface::kBundlePolicyMaxBundle;
+  answerer_config.use_datagram_transport_for_data_channels = true;
+  answerer_config.use_datagram_transport_for_data_channels_receive_only = true;
+  // Both endpoints must disable DTLS or SetRemoteDescription will fail.
+  answerer_config.enable_dtls_srtp = false;
+
+  ASSERT_TRUE(CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(
+      offerer_config, answerer_config,
+      loopback_media_transports()->first_factory(),
+      loopback_media_transports()->second_factory()));
+  ConnectFakeSignaling();
+
+  caller()->CreateDataChannel();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+
+  // Ensure that the data channel transport is ready.
+  loopback_media_transports()->SetState(webrtc::MediaTransportState::kWritable);
+  loopback_media_transports()->FlushAsyncInvokes();
+
+  ASSERT_NE(nullptr, caller()->data_channel());
+  ASSERT_TRUE_WAIT(callee()->data_channel() != nullptr, kDefaultTimeout);
+  EXPECT_TRUE_WAIT(caller()->data_observer()->IsOpen(), kDefaultTimeout);
+  EXPECT_TRUE_WAIT(callee()->data_observer()->IsOpen(), kDefaultTimeout);
+
+  // Ensure data can be sent in both directions.
+  std::string data = "hello world";
+  caller()->data_channel()->Send(DataBuffer(data));
+  EXPECT_EQ_WAIT(data, callee()->data_observer()->last_message(),
+                 kDefaultTimeout);
+  callee()->data_channel()->Send(DataBuffer(data));
+  EXPECT_EQ_WAIT(data, caller()->data_observer()->last_message(),
+                 kDefaultTimeout);
+}
 
 // This test sets up a call between two parties with a datagram transport data
 // channel.

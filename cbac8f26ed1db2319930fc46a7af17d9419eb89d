@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bafa8a91_23da8777",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 9860
+      },
+      "writtenOn": "2019-09-25T21:51:54Z",
+      "side": 1,
+      "message": "should we move this up with the other common cases?",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 3
+      },
+      "revId": "cbac8f26ed1db2319930fc46a7af17d9419eb89d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

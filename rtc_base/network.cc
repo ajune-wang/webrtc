@@ -241,10 +241,10 @@ AdapterType GetAdapterTypeFromName(const char* network_name) {
       MatchTypeNameWithIndexPattern(network_name, "clat")) {
     return ADAPTER_TYPE_CELLULAR;
   }
+#endif
   if (MatchTypeNameWithIndexPattern(network_name, "wlan")) {
     return ADAPTER_TYPE_WIFI;
   }
-#endif
 
   return ADAPTER_TYPE_UNKNOWN;
 }

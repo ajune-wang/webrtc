@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "35a74acc_6d6a40f3",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-25T14:06:25Z",
+      "side": 1,
+      "message": "Done. This means that filter_quality_state_ will assume the filter was updated if _any_ render channel has enough activity [1]. Is that what we want?\n\n[1] http://google3/third_party/webrtc/files/stable/webrtc/modules/audio_processing/aec3/aec_state.cc?l\u003d380\u0026rcl\u003d267330961",
+      "parentUuid": "0a66f139_d5d6c821",
+      "range": {
+        "startLine": 128,
+        "startChar": 6,
+        "endLine": 128,
+        "endChar": 26
+      },
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1909f44_fc1bbc92",
         "filename": "modules/audio_processing/aec3/aec_state.cc",
         "patchSetId": 6
@@ -83,6 +107,48 @@
     },
     {
       "key": {
+        "uuid": "2260606c_c29ea3ac",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-25T14:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "507f2e64_c77f75b1",
+      "range": {
+        "startLine": 430,
+        "startChar": 17,
+        "endLine": 430,
+        "endChar": 23
+      },
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a880872_82e92416",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-25T14:06:25Z",
+      "side": 1,
+      "message": "Thanks for catching! I std::abs\u0027d the code as discussed offline.",
+      "parentUuid": "c1909f44_fc1bbc92",
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f7e1e44_8c8ca02f",
         "filename": "modules/audio_processing/aec3/aec_state.cc",
         "patchSetId": 6
@@ -129,6 +195,54 @@
     },
     {
       "key": {
+        "uuid": "7fb212a1_25f62bf5",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-25T14:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f7e1e44_8c8ca02f",
+      "range": {
+        "startLine": 440,
+        "startChar": 18,
+        "endLine": 440,
+        "endChar": 19
+      },
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b49ccd1_8b1dc282",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-25T14:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "195dc5cc_dc383f37",
+      "range": {
+        "startLine": 440,
+        "startChar": 2,
+        "endLine": 440,
+        "endChar": 39
+      },
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcd3a558_1729dfaf",
         "filename": "modules/audio_processing/aec3/echo_remover.cc",
         "patchSetId": 6
@@ -143,6 +257,24 @@
       "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79991674_85b5369f",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-25T14:06:25Z",
+      "side": 1,
+      "message": "Thanks for checking! Yes, the impulse/frequency response is not handled in this CL. I think it\u0027s better to keep the TODO.",
+      "parentUuid": "bcd3a558_1729dfaf",
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -175,6 +307,24 @@
       "side": 1,
       "message": "+1\nI think that we need a single filter convergence decision per capture channel. Same thing with divergence.\n\nLet\u0027s look into detail separately for each of the decisions that depend on those for how the results can be aggregated.",
       "parentUuid": "710026f1_e913db84",
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d0ed598_af5eb328",
+        "filename": "modules/audio_processing/aec3/subtractor_output_analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-25T14:06:25Z",
+      "side": 1,
+      "message": "Looking more at this. Easier to talk offline.\n\n\n\nAecState\u0027s subtractor_output_analyzer_ is used in four places:\n\nErleEstimator needs ConvergedFilter().\n - SubbandErleEstimator, updates its model only if the filter is converged.\n - SignalDependentErleEstimator, updates its model (correction factors) only if the filter is converged.\n - FullBandErleEstimator, updates its model only if the filter is converged.\n\nErlEstimator needs ConvergedFilter().\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/aec3/erl_estimator.cc?l\u003d41\u0026rcl\u003d90d6efbd4eb4b3a0a6fc26da0bc2f04843865b3e\nEssentially updates estimates of Y2[k] / X2[k] when ConvergedFilter().\nMost easily carries over if given ConvergedFilter() per render-capture pair.\nCan err towards overestimating the ERL by taking the appropriate max over render and/or capture channels, reducing how many different ConvergedFilter() values it needs. A risk there is if some render channel is silent or near-silent can make ERL look very high.\n\nAecState::TransparentMode needs ConvergedFilter() and DivergedFilter().\nTracks how many blocks of converged and not diverged filters, to decide whether to enter transparent mode.\n\nAecState::FilteringQualityAnalyzer needs ConvergedFilter().\nEssentially: If the linear estimate is deemed good and ConvergedFilter() has ever been true (or external delay reported), then use the linear estimate.",
+      "parentUuid": "574919c9_b0efe619",
       "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

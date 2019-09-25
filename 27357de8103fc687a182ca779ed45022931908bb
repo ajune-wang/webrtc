@@ -83,6 +83,24 @@
     },
     {
       "key": {
+        "uuid": "24d0b70a_08ef88c2",
+        "filename": "test/single_threaded_task_queue.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-09-25T11:49:38Z",
+      "side": 1,
+      "message": "It overrides the pure virtual method!\n\nAnyway, it\u0027s useful to indicate it\u0027s part of the interface.\nAnd the same rationale holds: it helps detecting mistake (e.g. future refactoring). \n\nI would be fine with \"final\" as well :)",
+      "parentUuid": "9f3c69dd_f3c7bba4",
+      "revId": "27357de8103fc687a182ca779ed45022931908bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d53f90a_8e8b9fde",
         "filename": "test/single_threaded_task_queue.h",
         "patchSetId": 4

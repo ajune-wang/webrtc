@@ -149,6 +149,9 @@ class RTPSender {
 
   // Sends packet to |transport_| or to the pacer, depending on configuration.
   bool SendToNetwork(std::unique_ptr<RtpPacketToSend> packet);
+  // Batch send of a set of packets.
+  void SendPacketsToNetwork(
+      std::vector<std::unique_ptr<RtpPacketToSend>> packets);
 
   // Called on update of RTP statistics.
   void RegisterRtpStatisticsCallback(StreamDataCountersCallback* callback);
@@ -177,14 +180,17 @@ class RTPSender {
   // without passing through an actual paced sender.
   class NonPacedPacketSender : public RtpPacketSender {
    public:
-    explicit NonPacedPacketSender(RTPSender* rtp_sender);
+    NonPacedPacketSender(RTPSender* rtp_sender, Clock* clock);
     virtual ~NonPacedPacketSender();
 
     void EnqueuePacket(std::unique_ptr<RtpPacketToSend> packet) override;
+    void EnqueuePackets(
+        std::vector<std::unique_ptr<RtpPacketToSend>> packets) override;
 
    private:
     uint16_t transport_sequence_number_;
     RTPSender* const rtp_sender_;
+    Clock* const clock_;
   };
 
   std::unique_ptr<RtpPacketToSend> BuildRtxPacket(

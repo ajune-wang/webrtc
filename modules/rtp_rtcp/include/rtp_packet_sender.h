@@ -12,6 +12,7 @@
 #define MODULES_RTP_RTCP_INCLUDE_RTP_PACKET_SENDER_H_
 
 #include <memory>
+#include <vector>
 
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
@@ -26,6 +27,10 @@ class RtpPacketSender {
   // the packet, it will be prioritized and scheduled relative to other packets
   // and the current target send rate.
   virtual void EnqueuePacket(std::unique_ptr<RtpPacketToSend> packet) = 0;
+
+  // Batch insert a set of packets.
+  virtual void EnqueuePackets(
+      std::vector<std::unique_ptr<RtpPacketToSend>> packets) = 0;
 };
 
 }  // namespace webrtc

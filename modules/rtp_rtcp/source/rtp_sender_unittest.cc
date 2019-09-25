@@ -154,6 +154,8 @@ class MockRtpPacketPacer : public RtpPacketSender {
   virtual ~MockRtpPacketPacer() {}
 
   MOCK_METHOD1(EnqueuePacket, void(std::unique_ptr<RtpPacketToSend>));
+  MOCK_METHOD1(EnqueuePackets,
+               void(std::vector<std::unique_ptr<RtpPacketToSend>>));
 
   MOCK_METHOD2(CreateProbeCluster, void(int bitrate_bps, int cluster_id));
 

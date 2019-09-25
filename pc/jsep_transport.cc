@@ -21,7 +21,6 @@
 #include "api/candidate.h"
 #include "p2p/base/p2p_constants.h"
 #include "p2p/base/p2p_transport_channel.h"
-#include "pc/sctp_data_channel_transport.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/logging.h"
@@ -105,7 +104,9 @@ JsepTransport::JsepTransport(
     std::unique_ptr<SctpTransportInternal> sctp_transport,
     std::unique_ptr<webrtc::MediaTransportInterface> media_transport,
     std::unique_ptr<webrtc::DatagramTransportInterface> datagram_transport,
-    webrtc::DataChannelTransportInterface* data_channel_transport)
+    webrtc::DataChannelTransportInterface* data_channel_transport,
+    std::unique_ptr<webrtc::DataChannelTransportInterface>
+        fallback_data_channel_transport)
     : network_thread_(rtc::Thread::Current()),
       mid_(mid),
       local_certificate_(local_certificate),
@@ -123,10 +124,6 @@ JsepTransport::JsepTransport(
               ? new rtc::RefCountedObject<webrtc::DtlsTransport>(
                     std::move(rtcp_dtls_transport))
               : nullptr),
-      sctp_data_channel_transport_(
-          sctp_transport ? std::make_unique<webrtc::SctpDataChannelTransport>(
-                               sctp_transport.get())
-                         : nullptr),
       sctp_transport_(sctp_transport
                           ? new rtc::RefCountedObject<webrtc::SctpTransport>(
                                 std::move(sctp_transport))
@@ -134,7 +131,9 @@ JsepTransport::JsepTransport(
       media_transport_(std::move(media_transport)),
       datagram_transport_(std::move(datagram_transport)),
       datagram_rtp_transport_(std::move(datagram_rtp_transport)),
-      data_channel_transport_(data_channel_transport) {
+      data_channel_transport_(data_channel_transport),
+      fallback_data_channel_transport_(
+          std::move(fallback_data_channel_transport)) {
   RTC_DCHECK(ice_transport_);
   RTC_DCHECK(rtp_dtls_transport_);
   // |rtcp_ice_transport_| must be present iff |rtcp_dtls_transport_| is
@@ -169,11 +168,12 @@ JsepTransport::JsepTransport(
     media_transport_->SetMediaTransportStateCallback(this);
   }
 
-  if (data_channel_transport_ && sctp_data_channel_transport_) {
+  if (data_channel_transport_ && fallback_data_channel_transport_) {
     composite_data_channel_transport_ =
         std::make_unique<webrtc::CompositeDataChannelTransport>(
             std::vector<webrtc::DataChannelTransportInterface*>{
-                data_channel_transport_, sctp_data_channel_transport_.get()});
+                data_channel_transport_,
+                fallback_data_channel_transport_.get()});
   }
 }
 
@@ -813,7 +813,7 @@ void JsepTransport::NegotiateDatagramTransport(SdpType type) {
   if (composite_data_channel_transport_) {
     composite_data_channel_transport_->SetSendTransport(
         use_datagram_transport ? data_channel_transport_
-                               : sctp_data_channel_transport_.get());
+                               : fallback_data_channel_transport_.get());
   }
 
   if (type != SdpType::kAnswer) {
@@ -837,8 +837,8 @@ void JsepTransport::NegotiateDatagramTransport(SdpType type) {
       // Negotiated use of datagram transport for data channels, so remove the
       // non-datagram data channel transport.
       composite_data_channel_transport_->RemoveTransport(
-          sctp_data_channel_transport_.get());
-      sctp_data_channel_transport_ = nullptr;
+          fallback_data_channel_transport_.get());
+      fallback_data_channel_transport_ = nullptr;
       sctp_transport_ = nullptr;
     }
   } else {

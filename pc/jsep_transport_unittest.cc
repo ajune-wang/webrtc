@@ -112,7 +112,8 @@ class JsepTransport2Test : public ::testing::Test, public sigslot::has_slots<> {
         /*sctp_transport=*/nullptr,
         /*media_transport=*/nullptr,
         /*datagram_transport=*/nullptr,
-        /*data_channel_transport=*/nullptr);
+        /*data_channel_transport=*/nullptr,
+        /*fallback_data_channel_transport=*/nullptr);
 
     signal_rtcp_mux_active_received_ = false;
     jsep_transport->SignalRtcpMuxActive.connect(

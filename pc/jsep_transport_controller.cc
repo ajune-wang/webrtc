@@ -20,6 +20,7 @@
 #include "p2p/base/no_op_dtls_transport.h"
 #include "p2p/base/port.h"
 #include "pc/datagram_rtp_transport.h"
+#include "pc/sctp_data_channel_transport.h"
 #include "pc/srtp_filter.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/checks.h"
@@ -1232,14 +1233,27 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
   }
 
   std::unique_ptr<cricket::SctpTransportInternal> sctp_transport;
+  std::unique_ptr<DataChannelTransportInterface>
+      fallback_data_channel_transport;
   if (config_.sctp_factory) {
     sctp_transport =
         config_.sctp_factory->CreateSctpTransport(rtp_dtls_transport.get());
+    fallback_data_channel_transport =
+        std::make_unique<webrtc::SctpDataChannelTransport>(
+            sctp_transport.get());
   }
 
   DataChannelTransportInterface* data_channel_transport = nullptr;
   if (config_.use_datagram_transport_for_data_channels) {
     data_channel_transport = datagram_transport.get();
+
+    // This fallback mode only makes sense if the media transport is used for
+    // data channels only.
+    if (config_.use_media_transport_for_data_channels &&
+        !config_.use_media_transport_for_media) {
+      fallback_data_channel_transport = std::move(media_transport);
+      media_transport = nullptr;
+    }
   } else if (config_.use_media_transport_for_data_channels) {
     data_channel_transport = media_transport.get();
   }
@@ -1251,7 +1265,8 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
           std::move(dtls_srtp_transport), std::move(datagram_rtp_transport),
           std::move(rtp_dtls_transport), std::move(rtcp_dtls_transport),
           std::move(sctp_transport), std::move(media_transport),
-          std::move(datagram_transport), data_channel_transport);
+          std::move(datagram_transport), data_channel_transport,
+          std::move(fallback_data_channel_transport));
 
   jsep_transport->rtp_transport()->SignalRtcpPacketReceived.connect(
       this, &JsepTransportController::OnRtcpPacketReceived_n);
@@ -1734,7 +1749,6 @@ JsepTransportController::GenerateOrGetLastMediaTransportOffer() {
   if (config_.use_media_transport_for_media ||
       config_.use_media_transport_for_data_channels) {
     RTC_DCHECK(config_.media_transport_factory != nullptr);
-    RTC_DCHECK(!config_.use_datagram_transport);
     webrtc::MediaTransportSettings settings;
     settings.is_caller = true;
     settings.pre_shared_key = rtc::CreateRandomString(32);

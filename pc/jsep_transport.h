@@ -102,7 +102,9 @@ class JsepTransport : public sigslot::has_slots<>,
       std::unique_ptr<SctpTransportInternal> sctp_transport,
       std::unique_ptr<webrtc::MediaTransportInterface> media_transport,
       std::unique_ptr<webrtc::DatagramTransportInterface> datagram_transport,
-      webrtc::DataChannelTransportInterface* data_channel_transport);
+      webrtc::DataChannelTransportInterface* data_channel_transport,
+      std::unique_ptr<webrtc::DataChannelTransportInterface>
+          fallback_data_channel_transport);
 
   ~JsepTransport() override;
 
@@ -229,8 +231,8 @@ class JsepTransport : public sigslot::has_slots<>,
     rtc::CritScope scope(&accessor_lock_);
     if (composite_data_channel_transport_) {
       return composite_data_channel_transport_.get();
-    } else if (sctp_data_channel_transport_) {
-      return sctp_data_channel_transport_.get();
+    } else if (fallback_data_channel_transport_) {
+      return fallback_data_channel_transport_.get();
     }
     return data_channel_transport_;
   }
@@ -393,8 +395,6 @@ class JsepTransport : public sigslot::has_slots<>,
   rtc::scoped_refptr<webrtc::DtlsTransport> datagram_dtls_transport_
       RTC_GUARDED_BY(accessor_lock_);
 
-  std::unique_ptr<webrtc::DataChannelTransportInterface>
-      sctp_data_channel_transport_ RTC_GUARDED_BY(accessor_lock_);
   rtc::scoped_refptr<webrtc::SctpTransport> sctp_transport_
       RTC_GUARDED_BY(accessor_lock_);
 
@@ -423,6 +423,12 @@ class JsepTransport : public sigslot::has_slots<>,
   // Unset if neither should be used for data channels.
   webrtc::DataChannelTransportInterface* data_channel_transport_
       RTC_GUARDED_BY(accessor_lock_) = nullptr;
+
+  // Non-SCTP fallback data channel transport.  Set to |media_transport_| iff
+  // both |media_transport_| and |datagram_transport_| are present and to be
+  // used for data channels.
+  std::unique_ptr<webrtc::DataChannelTransportInterface>
+      fallback_data_channel_transport_ RTC_GUARDED_BY(accessor_lock_);
 
   // Composite data channel transport, used during negotiation.
   std::unique_ptr<webrtc::CompositeDataChannelTransport>

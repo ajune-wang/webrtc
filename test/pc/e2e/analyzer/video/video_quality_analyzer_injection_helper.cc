@@ -38,6 +38,70 @@ class VideoWriter final : public rtc::VideoSinkInterface<VideoFrame> {
   test::VideoFrameWriter* video_writer_;
 };
 
+class AnalyzingVideoSource : public rtc::VideoSourceInterface<VideoFrame> {
+ public:
+  AnalyzingVideoSource(
+      std::string stream_label,
+      VideoQualityAnalyzerInterface* analyzer,
+      std::unique_ptr<test::TestVideoCapturer> test_capturer,
+      std::vector<std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>> sinks)
+      : test_capturer_(std::move(test_capturer)),
+        analyzing_sink_(stream_label,
+                        analyzer,
+                        &broadcaster_,
+                        std::move(sinks)) {}
+
+  void AddOrUpdateSink(rtc::VideoSinkInterface<VideoFrame>* sink,
+                       const rtc::VideoSinkWants& wants) override {
+    broadcaster_.AddOrUpdateSink(sink, wants);
+    test_capturer_->AddOrUpdateSink(&analyzing_sink_, broadcaster_.wants());
+  }
+
+  void RemoveSink(rtc::VideoSinkInterface<VideoFrame>* sink) override {
+    broadcaster_.RemoveSink(sink);
+    test_capturer_->AddOrUpdateSink(&analyzing_sink_, broadcaster_.wants());
+  }
+
+ private:
+  class AnalyzerCapturingVideoSink
+      : public rtc::VideoSinkInterface<VideoFrame> {
+   public:
+    AnalyzerCapturingVideoSink(
+        std::string stream_label,
+        VideoQualityAnalyzerInterface* analyzer,
+        rtc::VideoBroadcaster* broadcaster,
+        std::vector<std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>> sinks)
+        : stream_label_(std::move(stream_label)),
+          analyzer_(analyzer),
+          broadcaster_(broadcaster),
+          sinks_(std::move(sinks)) {}
+    ~AnalyzerCapturingVideoSink() override = default;
+
+    void OnFrame(const VideoFrame& source_frame) override {
+      // Copy VideoFrame to be able to set id on it.
+      VideoFrame frame = source_frame;
+      uint16_t frame_id = analyzer_->OnFrameCaptured(stream_label_, frame);
+      frame.set_id(frame_id);
+
+      for (auto& sink : sinks_) {
+        sink->OnFrame(frame);
+      }
+      broadcaster_->OnFrame(frame);
+    }
+
+   private:
+    const std::string stream_label_;
+    VideoQualityAnalyzerInterface* const analyzer_;
+    rtc::VideoBroadcaster* const broadcaster_;
+    const std::vector<std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>>
+        sinks_;
+  };
+
+  rtc::VideoBroadcaster broadcaster_;
+  std::unique_ptr<test::TestVideoCapturer> test_capturer_;
+  AnalyzerCapturingVideoSink analyzing_sink_;
+};
+
 // Intercepts generated frames and passes them also to video quality analyzer
 // and to provided sinks.
 class AnalyzingFrameGenerator final : public test::FrameGenerator {
@@ -142,11 +206,12 @@ VideoQualityAnalyzerInjectionHelper::WrapVideoDecoderFactory(
       analyzer_.get());
 }
 
-std::unique_ptr<test::FrameGenerator>
-VideoQualityAnalyzerInjectionHelper::WrapFrameGenerator(
+rtc::scoped_refptr<TestVideoCapturerVideoTrackSource>
+VideoQualityAnalyzerInjectionHelper::CreateVideoTrackSource(
     const VideoConfig& config,
-    std::unique_ptr<test::FrameGenerator> delegate,
-    test::VideoFrameWriter* writer) const {
+    std::unique_ptr<test::TestVideoCapturer> capturer,
+    test::VideoFrameWriter* writer,
+    bool is_screencast) const {
   std::vector<std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>> sinks;
   if (writer) {
     sinks.push_back(std::make_unique<VideoWriter>(writer));
@@ -156,9 +221,11 @@ VideoQualityAnalyzerInjectionHelper::WrapFrameGenerator(
         test::VideoRenderer::Create((*config.stream_label + "-capture").c_str(),
                                     config.width, config.height)));
   }
-  return std::make_unique<AnalyzingFrameGenerator>(
-      std::move(*config.stream_label), std::move(delegate), analyzer_.get(),
-      std::move(sinks));
+  return new rtc::RefCountedObject<TestVideoCapturerVideoTrackSource>(
+      std::make_unique<AnalyzingVideoSource>(
+          std::move(*config.stream_label), analyzer_.get(), std::move(capturer),
+          std::move(sinks)),
+      is_screencast);
 }
 
 std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>

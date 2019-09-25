@@ -159,6 +159,30 @@
     },
     {
       "key": {
+        "uuid": "7493006d_b94273f0",
+        "filename": "test/single_threaded_task_queue.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-25T11:54:11Z",
+      "side": 1,
+      "message": "no it doesn\u0027t. why?\n\nhere is the topic: https://google.github.io/styleguide/cppguide.html#Function_Comments\namong other guidances it state:\n\"When documenting function overrides, focus on the specifics of the override itself, rather than repeating the comment from the overridden function. In many of these cases, the override needs no additional documentation and thus no comment is required.\"\n\nthere is also this guidance which is remotely related: https://google.github.io/styleguide/cppguide.html#Vertical_Whitespace\n\"Minimize use of vertical whitespace.\"",
+      "parentUuid": "ddfe56d5_8149029f",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 28
+      },
+      "revId": "27357de8103fc687a182ca779ed45022931908bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1825a682_dcf2f7ff",
         "filename": "test/single_threaded_task_queue.h",
         "patchSetId": 4
@@ -179,6 +203,30 @@
       "revId": "27357de8103fc687a182ca779ed45022931908bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0437b94_520162a7",
+        "filename": "test/single_threaded_task_queue.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-25T11:54:11Z",
+      "side": 1,
+      "message": "I tried, but wasn\u0027t able to.\n\nwhich one btw?\nown PostDelayedTask takes std::function as 1st parameter (and std::function can\u0027t own a std::unique_ptr)\nTaskQueueBase::PostDelayedTaks returns void.\n\nThus added this extra private function that supports everything.",
+      "parentUuid": "1825a682_dcf2f7ff",
+      "range": {
+        "startLine": 100,
+        "startChar": 9,
+        "endLine": 100,
+        "endChar": 20
+      },
+      "revId": "27357de8103fc687a182ca779ed45022931908bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -205,6 +253,30 @@
     },
     {
       "key": {
+        "uuid": "f37d6ab9_e6e7a5fd",
+        "filename": "test/single_threaded_task_queue.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-25T11:54:11Z",
+      "side": 1,
+      "message": "Done?",
+      "parentUuid": "6cde636a_eed2a654",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 37
+      },
+      "revId": "27357de8103fc687a182ca779ed45022931908bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0537138b_ad9b0889",
         "filename": "test/single_threaded_task_queue.h",
         "patchSetId": 4
@@ -225,6 +297,30 @@
       "revId": "27357de8103fc687a182ca779ed45022931908bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b410cd8c_d4841676",
+        "filename": "test/single_threaded_task_queue.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-25T11:54:11Z",
+      "side": 1,
+      "message": "I tried (for exactly that reason), but multiset doesn\u0027t have non-const accessor to its members (until c++17 extract function)\nwhich makes it hard to steal 1st task to run.\n\nrenamed few variables to avoid weird \u0027first-\u003efirst\u0027 expression.",
+      "parentUuid": "0537138b_ad9b0889",
+      "range": {
+        "startLine": 108,
+        "startChar": 7,
+        "endLine": 108,
+        "endChar": 15
+      },
+      "revId": "27357de8103fc687a182ca779ed45022931908bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

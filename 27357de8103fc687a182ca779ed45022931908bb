@@ -303,6 +303,30 @@
     },
     {
       "key": {
+        "uuid": "e4dfb9b1_9694b115",
+        "filename": "test/single_threaded_task_queue.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-09-25T15:17:51Z",
+      "side": 1,
+      "message": "The other functions in the file are separate by vertical whitespaces. Would be good to be consistent, one way or another. I\u0027d prefer with more spaces; I don\u0027t think we should minimize quite so much. Up to you.",
+      "parentUuid": "7493006d_b94273f0",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 28
+      },
+      "revId": "27357de8103fc687a182ca779ed45022931908bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1825a682_dcf2f7ff",
         "filename": "test/single_threaded_task_queue.h",
         "patchSetId": 4

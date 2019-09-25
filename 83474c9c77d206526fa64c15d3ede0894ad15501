@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25cf6fd0_6a7b1ee3",
+        "filename": "modules/video_coding/frame_object.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-25T15:22:38Z",
+      "side": 1,
+      "message": "We create RtpFrameObjects in a few tests and changing them would cause this CL to become very messy. I will replace them in a followup CL and then remove this ctor.",
+      "range": {
+        "startLine": 28,
+        "startChar": 16,
+        "endLine": 28,
+        "endChar": 30
+      },
+      "revId": "83474c9c77d206526fa64c15d3ede0894ad15501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

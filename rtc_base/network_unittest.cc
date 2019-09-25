@@ -879,12 +879,6 @@ TEST_F(NetworkTest, TestGetAdapterTypeFromNameMatching) {
   ClearNetworks(manager);
   ReleaseIfAddrs(addr_list);
 
-  strcpy(if_name, "wlan1");
-  addr_list = InstallIpv6Network(if_name, ipv6_address2, ipv6_mask, manager);
-  EXPECT_EQ(ADAPTER_TYPE_WIFI, GetAdapterType(manager));
-  ClearNetworks(manager);
-  ReleaseIfAddrs(addr_list);
-
   strcpy(if_name, "v4-rmnet_data0");
   addr_list = InstallIpv6Network(if_name, ipv6_address2, ipv6_mask, manager);
   EXPECT_EQ(ADAPTER_TYPE_CELLULAR, GetAdapterType(manager));
@@ -896,16 +890,12 @@ TEST_F(NetworkTest, TestGetAdapterTypeFromNameMatching) {
   EXPECT_EQ(ADAPTER_TYPE_CELLULAR, GetAdapterType(manager));
   ClearNetworks(manager);
   ReleaseIfAddrs(addr_list);
-#else
-  // TODO(deadbeef): If not iOS or Android, "wlan0" should be treated as
-  // "unknown"? Why? This should be fixed if there's no good reason.
+#endif
   strcpy(if_name, "wlan0");
   addr_list = InstallIpv6Network(if_name, ipv6_address1, ipv6_mask, manager);
-
-  EXPECT_EQ(ADAPTER_TYPE_UNKNOWN, GetAdapterType(manager));
+  EXPECT_EQ(ADAPTER_TYPE_WIFI, GetAdapterType(manager));
   ClearNetworks(manager);
   ReleaseIfAddrs(addr_list);
-#endif
 }
 #endif  // defined(WEBRTC_POSIX)
 

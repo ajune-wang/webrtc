@@ -22,6 +22,30 @@
       "revId": "8dec80cc69d484df8a59a14b8a3a783d3014faf7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7edd15b_5d9671a1",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-25T17:16:59Z",
+      "side": 1,
+      "message": "I\u0027m wondering if you don\u0027t need this with Bjorn\u0027s change now proxying the rtcp delivery up to the worker thread. I haven\u0027t checked the code, but this seems like something that would potentially fix this issue because the SendRtcp would be coming from the same thread.\n\nHas this been checked?",
+      "parentUuid": "dedc637b_8079b391",
+      "range": {
+        "startLine": 988,
+        "startChar": 4,
+        "endLine": 988,
+        "endChar": 21
+      },
+      "revId": "8dec80cc69d484df8a59a14b8a3a783d3014faf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

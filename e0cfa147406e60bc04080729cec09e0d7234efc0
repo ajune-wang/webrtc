@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "0a66f139_d5d6c821",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-25T05:23:09Z",
+      "side": 1,
+      "message": "Please make this a max-operation and take all channels into account.",
+      "range": {
+        "startLine": 128,
+        "startChar": 6,
+        "endLine": 128,
+        "endChar": 26
+      },
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1909f44_fc1bbc92",
         "filename": "modules/audio_processing/aec3/aec_state.cc",
         "patchSetId": 6
@@ -13,6 +36,75 @@
       "writtenOn": "2019-09-24T15:07:08Z",
       "side": 1,
       "message": "fabsf for avoiding double precision?\nMaybe std::minmax_element and fabsf on the results?",
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "507f2e64_c77f75b1",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-25T05:23:09Z",
+      "side": 1,
+      "message": "+ for fabsf\n+ for minmax.\n\n\nAlternatively, to reduce complexity (avoid computing fabsf twice) do it like this\ntmp \u003d std::max(fabsf(sample), max_sample);",
+      "range": {
+        "startLine": 430,
+        "startChar": 17,
+        "endLine": 430,
+        "endChar": 23
+      },
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f7e1e44_8c8ca02f",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-25T05:23:09Z",
+      "side": 1,
+      "message": "this is bitwise rather than logical and.",
+      "range": {
+        "startLine": 440,
+        "startChar": 18,
+        "endLine": 440,
+        "endChar": 19
+      },
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "195dc5cc_dc383f37",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-25T05:23:09Z",
+      "side": 1,
+      "message": "Since \n1. The above result is ANDed with capture\n2. The above computations have no side-effects\n\nI think it should be possible to avoid the computations if saturated_capture_ \u003d\u003d false.",
+      "range": {
+        "startLine": 440,
+        "startChar": 2,
+        "endLine": 440,
+        "endChar": 39
+      },
       "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -47,6 +139,24 @@
       "writtenOn": "2019-09-24T15:07:08Z",
       "side": 1,
       "message": "We probably have to rethink this a bit. What happens if all channels never have loud enough signal at the same time? Then the filters will not be considered to have converged.",
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "574919c9_b0efe619",
+        "filename": "modules/audio_processing/aec3/subtractor_output_analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-09-25T05:23:09Z",
+      "side": 1,
+      "message": "+1\nI think that we need a single filter convergence decision per capture channel. Same thing with divergence.\n\nLet\u0027s look into detail separately for each of the decisions that depend on those for how the results can be aggregated.",
+      "parentUuid": "710026f1_e913db84",
       "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

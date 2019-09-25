@@ -65,6 +65,24 @@
     },
     {
       "key": {
+        "uuid": "ca8eb5bc_650fa16c",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-09-25T06:59:25Z",
+      "side": 1,
+      "message": "Second thought. Skip minmax_element and use fabsf (with f suffix).",
+      "parentUuid": "c1909f44_fc1bbc92",
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f7e1e44_8c8ca02f",
         "filename": "modules/audio_processing/aec3/aec_state.cc",
         "patchSetId": 6

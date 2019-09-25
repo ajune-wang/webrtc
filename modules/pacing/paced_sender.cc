@@ -96,6 +96,14 @@ void PacedSender::EnqueuePacket(std::unique_ptr<RtpPacketToSend> packet) {
   pacing_controller_.EnqueuePacket(std::move(packet));
 }
 
+void PacedSender::EnqueuePackets(
+    std::vector<std::unique_ptr<RtpPacketToSend>> packets) {
+  rtc::CritScope cs(&critsect_);
+  for (auto& packet : packets) {
+    pacing_controller_.EnqueuePacket(std::move(packet));
+  }
+}
+
 void PacedSender::SetAccountForAudioPackets(bool account_for_audio) {
   rtc::CritScope cs(&critsect_);
   pacing_controller_.SetAccountForAudioPackets(account_for_audio);

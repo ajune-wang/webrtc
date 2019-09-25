@@ -103,8 +103,9 @@ bool HasBweExtension(const RtpHeaderExtensionMap& extensions_map) {
 
 }  // namespace
 
-RTPSender::NonPacedPacketSender::NonPacedPacketSender(RTPSender* rtp_sender)
-    : transport_sequence_number_(0), rtp_sender_(rtp_sender) {}
+RTPSender::NonPacedPacketSender::NonPacedPacketSender(RTPSender* rtp_sender,
+                                                      Clock* clock)
+    : transport_sequence_number_(0), rtp_sender_(rtp_sender), clock_(clock) {}
 RTPSender::NonPacedPacketSender::~NonPacedPacketSender() = default;
 
 void RTPSender::NonPacedPacketSender::EnqueuePacket(
@@ -118,6 +119,17 @@ void RTPSender::NonPacedPacketSender::EnqueuePacket(
   rtp_sender_->TrySendPacket(packet.get(), PacedPacketInfo());
 }
 
+void RTPSender::NonPacedPacketSender::EnqueuePackets(
+    std::vector<std::unique_ptr<RtpPacketToSend>> packets) {
+  int64_t now_ms = clock_->TimeInMilliseconds();
+  for (auto& packet : packets) {
+    if (packet->capture_time_ms() <= 0) {
+      packet->set_capture_time_ms(now_ms);
+    }
+    EnqueuePacket(std::move(packet));
+  }
+}
+
 RTPSender::RTPSender(const RtpRtcp::Configuration& config)
     : clock_(config.clock),
       random_(clock_->TimeInMicroseconds()),
@@ -125,8 +137,9 @@ RTPSender::RTPSender(const RtpRtcp::Configuration& config)
       flexfec_ssrc_(config.flexfec_sender
                         ? absl::make_optional(config.flexfec_sender->ssrc())
                         : absl::nullopt),
-      non_paced_packet_sender_(
-          config.paced_sender ? nullptr : new NonPacedPacketSender(this)),
+      non_paced_packet_sender_(config.paced_sender
+                                   ? nullptr
+                                   : new NonPacedPacketSender(this, clock_)),
       paced_sender_(config.paced_sender ? config.paced_sender
                                         : non_paced_packet_sender_.get()),
       transport_feedback_observer_(config.transport_feedback_callback),
@@ -679,6 +692,12 @@ bool RTPSender::SendToNetwork(std::unique_ptr<RtpPacketToSend> packet) {
   paced_sender_->EnqueuePacket(std::move(packet));
 
   return true;
+}
+
+void RTPSender::SendPacketsToNetwork(
+    std::vector<std::unique_ptr<RtpPacketToSend>> packets) {
+  RTC_DCHECK(!packets.empty());
+  paced_sender_->EnqueuePackets(std::move(packets));
 }
 
 void RTPSender::RecomputeMaxSendDelay() {

@@ -22,6 +22,30 @@
       "revId": "cbac8f26ed1db2319930fc46a7af17d9419eb89d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b0c1333_abd8d2d5",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-09-25T22:04:21Z",
+      "side": 1,
+      "message": "SG, and this helps readability. Also edited the test accordingly.",
+      "parentUuid": "bafa8a91_23da8777",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 3
+      },
+      "revId": "cbac8f26ed1db2319930fc46a7af17d9419eb89d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

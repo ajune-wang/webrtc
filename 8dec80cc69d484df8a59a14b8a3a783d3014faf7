@@ -46,6 +46,30 @@
       "revId": "8dec80cc69d484df8a59a14b8a3a783d3014faf7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66ccb8ac_c60491df",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-25T17:36:34Z",
+      "side": 1,
+      "message": "The test is still flaky (though maybe not as bad as before?).  The change I made doesn\u0027t stop it from delivering RTCP after the destructor, because actual delivery hops to the network thread and back.  So we can still get a use-after-free, it just doesn\u0027t happen on the wrong thread any more.",
+      "parentUuid": "a7edd15b_5d9671a1",
+      "range": {
+        "startLine": 988,
+        "startChar": 4,
+        "endLine": 988,
+        "endChar": 21
+      },
+      "revId": "8dec80cc69d484df8a59a14b8a3a783d3014faf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

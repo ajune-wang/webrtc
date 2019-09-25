@@ -70,6 +70,30 @@
       "revId": "8dec80cc69d484df8a59a14b8a3a783d3014faf7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83af561c_dda68958",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-25T18:21:32Z",
+      "side": 1,
+      "message": "Ok, Seth and I looked at this test offline and concluded that it no longer makes sense.\n\nhttps://webrtc-review.googlesource.com/c/src/+/152668 changed it so that RTCP packets no longer go through channels or media channels at all, but hop directly from PeerConnection to Call.  However, it also added RTCP handling back into the fake media channels and hooked RTCP signals to those fakes in the test.\n\nThe test is now sending RTCP and verifying that a fake media channel receives it, when the real media channel would never see it.\n\nI think the real fix is one of two things:\n 1. Remove RTCP from ChannelTest.  This makes the most sense if there is no send-side logic that needs to be covered.\n 2. Remove RTCP handling from the fake media channels and put it in a fake Call or a new fake, that just handles RTCP.  This new fake should *not* have its lifetime tied to channels.  This makes sense if there\u0027s RTCP send-side logic in Channel that we\u0027re trying to test.",
+      "parentUuid": "66ccb8ac_c60491df",
+      "range": {
+        "startLine": 988,
+        "startChar": 4,
+        "endLine": 988,
+        "endChar": 21
+      },
+      "revId": "8dec80cc69d484df8a59a14b8a3a783d3014faf7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

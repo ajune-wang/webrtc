@@ -271,11 +271,7 @@ void MediaTransportPair::LoopbackMediaTransport::Connect(
 }
 
 void MediaTransportPair::LoopbackMediaTransport::Connect(
-    rtc::PacketTransportInternal* packet_transport) {
-  if (state_after_connect_) {
-    SetState(*state_after_connect_);
-  }
-}
+    rtc::PacketTransportInternal* packet_transport) {}
 
 absl::optional<std::string>
 MediaTransportPair::LoopbackMediaTransport::GetTransportParametersOffer()
@@ -508,11 +504,6 @@ void MediaTransportPair::LoopbackMediaTransport::SetState(
   });
 }
 
-void MediaTransportPair::LoopbackMediaTransport::SetStateAfterConnect(
-    MediaTransportState state) {
-  state_after_connect_ = state;
-}
-
 void MediaTransportPair::LoopbackMediaTransport::FlushAsyncInvokes() {
   invoker_.Flush(thread_);
   dc_transport_.FlushAsyncInvokes();
@@ -619,11 +610,7 @@ void MediaTransportPair::LoopbackDatagramTransport::Connect(
 }
 
 void MediaTransportPair::LoopbackDatagramTransport::Connect(
-    rtc::PacketTransportInternal* packet_transport) {
-  if (state_after_connect_) {
-    SetState(*state_after_connect_);
-  }
-}
+    rtc::PacketTransportInternal* packet_transport) {}
 
 CongestionControlInterface*
 MediaTransportPair::LoopbackDatagramTransport::congestion_control() {
@@ -681,11 +668,6 @@ bool MediaTransportPair::LoopbackDatagramTransport::IsReadyToSend() const {
 void MediaTransportPair::LoopbackDatagramTransport::SetState(
     MediaTransportState state) {
   dc_transport_.OnReadyToSend(state == MediaTransportState::kWritable);
-}
-
-void MediaTransportPair::LoopbackDatagramTransport::SetStateAfterConnect(
-    MediaTransportState state) {
-  state_after_connect_ = state;
 }
 
 void MediaTransportPair::LoopbackDatagramTransport::FlushAsyncInvokes() {

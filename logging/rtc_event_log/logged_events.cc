@@ -18,10 +18,6 @@ LoggedPacketInfo::LoggedPacketInfo(const LoggedRtpPacket& rtp,
     : ssrc(rtp.header.ssrc),
       stream_seq_no(rtp.header.sequenceNumber),
       size(static_cast<uint16_t>(rtp.total_length)),
-      payload_size(static_cast<uint16_t>(rtp.total_length -
-                                         rtp.header.paddingLength -
-                                         rtp.header.headerLength)),
-      padding_size(static_cast<uint16_t>(rtp.header.paddingLength)),
       payload_type(rtp.header.payloadType),
       media_type(media_type),
       rtx(rtx),
@@ -31,10 +27,7 @@ LoggedPacketInfo::LoggedPacketInfo(const LoggedRtpPacket& rtp,
           has_transport_seq_no ? rtp.header.extension.transportSequenceNumber
                                : 0)),
       capture_time(capture_time),
-      log_packet_time(Timestamp::us(rtp.log_time_us())),
-      reported_send_time(rtp.header.extension.hasAbsoluteSendTime
-                             ? rtp.header.extension.GetAbsoluteSendTimestamp()
-                             : Timestamp::MinusInfinity()) {}
+      log_packet_time(Timestamp::us(rtp.log_time_us())) {}
 
 LoggedPacketInfo::LoggedPacketInfo(const LoggedPacketInfo&) = default;
 

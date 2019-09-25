@@ -71,25 +71,20 @@ void LinearEchoPower(const FftData& E,
 void SignalTransition(rtc::ArrayView<const float> from,
                       rtc::ArrayView<const float> to,
                       rtc::ArrayView<float> out) {
-  if (from == to) {
-    RTC_DCHECK_EQ(to.size(), out.size());
-    std::copy(to.begin(), to.end(), out.begin());
-  } else {
-    constexpr size_t kTransitionSize = 30;
-    constexpr float kOneByTransitionSizePlusOne = 1.f / (kTransitionSize + 1);
+  constexpr size_t kTransitionSize = 30;
+  constexpr float kOneByTransitionSizePlusOne = 1.f / (kTransitionSize + 1);
 
-    RTC_DCHECK_EQ(from.size(), to.size());
-    RTC_DCHECK_EQ(from.size(), out.size());
-    RTC_DCHECK_LE(kTransitionSize, out.size());
+  RTC_DCHECK_EQ(from.size(), to.size());
+  RTC_DCHECK_EQ(from.size(), out.size());
+  RTC_DCHECK_LE(kTransitionSize, out.size());
 
-    for (size_t k = 0; k < kTransitionSize; ++k) {
-      float a = (k + 1) * kOneByTransitionSizePlusOne;
-      out[k] = a * to[k] + (1.f - a) * from[k];
-    }
-
-    std::copy(to.begin() + kTransitionSize, to.end(),
-              out.begin() + kTransitionSize);
+  for (size_t k = 0; k < kTransitionSize; ++k) {
+    float a = (k + 1) * kOneByTransitionSizePlusOne;
+    out[k] = a * to[k] + (1.f - a) * from[k];
   }
+
+  std::copy(to.begin() + kTransitionSize, to.end(),
+            out.begin() + kTransitionSize);
 }
 
 // Computes a windowed (square root Hanning) padded FFT and updates the related
@@ -147,7 +142,7 @@ class EchoRemoverImpl final : public EchoRemover {
   const size_t num_render_channels_;
   const size_t num_capture_channels_;
   const bool use_shadow_filter_output_;
-  std::vector<std::unique_ptr<Subtractor>> subtractors_;
+  Subtractor subtractor_;
   std::vector<std::unique_ptr<SuppressionGain>> suppression_gains_;
   std::vector<std::unique_ptr<ComfortNoiseGenerator>> cngs_;
   SuppressionFilter suppression_filter_;
@@ -161,6 +156,9 @@ class EchoRemoverImpl final : public EchoRemover {
   size_t block_counter_ = 0;
   int gain_change_hangover_ = 0;
   bool main_filter_output_last_selected_ = true;
+#if WEBRTC_APM_DEBUG_DUMP
+  bool linear_filter_output_last_selected_ = true;
+#endif
 
   std::vector<std::array<float, kFftLengthBy2>> e_heap_;
   std::vector<std::array<float, kFftLengthBy2Plus1>> Y2_heap_;
@@ -190,12 +188,14 @@ EchoRemoverImpl::EchoRemoverImpl(const EchoCanceller3Config& config,
       num_capture_channels_(num_capture_channels),
       use_shadow_filter_output_(
           config_.filter.enable_shadow_filter_output_usage),
-      subtractors_(num_capture_channels_),
+      subtractor_(config,
+                  num_render_channels_,
+                  num_capture_channels_,
+                  data_dumper_.get(),
+                  optimization_),
       suppression_gains_(num_capture_channels_),
       cngs_(num_capture_channels_),
-      suppression_filter_(optimization_,
-                          sample_rate_hz_,
-                          num_capture_channels_),
+      suppression_filter_(optimization_, sample_rate_hz_),
       render_signal_analyzer_(config_),
       residual_echo_estimators_(num_capture_channels_),
       aec_state_(config_),
@@ -219,9 +219,6 @@ EchoRemoverImpl::EchoRemoverImpl(const EchoCanceller3Config& config,
   for (size_t ch = 0; ch < num_capture_channels_; ++ch) {
     residual_echo_estimators_[ch] =
         std::make_unique<ResidualEchoEstimator>(config_);
-    subtractors_[ch] = std::make_unique<Subtractor>(
-        config, num_render_channels_, num_capture_channels_, data_dumper_.get(),
-        optimization_);
     suppression_gains_[ch] = std::make_unique<SuppressionGain>(
         config_, optimization_, sample_rate_hz);
     cngs_[ch] = std::make_unique<ComfortNoiseGenerator>(optimization_);
@@ -339,9 +336,7 @@ void EchoRemoverImpl::ProcessCapture(
       }
     }
 
-    for (size_t ch = 0; ch < num_capture_channels_; ++ch) {
-      subtractors_[ch]->HandleEchoPathChange(echo_path_variability);
-    }
+    subtractor_.HandleEchoPathChange(echo_path_variability);
     aec_state_.HandleEchoPathChange(echo_path_variability);
 
     if (echo_path_variability.delay_change !=
@@ -359,20 +354,20 @@ void EchoRemoverImpl::ProcessCapture(
   render_signal_analyzer_.Update(*render_buffer,
                                  aec_state_.FilterDelayBlocks());
 
-  // Perform linear echo cancellation.
+  // State transition.
   if (aec_state_.TransitionTriggered()) {
+    subtractor_.ExitInitialState();
     for (size_t ch = 0; ch < num_capture_channels_; ++ch) {
-      subtractors_[ch]->ExitInitialState();
       suppression_gains_[ch]->SetInitialState(false);
     }
   }
 
+  // Perform linear echo cancellation.
+  subtractor_.Process(*render_buffer, (*y)[0], render_signal_analyzer_,
+                      aec_state_, subtractor_output);
+
   for (size_t ch = 0; ch < num_capture_channels_; ++ch) {
     auto& y_low = (*y)[0][ch];
-
-    // If the delay is known, use the echo subtractor.
-    subtractors_[ch]->Process(*render_buffer, y_low, render_signal_analyzer_,
-                              aec_state_, &subtractor_output[ch]);
 
     // Compute spectra.
     FormLinearFilterOutput(subtractor_output[ch], e[ch]);
@@ -385,12 +380,27 @@ void EchoRemoverImpl::ProcessCapture(
 
   // Update the AEC state information.
   // TODO(bugs.webrtc.org/10913): Take all subtractors into account.
-  aec_state_.Update(external_delay, subtractors_[0]->FilterFrequencyResponse(),
-                    subtractors_[0]->FilterImpulseResponse(), *render_buffer,
-                    E2[0], Y2[0], subtractor_output[0], y0);
+  aec_state_.Update(external_delay, subtractor_.FilterFrequencyResponse(),
+                    subtractor_.FilterImpulseResponse(), *render_buffer, E2[0],
+                    Y2[0], subtractor_output[0], y0);
 
   // Choose the linear output.
-  const auto& Y_fft = aec_state_.UseLinearFilterOutput() ? E : Y;
+  const auto& Y_fft = aec_state_.UseLinearFilterOutput() ? E[0] : Y[0];
+
+#if WEBRTC_APM_DEBUG_DUMP
+  if (aec_state_.UseLinearFilterOutput()) {
+    if (!linear_filter_output_last_selected_) {
+      SignalTransition(y0, e[0], y0);
+    } else {
+      std::copy(e[0].begin(), e[0].end(), y0.begin());
+    }
+  } else {
+    if (linear_filter_output_last_selected_) {
+      SignalTransition(e[0], y0, y0);
+    }
+  }
+  linear_filter_output_last_selected_ = aec_state_.UseLinearFilterOutput();
+#endif
 
   data_dumper_->DumpWav("aec3_output_linear", kBlockSize, &y0[0], 16000, 1);
   data_dumper_->DumpWav("aec3_output_linear2", kBlockSize, &e[0][0], 16000, 1);
@@ -436,7 +446,8 @@ void EchoRemoverImpl::ProcessCapture(
                    [](float a, float b) { return std::min(a, b); });
   }
 
-  suppression_filter_.ApplyGain(comfort_noise, high_band_comfort_noise, G,
+  // TODO(bugs.webrtc.org/10913): Make ApplyGain handle multiple channels.
+  suppression_filter_.ApplyGain(comfort_noise[0], high_band_comfort_noise[0], G,
                                 high_bands_gain, Y_fft, y);
 
   // Update the metrics.
@@ -493,11 +504,23 @@ void EchoRemoverImpl::FormLinearFilterOutput(
     }
   }
 
-  SignalTransition(
-      main_filter_output_last_selected_ ? subtractor_output.e_main
-                                        : subtractor_output.e_shadow,
-      use_main_output ? subtractor_output.e_main : subtractor_output.e_shadow,
-      output);
+  if (use_main_output) {
+    if (!main_filter_output_last_selected_) {
+      SignalTransition(subtractor_output.e_shadow, subtractor_output.e_main,
+                       output);
+    } else {
+      std::copy(subtractor_output.e_main.begin(),
+                subtractor_output.e_main.end(), output.begin());
+    }
+  } else {
+    if (main_filter_output_last_selected_) {
+      SignalTransition(subtractor_output.e_main, subtractor_output.e_shadow,
+                       output);
+    } else {
+      std::copy(subtractor_output.e_shadow.begin(),
+                subtractor_output.e_shadow.end(), output.begin());
+    }
+  }
   main_filter_output_last_selected_ = use_main_output;
 }
 

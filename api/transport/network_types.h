@@ -19,7 +19,6 @@
 #include "api/units/data_size.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
-#include "rtc_base/deprecation.h"
 
 namespace webrtc {
 
@@ -180,7 +179,6 @@ struct TransportPacketsFeedback {
 
 struct NetworkEstimate {
   Timestamp at_time = Timestamp::PlusInfinity();
-  // Deprecated, use TargetTransferRate::target_rate instead.
   DataRate bandwidth = DataRate::Infinity();
   TimeDelta round_trip_time = TimeDelta::PlusInfinity();
   TimeDelta bwe_period = TimeDelta::PlusInfinity();

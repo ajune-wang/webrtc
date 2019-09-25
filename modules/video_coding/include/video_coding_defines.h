@@ -51,10 +51,21 @@ enum VCMVideoProtection {
 // rendered.
 class VCMReceiveCallback {
  public:
+  // TODO(kron): Remove once downstream projects are updated.
+  virtual int32_t FrameToRender(VideoFrame& videoFrame,  // NOLINT
+                                absl::optional<uint8_t> qp,
+                                VideoContentType content_type) {
+    // Cannot be pure virtual since this should be removed from derived
+    // classes.
+    return FrameToRender(videoFrame, qp, 0, content_type);
+  }
+
   virtual int32_t FrameToRender(VideoFrame& videoFrame,  // NOLINT
                                 absl::optional<uint8_t> qp,
                                 int32_t decode_time_ms,
-                                VideoContentType content_type) = 0;
+                                VideoContentType content_type) {
+    return FrameToRender(videoFrame, qp, content_type);
+  }
 
   virtual void OnDroppedFrames(uint32_t frames_dropped);
 

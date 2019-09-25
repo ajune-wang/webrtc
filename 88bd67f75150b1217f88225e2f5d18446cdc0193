@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7cd3841_257df6c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-25T07:54:46Z",
+      "side": 1,
+      "message": "Typo",
+      "range": {
+        "startLine": 11,
+        "startChar": 38,
+        "endLine": 11,
+        "endChar": 42
+      },
+      "revId": "88bd67f75150b1217f88225e2f5d18446cdc0193",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83c7ac3a_68979ba6",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-25T07:54:46Z",
+      "side": 1,
+      "message": "Do we really need this std::max here? There\u0027s some capping done in CapBitrateToThresholds.\n\nI\u0027d consider changing to\n\nRTC_DCHECK_GE(current_bitrate, min_bitrate_configured_);\nreturn current_bitrate;",
+      "range": {
+        "startLine": 311,
+        "startChar": 9,
+        "endLine": 311,
+        "endChar": 61
+      },
+      "revId": "88bd67f75150b1217f88225e2f5d18446cdc0193",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

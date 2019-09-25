@@ -137,6 +137,24 @@
     },
     {
       "key": {
+        "uuid": "17a4b6c9_914ee272",
+        "filename": "test/single_threaded_task_queue.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-25T12:21:14Z",
+      "side": 1,
+      "message": "why would that be better?\n\n(does it matter much since the end goal of this change is to delete this class altogether?)",
+      "parentUuid": "1c89515a_6e2a504d",
+      "revId": "27357de8103fc687a182ca779ed45022931908bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d53f90a_8e8b9fde",
         "filename": "test/single_threaded_task_queue.h",
         "patchSetId": 4

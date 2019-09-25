@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddac2682_f7502cb4",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2653,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-25T13:42:16Z",
+      "side": 1,
+      "message": "or kHaveRemoteOffer?",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86d009fa_7e849ef3",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2663,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-25T13:42:16Z",
+      "side": 1,
+      "message": "nit: Since this is exposed to JS where the attribute is called signalingState, how about \"Called in the wrong signalingState: ...\"",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53f38bcb_ae2e4c71",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3424,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-25T13:42:16Z",
+      "side": 1,
+      "message": "Considering mline_index is optional, do we need magical value -1 or can we use absl::nullopt?",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f15fcdb4_592dd81e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7783,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-25T13:42:16Z",
+      "side": 1,
+      "message": "If this is a UP-only feature, DCHECK IsUnifiedPlan()",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e4d3a2d_edd632f4",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7785,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-25T13:42:16Z",
+      "side": 1,
+      "message": "Prefer explicit names to abbreviations:\n\nfor (auto\u0026 transceiver_stable_state_pair : transceiver_stable_state_by_transceivers_) {\n  auto\u0026 transceiver \u003d transceiver_stable_state_pair.first();\n  auto\u0026 transceiver_stable_state \u003d transceiver_stable_state_pair.second();\n  ...",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d6cd372_38e4307a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7787,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-25T13:42:16Z",
+      "side": 1,
+      "message": "You usually don\u0027t see IsCurrent() outside of DCHECKs, is there a thread difference between test code and real code or why did you add this?\n\nIn any case, can you remove the if and always do an Invoke? If we\u0027re on the same thread I believe the code will get invoked in-place anyway.",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da2afcea_a2186c36",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7798,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-25T13:42:16Z",
+      "side": 1,
+      "message": "We use static_cast\u003csize_t\u003e() for casting, but I would like us to avoid magical values. Either nullopt or a separate boolean to indicate the meaning.",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d2699a9_fb1f3583",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-25T13:42:16Z",
+      "side": 1,
+      "message": "Is rollback supported only in Unified Plan or in both Plan B and Unified Plan?\nIt\u0027s OK to only ship it in Unified Plan if that is less work, we\u0027ve shipped things only in UP before in order not to have to maintain more complexity.\n\nI\u0027d like a comment on this, and if not supported in Plan B that we fail the operation, and that we test this. If supported in both modes we should have testing for both modes. INSTANTIATE_TEST_SUITE_P can be used for that, e.g. https://cs.chromium.org/chromium/src/third_party/webrtc/pc/peer_connection_integrationtest.cc?q\u003dpeer_connection_integrationtest.cc\u0026sq\u003dpackage:chromium\u0026dr\u0026l\u003d5597",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f580b18a_80a11d32",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-25T13:42:16Z",
+      "side": 1,
+      "message": "Can you add more documentation about the lifetime of these states? When is this map empty / not empty?\n\nI suggest naming it transceiver_stable_state_by_transceivers_",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e084b006_18528c63",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5541,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-25T13:42:16Z",
+      "side": 1,
+      "message": "I would like to see more extensive test coverage in the C++ layer, including equivalents of all the tests that you added to WPT in https://chromium-review.googlesource.com/c/chromium/src/+/1790443, and that these are exercised in both Unified Plan and Plan B, or that they are exercised only in Unified Plan and that we test that \"rollback\" throws in Plan B.",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

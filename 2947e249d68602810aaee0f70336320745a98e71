@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "fe0aa046_6c639191",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-09-26T13:46:29Z",
+      "side": 1,
+      "message": "Can you instead go through the RefCounted interface and helper methods on C++ side? Perhaps we should add a class that holds a reference to a Java object.",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 17
+      },
+      "revId": "2947e249d68602810aaee0f70336320745a98e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ec97ffa_b049dc61",
         "filename": "sdk/android/src/jni/encoded_image.cc",
         "patchSetId": 2
@@ -25,6 +48,99 @@
     },
     {
       "key": {
+        "uuid": "87e9a3d1_71f681d1",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-09-26T13:46:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2ec97ffa_b049dc61",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 67
+      },
+      "revId": "2947e249d68602810aaee0f70336320745a98e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c53599ec_c36f9886",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-09-26T13:46:29Z",
+      "side": 1,
+      "message": "nit: I would prefer if this was just JavaRef\u003cjobject\u003e to allow any type of reference to be passed in and construct the global reference in this class",
+      "range": {
+        "startLine": 26,
+        "startChar": 25,
+        "endLine": 26,
+        "endChar": 53
+      },
+      "revId": "2947e249d68602810aaee0f70336320745a98e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0f4a2c3_c4c241e3",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-09-26T13:46:29Z",
+      "side": 1,
+      "message": "uint8_t* const data_; at least for now?",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 9
+      },
+      "revId": "2947e249d68602810aaee0f70336320745a98e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33ee2800_3e854d1c",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-09-26T13:46:29Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 8
+      },
+      "revId": "2947e249d68602810aaee0f70336320745a98e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "261b1407_252f8f88",
         "filename": "sdk/android/src/jni/encoded_image.cc",
         "patchSetId": 2
@@ -41,6 +157,53 @@
         "startChar": 0,
         "endLine": 72,
         "endChar": 43
+      },
+      "revId": "2947e249d68602810aaee0f70336320745a98e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9dc4e06_cd5db7d8",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-09-26T13:46:29Z",
+      "side": 1,
+      "message": "No, I don\u0027t think there is a direct example right now. The interesting part is lifecycle management. If it is guaranteed to only be called once, I guess we can do \"delete this\" in the callback.",
+      "parentUuid": "261b1407_252f8f88",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 43
+      },
+      "revId": "2947e249d68602810aaee0f70336320745a98e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3d7e6d2_3a9727de",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-09-26T13:46:29Z",
+      "side": 1,
+      "message": "nit: // is more commonly used for comments in this part of the codebase",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 65
       },
       "revId": "2947e249d68602810aaee0f70336320745a98e71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

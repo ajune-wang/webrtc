@@ -259,7 +259,7 @@ void VP9EncoderImpl::SetFecControllerOverride(
 int VP9EncoderImpl::Release() {
   int ret_val = WEBRTC_VIDEO_CODEC_OK;
 
-  encoded_image_.Allocate(0);
+  encoded_image_.SetEncodedData(nullptr);
   if (encoder_ != nullptr) {
     if (inited_) {
       if (vpx_codec_destroy(encoder_)) {

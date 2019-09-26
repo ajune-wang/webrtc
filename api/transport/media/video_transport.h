@@ -20,6 +20,7 @@
 #include <vector>
 
 #include "api/video/encoded_image.h"
+#include "rtc_base/deprecation.h"
 
 namespace webrtc {
 
@@ -46,9 +47,10 @@ class MediaTransportEncodedVideoFrame final {
     return referenced_frame_ids_;
   }
 
-  // Hack to workaround lack of ownership of the EncodedImage buffer. If we
-  // don't already own the underlying data, make a copy.
-  void Retain() { encoded_image_.Retain(); }
+  // TODO(nisse): No longer needed. Delete as soon as downstream use is
+  // eliminated.
+  RTC_DEPRECATED
+  void Retain() {}
 
  private:
   MediaTransportEncodedVideoFrame();

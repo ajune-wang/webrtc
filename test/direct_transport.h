@@ -13,6 +13,7 @@
 #include <memory>
 
 #include "api/call/transport.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/test/simulated_network.h"
 #include "call/call.h"
 #include "call/simulated_packet_receiver.h"
@@ -39,14 +40,12 @@ class Demuxer {
 // same task-queue - the one that's passed in via the constructor.
 class DirectTransport : public Transport {
  public:
-  DirectTransport(DEPRECATED_SingleThreadedTaskQueueForTesting* task_queue,
+  DirectTransport(TaskQueueBase* task_queue,
                   std::unique_ptr<SimulatedPacketReceiverInterface> pipe,
                   Call* send_call,
                   const std::map<uint8_t, MediaType>& payload_type_map);
 
   ~DirectTransport() override;
-
-  RTC_DEPRECATED void StopSending();
 
   // TODO(holmer): Look into moving this to the constructor.
   virtual void SetReceiver(PacketReceiver* receiver);
@@ -59,20 +58,19 @@ class DirectTransport : public Transport {
   int GetAverageDelayMs();
 
  private:
-  void ProcessPackets() RTC_EXCLUSIVE_LOCKS_REQUIRED(&process_lock_);
+  class ProcessFakeNetworkTask;
+
   void SendPacket(const uint8_t* data, size_t length);
   void Start();
 
   Call* const send_call_;
-
-  DEPRECATED_SingleThreadedTaskQueueForTesting* const task_queue_;
-
-  rtc::CriticalSection process_lock_;
-  absl::optional<DEPRECATED_SingleThreadedTaskQueueForTesting::TaskId>
-      next_process_task_ RTC_GUARDED_BY(&process_lock_);
+  // owned by the fake_network_task_.
+  SimulatedPacketReceiverInterface* const fake_network_;
+  // Ownership shared between between |this| and |task_queue_|
+  // fake_network_task has two flags to note which ownerships are active.
+  ProcessFakeNetworkTask* const fake_network_task_;
 
   const Demuxer demuxer_;
-  const std::unique_ptr<SimulatedPacketReceiverInterface> fake_network_;
 };
 }  // namespace test
 }  // namespace webrtc

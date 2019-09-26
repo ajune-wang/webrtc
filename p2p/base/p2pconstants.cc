@@ -55,11 +55,11 @@ const int REGATHER_ON_FAILED_NETWORKS_INTERVAL = 5 * 60 * 1000;
 // on a 28.8K modem, which is the slowest connection on which the voice quality
 // is reasonable at all.
 const int STUN_PING_PACKET_SIZE = 60 * 8;
-const int STRONG_PING_INTERVAL = 1000 * STUN_PING_PACKET_SIZE / 1000;  // 480ms.
-const int WEAK_PING_INTERVAL = 1000 * STUN_PING_PACKET_SIZE / 10000;   // 48ms.
+const int STRONG_PING_INTERVAL = 1000;  // 1 second.
+const int WEAK_PING_INTERVAL = 1000;   // 1 second.
 const int WEAK_OR_STABILIZING_WRITABLE_CONNECTION_PING_INTERVAL = 900;
 const int STRONG_AND_STABLE_WRITABLE_CONNECTION_PING_INTERVAL = 2500;
-const int CONNECTION_WRITE_CONNECT_TIMEOUT = 5 * 1000;  // 5 seconds
+const int CONNECTION_WRITE_CONNECT_TIMEOUT = 10 * 1000;  // 10 seconds
 const uint32_t CONNECTION_WRITE_CONNECT_FAILURES = 5;   // 5 pings
 
 const int STUN_KEEPALIVE_INTERVAL = 10 * 1000;  // 10 seconds

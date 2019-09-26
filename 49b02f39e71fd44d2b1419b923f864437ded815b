@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfadb26a_70035816",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-26T16:44:02Z",
+      "side": 1,
+      "message": "nit: By incoming call, do you mean incoming offer that is offering a datagram transport? And by outgoing call you mean you are the \"caller\" or initiating the first offer? I don\u0027t think I\u0027ve seen the phrase outgoing/incoming call used in PeerConnection. Maybe it would be better to say something like \"when receiving an incoming offer,\" and specifically call out that what this does is it will not offer a datagram transport in an outgoing offer.\n\nYou might also want to mention here that this only applies when use_datagram_transport_for_data_channels is set, like you did in the transport controller.",
+      "range": {
+        "startLine": 636,
+        "startChar": 34,
+        "endLine": 636,
+        "endChar": 43
+      },
+      "revId": "49b02f39e71fd44d2b1419b923f864437ded815b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f043beb_237b1d29",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3676,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-26T16:44:02Z",
+      "side": 1,
+      "message": "nit: Is there a cleaner way to test that the data channel is of type SCTP?",
+      "range": {
+        "startLine": 3676,
+        "startChar": 55,
+        "endLine": 3676,
+        "endChar": 17
+      },
+      "revId": "49b02f39e71fd44d2b1419b923f864437ded815b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3ba3dc4_5e14bfa2",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3704,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-26T16:44:02Z",
+      "side": 1,
+      "message": "again, wondering if there\u0027s a cleaner way to test the data channel type. Does the data_channel()-\u003eprotocol() function return the appropriate protocol?",
+      "range": {
+        "startLine": 3704,
+        "startChar": 50,
+        "endLine": 3704,
+        "endChar": 29
+      },
+      "revId": "49b02f39e71fd44d2b1419b923f864437ded815b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

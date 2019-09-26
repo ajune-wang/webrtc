@@ -11,6 +11,7 @@
 #include "sdk/android/src/jni/encoded_image.h"
 
 #include "api/video/encoded_image.h"
+#include "rtc_base/ref_counted_object.h"
 #include "rtc_base/time_utils.h"
 #include "sdk/android/generated_video_jni/EncodedImage_jni.h"
 #include "sdk/android/native_api/jni/java_types.h"
@@ -19,10 +20,36 @@
 namespace webrtc {
 namespace jni {
 
-ScopedJavaLocalRef<jobject> NativeToJavaFrameType(JNIEnv* env,
-                                                  VideoFrameType frame_type) {
-  return Java_FrameType_fromNativeIndex(env, static_cast<int>(frame_type));
-}
+namespace {
+class JavaEncodedImageBuffer : public EncodedImageBufferInterface {
+ public:
+  JavaEncodedImageBuffer(ScopedJavaGlobalRef<jobject> j_encoded_image,
+                         uint8_t* payload,
+                         size_t size)
+      : j_encoded_image_(std::move(j_encoded_image)),
+        data_(payload),
+        size_(size) {}
+
+  ~JavaEncodedImageBuffer() {
+    // Return output buffer back to the encoder.
+    JNIEnv* jni = AttachCurrentThreadIfNeeded();
+    Java_EncodedImage_release(jni, j_encoded_image_);
+    CHECK_EXCEPTION(jni)
+        << "Unexpected java exception from EncodedImage.release()";
+  }
+  const uint8_t* data() const override { return data_; }
+  uint8_t* data() override { return data_; }
+  size_t size() const override { return size_; }
+
+ private:
+  // The Java object owning the buffer.
+  ScopedJavaGlobalRef<jobject> j_encoded_image_;
+
+  // TODO(bugs.webrtc.org/9378): Should be const.
+  uint8_t* data_;
+  size_t size_;
+};
+}  // namespace
 
 ScopedJavaLocalRef<jobject> NativeToJavaEncodedImage(
     JNIEnv* jni,
@@ -62,9 +89,6 @@ EncodedImage JavaToNativeEncodedImage(JNIEnv* env,
   const size_t buffer_size = env->GetDirectBufferCapacity(j_buffer.obj());
 
   EncodedImage frame;
-  frame.Allocate(buffer_size);
-  frame.set_size(buffer_size);
-  memcpy(frame.data(), buffer, buffer_size);
   frame._encodedWidth = Java_EncodedImage_getEncodedWidth(env, j_encoded_image);
   frame._encodedHeight =
       Java_EncodedImage_getEncodedHeight(env, j_encoded_image);
@@ -79,6 +103,14 @@ EncodedImage JavaToNativeEncodedImage(JNIEnv* env,
 
   frame._frameType =
       (VideoFrameType)Java_EncodedImage_getFrameType(env, j_encoded_image);
+  if (Java_EncodedImage_maybeRetain(env, j_encoded_image)) {
+    frame.SetEncodedData(new rtc::RefCountedObject<JavaEncodedImageBuffer>(
+        ScopedJavaGlobalRef<jobject>(j_encoded_image), buffer, buffer_size));
+  } else {
+    /* Encoder doesn't support retain/release, so make a copy. */
+    frame.SetEncodedData(EncodedImageBuffer::Create(buffer, buffer_size));
+  }
+
   return frame;
 }
 

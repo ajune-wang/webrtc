@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "15feca97_dcd0a494",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-26T14:43:09Z",
+      "side": 1,
+      "message": "Note that for the time being, C++ calls maybeRetain(), not retain(). A general C++ helper should call retain() and release(), right?\n\nI could try moving the @CalledByNative annotation for release() to the RefCounted interface. If I do that, will jni glue be generated automagically?",
+      "parentUuid": "fe0aa046_6c639191",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 17
+      },
+      "revId": "2947e249d68602810aaee0f70336320745a98e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ec97ffa_b049dc61",
         "filename": "sdk/android/src/jni/encoded_image.cc",
         "patchSetId": 2
@@ -95,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "77d843cb_18d4d5a1",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-26T14:43:09Z",
+      "side": 1,
+      "message": "Should we then also pass a JNIEnv* to the constructor?",
+      "parentUuid": "c53599ec_c36f9886",
+      "range": {
+        "startLine": 26,
+        "startChar": 25,
+        "endLine": 26,
+        "endChar": 53
+      },
+      "revId": "2947e249d68602810aaee0f70336320745a98e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b0f4a2c3_c4c241e3",
         "filename": "sdk/android/src/jni/encoded_image.cc",
         "patchSetId": 2
@@ -118,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "a31b7934_8b87c108",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-26T14:43:09Z",
+      "side": 1,
+      "message": "Done. Can j_encoded_image_ be const too?",
+      "parentUuid": "b0f4a2c3_c4c241e3",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 9
+      },
+      "revId": "2947e249d68602810aaee0f70336320745a98e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33ee2800_3e854d1c",
         "filename": "sdk/android/src/jni/encoded_image.cc",
         "patchSetId": 2
@@ -138,6 +210,30 @@
       "revId": "2947e249d68602810aaee0f70336320745a98e71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59fa8976_ae1d383a",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-26T14:43:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33ee2800_3e854d1c",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 8
+      },
+      "revId": "2947e249d68602810aaee0f70336320745a98e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -188,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "0b718d25_373485ef",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-26T14:43:09Z",
+      "side": 1,
+      "message": "Any docs or indirect example I could look at?\n\nI think the checks I added in https://webrtc-review.googlesource.com/c/src/+/142175 should enforce that the release callback is called at most once. If it\u0027s never called (due to too few calls to release() on the java side), we\u0027ll get a leak, but that\u0027s kind of expected with the retain()/release() convention.",
+      "parentUuid": "f9dc4e06_cd5db7d8",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 43
+      },
+      "revId": "2947e249d68602810aaee0f70336320745a98e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c3d7e6d2_3a9727de",
         "filename": "sdk/android/src/jni/encoded_image.cc",
         "patchSetId": 2
@@ -208,6 +328,30 @@
       "revId": "2947e249d68602810aaee0f70336320745a98e71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0c14786_b2939944",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-26T14:43:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3d7e6d2_3a9727de",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 65
+      },
+      "revId": "2947e249d68602810aaee0f70336320745a98e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

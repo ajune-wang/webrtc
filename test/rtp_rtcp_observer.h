@@ -15,6 +15,7 @@
 #include <utility>
 #include <vector>
 
+#include "api/task_queue/task_queue_base.h"
 #include "api/test/simulated_network.h"
 #include "call/simulated_packet_receiver.h"
 #include "call/video_send_stream.h"
@@ -33,7 +34,6 @@ namespace webrtc {
 namespace test {
 
 class PacketTransport;
-class DEPRECATED_SingleThreadedTaskQueueForTesting;
 
 class RtpRtcpObserver {
  public:
@@ -85,7 +85,7 @@ class PacketTransport : public test::DirectTransport {
  public:
   enum TransportType { kReceiver, kSender };
 
-  PacketTransport(DEPRECATED_SingleThreadedTaskQueueForTesting* task_queue,
+  PacketTransport(TaskQueueBase* task_queue,
                   Call* send_call,
                   RtpRtcpObserver* observer,
                   TransportType transport_type,

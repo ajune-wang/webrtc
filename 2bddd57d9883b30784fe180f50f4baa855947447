@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ada7629_97b40cd0",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-09-26T09:03:15Z",
+      "side": 1,
+      "message": "reduce scope of lock?",
+      "range": {
+        "startLine": 544,
+        "startChar": 0,
+        "endLine": 544,
+        "endChar": 47
+      },
+      "revId": "2bddd57d9883b30784fe180f50f4baa855947447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5a49dba_9fb30992",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-09-26T09:03:15Z",
+      "side": 1,
+      "message": "reduce scope of lock?",
+      "range": {
+        "startLine": 781,
+        "startChar": 45,
+        "endLine": 781,
+        "endChar": 46
+      },
+      "revId": "2bddd57d9883b30784fe180f50f4baa855947447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

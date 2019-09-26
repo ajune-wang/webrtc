@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64c10de4_0f2ccbb4",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-26T07:46:35Z",
+      "side": 1,
+      "message": "This is one of the redundant calls? Please mark with a TODO item.",
+      "range": {
+        "startLine": 428,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 31
+      },
+      "revId": "2bf61ae9e4fbb4740a10057fdbc9a1bf3951f9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "450e161c_f51f0afd",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-26T07:46:35Z",
+      "side": 1,
+      "message": "Here, it looks like we only log deviations, but don\u0027t enforce the lower limit. But we do, elsewhere.",
+      "range": {
+        "startLine": 591,
+        "startChar": 0,
+        "endLine": 592,
+        "endChar": 50
+      },
+      "revId": "2bf61ae9e4fbb4740a10057fdbc9a1bf3951f9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2de6e90_d0095715",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-26T07:46:35Z",
+      "side": 1,
+      "message": "I think these methods deserve brief comments. (One could argue that comments for private methods should go with the implementation rather than with the declaration. I don\u0027t have a strong opinion, other then that I like consistency. And other methods have comments here).",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 49
+      },
+      "revId": "2bf61ae9e4fbb4740a10057fdbc9a1bf3951f9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

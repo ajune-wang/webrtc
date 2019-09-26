@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "95ed0947_6189621f",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-26T18:02:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfadb26a_70035816",
+      "range": {
+        "startLine": 636,
+        "startChar": 34,
+        "endLine": 636,
+        "endChar": 43
+      },
+      "revId": "49b02f39e71fd44d2b1419b923f864437ded815b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f043beb_237b1d29",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fbefa062_7bb26e1d",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3676,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-26T18:02:32Z",
+      "side": 1,
+      "message": "As it turns out, there is.  GetSctpTransport() will return nullptr if the datagram transport is used, but returns a non-null value if SCTP is used.",
+      "parentUuid": "2f043beb_237b1d29",
+      "range": {
+        "startLine": 3676,
+        "startChar": 55,
+        "endLine": 3676,
+        "endChar": 17
+      },
+      "revId": "49b02f39e71fd44d2b1419b923f864437ded815b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3ba3dc4_5e14bfa2",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "49b02f39e71fd44d2b1419b923f864437ded815b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cc0de83_2b81bacd",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3704,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-26T18:02:32Z",
+      "side": 1,
+      "message": "protocol() is user-specified, so that the application can use it to indicate what upper-layer protocol it\u0027s using over the top of data channels.",
+      "parentUuid": "a3ba3dc4_5e14bfa2",
+      "range": {
+        "startLine": 3704,
+        "startChar": 50,
+        "endLine": 3704,
+        "endChar": 29
+      },
+      "revId": "49b02f39e71fd44d2b1419b923f864437ded815b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

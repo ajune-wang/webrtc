@@ -10,6 +10,8 @@
 #include "test/direct_transport.h"
 
 #include "absl/memory/memory.h"
+#include "api/task_queue/queued_task.h"
+#include "api/task_queue/task_queue.h"
 #include "call/call.h"
 #include "call/fake_network_pipe.h"
 #include "rtc_base/time_utils.h"
@@ -18,6 +20,77 @@
 
 namespace webrtc {
 namespace test {
+
+class DirectTransport::ProcessFakeNetworkTask final : public QueuedTask {
+ public:
+  ProcessFakeNetworkTask(
+      TaskQueueBase* task_queue,
+      std::unique_ptr<SimulatedPacketReceiverInterface> fake_network)
+      : task_queue_(task_queue), fake_network_(std::move(fake_network)) {
+    RTC_DCHECK(task_queue_);
+    RTC_DCHECK(fake_network_);
+  }
+  ~ProcessFakeNetworkTask() override = default;
+  bool Run() override {
+    {
+      rtc::CritScope lock(&state_mutex_);
+      RTC_DCHECK(owned_by_task_queue_);
+      if (!owned_by_direct_transport_) {
+        return true;  // i.e. time to delete this.
+      }
+    }
+    fake_network_->Process();
+    absl::optional<int64_t> delay_ms = fake_network_->TimeUntilNextProcess();
+    if (delay_ms == absl::nullopt) {
+      rtc::CritScope lock(&state_mutex_);
+      RTC_DCHECK(owned_by_task_queue_);
+      owned_by_task_queue_ = false;
+      return !owned_by_direct_transport_;
+    }
+    task_queue_->PostDelayedTask(absl::WrapUnique(this), *delay_ms);
+    // still owned by the task queue, so do not delete this.
+    return false;
+  }
+
+  void ReleaseDirectTransportOwnership() {
+    {
+      rtc::CritScope lock(&state_mutex_);
+      RTC_DCHECK(owned_by_direct_transport_);
+      owned_by_direct_transport_ = false;
+      if (owned_by_task_queue_)
+        return;  // will be deleted by the task queue.
+    }
+    delete this;
+  }
+
+  void MayBePostToTaskQueue() {
+    {
+      // Do not post if already on the task queue.
+      rtc::CritScope lock(&state_mutex_);
+      if (owned_by_task_queue_)
+        return;
+      owned_by_task_queue_ = true;
+    }
+    absl::optional<int64_t> delay_ms = fake_network_->TimeUntilNextProcess();
+    if (delay_ms == absl::nullopt) {
+      // Do not post if fake_network doesn't request processing.
+      rtc::CritScope lock(&state_mutex_);
+      RTC_DCHECK(owned_by_task_queue_);
+      owned_by_task_queue_ = false;
+      return;
+    }
+
+    task_queue_->PostDelayedTask(absl::WrapUnique(this), *delay_ms);
+  }
+
+ private:
+  TaskQueueBase* const task_queue_;
+  const std::unique_ptr<SimulatedPacketReceiverInterface> fake_network_;
+
+  rtc::CriticalSection state_mutex_;
+  bool owned_by_task_queue_ RTC_GUARDED_BY(state_mutex_) = false;
+  bool owned_by_direct_transport_ RTC_GUARDED_BY(state_mutex_) = true;
+};
 
 Demuxer::Demuxer(const std::map<uint8_t, MediaType>& payload_type_map)
     : payload_type_map_(payload_type_map) {}
@@ -37,30 +110,28 @@ MediaType Demuxer::GetMediaType(const uint8_t* packet_data,
 }
 
 DirectTransport::DirectTransport(
-    DEPRECATED_SingleThreadedTaskQueueForTesting* task_queue,
+    TaskQueueBase* task_queue,
     std::unique_ptr<SimulatedPacketReceiverInterface> pipe,
     Call* send_call,
     const std::map<uint8_t, MediaType>& payload_type_map)
     : send_call_(send_call),
-      task_queue_(task_queue),
-      demuxer_(payload_type_map),
-      fake_network_(std::move(pipe)) {
+      fake_network_(pipe.get()),
+      fake_network_task_(
+          new ProcessFakeNetworkTask(task_queue, std::move(pipe))),
+      demuxer_(payload_type_map) {
   Start();
 }
 
 DirectTransport::~DirectTransport() {
-  if (next_process_task_)
-    task_queue_->CancelTask(*next_process_task_);
-}
-
-void DirectTransport::StopSending() {
-  rtc::CritScope cs(&process_lock_);
-  if (next_process_task_)
-    task_queue_->CancelTask(*next_process_task_);
+  // This may delete the fake_network_task_, or may postpone deleting it
+  // together with the fake_network_ until task queue Runs (or deletes) the
+  // task. If fake_network_task_ currently running fake_network_->Process(),
+  // that process will not terminated and might continue to run after
+  // DirectTransport is destructed.
+  fake_network_task_->ReleaseDirectTransportOwnership();
 }
 
 void DirectTransport::SetReceiver(PacketReceiver* receiver) {
-  rtc::CritScope cs(&process_lock_);
   fake_network_->SetReceiver(receiver);
 }
 
@@ -89,9 +160,7 @@ void DirectTransport::SendPacket(const uint8_t* data, size_t length) {
   int64_t send_time_us = rtc::TimeMicros();
   fake_network_->DeliverPacket(media_type, rtc::CopyOnWriteBuffer(data, length),
                                send_time_us);
-  rtc::CritScope cs(&process_lock_);
-  if (!next_process_task_)
-    ProcessPackets();
+  fake_network_task_->MayBePostToTaskQueue();
 }
 
 int DirectTransport::GetAverageDelayMs() {
@@ -99,25 +168,11 @@ int DirectTransport::GetAverageDelayMs() {
 }
 
 void DirectTransport::Start() {
-  RTC_DCHECK(task_queue_);
   if (send_call_) {
     send_call_->SignalChannelNetworkState(MediaType::AUDIO, kNetworkUp);
     send_call_->SignalChannelNetworkState(MediaType::VIDEO, kNetworkUp);
   }
 }
 
-void DirectTransport::ProcessPackets() {
-  next_process_task_.reset();
-  auto delay_ms = fake_network_->TimeUntilNextProcess();
-  if (delay_ms) {
-    next_process_task_ = task_queue_->PostDelayedTask(
-        [this]() {
-          fake_network_->Process();
-          rtc::CritScope cs(&process_lock_);
-          ProcessPackets();
-        },
-        *delay_ms);
-  }
-}
 }  // namespace test
 }  // namespace webrtc

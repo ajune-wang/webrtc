@@ -602,6 +602,7 @@ rtc_source_set("direct_transport") {
     ":rtp_test_utils",
     "../api:simulated_network_api",
     "../api:transport_api",
+    "../api/task_queue",
     "../call:call_interfaces",
     "../call:simulated_packet_receiver",
     "../modules/rtp_rtcp",

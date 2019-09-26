@@ -16,6 +16,7 @@
 #include "call/call.h"
 #include "test/direct_transport.h"
 #include "test/frame_generator_capturer.h"
+#include "test/single_threaded_task_queue.h"
 
 namespace webrtc {
 // Test sets up a Call multiple senders with different resolutions and SSRCs.

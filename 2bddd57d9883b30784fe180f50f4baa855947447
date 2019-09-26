@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4bcfedab_6b3d4ed8",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-26T09:11:53Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s worth it in this case since we use reference_finder_ again on line 567.",
+      "parentUuid": "3ada7629_97b40cd0",
+      "range": {
+        "startLine": 544,
+        "startChar": 0,
+        "endLine": 544,
+        "endChar": 47
+      },
+      "revId": "2bddd57d9883b30784fe180f50f4baa855947447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a5a49dba_9fb30992",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "2bddd57d9883b30784fe180f50f4baa855947447",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5978d862_98509587",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-26T09:11:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5a49dba_9fb30992",
+      "range": {
+        "startLine": 781,
+        "startChar": 45,
+        "endLine": 781,
+        "endChar": 46
+      },
+      "revId": "2bddd57d9883b30784fe180f50f4baa855947447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

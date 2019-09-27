@@ -472,6 +472,7 @@ if (rtc_include_tests) {
       "../video",
       "//testing/gtest",
       "//third_party/abseil-cpp/absl/flags:flag",
+      "//third_party/abseil-cpp/absl/memory",
     ]
   }
 

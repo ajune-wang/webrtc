@@ -750,6 +750,8 @@ void FrameBuffer::ClearFramesAndHistory() {
   decoded_frames_history_.Clear();
 }
 
+// TODO(philipel): Avoid the concatenation of frames here, by replacing
+// NextFrame and GetNextFrame with methods returning multiple frames.
 EncodedFrame* FrameBuffer::CombineAndDeleteFrames(
     const std::vector<EncodedFrame*>& frames) const {
   RTC_DCHECK(!frames.empty());
@@ -759,10 +761,7 @@ EncodedFrame* FrameBuffer::CombineAndDeleteFrames(
   for (size_t i = 0; i < frames.size(); ++i) {
     total_length += frames[i]->size();
   }
-  first_frame->VerifyAndAllocate(total_length);
-
-  first_frame->SetSpatialLayerFrameSize(first_frame->id.spatial_layer,
-                                        first_frame->size());
+  auto encoded_image_buffer = EncodedImageBuffer::Create(total_length);
 
   // Spatial index of combined frame is set equal to spatial index of its top
   // spatial layer.
@@ -774,9 +773,9 @@ EncodedFrame* FrameBuffer::CombineAndDeleteFrames(
   first_frame->video_timing_mutable()->receive_finish_ms =
       last_frame->video_timing().receive_finish_ms;
 
-  // Append all remaining frames to the first one.
-  uint8_t* buffer = first_frame->data() + first_frame->size();
-  for (size_t i = 1; i < frames.size(); ++i) {
+  // Concatenate all frames.
+  uint8_t* buffer = encoded_image_buffer->data();
+  for (size_t i = 0; i < frames.size(); ++i) {
     EncodedFrame* next_frame = frames[i];
     first_frame->SetSpatialLayerFrameSize(next_frame->id.spatial_layer,
                                           next_frame->size());
@@ -784,7 +783,7 @@ EncodedFrame* FrameBuffer::CombineAndDeleteFrames(
     buffer += next_frame->size();
     delete next_frame;
   }
-  first_frame->set_size(total_length);
+  first_frame->SetEncodedData(encoded_image_buffer);
   return first_frame;
 }
 

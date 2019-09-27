@@ -10,6 +10,8 @@
 
 #include <memory>
 
+#include "absl/memory/memory.h"
+#include "api/task_queue/task_queue_base.h"
 #include "call/call.h"
 #include "call/fake_network_pipe.h"
 #include "call/simulated_network.h"
@@ -39,7 +41,7 @@ TEST_F(TransportFeedbackEndToEndTest, AssignsTransportSequenceNumbers) {
   class RtpExtensionHeaderObserver : public test::DirectTransport {
    public:
     RtpExtensionHeaderObserver(
-        test::DEPRECATED_SingleThreadedTaskQueueForTesting* task_queue,
+        TaskQueueBase* task_queue,
         Call* sender_call,
         const uint32_t& first_media_ssrc,
         const std::map<uint32_t, uint32_t>& ssrc_map,
@@ -217,8 +219,8 @@ TEST_F(TransportFeedbackEndToEndTest, AssignsTransportSequenceNumbers) {
       receive_config->renderer = &fake_renderer_;
     }
 
-    test::DirectTransport* CreateSendTransport(
-        test::DEPRECATED_SingleThreadedTaskQueueForTesting* task_queue,
+    std::unique_ptr<test::DirectTransport> CreateSendTransport(
+        TaskQueueBase* task_queue,
         Call* sender_call) override {
       std::map<uint8_t, MediaType> payload_type_map =
           MultiStreamTester::payload_type_map_;
@@ -228,7 +230,7 @@ TEST_F(TransportFeedbackEndToEndTest, AssignsTransportSequenceNumbers) {
       observer_ = new RtpExtensionHeaderObserver(
           task_queue, sender_call, first_media_ssrc_, rtx_to_media_ssrcs_,
           payload_type_map);
-      return observer_;
+      return absl::WrapUnique(observer_);
     }
 
    private:

@@ -12,8 +12,10 @@ if (rtc_include_tests) {
   rtc_source_set("tests") {
     testonly = true
     sources = [
+      "audio_bwe_remb_test.cc",
       "peer_scenario_quality_test.cc",
       "remote_estimate_test.cc",
+      "rtcp_transceiver_issue.cc",
     ]
     deps = [
       "..:peer_scenario",

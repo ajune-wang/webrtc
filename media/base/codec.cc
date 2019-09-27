@@ -87,6 +87,17 @@ void FeedbackParams::Add(const FeedbackParam& param) {
   RTC_CHECK(!HasDuplicateEntries());
 }
 
+void FeedbackParams::RemoveById(const std::string& id) {
+  std::vector<FeedbackParam>::iterator iter_to = params_.begin();
+  while (iter_to != params_.end()) {
+    if (iter_to->id() == id) {
+      iter_to = params_.erase(iter_to);
+    } else {
+      ++iter_to;
+    }
+  }
+}
+
 void FeedbackParams::Intersect(const FeedbackParams& from) {
   std::vector<FeedbackParam>::iterator iter_to = params_.begin();
   while (iter_to != params_.end()) {
@@ -178,6 +189,10 @@ bool Codec::RemoveParam(const std::string& name) {
 
 void Codec::AddFeedbackParam(const FeedbackParam& param) {
   feedback_params.Add(param);
+}
+
+void Codec::RemoveFeedbackParam(const std::string& param_id) {
+  feedback_params.RemoveById(param_id);
 }
 
 bool Codec::HasFeedbackParam(const FeedbackParam& param) const {

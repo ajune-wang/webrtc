@@ -52,6 +52,7 @@ class FeedbackParams {
 
   bool Has(const FeedbackParam& param) const;
   void Add(const FeedbackParam& param);
+  void RemoveById(const std::string& id);
 
   void Intersect(const FeedbackParams& from);
 
@@ -89,6 +90,7 @@ struct RTC_EXPORT Codec {
 
   bool HasFeedbackParam(const FeedbackParam& param) const;
   void AddFeedbackParam(const FeedbackParam& param);
+  void RemoveFeedbackParam(const std::string& param_id);
 
   // Filter |this| feedbacks params such that only those shared by both |this|
   // and |other| are kept.

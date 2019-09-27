@@ -61,6 +61,7 @@ SimulatedNetworkNode SimulatedNetworkNode::Builder::Build(
   auto behavior = std::make_unique<SimulatedNetwork>(config_);
   res.simulation = behavior.get();
   res.node = net->CreateEmulatedNode(std::move(behavior));
+  res.config = config_;
   return res;
 }
 

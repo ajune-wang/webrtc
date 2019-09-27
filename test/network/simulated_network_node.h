@@ -19,6 +19,7 @@ namespace test {
 struct SimulatedNetworkNode {
   SimulatedNetwork* simulation;
   EmulatedNetworkNode* node;
+  SimulatedNetwork::Config config;
   class Builder {
    public:
     Builder();

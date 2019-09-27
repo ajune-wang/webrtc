@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "543c3cb2_a753cf45",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-27T22:53:52Z",
+      "side": 1,
+      "message": "I don\u0027t think this level of granularity is true. In this case it has media/data level granularity for specifying. Meaning I *can\u0027t* specify that my audio is over the datagram transport \u0026 my video is over the dtls transport, because I only applied the alt-protocol line in audio.",
+      "range": {
+        "startLine": 18,
+        "startChar": 40,
+        "endLine": 18,
+        "endChar": 36
+      },
+      "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f91cf5c4_37cd1dea",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-27T22:53:52Z",
+      "side": 1,
+      "message": "I\u0027m wondering if it\u0027s worth adding a unit test for the updated negotiation logic inside jsep_transport_unittest.cc",
+      "range": {
+        "startLine": 798,
+        "startChar": 20,
+        "endLine": 798,
+        "endChar": 46
+      },
+      "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0af52743_6ba855ed",
+        "filename": "pc/jsep_transport_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-27T22:53:52Z",
+      "side": 1,
+      "message": "I\u0027m sure you know what you\u0027re doing here, but it looks like you\u0027re creating  an SDP w/o bundle, then immediately creating a bundle group on it. Maybe add a comment why this is necessary?",
+      "range": {
+        "startLine": 477,
+        "startChar": 0,
+        "endLine": 477,
+        "endChar": 61
+      },
+      "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f6336fe_c90582b4",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3550,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-27T22:53:52Z",
+      "side": 1,
+      "message": "What about the case where it\u0027s different between sections? Audio alt_protocl is different than video alt_protocol.",
+      "range": {
+        "startLine": 3550,
+        "startChar": 43,
+        "endLine": 3550,
+        "endChar": 70
+      },
+      "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e658b9cd_2b664927",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3651,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-27T22:53:52Z",
+      "side": 1,
+      "message": "I think the one case you missed is where both sides offer datagram transport for both media + data channel.",
+      "range": {
+        "startLine": 3651,
+        "startChar": 7,
+        "endLine": 3651,
+        "endChar": 52
+      },
+      "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bae07c3f_d78d2ad8",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3658,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-27T22:53:52Z",
+      "side": 1,
+      "message": "As we talked about offline - all of these tests use max bundle, but some of your code actually looks like it supports specifying these things w/o max bundle. If this is in fact supported, it would probably be worht testing this case as well. But if this isn\u0027t supported it\u0027s fine to leave as is.\n\nThat actually makes me think of a question. If you aren\u0027t bundling - do we require setting both the alt_protocol \u0026 opaque flags in a media section in order to turn on datagram transport?",
+      "range": {
+        "startLine": 3658,
+        "startChar": 0,
+        "endLine": 3658,
+        "endChar": 54
+      },
+      "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4209ea9a_29bdd29b",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3783,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-27T22:53:52Z",
+      "side": 1,
+      "message": "nit: remove only.",
+      "range": {
+        "startLine": 3783,
+        "startChar": 29,
+        "endLine": 3783,
+        "endChar": 33
+      },
+      "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

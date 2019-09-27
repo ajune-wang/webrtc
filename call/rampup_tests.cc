@@ -13,9 +13,11 @@
 #include <memory>
 
 #include "absl/flags/flag.h"
+#include "absl/memory/memory.h"
 #include "api/rtc_event_log/rtc_event_log_factory.h"
 #include "api/rtc_event_log_output_file.h"
 #include "api/task_queue/default_task_queue_factory.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/task_queue/task_queue_factory.h"
 #include "call/fake_network_pipe.h"
 #include "rtc_base/checks.h"
@@ -116,8 +118,8 @@ void RampUpTester::OnVideoStreamsCreated(
   send_stream_ = send_stream;
 }
 
-test::PacketTransport* RampUpTester::CreateSendTransport(
-    test::DEPRECATED_SingleThreadedTaskQueueForTesting* task_queue,
+std::unique_ptr<test::PacketTransport> RampUpTester::CreateSendTransport(
+    TaskQueueBase* task_queue,
     Call* sender_call) {
   auto network = std::make_unique<SimulatedNetwork>(forward_transport_config_);
   send_simulated_network_ = network.get();
@@ -126,7 +128,7 @@ test::PacketTransport* RampUpTester::CreateSendTransport(
       test::CallTest::payload_type_map_,
       std::make_unique<FakeNetworkPipe>(Clock::GetRealTimeClock(),
                                         std::move(network)));
-  return send_transport_;
+  return absl::WrapUnique(send_transport_);
 }
 
 size_t RampUpTester::GetNumVideoStreams() const {

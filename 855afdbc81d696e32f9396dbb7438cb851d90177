@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "796851d6_7ff0cf60",
+        "filename": "test/direct_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-09-27T07:57:36Z",
+      "side": 1,
+      "message": "Variable shadowing better be avoided, IMHO.",
+      "range": {
+        "startLine": 111,
+        "startChar": 19,
+        "endLine": 111,
+        "endChar": 27
+      },
+      "revId": "855afdbc81d696e32f9396dbb7438cb851d90177",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

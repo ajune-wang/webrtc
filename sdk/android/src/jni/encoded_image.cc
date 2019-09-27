@@ -11,13 +11,72 @@
 #include "sdk/android/src/jni/encoded_image.h"
 
 #include "api/video/encoded_image.h"
+#include "rtc_base/ref_counted_object.h"
 #include "rtc_base/time_utils.h"
+#include "sdk/android/generated_base_jni/RefCounted_jni.h"  // nogncheck
 #include "sdk/android/generated_video_jni/EncodedImage_jni.h"
 #include "sdk/android/native_api/jni/java_types.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 
 namespace webrtc {
 namespace jni {
+
+namespace {
+
+// TODO(nisse): Decide on name of this class, then move to a separate file.
+class ScopedJavaRefCounted {
+ public:
+  static ScopedJavaRefCounted Adopt(JNIEnv* env,
+                                    const JavaRef<jobject>& j_object) {
+    return ScopedJavaRefCounted(env, j_object);
+  }
+
+  ScopedJavaRefCounted(ScopedJavaRefCounted&& other) = default;
+
+  // TODO(nisse): Implement move assignment and copy operations when needed.
+  ScopedJavaRefCounted(const ScopedJavaRefCounted& other) = delete;
+  ScopedJavaRefCounted& operator=(const ScopedJavaRefCounted&) = delete;
+
+  ~ScopedJavaRefCounted() {
+    if (!j_object_.is_null()) {
+      JNIEnv* jni = AttachCurrentThreadIfNeeded();
+      Java_RefCounted_release(jni, j_object_);
+      CHECK_EXCEPTION(jni)
+          << "Unexpected java exception from ScopedJavaRefCounted.release()";
+    }
+  }
+
+ private:
+  // Adopts reference.
+  ScopedJavaRefCounted(JNIEnv* env, const JavaRef<jobject>& j_object)
+      : j_object_(env, j_object) {}
+
+  ScopedJavaGlobalRef<jobject> j_object_;
+};
+
+class JavaEncodedImageBuffer : public EncodedImageBufferInterface {
+ public:
+  JavaEncodedImageBuffer(JNIEnv* env,
+                         const JavaRef<jobject>& j_encoded_image,
+                         const uint8_t* payload,
+                         size_t size)
+      : j_encoded_image_(ScopedJavaRefCounted::Adopt(env, j_encoded_image)),
+        data_(const_cast<uint8_t*>(payload)),
+        size_(size) {}
+
+  const uint8_t* data() const override { return data_; }
+  uint8_t* data() override { return data_; }
+  size_t size() const override { return size_; }
+
+ private:
+  // The Java object owning the buffer.
+  const ScopedJavaRefCounted j_encoded_image_;
+
+  // TODO(bugs.webrtc.org/9378): Make const, and delete above const_cast.
+  uint8_t* const data_;
+  size_t const size_;
+};
+}  // namespace
 
 ScopedJavaLocalRef<jobject> NativeToJavaFrameType(JNIEnv* env,
                                                   VideoFrameType frame_type) {
@@ -62,9 +121,14 @@ EncodedImage JavaToNativeEncodedImage(JNIEnv* env,
   const size_t buffer_size = env->GetDirectBufferCapacity(j_buffer.obj());
 
   EncodedImage frame;
-  frame.Allocate(buffer_size);
-  frame.set_size(buffer_size);
-  memcpy(frame.data(), buffer, buffer_size);
+  if (Java_EncodedImage_maybeRetain(env, j_encoded_image)) {
+    frame.SetEncodedData(new rtc::RefCountedObject<JavaEncodedImageBuffer>(
+        env, j_encoded_image, buffer, buffer_size));
+  } else {
+    // Encoder doesn't support retain/release, so make a copy.
+    frame.SetEncodedData(EncodedImageBuffer::Create(buffer, buffer_size));
+  }
+
   frame._encodedWidth = Java_EncodedImage_getEncodedWidth(env, j_encoded_image);
   frame._encodedHeight =
       Java_EncodedImage_getEncodedHeight(env, j_encoded_image);

@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "9ef5ae3a_1f35d322",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-09-27T11:49:22Z",
+      "side": 1,
+      "message": "Sounds fine by me",
+      "parentUuid": "802ba757_58dc93f2",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 17
+      },
+      "revId": "2947e249d68602810aaee0f70336320745a98e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ec97ffa_b049dc61",
         "filename": "sdk/android/src/jni/encoded_image.cc",
         "patchSetId": 2

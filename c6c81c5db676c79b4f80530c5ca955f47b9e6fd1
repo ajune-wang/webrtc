@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6ff653e_df0a95bc",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-09-27T11:49:22Z",
+      "side": 1,
+      "message": "Why nogncheck?",
+      "range": {
+        "startLine": 16,
+        "startChar": 63,
+        "endLine": 16,
+        "endChar": 72
+      },
+      "revId": "c6c81c5db676c79b4f80530c5ca955f47b9e6fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a378c37c_2adb3faa",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-09-27T11:49:22Z",
+      "side": 1,
+      "message": "Yes please",
+      "range": {
+        "startLine": 26,
+        "startChar": 51,
+        "endLine": 26,
+        "endChar": 74
+      },
+      "revId": "c6c81c5db676c79b4f80530c5ca955f47b9e6fd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -112,7 +112,14 @@ VCMFrameBufferEnum VCMFrameBuffer::InsertPacket(const VCMPacket& packet,
                            "big.";
       return kSizeError;
     }
-    VerifyAndAllocate(newSize);
+    if (data() == nullptr) {
+      encoded_image_buffer_ = EncodedImageBuffer::Create(newSize);
+      SetEncodedData(encoded_image_buffer_);
+    } else {
+      RTC_CHECK(encoded_image_buffer_ != nullptr);
+      RTC_DCHECK_EQ(encoded_image_buffer_->data(), data());
+      encoded_image_buffer_->Realloc(newSize);
+    }
     _sessionInfo.UpdateDataPointers(prevBuffer, data());
   }
 

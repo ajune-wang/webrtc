@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "802ba757_58dc93f2",
+        "filename": "sdk/android/api/org/webrtc/EncodedImage.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-27T11:38:07Z",
+      "side": 1,
+      "message": "Done (with only adopting case implemented so far). Is ScopedJavaRefCounted a reasonable name for the class?",
+      "parentUuid": "c299d474_57cb5e2f",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 17
+      },
+      "revId": "2947e249d68602810aaee0f70336320745a98e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ec97ffa_b049dc61",
         "filename": "sdk/android/src/jni/encoded_image.cc",
         "patchSetId": 2
@@ -188,6 +212,30 @@
       "revId": "2947e249d68602810aaee0f70336320745a98e71",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36b9208f_388cdfcb",
+        "filename": "sdk/android/src/jni/encoded_image.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-27T11:38:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd44407f_dc1c1b2e",
+      "range": {
+        "startLine": 26,
+        "startChar": 25,
+        "endLine": 26,
+        "endChar": 53
+      },
+      "revId": "2947e249d68602810aaee0f70336320745a98e71",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

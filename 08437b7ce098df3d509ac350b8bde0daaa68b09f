@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fc49000_4ee2dfab",
+        "filename": "modules/video_coding/rtp_frame_reference_finder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-27T06:32:30Z",
+      "side": 1,
+      "message": "I\u0027ve found this a bit confusing. Tests pass either RTPVideoHeaderVP8 or RTPVideoHeaderVP9 for this argument. And I guess that works because the argument type is an alias for absl::variant, with implicit conversion. Not sure if I\u0027m just not used to absl:variant, but I would have found an explicit conversion somewhere less confusing.",
+      "range": {
+        "startLine": 35,
+        "startChar": 10,
+        "endLine": 35,
+        "endChar": 28
+      },
+      "revId": "08437b7ce098df3d509ac350b8bde0daaa68b09f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -474,12 +474,27 @@ TEST_F(JsepTransportControllerTest,
   config.use_datagram_transport_for_data_channels = true;
   CreateJsepTransportController(config);
 
-  auto description = CreateSessionDescriptionWithBundleGroup();
+  auto description = CreateSessionDescriptionWithoutBundle();
+  AddDataSection(description.get(), kDataMid1,
+                 cricket::MediaProtocolType::kSctp, kIceUfrag1, kIcePwd1,
+                 cricket::ICEMODE_FULL, cricket::CONNECTIONROLE_ACTPASS,
+                 nullptr);
+  cricket::ContentGroup bundle_group(cricket::GROUP_TYPE_BUNDLE);
+  bundle_group.AddContentName(kAudioMid1);
+  bundle_group.AddContentName(kVideoMid1);
+  bundle_group.AddContentName(kDataMid1);
+  description->AddGroup(bundle_group);
   AddCryptoSettings(description.get());
+
   absl::optional<cricket::OpaqueTransportParameters> params =
       transport_controller_->GetTransportParameters(kAudioMid1);
   for (auto& info : description->transport_infos()) {
     info.description.opaque_parameters = params;
+  }
+  for (cricket::ContentInfo& content_info : description->contents()) {
+    if (content_info.media_description()->type() == cricket::MEDIA_TYPE_DATA) {
+      content_info.media_description()->set_alt_protocol(params->protocol);
+    }
   }
 
   EXPECT_TRUE(transport_controller_
@@ -2213,6 +2228,12 @@ class JsepTransportControllerDatagramTest
 
     for (auto& info : description->transport_infos()) {
       info.description.opaque_parameters = transport_params;
+    }
+    if (transport_params) {
+      for (auto& content_info : description->contents()) {
+        content_info.media_description()->set_alt_protocol(
+            transport_params->protocol);
+      }
     }
     return description;
   }

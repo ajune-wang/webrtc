@@ -166,6 +166,30 @@
       "revId": "e7153012682ccd3d1eacc18f802cab7820e3bad3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "390f9249_d3bbaf84",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 10031
+      },
+      "writtenOn": "2019-09-28T11:05:24Z",
+      "side": 1,
+      "message": "Maybe you could load the XRRGetMonitors symbol dynamically with dlsym?\n\nI tested this approach with a small test program and then experimented how dpkg-shlibdeps analyzes the dependencies. It seems that this approach would produce a dependency to the 1.4 version of xrandr (generated dep is just \"libxrandr2\" rather than \"libxrandr2 (\u003e\u003d 2:1.5.0)\").\n\nHere\u0027s my test program https://gist.github.com/suutari/b1f19ef1897af8ee814b344a873501f6",
+      "parentUuid": "b31a601a_9edce8c6",
+      "range": {
+        "startLine": 414,
+        "startChar": 7,
+        "endLine": 414,
+        "endChar": 13
+      },
+      "revId": "e7153012682ccd3d1eacc18f802cab7820e3bad3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

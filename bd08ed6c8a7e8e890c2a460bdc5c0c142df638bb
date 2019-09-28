@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4c94d7a4_ed31c3a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-28T00:04:36Z",
+      "side": 1,
+      "message": "I added another paragraph explaining this restriction.\n\nI think it\u0027s still basically true that the alt-protocol line only applies to one m\u003d section, there are just global validation requirements that mean you can\u0027t set it differently in \"related\" m\u003d sections.  Let me know if you think there\u0027s a better way to reword this that makes that clear.",
+      "parentUuid": "543c3cb2_a753cf45",
+      "range": {
+        "startLine": 18,
+        "startChar": 40,
+        "endLine": 18,
+        "endChar": 36
+      },
+      "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f91cf5c4_37cd1dea",
         "filename": "pc/jsep_transport.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1d62046_ed90606d",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-28T00:04:36Z",
+      "side": 1,
+      "message": "Yeah, you put your finger on a small hole in our tests: jsep_transport_unittest.cc actually doesn\u0027t cover datagram or media transport at all.\n\nIt maybe should, but the unittests for JsepTransportController and the PC integration tests actually cover (almost) all the logic here.  I can show you a coverage report and we can decide whether it\u0027s worthwhile to add unit tests here.",
+      "parentUuid": "f91cf5c4_37cd1dea",
+      "range": {
+        "startLine": 798,
+        "startChar": 20,
+        "endLine": 798,
+        "endChar": 46
+      },
+      "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a23977e6_ac9dae11",
+        "filename": "pc/jsep_transport_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-28T00:04:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0af52743_6ba855ed",
+      "range": {
+        "startLine": 477,
+        "startChar": 0,
+        "endLine": 477,
+        "endChar": 61
+      },
+      "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f6336fe_c90582b4",
         "filename": "pc/media_session_unittest.cc",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61c109c4_c562fbf8",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3550,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-28T00:04:36Z",
+      "side": 1,
+      "message": "That\u0027s not enforced in this layer, it\u0027s an error in JsepTransportController when setting a description that bundles different alt-protocols.\n\nI added a test case for this to JsepTransportController\u0027s unittest.",
+      "parentUuid": "5f6336fe_c90582b4",
+      "range": {
+        "startLine": 3550,
+        "startChar": 43,
+        "endLine": 3550,
+        "endChar": 70
+      },
+      "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "468a2abd_bc4bb407",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3651,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-28T00:04:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e658b9cd_2b664927",
+      "range": {
+        "startLine": 3651,
+        "startChar": 7,
+        "endLine": 3651,
+        "endChar": 52
+      },
+      "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bae07c3f_d78d2ad8",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 3
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "a91b079b_337fa003",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3658,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-28T00:04:36Z",
+      "side": 1,
+      "message": "PeerConnection actually doesn\u0027t support non-bundled datagram transports (yet):\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/peer_connection.cc?l\u003d3610\u0026rcl\u003dba2ba59c4ba1009ad04e56bb3804c882bc63441b\n\nI\u0027d like to fix this at some point, but for now it\u0027s not possible.  There\u0027s still some code in JsepTransportController that assumes datagram transports always use max bundle, as well.  For example, the offerer only ever creates one datagram transport.",
+      "parentUuid": "bae07c3f_d78d2ad8",
+      "range": {
+        "startLine": 3658,
+        "startChar": 0,
+        "endLine": 3658,
+        "endChar": 54
+      },
+      "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4209ea9a_29bdd29b",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 3
@@ -160,6 +304,30 @@
       "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "477bd569_0a00765f",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3783,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-28T00:04:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4209ea9a_29bdd29b",
+      "range": {
+        "startLine": 3783,
+        "startChar": 29,
+        "endLine": 3783,
+        "endChar": 33
+      },
+      "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

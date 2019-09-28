@@ -55,7 +55,9 @@ struct JsepTransportDescription {
       const std::vector<CryptoParams>& cryptos,
       const std::vector<int>& encrypted_header_extension_ids,
       int rtp_abs_sendtime_extn_id,
-      const TransportDescription& transport_description);
+      const TransportDescription& transport_description,
+      absl::optional<std::string> media_alt_protocol,
+      absl::optional<std::string> data_alt_protocol);
   JsepTransportDescription(const JsepTransportDescription& from);
   ~JsepTransportDescription();
 
@@ -68,6 +70,8 @@ struct JsepTransportDescription {
   // TODO(zhihuang): Add the ICE and DTLS related variables and methods from
   // TransportDescription and remove this extra layer of abstraction.
   TransportDescription transport_desc;
+  absl::optional<std::string> media_alt_protocol;
+  absl::optional<std::string> data_alt_protocol;
 };
 
 // Helper class used by JsepTransportController that processes

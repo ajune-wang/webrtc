@@ -302,6 +302,13 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
     return ice_candidate_pair_change_history_;
   }
 
+  // Every PeerConnection signaling state in order that has been seen by the
+  // observer.
+  std::vector<PeerConnectionInterface::SignalingState>
+  peer_connection_signaling_state_history() const {
+    return peer_connection_signaling_state_history_;
+  }
+
   void AddAudioVideoTracks() {
     AddAudioTrack();
     AddVideoTrack();
@@ -894,6 +901,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   void OnSignalingChange(
       webrtc::PeerConnectionInterface::SignalingState new_state) override {
     EXPECT_EQ(pc()->signaling_state(), new_state);
+    peer_connection_signaling_state_history_.push_back(new_state);
   }
   void OnAddTrack(rtc::scoped_refptr<RtpReceiverInterface> receiver,
                   const std::vector<rtc::scoped_refptr<MediaStreamInterface>>&
@@ -1037,7 +1045,8 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
       ice_gathering_state_history_;
   std::vector<cricket::CandidatePairChangeEvent>
       ice_candidate_pair_change_history_;
-
+  std::vector<PeerConnectionInterface::SignalingState>
+      peer_connection_signaling_state_history_;
   webrtc::FakeRtcEventLogFactory* event_log_factory_;
 
   rtc::AsyncInvoker invoker_;
@@ -5450,6 +5459,420 @@ TEST_P(PeerConnectionIntegrationTest, OnIceCandidateError) {
   EXPECT_EQ("turn:88.88.88.0:3478?transport=udp", caller()->error_event().url);
   EXPECT_NE(std::string::npos,
             caller()->error_event().host_candidate.find(":"));
+}
+
+TEST_F(PeerConnectionIntegrationTestPlanB,
+       SRDWithImplicitRollbackNotSupported) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  PeerConnectionInterface::RTCOfferAnswerOptions options;
+  {
+    rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+        new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+    rtc::scoped_refptr<MockSetSessionDescriptionObserver> sldObserver(
+        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+
+    callee()->pc()->CreateOffer(observer, options);
+
+    EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
+    ASSERT_TRUE(observer->result());
+    auto offer = observer->MoveDescription();
+    callee()->pc()->SetLocalDescription(sldObserver, offer.release());
+  }
+  rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+      new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+  rtc::scoped_refptr<MockSetSessionDescriptionObserver> sldObserver(
+      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+
+  caller()->pc()->CreateOffer(observer, options);
+  EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
+  ASSERT_TRUE(observer->result());
+  auto offer = observer->MoveDescription();
+  std::string sdp;
+  EXPECT_TRUE(offer->ToString(&sdp));
+  caller()->pc()->SetLocalDescription(sldObserver, offer.release());
+
+  rtc::scoped_refptr<MockSetSessionDescriptionObserver> srdObserver(
+      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+  callee()->pc()->SetRemoteDescription(
+      srdObserver,
+      webrtc::CreateSessionDescription(SdpType::kOffer, sdp).release());
+  EXPECT_TRUE_WAIT(srdObserver->called(), kDefaultTimeout);
+  EXPECT_TRUE(srdObserver->error().find("Called in wrong") !=
+              absl::string_view::npos);
+  EXPECT_EQ(callee()->pc()->signaling_state(),
+            PeerConnectionInterface::kHaveLocalOffer);
+}
+
+TEST_F(PeerConnectionIntegrationTestPlanB,
+       SRDWithExplicitRollbackNotSupported) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  PeerConnectionInterface::RTCOfferAnswerOptions options;
+  rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+      new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+
+  caller()->pc()->CreateOffer(observer, options);
+  EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
+  ASSERT_TRUE(observer->result());
+  auto offer = observer->MoveDescription();
+  std::string sdp;
+  EXPECT_TRUE(offer->ToString(&sdp));
+
+  rtc::scoped_refptr<MockSetSessionDescriptionObserver> srdObserver(
+      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+  callee()->pc()->SetRemoteDescription(
+      srdObserver,
+      webrtc::CreateSessionDescription(SdpType::kOffer, sdp).release());
+  EXPECT_TRUE_WAIT(srdObserver->called(), kDefaultTimeout);
+  EXPECT_EQ(srdObserver->error(), "");
+  {
+    rtc::scoped_refptr<MockSetSessionDescriptionObserver> srdObserver(
+        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+    callee()->pc()->SetRemoteDescription(
+        srdObserver,
+        webrtc::CreateSessionDescription(SdpType::kRollback, "").release());
+    EXPECT_TRUE_WAIT(srdObserver->called(), kDefaultTimeout);
+    EXPECT_TRUE(srdObserver->error().find("Rollback not supported in Plan B") !=
+                absl::string_view::npos);
+
+    rtc::scoped_refptr<MockSetSessionDescriptionObserver> sldObserver(
+        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+    callee()->pc()->SetLocalDescription(
+        sldObserver,
+        webrtc::CreateSessionDescription(SdpType::kRollback, "").release());
+    EXPECT_TRUE_WAIT(sldObserver->called(), kDefaultTimeout);
+    EXPECT_TRUE(sldObserver->error().find("Rollback not supported in Plan B") !=
+                absl::string_view::npos);
+  }
+  EXPECT_EQ(callee()->pc()->signaling_state(),
+            PeerConnectionInterface::kHaveRemoteOffer);
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
+       RollbackInStableStateMustFail) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  rtc::scoped_refptr<MockSetSessionDescriptionObserver> srdObserver(
+      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+  callee()->pc()->SetRemoteDescription(
+      srdObserver,
+      webrtc::CreateSessionDescription(SdpType::kRollback, "").release());
+  EXPECT_TRUE_WAIT(srdObserver->called(), kDefaultTimeout);
+  EXPECT_TRUE(srdObserver->error().find("Called in wrong") !=
+              absl::string_view::npos);
+
+  rtc::scoped_refptr<MockSetSessionDescriptionObserver> sldObserver(
+      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+  callee()->pc()->SetLocalDescription(
+      sldObserver,
+      webrtc::CreateSessionDescription(SdpType::kRollback, "").release());
+  EXPECT_TRUE_WAIT(sldObserver->called(), kDefaultTimeout);
+  EXPECT_TRUE(sldObserver->error().find("Called in wrong") !=
+              absl::string_view::npos);
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan, SRDWithImplicitRollback) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  PeerConnectionInterface::RTCOfferAnswerOptions options;
+  {
+    rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+        new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+    rtc::scoped_refptr<MockSetSessionDescriptionObserver> sldObserver(
+        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+
+    callee()->pc()->CreateOffer(observer, options);
+
+    EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
+    ASSERT_TRUE(observer->result());
+    auto offer = observer->MoveDescription();
+    callee()->pc()->SetLocalDescription(sldObserver, offer.release());
+  }
+  rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+      new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+  rtc::scoped_refptr<MockSetSessionDescriptionObserver> sldObserver(
+      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+
+  caller()->pc()->CreateOffer(observer, options);
+  EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
+  ASSERT_TRUE(observer->result());
+  auto offer = observer->MoveDescription();
+  std::string sdp;
+  EXPECT_TRUE(offer->ToString(&sdp));
+  caller()->pc()->SetLocalDescription(sldObserver, offer.release());
+
+  rtc::scoped_refptr<MockSetSessionDescriptionObserver> srdObserver(
+      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+  callee()->pc()->SetRemoteDescription(
+      srdObserver,
+      webrtc::CreateSessionDescription(SdpType::kOffer, sdp).release());
+  EXPECT_TRUE_WAIT(srdObserver->called(), kDefaultTimeout);
+  EXPECT_EQ(srdObserver->error(), "");  // have local offer
+
+  EXPECT_THAT(callee()->peer_connection_signaling_state_history(),
+              ElementsAre(PeerConnectionInterface::kHaveLocalOffer,
+                          PeerConnectionInterface::kStable,
+                          PeerConnectionInterface::kHaveRemoteOffer));
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
+       SRDWithRollbackRemoveTransceiver) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  auto audio_transceiver_or_error =
+      caller()->pc()->AddTransceiver(caller()->CreateLocalAudioTrack());
+
+  ASSERT_TRUE(audio_transceiver_or_error.ok());
+  PeerConnectionInterface::RTCOfferAnswerOptions options;
+  rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+      new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+
+  caller()->pc()->CreateOffer(observer, options);
+  EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
+  ASSERT_TRUE(observer->result());
+  auto offer = observer->MoveDescription();
+  std::string sdp;
+  EXPECT_TRUE(offer->ToString(&sdp));
+
+  rtc::scoped_refptr<MockSetSessionDescriptionObserver> srdObserver(
+      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+  callee()->pc()->SetRemoteDescription(
+      srdObserver,
+      webrtc::CreateSessionDescription(SdpType::kOffer, sdp).release());
+  EXPECT_TRUE_WAIT(srdObserver->called(), kDefaultTimeout);
+  EXPECT_EQ(srdObserver->error(), "");
+  EXPECT_NE(callee()->pc()->pending_remote_description(), nullptr);
+
+  EXPECT_EQ(callee()->pc()->GetTransceivers().size(), std::size_t{1});
+  callee()->pc()->SetRemoteDescription(
+      srdObserver, webrtc::CreateSessionDescription(SdpType::kRollback,
+                                                    "!<Invalid SDP Content>;")
+                       .release());
+  EXPECT_EQ(callee()->pc()->GetTransceivers().size(), std::size_t{0});
+  EXPECT_EQ(callee()->pc()->pending_remote_description(), nullptr);
+  EXPECT_EQ(callee()->pc()->signaling_state(),
+            PeerConnectionInterface::kStable);
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan, OfferUsableAfterRollback) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  auto audio_transceiver_or_error =
+      callee()->pc()->AddTransceiver(callee()->CreateLocalAudioTrack());
+
+  ASSERT_TRUE(audio_transceiver_or_error.ok());
+  PeerConnectionInterface::RTCOfferAnswerOptions options;
+  rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+      new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+
+  callee()->pc()->CreateOffer(observer, options);
+  EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
+  ASSERT_TRUE(observer->result());
+  auto offer = observer->MoveDescription();
+  std::string sdp;
+  EXPECT_TRUE(offer->ToString(&sdp));
+  {
+    auto audio_transceiver_or_error =
+        caller()->pc()->AddTransceiver(caller()->CreateLocalAudioTrack());
+
+    ASSERT_TRUE(audio_transceiver_or_error.ok());
+    PeerConnectionInterface::RTCOfferAnswerOptions options;
+    rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+        new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+
+    caller()->pc()->CreateOffer(observer, options);
+    EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
+    ASSERT_TRUE(observer->result());
+    auto offer = observer->MoveDescription();
+    std::string sdp;
+    EXPECT_TRUE(offer->ToString(&sdp));
+
+    rtc::scoped_refptr<MockSetSessionDescriptionObserver> srdObserver(
+        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+    callee()->pc()->SetRemoteDescription(
+        srdObserver,
+        webrtc::CreateSessionDescription(SdpType::kOffer, sdp).release());
+    EXPECT_TRUE_WAIT(srdObserver->called(), kDefaultTimeout);
+    EXPECT_EQ(srdObserver->error(), "");
+    rtc::scoped_refptr<MockSetSessionDescriptionObserver> sldObserver(
+        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+    callee()->pc()->SetLocalDescription(
+        sldObserver, webrtc::CreateSessionDescription(SdpType::kRollback,
+                                                      "!<Invalid SDP Content>;")
+                         .release());
+    EXPECT_TRUE_WAIT(sldObserver->called(), kDefaultTimeout);
+    EXPECT_EQ(sldObserver->error(), "");
+  }
+  rtc::scoped_refptr<MockSetSessionDescriptionObserver> sldObserver(
+      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+  callee()->pc()->SetLocalDescription(
+      sldObserver,
+      webrtc::CreateSessionDescription(SdpType::kOffer, sdp).release());
+  EXPECT_TRUE_WAIT(sldObserver->called(), kDefaultTimeout);
+  EXPECT_EQ(sldObserver->error(), "");
+  EXPECT_EQ(callee()->pc()->signaling_state(),
+            PeerConnectionInterface::kHaveLocalOffer);
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan, TransceiverMidRollback) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  auto audio_transceiver_or_error =
+      callee()->pc()->AddTransceiver(callee()->CreateLocalAudioTrack());
+
+  ASSERT_TRUE(audio_transceiver_or_error.ok());
+  PeerConnectionInterface::RTCOfferAnswerOptions options;
+  rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+      new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+
+  callee()->pc()->CreateOffer(observer, options);
+  EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
+  ASSERT_TRUE(observer->result());
+  auto offer = observer->MoveDescription();
+  std::string sdp;
+  EXPECT_TRUE(offer->ToString(&sdp));
+  {
+    auto audio_transceiver_or_error =
+        caller()->pc()->AddTransceiver(caller()->CreateLocalAudioTrack());
+    ASSERT_TRUE(audio_transceiver_or_error.ok());
+    auto video_transceiver_or_error =
+        caller()->pc()->AddTransceiver(caller()->CreateLocalVideoTrack());
+    ASSERT_TRUE(video_transceiver_or_error.ok());
+
+    PeerConnectionInterface::RTCOfferAnswerOptions options;
+    rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+        new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+
+    caller()->pc()->CreateOffer(observer, options);
+    EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
+    ASSERT_TRUE(observer->result());
+    auto offer = observer->MoveDescription();
+    std::string sdp;
+    EXPECT_TRUE(offer->ToString(&sdp));
+
+    rtc::scoped_refptr<MockSetSessionDescriptionObserver> srdObserver(
+        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+    callee()->pc()->SetRemoteDescription(
+        srdObserver,
+        webrtc::CreateSessionDescription(SdpType::kOffer, sdp).release());
+    EXPECT_TRUE_WAIT(srdObserver->called(), kDefaultTimeout);
+    EXPECT_EQ(srdObserver->error(), "");
+    rtc::scoped_refptr<MockSetSessionDescriptionObserver> sldObserver(
+        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+    callee()->pc()->SetLocalDescription(
+        sldObserver,
+        webrtc::CreateSessionDescription(SdpType::kRollback, "").release());
+    EXPECT_TRUE_WAIT(sldObserver->called(), kDefaultTimeout);
+    EXPECT_EQ(sldObserver->error(), "");
+  }
+  rtc::scoped_refptr<MockSetSessionDescriptionObserver> sldObserver(
+      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+  callee()->pc()->SetLocalDescription(
+      sldObserver,
+      webrtc::CreateSessionDescription(SdpType::kOffer, sdp).release());
+  EXPECT_TRUE_WAIT(sldObserver->called(), kDefaultTimeout);
+  EXPECT_EQ(sldObserver->error(), "");
+  EXPECT_EQ(callee()->pc()->signaling_state(),
+            PeerConnectionInterface::kHaveLocalOffer);
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan, RollbackLocalOffer) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  auto audio_transceiver_or_error =
+      callee()->pc()->AddTransceiver(callee()->CreateLocalAudioTrack());
+
+  ASSERT_TRUE(audio_transceiver_or_error.ok());
+  PeerConnectionInterface::RTCOfferAnswerOptions options;
+  rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+      new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+
+  callee()->pc()->CreateOffer(observer, options);
+  EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
+  ASSERT_TRUE(observer->result());
+  auto offer = observer->MoveDescription();
+  std::string sdp;
+  EXPECT_TRUE(offer->ToString(&sdp));
+  rtc::scoped_refptr<MockSetSessionDescriptionObserver> sldObserver(
+      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+  callee()->pc()->SetLocalDescription(
+      sldObserver,
+      webrtc::CreateSessionDescription(SdpType::kOffer, sdp).release());
+
+  rtc::scoped_refptr<MockSetSessionDescriptionObserver> srdObserver(
+      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+  callee()->pc()->SetRemoteDescription(
+      srdObserver,
+      webrtc::CreateSessionDescription(SdpType::kRollback, "").release());
+  {
+    rtc::scoped_refptr<MockSetSessionDescriptionObserver> sldObserver(
+        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+    callee()->pc()->SetLocalDescription(
+        sldObserver,
+        webrtc::CreateSessionDescription(SdpType::kOffer, sdp).release());
+  }
+  EXPECT_THAT(callee()->peer_connection_signaling_state_history(),
+              ElementsAre(PeerConnectionInterface::kHaveLocalOffer,
+                          PeerConnectionInterface::kStable,
+                          PeerConnectionInterface::kHaveLocalOffer));
+}
+
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan, RollbackWithIdenticalMids) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+
+  RtpTransceiverInit rtpTransceiverInit;
+  rtpTransceiverInit.direction = RtpTransceiverDirection::kSendOnly;
+  callee()->pc()->AddTransceiver(callee()->CreateLocalVideoTrack(),
+                                 rtpTransceiverInit);
+  caller()->pc()->AddTransceiver(caller()->CreateLocalVideoTrack(),
+                                 rtpTransceiverInit);
+  auto setLocalDescription = [](auto pc) {
+    PeerConnectionInterface::RTCOfferAnswerOptions options;
+    rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+        new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+
+    pc->CreateOffer(observer, options);
+    EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
+    auto offer = observer->MoveDescription();
+    std::string sdp;
+    EXPECT_TRUE(offer->ToString(&sdp));
+    rtc::scoped_refptr<MockSetSessionDescriptionObserver> sldObserver(
+        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+    pc->SetLocalDescription(
+        sldObserver,
+        webrtc::CreateSessionDescription(SdpType::kOffer, sdp).release());
+    return pc->GetTransceivers()[0]->mid();
+  };
+  auto calleeFirstMid = setLocalDescription(callee()->pc());
+  auto callerFirstMid = setLocalDescription(caller()->pc());
+  EXPECT_EQ(calleeFirstMid, callerFirstMid);
+  rtc::scoped_refptr<MockSetSessionDescriptionObserver> srdObserver(
+      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+  std::string sdp;
+  caller()->pc()->pending_local_description()->ToString(&sdp);
+  callee()->pc()->SetRemoteDescription(
+      srdObserver,
+      webrtc::CreateSessionDescription(SdpType::kOffer, sdp).release());
+  EXPECT_EQ(callee()->pc()->GetTransceivers().size(), std::size_t{2});
+  EXPECT_EQ(callee()->pc()->GetTransceivers()[0]->mid(), absl::nullopt);
+  EXPECT_EQ(callee()->pc()->GetTransceivers()[1]->mid(), callerFirstMid);
+  {
+    rtc::scoped_refptr<MockSetSessionDescriptionObserver> sldObserver(
+        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+    PeerConnectionInterface::RTCOfferAnswerOptions options;
+    rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+        new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+    callee()->pc()->CreateAnswer(observer, options);
+    EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
+    ASSERT_TRUE(observer->result());
+    auto answer = observer->MoveDescription();
+    std::string sdp;
+    EXPECT_TRUE(answer->ToString(&sdp));
+    callee()->pc()->SetLocalDescription(
+        sldObserver,
+        webrtc::CreateSessionDescription(SdpType::kAnswer, sdp).release());
+  }
+  EXPECT_NE(setLocalDescription(callee()->pc()), calleeFirstMid);
 }
 
 INSTANTIATE_TEST_SUITE_P(PeerConnectionIntegrationTest,

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3532da6b_506a1f03",
+        "filename": "call/rampup_tests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-29T11:03:31Z",
+      "side": 1,
+      "message": "There\u0027s a brief window here when a raw pointer owns the packet transport---the use of `new` is a clear sign of this. Prefer to instead create a local unique_ptr initialized with make_unique, and initialize send_transport_ from it.",
+      "revId": "f1a495d416b92299ec31e7971558ffe78cec7492",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b928e08_dddf1abe",
+        "filename": "video/end_to_end_tests/bandwidth_tests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-29T11:03:31Z",
+      "side": 1,
+      "message": "Don\u0027t let raw pointers own things!",
+      "revId": "f1a495d416b92299ec31e7971558ffe78cec7492",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82e7732c_7e2be423",
+        "filename": "video/end_to_end_tests/retransmission_tests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-29T11:03:31Z",
+      "side": 1,
+      "message": "This is how it should be done!",
+      "revId": "f1a495d416b92299ec31e7971558ffe78cec7492",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83a50a0a_8f50058a",
+        "filename": "video/end_to_end_tests/transport_feedback_tests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-09-29T11:03:31Z",
+      "side": 1,
+      "message": "Don\u0027t let a raw pointer own things.",
+      "revId": "f1a495d416b92299ec31e7971558ffe78cec7492",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

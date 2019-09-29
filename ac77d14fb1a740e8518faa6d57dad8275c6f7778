@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b53751e5_35d96373",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2653,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-09-29T21:52:10Z",
+      "side": 1,
+      "message": "As far as I understood in that case no rollback is needed as you can apply several SRD in a row. Haven\u0027t tested this scenario though.",
+      "parentUuid": "ddac2682_f7502cb4",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86d009fa_7e849ef3",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b0688c5_0a69d147",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2663,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-09-29T21:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86d009fa_7e849ef3",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ca103dfc_380a9c66",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3424,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-09-29T21:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53f38bcb_ae2e4c71",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f15fcdb4_592dd81e",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27a6ba3c_138af689",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7783,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-09-29T21:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f15fcdb4_592dd81e",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "0d034fe1_3c48ceec",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7785,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-09-29T21:52:10Z",
+      "side": 1,
+      "message": "Generally agree, but it doesn\u0027t play well with 80 char lines",
+      "parentUuid": "4e4d3a2d_edd632f4",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d6cd372_38e4307a",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 4
@@ -101,6 +191,24 @@
       "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76c06009_eb1bb529",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7787,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-09-29T21:52:10Z",
+      "side": 1,
+      "message": "If Invoke from already correct thread is no-op then IsCurrent() is redundant indeed.",
+      "parentUuid": "7d6cd372_38e4307a",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "ad1ec3c3_88e02f18",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7798,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-09-29T21:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da2afcea_a2186c36",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d2699a9_fb1f3583",
         "filename": "pc/peer_connection.h",
         "patchSetId": 4
@@ -135,6 +261,24 @@
       "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c3ffd1f_fbab7c41",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-09-29T21:52:10Z",
+      "side": 1,
+      "message": "Rollback is supported only in Unified Plan",
+      "parentUuid": "9d2699a9_fb1f3583",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "9ae3afa4_be0715c1",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-09-29T21:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f580b18a_80a11d32",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e084b006_18528c63",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 4
@@ -166,6 +328,24 @@
       "writtenOn": "2019-09-25T13:42:16Z",
       "side": 1,
       "message": "I would like to see more extensive test coverage in the C++ layer, including equivalents of all the tests that you added to WPT in https://chromium-review.googlesource.com/c/chromium/src/+/1790443, and that these are exercised in both Unified Plan and Plan B, or that they are exercised only in Unified Plan and that we test that \"rollback\" throws in Plan B.",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3f435d0_45ee7a34",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5541,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-09-29T21:52:10Z",
+      "side": 1,
+      "message": "I will add some more but native tests tend to be quite verbose compared to wpt. Please have a look if I am on right track on adding native tests",
+      "parentUuid": "e084b006_18528c63",
       "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

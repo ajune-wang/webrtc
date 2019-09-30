@@ -22,6 +22,30 @@
       "revId": "08437b7ce098df3d509ac350b8bde0daaa68b09f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97a7bb93_e935f6e6",
+        "filename": "modules/video_coding/rtp_frame_reference_finder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-30T07:45:45Z",
+      "side": 1,
+      "message": "I tried using a \"const RTPVideoHeader* video_type_header\" argument instead, but I think it just made the code less clean. Submitting as is.",
+      "parentUuid": "5fc49000_4ee2dfab",
+      "range": {
+        "startLine": 35,
+        "startChar": 10,
+        "endLine": 35,
+        "endChar": 28
+      },
+      "revId": "08437b7ce098df3d509ac350b8bde0daaa68b09f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5321b9e0_77080987",
+        "filename": "test/peer_scenario/peer_scenario.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-09-30T15:45:44Z",
+      "side": 1,
+      "message": "typo.",
+      "range": {
+        "startLine": 37,
+        "startChar": 72,
+        "endLine": 37,
+        "endChar": 78
+      },
+      "revId": "dedd511b37fd7398ecf9c504d336a89d7f6f2642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

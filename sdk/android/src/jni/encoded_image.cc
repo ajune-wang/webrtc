@@ -62,9 +62,9 @@ EncodedImage JavaToNativeEncodedImage(JNIEnv* env,
   const size_t buffer_size = env->GetDirectBufferCapacity(j_buffer.obj());
 
   EncodedImage frame;
-  frame.Allocate(buffer_size);
-  frame.set_size(buffer_size);
-  memcpy(frame.data(), buffer, buffer_size);
+  auto encoded_image_buffer = EncodedImageBuffer::Create(buffer_size);
+  memcpy(encoded_image_buffer->data(), buffer, buffer_size);
+  frame.SetEncodedData(encoded_image_buffer);
   frame._encodedWidth = Java_EncodedImage_getEncodedWidth(env, j_encoded_image);
   frame._encodedHeight =
       Java_EncodedImage_getEncodedHeight(env, j_encoded_image);

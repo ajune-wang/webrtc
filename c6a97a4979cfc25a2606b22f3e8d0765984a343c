@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6708ef8e_dc4dd5bc",
+        "filename": "test/peer_scenario/peer_scenario.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 9938
+      },
+      "writtenOn": "2019-09-30T08:21:05Z",
+      "side": 1,
+      "message": "Would it make sense to use a more descriptive directory name, like \"peer_logs_output\"?",
+      "range": {
+        "startLine": 33,
+        "startChar": 36,
+        "endLine": 33,
+        "endChar": 47
+      },
+      "revId": "c6a97a4979cfc25a2606b22f3e8d0765984a343c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e6eaed6_08e3e2e5",
+        "filename": "test/peer_scenario/peer_scenario.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 9938
+      },
+      "writtenOn": "2019-09-30T08:21:05Z",
+      "side": 1,
+      "message": "nit: audomaticall -\u003e automatically",
+      "range": {
+        "startLine": 48,
+        "startChar": 16,
+        "endLine": 48,
+        "endChar": 28
+      },
+      "revId": "c6a97a4979cfc25a2606b22f3e8d0765984a343c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4a23bb2_70bc699b",
+        "filename": "test/peer_scenario/peer_scenario_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 9938
+      },
+      "writtenOn": "2019-09-30T08:21:05Z",
+      "side": 1,
+      "message": "I believe the chromium style allows the omitting braces only for one-line statements.",
+      "revId": "c6a97a4979cfc25a2606b22f3e8d0765984a343c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

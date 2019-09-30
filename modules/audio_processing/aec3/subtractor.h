@@ -75,10 +75,12 @@ class Subtractor {
   }
 
   void DumpFilters() {
-    size_t current_size = main_impulse_response_[0].size();
-    main_impulse_response_[0].resize(main_impulse_response_[0].capacity());
-    data_dumper_->DumpRaw("aec3_subtractor_h_main", main_impulse_response_[0]);
-    main_impulse_response_[0].resize(current_size);
+    data_dumper_->DumpRaw(
+        "aec3_subtractor_h_main",
+        rtc::ArrayView<const float>(
+            main_impulse_response_[0].data(),
+            GetTimeDomainLength(
+                main_filter_[0]->max_filter_size_partitions())));
 
     main_filter_[0]->DumpFilter("aec3_subtractor_H_main");
     shadow_filter_[0]->DumpFilter("aec3_subtractor_H_shadow");

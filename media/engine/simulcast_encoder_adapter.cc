@@ -449,6 +449,9 @@ int SimulcastEncoderAdapter::RegisterEncodeCompleteCallback(
     EncodedImageCallback* callback) {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
   encoded_complete_callback_ = callback;
+  if (streaminfos_.size() == 1) {
+    streaminfos_[0].encoder->RegisterEncodeCompleteCallback(callback);
+  }
   return WEBRTC_VIDEO_CODEC_OK;
 }
 

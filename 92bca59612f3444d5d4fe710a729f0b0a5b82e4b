@@ -2,6 +2,149 @@
   "comments": [
     {
       "key": {
+        "uuid": "4e4c9c42_6d38a3ea",
+        "filename": "api/jsep.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-30T23:51:11Z",
+      "side": 1,
+      "message": "nit: remove space",
+      "range": {
+        "startLine": 107,
+        "startChar": 23,
+        "endLine": 107,
+        "endChar": 24
+      },
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3c30262_5ab6cb35",
+        "filename": "api/jsep.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-30T23:51:11Z",
+      "side": 1,
+      "message": "nit: add a brief comment describing rollback",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea2c4b7b_875468ed",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-30T23:51:11Z",
+      "side": 1,
+      "message": "Can we avoid using friend?",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9731854_d7f8c353",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7803,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-30T23:51:11Z",
+      "side": 1,
+      "message": "nit: use RTCError instead so it\u0027s clear what the return value means",
+      "range": {
+        "startLine": 7803,
+        "startChar": 0,
+        "endLine": 7803,
+        "endChar": 4
+      },
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efcfadd6_1f6a2ec4",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7814,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-30T23:51:11Z",
+      "side": 1,
+      "message": "nit: destructure the pair into locals so that you don\u0027t have to do `.first` and `.second` repeatedly.",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b49e1eb5_067fcd52",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7815,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-30T23:51:11Z",
+      "side": 1,
+      "message": "is \"\" valid or should this just be a dereference?",
+      "range": {
+        "startLine": 7815,
+        "startChar": 63,
+        "endLine": 7815,
+        "endChar": 76
+      },
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b08191c_69cf8b02",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7816,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-30T23:51:11Z",
+      "side": 1,
+      "message": "just `network_thread()`",
+      "range": {
+        "startLine": 7816,
+        "startChar": 4,
+        "endLine": 7816,
+        "endChar": 42
+      },
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5f9d6902_db2b8894",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 5
@@ -13,6 +156,29 @@
       "writtenOn": "2019-09-30T10:54:13Z",
       "side": 1,
       "message": "nit: Can you do \"git cl format .\"? I think these will end up without this many newlines.",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ef6e80f_743fde22",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7826,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-30T23:51:11Z",
+      "side": 1,
+      "message": "Doesn\u0027t this only apply for transceivers that were not added by addTrack in particular (i.e., not just transceivers that do not have a track). See RtpTransceiver::created_by_addtrack()",
+      "range": {
+        "startLine": 7824,
+        "startChar": 10,
+        "endLine": 7826,
+        "endChar": 24
+      },
       "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -36,6 +202,23 @@
     },
     {
       "key": {
+        "uuid": "18e4e615_7b77f53a",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-30T23:51:11Z",
+      "side": 1,
+      "message": "What do you think about storing this struct in the RtpTransceiver object?",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "18b7c4bf_f7f22599",
         "filename": "pc/peer_connection.h",
         "patchSetId": 5
@@ -47,6 +230,46 @@
       "writtenOn": "2019-09-30T10:54:13Z",
       "side": 1,
       "message": "Add a comment explaining what \"created\" means.",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ee5931c_4e17ba67",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5464,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-30T23:51:11Z",
+      "side": 1,
+      "message": "Please move most of these tests to peer_connection_jsep_unittests.cc and use the test infrastructure there. The tests will be shorter and more clear. This test file is intended for end-to-end tests that require assertions on the flow of media.",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34f8a6e5_1ed59762",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5472,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-09-30T23:51:11Z",
+      "side": 1,
+      "message": "fyi style guide is snake_case for locals, e.g., sld_observer",
+      "range": {
+        "startLine": 5472,
+        "startChar": 58,
+        "endLine": 5472,
+        "endChar": 69
+      },
       "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29dca6a7_622404e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-30T12:16:38Z",
+      "side": 1,
+      "message": "typo.\n\nAnd maybe give example of output before and after?",
+      "range": {
+        "startLine": 14,
+        "startChar": 58,
+        "endLine": 14,
+        "endChar": 62
+      },
+      "revId": "811924350ebd166e20102075b0beb793e9612942",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

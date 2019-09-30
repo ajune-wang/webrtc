@@ -16,6 +16,24 @@
       "revId": "f341f3feb505733ef57a8ddf9571b6b462a44e91",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "136dae9a_f39b432a",
+        "filename": "test/fuzzers/agc_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-09-30T14:03:12Z",
+      "side": 1,
+      "message": "https://webrtc-review.googlesource.com/c/src/+/155166\n\nI am wondering why this hasn\u0027t been detected before, an improvement in the compiler?",
+      "parentUuid": "47a1ecd8_019352b9",
+      "revId": "f341f3feb505733ef57a8ddf9571b6b462a44e91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

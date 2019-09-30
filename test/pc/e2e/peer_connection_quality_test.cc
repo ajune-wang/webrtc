@@ -378,6 +378,8 @@ void PeerConnectionE2EQualityTest::Run(RunParams run_params) {
   task_queue_->SendTask([this]() {
     RTC_DCHECK_RUN_ON(task_queue_.get());
     stats_polling_task_.Stop();
+    // Get final end-of-call stats.
+    stats_poller.PollStatsAndNotifyObservers();
   });
 
   // We need to detach AEC dumping from peers, because dump uses |task_queue_|

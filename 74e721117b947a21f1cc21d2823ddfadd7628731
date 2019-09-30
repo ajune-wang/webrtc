@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d9f0b2c_a68fad41",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-09-30T08:15:52Z",
+      "side": 1,
+      "message": "Do we to check that encoder only produces the desired spatial layer(s)?",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 425,
+        "endChar": 77
+      },
+      "revId": "74e721117b947a21f1cc21d2823ddfadd7628731",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

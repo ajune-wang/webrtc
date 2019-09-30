@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "378afe48_bdacb6b8",
+        "filename": "test/fuzzers/fuzz_data_helper.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-30T11:26:41Z",
+      "side": 0,
+      "message": "It\u0027s inefficient to first fill the object with zeros and then copy fuzzing data, hence the update.",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 33
+      },
+      "revId": "fc3587418d3b303a5286c8eb4cf721091061bea5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

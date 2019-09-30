@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "3ba70116_bfd1a636",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-30T11:26:41Z",
+      "side": 1,
+      "message": "Good idea!",
+      "parentUuid": "1c85f056_ffd713e9",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 19
+      },
+      "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bfdd4dfe_f6072d5a",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-30T11:26:41Z",
+      "side": 1,
+      "message": "Used FuzzDataHelper instead :)",
+      "parentUuid": "d6de8c51_cf031054",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 6
+      },
+      "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d3de793_9f4135f7",
         "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c83e3988_fc30017d",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-30T11:26:41Z",
+      "side": 1,
+      "message": "If the class is complex then writing fuzzing data straight into it will corrupt its state. For example RtpGenericFrameDescriptor has an std::vector, and if I were to overwrite it then its data pointer would point somewhere else entirely.",
+      "parentUuid": "5d3de793_9f4135f7",
+      "range": {
+        "startLine": 27,
+        "startChar": 36,
+        "endLine": 27,
+        "endChar": 38
+      },
+      "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "b0a94bf9_05d0ce63",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-30T11:26:41Z",
+      "side": 1,
+      "message": "I cast it so that the pointer arithmetic on line 36 works out as expected.",
+      "parentUuid": "c831f020_f6919ddb",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 62
+      },
+      "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a38ba34_ec7fd812",
         "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
         "patchSetId": 2
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "2d1452a6_443dd8ce",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-30T11:26:41Z",
+      "side": 1,
+      "message": "Oops, fixed.",
+      "parentUuid": "4a38ba34_ec7fd812",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 16
+      },
+      "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "157f726b_2381fbd6",
         "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dc0759e_21ad28eb",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-09-30T11:26:41Z",
+      "side": 1,
+      "message": "I don\u0027t even know where I got it from, deleted.",
+      "parentUuid": "157f726b_2381fbd6",
+      "range": {
+        "startLine": 87,
+        "startChar": 6,
+        "endLine": 87,
+        "endChar": 18
+      },
+      "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

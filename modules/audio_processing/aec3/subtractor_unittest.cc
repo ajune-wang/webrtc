@@ -31,24 +31,27 @@ float RunSubtractorTest(int num_blocks_to_process,
                         bool uncorrelated_inputs,
                         const std::vector<int>& blocks_with_echo_path_changes) {
   ApmDataDumper data_dumper(42);
-  constexpr size_t kNumChannels = 1;
+  constexpr size_t kNumRenderChannels = 1;
+  constexpr size_t kNumCaptureChannels = 1;
   constexpr int kSampleRateHz = 48000;
   constexpr size_t kNumBands = NumBandsForRate(kSampleRateHz);
   EchoCanceller3Config config;
   config.filter.main.length_blocks = main_filter_length_blocks;
   config.filter.shadow.length_blocks = shadow_filter_length_blocks;
 
-  Subtractor subtractor(config, 1, 1, &data_dumper, DetectOptimization());
+  Subtractor subtractor(config, kNumRenderChannels, kNumCaptureChannels,
+                        &data_dumper, DetectOptimization());
   absl::optional<DelayEstimate> delay_estimate;
   std::vector<std::vector<std::vector<float>>> x(
       kNumBands, std::vector<std::vector<float>>(
-                     kNumChannels, std::vector<float>(kBlockSize, 0.f)));
-  std::vector<std::vector<float>> y(1, std::vector<float>(kBlockSize, 0.f));
+                     kNumRenderChannels, std::vector<float>(kBlockSize, 0.f)));
+  std::vector<std::vector<float>> y(kNumCaptureChannels,
+                                    std::vector<float>(kBlockSize, 0.f));
   std::array<float, kBlockSize> x_old;
-  std::array<SubtractorOutput, 1> output;
+  std::array<SubtractorOutput, kNumCaptureChannels> output;
   config.delay.default_delay = 1;
   std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
-      RenderDelayBuffer::Create(config, kSampleRateHz, kNumChannels));
+      RenderDelayBuffer::Create(config, kSampleRateHz, kNumRenderChannels));
   RenderSignalAnalyzer render_signal_analyzer(config);
   Random random_generator(42U);
   Aec3Fft fft;
@@ -151,7 +154,6 @@ TEST(Subtractor, Convergence) {
   for (size_t filter_length_blocks : {12, 20, 30}) {
     for (size_t delay_samples : {0, 64, 150, 200, 301}) {
       SCOPED_TRACE(ProduceDebugText(delay_samples, filter_length_blocks));
-
       float echo_to_nearend_power = RunSubtractorTest(
           400, delay_samples, filter_length_blocks, filter_length_blocks, false,
           blocks_with_echo_path_changes);

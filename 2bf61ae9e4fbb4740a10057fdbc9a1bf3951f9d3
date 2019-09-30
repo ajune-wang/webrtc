@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "98f73a3f_4cb5c875",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-30T12:56:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64c10de4_0f2ccbb4",
+      "range": {
+        "startLine": 428,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 31
+      },
+      "revId": "2bf61ae9e4fbb4740a10057fdbc9a1bf3951f9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "450e161c_f51f0afd",
         "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b127218c_71c03dc9",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-30T12:56:30Z",
+      "side": 1,
+      "message": "Moved this.",
+      "parentUuid": "450e161c_f51f0afd",
+      "range": {
+        "startLine": 591,
+        "startChar": 0,
+        "endLine": 592,
+        "endChar": 50
+      },
+      "revId": "2bf61ae9e4fbb4740a10057fdbc9a1bf3951f9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2de6e90_d0095715",
         "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.h",
         "patchSetId": 6
@@ -68,6 +116,30 @@
       "revId": "2bf61ae9e4fbb4740a10057fdbc9a1bf3951f9d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27b50f46_d175b918",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-09-30T12:56:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2de6e90_d0095715",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 49
+      },
+      "revId": "2bf61ae9e4fbb4740a10057fdbc9a1bf3951f9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

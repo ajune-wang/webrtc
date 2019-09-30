@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f7f4ac3_6e736469",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-09-30T09:32:05Z",
+      "side": 1,
+      "message": "prefer to keep the error messge next to the failed condition:\nif (!rtp_pecket.Parse(packet-\u003edata)) {\n  LOG(WARNING);\n  continue;  // that also skips fec-\u003eDecodeFec function though. Is it a good thing?\n}\n... regular processing.\n\nhttps://testing.googleblog.com/2017/06/code-health-reduce-nesting-reduce.html",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 15
+      },
+      "revId": "cb1e8bdae6e7031b1404e176e76a13ec64a2ebb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

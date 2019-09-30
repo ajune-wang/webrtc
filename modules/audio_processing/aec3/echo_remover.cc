@@ -225,7 +225,7 @@ EchoRemoverImpl::EchoRemoverImpl(const EchoCanceller3Config& config,
         std::make_unique<ResidualEchoEstimator>(config_);
     suppression_gains_[ch] = std::make_unique<SuppressionGain>(
         config_, optimization_, sample_rate_hz);
-    cngs_[ch] = std::make_unique<ComfortNoiseGenerator>(optimization_);
+    cngs_[ch] = std::make_unique<ComfortNoiseGenerator>(optimization_, 42 + ch);
     e_old_[ch].fill(0.f);
     y_old_[ch].fill(0.f);
   }

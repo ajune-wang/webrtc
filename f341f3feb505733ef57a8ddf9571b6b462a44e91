@@ -34,6 +34,24 @@
       "revId": "f341f3feb505733ef57a8ddf9571b6b462a44e91",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80d9ab5f_3b17f566",
+        "filename": "test/fuzzers/agc_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2019-09-30T14:33:10Z",
+      "side": 1,
+      "message": "Thanks!\n\nRight, see https://crbug.com/1007367",
+      "parentUuid": "136dae9a_f39b432a",
+      "revId": "f341f3feb505733ef57a8ddf9571b6b462a44e91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -47,6 +47,13 @@ class FuzzDataHelper {
     return Read<T>();
   }
 
+  // Reads and returns data of type T. Returns 0 if not enough fuzzer input
+  // remains to read a T.
+  template <typename T>
+  T ReadOrZero() {
+    return ReadOrDefaultValue(0);
+  }
+
   // Like ReadOrDefaultValue, but replaces the value 0 with default_value.
   template <typename T>
   T ReadOrDefaultValueNotZero(T default_value) {
@@ -83,11 +90,16 @@ class FuzzDataHelper {
   // of the object will be zero initialized.
   template <typename T>
   void CopyTo(T* object) {
-    memset(object, 0, sizeof(T));
+    static_assert(std::is_pod<T>(), "");
+    uint8_t* destination = reinterpret_cast<uint8_t*>(object);
+    size_t object_size = sizeof(T);
+    size_t num_bytes = std::min(BytesLeft(), object_size);
+    memcpy(destination, data_.data() + data_ix_, num_bytes);
+    data_ix_ += num_bytes;
 
-    size_t bytes_to_copy = std::min(BytesLeft(), sizeof(T));
-    memcpy(object, data_.data() + data_ix_, bytes_to_copy);
-    data_ix_ += bytes_to_copy;
+    // If we did have enough data fill the rest with 0.
+    object_size -= num_bytes;
+    memset(destination + num_bytes, 0, object_size);
   }
 
   size_t BytesRead() const { return data_ix_; }

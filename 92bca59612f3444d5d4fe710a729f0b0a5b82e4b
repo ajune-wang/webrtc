@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f9d6902_db2b8894",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7826,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-30T10:54:13Z",
+      "side": 1,
+      "message": "nit: Can you do \"git cl format .\"? I think these will end up without this many newlines.",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcb88e9f_59d06066",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-30T10:54:13Z",
+      "side": 1,
+      "message": "Add a brief comment saying this is to is only applicable in Unified Plan.",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18b7c4bf_f7f22599",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-30T10:54:13Z",
+      "side": 1,
+      "message": "Add a comment explaining what \"created\" means.",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "feac950f_e7c657e1",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2653,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-30T10:54:13Z",
+      "side": 1,
+      "message": "Oh, I think you\u0027re right. We should have tests for that. This stuff is so complicated that it\u0027s worth the extra hours to get testing right.",
+      "parentUuid": "b53751e5_35d96373",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86d009fa_7e849ef3",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 4
@@ -171,6 +189,24 @@
       "side": 1,
       "message": "Generally agree, but it doesn\u0027t play well with 80 char lines",
       "parentUuid": "4e4d3a2d_edd632f4",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3ab652e_57320240",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7785,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-30T10:54:13Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0d034fe1_3c48ceec",
       "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -346,6 +382,24 @@
       "side": 1,
       "message": "I will add some more but native tests tend to be quite verbose compared to wpt. Please have a look if I am on right track on adding native tests",
       "parentUuid": "e084b006_18528c63",
+      "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7122ba8_c9c08114",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5541,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-09-30T10:54:13Z",
+      "side": 1,
+      "message": "I will take a closer look at the CL including the tests as soon as I find more time! There are some differences with threads and especially with how state information is surfaced that make it worth having extensive test coverage in both WPT and C++ for a feature as complex as this, even if that ends up being quite verbose.",
+      "parentUuid": "d3f435d0_45ee7a34",
       "revId": "ac77d14fb1a740e8518faa6d57dad8275c6f7778",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

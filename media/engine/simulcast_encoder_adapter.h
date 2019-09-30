@@ -38,8 +38,12 @@ class VideoEncoderFactory;
 // interfaces should be called from the encoder task queue.
 class RTC_EXPORT SimulcastEncoderAdapter : public VideoEncoder {
  public:
-  explicit SimulcastEncoderAdapter(VideoEncoderFactory* factory,
-                                   const SdpVideoFormat& format);
+  // TODO(bugs.webrtc.org/XXX): Remove when downstream usage is gone.
+  SimulcastEncoderAdapter(VideoEncoderFactory* primarty_factory,
+                          const SdpVideoFormat& format);
+  SimulcastEncoderAdapter(VideoEncoderFactory* primarty_factory,
+                          VideoEncoderFactory* fallback_factory,
+                          const SdpVideoFormat& format);
   virtual ~SimulcastEncoderAdapter();
 
   // Implements VideoEncoder.
@@ -106,7 +110,8 @@ class RTC_EXPORT SimulcastEncoderAdapter : public VideoEncoder {
   void DestroyStoredEncoders();
 
   volatile int inited_;  // Accessed atomically.
-  VideoEncoderFactory* const factory_;
+  VideoEncoderFactory* const primary_encoder_factory_;
+  VideoEncoderFactory* const fallback_encoder_factory_;
   const SdpVideoFormat video_format_;
   VideoCodec codec_;
   std::vector<StreamInfo> streaminfos_;

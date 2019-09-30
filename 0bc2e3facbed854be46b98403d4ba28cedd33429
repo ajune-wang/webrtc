@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6de8c51_cf031054",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-30T10:37:50Z",
+      "side": 1,
+      "message": "Drive-by nit: Can you change struct -\u003e class here? It seems that is how this class is intended to work.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 6
+      },
+      "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c85f056_ffd713e9",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-30T10:37:50Z",
+      "side": 1,
+      "message": "While we\u0027re here: Does it make sense to switch to FuzzDataHelper [1]? To avoid complicated duplication.\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/test/fuzzers/fuzz_data_helper.h\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/test/fuzzers/BUILD.gn?l\u003d48\u0026rcl\u003d578270d9d23a12e8400bacfc7e28f3536ab74a68",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 19
+      },
+      "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d3de793_9f4135f7",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-30T10:37:50Z",
+      "side": 1,
+      "message": "Can you add something brief to indicate why the non-POD is disallowed?",
+      "range": {
+        "startLine": 27,
+        "startChar": 36,
+        "endLine": 27,
+        "endChar": 38
+      },
+      "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c831f020_f6919ddb",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-30T10:37:50Z",
+      "side": 1,
+      "message": "Is this cast necessary? I\u0027m reading the memcpy docs as though it does not matter:\nhttps://en.cppreference.com/w/cpp/string/byte/memcpy\n\"Both objects are reinterpreted as arrays of unsigned char.\"\nSituations seems similar in memset.\nhttps://en.cppreference.com/w/cpp/string/byte/memset\n\nThat said, I am no expert.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 62
+      },
+      "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a38ba34_ec7fd812",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-30T10:37:50Z",
+      "side": 1,
+      "message": "did _not_ ?",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 16
+      },
+      "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "157f726b_2381fbd6",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-30T10:37:50Z",
+      "side": 1,
+      "message": "Does this limit need to be reconsidered?",
+      "range": {
+        "startLine": 87,
+        "startChar": 6,
+        "endLine": 87,
+        "endChar": 18
+      },
+      "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee841f47_8c55a9d2",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-30T10:37:50Z",
+      "side": 1,
+      "message": "good!",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 22
+      },
+      "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

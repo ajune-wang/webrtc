@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "efaba62b_0a1b25d0",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-30T22:13:14Z",
+      "side": 1,
+      "message": "What do you mean by \"datagram transport is set up with the appropriate protocol\"?  Like, datagram_transport_-\u003eGetTransportParameters() gives the right thing?\n\nYes, this is checked at the JsepTransportController layer, which assigns the \u0027protocol\u0027 value to the local opaque_parameters based on what protocol the factory says it supports.\n\nThis layer then checks that the local and remote datagram transports\u0027 protocols matched, as well as that the alt protocol matches the opaque parameters, and rejects the alt protocol if anything is incorrect.",
+      "parentUuid": "cd81ca68_876913cf",
+      "range": {
+        "startLine": 817,
+        "startChar": 7,
+        "endLine": 817,
+        "endChar": 38
+      },
+      "revId": "d1e92a5688fddaacf7d3a03d630303f84840f2f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cabf97d1_1c6ff491",
         "filename": "pc/jsep_transport_controller_unittest.cc",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "d1e92a5688fddaacf7d3a03d630303f84840f2f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3cc3f2e_bb7cdbc9",
+        "filename": "pc/jsep_transport_controller_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-30T22:13:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cabf97d1_1c6ff491",
+      "range": {
+        "startLine": 545,
+        "startChar": 0,
+        "endLine": 545,
+        "endChar": 74
+      },
+      "revId": "d1e92a5688fddaacf7d3a03d630303f84840f2f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

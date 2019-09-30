@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "bf986cca_bf05654b",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3550,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-30T21:51:04Z",
+      "side": 1,
+      "message": "Thanks for adding this test.",
+      "parentUuid": "61c109c4_c562fbf8",
+      "range": {
+        "startLine": 3550,
+        "startChar": 43,
+        "endLine": 3550,
+        "endChar": 70
+      },
+      "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e658b9cd_2b664927",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 3
@@ -272,6 +296,30 @@
       "side": 1,
       "message": "PeerConnection actually doesn\u0027t support non-bundled datagram transports (yet):\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/peer_connection.cc?l\u003d3610\u0026rcl\u003dba2ba59c4ba1009ad04e56bb3804c882bc63441b\n\nI\u0027d like to fix this at some point, but for now it\u0027s not possible.  There\u0027s still some code in JsepTransportController that assumes datagram transports always use max bundle, as well.  For example, the offerer only ever creates one datagram transport.",
       "parentUuid": "bae07c3f_d78d2ad8",
+      "range": {
+        "startLine": 3658,
+        "startChar": 0,
+        "endLine": 3658,
+        "endChar": 54
+      },
+      "revId": "bd08ed6c8a7e8e890c2a460bdc5c0c142df638bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "563324bf_3005f21c",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3658,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-30T21:51:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a91b079b_337fa003",
       "range": {
         "startLine": 3658,
         "startChar": 0,

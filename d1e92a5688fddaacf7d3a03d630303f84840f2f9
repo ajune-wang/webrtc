@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd81ca68_876913cf",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-30T21:51:04Z",
+      "side": 1,
+      "message": "Side note - is there a place that enforces the datagram transport is set up with the appropriate protocol? Wondering because here it just checks that it matches the opaque param protocol.",
+      "range": {
+        "startLine": 817,
+        "startChar": 7,
+        "endLine": 817,
+        "endChar": 38
+      },
+      "revId": "d1e92a5688fddaacf7d3a03d630303f84840f2f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cabf97d1_1c6ff491",
+        "filename": "pc/jsep_transport_controller_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-30T21:51:04Z",
+      "side": 1,
+      "message": "You\u0027re doing this in 2 places now. You could add a test helper that creates a bundled description with data.",
+      "range": {
+        "startLine": 545,
+        "startChar": 0,
+        "endLine": 545,
+        "endChar": 74
+      },
+      "revId": "d1e92a5688fddaacf7d3a03d630303f84840f2f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

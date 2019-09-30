@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "ef3b2e53_02e0c79d",
+        "filename": "api/test/loopback_media_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-30T21:51:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2e8d83b6_ffa24013",
+      "range": {
+        "startLine": 712,
+        "startChar": 6,
+        "endLine": 712,
+        "endChar": 40
+      },
+      "revId": "a3f462d02fea58414fae913f7701e26a602fc927",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27e046bc_64e461f5",
         "filename": "pc/jsep_transport.h",
         "patchSetId": 2
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "The problem is that \"not present\" is a valid value.  And if you have media sections for both video and audio, they must both specify the same alt-protocol or neither specify an alt-protocol at all.  So we need to record the difference between \"we found a media section with an empty alt-protocol\" and \"we haven\u0027t seen a media section yet\".",
       "parentUuid": "cc40629c_eba051c3",
+      "range": {
+        "startLine": 1020,
+        "startChar": 15,
+        "endLine": 1020,
+        "endChar": 33
+      },
+      "revId": "a3f462d02fea58414fae913f7701e26a602fc927",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57b17716_9e35bc9d",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-09-30T21:51:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9d1c8365_da324a4e",
       "range": {
         "startLine": 1020,
         "startChar": 15,

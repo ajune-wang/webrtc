@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47a1ecd8_019352b9",
+        "filename": "test/fuzzers/agc_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2019-09-30T13:51:13Z",
+      "side": 1,
+      "message": "```\n../../third_party/webrtc/test/fuzzers/agc_fuzzer.cc:85:29: error: converting the result of \u0027?:\u0027 with integer constants to a boolean always evaluates to \u0027true\u0027 [-Werror,-Wtautological-constant-compare]\nconst bool num_channels \u003d fuzz_data-\u003eReadOrDefaultValue(true) ? 2 : 1;\n```\n\n\nCan you take a look? This blocks a compiler update. Thanks!",
+      "revId": "f341f3feb505733ef57a8ddf9571b6b462a44e91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

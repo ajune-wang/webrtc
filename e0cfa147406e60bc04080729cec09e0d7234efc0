@@ -328,6 +328,24 @@
       "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbf0ed8b_726fb29b",
+        "filename": "modules/audio_processing/aec3/subtractor_output_analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-09-30T12:49:38Z",
+      "side": 1,
+      "message": "I updated the CL to run one SubtractorOutputAnalyzer per SubtractorOutput, leaving this class unchanged.",
+      "parentUuid": "4d0ed598_af5eb328",
+      "revId": "e0cfa147406e60bc04080729cec09e0d7234efc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

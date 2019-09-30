@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f12102f_8329e089",
+        "filename": "modules/video_coding/frame_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-09-30T07:34:43Z",
+      "side": 1,
+      "message": "This caused problems in the case that both requiredSizeBytes and capacity() were zero. Before this cl, we called VerifyAndAllocate which uses a \u003e comparison, making it a no-op. After the below changes, we get calls to malloc and realloc with size \u003d\u003d 0, which hits assertions in UpdateDataPointers, because malloc(0) returns a non-null pointer (this is up to the C library implementation), but realloc with size \u003d\u003d 0 is equivalent to free, and returns a nullptr.",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 39
+      },
+      "revId": "539df601fe13fd9fdc3d087ff9256ad2c97dd9c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

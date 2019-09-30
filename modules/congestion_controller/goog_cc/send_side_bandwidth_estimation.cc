@@ -433,18 +433,14 @@ void SendSideBandwidthEstimation::UpdateEstimate(Timestamp at_time) {
   // We trust the REMB and/or delay-based estimate during the first 2 seconds if
   // we haven't had any packet loss reported, to allow startup bitrate probing.
   if (last_fraction_loss_ == 0 && IsInStartPhase(at_time)) {
-    DataRate new_bitrate = current_target_;
-    // TODO(srte): We should not allow the new_bitrate to be larger than the
-    // receiver limit here.
-    if (receiver_limit_.IsFinite())
-      new_bitrate = std::max(receiver_limit_, new_bitrate);
-    if (delay_based_limit_.IsFinite())
-      new_bitrate = std::max(delay_based_limit_, new_bitrate);
     if (loss_based_bandwidth_estimation_.Enabled()) {
-      loss_based_bandwidth_estimation_.SetInitialBitrate(new_bitrate);
+      loss_based_bandwidth_estimation_.SetInitialBitrate(current_target_);
     }
-
-    if (new_bitrate != current_target_) {
+    DataRate new_bitrate = std::min(delay_based_limit_, receiver_limit_);
+    if (new_bitrate.IsFinite() && new_bitrate != current_target_) {
+      if (loss_based_bandwidth_estimation_.Enabled()) {
+        loss_based_bandwidth_estimation_.SetInitialBitrate(new_bitrate);
+      }
       min_bitrate_history_.clear();
       if (loss_based_bandwidth_estimation_.Enabled()) {
         min_bitrate_history_.push_back(std::make_pair(at_time, new_bitrate));

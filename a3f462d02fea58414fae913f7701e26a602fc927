@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2e8d83b6_ffa24013",
+        "filename": "api/test/loopback_media_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-30T16:23:48Z",
+      "side": 1,
+      "message": "That might make the most sense, but SetState is test-only, and I don\u0027t think anything enforces that the actual implementation won\u0027t call OnStateChanged() for the state it\u0027s already in (in fact, it *will* do exactly that when the state callback is first set).\n\nSimply calling it whenever SetState happens is consistent with the behavior of LoopbackMediaTransport and LoopbackDataChannelTransport, so I think I\u0027ll keep it this way.",
+      "parentUuid": "d3c6f4b0_31e1b291",
+      "range": {
+        "startLine": 712,
+        "startChar": 6,
+        "endLine": 712,
+        "endChar": 40
+      },
+      "revId": "a3f462d02fea58414fae913f7701e26a602fc927",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27e046bc_64e461f5",
         "filename": "pc/jsep_transport.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "a3f462d02fea58414fae913f7701e26a602fc927",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f841591c_966e5ba7",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-30T16:23:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27e046bc_64e461f5",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 48
+      },
+      "revId": "a3f462d02fea58414fae913f7701e26a602fc927",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "11b0348b_e62ec410",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-30T16:23:48Z",
+      "side": 1,
+      "message": "Yeah, good catch, fixed.",
+      "parentUuid": "ef678433_0bfb075e",
+      "range": {
+        "startLine": 1010,
+        "startChar": 1,
+        "endLine": 1011,
+        "endChar": 26
+      },
+      "revId": "a3f462d02fea58414fae913f7701e26a602fc927",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc40629c_eba051c3",
         "filename": "pc/jsep_transport_controller.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "a3f462d02fea58414fae913f7701e26a602fc927",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d1c8365_da324a4e",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-09-30T16:23:48Z",
+      "side": 1,
+      "message": "The problem is that \"not present\" is a valid value.  And if you have media sections for both video and audio, they must both specify the same alt-protocol or neither specify an alt-protocol at all.  So we need to record the difference between \"we found a media section with an empty alt-protocol\" and \"we haven\u0027t seen a media section yet\".",
+      "parentUuid": "cc40629c_eba051c3",
+      "range": {
+        "startLine": 1020,
+        "startChar": 15,
+        "endLine": 1020,
+        "endChar": 33
+      },
+      "revId": "a3f462d02fea58414fae913f7701e26a602fc927",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

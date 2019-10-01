@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "3173708e_b285c65e",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-01T06:19:33Z",
+      "side": 1,
+      "message": "Ah I see, thanks for explaining!",
+      "parentUuid": "b0a94bf9_05d0ce63",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 62
+      },
+      "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a38ba34_ec7fd812",
         "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
         "patchSetId": 2
@@ -272,6 +296,30 @@
       "side": 1,
       "message": "I don\u0027t even know where I got it from, deleted.",
       "parentUuid": "157f726b_2381fbd6",
+      "range": {
+        "startLine": 87,
+        "startChar": 6,
+        "endLine": 87,
+        "endChar": 18
+      },
+      "revId": "0bc2e3facbed854be46b98403d4ba28cedd33429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28740d9a_4ba70809",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-01T06:19:33Z",
+      "side": 1,
+      "message": "Is there a practical limit to how far into the past the reference finder has state? Like \"never more than 10 frames\" or some such. If so, I\u0027d suggest guesstimating an appropriate size limit to limit the fuzz time per input.\n\nOtherwise, we can just wait for the fuzzer to file a timeout bug (it has happened to most of the fuzz-over-a-loop-fuzzers we have) and see what size it has come up with.",
+      "parentUuid": "7dc0759e_21ad28eb",
       "range": {
         "startLine": 87,
         "startChar": 6,

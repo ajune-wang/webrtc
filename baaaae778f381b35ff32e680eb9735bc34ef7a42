@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce510815_29c5aea6",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-10-01T13:56:46Z",
+      "side": 1,
+      "message": "InitEncode",
+      "range": {
+        "startLine": 222,
+        "startChar": 44,
+        "endLine": 222,
+        "endChar": 53
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6e9afb8_ac288408",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-10-01T13:56:46Z",
+      "side": 1,
+      "message": "This is an awkward prefix that doesn\u0027t seem needed...? (Not this change, I know.)",
+      "range": {
+        "startLine": 172,
+        "startChar": 25,
+        "endLine": 172,
+        "endChar": 29
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38b39de4_c7c96ba8",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-10-01T13:56:46Z",
+      "side": 1,
+      "message": "For consistency with L205, maybe add a simple helper function?\nNumberOfActiveStreams(*inst);",
+      "range": {
+        "startLine": 208,
+        "startChar": 2,
+        "endLine": 213,
+        "endChar": 3
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8d523b8_f40774a0",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-10-01T13:56:46Z",
+      "side": 1,
+      "message": "Seems to me that this should be provided by the |fallback_encoder_factory_| itself, but I guess with the current API that would not be possible.",
+      "range": {
+        "startLine": 256,
+        "startChar": 18,
+        "endLine": 256,
+        "endChar": 59
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bab27a36_9fd5c38e",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-10-01T13:56:46Z",
+      "side": 1,
+      "message": "Consider renaming. Maybe \"doing_simulcast_using_adapter\" ?",
+      "range": {
+        "startLine": 269,
+        "startChar": 8,
+        "endLine": 269,
+        "endChar": 23
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a440f557_bf22c1f7",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-10-01T13:56:46Z",
+      "side": 1,
+      "message": "primary",
+      "range": {
+        "startLine": 42,
+        "startChar": 47,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf9158d4_cd051787",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-10-01T13:56:46Z",
+      "side": 1,
+      "message": "Add a short comment about the difference between |primary_factory| and |fallback_factory|?",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 25
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e36d455_96500805",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1282,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-10-01T13:56:46Z",
+      "side": 1,
+      "message": "Supports, for consistency with test name above.",
+      "range": {
+        "startLine": 1282,
+        "startChar": 46,
+        "endLine": 1282,
+        "endChar": 47
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78a5d698_8579c28b",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1284,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-10-01T13:56:46Z",
+      "side": 1,
+      "message": "I\u0027m not sure this function is needed? Vs. just setting the variable I mean.",
+      "range": {
+        "startLine": 1284,
+        "startChar": 2,
+        "endLine": 1284,
+        "endChar": 27
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

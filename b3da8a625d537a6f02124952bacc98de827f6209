@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "609bc0c1_12d2624e",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-01T09:47:30Z",
+      "side": 1,
+      "message": "It would make sense to add an early exit of the loop when active_render is true, or at least not compute the render_energy when active_render is true.",
+      "range": {
+        "startLine": 139,
+        "startChar": 4,
+        "endLine": 139,
+        "endChar": 17
+      },
+      "revId": "b3da8a625d537a6f02124952bacc98de827f6209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

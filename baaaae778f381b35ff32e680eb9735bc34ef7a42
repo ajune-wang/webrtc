@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "6e2c32aa_6975e4a3",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-01T16:51:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce510815_29c5aea6",
+      "range": {
+        "startLine": 222,
+        "startChar": 44,
+        "endLine": 222,
+        "endChar": 53
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3287d2e2_63dfc03d",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-01T16:51:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11fdb2ec_7476a032",
+      "range": {
+        "startLine": 222,
+        "startChar": 44,
+        "endLine": 222,
+        "endChar": 53
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6e9afb8_ac288408",
         "filename": "media/BUILD.gn",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2019-10-01T13:56:46Z",
       "side": 1,
       "message": "This is an awkward prefix that doesn\u0027t seem needed...? (Not this change, I know.)",
+      "range": {
+        "startLine": 172,
+        "startChar": 25,
+        "endLine": 172,
+        "endChar": 29
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca5742cb_3ae6e5dc",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-01T16:51:01Z",
+      "side": 1,
+      "message": "Agree, but there are already external dependencies so changing it is non-trivial. Suggest doing that in a follow-up.",
+      "parentUuid": "c6e9afb8_ac288408",
       "range": {
         "startLine": 172,
         "startChar": 25,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "ce74adce_9be8e2f9",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-01T16:51:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38b39de4_c7c96ba8",
+      "range": {
+        "startLine": 208,
+        "startChar": 2,
+        "endLine": 213,
+        "endChar": 3
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8d523b8_f40774a0",
         "filename": "media/engine/simulcast_encoder_adapter.cc",
         "patchSetId": 5
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "d56c257e_11afa8e9",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-01T16:51:01Z",
+      "side": 1,
+      "message": "Right now it\u0027s difficult as it\u0027s not really part of the contract for an encoder factory. We\ncould solve that with another adapter, but I\u0027m trying my best to get rid of those :)",
+      "parentUuid": "e8d523b8_f40774a0",
+      "range": {
+        "startLine": 256,
+        "startChar": 18,
+        "endLine": 256,
+        "endChar": 59
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bab27a36_9fd5c38e",
         "filename": "media/engine/simulcast_encoder_adapter.cc",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d295442_fff22f5b",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-01T16:51:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bab27a36_9fd5c38e",
+      "range": {
+        "startLine": 269,
+        "startChar": 8,
+        "endLine": 269,
+        "endChar": 23
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +330,54 @@
     },
     {
       "key": {
+        "uuid": "ecb1e18a_b15407f7",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-01T16:51:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad7df4ec_1e638fd5",
+      "range": {
+        "startLine": 42,
+        "startChar": 47,
+        "endLine": 42,
+        "endChar": 63
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0e03cf6_5b4d928b",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-01T16:51:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a440f557_bf22c1f7",
+      "range": {
+        "startLine": 42,
+        "startChar": 47,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf9158d4_cd051787",
         "filename": "media/engine/simulcast_encoder_adapter.h",
         "patchSetId": 5
@@ -232,6 +424,54 @@
     },
     {
       "key": {
+        "uuid": "e87c50bc_da4eae4a",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-01T16:51:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf9158d4_cd051787",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 25
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88f27a38_185741ff",
+        "filename": "media/engine/simulcast_encoder_adapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-01T16:51:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4ac2c91_43dfa856",
+      "range": {
+        "startLine": 44,
+        "startChar": 47,
+        "endLine": 44,
+        "endChar": 63
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e36d455_96500805",
         "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
         "patchSetId": 5
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "3474b161_2ee894af",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1282,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-01T16:51:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e36d455_96500805",
+      "range": {
+        "startLine": 1282,
+        "startChar": 46,
+        "endLine": 1282,
+        "endChar": 47
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78a5d698_8579c28b",
         "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
         "patchSetId": 5
@@ -275,6 +539,30 @@
       "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6139171_5ec6dd7b",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1284,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-01T16:51:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78a5d698_8579c28b",
+      "range": {
+        "startLine": 1284,
+        "startChar": 2,
+        "endLine": 1284,
+        "endChar": 27
+      },
+      "revId": "baaaae778f381b35ff32e680eb9735bc34ef7a42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

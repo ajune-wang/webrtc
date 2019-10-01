@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19980709_8e4d2253",
+        "filename": "modules/video_coding/frame_object.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-01T10:18:36Z",
+      "side": 1,
+      "message": "Delete.\n\nWhen deleted everywhere, it should be moved to the legacy build target. Looks like it\u0027s still included in a few other places, mainly h264_sps_pps_tracker.cc, rtp_frame_reference_finder.c and rtp_video_stream_receiver.h.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 47
+      },
+      "revId": "1b515980dfbaeae52314eaacef4f5982582ddfb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "798afb0c_78dc3a74",
+        "filename": "modules/video_coding/frame_object.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-01T10:18:36Z",
+      "side": 1,
+      "message": "Delete.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 19
+      },
+      "revId": "1b515980dfbaeae52314eaacef4f5982582ddfb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1142,7 +1142,10 @@ int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image,
         case VPX_CODEC_CX_FRAME_PKT: {
           const size_t size = encoded_images_[encoder_idx].size();
           const size_t new_size = pkt->data.frame.sz + size;
+          FATAL() << "Needs refactoring";
+#if 0
           encoded_images_[encoder_idx].Allocate(new_size);
+#endif
           memcpy(&encoded_images_[encoder_idx].data()[size],
                  pkt->data.frame.buf, pkt->data.frame.sz);
           encoded_images_[encoder_idx].set_size(new_size);

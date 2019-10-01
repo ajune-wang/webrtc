@@ -162,10 +162,13 @@ void VCMEncodedFrame::CopyCodecSpecific(const RTPVideoHeader* header) {
 void VCMEncodedFrame::VerifyAndAllocate(size_t minimumSize) {
   size_t old_capacity = capacity();
   if (minimumSize > old_capacity) {
+    FATAL() << "Needs refactoring";
+#if 0
     // TODO(nisse): EncodedImage::Allocate is implemented as a realloc
     // operation, and is deprecated. Refactor to use EncodedImageBuffer::Realloc
     // instead.
     Allocate(minimumSize);
+#endif
   }
 }
 

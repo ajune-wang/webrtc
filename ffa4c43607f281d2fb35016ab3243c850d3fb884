@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6cdd4b1_e1f99bde",
+        "filename": "sdk/android/src/jni/scoped_java_ref_counted.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-01T11:39:26Z",
+      "side": 1,
+      "message": "Overlooked in previous cl.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 58
+      },
+      "revId": "ffa4c43607f281d2fb35016ab3243c850d3fb884",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8bc6cce_7b322f4b",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-01T13:20:15Z",
+      "side": 1,
+      "message": "We get two calls to SetInitialBitrate, can that be avoided? Is order important, or can this call be moved to the end of the IsInStartPhase block?",
+      "range": {
+        "startLine": 436,
+        "startChar": 3,
+        "endLine": 437,
+        "endChar": 74
+      },
+      "revId": "21070d6b0808c5931ebc5ab80434c5b4c340a889",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "862f4617_fc672e12",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-01T13:20:15Z",
+      "side": 1,
+      "message": "It looks like the old code never lowers current_target_, while the new code uses new_bitrate no matter if it\u0027s higher or lower than current_target_. Or do we have additional clamping in UpdateTarget applying also to the old code?",
+      "range": {
+        "startLine": 440,
+        "startChar": 34,
+        "endLine": 440,
+        "endChar": 64
+      },
+      "revId": "21070d6b0808c5931ebc5ab80434c5b4c340a889",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d8b5124_eb7a7c0b",
+        "filename": "modules/congestion_controller/goog_cc/send_side_bandwidth_estimation.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-01T13:20:15Z",
+      "side": 1,
+      "message": "Unchanged in this cl, but isn\u0027t it odd to have different record of history here? And why do we record history before any final clamping in UpdateTargetBitrate.",
+      "range": {
+        "startLine": 445,
+        "startChar": 0,
+        "endLine": 450,
+        "endChar": 7
+      },
+      "revId": "21070d6b0808c5931ebc5ab80434c5b4c340a889",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'aa4c7d6aabbc85c78a9e7a5e28ff29a60576507a',
+  'chromium_revision': 'b26cb15ae8ce38a47138de02a332855b05938779',
 }
 
 deps = {
@@ -27,9 +27,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@17ebf0b71ccee7e29e90165687a64451601c7ccc',
+    'https://chromium.googlesource.com/chromium/src/testing@cacf09a7dbd23a575a9b47f6bc75f78c43871d8b',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@ba80411d3a23216c49ea11d8c97eab043b19712a',
+    'https://chromium.googlesource.com/chromium/src/third_party@54e48132dc861cdcd9f6567cf8651302cf9ff634',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -111,7 +111,7 @@ deps = {
   'src/third_party/boringssl/src':
     'https://boringssl.googlesource.com/boringssl.git@a7d9ac2af4684747c4524cbeba9737b04dce3e3e',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@5f4659d6f7a8b48728247d88b64abe806ccc6822',
+    'https://chromium.googlesource.com/catapult.git@ca0d0564630e8e645b06536e91f8ee32ae562a0f',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
     'condition': 'checkout_android',
@@ -231,7 +231,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@aa23487bfa862455972e1f538a28621867a62906',
+    'https://chromium.googlesource.com/chromium/src/tools@5996c24e97cef8f3d194a9b38cb0e18541d38441',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@885b3febcc170a60f25795304e60927b77d1e92d',
 

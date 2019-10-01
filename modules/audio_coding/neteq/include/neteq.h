@@ -115,7 +115,6 @@ struct NetEqOperationsAndState {
   // Flag to indicate that the next packet is available.
   bool next_packet_available = false;
 };
-
 // This is the interface class for NetEq.
 class NetEq {
  public:

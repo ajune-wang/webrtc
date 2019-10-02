@@ -353,8 +353,8 @@ Operations DecisionLogic::FuturePacketAvailable(
   if (prev_mode == kModeRfc3389Cng || prev_mode == kModeCodecInternalCng) {
     size_t cur_size_samples =
         estimate_dtx_delay_
-            ? cur_size_samples = packet_buffer_.GetSpanSamples(
-                  decoder_frame_length, sample_rate_, true)
+            ? packet_buffer_.GetSpanSamples(decoder_frame_length, sample_rate_,
+                                            true)
             : packet_buffer_.NumPacketsInBuffer() * decoder_frame_length;
     // Target level is in number of packets in Q8.
     const size_t target_level_samples =

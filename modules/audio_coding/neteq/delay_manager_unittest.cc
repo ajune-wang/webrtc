@@ -20,6 +20,7 @@
 #include "modules/audio_coding/neteq/mock/mock_delay_peak_detector.h"
 #include "modules/audio_coding/neteq/mock/mock_histogram.h"
 #include "modules/audio_coding/neteq/mock/mock_statistics_calculator.h"
+#include "modules/audio_coding/neteq/neteq_facade_impl.h"
 #include "rtc_base/checks.h"
 #include "test/field_trial.h"
 #include "test/gmock.h"
@@ -58,6 +59,7 @@ class DelayManagerTest : public ::testing::Test {
   MockStatisticsCalculator stats_;
   MockDelayPeakDetector detector_;
   MockHistogram* mock_histogram_;
+  NetEqFacadeImpl neteq_facade_;
   uint16_t seq_no_;
   uint32_t ts_;
   bool enable_rtx_handling_ = false;
@@ -69,6 +71,10 @@ class DelayManagerTest : public ::testing::Test {
 DelayManagerTest::DelayManagerTest()
     : dm_(nullptr),
       detector_(&tick_timer_, false),
+      neteq_facade_(/*packet_buffer=*/nullptr,
+                    /*buffer_level_filter=*/nullptr,
+                    /*decoder_database=*/nullptr,
+                    &stats_),
       seq_no_(0x1234),
       ts_(0x12345678) {}
 
@@ -84,11 +90,11 @@ void DelayManagerTest::RecreateDelayManager() {
     dm_ = std::make_unique<DelayManager>(
         kMaxNumberOfPackets, kMinDelayMs, kDefaultHistogramQuantile,
         histogram_mode_, enable_rtx_handling_, &detector_, &tick_timer_,
-        &stats_, std::move(histogram));
+        &neteq_facade_, std::move(histogram));
   } else {
     dm_ = DelayManager::Create(kMaxNumberOfPackets, kMinDelayMs,
                                enable_rtx_handling_, &detector_, &tick_timer_,
-                               &stats_);
+                               &neteq_facade_);
   }
 }
 

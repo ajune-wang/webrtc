@@ -18,7 +18,7 @@
 
 #include "absl/types/optional.h"
 #include "modules/audio_coding/neteq/histogram.h"
-#include "modules/audio_coding/neteq/statistics_calculator.h"
+#include "modules/audio_coding/neteq/neteq_controller.h"
 #include "modules/audio_coding/neteq/tick_timer.h"
 #include "rtc_base/constructor_magic.h"
 
@@ -41,7 +41,7 @@ class DelayManager {
                bool enable_rtx_handling,
                DelayPeakDetector* peak_detector,
                const TickTimer* tick_timer,
-               StatisticsCalculator* statistics,
+               NetEqFacade* neteq_facade,
                std::unique_ptr<Histogram> histogram);
 
   // Create a DelayManager object. Notify the delay manager that the packet
@@ -54,7 +54,7 @@ class DelayManager {
                                               bool enable_rtx_handling,
                                               DelayPeakDetector* peak_detector,
                                               const TickTimer* tick_timer,
-                                              StatisticsCalculator* statistics);
+                                              NetEqFacade* neteq_facade);
 
   virtual ~DelayManager();
 
@@ -168,7 +168,7 @@ class DelayManager {
   const int histogram_quantile_;
   const HistogramMode histogram_mode_;
   const TickTimer* tick_timer_;
-  StatisticsCalculator* statistics_;
+  NetEqFacade* neteq_facade_;
   int base_minimum_delay_ms_;
   // Provides delay which is used by LimitTargetLevel as lower bound on target
   // delay.

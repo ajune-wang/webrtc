@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ceb02b7f_9273ef39",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-02T13:45:32Z",
+      "side": 1,
+      "message": "The plan is for this header to become part of the API. The point of this class is to hide all of  the internals of NetEq inside of this class so they don\u0027t get exposed on the API.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -21,7 +21,6 @@
 
 #include "modules/audio_coding/neteq/delay_peak_detector.h"
 #include "modules/audio_coding/neteq/histogram.h"
-#include "modules/audio_coding/neteq/statistics_calculator.h"
 #include "modules/include/module_common_types_public.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -108,7 +107,7 @@ DelayManager::DelayManager(size_t max_packets_in_buffer,
                            bool enable_rtx_handling,
                            DelayPeakDetector* peak_detector,
                            const TickTimer* tick_timer,
-                           StatisticsCalculator* statistics,
+                           NetEqFacade* neteq_facade,
                            std::unique_ptr<Histogram> histogram)
     : first_packet_received_(false),
       max_packets_in_buffer_(max_packets_in_buffer),
@@ -116,7 +115,7 @@ DelayManager::DelayManager(size_t max_packets_in_buffer,
       histogram_quantile_(histogram_quantile),
       histogram_mode_(histogram_mode),
       tick_timer_(tick_timer),
-      statistics_(statistics),
+      neteq_facade_(neteq_facade),
       base_minimum_delay_ms_(base_minimum_delay_ms),
       effective_minimum_delay_ms_(base_minimum_delay_ms),
       base_target_level_(4),                   // In Q0 domain.
@@ -145,7 +144,7 @@ std::unique_ptr<DelayManager> DelayManager::Create(
     bool enable_rtx_handling,
     DelayPeakDetector* peak_detector,
     const TickTimer* tick_timer,
-    StatisticsCalculator* statistics) {
+    NetEqFacade* neteq_facade) {
   const HistogramMode mode = RELATIVE_ARRIVAL_DELAY;
   DelayHistogramConfig config = GetDelayHistogramConfig();
   const int quantile = config.quantile;
@@ -153,7 +152,7 @@ std::unique_ptr<DelayManager> DelayManager::Create(
       kDelayBuckets, config.forget_factor, config.start_forget_weight);
   return std::make_unique<DelayManager>(
       max_packets_in_buffer, base_minimum_delay_ms, quantile, mode,
-      enable_rtx_handling, peak_detector, tick_timer, statistics,
+      enable_rtx_handling, peak_detector, tick_timer, neteq_facade,
       std::move(histogram));
 }
 
@@ -222,7 +221,7 @@ int DelayManager::Update(uint16_t sequence_number,
       UpdateDelayHistory(iat_delay, timestamp, sample_rate_hz);
       relative_delay = CalculateRelativePacketArrivalDelay();
     }
-    statistics_->RelativePacketArrivalDelay(relative_delay);
+    neteq_facade_->ReportRelativePacketArrivalDelay(relative_delay);
 
     switch (histogram_mode_) {
       case RELATIVE_ARRIVAL_DELAY: {

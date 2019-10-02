@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "672c1476_9bcb3072",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-10-02T08:59:33Z",
+      "side": 1,
+      "message": "Nit: Plesae use \"SSE2\" in comments, and \"Sse2\" in code.",
+      "revId": "6097cbefc4a84c924c03b878f01e5e2006702370",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a50a49c3_c82795b2",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-10-02T08:59:33Z",
+      "side": 1,
+      "message": "Nit: SSE2",
+      "revId": "6097cbefc4a84c924c03b878f01e5e2006702370",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34add523_1d5cb480",
+        "filename": "modules/audio_processing/aec3/adaptive_fir_filter.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-10-02T08:59:33Z",
+      "side": 1,
+      "message": "\"Greater than\" should be \"less than\" to compute the maximum impulse response.",
+      "revId": "6097cbefc4a84c924c03b878f01e5e2006702370",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd581d35_f89d0c63",
+        "filename": "modules/audio_processing/aec3/subtractor.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-10-02T08:59:33Z",
+      "side": 1,
+      "message": "Nit: Remove TODO",
+      "revId": "6097cbefc4a84c924c03b878f01e5e2006702370",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

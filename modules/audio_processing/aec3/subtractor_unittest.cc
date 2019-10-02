@@ -297,7 +297,7 @@ TEST(Subtractor, NonConvergenceOnUncorrelatedSignalsMultiChannel) {
           20, 20, true, blocks_with_echo_path_changes);
       for (float echo_to_nearend_power : echo_to_nearend_powers) {
         EXPECT_LT(.8f, echo_to_nearend_power);
-        EXPECT_NEAR(1.f, echo_to_nearend_power, 0.25f);
+        EXPECT_NEAR(1.f, echo_to_nearend_power, 0.2f);
       }
     }
   }

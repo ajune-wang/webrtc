@@ -66,7 +66,7 @@ class AcmReceiverTestOldApi : public AudioPacketizationCallback,
     // Create the speech encoder.
     AudioCodecInfo info = encoder_factory_->QueryAudioEncoder(format).value();
     std::unique_ptr<AudioEncoder> enc =
-        encoder_factory_->MakeAudioEncoder(payload_type, format, absl::nullopt);
+        encoder_factory_->MakeAudioEncoder(payload_type, format);
 
     // If we have a compatible CN specification, stack a CNG on top.
     auto it = cng_payload_types.find(info.sample_rate_hz);

@@ -479,8 +479,7 @@ void TestStereo::RegisterSendCodec(char side,
   }
   constexpr int payload_type = 17;
   auto encoder = encoder_factory->MakeAudioEncoder(
-      payload_type, SdpAudioFormat(codec_name, clockrate_hz, channels, params),
-      absl::nullopt);
+      payload_type, SdpAudioFormat(codec_name, clockrate_hz, channels, params));
   EXPECT_NE(nullptr, encoder);
   my_acm->SetEncoder(std::move(encoder));
 

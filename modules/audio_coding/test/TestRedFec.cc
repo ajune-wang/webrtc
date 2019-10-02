@@ -171,8 +171,7 @@ void TestRedFec::RegisterSendCodec(
   constexpr int payload_type = 17, cn_payload_type = 27, red_payload_type = 37;
   const auto& other_acm = &acm == &_acmA ? _acmB : _acmA;
 
-  auto encoder = encoder_factory_->MakeAudioEncoder(payload_type, codec_format,
-                                                    absl::nullopt);
+  auto encoder = encoder_factory_->MakeAudioEncoder(payload_type, codec_format);
   EXPECT_NE(encoder, nullptr);
   std::map<int, SdpAudioFormat> receive_codecs = {{payload_type, codec_format}};
   if (!absl::EqualsIgnoreCase(codec_format.name, "opus")) {

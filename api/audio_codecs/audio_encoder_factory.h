@@ -49,10 +49,21 @@ class AudioEncoderFactory : public rtc::RefCountInterface {
   // work.
   //
   // TODO(ossu): Try to avoid audio encoders having to know their payload type.
+  // TODO(bugs.webrtc.org/11004): The AudioCodecPairId is deprecated. Update all
+  // users and implementations of this factory interface, then delete the method
+  // with AudioCodecPairId.
   virtual std::unique_ptr<AudioEncoder> MakeAudioEncoder(
       int payload_type,
       const SdpAudioFormat& format,
-      absl::optional<AudioCodecPairId> codec_pair_id) = 0;
+      absl::optional<AudioCodecPairId> codec_pair_id) {
+    return MakeAudioEncoder(payload_type, format);
+  }
+
+  virtual std::unique_ptr<AudioEncoder> MakeAudioEncoder(
+      int payload_type,
+      const SdpAudioFormat& format) {
+    return MakeAudioEncoder(payload_type, format, absl::nullopt);
+  }
 };
 
 }  // namespace webrtc

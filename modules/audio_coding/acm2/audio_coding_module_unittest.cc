@@ -200,7 +200,7 @@ class AudioCodingModuleTestOldApi : public ::testing::Test {
   virtual void RegisterCodec() {
     acm_->SetReceiveCodecs({{kPayloadType, *audio_format_}});
     acm_->SetEncoder(CreateBuiltinAudioEncoderFactory()->MakeAudioEncoder(
-        kPayloadType, *audio_format_, absl::nullopt));
+        kPayloadType, *audio_format_));
   }
 
   virtual void InsertPacketAndPullAudio() {
@@ -615,7 +615,7 @@ class AcmIsacMtTestOldApi : public AudioCodingModuleMtTestOldApi {
     // registered in AudioCodingModuleTestOldApi::SetUp();
     acm_->SetReceiveCodecs({{kPayloadType, *audio_format_}});
     acm_->SetEncoder(CreateBuiltinAudioEncoderFactory()->MakeAudioEncoder(
-        kPayloadType, *audio_format_, absl::nullopt));
+        kPayloadType, *audio_format_));
   }
 
   void InsertPacket() override {
@@ -812,7 +812,7 @@ class AcmReRegisterIsacMtTestOldApi : public AudioCodingModuleTestOldApi {
         receive_packet_count_ > kRegisterAfterNumPackets) {
       // Register the iSAC encoder.
       acm_->SetEncoder(CreateBuiltinAudioEncoderFactory()->MakeAudioEncoder(
-          kPayloadType, *audio_format_, absl::nullopt));
+          kPayloadType, *audio_format_));
       codec_registered_ = true;
     }
     if (codec_registered_ && receive_packet_count_ > kNumPackets) {
@@ -1001,11 +1001,9 @@ TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutputExternalDecoder) {
                                        : fact_->IsSupportedDecoder(format);
     }
     std::unique_ptr<AudioDecoder> MakeAudioDecoder(
-        const SdpAudioFormat& format,
-        absl::optional<AudioCodecPairId> codec_pair_id) override {
-      return format.name == "MockPCMu"
-                 ? std::move(mock_decoder_)
-                 : fact_->MakeAudioDecoder(format, codec_pair_id);
+        const SdpAudioFormat& format) override {
+      return format.name == "MockPCMu" ? std::move(mock_decoder_)
+                                       : fact_->MakeAudioDecoder(format);
     }
 
    private:

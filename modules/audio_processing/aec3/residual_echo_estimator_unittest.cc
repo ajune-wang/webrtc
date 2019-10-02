@@ -20,53 +20,36 @@
 
 namespace webrtc {
 
-#if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
-
-// Verifies that the check for non-null output residual echo power works.
-TEST(ResidualEchoEstimator, NullResidualEchoPowerOutput) {
-  EchoCanceller3Config config;
-  AecState aec_state(config, 1);
-  std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
-      RenderDelayBuffer::Create(config, 48000, 1));
-  std::vector<std::array<float, kFftLengthBy2Plus1>> H2;
-  std::array<float, kFftLengthBy2Plus1> S2_linear;
-  std::array<float, kFftLengthBy2Plus1> Y2;
-  EXPECT_DEATH(ResidualEchoEstimator(EchoCanceller3Config{})
-                   .Estimate(aec_state, *render_delay_buffer->GetRenderBuffer(),
-                             S2_linear, Y2, nullptr),
-               "");
-}
-
-#endif
-
 // TODO(peah): This test is broken in the sense that it not at all tests what it
 // seems to test. Enable the test once that is adressed.
 TEST(ResidualEchoEstimator, DISABLED_BasicTest) {
-  constexpr size_t kNumChannels = 1;
+  constexpr size_t kNumRenderChannels = 1;
+  constexpr size_t kNumCaptureChannels = 1;
   constexpr int kSampleRateHz = 48000;
   constexpr size_t kNumBands = NumBandsForRate(kSampleRateHz);
 
   EchoCanceller3Config config;
   config.ep_strength.default_len = 0.f;
-  ResidualEchoEstimator estimator(config);
-  AecState aec_state(config, kNumChannels);
+  ResidualEchoEstimator estimator(config, kNumRenderChannels);
+  AecState aec_state(config, kNumRenderChannels);
   std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
-      RenderDelayBuffer::Create(config, kSampleRateHz, kNumChannels));
+      RenderDelayBuffer::Create(config, kSampleRateHz, kNumRenderChannels));
 
   std::array<float, kFftLengthBy2Plus1> E2_main;
   std::array<float, kFftLengthBy2Plus1> E2_shadow;
-  std::array<float, kFftLengthBy2Plus1> S2_linear;
+  std::array<std::array<float, kFftLengthBy2Plus1>, kNumCaptureChannels>
+      S2_linear;
   std::array<float, kFftLengthBy2Plus1> S2_fallback;
-  std::array<float, kFftLengthBy2Plus1> Y2;
-  std::array<float, kFftLengthBy2Plus1> R2;
+  std::array<std::array<float, kFftLengthBy2Plus1>, kNumCaptureChannels> Y2;
+  std::array<std::array<float, kFftLengthBy2Plus1>, kNumCaptureChannels> R2;
   EchoPathVariability echo_path_variability(
       false, EchoPathVariability::DelayAdjustment::kNone, false);
   std::vector<std::vector<std::vector<float>>> x(
       kNumBands, std::vector<std::vector<float>>(
-                     kNumChannels, std::vector<float>(kBlockSize, 0.f)));
+                     kNumRenderChannels, std::vector<float>(kBlockSize, 0.f)));
   std::vector<std::array<float, kFftLengthBy2Plus1>> H2(10);
   Random random_generator(42U);
-  std::vector<SubtractorOutput> output(kNumChannels);
+  std::vector<SubtractorOutput> output(kNumRenderChannels);
   std::array<float, kBlockSize> y;
   Aec3Fft fft;
   absl::optional<DelayEstimate> delay_estimate;
@@ -89,9 +72,9 @@ TEST(ResidualEchoEstimator, DISABLED_BasicTest) {
   constexpr float kLevel = 10.f;
   E2_shadow.fill(kLevel);
   E2_main.fill(kLevel);
-  S2_linear.fill(kLevel);
+  S2_linear[0].fill(kLevel);
   S2_fallback.fill(kLevel);
-  Y2.fill(kLevel);
+  Y2[0].fill(kLevel);
 
   for (int k = 0; k < 1993; ++k) {
     RandomizeSampleVector(&random_generator, x[0][0]);
@@ -104,13 +87,13 @@ TEST(ResidualEchoEstimator, DISABLED_BasicTest) {
 
     aec_state.HandleEchoPathChange(echo_path_variability);
     aec_state.Update(delay_estimate, H2, h,
-                     *render_delay_buffer->GetRenderBuffer(), E2_main, Y2,
+                     *render_delay_buffer->GetRenderBuffer(), E2_main, Y2[0],
                      output);
 
     estimator.Estimate(aec_state, *render_delay_buffer->GetRenderBuffer(),
-                       S2_linear, Y2, &R2);
+                       S2_linear, Y2, R2);
   }
-  std::for_each(R2.begin(), R2.end(),
+  std::for_each(R2[0].begin(), R2[0].end(),
                 [&](float a) { EXPECT_NEAR(kLevel, a, 0.1f); });
 }
 

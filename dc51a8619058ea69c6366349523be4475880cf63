@@ -1,0 +1,441 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96eaf030_31aed2ad",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "I think this can be replaced by parameter type\n\nrtc::ArrayView\u003cfloat, kFftLengthBy2Plus1\u003e\n\nor\n\nconst std::array\u003cfloat, kFftLengthBy2Plus1\u003e\u0026",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 47
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "241d4596_274a8c8d",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "I think this can be replaced by parameter type\n\nrtc::ArrayView\u003cfloat, kFftLengthBy2Plus1\u003e\n\nor\n\nconst std::array\u003cfloat, kFftLengthBy2Plus1\u003e\u0026",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 47
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d777afb6_bc7e2086",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "With multiple filters (one per capture) in AecState, how should the delay be computed to work well for the ResidualEchoEstimator? Mininum of all non-zero delays?",
+      "range": {
+        "startLine": 208,
+        "startChar": 26,
+        "endLine": 208,
+        "endChar": 55
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20f2aa0c_d4cab071",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "will all filters have the same length, or may different capture channels have different filter lengths?",
+      "range": {
+        "startLine": 294,
+        "startChar": 46,
+        "endLine": 294,
+        "endChar": 76
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55072d63_da2035ae",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "same question as above about how to compute this delay in AecState.",
+      "range": {
+        "startLine": 295,
+        "startChar": 46,
+        "endLine": 295,
+        "endChar": 75
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e74b570b_d204bcac",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "Variations of this is computed here, in EchoGeneratingPower, and in UpdateRenderNoisePower. Is it possible to consolidate to one anonymous helper function? Maybe even hand it over to the render buffer since it is pretty similar to RenderBuffer::SpectralSum?",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 315,
+        "endChar": 57
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "653ca80d_0dc7763e",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 71
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e485633a_8cb6bcd8",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "Is this a reasonable time to do something about this TODO, or is it best left for an unspecified future? Will there ever be a time to rewrite it, and if not, can we delete the test?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 56
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0075ccec_30ed095c",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "What do you think about specifying rtc::ArrayView\u003cconst float, kFftLengthBy2Plus1\u003e ? Get rid of the DCHECK at call site.",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f5b7df9_04c1054c",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "Snake case intentional?",
+      "range": {
+        "startLine": 32,
+        "startChar": 30,
+        "endLine": 32,
+        "endChar": 40
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e600583b_e83c8d99",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "Merge this one and GetPowerSpectrum() below.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 68
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74186592_b8d7722d",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "nit: remove, plural subject",
+      "range": {
+        "startLine": 34,
+        "startChar": 66,
+        "endLine": 34,
+        "endChar": 67
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1bafc2e_df532896",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "UpdateReverb",
+      "range": {
+        "startLine": 37,
+        "startChar": 50,
+        "endLine": 37,
+        "endChar": 59
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bc83855_37606ef5",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "UpdateReverbNoFreqShaping",
+      "range": {
+        "startLine": 38,
+        "startChar": 48,
+        "endLine": 38,
+        "endChar": 71
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cfdbef4_a32a1edc",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "nit: \"be applied\"",
+      "range": {
+        "startLine": 38,
+        "startChar": 20,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa0558bf_c132090d",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "What is the purpose of having UpdateReverb* perfectly forward the function calls to UpdateReverbContributions* ?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 3
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "606ee048_e32baba1",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "It seems preferable to pass rtc::ArrayView by value.\nhttps://chromium.googlesource.com/external/webrtc/+/3c1e558449309be965815e1bf/webrtc/base/array_view.h#75",
+      "range": {
+        "startLine": 67,
+        "startChar": 33,
+        "endLine": 68,
+        "endChar": 77
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15731ab2_094a8b83",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "Why is UpdateReverbContributionsNoFreqShaping public but not UpdateReverbContributions?",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 53
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57b1aeb0_38c870c2",
+        "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-02T21:35:27Z",
+      "side": 1,
+      "message": "It is confusing to name both the erle_estimator_ and the erle_ elements `erle`.\n\nShould erle_estimators_ be called erle_estimates_? And how does that differ from the estimate erle_?",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 3
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

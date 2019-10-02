@@ -49,7 +49,6 @@ int main(int argc, char* argv[]) {
 
   size_t i;
   int errtype, VADusage = 0, packetLossPercent = 0;
-  int16_t CodingMode;
   int32_t bottleneck = 0;
   int framesize = 30; /* ms */
   int cur_framesmpls, err;
@@ -183,7 +182,6 @@ int main(int argc, char* argv[]) {
   printf("iSAC version %s \n\n", version_number);
 
   /* Loop over all command line arguments */
-  CodingMode = 0;
   testNum = 0;
   // logFile = NULL;
   char transCodingFileName[500];
@@ -212,12 +210,6 @@ int main(int argc, char* argv[]) {
     if (!strcmp("-FS", argv[i])) {
       i++;
       sampFreqKHz = atoi(argv[i]);
-    }
-
-    /* Instantaneous mode */
-    if (!strcmp("-I", argv[i])) {
-      printf("Instantaneous BottleNeck\n");
-      CodingMode = 1;
     }
 
     /* Set (initial) bottleneck value */
@@ -390,10 +382,6 @@ int main(int argc, char* argv[]) {
     //     }
   }
 
-  if (CodingMode == 0) {
-    printf("\nAdaptive BottleNeck\n");
-  }
-
   switch (sampFreqKHz) {
     case 16: {
       printf("iSAC Wideband.\n");
@@ -486,7 +474,7 @@ int main(int argc, char* argv[]) {
   }
 
   if (testNum != 1) {
-    if (WebRtcIsac_EncoderInit(ISAC_main_inst, CodingMode) < 0) {
+    if (WebRtcIsac_EncoderInit(ISAC_main_inst) < 0) {
       printf("Error could not initialize the encoder \n");
       std::cout << std::flush;
       return 0;
@@ -494,27 +482,14 @@ int main(int argc, char* argv[]) {
   }
   if (testNum != 2)
     WebRtcIsac_DecoderInit(ISAC_main_inst);
-  if (CodingMode == 1) {
-    err = WebRtcIsac_Control(ISAC_main_inst, bottleneck, framesize);
-    if (err < 0) {
-      /* exit if returned with error */
-      errtype = WebRtcIsac_GetErrorCode(ISAC_main_inst);
-      printf("\n\n Error in initialization (control): %d.\n\n", errtype);
-      std::cout << std::flush;
-      if (testNum == 0) {
-        exit(EXIT_FAILURE);
-      }
-    }
-  }
 
-  if ((setControlBWE) && (CodingMode == 0)) {
-    err = WebRtcIsac_ControlBwe(ISAC_main_inst, rateBPS, framesize, fixedFL);
-    if (err < 0) {
-      /* exit if returned with error */
-      errtype = WebRtcIsac_GetErrorCode(ISAC_main_inst);
-
-      printf("\n\n Error in Control BWE: %d.\n\n", errtype);
-      std::cout << std::flush;
+  err = WebRtcIsac_Control(ISAC_main_inst, bottleneck, framesize);
+  if (err < 0) {
+    /* exit if returned with error */
+    errtype = WebRtcIsac_GetErrorCode(ISAC_main_inst);
+    printf("\n\n Error in initialization (control): %d.\n\n", errtype);
+    std::cout << std::flush;
+    if (testNum == 0) {
       exit(EXIT_FAILURE);
     }
   }
@@ -550,7 +525,7 @@ int main(int argc, char* argv[]) {
   while (endfile == 0) {
     /* Call init functions at random, fault test number 7 */
     if (testNum == 7 && (rand() % 2 == 0)) {
-      err = WebRtcIsac_EncoderInit(ISAC_main_inst, CodingMode);
+      err = WebRtcIsac_EncoderInit(ISAC_main_inst);
       /* Error check */
       if (err < 0) {
         errtype = WebRtcIsac_GetErrorCode(ISAC_main_inst);
@@ -671,9 +646,7 @@ int main(int argc, char* argv[]) {
           exit(0);
         }
       }
-      if (CodingMode == 1) {
-        WebRtcIsac_Control(ISAC_main_inst, bottleneck, framesize);
-      }
+      WebRtcIsac_Control(ISAC_main_inst, bottleneck, framesize);
     }
 
     length_file += cur_framesmpls;

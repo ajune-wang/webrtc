@@ -57,19 +57,12 @@ int16_t WebRtcIsac_Free(ISACStruct* ISAC_main_inst);
  *
  * Input:
  *        - ISAC_main_inst    : ISAC instance.
- *        - CodingMode        : 0 -> Bit rate and frame length are
- *                                automatically adjusted to available bandwidth
- *                                on transmission channel, just valid if codec
- *                                is created to work in wideband mode.
- *                              1 -> User sets a frame length and a target bit
- *                                rate which is taken as the maximum
- *                                short-term average bit rate.
  *
  * Return value               : 0 - Ok
  *                             -1 - Error
  */
 
-int16_t WebRtcIsac_EncoderInit(ISACStruct* ISAC_main_inst, int16_t CodingMode);
+int16_t WebRtcIsac_EncoderInit(ISACStruct* ISAC_main_inst);
 
 /******************************************************************************
  * WebRtcIsac_Encode(...)
@@ -208,36 +201,6 @@ int16_t WebRtcIsac_Control(ISACStruct* ISAC_main_inst,
 
 void WebRtcIsac_SetInitialBweBottleneck(ISACStruct* ISAC_main_inst,
                                         int bottleneck_bits_per_second);
-
-/******************************************************************************
- * WebRtcIsac_ControlBwe(...)
- *
- * This function sets the initial values of bottleneck and frame-size if
- * iSAC is used in channel-adaptive mode. Therefore, this API is not
- * applicable if the codec is created to operate in super-wideband mode.
- *
- * Through this API, users can enforce a frame-size for all values of
- * bottleneck. Then iSAC will not automatically change the frame-size.
- *
- *
- * Input:
- *        - ISAC_main_inst    : ISAC instance.
- *        - rateBPS           : initial value of bottleneck in bits/second
- *                              10000 <= rateBPS <= 56000 is accepted
- *                              For default bottleneck set rateBPS = 0
- *        - frameSizeMs       : number of milliseconds per frame (30 or 60)
- *        - enforceFrameSize  : 1 to enforce the given frame-size through
- *                              out the adaptation process, 0 to let iSAC
- *                              change the frame-size if required.
- *
- * Return value               : 0  - ok
- *                             -1 - Error
- */
-
-int16_t WebRtcIsac_ControlBwe(ISACStruct* ISAC_main_inst,
-                              int32_t rateBPS,
-                              int frameSizeMs,
-                              int16_t enforceFrameSize);
 
 /******************************************************************************
  * WebRtcIsac_ReadFrameLen(...)

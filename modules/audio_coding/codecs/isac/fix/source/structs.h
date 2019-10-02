@@ -321,7 +321,6 @@ typedef struct {
   IsacFixEncoderInstance ISACenc_obj;
   IsacFixDecoderInstance ISACdec_obj;
   BwEstimatorstr bwestimator_obj;
-  int16_t CodingMode; /* 0 = adaptive; 1 = instantaneous */
   int16_t errorcode;
   int16_t initflag; /* 0 = nothing initiated; 1 = encoder or decoder */
   /* not initiated; 2 = all initiated */

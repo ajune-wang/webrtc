@@ -37,9 +37,6 @@ int main(int argc, char* argv[]) {
 
   int encoderSampRate[MAX_NUM_CLIENTS];
 
-  int minBn = 16000;
-  int maxBn = 56000;
-
   int bnWB = 32000;
   int bnSWB = 56000;
 
@@ -87,9 +84,6 @@ int main(int argc, char* argv[]) {
   encoderSampRate[1] = 32000;
   OPEN_FILE_RB(inFile[1], fileNameSWB);
 
-  strcpy(myFlag, "-I");
-  short codingMode = readSwitch(argc, argv, myFlag);
-
   for (clientCntr = 0; clientCntr < NUM_CLIENTS; clientCntr++) {
     codecInstance[clientCntr] = NULL;
 
@@ -106,19 +100,10 @@ int main(int argc, char* argv[]) {
 
     samplesIn10ms[clientCntr] = encoderSampRate[clientCntr] * 10;
 
-    if (codingMode == 1) {
-      bottleneck[clientCntr] = (clientCntr) ? bnSWB : bnWB;
-    } else {
-      bottleneck[clientCntr] = (clientCntr) ? minBn : maxBn;
-    }
+    bottleneck[clientCntr] = (clientCntr) ? bnSWB : bnWB;
 
     printf("Bottleneck....................... %0.3f kbits/sec \n",
            bottleneck[clientCntr] / 1000.0);
-
-    // coding-mode
-    printf(
-        "Encoding Mode.................... %s\n",
-        (codingMode == 1) ? "Channel-Independent (Instantaneous)" : "Adaptive");
 
     lenEncodedInBytes[clientCntr] = 0;
     lenAudioIn10ms[clientCntr] = 0;
@@ -149,7 +134,7 @@ int main(int argc, char* argv[]) {
         encoderSampRate[clientCntr + (1 - ((clientCntr & 1) << 1))]);
 
     // Initialize Encoder
-    if (WebRtcIsac_EncoderInit(codecInstance[clientCntr], codingMode) < 0) {
+    if (WebRtcIsac_EncoderInit(codecInstance[clientCntr]) < 0) {
       printf("Could not initialize client, %d\n", clientCntr + 1);
       return -1;
     }
@@ -157,14 +142,11 @@ int main(int argc, char* argv[]) {
     WebRtcIsac_DecoderInit(codecInstance[clientCntr]);
 
     // setup Rate if in Instantaneous mode
-    if (codingMode != 0) {
-      // ONLY Clients who are not in Adaptive mode
-      if (WebRtcIsac_Control(codecInstance[clientCntr], bottleneck[clientCntr],
-                             30) < 0) {
-        printf("Could not setup bottleneck and frame-size for client %d\n",
-               clientCntr + 1);
-        return -1;
-      }
+    if (WebRtcIsac_Control(codecInstance[clientCntr], bottleneck[clientCntr],
+                           30) < 0) {
+      printf("Could not setup bottleneck and frame-size for client %d\n",
+             clientCntr + 1);
+      return -1;
     }
   }
 
@@ -293,11 +275,6 @@ int main(int argc, char* argv[]) {
                  lenEncodedInBytesTmp[senderIdx] * 0.8 /
                      lenAudioIn10msTmp[senderIdx]);
 
-          if (codingMode == 0) {
-            int32_t bn;
-            WebRtcIsac_GetUplinkBw(codecInstance[senderIdx], &bn);
-            printf("[%d] ", bn);
-          }
           // int16_t rateIndexLB;
           // int16_t rateIndexUB;
           // WebRtcIsac_GetDownLinkBwIndex(codecInstance[receiverIdx],

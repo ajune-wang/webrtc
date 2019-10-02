@@ -23,13 +23,6 @@ struct IsacFloat {
                                 int framesize) {
     return WebRtcIsac_Control(inst, rate, framesize);
   }
-  static inline int16_t ControlBwe(instance_type* inst,
-                                   int32_t rate_bps,
-                                   int frame_size_ms,
-                                   int16_t enforce_frame_size) {
-    return WebRtcIsac_ControlBwe(inst, rate_bps, frame_size_ms,
-                                 enforce_frame_size);
-  }
   static inline int16_t Create(instance_type** inst) {
     return WebRtcIsac_Create(inst);
   }
@@ -54,8 +47,8 @@ struct IsacFloat {
                            uint8_t* encoded) {
     return WebRtcIsac_Encode(inst, speech_in, encoded);
   }
-  static inline int16_t EncoderInit(instance_type* inst, int16_t coding_mode) {
-    return WebRtcIsac_EncoderInit(inst, coding_mode);
+  static inline int16_t EncoderInit(instance_type* inst) {
+    return WebRtcIsac_EncoderInit(inst);
   }
   static inline uint16_t EncSampRate(instance_type* inst) {
     return WebRtcIsac_EncSampRate(inst);

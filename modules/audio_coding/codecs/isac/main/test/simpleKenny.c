@@ -58,7 +58,6 @@ int main(int argc, char* argv[]) {
 
   int32_t bottleneck = 39;
   int frameSize = 30; /* ms */
-  int16_t codingMode = 1;
   int16_t shortdata[FRAMESAMPLES_SWB_10ms];
   int16_t decoded[MAX_FRAMESAMPLES_SWB];
   int16_t speechType[1];
@@ -148,7 +147,6 @@ int main(int argc, char* argv[]) {
   /* Get Input and Output files */
   sscanf(argv[1], "%s", inname);
   sscanf(argv[2], "%s", outname);
-  codingMode = readSwitch(argc, argv, "-I");
   sampFreqKHz = (int16_t)readParamInt(argc, argv, "-fs", 32);
   if (readParamString(argc, argv, "-h", histFileName, 500) > 0) {
     histFile = fopen(histFileName, "a");
@@ -213,8 +211,6 @@ int main(int argc, char* argv[]) {
   printf("\n");
   printf("Input.................... %s\n", inname);
   printf("Output................... %s\n", outname);
-  printf("Encoding Mode............ %s\n",
-         (codingMode == 1) ? "Channel-Independent" : "Channel-Adaptive");
   printf("Bottleneck............... %d bits/sec\n", bottleneck);
   printf("Packet-loss Percentage... %d\n", packetLossPercent);
   printf("\n");
@@ -238,22 +234,15 @@ int main(int argc, char* argv[]) {
   endfile = 0;
 
   /* Initialize encoder and decoder */
-  if (WebRtcIsac_EncoderInit(ISAC_main_inst, codingMode) < 0) {
+  if (WebRtcIsac_EncoderInit(ISAC_main_inst) < 0) {
     printf("cannot initialize encoder\n");
     return -1;
   }
   WebRtcIsac_DecoderInit(ISAC_main_inst);
 
-  if (codingMode == 1) {
-    if (WebRtcIsac_Control(ISAC_main_inst, bottleneck, frameSize) < 0) {
-      printf("cannot set bottleneck\n");
-      return -1;
-    }
-  } else {
-    if (WebRtcIsac_ControlBwe(ISAC_main_inst, 15000, 30, 1) < 0) {
-      printf("cannot configure BWE\n");
-      return -1;
-    }
+  if (WebRtcIsac_Control(ISAC_main_inst, bottleneck, frameSize) < 0) {
+    printf("cannot set bottleneck\n");
+    return -1;
   }
 
   if (WebRtcIsac_SetMaxPayloadSize(ISAC_main_inst, payloadLimit) < 0) {

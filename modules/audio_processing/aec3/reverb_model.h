@@ -28,21 +28,29 @@ class ReverbModel {
   // Resets the state.
   void Reset();
 
-  // The methods AddReverbNoFreqShaping and AddReverb add the reverberation
-  // contribution to an input/output power spectrum
-  // Before applying the exponential reverberant model, the input power spectrum
-  // is pre-scaled. Use the method AddReverb when a different scaling should be
-  // applied per frequency and AddReverb_no_freq_shape if the same scaling
-  // should be used for all the frequencies.
-  void AddReverbNoFreqShaping(rtc::ArrayView<const float> power_spectrum,
-                              float power_spectrum_scaling,
-                              float reverb_decay,
-                              rtc::ArrayView<float> reverb_power_spectrum);
+  // Returns the reverb.
+  rtc::ArrayView<const float> get_reverb() const { return reverb_; }
 
-  void AddReverb(rtc::ArrayView<const float> power_spectrum,
-                 rtc::ArrayView<const float> freq_response_tail,
-                 float reverb_decay,
-                 rtc::ArrayView<float> reverb_power_spectrum);
+  // The methods UpdateReverbNoFreqShaping and UpdateReverb updates the
+  // estimate of the reverberation contribution to an input/output power
+  // spectrum. Before applying the exponential reverberant model, the input
+  // power spectrum is pre-scaled. Use the method AddReverb when a different
+  // scaling should beapplied per frequency and AddReverb_no_freq_shape if
+  // the same scaling should be used for all the frequencies.
+  void UpdateReverbNoFreqShaping(rtc::ArrayView<const float> power_spectrum,
+                                 float power_spectrum_scaling,
+                                 float reverb_decay) {
+    UpdateReverbContributionsNoFreqShaping(
+        power_spectrum, power_spectrum_scaling, reverb_decay);
+  }
+
+  // Update the reverb based on new data.
+  void UpdateReverb(rtc::ArrayView<const float> power_spectrum,
+                    rtc::ArrayView<const float> power_spectrum_scaling,
+                    float reverb_decay) {
+    UpdateReverbContributions(power_spectrum, power_spectrum_scaling,
+                              reverb_decay);
+  }
 
   // Updates the reverberation contributions without applying any shaping of the
   // spectrum.

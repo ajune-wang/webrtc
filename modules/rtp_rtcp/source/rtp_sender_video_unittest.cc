@@ -98,15 +98,14 @@ class TestRtpSenderVideo : public RTPSenderVideo {
                      RTPSender* rtp_sender,
                      FlexfecSender* flexfec_sender,
                      const WebRtcKeyValueConfig& field_trials)
-      : RTPSenderVideo(clock,
-                       rtp_sender,
-                       flexfec_sender,
-                       &playout_delay_oracle_,
-                       nullptr,
-                       false,
-                       false,
-                       false,
-                       field_trials) {}
+      : RTPSenderVideo([&] {
+          Config config;
+          config.clock = clock;
+          config.rtp_sender = rtp_sender;
+          config.flexfec_sender = flexfec_sender;
+          config.field_trials = &field_trials;
+          return config;
+        }()) {}
   ~TestRtpSenderVideo() override {}
 
   bool AllowRetransmission(const RTPVideoHeader& header,

@@ -55,6 +55,23 @@ class RTPSenderVideo {
  public:
   static constexpr int64_t kTLRateWindowSizeMs = 2500;
 
+  struct Config {
+    Clock* clock = nullptr;
+    RTPSender* rtp_sender = nullptr;
+    FlexfecSender* flexfec_sender = nullptr;
+    PlayoutDelayOracle* playout_delay_oracle = nullptr;
+    FrameEncryptorInterface* frame_encryptor = nullptr;
+    bool require_frame_encryption = false;
+    bool need_rtp_packet_infos = false;
+    bool enable_retransmit_all_layers = false;
+    absl::optional<int> red_payload_type;
+    absl::optional<int> ulpfec_payload_type;
+    const WebRtcKeyValueConfig* field_trials = nullptr;
+  };
+
+  explicit RTPSenderVideo(const Config& config);
+
+  // TODO(bugs.webrtc.org/10809): Remove when downstream usage is gone.
   RTPSenderVideo(Clock* clock,
                  RTPSender* rtpSender,
                  FlexfecSender* flexfec_sender,
@@ -85,6 +102,7 @@ class RTPSenderVideo {
   // corresponding feature is turned off. Note that we DO NOT support enabling
   // ULPFEC without enabling RED, and RED is only ever used when ULPFEC is
   // enabled.
+  // TODO(bugs.webrtc.org/10809): Remove when downstream usage is gone.
   void SetUlpfecConfig(int red_payload_type, int ulpfec_payload_type);
 
   // FlexFEC/ULPFEC.
@@ -189,8 +207,8 @@ class RTPSenderVideo {
       RTC_PT_GUARDED_BY(crit_);
 
   // RED/ULPFEC.
-  int red_payload_type_ RTC_GUARDED_BY(crit_);
-  int ulpfec_payload_type_ RTC_GUARDED_BY(crit_);
+  absl::optional<int> red_payload_type_ RTC_GUARDED_BY(crit_);
+  absl::optional<int> ulpfec_payload_type_ RTC_GUARDED_BY(crit_);
   UlpfecGenerator ulpfec_generator_ RTC_GUARDED_BY(crit_);
 
   // FlexFEC.

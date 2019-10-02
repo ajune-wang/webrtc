@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "830b126a_790217a0",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-02T15:49:09Z",
+      "side": 1,
+      "message": "Do you know why we need this? I think it might be redundant. If we really need it, maybe we can pass it in GetDecision.",
+      "range": {
+        "startLine": 170,
+        "startChar": 22,
+        "endLine": 170,
+        "endChar": 44
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34857227_32b373a1",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-02T15:49:09Z",
+      "side": 1,
+      "message": "Can we use the prev_mode in GetDecision count the expands instead?",
+      "range": {
+        "startLine": 191,
+        "startChar": 20,
+        "endLine": 191,
+        "endChar": 34
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81a91339_b63e909a",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-02T15:49:09Z",
+      "side": 1,
+      "message": "I think this name doesn\u0027t really represent the purpose of the function, which is to notify that a new packet has arrived.\n\nI also think that the delay manager doesn\u0027t need to know about the whether the last packet was cng or not? I.e. we can remove that part of the function.\n\nWe can also make the delay manager independent of packet length (I was planning on doing that as well).",
+      "range": {
+        "startLine": 199,
+        "startChar": 20,
+        "endLine": 199,
+        "endChar": 43
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ceb02b7f_9273ef39",
         "filename": "modules/audio_coding/neteq/neteq_controller.h",
         "patchSetId": 3
@@ -22,6 +91,191 @@
       "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55d3ed70_ab0ab173",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-02T15:49:09Z",
+      "side": 1,
+      "message": "I\u0027m wondering if we can get away without using the NetEqFacade and pass in the necessary information in GetDecision instead. I think a lot if the stuff in NetEqFacade can be removed / moved to inside NetEq impl.\n\nI think it will be easier to reason about if the controller is completely stand alone.",
+      "parentUuid": "ceb02b7f_9273ef39",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f855853_714c9814",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-02T15:49:09Z",
+      "side": 1,
+      "message": "This is a static function which we can break out (don\u0027t need it in the facade).",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 53
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79f0109a_3d483c3c",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-02T15:49:09Z",
+      "side": 1,
+      "message": "I think we can move the buffer level filter inside the controller.",
+      "range": {
+        "startLine": 69,
+        "startChar": 15,
+        "endLine": 69,
+        "endChar": 38
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ae66ca3_3b039b63",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-02T15:49:09Z",
+      "side": 1,
+      "message": "This is actually not used at the moment so we can remove it entirely, but maybe we can calculate this in NetEqImpl and pass the value into some ReceivedPacket function in the controller. Or we store the delays in the controller and add a getter.",
+      "range": {
+        "startLine": 83,
+        "startChar": 15,
+        "endLine": 83,
+        "endChar": 47
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38516a63_a96d30b8",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-02T15:49:09Z",
+      "side": 1,
+      "message": "Is there any particular reason why we don\u0027t want to pass in the packet like before?",
+      "range": {
+        "startLine": 101,
+        "startChar": 9,
+        "endLine": 101,
+        "endChar": 19
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e75b59c_0e6c07cd",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-02T15:49:09Z",
+      "side": 1,
+      "message": "I think we can make the delay manager independent of sequence numbers and then remove this :) don\u0027t need to do that now though.",
+      "range": {
+        "startLine": 138,
+        "startChar": 15,
+        "endLine": 138,
+        "endChar": 34
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7184d74f_7e5d6e71",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-02T15:49:09Z",
+      "side": 1,
+      "message": "It\u0027s hard to understand what this function actually does. Maybe we should rename it.",
+      "range": {
+        "startLine": 169,
+        "startChar": 15,
+        "endLine": 169,
+        "endChar": 30
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a688d89_cc6e7dcc",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-02T15:49:09Z",
+      "side": 1,
+      "message": "I\u0027m planning to remove this (shortly).",
+      "range": {
+        "startLine": 181,
+        "startChar": 15,
+        "endLine": 181,
+        "endChar": 24
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

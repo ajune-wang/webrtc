@@ -80,8 +80,7 @@ bool TestVadDtx::RegisterCodec(const SdpAudioFormat& codec_format,
   constexpr int payload_type = 17, cn_payload_type = 117;
   bool added_comfort_noise = false;
 
-  auto encoder = encoder_factory_->MakeAudioEncoder(payload_type, codec_format,
-                                                    absl::nullopt);
+  auto encoder = encoder_factory_->MakeAudioEncoder(payload_type, codec_format);
   if (vad_mode.has_value() &&
       !absl::EqualsIgnoreCase(codec_format.name, "opus")) {
     AudioEncoderCngConfig config;

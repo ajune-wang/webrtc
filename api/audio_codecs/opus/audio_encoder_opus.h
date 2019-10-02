@@ -15,7 +15,6 @@
 #include <vector>
 
 #include "absl/types/optional.h"
-#include "api/audio_codecs/audio_codec_pair_id.h"
 #include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/audio_format.h"
 #include "api/audio_codecs/opus/audio_encoder_opus_config.h"
@@ -33,8 +32,7 @@ struct RTC_EXPORT AudioEncoderOpus {
   static AudioCodecInfo QueryAudioEncoder(const AudioEncoderOpusConfig& config);
   static std::unique_ptr<AudioEncoder> MakeAudioEncoder(
       const AudioEncoderOpusConfig& config,
-      int payload_type,
-      absl::optional<AudioCodecPairId> codec_pair_id = absl::nullopt);
+      int payload_type);
 };
 
 }  // namespace webrtc

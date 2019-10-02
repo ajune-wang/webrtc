@@ -28,18 +28,15 @@ class MockAudioEncoderFactory
   MOCK_METHOD1(QueryAudioEncoder,
                absl::optional<AudioCodecInfo>(const SdpAudioFormat& format));
 
-  std::unique_ptr<AudioEncoder> MakeAudioEncoder(
-      int payload_type,
-      const SdpAudioFormat& format,
-      absl::optional<AudioCodecPairId> codec_pair_id) {
+  std::unique_ptr<AudioEncoder> MakeAudioEncoder(int payload_type,
+                                                 const SdpAudioFormat& format) {
     std::unique_ptr<AudioEncoder> return_value;
-    MakeAudioEncoderMock(payload_type, format, codec_pair_id, &return_value);
+    MakeAudioEncoderMock(payload_type, format, &return_value);
     return return_value;
   }
-  MOCK_METHOD4(MakeAudioEncoderMock,
+  MOCK_METHOD3(MakeAudioEncoderMock,
                void(int payload_type,
                     const SdpAudioFormat& format,
-                    absl::optional<AudioCodecPairId> codec_pair_id,
                     std::unique_ptr<AudioEncoder>* return_value));
 
   // Creates a MockAudioEncoderFactory with no formats and that may not be
@@ -60,7 +57,7 @@ class MockAudioEncoderFactory
 
     EXPECT_CALL(*factory.get(), GetSupportedEncoders()).Times(AnyNumber());
     EXPECT_CALL(*factory.get(), QueryAudioEncoder(_)).Times(AnyNumber());
-    EXPECT_CALL(*factory.get(), MakeAudioEncoderMock(_, _, _, _)).Times(0);
+    EXPECT_CALL(*factory.get(), MakeAudioEncoderMock(_, _, _)).Times(0);
     return factory;
   }
 
@@ -80,12 +77,12 @@ class MockAudioEncoderFactory
         .WillByDefault(Return(std::vector<webrtc::AudioCodecSpec>()));
     ON_CALL(*factory.get(), QueryAudioEncoder(_))
         .WillByDefault(Return(absl::nullopt));
-    ON_CALL(*factory.get(), MakeAudioEncoderMock(_, _, _, _))
-        .WillByDefault(SetArgPointee<3>(nullptr));
+    ON_CALL(*factory.get(), MakeAudioEncoderMock(_, _, _))
+        .WillByDefault(SetArgPointee<2>(nullptr));
 
     EXPECT_CALL(*factory.get(), GetSupportedEncoders()).Times(AnyNumber());
     EXPECT_CALL(*factory.get(), QueryAudioEncoder(_)).Times(AnyNumber());
-    EXPECT_CALL(*factory.get(), MakeAudioEncoderMock(_, _, _, _))
+    EXPECT_CALL(*factory.get(), MakeAudioEncoderMock(_, _, _))
         .Times(AnyNumber());
     return factory;
   }

@@ -72,8 +72,7 @@ AudioCodecInfo AudioEncoderIlbc::QueryAudioEncoder(
 
 std::unique_ptr<AudioEncoder> AudioEncoderIlbc::MakeAudioEncoder(
     const AudioEncoderIlbcConfig& config,
-    int payload_type,
-    absl::optional<AudioCodecPairId> /*codec_pair_id*/) {
+    int payload_type) {
   RTC_DCHECK(config.IsOk());
   return std::make_unique<AudioEncoderIlbcImpl>(config, payload_type);
 }

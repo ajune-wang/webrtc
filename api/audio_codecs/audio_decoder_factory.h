@@ -41,9 +41,18 @@ class AudioDecoderFactory : public rtc::RefCountInterface {
   // Note: Implementations need to be robust against combinations other than
   // one encoder, one decoder getting the same ID; such decoders must still
   // work.
+  // TODO(bugs.webrtc.org/11004): The AudioCodecPairId is deprecated. Update all
+  // users and implementations of this factory interface, then delete the method
+  // with AudioCodecPairId.
   virtual std::unique_ptr<AudioDecoder> MakeAudioDecoder(
       const SdpAudioFormat& format,
-      absl::optional<AudioCodecPairId> codec_pair_id) = 0;
+      absl::optional<AudioCodecPairId> codec_pair_id) {
+    return MakeAudioDecoder(format);
+  }
+  virtual std::unique_ptr<AudioDecoder> MakeAudioDecoder(
+      const SdpAudioFormat& format) {
+    return MakeAudioDecoder(format, absl::nullopt);
+  }
 };
 
 }  // namespace webrtc

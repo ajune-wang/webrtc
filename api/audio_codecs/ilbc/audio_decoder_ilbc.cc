@@ -32,8 +32,7 @@ void AudioDecoderIlbc::AppendSupportedDecoders(
 }
 
 std::unique_ptr<AudioDecoder> AudioDecoderIlbc::MakeAudioDecoder(
-    Config config,
-    absl::optional<AudioCodecPairId> /*codec_pair_id*/) {
+    Config config) {
   return std::make_unique<AudioDecoderIlbcImpl>();
 }
 

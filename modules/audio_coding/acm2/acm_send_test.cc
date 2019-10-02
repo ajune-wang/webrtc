@@ -77,8 +77,7 @@ bool AcmSendTestOldApi::RegisterCodec(const char* payload_name,
   format.parameters["ptime"] = rtc::ToString(rtc::CheckedDivExact(
       frame_size_samples, rtc::CheckedDivExact(clockrate_hz, 1000)));
   auto factory = CreateBuiltinAudioEncoderFactory();
-  acm_->SetEncoder(
-      factory->MakeAudioEncoder(payload_type, format, absl::nullopt));
+  acm_->SetEncoder(factory->MakeAudioEncoder(payload_type, format));
   codec_registered_ = true;
   input_frame_.num_channels_ = num_channels;
   assert(input_block_size_samples_ * input_frame_.num_channels_ <=

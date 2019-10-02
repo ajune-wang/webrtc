@@ -618,8 +618,8 @@ bool AudioSendStream::SetupSendCodec(AudioSendStream* stream,
 
   RTC_DCHECK(new_config.encoder_factory);
   std::unique_ptr<AudioEncoder> encoder =
-      new_config.encoder_factory->MakeAudioEncoder(
-          spec.payload_type, spec.format, new_config.codec_pair_id);
+      new_config.encoder_factory->MakeAudioEncoder(spec.payload_type,
+                                                   spec.format);
 
   if (!encoder) {
     RTC_DLOG(LS_ERROR) << "Unable to create encoder for "

@@ -60,7 +60,7 @@ void Sender::Setup(AudioCodingModule* acm,
   _pcmFile.FastForward(100);
 
   acm->SetEncoder(CreateBuiltinAudioEncoderFactory()->MakeAudioEncoder(
-      payload_type, format, absl::nullopt));
+      payload_type, format));
   _packetization = new TestPacketization(rtpStream, format.clockrate_hz);
   EXPECT_EQ(0, acm->RegisterTransportCallback(_packetization));
 

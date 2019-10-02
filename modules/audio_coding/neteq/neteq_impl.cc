@@ -66,8 +66,7 @@ NetEqImpl::Dependencies::Dependencies(
       tick_timer(new TickTimer),
       stats(new StatisticsCalculator),
       buffer_level_filter(new BufferLevelFilter),
-      decoder_database(
-          new DecoderDatabase(decoder_factory, config.codec_pair_id)),
+      decoder_database(new DecoderDatabase(decoder_factory)),
       delay_peak_detector(
           new DelayPeakDetector(tick_timer.get(), config.enable_rtx_handling)),
       delay_manager(DelayManager::Create(config.max_packets_in_buffer,

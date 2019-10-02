@@ -66,18 +66,24 @@ AecState::AecState(const EchoCanceller3Config& config,
       filter_quality_state_(config_),
       erl_estimator_(2 * kNumBlocksPerSecond),
       erle_estimator_(2 * kNumBlocksPerSecond, config_),
-      filter_analyzer_(config_),
+      filter_analyzers_(num_capture_channels),
       echo_audibility_(
           config_.echo_audibility.use_stationarity_properties_at_init),
       reverb_model_estimator_(config_),
-      subtractor_output_analyzers_(num_capture_channels) {}
+      subtractor_output_analyzers_(num_capture_channels) {
+  for (size_t ch = 0; ch < num_capture_channels; ++ch) {
+    filter_analyzers_[ch] = std::make_unique<FilterAnalyzer>(config_);
+  }
+}
 
 AecState::~AecState() = default;
 
 void AecState::HandleEchoPathChange(
     const EchoPathVariability& echo_path_variability) {
   const auto full_reset = [&]() {
-    filter_analyzer_.Reset();
+    for (auto& filter_analyzer : filter_analyzers_) {
+      filter_analyzer->Reset();
+    }
     capture_signal_saturation_ = false;
     strong_not_saturated_render_blocks_ = 0;
     blocks_with_active_render_ = 0;
@@ -113,17 +119,26 @@ void AecState::Update(
     rtc::ArrayView<const SubtractorOutput> subtractor_output) {
   RTC_DCHECK_EQ(subtractor_output.size(), subtractor_output_analyzers_.size());
 
-  // Analyze the filter output.
+  // Analyze the filter outputs and filters.
+  bool any_filter_converged = false;
+  bool all_filters_diverged = true;
+  bool any_filter_consistent = false;
   for (size_t ch = 0; ch < subtractor_output.size(); ++ch) {
     subtractor_output_analyzers_[ch].Update(subtractor_output[ch]);
-  }
+    any_filter_converged = any_filter_converged ||
+                           subtractor_output_analyzers_[ch].ConvergedFilter();
+    all_filters_diverged = all_filters_diverged &&
+                           subtractor_output_analyzers_[ch].DivergedFilter();
 
-  // Analyze the properties of the filter.
-  filter_analyzer_.Update(adaptive_filter_impulse_response, render_buffer);
+    filter_analyzers_[ch]->Update(adaptive_filter_impulse_response,
+                                  render_buffer);
+    any_filter_consistent =
+        any_filter_consistent || filter_analyzers_[ch]->Consistent();
+  }
 
   // Estimate the direct path delay of the filter.
   if (config_.filter.use_linear_filter) {
-    delay_state_.Update(filter_analyzer_, external_delay,
+    delay_state_.Update(*filter_analyzers_[0], external_delay,
                         strong_not_saturated_render_blocks_);
   }
 
@@ -188,23 +203,21 @@ void AecState::Update(
 
   // Detect whether the transparent mode should be activated.
   transparent_state_.Update(delay_state_.DirectPathFilterDelay(),
-                            filter_analyzer_.Consistent(),
-                            subtractor_output_analyzers_[0].ConvergedFilter(),
-                            subtractor_output_analyzers_[0].DivergedFilter(),
-                            active_render, SaturatedCapture());
+                            any_filter_consistent, any_filter_converged,
+                            all_filters_diverged, active_render,
+                            SaturatedCapture());
 
   // Analyze the quality of the filter.
-  filter_quality_state_.Update(
-      active_render, TransparentMode(), SaturatedCapture(),
-      filter_analyzer_.Consistent(), external_delay,
-      subtractor_output_analyzers_[0].ConvergedFilter());
+  filter_quality_state_.Update(active_render, TransparentMode(),
+                               SaturatedCapture(), external_delay,
+                               any_filter_converged);
 
   // Update the reverb estimate.
   const bool stationary_block =
       config_.echo_audibility.use_stationarity_properties &&
       echo_audibility_.IsBlockStationary();
 
-  reverb_model_estimator_.Update(filter_analyzer_.GetAdjustedFilter(),
+  reverb_model_estimator_.Update(filter_analyzers_[0]->GetAdjustedFilter(),
                                  adaptive_filter_frequency_response,
                                  erle_estimator_.GetInstLinearQualityEstimate(),
                                  delay_state_.DirectPathFilterDelay(),
@@ -217,10 +230,11 @@ void AecState::Update(
   data_dumper_->DumpRaw("aec3_erle", Erle());
   data_dumper_->DumpRaw("aec3_usable_linear_estimate", UsableLinearEstimate());
   data_dumper_->DumpRaw("aec3_transparent_mode", TransparentMode());
-  data_dumper_->DumpRaw("aec3_filter_delay", filter_analyzer_.DelayBlocks());
+  data_dumper_->DumpRaw("aec3_filter_delay",
+                        filter_analyzers_[0]->DelayBlocks());
 
   data_dumper_->DumpRaw("aec3_consistent_filter",
-                        filter_analyzer_.Consistent());
+                        filter_analyzers_[0]->Consistent());
   data_dumper_->DumpRaw("aec3_initial_state",
                         initial_state_.InitialStateActive());
   data_dumper_->DumpRaw("aec3_capture_saturation", SaturatedCapture());
@@ -387,7 +401,6 @@ void AecState::FilteringQualityAnalyzer::Update(
     bool active_render,
     bool transparent_mode,
     bool saturated_capture,
-    bool consistent_estimate_,
     const absl::optional<DelayEstimate>& external_delay,
     bool converged_filter) {
   // Update blocks counter.

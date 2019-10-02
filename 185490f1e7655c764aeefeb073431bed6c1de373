@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5dce1dfb_2e16ba45",
+        "filename": "api/audio_codecs/audio_decoder_factory_template.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-02T14:37:54Z",
+      "side": 1,
+      "message": "Need some trick here (and the analogous CreateAudioEncoderFactory) to support both forms of MakeAudioDecoder. See https://cs.chromium.org/chromium/src/third_party/blink/renderer/platform/peerconnection/audio_codec_factory.cc?type\u003dcs\u0026q\u003dNotAdvertisedDecoder\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d54",
+      "range": {
+        "startLine": 114,
+        "startChar": 40,
+        "endLine": 114,
+        "endChar": 65
+      },
+      "revId": "185490f1e7655c764aeefeb073431bed6c1de373",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b83ebfcc_27bb4797",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-03T13:06:53Z",
+      "side": 1,
+      "message": "Now this expectation fails:\n\n../../modules/congestion_controller/goog_cc/goog_cc_network_control_unittest.cc:680: Failure\nExpected: (client-\u003esend_bandwidth().kbps()) \u003e (kNewLinkCapacity.kbps() - 300), actual: 323 vs 500",
+      "range": {
+        "startLine": 680,
+        "startChar": 0,
+        "endLine": 680,
+        "endChar": 76
+      },
+      "revId": "dc0d7f1ecde5ae90ba16d5b849e55251d802496e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

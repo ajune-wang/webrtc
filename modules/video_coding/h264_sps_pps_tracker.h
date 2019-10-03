@@ -43,6 +43,8 @@ class H264SpsPpsTracker {
 
     int sps_id = -1;
     size_t size = 0;
+    uint16_t rtp_seq_num;
+    bool is_out_of_band = false;
     std::unique_ptr<uint8_t[]> data;
   };
 
@@ -55,8 +57,23 @@ class H264SpsPpsTracker {
     size_t size = 0;
     int width = -1;
     int height = -1;
+    uint16_t rtp_seq_num;
+    bool is_out_of_band = false;
     std::unique_ptr<uint8_t[]> data;
   };
+
+  void ParseAndStoreSpsPps(const VCMPacket& packet);
+  void ParseAndStoreSps(const uint8_t* nalu_ptr,
+                        size_t nalu_size_bytes,
+                        bool is_out_of_band,
+                        uint16_t rtp_seq_num);
+  void ParseAndStorePps(const uint8_t* nalu_ptr,
+                        size_t nalu_size_bytes,
+                        bool is_out_of_band,
+                        uint16_t rtp_seq_num);
+  bool IsContinuousSeqNum(const SpsInfo& sps,
+                          const PpsInfo& pps,
+                          const VCMPacket& packet);
 
   std::map<uint32_t, PpsInfo> pps_data_;
   std::map<uint32_t, SpsInfo> sps_data_;

@@ -26,6 +26,7 @@ namespace webrtc {
 namespace video_coding {
 
 namespace {
+constexpr size_t kNaluHeaderSize = 1;
 const uint8_t start_code_h264[] = {0, 0, 0, 1};
 }  // namespace
 
@@ -44,6 +45,24 @@ H264SpsPpsTracker::SpsInfo& H264SpsPpsTracker::SpsInfo::operator=(
     SpsInfo&& rhs) = default;
 H264SpsPpsTracker::SpsInfo::~SpsInfo() = default;
 
+static bool HasVclData(const VCMPacket& packet) {
+  const auto* h264_header =
+      absl::get_if<RTPVideoHeaderH264>(&packet.video_header.video_type_header);
+  if (h264_header->nalus_length == 0) {
+    return h264_header->nalu_type == H264::NaluType::kIdr ||
+           h264_header->nalu_type == H264::NaluType::kSlice;
+  }
+
+  for (size_t i = 0; i < h264_header->nalus_length; ++i) {
+    if (h264_header->nalus[i].type == H264::NaluType::kIdr ||
+        h264_header->nalus[i].type == H264::NaluType::kSlice) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 H264SpsPpsTracker::PacketAction H264SpsPpsTracker::CopyAndFixBitstream(
     VCMPacket* packet) {
   RTC_DCHECK(packet->codec() == kVideoCodecH264);
@@ -57,6 +76,10 @@ H264SpsPpsTracker::PacketAction H264SpsPpsTracker::CopyAndFixBitstream(
   bool append_sps_pps = false;
   auto sps = sps_data_.end();
   auto pps = pps_data_.end();
+
+  if (packet->dataPtr != NULL) {
+    ParseAndStoreSpsPps(*packet);
+  }
 
   for (size_t i = 0; i < h264_header.nalus_length; ++i) {
     const NaluInfo& nalu = h264_header.nalus[i];
@@ -102,7 +125,9 @@ H264SpsPpsTracker::PacketAction H264SpsPpsTracker::CopyAndFixBitstream(
 
           // If the SPS/PPS was supplied out of band then we will have saved
           // the actual bitstream in |data|.
-          if (sps->second.data && pps->second.data) {
+          if (sps->second.data && pps->second.data &&
+              ((sps->second.is_out_of_band && pps->second.is_out_of_band) ||
+               IsContinuousSeqNum(sps->second, pps->second, *packet))) {
             RTC_DCHECK_GT(sps->second.size, 0);
             RTC_DCHECK_GT(pps->second.size, 0);
             append_sps_pps = true;
@@ -212,6 +237,13 @@ H264SpsPpsTracker::PacketAction H264SpsPpsTracker::CopyAndFixBitstream(
 
   packet->dataPtr = buffer;
   packet->sizeBytes = required_size;
+
+  if (packet->is_first_packet_in_frame() && packet->is_last_packet_in_frame() &&
+      !HasVclData(*packet)) {
+    packet->video_header.is_first_packet_in_frame = false;
+    packet->video_header.is_last_packet_in_frame = false;
+  }
+
   return kInsert;
 }
 
@@ -236,44 +268,99 @@ void H264SpsPpsTracker::InsertSpsPpsNalus(const std::vector<uint8_t>& sps,
     RTC_LOG(LS_WARNING) << "SPS Nalu header missing";
     return;
   }
-  absl::optional<SpsParser::SpsState> parsed_sps = SpsParser::ParseSps(
-      sps.data() + kNaluHeaderOffset, sps.size() - kNaluHeaderOffset);
-  absl::optional<PpsParser::PpsState> parsed_pps = PpsParser::ParsePps(
-      pps.data() + kNaluHeaderOffset, pps.size() - kNaluHeaderOffset);
 
+  ParseAndStoreSps(sps.data(), sps.size(), true, 0);
+  ParseAndStorePps(pps.data(), pps.size(), true, 0);
+}
+
+void H264SpsPpsTracker::ParseAndStoreSpsPps(const VCMPacket& packet) {
+  constexpr size_t kMinNaluSizeBytes =
+      3;  // 2 bytes length field plus 1 byte NALU header.
+  auto& h264_header =
+      absl::get<RTPVideoHeaderH264>(packet.video_header.video_type_header);
+
+  if (h264_header.packetization_type == kH264SingleNalu) {
+    int nalu_type = (*packet.dataPtr) & 0x1f;
+    if (nalu_type == H264::NaluType::kSps) {
+      ParseAndStoreSps(packet.dataPtr, packet.sizeBytes, false, packet.seqNum);
+    } else if (nalu_type == H264::NaluType::kPps) {
+      ParseAndStorePps(packet.dataPtr, packet.sizeBytes, false, packet.seqNum);
+    }
+  } else if (h264_header.packetization_type == kH264StapA) {
+    const uint8_t* nalu_ptr = packet.dataPtr + 1;
+    const uint8_t* buffer_end = packet.dataPtr + packet.sizeBytes;
+    while (nalu_ptr + kMinNaluSizeBytes < buffer_end) {
+      int nalu_size_bytes = nalu_ptr[0] << 8 | nalu_ptr[1];
+      nalu_ptr += 2;
+      if (nalu_ptr + nalu_size_bytes > buffer_end) {
+        return;
+      }
+
+      int nalu_type = (*nalu_ptr) & 0x1f;
+      if (nalu_type == H264::NaluType::kSps) {
+        ParseAndStoreSps(nalu_ptr, nalu_size_bytes, false, packet.seqNum);
+      } else if (nalu_type == H264::NaluType::kPps) {
+        ParseAndStorePps(nalu_ptr, nalu_size_bytes, false, packet.seqNum);
+      }
+
+      nalu_ptr += nalu_size_bytes;
+    }
+  }
+}
+
+void H264SpsPpsTracker::ParseAndStoreSps(const uint8_t* nalu_ptr,
+                                         size_t nalu_size_bytes,
+                                         bool is_out_of_band,
+                                         uint16_t rtp_seq_num) {
+  absl::optional<SpsParser::SpsState> parsed_sps = SpsParser::ParseSps(
+      nalu_ptr + kNaluHeaderSize, nalu_size_bytes - kNaluHeaderSize);
   if (!parsed_sps) {
     RTC_LOG(LS_WARNING) << "Failed to parse SPS.";
-  }
-
-  if (!parsed_pps) {
-    RTC_LOG(LS_WARNING) << "Failed to parse PPS.";
-  }
-
-  if (!parsed_pps || !parsed_sps) {
     return;
   }
 
   SpsInfo sps_info;
-  sps_info.size = sps.size();
+  sps_info.size = nalu_size_bytes;
   sps_info.width = parsed_sps->width;
   sps_info.height = parsed_sps->height;
+  sps_info.rtp_seq_num = rtp_seq_num;
+  sps_info.is_out_of_band = is_out_of_band;
   uint8_t* sps_data = new uint8_t[sps_info.size];
-  memcpy(sps_data, sps.data(), sps_info.size);
+  memcpy(sps_data, nalu_ptr, sps_info.size);
   sps_info.data.reset(sps_data);
   sps_data_[parsed_sps->id] = std::move(sps_info);
-
-  PpsInfo pps_info;
-  pps_info.size = pps.size();
-  pps_info.sps_id = parsed_pps->sps_id;
-  uint8_t* pps_data = new uint8_t[pps_info.size];
-  memcpy(pps_data, pps.data(), pps_info.size);
-  pps_info.data.reset(pps_data);
-  pps_data_[parsed_pps->id] = std::move(pps_info);
-
-  RTC_LOG(LS_INFO) << "Inserted SPS id " << parsed_sps->id << " and PPS id "
-                   << parsed_pps->id << " (referencing SPS "
-                   << parsed_pps->sps_id << ")";
 }
 
+void H264SpsPpsTracker::ParseAndStorePps(const uint8_t* nalu_ptr,
+                                         size_t nalu_size_bytes,
+                                         bool is_out_of_band,
+                                         uint16_t rtp_seq_num) {
+  absl::optional<PpsParser::PpsState> parsed_pps = PpsParser::ParsePps(
+      nalu_ptr + kNaluHeaderSize, nalu_size_bytes - kNaluHeaderSize);
+  if (!parsed_pps) {
+    RTC_LOG(LS_WARNING) << "Failed to parse PSP.";
+    return;
+  }
+
+  PpsInfo pps_info;
+  pps_info.size = nalu_size_bytes;
+  pps_info.sps_id = parsed_pps->sps_id;
+  pps_info.rtp_seq_num = rtp_seq_num;
+  pps_info.is_out_of_band = is_out_of_band;
+  uint8_t* pps_data = new uint8_t[pps_info.size];
+  memcpy(pps_data, nalu_ptr, pps_info.size);
+  pps_info.data.reset(pps_data);
+  pps_data_[parsed_pps->id] = std::move(pps_info);
+}
+
+bool H264SpsPpsTracker::IsContinuousSeqNum(const SpsInfo& sps,
+                                           const PpsInfo& pps,
+                                           const VCMPacket& packet) {
+  RTC_DCHECK(!sps.is_out_of_band);
+  RTC_DCHECK(!pps.is_out_of_band);
+  const uint16_t seq_num = packet.seqNum;
+  return pps.rtp_seq_num == seq_num - 1 &&
+         (sps.rtp_seq_num == seq_num - 1 || sps.rtp_seq_num == seq_num - 2);
+}
 }  // namespace video_coding
 }  // namespace webrtc

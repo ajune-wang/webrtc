@@ -109,8 +109,7 @@ class MockAudioProcessing : public ::testing::NiceMock<AudioProcessing> {
   MockAudioProcessing()
       : gain_control_(new ::testing::NiceMock<MockGainControl>()),
         level_estimator_(new ::testing::NiceMock<MockLevelEstimator>()),
-        noise_suppression_(new ::testing::NiceMock<MockNoiseSuppression>()),
-        voice_detection_(new ::testing::NiceMock<MockVoiceDetection>()) {}
+        noise_suppression_(new ::testing::NiceMock<MockNoiseSuppression>()) {}
 
   virtual ~MockAudioProcessing() {}
 
@@ -183,9 +182,6 @@ class MockAudioProcessing : public ::testing::NiceMock<AudioProcessing> {
   virtual MockNoiseSuppression* noise_suppression() const {
     return noise_suppression_.get();
   }
-  virtual MockVoiceDetection* voice_detection() const {
-    return voice_detection_.get();
-  }
 
   MOCK_CONST_METHOD0(GetConfig, AudioProcessing::Config());
 
@@ -193,7 +189,6 @@ class MockAudioProcessing : public ::testing::NiceMock<AudioProcessing> {
   std::unique_ptr<MockGainControl> gain_control_;
   std::unique_ptr<MockLevelEstimator> level_estimator_;
   std::unique_ptr<MockNoiseSuppression> noise_suppression_;
-  std::unique_ptr<MockVoiceDetection> voice_detection_;
 };
 
 }  // namespace test

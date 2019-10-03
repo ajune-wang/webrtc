@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4c2a1e9_92885dde",
+        "filename": "modules/video_coding/h264_sps_pps_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-10-03T11:22:39Z",
+      "side": 1,
+      "message": "Remove comment",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 44
+      },
+      "revId": "37e6baf6dd5c60f562ccba91648db927568636dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4e7f7e8_6f05c0af",
+        "filename": "modules/video_coding/h264_sps_pps_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-10-03T11:22:39Z",
+      "side": 1,
+      "message": "We should also have to option of not requiring this.",
+      "range": {
+        "startLine": 130,
+        "startChar": 15,
+        "endLine": 130,
+        "endChar": 33
+      },
+      "revId": "37e6baf6dd5c60f562ccba91648db927568636dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fefa1e2_edfbfe52",
+        "filename": "modules/video_coding/h264_sps_pps_tracker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-10-03T11:22:39Z",
+      "side": 1,
+      "message": "This I don\u0027t understand",
+      "range": {
+        "startLine": 241,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 3
+      },
+      "revId": "37e6baf6dd5c60f562ccba91648db927568636dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8acb84b5_d9eee260",
+        "filename": "modules/video_coding/h264_sps_pps_tracker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-10-03T11:22:39Z",
+      "side": 1,
+      "message": "Use absl::optional\u003cuint16_t\u003e instead and add a comment.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 32
+      },
+      "revId": "37e6baf6dd5c60f562ccba91648db927568636dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

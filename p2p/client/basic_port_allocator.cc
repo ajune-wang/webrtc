@@ -967,7 +967,10 @@ void BasicPortAllocatorSession::OnCandidateReady(Port* port,
   if (CandidatePairable(c, port) && !data->has_pairable_candidate()) {
     data->set_has_pairable_candidate(true);
 
-    if (prune_turn_ports_ && port->Type() == RELAY_PORT_TYPE) {
+    bool keep_first_ready_port = true && 1 > 0;
+    if (keep_first_ready_port) {
+      pruned = PruneNewlyPairableTurnPort(port);
+    } else if (prune_turn_ports_ && port->Type() == RELAY_PORT_TYPE) {
       pruned = PruneTurnPorts(port);
     }
     // If the current port is not pruned yet, SignalPortReady.
@@ -1013,6 +1016,23 @@ Port* BasicPortAllocatorSession::GetBestTurnPortForNetwork(
     }
   }
   return best_turn_port;
+}
+
+bool BasicPortAllocatorSession::PruneNewlyPairableTurnPort(
+    Port* newly_pairable_turn_port) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  // If an existing port is ready, prune the newly_pairable port.
+  const std::string& network_name = newly_pairable_turn_port->Network()->name();
+
+  for (PortData& data : ports_) {
+    if (data.port()->Network()->name() == network_name &&
+        data.port()->Type() == RELAY_PORT_TYPE &&
+        data.port() != newly_pairable_turn_port && data.ready()) {
+      data.Prune();
+      return true;
+    }
+  }
+  return false;
 }
 
 bool BasicPortAllocatorSession::PruneTurnPorts(Port* newly_pairable_turn_port) {

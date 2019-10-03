@@ -16,6 +16,86 @@
       "revId": "7e3e5a9b792c51e738ebbeebbf850c6215c7faff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "379470de_8e3f3757",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1728,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-10-03T18:31:06Z",
+      "side": 1,
+      "message": "nit: newline between tests",
+      "revId": "7e3e5a9b792c51e738ebbeebbf850c6215c7faff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96e58a69_c9f0f8a5",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1785,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-10-03T18:31:06Z",
+      "side": 1,
+      "message": "typo: AttemptTo",
+      "range": {
+        "startLine": 1785,
+        "startChar": 31,
+        "endLine": 1785,
+        "endChar": 39
+      },
+      "revId": "7e3e5a9b792c51e738ebbeebbf850c6215c7faff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71c41c73_d20e97b5",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1810,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-10-03T18:31:06Z",
+      "side": 1,
+      "message": "don\u0027t hard code this value, rather save it locally then check it later",
+      "range": {
+        "startLine": 1810,
+        "startChar": 55,
+        "endLine": 1810,
+        "endChar": 58
+      },
+      "revId": "7e3e5a9b792c51e738ebbeebbf850c6215c7faff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbc5051a_0f5f79c4",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1839,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-10-03T18:31:06Z",
+      "side": 1,
+      "message": "Should there be an assertion on the transceiver states somewhere?",
+      "revId": "7e3e5a9b792c51e738ebbeebbf850c6215c7faff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

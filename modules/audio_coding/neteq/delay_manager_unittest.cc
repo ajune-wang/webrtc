@@ -84,11 +84,10 @@ void DelayManagerTest::RecreateDelayManager() {
     dm_ = std::make_unique<DelayManager>(
         kMaxNumberOfPackets, kMinDelayMs, kDefaultHistogramQuantile,
         histogram_mode_, enable_rtx_handling_, &detector_, &tick_timer_,
-        &stats_, std::move(histogram));
+        std::move(histogram));
   } else {
     dm_ = DelayManager::Create(kMaxNumberOfPackets, kMinDelayMs,
-                               enable_rtx_handling_, &detector_, &tick_timer_,
-                               &stats_);
+                               enable_rtx_handling_, &detector_, &tick_timer_);
   }
 }
 
@@ -98,7 +97,7 @@ void DelayManagerTest::SetPacketAudioLength(int lengt_ms) {
 }
 
 void DelayManagerTest::InsertNextPacket() {
-  EXPECT_EQ(0, dm_->Update(seq_no_, ts_, kFs));
+  dm_->Update(seq_no_, ts_, kFs);
   seq_no_ += 1;
   ts_ += kTsIncrement;
 }
@@ -416,11 +415,11 @@ TEST_F(DelayManagerTest, EnableRtxHandling) {
 
   // Insert reordered packet.
   EXPECT_CALL(*mock_histogram_, Add(2));
-  EXPECT_EQ(0, dm_->Update(seq_no_ - 3, ts_ - 3 * kFrameSizeMs, kFs));
+  dm_->Update(seq_no_ - 3, ts_ - 3 * kFrameSizeMs, kFs);
 
   // Insert another reordered packet.
   EXPECT_CALL(*mock_histogram_, Add(1));
-  EXPECT_EQ(0, dm_->Update(seq_no_ - 2, ts_ - 2 * kFrameSizeMs, kFs));
+  dm_->Update(seq_no_ - 2, ts_ - 2 * kFrameSizeMs, kFs);
 
   // Insert the next packet in order and verify that the inter-arrival time is
   // estimated correctly.
@@ -475,7 +474,7 @@ TEST_F(DelayManagerTest, EmptyPacketsNotReported) {
 
 TEST_F(DelayManagerTest, Failures) {
   // Wrong sample rate.
-  EXPECT_EQ(-1, dm_->Update(0, 0, -1));
+  dm_->Update(0, 0, -1);
   // Wrong packet size.
   EXPECT_EQ(-1, dm_->SetPacketAudioLength(0));
   EXPECT_EQ(-1, dm_->SetPacketAudioLength(-1));
@@ -550,14 +549,14 @@ TEST_F(DelayManagerTest, RelativeArrivalDelayMode) {
 
   IncreaseTime(2 * kFrameSizeMs);
   EXPECT_CALL(*mock_histogram_, Add(1));  // 20ms delayed.
-  EXPECT_EQ(0, dm_->Update(seq_no_, ts_, kFs));
+  dm_->Update(seq_no_, ts_, kFs);
 
   IncreaseTime(2 * kFrameSizeMs);
   EXPECT_CALL(*mock_histogram_, Add(2));  // 40ms delayed.
-  EXPECT_EQ(0, dm_->Update(seq_no_ + 1, ts_ + kTsIncrement, kFs));
+  dm_->Update(seq_no_ + 1, ts_ + kTsIncrement, kFs);
 
   EXPECT_CALL(*mock_histogram_, Add(1));  // Reordered, 20ms delayed.
-  EXPECT_EQ(0, dm_->Update(seq_no_, ts_, kFs));
+  dm_->Update(seq_no_, ts_, kFs);
 }
 
 TEST_F(DelayManagerTest, MaxDelayHistory) {
@@ -579,20 +578,7 @@ TEST_F(DelayManagerTest, MaxDelayHistory) {
   IncreaseTime(kMaxHistoryMs + kFrameSizeMs);
   ts_ += kFs * kMaxHistoryMs / 1000;
   EXPECT_CALL(*mock_histogram_, Add(0));  // Not delayed.
-  EXPECT_EQ(0, dm_->Update(seq_no_, ts_, kFs));
-}
-
-TEST_F(DelayManagerTest, RelativeArrivalDelayStatistic) {
-  SetPacketAudioLength(kFrameSizeMs);
-  InsertNextPacket();
-
-  IncreaseTime(kFrameSizeMs);
-  EXPECT_CALL(stats_, RelativePacketArrivalDelay(0));
-  InsertNextPacket();
-
-  IncreaseTime(2 * kFrameSizeMs);
-  EXPECT_CALL(stats_, RelativePacketArrivalDelay(20));
-  InsertNextPacket();
+  dm_->Update(seq_no_, ts_, kFs);
 }
 
 TEST_F(DelayManagerTest, DecelerationTargetLevelOffset) {

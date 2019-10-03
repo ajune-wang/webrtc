@@ -5,16 +5,16 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'b5ead1daa283aaf3d8fffc3b4019a131539aacc2',
+  'chromium_revision': 'fd573112319f25fe50a668d78fe8f6989e4ffe04',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@a528f7afffd61f619cacb226aba3d6a7af489ae4',
+    'https://chromium.googlesource.com/chromium/src/base@c20229a39627a020d8c68d58c4367048044a3b52',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@2b770975c2c25d8e2511ddcc496586e45143bed7',
+    'https://chromium.googlesource.com/chromium/src/build@c801e41245aa9c490bc41063b9b70feacef8ea35',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@cf454b247c611167388742c7a31ef138a6031172',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -23,13 +23,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@162bfd6ed8f0a06bef065503b08ff75233d4afcb',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@06b870af168287b9cc561f8cb4c0043b34512993',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@bbdcc97478acff198965bff95eb9afb661770369',
+    'https://chromium.googlesource.com/chromium/src/testing@cd337b0ed58396c7b024e1128d70798a4155b2c0',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@e9f6737252ce951011178ec8778747987610f9f0',
+    'https://chromium.googlesource.com/chromium/src/third_party@39b128295f7500ae75270e083962db07ddd3da9d',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -111,7 +111,7 @@ deps = {
   'src/third_party/boringssl/src':
     'https://boringssl.googlesource.com/boringssl.git@bd522862a0b4c84a0ed8e37096d1c361dc6beaa9',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@dbfa96532ab0841252db9df65ef2d7fe3ce41393',
+    'https://chromium.googlesource.com/catapult.git@bb31bb3faa36df9170d4ea0b6d2a7ad414440ea9',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
     'condition': 'checkout_android',
@@ -119,7 +119,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@2458b31208f87c2bd54befb7d701ecf60b9f75e9',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@e90e5fe206c98bf7ade94f6831ed6ace48c1f5fa',
   'src/third_party/errorprone/lib': {
       'url': 'https://chromium.googlesource.com/chromium/third_party/errorprone.git@980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',
@@ -231,7 +231,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@a90e23c0c8d76691ce66c2bf68db155d03cb2b4e',
+    'https://chromium.googlesource.com/chromium/src/tools@9c5eba06978cc7841ad65841c31586bf81499c66',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@885b3febcc170a60f25795304e60927b77d1e92d',
 
@@ -441,7 +441,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/ow2_asm',
-              'version': 'NNAhdJzMdnutUVqfSJm5v0tVazA9l3Dd6CRwH6N4Q5kC',
+              'version': 'GcO_KsVh2dc5GF8PLNKrpDksY_yqfiuZ6wprQw7s1EgC',
           },
       ],
       'condition': 'checkout_android',

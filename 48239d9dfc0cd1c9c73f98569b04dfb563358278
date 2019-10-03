@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c8a6a758_43f65464",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-03T15:58:00Z",
+      "side": 1,
+      "message": "This is a little tricky. I think the reasoning was that if there is a DTX packet in the packet buffer, we don\u0027t have to keep expanding and can just start playing out any audio we have, because we\u0027ll enter DTX soon which will take a long time anyway.\n\nI thought about passing this as an argument to the function, but the way this function is implemented now, it can be somewhat expensive (since it iterates through the entire packet buffer), and we don\u0027t actually need the information on every call. \n\nIn the end I decided to just pass in everything as arguments, we can always optimize the way they are calculated if necessary.",
+      "parentUuid": "830b126a_790217a0",
+      "range": {
+        "startLine": 170,
+        "startChar": 22,
+        "endLine": 170,
+        "endChar": 44
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34857227_32b373a1",
         "filename": "modules/audio_coding/neteq/decision_logic.cc",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1d0fab74_381cc2a0",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-03T15:58:00Z",
+      "side": 1,
+      "message": "Great idea, maybe in a follow-up CL?",
+      "parentUuid": "34857227_32b373a1",
+      "range": {
+        "startLine": 191,
+        "startChar": 20,
+        "endLine": 191,
+        "endChar": 34
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "81a91339_b63e909a",
         "filename": "modules/audio_coding/neteq/decision_logic.cc",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2019-10-02T15:49:09Z",
       "side": 1,
       "message": "I think this name doesn\u0027t really represent the purpose of the function, which is to notify that a new packet has arrived.\n\nI also think that the delay manager doesn\u0027t need to know about the whether the last packet was cng or not? I.e. we can remove that part of the function.\n\nWe can also make the delay manager independent of packet length (I was planning on doing that as well).",
+      "range": {
+        "startLine": 199,
+        "startChar": 20,
+        "endLine": 199,
+        "endChar": 43
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24940a28_81875f35",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-03T15:58:00Z",
+      "side": 1,
+      "message": "I\u0027ve renamed this to PacketArrived. I agree that it doesn\u0027t make sense that the delay manager is involved with this at all, since it doesn\u0027t even use that information for anything. Do you think I should simplify it in this CL or a follow-up?",
+      "parentUuid": "81a91339_b63e909a",
       "range": {
         "startLine": 199,
         "startChar": 20,
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "2a2af307_d3c996e4",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-03T15:58:00Z",
+      "side": 1,
+      "message": "Good idea. I\u0027ve removed the NetEqFacade completely now, PTAL.",
+      "parentUuid": "55d3ed70_ab0ab173",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f855853_714c9814",
         "filename": "modules/audio_coding/neteq/neteq_controller.h",
         "patchSetId": 3
@@ -138,6 +234,30 @@
       "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74e3c44e_c42dca0e",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-03T15:58:00Z",
+      "side": 1,
+      "message": "Good point. Done.",
+      "parentUuid": "0f855853_714c9814",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 53
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -164,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "01b1a63e_67ba6175",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-03T15:58:00Z",
+      "side": 1,
+      "message": "Good idea, I didn\u0027t consider that.",
+      "parentUuid": "79f0109a_3d483c3c",
+      "range": {
+        "startLine": 69,
+        "startChar": 15,
+        "endLine": 69,
+        "endChar": 38
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ae66ca3_3b039b63",
         "filename": "modules/audio_coding/neteq/neteq_controller.h",
         "patchSetId": 3
@@ -187,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "79708156_202cf08b",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-03T15:58:00Z",
+      "side": 1,
+      "message": "I\u0027ve changed the PacketArrived function to return this value instead. It can be easily logged from NetEqImpl.",
+      "parentUuid": "7ae66ca3_3b039b63",
+      "range": {
+        "startLine": 83,
+        "startChar": 15,
+        "endLine": 83,
+        "endChar": 47
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38516a63_a96d30b8",
         "filename": "modules/audio_coding/neteq/neteq_controller.h",
         "patchSetId": 3
@@ -207,6 +375,30 @@
       "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8adb9fe9_dfb7c6f9",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-03T15:58:00Z",
+      "side": 1,
+      "message": "If we pass in the Packet like before, we would have to make the Packet class part of the API as well, which I\u0027m trying to avoid as much as possible. This struct contains only the parts that we actually use from the Packet class.",
+      "parentUuid": "38516a63_a96d30b8",
+      "range": {
+        "startLine": 101,
+        "startChar": 9,
+        "endLine": 101,
+        "endChar": 19
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -256,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "18871af9_a82589b6",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-03T15:58:00Z",
+      "side": 1,
+      "message": "Do you have a better name in mind?",
+      "parentUuid": "7184d74f_7e5d6e71",
+      "range": {
+        "startLine": 169,
+        "startChar": 15,
+        "endLine": 169,
+        "endChar": 30
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a688d89_cc6e7dcc",
         "filename": "modules/audio_coding/neteq/neteq_controller.h",
         "patchSetId": 3
@@ -276,6 +492,30 @@
       "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b285798_4d573850",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-03T15:58:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6a688d89_cc6e7dcc",
+      "range": {
+        "startLine": 181,
+        "startChar": 15,
+        "endLine": 181,
+        "endChar": 24
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

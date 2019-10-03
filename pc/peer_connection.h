@@ -384,6 +384,26 @@ class PeerConnection : public PeerConnectionInternal,
     FieldTrialFlag default_value;
   };
 
+  // Captures partial state to be used for rollback. Applicable only in
+  // Unified Plan.
+  struct TransceiverStableState {
+    TransceiverStableState() : direction(RtpTransceiverDirection::kRecvOnly) {}
+    TransceiverStableState(RtpTransceiverDirection direction,
+                           absl::optional<std::string> mid,
+                           absl::optional<size_t> mline_index,
+                           bool created)
+        : direction(direction),
+          mid(mid),
+          mline_index(mline_index),
+          created(created) {}
+    RtpTransceiverDirection direction;
+    absl::optional<std::string> mid;
+    absl::optional<size_t> mline_index;
+    // Indicates transceiver was created as part of applying a description
+    // to track potential need for removing transceiver during rollback.
+    bool created;
+  };
+
   // Implements MessageHandler.
   void OnMessage(rtc::Message* msg) override;
 
@@ -1182,6 +1202,7 @@ class PeerConnection : public PeerConnectionInternal,
 
   void UpdateNegotiationNeeded();
   bool CheckIfNegotiationIsNeeded();
+  RTCError Rollback();
 
   sigslot::signal1<DataChannel*> SignalDataChannelCreated_
       RTC_GUARDED_BY(signaling_thread());
@@ -1298,7 +1319,11 @@ class PeerConnection : public PeerConnectionInternal,
       RTC_GUARDED_BY(signaling_thread());  // A pointer is passed to senders_
   rtc::scoped_refptr<RTCStatsCollector> stats_collector_
       RTC_GUARDED_BY(signaling_thread());
-
+  // Holds changes made to transceivers during applying descriptors for
+  // potential rollback. Gets cleared once signaling state goes to stable.
+  std::map<rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>,
+           TransceiverStableState>
+      transceiver_stable_states_by_transceivers_;
   std::vector<
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
       transceivers_;  // TODO(bugs.webrtc.org/9987): Accessed on both signaling

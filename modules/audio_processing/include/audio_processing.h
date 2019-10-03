@@ -685,7 +685,6 @@ class AudioProcessing : public rtc::RefCountInterface {
   virtual GainControl* gain_control() const = 0;
   virtual LevelEstimator* level_estimator() const = 0;
   virtual NoiseSuppression* noise_suppression() const = 0;
-  virtual VoiceDetection* voice_detection() const = 0;
 
   // Returns the last applied configuration.
   virtual AudioProcessing::Config GetConfig() const = 0;

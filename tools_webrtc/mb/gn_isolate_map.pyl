@@ -74,6 +74,14 @@
     "label": "//modules:modules_unittests",
     "type": "windowed_test_launcher",
   },
+  "opus_polqa_test_dummy": {
+    "label": "//audio:low_bandwidth_audio_perf_test",
+    "type": "script",
+    "script": "//audio/test/opus_polqa_test.py",
+    "args": [
+      ".", "--remove",
+    ],
+  },
   "peerconnection_unittests": {
     "label": "//pc:peerconnection_unittests",
     "type": "console_test_launcher",

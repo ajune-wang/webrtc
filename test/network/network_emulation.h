@@ -50,9 +50,13 @@ struct EmulatedIpPacket {
   size_t size() const { return data.size(); }
   const uint8_t* cdata() const { return data.cdata(); }
 
+  size_t ip_size() const { return size() + header_size; }
   rtc::SocketAddress from;
   rtc::SocketAddress to;
+  // Holds the UDP payload.
   rtc::CopyOnWriteBuffer data;
+  // Size of IP + UDP headers.
+  size_t header_size;
   Timestamp arrival_time;
 };
 

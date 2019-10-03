@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b1934e1_d6f0741f",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-03T09:55:59Z",
+      "side": 1,
+      "message": "Ressurected the IsCurrent() check as I see it here in other places too. Maybe it is still beneficial, but didn\u0027t go deep to find out.",
+      "revId": "7e3e5a9b792c51e738ebbeebbf850c6215c7faff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

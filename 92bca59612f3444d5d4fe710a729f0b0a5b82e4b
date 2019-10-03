@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "af2e145e_ba81ec8f",
+        "filename": "api/jsep.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-03T09:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e4c9c42_6d38a3ea",
+      "range": {
+        "startLine": 107,
+        "startChar": 23,
+        "endLine": 107,
+        "endChar": 24
+      },
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3c30262_5ab6cb35",
         "filename": "api/jsep.h",
         "patchSetId": 5
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "84c7249b_e9dde5ec",
+        "filename": "api/jsep.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-03T09:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3c30262_5ab6cb35",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea2c4b7b_875468ed",
         "filename": "pc/jsep_transport_controller.h",
         "patchSetId": 5
@@ -56,6 +98,24 @@
       "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8af9536a_825a492c",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-03T09:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea2c4b7b_875468ed",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "e562e807_2facdbe4",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7803,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-03T09:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9731854_d7f8c353",
+      "range": {
+        "startLine": 7803,
+        "startChar": 0,
+        "endLine": 7803,
+        "endChar": 4
+      },
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efcfadd6_1f6a2ec4",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 5
@@ -96,6 +180,24 @@
       "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdac6a1c_0e1763e4",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7814,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-03T09:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efcfadd6_1f6a2ec4",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "7187ffa8_7fd5863d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7815,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-03T09:55:59Z",
+      "side": 1,
+      "message": "Turned out that missing mid in that place is actually not expected.",
+      "parentUuid": "b49e1eb5_067fcd52",
+      "range": {
+        "startLine": 7815,
+        "startChar": 63,
+        "endLine": 7815,
+        "endChar": 76
+      },
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b08191c_69cf8b02",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 5
@@ -142,6 +268,30 @@
       "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d48acbbe_1f39560e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7816,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-03T09:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b08191c_69cf8b02",
+      "range": {
+        "startLine": 7816,
+        "startChar": 4,
+        "endLine": 7816,
+        "endChar": 42
+      },
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -185,6 +335,48 @@
     },
     {
       "key": {
+        "uuid": "61028ccc_7032f2b4",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7826,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-03T09:55:59Z",
+      "side": 1,
+      "message": "That was the result from format command.",
+      "parentUuid": "5f9d6902_db2b8894",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ef37267_136dafc0",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7826,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-03T09:55:59Z",
+      "side": 1,
+      "message": "You are right, but I guess checking the \u0027created\u0027 flag already makes sure the transceiver was created during applying description not by addTrack().",
+      "parentUuid": "0ef6e80f_743fde22",
+      "range": {
+        "startLine": 7824,
+        "startChar": 10,
+        "endLine": 7826,
+        "endChar": 24
+      },
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcb88e9f_59d06066",
         "filename": "pc/peer_connection.h",
         "patchSetId": 5
@@ -202,6 +394,24 @@
     },
     {
       "key": {
+        "uuid": "ee938c51_fa1a0567",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-03T09:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcb88e9f_59d06066",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18e4e615_7b77f53a",
         "filename": "pc/peer_connection.h",
         "patchSetId": 5
@@ -213,6 +423,24 @@
       "writtenOn": "2019-09-30T23:51:11Z",
       "side": 1,
       "message": "What do you think about storing this struct in the RtpTransceiver object?",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d09ad8c8_0ba10365",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-03T09:55:59Z",
+      "side": 1,
+      "message": "Well, there is definitely many alternative ways how to do it. Can\u0027t say that current solution left me unhappy and wondering if there is better way, but I will give it a thought.",
+      "parentUuid": "18e4e615_7b77f53a",
       "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -236,6 +464,24 @@
     },
     {
       "key": {
+        "uuid": "5d44edb0_9eabf22c",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-03T09:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18b7c4bf_f7f22599",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ee5931c_4e17ba67",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 5
@@ -250,6 +496,24 @@
       "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4f35107_36add5c7",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5464,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-03T09:55:59Z",
+      "side": 1,
+      "message": "Left one test here, where it was more convenient to check signaling state transition in case of implicit rollback. Otherwise indeed tests look much nicer under jsep unittests.",
+      "parentUuid": "7ee5931c_4e17ba67",
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -273,6 +537,30 @@
       "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5b04e53_c08d2ea9",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5472,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-03T09:55:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "34f8a6e5_1ed59762",
+      "range": {
+        "startLine": 5472,
+        "startChar": 58,
+        "endLine": 5472,
+        "endChar": 69
+      },
+      "revId": "92bca59612f3444d5d4fe710a729f0b0a5b82e4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

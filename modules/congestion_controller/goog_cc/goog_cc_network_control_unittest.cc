@@ -73,6 +73,7 @@ CallClient* CreateVideoSendingClient(
 }
 
 void UpdatesTargetRateBasedOnLinkCapacity(std::string test_name = "") {
+  ScopedFieldTrials trial("WebRTC-SendSideBwe-WithOverhead/Enabled/");
   auto factory = CreateFeedbackOnlyFactory();
   Scenario s("googcc_unit/target_capacity" + test_name, false);
   CallClientConfig config;
@@ -643,7 +644,8 @@ TEST_F(GoogCcNetworkControllerTest, CutsHighRateInSafeResetTrial) {
 TEST_F(GoogCcNetworkControllerTest, DetectsHighRateInSafeResetTrial) {
   ScopedFieldTrials trial(
       "WebRTC-Bwe-SafeResetOnRouteChange/Enabled,ack/"
-      "WebRTC-Bwe-ProbeRateFallback/Enabled/");
+      "WebRTC-Bwe-ProbeRateFallback/Enabled/"
+      "WebRTC-SendSideBwe-WithOverhead/Enabled/");
   const DataRate kInitialLinkCapacity = DataRate::kbps(200);
   const DataRate kNewLinkCapacity = DataRate::kbps(800);
   const DataRate kStartRate = DataRate::kbps(300);

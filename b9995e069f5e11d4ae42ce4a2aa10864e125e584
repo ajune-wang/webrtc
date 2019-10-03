@@ -22,6 +22,30 @@
       "revId": "b9995e069f5e11d4ae42ce4a2aa10864e125e584",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da85c5b2_1dea194f",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-10-03T13:53:01Z",
+      "side": 1,
+      "message": "Thanks... Done.",
+      "parentUuid": "df23d3a8_aadb5a65",
+      "range": {
+        "startLine": 695,
+        "startChar": 4,
+        "endLine": 695,
+        "endChar": 26
+      },
+      "revId": "b9995e069f5e11d4ae42ce4a2aa10864e125e584",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

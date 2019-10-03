@@ -284,4 +284,10 @@ if (rtc_include_tests) {
       "//resources/voice_engine/audio_dtx16.wav",
     ]
   }
+
+  # Dummy target used by mb to ultimately point to:
+  # opus_polqa_tests.py
+  group("opus_polqa_tests") {
+    testonly = true
+  }
 }

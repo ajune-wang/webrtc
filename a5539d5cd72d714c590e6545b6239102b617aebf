@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "145323d9_3462802f",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-03T12:44:35Z",
+      "side": 1,
+      "message": "Would size_with_overhead be clearer?",
+      "range": {
+        "startLine": 53,
+        "startChar": 9,
+        "endLine": 53,
+        "endChar": 16
+      },
+      "revId": "a5539d5cd72d714c590e6545b6239102b617aebf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bb54428_8231d75a",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-03T12:44:35Z",
+      "side": 1,
+      "message": "Suggestion:\nconst uint32_t ip_header_size;\nstatic constexpr uint32_t kUdpHeaderSize \u003d 8;\n\n(If you want to save space, uint16_t should be fine)",
+      "range": {
+        "startLine": 59,
+        "startChar": 9,
+        "endLine": 59,
+        "endChar": 20
+      },
+      "revId": "a5539d5cd72d714c590e6545b6239102b617aebf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

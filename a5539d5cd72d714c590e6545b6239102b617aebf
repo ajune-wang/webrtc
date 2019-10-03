@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "cd9459c9_ad17e2f5",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-03T13:49:10Z",
+      "side": 1,
+      "message": "size_with_ip_overhead?\n\nip_packet?size seems fine to me as well, just to make it clear that it\u0027s not the ip header size.",
+      "parentUuid": "833f89fe_a81482a2",
+      "range": {
+        "startLine": 53,
+        "startChar": 9,
+        "endLine": 53,
+        "endChar": 16
+      },
+      "revId": "a5539d5cd72d714c590e6545b6239102b617aebf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7bb54428_8231d75a",
         "filename": "test/network/network_emulation.h",
         "patchSetId": 2
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "I don\u0027t think uint16_t or uint32_t is appropriate, since it\u0027s neither intended for mod arithmetic nor corresponding to any on-the-wire field. I choose size_t since that\u0027s the same type as  the size() return value. Plain int would be fine with me too. I don\u0027t think saving space is that important here.\n\nDo you think it\u0027s useful to have the udp constant here, rather than locally in the implementaiton file?",
       "parentUuid": "7bb54428_8231d75a",
+      "range": {
+        "startLine": 59,
+        "startChar": 9,
+        "endLine": 59,
+        "endChar": 20
+      },
+      "revId": "a5539d5cd72d714c590e6545b6239102b617aebf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f6d237f_c5377ab7",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-03T13:49:10Z",
+      "side": 1,
+      "message": "Sure, mainly I was suggesting to split it into two separate values, making it more clear. header_size is quite ambiguous. Moving the constant here would make the ip_size definition very easy to understand. {return size()+ip_overhead+kUdpOverhead; }",
+      "parentUuid": "3bb05da8_16901b5a",
       "range": {
         "startLine": 59,
         "startChar": 9,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74f5c78f_9f13da3d",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-03T11:37:22Z",
+      "side": 1,
+      "message": "I had to delete this DCHECK and ignore from.family(), because in some tests it\u0027s zero. One of the failing tests were GoogCcNetworkControllerTest.NoCongestionWindowPushbackWithoutReceiveTraffic",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 43
+      },
+      "revId": "e9707b013449762d040828ecaf9abe8a45d84e0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

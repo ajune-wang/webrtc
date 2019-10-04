@@ -10,8 +10,7 @@
 
 #include "modules/video_coding/h264_sps_pps_tracker.h"
 
-#include <string.h>
-
+#include <string>
 #include <vector>
 
 #include "absl/types/variant.h"
@@ -19,13 +18,14 @@
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
 #include "modules/video_coding/codecs/h264/include/h264_globals.h"
 #include "modules/video_coding/packet.h"
+#include "test/field_trial.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 namespace video_coding {
 
 namespace {
-const uint8_t start_code[] = {0, 0, 0, 1};
+const uint8_t kStartCode[] = {0, 0, 0, 1};
 
 void ExpectSpsPpsIdr(const RTPVideoHeaderH264& codec_header,
                      uint8_t sps_id,
@@ -71,6 +71,10 @@ class H264VcmPacket : public VCMPacket {
 
 class TestH264SpsPpsTracker : public ::testing::Test {
  public:
+  TestH264SpsPpsTracker() : TestH264SpsPpsTracker("") {}
+  explicit TestH264SpsPpsTracker(std::string field_trials)
+      : scoped_field_trials_(field_trials) {}
+
   void AddSps(H264VcmPacket* packet,
               uint8_t sps_id,
               std::vector<uint8_t>* data) {
@@ -80,7 +84,6 @@ class TestH264SpsPpsTracker : public ::testing::Test {
     info.pps_id = -1;
     data->push_back(H264::NaluType::kSps);
     data->push_back(sps_id);  // The sps data, just a single byte.
-
     packet->h264().nalus[packet->h264().nalus_length++] = info;
   }
 
@@ -94,7 +97,6 @@ class TestH264SpsPpsTracker : public ::testing::Test {
     info.pps_id = pps_id;
     data->push_back(H264::NaluType::kPps);
     data->push_back(pps_id);  // The pps data, just a single byte.
-
     packet->h264().nalus[packet->h264().nalus_length++] = info;
   }
 
@@ -108,6 +110,7 @@ class TestH264SpsPpsTracker : public ::testing::Test {
   }
 
  protected:
+  const test::ScopedFieldTrials scoped_field_trials_;
   H264SpsPpsTracker tracker_;
 };
 
@@ -134,7 +137,7 @@ TEST_F(TestH264SpsPpsTracker, FuAFirstPacket) {
 
   EXPECT_EQ(H264SpsPpsTracker::kInsert, tracker_.CopyAndFixBitstream(&packet));
   std::vector<uint8_t> expected;
-  expected.insert(expected.end(), start_code, start_code + sizeof(start_code));
+  expected.insert(expected.end(), kStartCode, kStartCode + sizeof(kStartCode));
   expected.insert(expected.end(), {1, 2, 3});
   EXPECT_EQ(memcmp(packet.dataPtr, expected.data(), expected.size()), 0);
   delete[] packet.dataPtr;
@@ -160,7 +163,7 @@ TEST_F(TestH264SpsPpsTracker, SingleNaluInsertStartCode) {
 
   EXPECT_EQ(H264SpsPpsTracker::kInsert, tracker_.CopyAndFixBitstream(&packet));
   std::vector<uint8_t> expected;
-  expected.insert(expected.end(), start_code, start_code + sizeof(start_code));
+  expected.insert(expected.end(), kStartCode, kStartCode + sizeof(kStartCode));
   expected.insert(expected.end(), {1, 2, 3});
   EXPECT_EQ(memcmp(packet.dataPtr, expected.data(), expected.size()), 0);
   delete[] packet.dataPtr;
@@ -196,12 +199,17 @@ TEST_F(TestH264SpsPpsTracker, IdrFirstPacketNoSpsPpsInserted) {
 }
 
 TEST_F(TestH264SpsPpsTracker, IdrFirstPacketNoPpsInserted) {
-  std::vector<uint8_t> data = {1, 2, 3};
+  std::vector<uint8_t> data;
   H264VcmPacket packet;
+  packet.h264().packetization_type = kH264StapA;
   packet.video_header.is_first_packet_in_frame = true;
 
+  data.insert(data.end(), {0});     // STAP-A header.
+  data.insert(data.end(), {0, 2});  // Length of segment.
   AddSps(&packet, 0, &data);
+  data.insert(data.end(), {0, 3});  // Length of segment.
   AddIdr(&packet, 0);
+  data.insert(data.end(), {H264::NaluType::kIdr, 2, 3});
   packet.dataPtr = data.data();
   packet.sizeBytes = data.size();
 
@@ -210,12 +218,17 @@ TEST_F(TestH264SpsPpsTracker, IdrFirstPacketNoPpsInserted) {
 }
 
 TEST_F(TestH264SpsPpsTracker, IdrFirstPacketNoSpsInserted) {
-  std::vector<uint8_t> data = {1, 2, 3};
+  std::vector<uint8_t> data;
   H264VcmPacket packet;
+  packet.h264().packetization_type = kH264StapA;
   packet.video_header.is_first_packet_in_frame = true;
 
+  data.insert(data.end(), {0});     // STAP-A header.
+  data.insert(data.end(), {0, 2});  // Length of segment.
   AddPps(&packet, 0, 0, &data);
+  data.insert(data.end(), {0, 3});  // Length of segment.
   AddIdr(&packet, 0);
+  data.insert(data.end(), {H264::NaluType::kIdr, 2, 3});
   packet.dataPtr = data.data();
   packet.sizeBytes = data.size();
 
@@ -225,16 +238,25 @@ TEST_F(TestH264SpsPpsTracker, IdrFirstPacketNoSpsInserted) {
 
 TEST_F(TestH264SpsPpsTracker, SpsPpsPacketThenIdrFirstPacket) {
   std::vector<uint8_t> data;
-  H264VcmPacket sps_pps_packet;
 
-  // Insert SPS/PPS
-  AddSps(&sps_pps_packet, 0, &data);
-  AddPps(&sps_pps_packet, 0, 1, &data);
-  sps_pps_packet.dataPtr = data.data();
-  sps_pps_packet.sizeBytes = data.size();
+  // Insert SPS
+  H264VcmPacket sps_packet;
+  AddSps(&sps_packet, 0, &data);
+  sps_packet.dataPtr = data.data();
+  sps_packet.sizeBytes = data.size();
   EXPECT_EQ(H264SpsPpsTracker::kInsert,
-            tracker_.CopyAndFixBitstream(&sps_pps_packet));
-  delete[] sps_pps_packet.dataPtr;
+            tracker_.CopyAndFixBitstream(&sps_packet));
+  delete[] sps_packet.dataPtr;
+  data.clear();
+
+  // Insert PPS
+  H264VcmPacket pps_packet;
+  AddPps(&pps_packet, 0, 1, &data);
+  pps_packet.dataPtr = data.data();
+  pps_packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert,
+            tracker_.CopyAndFixBitstream(&pps_packet));
+  delete[] pps_packet.dataPtr;
   data.clear();
 
   // Insert first packet of the IDR
@@ -248,7 +270,7 @@ TEST_F(TestH264SpsPpsTracker, SpsPpsPacketThenIdrFirstPacket) {
             tracker_.CopyAndFixBitstream(&idr_packet));
 
   std::vector<uint8_t> expected;
-  expected.insert(expected.end(), start_code, start_code + sizeof(start_code));
+  expected.insert(expected.end(), kStartCode, kStartCode + sizeof(kStartCode));
   expected.insert(expected.end(), {1, 2, 3});
   EXPECT_EQ(memcmp(idr_packet.dataPtr, expected.data(), expected.size()), 0);
   delete[] idr_packet.dataPtr;
@@ -267,19 +289,19 @@ TEST_F(TestH264SpsPpsTracker, SpsPpsIdrInStapA) {
   AddPps(&packet, 13, 27, &data);
   data.insert(data.end(), {0, 5});  // Length of segment
   AddIdr(&packet, 27);
-  data.insert(data.end(), {1, 2, 3, 2, 1});
+  data.insert(data.end(), {H264::NaluType::kIdr, 2, 3, 2, 1});
 
   packet.dataPtr = data.data();
   packet.sizeBytes = data.size();
   EXPECT_EQ(H264SpsPpsTracker::kInsert, tracker_.CopyAndFixBitstream(&packet));
 
   std::vector<uint8_t> expected;
-  expected.insert(expected.end(), start_code, start_code + sizeof(start_code));
+  expected.insert(expected.end(), kStartCode, kStartCode + sizeof(kStartCode));
   expected.insert(expected.end(), {H264::NaluType::kSps, 13});
-  expected.insert(expected.end(), start_code, start_code + sizeof(start_code));
+  expected.insert(expected.end(), kStartCode, kStartCode + sizeof(kStartCode));
   expected.insert(expected.end(), {H264::NaluType::kPps, 27});
-  expected.insert(expected.end(), start_code, start_code + sizeof(start_code));
-  expected.insert(expected.end(), {1, 2, 3, 2, 1});
+  expected.insert(expected.end(), kStartCode, kStartCode + sizeof(kStartCode));
+  expected.insert(expected.end(), {H264::NaluType::kIdr, 2, 3, 2, 1});
 
   EXPECT_EQ(memcmp(packet.dataPtr, expected.data(), expected.size()), 0);
   delete[] packet.dataPtr;
@@ -359,20 +381,29 @@ TEST_F(TestH264SpsPpsTracker, SpsPpsOutOfBandIncompleteNalu) {
 }
 
 TEST_F(TestH264SpsPpsTracker, SaveRestoreWidthHeight) {
-  std::vector<uint8_t> data;
-
-  // Insert an SPS/PPS packet with width/height and make sure
+  // Insert SPS packet with width/height and make sure
   // that information is set on the first IDR packet.
-  H264VcmPacket sps_pps_packet;
-  AddSps(&sps_pps_packet, 0, &data);
-  AddPps(&sps_pps_packet, 0, 1, &data);
-  sps_pps_packet.dataPtr = data.data();
-  sps_pps_packet.sizeBytes = data.size();
-  sps_pps_packet.video_header.width = 320;
-  sps_pps_packet.video_header.height = 240;
+  std::vector<uint8_t> data;
+  H264VcmPacket sps_packet;
+  AddSps(&sps_packet, 0, &data);
+  sps_packet.video_header.width = 320;
+  sps_packet.video_header.height = 240;
+  sps_packet.dataPtr = data.data();
+  sps_packet.sizeBytes = data.size();
   EXPECT_EQ(H264SpsPpsTracker::kInsert,
-            tracker_.CopyAndFixBitstream(&sps_pps_packet));
-  delete[] sps_pps_packet.dataPtr;
+            tracker_.CopyAndFixBitstream(&sps_packet));
+  delete[] sps_packet.dataPtr;
+  data.clear();
+
+  // Insert PPS
+  H264VcmPacket pps_packet;
+  AddPps(&pps_packet, 0, 1, &data);
+  pps_packet.dataPtr = data.data();
+  pps_packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert,
+            tracker_.CopyAndFixBitstream(&pps_packet));
+  delete[] pps_packet.dataPtr;
+  data.clear();
 
   H264VcmPacket idr_packet;
   idr_packet.video_header.is_first_packet_in_frame = true;
@@ -386,6 +417,236 @@ TEST_F(TestH264SpsPpsTracker, SaveRestoreWidthHeight) {
   EXPECT_EQ(320, idr_packet.width());
   EXPECT_EQ(240, idr_packet.height());
   delete[] idr_packet.dataPtr;
+}
+
+TEST_F(TestH264SpsPpsTracker, InBandSpsPpsGapInSeqNumNotInsertedBeforeIdr) {
+  std::vector<uint8_t> data;
+  // Insert SPS.
+  H264VcmPacket sps_packet;
+  AddSps(&sps_packet, 0, &data);
+  sps_packet.seqNum = 0;
+  sps_packet.dataPtr = data.data();
+  sps_packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert,
+            tracker_.CopyAndFixBitstream(&sps_packet));
+  delete[] sps_packet.dataPtr;
+  data.clear();
+
+  // Insert PPS
+  H264VcmPacket pps_packet;
+  AddPps(&pps_packet, 0, 1, &data);
+  pps_packet.seqNum = 1;
+  pps_packet.dataPtr = data.data();
+  pps_packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert,
+            tracker_.CopyAndFixBitstream(&pps_packet));
+  delete[] pps_packet.dataPtr;
+  data.clear();
+
+  // Insert IDR.
+  H264VcmPacket idr_packet;
+  idr_packet.video_header.is_first_packet_in_frame = true;
+  AddIdr(&idr_packet, 1);
+  data.insert(data.end(), {1, 2, 3});
+  idr_packet.seqNum = 3;
+  idr_packet.dataPtr = data.data();
+  idr_packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert,
+            tracker_.CopyAndFixBitstream(&idr_packet));
+  delete[] idr_packet.dataPtr;
+  EXPECT_EQ(1u, idr_packet.h264().nalus_length);
+}
+
+TEST_F(TestH264SpsPpsTracker, InBandSpsPpsSameTimestampNotInsertedBeforeIdr) {
+  std::vector<uint8_t> data;
+  // Insert SPS.
+  H264VcmPacket sps_packet;
+  AddSps(&sps_packet, 0, &data);
+  sps_packet.seqNum = 5675;
+  sps_packet.timestamp = 1342342;
+  sps_packet.dataPtr = data.data();
+  sps_packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert,
+            tracker_.CopyAndFixBitstream(&sps_packet));
+  delete[] sps_packet.dataPtr;
+  data.clear();
+
+  // Insert PPS
+  H264VcmPacket pps_packet;
+  AddPps(&pps_packet, 0, 1, &data);
+  pps_packet.seqNum = 5676;
+  pps_packet.timestamp = 1342342;
+  pps_packet.dataPtr = data.data();
+  pps_packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert,
+            tracker_.CopyAndFixBitstream(&pps_packet));
+  delete[] pps_packet.dataPtr;
+  data.clear();
+
+  // Insert IDR.
+  H264VcmPacket idr_packet;
+  idr_packet.video_header.is_first_packet_in_frame = true;
+  AddIdr(&idr_packet, 1);
+  data.insert(data.end(), {1, 2, 3});
+  idr_packet.seqNum = 5677;
+  idr_packet.timestamp = 1342342;
+  idr_packet.dataPtr = data.data();
+  idr_packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert,
+            tracker_.CopyAndFixBitstream(&idr_packet));
+  delete[] idr_packet.dataPtr;
+  EXPECT_EQ(1u, idr_packet.h264().nalus_length);
+}
+
+TEST_F(TestH264SpsPpsTracker, InBandSpsPpsDifferentTimestampInsertedBeforeIdr) {
+  std::vector<uint8_t> data;
+  // Insert SPS.
+  H264VcmPacket sps_packet;
+  AddSps(&sps_packet, 0, &data);
+  sps_packet.seqNum = 5675;
+  sps_packet.timestamp = 1342342;
+  sps_packet.dataPtr = data.data();
+  sps_packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert,
+            tracker_.CopyAndFixBitstream(&sps_packet));
+  delete[] sps_packet.dataPtr;
+  data.clear();
+
+  // Insert PPS
+  H264VcmPacket pps_packet;
+  AddPps(&pps_packet, 0, 1, &data);
+  pps_packet.seqNum = 5676;
+  pps_packet.timestamp = 1342342;
+  pps_packet.dataPtr = data.data();
+  pps_packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert,
+            tracker_.CopyAndFixBitstream(&pps_packet));
+  delete[] pps_packet.dataPtr;
+  data.clear();
+
+  // Insert IDR.
+  H264VcmPacket idr_packet;
+  idr_packet.video_header.is_first_packet_in_frame = true;
+  AddIdr(&idr_packet, 1);
+  data.insert(data.end(), {1, 2, 3});
+  idr_packet.seqNum = 5677;
+  idr_packet.timestamp = 1342343;
+  idr_packet.dataPtr = data.data();
+  idr_packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert,
+            tracker_.CopyAndFixBitstream(&idr_packet));
+  delete[] idr_packet.dataPtr;
+  EXPECT_EQ(3u, idr_packet.h264().nalus_length);
+}
+
+TEST_F(TestH264SpsPpsTracker,
+       NonVclPacketWithEndOfFrameFlagSet_ResetEndOfFrameFlag) {
+  std::vector<uint8_t> data;
+  H264VcmPacket sps_packet;
+  AddSps(&sps_packet, 0, &data);
+  sps_packet.video_header.is_last_packet_in_frame = true;
+  sps_packet.dataPtr = data.data();
+  sps_packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert,
+            tracker_.CopyAndFixBitstream(&sps_packet));
+  EXPECT_FALSE(sps_packet.is_last_packet_in_frame());
+  delete[] sps_packet.dataPtr;
+}
+
+TEST_F(TestH264SpsPpsTracker,
+       VclPacketWithEndOfFrameFlagSet_KeepEndOfFrameFlag) {
+  std::vector<uint8_t> data;
+  H264VcmPacket packet;
+  packet.h264().packetization_type = kH264StapA;
+  packet.video_header.is_first_packet_in_frame = true;
+  packet.video_header.is_last_packet_in_frame = true;
+
+  data.insert(data.end(), {0});     // First byte is ignored
+  data.insert(data.end(), {0, 2});  // Length of segment
+  AddSps(&packet, 13, &data);
+  data.insert(data.end(), {0, 2});  // Length of segment
+  AddPps(&packet, 13, 27, &data);
+  data.insert(data.end(), {0, 5});  // Length of segment
+  AddIdr(&packet, 27);
+  data.insert(data.end(), {H264::NaluType::kIdr, 2, 3, 2, 1});
+
+  packet.dataPtr = data.data();
+  packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert, tracker_.CopyAndFixBitstream(&packet));
+  EXPECT_TRUE(packet.is_last_packet_in_frame());
+  delete[] packet.dataPtr;
+}
+
+class TestH264SpsPpsTrackerInBandSpsPpsInsertionDisabled
+    : public TestH264SpsPpsTracker {
+ protected:
+  TestH264SpsPpsTrackerInBandSpsPpsInsertionDisabled()
+      : TestH264SpsPpsTracker("WebRTC-InsertInBandSpsPps/Disabled/") {}
+};
+
+TEST_F(TestH264SpsPpsTrackerInBandSpsPpsInsertionDisabled,
+       InBandSpsPpsDifferentTimestampNotInsertedBeforeIdr) {
+  std::vector<uint8_t> data;
+  // Insert SPS.
+  H264VcmPacket sps_packet;
+  AddSps(&sps_packet, 0, &data);
+  sps_packet.seqNum = 5675;
+  sps_packet.timestamp = 1342342;
+  sps_packet.dataPtr = data.data();
+  sps_packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert,
+            tracker_.CopyAndFixBitstream(&sps_packet));
+  delete[] sps_packet.dataPtr;
+  data.clear();
+
+  // Insert PPS
+  H264VcmPacket pps_packet;
+  AddPps(&pps_packet, 0, 1, &data);
+  pps_packet.seqNum = 5676;
+  pps_packet.timestamp = 1342342;
+  pps_packet.dataPtr = data.data();
+  pps_packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert,
+            tracker_.CopyAndFixBitstream(&pps_packet));
+  delete[] pps_packet.dataPtr;
+  data.clear();
+
+  // Insert IDR.
+  H264VcmPacket idr_packet;
+  idr_packet.video_header.is_first_packet_in_frame = true;
+  AddIdr(&idr_packet, 1);
+  data.insert(data.end(), {1, 2, 3});
+  idr_packet.seqNum = 5677;
+  idr_packet.timestamp = 1342343;
+  idr_packet.dataPtr = data.data();
+  idr_packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert,
+            tracker_.CopyAndFixBitstream(&idr_packet));
+  delete[] idr_packet.dataPtr;
+  EXPECT_EQ(1u, idr_packet.h264().nalus_length);
+}
+
+class TestH264SpsPpsTrackerResetEndOfFrameFlagOnNonVclPacketDisabled
+    : public TestH264SpsPpsTracker {
+ protected:
+  TestH264SpsPpsTrackerResetEndOfFrameFlagOnNonVclPacketDisabled()
+      : TestH264SpsPpsTracker(
+            "WebRTC-ResetEndOfFrameFlagOnNonVlcPacket/Disabled/") {}
+};
+
+TEST_F(TestH264SpsPpsTrackerResetEndOfFrameFlagOnNonVclPacketDisabled,
+       SpsPacketWithEndOfFrameFlagSet_KeepEndOfFrameFlag) {
+  std::vector<uint8_t> data;
+  H264VcmPacket sps_packet;
+  AddSps(&sps_packet, 0, &data);
+  sps_packet.video_header.is_last_packet_in_frame = true;
+  sps_packet.dataPtr = data.data();
+  sps_packet.sizeBytes = data.size();
+  EXPECT_EQ(H264SpsPpsTracker::kInsert,
+            tracker_.CopyAndFixBitstream(&sps_packet));
+  EXPECT_TRUE(sps_packet.is_last_packet_in_frame());
+  delete[] sps_packet.dataPtr;
+  data.clear();
 }
 
 }  // namespace video_coding

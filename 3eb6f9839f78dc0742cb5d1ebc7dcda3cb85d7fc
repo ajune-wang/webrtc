@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eceac872_1eabfa19",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-04T11:38:00Z",
+      "side": 1,
+      "message": "nit: This can be done as an initializer, making it possible to make ip_header_size const.",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 80
+      },
+      "revId": "3eb6f9839f78dc0742cb5d1ebc7dcda3cb85d7fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95701dab_74a5e3e6",
+        "filename": "test/network/network_emulation_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-04T11:38:00Z",
+      "side": 1,
+      "message": "super-nit: Could be nice to write this as 20+8, I don\u0027t think more explanation is needed, but it makis it trivial to figure out what part is IPv4 and what part is udp.",
+      "range": {
+        "startLine": 33,
+        "startChar": 33,
+        "endLine": 33,
+        "endChar": 35
+      },
+      "revId": "3eb6f9839f78dc0742cb5d1ebc7dcda3cb85d7fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

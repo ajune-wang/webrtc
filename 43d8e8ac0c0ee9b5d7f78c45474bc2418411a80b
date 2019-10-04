@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2f60f0c8_4c8a601a",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-04T12:30:49Z",
+      "side": 1,
+      "message": "Yes, this is essentially ConfigureProtection(), but instead of mutating red_payload_type/ulpfec_payload_type to -1 on error and then calling stream.sender_video-\u003eSetUlpfecConfig(), it\u0027s now a simple helper method to say if the config is valid or not. That signal is used to determine if ulpfec/red should be set in RTPSenderVideo::Config.",
+      "parentUuid": "e4dccffb_82d06584",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 0
+      },
+      "revId": "43d8e8ac0c0ee9b5d7f78c45474bc2418411a80b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "248608c3_4e3b9bdf",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2019-10-04T10:56:22Z",
       "side": 1,
       "message": "I wasn\u0027t aware of this trick to but an arbitrary code block where grammar expects an expression. I think I\u0027ve created separate helper functions for that in other cases. But unnamed function is clearer.",
+      "range": {
+        "startLine": 208,
+        "startChar": 21,
+        "endLine": 220,
+        "endChar": 10
+      },
+      "revId": "43d8e8ac0c0ee9b5d7f78c45474bc2418411a80b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe12e797_ac75119e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-04T12:30:49Z",
+      "side": 1,
+      "message": "Danil pointed this out to me at some point. I think in that case the argument had a deleted copy constructor which caused issues. Maybe I should do that for this struct too...",
+      "parentUuid": "248608c3_4e3b9bdf",
       "range": {
         "startLine": 208,
         "startChar": 21,
@@ -68,6 +116,30 @@
       "revId": "43d8e8ac0c0ee9b5d7f78c45474bc2418411a80b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf10cc40_4d81503f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-04T12:30:49Z",
+      "side": 1,
+      "message": "|field_trials_| does _not_ need to outlive the RTPSenderVideo object, but the others do. I\u0027ll add a comment.",
+      "parentUuid": "f4828912_0613f7fb",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 4
+      },
+      "revId": "43d8e8ac0c0ee9b5d7f78c45474bc2418411a80b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

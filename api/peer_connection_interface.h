@@ -268,6 +268,12 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
 
   enum ContinualGatheringPolicy { GATHER_ONCE, GATHER_CONTINUALLY };
 
+  enum PortPrunePolicy {
+    NO_PRUNE,                 // Do not prune.
+    PRUNE_BASED_ON_PRIORITY,  // Prune lower-priority ports.
+    KEEP_FIRST_AVAILABLE  // Keep the first available port in the same category.
+  };
+
   enum class RTCConfigurationType {
     // A configuration that is safer to use, despite not having the best
     // performance. Currently this is the default configuration.
@@ -479,7 +485,16 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
     // If set to true, only one preferred TURN allocation will be used per
     // network interface. UDP is preferred over TCP and IPv6 over IPv4. This
     // can be used to cut down on the number of candidate pairings.
+    // To be deprecated by the turn_port_prune_policy below.
     bool prune_turn_ports = false;
+
+    // The policy used to prune turn port.
+    PortPrunePolicy turn_port_prune_policy = NO_PRUNE;
+
+    PortPrunePolicy get_turn_port_prune_policy() {
+      return prune_turn_ports ? PRUNE_BASED_ON_PRIORITY
+                              : turn_port_prune_policy;
+    }
 
     // If set to true, this means the ICE transport should presume TURN-to-TURN
     // candidate pairs will succeed, even before a binding response is received.

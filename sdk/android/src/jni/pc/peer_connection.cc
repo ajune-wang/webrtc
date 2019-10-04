@@ -199,6 +199,8 @@ void JavaToNativeRTCConfiguration(
       Java_RTCConfiguration_getIceCandidatePoolSize(jni, j_rtc_config);
   rtc_config->prune_turn_ports =
       Java_RTCConfiguration_getPruneTurnPorts(jni, j_rtc_config);
+  rtc_config->turn_port_prune_policy =
+      JavaToNativePortPrunePolicy(jni, j_turn_port_prune_policy);
   rtc_config->presume_writable_when_fully_relayed =
       Java_RTCConfiguration_getPresumeWritableWhenFullyRelayed(jni,
                                                                j_rtc_config);

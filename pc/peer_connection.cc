@@ -758,6 +758,7 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
     bool prioritize_most_likely_ice_candidate_pairs;
     struct cricket::MediaConfig media_config;
     bool prune_turn_ports;
+    PortPrunePolicy turn_port_prune_policy;
     bool presume_writable_when_fully_relayed;
     bool enable_ice_renomination;
     bool redetermine_role_on_ice_restart;
@@ -787,67 +788,70 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
                 "Did you add something to RTCConfiguration and forget to "
                 "update operator==?");
   return type == o.type && servers == o.servers &&
-         bundle_policy == o.bundle_policy &&
-         rtcp_mux_policy == o.rtcp_mux_policy &&
-         tcp_candidate_policy == o.tcp_candidate_policy &&
-         candidate_network_policy == o.candidate_network_policy &&
-         audio_jitter_buffer_max_packets == o.audio_jitter_buffer_max_packets &&
-         audio_jitter_buffer_fast_accelerate ==
-             o.audio_jitter_buffer_fast_accelerate &&
-         audio_jitter_buffer_min_delay_ms ==
-             o.audio_jitter_buffer_min_delay_ms &&
-         audio_jitter_buffer_enable_rtx_handling ==
-             o.audio_jitter_buffer_enable_rtx_handling &&
-         ice_connection_receiving_timeout ==
-             o.ice_connection_receiving_timeout &&
-         ice_backup_candidate_pair_ping_interval ==
-             o.ice_backup_candidate_pair_ping_interval &&
-         continual_gathering_policy == o.continual_gathering_policy &&
-         certificates == o.certificates &&
-         prioritize_most_likely_ice_candidate_pairs ==
-             o.prioritize_most_likely_ice_candidate_pairs &&
-         media_config == o.media_config && disable_ipv6 == o.disable_ipv6 &&
-         disable_ipv6_on_wifi == o.disable_ipv6_on_wifi &&
-         max_ipv6_networks == o.max_ipv6_networks &&
-         disable_link_local_networks == o.disable_link_local_networks &&
-         enable_rtp_data_channel == o.enable_rtp_data_channel &&
-         screencast_min_bitrate == o.screencast_min_bitrate &&
-         combined_audio_video_bwe == o.combined_audio_video_bwe &&
-         enable_dtls_srtp == o.enable_dtls_srtp &&
-         ice_candidate_pool_size == o.ice_candidate_pool_size &&
-         prune_turn_ports == o.prune_turn_ports &&
-         presume_writable_when_fully_relayed ==
-             o.presume_writable_when_fully_relayed &&
-         enable_ice_renomination == o.enable_ice_renomination &&
-         redetermine_role_on_ice_restart == o.redetermine_role_on_ice_restart &&
-         surface_ice_candidates_on_ice_transport_type_changed ==
-             o.surface_ice_candidates_on_ice_transport_type_changed &&
-         ice_check_interval_strong_connectivity ==
-             o.ice_check_interval_strong_connectivity &&
-         ice_check_interval_weak_connectivity ==
-             o.ice_check_interval_weak_connectivity &&
-         ice_check_min_interval == o.ice_check_min_interval &&
-         ice_unwritable_timeout == o.ice_unwritable_timeout &&
-         ice_unwritable_min_checks == o.ice_unwritable_min_checks &&
-         ice_inactive_timeout == o.ice_inactive_timeout &&
-         stun_candidate_keepalive_interval ==
-             o.stun_candidate_keepalive_interval &&
-         ice_regather_interval_range == o.ice_regather_interval_range &&
-         turn_customizer == o.turn_customizer &&
-         sdp_semantics == o.sdp_semantics &&
-         network_preference == o.network_preference &&
-         active_reset_srtp_params == o.active_reset_srtp_params &&
-         use_media_transport == o.use_media_transport &&
-         use_media_transport_for_data_channels ==
-             o.use_media_transport_for_data_channels &&
-         use_datagram_transport == o.use_datagram_transport &&
-         use_datagram_transport_for_data_channels ==
-             o.use_datagram_transport_for_data_channels &&
-         use_datagram_transport_for_data_channels_receive_only ==
-             o.use_datagram_transport_for_data_channels_receive_only &&
-         crypto_options == o.crypto_options &&
-         offer_extmap_allow_mixed == o.offer_extmap_allow_mixed &&
-         turn_logging_id == o.turn_logging_id;
+             bundle_policy == o.bundle_policy &&
+             rtcp_mux_policy == o.rtcp_mux_policy &&
+             tcp_candidate_policy == o.tcp_candidate_policy &&
+             candidate_network_policy == o.candidate_network_policy &&
+             audio_jitter_buffer_max_packets ==
+                 o.audio_jitter_buffer_max_packets &&
+             audio_jitter_buffer_fast_accelerate ==
+                 o.audio_jitter_buffer_fast_accelerate &&
+             audio_jitter_buffer_min_delay_ms ==
+                 o.audio_jitter_buffer_min_delay_ms &&
+             audio_jitter_buffer_enable_rtx_handling ==
+                 o.audio_jitter_buffer_enable_rtx_handling &&
+             ice_connection_receiving_timeout ==
+                 o.ice_connection_receiving_timeout &&
+             ice_backup_candidate_pair_ping_interval ==
+                 o.ice_backup_candidate_pair_ping_interval &&
+             continual_gathering_policy == o.continual_gathering_policy &&
+             certificates == o.certificates &&
+             prioritize_most_likely_ice_candidate_pairs ==
+                 o.prioritize_most_likely_ice_candidate_pairs &&
+             media_config == o.media_config && disable_ipv6 == o.disable_ipv6 &&
+             disable_ipv6_on_wifi == o.disable_ipv6_on_wifi &&
+             max_ipv6_networks == o.max_ipv6_networks &&
+             disable_link_local_networks == o.disable_link_local_networks &&
+             enable_rtp_data_channel == o.enable_rtp_data_channel &&
+             screencast_min_bitrate == o.screencast_min_bitrate &&
+             combined_audio_video_bwe == o.combined_audio_video_bwe &&
+             enable_dtls_srtp == o.enable_dtls_srtp &&
+             ice_candidate_pool_size == o.ice_candidate_pool_size &&
+             prune_turn_ports == o.prune_turn_ports && turn_port_prune_policy =
+             o.turn_port_prune_policy &&
+             presume_writable_when_fully_relayed ==
+                 o.presume_writable_when_fully_relayed &&
+             enable_ice_renomination == o.enable_ice_renomination &&
+             redetermine_role_on_ice_restart ==
+                 o.redetermine_role_on_ice_restart &&
+             surface_ice_candidates_on_ice_transport_type_changed ==
+                 o.surface_ice_candidates_on_ice_transport_type_changed &&
+             ice_check_interval_strong_connectivity ==
+                 o.ice_check_interval_strong_connectivity &&
+             ice_check_interval_weak_connectivity ==
+                 o.ice_check_interval_weak_connectivity &&
+             ice_check_min_interval == o.ice_check_min_interval &&
+             ice_unwritable_timeout == o.ice_unwritable_timeout &&
+             ice_unwritable_min_checks == o.ice_unwritable_min_checks &&
+             ice_inactive_timeout == o.ice_inactive_timeout &&
+             stun_candidate_keepalive_interval ==
+                 o.stun_candidate_keepalive_interval &&
+             ice_regather_interval_range == o.ice_regather_interval_range &&
+             turn_customizer == o.turn_customizer &&
+             sdp_semantics == o.sdp_semantics &&
+             network_preference == o.network_preference &&
+             active_reset_srtp_params == o.active_reset_srtp_params &&
+             use_media_transport == o.use_media_transport &&
+             use_media_transport_for_data_channels ==
+                 o.use_media_transport_for_data_channels &&
+             use_datagram_transport == o.use_datagram_transport &&
+             use_datagram_transport_for_data_channels ==
+                 o.use_datagram_transport_for_data_channels &&
+             use_datagram_transport_for_data_channels_receive_only ==
+                 o.use_datagram_transport_for_data_channels_receive_only &&
+             crypto_options == o.crypto_options &&
+             offer_extmap_allow_mixed == o.offer_extmap_allow_mixed &&
+             turn_logging_id == o.turn_logging_id;
 }
 
 bool PeerConnectionInterface::RTCConfiguration::operator!=(
@@ -3621,6 +3625,7 @@ RTCError PeerConnection::SetConfiguration(
   modified_config.ice_candidate_pool_size =
       configuration.ice_candidate_pool_size;
   modified_config.prune_turn_ports = configuration.prune_turn_ports;
+  modified_config.turn_port_prune_policy = configuration.turn_port_prune_policy;
   modified_config.surface_ice_candidates_on_ice_transport_type_changed =
       configuration.surface_ice_candidates_on_ice_transport_type_changed;
   modified_config.ice_check_min_interval = configuration.ice_check_min_interval;
@@ -3692,7 +3697,7 @@ RTCError PeerConnection::SetConfiguration(
           rtc::Bind(&PeerConnection::ReconfigurePortAllocator_n, this,
                     stun_servers, turn_servers, modified_config.type,
                     modified_config.ice_candidate_pool_size,
-                    modified_config.prune_turn_ports,
+                    modified_config.get_turn_port_prune_policy(),
                     modified_config.turn_customizer,
                     modified_config.stun_candidate_keepalive_interval,
                     static_cast<bool>(local_description())))) {
@@ -3705,7 +3710,8 @@ RTCError PeerConnection::SetConfiguration(
   // triggers an ICE restart which will pick up the changes.
   if (modified_config.servers != configuration_.servers ||
       modified_config.type != configuration_.type ||
-      modified_config.prune_turn_ports != configuration_.prune_turn_ports) {
+      modified_config.get_turn_port_prune_policy() !=
+          configuration_.get_turn_port_prune_policy()) {
     transport_controller_->SetNeedsIceRestartFlag();
   }
 
@@ -5682,8 +5688,8 @@ PeerConnection::InitializePortAllocator_n(
   // properties set above.
   port_allocator_->SetConfiguration(
       stun_servers, std::move(turn_servers_copy),
-      configuration.ice_candidate_pool_size, configuration.prune_turn_ports,
-      configuration.turn_customizer,
+      configuration.ice_candidate_pool_size,
+      configuration.get_turn_port_prune_policy(), configuration.turn_customizer,
       configuration.stun_candidate_keepalive_interval);
 
   InitializePortAllocatorResult res;
@@ -5696,7 +5702,7 @@ bool PeerConnection::ReconfigurePortAllocator_n(
     const std::vector<cricket::RelayServerConfig>& turn_servers,
     IceTransportsType type,
     int candidate_pool_size,
-    bool prune_turn_ports,
+    PortPrunePolicy turn_port_prune_policy,
     webrtc::TurnCustomizer* turn_customizer,
     absl::optional<int> stun_candidate_keepalive_interval,
     bool have_local_description) {
@@ -5717,7 +5723,8 @@ bool PeerConnection::ReconfigurePortAllocator_n(
   // candidate filter set above.
   return port_allocator_->SetConfiguration(
       stun_servers, std::move(turn_servers_copy), candidate_pool_size,
-      prune_turn_ports, turn_customizer, stun_candidate_keepalive_interval);
+      turn_port_prune_policy, turn_customizer,
+      stun_candidate_keepalive_interval);
 }
 
 cricket::ChannelManager* PeerConnection::channel_manager() const {

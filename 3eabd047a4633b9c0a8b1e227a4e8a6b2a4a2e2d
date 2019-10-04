@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d09c83d6_dfb581a2",
+        "filename": "modules/audio_processing/voice_detection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-04T11:55:42Z",
+      "side": 1,
+      "message": "2019",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "3eabd047a4633b9c0a8b1e227a4e8a6b2a4a2e2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b019e44d_14680b40",
+        "filename": "modules/audio_processing/voice_detection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-04T11:55:42Z",
+      "side": 1,
+      "message": "How about just deleting the copy ctor and assignment operator?",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 30
+      },
+      "revId": "3eabd047a4633b9c0a8b1e227a4e8a6b2a4a2e2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef2e96c3_7b1921ca",
+        "filename": "modules/audio_processing/voice_detection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-04T11:55:42Z",
+      "side": 1,
+      "message": "2019",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "3eabd047a4633b9c0a8b1e227a4e8a6b2a4a2e2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

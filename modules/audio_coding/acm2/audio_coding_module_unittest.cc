@@ -1634,6 +1634,29 @@ TEST_F(AcmSetBitRateNewApi, OpusFromFormat_48khz_20ms_50kbps) {
   RunInner(40000, 60000);
 }
 
+// Verify that it works when the data and the encoder has a different number of
+// channels.
+TEST_F(AudioCodingModuleTestOldApi, WrongNumberOfChannels) {
+  audio_format_ = SdpAudioFormat({"multiopus",
+                                  48000,
+                                  6,
+                                  {{"minptime", "10"},
+                                   {"useinbandfec", "1"},
+                                   {"channel_mapping", "0,4,1,2,3,5"},
+                                   {"num_streams", "4"},
+                                   {"coupled_streams", "2"}}});
+
+  RegisterCodec();
+
+  for (size_t k = 0; k < 10; ++k) {
+    input_frame_.sample_rate_hz_ = 48000;
+    input_frame_.num_channels_ = 1;
+    input_frame_.samples_per_channel_ = 48000 * 10 / 1000;
+
+    InsertAudio();
+  }
+}
+
 // The result on the Android platforms is inconsistent for this test case.
 // On android_rel the result is different from android and android arm64 rel.
 #if defined(WEBRTC_ANDROID)

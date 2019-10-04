@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9256167f_4b09c851",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-04T11:57:25Z",
+      "side": 1,
+      "message": "Move to initializer expression. But the |ip_header_size| member can\u0027t be const, since the class has a (move) assignment operator.",
+      "parentUuid": "eceac872_1eabfa19",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 80
+      },
+      "revId": "3eb6f9839f78dc0742cb5d1ebc7dcda3cb85d7fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95701dab_74a5e3e6",
         "filename": "test/network/network_emulation_unittest.cc",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "3eb6f9839f78dc0742cb5d1ebc7dcda3cb85d7fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cd2f4b5_e70142a4",
+        "filename": "test/network/network_emulation_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-04T11:57:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95701dab_74a5e3e6",
+      "range": {
+        "startLine": 33,
+        "startChar": 33,
+        "endLine": 33,
+        "endChar": 35
+      },
+      "revId": "3eb6f9839f78dc0742cb5d1ebc7dcda3cb85d7fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

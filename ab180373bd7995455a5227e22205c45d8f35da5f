@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e4ee221_b9427dc7",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3440,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-04T14:27:41Z",
+      "side": 1,
+      "message": "In the other case below, TransceiverStableState holds the \"previous state\", but for created\u003dtrue there is no previous state, the \"previous state\" is that it will be deleted.\n\n... or is there? Arguably the previous states were null.\nWhy this might matter: In the case of addTrack() causing the transceiver to be used such that it must not be deleted, I suppose the right action for the \"rollback\" would be to null the mid. We still want it, we still want it to be assigned a mid in a following negotiation, but we don\u0027t want it to have a mid until then if rolling back.\n\nMakes me think: Instead of storing content.name and mline_index, would it be more accurate to store nullopt for these values?\n\nI feel like this deserves a comment.",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "562f1696_3a0b3459",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3441,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-04T14:27:41Z",
+      "side": 1,
+      "message": "This makes me think of a nasty edge-case worth testing.\n\nIf you receive a remote offer, then the spec says that any addTrack-created transceivers should be attached to the m\u003d sections.\nBut if you receive a remote offer and you only have an addTransceiver-created transceiver, then you must not attach it to the m\u003d section on offer, instead you must create a new transceiver. The addTransceiver-created can only be attached to an m\u003d section by the local side creating the offer.\n\nWEIRD EDGE CASE:\nLet\u0027s the transceiver gets created by a remote offer but before the offer is rolled back we invoke addTrack. Thus the transceiver is not fully rolled back. If another remote offer comes in, does this transceiver count as an \"addTrack-created transceiver\" or not?\n\nI would argue \"yes\", but it\u0027s not clear. +Steve what do you think?",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ffe7b2d_df1e6811",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3477,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-04T14:27:41Z",
+      "side": 1,
+      "message": "Can you add a comment explaining why we might already have a state for the transceiver? Notably it could have been added already above with created\u003dtrue, but perhaps this also guards against multiple offers being applied in a row or other things that I am not thinking of?\n\nI would assume that the content.name and mline_index couldn\u0027t change between offers, but I\u0027m not actually sure.",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee2e0909_f524b1d5",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3478,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-04T14:27:41Z",
+      "side": 1,
+      "message": "Is there any case where mid() would not be equal to content.name, except for the case where mid() is nullopt and content.name is the mid-to-be-assigned?\n\nWondering, because if the check is \"is this transceiver being assigned a mid right now?\" then a more readable version might be to check if mid() \u003d\u003d nullopt.",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6008c691_3bafec16",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3484,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-04T14:27:41Z",
+      "side": 1,
+      "message": "What would happen if multiple offers are applied in a row? Would we be able to successfully roll back multiple offers?\n\nShould there be test(s) for this scenario?",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "887051b3_9d5222f8",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 7811,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-04T14:27:41Z",
+      "side": 1,
+      "message": "There are various states that I wonder if they get properly rolled back or not.\n\nLike, what happens if the transport\u0027s port changes?\nWhat happens if the set of negotiated codecs change?\n\n+Steve, do you know how various m\u003d section attributes get trickled down and could potentially need to be rolled back?\n+Harald for spec guidance. \"Processing a Rollback\" (https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-25#section-5.7) is very high level, stuff like \"cancel proposed changes\" or \"Any resources or candidates that were allocated by the abandoned local description are discarded\".\nThere\u0027s also a part of webrtc-pc (https://w3c.github.io/webrtc-pc/#set-the-rtcsessiondescription) that says \"Restore the value of connection.[[SctpTransport]] to its value at the last stable signaling state.\"\n\nHow deep does/should the rabbit hole go? A rollback affects many things and SDP is complicated.",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41b7a4bc_5535e4f4",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-04T14:27:41Z",
+      "side": 1,
+      "message": "There is a special case when rolling back: addTrack() should be able to use a transceiver created this way, in which case it is no longer valid to roll it back.\n\nDo we have test coverage for this?\n1. addTrack can attach to \"created\" transceivers.\n2. If this happens then rollback will not roll that one back.",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77701aa5_d921230c",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-04T10:55:08Z",
+      "side": 1,
+      "message": "Check that it returns nullopt?",
+      "range": {
+        "startLine": 477,
+        "startChar": 2,
+        "endLine": 477,
+        "endChar": 24
+      },
+      "revId": "a63e3c0c30dc6b7821bdc74b9c9258104fe0f482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "add5edd9_1867c5b9",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-04T10:55:08Z",
+      "side": 1,
+      "message": "const ptr?",
+      "range": {
+        "startLine": 75,
+        "startChar": 48,
+        "endLine": 75,
+        "endChar": 58
+      },
+      "revId": "a63e3c0c30dc6b7821bdc74b9c9258104fe0f482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e95dd500_d379d382",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-04T10:55:08Z",
+      "side": 1,
+      "message": "const ref?",
+      "range": {
+        "startLine": 79,
+        "startChar": 33,
+        "endLine": 79,
+        "endChar": 49
+      },
+      "revId": "a63e3c0c30dc6b7821bdc74b9c9258104fe0f482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "2a2b5be1_9b3983c3",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-04T10:55:08Z",
+      "side": 1,
+      "message": "Sounds good.",
+      "parentUuid": "1d0fab74_381cc2a0",
+      "range": {
+        "startLine": 191,
+        "startChar": 20,
+        "endLine": 191,
+        "endChar": 34
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81a91339_b63e909a",
         "filename": "modules/audio_coding/neteq/decision_logic.cc",
         "patchSetId": 3
@@ -140,6 +164,30 @@
       "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3733438c_b9d53ab4",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-04T10:55:08Z",
+      "side": 1,
+      "message": "Let\u0027s do it in a follow-up cl :)",
+      "parentUuid": "24940a28_81875f35",
+      "range": {
+        "startLine": 199,
+        "startChar": 20,
+        "endLine": 199,
+        "endChar": 43
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -469,6 +517,30 @@
       "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c01bbe0_f1936c77",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-04T10:55:08Z",
+      "side": 1,
+      "message": "Not really. I also think we need to evaluate if it does any good. I thought that it subtracted the time stretched samples, but it seems like it subtracts what\u0027s left after time stretching.  I don\u0027t really understand why so let\u0027s keep it as is.",
+      "parentUuid": "18871af9_a82589b6",
+      "range": {
+        "startLine": 169,
+        "startChar": 15,
+        "endLine": 169,
+        "endChar": 30
+      },
+      "revId": "48239d9dfc0cd1c9c73f98569b04dfb563358278",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

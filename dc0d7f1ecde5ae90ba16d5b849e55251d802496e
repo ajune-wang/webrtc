@@ -70,6 +70,30 @@
       "revId": "dc0d7f1ecde5ae90ba16d5b849e55251d802496e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c344910_707d6256",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-04T08:37:29Z",
+      "side": 1,
+      "message": "Discussed offline. What happens, is that we get a probe result for the higher bitrate. But we also get a lot of packet losses, making the loss-based estimator reduce bandwidth. Since that effect is not what we\u0027re trying to test, check target bitrate before the loss-based estimator reacts.",
+      "parentUuid": "bb30b518_ecd7b6c1",
+      "range": {
+        "startLine": 680,
+        "startChar": 0,
+        "endLine": 680,
+        "endChar": 76
+      },
+      "revId": "dc0d7f1ecde5ae90ba16d5b849e55251d802496e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

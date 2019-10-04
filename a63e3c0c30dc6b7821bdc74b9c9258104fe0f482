@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "435a49fb_5512ad46",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-04T15:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77701aa5_d921230c",
+      "range": {
+        "startLine": 477,
+        "startChar": 2,
+        "endLine": 477,
+        "endChar": 24
+      },
+      "revId": "a63e3c0c30dc6b7821bdc74b9c9258104fe0f482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "add5edd9_1867c5b9",
         "filename": "modules/audio_coding/neteq/neteq_controller.h",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "14463c87_75b09da2",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-04T15:42:37Z",
+      "side": 1,
+      "message": "Not sure if it\u0027s worth it. I think a 3-member struct should be pretty efficient to copy.",
+      "parentUuid": "add5edd9_1867c5b9",
+      "range": {
+        "startLine": 75,
+        "startChar": 48,
+        "endLine": 75,
+        "endChar": 58
+      },
+      "revId": "a63e3c0c30dc6b7821bdc74b9c9258104fe0f482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e95dd500_d379d382",
         "filename": "modules/audio_coding/neteq/neteq_controller.h",
         "patchSetId": 5
@@ -68,6 +116,30 @@
       "revId": "a63e3c0c30dc6b7821bdc74b9c9258104fe0f482",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba1ef9ef_7102942c",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-04T15:42:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e95dd500_d379d382",
+      "range": {
+        "startLine": 79,
+        "startChar": 33,
+        "endLine": 79,
+        "endChar": 49
+      },
+      "revId": "a63e3c0c30dc6b7821bdc74b9c9258104fe0f482",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

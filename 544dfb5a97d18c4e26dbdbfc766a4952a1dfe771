@@ -22,6 +22,30 @@
       "revId": "544dfb5a97d18c4e26dbdbfc766a4952a1dfe771",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44a0748a_8f4f82d7",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-04T15:42:37Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "5a5885a2_9ec3035c",
+      "range": {
+        "startLine": 594,
+        "startChar": 22,
+        "endLine": 594,
+        "endChar": 48
+      },
+      "revId": "544dfb5a97d18c4e26dbdbfc766a4952a1dfe771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

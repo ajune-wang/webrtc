@@ -27,7 +27,14 @@ class NetEqSimulatorFactory {
   NetEqSimulatorFactory();
   ~NetEqSimulatorFactory();
   struct Config {
+    // The maximum allowed number of packets in the jitter buffer.
     int max_nr_packets_in_buffer = 0;
+    // The number of audio packets to insert at the start of the simulation.
+    int initial_dummy_packets = 0;
+    // The number of simulation steps to skip at the start of the simulation.
+    int skip_get_audio_events = 0;
+    // A WebRTC field trial string to be used during the simulation.
+    std::string field_trial_string;
   };
   // This function takes the same arguments as the neteq_rtpplay utility.
   std::unique_ptr<NetEqSimulator> CreateSimulator(int argc, char* argv[]);

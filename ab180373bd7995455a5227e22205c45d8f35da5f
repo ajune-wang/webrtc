@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "f1e52c94_173cc804",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3441,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-10-04T18:25:55Z",
+      "side": 1,
+      "message": "I think it counts as an addTrack-created transceiver.",
+      "parentUuid": "562f1696_3a0b3459",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ffe7b2d_df1e6811",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 7
@@ -104,6 +122,24 @@
     },
     {
       "key": {
+        "uuid": "b90c2590_d48174f8",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 7811,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-10-04T18:25:55Z",
+      "side": 1,
+      "message": "I think it might be worth addressing those in follow-up CLs as this is already a decent-sized change.\n\nIn practice I\u0027m not really sure how common it is to need to roll back changes to m\u003d sections rather than newly-added m\u003d sections.\n\nA side note, what is supposed to happen if a m\u003d section that was rejected is rolled back?",
+      "parentUuid": "887051b3_9d5222f8",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41b7a4bc_5535e4f4",
         "filename": "pc/peer_connection.h",
         "patchSetId": 7
@@ -115,6 +151,24 @@
       "writtenOn": "2019-10-04T14:27:41Z",
       "side": 1,
       "message": "There is a special case when rolling back: addTrack() should be able to use a transceiver created this way, in which case it is no longer valid to roll it back.\n\nDo we have test coverage for this?\n1. addTrack can attach to \"created\" transceivers.\n2. If this happens then rollback will not roll that one back.",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66d5a885_506a90fb",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-10-04T18:25:55Z",
+      "side": 1,
+      "message": "Yes, see RollbackKeepsTransceiverAndMid",
+      "parentUuid": "41b7a4bc_5535e4f4",
       "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

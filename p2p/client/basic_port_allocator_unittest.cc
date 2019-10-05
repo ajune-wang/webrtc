@@ -14,6 +14,7 @@
 #include <ostream>  // no-presubmit-check TODO(webrtc:8982)
 
 #include "absl/algorithm/container.h"
+#include "api/transport/enums.h"
 #include "p2p/base/basic_packet_socket_factory.h"
 #include "p2p/base/p2p_constants.h"
 #include "p2p/base/stun_port.h"
@@ -571,7 +572,7 @@ class BasicPortAllocatorTest : public FakeClockBase,
     allocator_.reset(new BasicPortAllocator(&network_manager_));
     allocator_->Initialize();
     allocator_->SetConfiguration(allocator_->stun_servers(),
-                                 allocator_->turn_servers(), 0, true);
+                                 allocator_->turn_servers(), 0, webrtc::PRUNE_BASED_ON_PRIORITY);
     AddTurnServers(kTurnUdpIntIPv6Addr, rtc::SocketAddress());
     AddTurnServers(kTurnUdpIntAddr, rtc::SocketAddress());
 
@@ -609,7 +610,7 @@ class BasicPortAllocatorTest : public FakeClockBase,
     allocator_.reset(new BasicPortAllocator(&network_manager_));
     allocator_->Initialize();
     allocator_->SetConfiguration(allocator_->stun_servers(),
-                                 allocator_->turn_servers(), 0, true);
+                                 allocator_->turn_servers(), 0, webrtc::PRUNE_BASED_ON_PRIORITY);
     AddTurnServers(kTurnUdpIntAddr, kTurnTcpIntAddr);
     allocator_->set_step_delay(kMinimumStepDelay);
     allocator_->set_flags(allocator().flags() |
@@ -656,7 +657,7 @@ class BasicPortAllocatorTest : public FakeClockBase,
     allocator_.reset(new BasicPortAllocator(&network_manager_));
     allocator_->Initialize();
     allocator_->SetConfiguration(allocator_->stun_servers(),
-                                 allocator_->turn_servers(), 0, true);
+                                 allocator_->turn_servers(), 0, webrtc::PRUNE_BASED_ON_PRIORITY);
     // Have both UDP/TCP and IPv4/IPv6 TURN ports.
     AddTurnServers(kTurnUdpIntAddr, kTurnTcpIntAddr);
     AddTurnServers(kTurnUdpIntIPv6Addr, kTurnTcpIntIPv6Addr);
@@ -2038,7 +2039,7 @@ TEST_F(BasicPortAllocatorTest, TestTransportInformationUpdated) {
   AddInterface(kClientAddr);
   int pool_size = 1;
   allocator_->SetConfiguration(allocator_->stun_servers(),
-                               allocator_->turn_servers(), pool_size, false);
+                               allocator_->turn_servers(), pool_size, webrtc::NO_PRUNE);
   const PortAllocatorSession* peeked_session = allocator_->GetPooledSession();
   ASSERT_NE(nullptr, peeked_session);
   EXPECT_EQ_SIMULATED_WAIT(true, peeked_session->CandidatesAllocationDone(),
@@ -2074,7 +2075,7 @@ TEST_F(BasicPortAllocatorTest, TestSetCandidateFilterAfterCandidatesGathered) {
   AddInterface(kClientAddr);
   int pool_size = 1;
   allocator_->SetConfiguration(allocator_->stun_servers(),
-                               allocator_->turn_servers(), pool_size, false);
+                               allocator_->turn_servers(), pool_size, webrtc::NO_PRUNE);
   const PortAllocatorSession* peeked_session = allocator_->GetPooledSession();
   ASSERT_NE(nullptr, peeked_session);
   EXPECT_EQ_SIMULATED_WAIT(true, peeked_session->CandidatesAllocationDone(),
@@ -2249,7 +2250,7 @@ TEST_F(BasicPortAllocatorTest, SetStunKeepaliveIntervalForPorts) {
   const int expected_stun_keepalive_interval = 123;
   AddInterface(kClientAddr);
   allocator_->SetConfiguration(allocator_->stun_servers(),
-                               allocator_->turn_servers(), pool_size, false,
+                               allocator_->turn_servers(), pool_size, webrtc::NO_PRUNE,
                                nullptr, expected_stun_keepalive_interval);
   auto* pooled_session = allocator_->GetPooledSession();
   ASSERT_NE(nullptr, pooled_session);
@@ -2272,7 +2273,7 @@ TEST_F(BasicPortAllocatorTest,
                            kDefaultAllocationTimeout, fake_clock);
   const int expected_stun_keepalive_interval = 321;
   allocator_->SetConfiguration(allocator_->stun_servers(),
-                               allocator_->turn_servers(), pool_size, false,
+                               allocator_->turn_servers(), pool_size, webrtc::NO_PRUNE,
                                nullptr, expected_stun_keepalive_interval);
   CheckStunKeepaliveIntervalOfAllReadyPorts(pooled_session,
                                             expected_stun_keepalive_interval);
@@ -2286,7 +2287,7 @@ TEST_F(BasicPortAllocatorTest,
   allocator_->set_flags(allocator().flags() |
                         PORTALLOCATOR_ENABLE_SHARED_SOCKET);
   allocator_->SetConfiguration(allocator_->stun_servers(),
-                               allocator_->turn_servers(), pool_size, false,
+                               allocator_->turn_servers(), pool_size, webrtc::NO_PRUNE,
                                nullptr, expected_stun_keepalive_interval);
   ASSERT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
   session_->StartGettingPorts();
@@ -2304,7 +2305,7 @@ TEST_F(BasicPortAllocatorTest,
   allocator_->set_flags(allocator().flags() &
                         ~(PORTALLOCATOR_ENABLE_SHARED_SOCKET));
   allocator_->SetConfiguration(allocator_->stun_servers(),
-                               allocator_->turn_servers(), pool_size, false,
+                               allocator_->turn_servers(), pool_size, webrtc::NO_PRUNE,
                                nullptr, expected_stun_keepalive_interval);
   ASSERT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
   session_->StartGettingPorts();

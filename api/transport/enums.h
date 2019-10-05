@@ -27,6 +27,13 @@ enum class IceTransportState {
   kClosed,
 };
 
+enum PortPrunePolicy {
+    NO_PRUNE,                 // Do not prune.
+    PRUNE_BASED_ON_PRIORITY,  // Prune lower-priority ports.
+    KEEP_FIRST_AVAILABLE  // Keep the first available port in the same category.
+};
+
+
 }  // namespace webrtc
 
 #endif  // API_TRANSPORT_ENUMS_H_

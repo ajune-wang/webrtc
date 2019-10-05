@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fd815345_28ccb43a",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96eaf030_31aed2ad",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 47
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "241d4596_274a8c8d",
         "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a41bb16d_1a9888b7",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "Thanks! Yes, you are right.",
+      "parentUuid": "241d4596_274a8c8d",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 47
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d777afb6_bc7e2086",
         "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2019-10-02T21:35:27Z",
       "side": 1,
       "message": "With multiple filters (one per capture) in AecState, how should the delay be computed to work well for the ResidualEchoEstimator? Mininum of all non-zero delays?",
+      "range": {
+        "startLine": 208,
+        "startChar": 26,
+        "endLine": 208,
+        "endChar": 55
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2c57aca_8b5c01a6",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "Ideally yes. But it becomes quite expensive to compute that, but since this is anyway for the nonlinear mode I think we can go for only using the minimum.",
+      "parentUuid": "d777afb6_bc7e2086",
       "range": {
         "startLine": 208,
         "startChar": 26,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "b15ededb_eb3c0110",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "All filters should have the same length. We maybe should make that more clear in the code.",
+      "parentUuid": "20f2aa0c_d4cab071",
+      "range": {
+        "startLine": 294,
+        "startChar": 46,
+        "endLine": 294,
+        "endChar": 76
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55072d63_da2035ae",
         "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
         "patchSetId": 6
@@ -105,6 +201,30 @@
       "writtenOn": "2019-10-02T21:35:27Z",
       "side": 1,
       "message": "same question as above about how to compute this delay in AecState.",
+      "range": {
+        "startLine": 295,
+        "startChar": 46,
+        "endLine": 295,
+        "endChar": 75
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52ca4b40_c9c9415b",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "Ideally yes. But it becomes quite expensive to compute that, but since this is anyway for the nonlinear mode I think we can go for only using the minimum.",
+      "parentUuid": "55072d63_da2035ae",
       "range": {
         "startLine": 295,
         "startChar": 46,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "d6260831_4af14518",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "We could. I would, however, prefer to keep it here as it is very specific to what is being done here, and not used elsewhere. \n\nI also looked at consolidating the functionality but I see no larger gains. Let\u0027s discuss it further though.",
+      "parentUuid": "e74b570b_d204bcac",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 315,
+        "endChar": 57
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "653ca80d_0dc7763e",
         "filename": "modules/audio_processing/aec3/residual_echo_estimator.h",
         "patchSetId": 6
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "4425435c_8af5ab9c",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "Oups. Sorry about that.",
+      "parentUuid": "653ca80d_0dc7763e",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 71
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e485633a_8cb6bcd8",
         "filename": "modules/audio_processing/aec3/residual_echo_estimator_unittest.cc",
         "patchSetId": 6
@@ -174,6 +342,30 @@
       "writtenOn": "2019-10-02T21:35:27Z",
       "side": 1,
       "message": "Is this a reasonable time to do something about this TODO, or is it best left for an unspecified future? Will there ever be a time to rewrite it, and if not, can we delete the test?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 56
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40b2065c_54e336d9",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "Good point! I made the test lest specific and again activated it.\n\nPTAL",
+      "parentUuid": "e485633a_8cb6bcd8",
       "range": {
         "startLine": 23,
         "startChar": 0,
@@ -255,6 +447,78 @@
     },
     {
       "key": {
+        "uuid": "7309245c_e7e56e3a",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f5b7df9_04c1054c",
+      "range": {
+        "startLine": 32,
+        "startChar": 30,
+        "endLine": 32,
+        "endChar": 40
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e34b0ff0_388ad276",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0075ccec_30ed095c",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d92e6ece_d83a89cc",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e600583b_e83c8d99",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 68
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74186592_b8d7722d",
         "filename": "modules/audio_processing/aec3/reverb_model.h",
         "patchSetId": 6
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "c7da2b1d_d08cdabc",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74186592_b8d7722d",
+      "range": {
+        "startLine": 34,
+        "startChar": 66,
+        "endLine": 34,
+        "endChar": 67
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1bafc2e_df532896",
         "filename": "modules/audio_processing/aec3/reverb_model.h",
         "patchSetId": 6
@@ -298,6 +586,30 @@
       "revId": "dc51a8619058ea69c6366349523be4475880cf63",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a00c6c55_f8eb19d7",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1bafc2e_df532896",
+      "range": {
+        "startLine": 37,
+        "startChar": 50,
+        "endLine": 37,
+        "endChar": 59
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -347,6 +659,54 @@
     },
     {
       "key": {
+        "uuid": "265cf5ca_e106221f",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bc83855_37606ef5",
+      "range": {
+        "startLine": 38,
+        "startChar": 48,
+        "endLine": 38,
+        "endChar": 71
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0c1808f1_ba932cf9",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cfdbef4_a32a1edc",
+      "range": {
+        "startLine": 38,
+        "startChar": 20,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa0558bf_c132090d",
         "filename": "modules/audio_processing/aec3/reverb_model.h",
         "patchSetId": 6
@@ -358,6 +718,30 @@
       "writtenOn": "2019-10-02T21:35:27Z",
       "side": 1,
       "message": "What is the purpose of having UpdateReverb* perfectly forward the function calls to UpdateReverbContributions* ?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 3
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35d2d06b_3869a974",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "The purpose is to only do minimal changes in this class, as it is not really related to the main purpose of this CL.\n\nHowever, I fully agree that this should be done, so I add that in this CL.\n\nPTAL",
+      "parentUuid": "aa0558bf_c132090d",
       "range": {
         "startLine": 40,
         "startChar": 0,
@@ -393,6 +777,30 @@
     },
     {
       "key": {
+        "uuid": "dccc2131_3716b914",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "606ee048_e32baba1",
+      "range": {
+        "startLine": 67,
+        "startChar": 33,
+        "endLine": 68,
+        "endChar": 77
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15731ab2_094a8b83",
         "filename": "modules/audio_processing/aec3/reverb_model.h",
         "patchSetId": 6
@@ -416,6 +824,30 @@
     },
     {
       "key": {
+        "uuid": "828f5374_b2c8c035",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15731ab2_094a8b83",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 53
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57b1aeb0_38c870c2",
         "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
         "patchSetId": 6
@@ -436,6 +868,30 @@
       "revId": "dc51a8619058ea69c6366349523be4475880cf63",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18f6a377_ed7a4152",
+        "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-05T21:55:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57b1aeb0_38c870c2",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 3
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -91,12 +91,9 @@ void PacedSender::SetPacingRates(DataRate pacing_rate, DataRate padding_rate) {
   pacing_controller_.SetPacingRates(pacing_rate, padding_rate);
 }
 
-void PacedSender::EnqueuePackets(
-    std::vector<std::unique_ptr<RtpPacketToSend>> packets) {
+void PacedSender::EnqueuePacket(std::unique_ptr<RtpPacketToSend> packet) {
   rtc::CritScope cs(&critsect_);
-  for (auto& packet : packets) {
-    pacing_controller_.EnqueuePacket(std::move(packet));
-  }
+  pacing_controller_.EnqueuePacket(std::move(packet));
 }
 
 void PacedSender::SetAccountForAudioPackets(bool account_for_audio) {

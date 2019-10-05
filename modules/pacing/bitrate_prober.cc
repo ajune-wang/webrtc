@@ -146,9 +146,7 @@ int BitrateProber::TimeUntilNextProbe(int64_t now_ms) {
 PacedPacketInfo BitrateProber::CurrentCluster() const {
   RTC_DCHECK(!clusters_.empty());
   RTC_DCHECK(probing_state_ == ProbingState::kActive);
-  PacedPacketInfo info = clusters_.front().pace_info;
-  info.probe_cluster_bytes_sent = clusters_.front().sent_bytes;
-  return info;
+  return clusters_.front().pace_info;
 }
 
 // Probe size is recommended based on the probe bitrate required. We choose

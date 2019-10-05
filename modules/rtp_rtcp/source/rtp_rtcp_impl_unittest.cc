@@ -178,18 +178,16 @@ class RtpRtcpImplTest : public ::testing::Test {
     sender_.impl_->SetSequenceNumber(kSequenceNumber);
     sender_.impl_->SetStorePacketsStatus(true, 100);
 
-    FieldTrialBasedConfig field_trials;
-    RTPSenderVideo::Config video_config;
-    video_config.clock = &clock_;
-    video_config.rtp_sender = sender_.impl_->RtpSender();
-    video_config.playout_delay_oracle = &playout_delay_oracle_;
-    video_config.field_trials = &field_trials;
-    sender_video_ = std::make_unique<RTPSenderVideo>(video_config);
+    sender_video_ = std::make_unique<RTPSenderVideo>(
+        &clock_, sender_.impl_->RtpSender(), nullptr, &playout_delay_oracle_,
+        nullptr, false, false, false, FieldTrialBasedConfig());
 
     memset(&codec_, 0, sizeof(VideoCodec));
     codec_.plType = 100;
     codec_.width = 320;
     codec_.height = 180;
+    sender_video_->RegisterPayloadType(codec_.plType, "VP8",
+                                       /*raw_payload=*/false);
 
     // Receive module.
     EXPECT_EQ(0, receiver_.impl_->SetSendingStatus(false));
@@ -226,9 +224,8 @@ class RtpRtcpImplTest : public ::testing::Test {
     const uint8_t payload[100] = {0};
     EXPECT_TRUE(module->impl_->OnSendingRtpFrame(0, 0, codec_.plType, true));
     EXPECT_TRUE(sender->SendVideo(VideoFrameType::kVideoFrameKey, codec_.plType,
-                                  VideoCodecType::kVideoCodecVP8, 0, 0, payload,
-                                  sizeof(payload), nullptr, &rtp_video_header,
-                                  0));
+                                  0, 0, payload, sizeof(payload), nullptr,
+                                  &rtp_video_header, 0));
   }
 
   void IncomingRtcpNack(const RtpRtcpModule* module, uint16_t sequence_number) {

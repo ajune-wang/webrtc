@@ -107,17 +107,15 @@ RTPSender::NonPacedPacketSender::NonPacedPacketSender(RTPSender* rtp_sender)
     : transport_sequence_number_(0), rtp_sender_(rtp_sender) {}
 RTPSender::NonPacedPacketSender::~NonPacedPacketSender() = default;
 
-void RTPSender::NonPacedPacketSender::EnqueuePackets(
-    std::vector<std::unique_ptr<RtpPacketToSend>> packets) {
-  for (auto& packet : packets) {
-    if (!packet->SetExtension<TransportSequenceNumber>(
-            ++transport_sequence_number_)) {
-      --transport_sequence_number_;
-    }
-    packet->ReserveExtension<TransmissionOffset>();
-    packet->ReserveExtension<AbsoluteSendTime>();
-    rtp_sender_->TrySendPacket(packet.get(), PacedPacketInfo());
+void RTPSender::NonPacedPacketSender::EnqueuePacket(
+    std::unique_ptr<RtpPacketToSend> packet) {
+  if (!packet->SetExtension<TransportSequenceNumber>(
+          ++transport_sequence_number_)) {
+    --transport_sequence_number_;
   }
+  packet->ReserveExtension<TransmissionOffset>();
+  packet->ReserveExtension<AbsoluteSendTime>();
+  rtp_sender_->TrySendPacket(packet.get(), PacedPacketInfo());
 }
 
 RTPSender::RTPSender(const RtpRtcp::Configuration& config)
@@ -343,9 +341,7 @@ int32_t RTPSender::ReSendPacket(uint16_t packet_id) {
     return -1;
   }
   packet->set_packet_type(RtpPacketToSend::Type::kRetransmission);
-  std::vector<std::unique_ptr<RtpPacketToSend>> packets;
-  packets.emplace_back(std::move(packet));
-  paced_sender_->EnqueuePackets(std::move(packets));
+  paced_sender_->EnqueuePacket(std::move(packet));
 
   return packet_size;
 }
@@ -680,27 +676,9 @@ bool RTPSender::SendToNetwork(std::unique_ptr<RtpPacketToSend> packet) {
     packet->set_capture_time_ms(now_ms);
   }
 
-  std::vector<std::unique_ptr<RtpPacketToSend>> packets;
-  packets.emplace_back(std::move(packet));
-  paced_sender_->EnqueuePackets(std::move(packets));
+  paced_sender_->EnqueuePacket(std::move(packet));
 
   return true;
-}
-
-void RTPSender::EnqueuePackets(
-    std::vector<std::unique_ptr<RtpPacketToSend>> packets) {
-  RTC_DCHECK(!packets.empty());
-  int64_t now_ms = clock_->TimeInMilliseconds();
-  for (auto& packet : packets) {
-    RTC_DCHECK(packet);
-    RTC_CHECK(packet->packet_type().has_value())
-        << "Packet type must be set before sending.";
-    if (packet->capture_time_ms() <= 0) {
-      packet->set_capture_time_ms(now_ms);
-    }
-  }
-
-  paced_sender_->EnqueuePackets(std::move(packets));
 }
 
 void RTPSender::RecomputeMaxSendDelay() {

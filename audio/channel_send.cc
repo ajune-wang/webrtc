@@ -344,10 +344,9 @@ class RtpPacketSenderProxy : public RtpPacketSender {
     rtp_packet_pacer_ = rtp_packet_pacer;
   }
 
-  void EnqueuePackets(
-      std::vector<std::unique_ptr<RtpPacketToSend>> packets) override {
+  void EnqueuePacket(std::unique_ptr<RtpPacketToSend> packet) override {
     rtc::CritScope lock(&crit_);
-    rtp_packet_pacer_->EnqueuePackets(std::move(packets));
+    rtp_packet_pacer_->EnqueuePacket(std::move(packet));
   }
 
  private:

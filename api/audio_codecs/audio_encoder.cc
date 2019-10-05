@@ -108,9 +108,4 @@ ANAStats AudioEncoder::GetANAStats() const {
   return ANAStats();
 }
 
-absl::optional<std::pair<TimeDelta, TimeDelta>>
-AudioEncoder::GetFrameLengthRange() const {
-  return absl::nullopt;
-}
-
 }  // namespace webrtc

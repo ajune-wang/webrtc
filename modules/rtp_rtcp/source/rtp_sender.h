@@ -148,12 +148,7 @@ class RTPSender {
   absl::optional<uint32_t> FlexfecSsrc() const;
 
   // Sends packet to |transport_| or to the pacer, depending on configuration.
-  // TODO(bugs.webrtc.org/XXX): Remove in favor of EnqueuePackets().
   bool SendToNetwork(std::unique_ptr<RtpPacketToSend> packet);
-
-  // Pass a set of packets to RtpPacketSender instance, for paced or immediate
-  // sending to the network.
-  void EnqueuePackets(std::vector<std::unique_ptr<RtpPacketToSend>> packets);
 
   // Called on update of RTP statistics.
   void RegisterRtpStatisticsCallback(StreamDataCountersCallback* callback);
@@ -185,8 +180,7 @@ class RTPSender {
     explicit NonPacedPacketSender(RTPSender* rtp_sender);
     virtual ~NonPacedPacketSender();
 
-    void EnqueuePackets(
-        std::vector<std::unique_ptr<RtpPacketToSend>> packets) override;
+    void EnqueuePacket(std::unique_ptr<RtpPacketToSend> packet) override;
 
    private:
     uint16_t transport_sequence_number_;

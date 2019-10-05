@@ -72,8 +72,7 @@ class PacedSender : public Module,
 
   // Adds the packet to the queue and calls PacketRouter::SendPacket() when
   // it's time to send.
-  void EnqueuePackets(
-      std::vector<std::unique_ptr<RtpPacketToSend>> packet) override;
+  void EnqueuePacket(std::unique_ptr<RtpPacketToSend> packet) override;
 
   // Methods implementing RtpPacketPacer:
 

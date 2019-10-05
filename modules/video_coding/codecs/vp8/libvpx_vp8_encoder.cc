@@ -1136,20 +1136,16 @@ int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image,
     encoded_images_[encoder_idx]._frameType = VideoFrameType::kVideoFrameDelta;
     CodecSpecificInfo codec_specific;
     const vpx_codec_cx_pkt_t* pkt = NULL;
-
-    // TODO(nisse): Introduce some buffer cache or buffer pool, to reduce
-    // allocations and/or copy operations.
-    auto buffer = EncodedImageBuffer::Create();
-
     while ((pkt = libvpx_->codec_get_cx_data(&encoders_[encoder_idx], &iter)) !=
            NULL) {
       switch (pkt->kind) {
         case VPX_CODEC_CX_FRAME_PKT: {
-          const size_t size = buffer->size();
+          const size_t size = encoded_images_[encoder_idx].size();
           const size_t new_size = pkt->data.frame.sz + size;
-          buffer->Realloc(new_size);
-          memcpy(&buffer->data()[size], pkt->data.frame.buf,
-                 pkt->data.frame.sz);
+          encoded_images_[encoder_idx].Allocate(new_size);
+          memcpy(&encoded_images_[encoder_idx].data()[size],
+                 pkt->data.frame.buf, pkt->data.frame.sz);
+          encoded_images_[encoder_idx].set_size(new_size);
           break;
         }
         default:
@@ -1162,7 +1158,6 @@ int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image,
           encoded_images_[encoder_idx]._frameType =
               VideoFrameType::kVideoFrameKey;
         }
-        encoded_images_[encoder_idx].SetEncodedData(buffer);
         encoded_images_[encoder_idx].SetSpatialIndex(stream_idx);
         PopulateCodecSpecific(&codec_specific, *pkt, stream_idx, encoder_idx,
                               input_image.timestamp());
@@ -1217,7 +1212,6 @@ VideoEncoder::EncoderInfo LibvpxVp8Encoder::GetEncoderInfo() const {
       rate_control_settings_.LibvpxVp8TrustedRateController();
   info.is_hardware_accelerated = false;
   info.has_internal_source = false;
-  info.supports_simulcast = true;
 
   const bool enable_scaling = encoders_.size() == 1 &&
                               vpx_configs_[0].rc_dropframe_thresh > 0 &&

@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '35431c51149c1a4dc1e21d7a170e9e1654faa7f7',
+  'chromium_revision': '2069e5ca81ebaaab239a71293ae2c8cadd772bdf',
 }
 
 deps = {
@@ -29,7 +29,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@33de9cd81520bf7e90469eaaaf4383dc37beff6a',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@7656f5d8ad19812587965fae94af67d01d60fa82',
+    'https://chromium.googlesource.com/chromium/src/third_party@276edb57116fc43699753c6072b82a61a0d9ebb2',
 
   'src/buildtools/linux64': {
     'packages': [

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c815f150_e1209404",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3440,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-05T11:26:55Z",
+      "side": 1,
+      "message": "Changed the implementation and test case RollbackKeepsTransceiverAndClearsMid accordingly",
+      "parentUuid": "5e4ee221_b9427dc7",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "562f1696_3a0b3459",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 7
@@ -54,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "013dcbea_0fe58469",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3441,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-05T11:26:55Z",
+      "side": 1,
+      "message": "This weird edge case has correct handling now. See RollbackKeepsTransceiverAndClearsMid",
+      "parentUuid": "f1e52c94_173cc804",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ffe7b2d_df1e6811",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 7
@@ -68,6 +104,24 @@
       "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d16593c_332a5d1f",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3477,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-05T11:26:55Z",
+      "side": 1,
+      "message": "It is a safety net that stable state doesn\u0027t get overwritten. Added testcase RollbackAfterMultipleSLD",
+      "parentUuid": "9ffe7b2d_df1e6811",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "1889ffc2_a00dc3a1",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3478,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-05T11:26:55Z",
+      "side": 1,
+      "message": "The check is generic to detect the case when either mid or mline_index is going to be changed in\n\u0027 transceiver-\u003einternal()-\u003eset_mid(content.name);\n  transceiver-\u003einternal()-\u003eset_mline_index(mline_index);\n\u0027\nI like it as it is more, not to have any assumptions about how the mid value can change.",
+      "parentUuid": "ee2e0909_f524b1d5",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6008c691_3bafec16",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 7
@@ -102,6 +174,24 @@
       "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db4ac4c1_a14f821a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3484,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-05T11:26:55Z",
+      "side": 1,
+      "message": "Should work. See testcase RollbackAfterMultipleSLD.",
+      "parentUuid": "6008c691_3bafec16",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "837d9944_d31f0043",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 7811,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-05T11:26:55Z",
+      "side": 1,
+      "message": "Right, spec could be much more detailed and I must say it didn\u0027t help to write the implementation at all. Most of the understanding on how it should work has come from side discussions.",
+      "parentUuid": "b90c2590_d48174f8",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41b7a4bc_5535e4f4",
         "filename": "pc/peer_connection.h",
         "patchSetId": 7
@@ -172,6 +280,24 @@
       "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dbf7353_55a52961",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-05T11:26:55Z",
+      "side": 1,
+      "message": "Renamed to RollbackKeepsTransceiverAndClearsMid.",
+      "parentUuid": "66d5a885_506a90fb",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

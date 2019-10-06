@@ -1,0 +1,312 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19935431_01c66d60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-06T10:58:50Z",
+      "side": 1,
+      "message": "You also promote it to api/.",
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f498250_811e5f48",
+        "filename": "modules/audio_coding/acm2/acm_remixing.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-06T10:58:50Z",
+      "side": 1,
+      "message": "Remove?",
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d3c7b0e_f100edd6",
+        "filename": "modules/audio_coding/acm2/acm_remixing.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-06T10:58:50Z",
+      "side": 1,
+      "message": "DCHECK_EQ instead? Otherwise the caller may have uninitialized data at the end of their buffer, and not notice.",
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51a2a6a7_ec4a5c9e",
+        "filename": "modules/audio_coding/acm2/acm_remixing.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-06T10:58:50Z",
+      "side": 1,
+      "message": "Invert this condition, and switch the if-else branches? That way you get rid of the negation.",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 20
+      },
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f12c03b_0d7abc68",
+        "filename": "modules/audio_coding/acm2/acm_remixing.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-06T10:58:50Z",
+      "side": 1,
+      "message": "Make the pointer const?",
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c987f094_3d2b6fd6",
+        "filename": "modules/audio_coding/acm2/acm_remixing.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-06T10:58:50Z",
+      "side": 1,
+      "message": "int32_t{...} is shorter, and the compiler guarantees that the conversion isn\u0027t narrowing, which makes the code easier to read.",
+      "range": {
+        "startLine": 27,
+        "startChar": 32,
+        "endLine": 28,
+        "endChar": 52
+      },
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aaf1e567_84449d11",
+        "filename": "modules/audio_coding/acm2/acm_remixing.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-06T10:58:50Z",
+      "side": 1,
+      "message": "Why do we need to support #channels \u003d\u003d 0, for either input or output? Seems useless, and possibly problematic (e.g. what do we do if input channels \u003d\u003d 0, input samples/channel \u003e 0, output channels \u003e 0).",
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8235092d_ff79ec58",
+        "filename": "modules/audio_coding/acm2/acm_remixing.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-06T10:58:50Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65e084ea_e6c37123",
+        "filename": "modules/audio_coding/acm2/acm_remixing.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-06T10:58:50Z",
+      "side": 1,
+      "message": "int32_t{...}",
+      "range": {
+        "startLine": 80,
+        "startChar": 32,
+        "endLine": 81,
+        "endChar": 52
+      },
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c31b1c2_0402c15c",
+        "filename": "modules/audio_coding/acm2/acm_remixing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-06T10:58:50Z",
+      "side": 1,
+      "message": "Replace these with an ArrayView?\n\nWhat happens if the output buffer length isn\u0027t exactly right? (Is it even allowed?)",
+      "range": {
+        "startLine": 22,
+        "startChar": 18,
+        "endLine": 23,
+        "endChar": 35
+      },
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b425278_350b6f9b",
+        "filename": "modules/audio_coding/acm2/acm_remixing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-06T10:58:50Z",
+      "side": 1,
+      "message": "Do you append to the vector, or replace its contents?\n\nIs the data in the output vector interleaved?\n\nWhat combinations of #input + #output channels are supported?",
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77b6cea5_997c1d0a",
+        "filename": "modules/audio_coding/acm2/acm_remixing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-06T10:58:50Z",
+      "side": 1,
+      "message": "Give this one and the one on line 21 the same name?",
+      "range": {
+        "startLine": 27,
+        "startChar": 34,
+        "endLine": 27,
+        "endChar": 39
+      },
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22d62d70_cd87509b",
+        "filename": "modules/audio_coding/acm2/acm_remixing_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-06T10:58:50Z",
+      "side": 1,
+      "message": "int16_t* const in_data \u003d in.mutable_data();\n\nMore cases of this below.",
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cec36575_ceb96c6e",
+        "filename": "modules/audio_coding/acm2/acm_remixing_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-06T10:58:50Z",
+      "side": 1,
+      "message": "Assert the entire vector contents at once with EXPECT_THAT. E.g.\n\n  EXPECT_THAT(out, AllOf(SizeIs(480), Each(1)));\n\nYou get better error messages that way. Test it with a bad assertion and see!\n\nDocs here: https://github.com/google/googletest/blob/master/googlemock/docs/cheat_sheet.md\n\nMore cases of this below... for the more complicated cases, it\u0027s probably easiest to make an `expected` vector and do\n\n  EXPECT_THAT(out, ElementsAreArray(expected));",
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7916b6bd_06a1fd21",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1641,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-06T10:58:50Z",
+      "side": 1,
+      "message": "The parentheses are unnecessary, since the evaluation order is left to right. But consider writing it\n\n    constexpr int kSamplesPerChannel \u003d 10 * kSampleRateHz / 1000;\n\nfor clarity.",
+      "range": {
+        "startLine": 1641,
+        "startChar": 37,
+        "endLine": 1641,
+        "endChar": 57
+      },
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1b1c1b5_279ae70a",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1695,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-06T10:58:50Z",
+      "side": 1,
+      "message": "This encoder will send mono unless I\u0027m mistaken. Opus always nominally has 2 channels in SDP, and works in stereo when the optional \"stereo\" parameter is set to 1.\n\nFor clarity, consider using L16 in the test instead. :-)",
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35c3edde_b563b8ef",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T13:25:05Z",
+      "side": 1,
+      "message": "Is |num_active_layers| the number of layers that are enabled by the API? That is, we will not report being limited if the application explicitly disabled a layer?",
+      "revId": "4f8bb1b20ee36794378779f68883e559b05ef948",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9b1273e_38302e68",
+        "filename": "modules/video_coding/utility/simulcast_rate_allocator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T13:25:05Z",
+      "side": 1,
+      "message": "What\u0027s 100000?",
+      "revId": "4f8bb1b20ee36794378779f68883e559b05ef948",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e91b16cc_cbc1731a",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T13:25:05Z",
+      "side": 1,
+      "message": "Does bw_limited_layers_ affect these booleans?\nIf not your change does not get propagated to the standard getStats()\u0027s qualityLimitationReason.\nIf you only want to fix the goog-metric, can you add a comment somewhere documenting that, otherwise update the quality_limitation_reason_tracker_ as well.\n\nCan we add tests to send_statistics_proxy_unittest.cc verifying which which metrics, old and/or new, we are affecting.",
+      "revId": "4f8bb1b20ee36794378779f68883e559b05ef948",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f16ec8a_11125532",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T13:25:05Z",
+      "side": 1,
+      "message": "Why are we no longer invoking UpdateAdaptationStats()? The OnAdaptationChanged() callback suggests something changed. Prior to this CL, if a callback caused a change, the stats_ would be updated accordingly. So the stats_ value could always be trusted to be up-to-date.\n\nWith this CL we have two callbacks that trigger a change, the first being OnAdaptationChanged() and the second one being OnBitrateAllocationUpdated(). Now neither updates stats_, you have to invoke GetStats() for it to update stats_.\n\nAnd if OnBitrateAllocationUpdated() triggers being limited, this is not reported in quality_limitation_reason_tracker_.\n\nCan you make stats_ update when something changes or argue for changing this pattern?",
+      "revId": "4f8bb1b20ee36794378779f68883e559b05ef948",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0195519c_72d8d0e6",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T13:25:05Z",
+      "side": 1,
+      "message": "What does content type have to do with whether or not we are limited? If we\u0027re limited we should report we\u0027re limited?",
+      "revId": "4f8bb1b20ee36794378779f68883e559b05ef948",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

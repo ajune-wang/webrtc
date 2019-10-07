@@ -262,6 +262,9 @@ class SendStatisticsProxy : public VideoStreamEncoderObserver,
   int last_num_simulcast_streams_ RTC_GUARDED_BY(crit_);
   std::array<bool, kMaxSpatialLayers> last_spatial_layer_use_
       RTC_GUARDED_BY(crit_);
+  bool bw_limited_layers_ RTC_GUARDED_BY(crit_);
+  AdaptationSteps cpu_counts_ RTC_GUARDED_BY(crit_);
+  AdaptationSteps quality_counts_ RTC_GUARDED_BY(crit_);
 
   struct EncoderChangeEvent {
     std::string previous_encoder_implementation;

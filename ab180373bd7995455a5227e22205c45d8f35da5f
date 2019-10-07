@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "732268ea_c2d0d07e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3440,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T14:49:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c815f150_e1209404",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "562f1696_3a0b3459",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 7
@@ -90,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "d9c2980a_d614c19e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3441,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T14:49:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "013dcbea_0fe58469",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ffe7b2d_df1e6811",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 7
@@ -125,6 +161,24 @@
     },
     {
       "key": {
+        "uuid": "060ddb96_c88c3f2d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3477,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T14:49:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7d16593c_332a5d1f",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee2e0909_f524b1d5",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 7
@@ -154,6 +208,24 @@
       "side": 1,
       "message": "The check is generic to detect the case when either mid or mline_index is going to be changed in\n\u0027 transceiver-\u003einternal()-\u003eset_mid(content.name);\n  transceiver-\u003einternal()-\u003eset_mline_index(mline_index);\n\u0027\nI like it as it is more, not to have any assumptions about how the mid value can change.",
       "parentUuid": "ee2e0909_f524b1d5",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5d0053f_ba098adc",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3478,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T14:49:09Z",
+      "side": 1,
+      "message": "Ok sounds good to me.",
+      "parentUuid": "1889ffc2_a00dc3a1",
       "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -248,6 +320,24 @@
     },
     {
       "key": {
+        "uuid": "9b33c666_701f1425",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 7811,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T14:49:09Z",
+      "side": 1,
+      "message": "Landing this first and then iterating sounds like a good idea. I also filed https://github.com/w3c/webrtc-pc/issues/2324, let\u0027s see what happens.",
+      "parentUuid": "837d9944_d31f0043",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41b7a4bc_5535e4f4",
         "filename": "pc/peer_connection.h",
         "patchSetId": 7
@@ -295,6 +385,24 @@
       "side": 1,
       "message": "Renamed to RollbackKeepsTransceiverAndClearsMid.",
       "parentUuid": "66d5a885_506a90fb",
+      "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1615e8ca_65516f96",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T14:49:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5dbf7353_55a52961",
       "revId": "ab180373bd7995455a5227e22205c45d8f35da5f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

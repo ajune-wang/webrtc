@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7fafe27_cb2e3e14",
+        "filename": "api/jsep.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T14:49:09Z",
+      "side": 1,
+      "message": "I believe this is safe to land without accidentally exposing it to blink, since there\u0027s an IDL type-check for RTCSdpType and \"rollback\" is not listed here:\nhttps://cs.chromium.org/chromium/src/third_party/blink/renderer/modules/peerconnection/rtc_session_description.idl?type\u003dcs\u0026q\u003dRTCSdpType+f:idl\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d34",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a8f9df7_e7d1a918",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T14:49:09Z",
+      "side": 1,
+      "message": "Unless I\u0027m mistaken, can you add a TODO comment saying that it should be possible to roll back the state of a transport to a previous snapshot but that we only support removing it?",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59c37490_e0c3475f",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 7819,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T14:49:09Z",
+      "side": 1,
+      "message": "Interesting... with this, the following sender could still be rolled back:\n\nsender \u003d pc.addTrack(track);\nsender.replaceTrack(null);  // maybe the \"mute\" button is pressed...\n\u003crollback\u003e\nsender.replaceTrack(track);  // \"unmute\", but the sender is no longer valid!\n\nHowever, if we only look at \"did addTrack get called?\" then the following would also be rolled back:\n\ntransceiver.sender.replaceTrack(track);\n\nI think the spec is under-specified here. Probably the right thing to do is \"if the sender has ever had a track, whether through addTrack or replaceTrack, then don\u0027t roll it back even if it\u0027s currently null\". What if some other property of the transceiver is modified, like the direction? I don\u0027t know.\n\nI\u0027m not proposing any changes to this CL until the spec gives is more guidance. I think the current code covers most cases and I asked here:\nhttps://github.com/w3c/webrtc-pc/issues/2324#issuecomment-539044177",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7ef3919_2d335270",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 5494,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T14:49:09Z",
+      "side": 1,
+      "message": "nit: srd_observer",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19602316_1a99f9f4",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T14:49:09Z",
+      "side": 1,
+      "message": "micro-nit: In the two tests that explicitly say \"InUnifiedPlan\" or \"InPlanB\", can you explicitly set the sdp_semantics member of RTCConfiguration being passed instead of relying on defaults? But don\u0027t bother in the remaining tests.",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0eb1a21_b71fcfc0",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1827,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T14:49:09Z",
+      "side": 1,
+      "message": "Can you add the same test but instead of \"pc.addTrack\" you do \"sender.replaceTrack\"?",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e8a47ce_dc3ea924",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1919,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-07T14:49:09Z",
+      "side": 1,
+      "message": "Should we have a test, either here or in a follow-up, that checks that if bundling is used and we successfully negotiate so we have a transport, that we if do another offer to create a second m\u003d section to bundle the same transport, that if that m\u003d section gets rolled back, the initial transceiver should still use the same transport? \"Rollback should not damage old m\u003d sections\u0027 transports\"",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

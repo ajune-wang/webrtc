@@ -22,6 +22,30 @@
       "revId": "dbd303978c7bba4266059ce11fa1f433b07acea5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "130f4b9a_ce7ee590",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-07T06:38:24Z",
+      "side": 1,
+      "message": "Mja, my view is that we want to separate the functionalities from AecState. This does not really add any more functionality to AecState. \n\nMoving this into ReverbModel is for sure doable but I think it would make reverbmodel more complex instead. For instance, it would introduce a new dependency of the number of render channels into the reverbmodel.\n\nAlso, since ReverbModel is also used in the ResidualEchoEstimator I think it should be a class that makes sense for both of these. In its current form, ReverbModel models and estimates the reverb, but if we would add this ReverbModel would in addition to that also be adding a reverb power in  a specific way to a signal power which is only usable for AecState and not for ResidualEchoEstimator.",
+      "parentUuid": "727cfa09_c63a3be1",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "dbd303978c7bba4266059ce11fa1f433b07acea5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

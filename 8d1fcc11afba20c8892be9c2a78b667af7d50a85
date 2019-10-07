@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5689d56f_1dbdb067",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-07T11:51:33Z",
+      "side": 1,
+      "message": "This one is also a candidate for inlining (trivial in non-debug builds).",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 3
+      },
+      "revId": "8d1fcc11afba20c8892be9c2a78b667af7d50a85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d57da03_88f5b63a",
+        "filename": "api/test/neteq_simulator_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-07T05:35:13Z",
+      "side": 1,
+      "message": "What\u0027s in these dummy packets? Encoded zeros? And at what time are they inserted?",
+      "revId": "81d3f0195595e12f30905cc8b3ae41eabce3d0f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81767a2d_1506a691",
+        "filename": "api/test/neteq_simulator_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-07T05:35:13Z",
+      "side": 1,
+      "message": "What does skipping a simulation step mean?",
+      "revId": "81d3f0195595e12f30905cc8b3ae41eabce3d0f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

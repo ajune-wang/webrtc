@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "448c8f6b_7ba0b60b",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-07T11:22:07Z",
+      "side": 1,
+      "message": "Moved to header. Though ideally we would then rename this ssrc() with lower-case first s, but there\u0027s plenty of call sites in different code bases so suggest doing that in a follow-up. Ditto for the other ones.\n\nWhich other accessors in particular are you thinking about?",
+      "parentUuid": "9b8b0194_0ca17856",
+      "range": {
+        "startLine": 299,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 1
+      },
+      "revId": "b49c7920aad54bca5fcd836f8aa8ebdd779245f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a723f4a4_d97cdf31",
         "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "b49c7920aad54bca5fcd836f8aa8ebdd779245f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b165852_3766d3c3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-07T11:22:07Z",
+      "side": 1,
+      "message": "Nope, I accidentally removed the lock from the wrong getter, fix now.",
+      "parentUuid": "a723f4a4_d97cdf31",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 39
+      },
+      "revId": "b49c7920aad54bca5fcd836f8aa8ebdd779245f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1489,11 +1489,9 @@ void VP9EncoderImpl::DeliverBufferedFrame(bool end_of_picture) {
     codec_specific_.codecSpecific.VP9.end_of_picture = end_of_picture;
 
     // No data partitioning in VP9, so 1 partition only.
-    int part_idx = 0;
     RTPFragmentationHeader frag_info;
     frag_info.VerifyAndAllocateFragmentationHeader(1);
-    frag_info.fragmentationOffset[part_idx] = 0;
-    frag_info.fragmentationLength[part_idx] = encoded_image_.size();
+    frag_info.Set(/*index=*/0, /*offset=*/0, /*length=*/encoded_image_.size());
 
     encoded_complete_callback_->OnEncodedImage(encoded_image_, &codec_specific_,
                                                &frag_info);

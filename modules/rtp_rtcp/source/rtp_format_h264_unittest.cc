@@ -61,8 +61,7 @@ RTPFragmentationHeader CreateFragmentation(rtc::ArrayView<const size_t> sizes) {
   fragmentation.VerifyAndAllocateFragmentationHeader(sizes.size());
   size_t offset = 0;
   for (size_t i = 0; i < sizes.size(); ++i) {
-    fragmentation.fragmentationOffset[i] = offset;
-    fragmentation.fragmentationLength[i] = sizes[i];
+    fragmentation.Set(i, /*offset=*/offset, /*length=*/sizes[i]);
     offset += sizes[i];
   }
   return fragmentation;
@@ -87,14 +86,14 @@ rtc::Buffer CreateFrame(size_t frame_size) {
 
 // Create frame with size deduced from fragmentation.
 rtc::Buffer CreateFrame(const RTPFragmentationHeader& fragmentation) {
-  size_t last_frame_index = fragmentation.fragmentationVectorSize - 1;
-  size_t frame_size = fragmentation.fragmentationOffset[last_frame_index] +
-                      fragmentation.fragmentationLength[last_frame_index];
+  size_t last_frame_index = fragmentation.Size() - 1;
+  size_t frame_size = fragmentation.Offset(last_frame_index) +
+                      fragmentation.Length(last_frame_index);
   rtc::Buffer frame = CreateFrame(frame_size);
   // Set some headers.
   // Tests can expect those are valid but shouln't rely on actual values.
   for (size_t i = 0; i <= last_frame_index; ++i) {
-    frame[fragmentation.fragmentationOffset[i]] = i + 1;
+    frame[fragmentation.Offset(i)] = i + 1;
   }
   return frame;
 }

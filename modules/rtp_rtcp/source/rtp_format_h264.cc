@@ -81,10 +81,9 @@ RtpPacketizerH264::RtpPacketizerH264(
   RTC_CHECK(packetization_mode == H264PacketizationMode::NonInterleaved ||
             packetization_mode == H264PacketizationMode::SingleNalUnit);
 
-  for (size_t i = 0; i < fragmentation.fragmentationVectorSize; ++i) {
-    const uint8_t* fragment =
-        payload.data() + fragmentation.fragmentationOffset[i];
-    const size_t fragment_length = fragmentation.fragmentationLength[i];
+  for (size_t i = 0; i < fragmentation.Size(); ++i) {
+    const uint8_t* fragment = payload.data() + fragmentation.Offset(i);
+    const size_t fragment_length = fragmentation.Length(i);
     input_fragments_.push_back(Fragment(fragment, fragment_length));
   }
 

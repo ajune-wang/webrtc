@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b18d9a96_76bc65c7",
+        "filename": "modules/audio_processing/voice_detection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-07T12:07:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d09c83d6_dfb581a2",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "3eabd047a4633b9c0a8b1e227a4e8a6b2a4a2e2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b019e44d_14680b40",
         "filename": "modules/audio_processing/voice_detection.cc",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1aa8aadd_8bf74894",
+        "filename": "modules/audio_processing/voice_detection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-07T12:07:31Z",
+      "side": 1,
+      "message": "Thanks! Done",
+      "parentUuid": "b019e44d_14680b40",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 30
+      },
+      "revId": "3eabd047a4633b9c0a8b1e227a4e8a6b2a4a2e2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef2e96c3_7b1921ca",
         "filename": "modules/audio_processing/voice_detection.h",
         "patchSetId": 10
@@ -68,6 +116,30 @@
       "revId": "3eabd047a4633b9c0a8b1e227a4e8a6b2a4a2e2d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e37f3bc7_2a36e3c3",
+        "filename": "modules/audio_processing/voice_detection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-07T12:07:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef2e96c3_7b1921ca",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "3eabd047a4633b9c0a8b1e227a4e8a6b2a4a2e2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

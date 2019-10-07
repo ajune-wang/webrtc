@@ -29,6 +29,26 @@ namespace {
 constexpr size_t kBlocksSinceConvergencedFilterInit = 10000;
 constexpr size_t kBlocksSinceConsistentEstimateInit = 10000;
 
+void ComputeReverb(ReverbModel* reverb_model,
+                   const SpectrumBuffer& spectrum_buffer,
+                   int delay_blocks,
+                   float reverb_decay,
+                   rtc::ArrayView<float> reverb_power_spectrum) {
+  int idx_at_delay =
+      spectrum_buffer.OffsetIndex(spectrum_buffer.read, delay_blocks);
+  int idx_past = spectrum_buffer.IncIndex(idx_at_delay);
+  const auto& X2 = spectrum_buffer.buffer[idx_at_delay][/*channel=*/0];
+  RTC_DCHECK_EQ(X2.size(), reverb_power_spectrum.size());
+  reverb_model->UpdateReverbNoFreqShaping(
+      spectrum_buffer.buffer[idx_past][/*channel=*/0], 1.0f, reverb_decay);
+
+  rtc::ArrayView<const float, kFftLengthBy2Plus1> reverb_power =
+      reverb_model->reverb();
+  for (size_t k = 0; k < X2.size(); ++k) {
+    reverb_power_spectrum[k] = X2[k] + reverb_power[k];
+  }
+}
+
 }  // namespace
 
 int AecState::instance_count_ = 0;
@@ -148,14 +168,13 @@ void AecState::Update(
       active_render && !SaturatedCapture() ? 1 : 0;
 
   std::array<float, kFftLengthBy2Plus1> X2_reverb;
-  render_reverb_.Apply(render_buffer.GetSpectrumBuffer(),
-                       delay_state_.DirectPathFilterDelay(), ReverbDecay(),
-                       X2_reverb);
+
+  ComputeReverb(&reverb_model_, render_buffer.GetSpectrumBuffer(),
+                delay_state_.DirectPathFilterDelay(), ReverbDecay(), X2_reverb);
 
   if (config_.echo_audibility.use_stationarity_properties) {
     // Update the echo audibility evaluator.
-    echo_audibility_.Update(render_buffer,
-                            render_reverb_.GetReverbContributionPowerSpectrum(),
+    echo_audibility_.Update(render_buffer, reverb_model_.reverb(),
                             delay_state_.DirectPathFilterDelay(),
                             delay_state_.ExternalDelayReported());
   }

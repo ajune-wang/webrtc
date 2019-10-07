@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b8b0194_0ca17856",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-07T06:55:42Z",
+      "side": 1,
+      "message": "Could be made inline. If it is called on any per-packet code path. (There are a few more accessors like this that become trivial).",
+      "range": {
+        "startLine": 299,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 1
+      },
+      "revId": "b49c7920aad54bca5fcd836f8aa8ebdd779245f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a723f4a4_d97cdf31",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-07T06:55:42Z",
+      "side": 1,
+      "message": "Still needed?",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 39
+      },
+      "revId": "b49c7920aad54bca5fcd836f8aa8ebdd779245f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -147,6 +147,7 @@ SendStatisticsProxy::SendStatisticsProxy(
       last_num_spatial_layers_(0),
       last_num_simulcast_streams_(0),
       last_spatial_layer_use_{},
+      bw_limited_layers_(false),
       uma_container_(
           new UmaSamplesContainer(GetUmaPrefix(content_type_), stats_, clock)) {
 }
@@ -739,6 +740,7 @@ VideoSendStream::Stats SendStatisticsProxy::GetStats() {
   stats_.media_bitrate_bps = media_byte_rate_tracker_.ComputeRate() * 8;
   stats_.quality_limitation_durations_ms =
       quality_limitation_reason_tracker_.DurationsMs();
+  UpdateAdaptationStats(cpu_counts_, quality_counts_);
   return stats_;
 }
 
@@ -1092,19 +1094,26 @@ void SendStatisticsProxy::OnAdaptationChanged(
         QualityLimitationReason::kNone);
   }
 
-  UpdateAdaptationStats(cpu_counts, quality_counts);
+  cpu_downscales_ = cpu_counts.num_resolution_reductions.value_or(-1);
+  quality_downscales_ = quality_counts.num_resolution_reductions.value_or(-1);
+
+  cpu_counts_ = cpu_counts;
+  quality_counts_ = quality_counts;
 }
 
 void SendStatisticsProxy::UpdateAdaptationStats(
     const AdaptationSteps& cpu_counts,
     const AdaptationSteps& quality_counts) {
-  cpu_downscales_ = cpu_counts.num_resolution_reductions.value_or(-1);
-  quality_downscales_ = quality_counts.num_resolution_reductions.value_or(-1);
-
   stats_.cpu_limited_resolution = cpu_counts.num_resolution_reductions > 0;
   stats_.cpu_limited_framerate = cpu_counts.num_framerate_reductions > 0;
-  stats_.bw_limited_resolution = quality_counts.num_resolution_reductions > 0;
-  stats_.bw_limited_framerate = quality_counts.num_framerate_reductions > 0;
+  stats_.bw_limited_resolution =
+      quality_counts.num_resolution_reductions > 0 ||
+      (bw_limited_layers_ &&
+       content_type_ == VideoEncoderConfig::ContentType::kRealtimeVideo);
+  stats_.bw_limited_framerate =
+      quality_counts.num_framerate_reductions > 0 ||
+      (bw_limited_layers_ &&
+       content_type_ == VideoEncoderConfig::ContentType::kScreen);
   stats_.quality_limitation_reason =
       quality_limitation_reason_tracker_.current_reason();
   // |stats_.quality_limitation_durations_ms| depends on the current time
@@ -1133,6 +1142,8 @@ void SendStatisticsProxy::OnBitrateAllocationUpdated(
   }
 
   rtc::CritScope lock(&crit_);
+
+  bw_limited_layers_ = allocation.is_bw_limited();
 
   if (spatial_layers != last_spatial_layer_use_) {
     // If the number of spatial layers has changed, the resolution change is

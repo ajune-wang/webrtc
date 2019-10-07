@@ -46,6 +46,30 @@
       "revId": "dbd303978c7bba4266059ce11fa1f433b07acea5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2cdca43_efd339d1",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-07T13:03:28Z",
+      "side": 1,
+      "message": "Discussed offline.\n\nsgtm to keep the CL like this.",
+      "parentUuid": "130f4b9a_ce7ee590",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "dbd303978c7bba4266059ce11fa1f433b07acea5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

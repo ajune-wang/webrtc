@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "727cfa09_c63a3be1",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-07T05:46:17Z",
+      "side": 1,
+      "message": "This moves more stuff into AecState, something we would like to avoid.\n\nWhat do you think about doing this in ReverbModel instead?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "dbd303978c7bba4266059ce11fa1f433b07acea5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

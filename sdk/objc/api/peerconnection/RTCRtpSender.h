@@ -35,6 +35,9 @@ RTC_OBJC_EXPORT
  */
 @property(nonatomic, copy, nullable) RTCMediaStreamTrack *track;
 
+/** Streams this sender is part. */
+@property(nonatomic, copy) NSArray<NSString *> *streamIds;
+
 /** The RTCDtmfSender accociated with the RTP sender. */
 @property(nonatomic, readonly, nullable) id<RTCDtmfSender> dtmfSender;
 

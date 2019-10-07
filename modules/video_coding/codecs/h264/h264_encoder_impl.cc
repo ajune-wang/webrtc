@@ -135,10 +135,10 @@ static void RtpFragmentize(EncodedImage* encoded_image,
       RTC_DCHECK_EQ(layerInfo.pBsBuf[layer_len + 1], start_code[1]);
       RTC_DCHECK_EQ(layerInfo.pBsBuf[layer_len + 2], start_code[2]);
       RTC_DCHECK_EQ(layerInfo.pBsBuf[layer_len + 3], start_code[3]);
-      frag_header->fragmentationOffset[frag] =
-          encoded_image->size() + layer_len + sizeof(start_code);
-      frag_header->fragmentationLength[frag] =
-          layerInfo.pNalLengthInByte[nal] - sizeof(start_code);
+      frag_header->Set(
+          frag,
+          /*offset=*/encoded_image->size() + layer_len + sizeof(start_code),
+          /*length=*/layerInfo.pNalLengthInByte[nal] - sizeof(start_code));
       layer_len += layerInfo.pNalLengthInByte[nal];
     }
     // Copy the entire layer's data (including start codes).

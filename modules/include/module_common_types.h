@@ -27,31 +27,48 @@ namespace webrtc {
 
 class RTC_EXPORT RTPFragmentationHeader {
  public:
-  RTPFragmentationHeader();
+  RTPFragmentationHeader() = default;
+  RTPFragmentationHeader(size_t num_fragments) : fragments_(num_fragments) {}
   RTPFragmentationHeader(const RTPFragmentationHeader&) = delete;
-  RTPFragmentationHeader(RTPFragmentationHeader&& other);
+  RTPFragmentationHeader(RTPFragmentationHeader&& other) = default;
   RTPFragmentationHeader& operator=(const RTPFragmentationHeader& other) =
       delete;
-  RTPFragmentationHeader& operator=(RTPFragmentationHeader&& other);
-  ~RTPFragmentationHeader();
+  RTPFragmentationHeader& operator=(RTPFragmentationHeader&& other) = default;
+  ~RTPFragmentationHeader() = default;
 
-  friend void swap(RTPFragmentationHeader& a, RTPFragmentationHeader& b);
+  friend void swap(RTPFragmentationHeader& a, RTPFragmentationHeader& b) {
+    swap(a.fragments_, b.fragments_);
+  }
+  friend bool operator==(const RTPFragmentationHeader& lhs,
+                         const RTPFragmentationHeader& rhs) {
+    return lhs.fragments_ == rhs.fragments_;
+  }
 
-  void CopyFrom(const RTPFragmentationHeader& src);
-  void VerifyAndAllocateFragmentationHeader(size_t size) { Resize(size); }
+  void CopyFrom(const RTPFragmentationHeader& src) {
+    fragments_ = src.fragments_;
+  }
+  void VerifyAndAllocateFragmentationHeader(size_t size) {
+    fragments_.resize(size);
+  }
 
-  void Resize(size_t size);
-  size_t Size() const { return fragmentationVectorSize; }
+  void Set(size_t index, size_t offset, size_t length) {
+    fragments_[index] = {offset, length};
+  }
 
-  size_t Offset(size_t index) const { return fragmentationOffset[index]; }
-  size_t Length(size_t index) const { return fragmentationLength[index]; }
+  size_t Size() const { return fragments_.size(); }
 
-  // TODO(danilchap): Move all members to private section,
-  // simplify by replacing raw arrays with single std::vector<Fragment>
-  uint16_t fragmentationVectorSize;  // Number of fragmentations
-  size_t* fragmentationOffset;       // Offset of pointer to data for each
-                                     // fragmentation
-  size_t* fragmentationLength;       // Data size for each fragmentation
+  size_t Offset(size_t index) const { return fragments_[index].offset; }
+  size_t Length(size_t index) const { return fragments_[index].length; }
+
+ private:
+  struct Fragment {
+    friend bool operator==(const Fragment& lhs, const Fragment& rhs) {
+      return lhs.offset == rhs.offset && lhs.length == rhs.length;
+    }
+    size_t offset = 0;
+    size_t length = 0;
+  };
+  std::vector<Fragment> fragments_;
 };
 
 // Interface used by the CallStats class to distribute call statistics.

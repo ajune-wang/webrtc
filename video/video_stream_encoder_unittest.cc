@@ -4722,8 +4722,7 @@ TEST_F(VideoStreamEncoderTest, DoesNotRewriteH264BitstreamWithOptimalSps) {
 
   RTPFragmentationHeader fragmentation;
   fragmentation.VerifyAndAllocateFragmentationHeader(1);
-  fragmentation.fragmentationOffset[0] = 4;
-  fragmentation.fragmentationLength[0] = sizeof(optimal_sps) - 4;
+  fragmentation.Set(0, 4, sizeof(optimal_sps) - 4);
 
   fake_encoder_.InjectEncodedImage(image, &codec_specific_info, &fragmentation);
   EXPECT_TRUE(sink_.WaitForFrame(kDefaultTimeoutMs));
@@ -4731,9 +4730,9 @@ TEST_F(VideoStreamEncoderTest, DoesNotRewriteH264BitstreamWithOptimalSps) {
   EXPECT_THAT(sink_.GetLastEncodedImageData(),
               testing::ElementsAreArray(optimal_sps));
   RTPFragmentationHeader last_fragmentation = sink_.GetLastFragmentation();
-  ASSERT_THAT(last_fragmentation.fragmentationVectorSize, 1U);
-  EXPECT_EQ(last_fragmentation.fragmentationOffset[0], 4U);
-  EXPECT_EQ(last_fragmentation.fragmentationLength[0], sizeof(optimal_sps) - 4);
+  ASSERT_THAT(last_fragmentation.Size(), 1U);
+  EXPECT_EQ(last_fragmentation.Offset(0), 4U);
+  EXPECT_EQ(last_fragmentation.Length(0), sizeof(optimal_sps) - 4);
 
   video_stream_encoder_->Stop();
 }
@@ -4755,8 +4754,7 @@ TEST_F(VideoStreamEncoderTest, RewritesH264BitstreamWithNonOptimalSps) {
 
   RTPFragmentationHeader fragmentation;
   fragmentation.VerifyAndAllocateFragmentationHeader(1);
-  fragmentation.fragmentationOffset[0] = 4;
-  fragmentation.fragmentationLength[0] = sizeof(original_sps) - 4;
+  fragmentation.Set(0, 4, sizeof(original_sps) - 4);
 
   fake_encoder_.InjectEncodedImage(image, &codec_specific_info, &fragmentation);
   EXPECT_TRUE(sink_.WaitForFrame(kDefaultTimeoutMs));
@@ -4764,9 +4762,9 @@ TEST_F(VideoStreamEncoderTest, RewritesH264BitstreamWithNonOptimalSps) {
   EXPECT_THAT(sink_.GetLastEncodedImageData(),
               testing::ElementsAreArray(optimal_sps));
   RTPFragmentationHeader last_fragmentation = sink_.GetLastFragmentation();
-  ASSERT_THAT(last_fragmentation.fragmentationVectorSize, 1U);
-  EXPECT_EQ(last_fragmentation.fragmentationOffset[0], 4U);
-  EXPECT_EQ(last_fragmentation.fragmentationLength[0], sizeof(optimal_sps) - 4);
+  ASSERT_THAT(last_fragmentation.Size(), 1U);
+  EXPECT_EQ(last_fragmentation.Offset(0), 4U);
+  EXPECT_EQ(last_fragmentation.Length(0), sizeof(optimal_sps) - 4);
 
   video_stream_encoder_->Stop();
 }

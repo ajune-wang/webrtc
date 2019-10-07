@@ -268,8 +268,7 @@ TEST_P(RtpSenderVideoTest, CheckH264FrameMarking) {
 
   RTPFragmentationHeader frag;
   frag.VerifyAndAllocateFragmentationHeader(1);
-  frag.fragmentationOffset[0] = 0;
-  frag.fragmentationLength[0] = sizeof(kFrame);
+  frag.Set(/*index=*/0, /*offset=*/0, /*length=*/sizeof(kFrame));
 
   RTPVideoHeader hdr;
   hdr.video_type_header.emplace<RTPVideoHeaderH264>().packetization_mode =

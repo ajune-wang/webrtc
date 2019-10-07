@@ -212,22 +212,21 @@ SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
 
 void SpsVuiRewriter::ParseOutgoingBitstreamAndRewriteSps(
     rtc::ArrayView<const uint8_t> buffer,
-    size_t num_nalus,
-    const size_t* nalu_offsets,
-    const size_t* nalu_lengths,
+    const RTPFragmentationHeader& nalus,
     const webrtc::ColorSpace* color_space,
     rtc::Buffer* output_buffer,
-    size_t* output_nalu_offsets,
-    size_t* output_nalu_lengths) {
+    RTPFragmentationHeader* output_nalus) {
+  RTC_DCHECK_EQ(nalus.Size(), output_nalus->Size());
   // Allocate some extra space for potentially adding a missing VUI.
-  output_buffer->EnsureCapacity(buffer.size() + num_nalus * kMaxVuiSpsIncrease);
+  output_buffer->EnsureCapacity(buffer.size() +
+                                nalus.Size() * kMaxVuiSpsIncrease);
 
   const uint8_t* prev_nalu_ptr = buffer.data();
   size_t prev_nalu_length = 0;
 
-  for (size_t i = 0; i < num_nalus; ++i) {
-    const uint8_t* nalu_ptr = buffer.data() + nalu_offsets[i];
-    const size_t nalu_length = nalu_lengths[i];
+  for (size_t i = 0; i < nalus.Size(); ++i) {
+    const uint8_t* nalu_ptr = buffer.data() + nalus.Offset(i);
+    const size_t nalu_length = nalus.Length(i);
 
     // Copy NAL unit start code.
     const uint8_t* start_code_ptr = prev_nalu_ptr + prev_nalu_length;
@@ -261,15 +260,15 @@ void SpsVuiRewriter::ParseOutgoingBitstreamAndRewriteSps(
           &sps, color_space, &output_nalu, Direction::kOutgoing);
       if (result == ParseResult::kVuiRewritten) {
         updated_sps = true;
-        output_nalu_offsets[i] = output_buffer->size();
-        output_nalu_lengths[i] = output_nalu.size();
+        output_nalus->Set(/*index=*/i, /*offset=*/output_buffer->size(),
+                          /*length=*/output_nalu.size());
         output_buffer->AppendData(output_nalu.data(), output_nalu.size());
       }
     }
 
     if (!updated_sps) {
-      output_nalu_offsets[i] = output_buffer->size();
-      output_nalu_lengths[i] = nalu_length;
+      output_nalus->Set(/*index=*/i, /*offset=*/output_buffer->size(),
+                        /*length=*/nalu_length);
       output_buffer->AppendData(nalu_ptr, nalu_length);
     }
 

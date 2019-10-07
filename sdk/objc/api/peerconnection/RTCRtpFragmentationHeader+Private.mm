@@ -18,14 +18,14 @@
         (const webrtc::RTPFragmentationHeader *)fragmentationHeader {
   if (self = [super init]) {
     if (fragmentationHeader) {
-      int count = fragmentationHeader->fragmentationVectorSize;
+      int count = fragmentationHeader->Size();
       NSMutableArray *offsets = [NSMutableArray array];
       NSMutableArray *lengths = [NSMutableArray array];
       NSMutableArray *timeDiffs = [NSMutableArray array];
       NSMutableArray *plTypes = [NSMutableArray array];
       for (int i = 0; i < count; ++i) {
-        [offsets addObject:@(fragmentationHeader->fragmentationOffset[i])];
-        [lengths addObject:@(fragmentationHeader->fragmentationLength[i])];
+        [offsets addObject:@(fragmentationHeader->Offset(i))];
+        [lengths addObject:@(fragmentationHeader->Length(i))];
         [timeDiffs addObject:@(0)];
         [plTypes addObject:@(0)];
       }
@@ -44,8 +44,9 @@
       std::unique_ptr<webrtc::RTPFragmentationHeader>(new webrtc::RTPFragmentationHeader);
   fragmentationHeader->VerifyAndAllocateFragmentationHeader(self.fragmentationOffset.count);
   for (NSUInteger i = 0; i < self.fragmentationOffset.count; ++i) {
-    fragmentationHeader->fragmentationOffset[i] = (size_t)self.fragmentationOffset[i].unsignedIntValue;
-    fragmentationHeader->fragmentationLength[i] = (size_t)self.fragmentationLength[i].unsignedIntValue;
+    fragmentationHeader->Set(i,
+                             (size_t)self.fragmentationOffset[i].unsignedIntValue,
+                             (size_t)self.fragmentationLength[i].unsignedIntValue);
   }
 
   return fragmentationHeader;

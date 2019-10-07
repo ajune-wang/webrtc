@@ -64,21 +64,26 @@ TEST(ResidualEchoEstimator, DISABLED_BasicTest) {
   std::vector<std::vector<std::vector<float>>> x(
       kNumBands, std::vector<std::vector<float>>(
                      kNumChannels, std::vector<float>(kBlockSize, 0.f)));
-  std::vector<std::array<float, kFftLengthBy2Plus1>> H2(10);
+  std::vector<std::vector<std::array<float, kFftLengthBy2Plus1>>> H2(
+      kNumChannels, std::vector<std::array<float, kFftLengthBy2Plus1>>(10));
   Random random_generator(42U);
   std::vector<SubtractorOutput> output(kNumChannels);
   std::array<float, kBlockSize> y;
   Aec3Fft fft;
   absl::optional<DelayEstimate> delay_estimate;
 
-  for (auto& H2_k : H2) {
-    H2_k.fill(0.01f);
+  for (auto& H2_ch : H2) {
+    for (auto& H2_k : H2_ch) {
+      H2_k.fill(0.01f);
+    }
+    H2_ch[2].fill(10.f);
+    H2_ch[2][0] = 0.1f;
   }
-  H2[2].fill(10.f);
-  H2[2][0] = 0.1f;
 
-  std::vector<float> h(GetTimeDomainLength(config.filter.main.length_blocks),
-                       0.f);
+  std::vector<std::vector<float>> h(
+      kNumChannels,
+      std::vector<float>(GetTimeDomainLength(config.filter.main.length_blocks),
+                         0.f));
 
   for (auto& subtractor_output : output) {
     subtractor_output.Reset();

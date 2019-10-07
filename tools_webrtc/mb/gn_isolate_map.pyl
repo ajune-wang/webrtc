@@ -73,6 +73,9 @@
   "modules_unittests": {
     "label": "//modules:modules_unittests",
     "type": "windowed_test_launcher",
+        "args": [
+      "--test-artifacts-dir", "${ISOLATED_OUTDIR}"
+    ],
   },
   "peerconnection_unittests": {
     "label": "//pc:peerconnection_unittests",

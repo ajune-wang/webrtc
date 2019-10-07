@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c668a0f4_71bb57fc",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-07T06:58:11Z",
+      "side": 1,
+      "message": "The EXPECTs were removed. Is the test intended to now not check any outputs, and only run through the motions to exercise code paths?",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 5
+      },
+      "revId": "c3d7f25e9f9a40aeee1592f69f1b5161a8723ab8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

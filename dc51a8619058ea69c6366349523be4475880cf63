@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "a9e6f4d6_4fdd9184",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-07T06:58:11Z",
+      "side": 1,
+      "message": "Ok!",
+      "parentUuid": "f2c57aca_8b5c01a6",
+      "range": {
+        "startLine": 208,
+        "startChar": 26,
+        "endLine": 208,
+        "endChar": 55
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20f2aa0c_d4cab071",
         "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
         "patchSetId": 6
@@ -187,6 +211,30 @@
       "revId": "dc51a8619058ea69c6366349523be4475880cf63",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a137cda1_80806ede",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-07T06:58:11Z",
+      "side": 1,
+      "message": "Ok, thanks!",
+      "parentUuid": "b15ededb_eb3c0110",
+      "range": {
+        "startLine": 294,
+        "startChar": 46,
+        "endLine": 294,
+        "endChar": 76
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -237,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "682606b8_d071cbb2",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-07T06:58:11Z",
+      "side": 1,
+      "message": "Ok!",
+      "parentUuid": "52ca4b40_c9c9415b",
+      "range": {
+        "startLine": 295,
+        "startChar": 46,
+        "endLine": 295,
+        "endChar": 75
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e74b570b_d204bcac",
         "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
         "patchSetId": 6
@@ -281,6 +353,30 @@
       "revId": "dc51a8619058ea69c6366349523be4475880cf63",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2de46c2f_e91b2215",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-07T06:58:11Z",
+      "side": 1,
+      "message": "If you see no larger gains, let\u0027s leave it as-is.",
+      "parentUuid": "d6260831_4af14518",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 315,
+        "endChar": 57
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -366,6 +462,30 @@
       "side": 1,
       "message": "Good point! I made the test lest specific and again activated it.\n\nPTAL",
       "parentUuid": "e485633a_8cb6bcd8",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 56
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1267edbb_b3d8956c",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-07T06:58:11Z",
+      "side": 1,
+      "message": "If so, please activate it and remove the TODO.",
+      "parentUuid": "40b2065c_54e336d9",
       "range": {
         "startLine": 23,
         "startChar": 0,
@@ -751,6 +871,30 @@
       "revId": "dc51a8619058ea69c6366349523be4475880cf63",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a16bbcd3_8f72f56c",
+        "filename": "modules/audio_processing/aec3/reverb_model.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-07T06:58:11Z",
+      "side": 1,
+      "message": "looks great!",
+      "parentUuid": "35d2d06b_3869a974",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 3
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -292,35 +292,30 @@ std::unique_ptr<RTPFragmentationHeader> FakeH264Encoder::EncodeHook(
       encoded_image->size() > kSpsSize + kPpsSize + 1) {
     const size_t kNumSlices = 3;
     fragmentation->VerifyAndAllocateFragmentationHeader(kNumSlices);
-    fragmentation->fragmentationOffset[0] = 0;
-    fragmentation->fragmentationLength[0] = kSpsSize;
-    fragmentation->fragmentationOffset[1] = kSpsSize;
-    fragmentation->fragmentationLength[1] = kPpsSize;
-    fragmentation->fragmentationOffset[2] = kSpsSize + kPpsSize;
-    fragmentation->fragmentationLength[2] =
-        encoded_image->size() - (kSpsSize + kPpsSize);
+    fragmentation->Set(/*index=*/0, /*offset=*/0, /*length=*/kSpsSize);
+    fragmentation->Set(/*index=*/1, /*offset=*/kSpsSize, /*length=*/kPpsSize);
+    fragmentation->Set(
+        /*index=*/2, /*offset=*/kSpsSize + kPpsSize,
+        /*length=*/encoded_image->size() - (kSpsSize + kPpsSize));
     const size_t kSpsNalHeader = 0x67;
     const size_t kPpsNalHeader = 0x68;
     const size_t kIdrNalHeader = 0x65;
-    encoded_image->data()[fragmentation->fragmentationOffset[0]] =
-        kSpsNalHeader;
-    encoded_image->data()[fragmentation->fragmentationOffset[1]] =
-        kPpsNalHeader;
-    encoded_image->data()[fragmentation->fragmentationOffset[2]] =
-        kIdrNalHeader;
+    encoded_image->data()[fragmentation->Offset(0)] = kSpsNalHeader;
+    encoded_image->data()[fragmentation->Offset(1)] = kPpsNalHeader;
+    encoded_image->data()[fragmentation->Offset(2)] = kIdrNalHeader;
   } else {
     const size_t kNumSlices = 1;
     fragmentation->VerifyAndAllocateFragmentationHeader(kNumSlices);
-    fragmentation->fragmentationOffset[0] = 0;
-    fragmentation->fragmentationLength[0] = encoded_image->size();
+    fragmentation->Set(/*index=*/0, /*offset=*/0,
+                       /*length=*/encoded_image->size());
     const size_t kNalHeader = 0x41;
-    encoded_image->data()[fragmentation->fragmentationOffset[0]] = kNalHeader;
+    encoded_image->data()[fragmentation->Offset(0)] = kNalHeader;
   }
   uint8_t value = 0;
-  int fragment_counter = 0;
+  size_t fragment_counter = 0;
   for (size_t i = 0; i < encoded_image->size(); ++i) {
-    if (fragment_counter == fragmentation->fragmentationVectorSize ||
-        i != fragmentation->fragmentationOffset[fragment_counter]) {
+    if (fragment_counter == fragmentation->Size() ||
+        i != fragmentation->Offset(fragment_counter)) {
       encoded_image->data()[i] = value++;
     } else {
       ++fragment_counter;

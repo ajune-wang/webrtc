@@ -700,10 +700,10 @@ bool RTPSenderVideo::SendVideo(
   const size_t num_packets = packetizer->NumPackets();
 
   size_t unpacketized_payload_size;
-  if (fragmentation && fragmentation->fragmentationVectorSize > 0) {
+  if (fragmentation && fragmentation->Size() > 0) {
     unpacketized_payload_size = 0;
-    for (uint16_t i = 0; i < fragmentation->fragmentationVectorSize; ++i) {
-      unpacketized_payload_size += fragmentation->fragmentationLength[i];
+    for (uint16_t i = 0; i < fragmentation->Size(); ++i) {
+      unpacketized_payload_size += fragmentation->Length(i);
     }
   } else {
     unpacketized_payload_size = payload_size;

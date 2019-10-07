@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8c8755ca_d4c1aa8c",
+        "filename": "api/test/neteq_simulator_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-07T11:19:01Z",
+      "side": 1,
+      "message": "These simulations are typically done with a replacement audio file, since we only store the headers of the rtp packets and not the payload. So the dummy packets don\u0027t contain any audio, they just take an appropriately sized piece of the replacement audio file. I added a comment to explain this.",
+      "parentUuid": "7d57da03_88f5b63a",
+      "revId": "81d3f0195595e12f30905cc8b3ae41eabce3d0f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81767a2d_1506a691",
         "filename": "api/test/neteq_simulator_factory.h",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "81d3f0195595e12f30905cc8b3ae41eabce3d0f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e41c3b03_aea94a11",
+        "filename": "api/test/neteq_simulator_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-07T11:19:01Z",
+      "side": 1,
+      "message": "I added a comment to explain this.",
+      "parentUuid": "81767a2d_1506a691",
+      "revId": "81d3f0195595e12f30905cc8b3ae41eabce3d0f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

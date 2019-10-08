@@ -79,7 +79,7 @@ int16_t WebRtcVad_FindMinimum(VadInstT* self,
       age[i]++;
     } else {
       // Too old value. Remove from memory and shift larger values downwards.
-      for (j = i; j < 16; j++) {
+      for (j = i; j < 15; j++) {
         smallest_values[j] = smallest_values[j + 1];
         age[j] = age[j + 1];
       }
@@ -151,6 +151,9 @@ int16_t WebRtcVad_FindMinimum(VadInstT* self,
     smallest_values[position] = feature_value;
     age[position] = 1;
   }
+  // At this point the value that could have been set to 101 above should now
+  // be back to the normal range again.
+  RTC_DCHECK_LE(age[15], 100);
 
   // Get |current_median|.
   if (self->frame_counter > 2) {

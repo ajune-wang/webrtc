@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25764d47_eba6888e",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-08T07:15:25Z",
+      "side": 1,
+      "message": "Remove this comment?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 56
+      },
+      "revId": "399fac19d329a82148c83cf617ae6c33089b1501",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

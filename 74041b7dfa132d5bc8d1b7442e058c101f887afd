@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8f9f49f4_fe1f4083",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-08T08:25:57Z",
+      "side": 1,
+      "message": "Which merits a mention in the commit message.",
+      "parentUuid": "19935431_01c66d60",
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f498250_811e5f48",
         "filename": "modules/audio_coding/acm2/acm_remixing.cc",
         "patchSetId": 1
@@ -250,6 +268,24 @@
       "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9704fbcd_82365845",
+        "filename": "modules/audio_coding/acm2/acm_remixing.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-08T08:25:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dfa27f13_4761c399",
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -531,6 +567,24 @@
       "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d9c8acc_3bbc0bb3",
+        "filename": "modules/audio_coding/acm2/acm_remixing_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-08T08:25:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9ff20592_a3b8ab5b",
+      "revId": "74041b7dfa132d5bc8d1b7442e058c101f887afd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

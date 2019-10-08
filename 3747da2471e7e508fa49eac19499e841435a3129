@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "767dd645_7a4f8fed",
+        "filename": "sdk/objc/api/peerconnection/RTCRtpSender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-10-08T08:18:03Z",
+      "side": 1,
+      "message": "This comments is a little confusing, do you mean \"Streams this sender is part of\"?\n\nI\u0027d say something like \"ID\u0027s of streams associated with this sender.\"",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 31
+      },
+      "revId": "3747da2471e7e508fa49eac19499e841435a3129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

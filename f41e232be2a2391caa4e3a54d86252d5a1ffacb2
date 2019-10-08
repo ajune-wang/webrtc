@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "9988c246_03b422c8",
+        "filename": "pc/jsep_session_description.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-10-08T07:11:20Z",
+      "side": 1,
+      "message": "This logic seems suspicious; if SdpDeserialize fails for any reason, and SdpType is kRollback, the result will be that we return std::move(jsep_desc), which could be anything (no guarantee on error).\nInstead write as \"if (sdp !\u003d \"\" \u0026\u0026 type \u003d\u003d SdpType::kRollback) { report error \u0026 return nullptr } else SdpDeserialize(....)\"",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a8f9df7_e7d1a918",
         "filename": "pc/jsep_transport_controller.h",
         "patchSetId": 8
@@ -30,6 +47,23 @@
       "writtenOn": "2019-10-07T14:49:09Z",
       "side": 1,
       "message": "Unless I\u0027m mistaken, can you add a TODO comment saying that it should be possible to roll back the state of a transport to a previous snapshot but that we only support removing it?",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "020ea089_a819dc8a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 7808,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-10-08T07:11:20Z",
+      "side": 1,
+      "message": "I\u0027m puzzled. This seems to me to destroy all transceivers for which a stable state existed, but to leave untouched the transceivers that have been created as part of the SLD/SRD that is being rolled back. This is contrary to what I\u0027d expect.\n\nWhere\u0027s the code that destroys / detaches newly added transceivers?",
       "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +87,23 @@
     },
     {
       "key": {
+        "uuid": "2a8de6b1_269313f7",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-10-08T07:11:20Z",
+      "side": 1,
+      "message": "Are you sure this needs to be a struct? In general I prefer to go with classes with accessors - especially for things like this, which are created in one place and only read afterwards.",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c7ef3919_2d335270",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 8
@@ -64,6 +115,23 @@
       "writtenOn": "2019-10-07T14:49:09Z",
       "side": 1,
       "message": "nit: srd_observer",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5025ea65_a6e34264",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 5496,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-10-08T07:11:20Z",
+      "side": 1,
+      "message": "There\u0027s no call to \"rollback\" in this test (or I missed it). If you\u0027re testing automatic rollback, please change the test to \"AutomaticRollbackVisitsStableState\".",
       "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -87,6 +155,23 @@
     },
     {
       "key": {
+        "uuid": "52c6de0e_742baa22",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-10-08T07:11:20Z",
+      "side": 1,
+      "message": "Can you add a test that says that the PC is functional after a rollback?\nIE \"create connection, SLD(offer that removes a track), rollback, check that media still flows\"?",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b0eb1a21_b71fcfc0",
         "filename": "pc/peer_connection_jsep_unittest.cc",
         "patchSetId": 8
@@ -104,6 +189,23 @@
     },
     {
       "key": {
+        "uuid": "a76e14f3_bb369a0f",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1861,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-10-08T07:11:20Z",
+      "side": 1,
+      "message": "Here too you\u0027re testing automatic rollback. Please name test accordingly.",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e8a47ce_dc3ea924",
         "filename": "pc/peer_connection_jsep_unittest.cc",
         "patchSetId": 8
@@ -115,6 +217,23 @@
       "writtenOn": "2019-10-07T14:49:09Z",
       "side": 1,
       "message": "Should we have a test, either here or in a follow-up, that checks that if bundling is used and we successfully negotiate so we have a transport, that we if do another offer to create a second m\u003d section to bundle the same transport, that if that m\u003d section gets rolled back, the initial transceiver should still use the same transport? \"Rollback should not damage old m\u003d sections\u0027 transports\"",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "744f08f7_90fcc2e7",
+        "filename": "pc/sdp_utils.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-10-08T07:11:20Z",
+      "side": 1,
+      "message": "Is it OK to leave session_id() and session_version() fields blank when you clone a rollback?\nIf not, initialize the clone with a null description.",
       "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

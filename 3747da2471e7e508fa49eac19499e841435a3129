@@ -116,6 +116,30 @@
       "revId": "3747da2471e7e508fa49eac19499e841435a3129",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfb0a16e_d692568e",
+        "filename": "sdk/objc/api/peerconnection/RTCRtpSender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 9881
+      },
+      "writtenOn": "2019-10-08T09:43:27Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "767dd645_7a4f8fed",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 31
+      },
+      "revId": "3747da2471e7e508fa49eac19499e841435a3129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

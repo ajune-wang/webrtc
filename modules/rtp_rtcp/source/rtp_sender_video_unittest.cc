@@ -522,13 +522,10 @@ void RtpSenderVideoTest::PopulateGenericFrameDescriptor(int version) {
   EXPECT_EQ(0, rtp_sender_.RegisterRtpHeaderExtension(ext_type, ext_id));
 
   RTPVideoHeader hdr;
-  RTPVideoHeader::GenericDescriptorInfo& generic = hdr.generic.emplace();
-  generic.frame_id = kFrameId;
-  generic.temporal_index = 3;
-  generic.spatial_index = 2;
-  generic.higher_spatial_layers.push_back(4);
-  generic.dependencies.push_back(kFrameId - 1);
-  generic.dependencies.push_back(kFrameId - 500);
+  hdr.frame_id = kFrameId;
+  hdr.frame_dependencies = {kFrameId - 1, kFrameId - 500};
+  hdr.temporal_index = 3;
+  hdr.spatial_index = 2;
   rtp_sender_video_.SendVideo(VideoFrameType::kVideoFrameDelta, kPayload, kType,
                               kTimestamp, 0, kFrame, sizeof(kFrame), nullptr,
                               &hdr, kDefaultExpectedRetransmissionTimeMs);
@@ -544,11 +541,11 @@ void RtpSenderVideoTest::PopulateGenericFrameDescriptor(int version) {
                     .GetExtension<RtpGenericFrameDescriptorExtension01>(
                         &descriptor_wire));
   }
-  EXPECT_EQ(static_cast<uint16_t>(generic.frame_id), descriptor_wire.FrameId());
-  EXPECT_EQ(generic.temporal_index, descriptor_wire.TemporalLayer());
+  EXPECT_EQ(descriptor_wire.FrameId(), kFrameId & 0xFFFF);
+  EXPECT_EQ(descriptor_wire.TemporalLayer(), hdr.temporal_index);
+  EXPECT_EQ(descriptor_wire.SpatialLayer(), hdr.spatial_index);
   EXPECT_THAT(descriptor_wire.FrameDependenciesDiffs(), ElementsAre(1, 500));
-  uint8_t spatial_bitmask = 0x14;
-  EXPECT_EQ(spatial_bitmask, descriptor_wire.SpatialLayersBitmask());
+  EXPECT_EQ(descriptor_wire.SpatialLayersBitmask(), 0b100);
 }
 
 TEST_P(RtpSenderVideoTest, PopulateGenericFrameDescriptor00) {
@@ -581,8 +578,7 @@ void RtpSenderVideoTest::
   vp8.tl0PicIdx = 13;
   vp8.temporalIdx = 1;
   vp8.keyIdx = 2;
-  RTPVideoHeader::GenericDescriptorInfo& generic = hdr.generic.emplace();
-  generic.frame_id = kFrameId;
+  hdr.frame_id = kFrameId;
   rtp_sender_video_.SendVideo(VideoFrameType::kVideoFrameDelta, kPayload,
                               VideoCodecType::kVideoCodecVP8, kTimestamp, 0,
                               kFrame, sizeof(kFrame), nullptr, &hdr,

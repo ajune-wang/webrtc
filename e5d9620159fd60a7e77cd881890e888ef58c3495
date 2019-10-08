@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6856cd20_37fd4157",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-08T14:27:33Z",
+      "side": 1,
+      "message": "My changes are hidden by the rebase. Here is the diff between ToT from your CL [1] and my changes:\n - |H2| and |h| are given an extra dimension of |num_capture_channels|.\n - |H2| is initialized identically in all dimensions.\n - |aec_state| and |output| are now correctly initialized with |num_capture_channels| instead of |num_render_channels|.\n\n\n@@ -13,7 +13,7 @@\n       constexpr size_t kNumBands \u003d NumBandsForRate(kSampleRateHz);\n       EchoCanceller3Config config;\n       ResidualEchoEstimator estimator(config, num_render_channels);\n-      AecState aec_state(config, num_render_channels);\n+      AecState aec_state(config, num_capture_channels);\n       std::unique_ptr\u003cRenderDelayBuffer\u003e render_delay_buffer(\n           RenderDelayBuffer::Create(config, kSampleRateHz,\n                                     num_render_channels));\n@@ -28,18 +28,24 @@\n           kNumBands,\n           std::vector\u003cstd::vector\u003cfloat\u003e\u003e(num_render_channels,\n                                           std::vector\u003cfloat\u003e(kBlockSize, 0.f)));\n-      std::vector\u003cstd::array\u003cfloat, kFftLengthBy2Plus1\u003e\u003e H2(10);\n+      std::vector\u003cstd::vector\u003cstd::array\u003cfloat, kFftLengthBy2Plus1\u003e\u003e\u003e H2(\n+          num_capture_channels,\n+          std::vector\u003cstd::array\u003cfloat, kFftLengthBy2Plus1\u003e\u003e(10));\n       Random random_generator(42U);\n-      std::vector\u003cSubtractorOutput\u003e output(num_render_channels);\n+      std::vector\u003cSubtractorOutput\u003e output(num_capture_channels);\n       std::array\u003cfloat, kBlockSize\u003e y;\n       absl::optional\u003cDelayEstimate\u003e delay_estimate;\n-      for (auto\u0026 H2_k : H2) {\n-        H2_k.fill(0.01f);\n+      for (auto\u0026 H2_ch : H2) {\n+        for (auto\u0026 H2_k : H2_ch) {\n+          H2_k.fill(0.01f);\n+        }\n+        H2_ch[2].fill(10.f);\n+        H2_ch[2][0] \u003d 0.1f;\n       }\n-      H2[2].fill(10.f);\n-      H2[2][0] \u003d 0.1f;\n-      std::vector\u003cfloat\u003e h(\n-          GetTimeDomainLength(config.filter.main.length_blocks), 0.f);\n+      std::vector\u003cstd::vector\u003cfloat\u003e\u003e h(\n+          num_capture_channels,\n+          std::vector\u003cfloat\u003e(\n+              GetTimeDomainLength(config.filter.main.length_blocks), 0.f));\n       for (auto\u0026 subtractor_output : output) {\n         subtractor_output.Reset();\n         subtractor_output.s_main.fill(100.f);\n\n[1] https://webrtc-review.googlesource.com/c/src/+/155361",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 0
+      },
+      "revId": "e5d9620159fd60a7e77cd881890e888ef58c3495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

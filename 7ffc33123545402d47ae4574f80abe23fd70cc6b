@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3c2c513b_c400d5e1",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-08T14:27:33Z",
+      "side": 1,
+      "message": "Great point, thank you! Updated!\n\nI also updated and renamed the Dumper outputs, from dumping channel 0 to dumping these aggregated bools. It will require changes to the Python analysis scripts at some point, but I think it makes sense since this what AecState actually makes decisions based on.",
+      "parentUuid": "f3b1a08b_51a661ab",
+      "range": {
+        "startLine": 206,
+        "startChar": 28,
+        "endLine": 206,
+        "endChar": 49
+      },
+      "revId": "7ffc33123545402d47ae4574f80abe23fd70cc6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e18136e_1f22b79c",
         "filename": "modules/audio_processing/aec3/aec_state.h",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2019-10-08T08:39:48Z",
       "side": 1,
       "message": "Please instead move this logic to the update method, and let that produce a max_echo_path_gain_ which is returned by this getter.\n\nThe current construct makes this more heavyweight and would increase overall complexity if it is called several times (which I think it is).",
+      "range": {
+        "startLine": 61,
+        "startChar": 10,
+        "endLine": 61,
+        "endChar": 28
+      },
+      "revId": "7ffc33123545402d47ae4574f80abe23fd70cc6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eac8542_880f225a",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-08T14:27:33Z",
+      "side": 1,
+      "message": "It is only used once, inside aec_state.\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/aec3/aec_state.cc?l\u003d184\u0026rcl\u003da639f7a2447777d126b25bdf1536c22e3f698c49\n\nI would have thought it would maybe be used here, but it isn\u0027t. (Because nonlinear mode does not have a good estimate yet?)\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/aec3/residual_echo_estimator.cc?l\u003d99\u0026rcl\u003da639f7a2447777d126b25bdf1536c22e3f698c49\n\nBut you are absolutely right, in case it starts being used elsewhere. I have updated the CL to compute and cache the value in aec_state.\n\nA further change could be to remove AecState::EchoPathGain() and just compute and use the value within AecState::Update(..). What do you think?",
+      "parentUuid": "7e18136e_1f22b79c",
       "range": {
         "startLine": 61,
         "startChar": 10,

@@ -501,6 +501,9 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   // Number of times the selected_connection_ has been modified.
   uint32_t selected_candidate_pair_changes_ = 0;
 
+  // Don't create connection when paring a RELAY with a non-RELAY condidate.
+  bool skip_relay2_peer_connections_ = false;
+
   RTC_DISALLOW_COPY_AND_ASSIGN(P2PTransportChannel);
 };
 

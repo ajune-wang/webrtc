@@ -693,6 +693,12 @@ void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
   if (webrtc::field_trial::IsEnabled("WebRTC-TurnAddMultiMapping")) {
     RTC_LOG(LS_INFO) << "Set WebRTC-TurnAddMultiMapping: Enabled";
   }
+  if (webrtc::field_trial::IsEnabled("WebRTC-SkipRelay2PeerConnections")) {
+    skip_relay2_peer_connections_ = true;
+    RTC_LOG(LS_INFO) << "Set WebRTC-SkipRelay2PeerConnections: Enabled";
+  } else {
+    skip_relay2_peer_connections_ = false;
+  }
 
   webrtc::BasicRegatheringController::Config regathering_config(
       config_.regather_all_networks_interval_range,
@@ -1323,6 +1329,23 @@ bool P2PTransportChannel::CreateConnection(PortInterface* port,
   if (!port->SupportsProtocol(remote_candidate.protocol())) {
     return false;
   }
+
+  if (skip_relay2_peer_connections_) {
+    if (port->Type() == RELAY_PORT_TYPE &&
+        remote_candidate.type() != RELAY_PORT_TYPE) {
+      RTC_LOG(LS_INFO) << ToString() << ": skip creating connection "
+                       << port->Type() << " to " << remote_candidate.type();
+      return false;
+    }
+
+    if (port->Type() != RELAY_PORT_TYPE &&
+        remote_candidate.type() == RELAY_PORT_TYPE) {
+      RTC_LOG(LS_INFO) << ToString() << ": skip creating connection "
+                       << port->Type() << " to " << remote_candidate.type();
+      return false;
+    }
+  }
+
   // Look for an existing connection with this remote address.  If one is not
   // found or it is found but the existing remote candidate has an older
   // generation, then we can create a new connection for this address.

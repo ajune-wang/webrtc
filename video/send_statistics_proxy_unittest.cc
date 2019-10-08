@@ -1982,6 +1982,7 @@ TEST_F(SendStatisticsProxyTest, GetStatsReportsBandwidthLimitedResolution) {
   // Configure two streams.
   VideoEncoderConfig config;
   config.content_type = VideoEncoderConfig::ContentType::kRealtimeVideo;
+  config.number_of_streams = 2;
   VideoStream stream1;
   stream1.width = kWidth / 2;
   stream1.height = kHeight / 2;
@@ -2043,6 +2044,26 @@ TEST_F(SendStatisticsProxyTest, GetStatsReportsBandwidthLimitedResolution) {
       VideoStreamEncoderObserver::AdaptationReason::kQuality, cpu_counts,
       quality_counts);
   statistics_proxy_->OnSendEncodedImage(encoded_image, nullptr);
+  EXPECT_TRUE(statistics_proxy_->GetStats().bw_limited_resolution);
+
+  // Adapt up.
+  quality_counts.num_resolution_reductions = 0;
+  statistics_proxy_->OnAdaptationChanged(
+      VideoStreamEncoderObserver::AdaptationReason::kQuality, cpu_counts,
+      quality_counts);
+  statistics_proxy_->OnSendEncodedImage(encoded_image, nullptr);
+  EXPECT_FALSE(statistics_proxy_->GetStats().bw_limited_resolution);
+
+  // Bw disabled one layer.
+  VideoCodec codec;
+  codec.numberOfSimulcastStreams = 2;
+  codec.simulcastStream[0].active = true;
+  codec.simulcastStream[1].active = true;
+  VideoBitrateAllocation allocation;
+  // Some positive bitrate only on the second stream.
+  allocation.SetBitrate(2, 0, 10000);
+  allocation.set_bw_limited(true);
+  statistics_proxy_->OnBitrateAllocationUpdated(codec, allocation);
   EXPECT_TRUE(statistics_proxy_->GetStats().bw_limited_resolution);
 }
 

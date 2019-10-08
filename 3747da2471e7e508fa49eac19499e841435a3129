@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "fd30fff5_83295e02",
+        "filename": "sdk/android/api/org/webrtc/RtpSender.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-10-08T08:22:16Z",
+      "side": 1,
+      "message": "nit: getStreams",
+      "range": {
+        "startLine": 71,
+        "startChar": 22,
+        "endLine": 71,
+        "endChar": 29
+      },
+      "revId": "3747da2471e7e508fa49eac19499e841435a3129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe5989c9_d64a1a11",
+        "filename": "sdk/android/src/jni/pc/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-10-08T08:22:16Z",
+      "side": 1,
+      "message": "Why is this temporary required? Is it not possible to specify this inline?",
+      "range": {
+        "startLine": 60,
+        "startChar": 32,
+        "endLine": 60,
+        "endChar": 48
+      },
+      "revId": "3747da2471e7e508fa49eac19499e841435a3129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "767dd645_7a4f8fed",
         "filename": "sdk/objc/api/peerconnection/RTCRtpSender.h",
         "patchSetId": 2

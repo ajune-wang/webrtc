@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fcd26b15_2bea45d4",
+        "filename": "api/jsep.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-08T22:34:44Z",
+      "side": 1,
+      "message": "If there is testcase for implicit rollback then that may start to give unexpected result though.",
+      "parentUuid": "f7fafe27_cb2e3e14",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9988c246_03b422c8",
         "filename": "pc/jsep_session_description.cc",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50f2ae21_8b9e4013",
+        "filename": "pc/jsep_session_description.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-08T22:34:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9988c246_03b422c8",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ce3c130a_79d22312",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-08T22:34:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a8f9df7_e7d1a918",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "020ea089_a819dc8a",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 8
@@ -67,6 +121,24 @@
       "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1125a5e8_4d2adaee",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 7808,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-08T22:34:44Z",
+      "side": 1,
+      "message": "Well, transceiver_stable_states_by_transceivers_ holds only stable states for modified transceivers. Actual deleting of transceiver happens under \u0027state.created()\u0027 condition.",
+      "parentUuid": "020ea089_a819dc8a",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "f2df97fd_4a6714fb",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 7819,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-08T22:34:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "59c37490_e0c3475f",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a8de6b1_269313f7",
         "filename": "pc/peer_connection.h",
         "patchSetId": 8
@@ -101,6 +191,24 @@
       "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9343acf2_f893c73c",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-08T22:34:44Z",
+      "side": 1,
+      "message": "Didn\u0027t have a preference. Just noticed other structs there.",
+      "parentUuid": "2a8de6b1_269313f7",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "24f14882_90666525",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 5494,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-08T22:34:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7ef3919_2d335270",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5025ea65_a6e34264",
         "filename": "pc/peer_connection_integrationtest.cc",
         "patchSetId": 8
@@ -135,6 +261,24 @@
       "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bccf650f_59a13766",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 5496,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-08T22:34:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5025ea65_a6e34264",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "a5fca531_212c13f0",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-08T22:34:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19602316_1a99f9f4",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52c6de0e_742baa22",
         "filename": "pc/peer_connection_jsep_unittest.cc",
         "patchSetId": 8
@@ -169,6 +331,24 @@
       "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9445ac46_6f4030d0",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1790,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-08T22:34:44Z",
+      "side": 1,
+      "message": "Added AudioKeepsFlowingAfterImplicitRollback.",
+      "parentUuid": "52c6de0e_742baa22",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "1ba4b89a_c0bfd8c0",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1827,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-08T22:34:44Z",
+      "side": 1,
+      "message": "In native API didn\u0027t find replaceTrack. Maybe can add such test in wpt?",
+      "parentUuid": "b0eb1a21_b71fcfc0",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a76e14f3_bb369a0f",
         "filename": "pc/peer_connection_jsep_unittest.cc",
         "patchSetId": 8
@@ -203,6 +401,24 @@
       "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5552422_3b1bf05d",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1861,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-08T22:34:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a76e14f3_bb369a0f",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "80a154a5_d21837cc",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1919,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-08T22:34:44Z",
+      "side": 1,
+      "message": "Added bundling in RollbackToNegotiatedStableState. Actually I was expecting that bundling happens by default but wasn\u0027t the case.",
+      "parentUuid": "1e8a47ce_dc3ea924",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "744f08f7_90fcc2e7",
         "filename": "pc/sdp_utils.cc",
         "patchSetId": 8
@@ -237,6 +471,24 @@
       "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70dd45d3_09ffa255",
+        "filename": "pc/sdp_utils.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-08T22:34:44Z",
+      "side": 1,
+      "message": "I think the id and version doesn\u0027t matter for rollback. Only the type of description is used.",
+      "parentUuid": "744f08f7_90fcc2e7",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

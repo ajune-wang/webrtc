@@ -106,29 +106,24 @@ void AddRtpHeaderExtensions(const RTPVideoHeader& video_header,
     packet->SetExtension<FrameMarkingExtension>(frame_marking);
   }
 
-  if (video_header.generic) {
+  if (video_header.frame_id.has_value()) {
     RtpGenericFrameDescriptor generic_descriptor;
     generic_descriptor.SetFirstPacketInSubFrame(first_packet);
     generic_descriptor.SetLastPacketInSubFrame(last_packet);
-    generic_descriptor.SetDiscardable(video_header.generic->discardable);
+    generic_descriptor.SetDiscardable(video_header.discardable);
 
     if (first_packet) {
+      RTC_DCHECK_GE(*video_header.frame_id, 0);
       generic_descriptor.SetFrameId(
-          static_cast<uint16_t>(video_header.generic->frame_id));
-      for (int64_t dep : video_header.generic->dependencies) {
-        generic_descriptor.AddFrameDependencyDiff(
-            video_header.generic->frame_id - dep);
+          static_cast<uint16_t>(*video_header.frame_id));
+      for (int64_t dep : video_header.frame_dependencies) {
+        generic_descriptor.AddFrameDependencyDiff(*video_header.frame_id - dep);
       }
 
-      uint8_t spatial_bimask = 1 << video_header.generic->spatial_index;
-      for (int layer : video_header.generic->higher_spatial_layers) {
-        RTC_DCHECK_GT(layer, video_header.generic->spatial_index);
-        RTC_DCHECK_LT(layer, 8);
-        spatial_bimask |= 1 << layer;
-      }
+      uint8_t spatial_bimask = 1 << video_header.spatial_index;
       generic_descriptor.SetSpatialLayersBitmask(spatial_bimask);
 
-      generic_descriptor.SetTemporalLayer(video_header.generic->temporal_index);
+      generic_descriptor.SetTemporalLayer(video_header.temporal_index);
 
       if (frame_type == VideoFrameType::kVideoFrameKey) {
         generic_descriptor.SetResolution(video_header.width,

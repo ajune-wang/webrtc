@@ -69,5 +69,17 @@ TEST_F(VadTest, vad_sp) {
 
   free(self);
 }
+
+// Make sure that the mechanism for purging old values respects memory
+// boundaries.
+TEST_F(VadTest, FindMinimum_old_values) {
+  VadInstT* self = reinterpret_cast<VadInstT*>(malloc(sizeof(VadInstT)));
+  ASSERT_EQ(0, WebRtcVad_InitCore(self));
+  constexpr int kChannel = kNumChannels - 1;
+  // Loop enough times for some values to become "old".
+  for (int16_t i = 0; i < 110; ++i) {
+    WebRtcVad_FindMinimum(self, i, kChannel);
+  }
+}
 }  // namespace test
 }  // namespace webrtc

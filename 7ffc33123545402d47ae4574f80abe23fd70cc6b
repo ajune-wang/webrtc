@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3b1a08b_51a661ab",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-08T08:39:48Z",
+      "side": 1,
+      "message": "I think the approach is correct and that the logic for how to aggregate the convergence and divergence decisions for the different capture channels should reside where you have placed it, but I definitely think the naming in the code for the objects that uses that should be changed to reflect that the input has changed.\n\nFor instance, in TransparentMode::Update the second, third and fourth parameters are called \nconsistent_filter, converged_filter, diverged_filter,\nwhich is very different from the new inputs\nany_filter_consistent, any_filter_converged,all_filters_diverged\n\nFor anyone reading the code in the above mentioned objects I think the understanding/interpretation of the functionality will be very different if the above renaming is applied.",
+      "range": {
+        "startLine": 206,
+        "startChar": 28,
+        "endLine": 206,
+        "endChar": 49
+      },
+      "revId": "7ffc33123545402d47ae4574f80abe23fd70cc6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e18136e_1f22b79c",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-08T08:39:48Z",
+      "side": 1,
+      "message": "Please instead move this logic to the update method, and let that produce a max_echo_path_gain_ which is returned by this getter.\n\nThe current construct makes this more heavyweight and would increase overall complexity if it is called several times (which I think it is).",
+      "range": {
+        "startLine": 61,
+        "startChar": 10,
+        "endLine": 61,
+        "endChar": 28
+      },
+      "revId": "7ffc33123545402d47ae4574f80abe23fd70cc6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

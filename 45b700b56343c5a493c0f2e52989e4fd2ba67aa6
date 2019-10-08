@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "367ad301_3f6f4568",
+        "filename": "test/scenario/performance_stats.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-08T15:39:01Z",
+      "side": 1,
+      "message": "This can\u0027t happen right? if first time is set, the last time must also be set. Maybe a DCHECK is more appropriate if you wan\u0027t to make this assumption explicit?",
+      "range": {
+        "startLine": 44,
+        "startChar": 31,
+        "endLine": 44,
+        "endChar": 57
+      },
+      "revId": "45b700b56343c5a493c0f2e52989e4fd2ba67aa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40f49ca5_9ffb2ca9",
+        "filename": "test/scenario/performance_stats.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-08T15:39:01Z",
+      "side": 1,
+      "message": "It might be clearer to call this TotalDuration? Or WDYT?",
+      "range": {
+        "startLine": 102,
+        "startChar": 12,
+        "endLine": 102,
+        "endChar": 20
+      },
+      "revId": "45b700b56343c5a493c0f2e52989e4fd2ba67aa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aed847a_29639f29",
+        "filename": "test/scenario/performance_stats_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-08T15:39:01Z",
+      "side": 1,
+      "message": "Nice with some tests!\n\nNit: TEST(EventRateCounter, ReturnsCorrectDuration)\n\nThe name isn\u0027t perfect, for overzealous level of clarity you would make several tests named DurationIsZeroForNoEvents etc. But I don\u0027t think that is warranted.",
+      "range": {
+        "startLine": 17,
+        "startChar": 5,
+        "endLine": 17,
+        "endChar": 52
+      },
+      "revId": "45b700b56343c5a493c0f2e52989e4fd2ba67aa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

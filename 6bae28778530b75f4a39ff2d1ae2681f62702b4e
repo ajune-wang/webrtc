@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7c90847_d21ad43e",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-08T10:53:10Z",
+      "side": 1,
+      "message": "RTC_DCHECK on reverb_model?",
+      "range": {
+        "startLine": 36,
+        "startChar": 17,
+        "endLine": 36,
+        "endChar": 29
+      },
+      "revId": "6bae28778530b75f4a39ff2d1ae2681f62702b4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b7e2693_6cfdc293",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-08T10:53:10Z",
+      "side": 1,
+      "message": "1",
+      "range": {
+        "startLine": 45,
+        "startChar": 28,
+        "endLine": 45,
+        "endChar": 29
+      },
+      "revId": "6bae28778530b75f4a39ff2d1ae2681f62702b4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cd8bc0c_e29a426a",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-08T10:53:10Z",
+      "side": 1,
+      "message": "/*power_spectrum_scaling\u003d*/1.0f\n\nhttps://google.github.io/styleguide/cppguide.html#Function_Argument_Comments",
+      "range": {
+        "startLine": 60,
+        "startChar": 53,
+        "endLine": 60,
+        "endChar": 57
+      },
+      "revId": "6bae28778530b75f4a39ff2d1ae2681f62702b4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a9127aa_713b9ce4",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-08T10:53:10Z",
+      "side": 1,
+      "message": "/*power_spectrum_scaling\u003d*/1.0f\n\nhttps://google.github.io/styleguide/cppguide.html#Function_Argument_Comments",
+      "range": {
+        "startLine": 67,
+        "startChar": 57,
+        "endLine": 67,
+        "endChar": 61
+      },
+      "revId": "6bae28778530b75f4a39ff2d1ae2681f62702b4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

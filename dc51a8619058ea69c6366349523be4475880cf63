@@ -498,6 +498,30 @@
     },
     {
       "key": {
+        "uuid": "c3086582_cacc9c8a",
+        "filename": "modules/audio_processing/aec3/residual_echo_estimator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-08T10:36:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1267edbb_b3d8956c",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 56
+      },
+      "revId": "dc51a8619058ea69c6366349523be4475880cf63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0075ccec_30ed095c",
         "filename": "modules/audio_processing/aec3/reverb_model.h",
         "patchSetId": 6

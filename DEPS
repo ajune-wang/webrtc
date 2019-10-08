@@ -5,14 +5,14 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '977e7324421d9e6f9e8d8bb00e6d40ad77ef6c11',
+  'chromium_revision': '57cca9953cdf43acfc7d05cd2f93f0cccf3f82ee',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@05b43c3ab0f8e4ad8f160139eab91007d5aa88b4',
+    'https://chromium.googlesource.com/chromium/src/base@c75f46773a60cf155417e5e82bbb08245c687c6e',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@ae142b53b6128474b2c378a878ab36ae265280aa',
   'src/buildtools':
@@ -29,7 +29,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@65fc5a314d3a1aeca6545a222f2f7244dbe62fd8',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@68f42f89610c33525df011d0dd9eeb243e736708',
+    'https://chromium.googlesource.com/chromium/src/third_party@d06edff2f7f96bc19752e1522227a17a963fef20',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -119,7 +119,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@3306bbe476fd4b069aad347afdd5b4e3564234aa',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@eeafa0eaece53a07fe0a808926426540f4839a66',
   'src/third_party/errorprone/lib': {
       'url': 'https://chromium.googlesource.com/chromium/third_party/errorprone.git@980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',
@@ -231,7 +231,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@7ad0ae553777754f41c6daf81d3ee12fc84fd389',
+    'https://chromium.googlesource.com/chromium/src/tools@accbc2b8ac32e43592cb82d41f9e93dda2894178',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@885b3febcc170a60f25795304e60927b77d1e92d',
 

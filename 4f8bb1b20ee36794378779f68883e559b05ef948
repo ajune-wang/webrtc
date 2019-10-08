@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bf05fe29_13ac365a",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-08T09:14:31Z",
+      "side": 1,
+      "message": "num_active_layers are layers enabled by the API. If the application disables some streams/layers we will not report that as a bw limited.",
+      "parentUuid": "35c3edde_b563b8ef",
+      "revId": "4f8bb1b20ee36794378779f68883e559b05ef948",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9b1273e_38302e68",
         "filename": "modules/video_coding/utility/simulcast_rate_allocator_unittest.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-10-07T13:25:05Z",
       "side": 1,
       "message": "What\u0027s 100000?",
+      "revId": "4f8bb1b20ee36794378779f68883e559b05ef948",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f05013bc_2f6db288",
+        "filename": "modules/video_coding/utility/simulcast_rate_allocator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-08T09:14:31Z",
+      "side": 1,
+      "message": "Some very big bitrate to ensure everything is enabled. In vp9 case, the minimum bitrate to enable all layers is something like 860531 or some other terrible number, which is computed on the fly based on the resolution. I\u0027ve renamed the constant to something more self-explanatory.",
+      "parentUuid": "b9b1273e_38302e68",
       "revId": "4f8bb1b20ee36794378779f68883e559b05ef948",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9a3b02f1_b72bc41a",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-08T09:14:31Z",
+      "side": 1,
+      "message": "Oh, I missed that. It also should be fixed!",
+      "parentUuid": "e91b16cc_cbc1731a",
+      "revId": "4f8bb1b20ee36794378779f68883e559b05ef948",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f16ec8a_11125532",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 1
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "12c9bfb4_77a827c0",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-08T09:14:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f16ec8a_11125532",
+      "revId": "4f8bb1b20ee36794378779f68883e559b05ef948",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0195519c_72d8d0e6",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 1
@@ -81,6 +153,24 @@
       "writtenOn": "2019-10-07T13:25:05Z",
       "side": 1,
       "message": "What does content type have to do with whether or not we are limited? If we\u0027re limited we should report we\u0027re limited?",
+      "revId": "4f8bb1b20ee36794378779f68883e559b05ef948",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "009b9224_f26aa1af",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-08T09:14:31Z",
+      "side": 1,
+      "message": "It dictates what is limited: framerate or resolution.\n\nRegardless of degradation preference, what gets limited because of disabled simulcast streams/layers depends only on content type. The structures are hardcoded for content type.\n\nSo, we get limited framerate if content_type is screenshare and we have limited layers. We get limited resolution if the content type is realtime and we have limited layers.\n\nWould it be clearer if I have instead:\n\nstats_.bw_limited_resolution \u003d ...;\nstats_.bw_limited_framerate \u003d ...;\nif (bw_limited_layers_) {\n if (content_type \u003d\u003d VideoEncoderConfig::ContentType::kRealtimeVideo) {\n   stats_.bw_limited_resolution \u003d true;\n } else {\n   stats_.bw_limited_framerate \u003d true;\n }\n}",
+      "parentUuid": "0195519c_72d8d0e6",
       "revId": "4f8bb1b20ee36794378779f68883e559b05ef948",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

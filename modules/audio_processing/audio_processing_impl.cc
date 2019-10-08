@@ -211,9 +211,16 @@ bool AudioProcessingImpl::ApmSubmoduleStates::CaptureMultiBandSubModulesActive()
 
 bool AudioProcessingImpl::ApmSubmoduleStates::CaptureMultiBandProcessingActive()
     const {
+  // If echo controller is present, assume it performs active processing.
+  return CaptureMultiBandProcessingActive(/*ec_active_processing=*/true);
+}
+
+bool AudioProcessingImpl::ApmSubmoduleStates::CaptureMultiBandProcessingActive(
+    bool ec_active_processing) const {
   return high_pass_filter_enabled_ || echo_canceller_enabled_ ||
          mobile_echo_controller_enabled_ || noise_suppressor_enabled_ ||
-         adaptive_gain_controller_enabled_ || echo_controller_enabled_;
+         adaptive_gain_controller_enabled_ ||
+         (echo_controller_enabled_ && ec_active_processing);
 }
 
 bool AudioProcessingImpl::ApmSubmoduleStates::CaptureFullBandProcessingActive()
@@ -987,6 +994,10 @@ int AudioProcessingImpl::ProcessStream(const float* const* src,
 
   capture_.keyboard_info.Extract(src, formats_.api_format.input_stream());
   capture_.capture_audio->CopyFrom(src, formats_.api_format.input_stream());
+  if (capture_.capture_fullband_audio) {
+    capture_.capture_fullband_audio->CopyFrom(
+        src, formats_.api_format.input_stream());
+  }
   RETURN_ON_ERR(ProcessCaptureStreamLocked());
   if (capture_.capture_fullband_audio) {
     capture_.capture_fullband_audio->CopyTo(formats_.api_format.output_stream(),
@@ -1476,7 +1487,13 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   }
 
   if (capture_.capture_fullband_audio) {
-    capture_buffer->CopyTo(capture_.capture_fullband_audio.get());
+    const auto& ec = private_submodules_->echo_controller;
+    bool ec_active = ec ? ec->ActiveProcessing() : false;
+    // Only update the fullband buffer if the multiband processing has changed
+    // the signal. Keep the original signal otherwise.
+    if (submodule_states_.CaptureMultiBandProcessingActive(ec_active)) {
+      capture_buffer->CopyTo(capture_.capture_fullband_audio.get());
+    }
     capture_buffer = capture_.capture_fullband_audio.get();
   }
 

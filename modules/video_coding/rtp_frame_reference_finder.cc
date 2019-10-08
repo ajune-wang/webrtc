@@ -115,8 +115,8 @@ RtpFrameReferenceFinder::ManageFrameInternal(RtpFrameObject* frame) {
       // Use 15 first bits of frame ID as picture ID if available.
       const RTPVideoHeader& video_header = frame->GetRtpVideoHeader();
       int picture_id = kNoPictureId;
-      if (video_header.generic)
-        picture_id = video_header.generic->frame_id & 0x7fff;
+      if (video_header.frame_id)
+        picture_id = *video_header.frame_id & 0x7fff;
 
       return ManageFramePidOrSeqNum(frame, picture_id);
     }

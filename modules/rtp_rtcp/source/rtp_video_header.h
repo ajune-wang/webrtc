@@ -34,26 +34,13 @@ using RTPVideoTypeHeader = absl::variant<absl::monostate,
                                          RTPVideoHeaderH264>;
 
 struct RTPVideoHeader {
-  struct GenericDescriptorInfo {
-    GenericDescriptorInfo();
-    GenericDescriptorInfo(const GenericDescriptorInfo& other);
-    ~GenericDescriptorInfo();
+  RTPVideoHeader() = default;
+  RTPVideoHeader(const RTPVideoHeader& other) = default;
+  ~RTPVideoHeader() = default;
 
-    int64_t frame_id = 0;
-    int spatial_index = 0;
-    int temporal_index = 0;
-    absl::InlinedVector<int64_t, 5> dependencies;
-    absl::InlinedVector<int, 5> higher_spatial_layers;
-    bool discardable = false;
-  };
-
-  RTPVideoHeader();
-  RTPVideoHeader(const RTPVideoHeader& other);
-
-  ~RTPVideoHeader();
-
-  absl::optional<GenericDescriptorInfo> generic;
-
+  absl::optional<int64_t> frame_id;
+  absl::InlinedVector<int64_t, 5> frame_dependencies;
+  bool discardable = false;
   VideoFrameType frame_type = VideoFrameType::kEmptyFrame;
   uint16_t width = 0;
   uint16_t height = 0;
@@ -62,10 +49,12 @@ struct RTPVideoHeader {
   bool is_first_packet_in_frame = false;
   bool is_last_packet_in_frame = false;
   uint8_t simulcastIdx = 0;
+  int spatial_index = 0;
+  int temporal_index = 0;
   VideoCodecType codec = VideoCodecType::kVideoCodecGeneric;
 
   PlayoutDelay playout_delay = {-1, -1};
-  VideoSendTiming video_timing;
+  VideoSendTiming video_timing = {};
   FrameMarking frame_marking = {false, false, false, false, false, 0xFF, 0, 0};
   absl::optional<ColorSpace> color_space;
   RTPVideoTypeHeader video_type_header;

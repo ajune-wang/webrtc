@@ -27,6 +27,50 @@
 
 namespace webrtc {
 
+namespace aec3 {
+
+// Returns the sum of the spectrums for a certain number of FFTs.
+void ComputeSpectralSum(const SpectrumBuffer& spectrum_buffer,
+                        size_t num_spectra,
+                        std::array<float, kFftLengthBy2Plus1>* X2);
+
+#if defined(WEBRTC_HAS_NEON)
+void ComputeSpectralSum_Neon(const SpectrumBuffer& spectrum_buffer,
+                             size_t num_spectra,
+                             std::array<float, kFftLengthBy2Plus1>* X2);
+#endif
+
+#if defined(WEBRTC_ARCH_X86_FAMILY)
+void ComputeSpectralSum_Sse2(const SpectrumBuffer& spectrum_buffer,
+                             size_t num_spectra,
+                             std::array<float, kFftLengthBy2Plus1>* X2);
+#endif
+
+// Returns the sums of the spectrums for two numbers of FFTs.
+void ComputeSpectralSums(const SpectrumBuffer& spectrum_buffer,
+                         size_t num_spectra_shorter,
+                         size_t num_spectra_longer,
+                         std::array<float, kFftLengthBy2Plus1>* X2_shorter,
+                         std::array<float, kFftLengthBy2Plus1>* X2_longer);
+
+#if defined(WEBRTC_HAS_NEON)
+void ComputeSpectralSums_Neon(const SpectrumBuffer& spectrum_buffer,
+                              size_t num_spectra_shorter,
+                              size_t num_spectra_longer,
+                              std::array<float, kFftLengthBy2Plus1>* X2_shorter,
+                              std::array<float, kFftLengthBy2Plus1>* X2_longer);
+#endif
+
+#if defined(WEBRTC_ARCH_X86_FAMILY)
+void ComputeSpectralSums_Sse2(const SpectrumBuffer& spectrum_buffer,
+                              size_t num_spectra_shorter,
+                              size_t num_spectra_longer,
+                              std::array<float, kFftLengthBy2Plus1>* X2_shorter,
+                              std::array<float, kFftLengthBy2Plus1>* X2_longer);
+#endif
+
+}  // namespace aec3
+
 // Provides a buffer of the render data for the echo remover.
 class RenderBuffer {
  public:
@@ -101,6 +145,7 @@ class RenderBuffer {
   const BlockBuffer& GetBlockBuffer() const { return *block_buffer_; }
 
  private:
+  const Aec3Optimization optimization_;
   const BlockBuffer* const block_buffer_;
   const SpectrumBuffer* const spectrum_buffer_;
   const FftBuffer* const fft_buffer_;

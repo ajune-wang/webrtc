@@ -19,12 +19,10 @@ SpectrumBuffer::SpectrumBuffer(size_t size,
                                size_t spectrum_length)
     : size(static_cast<int>(size)),
       buffer(size,
-             std::vector<std::vector<float>>(
-                 num_channels,
-                 std::vector<float>(spectrum_length, 0.f))) {
-  for (auto& channel : buffer) {
-    for (auto& c : channel) {
-      std::fill(c.begin(), c.end(), 0.f);
+             std::vector<std::array<float, kFftLengthBy2Plus1>>(num_channels)) {
+  for (auto& partition : buffer) {
+    for (auto& ch : partition) {
+      std::fill(ch.begin(), ch.end(), 0.f);
     }
   }
 }

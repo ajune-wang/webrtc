@@ -13,8 +13,10 @@
 
 #include <stddef.h>
 
+#include <array>
 #include <vector>
 
+#include "modules/audio_processing/aec3/aec3_common.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -50,7 +52,7 @@ struct SpectrumBuffer {
   void DecReadIndex() { read = DecIndex(read); }
 
   const int size;
-  std::vector<std::vector<std::vector<float>>> buffer;
+  std::vector<std::vector<std::array<float, kFftLengthBy2Plus1>>> buffer;
   int write = 0;
   int read = 0;
 };

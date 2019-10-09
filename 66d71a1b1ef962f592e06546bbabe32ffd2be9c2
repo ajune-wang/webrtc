@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dac07848_66a8b8e4",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-09T10:11:20Z",
+      "side": 1,
+      "message": "It is a bit weird to have two variants of this. \n\nWhat about changing this to \n\nbool AudioProcessingImpl::ApmSubmoduleStates::CaptureMultiBandProcessingPresent()\n    const {\n  // If echo controller is present, assume it performs active processing.\n  return CaptureMultibandProcessingActive(/*ec_active_processing\u003d*/true);\n}\n\nbool CaptureMultibandProcessingActive(ec_active_processing) {\n\n}\n\n?",
+      "range": {
+        "startLine": 218,
+        "startChar": 46,
+        "endLine": 218,
+        "endChar": 78
+      },
+      "revId": "66d71a1b1ef962f592e06546bbabe32ffd2be9c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46964dd5_f330e807",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-09T10:11:20Z",
+      "side": 1,
+      "message": "ec_active_processing -\u003e ec_processing_active\n?",
+      "range": {
+        "startLine": 219,
+        "startChar": 9,
+        "endLine": 219,
+        "endChar": 29
+      },
+      "revId": "66d71a1b1ef962f592e06546bbabe32ffd2be9c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

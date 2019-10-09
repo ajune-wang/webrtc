@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f032c10_0b9e30ce",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-10-09T14:54:30Z",
+      "side": 1,
+      "message": "I\u0027ll address this, if necessary, in a separate CL.",
+      "range": {
+        "startLine": 585,
+        "startChar": 6,
+        "endLine": 585,
+        "endChar": 41
+      },
+      "revId": "eeedac3d14a34a2582abbab1c7c55aa7e7192c1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

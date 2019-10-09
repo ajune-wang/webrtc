@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "febac19c_3daf5a87",
+        "filename": "call/rtx_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-09T12:34:21Z",
+      "side": 1,
+      "message": "As far as I understand, this copy constructor lets the new packet refer to the same CopyOnWrite buffer as the original packet. And the AllocatePayload call below will allocate a new buffer of the *same* size, and copy the header bytes.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 45
+      },
+      "revId": "1234cc666ac286880363422146d5e6b8c7f768ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -330,24 +330,24 @@ int32_t RtpVideoStreamReceiver::OnReceivedPayloadData(
     size_t payload_size,
     const RTPHeader& rtp_header,
     const RTPVideoHeader& video_header,
-    const absl::optional<RtpGenericFrameDescriptor>& generic_descriptor,
+    std::vector<uint8_t> auth,
     bool is_recovered) {
   VCMPacket packet(payload_data, payload_size, rtp_header, video_header,
                    ntp_estimator_.Estimate(rtp_header.timestamp),
                    clock_->TimeInMilliseconds());
-  packet.generic_descriptor = generic_descriptor;
+  packet.video_header_auth = std::move(auth);
 
   if (loss_notification_controller_) {
     if (is_recovered) {
       // TODO(bugs.webrtc.org/10336): Implement support for reordering.
       RTC_LOG(LS_INFO)
           << "LossNotificationController does not support reordering.";
-    } else if (!generic_descriptor) {
-      RTC_LOG(LS_WARNING) << "LossNotificationController requires generic "
-                             "frame descriptor, but it is missing.";
+    } else if (!video_header.frame_id.has_value()) {
+      RTC_LOG(LS_WARNING)
+          << "LossNotificationController rely on frame id, but it is missing.";
     } else {
       loss_notification_controller_->OnReceivedPacket(rtp_header.sequenceNumber,
-                                                      *generic_descriptor);
+                                                      video_header);
     }
   }
 
@@ -517,14 +517,12 @@ void RtpVideoStreamReceiver::OnAssembledFrame(
   RTC_DCHECK_RUN_ON(&network_tc_);
   RTC_DCHECK(frame);
 
-  absl::optional<RtpGenericFrameDescriptor> descriptor =
-      frame->GetGenericFrameDescriptor();
+  const RTPVideoHeader& rtp_video_header = frame->GetRtpVideoHeader();
 
-  if (loss_notification_controller_ && descriptor) {
+  if (loss_notification_controller_ && rtp_video_header.frame_id.has_value()) {
     loss_notification_controller_->OnAssembledFrame(
-        frame->first_seq_num(), descriptor->FrameId(),
-        descriptor->Discardable().value_or(false),
-        descriptor->FrameDependenciesDiffs());
+        frame->first_seq_num(), *rtp_video_header.frame_id,
+        rtp_video_header.discardable, rtp_video_header.frame_dependencies);
   }
 
   // If frames arrive before a key frame, they would not be decodable.
@@ -651,6 +649,7 @@ void RtpVideoStreamReceiver::RemoveSecondarySink(
 }
 
 void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   if (packet.payload_size() == 0) {
     // Padding or keep-alive packet.
     // TODO(nisse): Could drop empty packets earlier, but need to figure out how
@@ -732,21 +731,36 @@ void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
     return;
   }
 
+  std::vector<uint8_t> rtp_video_header_auth;
   if (generic_descriptor_v00 || generic_descriptor_v01) {
     if (generic_descriptor_v00) {
-      generic_descriptor_wire->SetByteRepresentation(
-          packet.GetRawExtension<RtpGenericFrameDescriptorExtension00>());
+      const auto& raw =
+          packet.GetRawExtension<RtpGenericFrameDescriptorExtension00>();
+      rtp_video_header_auth.assign(raw.begin(), raw.end());
     } else {
-      generic_descriptor_wire->SetByteRepresentation(
-          packet.GetRawExtension<RtpGenericFrameDescriptorExtension01>());
+      const auto& raw =
+          packet.GetRawExtension<RtpGenericFrameDescriptorExtension01>();
+      rtp_video_header_auth.assign(raw.begin(), raw.end());
     }
 
     video_header.is_first_packet_in_frame =
         generic_descriptor_wire->FirstPacketInSubFrame();
     video_header.is_last_packet_in_frame =
         rtp_header.markerBit || generic_descriptor_wire->LastPacketInSubFrame();
+    video_header.frame_id =
+        frame_id_unwrapper_.Unwrap(generic_descriptor_wire->FrameId());
+    for (uint16_t fdiff : generic_descriptor_wire->FrameDependenciesDiffs()) {
+      video_header.frame_dependencies.push_back(*video_header.frame_id - fdiff);
+    }
+    if (generic_descriptor_v01) {
+      video_header.discardable =
+          generic_descriptor_wire->Discardable().value_or(false);
+    }
 
     if (generic_descriptor_wire->FirstPacketInSubFrame()) {
+      video_header.spatial_index = generic_descriptor_wire->SpatialLayer();
+      video_header.temporal_index = generic_descriptor_wire->TemporalLayer();
+
       video_header.frame_type =
           generic_descriptor_wire->FrameDependenciesDiffs().empty()
               ? VideoFrameType::kVideoFrameKey
@@ -760,13 +774,12 @@ void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
   }
 
   OnReceivedPayloadData(parsed_payload.payload, parsed_payload.payload_length,
-                        rtp_header, video_header, generic_descriptor_wire,
+                        rtp_header, video_header, rtp_video_header_auth,
                         packet.recovered());
 }
 
 void RtpVideoStreamReceiver::ParseAndHandleEncapsulatingHeader(
     const RtpPacketReceived& packet) {
-  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   if (packet.PayloadType() == config_.rtp.red_payload_type &&
       packet.payload_size() > 0) {
     if (packet.payload()[0] == config_.rtp.ulpfec_payload_type) {

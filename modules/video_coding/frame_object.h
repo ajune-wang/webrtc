@@ -11,9 +11,11 @@
 #ifndef MODULES_VIDEO_CODING_FRAME_OBJECT_H_
 #define MODULES_VIDEO_CODING_FRAME_OBJECT_H_
 
+#include <utility>
+#include <vector>
+
 #include "absl/types/optional.h"
 #include "api/video/encoded_frame.h"
-#include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
 
 namespace webrtc {
 namespace video_coding {
@@ -36,7 +38,6 @@ class RtpFrameObject : public EncodedFrame {
       VideoContentType content_type,
       const RTPVideoHeader& video_header,
       const absl::optional<webrtc::ColorSpace>& color_space,
-      const absl::optional<RtpGenericFrameDescriptor>& generic_descriptor,
       RtpPacketInfos packet_infos,
       rtc::scoped_refptr<EncodedImageBuffer> image_buffer);
 
@@ -50,13 +51,18 @@ class RtpFrameObject : public EncodedFrame {
   int64_t RenderTime() const override;
   bool delayed_by_retransmission() const override;
   const RTPVideoHeader& GetRtpVideoHeader() const;
-  const absl::optional<RtpGenericFrameDescriptor>& GetGenericFrameDescriptor()
-      const;
+  rtc::ArrayView<const uint8_t> GetRtpVideoHeaderAuth() const {
+    return rtp_video_header_auth_;
+  }
   const FrameMarking& GetFrameMarking() const;
+
+  void SetRtpVideoHeaderAuth(std::vector<uint8_t> auth) {
+    rtp_video_header_auth_ = std::move(auth);
+  }
 
  private:
   RTPVideoHeader rtp_video_header_;
-  absl::optional<RtpGenericFrameDescriptor> rtp_generic_frame_descriptor_;
+  std::vector<uint8_t> rtp_video_header_auth_;
   VideoCodecType codec_type_;
   uint16_t first_seq_num_;
   uint16_t last_seq_num_;

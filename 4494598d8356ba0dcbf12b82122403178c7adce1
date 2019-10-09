@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d669bbc1_6e9e437d",
+        "filename": "modules/audio_processing/audio_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-10-09T11:02:57Z",
+      "side": 1,
+      "message": "Sorry, clang-format wants it this way :)",
+      "parentUuid": "d37f6dd0_91ab9afb",
+      "range": {
+        "startLine": 69,
+        "startChar": 78,
+        "endLine": 69,
+        "endChar": 79
+      },
+      "revId": "4494598d8356ba0dcbf12b82122403178c7adce1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6cd982fb_0c4dc414",
         "filename": "modules/audio_processing/audio_buffer.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "4494598d8356ba0dcbf12b82122403178c7adce1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3104c20b_33bd2744",
+        "filename": "modules/audio_processing/audio_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-10-09T11:02:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cd982fb_0c4dc414",
+      "range": {
+        "startLine": 195,
+        "startChar": 38,
+        "endLine": 195,
+        "endChar": 56
+      },
+      "revId": "4494598d8356ba0dcbf12b82122403178c7adce1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

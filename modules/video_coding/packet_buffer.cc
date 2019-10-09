@@ -313,7 +313,7 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
       bool has_h264_pps = false;
       bool has_h264_idr = false;
       bool is_h264_keyframe = false;
-
+      std::pair<int, int> idr_resolution(-1, -1);
       while (true) {
         ++tested_packets;
         frame_size += data_buffer_[start_index].sizeBytes;
@@ -349,12 +349,25 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
               has_h264_pps = true;
             } else if (h264_header->nalus[j].type == H264::NaluType::kIdr) {
               has_h264_idr = true;
+            } else if ((idr_resolution.first > 0) &&
+                       (idr_resolution.second > 0)) {
+              // IDR frame was finalized and we have the correct resolution for
+              // IDR; update any preceding nalus to have same resolution as IDR
+              data_buffer_[start_index].video_header.width =
+                  idr_resolution.first;
+              data_buffer_[start_index].video_header.height =
+                  idr_resolution.second;
             }
           }
           if ((sps_pps_idr_is_h264_keyframe_ && has_h264_idr && has_h264_sps &&
                has_h264_pps) ||
               (!sps_pps_idr_is_h264_keyframe_ && has_h264_idr)) {
             is_h264_keyframe = true;
+            // store the resolution of key frame
+            // there may be nalus preceeding IDR without resolution, IDR's
+            // resolution will be applied to them
+            idr_resolution.first = data_buffer_[start_index].width();
+            idr_resolution.second = data_buffer_[start_index].height();
           }
         }
 

@@ -57,8 +57,7 @@ void RtxReceiveStream::OnRtpPacket(const RtpPacketReceived& rtx_packet) {
                         << " on rtx ssrc " << rtx_packet.Ssrc();
     return;
   }
-  RtpPacketReceived media_packet;
-  media_packet.CopyHeaderFrom(rtx_packet);
+  RtpPacketReceived media_packet(rtx_packet);
 
   media_packet.SetSsrc(media_ssrc_);
   media_packet.SetSequenceNumber((payload[0] << 8) + payload[1]);

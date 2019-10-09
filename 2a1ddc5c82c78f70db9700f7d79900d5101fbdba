@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c55eef1_50809798",
+        "filename": "api/video/video_bitrate_allocation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-09T15:59:23Z",
+      "side": 1,
+      "message": "Deserves comment explaining meaning and/or purpose if this flag.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 55
+      },
+      "revId": "2a1ddc5c82c78f70db9700f7d79900d5101fbdba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "5d63214c_446c013d",
+        "filename": "call/rtx_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-09T15:22:26Z",
+      "side": 1,
+      "message": "Change CopyFromHeader to use .Slice, and that seems to work.",
+      "parentUuid": "0b8c3e5c_86523466",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 45
+      },
+      "revId": "1234cc666ac286880363422146d5e6b8c7f768ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "781232c1_3ef263b5",
         "filename": "call/rtx_receive_stream_unittest.cc",
         "patchSetId": 1
@@ -156,6 +180,30 @@
       "side": 1,
       "message": "large packet probably is enough.",
       "parentUuid": "0d2a4272_59376409",
+      "range": {
+        "startLine": 171,
+        "startChar": 27,
+        "endLine": 171,
+        "endChar": 46
+      },
+      "revId": "1234cc666ac286880363422146d5e6b8c7f768ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8f865df_a0fe7ba9",
+        "filename": "call/rtx_receive_stream_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-09T15:22:26Z",
+      "side": 1,
+      "message": "Added a large packet test, and it did fail before the .Slice change.",
+      "parentUuid": "75112771_cd11c141",
       "range": {
         "startLine": 171,
         "startChar": 27,

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19b76075_ced1873a",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-10-09T12:38:02Z",
+      "side": 1,
+      "message": "would it be a burden to name this variable and function \"newlyCreated\"? On first read, I took it to mean false \u003d not created yet; true - has been created, while its actual meaning seems to be false \u003d existed before, true \u003d created in this offer/answer exchange.",
+      "revId": "c5769d46eb14554665040c7b7f139d715b2881f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8524e58_688e1a4c",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-10-09T12:38:02Z",
+      "side": 1,
+      "message": "Nitty nit: \"Indicates that the transceiver was created...\"\nIt\u0027s easier to read English for us furriners when the grammar is regular.",
+      "revId": "c5769d46eb14554665040c7b7f139d715b2881f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a487e0ee_b89241d0",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-10-09T12:38:02Z",
+      "side": 1,
+      "message": "There\u0027s so many functions called CreateOffer around that it\u0027s wise to use another name. Perhaps call it CreateOfferAndWait?",
+      "revId": "c5769d46eb14554665040c7b7f139d715b2881f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

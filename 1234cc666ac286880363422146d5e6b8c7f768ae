@@ -22,6 +22,76 @@
       "revId": "1234cc666ac286880363422146d5e6b8c7f768ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6bce866_f88f0cf8",
+        "filename": "call/rtx_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-09T13:22:35Z",
+      "side": 1,
+      "message": "not exactly. Yes, it will share the same buffer,\nit will reallocate as soon as buffer is modified (i.e. when SetSsrc function is called).\nduring that reallocation all original packet will be memcpyied.\n\nbut really bad thing would happen if original packet had padding since AllocatePayload would crash in debug in such case.\n\nthanks to recent addition of CopyOnWriteBuffer::Slice\nit might be better to modify CopyHeaderFrom implementation - instead of copying data from the original buffer, it might slice it.",
+      "parentUuid": "febac19c_3daf5a87",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 45
+      },
+      "revId": "1234cc666ac286880363422146d5e6b8c7f768ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "781232c1_3ef263b5",
+        "filename": "call/rtx_receive_stream_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-09T13:22:35Z",
+      "side": 1,
+      "message": "May be add a test case with non-empty rtx packet with padding (afaik we actually started sending those kinds too)",
+      "range": {
+        "startLine": 171,
+        "startChar": 27,
+        "endLine": 171,
+        "endChar": 46
+      },
+      "revId": "1234cc666ac286880363422146d5e6b8c7f768ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f31748d2_a37e2b4c",
+        "filename": "call/rtx_receive_stream_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-09T13:22:35Z",
+      "side": 1,
+      "message": "No longer need to specify parameters when only wildcard matches are used;\nNo longer need to use ::testing::Invoke - can pass lambda directly.\nEXPECT_CALL(media_sink, OnRtpPacket).WillOnce([\u0026](const RtpPacketReceived\u0026 packet) { \n  ...\n});",
+      "range": {
+        "startLine": 189,
+        "startChar": 37,
+        "endLine": 189,
+        "endChar": 40
+      },
+      "revId": "1234cc666ac286880363422146d5e6b8c7f768ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -46,6 +46,30 @@
       "revId": "cd7329f005518d3fded058846b75b6d943340244",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "769f2d9b_a4b57f05",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-09T14:15:43Z",
+      "side": 1,
+      "message": "Ok! But I think it\u0027s best with a separate cl only doing that.",
+      "parentUuid": "899e5a65_52dba211",
+      "range": {
+        "startLine": 800,
+        "startChar": 13,
+        "endLine": 800,
+        "endChar": 36
+      },
+      "revId": "cd7329f005518d3fded058846b75b6d943340244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

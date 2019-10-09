@@ -203,7 +203,6 @@ void CallTest::RunBaseTest(BaseTest* test) {
     receive_transport_.reset();
 
     frame_generator_capturer_ = nullptr;
-    video_sources_.clear();
     DestroyCalls();
 
     fake_send_audio_device_ = nullptr;
@@ -251,6 +250,7 @@ void CallTest::CreateReceiverCall(const Call::Config& config) {
 }
 
 void CallTest::DestroyCalls() {
+  video_sources_.clear();
   sender_call_.reset();
   receiver_call_.reset();
 }

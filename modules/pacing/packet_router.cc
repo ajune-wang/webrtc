@@ -13,11 +13,13 @@
 #include <algorithm>
 #include <cstdint>
 #include <limits>
+#include <memory>
 #include <utility>
 
 #include "absl/types/optional.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/rtcp_packet.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 #include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
@@ -274,33 +276,42 @@ bool PacketRouter::SendRemb(int64_t bitrate_bps,
   return true;
 }
 
-bool PacketRouter::SendTransportFeedback(rtcp::TransportFeedback* packet) {
+bool PacketRouter::SendTransportFeedback(
+    std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets) {
   rtc::CritScope cs(&modules_crit_);
+
+  if (packets.empty()) {
+    return false;
+  }
+  // TODO(perkj): Change the interface for sending RTCP packets.
+  rtcp::TransportFeedback* feedback =
+      static_cast<rtcp::TransportFeedback*>(packets[0].get());
+  rtcp::RemoteEstimate* remote_estimate =
+      packets.size() > 1 ? static_cast<rtcp::RemoteEstimate*>(packets[0].get())
+                         : nullptr;
+
   // Prefer send modules.
   for (auto* rtp_module : rtp_send_modules_) {
-    packet->SetSenderSsrc(rtp_module->SSRC());
-    if (rtp_module->SendFeedbackPacket(*packet)) {
+    feedback->SetSenderSsrc(rtp_module->SSRC());
+    if (rtp_module->SendFeedbackPacket(*feedback)) {
+      if (remote_estimate) {
+        remote_estimate->SetSenderSsrc(rtp_module->SSRC());
+        rtp_module->SendNetworkStateEstimatePacket(*remote_estimate);
+      }
       return true;
     }
   }
   for (auto* rtcp_sender : rtcp_feedback_senders_) {
-    packet->SetSenderSsrc(rtcp_sender->SSRC());
-    if (rtcp_sender->SendFeedbackPacket(*packet)) {
+    feedback->SetSenderSsrc(rtcp_sender->SSRC());
+    if (rtcp_sender->SendFeedbackPacket(*feedback)) {
+      if (remote_estimate) {
+        remote_estimate->SetSenderSsrc(rtcp_sender->SSRC());
+        rtcp_sender->SendNetworkStateEstimatePacket(*remote_estimate);
+      }
       return true;
     }
   }
   return false;
-}
-
-void PacketRouter::SendNetworkStateEstimatePacket(
-    rtcp::RemoteEstimate* packet) {
-  rtc::CritScope cs(&modules_crit_);
-  for (auto* rtcp_sender : rtcp_feedback_senders_) {
-    packet->SetSenderSsrc(rtcp_sender->SSRC());
-    if (rtcp_sender->SendNetworkStateEstimatePacket(*packet)) {
-      break;
-    }
-  }
 }
 
 void PacketRouter::AddRembModuleCandidate(

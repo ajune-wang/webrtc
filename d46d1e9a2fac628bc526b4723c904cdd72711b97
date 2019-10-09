@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "905a585d_1343bdec",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-10-09T08:24:14Z",
+      "side": 0,
+      "message": "I understand that you just want frame information in a generic way, but with this change |frame_id| will now signal if the other members are valid or not (the thing going on at call/rtp_payload_params.cc:250 is a hack that I will remove). That is a bit weird I think.\n\nAnother questions is, how will you signal DTIs in a generic way? By simply not binding the concept of DTI to the generic descriptor?\n\nWDYT about renaming GenericDescriptorInfo to GenericInfo or something similar instead?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 48
+      },
+      "revId": "d46d1e9a2fac628bc526b4723c904cdd72711b97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

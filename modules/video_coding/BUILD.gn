@@ -139,6 +139,7 @@ rtc_static_library("video_coding") {
     ":webrtc_vp9_helpers",
     "..:module_api",
     "..:module_api_public",
+    "../../api:array_view",
     "../../api:fec_controller_api",
     "../../api:rtp_headers",
     "../../api/units:data_rate",

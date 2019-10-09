@@ -90,8 +90,7 @@ class RtpFrameReferenceFinder {
 
   FrameDecision ManageFrameInternal(RtpFrameObject* frame);
 
-  FrameDecision ManageFrameGeneric(RtpFrameObject* frame,
-                                   const RtpGenericFrameDescriptor& descriptor);
+  FrameDecision ManageFrameGeneric(RtpFrameObject* frame);
 
   // Find references for frames with no or very limited information in the
   // descriptor. If |picture_id| is unspecified then packet sequence numbers

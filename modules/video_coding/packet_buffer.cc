@@ -436,9 +436,9 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
           last_packet->video_header.rotation,
           last_packet->video_header.content_type, first_packet->video_header,
           last_packet->video_header.color_space,
-          first_packet->generic_descriptor,
           RtpPacketInfos(std::move(packet_infos)),
           GetEncodedImageBuffer(frame_size, start_seq_num, seq_num));
+      frame->SetRtpVideoHeaderAuth(first_packet->video_header_auth);
 
       found_frames.emplace_back(std::move(frame));
 

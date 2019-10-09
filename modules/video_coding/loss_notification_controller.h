@@ -14,8 +14,9 @@
 #include <set>
 
 #include "absl/types/optional.h"
+#include "api/array_view.h"
 #include "modules/include/module_common_types.h"
-#include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
+#include "modules/rtp_rtcp/source/rtp_video_header.h"
 #include "rtc_base/numerics/sequence_number_util.h"
 #include "rtc_base/synchronization/sequence_checker.h"
 
@@ -29,21 +30,21 @@ class LossNotificationController {
 
   // An RTP packet was received from the network.
   void OnReceivedPacket(uint16_t sequence_number,
-                        const RtpGenericFrameDescriptor& generic_descriptor);
+                        const RTPVideoHeader& rtp_video_header);
 
   // A frame was assembled from packets previously received.
   // (Should be called even if the frame was composed of a single packet.)
   void OnAssembledFrame(uint16_t first_seq_num,
-                        uint16_t frame_id,
+                        int64_t frame_id,
                         bool discardable,
-                        rtc::ArrayView<const uint16_t> frame_dependency_diffs);
+                        rtc::ArrayView<const int64_t> frame_dependencies);
 
  private:
   void DiscardOldInformation();
 
   bool AllDependenciesDecodable(
-      int64_t unwrapped_frame_id,
-      rtc::ArrayView<const uint16_t> frame_dependency_diffs) const;
+      int64_t frame_id,
+      rtc::ArrayView<const int64_t> frame_dependencies) const;
 
   // When the loss of a packet or the non-decodability of a frame is detected,
   // produces a key frame request or a loss notification.
@@ -67,11 +68,8 @@ class LossNotificationController {
   LossNotificationSender* const loss_notification_sender_
       RTC_GUARDED_BY(sequence_checker_);
 
-  SeqNumUnwrapper<uint16_t> frame_id_unwrapper_
-      RTC_GUARDED_BY(sequence_checker_);
-
   // Tracked to avoid processing repeated frames (buggy/malicious remote).
-  absl::optional<int64_t> last_received_unwrapped_frame_id_
+  absl::optional<int64_t> last_received_frame_id_
       RTC_GUARDED_BY(sequence_checker_);
 
   // Tracked to avoid processing repeated packets.
@@ -97,8 +95,7 @@ class LossNotificationController {
   // Track which frames are decodable. Later frames are also decodable if
   // all of their dependencies can be found in this container.
   // (Naturally, later frames must also be assemblable to be decodable.)
-  std::set<int64_t> decodable_unwrapped_frame_ids_
-      RTC_GUARDED_BY(sequence_checker_);
+  std::set<int64_t> decodable_frame_ids_ RTC_GUARDED_BY(sequence_checker_);
 
   SequenceChecker sequence_checker_;
 };

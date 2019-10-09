@@ -61,9 +61,8 @@ BufferedFrameDecryptor::FrameDecision BufferedFrameDecryptor::DecryptFrame(
     return FrameDecision::kStash;
   }
   // When using encryption we expect the frame to have the generic descriptor.
-  absl::optional<RtpGenericFrameDescriptor> descriptor =
-      frame->GetGenericFrameDescriptor();
-  if (!descriptor) {
+  const RTPVideoHeader& video_header = frame->GetRtpVideoHeader();
+  if (!video_header.frame_id.has_value()) {
     RTC_LOG(LS_ERROR) << "No generic frame descriptor found dropping frame.";
     return FrameDecision::kDrop;
   }
@@ -79,7 +78,7 @@ BufferedFrameDecryptor::FrameDecision BufferedFrameDecryptor::DecryptFrame(
   // Only enable authenticating the header if the field trial is enabled.
   rtc::ArrayView<const uint8_t> additional_data;
   if (generic_descriptor_auth_experiment_) {
-    additional_data = descriptor->GetByteRepresentation();
+    additional_data = frame->GetRtpVideoHeaderAuth();
   }
 
   // Attempt to decrypt the video frame.

@@ -98,10 +98,8 @@ void RtpFrameReferenceFinder::HandOffFrame(
 
 RtpFrameReferenceFinder::FrameDecision
 RtpFrameReferenceFinder::ManageFrameInternal(RtpFrameObject* frame) {
-  absl::optional<RtpGenericFrameDescriptor> generic_descriptor =
-      frame->GetGenericFrameDescriptor();
-  if (generic_descriptor) {
-    return ManageFrameGeneric(frame, *generic_descriptor);
+  if (frame->GetRtpVideoHeader().frame_id.has_value()) {
+    return ManageFrameGeneric(frame);
   }
 
   switch (frame->codec_type()) {
@@ -115,8 +113,8 @@ RtpFrameReferenceFinder::ManageFrameInternal(RtpFrameObject* frame) {
       // Use 15 first bits of frame ID as picture ID if available.
       const RTPVideoHeader& video_header = frame->GetRtpVideoHeader();
       int picture_id = kNoPictureId;
-      if (video_header.generic)
-        picture_id = video_header.generic->frame_id & 0x7fff;
+      if (video_header.frame_id)
+        picture_id = *video_header.frame_id & 0x7fff;
 
       return ManageFramePidOrSeqNum(frame, picture_id);
     }
@@ -182,14 +180,13 @@ void RtpFrameReferenceFinder::UpdateLastPictureIdWithPadding(uint16_t seq_num) {
 }
 
 RtpFrameReferenceFinder::FrameDecision
-RtpFrameReferenceFinder::ManageFrameGeneric(
-    RtpFrameObject* frame,
-    const RtpGenericFrameDescriptor& descriptor) {
-  int64_t frame_id = generic_frame_id_unwrapper_.Unwrap(descriptor.FrameId());
+RtpFrameReferenceFinder::ManageFrameGeneric(RtpFrameObject* frame) {
+  const RTPVideoHeader video_header = frame->GetRtpVideoHeader();
+  int64_t frame_id = generic_frame_id_unwrapper_.Unwrap(*video_header.frame_id);
   frame->id.picture_id = frame_id;
-  frame->id.spatial_layer = descriptor.SpatialLayer();
+  frame->id.spatial_layer = video_header.spatial_index;
 
-  rtc::ArrayView<const uint16_t> diffs = descriptor.FrameDependenciesDiffs();
+  const auto& diffs = video_header.frame_dependencies;
   if (EncodedFrame::kMaxFrameReferences < diffs.size()) {
     RTC_LOG(LS_WARNING) << "Too many dependencies in generic descriptor.";
     return kDrop;

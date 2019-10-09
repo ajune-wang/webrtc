@@ -1455,7 +1455,14 @@ void EventLogAnalyzer::CreateNetworkDelayFeedbackGraph(Plot* plot) {
   int64_t min_rtt_ms = std::numeric_limits<int64_t>::max();
 
   int64_t prev_y = 0;
-  for (auto packet : GetNetworkTrace(parsed_log_)) {
+  std::vector<MatchedSendArrivalTimes> matched_rtp_rtcp =
+      GetNetworkTrace(parsed_log_);
+  std::stable_sort(
+      matched_rtp_rtcp.begin(), matched_rtp_rtcp.end(),
+      [](const MatchedSendArrivalTimes& a, const MatchedSendArrivalTimes& b) {
+        return a.feedback_arrival_time_ms < b.feedback_arrival_time_ms;
+      });
+  for (const auto& packet : matched_rtp_rtcp) {
     if (packet.arrival_time_ms == PacketFeedback::kNotReceived)
       continue;
     float x = config_.GetCallTimeSec(1000 * packet.feedback_arrival_time_ms);

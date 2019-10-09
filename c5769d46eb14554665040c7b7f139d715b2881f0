@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "568cab45_9365b028",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-09T13:26:52Z",
+      "side": 1,
+      "message": "newly_created() or created_by_pending_remote_offer() SGTM",
+      "parentUuid": "19b76075_ced1873a",
+      "revId": "c5769d46eb14554665040c7b7f139d715b2881f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8524e58_688e1a4c",
         "filename": "pc/peer_connection.h",
         "patchSetId": 9

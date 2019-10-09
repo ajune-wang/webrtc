@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "76d3a860_3a7e9d91",
+        "filename": "api/jsep.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-09T13:26:52Z",
+      "side": 1,
+      "message": "Oh, right. If landing this CL causes implicit rollback to be shipped in chromium I think we should guard against that before we think we\u0027re ready.\n\nI would have suggested to do this by looking at the signaling state in blink and throwing if it would have caused implicit rollback, but this could maybe cause edge-case differences because blink is on the main thread and webrtc is on the signaling thread (so the signaling state might not be up-to-date in some unintuitive edge-cases).\n\nThis could be addressed in the content namespace (chromium), but it might be easier to simply add a flag in this CL to RTCConfiguration that enables or disables implicit rollback, and make sure that when chromium uses the PC the feature is turned off (for now).\n\nWhen we\u0027re ready to ship, the shipping CL can be a simple switch.",
+      "parentUuid": "fcd26b15_2bea45d4",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9988c246_03b422c8",
         "filename": "pc/jsep_session_description.cc",
         "patchSetId": 8

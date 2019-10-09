@@ -571,7 +571,8 @@ class BasicPortAllocatorTest : public FakeClockBase,
     allocator_.reset(new BasicPortAllocator(&network_manager_));
     allocator_->Initialize();
     allocator_->SetConfiguration(allocator_->stun_servers(),
-                                 allocator_->turn_servers(), 0, true);
+                                 allocator_->turn_servers(), 0,
+                                 webrtc::PRUNE_BASED_ON_PRIORITY);
     AddTurnServers(kTurnUdpIntIPv6Addr, rtc::SocketAddress());
     AddTurnServers(kTurnUdpIntAddr, rtc::SocketAddress());
 
@@ -603,13 +604,15 @@ class BasicPortAllocatorTest : public FakeClockBase,
                              rtc::SocketAddress(kTurnUdpExtAddr.ipaddr(), 0)));
   }
 
-  void TestUdpTurnPortPrunesTcpTurnPort() {
+  void TestTurnPortPrunesWithUdpAndTcpPorts(
+      webrtc::PortPrunePolicy prune_policy,
+      bool tcp_pruned) {
     turn_server_.AddInternalSocket(kTurnTcpIntAddr, PROTO_TCP);
     AddInterface(kClientAddr);
     allocator_.reset(new BasicPortAllocator(&network_manager_));
     allocator_->Initialize();
     allocator_->SetConfiguration(allocator_->stun_servers(),
-                                 allocator_->turn_servers(), 0, true);
+                                 allocator_->turn_servers(), 0, prune_policy);
     AddTurnServers(kTurnUdpIntAddr, kTurnTcpIntAddr);
     allocator_->set_step_delay(kMinimumStepDelay);
     allocator_->set_flags(allocator().flags() |
@@ -627,8 +630,11 @@ class BasicPortAllocatorTest : public FakeClockBase,
     // |ready_ports|, so we only need to verify the content in one of them.
     EXPECT_EQ(2U, ports_.size());
     EXPECT_EQ(1, CountPorts(ports_, "local", PROTO_UDP, kClientAddr));
-    EXPECT_EQ(1, CountPorts(ports_, "relay", PROTO_UDP, kClientAddr));
-    EXPECT_EQ(0, CountPorts(ports_, "relay", PROTO_TCP, kClientAddr));
+    int num_udp_ports = tcp_pruned ? 1 : 0;
+    EXPECT_EQ(num_udp_ports,
+              CountPorts(ports_, "relay", PROTO_UDP, kClientAddr));
+    EXPECT_EQ(1 - num_udp_ports,
+              CountPorts(ports_, "relay", PROTO_TCP, kClientAddr));
 
     // Now that we remove candidates when a TURN port is pruned, |candidates_|
     // should only contains two candidates regardless whether the TCP TURN port
@@ -640,6 +646,8 @@ class BasicPortAllocatorTest : public FakeClockBase,
         session_->ReadyCandidates();
     EXPECT_EQ(2U, ready_candidates.size());
     EXPECT_TRUE(HasCandidate(ready_candidates, "local", "udp", kClientAddr));
+
+    // The external candidate is always udp.
     EXPECT_TRUE(HasCandidate(ready_candidates, "relay", "udp",
                              rtc::SocketAddress(kTurnUdpExtAddr.ipaddr(), 0)));
   }
@@ -656,7 +664,8 @@ class BasicPortAllocatorTest : public FakeClockBase,
     allocator_.reset(new BasicPortAllocator(&network_manager_));
     allocator_->Initialize();
     allocator_->SetConfiguration(allocator_->stun_servers(),
-                                 allocator_->turn_servers(), 0, true);
+                                 allocator_->turn_servers(), 0,
+                                 webrtc::PRUNE_BASED_ON_PRIORITY);
     // Have both UDP/TCP and IPv4/IPv6 TURN ports.
     AddTurnServers(kTurnUdpIntAddr, kTurnTcpIntAddr);
     AddTurnServers(kTurnUdpIntIPv6Addr, kTurnTcpIntIPv6Addr);
@@ -1657,7 +1666,8 @@ TEST_F(BasicPortAllocatorTest,
   virtual_socket_server()->SetDelayOnAddress(kTurnUdpIntAddr, 200);
   virtual_socket_server()->SetDelayOnAddress(kTurnTcpIntAddr, 100);
 
-  TestUdpTurnPortPrunesTcpTurnPort();
+  TestTurnPortPrunesWithUdpAndTcpPorts(webrtc::PRUNE_BASED_ON_PRIORITY,
+                                       true /* tcp_pruned */);
 }
 
 // Test that if prune_turn_ports is set, TCP TURN port will not be used
@@ -1668,7 +1678,32 @@ TEST_F(BasicPortAllocatorTest,
   virtual_socket_server()->SetDelayOnAddress(kTurnUdpIntAddr, 100);
   virtual_socket_server()->SetDelayOnAddress(kTurnTcpIntAddr, 200);
 
-  TestUdpTurnPortPrunesTcpTurnPort();
+  TestTurnPortPrunesWithUdpAndTcpPorts(webrtc::PRUNE_BASED_ON_PRIORITY,
+                                       true /* tcp_pruned */);
+}
+
+// Test that if turn_port_prune policy is KEEP_FIRST_READY, the first ready port
+// will be kept regardless of the priority.
+TEST_F(BasicPortAllocatorTest,
+       TestUdpTurnPortPrunesTcpTurnPortIfUdpReadyFirst) {
+  // UDP has shorter delay than TCP so that UDP TURN port becomes ready first.
+  virtual_socket_server()->SetDelayOnAddress(kTurnUdpIntAddr, 100);
+  virtual_socket_server()->SetDelayOnAddress(kTurnTcpIntAddr, 200);
+
+  TestTurnPortPrunesWithUdpAndTcpPorts(webrtc::KEEP_FIRST_READY,
+                                       true /* tcp_pruned */);
+}
+
+// Test that if turn_port_prune policy is KEEP_FIRST_READY, the first ready port
+// will be kept regardless of the priority.
+TEST_F(BasicPortAllocatorTest,
+       TestTcpTurnPortPrunesUdpTurnPortIfTcpReadyFirst) {
+  // UDP has longer delay than TCP so that TCP TURN port becomes ready first.
+  virtual_socket_server()->SetDelayOnAddress(kTurnUdpIntAddr, 500);
+  virtual_socket_server()->SetDelayOnAddress(kTurnTcpIntAddr, 100);
+
+  TestTurnPortPrunesWithUdpAndTcpPorts(webrtc::KEEP_FIRST_READY,
+                                       false /* tcp_pruned */);
 }
 
 // Tests that if prune_turn_ports is set, IPv4 TurnPort will not be used
@@ -2038,7 +2073,8 @@ TEST_F(BasicPortAllocatorTest, TestTransportInformationUpdated) {
   AddInterface(kClientAddr);
   int pool_size = 1;
   allocator_->SetConfiguration(allocator_->stun_servers(),
-                               allocator_->turn_servers(), pool_size, false);
+                               allocator_->turn_servers(), pool_size,
+                               webrtc::NO_PRUNE);
   const PortAllocatorSession* peeked_session = allocator_->GetPooledSession();
   ASSERT_NE(nullptr, peeked_session);
   EXPECT_EQ_SIMULATED_WAIT(true, peeked_session->CandidatesAllocationDone(),
@@ -2074,7 +2110,8 @@ TEST_F(BasicPortAllocatorTest, TestSetCandidateFilterAfterCandidatesGathered) {
   AddInterface(kClientAddr);
   int pool_size = 1;
   allocator_->SetConfiguration(allocator_->stun_servers(),
-                               allocator_->turn_servers(), pool_size, false);
+                               allocator_->turn_servers(), pool_size,
+                               webrtc::NO_PRUNE);
   const PortAllocatorSession* peeked_session = allocator_->GetPooledSession();
   ASSERT_NE(nullptr, peeked_session);
   EXPECT_EQ_SIMULATED_WAIT(true, peeked_session->CandidatesAllocationDone(),
@@ -2248,9 +2285,9 @@ TEST_F(BasicPortAllocatorTest, SetStunKeepaliveIntervalForPorts) {
   const int pool_size = 1;
   const int expected_stun_keepalive_interval = 123;
   AddInterface(kClientAddr);
-  allocator_->SetConfiguration(allocator_->stun_servers(),
-                               allocator_->turn_servers(), pool_size, false,
-                               nullptr, expected_stun_keepalive_interval);
+  allocator_->SetConfiguration(
+      allocator_->stun_servers(), allocator_->turn_servers(), pool_size,
+      webrtc::NO_PRUNE, nullptr, expected_stun_keepalive_interval);
   auto* pooled_session = allocator_->GetPooledSession();
   ASSERT_NE(nullptr, pooled_session);
   EXPECT_EQ_SIMULATED_WAIT(true, pooled_session->CandidatesAllocationDone(),
@@ -2263,17 +2300,17 @@ TEST_F(BasicPortAllocatorTest,
        ChangeStunKeepaliveIntervalForPortsAfterInitialConfig) {
   const int pool_size = 1;
   AddInterface(kClientAddr);
-  allocator_->SetConfiguration(allocator_->stun_servers(),
-                               allocator_->turn_servers(), pool_size, false,
-                               nullptr, 123 /* stun keepalive interval */);
+  allocator_->SetConfiguration(
+      allocator_->stun_servers(), allocator_->turn_servers(), pool_size,
+      webrtc::NO_PRUNE, nullptr, 123 /* stun keepalive interval */);
   auto* pooled_session = allocator_->GetPooledSession();
   ASSERT_NE(nullptr, pooled_session);
   EXPECT_EQ_SIMULATED_WAIT(true, pooled_session->CandidatesAllocationDone(),
                            kDefaultAllocationTimeout, fake_clock);
   const int expected_stun_keepalive_interval = 321;
-  allocator_->SetConfiguration(allocator_->stun_servers(),
-                               allocator_->turn_servers(), pool_size, false,
-                               nullptr, expected_stun_keepalive_interval);
+  allocator_->SetConfiguration(
+      allocator_->stun_servers(), allocator_->turn_servers(), pool_size,
+      webrtc::NO_PRUNE, nullptr, expected_stun_keepalive_interval);
   CheckStunKeepaliveIntervalOfAllReadyPorts(pooled_session,
                                             expected_stun_keepalive_interval);
 }
@@ -2285,9 +2322,9 @@ TEST_F(BasicPortAllocatorTest,
   AddInterface(kClientAddr);
   allocator_->set_flags(allocator().flags() |
                         PORTALLOCATOR_ENABLE_SHARED_SOCKET);
-  allocator_->SetConfiguration(allocator_->stun_servers(),
-                               allocator_->turn_servers(), pool_size, false,
-                               nullptr, expected_stun_keepalive_interval);
+  allocator_->SetConfiguration(
+      allocator_->stun_servers(), allocator_->turn_servers(), pool_size,
+      webrtc::NO_PRUNE, nullptr, expected_stun_keepalive_interval);
   ASSERT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
   session_->StartGettingPorts();
   EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_,
@@ -2303,9 +2340,9 @@ TEST_F(BasicPortAllocatorTest,
   AddInterface(kClientAddr);
   allocator_->set_flags(allocator().flags() &
                         ~(PORTALLOCATOR_ENABLE_SHARED_SOCKET));
-  allocator_->SetConfiguration(allocator_->stun_servers(),
-                               allocator_->turn_servers(), pool_size, false,
-                               nullptr, expected_stun_keepalive_interval);
+  allocator_->SetConfiguration(
+      allocator_->stun_servers(), allocator_->turn_servers(), pool_size,
+      webrtc::NO_PRUNE, nullptr, expected_stun_keepalive_interval);
   ASSERT_TRUE(CreateSession(ICE_CANDIDATE_COMPONENT_RTP));
   session_->StartGettingPorts();
   EXPECT_TRUE_SIMULATED_WAIT(candidate_allocation_done_,

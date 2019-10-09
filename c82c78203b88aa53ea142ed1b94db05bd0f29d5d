@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7722976e_39408ed2",
+        "filename": "call/rtx_receive_stream_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-09T15:43:42Z",
+      "side": 1,
+      "message": "Just to make the |large_rtx_packet| array fully initialized. Do you prefer to leave the padding portion uninitialized, except for the last byte?",
+      "parentUuid": "366720f3_72f483ea",
+      "range": {
+        "startLine": 240,
+        "startChar": 19,
+        "endLine": 240,
+        "endChar": 59
+      },
+      "revId": "c82c78203b88aa53ea142ed1b94db05bd0f29d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22bfcf3f_12f369bd",
         "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-10-09T15:33:25Z",
       "side": 1,
       "message": "nit: Buffer() would return a copy of the rtc::CopyOneWriteBuffer.\npacket.buffer_.Slice() would access the same buffer by reference.\nthus avoiding extra AddRef/Release pair.",
+      "range": {
+        "startLine": 124,
+        "startChar": 19,
+        "endLine": 124,
+        "endChar": 27
+      },
+      "revId": "c82c78203b88aa53ea142ed1b94db05bd0f29d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8abee88e_42c0389c",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-09T15:43:42Z",
+      "side": 1,
+      "message": "Done. I still find it a bit strange to access private members of other instances than |this|.",
+      "parentUuid": "22bfcf3f_12f369bd",
       "range": {
         "startLine": 124,
         "startChar": 19,

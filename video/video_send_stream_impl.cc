@@ -61,18 +61,6 @@ const char kForcedFallbackFieldTrial[] =
 const int kDefaultEncoderMinBitrateBps = 30000;
 const char kMinVideoBitrateExperiment[] = "WebRTC-Video-MinVideoBitrate";
 
-struct MinVideoBitrateConfig {
-  webrtc::FieldTrialParameter<webrtc::DataRate> min_video_bitrate;
-
-  MinVideoBitrateConfig()
-      : min_video_bitrate("br",
-                          webrtc::DataRate::bps(kDefaultEncoderMinBitrateBps)) {
-    webrtc::ParseFieldTrial(
-        {&min_video_bitrate},
-        webrtc::field_trial::FindFullName(kMinVideoBitrateExperiment));
-  }
-};
-
 absl::optional<int> GetFallbackMinBpsFromFieldTrial(VideoCodecType type) {
   if (type != kVideoCodecVP8)
     return absl::nullopt;
@@ -103,9 +91,48 @@ int GetEncoderMinBitrateBps(VideoCodecType type) {
   if (GetFallbackMinBpsFromFieldTrial(type).has_value()) {
     return GetFallbackMinBpsFromFieldTrial(type).value();
   }
+
   if (webrtc::field_trial::IsEnabled(kMinVideoBitrateExperiment)) {
-    return MinVideoBitrateConfig().min_video_bitrate->bps();
+    // Backwards-compatibility with an old experiment - a generic minimum which,
+    // if set, applies to all codecs.
+    webrtc::FieldTrialOptional<webrtc::DataRate> min_video_bitrate("br");
+
+    // New experiment - per-codec minimum bitrate.
+    webrtc::FieldTrialOptional<webrtc::DataRate> min_bitrate_vp8("vp8_br");
+    webrtc::FieldTrialOptional<webrtc::DataRate> min_bitrate_vp9("vp9_br");
+    webrtc::FieldTrialOptional<webrtc::DataRate> min_bitrate_h264("h264_br");
+
+    webrtc::ParseFieldTrial(
+        {&min_video_bitrate, &min_bitrate_vp8, &min_bitrate_vp9,
+         &min_bitrate_h264},
+        webrtc::field_trial::FindFullName(kMinVideoBitrateExperiment));
+
+    if (min_video_bitrate) {
+      if (min_bitrate_vp8 || min_bitrate_vp9 || min_bitrate_h264) {
+        // "br" is mutually-exclusive with the other configuration possibilites.
+        RTC_LOG(LS_WARNING) << "Self-contradictory experiment config.";
+      }
+      return min_video_bitrate->bps();
+    }
+
+    switch (type) {
+      case kVideoCodecVP8:
+        return min_bitrate_vp8 ? min_bitrate_vp8->bps()
+                               : kDefaultEncoderMinBitrateBps;
+      case kVideoCodecVP9:
+        return min_bitrate_vp9 ? min_bitrate_vp9->bps()
+                               : kDefaultEncoderMinBitrateBps;
+      case kVideoCodecH264:
+        return min_bitrate_h264 ? min_bitrate_h264->bps()
+                                : kDefaultEncoderMinBitrateBps;
+      case kVideoCodecGeneric:
+      case kVideoCodecMultiplex:
+        return kDefaultEncoderMinBitrateBps;
+    }
+
+    RTC_NOTREACHED();
   }
+
   return kDefaultEncoderMinBitrateBps;
 }
 

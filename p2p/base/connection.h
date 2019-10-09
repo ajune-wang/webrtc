@@ -294,6 +294,10 @@ class Connection : public CandidatePairInterface,
 
   bool stable(int64_t now) const;
 
+  // Check if we sent |val| initial pings without receving
+  // a response.
+  bool check_initial_pings_wo_reponse(const absl::optional<int>& val) const;
+
  protected:
   enum { MSG_DELETE = 0, MSG_FIRST_AVAILABLE };
 

@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "db7585c8_0eec0529",
+        "filename": "api/jsep.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-09T16:15:57Z",
+      "side": 1,
+      "message": "I also wonder how the implicit rollback feature plays with the idea that one end has to be \u0027polite\u0027 doing the rollbacks and another one not.",
+      "parentUuid": "b624e515_0be52135",
+      "revId": "f41e232be2a2391caa4e3a54d86252d5a1ffacb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9988c246_03b422c8",
         "filename": "pc/jsep_session_description.cc",
         "patchSetId": 8

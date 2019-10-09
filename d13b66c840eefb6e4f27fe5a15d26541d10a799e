@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e732403_86ea71a0",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-09T11:49:03Z",
+      "side": 1,
+      "message": "Please DCHECK on E2_main.size() and Y2.size().",
+      "range": {
+        "startLine": 175,
+        "startChar": 78,
+        "endLine": 175,
+        "endChar": 79
+      },
+      "revId": "d13b66c840eefb6e4f27fe5a15d26541d10a799e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "341664e7_585ea6fa",
+        "filename": "modules/audio_processing/aec3/suppression_gain_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-09T11:49:03Z",
+      "side": 1,
+      "message": "render channels?",
+      "range": {
+        "startLine": 78,
+        "startChar": 21,
+        "endLine": 78,
+        "endChar": 40
+      },
+      "revId": "d13b66c840eefb6e4f27fe5a15d26541d10a799e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "565e362c_8e755642",
+        "filename": "modules/audio_processing/aec3/suppression_gain_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-09T11:49:03Z",
+      "side": 1,
+      "message": "render channels?",
+      "range": {
+        "startLine": 84,
+        "startChar": 55,
+        "endLine": 84,
+        "endChar": 74
+      },
+      "revId": "d13b66c840eefb6e4f27fe5a15d26541d10a799e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

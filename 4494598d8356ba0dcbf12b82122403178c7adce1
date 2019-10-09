@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d37f6dd0_91ab9afb",
+        "filename": "modules/audio_processing/audio_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-09T09:30:37Z",
+      "side": 1,
+      "message": "Nit: Is it possible to move the  { to a separate line or does git cl format revert that? The breaking of the initializer statement for data seems unneccessary.",
+      "range": {
+        "startLine": 69,
+        "startChar": 78,
+        "endLine": 69,
+        "endChar": 79
+      },
+      "revId": "4494598d8356ba0dcbf12b82122403178c7adce1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cd982fb_0c4dc414",
+        "filename": "modules/audio_processing/audio_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-09T09:30:37Z",
+      "side": 1,
+      "message": "Please change this to buffer-\u003enum_frames() (I know due to the DCHECK that they are the same, but using that value makes the code clearer, and will avoid issues in release mode.",
+      "range": {
+        "startLine": 195,
+        "startChar": 38,
+        "endLine": 195,
+        "endChar": 56
+      },
+      "revId": "4494598d8356ba0dcbf12b82122403178c7adce1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

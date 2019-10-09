@@ -168,4 +168,33 @@ TEST(RtxReceiveStreamTest, CopiesRtpHeaderExtensions) {
   rtx_sink.OnRtpPacket(rtx_packet);
 }
 
+TEST(RtxReceiveStreamTest, SupportsLargePacket) {
+  StrictMock<MockRtpPacketSink> media_sink;
+  RtxReceiveStream rtx_sink(&media_sink, PayloadTypeMapping(), kMediaSSRC);
+  RtpPacketReceived rtx_packet;
+  constexpr int kRtxPacketSize = 2000;
+  constexpr int kRtxPayloadOffset = 14;
+  uint8_t large_rtx_packet[kRtxPacketSize];
+  memcpy(large_rtx_packet, kRtxPacket, sizeof(kRtxPacket));
+  rtc::ArrayView<uint8_t> payload(large_rtx_packet + kRtxPayloadOffset,
+                                  kRtxPacketSize - kRtxPayloadOffset);
+
+  // Fill payload.
+  for (size_t i = 0; i < payload.size(); i++) {
+    payload[i] = i;
+  }
+  EXPECT_TRUE(
+      rtx_packet.Parse(rtc::ArrayView<const uint8_t>(large_rtx_packet)));
+
+  EXPECT_CALL(media_sink, OnRtpPacket(_))
+      .WillOnce(::testing::Invoke([&](const RtpPacketReceived& packet) {
+        EXPECT_EQ(packet.SequenceNumber(), kMediaSeqno);
+        EXPECT_EQ(packet.Ssrc(), kMediaSSRC);
+        EXPECT_EQ(packet.PayloadType(), kMediaPayloadType);
+        EXPECT_THAT(packet.payload(), ::testing::ElementsAreArray(payload));
+      }));
+
+  rtx_sink.OnRtpPacket(rtx_packet);
+}
+
 }  // namespace webrtc

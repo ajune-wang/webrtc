@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "448b02e5_61a2b7fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-09T13:09:39Z",
+      "side": 1,
+      "message": "Update this bug reference, it is incorrect! You meant to reference webrtc:10525",
+      "revId": "5615e1e4a0130d43318f9e4c1cef7964ff71f53b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

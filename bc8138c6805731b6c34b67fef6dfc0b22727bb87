@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "217bbd20_1a1d0e75",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-09T14:23:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "11b239f1_2be48554",
+      "revId": "bc8138c6805731b6c34b67fef6dfc0b22727bb87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5734a26b_7d305888",
         "filename": "pc/stats_collector.cc",
         "patchSetId": 3
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Maybe the field trial was a mistake. At the time, I guess the plan was to migrate both flavors of GetStats to count payload bytes only, but give applications control over how they migrate.\n\nIf the current plan, to update standard GetStats only, works out, the field trial won\u0027t be that useful.",
       "parentUuid": "5734a26b_7d305888",
+      "revId": "bc8138c6805731b6c34b67fef6dfc0b22727bb87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bfd96574_7583f940",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-09T14:23:08Z",
+      "side": 1,
+      "message": "Not sure maybe I got confused but I got the impression that another part of the reason why it was made a field trial was to allow Meet to tell the difference in their dashboards (so they don\u0027t think it\u0027s a regression), which I don\u0027t think justifies rolling out the bugfix as an \"experiment\" for the rest of the web.\n\nI guess now the field trial will remain disabled-by-default only to be used by bots, and Meet can continue to look at the old numbers from legacy stats as they see fit.",
+      "parentUuid": "b03a69a6_c6dc5135",
       "revId": "bc8138c6805731b6c34b67fef6dfc0b22727bb87",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

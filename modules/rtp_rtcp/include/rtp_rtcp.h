@@ -422,8 +422,6 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
   // construction, remove this setter.
   virtual void SetReportBlockDataObserver(
       ReportBlockDataObserver* observer) = 0;
-  // BWE feedback packets.
-  bool SendFeedbackPacket(const rtcp::TransportFeedback& packet) override = 0;
 
   virtual void SetVideoBitrateAllocation(
       const VideoBitrateAllocation& bitrate) = 0;

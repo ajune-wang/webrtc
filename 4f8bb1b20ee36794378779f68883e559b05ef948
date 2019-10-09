@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "56b59f15_b3d82426",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-09T12:30:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bf05fe29_13ac365a",
+      "revId": "4f8bb1b20ee36794378779f68883e559b05ef948",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9b1273e_38302e68",
         "filename": "modules/video_coding/utility/simulcast_rate_allocator_unittest.cc",
         "patchSetId": 1
@@ -189,6 +207,24 @@
       "side": 1,
       "message": "It dictates what is limited: framerate or resolution.\n\nRegardless of degradation preference, what gets limited because of disabled simulcast streams/layers depends only on content type. The structures are hardcoded for content type.\n\nSo, we get limited framerate if content_type is screenshare and we have limited layers. We get limited resolution if the content type is realtime and we have limited layers.\n\nWould it be clearer if I have instead:\n\nstats_.bw_limited_resolution \u003d ...;\nstats_.bw_limited_framerate \u003d ...;\nif (bw_limited_layers_) {\n if (content_type \u003d\u003d VideoEncoderConfig::ContentType::kRealtimeVideo) {\n   stats_.bw_limited_resolution \u003d true;\n } else {\n   stats_.bw_limited_framerate \u003d true;\n }\n}",
       "parentUuid": "0195519c_72d8d0e6",
+      "revId": "4f8bb1b20ee36794378779f68883e559b05ef948",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a236b5bd_a56e2b8e",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-09T12:30:38Z",
+      "side": 1,
+      "message": "OK. So this is the case when num_resolution_reductions to be equal to zero because we\u0027re not limiting the resolution, but we\u0027re still limited because we dropped a layer?\n\nI think the clearest thing to do is to add a comment explaining this or replace bw_limited_layers_ with an enum (see other comment).",
+      "parentUuid": "009b9224_f26aa1af",
       "revId": "4f8bb1b20ee36794378779f68883e559b05ef948",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

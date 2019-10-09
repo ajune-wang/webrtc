@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1765a76_89c9f85e",
+        "filename": "video/send_statistics_proxy.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-09T12:30:38Z",
+      "side": 1,
+      "message": "Per other comments, this is a boolean that means different things depending on content type, which means assumptions about how content type is handled is spread out into multiple places in the code.\n\nWould it be better to introduce an enum that expresses how we are limited, e.g. kResolutionLayersDropped or kFramerateLayersDropped, that way the content layer assumption is isolated to where this value is set.\n\nAlternatively if you think I\u0027m bikeshedding just clarify with comments.",
+      "revId": "b06f2352ecf7abbd01db880af69e7891e1d656c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d55ec9c_c6239a03",
+        "filename": "video/send_statistics_proxy_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1150,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-09T12:30:38Z",
+      "side": 1,
+      "message": "Can you also add \"QualityLimitationReasonIs...\" tests for when layers are limited for the respective content type so we have standard getStats() test coverage as well?",
+      "revId": "b06f2352ecf7abbd01db880af69e7891e1d656c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

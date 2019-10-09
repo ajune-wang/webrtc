@@ -14,6 +14,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <vector>
+
 #include "absl/types/optional.h"
 #include "api/rtp_headers.h"
 #include "api/rtp_packet_info.h"
@@ -70,8 +72,7 @@ class VCMPacket {
   bool insertStartCode;  // True if a start code should be inserted before this
                          // packet.
   RTPVideoHeader video_header;
-  absl::optional<RtpGenericFrameDescriptor> generic_descriptor;
-
+  std::vector<uint8_t> video_header_auth;
   RtpPacketInfo packet_info;
 };
 

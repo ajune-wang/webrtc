@@ -19,7 +19,6 @@
 #include <utility>
 
 #include "modules/include/module_common_types_public.h"
-#include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
 #include "modules/video_coding/codecs/vp9/include/vp9_globals.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/numerics/sequence_number_util.h"
@@ -90,8 +89,7 @@ class RtpFrameReferenceFinder {
 
   FrameDecision ManageFrameInternal(RtpFrameObject* frame);
 
-  FrameDecision ManageFrameGeneric(RtpFrameObject* frame,
-                                   const RtpGenericFrameDescriptor& descriptor);
+  FrameDecision ManageFrameGeneric(RtpFrameObject* frame);
 
   // Find references for frames with no or very limited information in the
   // descriptor. If |picture_id| is unspecified then packet sequence numbers
@@ -204,8 +202,6 @@ class RtpFrameReferenceFinder {
   int cleared_to_seq_num_;
 
   OnCompleteFrameCallback* frame_callback_;
-
-  SeqNumUnwrapper<uint16_t> generic_frame_id_unwrapper_;
 
   // Unwrapper used to unwrap generic RTP streams. In a generic stream we derive
   // a picture id from the packet sequence number.

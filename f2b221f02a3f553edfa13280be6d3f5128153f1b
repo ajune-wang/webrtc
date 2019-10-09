@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ee9806d_ac8cc455",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-09T11:26:39Z",
+      "side": 1,
+      "message": "This member is probably obsolete. But leaving as is in this cl.",
+      "range": {
+        "startLine": 539,
+        "startChar": 23,
+        "endLine": 539,
+        "endChar": 37
+      },
+      "revId": "f2b221f02a3f553edfa13280be6d3f5128153f1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

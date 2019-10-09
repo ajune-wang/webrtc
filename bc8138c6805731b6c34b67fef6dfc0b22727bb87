@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "164700ae_245acc7b",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-09T13:08:20Z",
+      "side": 1,
+      "message": "Optional nit: I prefer \"received\" to \"rcvd\"",
+      "revId": "bc8138c6805731b6c34b67fef6dfc0b22727bb87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd58fbad_3f608ea5",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-09T13:08:20Z",
+      "side": 1,
+      "message": "Do we still need to maintain MediaSenderInfo::bytes_sent and MediaReceiverInfo::bytes_rcvd given that we calculate bytes_sent and bytes_received by summing up the payload and headers here?\n\nIf the answer is \"yes\" due to downstream projects that\u0027s fine.",
+      "revId": "bc8138c6805731b6c34b67fef6dfc0b22727bb87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5734a26b_7d305888",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-09T13:08:20Z",
+      "side": 1,
+      "message": "It is strange to me that a test-only flag has to be controlled with a field trial, rather than the tests just explicitly setting the boolean with an API? But I guess these are devices running chrome or similar builds where the flags are the only control surfaces rather than unittest.cc files that can set up the environment as it sees fit?\n\nNot asking you to change anything in this CL. Given that we do use a field trial, I am happy to see it limited to the StatsCollector instead of deeper down layers. This is an improvement!",
+      "revId": "bc8138c6805731b6c34b67fef6dfc0b22727bb87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

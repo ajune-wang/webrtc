@@ -22,6 +22,30 @@
       "revId": "cd7329f005518d3fded058846b75b6d943340244",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "899e5a65_52dba211",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-09T13:08:20Z",
+      "side": 1,
+      "message": "The test ensures that we have sent and received something, so I think you can change these to IsPositive without risking flakiness. After all, we are able to do TestMemberIsDefined(inbound_stream.last_packet_received_timestamp) below and I have not observed any flakes. Go for it :)",
+      "parentUuid": "ebf699c2_3dcf7143",
+      "range": {
+        "startLine": 800,
+        "startChar": 13,
+        "endLine": 800,
+        "endChar": 36
+      },
+      "revId": "cd7329f005518d3fded058846b75b6d943340244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

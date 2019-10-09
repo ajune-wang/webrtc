@@ -38,6 +38,37 @@ class VideoWriter final : public rtc::VideoSinkInterface<VideoFrame> {
   test::VideoFrameWriter* video_writer_;
 };
 
+class AnalyzingFramePreprocessor
+    : public test::TestVideoCapturer::FramePreprocessor {
+ public:
+  AnalyzingFramePreprocessor(
+      std::string stream_label,
+      VideoQualityAnalyzerInterface* analyzer,
+      std::vector<std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>> sinks)
+      : stream_label_(std::move(stream_label)),
+        analyzer_(analyzer),
+        sinks_(std::move(sinks)) {}
+  ~AnalyzingFramePreprocessor() override = default;
+
+  VideoFrame Preprocess(const VideoFrame& source_frame) override {
+    // Copy VideoFrame to be able to set id on it.
+    VideoFrame frame = source_frame;
+    uint16_t frame_id = analyzer_->OnFrameCaptured(stream_label_, frame);
+    frame.set_id(frame_id);
+
+    for (auto& sink : sinks_) {
+      sink->OnFrame(frame);
+    }
+    return frame;
+  }
+
+ private:
+  const std::string stream_label_;
+  VideoQualityAnalyzerInterface* const analyzer_;
+  const std::vector<std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>>
+      sinks_;
+};
+
 // Intercepts generated frames and passes them also to video quality analyzer
 // and to provided sinks.
 class AnalyzingFrameGenerator final : public test::FrameGenerator {
@@ -159,6 +190,23 @@ VideoQualityAnalyzerInjectionHelper::WrapFrameGenerator(
   return std::make_unique<AnalyzingFrameGenerator>(
       std::move(*config.stream_label), std::move(delegate), analyzer_.get(),
       std::move(sinks));
+}
+
+std::unique_ptr<test::TestVideoCapturer::FramePreprocessor>
+VideoQualityAnalyzerInjectionHelper::CreateFramePreprocessor(
+    const VideoConfig& config,
+    test::VideoFrameWriter* writer) const {
+  std::vector<std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>> sinks;
+  if (writer) {
+    sinks.push_back(std::make_unique<VideoWriter>(writer));
+  }
+  if (config.show_on_screen) {
+    sinks.push_back(absl::WrapUnique(
+        test::VideoRenderer::Create((*config.stream_label + "-capture").c_str(),
+                                    config.width, config.height)));
+  }
+  return std::make_unique<AnalyzingFramePreprocessor>(
+      std::move(*config.stream_label), analyzer_.get(), std::move(sinks));
 }
 
 std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>

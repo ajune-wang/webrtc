@@ -33,7 +33,6 @@
 #include "media/engine/unhandled_packets_buffer.h"
 #include "rtc_base/async_invoker.h"
 #include "rtc_base/critical_section.h"
-#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/network_route.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/thread_checker.h"
@@ -50,17 +49,6 @@ class Thread;
 }  // namespace rtc
 
 namespace cricket {
-
-struct MinVideoBitrateConfig {
-  webrtc::FieldTrialParameter<webrtc::DataRate> min_video_bitrate;
-
-  MinVideoBitrateConfig()
-      : min_video_bitrate("br", webrtc::DataRate::bps(kMinVideoBitrateBps)) {
-    webrtc::ParseFieldTrial(
-        {&min_video_bitrate},
-        webrtc::field_trial::FindFullName(kMinVideoBitrateExperiment));
-  }
-};
 
 class WebRtcVideoChannel;
 

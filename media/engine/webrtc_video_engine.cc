@@ -33,6 +33,7 @@
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/experiments/field_trial_units.h"
+#include "rtc_base/experiments/min_video_bitrate_experiment.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/time_utils.h"
@@ -296,46 +297,6 @@ absl::optional<size_t> GetVp9TemporalLayersFromFieldTrial() {
     return num_tl;
   }
   return absl::nullopt;
-}
-
-const char kForcedFallbackFieldTrial[] =
-    "WebRTC-VP8-Forced-Fallback-Encoder-v2";
-
-absl::optional<int> GetFallbackMinBpsFromFieldTrial(
-    webrtc::VideoCodecType type) {
-  if (type != webrtc::kVideoCodecVP8)
-    return absl::nullopt;
-
-  if (!webrtc::field_trial::IsEnabled(kForcedFallbackFieldTrial))
-    return absl::nullopt;
-
-  std::string group =
-      webrtc::field_trial::FindFullName(kForcedFallbackFieldTrial);
-  if (group.empty())
-    return absl::nullopt;
-
-  int min_pixels;
-  int max_pixels;
-  int min_bps;
-  if (sscanf(group.c_str(), "Enabled-%d,%d,%d", &min_pixels, &max_pixels,
-             &min_bps) != 3) {
-    return absl::nullopt;
-  }
-
-  if (min_bps <= 0)
-    return absl::nullopt;
-
-  return min_bps;
-}
-
-int GetMinVideoBitrateBps(webrtc::VideoCodecType type) {
-  if (GetFallbackMinBpsFromFieldTrial(type).has_value()) {
-    return GetFallbackMinBpsFromFieldTrial(type).value();
-  }
-  if (webrtc::field_trial::IsEnabled(kMinVideoBitrateExperiment)) {
-    return MinVideoBitrateConfig().min_video_bitrate->bps();
-  }
-  return kMinVideoBitrateBps;
 }
 
 // Returns its smallest positive argument. If neither argument is positive,
@@ -3171,7 +3132,7 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
           : GetMaxDefaultVideoBitrateKbps(width, height, is_screenshare_) *
                 1000;
 
-  int min_bitrate_bps = GetMinVideoBitrateBps(encoder_config.codec_type);
+  int min_bitrate_bps = GetMinVideoBitrate(encoder_config.codec_type).bps();
   if (encoder_config.simulcast_layers[0].min_bitrate_bps > 0) {
     // Use set min bitrate.
     min_bitrate_bps = encoder_config.simulcast_layers[0].min_bitrate_bps;

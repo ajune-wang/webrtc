@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "42390768_19c06f63",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-10-09T17:42:38Z",
+      "side": 1,
+      "message": "IMHO, a bit too long. The file+line mentioned in the log should be sufficient. Or wdyt?",
+      "parentUuid": "ff94bc8d_85ba48fa",
+      "range": {
+        "startLine": 113,
+        "startChar": 32,
+        "endLine": 113,
+        "endChar": 69
+      },
+      "revId": "eeedac3d14a34a2582abbab1c7c55aa7e7192c1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f032c10_0b9e30ce",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 1
@@ -60,6 +84,30 @@
       "side": 1,
       "message": "I don\u0027t see, what\u0027s the issue here? Do you mean that the experiment will be overwritten by e.g. simulcast config?",
       "parentUuid": "7f032c10_0b9e30ce",
+      "range": {
+        "startLine": 585,
+        "startChar": 6,
+        "endLine": 585,
+        "endChar": 41
+      },
+      "revId": "eeedac3d14a34a2582abbab1c7c55aa7e7192c1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bda1fdb8_32c1e6ab",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-10-09T17:42:38Z",
+      "side": 1,
+      "message": "Maxing with another value limits our ability to reduce the minimum.\nI was going to put this in WIP until fixed, but you\u0027ve already LGTMed. I will ping when it\u0027s time for another look.",
+      "parentUuid": "3f1fb56f_2f453c09",
       "range": {
         "startLine": 585,
         "startChar": 6,

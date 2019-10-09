@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "fb3d77d8_81f85b92",
+        "filename": "call/rtx_receive_stream_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-09T16:41:12Z",
+      "side": 1,
+      "message": "shouldn\u0027t matter. \nProbably safer to write something there to avoid potential complains from msan.\nThough no code should really access that memory, accidentally it still can.",
+      "parentUuid": "7722976e_39408ed2",
+      "range": {
+        "startLine": 240,
+        "startChar": 19,
+        "endLine": 240,
+        "endChar": 59
+      },
+      "revId": "c82c78203b88aa53ea142ed1b94db05bd0f29d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22bfcf3f_12f369bd",
         "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
         "patchSetId": 3
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Done. I still find it a bit strange to access private members of other instances than |this|.",
       "parentUuid": "22bfcf3f_12f369bd",
+      "range": {
+        "startLine": 124,
+        "startChar": 19,
+        "endLine": 124,
+        "endChar": 27
+      },
+      "revId": "c82c78203b88aa53ea142ed1b94db05bd0f29d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed31e9b3_69fbc549",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-09T16:41:12Z",
+      "side": 1,
+      "message": "this is almost an assignment operator.",
+      "parentUuid": "8abee88e_42c0389c",
       "range": {
         "startLine": 124,
         "startChar": 19,

@@ -54,14 +54,18 @@ class RtcpTransceiverImpl {
 
   void SetRemb(int64_t bitrate_bps, std::vector<uint32_t> ssrcs);
   void UnsetRemb();
-  // Temporary helpers to send pre-built TransportFeedback rtcp packet.
-  uint32_t sender_ssrc() const { return config_.feedback_ssrc; }
+
   void SendRawPacket(rtc::ArrayView<const uint8_t> packet);
 
   void SendNack(uint32_t ssrc, std::vector<uint16_t> sequence_numbers);
 
   void SendPictureLossIndication(uint32_t ssrc);
   void SendFullIntraRequest(rtc::ArrayView<const uint32_t> ssrcs);
+
+  // SendCombinedRtcpPacket ignores rtcp mode and does not send a compound
+  // message. https://tools.ietf.org/html/rfc4585#section-3.1
+  void SendCombinedRtcpPacket(
+      std::vector<std::unique_ptr<rtcp::RtcpPacket>> rtcp_packets);
 
  private:
   class PacketSender;
@@ -88,6 +92,7 @@ class RtcpTransceiverImpl {
   // Sends RTCP packets.
   void SendPeriodicCompoundPacket();
   void SendImmediateFeedback(const rtcp::RtcpPacket& rtcp_packet);
+
   // Generate Report Blocks to be send in Sender or Receiver Report.
   std::vector<rtcp::ReportBlock> CreateReportBlocks(int64_t now_us);
 

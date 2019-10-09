@@ -647,14 +647,9 @@ void ModuleRtpRtcpImpl::SetReportBlockDataObserver(
   return rtcp_receiver_.SetReportBlockDataObserver(observer);
 }
 
-bool ModuleRtpRtcpImpl::SendFeedbackPacket(
-    const rtcp::TransportFeedback& packet) {
-  return rtcp_sender_.SendFeedbackPacket(packet);
-}
-
-bool ModuleRtpRtcpImpl::SendNetworkStateEstimatePacket(
-    const rtcp::RemoteEstimate& packet) {
-  return rtcp_sender_.SendNetworkStateEstimatePacket(packet);
+void ModuleRtpRtcpImpl::SendCombinedRtcpPacket(
+    std::vector<std::unique_ptr<rtcp::RtcpPacket>> rtcp_packets) {
+  rtcp_sender_.SendCombinedRtcpPacket(std::move(rtcp_packets));
 }
 
 int32_t ModuleRtpRtcpImpl::SendLossNotification(uint16_t last_decoded_seq_num,

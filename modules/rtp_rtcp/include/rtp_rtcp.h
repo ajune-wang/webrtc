@@ -198,7 +198,7 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
   virtual RtpState GetRtxState() const = 0;
 
   // Returns SSRC.
-  uint32_t SSRC() const override = 0;
+  virtual uint32_t SSRC() const = 0;
 
   // Sets SSRC, default is a random number.
   // TODO(bugs.webrtc.org/10774): Remove.
@@ -422,8 +422,6 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
   // construction, remove this setter.
   virtual void SetReportBlockDataObserver(
       ReportBlockDataObserver* observer) = 0;
-  // BWE feedback packets.
-  bool SendFeedbackPacket(const rtcp::TransportFeedback& packet) override = 0;
 
   virtual void SetVideoBitrateAllocation(
       const VideoBitrateAllocation& bitrate) = 0;

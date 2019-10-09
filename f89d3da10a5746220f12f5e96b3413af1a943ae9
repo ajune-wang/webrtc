@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0714421a_f1309b88",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 8760
+      },
+      "writtenOn": "2019-10-09T23:24:20Z",
+      "side": 1,
+      "message": "Other option to fix would be to have a first_video_header \u003d first_packet-\u003evideo_header and update width/height of first_video_header using the values from SPS/IDR.",
+      "revId": "f89d3da10a5746220f12f5e96b3413af1a943ae9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

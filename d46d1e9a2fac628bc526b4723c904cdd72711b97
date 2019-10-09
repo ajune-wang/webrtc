@@ -22,6 +22,30 @@
       "revId": "d46d1e9a2fac628bc526b4723c904cdd72711b97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "211c7e57_0f1e821a",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-09T08:53:11Z",
+      "side": 0,
+      "message": "frame_dependencies doesn\u0027t make sense when frame_id is not set (and it probably would make sense to always set frame_id/frame_dependencies on sending code path and emulate them when they are not present on receiving code path)\n\ndiscardable, spatial_index and temporal_index make sense to always set (may also make sense to move spatial/temporal ids from frame_marking and codec-specific headers)\n\nhow to signal dti? I\u0027m still unsure.\nMight not be needed for receiving path, definitely needed for sending path.\nFor dependency descriptor I would need more than just dti on sending path.",
+      "parentUuid": "905a585d_1343bdec",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 48
+      },
+      "revId": "d46d1e9a2fac628bc526b4723c904cdd72711b97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

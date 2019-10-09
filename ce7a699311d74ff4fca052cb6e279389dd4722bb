@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d9b0227_fc7e1a52",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-09T08:53:11Z",
+      "side": 1,
+      "message": "That seems the only weird place where presence of frame_id signals if generic frame descriptor should be set.\nit would make more sense to check instead if |packet| `supports` any of the descriptor extensions.\nadded todo.",
+      "range": {
+        "startLine": 109,
+        "startChar": 6,
+        "endLine": 109,
+        "endChar": 39
+      },
+      "revId": "ce7a699311d74ff4fca052cb6e279389dd4722bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "0b8c3e5c_86523466",
+        "filename": "call/rtx_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-09T13:59:43Z",
+      "side": 1,
+      "message": "yep, SetPadding(0)  would remove padding, but, beeing non-const operation would memcpy the payload.\n\nI checked other usages of the CopyHeaderFrom. It seems RtcEventLog is the only other user.\nas I understand it, it shouldn\u0027t be a problem.\n(it could be a problem for users that CopyHeader and then try to put larger payload than in the original packet, but I didn\u0027t found that kind of usage)",
+      "parentUuid": "3bf87f81_fb66b745",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 45
+      },
+      "revId": "1234cc666ac286880363422146d5e6b8c7f768ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "781232c1_3ef263b5",
         "filename": "call/rtx_receive_stream_unittest.cc",
         "patchSetId": 1

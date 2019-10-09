@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "179971ec_f9fcc275",
+        "filename": "modules/audio_coding/neteq/decision_logic.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-10-09T14:58:07Z",
+      "side": 1,
+      "message": "needs update",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 58
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b599dda_15287152",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-10-09T14:58:07Z",
+      "side": 1,
+      "message": "may use RTC_DISALLOW_COPY_AND_ASSIGN()",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 62
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2683620_8dd06cf8",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-10-09T14:58:07Z",
+      "side": 1,
+      "message": "Given info about the latest received packet, and current jitter buffer status, returns the operation.",
+      "range": {
+        "startLine": 61,
+        "startChar": 5,
+        "endLine": 61,
+        "endChar": 51
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbff0448_69d8e651",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-10-09T14:58:07Z",
+      "side": 1,
+      "message": "this should be better got rid of at this level of abstraction.",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 56
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3af9e10_94cf0f7e",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-10-09T14:58:07Z",
+      "side": 1,
+      "message": "maybe good to get rid of peak detector first.",
+      "range": {
+        "startLine": 128,
+        "startChar": 23,
+        "endLine": 128,
+        "endChar": 27
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

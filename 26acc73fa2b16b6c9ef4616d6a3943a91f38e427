@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9f1554f3_620f7726",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-10T07:24:09Z",
+      "side": 1,
+      "message": "Yes, agree.\n\nDo you have any idea about how to implement such test to catch these errors? Chromium depends on what it needs, if a user picks a header and its .cc is not pulled into the static library we have the problem.",
+      "parentUuid": "7612ad04_567971bd",
+      "range": {
+        "startLine": 391,
+        "startChar": 2,
+        "endLine": 391,
+        "endChar": 30
+      },
+      "revId": "26acc73fa2b16b6c9ef4616d6a3943a91f38e427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4cd524f2_d9d3956b",
         "filename": "BUILD.gn",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-10-10T07:15:38Z",
       "side": 1,
       "message": "That target is defined as a static library. Is it well defined to have static libraries depend on other static libraries? How it is implemented? If it works, I would expect it to copy the object files into the compound static library, and it seems that is what\u0027s happening. If I apply this change to my tree, I get\n\n$ ar t out/Debug/obj/api/libcreate_peerconnection_factory.a \nout/Debug/obj/api/create_peerconnection_factory/create_peerconnection_factory.o\n\n$ ar t out/Debug/obj/libwebrtc.a |grep create_peerconnection_factory.o\ncreate_peerconnection_factory.o\n\nSo that should be fine. But is there any reason to not change api:create_peerconnection_factory to be a source set?",
+      "range": {
+        "startLine": 402,
+        "startChar": 11,
+        "endLine": 402,
+        "endChar": 40
+      },
+      "revId": "26acc73fa2b16b6c9ef4616d6a3943a91f38e427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "424e0a50_41f637e0",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-10T07:24:09Z",
+      "side": 1,
+      "message": "From: https://gn.googlesource.com/gn/+/master/docs/reference.md#func_static_library\n\n  If you only need the static library for intermediate results in the build,\n  you should consider a source_set instead since it will skip the (potentially\n  slow) step of creating the intermediate library file.\n\nOk, I am switching to source_set.",
+      "parentUuid": "4cd524f2_d9d3956b",
       "range": {
         "startLine": 402,
         "startChar": 11,

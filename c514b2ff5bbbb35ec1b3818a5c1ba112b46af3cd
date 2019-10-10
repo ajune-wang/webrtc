@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0581aba7_3cc87bab",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-10T10:08:33Z",
+      "side": 1,
+      "message": "long-term, yep.\nmerging with PacketContainer can be done much sooner than that.\n(I\u0027ll spend a bit of time on it. If it would turn out more than \u0027a bit\u0027, then it probably not worth it)",
+      "parentUuid": "2afbc7ba_e6b87d5b",
+      "range": {
+        "startLine": 84,
+        "startChar": 6,
+        "endLine": 84,
+        "endChar": 18
+      },
+      "revId": "c514b2ff5bbbb35ec1b3818a5c1ba112b46af3cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9e0865d_12f2ba82",
         "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "interesting. Shouldnt the move operator on rtc::FunctionView be deleted somehow?",
       "parentUuid": "f9e0865d_12f2ba82",
+      "range": {
+        "startLine": 1072,
+        "startChar": 22,
+        "endLine": 1072,
+        "endChar": 31
+      },
+      "revId": "c514b2ff5bbbb35ec1b3818a5c1ba112b46af3cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6ccce52_4b5df2cf",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1072,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-10T10:08:33Z",
+      "side": 1,
+      "message": "not sure what \u0027move operator\u0027 is, \nbut probably set of FunctionRef constructors better be different.",
+      "parentUuid": "c39db12a_fa61731a",
       "range": {
         "startLine": 1072,
         "startChar": 22,

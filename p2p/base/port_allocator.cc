@@ -120,7 +120,7 @@ bool PortAllocator::SetConfiguration(
     const ServerAddresses& stun_servers,
     const std::vector<RelayServerConfig>& turn_servers,
     int candidate_pool_size,
-    bool prune_turn_ports,
+    webrtc::PortPrunePolicy turn_port_prune_policy,
     webrtc::TurnCustomizer* turn_customizer,
     const absl::optional<int>& stun_candidate_keepalive_interval) {
   CheckRunOnValidThreadIfInitialized();
@@ -132,7 +132,7 @@ bool PortAllocator::SetConfiguration(
       (stun_servers != stun_servers_ || turn_servers != turn_servers_);
   stun_servers_ = stun_servers;
   turn_servers_ = turn_servers;
-  prune_turn_ports_ = prune_turn_ports;
+  turn_port_prune_policy_ = turn_port_prune_policy;
 
   if (candidate_pool_frozen_) {
     if (candidate_pool_size != candidate_pool_size_) {

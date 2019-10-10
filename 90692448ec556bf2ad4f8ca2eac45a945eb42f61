@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5944b65_915fe922",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-10T19:46:26Z",
+      "side": 1,
+      "message": "Should we do or log anything if parsing fails?",
+      "range": {
+        "startLine": 701,
+        "startChar": 8,
+        "endLine": 701,
+        "endChar": 13
+      },
+      "revId": "90692448ec556bf2ad4f8ca2eac45a945eb42f61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "348a2125_a6af7ec9",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1339,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-10T19:46:26Z",
+      "side": 1,
+      "message": "nit: the two ifs can be combined, port-\u003eType() !\u003d remote_candidate.type() \u0026\u0026 (port-\u003eType() \u003d\u003d RELAY_PORT_TYPE || remote_candidate.type() \u003d\u003d RELAY_PORT_TYPE)",
+      "range": {
+        "startLine": 1338,
+        "startChar": 8,
+        "endLine": 1339,
+        "endChar": 50
+      },
+      "revId": "90692448ec556bf2ad4f8ca2eac45a945eb42f61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77e1b203_ce3872d0",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1342,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-10T19:46:26Z",
+      "side": 1,
+      "message": "Please add a test for this.",
+      "range": {
+        "startLine": 1342,
+        "startChar": 6,
+        "endLine": 1342,
+        "endChar": 18
+      },
+      "revId": "90692448ec556bf2ad4f8ca2eac45a945eb42f61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

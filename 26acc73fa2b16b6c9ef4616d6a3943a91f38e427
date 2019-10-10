@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7612ad04_567971bd",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-10T07:15:38Z",
+      "side": 1,
+      "message": "It would be good with some basic integration test depending on this build target.",
+      "range": {
+        "startLine": 391,
+        "startChar": 2,
+        "endLine": 391,
+        "endChar": 30
+      },
+      "revId": "26acc73fa2b16b6c9ef4616d6a3943a91f38e427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cd524f2_d9d3956b",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-10T07:15:38Z",
+      "side": 1,
+      "message": "That target is defined as a static library. Is it well defined to have static libraries depend on other static libraries? How it is implemented? If it works, I would expect it to copy the object files into the compound static library, and it seems that is what\u0027s happening. If I apply this change to my tree, I get\n\n$ ar t out/Debug/obj/api/libcreate_peerconnection_factory.a \nout/Debug/obj/api/create_peerconnection_factory/create_peerconnection_factory.o\n\n$ ar t out/Debug/obj/libwebrtc.a |grep create_peerconnection_factory.o\ncreate_peerconnection_factory.o\n\nSo that should be fine. But is there any reason to not change api:create_peerconnection_factory to be a source set?",
+      "range": {
+        "startLine": 402,
+        "startChar": 11,
+        "endLine": 402,
+        "endChar": 40
+      },
+      "revId": "26acc73fa2b16b6c9ef4616d6a3943a91f38e427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

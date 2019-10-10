@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10988118_7dbd08bd",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-10T13:16:39Z",
+      "side": 1,
+      "message": "I think this should be added before the feedback packet.",
+      "range": {
+        "startLine": 217,
+        "startChar": 5,
+        "endLine": 217,
+        "endChar": 52
+      },
+      "revId": "b1cd44db891998318e5d682226fcceaa5f1e6861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "680ee637_e336265b",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-10T13:16:39Z",
+      "side": 1,
+      "message": "NIT: This curly brace should not be needed right?",
+      "range": {
+        "startLine": 252,
+        "startChar": 43,
+        "endLine": 252,
+        "endChar": 44
+      },
+      "revId": "b1cd44db891998318e5d682226fcceaa5f1e6861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

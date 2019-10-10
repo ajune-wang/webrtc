@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1d967359_3b2c1ced",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-10-10T13:20:20Z",
+      "side": 1,
+      "message": "is there a reason for that? My thinking is that we should send the transport feedback packet first if someone inspect the RTCP packets and only look at the first part.",
+      "parentUuid": "10988118_7dbd08bd",
+      "range": {
+        "startLine": 217,
+        "startChar": 5,
+        "endLine": 217,
+        "endChar": 52
+      },
+      "revId": "b1cd44db891998318e5d682226fcceaa5f1e6861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "680ee637_e336265b",
         "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
         "patchSetId": 4

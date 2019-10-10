@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3c20178d_d3226827",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-10T07:35:00Z",
+      "side": 1,
+      "message": "A simple way to detect basic link-time problems could be to have a target, like examples:peerconnection_client, but depending on this target instead of individual targets. \n\nTo make that work, I guess the some or all deps here needs to be public_deps (at least all the deps on api targets), otherwise we\u0027d get complains on included headers.\n\nEven better would be to have some target that\u0027s running some automated tests depend on this target.",
+      "parentUuid": "9f1554f3_620f7726",
+      "range": {
+        "startLine": 391,
+        "startChar": 2,
+        "endLine": 391,
+        "endChar": 30
+      },
+      "revId": "26acc73fa2b16b6c9ef4616d6a3943a91f38e427",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4cd524f2_d9d3956b",
         "filename": "BUILD.gn",
         "patchSetId": 1

@@ -59,7 +59,6 @@ struct SimulationSettings {
   absl::optional<bool> use_ts;
   absl::optional<bool> use_ie;
   absl::optional<bool> use_vad;
-  absl::optional<bool> use_le;
   absl::optional<bool> use_all;
   absl::optional<int> aec_suppression_level;
   absl::optional<bool> use_delay_agnostic;

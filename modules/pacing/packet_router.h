@@ -76,10 +76,9 @@ class PacketRouter : public RemoteBitrateObserver,
   // Send REMB feedback.
   bool SendRemb(int64_t bitrate_bps, const std::vector<uint32_t>& ssrcs);
 
-  // Send transport feedback packet to send-side.
-  bool SendTransportFeedback(rtcp::TransportFeedback* packet) override;
-  // Send RemoteEstimate packet to send-side.
-  void SendNetworkStateEstimatePacket(rtcp::RemoteEstimate* packet) override;
+  // Sends |packets| in one or more IP packets.
+  bool SendCombinedRtcpPacket(
+      std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets) override;
 
  private:
   RtpRtcp* FindRtpModule(uint32_t ssrc)

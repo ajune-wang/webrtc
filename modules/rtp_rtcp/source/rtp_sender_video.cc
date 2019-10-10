@@ -255,28 +255,6 @@ RTPSenderVideo::RTPSenderVideo(const Config& config)
 
 RTPSenderVideo::~RTPSenderVideo() {}
 
-void RTPSenderVideo::RegisterPayloadType(int8_t payload_type,
-                                         absl::string_view payload_name,
-                                         bool raw_payload) {
-  absl::optional<VideoCodecType> video_type;
-  if (!raw_payload) {
-    if (absl::EqualsIgnoreCase(payload_name, "VP8")) {
-      video_type = kVideoCodecVP8;
-    } else if (absl::EqualsIgnoreCase(payload_name, "VP9")) {
-      video_type = kVideoCodecVP9;
-    } else if (absl::EqualsIgnoreCase(payload_name, "H264")) {
-      video_type = kVideoCodecH264;
-    } else {
-      video_type = kVideoCodecGeneric;
-    }
-  }
-
-  {
-    rtc::CritScope cs(&payload_type_crit_);
-    payload_type_map_[payload_type] = video_type;
-  }
-}
-
 void RTPSenderVideo::AppendAsRedMaybeWithUlpfec(
     std::unique_ptr<RtpPacketToSend> media_packet,
     bool protect_media_packet,
@@ -405,32 +383,6 @@ void RTPSenderVideo::LogAndSendToNetwork(
   }
 }
 
-void RTPSenderVideo::SetUlpfecConfig(int red_payload_type,
-                                     int ulpfec_payload_type) {
-  // Sanity check. Per the definition of UlpfecConfig (see config.h),
-  // a payload type of -1 means that the corresponding feature is
-  // turned off.
-  RTC_DCHECK_GE(red_payload_type, -1);
-  RTC_DCHECK_LE(red_payload_type, 127);
-  RTC_DCHECK_GE(ulpfec_payload_type, -1);
-  RTC_DCHECK_LE(ulpfec_payload_type, 127);
-
-  rtc::CritScope cs(&crit_);
-  if (red_payload_type != -1) {
-    red_payload_type_ = red_payload_type;
-  }
-  if (ulpfec_payload_type != -1) {
-    ulpfec_payload_type_ = ulpfec_payload_type;
-  }
-
-  // Must not enable ULPFEC without RED.
-  RTC_DCHECK(!(red_enabled() ^ ulpfec_enabled()));
-
-  // Reset FEC parameters.
-  delta_fec_params_ = FecProtectionParams{0, 1, kFecMaskRandom};
-  key_fec_params_ = FecProtectionParams{0, 1, kFecMaskRandom};
-}
-
 size_t RTPSenderVideo::CalculateFecPacketOverhead() const {
   if (flexfec_enabled())
     return flexfec_sender_->MaxPacketOverhead();
@@ -465,32 +417,6 @@ absl::optional<uint32_t> RTPSenderVideo::FlexfecSsrc() const {
     return flexfec_sender_->ssrc();
   }
   return absl::nullopt;
-}
-
-bool RTPSenderVideo::SendVideo(
-    VideoFrameType frame_type,
-    int8_t payload_type,
-    uint32_t rtp_timestamp,
-    int64_t capture_time_ms,
-    const uint8_t* payload_data,
-    size_t payload_size,
-    const RTPFragmentationHeader* fragmentation,
-    const RTPVideoHeader* video_header,
-    absl::optional<int64_t> expected_retransmission_time_ms) {
-  absl::optional<VideoCodecType> codec_type;
-  {
-    rtc::CritScope cs(&payload_type_crit_);
-    const auto it = payload_type_map_.find(payload_type);
-    if (it == payload_type_map_.end()) {
-      RTC_LOG(LS_ERROR) << "Payload type " << static_cast<int>(payload_type)
-                        << " not registered.";
-      return false;
-    }
-    codec_type = it->second;
-  }
-  return SendVideo(frame_type, payload_type, codec_type, rtp_timestamp,
-                   capture_time_ms, payload_data, payload_size, fragmentation,
-                   video_header, expected_retransmission_time_ms);
 }
 
 bool RTPSenderVideo::SendVideo(

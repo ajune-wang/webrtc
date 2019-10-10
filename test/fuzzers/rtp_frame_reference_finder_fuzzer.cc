@@ -129,6 +129,18 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
 
     reader.CopyTo(&video_header.frame_marking);
 
+    video_header.is_first_packet_in_frame = true;
+    video_header.frame_id = reader.GetNum<uint16_t>();
+
+    video_header.spatial_index = reader.GetNum<uint8_t>() % 8;
+    video_header.temporal_index = reader.GetNum<uint8_t>() % 8;
+
+    int num_diffs = reader.GetNum<uint8_t>() % 5;
+    for (int i = 0; i < num_diffs; ++i) {
+      video_header.frame_dependencies.push_back(reader.GetNum<uint16_t>() %
+                                                (uint16_t{1} << 14));
+    }
+
     // clang-format off
     auto frame = std::make_unique<video_coding::RtpFrameObject>(
         first_seq_num,
@@ -146,7 +158,7 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
         VideoContentType::UNSPECIFIED,
         video_header,
         /*color_space=*/absl::nullopt,
-        GenerateRtpGenericFrameDescriptor(&reader),
+        {},
         RtpPacketInfos(),
         EncodedImageBuffer::Create(/*size=*/0));
     // clang-format on

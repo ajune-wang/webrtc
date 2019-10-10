@@ -371,6 +371,13 @@ bool RtpDepacketizerVp8::Parse(ParsedPayload* parsed_payload,
     return false;
   }
 
+  if (vp8_header.pictureId == kNoPictureId)
+    parsed_payload->video.picture_id = absl::nullopt;
+  else
+    parsed_payload->video.picture_id = vp8_header.pictureId;
+  parsed_payload->video.spatial_index = 0;
+  parsed_payload->video.temporal_index =
+      vp8_header.temporalIdx == kNoTemporalIdx ? 0 : vp8_header.temporalIdx;
   parsed_payload->payload = payload_data;
   parsed_payload->payload_length = payload_data_length;
   return true;

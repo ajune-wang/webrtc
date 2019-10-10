@@ -71,35 +71,13 @@ int VCMSessionInfo::HighSequenceNumber() const {
 int VCMSessionInfo::PictureId() const {
   if (packets_.empty())
     return kNoPictureId;
-  if (packets_.front().video_header.codec == kVideoCodecVP8) {
-    return absl::get<RTPVideoHeaderVP8>(
-               packets_.front().video_header.video_type_header)
-        .pictureId;
-  } else if (packets_.front().video_header.codec == kVideoCodecVP9) {
-    return absl::get<RTPVideoHeaderVP9>(
-               packets_.front().video_header.video_type_header)
-        .picture_id;
-  } else {
-    return kNoPictureId;
-  }
+  return packets_.front().video_header.picture_id.value_or(kNoPictureId);
 }
 
 int VCMSessionInfo::TemporalId() const {
   if (packets_.empty())
     return kNoTemporalIdx;
-  if (packets_.front().video_header.codec == kVideoCodecVP8) {
-    return absl::get<RTPVideoHeaderVP8>(
-               packets_.front().video_header.video_type_header)
-        .temporalIdx;
-  } else if (packets_.front().video_header.codec == kVideoCodecVP9) {
-    return absl::get<RTPVideoHeaderVP9>(
-               packets_.front().video_header.video_type_header)
-        .temporal_idx;
-  } else if (packets_.front().video_header.codec == kVideoCodecH264) {
-    return packets_.front().video_header.frame_marking.temporal_id;
-  } else {
-    return kNoTemporalIdx;
-  }
+  return packets_.front().video_header.temporal_index;
 }
 
 bool VCMSessionInfo::LayerSync() const {

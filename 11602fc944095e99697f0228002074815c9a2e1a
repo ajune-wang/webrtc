@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "857be0da_3f04c719",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-10T13:48:05Z",
+      "side": 1,
+      "message": "you may skip Invoke",
+      "range": {
+        "startLine": 661,
+        "startChar": 16,
+        "endLine": 661,
+        "endChar": 23
+      },
+      "revId": "11602fc944095e99697f0228002074815c9a2e1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

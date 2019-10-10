@@ -12,6 +12,7 @@
 #define MODULES_AUDIO_PROCESSING_AEC3_FULLBAND_ERLE_ESTIMATOR_H_
 
 #include <memory>
+#include <vector>
 
 #include "absl/types/optional.h"
 #include "api/array_view.h"
@@ -23,7 +24,9 @@ namespace webrtc {
 // freuquency bands.
 class FullBandErleEstimator {
  public:
-  FullBandErleEstimator(float min_erle, float max_erle_lf);
+  FullBandErleEstimator(float min_erle,
+                        float max_erle_lf,
+                        size_t num_capture_channels);
   ~FullBandErleEstimator();
   // Resets the ERLE estimator.
   void Reset();
@@ -39,8 +42,8 @@ class FullBandErleEstimator {
 
   // Returns an estimation of the current linear filter quality. It returns a
   // float number between 0 and 1 mapping 1 to the highest possible quality.
-  absl::optional<float> GetInstLinearQualityEstimate() const {
-    return instantaneous_erle_.GetQualityEstimate();
+  rtc::ArrayView<const float> GetInstLinearQualityEstimate() const {
+    return linear_filters_qualities_;
   }
 
   void Dump(const std::unique_ptr<ApmDataDumper>& data_dumper) const;
@@ -86,6 +89,7 @@ class FullBandErleEstimator {
   const float min_erle_log2_;
   const float max_erle_lf_log2;
   ErleInstantaneous instantaneous_erle_;
+  std::vector<float> linear_filters_qualities_;
 };
 
 }  // namespace webrtc

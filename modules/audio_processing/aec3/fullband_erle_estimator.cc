@@ -30,9 +30,12 @@ constexpr int kBlocksToHoldErle = 100;
 constexpr int kPointsToAccumulate = 6;
 }  // namespace
 
-FullBandErleEstimator::FullBandErleEstimator(float min_erle, float max_erle_lf)
+FullBandErleEstimator::FullBandErleEstimator(float min_erle,
+                                             float max_erle_lf,
+                                             size_t num_capture_channels)
     : min_erle_log2_(FastApproxLog2f(min_erle + kEpsilon)),
-      max_erle_lf_log2(FastApproxLog2f(max_erle_lf + kEpsilon)) {
+      max_erle_lf_log2(FastApproxLog2f(max_erle_lf + kEpsilon)),
+      linear_filters_qualities_(num_capture_channels, -1.f) {
   Reset();
 }
 
@@ -71,6 +74,15 @@ void FullBandErleEstimator::Update(rtc::ArrayView<const float> X2,
   }
   if (hold_counter_time_domain_ == 0) {
     instantaneous_erle_.ResetAccumulators();
+  }
+
+  if (instantaneous_erle_.GetQualityEstimate()) {
+    std::fill(linear_filters_qualities_.begin(),
+              linear_filters_qualities_.end(),
+              *instantaneous_erle_.GetQualityEstimate());
+  } else {
+    std::fill(linear_filters_qualities_.begin(),
+              linear_filters_qualities_.end(), -1.f);
   }
 }
 

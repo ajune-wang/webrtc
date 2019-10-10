@@ -28,34 +28,36 @@ class ApmDataDumper;
 // Class for estimating the model parameters for the reverberant echo.
 class ReverbModelEstimator {
  public:
-  explicit ReverbModelEstimator(const EchoCanceller3Config& config);
+  ReverbModelEstimator(const EchoCanceller3Config& config,
+                       size_t num_capture_channels);
   ~ReverbModelEstimator();
 
   // Updates the estimates based on new data.
-  void Update(rtc::ArrayView<const float> impulse_response,
-              const std::vector<std::array<float, kFftLengthBy2Plus1>>&
-                  frequency_response,
-              const absl::optional<float>& linear_filter_quality,
-              int filter_delay_blocks,
-              bool usable_linear_estimate,
-              bool stationary_block);
+  void Update(
+      rtc::ArrayView<const std::vector<float>> impulse_responses,
+      rtc::ArrayView<const std::vector<std::array<float, kFftLengthBy2Plus1>>>
+          frequency_responses,
+      rtc::ArrayView<const float> linear_filter_qualities,
+      rtc::ArrayView<const int> filter_delays_blocks,
+      const std::vector<bool>& usable_linear_estimates,
+      bool stationary_block);
 
   // Returns the exponential decay of the reverberant echo.
-  float ReverbDecay() const { return reverb_decay_estimator_.Decay(); }
+  float ReverbDecay() const { return reverb_decay_estimators_[0]->Decay(); }
 
   // Return the frequency response of the reverberant echo.
   rtc::ArrayView<const float> GetReverbFrequencyResponse() const {
-    return reverb_frequency_response_.FrequencyResponse();
+    return reverb_frequency_responses_[0].FrequencyResponse();
   }
 
   // Dumps debug data.
   void Dump(ApmDataDumper* data_dumper) const {
-    reverb_decay_estimator_.Dump(data_dumper);
+    reverb_decay_estimators_[0]->Dump(data_dumper);
   }
 
  private:
-  ReverbDecayEstimator reverb_decay_estimator_;
-  ReverbFrequencyResponse reverb_frequency_response_;
+  std::vector<std::unique_ptr<ReverbDecayEstimator>> reverb_decay_estimators_;
+  std::vector<ReverbFrequencyResponse> reverb_frequency_responses_;
 };
 
 }  // namespace webrtc

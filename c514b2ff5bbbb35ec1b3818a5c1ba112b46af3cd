@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afa3ab1e_1998486a",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-10T07:41:42Z",
+      "side": 1,
+      "message": "this one suppose to replace PacketContainer above, right?\n(may be add a note next to PacketContainer to remove it)",
+      "range": {
+        "startLine": 84,
+        "startChar": 6,
+        "endLine": 84,
+        "endChar": 18
+      },
+      "revId": "c514b2ff5bbbb35ec1b3818a5c1ba112b46af3cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9e0865d_12f2ba82",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1072,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-10T07:41:42Z",
+      "side": 1,
+      "message": "move is misleading here:\nRtcpPacket::PacketReadyCallback is a reference type (rtc::FunctionView), it doesn\u0027t own the functor, callback must outlive PacketSender.\n\nso move doesn\u0027t nothing and make false impression callback is not needed after sender is created.",
+      "range": {
+        "startLine": 1072,
+        "startChar": 22,
+        "endLine": 1072,
+        "endChar": 31
+      },
+      "revId": "c514b2ff5bbbb35ec1b3818a5c1ba112b46af3cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7decae5d_39d4f0ac",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-10T07:41:42Z",
+      "side": 1,
+      "message": "why?",
+      "range": {
+        "startLine": 1073,
+        "startChar": 2,
+        "endLine": 1073,
+        "endChar": 16
+      },
+      "revId": "c514b2ff5bbbb35ec1b3818a5c1ba112b46af3cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acd4ebab_959427b1",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-10T07:41:42Z",
+      "side": 1,
+      "message": "why return bool if the only caller of this function ignores it?",
+      "range": {
+        "startLine": 145,
+        "startChar": 2,
+        "endLine": 145,
+        "endChar": 6
+      },
+      "revId": "c514b2ff5bbbb35ec1b3818a5c1ba112b46af3cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aaa6c58b_c66ccb1a",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-10T07:41:42Z",
+      "side": 1,
+      "message": "needed?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 64
+      },
+      "revId": "c514b2ff5bbbb35ec1b3818a5c1ba112b46af3cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fea7b8df_120f3dba",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-10T07:41:42Z",
+      "side": 1,
+      "message": "ditto, do not move, sender take function by reference.",
+      "range": {
+        "startLine": 388,
+        "startChar": 22,
+        "endLine": 388,
+        "endChar": 31
+      },
+      "revId": "c514b2ff5bbbb35ec1b3818a5c1ba112b46af3cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59925d1b_9befe03a",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-10T07:41:42Z",
+      "side": 1,
+      "message": "when all paremter matches are wildcards, they can be omited:\nEXPECT_CALL(outgoing_tranposrt, SendRtcp)",
+      "range": {
+        "startLine": 304,
+        "startChar": 42,
+        "endLine": 304,
+        "endChar": 48
+      },
+      "revId": "c514b2ff5bbbb35ec1b3818a5c1ba112b46af3cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "558e8808_dddb1cc9",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-10T07:41:42Z",
+      "side": 1,
+      "message": "WillOnce accepts lambdas directly, no need to wrap it into Invoke",
+      "range": {
+        "startLine": 305,
+        "startChar": 16,
+        "endLine": 305,
+        "endChar": 23
+      },
+      "revId": "c514b2ff5bbbb35ec1b3818a5c1ba112b46af3cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

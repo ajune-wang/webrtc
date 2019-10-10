@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83bbcbe6_aaf0e827",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1124,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-10T19:47:35Z",
+      "side": 1,
+      "message": "nit: could use !val given the pointer style of dereferencing is also used below.",
+      "range": {
+        "startLine": 1124,
+        "startChar": 6,
+        "endLine": 1124,
+        "endChar": 22
+      },
+      "revId": "ac7fbc7fc4392912d9b3c5a8c4f8e75487d4dfae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d07c49aa_32b9dfbb",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-10T19:47:35Z",
+      "side": 1,
+      "message": "Please use the camel case for non-trivial methods (I understand there is some inconsistency in the legacy code). Also, a nit that TooManyInitialPingsWithoutResponse(...\u0026 maximum_pings) may also be a better signature given we have TooManyFailures and TooLongWithoutResponse in connection.h.\n\nI\u0027m trying to understand what the rationale is to introduce this new criterion to the sorting and what we expect to change with it. It overlaps in part with the two existing methods above, which are considered in sorting via the writability state.",
+      "range": {
+        "startLine": 299,
+        "startChar": 7,
+        "endLine": 299,
+        "endChar": 37
+      },
+      "revId": "ac7fbc7fc4392912d9b3c5a8c4f8e75487d4dfae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c372978_cad8fafe",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-10T19:47:35Z",
+      "side": 1,
+      "message": "nit: these blank lines don\u0027t seem to add much clarity and not quite consistent with the style in the codebase.",
+      "range": {
+        "startLine": 701,
+        "startChar": 6,
+        "endLine": 701,
+        "endChar": 8
+      },
+      "revId": "ac7fbc7fc4392912d9b3c5a8c4f8e75487d4dfae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc8b6856_d3b0eb2c",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1725,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-10T19:47:35Z",
+      "side": 1,
+      "message": "I think we need a test for this. Most of the sorting criteria are tested in the p2p_transport_channel_unittest.",
+      "range": {
+        "startLine": 1725,
+        "startChar": 7,
+        "endLine": 1725,
+        "endChar": 31
+      },
+      "revId": "ac7fbc7fc4392912d9b3c5a8c4f8e75487d4dfae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

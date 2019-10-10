@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "760621ec_c663c7a8",
+        "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-10T13:30:05Z",
+      "side": 1,
+      "message": "If the feedback packet triggers a backoff event we want to take the network estimate information into account. \n\nThe sound\u0027s like a broken implementation, and since the remote estimate should only be sent for new clients supporting the remote estimate packet, we should be able to verify that known such clients dos not have that particular bug.",
+      "parentUuid": "1d967359_3b2c1ced",
+      "range": {
+        "startLine": 217,
+        "startChar": 5,
+        "endLine": 217,
+        "endChar": 52
+      },
+      "revId": "b1cd44db891998318e5d682226fcceaa5f1e6861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "680ee637_e336265b",
         "filename": "modules/remote_bitrate_estimator/remote_estimator_proxy.cc",
         "patchSetId": 4

@@ -407,6 +407,8 @@ public class PeerConnection {
   /** Java version of PeerConnectionInterface.ContinualGatheringPolicy */
   public enum ContinualGatheringPolicy { GATHER_ONCE, GATHER_CONTINUALLY }
 
+  public enum PortPrunePolicy { NO_PRUNE, PRUNE_BASED_ON_PRIORITY, KEEP_FIRST_READY }
+
   /** Java version of rtc::IntervalRange */
   public static class IntervalRange {
     private final int min;
@@ -472,7 +474,9 @@ public class PeerConnection {
     public KeyType keyType;
     public ContinualGatheringPolicy continualGatheringPolicy;
     public int iceCandidatePoolSize;
+    // To be deprecated by the turnPortPrunePolicy.
     public boolean pruneTurnPorts;
+    public PortPrunePolicy turnPortPrunePolicy;
     public boolean presumeWritableWhenFullyRelayed;
     public boolean surfaceIceCandidatesOnIceTransportTypeChanged;
     // The following fields define intervals in milliseconds at which ICE
@@ -583,6 +587,7 @@ public class PeerConnection {
       continualGatheringPolicy = ContinualGatheringPolicy.GATHER_ONCE;
       iceCandidatePoolSize = 0;
       pruneTurnPorts = false;
+      turnPortPrunePolicy = PortPrunePolicy.NO_PRUNE;
       presumeWritableWhenFullyRelayed = false;
       surfaceIceCandidatesOnIceTransportTypeChanged = false;
       iceCheckIntervalStrongConnectivityMs = null;
@@ -624,6 +629,11 @@ public class PeerConnection {
     @CalledByNative("RTCConfiguration")
     BundlePolicy getBundlePolicy() {
       return bundlePolicy;
+    }
+
+    @CalledByNative("RTCConfiguration")
+    PortPrunePolicy getTurnPortPrunePolicy() {
+      return turnPortPrunePolicy;
     }
 
     @Nullable

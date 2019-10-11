@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a992f1cb_9307dbb9",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-10-11T13:55:01Z",
+      "side": 1,
+      "message": "maybe min_bitrate_bps since might not be the experimental value",
+      "range": {
+        "startLine": 509,
+        "startChar": 25,
+        "endLine": 509,
+        "endChar": 40
+      },
+      "revId": "773df7e8f8a6b031a436fb29964e20cfe1f6f6ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

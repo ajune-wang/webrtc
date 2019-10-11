@@ -30,7 +30,7 @@ class ReverbFrequencyResponse {
   void Update(const std::vector<std::array<float, kFftLengthBy2Plus1>>&
                   frequency_response,
               int filter_delay_blocks,
-              const absl::optional<float>& linear_filter_quality,
+              absl::optional<float> linear_filter_quality,
               bool stationary_block);
 
   // Returns the estimated frequency response for the reverb.

@@ -101,7 +101,7 @@ ReverbDecayEstimator::ReverbDecayEstimator(const EchoCanceller3Config& config)
 ReverbDecayEstimator::~ReverbDecayEstimator() = default;
 
 void ReverbDecayEstimator::Update(rtc::ArrayView<const float> filter,
-                                  const absl::optional<float>& filter_quality,
+                                  absl::optional<float> filter_quality,
                                   int filter_delay_blocks,
                                   bool usable_linear_filter,
                                   bool stationary_signal) {
@@ -128,7 +128,7 @@ void ReverbDecayEstimator::Update(rtc::ArrayView<const float> filter,
     return;
   }
 
-  const float new_smoothing = filter_quality ? *filter_quality * 0.2f : 0.f;
+  const float new_smoothing = filter_quality ? (*filter_quality) * 0.2f : 0.f;
   smoothing_constant_ = std::max(new_smoothing, smoothing_constant_);
   if (smoothing_constant_ == 0.f) {
     return;

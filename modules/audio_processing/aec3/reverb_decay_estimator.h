@@ -30,7 +30,7 @@ class ReverbDecayEstimator {
   ~ReverbDecayEstimator();
   // Updates the decay estimate.
   void Update(rtc::ArrayView<const float> filter,
-              const absl::optional<float>& filter_quality,
+              absl::optional<float> filter_quality,
               int filter_delay_blocks,
               bool usable_linear_filter,
               bool stationary_signal);

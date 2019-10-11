@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2fad67ea_faea093c",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-10-11T11:38:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a0588c4_e6e393f8",
+      "range": {
+        "startLine": 1123,
+        "startChar": 31,
+        "endLine": 1123,
+        "endChar": 34
+      },
+      "revId": "ac7fbc7fc4392912d9b3c5a8c4f8e75487d4dfae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83bbcbe6_aaf0e827",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "ac7fbc7fc4392912d9b3c5a8c4f8e75487d4dfae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ca4812d_cd1818c6",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1124,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-10-11T11:38:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "83bbcbe6_aaf0e827",
+      "range": {
+        "startLine": 1124,
+        "startChar": 6,
+        "endLine": 1124,
+        "endChar": 22
+      },
+      "revId": "ac7fbc7fc4392912d9b3c5a8c4f8e75487d4dfae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7b9e4ccc_7f593de2",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-10-11T11:38:21Z",
+      "side": 1,
+      "message": "1) TooManyOutstandingPings()\n2) It will affect sorting when a connection is _not_ writable.\nI.e prevent \"wasting\" too many pings on connections that will not be writablable anyway\nif it takes time to find a writable connection.",
+      "parentUuid": "d07c49aa_32b9dfbb",
+      "range": {
+        "startLine": 299,
+        "startChar": 7,
+        "endLine": 299,
+        "endChar": 37
+      },
+      "revId": "ac7fbc7fc4392912d9b3c5a8c4f8e75487d4dfae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c372978_cad8fafe",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "ac7fbc7fc4392912d9b3c5a8c4f8e75487d4dfae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "679d1876_46dd69ad",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-10-11T11:38:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c372978_cad8fafe",
+      "range": {
+        "startLine": 701,
+        "startChar": 6,
+        "endLine": 701,
+        "endChar": 8
+      },
+      "revId": "ac7fbc7fc4392912d9b3c5a8c4f8e75487d4dfae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -165,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "973e586c_2069a0c5",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1725,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-10-11T11:38:21Z",
+      "side": 1,
+      "message": "i split initial_pings_before_sort_last into a separate patch\nafter adding a test...that didn\u0027t work :)",
+      "parentUuid": "1a0d4b8e_213d25e4",
+      "range": {
+        "startLine": 1725,
+        "startChar": 7,
+        "endLine": 1725,
+        "endChar": 31
+      },
+      "revId": "ac7fbc7fc4392912d9b3c5a8c4f8e75487d4dfae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c0a2083_333e6b6b",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 1
@@ -185,6 +305,30 @@
       "revId": "ac7fbc7fc4392912d9b3c5a8c4f8e75487d4dfae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acf7c5ee_072d748b",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1730,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-10-11T11:38:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c0a2083_333e6b6b",
+      "range": {
+        "startLine": 1730,
+        "startChar": 35,
+        "endLine": 1730,
+        "endChar": 59
+      },
+      "revId": "ac7fbc7fc4392912d9b3c5a8c4f8e75487d4dfae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

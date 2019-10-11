@@ -828,7 +828,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
                  << (codec.spatialLayers[i].active ? "true" : "false") << "\n";
     }
   }
-  RTC_LOG(LS_INFO) << log_stream.str();
+  RTC_LOG(LS_ERROR) << log_stream.str();
 
   codec.startBitrate =
       std::max(encoder_start_bitrate_bps_ / 1000, codec.minBitrate);

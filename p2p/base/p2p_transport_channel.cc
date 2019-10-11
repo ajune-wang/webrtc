@@ -23,6 +23,7 @@
 #include "p2p/base/port.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/crc32.h"
+#include "rtc_base/experiments/struct_parameters_parser.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/net_helper.h"
 #include "rtc_base/net_helpers.h"
@@ -694,6 +695,28 @@ void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
     RTC_LOG(LS_INFO) << "Set WebRTC-TurnAddMultiMapping: Enabled";
   }
 
+  webrtc::StructParametersParser::Create(
+      "skip_relay_to_non_relay_connections",
+      &field_trials_.skip_relay_to_non_relay_connections,
+      "max_outstanding_pings", &field_trials_.max_outstanding_pings,
+      "outstanding_pings_before_sort_last",
+      &field_trials_.outstanding_pings_before_sort_last)
+      ->Parse(webrtc::field_trial::FindFullName("WebRTC-IceFieldTrials"));
+
+  if (field_trials_.skip_relay_to_non_relay_connections) {
+    RTC_LOG(LS_INFO) << "Set skip_relay_to_non_relay_connections";
+  }
+
+  if (field_trials_.max_outstanding_pings.has_value()) {
+    RTC_LOG(LS_INFO) << "Set max_outstanding_pings: "
+                     << *field_trials_.max_outstanding_pings;
+  }
+
+  if (field_trials_.outstanding_pings_before_sort_last.has_value()) {
+    RTC_LOG(LS_INFO) << "Set outstanding_pings_before_sort_last: "
+                     << *field_trials_.outstanding_pings_before_sort_last;
+  }
+
   webrtc::BasicRegatheringController::Config regathering_config(
       config_.regather_all_networks_interval_range,
       config_.regather_on_failed_networks_interval_or_default());
@@ -1323,6 +1346,17 @@ bool P2PTransportChannel::CreateConnection(PortInterface* port,
   if (!port->SupportsProtocol(remote_candidate.protocol())) {
     return false;
   }
+
+  if (field_trials_.skip_relay_to_non_relay_connections) {
+    if ((port->Type() != remote_candidate.type()) &&
+        (port->Type() == RELAY_PORT_TYPE ||
+         remote_candidate.type() == RELAY_PORT_TYPE)) {
+      RTC_LOG(LS_INFO) << ToString() << ": skip creating connection "
+                       << port->Type() << " to " << remote_candidate.type();
+      return false;
+    }
+  }
+
   // Look for an existing connection with this remote address.  If one is not
   // found or it is found but the existing remote candidate has an older
   // generation, then we can create a new connection for this address.
@@ -1679,6 +1713,19 @@ int P2PTransportChannel::CompareConnectionStates(
       return b_is_better;
     }
   }
+
+  bool a_too_many_outstanding_pings = a->TooManyOutstandingPings(
+      field_trials_.outstanding_pings_before_sort_last);
+  bool b_too_many_outstanding_pings = b->TooManyOutstandingPings(
+      field_trials_.outstanding_pings_before_sort_last);
+
+  if (!a_too_many_outstanding_pings && b_too_many_outstanding_pings) {
+    return a_is_better;
+  }
+  if (a_too_many_outstanding_pings && !b_too_many_outstanding_pings) {
+    return b_is_better;
+  }
+
   return 0;
 }
 
@@ -2178,6 +2225,12 @@ bool P2PTransportChannel::IsPingable(const Connection* conn,
   // out of the question. However, if it has become WRITABLE, it is in the
   // reconnecting state so ping is needed.
   if (!conn->connected() && !conn->writable()) {
+    return false;
+  }
+
+  // If we sent a number of pings wo/ reply, skip sending more
+  // until we get one.
+  if (conn->TooManyOutstandingPings(field_trials_.max_outstanding_pings)) {
     return false;
   }
 

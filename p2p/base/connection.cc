@@ -1119,6 +1119,16 @@ bool Connection::missing_responses(int64_t now) const {
   return waiting > 2 * rtt();
 }
 
+bool Connection::TooManyOutstandingPings(const absl::optional<int>& val) const {
+  if (!val.has_value()) {
+    return false;
+  }
+  if (static_cast<int>(pings_since_last_response_.size()) < *val) {
+    return false;
+  }
+  return true;
+}
+
 ProxyConnection::ProxyConnection(Port* port,
                                  size_t index,
                                  const Candidate& remote_candidate)

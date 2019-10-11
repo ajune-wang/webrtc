@@ -336,7 +336,6 @@ MapAgc2AdaptiveLevelEstimator(absl::string_view name) {
 SimulationSettings CreateSettings() {
   SimulationSettings settings;
   if (absl::GetFlag(FLAGS_all_default)) {
-    settings.use_le = true;
     settings.use_vad = true;
     settings.use_ie = false;
     settings.use_ts = true;
@@ -382,7 +381,6 @@ SimulationSettings CreateSettings() {
   SetSettingIfFlagSet(absl::GetFlag(FLAGS_ns), &settings.use_ns);
   SetSettingIfFlagSet(absl::GetFlag(FLAGS_ts), &settings.use_ts);
   SetSettingIfFlagSet(absl::GetFlag(FLAGS_vad), &settings.use_vad);
-  SetSettingIfFlagSet(absl::GetFlag(FLAGS_le), &settings.use_le);
   SetSettingIfSpecified(absl::GetFlag(FLAGS_aec_suppression_level),
                         &settings.aec_suppression_level);
   SetSettingIfFlagSet(absl::GetFlag(FLAGS_delay_agnostic),

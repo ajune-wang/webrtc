@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95b996bd_edef3214",
+        "filename": "modules/audio_processing/aec3/reverb_model_estimator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-11T11:42:15Z",
+      "side": 1,
+      "message": "Is this how it should be used, or can you add TODOs for multi-channelizing these? Just to sprinkle reminders for ourselves.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 3
+      },
+      "revId": "209468fc421721c3183e8bedfbc9f78575fd8ef1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7d08d84_ac7cb29a",
+        "filename": "modules/audio_processing/aec3/reverb_model_estimator_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-11T11:42:15Z",
+      "side": 1,
+      "message": "If I\u0027m reading this correctly, `i` indexes the channel. I suggest renaming to `ch` for consistency and making it more readable.",
+      "range": {
+        "startLine": 91,
+        "startChar": 13,
+        "endLine": 99,
+        "endChar": 43
+      },
+      "revId": "209468fc421721c3183e8bedfbc9f78575fd8ef1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49cf3615_e88dfbbd",
+        "filename": "modules/audio_processing/aec3/reverb_model_estimator_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-11T11:42:15Z",
+      "side": 1,
+      "message": "I interpret this CL to fully multi-channelize ReverbModelEstimator. Then I would expect these tests to iterate over multiple channel counts, but they only seem to test the mono case?",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 0
+      },
+      "revId": "209468fc421721c3183e8bedfbc9f78575fd8ef1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

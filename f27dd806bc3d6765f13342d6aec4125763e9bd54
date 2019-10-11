@@ -22,6 +22,30 @@
       "revId": "f27dd806bc3d6765f13342d6aec4125763e9bd54",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "625d72bd_3674df1b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-10-11T15:33:26Z",
+      "side": 1,
+      "message": "I prefer to keep a simple story. :-)",
+      "parentUuid": "db46de94_43689b39",
+      "range": {
+        "startLine": 7,
+        "startChar": 37,
+        "endLine": 7,
+        "endChar": 40
+      },
+      "revId": "f27dd806bc3d6765f13342d6aec4125763e9bd54",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

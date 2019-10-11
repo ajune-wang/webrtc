@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "60b49679_6c3e7e63",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2019-10-11T22:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79aaf8b2_81e0430e",
+      "range": {
+        "startLine": 483,
+        "startChar": 4,
+        "endLine": 483,
+        "endChar": 6
+      },
+      "revId": "375aa5048c2b382e0e69992cdaee2fe2c4a1ab24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8c096d7_5c90ffc1",
         "filename": "api/peer_connection_interface.h",
         "patchSetId": 17
@@ -68,6 +92,30 @@
       "revId": "375aa5048c2b382e0e69992cdaee2fe2c4a1ab24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd44ada9_0421f426",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2019-10-11T22:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8c096d7_5c90ffc1",
+      "range": {
+        "startLine": 489,
+        "startChar": 20,
+        "endLine": 489,
+        "endChar": 46
+      },
+      "revId": "375aa5048c2b382e0e69992cdaee2fe2c4a1ab24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "4f38d70a_31c34f71",
+        "filename": "api/transport/enums.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2019-10-11T22:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b10c3236_baab4af2",
+      "range": {
+        "startLine": 33,
+        "startChar": 76,
+        "endLine": 33,
+        "endChar": 77
+      },
+      "revId": "375aa5048c2b382e0e69992cdaee2fe2c4a1ab24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a0da990_949ce047",
         "filename": "p2p/client/basic_port_allocator.cc",
         "patchSetId": 17
@@ -114,6 +186,30 @@
       "revId": "375aa5048c2b382e0e69992cdaee2fe2c4a1ab24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc9d7481_c468440c",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1024,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2019-10-11T22:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a0da990_949ce047",
+      "range": {
+        "startLine": 1024,
+        "startChar": 14,
+        "endLine": 1024,
+        "endChar": 38
+      },
+      "revId": "375aa5048c2b382e0e69992cdaee2fe2c4a1ab24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "38dc3ba5_5bf0560d",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2019-10-11T22:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efbb456d_40149b72",
+      "range": {
+        "startLine": 278,
+        "startChar": 5,
+        "endLine": 278,
+        "endChar": 40
+      },
+      "revId": "375aa5048c2b382e0e69992cdaee2fe2c4a1ab24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "848d48da_2025dc1a",
         "filename": "sdk/android/src/jni/pc/ice_candidate.h",
         "patchSetId": 17
@@ -151,6 +271,30 @@
       "writtenOn": "2019-10-11T21:46:44Z",
       "side": 1,
       "message": "nit: could be JavaToNativeTurnPortPrunePolicy to be consistent.",
+      "range": {
+        "startLine": 74,
+        "startChar": 24,
+        "endLine": 74,
+        "endChar": 51
+      },
+      "revId": "375aa5048c2b382e0e69992cdaee2fe2c4a1ab24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75ed4ee8_4697d743",
+        "filename": "sdk/android/src/jni/pc/ice_candidate.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2019-10-11T22:52:02Z",
+      "side": 1,
+      "message": "This class name PortPrunePolicy is chosen intentionally because we might want to prune StunPort as well in the future. For this reason the method name does not have \"Turn\".",
+      "parentUuid": "848d48da_2025dc1a",
       "range": {
         "startLine": 74,
         "startChar": 24,

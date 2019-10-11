@@ -22,6 +22,30 @@
       "revId": "e07eab44228e21a5867d6a884c812272742549af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e251454_ca3b3c39",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1460,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-10-11T13:07:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e4f1863_3a5463a8",
+      "range": {
+        "startLine": 1460,
+        "startChar": 2,
+        "endLine": 1460,
+        "endChar": 19
+      },
+      "revId": "e07eab44228e21a5867d6a884c812272742549af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

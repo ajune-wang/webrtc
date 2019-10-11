@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88459f6e_3b0f11ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 17
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-11T21:46:44Z",
+      "side": 1,
+      "message": "We may want to remove this line.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 9
+      },
+      "revId": "375aa5048c2b382e0e69992cdaee2fe2c4a1ab24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79aaf8b2_81e0430e",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-11T21:46:44Z",
+      "side": 1,
+      "message": "nit: maybe a TODO to remove this flag once the depending downstreams are gone.",
+      "range": {
+        "startLine": 483,
+        "startChar": 4,
+        "endLine": 483,
+        "endChar": 6
+      },
+      "revId": "375aa5048c2b382e0e69992cdaee2fe2c4a1ab24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8c096d7_5c90ffc1",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-11T21:46:44Z",
+      "side": 1,
+      "message": "nit: either CamelCase or simply turn_port_prune_policy().",
+      "range": {
+        "startLine": 489,
+        "startChar": 20,
+        "endLine": 489,
+        "endChar": 46
+      },
+      "revId": "375aa5048c2b382e0e69992cdaee2fe2c4a1ab24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b10c3236_baab4af2",
+        "filename": "api/transport/enums.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-11T21:46:44Z",
+      "side": 1,
+      "message": "nit:\", and prune the rest\"?",
+      "range": {
+        "startLine": 33,
+        "startChar": 76,
+        "endLine": 33,
+        "endChar": 77
+      },
+      "revId": "375aa5048c2b382e0e69992cdaee2fe2c4a1ab24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a0da990_949ce047",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1024,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-11T21:46:44Z",
+      "side": 1,
+      "message": "Should we also DCHECK the type of the newly pairable port is relay? PruneTurnPorts doesn\u0027t check either but seems this is an assumption we need to guarantee.",
+      "range": {
+        "startLine": 1024,
+        "startChar": 14,
+        "endLine": 1024,
+        "endChar": 38
+      },
+      "revId": "375aa5048c2b382e0e69992cdaee2fe2c4a1ab24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efbb456d_40149b72",
+        "filename": "p2p/client/basic_port_allocator.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-11T21:46:44Z",
+      "side": 1,
+      "message": "It seems \"Whether to prune TURN ports\" better fits the new use.",
+      "range": {
+        "startLine": 278,
+        "startChar": 5,
+        "endLine": 278,
+        "endChar": 40
+      },
+      "revId": "375aa5048c2b382e0e69992cdaee2fe2c4a1ab24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "848d48da_2025dc1a",
+        "filename": "sdk/android/src/jni/pc/ice_candidate.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-11T21:46:44Z",
+      "side": 1,
+      "message": "nit: could be JavaToNativeTurnPortPrunePolicy to be consistent.",
+      "range": {
+        "startLine": 74,
+        "startChar": 24,
+        "endLine": 74,
+        "endChar": 51
+      },
+      "revId": "375aa5048c2b382e0e69992cdaee2fe2c4a1ab24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

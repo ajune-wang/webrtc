@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a5a9fa68_b8db921a",
+        "filename": "api/audio/echo_canceller3_config_json.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-11T13:35:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0dc14c55_89f8c2e5",
+      "range": {
+        "startLine": 418,
+        "startChar": 12,
+        "endLine": 418,
+        "endChar": 42
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28885362_f3a92fed",
         "filename": "modules/audio_processing/aec3/aec_state.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1f0bacb_e28cef48",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-11T13:35:20Z",
+      "side": 1,
+      "message": "I would prefer not to as that would instead require us to expose more of the internals of the FilterAnalyzer class than is needed by returning the Consistency results for separate channels.\n\nFor instance, FilterAnalyzer would need to be able to return the consistency estimate for separate channels even though there is no real need for that.",
+      "parentUuid": "28885362_f3a92fed",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 70
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e5d9d275_04d83f99",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-11T13:35:20Z",
+      "side": 1,
+      "message": "As above. As long as the caller does not need to know more than an aggregated value, I don\u0027t think the individual values should be exposed.",
+      "parentUuid": "bab5540c_a758e37d",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 62
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80e7fe90_573d8e80",
         "filename": "modules/audio_processing/aec3/aec_state.cc",
         "patchSetId": 6
@@ -82,6 +154,30 @@
       "writtenOn": "2019-10-11T11:42:15Z",
       "side": 1,
       "message": "Shouldn\u0027t we here, and on lines 233, 254, use the minimum of filter delays? That is the functionality before this CL.\n\nI mention those (aligned_render_block, X2, and transparent_state_ updates) because they are already updated to multi-channel in all other respects in previous CLs.",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 72
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a674a241_1802e0af",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-11T13:35:20Z",
+      "side": 1,
+      "message": "My feeling is that we should revisit the descision of using the minimum value.\n\nMy suggestion is to revisit it in an upcoming CL.\nWDYT",
+      "parentUuid": "80e7fe90_573d8e80",
       "range": {
         "startLine": 192,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f2d3f978_4776d357",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-11T13:35:20Z",
+      "side": 1,
+      "message": "Agree. See above.",
+      "parentUuid": "586df347_88360b76",
+      "range": {
+        "startLine": 233,
+        "startChar": 66,
+        "endLine": 233,
+        "endChar": 69
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b3f1de54_3c54b261",
         "filename": "modules/audio_processing/aec3/aec_state.cc",
         "patchSetId": 6
@@ -128,6 +248,30 @@
       "writtenOn": "2019-10-11T11:42:15Z",
       "side": 1,
       "message": "See above comment",
+      "range": {
+        "startLine": 254,
+        "startChar": 65,
+        "endLine": 254,
+        "endChar": 68
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f12bfd4_c2e6c9a4",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-11T13:35:20Z",
+      "side": 1,
+      "message": "Agree. See above.",
+      "parentUuid": "b3f1de54_3c54b261",
       "range": {
         "startLine": 254,
         "startChar": 65,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "8c9c6c2f_112d1853",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-11T13:35:20Z",
+      "side": 1,
+      "message": "Well spotted. Yes.\nDone.",
+      "parentUuid": "c95cffc1_984c0c69",
+      "range": {
+        "startLine": 354,
+        "startChar": 0,
+        "endLine": 354,
+        "endChar": 48
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51cf7615_20b2fc39",
         "filename": "modules/audio_processing/aec3/aec_state.cc",
         "patchSetId": 6
@@ -183,6 +351,30 @@
       "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70060a05_9073cb7d",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-11T13:35:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51cf7615_20b2fc39",
+      "range": {
+        "startLine": 481,
+        "startChar": 39,
+        "endLine": 481,
+        "endChar": 40
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "fdf0efb2_3ba37afe",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-11T13:35:20Z",
+      "side": 1,
+      "message": "I wanted to retain the ability to check whether individual filter estimates (per mic channel) were usable.\nThe ERLE code definitely requires that, and I think that also goes for the Reverb code.\n\nLet\u0027s revisit this in another CL.",
+      "parentUuid": "e1ffa8d9_48c10d9e",
+      "range": {
+        "startLine": 494,
+        "startChar": 0,
+        "endLine": 498,
+        "endChar": 3
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c3a25f7_2d61fdbc",
         "filename": "modules/audio_processing/aec3/aec_state.h",
         "patchSetId": 6
@@ -220,6 +436,30 @@
       "writtenOn": "2019-10-11T11:42:15Z",
       "side": 1,
       "message": "This could return the minimum of filter delays, via a separate member function on delay_state_. See comment in aec_state.cc.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 52
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9065c14c_a05872ce",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-11T13:35:20Z",
+      "side": 1,
+      "message": "Yes, this needs to be changed. But I would wait with that to another CL as I expect more changes to result from that.",
+      "parentUuid": "2c3a25f7_2d61fdbc",
       "range": {
         "startLine": 95,
         "startChar": 0,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "acdddb82_39e24eec",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-11T13:35:20Z",
+      "side": 1,
+      "message": "Let\u0027s keep the comment here, as I\u0027m not fully confident that we fully know how this is used. We should not in the end arbitrarily return the channel 0 length so we need to look into this.",
+      "parentUuid": "ca36ab57_5ad2423c",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 80
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0b2de767_94c3ff8d",
         "filename": "modules/audio_processing/aec3/aec_state.h",
         "patchSetId": 6
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "bfb62312_561d6e6c",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-11T13:35:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b2de767_94c3ff8d",
+      "range": {
+        "startLine": 198,
+        "startChar": 16,
+        "endLine": 198,
+        "endChar": 53
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da02bd60_b62a5d17",
         "filename": "modules/audio_processing/aec3/aec_state.h",
         "patchSetId": 6
@@ -289,6 +577,30 @@
       "writtenOn": "2019-10-11T11:42:15Z",
       "side": 1,
       "message": "Why not an ArrayView?",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 28
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce964587_ad5d1c09",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-11T13:35:20Z",
+      "side": 1,
+      "message": "ArrayView does not work with bool vectors. I think it has to do with that it is allowed to implement a vector\u003cbool\u003e as a bitfield.",
+      "parentUuid": "da02bd60_b62a5d17",
       "range": {
         "startLine": 260,
         "startChar": 4,
@@ -321,6 +633,30 @@
       "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "594c2fc2_03f3a5dd",
+        "filename": "modules/audio_processing/aec3/fullband_erle_estimator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-11T13:35:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30403d16_01dcb6a9",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 48
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

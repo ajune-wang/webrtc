@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "6e795322_e753ef43",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-11T19:09:19Z",
+      "side": 1,
+      "message": "Hm, I may have been ambiguous. I meant that we could - without any changes to the FilterAnalyzer interface - get rid of the local variables any_filter_consistent and max_echo_path_gain, and instead call FilterAnalyzer when the values are needed as arguments:\n\nFor example from this:\ntransparent_state_.Update(delay_state_.DirectPathFilterDelays()[0],\n                            any_filter_consistent,\n                            any_filter_converged,\n                            all_filters_diverged, active_render,\n                            SaturatedCapture());\n\nto this:\ntransparent_state_.Update(delay_state_.DirectPathFilterDelays()[0],\n                            filter_analyzer_.AnyFilterConsistent(), // \u003c-- changed!\n                            any_filter_converged,\n                            all_filters_diverged, active_render,\n                            SaturatedCapture());\n\n\nIt\u0027s a very small thing so I\u0027m fine either way, I just want to clarify in case you happen to agree. We trade two redundant variables for a few extra very simple function calls.",
+      "parentUuid": "a1f0bacb_e28cef48",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 70
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bab5540c_a758e37d",
         "filename": "modules/audio_processing/aec3/aec_state.cc",
         "patchSetId": 6
@@ -190,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "8954c059_7d54c289",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-11T19:09:19Z",
+      "side": 1,
+      "message": "sgtm!",
+      "parentUuid": "a674a241_1802e0af",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 72
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "586df347_88360b76",
         "filename": "modules/audio_processing/aec3/aec_state.cc",
         "patchSetId": 6
@@ -237,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "13e7ac3a_11a951ae",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-11T19:09:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f2d3f978_4776d357",
+      "range": {
+        "startLine": 233,
+        "startChar": 66,
+        "endLine": 233,
+        "endChar": 69
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3f1de54_3c54b261",
         "filename": "modules/audio_processing/aec3/aec_state.cc",
         "patchSetId": 6
@@ -281,6 +353,30 @@
       "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c133cc5_811bb278",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-11T19:09:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7f12bfd4_c2e6c9a4",
+      "range": {
+        "startLine": 254,
+        "startChar": 65,
+        "endLine": 254,
+        "endChar": 68
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -472,6 +568,30 @@
     },
     {
       "key": {
+        "uuid": "07c42faa_efd53422",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-11T19:09:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9065c14c_a05872ce",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 52
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca36ab57_5ad2423c",
         "filename": "modules/audio_processing/aec3/aec_state.h",
         "patchSetId": 6
@@ -516,6 +636,30 @@
       "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ff7881c_eb6ccfde",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-11T19:09:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "acdddb82_39e24eec",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 80
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -610,6 +754,30 @@
       "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bf99a86_963ebe11",
+        "filename": "modules/audio_processing/aec3/aec_state.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-11T19:09:19Z",
+      "side": 1,
+      "message": "Right, the ever vexing vector\u003cbool\u003e.. Thanks for explaining!",
+      "parentUuid": "ce964587_ad5d1c09",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 28
+      },
+      "revId": "290ec56bfbe811eb32ba67623a823fa71b4f8b78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

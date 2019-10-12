@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_NS_MAIN_SOURCE_NSX_CORE_H_
-#define MODULES_AUDIO_PROCESSING_NS_MAIN_SOURCE_NSX_CORE_H_
+#ifndef MODULES_AUDIO_PROCESSING_LEGACY_NS_MAIN_SOURCE_NSX_CORE_H_
+#define MODULES_AUDIO_PROCESSING_LEGACY_NS_MAIN_SOURCE_NSX_CORE_H_
 
 #ifdef NS_FILEDEBUG
 #include <stdio.h>
@@ -258,4 +258,4 @@ void WebRtcNsx_Denormalize_mips(NoiseSuppressionFixedC* inst,
 }
 #endif
 
-#endif  // MODULES_AUDIO_PROCESSING_NS_MAIN_SOURCE_NSX_CORE_H_
+#endif  // MODULES_AUDIO_PROCESSING_LEGACY_NS_MAIN_SOURCE_NSX_CORE_H_

@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "3f122fe2_9092fd26",
+        "filename": "api/neteq/custom_neteq_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-14T17:45:50Z",
+      "side": 1,
+      "message": "#include \"api/scoped_refptr.h\"\n\nI also think this class is missing an include for \"system_wrappers/include/clock.h\" which should be moved to API as well since it is needed by CreateNetEq?\n\nThe same probably applies for the DefaultNetEqFactory.",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d2f1f805_a5847cc5",
         "filename": "api/neteq/custom_neteq_factory.h",
         "patchSetId": 1
@@ -98,6 +115,23 @@
       "writtenOn": "2019-10-14T16:43:27Z",
       "side": 1,
       "message": "The namne of this file isn\u0027t ideal, given its contents.",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6a4b8b2_8e60dc36",
+        "filename": "api/neteq/defines.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-14T17:45:50Z",
+      "side": 1,
+      "message": "Since we are moving this code and probably renaming the file, I propose to use `enum class` here and at line 30.",
       "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

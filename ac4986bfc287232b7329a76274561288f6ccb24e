@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8bfb153f_b8776ce0",
+        "filename": "modules/audio_processing/aec3/echo_audibility.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-14T12:07:33Z",
+      "side": 1,
+      "message": "Should this be multi-channelized, too?\nOr add a comment explaining why we only use channel 0.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 54
+      },
+      "revId": "ac4986bfc287232b7329a76274561288f6ccb24e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d101f666_463c7823",
+        "filename": "modules/audio_processing/aec3/echo_audibility.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-14T12:07:33Z",
+      "side": 1,
+      "message": "Does it make sense to just require one channel to have enough content? Or must all of them be active at the same time?\nSince requiring all channels is not robust to, say, if only channel 0 is non-zero.",
+      "range": {
+        "startLine": 102,
+        "startChar": 44,
+        "endLine": 111,
+        "endChar": 7
+      },
+      "revId": "ac4986bfc287232b7329a76274561288f6ccb24e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

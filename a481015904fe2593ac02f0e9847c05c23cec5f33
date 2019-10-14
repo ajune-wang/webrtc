@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28611dbb_f234bd8e",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-10-14T13:02:38Z",
+      "side": 1,
+      "message": "Please add short documentation what each option means (copy from C++ enum)",
+      "range": {
+        "startLine": 410,
+        "startChar": 32,
+        "endLine": 410,
+        "endChar": 83
+      },
+      "revId": "a481015904fe2593ac02f0e9847c05c23cec5f33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e88260d_5c6eeb0e",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-10-14T13:02:38Z",
+      "side": 1,
+      "message": "Please add javadoc",
+      "range": {
+        "startLine": 410,
+        "startChar": 14,
+        "endLine": 410,
+        "endChar": 29
+      },
+      "revId": "a481015904fe2593ac02f0e9847c05c23cec5f33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bf36234_9e45e6aa",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-10-14T13:02:38Z",
+      "side": 1,
+      "message": "Please link to a relevant bug",
+      "range": {
+        "startLine": 477,
+        "startChar": 7,
+        "endLine": 477,
+        "endChar": 51
+      },
+      "revId": "a481015904fe2593ac02f0e9847c05c23cec5f33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26700873_afbe766d",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-10-14T13:02:38Z",
+      "side": 1,
+      "message": "@Deprecated?",
+      "range": {
+        "startLine": 478,
+        "startChar": 11,
+        "endLine": 478,
+        "endChar": 18
+      },
+      "revId": "a481015904fe2593ac02f0e9847c05c23cec5f33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

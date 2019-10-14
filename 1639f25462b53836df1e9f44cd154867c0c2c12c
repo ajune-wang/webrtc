@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "20f3f3d4_8fae8630",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-14T12:24:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a73cde12_59b3bfe5",
+      "range": {
+        "startLine": 487,
+        "startChar": 4,
+        "endLine": 487,
+        "endChar": 30
+      },
+      "revId": "1639f25462b53836df1e9f44cd154867c0c2c12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b50190fc_22e68afd",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "1639f25462b53836df1e9f44cd154867c0c2c12c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfa4702c_dad00c3e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-14T12:24:18Z",
+      "side": 1,
+      "message": "and fec_packet_overhead variable is not needed too then.",
+      "parentUuid": "b50190fc_22e68afd",
+      "range": {
+        "startLine": 498,
+        "startChar": 26,
+        "endLine": 498,
+        "endChar": 52
+      },
+      "revId": "1639f25462b53836df1e9f44cd154867c0c2c12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "bb9d85de_fc10c0a0",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-14T12:24:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebde904f_b317b1a6",
+      "range": {
+        "startLine": 148,
+        "startChar": 73,
+        "endLine": 148,
+        "endChar": 78
+      },
+      "revId": "1639f25462b53836df1e9f44cd154867c0c2c12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d14d8843_62ba73c2",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "1639f25462b53836df1e9f44cd154867c0c2c12c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db0f6d9f_ba887bc5",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-14T12:24:18Z",
+      "side": 1,
+      "message": "yep, you right, ulpfec_generator_ only used from the SendVideo function that is assumed (send_checker_) to be externally synchronized.",
+      "parentUuid": "d14d8843_62ba73c2",
+      "range": {
+        "startLine": 204,
+        "startChar": 51,
+        "endLine": 204,
+        "endChar": 56
+      },
+      "revId": "1639f25462b53836df1e9f44cd154867c0c2c12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

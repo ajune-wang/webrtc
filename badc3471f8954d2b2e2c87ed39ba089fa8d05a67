@@ -1,0 +1,449 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13522b34_3004ed4f",
+        "filename": "api/neteq/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Why does the default NetEq factory come default equipped with a set of audio codecs? Given that typical users can be assumed to be binary size sensitive and not need all of the codecs in our tree, wouldn\u0027t it make more sense to always force callers to be explicit about the codec set they want?\n\n...Ah, I see---that\u0027s exactly what custom_neteq_factory does? Can we get rid of default_neteq_factory entirely then?",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45df365e_9523b720",
+        "filename": "api/neteq/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Can this be folded into one of the other targets, or are these types genuinely used by several different targets that are not otherwise related?",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2f1f805_a5847cc5",
+        "filename": "api/neteq/custom_neteq_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Why does this class have both a public constructor and a create function?",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dcf19d5_32ed0b4d",
+        "filename": "api/neteq/default_neteq_controller_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Why does this class have both a public constructor and a create function?",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f73e4e0_30f47936",
+        "filename": "api/neteq/default_neteq_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Why does this class have both a public constructor and a create function?",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4028c3a_218d88f6",
+        "filename": "api/neteq/defines.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "The namne of this file isn\u0027t ideal, given its contents.",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d15530d_343c9ba7",
+        "filename": "api/neteq/neteq.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Use stddef.h instead if you want size_t.",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edd58c93_4fdd27df",
+        "filename": "api/neteq/neteq.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "There\u0027s no need to explicitly make an abstract base class noncopyable.",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29969c8d_013cf9ba",
+        "filename": "api/neteq/neteq.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 286,
+        "startChar": 1,
+        "endLine": 287,
+        "endChar": 12
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5abfd72a_d8ef41fb",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "This class isn\u0027t documented even a little.",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "decdbe7f_293cc46e",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "No need to explicitly make an abstract base class noncopyable.",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb3f250c_9486fa38",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Why is this destructor not inline?",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b834e58_a6980585",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 141,
+        "startChar": 1,
+        "endLine": 142,
+        "endChar": 20
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f910d9e4_b68df865",
+        "filename": "api/neteq/neteq_controller_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Document?",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a671aba3_be0c5a7f",
+        "filename": "api/neteq/neteq_controller_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 22,
+        "startChar": 1,
+        "endLine": 23,
+        "endChar": 76
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "643b4bab_9763d131",
+        "filename": "api/neteq/neteq_controller_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Inline?",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c53c79fb_725c34e4",
+        "filename": "api/neteq/neteq_controller_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "This is the usual convention in C++, so you don\u0027t need to state it.",
+      "range": {
+        "startLine": 27,
+        "startChar": 5,
+        "endLine": 28,
+        "endChar": 20
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21e8ccf4_e268bcaa",
+        "filename": "api/neteq/neteq_controller_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 33,
+        "endChar": 27
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c92c334_4adf3787",
+        "filename": "api/neteq/neteq_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 56
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bca431f_44ecc916",
+        "filename": "api/neteq/neteq_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Inline?",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecad8c45_f296834c",
+        "filename": "api/neteq/neteq_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 33,
+        "endChar": 17
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2edc2315_4abea062",
+        "filename": "api/neteq/tick_timer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 13
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4499e636_256e0f80",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-14T16:43:27Z",
+      "side": 1,
+      "message": "Why not pass unique_ptr by value? Or use a plain const ref if you don\u0027t pass ownership and don\u0027t need mutability.",
+      "range": {
+        "startLine": 104,
+        "startChar": 8,
+        "endLine": 104,
+        "endChar": 54
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

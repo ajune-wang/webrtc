@@ -347,7 +347,10 @@ int RenderDelayBufferImpl::ComputeDelay() const {
 
 // Set the read indices according to the delay.
 void RenderDelayBufferImpl::ApplyTotalDelay(int delay) {
-  RTC_LOG(LS_INFO) << "Applying total delay of " << delay << " blocks.";
+  rtc::LoggingSeverity log_level = config_.delay.log_warning_on_delay_changes
+                                       ? rtc::LS_WARNING
+                                       : rtc::LS_INFO;
+  RTC_LOG_V(log_level) << "Applying total delay of " << delay << " blocks.";
   blocks_.read = blocks_.OffsetIndex(blocks_.write, -delay);
   spectra_.read = spectra_.OffsetIndex(spectra_.write, delay);
   ffts_.read = ffts_.OffsetIndex(ffts_.write, delay);

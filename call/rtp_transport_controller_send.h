@@ -83,10 +83,9 @@ class RtpTransportControllerSend final
 
   void SetPacingFactor(float pacing_factor) override;
   void SetQueueTimeLimit(int limit_ms) override;
-  void RegisterPacketFeedbackObserver(
-      PacketFeedbackObserver* observer) override;
-  void DeRegisterPacketFeedbackObserver(
-      PacketFeedbackObserver* observer) override;
+
+  TransportFeedbackProvider* GetTransportFeedbackProvider() override;
+
   void RegisterTargetTransferRateObserver(
       TargetTransferRateObserver* observer) override;
   void OnNetworkRouteChanged(const std::string& transport_name,

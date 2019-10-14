@@ -102,43 +102,6 @@ class RTPSenderVideo {
                  const RTPFragmentationHeader* fragmentation,
                  RTPVideoHeader video_header,
                  absl::optional<int64_t> expected_retransmission_time_ms);
-
-  RTC_DEPRECATED
-  bool SendVideo(VideoFrameType frame_type,
-                 int8_t payload_type,
-                 absl::optional<VideoCodecType> codec_type,
-                 uint32_t rtp_timestamp,
-                 int64_t capture_time_ms,
-                 const uint8_t* payload_data,
-                 size_t payload_size,
-                 const RTPFragmentationHeader* fragmentation,
-                 const RTPVideoHeader* video_header,
-                 absl::optional<int64_t> expected_retransmission_time_ms);
-
-  // TODO(bugs.webrtc.org/10809): Remove when downstream usage is gone.
-  RTC_DEPRECATED
-  bool SendVideo(VideoFrameType frame_type,
-                 int8_t payload_type,
-                 uint32_t capture_timestamp,
-                 int64_t capture_time_ms,
-                 const uint8_t* payload_data,
-                 size_t payload_size,
-                 const RTPFragmentationHeader* fragmentation,
-                 const RTPVideoHeader* video_header,
-                 absl::optional<int64_t> expected_retransmission_time_ms);
-
-  // TODO(bugs.webrtc.org/10809): Remove when downstream usage is gone.
-  void RegisterPayloadType(int8_t payload_type,
-                           absl::string_view payload_name,
-                           bool raw_payload);
-
-  // Set RED and ULPFEC payload types. A payload type of -1 means that the
-  // corresponding feature is turned off. Note that we DO NOT support enabling
-  // ULPFEC without enabling RED, and RED is only ever used when ULPFEC is
-  // enabled.
-  // TODO(bugs.webrtc.org/10809): Remove when downstream usage is gone.
-  void SetUlpfecConfig(int red_payload_type, int ulpfec_payload_type);
-
   // FlexFEC/ULPFEC.
   // Set FEC rates, max frames before FEC is sent, and type of FEC masks.
   // Returns false on failure.
@@ -198,13 +161,9 @@ class RTPSenderVideo {
       std::vector<std::unique_ptr<RtpPacketToSend>> packets,
       size_t unpacketized_payload_size);
 
-  bool red_enabled() const RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_) {
-    return red_payload_type_.has_value();
-  }
+  bool red_enabled() const { return red_payload_type_.has_value(); }
 
-  bool ulpfec_enabled() const RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_) {
-    return ulpfec_payload_type_.has_value();
-  }
+  bool ulpfec_enabled() const { return ulpfec_payload_type_.has_value(); }
 
   bool flexfec_enabled() const { return flexfec_sender_ != nullptr; }
 
@@ -214,12 +173,6 @@ class RTPSenderVideo {
 
   RTPSender* const rtp_sender_;
   Clock* const clock_;
-
-  // Maps payload type to codec type, for packetization.
-  // TODO(bugs.webrtc.org/10809): Remove when downstream usage is gone.
-  rtc::CriticalSection payload_type_crit_;
-  std::map<int8_t, absl::optional<VideoCodecType>> payload_type_map_
-      RTC_GUARDED_BY(payload_type_crit_);
 
   const int32_t retransmission_settings_;
 
@@ -246,8 +199,8 @@ class RTPSenderVideo {
       RTC_PT_GUARDED_BY(crit_);
 
   // RED/ULPFEC.
-  absl::optional<int> red_payload_type_ RTC_GUARDED_BY(crit_);
-  absl::optional<int> ulpfec_payload_type_ RTC_GUARDED_BY(crit_);
+  const absl::optional<int> red_payload_type_;
+  const absl::optional<int> ulpfec_payload_type_;
   UlpfecGenerator ulpfec_generator_ RTC_GUARDED_BY(crit_);
 
   // FlexFEC.

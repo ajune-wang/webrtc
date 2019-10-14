@@ -28,6 +28,9 @@ class EchoAudibility {
   explicit EchoAudibility(bool use_render_stationarity_at_init);
   ~EchoAudibility();
 
+  EchoAudibility(const EchoAudibility&) = delete;
+  EchoAudibility& operator=(const EchoAudibility&) = delete;
+
   // Feed new render data to the echo audibility estimator.
   void Update(const RenderBuffer& render_buffer,
               rtc::ArrayView<const float> render_reverb_contribution_spectrum,
@@ -77,7 +80,6 @@ class EchoAudibility {
   bool non_zero_render_seen_;
   const bool use_render_stationarity_at_init_;
   StationarityEstimator render_stationarity_;
-  RTC_DISALLOW_COPY_AND_ASSIGN(EchoAudibility);
 };
 
 }  // namespace webrtc

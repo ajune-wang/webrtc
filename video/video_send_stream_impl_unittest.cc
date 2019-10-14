@@ -31,6 +31,14 @@
 #include "video/test/mock_video_stream_encoder.h"
 
 namespace webrtc {
+
+bool operator==(const BitrateAllocationUpdate& a,
+                const BitrateAllocationUpdate& b) {
+  return a.target_bitrate == b.target_bitrate &&
+         a.round_trip_time == b.round_trip_time &&
+         a.packet_loss_ratio == b.packet_loss_ratio;
+}
+
 namespace internal {
 namespace {
 using ::testing::_;
@@ -66,7 +74,7 @@ class MockRtpVideoSender : public RtpVideoSenderInterface {
                                             const RTPFragmentationHeader*));
   MOCK_METHOD1(OnTransportOverheadChanged, void(size_t));
   MOCK_METHOD1(OnOverheadChanged, void(size_t));
-  MOCK_METHOD4(OnBitrateUpdated, void(uint32_t, uint8_t, int64_t, int));
+  MOCK_METHOD2(OnBitrateUpdated, void(BitrateAllocationUpdate, int));
   MOCK_CONST_METHOD0(GetPayloadBitrateBps, uint32_t());
   MOCK_CONST_METHOD0(GetProtectionBitrateBps, uint32_t());
   MOCK_METHOD3(SetEncodingData, void(size_t, size_t, size_t));
@@ -623,7 +631,6 @@ TEST_F(VideoSendStreamImplTest, ForwardsVideoBitrateAllocationAfterTimeout) {
     vss_impl->Stop();
   });
 }
-
 TEST_F(VideoSendStreamImplTest, CallsVideoStreamEncoderOnBitrateUpdate) {
   test_queue_.SendTask([this] {
     const bool kSuspend = false;
@@ -661,9 +668,7 @@ TEST_F(VideoSendStreamImplTest, CallsVideoStreamEncoderOnBitrateUpdate) {
     update.target_bitrate = network_constrained_rate;
     update.stable_target_bitrate = network_constrained_rate;
     update.round_trip_time = TimeDelta::ms(1);
-    EXPECT_CALL(rtp_video_sender_,
-                OnBitrateUpdated(network_constrained_rate.bps(), _,
-                                 update.round_trip_time.ms(), _));
+    EXPECT_CALL(rtp_video_sender_, OnBitrateUpdated(update, _));
     EXPECT_CALL(rtp_video_sender_, GetPayloadBitrateBps())
         .WillOnce(Return(network_constrained_rate.bps()));
     EXPECT_CALL(
@@ -679,16 +684,14 @@ TEST_F(VideoSendStreamImplTest, CallsVideoStreamEncoderOnBitrateUpdate) {
         DataRate::bps(qvga_stream.max_bitrate_bps);
     const DataRate headroom = DataRate::bps(50000);
     const DataRate rate_with_headroom = qvga_max_bitrate + headroom;
-    EXPECT_CALL(rtp_video_sender_,
-                OnBitrateUpdated(rate_with_headroom.bps(), _,
-                                 update.round_trip_time.ms(), _));
+    update.target_bitrate = rate_with_headroom;
+    update.stable_target_bitrate = rate_with_headroom;
+    EXPECT_CALL(rtp_video_sender_, OnBitrateUpdated(update, _));
     EXPECT_CALL(rtp_video_sender_, GetPayloadBitrateBps())
         .WillOnce(Return(rate_with_headroom.bps()));
     EXPECT_CALL(video_stream_encoder_,
                 OnBitrateUpdated(qvga_max_bitrate, qvga_max_bitrate,
                                  rate_with_headroom, 0, _));
-    update.target_bitrate = rate_with_headroom;
-    update.stable_target_bitrate = rate_with_headroom;
     static_cast<BitrateAllocatorObserver*>(vss_impl.get())
         ->OnBitrateUpdated(update);
 
@@ -698,9 +701,7 @@ TEST_F(VideoSendStreamImplTest, CallsVideoStreamEncoderOnBitrateUpdate) {
     EXPECT_CALL(rtp_video_sender_, GetProtectionBitrateBps())
         .WillOnce(Return(protection_bitrate_bps));
 
-    EXPECT_CALL(rtp_video_sender_,
-                OnBitrateUpdated(rate_with_headroom.bps(), _,
-                                 update.round_trip_time.ms(), _));
+    EXPECT_CALL(rtp_video_sender_, OnBitrateUpdated(update, _));
     EXPECT_CALL(rtp_video_sender_, GetPayloadBitrateBps())
         .WillOnce(Return(rate_with_headroom.bps()));
     const DataRate headroom_minus_protection =
@@ -715,9 +716,7 @@ TEST_F(VideoSendStreamImplTest, CallsVideoStreamEncoderOnBitrateUpdate) {
     // target bitrate.
     EXPECT_CALL(rtp_video_sender_, GetProtectionBitrateBps())
         .WillOnce(Return(headroom.bps() + 1000));
-    EXPECT_CALL(rtp_video_sender_,
-                OnBitrateUpdated(rate_with_headroom.bps(), _,
-                                 update.round_trip_time.ms(), _));
+    EXPECT_CALL(rtp_video_sender_, OnBitrateUpdated(update, _));
     EXPECT_CALL(rtp_video_sender_, GetPayloadBitrateBps())
         .WillOnce(Return(rate_with_headroom.bps()));
     EXPECT_CALL(video_stream_encoder_,

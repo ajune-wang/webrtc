@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c35d2218_54af1db4",
+        "filename": "modules/audio_processing/agc/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-14T06:44:12Z",
+      "side": 1,
+      "message": "I moved it in here because targets in agc/ cannot depend on targets in a direct ancestor folder.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "57a890bc243baaff1047fc810010175e21de08f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd7638b9_f56335ff",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-14T06:44:12Z",
+      "side": 1,
+      "message": "This may look iffy since the int might originally have been stored in the aecdump as a webrtc::GainControl::Mode, but the enums match up to make it compatible.",
+      "range": {
+        "startLine": 388,
+        "startChar": 0,
+        "endLine": 390,
+        "endChar": 20
+      },
+      "revId": "57a890bc243baaff1047fc810010175e21de08f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

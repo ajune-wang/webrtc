@@ -393,9 +393,6 @@ struct MediaSenderInfo {
       return 0;
     }
   }
-  // TODO(nisse): Sum of below two values. Deprecated, delete as soon as
-  // downstream applications are updated.
-  int64_t bytes_sent;
   // https://w3c.github.io/webrtc-stats/#dom-rtcsentrtpstreamstats-bytessent
   int64_t payload_bytes_sent = 0;
   // https://w3c.github.io/webrtc-stats/#dom-rtcoutboundrtpstreamstats-headerbytessent
@@ -453,9 +450,6 @@ struct MediaReceiverInfo {
     }
   }
 
-  // TODO(nisse): Sum of below two values. Deprecated, delete as soon as
-  // downstream applications are updated.
-  int64_t bytes_rcvd;
   // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-bytesreceived
   int64_t payload_bytes_rcvd = 0;
   // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-headerbytesreceived

@@ -220,7 +220,7 @@ void AecState::Update(
   if (config_.echo_audibility.use_stationarity_properties) {
     // Update the echo audibility evaluator.
     echo_audibility_.Update(render_buffer, reverb_model_.reverb(),
-                            delay_state_.DirectPathFilterDelays()[0],
+                            delay_state_.MinDirectPathFilterDelay(),
                             delay_state_.ExternalDelayReported());
   }
 
@@ -229,17 +229,15 @@ void AecState::Update(
     erle_estimator_.Reset(false);
   }
 
+  erle_estimator_.Update(render_buffer, adaptive_filter_frequency_responses[0],
+                         X2_reverb, Y2[0], E2_main[0],
+                         subtractor_output_analyzers_[0].ConvergedFilter(),
+                         config_.erle.onset_detection);
+
   // TODO(bugs.webrtc.org/10913): Take all channels into account.
   const auto& X2 =
       render_buffer.Spectrum(delay_state_.DirectPathFilterDelays()[0],
                              /*channel=*/0);
-  const auto& X2_input_erle = X2_reverb;
-
-  erle_estimator_.Update(render_buffer, adaptive_filter_frequency_responses[0],
-                         X2_input_erle, Y2[0], E2_main[0],
-                         subtractor_output_analyzers_[0].ConvergedFilter(),
-                         config_.erle.onset_detection);
-
   erl_estimator_.Update(subtractor_output_analyzers_[0].ConvergedFilter(), X2,
                         Y2[0]);
 
@@ -357,6 +355,9 @@ void AecState::FilterDelay::Update(
               analyzer_filter_delay_estimates_blocks.end(),
               filter_delays_blocks_.begin());
   }
+
+  min_filter_delay_ = *std::min_element(filter_delays_blocks_.begin(),
+                                        filter_delays_blocks_.end());
 }
 
 AecState::TransparentMode::TransparentMode(const EchoCanceller3Config& config)

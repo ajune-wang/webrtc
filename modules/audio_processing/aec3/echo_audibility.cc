@@ -91,6 +91,8 @@ void EchoAudibility::UpdateRenderNoiseEstimator(
 }
 
 bool EchoAudibility::IsRenderTooLow(const BlockBuffer& block_buffer) {
+  const int num_render_channels =
+      static_cast<int>(block_buffer.buffer[0].size());
   bool too_low = false;
   const int render_block_write_current = block_buffer.write;
   if (render_block_write_current == render_block_write_prev_) {
@@ -98,12 +100,14 @@ bool EchoAudibility::IsRenderTooLow(const BlockBuffer& block_buffer) {
   } else {
     for (int idx = render_block_write_prev_; idx != render_block_write_current;
          idx = block_buffer.IncIndex(idx)) {
-      auto block = block_buffer.buffer[idx][0][0];
-      auto r = std::minmax_element(block.cbegin(), block.cend());
-      float max_abs = std::max(std::fabs(*r.first), std::fabs(*r.second));
-      if (max_abs < 10) {
-        too_low = true;  // Discards all blocks if one of them is too low.
-        break;
+      for (int ch = 0; ch < num_render_channels; ++ch) {
+        auto block = block_buffer.buffer[idx][ch][0];
+        auto r = std::minmax_element(block.cbegin(), block.cend());
+        float max_abs = std::max(std::fabs(*r.first), std::fabs(*r.second));
+        if (max_abs < 10) {
+          too_low = true;  // Discards all blocks if one of them is too low.
+          break;
+        }
       }
     }
   }

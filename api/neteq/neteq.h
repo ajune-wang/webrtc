@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_NETEQ_INCLUDE_NETEQ_H_
-#define MODULES_AUDIO_CODING_NETEQ_INCLUDE_NETEQ_H_
+#ifndef API_NETEQ_NETEQ_H_
+#define API_NETEQ_NETEQ_H_
 
 #include <string.h>  // Provide access to size_t.
 
@@ -21,10 +21,9 @@
 #include "api/audio_codecs/audio_codec_pair_id.h"
 #include "api/audio_codecs/audio_decoder.h"
 #include "api/audio_codecs/audio_format.h"
+#include "api/neteq/defines.h"
 #include "api/rtp_headers.h"
 #include "api/scoped_refptr.h"
-#include "modules/audio_coding/neteq/defines.h"
-#include "rtc_base/constructor_magic.h"
 
 namespace webrtc {
 
@@ -143,13 +142,8 @@ class NetEq {
 
   enum ReturnCodes { kOK = 0, kFail = -1 };
 
-  // Creates a new NetEq object, with parameters set in |config|. The |config|
-  // object will only have to be valid for the duration of the call to this
-  // method.
-  static NetEq* Create(
-      const NetEq::Config& config,
-      Clock* clock,
-      const rtc::scoped_refptr<AudioDecoderFactory>& decoder_factory);
+  NetEq(const NetEq&) = delete;
+  NetEq& operator=(const NetEq&) = delete;
 
   virtual ~NetEq() {}
 
@@ -291,10 +285,7 @@ class NetEq {
 
  protected:
   NetEq() {}
-
- private:
-  RTC_DISALLOW_COPY_AND_ASSIGN(NetEq);
 };
 
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_NETEQ_INCLUDE_NETEQ_H_
+#endif  // API_NETEQ_NETEQ_H_

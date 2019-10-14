@@ -8,15 +8,14 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_NETEQ_TICK_TIMER_H_
-#define MODULES_AUDIO_CODING_NETEQ_TICK_TIMER_H_
+#ifndef API_NETEQ_TICK_TIMER_H_
+#define API_NETEQ_TICK_TIMER_H_
 
 #include <stdint.h>
 
 #include <memory>
 
 #include "rtc_base/checks.h"
-#include "rtc_base/constructor_magic.h"
 
 namespace webrtc {
 
@@ -78,6 +77,9 @@ class TickTimer {
     RTC_DCHECK_GT(ms_per_tick_, 0);
   }
 
+  TickTimer(const TickTimer&) = delete;
+  TickTimer& operator=(const TickTimer&) = delete;
+
   void Increment() { ++ticks_; }
 
   // Mainly intended for testing.
@@ -104,8 +106,7 @@ class TickTimer {
  private:
   uint64_t ticks_ = 0;
   const int ms_per_tick_;
-  RTC_DISALLOW_COPY_AND_ASSIGN(TickTimer);
 };
 
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_NETEQ_TICK_TIMER_H_
+#endif  // API_NETEQ_TICK_TIMER_H_

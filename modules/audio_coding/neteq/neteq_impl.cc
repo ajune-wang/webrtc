@@ -21,6 +21,8 @@
 #include <vector>
 
 #include "api/audio_codecs/audio_decoder.h"
+#include "api/neteq/defines.h"
+#include "api/neteq/tick_timer.h"
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 #include "modules/audio_coding/codecs/cng/webrtc_cng.h"
 #include "modules/audio_coding/neteq/accelerate.h"
@@ -28,7 +30,6 @@
 #include "modules/audio_coding/neteq/comfort_noise.h"
 #include "modules/audio_coding/neteq/decision_logic.h"
 #include "modules/audio_coding/neteq/decoder_database.h"
-#include "modules/audio_coding/neteq/defines.h"
 #include "modules/audio_coding/neteq/dtmf_buffer.h"
 #include "modules/audio_coding/neteq/dtmf_tone_generator.h"
 #include "modules/audio_coding/neteq/expand.h"
@@ -42,7 +43,6 @@
 #include "modules/audio_coding/neteq/red_payload_splitter.h"
 #include "modules/audio_coding/neteq/statistics_calculator.h"
 #include "modules/audio_coding/neteq/sync_buffer.h"
-#include "modules/audio_coding/neteq/tick_timer.h"
 #include "modules/audio_coding/neteq/time_stretch.h"
 #include "modules/audio_coding/neteq/timestamp_scaler.h"
 #include "rtc_base/checks.h"
@@ -57,6 +57,7 @@ namespace webrtc {
 namespace {
 
 std::unique_ptr<NetEqController> CreateNetEqController(
+    const std::unique_ptr<NetEqControllerFactory>& controller_factory,
     int base_min_delay,
     int max_packets_in_buffer,
     bool enable_rtx_handling,
@@ -68,7 +69,7 @@ std::unique_ptr<NetEqController> CreateNetEqController(
   config.enable_rtx_handling = enable_rtx_handling;
   config.allow_time_stretching = allow_time_stretching;
   config.tick_timer = tick_timer;
-  return std::make_unique<DecisionLogic>(std::move(config));
+  return controller_factory->CreateNetEqController(config);
 }
 
 }  // namespace
@@ -76,7 +77,8 @@ std::unique_ptr<NetEqController> CreateNetEqController(
 NetEqImpl::Dependencies::Dependencies(
     const NetEq::Config& config,
     Clock* clock,
-    const rtc::scoped_refptr<AudioDecoderFactory>& decoder_factory)
+    const rtc::scoped_refptr<AudioDecoderFactory>& decoder_factory,
+    const std::unique_ptr<NetEqControllerFactory>& controller_factory)
     : clock(clock),
       tick_timer(new TickTimer),
       stats(new StatisticsCalculator),
@@ -87,7 +89,8 @@ NetEqImpl::Dependencies::Dependencies(
       packet_buffer(
           new PacketBuffer(config.max_packets_in_buffer, tick_timer.get())),
       neteq_controller(
-          CreateNetEqController(config.min_delay_ms,
+          CreateNetEqController(controller_factory,
+                                config.min_delay_ms,
                                 config.max_packets_in_buffer,
                                 config.enable_rtx_handling,
                                 !config.for_test_no_time_stretching,

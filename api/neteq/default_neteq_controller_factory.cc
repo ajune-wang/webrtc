@@ -8,13 +8,18 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/audio_coding/neteq/neteq_controller.h"
-
-#include "modules/audio_coding/neteq/packet_buffer.h"
+#include "api/neteq/default_neteq_controller_factory.h"
+#include "modules/audio_coding/neteq/decision_logic.h"
 
 namespace webrtc {
 
-NetEqController::NetEqController() = default;
-NetEqController::~NetEqController() = default;
+DefaultNetEqControllerFactory::DefaultNetEqControllerFactory() = default;
+DefaultNetEqControllerFactory::~DefaultNetEqControllerFactory() = default;
+
+std::unique_ptr<NetEqController>
+DefaultNetEqControllerFactory::CreateNetEqController(
+    const NetEqController::Config& config) const {
+  return std::make_unique<DecisionLogic>(config);
+}
 
 }  // namespace webrtc

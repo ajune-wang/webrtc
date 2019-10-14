@@ -15,18 +15,20 @@
 #include <vector>
 
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
+#include "api/neteq/default_neteq_controller_factory.h"
+#include "api/neteq/default_neteq_factory.h"
+#include "api/neteq/neteq.h"
+#include "api/neteq/neteq_controller.h"
 #include "modules/audio_coding/neteq/accelerate.h"
 #include "modules/audio_coding/neteq/decision_logic.h"
 #include "modules/audio_coding/neteq/expand.h"
 #include "modules/audio_coding/neteq/histogram.h"
-#include "modules/audio_coding/neteq/include/neteq.h"
 #include "modules/audio_coding/neteq/mock/mock_decoder_database.h"
 #include "modules/audio_coding/neteq/mock/mock_dtmf_buffer.h"
 #include "modules/audio_coding/neteq/mock/mock_dtmf_tone_generator.h"
 #include "modules/audio_coding/neteq/mock/mock_neteq_controller.h"
 #include "modules/audio_coding/neteq/mock/mock_packet_buffer.h"
 #include "modules/audio_coding/neteq/mock/mock_red_payload_splitter.h"
-#include "modules/audio_coding/neteq/neteq_controller.h"
 #include "modules/audio_coding/neteq/preemptive_expand.h"
 #include "modules/audio_coding/neteq/statistics_calculator.h"
 #include "modules/audio_coding/neteq/sync_buffer.h"
@@ -73,7 +75,9 @@ class NetEqImplTest : public ::testing::Test {
   void CreateInstance(
       const rtc::scoped_refptr<AudioDecoderFactory>& decoder_factory) {
     ASSERT_TRUE(decoder_factory);
-    NetEqImpl::Dependencies deps(config_, &clock_, decoder_factory);
+    NetEqImpl::Dependencies deps(
+        config_, &clock_, decoder_factory,
+        std::make_unique<DefaultNetEqControllerFactory>());
 
     // Get a local pointer to NetEq's TickTimer object.
     tick_timer_ = deps.tick_timer.get();
@@ -251,9 +255,8 @@ class NetEqImplTest : public ::testing::Test {
 TEST(NetEq, CreateAndDestroy) {
   NetEq::Config config;
   SimulatedClock clock(0);
-  NetEq* neteq =
-      NetEq::Create(config, &clock, CreateBuiltinAudioDecoderFactory());
-  delete neteq;
+  DefaultNetEqFactory neteq_factory;
+  std::unique_ptr<NetEq> neteq = neteq_factory.CreateNetEq(config, &clock);
 }
 
 TEST_F(NetEqImplTest, RegisterPayloadType) {

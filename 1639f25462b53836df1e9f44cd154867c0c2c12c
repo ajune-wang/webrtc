@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a73cde12_59b3bfe5",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-14T11:26:15Z",
+      "side": 1,
+      "message": "I think we\u0027ll only need this lock for key_fec_params_ and delta_fec_params_, and those only if either flexfec or ulpfec is enabled. Worth checking that before grabbing the lock?",
+      "range": {
+        "startLine": 487,
+        "startChar": 4,
+        "endLine": 487,
+        "endChar": 30
+      },
+      "revId": "1639f25462b53836df1e9f44cd154867c0c2c12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b50190fc_22e68afd",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-14T11:26:15Z",
+      "side": 1,
+      "message": "If protected by send_checker_, can be moved outside this block.",
+      "range": {
+        "startLine": 498,
+        "startChar": 26,
+        "endLine": 498,
+        "endChar": 52
+      },
+      "revId": "1639f25462b53836df1e9f44cd154867c0c2c12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebde904f_b317b1a6",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-14T11:26:15Z",
+      "side": 1,
+      "message": "If ulpfec_generator_ is protected by send_checker_ instead, we can do the same here.",
+      "range": {
+        "startLine": 148,
+        "startChar": 73,
+        "endLine": 148,
+        "endChar": 78
+      },
+      "revId": "1639f25462b53836df1e9f44cd154867c0c2c12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d14d8843_62ba73c2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-14T11:26:15Z",
+      "side": 1,
+      "message": "I think we can just use |send_checker_| instead.",
+      "range": {
+        "startLine": 204,
+        "startChar": 51,
+        "endLine": 204,
+        "endChar": 56
+      },
+      "revId": "1639f25462b53836df1e9f44cd154867c0c2c12c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

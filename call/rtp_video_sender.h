@@ -152,7 +152,7 @@ class RtpVideoSender : public RtpVideoSenderInterface,
 
   // From PacketFeedbackObserver.
   void OnPacketFeedbackVector(
-      const std::vector<PacketFeedback>& packet_feedback_vector) override;
+      std::vector<FeedbackInfo> packet_feedback_vector) override;
 
  private:
   void UpdateModuleSendingState() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);

@@ -326,10 +326,25 @@ class RtcpFeedbackSenderInterface {
 
 class PacketFeedbackObserver {
  public:
+  struct FeedbackInfo {
+    uint32_t ssrc;
+    uint16_t rtp_sequence_number;
+    bool received;
+  };
   virtual ~PacketFeedbackObserver() = default;
 
   virtual void OnPacketFeedbackVector(
-      const std::vector<PacketFeedback>& packet_feedback_vector) = 0;
+      std::vector<FeedbackInfo> packet_feedback_vector) = 0;
+};
+
+class TransportFeedbackProvider {
+ public:
+  virtual void RegisterPacketFeedbackObserver(
+      std::vector<uint32_t> ssrcs,
+      PacketFeedbackObserver* observer) = 0;
+  virtual void DeRegisterPacketFeedbackObserver(
+      PacketFeedbackObserver* observer) = 0;
+  virtual ~TransportFeedbackProvider() = default;
 };
 
 class RtcpRttStats {

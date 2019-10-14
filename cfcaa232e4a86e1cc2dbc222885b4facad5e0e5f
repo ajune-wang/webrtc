@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edd968de_eaa05842",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-10-14T20:52:43Z",
+      "side": 1,
+      "message": "Internal parentheses are not really needed. Please remove them.",
+      "range": {
+        "startLine": 353,
+        "startChar": 22,
+        "endLine": 353,
+        "endChar": 59
+      },
+      "revId": "cfcaa232e4a86e1cc2dbc222885b4facad5e0e5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ab0887a_a9d3aa6d",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-10-14T20:52:43Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 369,
+        "startChar": 15,
+        "endLine": 370,
+        "endChar": 57
+      },
+      "revId": "cfcaa232e4a86e1cc2dbc222885b4facad5e0e5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fc4f4e3_fdedae41",
+        "filename": "modules/video_coding/video_packet_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-10-14T20:52:43Z",
+      "side": 1,
+      "message": "add \".\" at the end.",
+      "range": {
+        "startLine": 608,
+        "startChar": 53,
+        "endLine": 608,
+        "endChar": 54
+      },
+      "revId": "cfcaa232e4a86e1cc2dbc222885b4facad5e0e5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

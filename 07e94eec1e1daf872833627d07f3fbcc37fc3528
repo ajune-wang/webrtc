@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc80d16e_fc38a9b2",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-15T11:53:09Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be 255, or numerical_limit\u003cuint8_t\u003e::max() ?\nAlt, if this is intended behavior then saturated_cast, as this looks like it will explode for loss ration \u003d 1.0",
+      "range": {
+        "startLine": 736,
+        "startChar": 61,
+        "endLine": 736,
+        "endChar": 64
+      },
+      "revId": "07e94eec1e1daf872833627d07f3fbcc37fc3528",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

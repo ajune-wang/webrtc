@@ -22,6 +22,30 @@
       "revId": "fbf49db4b855ff6ea0c03011d8c476d5027065a3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "652fc96f_d8980705",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-15T08:12:40Z",
+      "side": 1,
+      "message": "Good point. Thank you for pointing out that ProcessStreamChooser(..) returns a value, I added EXPECT calls on it (and updated the test to not fail).",
+      "parentUuid": "6f6ca6cb_cba30670",
+      "range": {
+        "startLine": 845,
+        "startChar": 16,
+        "endLine": 845,
+        "endChar": 27
+      },
+      "revId": "fbf49db4b855ff6ea0c03011d8c476d5027065a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

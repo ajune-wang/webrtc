@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9322a832_ff3e8666",
+        "filename": "rtc_base/win32_window.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-10-15T15:35:06Z",
+      "side": 1,
+      "message": "would it make sense to check lpfnWndProc before blindly unregistering?",
+      "range": {
+        "startLine": 52,
+        "startChar": 11,
+        "endLine": 52,
+        "endChar": 27
+      },
+      "revId": "561b35bb726de28e3197cde518b5b5735f6a8037",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

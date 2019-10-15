@@ -46,7 +46,6 @@
 
 #include <errno.h>
 
-#include <list>
 #include <sstream>  // no-presubmit-check TODO(webrtc:8982)
 #include <string>
 #include <utility>
@@ -110,6 +109,12 @@ class LogSink {
   virtual void OnLogMessage(const std::string& message,
                             LoggingSeverity severity);
   virtual void OnLogMessage(const std::string& message) = 0;
+
+ private:
+  friend class LogMessage;
+  // Members for LogMessage class to keep linked list of the registered sinks.
+  LogSink* next_ = nullptr;
+  LoggingSeverity min_severity_;
 };
 
 namespace webrtc_logging_impl {
@@ -464,8 +469,6 @@ class LogMessage {
 
  private:
   friend class LogMessageForTesting;
-  typedef std::pair<LogSink*, LoggingSeverity> StreamAndSeverity;
-  typedef std::list<StreamAndSeverity> StreamList;
 
   // Updates min_sev_ appropriately when debug sinks change.
   static void UpdateMinLogSeverity();
@@ -499,7 +502,7 @@ class LogMessage {
   std::string extra_;
 
   // The output streams and their associated severities
-  static StreamList streams_;
+  static LogSink* streams_;
 
   // Flags for formatting options
   static bool thread_, timestamp_;

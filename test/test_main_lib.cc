@@ -27,7 +27,6 @@
 #include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
-#include "test/testsupport/file_utils.h"
 #include "test/testsupport/file_utils_override.h"
 #include "test/testsupport/perf_test.h"
 
@@ -136,13 +135,6 @@ class TestMainImpl : public TestMain {
       rtc::tracing::SetupInternalTracer();
       rtc::tracing::StartInternalCapture(trace_event_path.c_str());
     }
-
-    // TODO(bugs.webrtc.org/9792): we need to reference something from
-    // fileutils.h so that our downstream hack where we replace fileutils.cc
-    // works. Otherwise the downstream flag implementation will take over and
-    // botch the flag introduced by the hack. Remove this awful thing once the
-    // downstream implementation has been eliminated.
-    (void)webrtc::test::JoinFilename("horrible", "hack");
 
     // InitFieldTrialsFromString stores the char*, so the char array must
     // outlive the application.

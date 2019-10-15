@@ -71,6 +71,98 @@
     },
     {
       "key": {
+        "uuid": "448f33d5_fdc28779",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-10-15T20:52:03Z",
+      "side": 1,
+      "message": "I think ideally, this can look like\n\nOperations GetDecision(absl::optional\u003cPacketInfo\u003e next_packet,\n                       const PacketBufferInfo\u0026 packet_buffer_info)\n\nAbstractly, what else should it know?\n\nI think, if anything, it may be implementational details.",
+      "range": {
+        "startLine": 72,
+        "startChar": 21,
+        "endLine": 72,
+        "endChar": 32
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc923126_5b2deb53",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-10-15T20:52:03Z",
+      "side": 1,
+      "message": "maybe \"last_packet_samples\"",
+      "range": {
+        "startLine": 74,
+        "startChar": 40,
+        "endLine": 74,
+        "endChar": 60
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c1bf4ae_60d86dbb",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-10-15T20:52:03Z",
+      "side": 1,
+      "message": "maybe \"packet\" or \"new_packet\"",
+      "range": {
+        "startLine": 75,
+        "startChar": 60,
+        "endLine": 75,
+        "endChar": 71
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a675efea_825ee793",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-10-15T20:52:03Z",
+      "side": 1,
+      "message": "maybe \"last_mode\"",
+      "range": {
+        "startLine": 76,
+        "startChar": 39,
+        "endLine": 76,
+        "endChar": 48
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bbff0448_69d8e651",
         "filename": "modules/audio_coding/neteq/neteq_controller.h",
         "patchSetId": 7

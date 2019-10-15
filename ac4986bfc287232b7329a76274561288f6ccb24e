@@ -93,6 +93,30 @@
       "revId": "ac4986bfc287232b7329a76274561288f6ccb24e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d819b602_73010518",
+        "filename": "modules/audio_processing/aec3/echo_audibility.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-15T07:36:14Z",
+      "side": 1,
+      "message": "The code does not seem to have been updated to reflect this. Should the logic be:\n\nfor each block {\n  too_low \u003d true;\n\n  for each channel {\n    // .. compute max_abs\n    if (max_abs \u003e\u003d 10) {\n      too_low \u003d false;\n      break;\n    }\n  }\n\n  // Discard all blocks if one of them is too low.\n  if (too_low) {\n    break;\n  }\n}",
+      "parentUuid": "a07daf19_1495d739",
+      "range": {
+        "startLine": 102,
+        "startChar": 44,
+        "endLine": 111,
+        "endChar": 7
+      },
+      "revId": "ac4986bfc287232b7329a76274561288f6ccb24e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

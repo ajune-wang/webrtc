@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36f39348_b0b4d52b",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-15T07:36:14Z",
+      "side": 1,
+      "message": "Will this become one value per capture once reverb_model_estimator_ is multi-channelized?",
+      "range": {
+        "startLine": 217,
+        "startChar": 66,
+        "endLine": 217,
+        "endChar": 79
+      },
+      "revId": "47f2a6491029df4843833c8fcdaefcda1689c92d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8c3d78d_968b697d",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-15T07:36:14Z",
+      "side": 1,
+      "message": "[band][ch], not [ch][band]\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/aec3/block_buffer.cc?l\u003d24-27\u0026rcl\u003d8bbf9e2c6e40feb8efcbf276b43945a14d651e9b",
+      "range": {
+        "startLine": 112,
+        "startChar": 48,
+        "endLine": 112,
+        "endChar": 56
+      },
+      "revId": "47f2a6491029df4843833c8fcdaefcda1689c92d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

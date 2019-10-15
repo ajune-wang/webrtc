@@ -15,6 +15,7 @@
 
 #include <array>
 #include <memory>
+#include <vector>
 
 #include "absl/types/optional.h"
 #include "api/array_view.h"
@@ -41,14 +42,16 @@ class ErleEstimator {
   void Reset(bool delay_change);
 
   // Updates the ERLE estimates.
-  void Update(const RenderBuffer& render_buffer,
-              const std::vector<std::array<float, kFftLengthBy2Plus1>>&
-                  filter_frequency_response,
-              rtc::ArrayView<const float> reverb_render_spectrum,
-              rtc::ArrayView<const float> capture_spectrum,
-              rtc::ArrayView<const float> subtractor_spectrum,
-              bool converged_filter,
-              bool onset_detection);
+  void Update(
+      const RenderBuffer& render_buffer,
+      rtc::ArrayView<const std::vector<std::array<float, kFftLengthBy2Plus1>>>
+          filter_frequency_responses,
+      rtc::ArrayView<const float> avg_render_spectrum_with_reverb,
+      rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>>
+          capture_spectra,
+      rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>>
+          subtractor_spectra,
+      const std::vector<bool>& converged_filters);
 
   // Returns the most recent subband ERLE estimates.
   rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>> Erle() const {
@@ -80,6 +83,7 @@ class ErleEstimator {
   void Dump(const std::unique_ptr<ApmDataDumper>& data_dumper) const;
 
  private:
+  const bool use_onset_detection_;
   const size_t startup_phase_length_blocks__;
   const bool use_signal_dependent_erle_;
   FullBandErleEstimator fullband_erle_estimator_;

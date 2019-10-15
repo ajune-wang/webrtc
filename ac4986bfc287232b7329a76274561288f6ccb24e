@@ -117,6 +117,30 @@
       "revId": "ac4986bfc287232b7329a76274561288f6ccb24e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b9cee98_108ce133",
+        "filename": "modules/audio_processing/aec3/echo_audibility.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-15T08:05:40Z",
+      "side": 1,
+      "message": "Thanks. It was intentional to avoid extra if-statements but I agree it does not hit the code nicely.\n\nI changed the outer loop to a while-loop instead, which, even if it still has the extra if-statement, at keeps the niceness of the current loop body.\n\nPTAL",
+      "parentUuid": "d819b602_73010518",
+      "range": {
+        "startLine": 102,
+        "startChar": 44,
+        "endLine": 111,
+        "endChar": 7
+      },
+      "revId": "ac4986bfc287232b7329a76274561288f6ccb24e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

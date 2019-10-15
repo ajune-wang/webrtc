@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "45e122be_0091382b",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-15T08:05:40Z",
+      "side": 1,
+      "message": "No, my intention is to have it like this.",
+      "parentUuid": "36f39348_b0b4d52b",
+      "range": {
+        "startLine": 217,
+        "startChar": 66,
+        "endLine": 217,
+        "endChar": 79
+      },
+      "revId": "47f2a6491029df4843833c8fcdaefcda1689c92d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e8c3d78d_968b697d",
         "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2019-10-15T07:36:14Z",
       "side": 1,
       "message": "[band][ch], not [ch][band]\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/aec3/block_buffer.cc?l\u003d24-27\u0026rcl\u003d8bbf9e2c6e40feb8efcbf276b43945a14d651e9b",
+      "range": {
+        "startLine": 112,
+        "startChar": 48,
+        "endLine": 112,
+        "endChar": 56
+      },
+      "revId": "47f2a6491029df4843833c8fcdaefcda1689c92d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "477e87da_cfbaf081",
+        "filename": "modules/audio_processing/aec3/stationarity_estimator.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-15T08:05:40Z",
+      "side": 1,
+      "message": "I think this is actually correct. Note that this is a SpectrumBuffer which does not have any information about the bands beyond the lowest band.\n (https://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/aec3/spectrum_buffer.h?rcl\u003d8bbf9e2c6e40feb8efcbf276b43945a14d651e9b\u0026l\u003d53) \n\nI think the variable name band is very misleading here, but I did not want to change that in this CL.",
+      "parentUuid": "e8c3d78d_968b697d",
       "range": {
         "startLine": 112,
         "startChar": 48,

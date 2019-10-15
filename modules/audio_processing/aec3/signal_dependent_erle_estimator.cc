@@ -134,7 +134,10 @@ SignalDependentErleEstimator::SignalDependentErleEstimator(
       erle_(num_capture_channels),
       S2_section_accum_(num_sections_),
       erle_estimators_(num_sections_),
-      correction_factors_(num_sections_) {
+      correction_factors_(
+          num_capture_channels,
+          std::vector<std::array<float, kSubbands>>(num_sections_)),
+      num_updates_(num_capture_channels) {
   RTC_DCHECK_LE(num_sections_, num_blocks_);
   RTC_DCHECK_GE(num_sections_, 1);
 
@@ -151,10 +154,14 @@ void SignalDependentErleEstimator::Reset() {
     erle_estimator.fill(min_erle_);
   }
   erle_ref_.fill(min_erle_);
-  for (auto& factor : correction_factors_) {
-    factor.fill(1.0f);
+  for (auto& correction_factors_ch : correction_factors_) {
+    for (auto& factor : correction_factors_ch) {
+      factor.fill(1.0f);
+    }
   }
-  num_updates_.fill(0);
+  for (auto& num_updates_ch : num_updates_) {
+    num_updates_ch.fill(0);
+  }
 }
 
 // Updates the Erle estimate by analyzing the current input signals. It takes
@@ -165,34 +172,36 @@ void SignalDependentErleEstimator::Reset() {
 // correction factor to the erle that is given as an input to this method.
 void SignalDependentErleEstimator::Update(
     const RenderBuffer& render_buffer,
-    const std::vector<std::array<float, kFftLengthBy2Plus1>>&
-        filter_frequency_response,
+    rtc::ArrayView<const std::vector<std::array<float, kFftLengthBy2Plus1>>>
+        filter_frequency_responses,
     rtc::ArrayView<const float> X2,
-    rtc::ArrayView<const float> Y2,
-    rtc::ArrayView<const float> E2,
+    rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>> Y2,
+    rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>> E2,
     rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>> average_erle,
-    bool converged_filter) {
+    const std::vector<bool>& converged_filters) {
   RTC_DCHECK_GT(num_sections_, 1);
 
   // Gets the number of filter sections that are needed for achieving 90 %
   // of the power spectrum energy of the echo estimate.
   std::array<size_t, kFftLengthBy2Plus1> n_active_sections;
-  ComputeNumberOfActiveFilterSections(render_buffer, filter_frequency_response,
+  ComputeNumberOfActiveFilterSections(render_buffer, filter_frequency_responses,
                                       n_active_sections);
 
-  if (converged_filter) {
-    // Updates the correction factor that is used for correcting the erle and
-    // adapt it to the particular characteristics of the input signal.
-    UpdateCorrectionFactors(X2, Y2, E2, n_active_sections);
-  }
+  // Updates the correction factors that is used for correcting the erle and
+  // adapt it to the particular characteristics of the input signal.
+  UpdateCorrectionFactors(X2, Y2, E2, n_active_sections, converged_filters);
 
   // Applies the correction factor to the input erle for getting a more refined
   // erle estimation for the current input signal.
-  for (size_t k = 0; k < kFftLengthBy2; ++k) {
-    float correction_factor =
-        correction_factors_[n_active_sections[k]][band_to_subband_[k]];
-    erle_[0][k] = rtc::SafeClamp(average_erle[0][k] * correction_factor,
-                                 min_erle_, max_erle_[band_to_subband_[k]]);
+  for (size_t ch = 0; ch < erle_.size(); ++ch) {
+    for (size_t k = 0; k < kFftLengthBy2; ++k) {
+      float correction_factor =
+          correction_factors_[ch][n_active_sections[k]][band_to_subband_[k]];
+      erle_[ch][k] = rtc::SafeClamp(average_erle[ch][k] * correction_factor,
+                                    min_erle_, max_erle_[band_to_subband_[k]]);
+      if (ch > 0)
+        erle_[ch][k] = erle_[0][k];
+    }
   }
 }
 
@@ -202,7 +211,7 @@ void SignalDependentErleEstimator::Dump(
     data_dumper->DumpRaw("aec3_all_erle", erle);
   }
   data_dumper->DumpRaw("aec3_ref_erle", erle_ref_);
-  for (auto& factor : correction_factors_) {
+  for (auto& factor : correction_factors_[0]) {
     data_dumper->DumpRaw("aec3_erle_correction_factor", factor);
   }
 }
@@ -211,13 +220,14 @@ void SignalDependentErleEstimator::Dump(
 // together constitute 90% of the estimated echo energy.
 void SignalDependentErleEstimator::ComputeNumberOfActiveFilterSections(
     const RenderBuffer& render_buffer,
-    const std::vector<std::array<float, kFftLengthBy2Plus1>>&
-        filter_frequency_response,
+    rtc::ArrayView<const std::vector<std::array<float, kFftLengthBy2Plus1>>>
+        filter_frequency_responses,
     rtc::ArrayView<size_t> n_active_filter_sections) {
   RTC_DCHECK_GT(num_sections_, 1);
   // Computes an approximation of the power spectrum if the filter would have
   // been limited to a certain number of filter sections.
-  ComputeEchoEstimatePerFilterSection(render_buffer, filter_frequency_response);
+  ComputeEchoEstimatePerFilterSection(render_buffer,
+                                      filter_frequency_responses);
   // For each band, computes the number of filter sections that are needed for
   // achieving the 90 % energy in the echo estimate.
   ComputeActiveFilterSections(n_active_filter_sections);
@@ -225,99 +235,107 @@ void SignalDependentErleEstimator::ComputeNumberOfActiveFilterSections(
 
 void SignalDependentErleEstimator::UpdateCorrectionFactors(
     rtc::ArrayView<const float> X2,
-    rtc::ArrayView<const float> Y2,
-    rtc::ArrayView<const float> E2,
-    rtc::ArrayView<const size_t> n_active_sections) {
-  constexpr float kX2BandEnergyThreshold = 44015068.0f;
-  constexpr float kSmthConstantDecreases = 0.1f;
-  constexpr float kSmthConstantIncreases = kSmthConstantDecreases / 2.f;
-  auto subband_powers = [](rtc::ArrayView<const float> power_spectrum,
-                           rtc::ArrayView<float> power_spectrum_subbands) {
-    for (size_t subband = 0; subband < kSubbands; ++subband) {
-      RTC_DCHECK_LE(kBandBoundaries[subband + 1], power_spectrum.size());
-      power_spectrum_subbands[subband] = std::accumulate(
-          power_spectrum.begin() + kBandBoundaries[subband],
-          power_spectrum.begin() + kBandBoundaries[subband + 1], 0.f);
-    }
-  };
+    rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>> Y2,
+    rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>> E2,
+    rtc::ArrayView<const size_t> n_active_sections,
+    const std::vector<bool>& converged_filters) {
+  for (size_t ch = 0; ch < converged_filters.size(); ++ch) {
+    if (converged_filters[ch]) {
+      constexpr float kX2BandEnergyThreshold = 44015068.0f;
+      constexpr float kSmthConstantDecreases = 0.1f;
+      constexpr float kSmthConstantIncreases = kSmthConstantDecreases / 2.f;
+      auto subband_powers = [](rtc::ArrayView<const float> power_spectrum,
+                               rtc::ArrayView<float> power_spectrum_subbands) {
+        for (size_t subband = 0; subband < kSubbands; ++subband) {
+          RTC_DCHECK_LE(kBandBoundaries[subband + 1], power_spectrum.size());
+          power_spectrum_subbands[subband] = std::accumulate(
+              power_spectrum.begin() + kBandBoundaries[subband],
+              power_spectrum.begin() + kBandBoundaries[subband + 1], 0.f);
+        }
+      };
 
-  std::array<float, kSubbands> X2_subbands, E2_subbands, Y2_subbands;
-  subband_powers(X2, X2_subbands);
-  subband_powers(E2, E2_subbands);
-  subband_powers(Y2, Y2_subbands);
-  std::array<size_t, kSubbands> idx_subbands;
-  for (size_t subband = 0; subband < kSubbands; ++subband) {
-    // When aggregating the number of active sections in the filter for
-    // different bands we choose to take the minimum of all of them. As an
-    // example, if for one of the bands it is the direct path its main
-    // contributor to the final echo estimate, we consider the direct path is
-    // as well the main contributor for the subband that contains that
-    // particular band. That aggregate number of sections will be later used as
-    // the identifier of the erle estimator that needs to be updated.
-    RTC_DCHECK_LE(kBandBoundaries[subband + 1], n_active_sections.size());
-    idx_subbands[subband] = *std::min_element(
-        n_active_sections.begin() + kBandBoundaries[subband],
-        n_active_sections.begin() + kBandBoundaries[subband + 1]);
-  }
+      std::array<float, kSubbands> X2_subbands, E2_subbands, Y2_subbands;
+      subband_powers(X2, X2_subbands);
+      subband_powers(E2[ch], E2_subbands);
+      subband_powers(Y2[ch], Y2_subbands);
+      std::array<size_t, kSubbands> idx_subbands;
+      for (size_t subband = 0; subband < kSubbands; ++subband) {
+        // When aggregating the number of active sections in the filter for
+        // different bands we choose to take the minimum of all of them. As an
+        // example, if for one of the bands it is the direct path its main
+        // contributor to the final echo estimate, we consider the direct path
+        // is as well the main contributor for the subband that contains that
+        // particular band. That aggregate number of sections will be later used
+        // as the identifier of the erle estimator that needs to be updated.
+        RTC_DCHECK_LE(kBandBoundaries[subband + 1], n_active_sections.size());
+        idx_subbands[subband] = *std::min_element(
+            n_active_sections.begin() + kBandBoundaries[subband],
+            n_active_sections.begin() + kBandBoundaries[subband + 1]);
+      }
 
-  std::array<float, kSubbands> new_erle;
-  std::array<bool, kSubbands> is_erle_updated;
-  is_erle_updated.fill(false);
-  new_erle.fill(0.f);
-  for (size_t subband = 0; subband < kSubbands; ++subband) {
-    if (X2_subbands[subband] > kX2BandEnergyThreshold &&
-        E2_subbands[subband] > 0) {
-      new_erle[subband] = Y2_subbands[subband] / E2_subbands[subband];
-      RTC_DCHECK_GT(new_erle[subband], 0);
-      is_erle_updated[subband] = true;
-      ++num_updates_[subband];
-    }
-  }
+      std::array<float, kSubbands> new_erle;
+      std::array<bool, kSubbands> is_erle_updated;
+      is_erle_updated.fill(false);
+      new_erle.fill(0.f);
+      for (size_t subband = 0; subband < kSubbands; ++subband) {
+        if (X2_subbands[subband] > kX2BandEnergyThreshold &&
+            E2_subbands[subband] > 0) {
+          new_erle[subband] = Y2_subbands[subband] / E2_subbands[subband];
+          RTC_DCHECK_GT(new_erle[subband], 0);
+          is_erle_updated[subband] = true;
+          ++num_updates_[ch][subband];
+        }
+      }
 
-  for (size_t subband = 0; subband < kSubbands; ++subband) {
-    const size_t idx = idx_subbands[subband];
-    RTC_DCHECK_LT(idx, erle_estimators_.size());
-    float alpha = new_erle[subband] > erle_estimators_[idx][subband]
-                      ? kSmthConstantIncreases
-                      : kSmthConstantDecreases;
-    alpha = static_cast<float>(is_erle_updated[subband]) * alpha;
-    erle_estimators_[idx][subband] +=
-        alpha * (new_erle[subband] - erle_estimators_[idx][subband]);
-    erle_estimators_[idx][subband] = rtc::SafeClamp(
-        erle_estimators_[idx][subband], min_erle_, max_erle_[subband]);
-  }
+      for (size_t subband = 0; subband < kSubbands; ++subband) {
+        const size_t idx = idx_subbands[subband];
+        RTC_DCHECK_LT(idx, erle_estimators_.size());
+        float alpha = new_erle[subband] > erle_estimators_[idx][subband]
+                          ? kSmthConstantIncreases
+                          : kSmthConstantDecreases;
+        alpha = static_cast<float>(is_erle_updated[subband]) * alpha;
+        erle_estimators_[idx][subband] +=
+            alpha * (new_erle[subband] - erle_estimators_[idx][subband]);
+        erle_estimators_[idx][subband] = rtc::SafeClamp(
+            erle_estimators_[idx][subband], min_erle_, max_erle_[subband]);
+      }
 
-  for (size_t subband = 0; subband < kSubbands; ++subband) {
-    float alpha = new_erle[subband] > erle_ref_[subband]
-                      ? kSmthConstantIncreases
-                      : kSmthConstantDecreases;
-    alpha = static_cast<float>(is_erle_updated[subband]) * alpha;
-    erle_ref_[subband] += alpha * (new_erle[subband] - erle_ref_[subband]);
-    erle_ref_[subband] =
-        rtc::SafeClamp(erle_ref_[subband], min_erle_, max_erle_[subband]);
-  }
+      for (size_t subband = 0; subband < kSubbands; ++subband) {
+        float alpha = new_erle[subband] > erle_ref_[subband]
+                          ? kSmthConstantIncreases
+                          : kSmthConstantDecreases;
+        alpha = static_cast<float>(is_erle_updated[subband]) * alpha;
+        erle_ref_[subband] += alpha * (new_erle[subband] - erle_ref_[subband]);
+        erle_ref_[subband] =
+            rtc::SafeClamp(erle_ref_[subband], min_erle_, max_erle_[subband]);
+      }
 
-  for (size_t subband = 0; subband < kSubbands; ++subband) {
-    constexpr int kNumUpdateThr = 50;
-    if (is_erle_updated[subband] && num_updates_[subband] > kNumUpdateThr) {
-      const size_t idx = idx_subbands[subband];
-      RTC_DCHECK_GT(erle_ref_[subband], 0.f);
-      // Computes the ratio between the erle that is updated using all the
-      // points and the erle that is updated only on signals that share the
-      // same number of active filter sections.
-      float new_correction_factor =
-          erle_estimators_[idx][subband] / erle_ref_[subband];
+      for (size_t subband = 0; subband < kSubbands; ++subband) {
+        constexpr int kNumUpdateThr = 50;
+        if (is_erle_updated[subband] &&
+            num_updates_[ch][subband] > kNumUpdateThr) {
+          const size_t idx = idx_subbands[subband];
+          RTC_DCHECK_GT(erle_ref_[subband], 0.f);
+          // Computes the ratio between the erle that is updated using all the
+          // points and the erle that is updated only on signals that share the
+          // same number of active filter sections.
+          float new_correction_factor =
+              erle_estimators_[idx][subband] / erle_ref_[subband];
 
-      correction_factors_[idx][subband] +=
-          0.1f * (new_correction_factor - correction_factors_[idx][subband]);
+          correction_factors_[ch][idx][subband] +=
+              0.1f *
+              (new_correction_factor - correction_factors_[ch][idx][subband]);
+        }
+      }
     }
   }
 }
 
 void SignalDependentErleEstimator::ComputeEchoEstimatePerFilterSection(
     const RenderBuffer& render_buffer,
-    const std::vector<std::array<float, kFftLengthBy2Plus1>>&
-        filter_frequency_response) {
+    rtc::ArrayView<const std::vector<std::array<float, kFftLengthBy2Plus1>>>
+        filter_frequency_responses) {
+  auto& filter_frequency_response = filter_frequency_responses[0];
   const SpectrumBuffer& spectrum_render_buffer =
       render_buffer.GetSpectrumBuffer();
 

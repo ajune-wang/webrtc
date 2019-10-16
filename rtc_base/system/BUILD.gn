@@ -12,25 +12,25 @@ if (is_android) {
   import("//build/config/android/rules.gni")
 }
 
-rtc_source_set("arch") {
+rtc_library("arch") {
   sources = [
     "arch.h",
   ]
 }
 
-rtc_source_set("asm_defines") {
+rtc_library("asm_defines") {
   sources = [
     "asm_defines.h",
   ]
 }
 
-rtc_source_set("fallthrough") {
+rtc_library("fallthrough") {
   sources = [
     "fallthrough.h",
   ]
 }
 
-rtc_source_set("file_wrapper") {
+rtc_library("file_wrapper") {
   sources = [
     "file_wrapper.cc",
     "file_wrapper.h",
@@ -42,32 +42,32 @@ rtc_source_set("file_wrapper") {
   ]
 }
 
-rtc_source_set("ignore_warnings") {
+rtc_library("ignore_warnings") {
   sources = [
     "ignore_warnings.h",
   ]
 }
 
-rtc_source_set("inline") {
+rtc_library("inline") {
   sources = [
     "inline.h",
   ]
 }
 
-rtc_source_set("unused") {
+rtc_library("unused") {
   sources = [
     "unused.h",
   ]
 }
 
-rtc_source_set("rtc_export") {
+rtc_library("rtc_export") {
   sources = [
     "rtc_export.h",
   ]
 }
 
 if (is_mac || is_ios) {
-  rtc_source_set("cocoa_threading") {
+  rtc_library("cocoa_threading") {
     sources = [
       "cocoa_threading.h",
       "cocoa_threading.mm",
@@ -79,7 +79,7 @@ if (is_mac || is_ios) {
   }
 }
 
-rtc_source_set("thread_registry") {
+rtc_library("thread_registry") {
   sources = [
     "thread_registry.h",
   ]
@@ -95,7 +95,7 @@ rtc_source_set("thread_registry") {
   }
 }
 
-rtc_source_set("warn_current_thread_is_deadlocked") {
+rtc_library("warn_current_thread_is_deadlocked") {
   sources = [
     "warn_current_thread_is_deadlocked.h",
   ]

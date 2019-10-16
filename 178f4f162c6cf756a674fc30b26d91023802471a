@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7b1baf9e_3326c056",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-16T11:36:06Z",
+      "side": 1,
+      "message": "Fair enough, I can push that to a separate CL.",
+      "parentUuid": "d4791a89_7fed307f",
+      "range": {
+        "startLine": 12,
+        "startChar": 8,
+        "endLine": 12,
+        "endChar": 12
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95a38621_aaafe4de",
         "filename": "modules/pacing/packet_router.cc",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88b0ef9b_d049f417",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-16T11:36:06Z",
+      "side": 1,
+      "message": "I\u0027ll do that in the follow-up :)",
+      "parentUuid": "95a38621_aaafe4de",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 32
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da71dc2b_809014e8",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-16T11:36:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddad1e6e_b3f17f82",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 12
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24272025_46beb710",
         "filename": "modules/pacing/packet_router.cc",
         "patchSetId": 9
@@ -82,6 +154,30 @@
       "writtenOn": "2019-10-16T10:58:58Z",
       "side": 1,
       "message": "to reduce scope of the rtx_ssrc variable you may write\nif (absl::optional\u003cuint32_t\u003e rtx_ssrc \u003d rtp_module-\u003eRtxSsrc()) {\n  do all ayou need with *rtx_ssrc.\n}",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 17
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ea935d1_97c6afc7",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-16T11:36:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24272025_46beb710",
       "range": {
         "startLine": 62,
         "startChar": 2,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f1da6373_fd23e75e",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-16T11:36:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04e500af_63e5504b",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 12
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea7f9db6_d769cf42",
         "filename": "modules/pacing/packet_router.cc",
         "patchSetId": 9
@@ -128,6 +248,30 @@
       "writtenOn": "2019-10-16T10:58:58Z",
       "side": 1,
       "message": "may be\nif (!rtp_module-\u003eTrySend(...)) {\n  RTC_LOG(LS_WARNING) \u003c\u003c\n  return;\n}\n\nto keep check and error handling closer to each other.\nSee https://testing.googleblog.com/2017/06/code-health-reduce-nesting-reduce.html",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 76
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1034f363_db245f84",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-16T11:36:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea7f9db6_d769cf42",
       "range": {
         "startLine": 154,
         "startChar": 0,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "62889f1b_ac4a1fba",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-16T11:36:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ade7a76_aaf413eb",
+      "range": {
+        "startLine": 176,
+        "startChar": 12,
+        "endLine": 176,
+        "endChar": 14
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d2c2282_729dda2b",
         "filename": "modules/pacing/packet_router.cc",
         "patchSetId": 9
@@ -183,6 +351,30 @@
       "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17b1f19a_509596dd",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-16T11:36:06Z",
+      "side": 1,
+      "message": "I\u0027ll do that in the follow-up where I update the transport seq logic.",
+      "parentUuid": "4d2c2282_729dda2b",
+      "range": {
+        "startLine": 197,
+        "startChar": 2,
+        "endLine": 197,
+        "endChar": 49
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "5891d2db_b8889e91",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-16T11:36:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b3b1779_b4b5d664",
+      "range": {
+        "startLine": 281,
+        "startChar": 12,
+        "endLine": 281,
+        "endChar": 14
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ede80e68_80c97770",
         "filename": "modules/pacing/packet_router_unittest.cc",
         "patchSetId": 9
@@ -229,6 +445,30 @@
       "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59e76a90_9680aa8e",
+        "filename": "modules/pacing/packet_router_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-16T11:36:06Z",
+      "side": 1,
+      "message": "Done.\nFor some reason I don\u0027t quite get the latter suggestions don\u0027t work. Looks like it\u0027s trying to invoke the copy constructor of vector which of course won\u0027t work with unique_ptr inside.",
+      "parentUuid": "ede80e68_80c97770",
+      "range": {
+        "startLine": 184,
+        "startChar": 16,
+        "endLine": 184,
+        "endChar": 28
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -188,7 +188,7 @@ void AecState::Update(
   }
 
   const std::vector<std::vector<float>>& aligned_render_block =
-      render_buffer.Block(-delay_state_.DirectPathFilterDelays()[0])[0];
+      render_buffer.Block(-delay_state_.MinDirectPathFilterDelay())[0];
 
   // Update render counters.
   bool active_render = false;
@@ -245,10 +245,10 @@ void AecState::Update(
   initial_state_.Update(active_render, SaturatedCapture());
 
   // Detect whether the transparent mode should be activated.
-  transparent_state_.Update(delay_state_.DirectPathFilterDelays()[0],
-                            any_filter_consistent, any_filter_converged,
-                            all_filters_diverged, active_render,
-                            SaturatedCapture());
+  transparent_state_.Update(
+      delay_state_.delay_state_.MinDirectPathFilterDelay(),
+      any_filter_consistent, any_filter_converged, all_filters_diverged,
+      active_render, SaturatedCapture());
 
   // Analyze the quality of the filter.
   filter_quality_state_.Update(active_render, TransparentMode(),

@@ -14,16 +14,17 @@
 
 namespace rtc {
 
-OperationsChain::CallbackHandle::CallbackHandle(
-    scoped_refptr<OperationsChain> operations_chain)
+namespace rtc_operations_chain_internal {
+
+CallbackHandle::CallbackHandle(scoped_refptr<OperationsChain> operations_chain)
     : operations_chain_(std::move(operations_chain)) {}
 
-OperationsChain::CallbackHandle::~CallbackHandle() {
-  RTC_DCHECK(has_run_);
+CallbackHandle::~CallbackHandle() {
+  RTC_DCHECK(has_run_ || has_cancelled_);
 }
 
-void OperationsChain::CallbackHandle::OnOperationComplete() {
-  RTC_DCHECK(!has_run_);
+void CallbackHandle::OnOperationComplete() {
+  RTC_DCHECK(!has_run_ && !has_cancelled_);
 #ifdef RTC_DCHECK_IS_ON
   has_run_ = true;
 #endif  // RTC_DCHECK_IS_ON
@@ -32,6 +33,22 @@ void OperationsChain::CallbackHandle::OnOperationComplete() {
   // counting anymore.
   operations_chain_ = nullptr;
 }
+
+void CallbackHandle::OnOperationCancelled() {
+  RTC_DCHECK(!has_run_ && !has_cancelled_);
+#ifdef RTC_DCHECK_IS_ON
+  has_cancelled_ = true;
+#endif  // RTC_DCHECK_IS_ON
+  // Operations can only be cancelled by calling
+  // OperationsChain::CancelPendingOperations(), so there is no need to inform
+  // the |operations_chain_| that this operation has been cancelled.
+  //
+  // We have no reason to keep the |operations_chain_| alive through reference
+  // counting anymore.
+  operations_chain_ = nullptr;
+}
+
+}  // namespace rtc_operations_chain_internal
 
 // static
 scoped_refptr<OperationsChain> OperationsChain::Create() {
@@ -49,16 +66,29 @@ OperationsChain::~OperationsChain() {
   RTC_DCHECK(chained_operations_.empty());
 }
 
-std::function<void()> OperationsChain::CreateOperationsChainCallback() {
-  return [handle = rtc::scoped_refptr<CallbackHandle>(
-              new CallbackHandle(this))]() { handle->OnOperationComplete(); };
+void OperationsChain::CancelPendingOperations() {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  // The first element on the chain, if one exists, is the operation that is
+  // currently executing and thus cannot be cancelled. The first element to
+  // cancel is the second in the list.
+  auto first_cancelled_operation = chained_operations_.begin();
+  if (first_cancelled_operation != chained_operations_.end())
+    ++first_cancelled_operation;
+  // Cancel all operations, in-order.
+  for (auto it = first_cancelled_operation; it != chained_operations_.end();
+       ++it) {
+    (*it)->Cancel();
+    it->reset();
+  }
+  chained_operations_.erase(first_cancelled_operation,
+                            chained_operations_.end());
 }
 
 void OperationsChain::OnOperationComplete() {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   // The front element is the operation that just completed, remove it.
   RTC_DCHECK(!chained_operations_.empty());
-  chained_operations_.pop();
+  chained_operations_.pop_front();
   // If there are any other operations chained, execute the next one.
   if (!chained_operations_.empty()) {
     chained_operations_.front()->Run();

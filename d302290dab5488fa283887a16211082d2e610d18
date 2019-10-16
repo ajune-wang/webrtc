@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e153cb5a_e043535a",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-10-16T11:01:21Z",
+      "side": 1,
+      "message": "I think this assignment should be moved to line 418.",
+      "range": {
+        "startLine": 357,
+        "startChar": 0,
+        "endLine": 358,
+        "endChar": 73
+      },
+      "revId": "d302290dab5488fa283887a16211082d2e610d18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

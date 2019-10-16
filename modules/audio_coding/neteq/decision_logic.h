@@ -11,12 +11,12 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_DECISION_LOGIC_H_
 #define MODULES_AUDIO_CODING_NETEQ_DECISION_LOGIC_H_
 
+#include "api/neteq/defines.h"
+#include "api/neteq/neteq_controller.h"
+#include "api/neteq/tick_timer.h"
 #include "modules/audio_coding/neteq/buffer_level_filter.h"
-#include "modules/audio_coding/neteq/defines.h"
 #include "modules/audio_coding/neteq/delay_manager.h"
 #include "modules/audio_coding/neteq/delay_peak_detector.h"
-#include "modules/audio_coding/neteq/neteq_controller.h"
-#include "modules/audio_coding/neteq/tick_timer.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/experiments/field_trial_parser.h"
 

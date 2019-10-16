@@ -8,12 +8,12 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_NETEQ_DEFINES_H_
-#define MODULES_AUDIO_CODING_NETEQ_DEFINES_H_
+#ifndef API_NETEQ_DEFINES_H_
+#define API_NETEQ_DEFINES_H_
 
 namespace webrtc {
 
-enum Operations {
+enum class Operations {
   kNormal = 0,
   kMerge,
   kExpand,
@@ -27,7 +27,7 @@ enum Operations {
   kUndefined = -1
 };
 
-enum Modes {
+enum class Modes {
   kModeNormal = 0,
   kModeExpand,
   kModeMerge,
@@ -46,4 +46,4 @@ enum Modes {
 };
 
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_NETEQ_DEFINES_H_
+#endif  // API_NETEQ_DEFINES_H_

@@ -118,9 +118,11 @@ std::string TransformFilePath(std::string path) {
   return path;
 }
 
-VideoSendStream::Config CreateVideoSendStreamConfig(VideoStreamConfig config,
-                                                    std::vector<uint32_t> ssrcs,
-                                                    Transport* send_transport) {
+VideoSendStream::Config CreateVideoSendStreamConfig(
+    VideoStreamConfig config,
+    std::vector<uint32_t> ssrcs,
+    std::vector<uint32_t> rtx_ssrcs,
+    Transport* send_transport) {
   VideoSendStream::Config send_config(send_transport);
   send_config.rtp.payload_name = CodecTypeToPayloadString(config.encoder.codec);
   send_config.rtp.payload_type = CodecTypeToPayloadType(config.encoder.codec);
@@ -129,6 +131,10 @@ VideoSendStream::Config CreateVideoSendStreamConfig(VideoStreamConfig config,
 
   send_config.rtp.ssrcs = ssrcs;
   send_config.rtp.extensions = GetVideoRtpExtensions(config);
+  if (!rtx_ssrcs.empty()) {
+    send_config.rtp.rtx.ssrcs = rtx_ssrcs;
+    send_config.rtp.rtx.payload_type = CallTest::kSendRtxPayloadType;
+  }
 
   if (config.stream.use_flexfec) {
     send_config.rtp.flexfec.payload_type = CallTest::kFlexfecPayloadType;
@@ -395,7 +401,7 @@ SendVideoStream::SendVideoStream(CallClient* sender,
     rtx_ssrcs_.push_back(sender->GetNextRtxSsrc());
   }
   VideoSendStream::Config send_config =
-      CreateVideoSendStreamConfig(config, ssrcs_, send_transport);
+      CreateVideoSendStreamConfig(config, ssrcs_, rtx_ssrcs_, send_transport);
   send_config.encoder_settings.encoder_factory = encoder_factory_.get();
   send_config.encoder_settings.bitrate_allocator_factory =
       bitrate_allocator_factory_.get();

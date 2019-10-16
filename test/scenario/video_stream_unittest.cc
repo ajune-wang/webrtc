@@ -101,6 +101,7 @@ TEST(VideoStreamTest, RecievesVp8SimulcastFrames) {
       c->encoder.codec = Codec::kVideoCodecVP8;
       // By enabling multiple spatial layers, simulcast will be enabled for VP8.
       c->encoder.layers.spatial = 3;
+      c->stream.use_rtx = true;
     });
     s.RunFor(kRunTime);
   }

@@ -8,7 +8,7 @@
 
 import("../../webrtc.gni")
 
-rtc_source_set("unit_base") {
+rtc_library("unit_base") {
   visibility = [
     "../../api/units:*",
     ":*",
@@ -24,7 +24,7 @@ rtc_source_set("unit_base") {
 }
 
 if (rtc_include_tests) {
-  rtc_source_set("units_unittests") {
+  rtc_library("units_unittests") {
     testonly = true
     sources = [
       "unit_base_unittest.cc",

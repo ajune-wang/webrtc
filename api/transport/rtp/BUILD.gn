@@ -8,7 +8,7 @@
 
 import("../../../webrtc.gni")
 
-rtc_source_set("rtp_source") {
+rtc_library("rtp_source") {
   visibility = [ "*" ]
   sources = [
     "rtp_source.h",

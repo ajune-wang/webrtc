@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "064f1e13_48cb65bc",
+        "filename": "api/neteq/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "I added this target mostly for convenience when writing tests. I changed this into a testonly target, moved it to api/test/ and renamed it to NeteqFactoryWithCodecs. PTAL.",
+      "parentUuid": "13522b34_3004ed4f",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45df365e_9523b720",
         "filename": "api/neteq/BUILD.gn",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcfd6182_1f4b55e2",
+        "filename": "api/neteq/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "I moved this into the neteq_api target.",
+      "parentUuid": "45df365e_9523b720",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4e6576ef_fa8e6f9d",
+        "filename": "api/neteq/custom_neteq_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "I added the missing includes, thanks. \n\nAccording to native-api.md the system_wrappers/include directory is one of the legacy API directories. I guess those should be moved into api/ at some point, but I think that can be done separately from this CL.",
+      "parentUuid": "3f122fe2_9092fd26",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2f1f805_a5847cc5",
         "filename": "api/neteq/custom_neteq_factory.h",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2019-10-14T16:43:27Z",
       "side": 1,
       "message": "Why does this class have both a public constructor and a create function?",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48b3c3f4_54d9f069",
+        "filename": "api/neteq/custom_neteq_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "The public constructor is to instantiate the factory and the create function is to create NetEq instances with a factory instance. Is there a better pattern?",
+      "parentUuid": "d2f1f805_a5847cc5",
       "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "586c7627_887effc4",
+        "filename": "api/neteq/default_neteq_controller_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "The public constructor makes it possible to instantiate the factory, while the Create function can be called on a factory instance to create NetEqController instances. Does that make sense?",
+      "parentUuid": "5dcf19d5_32ed0b4d",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8f73e4e0_30f47936",
         "filename": "api/neteq/default_neteq_factory.h",
         "patchSetId": 1
@@ -98,6 +188,24 @@
       "writtenOn": "2019-10-14T16:43:27Z",
       "side": 1,
       "message": "Why does this class have both a public constructor and a create function?",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edc4546d_cf383290",
+        "filename": "api/neteq/default_neteq_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "See other replies.",
+      "parentUuid": "8f73e4e0_30f47936",
       "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "40fe037d_75cebf94",
+        "filename": "api/neteq/defines.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "How about operations_modes.h? Or should I just add these to neteq.h?",
+      "parentUuid": "f4028c3a_218d88f6",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6a4b8b2_8e60dc36",
         "filename": "api/neteq/defines.h",
         "patchSetId": 1
@@ -135,6 +261,24 @@
       "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0cee110_c2692460",
+        "filename": "api/neteq/defines.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "a6a4b8b2_8e60dc36",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "c682c36c_bed121cd",
+        "filename": "api/neteq/neteq.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d15530d_343c9ba7",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edd58c93_4fdd27df",
         "filename": "api/neteq/neteq.h",
         "patchSetId": 1
@@ -169,6 +331,24 @@
       "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aea6d0b_feb50f8a",
+        "filename": "api/neteq/neteq.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edd58c93_4fdd27df",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -195,6 +375,30 @@
     },
     {
       "key": {
+        "uuid": "892972ed_e8360a99",
+        "filename": "api/neteq/neteq.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29969c8d_013cf9ba",
+      "range": {
+        "startLine": 286,
+        "startChar": 1,
+        "endLine": 287,
+        "endChar": 12
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5abfd72a_d8ef41fb",
         "filename": "api/neteq/neteq_controller.h",
         "patchSetId": 1
@@ -209,6 +413,24 @@
       "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af6e8f93_37704dde",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done in parent CL.",
+      "parentUuid": "5abfd72a_d8ef41fb",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -229,6 +451,24 @@
     },
     {
       "key": {
+        "uuid": "df794f72_91e7e3eb",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done in parent CL.",
+      "parentUuid": "decdbe7f_293cc46e",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb3f250c_9486fa38",
         "filename": "api/neteq/neteq_controller.h",
         "patchSetId": 1
@@ -243,6 +483,24 @@
       "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3078c4e_e36c5d4f",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done in parent CL.",
+      "parentUuid": "bb3f250c_9486fa38",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -269,6 +527,30 @@
     },
     {
       "key": {
+        "uuid": "754e6cba_17940790",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done in parent CL.",
+      "parentUuid": "8b834e58_a6980585",
+      "range": {
+        "startLine": 141,
+        "startChar": 1,
+        "endLine": 142,
+        "endChar": 20
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f910d9e4_b68df865",
         "filename": "api/neteq/neteq_controller_factory.h",
         "patchSetId": 1
@@ -283,6 +565,24 @@
       "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a301b295_eda05d47",
+        "filename": "api/neteq/neteq_controller_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f910d9e4_b68df865",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -309,6 +609,30 @@
     },
     {
       "key": {
+        "uuid": "6d9ebea4_e984801a",
+        "filename": "api/neteq/neteq_controller_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a671aba3_be0c5a7f",
+      "range": {
+        "startLine": 22,
+        "startChar": 1,
+        "endLine": 23,
+        "endChar": 76
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "643b4bab_9763d131",
         "filename": "api/neteq/neteq_controller_factory.h",
         "patchSetId": 1
@@ -323,6 +647,24 @@
       "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21d09963_0927055d",
+        "filename": "api/neteq/neteq_controller_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "643b4bab_9763d131",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -349,6 +691,30 @@
     },
     {
       "key": {
+        "uuid": "47c9ef34_9f1c1610",
+        "filename": "api/neteq/neteq_controller_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c53c79fb_725c34e4",
+      "range": {
+        "startLine": 27,
+        "startChar": 5,
+        "endLine": 28,
+        "endChar": 20
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21e8ccf4_e268bcaa",
         "filename": "api/neteq/neteq_controller_factory.h",
         "patchSetId": 1
@@ -369,6 +735,30 @@
       "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "500c9a28_a4dd64c8",
+        "filename": "api/neteq/neteq_controller_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21e8ccf4_e268bcaa",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 33,
+        "endChar": 27
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -395,6 +785,30 @@
     },
     {
       "key": {
+        "uuid": "abd7760f_1247a871",
+        "filename": "api/neteq/neteq_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c92c334_4adf3787",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 56
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9bca431f_44ecc916",
         "filename": "api/neteq/neteq_factory.h",
         "patchSetId": 1
@@ -409,6 +823,24 @@
       "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "869320c6_7932aa8c",
+        "filename": "api/neteq/neteq_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bca431f_44ecc916",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -435,6 +867,30 @@
     },
     {
       "key": {
+        "uuid": "17388b0a_ac41b6d5",
+        "filename": "api/neteq/neteq_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecad8c45_f296834c",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 33,
+        "endChar": 17
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2edc2315_4abea062",
         "filename": "api/neteq/tick_timer.h",
         "patchSetId": 1
@@ -458,6 +914,30 @@
     },
     {
       "key": {
+        "uuid": "aafdad02_bfa76272",
+        "filename": "api/neteq/tick_timer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2edc2315_4abea062",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 13
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4499e636_256e0f80",
         "filename": "modules/audio_coding/neteq/neteq_impl.h",
         "patchSetId": 1
@@ -478,6 +958,30 @@
       "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f859039_8e56b887",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T15:43:36Z",
+      "side": 1,
+      "message": "I changed this to a const ref.",
+      "parentUuid": "4499e636_256e0f80",
+      "range": {
+        "startLine": 104,
+        "startChar": 8,
+        "endLine": 104,
+        "endChar": 54
+      },
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

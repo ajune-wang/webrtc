@@ -44,7 +44,7 @@ void ComputeAvgRenderReverb(
   std::array<float, kFftLengthBy2Plus1> X2_data;
   rtc::ArrayView<const float> X2;
   if (num_render_channels > 1) {
-    auto sum_channels =
+    auto average_channels =
         [](size_t num_render_channels,
            const std::vector<std::vector<float>>& spectrum_band_0,
            rtc::ArrayView<float, kFftLengthBy2Plus1> render_power) {
@@ -55,14 +55,18 @@ void ComputeAvgRenderReverb(
               render_power[k] += spectrum_band_0[ch][k];
             }
           }
+          const float normalizer = 1.f / num_render_channels;
+          for (size_t k = 0; k < kFftLengthBy2Plus1; ++k) {
+            render_power[k] *= normalizer;
+          }
         };
-    sum_channels(num_render_channels, spectrum_buffer.buffer[idx_past],
-                 X2_data);
+    average_channels(num_render_channels, spectrum_buffer.buffer[idx_past],
+                     X2_data);
     reverb_model->UpdateReverbNoFreqShaping(
         X2_data, /*power_spectrum_scaling=*/1.0f, reverb_decay);
 
-    sum_channels(num_render_channels, spectrum_buffer.buffer[idx_at_delay],
-                 X2_data);
+    average_channels(num_render_channels, spectrum_buffer.buffer[idx_at_delay],
+                     X2_data);
     X2 = X2_data;
   } else {
     reverb_model->UpdateReverbNoFreqShaping(
@@ -120,7 +124,7 @@ AecState::AecState(const EchoCanceller3Config& config,
       echo_audibility_(
           config_.echo_audibility.use_stationarity_properties_at_init),
       reverb_model_estimator_(config_, num_capture_channels),
-      subtractor_output_analyzers_(num_capture_channels) {}
+      subtractor_output_analyzer_(num_capture_channels) {}
 
 AecState::~AecState() = default;
 
@@ -147,9 +151,7 @@ void AecState::HandleEchoPathChange(
   } else if (echo_path_variability.gain_change) {
     erle_estimator_.Reset(false);
   }
-  for (auto& analyzer : subtractor_output_analyzers_) {
-    analyzer.HandleEchoPathChange();
-  }
+  subtractor_output_analyzer_.HandleEchoPathChange();
 }
 
 void AecState::Update(
@@ -161,25 +163,19 @@ void AecState::Update(
     rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>> E2_main,
     rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>> Y2,
     rtc::ArrayView<const SubtractorOutput> subtractor_output) {
-  const size_t num_capture_channels = subtractor_output_analyzers_.size();
-  RTC_DCHECK_EQ(num_capture_channels, E2_main.size());
+  const size_t num_capture_channels = E2_main.size();
   RTC_DCHECK_EQ(num_capture_channels, Y2.size());
   RTC_DCHECK_EQ(num_capture_channels, subtractor_output.size());
-  RTC_DCHECK_EQ(num_capture_channels, subtractor_output_analyzers_.size());
   RTC_DCHECK_EQ(num_capture_channels,
                 adaptive_filter_frequency_responses.size());
   RTC_DCHECK_EQ(num_capture_channels, adaptive_filter_impulse_responses.size());
 
   // Analyze the filter outputs and filters.
-  bool any_filter_converged = false;
-  bool all_filters_diverged = true;
-  for (size_t ch = 0; ch < subtractor_output.size(); ++ch) {
-    subtractor_output_analyzers_[ch].Update(subtractor_output[ch]);
-    any_filter_converged = any_filter_converged ||
-                           subtractor_output_analyzers_[ch].ConvergedFilter();
-    all_filters_diverged = all_filters_diverged &&
-                           subtractor_output_analyzers_[ch].DivergedFilter();
-  }
+  bool any_filter_converged;
+  bool all_filters_diverged;
+  subtractor_output_analyzer_.Update(subtractor_output, &any_filter_converged,
+                                     &all_filters_diverged);
+
   bool any_filter_consistent;
   float max_echo_path_gain;
   filter_analyzer_.Update(adaptive_filter_impulse_responses, render_buffer,
@@ -229,16 +225,15 @@ void AecState::Update(
     erle_estimator_.Reset(false);
   }
 
-  erle_estimator_.Update(render_buffer, adaptive_filter_frequency_responses[0],
-                         avg_render_spectrum_with_reverb, Y2[0], E2_main[0],
-                         subtractor_output_analyzers_[0].ConvergedFilter(),
-                         config_.erle.onset_detection);
+  erle_estimator_.Update(render_buffer, adaptive_filter_frequency_responses,
+                         avg_render_spectrum_with_reverb, Y2, E2_main,
+                         subtractor_output_analyzer_.ConvergedFilters());
 
   // TODO(bugs.webrtc.org/10913): Take all channels into account.
   const auto& X2 =
       render_buffer.Spectrum(delay_state_.MinDirectPathFilterDelay(),
                              /*channel=*/0);
-  erl_estimator_.Update(subtractor_output_analyzers_[0].ConvergedFilter(), X2,
+  erl_estimator_.Update(subtractor_output_analyzer_.ConvergedFilters()[0], X2,
                         Y2[0]);
 
   // Detect and flag echo saturation.

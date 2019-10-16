@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "43aa91ba_419aca8d",
+        "filename": "webrtc.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-16T08:44:07Z",
+      "side": 1,
+      "message": "Right, I have done something similar to what we do for poisons.",
+      "parentUuid": "2eec4890_a8d36b41",
+      "range": {
+        "startLine": 469,
+        "startChar": 44,
+        "endLine": 469,
+        "endChar": 54
+      },
+      "revId": "0ccba07103530ea3e2a54a34ef48778befb0be14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c90a939e_19e24192",
         "filename": "webrtc.gni",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "0ccba07103530ea3e2a54a34ef48778befb0be14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33440361_73bbf100",
+        "filename": "webrtc.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-16T08:44:07Z",
+      "side": 1,
+      "message": "Good catch, I should actually test this stuff. Let me try to simulate locally what will happen after the component build lands.",
+      "parentUuid": "c90a939e_19e24192",
+      "revId": "0ccba07103530ea3e2a54a34ef48778befb0be14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

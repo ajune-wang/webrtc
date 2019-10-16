@@ -22,6 +22,30 @@
       "revId": "d302290dab5488fa283887a16211082d2e610d18",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e0df5d3_faabac27",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 8760
+      },
+      "writtenOn": "2019-10-16T14:24:14Z",
+      "side": 1,
+      "message": "Yes, that was my second suggestion to move the assignment to line 445 (update first_packet-\u003evideo_header) but seems like 418 is more appropriate as we are already updating video_header.frame_type.",
+      "parentUuid": "e153cb5a_e043535a",
+      "range": {
+        "startLine": 357,
+        "startChar": 0,
+        "endLine": 358,
+        "endChar": 73
+      },
+      "revId": "d302290dab5488fa283887a16211082d2e610d18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

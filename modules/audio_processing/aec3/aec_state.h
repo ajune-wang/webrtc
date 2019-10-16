@@ -314,7 +314,7 @@ class AecState {
   EchoAudibility echo_audibility_;
   ReverbModelEstimator reverb_model_estimator_;
   ReverbModel avg_render_reverb_;
-  std::vector<SubtractorOutputAnalyzer> subtractor_output_analyzers_;
+  SubtractorOutputAnalyzer subtractor_output_analyzer_;
 };
 
 }  // namespace webrtc

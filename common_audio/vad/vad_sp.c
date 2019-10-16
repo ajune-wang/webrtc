@@ -74,7 +74,7 @@ int16_t WebRtcVad_FindMinimum(VadInstT* self,
 
   // Each value in |smallest_values| is getting 1 loop older. Update |age|, and
   // remove old values.
-  for (i = 0; i < 16; i++) {
+  for (i = 0; i < 15; i++) {
     if (age[i] != 100) {
       age[i]++;
     } else {

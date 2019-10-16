@@ -69,5 +69,27 @@ TEST_F(VadTest, vad_sp) {
 
   free(self);
 }
+
+// Make sure that the mechanism for purging old values respects memory
+// boundaries. Run only with ASAN.
+#ifdef ADDRESS_SANITIZER
+#define MAYBE_FindMinimum_old_values FindMinimum_old_values
+#else
+#define MAYBE_FindMinimum_old_values DISABLED_FindMinimum_old_values
+#endif
+
+TEST_F(VadTest, MAYBE_FindMinimum_old_values) {
+  VadInstT* self = reinterpret_cast<VadInstT*>(malloc(sizeof(VadInstT)));
+  ASSERT_EQ(0, WebRtcVad_InitCore(self));
+  constexpr int kChannel = kNumChannels - 1;
+  // Loop enough times for some values to become "old".
+  for (int16_t i = 0; i < 110; ++i) {
+    // We are not interested in the return value, only that we eventually
+    // start removing old values, which happens after 100 iterations ("magic"
+    // value in the production code).
+    WebRtcVad_FindMinimum(self, i, kChannel);
+  }
+  free(self);
+}
 }  // namespace test
 }  // namespace webrtc

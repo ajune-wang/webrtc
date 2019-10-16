@@ -190,7 +190,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
     include_dirs = [ "objc/AppRTCMobile/common" ]
   }
 
-  rtc_static_library("apprtc_common") {
+  rtc_source_set("apprtc_common") {
     testonly = true
     sources = [
       "objc/AppRTCMobile/common/ARDUtilities.h",
@@ -219,7 +219,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
     ]
   }
 
-  rtc_static_library("apprtc_signaling") {
+  rtc_source_set("apprtc_signaling") {
     testonly = true
     sources = [
       "objc/AppRTCMobile/ARDAppClient+Internal.h",
@@ -284,7 +284,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
   }
 
   if (is_ios) {
-    rtc_static_library("AppRTCMobile_lib") {
+    rtc_source_set("AppRTCMobile_lib") {
       # iOS must use WebRTC.framework which is dynamically linked.
       testonly = true
       sources = [
@@ -379,7 +379,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
         ]
       }
 
-      rtc_static_library("AppRTCMobileBroadcastUpload_lib") {
+      rtc_source_set("AppRTCMobileBroadcastUpload_lib") {
         testonly = true
         sources = [
           "objc/AppRTCMobile/ios/broadcast_extension/ARDBroadcastSampleHandler.h",
@@ -453,7 +453,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
       ]
     }
 
-    rtc_static_library("ObjCNativeAPIDemo_lib") {
+    rtc_source_set("ObjCNativeAPIDemo_lib") {
       testonly = true
       sources = [
         "objcnativeapi/objc/NADAppDelegate.h",
@@ -512,7 +512,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
   }
 
   if (is_mac) {
-    rtc_static_library("AppRTCMobile_lib") {
+    rtc_source_set("AppRTCMobile_lib") {
       testonly = true
       sources = [
         "objc/AppRTCMobile/mac/APPRTCAppDelegate.h",
@@ -576,7 +576,7 @@ if (is_ios || (is_mac && target_cpu != "x86")) {
     ]
   }
 
-  rtc_static_library("socketrocket") {
+  rtc_source_set("socketrocket") {
     testonly = true
     sources = [
       "objc/AppRTCMobile/third_party/SocketRocket/SRWebSocket.h",

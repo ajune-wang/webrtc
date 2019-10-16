@@ -26,7 +26,7 @@ config("apm_debug_dump") {
   }
 }
 
-rtc_static_library("config") {
+rtc_source_set("config") {
   visibility = [ ":*" ]
   sources = [
     "include/config.cc",
@@ -62,7 +62,7 @@ rtc_source_set("api") {
   ]
 }
 
-rtc_static_library("audio_buffer") {
+rtc_source_set("audio_buffer") {
   visibility = [ "*" ]
 
   configs += [ ":apm_debug_dump" ]
@@ -87,7 +87,7 @@ rtc_static_library("audio_buffer") {
   ]
 }
 
-rtc_static_library("high_pass_filter") {
+rtc_source_set("high_pass_filter") {
   visibility = [ "*" ]
 
   sources = [
@@ -105,7 +105,7 @@ rtc_static_library("high_pass_filter") {
   ]
 }
 
-rtc_static_library("audio_processing") {
+rtc_source_set("audio_processing") {
   visibility = [ "*" ]
   configs += [ ":apm_debug_dump" ]
   sources = [
@@ -713,7 +713,7 @@ if (rtc_include_tests) {
       proto_out_dir = "modules/audio_processing/test"
     }
 
-    rtc_static_library("audioproc_protobuf_utils") {
+    rtc_source_set("audioproc_protobuf_utils") {
       sources = [
         "test/protobuf_utils.cc",
         "test/protobuf_utils.h",
@@ -728,7 +728,7 @@ if (rtc_include_tests) {
       ]
     }
 
-    rtc_static_library("runtime_settings_protobuf_utils") {
+    rtc_source_set("runtime_settings_protobuf_utils") {
       testonly = true
       sources = [
         "test/runtime_setting_util.cc",

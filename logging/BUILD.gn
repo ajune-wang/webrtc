@@ -170,7 +170,7 @@ rtc_source_set("rtc_event_video") {
 
 # TODO(eladalon): Break down into (1) encoder and (2) decoder; we don't need
 # the decoder code in the WebRTC library, only in unit tests and tools.
-rtc_static_library("rtc_event_log_impl_encoder") {
+rtc_source_set("rtc_event_log_impl_encoder") {
   sources = [
     "rtc_event_log/encoder/blob_encoding.cc",
     "rtc_event_log/encoder/blob_encoding.h",
@@ -292,7 +292,7 @@ if (rtc_enable_protobuf) {
     proto_out_dir = "logging/rtc_event_log"
   }
 
-  rtc_static_library("rtc_event_log_parser") {
+  rtc_source_set("rtc_event_log_parser") {
     visibility = [ "*" ]
     sources = [
       "rtc_event_log/logged_events.cc",

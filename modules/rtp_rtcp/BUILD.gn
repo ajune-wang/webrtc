@@ -124,7 +124,7 @@ rtc_source_set("rtp_rtcp_format") {
   ]
 }
 
-rtc_static_library("rtp_rtcp") {
+rtc_source_set("rtp_rtcp") {
   visibility = [ "*" ]
   sources = [
     "include/flexfec_receiver.h",

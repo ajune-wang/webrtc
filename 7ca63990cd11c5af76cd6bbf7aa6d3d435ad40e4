@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "14e8b902_d47e5f22",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T13:09:23Z",
+      "side": 1,
+      "message": "I think this way of doing it is preferred now.",
+      "parentUuid": "4b599dda_15287152",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 62
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2683620_8dd06cf8",
         "filename": "modules/audio_coding/neteq/neteq_controller.h",
         "patchSetId": 7
@@ -68,6 +92,30 @@
       "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d1f9aec_c4590b1c",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T13:09:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2683620_8dd06cf8",
+      "range": {
+        "startLine": 61,
+        "startChar": 5,
+        "endLine": 61,
+        "endChar": 51
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "2771cb4c_f9ab3ebf",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T13:09:23Z",
+      "side": 1,
+      "message": "I agree that the API is not ideal right now, but the way I made it is close to the way the code works right now. I think we can do more refactoring in follow-up CLs to improve the API and make further improvements.",
+      "parentUuid": "448f33d5_fdc28779",
+      "range": {
+        "startLine": 72,
+        "startChar": 21,
+        "endLine": 72,
+        "endChar": 32
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc923126_5b2deb53",
         "filename": "modules/audio_coding/neteq/neteq_controller.h",
         "patchSetId": 7
@@ -114,6 +186,30 @@
       "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89deca50_0f0fb9db",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T13:09:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc923126_5b2deb53",
+      "range": {
+        "startLine": 74,
+        "startChar": 40,
+        "endLine": 74,
+        "endChar": 60
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "4cbda222_a1468988",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T13:09:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c1bf4ae_60d86dbb",
+      "range": {
+        "startLine": 75,
+        "startChar": 60,
+        "endLine": 75,
+        "endChar": 71
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a675efea_825ee793",
         "filename": "modules/audio_coding/neteq/neteq_controller.h",
         "patchSetId": 7
@@ -160,6 +280,30 @@
       "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2253d05f_9c6f3b19",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T13:09:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a675efea_825ee793",
+      "range": {
+        "startLine": 76,
+        "startChar": 39,
+        "endLine": 76,
+        "endChar": 48
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "da470016_504fd99c",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T13:09:23Z",
+      "side": 1,
+      "message": "I agree, I think we should work towards a situation where NetEq never overrides the decision that are taken by NetEqController, so there would be no need for this. However, I suggest to do that in a follow-up CL.",
+      "parentUuid": "bbff0448_69d8e651",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 56
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3af9e10_94cf0f7e",
         "filename": "modules/audio_coding/neteq/neteq_controller.h",
         "patchSetId": 7
@@ -206,6 +374,30 @@
       "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "137b1d95_f905766a",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-16T13:09:23Z",
+      "side": 1,
+      "message": "I agree, but I would like to keep this refactoring CL bitexact. We should do this in a follow-up CL.",
+      "parentUuid": "b3af9e10_94cf0f7e",
+      "range": {
+        "startLine": 128,
+        "startChar": 23,
+        "endLine": 128,
+        "endChar": 27
+      },
+      "revId": "7ca63990cd11c5af76cd6bbf7aa6d3d435ad40e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

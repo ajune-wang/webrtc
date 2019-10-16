@@ -8,7 +8,7 @@
 
 import("../../webrtc.gni")
 
-rtc_source_set("bitrate_settings") {
+rtc_library("bitrate_settings") {
   visibility = [ "*" ]
   sources = [
     "bitrate_settings.cc",
@@ -20,14 +20,14 @@ rtc_source_set("bitrate_settings") {
   ]
 }
 
-rtc_source_set("enums") {
+rtc_library("enums") {
   visibility = [ "*" ]
   sources = [
     "enums.h",
   ]
 }
 
-rtc_static_library("network_control") {
+rtc_library("network_control") {
   visibility = [ "*" ]
   sources = [
     "network_control.h",
@@ -47,7 +47,7 @@ rtc_static_library("network_control") {
   ]
 }
 
-rtc_source_set("webrtc_key_value_config") {
+rtc_library("webrtc_key_value_config") {
   visibility = [ "*" ]
   sources = [
     "webrtc_key_value_config.h",
@@ -57,7 +57,7 @@ rtc_source_set("webrtc_key_value_config") {
   ]
 }
 
-rtc_source_set("field_trial_based_config") {
+rtc_library("field_trial_based_config") {
   visibility = [ "*" ]
   sources = [
     "field_trial_based_config.cc",
@@ -70,7 +70,7 @@ rtc_source_set("field_trial_based_config") {
   ]
 }
 
-rtc_source_set("datagram_transport_interface") {
+rtc_library("datagram_transport_interface") {
   visibility = [ "*" ]
   sources = [
     "congestion_control_interface.h",
@@ -88,7 +88,7 @@ rtc_source_set("datagram_transport_interface") {
   ]
 }
 
-rtc_static_library("goog_cc") {
+rtc_library("goog_cc") {
   visibility = [ "*" ]
   sources = [
     "goog_cc_factory.cc",
@@ -104,7 +104,7 @@ rtc_static_library("goog_cc") {
 }
 
 if (rtc_include_tests) {
-  rtc_source_set("test_feedback_generator_interface") {
+  rtc_library("test_feedback_generator_interface") {
     testonly = true
     sources = [
       "test/feedback_generator_interface.h",
@@ -114,7 +114,7 @@ if (rtc_include_tests) {
       "..:simulated_network_api",
     ]
   }
-  rtc_source_set("test_feedback_generator") {
+  rtc_library("test_feedback_generator") {
     testonly = true
     sources = [
       "test/create_feedback_generator.cc",
@@ -130,7 +130,7 @@ if (rtc_include_tests) {
 }
 
 if (rtc_include_tests) {
-  rtc_source_set("mock_network_control") {
+  rtc_library("mock_network_control") {
     testonly = true
     sources = [
       "test/mock_network_control.h",

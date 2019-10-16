@@ -388,7 +388,7 @@ config("common_objc") {
 
 if (!build_with_chromium) {
   # Target to build all the WebRTC production code.
-  rtc_static_library("webrtc") {
+  rtc_library("webrtc") {
     # Only the root target should depend on this.
     visibility = [ "//:default" ]
 
@@ -461,7 +461,7 @@ if (!build_with_chromium) {
   }
 }
 
-rtc_source_set("webrtc_common") {
+rtc_library("webrtc_common") {
   # Client code SHOULD NOT USE THIS TARGET, but for now it needs to be public
   # because there exists client code that uses it.
   # TODO(bugs.webrtc.org/9808): Move to private visibility as soon as that

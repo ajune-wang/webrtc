@@ -12,8 +12,8 @@
 #define RTC_BASE_OPERATIONS_CHAIN_H_
 
 #include <functional>
+#include <list>
 #include <memory>
-#include <queue>
 #include <set>
 #include <type_traits>
 #include <utility>
@@ -27,7 +27,32 @@
 
 namespace rtc {
 
+class OperationsChain;
+
 namespace rtc_operations_chain_internal {
+
+// The callback that is passed to an operation's functor (that is used to
+// inform the OperationsChain that the operation has completed) is of type
+// std::function<void()>, which is a copyable type. To allow the callback to
+// be copyable, it is backed up by this reference counted handle. See
+// OperationWithFunctor::Run().
+class CallbackHandle final : public RefCountedObject<RefCountInterface> {
+ public:
+  explicit CallbackHandle(scoped_refptr<OperationsChain> operations_chain);
+  ~CallbackHandle();
+
+  void OnOperationComplete();
+  void OnOperationCancelled();
+
+ private:
+  scoped_refptr<OperationsChain> operations_chain_;
+#ifdef RTC_DCHECK_IS_ON
+  bool has_run_ = false;
+  bool has_cancelled_ = false;
+#endif  // RTC_DCHECK_IS_ON
+
+  RTC_DISALLOW_COPY_AND_ASSIGN(CallbackHandle);
+};
 
 // Abstract base class for operations on the OperationsChain. Run() must be
 // invoked exactly once during the Operation's lifespan.
@@ -35,7 +60,9 @@ class Operation {
  public:
   virtual ~Operation() {}
 
+  // An operation can run or cancel, it cannot do both.
   virtual void Run() = 0;
+  virtual void Cancel() = 0;
 };
 
 // FunctorT is the same as in OperationsChain::ChainOperation(). |callback_| is
@@ -45,25 +72,40 @@ class Operation {
 template <typename FunctorT>
 class OperationWithFunctor final : public Operation {
  public:
-  OperationWithFunctor(FunctorT&& functor, std::function<void()> callback)
-      : functor_(std::forward<FunctorT>(functor)),
-        callback_(std::move(callback)) {}
+  OperationWithFunctor(FunctorT&& functor, scoped_refptr<CallbackHandle> handle)
+      : functor_(std::forward<FunctorT>(functor)), handle_(std::move(handle)) {}
 
-  ~OperationWithFunctor() override { RTC_DCHECK(has_run_); }
+  ~OperationWithFunctor() override { RTC_DCHECK(has_run_ || has_cancelled_); }
 
   void Run() override {
-    RTC_DCHECK(!has_run_);
+    RTC_DCHECK(!has_run_ && !has_cancelled_);
 #ifdef RTC_DCHECK_IS_ON
     has_run_ = true;
 #endif  // RTC_DCHECK_IS_ON
-    functor_(std::move(callback_));
+    // Pass ownership of the handle to the callback.
+    std::function<void()> callback = [handle = handle_]() {
+      handle->OnOperationComplete();
+    };
+    handle_ = nullptr;
+    functor_(std::move(callback));
+  }
+
+  void Cancel() override {
+    RTC_DCHECK(!has_run_ && !has_cancelled_);
+#ifdef RTC_DCHECK_IS_ON
+    has_cancelled_ = true;
+#endif  // RTC_DCHECK_IS_ON
+    // Cancel and release the handle.
+    handle_->OnOperationCancelled();
+    handle_ = nullptr;
   }
 
  private:
   typename std::remove_reference<FunctorT>::type functor_;
-  std::function<void()> callback_;
+  scoped_refptr<CallbackHandle> handle_;
 #ifdef RTC_DCHECK_IS_ON
   bool has_run_ = false;
+  bool has_cancelled_ = false;
 #endif  // RTC_DCHECK_IS_ON
 };
 
@@ -127,11 +169,13 @@ class OperationsChain final : public RefCountedObject<RefCountInterface> {
   template <typename FunctorT>
   void ChainOperation(FunctorT&& functor) {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
-    chained_operations_.push(
+    auto handle =
+        rtc::scoped_refptr<rtc_operations_chain_internal::CallbackHandle>(
+            new rtc_operations_chain_internal::CallbackHandle(this));
+    chained_operations_.push_back(
         std::unique_ptr<rtc_operations_chain_internal::Operation>(
             new rtc_operations_chain_internal::OperationWithFunctor<FunctorT>(
-                std::forward<FunctorT>(functor),
-                CreateOperationsChainCallback())));
+                std::forward<FunctorT>(functor), std::move(handle))));
     // If this is the only operation in the chain we execute it immediately.
     // Otherwise the callback will get invoked when the pending operation
     // completes which will trigger the next operation to execute.
@@ -140,40 +184,23 @@ class OperationsChain final : public RefCountedObject<RefCountInterface> {
     }
   }
 
+  // Cancels all operations in the chain that have not started executing yet. An
+  // operation that has already started executing still responsible for invoking
+  // its callback.
+  void CancelPendingOperations();
+
  private:
-  friend class CallbackHandle;
-
-  // The callback that is passed to an operation's functor (that is used to
-  // inform the OperationsChain that the operation has completed) is of type
-  // std::function<void()>, which is a copyable type. To allow the callback to
-  // be copyable, it is backed up by this reference counted handle. See
-  // CreateOperationsChainCallback().
-  class CallbackHandle final : public RefCountedObject<RefCountInterface> {
-   public:
-    explicit CallbackHandle(scoped_refptr<OperationsChain> operations_chain);
-    ~CallbackHandle();
-
-    void OnOperationComplete();
-
-   private:
-    scoped_refptr<OperationsChain> operations_chain_;
-#ifdef RTC_DCHECK_IS_ON
-    bool has_run_ = false;
-#endif  // RTC_DCHECK_IS_ON
-
-    RTC_DISALLOW_COPY_AND_ASSIGN(CallbackHandle);
-  };
+  friend class rtc_operations_chain_internal::CallbackHandle;
 
   OperationsChain();
 
-  std::function<void()> CreateOperationsChainCallback();
   void OnOperationComplete();
 
   webrtc::SequenceChecker sequence_checker_;
   // FIFO-list of operations that are chained. An operation that is executing
   // remains on this list until it has completed by invoking the callback passed
   // to it.
-  std::queue<std::unique_ptr<rtc_operations_chain_internal::Operation>>
+  std::list<std::unique_ptr<rtc_operations_chain_internal::Operation>>
       chained_operations_ RTC_GUARDED_BY(sequence_checker_);
 
   RTC_DISALLOW_COPY_AND_ASSIGN(OperationsChain);

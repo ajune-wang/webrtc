@@ -159,6 +159,16 @@ class OperationTrackerProxy {
     return operation_complete_event;
   }
 
+  std::unique_ptr<Event> CancelPendingOperations() {
+    std::unique_ptr<Event> event = std::make_unique<Event>();
+    operations_chain_thread_->PostTask(
+        RTC_FROM_HERE, [this, event_ptr = event.get()]() {
+          operations_chain_->CancelPendingOperations();
+          event_ptr->Set();
+        });
+    return event;
+  }
+
   // The order of completed events. Touches the |operation_tracker_| on the
   // calling thread, this is only thread safe if all chained operations have
   // completed.
@@ -333,5 +343,53 @@ TEST(OperationsChainTest, OperationInvokingCallbackMultipleTimesShouldCrash) {
 }
 
 #endif  // RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+
+TEST(OperationsChainTest,
+     CancelPendingOperationsDoesNotCancelTheCurrentlyExecutingOperation) {
+  OperationTrackerProxy operation_tracker_proxy;
+  operation_tracker_proxy.Initialize()->Wait(Event::kForever);
+
+  Event operation0_unblock_event;
+  auto operation0_completed_event =
+      operation_tracker_proxy.PostAsynchronousOperation(
+          &operation0_unblock_event);
+
+  operation_tracker_proxy.CancelPendingOperations()->Wait(Event::kForever);
+
+  operation0_unblock_event.Set();
+  operation0_completed_event->Wait(Event::kForever);
+}
+
+TEST(OperationsChainTest,
+     CancelPendingOperationsDoesCancelOperationsThatAreNotCurrentlyExecuting) {
+  OperationTrackerProxy operation_tracker_proxy;
+  operation_tracker_proxy.Initialize()->Wait(Event::kForever);
+
+  // Chain a few operations. The first one will execute and block the subsequent
+  // two operations from starting.
+  Event operation0_unblock_event;
+  auto operation0_completed_event =
+      operation_tracker_proxy.PostAsynchronousOperation(
+          &operation0_unblock_event);
+
+  auto operation1_completed_event =
+      operation_tracker_proxy.PostSynchronousOperation();
+
+  auto operation2_completed_event =
+      operation_tracker_proxy.PostSynchronousOperation();
+
+  operation_tracker_proxy.CancelPendingOperations()->Wait(Event::kForever);
+
+  // Unblock the executing operation; synchronous operations would execute and
+  // complete instantly upon being unblocked if they were not already cancelled
+  // (as is the case in
+  // SynchronousOperationsAreExecutedImmediatelyWhenChainIsEmpty).
+  operation0_unblock_event.Set();
+  operation0_completed_event->Wait(Event::kForever);
+
+  // The cancelled operations will not have executed.
+  EXPECT_FALSE(operation1_completed_event->Wait(0));
+  EXPECT_FALSE(operation2_completed_event->Wait(0));
+}
 
 }  // namespace rtc

@@ -541,7 +541,7 @@ rtc_source_set("rtc_task_queue_stdlib") {
   ]
 }
 
-rtc_static_library("weak_ptr") {
+rtc_source_set("weak_ptr") {
   sources = [
     "weak_ptr.cc",
     "weak_ptr.h",
@@ -553,7 +553,7 @@ rtc_static_library("weak_ptr") {
   ]
 }
 
-rtc_static_library("rtc_numerics") {
+rtc_source_set("rtc_numerics") {
   sources = [
     "numerics/exp_filter.cc",
     "numerics/exp_filter.h",
@@ -752,7 +752,7 @@ if (is_win) {
   }
 }
 
-rtc_static_library("rtc_base") {
+rtc_source_set("rtc_base") {
   visibility = [ "*" ]
   cflags = []
   cflags_cc = []

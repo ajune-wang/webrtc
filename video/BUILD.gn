@@ -8,7 +8,7 @@
 
 import("../webrtc.gni")
 
-rtc_static_library("video") {
+rtc_source_set("video") {
   sources = [
     "buffered_frame_decryptor.cc",
     "buffered_frame_decryptor.h",
@@ -364,7 +364,7 @@ if (rtc_include_tests) {
     ]
   }
 
-  rtc_static_library("video_loopback_lib") {
+  rtc_source_set("video_loopback_lib") {
     testonly = true
     sources = [
       "video_loopback.cc",

@@ -12,7 +12,7 @@ if (is_android) {
 }
 import("../webrtc.gni")
 
-rtc_static_library("system_wrappers") {
+rtc_source_set("system_wrappers") {
   visibility = [ "*" ]
   sources = [
     "include/clock.h",
@@ -143,7 +143,7 @@ rtc_source_set("metrics") {
 }
 
 if (is_android && !build_with_mozilla) {
-  rtc_static_library("cpu_features_android") {
+  rtc_source_set("cpu_features_android") {
     sources = [
       "source/cpu_features_android.c",
     ]
@@ -155,7 +155,7 @@ if (is_android && !build_with_mozilla) {
 }
 
 if (is_linux) {
-  rtc_static_library("cpu_features_linux") {
+  rtc_source_set("cpu_features_linux") {
     sources = [
       "source/cpu_features_linux.c",
     ]

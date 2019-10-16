@@ -8,7 +8,7 @@
 
 import("../../webrtc.gni")
 
-rtc_static_library("encoded_frame") {
+rtc_source_set("encoded_frame") {
   visibility = [ "*" ]
   sources = [
     "encoded_frame.cc",
@@ -34,7 +34,7 @@ rtc_static_library("encoded_frame") {
   ]
 }
 
-rtc_static_library("nack_module") {
+rtc_source_set("nack_module") {
   visibility = [ "*" ]
   sources = [
     "histogram.cc",
@@ -55,7 +55,7 @@ rtc_static_library("nack_module") {
   ]
 }
 
-rtc_static_library("packet") {
+rtc_source_set("packet") {
   visibility = [ "*" ]
   sources = [
     "packet.cc",
@@ -73,7 +73,7 @@ rtc_static_library("packet") {
   ]
 }
 
-rtc_static_library("video_coding") {
+rtc_source_set("video_coding") {
   visibility = [ "*" ]
   deps = [
     "..:module_fec_api",
@@ -311,7 +311,7 @@ rtc_source_set("video_coding_utility") {
   ]
 }
 
-rtc_static_library("webrtc_h264") {
+rtc_source_set("webrtc_h264") {
   visibility = [ "*" ]
   sources = [
     "codecs/h264/h264.cc",
@@ -357,7 +357,7 @@ rtc_static_library("webrtc_h264") {
   }
 }
 
-rtc_static_library("webrtc_multiplex") {
+rtc_source_set("webrtc_multiplex") {
   sources = [
     "codecs/multiplex/augmented_video_frame_buffer.cc",
     "codecs/multiplex/include/augmented_video_frame_buffer.h",
@@ -388,7 +388,7 @@ rtc_static_library("webrtc_multiplex") {
 }
 
 # This target includes the internal SW codec.
-rtc_static_library("webrtc_vp8") {
+rtc_source_set("webrtc_vp8") {
   visibility = [ "*" ]
   poisonous = [ "software_video_codecs" ]
   sources = [
@@ -434,7 +434,7 @@ rtc_static_library("webrtc_vp8") {
   }
 }
 
-rtc_static_library("webrtc_vp8_temporal_layers") {
+rtc_source_set("webrtc_vp8_temporal_layers") {
   visibility = [ "*" ]
   sources = [
     "codecs/vp8/default_temporal_layers.cc",
@@ -464,7 +464,7 @@ rtc_static_library("webrtc_vp8_temporal_layers") {
 }
 
 # This target includes VP9 files that may be used for any VP9 codec, internal SW or external HW.
-rtc_static_library("webrtc_vp9_helpers") {
+rtc_source_set("webrtc_vp9_helpers") {
   sources = [
     "codecs/vp9/svc_config.cc",
     "codecs/vp9/svc_config.h",
@@ -487,7 +487,7 @@ rtc_static_library("webrtc_vp9_helpers") {
   ]
 }
 
-rtc_static_library("webrtc_vp9") {
+rtc_source_set("webrtc_vp9") {
   visibility = [ "*" ]
   poisonous = [ "software_video_codecs" ]
   sources = [
@@ -528,7 +528,7 @@ rtc_static_library("webrtc_vp9") {
 
 if (rtc_include_tests) {
   if (is_android) {
-    rtc_static_library("android_codec_factory_helper") {
+    rtc_source_set("android_codec_factory_helper") {
       sources = [
         "codecs/test/android_codec_factory_helper.cc",
         "codecs/test/android_codec_factory_helper.h",
@@ -547,7 +547,7 @@ if (rtc_include_tests) {
   }
 
   if (is_ios || is_mac) {
-    rtc_static_library("objc_codec_factory_helper") {
+    rtc_source_set("objc_codec_factory_helper") {
       sources = [
         "codecs/test/objc_codec_factory_helper.h",
         "codecs/test/objc_codec_factory_helper.mm",

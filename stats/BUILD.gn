@@ -14,7 +14,7 @@ group("stats") {
   ]
 }
 
-rtc_static_library("rtc_stats") {
+rtc_source_set("rtc_stats") {
   visibility = [ "*" ]
   cflags = []
   sources = [

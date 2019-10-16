@@ -13,7 +13,7 @@ import("../../webrtc.gni")
 
 use_desktop_capture_differ_sse2 = current_cpu == "x86" || current_cpu == "x64"
 
-rtc_static_library("primitives") {
+rtc_source_set("primitives") {
   visibility = [ "*" ]
   sources = [
     "desktop_capture_types.h",
@@ -252,7 +252,7 @@ if (is_mac) {
   }
 }
 
-rtc_static_library("desktop_capture_generic") {
+rtc_source_set("desktop_capture_generic") {
   visibility = [
     ":desktop_capture",
     ":desktop_capture_objc",
@@ -486,7 +486,7 @@ rtc_static_library("desktop_capture_generic") {
 if (use_desktop_capture_differ_sse2) {
   # Have to be compiled as a separate target because it needs to be compiled
   # with SSE2 enabled.
-  rtc_static_library("desktop_capture_differ_sse2") {
+  rtc_source_set("desktop_capture_differ_sse2") {
     visibility = [ ":*" ]
     sources = [
       "differ_vector_sse2.cc",

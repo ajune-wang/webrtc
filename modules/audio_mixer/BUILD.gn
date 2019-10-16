@@ -15,7 +15,7 @@ group("audio_mixer") {
   ]
 }
 
-rtc_static_library("audio_mixer_impl") {
+rtc_source_set("audio_mixer_impl") {
   visibility = [ "*" ]
   sources = [
     "audio_mixer_impl.cc",
@@ -55,7 +55,7 @@ rtc_static_library("audio_mixer_impl") {
   ]
 }
 
-rtc_static_library("audio_frame_manipulator") {
+rtc_source_set("audio_frame_manipulator") {
   visibility = [
     ":*",
     "../../modules:*",

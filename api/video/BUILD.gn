@@ -255,7 +255,7 @@ rtc_source_set("video_stream_encoder_create") {
   ]
 }
 
-rtc_static_library("builtin_video_bitrate_allocator_factory") {
+rtc_source_set("builtin_video_bitrate_allocator_factory") {
   visibility = [ "*" ]
   sources = [
     "builtin_video_bitrate_allocator_factory.cc",

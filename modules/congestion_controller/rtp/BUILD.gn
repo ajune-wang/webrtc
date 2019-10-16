@@ -40,7 +40,7 @@ rtc_source_set("control_handler") {
     deps += [ "../../../rtc_base" ]
   }
 }
-rtc_static_library("transport_feedback") {
+rtc_source_set("transport_feedback") {
   visibility = [ "*" ]
   sources = [
     "transport_feedback_adapter.cc",

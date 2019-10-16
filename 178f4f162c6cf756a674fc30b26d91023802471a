@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4791a89_7fed307f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-16T10:58:58Z",
+      "side": 1,
+      "message": "why mix these 2 improvements into same change?\nthey look independent.\nhttps://google.github.io/eng-practices/review/developer/small-cls.html",
+      "range": {
+        "startLine": 12,
+        "startChar": 8,
+        "endLine": 12,
+        "endChar": 12
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95a38621_aaafe4de",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-16T10:58:58Z",
+      "side": 1,
+      "message": "Thank you for stop using this header!",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 32
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddad1e6e_b3f17f82",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-16T10:58:58Z",
+      "side": 1,
+      "message": "please use type explicitly here:\nabsl::optional\u003cuint32_t\u003e\n\nhttps://google.github.io/styleguide/cppguide.html#Type_deduction\n\"When judging whether the code is clearer, keep in mind that your readers are not necessarily on your team, or familiar with your project, so types that you and your reviewer experience as as unnecessary clutter will very often provide useful information to others. For example, you can assume that the return type of make_unique\u003cFoo\u003e() is obvious, but the return type of MyWidgetFactory() probably isn\u0027t.\"",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 12
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24272025_46beb710",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-16T10:58:58Z",
+      "side": 1,
+      "message": "to reduce scope of the rtx_ssrc variable you may write\nif (absl::optional\u003cuint32_t\u003e rtx_ssrc \u003d rtp_module-\u003eRtxSsrc()) {\n  do all ayou need with *rtx_ssrc.\n}",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 17
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04e500af_63e5504b",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-16T10:58:58Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 12
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea7f9db6_d769cf42",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-16T10:58:58Z",
+      "side": 1,
+      "message": "may be\nif (!rtp_module-\u003eTrySend(...)) {\n  RTC_LOG(LS_WARNING) \u003c\u003c\n  return;\n}\n\nto keep check and error handling closer to each other.\nSee https://testing.googleblog.com/2017/06/code-health-reduce-nesting-reduce.html",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 76
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ade7a76_aaf413eb",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-16T10:58:58Z",
+      "side": 1,
+      "message": "it is not iterator, but a key-value pair. [may be use name kv]\n\n(side note, just fyi: if key or value would be a larger types, or if value need to be modified, then it should have been \"const auto\u0026\" or \"auto\u0026\".\nbut pair\u003cconst uint32_t, T*\u003e is ok to pass by value.\nalso, auto is recommended in this case to avoid accidental conversion)",
+      "range": {
+        "startLine": 176,
+        "startChar": 12,
+        "endLine": 176,
+        "endChar": 14
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d2c2282_729dda2b",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-16T10:58:58Z",
+      "side": 1,
+      "message": "or just change type of the tranport_seq_ to uint16_t",
+      "range": {
+        "startLine": 197,
+        "startChar": 2,
+        "endLine": 197,
+        "endChar": 49
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b3b1779_b4b5d664",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-16T10:58:58Z",
+      "side": 1,
+      "message": "kv",
+      "range": {
+        "startLine": 281,
+        "startChar": 12,
+        "endLine": 281,
+        "endChar": 14
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ede80e68_80c97770",
+        "filename": "modules/pacing/packet_router_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-16T10:58:58Z",
+      "side": 1,
+      "message": "push_back\n\nalternatively just:\nreturn std::vector\u003cstd::unique_ptr\u003cRtpPacketToSender\u003e\u003e{BuildRtpPacket(kSsrc2)};\nor use explicit trailing return type:\n[\u0026](size_t /*target_size_bytes*/) -\u003e std::vector\u003cstd::unique_ptr\u003cRtpPacketToSender\u003e\u003e {\n  return {BuildRtpPacket(kSsrc2)};\n}",
+      "range": {
+        "startLine": 184,
+        "startChar": 16,
+        "endLine": 184,
+        "endChar": 28
+      },
+      "revId": "178f4f162c6cf756a674fc30b26d91023802471a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

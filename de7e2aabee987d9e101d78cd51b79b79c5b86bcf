@@ -118,6 +118,30 @@
       "revId": "de7e2aabee987d9e101d78cd51b79b79c5b86bcf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9576e029_d73a369e",
+        "filename": "BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-10-17T14:06:31Z",
+      "side": 1,
+      "message": "Yeah, I had a patch set doing that, but I kept gtest since it doesn\u0027t matter for the correctness of the patch and it\u0027s more consistent with other tests. Hmm. Not sure what is less confusing for people, a test that doesn\u0027t run or a random main in the middle of the code?",
+      "parentUuid": "46fe12c6_eb37b46e",
+      "range": {
+        "startLine": 474,
+        "startChar": 8,
+        "endLine": 474,
+        "endChar": 28
+      },
+      "revId": "de7e2aabee987d9e101d78cd51b79b79c5b86bcf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

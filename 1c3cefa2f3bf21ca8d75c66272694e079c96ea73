@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "88366cd2_a50ca059",
+        "filename": "BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-17T19:33:45Z",
+      "side": 1,
+      "message": "\u003e Is this quite safe? We\u0027re missing out on all the magic...\n\nMaybe, I haven\u0027t checked this since WebRTC and Chromium don\u0027t use it. But good catch.\n\n\u003e Could we instead say \u0027target_type \u003d \"static_library\"\u0027 (and make rtc_library not override a user-specified target type)?\n\u003e \n\u003e Ooohh, then we could also use \u0027target_type \u003d \"source_set\"\u0027 instead of having the separate type rtc_source_set. If we wanted to.\n\nDo you mean to pass a parameter to the rtc_library template that allow us to override?\nFor now, I have re-introduced rtc_static_library. We can eventually try this trick later. I am worried rtc_library becomes too magic with that.",
+      "parentUuid": "4bc1dfef_111e2f4a",
+      "revId": "1c3cefa2f3bf21ca8d75c66272694e079c96ea73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f1ab8355_4fb21886",
         "filename": "webrtc.gni",
         "patchSetId": 10
@@ -30,6 +48,24 @@
       "writtenOn": "2019-10-17T19:10:48Z",
       "side": 1,
       "message": "How much slower did you say it was to have GN test for this and picking source_set or static_library automatically? It would be very nice if the humans didn\u0027t have to bother with this...",
+      "revId": "1c3cefa2f3bf21ca8d75c66272694e079c96ea73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f4262cc_ae84730d",
+        "filename": "webrtc.gni",
+        "patchSetId": 10
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-17T19:33:45Z",
+      "side": 1,
+      "message": "I haven\u0027t tried but I it should be in the ballpark of 1 or 2 seconds.\n\nI mean, we have to loop all the sources of all the targets, this goes against the GN philosophy I guess. :)",
+      "parentUuid": "f1ab8355_4fb21886",
       "revId": "1c3cefa2f3bf21ca8d75c66272694e079c96ea73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

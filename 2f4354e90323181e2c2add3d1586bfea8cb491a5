@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59818390_dd9e35a6",
+        "filename": "modules/audio_processing/aec3/fullband_erle_estimator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-17T10:51:21Z",
+      "side": 0,
+      "message": "Why remove `explicit`?",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 12
+      },
+      "revId": "2f4354e90323181e2c2add3d1586bfea8cb491a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb22daa3_c801b294",
+        "filename": "modules/audio_processing/aec3/subband_erle_estimator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-17T10:51:21Z",
+      "side": 0,
+      "message": "It seems that there are no common decisions or computations made across channels.\nWhat do you think about keeping the accumulated X2 spectrum, erle_, and erle_onsets_ in a thin multi-channel wrapper class that just loops over some mono subband_erle_estimators, and making minimal changes to {Mono}SubbandErleEstimator?\n\n(If not - then what you\u0027ve already done lgtm)",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 73
+      },
+      "revId": "2f4354e90323181e2c2add3d1586bfea8cb491a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

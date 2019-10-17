@@ -22,6 +22,30 @@
       "revId": "8c4c09c4e616cd37748e6df08df319835896a27d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ba468ee_3b9fa5f9",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-17T08:11:44Z",
+      "side": 1,
+      "message": "There is no concept of \"first\" here. If we reach this point we just want any arbitrary module that can send padding, so I don\u0027t think it\u0027s worth maintaining a separate list.\nAlso note this part is very rarely going to be hit, as last_send_module_ is going to be used as soon as media is sent on a padding-capable module.\nThe previous ordering of modules was implemented in an effort to select the more \"useful\" modules, but it still didn\u0027t really work - and really became obsolete when I introduced last_send_module_.",
+      "parentUuid": "33f5fce3_a1d5784e",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 37
+      },
+      "revId": "8c4c09c4e616cd37748e6df08df319835896a27d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

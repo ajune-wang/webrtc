@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7af439e7_6d394274",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-17T10:58:25Z",
+      "side": 1,
+      "message": "But that means erasing in linear instead of constant time.\nI think the extra overhead of keeping the iterator is minimal, so I\u0027ll opt to keep it.",
+      "parentUuid": "6b992395_b63faed3",
+      "range": {
+        "startLine": 84,
+        "startChar": 2,
+        "endLine": 84,
+        "endChar": 46
+      },
+      "revId": "e8d1d62364fb22c79d3a22d404af4123fc852a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09bc0b37_f28f7387",
         "filename": "modules/pacing/packet_router.h",
         "patchSetId": 13
@@ -45,6 +69,30 @@
       "revId": "e8d1d62364fb22c79d3a22d404af4123fc852a99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "192efe38_dfbb91e3",
+        "filename": "modules/pacing/packet_router.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-17T10:58:25Z",
+      "side": 1,
+      "message": "I can, but I won\u0027t. See nit below :p",
+      "parentUuid": "09bc0b37_f28f7387",
+      "range": {
+        "startLine": 99,
+        "startChar": 21,
+        "endLine": 99,
+        "endChar": 72
+      },
+      "revId": "e8d1d62364fb22c79d3a22d404af4123fc852a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

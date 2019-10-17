@@ -34,10 +34,6 @@ VideoBitrateAllocation DefaultVideoBitrateAllocator::Allocate(
   uint32_t allocated_bitrate_bps = parameters.total_bitrate.bps();
   allocated_bitrate_bps =
       std::max(allocated_bitrate_bps, codec_.minBitrate * 1000);
-  if (codec_.maxBitrate > 0) {
-    allocated_bitrate_bps =
-        std::min(allocated_bitrate_bps, codec_.maxBitrate * 1000);
-  }
   size_t num_simulcast_streams =
       std::max<size_t>(1, codec_.numberOfSimulcastStreams);
   // The bitrate is split between all the streams in proportion of powers of 2

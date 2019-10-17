@@ -30,7 +30,6 @@ class DefaultVideoBitrateAllocatorTest : public ::testing::Test {
   void SetUp() override {
     codec_.codecType = kVideoCodecVP8;
     codec_.minBitrate = kMinBitrateBps / 1000;
-    codec_.maxBitrate = kMaxBitrateBps / 1000;
     codec_.maxFramerate = kMaxFramerate;
     allocator_.reset(new DefaultVideoBitrateAllocator(codec_));
   }
@@ -66,20 +65,6 @@ TEST_F(DefaultVideoBitrateAllocatorTest, CapsToMin) {
   allocation = allocator_->Allocate(
       VideoBitrateAllocationParameters(kMinBitrateBps, kMaxFramerate));
   EXPECT_EQ(kMinBitrateBps, allocation.get_sum_bps());
-}
-
-TEST_F(DefaultVideoBitrateAllocatorTest, CapsToMax) {
-  VideoBitrateAllocation allocation = allocator_->Allocate(
-      VideoBitrateAllocationParameters(kMaxBitrateBps, kMaxFramerate));
-  EXPECT_EQ(kMaxBitrateBps, allocation.get_sum_bps());
-
-  allocation = allocator_->Allocate(
-      VideoBitrateAllocationParameters(kMaxBitrateBps + 1, kMaxFramerate));
-  EXPECT_EQ(kMaxBitrateBps, allocation.get_sum_bps());
-
-  allocation = allocator_->Allocate(VideoBitrateAllocationParameters(
-      std::numeric_limits<uint32_t>::max(), kMaxFramerate));
-  EXPECT_EQ(kMaxBitrateBps, allocation.get_sum_bps());
 }
 
 TEST_F(DefaultVideoBitrateAllocatorTest, GoodInBetween) {

@@ -198,9 +198,6 @@ SvcRateAllocator::SvcRateAllocator(const VideoCodec& codec)
 VideoBitrateAllocation SvcRateAllocator::Allocate(
     VideoBitrateAllocationParameters parameters) {
   DataRate total_bitrate = parameters.total_bitrate;
-  if (codec_.maxBitrate != 0) {
-    total_bitrate = std::min(total_bitrate, DataRate::kbps(codec_.maxBitrate));
-  }
 
   if (codec_.spatialLayers[0].targetBitrate == 0) {
     // Delegate rate distribution to VP9 encoder wrapper if bitrate thresholds
@@ -387,10 +384,6 @@ DataRate SvcRateAllocator::GetMaxBitrate(const VideoCodec& codec) {
   for (size_t sl_idx = 0; sl_idx < num_spatial_layers; ++sl_idx) {
     max_bitrate += DataRate::kbps(
         codec.spatialLayers[first_active_layer + sl_idx].maxBitrate);
-  }
-
-  if (codec.maxBitrate != 0) {
-    max_bitrate = std::min(max_bitrate, DataRate::kbps(codec.maxBitrate));
   }
 
   return max_bitrate;

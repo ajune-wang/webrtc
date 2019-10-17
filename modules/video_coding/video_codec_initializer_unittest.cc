@@ -294,30 +294,6 @@ TEST_F(VideoCodecInitializerTest, Vp9SvcAdjustedLayering) {
 }
 
 TEST_F(VideoCodecInitializerTest,
-       Vp9SingleSpatialLayerMaxBitrateIsEqualToCodecMaxBitrate) {
-  SetUpFor(VideoCodecType::kVideoCodecVP9, 1, 3, false);
-  VideoStream stream = DefaultStream();
-  stream.num_temporal_layers = 3;
-  streams_.push_back(stream);
-
-  EXPECT_TRUE(InitializeCodec());
-  EXPECT_EQ(codec_out_.spatialLayers[0].maxBitrate,
-            kDefaultMaxBitrateBps / 1000);
-}
-
-TEST_F(VideoCodecInitializerTest,
-       Vp9SingleSpatialLayerTargetBitrateIsEqualToCodecMaxBitrate) {
-  SetUpFor(VideoCodecType::kVideoCodecVP9, 1, 1, true);
-  VideoStream stream = DefaultStream();
-  stream.num_temporal_layers = 1;
-  streams_.push_back(stream);
-
-  EXPECT_TRUE(InitializeCodec());
-  EXPECT_EQ(codec_out_.spatialLayers[0].targetBitrate,
-            kDefaultMaxBitrateBps / 1000);
-}
-
-TEST_F(VideoCodecInitializerTest,
        Vp9KeepBitrateLimitsIfNumberOfSpatialLayersIsReducedToOne) {
   // Request 3 spatial layers for 320x180 input. Actual number of layers will be
   // reduced to 1 due to low input resolution but SVC bitrate limits should be

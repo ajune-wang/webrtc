@@ -485,7 +485,6 @@ TEST_F(TestVp8Impl, DontDropKeyframes) {
   codec_settings_.mode = VideoCodecMode::kScreensharing;
   // ScreenshareLayers triggers on 2 temporal layers and 1000kbps max bitrate.
   codec_settings_.VP8()->numberOfTemporalLayers = 2;
-  codec_settings_.maxBitrate = 1000;
 
   // Reset the frame generator with large number of squares, leading to lots of
   // details and high probability of overshoot.
@@ -518,7 +517,6 @@ TEST_F(TestVp8Impl, KeepsTimestampOnReencode) {
 
   // Settings needed to trigger ScreenshareLayers usage, which is required for
   // overshoot-drop-reencode logic.
-  codec_settings_.maxBitrate = 1000;
   codec_settings_.mode = VideoCodecMode::kScreensharing;
   codec_settings_.VP8()->numberOfTemporalLayers = 2;
 

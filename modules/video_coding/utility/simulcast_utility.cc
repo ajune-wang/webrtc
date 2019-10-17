@@ -99,9 +99,8 @@ bool SimulcastUtility::IsConferenceModeScreenshare(const VideoCodec& codec) {
   }
 
   // Fixed default bitrates for legacy screenshare layers mode.
-  return (codec.numberOfSimulcastStreams == 0 && codec.maxBitrate == 1000) ||
+  return codec.numberOfSimulcastStreams == 0 ||
          (codec.numberOfSimulcastStreams >= 1 &&
-          codec.simulcastStream[0].maxBitrate == 1000 &&
           codec.simulcastStream[0].targetBitrate == 200);
 }
 

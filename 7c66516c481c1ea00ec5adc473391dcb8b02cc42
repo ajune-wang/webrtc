@@ -22,6 +22,30 @@
       "revId": "7c66516c481c1ea00ec5adc473391dcb8b02cc42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5ab92d7_fc88136d",
+        "filename": "BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-17T14:19:16Z",
+      "side": 1,
+      "message": "Ah, and maybe the test_main dependency will transitively provide symbols that are not in libwebrtc.a/.lib.",
+      "parentUuid": "99345888_65409c6a",
+      "range": {
+        "startLine": 480,
+        "startChar": 8,
+        "endLine": 481,
+        "endChar": 26
+      },
+      "revId": "7c66516c481c1ea00ec5adc473391dcb8b02cc42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

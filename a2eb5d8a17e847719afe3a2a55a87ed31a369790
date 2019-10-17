@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4141f5e8_16257652",
+        "filename": "modules/video_processing/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-17T14:37:18Z",
+      "side": 1,
+      "message": "Thanks for looking thoroughly into this CL. Yes, I was not thinking about his case and just made a rename but this morning (for a completely unrelated reason we hit the problem with one of our tests, https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d11037).",
+      "parentUuid": "f535f819_fa8e06d2",
+      "revId": "a2eb5d8a17e847719afe3a2a55a87ed31a369790",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa1bfbbf_46e8d217",
         "filename": "webrtc.gni",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "a2eb5d8a17e847719afe3a2a55a87ed31a369790",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "649929b0_5a97b7b6",
+        "filename": "webrtc.gni",
+        "patchSetId": 7
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-17T14:37:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa1bfbbf_46e8d217",
+      "revId": "a2eb5d8a17e847719afe3a2a55a87ed31a369790",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -104,6 +140,30 @@
       "revId": "a2eb5d8a17e847719afe3a2a55a87ed31a369790",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff24f2ff_75a89243",
+        "filename": "webrtc.gni",
+        "patchSetId": 7
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-17T14:37:18Z",
+      "side": 1,
+      "message": "Yes, the goal is to try to do the right thing since we were already missing some tests without actually being aware of it (https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d11037).",
+      "parentUuid": "b240aae6_9013db1b",
+      "range": {
+        "startLine": 489,
+        "startChar": 2,
+        "endLine": 489,
+        "endChar": 78
+      },
+      "revId": "a2eb5d8a17e847719afe3a2a55a87ed31a369790",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

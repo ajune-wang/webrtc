@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d723b18_ebe370fa",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-17T14:42:04Z",
+      "side": 1,
+      "message": "can be removed from here?",
+      "range": {
+        "startLine": 168,
+        "startChar": 1,
+        "endLine": 171,
+        "endChar": 46
+      },
+      "revId": "3d2402f6878d1acfaae620c7350c8d5121af266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "152ea57a_8f0b1344",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-17T14:42:04Z",
+      "side": 1,
+      "message": "may be improve this code a bit:\n#include \"absl/strings/match.h\"\nreturn absl::StartsWith(trials.Lookup(name), \"Enabled\");\n\nhttps://clang.llvm.org/extra/clang-tidy/checks/abseil-string-find-startswith.html",
+      "revId": "3d2402f6878d1acfaae620c7350c8d5121af266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "856ddb6b_a8d71e5b",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-17T14:42:04Z",
+      "side": 1,
+      "message": "\"webrtc::\" prefix not needed (here and below)",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 8
+      },
+      "revId": "3d2402f6878d1acfaae620c7350c8d5121af266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f009fa9_b6bd80bd",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-17T14:42:04Z",
+      "side": 1,
+      "message": "or absl::make_optional(config.flexfec_sender-\u003essrc())\nlike in RtpSender",
+      "range": {
+        "startLine": 40,
+        "startChar": 44,
+        "endLine": 40,
+        "endChar": 68
+      },
+      "revId": "3d2402f6878d1acfaae620c7350c8d5121af266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7617b54a_b3f6bc12",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-17T14:42:04Z",
+      "side": 1,
+      "message": "used anywhere other than next line?\nif yes, please do not use auto for this type.\nif not, just inline into next line.",
+      "range": {
+        "startLine": 72,
+        "startChar": 13,
+        "endLine": 72,
+        "endChar": 24
+      },
+      "revId": "3d2402f6878d1acfaae620c7350c8d5121af266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36448e94_3a92ac4b",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-17T14:42:04Z",
+      "side": 1,
+      "message": "since this is not part of a bigger function, may be just\nreturn packet.Sssrc() \u003d\u003d ssrc_;\nhere (and similar in other two branches)",
+      "range": {
+        "startLine": 200,
+        "startChar": 6,
+        "endLine": 203,
+        "endChar": 12
+      },
+      "revId": "3d2402f6878d1acfaae620c7350c8d5121af266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a5ea249_bc7c0ea7",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-17T14:42:04Z",
+      "side": 1,
+      "message": "RTC_DCHECKS are smart this days: no need for explicit conversion to same type as left side.",
+      "range": {
+        "startLine": 274,
+        "startChar": 26,
+        "endLine": 274,
+        "endChar": 49
+      },
+      "revId": "3d2402f6878d1acfaae620c7350c8d5121af266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67ae9914_090c0e33",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-17T14:42:04Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 281,
+        "startChar": 18,
+        "endLine": 281,
+        "endChar": 70
+      },
+      "revId": "3d2402f6878d1acfaae620c7350c8d5121af266c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "revId": "5c0749784482c74240aa68abc86981ce5868a8fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ae9212d_74cd93d0",
+        "filename": "webrtc.gni",
+        "patchSetId": 8
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-17T17:13:08Z",
+      "side": 1,
+      "message": "Done, I have integrated this in the \"How does it work\" part.",
+      "parentUuid": "f44b165d_27130c35",
+      "revId": "5c0749784482c74240aa68abc86981ce5868a8fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

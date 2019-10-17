@@ -391,7 +391,7 @@ config("common_objc") {
 
 if (!build_with_chromium) {
   # Target to build all the WebRTC production code.
-  rtc_static_library("webrtc") {
+  static_library("webrtc") {
     # Only the root target and the test should depend on this.
     visibility = [
       "//:default",
@@ -400,7 +400,7 @@ if (!build_with_chromium) {
 
     sources = []
     complete_static_lib = true
-    suppressed_configs += [ "//build/config/compiler:thin_archive" ]
+    configs -= [ "//build/config/compiler:thin_archive" ]
     defines = []
 
     deps = [

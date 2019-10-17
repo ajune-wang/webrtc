@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07b0878f_18e5e3d2",
+        "filename": "BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-17T12:38:04Z",
+      "side": 1,
+      "message": "I suspect this is pulling in the duplicated symbols. test_main depends on WebRTC and we are statically linking parts of it from the two static libraries.",
+      "range": {
+        "startLine": 474,
+        "startChar": 8,
+        "endLine": 474,
+        "endChar": 28
+      },
+      "revId": "de7e2aabee987d9e101d78cd51b79b79c5b86bcf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

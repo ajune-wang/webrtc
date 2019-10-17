@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b992395_b63faed3",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-17T10:52:53Z",
+      "side": 1,
+      "message": "Nit, use list.remove instead, that way you don\u0027t need to keep the iterator.",
+      "range": {
+        "startLine": 84,
+        "startChar": 2,
+        "endLine": 84,
+        "endChar": 46
+      },
+      "revId": "e8d1d62364fb22c79d3a22d404af4123fc852a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09bc0b37_f28f7387",
+        "filename": "modules/pacing/packet_router.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-17T10:52:53Z",
+      "side": 1,
+      "message": "AFAICT you can skip the list::iterator, see nit below.",
+      "range": {
+        "startLine": 99,
+        "startChar": 21,
+        "endLine": 99,
+        "endChar": 72
+      },
+      "revId": "e8d1d62364fb22c79d3a22d404af4123fc852a99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

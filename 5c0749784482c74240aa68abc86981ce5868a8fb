@@ -34,6 +34,24 @@
       "revId": "5c0749784482c74240aa68abc86981ce5868a8fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5e49815_5809c795",
+        "filename": "webrtc.gni",
+        "patchSetId": 8
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-17T19:10:48Z",
+      "side": 1,
+      "message": "With \"files\" -\u003e \"object files\"?",
+      "parentUuid": "9ae9212d_74cd93d0",
+      "revId": "5c0749784482c74240aa68abc86981ce5868a8fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

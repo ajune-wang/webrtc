@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bc1dfef_111e2f4a",
+        "filename": "BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-17T19:10:48Z",
+      "side": 1,
+      "message": "Is this quite safe? We\u0027re missing out on all the magic...\n\nCould we instead say \u0027target_type \u003d \"static_library\"\u0027 (and make rtc_library not override a user-specified target type)?\n\nOoohh, then we could also use \u0027target_type \u003d \"source_set\"\u0027 instead of having the separate type rtc_source_set. If we wanted to.",
+      "revId": "1c3cefa2f3bf21ca8d75c66272694e079c96ea73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1ab8355_4fb21886",
+        "filename": "webrtc.gni",
+        "patchSetId": 10
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-17T19:10:48Z",
+      "side": 1,
+      "message": "How much slower did you say it was to have GN test for this and picking source_set or static_library automatically? It would be very nice if the humans didn\u0027t have to bother with this...",
+      "revId": "1c3cefa2f3bf21ca8d75c66272694e079c96ea73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34abade3_2024a7f1",
+        "filename": "webrtc.gni",
+        "patchSetId": 10
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-17T19:10:48Z",
+      "side": 1,
+      "message": "they allow the linker to discard dead code",
+      "range": {
+        "startLine": 502,
+        "startChar": 2,
+        "endLine": 502,
+        "endChar": 19
+      },
+      "revId": "1c3cefa2f3bf21ca8d75c66272694e079c96ea73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

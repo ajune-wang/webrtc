@@ -46,6 +46,30 @@
       "revId": "8c4c09c4e616cd37748e6df08df319835896a27d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bb91ab6_c8f4218f",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-17T08:28:13Z",
+      "side": 1,
+      "message": "My point isn\u0027t that the right module have to be chosen, the point is that we want consistently the same module to be chosen to ensure consistent behavior when analyzing issues, debugging and running simulations.\n\nA simple way to achieve this is that they are iterated trough in the order they were added, without any specific consideration if this is the \"right\" module.",
+      "parentUuid": "8ba468ee_3b9fa5f9",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 37
+      },
+      "revId": "8c4c09c4e616cd37748e6df08df319835896a27d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

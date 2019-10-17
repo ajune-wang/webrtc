@@ -94,6 +94,30 @@
       "revId": "de7e2aabee987d9e101d78cd51b79b79c5b86bcf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46fe12c6_eb37b46e",
+        "filename": "BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-17T13:27:48Z",
+      "side": 1,
+      "message": "If you don\u0027t intend to run the tests, one option might be to drop all TEST things and related dependencies, and just have an explicit main() function constructiong some PeerConnection object.",
+      "parentUuid": "9887e459_c310f337",
+      "range": {
+        "startLine": 474,
+        "startChar": 8,
+        "endLine": 474,
+        "endChar": 28
+      },
+      "revId": "de7e2aabee987d9e101d78cd51b79b79c5b86bcf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

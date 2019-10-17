@@ -42,6 +42,7 @@ if (!build_with_chromium) {
         ":rtc_unittests",
         ":slow_tests",
         ":video_engine_tests",
+        ":webrtc_lib_link_test",
         ":webrtc_nonparallel_tests",
         ":webrtc_perf_tests",
         "common_audio:common_audio_unittests",
@@ -389,8 +390,8 @@ config("common_objc") {
 if (!build_with_chromium) {
   # Target to build all the WebRTC production code.
   rtc_static_library("webrtc") {
-    # Only the root target should depend on this.
-    visibility = [ "//:default" ]
+    # Only the root target and the test should depend on this.
+    visibility = [ "//:*" ]
 
     sources = []
     complete_static_lib = true
@@ -457,6 +458,22 @@ if (!build_with_chromium) {
     if (rtc_enable_protobuf) {
       defines += [ "ENABLE_RTC_EVENT_LOG" ]
       deps += [ "logging:rtc_event_log_proto" ]
+    }
+  }
+
+  if (rtc_include_tests) {
+    rtc_test("webrtc_lib_link_test") {
+      testonly = true
+
+      sources = [
+        "webrtc_lib_link_test.cc",
+      ]
+
+      deps = [
+        ":webrtc",
+        "../test:test_main",
+        "//testing/gtest",
+      ]
     }
   }
 }

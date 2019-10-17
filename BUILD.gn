@@ -388,7 +388,7 @@ config("common_objc") {
 
 if (!build_with_chromium) {
   # Target to build all the WebRTC production code.
-  rtc_static_library("webrtc") {
+  rtc_library("webrtc") {
     # Only the root target should depend on this.
     visibility = [ "//:default" ]
 

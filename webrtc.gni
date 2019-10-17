@@ -300,17 +300,17 @@ set_defaults("rtc_test") {
   suppressed_configs = []
 }
 
+set_defaults("rtc_library") {
+  configs = rtc_add_configs
+  suppressed_configs = []
+}
+
 set_defaults("rtc_source_set") {
   configs = rtc_add_configs
   suppressed_configs = []
 }
 
 set_defaults("rtc_executable") {
-  configs = rtc_add_configs
-  suppressed_configs = []
-}
-
-set_defaults("rtc_static_library") {
   configs = rtc_add_configs
   suppressed_configs = []
 }
@@ -485,48 +485,28 @@ template("rtc_source_set") {
   }
 }
 
-template("rtc_executable") {
-  executable(target_name) {
-    forward_variables_from(invoker,
-                           "*",
-                           [
-                             "deps",
-                             "configs",
-                             "public_configs",
-                             "suppressed_configs",
-                             "visibility",
-                           ])
-    forward_variables_from(invoker, [ "visibility" ])
-    if (!defined(visibility)) {
-      visibility = webrtc_default_visibility
-    }
-    configs += invoker.configs
-    configs -= rtc_remove_configs
-    configs -= invoker.suppressed_configs
-    deps = invoker.deps
-
-    public_configs = [
-      rtc_common_inherited_config,
-      absl_include_config,
-      absl_define_config,
-    ]
-    if (defined(testonly) && testonly) {
-      public_configs += [ absl_flags_config ]
-    }
-    if (defined(invoker.public_configs)) {
-      public_configs += invoker.public_configs
-    }
-    if (is_win) {
-      deps += [
-        # Give executables the default manifest on Windows (a no-op elsewhere).
-        "//build/win:default_exe_manifest",
-      ]
-    }
+# This template automatically switches the target type between source_set
+# and static_library.
+#
+# This should be the default target type for all the WebRTC targets with
+# one exception. Do not use this template for header only targets, in that case
+# rtc_source_set must be used in order to avoid build errors (e.g. libtool
+# complains if the output .a file is empty).
+#
+# How does it work:
+# In component builds, source_sets are easy to deal with because all their
+# object files are passed to the linker, allowing them to be linked into the
+# shared library. For the same reason, testonly targets will be expanded to
+# source_set in order to be sure that tests are present in the test binary.
+# In release builds instead, static_libraries are preferred since they allow
+# to link less code.
+template("rtc_library") {
+  if (is_component_build || (defined(invoker.testonly) && invoker.testonly)) {
+    target_type = "source_set"
+  } else {
+    target_type = "static_library"
   }
-}
-
-template("rtc_static_library") {
-  static_library(target_name) {
+  target(target_type, target_name) {
     forward_variables_from(invoker,
                            "*",
                            [
@@ -596,6 +576,46 @@ template("rtc_static_library") {
     }
     if (defined(invoker.public_configs)) {
       public_configs += invoker.public_configs
+    }
+  }
+}
+
+template("rtc_executable") {
+  executable(target_name) {
+    forward_variables_from(invoker,
+                           "*",
+                           [
+                             "deps",
+                             "configs",
+                             "public_configs",
+                             "suppressed_configs",
+                             "visibility",
+                           ])
+    forward_variables_from(invoker, [ "visibility" ])
+    if (!defined(visibility)) {
+      visibility = webrtc_default_visibility
+    }
+    configs += invoker.configs
+    configs -= rtc_remove_configs
+    configs -= invoker.suppressed_configs
+    deps = invoker.deps
+
+    public_configs = [
+      rtc_common_inherited_config,
+      absl_include_config,
+      absl_define_config,
+    ]
+    if (defined(testonly) && testonly) {
+      public_configs += [ absl_flags_config ]
+    }
+    if (defined(invoker.public_configs)) {
+      public_configs += invoker.public_configs
+    }
+    if (is_win) {
+      deps += [
+        # Give executables the default manifest on Windows (a no-op elsewhere).
+        "//build/win:default_exe_manifest",
+      ]
     }
   }
 }

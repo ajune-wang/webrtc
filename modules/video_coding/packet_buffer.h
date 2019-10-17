@@ -44,13 +44,13 @@ class PacketBuffer {
                size_t start_buffer_size,
                size_t max_buffer_size,
                OnAssembledFrameCallback* frame_callback);
-  virtual ~PacketBuffer();
+  ~PacketBuffer();
 
   // Returns true unless the packet buffer is cleared, which means that a key
   // frame request should be sent. The PacketBuffer will always take ownership
   // of the |packet.dataPtr| when this function is called. Made virtual for
   // testing.
-  virtual bool InsertPacket(VCMPacket* packet);
+  bool InsertPacket(VCMPacket* packet);
   void ClearTo(uint16_t seq_num);
   void Clear();
   void PaddingReceived(uint16_t seq_num);
@@ -64,18 +64,14 @@ class PacketBuffer {
 
  private:
   friend RtpFrameObject;
-  // Since we want the packet buffer to be as packet type agnostic
-  // as possible we extract only the information needed in order
-  // to determine whether a sequence of packets is continuous or not.
-  struct ContinuityInfo {
-    // The sequence number of the packet.
-    uint16_t seq_num = 0;
+  struct StoredPacket {
+    uint16_t seq_num() const { return data.seqNum; }
 
     // If this is the first packet of the frame.
-    bool frame_begin = false;
+    bool frame_begin() const { return data.is_first_packet_in_frame(); }
 
     // If this is the last packet of the frame.
-    bool frame_end = false;
+    bool frame_end() const { return data.is_last_packet_in_frame(); }
 
     // If this slot is currently used.
     bool used = false;
@@ -85,6 +81,8 @@ class PacketBuffer {
 
     // If this packet has been used to create a frame already.
     bool frame_created = false;
+
+    VCMPacket data;
   };
 
   Clock* const clock_;
@@ -108,8 +106,7 @@ class PacketBuffer {
 
   // Get the packet with sequence number |seq_num|.
   // Virtual for testing.
-  virtual VCMPacket* GetPacket(uint16_t seq_num)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
+  VCMPacket* GetPacket(uint16_t seq_num) RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   // Clears the packet buffer from |start_seq_num| to |stop_seq_num| where the
   // endpoints are inclusive.
@@ -125,8 +122,7 @@ class PacketBuffer {
 
   rtc::CriticalSection crit_;
 
-  // Buffer size_ and max_size_ must always be a power of two.
-  size_t size_ RTC_GUARDED_BY(crit_);
+  // buffer_.size() and max_size_ must always be a power of two.
   const size_t max_size_;
 
   // The fist sequence number currently in the buffer.
@@ -138,12 +134,9 @@ class PacketBuffer {
   // If the buffer is cleared to |first_seq_num_|.
   bool is_cleared_to_first_seq_num_ RTC_GUARDED_BY(crit_);
 
-  // Buffer that holds the inserted packets.
-  std::vector<VCMPacket> data_buffer_ RTC_GUARDED_BY(crit_);
-
-  // Buffer that holds the information about which slot that is currently in use
-  // and information needed to determine the continuity between packets.
-  std::vector<ContinuityInfo> sequence_buffer_ RTC_GUARDED_BY(crit_);
+  // Buffer that holds the the inserted packets and information needed to
+  // determine continuity between them.
+  std::vector<StoredPacket> buffer_ RTC_GUARDED_BY(crit_);
 
   // Called when all packets in a frame are received, allowing the frame
   // to be assembled.

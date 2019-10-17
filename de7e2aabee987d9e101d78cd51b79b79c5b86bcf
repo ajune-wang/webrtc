@@ -46,6 +46,30 @@
       "revId": "de7e2aabee987d9e101d78cd51b79b79c5b86bcf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6976095a_3af5c458",
+        "filename": "BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-10-17T12:41:19Z",
+      "side": 1,
+      "message": "Yeah, I tried that, it fixes the dupes on the task queue but I still get dupes on Abseil. I don\u0027t get where those are coming from. //testing/gtest doesn\u0027t use abseil right?",
+      "parentUuid": "d0cc4a64_c886e311",
+      "range": {
+        "startLine": 474,
+        "startChar": 8,
+        "endLine": 474,
+        "endChar": 28
+      },
+      "revId": "de7e2aabee987d9e101d78cd51b79b79c5b86bcf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

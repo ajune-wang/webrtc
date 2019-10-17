@@ -80,6 +80,30 @@
       "revId": "a2eb5d8a17e847719afe3a2a55a87ed31a369790",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b240aae6_9013db1b",
+        "filename": "webrtc.gni",
+        "patchSetId": 7
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-17T13:37:49Z",
+      "side": 1,
+      "message": "If we don\u0027t automatically switch between source_set and static_library depending on testonly, we need essentially the same machinery to be able to yell at users who try to make testonly static_libraries. So given that the internal mechanism complexity is the same, it seems best to pick the option that makes the UI as simple as possible.",
+      "parentUuid": "42c5b353_3cdbf149",
+      "range": {
+        "startLine": 489,
+        "startChar": 2,
+        "endLine": 489,
+        "endChar": 78
+      },
+      "revId": "a2eb5d8a17e847719afe3a2a55a87ed31a369790",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

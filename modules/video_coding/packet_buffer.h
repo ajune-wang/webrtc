@@ -44,13 +44,13 @@ class PacketBuffer {
                size_t start_buffer_size,
                size_t max_buffer_size,
                OnAssembledFrameCallback* frame_callback);
-  virtual ~PacketBuffer();
+  ~PacketBuffer();
 
   // Returns true unless the packet buffer is cleared, which means that a key
   // frame request should be sent. The PacketBuffer will always take ownership
   // of the |packet.dataPtr| when this function is called. Made virtual for
   // testing.
-  virtual bool InsertPacket(VCMPacket* packet);
+  bool InsertPacket(VCMPacket* packet);
   void ClearTo(uint16_t seq_num);
   void Clear();
   void PaddingReceived(uint16_t seq_num);
@@ -64,27 +64,77 @@ class PacketBuffer {
 
  private:
   friend RtpFrameObject;
-  // Since we want the packet buffer to be as packet type agnostic
-  // as possible we extract only the information needed in order
-  // to determine whether a sequence of packets is continuous or not.
-  struct ContinuityInfo {
+  class StoredPacket {
+   public:
+    void SetUnused();
+    void SetUsed(VCMPacket* packet);
+
+    void SetContinuous() { continuous_ = true; }
+    void SetFrameCreated(bool value) { frame_created_ = value; }
+
     // The sequence number of the packet.
-    uint16_t seq_num = 0;
+    uint16_t seq_num() const { return data_.seqNum; }
 
     // If this is the first packet of the frame.
-    bool frame_begin = false;
+    bool frame_begin() const { return data_.is_first_packet_in_frame(); }
 
     // If this is the last packet of the frame.
-    bool frame_end = false;
+    bool frame_end() const { return data_.is_last_packet_in_frame(); }
 
     // If this slot is currently used.
-    bool used = false;
+    bool used() const { return used_; }
 
     // If all its previous packets have been inserted into the packet buffer.
-    bool continuous = false;
+    bool continuous() const { return continuous_; }
 
     // If this packet has been used to create a frame already.
-    bool frame_created = false;
+    bool frame_created() const { return frame_created_; }
+
+    // Bitstream located in the packet.
+    rtc::ArrayView<const uint8_t> bitstream() const {
+      return rtc::MakeArrayView(data_.dataPtr, data_.sizeBytes);
+    }
+
+    // Rtp timestamp. Packets from the same frame should have same timestamp.
+    uint32_t Timestamp() const { return data_.timestamp; }
+    // Rtp marker bit. Indicates last video packet with certain Timestamp.
+    bool Marker() const { return data_.markerBit; }
+    int PayloadType() const { return data_.payloadType; }
+
+    // Fields to pass-through to the generated frame.
+    // TODO(danilchap): Remove fields below. payload-specific frame assembler
+    // should keep track of them and pass to the generated RtpFrameObject.
+    int64_t receive_time_ms() const {
+      return data_.packet_info.receive_time_ms();
+    }
+    const RtpPacketInfo& PacketInfo() const { return data_.packet_info; }
+    int times_nacked() const { return data_.timesNacked; }
+    VideoCodecType codec() const { return data_.codec(); }
+    int64_t ntp_time_ms() const { return data_.ntp_time_ms_; }
+    const RTPVideoHeader& video_header() const { return data_.video_header; }
+    const absl::optional<RtpGenericFrameDescriptor>& generic_descriptor()
+        const {
+      return data_.generic_descriptor;
+    }
+    // H264 specific details.
+    const RTPVideoHeaderH264* h264_header() const {
+      return absl::get_if<RTPVideoHeaderH264>(
+          &data_.video_header.video_type_header);
+    }
+    void SetIsKeyframe(bool is_keyframe) {
+      data_.video_header.frame_type = is_keyframe
+                                          ? VideoFrameType::kVideoFrameKey
+                                          : VideoFrameType::kVideoFrameDelta;
+    }
+    int H264TemporalId() const {
+      return data_.video_header.frame_marking.temporal_id;
+    }
+
+   private:
+    bool used_ = false;
+    bool continuous_ = false;
+    bool frame_created_ = false;
+    VCMPacket data_;
   };
 
   Clock* const clock_;
@@ -108,7 +158,7 @@ class PacketBuffer {
 
   // Get the packet with sequence number |seq_num|.
   // Virtual for testing.
-  virtual VCMPacket* GetPacket(uint16_t seq_num)
+  const StoredPacket* GetPacket(uint16_t seq_num) const
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   // Clears the packet buffer from |start_seq_num| to |stop_seq_num| where the
@@ -125,8 +175,7 @@ class PacketBuffer {
 
   rtc::CriticalSection crit_;
 
-  // Buffer size_ and max_size_ must always be a power of two.
-  size_t size_ RTC_GUARDED_BY(crit_);
+  // buffer_.size() and max_size_ must always be a power of two.
   const size_t max_size_;
 
   // The fist sequence number currently in the buffer.
@@ -138,12 +187,10 @@ class PacketBuffer {
   // If the buffer is cleared to |first_seq_num_|.
   bool is_cleared_to_first_seq_num_ RTC_GUARDED_BY(crit_);
 
-  // Buffer that holds the inserted packets.
-  std::vector<VCMPacket> data_buffer_ RTC_GUARDED_BY(crit_);
-
-  // Buffer that holds the information about which slot that is currently in use
-  // and information needed to determine the continuity between packets.
-  std::vector<ContinuityInfo> sequence_buffer_ RTC_GUARDED_BY(crit_);
+  // Buffer that holds the information about which slot that is currently in
+  // use, information needed to determine the continuity between packets and
+  // packets itself.
+  std::vector<StoredPacket> buffer_ RTC_GUARDED_BY(crit_);
 
   // Called when all packets in a frame are received, allowing the frame
   // to be assembled.

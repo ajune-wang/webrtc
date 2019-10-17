@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "f535f819_fa8e06d2",
+        "filename": "modules/video_processing/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2019-10-17T13:24:43Z",
+      "side": 1,
+      "message": "Hm, unit tests at least shouldn\u0027t move from source_set to static_library. Google Test tests work by adding a global initializer to each TU which at startup registers tests in that TU. Nothing pulls that in that symbol, so when the unit test binary is linked all tests in static_libraries are silently not present in the binary.\n\nMaybe this CL shouldn\u0027t move source_sets to rtc_library, but just rtc_static_libraries?",
+      "revId": "a2eb5d8a17e847719afe3a2a55a87ed31a369790",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa1bfbbf_46e8d217",
+        "filename": "webrtc.gni",
+        "patchSetId": 7
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2019-10-17T13:24:43Z",
+      "side": 1,
+      "message": "This needs a comment on what it does and why, and when it\u0027s the right thing to use it.",
+      "revId": "a2eb5d8a17e847719afe3a2a55a87ed31a369790",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "58e46e9e_cdb6ecf4",
         "filename": "webrtc.gni",
         "patchSetId": 7
@@ -13,6 +47,30 @@
       "writtenOn": "2019-10-17T13:03:17Z",
       "side": 1,
       "message": "kwiberg@: PTAL. I guess this does what we need.",
+      "range": {
+        "startLine": 489,
+        "startChar": 2,
+        "endLine": 489,
+        "endChar": 78
+      },
+      "revId": "a2eb5d8a17e847719afe3a2a55a87ed31a369790",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42c5b353_3cdbf149",
+        "filename": "webrtc.gni",
+        "patchSetId": 7
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2019-10-17T13:24:43Z",
+      "side": 1,
+      "message": "...oh, I see. Hm. This might be ok too. It feels a tad clever to me, but maybe it\u0027s fine. Up to you.",
+      "parentUuid": "58e46e9e_cdb6ecf4",
       "range": {
         "startLine": 489,
         "startChar": 2,

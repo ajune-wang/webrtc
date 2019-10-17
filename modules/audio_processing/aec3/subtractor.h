@@ -60,13 +60,13 @@ class Subtractor {
 
   // Returns the block-wise frequency responses for the main adaptive filters.
   const std::vector<std::vector<std::array<float, kFftLengthBy2Plus1>>>&
-  FilterFrequencyResponse() const {
+  FilterFrequencyResponses() const {
     return main_frequency_response_;
   }
 
   // Returns the estimates of the impulse responses for the main adaptive
   // filters.
-  const std::vector<std::vector<float>>& FilterImpulseResponse() const {
+  const std::vector<std::vector<float>>& FilterImpulseResponses() const {
     return main_impulse_response_;
   }
 

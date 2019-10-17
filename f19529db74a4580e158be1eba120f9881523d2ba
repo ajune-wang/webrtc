@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ff3b76a1_956acde3",
+        "filename": "common_types.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-17T10:50:20Z",
+      "side": 1,
+      "message": "Both left for now.",
+      "parentUuid": "f2386444_1526a9aa",
+      "range": {
+        "startLine": 233,
+        "startChar": 18,
+        "endLine": 233,
+        "endChar": 24
+      },
+      "revId": "f19529db74a4580e158be1eba120f9881523d2ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c85eb513_284ec6e7",
         "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
         "patchSetId": 7

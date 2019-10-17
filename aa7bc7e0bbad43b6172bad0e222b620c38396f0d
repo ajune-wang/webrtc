@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "49a7e7c9_98cf90dc",
+        "filename": "modules/video_coding/encoder_database.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-17T10:50:20Z",
+      "side": 0,
+      "message": "Seems this code has been deleted ;-)",
+      "parentUuid": "5ba2ab69_7cb96ee3",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 60
+      },
+      "revId": "aa7bc7e0bbad43b6172bad0e222b620c38396f0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d857a6c_624d56a6",
         "filename": "modules/video_coding/utility/simulcast_utility.cc",
         "patchSetId": 7

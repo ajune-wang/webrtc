@@ -22,6 +22,30 @@
       "revId": "77ef3dd79bf13a0d16390ebb0767e4ae7c7d23bd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dac34e7_0627e428",
+        "filename": "common_types.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-17T10:50:20Z",
+      "side": 1,
+      "message": "Deleted comment.",
+      "parentUuid": "669ede51_5d511497",
+      "range": {
+        "startLine": 67,
+        "startChar": 18,
+        "endLine": 67,
+        "endChar": 24
+      },
+      "revId": "77ef3dd79bf13a0d16390ebb0767e4ae7c7d23bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58e46e9e_cdb6ecf4",
+        "filename": "webrtc.gni",
+        "patchSetId": 7
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-17T13:03:17Z",
+      "side": 1,
+      "message": "kwiberg@: PTAL. I guess this does what we need.",
+      "range": {
+        "startLine": 489,
+        "startChar": 2,
+        "endLine": 489,
+        "endChar": 78
+      },
+      "revId": "a2eb5d8a17e847719afe3a2a55a87ed31a369790",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

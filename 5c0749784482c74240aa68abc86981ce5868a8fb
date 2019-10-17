@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f44b165d_27130c35",
+        "filename": "webrtc.gni",
+        "patchSetId": 8
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2019-10-17T14:50:35Z",
+      "side": 1,
+      "message": "I\u0027d include something like:\n\n\"All files in a source_set are linked into a final binary. Files in a static library are only linked in if at least one symbol in them is referenced.\"",
+      "revId": "5c0749784482c74240aa68abc86981ce5868a8fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

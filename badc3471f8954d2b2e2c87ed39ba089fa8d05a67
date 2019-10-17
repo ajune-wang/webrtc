@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "97a4caaf_2b444a75",
+        "filename": "api/neteq/custom_neteq_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-17T07:29:30Z",
+      "side": 1,
+      "message": "Yes, SGTM.",
+      "parentUuid": "4e6576ef_fa8e6f9d",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2f1f805_a5847cc5",
         "filename": "api/neteq/custom_neteq_factory.h",
         "patchSetId": 1

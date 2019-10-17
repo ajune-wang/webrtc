@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "25df46f3_074037c0",
+        "filename": "modules/audio_processing/aec3/erle_estimator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-17T14:44:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a0215247_44ff6cd9",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 40
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "457a7016_e62112bd",
         "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
         "patchSetId": 7
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "Agree that it should be there. Regarding the startup phase and its impact on the test your hypothesis makes sense but I\u0027m not sure.\nDone",
       "parentUuid": "457a7016_e62112bd",
+      "range": {
+        "startLine": 228,
+        "startChar": 30,
+        "endLine": 228,
+        "endChar": 31
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aff32074_4546536f",
+        "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-17T14:44:31Z",
+      "side": 1,
+      "message": "I see. Thanks for adding it!",
+      "parentUuid": "c0ff65c3_1d24f1cc",
       "range": {
         "startLine": 228,
         "startChar": 30,
@@ -519,6 +567,30 @@
     },
     {
       "key": {
+        "uuid": "9867fbc1_bdb0a8da",
+        "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-17T14:44:31Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "83176dc7_e13a0be3",
+      "range": {
+        "startLine": 204,
+        "startChar": 47,
+        "endLine": 204,
+        "endChar": 48
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf2639bc_38bcb662",
         "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
         "patchSetId": 7
@@ -566,6 +638,30 @@
     },
     {
       "key": {
+        "uuid": "aab18de6_f1c9dbb0",
+        "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-17T14:44:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5186a222_2bfbdf2b",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 5
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c2f918b_86e85529",
         "filename": "modules/audio_processing/aec3/subband_erle_estimator.cc",
         "patchSetId": 7
@@ -601,6 +697,30 @@
       "side": 1,
       "message": "Nice!\nDone.",
       "parentUuid": "6c2f918b_86e85529",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 32
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e0497d0d_606cc0f7",
+        "filename": "modules/audio_processing/aec3/subband_erle_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-17T14:44:31Z",
+      "side": 1,
+      "message": "Thank you!",
+      "parentUuid": "7fa2b25f_c59ab1f8",
       "range": {
         "startLine": 101,
         "startChar": 0,

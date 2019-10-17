@@ -93,6 +93,30 @@
       "revId": "2f4354e90323181e2c2add3d1586bfea8cb491a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e379501_007021a7",
+        "filename": "modules/audio_processing/aec3/subband_erle_estimator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-17T14:44:31Z",
+      "side": 0,
+      "message": "Makes sense, sgtm!",
+      "parentUuid": "007a8712_235e0a4d",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 73
+      },
+      "revId": "2f4354e90323181e2c2add3d1586bfea8cb491a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

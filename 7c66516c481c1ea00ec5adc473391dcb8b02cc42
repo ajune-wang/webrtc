@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99345888_65409c6a",
+        "filename": "BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-17T14:18:21Z",
+      "side": 1,
+      "message": "I think this should be avoided since these are ODRs and if something changes in the linker this test will start to fail.",
+      "range": {
+        "startLine": 480,
+        "startChar": 8,
+        "endLine": 481,
+        "endChar": 26
+      },
+      "revId": "7c66516c481c1ea00ec5adc473391dcb8b02cc42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

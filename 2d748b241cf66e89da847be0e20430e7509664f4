@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8bf9db68_7f305482",
+        "filename": "modules/audio_processing/aec3/aec_state.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-17T12:44:28Z",
+      "side": 1,
+      "message": "Good point!\nDone.",
+      "parentUuid": "748e1a59_0e98a8d1",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 80
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6e5da22_f96086a5",
         "filename": "modules/audio_processing/aec3/erle_estimator.cc",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43dadb41_be8600cd",
+        "filename": "modules/audio_processing/aec3/erle_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-17T12:44:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6e5da22_f96086a5",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 65
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "aec00d2f_c51e329b",
+        "filename": "modules/audio_processing/aec3/erle_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-17T12:44:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a311831_e1485cd1",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 76
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0bd9cd95_c4a002bb",
         "filename": "modules/audio_processing/aec3/erle_estimator.h",
         "patchSetId": 7
@@ -82,6 +154,30 @@
       "writtenOn": "2019-10-17T10:51:21Z",
       "side": 1,
       "message": "What do you think about dropping this flag, and use signal_dependent_erle_estimator_ instead? To avoid having to guard for invalid states like in Update():\n\n  if (use_signal_dependent_erle_) {\n    RTC_DCHECK(signal_dependent_erle_estimator_);\n\nand in Erle():\n    RTC_DCHECK(!use_signal_dependent_erle_ || signal_dependent_erle_estimator_);",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 40
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0215247_44ff6cd9",
+        "filename": "modules/audio_processing/aec3/erle_estimator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-17T12:44:28Z",
+      "side": 1,
+      "message": "Good point! I really like that!\nDone.",
+      "parentUuid": "0bd9cd95_c4a002bb",
       "range": {
         "startLine": 89,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "c0ff65c3_1d24f1cc",
+        "filename": "modules/audio_processing/aec3/erle_estimator_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-17T12:44:28Z",
+      "side": 1,
+      "message": "Agree that it should be there. Regarding the startup phase and its impact on the test your hypothesis makes sense but I\u0027m not sure.\nDone",
+      "parentUuid": "457a7016_e62112bd",
+      "range": {
+        "startLine": 228,
+        "startChar": 30,
+        "endLine": 228,
+        "endChar": 31
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3234b4e3_5e979f05",
         "filename": "modules/audio_processing/aec3/fullband_erle_estimator.h",
         "patchSetId": 7
@@ -137,6 +257,30 @@
       "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a3a7e88_5e587d1a",
+        "filename": "modules/audio_processing/aec3/fullband_erle_estimator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-17T12:44:28Z",
+      "side": 1,
+      "message": "Good find! Let\u0027s return the minimum value.",
+      "parentUuid": "3234b4e3_5e979f05",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 70
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "02c78dc2_5e0957e7",
+        "filename": "modules/audio_processing/aec3/fullband_erle_estimator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-17T12:44:28Z",
+      "side": 1,
+      "message": "Nice!\nDone",
+      "parentUuid": "bc01c4bf_e4e858c3",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 49
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58e8854c_6d10551b",
         "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
         "patchSetId": 7
@@ -183,6 +351,30 @@
       "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5202bb75_c7379c83",
+        "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-17T12:44:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58e8854c_6d10551b",
+      "range": {
+        "startLine": 154,
+        "startChar": 35,
+        "endLine": 154,
+        "endChar": 44
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "66e7012c_bbb62ac2",
+        "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-17T12:44:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7942916e_15d69219",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 3
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a73b202c_5e822b57",
         "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
         "patchSetId": 7
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "142a7e26_80a94b4a",
+        "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-17T12:44:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a73b202c_5e822b57",
+      "range": {
+        "startLine": 186,
+        "startChar": 4,
+        "endLine": 186,
+        "endChar": 35
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be75dcfd_99f7794c",
         "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
         "patchSetId": 7
@@ -243,6 +483,30 @@
       "writtenOn": "2019-10-17T10:51:21Z",
       "side": 1,
       "message": "Maybe DCHECK that min and max of n_active_sections_[ch] are in the right range.",
+      "range": {
+        "startLine": 204,
+        "startChar": 47,
+        "endLine": 204,
+        "endChar": 48
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83176dc7_e13a0be3",
+        "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-17T12:44:28Z",
+      "side": 1,
+      "message": "Good point! I added a check for the upper limits but not the lower limit (which is safe as 0 is a valid value and the type is size_t.\n\nDone.",
+      "parentUuid": "be75dcfd_99f7794c",
       "range": {
         "startLine": 204,
         "startChar": 47,
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "5186a222_2bfbdf2b",
+        "filename": "modules/audio_processing/aec3/signal_dependent_erle_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-17T12:44:28Z",
+      "side": 1,
+      "message": "No, definitely not. Good find!\nDone.",
+      "parentUuid": "bf2639bc_38bcb662",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 5
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6c2f918b_86e85529",
         "filename": "modules/audio_processing/aec3/subband_erle_estimator.cc",
         "patchSetId": 7
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "7fa2b25f_c59ab1f8",
+        "filename": "modules/audio_processing/aec3/subband_erle_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-17T12:44:28Z",
+      "side": 1,
+      "message": "Nice!\nDone.",
+      "parentUuid": "6c2f918b_86e85529",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 32
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2396a078_0ba5909c",
         "filename": "modules/audio_processing/aec3/subband_erle_estimator.cc",
         "patchSetId": 7
@@ -321,6 +633,30 @@
       "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f400b365_6d235bab",
+        "filename": "modules/audio_processing/aec3/subband_erle_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-17T12:44:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2396a078_0ba5909c",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 47
+      },
+      "revId": "2d748b241cf66e89da847be0e20430e7509664f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

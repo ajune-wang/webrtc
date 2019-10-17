@@ -22,6 +22,30 @@
       "revId": "7ea9b8082e04466b4eabafd6bbdc7a07e3aee70b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "819e3eca_82e97a91",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-10-17T10:19:19Z",
+      "side": 0,
+      "message": "Whoopsie. Thanks, good catch. I removed those when testing.",
+      "parentUuid": "aa64068f_fd25a5aa",
+      "range": {
+        "startLine": 408,
+        "startChar": 0,
+        "endLine": 409,
+        "endChar": 50
+      },
+      "revId": "7ea9b8082e04466b4eabafd6bbdc7a07e3aee70b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

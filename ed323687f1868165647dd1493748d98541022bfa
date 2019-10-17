@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57183880_aae2c02d",
+        "filename": "api/neteq/defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-17T12:58:12Z",
+      "side": 1,
+      "message": "Rename to NetEqOperation? Or NetEq::Operation?",
+      "range": {
+        "startLine": 16,
+        "startChar": 11,
+        "endLine": 16,
+        "endChar": 21
+      },
+      "revId": "ed323687f1868165647dd1493748d98541022bfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbcd9042_e0e5dbf3",
+        "filename": "api/neteq/defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-17T12:58:12Z",
+      "side": 1,
+      "message": "Can you get rid of the explicit numbers in these two enums, or are they actually used somewhere? (Now that these are enum classes, there should be a static_cast everywhere we convert between enum and integer, so such places should be much easier to spot.)",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 13
+      },
+      "revId": "ed323687f1868165647dd1493748d98541022bfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f56bb395_db515f2e",
+        "filename": "api/neteq/defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-17T12:58:12Z",
+      "side": 1,
+      "message": "Rename to NetEqMode, or NetEq::Mode?",
+      "range": {
+        "startLine": 30,
+        "startChar": 11,
+        "endLine": 30,
+        "endChar": 16
+      },
+      "revId": "ed323687f1868165647dd1493748d98541022bfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "792421e8_5427daeb",
+        "filename": "api/neteq/defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-17T12:58:12Z",
+      "side": 1,
+      "message": "Remove this prefix from the enum names, now that this is an enum class?",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 7
+      },
+      "revId": "ed323687f1868165647dd1493748d98541022bfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f0883c2_42feb38d",
+        "filename": "api/test/neteq_factory_with_codecs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-17T12:58:12Z",
+      "side": 1,
+      "message": "final?\n\nAlso, one option is to have only\n\n  std::unique_ptr\u003cNetEqFactory\u003e CreateNetEqFactoryWithCodecs();\n\nin this header, and hide the entire class in an unnamed namespace in the .cc file. That makes the interface maximally simple, and is what I\u0027ve done with e.g. CreateBuiltinAudioDecoderFactory(). (I think there may be other cases in this CL where you can apply this advice, were you so inclined.)",
+      "revId": "ed323687f1868165647dd1493748d98541022bfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

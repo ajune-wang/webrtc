@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "7c14d706_2dc2258e",
+        "filename": "api/neteq/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-17T12:58:12Z",
+      "side": 1,
+      "message": "Looks good. Thanks!",
+      "parentUuid": "064f1e13_48cb65bc",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45df365e_9523b720",
         "filename": "api/neteq/BUILD.gn",
         "patchSetId": 1
@@ -160,6 +178,24 @@
     },
     {
       "key": {
+        "uuid": "98b6b7d6_02e742c6",
+        "filename": "api/neteq/custom_neteq_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-17T12:58:12Z",
+      "side": 1,
+      "message": "No, I\u0027m just not reading the code properly, and thought it was a static create function. Carry on...",
+      "parentUuid": "48b3c3f4_54d9f069",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5dcf19d5_32ed0b4d",
         "filename": "api/neteq/default_neteq_controller_factory.h",
         "patchSetId": 1
@@ -192,6 +228,24 @@
       "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46e52e11_709a1d70",
+        "filename": "api/neteq/default_neteq_controller_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-17T12:58:12Z",
+      "side": 1,
+      "message": "Yes---I made the same thinko here as above.",
+      "parentUuid": "586c7627_887effc4",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -265,6 +319,24 @@
     },
     {
       "key": {
+        "uuid": "781b4f2e_87711778",
+        "filename": "api/neteq/defines.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-17T12:58:12Z",
+      "side": 1,
+      "message": "If you can add them to neteq.h that would probably be best.",
+      "parentUuid": "40fe037d_75cebf94",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6a4b8b2_8e60dc36",
         "filename": "api/neteq/defines.h",
         "patchSetId": 1
@@ -294,6 +366,24 @@
       "side": 1,
       "message": "Done.",
       "parentUuid": "a6a4b8b2_8e60dc36",
+      "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95b60b4f_a9d6fec1",
+        "filename": "api/neteq/defines.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-17T12:58:12Z",
+      "side": 1,
+      "message": "Nice!",
+      "parentUuid": "f0cee110_c2692460",
       "revId": "badc3471f8954d2b2e2c87ed39ba089fa8d05a67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3bc5800e_da511b76",
+        "filename": "api/task_queue/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-18T20:15:20Z",
+      "side": 1,
+      "message": "And I will have to RTC_EXPORT TaskQueueTest.",
+      "range": {
+        "startLine": 36,
+        "startChar": 5,
+        "endLine": 36,
+        "endChar": 22
+      },
+      "revId": "bde4cfd8235beee65ee6414a5f8bc1ff291bc0c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0512e493_b40f9f50",
         "filename": "api/task_queue/BUILD.gn",
         "patchSetId": 2
@@ -18,6 +41,29 @@
         "startChar": 6,
         "endLine": 41,
         "endChar": 32
+      },
+      "revId": "bde4cfd8235beee65ee6414a5f8bc1ff291bc0c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "268c5382_437fdfc3",
+        "filename": "api/task_queue/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-18T20:15:20Z",
+      "side": 1,
+      "message": "I think these are OK.",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 46
       },
       "revId": "bde4cfd8235beee65ee6414a5f8bc1ff291bc0c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

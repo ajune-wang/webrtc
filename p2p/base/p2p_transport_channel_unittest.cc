@@ -5247,6 +5247,48 @@ TEST_F(P2PTransportChannelTest,
   DestroyChannels();
 }
 
+TEST_F(P2PTransportChannelTest,
+       NoPairWithLocalRelayCandidateWithRemoteMdnsCandidate) {
+  const int kOnlyRelayPorts = cricket::PORTALLOCATOR_DISABLE_UDP |
+                              cricket::PORTALLOCATOR_DISABLE_STUN |
+                              cricket::PORTALLOCATOR_DISABLE_TCP;
+  // We use one endpoint to test the behavior of adding remote candidates, and
+  // this endpoint only gathers relay candidates.
+  ConfigureEndpoints(OPEN, OPEN, kOnlyRelayPorts, kDefaultPortAllocatorFlags);
+  GetEndpoint(0)->cd1_.ch_.reset(CreateChannel(
+      0, ICE_CANDIDATE_COMPONENT_DEFAULT, kIceParams[0], kIceParams[1]));
+  IceConfig config;
+  // Start gathering and we should have only a single relay port.
+  ep1_ch1()->SetIceConfig(config);
+  ep1_ch1()->MaybeStartGathering();
+  EXPECT_EQ_WAIT(IceGatheringState::kIceGatheringComplete,
+                 ep1_ch1()->gathering_state(), kDefaultTimeout);
+  EXPECT_EQ(1u, ep1_ch1()->ports().size());
+  // Add a plain remote host candidate and a remote mDNS candidate. Note that
+  // the two candidates differ in their port.
+  cricket::Candidate host_candidate = CreateUdpCandidate(
+      LOCAL_PORT_TYPE, "1.1.1.1", 1 /* port */, 0 /* priority */);
+  cricket::Candidate mdns_candidate = CreateUdpCandidate(
+      LOCAL_PORT_TYPE, "example.local", 2 /* port */, 0 /* priority */);
+  // We just resolve the hostname to 1.1.1.1, and add the candidate with this
+  // address directly to simulate the process of adding remote candidate with
+  // the name resolution.
+  rtc::SocketAddress resolved_address(mdns_candidate.address());
+  resolved_address.SetResolvedIP(0x1111);
+  mdns_candidate.set_address(resolved_address);
+  EXPECT_FALSE(mdns_candidate.address().IsUnresolvedIP());
+  ep1_ch1()->AddRemoteCandidate(host_candidate);
+  ep1_ch1()->AddRemoteCandidate(mdns_candidate);
+  EXPECT_EQ(2u, ep1_ch1()->remote_candidates().size());
+
+  // Expect that there is no connection paired with the mDNS candidate.
+  ASSERT_EQ(1u, ep1_ch1()->connections().size());
+  ASSERT_NE(nullptr, ep1_ch1()->connections()[0]);
+  EXPECT_EQ(
+      "1.1.1.1:1",
+      ep1_ch1()->connections()[0]->remote_candidate().address().ToString());
+}
+
 class MockMdnsResponder : public webrtc::MdnsResponderInterface {
  public:
   MOCK_METHOD2(CreateNameForAddress,

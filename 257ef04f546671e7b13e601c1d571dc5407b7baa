@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "fb92205c_9cd359e2",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2706,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2019-10-18T20:30:33Z",
+      "side": 1,
+      "message": "Does this mean that non-mDNS hostname candidate need not be sanitized?",
+      "range": {
+        "startLine": 2706,
+        "startChar": 36,
+        "endLine": 2706,
+        "endChar": 44
+      },
+      "revId": "257ef04f546671e7b13e601c1d571dc5407b7baa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "152b91c5_f6d7d77c",
         "filename": "p2p/base/p2p_transport_channel_unittest.cc",
         "patchSetId": 3

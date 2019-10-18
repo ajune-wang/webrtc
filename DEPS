@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'f29003dd01c82bc413632e69c216d8adb108a712',
+  'chromium_revision': 'ba46b5b39ccc2673d7a62241c3cb5ccb0e5c3f11',
 }
 
 deps = {
@@ -14,7 +14,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@e687d5e880e1539ff6957375997558cca0158f25',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@c23879b9ff4832d9dd97cda489939682c8e2b7ab',
+    'https://chromium.googlesource.com/chromium/src/build@50b118d613d2952396407b4fdd05288215f9b132',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@cf454b247c611167388742c7a31ef138a6031172',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -27,9 +27,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@aec101386c4e3d7e71cdf1051320581720d3abd5',
+    'https://chromium.googlesource.com/chromium/src/testing@f0a6d7fb760097563193b01e9456693590c64c2d',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@6db0e634c0f00fc2987ec1d5fb8fcdf8a75dac74',
+    'https://chromium.googlesource.com/chromium/src/third_party@d8fca63e0dc23a16633fa149a28d4aa0a6d556f8',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -241,7 +241,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@1b1fb32e10d7cafc525eafe9d014081d63bc3a0f',
+    'https://chromium.googlesource.com/chromium/src/tools@4004d760e88776126d849877f05a3f9138876cdf',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@885b3febcc170a60f25795304e60927b77d1e92d',
 

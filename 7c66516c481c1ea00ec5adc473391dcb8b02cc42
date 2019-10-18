@@ -46,6 +46,30 @@
       "revId": "7c66516c481c1ea00ec5adc473391dcb8b02cc42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d379e3b7_6517e596",
+        "filename": "BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-10-18T05:51:12Z",
+      "side": 1,
+      "message": "Why are these ODRs?\n\nAnyway, I thought about it and I think I\u0027ll try to make this a binary after all. There\u0027s no upside in using gtest and if it\u0027s a binary maybe I can make it work on mobile as well.",
+      "parentUuid": "a5ab92d7_fc88136d",
+      "range": {
+        "startLine": 480,
+        "startChar": 8,
+        "endLine": 481,
+        "endChar": 26
+      },
+      "revId": "7c66516c481c1ea00ec5adc473391dcb8b02cc42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

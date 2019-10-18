@@ -62,6 +62,9 @@
 #include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
+// TODO(hbos): Don't use this obviously...
+#include "pc/test/mock_peer_connection_observers.h"
+
 using cricket::ContentInfo;
 using cricket::ContentInfos;
 using cricket::MediaContentDescription;
@@ -2306,6 +2309,28 @@ void PeerConnection::SetLocalDescription(
         //   point.
         // - Subsequent offer/answer operations can start immediately (without
         //   waiting for OnMessage()).
+        operations_chain_callback();
+      });
+}
+
+void PeerConnection::SetLocalDescription(
+    SetSessionDescriptionObserver* observer) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  // TODO(hbos): Use an observer that stores the result, to be examined in the
+  // lambda chained here.
+  rtc::scoped_refptr<MockCreateSessionDescriptionObserver> offer_observer(
+      new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+  // ...or chain explicitly to make it clear that we double-chain?
+  CreateOffer(offer_observer, RTCOfferAnswerOptions());
+
+  rtc::scoped_refptr<SetSessionDescriptionObserver> observer_refptr = observer;
+  operations_chain_->ChainOperation(
+      [this_refptr = rtc::scoped_refptr<PeerConnection>(this), observer_refptr,
+       offer_observer](std::function<void()> operations_chain_callback) {
+        RTC_DCHECK(offer_observer->called());
+        this_refptr->DoSetLocalDescription(
+            std::move(observer_refptr),
+            offer_observer->MoveDescription().release());
         operations_chain_callback();
       });
 }

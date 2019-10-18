@@ -144,6 +144,24 @@
     },
     {
       "key": {
+        "uuid": "776fa47c_e8d709d9",
+        "filename": "webrtc.gni",
+        "patchSetId": 10
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2019-10-18T00:19:35Z",
+      "side": 1,
+      "message": "Please don\u0027t add something that calls a script and then dynamically changes the target type. That\u0027s slow and antithetical to gn. If you feel this is important to you, instead change gn itself to transparently handle static libs with empty sources better.",
+      "parentUuid": "48e62ccb_bd8cc432",
+      "revId": "1c3cefa2f3bf21ca8d75c66272694e079c96ea73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34abade3_2024a7f1",
         "filename": "webrtc.gni",
         "patchSetId": 10

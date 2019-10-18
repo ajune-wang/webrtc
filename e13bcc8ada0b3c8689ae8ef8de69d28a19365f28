@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca90ebc1_83713b93",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-18T08:21:22Z",
+      "side": 1,
+      "message": "Maybe \"status\" instead of neteq_status.",
+      "range": {
+        "startLine": 94,
+        "startChar": 57,
+        "endLine": 94,
+        "endChar": 69
+      },
+      "revId": "e13bcc8ada0b3c8689ae8ef8de69d28a19365f28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dd48844_2e6e0665",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-18T08:21:22Z",
+      "side": 1,
+      "message": "I think this should be next_packet.\n\nAnd I guess conceptually it belongs in packet_buffer_info? :)",
+      "range": {
+        "startLine": 90,
+        "startChar": 31,
+        "endLine": 90,
+        "endChar": 37
+      },
+      "revId": "e13bcc8ada0b3c8689ae8ef8de69d28a19365f28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b28442e_0da16c07",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-18T08:21:22Z",
+      "side": 1,
+      "message": "Maybe neteq_ is redundant in this context?",
+      "range": {
+        "startLine": 119,
+        "startChar": 6,
+        "endLine": 119,
+        "endChar": 23
+      },
+      "revId": "e13bcc8ada0b3c8689ae8ef8de69d28a19365f28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "576eb9a8_b2044f3e",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1065,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-10-18T08:21:22Z",
+      "side": 1,
+      "message": "I think neteq_ is redundant in this context.",
+      "range": {
+        "startLine": 1065,
+        "startChar": 31,
+        "endLine": 1065,
+        "endChar": 43
+      },
+      "revId": "e13bcc8ada0b3c8689ae8ef8de69d28a19365f28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

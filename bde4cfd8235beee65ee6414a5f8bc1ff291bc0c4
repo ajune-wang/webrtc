@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0512e493_b40f9f50",
+        "filename": "api/task_queue/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-18T20:11:08Z",
+      "side": 1,
+      "message": "I also need to remove this one which pulls in rtc_base. Not a big issue now, but before landing I will try to cut the dependency and make test_support more isolated from WebRTC.",
+      "range": {
+        "startLine": 41,
+        "startChar": 6,
+        "endLine": 41,
+        "endChar": 32
+      },
+      "revId": "bde4cfd8235beee65ee6414a5f8bc1ff291bc0c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ad0beeef_4ef2eb15",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2706,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-18T20:38:03Z",
+      "side": 1,
+      "message": "Yes, we don\u0027t have the requirement at this moment. The community also starts to ask about the support of hostname candidates, so it feels better to keep the sanitation minimal before it becomes a bit clearer what uses of other hostname candidates are in practice.",
+      "parentUuid": "fb92205c_9cd359e2",
+      "range": {
+        "startLine": 2706,
+        "startChar": 36,
+        "endLine": 2706,
+        "endChar": 44
+      },
+      "revId": "257ef04f546671e7b13e601c1d571dc5407b7baa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "152b91c5_f6d7d77c",
         "filename": "p2p/base/p2p_transport_channel_unittest.cc",
         "patchSetId": 3

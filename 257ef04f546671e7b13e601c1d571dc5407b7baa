@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "152b91c5_f6d7d77c",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5251,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-18T19:09:10Z",
+      "side": 1,
+      "message": "self note: bad name. Fix before landing.",
+      "range": {
+        "startLine": 5251,
+        "startChar": 7,
+        "endLine": 5251,
+        "endChar": 59
+      },
+      "revId": "257ef04f546671e7b13e601c1d571dc5407b7baa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

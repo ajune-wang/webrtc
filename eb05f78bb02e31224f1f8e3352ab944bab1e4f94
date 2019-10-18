@@ -22,6 +22,30 @@
       "revId": "eb05f78bb02e31224f1f8e3352ab944bab1e4f94",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5da6366_b3b76f9f",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-18T09:23:34Z",
+      "side": 1,
+      "message": "changed to std::vector\u003cStoredPacket\u003e\n\nI dislike introducing aliases like PacketVector since in my experience they make code harder to read (an extra jump to check what container is used, an extra \u0027mapping\u0027 to keep in mind while reading the code)\n\n(idea was to communicate that the type of the new_buffer must be exactly same as of the buffer_.\nand that the only bit that matter for this function.\nOn the other side, it actually does matter what kind of operator[] new_buffer has.)",
+      "parentUuid": "65a96ecf_f0ce58c9",
+      "range": {
+        "startLine": 236,
+        "startChar": 2,
+        "endLine": 236,
+        "endChar": 19
+      },
+      "revId": "eb05f78bb02e31224f1f8e3352ab944bab1e4f94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

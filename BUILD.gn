@@ -466,19 +466,17 @@ if (!build_with_chromium) {
     }
   }
 
-  if (rtc_include_tests && !is_android && !is_ios) {
-    # Note: This test can't work on mobile because the test runner machinery
-    # on those platforms depend on abseil, which will link-clash with libwebrtc.
-    rtc_test("webrtc_lib_link_test") {
+  if (rtc_include_tests) {
+    rtc_executable("webrtc_lib_link_test") {
       testonly = true
 
       sources = [
         "webrtc_lib_link_test.cc",
       ]
       deps = [
+        # NOTE: Don't add deps here. If this test fails to link, it means you
+        # need to add stuff to the webrtc static lib target above.
         ":webrtc",
-        "//test:test_main",
-        "//testing/gtest",
       ]
     }
   }

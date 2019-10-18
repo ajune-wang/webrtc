@@ -143,7 +143,6 @@ class AudioProcessingImpl : public AudioProcessing {
    private:
     SwapQueue<RuntimeSetting>& runtime_settings_;
   };
-  struct ApmPublicSubmodules;
   struct ApmPrivateSubmodules;
 
   std::unique_ptr<ApmDataDumper> data_dumper_;
@@ -320,8 +319,7 @@ class AudioProcessingImpl : public AudioProcessing {
   // Class containing information about what submodules are active.
   ApmSubmoduleStates submodule_states_;
 
-  // Structs containing the pointers to the submodules.
-  std::unique_ptr<ApmPublicSubmodules> public_submodules_;
+  // Struct containing the pointers to the submodules.
   std::unique_ptr<ApmPrivateSubmodules> private_submodules_;
 
   // State that is written to while holding both the render and capture locks

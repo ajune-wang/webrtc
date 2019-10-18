@@ -191,10 +191,11 @@ TEST_F(RtpPacketizerVp9Test, TestEqualSizedMode_OnePacket) {
 
   // One packet:
   // I:0, P:0, L:0, F:0, B:1, E:1, V:0, Z:0  (1hdr + 25 payload)
-  const size_t kExpectedHdrSizes[] = {1};
-  const size_t kExpectedSizes[] = {26};
-  const size_t kExpectedNum = GTEST_ARRAY_SIZE_(kExpectedSizes);
-  CreateParseAndCheckPackets(kExpectedHdrSizes, kExpectedSizes, kExpectedNum);
+  const std::vector<size_t> kExpectedHdrSizes = {1};
+  const std::vector<size_t> kExpectedSizes = {26};
+  const size_t kExpectedNum = kExpectedSizes.size();
+  CreateParseAndCheckPackets(&kExpectedHdrSizes[0], &kExpectedSizes[0],
+                             kExpectedNum);
 }
 
 TEST_F(RtpPacketizerVp9Test, TestEqualSizedMode_TwoPackets) {
@@ -205,10 +206,11 @@ TEST_F(RtpPacketizerVp9Test, TestEqualSizedMode_TwoPackets) {
   // Two packets:
   // I:0, P:0, L:0, F:0, B:1, E:0, V:0, Z:0  (1hdr + 14 payload)
   // I:0, P:0, L:0, F:0, B:0, E:1, V:0, Z:0  (1hdr + 13 payload)
-  const size_t kExpectedHdrSizes[] = {1, 1};
-  const size_t kExpectedSizes[] = {14, 15};
-  const size_t kExpectedNum = GTEST_ARRAY_SIZE_(kExpectedSizes);
-  CreateParseAndCheckPackets(kExpectedHdrSizes, kExpectedSizes, kExpectedNum);
+  const std::vector<size_t> kExpectedHdrSizes = {1, 1};
+  const std::vector<size_t> kExpectedSizes = {14, 15};
+  const size_t kExpectedNum = kExpectedSizes.size();
+  CreateParseAndCheckPackets(&kExpectedHdrSizes[0], &kExpectedSizes[0],
+                             kExpectedNum);
 }
 
 TEST_F(RtpPacketizerVp9Test, TestTooShortBufferToFitPayload) {
@@ -232,10 +234,11 @@ TEST_F(RtpPacketizerVp9Test, TestOneBytePictureId) {
   // I:1, P:0, L:0, F:0, B:1, E:0, V:0, Z:0 (2hdr + 10 payload)
   // I:1, P:0, L:0, F:0, B:0, E:0, V:0, Z:0 (2hdr + 10 payload)
   // I:1, P:0, L:0, F:0, B:0, E:1, V:0, Z:0 (2hdr + 10 payload)
-  const size_t kExpectedHdrSizes[] = {2, 2, 2};
-  const size_t kExpectedSizes[] = {12, 12, 12};
-  const size_t kExpectedNum = GTEST_ARRAY_SIZE_(kExpectedSizes);
-  CreateParseAndCheckPackets(kExpectedHdrSizes, kExpectedSizes, kExpectedNum);
+  const std::vector<size_t> kExpectedHdrSizes = {2, 2, 2};
+  const std::vector<size_t> kExpectedSizes = {12, 12, 12};
+  const size_t kExpectedNum = kExpectedSizes.size();
+  CreateParseAndCheckPackets(kExpectedHdrSizes.data(), &kExpectedSizes[0],
+                             kExpectedNum);
 }
 
 TEST_F(RtpPacketizerVp9Test, TestTwoBytePictureId) {
@@ -250,10 +253,11 @@ TEST_F(RtpPacketizerVp9Test, TestTwoBytePictureId) {
   // I:1, P:0, L:0, F:0, B:0, E:0, V:0, Z:0 (3hdr + 8 payload)
   // I:1, P:0, L:0, F:0, B:0, E:0, V:0, Z:0 (3hdr + 8 payload)
   // I:1, P:0, L:0, F:0, B:0, E:1, V:0, Z:0 (3hdr + 7 payload)
-  const size_t kExpectedHdrSizes[] = {3, 3, 3, 3};
-  const size_t kExpectedSizes[] = {10, 11, 11, 11};
-  const size_t kExpectedNum = GTEST_ARRAY_SIZE_(kExpectedSizes);
-  CreateParseAndCheckPackets(kExpectedHdrSizes, kExpectedSizes, kExpectedNum);
+  const std::vector<size_t> kExpectedHdrSizes = {3, 3, 3, 3};
+  const std::vector<size_t> kExpectedSizes = {10, 11, 11, 11};
+  const size_t kExpectedNum = kExpectedSizes.size();
+  CreateParseAndCheckPackets(&kExpectedHdrSizes[0], &kExpectedSizes[0],
+                             kExpectedNum);
 }
 
 TEST_F(RtpPacketizerVp9Test, TestLayerInfoWithNonFlexibleMode) {
@@ -273,10 +277,11 @@ TEST_F(RtpPacketizerVp9Test, TestLayerInfoWithNonFlexibleMode) {
   // L: | T:3, U:1, S:2, D:1 | TL0PICIDX:117 |
   //    | I:0, P:0, L:1, F:0, B:0, E:1, V:0 Z:0 | (3hdr + 15 payload)
   // L: | T:3, U:1, S:2, D:1 | TL0PICIDX:117 |
-  const size_t kExpectedHdrSizes[] = {3, 3};
-  const size_t kExpectedSizes[] = {18, 18};
-  const size_t kExpectedNum = GTEST_ARRAY_SIZE_(kExpectedSizes);
-  CreateParseAndCheckPackets(kExpectedHdrSizes, kExpectedSizes, kExpectedNum);
+  const std::vector<size_t> kExpectedHdrSizes = {3, 3};
+  const std::vector<size_t> kExpectedSizes = {18, 18};
+  const size_t kExpectedNum = kExpectedSizes.size();
+  CreateParseAndCheckPackets(&kExpectedHdrSizes[0], &kExpectedSizes[0],
+                             kExpectedNum);
 }
 
 TEST_F(RtpPacketizerVp9Test, TestLayerInfoWithFlexibleMode) {
@@ -294,10 +299,11 @@ TEST_F(RtpPacketizerVp9Test, TestLayerInfoWithFlexibleMode) {
   // One packet:
   // I:0, P:0, L:1, F:1, B:1, E:1, V:0 (2hdr + 21 payload)
   // L:   T:3, U:1, S:2, D:0
-  const size_t kExpectedHdrSizes[] = {2};
-  const size_t kExpectedSizes[] = {23};
-  const size_t kExpectedNum = GTEST_ARRAY_SIZE_(kExpectedSizes);
-  CreateParseAndCheckPackets(kExpectedHdrSizes, kExpectedSizes, kExpectedNum);
+  const std::vector<size_t> kExpectedHdrSizes = {2};
+  const std::vector<size_t> kExpectedSizes = {23};
+  const size_t kExpectedNum = kExpectedSizes.size();
+  CreateParseAndCheckPackets(&kExpectedHdrSizes[0], &kExpectedSizes[0],
+                             kExpectedNum);
 }
 
 TEST_F(RtpPacketizerVp9Test, TestRefIdx) {
@@ -324,10 +330,11 @@ TEST_F(RtpPacketizerVp9Test, TestRefIdx) {
   // P,F: P_DIFF:1,   N:1
   //      P_DIFF:3,   N:1
   //      P_DIFF:127, N:0
-  const size_t kExpectedHdrSizes[] = {5};
-  const size_t kExpectedSizes[] = {21};
-  const size_t kExpectedNum = GTEST_ARRAY_SIZE_(kExpectedSizes);
-  CreateParseAndCheckPackets(kExpectedHdrSizes, kExpectedSizes, kExpectedNum);
+  const std::vector<size_t> kExpectedHdrSizes = {5};
+  const std::vector<size_t> kExpectedSizes = {21};
+  const size_t kExpectedNum = kExpectedSizes.size();
+  CreateParseAndCheckPackets(&kExpectedHdrSizes[0], &kExpectedSizes[0],
+                             kExpectedNum);
 }
 
 TEST_F(RtpPacketizerVp9Test, TestRefIdxFailsWithoutPictureId) {
@@ -363,10 +370,11 @@ TEST_F(RtpPacketizerVp9Test, TestSsDataWithoutSpatialResolutionPresent) {
   // N_S:0, Y:0, G:1
   // N_G:1
   // T:0, U:1, R:1 | P_DIFF[0][0]:4
-  const size_t kExpectedHdrSizes[] = {5};
-  const size_t kExpectedSizes[] = {26};
-  const size_t kExpectedNum = GTEST_ARRAY_SIZE_(kExpectedSizes);
-  CreateParseAndCheckPackets(kExpectedHdrSizes, kExpectedSizes, kExpectedNum);
+  const std::vector<size_t> kExpectedHdrSizes = {5};
+  const std::vector<size_t> kExpectedSizes = {26};
+  const size_t kExpectedNum = kExpectedSizes.size();
+  CreateParseAndCheckPackets(&kExpectedHdrSizes[0], &kExpectedSizes[0],
+                             kExpectedNum);
 }
 
 TEST_F(RtpPacketizerVp9Test, TestSsDataWithoutGbitPresent) {
@@ -382,10 +390,11 @@ TEST_F(RtpPacketizerVp9Test, TestSsDataWithoutGbitPresent) {
   // One packet:
   // I:0, P:0, L:0, F:0, B:1, E:1, V:1, Z:0 (2hdr + 21 payload)
   // N_S:0, Y:0, G:0
-  const size_t kExpectedHdrSizes[] = {2};
-  const size_t kExpectedSizes[] = {23};
-  const size_t kExpectedNum = GTEST_ARRAY_SIZE_(kExpectedSizes);
-  CreateParseAndCheckPackets(kExpectedHdrSizes, kExpectedSizes, kExpectedNum);
+  const std::vector<size_t> kExpectedHdrSizes = {2};
+  const std::vector<size_t> kExpectedSizes = {23};
+  const size_t kExpectedNum = kExpectedSizes.size();
+  CreateParseAndCheckPackets(&kExpectedHdrSizes[0], &kExpectedSizes[0],
+                             kExpectedNum);
 }
 
 TEST_F(RtpPacketizerVp9Test, TestSsData) {
@@ -427,10 +436,11 @@ TEST_F(RtpPacketizerVp9Test, TestSsData) {
   // T:0, U:1, R:0
   // T:1, U:1, R:3 | P_DIFF[1][0]:5 | P_DIFF[1][1]:6 | P_DIFF[1][2]:7
   // T:2, U:0, R:2 | P_DIFF[2][0]:8 | P_DIFF[2][0]:9
-  const size_t kExpectedHdrSizes[] = {19};
-  const size_t kExpectedSizes[] = {40};
-  const size_t kExpectedNum = GTEST_ARRAY_SIZE_(kExpectedSizes);
-  CreateParseAndCheckPackets(kExpectedHdrSizes, kExpectedSizes, kExpectedNum);
+  const std::vector<size_t> kExpectedHdrSizes = {19};
+  const std::vector<size_t> kExpectedSizes = {40};
+  const size_t kExpectedNum = kExpectedSizes.size();
+  CreateParseAndCheckPackets(&kExpectedHdrSizes[0], &kExpectedSizes[0],
+                             kExpectedNum);
 }
 
 TEST_F(RtpPacketizerVp9Test, TestSsDataDoesNotFitInAveragePacket) {
@@ -473,10 +483,11 @@ TEST_F(RtpPacketizerVp9Test, TestSsDataDoesNotFitInAveragePacket) {
   // T:1, U:1, R:3 | P_DIFF[1][0]:5 | P_DIFF[1][1]:6 | P_DIFF[1][2]:7
   // T:2, U:0, R:2 | P_DIFF[2][0]:8 | P_DIFF[2][0]:9
   // Last two packets 1 bytes vp9 hdrs and the rest of payload 14 and 9 bytes.
-  const size_t kExpectedHdrSizes[] = {19, 1, 1};
-  const size_t kExpectedSizes[] = {20, 15, 10};
-  const size_t kExpectedNum = GTEST_ARRAY_SIZE_(kExpectedSizes);
-  CreateParseAndCheckPackets(kExpectedHdrSizes, kExpectedSizes, kExpectedNum);
+  const std::vector<size_t> kExpectedHdrSizes = {19, 1, 1};
+  const std::vector<size_t> kExpectedSizes = {20, 15, 10};
+  const size_t kExpectedNum = kExpectedSizes.size();
+  CreateParseAndCheckPackets(&kExpectedHdrSizes[0], &kExpectedSizes[0],
+                             kExpectedNum);
 }
 
 TEST_F(RtpPacketizerVp9Test, EndOfPictureSetsSetMarker) {
@@ -567,10 +578,11 @@ TEST_F(RtpPacketizerVp9Test, TestNonRefForInterLayerPred) {
   Init(kFrameSize, kPacketSize);
 
   // I:0, P:0, L:0, F:0, B:1, E:1, V:0, Z:1  (1hdr + 25 payload)
-  const size_t kExpectedHdrSizes[] = {1};
-  const size_t kExpectedSizes[] = {26};
-  const size_t kExpectedNum = GTEST_ARRAY_SIZE_(kExpectedSizes);
-  CreateParseAndCheckPackets(kExpectedHdrSizes, kExpectedSizes, kExpectedNum);
+  const std::vector<size_t> kExpectedHdrSizes = {1};
+  const std::vector<size_t> kExpectedSizes = {26};
+  const size_t kExpectedNum = kExpectedSizes.size();
+  CreateParseAndCheckPackets(&kExpectedHdrSizes[0], &kExpectedSizes[0],
+                             kExpectedNum);
 }
 
 class RtpDepacketizerVp9Test : public ::testing::Test {

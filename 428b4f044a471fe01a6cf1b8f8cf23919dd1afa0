@@ -34,6 +34,24 @@
       "revId": "428b4f044a471fe01a6cf1b8f8cf23919dd1afa0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f256405_a78af2d1",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-19T18:17:17Z",
+      "side": 1,
+      "message": "Oooh, right. I had forgotten that by the time I got here. (I researched NoDestroy and constant initialization in the middle of this code review.)",
+      "parentUuid": "e6230ebd_281fb168",
+      "revId": "428b4f044a471fe01a6cf1b8f8cf23919dd1afa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

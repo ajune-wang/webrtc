@@ -2264,7 +2264,7 @@ void PeerConnection::SetLocalDescription(
   // For SLD we support only explicit rollback.
   if (desc->GetType() == SdpType::kRollback) {
     if (IsUnifiedPlan()) {
-      RTCError error = Rollback();
+      RTCError error = Rollback(false);
       if (error.ok()) {
         PostSetSessionDescriptionSuccess(observer);
       } else {
@@ -2654,12 +2654,12 @@ void PeerConnection::SetRemoteDescription(
     if (configuration_.enable_implicit_rollback) {
       if (desc->GetType() == SdpType::kOffer &&
           signaling_state() == kHaveLocalOffer) {
-        Rollback();
+        Rollback(true);
       }
     }
     // Explicit rollback.
     if (desc->GetType() == SdpType::kRollback) {
-      observer->OnSetRemoteDescriptionComplete(Rollback());
+      observer->OnSetRemoteDescriptionComplete(Rollback(false));
       return;
     }
   } else if (desc->GetType() == SdpType::kRollback) {
@@ -7610,7 +7610,7 @@ bool PeerConnection::CheckIfNegotiationIsNeeded() {
   return false;
 }
 
-RTCError PeerConnection::Rollback() {
+RTCError PeerConnection::Rollback(bool implicit) {
   auto state = signaling_state();
   if (state != PeerConnectionInterface::kHaveLocalOffer &&
       state != PeerConnectionInterface::kHaveRemoteOffer) {
@@ -7631,6 +7631,9 @@ RTCError PeerConnection::Rollback() {
     DestroyTransceiverChannel(transceiver);
 
     if (state.newly_created()) {
+      if (transceiver->receiver()) {
+        Observer()->OnRemoveTrack(transceiver->receiver());
+      }
       // Remove added transceivers with no added track.
       if (transceiver->internal()->sender()->track()) {
         transceiver->internal()->set_created_by_addtrack(true);
@@ -7654,6 +7657,12 @@ RTCError PeerConnection::Rollback() {
   pending_local_description_.reset();
   pending_remote_description_.reset();
   ChangeSignalingState(PeerConnectionInterface::kStable);
+  if (implicit == false) {
+    UpdateNegotiationNeeded();
+    if (is_negotiation_needed_) {
+      Observer()->OnRenegotiationNeeded();
+    }
+  }
   return RTCError::OK();
 }
 

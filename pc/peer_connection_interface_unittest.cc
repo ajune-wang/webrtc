@@ -2079,28 +2079,28 @@ TEST_P(PeerConnectionInterfaceTest, CreateSctpDataChannel) {
       pc_->CreateDataChannel("1", &config);
   EXPECT_TRUE(channel != NULL);
   EXPECT_TRUE(channel->reliable());
-  EXPECT_TRUE(observer_.renegotiation_needed_);
-  observer_.renegotiation_needed_ = false;
+  EXPECT_TRUE(observer_.negotiation_needed());
+  observer_.clear_negotiation_needed();
 
   config.ordered = false;
   channel = pc_->CreateDataChannel("2", &config);
   EXPECT_TRUE(channel != NULL);
   EXPECT_TRUE(channel->reliable());
-  EXPECT_FALSE(observer_.renegotiation_needed_);
+  EXPECT_FALSE(observer_.negotiation_needed());
 
   config.ordered = true;
   config.maxRetransmits = 0;
   channel = pc_->CreateDataChannel("3", &config);
   EXPECT_TRUE(channel != NULL);
   EXPECT_FALSE(channel->reliable());
-  EXPECT_FALSE(observer_.renegotiation_needed_);
+  EXPECT_FALSE(observer_.negotiation_needed());
 
   config.maxRetransmits = absl::nullopt;
   config.maxRetransmitTime = 0;
   channel = pc_->CreateDataChannel("4", &config);
   EXPECT_TRUE(channel != NULL);
   EXPECT_FALSE(channel->reliable());
-  EXPECT_FALSE(observer_.renegotiation_needed_);
+  EXPECT_FALSE(observer_.negotiation_needed());
 }
 
 // For backwards compatibility, we want people who "unset" maxRetransmits
@@ -2194,15 +2194,14 @@ TEST_P(PeerConnectionInterfaceTest, RenegotiationNeededForNewRtpDataChannel) {
 
   rtc::scoped_refptr<DataChannelInterface> dc1 =
       pc_->CreateDataChannel("test1", NULL);
-  EXPECT_TRUE(observer_.renegotiation_needed_);
-  observer_.renegotiation_needed_ = false;
+  EXPECT_TRUE(observer_.negotiation_needed());
+  observer_.clear_negotiation_needed();
 
   CreateOfferReceiveAnswer();
 
   rtc::scoped_refptr<DataChannelInterface> dc2 =
       pc_->CreateDataChannel("test2", NULL);
-  EXPECT_EQ(observer_.renegotiation_needed_,
-            GetParam() == SdpSemantics::kPlanB);
+  EXPECT_EQ(observer_.negotiation_needed(), GetParam() == SdpSemantics::kPlanB);
 }
 
 // This test that a data channel closes when a PeerConnection is deleted/closed.
@@ -3868,23 +3867,23 @@ TEST_F(PeerConnectionInterfaceTestPlanB,
   rtc::scoped_refptr<VideoTrackInterface> video_track(
       CreateVideoTrack("video_track"));
   stream->AddTrack(audio_track);
-  EXPECT_TRUE_WAIT(observer_.renegotiation_needed_, kTimeout);
-  observer_.renegotiation_needed_ = false;
+  EXPECT_TRUE_WAIT(observer_.negotiation_needed(), kTimeout);
+  observer_.clear_negotiation_needed();
 
   CreateOfferReceiveAnswer();
   stream->AddTrack(video_track);
-  EXPECT_TRUE_WAIT(observer_.renegotiation_needed_, kTimeout);
-  observer_.renegotiation_needed_ = false;
+  EXPECT_TRUE_WAIT(observer_.negotiation_needed(), kTimeout);
+  observer_.clear_negotiation_needed();
 
   CreateOfferReceiveAnswer();
   stream->RemoveTrack(audio_track);
-  EXPECT_TRUE_WAIT(observer_.renegotiation_needed_, kTimeout);
-  observer_.renegotiation_needed_ = false;
+  EXPECT_TRUE_WAIT(observer_.negotiation_needed(), kTimeout);
+  observer_.clear_negotiation_needed();
 
   CreateOfferReceiveAnswer();
   stream->RemoveTrack(video_track);
-  EXPECT_TRUE_WAIT(observer_.renegotiation_needed_, kTimeout);
-  observer_.renegotiation_needed_ = false;
+  EXPECT_TRUE_WAIT(observer_.negotiation_needed(), kTimeout);
+  observer_.clear_negotiation_needed();
 }
 
 // Tests that an error is returned if a description is applied that has fewer

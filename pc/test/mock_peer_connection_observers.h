@@ -84,7 +84,7 @@ class MockPeerConnectionObserver : public PeerConnectionObserver {
     last_removed_stream_ = stream;
     remote_streams_->RemoveStream(stream);
   }
-  void OnRenegotiationNeeded() override { renegotiation_needed_ = true; }
+  void OnRenegotiationNeeded() override { renegotiation_needed_count_++; }
   void OnDataChannel(
       rtc::scoped_refptr<DataChannelInterface> data_channel) override {
     last_datachannel_ = data_channel;
@@ -214,15 +214,15 @@ class MockPeerConnectionObserver : public PeerConnectionObserver {
     return candidates;
   }
 
-  bool negotiation_needed() const { return renegotiation_needed_; }
-  void clear_negotiation_needed() { renegotiation_needed_ = false; }
+  bool negotiation_needed() const { return renegotiation_needed_count_ > 0; }
+  int negotiation_needed_count() const { return renegotiation_needed_count_; }
+  void clear_negotiation_needed() { renegotiation_needed_count_ = 0; }
 
   rtc::scoped_refptr<PeerConnectionInterface> pc_;
   PeerConnectionInterface::SignalingState state_;
   std::vector<std::unique_ptr<IceCandidateInterface>> candidates_;
   rtc::scoped_refptr<DataChannelInterface> last_datachannel_;
   rtc::scoped_refptr<StreamCollection> remote_streams_;
-  bool renegotiation_needed_ = false;
   bool ice_gathering_complete_ = false;
   bool ice_connected_ = false;
   bool callback_triggered_ = false;
@@ -235,6 +235,7 @@ class MockPeerConnectionObserver : public PeerConnectionObserver {
   int num_candidates_removed_ = 0;
 
  private:
+  int renegotiation_needed_count_ = 0;
   rtc::scoped_refptr<MediaStreamInterface> last_added_stream_;
   rtc::scoped_refptr<MediaStreamInterface> last_removed_stream_;
 };

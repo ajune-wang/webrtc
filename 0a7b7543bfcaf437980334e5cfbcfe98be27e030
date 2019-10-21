@@ -126,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "d2f91e71_ecdd5f81",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7635,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-21T20:02:47Z",
+      "side": 1,
+      "message": "Implicit rollback should be fine, yes.",
+      "parentUuid": "135b10a9_00245349",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79d5023d_a1cd8298",
         "filename": "pc/peer_connection_jsep_unittest.cc",
         "patchSetId": 4
@@ -243,6 +261,24 @@
       "side": 1,
       "message": "Since CurrentDirection is only set at \"answer\", in which case it is too late to rollback, I guess there is nothing to do in terms of reverting back the directions.\n\nThe only place where direction comes into play is for events firing, and what to do if you touch a transceiver in \"ontrack\"...\n\nExample:\nconst p \u003d pc-\u003eSetRemoteDescription(with \"recvonly\");\npc-\u003eontrack \u003d e \u003d\u003e () {\n  e.transceiver.direction \u003d \u0027inactive\u0027;\n}\nawait p;  // now transceiver.currentDirection \u003d\u003d \u0027inactive\u0027\npc-\u003eSetRemoteDescription(rollback);\n\nHere I guess currentDirection needs to revert to null (whether or not the transceiver is destroyed, which depends on if it was created with addTrack or in the SRD).\n\nHowever, I think transceiver.direction should remain \u0027inactive\u0027. The only thing to do is to make sure transceiver.receiver.track.onmute fires. And that is a test that I am guessing is not affected by setting the transceiver.direction attribute.",
       "parentUuid": "b22bb33b_0a59385c",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db50b95c_3c6b457f",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1988,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-21T20:02:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8ee15589_354bd123",
       "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b55865a_2fdfceed",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-21T16:24:40Z",
+      "side": 1,
+      "message": "See above, but if we want to rely on wrap-around behavior we should probably add a note to make this clear.\n\nI do think the in-lining is good however, so please keep that, we shouldn\u0027t need a separate method for this.",
+      "range": {
+        "startLine": 136,
+        "startChar": 50,
+        "endLine": 136,
+        "endChar": 66
+      },
+      "revId": "3704260414003e2b384e965c980068863ebe38f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab100eb3_4f796857",
+        "filename": "modules/pacing/packet_router.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-21T16:24:40Z",
+      "side": 1,
+      "message": "NIT: I\u0027d suggest using a int64_t and handling wrapping when we assign it instead. First reason is that it would allow us to use it as the local source of truth regarding the unwrapped sequence number and second reason is that we avoid the implicit dependence on wraparound behavior.",
+      "range": {
+        "startLine": 127,
+        "startChar": 1,
+        "endLine": 127,
+        "endChar": 26
+      },
+      "revId": "3704260414003e2b384e965c980068863ebe38f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

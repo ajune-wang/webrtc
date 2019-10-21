@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "05fdb38e_498d7f2f",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7613,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-21T12:06:55Z",
+      "side": 1,
+      "message": "OK. As long as it is clear where it comes from; since a rollback in and of itself doesn\u0027t really have a type, can you just add a comment that says this is the type of the SDP that caused the rollback? Maybe this was clear to everyone without the comment, but it was confusing to me due to discussions I\u0027ve had with Jan-Ivar about something kind of similar.",
+      "parentUuid": "c0bde596_5306f340",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8fbd07a_66768f3a",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 4

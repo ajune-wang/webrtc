@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "da8979cc_a19457b0",
+        "filename": "modules/audio_coding/neteq/neteq_controller.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-10-21T10:54:58Z",
+      "side": 1,
+      "message": "can we introduce the following method now?\n\nvoid RegisterPacket(PacketInfo packet_info);\n\nbasically, simply make every GetDecision call into two calls:\n\nRegisterPacket\nGetDecision",
+      "parentUuid": "6dd48844_2e6e0665",
+      "range": {
+        "startLine": 90,
+        "startChar": 31,
+        "endLine": 90,
+        "endChar": 37
+      },
+      "revId": "e13bcc8ada0b3c8689ae8ef8de69d28a19365f28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5b28442e_0da16c07",
         "filename": "modules/audio_coding/neteq/neteq_impl.cc",
         "patchSetId": 10

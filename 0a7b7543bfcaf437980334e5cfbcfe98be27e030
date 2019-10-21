@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "038a905d_ffb2e7e0",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7613,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-21T12:34:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c0bde596_5306f340",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8fbd07a_66768f3a",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 4
@@ -69,6 +87,24 @@
       "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a66bc6d2_488a9f2b",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7635,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-21T12:34:11Z",
+      "side": 1,
+      "message": "Implicit rollback applies only for local offer in which case track removals do not need events, right? But I see that currently there can be duplicated events fired to JS as RTCPeerConnection::DidModifyTransceivers fires the events too. But the events in JS where definitely missing when transceiver was removed during rollback. Discovered that in wpt tests.\nI will try to upload new patch with chromium changes shortly. Then it gives full picture of the changes.",
+      "parentUuid": "a8fbd07a_66768f3a",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -89,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "a570a0a4_69f7a40f",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1818,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-21T12:34:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79d5023d_a1cd8298",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b7e68e8_131b2d31",
         "filename": "pc/peer_connection_jsep_unittest.cc",
         "patchSetId": 4
@@ -103,6 +157,24 @@
       "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f930712_70c3c78a",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1915,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-21T12:34:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b7e68e8_131b2d31",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -123,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "b22bb33b_0a59385c",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1988,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-21T12:34:11Z",
+      "side": 1,
+      "message": "The spec says something about that direction of the transceiver has to be restored in rollback but yeah, I have not managed to setup such scenario where this comes into play. Any suggestions? I guess this test just have documenting value that there is nothing to worry about in context of rollback.",
+      "parentUuid": "6150afce_c89e592e",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91c86e38_74d6566a",
         "filename": "pc/peer_connection_jsep_unittest.cc",
         "patchSetId": 4
@@ -137,6 +227,24 @@
       "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98cb76c6_6f5b13ec",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2008,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-21T12:34:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91c86e38_74d6566a",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

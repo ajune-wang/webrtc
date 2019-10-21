@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12b4a8cb_8cbeba35",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-10-21T12:45:14Z",
+      "side": 1,
+      "message": "HD",
+      "range": {
+        "startLine": 565,
+        "startChar": 35,
+        "endLine": 565,
+        "endChar": 39
+      },
+      "revId": "57d855dba48ac0d4c81d79628d9fee770351cbd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7494fa2_15d8a606",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-10-21T12:45:14Z",
+      "side": 1,
+      "message": "maybe specify sw (and else is hw)",
+      "range": {
+        "startLine": 570,
+        "startChar": 12,
+        "endLine": 570,
+        "endChar": 14
+      },
+      "revId": "57d855dba48ac0d4c81d79628d9fee770351cbd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d5a3fca_08ec9c58",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1606,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-10-21T12:45:14Z",
+      "side": 1,
+      "message": "perhaps also check the value\nEXPECT_EQ(expected_number_of_samples_, metrics::NumEvents(uma_histogram_name_, kDecodeTimeMs));",
+      "range": {
+        "startLine": 1605,
+        "startChar": 0,
+        "endLine": 1606,
+        "endChar": 54
+      },
+      "revId": "57d855dba48ac0d4c81d79628d9fee770351cbd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -26,8 +26,9 @@ namespace webrtc {
 
 template <typename Closure>
 void SendTask(rtc::Location loc, TaskQueueBase* task_queue, Closure&& task) {
-  RTC_CHECK(!task_queue->IsCurrent())
-      << "Called SendTask to a queue from the same queue at " << loc.ToString();
+  RTC_CHECK(TaskQueueBase::Current() == nullptr)
+      << "Called SendTask from a task queue at " << loc.ToString()
+      << ". Blocking task queue should be avoided.";
   rtc::Event event;
   task_queue->PostTask(
       ToQueuedTask(std::forward<Closure>(task), [&event] { event.Set(); }));

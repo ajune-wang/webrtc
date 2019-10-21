@@ -527,6 +527,8 @@ TEST_P(PeerConnectionSignalingTest, CreateOffersAndShutdown) {
   }
 }
 
+// TODO(hbos): SetLocalDescriptionAndShutdown for implicit offer.
+
 TEST_P(PeerConnectionSignalingTest, SetRemoteDescriptionExecutesImmediately) {
   auto caller = CreatePeerConnectionWithAudioVideo();
   auto callee = CreatePeerConnection();
@@ -569,6 +571,21 @@ TEST_P(PeerConnectionSignalingTest, CreateOfferBlocksSetRemoteDescription) {
   // Now that the offer has been completed, SetRemoteDescription() will have
   // been executed next in the chain.
   EXPECT_EQ(2u, callee->pc()->GetReceivers().size());
+}
+
+// TODO(hbos): Way more tests...
+TEST_P(PeerConnectionSignalingTest, ParameterlessSetLocalDescription) {
+  auto caller = CreatePeerConnectionWithAudioVideo();
+
+  rtc::scoped_refptr<MockSetSessionDescriptionObserver> observer(
+      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+  caller->pc()->SetLocalDescription(observer);
+
+  EXPECT_FALSE(observer->called());
+  EXPECT_FALSE(caller->pc()->pending_local_description());
+
+  EXPECT_EQ_WAIT(true, observer->called(), kWaitTimeout);
+  EXPECT_TRUE(caller->pc()->pending_local_description());
 }
 
 INSTANTIATE_TEST_SUITE_P(PeerConnectionSignalingTest,

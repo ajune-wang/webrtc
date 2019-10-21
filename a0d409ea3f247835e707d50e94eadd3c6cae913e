@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17111d5a_3270a533",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 7662,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-10-21T06:53:30Z",
+      "side": 1,
+      "message": "Nit: Use English grammar - \"The assumption is that....\"",
+      "revId": "a0d409ea3f247835e707d50e94eadd3c6cae913e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffa87ff5_c24caa93",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1196,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-10-21T06:53:30Z",
+      "side": 1,
+      "message": "Boolean arguments are hard to read at the calling site. Is there a different way to do this that is more readable (Rollback vs RollbackWithNoNegotiationNeededFired)?\n\nAlso, usually better to name arguments after what they should achieve (not firing NN) rather than what you currently think is the context in which they are used (implicit vs explicit).",
+      "revId": "a0d409ea3f247835e707d50e94eadd3c6cae913e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2988a530_80a62a94",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1930,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-10-21T06:53:30Z",
+      "side": 1,
+      "message": "Does CreateRollback() actually try to apply the rollback? If so, it\u0027s badly named.",
+      "revId": "a0d409ea3f247835e707d50e94eadd3c6cae913e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bc7c58a_de74d765",
+        "filename": "pc/test/mock_peer_connection_observers.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-10-21T06:53:30Z",
+      "side": 1,
+      "message": "If interpreting style guide strictly, snake_case should only be used with pure accessors; in this case, negotiation_needed() is not an accessor, it computes its value, so should be NegotiationNeeded.\nclear_negotiation_needed() is definitely not an accessor.",
+      "revId": "a0d409ea3f247835e707d50e94eadd3c6cae913e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

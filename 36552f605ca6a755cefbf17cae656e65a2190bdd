@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc369310_a75272b3",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 7660,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-10-21T06:53:30Z",
+      "side": 1,
+      "message": "Don\u0027t use comparison against booleans. if (!implicit)",
+      "revId": "36552f605ca6a755cefbf17cae656e65a2190bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -143,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "ea8f5377_25506fd2",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1930,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-21T09:58:56Z",
+      "side": 1,
+      "message": "\u003eapply rollback\n\nNo it doesn\u0027t touch the pc even.\n\nstd::unique_ptr\u003cSessionDescriptionInterface\u003e\nPeerConnectionWrapper::CreateRollback() {\n  return CreateSessionDescription(SdpType::kRollback, \"\");\n}\n\nIt is just an utility method to make the testcases look nicer.\n\u0027RollbackHasNoEffect\u0027 wasn\u0027t precise either as there is always some effect in succeeding rollback. For example going back to stable etc.",
+      "parentUuid": "29c4f19d_0b69ab14",
+      "revId": "a0d409ea3f247835e707d50e94eadd3c6cae913e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9bc7c58a_de74d765",
         "filename": "pc/test/mock_peer_connection_observers.h",
         "patchSetId": 2

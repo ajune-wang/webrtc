@@ -94,6 +94,11 @@ class PacketBuffer {
   std::vector<std::unique_ptr<RtpFrameObject>> FindFrames(uint16_t seq_num)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
+  // Creates RtpFrameObject from continuous array of packets.
+  std::unique_ptr<RtpFrameObject> AssembleFrame(uint16_t start_seq_num,
+                                                uint16_t end_seq_num)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
+
   rtc::scoped_refptr<EncodedImageBuffer> GetEncodedImageBuffer(
       size_t frame_size,
       uint16_t first_seq_num,
@@ -101,11 +106,6 @@ class PacketBuffer {
 
   // Get the packet with sequence number |seq_num|.
   VCMPacket* GetPacket(uint16_t seq_num) RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
-
-  // Clears the packet buffer from |start_seq_num| to |stop_seq_num| where the
-  // endpoints are inclusive.
-  void ClearInterval(uint16_t start_seq_num, uint16_t stop_seq_num)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   void UpdateMissingPackets(uint16_t seq_num)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);

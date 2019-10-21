@@ -166,22 +166,6 @@ void PacketBuffer::ClearTo(uint16_t seq_num) {
   }
 }
 
-void PacketBuffer::ClearInterval(uint16_t start_seq_num,
-                                 uint16_t stop_seq_num) {
-  size_t iterations = ForwardDiff<uint16_t>(start_seq_num, stop_seq_num + 1);
-  RTC_DCHECK_LE(iterations, buffer_.size());
-  uint16_t seq_num = start_seq_num;
-  for (size_t i = 0; i < iterations; ++i) {
-    size_t index = seq_num % buffer_.size();
-    RTC_DCHECK_EQ(buffer_[index].seq_num(), seq_num);
-    delete[] buffer_[index].data.dataPtr;
-    buffer_[index].data.dataPtr = nullptr;
-    buffer_[index].used = false;
-
-    ++seq_num;
-  }
-}
-
 void PacketBuffer::Clear() {
   rtc::CritScope lock(&crit_);
   for (StoredPacket& entry : buffer_) {
@@ -271,174 +255,191 @@ bool PacketBuffer::PotentialNewFrame(uint16_t seq_num) const {
 std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
     uint16_t seq_num) {
   std::vector<std::unique_ptr<RtpFrameObject>> found_frames;
-  for (size_t i = 0; i < buffer_.size() && PotentialNewFrame(seq_num); ++i) {
+  for (size_t j = 0; j < buffer_.size() && PotentialNewFrame(seq_num);
+       ++j, ++seq_num) {
     size_t index = seq_num % buffer_.size();
     buffer_[index].continuous = true;
 
     // If all packets of the frame is continuous, find the first packet of the
     // frame and create an RtpFrameObject.
-    if (buffer_[index].frame_end()) {
-      size_t frame_size = 0;
-      int max_nack_count = -1;
-      uint16_t start_seq_num = seq_num;
-      int64_t min_recv_time = buffer_[index].data.packet_info.receive_time_ms();
-      int64_t max_recv_time = buffer_[index].data.packet_info.receive_time_ms();
-      RtpPacketInfos::vector_type packet_infos;
+    if (!buffer_[index].frame_end()) {
+      continue;
+    }
+    int64_t frame_timestamp = buffer_[index].data.timestamp;
+    bool is_h264 = buffer_[index].data.codec() == kVideoCodecH264;
 
-      // Find the start index by searching backward until the packet with
-      // the |frame_begin| flag is set.
-      int start_index = index;
-      size_t tested_packets = 0;
-      int64_t frame_timestamp = buffer_[start_index].data.timestamp;
-
-      // Identify H.264 keyframes by means of SPS, PPS, and IDR.
-      bool is_h264 = buffer_[start_index].data.codec() == kVideoCodecH264;
-      bool has_h264_sps = false;
-      bool has_h264_pps = false;
-      bool has_h264_idr = false;
-      bool is_h264_keyframe = false;
-      int idr_width = -1;
-      int idr_height = -1;
-      while (true) {
-        ++tested_packets;
-        frame_size += buffer_[start_index].data.sizeBytes;
-        max_nack_count =
-            std::max(max_nack_count, buffer_[start_index].data.timesNacked);
-
-        min_recv_time =
-            std::min(min_recv_time,
-                     buffer_[start_index].data.packet_info.receive_time_ms());
-        max_recv_time =
-            std::max(max_recv_time,
-                     buffer_[start_index].data.packet_info.receive_time_ms());
-
-        // Should use |push_front()| since the loop traverses backwards. But
-        // it's too inefficient to do so on a vector so we'll instead fix the
-        // order afterwards.
-        packet_infos.push_back(buffer_[start_index].data.packet_info);
-
-        if (!is_h264 && buffer_[start_index].frame_begin())
+    uint16_t start_seq_num = seq_num;
+    // Find the start index by searching backward until the packet with
+    // the |frame_begin| flag is set.
+    size_t tested_packets = 0;
+    while (true) {
+      int start_index = start_seq_num % buffer_.size();
+      if (!is_h264) {
+        if (buffer_[start_index].frame_begin())
           break;
-
-        if (is_h264) {
-          const auto* h264_header = absl::get_if<RTPVideoHeaderH264>(
-              &buffer_[start_index].data.video_header.video_type_header);
-          if (!h264_header || h264_header->nalus_length >= kMaxNalusPerPacket)
-            return found_frames;
-
-          for (size_t j = 0; j < h264_header->nalus_length; ++j) {
-            if (h264_header->nalus[j].type == H264::NaluType::kSps) {
-              has_h264_sps = true;
-            } else if (h264_header->nalus[j].type == H264::NaluType::kPps) {
-              has_h264_pps = true;
-            } else if (h264_header->nalus[j].type == H264::NaluType::kIdr) {
-              has_h264_idr = true;
-            }
-          }
-          if ((sps_pps_idr_is_h264_keyframe_ && has_h264_idr && has_h264_sps &&
-               has_h264_pps) ||
-              (!sps_pps_idr_is_h264_keyframe_ && has_h264_idr)) {
-            is_h264_keyframe = true;
-            // Store the resolution of key frame which is the packet with
-            // smallest index and valid resolution; typically its IDR or SPS
-            // packet; there may be packet preceeding this packet, IDR's
-            // resolution will be applied to them.
-            if (buffer_[start_index].data.width() > 0 &&
-                buffer_[start_index].data.height() > 0) {
-              idr_width = buffer_[start_index].data.width();
-              idr_height = buffer_[start_index].data.height();
-            }
-          }
-        }
-
-        if (tested_packets == buffer_.size())
-          break;
-
-        start_index = start_index > 0 ? start_index - 1 : buffer_.size() - 1;
-
+      } else {
+        const auto* h264_header = absl::get_if<RTPVideoHeaderH264>(
+            &buffer_[start_index].data.video_header.video_type_header);
         // In the case of H264 we don't have a frame_begin bit (yes,
         // |frame_begin| might be set to true but that is a lie). So instead
         // we traverese backwards as long as we have a previous packet and
         // the timestamp of that packet is the same as this one. This may cause
         // the PacketBuffer to hand out incomplete frames.
         // See: https://bugs.chromium.org/p/webrtc/issues/detail?id=7106
-        if (is_h264 &&
-            (!buffer_[start_index].used ||
+        if ((!buffer_[start_index].used ||
              buffer_[start_index].data.timestamp != frame_timestamp)) {
+          ++start_seq_num;
           break;
         }
 
-        --start_seq_num;
-      }
-
-      // Fix the order since the packet-finding loop traverses backwards.
-      std::reverse(packet_infos.begin(), packet_infos.end());
-
-      if (is_h264) {
-        // Warn if this is an unsafe frame.
-        if (has_h264_idr && (!has_h264_sps || !has_h264_pps)) {
-          RTC_LOG(LS_WARNING)
-              << "Received H.264-IDR frame "
-              << "(SPS: " << has_h264_sps << ", PPS: " << has_h264_pps
-              << "). Treating as "
-              << (sps_pps_idr_is_h264_keyframe_ ? "delta" : "key")
-              << " frame since WebRTC-SpsPpsIdrIsH264Keyframe is "
-              << (sps_pps_idr_is_h264_keyframe_ ? "enabled." : "disabled");
-        }
-
-        // Now that we have decided whether to treat this frame as a key frame
-        // or delta frame in the frame buffer, we update the field that
-        // determines if the RtpFrameObject is a key frame or delta frame.
-        const size_t first_packet_index = start_seq_num % buffer_.size();
-        if (is_h264_keyframe) {
-          buffer_[first_packet_index].data.video_header.frame_type =
-              VideoFrameType::kVideoFrameKey;
-          if (idr_width > 0 && idr_height > 0) {
-            // IDR frame was finalized and we have the correct resolution for
-            // IDR; update first packet to have same resolution as IDR.
-            buffer_[first_packet_index].data.video_header.width = idr_width;
-            buffer_[first_packet_index].data.video_header.height = idr_height;
-          }
-        } else {
-          buffer_[first_packet_index].data.video_header.frame_type =
-              VideoFrameType::kVideoFrameDelta;
-        }
-
-        // With IPPP, if this is not a keyframe, make sure there are no gaps
-        // in the packet sequence numbers up until this point.
-        const uint8_t h264tid =
-            buffer_[start_index].data.video_header.frame_marking.temporal_id;
-        if (h264tid == kNoTemporalIdx && !is_h264_keyframe &&
-            missing_packets_.upper_bound(start_seq_num) !=
-                missing_packets_.begin()) {
+        if (h264_header == nullptr ||
+            h264_header->nalus_length >= kMaxNalusPerPacket) {
           return found_frames;
         }
       }
 
-      missing_packets_.erase(missing_packets_.begin(),
-                             missing_packets_.upper_bound(seq_num));
+      if (++tested_packets == buffer_.size())
+        break;
 
-      const VCMPacket* first_packet = GetPacket(start_seq_num);
-      const VCMPacket* last_packet = GetPacket(seq_num);
-      auto frame = std::make_unique<RtpFrameObject>(
-          start_seq_num, seq_num, last_packet->markerBit, max_nack_count,
-          min_recv_time, max_recv_time, first_packet->timestamp,
-          first_packet->ntp_time_ms_, last_packet->video_header.video_timing,
-          first_packet->payloadType, first_packet->codec(),
-          last_packet->video_header.rotation,
-          last_packet->video_header.content_type, first_packet->video_header,
-          last_packet->video_header.color_space,
-          first_packet->generic_descriptor,
-          RtpPacketInfos(std::move(packet_infos)),
-          GetEncodedImageBuffer(frame_size, start_seq_num, seq_num));
-
-      found_frames.emplace_back(std::move(frame));
-
-      ClearInterval(start_seq_num, seq_num);
+      --start_seq_num;
     }
-    ++seq_num;
+
+    auto frame = AssembleFrame(start_seq_num, seq_num);
+    if (frame == nullptr) {
+      break;
+    }
+
+    missing_packets_.erase(missing_packets_.begin(),
+                           missing_packets_.upper_bound(seq_num));
+
+    found_frames.push_back(std::move(frame));
   }
   return found_frames;
+}
+
+std::unique_ptr<RtpFrameObject> PacketBuffer::AssembleFrame(
+    uint16_t start_seq_num,
+    uint16_t end_seq_num) {
+  size_t num_packets = ForwardDiff<uint16_t>(start_seq_num, end_seq_num + 1);
+  RTC_DCHECK_LE(num_packets, buffer_.size());
+  RTC_DCHECK_GT(num_packets, 0);
+  size_t bitstream_size = 0;
+  int max_nack_count = -1;
+  RtpPacketInfos::vector_type packet_infos;
+  packet_infos.reserve(num_packets);
+  VCMPacket* first_packet = GetPacket(start_seq_num);
+  VCMPacket* last_packet = GetPacket(end_seq_num);
+  int64_t min_recv_time = first_packet->packet_info.receive_time_ms();
+  int64_t max_recv_time = first_packet->packet_info.receive_time_ms();
+  RTPVideoHeader& video_header = first_packet->video_header;
+  bool is_h264 = first_packet->codec() == kVideoCodecH264;
+  bool has_h264_sps = false;
+  bool has_h264_pps = false;
+  bool has_h264_idr = false;
+
+  // Calculate size of the buffer and collect various stats.
+  for (uint16_t seq_num = start_seq_num;; ++seq_num) {
+    int index = seq_num % buffer_.size();
+    RTC_DCHECK(buffer_[index].used);
+    RTC_DCHECK_EQ(buffer_[index].seq_num(), seq_num);
+
+    const VCMPacket& packet = buffer_[index].data;
+    bitstream_size += packet.sizeBytes;
+    packet_infos.push_back(packet.packet_info);
+    max_nack_count = std::max(max_nack_count, packet.timesNacked);
+    min_recv_time =
+        std::min(min_recv_time, packet.packet_info.receive_time_ms());
+    max_recv_time =
+        std::max(max_recv_time, packet.packet_info.receive_time_ms());
+
+    if (is_h264) {
+      const auto& h264_header =
+          absl::get<RTPVideoHeaderH264>(packet.video_header.video_type_header);
+      RTC_DCHECK_LT(h264_header.nalus_length, kMaxNalusPerPacket);
+
+      for (size_t i = 0; i < h264_header.nalus_length; ++i) {
+        if (h264_header.nalus[i].type == H264::NaluType::kSps) {
+          has_h264_sps = true;
+        } else if (h264_header.nalus[i].type == H264::NaluType::kPps) {
+          has_h264_pps = true;
+        } else if (h264_header.nalus[i].type == H264::NaluType::kIdr) {
+          has_h264_idr = true;
+        }
+      }
+      // Store the resolution of the packet with smallest index and valid
+      // resolution; typically its IDR or SPS packet; there may be packet
+      // preceeding this packet, IDR's resolution will be applied to them.
+      if ((video_header.width == 0 || video_header.height == 0) &&
+          packet.width() > 0 && packet.height() > 0) {
+        video_header.width = packet.width();
+        video_header.height = packet.height();
+      }
+    }
+
+    if (seq_num == end_seq_num) {
+      break;
+    }
+  }
+
+  if (is_h264) {
+    // Warn if this is an unsafe frame.
+    if (has_h264_idr && (!has_h264_sps || !has_h264_pps)) {
+      RTC_LOG(LS_WARNING) << "Received H.264-IDR frame "
+                          << "(SPS: " << has_h264_sps
+                          << ", PPS: " << has_h264_pps << "). Treating as "
+                          << (sps_pps_idr_is_h264_keyframe_ ? "delta" : "key")
+                          << " frame since WebRTC-SpsPpsIdrIsH264Keyframe is "
+                          << (sps_pps_idr_is_h264_keyframe_ ? "enabled."
+                                                            : "disabled");
+    }
+
+    // Identify H.264 keyframes by means of SPS, PPS, and IDR.
+    if ((sps_pps_idr_is_h264_keyframe_ && has_h264_idr && has_h264_sps &&
+         has_h264_pps) ||
+        (!sps_pps_idr_is_h264_keyframe_ && has_h264_idr)) {
+      video_header.frame_type = VideoFrameType::kVideoFrameKey;
+    } else {
+      video_header.frame_type = VideoFrameType::kVideoFrameDelta;
+      // With IPPP, if this is not a keyframe, make sure there are no gaps
+      // in the packet sequence numbers up until this point.
+      const uint8_t h264tid = video_header.frame_marking.temporal_id;
+      if (h264tid == kNoTemporalIdx &&
+          missing_packets_.upper_bound(start_seq_num) !=
+              missing_packets_.begin()) {
+        return nullptr;
+      }
+    }
+  }
+
+  // Assemble buffer and cleanup.
+  auto buffer = EncodedImageBuffer::Create(bitstream_size);
+  size_t offset = 0;
+  for (uint16_t seq_num = start_seq_num;; ++seq_num) {
+    int index = seq_num % buffer_.size();
+    VCMPacket& packet = buffer_[index].data;
+
+    size_t length = packet.sizeBytes;
+    RTC_CHECK_LE(offset + length, buffer->size());
+    memcpy(buffer->data() + offset, packet.dataPtr, length);
+    offset += length;
+
+    delete[] packet.dataPtr;
+    packet.dataPtr = nullptr;
+    buffer_[index].used = false;
+    if (seq_num == end_seq_num) {
+      break;
+    }
+  }
+
+  return std::make_unique<RtpFrameObject>(
+      start_seq_num, end_seq_num, last_packet->markerBit, max_nack_count,
+      min_recv_time, max_recv_time, first_packet->timestamp,
+      first_packet->ntp_time_ms_, last_packet->video_header.video_timing,
+      first_packet->payloadType, first_packet->codec(),
+      last_packet->video_header.rotation,
+      last_packet->video_header.content_type, video_header,
+      last_packet->video_header.color_space, first_packet->generic_descriptor,
+      RtpPacketInfos(std::move(packet_infos)), std::move(buffer));
 }
 
 rtc::scoped_refptr<EncodedImageBuffer> PacketBuffer::GetEncodedImageBuffer(

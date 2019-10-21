@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4598643b_4df6425d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 7613,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-21T16:42:58Z",
+      "side": 1,
+      "message": "nit: Method comments belong to the declaration, not the definition. Also \"Gets\" sounds like a getter, how about \"|sdp_type| is the type of the SDP that caused the rollback.\"?",
+      "revId": "7cde2815a4faee9ea5503404f5c7bf0172bfde2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e2591ae_cdb1779a",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2024,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-21T16:42:58Z",
+      "side": 1,
+      "message": "nit: Can this instead say \"The direction attribute is not modified by the offer.\" or something? The \"Apparently\" makes this sound like a surprise rather than a description of what\u0027s going on.",
+      "revId": "7cde2815a4faee9ea5503404f5c7bf0172bfde2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

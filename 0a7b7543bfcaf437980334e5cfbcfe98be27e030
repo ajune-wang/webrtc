@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "135b10a9_00245349",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7635,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-21T16:42:58Z",
+      "side": 1,
+      "message": "Hmm, yes! You\u0027re right.\nImplicit rollback only happens at setRemoteDescription and is only needed if there is a local offer, which doesn\u0027t fire any events, so there\u0027s no events to \"undo\" i.e. to fire anything new.\n\nSo I think we\u0027re good then?",
+      "parentUuid": "a66bc6d2_488a9f2b",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79d5023d_a1cd8298",
         "filename": "pc/peer_connection_jsep_unittest.cc",
         "patchSetId": 4
@@ -207,6 +225,24 @@
       "side": 1,
       "message": "The spec says something about that direction of the transceiver has to be restored in rollback but yeah, I have not managed to setup such scenario where this comes into play. Any suggestions? I guess this test just have documenting value that there is nothing to worry about in context of rollback.",
       "parentUuid": "6150afce_c89e592e",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ee15589_354bd123",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1988,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-21T16:42:58Z",
+      "side": 1,
+      "message": "Since CurrentDirection is only set at \"answer\", in which case it is too late to rollback, I guess there is nothing to do in terms of reverting back the directions.\n\nThe only place where direction comes into play is for events firing, and what to do if you touch a transceiver in \"ontrack\"...\n\nExample:\nconst p \u003d pc-\u003eSetRemoteDescription(with \"recvonly\");\npc-\u003eontrack \u003d e \u003d\u003e () {\n  e.transceiver.direction \u003d \u0027inactive\u0027;\n}\nawait p;  // now transceiver.currentDirection \u003d\u003d \u0027inactive\u0027\npc-\u003eSetRemoteDescription(rollback);\n\nHere I guess currentDirection needs to revert to null (whether or not the transceiver is destroyed, which depends on if it was created with addTrack or in the SRD).\n\nHowever, I think transceiver.direction should remain \u0027inactive\u0027. The only thing to do is to make sure transceiver.receiver.track.onmute fires. And that is a test that I am guessing is not affected by setting the transceiver.direction attribute.",
+      "parentUuid": "b22bb33b_0a59385c",
       "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

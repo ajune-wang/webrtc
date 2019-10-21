@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a289982_5c1af3a6",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7613,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-21T10:14:16Z",
+      "side": 1,
+      "message": "I think I would prefer a \"boolean implicit_rollback\" if that is the only thing this method needs to know, because I found myself wondering \"The SdpType of what...?\" when I saw this.",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8fbd07a_66768f3a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7635,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-21T10:14:16Z",
+      "side": 1,
+      "message": "Note that in blink/JavaScript land, the thing that we use to discover if we should fire \"ontrack\" (adding a track) or \"track.onmute\" (removing a track) is actually the before/after value of FiredDirection:\nhttps://cs.chromium.org/chromium/src/third_party/blink/renderer/modules/peerconnection/rtc_peer_connection.cc?q\u003drtc_peer_connection.cc\u0026sq\u003dpackage:chromium\u0026dr\u003dC\u0026l\u003d2843\n\nThe OnAddTrack and onRemoveTrack are used by native apps and are needed, but not by chromium.\n\nSo this is good and needed regardless, just wondering if we update FiredDirection for chromium or what happens in that case. Especially if implicit rollback causes track removal and then the offer being set as part of the same operation causes track addition. Do we mute-unmute?",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79d5023d_a1cd8298",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1818,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-21T10:14:16Z",
+      "side": 1,
+      "message": "Can you add a comment saying it is not needed because the callee used AddTrack, so that track could get attached in the answer? (As opposed to if AddTransceiver was used or the callee that multiple tracks, then ONN would be true)",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b7e68e8_131b2d31",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1915,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-21T10:14:16Z",
+      "side": 1,
+      "message": "nit: RollbackHasNoEffectOnStableTransceivers?",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6150afce_c89e592e",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1988,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-21T10:14:16Z",
+      "side": 1,
+      "message": "Naming of the test... is there any direction change in this test?\n\nBoth AddTransceiver and AddTrack default to \u0027sendrecv\u0027. Is the offer being rolled back actually also \u0027sendrecv\u0027? Should an offer attempt to set direction to \u0027inactive\u0027 and then roll that back?\n\nMaybe not, the test below does direction changes... should we simply rename this test or am I confusing myself?",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91c86e38_74d6566a",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2008,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-21T10:14:16Z",
+      "side": 1,
+      "message": "nit: Since you\u0027re looking at both caller and callee transceivers in this test, how about renaming this to caller_transceiver?",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb2058f7_060c430f",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2018,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-21T10:14:16Z",
+      "side": 1,
+      "message": "That\u0027s correct. \"direction\" is what we are prepared to negotiate (a locally set attribute that SDP cannot modify), and \"currentDirection\" is what has been negotiated (set by an SDP answer, not otherwise settable by the application).",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

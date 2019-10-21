@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "01a31603_30167d18",
+        "filename": "api/task_queue/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-21T22:21:47Z",
+      "side": 1,
+      "message": "Well, this is not needed since this will not be part of the shared library.",
+      "parentUuid": "3bc5800e_da511b76",
+      "range": {
+        "startLine": 36,
+        "startChar": 5,
+        "endLine": 36,
+        "endChar": 22
+      },
+      "revId": "bde4cfd8235beee65ee6414a5f8bc1ff291bc0c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0512e493_b40f9f50",
         "filename": "api/task_queue/BUILD.gn",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a76e4d95_e373c097",
+        "filename": "api/task_queue/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-21T22:21:47Z",
+      "side": 1,
+      "message": "Done, remove the dependency from test:test_support on webrtc internal code.",
+      "parentUuid": "0512e493_b40f9f50",
+      "range": {
+        "startLine": 41,
+        "startChar": 6,
+        "endLine": 41,
+        "endChar": 32
+      },
+      "revId": "bde4cfd8235beee65ee6414a5f8bc1ff291bc0c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "268c5382_437fdfc3",
         "filename": "api/task_queue/BUILD.gn",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "bde4cfd8235beee65ee6414a5f8bc1ff291bc0c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "209bbc2c_cd050dfa",
+        "filename": "api/task_queue/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-21T22:21:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "268c5382_437fdfc3",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 46
+      },
+      "revId": "bde4cfd8235beee65ee6414a5f8bc1ff291bc0c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

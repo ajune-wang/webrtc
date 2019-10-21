@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c0bde596_5306f340",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7613,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-10-21T10:23:05Z",
+      "side": 1,
+      "message": "I made him change it away from a boolean :-) - I like this style better, because a) at the calling site, it says what you\u0027re passing in (info on what kind of SDP event it is), and b) at the called site, it allows you to say \"if this is a rollback, do A; else do B\" rather than \"if the rollback flag is true, do A\" - which I think is more readable code in explaining *why* you do it.\n\nTaste differs :-)",
+      "parentUuid": "7a289982_5c1af3a6",
+      "revId": "0a7b7543bfcaf437980334e5cfbcfe98be27e030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8fbd07a_66768f3a",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 4

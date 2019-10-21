@@ -16,6 +16,24 @@
       "revId": "36552f605ca6a755cefbf17cae656e65a2190bdd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4846a649_bb825dca",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 7660,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-10-21T08:25:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc369310_a75272b3",
+      "revId": "36552f605ca6a755cefbf17cae656e65a2190bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

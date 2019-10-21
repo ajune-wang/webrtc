@@ -28,11 +28,13 @@
 #include "api/units/data_size.h"
 #include "api/units/timestamp.h"
 #include "modules/bitrate_controller/send_side_bandwidth_estimation.h"
+#include "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator.h"
 #include "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_interface.h"
 #include "modules/congestion_controller/goog_cc/alr_detector.h"
 #include "modules/congestion_controller/goog_cc/congestion_window_pushback_controller.h"
 #include "modules/congestion_controller/goog_cc/delay_based_bwe.h"
 #include "modules/congestion_controller/goog_cc/probe_controller.h"
+#include "modules/congestion_controller/goog_cc/simplified_acknowledged_bitrate_estimator.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/experiments/rate_control_settings.h"
@@ -89,6 +91,8 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   const bool fall_back_to_probe_rate_;
   const bool use_min_allocatable_as_lower_bound_;
   const RateControlSettings rate_control_settings_;
+  const SimplifiedThroughputEstimatorSettings
+      simplified_throughput_estimator_settings_;
 
   const std::unique_ptr<ProbeController> probe_controller_;
   const std::unique_ptr<CongestionWindowPushbackController>

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "291509b1_a696a2ef",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-21T17:43:46Z",
+      "side": 1,
+      "message": "Changed type.\nYes, this in-lining has been a long time coming, all internal and down-steam usage is _finally_ gone :)",
+      "parentUuid": "6b55865a_2fdfceed",
+      "range": {
+        "startLine": 136,
+        "startChar": 50,
+        "endLine": 136,
+        "endChar": 66
+      },
+      "revId": "3704260414003e2b384e965c980068863ebe38f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab100eb3_4f796857",
         "filename": "modules/pacing/packet_router.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "3704260414003e2b384e965c980068863ebe38f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac38d05e_a12d01c0",
+        "filename": "modules/pacing/packet_router.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-21T17:43:46Z",
+      "side": 1,
+      "message": "I blame Danil for this suggestion ;)\nWhile the wraparound behavior is guaranteed according to the spec, I like the idea of have the value unwrapped as a source of truth when debugging. I\u0027ll change it to uint64_t though, to avoid and potential edge case when translating between signed and unsigned. Don\u0027t think we have to worry about wraparound behavior for the 64bit type though...",
+      "parentUuid": "ab100eb3_4f796857",
+      "range": {
+        "startLine": 127,
+        "startChar": 1,
+        "endLine": 127,
+        "endChar": 26
+      },
+      "revId": "3704260414003e2b384e965c980068863ebe38f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

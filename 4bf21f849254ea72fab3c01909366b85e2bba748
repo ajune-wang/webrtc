@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e3b33f3_4695dc87",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-10-22T10:27:21Z",
+      "side": 1,
+      "message": "check is_hd?",
+      "range": {
+        "startLine": 594,
+        "startChar": 6,
+        "endLine": 599,
+        "endChar": 50
+      },
+      "revId": "4bf21f849254ea72fab3c01909366b85e2bba748",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

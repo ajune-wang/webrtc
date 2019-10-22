@@ -42,7 +42,6 @@ PacketBuffer::PacketBuffer(Clock* clock,
       is_cleared_to_first_seq_num_(false),
       buffer_(start_buffer_size),
       assembled_frame_callback_(assembled_frame_callback),
-      unique_frames_seen_(0),
       sps_pps_idr_is_h264_keyframe_(
           field_trial::IsEnabled("WebRTC-SpsPpsIdrIsH264Keyframe")) {
   RTC_DCHECK_LE(start_buffer_size, max_buffer_size);
@@ -59,8 +58,6 @@ bool PacketBuffer::InsertPacket(VCMPacket* packet) {
   std::vector<std::unique_ptr<RtpFrameObject>> found_frames;
   {
     rtc::CritScope lock(&crit_);
-
-    OnTimestampReceived(packet->timestamp);
 
     uint16_t seq_num = packet->seqNum;
     size_t index = seq_num % buffer_.size();
@@ -218,11 +215,6 @@ absl::optional<int64_t> PacketBuffer::LastReceivedPacketMs() const {
 absl::optional<int64_t> PacketBuffer::LastReceivedKeyframePacketMs() const {
   rtc::CritScope lock(&crit_);
   return last_received_keyframe_packet_ms_;
-}
-
-int PacketBuffer::GetUniqueFramesSeen() const {
-  rtc::CritScope lock(&crit_);
-  return unique_frames_seen_;
 }
 
 bool PacketBuffer::ExpandBufferSize() {
@@ -495,19 +487,6 @@ void PacketBuffer::UpdateMissingPackets(uint16_t seq_num) {
     }
   } else {
     missing_packets_.erase(seq_num);
-  }
-}
-
-void PacketBuffer::OnTimestampReceived(uint32_t rtp_timestamp) {
-  const size_t kMaxTimestampsHistory = 1000;
-  if (rtp_timestamps_history_set_.insert(rtp_timestamp).second) {
-    rtp_timestamps_history_queue_.push(rtp_timestamp);
-    ++unique_frames_seen_;
-    if (rtp_timestamps_history_set_.size() > kMaxTimestampsHistory) {
-      uint32_t discarded_timestamp = rtp_timestamps_history_queue_.front();
-      rtp_timestamps_history_set_.erase(discarded_timestamp);
-      rtp_timestamps_history_queue_.pop();
-    }
   }
 }
 

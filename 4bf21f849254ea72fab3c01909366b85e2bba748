@@ -22,6 +22,30 @@
       "revId": "4bf21f849254ea72fab3c01909366b85e2bba748",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15e7b60f_bce68c32",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-10-22T11:25:52Z",
+      "side": 1,
+      "message": "I guess that potentially there could be 4k H264 streams, so I added two more histograms for this case.",
+      "parentUuid": "3e3b33f3_4695dc87",
+      "range": {
+        "startLine": 594,
+        "startChar": 6,
+        "endLine": 599,
+        "endChar": 50
+      },
+      "revId": "4bf21f849254ea72fab3c01909366b85e2bba748",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

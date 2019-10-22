@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44995b6d_938d00ec",
+        "filename": "modules/video_coding/packet_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-10-22T11:37:46Z",
+      "side": 1,
+      "message": "|buffered_cleared|, or just |cleared|?",
+      "range": {
+        "startLine": 37,
+        "startChar": 9,
+        "endLine": 37,
+        "endChar": 24
+      },
+      "revId": "a9611af4c7060e4d77e4b555c73eb3c8c8f03795",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33563f3b_305078aa",
+        "filename": "modules/video_coding/packet_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-10-22T11:37:46Z",
+      "side": 1,
+      "message": "Just a few more hundred lines that needs to be updated :)",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 5
+      },
+      "revId": "a9611af4c7060e4d77e4b555c73eb3c8c8f03795",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

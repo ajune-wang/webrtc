@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e5965fd6_23d752ad",
+        "filename": "sdk/objc/components/renderer/metal/RTCMTLVideoView.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2019-10-22T12:26:03Z",
+      "side": 1,
+      "message": "Sure, but calling self.metalView.multipleTouchEnabled \u003d \u003cx\u003e is fine even when self.metalView is nil.",
+      "parentUuid": "ae611cf9_ec734119",
+      "range": {
+        "startLine": 124,
+        "startChar": 8,
+        "endLine": 124,
+        "endChar": 29
+      },
+      "revId": "68da1e34977663150e871b7da3f7b46933f3d040",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "43afa0b0_e16b2cce",
         "filename": "sdk/objc/components/renderer/opengl/RTCEAGLVideoView.m",
         "patchSetId": 1

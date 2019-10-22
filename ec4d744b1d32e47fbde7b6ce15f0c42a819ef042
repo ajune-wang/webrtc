@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6afa6814_0e1c0e1b",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-22T14:35:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afc5c6ab_eecb5df6",
+      "range": {
+        "startLine": 548,
+        "startChar": 75,
+        "endLine": 548,
+        "endChar": 77
+      },
+      "revId": "ec4d744b1d32e47fbde7b6ce15f0c42a819ef042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12ab572a_2f1c5717",
         "filename": "PRESUBMIT.py",
         "patchSetId": 1
@@ -69,6 +93,30 @@
       "revId": "ec4d744b1d32e47fbde7b6ce15f0c42a819ef042",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d85c1b19_7b96c839",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-22T14:35:32Z",
+      "side": 1,
+      "message": "Yes, it is passed by the depot_tools machinery (it is defined here: https://cs.chromium.org/chromium/tools/depot_tools/presubmit_support.py?l\u003d456\u0026rcl\u003d16af35606f4d194c292a5a7ca22b6a91472cf316).",
+      "parentUuid": "07a1ee6e_d42bc39e",
+      "range": {
+        "startLine": 551,
+        "startChar": 2,
+        "endLine": 552,
+        "endChar": 60
+      },
+      "revId": "ec4d744b1d32e47fbde7b6ce15f0c42a819ef042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

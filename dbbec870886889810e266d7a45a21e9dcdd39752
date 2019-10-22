@@ -22,6 +22,30 @@
       "revId": "dbbec870886889810e266d7a45a21e9dcdd39752",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c51bfb35_3e1f1314",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1749,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-22T08:46:08Z",
+      "side": 1,
+      "message": "It\u0027s found by the fuzzer. If the bitstream in rtp packets is garbage.\nAdded value to the log.",
+      "parentUuid": "c97ab686_1dd6308c",
+      "range": {
+        "startLine": 1749,
+        "startChar": 0,
+        "endLine": 1749,
+        "endChar": 76
+      },
+      "revId": "dbbec870886889810e266d7a45a21e9dcdd39752",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

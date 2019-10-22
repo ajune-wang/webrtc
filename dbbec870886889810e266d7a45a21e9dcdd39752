@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c97ab686_1dd6308c",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1749,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-22T08:42:16Z",
+      "side": 1,
+      "message": "When can this happen? Can you log the value of img-\u003ebit_depth too?",
+      "range": {
+        "startLine": 1749,
+        "startChar": 0,
+        "endLine": 1749,
+        "endChar": 76
+      },
+      "revId": "dbbec870886889810e266d7a45a21e9dcdd39752",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

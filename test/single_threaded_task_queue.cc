@@ -46,6 +46,7 @@ DEPRECATED_SingleThreadedTaskQueueForTesting::PostDelayed(
   int64_t earliest_exec_time = rtc::TimeAfter(delay_ms);
 
   rtc::CritScope lock(&cs_);
+  RTC_CHECK(IsCurrent() || running_);
   if (!running_)
     return kInvalidTaskId;
 

@@ -21,46 +21,41 @@
 #include "rtc_base/random.h"
 #include "system_wrappers/include/clock.h"
 #include "test/field_trial.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 namespace video_coding {
 
-class PacketBufferTest : public ::testing::Test,
-                         public OnAssembledFrameCallback {
+using ::testing::ElementsAre;
+using ::testing::IsEmpty;
+using ::testing::SizeIs;
+
+class PacketBufferTest : public ::testing::Test {
  protected:
+  static constexpr int kStartSize = 16;
+  static constexpr int kMaxSize = 64;
+
   explicit PacketBufferTest(std::string field_trials = "")
       : scoped_field_trials_(field_trials),
         rand_(0x7732213),
-        clock_(new SimulatedClock(0)),
-        packet_buffer_(clock_.get(), kStartSize, kMaxSize, this) {}
+        clock_(0),
+        packet_buffer_(&clock_, kStartSize, kMaxSize) {}
 
   uint16_t Rand() { return rand_.Rand<uint16_t>(); }
-
-  void OnAssembledFrame(std::unique_ptr<RtpFrameObject> frame) override {
-    uint16_t first_seq_num = frame->first_seq_num();
-    if (frames_from_callback_.find(first_seq_num) !=
-        frames_from_callback_.end()) {
-      ADD_FAILURE() << "Already received frame with first sequence number "
-                    << first_seq_num << ".";
-      return;
-    }
-
-    frames_from_callback_.insert(
-        std::make_pair(frame->first_seq_num(), std::move(frame)));
-  }
 
   enum IsKeyFrame { kKeyFrame, kDeltaFrame };
   enum IsFirst { kFirst, kNotFirst };
   enum IsLast { kLast, kNotLast };
 
-  bool Insert(uint16_t seq_num,             // packet sequence number
-              IsKeyFrame keyframe,          // is keyframe
-              IsFirst first,                // is first packet of frame
-              IsLast last,                  // is last packet of frame
-              int data_size = 0,            // size of data
-              uint8_t* data = nullptr,      // data pointer
-              uint32_t timestamp = 123u) {  // rtp timestamp
+  PacketBuffer::InsertResult Insert(
+      uint16_t seq_num,             // packet sequence number
+      IsKeyFrame keyframe,          // is keyframe
+      IsFirst first,                // is first packet of frame
+      IsLast last,                  // is last packet of frame
+      int data_size = 0,            // size of data
+      uint8_t* data = nullptr,      // data pointer
+      uint32_t timestamp = 123u) {  // rtp timestamp
     VCMPacket packet;
     packet.video_header.codec = kVideoCodecGeneric;
     packet.timestamp = timestamp;
@@ -76,89 +71,73 @@ class PacketBufferTest : public ::testing::Test,
     return packet_buffer_.InsertPacket(&packet);
   }
 
-  void CheckFrame(uint16_t first_seq_num) {
-    auto frame_it = frames_from_callback_.find(first_seq_num);
-    ASSERT_FALSE(frame_it == frames_from_callback_.end())
-        << "Could not find frame with first sequence number " << first_seq_num
-        << ".";
-  }
-
-  void DeleteFrame(uint16_t first_seq_num) {
-    auto frame_it = frames_from_callback_.find(first_seq_num);
-    ASSERT_FALSE(frame_it == frames_from_callback_.end())
-        << "Could not find frame with first sequence number " << first_seq_num
-        << ".";
-    frames_from_callback_.erase(frame_it);
-  }
-
-  static constexpr int kStartSize = 16;
-  static constexpr int kMaxSize = 64;
-
   const test::ScopedFieldTrials scoped_field_trials_;
-
   Random rand_;
-  std::unique_ptr<SimulatedClock> clock_;
+  SimulatedClock clock_;
   PacketBuffer packet_buffer_;
-  std::map<uint16_t, std::unique_ptr<RtpFrameObject>> frames_from_callback_;
 };
+
+MATCHER_P2(FrameBetween, first_seq_num, last_seq_num, "") {
+  return arg->first_seq_num() == first_seq_num &&
+         arg->last_seq_num() == last_seq_num;
+}
 
 TEST_F(PacketBufferTest, InsertOnePacket) {
   const uint16_t seq_num = Rand();
-  EXPECT_TRUE(Insert(seq_num, kKeyFrame, kFirst, kLast));
+  EXPECT_FALSE(Insert(seq_num, kKeyFrame, kFirst, kLast).buffer_overflow);
 }
 
 TEST_F(PacketBufferTest, InsertMultiplePackets) {
   const uint16_t seq_num = Rand();
-  EXPECT_TRUE(Insert(seq_num, kKeyFrame, kFirst, kLast));
-  EXPECT_TRUE(Insert(seq_num + 1, kKeyFrame, kFirst, kLast));
-  EXPECT_TRUE(Insert(seq_num + 2, kKeyFrame, kFirst, kLast));
-  EXPECT_TRUE(Insert(seq_num + 3, kKeyFrame, kFirst, kLast));
+  EXPECT_FALSE(Insert(seq_num, kKeyFrame, kFirst, kLast).buffer_overflow);
+  EXPECT_FALSE(Insert(seq_num + 1, kKeyFrame, kFirst, kLast).buffer_overflow);
+  EXPECT_FALSE(Insert(seq_num + 2, kKeyFrame, kFirst, kLast).buffer_overflow);
+  EXPECT_FALSE(Insert(seq_num + 3, kKeyFrame, kFirst, kLast).buffer_overflow);
 }
 
 TEST_F(PacketBufferTest, InsertDuplicatePacket) {
   const uint16_t seq_num = Rand();
-  EXPECT_TRUE(Insert(seq_num, kKeyFrame, kFirst, kNotLast));
-  EXPECT_TRUE(Insert(seq_num, kKeyFrame, kFirst, kNotLast));
-  EXPECT_TRUE(Insert(seq_num + 1, kKeyFrame, kNotFirst, kLast));
+  EXPECT_FALSE(Insert(seq_num, kKeyFrame, kFirst, kNotLast).buffer_overflow);
+  EXPECT_FALSE(Insert(seq_num, kKeyFrame, kFirst, kNotLast).buffer_overflow);
+  EXPECT_FALSE(
+      Insert(seq_num + 1, kKeyFrame, kNotFirst, kLast).buffer_overflow);
 }
 
 TEST_F(PacketBufferTest, SeqNumWrapOneFrame) {
-  EXPECT_TRUE(Insert(0xFFFF, kKeyFrame, kFirst, kNotLast));
-  EXPECT_TRUE(Insert(0x0, kKeyFrame, kNotFirst, kLast));
-
-  CheckFrame(0xFFFF);
+  EXPECT_FALSE(Insert(0xFFFF, kKeyFrame, kFirst, kNotLast).buffer_overflow);
+  EXPECT_THAT(Insert(0x0, kKeyFrame, kNotFirst, kLast).frames,
+              ElementsAre(FrameBetween(0xFFFF, 0x0)));
 }
 
 TEST_F(PacketBufferTest, SeqNumWrapTwoFrames) {
-  EXPECT_TRUE(Insert(0xFFFF, kKeyFrame, kFirst, kLast));
-  EXPECT_TRUE(Insert(0x0, kKeyFrame, kFirst, kLast));
-
-  CheckFrame(0xFFFF);
-  CheckFrame(0x0);
+  EXPECT_THAT(Insert(0xFFFF, kKeyFrame, kFirst, kLast).frames,
+              ElementsAre(FrameBetween(0xFFFF, 0xFFFF)));
+  EXPECT_THAT(Insert(0x0, kKeyFrame, kFirst, kLast).frames,
+              ElementsAre(FrameBetween(0x0, 0x0)));
 }
 
 TEST_F(PacketBufferTest, InsertOldPackets) {
-  const uint16_t seq_num = Rand();
+  EXPECT_THAT(Insert(/*seq_num=*/100, kKeyFrame, kFirst, kNotLast).frames,
+              IsEmpty());
+  EXPECT_THAT(Insert(/*seq_num=*/102, kDeltaFrame, kFirst, kLast).frames,
+              ElementsAre(FrameBetween(102, 102)));
+  EXPECT_THAT(Insert(/*seq_num=*/101, kKeyFrame, kNotFirst, kLast).frames,
+              ElementsAre(FrameBetween(100, 101)));
 
-  EXPECT_TRUE(Insert(seq_num, kKeyFrame, kFirst, kNotLast));
-  EXPECT_TRUE(Insert(seq_num + 2, kDeltaFrame, kFirst, kLast));
-  EXPECT_TRUE(Insert(seq_num + 1, kKeyFrame, kNotFirst, kLast));
-  ASSERT_EQ(2UL, frames_from_callback_.size());
+  EXPECT_THAT(Insert(/*seq_num=*/100, kKeyFrame, kFirst, kNotLast).frames,
+              IsEmpty());
+  EXPECT_THAT(Insert(/*seq_num=*/100, kKeyFrame, kFirst, kNotLast).frames,
+              IsEmpty());
+  EXPECT_THAT(Insert(/*seq_num=*/102, kDeltaFrame, kFirst, kLast).frames,
+              IsEmpty());
 
-  frames_from_callback_.erase(seq_num + 2);
-  EXPECT_TRUE(Insert(seq_num, kKeyFrame, kFirst, kNotLast));
-  ASSERT_EQ(1UL, frames_from_callback_.size());
-
-  frames_from_callback_.erase(frames_from_callback_.find(seq_num));
-  ASSERT_TRUE(Insert(seq_num, kKeyFrame, kFirst, kNotLast));
-  EXPECT_TRUE(Insert(seq_num + 2, kDeltaFrame, kFirst, kLast));
-
-  packet_buffer_.ClearTo(seq_num + 2);
-  EXPECT_TRUE(Insert(seq_num + 2, kDeltaFrame, kFirst, kLast));
-  EXPECT_TRUE(Insert(seq_num + 3, kDeltaFrame, kFirst, kLast));
-  ASSERT_EQ(2UL, frames_from_callback_.size());
+  packet_buffer_.ClearTo(/*seq_num=*/102);
+  EXPECT_THAT(Insert(/*seq_num=*/102, kDeltaFrame, kFirst, kLast).frames,
+              SizeIs(1));
+  EXPECT_THAT(Insert(/*seq_num=*/103, kDeltaFrame, kFirst, kLast).frames,
+              SizeIs(1));
 }
-
+#if 0
 TEST_F(PacketBufferTest, NackCount) {
   const uint16_t seq_num = Rand();
 
@@ -1094,6 +1073,6 @@ TEST_F(PacketBufferH264SpsPpsIdrIsKeyframeTest, SpsPpsIdrIsKeyframe) {
   EXPECT_EQ(VideoFrameType::kVideoFrameKey,
             frames_from_callback_[kSeqNum]->frame_type());
 }
-
+#endif
 }  // namespace video_coding
 }  // namespace webrtc

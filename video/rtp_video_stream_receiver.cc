@@ -212,10 +212,7 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
       // TODO(bugs.webrtc.org/10336): Let |rtcp_feedback_buffer_| communicate
       // directly with |rtp_rtcp_|.
       rtcp_feedback_buffer_(this, nack_sender, this),
-      packet_buffer_(clock_,
-                     kPacketBufferStartSize,
-                     PacketBufferMaxSize(),
-                     this),
+      packet_buffer_(clock_, kPacketBufferStartSize, PacketBufferMaxSize()),
       has_received_frame_(false),
       frames_decryptable_(false) {
   constexpr bool remb_candidate = true;
@@ -464,8 +461,12 @@ void RtpVideoStreamReceiver::OnReceivedPayloadData(
   }
 
   rtcp_feedback_buffer_.SendBufferedRtcpFeedback();
-  if (!packet_buffer_.InsertPacket(&packet)) {
+  auto result = packet_buffer_.InsertPacket(&packet);
+  if (result.buffer_overflow) {
     RequestKeyFrame();
+  }
+  for (auto& frame : result.frames) {
+    OnAssembledFrame(std::move(frame));
   }
 }
 
@@ -780,7 +781,11 @@ void RtpVideoStreamReceiver::NotifyReceiverOfEmptyPacket(uint16_t seq_num) {
     rtc::CritScope lock(&reference_finder_lock_);
     reference_finder_->PaddingReceived(seq_num);
   }
-  packet_buffer_.PaddingReceived(seq_num);
+  auto result = packet_buffer_.InsertPadding(seq_num);
+  RTC_CHECK(!result.buffer_overflow);
+  for (auto& frame : result.frames) {
+    OnAssembledFrame(std::move(frame));
+  }
   if (nack_module_) {
     nack_module_->OnReceivedPacket(seq_num, /* is_keyframe = */ false,
                                    /* is _recovered = */ false);

@@ -56,15 +56,17 @@ CallTest::CallTest()
       num_flexfec_streams_(0),
       audio_decoder_factory_(CreateBuiltinAudioDecoderFactory()),
       audio_encoder_factory_(CreateBuiltinAudioEncoderFactory()),
-      task_queue_("CallTestTaskQueue") {}
+      task_queue_(task_queue_factory_->CreateTaskQueue(
+          "CallTestTaskQueue",
+          TaskQueueFactory::Priority::NORMAL)) {}
 
 CallTest::~CallTest() {
   // In most cases the task_queue_ should have been stopped by now, assuming
   // the regular path of using CallTest to call PerformTest (followed by
   // cleanup). However, there are some tests that don't use the class that way
   // hence we need this special handling for cleaning up.
-  if (task_queue_.IsRunning()) {
-    SendTask(RTC_FROM_HERE, &task_queue_, [this]() {
+  if (task_queue_ != nullptr) {
+    SendTask(RTC_FROM_HERE, task_queue_.get(), [this]() {
       fake_send_audio_device_ = nullptr;
       fake_recv_audio_device_ = nullptr;
       video_sources_.clear();
@@ -96,7 +98,7 @@ void CallTest::RegisterRtpExtension(const RtpExtension& extension) {
 }
 
 void CallTest::RunBaseTest(BaseTest* test) {
-  SendTask(RTC_FROM_HERE, &task_queue_, [this, test]() {
+  SendTask(RTC_FROM_HERE, task_queue(), [this, test]() {
     num_video_streams_ = test->GetNumVideoStreams();
     num_audio_streams_ = test->GetNumAudioStreams();
     num_flexfec_streams_ = test->GetNumFlexfecStreams();
@@ -135,9 +137,9 @@ void CallTest::RunBaseTest(BaseTest* test) {
       CreateReceiverCall(recv_config);
     }
     test->OnCallsCreated(sender_call_.get(), receiver_call_.get());
-    receive_transport_ = test->CreateReceiveTransport(&task_queue_);
+    receive_transport_ = test->CreateReceiveTransport(task_queue());
     send_transport_ =
-        test->CreateSendTransport(&task_queue_, sender_call_.get());
+        test->CreateSendTransport(task_queue(), sender_call_.get());
 
     if (test->ShouldCreateReceivers()) {
       send_transport_->SetReceiver(receiver_call_->Receiver());
@@ -196,7 +198,7 @@ void CallTest::RunBaseTest(BaseTest* test) {
 
   test->PerformTest();
 
-  SendTask(RTC_FROM_HERE, &task_queue_, [this, test]() {
+  SendTask(RTC_FROM_HERE, task_queue(), [this, test]() {
     Stop();
     test->OnStreamsStopped();
     DestroyStreams();
@@ -217,7 +219,7 @@ void CallTest::RunBaseTest(BaseTest* test) {
   // as is, that's hard to control with the current test harness. E.g. transport
   // classes continue to issue callbacks (e.g. OnSendRtp) during teardown, which
   // can have a ripple effect.
-  task_queue_.Stop();
+  task_queue_ = nullptr;
 }
 
 void CallTest::CreateCalls() {

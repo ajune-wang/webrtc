@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ae611cf9_ec734119",
+        "filename": "sdk/objc/components/renderer/metal/RTCMTLVideoView.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 10151
+      },
+      "writtenOn": "2019-10-22T12:21:23Z",
+      "side": 1,
+      "message": "in case of \"configure\" has not been invoked. such as [[RTTMCTLVideoView alloc] init]",
+      "parentUuid": "0769cc26_dc9fd102",
+      "range": {
+        "startLine": 124,
+        "startChar": 8,
+        "endLine": 124,
+        "endChar": 29
+      },
+      "revId": "68da1e34977663150e871b7da3f7b46933f3d040",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "43afa0b0_e16b2cce",
         "filename": "sdk/objc/components/renderer/opengl/RTCEAGLVideoView.m",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-10-22T12:11:29Z",
       "side": 1,
       "message": "No need to check for nil here.",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 142,
+        "endChar": 23
+      },
+      "revId": "68da1e34977663150e871b7da3f7b46933f3d040",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e17980d_3f851155",
+        "filename": "sdk/objc/components/renderer/opengl/RTCEAGLVideoView.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 10151
+      },
+      "writtenOn": "2019-10-22T12:21:23Z",
+      "side": 1,
+      "message": "in case of \"configure\" has not been invoked. such as [[RTCEAGLVideoView alloc] init]",
+      "parentUuid": "43afa0b0_e16b2cce",
       "range": {
         "startLine": 142,
         "startChar": 8,

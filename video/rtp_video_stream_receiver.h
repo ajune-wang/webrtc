@@ -33,6 +33,7 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
+#include "modules/video_coding/frame_counter.h"
 #include "modules/video_coding/h264_sps_pps_tracker.h"
 #include "modules/video_coding/loss_notification_controller.h"
 #include "modules/video_coding/packet_buffer.h"
@@ -273,6 +274,7 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
   std::unique_ptr<LossNotificationController> loss_notification_controller_;
 
   video_coding::PacketBuffer packet_buffer_;
+  FrameCounter frame_counter_ RTC_GUARDED_BY(worker_task_checker_);
 
   rtc::CriticalSection reference_finder_lock_;
   std::unique_ptr<video_coding::RtpFrameReferenceFinder> reference_finder_

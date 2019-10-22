@@ -70,6 +70,30 @@
       "revId": "dbbec870886889810e266d7a45a21e9dcdd39752",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3e96f3e_efd13d22",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1749,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-22T09:04:06Z",
+      "side": 1,
+      "message": "It was 12 bits.",
+      "parentUuid": "f3bb310f_f82dd477",
+      "range": {
+        "startLine": 1749,
+        "startChar": 0,
+        "endLine": 1749,
+        "endChar": 76
+      },
+      "revId": "dbbec870886889810e266d7a45a21e9dcdd39752",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

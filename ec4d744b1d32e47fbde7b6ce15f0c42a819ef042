@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "afc5c6ab_eecb5df6",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-22T08:08:06Z",
+      "side": 1,
+      "message": "Missing space here.",
+      "range": {
+        "startLine": 548,
+        "startChar": 75,
+        "endLine": 548,
+        "endChar": 77
+      },
+      "revId": "ec4d744b1d32e47fbde7b6ce15f0c42a819ef042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "12ab572a_2f1c5717",
         "filename": "PRESUBMIT.py",
         "patchSetId": 1
@@ -13,6 +36,30 @@
       "writtenOn": "2019-10-22T04:18:40Z",
       "side": 1,
       "message": "This is needed in order to land https://webrtc-review.googlesource.com/c/src/+/157427",
+      "range": {
+        "startLine": 551,
+        "startChar": 2,
+        "endLine": 552,
+        "endChar": 60
+      },
+      "revId": "ec4d744b1d32e47fbde7b6ce15f0c42a819ef042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07a1ee6e_d42bc39e",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-22T08:08:06Z",
+      "side": 1,
+      "message": "What is input_api? I tried following the chain of calls backwards, but it stops at CheckChangeOnCommit and CheckChangeOnUpload; presumably they\u0027re called by some out-of-tree build infrastructure thing?",
+      "parentUuid": "12ab572a_2f1c5717",
       "range": {
         "startLine": 551,
         "startChar": 2,

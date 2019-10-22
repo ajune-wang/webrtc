@@ -119,6 +119,13 @@
   self.videoFrameSize = CGSizeZero;
 }
 
+- (void)setMultipleTouchEnabled:(BOOL)multipleTouchEnabled {
+    [super setMultipleTouchEnabled:multipleTouchEnabled];
+    if (nil != self.metalView) {
+        self.metalView.multipleTouchEnabled = multipleTouchEnabled;
+    }
+}
+
 - (void)layoutSubviews {
   [super layoutSubviews];
 

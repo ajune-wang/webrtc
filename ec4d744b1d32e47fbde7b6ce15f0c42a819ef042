@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12ab572a_2f1c5717",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-22T04:18:40Z",
+      "side": 1,
+      "message": "This is needed in order to land https://webrtc-review.googlesource.com/c/src/+/157427",
+      "range": {
+        "startLine": 551,
+        "startChar": 2,
+        "endLine": 552,
+        "endChar": 60
+      },
+      "revId": "ec4d744b1d32e47fbde7b6ce15f0c42a819ef042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

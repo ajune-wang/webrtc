@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a0e2688_8d8402fd",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-10-23T12:01:09Z",
+      "side": 1,
+      "message": "nit: document what null does?",
+      "range": {
+        "startLine": 553,
+        "startChar": 21,
+        "endLine": 553,
+        "endChar": 28
+      },
+      "revId": "9617bb9fe61991bb5a99ce1e26a944d1b179a94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

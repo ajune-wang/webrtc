@@ -93,6 +93,30 @@
       "revId": "a9611af4c7060e4d77e4b555c73eb3c8c8f03795",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "707a9a65_e7c4d9cf",
+        "filename": "modules/video_coding/packet_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-10-23T08:28:13Z",
+      "side": 1,
+      "message": "Updating them in a followup CL is completely fine.",
+      "parentUuid": "49d523a3_969046e3",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 5
+      },
+      "revId": "a9611af4c7060e4d77e4b555c73eb3c8c8f03795",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

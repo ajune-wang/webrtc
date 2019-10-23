@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "a36a4a06_dc7cc89b",
+        "filename": "modules/video_coding/packet_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-23T11:44:20Z",
+      "side": 1,
+      "message": "functions are different.\nfor functions where main purpose is side effect it is ok to ignore result.\nfor functions with main purpose of returning value and without important side effects it is not helpful to call the function if you do not use the result.\nThese functions both have a significant side effect and return important result.\nThat might be confusing, and that why annotation is there to remind to use the result.\n\ntechnically ABSL_MUST_USE_RESULT is a warning.\nbut in webrtc we treat all warnings as errors.\n\n(side note: I strongly oppose adding new macros.\nhttps://google.github.io/styleguide/cppguide.html#Preprocessor_Macros\nin this case inline function looks strictly better than a macro)",
+      "parentUuid": "955dd932_79ff99aa",
+      "range": {
+        "startLine": 46,
+        "startChar": 47,
+        "endLine": 46,
+        "endChar": 67
+      },
+      "revId": "6355006cbcbee333b2cd97da16a24880169983ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba2a94b1_f169dba0",
         "filename": "modules/video_coding/packet_buffer_unittest.cc",
         "patchSetId": 4
@@ -93,6 +117,30 @@
       "revId": "6355006cbcbee333b2cd97da16a24880169983ef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "158c4151_e55095e6",
+        "filename": "modules/video_coding/packet_buffer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-23T11:44:20Z",
+      "side": 1,
+      "message": "it is equivalent to the templated static_cast\u003cvoid\u003e(x) function.\nExcept that this version is not templated nor by output, nor by input parameter,\nand uses name to better reflect the intent.\n\nI was considering to add function to the InsertResult struct itself,\nlike done e.g. in https://github.com/grpc/grpc/blob/master/include/grpcpp/impl/codegen/status.h#L123\nbut then it will be available for non-test code also. Something I prefer to avoid until there is a use case for that.",
+      "parentUuid": "ba2a94b1_f169dba0",
+      "range": {
+        "startLine": 35,
+        "startChar": 5,
+        "endLine": 35,
+        "endChar": 17
+      },
+      "revId": "6355006cbcbee333b2cd97da16a24880169983ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

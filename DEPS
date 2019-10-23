@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'c0cca6e41919bfdc24237a6235145562f1e6a1af',
+  'chromium_revision': 'eb328ebe7a18a0d15fa39aade9b9484b6aa84337',
 }
 
 deps = {
@@ -29,7 +29,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@af3a480d8549792ae5c32558d9c052bdb306bb4f',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@ddc24037f0a9ea20acd38a3556709093e365572d',
+    'https://chromium.googlesource.com/chromium/src/third_party@ff53fb5f116ec9f5353c85b72c970ac81bdaa674',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -111,7 +111,7 @@ deps = {
   'src/third_party/boringssl/src':
     'https://boringssl.googlesource.com/boringssl.git@76918d016414bf1d71a86d28239566fbcf8aacf0',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@bef344f7017fc9e04f7049d0f58af6d9ce9f4ab6',
+    'https://chromium.googlesource.com/catapult.git@9f6271e66386c290294ad31a6a654cb402156157',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
     'condition': 'checkout_android',
@@ -119,7 +119,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@67fccdf0c90e11031f9e6f3043b7d0f6cc7c664f',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@a834f39e213247945fad24605839e2d3c65b0070',
   'src/third_party/errorprone/lib': {
       'url': 'https://chromium.googlesource.com/chromium/third_party/errorprone.git@980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',
@@ -241,7 +241,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@320ee2a8011cf454ed5b2ec340d1822c0e743fd3',
+    'https://chromium.googlesource.com/chromium/src/tools@fcb28e84955f6e680e1e25401e02efb54f8d21a3',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@885b3febcc170a60f25795304e60927b77d1e92d',
 

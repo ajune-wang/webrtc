@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "dd01a2c3_390bf6c2",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2463,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-10-23T18:24:10Z",
+      "side": 1,
+      "message": "I think it would be more clear to enqueue this as a single operation and immediately invoke SLD from the CreateOffer/CreateAnswer observer. That would avoid needing to store the session description in the intermediate class.",
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "94f56999_085fe546",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 7
@@ -19,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "a1e4b489_869f1a7d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2484,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-10-23T18:24:10Z",
+      "side": 1,
+      "message": "Seems kind of complex. Given that subsequent CreateOffers should be basically synchronous (the certificate has already been generated) I\u0027d just run it again.",
+      "parentUuid": "94f56999_085fe546",
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e6eb4fe4_8da3b79b",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 7
@@ -30,6 +65,120 @@
       "writtenOn": "2019-10-23T14:34:36Z",
       "side": 1,
       "message": "Any idea how to tell if DoCreateAnswer() is needed here or if we can use [[LastCreatedAnswer]]?",
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c5b471c_78556917",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-10-23T18:24:10Z",
+      "side": 1,
+      "message": "nit: might be worth adding a static Create method to MockSetSessionDescriptionObserver.",
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f6605fa_c348094f",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-10-23T18:24:10Z",
+      "side": 1,
+      "message": "Add an expectation for signaling state?",
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eae9ee0a_981ce4a7",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-10-23T18:24:10Z",
+      "side": 1,
+      "message": "EXPECT_TRUE_WAIT",
+      "range": {
+        "startLine": 630,
+        "startChar": 2,
+        "endLine": 630,
+        "endChar": 16
+      },
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fcb1c60_47dd75d3",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-10-23T18:24:10Z",
+      "side": 1,
+      "message": "ASSERT_TRUE",
+      "range": {
+        "startLine": 676,
+        "startChar": 2,
+        "endLine": 676,
+        "endChar": 13
+      },
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "458d9d52_17ee30d7",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-10-23T18:24:10Z",
+      "side": 1,
+      "message": "Skip the serialization step and use CloneSessionDescription instead?",
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0329c6f3_401d6d6c",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-10-23T18:24:10Z",
+      "side": 1,
+      "message": "Hmm, one concern is that now we don\u0027t know when we can delete the observer since these calls come after closing the PeerConnection.",
       "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

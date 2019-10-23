@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9545d15_d784b5c9",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-10-23T13:08:26Z",
+      "side": 1,
+      "message": "\"no change\" compared to? Is codec switching allowed or not?",
+      "range": {
+        "startLine": 553,
+        "startChar": 22,
+        "endLine": 553,
+        "endChar": 31
+      },
+      "revId": "2167704246f2978de89d472566865a7afaf50cc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

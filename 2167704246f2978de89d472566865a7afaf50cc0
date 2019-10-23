@@ -22,6 +22,30 @@
       "revId": "2167704246f2978de89d472566865a7afaf50cc0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddde7a35_7dff4bfa",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-10-23T14:03:05Z",
+      "side": 1,
+      "message": "Oops, I agree that\u0027s pretty vague, updated to \"Null indicates no change to currently configured value.\" Hope that\u0027s clearer.",
+      "parentUuid": "f9545d15_d784b5c9",
+      "range": {
+        "startLine": 553,
+        "startChar": 22,
+        "endLine": 553,
+        "endChar": 31
+      },
+      "revId": "2167704246f2978de89d472566865a7afaf50cc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

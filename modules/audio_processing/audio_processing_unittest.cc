@@ -16,6 +16,7 @@
 #include <cmath>
 #include <limits>
 #include <memory>
+#include <numeric>
 #include <queue>
 
 #include "absl/flags/flag.h"
@@ -840,6 +841,74 @@ TEST_F(ApmTest, SampleRatesInt) {
     SetContainerFormat(fs[i], 2, frame_, &float_cb_);
     EXPECT_NOERR(ProcessStreamChooser(kIntFormat));
   }
+}
+
+TEST_F(ApmTest, PreAmplifier) {
+  // Fill the audio frame with a sawtooth pattern.
+  int16_t* ptr = frame_->mutable_data();
+  const size_t samples_per_channel = frame_->samples_per_channel();
+  for (size_t i = 0; i < samples_per_channel; i++) {
+    for (size_t ch = 0; ch < frame_->num_channels(); ++ch) {
+      ptr[i + ch * samples_per_channel] = 1000 * ((i % 3) - 1);
+    }
+  }
+  // Cache the frame in tmp_frame.
+  AudioFrame tmp_frame;
+  tmp_frame.CopyFrom(*frame_);
+
+  auto compute_energy = [](AudioFrame* frame) {
+    int16_t* ptr = frame->mutable_data();
+    size_t len = frame->samples_per_channel() * frame->num_channels();
+    return std::accumulate(ptr, ptr + len, 0.0f,
+                           [](float a, float b) { return a + b * b; });
+  };
+
+  const float input_energy = compute_energy(&tmp_frame);
+  // Double-check that we will not be comparing zeroes.
+  RTC_DCHECK_GE(input_energy, 1000.f);
+
+  constexpr float kEpsilon = 10000.f;
+
+  // 1. Enable pre-amp with 0 dB gain.
+  AudioProcessing::Config config = apm_->GetConfig();
+  config.pre_amplifier.enabled = true;
+  config.pre_amplifier.fixed_gain_factor = 1.0f;
+  apm_->ApplyConfig(config);
+
+  for (int i = 0; i < 100; ++i) {
+    frame_->CopyFrom(tmp_frame);
+    EXPECT_EQ(apm_->kNoError, ProcessStreamChooser(kIntFormat));
+  }
+  float output_energy = compute_energy(frame_);
+  EXPECT_NEAR(output_energy, input_energy, kEpsilon);
+  config = apm_->GetConfig();
+  EXPECT_EQ(config.pre_amplifier.fixed_gain_factor, 1.0f);
+
+  // 2. Change pre-amp gain via ApplyConfig.
+  config.pre_amplifier.fixed_gain_factor = 2.0f;
+  apm_->ApplyConfig(config);
+
+  for (int i = 0; i < 100; ++i) {
+    frame_->CopyFrom(tmp_frame);
+    EXPECT_EQ(apm_->kNoError, ProcessStreamChooser(kIntFormat));
+  }
+  output_energy = compute_energy(frame_);
+  EXPECT_NEAR(output_energy, 4 * input_energy, kEpsilon);
+  config = apm_->GetConfig();
+  EXPECT_EQ(config.pre_amplifier.fixed_gain_factor, 2.0f);
+
+  // 3. Change pre-amp gain via a RuntimeSetting.
+  apm_->SetRuntimeSetting(
+      AudioProcessing::RuntimeSetting::CreateCapturePreGain(1.5f));
+
+  for (int i = 0; i < 100; ++i) {
+    frame_->CopyFrom(tmp_frame);
+    EXPECT_EQ(apm_->kNoError, ProcessStreamChooser(kIntFormat));
+  }
+  output_energy = compute_energy(frame_);
+  EXPECT_NEAR(output_energy, 2.25 * input_energy, kEpsilon);
+  config = apm_->GetConfig();
+  EXPECT_EQ(config.pre_amplifier.fixed_gain_factor, 1.5f);
 }
 
 TEST_F(ApmTest, GainControl) {

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e26a9faa_34a6a7fb",
+        "filename": "modules/video_coding/packet_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-23T08:43:53Z",
+      "side": 1,
+      "message": "to stress caller shouldn\u0027t discard result.\nthat can be particular useful for InsertPadding function where user might forget that that function can emit ready frames too.\n\nDo you find it too verbose and prefer to rely on unit tests to ensure result is not missed?",
+      "parentUuid": "cdc26a1d_652cacd8",
+      "range": {
+        "startLine": 46,
+        "startChar": 47,
+        "endLine": 46,
+        "endChar": 67
+      },
+      "revId": "6355006cbcbee333b2cd97da16a24880169983ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5b6cfc01_be254efe",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "6355006cbcbee333b2cd97da16a24880169983ef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37018120_a7866436",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-10-23T08:43:53Z",
+      "side": 1,
+      "message": "why?\nthis use-case is not among allowed use cases for r-value reference https://google.github.io/styleguide/cppguide.html#Rvalue_references\n\nAs for optimiaztion, there is copy-elision not to worry about the performance.\nhttps://abseil.io/tips/117",
+      "parentUuid": "5b6cfc01_be254efe",
+      "range": {
+        "startLine": 579,
+        "startChar": 4,
+        "endLine": 579,
+        "endChar": 44
+      },
+      "revId": "6355006cbcbee333b2cd97da16a24880169983ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

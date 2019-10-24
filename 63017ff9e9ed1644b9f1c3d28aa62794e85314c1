@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a91200a1_d74b23ad",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-10-24T11:04:11Z",
+      "side": 1,
+      "message": "[optional] bonus points if you add and switch to sth like\n\n// Returns a mutable view on the capture input (array of interleaved samples).\nrtc::ArrayView\u003cint16_t\u003e ApmTest::GetMutableData();",
+      "range": {
+        "startLine": 848,
+        "startChar": 2,
+        "endLine": 849,
+        "endChar": 67
+      },
+      "revId": "63017ff9e9ed1644b9f1c3d28aa62794e85314c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbed301b_2854f168",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-10-24T11:04:11Z",
+      "side": 1,
+      "message": "const AudioFrame\u0026",
+      "range": {
+        "startLine": 859,
+        "startChar": 27,
+        "endLine": 859,
+        "endChar": 44
+      },
+      "revId": "63017ff9e9ed1644b9f1c3d28aa62794e85314c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "691a925e_b636c8ad",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-10-24T11:04:11Z",
+      "side": 1,
+      "message": "use data()",
+      "range": {
+        "startLine": 860,
+        "startChar": 26,
+        "endLine": 860,
+        "endChar": 38
+      },
+      "revId": "63017ff9e9ed1644b9f1c3d28aa62794e85314c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c44de66_42dfb5b3",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-10-24T11:04:11Z",
+      "side": 1,
+      "message": "This is an unusually large eps for EXPECT_NEAR.\nBetter add a brief comment to say sth about its magnitude.\n\nAlso, is this the smallest value with which the test passes?",
+      "range": {
+        "startLine": 870,
+        "startChar": 18,
+        "endLine": 870,
+        "endChar": 31
+      },
+      "revId": "63017ff9e9ed1644b9f1c3d28aa62794e85314c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6c9af68_6a255473",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-10-24T11:04:11Z",
+      "side": 1,
+      "message": "this block is repeated 3 times, I think a lambda would help",
+      "range": {
+        "startLine": 878,
+        "startChar": 0,
+        "endLine": 885,
+        "endChar": 58
+      },
+      "revId": "63017ff9e9ed1644b9f1c3d28aa62794e85314c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

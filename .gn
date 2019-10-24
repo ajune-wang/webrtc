@@ -73,4 +73,6 @@ default_args = {
   libyuv_use_gflags = false
 
   gtest_enable_absl_printers = true
+
+  is_component_build = true
 }

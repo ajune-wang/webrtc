@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cc7ea07_2f936ec7",
+        "filename": "modules/video_coding/packet_buffer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-10-24T09:07:25Z",
+      "side": 1,
+      "message": "WDYT about adding a matcher like this:\n\n  MATCHER_P(StartSeqNumsAre, seq_nums, \"\") {\n    return ::testing::Matches(ElementsAre(seq_nums))(FirstSeqNums(arg));\n  }\n\nThen we can write EXPECTs like this:\n\n  EXPECT_THAT(Insert(0x0, kKeyFrame, kNotFirst, kLast).frames,\n              StartSeqNumsAre(0xFFFF));",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 35
+      },
+      "revId": "c8ccc1eb77cf5579b483f77ae0dcd0d46fe284c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

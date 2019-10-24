@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a56b836_5f3acf7e",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-24T16:47:20Z",
+      "side": 1,
+      "message": "IMO we can just skip this. It doesn\u0027t provide much information that can\u0027t be gathered from reading the code.",
+      "range": {
+        "startLine": 499,
+        "startChar": 0,
+        "endLine": 500,
+        "endChar": 25
+      },
+      "revId": "4bdfdcbd00cf166b4e6c208098f70ae03019f8c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc1ff06b_ac56f86e",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-24T16:47:20Z",
+      "side": 1,
+      "message": "Merge these.",
+      "range": {
+        "startLine": 502,
+        "startChar": 17,
+        "endLine": 503,
+        "endChar": 10
+      },
+      "revId": "4bdfdcbd00cf166b4e6c208098f70ae03019f8c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cfe11b7_fcf87190",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-24T16:47:20Z",
+      "side": 1,
+      "message": "Missing *",
+      "range": {
+        "startLine": 504,
+        "startChar": 10,
+        "endLine": 504,
+        "endChar": 23
+      },
+      "revId": "4bdfdcbd00cf166b4e6c208098f70ae03019f8c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

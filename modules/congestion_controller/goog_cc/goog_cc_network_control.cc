@@ -72,6 +72,9 @@ GoogCcNetworkController::GoogCcNetworkController(NetworkControllerConfig config,
                     "WebRTC-Bwe-CongestionWindowDownlinkDelay")),
       use_min_allocatable_as_lower_bound_(
           IsNotDisabled(key_value_config_, "WebRTC-Bwe-MinAllocAsLowerBound")),
+      ignore_probes_lower_than_network_estimate_(
+          IsEnabled(key_value_config_,
+                    "WebRTC-Bwe-IgnoreProbesLowerThanNetworkStateEstimate")),
       rate_control_settings_(
           RateControlSettings::ParseFromKeyValueConfig(key_value_config_)),
       probe_controller_(
@@ -493,6 +496,15 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
       probe_bitrate_estimator_->FetchAndResetLastEstimatedBitrate();
   if (network_estimator_) {
     network_estimator_->OnTransportPacketsFeedback(report);
+    // Prope results are sometimes too low and should not be trusted if there is
+    // a better estimate.
+    if (ignore_probes_lower_than_network_estimate_ && probe_bitrate &&
+        estimate_) {
+      if (*probe_bitrate < delay_based_bwe_->last_estimate() &&
+          probe_bitrate < estimate_->link_capacity_lower) {
+        probe_bitrate.reset();
+      }
+    }
     auto prev_estimate = estimate_;
     estimate_ = network_estimator_->GetCurrentEstimate();
     // TODO(srte): Make OnTransportPacketsFeedback signal wether the state

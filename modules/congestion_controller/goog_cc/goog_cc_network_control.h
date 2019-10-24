@@ -85,6 +85,7 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   const bool packet_feedback_only_;
   FieldTrialFlag safe_reset_on_route_change_;
   FieldTrialFlag safe_reset_acknowledged_rate_;
+  FieldTrialParameter<bool> ignore_low_probes_{"nolowprobes", false};
   const bool use_downlink_delay_for_congestion_window_;
   const bool use_min_allocatable_as_lower_bound_;
   const RateControlSettings rate_control_settings_;

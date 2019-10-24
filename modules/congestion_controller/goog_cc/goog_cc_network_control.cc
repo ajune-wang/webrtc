@@ -109,6 +109,9 @@ GoogCcNetworkController::GoogCcNetworkController(NetworkControllerConfig config,
   ParseFieldTrial(
       {&safe_reset_on_route_change_, &safe_reset_acknowledged_rate_},
       key_value_config_->Lookup("WebRTC-Bwe-SafeResetOnRouteChange"));
+  ParseFieldTrial(
+      {&ignore_low_probes_},
+      key_value_config_->Lookup("WebRTC-Bwe-EstimateBoundedBackoff"));
   if (delay_based_bwe_)
     delay_based_bwe_->SetMinBitrate(congestion_controller::GetMinBitrate());
 }
@@ -493,6 +496,14 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
       probe_bitrate_estimator_->FetchAndResetLastEstimatedBitrate();
   if (network_estimator_) {
     network_estimator_->OnTransportPacketsFeedback(report);
+    // Ignore probe results if they are lower than the current delay based
+    // estimate and lower than NetworkState::link_capacity_lower()
+    if (ignore_low_probes_ && probe_bitrate && estimate_) {
+      if (*probe_bitrate < delay_based_bwe_->last_estimate() &&
+          probe_bitrate < estimate_->link_capacity_lower) {
+        probe_bitrate.reset();
+      }
+    }
     auto prev_estimate = estimate_;
     estimate_ = network_estimator_->GetCurrentEstimate();
     // TODO(srte): Make OnTransportPacketsFeedback signal wether the state

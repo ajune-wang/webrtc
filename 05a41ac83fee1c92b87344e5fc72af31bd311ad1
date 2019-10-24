@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87455384_406b3b60",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-24T13:35:33Z",
+      "side": 1,
+      "message": "Does it still work if you have RTC_EXPORT here too? That would look less confusing IMO.",
+      "revId": "05a41ac83fee1c92b87344e5fc72af31bd311ad1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

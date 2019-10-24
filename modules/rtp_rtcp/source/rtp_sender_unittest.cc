@@ -1228,22 +1228,20 @@ TEST_P(RtpSenderTest, SendFlexfecPackets) {
     std::unique_ptr<RtpPacketToSend> fec_packet;
 
     EXPECT_CALL(mock_paced_sender_, EnqueuePackets)
-        .Times(2)
-        .WillRepeatedly(
-            [&](std::vector<std::unique_ptr<RtpPacketToSend>> packets) {
-              for (auto& packet : packets) {
-                if (packet->packet_type() == RtpPacketToSend::Type::kVideo) {
-                  EXPECT_EQ(packet->Ssrc(), kSsrc);
-                  EXPECT_EQ(packet->SequenceNumber(), kSeqNum);
-                  media_packet = std::move(packet);
-                } else {
-                  EXPECT_EQ(packet->packet_type(),
-                            RtpPacketToSend::Type::kForwardErrorCorrection);
-                  EXPECT_EQ(packet->Ssrc(), kFlexFecSsrc);
-                  fec_packet = std::move(packet);
-                }
-              }
-            });
+        .WillOnce([&](std::vector<std::unique_ptr<RtpPacketToSend>> packets) {
+          for (auto& packet : packets) {
+            if (packet->packet_type() == RtpPacketToSend::Type::kVideo) {
+              EXPECT_EQ(packet->Ssrc(), kSsrc);
+              EXPECT_EQ(packet->SequenceNumber(), kSeqNum);
+              media_packet = std::move(packet);
+            } else {
+              EXPECT_EQ(packet->packet_type(),
+                        RtpPacketToSend::Type::kForwardErrorCorrection);
+              EXPECT_EQ(packet->Ssrc(), kFlexFecSsrc);
+              fec_packet = std::move(packet);
+            }
+          }
+        });
 
     video_header.frame_type = VideoFrameType::kVideoFrameKey;
     EXPECT_TRUE(rtp_sender_video.SendVideo(
@@ -1723,8 +1721,7 @@ TEST_P(RtpSenderTest, FecOverheadRate) {
   constexpr size_t kNumMediaPackets = 10;
   constexpr size_t kNumFecPackets = kNumMediaPackets;
   constexpr int64_t kTimeBetweenPacketsMs = 10;
-  EXPECT_CALL(mock_paced_sender_, EnqueuePackets)
-      .Times(kNumMediaPackets + kNumFecPackets);
+  EXPECT_CALL(mock_paced_sender_, EnqueuePackets).Times(kNumMediaPackets);
   for (size_t i = 0; i < kNumMediaPackets; ++i) {
     RTPVideoHeader video_header;
 

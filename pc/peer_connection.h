@@ -210,6 +210,7 @@ class PeerConnection : public PeerConnectionInternal,
                     const RTCOfferAnswerOptions& options) override;
   void SetLocalDescription(SetSessionDescriptionObserver* observer,
                            SessionDescriptionInterface* desc) override;
+  void SetLocalDescription(SetSessionDescriptionObserver* observer) override;
   void SetRemoteDescription(SetSessionDescriptionObserver* observer,
                             SessionDescriptionInterface* desc) override;
   void SetRemoteDescription(

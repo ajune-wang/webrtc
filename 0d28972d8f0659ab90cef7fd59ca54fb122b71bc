@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f0884f3_5607a3c1",
+        "filename": "p2p/base/stun_request.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-10-25T22:07:03Z",
+      "side": 1,
+      "message": "Objects of this type are constructed relatively frequently. Could you move the field-trial read to the construction site, and provide it as a boolean parameter?",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 70
+      },
+      "revId": "0d28972d8f0659ab90cef7fd59ca54fb122b71bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

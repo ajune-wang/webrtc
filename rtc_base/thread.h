@@ -133,7 +133,13 @@ struct _SendMessage {
 
 // WARNING! SUBCLASSES MUST CALL Stop() IN THEIR DESTRUCTORS!  See ~Thread().
 
-class RTC_LOCKABLE RTC_EXPORT Thread : public MessageQueue {
+//class RTC_LOCKABLE RTC_EXPORT Thread : public MessageQueue {
+#ifdef WEBRTC_LIBRARY_IMPL
+class RTC_LOCKABLE __declspec(dllexport) Thread : public MessageQueue {
+#else
+class RTC_LOCKABLE __declspec(dllimport) Thread : public MessageQueue {
+#endif
+
  public:
   explicit Thread(SocketServer* ss);
   explicit Thread(std::unique_ptr<SocketServer> ss);

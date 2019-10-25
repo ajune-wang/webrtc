@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88d1db34_3eff9d02",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-10-25T07:42:09Z",
+      "side": 1,
+      "message": "[nit] You can move these inside class ApmTest (line 352 in this file).",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 1
+      },
+      "revId": "9ffed8c8b5fc2703ead841c8b275b6f09367eb58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9217345_753fee76",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-10-25T07:42:09Z",
+      "side": 1,
+      "message": "It looks like the MSVC compiler doesn\u0027t complain anymore.\nSo no need to write it as \"1e-4f\".",
+      "range": {
+        "startLine": 882,
+        "startChar": 29,
+        "endLine": 882,
+        "endChar": 33
+      },
+      "revId": "9ffed8c8b5fc2703ead841c8b275b6f09367eb58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

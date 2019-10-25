@@ -2155,6 +2155,7 @@ TEST_F(WebRtcVideoChannelBaseTest, RequestEncoderSwitchWithConfig) {
   parameters.codecs.push_back(vp8);
 
   EXPECT_TRUE(channel_->SetSendParameters(parameters));
+  channel_->SetVideoCodecSwitchingEnabled(true);
 
   VideoCodec codec;
   ASSERT_TRUE(channel_->GetSendCodec(&codec));
@@ -2192,6 +2193,7 @@ TEST_F(WebRtcVideoChannelBaseTest, RequestEncoderSwitchIncorrectParam) {
   parameters.codecs.push_back(vp8);
 
   EXPECT_TRUE(channel_->SetSendParameters(parameters));
+  channel_->SetVideoCodecSwitchingEnabled(true);
 
   VideoCodec codec;
   ASSERT_TRUE(channel_->GetSendCodec(&codec));

@@ -52,16 +52,8 @@
       dispatchAsyncOnType:RTCDispatcherTypeMain
                     block:^{
                       AVCaptureVideoPreviewLayer *previewLayer = [self previewLayer];
-                      [RTCDispatcher
-                          dispatchAsyncOnType:RTCDispatcherTypeCaptureSession
-                                        block:^{
-                                          previewLayer.session = captureSession;
-                                          [RTCDispatcher
-                                              dispatchAsyncOnType:RTCDispatcherTypeMain
-                                                            block:^{
-                                                              [self setCorrectVideoOrientation];
-                                                            }];
-                                        }];
+                      previewLayer.session = captureSession;
+                      [self setCorrectVideoOrientation];
                     }];
 }
 

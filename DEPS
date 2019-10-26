@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '04c3c4c8f14e0ce2d98185581d793b97a2dce48d',
+  'chromium_revision': 'bd697a569cf27a9d9f21ae6b28acad7f62e9f3a7',
 }
 
 deps = {
@@ -23,13 +23,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@ec7400c287610590b0dbff10c39860b6658c23df',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@335a81ec3f7cdfbf8711178af65d9d3f8156a592',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@34597bd01c1bff2911fe88154640f508911ed433',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@d17c91fa4f2834ecb1f54440e89ec6330b8b8e65',
+    'https://chromium.googlesource.com/chromium/src/third_party@4a2f3651168da6709e93f37535ea75cc2fec6d4a',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -119,7 +119,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@b96466297216f5b7c1df73df7771e6234e64552d',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@e79107e01bb48ae8b2430db4b36d1dbe104817f9',
   'src/third_party/errorprone/lib': {
       'url': 'https://chromium.googlesource.com/chromium/third_party/errorprone.git@980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',
@@ -241,7 +241,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@0a66c3867f0f621e4824b5024de9d5bdeeb06531',
+    'https://chromium.googlesource.com/chromium/src/tools@f02def322f4271d52f73ddd7b32440856836bf35',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@885b3febcc170a60f25795304e60927b77d1e92d',
 

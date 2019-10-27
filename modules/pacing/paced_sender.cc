@@ -35,7 +35,8 @@ PacedSender::PacedSender(Clock* clock,
     : pacing_controller_(clock,
                          static_cast<PacingController::PacketSender*>(this),
                          event_log,
-                         field_trials),
+                         field_trials,
+                         true),
       packet_router_(packet_router),
       process_thread_(process_thread) {
   if (process_thread_)

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c636f422_27c6ef2b",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-10-28T14:21:53Z",
+      "side": 1,
+      "message": "Not strictly needed as this case is handled by the following code, though fine with me if it\u0027s there for clarity or optimization.",
+      "range": {
+        "startLine": 292,
+        "startChar": 2,
+        "endLine": 294,
+        "endChar": 3
+      },
+      "revId": "49999bde29b6f2de603b46a4a49023744d5f8856",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

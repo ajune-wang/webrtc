@@ -2,6 +2,236 @@
   "comments": [
     {
       "key": {
+        "uuid": "a806a5f6_b917be7d",
+        "filename": "call/call.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-28T09:36:20Z",
+      "side": 1,
+      "message": "Passing a pointer to a temporary member here. This is not safe since it\u0027s reasonable to assume that arguments to a class constructor will outlive the class.",
+      "range": {
+        "startLine": 419,
+        "startChar": 61,
+        "endLine": 419,
+        "endChar": 75
+      },
+      "revId": "e819c4b87bd47eb0c2e65126f95a916532a4f3d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "138daf59_cc6039c3",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-28T09:36:20Z",
+      "side": 1,
+      "message": "It\u0027s a good thing to provide this as an argument, but it should used consistently over webrtc::field_trial:: and we should remove the include of \"system_wrappers/include/field_trial.h\".\n\nI suggest making this change in a separate CL, either as a preparation or followup.",
+      "range": {
+        "startLine": 68,
+        "startChar": 3,
+        "endLine": 68,
+        "endChar": 44
+      },
+      "revId": "e819c4b87bd47eb0c2e65126f95a916532a4f3d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bea7093_1a339f5a",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-28T09:36:20Z",
+      "side": 1,
+      "message": "Enabled, or you might have wanted to do !\u003d 0",
+      "range": {
+        "startLine": 74,
+        "startChar": 62,
+        "endLine": 74,
+        "endChar": 70
+      },
+      "revId": "e819c4b87bd47eb0c2e65126f95a916532a4f3d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3570d1b7_056aeb67",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-28T09:36:20Z",
+      "side": 1,
+      "message": "Will this attach itself to the process thread by default? We might want to avoid that happening to keep logs etc sane?",
+      "range": {
+        "startLine": 75,
+        "startChar": 6,
+        "endLine": 75,
+        "endChar": 27
+      },
+      "revId": "e819c4b87bd47eb0c2e65126f95a916532a4f3d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "620b2101_25d31f60",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-28T09:36:20Z",
+      "side": 1,
+      "message": "This only needs to be done if we use the legacy pacer, right?",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 27
+      },
+      "revId": "e819c4b87bd47eb0c2e65126f95a916532a4f3d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8d57349_618f8df2",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-28T09:36:20Z",
+      "side": 1,
+      "message": "Not obvious what this parameter does,please add /*argument_name\u003d*/",
+      "range": {
+        "startLine": 39,
+        "startChar": 25,
+        "endLine": 39,
+        "endChar": 29
+      },
+      "revId": "e819c4b87bd47eb0c2e65126f95a916532a4f3d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a22146ad_20b51b88",
+        "filename": "modules/pacing/paced_sender_taskqueue.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-28T09:36:20Z",
+      "side": 1,
+      "message": "Should have a /*argument_name\u003d*/ comment, but consider other options such as using an enum, or even better, using two separate functions if it\u0027s possible without too much overhead.",
+      "range": {
+        "startLine": 63,
+        "startChar": 22,
+        "endLine": 63,
+        "endChar": 26
+      },
+      "revId": "e819c4b87bd47eb0c2e65126f95a916532a4f3d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e879852d_e3d8cd76",
+        "filename": "modules/pacing/paced_sender_taskqueue.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-28T09:36:20Z",
+      "side": 1,
+      "message": "Not sure what the meaning of this is, but would Timestamp::PlusInfinity() or Timestamp::MinusInfinity() capture the meaning somehow? (as in, \"sometime in the future\" vs \"as soon as possible\")\n\nYou could also consider having two processpackets, one for the nullopt case and one for the given case.",
+      "range": {
+        "startLine": 63,
+        "startChar": 28,
+        "endLine": 63,
+        "endChar": 41
+      },
+      "revId": "e819c4b87bd47eb0c2e65126f95a916532a4f3d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1e8e384_657f033e",
+        "filename": "modules/pacing/paced_sender_taskqueue.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-28T09:36:20Z",
+      "side": 1,
+      "message": "Avoid this pattern unless you know that we want to call a function from both within the queue and outside. Prefer using a DCHECK for the current calling practice. This way we reduce the complexity of understanding how the code works.",
+      "range": {
+        "startLine": 122,
+        "startChar": 2,
+        "endLine": 122,
+        "endChar": 33
+      },
+      "revId": "e819c4b87bd47eb0c2e65126f95a916532a4f3d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dcf7d78_c38cd26f",
+        "filename": "modules/pacing/paced_sender_taskqueue.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-28T09:36:20Z",
+      "side": 1,
+      "message": "frome",
+      "range": {
+        "startLine": 194,
+        "startChar": 17,
+        "endLine": 194,
+        "endChar": 22
+      },
+      "revId": "e819c4b87bd47eb0c2e65126f95a916532a4f3d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc93092a_5cc13c8f",
         "filename": "modules/pacing/paced_sender_taskqueue.h",
         "patchSetId": 11
@@ -13,6 +243,29 @@
       "writtenOn": "2019-10-27T16:10:34Z",
       "side": 1,
       "message": "Nit: In other places we always use _task_queue.{h,cc} instead of \"taskqueue\".",
+      "revId": "e819c4b87bd47eb0c2e65126f95a916532a4f3d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5454c55d_75ffaa72",
+        "filename": "modules/pacing/paced_sender_taskqueue.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-28T09:36:20Z",
+      "side": 1,
+      "message": "Nit: I read this as \"A task queue that is of a paced sender variety.\" I guess it\u0027s an open style question (I don\u0027t know any style guidelines for it at least), but I\u0027d prefer TaskQueuePacedSender.",
+      "range": {
+        "startLine": 41,
+        "startChar": 6,
+        "endLine": 41,
+        "endChar": 26
+      },
       "revId": "e819c4b87bd47eb0c2e65126f95a916532a4f3d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

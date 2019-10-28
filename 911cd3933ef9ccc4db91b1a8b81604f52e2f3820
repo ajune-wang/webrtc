@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "070b0659_ca55ee56",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2463,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-28T15:38:22Z",
+      "side": 1,
+      "message": "OK sounds good to me -- I still need to address this comment, I\u0027ll do that tomorrow.",
+      "parentUuid": "dd01a2c3_390bf6c2",
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "94f56999_085fe546",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 7
@@ -54,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "8bf71ff1_ade94302",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2484,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-28T15:38:22Z",
+      "side": 1,
+      "message": "Yeah it seems like an unnecessary optimization. I think it would be observably different though, like the \"o\u003d\" line having a number that increments every time you do createOffer(), or other things that seem to be different each time (playing around on https://webrtc.github.io/samples/src/content/peerconnection/munge-sdp/).\n\nIt\u0027s probably not a big deal though. If you want the offer to be created implicitly you probably wouldn\u0027t call createOffer() anyway, but if you did, you could always set it explicitly.\n\nLeaving this as non-compliant for now.",
+      "parentUuid": "a1e4b489_869f1a7d",
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6eb4fe4_8da3b79b",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 7
@@ -68,6 +104,24 @@
       "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6bf3b02_90f97b8d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2492,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-28T15:38:22Z",
+      "side": 1,
+      "message": "Leaving this as non-compliant as well, see above comment.",
+      "parentUuid": "e6eb4fe4_8da3b79b",
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "964fbe9a_99f1d67a",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-28T15:38:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c5b471c_78556917",
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f6605fa_c348094f",
         "filename": "pc/peer_connection_signaling_unittest.cc",
         "patchSetId": 7
@@ -102,6 +174,24 @@
       "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7be8af40_92e5a205",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-28T15:38:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f6605fa_c348094f",
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -128,6 +218,30 @@
     },
     {
       "key": {
+        "uuid": "ef62b0e9_7cfa19d6",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-28T15:38:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eae9ee0a_981ce4a7",
+      "range": {
+        "startLine": 630,
+        "startChar": 2,
+        "endLine": 630,
+        "endChar": 16
+      },
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9fcb1c60_47dd75d3",
         "filename": "pc/peer_connection_signaling_unittest.cc",
         "patchSetId": 7
@@ -151,6 +265,30 @@
     },
     {
       "key": {
+        "uuid": "40761022_d224590c",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-28T15:38:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fcb1c60_47dd75d3",
+      "range": {
+        "startLine": 676,
+        "startChar": 2,
+        "endLine": 676,
+        "endChar": 13
+      },
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "458d9d52_17ee30d7",
         "filename": "pc/peer_connection_signaling_unittest.cc",
         "patchSetId": 7
@@ -168,6 +306,24 @@
     },
     {
       "key": {
+        "uuid": "8b65750c_a6481276",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-28T15:38:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "458d9d52_17ee30d7",
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0329c6f3_401d6d6c",
         "filename": "pc/peer_connection_signaling_unittest.cc",
         "patchSetId": 7
@@ -179,6 +335,24 @@
       "writtenOn": "2019-10-23T18:24:10Z",
       "side": 1,
       "message": "Hmm, one concern is that now we don\u0027t know when we can delete the observer since these calls come after closing the PeerConnection.",
+      "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33558c4d_bd5ab9ff",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-28T15:38:22Z",
+      "side": 1,
+      "message": "Since we use weak ptrs, we know when the PC is deleted, and deleting the PC triggers message processing, we can be sure that operations have executed (and aborted due to weak ptr being invalidated), and so we know that we can delete the observer after that point.\n\nImplicitCreateOfferAndShutdown, CloseBeforeImplicitCreateOfferAndShutdown and CloseAfterImplicitCreateOfferAndShutdown exercise the case of deleting the PC while an implicit SLD is pending.\n\nThese tests expect that the observer has not been called. But this is not a case of \"has not been called yet\", the observer is never called and can be deleted. The whole ordeal about not invoking the callback on destruction is not a limit in the design btw, it\u0027s done on purpose to mimic the existing behavior of the SLD/SRD callbacks that only invoke the callbacks in OnMessage which is aborted by the PC being deleted.\n\nIf we want SLD/SRD callbacks to be invoked in this case (so increase our confidence that we can in fact delete the observer) that should be done in a separate CL and is not relating to whether or not we delete the observer - we do.\n\nUnless I\u0027m missing something? Let me know if I should add another test case.",
+      "parentUuid": "0329c6f3_401d6d6c",
       "revId": "911cd3933ef9ccc4db91b1a8b81604f52e2f3820",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

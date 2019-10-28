@@ -51,6 +51,7 @@ rtc_library("video_interfaces") {
     "video_transport.h",
   ]
   deps = [
+    "../../../rtc_base:deprecation",
     "../../video:encoded_image",
   ]
 }

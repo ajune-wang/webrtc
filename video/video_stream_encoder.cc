@@ -1708,11 +1708,6 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
       image_copy, codec_info_copy ? codec_info_copy.get() : codec_specific_info,
       fragmentation_copy ? fragmentation_copy.get() : fragmentation);
 
-  // We are only interested in propagating the meta-data about the image, not
-  // encoded data itself, to the post encode function. Since we cannot be sure
-  // the pointer will still be valid when run on the task queue, set it to null.
-  image_copy.set_buffer(nullptr, 0);
-
   int temporal_index = 0;
   if (codec_specific_info) {
     if (codec_specific_info->codecType == kVideoCodecVP9) {

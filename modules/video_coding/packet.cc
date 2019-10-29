@@ -23,8 +23,6 @@ VCMPacket::VCMPacket()
       sizeBytes(0),
       markerBit(false),
       timesNacked(-1),
-      completeNALU(kNaluUnset),
-      insertStartCode(false),
       video_header() {
   video_header.playout_delay = {-1, -1};
 }
@@ -43,21 +41,8 @@ VCMPacket::VCMPacket(const uint8_t* ptr,
       sizeBytes(size),
       markerBit(rtp_header.markerBit),
       timesNacked(-1),
-      completeNALU(kNaluIncomplete),
-      insertStartCode(videoHeader.codec == kVideoCodecH264 &&
-                      videoHeader.is_first_packet_in_frame),
       video_header(videoHeader),
       packet_info(rtp_header, receive_time_ms) {
-  if (is_first_packet_in_frame() && markerBit) {
-    completeNALU = kNaluComplete;
-  } else if (is_first_packet_in_frame()) {
-    completeNALU = kNaluStart;
-  } else if (markerBit) {
-    completeNALU = kNaluEnd;
-  } else {
-    completeNALU = kNaluIncomplete;
-  }
-
   // TODO(nisse): Delete?
   // Playout decisions are made entirely based on first packet in a frame.
   if (!is_first_packet_in_frame()) {

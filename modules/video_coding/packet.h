@@ -23,15 +23,6 @@
 
 namespace webrtc {
 
-// Used to indicate if a received packet contain a complete NALU (or equivalent)
-enum VCMNaluCompleteness {
-  kNaluUnset = 0,     // Packet has not been filled.
-  kNaluComplete = 1,  // Packet can be decoded as is.
-  kNaluStart,         // Packet contain beginning of NALU
-  kNaluIncomplete,    // Packet is not beginning or end of NALU
-  kNaluEnd,           // Packet is the end of a NALU
-};
-
 class VCMPacket {
  public:
   VCMPacket();
@@ -66,9 +57,6 @@ class VCMPacket {
   bool markerBit;
   int timesNacked;
 
-  VCMNaluCompleteness completeNALU;  // Default is kNaluIncomplete.
-  bool insertStartCode;  // True if a start code should be inserted before this
-                         // packet.
   RTPVideoHeader video_header;
   absl::optional<RtpGenericFrameDescriptor> generic_descriptor;
 

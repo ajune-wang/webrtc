@@ -33,10 +33,16 @@ class BlockFramer {
 
   // Adds a 64 sample block into the data that will form the next output frame.
   void InsertBlock(const std::vector<std::vector<std::vector<float>>>& block);
+  // As above, but adds the 64 sample block only into the first band and first
+  // channel.
+  void InsertBlock(const std::vector<float>& block);
   // Adds a 64 sample block and extracts an 80 sample subframe.
   void InsertBlockAndExtractSubFrame(
       const std::vector<std::vector<std::vector<float>>>& block,
       std::vector<std::vector<rtc::ArrayView<float>>>* sub_frame);
+  // As above, but does this only from the first band and first channel.
+  void InsertBlockAndExtractSubFrame(const std::vector<float>& block,
+                                     rtc::ArrayView<float>* sub_frame);
 
  private:
   const size_t num_bands_;

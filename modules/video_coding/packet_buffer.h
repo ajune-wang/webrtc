@@ -18,8 +18,8 @@
 
 #include "absl/base/attributes.h"
 #include "api/video/encoded_image.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/video_coding/frame_object.h"
-#include "modules/video_coding/packet.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/numerics/sequence_number_util.h"
 #include "rtc_base/thread_annotations.h"
@@ -36,6 +36,14 @@ class PacketBuffer {
     // frame request should be sent.
     bool buffer_cleared = false;
   };
+  struct Packet {
+    RtpPacketReceived rtp_packet;
+    RTPVideoHeader video_header;
+    std::unique_ptr<uint8_t[]> payload;
+    size_t payload_size = 0;
+    int times_nacked = 0;
+    int64_t ntp_time_ms = 0;
+  };
 
   // Both |start_buffer_size| and |max_buffer_size| must be a power of 2.
   PacketBuffer(Clock* clock, size_t start_buffer_size, size_t max_buffer_size);
@@ -43,7 +51,7 @@ class PacketBuffer {
 
   // The PacketBuffer will always take ownership of the |packet.dataPtr| when
   // this function is called.
-  InsertResult InsertPacket(VCMPacket* packet) ABSL_MUST_USE_RESULT;
+  InsertResult InsertPacket(Packet packet) ABSL_MUST_USE_RESULT;
   InsertResult InsertPadding(uint16_t seq_num) ABSL_MUST_USE_RESULT;
   void ClearTo(uint16_t seq_num);
   void Clear();
@@ -57,13 +65,15 @@ class PacketBuffer {
 
  private:
   struct StoredPacket {
-    uint16_t seq_num() const { return data.seqNum; }
+    uint16_t seq_num() const { return data.rtp_packet.SequenceNumber(); }
 
     // If this is the first packet of the frame.
-    bool frame_begin() const { return data.is_first_packet_in_frame(); }
+    bool frame_begin() const {
+      return data.video_header.is_first_packet_in_frame;
+    }
 
     // If this is the last packet of the frame.
-    bool frame_end() const { return data.is_last_packet_in_frame(); }
+    bool frame_end() const { return data.video_header.is_last_packet_in_frame; }
 
     // If this slot is currently used.
     bool used = false;
@@ -71,7 +81,9 @@ class PacketBuffer {
     // If all its previous packets have been inserted into the packet buffer.
     bool continuous = false;
 
-    VCMPacket data;
+    // Time packet arrived in the PacketBuffer for the first time.
+    int64_t receive_time_ms = 0;
+    Packet data;
   };
 
   Clock* const clock_;
@@ -94,7 +106,7 @@ class PacketBuffer {
       uint16_t last_seq_num) RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   // Get the packet with sequence number |seq_num|.
-  VCMPacket* GetPacket(uint16_t seq_num) RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
+  Packet* GetPacket(uint16_t seq_num) RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   // Clears the packet buffer from |start_seq_num| to |stop_seq_num| where the
   // endpoints are inclusive.

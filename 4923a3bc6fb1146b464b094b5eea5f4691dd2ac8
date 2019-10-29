@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a07f9eed_969a0513",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-10-29T13:33:59Z",
+      "side": 1,
+      "message": "\"offset\" makes me think of DC-offset or a time delay. Can we call the CL something else? (gain?)",
+      "range": {
+        "startLine": 7,
+        "startChar": 42,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "4923a3bc6fb1146b464b094b5eea5f4691dd2ac8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

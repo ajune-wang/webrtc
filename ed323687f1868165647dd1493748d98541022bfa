@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4ad36d48_30a893c3",
+        "filename": "api/neteq/defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-29T14:33:29Z",
+      "side": 1,
+      "message": "I went for NetEq::Operation.",
+      "parentUuid": "57183880_aae2c02d",
+      "range": {
+        "startLine": 16,
+        "startChar": 11,
+        "endLine": 16,
+        "endChar": 21
+      },
+      "revId": "ed323687f1868165647dd1493748d98541022bfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fbcd9042_e0e5dbf3",
         "filename": "api/neteq/defines.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "ed323687f1868165647dd1493748d98541022bfa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeaf42fa_3cd60e08",
+        "filename": "api/neteq/defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-29T14:33:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbcd9042_e0e5dbf3",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 13
+      },
+      "revId": "ed323687f1868165647dd1493748d98541022bfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "cd3e0ebf_07d85872",
+        "filename": "api/neteq/defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-29T14:33:29Z",
+      "side": 1,
+      "message": "I went for NetEq::Mode",
+      "parentUuid": "f56bb395_db515f2e",
+      "range": {
+        "startLine": 30,
+        "startChar": 11,
+        "endLine": 30,
+        "endChar": 16
+      },
+      "revId": "ed323687f1868165647dd1493748d98541022bfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "792421e8_5427daeb",
         "filename": "api/neteq/defines.h",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "ed323687f1868165647dd1493748d98541022bfa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53918a64_d8026080",
+        "filename": "api/neteq/defines.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-29T14:33:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "792421e8_5427daeb",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 7
+      },
+      "revId": "ed323687f1868165647dd1493748d98541022bfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

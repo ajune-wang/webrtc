@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_NETEQ_NETEQ_CONTROLLER_H_
-#define MODULES_AUDIO_CODING_NETEQ_NETEQ_CONTROLLER_H_
+#ifndef API_NETEQ_NETEQ_CONTROLLER_H_
+#define API_NETEQ_NETEQ_CONTROLLER_H_
 
 #include <cstddef>
 #include <cstdint>
@@ -18,8 +18,8 @@
 #include <memory>
 
 #include "absl/types/optional.h"
-#include "modules/audio_coding/neteq/defines.h"
-#include "modules/audio_coding/neteq/tick_timer.h"
+#include "api/neteq/neteq.h"
+#include "api/neteq/tick_timer.h"
 
 namespace webrtc {
 
@@ -175,4 +175,4 @@ class NetEqController {
 };
 
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_NETEQ_NETEQ_CONTROLLER_H_
+#endif  // API_NETEQ_NETEQ_CONTROLLER_H_

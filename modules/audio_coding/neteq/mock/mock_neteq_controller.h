@@ -11,7 +11,7 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_MOCK_MOCK_NETEQ_CONTROLLER_H_
 #define MODULES_AUDIO_CODING_NETEQ_MOCK_MOCK_NETEQ_CONTROLLER_H_
 
-#include "modules/audio_coding/neteq/neteq_controller.h"
+#include "api/neteq/neteq_controller.h"
 #include "test/gmock.h"
 
 namespace webrtc {

@@ -11,12 +11,12 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_DECISION_LOGIC_H_
 #define MODULES_AUDIO_CODING_NETEQ_DECISION_LOGIC_H_
 
+#include "api/neteq/neteq.h"
+#include "api/neteq/neteq_controller.h"
+#include "api/neteq/tick_timer.h"
 #include "modules/audio_coding/neteq/buffer_level_filter.h"
-#include "modules/audio_coding/neteq/defines.h"
 #include "modules/audio_coding/neteq/delay_manager.h"
 #include "modules/audio_coding/neteq/delay_peak_detector.h"
-#include "modules/audio_coding/neteq/neteq_controller.h"
-#include "modules/audio_coding/neteq/tick_timer.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/experiments/field_trial_parser.h"
 
@@ -52,7 +52,7 @@ class DecisionLogic : public NetEqController {
   // true. The output variable |reset_decoder| will be set to true if a reset is
   // required; otherwise it is left unchanged (i.e., it can remain true if it
   // was true before the call).
-  Operations GetDecision(const NetEqStatus& status,
+  Operations GetDecision(const NetEqController::NetEqStatus& status,
                          bool* reset_decoder) override;
 
   // These methods test the |cng_state_| for different conditions.

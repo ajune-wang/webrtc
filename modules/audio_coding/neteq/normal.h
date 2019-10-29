@@ -14,7 +14,7 @@
 #include <stdint.h>
 #include <string.h>  // Access to size_t.
 
-#include "modules/audio_coding/neteq/defines.h"
+#include "api/neteq/neteq.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/numerics/safe_conversions.h"

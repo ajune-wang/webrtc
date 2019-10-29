@@ -96,37 +96,37 @@ Operations DecisionLogic::GetDecision(const NetEqStatus& status,
   // If last mode was CNG (or Expand, since this could be covering up for
   // a lost CNG packet), remember that CNG is on. This is needed if comfort
   // noise is interrupted by DTMF.
-  if (status.last_mode == kModeRfc3389Cng) {
+  if (status.last_mode == Modes::kModeRfc3389Cng) {
     cng_state_ = kCngRfc3389On;
-  } else if (status.last_mode == kModeCodecInternalCng) {
+  } else if (status.last_mode == Modes::kModeCodecInternalCng) {
     cng_state_ = kCngInternalOn;
   }
 
   size_t cur_size_samples = estimate_dtx_delay_
                                 ? status.packet_buffer_info.span_samples
                                 : status.packet_buffer_info.num_samples;
-
   prev_time_scale_ =
-      prev_time_scale_ && (status.last_mode == kModeAccelerateSuccess ||
-                           status.last_mode == kModeAccelerateLowEnergy ||
-                           status.last_mode == kModePreemptiveExpandSuccess ||
-                           status.last_mode == kModePreemptiveExpandLowEnergy);
+      prev_time_scale_ &&
+      (status.last_mode == Modes::kModeAccelerateSuccess ||
+       status.last_mode == Modes::kModeAccelerateLowEnergy ||
+       status.last_mode == Modes::kModePreemptiveExpandSuccess ||
+       status.last_mode == Modes::kModePreemptiveExpandLowEnergy);
 
   // Do not update buffer history if currently playing CNG since it will bias
   // the filtered buffer level.
-  if (status.last_mode != kModeRfc3389Cng &&
-      status.last_mode != kModeCodecInternalCng &&
+  if (status.last_mode != Modes::kModeRfc3389Cng &&
+      status.last_mode != Modes::kModeCodecInternalCng &&
       !(status.next_packet && status.next_packet->is_dtx &&
         !estimate_dtx_delay_)) {
     FilterBufferLevel(cur_size_samples);
   }
 
   // Guard for errors, to avoid getting stuck in error mode.
-  if (status.last_mode == kModeError) {
+  if (status.last_mode == Modes::kModeError) {
     if (!status.next_packet) {
-      return kExpand;
+      return Operations::kExpand;
     } else {
-      return kUndefined;  // Use kUndefined to flag for a reset.
+      return Operations::kUndefined;  // Use kUndefined to flag for a reset.
     }
   }
 
@@ -145,7 +145,7 @@ Operations DecisionLogic::GetDecision(const NetEqStatus& status,
   // sender was restarted.
   if (num_consecutive_expands_ > kReinitAfterExpands) {
     *reset_decoder = true;
-    return kNormal;
+    return Operations::kNormal;
   }
 
   // Make sure we don't restart audio too soon after an expansion to avoid
@@ -158,13 +158,14 @@ Operations DecisionLogic::GetDecision(const NetEqStatus& status,
   const size_t current_span =
       estimate_dtx_delay_ ? status.packet_buffer_info.span_samples
                           : status.packet_buffer_info.span_samples_no_dtx;
-  if ((status.last_mode == kModeExpand || status.last_mode == kModeCodecPlc) &&
+  if ((status.last_mode == Modes::kModeExpand ||
+       status.last_mode == Modes::kModeCodecPlc) &&
       status.expand_mutefactor < 16384 / 2 &&
       current_span<static_cast<size_t>(delay_manager_->TargetLevel() *
                                        packet_length_samples_ *
                                        kPostponeDecodingLevel / 100)>> 8 &&
       !status.packet_buffer_info.dtx_or_cng) {
-    return kExpand;
+    return Operations::kExpand;
   }
 
   const uint32_t five_seconds_samples = static_cast<uint32_t>(5 * sample_rate_);
@@ -182,12 +183,12 @@ Operations DecisionLogic::GetDecision(const NetEqStatus& status,
   } else {
     // This implies that available_timestamp < target_timestamp, which can
     // happen when a new stream or codec is received. Signal for a reset.
-    return kUndefined;
+    return Operations::kUndefined;
   }
 }
 
 void DecisionLogic::ExpandDecision(Operations operation) {
-  if (operation == kExpand) {
+  if (operation == Operations::kExpand) {
     num_consecutive_expands_++;
   } else {
     num_consecutive_expands_ = 0;
@@ -264,35 +265,36 @@ Operations DecisionLogic::CngOperation(Modes prev_mode,
         rtc::saturated_cast<int32_t>(timestamp_diff + excess_waiting_time_samp);
   }
 
-  if (timestamp_diff < 0 && prev_mode == kModeRfc3389Cng) {
+  if (timestamp_diff < 0 && prev_mode == Modes::kModeRfc3389Cng) {
     // Not time to play this packet yet. Wait another round before using this
     // packet. Keep on playing CNG from previous CNG parameters.
-    return kRfc3389CngNoPacket;
+    return Operations::kRfc3389CngNoPacket;
   } else {
     // Otherwise, go for the CNG packet now.
     noise_fast_forward_ = 0;
-    return kRfc3389Cng;
+    return Operations::kRfc3389Cng;
   }
 }
 
 Operations DecisionLogic::NoPacket(bool play_dtmf) {
   if (cng_state_ == kCngRfc3389On) {
     // Keep on playing comfort noise.
-    return kRfc3389CngNoPacket;
+    return Operations::kRfc3389CngNoPacket;
   } else if (cng_state_ == kCngInternalOn) {
     // Keep on playing codec internal comfort noise.
-    return kCodecInternalCng;
+    return Operations::kCodecInternalCng;
   } else if (play_dtmf) {
-    return kDtmf;
+    return Operations::kDtmf;
   } else {
     // Nothing to play, do expand.
-    return kExpand;
+    return Operations::kExpand;
   }
 }
 
 Operations DecisionLogic::ExpectedPacketAvailable(Modes prev_mode,
                                                   bool play_dtmf) {
-  if (!disallow_time_stretching_ && prev_mode != kModeExpand && !play_dtmf) {
+  if (!disallow_time_stretching_ && prev_mode != Modes::kModeExpand &&
+      !play_dtmf) {
     // Check criterion for time-stretching. The values are in number of packets
     // in Q8.
     int low_limit, high_limit;
@@ -304,15 +306,15 @@ Operations DecisionLogic::ExpectedPacketAvailable(Modes prev_mode,
           packet_length_samples_;
     }
     if (buffer_level_packets >= high_limit << 2)
-      return kFastAccelerate;
+      return Operations::kFastAccelerate;
     if (TimescaleAllowed()) {
       if (buffer_level_packets >= high_limit)
-        return kAccelerate;
+        return Operations::kAccelerate;
       if (buffer_level_packets < low_limit)
-        return kPreemptiveExpand;
+        return Operations::kPreemptiveExpand;
     }
   }
-  return kNormal;
+  return Operations::kNormal;
 }
 
 Operations DecisionLogic::FuturePacketAvailable(
@@ -328,24 +330,25 @@ Operations DecisionLogic::FuturePacketAvailable(
   // Check if we should continue with an ongoing expand because the new packet
   // is too far into the future.
   uint32_t timestamp_leap = available_timestamp - target_timestamp;
-  if ((prev_mode == kModeExpand || prev_mode == kModeCodecPlc) &&
+  if ((prev_mode == Modes::kModeExpand || prev_mode == Modes::kModeCodecPlc) &&
       !ReinitAfterExpands(timestamp_leap) && !MaxWaitForPacket() &&
       PacketTooEarly(timestamp_leap) && UnderTargetLevel()) {
     if (play_dtmf) {
       // Still have DTMF to play, so do not do expand.
-      return kDtmf;
+      return Operations::kDtmf;
     } else {
       // Nothing to play.
-      return kExpand;
+      return Operations::kExpand;
     }
   }
 
-  if (prev_mode == kModeCodecPlc) {
-    return kNormal;
+  if (prev_mode == Modes::kModeCodecPlc) {
+    return Operations::kNormal;
   }
 
   // If previous was comfort noise, then no merge is needed.
-  if (prev_mode == kModeRfc3389Cng || prev_mode == kModeCodecInternalCng) {
+  if (prev_mode == Modes::kModeRfc3389Cng ||
+      prev_mode == Modes::kModeCodecInternalCng) {
     size_t cur_size_samples =
         estimate_dtx_delay_
             ? cur_size_samples = span_samples_in_packet_buffer
@@ -370,7 +373,7 @@ Operations DecisionLogic::FuturePacketAvailable(
       if ((generated_enough_noise && !below_target_window) ||
           above_target_window) {
         time_stretched_cn_samples_ = timestamp_leap - generated_noise_samples;
-        return kNormal;
+        return Operations::kNormal;
       }
     } else {
       // Keep the same delay as before the CNG, but make sure that the number of
@@ -378,26 +381,26 @@ Operations DecisionLogic::FuturePacketAvailable(
       if (generated_enough_noise ||
           cur_size_samples > target_level_samples * 4) {
         // Time to play this new packet.
-        return kNormal;
+        return Operations::kNormal;
       }
     }
 
     // Too early to play this new packet; keep on playing comfort noise.
-    if (prev_mode == kModeRfc3389Cng) {
-      return kRfc3389CngNoPacket;
+    if (prev_mode == Modes::kModeRfc3389Cng) {
+      return Operations::kRfc3389CngNoPacket;
     }
     // prevPlayMode == kModeCodecInternalCng.
-    return kCodecInternalCng;
+    return Operations::kCodecInternalCng;
   }
 
   // Do not merge unless we have done an expand before.
-  if (prev_mode == kModeExpand) {
-    return kMerge;
+  if (prev_mode == Modes::kModeExpand) {
+    return Operations::kMerge;
   } else if (play_dtmf) {
     // Play DTMF instead of expand.
-    return kDtmf;
+    return Operations::kDtmf;
   } else {
-    return kExpand;
+    return Operations::kExpand;
   }
 }
 

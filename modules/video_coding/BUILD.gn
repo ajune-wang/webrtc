@@ -201,53 +201,6 @@ rtc_library("video_codec_interface") {
   ]
 }
 
-rtc_library("video_coding_legacy") {
-  visibility = [ ":video_coding_unittests" ]
-  sources = [
-    "decoding_state.cc",
-    "decoding_state.h",
-    "frame_buffer.cc",
-    "frame_buffer.h",
-    "include/video_coding.h",
-    "jitter_buffer.cc",
-    "jitter_buffer.h",
-    "jitter_buffer_common.h",
-    "receiver.cc",
-    "receiver.h",
-    "session_info.cc",
-    "session_info.h",
-    "video_coding_impl.cc",
-    "video_coding_impl.h",
-    "video_receiver.cc",
-  ]
-  deps = [
-    ":codec_globals_headers",
-    ":encoded_frame",
-    ":packet",
-    ":video_codec_interface",
-    ":video_coding",
-    "..:module_api",
-    "..:module_api_public",
-    "../../api:rtp_headers",
-    "../../api/video:encoded_image",
-    "../../api/video:video_frame",
-    "../../api/video:video_rtp_headers",
-    "../../api/video_codecs:video_codecs_api",
-    "../../common_video",
-    "../../modules/rtp_rtcp:rtp_video_header",
-    "../../rtc_base:checks",
-    "../../rtc_base:logging",
-    "../../rtc_base:rtc_base_approved",
-    "../../rtc_base/synchronization:sequence_checker",
-    "../../system_wrappers",
-    "../../system_wrappers:event_wrapper",
-    "../utility",
-    "//third_party/abseil-cpp/absl/memory",
-    "//third_party/abseil-cpp/absl/types:optional",
-    "//third_party/abseil-cpp/absl/types:variant",
-  ]
-}
-
 rtc_source_set("codec_globals_headers") {
   visibility = [ "*" ]
   sources = [
@@ -830,7 +783,6 @@ if (rtc_include_tests) {
       "codecs/vp8/screenshare_layers_unittest.cc",
       "codecs/vp9/svc_config_unittest.cc",
       "codecs/vp9/svc_rate_allocator_unittest.cc",
-      "decoding_state_unittest.cc",
       "fec_controller_unittest.cc",
       "frame_buffer2_unittest.cc",
       "generic_decoder_unittest.cc",
@@ -838,14 +790,11 @@ if (rtc_include_tests) {
       "h264_sps_pps_tracker_unittest.cc",
       "histogram_unittest.cc",
       "include/mock/mock_vcm_callbacks.h",
-      "jitter_buffer_unittest.cc",
       "jitter_estimator_tests.cc",
       "loss_notification_controller_unittest.cc",
       "nack_module_unittest.cc",
       "packet_buffer_unittest.cc",
-      "receiver_unittest.cc",
       "rtp_frame_reference_finder_unittest.cc",
-      "session_info_unittest.cc",
       "test/stream_generator.cc",
       "test/stream_generator.h",
       "timing_unittest.cc",
@@ -857,7 +806,6 @@ if (rtc_include_tests) {
       "utility/quality_scaler_unittest.cc",
       "utility/simulcast_rate_allocator_unittest.cc",
       "video_codec_initializer_unittest.cc",
-      "video_receiver_unittest.cc",
     ]
     if (rtc_use_h264) {
       sources += [
@@ -875,7 +823,6 @@ if (rtc_include_tests) {
       ":video_codec_interface",
       ":video_codecs_test_framework",
       ":video_coding",
-      ":video_coding_legacy",
       ":video_coding_utility",
       ":videocodec_test_impl",
       ":videocodec_test_stats_impl",

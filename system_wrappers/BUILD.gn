@@ -109,10 +109,7 @@ rtc_library("field_trial") {
 }
 
 rtc_library("event_wrapper") {
-  visibility = [
-    "../modules/video_coding:video_coding_legacy",
-    "../modules/video_coding:video_coding_unittests",
-  ]
+  visibility = [ "../modules/video_coding:video_coding_unittests" ]
   sources = [
     "include/event_wrapper.h",
     "source/event.cc",

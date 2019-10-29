@@ -419,7 +419,7 @@ class ScrollingImageFrameGenerator : public FrameGenerator {
            current_source_frame_ == nullptr) {
       current_source_frame_ = file_generator_.NextFrame();
       if (current_source_frame_)
-        acc_update.Union(current_source_frame_->update_rect());
+        acc_update.Union(current_source_frame_->update_rect_or_full_frame());
       current_frame_num_ = (current_frame_num_ + 1) % num_frames_;
     }
     RTC_DCHECK(current_source_frame_ != nullptr);
@@ -444,7 +444,7 @@ class ScrollingImageFrameGenerator : public FrameGenerator {
                    (pixels_scrolled_x / 2);
 
     VideoFrame::UpdateRect update_rect =
-        current_source_frame_->update_rect().IsEmpty()
+        current_source_frame_->update_rect_or_full_frame().IsEmpty()
             ? VideoFrame::UpdateRect{0, 0, 0, 0}
             : VideoFrame::UpdateRect{0, 0, target_width_, target_height_};
     current_frame_ =

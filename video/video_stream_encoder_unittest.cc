@@ -831,7 +831,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
         last_input_height_ = input_image.height();
         block_encode = block_next_encode_;
         block_next_encode_ = false;
-        last_update_rect_ = input_image.update_rect();
+        last_update_rect_ = input_image.update_rect_or_full_frame();
         last_frame_types_ = *frame_types;
       }
       int32_t result = FakeEncoder::Encode(input_image, frame_types);

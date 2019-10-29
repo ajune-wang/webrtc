@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8debd48_5e806ce8",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-10-29T18:09:03Z",
+      "side": 1,
+      "message": "std::function can be empty, so I think the optional is redundant.",
+      "range": {
+        "startLine": 775,
+        "startChar": 2,
+        "endLine": 775,
+        "endChar": 39
+      },
+      "revId": "05984e350eb3e8c428068702f90a82124dae3ade",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -172,9 +172,14 @@ class RTC_EXPORT VideoFrame {
     return video_frame_buffer()->type() == VideoFrameBuffer::Type::kNative;
   }
 
-  // Always initialized to whole frame update, can be set by Builder or manually
-  // by |set_update_rect|.
-  UpdateRect update_rect() const { return update_rect_; }
+  absl::optional<UpdateRect> update_rect() const { return update_rect_; }
+  // Returns update_rect set by the builder or set_update_rect() or whole frame
+  // rect if no update rect is available.
+
+  UpdateRect update_rect_or_full_frame() const {
+    return update_rect_.value_or(UpdateRect{0, 0, width(), height()});
+  }
+
   // Rectangle must be within the frame dimensions.
   void set_update_rect(const VideoFrame::UpdateRect& update_rect) {
     RTC_DCHECK_GE(update_rect.offset_x, 0);
@@ -183,6 +188,8 @@ class RTC_EXPORT VideoFrame {
     RTC_DCHECK_LE(update_rect.offset_y + update_rect.height, height());
     update_rect_ = update_rect;
   }
+
+  void remove_update_rect() { update_rect_ = absl::nullopt; }
 
   // Get information about packets used to assemble this video frame. Might be
   // empty if the information isn't available.
@@ -212,7 +219,7 @@ class RTC_EXPORT VideoFrame {
   absl::optional<ColorSpace> color_space_;
   // Updated since the last frame area. Unless set explicitly, will always be
   // a full frame rectangle.
-  UpdateRect update_rect_;
+  absl::optional<UpdateRect> update_rect_;
   // Information about packets used to assemble this video frame. This is needed
   // by |SourceTracker| when the frame is delivered to the RTCRtpReceiver's
   // MediaStreamTrack, in order to implement getContributingSources(). See:

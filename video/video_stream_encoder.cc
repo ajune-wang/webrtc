@@ -1084,7 +1084,8 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
                         << ") for incoming frame. Dropping.";
     encoder_queue_.PostTask([this, incoming_frame]() {
       RTC_DCHECK_RUN_ON(&encoder_queue_);
-      accumulated_update_rect_.Union(incoming_frame.update_rect());
+      accumulated_update_rect_.Union(
+          incoming_frame.update_rect_or_full_frame());
     });
     return;
   }
@@ -1118,7 +1119,8 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
           ++dropped_frame_count_;
           encoder_stats_observer_->OnFrameDropped(
               VideoStreamEncoderObserver::DropReason::kEncoderQueue);
-          accumulated_update_rect_.Union(incoming_frame.update_rect());
+          accumulated_update_rect_.Union(
+              incoming_frame.update_rect_or_full_frame());
         }
         if (log_stats) {
           RTC_LOG(LS_INFO) << "Number of frames: captured "
@@ -1323,7 +1325,7 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
   if (pending_frame_) {
     encoder_stats_observer_->OnFrameDropped(
         VideoStreamEncoderObserver::DropReason::kEncoderQueue);
-    accumulated_update_rect_.Union(pending_frame_->update_rect());
+    accumulated_update_rect_.Union(pending_frame_->update_rect_or_full_frame());
   }
 
   if (DropDueToSize(video_frame.size())) {
@@ -1348,7 +1350,7 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
     } else {
       // Ensure that any previously stored frame is dropped.
       pending_frame_.reset();
-      accumulated_update_rect_.Union(video_frame.update_rect());
+      accumulated_update_rect_.Union(video_frame.update_rect_or_full_frame());
     }
     return;
   }
@@ -1366,7 +1368,7 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
       // Ensure that any previously stored frame is dropped.
       pending_frame_.reset();
       TraceFrameDropStart();
-      accumulated_update_rect_.Union(video_frame.update_rect());
+      accumulated_update_rect_.Union(video_frame.update_rect_or_full_frame());
     }
     return;
   }
@@ -1390,7 +1392,7 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
         << ", input frame rate " << framerate_fps;
     OnDroppedFrame(
         EncodedImageCallback::DropReason::kDroppedByMediaOptimizations);
-    accumulated_update_rect_.Union(video_frame.update_rect());
+    accumulated_update_rect_.Union(video_frame.update_rect_or_full_frame());
     return;
   }
 
@@ -1450,7 +1452,7 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
       return;
     }
 
-    VideoFrame::UpdateRect update_rect = out_frame.update_rect();
+    VideoFrame::UpdateRect update_rect = out_frame.update_rect_or_full_frame();
     if (!update_rect.IsEmpty() &&
         out_frame.video_frame_buffer()->GetI420() == nullptr) {
       // UpdatedRect is reset to full update if it's not empty, and buffer was
@@ -1480,7 +1482,8 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
         I420Buffer::Create(cropped_width, cropped_height);
     // TODO(ilnik): Remove scaling if cropping is too big, as it should never
     // happen after SinkWants signaled correctly from ReconfigureEncoder.
-    VideoFrame::UpdateRect update_rect = video_frame.update_rect();
+    VideoFrame::UpdateRect update_rect =
+        video_frame.update_rect_or_full_frame();
     if (crop_width_ < 4 && crop_height_ < 4) {
       cropped_buffer->CropAndScaleFrom(*i420_buffer, crop_width_ / 2,
                                        crop_height_ / 2, cropped_width,
@@ -1512,7 +1515,7 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
   }
 
   if (!accumulated_update_rect_.IsEmpty()) {
-    accumulated_update_rect_.Union(out_frame.update_rect());
+    accumulated_update_rect_.Union(out_frame.update_rect_or_full_frame());
     accumulated_update_rect_.Intersect(
         VideoFrame::UpdateRect{0, 0, out_frame.width(), out_frame.height()});
     out_frame.set_update_rect(accumulated_update_rect_);

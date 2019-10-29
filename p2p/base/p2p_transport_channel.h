@@ -192,7 +192,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   void MarkConnectionPinged(Connection* conn);
 
   // Public for unit tests.
-  const std::vector<Connection*>& connections() const { return connections_; }
+  rtc::ArrayView<Connection*> connections() const;
 
   // Public for unit tests.
   PortAllocatorSession* allocator_session() const {
@@ -229,47 +229,17 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
 
   // Returns true if it's possible to send packets on |connection|.
   bool ReadyToSend(Connection* connection) const;
+  bool PresumedWritable(const Connection* conn) const;
   void UpdateConnectionStates();
-  void RequestSortAndStateUpdate(const std::string& reason_to_sort);
+  void RequestSortAndStateUpdate(IceControllerEvent reason_to_sort);
   // Start pinging if we haven't already started, and we now have a connection
   // that's pingable.
   void MaybeStartPinging();
 
-  int CompareCandidatePairNetworks(
-      const Connection* a,
-      const Connection* b,
-      absl::optional<rtc::AdapterType> network_preference) const;
-
-  // The methods below return a positive value if |a| is preferable to |b|,
-  // a negative value if |b| is preferable, and 0 if they're equally preferable.
-  // If |receiving_unchanged_threshold| is set, then when |b| is receiving and
-  // |a| is not, returns a negative value only if |b| has been in receiving
-  // state and |a| has been in not receiving state since
-  // |receiving_unchanged_threshold| and sets
-  // |missed_receiving_unchanged_threshold| to true otherwise.
-  int CompareConnectionStates(
-      const cricket::Connection* a,
-      const cricket::Connection* b,
-      absl::optional<int64_t> receiving_unchanged_threshold,
-      bool* missed_receiving_unchanged_threshold) const;
-  int CompareConnectionCandidates(const cricket::Connection* a,
-                                  const cricket::Connection* b) const;
-  // Compares two connections based on the connection states
-  // (writable/receiving/connected), nomination states, last data received time,
-  // and static preferences. Does not include latency. Used by both sorting
-  // and ShouldSwitchSelectedConnection().
-  // Returns a positive value if |a| is better than |b|.
-  int CompareConnections(const cricket::Connection* a,
-                         const cricket::Connection* b,
-                         absl::optional<int64_t> receiving_unchanged_threshold,
-                         bool* missed_receiving_unchanged_threshold) const;
-
-  bool PresumedWritable(const cricket::Connection* conn) const;
-
-  void SortConnectionsAndUpdateState(const std::string& reason_to_sort);
+  void SortConnectionsAndUpdateState(IceControllerEvent reason_to_sort);
   void SortConnections();
   void SortConnectionsIfNeeded();
-  void SwitchSelectedConnection(Connection* conn, const std::string& reason);
+  void SwitchSelectedConnection(Connection* conn, IceControllerEvent reason);
   void UpdateState();
   void HandleAllTimedOut();
   void MaybeStopPortAllocatorSessions();
@@ -281,13 +251,12 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   IceTransportState ComputeState() const;
   webrtc::IceTransportState ComputeIceTransportState() const;
 
-  Connection* GetBestConnectionOnNetwork(rtc::Network* network) const;
   bool CreateConnections(const Candidate& remote_candidate,
                          PortInterface* origin_port);
   bool CreateConnection(PortInterface* port,
                         const Candidate& remote_candidate,
                         PortInterface* origin_port);
-  bool FindConnection(cricket::Connection* connection) const;
+  bool FindConnection(Connection* connection) const;
 
   uint32_t GetRemoteCandidateGeneration(const Candidate& candidate);
   bool IsDuplicateRemoteCandidate(const Candidate& candidate);
@@ -340,20 +309,14 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
                               webrtc::IceCandidatePairConfigType type);
 
   uint32_t GetNominationAttr(Connection* conn) const;
-  bool GetUseCandidateAttr(Connection* conn, NominationMode mode) const;
+  bool GetUseCandidateAttr(Connection* conn) const;
 
-  // Returns true if we should switch to the new connection.
-  // sets |missed_receiving_unchanged_threshold| to true if either
-  // the selected connection or the new connection missed its
-  // receiving-unchanged-threshold.
-  bool ShouldSwitchSelectedConnection(
-      Connection* new_connection,
-      bool* missed_receiving_unchanged_threshold) const;
   // Returns true if the new_connection is selected for transmission.
   bool MaybeSwitchSelectedConnection(Connection* new_connection,
-                                     const std::string& reason);
-  // Gets the best connection for each network.
-  std::map<rtc::Network*, Connection*> GetBestConnectionByNetwork() const;
+                                     IceControllerEvent reason);
+  bool MaybeSwitchSelectedConnection(
+      IceControllerEvent reason,
+      IceControllerInterface::SwitchResult result);
   void PruneConnections();
 
   // Returns the latest remote ICE parameters or nullptr if there are no remote
@@ -396,9 +359,6 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   // 2. Peer-reflexive remote candidates.
   Candidate SanitizeRemoteCandidate(const Candidate& c) const;
 
-  bool HandleInitialSelectDampening(Connection* new_connection,
-                                    const std::string& reason);
-
   std::string transport_name_ RTC_GUARDED_BY(network_thread_);
   int component_ RTC_GUARDED_BY(network_thread_);
   PortAllocator* allocator_ RTC_GUARDED_BY(network_thread_);
@@ -417,10 +377,6 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   // They may have existing connections, and they still fire signals such as
   // SignalUnknownAddress.
   std::vector<PortInterface*> pruned_ports_ RTC_GUARDED_BY(network_thread_);
-
-  // |connections_| is a sorted list with the first one always be the
-  // |selected_connection_| when it's not nullptr.
-  std::vector<Connection*> connections_ RTC_GUARDED_BY(network_thread_);
 
   Connection* selected_connection_ RTC_GUARDED_BY(network_thread_) = nullptr;
 
@@ -486,9 +442,6 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   uint32_t selected_candidate_pair_changes_ = 0;
 
   IceFieldTrials field_trials_;
-
-  // Timestamp for when we got the first selectable connection.
-  int64_t initial_select_timestamp_ms_ = 0;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(P2PTransportChannel);
 };

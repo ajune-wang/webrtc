@@ -26,8 +26,9 @@ class BasicIceController : public IceControllerInterface {
  public:
   BasicIceController(
       std::function<IceTransportState()> ice_transport_state_func,
-      std::function<rtc::ArrayView<const Connection*>()>
-          sorted_connection_list_func,
+      std::function<IceRole()> ice_role_func,
+      std::function<bool(const Port*)> is_port_pruned_func,
+      std::function<bool(const Candidate&)> is_remote_candidate_pruned_func,
       const IceFieldTrials*);
   virtual ~BasicIceController();
 
@@ -35,11 +36,25 @@ class BasicIceController : public IceControllerInterface {
   void SetSelectedConnection(const Connection* selected_connection) override;
   void AddConnection(const Connection* connection) override;
   void OnConnectionDestroyed(const Connection* connection) override;
+  rtc::ArrayView<const Connection*> connections() const override {
+    return rtc::ArrayView<const Connection*>(
+        const_cast<const Connection**>(connections_.data()),
+        connections_.size());
+  }
 
   bool HasPingableConnection() const override;
 
   std::pair<Connection*, int> SelectConnectionToPing(
       int64_t last_ping_sent_ms) override;
+  bool GetUseCandidateAttr(const Connection* conn,
+                           NominationMode mode,
+                           IceMode remote_ice_mode) const override;
+
+  SwitchResult ShouldSwitchConnection(IceControllerEvent reason,
+                                      const Connection* connection) override;
+  SwitchResult SortAndSwitchConnection(IceControllerEvent reason) override;
+
+  std::vector<const Connection*> PruneConnections() override;
 
   // These methods is only for tests.
   const Connection* FindNextPingableConnection() override;
@@ -92,9 +107,46 @@ class BasicIceController : public IceControllerInterface {
   std::map<rtc::Network*, const Connection*> GetBestConnectionByNetwork() const;
   std::vector<const Connection*> GetBestWritableConnectionPerNetwork() const;
 
+  bool ReadyToSend(const Connection* connection) const;
+  bool PresumedWritable(const Connection* conn) const;
+
+  int CompareCandidatePairNetworks(
+      const Connection* a,
+      const Connection* b,
+      absl::optional<rtc::AdapterType> network_preference) const;
+
+  // The methods below return a positive value if |a| is preferable to |b|,
+  // a negative value if |b| is preferable, and 0 if they're equally preferable.
+  // If |receiving_unchanged_threshold| is set, then when |b| is receiving and
+  // |a| is not, returns a negative value only if |b| has been in receiving
+  // state and |a| has been in not receiving state since
+  // |receiving_unchanged_threshold| and sets
+  // |missed_receiving_unchanged_threshold| to true otherwise.
+  int CompareConnectionStates(
+      const Connection* a,
+      const Connection* b,
+      absl::optional<int64_t> receiving_unchanged_threshold,
+      bool* missed_receiving_unchanged_threshold) const;
+  int CompareConnectionCandidates(const Connection* a,
+                                  const Connection* b) const;
+  // Compares two connections based on the connection states
+  // (writable/receiving/connected), nomination states, last data received time,
+  // and static preferences. Does not include latency. Used by both sorting
+  // and ShouldSwitchSelectedConnection().
+  // Returns a positive value if |a| is better than |b|.
+  int CompareConnections(const Connection* a,
+                         const Connection* b,
+                         absl::optional<int64_t> receiving_unchanged_threshold,
+                         bool* missed_receiving_unchanged_threshold) const;
+
+  SwitchResult HandleInitialSelectDampening(IceControllerEvent reason,
+                                            const Connection* new_connection);
+
   std::function<IceTransportState()> ice_transport_state_func_;
-  std::function<rtc::ArrayView<const Connection*>()>
-      sorted_connection_list_func_;
+  std::function<IceRole()> ice_role_func_;
+  std::function<bool(const Port*)> is_port_pruned_func_;
+  std::function<bool(const Candidate&)> is_remote_candidate_pruned_func_;
+
   IceConfig config_;
   const IceFieldTrials* field_trials_;
 
@@ -107,6 +159,9 @@ class BasicIceController : public IceControllerInterface {
   std::vector<const Connection*> connections_;
   std::set<const Connection*> pinged_connections_;
   std::set<const Connection*> unpinged_connections_;
+
+  // Timestamp for when we got the first selectable connection.
+  int64_t initial_select_timestamp_ms_ = 0;
 };
 
 }  // namespace cricket

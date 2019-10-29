@@ -2984,7 +2984,7 @@ TEST_F(P2PTransportChannelMultihomedTest, TestPingBackupConnectionRate) {
   // once every |backup_ping_interval| milliseconds.
   ASSERT_TRUE_WAIT(ep2_ch1()->GetState() == IceTransportState::STATE_COMPLETED,
                    1000);
-  const std::vector<Connection*>& connections = ep2_ch1()->connections();
+  auto connections = ep2_ch1()->connections();
   ASSERT_EQ(2U, connections.size());
   Connection* backup_conn = connections[1];
   EXPECT_TRUE_WAIT(backup_conn->writable(), kMediumTimeout);

@@ -12,6 +12,9 @@
 #define API_AUDIO_ECHO_CONTROL_H_
 
 #include <memory>
+#include <vector>
+
+#include "api/array_view.h"
 
 namespace webrtc {
 
@@ -43,6 +46,15 @@ class EchoControl {
 
   // Returns wheter the signal is altered.
   virtual bool ActiveProcessing() const = 0;
+
+  // Returns the most recently produced 10 ms of the linear AEC output at a rate
+  // of 16 kHz for each channel. The input channels must be of size 160.
+  // Returns true/false whether the a linear output was returned.
+  // TODO(peah): Make pure virtual.
+  virtual bool GetLinearOutput(
+      rtc::ArrayView<std::vector<float>> linear_output) {
+    return false;
+  }
 
   virtual ~EchoControl() {}
 };

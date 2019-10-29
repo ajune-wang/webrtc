@@ -71,7 +71,7 @@ class Aec3RenderQueueItemVerifier {
 // It does 4 things:
 // -Receives 10 ms frames of band-split audio.
 // -Optionally applies an anti-hum (high-pass) filter on the
-// received signals.
+// received signal.
 // -Provides the lower level echo canceller functionality with
 // blocks of 64 samples of audio data.
 // -Partially handles the jitter in the render and capture API
@@ -113,6 +113,29 @@ class EchoCanceller3 : public EchoControl {
 
   bool ActiveProcessing() const override;
 
+  // Returns the most recently produced 10 ms of the linear AEC output at a rate
+  // of 16 kHz for each channel. The input channels must be of size 160.
+  // Returns true/false whether the a linear output was returned.
+  bool GetLinearOutput(
+      rtc::ArrayView<std::vector<float>> linear_output) override {
+    RTC_DCHECK_RUNS_SERIALIZED(&capture_race_checker_);
+    RTC_DCHECK(config_.filter.export_linear_aec_output);
+    RTC_DCHECK_EQ(160, linear_output_frame_.size());
+    if (config_.filter.export_linear_aec_output &&
+        linear_output_frame_.size() > 0) {
+      RTC_DCHECK_EQ(1, linear_output_frame_[0].size());
+      size_t num_channels_to_copy =
+          std::min(linear_output.size(), linear_output_frame_.size());
+      for (size_t ch = 0; ch < num_channels_to_copy; ++ch) {
+        RTC_DCHECK_EQ(160, linear_output_frame_[0][ch].size());
+        std::copy(linear_output_frame_[0][ch].begin(),
+                  linear_output_frame_[0][ch].end(), linear_output[ch].begin());
+      }
+      return true;
+    }
+    return false;
+  }
+
   // Signals whether an external detector has detected echo leakage from the
   // echo canceller.
   // Note that in the case echo leakage has been flagged, it should be unflagged
@@ -149,6 +172,8 @@ class EchoCanceller3 : public EchoControl {
   const int num_bands_;
   const size_t num_render_channels_;
   const size_t num_capture_channels_;
+  std::unique_ptr<BlockFramer> linear_output_framer_
+      RTC_GUARDED_BY(capture_race_checker_);
   BlockFramer output_framer_ RTC_GUARDED_BY(capture_race_checker_);
   FrameBlocker capture_blocker_ RTC_GUARDED_BY(capture_race_checker_);
   FrameBlocker render_blocker_ RTC_GUARDED_BY(capture_race_checker_);
@@ -163,9 +188,15 @@ class EchoCanceller3 : public EchoControl {
       false;
   std::vector<std::vector<std::vector<float>>> render_block_
       RTC_GUARDED_BY(capture_race_checker_);
+  std::vector<std::vector<std::vector<float>>> linear_output_block_
+      RTC_GUARDED_BY(capture_race_checker_);
+  std::vector<std::vector<std::vector<float>>> linear_output_frame_
+      RTC_GUARDED_BY(capture_race_checker_);
   std::vector<std::vector<std::vector<float>>> capture_block_
       RTC_GUARDED_BY(capture_race_checker_);
   std::vector<std::vector<rtc::ArrayView<float>>> render_sub_frame_view_
+      RTC_GUARDED_BY(capture_race_checker_);
+  std::vector<std::vector<rtc::ArrayView<float>>> linear_output_sub_frame_view_
       RTC_GUARDED_BY(capture_race_checker_);
   std::vector<std::vector<rtc::ArrayView<float>>> capture_sub_frame_view_
       RTC_GUARDED_BY(capture_race_checker_);

@@ -329,13 +329,6 @@ void SuppressionGain::GetGain(
     std::array<float, kFftLengthBy2Plus1>* low_band_gain) {
   RTC_DCHECK(high_bands_gain);
   RTC_DCHECK(low_band_gain);
-  const auto& cfg = config_.suppressor;
-
-  if (cfg.enforce_transparent) {
-    low_band_gain->fill(1.f);
-    *high_bands_gain = cfg.enforce_empty_higher_bands ? 0.f : 1.f;
-    return;
-  }
 
   std::array<float, kFftLengthBy2Plus1> nearend_average;
   moving_average_.Average(nearend_spectrum, nearend_average);
@@ -356,9 +349,6 @@ void SuppressionGain::GetGain(
   *high_bands_gain =
       UpperBandsGain(echo_spectrum, comfort_noise_spectrum, narrow_peak_band,
                      aec_state.SaturatedEcho(), render, *low_band_gain);
-  if (cfg.enforce_empty_higher_bands) {
-    *high_bands_gain = 0.f;
-  }
 }
 
 void SuppressionGain::SetInitialState(bool state) {

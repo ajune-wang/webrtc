@@ -312,10 +312,6 @@ void Aec3ConfigFromJsonString(absl::string_view json_string,
 
     ReadParam(section, "floor_first_increase",
               &cfg.suppressor.floor_first_increase);
-    ReadParam(section, "enforce_transparent",
-              &cfg.suppressor.enforce_transparent);
-    ReadParam(section, "enforce_empty_higher_bands",
-              &cfg.suppressor.enforce_empty_higher_bands);
   }
 }
 
@@ -541,12 +537,7 @@ std::string Aec3ConfigToJsonString(const EchoCanceller3Config& config) {
   ost << "\"max_gain_during_echo\": "
       << config.suppressor.high_bands_suppression.max_gain_during_echo;
   ost << "},";
-  ost << "\"floor_first_increase\": " << config.suppressor.floor_first_increase
-      << ",";
-  ost << "\"enforce_transparent\": "
-      << (config.suppressor.enforce_transparent ? "true" : "false") << ",";
-  ost << "\"enforce_empty_higher_bands\": "
-      << (config.suppressor.enforce_empty_higher_bands ? "true" : "false");
+  ost << "\"floor_first_increase\": " << config.suppressor.floor_first_increase;
   ost << "}";
   ost << "}";
   ost << "}";

@@ -19,16 +19,16 @@
 
 #include "absl/types/optional.h"
 #include "api/audio/audio_frame.h"
+#include "api/neteq/neteq.h"
+#include "api/neteq/neteq_controller.h"
+#include "api/neteq/neteq_controller_factory.h"
+#include "api/neteq/tick_timer.h"
 #include "api/rtp_packet_info.h"
 #include "modules/audio_coding/neteq/audio_multi_vector.h"
-#include "modules/audio_coding/neteq/defines.h"  // Modes, Operations
 #include "modules/audio_coding/neteq/expand_uma_logger.h"
-#include "modules/audio_coding/neteq/include/neteq.h"
-#include "modules/audio_coding/neteq/neteq_controller.h"
 #include "modules/audio_coding/neteq/packet.h"
 #include "modules/audio_coding/neteq/random_vector.h"
 #include "modules/audio_coding/neteq/statistics_calculator.h"
-#include "modules/audio_coding/neteq/tick_timer.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/thread_annotations.h"
@@ -96,10 +96,10 @@ class NetEqImpl : public webrtc::NetEq {
     // before sending the struct to the NetEqImpl constructor. However, there
     // are dependencies between some of the classes inside the struct, so
     // swapping out one may make it necessary to re-create another one.
-    Dependencies(
-        const NetEq::Config& config,
-        Clock* clock,
-        const rtc::scoped_refptr<AudioDecoderFactory>& decoder_factory);
+    Dependencies(const NetEq::Config& config,
+                 Clock* clock,
+                 const rtc::scoped_refptr<AudioDecoderFactory>& decoder_factory,
+                 const NetEqControllerFactory& controller_factory);
     ~Dependencies();
 
     Clock* const clock;

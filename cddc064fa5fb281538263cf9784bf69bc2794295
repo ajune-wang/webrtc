@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "597a4137_be994753",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-29T17:56:10Z",
+      "side": 1,
+      "message": "nit: add a line break here.",
+      "range": {
+        "startLine": 7,
+        "startChar": 49,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "cddc064fa5fb281538263cf9784bf69bc2794295",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c9a8000_508172eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-29T17:56:10Z",
+      "side": 1,
+      "message": "Bug:\n\nI think the presubmit bot is complaining about it.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 4
+      },
+      "revId": "cddc064fa5fb281538263cf9784bf69bc2794295",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91f4ab79_1f3d03de",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1720,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-29T17:56:10Z",
+      "side": 1,
+      "message": "nit: update this comment.",
+      "range": {
+        "startLine": 1720,
+        "startChar": 2,
+        "endLine": 1720,
+        "endChar": 4
+      },
+      "revId": "cddc064fa5fb281538263cf9784bf69bc2794295",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b1c5343_d225ab19",
+        "filename": "p2p/client/basic_port_allocator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2441,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-10-29T17:56:10Z",
+      "side": 1,
+      "message": "nit: \"\" /* username */, the same for the password",
+      "range": {
+        "startLine": 2441,
+        "startChar": 46,
+        "endLine": 2441,
+        "endChar": 48
+      },
+      "revId": "cddc064fa5fb281538263cf9784bf69bc2794295",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

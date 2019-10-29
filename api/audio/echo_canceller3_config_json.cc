@@ -237,6 +237,8 @@ void Aec3ConfigFromJsonString(absl::string_view json_string,
               &cfg.render_levels.poor_excitation_render_limit);
     ReadParam(section, "poor_excitation_render_limit_ds8",
               &cfg.render_levels.poor_excitation_render_limit_ds8);
+    ReadParam(section, "render_linear_amplitude_gain",
+              &cfg.render_levels.render_linear_amplitude_gain);
   }
 
   if (rtc::GetValueFromJsonObject(aec3_root, "echo_removal_control",
@@ -459,7 +461,9 @@ std::string Aec3ConfigToJsonString(const EchoCanceller3Config& config) {
   ost << "\"poor_excitation_render_limit\": "
       << config.render_levels.poor_excitation_render_limit << ",";
   ost << "\"poor_excitation_render_limit_ds8\": "
-      << config.render_levels.poor_excitation_render_limit_ds8;
+      << config.render_levels.poor_excitation_render_limit_ds8 << ",";
+  ost << "\"render_linear_amplitude_gain\": "
+      << config.render_levels.render_linear_amplitude_gain;
   ost << "},";
 
   ost << "\"echo_removal_control\": {";

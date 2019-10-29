@@ -377,14 +377,27 @@ void RenderDelayBufferImpl::InsertBlock(
   auto& ds = render_ds_;
   auto& f = ffts_;
   auto& s = spectra_;
+  const size_t num_bands = b.buffer[b.write].size();
+  const size_t num_render_channels = b.buffer[b.write][0].size();
   RTC_DCHECK_EQ(block.size(), b.buffer[b.write].size());
-  for (size_t band = 0; band < block.size(); ++band) {
-    RTC_DCHECK_EQ(block[band].size(), b.buffer[b.write][0].size());
-    RTC_DCHECK_EQ(block[band].size(), b.buffer[b.write][band].size());
-    for (size_t ch = 0; ch < b.buffer[b.write][band].size(); ++ch) {
+  for (size_t band = 0; band < num_bands; ++band) {
+    RTC_DCHECK_EQ(block[band].size(), num_render_channels);
+    RTC_DCHECK_EQ(b.buffer[b.write][band].size(), num_render_channels);
+    for (size_t ch = 0; ch < num_render_channels; ++ch) {
       RTC_DCHECK_EQ(block[band][ch].size(), b.buffer[b.write][band][ch].size());
       std::copy(block[band][ch].begin(), block[band][ch].end(),
                 b.buffer[b.write][band][ch].begin());
+    }
+  }
+
+  if (config_.render_levels.render_linear_amplitude_gain != 1.f) {
+    for (size_t band = 0; band < num_bands; ++band) {
+      for (size_t ch = 0; ch < num_render_channels; ++ch) {
+        for (size_t k = 0; k < 64; ++k) {
+          b.buffer[b.write][band][ch][k] *=
+              config_.render_levels.render_linear_amplitude_gain;
+        }
+      }
     }
   }
 

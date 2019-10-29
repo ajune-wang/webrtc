@@ -113,6 +113,7 @@ struct RTC_EXPORT EchoCanceller3Config {
     float active_render_limit = 100.f;
     float poor_excitation_render_limit = 150.f;
     float poor_excitation_render_limit_ds8 = 20.f;
+    float render_linear_amplitude_gain = 1.f;
   } render_levels;
 
   struct EchoRemovalControl {

@@ -871,7 +871,7 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
 
       bool use_steady_state_limiter =
           variable_framerate_experiment_.enabled &&
-          input_image.update_rect().IsEmpty() &&
+          input_image.update_rect_or_full_frame().IsEmpty() &&
           num_steady_state_frames_ >=
               variable_framerate_experiment_.frames_before_steady_state;
 

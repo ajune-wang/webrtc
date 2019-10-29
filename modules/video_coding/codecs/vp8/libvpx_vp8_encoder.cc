@@ -954,8 +954,8 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
     }
   }
 
-  if (frame.update_rect().IsEmpty() && num_steady_state_frames_ >= 3 &&
-      !key_frame_requested) {
+  if (frame.update_rect_or_full_frame().IsEmpty() &&
+      num_steady_state_frames_ >= 3 && !key_frame_requested) {
     if (variable_framerate_experiment_.enabled &&
         framerate_controller_.DropFrame(frame.timestamp() / kRtpTicksPerMs)) {
       return WEBRTC_VIDEO_CODEC_OK;

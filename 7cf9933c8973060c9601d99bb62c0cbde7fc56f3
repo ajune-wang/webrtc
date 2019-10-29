@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e62cb22e_3cb00456",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-29T15:00:09Z",
+      "side": 1,
+      "message": "Spelling",
+      "range": {
+        "startLine": 16,
+        "startChar": 17,
+        "endLine": 16,
+        "endChar": 25
+      },
+      "revId": "7cf9933c8973060c9601d99bb62c0cbde7fc56f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2105f53_3cc4a008",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-29T15:00:09Z",
+      "side": 1,
+      "message": "Maybe \"unset\" or \"clear\" matches better with \"set\".",
+      "range": {
+        "startLine": 194,
+        "startChar": 7,
+        "endLine": 194,
+        "endChar": 13
+      },
+      "revId": "7cf9933c8973060c9601d99bb62c0cbde7fc56f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22269292_e960a078",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-29T15:00:09Z",
+      "side": 1,
+      "message": "This comment needs updating.\n\nAnd please clarify what an unset update_rect_ means. Is it different from having an update_rect_ that covers the whole frame, and if so, in what way is it different?",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 28
+      },
+      "revId": "7cf9933c8973060c9601d99bb62c0cbde7fc56f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d5da32f_0db4eec0",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-29T15:00:09Z",
+      "side": 1,
+      "message": "If I understand this right, we get a video frame to encode, and our caller claims that the frame is identical to the previous frame. And similarly for the VP9 encoder. I think there should be some documentation on what this means and what the desired behavior is (but not changed in this cl, right?).\n\nIt\u0027s not entirely obvious to me why this needs an optional, though. Explicitly empty should be represented with update_rect.width\u003d\u003d0, update_rect.height\u003d\u003d0 no matter if we use an optional or not, and I haven\u0027t yet understood how unset differs from update_rect.width\u003d\u003dwidth, update_rect.height\u003dheight.",
+      "range": {
+        "startLine": 957,
+        "startChar": 0,
+        "endLine": 957,
+        "endChar": 49
+      },
+      "revId": "7cf9933c8973060c9601d99bb62c0cbde7fc56f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

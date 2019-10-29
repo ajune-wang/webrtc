@@ -130,6 +130,8 @@ rtc_library("video_coding") {
     "timestamp_map.h",
     "timing.cc",
     "timing.h",
+    "unique_counter.cc",
+    "unique_counter.h",
     "video_codec_initializer.cc",
     "video_receiver2.cc",
     "video_receiver2.h",

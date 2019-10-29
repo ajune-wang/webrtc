@@ -1332,6 +1332,24 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
 
       submodules_.echo_controller->ProcessCapture(
           capture_buffer, capture_.echo_path_gain_change);
+
+      // Get linear AEC output if that is specified.
+      if (linear_output_queue_) {
+        bool output_retrieved = submodules_.echo_controller->GetLinearOutput(
+            linear_output_capture_queue_buffer_);
+        RTC_DCHECK(output_retrieved);
+        if (output_retrieved) {
+          bool success = linear_output_queue_->Insert(
+              &linear_output_capture_queue_buffer_);
+          if (!success) {
+            // Make space by emptying the queue.
+            linear_output_queue_->Clear();
+            success = linear_output_queue_->Insert(
+                &linear_output_capture_queue_buffer_);
+            RTC_DCHECK(success);
+          }
+        }
+      }
     } else if (submodules_.echo_cancellation) {
       // Ensure that the stream delay was set before the call to the
       // AEC ProcessCaptureAudio function.
@@ -1612,6 +1630,31 @@ int AudioProcessingImpl::set_stream_delay_ms(int delay) {
   return retval;
 }
 
+bool AudioProcessingImpl::GetLinearAecOutput(
+    rtc::ArrayView<std::array<float, 160>> linear_output) {
+  RTC_DCHECK(linear_output_queue_);
+  if (linear_output_queue_) {
+    bool success =
+        linear_output_queue_->Remove(&linear_output_getter_queue_buffer_);
+
+    RTC_DCHECK(success);
+    if (success) {
+      const size_t num_channels_to_copy = std::min(
+          linear_output.size(), linear_output_getter_queue_buffer_.size());
+      for (size_t ch = 0; ch < num_channels_to_copy; ++ch) {
+        RTC_DCHECK_EQ(160, linear_output_getter_queue_buffer_[ch].size());
+        std::copy(linear_output_getter_queue_buffer_[ch].begin(),
+                  linear_output_getter_queue_buffer_[ch].end(),
+                  linear_output[ch].begin());
+      }
+      return true;
+    }
+  }
+  RTC_LOG(LS_ERROR) << "No linear AEC output available";
+  RTC_NOTREACHED();
+  return false;
+}
+
 int AudioProcessingImpl::stream_delay_ms() const {
   // Used as callback from submodules, hence locking is not allowed.
   return capture_nonlocked_.stream_delay_ms;
@@ -1776,6 +1819,26 @@ void AudioProcessingImpl::InitializeEchoController() {
           num_proc_channels());
     }
 
+    // Setup the storage for returning the linear AEC output.
+    if (config_.echo_canceller.export_linear_aec_output) {
+      linear_output_queue_.reset(new SwapQueue<std::vector<std::vector<float>>>(
+          1, std::vector<std::vector<float>>(num_proc_channels(),
+                                             std::vector<float>(160, 0.f))));
+      // Must have something that the queue can use to swap.
+      linear_output_capture_queue_buffer_.resize(num_proc_channels());
+      for (auto& ch : linear_output_capture_queue_buffer_) {
+        ch.resize(160);
+      }
+      linear_output_getter_queue_buffer_.resize(num_proc_channels());
+      for (auto& ch : linear_output_getter_queue_buffer_) {
+        ch.resize(160);
+      }
+    } else {
+      linear_output_queue_.reset();
+      linear_output_capture_queue_buffer_.resize(0);
+      linear_output_getter_queue_buffer_.resize(0);
+    }
+
     capture_nonlocked_.echo_controller_enabled = true;
 
     submodules_.echo_cancellation.reset();
@@ -1787,6 +1850,9 @@ void AudioProcessingImpl::InitializeEchoController() {
 
   submodules_.echo_controller.reset();
   capture_nonlocked_.echo_controller_enabled = false;
+  linear_output_queue_.reset();
+  linear_output_capture_queue_buffer_.resize(0);
+  linear_output_getter_queue_buffer_.resize(0);
 
   if (!config_.echo_canceller.enabled) {
     submodules_.echo_cancellation.reset();

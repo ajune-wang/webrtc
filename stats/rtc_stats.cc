@@ -128,8 +128,9 @@ RTCStats::MembersOfThisObjectAndAncestors(size_t additional_capacity) const {
 
 #define WEBRTC_DEFINE_RTCSTATSMEMBER(T, type, is_seq, is_str, to_str, to_json) \
   template <>                                                                  \
-  const RTCStatsMemberInterface::Type RTCStatsMember<T>::kType =               \
-      RTCStatsMemberInterface::type;                                           \
+  RTCStatsMemberInterface::Type RTCStatsMember<T>::GetType() {                 \
+    return type;                                                               \
+  }                                                                            \
   template <>                                                                  \
   bool RTCStatsMember<T>::is_sequence() const {                                \
     return is_seq;                                                             \

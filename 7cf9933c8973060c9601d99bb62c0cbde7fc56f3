@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "df63a129_f05fbd00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-29T15:13:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e62cb22e_3cb00456",
+      "range": {
+        "startLine": 16,
+        "startChar": 17,
+        "endLine": 16,
+        "endChar": 25
+      },
+      "revId": "7cf9933c8973060c9601d99bb62c0cbde7fc56f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2105f53_3cc4a008",
         "filename": "api/video/video_frame.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "7cf9933c8973060c9601d99bb62c0cbde7fc56f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68c89aa2_a9b94c41",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-29T15:13:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2105f53_3cc4a008",
+      "range": {
+        "startLine": 194,
+        "startChar": 7,
+        "endLine": 194,
+        "endChar": 13
+      },
+      "revId": "7cf9933c8973060c9601d99bb62c0cbde7fc56f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "eb2ea1b0_4aeba2a0",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-29T15:13:26Z",
+      "side": 1,
+      "message": "The difference will be in the new code: we want to distinguish the situation where whole frames are updated actively (dynamic content). But if we just treat no-update-rect as a full frame update, we will always detect dynamic content in e.g. full screen chrome capture, where update rects are not known.",
+      "parentUuid": "22269292_e960a078",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 28
+      },
+      "revId": "7cf9933c8973060c9601d99bb62c0cbde7fc56f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d5da32f_0db4eec0",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "7cf9933c8973060c9601d99bb62c0cbde7fc56f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54e46391_534640ad",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-29T15:13:26Z",
+      "side": 1,
+      "message": "This existing code doesn\u0027t care about the optional. That\u0027s why we use update_rect_or_full_frame(), which has exact same behavior as a previous api.",
+      "parentUuid": "4d5da32f_0db4eec0",
+      "range": {
+        "startLine": 957,
+        "startChar": 0,
+        "endLine": 957,
+        "endChar": 49
+      },
+      "revId": "7cf9933c8973060c9601d99bb62c0cbde7fc56f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -154,8 +154,15 @@ void OpusFecTest::DecodeABlock(bool lost_previous, bool lost_current) {
           WebRtcOpus_DecodeFec(opus_decoder_, &bit_stream_[0], encoded_bytes_,
                                &out_data_[0], &audio_type);
     } else {
-      value_1 =
-          WebRtcOpus_Decode(opus_decoder_, NULL, 0, &out_data_[0], &audio_type);
+      // Call decoder PLC.
+      constexpr int kPlcDurationMs = 10;
+      const int plc_samples = sampling_khz_ * kPlcDurationMs;
+      while (value_1 < static_cast<int>(block_length_sample_)) {
+        int ret = WebRtcOpus_Decode(opus_decoder_, NULL, 0, &out_data_[value_1],
+                                    &audio_type);
+        EXPECT_EQ(ret, plc_samples);
+        value_1 += ret;
+      }
     }
     EXPECT_EQ(static_cast<int>(block_length_sample_), value_1);
   }

@@ -383,7 +383,8 @@ void RenderDelayBufferImpl::InsertBlock(
     RTC_DCHECK_EQ(block[band].size(), b.buffer[b.write][band].size());
     for (size_t ch = 0; ch < b.buffer[b.write][band].size(); ++ch) {
       RTC_DCHECK_EQ(block[band][ch].size(), b.buffer[b.write][band][ch].size());
-      std::copy(block[band][ch].begin(), block[band][ch].end(), b.buffer[b.write][band][ch].begin());
+      std::copy(block[band][ch].begin(), block[band][ch].end(),
+                b.buffer[b.write][band][ch].begin());
     }
   }
 
@@ -393,7 +394,8 @@ void RenderDelayBufferImpl::InsertBlock(
                         16000 / down_sampling_factor_, 1);
   std::copy(ds.rbegin(), ds.rend(), lr.buffer.begin() + lr.write);
   for (size_t channel = 0; channel < b.buffer[b.write][0].size(); ++channel) {
-    fft_.PaddedFft(b.buffer[b.write][0][channel], b.buffer[previous_write][0][channel],
+    fft_.PaddedFft(b.buffer[b.write][0][channel],
+                   b.buffer[previous_write][0][channel],
                    &f.buffer[f.write][channel]);
     f.buffer[f.write][channel].Spectrum(optimization_,
                                         s.buffer[s.write][channel]);

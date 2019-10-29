@@ -378,18 +378,24 @@ void RenderDelayBufferImpl::InsertBlock(
   auto& f = ffts_;
   auto& s = spectra_;
   RTC_DCHECK_EQ(block.size(), b.buffer[b.write].size());
-  for (size_t k = 0; k < block.size(); ++k) {
-    RTC_DCHECK_EQ(block[k].size(), b.buffer[b.write][k].size());
-    std::copy(block[k].begin(), block[k].end(), b.buffer[b.write][k].begin());
+  for (size_t band = 0; band < block.size(); ++band) {
+    RTC_DCHECK_EQ(block[band].size(), b.buffer[b.write][0].size());
+    RTC_DCHECK_EQ(block[band].size(), b.buffer[b.write][band].size());
+    for (size_t ch = 0; ch < b.buffer[b.write][band].size(); ++ch) {
+      RTC_DCHECK_EQ(block[band][ch].size(), b.buffer[b.write][band][ch].size());
+      std::copy(block[band][ch].begin(), block[band][ch].end(),
+                b.buffer[b.write][band][ch].begin());
+    }
   }
 
-  render_decimator_.Decimate(block[0],
+  render_decimator_.Decimate(b.buffer[b.write][0],
                              config_.delay.downmix_before_delay_estimation, ds);
   data_dumper_->DumpWav("aec3_render_decimator_output", ds.size(), ds.data(),
                         16000 / down_sampling_factor_, 1);
   std::copy(ds.rbegin(), ds.rend(), lr.buffer.begin() + lr.write);
-  for (size_t channel = 0; channel < block[0].size(); ++channel) {
-    fft_.PaddedFft(block[0][channel], b.buffer[previous_write][0][channel],
+  for (size_t channel = 0; channel < b.buffer[b.write][0].size(); ++channel) {
+    fft_.PaddedFft(b.buffer[b.write][0][channel],
+                   b.buffer[previous_write][0][channel],
                    &f.buffer[f.write][channel]);
     f.buffer[f.write][channel].Spectrum(optimization_,
                                         s.buffer[s.write][channel]);

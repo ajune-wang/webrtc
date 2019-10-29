@@ -667,7 +667,6 @@ TEST_P(PacketBufferH264ParameterizedTest, GetBitstreamBufferPadding) {
   h264_header.packetization_type = kH264SingleNalu;
   packet.seqNum = seq_num;
   packet.video_header.codec = kVideoCodecH264;
-  packet.insertStartCode = true;
   packet.dataPtr = data;
   packet.sizeBytes = sizeof(data_data);
   packet.video_header.is_first_packet_in_frame = true;

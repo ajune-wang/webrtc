@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8edd6227_5b611be9",
+        "filename": "api/audio/echo_control.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 10017
+      },
+      "writtenOn": "2019-10-30T15:29:16Z",
+      "side": 1,
+      "message": "Same comment as before. Doesn\u0027t this work at 8 and 16kHz?",
+      "revId": "161caa655c28c6c960fad06ed9fd98e5727bf135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6024675a_a3f2b82f",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 10017
+      },
+      "writtenOn": "2019-10-30T15:29:16Z",
+      "side": 1,
+      "message": "I\u0027m not very familiar with this code, so forgive me if I misunderstand the intent here, but won\u0027t this always be equal to the linear_output.size() param?  That\u0027s typically 1, maybe 2 or 3, while the linear_output_frame_.size() is going to be 160?",
+      "revId": "161caa655c28c6c960fad06ed9fd98e5727bf135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67a8c97a_f0e30f12",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 10017
+      },
+      "writtenOn": "2019-10-30T15:29:16Z",
+      "side": 1,
+      "message": "NIT: Perhaps a bit pedantic, but shouldn\u0027t this also work for 8kHz? And FWIW, I suspect it already does since this frame size is used at 8kHz too.",
+      "revId": "161caa655c28c6c960fad06ed9fd98e5727bf135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

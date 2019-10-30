@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d68dff8f_3926114f",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-30T08:38:59Z",
+      "side": 1,
+      "message": "I would suggest keeping the old name. Or if you want to reuse the name with a different meaning, add a TODO item explaining the plan.",
+      "range": {
+        "startLine": 176,
+        "startChar": 13,
+        "endLine": 176,
+        "endChar": 24
+      },
+      "revId": "e8913e5c1fc7c2fa571f1c1a6f8e2a4f7787c88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "619fc7d5_071305ac",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-30T08:38:59Z",
+      "side": 1,
+      "message": "I think you have a stronger expectation: changes are contained within the rectangle, and in addition, the rectangle is close to the actual bounding box of changed pixels.",
+      "range": {
+        "startLine": 222,
+        "startChar": 43,
+        "endLine": 222,
+        "endChar": 59
+      },
+      "revId": "e8913e5c1fc7c2fa571f1c1a6f8e2a4f7787c88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d85b9a9_596b0d56",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-30T08:38:59Z",
+      "side": 1,
+      "message": "Spelling.",
+      "range": {
+        "startLine": 224,
+        "startChar": 8,
+        "endLine": 224,
+        "endChar": 19
+      },
+      "revId": "e8913e5c1fc7c2fa571f1c1a6f8e2a4f7787c88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "406acdc0_242f0e53",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-30T08:38:59Z",
+      "side": 1,
+      "message": "Add a comment \"and update_rect() will return a rectangle corresponding to the entire frame.\"",
+      "range": {
+        "startLine": 223,
+        "startChar": 48,
+        "endLine": 224,
+        "endChar": 44
+      },
+      "revId": "e8913e5c1fc7c2fa571f1c1a6f8e2a4f7787c88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "214ac198_30213955",
+        "filename": "media/base/video_broadcaster.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-30T08:38:59Z",
+      "side": 1,
+      "message": "Isn\u0027t this a case of \"we have no (accurate) information\", so update_rect should be unset?\n\nI\u0027m thinking maybe it would be clearer with a separate bool |update_rect_is_accurate| than an optional?",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 7
+      },
+      "revId": "e8913e5c1fc7c2fa571f1c1a6f8e2a4f7787c88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "068f9889_501a502b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1088,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-10-30T08:38:59Z",
+      "side": 1,
+      "message": "If I understand this correctly, I think this union logic should be updated to ensure that union(unset, unset) \u003d\u003d unset. Hmm, actually, if any of the inputs is unset (no accurate update rect), the output should also be unset.",
+      "range": {
+        "startLine": 1087,
+        "startChar": 0,
+        "endLine": 1088,
+        "endChar": 54
+      },
+      "revId": "e8913e5c1fc7c2fa571f1c1a6f8e2a4f7787c88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

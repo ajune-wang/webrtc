@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c979aea_6c48de92",
+        "filename": "modules/video_coding/unique_counter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-10-30T10:21:54Z",
+      "side": 1,
+      "message": "Suggestion: Have a member \"int last_timestamp_ \u003d -1\" and compare against that value first. That way the majority of insert operations can be elided for high bitrate streams.",
+      "range": {
+        "startLine": 26,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 37
+      },
+      "revId": "fa3ac419074cac8c2a1037ad51ebebc743e9306f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57b5868f_f18b74eb",
+        "filename": "modules/video_coding/unique_counter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-10-30T10:21:54Z",
+      "side": 1,
+      "message": "Is this class meant to be reusable or is it just meant to count unique RTP timestamps? If only for the timestamps then I would suggest naming it |TimestampCounter| or |UniqueTimestampCounter|.",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 19
+      },
+      "revId": "fa3ac419074cac8c2a1037ad51ebebc743e9306f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87baab31_29bdc11b",
+        "filename": "modules/video_coding/unique_counter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-10-30T10:21:54Z",
+      "side": 1,
+      "message": "Nit: Maybe |history_|, |timestamp_history_| or |seen_timestamps_|?",
+      "range": {
+        "startLine": 34,
+        "startChar": 21,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "fa3ac419074cac8c2a1037ad51ebebc743e9306f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

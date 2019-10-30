@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "714e9705_22956a08",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-30T09:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d68dff8f_3926114f",
+      "range": {
+        "startLine": 176,
+        "startChar": 13,
+        "endLine": 176,
+        "endChar": 24
+      },
+      "revId": "e8913e5c1fc7c2fa571f1c1a6f8e2a4f7787c88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "619fc7d5_071305ac",
         "filename": "api/video/video_frame.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "e8913e5c1fc7c2fa571f1c1a6f8e2a4f7787c88c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b18d311_5a62948b",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-30T09:33:20Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "619fc7d5_071305ac",
+      "range": {
+        "startLine": 222,
+        "startChar": 43,
+        "endLine": 222,
+        "endChar": 59
+      },
+      "revId": "e8913e5c1fc7c2fa571f1c1a6f8e2a4f7787c88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,54 @@
     },
     {
       "key": {
+        "uuid": "59649596_ffad69ae",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-30T09:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "406acdc0_242f0e53",
+      "range": {
+        "startLine": 223,
+        "startChar": 48,
+        "endLine": 224,
+        "endChar": 44
+      },
+      "revId": "e8913e5c1fc7c2fa571f1c1a6f8e2a4f7787c88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c587d7a_1272d8b4",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-30T09:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d85b9a9_596b0d56",
+      "range": {
+        "startLine": 224,
+        "startChar": 8,
+        "endLine": 224,
+        "endChar": 19
+      },
+      "revId": "e8913e5c1fc7c2fa571f1c1a6f8e2a4f7787c88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "214ac198_30213955",
         "filename": "media/base/video_broadcaster.cc",
         "patchSetId": 5
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "dc8e54d0_27b181df",
+        "filename": "media/base/video_broadcaster.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-30T09:33:20Z",
+      "side": 1,
+      "message": "Good idea.",
+      "parentUuid": "214ac198_30213955",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 7
+      },
+      "revId": "e8913e5c1fc7c2fa571f1c1a6f8e2a4f7787c88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "068f9889_501a502b",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "e8913e5c1fc7c2fa571f1c1a6f8e2a4f7787c88c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbdc7ad2_19f934f0",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1088,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-30T09:33:20Z",
+      "side": 1,
+      "message": "Added logic to keep track of validity of the accumulated update rect.",
+      "parentUuid": "068f9889_501a502b",
+      "range": {
+        "startLine": 1087,
+        "startChar": 0,
+        "endLine": 1088,
+        "endChar": 54
+      },
+      "revId": "e8913e5c1fc7c2fa571f1c1a6f8e2a4f7787c88c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

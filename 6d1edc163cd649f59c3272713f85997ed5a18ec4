@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "281df00e_917eb294",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2019-10-30T12:33:58Z",
+      "side": 1,
+      "message": "This whole approach here is kind of strange C++.\n\nIt sounds like you want to say \"this class can only be instantiated with a few types, and none other\".\n\nThe way this is currently implemented is that you define a template in the header, and then a bunch of specializations in the cc file.\n\nHowever, you still only have a regular template in the header, so every client of this .h file / template will get its own instantiation of this template.\n\nWhat I think you want instead is to have template instantiation declarations in the .h so that no instantiations are done for clients, and then the template instantiation definitions in the cc file you have (https://en.cppreference.com/w/cpp/language/class_template#Explicit_instantiation).\n\nYou then need something like https://cs.chromium.org/chromium/src/base/export_template.h?q\u003dexport.template+file:base\u0026sq\u003dpackage:chromium\u0026dr\u003dCSs\u0026l\u003d5 to export those instantiation correctly. (...I need to rewrite that file to make it a bit clearer what it\u0027s doing.)\n\nThere\u0027s a good chance that\u0027d take care of the clang-cl issue too.",
+      "revId": "6d1edc163cd649f59c3272713f85997ed5a18ec4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

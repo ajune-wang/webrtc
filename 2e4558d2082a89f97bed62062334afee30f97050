@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "69054f52_5145c3b2",
+        "filename": "media/base/video_broadcaster.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-30T09:48:14Z",
+      "side": 1,
+      "message": "Oops.",
+      "parentUuid": "21a9d4b4_075cdcd1",
+      "range": {
+        "startLine": 84,
+        "startChar": 9,
+        "endLine": 84,
+        "endChar": 22
+      },
+      "revId": "2e4558d2082a89f97bed62062334afee30f97050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef1a4339_e8e6654b",
         "filename": "test/frame_generator.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "2e4558d2082a89f97bed62062334afee30f97050",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d69fa86_fd108da3",
+        "filename": "test/frame_generator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-10-30T09:48:14Z",
+      "side": 1,
+      "message": "No, this one here is always set correctly and known.",
+      "parentUuid": "ef1a4339_e8e6654b",
+      "range": {
+        "startLine": 422,
+        "startChar": 8,
+        "endLine": 422,
+        "endChar": 63
+      },
+      "revId": "2e4558d2082a89f97bed62062334afee30f97050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "382549d4_59480e0f",
+        "filename": "rtc_base/experiments/rate_control_settings_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-10-30T12:23:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24290b06_0a65fd89",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 62
+      },
+      "revId": "e6c926c416bf9ec20dec8b1a3dfc02dae42360f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce60d92c_128374b1",
         "filename": "rtc_base/experiments/rate_control_settings_unittest.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "e6c926c416bf9ec20dec8b1a3dfc02dae42360f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c804097_90248b43",
+        "filename": "rtc_base/experiments/rate_control_settings_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-10-30T12:23:41Z",
+      "side": 1,
+      "message": "Added a test showing that the common key overrides the legacy key.",
+      "parentUuid": "ce60d92c_128374b1",
+      "range": {
+        "startLine": 123,
+        "startChar": 31,
+        "endLine": 123,
+        "endChar": 60
+      },
+      "revId": "e6c926c416bf9ec20dec8b1a3dfc02dae42360f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

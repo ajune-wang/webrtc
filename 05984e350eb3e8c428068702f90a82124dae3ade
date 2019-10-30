@@ -22,6 +22,30 @@
       "revId": "05984e350eb3e8c428068702f90a82124dae3ade",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5969b3b0_0f57cad1",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-30T09:36:47Z",
+      "side": 1,
+      "message": "Done. (It was to be able to DCHECK that SetOperationCompleteCallback had been called with has_value(), but that\u0027s not needed for an internal helper class, any test would fail if it wasn\u0027t called)",
+      "parentUuid": "f8debd48_5e806ce8",
+      "range": {
+        "startLine": 775,
+        "startChar": 2,
+        "endLine": 775,
+        "endChar": 39
+      },
+      "revId": "05984e350eb3e8c428068702f90a82124dae3ade",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

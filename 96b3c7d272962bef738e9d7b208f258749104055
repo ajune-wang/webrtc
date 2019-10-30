@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5283e3c3_bf843572",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-10-30T14:24:58Z",
+      "side": 1,
+      "message": "Isn\u0027t this check covered by the next line?",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 382,
+        "endChar": 67
+      },
+      "revId": "96b3c7d272962bef738e9d7b208f258749104055",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

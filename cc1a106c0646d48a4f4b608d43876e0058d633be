@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f96ace42_7cd72114",
+        "filename": "api/test/neteq_factory_with_codecs.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-31T12:00:37Z",
+      "side": 1,
+      "message": "Thanks, I\u0027ll try to remember that.",
+      "parentUuid": "a08bfba9_e63ed133",
+      "revId": "cc1a106c0646d48a4f4b608d43876e0058d633be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c08fbb6_2decfdb9",
         "filename": "api/test/neteq_factory_with_codecs.cc",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "cc1a106c0646d48a4f4b608d43876e0058d633be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2983b4e_546aca6b",
+        "filename": "api/test/neteq_factory_with_codecs.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-31T12:00:37Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "5c08fbb6_2decfdb9",
+      "revId": "cc1a106c0646d48a4f4b608d43876e0058d633be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "59ebc089_7175dbbc",
+        "filename": "api/test/neteq_factory_with_codecs.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-31T12:00:37Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "2509ca26_f1feca1a",
+      "revId": "cc1a106c0646d48a4f4b608d43876e0058d633be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "941cc269_afaa9c9c",
         "filename": "api/test/neteq_factory_with_codecs.cc",
         "patchSetId": 6
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "8336b5f7_e9237538",
+        "filename": "api/test/neteq_factory_with_codecs.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-31T12:00:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "941cc269_afaa9c9c",
+      "revId": "cc1a106c0646d48a4f4b608d43876e0058d633be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a453e33_891f4ebc",
         "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
         "patchSetId": 6
@@ -84,6 +156,24 @@
       "revId": "cc1a106c0646d48a4f4b608d43876e0058d633be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59c440ad_c6eadb26",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-31T12:00:37Z",
+      "side": 1,
+      "message": "According to the style guide we shouldn\u0027t use auto just to avoid the inconvenience of writing an explicit type, see https://google.github.io/styleguide/cppguide.html#Type_deduction, so I\u0027d like to keep it like this.",
+      "parentUuid": "3a453e33_891f4ebc",
+      "revId": "cc1a106c0646d48a4f4b608d43876e0058d633be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

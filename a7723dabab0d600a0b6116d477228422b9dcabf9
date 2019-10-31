@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c84e51b_0faf5854",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-31T17:44:53Z",
+      "side": 1,
+      "message": "nit: speling",
+      "range": {
+        "startLine": 18,
+        "startChar": 60,
+        "endLine": 18,
+        "endChar": 69
+      },
+      "revId": "a7723dabab0d600a0b6116d477228422b9dcabf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -126,107 +126,197 @@ RTCStats::MembersOfThisObjectAndAncestors(size_t additional_capacity) const {
   return members;
 }
 
-#define WEBRTC_DEFINE_RTCSTATSMEMBER(T, type, is_seq, is_str, to_str, to_json) \
-  template <>                                                                  \
-  const RTCStatsMemberInterface::Type RTCStatsMember<T>::kType =               \
-      RTCStatsMemberInterface::type;                                           \
-  template <>                                                                  \
-  bool RTCStatsMember<T>::is_sequence() const {                                \
-    return is_seq;                                                             \
-  }                                                                            \
-  template <>                                                                  \
-  bool RTCStatsMember<T>::is_string() const {                                  \
-    return is_str;                                                             \
-  }                                                                            \
-  template <>                                                                  \
-  std::string RTCStatsMember<T>::ValueToString() const {                       \
-    RTC_DCHECK(is_defined_);                                                   \
-    return to_str;                                                             \
-  }                                                                            \
-  template <>                                                                  \
-  std::string RTCStatsMember<T>::ValueToJson() const {                         \
-    RTC_DCHECK(is_defined_);                                                   \
-    return to_json;                                                            \
+bool IsRTCStatsMemberSequence(bool v) {
+  return false;
+}
+bool IsRTCStatsMemberSequence(int32_t v) {
+  return false;
+}
+bool IsRTCStatsMemberSequence(uint32_t v) {
+  return false;
+}
+bool IsRTCStatsMemberSequence(int64_t v) {
+  return false;
+}
+bool IsRTCStatsMemberSequence(uint64_t v) {
+  return false;
+}
+bool IsRTCStatsMemberSequence(double v) {
+  return false;
+}
+bool IsRTCStatsMemberSequence(std::string v) {
+  return false;
+}
+bool IsRTCStatsMemberSequence(std::vector<bool> v) {
+  return true;
+}
+bool IsRTCStatsMemberSequence(std::vector<int32_t> v) {
+  return true;
+}
+bool IsRTCStatsMemberSequence(std::vector<uint32_t> v) {
+  return true;
+}
+bool IsRTCStatsMemberSequence(std::vector<int64_t> v) {
+  return true;
+}
+bool IsRTCStatsMemberSequence(std::vector<uint64_t> v) {
+  return true;
+}
+bool IsRTCStatsMemberSequence(std::vector<double> v) {
+  return true;
+}
+bool IsRTCStatsMemberSequence(std::vector<std::string> v) {
+  return true;
+}
+
+bool IsRTCStatsMemberString(bool v) {
+  return false;
+}
+bool IsRTCStatsMemberString(int32_t v) {
+  return false;
+}
+bool IsRTCStatsMemberString(uint32_t v) {
+  return false;
+}
+bool IsRTCStatsMemberString(int64_t v) {
+  return false;
+}
+bool IsRTCStatsMemberString(uint64_t v) {
+  return false;
+}
+bool IsRTCStatsMemberString(double v) {
+  return false;
+}
+bool IsRTCStatsMemberString(std::string v) {
+  return true;
+}
+bool IsRTCStatsMemberString(std::vector<bool> v) {
+  return false;
+}
+bool IsRTCStatsMemberString(std::vector<int32_t> v) {
+  return false;
+}
+bool IsRTCStatsMemberString(std::vector<uint32_t> v) {
+  return false;
+}
+bool IsRTCStatsMemberString(std::vector<int64_t> v) {
+  return false;
+}
+bool IsRTCStatsMemberString(std::vector<uint64_t> v) {
+  return false;
+}
+bool IsRTCStatsMemberString(std::vector<double> v) {
+  return false;
+}
+bool IsRTCStatsMemberString(std::vector<std::string> v) {
+  return false;
+}
+
+std::string RTCStatsMemberToString(bool v) {
+  return rtc::ToString(v);
+}
+std::string RTCStatsMemberToString(int32_t v) {
+  return rtc::ToString(v);
+}
+std::string RTCStatsMemberToString(uint32_t v) {
+  return rtc::ToString(v);
+}
+std::string RTCStatsMemberToString(int64_t v) {
+  return rtc::ToString(v);
+}
+std::string RTCStatsMemberToString(uint64_t v) {
+  return rtc::ToString(v);
+}
+std::string RTCStatsMemberToString(double v) {
+  return rtc::ToString(v);
+}
+std::string RTCStatsMemberToString(std::string v) {
+  return v;
+}
+std::string RTCStatsMemberToString(std::vector<bool> v) {
+  return VectorToString(v);
+}
+std::string RTCStatsMemberToString(std::vector<int32_t> v) {
+  return VectorToString(v);
+}
+std::string RTCStatsMemberToString(std::vector<uint32_t> v) {
+  return VectorToString(v);
+}
+std::string RTCStatsMemberToString(std::vector<int64_t> v) {
+  return VectorToString(v);
+}
+std::string RTCStatsMemberToString(std::vector<uint64_t> v) {
+  return VectorToString(v);
+}
+std::string RTCStatsMemberToString(std::vector<double> v) {
+  return VectorToString(v);
+}
+std::string RTCStatsMemberToString(std::vector<std::string> v) {
+  return VectorOfStringsToString(v);
+}
+
+std::string RTCStatsMemberToJson(bool v) {
+  return rtc::ToString(v);
+}
+std::string RTCStatsMemberToJson(int32_t v) {
+  return rtc::ToString(v);
+}
+std::string RTCStatsMemberToJson(uint32_t v) {
+  return rtc::ToString(v);
+}
+std::string RTCStatsMemberToJson(int64_t v) {
+  return ToStringAsDouble(v);
+}
+std::string RTCStatsMemberToJson(uint64_t v) {
+  return ToStringAsDouble(v);
+}
+std::string RTCStatsMemberToJson(double v) {
+  return ToStringAsDouble(v);
+}
+std::string RTCStatsMemberToJson(std::string v) {
+  return v;
+}
+std::string RTCStatsMemberToJson(std::vector<bool> v) {
+  return VectorToString(v);
+}
+std::string RTCStatsMemberToJson(std::vector<int32_t> v) {
+  return VectorToString(v);
+}
+std::string RTCStatsMemberToJson(std::vector<uint32_t> v) {
+  return VectorToString(v);
+}
+std::string RTCStatsMemberToJson(std::vector<int64_t> v) {
+  return VectorToStringAsDouble(v);
+}
+std::string RTCStatsMemberToJson(std::vector<uint64_t> v) {
+  return VectorToStringAsDouble(v);
+}
+std::string RTCStatsMemberToJson(std::vector<double> v) {
+  return VectorToStringAsDouble(v);
+}
+std::string RTCStatsMemberToJson(std::vector<std::string> v) {
+  return VectorOfStringsToString(v);
+}
+
+#define WEBRTC_DEFINE_RTCSTATSMEMBER(T, type)                  \
+  template <>                                                  \
+  RTCStatsMemberInterface::Type RTCStatsMember<T>::GetType() { \
+    return type;                                               \
   }
 
-WEBRTC_DEFINE_RTCSTATSMEMBER(bool,
-                             kBool,
-                             false,
-                             false,
-                             rtc::ToString(value_),
-                             rtc::ToString(value_))
-WEBRTC_DEFINE_RTCSTATSMEMBER(int32_t,
-                             kInt32,
-                             false,
-                             false,
-                             rtc::ToString(value_),
-                             rtc::ToString(value_))
-WEBRTC_DEFINE_RTCSTATSMEMBER(uint32_t,
-                             kUint32,
-                             false,
-                             false,
-                             rtc::ToString(value_),
-                             rtc::ToString(value_))
-WEBRTC_DEFINE_RTCSTATSMEMBER(int64_t,
-                             kInt64,
-                             false,
-                             false,
-                             rtc::ToString(value_),
-                             ToStringAsDouble(value_))
-WEBRTC_DEFINE_RTCSTATSMEMBER(uint64_t,
-                             kUint64,
-                             false,
-                             false,
-                             rtc::ToString(value_),
-                             ToStringAsDouble(value_))
-WEBRTC_DEFINE_RTCSTATSMEMBER(double,
-                             kDouble,
-                             false,
-                             false,
-                             rtc::ToString(value_),
-                             ToStringAsDouble(value_))
-WEBRTC_DEFINE_RTCSTATSMEMBER(std::string, kString, false, true, value_, value_)
-WEBRTC_DEFINE_RTCSTATSMEMBER(std::vector<bool>,
-                             kSequenceBool,
-                             true,
-                             false,
-                             VectorToString(value_),
-                             VectorToString(value_))
-WEBRTC_DEFINE_RTCSTATSMEMBER(std::vector<int32_t>,
-                             kSequenceInt32,
-                             true,
-                             false,
-                             VectorToString(value_),
-                             VectorToString(value_))
-WEBRTC_DEFINE_RTCSTATSMEMBER(std::vector<uint32_t>,
-                             kSequenceUint32,
-                             true,
-                             false,
-                             VectorToString(value_),
-                             VectorToString(value_))
-WEBRTC_DEFINE_RTCSTATSMEMBER(std::vector<int64_t>,
-                             kSequenceInt64,
-                             true,
-                             false,
-                             VectorToString(value_),
-                             VectorToStringAsDouble(value_))
-WEBRTC_DEFINE_RTCSTATSMEMBER(std::vector<uint64_t>,
-                             kSequenceUint64,
-                             true,
-                             false,
-                             VectorToString(value_),
-                             VectorToStringAsDouble(value_))
-WEBRTC_DEFINE_RTCSTATSMEMBER(std::vector<double>,
-                             kSequenceDouble,
-                             true,
-                             false,
-                             VectorToString(value_),
-                             VectorToStringAsDouble(value_))
-WEBRTC_DEFINE_RTCSTATSMEMBER(std::vector<std::string>,
-                             kSequenceString,
-                             true,
-                             false,
-                             VectorOfStringsToString(value_),
-                             VectorOfStringsToString(value_))
+WEBRTC_DEFINE_RTCSTATSMEMBER(bool, kBool)
+WEBRTC_DEFINE_RTCSTATSMEMBER(int32_t, kInt32)
+WEBRTC_DEFINE_RTCSTATSMEMBER(uint32_t, kUint32)
+WEBRTC_DEFINE_RTCSTATSMEMBER(int64_t, kInt64)
+WEBRTC_DEFINE_RTCSTATSMEMBER(uint64_t, kUint64)
+WEBRTC_DEFINE_RTCSTATSMEMBER(double, kDouble)
+WEBRTC_DEFINE_RTCSTATSMEMBER(std::string, kString)
+WEBRTC_DEFINE_RTCSTATSMEMBER(std::vector<bool>, kSequenceBool)
+WEBRTC_DEFINE_RTCSTATSMEMBER(std::vector<int32_t>, kSequenceInt32)
+WEBRTC_DEFINE_RTCSTATSMEMBER(std::vector<uint32_t>, kSequenceUint32)
+WEBRTC_DEFINE_RTCSTATSMEMBER(std::vector<int64_t>, kSequenceInt64)
+WEBRTC_DEFINE_RTCSTATSMEMBER(std::vector<uint64_t>, kSequenceUint64)
+WEBRTC_DEFINE_RTCSTATSMEMBER(std::vector<double>, kSequenceDouble)
+WEBRTC_DEFINE_RTCSTATSMEMBER(std::vector<std::string>, kSequenceString)
 
 }  // namespace webrtc

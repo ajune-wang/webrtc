@@ -267,7 +267,7 @@ class RTCStatsMemberInterface {
 
   template <typename T>
   const T& cast_to() const {
-    RTC_DCHECK_EQ(type(), T::kType);
+    RTC_DCHECK_EQ(type(), T::GetType());
     return static_cast<const T&>(*this);
   }
 
@@ -279,15 +279,71 @@ class RTCStatsMemberInterface {
   bool is_defined_;
 };
 
-// Template implementation of |RTCStatsMemberInterface|. Every possible |T| is
-// specialized in rtcstats.cc, using a different |T| results in a linker error
-// (undefined reference to |kType|). The supported types are the ones described
-// by |RTCStatsMemberInterface::Type|.
+bool IsRTCStatsMemberSequence(bool);
+bool IsRTCStatsMemberSequence(int32_t);
+bool IsRTCStatsMemberSequence(uint32_t);
+bool IsRTCStatsMemberSequence(int64_t);
+bool IsRTCStatsMemberSequence(uint64_t);
+bool IsRTCStatsMemberSequence(double);
+bool IsRTCStatsMemberSequence(std::string);
+bool IsRTCStatsMemberSequence(std::vector<bool>);
+bool IsRTCStatsMemberSequence(std::vector<int32_t>);
+bool IsRTCStatsMemberSequence(std::vector<uint32_t>);
+bool IsRTCStatsMemberSequence(std::vector<int64_t>);
+bool IsRTCStatsMemberSequence(std::vector<uint64_t>);
+bool IsRTCStatsMemberSequence(std::vector<double>);
+bool IsRTCStatsMemberSequence(std::vector<std::string>);
+
+bool IsRTCStatsMemberString(bool);
+bool IsRTCStatsMemberString(int32_t);
+bool IsRTCStatsMemberString(uint32_t);
+bool IsRTCStatsMemberString(int64_t);
+bool IsRTCStatsMemberString(uint64_t);
+bool IsRTCStatsMemberString(double);
+bool IsRTCStatsMemberString(std::string);
+bool IsRTCStatsMemberString(std::vector<bool>);
+bool IsRTCStatsMemberString(std::vector<int32_t>);
+bool IsRTCStatsMemberString(std::vector<uint32_t>);
+bool IsRTCStatsMemberString(std::vector<int64_t>);
+bool IsRTCStatsMemberString(std::vector<uint64_t>);
+bool IsRTCStatsMemberString(std::vector<double>);
+bool IsRTCStatsMemberString(std::vector<std::string>);
+
+std::string RTCStatsMemberToString(bool);
+std::string RTCStatsMemberToString(int32_t);
+std::string RTCStatsMemberToString(uint32_t);
+std::string RTCStatsMemberToString(int64_t);
+std::string RTCStatsMemberToString(uint64_t);
+std::string RTCStatsMemberToString(double);
+std::string RTCStatsMemberToString(std::string);
+std::string RTCStatsMemberToString(std::vector<bool>);
+std::string RTCStatsMemberToString(std::vector<int32_t>);
+std::string RTCStatsMemberToString(std::vector<uint32_t>);
+std::string RTCStatsMemberToString(std::vector<int64_t>);
+std::string RTCStatsMemberToString(std::vector<uint64_t>);
+std::string RTCStatsMemberToString(std::vector<double>);
+std::string RTCStatsMemberToString(std::vector<std::string>);
+
+std::string RTCStatsMemberToJson(bool);
+std::string RTCStatsMemberToJson(int32_t);
+std::string RTCStatsMemberToJson(uint32_t);
+std::string RTCStatsMemberToJson(int64_t);
+std::string RTCStatsMemberToJson(uint64_t);
+std::string RTCStatsMemberToJson(double);
+std::string RTCStatsMemberToJson(std::string);
+std::string RTCStatsMemberToJson(std::vector<bool>);
+std::string RTCStatsMemberToJson(std::vector<int32_t>);
+std::string RTCStatsMemberToJson(std::vector<uint32_t>);
+std::string RTCStatsMemberToJson(std::vector<int64_t>);
+std::string RTCStatsMemberToJson(std::vector<uint64_t>);
+std::string RTCStatsMemberToJson(std::vector<double>);
+std::string RTCStatsMemberToJson(std::vector<std::string>);
+
+// Template implementation of |RTCStatsMemberInterface|. The supported types
+// are the ones described by |RTCStatsMemberInterface::Type|.
 template <typename T>
 class RTC_EXPORT RTCStatsMember : public RTCStatsMemberInterface {
  public:
-  static const Type kType;
-
   explicit RTCStatsMember(const char* name)
       : RTCStatsMemberInterface(name, /*is_defined=*/false), value_() {}
   RTCStatsMember(const char* name, const T& value)
@@ -302,9 +358,10 @@ class RTC_EXPORT RTCStatsMember : public RTCStatsMemberInterface {
       : RTCStatsMemberInterface(other.name_, other.is_defined_),
         value_(std::move(other.value_)) {}
 
-  Type type() const override { return kType; }
-  bool is_sequence() const override;
-  bool is_string() const override;
+  static Type GetType();
+  Type type() const override { return GetType(); }
+  bool is_sequence() const override { return IsRTCStatsMemberSequence(value_); }
+  bool is_string() const override { return IsRTCStatsMemberString(value_); }
   bool is_standardized() const override { return true; }
   bool operator==(const RTCStatsMemberInterface& other) const override {
     if (type() != other.type() || is_standardized() != other.is_standardized())
@@ -317,8 +374,12 @@ class RTC_EXPORT RTCStatsMember : public RTCStatsMemberInterface {
       return false;
     return value_ == other_t.value_;
   }
-  std::string ValueToString() const override;
-  std::string ValueToJson() const override;
+  std::string ValueToString() const override {
+    return RTCStatsMemberToString(value_);
+  }
+  std::string ValueToJson() const override {
+    return RTCStatsMemberToJson(value_);
+  }
 
   // Assignment operators.
   T& operator=(const T& value) {

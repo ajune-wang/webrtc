@@ -475,6 +475,32 @@ void Thread::InvokeInternal(const Location& posted_from,
   Send(posted_from, handler);
 }
 
+void Thread::QueuedTaskHandler::OnMessage(Message* msg) {
+  RTC_DCHECK(msg);
+  auto* data = static_cast<ScopedMessageData<webrtc::QueuedTask>*>(msg->pdata);
+  std::unique_ptr<webrtc::QueuedTask> task = std::move(data->data());
+  delete data;
+  if (!task->Run())
+    task.release();
+}
+
+void Thread::PostTask(std::unique_ptr<webrtc::QueuedTask> task) {
+  Post(RTC_FROM_HERE, &queued_task_handler_,
+       /*id=*/0, new ScopedMessageData<webrtc::QueuedTask>(std::move(task)));
+}
+
+void Thread::PostDelayedTask(std::unique_ptr<webrtc::QueuedTask> task,
+                             uint32_t milliseconds) {
+  PostDelayed(RTC_FROM_HERE, milliseconds, &queued_task_handler_,
+              /*id=*/0,
+              new ScopedMessageData<webrtc::QueuedTask>(std::move(task)));
+}
+
+void Thread::Delete() {
+  Stop();
+  delete this;
+}
+
 bool Thread::IsProcessingMessagesForTesting() {
   return (owned_ || IsCurrent()) &&
          MessageQueue::IsProcessingMessagesForTesting();
@@ -510,6 +536,7 @@ void Thread::Clear(MessageHandler* phandler,
 }
 
 bool Thread::ProcessMessages(int cmsLoop) {
+  CurrentTaskQueueSetter set_current_task_queue(this);
   // Using ProcessMessages with a custom clock for testing and a time greater
   // than 0 doesn't work, since it's not guaranteed to advance the custom
   // clock's time, and may get stuck in an infinite loop.

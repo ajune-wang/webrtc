@@ -63,6 +63,30 @@
       "revId": "bf6e5bde6e2293505305249b562dc49093339c40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "854bc713_73de61e9",
+        "filename": "stats/rtc_stats.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-10-31T18:47:15Z",
+      "side": 1,
+      "message": "Ok, I get it. The RTCStats::kType is defined in each subclass, not in the exported base class.\n\nI guess something like that could do the trick (or treat):\n\ntemplate\u003ctypename T, int I\u003e\nclass EXPORT RTCStatsMember {\n  RTCStatsMemberInterface::Type RTCStatsMember\u003cT,I\u003e::GetType() { \n    return I;        \n  }",
+      "parentUuid": "db0441cf_f1412080",
+      "range": {
+        "startLine": 301,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 3
+      },
+      "revId": "bf6e5bde6e2293505305249b562dc49093339c40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

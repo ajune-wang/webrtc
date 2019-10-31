@@ -779,6 +779,26 @@ void WebRtcVideoChannel::RequestEncoderSwitch(
   });
 }
 
+void WebRtcVideoChannel::EnableEncodedOutput(uint32_t ssrc) {
+  invoker_.AsyncInvoke<void>(RTC_FROM_HERE, worker_thread_, [this, ssrc] {
+    RTC_DCHECK_RUN_ON(&thread_checker_);
+    auto it = receive_streams_.find(ssrc);
+    if (it != receive_streams_.end()) {
+      it->second->EnableEncodedOutput();
+    }
+  });
+}
+
+void WebRtcVideoChannel::DoneEncodedOutput(uint32_t ssrc) {
+  invoker_.AsyncInvoke<void>(RTC_FROM_HERE, worker_thread_, [this, ssrc] {
+    RTC_DCHECK_RUN_ON(&thread_checker_);
+    auto it = receive_streams_.find(ssrc);
+    if (it != receive_streams_.end()) {
+      it->second->DoneEncodedOutput();
+    }
+  });
+}
+
 bool WebRtcVideoChannel::ApplyChangedParams(
     const ChangedSendParameters& changed_params) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
@@ -2683,8 +2703,10 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
 
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::RecreateWebRtcVideoStream() {
   absl::optional<int> base_minimum_playout_delay_ms;
+  absl::optional<int> encoded_output_balance = 0;
   if (stream_) {
     base_minimum_playout_delay_ms = stream_->GetBaseMinimumPlayoutDelayMs();
+    encoded_output_balance = stream_->GetEncodedOutputBalance();
     MaybeDissociateFlexfecFromVideo();
     call_->DestroyVideoReceiveStream(stream_);
     stream_ = nullptr;
@@ -2696,6 +2718,9 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::RecreateWebRtcVideoStream() {
   if (base_minimum_playout_delay_ms) {
     stream_->SetBaseMinimumPlayoutDelayMs(
         base_minimum_playout_delay_ms.value());
+  }
+  if (encoded_output_balance) {
+    stream_->SetEncodedOutputBalance(*encoded_output_balance);
   }
   MaybeAssociateFlexfecWithVideo();
   stream_->Start();
@@ -2869,6 +2894,18 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetVideoReceiverInfo(
     RTC_LOG(LS_INFO) << stats.ToString(rtc::TimeMillis());
 
   return info;
+}
+
+void WebRtcVideoChannel::WebRtcVideoReceiveStream::EnableEncodedOutput() {
+  if (stream_) {
+    stream_->EnableEncodedOutput();
+  }
+}
+
+void WebRtcVideoChannel::WebRtcVideoReceiveStream::DoneEncodedOutput() {
+  if (stream_) {
+    stream_->DoneEncodedOutput();
+  }
 }
 
 WebRtcVideoChannel::VideoCodecSettings::VideoCodecSettings()

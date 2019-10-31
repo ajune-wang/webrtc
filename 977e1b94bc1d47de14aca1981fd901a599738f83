@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4e3f5bb4_25a883dc",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-10-31T15:56:58Z",
+      "side": 1,
+      "message": "I got a warning about signedness while refactoring the GetTimestamp code. I really don\u0027t have time to try to break it into parts.",
+      "parentUuid": "cb858770_0b25d024",
+      "range": {
+        "startLine": 254,
+        "startChar": 18,
+        "endLine": 254,
+        "endChar": 25
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f614d7b6_691e2d7e",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-10-31T14:06:14Z",
       "side": 1,
       "message": "I\u0027d like some documentation around here on why we need to use macros and why they are implemented this way? If you simple based in on existing code somewhere else (Abseil?) a reference to that is fine.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 23
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76b6ff83_faff960a",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-10-31T15:56:58Z",
+      "side": 1,
+      "message": "We want to convert the existing macro calls with a minimum of changes to the surrounding code. We also want to return, so we can\u0027t use a helper function.\n\nThe extra parenthesis are to avoid precedence issues when the argument is an expression.\nThe do {} while () is a standard trick to allow using the macro in an if statement \n\nif (foo)\n  MACRO(bar1);\nelse\n  bar2;\n\nwould otherwise expand to\n\nif (foo)\nif (bar1)\n  return something;\nelse\n  bar2;",
+      "parentUuid": "f614d7b6_691e2d7e",
       "range": {
         "startLine": 47,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1474cf9b_9651d15c",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-10-31T15:56:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e7d758c_e136e519",
+      "range": {
+        "startLine": 48,
+        "startChar": 18,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b784aaab_69f8ed0e",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "569bf911_4dee2817",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-10-31T15:56:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b784aaab_69f8ed0e",
+      "range": {
+        "startLine": 1223,
+        "startChar": 4,
+        "endLine": 1227,
+        "endChar": 7
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "099fbd72_0b77342e",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1421,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-10-31T15:56:58Z",
+      "side": 1,
+      "message": "I though about it, but I don\u0027t think there is a clean way to implement that macro.\n\nif (!(S).ok()) return S\n\nwon\u0027t do what we want for CHECK_OR_RETURN(foo()). The standard way around this is to expand to a function call which does the actual work, but in this case we want to return, which we can\u0027t put in helper function.",
+      "parentUuid": "a56b57ba_87391a7d",
+      "range": {
+        "startLine": 1419,
+        "startChar": 3,
+        "endLine": 1421,
+        "endChar": 22
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a82c11f_39527cc5",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
         "patchSetId": 3
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "61083301_8672c328",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1465,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-10-31T15:56:58Z",
+      "side": 1,
+      "message": "As above, I don\u0027t think there is a clean way to implement this.",
+      "parentUuid": "6a82c11f_39527cc5",
+      "range": {
+        "startLine": 1463,
+        "startChar": 3,
+        "endLine": 1465,
+        "endChar": 40
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cb8b71c_9df33e4c",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
         "patchSetId": 3
@@ -151,6 +295,30 @@
       "writtenOn": "2019-10-31T14:06:14Z",
       "side": 1,
       "message": "This seems a bit annoying to enforce wince it will stop even test code from copiling unless the value is used.\n\nWill the class state be invalid unless we return ok state? Otherwise i\u0027d make it optional and up to the caller. If it will be invalid, we should consider using a factory function IMO.\n\nMaybe we can add an OrDie() function that CHECKS for OK-state? (Like ValueOrDie)",
+      "range": {
+        "startLine": 345,
+        "startChar": 2,
+        "endLine": 345,
+        "endChar": 22
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8632fd4b_61cc34d4",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-10-31T15:56:58Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s very good test code if it uses the parser without checking whether parsing succeeded.\n\nThe errors that return success if allow_incomplete_logs is true, leave the object in a valid state. Most of the other ones \"probably\" also leave it in a valid state, but various structs may be only partially initialized. Since I converted hundreds of CHECKs it\u0027s not practical to go through all of them.\n\nPreviously, we\u0027d CHECK inside the parser. The whole purpose of this CL was to move that verification to the surrounding code, so I think it\u0027s fair to require some changes in the caller.\n\nNot sure what you mean about ValueOrDie(); this is just a status without a value.",
+      "parentUuid": "9cb8b71c_9df33e4c",
       "range": {
         "startLine": 345,
         "startChar": 2,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "e5ccc835_452b43ba",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-10-31T15:56:58Z",
+      "side": 1,
+      "message": "Yes, this adds some overhead.\n\nThe CL is already ~1000 lines. Changing how all of the (legacy format) functions are used would increase the size even more.",
+      "parentUuid": "23f70ad4_612712d7",
+      "range": {
+        "startLine": 669,
+        "startChar": 1,
+        "endLine": 669,
+        "endChar": 69
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c734e37e_9ac18332",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
         "patchSetId": 3
@@ -206,6 +398,30 @@
       "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2745819_a5b3955c",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-10-31T15:56:58Z",
+      "side": 1,
+      "message": "It was absolutely essential while converting the old void StoreFoo(...) code, but maybe it should be removed from the private functions. Done.\n\nAdding the check in the destructor means we\u0027ll need to think about how this should propagate in copy/move constructors. Neither behavior seems intuitive to me.",
+      "parentUuid": "c734e37e_9ac18332",
+      "range": {
+        "startLine": 709,
+        "startChar": 2,
+        "endLine": 709,
+        "endChar": 22
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

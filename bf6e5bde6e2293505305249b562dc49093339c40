@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "e7b7d3f6_77421c47",
+        "filename": "stats/rtc_stats.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-10-31T18:35:15Z",
+      "side": 1,
+      "message": "Why not reusing the DEFINE?\n\nE.g.\n\nT IsRTCStatsMemberSequence(T v) { return is_seq; }",
+      "revId": "bf6e5bde6e2293505305249b562dc49093339c40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1094a95a_167a5e14",
         "filename": "stats/rtc_stats.cc",
         "patchSetId": 1
@@ -13,6 +30,30 @@
       "writtenOn": "2019-10-31T16:13:14Z",
       "side": 1,
       "message": "I am struggling to get rid of this in a clean way, the fact that needs to be accessed statically makes it interesting.",
+      "range": {
+        "startLine": 301,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 3
+      },
+      "revId": "bf6e5bde6e2293505305249b562dc49093339c40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db0441cf_f1412080",
+        "filename": "stats/rtc_stats.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-10-31T18:35:15Z",
+      "side": 1,
+      "message": "So, were you considering using enum template parameter instead?\n\nI don\u0027t understand why this one would be a problem, rather than RTCStats::kType, which is a const char [].",
+      "parentUuid": "1094a95a_167a5e14",
       "range": {
         "startLine": 301,
         "startChar": 0,

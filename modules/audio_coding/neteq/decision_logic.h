@@ -52,8 +52,8 @@ class DecisionLogic : public NetEqController {
   // true. The output variable |reset_decoder| will be set to true if a reset is
   // required; otherwise it is left unchanged (i.e., it can remain true if it
   // was true before the call).
-  Operations GetDecision(const NetEqStatus& status,
-                         bool* reset_decoder) override;
+  virtual Operations GetDecision(const NetEqStatus& status,
+                                 bool* reset_decoder) override;
 
   // These methods test the |cng_state_| for different conditions.
   bool CngRfc3389On() const override { return cng_state_ == kCngRfc3389On; }
@@ -126,28 +126,28 @@ class DecisionLogic : public NetEqController {
 
   // Returns the operation given that the next available packet is a comfort
   // noise payload (RFC 3389 only, not codec-internal).
-  Operations CngOperation(Modes prev_mode,
-                          uint32_t target_timestamp,
-                          uint32_t available_timestamp,
-                          size_t generated_noise_samples);
+  virtual Operations CngOperation(Modes prev_mode,
+                                  uint32_t target_timestamp,
+                                  uint32_t available_timestamp,
+                                  size_t generated_noise_samples);
 
   // Returns the operation given that no packets are available (except maybe
   // a DTMF event, flagged by setting |play_dtmf| true).
-  Operations NoPacket(bool play_dtmf);
+  virtual Operations NoPacket(bool play_dtmf);
 
   // Returns the operation to do given that the expected packet is available.
-  Operations ExpectedPacketAvailable(Modes prev_mode, bool play_dtmf);
+  virtual Operations ExpectedPacketAvailable(Modes prev_mode, bool play_dtmf);
 
   // Returns the operation to do given that the expected packet is not
   // available, but a packet further into the future is at hand.
-  Operations FuturePacketAvailable(size_t decoder_frame_length,
-                                   Modes prev_mode,
-                                   uint32_t target_timestamp,
-                                   uint32_t available_timestamp,
-                                   bool play_dtmf,
-                                   size_t generated_noise_samples,
-                                   size_t span_samples_in_packet_buffer,
-                                   size_t num_packets_in_packet_buffer);
+  virtual Operations FuturePacketAvailable(size_t decoder_frame_length,
+                                           Modes prev_mode,
+                                           uint32_t target_timestamp,
+                                           uint32_t available_timestamp,
+                                           bool play_dtmf,
+                                           size_t generated_noise_samples,
+                                           size_t span_samples_in_packet_buffer,
+                                           size_t num_packets_in_packet_buffer);
 
   // Checks if enough time has elapsed since the last successful timescale
   // operation was done (i.e., accelerate or preemptive expand).

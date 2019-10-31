@@ -545,7 +545,7 @@ void RtcEventLogSession::WriteLog(EventCounts count,
 void RtcEventLogSession::ReadAndVerifyLog() {
   // Read the generated file from disk.
   ParsedRtcEventLog parsed_log;
-  ASSERT_TRUE(parsed_log.ParseFile(temp_filename_));
+  ASSERT_TRUE(parsed_log.ParseFile(temp_filename_).ok());
 
   // Start and stop events.
   auto& parsed_start_log_events = parsed_log.start_log_events();
@@ -875,7 +875,7 @@ TEST_P(RtcEventLogCircularBufferTest, KeepsMostRecentEvents) {
 
   // Read the generated file from disk.
   ParsedRtcEventLog parsed_log;
-  ASSERT_TRUE(parsed_log.ParseFile(temp_filename));
+  ASSERT_TRUE(parsed_log.ParseFile(temp_filename).ok());
 
   const auto& start_log_events = parsed_log.start_log_events();
   ASSERT_EQ(start_log_events.size(), 1u);

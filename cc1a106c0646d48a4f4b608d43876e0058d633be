@@ -174,6 +174,24 @@
       "revId": "cc1a106c0646d48a4f4b608d43876e0058d633be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "238d5330_17951a2a",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-31T19:45:34Z",
+      "side": 1,
+      "message": "I suggested it to spare readers the inconvenience of reading the explicit type; it\u0027s clear from the function name that CreateNetEqFactoryWithCodecs() returns some sort of NetEq factory, and the reader doesn\u0027t really need to know more than that.\n\n(The author is likely to overuse `auto` out of a desire to type as little as possible, especially since she\u0027s intimately familiar with the code. Reviewers are much less likely to fall into that particular trap because they don\u0027t have to do the typing, and they\u0027re less familiar with the code.)\n\nAnyway, writing out the full type is OK too; using auto instead was (in my opinion) a minor readability win.",
+      "parentUuid": "59c440ad_c6eadb26",
+      "revId": "cc1a106c0646d48a4f4b608d43876e0058d633be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "78bf0f35_73ca3257",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T16:15:22Z",
+      "side": 1,
+      "message": "Thanks, something along those lines in a comment would be nice.",
+      "parentUuid": "76b6ff83_faff960a",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 23
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0e7d758c_e136e519",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
         "patchSetId": 3
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "I though about it, but I don\u0027t think there is a clean way to implement that macro.\n\nif (!(S).ok()) return S\n\nwon\u0027t do what we want for CHECK_OR_RETURN(foo()). The standard way around this is to expand to a function call which does the actual work, but in this case we want to return, which we can\u0027t put in helper function.",
       "parentUuid": "a56b57ba_87391a7d",
+      "range": {
+        "startLine": 1419,
+        "startChar": 3,
+        "endLine": 1421,
+        "endChar": 22
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57f60920_f05c3b24",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1421,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T16:15:22Z",
+      "side": 1,
+      "message": "How about how it\u0027s done for protobufs? https://github.com/protocolbuffers/protobuf/blob/master/src/google/protobuf/stubs/status_macros.h",
+      "parentUuid": "099fbd72_0b77342e",
       "range": {
         "startLine": 1419,
         "startChar": 3,

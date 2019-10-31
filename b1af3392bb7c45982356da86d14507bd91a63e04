@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "fa6981a7_0abd9e57",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-10-31T13:11:08Z",
+      "side": 1,
+      "message": "It is by design that the channels generate the noise using different seeds. That was also the case before this change as the channels were seeded 42, 43, ...",
+      "parentUuid": "f7264393_1d26dd4a",
+      "range": {
+        "startLine": 98,
+        "startChar": 6,
+        "endLine": 98,
+        "endChar": 11
+      },
+      "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "662e543f_87faaed8",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-10-31T13:11:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "862e580e_7ea0fd69",
+      "range": {
+        "startLine": 98,
+        "startChar": 12,
+        "endLine": 98,
+        "endChar": 14
+      },
+      "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10f13811_4e631586",
         "filename": "modules/audio_processing/aec3/comfort_noise_generator.cc",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4edbc3a_183a98ec",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-10-31T13:11:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10f13811_4e631586",
+      "range": {
+        "startLine": 100,
+        "startChar": 18,
+        "endLine": 100,
+        "endChar": 21
+      },
+      "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "5289eb98_0209b411",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-10-31T13:11:08Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "97b4bace_b11064cd",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 25
+      },
+      "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6cb44f8b_6b330360",
         "filename": "modules/audio_processing/aec3/comfort_noise_generator.h",
         "patchSetId": 1
@@ -108,6 +204,24 @@
       "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "872d169a_92aaa4ed",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-10-31T13:11:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cb44f8b_6b330360",
+      "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "232ede27_0d1560ce",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-10-31T13:11:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8b7db63_1977c4e1",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 8
+      },
+      "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "852d0a4e_f29580ed",
         "filename": "modules/audio_processing/aec3/comfort_noise_generator.h",
         "patchSetId": 1
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "006bac2a_d0045b99",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-10-31T13:11:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "852d0a4e_f29580ed",
+      "range": {
+        "startLine": 72,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 36
+      },
+      "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16b23675_a07368c7",
         "filename": "modules/audio_processing/aec3/comfort_noise_generator_unittest.cc",
         "patchSetId": 1
@@ -177,6 +339,30 @@
       "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ff75bf0_088093b3",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-10-31T13:11:08Z",
+      "side": 1,
+      "message": "I made a new test that runs with 5 channels, all with different noise levels.",
+      "parentUuid": "16b23675_a07368c7",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 58,
+        "endChar": 66
+      },
+      "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

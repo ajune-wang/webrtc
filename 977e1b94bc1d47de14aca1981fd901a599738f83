@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb858770_0b25d024",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T14:06:14Z",
+      "side": 1,
+      "message": "Is this change related, maybe it should be a separate CL?",
+      "range": {
+        "startLine": 254,
+        "startChar": 18,
+        "endLine": 254,
+        "endChar": 25
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f614d7b6_691e2d7e",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T14:06:14Z",
+      "side": 1,
+      "message": "I\u0027d like some documentation around here on why we need to use macros and why they are implemented this way? If you simple based in on existing code somewhere else (Abseil?) a reference to that is fine.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 23
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e7d758c_e136e519",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T14:06:14Z",
+      "side": 1,
+      "message": "Add OR_RETURN to these, we a hiding a return call so lets be explicit about it.",
+      "range": {
+        "startLine": 48,
+        "startChar": 18,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b784aaab_69f8ed0e",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T14:06:14Z",
+      "side": 1,
+      "message": "This should be less duplicated, for readability. Some things that might be worth it or not: use a macro, use a helper function, move the string constant to a common place (this also ensures that we don\u0027t allocate it more than once.).",
+      "range": {
+        "startLine": 1223,
+        "startChar": 4,
+        "endLine": 1227,
+        "endChar": 7
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a56b57ba_87391a7d",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1421,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T14:06:14Z",
+      "side": 1,
+      "message": "Why not CHECK_OR_RETURN()?",
+      "range": {
+        "startLine": 1419,
+        "startChar": 3,
+        "endLine": 1421,
+        "endChar": 22
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a82c11f_39527cc5",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1465,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T14:06:14Z",
+      "side": 1,
+      "message": "ASSIGN_OR_RETURN?",
+      "range": {
+        "startLine": 1463,
+        "startChar": 3,
+        "endLine": 1465,
+        "endChar": 40
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cb8b71c_9df33e4c",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T14:06:14Z",
+      "side": 1,
+      "message": "This seems a bit annoying to enforce wince it will stop even test code from copiling unless the value is used.\n\nWill the class state be invalid unless we return ok state? Otherwise i\u0027d make it optional and up to the caller. If it will be invalid, we should consider using a factory function IMO.\n\nMaybe we can add an OrDie() function that CHECKS for OK-state? (Like ValueOrDie)",
+      "range": {
+        "startLine": 345,
+        "startChar": 2,
+        "endLine": 345,
+        "endChar": 22
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23f70ad4_612712d7",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T14:06:14Z",
+      "side": 1,
+      "message": "Note that this will add some overhead, if it\u0027s something that we do for each event, maybe we should consider alternatives, such as output parameters?",
+      "range": {
+        "startLine": 669,
+        "startChar": 1,
+        "endLine": 669,
+        "endChar": 69
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c734e37e_9ac18332",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T14:06:14Z",
+      "side": 1,
+      "message": "IMO, skip these, the risk that we\u0027d accidentally miss this within the code doesn\u0027t add up to the cost in readability. Maybe you want to enforce the behavior in ParseStatus instead? (adding a DCHECK in the destructor that ensures that it has been checkd.)",
+      "range": {
+        "startLine": 709,
+        "startChar": 2,
+        "endLine": 709,
+        "endChar": 22
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

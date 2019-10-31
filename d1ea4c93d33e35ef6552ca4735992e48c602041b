@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82f054b5_ee596e78",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-10-31T16:17:12Z",
+      "side": 0,
+      "message": "I think this can still be a static function, just make min_mic_level an input.",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 14
+      },
+      "revId": "d1ea4c93d33e35ef6552ca4735992e48c602041b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0018e019_cee4129c",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-10-31T16:17:12Z",
+      "side": 0,
+      "message": "I think this can still be a static function, just make min_mic_level an input.",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 22
+      },
+      "revId": "d1ea4c93d33e35ef6552ca4735992e48c602041b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

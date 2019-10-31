@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb148712_61239e10",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-10-31T16:17:12Z",
+      "side": 1,
+      "message": "I would suggest return int.\n\nThen return kMinMicLevel if the flag is not active, or wrongly parsed, or value out of scope.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 19
+      },
+      "revId": "f60b832b77db1db9dc5096d7642dbb5db4755ba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f94b81ee_e164c2d6",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-10-31T16:17:12Z",
+      "side": 1,
+      "message": "I think an \"const int\" is good enough, since it must always have a value.\n\nThen GetMinMicLevel() is not really needed.",
+      "range": {
+        "startLine": 130,
+        "startChar": 8,
+        "endLine": 130,
+        "endChar": 27
+      },
+      "revId": "f60b832b77db1db9dc5096d7642dbb5db4755ba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

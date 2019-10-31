@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29922384_a04950e7",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T13:13:26Z",
+      "side": 1,
+      "message": "Maybe: Seconds\u003c5\u003e()?",
+      "range": {
+        "startLine": 31,
+        "startChar": 54,
+        "endLine": 31,
+        "endChar": 66
+      },
+      "revId": "b2eb837b5701c27182667ef211bddad435f78c7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3873c932_d42bcbf9",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T13:13:26Z",
+      "side": 1,
+      "message": "PlusInfinity() makes more sense IMO",
+      "range": {
+        "startLine": 58,
+        "startChar": 34,
+        "endLine": 58,
+        "endChar": 47
+      },
+      "revId": "b2eb837b5701c27182667ef211bddad435f78c7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d58e16fa_4257f862",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T13:13:26Z",
+      "side": 1,
+      "message": "Will this change the behavior? Imagine that a packet is added at 13 ms, then we poll it at 15 ms. Afaict we previously would get a probe pattern like: 15,16,17,18 but now we\u0027ll get a pattern like 15,15,15,16.\n\nMy suggestion is that we keep the previous behavior and represent it by MinusInfinity()",
+      "range": {
+        "startLine": 88,
+        "startChar": 2,
+        "endLine": 88,
+        "endChar": 27
+      },
+      "revId": "b2eb837b5701c27182667ef211bddad435f78c7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfe9d9c0_31598f1d",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T13:13:26Z",
+      "side": 1,
+      "message": "Not related to you change, but maybe this should be named something like CalculateNextProbeTime? I was a bit confused first how this relates to NextProbeTime()",
+      "range": {
+        "startLine": 192,
+        "startChar": 25,
+        "endLine": 192,
+        "endChar": 41
+      },
+      "revId": "b2eb837b5701c27182667ef211bddad435f78c7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "313904f9_14055546",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T13:13:26Z",
+      "side": 1,
+      "message": "RTC_CHECK(cluster.started_at.IsFinite());",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 54
+      },
+      "revId": "b2eb837b5701c27182667ef211bddad435f78c7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a41f142_d6d5842a",
+        "filename": "modules/pacing/bitrate_prober.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T13:13:26Z",
+      "side": 1,
+      "message": "I suggest using PlusInfinity rather than absl::nullopt to indicate that we should not probe. I think that will allow some simplifications over time as NextProbeTime could be made to simly return next_probe_time_.",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 27
+      },
+      "revId": "b2eb837b5701c27182667ef211bddad435f78c7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

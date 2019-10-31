@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "862e580e_7ea0fd69",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-31T12:27:47Z",
+      "side": 1,
+      "message": ":-)",
+      "range": {
+        "startLine": 98,
+        "startChar": 12,
+        "endLine": 98,
+        "endChar": 14
+      },
+      "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7264393_1d26dd4a",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-31T12:27:47Z",
+      "side": 1,
+      "message": "A difference from the former behavior is that different channels with different inputs will get different noise due to the differing seeds. Is that intentional?\n\nIf desired, a way to avoid that could be to re-use the old seed for all channels, and only then update it after all channels have been processed:\n\nauto last_frame_seed \u003d seed_;\nfor (size_t ch \u003d 0; ch \u003c num_capture_channels_; ++ch) {\n    seed_ \u003d last_frame_seed;\n    GenerateComfortNoise(optimization_, N2[ch], \u0026seed_, \u0026lower_band_noise[ch],\n                         \u0026upper_band_noise[ch]);\n  }\n}",
+      "range": {
+        "startLine": 98,
+        "startChar": 6,
+        "endLine": 98,
+        "endChar": 11
+      },
+      "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10f13811_4e631586",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-31T12:27:47Z",
+      "side": 1,
+      "message": "make_unique?",
+      "range": {
+        "startLine": 100,
+        "startChar": 18,
+        "endLine": 100,
+        "endChar": 21
+      },
+      "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97b4bace_b11064cd",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-31T12:27:47Z",
+      "side": 1,
+      "message": "const rtc::ArrayView\u003cstd::array\u003cfloat, kFftLengthBy2Plus1\u003e\u003e\n        capture_spectrum,\n-\u003e\n\nrtc::ArrayView\u003cconst std::array\u003cfloat, kFftLengthBy2Plus1\u003e\u003e\n        capture_spectrum,",
+      "range": {
+        "startLine": 115,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 25
+      },
+      "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cb44f8b_6b330360",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-31T12:27:47Z",
+      "side": 1,
+      "message": "Doesn\u0027t return N2_ work? I think the automagic conversion to ArrayView should work.",
+      "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8b7db63_1977c4e1",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-31T12:27:47Z",
+      "side": 1,
+      "message": "const size_t ?",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 8
+      },
+      "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "852d0a4e_f29580ed",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-31T12:27:47Z",
+      "side": 1,
+      "message": "Remove and replace with explicit copy and copy assignment constructors?",
+      "range": {
+        "startLine": 72,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 36
+      },
+      "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16b23675_a07368c7",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-10-31T12:27:47Z",
+      "side": 1,
+      "message": "It would be nice to make this test properly multichannel as well to make sure that all code is traversed.\n\nA suggestion for something to test is that for identical channel inputs the identical noise should be generated for all channels.",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 58,
+        "endChar": 66
+      },
+      "revId": "b1af3392bb7c45982356da86d14507bd91a63e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

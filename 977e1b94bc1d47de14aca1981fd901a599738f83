@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "cce63880_e5a67848",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-10-31T17:21:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78bf0f35_73ca3257",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 23
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e7d758c_e136e519",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
         "patchSetId": 3
@@ -273,6 +297,30 @@
       "side": 1,
       "message": "How about how it\u0027s done for protobufs? https://github.com/protocolbuffers/protobuf/blob/master/src/google/protobuf/stubs/status_macros.h",
       "parentUuid": "099fbd72_0b77342e",
+      "range": {
+        "startLine": 1419,
+        "startChar": 3,
+        "endLine": 1421,
+        "endChar": 22
+      },
+      "revId": "977e1b94bc1d47de14aca1981fd901a599738f83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d1a0978_06439692",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1421,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-10-31T17:21:45Z",
+      "side": 1,
+      "message": "I don\u0027t think that code works for RETURN_IF_ERROR(_status) and some similar cases.",
+      "parentUuid": "57f60920_f05c3b24",
       "range": {
         "startLine": 1419,
         "startChar": 3,

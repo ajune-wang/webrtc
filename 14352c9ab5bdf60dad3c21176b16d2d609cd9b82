@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a92400f_773b8b9f",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4239,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-31T17:19:28Z",
+      "side": 1,
+      "message": "I realized a flaw in the OperationsChain design: Invoking the operations_chain_callback() while inside lambda, by deleting popping the operation, also ends up deleting the lambda function being executed. This means that any variables captured in the lambda expression become invalidated, and you must not touch captured stuff after the operations_chain_callback() line. This is REALLY not clear from the code, and it bit me a few times previously.\n\nAt this point in time there are no code paths that have this problem, but if callback() was to be invoked the line after operations_chain_callback() we would have a non-obvious bug (cause of the prior MSAN failures).\n\nImproving the OperationsChain is at this point is not needed, and it\u0027s a separate problem from shipping async AddIceCandidate(), but I\u0027d be happy to add some documentation about it in operations_chain.h and a TODO in this or in a separate CL. It shouldn\u0027t be too hard to fix this.\n\nBut currently, this is why callback() is invoked before the operations_chain_callback(). One side-effect: If you were to invoke any methods inside of the AddIceCandidate callback they would be executed asynchronously instead of executing immediately since the OperationsChain would still have a pending operation (this one).",
+      "revId": "14352c9ab5bdf60dad3c21176b16d2d609cd9b82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

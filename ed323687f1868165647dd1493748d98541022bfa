@@ -222,6 +222,24 @@
       "revId": "ed323687f1868165647dd1493748d98541022bfa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4fd7ec3_875c7411",
+        "filename": "api/test/neteq_factory_with_codecs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-10-31T10:36:29Z",
+      "side": 1,
+      "message": "Sorry, I forgot to address this, done now.",
+      "parentUuid": "aa914ea0_6a4fd2e2",
+      "revId": "ed323687f1868165647dd1493748d98541022bfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

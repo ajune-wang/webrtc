@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a5b5399_69604f99",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T18:23:33Z",
+      "side": 1,
+      "message": "Not very helpful in open source commits.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "0817309c4ae04d0c7746c32e8b064feb92414236",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f4ad7a1_ec9a231b",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T18:23:33Z",
+      "side": 1,
+      "message": "I think we could afford that extra line, but I\u0027ll have to check our LOC-budget first...",
+      "range": {
+        "startLine": 203,
+        "startChar": 2,
+        "endLine": 203,
+        "endChar": 46
+      },
+      "revId": "0817309c4ae04d0c7746c32e8b064feb92414236",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "591ee2aa_a2755c45",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T18:23:33Z",
+      "side": 1,
+      "message": "Would it make sense to invert this, considering that interval budgets has been the default for quite a while? Maybe something like use dynamic process intervals?",
+      "range": {
+        "startLine": 393,
+        "startChar": 8,
+        "endLine": 393,
+        "endChar": 28
+      },
+      "revId": "0817309c4ae04d0c7746c32e8b064feb92414236",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce601ac0_925342d4",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T18:23:33Z",
+      "side": 1,
+      "message": "I find this confusing, maybe a comment, could send_time be renamed to something that better represents it\u0027s meaning?",
+      "range": {
+        "startLine": 411,
+        "startChar": 0,
+        "endLine": 414,
+        "endChar": 3
+      },
+      "revId": "0817309c4ae04d0c7746c32e8b064feb92414236",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

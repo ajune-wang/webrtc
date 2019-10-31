@@ -137,7 +137,7 @@ TEST_F(BbrNetworkControllerTest, UpdatesTargetSendRate) {
                                {ret_net->node()});
   s.CreateVideoStream(routes->forward(), VideoStreamConfig());
 
-  s.RunFor(TimeDelta::seconds(25));
+  s.RunFor(TimeDelta::seconds(20));
   EXPECT_NEAR(client->send_bandwidth().kbps(), 450, 100);
 
   send_net->UpdateConfig([](NetworkSimulationConfig* c) {

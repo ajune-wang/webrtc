@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a08bfba9_e63ed133",
+        "filename": "api/test/neteq_factory_with_codecs.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-31T11:27:40Z",
+      "side": 1,
+      "message": "`final` here, just for completeness?\n\n(It usually pays to be very liberal when marking classes final. Think as if it were the default, and ask yourself, \"Self, do I have any particular reason to *not* make this class final?\")",
+      "revId": "cc1a106c0646d48a4f4b608d43876e0058d633be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c08fbb6_2decfdb9",
+        "filename": "api/test/neteq_factory_with_codecs.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-31T11:27:40Z",
+      "side": 1,
+      "message": "These two are unnecessary now that the class definition is in a .cc file. Remove.",
+      "revId": "cc1a106c0646d48a4f4b608d43876e0058d633be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2509ca26_f1feca1a",
+        "filename": "api/test/neteq_factory_with_codecs.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-31T11:27:40Z",
+      "side": 1,
+      "message": "It\u0027s arguably not worth it to delete these anymore, since only code in this .cc file would be able to copy and assign this class.",
+      "revId": "cc1a106c0646d48a4f4b608d43876e0058d633be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "941cc269_afaa9c9c",
+        "filename": "api/test/neteq_factory_with_codecs.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-31T11:27:40Z",
+      "side": 1,
+      "message": "Make the two member variables const?",
+      "revId": "cc1a106c0646d48a4f4b608d43876e0058d633be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a453e33_891f4ebc",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-10-31T11:27:40Z",
+      "side": 1,
+      "message": "Consider declaring the local variable with auto. (More instances of this below.)",
+      "revId": "cc1a106c0646d48a4f4b608d43876e0058d633be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

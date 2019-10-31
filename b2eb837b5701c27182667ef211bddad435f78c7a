@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "57b964ea_80b856e6",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-31T14:49:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29922384_a04950e7",
+      "range": {
+        "startLine": 31,
+        "startChar": 54,
+        "endLine": 31,
+        "endChar": 66
+      },
+      "revId": "b2eb837b5701c27182667ef211bddad435f78c7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3873c932_d42bcbf9",
         "filename": "modules/pacing/bitrate_prober.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "b2eb837b5701c27182667ef211bddad435f78c7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "334c6295_ecf427c7",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-31T14:49:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3873c932_d42bcbf9",
+      "range": {
+        "startLine": 58,
+        "startChar": 34,
+        "endLine": 58,
+        "endChar": 47
+      },
+      "revId": "b2eb837b5701c27182667ef211bddad435f78c7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e2ee75df_129d98da",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-31T14:49:33Z",
+      "side": 1,
+      "message": "As discussed offline, does not change behavior. Still, changing to MinusInfinity()",
+      "parentUuid": "d58e16fa_4257f862",
+      "range": {
+        "startLine": 88,
+        "startChar": 2,
+        "endLine": 88,
+        "endChar": 27
+      },
+      "revId": "b2eb837b5701c27182667ef211bddad435f78c7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfe9d9c0_31598f1d",
         "filename": "modules/pacing/bitrate_prober.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "b2eb837b5701c27182667ef211bddad435f78c7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5b30ad6_640a87af",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-31T14:49:33Z",
+      "side": 1,
+      "message": "Done. Also made const.",
+      "parentUuid": "dfe9d9c0_31598f1d",
+      "range": {
+        "startLine": 192,
+        "startChar": 25,
+        "endLine": 192,
+        "endChar": 41
+      },
+      "revId": "b2eb837b5701c27182667ef211bddad435f78c7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "fc931043_c455f51b",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-31T14:49:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "313904f9_14055546",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 54
+      },
+      "revId": "b2eb837b5701c27182667ef211bddad435f78c7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a41f142_d6d5842a",
         "filename": "modules/pacing/bitrate_prober.h",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "b2eb837b5701c27182667ef211bddad435f78c7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79b424cc_f258e6d9",
+        "filename": "modules/pacing/bitrate_prober.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-31T14:49:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a41f142_d6d5842a",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 27
+      },
+      "revId": "b2eb837b5701c27182667ef211bddad435f78c7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

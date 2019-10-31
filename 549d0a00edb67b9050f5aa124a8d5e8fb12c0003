@@ -22,6 +22,30 @@
       "revId": "549d0a00edb67b9050f5aa124a8d5e8fb12c0003",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "083c0785_b9fb5811",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-10-31T11:44:31Z",
+      "side": 1,
+      "message": "I agree. and ID does not belong to the extension either.\n\nThese bit graphs are copied from rfc6464. I guess rfc6464 knows about this, and therefore call them \"Sample Audio Level Encoding\".\n\nI won\u0027t mind removing the padding bits.",
+      "parentUuid": "3e1fed7e_dc36b6b5",
+      "range": {
+        "startLine": 160,
+        "startChar": 53,
+        "endLine": 160,
+        "endChar": 68
+      },
+      "revId": "549d0a00edb67b9050f5aa124a8d5e8fb12c0003",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

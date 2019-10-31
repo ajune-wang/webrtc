@@ -123,7 +123,7 @@ PacingController::PacingController(Clock* clock,
 PacingController::~PacingController() = default;
 
 void PacingController::CreateProbeCluster(DataRate bitrate, int cluster_id) {
-  prober_.CreateProbeCluster(bitrate.bps(), CurrentTime().ms(), cluster_id);
+  prober_.CreateProbeCluster(bitrate, CurrentTime(), cluster_id);
 }
 
 void PacingController::Pause() {
@@ -234,7 +234,7 @@ void PacingController::EnqueuePacketInternal(
     std::unique_ptr<RtpPacketToSend> packet,
     int priority) {
   Timestamp now = CurrentTime();
-  prober_.OnIncomingPacket(packet->payload_size());
+  prober_.OnIncomingPacket(packet->payload_size(), now);
 
   // TODO(sprang): Make sure tests respect this, replace with DCHECK.
   if (packet->capture_time_ms() < 0) {
@@ -272,19 +272,26 @@ bool PacingController::ShouldSendKeepalive(Timestamp now) const {
   return false;
 }
 
-absl::optional<TimeDelta> PacingController::TimeUntilNextProbe() {
+absl::optional<Timestamp> PacingController::NextProbeTime() {
   if (!prober_.IsProbing()) {
     return absl::nullopt;
   }
 
-  TimeDelta time_delta =
-      TimeDelta::ms(prober_.TimeUntilNextProbe(CurrentTime().ms()));
-  if (time_delta > TimeDelta::Zero() ||
-      (time_delta == TimeDelta::Zero() && !probing_send_failure_)) {
-    return time_delta;
+  Timestamp now = CurrentTime();
+  auto probe_time = prober_.NextProbeTime(now);
+  if (!probe_time) {
+    return absl::nullopt;
   }
 
-  return absl::nullopt;
+  if (*probe_time > now) {
+    return *probe_time;
+  }
+
+  if (probing_send_failure_ || now - *probe_time > TimeDelta::Zero()) {
+    return absl::nullopt;
+  }
+
+  return *probe_time;
 }
 
 TimeDelta PacingController::TimeElapsedSinceLastProcess() const {
@@ -400,7 +407,7 @@ void PacingController::ProcessPackets() {
   if (is_probing) {
     probing_send_failure_ = data_sent == DataSize::Zero();
     if (!probing_send_failure_) {
-      prober_.ProbeSent(CurrentTime().ms(), data_sent.bytes());
+      prober_.ProbeSent(CurrentTime(), data_sent.bytes());
     }
   }
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26cd043c_c1675a0e",
+        "filename": "modules/audio_coding/neteq/decision_logic.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-10-31T15:19:17Z",
+      "side": 1,
+      "message": "why to use both virtual and override?",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 63
+      },
+      "revId": "8ac19e6234ddaf2872903eae5042072890f8e95c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

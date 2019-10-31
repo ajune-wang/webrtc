@@ -16,6 +16,24 @@
       "revId": "14352c9ab5bdf60dad3c21176b16d2d609cd9b82",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c6d0fd5_340e0c53",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4239,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-10-31T17:42:43Z",
+      "side": 1,
+      "message": "You know what, fixing this OperationsChain limitation was very easy; see change to operations_chain.h in the latest PS. I reverted the order so that operations_chain_callback() happens before callback(), because why not.\n\nI\u0027ll need to update the CL to add a test that explicitly verifies that the lambda is not deleted while executed, but not today - heading home.",
+      "parentUuid": "2a92400f_773b8b9f",
+      "revId": "14352c9ab5bdf60dad3c21176b16d2d609cd9b82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

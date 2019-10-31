@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1094a95a_167a5e14",
+        "filename": "stats/rtc_stats.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-10-31T16:13:14Z",
+      "side": 1,
+      "message": "I am struggling to get rid of this in a clean way, the fact that needs to be accessed statically makes it interesting.",
+      "range": {
+        "startLine": 301,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 3
+      },
+      "revId": "bf6e5bde6e2293505305249b562dc49093339c40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

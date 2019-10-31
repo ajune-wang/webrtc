@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bfe551a_44dd84b8",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T16:17:12Z",
+      "side": 0,
+      "message": "Not true in practice, such packets are removed from where this struct is used.",
+      "range": {
+        "startLine": 805,
+        "startChar": 28,
+        "endLine": 805,
+        "endChar": 77
+      },
+      "revId": "10dcae66fd88c60531c73a8ec6cbcf057845c504",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da2086e8_95921fba",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1452,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T16:17:12Z",
+      "side": 0,
+      "message": "This already could not happen with the previous code. Removing it as cleanup.",
+      "range": {
+        "startLine": 1451,
+        "startChar": 1,
+        "endLine": 1452,
+        "endChar": 58
+      },
+      "revId": "10dcae66fd88c60531c73a8ec6cbcf057845c504",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

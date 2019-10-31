@@ -41,26 +41,32 @@ void EstimateComfortNoise(const std::array<float, kFftLengthBy2Plus1>& N2,
 // Generates the comfort noise.
 class ComfortNoiseGenerator {
  public:
-  ComfortNoiseGenerator(Aec3Optimization optimization, uint32_t seed);
+  ComfortNoiseGenerator(Aec3Optimization optimization,
+                        size_t num_capture_channels);
   ~ComfortNoiseGenerator();
 
   // Computes the comfort noise.
   void Compute(bool saturated_capture,
-               const std::array<float, kFftLengthBy2Plus1>& capture_spectrum,
-               FftData* lower_band_noise,
-               FftData* upper_band_noise);
+               const rtc::ArrayView<std::array<float, kFftLengthBy2Plus1>>
+                   capture_spectrum,
+               rtc::ArrayView<FftData> lower_band_noise,
+               rtc::ArrayView<FftData> upper_band_noise);
 
   // Returns the estimate of the background noise spectrum.
-  const std::array<float, kFftLengthBy2Plus1>& NoiseSpectrum() const {
-    return N2_;
+  rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>> NoiseSpectrum()
+      const {
+    return rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>>(
+        N2_.data(), N2_.size());
   }
 
  private:
   const Aec3Optimization optimization_;
   uint32_t seed_;
-  std::unique_ptr<std::array<float, kFftLengthBy2Plus1>> N2_initial_;
-  std::array<float, kFftLengthBy2Plus1> Y2_smoothed_;
-  std::array<float, kFftLengthBy2Plus1> N2_;
+  size_t num_capture_channels_;
+  std::unique_ptr<std::vector<std::array<float, kFftLengthBy2Plus1>>>
+      N2_initial_;
+  std::vector<std::array<float, kFftLengthBy2Plus1>> Y2_smoothed_;
+  std::vector<std::array<float, kFftLengthBy2Plus1>> N2_;
   int N2_counter_ = 0;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(ComfortNoiseGenerator);

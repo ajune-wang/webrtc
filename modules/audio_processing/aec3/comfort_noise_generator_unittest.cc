@@ -31,50 +31,31 @@ float Power(const FftData& N) {
 
 }  // namespace
 
-#if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
-
-TEST(ComfortNoiseGenerator, NullLowerBandNoise) {
-  std::array<float, kFftLengthBy2Plus1> N2;
-  FftData noise;
-  EXPECT_DEATH(ComfortNoiseGenerator(DetectOptimization(), 42)
-                   .Compute(false, N2, nullptr, &noise),
-               "");
-}
-
-TEST(ComfortNoiseGenerator, NullUpperBandNoise) {
-  std::array<float, kFftLengthBy2Plus1> N2;
-  FftData noise;
-  EXPECT_DEATH(ComfortNoiseGenerator(DetectOptimization(), 42)
-                   .Compute(false, N2, &noise, nullptr),
-               "");
-}
-
-#endif
-
 TEST(ComfortNoiseGenerator, CorrectLevel) {
-  ComfortNoiseGenerator cng(DetectOptimization(), 42);
+  ComfortNoiseGenerator cng(DetectOptimization(), 1);
   AecState aec_state(EchoCanceller3Config{}, 1);
 
-  std::array<float, kFftLengthBy2Plus1> N2;
-  N2.fill(1000.f * 1000.f);
+  std::vector<std::array<float, kFftLengthBy2Plus1>> N2(1);
+  N2[0].fill(1000.f * 1000.f);
 
-  FftData n_lower;
-  FftData n_upper;
-  n_lower.re.fill(0.f);
-  n_lower.im.fill(0.f);
-  n_upper.re.fill(0.f);
-  n_upper.im.fill(0.f);
+  std::vector<FftData> n_lower(1);
+  std::vector<FftData> n_upper(1);
+  n_lower[0].re.fill(0.f);
+  n_lower[0].im.fill(0.f);
+  n_upper[0].re.fill(0.f);
+  n_upper[0].im.fill(0.f);
 
   // Ensure instantaneous updata to nonzero noise.
-  cng.Compute(false, N2, &n_lower, &n_upper);
-  EXPECT_LT(0.f, Power(n_lower));
-  EXPECT_LT(0.f, Power(n_upper));
+  cng.Compute(false, N2, n_lower, n_upper);
+
+  EXPECT_LT(0.f, Power(n_lower[0]));
+  EXPECT_LT(0.f, Power(n_upper[0]));
 
   for (int k = 0; k < 10000; ++k) {
-    cng.Compute(false, N2, &n_lower, &n_upper);
+    cng.Compute(false, N2, n_lower, n_upper);
   }
-  EXPECT_NEAR(2.f * N2[0], Power(n_lower), N2[0] / 10.f);
-  EXPECT_NEAR(2.f * N2[0], Power(n_upper), N2[0] / 10.f);
+  EXPECT_NEAR(2.f * N2[0][0], Power(n_lower[0]), N2[0][0] / 10.f);
+  EXPECT_NEAR(2.f * N2[0][0], Power(n_upper[0]), N2[0][0] / 10.f);
 }
 
 }  // namespace aec3

@@ -22,6 +22,30 @@
       "revId": "1da25c74b1743cb76450806cd41a8ae8535d094a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9079036f_06715a1f",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-10-31T18:07:07Z",
+      "side": 1,
+      "message": "You are correct, however, my plan is to use DataSize for this in a followup CL, then we\u0027ll need this.",
+      "parentUuid": "6f047d1f_e97ce1eb",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 10
+      },
+      "revId": "1da25c74b1743cb76450806cd41a8ae8535d094a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

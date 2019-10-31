@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "bc5c33ff_b5d7061f",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-31T21:38:15Z",
+      "side": 1,
+      "message": "pff :p",
+      "parentUuid": "2f4ad7a1_ec9a231b",
+      "range": {
+        "startLine": 203,
+        "startChar": 2,
+        "endLine": 203,
+        "endChar": 46
+      },
+      "revId": "0817309c4ae04d0c7746c32e8b064feb92414236",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "591ee2aa_a2755c45",
         "filename": "modules/pacing/pacing_controller.cc",
         "patchSetId": 1
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "437f75a9_cbda4c12",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-31T21:38:15Z",
+      "side": 1,
+      "message": "Replaced with an enum describing what it does instead.",
+      "parentUuid": "591ee2aa_a2755c45",
+      "range": {
+        "startLine": 393,
+        "startChar": 8,
+        "endLine": 393,
+        "endChar": 28
+      },
+      "revId": "0817309c4ae04d0c7746c32e8b064feb92414236",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce601ac0_925342d4",
         "filename": "modules/pacing/pacing_controller.cc",
         "patchSetId": 1
@@ -91,6 +139,30 @@
       "revId": "0817309c4ae04d0c7746c32e8b064feb92414236",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e8a3e2c_e19e6520",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-10-31T21:38:15Z",
+      "side": 1,
+      "message": "Renamed it and added a few comments.",
+      "parentUuid": "ce601ac0_925342d4",
+      "range": {
+        "startLine": 411,
+        "startChar": 0,
+        "endLine": 414,
+        "endChar": 3
+      },
+      "revId": "0817309c4ae04d0c7746c32e8b064feb92414236",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

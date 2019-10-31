@@ -13,6 +13,7 @@
 
 #include <memory>
 
+#include "absl/types/optional.h"
 #include "modules/audio_processing/agc/agc.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/constructor_magic.h"
@@ -92,6 +93,10 @@ class AgcManagerDirect final {
                    bool use_agc2_level_estimation,
                    bool disable_digital_adaptive);
 
+  int GetMinMicLevel() const;
+  int ClampLevel(int mic_level);
+  int LevelFromGainError(int gain_error, int level);
+
   // Sets a new microphone level, after first checking that it hasn't been
   // updated by the user, in which case no action is taken.
   void SetLevel(int new_level);
@@ -122,6 +127,7 @@ class AgcManagerDirect final {
   bool capture_muted_;
   bool check_volume_on_next_process_;
   bool startup_;
+  const absl::optional<int> min_mic_level_;
   const bool use_agc2_level_estimation_;
   const bool disable_digital_adaptive_;
   int startup_min_level_;

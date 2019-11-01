@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edc9d989_4e96d685",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-01T09:18:26Z",
+      "side": 1,
+      "message": "nit: {} for multi-line if",
+      "range": {
+        "startLine": 267,
+        "startChar": 6,
+        "endLine": 269,
+        "endChar": 77
+      },
+      "revId": "f6d59ec1f137942e560d2885ef52c10857e112c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c0791eb_bd2f83e6",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-01T09:18:26Z",
+      "side": 1,
+      "message": "RTC_GUARDED_BY(task_queue_); ?",
+      "range": {
+        "startLine": 177,
+        "startChar": 45,
+        "endLine": 177,
+        "endChar": 46
+      },
+      "revId": "f6d59ec1f137942e560d2885ef52c10857e112c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

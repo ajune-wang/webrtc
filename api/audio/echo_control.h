@@ -11,6 +11,7 @@
 #ifndef API_AUDIO_ECHO_CONTROL_H_
 #define API_AUDIO_ECHO_CONTROL_H_
 
+#include <stdio.h>
 #include <memory>
 
 namespace webrtc {
@@ -51,6 +52,13 @@ class EchoControl {
 class EchoControlFactory {
  public:
   virtual std::unique_ptr<EchoControl> Create(int sample_rate_hz) = 0;
+  // TODO(peah): Make pure virtual.
+  virtual std::unique_ptr<EchoControl> Create(int sample_rate_hz,
+                                              int num_render_channels,
+                                              int num_capture_channels) {
+    return nullptr;
+  }
+
   virtual ~EchoControlFactory() = default;
 };
 }  // namespace webrtc

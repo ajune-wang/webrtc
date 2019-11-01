@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "e7676fde_a99358ae",
+        "filename": "api/audio/echo_control.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-01T19:49:09Z",
+      "side": 1,
+      "message": "Good! I\u0027ll add that.",
+      "parentUuid": "290a9c78_20dc9338",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 19
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff0b6c30_e0546d18",
         "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
         "patchSetId": 3
@@ -273,6 +297,30 @@
       "side": 1,
       "message": "It\u0027s true that APM is too complex. It would be really good if we could simplify things in there. Maybe one way to robustify it is to make APM always use a factory, and treat injected AECs and builtin AEC3 identically?\n\nif (no factory injected) {\n  create an internal factory and use that one\n}\n\nI think the only blocking factor is that |config_.echo_canceller.enabled| is not enforced for injected AECs, which needs to be fixed.",
       "parentUuid": "f8776748_feb9084d",
+      "range": {
+        "startLine": 306,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 0
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e84a0c9_f9518f68",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-01T19:49:09Z",
+      "side": 1,
+      "message": "That sounds like a good suggestion. Let\u0027s do that.\n\nI also think we should strive to do some more tests that hammer the APIs more, to make sure that the submodules receive the inputs they should.",
+      "parentUuid": "42ede25a_379efe45",
       "range": {
         "startLine": 306,
         "startChar": 0,

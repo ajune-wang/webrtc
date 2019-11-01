@@ -102,6 +102,24 @@
     },
     {
       "key": {
+        "uuid": "db2bf4fa_389791ea",
+        "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-11-01T18:24:04Z",
+      "side": 1,
+      "message": "Done (it took me only 4 months :P).\nNot done for the GRU layer to avoid merge issues in the child CL (but I will do the same in there).",
+      "parentUuid": "784f7242_cc81eeff",
+      "revId": "569147d0a684aa9cac3a04eb0df4d772b6b21822",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "976d78ec_db13b571",
         "filename": "modules/audio_processing/agc2/rnn_vad/rnn.cc",
         "patchSetId": 2

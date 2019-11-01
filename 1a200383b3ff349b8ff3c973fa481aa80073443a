@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "434f1563_540be8d7",
+        "filename": "api/audio/echo_canceller3_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-01T09:24:14Z",
+      "side": 1,
+      "message": "Nit: Maybe delegate to the new EchoCanceller3Factory::Create instead? In case the Create methods start doing more things, easier to keep in sync if they are chained.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 70
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dfecca0_4fa1d9e3",
+        "filename": "api/audio/echo_canceller3_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-01T09:24:14Z",
+      "side": 1,
+      "message": "What do you think about turning all these size_ts into ints? Since that\u0027s where we want to go in the future.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 34
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "316b9ad3_7a9b793e",
+        "filename": "api/audio/echo_canceller3_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-01T09:24:14Z",
+      "side": 1,
+      "message": "hz",
+      "range": {
+        "startLine": 37,
+        "startChar": 42,
+        "endLine": 37,
+        "endChar": 55
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff0b6c30_e0546d18",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-01T09:24:14Z",
+      "side": 1,
+      "message": "This contrasts with our usual DCHECKs (for example, the render channel count is DCHECKed on line 323). Especially since the AEC is supposed to be used with APM: If we ever get these log messages, there\u0027s something wrong with our code, not how the client uses our code.\n\n\"Use DCHECK() or NOTREACHED() as assertions, e.g. to document pre- and post-conditions. A DCHECK() means “this condition must always be true”, not “this condition is normally true, but perhaps not in exceptional cases.\" \u003c-- I would think that is an accurate description of how we think of incorrect channel counts: it should never happen.\nhttps://chromium.googlesource.com/chromium/src/+/master/styleguide/c++/c++.md#check_dcheck_and-notreached",
+      "range": {
+        "startLine": 306,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 0
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2249cdd_8fbb5214",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-01T09:24:14Z",
+      "side": 1,
+      "message": "Don\u0027t DCHECK and log, please remove one.\n\"[..] you should not handle DCHECK() failures, even if failure would result in a crash. Attempting to handle a DCHECK() failure is a statement that the DCHECK() can fail, which contradicts the point of writing the DCHECK().\"\nhttps://chromium.googlesource.com/chromium/src/+/master/styleguide/c++/c++.md#check_dcheck_and-notreached",
+      "range": {
+        "startLine": 323,
+        "startChar": 1,
+        "endLine": 323,
+        "endChar": 61
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3c6413d_866a5f7b",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-01T09:24:14Z",
+      "side": 1,
+      "message": "See above comment",
+      "range": {
+        "startLine": 332,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 0
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a074aba7_005dd1a1",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-01T09:24:14Z",
+      "side": 1,
+      "message": "Note that capture channel count is DCHECKed here, see above comment",
+      "range": {
+        "startLine": 369,
+        "startChar": 0,
+        "endLine": 369,
+        "endChar": 64
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e9c669c_8f663df3",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-01T09:24:14Z",
+      "side": 1,
+      "message": "See above comment",
+      "range": {
+        "startLine": 373,
+        "startChar": 0,
+        "endLine": 389,
+        "endChar": 0
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

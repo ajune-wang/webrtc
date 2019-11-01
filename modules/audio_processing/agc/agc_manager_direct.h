@@ -122,6 +122,7 @@ class AgcManagerDirect final {
   bool capture_muted_;
   bool check_volume_on_next_process_;
   bool startup_;
+  const int min_mic_level_;
   const bool use_agc2_level_estimation_;
   const bool disable_digital_adaptive_;
   int startup_min_level_;

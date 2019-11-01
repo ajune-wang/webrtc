@@ -16,6 +16,47 @@
       "revId": "6d1edc163cd649f59c3272713f85997ed5a18ec4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1d1a644_7428eddd",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-11-01T01:50:21Z",
+      "side": 1,
+      "message": "I see 3 distinct concerns:\n(1) Preventing usage for arbitrary types.\n(2) Consolidation of instantiations.\n(3) Spurious implicit instantiation by the combination clang-cl + dllexport + static member.\n\nMy understanding is that the source comment is about (1), which is achieved by defining some methods in the cc file.\nThe (2) seems fine as it is. The fact that the clients can use an instantiation (say, RTCStatsMember\u003cstd::string\u003e) indicates that the definitions from rtc_stats.cc are picked.\n\nThis CL properly addresses (3) with minimum drama, and for that reason I believe we should favor this solution.",
+      "parentUuid": "281df00e_917eb294",
+      "revId": "6d1edc163cd649f59c3272713f85997ed5a18ec4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dffa483_8356f1ea",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-11-01T01:50:21Z",
+      "side": 1,
+      "message": "Why the indirection?",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 304,
+        "endChar": 50
+      },
+      "revId": "6d1edc163cd649f59c3272713f85997ed5a18ec4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

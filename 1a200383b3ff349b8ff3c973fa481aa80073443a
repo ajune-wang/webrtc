@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "036b62fa_ce117c07",
+        "filename": "api/audio/echo_control.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-01T09:26:38Z",
+      "side": 1,
+      "message": "Maybe also DCHECK to ensure we don\u0027t run this code by mistake",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 19
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff0b6c30_e0546d18",
         "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
         "patchSetId": 3

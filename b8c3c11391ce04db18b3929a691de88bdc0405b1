@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e55dd2fa_8c019ac5",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-01T15:55:57Z",
+      "side": 1,
+      "message": "Yes, it looks like I need to declare the specializations before the explicit instantiation. If I remove this I get errors like:\n\n  ../../stats/rtc_stats.cc:153:1: error: explicit specialization of \u0027is_sequence\u0027 after \n  instantiation\n  WEBRTC_DEFINE_RTCSTATSMEMBER(bool,\n  ^\n  ../../stats/rtc_stats.cc:135:27: note: expanded from macro \u0027WEBRTC_DEFINE_RTCSTATSMEMBER\u0027\n    bool RTCStatsMember\u003cT\u003e::is_sequence() const {                                \\\n                            ^\n  ../../api/stats/rtc_stats.h:359:63: note: explicit instantiation first required here\n  extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT) RTCStatsMember\u003cbool\u003e;",
+      "parentUuid": "4e573630_c2b12b67",
+      "revId": "b8c3c11391ce04db18b3929a691de88bdc0405b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a008d06a_2b0aad9b",
         "filename": "api/stats/rtc_stats.h",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1ca5ae5d_b2c136be",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-01T15:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a008d06a_2b0aad9b",
+      "revId": "b8c3c11391ce04db18b3929a691de88bdc0405b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "229c3d85_cc65c70a",
         "filename": "stats/rtc_stats.cc",
         "patchSetId": 1
@@ -50,6 +86,24 @@
       "revId": "b8c3c11391ce04db18b3929a691de88bdc0405b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9561e3a8_d441b8c2",
+        "filename": "stats/rtc_stats.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-01T15:55:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "229c3d85_cc65c70a",
+      "revId": "b8c3c11391ce04db18b3929a691de88bdc0405b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

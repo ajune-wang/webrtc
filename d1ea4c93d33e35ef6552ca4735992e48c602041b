@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f3d2326b_11a48a06",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-11-01T15:08:37Z",
+      "side": 0,
+      "message": "Smart. Thanks.",
+      "parentUuid": "82f054b5_ee596e78",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 14
+      },
+      "revId": "d1ea4c93d33e35ef6552ca4735992e48c602041b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0018e019_cee4129c",
         "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "d1ea4c93d33e35ef6552ca4735992e48c602041b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eae81f64_4b766285",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-11-01T15:08:37Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "0018e019_cee4129c",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 22
+      },
+      "revId": "d1ea4c93d33e35ef6552ca4735992e48c602041b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

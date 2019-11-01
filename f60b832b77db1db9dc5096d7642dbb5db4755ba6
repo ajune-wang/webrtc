@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a86321e3_caa6e775",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-11-01T15:08:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb148712_61239e10",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 19
+      },
+      "revId": "f60b832b77db1db9dc5096d7642dbb5db4755ba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f94b81ee_e164c2d6",
         "filename": "modules/audio_processing/agc/agc_manager_direct.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "f60b832b77db1db9dc5096d7642dbb5db4755ba6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e17e4ba5_e2f0a5dc",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-11-01T15:08:37Z",
+      "side": 1,
+      "message": "Yes, you are correct. I made it more complex than needed.",
+      "parentUuid": "f94b81ee_e164c2d6",
+      "range": {
+        "startLine": 130,
+        "startChar": 8,
+        "endLine": 130,
+        "endChar": 27
+      },
+      "revId": "f60b832b77db1db9dc5096d7642dbb5db4755ba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

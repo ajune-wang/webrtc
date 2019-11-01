@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "290a9c78_20dc9338",
+        "filename": "api/audio/echo_control.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-01T12:29:35Z",
+      "side": 1,
+      "message": "I think it\u0027s fine. Spoke to kwiberg@, who agrees.\n\nThere also seems to be some precedent:\nhttps://cs.chromium.org/search/?q\u003d%22rtc_base/checks.h%22+file:%5Esrc/third_party/webrtc/api/.*.h+package:%5Echromium$\u0026type\u003dcs",
+      "parentUuid": "09a62848_7cb9a061",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 19
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff0b6c30_e0546d18",
         "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
         "patchSetId": 3
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "I agree. My main concern is that APM is now so complex, and AEC3 can be configured as well as created in so many ways, that the mutual assumption on behavior/implementation between APM and AEC3 seems very fragile and error-prone. In particular as most of the APM+AEC3 usage is in release mode where the DCHECKS don\u0027t fire.\n\nReading your input, and thinking again on this, it is clear that the issue should be addressed by adding more extensive tests that verifies the AEC performance also for multichannel and when factories are used.",
       "parentUuid": "ff0b6c30_e0546d18",
+      "range": {
+        "startLine": 306,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 0
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42ede25a_379efe45",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-01T12:29:35Z",
+      "side": 1,
+      "message": "It\u0027s true that APM is too complex. It would be really good if we could simplify things in there. Maybe one way to robustify it is to make APM always use a factory, and treat injected AECs and builtin AEC3 identically?\n\nif (no factory injected) {\n  create an internal factory and use that one\n}\n\nI think the only blocking factor is that |config_.echo_canceller.enabled| is not enforced for injected AECs, which needs to be fixed.",
+      "parentUuid": "f8776748_feb9084d",
       "range": {
         "startLine": 306,
         "startChar": 0,

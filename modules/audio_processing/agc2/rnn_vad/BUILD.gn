@@ -37,6 +37,7 @@ rtc_library("rnn_vad") {
   deps = [
     "..:biquad_filter",
     "../../../../api:array_view",
+    "../../../../api:function_view",
     "../../../../rtc_base:checks",
     "../../../../rtc_base:rtc_base_approved",
     "../../../../rtc_base/system:arch",

@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "4e573630_c2b12b67",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2019-11-01T15:28:43Z",
+      "side": 1,
+      "message": "Do you need these? Doesn\u0027t the extern template thing below explicitly do this already?",
+      "revId": "b8c3c11391ce04db18b3929a691de88bdc0405b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a008d06a_2b0aad9b",
         "filename": "api/stats/rtc_stats.h",
         "patchSetId": 1

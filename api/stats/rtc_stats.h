@@ -21,6 +21,7 @@
 
 #include "rtc_base/checks.h"
 #include "rtc_base/system/rtc_export.h"
+#include "rtc_base/system/rtc_export_template.h"
 
 namespace webrtc {
 
@@ -267,7 +268,7 @@ class RTCStatsMemberInterface {
 
   template <typename T>
   const T& cast_to() const {
-    RTC_DCHECK_EQ(type(), T::kType);
+    RTC_DCHECK_EQ(type(), T::GetType());
     return static_cast<const T&>(*this);
   }
 
@@ -286,8 +287,6 @@ class RTCStatsMemberInterface {
 template <typename T>
 class RTC_EXPORT RTCStatsMember : public RTCStatsMemberInterface {
  public:
-  static const Type kType;
-
   explicit RTCStatsMember(const char* name)
       : RTCStatsMemberInterface(name, /*is_defined=*/false), value_() {}
   RTCStatsMember(const char* name, const T& value)
@@ -302,7 +301,8 @@ class RTC_EXPORT RTCStatsMember : public RTCStatsMemberInterface {
       : RTCStatsMemberInterface(other.name_, other.is_defined_),
         value_(std::move(other.value_)) {}
 
-  Type type() const override { return kType; }
+  static Type GetType();
+  Type type() const override { return GetType(); }
   bool is_sequence() const override;
   bool is_string() const override;
   bool is_standardized() const override { return true; }
@@ -355,6 +355,62 @@ class RTC_EXPORT RTCStatsMember : public RTCStatsMemberInterface {
  private:
   T value_;
 };
+
+#define WEBRTC_DECLARE_RTCSTATSMEMBER(T)                      \
+  template <>                                                 \
+  RTCStatsMemberInterface::Type RTCStatsMember<T>::GetType(); \
+  template <>                                                 \
+  bool RTCStatsMember<T>::is_sequence() const;                \
+  template <>                                                 \
+  bool RTCStatsMember<T>::is_string() const;                  \
+  template <>                                                 \
+  std::string RTCStatsMember<T>::ValueToString() const;       \
+  template <>                                                 \
+  std::string RTCStatsMember<T>::ValueToJson() const;
+
+WEBRTC_DECLARE_RTCSTATSMEMBER(bool)
+WEBRTC_DECLARE_RTCSTATSMEMBER(int32_t)
+WEBRTC_DECLARE_RTCSTATSMEMBER(uint32_t)
+WEBRTC_DECLARE_RTCSTATSMEMBER(int64_t)
+WEBRTC_DECLARE_RTCSTATSMEMBER(uint64_t)
+WEBRTC_DECLARE_RTCSTATSMEMBER(double)
+WEBRTC_DECLARE_RTCSTATSMEMBER(std::string)
+WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<bool>)
+WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<int32_t>)
+WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<uint32_t>)
+WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<int64_t>)
+WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<uint64_t>)
+WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<double>)
+WEBRTC_DECLARE_RTCSTATSMEMBER(std::vector<std::string>)
+
+extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
+    RTCStatsMember<bool>;
+extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
+    RTCStatsMember<int32_t>;
+extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
+    RTCStatsMember<uint32_t>;
+extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
+    RTCStatsMember<int64_t>;
+extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
+    RTCStatsMember<uint64_t>;
+extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
+    RTCStatsMember<double>;
+extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
+    RTCStatsMember<std::string>;
+extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
+    RTCStatsMember<std::vector<bool>>;
+extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
+    RTCStatsMember<std::vector<int32_t>>;
+extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
+    RTCStatsMember<std::vector<uint32_t>>;
+extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
+    RTCStatsMember<std::vector<int64_t>>;
+extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
+    RTCStatsMember<std::vector<uint64_t>>;
+extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
+    RTCStatsMember<std::vector<double>>;
+extern template class RTC_EXPORT_TEMPLATE_DECLARE(RTC_EXPORT)
+    RTCStatsMember<std::vector<std::string>>;
 
 // Using inheritance just so that it's obvious from the member's declaration
 // whether it's standardized or not.

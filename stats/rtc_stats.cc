@@ -128,8 +128,9 @@ RTCStats::MembersOfThisObjectAndAncestors(size_t additional_capacity) const {
 
 #define WEBRTC_DEFINE_RTCSTATSMEMBER(T, type, is_seq, is_str, to_str, to_json) \
   template <>                                                                  \
-  const RTCStatsMemberInterface::Type RTCStatsMember<T>::kType =               \
-      RTCStatsMemberInterface::type;                                           \
+  RTCStatsMemberInterface::Type RTCStatsMember<T>::GetType() {                 \
+    return type;                                                               \
+  }                                                                            \
   template <>                                                                  \
   bool RTCStatsMember<T>::is_sequence() const {                                \
     return is_seq;                                                             \
@@ -228,5 +229,28 @@ WEBRTC_DEFINE_RTCSTATSMEMBER(std::vector<std::string>,
                              false,
                              VectorOfStringsToString(value_),
                              VectorOfStringsToString(value_))
+
+template class RTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT) RTCStatsMember<bool>;
+template class RTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT) RTCStatsMember<int32_t>;
+template class RTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT) RTCStatsMember<uint32_t>;
+template class RTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT) RTCStatsMember<int64_t>;
+template class RTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT) RTCStatsMember<uint64_t>;
+template class RTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT) RTCStatsMember<double>;
+template class RTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT)
+    RTCStatsMember<std::string>;
+template class RTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT)
+    RTCStatsMember<std::vector<bool>>;
+template class RTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT)
+    RTCStatsMember<std::vector<int32_t>>;
+template class RTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT)
+    RTCStatsMember<std::vector<uint32_t>>;
+template class RTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT)
+    RTCStatsMember<std::vector<int64_t>>;
+template class RTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT)
+    RTCStatsMember<std::vector<uint64_t>>;
+template class RTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT)
+    RTCStatsMember<std::vector<double>>;
+template class RTC_EXPORT_TEMPLATE_DEFINE(RTC_EXPORT)
+    RTCStatsMember<std::vector<std::string>>;
 
 }  // namespace webrtc

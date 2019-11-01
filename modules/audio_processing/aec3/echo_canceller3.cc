@@ -16,6 +16,7 @@
 #include "modules/audio_processing/high_pass_filter.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/atomic_ops.h"
+#include "rtc_base/logging.h"
 #include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
@@ -301,6 +302,24 @@ EchoCanceller3::~EchoCanceller3() = default;
 
 void EchoCanceller3::AnalyzeRender(const AudioBuffer& render) {
   RTC_DCHECK_RUNS_SERIALIZED(&render_race_checker_);
+
+  bool input_matches_configuration = true;
+  if (num_bands_ != static_cast<int>(render.num_bands())) {
+    RTC_LOG(LS_ERROR) << "AEC3: The AnalyzeRender input rate/number of bands "
+                         "does not match the configuration of AEC3";
+    input_matches_configuration = false;
+  }
+
+  if (num_render_channels_ != render.num_channels()) {
+    RTC_LOG(LS_ERROR) << "AEC3: The AnalyzeRender number of channels does not "
+                         "match the configuration of AEC3";
+    input_matches_configuration = false;
+  }
+
+  if (!input_matches_configuration) {
+    return;
+  }
+
   RTC_DCHECK_EQ(render.num_channels(), num_render_channels_);
   data_dumper_->DumpRaw("aec3_call_order",
                         static_cast<int>(EchoCanceller3ApiCall::kRender));
@@ -310,6 +329,24 @@ void EchoCanceller3::AnalyzeRender(const AudioBuffer& render) {
 
 void EchoCanceller3::AnalyzeCapture(const AudioBuffer& capture) {
   RTC_DCHECK_RUNS_SERIALIZED(&capture_race_checker_);
+
+  bool input_matches_configuration = true;
+  if (sample_rate_hz_ != static_cast<int>(capture.num_frames()) * 100) {
+    RTC_LOG(LS_ERROR) << "AEC3: The AnalyzeCapture input rate does not match "
+                         "the configuration of AEC3";
+    input_matches_configuration = false;
+  }
+
+  if (num_capture_channels_ != capture.num_channels()) {
+    RTC_LOG(LS_ERROR) << "AEC3: The AnalyzeCapture number of channels does not "
+                         "match the configuration of AEC3";
+    input_matches_configuration = false;
+  }
+
+  if (!input_matches_configuration) {
+    return;
+  }
+
   data_dumper_->DumpWav("aec3_capture_analyze_input", capture.num_frames(),
                         capture.channels_const()[0], sample_rate_hz_, 1);
 
@@ -332,6 +369,23 @@ void EchoCanceller3::ProcessCapture(AudioBuffer* capture, bool level_change) {
   RTC_DCHECK_EQ(capture->num_channels(), num_capture_channels_);
   data_dumper_->DumpRaw("aec3_call_order",
                         static_cast<int>(EchoCanceller3ApiCall::kCapture));
+
+  bool input_matches_configuration = true;
+  if (num_bands_ != static_cast<int>(capture->num_bands())) {
+    RTC_LOG(LS_ERROR) << "AEC3: The AnalyzeCapture input rate/number of bands "
+                         "does not match the configuration of AEC3";
+    input_matches_configuration = false;
+  }
+
+  if (num_capture_channels_ != capture->num_channels()) {
+    RTC_LOG(LS_ERROR) << "AEC3: The AnalyzeCapture number of channels does not "
+                         "match the configuration of AEC3";
+    input_matches_configuration = false;
+  }
+
+  if (!input_matches_configuration) {
+    return;
+  }
 
   // Report capture call in the metrics and periodically update API call
   // metrics.

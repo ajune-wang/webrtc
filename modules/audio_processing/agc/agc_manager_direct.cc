@@ -24,6 +24,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_minmax.h"
+#include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
@@ -64,30 +65,25 @@ const int kSurplusCompressionGain = 6;
 constexpr size_t kMaxNumSamplesPerChannel = 1920;
 constexpr size_t kMaxNumChannels = 4;
 
-int ClampLevel(int mic_level) {
-  return rtc::SafeClamp(mic_level, kMinMicLevel, kMaxMicLevel);
-}
+absl::optional<int> GetMinMicLevelFromExperiment() {
+  constexpr char kMinMicLevelFieldTrial[] =
+      "WebRTC-Audio-AgcMinMicLevelExperiment";
+  if (!webrtc::field_trial::IsEnabled(kMinMicLevelFieldTrial)) {
+    return absl::nullopt;
+  }
 
-int LevelFromGainError(int gain_error, int level) {
-  RTC_DCHECK_GE(level, 0);
-  RTC_DCHECK_LE(level, kMaxMicLevel);
-  if (gain_error == 0) {
-    return level;
-  }
-  // TODO(ajm): Could be made more efficient with a binary search.
-  int new_level = level;
-  if (gain_error > 0) {
-    while (kGainMap[new_level] - kGainMap[level] < gain_error &&
-           new_level < kMaxMicLevel) {
-      ++new_level;
-    }
+  const auto field_trial_string =
+      webrtc::field_trial::FindFullName(kMinMicLevelFieldTrial);
+  int min_mic_level = -1;
+  sscanf(field_trial_string.c_str(), "Enabled-%d", &min_mic_level);
+  if (min_mic_level >= 0 && min_mic_level <= 255) {
+    RTC_LOG(LS_INFO) << "[agc] Min mic level: " << min_mic_level;
+    return min_mic_level;
   } else {
-    while (kGainMap[new_level] - kGainMap[level] > gain_error &&
-           new_level > kMinMicLevel) {
-      --new_level;
-    }
+    RTC_LOG(LS_WARNING) << "[agc] Invalid parameter for "
+                        << kMinMicLevelFieldTrial << ", ignored.";
+    return absl::nullopt;
   }
-  return new_level;
 }
 
 int InitializeGainControl(GainControl* gain_control,
@@ -192,6 +188,7 @@ AgcManagerDirect::AgcManagerDirect(Agc* agc,
       capture_muted_(false),
       check_volume_on_next_process_(true),  // Check at startup.
       startup_(true),
+      min_mic_level_(GetMinMicLevelFromExperiment()),
       use_agc2_level_estimation_(use_agc2_level_estimation),
       disable_digital_adaptive_(disable_digital_adaptive),
       startup_min_level_(ClampLevel(startup_min_level)),
@@ -325,6 +322,39 @@ void AgcManagerDirect::Process(const float* audio,
                         &compression_);
 }
 
+int AgcManagerDirect::GetMinMicLevel() const {
+  return min_mic_level_.value_or(kMinMicLevel);
+}
+
+int AgcManagerDirect::ClampLevel(int mic_level) {
+  RTC_DLOG(LS_INFO) << "[agc] ClampLevel: mic_level=" << mic_level;
+  const int min_mic_level = GetMinMicLevel();
+  RTC_DLOG(LS_INFO) << "[agc] Min mic level set to " << min_mic_level;
+  return rtc::SafeClamp(mic_level, min_mic_level, kMaxMicLevel);
+}
+
+int AgcManagerDirect::LevelFromGainError(int gain_error, int level) {
+  RTC_DCHECK_GE(level, 0);
+  RTC_DCHECK_LE(level, kMaxMicLevel);
+  if (gain_error == 0) {
+    return level;
+  }
+  // TODO(ajm): Could be made more efficient with a binary search.
+  int new_level = level;
+  if (gain_error > 0) {
+    while (kGainMap[new_level] - kGainMap[level] < gain_error &&
+           new_level < kMaxMicLevel) {
+      ++new_level;
+    }
+  } else {
+    while (kGainMap[new_level] - kGainMap[level] > gain_error &&
+           new_level > GetMinMicLevel()) {
+      --new_level;
+    }
+  }
+  return new_level;
+}
+
 void AgcManagerDirect::SetLevel(int new_level) {
   int voe_level = volume_callbacks_->GetMicVolume();
   if (voe_level == 0) {
@@ -415,7 +445,7 @@ int AgcManagerDirect::CheckVolumeAndReset() {
   }
   RTC_DLOG(LS_INFO) << "[agc] Initial GetMicVolume()=" << level;
 
-  int minLevel = startup_ ? startup_min_level_ : kMinMicLevel;
+  int minLevel = startup_ ? startup_min_level_ : GetMinMicLevel();
   if (level < minLevel) {
     level = minLevel;
     RTC_DLOG(LS_INFO) << "[agc] Initial volume too low, raising to " << level;

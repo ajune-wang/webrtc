@@ -32,7 +32,9 @@ rtc_library("agc") {
     "../../../rtc_base:logging",
     "../../../rtc_base:macromagic",
     "../../../rtc_base:safe_minmax",
+    "../../../system_wrappers:field_trial",
     "../../../system_wrappers:metrics",
+    "../../../third_party/abseil-cpp/absl/types:optional",
     "../agc2:level_estimation_agc",
     "../vad",
   ]

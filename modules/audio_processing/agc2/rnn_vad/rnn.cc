@@ -22,6 +22,7 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <numeric>
 
 #include "rtc_base/checks.h"
 #include "third_party/rnnoise/src/rnn_activations.h"
@@ -71,6 +72,24 @@ std::vector<float> GetScaledParams(rtc::ArrayView<const int8_t> params) {
   return scaled_params;
 }
 
+// Casts and scales |weights| and re-arranges the layout.
+std::vector<float> GetPreprocessedWeights(rtc::ArrayView<const int8_t> weights,
+                                          const size_t output_size) {
+  if (output_size == 1) {
+    return GetScaledParams(weights);
+  }
+  // Transpose, scale and cast.
+  const size_t input_size = rtc::CheckedDivExact(weights.size(), output_size);
+  std::vector<float> w(weights.size());
+  for (size_t o = 0; o < output_size; ++o) {
+    for (size_t i = 0; i < input_size; ++i) {
+      w[o * input_size + i] = rnnoise::kWeightsScale *
+                              static_cast<float>(weights[i * output_size + o]);
+    }
+  }
+  return w;
+}
+
 }  // namespace
 
 FullyConnectedLayer::FullyConnectedLayer(
@@ -83,7 +102,7 @@ FullyConnectedLayer::FullyConnectedLayer(
     : input_size_(input_size),
       output_size_(output_size),
       bias_(GetScaledParams(bias)),
-      weights_(GetScaledParams(weights)),
+      weights_(GetPreprocessedWeights(weights, output_size)),
       activation_function_(activation_function),
       optimization_(optimization) {
   RTC_DCHECK_LE(output_size_, kFullyConnectedLayersMaxUnits)
@@ -104,7 +123,9 @@ rtc::ArrayView<const float> FullyConnectedLayer::GetOutput() const {
 void FullyConnectedLayer::ComputeOutput(rtc::ArrayView<const float> input) {
   switch (optimization_) {
 #if defined(WEBRTC_ARCH_X86_FAMILY)
-    // TODO(bugs.chromium.org/10480): Handle Optimization::kSse2.
+    case Optimization::kSse2:
+      ComputeOutput_SSE2(input);
+      break;
 #endif
 #if defined(WEBRTC_HAS_NEON)
     // TODO(bugs.chromium.org/10480): Handle Optimization::kNeon.
@@ -121,11 +142,37 @@ void FullyConnectedLayer::ComputeOutput_NONE(
     // TODO(bugs.chromium.org/9076): Benchmark how different layouts for
     // |weights_| change the performance across different platforms.
     for (size_t i = 0; i < input_size_; ++i) {
-      output_[o] += input[i] * weights_[i * output_size_ + o];
+      output_[o] += input[i] * weights_[o * input_size_ + i];
     }
     output_[o] = (*activation_function_)(output_[o]);
   }
 }
+
+#if defined(WEBRTC_ARCH_X86_FAMILY)
+void FullyConnectedLayer::ComputeOutput_SSE2(
+    rtc::ArrayView<const float> input) {
+  const size_t input_size_by_4 = input_size_ >> 2;
+  const size_t offset = input_size_ & ~3;
+  __m128 sum_wx_128;
+  const float* v = reinterpret_cast<const float*>(&sum_wx_128);
+  for (size_t o = 0; o < output_size_; ++o) {
+    // Perform 128 bit vector operations.
+    sum_wx_128 = _mm_set1_ps(0);
+    const float* x_p = input.data();
+    const float* w_p = weights_.data() + o * input_size_;
+    for (size_t i = 0; i < input_size_by_4; ++i, x_p += 4, w_p += 4) {
+      sum_wx_128 = _mm_add_ps(sum_wx_128,
+                              _mm_mul_ps(_mm_loadu_ps(x_p), _mm_loadu_ps(w_p)));
+    }
+    // Perform non-vector operations for any remaining items, sum up bias term
+    // and results from the vectorized code, and apply the activation function.
+    output_[o] = (*activation_function_)(
+        std::inner_product(input.begin() + offset, input.end(),
+                           weights_.begin() + o * input_size_ + offset,
+                           bias_[o] + v[0] + v[1] + v[2] + v[3]));
+  }
+}
+#endif
 
 GatedRecurrentLayer::GatedRecurrentLayer(
     const size_t input_size,

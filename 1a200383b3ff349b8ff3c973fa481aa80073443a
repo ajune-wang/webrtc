@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d5b20ba5_3e7e0de3",
+        "filename": "api/audio/echo_canceller3_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-01T11:01:54Z",
+      "side": 1,
+      "message": "Agree. Good point!\nDone.",
+      "parentUuid": "434f1563_540be8d7",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 70
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3dfecca0_4fa1d9e3",
         "filename": "api/audio/echo_canceller3_factory.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40cbbdab_417a50b1",
+        "filename": "api/audio/echo_canceller3_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-01T11:01:54Z",
+      "side": 1,
+      "message": "Good point!\nDone.",
+      "parentUuid": "3dfecca0_4fa1d9e3",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 34
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2c9af8ca_cbe0ec5d",
+        "filename": "api/audio/echo_canceller3_factory.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-01T11:01:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "316b9ad3_7a9b793e",
+      "range": {
+        "startLine": 37,
+        "startChar": 42,
+        "endLine": 37,
+        "endChar": 55
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "036b62fa_ce117c07",
         "filename": "api/audio/echo_control.h",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2019-11-01T09:26:38Z",
       "side": 1,
       "message": "Maybe also DCHECK to ensure we don\u0027t run this code by mistake",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 19
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09a62848_7cb9a061",
+        "filename": "api/audio/echo_control.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-01T11:01:54Z",
+      "side": 1,
+      "message": "I like that. But I just realized that that would require including rtc_base/checks.h into this header.\n\nI prefer avoid having to do that. \nWDYT",
+      "parentUuid": "036b62fa_ce117c07",
       "range": {
         "startLine": 58,
         "startChar": 4,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f8776748_feb9084d",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-01T11:01:54Z",
+      "side": 1,
+      "message": "I agree. My main concern is that APM is now so complex, and AEC3 can be configured as well as created in so many ways, that the mutual assumption on behavior/implementation between APM and AEC3 seems very fragile and error-prone. In particular as most of the APM+AEC3 usage is in release mode where the DCHECKS don\u0027t fire.\n\nReading your input, and thinking again on this, it is clear that the issue should be addressed by adding more extensive tests that verifies the AEC performance also for multichannel and when factories are used.",
+      "parentUuid": "ff0b6c30_e0546d18",
+      "range": {
+        "startLine": 306,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 0
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a2249cdd_8fbb5214",
         "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
         "patchSetId": 3
@@ -128,6 +248,30 @@
       "writtenOn": "2019-11-01T09:24:14Z",
       "side": 1,
       "message": "Don\u0027t DCHECK and log, please remove one.\n\"[..] you should not handle DCHECK() failures, even if failure would result in a crash. Attempting to handle a DCHECK() failure is a statement that the DCHECK() can fail, which contradicts the point of writing the DCHECK().\"\nhttps://chromium.googlesource.com/chromium/src/+/master/styleguide/c++/c++.md#check_dcheck_and-notreached",
+      "range": {
+        "startLine": 323,
+        "startChar": 1,
+        "endLine": 323,
+        "endChar": 61
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81db3587_96891046",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-01T11:01:54Z",
+      "side": 1,
+      "message": "I agree.\n(I still think there are cases where both DCHECKS and handling can be motivated though, but I agree this is not such a case)",
+      "parentUuid": "a2249cdd_8fbb5214",
       "range": {
         "startLine": 323,
         "startChar": 1,
@@ -160,6 +304,30 @@
       "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71f61851_fe48d04c",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-01T11:01:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3c6413d_866a5f7b",
+      "range": {
+        "startLine": 332,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 0
+      },
+      "revId": "1a200383b3ff349b8ff3c973fa481aa80073443a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

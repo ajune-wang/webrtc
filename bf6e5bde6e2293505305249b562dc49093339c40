@@ -87,6 +87,30 @@
       "revId": "bf6e5bde6e2293505305249b562dc49093339c40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ac4991f_da3d7960",
+        "filename": "stats/rtc_stats.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-11-01T01:00:21Z",
+      "side": 1,
+      "message": "See proper compiling example in the bug entry!",
+      "parentUuid": "854bc713_73de61e9",
+      "range": {
+        "startLine": 301,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 3
+      },
+      "revId": "bf6e5bde6e2293505305249b562dc49093339c40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

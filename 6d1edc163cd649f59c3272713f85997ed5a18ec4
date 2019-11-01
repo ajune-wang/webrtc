@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "ba150048_fd4ab133",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-01T15:20:37Z",
+      "side": 1,
+      "message": "Ok, it looks like we are going with https://webrtc-review.googlesource.com/c/src/+/158795 which embeds this small fix but also uses template instantiation declarations and definitions which should be a (small) build time optimization.",
+      "parentUuid": "bb41c7a5_2cdc46f2",
+      "revId": "6d1edc163cd649f59c3272713f85997ed5a18ec4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2dffa483_8356f1ea",
         "filename": "api/stats/rtc_stats.h",
         "patchSetId": 1
@@ -75,6 +93,30 @@
       "revId": "6d1edc163cd649f59c3272713f85997ed5a18ec4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1860053_2d237a41",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-01T15:20:37Z",
+      "side": 1,
+      "message": "We need to DCHECK before the cast at line 270 and we don\u0027t have an instance there.",
+      "parentUuid": "2dffa483_8356f1ea",
+      "range": {
+        "startLine": 304,
+        "startChar": 0,
+        "endLine": 304,
+        "endChar": 50
+      },
+      "revId": "6d1edc163cd649f59c3272713f85997ed5a18ec4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

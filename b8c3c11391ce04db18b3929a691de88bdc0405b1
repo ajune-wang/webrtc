@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a008d06a_2b0aad9b",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-01T10:32:10Z",
+      "side": 1,
+      "message": "Can you add this to the end of WEBRTC_DECLARE_RTCSTATSMEMBER, so that you don\u0027t have to repeat it manually?",
+      "revId": "b8c3c11391ce04db18b3929a691de88bdc0405b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "229c3d85_cc65c70a",
+        "filename": "stats/rtc_stats.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-01T10:32:10Z",
+      "side": 1,
+      "message": "And add this to the end of WEBRTC_DEFINE_RTCSTATSMEMBER? (Don\u0027t include the semicolon; you can put it at the end every time you invoke the macro.)",
+      "revId": "b8c3c11391ce04db18b3929a691de88bdc0405b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

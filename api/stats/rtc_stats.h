@@ -267,7 +267,7 @@ class RTCStatsMemberInterface {
 
   template <typename T>
   const T& cast_to() const {
-    RTC_DCHECK_EQ(type(), T::kType);
+    RTC_DCHECK_EQ(type(), T::StaticType());
     return static_cast<const T&>(*this);
   }
 
@@ -286,8 +286,6 @@ class RTCStatsMemberInterface {
 template <typename T>
 class RTC_EXPORT RTCStatsMember : public RTCStatsMemberInterface {
  public:
-  static const Type kType;
-
   explicit RTCStatsMember(const char* name)
       : RTCStatsMemberInterface(name, /*is_defined=*/false), value_() {}
   RTCStatsMember(const char* name, const T& value)
@@ -302,7 +300,8 @@ class RTC_EXPORT RTCStatsMember : public RTCStatsMemberInterface {
       : RTCStatsMemberInterface(other.name_, other.is_defined_),
         value_(std::move(other.value_)) {}
 
-  Type type() const override { return kType; }
+  static Type StaticType();
+  Type type() const override { return StaticType(); }
   bool is_sequence() const override;
   bool is_string() const override;
   bool is_standardized() const override { return true; }

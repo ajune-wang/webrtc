@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1ca45dc_bf2eda4c",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-11-02T07:02:20Z",
+      "side": 1,
+      "message": "\u003e\u003e Why the indirection?\n\u003e We need to DCHECK before the cast at line 270 and we don\u0027t have an instance there.\n\nRight! I guess that\u0027s what we get when we mix inheritance and templates for polymorphism.\n\nI\u0027d like to s/GetType/StaticType to emphasize this specificity. I could do without, though.",
+      "revId": "1e2d3d7d13a5c6601875f3f4e8c6e8f1de31bb95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -655,7 +655,7 @@ void VideoCodecTestFixtureImpl::SetUpAndInitObjects(
        simulcast_svc_idx < num_simulcast_or_spatial_layers;
        ++simulcast_svc_idx) {
     const std::string output_filename_base =
-        OutputPath() + FilenameWithParams(config_) + "_sl" +
+        config_.output_path + FilenameWithParams(config_) + "_sl" +
         std::to_string(simulcast_svc_idx);
 
     if (config_.visualization_params.save_encoded_ivf) {

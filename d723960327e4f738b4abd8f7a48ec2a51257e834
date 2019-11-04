@@ -16,6 +16,23 @@
       "revId": "d723960327e4f738b4abd8f7a48ec2a51257e834",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8475f9fb_767d66c9",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 10031
+      },
+      "writtenOn": "2019-11-04T08:24:06Z",
+      "side": 1,
+      "message": "I\u0027m just guessing, but could it be that SelectSource function should also check the special case of id being kFullDesktopScreenId (-1)? See e.g. the Windows implementation for comparison [1]. \n\nAt least the failing browser tests (chooseMediaAndGetStream, screenShareWithAudioGetStream, screenShareWithoutAudioGetStream, see [2]) seem to have this as a common parameter, see [3].\n\n[1] https://webrtc.googlesource.com/src/+/refs/changes/67/156067/4/modules/desktop_capture/win/screen_capturer_win_directx.cc#195\n\n[2] https://logs.chromium.org/logs/chromium/buildbucket/cr-buildbucket.appspot.com/8898155661969383856/+/steps/browser_tests__with_patch_/0/logs/Deterministic_failure:_DesktopCaptureApiTest.ChooseDesktopMedia__status_FAILURE_/0\n\n[3] https://cs.chromium.org/chromium/src/chrome/browser/extensions/api/desktop_capture/desktop_capture_apitest.cc?q\u003dDesktopCaptureApiTest\u0026g\u003d0\u0026l\u003d105)",
+      "revId": "d723960327e4f738b4abd8f7a48ec2a51257e834",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

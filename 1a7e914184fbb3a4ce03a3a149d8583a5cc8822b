@@ -22,6 +22,30 @@
       "revId": "1a7e914184fbb3a4ce03a3a149d8583a5cc8822b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0520c5de_49b08f33",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-04T17:26:04Z",
+      "side": 1,
+      "message": "Intent was to upload a patch with the fix with that number, didn\u0027t think about commit message taking that spot.\nI also didn\u0027t intend for you to be immediately moved to reviewer, I\u0027ll ping once I have a unit test ready too.",
+      "parentUuid": "cb6c065e_de1e70f2",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 56
+      },
+      "revId": "1a7e914184fbb3a4ce03a3a149d8583a5cc8822b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

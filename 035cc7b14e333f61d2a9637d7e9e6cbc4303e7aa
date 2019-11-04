@@ -22,6 +22,30 @@
       "revId": "035cc7b14e333f61d2a9637d7e9e6cbc4303e7aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6db50074_b879a57d",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-11-04T12:39:50Z",
+      "side": 1,
+      "message": "Will try to fix it",
+      "parentUuid": "9eced523_95b40730",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 50
+      },
+      "revId": "035cc7b14e333f61d2a9637d7e9e6cbc4303e7aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

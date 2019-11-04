@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "46e22e54_7523a635",
+        "filename": "sdk/android/api/org/webrtc/IceCandidate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2019-11-04T23:58:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e69d4f6b_deddda5d",
+      "range": {
+        "startLine": 82,
+        "startChar": 25,
+        "endLine": 82,
+        "endChar": 37
+      },
+      "revId": "b666277ba98071c29fe0d4b03f772841997d0d6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37c65975_8ab7ab8e",
         "filename": "sdk/android/tests/src/org/webrtc/IceCandidateTest.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "b666277ba98071c29fe0d4b03f772841997d0d6e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ea6cf44_288285c1",
+        "filename": "sdk/android/tests/src/org/webrtc/IceCandidateTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2019-11-04T23:58:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37c65975_8ab7ab8e",
+      "range": {
+        "startLine": 30,
+        "startChar": 17,
+        "endLine": 30,
+        "endChar": 19
+      },
+      "revId": "b666277ba98071c29fe0d4b03f772841997d0d6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

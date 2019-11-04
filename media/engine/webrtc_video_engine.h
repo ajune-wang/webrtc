@@ -214,6 +214,9 @@ class WebRtcVideoChannel : public VideoMediaChannel,
   void RequestEncoderSwitch(
       const EncoderSwitchRequestCallback::Config& conf) override;
 
+  void EnableEncodedOutput(uint32_t ssrc) override;
+  void DoneEncodedOutput(uint32_t ssrc) override;
+
  private:
   class WebRtcVideoReceiveStream;
   struct VideoCodecSettings {
@@ -432,6 +435,9 @@ class WebRtcVideoChannel : public VideoMediaChannel,
     void SetSink(rtc::VideoSinkInterface<webrtc::VideoFrame>* sink);
 
     VideoReceiverInfo GetVideoReceiverInfo(bool log_stats);
+
+    void EnableEncodedOutput();
+    void DoneEncodedOutput();
 
    private:
     void RecreateWebRtcVideoStream();

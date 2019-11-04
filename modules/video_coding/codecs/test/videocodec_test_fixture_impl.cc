@@ -654,9 +654,9 @@ void VideoCodecTestFixtureImpl::SetUpAndInitObjects(
   for (size_t simulcast_svc_idx = 0;
        simulcast_svc_idx < num_simulcast_or_spatial_layers;
        ++simulcast_svc_idx) {
-    const std::string output_filename_base =
-        OutputPath() + FilenameWithParams(config_) + "_sl" +
-        std::to_string(simulcast_svc_idx);
+    const std::string output_filename_base = JoinFilename(
+        config_.output_path, FilenameWithParams(config_) + "_sl" +
+                                 std::to_string(simulcast_svc_idx));
 
     if (config_.visualization_params.save_encoded_ivf) {
       for (size_t temporal_idx = 0; temporal_idx < num_temporal_layers;

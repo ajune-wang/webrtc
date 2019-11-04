@@ -10,6 +10,8 @@
 
 package org.webrtc;
 
+import android.support.annotation.Nullable;
+import java.util.Arrays;
 import org.webrtc.PeerConnection;
 
 /**
@@ -55,5 +57,32 @@ public class IceCandidate {
   @CalledByNative
   String getSdp() {
     return sdp;
+  }
+
+  /**
+   * It only checks sdpMid, sdpMLineIndex, and sdp for equals operator.
+   */
+  @Override
+  public boolean equals(@Nullable Object object) {
+    if (!(object instanceof IceCandidate)) {
+      return false;
+    }
+
+    IceCandidate that = (IceCandidate) object;
+    return ObjectEquals(this.sdpMid, that.sdpMid) && this.sdpMLineIndex == that.sdpMLineIndex
+        && ObjectEquals(this.sdp, that.sdp);
+  }
+
+  @Override
+  public int hashCode() {
+    Object[] values = {sdpMid, sdpMLineIndex, sdp};
+    return Arrays.hashCode(values);
+  }
+
+  private static boolean ObjectEquals(Object o1, Object o2) {
+    if (o1 == null) {
+      return o2 == null;
+    }
+    return o1.equals(o2);
   }
 }

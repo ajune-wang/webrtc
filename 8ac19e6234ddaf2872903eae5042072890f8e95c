@@ -22,6 +22,30 @@
       "revId": "8ac19e6234ddaf2872903eae5042072890f8e95c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c59ede2_f882b30c",
+        "filename": "modules/audio_coding/neteq/decision_logic.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-11-04T15:41:31Z",
+      "side": 1,
+      "message": "Good point, since all overriden methods are already virtual, this is indeed not needed, thanks for pointing that out. I also removed another instance (that was already in the code).",
+      "parentUuid": "26cd043c_c1675a0e",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 63
+      },
+      "revId": "8ac19e6234ddaf2872903eae5042072890f8e95c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

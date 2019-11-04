@@ -12,6 +12,9 @@
 #define API_AUDIO_ECHO_CONTROL_H_
 
 #include <memory>
+#include <vector>
+
+#include "api/array_view.h"
 
 namespace webrtc {
 
@@ -25,6 +28,12 @@ class EchoControl {
 
   // Analysis (not changing) of the capture signal.
   virtual void AnalyzeCapture(AudioBuffer* capture) = 0;
+
+  // As above, but also returns the linear filter output.
+  // TODO(peah): Make pure virtual.
+  virtual void ProcessCapture(AudioBuffer* capture,
+                              AudioBuffer* linear_output,
+                              bool level_change) {}
 
   // Processes the capture signal in order to remove the echo.
   virtual void ProcessCapture(AudioBuffer* capture, bool echo_path_change) = 0;
@@ -51,6 +60,13 @@ class EchoControl {
 class EchoControlFactory {
  public:
   virtual std::unique_ptr<EchoControl> Create(int sample_rate_hz) = 0;
+  // TODO(peah): Make pure virtual.
+  virtual std::unique_ptr<EchoControl> Create(int sample_rate_hz,
+                                              size_t num_render_channels,
+                                              size_t num_capture_channels) {
+    return nullptr;
+  }
+
   virtual ~EchoControlFactory() = default;
 };
 }  // namespace webrtc

@@ -50,6 +50,13 @@ void BlockFramer::InsertBlock(
   }
 }
 
+void BlockFramer::InsertBlock(const std::vector<float>& block) {
+  RTC_DCHECK_EQ(num_bands_, 1);
+  RTC_DCHECK_EQ(num_channels_, 1);
+  RTC_DCHECK_EQ(kBlockSize, block.size());
+  buffer_[0][0].insert(buffer_[0][0].begin(), block.begin(), block.end());
+}
+
 void BlockFramer::InsertBlockAndExtractSubFrame(
     const std::vector<std::vector<std::vector<float>>>& block,
     std::vector<std::vector<rtc::ArrayView<float>>>* sub_frame) {
@@ -81,6 +88,26 @@ void BlockFramer::InsertBlockAndExtractSubFrame(
           block[band][channel].end());
     }
   }
+}
+
+void BlockFramer::InsertBlockAndExtractSubFrame(
+    const std::vector<float>& block,
+    rtc::ArrayView<float>* sub_frame) {
+  RTC_DCHECK(sub_frame);
+  RTC_DCHECK_EQ(num_bands_, 1);
+  RTC_DCHECK_EQ(num_channels_, 1);
+  RTC_DCHECK_LE(kSubFrameLength, buffer_[0][0].size() + kBlockSize);
+  RTC_DCHECK_EQ(kBlockSize, block.size());
+  RTC_DCHECK_GE(kBlockSize, buffer_[0][0].size());
+  RTC_DCHECK_EQ(kSubFrameLength, sub_frame->size());
+
+  const int samples_to_frame = kSubFrameLength - buffer_[0][0].size();
+  std::copy(buffer_[0][0].begin(), buffer_[0][0].end(), sub_frame->begin());
+  std::copy(block.begin(), block.begin() + samples_to_frame,
+            sub_frame->begin() + buffer_[0][0].size());
+  buffer_[0][0].clear();
+  buffer_[0][0].insert(buffer_[0][0].begin(), block.begin() + samples_to_frame,
+                       block.end());
 }
 
 }  // namespace webrtc

@@ -16,6 +16,24 @@
       "revId": "1e2d3d7d13a5c6601875f3f4e8c6e8f1de31bb95",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "326f5a2b_a197e3bf",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-04T15:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1ca45dc_bf2eda4c",
+      "revId": "1e2d3d7d13a5c6601875f3f4e8c6e8f1de31bb95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

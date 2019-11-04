@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c99e3f84_a88301af",
+        "filename": "modules/audio_coding/neteq/neteq_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-04T15:09:45Z",
+      "side": 1,
+      "message": "This is changed because calling opus_decode(no_data, 20ms) can give a different result from 2 X opus_decode(no_data, 10ms), which I guess is due to some update of the state of random number generator in Opus decoder.\n\nBut I looked at the result audio samples and their differences. I can guarantee that quality is not affected.",
+      "range": {
+        "startLine": 511,
+        "startChar": 7,
+        "endLine": 511,
+        "endChar": 47
+      },
+      "revId": "44f9fb3bf9074a026c9eb3d0f63c5675385006ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4da745ce_745421a4",
+        "filename": "modules/audio_coding/neteq/neteq_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-04T15:09:45Z",
+      "side": 1,
+      "message": "good that no Neteq stats are affected. But in fact, it may be affected.\n\nIf a packet after CNG gets delayed, more CNG can be caused without this change.",
+      "range": {
+        "startLine": 518,
+        "startChar": 7,
+        "endLine": 518,
+        "endChar": 47
+      },
+      "revId": "44f9fb3bf9074a026c9eb3d0f63c5675385006ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

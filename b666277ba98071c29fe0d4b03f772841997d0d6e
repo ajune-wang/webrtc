@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e69d4f6b_deddda5d",
+        "filename": "sdk/android/api/org/webrtc/IceCandidate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-11-04T23:50:28Z",
+      "side": 1,
+      "message": "nit: camelCase",
+      "range": {
+        "startLine": 82,
+        "startChar": 25,
+        "endLine": 82,
+        "endChar": 37
+      },
+      "revId": "b666277ba98071c29fe0d4b03f772841997d0d6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37c65975_8ab7ab8e",
+        "filename": "sdk/android/tests/src/org/webrtc/IceCandidateTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-11-04T23:50:28Z",
+      "side": 1,
+      "message": "Suggest we add a couple of more candidates that differ by mid and m-line index.",
+      "range": {
+        "startLine": 30,
+        "startChar": 17,
+        "endLine": 30,
+        "endChar": 19
+      },
+      "revId": "b666277ba98071c29fe0d4b03f772841997d0d6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "60402f316a9f91249b812a4663fd75d52e3aac07",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac5e269e_08f6bd20",
+        "filename": "modules/pacing/pacing_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-05T08:59:42Z",
+      "side": 1,
+      "message": "I forgot that we actually expose NextProbeTime() explicitly for the PacingController, so checking that instead.",
+      "parentUuid": "d7704e3a_72bec79e",
+      "range": {
+        "startLine": 1170,
+        "startChar": 36,
+        "endLine": 1170,
+        "endChar": 57
+      },
+      "revId": "60402f316a9f91249b812a4663fd75d52e3aac07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

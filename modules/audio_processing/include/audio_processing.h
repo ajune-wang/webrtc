@@ -257,6 +257,9 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
       // Force multi-channel processing on playout and capture audio. This is an
       // experimental feature, and is likely to change without warning.
       bool experimental_multi_channel = false;
+      // Performa the noise suppressor analysis on the linear aec output if that
+      // is available.
+      bool ns_analysis_on_linear_aec_output_preferred = false;
     } pipeline;
 
     // Enabled the pre-amplifier. It amplifies the capture signal

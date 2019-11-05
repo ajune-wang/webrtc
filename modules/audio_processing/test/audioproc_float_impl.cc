@@ -153,6 +153,11 @@ ABSL_FLAG(int,
           kParameterNotSpecifiedValue,
           "AGC2 level estimation"
           " in the experimental AGC. AGC1 level estimation is the default (0)");
+ABSL_FLAG(int,
+          prefer_ns_analysis_on_linear_aec_output,
+          kParameterNotSpecifiedValue,
+          "Specify (1) or do not specify (0) that it is preferred to do the "
+          "noise suppressor analysis on the linear aec output");
 ABSL_FLAG(
     int,
     refined_adaptive_filter,
@@ -412,6 +417,9 @@ SimulationSettings CreateSettings() {
   SetSettingIfFlagSet(
       absl::GetFlag(FLAGS_experimental_agc_agc2_level_estimator),
       &settings.use_experimental_agc_agc2_level_estimator);
+  SetSettingIfFlagSet(
+      absl::GetFlag(FLAGS_prefer_ns_analysis_on_linear_aec_output),
+      &settings.prefer_ns_analysis_on_linear_aec_output);
   SetSettingIfSpecified(absl::GetFlag(FLAGS_agc_mode), &settings.agc_mode);
   SetSettingIfSpecified(absl::GetFlag(FLAGS_agc_target_level),
                         &settings.agc_target_level);

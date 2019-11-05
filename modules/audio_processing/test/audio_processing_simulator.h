@@ -69,6 +69,7 @@ struct SimulationSettings {
   absl::optional<bool> use_legacy_ns;
   absl::optional<bool> use_experimental_agc;
   absl::optional<bool> use_experimental_agc_agc2_level_estimator;
+  absl::optional<bool> prefer_ns_analysis_on_linear_aec_output;
   absl::optional<bool> experimental_agc_disable_digital_adaptive;
   absl::optional<bool> experimental_agc_analyze_before_aec;
   absl::optional<int> agc_mode;

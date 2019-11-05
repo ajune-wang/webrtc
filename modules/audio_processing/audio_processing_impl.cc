@@ -1313,7 +1313,11 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   RETURN_ON_ERR(submodules_.gain_control->AnalyzeCaptureAudio(capture_buffer));
   RTC_DCHECK(
       !(submodules_.legacy_noise_suppressor && submodules_.noise_suppressor));
-  if (submodules_.noise_suppressor) {
+  const bool ns_analysis_on_linear_output =
+      capture_.linear_aec_output &&
+      config_.pipeline.ns_analysis_on_linear_aec_output_preferred &&
+      submodules_.echo_controller;
+  if (submodules_.noise_suppressor && !ns_analysis_on_linear_output) {
     submodules_.noise_suppressor->Analyze(*capture_buffer);
   } else if (submodules_.legacy_noise_suppressor) {
     submodules_.legacy_noise_suppressor->AnalyzeCaptureAudio(capture_buffer);
@@ -1372,6 +1376,10 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
           success =
               linear_output_queue_->Insert(&linear_output_capture_queue_frame_);
           RTC_DCHECK(success);
+        }
+
+        if (submodules_.noise_suppressor && ns_analysis_on_linear_output) {
+          submodules_.noise_suppressor->Analyze(*linear_aec_buffer);
         }
       }
     } else if (submodules_.echo_cancellation) {

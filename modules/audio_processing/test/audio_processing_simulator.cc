@@ -408,6 +408,11 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
         *settings_.experimental_multi_channel;
   }
 
+  if (settings_.prefer_ns_analysis_on_linear_aec_output) {
+    apm_config.pipeline.ns_analysis_on_linear_aec_output_preferred =
+        *settings_.prefer_ns_analysis_on_linear_aec_output;
+  }
+
   if (settings_.use_agc2) {
     apm_config.gain_controller2.enabled = *settings_.use_agc2;
     if (settings_.agc2_fixed_gain_db) {

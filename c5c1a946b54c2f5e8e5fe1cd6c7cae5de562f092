@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2116b8d_a8483eb1",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-05T12:42:38Z",
+      "side": 1,
+      "message": "Seems like the code is run in periodic mode as well? Even if there\u0027s no change to the behavior in practice, it might make sense to add an if here?",
+      "range": {
+        "startLine": 412,
+        "startChar": 4,
+        "endLine": 412,
+        "endChar": 36
+      },
+      "revId": "c5c1a946b54c2f5e8e5fe1cd6c7cae5de562f092",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "007c1d77_908e4d41",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-05T12:42:38Z",
+      "side": 1,
+      "message": "I\u0027d expect that we will always wake up after the scheduled time (since the scheduler would typically guarantee that we wait for \u003e\u003d the target), unless you are subtracting something like 1 ms on the target?\n\nMaybe we could simply more or less assume that we \"are too late\"?",
+      "range": {
+        "startLine": 412,
+        "startChar": 45,
+        "endLine": 412,
+        "endChar": 78
+      },
+      "revId": "c5c1a946b54c2f5e8e5fe1cd6c7cae5de562f092",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1051ae87_ea947b8a",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-05T12:42:38Z",
+      "side": 1,
+      "message": "How about:\nRTC_DCHECK_GT(scheduled_time, time_last_process_); (clock should be monotonically increasing)\ntarget_send_time \u003d std::max(scheduled_time, now);",
+      "range": {
+        "startLine": 414,
+        "startChar": 1,
+        "endLine": 415,
+        "endChar": 29
+      },
+      "revId": "c5c1a946b54c2f5e8e5fe1cd6c7cae5de562f092",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a26ecb33_72f92bbb",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-05T12:42:38Z",
+      "side": 1,
+      "message": "grammar",
+      "range": {
+        "startLine": 416,
+        "startChar": 25,
+        "endLine": 416,
+        "endChar": 44
+      },
+      "revId": "c5c1a946b54c2f5e8e5fe1cd6c7cae5de562f092",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3f5f544_f7670014",
+        "filename": "modules/pacing/pacing_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-05T12:42:38Z",
+      "side": 1,
+      "message": "Thanks, now it\u0027s easy to follow, just add a comment here as well on what the modes mean.",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 49
+      },
+      "revId": "c5c1a946b54c2f5e8e5fe1cd6c7cae5de562f092",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

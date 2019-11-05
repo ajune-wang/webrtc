@@ -105,6 +105,10 @@ class AudioProcessingImpl : public AudioProcessing {
                            const StreamConfig& output_config,
                            float* const* dest) override;
 
+  // Thread safe method that can be accessed in a concurrent manner.
+  bool GetLinearAecOutput(
+      rtc::ArrayView<std::array<float, 160>> linear_output) override;
+
   // Methods only accessed from APM submodules or
   // from AudioProcessing tests in a single-threaded manner.
   // Hence there is no need for locks in these.
@@ -416,6 +420,7 @@ class AudioProcessingImpl : public AudioProcessing {
     bool transient_suppressor_enabled;
     std::unique_ptr<AudioBuffer> capture_audio;
     std::unique_ptr<AudioBuffer> capture_fullband_audio;
+    std::unique_ptr<AudioBuffer> linear_aec_output;
     // Only the rate and samples fields of capture_processing_format_ are used
     // because the capture processing number of channels is mutable and is
     // tracked by the capture_audio_.
@@ -478,6 +483,10 @@ class AudioProcessingImpl : public AudioProcessing {
   RmsLevel capture_output_rms_ RTC_GUARDED_BY(crit_capture_);
   int capture_rms_interval_counter_ RTC_GUARDED_BY(crit_capture_) = 0;
 
+  std::vector<std::vector<float>> linear_output_capture_queue_frame_
+      RTC_GUARDED_BY(crit_capture_);
+  std::vector<std::vector<float>> linear_output_getter_queue_frame_;
+
   // Lock protection not needed.
   std::unique_ptr<SwapQueue<std::vector<float>, RenderQueueItemVerifier<float>>>
       aec_render_signal_queue_;
@@ -489,6 +498,8 @@ class AudioProcessingImpl : public AudioProcessing {
       agc_render_signal_queue_;
   std::unique_ptr<SwapQueue<std::vector<float>, RenderQueueItemVerifier<float>>>
       red_render_signal_queue_;
+  std::unique_ptr<SwapQueue<std::vector<std::vector<float>>>>
+      linear_output_queue_;
 };
 
 }  // namespace webrtc

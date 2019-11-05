@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2537615a_876bf08b",
+        "filename": "sdk/android/api/org/webrtc/IceCandidate.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-11-05T11:08:04Z",
+      "side": 1,
+      "message": "nit: equals() checks sdpMid, sdpMLineIndex, and sdp for equality.",
+      "revId": "6224e4b219bee002c6e1767d0a569b7648fcca4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

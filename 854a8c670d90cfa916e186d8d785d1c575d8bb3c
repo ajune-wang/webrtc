@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1bf6990_73287270",
+        "filename": "modules/audio_processing/aec3/dominant_nearend_detector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-05T13:54:31Z",
+      "side": 1,
+      "message": "explicit is not needed.",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 10
+      },
+      "revId": "854a8c670d90cfa916e186d8d785d1c575d8bb3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24da82f4_7749720a",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-05T13:54:31Z",
+      "side": 1,
+      "message": "Is this necessary?",
+      "range": {
+        "startLine": 315,
+        "startChar": 6,
+        "endLine": 315,
+        "endChar": 19
+      },
+      "revId": "854a8c670d90cfa916e186d8d785d1c575d8bb3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c6461a0_c210593b",
+        "filename": "modules/audio_processing/aec3/suppression_gain.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-05T13:54:31Z",
+      "side": 1,
+      "message": "Maybe make his \nrtc::ArrayView\u003cconst float, kFftLengthBy2Plus1\u003e\n?",
+      "revId": "854a8c670d90cfa916e186d8d785d1c575d8bb3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -26,12 +26,14 @@
 #include "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator.h"
 #include "modules/congestion_controller/goog_cc/alr_detector.h"
 #include "modules/congestion_controller/goog_cc/probe_controller.h"
+#include "modules/congestion_controller/goog_cc/simplified_acknowledged_bitrate_estimator.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 
 namespace webrtc {
+
 namespace {
 // From RTCPSender video report interval.
 constexpr TimeDelta kLossUpdateInterval = TimeDelta::Millis<1000>();
@@ -77,6 +79,7 @@ GoogCcNetworkController::GoogCcNetworkController(NetworkControllerConfig config,
                     "WebRTC-Bwe-IgnoreProbesLowerThanNetworkStateEstimate")),
       rate_control_settings_(
           RateControlSettings::ParseFromKeyValueConfig(key_value_config_)),
+      simplified_throughput_estimator_settings_(key_value_config_),
       probe_controller_(
           new ProbeController(key_value_config_, config.event_log)),
       congestion_window_pushback_controller_(
@@ -114,6 +117,11 @@ GoogCcNetworkController::GoogCcNetworkController(NetworkControllerConfig config,
       key_value_config_->Lookup("WebRTC-Bwe-SafeResetOnRouteChange"));
   if (delay_based_bwe_)
     delay_based_bwe_->SetMinBitrate(congestion_controller::GetMinBitrate());
+  if (simplified_throughput_estimator_settings_.enabled) {
+    acknowledged_bitrate_estimator_.reset(
+        new SimplifiedAcknowledgedBitrateEstimator(
+            simplified_throughput_estimator_settings_));
+  }
 }
 
 GoogCcNetworkController::~GoogCcNetworkController() {}
@@ -146,8 +154,14 @@ NetworkControlUpdate GoogCcNetworkController::OnNetworkRouteChange(
     }
   }
 
-  acknowledged_bitrate_estimator_.reset(
-      new AcknowledgedBitrateEstimator(key_value_config_));
+  if (simplified_throughput_estimator_settings_.enabled) {
+    acknowledged_bitrate_estimator_.reset(
+        new SimplifiedAcknowledgedBitrateEstimator(
+            simplified_throughput_estimator_settings_));
+  } else {
+    acknowledged_bitrate_estimator_.reset(
+        new AcknowledgedBitrateEstimator(key_value_config_));
+  }
   probe_bitrate_estimator_.reset(new ProbeBitrateEstimator(event_log_));
   if (network_estimator_)
     network_estimator_->OnRouteChange(msg);

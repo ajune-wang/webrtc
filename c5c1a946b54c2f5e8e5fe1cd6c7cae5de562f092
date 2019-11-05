@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "d3ead7a6_8de9015c",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-05T13:21:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2116b8d_a8483eb1",
+      "range": {
+        "startLine": 412,
+        "startChar": 4,
+        "endLine": 412,
+        "endChar": 36
+      },
+      "revId": "c5c1a946b54c2f5e8e5fe1cd6c7cae5de562f092",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0617bbf5_9bfdd651",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-05T13:21:39Z",
+      "side": 1,
+      "message": "This seems to not be guaranteed. I\u0027ve seen tasks executed both early and late in practice.",
+      "parentUuid": "007c1d77_908e4d41",
+      "range": {
+        "startLine": 412,
+        "startChar": 45,
+        "endLine": 412,
+        "endChar": 78
+      },
+      "revId": "c5c1a946b54c2f5e8e5fe1cd6c7cae5de562f092",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1051ae87_ea947b8a",
         "filename": "modules/pacing/pacing_controller.cc",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "c5c1a946b54c2f5e8e5fe1cd6c7cae5de562f092",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8248cfc1_95dbf309",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-05T13:21:39Z",
+      "side": 1,
+      "message": "We can\u0027t guarantee that ordering, there could be an unscheduled process call that updates time_last_process_ followed shortly afterwards by a slightly delayed scheduled task that should really have been executed first.",
+      "parentUuid": "1051ae87_ea947b8a",
+      "range": {
+        "startLine": 414,
+        "startChar": 1,
+        "endLine": 415,
+        "endChar": 29
+      },
+      "revId": "c5c1a946b54c2f5e8e5fe1cd6c7cae5de562f092",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "209e3e60_34802687",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-05T13:21:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a26ecb33_72f92bbb",
+      "range": {
+        "startLine": 416,
+        "startChar": 25,
+        "endLine": 416,
+        "endChar": 44
+      },
+      "revId": "c5c1a946b54c2f5e8e5fe1cd6c7cae5de562f092",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3f5f544_f7670014",
         "filename": "modules/pacing/pacing_controller.h",
         "patchSetId": 3
@@ -114,6 +210,30 @@
       "revId": "c5c1a946b54c2f5e8e5fe1cd6c7cae5de562f092",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "550e3099_02382c0d",
+        "filename": "modules/pacing/pacing_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-05T13:21:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3f5f544_f7670014",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 49
+      },
+      "revId": "c5c1a946b54c2f5e8e5fe1cd6c7cae5de562f092",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

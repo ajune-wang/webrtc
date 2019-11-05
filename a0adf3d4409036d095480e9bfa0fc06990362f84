@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9cd3c9b1_22330d84",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-11-05T08:55:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "469c12e5_189946e2",
+      "revId": "a0adf3d4409036d095480e9bfa0fc06990362f84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2d5ad9e_b6d291bd",
         "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "eecd6078_e9dae709",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-11-05T08:55:47Z",
+      "side": 1,
+      "message": "Not sure if the tests have xrandr, they probably do, but it would depend on the OS version installed on the server running them.\nThis seems to work with the empty list so I did that.",
+      "parentUuid": "a2d5ad9e_b6d291bd",
+      "revId": "a0adf3d4409036d095480e9bfa0fc06990362f84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae74d607_85c927f3",
         "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
         "patchSetId": 4
@@ -47,6 +83,24 @@
       "writtenOn": "2019-11-05T05:48:16Z",
       "side": 1,
       "message": "Should we append { .id \u003d kFullDesktopScreenId, .title \u003d \"Entire Desktop\"} to sources vector ?",
+      "revId": "a0adf3d4409036d095480e9bfa0fc06990362f84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b677b8b3_ad4d8a4c",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-11-05T08:55:47Z",
+      "side": 1,
+      "message": "I\u0027m not sure. I don\u0027t see other classes extending DesktopCapturer doing that.\nFakeDesktopCapturer is perhaps the cleanest example. It is fake though.\n\nbool FakeDesktopCapturer::GetSourceList(DesktopCapturer::SourceList* sources) {\n  sources-\u003epush_back({kWindowId, \"A-Fake-DesktopCapturer-Window\"});\n  sources-\u003epush_back({kScreenId});\n  return true;\n}\n\nbool FakeDesktopCapturer::SelectSource(DesktopCapturer::SourceId id) {\n  return id \u003d\u003d kWindowId || id \u003d\u003d kScreenId || id \u003d\u003d kFullDesktopScreenId;\n}",
+      "parentUuid": "ae74d607_85c927f3",
       "revId": "a0adf3d4409036d095480e9bfa0fc06990362f84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "114a0362_2491a045",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-11-05T08:55:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93a78cd0_13ecc166",
+      "revId": "a0adf3d4409036d095480e9bfa0fc06990362f84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83971103_020fe801",
         "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
         "patchSetId": 4
@@ -84,6 +156,24 @@
       "revId": "a0adf3d4409036d095480e9bfa0fc06990362f84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c5ea6dd_e13762a1",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 9600
+      },
+      "writtenOn": "2019-11-05T08:55:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83971103_020fe801",
+      "revId": "a0adf3d4409036d095480e9bfa0fc06990362f84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

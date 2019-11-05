@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "af4fe9a6_779324fe",
+        "filename": "api/audio/echo_control.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-05T15:56:57Z",
+      "side": 1,
+      "message": "It does, but what happens is actually that it for 8 kHz returns the linear output in 16 kHz.\n\nInternally APM operates in 16 kHz in the lowest band, regardless of the sample rate. For 8 kHz input this is accomplished by internal resampling.",
+      "parentUuid": "8edd6227_5b611be9",
+      "revId": "161caa655c28c6c960fad06ed9fd98e5727bf135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6024675a_a3f2b82f",
         "filename": "modules/audio_processing/aec3/echo_canceller3.h",
         "patchSetId": 22
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "54a7cbbc_6c6c73ca",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-05T15:56:57Z",
+      "side": 1,
+      "message": "Thanks! Yes, you are correct! This did not come out right. I\u0027ll change it.",
+      "parentUuid": "6024675a_a3f2b82f",
+      "revId": "161caa655c28c6c960fad06ed9fd98e5727bf135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67a8c97a_f0e30f12",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 22
@@ -47,6 +83,24 @@
       "writtenOn": "2019-10-30T15:29:16Z",
       "side": 1,
       "message": "NIT: Perhaps a bit pedantic, but shouldn\u0027t this also work for 8kHz? And FWIW, I suspect it already does since this frame size is used at 8kHz too.",
+      "revId": "161caa655c28c6c960fad06ed9fd98e5727bf135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe34acbb_8adab6e9",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-05T15:56:57Z",
+      "side": 1,
+      "message": "Good (I like pedantic comments!)\n\nIt should work. However, the output will be in 16 kHz (corresponding to the linear AEC output operating on upsampled variants of the render and capture inputs.\n\nWe could add a resampler to resample the output to any desired output rate but I\u0027m not sure that is a good way forward.",
+      "parentUuid": "67a8c97a_f0e30f12",
       "revId": "161caa655c28c6c960fad06ed9fd98e5727bf135",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

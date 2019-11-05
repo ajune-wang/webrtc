@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "28c5efa0_65f7667b",
+        "filename": "modules/audio_processing/aec3/dominant_nearend_detector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-05T14:20:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1bf6990_73287270",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 10
+      },
+      "revId": "854a8c670d90cfa916e186d8d785d1c575d8bb3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24da82f4_7749720a",
         "filename": "modules/audio_processing/aec3/suppression_gain.cc",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ce195eee_73bbc663",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-05T14:20:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24da82f4_7749720a",
+      "range": {
+        "startLine": 315,
+        "startChar": 6,
+        "endLine": 315,
+        "endChar": 19
+      },
+      "revId": "854a8c670d90cfa916e186d8d785d1c575d8bb3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c6461a0_c210593b",
         "filename": "modules/audio_processing/aec3/suppression_gain.h",
         "patchSetId": 7
@@ -62,6 +110,24 @@
       "revId": "854a8c670d90cfa916e186d8d785d1c575d8bb3c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53c13753_6c4136c0",
+        "filename": "modules/audio_processing/aec3/suppression_gain.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-05T14:20:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c6461a0_c210593b",
+      "revId": "854a8c670d90cfa916e186d8d785d1c575d8bb3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

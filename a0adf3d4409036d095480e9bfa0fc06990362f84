@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "469c12e5_189946e2",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-11-05T05:48:16Z",
+      "side": 1,
+      "message": "Add if (selected_monitor_name_ \u003d\u003d kFullDesktopScreenId) {\n  selected_monitor_rect_ \u003d\n        DesktopRect::MakeSize(x_server_pixel_buffer_.window_size());\n  return;\n}",
+      "revId": "a0adf3d4409036d095480e9bfa0fc06990362f84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2d5ad9e_b6d291bd",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-11-05T05:48:16Z",
+      "side": 1,
+      "message": "Do the tests have xrandr ? In any case I think this should return an empty list here instead. Or { .id \u003d kFullDesktopScreenId, .title \u003d \"Entire Desktop\"} ?",
+      "revId": "a0adf3d4409036d095480e9bfa0fc06990362f84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae74d607_85c927f3",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-11-05T05:48:16Z",
+      "side": 1,
+      "message": "Should we append { .id \u003d kFullDesktopScreenId, .title \u003d \"Entire Desktop\"} to sources vector ?",
+      "revId": "a0adf3d4409036d095480e9bfa0fc06990362f84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93a78cd0_13ecc166",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-11-05T05:48:16Z",
+      "side": 1,
+      "message": "Add `|| id \u003d\u003d kFullDesktopScreenId`",
+      "revId": "a0adf3d4409036d095480e9bfa0fc06990362f84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83971103_020fe801",
+        "filename": "modules/desktop_capture/linux/screen_capturer_x11.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 6236
+      },
+      "writtenOn": "2019-11-05T05:48:16Z",
+      "side": 1,
+      "message": "Add `selected_monitor_name_ \u003d kFullDesktopScreenId;`",
+      "revId": "a0adf3d4409036d095480e9bfa0fc06990362f84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -536,10 +536,12 @@ bool RTPSenderVideo::SendVideo(
   limits.last_packet_reduction_len =
       last_packet->headers_size() - middle_packet->headers_size();
 
-  rtc::ArrayView<const uint8_t> generic_descriptor_raw_00 =
-      first_packet->GetRawExtension<RtpGenericFrameDescriptorExtension00>();
-  rtc::ArrayView<const uint8_t> generic_descriptor_raw_01 =
-      first_packet->GetRawExtension<RtpGenericFrameDescriptorExtension01>();
+  rtc::ArrayView<const uint8_t> generic_descriptor_raw_00;
+  first_packet->GetRawExtension<RtpGenericFrameDescriptorExtension00>(
+      &generic_descriptor_raw_00);
+  rtc::ArrayView<const uint8_t> generic_descriptor_raw_01;
+  first_packet->GetRawExtension<RtpGenericFrameDescriptorExtension01>(
+      &generic_descriptor_raw_01);
 
   if (!generic_descriptor_raw_00.empty() &&
       !generic_descriptor_raw_01.empty()) {

@@ -361,12 +361,14 @@ void RtpVideoStreamReceiver::OnReceivedPayloadData(
       RTC_LOG(LS_WARNING) << "RTP packet had two different GFD versions.";
       return;
     }
-    generic_descriptor.SetByteRepresentation(
-        rtp_packet.GetRawExtension<RtpGenericFrameDescriptorExtension01>());
+    rtc::ArrayView<const uint8_t> raw;
+    rtp_packet.GetRawExtension<RtpGenericFrameDescriptorExtension01>(&raw);
+    generic_descriptor.SetByteRepresentation(raw);
   } else if ((rtp_packet.GetExtension<RtpGenericFrameDescriptorExtension00>(
                  &generic_descriptor))) {
-    generic_descriptor.SetByteRepresentation(
-        rtp_packet.GetRawExtension<RtpGenericFrameDescriptorExtension00>());
+    rtc::ArrayView<const uint8_t> raw;
+    rtp_packet.GetRawExtension<RtpGenericFrameDescriptorExtension00>(&raw);
+    generic_descriptor.SetByteRepresentation(raw);
   } else {
     packet.generic_descriptor = absl::nullopt;
   }

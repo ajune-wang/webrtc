@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa0be2bc_dbb84555",
+        "filename": "modules/audio_coding/codecs/opus/opus_fec_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-11-06T17:14:38Z",
+      "side": 1,
+      "message": "Optional: I think you could get rid of the two new constants and simply do\n EXPECT_EQ(ret, sampling_khz_ * 10);  // Should return 10 ms of samples.",
+      "range": {
+        "startLine": 163,
+        "startChar": 23,
+        "endLine": 163,
+        "endChar": 34
+      },
+      "revId": "5eea3cee70732574368e09b5b4c8f030c74ce2c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56a9bde4_c05d4272",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-11-06T17:14:38Z",
+      "side": 1,
+      "message": "Why is this now only initialized when state-\u003eplc_use_prev_decoded_samples is true? What happens otherwise?\n\nEDIT: I see now below that state-\u003eprev_decoded_samples is only ever used (?) when state-\u003eplc_use_prev_decoded_samples is true. That makes the combination of these two state variables act together like an optional; either false, or have a value. Did you consider this?",
+      "range": {
+        "startLine": 395,
+        "startChar": 8,
+        "endLine": 396,
+        "endChar": 62
+      },
+      "revId": "5eea3cee70732574368e09b5b4c8f030c74ce2c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0045c0e4_8fa116a0",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-11-06T17:14:38Z",
+      "side": 1,
+      "message": "Same question as above.",
+      "range": {
+        "startLine": 439,
+        "startChar": 8,
+        "endLine": 440,
+        "endChar": 62
+      },
+      "revId": "5eea3cee70732574368e09b5b4c8f030c74ce2c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

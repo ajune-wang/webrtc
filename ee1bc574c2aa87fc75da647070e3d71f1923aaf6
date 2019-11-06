@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "298aca07_e7523cc4",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-06T15:08:35Z",
+      "side": 1,
+      "message": "Style guide prefers `int`.\n\"In particular, do not use unsigned types to say a number will never be negative. Instead, use assertions for this.\"\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 150,
+        "endChar": 8
+      },
+      "revId": "ee1bc574c2aa87fc75da647070e3d71f1923aaf6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7cb5a8c1_b93daf80",
         "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
         "patchSetId": 2

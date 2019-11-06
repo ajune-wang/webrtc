@@ -623,12 +623,10 @@ static void CopyHeaderAndExtensionsToRtxPacket(const RtpPacketToSend& packet,
       continue;
     }
 
-    // Empty extensions should be supported, so not checking |source.empty()|.
-    if (!packet.HasExtension(extension)) {
+    rtc::ArrayView<const uint8_t> source;
+    if (!packet.FindExtension(extension, &source)) {
       continue;
     }
-
-    rtc::ArrayView<const uint8_t> source = packet.FindExtension(extension);
 
     rtc::ArrayView<uint8_t> destination =
         rtx_packet->AllocateExtension(extension, source.size());

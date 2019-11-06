@@ -322,6 +322,7 @@ struct RTC_EXPORT RtpExtension {
   static constexpr int kMaxId = 255;
   static constexpr int kMaxValueSize = 255;
   static constexpr int kOneByteHeaderExtensionMaxId = 14;
+  static constexpr int kOneByteHeaderExtensionMinValueSize = 1;
   static constexpr int kOneByteHeaderExtensionMaxValueSize = 16;
 
   std::string uri;

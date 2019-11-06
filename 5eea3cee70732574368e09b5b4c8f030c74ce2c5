@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "abcb5fd0_0d201879",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-06T21:36:37Z",
+      "side": 1,
+      "message": "You are right, but I think we eventually will remove prev_decoded_samples and plc_use_prev_decoded_samples altogether, and therefore I thought we do not need more effort to make them super clean.",
+      "parentUuid": "56a9bde4_c05d4272",
+      "range": {
+        "startLine": 395,
+        "startChar": 8,
+        "endLine": 396,
+        "endChar": 62
+      },
+      "revId": "5eea3cee70732574368e09b5b4c8f030c74ce2c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0045c0e4_8fa116a0",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
         "patchSetId": 10

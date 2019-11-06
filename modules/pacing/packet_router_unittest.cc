@@ -315,16 +315,17 @@ TEST_F(PacketRouterTest, SendPacketAssignsTransportSequenceNumbers) {
   packet_router_.AddSendRtpModule(&rtp_2, false);
 
   // Transport sequence numbers start at 1, for historical reasons.
-  uint16_t transport_sequence_number = 1;
+  uint16_t transport_sequence_number(1);
 
   auto packet = BuildRtpPacket(kSsrc1);
   EXPECT_TRUE(packet->ReserveExtension<TransportSequenceNumber>());
-  EXPECT_CALL(
-      rtp_1,
-      TrySendPacket(
-          Property(&RtpPacketToSend::GetExtension<TransportSequenceNumber>,
-                   transport_sequence_number),
-          _))
+  std::function<absl::optional<TransportSequenceNumber::value_type>()> a;
+  EXPECT_CALL(rtp_1,
+              TrySendPacket(
+                  Property<RtpPacketToSend, absl::optional<uint16_t>, uint16_t>(
+                      &RtpPacketToSend::GetExtension<TransportSequenceNumber>,
+                      transport_sequence_number),
+                  _))
       .WillOnce(Return(true));
   packet_router_.SendPacket(std::move(packet), PacedPacketInfo());
 
@@ -332,12 +333,12 @@ TEST_F(PacketRouterTest, SendPacketAssignsTransportSequenceNumbers) {
   packet = BuildRtpPacket(kSsrc2);
   EXPECT_TRUE(packet->ReserveExtension<TransportSequenceNumber>());
 
-  EXPECT_CALL(
-      rtp_2,
-      TrySendPacket(
-          Property(&RtpPacketToSend::GetExtension<TransportSequenceNumber>,
-                   transport_sequence_number),
-          _))
+  EXPECT_CALL(rtp_2,
+              TrySendPacket(
+                  Property<RtpPacketToSend, absl::optional<uint16_t>, uint16_t>(
+                      &RtpPacketToSend::GetExtension<TransportSequenceNumber>,
+                      transport_sequence_number),
+                  _))
       .WillOnce(Return(true));
   packet_router_.SendPacket(std::move(packet), PacedPacketInfo());
 

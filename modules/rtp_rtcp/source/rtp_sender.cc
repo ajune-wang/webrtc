@@ -628,7 +628,8 @@ static void CopyHeaderAndExtensionsToRtxPacket(const RtpPacketToSend& packet,
       continue;
     }
 
-    rtc::ArrayView<const uint8_t> source = packet.FindExtension(extension);
+    rtc::ArrayView<const uint8_t> source;
+    packet.FindExtension(extension, &source);
 
     rtc::ArrayView<uint8_t> destination =
         rtx_packet->AllocateExtension(extension, source.size());

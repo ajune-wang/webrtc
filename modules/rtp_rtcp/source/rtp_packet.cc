@@ -218,10 +218,9 @@ void RtpPacket::SetCsrcs(rtc::ArrayView<const uint32_t> csrcs) {
 }
 
 rtc::ArrayView<uint8_t> RtpPacket::AllocateRawExtension(int id, size_t length) {
-  RTC_DCHECK_GE(id, RtpExtension::kMinId);
-  RTC_DCHECK_LE(id, RtpExtension::kMaxId);
-  RTC_DCHECK_GE(length, 1);
-  RTC_DCHECK_LE(length, RtpExtension::kMaxValueSize);
+  RTC_DCHECK(IsValidOneByteHeaderExtension(id, length) ||
+             IsValidTwoByteHeaderExtension(id, length));
+
   const ExtensionInfo* extension_entry = FindExtensionInfo(id);
   if (extension_entry != nullptr) {
     // Extension already reserved. Check if same length is used.
@@ -247,13 +246,8 @@ rtc::ArrayView<uint8_t> RtpPacket::AllocateRawExtension(int id, size_t length) {
 
   const size_t num_csrc = data()[0] & 0x0F;
   const size_t extensions_offset = kFixedHeaderSize + (num_csrc * 4) + 4;
-  // Determine if two-byte header is required for the extension based on id and
-  // length. Please note that a length of 0 also requires two-byte header
-  // extension. See RFC8285 Section 4.2-4.3.
   const bool two_byte_header_required =
-      id > RtpExtension::kOneByteHeaderExtensionMaxId ||
-      length > RtpExtension::kOneByteHeaderExtensionMaxValueSize || length == 0;
-  RTC_CHECK(!two_byte_header_required || extensions_.ExtmapAllowMixed());
+      IsValidTwoByteHeaderExtension(id, length);
 
   uint16_t profile_id;
   if (extensions_size_ > 0) {
@@ -575,45 +569,41 @@ RtpPacket::ExtensionInfo& RtpPacket::FindOrCreateExtensionInfo(int id) {
   return extension_entries_.back();
 }
 
-rtc::ArrayView<const uint8_t> RtpPacket::FindExtension(
-    ExtensionType type) const {
+bool RtpPacket::FindExtension(ExtensionType type,
+                              rtc::ArrayView<const uint8_t>* data) const {
   uint8_t id = extensions_.GetId(type);
   if (id == ExtensionManager::kInvalidId) {
     // Extension not registered.
-    return nullptr;
+    return false;
   }
   ExtensionInfo const* extension_info = FindExtensionInfo(id);
   if (extension_info == nullptr) {
-    return nullptr;
+    return false;
   }
-  return rtc::MakeArrayView(data() + extension_info->offset,
-                            extension_info->length);
+  if (data) {
+    *data = rtc::MakeArrayView(RtpPacket::data() + extension_info->offset,
+                               extension_info->length);
+  }
+  return true;
 }
 
 rtc::ArrayView<uint8_t> RtpPacket::AllocateExtension(ExtensionType type,
                                                      size_t length) {
-  // TODO(webrtc:7990): Add support for empty extensions (length==0).
-  if (length == 0 || length > RtpExtension::kMaxValueSize ||
-      (!extensions_.ExtmapAllowMixed() &&
-       length > RtpExtension::kOneByteHeaderExtensionMaxValueSize)) {
-    return nullptr;
-  }
-
   uint8_t id = extensions_.GetId(type);
   if (id == ExtensionManager::kInvalidId) {
     // Extension not registered.
     return nullptr;
   }
-  if (!extensions_.ExtmapAllowMixed() &&
-      id > RtpExtension::kOneByteHeaderExtensionMaxId) {
+  if (!IsValidOneByteHeaderExtension(id, length) &&
+      !IsValidTwoByteHeaderExtension(id, length)) {
+    // Invalid header extension.
     return nullptr;
   }
   return AllocateRawExtension(id, length);
 }
 
 bool RtpPacket::HasExtension(ExtensionType type) const {
-  // TODO(webrtc:7990): Add support for empty extensions (length==0).
-  return !FindExtension(type).empty();
+  return FindExtension(type, nullptr);
 }
 
 bool RtpPacket::IsExtensionReserved(ExtensionType type) const {
@@ -679,6 +669,26 @@ bool RtpPacket::RemoveExtension(ExtensionType type) {
   // Success, replace current packet with newly built packet.
   *this = new_packet;
   return true;
+}
+
+bool RtpPacket::IsValidOneByteHeaderExtension(int id, size_t length) const {
+  return (length > 0 &&
+          length > RtpExtension::kOneByteHeaderExtensionMaxValueSize) &&
+         (id >= webrtc::RtpExtension::kMinId &&
+          id <= RtpExtension::kOneByteHeaderExtensionMaxId);
+}
+
+bool RtpPacket::IsValidTwoByteHeaderExtension(int id, size_t length) const {
+  // Determine if two-byte header is required for the extension based on id and
+  // length. Please note that a length of 0 also requires two-byte header
+  // extension. See RFC8285 Section 4.2-4.3.
+  bool two_byte_header_required =
+      length == 0 ||
+      (length > RtpExtension::kOneByteHeaderExtensionMaxValueSize &&
+       length <= RtpExtension::kMaxValueSize) ||
+      (id > RtpExtension::kOneByteHeaderExtensionMaxId &&
+       id < RtpExtension::kMaxId);
+  return two_byte_header_required && extensions_.ExtmapAllowMixed();
 }
 
 std::string RtpPacket::ToString() const {

@@ -16,6 +16,7 @@
 #include <utility>
 
 #include "api/peer_connection_interface.h"
+#include "rtc_base/futures/interop.h"
 #include "rtc_base/rtc_certificate.h"
 #include "rtc_base/rtc_certificate_generator.h"
 
@@ -121,7 +122,7 @@ class FakeRTCCertificateGenerator
       public rtc::MessageHandler {
  public:
   typedef rtc::TypedMessageData<
-      rtc::scoped_refptr<rtc::RTCCertificateGeneratorCallback> >
+      std::function<void(rtc::scoped_refptr<rtc::RTCCertificate>)>>
       MessageData;
 
   FakeRTCCertificateGenerator() : should_fail_(false), should_wait_(false) {}
@@ -138,30 +139,33 @@ class FakeRTCCertificateGenerator
   int generated_certificates() { return generated_certificates_; }
   int generated_failures() { return generated_failures_; }
 
-  void GenerateCertificateAsync(
+  webrtc::BoxedFuture<rtc::scoped_refptr<rtc::RTCCertificate>>
+  GenerateCertificateAsync(
       const rtc::KeyParams& key_params,
-      const absl::optional<uint64_t>& expires_ms,
-      const rtc::scoped_refptr<rtc::RTCCertificateGeneratorCallback>& callback)
-      override {
-    // The certificates are created from constant PEM strings and use its coded
-    // expiration time, we do not support modifying it.
-    RTC_DCHECK(!expires_ms);
-    MessageData* msg = new MessageData(
-        rtc::scoped_refptr<rtc::RTCCertificateGeneratorCallback>(callback));
-    uint32_t msg_id;
-    // Only supports RSA-1024-0x10001 and ECDSA-P256.
-    if (should_fail_) {
-      msg_id = MSG_FAILURE;
-    } else if (key_params.type() == rtc::KT_RSA) {
-      RTC_DCHECK_EQ(key_params.rsa_params().mod_size, 1024);
-      RTC_DCHECK_EQ(key_params.rsa_params().pub_exp, 0x10001);
-      msg_id = MSG_SUCCESS_RSA;
-    } else {
-      RTC_DCHECK_EQ(key_params.type(), rtc::KT_ECDSA);
-      RTC_DCHECK_EQ(key_params.ec_curve(), rtc::EC_NIST_P256);
-      msg_id = MSG_SUCCESS_ECDSA;
-    }
-    rtc::Thread::Current()->Post(RTC_FROM_HERE, this, msg_id, msg);
+      const absl::optional<uint64_t>& expires_ms) override {
+    return webrtc::MakeBoxedFuture<
+        webrtc::AsyncCallbackFuture<rtc::scoped_refptr<rtc::RTCCertificate>>>(
+        [=](std::function<void(rtc::scoped_refptr<rtc::RTCCertificate>)>
+                complete_cb) {
+          // The certificates are created from constant PEM strings and use its
+          // coded expiration time, we do not support modifying it.
+          RTC_DCHECK(!expires_ms);
+          MessageData* msg = new MessageData(std::move(complete_cb));
+          uint32_t msg_id;
+          // Only supports RSA-1024-0x10001 and ECDSA-P256.
+          if (should_fail_) {
+            msg_id = MSG_FAILURE;
+          } else if (key_params.type() == rtc::KT_RSA) {
+            RTC_DCHECK_EQ(key_params.rsa_params().mod_size, 1024);
+            RTC_DCHECK_EQ(key_params.rsa_params().pub_exp, 0x10001);
+            msg_id = MSG_SUCCESS_RSA;
+          } else {
+            RTC_DCHECK_EQ(key_params.type(), rtc::KT_ECDSA);
+            RTC_DCHECK_EQ(key_params.ec_curve(), rtc::EC_NIST_P256);
+            msg_id = MSG_SUCCESS_ECDSA;
+          }
+          rtc::Thread::Current()->Post(RTC_FROM_HERE, this, msg_id, msg);
+        });
   }
 
   static rtc::scoped_refptr<rtc::RTCCertificate> GenerateCertificate() {
@@ -212,7 +216,7 @@ class FakeRTCCertificateGenerator
       return;
     }
     MessageData* message_data = static_cast<MessageData*>(msg->pdata);
-    rtc::scoped_refptr<rtc::RTCCertificateGeneratorCallback> callback =
+    std::function<void(rtc::scoped_refptr<rtc::RTCCertificate>)> callback =
         message_data->data();
     rtc::scoped_refptr<rtc::RTCCertificate> certificate;
     switch (msg->message_id) {
@@ -223,12 +227,12 @@ class FakeRTCCertificateGenerator
         certificate = rtc::RTCCertificate::FromPEM(get_pem(key_type));
         RTC_DCHECK(certificate);
         ++generated_certificates_;
-        callback->OnSuccess(certificate);
+        callback(certificate);
         break;
       }
       case MSG_FAILURE:
         ++generated_failures_;
-        callback->OnFailure();
+        callback(nullptr);
         break;
     }
     delete message_data;

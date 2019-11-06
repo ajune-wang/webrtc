@@ -15,7 +15,10 @@
 #include <utility>
 
 #include "absl/types/optional.h"
+#include "absl/types/variant.h"
 #include "rtc_base/futures/future.h"
+#include "rtc_base/ref_count.h"
+#include "rtc_base/weak_ptr.h"
 
 namespace webrtc {
 

@@ -15,6 +15,7 @@
 
 #include "absl/types/optional.h"
 #include "api/scoped_refptr.h"
+#include "rtc_base/futures/future.h"
 #include "rtc_base/ref_count.h"
 #include "rtc_base/rtc_certificate.h"
 #include "rtc_base/ssl_identity.h"
@@ -22,16 +23,6 @@
 #include "rtc_base/thread.h"
 
 namespace rtc {
-
-// See |RTCCertificateGeneratorInterface::GenerateCertificateAsync|.
-class RTCCertificateGeneratorCallback : public RefCountInterface {
- public:
-  virtual void OnSuccess(const scoped_refptr<RTCCertificate>& certificate) = 0;
-  virtual void OnFailure() = 0;
-
- protected:
-  ~RTCCertificateGeneratorCallback() override {}
-};
 
 // Generates |RTCCertificate|s.
 // See |RTCCertificateGenerator| for the WebRTC repo's implementation.
@@ -44,10 +35,9 @@ class RTCCertificateGeneratorInterface {
   // result on the signaling thread. |exipres_ms| optionally specifies for how
   // long we want the certificate to be valid, but the implementation may choose
   // its own restrictions on the expiration time.
-  virtual void GenerateCertificateAsync(
-      const KeyParams& key_params,
-      const absl::optional<uint64_t>& expires_ms,
-      const scoped_refptr<RTCCertificateGeneratorCallback>& callback) = 0;
+  virtual webrtc::BoxedFuture<scoped_refptr<RTCCertificate>>
+  GenerateCertificateAsync(const KeyParams& key_params,
+                           const absl::optional<uint64_t>& expires_ms) = 0;
 };
 
 // Standard implementation of |RTCCertificateGeneratorInterface|.
@@ -74,10 +64,9 @@ class RTC_EXPORT RTCCertificateGenerator
   // that many milliseconds from now. |expires_ms| is limited to a year, a
   // larger value than that is clamped down to a year. If |expires_ms| is not
   // specified, a default expiration time is used.
-  void GenerateCertificateAsync(
+  webrtc::BoxedFuture<scoped_refptr<RTCCertificate>> GenerateCertificateAsync(
       const KeyParams& key_params,
-      const absl::optional<uint64_t>& expires_ms,
-      const scoped_refptr<RTCCertificateGeneratorCallback>& callback) override;
+      const absl::optional<uint64_t>& expires_ms) override;
 
  private:
   Thread* const signaling_thread_;

@@ -81,29 +81,6 @@ struct CreateSessionDescriptionMsg : public rtc::MessageData {
   std::unique_ptr<webrtc::SessionDescriptionInterface> description;
 };
 
-class CertificateGeneratorCallbackAdapter
-    : public rtc::RTCCertificateGeneratorCallback {
- public:
-  using CompleteCB =
-      std::function<void(rtc::scoped_refptr<rtc::RTCCertificate>)>;
-
-  explicit CertificateGeneratorCallbackAdapter(CompleteCB callback)
-      : callback_(std::move(callback)) {}
-
-  // RTCCertificateGeneratorCallback implementation.
-  void OnSuccess(
-      const rtc::scoped_refptr<rtc::RTCCertificate>& certificate) override {
-    RTC_DCHECK(callback_);
-    std::move(callback_)(certificate);
-  }
-  void OnFailure() override {
-    RTC_DCHECK(callback_);
-    std::move(callback_)(nullptr);
-  }
-
- private:
-  CompleteCB callback_;
-};
 }  // namespace
 
 // static
@@ -188,20 +165,10 @@ WebRtcSessionDescriptionFactory::WebRtcSessionDescriptionFactory(
         << "DTLS-SRTP enabled; sending DTLS identity request (key type: "
         << key_params.type() << ").";
 
-    auto future = webrtc::MakeBoxedFuture<
-        AsyncCallbackFuture<rtc::scoped_refptr<rtc::RTCCertificate>>>(
-        [generator = cert_generator_.get(), key_params](
-            std::function<void(rtc::scoped_refptr<rtc::RTCCertificate>)>
-                complete_cb) {
-          generator->GenerateCertificateAsync(
-              key_params, absl::nullopt,
-              new rtc::RefCountedObject<CertificateGeneratorCallbackAdapter>(
-                  std::move(complete_cb)));
-        });
-
     generate_certificate_task_ =
         SpawnFutureHereImmediately<rtc::scoped_refptr<rtc::RTCCertificate>>(
-            std::move(future),
+            cert_generator_->GenerateCertificateAsync(key_params,
+                                                      absl::nullopt),
             [this](rtc::scoped_refptr<rtc::RTCCertificate> certificate) {
               if (certificate) {
                 SetCertificate(certificate);

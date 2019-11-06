@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc6b83ae_3838c915",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-06T12:57:16Z",
+      "side": 1,
+      "message": "On purpose?",
+      "range": {
+        "startLine": 130,
+        "startChar": 38,
+        "endLine": 130,
+        "endChar": 40
+      },
+      "revId": "0ba8e4c637a722c42b0ef75a6c71a10a5b4d7cfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7755496e_668a723b",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-06T12:57:16Z",
+      "side": 1,
+      "message": "Looks odd to me...",
+      "range": {
+        "startLine": 179,
+        "startChar": 48,
+        "endLine": 179,
+        "endChar": 54
+      },
+      "revId": "0ba8e4c637a722c42b0ef75a6c71a10a5b4d7cfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6fa8eec_5db6d0cf",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-06T12:57:16Z",
+      "side": 1,
+      "message": "reported_send_time?",
+      "range": {
+        "startLine": 416,
+        "startChar": 12,
+        "endLine": 416,
+        "endChar": 28
+      },
+      "revId": "0ba8e4c637a722c42b0ef75a6c71a10a5b4d7cfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd0734c1_d54c0f96",
+        "filename": "modules/pacing/pacing_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-06T12:57:16Z",
+      "side": 1,
+      "message": "Is this useful outside test code? Otherwise I\u0027d prefer duplicating it in the test (it\u0027s fine that this means that we\u0027ll have to update tests if this changes.)",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 39
+      },
+      "revId": "0ba8e4c637a722c42b0ef75a6c71a10a5b4d7cfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e395eecd_4cb230a4",
+        "filename": "modules/pacing/pacing_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-06T12:57:16Z",
+      "side": 1,
+      "message": "..",
+      "range": {
+        "startLine": 194,
+        "startChar": 9,
+        "endLine": 194,
+        "endChar": 30
+      },
+      "revId": "0ba8e4c637a722c42b0ef75a6c71a10a5b4d7cfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "32c9d0d5_25999378",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-06T21:19:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "298aca07_e7523cc4",
+      "range": {
+        "startLine": 150,
+        "startChar": 2,
+        "endLine": 150,
+        "endChar": 8
+      },
+      "revId": "ee1bc574c2aa87fc75da647070e3d71f1923aaf6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cb5a8c1_b93daf80",
         "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
         "patchSetId": 2

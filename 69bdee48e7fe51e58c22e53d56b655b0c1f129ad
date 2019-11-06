@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "6074f304_7503dad0",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 31
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-06T15:22:51Z",
+      "side": 1,
+      "message": "So this is used when AEC3 is configured _not_ to export the linear output, but a linear_output pointer is still used?\nI think we should either remove this lazy initialization functionality or the config parameter. Otherwise the meaning of the parameter is \"pre-allocate memory for linear output\". WDYT?",
+      "range": {
+        "startLine": 377,
+        "startChar": 4,
+        "endLine": 378,
+        "endChar": 72
+      },
+      "revId": "69bdee48e7fe51e58c22e53d56b655b0c1f129ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdb62191_a742e57a",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 31
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-06T15:22:51Z",
+      "side": 1,
+      "message": "Can be simplified to something like:\n  linear_output_block_ \u003d\n      std::make_unique\u003cstd::vector\u003cstd::vector\u003cstd::vector\u003cfloat\u003e\u003e\u003e\u003e(1, std::vector\u003cstd::vector\u003cfloat\u003e\u003e(num_capture_channels, std::vector\u003cfloat\u003e(kBlockSize)));\n\nNo loops or resizes :)",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 446,
+        "endChar": 3
+      },
+      "revId": "69bdee48e7fe51e58c22e53d56b655b0c1f129ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70060562_3b917038",
         "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
         "patchSetId": 31

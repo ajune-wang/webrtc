@@ -105,6 +105,30 @@
       "revId": "5c8e0e51512477b0671227c36c8fb2da353a2804",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83284732_70adfd15",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 1194,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-11-06T11:49:49Z",
+      "side": 1,
+      "message": "I did that just before going to meeting, but there was a blocking warning \"This overwrites a previously-defined nonempty list with another nonempty list.\"\n\nHence the \"visibility \u003d []\".",
+      "parentUuid": "94e695c2_9542b4f7",
+      "range": {
+        "startLine": 1194,
+        "startChar": 2,
+        "endLine": 1194,
+        "endChar": 41
+      },
+      "revId": "5c8e0e51512477b0671227c36c8fb2da353a2804",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

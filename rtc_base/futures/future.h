@@ -15,6 +15,7 @@
 
 #include "absl/types/optional.h"
 #include "api/scoped_refptr.h"
+#include "rtc_base/ref_count.h"
 
 namespace webrtc {
 

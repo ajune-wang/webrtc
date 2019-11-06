@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cb5a8c1_b93daf80",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-11-06T12:11:48Z",
+      "side": 1,
+      "message": "RTC_DCHECK(audio[ch]) after line 151",
+      "range": {
+        "startLine": 153,
+        "startChar": 10,
+        "endLine": 153,
+        "endChar": 19
+      },
+      "revId": "ee1bc574c2aa87fc75da647070e3d71f1923aaf6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0753e55_140b5de7",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-11-06T12:11:48Z",
+      "side": 1,
+      "message": "[nit] we can switch to const std::vector\u003cfloat*\u003e or even const std::vector\u003cconst float*\u003e; you can swap position with audio_data and add a function in the anon ns to be used in the initializer list",
+      "range": {
+        "startLine": 129,
+        "startChar": 2,
+        "endLine": 129,
+        "endChar": 27
+      },
+      "revId": "ee1bc574c2aa87fc75da647070e3d71f1923aaf6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

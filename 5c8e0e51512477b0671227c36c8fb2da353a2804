@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea3f4092_7a69f061",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-06T09:40:35Z",
+      "side": 1,
+      "message": "Nit: Don\u0027t forget the bug. 😊",
+      "revId": "5c8e0e51512477b0671227c36c8fb2da353a2804",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f64fa9c8_b20586a3",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 1194,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-06T09:40:35Z",
+      "side": 1,
+      "message": "If you want to access this from outside the WebRTC tree you will have to make this public:\n\n  visibility \u003d []\n  visibility \u003d [ \"*\" ]",
+      "range": {
+        "startLine": 1194,
+        "startChar": 2,
+        "endLine": 1194,
+        "endChar": 41
+      },
+      "revId": "5c8e0e51512477b0671227c36c8fb2da353a2804",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

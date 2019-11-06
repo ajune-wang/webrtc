@@ -835,7 +835,7 @@ bool BaseRtpStringExtension::Parse(rtc::ArrayView<const uint8_t> data,
 
 bool BaseRtpStringExtension::Write(rtc::ArrayView<uint8_t> data,
                                    const std::string& str) {
-  if (str.size() > kMaxValueSizeBytes) {
+  if (str.size() < kMinValueSizeBytes || str.size() > kMaxValueSizeBytes) {
     return false;
   }
   RTC_DCHECK_EQ(data.size(), str.size());

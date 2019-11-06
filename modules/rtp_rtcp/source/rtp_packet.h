@@ -113,15 +113,16 @@ class RtpPacket {
   bool IsExtensionReserved() const;
   bool IsExtensionReserved(ExtensionType type) const;
 
-  template <typename Extension, typename FirstValue, typename... Values>
-  bool GetExtension(FirstValue, Values...) const;
+  template <typename Extension, typename... Values>
+  bool GetExtension(Values...) const;
 
   template <typename Extension>
   absl::optional<typename Extension::value_type> GetExtension() const;
 
-  // Returns view of the raw extension or empty view on failure.
+  // Returns false on failure, otherwise returns true and assign view of the raw
+  // extension to |data|.
   template <typename Extension>
-  rtc::ArrayView<const uint8_t> GetRawExtension() const;
+  bool GetRawExtension(rtc::ArrayView<const uint8_t>* data) const;
 
   template <typename Extension, typename... Values>
   bool SetExtension(Values...);
@@ -134,8 +135,10 @@ class RtpPacket {
   rtc::ArrayView<uint8_t> AllocateExtension(ExtensionType type, size_t length);
 
   // Find an extension |type|.
-  // Returns view of the raw extension or empty view on failure.
-  rtc::ArrayView<const uint8_t> FindExtension(ExtensionType type) const;
+  // Returns false on failure, otherwise returns true and assign view of the raw
+  // extension to |data|.
+  bool FindExtension(ExtensionType type,
+                     rtc::ArrayView<const uint8_t>* data) const;
 
   // Reserve size_bytes for payload. Returns nullptr on failure.
   uint8_t* SetPayloadSize(size_t size_bytes);
@@ -183,6 +186,14 @@ class RtpPacket {
   void WriteAt(size_t offset, uint8_t byte) { buffer_.data()[offset] = byte; }
   const uint8_t* ReadAt(size_t offset) const { return buffer_.data() + offset; }
 
+  // Verifies if a header extension is a valid two-byte header extension.
+  // This does not include one-byte extension, although any one-type can be
+  // promoted to a two-byte extension.
+  bool IsValidTwoByteHeaderExtension(int id, size_t length) const;
+
+  // Verifies if a header extension is a valid one-byte header extension.
+  bool IsValidOneByteHeaderExtension(int id, size_t length) const;
+
   // Header.
   bool marker_;
   uint8_t payload_type_;
@@ -209,43 +220,45 @@ bool RtpPacket::IsExtensionReserved() const {
   return IsExtensionReserved(Extension::kId);
 }
 
-template <typename Extension, typename FirstValue, typename... Values>
-bool RtpPacket::GetExtension(FirstValue first, Values... values) const {
-  auto raw = FindExtension(Extension::kId);
-  if (raw.empty())
+template <typename Extension, typename... Values>
+bool RtpPacket::GetExtension(Values... values) const {
+  rtc::ArrayView<const uint8_t> raw;
+  if (!FindExtension(Extension::kId, &raw))
     return false;
-  return Extension::Parse(raw, first, values...);
+  return Extension::Parse(raw, values...);
 }
 
 template <typename Extension>
 absl::optional<typename Extension::value_type> RtpPacket::GetExtension() const {
   absl::optional<typename Extension::value_type> result;
-  auto raw = FindExtension(Extension::kId);
-  if (raw.empty() || !Extension::Parse(raw, &result.emplace()))
+  rtc::ArrayView<const uint8_t> raw;
+  if (!FindExtension(Extension::kId, &raw) ||
+      !Extension::Parse(raw, &result.emplace()))
     result = absl::nullopt;
   return result;
 }
 
 template <typename Extension>
-rtc::ArrayView<const uint8_t> RtpPacket::GetRawExtension() const {
-  return FindExtension(Extension::kId);
+bool RtpPacket::GetRawExtension(rtc::ArrayView<const uint8_t>* data) const {
+  return FindExtension(Extension::kId, data);
 }
 
 template <typename Extension, typename... Values>
 bool RtpPacket::SetExtension(Values... values) {
   const size_t value_size = Extension::ValueSize(values...);
   auto buffer = AllocateExtension(Extension::kId, value_size);
-  if (buffer.empty())
+  if (buffer.empty() && value_size != 0)
     return false;
   return Extension::Write(buffer, values...);
 }
 
 template <typename Extension>
 bool RtpPacket::ReserveExtension() {
-  auto buffer = AllocateExtension(Extension::kId, Extension::kValueSizeBytes);
-  if (buffer.empty())
+  const size_t value_size = Extension::kValueSizeBytes;
+  auto buffer = AllocateExtension(Extension::kId, value_size);
+  if (buffer.empty() && value_size != 0)
     return false;
-  memset(buffer.data(), 0, Extension::kValueSizeBytes);
+  memset(buffer.data(), 0, value_size);
   return true;
 }
 

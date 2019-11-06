@@ -5,14 +5,14 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '33f411738a204af94c690927a70b8dd5fae0e667',
+  'chromium_revision': '8a91beed4e7ade49e4b514b9903d17bf217738cc',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@f25c5a9fbd9f435e5afb5d7cc448f5dc57b80f58',
+    'https://chromium.googlesource.com/chromium/src/base@7b005a8d53b1aeb258b02cab683f7b77731ea11a',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@54e7230061a22285fbe54baee2bc808799fd1731',
   'src/buildtools':
@@ -23,13 +23,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@3779e5a073e54107f9b8c6488697e4666eee6880',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@68957b5fdf1f998203e9765207738ae96f198695',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@482d3fb4b8a4312c014c7fb41896d83d4ca4d7bc',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@4aa9719e17c462454a14d67577434fba99a8afde',
+    'https://chromium.googlesource.com/chromium/src/third_party@3ac0f6c7d334a201f02aaa373c3d33255b07e06a',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -245,7 +245,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@d1a6f3f0d2c33d237285a4414f94cd57d71059a2',
+    'https://chromium.googlesource.com/chromium/src/tools@53d243601f04193fcf616c963ab463b56af28497',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@885b3febcc170a60f25795304e60927b77d1e92d',
 

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a766754_9dc1d2bc",
+        "filename": "modules/pacing/packet_router_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-06T13:12:51Z",
+      "side": 1,
+      "message": "This change is due to the polymorphism of GetExtension, as I commented in rtp_packet.h.",
+      "range": {
+        "startLine": 324,
+        "startChar": 18,
+        "endLine": 324,
+        "endChar": 79
+      },
+      "revId": "9d7aecb30db522881c216b1cd34f8c1fbb857fe8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "649e59d0_6f715fea",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-06T13:12:51Z",
+      "side": 1,
+      "message": "this makes this template polymorphic to\n\n  template \u003ctypename Extension\u003e\n  absl::optional\u003ctypename Extension::value_type\u003e GetExtension() const;\nwhen no parameters are provided.\n\nCompiler complains if there is ambiguity and then developer has to be explicit, which is not bad IMO.\n\nAs an example, I had to modify packet_router_unittest for this reason.",
+      "range": {
+        "startLine": 117,
+        "startChar": 2,
+        "endLine": 117,
+        "endChar": 6
+      },
+      "revId": "9d7aecb30db522881c216b1cd34f8c1fbb857fe8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84d16226_8d9a163c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-06T13:12:51Z",
+      "side": 1,
+      "message": "Introducing this dummy class for testing may be too hacky. But since we have no zero-length header extension now, this is the best I can think of.",
+      "range": {
+        "startLine": 1109,
+        "startChar": 6,
+        "endLine": 1109,
+        "endChar": 31
+      },
+      "revId": "9d7aecb30db522881c216b1cd34f8c1fbb857fe8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

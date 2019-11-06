@@ -25,6 +25,8 @@
 #include "pc/media_session.h"
 #include "pc/peer_connection_internal.h"
 #include "rtc_base/constructor_magic.h"
+#include "rtc_base/futures/future.h"
+#include "rtc_base/futures/interop.h"
 #include "rtc_base/message_handler.h"
 #include "rtc_base/message_queue.h"
 #include "rtc_base/rtc_certificate.h"
@@ -99,6 +101,10 @@ class WebRtcSessionDescriptionFactory : public rtc::MessageHandler,
       const cricket::MediaSessionOptions& session_options);
   void CreateAnswer(CreateSessionDescriptionObserver* observer,
                     const cricket::MediaSessionOptions& session_options);
+  std::unique_ptr<
+      Future<RTCErrorOr<std::unique_ptr<SessionDescriptionInterface>>>>
+  CreateOffer(const PeerConnectionInterface::RTCOfferAnswerOptions& options,
+              const cricket::MediaSessionOptions& session_options);
 
   void SetSdesPolicy(cricket::SecurePolicy secure_policy);
   cricket::SecurePolicy SdesPolicy() const;
@@ -151,12 +157,12 @@ class WebRtcSessionDescriptionFactory : public rtc::MessageHandler,
   cricket::TransportDescriptionFactory transport_desc_factory_;
   cricket::MediaSessionDescriptionFactory session_desc_factory_;
   uint64_t session_version_;
-  const std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_generator_;
   // TODO(jiayl): remove the dependency on peer connection once bug 2264 is
   // fixed.
   PeerConnectionInternal* const pc_;
   const std::string session_id_;
   CertificateRequestState certificate_request_state_;
+  TaskHandle generate_certificate_task_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(WebRtcSessionDescriptionFactory);
 };

@@ -80,6 +80,86 @@ struct CreateSessionDescriptionMsg : public rtc::MessageData {
   RTCError error;
   std::unique_ptr<webrtc::SessionDescriptionInterface> description;
 };
+
+class GenerateCertificateFuture final
+    : public Future<rtc::scoped_refptr<rtc::RTCCertificate>> {
+ public:
+  GenerateCertificateFuture(
+      std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_generator,
+      const rtc::KeyParams& key_params,
+      const absl::optional<uint64_t>& expires_ms)
+      : cert_generator_(std::move(cert_generator)),
+        state_(Init{key_params, expires_ms}),
+        weak_ptr_factory_(this) {}
+
+  poll_t<rtc::scoped_refptr<rtc::RTCCertificate>> Poll(Context* context) {
+    if (auto* init = absl::get_if<Init>(&state_)) {
+      cert_generator_->GenerateCertificateAsync(
+          init->key_params, init->expires_ms,
+          new rtc::RefCountedObject<CallbackObject>(
+              weak_ptr_factory_.GetWeakPtr()));
+      state_ = Pending{context->waker()};
+      return absl::nullopt;
+    } else if (auto* pending = absl::get_if<Pending>(&state_)) {
+      pending->waker = context->waker();
+      return absl::nullopt;
+    } else if (auto* ready = absl::get_if<Ready>(&state_)) {
+      return absl::make_optional(std::move(ready->result));
+    } else {
+      return absl::nullopt;
+    }
+  }
+
+ private:
+  class CallbackObject : public rtc::RTCCertificateGeneratorCallback {
+   public:
+    explicit CallbackObject(rtc::WeakPtr<GenerateCertificateFuture> weak_ptr)
+        : weak_ptr_(std::move(weak_ptr)) {}
+
+    // RTCCertificateGenerateCallback implementation.
+    void OnSuccess(
+        const rtc::scoped_refptr<rtc::RTCCertificate>& certificate) override {
+      if (weak_ptr_) {
+        weak_ptr_->Done(certificate);
+      }
+    }
+    void OnFailure() override {
+      if (weak_ptr_) {
+        weak_ptr_->Done(nullptr);
+      }
+    }
+
+   private:
+    rtc::WeakPtr<GenerateCertificateFuture> weak_ptr_;
+  };
+
+  void Done(rtc::scoped_refptr<rtc::RTCCertificate> certificate) {
+    auto* pending = absl::get_if<Pending>(&state_);
+    RTC_DCHECK(pending);
+    rtc::scoped_refptr<Waker> waker = std::move(pending->waker);
+    state_ = Ready{std::move(certificate)};
+    if (waker) {
+      waker->WakeByRef();
+    }
+  }
+
+  struct Init final {
+    rtc::KeyParams key_params;
+    absl::optional<uint64_t> expires_ms;
+  };
+
+  struct Pending final {
+    rtc::scoped_refptr<Waker> waker;
+  };
+
+  struct Ready final {
+    rtc::scoped_refptr<rtc::RTCCertificate> result;
+  };
+
+  std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_generator_;
+  absl::variant<Init, Pending, Ready> state_;
+  rtc::WeakPtrFactory<GenerateCertificateFuture> weak_ptr_factory_;
+};
 }  // namespace
 
 void WebRtcCertificateGeneratorCallback::OnFailure() {
@@ -139,13 +219,12 @@ WebRtcSessionDescriptionFactory::WebRtcSessionDescriptionFactory(
       // to just use a random number as session id and start version from
       // |kInitSessionVersion|.
       session_version_(kInitSessionVersion),
-      cert_generator_(std::move(cert_generator)),
       pc_(pc),
       session_id_(session_id),
       certificate_request_state_(CERTIFICATE_NOT_NEEDED) {
   RTC_DCHECK(signaling_thread_);
-  RTC_DCHECK(!(cert_generator_ && certificate));
-  bool dtls_enabled = cert_generator_ || certificate;
+  RTC_DCHECK(!(cert_generator && certificate));
+  bool dtls_enabled = cert_generator || certificate;
   // SRTP-SDES is disabled if DTLS is on.
   SetSdesPolicy(dtls_enabled ? cricket::SEC_DISABLED : cricket::SEC_REQUIRED);
   if (!dtls_enabled) {
@@ -168,22 +247,24 @@ WebRtcSessionDescriptionFactory::WebRtcSessionDescriptionFactory(
     // Generate certificate.
     certificate_request_state_ = CERTIFICATE_WAITING;
 
-    rtc::scoped_refptr<WebRtcCertificateGeneratorCallback> callback(
-        new rtc::RefCountedObject<WebRtcCertificateGeneratorCallback>());
-    callback->SignalRequestFailed.connect(
-        this, &WebRtcSessionDescriptionFactory::OnCertificateRequestFailed);
-    callback->SignalCertificateReady.connect(
-        this, &WebRtcSessionDescriptionFactory::SetCertificate);
-
     rtc::KeyParams key_params = rtc::KeyParams();
     RTC_LOG(LS_VERBOSE)
         << "DTLS-SRTP enabled; sending DTLS identity request (key type: "
         << key_params.type() << ").";
 
-    // Request certificate. This happens asynchronously, so that the caller gets
-    // a chance to connect to |SignalCertificateReady|.
-    cert_generator_->GenerateCertificateAsync(key_params, absl::nullopt,
-                                              callback);
+    auto future = std::make_unique<GenerateCertificateFuture>(
+        std::move(cert_generator), key_params, absl::nullopt);
+
+    generate_certificate_task_ =
+        SpawnFutureHereImmediately<rtc::scoped_refptr<rtc::RTCCertificate>>(
+            std::move(future),
+            [this](rtc::scoped_refptr<rtc::RTCCertificate> certificate) {
+              if (certificate) {
+                SetCertificate(certificate);
+              } else {
+                OnCertificateRequestFailed();
+              }
+            });
   }
 }
 
@@ -240,6 +321,13 @@ void WebRtcSessionDescriptionFactory::CreateOffer(
                certificate_request_state_ == CERTIFICATE_NOT_NEEDED);
     InternalCreateOffer(request);
   }
+}
+
+std::unique_ptr<
+    Future<RTCErrorOr<std::unique_ptr<SessionDescriptionInterface>>>>
+CreateOffer(const PeerConnectionInterface::RTCOfferAnswerOptions& options,
+            const cricket::MediaSessionOptions& session_options) {
+  return nullptr;
 }
 
 void WebRtcSessionDescriptionFactory::CreateAnswer(

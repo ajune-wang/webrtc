@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f6bb6ed1_f6e8bb12",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-06T15:03:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cb5a8c1_b93daf80",
+      "range": {
+        "startLine": 153,
+        "startChar": 10,
+        "endLine": 153,
+        "endChar": 19
+      },
+      "revId": "ee1bc574c2aa87fc75da647070e3d71f1923aaf6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0753e55_140b5de7",
         "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-11-06T12:11:48Z",
       "side": 1,
       "message": "[nit] we can switch to const std::vector\u003cfloat*\u003e or even const std::vector\u003cconst float*\u003e; you can swap position with audio_data and add a function in the anon ns to be used in the initializer list",
+      "range": {
+        "startLine": 129,
+        "startChar": 2,
+        "endLine": 129,
+        "endChar": 27
+      },
+      "revId": "ee1bc574c2aa87fc75da647070e3d71f1923aaf6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e54ea341_5bae4dc8",
+        "filename": "modules/audio_processing/agc/agc_manager_direct_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-06T15:03:09Z",
+      "side": 1,
+      "message": "Good point!\n\nThat will work for now. However, I forsee a problem with the current test as it relies heavily on that the saturated samples are counted jointly for each channel. I don\u0027t think that is a good approach and I was intending to follow-up this CL with a change, in which case the audio variable will be used to assign value separately for each channel.\n\nTherefore I would prefer to keep it as it is.",
+      "parentUuid": "c0753e55_140b5de7",
       "range": {
         "startLine": 129,
         "startChar": 2,

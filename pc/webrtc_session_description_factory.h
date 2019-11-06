@@ -25,6 +25,8 @@
 #include "pc/media_session.h"
 #include "pc/peer_connection_internal.h"
 #include "rtc_base/constructor_magic.h"
+#include "rtc_base/futures/future.h"
+#include "rtc_base/futures/interop.h"
 #include "rtc_base/message_handler.h"
 #include "rtc_base/message_queue.h"
 #include "rtc_base/rtc_certificate.h"
@@ -34,21 +36,6 @@
 #include "rtc_base/unique_id_generator.h"
 
 namespace webrtc {
-
-// DTLS certificate request callback class.
-class WebRtcCertificateGeneratorCallback
-    : public rtc::RTCCertificateGeneratorCallback,
-      public sigslot::has_slots<> {
- public:
-  // |rtc::RTCCertificateGeneratorCallback| overrides.
-  void OnSuccess(
-      const rtc::scoped_refptr<rtc::RTCCertificate>& certificate) override;
-  void OnFailure() override;
-
-  sigslot::signal0<> SignalRequestFailed;
-  sigslot::signal1<const rtc::scoped_refptr<rtc::RTCCertificate>&>
-      SignalCertificateReady;
-};
 
 struct CreateSessionDescriptionRequest {
   enum Type {
@@ -99,6 +86,10 @@ class WebRtcSessionDescriptionFactory : public rtc::MessageHandler,
       const cricket::MediaSessionOptions& session_options);
   void CreateAnswer(CreateSessionDescriptionObserver* observer,
                     const cricket::MediaSessionOptions& session_options);
+  std::unique_ptr<
+      Future<RTCErrorOr<std::unique_ptr<SessionDescriptionInterface>>>>
+  CreateOffer(const PeerConnectionInterface::RTCOfferAnswerOptions& options,
+              const cricket::MediaSessionOptions& session_options);
 
   void SetSdesPolicy(cricket::SecurePolicy secure_policy);
   cricket::SecurePolicy SdesPolicy() const;
@@ -152,6 +143,7 @@ class WebRtcSessionDescriptionFactory : public rtc::MessageHandler,
   cricket::MediaSessionDescriptionFactory session_desc_factory_;
   uint64_t session_version_;
   const std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_generator_;
+  TaskHandle generate_certificate_task_;
   // TODO(jiayl): remove the dependency on peer connection once bug 2264 is
   // fixed.
   PeerConnectionInternal* const pc_;

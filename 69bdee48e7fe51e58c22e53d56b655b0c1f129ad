@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1047f7f_f6ae3425",
+        "filename": "api/audio/BUILD.gn",
+        "patchSetId": 31
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-06T09:08:27Z",
+      "side": 1,
+      "message": "Is this still needed?",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 20
+      },
+      "revId": "69bdee48e7fe51e58c22e53d56b655b0c1f129ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70060562_3b917038",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 31
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-06T09:08:27Z",
+      "side": 1,
+      "message": "The condition still only checks for AEC2, right? So there would need to be a similar check for settings.use_aecm (or some variety around that) and linear_aec_output_filename.",
+      "range": {
+        "startLine": 520,
+        "startChar": 5,
+        "endLine": 521,
+        "endChar": 75
+      },
+      "revId": "69bdee48e7fe51e58c22e53d56b655b0c1f129ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

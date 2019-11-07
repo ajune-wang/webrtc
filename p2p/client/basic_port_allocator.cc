@@ -103,15 +103,18 @@ struct NetworkFilter {
 using NetworkList = rtc::NetworkManager::NetworkList;
 void FilterNetworks(NetworkList* networks, NetworkFilter filter) {
   auto start_to_remove =
-      std::remove_if(networks->begin(), networks->end(), filter.pred);
+      std::find_if(networks->begin(), networks->end(), filter.pred);
   if (start_to_remove == networks->end()) {
     return;
   }
   RTC_LOG(INFO) << "Filtered out " << filter.description << " networks:";
   for (auto it = start_to_remove; it != networks->end(); ++it) {
-    RTC_LOG(INFO) << (*it)->ToString();
+    if (filter.pred(*it)) {
+      RTC_LOG(INFO) << (*it)->ToString();
+    }
   }
-  networks->erase(start_to_remove, networks->end());
+  networks->erase(std::remove_if(start_to_remove, networks->end(), filter.pred),
+                  networks->end());
 }
 
 bool IsAllowedByCandidateFilter(const Candidate& c, uint32_t filter) {

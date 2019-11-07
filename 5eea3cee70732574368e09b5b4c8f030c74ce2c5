@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b9ef5af5_72f4d414",
+        "filename": "modules/audio_coding/codecs/opus/opus_fec_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-07T20:05:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa0be2bc_dbb84555",
+      "range": {
+        "startLine": 163,
+        "startChar": 23,
+        "endLine": 163,
+        "endChar": 34
+      },
+      "revId": "5eea3cee70732574368e09b5b4c8f030c74ce2c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56a9bde4_c05d4272",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
         "patchSetId": 10
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "abcb5fd0_0d201879",
+      "range": {
+        "startLine": 395,
+        "startChar": 8,
+        "endLine": 396,
+        "endChar": 62
+      },
+      "revId": "5eea3cee70732574368e09b5b4c8f030c74ce2c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b48827b1_e993efdc",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-07T20:05:53Z",
+      "side": 1,
+      "message": "Thank you, and I will clean this up as soon as the new method is proven correct.",
+      "parentUuid": "e21e4592_856d5169",
       "range": {
         "startLine": 395,
         "startChar": 8,

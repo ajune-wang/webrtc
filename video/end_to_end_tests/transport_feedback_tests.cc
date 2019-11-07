@@ -166,11 +166,9 @@ TEST_F(TransportFeedbackEndToEndTest, AssignsTransportSequenceNumbers) {
 
   class TransportSequenceNumberTester : public MultiStreamTester {
    public:
-    explicit TransportSequenceNumberTester(TaskQueueBase* task_queue)
-        : MultiStreamTester(task_queue),
-          first_media_ssrc_(0),
-          observer_(nullptr) {}
-    virtual ~TransportSequenceNumberTester() {}
+    TransportSequenceNumberTester()
+        : first_media_ssrc_(0), observer_(nullptr) {}
+    ~TransportSequenceNumberTester() override = default;
 
    protected:
     void Wait() override {
@@ -238,7 +236,7 @@ TEST_F(TransportFeedbackEndToEndTest, AssignsTransportSequenceNumbers) {
     uint32_t first_media_ssrc_;
     std::map<uint32_t, uint32_t> rtx_to_media_ssrcs_;
     RtpExtensionHeaderObserver* observer_;
-  } tester(task_queue());
+  } tester;
 
   tester.RunTest();
 }

@@ -11,13 +11,15 @@
 #ifndef MEDIA_ENGINE_CONSTANTS_H_
 #define MEDIA_ENGINE_CONSTANTS_H_
 
+#include "rtc_base/system/rtc_export.h"
+
 namespace cricket {
 
 extern const int kVideoMtu;
 extern const int kVideoRtpSendBufferSize;
 extern const int kVideoRtpRecvBufferSize;
 
-extern const char kH264CodecName[];
+RTC_EXPORT extern const char kH264CodecName[];
 
 }  // namespace cricket
 

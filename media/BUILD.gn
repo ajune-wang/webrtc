@@ -148,7 +148,9 @@ rtc_library("rtc_media_base") {
 rtc_library("rtc_constants") {
   defines = []
   libs = []
-  deps = []
+  deps = [
+    "../rtc_base/system:rtc_export",
+  ]
   sources = [
     "engine/constants.cc",
     "engine/constants.h",

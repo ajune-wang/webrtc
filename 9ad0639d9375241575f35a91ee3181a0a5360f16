@@ -22,6 +22,30 @@
       "revId": "9ad0639d9375241575f35a91ee3181a0a5360f16",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34ae0f70_751ac1ec",
+        "filename": "api/audio/echo_canceller3_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-07T16:05:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d83b0903_554ca8c6",
+      "range": {
+        "startLine": 31,
+        "startChar": 36,
+        "endLine": 31,
+        "endChar": 39
+      },
+      "revId": "9ad0639d9375241575f35a91ee3181a0a5360f16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

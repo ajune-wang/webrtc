@@ -19,6 +19,7 @@
 #include "absl/types/variant.h"
 #include "api/video/encoded_frame.h"
 #include "common_video/h264/h264_common.h"
+#include "modules/rtp_rtcp/source/rtp_depacketizer_av1.h"
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
 #include "modules/video_coding/codecs/h264/include/h264_globals.h"
 #include "modules/video_coding/frame_object.h"
@@ -398,9 +399,29 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
 
       missing_packets_.erase(missing_packets_.begin(),
                              missing_packets_.upper_bound(seq_num));
-
       const VCMPacket* first_packet = GetPacket(start_seq_num);
       const VCMPacket* last_packet = GetPacket(seq_num);
+
+      rtc::scoped_refptr<EncodedImageBuffer> bitstream;
+      // TODO(danilchap): Hide codec-specific code paths behind an interface.
+      if (first_packet->codec() == VideoCodecType::kVideoCodecAV1) {
+        absl::InlinedVector<rtc::ArrayView<const uint8_t>, 4> payloads;
+        uint16_t end_seq_num = seq_num + 1;
+        for (uint16_t sn = start_seq_num; sn != end_seq_num; ++sn) {
+          const VCMPacket* packet = GetPacket(sn);
+          payloads.emplace_back(packet->dataPtr, packet->sizeBytes);
+        }
+        auto bitstream = RtpDepacketizerAv1::AssembleFrame(payloads);
+        if (!bitstream) {
+          // Failed to assembe a frame. There is some error.
+          // Discard and continue.
+          ClearInterval(start_seq_num, seq_num);
+          continue;
+        }
+      } else {
+        bitstream = GetEncodedImageBuffer(frame_size, start_seq_num, seq_num);
+      }
+
       auto frame = std::make_unique<RtpFrameObject>(
           start_seq_num, seq_num, last_packet->markerBit, max_nack_count,
           min_recv_time, max_recv_time, first_packet->timestamp,
@@ -410,8 +431,7 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
           last_packet->video_header.content_type, first_packet->video_header,
           last_packet->video_header.color_space,
           first_packet->generic_descriptor,
-          RtpPacketInfos(std::move(packet_infos)),
-          GetEncodedImageBuffer(frame_size, start_seq_num, seq_num));
+          RtpPacketInfos(std::move(packet_infos)), std::move(bitstream));
 
       found_frames.emplace_back(std::move(frame));
 

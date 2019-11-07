@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d6b13c40_faeca7e4",
+        "filename": "api/test/abstract_time_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-11-07T23:23:28Z",
+      "side": 1,
+      "message": "Deleted this test case.  I don\u0027t think it was covering anything that the first two didn\u0027t.\n\nI replaced it with a couple of others that cover behavior that the first two didn\u0027t.",
+      "parentUuid": "83f02332_c701eb6b",
+      "revId": "f64363052290dd202859ff355d4bcd23192dc56b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c8fd500_f66c6335",
         "filename": "api/test/abstract_time_controller_unittest.cc",
         "patchSetId": 4
@@ -39,6 +57,30 @@
       "revId": "f64363052290dd202859ff355d4bcd23192dc56b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6f2e61d_c83fea09",
+        "filename": "api/test/abstract_time_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-11-07T23:23:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4c8fd500_f66c6335",
+      "range": {
+        "startLine": 152,
+        "startChar": 22,
+        "endLine": 152,
+        "endChar": 51
+      },
+      "revId": "f64363052290dd202859ff355d4bcd23192dc56b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

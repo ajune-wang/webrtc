@@ -382,7 +382,9 @@ TEST_F(GoogCcNetworkControllerTest,
        NoCongestionWindowPushbackWithoutReceiveTraffic) {
   ScopedFieldTrials trial(
       "WebRTC-CongestionWindow/QueueSize:800,MinBitrate:30000/"
-      "WebRTC-Bwe-CongestionWindowDownlinkDelay/Enabled/");
+      "WebRTC-Bwe-CongestionWindowDownlinkDelay/Enabled/",
+      // Disable RTT-based backoff, so it won't interfere with the test.
+      "WebRTC-Bwe-MaxRttLimit/fraction:1");
   Scenario s("googcc_unit/cwnd_no_downlink", false);
   NetworkSimulationConfig net_conf;
   net_conf.bandwidth = DataRate::kbps(1000);

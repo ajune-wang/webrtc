@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83f02332_c701eb6b",
+        "filename": "api/test/abstract_time_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-11-07T21:38:28Z",
+      "side": 1,
+      "message": "What runs the tasks in this example?",
+      "revId": "f64363052290dd202859ff355d4bcd23192dc56b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c8fd500_f66c6335",
+        "filename": "api/test/abstract_time_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-11-07T21:38:28Z",
+      "side": 1,
+      "message": "just: [object \u003d std::move(object)]() { object.reset(); } ?",
+      "range": {
+        "startLine": 152,
+        "startChar": 22,
+        "endLine": 152,
+        "endChar": 51
+      },
+      "revId": "f64363052290dd202859ff355d4bcd23192dc56b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

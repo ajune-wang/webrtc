@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "0146ce15_88ae12a8",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 31
+      },
+      "lineNbr": 1371,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-07T08:31:49Z",
+      "side": 1,
+      "message": "It is not safe to clear swap queue here as it might be accessed concurrently by GetLinearAecOutput(). Let\u0027s discuss the threading issues offline.",
+      "range": {
+        "startLine": 1371,
+        "startChar": 10,
+        "endLine": 1371,
+        "endChar": 39
+      },
+      "revId": "69bdee48e7fe51e58c22e53d56b655b0c1f129ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70060562_3b917038",
         "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
         "patchSetId": 31

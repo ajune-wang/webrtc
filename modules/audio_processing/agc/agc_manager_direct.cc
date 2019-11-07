@@ -163,29 +163,12 @@ float ComputeClippedRatio(const float* const* audio,
 
 }  // namespace
 
-AgcManagerDirect::AgcManagerDirect(GainControl* gctrl,
-                                   VolumeCallbacks* volume_callbacks,
-                                   int startup_min_level,
-                                   int clipped_level_min,
-                                   bool use_agc2_level_estimation,
-                                   bool disable_digital_adaptive)
-    : AgcManagerDirect(use_agc2_level_estimation ? nullptr : new Agc(),
-                       gctrl,
-                       volume_callbacks,
-                       startup_min_level,
-                       clipped_level_min,
-                       use_agc2_level_estimation,
-                       disable_digital_adaptive) {
-  RTC_DCHECK(agc_);
-}
-
 AgcManagerDirect::AgcManagerDirect(Agc* agc,
                                    GainControl* gctrl,
                                    VolumeCallbacks* volume_callbacks,
                                    int startup_min_level,
                                    int clipped_level_min)
-    : AgcManagerDirect(agc,
-                       gctrl,
+    : AgcManagerDirect(gctrl,
                        volume_callbacks,
                        startup_min_level,
                        clipped_level_min,
@@ -194,15 +177,14 @@ AgcManagerDirect::AgcManagerDirect(Agc* agc,
   RTC_DCHECK(agc_);
 }
 
-AgcManagerDirect::AgcManagerDirect(Agc* agc,
-                                   GainControl* gctrl,
+AgcManagerDirect::AgcManagerDirect(GainControl* gctrl,
                                    VolumeCallbacks* volume_callbacks,
                                    int startup_min_level,
                                    int clipped_level_min,
                                    bool use_agc2_level_estimation,
                                    bool disable_digital_adaptive)
     : data_dumper_(new ApmDataDumper(instance_counter_)),
-      agc_(agc),
+      agc_(use_agc2_level_estimation ? nullptr : new Agc()),
       gctrl_(gctrl),
       volume_callbacks_(volume_callbacks),
       frames_since_clipped_(kClippedWaitFrames),
@@ -216,16 +198,15 @@ AgcManagerDirect::AgcManagerDirect(Agc* agc,
       check_volume_on_next_process_(true),  // Check at startup.
       startup_(true),
       min_mic_level_(GetMinMicLevel()),
-      use_agc2_level_estimation_(use_agc2_level_estimation),
       disable_digital_adaptive_(disable_digital_adaptive),
       startup_min_level_(ClampLevel(startup_min_level, min_mic_level_)),
       clipped_level_min_(clipped_level_min) {
   instance_counter_++;
-  if (use_agc2_level_estimation_) {
-    RTC_DCHECK(!agc);
+  if (use_agc2_level_estimation) {
+    RTC_DCHECK(!agc_);
     agc_.reset(new AdaptiveModeLevelEstimatorAgc(data_dumper_.get()));
   } else {
-    RTC_DCHECK(agc);
+    RTC_DCHECK(agc_);
   }
 }
 

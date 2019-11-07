@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef TEST_TIME_CONTROLLER_TIME_CONTROLLER_H_
-#define TEST_TIME_CONTROLLER_TIME_CONTROLLER_H_
+#ifndef API_TEST_TIME_CONTROLLER_H_
+#define API_TEST_TIME_CONTROLLER_H_
 
 #include <functional>
 #include <memory>
@@ -44,4 +44,4 @@ class TimeController {
   virtual void InvokeWithControlledYield(std::function<void()> closure) = 0;
 };
 }  // namespace webrtc
-#endif  // TEST_TIME_CONTROLLER_TIME_CONTROLLER_H_
+#endif  // API_TEST_TIME_CONTROLLER_H_

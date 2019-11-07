@@ -11,6 +11,7 @@
 #ifndef VIDEO_VIDEO_RECEIVE_STREAM_H_
 #define VIDEO_VIDEO_RECEIVE_STREAM_H_
 
+#include <deque>
 #include <memory>
 #include <vector>
 
@@ -134,6 +135,11 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
 
   std::vector<webrtc::RtpSource> GetSources() const override;
 
+  void EnableEncodedOutput() override;
+  void DoneEncodedOutput() override;
+  int GetEncodedOutputBalance() override;
+  void SetEncodedOutputBalance(int balance) override;
+
  private:
   int64_t GetWaitMs() const;
   void StartNextDecode() RTC_RUN_ON(decode_queue_);
@@ -175,6 +181,7 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   RtpVideoStreamReceiver rtp_video_stream_receiver_;
   std::unique_ptr<VideoStreamDecoder> video_stream_decoder_;
   RtpStreamsSynchronizer rtp_stream_sync_;
+  std::deque<std::unique_ptr<video_coding::EncodedFrame>> encoded_frames_;
 
   // TODO(nisse, philipel): Creation and ownership of video encoders should be
   // moved to the new VideoStreamDecoder.
@@ -200,6 +207,10 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   // Keyframe request intervals are configurable through field trials.
   const int max_wait_for_keyframe_ms_;
   const int max_wait_for_frame_ms_;
+
+  // Number of calls to EnableEncodedOutput - number of calls to
+  // DoneEncodedOutput. Valid on decode_queue.
+  int encoded_output_balance_ = 0;
 
   rtc::CriticalSection playout_delay_lock_;
 

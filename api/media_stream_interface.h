@@ -61,6 +61,20 @@ class RTC_EXPORT MediaSourceInterface : public rtc::RefCountInterface,
 
   virtual bool remote() const = 0;
 
+  // Returns true if encoded output can be enabled in the source.
+  virtual bool SupportsEncodedOutput() const = 0;
+
+  // If the source supports it, enable encoded output, and order a keyframe to
+  // be generated. Does nothing if the source does not support it. For video
+  // sources, the encoded data is available in webrtc::VideoFrame.
+  //
+  // If this method has been called, when the use of encoded data is finished,
+  // DoneEncodedOutput should be called to decrease memory consumption.
+  virtual void EnableEncodedOutput() = 0;
+
+  // Should eventually be called if EnableEncodedOutput() was called.
+  virtual void DoneEncodedOutput() = 0;
+
  protected:
   ~MediaSourceInterface() override = default;
 };
@@ -134,6 +148,10 @@ class VideoTrackSourceInterface : public MediaSourceInterface,
   //
   // Implementation should avoid blocking.
   virtual bool GetStats(Stats* stats) = 0;
+
+  bool SupportsEncodedOutput() const override { return false; }
+  void EnableEncodedOutput() override {}
+  void DoneEncodedOutput() override {}
 
  protected:
   ~VideoTrackSourceInterface() override = default;
@@ -214,6 +232,10 @@ class RTC_EXPORT AudioSourceInterface : public MediaSourceInterface {
   // (for some of the settings this approach is broken, e.g. setting
   // audio network adaptation on the source is the wrong layer of abstraction).
   virtual const cricket::AudioOptions options() const;
+
+  bool SupportsEncodedOutput() const override { return false; }
+  void EnableEncodedOutput() override {}
+  void DoneEncodedOutput() override {}
 };
 
 // Interface of the audio processor used by the audio track to collect

@@ -8,6 +8,11 @@ specific_include_rules = {
   "dummy_peer_connection\.h": [
     "+rtc_base/ref_counted_object.h",
   ],
+  "abstract_time_controller\.h": [
+    "+modules/utility/include/process_thread.h",
+    "+system_wrappers/include/clock.h",
+    "+test/time_controller/simulated_time_controller.h",
+  ],
   "fake_constraints\.h": [
     "+rtc_base/string_encode.h",
   ],
@@ -31,5 +36,9 @@ specific_include_rules = {
     "+rtc_base/ssl_certificate.h",
     "+rtc_base/thread.h",
     "+media/base/media_constants.h",
+  ],
+  "time_controller\.h": [
+    "+modules/utility/include/process_thread.h",
+    "+system_wrappers/include/clock.h",
   ],
 }

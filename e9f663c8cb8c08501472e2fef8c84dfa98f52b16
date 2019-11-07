@@ -22,6 +22,30 @@
       "revId": "e9f663c8cb8c08501472e2fef8c84dfa98f52b16",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20b98dd9_ebff6ebe",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-07T14:42:04Z",
+      "side": 0,
+      "message": "My bad, change remove in the next patch set.",
+      "parentUuid": "000e3806_1a0120f0",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 11
+      },
+      "revId": "e9f663c8cb8c08501472e2fef8c84dfa98f52b16",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

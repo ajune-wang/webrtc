@@ -42,7 +42,7 @@ VideoRtpReceiver::VideoRtpReceiver(
     const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams)
     : worker_thread_(worker_thread),
       id_(receiver_id),
-      source_(new RefCountedObject<VideoRtpTrackSource>()),
+      source_(new RefCountedObject<VideoRtpTrackSource>(this)),
       track_(VideoTrackProxy::Create(
           rtc::Thread::Current(),
           worker_thread,
@@ -244,6 +244,26 @@ std::vector<RtpSource> VideoRtpReceiver::GetSources() const {
   }
   return worker_thread_->Invoke<std::vector<RtpSource>>(
       RTC_FROM_HERE, [&] { return media_channel_->GetSources(*ssrc_); });
+}
+
+void VideoRtpReceiver::VideoRtpTrackSource::EnableEncodedOutput() {
+  receiver_->EnableEncodedOutput();
+}
+
+void VideoRtpReceiver::VideoRtpTrackSource::DoneEncodedOutput() {
+  receiver_->DoneEncodedOutput();
+}
+
+void VideoRtpReceiver::EnableEncodedOutput() {
+  if (media_channel_ && ssrc_) {
+    media_channel_->EnableEncodedOutput(*ssrc_);
+  }
+}
+
+void VideoRtpReceiver::DoneEncodedOutput() {
+  if (media_channel_ && ssrc_) {
+    media_channel_->DoneEncodedOutput(*ssrc_);
+  }
 }
 
 }  // namespace webrtc

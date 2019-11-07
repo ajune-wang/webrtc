@@ -12,6 +12,8 @@ if (rtc_include_tests) {
   rtc_library("time_controller") {
     testonly = true
     sources = [
+      "external_time_controller.cc",
+      "external_time_controller.h",
       "real_time_controller.cc",
       "real_time_controller.h",
       "simulated_time_controller.cc",

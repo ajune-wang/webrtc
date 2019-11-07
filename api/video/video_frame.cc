@@ -11,6 +11,7 @@
 #include "api/video/video_frame.h"
 
 #include <algorithm>
+#include <memory>
 #include <utility>
 
 #include "rtc_base/checks.h"

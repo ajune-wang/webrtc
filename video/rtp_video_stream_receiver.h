@@ -320,6 +320,7 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
   absl::optional<ColorSpace> last_color_space_;
 
   int64_t last_completed_picture_id_ = 0;
+  int64_t last_assembled_frame_time_ms_ RTC_GUARDED_BY(network_tc_) = 0;
 };
 
 }  // namespace webrtc

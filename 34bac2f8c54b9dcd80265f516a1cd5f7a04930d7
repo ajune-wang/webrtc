@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ab97f8f_e20549c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-08T09:51:39Z",
+      "side": 1,
+      "message": "Also mention saturated_cast?",
+      "revId": "34bac2f8c54b9dcd80265f516a1cd5f7a04930d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

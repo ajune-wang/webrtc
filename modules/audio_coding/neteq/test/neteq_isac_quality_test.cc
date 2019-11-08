@@ -57,7 +57,7 @@ void NetEqIsacQualityTest::SetUp() {
   // Create encoder memory.
   WebRtcIsacfix_Create(&isac_encoder_);
   ASSERT_TRUE(isac_encoder_ != NULL);
-  EXPECT_EQ(0, WebRtcIsacfix_EncoderInit(isac_encoder_, 1));
+  EXPECT_EQ(0, WebRtcIsacfix_EncoderInit(isac_encoder_));
   // Set bitrate and block length.
   EXPECT_EQ(0, WebRtcIsacfix_Control(isac_encoder_, bit_rate_kbps_ * 1000,
                                      kIsacBlockDurationMs));

@@ -181,7 +181,6 @@ void WebRtcIsac_ResetBitstream(Bitstr* bit_stream) {
 
 int WebRtcIsac_EncodeLb(const TransformTables* transform_tables,
                         float* in, ISACLBEncStruct* ISACencLB_obj,
-                        int16_t codingMode,
                         int16_t bottleneckIndex) {
   int stream_length = 0;
   int err;
@@ -254,12 +253,6 @@ int WebRtcIsac_EncodeLb(const TransformTables* transform_tables,
     int intVar;
     /* reset bitstream */
     WebRtcIsac_ResetBitstream(&(ISACencLB_obj->bitstr_obj));
-
-    if ((codingMode == 0) && (frame_mode == 0) &&
-        (ISACencLB_obj->enforceFrameSize == 0)) {
-      ISACencLB_obj->new_framelength = WebRtcIsac_GetNewFrameLength(
-          ISACencLB_obj->bottleneck, ISACencLB_obj->current_framesamples);
-    }
 
     ISACencLB_obj->s2nr = WebRtcIsac_GetSnr(
         ISACencLB_obj->bottleneck, ISACencLB_obj->current_framesamples);
@@ -515,13 +508,6 @@ int WebRtcIsac_EncodeLb(const TransformTables* transform_tables,
       return 0;
     } else if (ISACencLB_obj->frame_nb == 1) {
       ISACencLB_obj->frame_nb = 0;
-      /* Also update the frame-length for next packet,
-         in Adaptive mode only. */
-      if (codingMode == 0 && (ISACencLB_obj->enforceFrameSize == 0)) {
-        ISACencLB_obj->new_framelength =
-            WebRtcIsac_GetNewFrameLength(ISACencLB_obj->bottleneck,
-                                         ISACencLB_obj->current_framesamples);
-      }
     }
   } else {
     ISACencLB_obj->frame_nb = 0;

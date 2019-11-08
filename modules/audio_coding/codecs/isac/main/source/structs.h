@@ -406,9 +406,6 @@ typedef struct {
   RateModel rate_data_obj;
   double MaxDelay;
 
-  /* 0 = adaptive; 1 = instantaneous */
-  int16_t codingMode;
-
   // overall bottleneck of the codec
   int32_t bottleneck;
 

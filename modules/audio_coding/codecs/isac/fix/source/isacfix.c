@@ -225,19 +225,12 @@ static void InitFunctionPointers(void) {
  *
  * Input:
  *      - ISAC_main_inst    : ISAC instance.
- *      - CodingMode        : 0 -> Bit rate and frame length are automatically
- *                                 adjusted to available bandwidth on
- *                                 transmission channel.
- *                            1 -> User sets a frame length and a target bit
- *                                 rate which is taken as the maximum short-term
- *                                 average bit rate.
  *
  * Return value             :  0 - Ok
  *                            -1 - Error
  */
 
-int16_t WebRtcIsacfix_EncoderInit(ISACFIX_MainStruct *ISAC_main_inst,
-                                  int16_t  CodingMode)
+int16_t WebRtcIsacfix_EncoderInit(ISACFIX_MainStruct *ISAC_main_inst)
 {
   int k;
   int16_t statusInit;
@@ -250,18 +243,8 @@ int16_t WebRtcIsacfix_EncoderInit(ISACFIX_MainStruct *ISAC_main_inst,
   /* flag encoder init */
   ISAC_inst->initflag |= 2;
 
-  if (CodingMode == 0)
-    /* Adaptive mode */
-    ISAC_inst->ISACenc_obj.new_framelength  = INITIAL_FRAMESAMPLES;
-  else if (CodingMode == 1)
-    /* Instantaneous mode */
-    ISAC_inst->ISACenc_obj.new_framelength = 480;    /* default for I-mode */
-  else {
-    ISAC_inst->errorcode = ISAC_DISALLOWED_CODING_MODE;
-    statusInit = -1;
-  }
-
-  ISAC_inst->CodingMode = CodingMode;
+  /* Instantaneous mode */
+  ISAC_inst->ISACenc_obj.new_framelength = 480;    /* default for I-mode */
 
   WebRtcIsacfix_InitMaskingEnc(&ISAC_inst->ISACenc_obj.maskfiltstr_obj);
   WebRtcIsacfix_InitPreFilterbank(&ISAC_inst->ISACenc_obj.prefiltbankstr_obj);
@@ -365,8 +348,7 @@ int WebRtcIsacfix_Encode(ISACFIX_MainStruct *ISAC_main_inst,
 
   stream_len = WebRtcIsacfix_EncodeImpl((int16_t*)speechIn,
                                         &ISAC_inst->ISACenc_obj,
-                                        &ISAC_inst->bwestimator_obj,
-                                        ISAC_inst->CodingMode);
+                                        &ISAC_inst->bwestimator_obj);
   if (stream_len<0) {
     ISAC_inst->errorcode = -(int16_t)stream_len;
     return -1;
@@ -777,14 +759,6 @@ int16_t WebRtcIsacfix_Control(ISACFIX_MainStruct *ISAC_main_inst,
   /* typecast pointer to real structure */
   ISAC_inst = (ISACFIX_SubStruct *)ISAC_main_inst;
 
-  if (ISAC_inst->CodingMode == 0)
-  {
-    /* in adaptive mode */
-    ISAC_inst->errorcode = ISAC_MODE_MISMATCH;
-    return -1;
-  }
-
-
   if (rate >= 10000 && rate <= 32000)
     ISAC_inst->ISACenc_obj.BottleNeck = rate;
   else {
@@ -811,78 +785,6 @@ void WebRtcIsacfix_SetInitialBweBottleneck(ISACFIX_MainStruct* ISAC_main_inst,
   RTC_DCHECK_LE(bottleneck_bits_per_second, 32000);
   inst->bwestimator_obj.sendBwAvg = ((uint32_t)bottleneck_bits_per_second) << 7;
 }
-
-/****************************************************************************
- * WebRtcIsacfix_ControlBwe(...)
- *
- * This function sets the initial values of bottleneck and frame-size if
- * iSAC is used in channel-adaptive mode. Through this API, users can
- * enforce a frame-size for all values of bottleneck. Then iSAC will not
- * automatically change the frame-size.
- *
- *
- * Input:
- *  - ISAC_main_inst : ISAC instance.
- *      - rateBPS           : initial value of bottleneck in bits/second
- *                            10000 <= rateBPS <= 32000 is accepted
- *                            For default bottleneck set rateBPS = 0
- *      - frameSizeMs       : number of milliseconds per frame (30 or 60)
- *      - enforceFrameSize  : 1 to enforce the given frame-size through out
- *                            the adaptation process, 0 to let iSAC change
- *                            the frame-size if required.
- *
- * Return value    : 0  - ok
- *         -1 - Error
- */
-
-int16_t WebRtcIsacfix_ControlBwe(ISACFIX_MainStruct *ISAC_main_inst,
-                                 int16_t rateBPS,
-                                 int frameSizeMs,
-                                 int16_t enforceFrameSize)
-{
-  ISACFIX_SubStruct *ISAC_inst;
-  /* Typecast pointer to real structure */
-  ISAC_inst = (ISACFIX_SubStruct *)ISAC_main_inst;
-
-  /* check if encoder initiated */
-  if ((ISAC_inst->initflag & 2) != 2) {
-    ISAC_inst->errorcode = ISAC_ENCODER_NOT_INITIATED;
-    return (-1);
-  }
-
-  /* Check that we are in channel-adaptive mode, otherwise, return -1 */
-  if (ISAC_inst->CodingMode != 0) {
-    ISAC_inst->errorcode = ISAC_MODE_MISMATCH;
-    return (-1);
-  }
-
-  /* Set struct variable if enforceFrameSize is set. ISAC will then keep the */
-  /* chosen frame size.                                                      */
-  ISAC_inst->ISACenc_obj.enforceFrameSize = (enforceFrameSize != 0)? 1:0;
-
-  /* Set initial rate, if value between 10000 and 32000,                */
-  /* if rateBPS is 0, keep the default initial bottleneck value (15000) */
-  if ((rateBPS >= 10000) && (rateBPS <= 32000)) {
-    ISAC_inst->bwestimator_obj.sendBwAvg = (((uint32_t)rateBPS) << 7);
-  } else if (rateBPS != 0) {
-    ISAC_inst->errorcode = ISAC_DISALLOWED_BOTTLENECK;
-    return -1;
-  }
-
-  /* Set initial framesize. If enforceFrameSize is set the frame size will not change */
-  if ((frameSizeMs  == 30) || (frameSizeMs == 60)) {
-    ISAC_inst->ISACenc_obj.new_framelength = (int16_t)((FS/1000) * frameSizeMs);
-  } else {
-    ISAC_inst->errorcode = ISAC_DISALLOWED_FRAME_LENGTH;
-    return -1;
-  }
-
-  return 0;
-}
-
-
-
-
 
 /****************************************************************************
  * WebRtcIsacfix_GetDownLinkBwIndex(...)

@@ -109,7 +109,6 @@ TEST(IsacFixTest, Kenny) {
 
   int i;
   int errtype, h = 0, k, packetLossPercent = 0;
-  int16_t CodingMode;
   int16_t bottleneck;
   int framesize = 30; /* ms */
   int cur_framesmpls, err = 0, lostPackets = 0;
@@ -257,17 +256,9 @@ TEST(IsacFixTest, Kenny) {
   printf("iSAC version %s \n\n", version_number);
 
   /* Loop over all command line arguments */
-  CodingMode = 0;
   testNum = 0;
   testCE = 0;
   i = 1;
-
-  /* Instantaneous mode */
-  if (!strcmp("-I", argv[i])) {
-    printf("\nInstantaneous BottleNeck\n");
-    CodingMode = 1;
-    i++;
-  }
 
   /* Bottleneck value is processed after the for */
   i++;
@@ -465,9 +456,9 @@ TEST(IsacFixTest, Kenny) {
 
   /* Get Bottleneck value                                                   */
   /* Gns files and bottleneck should not and can not be used simultaneously */
-  bottleneck = atoi(argv[CodingMode + 1]);
+  bottleneck = atoi(argv[1]);
   if (bottleneck == 0 && gns == 0) {
-    sscanf(argv[CodingMode + 1], "%s", bottleneck_file);
+    sscanf(argv[2], "%s", bottleneck_file);
     f_bn = fopen(bottleneck_file, "rb");
     if (f_bn == NULL) {
       printf("No value provided for BottleNeck\n");
@@ -493,10 +484,6 @@ TEST(IsacFixTest, Kenny) {
   } else {
     f_bn = NULL;
     printf("\nfixed bottleneck rate of %d bits/s\n\n", bottleneck);
-  }
-
-  if (CodingMode == 0) {
-    printf("\nAdaptive BottleNeck\n");
   }
 
   /* Add '.bit' to output bitstream file */
@@ -563,21 +550,17 @@ TEST(IsacFixTest, Kenny) {
   framecnt = 0;
   endfile = 0;
   if (testNum != 1) {
-    WebRtcIsacfix_EncoderInit(ISAC_main_inst, CodingMode);
+    WebRtcIsacfix_EncoderInit(ISAC_main_inst);
   }
   if (testNum != 2) {
     WebRtcIsacfix_DecoderInit(ISAC_main_inst);
   }
 
-  if (CodingMode == 1) {
-    err = WebRtcIsacfix_Control(ISAC_main_inst, bottleneck, framesize);
-    if (err < 0) {
-      /* exit if returned with error */
-      errtype = WebRtcIsacfix_GetErrorCode(ISAC_main_inst);
-      printf("\n\n Error in control: %d.\n\n", errtype);
-    }
-  } else if (setControlBWE == 1) {
-    err = WebRtcIsacfix_ControlBwe(ISAC_main_inst, rateBPS, framesize, fixedFL);
+  err = WebRtcIsacfix_Control(ISAC_main_inst, bottleneck, framesize);
+  if (err < 0) {
+    /* exit if returned with error */
+    errtype = WebRtcIsacfix_GetErrorCode(ISAC_main_inst);
+    printf("\n\n Error in control: %d.\n\n", errtype);
   }
 
   if (payloadSize != 0) {
@@ -601,7 +584,7 @@ TEST(IsacFixTest, Kenny) {
 
   while (endfile == 0) {
     if (testNum == 7 && (rand() % 2 == 0)) {
-      err = WebRtcIsacfix_EncoderInit(ISAC_main_inst, CodingMode);
+      err = WebRtcIsacfix_EncoderInit(ISAC_main_inst);
       /* Error check */
       if (err < 0) {
         errtype = WebRtcIsacfix_GetErrorCode(ISAC_main_inst);
@@ -696,9 +679,7 @@ TEST(IsacFixTest, Kenny) {
           }
         }
         bottleneck = (int16_t)aux_var;
-        if (CodingMode == 1) {
-          WebRtcIsacfix_Control(ISAC_main_inst, bottleneck, framesize);
-        }
+        WebRtcIsacfix_Control(ISAC_main_inst, bottleneck, framesize);
       }
 
       /* exit encoder loop if the encoder returned a bitstream */

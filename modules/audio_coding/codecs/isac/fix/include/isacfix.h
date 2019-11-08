@@ -59,19 +59,12 @@ int16_t WebRtcIsacfix_Free(ISACFIX_MainStruct* ISAC_main_inst);
  *
  * Input:
  *     - ISAC_main_inst     : ISAC instance.
- *     - CodingMode         : 0 - Bit rate and frame length are automatically
- *                                adjusted to available bandwidth on
- *                                transmission channel.
- *                            1 - User sets a frame length and a target bit
- *                                rate which is taken as the maximum short-term
- *                                average bit rate.
  *
  * Return value             :  0 - Ok
  *                            -1 - Error
  */
 
-int16_t WebRtcIsacfix_EncoderInit(ISACFIX_MainStruct* ISAC_main_inst,
-                                  int16_t CodingMode);
+int16_t WebRtcIsacfix_EncoderInit(ISACFIX_MainStruct* ISAC_main_inst);
 
 /****************************************************************************
  * WebRtcIsacfix_Encode(...)
@@ -246,33 +239,6 @@ int16_t WebRtcIsacfix_Control(ISACFIX_MainStruct* ISAC_main_inst,
 
 void WebRtcIsacfix_SetInitialBweBottleneck(ISACFIX_MainStruct* ISAC_main_inst,
                                            int bottleneck_bits_per_second);
-
-/****************************************************************************
- * WebRtcIsacfix_ControlBwe(...)
- *
- * This function sets the initial values of bottleneck and frame-size if
- * iSAC is used in channel-adaptive mode. Through this API, users can
- * enforce a frame-size for all values of bottleneck. Then iSAC will not
- * automatically change the frame-size.
- *
- *
- * Input:
- *      - ISAC_main_inst    : ISAC instance.
- *      - rateBPS           : initial value of bottleneck in bits/second
- *                            10000 <= rateBPS <= 32000 is accepted
- *      - frameSizeMs       : number of milliseconds per frame (30 or 60)
- *      - enforceFrameSize  : 1 to enforce the given frame-size through out
- *                            the adaptation process, 0 to let iSAC change
- *                            the frame-size if required.
- *
- * Return value             : 0  - ok
- *                           -1 - Error
- */
-
-int16_t WebRtcIsacfix_ControlBwe(ISACFIX_MainStruct* ISAC_main_inst,
-                                 int16_t rateBPS,
-                                 int frameSizeMs,
-                                 int16_t enforceFrameSize);
 
 /****************************************************************************
  * WebRtcIsacfix_version(...)

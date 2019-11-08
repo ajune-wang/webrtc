@@ -33,11 +33,9 @@
 
 int WebRtcIsacfix_EncodeImpl(int16_t      *in,
                              IsacFixEncoderInstance  *ISACenc_obj,
-                             BwEstimatorstr      *bw_estimatordata,
-                             int16_t         CodingMode)
+                             BwEstimatorstr      *bw_estimatordata)
 {
   int16_t stream_length = 0;
-  int16_t usefulstr_len = 0;
   int k;
   int16_t BWno;
 
@@ -58,7 +56,6 @@ int WebRtcIsacfix_EncodeImpl(int16_t      *in,
   int status;
 
   int32_t bits_gainsQ11;
-  int16_t MinBytes;
   int16_t bmodel;
 
   transcode_obj transcodingParam;
@@ -103,15 +100,6 @@ int WebRtcIsacfix_EncodeImpl(int16_t      *in,
     ISACenc_obj->bitstr_obj.streamval = 0;
     ISACenc_obj->bitstr_obj.stream_index = 0;
     ISACenc_obj->bitstr_obj.full = 1;
-
-    if (CodingMode == 0) {
-      ISACenc_obj->BottleNeck =  WebRtcIsacfix_GetUplinkBandwidth(bw_estimatordata);
-      ISACenc_obj->MaxDelay =  WebRtcIsacfix_GetUplinkMaxDelay(bw_estimatordata);
-    }
-    if (CodingMode == 0 && frame_mode == 0 && (ISACenc_obj->enforceFrameSize == 0)) {
-      ISACenc_obj->new_framelength = WebRtcIsacfix_GetNewFrameLength(ISACenc_obj->BottleNeck,
-                                                                     ISACenc_obj->current_framesamples);
-    }
 
     // multiply the bottleneck by 0.88 before computing SNR, 0.88 is tuned by experimenting on TIMIT
     // 901/1024 is 0.87988281250000
@@ -410,11 +398,6 @@ int WebRtcIsacfix_EncodeImpl(int16_t      *in,
   else if (frame_mode == 1 && ISACenc_obj->frame_nb == 1)
   {
     ISACenc_obj->frame_nb = 0;
-    /* also update the framelength for next packet, in Adaptive mode only */
-    if (CodingMode == 0 && (ISACenc_obj->enforceFrameSize == 0)) {
-      ISACenc_obj->new_framelength = WebRtcIsacfix_GetNewFrameLength(ISACenc_obj->BottleNeck,
-                                                                     ISACenc_obj->current_framesamples);
-    }
   }
 
 
@@ -422,69 +405,12 @@ int WebRtcIsacfix_EncodeImpl(int16_t      *in,
   stream_length = WebRtcIsacfix_EncTerminate(&ISACenc_obj->bitstr_obj);
   /* can this be negative? */
 
-  if(CodingMode == 0)
-  {
+  /* update rate model */
+  WebRtcIsacfix_UpdateRateModel(&ISACenc_obj->rate_data_obj,
+                                (int16_t) stream_length,
+                                ISACenc_obj->current_framesamples,
+                                ISACenc_obj->BottleNeck);
 
-    /* update rate model and get minimum number of bytes in this packet */
-    MinBytes = WebRtcIsacfix_GetMinBytes(&ISACenc_obj->rate_data_obj, (int16_t) stream_length,
-                                         ISACenc_obj->current_framesamples, ISACenc_obj->BottleNeck, ISACenc_obj->MaxDelay);
-
-    /* if bitstream is too short, add garbage at the end */
-
-    /* Store length of coded data */
-    usefulstr_len = stream_length;
-
-    /* Make sure MinBytes does not exceed packet size limit */
-    if ((ISACenc_obj->frame_nb == 0) && (MinBytes > ISACenc_obj->payloadLimitBytes30)) {
-      MinBytes = ISACenc_obj->payloadLimitBytes30;
-    } else if ((ISACenc_obj->frame_nb == 1) && (MinBytes > ISACenc_obj->payloadLimitBytes60)) {
-      MinBytes = ISACenc_obj->payloadLimitBytes60;
-    }
-
-    /* Make sure we don't allow more than 255 bytes of garbage data.
-       We store the length of the garbage data in 8 bits in the bitstream,
-       255 is the max garbage lenght we can signal using 8 bits. */
-    if( MinBytes > usefulstr_len + 255 ) {
-      MinBytes = usefulstr_len + 255;
-    }
-
-    /* Save data for creation of multiple bitstreams */
-    if (ISACenc_obj->SaveEnc_ptr != NULL) {
-      (ISACenc_obj->SaveEnc_ptr)->minBytes = MinBytes;
-    }
-
-    while (stream_length < MinBytes)
-    {
-      RTC_DCHECK_GE(stream_length, 0);
-      if (stream_length & 0x0001){
-        ISACenc_obj->bitstr_seed = WEBRTC_SPL_RAND( ISACenc_obj->bitstr_seed );
-        ISACenc_obj->bitstr_obj.stream[stream_length / 2] |=
-            (uint16_t)(ISACenc_obj->bitstr_seed & 0xFF);
-      } else {
-        ISACenc_obj->bitstr_seed = WEBRTC_SPL_RAND( ISACenc_obj->bitstr_seed );
-        ISACenc_obj->bitstr_obj.stream[stream_length / 2] =
-            ((uint16_t)ISACenc_obj->bitstr_seed << 8);
-      }
-      stream_length++;
-    }
-
-    /* to get the real stream_length, without garbage */
-    if (usefulstr_len & 0x0001) {
-      ISACenc_obj->bitstr_obj.stream[usefulstr_len>>1] &= 0xFF00;
-      ISACenc_obj->bitstr_obj.stream[usefulstr_len>>1] += (MinBytes - usefulstr_len) & 0x00FF;
-    }
-    else {
-      ISACenc_obj->bitstr_obj.stream[usefulstr_len>>1] &= 0x00FF;
-      ISACenc_obj->bitstr_obj.stream[usefulstr_len >> 1] +=
-          ((uint16_t)((MinBytes - usefulstr_len) & 0x00FF) << 8);
-    }
-  }
-  else
-  {
-    /* update rate model */
-    WebRtcIsacfix_UpdateRateModel(&ISACenc_obj->rate_data_obj, (int16_t) stream_length,
-                                  ISACenc_obj->current_framesamples, ISACenc_obj->BottleNeck);
-  }
   return stream_length;
 }
 

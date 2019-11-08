@@ -101,72 +101,6 @@ static void UpdatePayloadSizeLimit(ISACMainStruct* instISAC) {
 
 
 /****************************************************************************
- * UpdateBottleneck(...)
- *
- * This function updates the bottleneck only if the codec is operating in
- * channel-adaptive mode. Furthermore, as the update of bottleneck might
- * result in an update of bandwidth, therefore, the bottlenech should be
- * updated just right before the first 10ms of a frame is pushed into encoder.
- *
- */
-static void UpdateBottleneck(ISACMainStruct* instISAC) {
-  /* Read the bottleneck from bandwidth estimator for the
-   * first 10 ms audio. This way, if there is a change
-   * in bandwidth, upper and lower-band will be in sync. */
-  if ((instISAC->codingMode == 0) &&
-      (instISAC->instLB.ISACencLB_obj.buffer_index == 0) &&
-      (instISAC->instLB.ISACencLB_obj.frame_nb == 0)) {
-    int32_t bottleneck =
-        WebRtcIsac_GetUplinkBandwidth(&instISAC->bwestimator_obj);
-
-    /* Adding hysteresis when increasing signal bandwidth. */
-    if ((instISAC->bandwidthKHz == isac8kHz)
-        && (bottleneck > 37000)
-        && (bottleneck < 41000)) {
-      bottleneck = 37000;
-    }
-
-    /* Switching from 12 kHz to 16 kHz is not allowed at this revision.
-     * If we let this happen, we have to take care of buffer_index and
-     * the last LPC vector. */
-    if ((instISAC->bandwidthKHz != isac16kHz) &&
-        (bottleneck > 46000)) {
-      bottleneck = 46000;
-    }
-
-    /* We might need a rate allocation. */
-    if (instISAC->encoderSamplingRateKHz == kIsacWideband) {
-      /* Wideband is the only choice we have here. */
-      instISAC->instLB.ISACencLB_obj.bottleneck =
-        (bottleneck > 32000) ? 32000 : bottleneck;
-      instISAC->bandwidthKHz = isac8kHz;
-    } else {
-      /* Do the rate-allocation and get the new bandwidth. */
-      enum ISACBandwidth bandwidth;
-      WebRtcIsac_RateAllocation(bottleneck,
-                                &(instISAC->instLB.ISACencLB_obj.bottleneck),
-                                &(instISAC->instUB.ISACencUB_obj.bottleneck),
-                                &bandwidth);
-      if (bandwidth != isac8kHz) {
-        instISAC->instLB.ISACencLB_obj.new_framelength = 480;
-      }
-      if (bandwidth != instISAC->bandwidthKHz) {
-        /* Bandwidth is changing. */
-        instISAC->bandwidthKHz = bandwidth;
-        UpdatePayloadSizeLimit(instISAC);
-        if (bandwidth == isac12kHz) {
-          instISAC->instLB.ISACencLB_obj.buffer_index = 0;
-        }
-        /* Currently we don't let the bandwidth to switch to 16 kHz
-         * if in adaptive mode. If we let this happen, we have to take
-         * care of buffer_index and the last LPC vector. */
-      }
-    }
-  }
-}
-
-
-/****************************************************************************
  * GetSendBandwidthInfo(...)
  *
  * This is called to get the bandwidth info. This info is the bandwidth and
@@ -285,7 +219,6 @@ int16_t WebRtcIsac_Free(ISACStruct* ISAC_main_inst) {
  *                              -1 - Error
  */
 static int16_t EncoderInitLb(ISACLBStruct* instLB,
-                             int16_t codingMode,
                              enum IsacSamplingRate sampRate) {
   int16_t statusInit = 0;
   int k;
@@ -295,13 +228,8 @@ static int16_t EncoderInitLb(ISACLBStruct* instLB,
     instLB->ISACencLB_obj.bitstr_obj.stream[k] = 0;
   }
 
-  if ((codingMode == 1) || (sampRate == kIsacSuperWideband)) {
-    /* 30 ms frame-size if either in super-wideband or
-     * instantaneous mode (I-mode). */
-    instLB->ISACencLB_obj.new_framelength = 480;
-  } else {
-    instLB->ISACencLB_obj.new_framelength = INITIAL_FRAMESAMPLES;
-  }
+  /* 30 ms frame-size in instantaneous mode (I-mode). */
+  instLB->ISACencLB_obj.new_framelength = 480;
 
   WebRtcIsac_InitMasking(&instLB->ISACencLB_obj.maskfiltstr_obj);
   WebRtcIsac_InitPreFilterbank(&instLB->ISACencLB_obj.prefiltbankstr_obj);
@@ -361,15 +289,10 @@ static int16_t EncoderInitUb(ISACUBStruct* instUB,
 }
 
 
-int16_t WebRtcIsac_EncoderInit(ISACStruct* ISAC_main_inst,
-                               int16_t codingMode) {
+int16_t WebRtcIsac_EncoderInit(ISACStruct* ISAC_main_inst) {
   ISACMainStruct* instISAC = (ISACMainStruct*)ISAC_main_inst;
   int16_t status;
 
-  if ((codingMode != 0) && (codingMode != 1)) {
-    instISAC->errorCode = ISAC_DISALLOWED_CODING_MODE;
-    return -1;
-  }
   /* Default bottleneck. */
   instISAC->bottleneck = MAX_ISAC_BW;
 
@@ -383,9 +306,6 @@ int16_t WebRtcIsac_EncoderInit(ISACStruct* ISAC_main_inst,
     instISAC->maxRateBytesPer30Ms = STREAM_SIZE_MAX;
   }
 
-  /* Channel-adaptive = 0; Instantaneous (Channel-independent) = 1. */
-  instISAC->codingMode = codingMode;
-
   WebRtcIsac_InitBandwidthEstimator(&instISAC->bwestimator_obj,
                                     instISAC->encoderSamplingRateKHz,
                                     instISAC->decoderSamplingRateKHz);
@@ -394,7 +314,7 @@ int16_t WebRtcIsac_EncoderInit(ISACStruct* ISAC_main_inst,
   /* Default for I-mode. */
   instISAC->MaxDelay = 10.0;
 
-  status = EncoderInitLb(&instISAC->instLB, codingMode,
+  status = EncoderInitLb(&instISAC->instLB,
                          instISAC->encoderSamplingRateKHz);
   if (status < 0) {
     instISAC->errorCode = -status;
@@ -490,16 +410,13 @@ int WebRtcIsac_Encode(ISACStruct* ISAC_main_inst,
   inFrame[2] += (float)1.90854954e-3;
   inFrame[9] += (float)1.84854878e-3;
 
-  /* This function will update the bottleneck if required. */
-  UpdateBottleneck(instISAC);
-
   /* Get the bandwith information which has to be sent to the other side. */
   GetSendBandwidthInfo(instISAC, &bottleneckIdx, &jitterInfo);
 
   /* Encode lower-band. */
   streamLenLB = WebRtcIsac_EncodeLb(&instISAC->transform_tables,
                                     inFrame, &instLB->ISACencLB_obj,
-                                    instISAC->codingMode, bottleneckIdx);
+                                    bottleneckIdx);
   if (streamLenLB < 0) {
     return -1;
   }
@@ -585,76 +502,11 @@ int WebRtcIsac_Encode(ISACStruct* ISAC_main_inst,
 
   /* Add Garbage if required. */
   bottleneck = WebRtcIsac_GetUplinkBandwidth(&instISAC->bwestimator_obj);
-  if (instISAC->codingMode == 0) {
-    int minBytes;
-    int limit;
-    uint8_t* ptrGarbage;
-
-    instISAC->MaxDelay = (double)WebRtcIsac_GetUplinkMaxDelay(
-                           &instISAC->bwestimator_obj);
-
-    /* Update rate model and get minimum number of bytes in this packet. */
-    minBytes = WebRtcIsac_GetMinBytes(
-        &(instISAC->rate_data_obj), streamLen,
-        instISAC->instLB.ISACencLB_obj.current_framesamples, bottleneck,
-        instISAC->MaxDelay, instISAC->bandwidthKHz);
-
-    /* Make sure MinBytes does not exceed packet size limit. */
-    if (instISAC->bandwidthKHz == isac8kHz) {
-      if (instLB->ISACencLB_obj.current_framesamples == FRAMESAMPLES) {
-        limit = instLB->ISACencLB_obj.payloadLimitBytes30;
-      } else {
-        limit = instLB->ISACencLB_obj.payloadLimitBytes60;
-      }
-    } else {
-      limit = instUB->ISACencUB_obj.maxPayloadSizeBytes;
-    }
-    minBytes = (minBytes > limit) ? limit : minBytes;
-
-    /* Make sure we don't allow more than 255 bytes of garbage data.
-     * We store the length of the garbage data in 8 bits in the bitstream,
-     * 255 is the max garbage length we can signal using 8 bits. */
-    if ((instISAC->bandwidthKHz == isac8kHz) ||
-        (streamLenUB == 0)) {
-      ptrGarbage = &encoded[streamLenLB];
-      limit = streamLen + 255;
-    } else {
-      ptrGarbage = &encoded[streamLenLB + 1 + streamLenUB];
-      limit = streamLen + (255 - encoded[streamLenLB]);
-    }
-    minBytes = (minBytes > limit) ? limit : minBytes;
-
-    garbageLen = (minBytes > streamLen) ? (uint8_t)(minBytes - streamLen) : 0;
-
-    /* Save data for creation of multiple bit-streams. */
-    /* If bit-stream too short then add garbage at the end. */
-    if (garbageLen > 0) {
-      /* Overwrite the garbage area to avoid leaking possibly sensitive data
-         over the network. This also makes the output deterministic. */
-      memset(ptrGarbage, 0, garbageLen);
-
-      /* For a correct length of the upper-band bit-stream together
-       * with the garbage. Garbage is embeded in upper-band bit-stream.
-       * That is the only way to preserve backward compatibility. */
-      if ((instISAC->bandwidthKHz == isac8kHz) ||
-          (streamLenUB == 0)) {
-        encoded[streamLenLB] = garbageLen;
-      } else {
-        encoded[streamLenLB] += garbageLen;
-        /* Write the length of the garbage at the end of the upper-band
-         *  bit-stream, if exists. This helps for sanity check. */
-        encoded[streamLenLB + 1 + streamLenUB] = garbageLen;
-
-      }
-      streamLen += garbageLen;
-    }
-  } else {
-    /* update rate model */
-    WebRtcIsac_UpdateRateModel(
-        &instISAC->rate_data_obj, streamLen,
-        instISAC->instLB.ISACencLB_obj.current_framesamples, bottleneck);
-    garbageLen = 0;
-  }
+  /* update rate model */
+  WebRtcIsac_UpdateRateModel(
+      &instISAC->rate_data_obj, streamLen,
+      instISAC->instLB.ISACencLB_obj.current_framesamples, bottleneck);
+  garbageLen = 0;
 
   /* Generate CRC if required. */
   if ((instISAC->bandwidthKHz != isac8kHz) && (streamLenUB > 0)) {
@@ -1418,12 +1270,6 @@ int16_t WebRtcIsac_Control(ISACStruct* ISAC_main_inst,
   double rateUB;
   enum ISACBandwidth bandwidthKHz;
 
-  if (instISAC->codingMode == 0) {
-    /* In adaptive mode. */
-    instISAC->errorCode = ISAC_MODE_MISMATCH;
-    return -1;
-  }
-
   /* Check if encoder initiated */
   if ((instISAC->initFlag & BIT_MASK_ENC_INIT) !=
       BIT_MASK_ENC_INIT) {
@@ -1501,87 +1347,6 @@ void WebRtcIsac_SetInitialBweBottleneck(ISACStruct* ISAC_main_inst,
   RTC_DCHECK_GE(bottleneck_bits_per_second, 10000);
   RTC_DCHECK_LE(bottleneck_bits_per_second, 32000);
   instISAC->bwestimator_obj.send_bw_avg = (float)bottleneck_bits_per_second;
-}
-
-/****************************************************************************
- * WebRtcIsac_ControlBwe(...)
- *
- * This function sets the initial values of bottleneck and frame-size if
- * iSAC is used in channel-adaptive mode. Through this API, users can
- * enforce a frame-size for all values of bottleneck. Then iSAC will not
- * automatically change the frame-size.
- *
- *
- * Input:
- *        - ISAC_main_inst    : ISAC instance.
- *        - rateBPS           : initial value of bottleneck in bits/second
- *                              10000 <= rateBPS <= 32000 is accepted
- *                              For default bottleneck set rateBPS = 0
- *        - frameSizeMs       : number of milliseconds per frame (30 or 60)
- *        - enforceFrameSize  : 1 to enforce the given frame-size through out
- *                              the adaptation process, 0 to let iSAC change
- *                              the frame-size if required.
- *
- * Return value               : 0 - ok
- *                             -1 - Error
- */
-int16_t WebRtcIsac_ControlBwe(ISACStruct* ISAC_main_inst,
-                              int32_t bottleneckBPS,
-                              int frameSizeMs,
-                              int16_t enforceFrameSize) {
-  ISACMainStruct* instISAC = (ISACMainStruct*)ISAC_main_inst;
-  enum ISACBandwidth bandwidth;
-
-   /* Check if encoder initiated */
-  if ((instISAC->initFlag & BIT_MASK_ENC_INIT) !=
-      BIT_MASK_ENC_INIT) {
-    instISAC->errorCode = ISAC_ENCODER_NOT_INITIATED;
-    return -1;
-  }
-
-  /* Check that we are in channel-adaptive mode, otherwise, return (-1) */
-  if (instISAC->codingMode != 0) {
-    instISAC->errorCode = ISAC_MODE_MISMATCH;
-    return -1;
-  }
-  if ((frameSizeMs != 30) &&
-      (instISAC->encoderSamplingRateKHz == kIsacSuperWideband)) {
-    return -1;
-  }
-
-  /* Set structure variable if enforceFrameSize is set. ISAC will then
-   * keep the chosen frame size. */
-  if (enforceFrameSize != 0) {
-    instISAC->instLB.ISACencLB_obj.enforceFrameSize = 1;
-  } else {
-    instISAC->instLB.ISACencLB_obj.enforceFrameSize = 0;
-  }
-
-  /* Set the initial rate. If the input value is zero then the default intial
-   * rate is used. Otehrwise, values between 10 to 32 kbps are accepted. */
-  if (bottleneckBPS != 0) {
-    double rateLB;
-    double rateUB;
-    if (WebRtcIsac_RateAllocation(bottleneckBPS, &rateLB, &rateUB,
-                                  &bandwidth) < 0) {
-      return -1;
-    }
-    instISAC->bwestimator_obj.send_bw_avg = (float)bottleneckBPS;
-    instISAC->bandwidthKHz = bandwidth;
-  }
-
-  /* Set the initial frame-size. If 'enforceFrameSize' is set, the frame-size
-   *  will not change */
-  if (frameSizeMs != 0) {
-    if ((frameSizeMs  == 30) || (frameSizeMs == 60)) {
-      instISAC->instLB.ISACencLB_obj.new_framelength =
-          (int16_t)((FS / 1000) * frameSizeMs);
-    } else {
-      instISAC->errorCode = ISAC_DISALLOWED_FRAME_LENGTH;
-      return -1;
-    }
-  }
-  return 0;
 }
 
 
@@ -1827,12 +1592,7 @@ int16_t WebRtcIsac_GetUplinkBw(ISACStruct*  ISAC_main_inst,
                                int32_t* bottleneck) {
   ISACMainStruct* instISAC = (ISACMainStruct*)ISAC_main_inst;
 
-  if (instISAC->codingMode == 0) {
-    /* We are in adaptive mode then get the bottleneck from BWE. */
-    *bottleneck = (int32_t)instISAC->bwestimator_obj.send_bw_avg;
-  } else {
-    *bottleneck = instISAC->bottleneck;
-  }
+  *bottleneck = instISAC->bottleneck;
 
   if ((*bottleneck > 32000) && (*bottleneck < 38000)) {
     *bottleneck = 32000;
@@ -2165,7 +1925,6 @@ int16_t WebRtcIsac_SetEncSampRate(ISACStruct* ISAC_main_inst,
     ISACUBStruct* instUB = &(instISAC->instUB);
     ISACLBStruct* instLB = &(instISAC->instLB);
     int32_t bottleneck = instISAC->bottleneck;
-    int16_t codingMode = instISAC->codingMode;
     int16_t frameSizeMs = instLB->ISACencLB_obj.new_framelength /
         (FS / 1000);
 
@@ -2174,26 +1933,24 @@ int16_t WebRtcIsac_SetEncSampRate(ISACStruct* ISAC_main_inst,
       /* Changing from super-wideband to wideband.
        * we don't need to re-initialize the encoder of the lower-band. */
       instISAC->bandwidthKHz = isac8kHz;
-      if (codingMode == 1) {
-        ControlLb(instLB,
-                  (bottleneck > 32000) ? 32000 : bottleneck, FRAMESIZE);
-      }
+
+      ControlLb(instLB,
+                (bottleneck > 32000) ? 32000 : bottleneck, FRAMESIZE);
+
       instISAC->maxPayloadSizeBytes = STREAM_SIZE_MAX_60;
       instISAC->maxRateBytesPer30Ms = STREAM_SIZE_MAX_30;
     } else if ((encoder_operational_rate == kIsacSuperWideband) &&
                (instISAC->encoderSamplingRateKHz == kIsacWideband)) {
       double bottleneckLB = 0;
       double bottleneckUB = 0;
-      if (codingMode == 1) {
-        WebRtcIsac_RateAllocation(bottleneck, &bottleneckLB, &bottleneckUB,
-                                  &(instISAC->bandwidthKHz));
-      }
+      WebRtcIsac_RateAllocation(bottleneck, &bottleneckLB, &bottleneckUB,
+                                &(instISAC->bandwidthKHz));
 
       instISAC->bandwidthKHz = isac16kHz;
       instISAC->maxPayloadSizeBytes = STREAM_SIZE_MAX;
       instISAC->maxRateBytesPer30Ms = STREAM_SIZE_MAX;
 
-      EncoderInitLb(instLB, codingMode, encoder_operational_rate);
+      EncoderInitLb(instLB, encoder_operational_rate);
       EncoderInitUb(instUB, instISAC->bandwidthKHz);
 
       memset(instISAC->analysisFBState1, 0,
@@ -2201,16 +1958,11 @@ int16_t WebRtcIsac_SetEncSampRate(ISACStruct* ISAC_main_inst,
       memset(instISAC->analysisFBState2, 0,
              FB_STATE_SIZE_WORD32 * sizeof(int32_t));
 
-      if (codingMode == 1) {
-        instISAC->bottleneck = bottleneck;
-        ControlLb(instLB, bottleneckLB,
-                  (instISAC->bandwidthKHz == isac8kHz) ? frameSizeMs:FRAMESIZE);
-        if (instISAC->bandwidthKHz > isac8kHz) {
-          ControlUb(instUB, bottleneckUB);
-        }
-      } else {
-        instLB->ISACencLB_obj.enforceFrameSize = 0;
-        instLB->ISACencLB_obj.new_framelength = FRAMESAMPLES;
+      instISAC->bottleneck = bottleneck;
+      ControlLb(instLB, bottleneckLB,
+                (instISAC->bandwidthKHz == isac8kHz) ? frameSizeMs:FRAMESIZE);
+      if (instISAC->bandwidthKHz > isac8kHz) {
+        ControlUb(instUB, bottleneckUB);
       }
     }
   }

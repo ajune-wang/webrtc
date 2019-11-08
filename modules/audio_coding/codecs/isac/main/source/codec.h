@@ -48,7 +48,6 @@ int WebRtcIsac_DecodeRcuLb(float* signal_out,
 int WebRtcIsac_EncodeLb(const TransformTables* transform_tables,
                         float* in,
                         ISACLBEncStruct* ISACencLB_obj,
-                        int16_t codingMode,
                         int16_t bottleneckIndex);
 
 int WebRtcIsac_EncodeStoredDataLb(const IsacSaveEncoderData* ISACSavedEnc_obj,

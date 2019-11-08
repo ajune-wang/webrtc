@@ -25,13 +25,6 @@ class IsacFix {
                                 int framesize) {
     return WebRtcIsacfix_Control(inst, rate, framesize);
   }
-  static inline int16_t ControlBwe(instance_type* inst,
-                                   int32_t rate_bps,
-                                   int frame_size_ms,
-                                   int16_t enforce_frame_size) {
-    return WebRtcIsacfix_ControlBwe(inst, rate_bps, frame_size_ms,
-                                    enforce_frame_size);
-  }
   static inline int16_t Create(instance_type** inst) {
     return WebRtcIsacfix_Create(inst);
   }
@@ -55,8 +48,8 @@ class IsacFix {
                            uint8_t* encoded) {
     return WebRtcIsacfix_Encode(inst, speech_in, encoded);
   }
-  static inline int16_t EncoderInit(instance_type* inst, int16_t coding_mode) {
-    return WebRtcIsacfix_EncoderInit(inst, coding_mode);
+  static inline int16_t EncoderInit(instance_type* inst) {
+    return WebRtcIsacfix_EncoderInit(inst);
   }
   static inline uint16_t EncSampRate(instance_type* inst) {
     return kFixSampleRate;

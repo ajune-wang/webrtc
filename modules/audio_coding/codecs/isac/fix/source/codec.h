@@ -42,8 +42,7 @@ void WebRtcIsacfix_DecodePlcImpl(int16_t* decoded,
 
 int WebRtcIsacfix_EncodeImpl(int16_t* in,
                              IsacFixEncoderInstance* ISACenc_obj,
-                             BwEstimatorstr* bw_estimatordata,
-                             int16_t CodingMode);
+                             BwEstimatorstr* bw_estimatordata);
 
 int WebRtcIsacfix_EncodeStoredData(IsacFixEncoderInstance* ISACenc_obj,
                                    int BWnumber,

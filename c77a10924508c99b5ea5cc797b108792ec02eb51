@@ -22,6 +22,30 @@
       "revId": "c77a10924508c99b5ea5cc797b108792ec02eb51",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "318f57c7_646d0d74",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-11-08T11:54:48Z",
+      "side": 1,
+      "message": "Yes rtc_enable_protobuf is true on Chromium, and now linux_chromium_compile is passing.\nBut rtc_include_tests isn\u0027t, which caused a dependency issue [1].\n\nI\u0027ve checked if the proto was necessary. It seems to be used for easy comparison of serialized statistics.\nCleaning that would is out of scope for now!\n\nhttps://ci.chromium.org/p/webrtc/builders/try/linux_chromium_compile/23347",
+      "parentUuid": "65c34e92_3148db5e",
+      "range": {
+        "startLine": 1190,
+        "startChar": 2,
+        "endLine": 1195,
+        "endChar": 3
+      },
+      "revId": "c77a10924508c99b5ea5cc797b108792ec02eb51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

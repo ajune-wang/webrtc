@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4bff94e8_d7118319",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-08T13:16:10Z",
+      "side": 1,
+      "message": "yes, please send me the link for the zero-size extension use case.\nI\u0027m very curious when it is better than one-byte extension (where no bits are used)",
+      "parentUuid": "28bfed58_8d2dfc9a",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 25
+      },
+      "revId": "a1ef1a4906a6f62a8f2be73fc5439ce3378d4f6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a69b7c09_4d29e612",
         "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
         "patchSetId": 4
@@ -119,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "a81202b5_366d98d1",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-08T13:16:10Z",
+      "side": 1,
+      "message": "sorry, I got confused... this comment mention two-byte header extension support,\nwhile cl description mention zero-value support.\n\nYes, two-byte, or rather support for values of \u003e16 characters is missing,\nthough I\u0027m not aware about practical use cases for that.\n\nSupport for empty value shouldn\u0027t be added (and I see you\u0027ve added kMinValueSizeBytes constant to reflect that) since RtpStreamId/MidId must be at least 1 character long.\nRtp Stream identifier specficied in https://tools.ietf.org/html/draft-ietf-mmusic-rid-12#section-10 as rid-id\n\n\nI guess my question is different then: how this change is relevant to the CL description?",
+      "parentUuid": "9077e16f_fe502a6f",
+      "range": {
+        "startLine": 274,
+        "startChar": 24,
+        "endLine": 274,
+        "endChar": 60
+      },
+      "revId": "a1ef1a4906a6f62a8f2be73fc5439ce3378d4f6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b9a586d_d50e85c6",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
         "patchSetId": 4
@@ -154,6 +202,30 @@
       "side": 1,
       "message": "I thought about it but I am afraid that it would be non-intuitive to understand the difference between two types of output: namely\n\nnullopt\n\nand\n\nmake_optional\u003crtc::ArrayView\u003cconst uint8_t\u003e\u003e(nullptr, 0)\n\nAs least, the description of this function needs to be a lot longer.",
       "parentUuid": "6b9a586d_d50e85c6",
+      "range": {
+        "startLine": 125,
+        "startChar": 23,
+        "endLine": 125,
+        "endChar": 58
+      },
+      "revId": "a1ef1a4906a6f62a8f2be73fc5439ce3378d4f6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c88e705d_416ba5fe",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-08T13:16:10Z",
+      "side": 1,
+      "message": "would that description looks good enough?\nReturns view of the raw extension or absl::nullopt on failure.\n\nwhile I agree that false/nullopt and true+empty_data cases distinguish looks non-intuitive,\nI do not see how output parameters makes it better.\n\n(from c++ point of view bool flag, and T that is valid only when flag\u003d\u003dtrue is naturally combined into optional\u003cT\u003e. That look like the case here.)\n\n(also, returning optional makes it more consistent with the function just above)",
+      "parentUuid": "7f4f8726_c267ab3a",
       "range": {
         "startLine": 125,
         "startChar": 23,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65c34e92_3148db5e",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-08T11:24:00Z",
+      "side": 1,
+      "message": "Isn\u0027t rtc_enable_protobuf true on Chromium? (see: https://cs.chromium.org/chromium/src/third_party/webrtc/webrtc.gni?l\u003d204\u0026rcl\u003d492fdf40fe59d6bd0fd2ff0074e8f59c6ec5120e).\n\nWhich error are you getting?\n\nIn any case, I think this is a good solution if you are hitting a problem. Lifting rtc_enable_protobuf is less clear, maybe add a comment here to explain the situation.\n\nLong term though, do we really need a proto for this test? Maybe we can use structs to hold data? I mean, if we don\u0027t need to send data over the wire why do we need it?",
+      "range": {
+        "startLine": 1190,
+        "startChar": 2,
+        "endLine": 1195,
+        "endChar": 3
+      },
+      "revId": "c77a10924508c99b5ea5cc797b108792ec02eb51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

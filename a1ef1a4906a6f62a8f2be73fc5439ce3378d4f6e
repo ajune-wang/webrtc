@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "1575d040_7f5b5cfe",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-08T16:37:55Z",
+      "side": 1,
+      "message": "Right, It is not very clear how the TODO is relevant to this CL. The reason I added it is that, it was not clear that two-byte extension was not supported at all here, until I allowed zero-data-length extension in this CL. So I made it clearer by adding line 275-278 and adding this TODO.\n\nThis TODO does not mean that we have to add zero-length support to BaseRtpStringExtension in future. But kMaxValueSizeBytes may need to increase.",
+      "parentUuid": "a81202b5_366d98d1",
+      "range": {
+        "startLine": 274,
+        "startChar": 24,
+        "endLine": 274,
+        "endChar": 60
+      },
+      "revId": "a1ef1a4906a6f62a8f2be73fc5439ce3378d4f6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b9a586d_d50e85c6",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
         "patchSetId": 4

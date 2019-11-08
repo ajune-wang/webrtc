@@ -16,6 +16,24 @@
       "revId": "b9e8497e3d695798237415b629699945272689d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc6af423_3fcce237",
+        "filename": "test/time_controller/external_time_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-11-08T18:46:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e884e222_bec67e83",
+      "revId": "b9e8497e3d695798237415b629699945272689d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

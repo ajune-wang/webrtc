@@ -22,7 +22,6 @@
 #include "modules/audio_processing/audio_buffer.h"
 #include "modules/audio_processing/echo_cancellation_impl.h"
 #include "modules/audio_processing/echo_control_mobile_impl.h"
-#include "modules/audio_processing/gain_control_for_experimental_agc.h"
 #include "modules/audio_processing/gain_control_impl.h"
 #include "modules/audio_processing/gain_controller2.h"
 #include "modules/audio_processing/high_pass_filter.h"
@@ -252,11 +251,6 @@ class AudioProcessingImpl : public AudioProcessing {
   void ApplyAgc1Config(const Config::GainController1& agc_config)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
 
-  // Returns a direct pointer to the AGC1 submodule: either a GainControlImpl
-  // or GainControlForExperimentalAgc instance.
-  GainControl* agc1();
-  const GainControl* agc1() const;
-
   void EmptyQueuedRenderAudio();
   void AllocateRenderQueue()
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_render_, crit_capture_);
@@ -337,8 +331,6 @@ class AudioProcessingImpl : public AudioProcessing {
     // Accessed internally from capture or during initialization.
     std::unique_ptr<AgcManagerDirect> agc_manager;
     std::unique_ptr<GainControlImpl> gain_control;
-    std::unique_ptr<GainControlForExperimentalAgc>
-        gain_control_for_experimental_agc;
     std::unique_ptr<GainController2> gain_controller2;
     std::unique_ptr<HighPassFilter> high_pass_filter;
     rtc::scoped_refptr<EchoDetector> echo_detector;
@@ -428,6 +420,7 @@ class AudioProcessingImpl : public AudioProcessing {
       size_t num_keyboard_frames = 0;
       const float* keyboard_data = nullptr;
     } keyboard_info;
+    int analog_level = 0;
   } capture_ RTC_GUARDED_BY(crit_capture_);
 
   struct ApmCaptureNonLockedState {

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cceea157_9f3f4c71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-08T11:33:13Z",
+      "side": 1,
+      "message": "what is the use case for this feature?\n\n(linked bug doesn\u0027t give that context)",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 25
+      },
+      "revId": "a1ef1a4906a6f62a8f2be73fc5439ce3378d4f6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a69b7c09_4d29e612",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-08T11:33:13Z",
+      "side": 1,
+      "message": "why? linked bug doesn\u0027t explain why string extensions need this feature (those I know do not use empty string a valid value)",
+      "range": {
+        "startLine": 274,
+        "startChar": 24,
+        "endLine": 274,
+        "endChar": 60
+      },
+      "revId": "a1ef1a4906a6f62a8f2be73fc5439ce3378d4f6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c12031c_1e72a4c3",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-08T11:33:13Z",
+      "side": 1,
+      "message": "prefer to spell bugs as \nbugs.webrtc.org/7990\n(this way it is much easier to see it is a link at to use it as a link)",
+      "range": {
+        "startLine": 274,
+        "startChar": 10,
+        "endLine": 274,
+        "endChar": 21
+      },
+      "revId": "a1ef1a4906a6f62a8f2be73fc5439ce3378d4f6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b9a586d_d50e85c6",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-08T11:33:13Z",
+      "side": 1,
+      "message": "may be return absl::optional\u003crtc::ArrayView\u003cconst uint8_t\u003e\u003e\n\nhttps://google.github.io/styleguide/cppguide.html#Output_Parameters\n\n\"Prefer using return values over output parameters\"",
+      "range": {
+        "startLine": 125,
+        "startChar": 23,
+        "endLine": 125,
+        "endChar": 58
+      },
+      "revId": "a1ef1a4906a6f62a8f2be73fc5439ce3378d4f6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

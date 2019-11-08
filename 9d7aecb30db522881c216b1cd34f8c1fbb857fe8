@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "547749f5_75f3c11a",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-08T11:14:59Z",
+      "side": 1,
+      "message": "replied in rtp_packet.h",
+      "parentUuid": "649e59d0_6f715fea",
+      "range": {
+        "startLine": 117,
+        "startChar": 2,
+        "endLine": 117,
+        "endChar": 6
+      },
+      "revId": "9d7aecb30db522881c216b1cd34f8c1fbb857fe8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "497574d0_a0365806",
         "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
         "patchSetId": 3
@@ -64,6 +88,29 @@
         "startChar": 16,
         "endLine": 681,
         "endChar": 45
+      },
+      "revId": "9d7aecb30db522881c216b1cd34f8c1fbb857fe8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06878d63_68880396",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-08T11:14:59Z",
+      "side": 1,
+      "message": "To answer your question, yes, I have noticed that the name can be misleading, and put words in the comment, but I agree that this may not be enough. Take a look at the new patch, and see if it makes better sense.",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 191,
+        "endChar": 38
       },
       "revId": "9d7aecb30db522881c216b1cd34f8c1fbb857fe8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

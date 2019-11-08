@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f81d80ec_e00d1e8f",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-08T14:40:00Z",
+      "side": 1,
+      "message": "This would become more clear too\nconstexpr TimeDelta kInactiveStreamThreshold \u003d TimeDelta::Seconds\u003c5\u003e();",
+      "range": {
+        "startLine": 58,
+        "startChar": 14,
+        "endLine": 58,
+        "endChar": 40
+      },
+      "revId": "138ee819331439b5e8d1dc5a5685ba638626cf84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0718cf35_0db52fed",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-08T14:40:00Z",
+      "side": 1,
+      "message": "...and this would turn into\nTimestamp now \u003d clock_.CurrentTime();\nif (last_assembled_frame_time.IsFinite() \u0026\u0026\n    now - last_assembled_frame_time_ \u003e kInactiveStreamThreshold)\n\nMight even work without the .IsFinite() check?",
+      "range": {
+        "startLine": 608,
+        "startChar": 6,
+        "endLine": 610,
+        "endChar": 36
+      },
+      "revId": "138ee819331439b5e8d1dc5a5685ba638626cf84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "839747e0_31503a6c",
+        "filename": "video/rtp_video_stream_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-08T14:40:00Z",
+      "side": 1,
+      "message": "Here and below, prefer initializing in ctor so we have all initialization in one place.",
+      "range": {
+        "startLine": 322,
+        "startChar": 37,
+        "endLine": 322,
+        "endChar": 40
+      },
+      "revId": "138ee819331439b5e8d1dc5a5685ba638626cf84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "004823e4_6c677067",
+        "filename": "video/rtp_video_stream_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-08T14:40:00Z",
+      "side": 1,
+      "message": "Would suggest implementing new code using unit types, i.e. Timestamp here, and setting it to Timestamp::MinusInfinity() here.",
+      "range": {
+        "startLine": 323,
+        "startChar": 2,
+        "endLine": 323,
+        "endChar": 9
+      },
+      "revId": "138ee819331439b5e8d1dc5a5685ba638626cf84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

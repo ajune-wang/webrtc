@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "39a2a840_3e81d786",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-08T07:37:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc6b83ae_3838c915",
+      "range": {
+        "startLine": 130,
+        "startChar": 38,
+        "endLine": 130,
+        "endChar": 40
+      },
+      "revId": "0ba8e4c637a722c42b0ef75a6c71a10a5b4d7cfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7755496e_668a723b",
         "filename": "modules/pacing/pacing_controller.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "0ba8e4c637a722c42b0ef75a6c71a10a5b4d7cfa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53205d54_d629febb",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-08T07:37:56Z",
+      "side": 1,
+      "message": "Discussed offline.",
+      "parentUuid": "7755496e_668a723b",
+      "range": {
+        "startLine": 179,
+        "startChar": 48,
+        "endLine": 179,
+        "endChar": 54
+      },
+      "revId": "0ba8e4c637a722c42b0ef75a6c71a10a5b4d7cfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "07671748_94cad9d9",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-08T07:37:56Z",
+      "side": 1,
+      "message": "I\u0027m not sure reported better represents the meaning. This is about the ideal send time for the packet from the point of view of updating the budgeting, we don\u0027t really report this time outwards.",
+      "parentUuid": "e6fa8eec_5db6d0cf",
+      "range": {
+        "startLine": 416,
+        "startChar": 12,
+        "endLine": 416,
+        "endChar": 28
+      },
+      "revId": "0ba8e4c637a722c42b0ef75a6c71a10a5b4d7cfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd0734c1_d54c0f96",
         "filename": "modules/pacing/pacing_controller.h",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "69dcb0a4_74778102",
+        "filename": "modules/pacing/pacing_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-08T07:37:56Z",
+      "side": 1,
+      "message": "This is mainly for used by the class actually scheduling delay tasks on the task queue.\nCould argue we should reverse the dependency, but that will have other implications so would like to do that in a follow-up if necessary.",
+      "parentUuid": "fd0734c1_d54c0f96",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 39
+      },
+      "revId": "0ba8e4c637a722c42b0ef75a6c71a10a5b4d7cfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e395eecd_4cb230a4",
         "filename": "modules/pacing/pacing_controller.h",
         "patchSetId": 5
@@ -114,6 +210,30 @@
       "revId": "0ba8e4c637a722c42b0ef75a6c71a10a5b4d7cfa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d20ebac3_7c8e6f95",
+        "filename": "modules/pacing/pacing_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-08T07:37:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e395eecd_4cb230a4",
+      "range": {
+        "startLine": 194,
+        "startChar": 9,
+        "endLine": 194,
+        "endChar": 30
+      },
+      "revId": "0ba8e4c637a722c42b0ef75a6c71a10a5b4d7cfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

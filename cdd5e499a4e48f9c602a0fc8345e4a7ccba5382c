@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c696916_9e1909f7",
+        "filename": "api/test/abstract_time_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-08T10:05:30Z",
+      "side": 1,
+      "message": "Avoid exposing internal headers in API, a good pattern is to instead provide an interface and a create method that calls the constructor of the internal code, then keep as much as possible outside api/.\n\nFor en example of this, see api/test/create_network_emulation_manager.h\n\nWe really don\u0027t want to put everything in API, just the bare minimum that\u0027s required to allow usage of the code.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 59
+      },
+      "revId": "cdd5e499a4e48f9c602a0fc8345e4a7ccba5382c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7df9b870_c5ce803e",
+        "filename": "api/test/abstract_time_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-08T10:05:30Z",
+      "side": 1,
+      "message": "Try to avoid using inheritance to provide overrides, it generally makes code harder to follow, you should be able to get equivalent functionality by providing a pointer to an interface in the constructor, but it becomes explicit when we are calling subclass implementations and when we are using the currently abstract base class.",
+      "range": {
+        "startLine": 34,
+        "startChar": 6,
+        "endLine": 34,
+        "endChar": 28
+      },
+      "revId": "cdd5e499a4e48f9c602a0fc8345e4a7ccba5382c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "28bfed58_8d2dfc9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-08T12:21:00Z",
+      "side": 1,
+      "message": "The use case will be a follow-up work. I can give you more context in offline chat.",
+      "parentUuid": "cceea157_9f3f4c71",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 25
+      },
+      "revId": "a1ef1a4906a6f62a8f2be73fc5439ce3378d4f6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a69b7c09_4d29e612",
         "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
         "patchSetId": 4
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "9077e16f_fe502a6f",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-08T12:21:00Z",
+      "side": 1,
+      "message": "Actually, in \"RTP Stream Identifier Source Description (SDES)\", it says that \n\"the header extension element can be encoded using either the one-byte or two-byte header, and the identification-tag payload is ASCII-encoded.\"\n\nRefer to https://datatracker.ietf.org/doc/draft-ietf-avtext-rid/?include_text\u003d1\n\nI think we are missing that support.",
+      "parentUuid": "a69b7c09_4d29e612",
+      "range": {
+        "startLine": 274,
+        "startChar": 24,
+        "endLine": 274,
+        "endChar": 60
+      },
+      "revId": "a1ef1a4906a6f62a8f2be73fc5439ce3378d4f6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b9a586d_d50e85c6",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
         "patchSetId": 4
@@ -82,6 +130,30 @@
       "writtenOn": "2019-11-08T11:33:13Z",
       "side": 1,
       "message": "may be return absl::optional\u003crtc::ArrayView\u003cconst uint8_t\u003e\u003e\n\nhttps://google.github.io/styleguide/cppguide.html#Output_Parameters\n\n\"Prefer using return values over output parameters\"",
+      "range": {
+        "startLine": 125,
+        "startChar": 23,
+        "endLine": 125,
+        "endChar": 58
+      },
+      "revId": "a1ef1a4906a6f62a8f2be73fc5439ce3378d4f6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f4f8726_c267ab3a",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-08T12:21:00Z",
+      "side": 1,
+      "message": "I thought about it but I am afraid that it would be non-intuitive to understand the difference between two types of output: namely\n\nnullopt\n\nand\n\nmake_optional\u003crtc::ArrayView\u003cconst uint8_t\u003e\u003e(nullptr, 0)\n\nAs least, the description of this function needs to be a lot longer.",
+      "parentUuid": "6b9a586d_d50e85c6",
       "range": {
         "startLine": 125,
         "startChar": 23,

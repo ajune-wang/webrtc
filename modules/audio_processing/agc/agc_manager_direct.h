@@ -23,17 +23,6 @@ namespace webrtc {
 class AudioFrame;
 class GainControl;
 
-// Callbacks that need to be injected into AgcManagerDirect to read and control
-// the volume values. This is done to remove the VoiceEngine dependency in
-// AgcManagerDirect.
-// TODO(aluebs): Remove VolumeCallbacks.
-class VolumeCallbacks {
- public:
-  virtual ~VolumeCallbacks() {}
-  virtual void SetMicVolume(int volume) = 0;
-  virtual int GetMicVolume() = 0;
-};
-
 // Direct interface to use AGC to set volume and compression values.
 // AudioProcessing uses this interface directly to integrate the callback-less
 // AGC.
@@ -45,20 +34,25 @@ class AgcManagerDirect final {
   // responsible for processing the audio using it after the call to Process.
   // The operating range of startup_min_level is [12, 255] and any input value
   // outside that range will be clamped.
-  AgcManagerDirect(GainControl* gctrl,
-                   VolumeCallbacks* volume_callbacks,
-                   int startup_min_level,
+  AgcManagerDirect(int startup_min_level,
                    int clipped_level_min,
                    bool use_agc2_level_estimation,
                    bool disable_digital_adaptive);
 
   ~AgcManagerDirect();
 
-  int Initialize();
+  void Initialize();
+  void ConfigureGainControl(GainControl* gain_control) const;
+
   void AnalyzePreProcess(const float* const* audio,
                          int num_channels,
-                         size_t samples_per_channel);
-  void Process(const float* audio, size_t length, int sample_rate_hz);
+                         size_t samples_per_channel,
+                         int* analog_level);
+  void Process(const float* audio,
+               size_t length,
+               int sample_rate_hz,
+               GainControl* gain_control,
+               int* analog_level);
 
   // Call when the capture stream has been muted/unmuted. This causes the
   // manager to disregard all incoming audio; chances are good it's background
@@ -79,8 +73,6 @@ class AgcManagerDirect final {
   // Dependency injection for testing. Don't delete |agc| as the memory is owned
   // by the manager.
   AgcManagerDirect(Agc* agc,
-                   GainControl* gctrl,
-                   VolumeCallbacks* volume_callbacks,
                    int startup_min_level,
                    int clipped_level_min);
 
@@ -89,23 +81,21 @@ class AgcManagerDirect final {
 
   // Sets a new microphone level, after first checking that it hasn't been
   // updated by the user, in which case no action is taken.
-  void SetLevel(int new_level);
+  void SetLevel(int new_level, int* analog_level);
 
   // Set the maximum level the AGC is allowed to apply. Also updates the
   // maximum compression gain to compensate. The level must be at least
   // |kClippedLevelMin|.
   void SetMaxLevel(int level);
 
-  int CheckVolumeAndReset();
-  void UpdateGain();
-  void UpdateCompressor();
+  int CheckVolumeAndReset(int* analog_level);
+  void UpdateGain(int* analog_level);
+  void UpdateCompressor(GainControl* gain_control);
 
   std::unique_ptr<ApmDataDumper> data_dumper_;
   static int instance_counter_;
 
   std::unique_ptr<Agc> agc_;
-  GainControl* gctrl_;
-  VolumeCallbacks* volume_callbacks_;
 
   int frames_since_clipped_;
   int level_;

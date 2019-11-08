@@ -506,7 +506,9 @@ TEST(RtpPacketTest, GetRawExtensionWhenPresent) {
   extensions.Register<RtpMid>(1);
   RtpPacket packet(&extensions);
   ASSERT_TRUE(packet.Parse(kRawPacket, sizeof(kRawPacket)));
-  EXPECT_THAT(packet.GetRawExtension<RtpMid>(), ElementsAre('m', 'i', 'd'));
+  auto raw = packet.GetRawExtension<RtpMid>();
+  EXPECT_TRUE(raw);
+  EXPECT_THAT(*raw, ElementsAre('m', 'i', 'd'));
 }
 
 TEST(RtpPacketTest, GetRawExtensionWhenAbsent) {
@@ -522,7 +524,7 @@ TEST(RtpPacketTest, GetRawExtensionWhenAbsent) {
   extensions.Register<RtpMid>(2);
   RtpPacket packet(&extensions);
   ASSERT_TRUE(packet.Parse(kRawPacket, sizeof(kRawPacket)));
-  EXPECT_THAT(packet.GetRawExtension<RtpMid>(), IsEmpty());
+  EXPECT_FALSE(packet.GetRawExtension<RtpMid>());
 }
 
 TEST(RtpPacketTest, ParseWithInvalidSizedExtension) {
@@ -911,8 +913,9 @@ TEST(RtpPacketTest, CreateAndParseTransportSequenceNumberV2) {
   constexpr int kTransportSequenceNumber = 12345;
   send_packet.SetExtension<TransportSequenceNumberV2>(kTransportSequenceNumber,
                                                       absl::nullopt);
-  EXPECT_EQ(send_packet.GetRawExtension<TransportSequenceNumberV2>().size(),
-            2u);
+  auto raw = send_packet.GetRawExtension<TransportSequenceNumberV2>();
+  EXPECT_TRUE(raw);
+  EXPECT_EQ(raw->size(), 2u);
 
   // Serialize the packet and then parse it again.
   RtpPacketReceived receive_packet(&extensions);
@@ -946,8 +949,9 @@ TEST(RtpPacketTest, CreateAndParseTransportSequenceNumberV2Preallocated) {
   send_packet.ReserveExtension<TransportSequenceNumberV2>();
   send_packet.SetExtension<TransportSequenceNumberV2>(kTransportSequenceNumber,
                                                       kNoFeedbackRequest);
-  EXPECT_EQ(send_packet.GetRawExtension<TransportSequenceNumberV2>().size(),
-            4u);
+  auto raw = send_packet.GetRawExtension<TransportSequenceNumberV2>();
+  EXPECT_TRUE(raw);
+  EXPECT_EQ(raw->size(), 4u);
 
   // Serialize the packet and then parse it again.
   RtpPacketReceived receive_packet(&extensions);
@@ -1098,6 +1102,64 @@ TEST(RtpPacketTest, RemoveExtensionFailure) {
   EXPECT_FALSE(packet.RemoveExtension(kRtpExtensionPlayoutDelay));
 
   EXPECT_THAT(kPacketWithTO, ElementsAreArray(packet.data(), packet.size()));
+}
+
+namespace {
+class ZeroLengthHeaderExtension {
+ public:
+  // This is to override audio level header extension, just for testing purpose.
+  // When a valid zero-length header extension is introduced, it is preferred to
+  // switch to that one.
+  static constexpr RTPExtensionType kId = AudioLevel::kId;
+
+  static constexpr uint8_t kValueSizeBytes = 0;
+  static bool Parse(rtc::ArrayView<const uint8_t> data) {
+    return data.size() == kValueSizeBytes;
+  }
+  static size_t ValueSize() { return kValueSizeBytes; }
+  static bool Write(rtc::ArrayView<uint8_t> data) {
+    return data.size() == kValueSizeBytes;
+  }
+};
+}  // namespace
+
+// Tests zero-length header extension are supported.
+TEST(RtpPacketTest, ZeroLengthHeaderExtension) {
+  RtpPacketToSend::ExtensionManager extensions;
+  extensions.SetExtmapAllowMixed(true);
+
+  constexpr int kExtensionId = 1;
+  EXPECT_TRUE(
+      extensions.RegisterByType(kExtensionId, ZeroLengthHeaderExtension::kId));
+
+  RtpPacketToSend send_packet(&extensions);
+  send_packet.SetPayloadType(kPayloadType);
+  send_packet.SetSequenceNumber(kSeqNum);
+  send_packet.SetTimestamp(kTimestamp);
+  send_packet.SetSsrc(kSsrc);
+  EXPECT_TRUE(send_packet.ReserveExtension<ZeroLengthHeaderExtension>());
+  EXPECT_TRUE(send_packet.IsExtensionReserved<ZeroLengthHeaderExtension>());
+  EXPECT_TRUE(send_packet.IsExtensionReserved(ZeroLengthHeaderExtension::kId));
+  EXPECT_TRUE(send_packet.SetExtension<ZeroLengthHeaderExtension>());
+
+  RtpPacketReceived receive_packet(&extensions);
+
+  EXPECT_TRUE(receive_packet.Parse(send_packet.Buffer()));
+
+  EXPECT_TRUE(receive_packet.HasExtension<ZeroLengthHeaderExtension>());
+  EXPECT_TRUE(receive_packet.HasExtension(ZeroLengthHeaderExtension::kId));
+
+  auto raw = receive_packet.GetRawExtension<ZeroLengthHeaderExtension>();
+  EXPECT_TRUE(raw);
+  EXPECT_EQ(raw->size(), 0u);
+
+  EXPECT_TRUE(receive_packet.GetExtension<ZeroLengthHeaderExtension>());
+
+  EXPECT_TRUE(receive_packet.RemoveExtension(ZeroLengthHeaderExtension::kId));
+  EXPECT_FALSE(receive_packet.HasExtension<ZeroLengthHeaderExtension>());
+  EXPECT_FALSE(receive_packet.HasExtension(ZeroLengthHeaderExtension::kId));
+  EXPECT_FALSE(receive_packet.GetRawExtension<ZeroLengthHeaderExtension>());
+  EXPECT_FALSE(receive_packet.GetExtension<ZeroLengthHeaderExtension>());
 }
 
 }  // namespace webrtc

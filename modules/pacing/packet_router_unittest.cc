@@ -319,12 +319,12 @@ TEST_F(PacketRouterTest, SendPacketAssignsTransportSequenceNumbers) {
 
   auto packet = BuildRtpPacket(kSsrc1);
   EXPECT_TRUE(packet->ReserveExtension<TransportSequenceNumber>());
-  EXPECT_CALL(
-      rtp_1,
-      TrySendPacket(
-          Property(&RtpPacketToSend::GetExtension<TransportSequenceNumber>,
-                   transport_sequence_number),
-          _))
+  EXPECT_CALL(rtp_1,
+              TrySendPacket(
+                  Property<RtpPacketToSend, absl::optional<uint16_t>, uint16_t>(
+                      &RtpPacketToSend::GetExtension<TransportSequenceNumber>,
+                      transport_sequence_number),
+                  _))
       .WillOnce(Return(true));
   packet_router_.SendPacket(std::move(packet), PacedPacketInfo());
 
@@ -332,12 +332,12 @@ TEST_F(PacketRouterTest, SendPacketAssignsTransportSequenceNumbers) {
   packet = BuildRtpPacket(kSsrc2);
   EXPECT_TRUE(packet->ReserveExtension<TransportSequenceNumber>());
 
-  EXPECT_CALL(
-      rtp_2,
-      TrySendPacket(
-          Property(&RtpPacketToSend::GetExtension<TransportSequenceNumber>,
-                   transport_sequence_number),
-          _))
+  EXPECT_CALL(rtp_2,
+              TrySendPacket(
+                  Property<RtpPacketToSend, absl::optional<uint16_t>, uint16_t>(
+                      &RtpPacketToSend::GetExtension<TransportSequenceNumber>,
+                      transport_sequence_number),
+                  _))
       .WillOnce(Return(true));
   packet_router_.SendPacket(std::move(packet), PacedPacketInfo());
 

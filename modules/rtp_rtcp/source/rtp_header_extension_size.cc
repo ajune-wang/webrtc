@@ -22,6 +22,7 @@ int RtpHeaderExtensionSize(rtc::ArrayView<const RtpExtensionSize> extensions,
   int values_size = 0;
   int num_extensions = 0;
   int each_extension_header_size = 1;
+  // TODO(bugs.webrtc.org/7990): Add support for empty extensions (length==0).
   for (const RtpExtensionSize& extension : extensions) {
     int id = registered_extensions.GetId(extension.type);
     if (id == RtpHeaderExtensionMap::kInvalidId)

@@ -17,6 +17,7 @@
 
 #include "api/array_view.h"
 #include "api/rtp_headers.h"
+#include "api/rtp_parameters.h"
 #include "api/video/color_space.h"
 #include "api/video/video_content_type.h"
 #include "api/video/video_frame_marking.h"
@@ -270,7 +271,11 @@ class BaseRtpStringExtension {
   using value_type = std::string;
   // String RTP header extensions are limited to 16 bytes because it is the
   // maximum length that can be encoded with one-byte header extensions.
-  static constexpr uint8_t kMaxValueSizeBytes = 16;
+  // TODO(bugs.webrtc.org/7990): Add support for two-byte extensions.
+  static constexpr uint8_t kMinValueSizeBytes =
+      RtpExtension::kOneByteHeaderExtensionMinValueSize;
+  static constexpr uint8_t kMaxValueSizeBytes =
+      RtpExtension::kOneByteHeaderExtensionMaxValueSize;
 
   static bool Parse(rtc::ArrayView<const uint8_t> data, std::string* str);
   static size_t ValueSize(const std::string& str) { return str.size(); }

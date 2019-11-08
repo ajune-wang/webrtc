@@ -362,11 +362,11 @@ void RtpVideoStreamReceiver::OnReceivedPayloadData(
       return;
     }
     generic_descriptor.SetByteRepresentation(
-        rtp_packet.GetRawExtension<RtpGenericFrameDescriptorExtension01>());
+        *rtp_packet.GetRawExtension<RtpGenericFrameDescriptorExtension01>());
   } else if ((rtp_packet.GetExtension<RtpGenericFrameDescriptorExtension00>(
                  &generic_descriptor))) {
     generic_descriptor.SetByteRepresentation(
-        rtp_packet.GetRawExtension<RtpGenericFrameDescriptorExtension00>());
+        *rtp_packet.GetRawExtension<RtpGenericFrameDescriptorExtension00>());
   } else {
     packet.generic_descriptor = absl::nullopt;
   }

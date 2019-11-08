@@ -623,25 +623,23 @@ static void CopyHeaderAndExtensionsToRtxPacket(const RtpPacketToSend& packet,
       continue;
     }
 
-    // Empty extensions should be supported, so not checking |source.empty()|.
-    if (!packet.HasExtension(extension)) {
+    auto source = packet.FindExtension(extension);
+    if (!source) {
       continue;
     }
 
-    rtc::ArrayView<const uint8_t> source = packet.FindExtension(extension);
-
     rtc::ArrayView<uint8_t> destination =
-        rtx_packet->AllocateExtension(extension, source.size());
+        rtx_packet->AllocateExtension(extension, source->size());
 
     // Could happen if any:
     // 1. Extension has 0 length.
     // 2. Extension is not registered in destination.
     // 3. Allocating extension in destination failed.
-    if (destination.empty() || source.size() != destination.size()) {
+    if (destination.empty() || source->size() != destination.size()) {
       continue;
     }
 
-    std::memcpy(destination.begin(), source.begin(), destination.size());
+    std::memcpy(destination.begin(), source->begin(), destination.size());
   }
 }
 

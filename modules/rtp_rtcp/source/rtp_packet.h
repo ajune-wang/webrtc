@@ -113,15 +113,17 @@ class RtpPacket {
   bool IsExtensionReserved() const;
   bool IsExtensionReserved(ExtensionType type) const;
 
-  template <typename Extension, typename FirstValue, typename... Values>
-  bool GetExtension(FirstValue, Values...) const;
+  template <typename Extension, typename... Values>
+  bool GetExtension(Values...) const;
 
   template <typename Extension>
   absl::optional<typename Extension::value_type> GetExtension() const;
 
-  // Returns view of the raw extension or empty view on failure.
+  // Returns nullopt on failure, otherwise return array view of the raw
+  // extension. A returned array view of zero size indicates that the header
+  // extension exists but no data is in it.
   template <typename Extension>
-  rtc::ArrayView<const uint8_t> GetRawExtension() const;
+  absl::optional<rtc::ArrayView<const uint8_t>> GetRawExtension() const;
 
   template <typename Extension, typename... Values>
   bool SetExtension(Values...);
@@ -134,8 +136,11 @@ class RtpPacket {
   rtc::ArrayView<uint8_t> AllocateExtension(ExtensionType type, size_t length);
 
   // Find an extension |type|.
-  // Returns view of the raw extension or empty view on failure.
-  rtc::ArrayView<const uint8_t> FindExtension(ExtensionType type) const;
+  // Returns nullopt on failure, otherwise return array view of the raw
+  // extension. A returned array view of zero size indicates that the header
+  // extension exists but no data is in it.
+  absl::optional<rtc::ArrayView<const uint8_t>> FindExtension(
+      ExtensionType type) const;
 
   // Reserve size_bytes for payload. Returns nullptr on failure.
   uint8_t* SetPayloadSize(size_t size_bytes);
@@ -183,6 +188,9 @@ class RtpPacket {
   void WriteAt(size_t offset, uint8_t byte) { buffer_.data()[offset] = byte; }
   const uint8_t* ReadAt(size_t offset) const { return buffer_.data() + offset; }
 
+  // Verifies if a header extension is valid.
+  bool IsValidHeaderExtension(int id, size_t length) const;
+
   // Header.
   bool marker_;
   uint8_t payload_type_;
@@ -209,25 +217,26 @@ bool RtpPacket::IsExtensionReserved() const {
   return IsExtensionReserved(Extension::kId);
 }
 
-template <typename Extension, typename FirstValue, typename... Values>
-bool RtpPacket::GetExtension(FirstValue first, Values... values) const {
+template <typename Extension, typename... Values>
+bool RtpPacket::GetExtension(Values... values) const {
   auto raw = FindExtension(Extension::kId);
-  if (raw.empty())
+  if (!raw)
     return false;
-  return Extension::Parse(raw, first, values...);
+  return Extension::Parse(*raw, values...);
 }
 
 template <typename Extension>
 absl::optional<typename Extension::value_type> RtpPacket::GetExtension() const {
   absl::optional<typename Extension::value_type> result;
   auto raw = FindExtension(Extension::kId);
-  if (raw.empty() || !Extension::Parse(raw, &result.emplace()))
+  if (!raw || !Extension::Parse(*raw, &result.emplace()))
     result = absl::nullopt;
   return result;
 }
 
 template <typename Extension>
-rtc::ArrayView<const uint8_t> RtpPacket::GetRawExtension() const {
+absl::optional<rtc::ArrayView<const uint8_t>> RtpPacket::GetRawExtension()
+    const {
   return FindExtension(Extension::kId);
 }
 
@@ -235,17 +244,18 @@ template <typename Extension, typename... Values>
 bool RtpPacket::SetExtension(Values... values) {
   const size_t value_size = Extension::ValueSize(values...);
   auto buffer = AllocateExtension(Extension::kId, value_size);
-  if (buffer.empty())
+  if (buffer.empty() && value_size != 0)
     return false;
   return Extension::Write(buffer, values...);
 }
 
 template <typename Extension>
 bool RtpPacket::ReserveExtension() {
-  auto buffer = AllocateExtension(Extension::kId, Extension::kValueSizeBytes);
-  if (buffer.empty())
+  const size_t value_size = Extension::kValueSizeBytes;
+  auto buffer = AllocateExtension(Extension::kId, value_size);
+  if (buffer.empty() && value_size != 0)
     return false;
-  memset(buffer.data(), 0, Extension::kValueSizeBytes);
+  memset(buffer.data(), 0, value_size);
   return true;
 }
 

@@ -536,30 +536,29 @@ bool RTPSenderVideo::SendVideo(
   limits.last_packet_reduction_len =
       last_packet->headers_size() - middle_packet->headers_size();
 
-  rtc::ArrayView<const uint8_t> generic_descriptor_raw_00 =
+  auto generic_descriptor_raw_00 =
       first_packet->GetRawExtension<RtpGenericFrameDescriptorExtension00>();
-  rtc::ArrayView<const uint8_t> generic_descriptor_raw_01 =
+  auto generic_descriptor_raw_01 =
       first_packet->GetRawExtension<RtpGenericFrameDescriptorExtension01>();
 
-  if (!generic_descriptor_raw_00.empty() &&
-      !generic_descriptor_raw_01.empty()) {
+  if (generic_descriptor_raw_00 && generic_descriptor_raw_01) {
     RTC_LOG(LS_WARNING) << "Two versions of GFD extension used.";
     return false;
   }
 
   // Minimiazation of the vp8 descriptor may erase temporal_id, so save it.
   const uint8_t temporal_id = GetTemporalId(video_header);
-  rtc::ArrayView<const uint8_t> generic_descriptor_raw =
-      !generic_descriptor_raw_01.empty() ? generic_descriptor_raw_01
-                                         : generic_descriptor_raw_00;
-  if (!generic_descriptor_raw.empty()) {
+  auto generic_descriptor_raw = generic_descriptor_raw_01
+                                    ? generic_descriptor_raw_01
+                                    : generic_descriptor_raw_00;
+  if (generic_descriptor_raw) {
     MinimizeDescriptor(&video_header);
   }
 
   // TODO(benwright@webrtc.org) - Allocate enough to always encrypt inline.
   rtc::Buffer encrypted_video_payload;
   if (frame_encryptor_ != nullptr) {
-    if (generic_descriptor_raw.empty()) {
+    if (!generic_descriptor_raw) {
       return false;
     }
 
@@ -573,7 +572,7 @@ bool RTPSenderVideo::SendVideo(
     // Only enable header authentication if the field trial is enabled.
     rtc::ArrayView<const uint8_t> additional_data;
     if (generic_descriptor_auth_experiment_) {
-      additional_data = generic_descriptor_raw;
+      additional_data = *generic_descriptor_raw;
     }
 
     if (frame_encryptor_->Encrypt(

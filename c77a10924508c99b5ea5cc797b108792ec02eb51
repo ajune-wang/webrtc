@@ -94,6 +94,30 @@
       "revId": "c77a10924508c99b5ea5cc797b108792ec02eb51",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8bfe8241_c307229d",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-08T12:25:09Z",
+      "side": 1,
+      "message": "\u003e Done.\n\u003e \u003e SGTM, but maybe open a bug for the cleanup.\n\u003e Meh. \"Don\u0027t fix what isn\u0027t broken\". Does a test depending on a proto is really an issue? If so, why?\n\nComplexity, I have the feeling that we used protos in some places without a real reason. Running this test on other systems carries a dependency on a compiler (protoc) that slows down future people working on it. Anyway, I see your point. Feel free to ignore the previous comment.",
+      "parentUuid": "d4df644b_1903eafb",
+      "range": {
+        "startLine": 1190,
+        "startChar": 2,
+        "endLine": 1195,
+        "endChar": 3
+      },
+      "revId": "c77a10924508c99b5ea5cc797b108792ec02eb51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

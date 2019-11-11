@@ -58,8 +58,7 @@ AudioCodecInfo AudioEncoderG722::QueryAudioEncoder(
 
 std::unique_ptr<AudioEncoder> AudioEncoderG722::MakeAudioEncoder(
     const AudioEncoderG722Config& config,
-    int payload_type,
-    absl::optional<AudioCodecPairId> /*codec_pair_id*/) {
+    int payload_type) {
   RTC_DCHECK(config.IsOk());
   return std::make_unique<AudioEncoderG722Impl>(config, payload_type);
 }

@@ -60,23 +60,21 @@ void TwoWayCommunication::SetUpAutotest(
     const SdpAudioFormat& format2,
     const int payload_type2) {
   //--- Set A codecs
-  _acmA->SetEncoder(
-      encoder_factory->MakeAudioEncoder(payload_type1, format1, absl::nullopt));
+  _acmA->SetEncoder(encoder_factory->MakeAudioEncoder(payload_type1, format1));
   _acmA->SetReceiveCodecs({{payload_type2, format2}});
 
   //--- Set ref-A codecs
   _acmRefA->SetEncoder(
-      encoder_factory->MakeAudioEncoder(payload_type1, format1, absl::nullopt));
+      encoder_factory->MakeAudioEncoder(payload_type1, format1));
   _acmRefA->SetReceiveCodecs({{payload_type2, format2}});
 
   //--- Set B codecs
-  _acmB->SetEncoder(
-      encoder_factory->MakeAudioEncoder(payload_type2, format2, absl::nullopt));
+  _acmB->SetEncoder(encoder_factory->MakeAudioEncoder(payload_type2, format2));
   _acmB->SetReceiveCodecs({{payload_type1, format1}});
 
   //--- Set ref-B codecs
   _acmRefB->SetEncoder(
-      encoder_factory->MakeAudioEncoder(payload_type2, format2, absl::nullopt));
+      encoder_factory->MakeAudioEncoder(payload_type2, format2));
   _acmRefB->SetReceiveCodecs({{payload_type1, format1}});
 
   uint16_t frequencyHz;
@@ -176,8 +174,8 @@ void TwoWayCommunication::Perform() {
     }
     // Re-register send codec on side B.
     if (((secPassed % 5) == 4) && (msecPassed >= 990)) {
-      _acmB->SetEncoder(encoder_factory->MakeAudioEncoder(
-          payload_type2, format2, absl::nullopt));
+      _acmB->SetEncoder(
+          encoder_factory->MakeAudioEncoder(payload_type2, format2));
     }
     // Initialize receiver on side A.
     if (((secPassed % 7) == 6) && (msecPassed == 0))

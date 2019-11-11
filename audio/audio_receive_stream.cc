@@ -84,7 +84,7 @@ std::unique_ptr<voe::ChannelReceiveInterface> CreateChannelReceive(
       config.jitter_buffer_max_packets, config.jitter_buffer_fast_accelerate,
       config.jitter_buffer_min_delay_ms,
       config.jitter_buffer_enable_rtx_handling, config.decoder_factory,
-      config.codec_pair_id, config.frame_decryptor, config.crypto_options);
+      config.frame_decryptor, config.crypto_options);
 }
 }  // namespace
 

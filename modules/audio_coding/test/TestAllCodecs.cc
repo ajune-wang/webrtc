@@ -370,8 +370,7 @@ void TestAllCodecs::RegisterSendCodec(char side,
   SdpAudioFormat format = {codec_name, clockrate_hz, num_channels};
   format.parameters["ptime"] = rtc::ToString(rtc::CheckedDivExact(
       packet_size, rtc::CheckedDivExact(sampling_freq_hz, 1000)));
-  my_acm->SetEncoder(
-      factory->MakeAudioEncoder(payload_type, format, absl::nullopt));
+  my_acm->SetEncoder(factory->MakeAudioEncoder(payload_type, format));
 }
 
 void TestAllCodecs::Run(TestPack* channel) {

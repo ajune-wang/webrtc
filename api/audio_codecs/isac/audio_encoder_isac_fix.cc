@@ -51,8 +51,7 @@ AudioCodecInfo AudioEncoderIsacFix::QueryAudioEncoder(
 
 std::unique_ptr<AudioEncoder> AudioEncoderIsacFix::MakeAudioEncoder(
     AudioEncoderIsacFix::Config config,
-    int payload_type,
-    absl::optional<AudioCodecPairId> /*codec_pair_id*/) {
+    int payload_type) {
   RTC_DCHECK(config.IsOk());
   AudioEncoderIsacFixImpl::Config c;
   c.frame_size_ms = config.frame_size_ms;

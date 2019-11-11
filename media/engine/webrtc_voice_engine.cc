@@ -19,7 +19,6 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/strings/match.h"
-#include "api/audio_codecs/audio_codec_pair_id.h"
 #include "api/call/audio_sink.h"
 #include "api/transport/media/media_transport_interface.h"
 #include "media/base/audio_source.h"
@@ -699,7 +698,6 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
       webrtc::Transport* send_transport,
       const webrtc::MediaTransportConfig& media_transport_config,
       const rtc::scoped_refptr<webrtc::AudioEncoderFactory>& encoder_factory,
-      const absl::optional<webrtc::AudioCodecPairId> codec_pair_id,
       rtc::scoped_refptr<webrtc::FrameEncryptorInterface> frame_encryptor,
       const webrtc::CryptoOptions& crypto_options)
       : call_(call),
@@ -717,7 +715,6 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
                        webrtc::kDefaultBitratePriority;
     config_.audio_network_adaptor_config = audio_network_adaptor_config;
     config_.encoder_factory = encoder_factory;
-    config_.codec_pair_id = codec_pair_id;
     config_.track_id = track_id;
     config_.frame_encryptor = frame_encryptor;
     config_.crypto_options = crypto_options;
@@ -1055,7 +1052,6 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
       const webrtc::MediaTransportConfig& media_transport_config,
       const rtc::scoped_refptr<webrtc::AudioDecoderFactory>& decoder_factory,
       const std::map<int, webrtc::SdpAudioFormat>& decoder_map,
-      absl::optional<webrtc::AudioCodecPairId> codec_pair_id,
       size_t jitter_buffer_max_packets,
       bool jitter_buffer_fast_accelerate,
       int jitter_buffer_min_delay_ms,
@@ -1081,7 +1077,6 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
     }
     config_.decoder_factory = decoder_factory;
     config_.decoder_map = decoder_map;
-    config_.codec_pair_id = codec_pair_id;
     config_.frame_decryptor = frame_decryptor;
     config_.crypto_options = crypto_options;
     RecreateAudioReceiveStream();
@@ -1804,7 +1799,7 @@ bool WebRtcVoiceMediaChannel::AddSendStream(const StreamParams& sp) {
       send_rtp_extensions_, max_send_bitrate_bps_,
       audio_config_.rtcp_report_interval_ms, audio_network_adaptor_config,
       call_, this, media_transport_config(), engine()->encoder_factory_,
-      codec_pair_id_, nullptr, crypto_options_);
+      nullptr, crypto_options_);
   send_streams_.insert(std::make_pair(ssrc, stream));
 
   // At this point the stream's local SSRC has been updated. If it is the first
@@ -1881,16 +1876,16 @@ bool WebRtcVoiceMediaChannel::AddRecvStream(const StreamParams& sp) {
 
   // Create a new channel for receiving audio data.
   recv_streams_.insert(std::make_pair(
-      ssrc, new WebRtcAudioReceiveStream(
-                ssrc, receiver_reports_ssrc_, recv_transport_cc_enabled_,
-                recv_nack_enabled_, sp.stream_ids(), recv_rtp_extensions_,
-                call_, this, media_transport_config(),
-                engine()->decoder_factory_, decoder_map_, codec_pair_id_,
-                engine()->audio_jitter_buffer_max_packets_,
-                engine()->audio_jitter_buffer_fast_accelerate_,
-                engine()->audio_jitter_buffer_min_delay_ms_,
-                engine()->audio_jitter_buffer_enable_rtx_handling_,
-                unsignaled_frame_decryptor_, crypto_options_)));
+      ssrc,
+      new WebRtcAudioReceiveStream(
+          ssrc, receiver_reports_ssrc_, recv_transport_cc_enabled_,
+          recv_nack_enabled_, sp.stream_ids(), recv_rtp_extensions_, call_,
+          this, media_transport_config(), engine()->decoder_factory_,
+          decoder_map_, engine()->audio_jitter_buffer_max_packets_,
+          engine()->audio_jitter_buffer_fast_accelerate_,
+          engine()->audio_jitter_buffer_min_delay_ms_,
+          engine()->audio_jitter_buffer_enable_rtx_handling_,
+          unsignaled_frame_decryptor_, crypto_options_)));
   recv_streams_[ssrc]->SetPlayout(playout_);
 
   return true;

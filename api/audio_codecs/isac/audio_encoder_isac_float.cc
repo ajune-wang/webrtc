@@ -63,8 +63,7 @@ AudioCodecInfo AudioEncoderIsacFloat::QueryAudioEncoder(
 
 std::unique_ptr<AudioEncoder> AudioEncoderIsacFloat::MakeAudioEncoder(
     const AudioEncoderIsacFloat::Config& config,
-    int payload_type,
-    absl::optional<AudioCodecPairId> /*codec_pair_id*/) {
+    int payload_type) {
   RTC_DCHECK(config.IsOk());
   AudioEncoderIsacFloatImpl::Config c;
   c.payload_type = payload_type;

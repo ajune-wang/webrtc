@@ -143,8 +143,6 @@ class AudioReceiveStream {
 
     rtc::scoped_refptr<AudioDecoderFactory> decoder_factory;
 
-    absl::optional<AudioCodecPairId> codec_pair_id;
-
     // Per PeerConnection crypto options.
     webrtc::CryptoOptions crypto_options;
 

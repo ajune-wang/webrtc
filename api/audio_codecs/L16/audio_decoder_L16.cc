@@ -35,8 +35,7 @@ void AudioDecoderL16::AppendSupportedDecoders(
 }
 
 std::unique_ptr<AudioDecoder> AudioDecoderL16::MakeAudioDecoder(
-    const Config& config,
-    absl::optional<AudioCodecPairId> /*codec_pair_id*/) {
+    const Config& config) {
   return config.IsOk() ? std::make_unique<AudioDecoderPcm16B>(
                              config.sample_rate_hz, config.num_channels)
                        : nullptr;

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d3d85cd_3aea58b3",
+        "filename": "api/scoped_refptr_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-11T21:13:01Z",
+      "side": 1,
+      "message": "Did all the tests work before the fixes in this CL, including this last one?",
+      "revId": "86ecb3260d4d1dcc096d7b6e01a819a54ca74cbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "447a716f_3417eed6",
+        "filename": "api/scoped_refptr_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-11T21:13:01Z",
+      "side": 1,
+      "message": "Add a test that would actually break without the noexcept annotations, e.g. adding enough elements to a std::vector that it needs resizing?",
+      "revId": "86ecb3260d4d1dcc096d7b6e01a819a54ca74cbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

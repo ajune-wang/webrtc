@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9249ddf4_e8859182",
+        "filename": "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-11-11T12:00:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af15c4df_87cefe15",
+      "range": {
+        "startLine": 25,
+        "startChar": 7,
+        "endLine": 25,
+        "endChar": 17
+      },
+      "revId": "8cc954bed6ef86dd9e1311a483dbc4bc23189621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36927b54_bd2ab775",
         "filename": "modules/congestion_controller/goog_cc/simplified_acknowledged_bitrate_estimator.cc",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2019-11-07T12:57:10Z",
       "side": 1,
       "message": "This seems like it could be written in a simpler way.\n\nWhat about:\nwindow_.insert(absl::c_find_if([packet](const auto\u0026 p){\nreturn packet.receive_time \u003c p.receive_time;\n}, packet);",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 5
+      },
+      "revId": "8cc954bed6ef86dd9e1311a483dbc4bc23189621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40989525_c9d52502",
+        "filename": "modules/congestion_controller/goog_cc/simplified_acknowledged_bitrate_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-11-11T12:00:14Z",
+      "side": 1,
+      "message": "As discussed, we want it to be efficient in the common case so it should be iterate from the end.\n\nIt\u0027s possible to do with reverse iterators, but I don\u0027t think the code becomes simpler. It adds some complications such as having to think about which way the comparison should be when the iterators are reversed.",
+      "parentUuid": "36927b54_bd2ab775",
       "range": {
         "startLine": 40,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "40af10bf_b7db8685",
+        "filename": "modules/congestion_controller/goog_cc/simplified_acknowledged_bitrate_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-11-11T12:00:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af5e480a_90308f4d",
+      "range": {
+        "startLine": 59,
+        "startChar": 23,
+        "endLine": 59,
+        "endChar": 25
+      },
+      "revId": "8cc954bed6ef86dd9e1311a483dbc4bc23189621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c964e0e_47ebffee",
         "filename": "modules/congestion_controller/goog_cc/simplified_acknowledged_bitrate_estimator.cc",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "8cc954bed6ef86dd9e1311a483dbc4bc23189621",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a491dbd8_d0e7c7a8",
+        "filename": "modules/congestion_controller/goog_cc/simplified_acknowledged_bitrate_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-11-11T12:00:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c964e0e_47ebffee",
+      "range": {
+        "startLine": 88,
+        "startChar": 29,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "8cc954bed6ef86dd9e1311a483dbc4bc23189621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "d11b1bc0_7a86ce2e",
+        "filename": "modules/congestion_controller/goog_cc/simplified_acknowledged_bitrate_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-11-11T12:00:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "152f53f4_860e895e",
+      "range": {
+        "startLine": 89,
+        "startChar": 28,
+        "endLine": 89,
+        "endChar": 55
+      },
+      "revId": "8cc954bed6ef86dd9e1311a483dbc4bc23189621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6e3f63a_b30f3233",
         "filename": "modules/congestion_controller/goog_cc/simplified_acknowledged_bitrate_estimator.cc",
         "patchSetId": 5
@@ -128,6 +248,30 @@
       "writtenOn": "2019-11-07T12:57:10Z",
       "side": 1,
       "message": "This warrants an explanation.",
+      "range": {
+        "startLine": 90,
+        "startChar": 1,
+        "endLine": 95,
+        "endChar": 17
+      },
+      "revId": "8cc954bed6ef86dd9e1311a483dbc4bc23189621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "522a6673_838eb1b8",
+        "filename": "modules/congestion_controller/goog_cc/simplified_acknowledged_bitrate_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-11-11T12:00:14Z",
+      "side": 1,
+      "message": "As discussed, which packet to remove depends on the network model. I\u0027ll test which works better in simulations. For now, I\u0027ve kept the current code in a comment.",
+      "parentUuid": "b6e3f63a_b30f3233",
       "range": {
         "startLine": 90,
         "startChar": 1,

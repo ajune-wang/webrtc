@@ -105,6 +105,10 @@ class AudioProcessingImpl : public AudioProcessing {
                            const StreamConfig& output_config,
                            float* const* dest) override;
 
+  // Thread safe method that can be accessed in a concurrent manner.
+  bool GetLinearAecOutput(rtc::ArrayView<std::array<float, 160>> linear_output)
+      const override RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
+
   // Methods only accessed from APM submodules or
   // from AudioProcessing tests in a single-threaded manner.
   // Hence there is no need for locks in these.
@@ -416,6 +420,7 @@ class AudioProcessingImpl : public AudioProcessing {
     bool transient_suppressor_enabled;
     std::unique_ptr<AudioBuffer> capture_audio;
     std::unique_ptr<AudioBuffer> capture_fullband_audio;
+    std::unique_ptr<AudioBuffer> linear_aec_output;
     // Only the rate and samples fields of capture_processing_format_ are used
     // because the capture processing number of channels is mutable and is
     // tracked by the capture_audio_.

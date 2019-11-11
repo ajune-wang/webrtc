@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71aaa662_bff3f2ca",
+        "filename": "test/network/cross_traffic.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-11T14:54:16Z",
+      "side": 1,
+      "message": "Try not to duplicate the constants, either by named constants or a helper method used both here and in the constructor.",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 31
+      },
+      "revId": "cbbb6fb359ed5e4a43577a8bdf34afbcd6f9d6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a67b24a_73b513f7",
+        "filename": "test/network/cross_traffic.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-11T14:54:16Z",
+      "side": 1,
+      "message": "Where do these numbers come from? And generally, which variant of TCP does this aim to implement?",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 30
+      },
+      "revId": "cbbb6fb359ed5e4a43577a8bdf34afbcd6f9d6b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

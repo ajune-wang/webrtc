@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ca4c090_68083bc1",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-11T19:00:44Z",
+      "side": 1,
+      "message": "Am I interpreting this error correctly?\n\nFAILED: blink_platform.dll blink_platform.dll.lib \nninja -t msvc -e environment.x86 -- ..\\..\\third_party\\llvm-build\\Release+Asserts\\bin\\lld-link.exe /nologo -libpath:..\\..\\third_party\\depot_tools\\win_toolchain\\vs_files\\8f58c55897a3282ed617055775a77ec3db771b88\\VC\\Tools\\MSVC\\14.23.28105\\lib\\x86 -libpath:..\\..\\third_party\\depot_tools\\win_toolchain\\vs_files\\8f58c55897a3282ed617055775a77ec3db771b88\\win_sdk\\Lib\\10.0.18362.0\\um\\x86 -libpath:..\\..\\third_party\\depot_tools\\win_toolchain\\vs_files\\8f58c55897a3282ed617055775a77ec3db771b88\\win_sdk\\Lib\\10.0.18362.0\\ucrt\\x86 -libpath:..\\..\\third_party\\depot_tools\\win_toolchain\\vs_files\\8f58c55897a3282ed617055775a77ec3db771b88\\VC\\Tools\\MSVC\\14.23.28105\\atlmfc\\lib\\x86 /IMPLIB:./blink_platform.dll.lib /DLL /OUT:./blink_platform.dll /PDB:./blink_platform.dll.pdb @./blink_platform.dll.rsp\nlld-link: error: undefined symbol: public: static enum webrtc::RTCStatsMemberInterface::Type __cdecl webrtc::RTCStatsMember\u003cbool\u003e::StaticType(void)\n\u003e\u003e\u003e referenced by obj/third_party/blink/renderer/platform/platform/rtc_stats.obj:(public: class webrtc::RTCStatsMember\u003cbool\u003e const \u0026 __thiscall webrtc::RTCStatsMemberInterface::cast_to\u003cclass webrtc::RTCStatsMember\u003cbool\u003e\u003e(void) const)\n\u003e\u003e\u003e referenced by obj/third_party/blink/renderer/platform/platform/rtc_stats.obj:(public: class webrtc::RTCStatsMember\u003cbool\u003e const \u0026 __thiscall webrtc::RTCStatsMemberInterface::cast_to\u003cclass webrtc::RTCStatsMember\u003cbool\u003e\u003e(void) const)\n\n\nIt looks like the static specialization is not exported?",
+      "range": {
+        "startLine": 360,
+        "startChar": 2,
+        "endLine": 360,
+        "endChar": 12
+      },
+      "revId": "1e426450ecbb7673fe04c8d09ef408d2acc52982",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

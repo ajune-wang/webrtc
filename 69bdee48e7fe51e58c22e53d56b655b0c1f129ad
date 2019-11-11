@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "15a50c5b_1b776c6a",
+        "filename": "api/audio/BUILD.gn",
+        "patchSetId": 31
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-11T08:47:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1047f7f_f6ae3425",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 20
+      },
+      "revId": "69bdee48e7fe51e58c22e53d56b655b0c1f129ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6074f304_7503dad0",
         "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
         "patchSetId": 31
@@ -36,6 +60,30 @@
       "writtenOn": "2019-11-06T15:22:51Z",
       "side": 1,
       "message": "So this is used when AEC3 is configured _not_ to export the linear output, but a linear_output pointer is still used?\nI think we should either remove this lazy initialization functionality or the config parameter. Otherwise the meaning of the parameter is \"pre-allocate memory for linear output\". WDYT?",
+      "range": {
+        "startLine": 377,
+        "startChar": 4,
+        "endLine": 378,
+        "endChar": 72
+      },
+      "revId": "69bdee48e7fe51e58c22e53d56b655b0c1f129ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "293df56c_52e622f3",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 31
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-11T08:47:27Z",
+      "side": 1,
+      "message": "I totally agree.\nI now changed it to not support lazy configuration, and that any attempt to use this when it is not configured results in a LOG message and a DCHECK.\n\nPTAL",
+      "parentUuid": "6074f304_7503dad0",
       "range": {
         "startLine": 377,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "90a09c02_0819ac83",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 31
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-11T08:47:27Z",
+      "side": 1,
+      "message": "Good suggestion!\nDone.",
+      "parentUuid": "bdb62191_a742e57a",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 446,
+        "endChar": 3
+      },
+      "revId": "69bdee48e7fe51e58c22e53d56b655b0c1f129ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0146ce15_88ae12a8",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 31
@@ -82,6 +154,30 @@
       "writtenOn": "2019-11-07T08:31:49Z",
       "side": 1,
       "message": "It is not safe to clear swap queue here as it might be accessed concurrently by GetLinearAecOutput(). Let\u0027s discuss the threading issues offline.",
+      "range": {
+        "startLine": 1371,
+        "startChar": 10,
+        "endLine": 1371,
+        "endChar": 39
+      },
+      "revId": "69bdee48e7fe51e58c22e53d56b655b0c1f129ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71ce55ff_107b8951",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 31
+      },
+      "lineNbr": 1371,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-11T08:47:27Z",
+      "side": 1,
+      "message": "Good point!\nAccording to offline discussions, I have now moved the retrieval of the linear output to be done beneath the capture lock, which avoids the use of the queue.\n\nPTAL.",
+      "parentUuid": "0146ce15_88ae12a8",
       "range": {
         "startLine": 1371,
         "startChar": 10,
@@ -114,6 +210,30 @@
       "revId": "69bdee48e7fe51e58c22e53d56b655b0c1f129ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1060d925_9f4fd188",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 31
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-11T08:47:27Z",
+      "side": 1,
+      "message": "Good find!\nDone.",
+      "parentUuid": "70060562_3b917038",
+      "range": {
+        "startLine": 520,
+        "startChar": 5,
+        "endLine": 521,
+        "endChar": 75
+      },
+      "revId": "69bdee48e7fe51e58c22e53d56b655b0c1f129ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "a6481934_6e7fe59f",
+        "filename": "modules/congestion_controller/goog_cc/simplified_acknowledged_bitrate_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-11T13:32:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "40989525_c9d52502",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 5
+      },
+      "revId": "8cc954bed6ef86dd9e1311a483dbc4bc23189621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af5e480a_90308f4d",
         "filename": "modules/congestion_controller/goog_cc/simplified_acknowledged_bitrate_estimator.cc",
         "patchSetId": 5
@@ -281,6 +305,30 @@
       "revId": "8cc954bed6ef86dd9e1311a483dbc4bc23189621",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "167f542d_4590050d",
+        "filename": "modules/congestion_controller/goog_cc/simplified_acknowledged_bitrate_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-11T13:32:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "522a6673_838eb1b8",
+      "range": {
+        "startLine": 90,
+        "startChar": 1,
+        "endLine": 95,
+        "endChar": 17
+      },
+      "revId": "8cc954bed6ef86dd9e1311a483dbc4bc23189621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

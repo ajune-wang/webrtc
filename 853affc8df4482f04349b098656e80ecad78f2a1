@@ -22,6 +22,30 @@
       "revId": "853affc8df4482f04349b098656e80ecad78f2a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b43fb46_97e4a728",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-11T09:55:23Z",
+      "side": 1,
+      "message": "+1 for testonly. I am not sure it is doable to move to api/test/BUILD.gn (the build system will probably ask you to move others test/ files as well, not GN but bazel).",
+      "parentUuid": "4d4e9346_051a0393",
+      "range": {
+        "startLine": 946,
+        "startChar": 15,
+        "endLine": 946,
+        "endChar": 30
+      },
+      "revId": "853affc8df4482f04349b098656e80ecad78f2a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -92,6 +92,55 @@ class PulsedPeaksCrossTraffic {
   bool sending_ RTC_GUARDED_BY(sequence_checker_) = false;
 };
 
+class TcpMessageRoute {
+ public:
+  TcpMessageRoute(Clock* clock,
+                  TaskQueueBase* task_queue,
+                  EmulatedRoute* send_route,
+                  EmulatedRoute* ret_route);
+
+  void SendAction(size_t message_size, std::function<void()> on_received);
+
+ private:
+  struct TcpFragment {
+    int fragment_id;
+    size_t size;
+  };
+  struct TcpSession {
+    std::function<void()> handler;
+    std::set<int> pending;
+  };
+  struct TcpPacket {
+    int sequence_number;
+    Timestamp sent = Timestamp::MinusInfinity();
+    TcpFragment fragment;
+  };
+
+  void OnRequest(TcpPacket packet_info);
+  void OnResponse(TcpPacket packet_info, Timestamp at_time);
+  void HandleLoss(Timestamp at_time);
+  void SendPackets(Timestamp at_time);
+  void HandlePacketTimeout(int seq_num, Timestamp at_time);
+
+  Clock* const clock_;
+  TaskQueueBase* const task_queue_;
+  FakePacketRoute<TcpPacket> request_route_;
+  FakePacketRoute<TcpPacket> response_route_;
+
+  std::deque<TcpFragment> pending_;
+  std::map<int, TcpPacket> in_flight_;
+  std::list<TcpSession> sessions_;
+
+  double cwnd_ = 10;
+  double ssthresh_ = INFINITY;
+
+  int last_acked_seq_num_ = 0;
+  int next_sequence_number_ = 0;
+  int next_fragment_id_ = 0;
+  Timestamp last_reduction_time_ = Timestamp::MinusInfinity();
+  TimeDelta last_rtt_ = TimeDelta::Zero();
+};
+
 struct FakeTcpConfig {
   DataSize packet_size = DataSize::bytes(1200);
   DataSize send_limit = DataSize::PlusInfinity();

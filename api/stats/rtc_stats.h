@@ -300,7 +300,7 @@ class RTCStatsMember : public RTCStatsMemberInterface {
       : RTCStatsMemberInterface(other.name_, other.is_defined_),
         value_(std::move(other.value_)) {}
 
-  static Type StaticType();
+  static RTC_EXPORT Type StaticType();
   Type type() const override { return StaticType(); }
   bool is_sequence() const override;
   bool is_string() const override;

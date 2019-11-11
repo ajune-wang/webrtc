@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8aa9542c_e376b7a9",
+        "filename": "modules/audio_coding/neteq/test/neteq_decoding_test.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-11-11T16:56:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ed145cc_2d40d253",
+      "range": {
+        "startLine": 30,
+        "startChar": 59,
+        "endLine": 30,
+        "endChar": 66
+      },
+      "revId": "107e842bc9892d76f73f7231fe64e87709a50d6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12455d50_0d078dbb",
         "filename": "modules/audio_coding/neteq/test/neteq_decoding_test.h",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "107e842bc9892d76f73f7231fe64e87709a50d6a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d42bccd_f690185e",
+        "filename": "modules/audio_coding/neteq/test/neteq_decoding_test.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-11-11T16:56:25Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s a issue for static class member, but I\u0027ll add constexpr to match the recommended guideline.",
+      "parentUuid": "12455d50_0d078dbb",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 36
+      },
+      "revId": "107e842bc9892d76f73f7231fe64e87709a50d6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

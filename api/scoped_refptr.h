@@ -92,10 +92,12 @@ class scoped_refptr {
   }
 
   // Move constructors.
-  scoped_refptr(scoped_refptr<T>&& r) : ptr_(r.release()) {}
+  scoped_refptr(scoped_refptr<T>&& r) noexcept : ptr_(r.release()) {}
 
-  template <typename U>
-  scoped_refptr(scoped_refptr<U>&& r) : ptr_(r.release()) {}
+  template <typename U,
+            typename = typename std::enable_if<
+                std::is_convertible<U*, T*>::value>::type>
+  scoped_refptr(scoped_refptr<U>&& r) noexcept : ptr_(r.release()) {}
 
   ~scoped_refptr() {
     if (ptr_)
@@ -136,7 +138,7 @@ class scoped_refptr {
     return *this = r.get();
   }
 
-  scoped_refptr<T>& operator=(scoped_refptr<T>&& r) {
+  scoped_refptr<T>& operator=(scoped_refptr<T>&& r) noexcept {
     scoped_refptr<T>(std::move(r)).swap(*this);
     return *this;
   }
@@ -147,17 +149,18 @@ class scoped_refptr {
     return *this;
   }
 
-  void swap(T** pp) {
-    T* p = ptr_;
-    ptr_ = *pp;
-    *pp = p;
-  }
+  void swap(T** pp) noexcept { std::swap(ptr_, *pp); }
 
-  void swap(scoped_refptr<T>& r) { swap(&r.ptr_); }
+  void swap(scoped_refptr<T>& r) noexcept { std::swap(ptr_, r.ptr_); }
 
  protected:
   T* ptr_;
 };
+
+template <typename T>
+void swap(scoped_refptr<T>& lhs, scoped_refptr<T>& rhs) noexcept {
+  lhs.swap(rhs);
+}
 
 }  // namespace rtc
 

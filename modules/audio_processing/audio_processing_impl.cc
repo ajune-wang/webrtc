@@ -477,14 +477,20 @@ int AudioProcessingImpl::InitializeLocked() {
   submodules_.gain_control->Initialize(num_proc_channels(),
                                        proc_sample_rate_hz());
   if (constants_.use_experimental_agc) {
-    if (!submodules_.agc_manager.get()) {
+    if (!submodules_.agc_manager.get() ||
+        submodules_.agc_manager->num_channels() !=
+            static_cast<int>(num_proc_channels()) ||
+        submodules_.agc_manager->sample_rate_hz() !=
+            capture_nonlocked_.split_rate) {
       submodules_.agc_manager.reset(new AgcManagerDirect(
-          constants_.agc_startup_min_volume, constants_.agc_clipped_level_min,
+          num_proc_channels(), constants_.agc_startup_min_volume,
+          constants_.agc_clipped_level_min,
           constants_.use_experimental_agc_agc2_level_estimation,
-          constants_.use_experimental_agc_agc2_digital_adaptive));
+          constants_.use_experimental_agc_agc2_digital_adaptive,
+          capture_nonlocked_.split_rate));
     }
     submodules_.agc_manager->Initialize();
-    submodules_.agc_manager->ConfigureGainControl(
+    submodules_.agc_manager->SetupDigitalGainControl(
         submodules_.gain_control.get());
     submodules_.agc_manager->SetCaptureMuted(capture_.output_will_be_muted);
   }
@@ -1268,9 +1274,7 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
 
   if (constants_.use_experimental_agc &&
       submodules_.gain_control->is_enabled()) {
-    submodules_.agc_manager->AnalyzePreProcess(
-        capture_buffer->channels_const(), capture_buffer->num_channels(),
-        capture_nonlocked_.capture_processing_format.num_frames());
+    submodules_.agc_manager->AnalyzePreProcess(capture_buffer);
   }
 
   if (submodule_states_.CaptureMultiBandSubModulesActive() &&
@@ -1356,10 +1360,13 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
 
   if (constants_.use_experimental_agc &&
       submodules_.gain_control->is_enabled()) {
-    submodules_.agc_manager->Process(
-        capture_buffer->split_bands_const_f(0)[kBand0To8kHz],
-        capture_buffer->num_frames_per_band(), capture_nonlocked_.split_rate,
-        submodules_.gain_control.get());
+    submodules_.agc_manager->Process(capture_buffer);
+
+    absl::optional<int> new_digital_gain =
+        submodules_.agc_manager->GetDigitalComressionGain();
+    if (new_digital_gain) {
+      submodules_.gain_control->set_compression_gain_db(*new_digital_gain);
+    }
   }
   // TODO(peah): Add reporting from AEC3 whether there is echo.
   RETURN_ON_ERR(submodules_.gain_control->ProcessCaptureAudio(

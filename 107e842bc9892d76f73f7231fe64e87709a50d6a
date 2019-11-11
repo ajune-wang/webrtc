@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ed145cc_2d40d253",
+        "filename": "modules/audio_coding/neteq/test/neteq_decoding_test.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-11-11T16:33:55Z",
+      "side": 1,
+      "message": "nit: none",
+      "range": {
+        "startLine": 30,
+        "startChar": 59,
+        "endLine": 30,
+        "endChar": 66
+      },
+      "revId": "107e842bc9892d76f73f7231fe64e87709a50d6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12455d50_0d078dbb",
+        "filename": "modules/audio_coding/neteq/test/neteq_decoding_test.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-11-11T16:33:55Z",
+      "side": 1,
+      "message": "This way of initializing constants was okay previously because the code was in a .cc file. In a header file, it is not one of approved idioms because it can lead to multiple copies, see totw 140. Same applies to the constants below.",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 36
+      },
+      "revId": "107e842bc9892d76f73f7231fe64e87709a50d6a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

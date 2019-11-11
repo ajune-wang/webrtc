@@ -1024,14 +1024,14 @@ void VideoSendStreamTest::TestPacketFragmentationSize(VideoFormat format,
 
   // Observer that verifies that the expected number of packets and bytes
   // arrive for each frame size, from start_size to stop_size.
-  class FrameFragmentationTest : public test::SendTest {
+  class FrameFragmentationTest : public test::EndToEndTest {
    public:
     FrameFragmentationTest(size_t max_packet_size,
                            size_t start_size,
                            size_t stop_size,
                            bool test_generic_packetization,
                            bool use_fec)
-        : SendTest(kLongTimeoutMs),
+        : EndToEndTest(kLongTimeoutMs),
           encoder_(stop),
           encoder_factory_(&encoder_),
           max_packet_size_(max_packet_size),
@@ -1175,7 +1175,7 @@ void VideoSendStreamTest::TestPacketFragmentationSize(VideoFormat format,
     }
     void ModifySenderBitrateConfig(
         BitrateConstraints* bitrate_config) override {
-      const int kMinBitrateBps = 30000;
+      const int kMinBitrateBps = 300000;
       bitrate_config->min_bitrate_bps = kMinBitrateBps;
     }
 
@@ -3500,6 +3500,13 @@ void VideoSendStreamTest::TestVp9NonFlexMode(uint8_t num_temporal_layers,
     const uint8_t num_temporal_layers_;
     const uint8_t num_spatial_layers_;
     const bool l_field_;
+
+   private:
+    void ModifySenderBitrateConfig(
+        BitrateConstraints* bitrate_config) override {
+      const int kMinBitrateBps = 300000;
+      bitrate_config->min_bitrate_bps = kMinBitrateBps;
+    }
   } test(num_temporal_layers, num_spatial_layers);
 
   RunBaseTest(&test);

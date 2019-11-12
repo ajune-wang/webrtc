@@ -22,6 +22,30 @@
       "revId": "46aa9e89bb1f3e666e77ed7b85b43ff9f77ef6fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47cef9a5_39fca8f4",
+        "filename": "modules/audio_device/win/core_audio_utility_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 8037
+      },
+      "writtenOn": "2019-11-12T18:39:18Z",
+      "side": 1,
+      "message": "I think it\u0027s restricted to an error result from one of the com calls in CreateDeviceInternal actually.  Otherwise I\u0027d expect many more instances reported back than we\u0027re seeing (~10).",
+      "parentUuid": "7feede01_bf2a37bb",
+      "range": {
+        "startLine": 479,
+        "startChar": 4,
+        "endLine": 479,
+        "endChar": 7
+      },
+      "revId": "46aa9e89bb1f3e666e77ed7b85b43ff9f77ef6fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

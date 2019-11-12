@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e338d8fa_70b34839",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-12T15:42:41Z",
+      "side": 0,
+      "message": "Why is this removed? We should be able to tune this to not be affected by the RTT based backoff. Maybe just wait shorter, worst case we could set the RTT limit much higher in this particular test to ensure that it does not kick in.",
+      "range": {
+        "startLine": 382,
+        "startChar": 7,
+        "endLine": 382,
+        "endChar": 54
+      },
+      "revId": "ebf4552c8f72d93cc4da92259c041f0b8a104518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

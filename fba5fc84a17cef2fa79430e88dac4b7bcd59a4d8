@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4476d2b_1a72842d",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-12T09:54:20Z",
+      "side": 1,
+      "message": "Reads like well-written prose! ;)\n\nlinear_output_block_ \u003d\n        std::make_unique\u003cstd::vector\u003cstd::vector\u003cstd::vector\u003cfloat\u003e\u003e\u003e\u003e(\n            1, std::vector\u003cstd::vector\u003cfloat\u003e\u003e(\n                   num_capture_channels_, std::vector\u003cfloat\u003e(kBlockSize, 0.f)));\n\nshould be enough. More readable and avoiding a copy-constructor.",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 336,
+        "endChar": 62
+      },
+      "revId": "fba5fc84a17cef2fa79430e88dac4b7bcd59a4d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca09a331_aa0ee2dd",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 1631,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-12T09:54:20Z",
+      "side": 1,
+      "message": "I am a little bit confused with how the threading works here. Isn\u0027t \"rtc::CritScope cs(\u0026crit_capture_);\" needed here to protect the access of linear_aec_output?",
+      "revId": "fba5fc84a17cef2fa79430e88dac4b7bcd59a4d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

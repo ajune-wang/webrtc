@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3dc4af10_ea836221",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-12T15:34:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d729214_212c1a9f",
+      "range": {
+        "startLine": 171,
+        "startChar": 7,
+        "endLine": 172,
+        "endChar": 49
+      },
+      "revId": "a70b0174beb464ba61aacad318085c7dd5d3307c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2867e7b7_cd2d517b",
         "filename": "api/test/peerconnection_quality_test_fixture.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "a70b0174beb464ba61aacad318085c7dd5d3307c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c197252_830eebec",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-12T15:34:45Z",
+      "side": 1,
+      "message": "Video generators is WebRTC private API, it is why rtc::VideoSourceInterface is used here. If you will specify some other source in config, then validation error will be raised.\n\nI can\u0027t put source into video config because video config is assumed copyable structure and source can\u0027t be copyable by default.",
+      "parentUuid": "2867e7b7_cd2d517b",
+      "range": {
+        "startLine": 297,
+        "startChar": 63,
+        "endLine": 297,
+        "endChar": 69
+      },
+      "revId": "a70b0174beb464ba61aacad318085c7dd5d3307c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "dd3ceeef_11b53a6e",
+        "filename": "test/pc/e2e/peer_connection_quality_test.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-12T15:34:45Z",
+      "side": 1,
+      "message": "I told in previous comment why I can\u0027t put source into params, but I\u0027m OK to change signature. I was thinking about it, but initially decided that it will look a bit too ugly.\n\nI hope to refactor it a bit more to make it clearer in the future.",
+      "parentUuid": "ccc0d0ce_e0c15347",
+      "range": {
+        "startLine": 253,
+        "startChar": 9,
+        "endLine": 253,
+        "endChar": 26
+      },
+      "revId": "a70b0174beb464ba61aacad318085c7dd5d3307c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f42b321e_26a65aec",
         "filename": "test/pc/e2e/video_source_based_video_capturer.h",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "a70b0174beb464ba61aacad318085c7dd5d3307c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecac1ffb_c1243d85",
+        "filename": "test/pc/e2e/video_source_based_video_capturer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-12T15:34:45Z",
+      "side": 1,
+      "message": "This one ensure that frames from provided source will be forwarded into video quality analyzer and also will be processed by VideoAdapter according to the requirements.",
+      "parentUuid": "f42b321e_26a65aec",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 35
+      },
+      "revId": "a70b0174beb464ba61aacad318085c7dd5d3307c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

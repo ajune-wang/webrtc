@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc0ea518_123fa1d1",
+        "filename": "modules/rtp_rtcp/source/rtp_depacketizer_av1.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-12T16:26:06Z",
+      "side": 1,
+      "message": "nit: I think you can steal the term \"limbs\" from GMP in this case: https://stackoverflow.com/questions/3242256/how-does-gmp-stores-its-integers-on-an-arbitrary-number-of-bytes\n\n:)",
+      "range": {
+        "startLine": 72,
+        "startChar": 9,
+        "endLine": 72,
+        "endChar": 13
+      },
+      "revId": "15c1b60a5e52136c4eb52e73d7a6bebe9828df06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c75082b_6ae21ca7",
+        "filename": "modules/rtp_rtcp/source/rtp_depacketizer_av1.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-12T16:26:06Z",
+      "side": 1,
+      "message": "I think the code would be simpler if you just had these two functions:\n  Leb128Value Uint64ToLeb128(uint64_t value);\n  uint64_t Leb128ToUint64(Leb128Value value);\n\nI also think having a class kind of like this could help:\n  class RtpPayloadReader {\n   private:\n    RtpPayloadReader(rtc::ArrayView\u003cconst rtc::ArrayView\u003cconst uint8_t\u003e\u003e rtp_payloads);\n\n    uint64_t ReadBytes(size_t offset, size_t num_bytes);\n    void CopyBytesTo(size_t offset, size_t num_bytes, uint8_t* destination);\n  };",
+      "range": {
+        "startLine": 122,
+        "startChar": 7,
+        "endLine": 122,
+        "endChar": 18
+      },
+      "revId": "15c1b60a5e52136c4eb52e73d7a6bebe9828df06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18964a93_517903c9",
+        "filename": "modules/rtp_rtcp/source/rtp_format.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-12T16:26:06Z",
+      "side": 1,
+      "message": "RTC_NOTREACHED?",
+      "range": {
+        "startLine": 156,
+        "startChar": 6,
+        "endLine": 156,
+        "endChar": 38
+      },
+      "revId": "15c1b60a5e52136c4eb52e73d7a6bebe9828df06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

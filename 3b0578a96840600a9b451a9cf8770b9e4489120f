@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21641dea_6f3ce7e6",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-12T14:52:41Z",
+      "side": 1,
+      "message": "This value is updated in many places.\n\nMaybe we could simplify the graph?\nMaybe duplicate the definition here into the congested state first, then it seems that we could split at least some of it into separate return statements.",
+      "range": {
+        "startLine": 321,
+        "startChar": 12,
+        "endLine": 321,
+        "endChar": 26
+      },
+      "revId": "3b0578a96840600a9b451a9cf8770b9e4489120f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15f7f61a_988b79c3",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-12T14:52:41Z",
+      "side": 1,
+      "message": "AFICT congestion_end_time_ is always smaller than next_send_time?",
+      "range": {
+        "startLine": 348,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 66
+      },
+      "revId": "3b0578a96840600a9b451a9cf8770b9e4489120f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

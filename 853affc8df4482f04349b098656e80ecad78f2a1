@@ -70,6 +70,30 @@
       "revId": "853affc8df4482f04349b098656e80ecad78f2a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b613cf29_bddd1403",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-12T07:56:22Z",
+      "side": 1,
+      "message": "\u003e These are testonly, but indeed if I move them to api/test/BUILD.gn, I can\u0027t build them under bazel.  So I think we have to move everything under api/test/ into that BUILD.gn file at once to avoid breaking downstream.\n\u003e \n\u003e I\u0027d prefer to do that as a follow-up.\n\nYes, no worries about that.",
+      "parentUuid": "6a260b95_f829e296",
+      "range": {
+        "startLine": 946,
+        "startChar": 15,
+        "endLine": 946,
+        "endChar": 30
+      },
+      "revId": "853affc8df4482f04349b098656e80ecad78f2a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

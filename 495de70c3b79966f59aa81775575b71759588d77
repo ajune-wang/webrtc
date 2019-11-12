@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33f1214f_9d08f5a9",
+        "filename": "test/network/cross_traffic.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-12T15:13:16Z",
+      "side": 1,
+      "message": "Shorten to \"Message\"?",
+      "range": {
+        "startLine": 116,
+        "startChar": 9,
+        "endLine": 116,
+        "endChar": 22
+      },
+      "revId": "495de70c3b79966f59aa81775575b71759588d77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8e8785f0_79db1b49",
+        "filename": "test/network/cross_traffic.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-12T15:02:31Z",
+      "side": 1,
+      "message": "The point here is to simulate recreation of the session in the typical case where messages are delivered paced apart, but without adding the complexity of maintaining multiple sessions.\n\nElaborated on the comment to reflect that.",
+      "parentUuid": "643f7fdd_db37d369",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 31
+      },
+      "revId": "7509b50b31859c42d9c7e717c09b4eee4dd9f721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "821e33b5_9a80bd7c",
         "filename": "test/network/cross_traffic.h",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "847a9bd6_c17615d5",
+        "filename": "test/network/cross_traffic.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-12T15:02:31Z",
+      "side": 1,
+      "message": "Done.\n\nYes, that\u0027s correct. It\u0027s a simplified model to allow approximate to TCP behavior in typical cases. For a completely correct model we\u0027d need to go a lot deeper, add HTTP on top, etc, so I think this is reasonable for now.",
+      "parentUuid": "821e33b5_9a80bd7c",
+      "range": {
+        "startLine": 110,
+        "startChar": 7,
+        "endLine": 110,
+        "endChar": 17
+      },
+      "revId": "7509b50b31859c42d9c7e717c09b4eee4dd9f721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "448710f0_668fe084",
         "filename": "test/network/cross_traffic.h",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "7509b50b31859c42d9c7e717c09b4eee4dd9f721",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec89c98e_04dca78c",
+        "filename": "test/network/cross_traffic.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-12T15:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "448710f0_668fe084",
+      "range": {
+        "startLine": 114,
+        "startChar": 31,
+        "endLine": 114,
+        "endChar": 40
+      },
+      "revId": "7509b50b31859c42d9c7e717c09b4eee4dd9f721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "edd885da_80d7d77b",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-12T17:31:37Z",
+      "side": 1,
+      "message": "Made changes as discussed offline.",
+      "parentUuid": "21641dea_6f3ce7e6",
+      "range": {
+        "startLine": 321,
+        "startChar": 12,
+        "endLine": 321,
+        "endChar": 26
+      },
+      "revId": "3b0578a96840600a9b451a9cf8770b9e4489120f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15f7f61a_988b79c3",
         "filename": "modules/pacing/pacing_controller.cc",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "3b0578a96840600a9b451a9cf8770b9e4489120f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14c3f034_05215ae2",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-12T17:31:37Z",
+      "side": 1,
+      "message": "No, we can end up in a situation where we would have sent packets, but didn\u0027t due to congestion.\nThen, when the congestion is lifted, it will look like the ProcessPackets() call was just very delayed and we try to send a burst of the packets that we ignored.\nIf we force the next send time to when the congestion was lifted, we allow building buffer levels only from that point onward.",
+      "parentUuid": "15f7f61a_988b79c3",
+      "range": {
+        "startLine": 348,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 66
+      },
+      "revId": "3b0578a96840600a9b451a9cf8770b9e4489120f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

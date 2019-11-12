@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "5158087c_93ac4e61",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-11-12T16:02:40Z",
+      "side": 1,
+      "message": "All right. It feels like you should either pass in one or zero video sources (if zero, use some default). There should be one interface for a video source (videosourceinterface with videosinkinterface looks excellent) and your frame generators should implement videosourceinterface. Then you just hand a video source to the test rather than having the videogeneratortype. It\u0027s clunky with several mechanism for choosing a video source.\n\nI don\u0027t know how to best deal with the ownership of the video sink, I guess either absl::optional\u003crtc::VideoSourceInterface\u003cVideoFrame\u003e*\u003e and the caller makes sure the source outlives the test, or use a refptr. Then it\u0027s fine that params gets copied.\n\nYou do have a good mechanism for checking the params at least, so this is fine. I would like to see the refactoring suggested above or something like it later.",
+      "parentUuid": "9c197252_830eebec",
+      "range": {
+        "startLine": 297,
+        "startChar": 63,
+        "endLine": 297,
+        "endChar": 69
+      },
+      "revId": "a70b0174beb464ba61aacad318085c7dd5d3307c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ccc0d0ce_e0c15347",
         "filename": "test/pc/e2e/peer_connection_quality_test.h",
         "patchSetId": 1

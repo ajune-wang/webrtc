@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "888dcab1_26ea2ffe",
+        "filename": "api/scoped_refptr_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-12T09:25:32Z",
+      "side": 1,
+      "message": "No: 1st four did work without \u0027noexcept\u0027\nthis one fails without \u0027noexcept\u0027",
+      "parentUuid": "5d3d85cd_3aea58b3",
+      "revId": "86ecb3260d4d1dcc096d7b6e01a819a54ca74cbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "447a716f_3417eed6",
         "filename": "api/scoped_refptr_unittest.cc",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "86ecb3260d4d1dcc096d7b6e01a819a54ca74cbe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b380c254_462e93da",
+        "filename": "api/scoped_refptr_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-12T09:25:32Z",
+      "side": 1,
+      "message": "2 is enough according to my local testing.\n\nI\u0027m not sure how can I reliably force reallocation since std::vector doesn\u0027t have functions to fully control capacity:\nreserve \"Increase the capacity of the vector to a value that\u0027s greater or equal to new_cap\"\nshrink_to_fit \"It is a non-binding request ...\"\n\nI\u0027ve added a reserve to provoke 2nd element to be out of capacity.\nand an extra static_assert to explain which property of the scoped_refptr is verified (with vector becoming an example why is it useful)",
+      "parentUuid": "447a716f_3417eed6",
+      "revId": "86ecb3260d4d1dcc096d7b6e01a819a54ca74cbe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

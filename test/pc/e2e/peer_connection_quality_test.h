@@ -120,6 +120,14 @@ class PeerConfigurerImpl final
   PeerConfigurer* AddVideoConfig(
       PeerConnectionE2EQualityTestFixture::VideoConfig config) override {
     params_->video_configs.push_back(std::move(config));
+    video_sources_.push_back(nullptr);
+    return this;
+  }
+  PeerConfigurer* AddVideoConfig(
+      PeerConnectionE2EQualityTestFixture::VideoConfig config,
+      std::unique_ptr<rtc::VideoSourceInterface<VideoFrame>> source) override {
+    params_->video_configs.push_back(std::move(config));
+    video_sources_.push_back(std::move(source));
     return this;
   }
   PeerConfigurer* SetAudioConfig(
@@ -153,10 +161,16 @@ class PeerConfigurerImpl final
     return std::move(components_);
   }
   std::unique_ptr<Params> ReleaseParams() { return std::move(params_); }
+  std::vector<std::unique_ptr<rtc::VideoSourceInterface<VideoFrame>>>
+  ReleaseVideoSources() {
+    return std::move(video_sources_);
+  }
 
  private:
   std::unique_ptr<InjectableComponents> components_;
   std::unique_ptr<Params> params_;
+  std::vector<std::unique_ptr<rtc::VideoSourceInterface<VideoFrame>>>
+      video_sources_;
 };
 
 class TestVideoCapturerVideoTrackSource : public VideoTrackSource {
@@ -236,6 +250,17 @@ class PeerConnectionE2EQualityTest
     absl::optional<TimeDelta> interval;
     std::function<void(TimeDelta)> func;
   };
+  struct ValidatableParams {
+    ValidatableParams(
+        Params* params,
+        std::vector<std::unique_ptr<rtc::VideoSourceInterface<VideoFrame>>>*
+            video_sources)
+        : params(params), video_sources(video_sources) {}
+
+    Params* params;
+    std::vector<std::unique_ptr<rtc::VideoSourceInterface<VideoFrame>>>*
+        video_sources;
+  };
 
   void ExecuteTask(TimeDelta initial_delay_since_start,
                    absl::optional<TimeDelta> interval,
@@ -245,10 +270,11 @@ class PeerConnectionE2EQualityTest
   //  * Generate video stream labels if some of them missed
   //  * Generate audio stream labels if some of them missed
   //  * Set video source generation mode if it is not specified
-  void SetDefaultValuesForMissingParams(std::vector<Params*> params);
+  void SetDefaultValuesForMissingParams(std::vector<ValidatableParams> params);
   // Validate peer's parameters, also ensure uniqueness of all video stream
   // labels.
-  void ValidateParams(const RunParams& run_params, std::vector<Params*> params);
+  void ValidateParams(const RunParams& run_params,
+                      std::vector<ValidatableParams> params);
   // For some functionality some field trials have to be enabled, so we will
   // enable them here.
   void SetupRequiredFieldTrials(const RunParams& run_params);
@@ -263,6 +289,7 @@ class PeerConnectionE2EQualityTest
   MaybeAddVideo(TestPeer* peer);
   std::unique_ptr<test::TestVideoCapturer> CreateVideoCapturer(
       const VideoConfig& video_config,
+      std::unique_ptr<rtc::VideoSourceInterface<VideoFrame>> source,
       std::unique_ptr<test::TestVideoCapturer::FramePreprocessor>
           frame_preprocessor);
   std::unique_ptr<test::FrameGenerator> CreateScreenShareFrameGenerator(

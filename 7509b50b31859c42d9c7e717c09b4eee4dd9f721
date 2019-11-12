@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "643f7fdd_db37d369",
+        "filename": "test/network/cross_traffic.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-12T09:58:33Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s realistic to reset whenever the connection is temporarily idle. Would have to lookup how typical TCP implementations do that (they do reset to an initial slowstart if the connection is idle long enough). I\u0027d expect that (i) there\u0027s some timeout before resetting the cwnd, and (ii) that ssthresh is set to the old cwnd, not infinity, unless we\u0027re idle for a long time.",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 31
+      },
+      "revId": "7509b50b31859c42d9c7e717c09b4eee4dd9f721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "821e33b5_9a80bd7c",
+        "filename": "test/network/cross_traffic.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-12T09:58:33Z",
+      "side": 1,
+      "message": "I find \"action\" a bit odd. Maybe \"SendMessage\"?\n\nDo I understand it correctly that each message is split into tcp fragments independently (and there won\u0027t be more than one fragment in the case of a RTP packet with 1200 bytes of payload and a 1500 bytes MTU).\n\nSo even if you send several messages back to back and they are queued up, you will never produce a tcp fragment that contains the end of one message and the start of the next message?\n\nAnd the callback represents message delivered to the other end, independent of if and how it\u0027s acked?",
+      "range": {
+        "startLine": 110,
+        "startChar": 7,
+        "endLine": 110,
+        "endChar": 17
+      },
+      "revId": "7509b50b31859c42d9c7e717c09b4eee4dd9f721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "448710f0_668fe084",
+        "filename": "test/network/cross_traffic.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-12T09:58:33Z",
+      "side": 1,
+      "message": "Spelling",
+      "range": {
+        "startLine": 114,
+        "startChar": 31,
+        "endLine": 114,
+        "endChar": 40
+      },
+      "revId": "7509b50b31859c42d9c7e717c09b4eee4dd9f721",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

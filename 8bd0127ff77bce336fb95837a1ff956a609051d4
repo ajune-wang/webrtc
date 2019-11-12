@@ -22,6 +22,30 @@
       "revId": "8bd0127ff77bce336fb95837a1ff956a609051d4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d57b772c_cf1e1389",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-12T12:11:52Z",
+      "side": 1,
+      "message": "Thanks! 😊\n\nToo much copy/pasting!",
+      "parentUuid": "ce16e6a1_403a7583",
+      "range": {
+        "startLine": 10,
+        "startChar": 9,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "8bd0127ff77bce336fb95837a1ff956a609051d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

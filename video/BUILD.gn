@@ -68,6 +68,7 @@ rtc_library("video") {
     "../api/video:video_bitrate_allocator",
     "../api/video:video_codec_constants",
     "../api/video:video_frame",
+    "../api/video:video_frame_encoded_frame",
     "../api/video:video_frame_i420",
     "../api/video:video_rtp_headers",
     "../api/video:video_stream_encoder",

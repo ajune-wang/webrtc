@@ -13,6 +13,7 @@
 #include <math.h>
 #include <string.h>
 
+#include "api/video/encoded_frame.h"
 #include "api/video/i010_buffer.h"
 #include "api/video/i420_buffer.h"
 #include "rtc_base/bind.h"
@@ -360,6 +361,35 @@ TEST(TestVideoFrame, TextureInitialValues) {
   EXPECT_EQ(200u, frame.timestamp());
   frame.set_timestamp_us(20);
   EXPECT_EQ(20, frame.timestamp_us());
+}
+
+class TestEncodedFrame : public video_coding::EncodedFrame {
+ public:
+  int64_t ReceivedTime() const override { return 0; }
+  int64_t RenderTime() const override { return 0; }
+};
+
+TEST(TestVideoFrame, AcceptsEncodedFrameSource) {
+  VideoFrame frame =
+      VideoFrame::Builder()
+          .set_video_frame_buffer(I420Buffer::Create(10, 10, 10, 14, 90))
+          .build();
+  EXPECT_EQ(frame.get_encoded_frame_source(), nullptr);
+  auto encoded_frame = std::make_unique<TestEncodedFrame>();
+  video_coding::EncodedFrame* encoded_frame_ptr = encoded_frame.get();
+  frame.set_encoded_frame_source(std::move(encoded_frame));
+  EXPECT_EQ(&frame.get_encoded_frame_source()->get(), encoded_frame_ptr);
+}
+
+TEST(TestVideoFrame, CopiesWithSameEncodedFrameSource) {
+  VideoFrame frame =
+      VideoFrame::Builder()
+          .set_video_frame_buffer(I420Buffer::Create(10, 10, 10, 14, 90))
+          .build();
+  frame.set_encoded_frame_source(std::make_unique<TestEncodedFrame>());
+  VideoFrame frame2 = frame;
+  EXPECT_EQ(frame.get_encoded_frame_source(),
+            frame2.get_encoded_frame_source());
 }
 
 class TestPlanarYuvBuffer

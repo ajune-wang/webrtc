@@ -22,6 +22,30 @@
       "revId": "ebf4552c8f72d93cc4da92259c041f0b8a104518",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3c66e8f_5e82406f",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 9471
+      },
+      "writtenOn": "2019-11-13T09:33:08Z",
+      "side": 0,
+      "message": "Apparently there are no plans to use WebRTC-Bwe-CongestionWindowDownlinkDelay in the foreseeable future, so we agreed on removing that one completely.",
+      "parentUuid": "e338d8fa_70b34839",
+      "range": {
+        "startLine": 382,
+        "startChar": 7,
+        "endLine": 382,
+        "endChar": 54
+      },
+      "revId": "ebf4552c8f72d93cc4da92259c041f0b8a104518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

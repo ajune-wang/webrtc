@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4722f888_abebfce1",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-13T14:29:41Z",
+      "side": 1,
+      "message": "Maybe this could be split into 2 or 3 tests? I get lost in my mind when I try to map what this does in the different situations. Also, kMinSleepTime is mentioned, but it\u0027s not obvious how it\u0027s used.",
+      "range": {
+        "startLine": 575,
+        "startChar": 6,
+        "endLine": 575,
+        "endChar": 74
+      },
+      "revId": "b7e7b5b203eef748a615facce424c22ccd3019dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "802f2be4_c651af73",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-13T14:29:41Z",
+      "side": 1,
+      "message": "Example of when we\u0027d like a clamped subtract...",
+      "range": {
+        "startLine": 614,
+        "startChar": 4,
+        "endLine": 614,
+        "endChar": 62
+      },
+      "revId": "b7e7b5b203eef748a615facce424c22ccd3019dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "955c8835_6ec6df61",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-13T14:29:41Z",
+      "side": 1,
+      "message": "Seems a bit arbitrary, why is that the limit, is the wrong constant used?",
+      "range": {
+        "startLine": 626,
+        "startChar": 40,
+        "endLine": 626,
+        "endChar": 78
+      },
+      "revId": "b7e7b5b203eef748a615facce424c22ccd3019dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

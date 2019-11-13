@@ -22,6 +22,30 @@
       "revId": "1bd9efa6ab6689f93e6bf0a642591cfdf488d770",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "832a15f9_57ec8419",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-13T10:26:01Z",
+      "side": 1,
+      "message": "Yes, I was just going to ask how this hadn\u0027t been caught already. But I guess the templates were instantiated lazily before, and this particular one was never instantiated...",
+      "parentUuid": "9259e83a_506e0f79",
+      "range": {
+        "startLine": 404,
+        "startChar": 8,
+        "endLine": 406,
+        "endChar": 0
+      },
+      "revId": "1bd9efa6ab6689f93e6bf0a642591cfdf488d770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

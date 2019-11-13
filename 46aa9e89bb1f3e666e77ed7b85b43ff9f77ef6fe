@@ -46,6 +46,30 @@
       "revId": "46aa9e89bb1f3e666e77ed7b85b43ff9f77ef6fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fbf065f7_a9695002",
+        "filename": "modules/audio_device/win/core_audio_utility_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-11-13T09:19:22Z",
+      "side": 1,
+      "message": "I have tried to reproduce it locally with at least one active device but failed to do so. Guess you have found a case I have missed. Not surprised. Thanks for fixing!",
+      "parentUuid": "47cef9a5_39fca8f4",
+      "range": {
+        "startLine": 479,
+        "startChar": 4,
+        "endLine": 479,
+        "endChar": 7
+      },
+      "revId": "46aa9e89bb1f3e666e77ed7b85b43ff9f77ef6fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

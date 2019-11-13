@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f67b5823_09e8d7db",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 34
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-13T09:42:23Z",
+      "side": 1,
+      "message": "nit: Move the function declaration the other Capture-side exclusive methods and remove the comment.",
+      "range": {
+        "startLine": 108,
+        "startChar": 2,
+        "endLine": 108,
+        "endChar": 68
+      },
+      "revId": "41164ae2d20efb4cf291ffdbe9310b91d269771f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

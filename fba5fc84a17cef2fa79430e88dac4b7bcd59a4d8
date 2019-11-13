@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4cbdcfd3_2f4305db",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-13T06:39:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4476d2b_1a72842d",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 336,
+        "endChar": 62
+      },
+      "revId": "fba5fc84a17cef2fa79430e88dac4b7bcd59a4d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca09a331_aa0ee2dd",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 32
@@ -36,6 +60,24 @@
       "writtenOn": "2019-11-12T09:54:20Z",
       "side": 1,
       "message": "I am a little bit confused with how the threading works here. Isn\u0027t \"rtc::CritScope cs(\u0026crit_capture_);\" needed here to protect the access of linear_aec_output?",
+      "revId": "fba5fc84a17cef2fa79430e88dac4b7bcd59a4d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10b3b7a0_b921fc2d",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 1631,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-13T06:39:18Z",
+      "side": 1,
+      "message": "Of course. Thanks! I missed that.\n\nAnd the way I in addition had set up the lock annotations made those checks for this fail.\n\nThanks! Great find!\nDone.",
+      "parentUuid": "ca09a331_aa0ee2dd",
       "revId": "fba5fc84a17cef2fa79430e88dac4b7bcd59a4d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

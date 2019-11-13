@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "f2756aa8_2a559cbc",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 31
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-13T06:39:18Z",
+      "side": 1,
+      "message": ":-)",
+      "parentUuid": "ed3af088_289fc6ad",
+      "range": {
+        "startLine": 377,
+        "startChar": 4,
+        "endLine": 378,
+        "endChar": 72
+      },
+      "revId": "69bdee48e7fe51e58c22e53d56b655b0c1f129ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bdb62191_a742e57a",
         "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
         "patchSetId": 31
@@ -226,6 +250,30 @@
       "side": 1,
       "message": "Moving discussion to GetLinearAecOutput.",
       "parentUuid": "71ce55ff_107b8951",
+      "range": {
+        "startLine": 1371,
+        "startChar": 10,
+        "endLine": 1371,
+        "endChar": 39
+      },
+      "revId": "69bdee48e7fe51e58c22e53d56b655b0c1f129ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fec831ac_57d5e8cd",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 31
+      },
+      "lineNbr": 1371,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-13T06:39:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f3cd9954_f12eaa38",
       "range": {
         "startLine": 1371,
         "startChar": 10,

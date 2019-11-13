@@ -13,9 +13,11 @@
 
 #include <stdint.h>
 
+#include <memory>
 #include <utility>
 
 #include "absl/types/optional.h"
+#include "api/ref_counted_base.h"
 #include "api/rtp_packet_infos.h"
 #include "api/scoped_refptr.h"
 #include "api/video/color_space.h"
@@ -26,6 +28,12 @@
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
+
+// Replace with proper include once transitive include closure for
+// api/video/encoded_frame.h stops reaching out of API.
+namespace video_coding {
+class EncodedFrame;
+}
 
 class RTC_EXPORT VideoFrame {
  public:
@@ -77,6 +85,16 @@ class RTC_EXPORT VideoFrame {
     absl::optional<ColorSpace> color_space_;
     absl::optional<UpdateRect> update_rect_;
     RtpPacketInfos packet_infos_;
+  };
+
+  class EncodedFrameHolder : public rtc::RefCountedBase {
+   public:
+    explicit EncodedFrameHolder(
+        std::unique_ptr<video_coding::EncodedFrame> encoded_frame);
+    const video_coding::EncodedFrame& get() const;
+
+   private:
+    std::unique_ptr<video_coding::EncodedFrame> encoded_frame_;
   };
 
   // To be deprecated. Migrate all use to Builder.
@@ -166,6 +184,11 @@ class RTC_EXPORT VideoFrame {
   void set_video_frame_buffer(
       const rtc::scoped_refptr<VideoFrameBuffer>& buffer);
 
+  void set_encoded_frame_source(
+      std::unique_ptr<video_coding::EncodedFrame> encoded_frame);
+
+  rtc::scoped_refptr<EncodedFrameHolder> get_encoded_frame_source() const;
+
   // TODO(nisse): Deprecated.
   // Return true if the frame is stored in a texture.
   bool is_texture() const {
@@ -212,6 +235,7 @@ class RTC_EXPORT VideoFrame {
   uint16_t id_;
   // An opaque reference counted handle that stores the pixel data.
   rtc::scoped_refptr<webrtc::VideoFrameBuffer> video_frame_buffer_;
+  rtc::scoped_refptr<EncodedFrameHolder> encoded_frame_source_;
   uint32_t timestamp_rtp_;
   int64_t ntp_time_ms_;
   int64_t timestamp_us_;

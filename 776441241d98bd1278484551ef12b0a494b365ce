@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66288cd1_79d0effd",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-13T17:27:18Z",
+      "side": 1,
+      "message": "This is a bit confusing, could we use now and target_send_time directly instead? seems like that would make the signs of thing more obvious? (Then we could remove time_since_target_send_time and make comparisons like now \u003d\u003d target_send_time etc.)",
+      "range": {
+        "startLine": 582,
+        "startChar": 25,
+        "endLine": 582,
+        "endChar": 52
+      },
+      "revId": "776441241d98bd1278484551ef12b0a494b365ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "603fa6a0_9a678e2a",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-13T17:27:18Z",
+      "side": 1,
+      "message": "Wasn\u0027t this related to the fact that we could end up having two send tasks in flight in paralell, meaning that we should no longer need this?",
+      "range": {
+        "startLine": 588,
+        "startChar": 11,
+        "endLine": 588,
+        "endChar": 67
+      },
+      "revId": "776441241d98bd1278484551ef12b0a494b365ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

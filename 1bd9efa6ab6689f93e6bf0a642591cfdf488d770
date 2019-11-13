@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9259e83a_506e0f79",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-13T10:24:23Z",
+      "side": 1,
+      "message": "So, IIUC this was an error even before.",
+      "range": {
+        "startLine": 404,
+        "startChar": 8,
+        "endLine": 406,
+        "endChar": 0
+      },
+      "revId": "1bd9efa6ab6689f93e6bf0a642591cfdf488d770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

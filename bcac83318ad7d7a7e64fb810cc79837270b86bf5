@@ -141,6 +141,47 @@
       "revId": "bcac83318ad7d7a7e64fb810cc79837270b86bf5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70d7f119_64e6196a",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-14T09:15:20Z",
+      "side": 1,
+      "message": "May I suggest renaming this to EncodedFrameSharedPtr to better reflect utility of this class?\n\n\u003e I\u0027m uncomfortable with exposing the EncodedFrame class like this. I\u0027d prefer either a new interface with an EncodedImageBufferInterface pointer + needed metadata\n\nI think we don\u0027t need another encoded-image-like class in our codebase.",
+      "parentUuid": "e258428f_69e223dd",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 4
+      },
+      "revId": "bcac83318ad7d7a7e64fb810cc79837270b86bf5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d8c283c_197630ba",
+        "filename": "api/video/video_frame_encoded_frame.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-14T09:15:20Z",
+      "side": 1,
+      "message": "Why do you make this a separate cc file? \nAre there some dependency problems?\nI would prefer this all moved to video_frame.cc.",
+      "revId": "bcac83318ad7d7a7e64fb810cc79837270b86bf5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

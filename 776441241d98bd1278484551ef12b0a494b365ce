@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "48836f67_f436e72e",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-14T12:31:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66288cd1_79d0effd",
+      "range": {
+        "startLine": 582,
+        "startChar": 25,
+        "endLine": 582,
+        "endChar": 52
+      },
+      "revId": "776441241d98bd1278484551ef12b0a494b365ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "603fa6a0_9a678e2a",
         "filename": "modules/pacing/pacing_controller.cc",
         "patchSetId": 12
@@ -45,6 +69,30 @@
       "revId": "776441241d98bd1278484551ef12b0a494b365ce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8317df29_15c1ad68",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-14T12:31:24Z",
+      "side": 1,
+      "message": "No, the intent here was for when time between packets is lower than granularity of sleep time.\nE.g. we sleep with 1 ms precision and need to send 2000 packets per second. In this case sending one packet and then sleeping 1ms in a loop will cause the send rate to be half of what we want.\n\nI moved thing around a bit again, now in the dynamic case instead of:\n* reduce debt for entire process duration\n* allow debt overruns within window\n* reduce debt within window\n\n...I now update the debt before each GetPendingPacket() call.",
+      "parentUuid": "603fa6a0_9a678e2a",
+      "range": {
+        "startLine": 588,
+        "startChar": 11,
+        "endLine": 588,
+        "endChar": 67
+      },
+      "revId": "776441241d98bd1278484551ef12b0a494b365ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

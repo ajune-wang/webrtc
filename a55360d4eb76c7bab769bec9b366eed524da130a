@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "13a95765_c79416f2",
+        "filename": "api/video/DEPS",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-14T15:33:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ea2b6de_25c4e0ef",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 22,
+        "endChar": 29
+      },
+      "revId": "a55360d4eb76c7bab769bec9b366eed524da130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b79e2f17_4e026e7e",
         "filename": "api/video/video_frame.cc",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "a55360d4eb76c7bab769bec9b366eed524da130a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f15224f5_78c21b55",
+        "filename": "api/video/video_frame.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-14T15:33:25Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "b79e2f17_4e026e7e",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 15
+      },
+      "revId": "a55360d4eb76c7bab769bec9b366eed524da130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d30602e7_89623d14",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-14T15:33:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8dbed74d_5070e423",
+      "range": {
+        "startLine": 21,
+        "startChar": 10,
+        "endLine": 21,
+        "endChar": 32
+      },
+      "revId": "a55360d4eb76c7bab769bec9b366eed524da130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07a3ecdb_cae8cf73",
         "filename": "api/video/video_frame.h",
         "patchSetId": 9
@@ -82,6 +154,30 @@
       "writtenOn": "2019-11-14T14:31:25Z",
       "side": 1,
       "message": "nit:Interface",
+      "range": {
+        "startLine": 54,
+        "startChar": 5,
+        "endLine": 54,
+        "endChar": 10
+      },
+      "revId": "a55360d4eb76c7bab769bec9b366eed524da130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ddec2671_73767e1b",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-14T15:33:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07a3ecdb_cae8cf73",
       "range": {
         "startLine": 54,
         "startChar": 5,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "3be0ed7c_dbf18ac0",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-14T15:33:25Z",
+      "side": 1,
+      "message": "Removed both opaque uses.",
+      "parentUuid": "0d88842b_ce2da57f",
+      "range": {
+        "startLine": 244,
+        "startChar": 8,
+        "endLine": 244,
+        "endChar": 14
+      },
+      "revId": "a55360d4eb76c7bab769bec9b366eed524da130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49d0c7a6_63fd5048",
         "filename": "common_video/video_frame_unittest.cc",
         "patchSetId": 9
@@ -128,6 +248,30 @@
       "writtenOn": "2019-11-14T14:31:25Z",
       "side": 1,
       "message": "EXPECT_EQ(frame.encoded_frame().get(), frame2.encoded_frame().get());\n\nFor clarity.",
+      "range": {
+        "startLine": 393,
+        "startChar": 1,
+        "endLine": 393,
+        "endChar": 59
+      },
+      "revId": "a55360d4eb76c7bab769bec9b366eed524da130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24f9c9f5_81d6194e",
+        "filename": "common_video/video_frame_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-14T15:33:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49d0c7a6_63fd5048",
       "range": {
         "startLine": 393,
         "startChar": 1,

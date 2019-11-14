@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ae6d0bf4_3cb535cd",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-14T08:38:20Z",
+      "side": 1,
+      "message": "I can\u0027t, as I need access to the is_keyframe() method.",
+      "parentUuid": "d6f0f937_36fde7a7",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 55
+      },
+      "revId": "bcac83318ad7d7a7e64fb810cc79837270b86bf5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "369d2618_96bc1ce3",
         "filename": "api/video/video_frame.h",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "bcac83318ad7d7a7e64fb810cc79837270b86bf5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbd76623_34cf1058",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-14T08:38:20Z",
+      "side": 1,
+      "message": "1. Yes it\u0027s double indirection, but it\u0027s efficient and simple! The encoded frame is std::moved into EncodedFrameHolder and touched far later inside downstream project. I need to ref count whatever is put in media::VideoFrame as webrtc::VideoFrame gets copied at places.\n\n2. The eventually needed data is bitstream data, is_keyframe, colorspace, and codec type.\n\nDo you think a new encoded frame interface is warranted for this case?\n\nPc2pc forwarding isn\u0027t in scope for this work, it can be accomplished later with InsertableStreams/Transform streams that hta@ and gang will land somewhere in Q2.",
+      "parentUuid": "369d2618_96bc1ce3",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 4
+      },
+      "revId": "bcac83318ad7d7a7e64fb810cc79837270b86bf5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "16f04bdc_574d5fb0",
+        "filename": "modules/rtp_rtcp/source/rtp_depacketizer_av1.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-14T16:34:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "371cd021_de967c56",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 47
+      },
+      "revId": "7c19f29f94d8bc27465f033adaf9e9be272b6b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72798d71_116efad3",
         "filename": "modules/rtp_rtcp/source/rtp_depacketizer_av1.cc",
         "patchSetId": 3
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "73847218_178bc2e3",
+        "filename": "modules/rtp_rtcp/source/rtp_depacketizer_av1.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-14T16:34:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72798d71_116efad3",
+      "range": {
+        "startLine": 147,
+        "startChar": 11,
+        "endLine": 147,
+        "endChar": 28
+      },
+      "revId": "7c19f29f94d8bc27465f033adaf9e9be272b6b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83a95748_6dcb5d12",
         "filename": "modules/rtp_rtcp/source/rtp_depacketizer_av1.cc",
         "patchSetId": 3
@@ -154,6 +202,30 @@
       "writtenOn": "2019-11-14T14:14:31Z",
       "side": 1,
       "message": "It\u0027s a bit weird how subviews are used to advance the offset when reading the payload...",
+      "range": {
+        "startLine": 155,
+        "startChar": 20,
+        "endLine": 155,
+        "endChar": 37
+      },
+      "revId": "7c19f29f94d8bc27465f033adaf9e9be272b6b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d62ce06_4106ef9e",
+        "filename": "modules/rtp_rtcp/source/rtp_depacketizer_av1.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-14T16:34:35Z",
+      "side": 1,
+      "message": "Hm, it is.... \nswitched from rtc::ArrayView to rtc::ByteBufferReader.\nthat one seems more appropriate (the only caveat - it expects bytes to be chars rather than uint8_t)",
+      "parentUuid": "83a95748_6dcb5d12",
       "range": {
         "startLine": 155,
         "startChar": 20,
@@ -189,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "061a7c67_62fca997",
+        "filename": "modules/rtp_rtcp/source/rtp_depacketizer_av1.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-14T16:34:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79ef7453_4343d41f",
+      "range": {
+        "startLine": 168,
+        "startChar": 10,
+        "endLine": 168,
+        "endChar": 28
+      },
+      "revId": "7c19f29f94d8bc27465f033adaf9e9be272b6b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76f806c7_1bd8a465",
         "filename": "modules/rtp_rtcp/source/rtp_depacketizer_av1.cc",
         "patchSetId": 3
@@ -200,6 +296,30 @@
       "writtenOn": "2019-11-14T14:14:31Z",
       "side": 1,
       "message": "Like beginning/end of frame this is is temporary to right? Until we have the keyframe bit in the payload descriptor.",
+      "range": {
+        "startLine": 176,
+        "startChar": 8,
+        "endLine": 176,
+        "endChar": 40
+      },
+      "revId": "7c19f29f94d8bc27465f033adaf9e9be272b6b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "462bfa31_5caec2a7",
+        "filename": "modules/rtp_rtcp/source/rtp_depacketizer_av1.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-14T16:34:35Z",
+      "side": 1,
+      "message": "yep, it is temporary. it is good first approximation that works in all practical case I\u0027m currently aware about.\nBut it will change.\nEither when spec changed to have a bit in the aggregation_header,\nor when webrtc refactored to detect if frame is key frame after it is assembled.\nor when TODO comment is resolved: in practice sequence header together with metadata obus shouldn\u0027t be that large to push frame header or frame OBU to the next packet.",
+      "parentUuid": "76f806c7_1bd8a465",
       "range": {
         "startLine": 176,
         "startChar": 8,

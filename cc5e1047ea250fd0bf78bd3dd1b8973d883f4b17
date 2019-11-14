@@ -22,6 +22,30 @@
       "revId": "cc5e1047ea250fd0bf78bd3dd1b8973d883f4b17",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ae59563_03e77b10",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-14T12:36:26Z",
+      "side": 1,
+      "message": "personally I prefer weaker comment per line:\n\nclang-format off turns off all kind of formatting. e.g. if this return would be put into {} block, then extra indentation can be forgotten.\n\ncomment per line just ensures line breaks,\nbut will still ensure correct indentation at the beginning,\nabsent of white-spaces in the end, proper number of space between code and comment.",
+      "parentUuid": "711432f4_a9b5af2b",
+      "range": {
+        "startLine": 430,
+        "startChar": 48,
+        "endLine": 430,
+        "endChar": 50
+      },
+      "revId": "cc5e1047ea250fd0bf78bd3dd1b8973d883f4b17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "0ccaea24_4316457b",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-14T14:12:10Z",
+      "side": 1,
+      "message": "I just find it a bit confusing to have an EncodedFrameInterface that\u0027s not implemented by our various EncodedFrame classes. Technically, I think it makes some sense that these are disconnected (the new interface exposed on the PC track-level, and the existing one exposed for injectable codecs and for VideoStreamEncoder/Decoder). But it would be nice to have some of this separation reflected in the naming of the classes and interfaces.\n\nIn principle, it would be great to have something like the new interface be a base class of EncodedImage, but I don\u0027t see much practical benefit (and I don\u0027t think we want an even deeper inheritance hierarchy), and there\u0027s also a practical problem in that one is refcounted and the other isn\u0027t.",
+      "parentUuid": "d80378a8_bb8c0ab3",
+      "range": {
+        "startLine": 86,
+        "startChar": 39,
+        "endLine": 86,
+        "endChar": 58
+      },
+      "revId": "9e3636efb12d2ad131e009900ef41c61a7d2dd6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9273080b_d2ae3667",
         "filename": "api/video/video_frame.h",
         "patchSetId": 8

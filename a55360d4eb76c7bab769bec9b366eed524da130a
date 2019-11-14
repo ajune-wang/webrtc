@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b79e2f17_4e026e7e",
+        "filename": "api/video/video_frame.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-14T14:12:10Z",
+      "side": 1,
+      "message": "I think the usual way to do the builder pattern is to have a private constructor with lots of arguments, and not use any setters.",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 15
+      },
+      "revId": "a55360d4eb76c7bab769bec9b366eed524da130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d88842b_ce2da57f",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-14T14:12:10Z",
+      "side": 1,
+      "message": "Not sure \"opaque\" is the right word, here or above. I mean, the normal use is to look inside to access pixels/bitstream bytes.",
+      "range": {
+        "startLine": 244,
+        "startChar": 8,
+        "endLine": 244,
+        "endChar": 14
+      },
+      "revId": "a55360d4eb76c7bab769bec9b366eed524da130a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

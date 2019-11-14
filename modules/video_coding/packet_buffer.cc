@@ -22,6 +22,7 @@
 #include "api/array_view.h"
 #include "api/video/encoded_frame.h"
 #include "common_video/h264/h264_common.h"
+#include "modules/rtp_rtcp/source/rtp_depacketizer_av1.h"
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
 #include "modules/video_coding/codecs/h264/include/h264_globals.h"
 #include "modules/video_coding/frame_object.h"
@@ -376,7 +377,9 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
         }
       }
 
-      found_frames.push_back(AssembleFrame(start_seq_num, seq_num));
+      if (auto frame = AssembleFrame(start_seq_num, seq_num)) {
+        found_frames.push_back(std::move(frame));
+      }
 
       missing_packets_.erase(missing_packets_.begin(),
                              missing_packets_.upper_bound(seq_num));
@@ -415,16 +418,26 @@ std::unique_ptr<RtpFrameObject> PacketBuffer::AssembleFrame(
     packet_infos.push_back(packet.packet_info);
   }
 
-  auto bitstream = EncodedImageBuffer::Create(frame_size);
-
-  uint8_t* write_at = bitstream->data();
-  for (rtc::ArrayView<const uint8_t> payload : payloads) {
-    memcpy(write_at, payload.data(), payload.size());
-    write_at += payload.size();
-  }
-  RTC_DCHECK_EQ(write_at - bitstream->data(), bitstream->size());
-
   const VCMPacket& first_packet = GetPacket(first_seq_num);
+  rtc::scoped_refptr<EncodedImageBuffer> bitstream;
+  // TODO(danilchap): Hide codec-specific code paths behind an interface.
+  if (first_packet.codec() == VideoCodecType::kVideoCodecAV1) {
+    bitstream = RtpDepacketizerAv1::AssembleFrame(payloads);
+    if (!bitstream) {
+      // Failed to assembe a frame. Discard and continue.
+      return nullptr;
+    }
+  } else {
+    bitstream = EncodedImageBuffer::Create(frame_size);
+
+    uint8_t* write_at = bitstream->data();
+    for (rtc::ArrayView<const uint8_t> payload : payloads) {
+      memcpy(write_at, payload.data(), payload.size());
+      write_at += payload.size();
+    }
+    RTC_DCHECK_EQ(write_at - bitstream->data(), bitstream->size());
+  }
+
   const VCMPacket& last_packet = GetPacket(last_seq_num);
   return std::make_unique<RtpFrameObject>(
       first_seq_num,                            //

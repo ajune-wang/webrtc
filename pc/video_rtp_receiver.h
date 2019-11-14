@@ -112,22 +112,31 @@ class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal> {
  private:
   class VideoRtpTrackSource : public VideoTrackSource {
    public:
-    VideoRtpTrackSource() : VideoTrackSource(true /* remote */) {}
+    explicit VideoRtpTrackSource(VideoRtpReceiver* receiver)
+        : VideoTrackSource(true /* remote */), receiver_(receiver) {}
 
     rtc::VideoSourceInterface<VideoFrame>* source() override {
       return &broadcaster_;
     }
     rtc::VideoSinkInterface<VideoFrame>* sink() { return &broadcaster_; }
+    bool SupportsEncodedOutput() const override { return true; }
+    void EnableEncodedOutput() override;
+    void DoneEncodedOutput() override;
 
    private:
     // |broadcaster_| is needed since the decoder can only handle one sink.
     // It might be better if the decoder can handle multiple sinks and consider
     // the VideoSinkWants.
     rtc::VideoBroadcaster broadcaster_;
+    VideoRtpReceiver* receiver_;
   };
+
+  friend class VideoRtpTrackSource;
 
   void RestartMediaChannel(absl::optional<uint32_t> ssrc);
   bool SetSink(rtc::VideoSinkInterface<VideoFrame>* sink);
+  void EnableEncodedOutput();
+  void DoneEncodedOutput();
 
   rtc::Thread* const worker_thread_;
   const std::string id_;

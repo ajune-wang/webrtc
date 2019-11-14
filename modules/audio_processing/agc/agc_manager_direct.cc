@@ -202,6 +202,8 @@ AgcManagerDirect::AgcManagerDirect(GainControl* gctrl,
       startup_min_level_(ClampLevel(startup_min_level, min_mic_level_)),
       clipped_level_min_(clipped_level_min) {
   instance_counter_++;
+  RTC_DLOG(LS_INFO) << "[agc] AgcManagerDirect::AgcManagerDirect: "
+                    << instance_counter_;
   if (use_agc2_level_estimation) {
     agc_ = std::make_unique<AdaptiveModeLevelEstimatorAgc>(data_dumper_.get());
   } else {
@@ -209,10 +211,12 @@ AgcManagerDirect::AgcManagerDirect(GainControl* gctrl,
   }
 }
 
-AgcManagerDirect::~AgcManagerDirect() {}
+AgcManagerDirect::~AgcManagerDirect() {
+  RTC_DLOG(LS_INFO) << "[agc] AgcManagerDirect::~AgcManagerDirect";
+}
 
 int AgcManagerDirect::Initialize() {
-  RTC_DLOG(LS_INFO) << "AgcManagerDirect::Initialize";
+  RTC_DLOG(LS_INFO) << "[agc] AgcManagerDirect::Initialize";
   max_level_ = kMaxMicLevel;
   max_compression_gain_ = kMaxCompressionGain;
   target_compression_ = disable_digital_adaptive_ ? 0 : kDefaultCompressionGain;
@@ -366,6 +370,7 @@ void AgcManagerDirect::SetMaxLevel(int level) {
 }
 
 void AgcManagerDirect::SetCaptureMuted(bool muted) {
+  RTC_DLOG(LS_INFO) << "[agc] AgcManagerDirect::SetCaptureMuted: " << muted;
   if (capture_muted_ == muted) {
     return;
   }
@@ -382,6 +387,7 @@ float AgcManagerDirect::voice_probability() {
 }
 
 int AgcManagerDirect::CheckVolumeAndReset() {
+  RTC_DLOG(LS_INFO) << "[agc] AgcManagerDirect::CheckVolumeAndReset()" << muted;
   int level = volume_callbacks_->GetMicVolume();
   // Reasons for taking action at startup:
   // 1) A person starting a call is expected to be heard.

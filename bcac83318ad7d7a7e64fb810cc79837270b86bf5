@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "8a628416_f94e0c53",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-14T09:41:34Z",
+      "side": 1,
+      "message": "All, PTAL on the new patchset I uploaded.",
+      "parentUuid": "70d7f119_64e6196a",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 4
+      },
+      "revId": "bcac83318ad7d7a7e64fb810cc79837270b86bf5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d8c283c_197630ba",
         "filename": "api/video/video_frame_encoded_frame.cc",
         "patchSetId": 7
@@ -182,6 +206,24 @@
       "revId": "bcac83318ad7d7a7e64fb810cc79837270b86bf5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01ef0514_c1d74e4c",
+        "filename": "api/video/video_frame_encoded_frame.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-14T09:41:34Z",
+      "side": 1,
+      "message": "Indeed yes, I had a dependency problem (circular dependency). But please PTAL on the new iteration which should not need this.",
+      "parentUuid": "7d8c283c_197630ba",
+      "revId": "bcac83318ad7d7a7e64fb810cc79837270b86bf5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

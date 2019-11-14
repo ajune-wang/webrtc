@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6f0f937_36fde7a7",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-14T07:49:55Z",
+      "side": 1,
+      "message": "I think it is better to stíck to the type EncodedImage (which EncodedFrame inherits from in several steps).",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 55
+      },
+      "revId": "bcac83318ad7d7a7e64fb810cc79837270b86bf5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "369d2618_96bc1ce3",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-14T07:49:55Z",
+      "side": 1,
+      "message": "I see two issues with this: \n\n1. You get a double indirection, since EncodedImage itself holds a refcounter pointer to the data (except that in some cases it doesn\u0027t own it, and the Retain() method is used to work around that). \n\n2. You get all of the EncodedImage + encodedFrame metadata, including redundant info, e.g., width, height and rotation. I\u0027d like to know precisely what meta data is needed to implement saving of video without transcoding. I imagine you need the codec type (unclear if that\u0027s even present in EncodedImage/EncodedFrame).\n\nConsider the alternative of adding a (refcounted) pointer to EncodedImageBufferInterface + meta data limited to what\u0027s actually needed.\n\nAnother possible use case is forwarding a video stream from one peerconnection to another, without transcoding. But I suspect that\u0027s not feasible with the interfaces your adding; if bandwidth isn\u0027t enough on the downstream PC, one would need to use simulcast/svc and implement SFU-logic (selective forwarding) on top of the PC interfaces.",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 4
+      },
+      "revId": "bcac83318ad7d7a7e64fb810cc79837270b86bf5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

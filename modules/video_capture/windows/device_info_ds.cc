@@ -196,8 +196,8 @@ int32_t DeviceInfoDS::GetDeviceInfo(uint32_t deviceNumber,
       }
       VariantClear(&varName);
       pBag->Release();
-      pM->Release();
     }
+    pM->Release();
   }
   if (deviceNameLength) {
     RTC_LOG(LS_INFO) << __FUNCTION__ << " " << deviceNameUTF8;

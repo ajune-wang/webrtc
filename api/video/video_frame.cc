@@ -11,6 +11,7 @@
 #include "api/video/video_frame.h"
 
 #include <algorithm>
+#include <memory>
 #include <utility>
 
 #include "rtc_base/checks.h"
@@ -213,6 +214,16 @@ void VideoFrame::set_video_frame_buffer(
 
 int64_t VideoFrame::render_time_ms() const {
   return timestamp_us() / rtc::kNumMicrosecsPerMillisec;
+}
+
+void VideoFrame::set_encoded_frame_source(
+    rtc::scoped_refptr<EncodedFrameInterface> encoded_frame) {
+  encoded_frame_source_ = encoded_frame;
+}
+
+rtc::scoped_refptr<VideoFrame::EncodedFrameInterface>
+VideoFrame::get_encoded_frame_source() const {
+  return encoded_frame_source_;
 }
 
 }  // namespace webrtc

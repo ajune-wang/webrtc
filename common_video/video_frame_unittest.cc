@@ -13,6 +13,7 @@
 #include <math.h>
 #include <string.h>
 
+#include "api/video/encoded_frame.h"
 #include "api/video/i010_buffer.h"
 #include "api/video/i420_buffer.h"
 #include "rtc_base/bind.h"
@@ -360,6 +361,39 @@ TEST(TestVideoFrame, TextureInitialValues) {
   EXPECT_EQ(200u, frame.timestamp());
   frame.set_timestamp_us(20);
   EXPECT_EQ(20, frame.timestamp_us());
+}
+
+class TestEncodedFrame : public VideoFrame::EncodedFrameInterface {
+ public:
+  rtc::ArrayView<uint8_t> data() const override {
+    return rtc::ArrayView<uint8_t>();
+  }
+  webrtc::ColorSpace* color_space() const override { return nullptr; }
+  VideoCodecType codec() const override { return kVideoCodecGeneric; }
+  bool is_key_frame() const { return false; }
+};
+
+TEST(TestVideoFrame, AcceptsEncodedFrameSource) {
+  VideoFrame frame =
+      VideoFrame::Builder()
+          .set_video_frame_buffer(I420Buffer::Create(10, 10, 10, 14, 90))
+          .build();
+  EXPECT_EQ(frame.get_encoded_frame_source(), nullptr);
+  auto encoded_frame = new rtc::RefCountedObject<TestEncodedFrame>();
+  frame.set_encoded_frame_source(encoded_frame);
+  EXPECT_EQ(frame.get_encoded_frame_source(), encoded_frame);
+}
+
+TEST(TestVideoFrame, CopiesWithSameEncodedFrameSource) {
+  VideoFrame frame =
+      VideoFrame::Builder()
+          .set_video_frame_buffer(I420Buffer::Create(10, 10, 10, 14, 90))
+          .build();
+  auto encoded_frame = new rtc::RefCountedObject<TestEncodedFrame>();
+  frame.set_encoded_frame_source(encoded_frame);
+  VideoFrame frame2 = frame;
+  EXPECT_EQ(frame.get_encoded_frame_source(),
+            frame2.get_encoded_frame_source());
 }
 
 class TestPlanarYuvBuffer

@@ -66,9 +66,11 @@ VideoFrame::Builder::~Builder() = default;
 
 VideoFrame VideoFrame::Builder::build() {
   RTC_CHECK(video_frame_buffer_ != nullptr);
-  return VideoFrame(id_, video_frame_buffer_, timestamp_us_, timestamp_rtp_,
-                    ntp_time_ms_, rotation_, color_space_, update_rect_,
-                    packet_infos_);
+  VideoFrame frame(id_, video_frame_buffer_, timestamp_us_, timestamp_rtp_,
+                   ntp_time_ms_, rotation_, color_space_, update_rect_,
+                   packet_infos_);
+  frame.set_encoded_frame(encoded_frame_);
+  return frame;
 }
 
 VideoFrame::Builder& VideoFrame::Builder::set_video_frame_buffer(
@@ -132,6 +134,13 @@ VideoFrame::Builder& VideoFrame::Builder::set_update_rect(
 VideoFrame::Builder& VideoFrame::Builder::set_packet_infos(
     RtpPacketInfos packet_infos) {
   packet_infos_ = std::move(packet_infos);
+  return *this;
+}
+
+VideoFrame::Builder& VideoFrame::Builder::set_encoded_frame(
+    const rtc::scoped_refptr<VideoFrame::EncodedFrameInterface>&
+        encoded_frame) {
+  encoded_frame_ = encoded_frame;
   return *this;
 }
 
@@ -213,6 +222,16 @@ void VideoFrame::set_video_frame_buffer(
 
 int64_t VideoFrame::render_time_ms() const {
   return timestamp_us() / rtc::kNumMicrosecsPerMillisec;
+}
+
+void VideoFrame::set_encoded_frame(
+    rtc::scoped_refptr<EncodedFrameInterface> encoded_frame) {
+  encoded_frame_ = encoded_frame;
+}
+
+rtc::scoped_refptr<VideoFrame::EncodedFrameInterface>
+VideoFrame::encoded_frame() const {
+  return encoded_frame_;
 }
 
 }  // namespace webrtc

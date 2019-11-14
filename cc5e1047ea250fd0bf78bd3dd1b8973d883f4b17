@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "711432f4_a9b5af2b",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-14T12:15:02Z",
+      "side": 1,
+      "message": "Maybe use:\n\n  // clang-format off\n  ...\n  // clang-format on\n\ninstead?",
+      "range": {
+        "startLine": 430,
+        "startChar": 48,
+        "endLine": 430,
+        "endChar": 50
+      },
+      "revId": "cc5e1047ea250fd0bf78bd3dd1b8973d883f4b17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

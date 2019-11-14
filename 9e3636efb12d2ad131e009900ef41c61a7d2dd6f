@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3f9b62ec_7bcf1f84",
+        "filename": "api/video/video_frame.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-14T13:31:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5e42316_0de23d1e",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 17
+      },
+      "revId": "9e3636efb12d2ad131e009900ef41c61a7d2dd6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c40365f_d2d493a3",
         "filename": "api/video/video_frame.h",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "9e3636efb12d2ad131e009900ef41c61a7d2dd6f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d80378a8_bb8c0ab3",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-14T13:31:02Z",
+      "side": 1,
+      "message": "\u003e For interfaces, we use rtc::RefCountInterface (essential if implementing multiple refcounted interfaces).\n\nDone.\n\n\u003e But it makes some sense to not bloat VideoFrame with that data, if it\u0027s rarely populated.\n\nI agree, let\u0027s not do that. It serves no purpose.\n\n\u003e Needs a comment explaining the purpose of the class.\n\nDone.\n\n\u003e As for naming, can it be less generic? E.g., RecordableEncodedFrame? Alternatively, make it an inner class after all. Is there any corresponding named type in the JS world?\n\nFor this bullet I have to object a little, are you really sure you want to name it after the application of the data down here?\nFor the JS world I don\u0027t know. But in downstream project mcasas@ suggested to use DecoderBuffer for the purpose, but I don\u0027t think that name is better than EncodedFrame.",
+      "parentUuid": "9c40365f_d2d493a3",
+      "range": {
+        "startLine": 86,
+        "startChar": 39,
+        "endLine": 86,
+        "endChar": 58
+      },
+      "revId": "9e3636efb12d2ad131e009900ef41c61a7d2dd6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f7af5d56_bc24baf8",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-14T13:31:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9273080b_d2ae3667",
+      "range": {
+        "startLine": 89,
+        "startChar": 27,
+        "endLine": 89,
+        "endChar": 34
+      },
+      "revId": "9e3636efb12d2ad131e009900ef41c61a7d2dd6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25decb7a_eb623191",
         "filename": "api/video/video_frame.h",
         "patchSetId": 8
@@ -91,6 +163,30 @@
       "revId": "9e3636efb12d2ad131e009900ef41c61a7d2dd6f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01a14590_62f746e6",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-14T13:31:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25decb7a_eb623191",
+      "range": {
+        "startLine": 188,
+        "startChar": 24,
+        "endLine": 188,
+        "endChar": 31
+      },
+      "revId": "9e3636efb12d2ad131e009900ef41c61a7d2dd6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f84a7125_9c7f756f",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-14T13:31:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66be2fb6_f4851a30",
+      "range": {
+        "startLine": 191,
+        "startChar": 44,
+        "endLine": 191,
+        "endChar": 48
+      },
+      "revId": "9e3636efb12d2ad131e009900ef41c61a7d2dd6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9895028_162d24f5",
         "filename": "api/video/video_frame.h",
         "patchSetId": 8
@@ -137,6 +257,30 @@
       "revId": "9e3636efb12d2ad131e009900ef41c61a7d2dd6f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e37c5b66_0553f59a",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-14T13:31:02Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "f9895028_162d24f5",
+      "range": {
+        "startLine": 239,
+        "startChar": 2,
+        "endLine": 239,
+        "endChar": 66
+      },
+      "revId": "9e3636efb12d2ad131e009900ef41c61a7d2dd6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

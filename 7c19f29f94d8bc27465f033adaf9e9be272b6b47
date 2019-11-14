@@ -96,6 +96,122 @@
     },
     {
       "key": {
+        "uuid": "371cd021_de967c56",
+        "filename": "modules/rtp_rtcp/source/rtp_depacketizer_av1.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-14T14:14:31Z",
+      "side": 1,
+      "message": "I would expect that it could break stats, such as frames decoded. I also wouldn\u0027t be surprised if some decoders would complain if a decode invocation didn\u0027t generate any spatial output.",
+      "parentUuid": "bc9c87dc_e5e41d72",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 47
+      },
+      "revId": "7c19f29f94d8bc27465f033adaf9e9be272b6b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72798d71_116efad3",
+        "filename": "modules/rtp_rtcp/source/rtp_depacketizer_av1.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-14T14:14:31Z",
+      "side": 1,
+      "message": "Maybe add something like:\n\n  // If |obu_index| \u003e 0 the last OBU is not preceded by a fragment size field.",
+      "range": {
+        "startLine": 147,
+        "startChar": 11,
+        "endLine": 147,
+        "endChar": 28
+      },
+      "revId": "7c19f29f94d8bc27465f033adaf9e9be272b6b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83a95748_6dcb5d12",
+        "filename": "modules/rtp_rtcp/source/rtp_depacketizer_av1.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-14T14:14:31Z",
+      "side": 1,
+      "message": "It\u0027s a bit weird how subviews are used to advance the offset when reading the payload...",
+      "range": {
+        "startLine": 155,
+        "startChar": 20,
+        "endLine": 155,
+        "endChar": 37
+      },
+      "revId": "7c19f29f94d8bc27465f033adaf9e9be272b6b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79ef7453_4343d41f",
+        "filename": "modules/rtp_rtcp/source/rtp_depacketizer_av1.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-14T14:14:31Z",
+      "side": 1,
+      "message": "Should probably add an RTC_WARNING when this happens, for debugging purposes.",
+      "range": {
+        "startLine": 168,
+        "startChar": 10,
+        "endLine": 168,
+        "endChar": 28
+      },
+      "revId": "7c19f29f94d8bc27465f033adaf9e9be272b6b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76f806c7_1bd8a465",
+        "filename": "modules/rtp_rtcp/source/rtp_depacketizer_av1.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-14T14:14:31Z",
+      "side": 1,
+      "message": "Like beginning/end of frame this is is temporary to right? Until we have the keyframe bit in the payload descriptor.",
+      "range": {
+        "startLine": 176,
+        "startChar": 8,
+        "endLine": 176,
+        "endChar": 40
+      },
+      "revId": "7c19f29f94d8bc27465f033adaf9e9be272b6b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e05845d2_6656dc7a",
         "filename": "modules/rtp_rtcp/source/rtp_depacketizer_av1.h",
         "patchSetId": 3

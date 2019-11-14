@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d813fc03_77e37a41",
+        "filename": "modules/video_capture/windows/device_info_ds.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-11-14T21:56:53Z",
+      "side": 1,
+      "message": "we really should be using smart pointers. Would it be much work to start using Microsoft::WRL::ComPtr in this file?",
+      "revId": "e140b7b792f1fa5d9fd121dab4fdf044d1da8a2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3541e45f_94cc90e7",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-11-14T16:42:08Z",
+      "side": 1,
+      "message": "\u0026\u0026 dynamic mode, right? We probably don\u0027t want to start waking the process thread by default as this is likely to have some impact on performance.",
+      "range": {
+        "startLine": 170,
+        "startChar": 6,
+        "endLine": 170,
+        "endChar": 21
+      },
+      "revId": "2365bef5264a905eee80e0a1692730876d4e7861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

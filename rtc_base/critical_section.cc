@@ -12,7 +12,8 @@
 
 #include <time.h>
 
-#include "rtc_base/atomic_ops.h"
+#include <atomic>
+
 #include "rtc_base/checks.h"
 #include "rtc_base/platform_thread_types.h"
 #include "rtc_base/system/unused.h"
@@ -217,25 +218,29 @@ CritScope::~CritScope() {
 }
 
 void GlobalLock::Lock() {
-#if !defined(WEBRTC_WIN) && \
-    (!defined(WEBRTC_MAC) || RTC_USE_NATIVE_MUTEX_ON_MAC)
-  const struct timespec ts_null = {0};
-#endif
-
-  while (AtomicOps::CompareAndSwap(&lock_acquired_, 0, 1)) {
+  while (true) {
+    bool expected = false;
+    if (locked_.compare_exchange_weak(expected, /*desired=*/true,
+                                      /*success=*/std::memory_order_acquire,
+                                      /*failure=*/std::memory_order_relaxed)) {
+      return;
+    }
 #if defined(WEBRTC_WIN)
     ::Sleep(0);
 #elif defined(WEBRTC_MAC) && !RTC_USE_NATIVE_MUTEX_ON_MAC
     sched_yield();
 #else
+    constexpr struct timespec ts_null = {0};
     nanosleep(&ts_null, nullptr);
 #endif
   }
 }
 
 void GlobalLock::Unlock() {
-  int old_value = AtomicOps::CompareAndSwap(&lock_acquired_, 1, 0);
-  RTC_DCHECK_EQ(1, old_value) << "Unlock called without calling Lock first";
+  bool expected = true;
+  bool unlocked = locked_.compare_exchange_strong(expected, /*desired=*/false,
+                                                  std::memory_order_release);
+  RTC_DCHECK(unlocked) << "Unlock called without calling Lock first";
 }
 
 GlobalLockScope::GlobalLockScope(GlobalLock* lock) : lock_(lock) {

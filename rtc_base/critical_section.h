@@ -11,6 +11,8 @@
 #ifndef RTC_BASE_CRITICAL_SECTION_H_
 #define RTC_BASE_CRITICAL_SECTION_H_
 
+#include <atomic>
+
 #include "rtc_base/checks.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/platform_thread_types.h"
@@ -98,13 +100,13 @@ class RTC_SCOPED_LOCKABLE CritScope {
 // A lock used to protect global variables. Do NOT use for other purposes.
 class RTC_LOCKABLE GlobalLock {
  public:
-  constexpr GlobalLock() : lock_acquired_(0) {}
+  constexpr GlobalLock() : locked_(false) {}
 
   void Lock() RTC_EXCLUSIVE_LOCK_FUNCTION();
   void Unlock() RTC_UNLOCK_FUNCTION();
 
  private:
-  volatile int lock_acquired_;
+  std::atomic<bool> locked_;
 };
 
 // GlobalLockScope, for serializing execution through a scope.

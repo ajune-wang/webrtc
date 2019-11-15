@@ -14,16 +14,18 @@
 
 #include <algorithm>
 #include <array>
+#include <atomic>
 #include <numeric>
 
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/render_buffer.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
 namespace {
+
+ABSL_CONST_INIT std::atomic<int> instance_count(0);
 
 size_t FindPeakIndex(rtc::ArrayView<const float> filter_time_domain,
                      size_t peak_index_in,
@@ -45,12 +47,10 @@ size_t FindPeakIndex(rtc::ArrayView<const float> filter_time_domain,
 
 }  // namespace
 
-int FilterAnalyzer::instance_count_ = 0;
-
 FilterAnalyzer::FilterAnalyzer(const EchoCanceller3Config& config,
                                size_t num_capture_channels)
-    : data_dumper_(
-          new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
+    : data_dumper_(new ApmDataDumper(
+          instance_count.fetch_add(1, std::memory_order_relaxed))),
       bounded_erl_(config.ep_strength.bounded_erl),
       default_gain_(config.ep_strength.default_gain),
       h_highpass_(num_capture_channels,

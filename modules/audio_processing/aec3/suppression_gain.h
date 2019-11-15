@@ -105,7 +105,6 @@ class SuppressionGain {
     std::array<float, kFftLengthBy2Plus1> emr_transparent_;
   };
 
-  static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
   const Aec3Optimization optimization_;
   const EchoCanceller3Config config_;

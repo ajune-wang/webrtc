@@ -14,16 +14,18 @@
 #include <stddef.h>
 
 #include <algorithm>
+#include <atomic>
 #include <numeric>
 
 #include "modules/audio_processing/aec3/moving_average.h"
 #include "modules/audio_processing/aec3/vector_math.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
 namespace {
+
+std::atomic<int> instance_count;
 
 void PostprocessGains(std::array<float, kFftLengthBy2Plus1>* gain) {
   // TODO(gustaf): Investigate if this can be relaxed to achieve higher
@@ -97,8 +99,6 @@ void WeightEchoForAudibility(const EchoCanceller3Config& config,
 }
 
 }  // namespace
-
-int SuppressionGain::instance_count_ = 0;
 
 float SuppressionGain::UpperBandsGain(
     rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>> echo_spectrum,
@@ -305,8 +305,8 @@ SuppressionGain::SuppressionGain(const EchoCanceller3Config& config,
                                  Aec3Optimization optimization,
                                  int sample_rate_hz,
                                  size_t num_capture_channels)
-    : data_dumper_(
-          new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
+    : data_dumper_(new ApmDataDumper(
+          instance_count.fetch_add(1, std::memory_order_release))),
       optimization_(optimization),
       config_(config),
       num_capture_channels_(num_capture_channels),

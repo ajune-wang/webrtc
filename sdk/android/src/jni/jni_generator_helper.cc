@@ -10,7 +10,8 @@
 
 #include "sdk/android/src/jni/jni_generator_helper.h"
 
-#include "rtc_base/atomic_ops.h"
+#include <atomic>
+
 #include "sdk/android/native_api/jni/class_loader.h"
 
 namespace webrtc {

@@ -42,7 +42,6 @@ class GainController2 {
       const AudioProcessing::Config::GainController2& config);
 
  private:
-  static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
   AudioProcessing::Config::GainController2 config_;
   GainApplier gain_applier_;

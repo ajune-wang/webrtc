@@ -258,11 +258,11 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
   // will be changed dynamically to account for this behavior.
   rtc::BufferT<int16_t> record_audio_buffer_;
 
-  // Set to 1 when recording is active and 0 otherwise.
-  volatile int recording_;
+  // Set when recording is active.
+  std::atomic<bool> recording_;
 
-  // Set to 1 when playout is active and 0 otherwise.
-  volatile int playing_;
+  // Set when playout is active.
+  std::atomic<bool> playing_;
 
   // Set to true after successful call to Init(), false otherwise.
   bool initialized_ RTC_GUARDED_BY(thread_checker_);

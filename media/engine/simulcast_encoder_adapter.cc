@@ -28,7 +28,6 @@
 #include "api/video_codecs/video_encoder_software_fallback_wrapper.h"
 #include "modules/video_coding/include/video_error_codes.h"
 #include "modules/video_coding/utility/simulcast_rate_allocator.h"
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/experiments/rate_control_settings.h"
 #include "rtc_base/logging.h"
@@ -142,7 +141,7 @@ SimulcastEncoderAdapter::SimulcastEncoderAdapter(
     VideoEncoderFactory* primary_factory,
     VideoEncoderFactory* fallback_factory,
     const SdpVideoFormat& format)
-    : inited_(0),
+    : inited_(false),
       primary_encoder_factory_(primary_factory),
       fallback_encoder_factory_(fallback_factory),
       video_format_(format),
@@ -161,7 +160,7 @@ SimulcastEncoderAdapter::SimulcastEncoderAdapter(
 }
 
 SimulcastEncoderAdapter::~SimulcastEncoderAdapter() {
-  RTC_DCHECK(!Initialized());
+  RTC_DCHECK(!inited_);
   DestroyStoredEncoders();
 }
 
@@ -185,10 +184,9 @@ int SimulcastEncoderAdapter::Release() {
     stored_encoders_.push(std::move(encoder));
   }
 
+  inited_ = false;
   // It's legal to move the encoder to another queue now.
   encoder_queue_.Detach();
-
-  rtc::AtomicOps::ReleaseStore(&inited_, 0);
 
   return WEBRTC_VIDEO_CODEC_OK;
 }
@@ -388,7 +386,7 @@ int SimulcastEncoderAdapter::InitEncode(
   // To save memory, don't store encoders that we don't use.
   DestroyStoredEncoders();
 
-  rtc::AtomicOps::ReleaseStore(&inited_, 1);
+  inited_ = true;
 
   return WEBRTC_VIDEO_CODEC_OK;
 }
@@ -398,7 +396,7 @@ int SimulcastEncoderAdapter::Encode(
     const std::vector<VideoFrameType>* frame_types) {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
 
-  if (!Initialized()) {
+  if (!inited_) {
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
   }
   if (encoded_complete_callback_ == nullptr) {
@@ -506,7 +504,7 @@ void SimulcastEncoderAdapter::SetRates(
     const RateControlParameters& parameters) {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
 
-  if (!Initialized()) {
+  if (!inited_) {
     RTC_LOG(LS_WARNING) << "SetRates while not initialized";
     return;
   }
@@ -645,10 +643,6 @@ void SimulcastEncoderAdapter::PopulateStreamCodec(
   // TODO(ronghuawu): what to do with targetBitrate.
 
   stream_codec->startBitrate = start_bitrate_kbps;
-}
-
-bool SimulcastEncoderAdapter::Initialized() const {
-  return rtc::AtomicOps::AcquireLoad(&inited_) == 1;
 }
 
 void SimulcastEncoderAdapter::DestroyStoredEncoders() {

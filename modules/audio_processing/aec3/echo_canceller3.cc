@@ -10,12 +10,12 @@
 #include "modules/audio_processing/aec3/echo_canceller3.h"
 
 #include <algorithm>
+#include <atomic>
 #include <utility>
 
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/high_pass_filter.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/logging.h"
 #include "system_wrappers/include/field_trial.h"
 
@@ -24,6 +24,8 @@ namespace webrtc {
 namespace {
 
 enum class EchoCanceller3ApiCall { kCapture, kRender };
+
+std::atomic<int> instance_count;
 
 bool DetectSaturation(rtc::ArrayView<const float> y) {
   for (auto y_k : y) {
@@ -274,8 +276,8 @@ EchoCanceller3::EchoCanceller3(const EchoCanceller3Config& config,
                                size_t num_render_channels,
                                size_t num_capture_channels,
                                std::unique_ptr<BlockProcessor> block_processor)
-    : data_dumper_(
-          new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
+    : data_dumper_(new ApmDataDumper(
+          instance_count.fetch_add(1, std::memory_order_release))),
       config_(config),
       sample_rate_hz_(sample_rate_hz),
       num_bands_(NumBandsForRate(sample_rate_hz_)),

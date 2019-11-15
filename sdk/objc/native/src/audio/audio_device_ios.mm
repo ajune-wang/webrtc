@@ -18,7 +18,6 @@
 #include "api/array_view.h"
 #include "helpers.h"
 #include "modules/audio_device/fine_audio_buffer.h"
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/critical_section.h"
@@ -104,8 +103,8 @@ static void LogDeviceInfo() {
 AudioDeviceIOS::AudioDeviceIOS()
     : audio_device_buffer_(nullptr),
       audio_unit_(nullptr),
-      recording_(0),
-      playing_(0),
+      recording_(false),
+      playing_(false),
       initialized_(false),
       audio_is_initialized_(false),
       is_interrupted_(false),
@@ -186,7 +185,7 @@ int32_t AudioDeviceIOS::InitPlayout() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_DCHECK(initialized_);
   RTC_DCHECK(!audio_is_initialized_);
-  RTC_DCHECK(!playing_);
+  RTC_DCHECK(!playing_.load());
   if (!audio_is_initialized_) {
     if (!InitPlayOrRecord()) {
       RTC_LOG_F(LS_ERROR) << "InitPlayOrRecord failed for InitPlayout!";
@@ -227,7 +226,7 @@ int32_t AudioDeviceIOS::StartPlayout() {
   LOGI() << "StartPlayout";
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_DCHECK(audio_is_initialized_);
-  RTC_DCHECK(!playing_);
+  RTC_DCHECK(!playing_.load());
   RTC_DCHECK(audio_unit_);
   if (fine_audio_buffer_) {
     fine_audio_buffer_->ResetPlayout();
@@ -239,7 +238,7 @@ int32_t AudioDeviceIOS::StartPlayout() {
     }
     RTC_LOG(LS_INFO) << "Voice-Processing I/O audio unit is now started";
   }
-  rtc::AtomicOps::ReleaseStore(&playing_, 1);
+  playing_.store(true, std::memory_order_release);
   num_playout_callbacks_ = 0;
   num_detected_playout_glitches_ = 0;
   return 0;
@@ -248,14 +247,14 @@ int32_t AudioDeviceIOS::StartPlayout() {
 int32_t AudioDeviceIOS::StopPlayout() {
   LOGI() << "StopPlayout";
   RTC_DCHECK_RUN_ON(&thread_checker_);
-  if (!audio_is_initialized_ || !playing_) {
+  if (!audio_is_initialized_ || !playing_.load()) {
     return 0;
   }
-  if (!recording_) {
+  if (!recording_.load()) {
     ShutdownPlayOrRecord();
     audio_is_initialized_ = false;
   }
-  rtc::AtomicOps::ReleaseStore(&playing_, 0);
+  playing_.store(0, std::memory_order_release);
 
   // Derive average number of calls to OnGetPlayoutData() between detected
   // audio glitches and add the result to a histogram.
@@ -273,45 +272,45 @@ int32_t AudioDeviceIOS::StopPlayout() {
 }
 
 bool AudioDeviceIOS::Playing() const {
-  return playing_;
+  return playing_.load();
 }
 
 int32_t AudioDeviceIOS::StartRecording() {
   LOGI() << "StartRecording";
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_DCHECK(audio_is_initialized_);
-  RTC_DCHECK(!recording_);
+  RTC_DCHECK(!recording_.load());
   RTC_DCHECK(audio_unit_);
   if (fine_audio_buffer_) {
     fine_audio_buffer_->ResetRecord();
   }
-  if (!playing_ && audio_unit_->GetState() == VoiceProcessingAudioUnit::kInitialized) {
+  if (!playing_.load() && audio_unit_->GetState() == VoiceProcessingAudioUnit::kInitialized) {
     if (!audio_unit_->Start()) {
       RTCLogError(@"StartRecording failed to start audio unit.");
       return -1;
     }
     RTC_LOG(LS_INFO) << "Voice-Processing I/O audio unit is now started";
   }
-  rtc::AtomicOps::ReleaseStore(&recording_, 1);
+  recording_.store(true, std::memory_order_release);
   return 0;
 }
 
 int32_t AudioDeviceIOS::StopRecording() {
   LOGI() << "StopRecording";
   RTC_DCHECK_RUN_ON(&thread_checker_);
-  if (!audio_is_initialized_ || !recording_) {
+  if (!audio_is_initialized_ || !recording_.load()) {
     return 0;
   }
-  if (!playing_) {
+  if (!playing_.load()) {
     ShutdownPlayOrRecord();
     audio_is_initialized_ = false;
   }
-  rtc::AtomicOps::ReleaseStore(&recording_, 0);
+  recording_.store(false, std::memory_order_release);
   return 0;
 }
 
 bool AudioDeviceIOS::Recording() const {
-  return recording_;
+  return recording_.load(std::memory_order_acquire);
 }
 
 int32_t AudioDeviceIOS::PlayoutDelay(uint16_t& delayMS) const {
@@ -373,7 +372,7 @@ OSStatus AudioDeviceIOS::OnDeliverRecordedData(AudioUnitRenderActionFlags* flags
   RTC_DCHECK_RUN_ON(&io_thread_checker_);
   OSStatus result = noErr;
   // Simply return if recording is not enabled.
-  if (!rtc::AtomicOps::AcquireLoad(&recording_)) return result;
+  if (recording_.load(std::memory_order_acquire)) return result;
 
   // Set the size of our own audio buffer and clear it first to avoid copying
   // in combination with potential reallocations.
@@ -426,7 +425,7 @@ OSStatus AudioDeviceIOS::OnGetPlayoutData(AudioUnitRenderActionFlags* flags,
 
   // Produce silence and give audio unit a hint about it if playout is not
   // activated.
-  if (!rtc::AtomicOps::AcquireLoad(&playing_)) {
+  if (!playing_.load(std::memory_order_acquired)) {
     const size_t size_in_bytes = audio_buffer->mDataByteSize;
     RTC_CHECK_EQ(size_in_bytes / VoiceProcessingAudioUnit::kBytesPerSample, num_frames);
     *flags |= kAudioUnitRenderAction_OutputIsSilence;
@@ -769,16 +768,17 @@ void AudioDeviceIOS::UpdateAudioUnit(bool can_play_or_record) {
     case VoiceProcessingAudioUnit::kUninitialized:
       RTCLog(@"VPAU state: Uninitialized");
       should_initialize_audio_unit = can_play_or_record;
-      should_start_audio_unit = should_initialize_audio_unit && (playing_ || recording_);
+      should_start_audio_unit =
+          should_initialize_audio_unit && (playing_.load() || recording_.load());
       break;
     case VoiceProcessingAudioUnit::kInitialized:
       RTCLog(@"VPAU state: Initialized");
-      should_start_audio_unit = can_play_or_record && (playing_ || recording_);
+      should_start_audio_unit = can_play_or_record && (playing_.load() || recording_.load());
       should_uninitialize_audio_unit = !can_play_or_record;
       break;
     case VoiceProcessingAudioUnit::kStarted:
       RTCLog(@"VPAU state: Started");
-      RTC_DCHECK(playing_ || recording_);
+      RTC_DCHECK(playing_.load() || recording_.load());
       should_stop_audio_unit = !can_play_or_record;
       should_uninitialize_audio_unit = should_stop_audio_unit;
       break;

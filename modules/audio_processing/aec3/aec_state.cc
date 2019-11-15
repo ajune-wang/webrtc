@@ -13,6 +13,7 @@
 #include <math.h>
 
 #include <algorithm>
+#include <atomic>
 #include <numeric>
 #include <vector>
 
@@ -20,7 +21,6 @@
 #include "api/array_view.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -28,6 +28,8 @@ namespace {
 
 constexpr size_t kBlocksSinceConvergencedFilterInit = 10000;
 constexpr size_t kBlocksSinceConsistentEstimateInit = 10000;
+
+std::atomic<int> instance_count;
 
 void ComputeAvgRenderReverb(
     const SpectrumBuffer& spectrum_buffer,
@@ -85,8 +87,6 @@ void ComputeAvgRenderReverb(
 
 }  // namespace
 
-int AecState::instance_count_ = 0;
-
 void AecState::GetResidualEchoScaling(
     rtc::ArrayView<float> residual_scaling) const {
   bool filter_has_had_time_to_converge;
@@ -111,8 +111,8 @@ absl::optional<float> AecState::ErleUncertainty() const {
 
 AecState::AecState(const EchoCanceller3Config& config,
                    size_t num_capture_channels)
-    : data_dumper_(
-          new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
+    : data_dumper_(new ApmDataDumper(
+          instance_count.fetch_add(1, std::memory_order_release))),
       config_(config),
       num_capture_channels_(num_capture_channels),
       initial_state_(config_),

@@ -12,6 +12,7 @@
 #ifndef MEDIA_ENGINE_SIMULCAST_ENCODER_ADAPTER_H_
 #define MEDIA_ENGINE_SIMULCAST_ENCODER_ADAPTER_H_
 
+#include <atomic>
 #include <memory>
 #include <stack>
 #include <string>
@@ -23,7 +24,6 @@
 #include "api/video_codecs/sdp_video_format.h"
 #include "api/video_codecs/video_encoder.h"
 #include "modules/video_coding/include/video_codec_interface.h"
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/system/rtc_export.h"
 
@@ -108,11 +108,9 @@ class RTC_EXPORT SimulcastEncoderAdapter : public VideoEncoder {
                            StreamResolution stream_resolution,
                            webrtc::VideoCodec* stream_codec);
 
-  bool Initialized() const;
-
   void DestroyStoredEncoders();
 
-  volatile int inited_;  // Accessed atomically.
+  bool inited_ RTC_GUARDED_BY(encoder_queue_);
   VideoEncoderFactory* const primary_encoder_factory_;
   VideoEncoderFactory* const fallback_encoder_factory_;
   const SdpVideoFormat video_format_;

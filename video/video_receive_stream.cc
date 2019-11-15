@@ -536,11 +536,16 @@ void VideoReceiveStream::SendNack(const std::vector<uint16_t>& sequence_numbers,
 }
 
 void VideoReceiveStream::RequestKeyFrame() {
+  RequestKeyFrameWithTimestamp(clock_->TimeInMilliseconds());
+}
+
+void VideoReceiveStream::RequestKeyFrameWithTimestamp(int64_t timestamp_ms) {
   if (config_.media_transport()) {
     config_.media_transport()->RequestKeyFrame(config_.rtp.remote_ssrc);
   } else {
     rtp_video_stream_receiver_.RequestKeyFrame();
   }
+  last_keyframe_request_ms_ = timestamp_ms;
 }
 
 void VideoReceiveStream::OnCompleteFrame(
@@ -678,8 +683,7 @@ void VideoReceiveStream::HandleEncodedFrame(
     keyframe_required_ = true;
     // TODO(philipel): Remove this keyframe request when downstream project
     //                 has been fixed.
-    RequestKeyFrame();
-    last_keyframe_request_ms_ = now_ms;
+    RequestKeyFrameWithTimestamp(now_ms);
   }
 }
 

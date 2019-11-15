@@ -20,7 +20,7 @@ namespace webrtc {
 class MessageBufferReader : public rtc::ByteBufferReader {
  public:
   MessageBufferReader(const char* bytes, size_t len)
-      : rtc::ByteBufferReader(bytes, len) {}
+      : rtc::ByteBufferReader(bytes, len), bytes_(bytes), size_(len) {}
   ~MessageBufferReader() = default;
 
   // Starting address of the message.
@@ -29,7 +29,11 @@ class MessageBufferReader : public rtc::ByteBufferReader {
   // which is the length of the remaining message from the current offset.
   size_t MessageLength() const { return size_; }
   // Current offset in the message.
-  size_t CurrentOffset() const { return start_; }
+  size_t CurrentOffset() const { return Data() - bytes_; }
+
+ private:
+  const char* const bytes_;
+  const size_t size_;
 };
 
 }  // namespace webrtc

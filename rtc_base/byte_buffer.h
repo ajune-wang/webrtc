@@ -16,6 +16,7 @@
 
 #include <string>
 
+#include "api/array_view.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/byte_order.h"
 #include "rtc_base/constructor_magic.h"
@@ -120,19 +121,23 @@ class ByteBufferWriter : public ByteBufferWriterT<BufferT<char>> {
 // valid during the lifetime of the reader.
 class ByteBufferReader {
  public:
-  ByteBufferReader(const char* bytes, size_t len);
-
-  // Initializes buffer from a zero-terminated string.
-  explicit ByteBufferReader(const char* bytes);
-
-  explicit ByteBufferReader(const Buffer& buf);
-
-  explicit ByteBufferReader(const ByteBufferWriter& buf);
+  ByteBufferReader(const char* bytes, size_t len)
+      : current_(bytes), end_(bytes + len) {}
+  explicit ByteBufferReader(rtc::ArrayView<const char> buffer)
+      : ByteBufferReader(buffer.data(), buffer.size()) {}
+  explicit ByteBufferReader(rtc::ArrayView<const uint8_t> buffer)
+      : ByteBufferReader(reinterpret_cast<const char*>(buffer.data()),
+                         buffer.size()) {}
+  explicit ByteBufferReader(const ByteBufferWriter& writer)
+      : ByteBufferReader(writer.Data(), writer.Length()) {}
+  ByteBufferReader(const ByteBufferReader&) = delete;
+  ByteBufferReader& operator=(const ByteBufferReader&) = delete;
+  ~ByteBufferReader() = default;
 
   // Returns start of unprocessed data.
-  const char* Data() const { return bytes_ + start_; }
+  const char* Data() const { return current_; }
   // Returns number of unprocessed bytes.
-  size_t Length() const { return end_ - start_; }
+  size_t Length() const { return end_ - current_; }
 
   // Read a next value from the buffer. Return false if there isn't
   // enough data left for the specified type.
@@ -154,16 +159,9 @@ class ByteBufferReader {
   // after this call.
   bool Consume(size_t size);
 
- protected:
-  void Construct(const char* bytes, size_t size);
-
-  const char* bytes_;
-  size_t size_;
-  size_t start_;
-  size_t end_;
-
  private:
-  RTC_DISALLOW_COPY_AND_ASSIGN(ByteBufferReader);
+  const char* current_;
+  const char* const end_;
 };
 
 }  // namespace rtc

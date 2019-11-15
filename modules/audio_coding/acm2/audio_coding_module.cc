@@ -243,11 +243,22 @@ void ReMix(const AudioFrame& input,
   }
 
   const int16_t* input_data = input.data();
+
+  // When upmixing is needed and the output is stereo, copy the left channel
+  // into the right channel.
+  if (input.num_channels_ == 1 && num_output_channels == 2) {
+    for (size_t k = 0; k < input.samples_per_channel_; ++k) {
+      (*output)[2 * k] = input_data[k];
+      (*output)[2 * k + 1] = input_data[k];
+    }
+    return;
+  }
+
   size_t in_index = 0;
   size_t out_index = 0;
 
-  // When upmixing is needed, copy the available channels directly, and set the
-  // remaining channels to zero.
+  // When upmixing is needed and the output is surround, copy the available
+  // channels directly, and set the remaining channels to zero.
   if (input.num_channels_ < num_output_channels) {
     for (size_t k = 0; k < input.samples_per_channel_; ++k) {
       for (size_t j = 0; j < input.num_channels_; ++j) {

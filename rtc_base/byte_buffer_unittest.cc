@@ -83,7 +83,7 @@ TEST(ByteBufferTest, TestBufferLength) {
 
 TEST(ByteBufferTest, TestReadWriteBuffer) {
   ByteBufferWriter buffer;
-  ByteBufferReader read_buf(nullptr, 0);
+  ByteBufferReader read_buf(static_cast<const char*>(nullptr), 0);
   uint8_t ru8;
   EXPECT_FALSE(read_buf.ReadUInt8(&ru8));
 
@@ -93,7 +93,7 @@ TEST(ByteBufferTest, TestReadWriteBuffer) {
   ByteBufferReader read_buf1(buffer.Data(), buffer.Length());
   EXPECT_TRUE(read_buf1.ReadUInt8(&ru8));
   EXPECT_EQ(wu8, ru8);
-  EXPECT_EQ(0U, read_buf1.Length());
+  EXPECT_EQ(0U, read_buf1.size());
   buffer.Clear();
 
   // Write and read uint16_t.
@@ -103,7 +103,7 @@ TEST(ByteBufferTest, TestReadWriteBuffer) {
   uint16_t ru16;
   EXPECT_TRUE(read_buf2.ReadUInt16(&ru16));
   EXPECT_EQ(wu16, ru16);
-  EXPECT_EQ(0U, read_buf2.Length());
+  EXPECT_EQ(0U, read_buf2.size());
   buffer.Clear();
 
   // Write and read uint24.
@@ -113,7 +113,7 @@ TEST(ByteBufferTest, TestReadWriteBuffer) {
   uint32_t ru24;
   EXPECT_TRUE(read_buf3.ReadUInt24(&ru24));
   EXPECT_EQ(wu24, ru24);
-  EXPECT_EQ(0U, read_buf3.Length());
+  EXPECT_EQ(0U, read_buf3.size());
   buffer.Clear();
 
   // Write and read uint32_t.
@@ -123,7 +123,7 @@ TEST(ByteBufferTest, TestReadWriteBuffer) {
   uint32_t ru32;
   EXPECT_TRUE(read_buf4.ReadUInt32(&ru32));
   EXPECT_EQ(wu32, ru32);
-  EXPECT_EQ(0U, read_buf3.Length());
+  EXPECT_EQ(0U, read_buf3.size());
   buffer.Clear();
 
   // Write and read uint64_t.
@@ -134,7 +134,7 @@ TEST(ByteBufferTest, TestReadWriteBuffer) {
   uint64_t ru64;
   EXPECT_TRUE(read_buf5.ReadUInt64(&ru64));
   EXPECT_EQ(wu64, ru64);
-  EXPECT_EQ(0U, read_buf5.Length());
+  EXPECT_EQ(0U, read_buf5.size());
   buffer.Clear();
 
   // Write and read string.
@@ -144,7 +144,7 @@ TEST(ByteBufferTest, TestReadWriteBuffer) {
   std::string read_string;
   EXPECT_TRUE(read_buf6.ReadString(&read_string, write_string.size()));
   EXPECT_EQ(write_string, read_string);
-  EXPECT_EQ(0U, read_buf6.Length());
+  EXPECT_EQ(0U, read_buf6.size());
   buffer.Clear();
 
   // Write and read bytes
@@ -156,7 +156,7 @@ TEST(ByteBufferTest, TestReadWriteBuffer) {
   for (int i = 0; i < 3; ++i) {
     EXPECT_EQ(write_bytes[i], read_bytes[i]);
   }
-  EXPECT_EQ(0U, read_buf7.Length());
+  EXPECT_EQ(0U, read_buf7.size());
   buffer.Clear();
 
   // Write and read reserved buffer space
@@ -168,7 +168,7 @@ TEST(ByteBufferTest, TestReadWriteBuffer) {
   for (int i = 0; i < 3; ++i) {
     EXPECT_EQ(write_bytes[i], read_bytes[i]);
   }
-  EXPECT_EQ(0U, read_buf8.Length());
+  EXPECT_EQ(0U, read_buf8.size());
   buffer.Clear();
 
   // Write and read in order.
@@ -188,7 +188,7 @@ TEST(ByteBufferTest, TestReadWriteBuffer) {
   EXPECT_EQ(wu32, ru32);
   EXPECT_TRUE(read_buf9.ReadUInt64(&ru64));
   EXPECT_EQ(wu64, ru64);
-  EXPECT_EQ(0U, read_buf9.Length());
+  EXPECT_EQ(0U, read_buf9.size());
   buffer.Clear();
 }
 
@@ -218,33 +218,33 @@ TEST(ByteBufferTest, TestReadWriteUVarint) {
   EXPECT_EQ(size, write_buffer.Length());
 
   ByteBufferReader read_buffer(write_buffer.Data(), write_buffer.Length());
-  EXPECT_EQ(size, read_buffer.Length());
+  EXPECT_EQ(size, read_buffer.size());
   uint64_t val1, val2, val3, val4, val5;
 
   ASSERT_TRUE(read_buffer.ReadUVarint(&val1));
   EXPECT_EQ(1u, val1);
   --size;
-  EXPECT_EQ(size, read_buffer.Length());
+  EXPECT_EQ(size, read_buffer.size());
 
   ASSERT_TRUE(read_buffer.ReadUVarint(&val2));
   EXPECT_EQ(2u, val2);
   --size;
-  EXPECT_EQ(size, read_buffer.Length());
+  EXPECT_EQ(size, read_buffer.size());
 
   ASSERT_TRUE(read_buffer.ReadUVarint(&val3));
   EXPECT_EQ(27u, val3);
   --size;
-  EXPECT_EQ(size, read_buffer.Length());
+  EXPECT_EQ(size, read_buffer.size());
 
   ASSERT_TRUE(read_buffer.ReadUVarint(&val4));
   EXPECT_EQ(149u, val4);
   size -= 2;
-  EXPECT_EQ(size, read_buffer.Length());
+  EXPECT_EQ(size, read_buffer.size());
 
   ASSERT_TRUE(read_buffer.ReadUVarint(&val5));
   EXPECT_EQ(68719476736u, val5);
   size -= 6;
-  EXPECT_EQ(size, read_buffer.Length());
+  EXPECT_EQ(size, read_buffer.size());
 }
 
 }  // namespace rtc

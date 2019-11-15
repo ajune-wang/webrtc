@@ -1208,7 +1208,7 @@ void PseudoTcp::parseOptions(const char* data, uint32_t len) {
   // See http://www.freesoft.org/CIE/Course/Section4/8.htm for
   // parsing the options list.
   rtc::ByteBufferReader buf(data, len);
-  while (buf.Length()) {
+  while (!buf.empty()) {
     uint8_t kind = TCP_OPT_EOL;
     buf.ReadUInt8(&kind);
 
@@ -1226,8 +1226,8 @@ void PseudoTcp::parseOptions(const char* data, uint32_t len) {
     buf.ReadUInt8(&opt_len);
 
     // Content of this option.
-    if (opt_len <= buf.Length()) {
-      applyOption(kind, buf.Data(), opt_len);
+    if (opt_len <= buf.size()) {
+      applyOption(kind, buf.data(), opt_len);
       buf.Consume(opt_len);
     } else {
       RTC_LOG(LS_ERROR) << "Invalid option length received.";

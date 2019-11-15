@@ -19,29 +19,6 @@ ByteBufferWriter::ByteBufferWriter() : ByteBufferWriterT() {}
 ByteBufferWriter::ByteBufferWriter(const char* bytes, size_t len)
     : ByteBufferWriterT(bytes, len) {}
 
-ByteBufferReader::ByteBufferReader(const char* bytes, size_t len) {
-  Construct(bytes, len);
-}
-
-ByteBufferReader::ByteBufferReader(const char* bytes) {
-  Construct(bytes, strlen(bytes));
-}
-
-ByteBufferReader::ByteBufferReader(const Buffer& buf) {
-  Construct(buf.data<char>(), buf.size());
-}
-
-ByteBufferReader::ByteBufferReader(const ByteBufferWriter& buf) {
-  Construct(buf.Data(), buf.Length());
-}
-
-void ByteBufferReader::Construct(const char* bytes, size_t len) {
-  bytes_ = bytes;
-  size_ = len;
-  start_ = 0;
-  end_ = len;
-}
-
 bool ByteBufferReader::ReadUInt8(uint8_t* val) {
   if (!val)
     return false;
@@ -131,29 +108,29 @@ bool ByteBufferReader::ReadString(std::string* val, size_t len) {
   if (!val)
     return false;
 
-  if (len > Length()) {
+  if (len > size()) {
     return false;
   } else {
-    val->append(bytes_ + start_, len);
-    start_ += len;
+    val->append(current_, len);
+    current_ += len;
     return true;
   }
 }
 
 bool ByteBufferReader::ReadBytes(char* val, size_t len) {
-  if (len > Length()) {
+  if (len > size()) {
     return false;
   } else {
-    memcpy(val, bytes_ + start_, len);
-    start_ += len;
+    memcpy(val, current_, len);
+    current_ += len;
     return true;
   }
 }
 
 bool ByteBufferReader::Consume(size_t size) {
-  if (size > Length())
+  if (size > this->size())
     return false;
-  start_ += size;
+  current_ += size;
   return true;
 }
 

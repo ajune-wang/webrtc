@@ -232,7 +232,7 @@ void TurnServer::HandleStunMessage(TurnServerConnection* conn,
   RTC_DCHECK(thread_checker_.IsCurrent());
   TurnMessage msg;
   rtc::ByteBufferReader buf(data, size);
-  if (!msg.Read(&buf) || (buf.Length() > 0)) {
+  if (!msg.Read(&buf) || !buf.empty()) {
     RTC_LOG(LS_WARNING) << "Received invalid STUN message";
     return;
   }

@@ -376,13 +376,13 @@ bool StunMessage::Read(ByteBufferReader* buf) {
   transaction_id_ = transaction_id;
   reduced_transaction_id_ = ReduceTransactionId(transaction_id_);
 
-  if (length_ != buf->Length())
+  if (length_ != buf->size())
     return false;
 
   attrs_.resize(0);
 
-  size_t rest = buf->Length() - length_;
-  while (buf->Length() > rest) {
+  size_t rest = buf->size() - length_;
+  while (buf->size() > rest) {
     uint16_t attr_type, attr_length;
     if (!buf->ReadUInt16(&attr_type))
       return false;
@@ -405,7 +405,7 @@ bool StunMessage::Read(ByteBufferReader* buf) {
     }
   }
 
-  RTC_DCHECK(buf->Length() == rest);
+  RTC_DCHECK_EQ(buf->size(), rest);
   return true;
 }
 

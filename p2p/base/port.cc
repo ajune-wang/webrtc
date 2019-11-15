@@ -452,7 +452,7 @@ bool Port::GetStunMessage(const char* data,
   // STUN message, then ignore it.
   std::unique_ptr<IceMessage> stun_msg(new IceMessage());
   rtc::ByteBufferReader buf(data, size);
-  if (!stun_msg->Read(&buf) || (buf.Length() > 0)) {
+  if (!stun_msg->Read(&buf) || !buf.empty()) {
     return false;
   }
 

@@ -16,6 +16,7 @@
 
 #include <string>
 
+#include "api/array_view.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/byte_order.h"
 #include "rtc_base/constructor_magic.h"
@@ -32,6 +33,9 @@ class ByteBufferWriterT {
   const char* Data() const { return buffer_.data(); }
   size_t Length() const { return buffer_.size(); }
   size_t Capacity() const { return buffer_.capacity(); }
+
+  const char* data() const { return buffer_.data(); }
+  size_t size() const { return buffer_.size(); }
 
   // Write value to the buffer. Resizes the buffer when it is
   // neccessary.
@@ -120,19 +124,28 @@ class ByteBufferWriter : public ByteBufferWriterT<BufferT<char>> {
 // valid during the lifetime of the reader.
 class ByteBufferReader {
  public:
-  ByteBufferReader(const char* bytes, size_t len);
-
-  // Initializes buffer from a zero-terminated string.
-  explicit ByteBufferReader(const char* bytes);
-
-  explicit ByteBufferReader(const Buffer& buf);
-
-  explicit ByteBufferReader(const ByteBufferWriter& buf);
+  explicit ByteBufferReader(const char* data, size_t size)
+      : current_(data), end_(current_ + size) {}
+  explicit ByteBufferReader(const uint8_t* data, size_t size)
+      : ByteBufferReader(reinterpret_cast<const char*>(data), size) {}
+  explicit ByteBufferReader(rtc::ArrayView<const char> buffer)
+      : ByteBufferReader(buffer.data(), buffer.size()) {}
+  explicit ByteBufferReader(rtc::ArrayView<const uint8_t> buffer)
+      : ByteBufferReader(buffer.data(), buffer.size()) {}
+  ByteBufferReader(const ByteBufferReader&) = delete;
+  ByteBufferReader& operator=(const ByteBufferReader&) = delete;
+  ~ByteBufferReader() = default;
 
   // Returns start of unprocessed data.
-  const char* Data() const { return bytes_ + start_; }
+  template <typename T = char,
+            typename std::enable_if_t<sizeof(T) == 1>* = nullptr>
+  const T* data() const {
+    return reinterpret_cast<const T*>(current_);
+  }
+  const char* end() const { return end_; }
   // Returns number of unprocessed bytes.
-  size_t Length() const { return end_ - start_; }
+  size_t size() const { return end_ - current_; }
+  bool empty() const { return current_ == end_; }
 
   // Read a next value from the buffer. Return false if there isn't
   // enough data left for the specified type.
@@ -154,16 +167,9 @@ class ByteBufferReader {
   // after this call.
   bool Consume(size_t size);
 
- protected:
-  void Construct(const char* bytes, size_t size);
-
-  const char* bytes_;
-  size_t size_;
-  size_t start_;
-  size_t end_;
-
  private:
-  RTC_DISALLOW_COPY_AND_ASSIGN(ByteBufferReader);
+  const char* current_;
+  const char* const end_;
 };
 
 }  // namespace rtc

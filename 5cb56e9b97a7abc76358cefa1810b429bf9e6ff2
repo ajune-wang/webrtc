@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9431058e_58b4f202",
+        "filename": "tools_webrtc/perf/webrtc_dashboard_upload.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-15T14:19:16Z",
+      "side": 1,
+      "message": "It\u0027s not json here, it\u0027s a string.",
+      "range": {
+        "startLine": 50,
+        "startChar": 31,
+        "endLine": 50,
+        "endChar": 48
+      },
+      "revId": "5cb56e9b97a7abc76358cefa1810b429bf9e6ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99f2181f_e264e24a",
+        "filename": "tools_webrtc/perf/webrtc_dashboard_upload.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-15T14:19:16Z",
+      "side": 1,
+      "message": "Maybe add some help comment to clarify what each entity means, because in histograms we operate with bots, masters, targets etc and here we have different ones. So maybe some mapping is required.\n\nAlso why we use different names here?",
+      "range": {
+        "startLine": 86,
+        "startChar": 1,
+        "endLine": 86,
+        "endChar": 36
+      },
+      "revId": "5cb56e9b97a7abc76358cefa1810b429bf9e6ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2eb7de0_afe56fab",
+        "filename": "tools_webrtc/perf/webrtc_dashboard_upload.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-15T14:19:16Z",
+      "side": 1,
+      "message": "Also I found it very useful when working with histogram API log at least diagnostics + 1st histogram to debug not uploaded points.",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 8
+      },
+      "revId": "5cb56e9b97a7abc76358cefa1810b429bf9e6ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70419ae3_1bf7d93d",
+        "filename": "tools_webrtc/perf/webrtc_dashboard_upload.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-15T14:19:16Z",
+      "side": 1,
+      "message": "If this is for debug purpose, then it will be good to use indent to have it formatted.",
+      "range": {
+        "startLine": 107,
+        "startChar": 6,
+        "endLine": 107,
+        "endChar": 44
+      },
+      "revId": "5cb56e9b97a7abc76358cefa1810b429bf9e6ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

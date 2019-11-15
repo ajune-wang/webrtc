@@ -187,7 +187,6 @@ rtc_library("criticalsection") {
     "critical_section.h",
   ]
   deps = [
-    ":atomicops",
     ":checks",
     ":macromagic",
     ":platform_thread_types",

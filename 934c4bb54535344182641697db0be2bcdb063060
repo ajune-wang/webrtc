@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "beca4fdd_23a9c67a",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-15T17:05:29Z",
+      "side": 1,
+      "message": "As far as I can see, this private method is called in 3 places and all of them have some now_ms computed already.\n\nI would suggest instead of introducing new method just add a timestamp parameter to the RequestKeyFrame() and pass now_ms in 3 places where it happens.",
+      "range": {
+        "startLine": 538,
+        "startChar": 25,
+        "endLine": 538,
+        "endChar": 40
+      },
+      "revId": "934c4bb54535344182641697db0be2bcdb063060",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

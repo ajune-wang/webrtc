@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff4e7436_5fc7777f",
+        "filename": "rtc_base/critical_section.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-15T16:39:58Z",
+      "side": 1,
+      "message": "I think memory_order things always need a comment motivating the choice. Here and below.",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 225,
+        "endChar": 79
+      },
+      "revId": "9887ebc17350abd019cd1a7da355aa1ba51f4171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c810a05_ed23ac5d",
+        "filename": "rtc_base/critical_section.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-15T16:39:58Z",
+      "side": 1,
+      "message": "Would be good to encapsulate the system-dependent things in an rtc::yield. I think I\u0027ve seen similar code in other places in webrtc.",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 6
+      },
+      "revId": "9887ebc17350abd019cd1a7da355aa1ba51f4171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83d2c1be_4d3cd4a3",
+        "filename": "rtc_base/critical_section.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-15T16:39:58Z",
+      "side": 1,
+      "message": "And here too.",
+      "range": {
+        "startLine": 242,
+        "startChar": 50,
+        "endLine": 242,
+        "endChar": 75
+      },
+      "revId": "9887ebc17350abd019cd1a7da355aa1ba51f4171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffd6202b_64d7e169",
+        "filename": "rtc_base/critical_section.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-15T16:39:58Z",
+      "side": 1,
+      "message": "This comment isn\u0027t that clear. In what way is it different from a CriticalSection? Why can\u0027t we use CriticalSection for everything, including synchronizaton of global resources?",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 31
+      },
+      "revId": "9887ebc17350abd019cd1a7da355aa1ba51f4171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

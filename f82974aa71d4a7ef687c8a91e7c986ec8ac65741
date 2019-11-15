@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "705b05dd_f3011d43",
+        "filename": "api/video/video_frame.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-15T13:18:40Z",
+      "side": 1,
+      "message": "I guess it avoids refcount updates in caller. But I think it\u0027s better and more consistent with other code to pass scoped_refptr by value. To trim refcount updates, it could be assigned using std::move here, and the caller is also free to use std::move where appropriate.",
+      "parentUuid": "f29e180e_d50889a1",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 1
+      },
+      "revId": "f82974aa71d4a7ef687c8a91e7c986ec8ac65741",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "af48eb06_f53b0f7b",
         "filename": "api/video/video_frame.h",
         "patchSetId": 10
@@ -40,6 +64,53 @@
         "startLine": 62,
         "startChar": 4,
         "endLine": 62,
+        "endChar": 62
+      },
+      "revId": "f82974aa71d4a7ef687c8a91e7c986ec8ac65741",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8aa997f_33284304",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-15T13:18:40Z",
+      "side": 1,
+      "message": "As I understood it, in some cases the color space can be different for the bitstream data and the decoded pixels. Which is odd, but if it weren\u0027t for that corner case, colorspace should be deleted here.",
+      "parentUuid": "af48eb06_f53b0f7b",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 62
+      },
+      "revId": "f82974aa71d4a7ef687c8a91e7c986ec8ac65741",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd81b831_387ea040",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-15T13:18:40Z",
+      "side": 1,
+      "message": "Consider if setter really is needed, or if builder methods are enough.",
+      "range": {
+        "startLine": 193,
+        "startChar": 0,
+        "endLine": 194,
         "endChar": 62
       },
       "revId": "f82974aa71d4a7ef687c8a91e7c986ec8ac65741",

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c83a231_eab4b5ee",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-15T16:04:47Z",
+      "side": 1,
+      "message": "Nice!",
+      "range": {
+        "startLine": 376,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 54
+      },
+      "revId": "58fd6724d8b74ef6cc0d6d92ad150c296df25c2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf130588_ecd1de3b",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-15T16:04:47Z",
+      "side": 1,
+      "message": "What do you think about creating submodules_.agc_manager in the APM constructor, and deleting:\nconstants_.agc_startup_min_volume\nconstants_.agc_clipped_level_min\nconstants_.use_experimental_agc\nconstants_.use_experimental_agc_agc2_level_estimation\nconstants_.use_experimental_agc_agc2_digital_adaptive\n\nThey are essentially only accessed here. The tests for use_experimental_agc can be replaced by testing directly if agc_manager is non-nullptr, thus removing one possible illegal state (APM assumes use_experimental_agc and !!agc_manager are always both false or both true).",
+      "range": {
+        "startLine": 479,
+        "startChar": 0,
+        "endLine": 485,
+        "endChar": 5
+      },
+      "revId": "58fd6724d8b74ef6cc0d6d92ad150c296df25c2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58562961_65b5f793",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-15T16:04:47Z",
+      "side": 1,
+      "message": "There are several places like this, where the AgcManagerDirect overrides GainControlImpl.\n\nWhat do you think about moving ownership of the gain controller into AgcManagerDirect, and have  AgcManagerDirect implement the GainControl interface?\n\nAPM is freed of the \"which AGC to use\" logic, it only resets submodules_.gain_control with the right type on reinitialization.\nAgcManager does not need the new_compression_to_set_ state (and shared responsibility for the gain_control as a function parameter).",
+      "range": {
+        "startLine": 691,
+        "startChar": 0,
+        "endLine": 692,
+        "endChar": 40
+      },
+      "revId": "58fd6724d8b74ef6cc0d6d92ad150c296df25c2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

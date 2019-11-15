@@ -103,6 +103,7 @@
 #include "api/transport/enums.h"
 #include "api/transport/media/media_transport_interface.h"
 #include "api/transport/network_control.h"
+#include "api/transport/webrtc_key_value_config.h"
 #include "api/turn_customizer.h"
 #include "media/base/media_config.h"
 #include "media/base/media_engine.h"
@@ -1327,6 +1328,7 @@ struct RTC_EXPORT PeerConnectionFactoryDependencies final {
   std::unique_ptr<NetworkControllerFactoryInterface> network_controller_factory;
   std::unique_ptr<MediaTransportFactory> media_transport_factory;
   std::unique_ptr<NetEqFactory> neteq_factory;
+  std::unique_ptr<WebRtcKeyValueConfig> trials;
 };
 
 // PeerConnectionFactoryInterface is the factory interface used for creating

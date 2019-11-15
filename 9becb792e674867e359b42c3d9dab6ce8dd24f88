@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84e4b405_fb11b1f8",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2019-11-15T17:45:25Z",
+      "side": 1,
+      "message": "CheckCandidatePair?",
+      "range": {
+        "startLine": 578,
+        "startChar": 14,
+        "endLine": 578,
+        "endChar": 29
+      },
+      "revId": "9becb792e674867e359b42c3d9dab6ce8dd24f88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abeda408_a7cea388",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 6252
+      },
+      "writtenOn": "2019-11-15T17:45:25Z",
+      "side": 1,
+      "message": "I slightly prefer to drop this for readability. Whenever needed, just have two separate checks instead. But it is up to you.",
+      "range": {
+        "startLine": 591,
+        "startChar": 14,
+        "endLine": 591,
+        "endChar": 28
+      },
+      "revId": "9becb792e674867e359b42c3d9dab6ce8dd24f88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

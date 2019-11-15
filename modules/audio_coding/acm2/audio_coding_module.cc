@@ -246,22 +246,18 @@ void ReMix(const AudioFrame& input,
   size_t in_index = 0;
   size_t out_index = 0;
 
-  // When upmixing is needed, copy the available channels directly, and set the
-  // remaining channels to zero.
+  // When upmixing is needed, duplicate the last channel of the input.
   if (input.num_channels_ < num_output_channels) {
     for (size_t k = 0; k < input.samples_per_channel_; ++k) {
       for (size_t j = 0; j < input.num_channels_; ++j) {
         (*output)[out_index++] = input_data[in_index++];
       }
+      RTC_DCHECK_GT(in_index, 0);
+      const int16_t value_last_channel = input_data[in_index - 1];
       for (size_t j = input.num_channels_; j < num_output_channels; ++j) {
-        (*output)[out_index++] = 0;
+        (*output)[out_index++] = value_last_channel;
       }
-      RTC_DCHECK_EQ(in_index, (k + 1) * input.num_channels_);
-      RTC_DCHECK_EQ(out_index, (k + 1) * num_output_channels);
     }
-    RTC_DCHECK_EQ(in_index, input.samples_per_channel_ * input.num_channels_);
-    RTC_DCHECK_EQ(out_index, input.samples_per_channel_ * num_output_channels);
-
     return;
   }
 

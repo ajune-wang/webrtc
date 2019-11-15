@@ -228,6 +228,10 @@ class FakeVideoReceiveStream final : public webrtc::VideoReceiveStream {
 
   void SetFrameDecryptor(rtc::scoped_refptr<webrtc::FrameDecryptorInterface>
                              frame_decryptor) override {}
+  void EnableEncodedOutput() override {}
+  void DoneEncodedOutput() override {}
+  int GetEncodedOutputBalance() override { return 0; }
+  void SetEncodedOutputBalance(int balance) override {}
 
  private:
   // webrtc::VideoReceiveStream implementation.

@@ -907,6 +907,9 @@ class VideoMediaChannel : public MediaChannel, public Delayable {
   virtual bool GetStats(VideoMediaInfo* info) = 0;
 
   virtual std::vector<webrtc::RtpSource> GetSources(uint32_t ssrc) const = 0;
+
+  virtual void EnableEncodedOutput(uint32_t ssrc) = 0;
+  virtual void DoneEncodedOutput(uint32_t ssrc) = 0;
 };
 
 enum DataMessageType {

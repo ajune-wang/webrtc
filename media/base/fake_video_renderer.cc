@@ -31,6 +31,7 @@ void FakeVideoRenderer::OnFrame(const webrtc::VideoFrame& frame) {
   ntp_timestamp_ms_ = frame.ntp_time_ms();
   color_space_ = frame.color_space();
   packet_infos_ = frame.packet_infos();
+  encoded_frame_ = frame.encoded_video_frame_buffer();
   frame_rendered_event_.Set();
 }
 

@@ -96,6 +96,35 @@ VideoCodec CreateDecoderVideoCodec(const VideoReceiveStream::Decoder& decoder) {
   return codec;
 }
 
+// Concrete holder class for implementing VideoFrame::ReceivedEncodedFrame
+// from a video_coding::EncodedFrame
+class EncodedVideoFrameBufferWrapper
+    : public rtc::RefCountedObject<VideoFrame::EncodedVideoFrameBuffer> {
+ public:
+  explicit EncodedVideoFrameBufferWrapper(
+      std::unique_ptr<video_coding::EncodedFrame> encoded_frame)
+      : encoded_frame_(std::move(encoded_frame)) {
+    RTC_DCHECK(encoded_frame_.get());
+  }
+
+  rtc::ArrayView<const uint8_t> data() const override {
+    return rtc::MakeArrayView(encoded_frame_->data(), encoded_frame_->size());
+  }
+
+  const webrtc::ColorSpace* color_space() const override {
+    return encoded_frame_->ColorSpace();
+  }
+
+  VideoCodecType codec() const override {
+    return encoded_frame_->CodecSpecific()->codecType;
+  }
+
+  bool is_key_frame() const override { return encoded_frame_->is_keyframe(); }
+
+ private:
+  std::unique_ptr<video_coding::EncodedFrame> encoded_frame_;
+};
+
 // Video decoder class to be used for unknown codecs. Doesn't support decoding
 // but logs messages to LS_ERROR.
 class NullVideoDecoder : public webrtc::VideoDecoder {
@@ -324,7 +353,8 @@ void VideoReceiveStream::Start() {
   if (config_.enable_prerenderer_smoothing) {
     incoming_video_stream_.reset(new IncomingVideoStream(
         task_queue_factory_, config_.render_delay_ms, this));
-    renderer = incoming_video_stream_.get();
+    frame_smoothing_inhibitor_.emplace(incoming_video_stream_.get(), this);
+    renderer = &*frame_smoothing_inhibitor_;
   } else {
     renderer = this;
   }
@@ -518,7 +548,20 @@ void VideoReceiveStream::OnFrame(const VideoFrame& video_frame) {
   }
   source_tracker_.OnFrameDelivered(video_frame.packet_infos());
 
-  config_.renderer->OnFrame(video_frame);
+  std::unique_ptr<video_coding::EncodedFrame> encoded_frame;
+  if (!encoded_frames_.empty()) {
+    encoded_frame = std::move(encoded_frames_.front());
+    encoded_frames_.pop_front();
+  }
+
+  if (encoded_output_balance_ != 0 && encoded_frame) {
+    VideoFrame frame = video_frame;
+    frame.set_encoded_video_frame_buffer(
+        new EncodedVideoFrameBufferWrapper(std::move(encoded_frame)));
+    config_.renderer->OnFrame(frame);
+  } else {
+    config_.renderer->OnFrame(video_frame);
+  }
 
   // TODO(tommi): OnRenderFrame grabs a lock too.
   stats_proxy_.OnRenderedFrame(video_frame);
@@ -539,20 +582,20 @@ void VideoReceiveStream::RequestKeyFrame() {
   RequestKeyFrameWithTimestamp(clock_->TimeInMilliseconds());
 }
 
-void VideoReceiveStream::RequestKeyFrameWithTimestamp(int64_t timestamp_ms) {
+void VideoReceiveStream::RequestKeyFrameWithTimestamp(int64_t now_ms) {
   if (config_.media_transport()) {
     config_.media_transport()->RequestKeyFrame(config_.rtp.remote_ssrc);
   } else {
     rtp_video_stream_receiver_.RequestKeyFrame();
   }
-  last_keyframe_request_ms_ = timestamp_ms;
+  last_keyframe_request_ms_ = now_ms;
 }
 
 void VideoReceiveStream::OnCompleteFrame(
     std::unique_ptr<video_coding::EncodedFrame> frame) {
   RTC_DCHECK_RUN_ON(&network_sequence_checker_);
   // TODO(https://bugs.webrtc.org/9974): Consider removing this workaround.
-  int64_t time_now_ms = rtc::TimeMillis();
+  int64_t time_now_ms = clock_->TimeInMilliseconds();
   if (last_complete_frame_time_ms_ > 0 &&
       time_now_ms - last_complete_frame_time_ms_ > kInactiveStreamThresholdMs) {
     frame_buffer_->Clear();
@@ -669,21 +712,45 @@ void VideoReceiveStream::HandleEncodedFrame(
   }
   stats_proxy_.OnPreDecode(frame->CodecSpecific()->codecType, qp);
 
-  int decode_result = video_receiver_.Decode(frame.get());
+  EncodedFrame* frame_ptr = frame.get();
+  int64_t picture_id = frame->id.picture_id;
+  if (encoded_output_balance_) {
+    encoded_frames_.push_back(std::move(frame));
+  }
+  int decode_result = video_receiver_.Decode(frame_ptr);
   if (decode_result == WEBRTC_VIDEO_CODEC_OK ||
       decode_result == WEBRTC_VIDEO_CODEC_OK_REQUEST_KEYFRAME) {
     keyframe_required_ = false;
     frame_decoded_ = true;
-    rtp_video_stream_receiver_.FrameDecoded(frame->id.picture_id);
+    rtp_video_stream_receiver_.FrameDecoded(picture_id);
 
     if (decode_result == WEBRTC_VIDEO_CODEC_OK_REQUEST_KEYFRAME)
-      RequestKeyFrame();
-  } else if (!frame_decoded_ || !keyframe_required_ ||
-             (last_keyframe_request_ms_ + max_wait_for_keyframe_ms_ < now_ms)) {
-    keyframe_required_ = true;
-    // TODO(philipel): Remove this keyframe request when downstream project
-    //                 has been fixed.
-    RequestKeyFrameWithTimestamp(now_ms);
+      RequestKeyFrameWithTimestamp(now_ms);
+  } else {
+    // Error from decoder. The encoded frames we may have pushed will now not
+    // correspond to the right order of decoded frames, so clear the queue.
+    encoded_frames_.clear();
+    if (!frame_decoded_ || !keyframe_required_ ||
+        (last_keyframe_request_ms_ + max_wait_for_keyframe_ms_ < now_ms)) {
+      keyframe_required_ = true;
+      // TODO(philipel): Remove this keyframe request when downstream project
+      //                 has been fixed.
+      RequestKeyFrameWithTimestamp(now_ms);
+    }
+  }
+
+  // Repeat sending keyframe requests if we've requested a keyframe due to
+  // encoded output.
+  if (keyframe_requested_due_to_encoded_output_) {
+    if (frame_ptr->is_keyframe()) {
+      keyframe_requested_due_to_encoded_output_ = false;
+    } else if (last_keyframe_request_ms_ + max_wait_for_keyframe_ms_ < now_ms) {
+      if (!ReceivingKeyframe(now_ms)) {
+        RequestKeyFrameWithTimestamp(now_ms);
+      }
+    } else {
+      // It hasn't been long enough since the last keyframe request, do nothing.
+    }
   }
 }
 
@@ -691,28 +758,37 @@ void VideoReceiveStream::HandleFrameBufferTimeout() {
   int64_t now_ms = clock_->TimeInMilliseconds();
   absl::optional<int64_t> last_packet_ms =
       rtp_video_stream_receiver_.LastReceivedPacketMs();
-  absl::optional<int64_t> last_keyframe_packet_ms =
-      rtp_video_stream_receiver_.LastReceivedKeyframePacketMs();
 
   // To avoid spamming keyframe requests for a stream that is not active we
   // check if we have received a packet within the last 5 seconds.
   bool stream_is_active = last_packet_ms && now_ms - *last_packet_ms < 5000;
-  if (!stream_is_active)
+  if (!stream_is_active) {
     stats_proxy_.OnStreamInactive();
+
+    // Stream is stalled so stop keyframe requests due to encoded output getting
+    // enabled.
+    keyframe_requested_due_to_encoded_output_ = false;
+  }
+
+  if (stream_is_active && !ReceivingKeyframe(now_ms) &&
+      (!config_.crypto_options.sframe.require_frame_encryption ||
+       rtp_video_stream_receiver_.IsDecryptable())) {
+    RTC_LOG(LS_WARNING) << "No decodable frame in " << GetWaitMs()
+                        << " ms, requesting keyframe.";
+    RequestKeyFrameWithTimestamp(now_ms);
+  }
+}
+
+bool VideoReceiveStream::ReceivingKeyframe(int64_t now_ms) const {
+  absl::optional<int64_t> last_keyframe_packet_ms =
+      rtp_video_stream_receiver_.LastReceivedKeyframePacketMs();
 
   // If we recently have been receiving packets belonging to a keyframe then
   // we assume a keyframe is currently being received.
   bool receiving_keyframe =
       last_keyframe_packet_ms &&
       now_ms - *last_keyframe_packet_ms < max_wait_for_keyframe_ms_;
-
-  if (stream_is_active && !receiving_keyframe &&
-      (!config_.crypto_options.sframe.require_frame_encryption ||
-       rtp_video_stream_receiver_.IsDecryptable())) {
-    RTC_LOG(LS_WARNING) << "No decodable frame in " << GetWaitMs()
-                        << " ms, requesting keyframe.";
-    RequestKeyFrame();
-  }
+  return receiving_keyframe;
 }
 
 void VideoReceiveStream::UpdatePlayoutDelays() const {
@@ -731,6 +807,54 @@ void VideoReceiveStream::UpdatePlayoutDelays() const {
 
 std::vector<webrtc::RtpSource> VideoReceiveStream::GetSources() const {
   return source_tracker_.GetSources();
+}
+
+void VideoReceiveStream::EnableEncodedOutput() {
+  decode_queue_.PostTask([this] {
+    encoded_output_balance_++;
+    keyframe_requested_due_to_encoded_output_ = true;
+    if (frame_smoothing_inhibitor_) {
+      frame_smoothing_inhibitor_->SetSmoothingEnabled(false);
+    }
+  });
+}
+
+void VideoReceiveStream::DoneEncodedOutput() {
+  decode_queue_.PostTask([this] {
+    encoded_output_balance_--;
+    RTC_DCHECK_GE(encoded_output_balance_, 0);
+    if (encoded_output_balance_ == 0) {
+      encoded_frames_.clear();
+    }
+    if (frame_smoothing_inhibitor_) {
+      frame_smoothing_inhibitor_->SetSmoothingEnabled(
+          encoded_output_balance_ == 0);
+    }
+  });
+}
+
+int VideoReceiveStream::GetEncodedOutputBalance() {
+  rtc::Event event;
+  int encoded_output_balance = 0;
+  decode_queue_.PostTask([this, &event, &encoded_output_balance] {
+    encoded_output_balance = encoded_output_balance_;
+    event.Set();
+  });
+  event.Wait(rtc::Event::kForever);
+  return encoded_output_balance;
+}
+
+void VideoReceiveStream::SetEncodedOutputBalance(int balance) {
+  decode_queue_.PostTask([this, balance] {
+    encoded_output_balance_ = balance;
+    if (encoded_output_balance_ == 0) {
+      encoded_frames_.clear();
+    }
+    if (frame_smoothing_inhibitor_) {
+      frame_smoothing_inhibitor_->SetSmoothingEnabled(
+          encoded_output_balance_ == 0);
+    }
+  });
 }
 
 }  // namespace internal

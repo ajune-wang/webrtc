@@ -178,7 +178,18 @@ struct RTC_EXPORT EchoCanceller3Config {
       int hold_duration = 50;
       int trigger_threshold = 12;
       bool use_during_initial_phase = true;
+      bool use_power_based = false;
     } dominant_nearend_detection;
+
+    struct PowerBasedNearendDetection {
+      size_t nearend_average_blocks = 1;
+      size_t band_range_region1[2] = {1, 1};
+      size_t band_range_region2[2] = {1, 1};
+      float nearend_threshold = 1.f;
+      float snr_threshold = 1.f;
+    } power_based_nearend_detection;
+
+    bool use_power_based_nearend_detection = false;
 
     struct HighBandsSuppression {
       float enr_threshold = 1.f;

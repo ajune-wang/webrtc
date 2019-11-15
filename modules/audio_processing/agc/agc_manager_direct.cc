@@ -202,6 +202,8 @@ AgcManagerDirect::AgcManagerDirect(GainControl* gctrl,
       startup_min_level_(ClampLevel(startup_min_level, min_mic_level_)),
       clipped_level_min_(clipped_level_min) {
   instance_counter_++;
+  RTC_DLOG(LS_INFO) << "[agc] AgcManagerDirect::AgcManagerDirect: "
+                    << instance_counter_;
   if (use_agc2_level_estimation) {
     agc_ = std::make_unique<AdaptiveModeLevelEstimatorAgc>(data_dumper_.get());
   } else {
@@ -209,10 +211,12 @@ AgcManagerDirect::AgcManagerDirect(GainControl* gctrl,
   }
 }
 
-AgcManagerDirect::~AgcManagerDirect() {}
+AgcManagerDirect::~AgcManagerDirect() {
+  RTC_DLOG(LS_INFO) << "[agc] AgcManagerDirect::~AgcManagerDirect";
+}
 
 int AgcManagerDirect::Initialize() {
-  RTC_DLOG(LS_INFO) << "AgcManagerDirect::Initialize";
+  RTC_DLOG(LS_INFO) << "[agc] AgcManagerDirect::Initialize";
   max_level_ = kMaxMicLevel;
   max_compression_gain_ = kMaxCompressionGain;
   target_compression_ = disable_digital_adaptive_ ? 0 : kDefaultCompressionGain;
@@ -310,6 +314,7 @@ void AgcManagerDirect::Process(const float* audio,
 }
 
 void AgcManagerDirect::SetLevel(int new_level) {
+  RTC_DLOG(LS_INFO) << "[agc] AgcManagerDirect::SetLevel: " << new_level;
   int voe_level = volume_callbacks_->GetMicVolume();
   if (voe_level == 0) {
     RTC_DLOG(LS_INFO)
@@ -352,6 +357,7 @@ void AgcManagerDirect::SetLevel(int new_level) {
 }
 
 void AgcManagerDirect::SetMaxLevel(int level) {
+  RTC_DLOG(LS_INFO) << "[agc] AgcManagerDirect::SetMaxLevel: " << level;
   RTC_DCHECK_GE(level, clipped_level_min_);
   max_level_ = level;
   // Scale the |kSurplusCompressionGain| linearly across the restricted
@@ -366,6 +372,7 @@ void AgcManagerDirect::SetMaxLevel(int level) {
 }
 
 void AgcManagerDirect::SetCaptureMuted(bool muted) {
+  RTC_DLOG(LS_INFO) << "[agc] AgcManagerDirect::SetCaptureMuted: " << muted;
   if (capture_muted_ == muted) {
     return;
   }
@@ -382,6 +389,7 @@ float AgcManagerDirect::voice_probability() {
 }
 
 int AgcManagerDirect::CheckVolumeAndReset() {
+  RTC_DLOG(LS_INFO) << "[agc] AgcManagerDirect::CheckVolumeAndReset()";
   int level = volume_callbacks_->GetMicVolume();
   // Reasons for taking action at startup:
   // 1) A person starting a call is expected to be heard.
@@ -419,6 +427,7 @@ int AgcManagerDirect::CheckVolumeAndReset() {
 // If the slider needs to be moved, we check first if the user has adjusted
 // it, in which case we take no action and cache the updated level.
 void AgcManagerDirect::UpdateGain() {
+  // RTC_DLOG(LS_INFO) << "[agc] AgcManagerDirect::UpdateGain";
   int rms_error = 0;
   if (!agc_->GetRmsErrorDb(&rms_error)) {
     // No error update ready.
@@ -472,6 +481,7 @@ void AgcManagerDirect::UpdateGain() {
 }
 
 void AgcManagerDirect::UpdateCompressor() {
+  RTC_DLOG(LS_INFO) << "[agc] AgcManagerDirect::UpdateCompressor()";
   calls_since_last_gain_log_++;
   if (calls_since_last_gain_log_ == 100) {
     calls_since_last_gain_log_ = 0;

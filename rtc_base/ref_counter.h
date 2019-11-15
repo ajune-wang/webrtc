@@ -10,7 +10,8 @@
 #ifndef RTC_BASE_REF_COUNTER_H_
 #define RTC_BASE_REF_COUNTER_H_
 
-#include "rtc_base/atomic_ops.h"
+#include <atomic>
+
 #include "rtc_base/ref_count.h"
 
 namespace webrtc {
@@ -21,7 +22,7 @@ class RefCounter {
   explicit RefCounter(int ref_count) : ref_count_(ref_count) {}
   RefCounter() = delete;
 
-  void IncRef() { rtc::AtomicOps::Increment(&ref_count_); }
+  void IncRef() { ref_count_.fetch_add(1, std::memory_order_relaxed); }
 
   // Returns kDroppedLastRef if this call dropped the last reference; the caller
   // should therefore free the resource protected by the reference counter.
@@ -29,7 +30,7 @@ class RefCounter {
   // some other caller may have dropped the last reference by the time this call
   // returns; all we know is that we didn't do it).
   rtc::RefCountReleaseStatus DecRef() {
-    return (rtc::AtomicOps::Decrement(&ref_count_) == 0)
+    return ref_count_.fetch_sub(1, std::memory_order_acq_rel) == 1
                ? rtc::RefCountReleaseStatus::kDroppedLastRef
                : rtc::RefCountReleaseStatus::kOtherRefsRemained;
   }
@@ -41,11 +42,11 @@ class RefCounter {
   // needed for the owning thread to act on the resource protected by the
   // reference counter, knowing that it has exclusive access.
   bool HasOneRef() const {
-    return rtc::AtomicOps::AcquireLoad(&ref_count_) == 1;
+    return ref_count_.load(std::memory_order_acquire) == 1;
   }
 
  private:
-  volatile int ref_count_;
+  std::atomic<int> ref_count_;
 };
 
 }  // namespace webrtc_impl

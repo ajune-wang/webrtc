@@ -319,7 +319,7 @@ class RTC_EXPORT MessageQueue {
   bool fDestroyed_;
 
  private:
-  volatile int stop_;
+  std::atomic<bool> stop_;
 
   // The SocketServer might not be owned by MessageQueue.
   SocketServer* const ss_;

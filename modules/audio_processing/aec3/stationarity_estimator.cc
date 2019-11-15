@@ -12,12 +12,12 @@
 
 #include <algorithm>
 #include <array>
+#include <atomic>
 
 #include "api/array_view.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/spectrum_buffer.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/atomic_ops.h"
 
 namespace webrtc {
 
@@ -26,11 +26,12 @@ constexpr float kMinNoisePower = 10.f;
 constexpr int kHangoverBlocks = kNumBlocksPerSecond / 20;
 constexpr int kNBlocksAverageInitPhase = 20;
 constexpr int kNBlocksInitialPhase = kNumBlocksPerSecond * 2.;
+ABSL_CONST_INIT std::atomic<int> instance_count(0);
 }  // namespace
 
 StationarityEstimator::StationarityEstimator()
-    : data_dumper_(
-          new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))) {
+    : data_dumper_(new ApmDataDumper(
+          instance_count.fetch_add(1, std::memory_order_relaxed))) {
   Reset();
 }
 

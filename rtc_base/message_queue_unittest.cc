@@ -12,7 +12,6 @@
 
 #include <functional>
 
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/event.h"
 #include "rtc_base/gunit.h"
@@ -131,7 +130,7 @@ TEST(MessageQueueManager, ProcessAllMessageQueues) {
   a->Start();
   b->Start();
 
-  volatile int messages_processed = 0;
+  std::atomic<int> messages_processed(0);
   FunctorMessageHandler<void, std::function<void()>> incrementer(
       [&messages_processed, &entered_process_all_message_queues] {
         // Wait for event as a means to ensure Increment doesn't occur outside
@@ -139,7 +138,7 @@ TEST(MessageQueueManager, ProcessAllMessageQueues) {
         // the main thread, which is guaranteed to be handled inside
         // ProcessAllMessageQueues.
         entered_process_all_message_queues.Wait(Event::kForever);
-        AtomicOps::Increment(&messages_processed);
+        messages_processed.fetch_add(1, std::memory_order_release);
       });
   FunctorMessageHandler<void, std::function<void()>> event_signaler(
       [&entered_process_all_message_queues] {
@@ -154,7 +153,7 @@ TEST(MessageQueueManager, ProcessAllMessageQueues) {
   rtc::Thread::Current()->Post(RTC_FROM_HERE, &event_signaler);
 
   MessageQueueManager::ProcessAllMessageQueuesForTesting();
-  EXPECT_EQ(4, AtomicOps::AcquireLoad(&messages_processed));
+  EXPECT_EQ(4, messages_processed.load(std::memory_order_acquire));
 }
 
 // Test that ProcessAllMessageQueues doesn't hang if a thread is quitting.

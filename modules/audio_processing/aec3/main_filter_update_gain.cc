@@ -11,6 +11,7 @@
 #include "modules/audio_processing/aec3/main_filter_update_gain.h"
 
 #include <algorithm>
+#include <atomic>
 #include <functional>
 
 #include "modules/audio_processing/aec3/adaptive_fir_filter.h"
@@ -20,7 +21,6 @@
 #include "modules/audio_processing/aec3/render_signal_analyzer.h"
 #include "modules/audio_processing/aec3/subtractor_output.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -28,16 +28,14 @@ namespace {
 
 constexpr float kHErrorInitial = 10000.f;
 constexpr int kPoorExcitationCounterInitial = 1000;
-
+ABSL_CONST_INIT std::atomic<int> instance_count(0);
 }  // namespace
-
-int MainFilterUpdateGain::instance_count_ = 0;
 
 MainFilterUpdateGain::MainFilterUpdateGain(
     const EchoCanceller3Config::Filter::MainConfiguration& config,
     size_t config_change_duration_blocks)
-    : data_dumper_(
-          new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
+    : data_dumper_(new ApmDataDumper(
+          instance_count.fetch_add(1, std::memory_order_relaxed))),
       config_change_duration_blocks_(
           static_cast<int>(config_change_duration_blocks)),
       poor_excitation_counter_(kPoorExcitationCounterInitial) {

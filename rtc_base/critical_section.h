@@ -11,6 +11,8 @@
 #ifndef RTC_BASE_CRITICAL_SECTION_H_
 #define RTC_BASE_CRITICAL_SECTION_H_
 
+#include <atomic>
+
 #include "rtc_base/checks.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/platform_thread_types.h"
@@ -66,7 +68,7 @@ class RTC_LOCKABLE RTC_EXPORT CriticalSection {
   // Number of times the lock has been locked + number of threads waiting.
   // TODO(tommi): We could use this number and subtract the recursion count
   // to find places where we have multiple threads contending on the same lock.
-  mutable volatile int lock_queue_;
+  mutable std::atomic<int> lock_queue_;
   // |recursion_| represents the recursion count + 1 for the thread that owns
   // the lock. Only modified by the thread that owns the lock.
   mutable int recursion_;
@@ -98,13 +100,13 @@ class RTC_SCOPED_LOCKABLE CritScope {
 // A lock used to protect global variables. Do NOT use for other purposes.
 class RTC_LOCKABLE GlobalLock {
  public:
-  constexpr GlobalLock() : lock_acquired_(0) {}
+  constexpr GlobalLock() : lock_acquired_(false) {}
 
   void Lock() RTC_EXCLUSIVE_LOCK_FUNCTION();
   void Unlock() RTC_UNLOCK_FUNCTION();
 
  private:
-  volatile int lock_acquired_;
+  std::atomic<bool> lock_acquired_;
 };
 
 // GlobalLockScope, for serializing execution through a scope.

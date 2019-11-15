@@ -152,7 +152,6 @@ class AudioProcessingImpl : public AudioProcessing {
   };
 
   std::unique_ptr<ApmDataDumper> data_dumper_;
-  static int instance_count_;
   const bool enforced_usage_of_legacy_ns_;
 
   SwapQueue<RuntimeSetting> capture_runtime_settings_;

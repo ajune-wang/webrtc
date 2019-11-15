@@ -9,11 +9,11 @@
  */
 #include "rtc_base/message_queue.h"
 
+#include <atomic>
 #include <string>
 #include <utility>
 
 #include "absl/algorithm/container.h"
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/thread.h"
@@ -107,19 +107,21 @@ void MessageQueueManager::ProcessAllMessageQueuesInternal() {
   // This works by posting a delayed message at the current time and waiting
   // for it to be dispatched on all queues, which will ensure that all messages
   // that came before it were also dispatched.
-  volatile int queues_not_done = 0;
+  std::atomic<int> queues_not_done(0);
 
   // This class is used so that whether the posted message is processed, or the
   // message queue is simply cleared, queues_not_done gets decremented.
   class ScopedIncrement : public MessageData {
    public:
-    ScopedIncrement(volatile int* value) : value_(value) {
-      AtomicOps::Increment(value_);
+    ScopedIncrement(std::atomic<int>* value) : value_(value) {
+      value_->fetch_add(1, std::memory_order_relaxed);
     }
-    ~ScopedIncrement() override { AtomicOps::Decrement(value_); }
+    ~ScopedIncrement() override {
+      value_->fetch_sub(1, std::memory_order_acq_rel);
+    }
 
    private:
-    volatile int* value_;
+    std::atomic<int>* value_;
   };
 
   {
@@ -140,7 +142,7 @@ void MessageQueueManager::ProcessAllMessageQueuesInternal() {
   // Note: One of the message queues may have been on this thread, which is
   // why we can't synchronously wait for queues_not_done to go to 0; we need
   // to process messages as well.
-  while (AtomicOps::AcquireLoad(&queues_not_done) > 0) {
+  while (queues_not_done.load(std::memory_order_acquire) > 0) {
     if (current) {
       current->ProcessMessages(0);
     }
@@ -154,7 +156,7 @@ MessageQueue::MessageQueue(SocketServer* ss, bool init_queue)
       dmsgq_next_num_(0),
       fInitialized_(false),
       fDestroyed_(false),
-      stop_(0),
+      stop_(false),
       ss_(ss) {
   RTC_DCHECK(ss);
   // Currently, MessageQueue holds a socket server, and is the base class for
@@ -213,12 +215,12 @@ void MessageQueue::WakeUpSocketServer() {
 }
 
 void MessageQueue::Quit() {
-  AtomicOps::ReleaseStore(&stop_, 1);
+  stop_.store(true, std::memory_order_release);
   WakeUpSocketServer();
 }
 
 bool MessageQueue::IsQuitting() {
-  return AtomicOps::AcquireLoad(&stop_) != 0;
+  return stop_.load(std::memory_order_acquire);
 }
 
 bool MessageQueue::IsProcessingMessagesForTesting() {
@@ -226,7 +228,7 @@ bool MessageQueue::IsProcessingMessagesForTesting() {
 }
 
 void MessageQueue::Restart() {
-  AtomicOps::ReleaseStore(&stop_, 0);
+  stop_.store(false, std::memory_order_release);
 }
 
 bool MessageQueue::Peek(Message* pmsg, int cmsWait) {

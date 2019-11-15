@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "331f197b_0915feff",
+        "filename": "media/base/video_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-11-15T15:03:03Z",
+      "side": 1,
+      "message": "source?",
+      "range": {
+        "startLine": 19,
+        "startChar": 26,
+        "endLine": 19,
+        "endChar": 30
+      },
+      "revId": "2292eafdfdaa328e6c9fd4147df21220ae851439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

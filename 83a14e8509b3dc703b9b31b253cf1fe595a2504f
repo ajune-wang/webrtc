@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6fea7832_f9080cfc",
+        "filename": "modules/audio_coding/acm2/acm_remixing.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-15T15:43:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "896022c4_aff2e564",
+      "range": {
+        "startLine": 24,
+        "startChar": 18,
+        "endLine": 24,
+        "endChar": 29
+      },
+      "revId": "83a14e8509b3dc703b9b31b253cf1fe595a2504f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3e45b64_c114e5a6",
         "filename": "modules/audio_coding/acm2/acm_remixing.cc",
         "patchSetId": 4
@@ -36,6 +60,24 @@
       "writtenOn": "2019-10-08T08:25:57Z",
       "side": 1,
       "message": "Hmm. The usual way this function works is by stretching or compressing input data; in order to avoid \"infinite\" stretching, where you end up creating something from nothing, you must do something like\n\n  if (num_output_channels \u003e 0) {\n    DCHECK_GT(input.num_channels_, 0);\n  }\n\nYou may additionally precede this with\n\n  if (input.samples_per_channel_ \u003e 0) {\n    DCHECK_GT(input.num_channels_, 0);\n    DCHECK_GT(num_output_channels, 0);\n  }\n\nbut this is just a normalization thing, which we may choose to enforce or not.",
+      "revId": "83a14e8509b3dc703b9b31b253cf1fe595a2504f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "049dafb7_2de872dc",
+        "filename": "modules/audio_coding/acm2/acm_remixing.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-15T15:43:37Z",
+      "side": 1,
+      "message": "From what I can see, that should be sufficiently enforced via the current DCHECKS and following resizing of the output.\n\nIs there a specific case you don\u0027t think is covered?",
+      "parentUuid": "c3e45b64_c114e5a6",
       "revId": "83a14e8509b3dc703b9b31b253cf1fe595a2504f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

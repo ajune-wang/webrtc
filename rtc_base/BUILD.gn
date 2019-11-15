@@ -131,7 +131,6 @@ rtc_library("rtc_base_approved") {
   }
 
   public_deps += [  # no-presubmit-check TODO(webrtc:8603)
-    ":atomicops",
     ":criticalsection",
     ":logging",
     ":macromagic",
@@ -176,7 +175,6 @@ rtc_source_set("refcount") {
     "ref_counter.h",
   ]
   deps = [
-    ":atomicops",
     ":macromagic",
   ]
 }
@@ -187,7 +185,6 @@ rtc_library("criticalsection") {
     "critical_section.h",
   ]
   deps = [
-    ":atomicops",
     ":checks",
     ":macromagic",
     ":platform_thread_types",
@@ -209,7 +206,6 @@ rtc_library("platform_thread") {
     "platform_thread.h",
   ]
   deps = [
-    ":atomicops",
     ":checks",
     ":macromagic",
     ":platform_thread_types",
@@ -299,12 +295,6 @@ rtc_source_set("thread_checker") {
   deps = [
     ":deprecation",
     "synchronization:sequence_checker",
-  ]
-}
-
-rtc_source_set("atomicops") {
-  sources = [
-    "atomic_ops.h",
   ]
 }
 
@@ -1159,7 +1149,6 @@ if (rtc_include_tests) {
   rtc_library("rtc_base_approved_unittests") {
     testonly = true
     sources = [
-      "atomic_ops_unittest.cc",
       "base64_unittest.cc",
       "bind_unittest.cc",
       "bit_buffer_unittest.cc",

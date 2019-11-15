@@ -23,13 +23,14 @@
 #include "modules/audio_processing/aec3/echo_path_delay_estimator.h"
 #include "modules/audio_processing/aec3/render_delay_controller_metrics.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructor_magic.h"
 
 namespace webrtc {
 
 namespace {
+
+std::atomic<int> instance_count;
 
 class RenderDelayControllerImpl final : public RenderDelayController {
  public:
@@ -45,7 +46,6 @@ class RenderDelayControllerImpl final : public RenderDelayController {
   bool HasClockdrift() const override;
 
  private:
-  static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
   const int hysteresis_limit_blocks_;
   const int delay_headroom_samples_;
@@ -85,13 +85,11 @@ DelayEstimate ComputeBufferDelay(
   return new_delay;
 }
 
-int RenderDelayControllerImpl::instance_count_ = 0;
-
 RenderDelayControllerImpl::RenderDelayControllerImpl(
     const EchoCanceller3Config& config,
     int sample_rate_hz)
-    : data_dumper_(
-          new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
+    : data_dumper_(new ApmDataDumper(
+          instance_count.fetch_add(1, std::memory_order_release))),
       hysteresis_limit_blocks_(
           static_cast<int>(config.delay.hysteresis_limit_blocks)),
       delay_headroom_samples_(config.delay.delay_headroom_samples),

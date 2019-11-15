@@ -24,7 +24,6 @@
 #include "call/rtp_transport_controller_send_interface.h"
 #include "call/video_send_stream.h"
 #include "modules/pacing/paced_sender.h"
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/experiments/alr_experiment.h"
 #include "rtc_base/experiments/field_trial_parser.h"

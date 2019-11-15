@@ -120,7 +120,6 @@ class FilterAnalyzer {
     ConsistentFilterDetector consistent_filter_detector;
   };
 
-  static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
   const bool bounded_erl_;
   const float default_gain_;

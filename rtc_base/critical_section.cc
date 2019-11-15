@@ -12,7 +12,8 @@
 
 #include <time.h>
 
-#include "rtc_base/atomic_ops.h"
+#include <atomic>
+
 #include "rtc_base/checks.h"
 #include "rtc_base/platform_thread_types.h"
 #include "rtc_base/system/unused.h"
@@ -32,7 +33,7 @@ CriticalSection::CriticalSection() {
   InitializeCriticalSection(&crit_);
 #elif defined(WEBRTC_POSIX)
 #if defined(WEBRTC_MAC) && !RTC_USE_NATIVE_MUTEX_ON_MAC
-  lock_queue_ = 0;
+  lock_queue_.store(0);
   owning_thread_ = 0;
   recursion_ = 0;
   semaphore_ = dispatch_semaphore_create(0);
@@ -78,27 +79,29 @@ void CriticalSection::Enter() const RTC_EXCLUSIVE_LOCK_FUNCTION() {
   int spin = 3000;
   PlatformThreadRef self = CurrentThreadRef();
   bool have_lock = false;
-  do {
-    // Instead of calling TryEnter() in this loop, we do two interlocked
-    // operations, first a read-only one in order to avoid affecting the lock
-    // cache-line while spinning, in case another thread is using the lock.
-    if (!IsThreadRefEqual(owning_thread_, self)) {
-      if (AtomicOps::AcquireLoad(&lock_queue_) == 0) {
-        if (AtomicOps::CompareAndSwap(&lock_queue_, 0, 1) == 0) {
+  if (IsThreadRefEqual(owning_thread_, self)) {
+    lock_queue_.fetch_add(1);
+    have_lock = true;
+  } else {
+    do {
+      // Instead of calling TryEnter() in this loop, we do two interlocked
+      // operations, first a read-only one in order to avoid affecting the lock
+      // cache-line while spinning, in case another thread is using the lock.
+      if (lock_queue.load(std::memory_order_acquire) == 0) {
+        bool expected = 0;
+        if (lock_queue_.compare_exchange_weak(0, /*desired=*/1,
+                                              std::memory_order_acquire,
+                                              std::memory_order_relaxed)) {
           have_lock = true;
           break;
         }
       }
-    } else {
-      AtomicOps::Increment(&lock_queue_);
-      have_lock = true;
-      break;
-    }
 
-    sched_yield();
-  } while (--spin);
+      sched_yield();
+    } while (--spin);
+  }
 
-  if (!have_lock && AtomicOps::Increment(&lock_queue_) > 1) {
+  if (!have_lock && lock_queue_.fetch_add(1) > 0) {
     // Owning thread cannot be the current thread since TryEnter() would
     // have succeeded.
     RTC_DCHECK(!IsThreadRefEqual(owning_thread_, self));
@@ -134,14 +137,17 @@ bool CriticalSection::TryEnter() const RTC_EXCLUSIVE_TRYLOCK_FUNCTION(true) {
   return TryEnterCriticalSection(&crit_) != FALSE;
 #elif defined(WEBRTC_POSIX)
 #if defined(WEBRTC_MAC) && !RTC_USE_NATIVE_MUTEX_ON_MAC
-  if (!IsThreadRefEqual(owning_thread_, CurrentThreadRef())) {
-    if (AtomicOps::CompareAndSwap(&lock_queue_, 0, 1) != 0)
+  if (IsThreadRefEqual(owning_thread_, CurrentThreadRef())) {
+    lock_queue_.fetch_add(std::memory_order_relaxed);
+  } else {
+    int expected = 0;
+    if (!lock_queue_.compare_exchange_strong(expected, 1,
+                                             std::memory_order_acquire,
+                                             std::memory_order_relaxed)) {
       return false;
     owning_thread_ = CurrentThreadRef();
     RTC_DCHECK(!recursion_);
-  } else {
-    AtomicOps::Increment(&lock_queue_);
-  }
+    }
   ++recursion_;
 #else
   if (pthread_mutex_trylock(&mutex_) != 0)
@@ -180,7 +186,7 @@ void CriticalSection::Leave() const RTC_UNLOCK_FUNCTION() {
   if (!recursion_)
     owning_thread_ = 0;
 
-  if (AtomicOps::Decrement(&lock_queue_) > 0 && !recursion_)
+  if (lock_queue_.fetch_sub(1) > 1 && recursion_ == 0) {
     dispatch_semaphore_signal(semaphore_);
 #else
   pthread_mutex_unlock(&mutex_);
@@ -222,7 +228,15 @@ void GlobalLock::Lock() {
   const struct timespec ts_null = {0};
 #endif
 
-  while (AtomicOps::CompareAndSwap(&lock_acquired_, 0, 1)) {
+  while (true) {
+    bool expected = false;
+    if (lock_acquired_.compare_exchange_weak(
+            expected, /*desired=*/true,
+            /*success=*/std::memory_order_acquire,
+            /*failure=*/std::memory_order_relaxed)) {
+      // Lock acquired.
+      return;
+    }
 #if defined(WEBRTC_WIN)
     ::Sleep(0);
 #elif defined(WEBRTC_MAC) && !RTC_USE_NATIVE_MUTEX_ON_MAC
@@ -234,8 +248,8 @@ void GlobalLock::Lock() {
 }
 
 void GlobalLock::Unlock() {
-  int old_value = AtomicOps::CompareAndSwap(&lock_acquired_, 1, 0);
-  RTC_DCHECK_EQ(1, old_value) << "Unlock called without calling Lock first";
+  bool unlocked = lock_acquired_.exchange(false, std::memory_order_release);
+  RTC_DCHECK(unlocked) << "Unlock called without calling Lock first";
 }
 
 GlobalLockScope::GlobalLockScope(GlobalLock* lock) : lock_(lock) {

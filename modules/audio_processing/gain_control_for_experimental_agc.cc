@@ -10,19 +10,21 @@
 
 #include "modules/audio_processing/gain_control_for_experimental_agc.h"
 
+#include <atomic>
+
 #include "modules/audio_processing/include/audio_processing.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/critical_section.h"
 
 namespace webrtc {
-
-int GainControlForExperimentalAgc::instance_counter_ = 0;
+namespace {
+ABSL_CONST_INIT std::atomic<int> instance_counter(0);
+}
 
 GainControlForExperimentalAgc::GainControlForExperimentalAgc(
     GainControl* gain_control)
-    : data_dumper_(
-          new ApmDataDumper(rtc::AtomicOps::Increment(&instance_counter_))),
+    : data_dumper_(new ApmDataDumper(
+          instance_counter.fetch_add(1, std::memory_order_relaxed))),
       real_gain_control_(gain_control),
       volume_(0) {}
 

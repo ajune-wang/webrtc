@@ -28,7 +28,6 @@
 #include "api/video_codecs/video_encoder_software_fallback_wrapper.h"
 #include "modules/video_coding/include/video_error_codes.h"
 #include "modules/video_coding/utility/simulcast_rate_allocator.h"
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/experiments/rate_control_settings.h"
 #include "rtc_base/logging.h"
@@ -142,7 +141,7 @@ SimulcastEncoderAdapter::SimulcastEncoderAdapter(
     VideoEncoderFactory* primary_factory,
     VideoEncoderFactory* fallback_factory,
     const SdpVideoFormat& format)
-    : inited_(0),
+    : inited_(false),
       primary_encoder_factory_(primary_factory),
       fallback_encoder_factory_(fallback_factory),
       video_format_(format),
@@ -188,7 +187,7 @@ int SimulcastEncoderAdapter::Release() {
   // It's legal to move the encoder to another queue now.
   encoder_queue_.Detach();
 
-  rtc::AtomicOps::ReleaseStore(&inited_, 0);
+  inited_.store(true, std::memory_order_release);
 
   return WEBRTC_VIDEO_CODEC_OK;
 }
@@ -388,7 +387,7 @@ int SimulcastEncoderAdapter::InitEncode(
   // To save memory, don't store encoders that we don't use.
   DestroyStoredEncoders();
 
-  rtc::AtomicOps::ReleaseStore(&inited_, 1);
+  inited_.store(true, std::memory_order_release);
 
   return WEBRTC_VIDEO_CODEC_OK;
 }
@@ -648,7 +647,7 @@ void SimulcastEncoderAdapter::PopulateStreamCodec(
 }
 
 bool SimulcastEncoderAdapter::Initialized() const {
-  return rtc::AtomicOps::AcquireLoad(&inited_) == 1;
+  return inited_.load(std::memory_order_acquire);
 }
 
 void SimulcastEncoderAdapter::DestroyStoredEncoders() {

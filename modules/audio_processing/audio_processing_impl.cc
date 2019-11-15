@@ -11,6 +11,7 @@
 #include "modules/audio_processing/audio_processing_impl.h"
 
 #include <algorithm>
+#include <atomic>
 #include <cstdint>
 #include <memory>
 #include <string>
@@ -26,7 +27,6 @@
 #include "modules/audio_processing/common.h"
 #include "modules/audio_processing/include/audio_frame_view.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/logging.h"
@@ -50,6 +50,8 @@ constexpr int AudioProcessing::kNativeSampleRatesHz[];
 constexpr int kRuntimeSettingQueueSize = 100;
 
 namespace {
+
+ABSL_CONST_INIT std::atomic<int> instance_count(0);
 
 static bool LayoutHasKeyboard(AudioProcessing::ChannelLayout layout) {
   switch (layout) {
@@ -300,8 +302,6 @@ AudioProcessingImpl::AudioProcessingImpl(const webrtc::Config& config)
                           /*echo_detector=*/nullptr,
                           /*capture_analyzer=*/nullptr) {}
 
-int AudioProcessingImpl::instance_count_ = 0;
-
 AudioProcessingImpl::AudioProcessingImpl(
     const webrtc::Config& config,
     std::unique_ptr<CustomProcessing> capture_post_processor,
@@ -309,8 +309,8 @@ AudioProcessingImpl::AudioProcessingImpl(
     std::unique_ptr<EchoControlFactory> echo_control_factory,
     rtc::scoped_refptr<EchoDetector> echo_detector,
     std::unique_ptr<CustomAudioAnalyzer> capture_analyzer)
-    : data_dumper_(
-          new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
+    : data_dumper_(new ApmDataDumper(
+          instance_count.fetch_add(1, std::memory_order_relaxed))),
       enforced_usage_of_legacy_ns_(DetectLegacyNsEnforcement()),
       capture_runtime_settings_(kRuntimeSettingQueueSize),
       render_runtime_settings_(kRuntimeSettingQueueSize),

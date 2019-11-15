@@ -69,7 +69,6 @@ class GainControlForExperimentalAgc : public GainControl,
   GainControl* real_gain_control_;
   int volume_;
   mutable bool do_log_level_ = true;
-  static int instance_counter_;
 };
 
 }  // namespace webrtc

@@ -10,21 +10,23 @@
 
 #include "modules/audio_processing/gain_controller2.h"
 
+#include <atomic>
+
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/audio_buffer.h"
 #include "modules/audio_processing/include/audio_frame_view.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
-
-int GainController2::instance_count_ = 0;
+namespace {
+ABSL_CONST_INIT std::atomic<int> instance_count(0);
+}
 
 GainController2::GainController2()
-    : data_dumper_(
-          new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
+    : data_dumper_(new ApmDataDumper(
+          instance_count.fetch_add(1, std::memory_order_relaxed))),
       gain_applier_(/*hard_clip_samples=*/false,
                     /*initial_gain_factor=*/0.f),
       adaptive_agc_(new AdaptiveAgc(data_dumper_.get())),

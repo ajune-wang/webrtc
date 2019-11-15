@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "8837af93_57b0b5c8",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-15T12:58:54Z",
+      "side": 1,
+      "message": "Just a final naming suggestion. I don\u0027t feel too strongly about it, so if there are any objections just ignore it.\n\nMaybe we could name it EncodedVideoFrameBuffer? Then VideoFrame would have:\n\n  void set_video_frame_buffer(...)\n  void set_encoded_video_frame_buffer(...)\n  rtc::scoped_refptr\u003cwebrtc::VideoFrameBuffer\u003e video_frame_buffer()\n  rtc::scoped_refptr\u003cwebrtc::EncodedVideoFrameBuffer\u003e encoded_video_frame_buffer()\n\nAnd just like the VideoFrameBuffer that has some meta information (buffer Type, width, height) the EncodedVideoFrameBuffer would also have meta information (codec type, color space, is keyframe).",
+      "parentUuid": "7d636ca5_b5e114ad",
+      "range": {
+        "startLine": 86,
+        "startChar": 39,
+        "endLine": 86,
+        "endChar": 58
+      },
+      "revId": "9e3636efb12d2ad131e009900ef41c61a7d2dd6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9273080b_d2ae3667",
         "filename": "api/video/video_frame.h",
         "patchSetId": 8

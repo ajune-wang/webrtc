@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f29e180e_d50889a1",
+        "filename": "api/video/video_frame.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-15T12:58:54Z",
+      "side": 1,
+      "message": "Will this not cause an unnecessary increment/decrement of the ref counter?",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 1
+      },
+      "revId": "f82974aa71d4a7ef687c8a91e7c986ec8ac65741",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af48eb06_f53b0f7b",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-15T12:58:54Z",
+      "side": 1,
+      "message": "I thought color space was required for correct rendering, shouldn\u0027t it be part of the VideoFrame regardless of whether we have access to the bitstream data or not?",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 62
+      },
+      "revId": "f82974aa71d4a7ef687c8a91e7c986ec8ac65741",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

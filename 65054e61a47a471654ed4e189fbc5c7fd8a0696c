@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3d56a0f_5f88a40d",
+        "filename": "api/test/create_time_controller.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-15T10:38:00Z",
+      "side": 1,
+      "message": "I feel like comment just repeating what is written in the code... WDYT?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 67
+      },
+      "revId": "65054e61a47a471654ed4e189fbc5c7fd8a0696c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f744e13d_c7e20eba",
+        "filename": "api/test/time_controller.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-15T10:38:00Z",
+      "side": 1,
+      "message": "Maybe ScheduleAlarmAt?\n\nAlso will it make sense to return was deadline updated or not? I\u0027m just asking.",
+      "range": {
+        "startLine": 61,
+        "startChar": 15,
+        "endLine": 61,
+        "endChar": 25
+      },
+      "revId": "65054e61a47a471654ed4e189fbc5c7fd8a0696c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba05c0b5_25e93d3f",
+        "filename": "test/time_controller/external_time_controller.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-15T10:38:00Z",
+      "side": 1,
+      "message": "I think it will make sense to add comments for wrappers explaining why they are required and what kind of extra functionality they give.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 16
+      },
+      "revId": "65054e61a47a471654ed4e189fbc5c7fd8a0696c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fea63c4_6bc16c9e",
+        "filename": "test/time_controller/external_time_controller.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-15T10:38:00Z",
+      "side": 1,
+      "message": "Can you explain here what does it mean?",
+      "range": {
+        "startLine": 28,
+        "startChar": 45,
+        "endLine": 28,
+        "endChar": 70
+      },
+      "revId": "65054e61a47a471654ed4e189fbc5c7fd8a0696c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b281ae8_7d293801",
+        "filename": "test/time_controller/external_time_controller.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-15T10:38:00Z",
+      "side": 1,
+      "message": "Can you comment why we need to keep this field. Because now it can looks like we are only writing into it and never reading.",
+      "range": {
+        "startLine": 59,
+        "startChar": 27,
+        "endLine": 59,
+        "endChar": 40
+      },
+      "revId": "65054e61a47a471654ed4e189fbc5c7fd8a0696c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

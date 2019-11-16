@@ -76,6 +76,11 @@ class FakeVideoRenderer : public rtc::VideoSinkInterface<webrtc::VideoFrame> {
     return packet_infos_;
   }
 
+  rtc::scoped_refptr<webrtc::VideoFrame::EncodedVideoFrameBuffer>
+  encoded_frame() const {
+    return encoded_frame_;
+  }
+
   bool WaitForRenderedFrame(int64_t timeout_ms);
 
  private:
@@ -144,6 +149,8 @@ class FakeVideoRenderer : public rtc::VideoSinkInterface<webrtc::VideoFrame> {
   rtc::Event frame_rendered_event_;
   absl::optional<webrtc::ColorSpace> color_space_;
   webrtc::RtpPacketInfos packet_infos_;
+  rtc::scoped_refptr<webrtc::VideoFrame::EncodedVideoFrameBuffer>
+      encoded_frame_;
 };
 
 }  // namespace cricket

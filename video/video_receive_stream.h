@@ -11,6 +11,7 @@
 #ifndef VIDEO_VIDEO_RECEIVE_STREAM_H_
 #define VIDEO_VIDEO_RECEIVE_STREAM_H_
 
+#include <deque>
 #include <memory>
 #include <vector>
 
@@ -26,6 +27,7 @@
 #include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/task_queue.h"
 #include "system_wrappers/include/clock.h"
+#include "video/frame_smoothing_inhibitor.h"
 #include "video/receive_statistics_proxy.h"
 #include "video/rtp_streams_synchronizer.h"
 #include "video/rtp_video_stream_receiver.h"
@@ -134,6 +136,11 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
 
   std::vector<webrtc::RtpSource> GetSources() const override;
 
+  void EnableEncodedOutput() override;
+  void DoneEncodedOutput() override;
+  int GetEncodedOutputBalance() override;
+  void SetEncodedOutputBalance(int balance) override;
+
  private:
   int64_t GetWaitMs() const;
   void StartNextDecode() RTC_RUN_ON(decode_queue_);
@@ -145,6 +152,7 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   void RequestKeyFrame(int64_t timestamp_ms);
 
   void UpdateHistograms();
+  bool ReceivingKeyframe(int64_t now_ms) const;
 
   SequenceChecker worker_sequence_checker_;
   SequenceChecker module_process_sequence_checker_;
@@ -175,6 +183,7 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   RtpVideoStreamReceiver rtp_video_stream_receiver_;
   std::unique_ptr<VideoStreamDecoder> video_stream_decoder_;
   RtpStreamsSynchronizer rtp_stream_sync_;
+  std::deque<std::unique_ptr<video_coding::EncodedFrame>> encoded_frames_;
 
   // TODO(nisse, philipel): Creation and ownership of video encoders should be
   // moved to the new VideoStreamDecoder.
@@ -186,6 +195,7 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   std::unique_ptr<RtpStreamReceiverInterface> media_receiver_;
   std::unique_ptr<RtxReceiveStream> rtx_receive_stream_;
   std::unique_ptr<RtpStreamReceiverInterface> rtx_receiver_;
+  absl::optional<FrameSmoothingInhibitor> frame_smoothing_inhibitor_;
 
   // Whenever we are in an undecodable state (stream has just started or due to
   // a decoding error) we require a keyframe to restart the stream.
@@ -200,6 +210,13 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   // Keyframe request intervals are configurable through field trials.
   const int max_wait_for_keyframe_ms_;
   const int max_wait_for_frame_ms_;
+
+  // Number of calls to EnableEncodedOutput - number of calls to
+  // DoneEncodedOutput. Valid on decode_queue.
+  int encoded_output_balance_ = 0;
+
+  // Set to true when encoded output has been requested.
+  bool keyframe_requested_due_to_encoded_output_ = false;
 
   rtc::CriticalSection playout_delay_lock_;
 

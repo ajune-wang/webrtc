@@ -279,6 +279,21 @@ class VideoReceiveStream {
   virtual void SetFrameDecryptor(
       rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor) = 0;
 
+  // Enables encoded output in webrtc::VideoFrame, and send a keyframe request
+  virtual void EnableEncodedOutput() = 0;
+
+  // Called when encoded output is no longer needed. Only call after
+  // EnableEncodedOutput has been called.
+  virtual void DoneEncodedOutput() = 0;
+
+  // Return a memento of EnableEncodedOutput minus DoneEncodedOutput calls.
+  // Useful for receive stream re-creation.
+  virtual int GetEncodedOutputBalance() = 0;
+
+  // Set EnableEncodedOutput minus DoneEncodedOutput calls.
+  // Useful for receive stream re-creation.
+  virtual void SetEncodedOutputBalance(int balance) = 0;
+
  protected:
   virtual ~VideoReceiveStream() {}
 };

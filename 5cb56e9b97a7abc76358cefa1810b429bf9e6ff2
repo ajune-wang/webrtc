@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "53b9908d_3663c5ce",
+        "filename": "tools_webrtc/perf/webrtc_dashboard_upload.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-11-18T10:29:28Z",
+      "side": 1,
+      "message": "Fixed. It turns out I was actually double-dumps/dumping, so I keep everything as JSON now until I\u0027m just about to write it.",
+      "parentUuid": "9431058e_58b4f202",
+      "range": {
+        "startLine": 50,
+        "startChar": 31,
+        "endLine": 50,
+        "endChar": 48
+      },
+      "revId": "5cb56e9b97a7abc76358cefa1810b429bf9e6ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99f2181f_e264e24a",
         "filename": "tools_webrtc/perf/webrtc_dashboard_upload.py",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "5cb56e9b97a7abc76358cefa1810b429bf9e6ff2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35ded4de_c6a2f0e0",
+        "filename": "tools_webrtc/perf/webrtc_dashboard_upload.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-11-18T10:29:28Z",
+      "side": 1,
+      "message": "Different names from what? You mean the old buildbot terminology like master and slave?\n\nSure, I\u0027ll try to clarify that, or (preferably) get rid of the buildbot terminology from downstream code. The recipe actually says perf_bot_group and not master already.",
+      "parentUuid": "99f2181f_e264e24a",
+      "range": {
+        "startLine": 86,
+        "startChar": 1,
+        "endLine": 86,
+        "endChar": 36
+      },
+      "revId": "5cb56e9b97a7abc76358cefa1810b429bf9e6ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6cdc833b_5b6b5dda",
+        "filename": "tools_webrtc/perf/webrtc_dashboard_upload.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-11-18T10:29:28Z",
+      "side": 1,
+      "message": "You mean logging.debug(diagnostics) etc? I think I will be able to look at the output json in the recipe so I think it\u0027s fine.",
+      "parentUuid": "a2eb7de0_afe56fab",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 8
+      },
+      "revId": "5cb56e9b97a7abc76358cefa1810b429bf9e6ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70419ae3_1bf7d93d",
         "filename": "tools_webrtc/perf/webrtc_dashboard_upload.py",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "5cb56e9b97a7abc76358cefa1810b429bf9e6ff2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26723de5_08fee261",
+        "filename": "tools_webrtc/perf/webrtc_dashboard_upload.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2019-11-18T10:29:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70419ae3_1bf7d93d",
+      "range": {
+        "startLine": 107,
+        "startChar": 6,
+        "endLine": 107,
+        "endChar": 44
+      },
+      "revId": "5cb56e9b97a7abc76358cefa1810b429bf9e6ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

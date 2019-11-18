@@ -378,12 +378,12 @@ deps = {
   'src/third_party/android_sdk/public': {
       'packages': [
           {
-              'package': 'chromium/third_party/android_sdk/public/build-tools',
-              'version': '5DL7LQQjVMLClXLzLgmGysccPGsGcjJdvH9z5-uetiIC',
+              'package': 'chromium/third_party/android_sdk/public/build-tools/29.0.2',
+              'version': 'n-b1Qd7iFb8qzHlr1C_jIeu070UDgO_BwePtH42UqGcC',
           },
           {
               'package': 'chromium/third_party/android_sdk/public/emulator',
-              'version': 'xhyuoquVvBTcJelgRjMKZeoBVSQRjB7pLVJPt5C9saIC',
+              'version': 'f4WdgkPvDdVCE8zBWPzcSIj4N9WFhKp3CSKDWylXuLEC',
           },
           {
               'package': 'chromium/third_party/android_sdk/public/extras',
@@ -395,15 +395,15 @@ deps = {
           },
           {
               'package': 'chromium/third_party/android_sdk/public/platform-tools',
-              'version': 'MSnxgXN7IurL-MQs1RrTkSFSb8Xd1UtZjLArI8Ty1FgC',
+              'version': 'n5NRtk1IRM87UHkSNPKGfMf6VL_BfjEOBXhD9uqynhIC',
           },
           {
-              'package': 'chromium/third_party/android_sdk/public/platforms',
-              'version': 'Kg2t9p0YnQk8bldUv4VA3o156uPXLUfIFAmVZ-Gm5ewC',
+              'package': 'chromium/third_party/android_sdk/public/platforms/android-29',
+              'version': 'yb33klKQV9UzzB-lDSsq36vzhTXOUZ2aRONBvPGwvdcC',
           },
           {
-              'package': 'chromium/third_party/android_sdk/public/sources',
-              'version': 'K9uEn3JvNELEVjjVK_GQD3ZQD3rqAnJSxCWxjmUmRkgC',
+              'package': 'chromium/third_party/android_sdk/public/sources/android-29',
+              'version': '4gxhM8E62bvZpQs7Q3d0DinQaW0RLCIefhXrQBFkNy8C',
           },
           {
               'package': 'chromium/third_party/android_sdk/public/tools',

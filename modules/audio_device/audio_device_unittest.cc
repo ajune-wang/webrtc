@@ -23,6 +23,7 @@
 #include "api/task_queue/task_queue_factory.h"
 #include "modules/audio_device/audio_device_impl.h"
 #include "modules/audio_device/include/mock_audio_transport.h"
+#include "rtc_base/arraysize.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/event.h"
@@ -808,6 +809,60 @@ TEST_P(MAYBE_AudioDeviceTest, StartStopRecording) {
   StopRecording();
 }
 
+// Tests Start/Stop playout for all available input devices to ensure that
+// the selected device can be created and used as intended.
+TEST_P(MAYBE_AudioDeviceTest, StartStopPlayoutWithRealDevice) {
+  SKIP_TEST_IF_NOT(requirements_satisfied());
+  int num_devices = audio_device()->PlayoutDevices();
+  if (NewWindowsAudioDeviceModuleIsUsed()) {
+    num_devices += 2;
+  }
+  EXPECT_GT(num_devices, 0);
+  // Verify that all available playout devices can be set and used.
+  for (int i = 0; i < num_devices; ++i) {
+    EXPECT_EQ(0, audio_device()->SetPlayoutDevice(i));
+    StartPlayout();
+    StopPlayout();
+  }
+#ifdef WEBRTC_WIN
+  AudioDeviceModule::WindowsDeviceType device_role[] = {
+      AudioDeviceModule::kDefaultDevice,
+      AudioDeviceModule::kDefaultCommunicationDevice};
+  for (size_t i = 0; i < arraysize(device_role); ++i) {
+    EXPECT_EQ(0, audio_device()->SetPlayoutDevice(device_role[i]));
+    StartPlayout();
+    StopPlayout();
+  }
+#endif
+}
+
+// Tests Start/Stop recording for all available input devices to ensure that
+// the selected device can be created and used as intended.
+TEST_P(MAYBE_AudioDeviceTest, StartStopRecordingWithRealDevice) {
+  SKIP_TEST_IF_NOT(requirements_satisfied());
+  int num_devices = audio_device()->RecordingDevices();
+  if (NewWindowsAudioDeviceModuleIsUsed()) {
+    num_devices += 2;
+  }
+  EXPECT_GT(num_devices, 0);
+  // Verify that all available recording devices can be set and used.
+  for (int i = 0; i < num_devices; ++i) {
+    EXPECT_EQ(0, audio_device()->SetRecordingDevice(i));
+    StartRecording();
+    StopRecording();
+  }
+#ifdef WEBRTC_WIN
+  AudioDeviceModule::WindowsDeviceType device_role[] = {
+      AudioDeviceModule::kDefaultDevice,
+      AudioDeviceModule::kDefaultCommunicationDevice};
+  for (size_t i = 0; i < arraysize(device_role); ++i) {
+    EXPECT_EQ(0, audio_device()->SetRecordingDevice(device_role[i]));
+    StartRecording();
+    StopRecording();
+  }
+#endif
+}
+
 // Tests Init/Stop/Init recording without any registered audio callback.
 // See https://bugs.chromium.org/p/webrtc/issues/detail?id=8041 for details
 // on why this test is useful.
@@ -1115,7 +1170,7 @@ TEST_P(MAYBE_AudioDeviceTest, RunPlayoutAndRecordingInFullDuplex) {
 // to ensure that the audio quality is good and that real device switches works
 // as intended.
 TEST_P(MAYBE_AudioDeviceTest,
-       DISABLED_RunPlayoutAndRecordingInFullDuplexAndWaitForEnterKey) {
+       RunPlayoutAndRecordingInFullDuplexAndWaitForEnterKey) {
   SKIP_TEST_IF_NOT(requirements_satisfied());
   if (audio_layer() != AudioDeviceModule::kWindowsCoreAudio2) {
     return;
@@ -1183,8 +1238,9 @@ TEST_P(MAYBE_AudioDeviceTest, DISABLED_MeasureLoopbackLatency) {
 INSTANTIATE_TEST_SUITE_P(
     AudioLayerWin,
     MAYBE_AudioDeviceTest,
-    ::testing::Values(AudioDeviceModule::kPlatformDefaultAudio,
-                      AudioDeviceModule::kWindowsCoreAudio2));
+    ::testing::Values(AudioDeviceModule::kWindowsCoreAudio2));
+// ::testing::Values(AudioDeviceModule::kPlatformDefaultAudio,
+//                   AudioDeviceModule::kWindowsCoreAudio2));
 #else
 // For all platforms but Windows, only test the default audio layer.
 INSTANTIATE_TEST_SUITE_P(

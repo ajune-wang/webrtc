@@ -24,6 +24,7 @@
 #include "absl/types/optional.h"
 #include "api/audio_options.h"
 #include "api/scoped_refptr.h"
+#include "api/video/video_encoded_sink_interface.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_sink_interface.h"
 #include "api/video/video_source_interface.h"
@@ -134,6 +135,24 @@ class VideoTrackSourceInterface : public MediaSourceInterface,
   //
   // Implementation should avoid blocking.
   virtual bool GetStats(Stats* stats) = 0;
+
+  // Returns true if encoded output can be enabled in the source.
+  // TODO(handellm): make pure virtual once downstream project adapts.
+  virtual bool SupportsEncodedOutput() const { return false; }
+
+  // Reliably cause a keyframe to be generated in encoded output.
+  // TODO(handellm): make pure virtual once downstream project adapts.
+  virtual void GenerateKeyFrame() {}
+
+  // Add an encoded video sink to the source and additionally cause
+  // a keyframe to be generated from the source. The sink will be
+  // invoked from a decoder queue.
+  // TODO(handellm): make pure virtual once downstream project adapts.
+  virtual void AddEncodedSink(VideoEncodedSinkInterface* sink) {}
+
+  // Removes an encoded video sink from the source.
+  // TODO(handellm): make pure virtual once downstream project adapts.
+  virtual void RemoveEncodedSink(VideoEncodedSinkInterface* sink) {}
 
  protected:
   ~VideoTrackSourceInterface() override = default;

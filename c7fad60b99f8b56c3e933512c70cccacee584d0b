@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea3fceef_534c186c",
+        "filename": "api/audio/echo_canceller3_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-18T06:22:12Z",
+      "side": 1,
+      "message": "What about using std::array instead;",
+      "range": {
+        "startLine": 185,
+        "startChar": 6,
+        "endLine": 185,
+        "endChar": 34
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4ba77cd_b9fdc1b3",
+        "filename": "api/audio/echo_canceller3_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-18T06:22:12Z",
+      "side": 1,
+      "message": "Please add code for parsing and printing these parameters.",
+      "range": {
+        "startLine": 183,
+        "startChar": 4,
+        "endLine": 191,
+        "endChar": 51
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2792f9f8_1cae2dea",
+        "filename": "modules/audio_processing/aec3/dominant_nearend_detector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-18T06:22:12Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this add an override keyword?",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 56
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ef874e3_7210694c",
+        "filename": "modules/audio_processing/aec3/dominant_nearend_detector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-18T06:22:12Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this add an override keyword?",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 34
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87bcf9d5_e6c0ca93",
+        "filename": "modules/audio_processing/aec3/power_based_nearend_detector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-18T06:22:12Z",
+      "side": 1,
+      "message": "Since there are dependencies between the regions for which this may crash, please also add code in the config Validate method to enforce/check for this.",
+      "range": {
+        "startLine": 24,
+        "startChar": 41,
+        "endLine": 24,
+        "endChar": 71
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7332258_dc97b154",
+        "filename": "modules/audio_processing/aec3/power_based_nearend_detector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-18T06:22:12Z",
+      "side": 1,
+      "message": "Afaics, there is nothing explicitly preventing this division to be with zero (apart from that the noise power is computed based on the comfort noise estimate which is clamped to not be zero).\n\nPlease instead change this to\nnearend_power_reg1  \u003e config_.snr_threshold *noise_power",
+      "range": {
+        "startLine": 69,
+        "startChar": 10,
+        "endLine": 69,
+        "endChar": 66
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f3f6154_e13e5437",
+        "filename": "modules/audio_processing/aec3/power_based_nearend_detector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-18T06:22:12Z",
+      "side": 1,
+      "message": "I\u0027m not totally convinced this is the best naming of the class. The other dominant nearend detector is also power based, so explicitly naming this one power based is a bit confusing. Is there any other name that would fit?",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86314644_770e0e85",
+        "filename": "modules/audio_processing/aec3/power_based_nearend_detector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-18T06:22:12Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this add an override keyword?",
+      "range": {
+        "startLine": 31,
+        "startChar": 1,
+        "endLine": 31,
+        "endChar": 56
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "153e9448_8cf0b470",
+        "filename": "modules/audio_processing/aec3/power_based_nearend_detector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-18T06:22:12Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this add an override keyword?",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

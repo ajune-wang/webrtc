@@ -33,6 +33,9 @@ enum StunMessageType {
   STUN_BINDING_INDICATION = 0x0011,
   STUN_BINDING_RESPONSE = 0x0101,
   STUN_BINDING_ERROR_RESPONSE = 0x0111,
+
+  STUN_PING_REQUEST = 0x081,
+  STUN_PING_RESPONSE = 0x181,
 };
 
 // These are all known STUN attributes, defined in RFC 5389 and elsewhere.
@@ -173,6 +176,9 @@ class StunMessage {
   // Remove the last occurrence of an attribute.
   std::unique_ptr<StunAttribute> RemoveAttribute(int type);
 
+  // Remote all attributes and releases them.
+  void ClearAttributes();
+
   // Validates that a raw STUN message has a correct MESSAGE-INTEGRITY value.
   // This can't currently be done on a StunMessage, since it is affected by
   // padding data (which we discard when reading a StunMessage).
@@ -204,9 +210,16 @@ class StunMessage {
   // This is used for testing.
   void SetStunMagicCookie(uint32_t val);
 
+  // Check if the attributes of this StunMessage equals those of |other|
+  // for all attributes that |attribute_type_mask| return true
+  bool EqualAttributes(const StunMessage* other,
+                       std::function<bool(int type)> attribute_type_mask) const;
+
  protected:
   // Verifies that the given attribute is allowed for this message.
   virtual StunAttributeValueType GetAttributeValueType(int type) const;
+
+  std::vector<std::unique_ptr<StunAttribute>> attrs_;
 
  private:
   StunAttribute* CreateAttribute(int type, size_t length) /* const*/;
@@ -217,7 +230,6 @@ class StunMessage {
   uint16_t length_;
   std::string transaction_id_;
   uint32_t reduced_transaction_id_;
-  std::vector<std::unique_ptr<StunAttribute>> attrs_;
   uint32_t stun_magic_cookie_;
 };
 
@@ -625,6 +637,12 @@ extern const char STUN_ERROR_REASON_ROLE_CONFLICT[];
 
 // A RFC 5245 ICE STUN message.
 class IceMessage : public StunMessage {
+ public:
+  // Contruct a copy of |this|.
+  // This methods is not put into a copy constructor
+  // so that it can (potentially) be overridable.
+  std::unique_ptr<IceMessage> Clone() const;
+
  protected:
   StunAttributeValueType GetAttributeValueType(int type) const override;
   StunMessage* CreateNew() const override;

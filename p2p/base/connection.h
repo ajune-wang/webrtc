@@ -11,6 +11,7 @@
 #ifndef P2P_BASE_CONNECTION_H_
 #define P2P_BASE_CONNECTION_H_
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -330,6 +331,10 @@ class Connection : public CandidatePairInterface,
 
   void OnMessage(rtc::Message* pmsg) override;
 
+  // Check (and cache) if this StunMessage is identical
+  // to last message passed into this call.
+  bool IsStunBindingUnchanged(IceMessage* message);
+
   uint32_t id_;
   Port* port_;
   size_t local_candidate_index_;
@@ -404,6 +409,10 @@ class Connection : public CandidatePairInterface,
 
   absl::optional<webrtc::IceCandidatePairDescription> log_description_;
   webrtc::IceEventLog* ice_event_log_ = nullptr;
+
+  // Last sent stun binding, used to check if we can send the smaller
+  // STUN_PING_REQUEST instead.
+  std::unique_ptr<IceMessage> cached_stun_binding_;
 
   friend class Port;
   friend class ConnectionRequest;

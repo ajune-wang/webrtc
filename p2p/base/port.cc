@@ -409,7 +409,8 @@ void Port::OnReadPacket(const char* data,
     // pruned a connection for this port while it had STUN requests in flight,
     // because we then get back responses for them, which this code correctly
     // does not handle.
-    if (msg->type() != STUN_BINDING_RESPONSE) {
+    if (msg->type() != STUN_BINDING_RESPONSE ||
+        msg->type() != STUN_PING_RESPONSE) {
       RTC_LOG(LS_ERROR) << ToString()
                         << ": Received unexpected STUN message type: "
                         << msg->type() << " from unknown address: "
@@ -445,6 +446,7 @@ bool Port::GetStunMessage(const char* data,
   // Don't bother parsing the packet if we can tell it's not STUN.
   // In ICE mode, all STUN packets will have a valid fingerprint.
   if (!StunMessage::ValidateFingerprint(data, size)) {
+    RTC_LOG(LS_INFO) << "no fingerprint";
     return false;
   }
 
@@ -453,6 +455,7 @@ bool Port::GetStunMessage(const char* data,
   std::unique_ptr<IceMessage> stun_msg(new IceMessage());
   rtc::ByteBufferReader buf(data, size);
   if (!stun_msg->Read(&buf) || (buf.Length() > 0)) {
+    RTC_LOG(LS_INFO) << "no read";
     return false;
   }
 
@@ -520,6 +523,18 @@ bool Port::GetStunMessage(const char* data,
                         << addr.ToSensitiveString();
     out_username->clear();
     // No stun attributes will be verified, if it's stun indication message.
+    // Returning from end of the this method.
+  } else if (stun_msg->type() == STUN_PING_REQUEST) {
+    RTC_LOG(LS_VERBOSE) << ToString() << ": Received STUN ping request: from "
+                        << addr.ToSensitiveString();
+    out_username->clear();
+    // No stun attributes will be verified, if it's stun ping request.
+    // Returning from end of the this method.
+  } else if (stun_msg->type() == STUN_PING_RESPONSE) {
+    RTC_LOG(LS_VERBOSE) << ToString() << ": Received STUN ping response: from "
+                        << addr.ToSensitiveString();
+    out_username->clear();
+    // No stun attributes will be verified, if it's stun ping request.
     // Returning from end of the this method.
   } else {
     RTC_LOG(LS_ERROR) << ToString()
@@ -682,14 +697,14 @@ void Port::SendBindingResponse(StunMessage* request,
       request->GetUInt32(STUN_ATTR_RETRANSMIT_COUNT);
   if (retransmit_attr) {
     // Inherit the incoming retransmit value in the response so the other side
-    // can see our view of lost pings.
+    // can see our view of lost bindings.
     response.AddAttribute(std::make_unique<StunUInt32Attribute>(
         STUN_ATTR_RETRANSMIT_COUNT, retransmit_attr->value()));
 
     if (retransmit_attr->value() > CONNECTION_WRITE_CONNECT_FAILURES) {
       RTC_LOG(LS_INFO)
           << ToString()
-          << ": Received a remote ping with high retransmit count: "
+          << ": Received a remote binding with high retransmit count: "
           << retransmit_attr->value();
     }
   }
@@ -697,6 +712,45 @@ void Port::SendBindingResponse(StunMessage* request,
   response.AddAttribute(std::make_unique<StunXorAddressAttribute>(
       STUN_ATTR_XOR_MAPPED_ADDRESS, addr));
   response.AddMessageIntegrity(password_);
+  response.AddFingerprint();
+
+  // Send the response message.
+  rtc::ByteBufferWriter buf;
+  response.Write(&buf);
+  rtc::PacketOptions options(StunDscpValue());
+  options.info_signaled_after_sent.packet_type =
+      rtc::PacketType::kIceConnectivityCheckResponse;
+  auto err = SendTo(buf.Data(), buf.Length(), addr, options, false);
+  if (err < 0) {
+    RTC_LOG(LS_ERROR) << ToString()
+                      << ": Failed to send STUN binding response, to="
+                      << addr.ToSensitiveString() << ", err=" << err
+                      << ", id=" << rtc::hex_encode(response.transaction_id());
+  } else {
+    // Log at LS_INFO if we send a stun binding response on an unwritable
+    // connection.
+    Connection* conn = GetConnection(addr);
+    rtc::LoggingSeverity sev =
+        (conn && !conn->writable()) ? rtc::LS_INFO : rtc::LS_VERBOSE;
+    RTC_LOG_V(sev) << ToString() << ": Sent STUN binding response, to="
+                   << addr.ToSensitiveString()
+                   << ", id=" << rtc::hex_encode(response.transaction_id());
+
+    conn->stats_.sent_ping_responses++;
+    conn->LogCandidatePairEvent(
+        webrtc::IceCandidatePairEventType::kCheckResponseSent,
+        request->reduced_transaction_id());
+  }
+}
+
+void Port::SendPingResponse(StunMessage* request,
+                            const rtc::SocketAddress& addr) {
+  RTC_DCHECK(request->type() == STUN_PING_REQUEST);
+
+  // Fill in the response message.
+  StunMessage response;
+  response.SetType(STUN_PING_RESPONSE);
+  response.SetTransactionID(request->transaction_id());
   response.AddFingerprint();
 
   // Send the response message.

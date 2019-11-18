@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f925c9ad_b1561740",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 10209
+      },
+      "writtenOn": "2019-11-18T14:12:38Z",
+      "side": 1,
+      "message": "Here is the design question. RtpSource is needed for stats representation on Chromium level (for getContributingSources javascript method).\nMaybe instead of exposing header extension data structure we should expose method for each value (timestamp and offset). Because we will have to make conversion to milliseconds anyway.\n\nFor e.g. look here:\nhttps://chromium-review.googlesource.com/c/chromium/src/+/1881164/4/third_party/blink/renderer/platform/peerconnection/rtc_rtp_source.cc",
+      "range": {
+        "startLine": 67,
+        "startChar": 17,
+        "endLine": 67,
+        "endChar": 36
+      },
+      "revId": "a38babd7a656e0ce5609939dbf160543d24e34cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

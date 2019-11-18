@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbc73fc6_eb6133a4",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-18T12:21:42Z",
+      "side": 1,
+      "message": "nit: The name \"PacketSize\" is a bit misleading, I think you can avoid the problem of naming by just inlining this functionality.",
+      "range": {
+        "startLine": 257,
+        "startChar": 27,
+        "endLine": 257,
+        "endChar": 37
+      },
+      "revId": "5c773d28418a83e5f62af97b6cfbfcf1015f9393",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

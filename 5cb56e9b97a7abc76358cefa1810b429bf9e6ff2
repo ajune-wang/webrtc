@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "74968000_97fe91db",
+        "filename": "tools_webrtc/perf/webrtc_dashboard_upload.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-18T11:03:20Z",
+      "side": 1,
+      "message": "I mean not buildbot terminology, but histogram set terminology. It requires:\nreserved_infos.MASTERS,\nreserved_infos.BOTS,\nreserved_infos.BENCHMARKS,\nso it will be good to see how these flags will be mapped to that. Also it\u0027s not clear what, for example, name means other params too.",
+      "parentUuid": "35ded4de_c6a2f0e0",
+      "range": {
+        "startLine": 86,
+        "startChar": 1,
+        "endLine": 86,
+        "endChar": 36
+      },
+      "revId": "5cb56e9b97a7abc76358cefa1810b429bf9e6ff2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2eb7de0_afe56fab",
         "filename": "tools_webrtc/perf/webrtc_dashboard_upload.py",
         "patchSetId": 3

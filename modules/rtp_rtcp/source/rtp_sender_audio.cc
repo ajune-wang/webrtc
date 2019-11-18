@@ -90,10 +90,7 @@ bool RTPSenderAudio::MarkerBit(AudioFrameType frame_type, int8_t payload_type) {
   // for audio true for first packet in a speech burst
   bool marker_bit = false;
   if (last_payload_type_ != payload_type) {
-    if (payload_type != -1 && (cngnb_payload_type_ == payload_type ||
-                               cngwb_payload_type_ == payload_type ||
-                               cngswb_payload_type_ == payload_type ||
-                               cngfb_payload_type_ == payload_type)) {
+    if (IsPayloadTypeCng(payload_type)) {
       // Only set a marker bit when we change payload type to a non CNG
       return false;
     }
@@ -240,6 +237,15 @@ bool RTPSenderAudio::SendAudio(AudioFrameType frame_type,
   packet->SetExtension<AudioLevel>(
       frame_type == AudioFrameType::kAudioFrameSpeech, audio_level_dbov);
 
+  if (frame_type == AudioFrameType::kAudioFrameCN &&
+      !IsPayloadTypeCng(payload_type)) {
+    // Add audio inband comfort noise extension, if the audio frame is comfort
+    // noise but payload type is not CNG.
+    // TODO(minyue): get rid of AudioLevel which is redundant in this scenario.
+    packet->SetExtension<InbandComfortNoiseExtension>(
+        absl::make_optional(audio_level_dbov));
+  }
+
   uint8_t* payload = packet->AllocatePayload(payload_size);
   if (!payload)  // Too large payload buffer.
     return false;
@@ -348,4 +354,13 @@ bool RTPSenderAudio::SendTelephoneEventPacket(bool ended,
 
   return result;
 }
+
+bool RTPSenderAudio::IsPayloadTypeCng(int8_t payload_type) const {
+  rtc::CritScope cs(&send_audio_critsect_);
+  return (payload_type != -1 && (cngnb_payload_type_ == payload_type ||
+                                 cngwb_payload_type_ == payload_type ||
+                                 cngswb_payload_type_ == payload_type ||
+                                 cngfb_payload_type_ == payload_type));
+}
+
 }  // namespace webrtc

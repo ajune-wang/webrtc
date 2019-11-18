@@ -63,6 +63,8 @@ class RTPSenderAudio {
   bool MarkerBit(AudioFrameType frame_type, int8_t payload_type);
 
  private:
+  bool IsPayloadTypeCng(int8_t payload_type) const;
+
   Clock* const clock_ = nullptr;
   RTPSender* const rtp_sender_ = nullptr;
 

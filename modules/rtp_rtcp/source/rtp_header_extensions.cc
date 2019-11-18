@@ -855,6 +855,7 @@ constexpr const char RepairedRtpStreamId::kUri[];
 constexpr RTPExtensionType RtpMid::kId;
 constexpr const char RtpMid::kUri[];
 
+
 // An RTP Header Extension for Inband Comfort Noise
 //
 // The form of the audio level extension block:
@@ -880,8 +881,7 @@ constexpr const char InbandComfortNoiseExtension::kUri[];
 bool InbandComfortNoiseExtension::Parse(rtc::ArrayView<const uint8_t> data,
                                         value_type* level) {
   // One-byte and two-byte format share the same data definition.
-  if (data.size() != kValueSizeBytes)
-    return false;
+  if (data.size() != kValueSizeBytes) return false;
   *level = (data[0] & 0x80) != 0 ? absl::nullopt
                                  : absl::make_optional(data[0] & 0x7F);
   return true;

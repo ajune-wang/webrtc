@@ -306,9 +306,11 @@ class InbandComfortNoiseExtension {
   static constexpr const char kUri[] =
       "http://www.webrtc.org/experiments/rtp-hdrext/inband-cn";
 
-  static bool Parse(rtc::ArrayView<const uint8_t> data, value_type* level);
+  static bool Parse(rtc::ArrayView<const uint8_t> data,
+                   value_type* level);
   static size_t ValueSize(const value_type& level) { return kValueSizeBytes; }
-  static bool Write(rtc::ArrayView<uint8_t> data, const value_type& level);
+  static bool Write(rtc::ArrayView<uint8_t> data,
+                   const value_type& level);
 };
 
 }  // namespace webrtc

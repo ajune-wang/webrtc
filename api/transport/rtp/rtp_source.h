@@ -14,6 +14,7 @@
 #include <stdint.h>
 
 #include "absl/types/optional.h"
+#include "api/rtp_headers.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -31,11 +32,13 @@ class RtpSource {
             uint32_t source_id,
             RtpSourceType source_type,
             absl::optional<uint8_t> audio_level,
+            absl::optional<AbsoluteCaptureTime> absolute_capture_time_,
             uint32_t rtp_timestamp)
       : timestamp_ms_(timestamp_ms),
         source_id_(source_id),
         source_type_(source_type),
         audio_level_(audio_level),
+        absolute_capture_time_(absolute_capture_time_),
         rtp_timestamp_(rtp_timestamp) {}
 
   RtpSource(const RtpSource&) = default;
@@ -61,9 +64,14 @@ class RtpSource {
 
   uint32_t rtp_timestamp() const { return rtp_timestamp_; }
 
+  absl::optional<AbsoluteCaptureTime> absolute_capture_time() const {
+    return absolute_capture_time_;
+  }
+
   bool operator==(const RtpSource& o) const {
     return timestamp_ms_ == o.timestamp_ms() && source_id_ == o.source_id() &&
            source_type_ == o.source_type() && audio_level_ == o.audio_level_ &&
+           absolute_capture_time_ == o.absolute_capture_time_ &&
            rtp_timestamp_ == o.rtp_timestamp();
   }
 
@@ -72,6 +80,7 @@ class RtpSource {
   uint32_t source_id_;
   RtpSourceType source_type_;
   absl::optional<uint8_t> audio_level_;
+  absl::optional<AbsoluteCaptureTime> absolute_capture_time_;
   uint32_t rtp_timestamp_;
 };
 

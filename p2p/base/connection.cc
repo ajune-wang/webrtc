@@ -142,7 +142,7 @@ constexpr int64_t kMinExtraPingDelayMs = 100;
 
 namespace cricket {
 
-// A ConnectionRequest is a simple STUN ping used to determine writability.
+// A ConnectionRequest is a STUN binding used to determine writability.
 ConnectionRequest::ConnectionRequest(Connection* connection)
     : StunRequest(new IceMessage()), connection_(connection) {}
 
@@ -215,8 +215,14 @@ void ConnectionRequest::Prepare(StunMessage* request) {
   request->AddAttribute(std::make_unique<StunUInt32Attribute>(
       STUN_ATTR_PRIORITY, prflx_priority));
 
-  // Adding Message Integrity attribute.
-  request->AddMessageIntegrity(connection_->remote_candidate().password());
+  if (connection_->IsStunBindingUnchanged(
+          reinterpret_cast<IceMessage*>(request))) {
+    request->SetType(STUN_PING_REQUEST);
+    request->ClearAttributes();
+  } else {
+    // Adding Message Integrity attribute.
+    request->AddMessageIntegrity(connection_->remote_candidate().password());
+  }
   // Adding Fingerprint.
   request->AddFingerprint();
 }
@@ -467,7 +473,15 @@ void Connection::OnReadPacket(const char* data,
       case STUN_BINDING_INDICATION:
         ReceivedPing(msg->transaction_id());
         break;
-
+      case STUN_PING_REQUEST:
+        HandleBindingRequest(msg.get());
+        break;
+      case STUN_PING_RESPONSE:
+        requests_.CheckResponse(msg.get());
+        break;
+      case STUN_PING_ERROR_RESPONSE:
+        requests_.CheckResponse(msg.get());
+        break;
       default:
         RTC_NOTREACHED();
         break;
@@ -503,12 +517,14 @@ void Connection::HandleBindingRequest(IceMessage* msg) {
   }
 
   const rtc::SocketAddress& remote_addr = remote_candidate_.address();
-  const std::string& remote_ufrag = remote_candidate_.username();
-  // Check for role conflicts.
-  if (!port_->MaybeIceRoleConflict(remote_addr, msg, remote_ufrag)) {
-    // Received conflicting role from the peer.
-    RTC_LOG(LS_INFO) << "Received conflicting role from the peer.";
-    return;
+  if (msg->type() == STUN_BINDING_REQUEST) {
+    // Check for role conflicts.
+    const std::string& remote_ufrag = remote_candidate_.username();
+    if (!port_->MaybeIceRoleConflict(remote_addr, msg, remote_ufrag)) {
+      // Received conflicting role from the peer.
+      RTC_LOG(LS_INFO) << "Received conflicting role from the peer.";
+      return;
+    }
   }
 
   stats_.recv_ping_requests++;
@@ -516,7 +532,11 @@ void Connection::HandleBindingRequest(IceMessage* msg) {
                         msg->reduced_transaction_id());
 
   // This is a validated stun request from remote peer.
-  port_->SendBindingResponse(msg, remote_addr);
+  if (msg->type() == STUN_BINDING_REQUEST) {
+    port_->SendBindingResponse(msg, remote_addr);
+  } else {
+    port_->SendPingResponse(msg, remote_addr);
+  }
 
   // If it timed out on writing check, start up again
   if (!pruned_ && write_state_ == STATE_WRITE_TIMEOUT) {
@@ -700,7 +720,8 @@ void Connection::ReceivedPing(const absl::optional<std::string>& request_id) {
 }
 
 void Connection::HandlePiggybackCheckAcknowledgementIfAny(StunMessage* msg) {
-  RTC_DCHECK(msg->type() == STUN_BINDING_REQUEST);
+  RTC_DCHECK(msg->type() == STUN_BINDING_REQUEST ||
+             msg->type() == STUN_PING_REQUEST);
   const StunByteStringAttribute* last_ice_check_received_attr =
       msg->GetByteString(STUN_ATTR_LAST_ICE_CHECK_RECEIVED);
   if (last_ice_check_received_attr) {
@@ -893,8 +914,11 @@ void Connection::OnConnectionRequestResponse(ConnectionRequest* request,
   if (RTC_LOG_CHECK_LEVEL_V(sev)) {
     std::string pings;
     PrintPingsSinceLastResponse(&pings, 5);
-    RTC_LOG_V(sev) << ToString() << ": Received STUN ping response, id="
-                   << rtc::hex_encode(request->id())
+    RTC_LOG_V(sev) << ToString() << ": Received STUN "
+                   << (request->msg()->type() == STUN_BINDING_REQUEST
+                           ? "BINDING"
+                           : "PING")
+                   << " response, id=" << rtc::hex_encode(request->id())
                    << ", code=0"  // Makes logging easier to parse.
                       ", rtt="
                    << rtt << ", pings_since_last_response=" << pings;
@@ -914,7 +938,12 @@ void Connection::OnConnectionRequestResponse(ConnectionRequest* request,
       webrtc::IceCandidatePairEventType::kCheckResponseReceived,
       response->reduced_transaction_id());
 
-  MaybeUpdateLocalCandidate(request, response);
+  if (request->msg()->type() == STUN_BINDING_REQUEST) {
+    MaybeUpdateLocalCandidate(request, response);
+  }
+
+  cached_stun_binding_ =
+      reinterpret_cast<const IceMessage*>(request->msg())->Clone();
 }
 
 void Connection::OnConnectionRequestErrorResponse(ConnectionRequest* request,
@@ -933,6 +962,10 @@ void Connection::OnConnectionRequestErrorResponse(ConnectionRequest* request,
     // Race failure, retry
   } else if (error_code == STUN_ERROR_ROLE_CONFLICT) {
     HandleRoleConflictFromPeer();
+  } else if (request->msg()->type() == STUN_PING_REQUEST) {
+    // Race, retry.
+    cached_stun_binding_.reset();
+    abort();
   } else {
     // This is not a valid connection.
     RTC_LOG(LS_ERROR) << ToString()
@@ -953,8 +986,10 @@ void Connection::OnConnectionRequestTimeout(ConnectionRequest* request) {
 void Connection::OnConnectionRequestSent(ConnectionRequest* request) {
   // Log at LS_INFO if we send a ping on an unwritable connection.
   rtc::LoggingSeverity sev = !writable() ? rtc::LS_INFO : rtc::LS_VERBOSE;
-  RTC_LOG_V(sev) << ToString()
-                 << ": Sent STUN ping, id=" << rtc::hex_encode(request->id())
+  RTC_LOG_V(sev) << ToString() << ": Sent STUN "
+                 << (request->msg()->type() == STUN_BINDING_REQUEST ? "BINDING"
+                                                                    : "PING")
+                 << ", id=" << rtc::hex_encode(request->id())
                  << ", use_candidate=" << use_candidate_attr()
                  << ", nomination=" << nomination();
   stats_.sent_ping_requests_total++;
@@ -1129,6 +1164,17 @@ bool Connection::TooManyOutstandingPings(
     return false;
   }
   return true;
+}
+
+bool Connection::IsStunBindingUnchanged(IceMessage* message) {
+  if (cached_stun_binding_ &&
+      cached_stun_binding_->EqualAttributes(message, [](int type) {
+        // Compare all attributes except STUN_ATTR_RETRANSMIT_COUNT
+        return type != STUN_ATTR_RETRANSMIT_COUNT;
+      })) {
+    return true;
+  }
+  return false;
 }
 
 ProxyConnection::ProxyConnection(Port* port,

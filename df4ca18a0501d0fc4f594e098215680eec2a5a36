@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "bbdf70fa_6a6eb00d",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-18T17:06:39Z",
+      "side": 1,
+      "message": "Hmm. You never verify that an interruption _is_ logged for sufficiently long runs of lost packets. So this test would still pass if the interruption_count metric was stuck at 0...",
+      "revId": "df4ca18a0501d0fc4f594e098215680eec2a5a36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "21f9f143_95cc6583",
         "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
         "patchSetId": 1

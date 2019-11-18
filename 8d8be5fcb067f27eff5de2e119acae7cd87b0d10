@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94195e2a_c5f8dfd8",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-18T16:13:54Z",
+      "side": 1,
+      "message": "I think it is better to bundle them to something like \"struct Extensions\", otherwise we may need to change the signature again when adding more stuff.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 71
+      },
+      "revId": "8d8be5fcb067f27eff5de2e119acae7cd87b0d10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

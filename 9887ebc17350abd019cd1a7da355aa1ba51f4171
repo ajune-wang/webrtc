@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6b936f7a_455ac5bf",
+        "filename": "rtc_base/critical_section.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-18T09:50:28Z",
+      "side": 1,
+      "message": "added few relaxed comments.\n\nand after exploring api a bit more, found other (simpler) ways to implement spin lock.\n(also tried std::atomic_flag, but that one I didn\u0027t found how to initialize as member (patchset#2))\n\nSo I\u0027m not longer sure what is appropriate way to replace AtomicOps here. Will leave this CL as is for now until get more confidence this works, or until there is more activity on the \"removing atomicops\" bug.",
+      "parentUuid": "ff4e7436_5fc7777f",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 225,
+        "endChar": 79
+      },
+      "revId": "9887ebc17350abd019cd1a7da355aa1ba51f4171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c810a05_ed23ac5d",
         "filename": "rtc_base/critical_section.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "9887ebc17350abd019cd1a7da355aa1ba51f4171",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c27a41ca_d6ef5bcf",
+        "filename": "rtc_base/critical_section.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-18T09:50:28Z",
+      "side": 1,
+      "message": "Can you explain why yield is good? is it relevant to the atomic migration?\n\n(though moving the struct from above to below is unrelated too... prefer me to undon that?)",
+      "parentUuid": "9c810a05_ed23ac5d",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 6
+      },
+      "revId": "9887ebc17350abd019cd1a7da355aa1ba51f4171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "23c74ed2_066690b5",
+        "filename": "rtc_base/critical_section.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-18T09:50:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "83d2c1be_4d3cd4a3",
+      "range": {
+        "startLine": 242,
+        "startChar": 50,
+        "endLine": 242,
+        "endChar": 75
+      },
+      "revId": "9887ebc17350abd019cd1a7da355aa1ba51f4171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ffd6202b_64d7e169",
         "filename": "rtc_base/critical_section.h",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "9887ebc17350abd019cd1a7da355aa1ba51f4171",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cda83956_4f419a39",
+        "filename": "rtc_base/critical_section.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-18T09:50:28Z",
+      "side": 1,
+      "message": "(unrelated to this CL):\nglobal objects need lock with static storage duration to protect them.\nobjects with static storage duration has to have constant initialization and trivial destructor.\nhttps://google.github.io/styleguide/cppguide.html#Static_and_Global_Variables\n\nrtc::CriticalSection doesn\u0027t obey those restrictions.",
+      "parentUuid": "ffd6202b_64d7e169",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 31
+      },
+      "revId": "9887ebc17350abd019cd1a7da355aa1ba51f4171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

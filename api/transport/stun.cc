@@ -132,6 +132,14 @@ std::unique_ptr<StunAttribute> StunMessage::RemoveAttribute(int type) {
   return attribute;
 }
 
+void StunMessage::ClearAttributes() {
+  for (auto it = attrs_.rbegin(); it != attrs_.rend(); ++it) {
+    (*it)->SetOwner(nullptr);
+  }
+  attrs_.clear();
+  length_ = 0;
+}
+
 const StunAddressAttribute* StunMessage::GetAddress(int type) const {
   switch (type) {
     case STUN_ATTR_MAPPED_ADDRESS: {
@@ -496,6 +504,43 @@ const StunAttribute* StunMessage::GetAttribute(int type) const {
 bool StunMessage::IsValidTransactionId(const std::string& transaction_id) {
   return transaction_id.size() == kStunTransactionIdLength ||
          transaction_id.size() == kStunLegacyTransactionIdLength;
+}
+
+bool StunMessage::EqualAttributes(
+    const StunMessage* other,
+    std::function<bool(int type)> attribute_type_mask) const {
+  rtc::ByteBufferWriter tmp_buffer_ptr1;
+  rtc::ByteBufferWriter tmp_buffer_ptr2;
+  for (const auto& attr : attrs_) {
+    if (attribute_type_mask(attr->type())) {
+      const StunAttribute* other_attr = other->GetAttribute(attr->type());
+      if (other_attr == nullptr) {
+        return false;
+      }
+      tmp_buffer_ptr1.Clear();
+      tmp_buffer_ptr2.Clear();
+      attr->Write(&tmp_buffer_ptr1);
+      other_attr->Write(&tmp_buffer_ptr2);
+      if (tmp_buffer_ptr1.Length() != tmp_buffer_ptr2.Length()) {
+        return false;
+      }
+      if (memcmp(tmp_buffer_ptr1.Data(), tmp_buffer_ptr2.Data(),
+                 tmp_buffer_ptr1.Length()) != 0) {
+        return false;
+      }
+    }
+  }
+
+  for (const auto& attr : other->attrs_) {
+    if (attribute_type_mask(attr->type())) {
+      const StunAttribute* own_attr = GetAttribute(attr->type());
+      if (own_attr == nullptr) {
+        return false;
+      }
+      // we have already compared all values...
+    }
+  }
+  return true;
 }
 
 // StunAttribute
@@ -1130,6 +1175,16 @@ StunAttributeValueType IceMessage::GetAttributeValueType(int type) const {
 
 StunMessage* IceMessage::CreateNew() const {
   return new IceMessage();
+}
+
+std::unique_ptr<IceMessage> IceMessage::Clone() const {
+  rtc::ByteBufferWriter tmp_buffer_ptr;
+  auto copy = std::make_unique<IceMessage>();
+  copy->SetType(type());
+  for (const auto& attr : attrs_) {
+    copy->AddAttribute(CopyStunAttribute(*attr, &tmp_buffer_ptr));
+  }
+  return copy;
 }
 
 }  // namespace cricket

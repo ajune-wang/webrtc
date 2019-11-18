@@ -159,6 +159,9 @@ struct RTPHeaderExtension {
   std::string mid;
 
   absl::optional<ColorSpace> color_space;
+
+  // Inband comfort noise extension, which has an optional field of noise level.
+  absl::optional<absl::optional<uint8_t>> inband_comfort_noise;
 };
 
 enum { kRtpCsrcSize = 15 };  // RFC 3550 page 13

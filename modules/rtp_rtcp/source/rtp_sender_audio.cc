@@ -358,9 +358,9 @@ bool RTPSenderAudio::SendTelephoneEventPacket(bool ended,
 bool RTPSenderAudio::IsPayloadTypeCng(int8_t payload_type) const {
   rtc::CritScope cs(&send_audio_critsect_);
   return (payload_type != -1 && (cngnb_payload_type_ == payload_type ||
-                                 cngwb_payload_type_ == payload_type ||
-                                 cngswb_payload_type_ == payload_type ||
-                                 cngfb_payload_type_ == payload_type));
+                               cngwb_payload_type_ == payload_type ||
+                               cngswb_payload_type_ == payload_type ||
+                               cngfb_payload_type_ == payload_type));
 }
 
 }  // namespace webrtc

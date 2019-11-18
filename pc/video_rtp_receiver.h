@@ -116,6 +116,8 @@ class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal>,
   // VideoRtpTrackSource::Callback
   void OnGenerateKeyFrame() override;
   void OnEncodedSinkEnabled(bool enable) override;
+  void GenerateKeyFrameInternal();
+  void SetEncodedSinkEnabled(bool enable);
 
   rtc::Thread* const worker_thread_;
   const std::string id_;
@@ -135,6 +137,10 @@ class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal>,
   // Allows to thread safely change jitter buffer delay. Handles caching cases
   // if |SetJitterBufferMinimumDelay| is called before start.
   rtc::scoped_refptr<JitterBufferDelayInterface> delay_;
+  // Record if we should generate a keyframe when media_channel_ gets set up or
+  // switched.
+  bool saved_generate_keyframe_ = false;
+  bool saved_encoded_sink_enabled_ = false;
 };
 
 }  // namespace webrtc

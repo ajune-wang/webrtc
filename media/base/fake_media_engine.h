@@ -448,6 +448,12 @@ class FakeVideoMediaChannel : public RtpHelper<VideoMediaChannel> {
   absl::optional<int> GetBaseMinimumPlayoutDelayMs(
       uint32_t ssrc) const override;
 
+  void SetEncodedFrameBufferFunction(
+      uint32_t ssrc,
+      EncodedFrameBufferFunction callback) override;
+  void ClearEncodedFrameBufferFunction(uint32_t ssrc) override;
+  void GenerateKeyFrame(uint32_t ssrc) override;
+
  private:
   bool SetRecvCodecs(const std::vector<VideoCodec>& codecs);
   bool SetSendCodecs(const std::vector<VideoCodec>& codecs);

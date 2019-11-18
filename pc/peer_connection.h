@@ -1365,6 +1365,10 @@ class PeerConnection : public PeerConnectionInternal,
   std::map<rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>,
            TransceiverStableState>
       transceiver_stable_states_by_transceivers_;
+  // Holds stream ids for transceivers from stable state.
+  std::map<rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>,
+           std::vector<std::string>>
+      transceiver_stream_ids_by_transceivers_;
   std::vector<
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
       transceivers_;  // TODO(bugs.webrtc.org/9987): Accessed on both signaling

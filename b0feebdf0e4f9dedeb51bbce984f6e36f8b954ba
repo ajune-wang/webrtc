@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6872d84_a4c2c13c",
+        "filename": "sdk/android/src/java/org/webrtc/WebRtcClassLoader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-11-18T23:01:16Z",
+      "side": 1,
+      "message": "There is a error here:\n../../sdk/android/src/java/org/webrtc/WebRtcClassLoader.java:13: error: cannot find symbol\nimport javax.annotation.Nullable;\n                       ^\n  symbol:   class Nullable\n  location: package javax.annotation",
+      "revId": "b0feebdf0e4f9dedeb51bbce984f6e36f8b954ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

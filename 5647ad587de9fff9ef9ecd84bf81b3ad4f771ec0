@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06c16865_ebd3f2dd",
+        "filename": "api/test/time_controller.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-18T11:27:44Z",
+      "side": 1,
+      "message": "nit: extra space",
+      "range": {
+        "startLine": 59,
+        "startChar": 63,
+        "endLine": 59,
+        "endChar": 64
+      },
+      "revId": "5647ad587de9fff9ef9ecd84bf81b3ad4f771ec0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

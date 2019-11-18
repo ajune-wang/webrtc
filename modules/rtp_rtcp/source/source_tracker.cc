@@ -34,6 +34,7 @@ void SourceTracker::OnFrameDelivered(const RtpPacketInfos& packet_infos) {
 
       entry.timestamp_ms = now_ms;
       entry.audio_level = packet_info.audio_level();
+      entry.absolute_capture_time = packet_info.absolute_capture_time();
       entry.rtp_timestamp = packet_info.rtp_timestamp();
     }
 
@@ -42,6 +43,7 @@ void SourceTracker::OnFrameDelivered(const RtpPacketInfos& packet_infos) {
 
     entry.timestamp_ms = now_ms;
     entry.audio_level = packet_info.audio_level();
+    entry.absolute_capture_time = packet_info.absolute_capture_time();
     entry.rtp_timestamp = packet_info.rtp_timestamp();
   }
 
@@ -61,7 +63,8 @@ std::vector<RtpSource> SourceTracker::GetSources() const {
     const SourceEntry& entry = pair.second;
 
     sources.emplace_back(entry.timestamp_ms, key.source, key.source_type,
-                         entry.audio_level, entry.rtp_timestamp);
+                         entry.audio_level, entry.absolute_capture_time,
+                         entry.rtp_timestamp);
   }
 
   return sources;

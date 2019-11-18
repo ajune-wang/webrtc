@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "44d88660_42770a16",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-18T07:53:11Z",
+      "side": 1,
+      "message": ":-)",
+      "parentUuid": "8c83a231_eab4b5ee",
+      "range": {
+        "startLine": 376,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 54
+      },
+      "revId": "58fd6724d8b74ef6cc0d6d92ad150c296df25c2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf130588_ecd1de3b",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e23c67a5_95fd514d",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-18T07:53:11Z",
+      "side": 1,
+      "message": "Awesome suggestion!\nDone.",
+      "parentUuid": "cf130588_ecd1de3b",
+      "range": {
+        "startLine": 479,
+        "startChar": 0,
+        "endLine": 485,
+        "endChar": 5
+      },
+      "revId": "58fd6724d8b74ef6cc0d6d92ad150c296df25c2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58562961_65b5f793",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2019-11-15T16:04:47Z",
       "side": 1,
       "message": "There are several places like this, where the AgcManagerDirect overrides GainControlImpl.\n\nWhat do you think about moving ownership of the gain controller into AgcManagerDirect, and have  AgcManagerDirect implement the GainControl interface?\n\nAPM is freed of the \"which AGC to use\" logic, it only resets submodules_.gain_control with the right type on reinitialization.\nAgcManager does not need the new_compression_to_set_ state (and shared responsibility for the gain_control as a function parameter).",
+      "range": {
+        "startLine": 691,
+        "startChar": 0,
+        "endLine": 692,
+        "endChar": 40
+      },
+      "revId": "58fd6724d8b74ef6cc0d6d92ad150c296df25c2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd022bdf_7f8a625a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-18T07:53:11Z",
+      "side": 1,
+      "message": "I think that is a great suggestion! \n\nI think this is still slightly tricky to achieve, but I think we should strive to do that. I would prefer to do it separately from the multi-channel work.\n\nThe reason that I think it is tricky is that the GainControl interface is for both digital and analog AGC, while the AGC manager only is for analog AGC.\n\nThis means that if AGC manager is off, the GainControlImpl handles both analog and digital AGC, and if it is on it handles digital AGC.\n\n\nI think we should solve this by moving all the analog AGC code from GainControlImpl into AGC manager direct. But I would prefer to do that in a separate CL as that is a quite big change.",
+      "parentUuid": "58562961_65b5f793",
       "range": {
         "startLine": 691,
         "startChar": 0,

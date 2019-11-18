@@ -316,6 +316,9 @@ struct RTC_EXPORT RtpExtension {
   static const char kRidUri[];
   static const char kRepairedRidUri[];
 
+  // Header extension for inband comfort noise.
+  static const char kInbandComfortNoiseUri[];
+
   // Inclusive min and max IDs for two-byte header extensions and one-byte
   // header extensions, per RFC8285 Section 4.2-4.3.
   static constexpr int kMinId = 1;

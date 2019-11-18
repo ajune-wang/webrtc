@@ -229,6 +229,8 @@ AudioSendStream::ExtensionIds AudioSendStream::FindExtensionIds(
       ids.rid = extension.id;
     } else if (extension.uri == RtpExtension::kRepairedRidUri) {
       ids.repaired_rid = extension.id;
+    } else if (extension.uri == RtpExtension::kInbandComfortNoiseUri) {
+      ids.inband_comfort_noise = extension.id;
     }
   }
   return ids;
@@ -327,6 +329,15 @@ void AudioSendStream::ConfigureStream(
        new_config.rtp.rid != old_config.rtp.rid)) {
     channel_send_->SetRid(new_config.rtp.rid, new_ids.rid,
                           new_ids.repaired_rid);
+  }
+
+  if (first_time ||
+      new_ids.inband_comfort_noise != old_ids.inband_comfort_noise)
+    rtp_rtcp_module_->DeregisterSendRtpHeaderExtension(
+        InbandComfortNoiseExtension::kUri);
+  if (new_ids.inband_comfort_noise) {
+    rtp_rtcp_module_->RegisterRtpHeaderExtension(
+        InbandComfortNoiseExtension::kUri, new_ids.inband_comfort_noise);
   }
 
   if (!ReconfigureSendCodec(new_config)) {

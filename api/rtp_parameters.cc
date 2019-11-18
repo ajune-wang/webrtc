@@ -94,6 +94,9 @@ std::string RtpExtension::ToString() const {
 const char RtpExtension::kAudioLevelUri[] =
     "urn:ietf:params:rtp-hdrext:ssrc-audio-level";
 
+const char RtpExtension::kInbandComfortNoiseUri[] =
+    "http://www.webrtc.org/experiments/rtp-hdrext/inband-cn";
+
 const char RtpExtension::kTimestampOffsetUri[] =
     "urn:ietf:params:rtp-hdrext:toffset";
 
@@ -158,6 +161,7 @@ bool RtpExtension::IsSupportedForAudio(const std::string& uri) {
          uri == webrtc::RtpExtension::kAbsSendTimeUri ||
          // TODO(bugs.webrtc.org/10739): Uncomment once the audio impl is ready.
          // uri == webrtc::RtpExtension::kAbsoluteCaptureTimeUri ||
+         uri == webrtc::RtpExtension::kInbandComfortNoiseUri ||
          uri == webrtc::RtpExtension::kTransportSequenceNumberUri ||
          uri == webrtc::RtpExtension::kTransportSequenceNumberV2Uri ||
          uri == webrtc::RtpExtension::kMidUri ||
@@ -187,6 +191,7 @@ bool RtpExtension::IsSupportedForVideo(const std::string& uri) {
 
 bool RtpExtension::IsEncryptionSupported(const std::string& uri) {
   return uri == webrtc::RtpExtension::kAudioLevelUri ||
+         uri == webrtc::RtpExtension::kInbandComfortNoiseUri ||
          uri == webrtc::RtpExtension::kTimestampOffsetUri ||
 #if !defined(ENABLE_EXTERNAL_AUTH)
          // TODO(jbauch): Figure out a way to always allow "kAbsSendTimeUri"

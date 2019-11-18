@@ -12,6 +12,8 @@
 
 #include <time.h>
 
+#include <atomic>
+
 #include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/platform_thread_types.h"
@@ -217,25 +219,26 @@ CritScope::~CritScope() {
 }
 
 void GlobalLock::Lock() {
-#if !defined(WEBRTC_WIN) && \
-    (!defined(WEBRTC_MAC) || RTC_USE_NATIVE_MUTEX_ON_MAC)
-  const struct timespec ts_null = {0};
-#endif
-
-  while (AtomicOps::CompareAndSwap(&lock_acquired_, 0, 1)) {
+  // Global lock is a textbook exclusion lock providing acquire-release
+  // synchronization: all operations before Thread1 releases lock must be
+  // visible by the Thread2 that acquires the lock.
+  while (lock_acquired_.exchange(true, std::memory_order_acquire)) {
+    // Lock is already acquired by another thread. Spin and try again.
 #if defined(WEBRTC_WIN)
     ::Sleep(0);
 #elif defined(WEBRTC_MAC) && !RTC_USE_NATIVE_MUTEX_ON_MAC
     sched_yield();
 #else
+    constexpr struct timespec ts_null = {0};
     nanosleep(&ts_null, nullptr);
 #endif
   }
 }
 
 void GlobalLock::Unlock() {
-  int old_value = AtomicOps::CompareAndSwap(&lock_acquired_, 1, 0);
-  RTC_DCHECK_EQ(1, old_value) << "Unlock called without calling Lock first";
+  RTC_DCHECK(lock_acquired_.load(std::memory_order_relaxed))
+      << "Unlock called without calling Lock first";
+  lock_acquired_.store(false, std::memory_order_release);
 }
 
 GlobalLockScope::GlobalLockScope(GlobalLock* lock) : lock_(lock) {

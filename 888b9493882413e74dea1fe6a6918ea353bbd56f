@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "889a3cc1_a65d7deb",
+        "filename": "rtc_base/critical_section.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-18T07:40:59Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 223,
+        "startChar": 5,
+        "endLine": 223,
+        "endChar": 20
+      },
+      "revId": "888b9493882413e74dea1fe6a6918ea353bbd56f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

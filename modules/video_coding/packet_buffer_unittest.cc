@@ -121,8 +121,7 @@ class PacketBufferTest : public ::testing::Test {
                                          : VideoFrameType::kVideoFrameDelta;
     packet.video_header.is_first_packet_in_frame = first == kFirst;
     packet.video_header.is_last_packet_in_frame = last == kLast;
-    packet.size_bytes = data_size;
-    packet.data = data;
+    packet.data.SetData(data, data_size);
 
     return PacketBufferInsertResult(packet_buffer_.InsertPacket(&packet));
   }
@@ -515,8 +514,7 @@ class PacketBufferH264Test : public PacketBufferTest {
     packet.video_header.height = height;
     packet.video_header.is_first_packet_in_frame = first == kFirst;
     packet.video_header.is_last_packet_in_frame = last == kLast;
-    packet.size_bytes = data_size;
-    packet.data = data;
+    packet.data.SetData(data, data_size);
 
     return PacketBufferInsertResult(packet_buffer_.InsertPacket(&packet));
   }
@@ -546,8 +544,6 @@ class PacketBufferH264Test : public PacketBufferTest {
     h264_header.nalus_length = 1;
     packet.video_header.is_first_packet_in_frame = true;
     packet.video_header.is_last_packet_in_frame = false;
-    packet.size_bytes = 0;
-    packet.data = nullptr;
     IgnoreResult(packet_buffer_.InsertPacket(&packet));
     // insert IDR
     return InsertH264(seq_num + 1, keyframe, kNotFirst, last, timestamp,
@@ -604,9 +600,7 @@ TEST_P(PacketBufferH264ParameterizedTest, GetBitstreamOneFrameFullBuffer) {
 
 TEST_P(PacketBufferH264ParameterizedTest, GetBitstreamBufferPadding) {
   uint16_t seq_num = Rand();
-  uint8_t data_data[] = "some plain old data";
-  uint8_t* data = new uint8_t[sizeof(data_data)];
-  memcpy(data, data_data, sizeof(data_data));
+  uint8_t data[] = "some plain old data";
 
   PacketBuffer::Packet packet;
   auto& h264_header =
@@ -617,17 +611,16 @@ TEST_P(PacketBufferH264ParameterizedTest, GetBitstreamBufferPadding) {
   packet.seq_num = seq_num;
   packet.video_header.codec = kVideoCodecH264;
   packet.data = data;
-  packet.size_bytes = sizeof(data_data);
   packet.video_header.is_first_packet_in_frame = true;
   packet.video_header.is_last_packet_in_frame = true;
   auto frames = packet_buffer_.InsertPacket(&packet).frames;
 
   ASSERT_THAT(frames, SizeIs(1));
   EXPECT_EQ(frames[0]->first_seq_num(), seq_num);
-  EXPECT_EQ(frames[0]->EncodedImage().size(), sizeof(data_data));
-  EXPECT_EQ(frames[0]->EncodedImage().capacity(), sizeof(data_data));
+  EXPECT_EQ(frames[0]->EncodedImage().size(), sizeof(data));
+  EXPECT_EQ(frames[0]->EncodedImage().capacity(), sizeof(data));
   EXPECT_THAT(rtc::MakeArrayView(frames[0]->data(), frames[0]->size()),
-              ElementsAreArray(data_data));
+              ElementsAreArray(data));
 }
 
 TEST_P(PacketBufferH264ParameterizedTest, FrameResolution) {
@@ -787,8 +780,6 @@ TEST_F(PacketBufferTest, IncomingCodecChange) {
   PacketBuffer::Packet packet;
   packet.video_header.is_first_packet_in_frame = true;
   packet.video_header.is_last_packet_in_frame = true;
-  packet.size_bytes = 0;
-  packet.data = nullptr;
 
   packet.video_header.codec = kVideoCodecVP8;
   packet.video_header.video_type_header.emplace<RTPVideoHeaderVP8>();
@@ -824,8 +815,6 @@ TEST_F(PacketBufferTest, TooManyNalusInPacket) {
   auto& h264_header =
       packet.video_header.video_type_header.emplace<RTPVideoHeaderH264>();
   h264_header.nalus_length = kMaxNalusPerPacket;
-  packet.size_bytes = 0;
-  packet.data = nullptr;
   EXPECT_THAT(packet_buffer_.InsertPacket(&packet).frames, IsEmpty());
 }
 

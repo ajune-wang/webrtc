@@ -433,6 +433,10 @@ void RtpVideoStreamReceiver::OnReceivedPayloadData(
     return;
   }
 
+  // TODO(danilchap): Refeactor RtpDepacketizer interface to pass video_payload
+  // as CopyOnWriteBuffer rather than raw pointer.
+  rtc::CopyOnWriteBuffer video_payload(codec_payload.data(),
+                                       codec_payload.size());
   if (packet.codec() == kVideoCodecH264) {
     // Only when we start to receive packets will we know what payload type
     // that will be used. When we know the payload type insert the correct
@@ -443,7 +447,8 @@ void RtpVideoStreamReceiver::OnReceivedPayloadData(
     }
 
     video_coding::H264SpsPpsTracker::FixedBitstream fixed =
-        tracker_.CopyAndFixBitstream(codec_payload, &packet.video_header);
+        tracker_.CopyAndFixBitstream(std::move(video_payload),
+                                     &packet.video_header);
 
     switch (fixed.action) {
       case video_coding::H264SpsPpsTracker::kRequestKeyframe:
@@ -453,16 +458,12 @@ void RtpVideoStreamReceiver::OnReceivedPayloadData(
       case video_coding::H264SpsPpsTracker::kDrop:
         return;
       case video_coding::H264SpsPpsTracker::kInsert:
-        packet.data = fixed.data.release();
-        packet.size_bytes = fixed.size;
+        packet.data = std::move(fixed.data);
         break;
     }
 
   } else {
-    packet.size_bytes = codec_payload.size();
-    uint8_t* data = new uint8_t[packet.size_bytes];
-    memcpy(data, codec_payload.data(), codec_payload.size());
-    packet.data = data;
+    packet.data = std::move(video_payload);
   }
 
   rtcp_feedback_buffer_.SendBufferedRtcpFeedback();

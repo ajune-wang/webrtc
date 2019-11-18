@@ -45,7 +45,7 @@ H264SpsPpsTracker::SpsInfo& H264SpsPpsTracker::SpsInfo::operator=(
 H264SpsPpsTracker::SpsInfo::~SpsInfo() = default;
 
 H264SpsPpsTracker::FixedBitstream H264SpsPpsTracker::CopyAndFixBitstream(
-    rtc::ArrayView<const uint8_t> bitstream,
+    rtc::CopyOnWriteBuffer bitstream,
     RTPVideoHeader* video_header) {
   RTC_DCHECK(video_header);
   RTC_DCHECK(video_header->codec == kVideoCodecH264);
@@ -127,8 +127,8 @@ H264SpsPpsTracker::FixedBitstream H264SpsPpsTracker::CopyAndFixBitstream(
   }
 
   if (h264_header.packetization_type == kH264StapA) {
-    const uint8_t* nalu_ptr = bitstream.data() + 1;
-    while (nalu_ptr < bitstream.data() + bitstream.size()) {
+    const uint8_t* nalu_ptr = bitstream.cdata() + 1;
+    while (nalu_ptr < bitstream.cdata() + bitstream.size()) {
       RTC_DCHECK(video_header->is_first_packet_in_frame);
       required_size += sizeof(start_code_h264);
 
@@ -148,22 +148,26 @@ H264SpsPpsTracker::FixedBitstream H264SpsPpsTracker::CopyAndFixBitstream(
 
   // Then we copy to the new buffer.
   H264SpsPpsTracker::FixedBitstream fixed;
-  fixed.data = std::make_unique<uint8_t[]>(required_size);
-  fixed.size = required_size;
-  uint8_t* insert_at = fixed.data.get();
+
+  // Shortcut when buffer passed as is.
+  if (!append_sps_pps && h264_header.packetization_type != kH264StapA &&
+      h264_header.nalus_length == 0) {
+    RTC_DCHECK_EQ(required_size, bitstream.size());
+    fixed.data = std::move(bitstream);
+    fixed.action = kInsert;
+    return fixed;
+  }
+
+  fixed.data.EnsureCapacity(required_size);
 
   if (append_sps_pps) {
     // Insert SPS.
-    memcpy(insert_at, start_code_h264, sizeof(start_code_h264));
-    insert_at += sizeof(start_code_h264);
-    memcpy(insert_at, sps->second.data.get(), sps->second.size);
-    insert_at += sps->second.size;
+    fixed.data.AppendData(start_code_h264);
+    fixed.data.AppendData(sps->second.data.get(), sps->second.size);
 
     // Insert PPS.
-    memcpy(insert_at, start_code_h264, sizeof(start_code_h264));
-    insert_at += sizeof(start_code_h264);
-    memcpy(insert_at, pps->second.data.get(), pps->second.size);
-    insert_at += pps->second.size;
+    fixed.data.AppendData(start_code_h264);
+    fixed.data.AppendData(pps->second.data.get(), pps->second.size);
 
     // Update codec header to reflect the newly added SPS and PPS.
     NaluInfo sps_info;
@@ -185,30 +189,26 @@ H264SpsPpsTracker::FixedBitstream H264SpsPpsTracker::CopyAndFixBitstream(
 
   // Copy the rest of the bitstream and insert start codes.
   if (h264_header.packetization_type == kH264StapA) {
-    const uint8_t* nalu_ptr = bitstream.data() + 1;
-    while (nalu_ptr < bitstream.data() + bitstream.size()) {
-      memcpy(insert_at, start_code_h264, sizeof(start_code_h264));
-      insert_at += sizeof(start_code_h264);
+    const uint8_t* nalu_ptr = bitstream.cdata() + 1;
+    while (nalu_ptr < bitstream.cdata() + bitstream.size()) {
+      fixed.data.AppendData(start_code_h264);
 
       // The first two bytes describe the length of a segment.
       uint16_t segment_length = nalu_ptr[0] << 8 | nalu_ptr[1];
       nalu_ptr += 2;
 
-      size_t copy_end = nalu_ptr - bitstream.data() + segment_length;
+      size_t copy_end = nalu_ptr - bitstream.cdata() + segment_length;
       if (copy_end > bitstream.size()) {
         return {kDrop};
       }
 
-      memcpy(insert_at, nalu_ptr, segment_length);
-      insert_at += segment_length;
+      fixed.data.AppendData(nalu_ptr, segment_length);
       nalu_ptr += segment_length;
     }
   } else {
-    if (h264_header.nalus_length > 0) {
-      memcpy(insert_at, start_code_h264, sizeof(start_code_h264));
-      insert_at += sizeof(start_code_h264);
-    }
-    memcpy(insert_at, bitstream.data(), bitstream.size());
+    RTC_DCHECK_GT(h264_header.nalus_length, 0);
+    fixed.data.AppendData(start_code_h264);
+    fixed.data.AppendData(bitstream);
   }
 
   fixed.action = kInsert;

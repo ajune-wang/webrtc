@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "197861d2_c6a1b637",
+        "filename": "pc/rtp_transceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-18T22:05:24Z",
+      "side": 1,
+      "message": "This name (in combination with created_by_addtrack) smells bad.\n\nWhen you rollback, you set \"created_by_addtrack\" if \"modified_by_addtrack is true. Which means that these two variables are consistent after a rollback, but not before rollback. Why?\n\nThe variable is also set but never reset. Which means that if you do\n\naddtrack()\nsetLocalDescription\nrollback\nremoveTrack()\n\nthe transceiver will have no track and won\u0027t be associated with a media section, but will still hang around because it has created_by_addtrac() set, which I think is different from\n\naddTrack()\nremoveTrack()\nsetLocalDescription()\n\nwhich will have created_by_addtrack() false (because it was never rolled back).\nThis seems strange.\n\nCan you make this logic more readable?",
+      "revId": "2754434d392c245c2d8cf593242f09a30897f72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

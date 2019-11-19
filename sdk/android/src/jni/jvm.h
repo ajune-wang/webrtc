@@ -13,6 +13,15 @@
 
 #include <jni.h>
 
+#if defined(WEBRTC_ARCH_X86)
+// Dalvik JIT generated code doesn't guarantee 16-byte stack alignment on
+// x86 - use force_align_arg_pointer to realign the stack at the JNI
+// boundary. crbug.com/655248
+#define JNI_FUNCTION_ALIGN __attribute__((force_align_arg_pointer))
+#else
+#define JNI_FUNCTION_ALIGN
+#endif
+
 namespace webrtc {
 namespace jni {
 

@@ -20,6 +20,7 @@
 #include "rtc_base/checks.h"
 #include "sdk/android/native_api/jni/jni_int_wrapper.h"
 #include "sdk/android/native_api/jni/scoped_java_ref.h"
+#include "sdk/android/src/jni/jvm.h"
 
 #define CHECK_CLAZZ(env, jcaller, clazz, ...) RTC_DCHECK(clazz);
 #define CHECK_NATIVE_PTR(env, jcaller, native_ptr, method_name, ...) \
@@ -27,7 +28,9 @@
 
 #define BASE_EXPORT
 #define JNI_REGISTRATION_EXPORT __attribute__((visibility("default")))
-#define JNI_GENERATOR_EXPORT extern "C" JNIEXPORT JNICALL
+#define JNI_GENERATOR_EXPORT \
+  JNI_FUNCTION_ALIGN         \
+  extern "C" JNIEXPORT JNICALL
 
 #define CHECK_EXCEPTION(jni)        \
   RTC_CHECK(!jni->ExceptionCheck()) \

@@ -24,6 +24,7 @@
 // Convenience macro defining JNI-accessible methods in the org.webrtc package.
 // Eliminates unnecessary boilerplate and line-wraps, reducing visual clutter.
 #define JNI_FUNCTION_DECLARATION(rettype, name, ...) \
+  JNI_FUNCTION_ALIGN                                 \
   extern "C" JNIEXPORT rettype JNICALL Java_org_webrtc_##name(__VA_ARGS__)
 
 namespace webrtc {

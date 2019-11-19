@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6609938_f6633d94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-19T07:46:41Z",
+      "side": 1,
+      "message": "I suggest to use a link here, for example https://webrtc-review.googlesource.com/64160.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 40
+      },
+      "revId": "5ade1b7d4c07f4c4957060e3531b5aef116687de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc65552c_6a7db531",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-19T07:46:41Z",
+      "side": 1,
+      "message": "webrtc:9085 ?",
+      "range": {
+        "startLine": 14,
+        "startChar": 5,
+        "endLine": 14,
+        "endChar": 9
+      },
+      "revId": "5ade1b7d4c07f4c4957060e3531b5aef116687de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f37d783d_4cea405a",
+        "filename": "AUTHORS",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-19T07:46:41Z",
+      "side": 1,
+      "message": "Why this line is getting moved?",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 35
+      },
+      "revId": "5ade1b7d4c07f4c4957060e3531b5aef116687de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

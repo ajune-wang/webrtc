@@ -140,6 +140,30 @@
       "revId": "58fd6724d8b74ef6cc0d6d92ad150c296df25c2b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b17ae83a_5ae52cde",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-19T16:24:02Z",
+      "side": 1,
+      "message": "Noting it as future work sgtm, this CL is still an improvement.\n\nI see. My suggestion is then be to let AgcManager be both for analog and digital AGC, just a different type of AGC module. Essentially: You choose between using AGC with a GainControlImpl, and using AGC with a AgcManagerDirect. They both implement the GainControl interface. It just so happens that AgcManagerDirect uses a GainControlImpl in its implementation to do its digital AGC handling.",
+      "parentUuid": "bd022bdf_7f8a625a",
+      "range": {
+        "startLine": 691,
+        "startChar": 0,
+        "endLine": 692,
+        "endChar": 40
+      },
+      "revId": "58fd6724d8b74ef6cc0d6d92ad150c296df25c2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

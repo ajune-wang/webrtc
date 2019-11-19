@@ -154,7 +154,15 @@ class RtpTransceiver final
   void set_created_by_addtrack(bool created_by_addtrack) {
     created_by_addtrack_ = created_by_addtrack;
   }
+  // If AddTrack has been called then transceiver can't be removed during
+  // rollback.
+  void set_modified_by_addtrack(bool modified_by_addtrack) {
+    modified_by_addtrack_ = modified_by_addtrack;
+  }
+
   bool created_by_addtrack() const { return created_by_addtrack_; }
+
+  bool reused_for_addtrack() const { return reused_for_addtrack_; }
 
   // Returns true if this transceiver has ever had the current direction set to
   // sendonly or sendrecv.
@@ -201,6 +209,7 @@ class RtpTransceiver final
   absl::optional<std::string> mid_;
   absl::optional<size_t> mline_index_;
   bool created_by_addtrack_ = false;
+  bool reused_for_addtrack_ = false;
   bool has_ever_been_used_to_send_ = false;
 
   cricket::ChannelInterface* channel_ = nullptr;

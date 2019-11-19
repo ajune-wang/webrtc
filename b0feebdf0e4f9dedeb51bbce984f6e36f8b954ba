@@ -34,6 +34,24 @@
       "revId": "b0feebdf0e4f9dedeb51bbce984f6e36f8b954ba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab1787fd_fd77deb6",
+        "filename": "sdk/android/src/java/org/webrtc/WebRtcClassLoader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-11-19T12:17:34Z",
+      "side": 1,
+      "message": "If the method returns null nothing will work anyway so I think it is better to crash right away.",
+      "parentUuid": "4eeb5951_b4ffad57",
+      "revId": "b0feebdf0e4f9dedeb51bbce984f6e36f8b954ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

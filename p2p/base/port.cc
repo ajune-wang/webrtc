@@ -392,7 +392,7 @@ void Port::OnReadPacket(const char* data,
   } else if (!msg) {
     // STUN message handled already
   } else if (msg->type() == STUN_BINDING_REQUEST) {
-    RTC_LOG(LS_INFO) << "Received STUN ping id="
+    RTC_LOG(LS_INFO) << "Received STUN binding id="
                      << rtc::hex_encode(msg->transaction_id())
                      << " from unknown address " << addr.ToSensitiveString();
     // We need to signal an unknown address before we handle any role conflict
@@ -404,12 +404,19 @@ void Port::OnReadPacket(const char* data,
       RTC_LOG(LS_INFO) << "Received conflicting role from the peer.";
       return;
     }
+  } else if (msg->type() == STUN_PING_REQUEST) {
+    // This is a PING sent to a connection that was destroyed.
+    // Send back that this is the case and a authenticated BINDING
+    // is needed.
+    SendBindingErrorResponse(msg.get(), addr, STUN_ERROR_BAD_REQUEST,
+                             STUN_ERROR_REASON_BAD_REQUEST);
   } else {
     // NOTE(tschmelcher): STUN_BINDING_RESPONSE is benign. It occurs if we
     // pruned a connection for this port while it had STUN requests in flight,
     // because we then get back responses for them, which this code correctly
     // does not handle.
-    if (msg->type() != STUN_BINDING_RESPONSE) {
+    if (msg->type() != STUN_BINDING_RESPONSE ||
+        msg->type() != STUN_PING_RESPONSE) {
       RTC_LOG(LS_ERROR) << ToString()
                         << ": Received unexpected STUN message type: "
                         << msg->type() << " from unknown address: "
@@ -444,7 +451,11 @@ bool Port::GetStunMessage(const char* data,
 
   // Don't bother parsing the packet if we can tell it's not STUN.
   // In ICE mode, all STUN packets will have a valid fingerprint.
-  if (!StunMessage::ValidateFingerprint(data, size)) {
+  // Except STUN_PING_REQUEST/RESPONSE
+  int types[] = {STUN_PING_REQUEST, STUN_PING_RESPONSE,
+                 STUN_PING_ERROR_RESPONSE};
+  if (!StunMessage::IsStunMethod(types, data, size) &&
+      !StunMessage::ValidateFingerprint(data, size)) {
     return false;
   }
 
@@ -520,6 +531,34 @@ bool Port::GetStunMessage(const char* data,
                         << addr.ToSensitiveString();
     out_username->clear();
     // No stun attributes will be verified, if it's stun indication message.
+    // Returning from end of the this method.
+  } else if (stun_msg->type() == STUN_PING_REQUEST) {
+    if (!stun_msg->ValidateMessageIntegrity32(data, size, password_)) {
+      RTC_LOG(LS_ERROR) << ToString()
+                        << ": Received STUN PING request with bad M-I from "
+                        << addr.ToSensitiveString()
+                        << ", password_=" << password_;
+      SendBindingErrorResponse(stun_msg.get(), addr, STUN_ERROR_UNAUTHORIZED,
+                               STUN_ERROR_REASON_UNAUTHORIZED);
+      return true;
+    }
+    RTC_LOG(LS_VERBOSE) << ToString() << ": Received STUN ping request: from "
+                        << addr.ToSensitiveString();
+    out_username->clear();
+    // No stun attributes will be verified, if it's stun ping request.
+    // Returning from end of the this method.
+  } else if (stun_msg->type() == STUN_PING_RESPONSE) {
+    RTC_LOG(LS_VERBOSE) << ToString() << ": Received STUN ping response: from "
+                        << addr.ToSensitiveString();
+    out_username->clear();
+    // No stun attributes will be verified, if it's stun ping request.
+    // Returning from end of the this method.
+  } else if (stun_msg->type() == STUN_PING_ERROR_RESPONSE) {
+    RTC_LOG(LS_VERBOSE) << ToString()
+                        << ": Received STUN error ping response: from "
+                        << addr.ToSensitiveString();
+    out_username->clear();
+    // No stun attributes will be verified, if it's stun ping request.
     // Returning from end of the this method.
   } else {
     RTC_LOG(LS_ERROR) << ToString()
@@ -682,14 +721,14 @@ void Port::SendBindingResponse(StunMessage* request,
       request->GetUInt32(STUN_ATTR_RETRANSMIT_COUNT);
   if (retransmit_attr) {
     // Inherit the incoming retransmit value in the response so the other side
-    // can see our view of lost pings.
+    // can see our view of lost bindings.
     response.AddAttribute(std::make_unique<StunUInt32Attribute>(
         STUN_ATTR_RETRANSMIT_COUNT, retransmit_attr->value()));
 
     if (retransmit_attr->value() > CONNECTION_WRITE_CONNECT_FAILURES) {
       RTC_LOG(LS_INFO)
           << ToString()
-          << ": Received a remote ping with high retransmit count: "
+          << ": Received a remote binding with high retransmit count: "
           << retransmit_attr->value();
     }
   }
@@ -698,6 +737,45 @@ void Port::SendBindingResponse(StunMessage* request,
       STUN_ATTR_XOR_MAPPED_ADDRESS, addr));
   response.AddMessageIntegrity(password_);
   response.AddFingerprint();
+
+  // Send the response message.
+  rtc::ByteBufferWriter buf;
+  response.Write(&buf);
+  rtc::PacketOptions options(StunDscpValue());
+  options.info_signaled_after_sent.packet_type =
+      rtc::PacketType::kIceConnectivityCheckResponse;
+  auto err = SendTo(buf.Data(), buf.Length(), addr, options, false);
+  if (err < 0) {
+    RTC_LOG(LS_ERROR) << ToString()
+                      << ": Failed to send STUN binding response, to="
+                      << addr.ToSensitiveString() << ", err=" << err
+                      << ", id=" << rtc::hex_encode(response.transaction_id());
+  } else {
+    // Log at LS_INFO if we send a stun binding response on an unwritable
+    // connection.
+    Connection* conn = GetConnection(addr);
+    rtc::LoggingSeverity sev =
+        (conn && !conn->writable()) ? rtc::LS_INFO : rtc::LS_VERBOSE;
+    RTC_LOG_V(sev) << ToString() << ": Sent STUN BINDING response, to="
+                   << addr.ToSensitiveString()
+                   << ", id=" << rtc::hex_encode(response.transaction_id());
+
+    conn->stats_.sent_ping_responses++;
+    conn->LogCandidatePairEvent(
+        webrtc::IceCandidatePairEventType::kCheckResponseSent,
+        request->reduced_transaction_id());
+  }
+}
+
+void Port::SendPingResponse(StunMessage* request,
+                            const rtc::SocketAddress& addr) {
+  RTC_DCHECK(request->type() == STUN_PING_REQUEST);
+
+  // Fill in the response message.
+  StunMessage response;
+  response.SetType(STUN_PING_RESPONSE);
+  response.SetTransactionID(request->transaction_id());
+  response.AddMessageIntegrity32(password_);
 
   // Send the response message.
   rtc::ByteBufferWriter buf;
@@ -717,9 +795,10 @@ void Port::SendBindingResponse(StunMessage* request,
     Connection* conn = GetConnection(addr);
     rtc::LoggingSeverity sev =
         (conn && !conn->writable()) ? rtc::LS_INFO : rtc::LS_VERBOSE;
-    RTC_LOG_V(sev) << ToString() << ": Sent STUN ping response, to="
+    RTC_LOG_V(sev) << ToString() << ": Sent STUN PING response, to="
                    << addr.ToSensitiveString()
-                   << ", id=" << rtc::hex_encode(response.transaction_id());
+                   << ", id=" << rtc::hex_encode(response.transaction_id())
+                   << ", bytes=" << buf.Length();
 
     conn->stats_.sent_ping_responses++;
     conn->LogCandidatePairEvent(
@@ -732,11 +811,16 @@ void Port::SendBindingErrorResponse(StunMessage* request,
                                     const rtc::SocketAddress& addr,
                                     int error_code,
                                     const std::string& reason) {
-  RTC_DCHECK(request->type() == STUN_BINDING_REQUEST);
+  RTC_DCHECK(request->type() == STUN_BINDING_REQUEST ||
+             request->type() == STUN_PING_REQUEST);
 
   // Fill in the response message.
   StunMessage response;
-  response.SetType(STUN_BINDING_ERROR_RESPONSE);
+  if (request->type() == STUN_BINDING_REQUEST) {
+    response.SetType(STUN_BINDING_ERROR_RESPONSE);
+  } else {
+    response.SetType(STUN_PING_ERROR_RESPONSE);
+  }
   response.SetTransactionID(request->transaction_id());
 
   // When doing GICE, we need to write out the error code incorrectly to
@@ -749,9 +833,18 @@ void Port::SendBindingErrorResponse(StunMessage* request,
   // Per Section 10.1.2, certain error cases don't get a MESSAGE-INTEGRITY,
   // because we don't have enough information to determine the shared secret.
   if (error_code != STUN_ERROR_BAD_REQUEST &&
-      error_code != STUN_ERROR_UNAUTHORIZED)
-    response.AddMessageIntegrity(password_);
-  response.AddFingerprint();
+      error_code != STUN_ERROR_UNAUTHORIZED &&
+      request->type() != STUN_PING_REQUEST) {
+    if (request->type() == STUN_BINDING_REQUEST) {
+      response.AddMessageIntegrity(password_);
+    } else {
+      response.AddMessageIntegrity32(password_);
+    }
+  }
+
+  if (request->type() == STUN_BINDING_REQUEST) {
+    response.AddFingerprint();
+  }
 
   // Send the response message.
   rtc::ByteBufferWriter buf;
@@ -760,9 +853,11 @@ void Port::SendBindingErrorResponse(StunMessage* request,
   options.info_signaled_after_sent.packet_type =
       rtc::PacketType::kIceConnectivityCheckResponse;
   SendTo(buf.Data(), buf.Length(), addr, options, false);
-  RTC_LOG(LS_INFO) << ToString()
-                   << ": Sending STUN binding error: reason=" << reason
-                   << " to " << addr.ToSensitiveString();
+  RTC_LOG(LS_INFO) << ToString() << ": Sending STUN "
+                   << (request->type() == STUN_BINDING_REQUEST ? "BINDING"
+                                                               : "PING")
+                   << " error: reason=" << reason << " to "
+                   << addr.ToSensitiveString();
 }
 
 void Port::KeepAliveUntilPruned() {

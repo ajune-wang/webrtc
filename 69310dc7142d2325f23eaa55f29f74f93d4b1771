@@ -22,6 +22,30 @@
       "revId": "69310dc7142d2325f23eaa55f29f74f93d4b1771",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9435bb5_2a49619d",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-19T10:14:35Z",
+      "side": 1,
+      "message": "I don\u0027t recall exactly why this is in transport, something about deps chain.\nThis is already referenced downstream so moving it will be non-trivial. Suggest doing that in\na separate cl when srte@ can be involved.",
+      "parentUuid": "7a4b627a_37bd9b0f",
+      "range": {
+        "startLine": 190,
+        "startChar": 5,
+        "endLine": 190,
+        "endChar": 38
+      },
+      "revId": "69310dc7142d2325f23eaa55f29f74f93d4b1771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

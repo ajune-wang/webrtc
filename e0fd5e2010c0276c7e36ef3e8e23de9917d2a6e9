@@ -50,6 +50,23 @@
       "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "973bb39a_77730c00",
+        "filename": "pc/rtp_transceiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-11-19T15:50:32Z",
+      "side": 1,
+      "message": "Don\u0027t we want a single bool for \"has been used by addTrack\"?\nIf I understand the spec correctly, the point is that if addTrack() was called then the user of the API expects the returned sender object to be reliable. So if the transceiver.sender was ever used then that transceiver is permanently blessed. Is any other code path needed? Why differentiate between \"created_by\" and \"reused\"?",
+      "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

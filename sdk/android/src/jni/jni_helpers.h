@@ -21,9 +21,19 @@
 #include "sdk/android/native_api/jni/scoped_java_ref.h"
 #include "sdk/android/src/jni/jvm.h"
 
+#if defined(WEBRTC_ARCH_X86)
+// Dalvik JIT generated code doesn't guarantee 16-byte stack alignment on
+// x86 - use force_align_arg_pointer to realign the stack at the JNI
+// boundary. crbug.com/655248
+#define JNI_FUNCTION_ALIGN __attribute__((force_align_arg_pointer))
+#else
+#define JNI_FUNCTION_ALIGN
+#endif
+
 // Convenience macro defining JNI-accessible methods in the org.webrtc package.
 // Eliminates unnecessary boilerplate and line-wraps, reducing visual clutter.
 #define JNI_FUNCTION_DECLARATION(rettype, name, ...) \
+  JNI_FUNCTION_ALIGN                                 \
   extern "C" JNIEXPORT rettype JNICALL Java_org_webrtc_##name(__VA_ARGS__)
 
 namespace webrtc {

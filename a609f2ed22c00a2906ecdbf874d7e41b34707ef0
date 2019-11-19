@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "a794e77e_530cf3c9",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-19T11:16:19Z",
+      "side": 1,
+      "message": "in TODO comments  prefer to refer bugs as TODO(bugs.webrtc.org/10739)\n(then it is easier to understand it is a link and use it as such, specially for people who do not work much in webrtc)",
+      "range": {
+        "startLine": 37,
+        "startChar": 10,
+        "endLine": 37,
+        "endChar": 22
+      },
+      "revId": "a609f2ed22c00a2906ecdbf874d7e41b34707ef0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0f51341_8dd460f1",
         "filename": "api/transport/rtp/rtp_source.h",
         "patchSetId": 6
@@ -94,6 +117,29 @@
     },
     {
       "key": {
+        "uuid": "60b8d958_32fcae56",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-19T11:16:19Z",
+      "side": 1,
+      "message": "if you want absl::nullopt constant, it might be better to spell it like that rather than {},\nfor clarity. (see kAudioLevel1 above).\n\n(though may be it would be cleaner not to use absl::optional constants: \nuse comment when for nullopt consant:,\nwrite /*absolute_capture_time\u003d*/absl::nullopt instead of kAbsoluteCpatureTime0,\nand rely on implicit converstion T -\u003e absl::optional\u003cT\u003e when it is not nullopt:\nconstexpr AbsluteCaptureTime kAbsoluteCaptureTime \u003d {12, 34}; )",
+      "range": {
+        "startLine": 283,
+        "startChar": 72,
+        "endLine": 283,
+        "endChar": 75
+      },
+      "revId": "a609f2ed22c00a2906ecdbf874d7e41b34707ef0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d217330e_e9a818ab",
         "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
         "patchSetId": 6
@@ -114,6 +160,29 @@
       "revId": "a609f2ed22c00a2906ecdbf874d7e41b34707ef0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3631707f_af0121b9",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-19T11:16:19Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 331,
+        "startChar": 69,
+        "endLine": 331,
+        "endChar": 74
+      },
+      "revId": "a609f2ed22c00a2906ecdbf874d7e41b34707ef0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

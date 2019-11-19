@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c81d63d_01c100c7",
+        "filename": "sdk/android/src/jni/jni_generator_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-11-19T08:36:01Z",
+      "side": 1,
+      "message": "I\u0027d prefer not to include this dependency. I\u0027d prefer to duplicate the code here.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 52
+      },
+      "revId": "157e559be2c84bf7e9b4f4912d1814589c67c23a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08d15224_5f81865c",
+        "filename": "sdk/android/src/jni/jni_generator_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-11-19T08:36:01Z",
+      "side": 1,
+      "message": "Please reference crbug.com/655248",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "157e559be2c84bf7e9b4f4912d1814589c67c23a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

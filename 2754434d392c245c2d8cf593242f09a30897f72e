@@ -16,6 +16,24 @@
       "revId": "2754434d392c245c2d8cf593242f09a30897f72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e63fe3e_4d24086e",
+        "filename": "pc/rtp_transceiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-11-19T09:00:25Z",
+      "side": 1,
+      "message": "Found a better name.\n\u003enot before rollback. Why?\nSo there can be 3 states for a transceiver: 1. created by addtrack, 2. reused for addtrack 3. no local addtrack involvement. Rollback can delete transceiver in state 3. In state 2 the rollback makes it look like the addtrack created the transceiver. Reseting is not necessary as this deletion logic is used only for newly created transceivers.",
+      "parentUuid": "197861d2_c6a1b637",
+      "revId": "2754434d392c245c2d8cf593242f09a30897f72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

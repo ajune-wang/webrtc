@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4e47bae7_26e52241",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-11-19T09:59:24Z",
+      "side": 1,
+      "message": "Good point. I will add a separate test for that. Stay tuned.",
+      "parentUuid": "bbdf70fa_6a6eb00d",
+      "revId": "df4ca18a0501d0fc4f594e098215680eec2a5a36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "21f9f143_95cc6583",
         "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-11-18T16:57:14Z",
       "side": 1,
       "message": "Without the bugfix, does it fail for all but 16k?",
+      "revId": "df4ca18a0501d0fc4f594e098215680eec2a5a36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "670ed18f_d65e45f9",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-11-19T09:59:24Z",
+      "side": 1,
+      "message": "Yes, that\u0027s exactly what I saw.",
+      "parentUuid": "21f9f143_95cc6583",
       "revId": "df4ca18a0501d0fc4f594e098215680eec2a5a36",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

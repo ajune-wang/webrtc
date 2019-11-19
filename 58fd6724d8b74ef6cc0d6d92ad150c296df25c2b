@@ -164,6 +164,30 @@
       "revId": "58fd6724d8b74ef6cc0d6d92ad150c296df25c2b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c12c4e94_160510ac",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-19T19:34:30Z",
+      "side": 1,
+      "message": "That would make sense. Also, it would make sense to before that simplify the media constraints for the AGC in Chrome, as the current implementation is a bit tied to that.\n\nFor instance, if the experimental_agc could be made permanent, the analog agc code in the gain_control submodule could be deprecated.",
+      "parentUuid": "b17ae83a_5ae52cde",
+      "range": {
+        "startLine": 691,
+        "startChar": 0,
+        "endLine": 692,
+        "endChar": 40
+      },
+      "revId": "58fd6724d8b74ef6cc0d6d92ad150c296df25c2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b7058492_dc87e9fb",
+        "filename": "sdk/android/src/jni/jni_generator_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 10184
+      },
+      "writtenOn": "2019-11-19T10:32:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c81d63d_01c100c7",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 52
+      },
+      "revId": "157e559be2c84bf7e9b4f4912d1814589c67c23a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08d15224_5f81865c",
         "filename": "sdk/android/src/jni/jni_generator_helper.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-11-19T08:36:01Z",
       "side": 1,
       "message": "Please reference crbug.com/655248",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "157e559be2c84bf7e9b4f4912d1814589c67c23a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a83216c4_e17654cc",
+        "filename": "sdk/android/src/jni/jni_generator_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 10184
+      },
+      "writtenOn": "2019-11-19T10:32:58Z",
+      "side": 1,
+      "message": "referenced in the JNI_FUNCTION_ALIGN macro definition",
+      "parentUuid": "08d15224_5f81865c",
       "range": {
         "startLine": 32,
         "startChar": 2,

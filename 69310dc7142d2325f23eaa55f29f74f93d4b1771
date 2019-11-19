@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a4b627a_37bd9b0f",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-11-19T08:37:15Z",
+      "side": 1,
+      "message": "Should this perhaps live in the api root now?",
+      "range": {
+        "startLine": 190,
+        "startChar": 5,
+        "endLine": 190,
+        "endChar": 38
+      },
+      "revId": "69310dc7142d2325f23eaa55f29f74f93d4b1771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

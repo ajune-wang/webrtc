@@ -52,6 +52,24 @@
       "revId": "b0feebdf0e4f9dedeb51bbce984f6e36f8b954ba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fda7668b_51371fe0",
+        "filename": "sdk/android/src/java/org/webrtc/WebRtcClassLoader.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-11-19T13:43:21Z",
+      "side": 1,
+      "message": "Fair enough. OTOH, with @Nullable annotation, we may fail even earlier: that is, at compile time!\nAnyway, errorprone is now happy, I\u0027ll leave it up to you!",
+      "parentUuid": "ab1787fd_fd77deb6",
+      "revId": "b0feebdf0e4f9dedeb51bbce984f6e36f8b954ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

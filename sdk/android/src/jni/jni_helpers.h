@@ -17,6 +17,7 @@
 #include <jni.h>
 #include <string>
 
+#include "modules/utility/include/helpers_android.h"
 #include "sdk/android/native_api/jni/java_types.h"
 #include "sdk/android/native_api/jni/scoped_java_ref.h"
 #include "sdk/android/src/jni/jvm.h"
@@ -24,6 +25,7 @@
 // Convenience macro defining JNI-accessible methods in the org.webrtc package.
 // Eliminates unnecessary boilerplate and line-wraps, reducing visual clutter.
 #define JNI_FUNCTION_DECLARATION(rettype, name, ...) \
+  JNI_FUNCTION_ALIGN                                 \
   extern "C" JNIEXPORT rettype JNICALL Java_org_webrtc_##name(__VA_ARGS__)
 
 namespace webrtc {

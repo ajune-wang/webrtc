@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcbec81b_66f21bbb",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-20T13:16:50Z",
+      "side": 1,
+      "message": "nit: Won\u0027t multiplication be more readable here? It might probably be also faster.",
+      "range": {
+        "startLine": 782,
+        "startChar": 46,
+        "endLine": 782,
+        "endChar": 72
+      },
+      "revId": "2741d4a70c36e5fa6c3f8daaacf55ebc257cd4b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

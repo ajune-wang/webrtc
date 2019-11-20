@@ -12,14 +12,62 @@
 
 namespace webrtc {
 
-VideoRtpTrackSource::VideoRtpTrackSource()
-    : VideoTrackSource(true /* remote */) {}
+VideoRtpTrackSource::VideoRtpTrackSource(Callback* callback)
+    : VideoTrackSource(true /* remote */), callback_(callback) {}
+
+void VideoRtpTrackSource::ClearCallback() {
+  rtc::CritScope cs(&mu_);
+  callback_ = nullptr;
+}
 
 rtc::VideoSourceInterface<VideoFrame>* VideoRtpTrackSource::source() {
   return &broadcaster_;
 }
 rtc::VideoSinkInterface<VideoFrame>* VideoRtpTrackSource::sink() {
   return &broadcaster_;
+}
+
+void VideoRtpTrackSource::BroadcastEncodedFrameBuffer(
+    rtc::scoped_refptr<VideoEncodedSinkInterface::FrameBuffer> frame_buffer) {
+  rtc::CritScope cs(&mu_);
+  for (VideoEncodedSinkInterface* sink : encoded_sinks_) {
+    sink->OnEncodedFrame(frame_buffer);
+  }
+}
+
+bool VideoRtpTrackSource::SupportsEncodedOutput() const {
+  return true;
+}
+
+void VideoRtpTrackSource::GenerateKeyFrame() {
+  rtc::CritScope cs(&mu_);
+  if (callback_) {
+    callback_->OnGenerateKeyFrame();
+  }
+}
+
+void VideoRtpTrackSource::AddEncodedSink(VideoEncodedSinkInterface* sink) {
+  RTC_DCHECK(sink);
+  {
+    rtc::CritScope cs(&mu_);
+    RTC_DCHECK(std::find(encoded_sinks_.begin(), encoded_sinks_.end(), sink) ==
+               encoded_sinks_.end());
+    encoded_sinks_.push_back(sink);
+    if (encoded_sinks_.size() == 1 && callback_) {
+      callback_->OnEncodedSinkEnabled(true);
+    }
+  }
+}
+
+void VideoRtpTrackSource::RemoveEncodedSink(VideoEncodedSinkInterface* sink) {
+  rtc::CritScope cs(&mu_);
+  auto it = std::find(encoded_sinks_.begin(), encoded_sinks_.end(), sink);
+  if (it != encoded_sinks_.end()) {
+    encoded_sinks_.erase(it);
+  }
+  if (encoded_sinks_.size() == 0 && callback_) {
+    callback_->OnEncodedSinkEnabled(false);
+  }
 }
 
 }  // namespace webrtc

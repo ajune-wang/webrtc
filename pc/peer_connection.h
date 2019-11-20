@@ -403,26 +403,38 @@ class PeerConnection : public PeerConnectionInternal,
   class TransceiverStableState {
    public:
     TransceiverStableState() {}
-    TransceiverStableState(RtpTransceiverDirection direction,
-                           absl::optional<std::string> mid,
-                           absl::optional<size_t> mline_index,
-                           bool newly_created)
-        : direction_(direction),
-          mid_(mid),
-          mline_index_(mline_index),
-          newly_created_(newly_created) {}
+    void set_newly_created() { newly_created_ = true; }
+    void set_m_section(RtpTransceiverDirection direction,
+                       absl::optional<std::string> mid,
+                       absl::optional<size_t> mline_index) {
+      // todo::move to .cc
+      if (!has_m_section_) {
+        direction_ = direction;
+        mid_ = mid;
+        mline_index_ = mline_index;
+        has_m_section_ = true;
+      }
+    }
+    void set_remote_stream_ids(const std::vector<std::string>& ids) {
+      if (!remote_stream_ids_.has_value()) {
+        remote_stream_ids_ = ids;
+      }
+    }
     RtpTransceiverDirection direction() const { return direction_; }
     absl::optional<std::string> mid() const { return mid_; }
     absl::optional<size_t> mline_index() const { return mline_index_; }
+    absl::optional<std::vector<std::string>> remote_stream_ids() const {
+      return remote_stream_ids_;
+    }
+    bool has_m_section() const { return has_m_section_; }
     bool newly_created() const { return newly_created_; }
 
    private:
     RtpTransceiverDirection direction_ = RtpTransceiverDirection::kRecvOnly;
     absl::optional<std::string> mid_;
     absl::optional<size_t> mline_index_;
-    // Indicates that the transceiver was created as part of applying a
-    // description to track potential need for removing transceiver during
-    // rollback.
+    absl::optional<std::vector<std::string>> remote_stream_ids_;
+    bool has_m_section_ = false;
     bool newly_created_ = false;
   };
 
@@ -1365,6 +1377,10 @@ class PeerConnection : public PeerConnectionInternal,
   std::map<rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>,
            TransceiverStableState>
       transceiver_stable_states_by_transceivers_;
+  // Holds remote stream ids for transceivers from stable state.
+  std::map<rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>,
+           std::vector<std::string>>
+      remote_stream_ids_by_transceivers_;
   std::vector<
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
       transceivers_;  // TODO(bugs.webrtc.org/9987): Accessed on both signaling

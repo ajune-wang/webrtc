@@ -1619,6 +1619,7 @@ PeerConnection::AddTrackUnifiedPlan(
     }
     transceiver->sender()->SetTrack(track);
     transceiver->internal()->sender_internal()->set_stream_ids(stream_ids);
+    transceiver->internal()->set_reused_for_addtrack(true);
   } else {
     cricket::MediaType media_type =
         (track->kind() == MediaStreamTrackInterface::kAudioKind
@@ -3242,6 +3243,9 @@ RTCError PeerConnection::ApplyRemoteDescription(
           // The remote description has signaled the stream IDs.
           stream_ids = media_desc->streams()[0].stream_ids();
         }
+        transceiver_stable_states_by_transceivers_[transceiver]
+            .set_remote_stream_ids(transceiver->receiver()->stream_ids());
+
         RTC_LOG(LS_INFO) << "Processing the MSIDs for MID=" << content->name
                          << " (" << GetStreamIdsString(stream_ids) << ").";
         SetAssociatedRemoteStreams(transceiver->internal()->receiver_internal(),
@@ -3778,9 +3782,8 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
       transceiver->internal()->set_direction(
           RtpTransceiverDirection::kRecvOnly);
       if (type == SdpType::kOffer) {
-        transceiver_stable_states_by_transceivers_[transceiver] =
-            TransceiverStableState(RtpTransceiverDirection::kRecvOnly,
-                                   absl::nullopt, absl::nullopt, true);
+        transceiver_stable_states_by_transceivers_[transceiver]
+            .set_newly_created();
       }
     }
     // Check if the offer indicated simulcast but the answer rejected it.
@@ -3816,19 +3819,14 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
     }
   }
   if (type == SdpType::kOffer) {
-    // Make sure we don't overwrite existing stable states and that the
-    // state is really going to change when adding new record to the map.
-    auto it = transceiver_stable_states_by_transceivers_.find(transceiver);
-    if (it == transceiver_stable_states_by_transceivers_.end() &&
-        (transceiver->internal()->mid() != content.name ||
-         transceiver->internal()->mline_index() != mline_index)) {
-      transceiver_stable_states_by_transceivers_[transceiver] =
-          TransceiverStableState(transceiver->internal()->direction(),
-                                 transceiver->internal()->mid(),
-                                 transceiver->internal()->mline_index(), false);
+    bool state_changes = transceiver->internal()->mid() != content.name ||
+                         transceiver->internal()->mline_index() != mline_index;
+    if (state_changes) {
+      transceiver_stable_states_by_transceivers_[transceiver].set_m_section(
+          transceiver->internal()->direction(), transceiver->internal()->mid(),
+          transceiver->internal()->mline_index());
     }
   }
-
   // Associate the found or created RtpTransceiver with the m= section by
   // setting the value of the RtpTransceiver's mid property to the MID of the m=
   // section, and establish a mapping between the transceiver and the index of
@@ -8022,6 +8020,26 @@ RTCError PeerConnection::Rollback(SdpType sdp_type) {
        transceiver_stable_states_by_transceivers_) {
     auto transceiver = transceivers_stable_state_pair.first;
     auto state = transceivers_stable_state_pair.second;
+
+    if (state.remote_stream_ids()) {
+      std::vector<rtc::scoped_refptr<MediaStreamInterface>> added_streams;
+      std::vector<rtc::scoped_refptr<MediaStreamInterface>> removed_streams;
+
+      SetAssociatedRemoteStreams(transceiver->internal()->receiver_internal(),
+                                 state.remote_stream_ids().value(),
+                                 &added_streams, &removed_streams);
+      // Once all processing has finished, fire off callbacks.
+      for (const auto& stream : added_streams) {
+        Observer()->OnAddStream(stream);
+      }
+      for (const auto& stream : removed_streams) {
+        Observer()->OnRemoveStream(stream);
+      }
+      if (!state.has_m_section() && !state.newly_created()) {
+        continue;
+      }
+    }
+
     RTC_DCHECK(transceiver->internal()->mid().has_value());
     std::string mid = transceiver->internal()->mid().value();
     transport_controller_->RollbackTransportForMid(mid);
@@ -8032,8 +8050,7 @@ RTCError PeerConnection::Rollback(SdpType sdp_type) {
       Observer()->OnRemoveTrack(transceiver->receiver());
     }
     if (state.newly_created()) {
-      // Remove added transceivers with no added track.
-      if (transceiver->internal()->sender()->track()) {
+      if (transceiver->internal()->reused_for_addtrack()) {
         transceiver->internal()->set_created_by_addtrack(true);
       } else {
         int remaining_transceiver_count = 0;

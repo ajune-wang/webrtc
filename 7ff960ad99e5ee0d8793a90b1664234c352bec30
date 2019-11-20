@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe86d287_02f7ddff",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-20T13:20:23Z",
+      "side": 1,
+      "message": "Use RTC_HISTOGRAM_COUNTS_SPARSE? The docs there say\n\n  // Slow metrics: pointer to metric is acquired at\n  // each call and is not cached.\n\nand that seems appropriate here; we\u0027ll likely only come here a few times per minute. It\u0027s impossible to come here more than ~six times a second, and if we do, we won\u0027t care about bad histogram performance.\n\nWhat\u0027s the binary size impact of the two macros? That might help us choose.",
+      "revId": "7ff960ad99e5ee0d8793a90b1664234c352bec30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ee3cce6_81a26fc5",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-20T13:20:23Z",
+      "side": 1,
+      "message": "The style guide recommends another syntax for argument name comments: https://google.github.io/styleguide/cppguide.html#Function_Argument_Comments",
+      "revId": "7ff960ad99e5ee0d8793a90b1664234c352bec30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

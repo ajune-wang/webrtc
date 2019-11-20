@@ -33,6 +33,10 @@ enum StunMessageType {
   STUN_BINDING_INDICATION = 0x0011,
   STUN_BINDING_RESPONSE = 0x0101,
   STUN_BINDING_ERROR_RESPONSE = 0x0111,
+
+  GOOG_PING_REQUEST = 0x400,
+  GOOG_PING_RESPONSE = 0x500,
+  GOOG_PING_ERROR_RESPONSE = 0x510,
 };
 
 // These are all known STUN attributes, defined in RFC 5389 and elsewhere.
@@ -119,6 +123,8 @@ const size_t kStunLegacyTransactionIdLength = 16;
 
 // STUN Message Integrity HMAC length.
 const size_t kStunMessageIntegritySize = 20;
+// Size of STUN_ATTR_MESSAGE_INTEGRITY_32
+const size_t kStunMessageIntegrity32Size = 4;
 
 class StunAddressAttribute;
 class StunAttribute;
@@ -174,15 +180,32 @@ class StunMessage {
   // Remove the last occurrence of an attribute.
   std::unique_ptr<StunAttribute> RemoveAttribute(int type);
 
+  // Remote all attributes and releases them.
+  void ClearAttributes();
+
   // Validates that a raw STUN message has a correct MESSAGE-INTEGRITY value.
   // This can't currently be done on a StunMessage, since it is affected by
   // padding data (which we discard when reading a StunMessage).
   static bool ValidateMessageIntegrity(const char* data,
                                        size_t size,
                                        const std::string& password);
+  static bool ValidateMessageIntegrity32(const char* data,
+                                         size_t size,
+                                         const std::string& password);
+
   // Adds a MESSAGE-INTEGRITY attribute that is valid for the current message.
   bool AddMessageIntegrity(const std::string& password);
   bool AddMessageIntegrity(const char* key, size_t keylen);
+
+  // Adds a STUN_ATTR_MESSAGE_INTEGRITY_32 attribute that is valid for the
+  // current message.
+  bool AddMessageIntegrity32(absl::string_view password);
+
+  // Verify that a buffer has stun magic cookie and any of the specified
+  // methods.
+  static bool IsStunMethod(rtc::ArrayView<int> methods,
+                           const char* data,
+                           size_t size);
 
   // Verifies that a given buffer is STUN by checking for a correct FINGERPRINT.
   static bool ValidateFingerprint(const char* data, size_t size);
@@ -205,20 +228,35 @@ class StunMessage {
   // This is used for testing.
   void SetStunMagicCookie(uint32_t val);
 
+  // Check if the attributes of this StunMessage equals those of |other|
+  // for all attributes that |attribute_type_mask| return true
+  bool EqualAttributes(const StunMessage* other,
+                       std::function<bool(int type)> attribute_type_mask) const;
+
  protected:
   // Verifies that the given attribute is allowed for this message.
   virtual StunAttributeValueType GetAttributeValueType(int type) const;
+
+  std::vector<std::unique_ptr<StunAttribute>> attrs_;
 
  private:
   StunAttribute* CreateAttribute(int type, size_t length) /* const*/;
   const StunAttribute* GetAttribute(int type) const;
   static bool IsValidTransactionId(const std::string& transaction_id);
+  bool AddMessageIntegrityImpl(int mi_attr_type,
+                               int mi_attr_size,
+                               const char* key,
+                               size_t keylen);
+  static bool ValidateMessageIntegrityImpl(int mi_attr_type,
+                                           int mi_attr_size,
+                                           const char* data,
+                                           size_t size,
+                                           const std::string& password);
 
   uint16_t type_;
   uint16_t length_;
   std::string transaction_id_;
   uint32_t reduced_transaction_id_;
-  std::vector<std::unique_ptr<StunAttribute>> attrs_;
   uint32_t stun_magic_cookie_;
 };
 
@@ -462,6 +500,7 @@ class StunUInt16ListAttribute : public StunAttribute {
   uint16_t GetType(int index) const;
   void SetType(int index, uint16_t value);
   void AddType(uint16_t value);
+  void AddTypeAtIndex(uint16_t index, uint16_t value);
 
   bool Read(rtc::ByteBufferReader* buf) override;
   bool Write(rtc::ByteBufferWriter* buf) const override;
@@ -620,6 +659,8 @@ enum IceAttributeType {
   STUN_ATTR_LAST_ICE_CHECK_RECEIVED = 0xC058,
   // Uint16List. Miscellaneous attributes for future extension.
   STUN_ATTR_GOOG_MISC_INFO = 0xC059,
+  // MESSAGE-INTEGRITY truncated to 32-bit.
+  STUN_ATTR_GOOG_MESSAGE_INTEGRITY_32 = 0xC060,
 };
 
 // When adding new attributes to STUN_ATTR_GOOG_MISC_INFO
@@ -628,7 +669,13 @@ enum IceAttributeType {
 // consistent with those used in ConnectionRequest::Prepare when forming a STUN
 // message for the ICE connectivity check, and they are used when parsing a
 // received STUN message.
-enum class IceGoogMiscInfoAttributeIndex {};
+enum class IceGoogMiscInfoBindingRequestAttributeIndex {};
+
+namespace IceGoogMiscInfoBindingResponseAttributeIndex {
+enum {
+  SUPPORT_GOOG_PING_VERSION = 0,
+};
+}  // namespace IceGoogMiscInfoBindingResponseAttributeIndex
 
 // RFC 5245-defined errors.
 enum IceErrorCode {
@@ -638,6 +685,12 @@ extern const char STUN_ERROR_REASON_ROLE_CONFLICT[];
 
 // A RFC 5245 ICE STUN message.
 class IceMessage : public StunMessage {
+ public:
+  // Contruct a copy of |this|.
+  // This methods is not put into a copy constructor
+  // so that it can (potentially) be overridable.
+  std::unique_ptr<IceMessage> Clone() const;
+
  protected:
   StunAttributeValueType GetAttributeValueType(int type) const override;
   StunMessage* CreateNew() const override;

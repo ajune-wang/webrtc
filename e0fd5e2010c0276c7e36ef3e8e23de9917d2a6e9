@@ -193,6 +193,24 @@
       "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb22efe7_b8177439",
+        "filename": "pc/rtp_transceiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-11-20T12:16:57Z",
+      "side": 1,
+      "message": "Oh you\u0027re right, addTrack-created is in that case slightly different. I\u0027m fine with two booleans then!",
+      "parentUuid": "acc683cf_e2069e4a",
+      "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

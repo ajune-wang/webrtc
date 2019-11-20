@@ -273,7 +273,7 @@ int CoreAudioBase::DeviceName(int index,
                               std::string* name,
                               std::string* guid) const {
   RTC_DLOG(INFO) << __FUNCTION__ << "[" << DirectionToString(direction())
-                 << "]";
+                 << "]: index=" << index;
   if (index > NumberOfEnumeratedDevices() - 1) {
     RTC_LOG(LS_ERROR) << "Invalid device index";
     return -1;

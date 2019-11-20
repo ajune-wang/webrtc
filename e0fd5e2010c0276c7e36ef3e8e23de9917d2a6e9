@@ -160,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "92e9861a_7c5479fa",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1375,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-11-20T14:18:13Z",
+      "side": 1,
+      "message": "Side-track: Why are we storing \"direction\" anyway?\n\nWhen you complete an O/A exchange the direction in the SDP modifies the currentDirection to match it. But it doesn\u0027t modify the direction attribute of your transceivers. Except if the SDP caused a transciever to be created, then the direction in the SDP would be the initial value of that attribute I suppose.\n\nI feel like if we could get rid of this line then TranscieverStableState would be less scary:\ntransceiver-\u003einternal()-\u003eset_direction(state.direction());\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/peer_connection.cc?type\u003dcs\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d8050\n\nBut maybe I\u0027m forgetting something.",
+      "parentUuid": "7aacd94b_0c442d8e",
+      "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "973bb39a_77730c00",
         "filename": "pc/rtp_transceiver.h",
         "patchSetId": 2

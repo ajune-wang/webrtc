@@ -35,6 +35,7 @@ rtc_library("video_frame") {
   visibility = [ "*" ]
   sources = [
     "video_codec_type.h",
+    "video_encoded_sink_interface.h",
     "video_frame.cc",
     "video_frame.h",
     "video_frame_buffer.cc",

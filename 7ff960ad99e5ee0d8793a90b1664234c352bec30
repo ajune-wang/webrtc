@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "295d768a_cbb44976",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 10373
+      },
+      "writtenOn": "2019-11-20T20:26:30Z",
+      "side": 1,
+      "message": "Sparse histograms are not appropriate here, as\n- you\u0027re likely to emit a bunch of *different* values to this histogram\n- you don\u0027t want/need the exact values -- bucketing is fine\n\nIn other words, I think this current call is fine.\n\nFYI, there is general advice about efficiency in these three sections:\nhttps://chromium.googlesource.com/chromium/src.git/+/HEAD/tools/metrics/histograms/README.md#coding-emitting-to-histograms\nhttps://chromium.googlesource.com/chromium/src.git/+/HEAD/tools/metrics/histograms/README.md#efficiency\nhttps://chromium.googlesource.com/chromium/src.git/+/HEAD/tools/metrics/histograms/README.md#when-to-use-sparse-histograms",
+      "parentUuid": "fe86d287_02f7ddff",
+      "revId": "7ff960ad99e5ee0d8793a90b1664234c352bec30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ee3cce6_81a26fc5",
         "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
         "patchSetId": 2
@@ -30,6 +48,29 @@
       "writtenOn": "2019-11-20T13:20:23Z",
       "side": 1,
       "message": "The style guide recommends another syntax for argument name comments: https://google.github.io/styleguide/cppguide.html#Function_Argument_Comments",
+      "revId": "7ff960ad99e5ee0d8793a90b1664234c352bec30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2792621_112c66c2",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 10373
+      },
+      "writtenOn": "2019-11-20T20:26:30Z",
+      "side": 1,
+      "message": "optional nit: This doesn\u0027t seem like a wide range.  As such, you can probably stick with the default 50 buckets and still get the information you need.\nhttps://chromium.googlesource.com/chromium/src.git/+/HEAD/tools/metrics/histograms/README.md#count-histograms_choosing-number-of-buckets",
+      "range": {
+        "startLine": 197,
+        "startChar": 56,
+        "endLine": 197,
+        "endChar": 59
+      },
       "revId": "7ff960ad99e5ee0d8793a90b1664234c352bec30",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

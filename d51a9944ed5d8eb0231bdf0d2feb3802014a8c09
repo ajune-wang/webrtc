@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "dd5205e9_1ba3273e",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-20T08:48:56Z",
+      "side": 1,
+      "message": "extensions_.audio_level_ \u003d\u003d o.extensions_.audio_level_ \u0026\u0026 \nextensions_.absolute_capture_time_ \u003d\u003d o.extensions_.absolute_capture_time_ \u0026\u0026",
+      "range": {
+        "startLine": 88,
+        "startChar": 46,
+        "endLine": 88,
+        "endChar": 58
+      },
+      "revId": "d51a9944ed5d8eb0231bdf0d2feb3802014a8c09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3059ea83_9ad0ea2b",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-20T08:48:56Z",
+      "side": 1,
+      "message": "I think this can be const. Am I missing something?",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 36
+      },
+      "revId": "d51a9944ed5d8eb0231bdf0d2feb3802014a8c09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c6f3a646_ecc97da7",
         "filename": "api/transport/rtp/rtp_source.h",
         "patchSetId": 8
@@ -18,6 +64,52 @@
         "startChar": 0,
         "endLine": 99,
         "endChar": 61
+      },
+      "revId": "d51a9944ed5d8eb0231bdf0d2feb3802014a8c09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f263cbb7_3366c64c",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-20T08:48:56Z",
+      "side": 1,
+      "message": "remove audio_level_ and  absolute_capture_time_",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 61
+      },
+      "revId": "d51a9944ed5d8eb0231bdf0d2feb3802014a8c09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7081acfe_70691c26",
+        "filename": "modules/rtp_rtcp/source/source_tracker_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-20T08:48:56Z",
+      "side": 1,
+      "message": "constexpr RtpSource::Extensions kExtensions0{kAudioLevel0, kAbsoluteCaptureTime0}; (try if it compiles)\n\nsimilar on other newly introduced constants.",
+      "range": {
+        "startLine": 305,
+        "startChar": 2,
+        "endLine": 305,
+        "endChar": 35
       },
       "revId": "d51a9944ed5d8eb0231bdf0d2feb3802014a8c09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

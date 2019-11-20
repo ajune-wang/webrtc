@@ -184,6 +184,56 @@ TEST_F(ReceiveStatisticsProxyTest, ReportsContentType) {
                                  statistics_proxy_->GetStats().content_type));
 }
 
+TEST_F(ReceiveStatisticsProxyTest, ReportsMaxTotalInterFrameDelay) {
+  webrtc::VideoFrame frame = CreateFrame(kWidth, kHeight);
+  const int64_t kInterFrameDelayMs1 = 100;
+  const int64_t kInterFrameDelayMs2 = 200;
+  const int64_t kInterFrameDelayMs3 = 100;
+  double expectedTotalInterFrameDelay = 0;
+  double expectedTotalSquaredInterFrameDelay = 0;
+  EXPECT_EQ(expectedTotalInterFrameDelay,
+            statistics_proxy_->GetStats().total_inter_frame_delay);
+  EXPECT_EQ(expectedTotalSquaredInterFrameDelay,
+            statistics_proxy_->GetStats().total_squared_inter_frame_delay);
+
+  statistics_proxy_->OnDecodedFrame(frame, absl::nullopt, 0,
+                                    VideoContentType::UNSPECIFIED);
+  EXPECT_EQ(expectedTotalInterFrameDelay,
+            statistics_proxy_->GetStats().total_inter_frame_delay);
+  EXPECT_EQ(expectedTotalSquaredInterFrameDelay,
+            statistics_proxy_->GetStats().total_squared_inter_frame_delay);
+
+  fake_clock_.AdvanceTimeMilliseconds(kInterFrameDelayMs1);
+  statistics_proxy_->OnDecodedFrame(frame, absl::nullopt, 0,
+                                    VideoContentType::UNSPECIFIED);
+  expectedTotalInterFrameDelay += kInterFrameDelayMs1;
+  expectedTotalSquaredInterFrameDelay += pow(kInterFrameDelayMs1, 2.0);
+  EXPECT_EQ(expectedTotalInterFrameDelay,
+            statistics_proxy_->GetStats().total_inter_frame_delay);
+  EXPECT_EQ(expectedTotalSquaredInterFrameDelay,
+            statistics_proxy_->GetStats().total_squared_inter_frame_delay);
+
+  fake_clock_.AdvanceTimeMilliseconds(kInterFrameDelayMs2);
+  statistics_proxy_->OnDecodedFrame(frame, absl::nullopt, 0,
+                                    VideoContentType::UNSPECIFIED);
+  expectedTotalInterFrameDelay += kInterFrameDelayMs2;
+  expectedTotalSquaredInterFrameDelay += pow(kInterFrameDelayMs2, 2.0);
+  EXPECT_EQ(expectedTotalInterFrameDelay,
+            statistics_proxy_->GetStats().total_inter_frame_delay);
+  EXPECT_EQ(expectedTotalSquaredInterFrameDelay,
+            statistics_proxy_->GetStats().total_squared_inter_frame_delay);
+
+  fake_clock_.AdvanceTimeMilliseconds(kInterFrameDelayMs3);
+  statistics_proxy_->OnDecodedFrame(frame, absl::nullopt, 0,
+                                    VideoContentType::UNSPECIFIED);
+  expectedTotalInterFrameDelay += kInterFrameDelayMs3;
+  expectedTotalSquaredInterFrameDelay += pow(kInterFrameDelayMs3, 2.0);
+  EXPECT_EQ(expectedTotalInterFrameDelay,
+            statistics_proxy_->GetStats().total_inter_frame_delay);
+  EXPECT_EQ(expectedTotalSquaredInterFrameDelay,
+            statistics_proxy_->GetStats().total_squared_inter_frame_delay);
+}
+
 TEST_F(ReceiveStatisticsProxyTest, ReportsMaxInterframeDelay) {
   webrtc::VideoFrame frame = CreateFrame(kWidth, kHeight);
   const int64_t kInterframeDelayMs1 = 100;

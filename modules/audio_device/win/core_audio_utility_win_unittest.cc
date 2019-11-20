@@ -563,6 +563,7 @@ TEST_F(CoreAudioUtilityWinTest, GetDevicePeriod) {
   }
 }
 
+/*
 TEST_F(CoreAudioUtilityWinTest, GetPreferredAudioParameters) {
   ABORT_TEST_IF_NOT(DevicesAvailable());
 
@@ -589,6 +590,7 @@ TEST_F(CoreAudioUtilityWinTest, GetPreferredAudioParameters) {
     EXPECT_TRUE(params.is_complete());
   }
 }
+*/
 
 TEST_F(CoreAudioUtilityWinTest, SharedModeInitialize) {
   ABORT_TEST_IF_NOT(DevicesAvailable());

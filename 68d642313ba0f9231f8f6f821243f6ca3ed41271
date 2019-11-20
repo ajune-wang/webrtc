@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5692f412_a9bd6953",
+        "filename": "tools_webrtc/ubsan/blacklist.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-20T21:08:56Z",
+      "side": 1,
+      "message": "Do we have a bug for this as well?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 45
+      },
+      "revId": "68d642313ba0f9231f8f6f821243f6ca3ed41271",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

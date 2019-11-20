@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a8cae69_44770a96",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-11-20T14:35:49Z",
+      "side": 0,
+      "message": "Is this meant to be deprecated.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 62
+      },
+      "revId": "53e157d25ce78ba6cd8625b0b655b46f8e1b0a91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

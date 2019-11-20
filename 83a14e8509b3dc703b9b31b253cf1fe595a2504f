@@ -117,6 +117,24 @@
       "revId": "83a14e8509b3dc703b9b31b253cf1fe595a2504f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20197dc4_a770a1ec",
+        "filename": "modules/audio_coding/acm2/acm_remixing.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-20T13:41:54Z",
+      "side": 1,
+      "message": "The compiler optimizes them out completely as long as it can prove that there are no side effects: https://godbolt.org/z/52Jzm4\n\nBasic arithmetic on local integer variables solidly belongs in this camp. The implementation of DCHECK relies on this assumption for its efficiency.\n\nBut I guess that since this may not be common knowledge, one might still want to avoid it. In that case,\n\n  RTC_DCHECK(input.num_channels_ \u003e 0 || num_output_channels \u003d\u003d 0);\n\nmight be a good choice. The extra condition on input.samples_per_channel_ seems overly complex.\n\nAnyway, this CL has already landed, so no need to mess with it further over a minor complaint like this.",
+      "parentUuid": "331c34dc_64dc5cf5",
+      "revId": "83a14e8509b3dc703b9b31b253cf1fe595a2504f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

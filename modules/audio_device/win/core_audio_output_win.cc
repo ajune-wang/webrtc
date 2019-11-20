@@ -66,7 +66,10 @@ int CoreAudioOutput::SetDevice(int index) {
 }
 
 int CoreAudioOutput::SetDevice(AudioDeviceModule::WindowsDeviceType device) {
-  RTC_DLOG(INFO) << __FUNCTION__ << ": " << device;
+  RTC_DLOG(INFO) << "" << __FUNCTION__ << ": "
+                 << ((device == AudioDeviceModule::kDefaultDevice)
+                         ? "Default"
+                         : "DefaultCommunication");
   RTC_DCHECK_RUN_ON(&thread_checker_);
   return SetDevice((device == AudioDeviceModule::kDefaultDevice) ? 0 : 1);
 }
@@ -240,7 +243,6 @@ int CoreAudioOutput::RestartPlayout() {
 }
 
 bool CoreAudioOutput::Restarting() const {
-  RTC_DLOG(INFO) << __FUNCTION__;
   RTC_DCHECK_RUN_ON(&thread_checker_);
   return IsRestarting();
 }

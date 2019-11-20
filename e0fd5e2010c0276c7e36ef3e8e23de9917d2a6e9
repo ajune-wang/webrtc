@@ -125,6 +125,41 @@
     },
     {
       "key": {
+        "uuid": "d1f32264_29d559ac",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1371,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-11-20T14:08:25Z",
+      "side": 1,
+      "message": "I reviewed the latest patch and the implicit creation of transceiver states worries me. Like you say it opens up the risk that something gets overwritten or discarded by accident.\n\n\u003e Problem is that these snapshots are taken in different places and on different conditions\n\nHmm. The conditions I see are:\n\nWhen we associate a transceiver, i.e. SLD or SRD offer when...\n1. a transceiver is created as a result of an m\u003d section on remote SDP, which I think only applies to remote offer.\n2. a transceiver that already exist and doesn\u0027t have a state stored yet changes direction or mid. This could be a local offer assigning a mid or this could be a remote offer changing the direction.\n\nAnd then new in this CL is:\n3. Remote SDP has a receiving m\u003d section and we\u0027re examining the new stream IDs.\n\nSo we have 3 different conditions. But I suspect they\u0027re all the same problem:\n\"Store a snapshot of the transceiver on offer as it was in the stable state\"\n\nSo are 1-3 really different things, or are they just 3 different points in the code base where we happen to stumble upon m\u003d sections and transceivers and decide to store a snapshot?\n\nWould there be any harm in storing receiver remote streams at 2)? Would there be any harm in storing transceiver mid at 3)? Well, maybe it would, but only because at 3) we\u0027ve already modified the mid so we would be snapshotting the wrong value. My point is, if snapshots were taken early, it probably wouldn\u0027t hurt to snapshot everything.\n\nAnyway, I don\u0027t want to restructure everyhing, and accidentally reverting some piece of state that we didn\u0027t mean to is something I want to avoid. So I suggest for now we go with your previous approach. The more I think about it, using more of TransceiverStableState worries me, especially its direction (see other comment).",
+      "parentUuid": "85cd48cb_da556e58",
+      "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7aacd94b_0c442d8e",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1375,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-11-20T14:08:25Z",
+      "side": 1,
+      "message": "Looking here..\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/peer_connection.cc?type\u003dcs\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d3825\n\nI think we store the direction from stable state when associating a transceiver, and that\u0027s what we revert back to. What happens if we modify the direction while has-remote-offer? Would direction changes caused by the application be reverted?\n\nWe did conclude that rolling back a transceiver that was created by SDP should be destroyed even if you touched it. And that\u0027s fine. But what about rolling back direction changes on a transceiver that we created earlier, that SDP only happened to have associated?\n\nconst pc \u003d new RTCPeerConnection();\npc.addTrack(track);\n// The addTrack-transceiver:\nconst transceiver \u003d pc.getTranscievers()[0];\n// transceiver.direction \u003d\u003d \u0027sendrecv\u0027;\npc.ontrack \u003d e \u003d\u003e {\n  // Due to FindAvailableTransceiverToReceive, e.transceiver \u003d\u003d transceiver.\n  transciever.direction \u003d \u0027sendonly\u0027;\n}\nawait pc.setRemoteDescription(offer);\n// Now transceiver.direction \u003d\u003d \u0027sendonly\u0027\nawait pc.setRemoteDescription(rollback);\n// And now transceiver.direction is reverted back to \u0027sendrecv\u0027 even though the application\n// explicitly set the the attribute to \u0027sendonly\u0027 while has-remote-offer.\n\nNot sure what the spec intends should happen here: Rollback to only unassign the mid or if rollback should also revert direction changes. If this is a bug it might be solvable by making TransceiverStableState::direction_ optional and not rolling back direction if it doesn\u0027t have a value, but let\u0027s not do that in this CL.\n\nIn any case, this highlights that creating more TransceiverStableState objects than necessary may be risky.",
+      "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "973bb39a_77730c00",
         "filename": "pc/rtp_transceiver.h",
         "patchSetId": 2

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44b021b7_d85680d2",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3246,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-11-20T14:08:25Z",
+      "side": 1,
+      "message": "I would like us to avoid implicitly creating TransceiverStableState objects, either by DCHECKing that they exists or explicitly initializing all members. It seems error-prone to implicitly have a state, with risk of rolling back to some unknown state.\n\nFor example, could this accidentally store a transceiver state with mid null on a transceiver that already has a mid from a previous O/A exchange? Then rolling back un-assigns a mid that was already fully assigned.\n\nIf we are relying on certain assumptions that make this safe I would like them DCHECKed or explained.\n\nBut see my other comments, we may want to go with your earlier patch set.",
+      "revId": "23d2ec4230336595074aeeb85a39084ff6b47135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e5d90c4_8ef32c04",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3786,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-11-20T14:08:25Z",
+      "side": 1,
+      "message": "Risk of implicit state created?",
+      "revId": "23d2ec4230336595074aeeb85a39084ff6b47135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7ff02bd_ae554d52",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-11-20T14:08:25Z",
+      "side": 1,
+      "message": "Address todo",
+      "revId": "23d2ec4230336595074aeeb85a39084ff6b47135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

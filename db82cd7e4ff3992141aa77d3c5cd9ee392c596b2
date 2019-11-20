@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fcfb99cc_3e8f679c",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-11-20T14:08:25Z",
+      "side": 0,
+      "message": "Can we keep this comment?",
+      "revId": "db82cd7e4ff3992141aa77d3c5cd9ee392c596b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

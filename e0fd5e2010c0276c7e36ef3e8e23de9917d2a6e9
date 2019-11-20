@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "398ec658_61581568",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3254,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-11-20T09:21:34Z",
+      "side": 1,
+      "message": "Yes, that was a bug.",
+      "parentUuid": "03bb0d64_dc513181",
+      "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07777ab0_b15e013f",
         "filename": "pc/peer_connection.h",
         "patchSetId": 2
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "f19c97f9_9e9b9035",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1371,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-11-20T09:21:34Z",
+      "side": 1,
+      "message": "\u003eTransceiverStableState?\n\nIt is possible. But doesn\u0027t come for free. Testing gets more complicated because of the coupling. Probably need to add tests in combined scenarios rather than testing both things separately.",
+      "parentUuid": "07777ab0_b15e013f",
+      "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "973bb39a_77730c00",
         "filename": "pc/rtp_transceiver.h",
         "patchSetId": 2
@@ -64,6 +100,24 @@
       "writtenOn": "2019-11-19T15:50:32Z",
       "side": 1,
       "message": "Don\u0027t we want a single bool for \"has been used by addTrack\"?\nIf I understand the spec correctly, the point is that if addTrack() was called then the user of the API expects the returned sender object to be reliable. So if the transceiver.sender was ever used then that transceiver is permanently blessed. Is any other code path needed? Why differentiate between \"created_by\" and \"reused\"?",
+      "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9d24c9b_3fdfd746",
+        "filename": "pc/rtp_transceiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-11-20T09:21:34Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand how single bool can do. Otherwise I could have just use the created_by_addtrack in the first place. Or what you are suspecting is that maybe existing behavior of https://cs.chromium.org/search/?q\u003dcreated_by_addtrack\u0026type\u003dcs is not exactly spec compliant and the flag could be set always in PeerConnection::AddTrackUnifiedPlan even when new transceiver was not created?",
+      "parentUuid": "973bb39a_77730c00",
       "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

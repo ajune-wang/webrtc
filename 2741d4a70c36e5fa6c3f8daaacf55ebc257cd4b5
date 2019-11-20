@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "df3c9d7c_26b8a759",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-11-20T14:07:22Z",
+      "side": 1,
+      "message": "Regarding changing to last-first. After a second though I think it\u0027s equally good to keep it as is.",
+      "range": {
+        "startLine": 781,
+        "startChar": 2,
+        "endLine": 781,
+        "endChar": 55
+      },
+      "revId": "2741d4a70c36e5fa6c3f8daaacf55ebc257cd4b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dcbec81b_66f21bbb",
         "filename": "video/receive_statistics_proxy.cc",
         "patchSetId": 3
@@ -13,6 +36,30 @@
       "writtenOn": "2019-11-20T13:16:50Z",
       "side": 1,
       "message": "nit: Won\u0027t multiplication be more readable here? It might probably be also faster.",
+      "range": {
+        "startLine": 782,
+        "startChar": 46,
+        "endLine": 782,
+        "endChar": 72
+      },
+      "revId": "2741d4a70c36e5fa6c3f8daaacf55ebc257cd4b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a28375ae_dc4f89b2",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-11-20T14:07:22Z",
+      "side": 1,
+      "message": "The compiler seems to optimize this call away, but I\u0027ve changed to x * x for readability.",
+      "parentUuid": "dcbec81b_66f21bbb",
       "range": {
         "startLine": 782,
         "startChar": 46,

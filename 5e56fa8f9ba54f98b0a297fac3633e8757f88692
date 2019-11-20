@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "98788a23_7ba4a63b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-20T12:32:51Z",
+      "side": 1,
+      "message": "I don\u0027t follow these references. Can you rephrase for clarity?\n\nAnd strike one \"ultimately\".",
+      "range": {
+        "startLine": 9,
+        "startChar": 36,
+        "endLine": 9,
+        "endChar": 97
+      },
+      "revId": "5e56fa8f9ba54f98b0a297fac3633e8757f88692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ce4ee78_91bae3ca",
+        "filename": "api/media_stream_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-20T12:32:51Z",
+      "side": 1,
+      "message": "Does this need to be a separate method? The alternative would be to let AddEncodedSink return success/failure.",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 62
+      },
+      "revId": "5e56fa8f9ba54f98b0a297fac3633e8757f88692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f138649a_a26e1e61",
+        "filename": "api/media_stream_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-20T12:32:51Z",
+      "side": 1,
+      "message": "RequestKeyFrame, to be consistent with naming in other classes.\n\nI take it it will ask the remote end for a keyframe, and ask again if no key frame is received shortly.",
+      "range": {
+        "startLine": 145,
+        "startChar": 15,
+        "endLine": 145,
+        "endChar": 31
+      },
+      "revId": "5e56fa8f9ba54f98b0a297fac3633e8757f88692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "558a544c_45269b6d",
         "filename": "api/media_stream_interface.h",
         "patchSetId": 6
@@ -41,6 +110,29 @@
         "startChar": 6,
         "endLine": 23,
         "endChar": 31
+      },
+      "revId": "5e56fa8f9ba54f98b0a297fac3633e8757f88692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c784bd1a_a83530bf",
+        "filename": "api/video/video_encoded_sink_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-20T12:32:51Z",
+      "side": 1,
+      "message": "Naming: Suggest EncodedVideoFrameSink and EncodedFrame.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 20
       },
       "revId": "5e56fa8f9ba54f98b0a297fac3633e8757f88692",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

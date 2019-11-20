@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "e9902d95_068bec83",
+        "filename": "api/media_stream_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-20T13:03:28Z",
+      "side": 1,
+      "message": "If you want a distinct name, whatabout ReliablyRequestKeyFrame or RequestKeyFrameReliably?",
+      "parentUuid": "32eee7c4_701fc80a",
+      "range": {
+        "startLine": 145,
+        "startChar": 15,
+        "endLine": 145,
+        "endChar": 31
+      },
+      "revId": "5e56fa8f9ba54f98b0a297fac3633e8757f88692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "558a544c_45269b6d",
         "filename": "api/media_stream_interface.h",
         "patchSetId": 6
@@ -237,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "9d854846_329191d2",
+        "filename": "api/video/video_encoded_sink_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-20T13:03:28Z",
+      "side": 1,
+      "message": "I don\u0027t have a strong opinion. To be able to use rtc::VideoSinkInterface, you\u0027d need to make this class non-refcounted, but use a refcounted pointer for the data. You could reuse the EncodedImageBufferInterface (see encoded_image.h) for the data.",
+      "parentUuid": "2306601b_49736707",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "5e56fa8f9ba54f98b0a297fac3633e8757f88692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c784bd1a_a83530bf",
         "filename": "api/video/video_encoded_sink_interface.h",
         "patchSetId": 6
@@ -272,6 +320,30 @@
       "side": 1,
       "message": "Weren\u0027t you confused by the EncodedFrame name in the previous review?\n\nIf I do it as Per suggested, where would you guys like me to declare the encoded frame type? New file?\n\nAnd what should the name be to not confuse it with video_coding::EncodedFrame? Would VideoEncodedFrameBuffer suffice?",
       "parentUuid": "c784bd1a_a83530bf",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 20
+      },
+      "revId": "5e56fa8f9ba54f98b0a297fac3633e8757f88692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6102461_f688df90",
+        "filename": "api/video/video_encoded_sink_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-20T13:03:28Z",
+      "side": 1,
+      "message": "I think EncodedFrame is a reasonable name for a local inner class, but too generic for a top-level class.",
+      "parentUuid": "24590d00_4def9490",
       "range": {
         "startLine": 23,
         "startChar": 0,

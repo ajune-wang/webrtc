@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "f6e5d6f7_02250483",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3254,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-11-20T22:44:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "398ec658_61581568",
+      "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07777ab0_b15e013f",
         "filename": "pc/peer_connection.h",
         "patchSetId": 2
@@ -175,6 +193,24 @@
       "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b516230_df0e1534",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1375,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-11-20T22:44:37Z",
+      "side": 1,
+      "message": "It was puzzling me too if restoring direction was even needed as all the current tests would pass without it and I didn\u0027t manage to construct a test for it either. At the same time I was hesitant to remove it since there was \"For the RTCRtpTransceivers remaining on connection, revert any changes to the [[CurrentDirection]] and [[Receptive]] internal slots made by the application of the RTCSessionDescription that is being rolled back.\" in the spec. But in the latest draft I don\u0027t see that restoring direction is mentioned anywhere and I am fine with removing it from the code too.",
+      "parentUuid": "92e9861a_7c5479fa",
+      "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

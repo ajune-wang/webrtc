@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "67ce02ee_57db384a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3246,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-11-20T22:44:37Z",
+      "side": 1,
+      "message": "TransceiverStableState keeps track internally what is been captured and what needs to be rolled back by using flags: has_m_section_, newly_created_. And streams_ids are optional.",
+      "parentUuid": "44b021b7_d85680d2",
+      "revId": "23d2ec4230336595074aeeb85a39084ff6b47135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e5d90c4_8ef32c04",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "e192f46e_600b4f55",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3786,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-11-20T22:44:37Z",
+      "side": 1,
+      "message": "This place is safe as we create new transceiver here.",
+      "parentUuid": "5e5d90c4_8ef32c04",
+      "revId": "23d2ec4230336595074aeeb85a39084ff6b47135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7ff02bd_ae554d52",
         "filename": "pc/peer_connection.h",
         "patchSetId": 3
@@ -50,6 +86,24 @@
       "revId": "23d2ec4230336595074aeeb85a39084ff6b47135",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef3655ae_5bc5f57e",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-11-20T22:44:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7ff02bd_ae554d52",
+      "revId": "23d2ec4230336595074aeeb85a39084ff6b47135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

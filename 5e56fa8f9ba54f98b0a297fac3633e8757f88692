@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "558a544c_45269b6d",
+        "filename": "api/media_stream_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-11-20T12:21:47Z",
+      "side": 1,
+      "message": "prefer rtc::VideoSourceInterface\u003cVideoFrame\u003e but with another type of Videoframe.",
+      "range": {
+        "startLine": 151,
+        "startChar": 30,
+        "endLine": 151,
+        "endChar": 55
+      },
+      "revId": "5e56fa8f9ba54f98b0a297fac3633e8757f88692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c346e325_57a9c201",
+        "filename": "api/video/video_encoded_sink_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-11-20T12:21:47Z",
+      "side": 1,
+      "message": "I would prefer if this class did not exist. Instead continue to use rtc::VideoSinkInterface only but with a new EncodedFrameType.",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "5e56fa8f9ba54f98b0a297fac3633e8757f88692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

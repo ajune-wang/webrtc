@@ -733,7 +733,7 @@ TEST_P(MAYBE_AudioDeviceTest, PlayoutDeviceNames) {
 
 // Enumerate all available and active input devices.
 TEST_P(MAYBE_AudioDeviceTest, RecordingDeviceNames) {
-  SKIP_TEST_IF_NOT(requirements_satisfied());
+  // SKIP_TEST_IF_NOT(requirements_satisfied());
   char device_name[kAdmMaxDeviceNameSize];
   char unique_id[kAdmMaxGuidSize];
   int num_devices = audio_device()->RecordingDevices();
@@ -839,7 +839,8 @@ TEST_P(MAYBE_AudioDeviceTest, StartStopPlayoutWithRealDevice) {
 // Tests Start/Stop recording for all available input devices to ensure that
 // the selected device can be created and used as intended.
 TEST_P(MAYBE_AudioDeviceTest, StartStopRecordingWithRealDevice) {
-  SKIP_TEST_IF_NOT(requirements_satisfied());
+  // SKIP_TEST_IF_NOT(requirements_satisfied());
+  /*
   int num_devices = audio_device()->RecordingDevices();
   if (NewWindowsAudioDeviceModuleIsUsed()) {
     num_devices += 2;
@@ -851,9 +852,11 @@ TEST_P(MAYBE_AudioDeviceTest, StartStopRecordingWithRealDevice) {
     StartRecording();
     StopRecording();
   }
+  */
 #ifdef WEBRTC_WIN
+  PRINT("\n------------------ TEST STARTS ---------------\n");
   AudioDeviceModule::WindowsDeviceType device_role[] = {
-      AudioDeviceModule::kDefaultDevice,
+      // AudioDeviceModule::kDefaultDevice,
       AudioDeviceModule::kDefaultCommunicationDevice};
   for (size_t i = 0; i < arraysize(device_role); ++i) {
     EXPECT_EQ(0, audio_device()->SetRecordingDevice(device_role[i]));
@@ -1238,8 +1241,9 @@ TEST_P(MAYBE_AudioDeviceTest, DISABLED_MeasureLoopbackLatency) {
 INSTANTIATE_TEST_SUITE_P(
     AudioLayerWin,
     MAYBE_AudioDeviceTest,
-    ::testing::Values(AudioDeviceModule::kPlatformDefaultAudio,
-                      AudioDeviceModule::kWindowsCoreAudio2));
+    ::testing::Values(AudioDeviceModule::kWindowsCoreAudio2));
+// ::testing::Values(AudioDeviceModule::kPlatformDefaultAudio,
+//                   AudioDeviceModule::kWindowsCoreAudio2));
 #else
 // For all platforms but Windows, only test the default audio layer.
 INSTANTIATE_TEST_SUITE_P(

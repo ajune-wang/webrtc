@@ -174,6 +174,19 @@ const char* WaveFormatTagToString(WORD format_tag) {
   }
 }
 
+const char* RoleToString(const ERole role) {
+  switch (role) {
+    case eConsole:
+      return "Default";
+    case eMultimedia:
+      return "Multimedia";
+    case eCommunications:
+      return "Communications";
+    default:
+      return "Unsupported";
+  }
+}
+
 bool LoadAudiosesDll() {
   static const wchar_t* const kAudiosesDLL =
       L"%WINDIR%\\system32\\audioses.dll";
@@ -257,7 +270,7 @@ bool IsDeviceActive(IMMDevice* device) {
 ComPtr<IMMDevice> CreateDeviceInternal(const std::string& device_id,
                                        EDataFlow data_flow,
                                        ERole role) {
-  RTC_DLOG(INFO) << "CreateDeviceInternal: " << role;
+  RTC_DLOG(INFO) << "__________CreateDeviceInternal: " << RoleToString(role);
   ComPtr<IMMDevice> audio_endpoint_device;
 
   // Create the IMMDeviceEnumerator interface.
@@ -270,6 +283,9 @@ ComPtr<IMMDevice> CreateDeviceInternal(const std::string& device_id,
       device_id == AudioDeviceName::kDefaultCommunicationsDeviceId) {
     error = device_enum->GetDefaultAudioEndpoint(
         data_flow, role, audio_endpoint_device.GetAddressOf());
+    if (error.Error() == E_NOTFOUND) {
+      RTC_LOG(LS_ERROR) << "E_NOTFOUND";
+    }
     if (FAILED(error.Error())) {
       RTC_LOG(LS_ERROR)
           << "IMMDeviceEnumerator::GetDefaultAudioEndpoint failed: "
@@ -447,8 +463,10 @@ bool GetDeviceNamesInternal(EDataFlow data_flow,
   for (size_t i = 0; i < arraysize(role); ++i) {
     default_device = CreateDeviceInternal(AudioDeviceName::kDefaultDeviceId,
                                           data_flow, role[i]);
+    // TODO(henrika) ---- FIX ----
     if (!default_device.Get()) {
-      return false;
+      RTC_DCHECK(false);
+      //  return false;
     }
 
     std::string device_name;

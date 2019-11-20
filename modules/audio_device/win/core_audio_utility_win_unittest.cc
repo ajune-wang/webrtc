@@ -291,7 +291,7 @@ TEST_F(CoreAudioUtilityWinTest, GetFriendlyName) {
 }
 
 TEST_F(CoreAudioUtilityWinTest, GetInputDeviceNames) {
-  ABORT_TEST_IF_NOT(DevicesAvailable());
+  // ABORT_TEST_IF_NOT(DevicesAvailable());
 
   webrtc::AudioDeviceNames device_names;
   EXPECT_TRUE(core_audio_utility::GetInputDeviceNames(&device_names));

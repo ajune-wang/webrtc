@@ -229,7 +229,8 @@ bool CoreAudioBase::IsOutput() const {
 }
 
 std::string CoreAudioBase::GetDeviceID(int index) const {
-  if (index >= NumberOfEnumeratedDevices()) {
+  Verify at least one active device
+      here...... if (index >= NumberOfEnumeratedDevices()) {
     RTC_LOG(LS_ERROR) << "Invalid device index";
     return std::string();
   }
@@ -258,13 +259,15 @@ int CoreAudioBase::SetDevice(int index) {
   RTC_DLOG(INFO) << __FUNCTION__ << "[" << DirectionToString(direction())
                  << "]";
   if (initialized_) {
+    RTC_DLOG(LS_WARNING) << "Failed to set device since already initialized";
     return -1;
   }
 
   std::string device_id = GetDeviceID(index);
-  RTC_DLOG(INFO) << "index=" << index << " => device_id: " << device_id;
   device_index_ = index;
   device_id_ = device_id;
+  RTC_DLOG(INFO) << "index=" << device_index_
+                 << " => device_id: " << device_id_;
 
   return device_id_.empty() ? -1 : 0;
 }
@@ -291,14 +294,14 @@ int CoreAudioBase::DeviceName(int index,
   RTC_DLOG(INFO) << "name: " << *name;
   if (guid != nullptr) {
     *guid = device_names[index].unique_id;
-    RTC_DLOG(INFO) << "guid: " << guid;
+    RTC_DLOG(INFO) << "guid: " << *guid;
   }
   return 0;
 }
 
 bool CoreAudioBase::Init() {
   RTC_DLOG(INFO) << __FUNCTION__ << "[" << DirectionToString(direction())
-                 << "]";
+                 << "] - " << device_id_;
   RTC_DCHECK(!device_id_.empty());
   RTC_DCHECK(audio_device_buffer_);
   RTC_DCHECK(!audio_client_);
@@ -309,9 +312,11 @@ bool CoreAudioBase::Init() {
   std::string device_id = device_id_;
   ERole role = eConsole;
   if (IsDefaultDevice(device_id)) {
+    RTC_DLOG(LS_INFO) << "Using default device";
     device_id = AudioDeviceName::kDefaultDeviceId;
     role = eConsole;
   } else if (IsDefaultCommunicationsDevice(device_id)) {
+    RTC_DLOG(LS_INFO) << "Using default communications device";
     device_id = AudioDeviceName::kDefaultCommunicationsDeviceId;
     role = eCommunications;
   } else {

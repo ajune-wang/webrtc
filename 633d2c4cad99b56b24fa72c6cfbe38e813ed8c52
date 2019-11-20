@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37593b74_ef387483",
+        "filename": "api/transport/rtp/rtp_source.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-11-20T14:52:11Z",
+      "side": 1,
+      "message": "Can you use an RTC_DEPRECATED annotation instead of a comment? In that case, please also send a PSA.",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 29
+      },
+      "revId": "633d2c4cad99b56b24fa72c6cfbe38e813ed8c52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

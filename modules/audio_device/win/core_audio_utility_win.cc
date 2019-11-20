@@ -463,12 +463,65 @@ ComPtr<IMMDeviceCollection> CreateCollectionInternal(EDataFlow data_flow) {
 
 bool GetDeviceNamesInternal(EDataFlow data_flow,
                             webrtc::AudioDeviceNames* device_names) {
-  // Always add the default device in index 0 and the default communication
-  // device as index 1 in the vector. The name of the default device starts
-  // with "Default - " and the default communication device starts with
-  // "Communication - ".
-  //  Example of friendly name: "Default - Headset (SB Arena Headset)"
-  ERole role[] = {eConsole, eCommunications};
+  RTC_DLOG(LS_INFO) << "GetDeviceNamesInternal: flow="
+                    << FlowToString(data_flow);
+
+  // Generate a collection of active audio endpoint devices for the specified
+  // direction.
+  ComPtr<IMMDeviceCollection> collection = CreateCollectionInternal(data_flow);
+  if (!collection.Get()) {
+    RTC_LOG(LS_ERROR) << "Failed to create a collection of active devices";
+    return false;
+  }
+
+  // Retrieve the number of active audio devices for the specified direction.
+  UINT number_of_active_devices = 0;
+  _com_error error = collection->GetCount(&number_of_active_devices);
+  if (FAILED(error.Error())) {
+    RTC_LOG(LS_ERROR) << "IMMDeviceCollection::GetCount failed: "
+                      << ErrorToString(error);
+    return false;
+  }
+
+  if (number_of_active_devices == 0) {
+    RTC_DLOG(LS_WARNING) << "Found no active devices";
+    return false;
+  }
+
+  // Loop over all active devices and add friendly name and unique id to the
+  // |device_names| queue.
+  ComPtr<IMMDevice> audio_device;
+  for (UINT i = 0; i < number_of_active_devices; ++i) {
+    // Retrieve a pointer to the specified item in the device collection.
+    error = collection->Item(i, audio_device.GetAddressOf());
+    if (FAILED(error.Error()) || !audio_device.Get())
+      continue;
+    // Retrieve the complete device name for the given audio device endpoint.
+    AudioDeviceName device_name(
+        GetDeviceFriendlyNameInternal(audio_device.Get()),
+        GetDeviceIdInternal(audio_device.Get()));
+    // Add combination of user-friendly and unique name to the output list.
+    device_names->push_back(device_name);
+  }
+
+  if (device_names->size() != number_of_active_devices) {
+    RTC_DLOG(LS_WARNING)
+        << "List of device names does not contain all active devices";
+  }
+
+  // Avoid adding default and default communication devices if no active device
+  // could be added to the queue.
+  if (device_names->empty()) {
+    RTC_DLOG(LS_ERROR) << "List of active devices is empty";
+    return false;
+  }
+
+  // Prepend the queue with two more elements: one for the default device and
+  // one for the default communication device (can correspond to the same unique
+  // id if only one active device exists). The first element (index 0) is the
+  // default device and the second element (index 1) is the default
+  // communication device.
+  ERole role[] = {eCommunications, eConsole};
   ComPtr<IMMDevice> default_device;
   AudioDeviceName default_device_name;
   for (size_t i = 0; i < arraysize(role); ++i) {
@@ -485,55 +538,26 @@ bool GetDeviceNamesInternal(EDataFlow data_flow,
 
     default_device_name.device_name = std::move(device_name);
     default_device_name.unique_id = std::move(unique_id);
-    RTC_DLOG(INFO) << "friendly name: " << default_device_name.device_name;
-    RTC_DLOG(INFO) << "unique id    : " << default_device_name.unique_id;
-    // Add combination of user-friendly and unique name to the output list.
-    device_names->emplace_back(default_device_name);
+    // Add combination of user-friendly and unique name to the output queue.
+    // The last element (<=> eConsole) will be at the front of the queue, hence
+    // at index 0.
+    device_names->push_front(default_device_name);
   }
 
-  // Next, add all active input devices on index 2 and above. Note that,
-  // one device can have more than one role. Hence, if only one input device
-  // is present, the output vector will contain three elements all with the
-  // same unique ID but with different names.
-  // Example (one capture device but three elements in device_names):
-  //   0: friendly name: Default - Headset (SB Arena Headset)
-  //   0: unique id    : {0.0.1.00000000}.{822d99bb-d9b0-4f6f-b2a5-cd1be220d338}
-  //   1: friendly name: Communication - Headset (SB Arena Headset)
-  //   1: unique id    : {0.0.1.00000000}.{822d99bb-d9b0-4f6f-b2a5-cd1be220d338}
-  //   2: friendly name: Headset (SB Arena Headset)
-  //   2: unique id    : {0.0.1.00000000}.{822d99bb-d9b0-4f6f-b2a5-cd1be220d338}
-
-  // Generate a collection of active audio endpoint devices for the specified
-  // direction.
-  ComPtr<IMMDeviceCollection> collection = CreateCollectionInternal(data_flow);
-  if (!collection.Get()) {
-    return false;
-  }
-
-  // Retrieve the number of active audio devices for the specified direction.
-  UINT number_of_active_devices = 0;
-  collection->GetCount(&number_of_active_devices);
-  if (number_of_active_devices == 0) {
-    return true;
-  }
-
-  // Loop over all active devices and add friendly name and unique ID to the
-  // |device_names| list which already contains two elements
-  RTC_DCHECK_EQ(device_names->size(), 2);
-  for (UINT i = 0; i < number_of_active_devices; ++i) {
-    // Retrieve a pointer to the specified item in the device collection.
-    ComPtr<IMMDevice> audio_device;
-    _com_error error = collection->Item(i, audio_device.GetAddressOf());
-    if (FAILED(error.Error()))
-      continue;
-    // Retrieve the complete device name for the given audio device endpoint.
-    AudioDeviceName device_name(
-        GetDeviceFriendlyNameInternal(audio_device.Get()),
-        GetDeviceIdInternal(audio_device.Get()));
-    RTC_DLOG(INFO) << "friendly name: " << device_name.device_name;
-    RTC_DLOG(INFO) << "unique id    : " << device_name.unique_id;
-    // Add combination of user-friendly and unique name to the output list.
-    device_names->emplace_back(device_name);
+  // Example of log output when only one device is active. Note that the queue
+  // contains two extra elements at index 0 (Default) and 1 (Communication) to
+  // allow selection of device by role instead of id:
+  // [0] friendly name: Default - Headset Microphone (2- Arctis 7 Chat)
+  // [0] unique id    : {0.0.1.00000000}.{ff9eed76-196e-467a-b295-26986e69451c}
+  // [1] friendly name: Communication - Headset Microphone (2- Arctis 7 Chat)
+  // [1] unique id    : {0.0.1.00000000}.{ff9eed76-196e-467a-b295-26986e69451c}
+  // [2] friendly name: Headset Microphone (2- Arctis 7 Chat)
+  // [2] unique id    : {0.0.1.00000000}.{ff9eed76-196e-467a-b295-26986e69451c}
+  for (size_t i = 0; i < device_names->size(); ++i) {
+    RTC_DLOG(INFO) << "[" << i
+                   << "] friendly name: " << (*device_names)[i].device_name;
+    RTC_DLOG(INFO) << "[" << i
+                   << "] unique id    : " << (*device_names)[i].unique_id;
   }
 
   return true;
@@ -741,12 +765,14 @@ EDataFlow GetDataFlow(IMMDevice* device) {
 bool GetInputDeviceNames(webrtc::AudioDeviceNames* device_names) {
   RTC_DLOG(INFO) << "GetInputDeviceNames";
   RTC_DCHECK(device_names);
+  RTC_DCHECK(device_names->empty());
   return GetDeviceNamesInternal(eCapture, device_names);
 }
 
 bool GetOutputDeviceNames(webrtc::AudioDeviceNames* device_names) {
   RTC_DLOG(INFO) << "GetOutputDeviceNames";
   RTC_DCHECK(device_names);
+  RTC_DCHECK(device_names->empty());
   return GetDeviceNamesInternal(eRender, device_names);
 }
 

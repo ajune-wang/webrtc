@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "85cd48cb_da556e58",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1371,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-11-20T10:42:07Z",
+      "side": 1,
+      "message": "I made the actual change to try it out. Code looks nicer in some places but overall it might be harder to understand how it works. Testing I already mentioned. I think quite some lines of test code needs to be added. Can be matter of taste of course. Problem is that these snapshots are taken in different places and on different conditions when something is about to change in the state. At the same time the presence of snapshot indicates need for a rollback. The merged snapshot opens possibility that something gets overwritten/discarded by accident. Created new patch with the change.",
+      "parentUuid": "43d7f022_6b170047",
+      "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "973bb39a_77730c00",
         "filename": "pc/rtp_transceiver.h",
         "patchSetId": 2
@@ -154,6 +172,24 @@
       "side": 1,
       "message": "I imagine you can always set the one and only flag in AddTrackUnifiedPlan(). If AddTrack() has \"blessed\" the transceiver, it must not be removed. This is what we care about, not how the transceiver was created per-se, only if addTrack() was involved - before or after its creation.\n\nIt might create a transceiver or it might reuse one that is currently on offer, but if I as an API user invoke addTrack() I know that the returned sender is mine to keep.\n\nAt least that is my understanding, I might be missing something.",
       "parentUuid": "f9d24c9b_3fdfd746",
+      "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acc683cf_e2069e4a",
+        "filename": "pc/rtp_transceiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-11-20T10:42:07Z",
+      "side": 1,
+      "message": "If to leave the rollback aside for a moment, my concern is that setting the flag always in AddTrackUnifiedPlan() changes also the behavior in FindAvailableTransceiverToReceive().",
+      "parentUuid": "66be3d12_03322e10",
       "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

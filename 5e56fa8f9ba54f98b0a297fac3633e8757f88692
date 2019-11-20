@@ -117,6 +117,30 @@
     },
     {
       "key": {
+        "uuid": "9947df33_5873871a",
+        "filename": "api/video/video_encoded_sink_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-20T12:35:12Z",
+      "side": 1,
+      "message": "Note that VideoSinkInterface::OnFrame wants a const ref to a frame, while this frame type seems to be reference counted. Does it have to be?",
+      "parentUuid": "c346e325_57a9c201",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "5e56fa8f9ba54f98b0a297fac3633e8757f88692",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c784bd1a_a83530bf",
         "filename": "api/video/video_encoded_sink_interface.h",
         "patchSetId": 6

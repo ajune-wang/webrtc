@@ -92,6 +92,48 @@
       "revId": "7ff960ad99e5ee0d8793a90b1664234c352bec30",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3936827_06e8389e",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-11-21T08:37:12Z",
+      "side": 1,
+      "message": "Thanks. I did not know that.",
+      "parentUuid": "6ee3cce6_81a26fc5",
+      "revId": "7ff960ad99e5ee0d8793a90b1664234c352bec30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f181c74_73896473",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-11-21T08:37:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2792621_112c66c2",
+      "range": {
+        "startLine": 197,
+        "startChar": 56,
+        "endLine": 197,
+        "endChar": 59
+      },
+      "revId": "7ff960ad99e5ee0d8793a90b1664234c352bec30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

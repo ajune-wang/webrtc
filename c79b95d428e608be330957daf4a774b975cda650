@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "463a4b68_29dc9dc1",
+        "filename": "modules/audio_device/win/core_audio_utility_win.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2019-11-21T18:25:32Z",
+      "side": 1,
+      "message": "!audio_endpoint_device.Get   \u003d\u003e  audio_endpoint_device.Get  ?",
+      "range": {
+        "startLine": 325,
+        "startChar": 35,
+        "endLine": 325,
+        "endChar": 56
+      },
+      "revId": "c79b95d428e608be330957daf4a774b975cda650",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1a39852_d7ac7469",
+        "filename": "api/transport/stun_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-21T07:21:33Z",
+      "side": 1,
+      "message": "Don\u0027t blame RFC 5769 for the MI32 test message. It\u0027s our own invention.",
+      "revId": "b85d9432933cc7566f6a38751423120116da0502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc3fa9f4_8e2c5dff",
+        "filename": "api/transport/stun_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-21T07:21:33Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t belong. This HMAC isn\u0027t in RFC 5769, since it\u0027s our newly defined one.\nIf it\u0027s a truncated HMAC, why don\u0027t the bytes occur in the larger HMAC?",
+      "revId": "b85d9432933cc7566f6a38751423120116da0502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3040989_30b6e8c0",
+        "filename": "api/transport/stun_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-21T07:21:33Z",
+      "side": 1,
+      "message": "This actually makes me question the relationship between INTEGRITY and INTEGRITY_32: Do we insist that only one of these is present? If so, where is that enforced? Tested?\n\nIf we don\u0027t insist on that - we need a test case where both are present, to see that we can actually validate it (would require removing or zeroing both attributes to get a consistent checksum).",
+      "revId": "b85d9432933cc7566f6a38751423120116da0502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2da36487_ea028e58",
+        "filename": "api/transport/stun_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1678,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-21T07:21:33Z",
+      "side": 1,
+      "message": "You can do more exact than this. You\u0027re removing an attribute of length 3, which means that it shrinks by 3 + the size of the header.\nYou can also do GetAttribute (or whatever the right function is) and verify that it fails.",
+      "revId": "b85d9432933cc7566f6a38751423120116da0502",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

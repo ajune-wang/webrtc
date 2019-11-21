@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ac830a86_4740be95",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-11-21T13:15:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d1f6a6a_a60ee760",
+      "range": {
+        "startLine": 198,
+        "startChar": 23,
+        "endLine": 198,
+        "endChar": 45
+      },
+      "revId": "0022d083ce1c15ccf0b69bbe03d371ea56ef08c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95021911_6ca31aa4",
         "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-11-21T12:41:21Z",
       "side": 1,
       "message": "So as I understand, NetEq needs access to the audio decoder factory. If custom NetEqFactory is provided, will WebRTC ignore the provided audio decoder factory? That seems like a little strange design choice to me. But if so, I think we should add some documentation of that to setNetEqFactoryFactory",
+      "range": {
+        "startLine": 207,
+        "startChar": 29,
+        "endLine": 208,
+        "endChar": 52
+      },
+      "revId": "0022d083ce1c15ccf0b69bbe03d371ea56ef08c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dade26c5_3d1f57c5",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-11-21T13:15:32Z",
+      "side": 1,
+      "message": "The current behavior is like this: If a custom NetEqFactory is provided, it is not allowed to also provide a AudioDecoderFactory (there is a check here: https://cs-staging.chromium.org/chromium/src/third_party/webrtc/modules/audio_coding/acm2/acm_receiver.cc?l\u003d44\u0026rcl\u003d6dd488b2e55125644263e4837f1abd950d5e410d ). \n\nThe plan is to remove the current way of injecting AudioDecoderFactory, and only support the injection of AudioDecoderFactory inside NetEqFactory. The current API still temporarilty supports both the old and new ways of doing it.\n\nI added documentation to setNetEqFactoryFactory, PTAL.",
+      "parentUuid": "95021911_6ca31aa4",
       "range": {
         "startLine": 207,
         "startChar": 29,
@@ -68,6 +116,30 @@
       "revId": "0022d083ce1c15ccf0b69bbe03d371ea56ef08c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cd27181_e7567dc3",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-11-21T13:15:32Z",
+      "side": 1,
+      "message": "Good idea, done.",
+      "parentUuid": "b2041d96_0cb6c722",
+      "range": {
+        "startLine": 262,
+        "startChar": 33,
+        "endLine": 262,
+        "endChar": 60
+      },
+      "revId": "0022d083ce1c15ccf0b69bbe03d371ea56ef08c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

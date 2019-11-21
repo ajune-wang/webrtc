@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a476d7c_9413671d",
+        "filename": "api/video/recordable_encoded_frame.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-11-21T10:39:10Z",
+      "side": 1,
+      "message": "Remove comment about milliseconds.",
+      "range": {
+        "startLine": 53,
+        "startChar": 32,
+        "endLine": 53,
+        "endChar": 44
+      },
+      "revId": "7c4abf9da2c3cfe7d2f509234eb274b8045b5f29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

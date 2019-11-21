@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "78b168d3_06b5e7e6",
+        "filename": "api/media_stream_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-11-21T10:39:10Z",
+      "side": 1,
+      "message": "Sorry, yes, typically use the same bug you used when wanting to add the todo in tehf irst place. But  a separate I guess is also ok that refers back to the original.",
+      "parentUuid": "b7ea03bb_e8d46c0c",
+      "range": {
+        "startLine": 149,
+        "startChar": 18,
+        "endLine": 149,
+        "endChar": 19
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5eaba5fc_60f797c8",
         "filename": "api/video/recordable_encoded_frame.h",
         "patchSetId": 9
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "Can we please close these naming discussions? In summary, they\u0027re both subjective, and reviewers suggestions contradict themselves.\n\nIn this particular case, here\u0027s some history on this particular name. The term was initially coined by nisse, I wrote it off as too application specific, touting variations of EncodedFrame theme like you suggested. This was written off as \"yet another EncodedFrame\" (even though both unique and not declared in the same name space). Then philipel proposed Recordable too. And after some thinking, since this class carries both encoded bitstream data as well as information added via frame_buffer2, I think that Recordable is a good term for it.\n\nAnd ultimately, what really matters is that the identifier is unique to the compiler.",
       "parentUuid": "5eaba5fc_60f797c8",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 28
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1365f96a_6bbb153e",
+        "filename": "api/video/recordable_encoded_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-11-21T10:39:10Z",
+      "side": 1,
+      "message": "Nope we cant. But If you have two persons that like this name, ok.",
+      "parentUuid": "b3db8e33_ab2e1db5",
       "range": {
         "startLine": 24,
         "startChar": 6,
@@ -250,6 +298,30 @@
       "side": 1,
       "message": "Sure.\nYes, due to downstream project making use of HDR...",
       "parentUuid": "056d5c54_abad4e13",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 59
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "932a087b_6e132dfa",
+        "filename": "api/video/recordable_encoded_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-11-21T10:39:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8e8865e3_b6c01feb",
       "range": {
         "startLine": 38,
         "startChar": 2,

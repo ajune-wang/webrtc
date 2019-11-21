@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "13c4c015_d5623c88",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3247,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-11-21T12:13:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b545028e_2a74e2ee",
+      "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03bb0d64_dc513181",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 2
@@ -158,6 +176,24 @@
       "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3cbb4ed_e9bb51ae",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1371,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-11-21T12:13:32Z",
+      "side": 1,
+      "message": "\u003eit probably wouldn\u0027t hurt to snapshot everything\n\nI would leave it as it is for now. Let see maybe more problems will surface and then can reconsider the snapshot logic.",
+      "parentUuid": "d1f32264_29d559ac",
+      "revId": "e0fd5e2010c0276c7e36ef3e8e23de9917d2a6e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

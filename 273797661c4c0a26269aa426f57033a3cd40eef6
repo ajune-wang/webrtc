@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9be150a3_4e64aea0",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 10377
+      },
+      "writtenOn": "2019-11-21T19:14:52Z",
+      "side": 1,
+      "message": "This seemingly expensive thing will be called once for each channel. Please lift it to the AgcManagerDirect level.",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 1
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dffc169b_a98458f9",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 10377
+      },
+      "writtenOn": "2019-11-21T19:14:52Z",
+      "side": 1,
+      "message": "DCHECK on |agc|",
+      "range": {
+        "startLine": 405,
+        "startChar": 35,
+        "endLine": 405,
+        "endChar": 43
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0db0c359_8949eae1",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 10377
+      },
+      "writtenOn": "2019-11-21T19:14:52Z",
+      "side": 1,
+      "message": "/*parameter_name\u003d*/",
+      "range": {
+        "startLine": 412,
+        "startChar": 23,
+        "endLine": 412,
+        "endChar": 28
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11cf6635_176887e7",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 10377
+      },
+      "writtenOn": "2019-11-21T19:14:52Z",
+      "side": 1,
+      "message": "/*parameter_name\u003d*/",
+      "range": {
+        "startLine": 413,
+        "startChar": 23,
+        "endLine": 413,
+        "endChar": 28
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac6f96d5_409682c5",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 10377
+      },
+      "writtenOn": "2019-11-21T19:14:52Z",
+      "side": 1,
+      "message": "All mono AGCs use the same DataDumper. Won\u0027t this garble the output?",
+      "range": {
+        "startLine": 436,
+        "startChar": 8,
+        "endLine": 436,
+        "endChar": 26
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "545aa7e7_2ee3fbf6",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 10377
+      },
+      "writtenOn": "2019-11-21T19:14:52Z",
+      "side": 1,
+      "message": "DCHECK on |gain_control|",
+      "range": {
+        "startLine": 457,
+        "startChar": 4,
+        "endLine": 457,
+        "endChar": 29
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfe0c333_c457e87c",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 10377
+      },
+      "writtenOn": "2019-11-21T19:14:52Z",
+      "side": 1,
+      "message": "DCHECK on |audio|",
+      "range": {
+        "startLine": 476,
+        "startChar": 41,
+        "endLine": 476,
+        "endChar": 65
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "322e322b_d525884e",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 10377
+      },
+      "writtenOn": "2019-11-21T19:14:52Z",
+      "side": 1,
+      "message": "DCHECK on |audio|",
+      "range": {
+        "startLine": 516,
+        "startChar": 31,
+        "endLine": 516,
+        "endChar": 55
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35e141a6_c059825b",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 10377
+      },
+      "writtenOn": "2019-11-21T19:14:52Z",
+      "side": 1,
+      "message": "This looks really fishy.\nHow much more work is it to populate an AudioBuffer in the test?\nIs there no other, relatively simple test, that does that that we can just mimic?",
+      "range": {
+        "startLine": 523,
+        "startChar": 0,
+        "endLine": 539,
+        "endChar": 0
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbf61bc1_3c96cffd",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 10377
+      },
+      "writtenOn": "2019-11-21T19:14:52Z",
+      "side": 1,
+      "message": "Unintended?",
+      "range": {
+        "startLine": 576,
+        "startChar": 0,
+        "endLine": 576,
+        "endChar": 5
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "716f8e6a_bf0e78a2",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 10377
+      },
+      "writtenOn": "2019-11-21T19:14:52Z",
+      "side": 1,
+      "message": "I think this can be folded into the constructor. Please do, if possible.",
+      "range": {
+        "startLine": 492,
+        "startChar": 4,
+        "endLine": 492,
+        "endChar": 42
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

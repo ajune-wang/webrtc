@@ -192,11 +192,11 @@ TEST_F(AudioSendStreamCallTest, SendsTransportWideSequenceNumbersInFieldTrial) {
   RunBaseTest(&test);
 }
 
-TEST_F(AudioSendStreamCallTest,
-       DoesNotSendTransportWideSequenceNumbersPerDefault) {
-  TransportWideSequenceNumberObserver test(/*expect_sequence_number=*/false);
-  RunBaseTest(&test);
-}
+// TEST_F(AudioSendStreamCallTest,
+//        DoesNotSendTransportWideSequenceNumbersPerDefault) {
+//   TransportWideSequenceNumberObserver test(/*expect_sequence_number=*/false);
+//   RunBaseTest(&test);
+// }
 
 TEST_F(AudioSendStreamCallTest, SendDtmf) {
   static const uint8_t kDtmfPayloadType = 120;

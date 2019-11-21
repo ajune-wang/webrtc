@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "aa58551f_20b90d36",
+        "filename": "api/media_stream_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-11-21T08:38:56Z",
+      "side": 1,
+      "message": "please add a bug number to the todos to track this work.",
+      "range": {
+        "startLine": 149,
+        "startChar": 18,
+        "endLine": 149,
+        "endChar": 19
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eaba5fc_60f797c8",
+        "filename": "api/video/recordable_encoded_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-11-21T08:38:56Z",
+      "side": 1,
+      "message": "I know you love comments about naming! Why Recordable? Any can this also be used for encoded audio data? \nMaybe EncodedVideoFrame?",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 28
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb7cb298_190e9763",
         "filename": "api/video/recordable_encoded_frame.h",
         "patchSetId": 9
@@ -36,6 +82,30 @@
       "writtenOn": "2019-11-21T07:46:10Z",
       "side": 1,
       "message": "Maybe comment that this may be different from the colorspace after decoding.",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 59
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "056d5c54_abad4e13",
+        "filename": "api/video/recordable_encoded_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-11-21T08:38:56Z",
+      "side": 1,
+      "message": "is that even useful information for an encoded stream?",
+      "parentUuid": "fb7cb298_190e9763",
       "range": {
         "startLine": 38,
         "startChar": 2,
@@ -87,6 +157,52 @@
         "startChar": 43,
         "endLine": 44,
         "endChar": 51
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f3286f3_35979755",
+        "filename": "api/video/recordable_encoded_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-11-21T08:38:56Z",
+      "side": 1,
+      "message": "should this be of type webrtc::TimeStamp or is that not used by video frames yet?",
+      "range": {
+        "startLine": 52,
+        "startChar": 10,
+        "endLine": 52,
+        "endChar": 17
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "735b6052_1f1f991c",
+        "filename": "api/video_track_source_proxy.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-11-21T08:38:56Z",
+      "side": 1,
+      "message": "AddOrUpdateSink  is proxied to the worker thread. Shouldnt the EncodedSink be treated the same way?",
+      "range": {
+        "startLine": 40,
+        "startChar": 14,
+        "endLine": 40,
+        "endChar": 28
       },
       "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

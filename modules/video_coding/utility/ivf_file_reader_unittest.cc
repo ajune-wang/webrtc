@@ -14,6 +14,8 @@
 #include <memory>
 #include <string>
 
+#include "api/video/encoded_image.h"
+#include "api/video/video_codec_type.h"
 #include "test/gtest.h"
 #include "test/testsupport/file_utils.h"
 

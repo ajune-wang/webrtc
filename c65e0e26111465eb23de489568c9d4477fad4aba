@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db0eeaa4_4f1ff2a7",
+        "filename": "api/transport/stun_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-21T09:36:06Z",
+      "side": 1,
+      "message": "Shortened, not shorted.\nBut I really think you mean \"shorter than when MESSAGE-INTEGRITY is used\". Just spell it out, you\u0027ll be glad of it a year from now :-)",
+      "revId": "c65e0e26111465eb23de489568c9d4477fad4aba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf69979a_efef359b",
+        "filename": "api/transport/stun_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-21T09:36:06Z",
+      "side": 1,
+      "message": "Same comment as above.",
+      "revId": "c65e0e26111465eb23de489568c9d4477fad4aba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6872a68d_da0c2648",
+        "filename": "api/transport/stun_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1409,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-21T09:36:06Z",
+      "side": 1,
+      "message": "Rephrase as \"Validate that the message validates if both MESSAGE-INTEGRITY-32 and MESSAGE-INTEGRITY are present in the message. This is not expected to be used, but is not forbidden.\"",
+      "revId": "c65e0e26111465eb23de489568c9d4477fad4aba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "245bca8e_99e6e0a3",
+        "filename": "api/transport/stun_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1701,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-21T09:36:06Z",
+      "side": 1,
+      "message": "I would expect this as \"EXPECT_EQ(msg.length(), len - 8)\", since we\u0027re actually measuring a shrinkage.",
+      "revId": "c65e0e26111465eb23de489568c9d4477fad4aba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

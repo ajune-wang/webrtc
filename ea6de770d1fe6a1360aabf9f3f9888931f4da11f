@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9c6c1d91_909494c6",
+        "filename": "api/media_stream_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-21T10:04:42Z",
+      "side": 1,
+      "message": "Names will always be subjective, therefore unless misleading my name should be as good as yours, with the difference that following the suggestion causes more work for me. And ultimately doesn\u0027t matter. The semantic is described in the comment above the method name. Just curious, what about \"generate\" do you find more abstract than \"request\"?\n\nRequesting something is not the same as having it delivered. Generate however carries the notion that something is produced. It\u0027s that the message can get lost due to RTCP packet drops that is the issue, and the uses of \"Request\" that I\u0027ve seen in the code base carries that semantic. \n\nRequesting the key frame was always reliable even with \"RequestKeyFrame\", hence RequestKeyFrameReliably is just more characters. \n\nI added a todo on working on finding the optimal naming of this method.",
+      "parentUuid": "844ef7fa_8c336475",
+      "range": {
+        "startLine": 144,
+        "startChar": 15,
+        "endLine": 144,
+        "endChar": 31
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa58551f_20b90d36",
         "filename": "api/media_stream_interface.h",
         "patchSetId": 9
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f3605c64_12d8c5d9",
+        "filename": "api/media_stream_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-21T10:04:42Z",
+      "side": 1,
+      "message": "Sure. Will you take care of filing bugs for your own todos in the code (you have two of them above)?",
+      "parentUuid": "aa58551f_20b90d36",
+      "range": {
+        "startLine": 149,
+        "startChar": 18,
+        "endLine": 149,
+        "endChar": 19
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5eaba5fc_60f797c8",
         "filename": "api/video/recordable_encoded_frame.h",
         "patchSetId": 9
@@ -68,6 +116,30 @@
       "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3db8e33_ab2e1db5",
+        "filename": "api/video/recordable_encoded_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-21T10:04:42Z",
+      "side": 1,
+      "message": "Can we please close these naming discussions? In summary, they\u0027re both subjective, and reviewers suggestions contradict themselves.\n\nIn this particular case, here\u0027s some history on this particular name. The term was initially coined by nisse, I wrote it off as too application specific, touting variations of EncodedFrame theme like you suggested. This was written off as \"yet another EncodedFrame\" (even though both unique and not declared in the same name space). Then philipel proposed Recordable too. And after some thinking, since this class carries both encoded bitstream data as well as information added via frame_buffer2, I think that Recordable is a good term for it.\n\nAnd ultimately, what really matters is that the identifier is unique to the compiler.",
+      "parentUuid": "5eaba5fc_60f797c8",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 28
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "8e8865e3_b6c01feb",
+        "filename": "api/video/recordable_encoded_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-21T10:04:42Z",
+      "side": 1,
+      "message": "Sure.\nYes, due to downstream project making use of HDR...",
+      "parentUuid": "056d5c54_abad4e13",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 59
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ec8f271_91ea6a6a",
         "filename": "api/video/recordable_encoded_frame.h",
         "patchSetId": 9
@@ -164,6 +260,54 @@
     },
     {
       "key": {
+        "uuid": "834607d9_b60d379a",
+        "filename": "api/video/recordable_encoded_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-21T10:04:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ef3259c_a112821f",
+      "range": {
+        "startLine": 44,
+        "startChar": 43,
+        "endLine": 44,
+        "endChar": 51
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b26c08e_1f37d3aa",
+        "filename": "api/video/recordable_encoded_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-21T10:04:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ec8f271_91ea6a6a",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 19
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f3286f3_35979755",
         "filename": "api/video/recordable_encoded_frame.h",
         "patchSetId": 9
@@ -187,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "2afeb19c_3e9908cc",
+        "filename": "api/video/recordable_encoded_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-21T10:04:42Z",
+      "side": 1,
+      "message": "No it doesn\u0027t seem to be used. I\u0027ll change it though to modernize.",
+      "parentUuid": "9f3286f3_35979755",
+      "range": {
+        "startLine": 52,
+        "startChar": 10,
+        "endLine": 52,
+        "endChar": 17
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "735b6052_1f1f991c",
         "filename": "api/video_track_source_proxy.h",
         "patchSetId": 9
@@ -207,6 +375,30 @@
       "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be386098_0f99616d",
+        "filename": "api/video_track_source_proxy.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-21T10:04:42Z",
+      "side": 1,
+      "message": "Sounds good.\nIs there a guideline or doc around these proxies? The thinking behind them is opaque.",
+      "parentUuid": "735b6052_1f1f991c",
+      "range": {
+        "startLine": 40,
+        "startChar": 14,
+        "endLine": 40,
+        "endChar": 28
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

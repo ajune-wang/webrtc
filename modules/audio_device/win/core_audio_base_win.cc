@@ -56,6 +56,21 @@ const char* DirectionToString(CoreAudioBase::Direction direction) {
   }
 }
 
+std::string IndexToString(int index) {
+  std::string ss = std::to_string(index);
+  switch (index) {
+    case kDefault:
+      ss += " (Default)";
+      break;
+    case kDefaultCommunications:
+      ss += " (Communications)";
+      break;
+    default:
+      break;
+  }
+  return ss;
+}
+
 const char* SessionStateToString(AudioSessionState state) {
   switch (state) {
     case AudioSessionStateActive:
@@ -256,13 +271,14 @@ std::string CoreAudioBase::GetDeviceID(int index) const {
 
 int CoreAudioBase::SetDevice(int index) {
   RTC_DLOG(INFO) << __FUNCTION__ << "[" << DirectionToString(direction())
-                 << "]";
+                 << "]: index=" << IndexToString(index);
   if (initialized_) {
     return -1;
   }
 
   std::string device_id = GetDeviceID(index);
-  RTC_DLOG(INFO) << "index=" << index << " => device_id: " << device_id;
+  RTC_DLOG(INFO) << "index=" << IndexToString(index)
+                 << " => device_id: " << device_id;
   device_index_ = index;
   device_id_ = device_id;
 
@@ -273,7 +289,7 @@ int CoreAudioBase::DeviceName(int index,
                               std::string* name,
                               std::string* guid) const {
   RTC_DLOG(INFO) << __FUNCTION__ << "[" << DirectionToString(direction())
-                 << "]";
+                 << "]: index=" << index;
   if (index > NumberOfEnumeratedDevices() - 1) {
     RTC_LOG(LS_ERROR) << "Invalid device index";
     return -1;

@@ -202,6 +202,12 @@ class StunMessage {
   // current message.
   bool AddMessageIntegrity32(absl::string_view password);
 
+  // Verify that a buffer has stun magic cookie and any of the specified
+  // methods.
+  static bool IsStunMethod(rtc::ArrayView<int> methods,
+                           const char* data,
+                           size_t size);
+
   // Verifies that a given buffer is STUN by checking for a correct FINGERPRINT.
   static bool ValidateFingerprint(const char* data, size_t size);
 
@@ -223,9 +229,16 @@ class StunMessage {
   // This is used for testing.
   void SetStunMagicCookie(uint32_t val);
 
+  // Check if the attributes of this StunMessage equals those of |other|
+  // for all attributes that |attribute_type_mask| return true
+  bool EqualAttributes(const StunMessage* other,
+                       std::function<bool(int type)> attribute_type_mask) const;
+
  protected:
   // Verifies that the given attribute is allowed for this message.
   virtual StunAttributeValueType GetAttributeValueType(int type) const;
+
+  std::vector<std::unique_ptr<StunAttribute>> attrs_;
 
  private:
   StunAttribute* CreateAttribute(int type, size_t length) /* const*/;
@@ -245,7 +258,6 @@ class StunMessage {
   uint16_t length_;
   std::string transaction_id_;
   uint32_t reduced_transaction_id_;
-  std::vector<std::unique_ptr<StunAttribute>> attrs_;
   uint32_t stun_magic_cookie_;
 };
 
@@ -658,7 +670,13 @@ enum IceAttributeType {
 // consistent with those used in ConnectionRequest::Prepare when forming a STUN
 // message for the ICE connectivity check, and they are used when parsing a
 // received STUN message.
-enum class IceGoogMiscInfoAttributeIndex {};
+enum class IceGoogMiscInfoBindingRequestAttributeIndex {};
+
+namespace IceGoogMiscInfoBindingResponseAttributeIndex {
+enum {
+  SUPPORT_GOOG_PING_VERSION = 0,
+};
+}  // namespace IceGoogMiscInfoBindingResponseAttributeIndex
 
 // RFC 5245-defined errors.
 enum IceErrorCode {
@@ -668,6 +686,12 @@ extern const char STUN_ERROR_REASON_ROLE_CONFLICT[];
 
 // A RFC 5245 ICE STUN message.
 class IceMessage : public StunMessage {
+ public:
+  // Contruct a copy of |this|.
+  // This methods is not put into a copy constructor
+  // so that it can (potentially) be overridable.
+  std::unique_ptr<IceMessage> Clone() const;
+
  protected:
   StunAttributeValueType GetAttributeValueType(int type) const override;
   StunMessage* CreateNew() const override;

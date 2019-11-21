@@ -204,8 +204,6 @@ bool StunMessage::ValidateMessageIntegrity32(const char* data,
                                         password);
 }
 
-// Verifies a STUN message has a valid MESSAGE-INTEGRITY attribute, using the
-// procedure outlined in RFC 5389, section 15.4.
 bool StunMessage::ValidateMessageIntegrityOfType(int mi_attr_type,
                                                  size_t mi_attr_size,
                                                  const char* data,
@@ -295,11 +293,6 @@ bool StunMessage::AddMessageIntegrity(const std::string& password) {
                                    password.size());
 }
 
-bool StunMessage::AddMessageIntegrity(const char* key, size_t keylen) {
-  return AddMessageIntegrityOfType(STUN_ATTR_MESSAGE_INTEGRITY,
-                                   kStunMessageIntegritySize, key, keylen);
-}
-
 bool StunMessage::AddMessageIntegrity32(absl::string_view password) {
   return AddMessageIntegrityOfType(STUN_ATTR_GOOG_MESSAGE_INTEGRITY_32,
                                    kStunMessageIntegrity32Size, password.data(),
@@ -313,6 +306,7 @@ bool StunMessage::AddMessageIntegrityOfType(int attr_type,
   // Add the attribute with a dummy value. Since this is a known attribute, it
   // can't fail.
   RTC_DCHECK(attr_size <= kStunMessageIntegritySize);
+
   auto msg_integrity_attr_ptr = std::make_unique<StunByteStringAttribute>(
       attr_type, std::string(attr_size, '0'));
   auto* msg_integrity_attr = msg_integrity_attr_ptr.get();
@@ -368,6 +362,28 @@ bool StunMessage::ValidateFingerprint(const char* data, size_t size) {
       rtc::GetBE32(fingerprint_attr_data + kStunAttributeHeaderSize);
   return ((fingerprint ^ STUN_FINGERPRINT_XOR_VALUE) ==
           rtc::ComputeCrc32(data, size - fingerprint_attr_size));
+}
+
+bool StunMessage::IsStunMethod(rtc::ArrayView<int> methods,
+                               const char* data,
+                               size_t size) {
+  // Check the message length.
+  if (size % 4 != 0 || size < kStunHeaderSize)
+    return false;
+
+  // Skip the rest if the magic cookie isn't present.
+  const char* magic_cookie =
+      data + kStunTransactionIdOffset - kStunMagicCookieLength;
+  if (rtc::GetBE32(magic_cookie) != kStunMagicCookie)
+    return false;
+
+  int method = rtc::GetBE16(data);
+  for (int m : methods) {
+    if (m == method) {
+      return true;
+    }
+  }
+  return false;
 }
 
 bool StunMessage::AddFingerprint() {
@@ -555,6 +571,43 @@ const StunAttribute* StunMessage::GetAttribute(int type) const {
 bool StunMessage::IsValidTransactionId(const std::string& transaction_id) {
   return transaction_id.size() == kStunTransactionIdLength ||
          transaction_id.size() == kStunLegacyTransactionIdLength;
+}
+
+bool StunMessage::EqualAttributes(
+    const StunMessage* other,
+    std::function<bool(int type)> attribute_type_mask) const {
+  rtc::ByteBufferWriter tmp_buffer_ptr1;
+  rtc::ByteBufferWriter tmp_buffer_ptr2;
+  for (const auto& attr : attrs_) {
+    if (attribute_type_mask(attr->type())) {
+      const StunAttribute* other_attr = other->GetAttribute(attr->type());
+      if (other_attr == nullptr) {
+        return false;
+      }
+      tmp_buffer_ptr1.Clear();
+      tmp_buffer_ptr2.Clear();
+      attr->Write(&tmp_buffer_ptr1);
+      other_attr->Write(&tmp_buffer_ptr2);
+      if (tmp_buffer_ptr1.Length() != tmp_buffer_ptr2.Length()) {
+        return false;
+      }
+      if (memcmp(tmp_buffer_ptr1.Data(), tmp_buffer_ptr2.Data(),
+                 tmp_buffer_ptr1.Length()) != 0) {
+        return false;
+      }
+    }
+  }
+
+  for (const auto& attr : other->attrs_) {
+    if (attribute_type_mask(attr->type())) {
+      const StunAttribute* own_attr = GetAttribute(attr->type());
+      if (own_attr == nullptr) {
+        return false;
+      }
+      // we have already compared all values...
+    }
+  }
+  return true;
 }
 
 // StunAttribute
@@ -1203,6 +1256,20 @@ StunAttributeValueType IceMessage::GetAttributeValueType(int type) const {
 
 StunMessage* IceMessage::CreateNew() const {
   return new IceMessage();
+}
+
+std::unique_ptr<IceMessage> IceMessage::Clone() const {
+  rtc::ByteBufferWriter tmp_buffer_ptr;
+  auto copy = std::make_unique<IceMessage>();
+  copy->SetType(type());
+  for (const auto& attr : attrs_) {
+    auto attr_copy = CopyStunAttribute(*attr.get(), &tmp_buffer_ptr);
+    if (!attr_copy) {
+      return nullptr;
+    }
+    copy->AddAttribute(std::move(attr_copy));
+  }
+  return copy;
 }
 
 }  // namespace cricket

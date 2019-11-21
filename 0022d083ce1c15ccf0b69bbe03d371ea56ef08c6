@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d1f6a6a_a60ee760",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-11-21T12:41:21Z",
+      "side": 1,
+      "message": "Having this as a separate target seems a bit of an overkill to me. Can we not simply have it in peerconnection_java?",
+      "range": {
+        "startLine": 198,
+        "startChar": 23,
+        "endLine": 198,
+        "endChar": 45
+      },
+      "revId": "0022d083ce1c15ccf0b69bbe03d371ea56ef08c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95021911_6ca31aa4",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-11-21T12:41:21Z",
+      "side": 1,
+      "message": "So as I understand, NetEq needs access to the audio decoder factory. If custom NetEqFactory is provided, will WebRTC ignore the provided audio decoder factory? That seems like a little strange design choice to me. But if so, I think we should add some documentation of that to setNetEqFactoryFactory",
+      "range": {
+        "startLine": 207,
+        "startChar": 29,
+        "endLine": 208,
+        "endChar": 52
+      },
+      "revId": "0022d083ce1c15ccf0b69bbe03d371ea56ef08c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2041d96_0cb6c722",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-11-21T12:41:21Z",
+      "side": 1,
+      "message": "Add a check that at least AudioDecoderFactoryFactory or NetEqFactoryFactory is provided?",
+      "range": {
+        "startLine": 262,
+        "startChar": 33,
+        "endLine": 262,
+        "endChar": 60
+      },
+      "revId": "0022d083ce1c15ccf0b69bbe03d371ea56ef08c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

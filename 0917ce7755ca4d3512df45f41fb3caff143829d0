@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8ae08c3_96ec2082",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-11-21T20:45:12Z",
+      "side": 1,
+      "message": "I am wondering why we need this block scope.",
+      "range": {
+        "startLine": 131,
+        "startChar": 2,
+        "endLine": 131,
+        "endChar": 3
+      },
+      "revId": "0917ce7755ca4d3512df45f41fb3caff143829d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

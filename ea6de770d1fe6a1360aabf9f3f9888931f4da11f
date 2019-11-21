@@ -543,6 +543,30 @@
       "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba4ecefa_4ceec2fc",
+        "filename": "api/video_track_source_proxy.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-11-21T10:58:16Z",
+      "side": 1,
+      "message": "Thanks. I\u0027m going with worker proxy methods and taking the consequences.",
+      "parentUuid": "7e131bb9_07dcbc17",
+      "range": {
+        "startLine": 40,
+        "startChar": 14,
+        "endLine": 40,
+        "endChar": 28
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

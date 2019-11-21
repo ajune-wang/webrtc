@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3c420b68_5ca71f7f",
+        "filename": "api/media_stream_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-21T10:30:29Z",
+      "side": 1,
+      "message": "\u003e Names will always be subjective, therefore unless misleading my name should be as good as yours, with the difference that following the suggestion causes more work for me. And ultimately doesn\u0027t matter. The semantic is described in the comment above the method name. Just curious, what about \"generate\" do you find more abstract than \"request\"?\n\nThere are two great unsolved problems in computer science: Cache invalidation, and how to name things properly. :-) And I think naming matters, clarity for *both* compilers and humans is important.\n\nI prefer \"Request\" because (i) it\u0027s consistent with the naming of similar methods on other classes in webrtc, and (ii) this class doesn\u0027t actually know how to generate the key frame, it will typically ask some peer elsewhere on the internet to generate a keyframe for us, and keep nagging until we get one. (If I\u0027ve understood it correctly).",
+      "parentUuid": "9c6c1d91_909494c6",
+      "range": {
+        "startLine": 144,
+        "startChar": 15,
+        "endLine": 144,
+        "endChar": 31
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa58551f_20b90d36",
         "filename": "api/media_stream_interface.h",
         "patchSetId": 9
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Sure. Will you take care of filing bugs for your own todos in the code (you have two of them above)?",
       "parentUuid": "aa58551f_20b90d36",
+      "range": {
+        "startLine": 149,
+        "startChar": 18,
+        "endLine": 149,
+        "endChar": 19
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7ea03bb_e8d46c0c",
+        "filename": "api/media_stream_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-21T10:30:29Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to file a separate issue for the TODOs, I think it\u0027s fine to link them to the same chromium bug as this cl.",
+      "parentUuid": "f3605c64_12d8c5d9",
       "range": {
         "startLine": 149,
         "startChar": 18,
@@ -390,6 +438,30 @@
       "side": 1,
       "message": "Sounds good.\nIs there a guideline or doc around these proxies? The thinking behind them is opaque.",
       "parentUuid": "735b6052_1f1f991c",
+      "range": {
+        "startLine": 40,
+        "startChar": 14,
+        "endLine": 40,
+        "endChar": 28
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e131bb9_07dcbc17",
+        "filename": "api/video_track_source_proxy.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-21T10:30:29Z",
+      "side": 1,
+      "message": "\u003e Sounds good.\n\u003e Is there a guideline or doc around these proxies? The thinking behind them is opaque.\n\nThe idea is that to have state owned by a particular thread, and operate on the state by asking the thread to do it. These proxies do that, and blocks on completion which isn\u0027t so nice, and has caused a few deadlock bugs. I think they are mainly intended to be be used for objects given out to the webrtc application, so that the application can call the proxy methods on any thread.\n\nSo in this case, you have to decide which thread should own the state associated with AddEncodedSink and RemoveEncodedSink. Or if you\u0027re going to use locks anyway, maybe have the proxy object short circuit without any thread hop. (I made an effort a while ago to delete related thread hops for AddOrUpdateSink, since those are typically backed by a VideoBroadcaster which needs locks anyway, but got myself into some difficulties).",
+      "parentUuid": "be386098_0f99616d",
       "range": {
         "startLine": 40,
         "startChar": 14,

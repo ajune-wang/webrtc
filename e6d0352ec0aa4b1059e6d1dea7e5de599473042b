@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b69024e_305eb1f2",
+        "filename": "modules/audio_processing/gain_control_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-21T14:11:58Z",
+      "side": 1,
+      "message": "In order to clarify this function, let\u0027s try not to operate in this 1/16 domain. See below:",
+      "revId": "e6d0352ec0aa4b1059e6d1dea7e5de599473042b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f551142_5ce4654f",
+        "filename": "modules/audio_processing/gain_control_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-21T14:11:58Z",
+      "side": 1,
+      "message": "1.f / 65536.f",
+      "range": {
+        "startLine": 51,
+        "startChar": 29,
+        "endLine": 51,
+        "endChar": 45
+      },
+      "revId": "e6d0352ec0aa4b1059e6d1dea7e5de599473042b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb53df6d_a6946e87",
+        "filename": "modules/audio_processing/gain_control_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-21T14:11:58Z",
+      "side": 1,
+      "message": "(gains_scaled[k + 1] - gains_scaled[k]) * (1.f / 16.f)",
+      "range": {
+        "startLine": 60,
+        "startChar": 26,
+        "endLine": 60,
+        "endChar": 63
+      },
+      "revId": "e6d0352ec0aa4b1059e6d1dea7e5de599473042b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed1abbdd_923266fa",
+        "filename": "modules/audio_processing/gain_control_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-21T14:11:58Z",
+      "side": 1,
+      "message": "float gain \u003d gains_scaled[k];",
+      "range": {
+        "startLine": 61,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 42
+      },
+      "revId": "e6d0352ec0aa4b1059e6d1dea7e5de599473042b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

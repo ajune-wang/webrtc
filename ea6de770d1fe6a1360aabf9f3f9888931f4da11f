@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "844ef7fa_8c336475",
+        "filename": "api/media_stream_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-21T07:46:10Z",
+      "side": 1,
+      "message": "I\u0027m not that fond of this name (\"generate\" is so abstract that it doesn\u0027t aid in describing what the method does), but I understand that renaming now (e.g., to RequestKeyFrameReliably) would slow you down. Would you consider renaming when the dust has settled and you take care of the other TODOs here?",
+      "range": {
+        "startLine": 144,
+        "startChar": 15,
+        "endLine": 144,
+        "endChar": 31
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb7cb298_190e9763",
+        "filename": "api/video/recordable_encoded_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-21T07:46:10Z",
+      "side": 1,
+      "message": "Maybe comment that this may be different from the colorspace after decoding.",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 59
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ec8f271_91ea6a6a",
+        "filename": "api/video/recordable_encoded_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-21T07:46:10Z",
+      "side": 1,
+      "message": "Spelling.",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 19
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ef3259c_a112821f",
+        "filename": "api/video/recordable_encoded_frame.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-21T07:46:10Z",
+      "side": 1,
+      "message": "nit: Decide if \"key frame\" is one or two words, and be consistent between comment and method name.",
+      "range": {
+        "startLine": 44,
+        "startChar": 43,
+        "endLine": 44,
+        "endChar": 51
+      },
+      "revId": "ea6de770d1fe6a1360aabf9f3f9888931f4da11f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

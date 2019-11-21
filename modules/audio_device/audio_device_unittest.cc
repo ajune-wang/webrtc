@@ -1238,8 +1238,9 @@ TEST_P(MAYBE_AudioDeviceTest, DISABLED_MeasureLoopbackLatency) {
 INSTANTIATE_TEST_SUITE_P(
     AudioLayerWin,
     MAYBE_AudioDeviceTest,
-    ::testing::Values(AudioDeviceModule::kPlatformDefaultAudio,
-                      AudioDeviceModule::kWindowsCoreAudio2));
+    ::testing::Values(AudioDeviceModule::kWindowsCoreAudio2));
+// ::testing::Values(AudioDeviceModule::kPlatformDefaultAudio,
+//                   AudioDeviceModule::kWindowsCoreAudio2));
 #else
 // For all platforms but Windows, only test the default audio layer.
 INSTANTIATE_TEST_SUITE_P(

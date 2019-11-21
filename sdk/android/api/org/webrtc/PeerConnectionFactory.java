@@ -167,6 +167,7 @@ public class PeerConnectionFactory {
     @Nullable private AudioDeviceModule audioDeviceModule;
     private AudioEncoderFactoryFactory audioEncoderFactoryFactory =
         new BuiltinAudioEncoderFactoryFactory();
+    @Nullable
     private AudioDecoderFactoryFactory audioDecoderFactoryFactory =
         new BuiltinAudioDecoderFactoryFactory();
     @Nullable private VideoEncoderFactory videoEncoderFactory;
@@ -176,6 +177,7 @@ public class PeerConnectionFactory {
     @Nullable private NetworkControllerFactoryFactory networkControllerFactoryFactory;
     @Nullable private NetworkStatePredictorFactoryFactory networkStatePredictorFactoryFactory;
     @Nullable private MediaTransportFactoryFactory mediaTransportFactoryFactory;
+    @Nullable private NetEqFactoryFactory neteqFactoryFactory;
 
     private Builder() {}
 
@@ -201,10 +203,9 @@ public class PeerConnectionFactory {
 
     public Builder setAudioDecoderFactoryFactory(
         AudioDecoderFactoryFactory audioDecoderFactoryFactory) {
-      if (audioDecoderFactoryFactory == null) {
-        throw new IllegalArgumentException(
-            "PeerConnectionFactory.Builder does not accept a null AudioDecoderFactoryFactory.");
-      }
+      // Setting a null audioDecoderFactoryFactory is allowed when using a
+      // custom NetEqFactory. In that case, the AudioDecoderFactoryFactory
+      // should be owned by the NetEqFactoryFactory.
       this.audioDecoderFactoryFactory = audioDecoderFactoryFactory;
       return this;
     }
@@ -253,6 +254,11 @@ public class PeerConnectionFactory {
       return this;
     }
 
+    public Builder setNetEqFactoryFactory(NetEqFactoryFactory neteqFactoryFactory) {
+      this.neteqFactoryFactory = neteqFactoryFactory;
+      return this;
+    }
+
     public PeerConnectionFactory createPeerConnectionFactory() {
       checkInitializeHasBeenCalled();
       if (audioDeviceModule == null) {
@@ -262,8 +268,10 @@ public class PeerConnectionFactory {
       return nativeCreatePeerConnectionFactory(ContextUtils.getApplicationContext(), options,
           audioDeviceModule.getNativeAudioDeviceModulePointer(),
           audioEncoderFactoryFactory.createNativeAudioEncoderFactory(),
-          audioDecoderFactoryFactory.createNativeAudioDecoderFactory(), videoEncoderFactory,
-          videoDecoderFactory,
+          audioDecoderFactoryFactory == null
+              ? 0
+              : audioDecoderFactoryFactory.createNativeAudioDecoderFactory(),
+          videoEncoderFactory, videoDecoderFactory,
           audioProcessingFactory == null ? 0 : audioProcessingFactory.createNative(),
           fecControllerFactoryFactory == null ? 0 : fecControllerFactoryFactory.createNative(),
           networkControllerFactoryFactory == null
@@ -274,7 +282,8 @@ public class PeerConnectionFactory {
               : networkStatePredictorFactoryFactory.createNativeNetworkStatePredictorFactory(),
           mediaTransportFactoryFactory == null
               ? 0
-              : mediaTransportFactoryFactory.createNativeMediaTransportFactory());
+              : mediaTransportFactoryFactory.createNativeMediaTransportFactory(),
+          neteqFactoryFactory == null ? 0 : neteqFactoryFactory.createNativeNetEqFactory());
     }
   }
 
@@ -596,7 +605,7 @@ public class PeerConnectionFactory {
       long audioDecoderFactory, VideoEncoderFactory encoderFactory,
       VideoDecoderFactory decoderFactory, long nativeAudioProcessor,
       long nativeFecControllerFactory, long nativeNetworkControllerFactory,
-      long nativeNetworkStatePredictorFactory, long mediaTransportFactory);
+      long nativeNetworkStatePredictorFactory, long mediaTransportFactory, long neteqFactory);
 
   private static native long nativeCreatePeerConnection(long factory,
       PeerConnection.RTCConfiguration rtcConfig, MediaConstraints constraints, long nativeObserver,

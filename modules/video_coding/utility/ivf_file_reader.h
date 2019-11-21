@@ -16,6 +16,7 @@
 
 #include "absl/types/optional.h"
 #include "api/video/encoded_image.h"
+#include "api/video/video_codec_type.h"
 #include "rtc_base/system/file_wrapper.h"
 
 namespace webrtc {
@@ -39,6 +40,9 @@ class IvfFileReader {
   absl::optional<EncodedImage> NextFrame();
   bool HasMoreFrames() const { return num_read_frames_ < num_frames_; }
   bool HasError() const { return has_error_; }
+
+  uint16_t GetFrameWidth() const { return width_; }
+  uint16_t GetFrameHeight() const { return height_; }
 
   bool Close();
 

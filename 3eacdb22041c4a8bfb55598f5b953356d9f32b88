@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90fb9937_355218fa",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-11-21T17:07:23Z",
+      "side": 1,
+      "message": "Clean this up as well? It will be no longer needed.",
+      "range": {
+        "startLine": 79,
+        "startChar": 44,
+        "endLine": 79,
+        "endChar": 66
+      },
+      "revId": "3eacdb22041c4a8bfb55598f5b953356d9f32b88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

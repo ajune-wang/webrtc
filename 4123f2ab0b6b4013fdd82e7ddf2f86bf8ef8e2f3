@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7631fbd5_2e244407",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-21T16:06:49Z",
+      "side": 1,
+      "message": "Reader?",
+      "range": {
+        "startLine": 7,
+        "startChar": 17,
+        "endLine": 7,
+        "endChar": 23
+      },
+      "revId": "4123f2ab0b6b4013fdd82e7ddf2f86bf8ef8e2f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e2c3537_b0665702",
+        "filename": "test/testsupport/ivf_video_frame_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-21T16:06:49Z",
+      "side": 1,
+      "message": "Nit: This class can\u0027t be used concurrently because of inherent order in encoded frames.\n\nIf ReadFrame() is called sequentially, there\u0027s no need to use this lock at all.\n\nJust add a comment to the header file, that the class isn\u0027t thread safe.",
+      "range": {
+        "startLine": 53,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 18
+      },
+      "revId": "4123f2ab0b6b4013fdd82e7ddf2f86bf8ef8e2f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb6a519d_04206a91",
+        "filename": "test/testsupport/ivf_video_frame_reader.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-21T16:06:49Z",
+      "side": 1,
+      "message": "I think you should before calling NextFrame() first time check if the file_reader_ has any more frames via HasMoreFrames() and reset it if necessary. It would make things more readable: no need to check for hasError. The frame has to be there or it\u0027s error.",
+      "revId": "4123f2ab0b6b4013fdd82e7ddf2f86bf8ef8e2f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cb1b1cb_221a312e",
+        "filename": "test/testsupport/ivf_video_frame_reader_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-21T16:06:49Z",
+      "side": 1,
+      "message": "call SetRate, as done e.g. here:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/codecs/vp8/test/vp8_impl_unittest.cc?l\u003d176\n\nat lines 176 and 188. For current resolution, 200kbps should be more enough. Then consider rising psnr thresholds everywhere in tests here.",
+      "revId": "4123f2ab0b6b4013fdd82e7ddf2f86bf8ef8e2f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd3ca94a_b4c01ba8",
+        "filename": "test/testsupport/video_frame_reader.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-21T16:06:49Z",
+      "side": 1,
+      "message": "Please reuse FrameGenerator interface:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/test/frame_generator.h?type\u003dcs\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d48",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 22
+      },
+      "revId": "4123f2ab0b6b4013fdd82e7ddf2f86bf8ef8e2f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff1e28d4_a96f25b6",
+        "filename": "test/testsupport/video_frame_reader.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-21T16:06:49Z",
+      "side": 1,
+      "message": "Can you please move this interface to an internal class, which should have pointer to current class and passthrough decoded callback there?\n\nThis will make the class easier to use with only public methods needed to user while internal structure will be hidden, as it should.",
+      "range": {
+        "startLine": 39,
+        "startChar": 53,
+        "endLine": 39,
+        "endChar": 73
+      },
+      "revId": "4123f2ab0b6b4013fdd82e7ddf2f86bf8ef8e2f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "694fe052_b6177398",
+        "filename": "test/testsupport/video_frame_reader.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-21T16:06:49Z",
+      "side": 1,
+      "message": "nit: IvfFileGenerator",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 25
+      },
+      "revId": "4123f2ab0b6b4013fdd82e7ddf2f86bf8ef8e2f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "22b3082f_6836219a",
+        "filename": "test/testsupport/video_frame_reader.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-21T16:06:49Z",
+      "side": 1,
+      "message": "I think it\u0027s enough to override only the 1st, one-parameter method.\nOthers have default implementation already:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/api/video_codecs/video_decoder.cc?sq\u003dpackage:chromium\u0026dr\u0026g\u003d0\u0026l\u003d15",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 0
+      },
+      "revId": "4123f2ab0b6b4013fdd82e7ddf2f86bf8ef8e2f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

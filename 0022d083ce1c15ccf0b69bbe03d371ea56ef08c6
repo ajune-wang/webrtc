@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "ef9f83b1_97be8c55",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-11-21T14:34:24Z",
+      "side": 1,
+      "message": "I see thanks for the explanation. Would it make sense to set audioDecoderFactoryFactory to null in setNetEqFactoryFactory then and continue not supporting setting it to null using this method?\n\nThis would make the transition easier because then setAudioDecoderFactoryFactory could simply be removed once all clients have migrated to setNetEqFactoryFactory.",
+      "parentUuid": "dade26c5_3d1f57c5",
+      "range": {
+        "startLine": 207,
+        "startChar": 29,
+        "endLine": 208,
+        "endChar": 52
+      },
+      "revId": "0022d083ce1c15ccf0b69bbe03d371ea56ef08c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b2041d96_0cb6c722",
         "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
         "patchSetId": 2

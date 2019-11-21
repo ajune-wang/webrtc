@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c4878d0_91d70142",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-11-21T14:34:24Z",
+      "side": 1,
+      "message": "Consider marking @Deprecated if clients are not supposed to use this anymore",
+      "range": {
+        "startLine": 204,
+        "startChar": 19,
+        "endLine": 204,
+        "endChar": 48
+      },
+      "revId": "929fcd199530f7b824fa784cf3056a6ec6345885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c298cdc_ec52de33",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-11-21T14:34:24Z",
+      "side": 1,
+      "message": "nit: Please format according to style guide:\nhttps://google.github.io/styleguide/javaguide.html#s7.1-javadoc-formatting",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 7
+      },
+      "revId": "929fcd199530f7b824fa784cf3056a6ec6345885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

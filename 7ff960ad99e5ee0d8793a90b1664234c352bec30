@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "b11f194c_6523176f",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-21T03:54:56Z",
+      "side": 1,
+      "message": "Ah, so they\u0027re not *just* slower, there\u0027s other differences as well.",
+      "parentUuid": "295d768a_cbb44976",
+      "revId": "7ff960ad99e5ee0d8793a90b1664234c352bec30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ee3cce6_81a26fc5",
         "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
         "patchSetId": 2

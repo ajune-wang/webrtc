@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e27b88da_8a32ae4c",
+        "filename": "modules/audio_processing/gain_control_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T20:31:57Z",
+      "side": 1,
+      "message": "Great suggestion! The code becomes much more readable with that.\nI\u0027ve added the changes.\nPTAL",
+      "parentUuid": "5b69024e_305eb1f2",
+      "revId": "e6d0352ec0aa4b1059e6d1dea7e5de599473042b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f551142_5ce4654f",
         "filename": "modules/audio_processing/gain_control_impl.cc",
         "patchSetId": 4
@@ -39,6 +57,30 @@
       "revId": "e6d0352ec0aa4b1059e6d1dea7e5de599473042b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49667e09_e054c041",
+        "filename": "modules/audio_processing/gain_control_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T20:31:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f551142_5ce4654f",
+      "range": {
+        "startLine": 51,
+        "startChar": 29,
+        "endLine": 51,
+        "endChar": 45
+      },
+      "revId": "e6d0352ec0aa4b1059e6d1dea7e5de599473042b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "0dda94fa_f7b17bb0",
+        "filename": "modules/audio_processing/gain_control_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T20:31:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb53df6d_a6946e87",
+      "range": {
+        "startLine": 60,
+        "startChar": 26,
+        "endLine": 60,
+        "endChar": 63
+      },
+      "revId": "e6d0352ec0aa4b1059e6d1dea7e5de599473042b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed1abbdd_923266fa",
         "filename": "modules/audio_processing/gain_control_impl.cc",
         "patchSetId": 4
@@ -85,6 +151,30 @@
       "revId": "e6d0352ec0aa4b1059e6d1dea7e5de599473042b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3fc83fe_d286a586",
+        "filename": "modules/audio_processing/gain_control_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T20:31:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed1abbdd_923266fa",
+      "range": {
+        "startLine": 61,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 42
+      },
+      "revId": "e6d0352ec0aa4b1059e6d1dea7e5de599473042b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

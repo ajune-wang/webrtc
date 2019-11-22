@@ -1677,7 +1677,7 @@ TEST_P(PacingControllerTest, SmallFirstProbePacket) {
   }
 }
 
-TEST_P(PacingControllerTest, TaskEarly) {
+TEST_P(PacingControllerTest, DISABLED_TaskEarly) {
   if (PeriodicProcess()) {
     // This test applies only when NOT using interval budget.
     return;

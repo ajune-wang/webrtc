@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7fc72b11_852e8203",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-11-22T12:50:49Z",
+      "side": 1,
+      "message": "nit: These are local non-const variables, should be snake_case",
+      "revId": "b3e26721ce0785dcc15ed2f9430e6ab349273466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

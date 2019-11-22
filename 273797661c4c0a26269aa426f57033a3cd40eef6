@@ -564,6 +564,30 @@
       "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8067b929_903aec24",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T15:25:04Z",
+      "side": 1,
+      "message": "That is definitely a change that would make sense to do for the Analog AGC, as the initialize should not really be needed.\nHowever, it is not possible to do that without changing the bitexactness so I\u0027d prefer to keep it for now.",
+      "parentUuid": "716f8e6a_bf0e78a2",
+      "range": {
+        "startLine": 492,
+        "startChar": 4,
+        "endLine": 492,
+        "endChar": 42
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

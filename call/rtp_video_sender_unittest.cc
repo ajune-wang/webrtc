@@ -466,6 +466,7 @@ TEST(RtpVideoSenderTest, DoesNotRetrasmitAckedPackets) {
         return true;
       });
   test.router()->DeliverRtcp(nack_buffer.data(), nack_buffer.size());
+  test.clock().AdvanceTimeMilliseconds(33);
   ASSERT_TRUE(event.Wait(kTimeoutMs));
 
   // Verify that both packets were retransmitted.
@@ -507,6 +508,7 @@ TEST(RtpVideoSenderTest, DoesNotRetrasmitAckedPackets) {
         return true;
       });
   test.router()->DeliverRtcp(nack_buffer.data(), nack_buffer.size());
+  test.clock().AdvanceTimeMilliseconds(33);
   ASSERT_TRUE(event.Wait(kTimeoutMs));
 }
 

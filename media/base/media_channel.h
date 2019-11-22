@@ -31,6 +31,7 @@
 #include "api/video/video_source_interface.h"
 #include "api/video/video_timing.h"
 #include "api/video_codecs/video_encoder_config.h"
+#include "call/video_receive_stream.h"
 #include "common_video/include/quality_limitation_reason.h"
 #include "media/base/codec.h"
 #include "media/base/delayable.h"
@@ -41,6 +42,7 @@
 #include "modules/rtp_rtcp/include/report_block_data.h"
 #include "rtc_base/async_packet_socket.h"
 #include "rtc_base/buffer.h"
+#include "rtc_base/callback.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/dscp.h"
@@ -862,6 +864,9 @@ struct VideoRecvParameters : RtpParameters<VideoCodec> {};
 
 class VideoMediaChannel : public MediaChannel, public Delayable {
  public:
+  using RecordableEncodedFrameFunction =
+      webrtc::VideoReceiveStream::RecordableEncodedFrameFunction;
+
   VideoMediaChannel() {}
   explicit VideoMediaChannel(const MediaConfig& config)
       : MediaChannel(config) {}
@@ -905,6 +910,14 @@ class VideoMediaChannel : public MediaChannel, public Delayable {
   virtual void FillBitrateInfo(BandwidthEstimationInfo* bwe_info) = 0;
   // Gets quality stats for the channel.
   virtual bool GetStats(VideoMediaInfo* info) = 0;
+  // Set encoded frame buffer function for |ssrc|
+  virtual void SetEncodedFrameBufferFunction(
+      uint32_t ssrc,
+      RecordableEncodedFrameFunction callback) = 0;
+  // Release encoded frame buffer function for |ssrc|
+  virtual void ClearEncodedFrameBufferFunction(uint32_t ssrc) = 0;
+  // Cause generation of a keyframe for |ssrc|
+  virtual void GenerateKeyFrame(uint32_t ssrc) = 0;
 
   virtual std::vector<webrtc::RtpSource> GetSources(uint32_t ssrc) const = 0;
 };

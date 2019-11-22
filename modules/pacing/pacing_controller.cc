@@ -348,7 +348,10 @@ Timestamp PacingController::NextSendTime() const {
                     last_process_time_ + padding_debt_ / padding_rate_);
   }
 
-  return last_send_time_ + kPausedProcessInterval;
+  if (send_padding_if_silent_) {
+    return last_send_time_ + kPausedProcessInterval;
+  }
+  return last_process_time_ + kPausedProcessInterval;
 }
 
 void PacingController::ProcessPackets() {

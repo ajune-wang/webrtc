@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61710e51_a8b76d9f",
+        "filename": "audio/utility/channel_mixing_matrix.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-22T14:30:28Z",
+      "side": 1,
+      "message": "Consider checking something like the below to ensure we do not write out-of-bounds to |matrix_|\n\nif (use_voip_channel_mapping_adjustments_ \u0026\u0026\n    input_layout_ \u003d\u003d CHANNEL_LAYOUT_MONO \u0026\u0026\n    ChannelLayoutToChannelCount(output_layout_) \u003e\u003d 2) {",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 48
+      },
+      "revId": "5d9565024c3dac70fb8d5aeeea92489f7fddc1bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

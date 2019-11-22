@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fbd80334_5d1b8c98",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T11:14:27Z",
+      "side": 1,
+      "message": "Great point!\nDone!",
+      "parentUuid": "9be150a3_4e64aea0",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 1
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dffc169b_a98458f9",
         "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a294da9_0e4af59b",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T11:14:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dffc169b_a98458f9",
+      "range": {
+        "startLine": 405,
+        "startChar": 35,
+        "endLine": 405,
+        "endChar": 43
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "bbe020ec_00bac012",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T11:14:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0db0c359_8949eae1",
+      "range": {
+        "startLine": 412,
+        "startChar": 23,
+        "endLine": 412,
+        "endChar": 28
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11cf6635_176887e7",
         "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "b7681216_353082d0",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T11:14:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11cf6635_176887e7",
+      "range": {
+        "startLine": 413,
+        "startChar": 23,
+        "endLine": 413,
+        "endChar": 28
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac6f96d5_409682c5",
         "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
         "patchSetId": 4
@@ -105,6 +201,30 @@
       "writtenOn": "2019-11-21T19:14:52Z",
       "side": 1,
       "message": "All mono AGCs use the same DataDumper. Won\u0027t this garble the output?",
+      "range": {
+        "startLine": 436,
+        "startChar": 8,
+        "endLine": 436,
+        "endChar": 26
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "041eee51_f7079098",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T11:14:27Z",
+      "side": 1,
+      "message": "Good point! Yes, it will. \nThere is no easy solution to this with the way that the data dumper is implemented and shared, but I now changed the code so that only the data dumper is used in the first channel.\n\nPTAL",
+      "parentUuid": "ac6f96d5_409682c5",
       "range": {
         "startLine": 436,
         "startChar": 8,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "fe9caaee_6f810645",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T11:14:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "545aa7e7_2ee3fbf6",
+      "range": {
+        "startLine": 457,
+        "startChar": 4,
+        "endLine": 457,
+        "endChar": 29
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfe0c333_c457e87c",
         "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
         "patchSetId": 4
@@ -160,6 +304,30 @@
       "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac8221bd_d6594302",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T11:14:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfe0c333_c457e87c",
+      "range": {
+        "startLine": 476,
+        "startChar": 41,
+        "endLine": 476,
+        "endChar": 65
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "e58ddc9e_e0702a9f",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T11:14:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "322e322b_d525884e",
+      "range": {
+        "startLine": 516,
+        "startChar": 31,
+        "endLine": 516,
+        "endChar": 55
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35e141a6_c059825b",
         "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
         "patchSetId": 4
@@ -197,6 +389,30 @@
       "writtenOn": "2019-11-21T19:14:52Z",
       "side": 1,
       "message": "This looks really fishy.\nHow much more work is it to populate an AudioBuffer in the test?\nIs there no other, relatively simple test, that does that that we can just mimic?",
+      "range": {
+        "startLine": 523,
+        "startChar": 0,
+        "endLine": 539,
+        "endChar": 0
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4858c245_e6db7fe4",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T11:14:27Z",
+      "side": 1,
+      "message": "I agree!\nThis is quite similar to how it was before though (this is how the analog AGC unittest is set up. I don\u0027t have a good alternative way for setting this up. For that test, we anyway are to pass a null pointer into the Process method, and I don\u0027t want to do changes in there.\n\nI\u0027d prefer to clean this up in a separate CL as this will require more changes to the unittest code, and potentially also for the Process code.\n\nWDYT? Is that ok?",
+      "parentUuid": "35e141a6_c059825b",
       "range": {
         "startLine": 523,
         "startChar": 0,
@@ -229,6 +445,30 @@
       "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfd2609e_2f94229b",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T11:14:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbf61bc1_3c96cffd",
+      "range": {
+        "startLine": 576,
+        "startChar": 0,
+        "endLine": 576,
+        "endChar": 5
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

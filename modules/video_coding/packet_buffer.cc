@@ -23,6 +23,7 @@
 #include "api/rtp_packet_info.h"
 #include "api/video/encoded_frame.h"
 #include "common_video/h264/h264_common.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
@@ -65,7 +66,8 @@ PacketBuffer::PacketBuffer(Clock* clock,
       is_cleared_to_first_seq_num_(false),
       buffer_(start_buffer_size),
       sps_pps_idr_is_h264_keyframe_(
-          field_trial::IsEnabled("WebRTC-SpsPpsIdrIsH264Keyframe")) {
+          field_trial::IsEnabled("WebRTC-SpsPpsIdrIsH264Keyframe")),
+      absolute_capture_time_receiver_(clock) {
   RTC_DCHECK_LE(start_buffer_size, max_buffer_size);
   // Buffer size must always be a power of 2.
   RTC_DCHECK((start_buffer_size & (start_buffer_size - 1)) == 0);
@@ -434,7 +436,17 @@ std::unique_ptr<RtpFrameObject> PacketBuffer::AssembleFrame(
         std::max(max_recv_time, packet.packet_info.receive_time_ms());
     frame_size += packet.size_bytes;
     payloads.emplace_back(packet.data, packet.size_bytes);
-    packet_infos.push_back(packet.packet_info);
+    // Try to extrapolate absolute capture time if it is missing.
+    RtpPacketInfo packet_info = packet.packet_info;
+    packet_info.set_absolute_capture_time(
+        absolute_capture_time_receiver_.OnReceivePacket(
+            AbsoluteCaptureTimeReceiver::GetSource(packet_info.ssrc(),
+                                                   packet_info.csrcs()),
+            packet_info.rtp_timestamp(),
+            // Assume frequency is the same one for all video frames.
+            kVideoPayloadTypeFrequency, packet_info.absolute_capture_time()));
+
+    packet_infos.push_back(std::move(packet_info));
   }
 
   auto bitstream = EncodedImageBuffer::Create(frame_size);

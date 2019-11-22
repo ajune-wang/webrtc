@@ -19,6 +19,7 @@
 #include "absl/base/attributes.h"
 #include "api/rtp_packet_info.h"
 #include "api/video/encoded_image.h"
+#include "modules/rtp_rtcp/source/absolute_capture_time_receiver.h"
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
@@ -173,6 +174,8 @@ class PacketBuffer {
   // Indicates if we should require SPS, PPS, and IDR for a particular
   // RTP timestamp to treat the corresponding frame as a keyframe.
   const bool sps_pps_idr_is_h264_keyframe_;
+
+  AbsoluteCaptureTimeReceiver absolute_capture_time_receiver_;
 };
 
 }  // namespace video_coding
